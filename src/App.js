@@ -1,19 +1,27 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Provider } from 'react-redux';
+import { Switch, Route } from 'react-router-dom';
+import './App.scss';
+
+import 'bootstrap';
+
+import initStore from './store';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    const { store } = initStore()
+    this.store = store;
+  }
+    
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <Provider store={this.store}>
+        <div className="main">
+          Hi
+        </div>
+      </Provider>
     );
   }
 }

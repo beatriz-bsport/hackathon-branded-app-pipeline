@@ -19,7 +19,6 @@
     "react/display-name": 0,
     "react/jsx-boolean-value": 1,
     "react/jsx-no-undef": 1,
-    "react/jsx-quotes": [1, "single"],
     "react/jsx-sort-prop-types": 0,
     "react/jsx-sort-props": 0,
     "react/jsx-uses-react": 1,
@@ -31,13 +30,8 @@
     // TODO: open prop-types
     "react/prop-types": 0,
     "react/react-in-jsx-scope": 1,
-    "react/require-extension": 1,
     "react/self-closing-comp": 1,
     "react/sort-comp": 0,
-    "react/wrap-multilines": 1,
-    "babel/object-shorthand": 1,
-    "babel/generator-star": 1,
-    "babel/generator-star-spacing": 1,
     "babel/new-cap": 0
   }
 }

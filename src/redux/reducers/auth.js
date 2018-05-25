@@ -1,11 +1,11 @@
-import { Record } from 'immutable';
+import Immutable from 'seamless-immutable';
 
 import actionTypes from '../actions/auth.types';
 
-const initialState = new (Record({
+const initialState = Immutable({
   username: '',
   authenticated: false,
-}))();
+});
 
 export default function authReducer(state = initialState, action = {}) {
   switch (action.type) {

@@ -1,36 +1,115 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import { Button, Grid, Input, Paper, } from '@material-ui/core';
+import { Redirect, Link } from 'react-router-dom';
+import {
+  CircularProgress,
+  Typography,
+  Button,
+  Paper,
+  Grid,
+  TextField,
+} from '@material-ui/core';
 
-import { auth as authActions } from '../redux/actions';
+import { auth as authActions } from '../actions';
+import { LoginBase } from '../components';
 
 export class Login extends Component<{}> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+    };
+  }
+
+  updateEmail = (event) => {
+    this.setState({
+      email: event.target.value,
+    });
+  };
+
+  updatePassword = (event) => {
+    this.setState({
+      password: event.target.value,
+    });
+  };
+
+  login = () => {
+    const { email, password } = this.state;
+    this.props.login({
+      email,
+      password,
+    });
+  };
+
+  onSubmit = (event) => {
+    event.preventDefault();
+    this.login();
+  };
+
   render() {
+    if (this.props.authenticated) {
+      return <Redirect push to="/" />;
+    }
     return (
-      <Grid container direction='column' justify='center' alignItems='center'>
-            <div>
-              <Input label="Email" type="email"/>
+      <LoginBase>
+        <form onSubmit={this.onSubmit}>
+          <div>
+            <TextField type="email" onChange={this.updateEmail} label="Email" />
+          </div>
+          <div>
+            <TextField
+              onChange={this.updatePassword}
+              label="Mot de passe"
+              type="password"
+            />
+            <div style={{ paddingTop: 12 }}>
+              <Link to="/reset_password" style={{ textDecoration: 'none' }}>
+                <Typography color="secondary" variant="caption">
+                  Mot de passe oublié
+                </Typography>
+              </Link>
+              {this.props.error ? (
+                <Typography color="error">
+                  Email et/ou mot de passe erroné
+                </Typography>
+              ) : (
+                <div />
+              )}
             </div>
-            <div>
-              <Input label="Mot de passe" type="password"/>
-            </div>
-            <Button>OK</Button>
-        </Grid>
-    )
+          </div>
+          <div style={{ paddingTop: 16 }}>
+            <Grid
+              container
+              direction="column"
+              alignItems="center"
+              justify="center"
+            >
+              <Button type="submit" color="primary" variant="raised">
+                OK
+              </Button>
+              {this.props.loading ? <CircularProgress /> : <div />}
+            </Grid>
+          </div>
+        </form>
+      </LoginBase>
+    );
   }
 }
 
 function mapStateToProps(state) {
   return {
     authenticated: state.auth.authenticated,
+    error: state.auth.error,
+    loading: state.auth.loading,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    login() {
-      dispatch(authActions.login());
+    login({ email, password }) {
+      dispatch(authActions.requestLogin(email, password));
     },
   };
 }

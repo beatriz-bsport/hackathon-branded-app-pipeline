@@ -10,7 +10,7 @@ import createHistory from 'history/createBrowserHistory';
 import { routerMiddleware } from 'react-router-redux';
 import immutableTransform from 'redux-persist-transform-immutable';
 
-import reducers from './redux/reducers';
+import reducers from './reducers';
 
 const persistConfig = {
   key: 'root',
@@ -35,11 +35,10 @@ export default function initStore(initialState) {
   // $FlowFixMe
   if (module.hot) {
     module.hot.accept(() => {
-      const nextRootReducer = require('./redux/reducers').default; // eslint-disable-line global-require
+      const nextRootReducer = require('./reducers').default; // eslint-disable-line global-require
       store.replaceReducer(nextRootReducer);
     });
   }
 
   return { store, persistor, history };
 }
-

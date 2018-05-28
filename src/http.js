@@ -2,12 +2,14 @@ import axios from 'axios';
 
 let authToken = '';
 
+import { storage } from './App';
+
 export function setAuthToken(token: string) {
-  authToken = token;
+  storage.setItem('http:token', token);
 }
 
 export function getAuthToken(): ?string {
-  return authToken;
+  return storage.getItem('http:token');
 }
 
 export async function post(uri: string, data: Object, headers: Object) {
@@ -37,22 +39,12 @@ export async function get(uri: string, headers = {}) {
   });
 }
 
-export async function fget(uri: string, headers: Object) {
-  const baseHeaders = {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  };
-  try {
-    const response = await axios.get(uri, {
-      headers: Object.assign(baseHeaders, headers || {}),
-    });
-    return response.json();
-  } catch (e) {
-    console.log(e);
-  }
-}
-
 export async function getAuth(uri: string) {
   const token = getAuthToken();
   return get(uri, { Authorization: `Token ${token}` });
+}
+
+export async function postAuth(uri, string, data: Object) {
+  const token = getAuthToken();
+  return post(uri, data, { Authorization: `Token ${token}` });
 }

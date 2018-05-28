@@ -1,5 +1,4 @@
 import Immutable from 'seamless-immutable';
-import { Cookies } from 'react-cookie';
 
 import { setAuthToken } from '../http';
 import actionTypes from '../actions/auth.types';

@@ -44,4 +44,6 @@ class App extends Component {
   }
 }
 
+export const storage = window.localStorage;
+
 export default App;

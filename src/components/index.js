@@ -4,5 +4,16 @@ import LoginBase from './LoginBase.component';
 import DisconnectButton from './DisconnectButton.component';
 import Camembert from './Camembert.component';
 import Histogram from './Histogram.component';
+import LanguageButton from './LanguageButton.component';
+import OfferCard from './OfferCard.component';
 
-export { TopBar, NavBar, DisconnectButton, LoginBase, Camembert, Histogram };
+export {
+  TopBar,
+  NavBar,
+  DisconnectButton,
+  LoginBase,
+  Camembert,
+  Histogram,
+  LanguageButton,
+  OfferCard,
+};

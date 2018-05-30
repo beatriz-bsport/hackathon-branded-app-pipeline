@@ -3,23 +3,11 @@ import moment from 'moment';
 
 import { getAuth } from './http';
 
-const API_URI = 'http://localhost:8000/api-v0';
 const BASE_URI = process.env.REACT_APP_BASE_URI;
+const API_URI = `${BASE_URI}/api-v0`;
 
 export async function resetPassword(email) {
   return axios.get(`${BASE_URI}/authentication/password_reset_email/${email}`);
-}
-
-export function fetchAllOffersFake() {
-  const offers = [
-    {
-      start: new Date(moment()),
-      end: new Date(moment().add(1, 'hours')),
-      title: 'lol',
-    },
-  ];
-
-  return offers;
 }
 
 export async function fetchAllOffers() {

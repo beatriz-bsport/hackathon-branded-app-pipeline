@@ -9,11 +9,7 @@ export function DisconnectButton(props) {
   const { authenticated } = props;
 
   const renderDisconnectButton = () => {
-    return (
-      <Button onClick={props.disconnect} color="white">
-        DISCONNECT
-      </Button>
-    );
+    return <Button onClick={props.disconnect}>DISCONNECT</Button>;
   };
 
   if (authenticated) {

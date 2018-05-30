@@ -10,6 +10,7 @@ import {
   Grid,
   TextField,
 } from '@material-ui/core';
+import { translate } from 'react-i18next';
 
 import { auth as authActions } from '../actions';
 import { LoginBase } from '../components';
@@ -49,6 +50,8 @@ export class Login extends Component<{}> {
   };
 
   render() {
+    const { t } = this.props;
+
     if (this.props.authenticated) {
       return <Redirect push to="/" />;
     }
@@ -61,19 +64,17 @@ export class Login extends Component<{}> {
           <div>
             <TextField
               onChange={this.updatePassword}
-              label="Mot de passe"
+              label={t('login.password')}
               type="password"
             />
             <div style={{ paddingTop: 12 }}>
               <Link to="/reset_password" style={{ textDecoration: 'none' }}>
                 <Typography color="secondary" variant="caption">
-                  Mot de passe oublié
+                  {t('login.forgottenPassword')}
                 </Typography>
               </Link>
               {this.props.error ? (
-                <Typography color="error">
-                  Email et/ou mot de passe erroné
-                </Typography>
+                <Typography color="error">{t('login.authError')}</Typography>
               ) : (
                 <div />
               )}
@@ -113,4 +114,4 @@ function mapDispatchToProps(dispatch) {
     },
   };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(translate()(Login));

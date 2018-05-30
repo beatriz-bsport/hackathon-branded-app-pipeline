@@ -1,0 +1,41 @@
+export default {
+  translation: {
+    hi: 'Hi',
+    navigation: {
+      dashboard: 'Dashboard',
+      activity: 'My activities',
+      calendar: 'Calendar',
+      message: 'Messages',
+      member: 'Members',
+      payment: 'Payments',
+      logoff: 'Sign out',
+    },
+    login: {
+      password: 'Password',
+      authError: 'Email and password mismatch',
+      forgottenPassword: 'Forgotten password',
+    },
+    calendar: {}, // used for big-calendar localization - en is default
+    time: {
+      sunday: 'Sunday',
+      monday: 'Monday',
+      tuesday: 'Tuesday',
+      wednesday: 'Wednesday',
+      thursday: 'Thursday',
+      friday: 'Friday',
+      satursday: 'Satursday',
+      january: 'Jan',
+      february: 'Feb',
+      march: 'Mar',
+      april: 'Apr',
+      may: 'May',
+      june: 'Jun',
+      july: 'Jul',
+      august: 'Aug',
+      september: 'Sep',
+      october: 'Oct',
+      november: 'Nov',
+      december: 'Dec',
+    },
+  },
+};

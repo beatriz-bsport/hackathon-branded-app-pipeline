@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { I18nextProvider } from 'react-i18next';
+import i18n from './i18n/index';
 
 import Root from './Root';
 import './App.scss';
@@ -23,7 +25,7 @@ const theme = createMuiTheme({
   },
 });
 
-class App extends Component {
+export class App extends Component {
   constructor(props) {
     super(props);
 

@@ -1,0 +1,79 @@
+const WEEK_DAYS = [
+  'time.weekday.monday',
+  'time.weekday.tuesday',
+  'time.weekday.wednesday',
+  'time.weekday.thursday',
+  'time.weekday.friday',
+  'time.weekday.satursday',
+  'time.weekday.sunday',
+];
+
+const MONTHS = [
+  'time.month.january',
+  'time.month.february',
+  'time.month.march',
+  'time.month.april',
+  'time.month.may',
+  'time.month.june',
+  'time.month.july',
+  'time.month.august',
+  'time.month.september',
+  'time.month.october',
+  'time.month.november',
+  'time.month.december',
+];
+
+export function humanizeDuration(milliseconds) {
+  const seconds = milliseconds / 1000;
+  const hours = parseInt(seconds / 3600);
+  const minutesNumber = parseInt((seconds % 3600) / 60);
+
+  const minutes =
+    minutesNumber < 10
+      ? minutesNumber === 0
+        ? ''
+        : `0${minutesNumber}`
+      : `${minutesNumber}`;
+
+  if (hours) {
+    return `${hours}H${minutes}`;
+  }
+
+  return `${minutes} min`;
+}
+
+function getTime(d, fixed = false) {
+  const hour = d.getHours();
+  const minute = d.getMinutes();
+
+  if (minute === 0 && !fixed) {
+    return `${hour}H`;
+  }
+
+  const minutes = minute < 10 ? `0${minute}` : minute;
+  return `${hour}H${minutes}`;
+}
+
+export function humanizeDate(date) {
+  if (!date) {
+    return '';
+  }
+
+  const d = new Date(date);
+
+  const weekDay = WEEK_DAYS[d.getDay()];
+  const month = MONTHS[d.getMonth()];
+  const shortWeekDay = weekDay !== undefined ? weekDay.slice(0, 3) : '';
+  const dayShort = `${shortWeekDay} ${d.getDate()} ${month}.`;
+  const time = getTime(d);
+
+  const datetime = `${d.getDate()} ${month}. ${time}`;
+  return {
+    weekDay,
+    datetime,
+    shortWeekDay,
+    dayShort,
+    time,
+    timeFixed: getTime(d, true),
+  };
+}

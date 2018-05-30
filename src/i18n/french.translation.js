@@ -1,0 +1,60 @@
+export default {
+  translation: {
+    hi: 'Salut',
+
+    navigation: {
+      dashboard: 'Dashboard',
+      activity: 'Mes activités',
+      calendar: 'Calendrier',
+      message: 'Messages',
+      member: 'Membres',
+      payment: 'Paiements',
+      logoff: 'Déconnexion',
+    },
+    login: {
+      password: 'Mot de passe',
+      authError: 'Email ou mot de passe erroné',
+      forgottenPassword: 'Mot de passe oublié',
+    },
+    calendar: {
+      allDay: 'journée',
+      previous: 'précédent',
+      next: 'suivant',
+      // eslint-disable-next-line
+      today: "aujourd'hui",
+      month: 'mois',
+      week: 'semaine',
+      day: 'jour',
+      agenda: 'Agenda',
+      date: 'date',
+      time: 'heure',
+      event: 'séance',
+      showMore: (total) => `+ ${total} séance(s) supplémentaire(s)`,
+    },
+    time: {
+      weekday: {
+        sunday: 'Dimanche',
+        monday: 'Lundi',
+        tuesday: 'Mardi',
+        wednesday: 'Mercredi',
+        thursday: 'Jeudi',
+        friday: 'Vendredi',
+        satursday: 'Samedi',
+      },
+      month: {
+        january: 'Jan',
+        february: 'Fév',
+        march: 'Mar',
+        april: 'Avr',
+        may: 'Mai',
+        june: 'Juin',
+        july: 'Juil',
+        august: 'Août',
+        september: 'Sep',
+        october: 'Oct',
+        november: 'Nov',
+        december: 'Déc',
+      },
+    },
+  },
+};

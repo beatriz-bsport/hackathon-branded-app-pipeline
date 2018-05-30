@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { withStyles } from '@material-ui/core/styles';
+import { translate } from 'react-i18next';
 
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -31,7 +32,7 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 
 import { Link } from 'react-router-dom';
-import { DisconnectButton } from '../components';
+import { DisconnectButton, LanguageButton } from '../components';
 import LOGO_ASSET from '../public/images/banner_lowres.png';
 
 const drawerWidth = 240;
@@ -85,7 +86,7 @@ class ResponsiveDrawer extends React.Component {
   };
 
   render() {
-    const { classes, theme } = this.props;
+    const { classes, theme, t } = this.props;
 
     const drawer = (
       <div>
@@ -106,7 +107,7 @@ class ResponsiveDrawer extends React.Component {
               <ListItemIcon>
                 <TrendingUp />
               </ListItemIcon>
-              <ListItemText primary="Dashboard" />
+              <ListItemText primary={t('navigation.dashboard')} />
             </ListItem>
           </Link>
           <Divider />
@@ -115,7 +116,7 @@ class ResponsiveDrawer extends React.Component {
               <ListItemIcon>
                 <Star />
               </ListItemIcon>
-              <ListItemText primary="Mes activités" />
+              <ListItemText primary={t('navigation.activity')} />
             </ListItem>
           </Link>
           <Link to="/calendar" style={{ textDecoration: 'none' }}>
@@ -123,7 +124,7 @@ class ResponsiveDrawer extends React.Component {
               <ListItemIcon>
                 <Today />
               </ListItemIcon>
-              <ListItemText primary="Calendrier" />
+              <ListItemText primary={t('navigation.calendar')} />
             </ListItem>
           </Link>
           <Divider />
@@ -132,7 +133,7 @@ class ResponsiveDrawer extends React.Component {
               <ListItemIcon>
                 <Email />
               </ListItemIcon>
-              <ListItemText primary="Messages" />
+              <ListItemText primary={t('navigation.message')} />
             </ListItem>
           </Link>
           <Link to="/member" style={{ textDecoration: 'none' }}>
@@ -140,7 +141,7 @@ class ResponsiveDrawer extends React.Component {
               <ListItemIcon>
                 <People />
               </ListItemIcon>
-              <ListItemText primary="Membres" />
+              <ListItemText primary={t('navigation.member')} />
             </ListItem>
           </Link>
           <Divider />
@@ -149,7 +150,7 @@ class ResponsiveDrawer extends React.Component {
               <ListItemIcon>
                 <Payment />
               </ListItemIcon>
-              <ListItemText primary="Paiements" />
+              <ListItemText primary={t('navigation.payment')} />
             </ListItem>
           </Link>
           <Divider />
@@ -158,7 +159,7 @@ class ResponsiveDrawer extends React.Component {
               <ListItemIcon>
                 <HighlightOff />
               </ListItemIcon>
-              <ListItemText primary="Déconnexion" />
+              <ListItemText primary={t('navigation.logoff')} />
             </ListItem>
           </Link>
         </List>
@@ -174,7 +175,6 @@ class ResponsiveDrawer extends React.Component {
               direction="row"
               alignItems="center"
               justify="space-between"
-              flexGrow={1}
             >
               <div>
                 <Grid container alignItems="center" direction="row">
@@ -197,6 +197,7 @@ class ResponsiveDrawer extends React.Component {
                 </Grid>
               </div>
               <div>
+                <LanguageButton />
                 <DisconnectButton />
               </div>
             </Grid>
@@ -240,4 +241,6 @@ ResponsiveDrawer.propTypes = {
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(ResponsiveDrawer);
+export default withStyles(styles, { withTheme: true })(
+  translate()(ResponsiveDrawer),
+);

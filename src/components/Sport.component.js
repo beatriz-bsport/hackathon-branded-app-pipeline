@@ -1,0 +1,38 @@
+import React from 'react';
+
+import { Typography, Grid } from '@material-ui/core';
+import SPORTS from 'bsport-commons/lib/master-data/sports';
+import { translate } from 'react-i18next';
+
+const LEVELS = [
+  'level.all',
+  'level.beginner',
+  'level.intermediate',
+  'level.advanced',
+];
+
+export function Level(props) {
+  const { parentCategory, category, t } = props;
+  const variant = props.variant || 'normal';
+
+  const sport = SPORTS.filter((s) => s.id === parentCategory)[0];
+
+  return (
+    <Grid
+      container
+      direction="row"
+      spacing={8}
+      justify="flex-start"
+      alignItems="center"
+    >
+      <Grid item>
+        <img src={sport.icon} height={30} width={30} />
+      </Grid>
+      <Grid item>
+        <Typography variant={variant}>{sport.text}</Typography>
+      </Grid>
+    </Grid>
+  );
+}
+
+export default translate()(Level);

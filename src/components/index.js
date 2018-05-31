@@ -6,6 +6,9 @@ import Camembert from './Camembert.component';
 import Histogram from './Histogram.component';
 import LanguageButton from './LanguageButton.component';
 import OfferCard from './OfferCard.component';
+import CoachThumbnail from './CoachThumbnail.component';
+import Level from './Level.component';
+import Sport from './Sport.component';
 
 export {
   TopBar,
@@ -16,4 +19,7 @@ export {
   Histogram,
   LanguageButton,
   OfferCard,
+  CoachThumbnail,
+  Level,
+  Sport,
 };

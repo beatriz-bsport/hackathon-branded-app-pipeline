@@ -31,6 +31,18 @@ export default {
       event: 'séance',
       showMore: (total) => `+ ${total} séance(s) supplémentaire(s)`,
     },
+    booking: {
+      waiting: 'en attente',
+      confirmed: 'confirmée(s)',
+      free: 'place(s) disponible(s)',
+      seeCustomers: 'Afficher les réservations',
+    },
+    level: {
+      all: 'Tous niveaux',
+      beginner: 'Débutant',
+      intermediate: 'Intermédiare',
+      advanced: 'Avancé',
+    },
     time: {
       weekday: {
         sunday: 'Dimanche',
@@ -41,7 +53,7 @@ export default {
         friday: 'Vendredi',
         satursday: 'Samedi',
       },
-      month: {
+      monthShort: {
         january: 'Jan',
         february: 'Fév',
         march: 'Mar',
@@ -54,6 +66,20 @@ export default {
         october: 'Oct',
         november: 'Nov',
         december: 'Déc',
+      },
+      month: {
+        january: 'Janvier',
+        february: 'Février',
+        march: 'Mars',
+        april: 'Avril',
+        may: 'Mai',
+        june: 'Juin',
+        july: 'Juillet',
+        august: 'Août',
+        september: 'Septembre',
+        october: 'Octobre',
+        november: 'Novembre',
+        december: 'Décembre',
       },
     },
   },

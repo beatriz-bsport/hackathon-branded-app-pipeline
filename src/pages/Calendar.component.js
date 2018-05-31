@@ -44,7 +44,7 @@ export class Calendar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedOffer: { title: '' },
+      selectedOffer: null,
     };
   }
 
@@ -65,7 +65,7 @@ export class Calendar extends Component {
       language === 'fr-FR' ? FRENCH_PACK.translation.calendar : null;
     return (
       <Grid container spacing={16} direction="row" wrap>
-        <Grid item xs={12} lg={6}>
+        <Grid item xs={12} lg={6} wrap="no-wrap">
           <Paper
             style={{
               padding: 30,
@@ -92,9 +92,11 @@ export class Calendar extends Component {
             />
           </Paper>
         </Grid>
-        <Grid item xs={12} lg={6}>
-          <OfferCard offer={selectedOffer} />
-        </Grid>
+        {selectedOffer ? (
+          <Grid item xs={12} lg={6}>
+            <OfferCard offer={selectedOffer} />
+          </Grid>
+        ) : null}
       </Grid>
     );
   }

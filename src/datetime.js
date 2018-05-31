@@ -63,13 +63,16 @@ export function humanizeDate(date) {
 
   const weekDay = WEEK_DAYS[d.getDay()];
   const month = MONTHS[d.getMonth()];
+  const day = d.getDate();
   const shortWeekDay = weekDay !== undefined ? weekDay.slice(0, 3) : '';
   const dayShort = `${shortWeekDay} ${d.getDate()} ${month}.`;
   const time = getTime(d);
 
-  const datetime = `${d.getDate()} ${month}. ${time}`;
+  const datetime = `${day} ${month}. ${time}`;
   return {
     weekDay,
+    month,
+    day,
     datetime,
     shortWeekDay,
     dayShort,

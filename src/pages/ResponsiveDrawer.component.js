@@ -168,7 +168,7 @@ class ResponsiveDrawer extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar className={classes.appBar}>
+        <AppBar className={classes.appBar} color="white">
           <Toolbar>
             <Grid
               container
@@ -186,14 +186,11 @@ class ResponsiveDrawer extends React.Component {
                   >
                     <MenuIcon />
                   </IconButton>
-                  <Typography
-                    variant="title"
-                    color="inherit"
-                    noWrap
+                  <img
                     className={classes.navIconHide}
-                  >
-                    bsport
-                  </Typography>
+                    height={40}
+                    src={LOGO_ASSET}
+                  />
                 </Grid>
               </div>
               <div>

@@ -18,7 +18,6 @@ export class Dashboard extends Component {
     return (
       <Grid container>
         <Paper style={{ margin: 20 }}>
-          {t('hi')}
           <Camembert data={[]} />
           <svg className="bla" />
         </Paper>

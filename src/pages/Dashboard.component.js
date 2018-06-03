@@ -16,14 +16,13 @@ export class Dashboard extends Component {
   render() {
     const { t } = this.props;
     return (
-      <Grid container>
-        <Paper style={{ margin: 20 }}>
+      <Grid container spacing={24}>
+        <Grid item xs={12} md={6}>
           <Camembert data={[]} />
-          <svg className="bla" />
-        </Paper>
-        <Paper style={{ margin: 20 }}>
+        </Grid>
+        <Grid item xs={12} md={6}>
           <Histogram data={[]} />
-        </Paper>
+        </Grid>
       </Grid>
     );
   }

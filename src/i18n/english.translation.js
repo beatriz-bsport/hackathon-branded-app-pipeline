@@ -1,6 +1,12 @@
 export default {
   translation: {
     hi: 'Hi',
+    common: {
+      name: 'Name',
+      status: 'Status',
+      ok: 'ok',
+      cancel: 'cancel',
+    },
     navigation: {
       dashboard: 'Dashboard',
       activity: 'My activities',
@@ -16,10 +22,23 @@ export default {
       forgottenPassword: 'Forgotten password',
     },
     booking: {
-      waiting: 'waiting',
+      fillRate: 'Fjilled',
+      waiting: 'on waiting list',
       confirmed: 'confirmed',
       free: 'slots available',
       seeCustomers: 'Show all bookings',
+      nb_booking: 'Nb bookings',
+      status: {
+        null: 'waiting-list',
+        true: 'validated',
+        false: 'canceled',
+      },
+      source: 'Source',
+      sources: {
+        MOB: 'Mobile',
+        WEB: 'Web',
+        MAN: 'Manuel',
+      },
     },
     level: {
       all: 'All level',

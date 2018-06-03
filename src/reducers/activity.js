@@ -1,27 +1,27 @@
 import Immutable from 'seamless-immutable';
 
-import actionTypes from '../actions/offer.types';
+import actionTypes from '../actions/activity.types';
 
 const initialState = Immutable({
-  calendar: [],
+  activities: [],
   loading: true,
   error: false,
   errorMsg: '',
 });
 
-export default function offerReducers(state = initialState, action = {}) {
+export default function activityReducers(state = initialState, action = {}) {
   switch (action.type) {
-    case actionTypes.HAS_FETCHED_ALL_OFFERS:
+    case actionTypes.HAS_FETCHED_ALL_ACTIVITIES:
       return Immutable.merge(state, {
         loading: false,
         error: false,
-        calendar: action.offers,
+        activities: action.activities,
       });
 
-    case actionTypes.START_FETCH_ALL_OFFERS:
+    case actionTypes.START_FETCH_ALL_ACTIVITIES:
       return Immutable.merge(state, { loading: true, error: false });
 
-    case actionTypes.ERROR_FETCHING_ALL_OFFERS:
+    case actionTypes.ERROR_FETCHING_ALL_ACTIVITIES:
       return Immutable.merge(state, {
         loading: false,
         error: true,

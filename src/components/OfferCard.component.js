@@ -11,10 +11,10 @@ import {
   ExpansionPanelDetails,
   ExpansionPanelSummary,
 } from '@material-ui/core';
+import { LocationOn, AccessTime } from '@material-ui/icons';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import * as d3 from 'd3';
 import { translate } from 'react-i18next';
-import { Level, Sport, CoachThumbnail } from '../components';
+import { Level, Sport, CoachThumbnail, BookingTable } from '../components';
 
 import { humanizeDate } from '../datetime';
 
@@ -39,10 +39,11 @@ const styles = (theme) => ({
   },
   footer: {
     padding: theme.spacing.unit * 2,
+    paddingBottom: 0,
     borderTop: 'solid 1px #EEEEEE',
   },
-  location: {
-    paddingRight: theme.spacing.unit * 2,
+  info: {
+    paddingLeft: theme.spacing.unit * 3,
   },
 });
 
@@ -51,13 +52,9 @@ type Props = {
 };
 
 export class OfferCard extends Component<Props> {
-  componentDidMount() {
-    this.renderBookingBar();
-  }
-
   getHeader = () => {
     const { classes, offer } = this.props;
-    const { title, levelId, category, parent_category, date_start } = offer;
+    const { title, level_id, category, parent_category, date_start } = offer;
     return (
       <Grid container direction="row">
         <Grid item xs={8} className={classes.paddedBlock}>
@@ -71,22 +68,7 @@ export class OfferCard extends Component<Props> {
           </Grid>
         </Grid>
         <Grid item xs={4} className={classes.paddedBlock}>
-          <Grid
-            container
-            direction="column"
-            justify="space-between"
-            alignItems="flex-end"
-            spacing={8}
-          >
-            <Grid item>
-              <Level levelId={levelId} />
-            </Grid>
-            <Grid item>
-              <Typography variant="subheading">
-                {humanizeDate(date_start).time}
-              </Typography>
-            </Grid>
-          </Grid>
+          <Level levelId={level_id} />
         </Grid>
       </Grid>
     );
@@ -94,7 +76,7 @@ export class OfferCard extends Component<Props> {
 
   getStatsBody = () => {
     const { classes, t } = this.props;
-    const { pending_bookings, validated_bookings, effectif } = this.props.offer;
+    const { nb_pending, nb_validated, effectif } = this.props.offer;
     return (
       <Grid container direction="row" justify="center" alignItems="center">
         <Grid item xs={4} style={{ borderRight: '1px solid #EEEEEE' }}>
@@ -103,10 +85,11 @@ export class OfferCard extends Component<Props> {
             justify="center"
             alignItems="center"
             direction="column"
+            spacing={8}
           >
             <Grid item>
               <Typography variant="display2" color="primary">
-                {validated_bookings.length}
+                {nb_validated}
               </Typography>
             </Grid>
             <Grid item>
@@ -120,18 +103,15 @@ export class OfferCard extends Component<Props> {
             justify="center"
             alignItems="center"
             direction="column"
-            style={{ borderRight: '1px solid #EEEEEE' }}
+            spacing={8}
           >
             <Grid item>
-              <Typography
-                variant="display2"
-                color={pending_bookings.length ? 'error' : 'secondary'}
-              >
-                {pending_bookings.length}
+              <Typography variant="display2" color="secondary">
+                {parseInt(nb_validated / effectif, 10)} %
               </Typography>
             </Grid>
             <Grid item>
-              <Typography> {t('booking.waiting')}</Typography>
+              <Typography>{t('booking.fillRate')}</Typography>
             </Grid>
           </Grid>
         </Grid>
@@ -141,14 +121,19 @@ export class OfferCard extends Component<Props> {
             justify="center"
             alignItems="center"
             direction="column"
+            style={{ borderRight: '1px solid #EEEEEE' }}
+            spacing={8}
           >
             <Grid item>
-              <Typography variant="display2" color="secondary">
-                {effectif - validated_bookings.length}
+              <Typography
+                variant="display2"
+                color={nb_pending ? 'error' : 'secondary'}
+              >
+                {nb_pending}
               </Typography>
             </Grid>
             <Grid item>
-              <Typography>{t('booking.free')}</Typography>
+              <Typography> {t('booking.waiting')}</Typography>
             </Grid>
           </Grid>
         </Grid>
@@ -158,7 +143,7 @@ export class OfferCard extends Component<Props> {
 
   getFooter = () => {
     const { offer, classes } = this.props;
-    const { etablissement, coach } = offer;
+    const { etablissement, date_start, coach } = offer;
     return (
       <Grid
         container
@@ -175,15 +160,54 @@ export class OfferCard extends Component<Props> {
             container
             spacing={8}
             justify="center"
-            alignItems="flex-end"
+            alignItems="flex-start"
             direction="column"
-            className={classes.location}
+            className={classes.info}
           >
             <Grid item>
-              <Typography>{etablissement.title}</Typography>
-            </Grid>
-            <Grid item>
-              <Typography>{etablissement.location.address}</Typography>
+              <Grid container direction="column">
+                <Grid item>
+                  <Grid
+                    container
+                    spacing={16}
+                    direction="row"
+                    alignItems="center"
+                  >
+                    <Grid item>
+                      <AccessTime />
+                    </Grid>
+                    <Grid item>
+                      <Typography variant="subheading">
+                        {humanizeDate(date_start).time}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Grid item>
+                  <Grid
+                    container
+                    spacing={16}
+                    direction="row"
+                    alignItems="center"
+                  >
+                    <Grid item>
+                      <LocationOn />
+                    </Grid>
+                    <Grid item>
+                      <Grid container direction="column">
+                        <Grid item>
+                          <Typography>{etablissement.title}</Typography>
+                        </Grid>
+                        <Grid item>
+                          <Typography>
+                            {etablissement.location.address}
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
@@ -192,42 +216,22 @@ export class OfferCard extends Component<Props> {
   };
 
   getCustomer = () => {
-    const { t } = this.props;
+    const { t, offer, classes } = this.props;
+
     return (
-      <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography variant="subheading">
-            {t('booking.seeCustomers')}
-          </Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
-          </Typography>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
+      <Grid container>
+        <Grid item xs={12}>
+          <ExpansionPanel>
+            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography>{t('booking.seeCustomers')}</Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <BookingTable offerId={offer.id} />
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+        </Grid>
+      </Grid>
     );
-  };
-
-  renderBookingBar = () => {
-    const data = [4, 1, 8];
-    const x = d3
-      .scaleLinear()
-      .domain([0, d3.sum(data)])
-      .range([0, 200]);
-
-    d3
-      .selectAll('svg')
-      .filter('.bla')
-      .data(data)
-      .enter()
-      .append('rect')
-      .style('fill', '#76545A')
-      .attr('width', function(d) {
-        return d * 20;
-      })
-      .attr('height', 60);
   };
 
   render() {
@@ -239,7 +243,9 @@ export class OfferCard extends Component<Props> {
             <Grid item>{this.getHeader()}</Grid>
             <Grid item>{this.getStatsBody()}</Grid>
             <Grid item>{this.getFooter()}</Grid>
-            <Grid item>{this.getCustomer()}</Grid>
+            <Grid item xs={12}>
+              {this.getCustomer()}
+            </Grid>
           </Grid>
         </Paper>
       );
@@ -249,41 +255,3 @@ export class OfferCard extends Component<Props> {
 }
 
 export default withStyles(styles)(translate()(OfferCard));
-
-/*
-        <Grid item container xs={12}>
-          <Paper className={classes.innerElement}>
-            <Grid container className={classes.header}>
-              <Grid item>
-                <Typography variant="title" color="secondary">
-                  {offer.title}
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography variant="subheading" color="secondary">
-                  {offer.category}
-                </Typography>
-              </Grid>
-            </Grid>
-          </Paper>
-        </Grid>
-        <Grid item xs={12}>
-          <Grid container direction="row" spacing={0}>
-            <Grid item xs={6}>
-              <Paper className={classes.innerElement}>
-                <Typography>
-                  {t(humanizedDate.weekDay)} {humanizedDate.day}{' '}
-                  {t(humanizedDate.month)} {humanizedDate.time}
-                </Typography>
-              </Paper>
-            </Grid>
-            <Grid item xs={6}>
-              <Paper className={classes.innerElement}>
-                <Typography>
-                  {etablissement ? etablissement.location.address : ''}
-                </Typography>
-              </Paper>
-            </Grid>
-          </Grid>
-        </Grid>
-*/

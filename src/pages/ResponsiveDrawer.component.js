@@ -195,7 +195,6 @@ class ResponsiveDrawer extends React.Component {
               </div>
               <div>
                 <LanguageButton />
-                <DisconnectButton />
               </div>
             </Grid>
           </Toolbar>

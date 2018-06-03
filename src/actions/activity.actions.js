@@ -1,0 +1,29 @@
+//@flow
+
+import api from '../api';
+import types from './activity.types';
+
+export function fetchAllActivities() {
+  return async (dispatch) => {
+    dispatch(startFetchAllActivities());
+
+    try {
+      const response = await api.activity.fetchAllActivities();
+      const activities = response.data;
+      dispatch(fetchedAllActivities(activities));
+    } catch (err) {
+      dispatch(errorFetchingAllActivities());
+    }
+  };
+}
+
+export function fetchedAllActivities(activities) {
+  return { type: types.HAS_FETCHED_ALL_ACTIVITIES, activities };
+}
+export function startFetchAllActivities() {
+  return { type: types.START_FETCH_ALL_ACTIVITIES };
+}
+
+export function errorFetchingAllActivities() {
+  return { type: types.ERROR_FETCHING_ALL_ACTIVITIES };
+}

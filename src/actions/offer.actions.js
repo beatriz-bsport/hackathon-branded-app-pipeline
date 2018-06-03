@@ -2,23 +2,15 @@
 
 import api from '../api';
 import types from './offer.types';
+import moment from 'moment';
 
 export function fetchAllOffers() {
   return async (dispatch) => {
     dispatch(startFetchAllOffers());
 
     try {
-      const response = await api.offer.fetchAll();
-      const offersFromServer = response.data.results;
-
-      const offers = offersFromServer.map((o) => {
-        return {
-          ...o,
-          title: o.name,
-          start: new Date(o.date_start),
-          end: new Date(o.date_end),
-        };
-      });
+      const response = await api.offer.fetchAllOffers();
+      const offersFromServer = response.data;
       dispatch(fetchedAllOffers(offers));
     } catch (err) {
       dispatch(errorFetchingAllOffers());

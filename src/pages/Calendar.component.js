@@ -28,8 +28,8 @@ BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment));
 
 const NOW = new Date();
 const BUSINESS_HOURS = {
-  start: new Date(moment('2018/05/01 8:00')),
-  end: new Date(moment('2018/05/01 22:00')),
+  start: new Date(moment('2018/05/01 9:00')),
+  end: new Date(moment('2018/05/01 18:00')),
 };
 
 const styles = (theme) => ({
@@ -48,49 +48,64 @@ export class Calendar extends Component {
     };
   }
 
-  componentDidMount() {
-    this.props.fetchAllOffers();
-  }
-
   selectEvent = (event) => {
     this.setState({ selectedOffer: event });
   };
 
-  render() {
-    const { i18n, classes } = this.props;
-    const { selectedOffer } = this.state;
+  getCalendar = () => {
+    const { i18n } = this.props;
 
     const { language } = i18n;
     const messages =
       language === 'fr-FR' ? FRENCH_PACK.translation.calendar : null;
+    const { calendar } = this.props;
+    const events = calendar.map((e) => {
+      return {
+        ...e,
+        title: e.name,
+        start: new Date(e.date_start),
+        end: new Date(e.date_end),
+      };
+    });
+
     return (
-      <Grid container spacing={16} direction="row" wrap>
-        <Grid item xs={12} lg={6} wrap="no-wrap">
-          <Paper
-            style={{
-              padding: 30,
-              flexGrow: 1,
-            }}
-          >
+      <Paper>
+        <Grid container>
+          <Grid item xs={12}>
             {this.props.loading ? <CircularProgress /> : null}
             <BigCalendar
               style={{
-                minHeight: 280,
+                minHeight: 270,
+                width: '100%',
                 maxHeight: '100%',
                 maxWidth: '100%',
                 flexGrow: 1,
               }}
               defaultDate={NOW}
-              defaultView="week"
-              views={['week', 'month', 'day']}
+              defaultView="day"
+              views={['day', 'week', 'month']}
               min={BUSINESS_HOURS.start}
               max={BUSINESS_HOURS.end}
-              events={this.props.offers.asMutable()}
+              events={events}
+              components={{
+                event: EventSmall,
+              }}
               onSelectEvent={(ev) => this.selectEvent(ev)}
               messages={messages}
               culture={language}
             />
-          </Paper>
+          </Grid>
+        </Grid>
+      </Paper>
+    );
+  };
+
+  render() {
+    const { selectedOffer } = this.state;
+    return (
+      <Grid container spacing={16} direction="row">
+        <Grid item xs={12} lg={6}>
+          {this.getCalendar()}
         </Grid>
         {selectedOffer ? (
           <Grid item xs={12} lg={6}>
@@ -102,20 +117,22 @@ export class Calendar extends Component {
   }
 }
 
+function EventSmall(props) {
+  const { nb_validated, effectif, name } = props.event;
+  return (
+    <div>
+      <strong>{name}</strong> {nb_validated}/{effectif}
+    </div>
+  );
+}
+
 function mapStateToProps(state) {
   return {
-    offers: state.offer.all,
+    calendar: state.offer.calendar,
     loading: state.offer.loading,
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchAllOffers() {
-      dispatch(offerActions.fetchAllOffers());
-    },
-  };
-}
-export default connect(mapStateToProps, mapDispatchToProps)(
+export default connect(mapStateToProps)(
   translate()(withStyles(styles)(Calendar)),
 );

@@ -1,7 +1,11 @@
 export default {
   translation: {
     hi: 'Salut',
-
+    common: {
+      name: 'Nom',
+      status: 'Status',
+      ok: 'ok',
+    },
     navigation: {
       dashboard: 'Dashboard',
       activity: 'Mes activités',
@@ -18,8 +22,8 @@ export default {
     },
     calendar: {
       allDay: 'journée',
-      previous: 'précédent',
-      next: 'suivant',
+      previous: '<',
+      next: '>',
       // eslint-disable-next-line
       today: "aujourd'hui",
       month: 'mois',
@@ -32,7 +36,22 @@ export default {
       showMore: (total) => `+ ${total} séance(s) supplémentaire(s)`,
     },
     booking: {
-      waiting: 'en attente',
+      fillRate: 'Taux de remplissage',
+      nb_booking: 'Nb de place',
+      status: {
+        // eslint-disable-next-line
+        null: "liste d'attente",
+        true: 'inscrit',
+        false: 'annulé',
+      },
+      source: 'Provenance',
+      sources: {
+        MOB: 'Mobile',
+        WEB: 'Web',
+        MAN: 'Manuel',
+      },
+      // eslint-disable-next-line
+      waiting: "sur liste d'attente",
       confirmed: 'confirmée(s)',
       free: 'place(s) disponible(s)',
       seeCustomers: 'Afficher les réservations',

@@ -41,10 +41,12 @@ export class Root extends Component<{}> {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <Route path="/" component={Backoffice} />
-        <Route path="/login" component={Login} />
-        <Route path="/reset_password" component={ResetPassword} />
-        <Route path="/signout" component={Signout} />
+        <Switch>
+          <Route path="/login" component={Login} />
+          <Route path="/reset_password" component={ResetPassword} />
+          <Route path="/signout" component={Signout} />
+          <Route path="/" component={Backoffice} />
+        </Switch>
       </div>
     );
   }

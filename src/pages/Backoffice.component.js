@@ -8,6 +8,10 @@ import Dashboard from './Dashboard.component';
 import ResponsiveDrawer from './ResponsiveDrawer.component';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+import { activity as activityActions } from '../actions';
+import { offer as offerActions } from '../actions';
 
 const styles = (theme) => ({
   content: {
@@ -26,6 +30,11 @@ export class Backoffice extends Component<{}> {
     };
   }
 
+  componentDidMount() {
+    this.props.fetchAllActivities();
+    this.props.fetchAllOffers();
+  }
+
   toogleDrawer = () => {
     this.setState({ drawerOpen: !this.state.drawerOpen });
   };
@@ -33,9 +42,10 @@ export class Backoffice extends Component<{}> {
   render() {
     const { classes } = this.props;
     const { drawerOpen } = this.state;
+    const { activityLoading, offerLoading } = this.props;
 
     if (!this.props.authenticated) {
-      return <Redirect push to="/login" />;
+      return <Redirect to="/login" />;
     }
     /*
         <TopBar toogleDrawer={this.toogleDrawer} />
@@ -46,8 +56,14 @@ export class Backoffice extends Component<{}> {
       <ResponsiveDrawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Route exact path="/" component={Dashboard} />
-          <Route path="/calendar" component={Calendar} />
+          {activityLoading || offerLoading ? (
+            <CircularProgress className={classes.progress} size={50} />
+          ) : (
+            <div>
+              <Route path="/calendar" component={Calendar} />
+              <Route exact path="/" component={Dashboard} />
+            </div>
+          )}
         </main>
       </ResponsiveDrawer>
     );
@@ -59,7 +75,20 @@ const themedBackoffice = withStyles(styles)(Backoffice);
 function mapStateToProps(state) {
   return {
     authenticated: state.auth.authenticated,
+    activityLoading: state.activity.loading,
+    offerLoading: state.offer.loading,
   };
 }
 
-export default connect(mapStateToProps)(themedBackoffice);
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchAllOffers() {
+      dispatch(offerActions.fetchAllOffers());
+    },
+    fetchAllActivities() {
+      dispatch(activityActions.fetchAllActivities());
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(themedBackoffice);

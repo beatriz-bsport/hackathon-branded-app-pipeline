@@ -9,6 +9,8 @@ import OfferCard from './OfferCard.component';
 import CoachThumbnail from './CoachThumbnail.component';
 import Level from './Level.component';
 import Sport from './Sport.component';
+import BookingTable from './BookingTable.component';
+import ActionButton from './ActionButton.component';
 
 export {
   TopBar,
@@ -22,4 +24,6 @@ export {
   CoachThumbnail,
   Level,
   Sport,
+  BookingTable,
+  ActionButton,
 };

@@ -39,9 +39,9 @@ export async function get(uri: string, headers = {}) {
   });
 }
 
-export async function getAuth(uri: string) {
-  const token = getAuthToken();
-  return get(uri, { Authorization: `Token ${token}` });
+export async function getAuth(uri: string, token = null) {
+  const token_ = token || getAuthToken();
+  return get(uri, { Authorization: `Token ${token_}` });
 }
 
 export async function postAuth(uri, string, data: Object) {

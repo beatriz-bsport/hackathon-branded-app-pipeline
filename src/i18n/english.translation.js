@@ -6,6 +6,12 @@ export default {
       status: 'Status',
       ok: 'ok',
       cancel: 'cancel',
+      seeMore: 'Show',
+      coach: 'Coach',
+      company: 'Company',
+      sport: 'Sport',
+      filterBy: 'Filter by: ',
+      edit: 'Edit',
     },
     navigation: {
       dashboard: 'Dashboard',
@@ -20,6 +26,12 @@ export default {
       password: 'Password',
       authError: 'Email and password mismatch',
       forgottenPassword: 'Forgotten password',
+    },
+    activity: {
+      name: 'Title',
+      grossVolume: 'Gross volume',
+      totalCustomers: 'Total bookings',
+      fillrate: 'Average fillrate',
     },
     booking: {
       fillRate: 'Fjilled',

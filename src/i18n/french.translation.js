@@ -5,6 +5,12 @@ export default {
       name: 'Nom',
       status: 'Status',
       ok: 'ok',
+      seeMore: 'Afficher',
+      coach: 'Coach',
+      company: 'Société',
+      sport: 'Sport',
+      filterBy: 'Filtrer par : ',
+      edit: 'Modifier',
     },
     navigation: {
       dashboard: 'Dashboard',
@@ -34,6 +40,13 @@ export default {
       time: 'heure',
       event: 'séance',
       showMore: (total) => `+ ${total} séance(s) supplémentaire(s)`,
+    },
+    activity: {
+      name: 'Titre',
+      // eslint-disable-next-line
+      grossVolume: "Chiffre d'affaire",
+      totalCustomers: 'Total réservations',
+      fillrate: 'Remplissage moyen',
     },
     booking: {
       fillRate: 'Taux de remplissage',

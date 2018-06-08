@@ -168,7 +168,7 @@ class ResponsiveDrawer extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar className={classes.appBar} color="white">
+        <AppBar className={classes.appBar} color="inherit">
           <Toolbar>
             <Grid
               container

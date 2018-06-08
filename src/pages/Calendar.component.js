@@ -28,8 +28,8 @@ BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment));
 
 const NOW = new Date();
 const BUSINESS_HOURS = {
-  start: new Date(moment('2018/05/01 9:00')),
-  end: new Date(moment('2018/05/01 18:00')),
+  start: new Date(moment('01/05/2018 09:00', 'DD/MM/YYYY HH:mm')),
+  end: new Date(moment('01/05/2018 18:00', 'DD/MM/YYYY HH:mm')),
 };
 
 const styles = (theme) => ({
@@ -59,7 +59,7 @@ export class Calendar extends Component {
     const messages =
       language === 'fr-FR' ? FRENCH_PACK.translation.calendar : null;
     const { calendar } = this.props;
-    const events = calendar.map((e) => {
+    const events = calendar.asMutable().map((e) => {
       return {
         ...e,
         title: e.name,
@@ -72,7 +72,6 @@ export class Calendar extends Component {
       <Paper>
         <Grid container>
           <Grid item xs={12}>
-            {this.props.loading ? <CircularProgress /> : null}
             <BigCalendar
               style={{
                 minHeight: 270,
@@ -105,7 +104,7 @@ export class Calendar extends Component {
     return (
       <Grid container spacing={16} direction="row">
         <Grid item xs={12} lg={6}>
-          {this.getCalendar()}
+          {this.props.loading ? <CircularProgress /> : this.getCalendar()}
         </Grid>
         {selectedOffer ? (
           <Grid item xs={12} lg={6}>

@@ -15,10 +15,11 @@ import {
   Divider,
 } from '@material-ui/core';
 import { Menu } from '@material-ui/icons';
+import { withStyles } from '@material-ui/core/styles';
 
 import { DisconnectButton } from './index';
 
-import { withStyles } from '@material-ui/core/styles';
+import LOGO_ASSET from '../public/images/banner_lowres.png';
 
 const styles = (theme) => ({
   flex: {
@@ -47,9 +48,7 @@ export function TopBar(props) {
         >
           <Menu />
         </IconButton>
-        <Typography variant="title" color="inherit" className={classes.flex}>
-          bsport
-        </Typography>
+        <img height={40} src={LOGO_ASSET} />
         <DisconnectButton />
       </Toolbar>
     </AppBar>

@@ -13,13 +13,14 @@ const LEVELS = [
 
 export function Level(props) {
   const { noStyle, levelId, t } = props;
-  const variant = props.variant || 'normal';
+  const variant = props.variant || 'body1';
 
   const stylesheet = noStyle
     ? {}
     : {
         padding: '10px',
-        paddingVertical: '6px',
+        paddingTop: '4px',
+        paddingBottom: '4px',
         borderRadius: 5,
         backgroundColor: getLevelColorById(levelId),
         color: 'white',
@@ -27,7 +28,7 @@ export function Level(props) {
 
   return (
     <Typography variant={variant} style={stylesheet}>
-      {t(LEVELS[levelId])}
+      {t(LEVELS[levelId - 1])}
     </Typography>
   );
 }

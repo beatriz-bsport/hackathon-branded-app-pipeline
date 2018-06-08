@@ -11,9 +11,9 @@ const LEVELS = [
   'level.advanced',
 ];
 
-export function Level(props) {
+export function Sport(props) {
   const { parentCategory, category, t } = props;
-  const variant = props.variant || 'normal';
+  const variant = props.variant || 'body1';
 
   const sport = SPORTS.filter((s) => s.id === parentCategory)[0];
 
@@ -35,4 +35,4 @@ export function Level(props) {
   );
 }
 
-export default translate()(Level);
+export default translate()(Sport);

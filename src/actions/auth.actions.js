@@ -10,8 +10,13 @@ export function requestLogin(username, password) {
     try {
       const response = await api.auth.login(username, password);
       const { token } = response.data;
+
+      const response_ = await api.auth.accessLevel(token);
+      console.log(response_.data);
+      const { is_company, is_coach } = response_.data;
+
       if (token) {
-        dispatch(setLogin({ username, password, token }));
+        dispatch(setLogin({ username, password, token, is_company, is_coach }));
       } else {
         dispatch(errorLogin());
       }
@@ -21,8 +26,15 @@ export function requestLogin(username, password) {
   };
 }
 
-export function setLogin({ username, password, token }) {
-  return { type: types.LOGIN_SUCCESSFUL, username, password, token };
+export function setLogin({ username, password, token, is_company, is_coach }) {
+  return {
+    type: types.LOGIN_SUCCESSFUL,
+    username,
+    password,
+    token,
+    is_company,
+    is_coach,
+  };
 }
 
 export function resetPassword(email) {

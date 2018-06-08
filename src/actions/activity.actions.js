@@ -4,7 +4,12 @@ import api from '../api';
 import types from './activity.types';
 
 export function fetchAllActivities() {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    /*
+    if (getState().activity.loading) {
+      return dispatch(activityAlreadyLoading());
+    }
+    */
     dispatch(startFetchAllActivities());
 
     try {
@@ -26,4 +31,7 @@ export function startFetchAllActivities() {
 
 export function errorFetchingAllActivities() {
   return { type: types.ERROR_FETCHING_ALL_ACTIVITIES };
+}
+export function activityAlreadyLoading() {
+  return { type: types.ACTIVITY_ALREADY_LOADING };
 }

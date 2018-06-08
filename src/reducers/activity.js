@@ -3,7 +3,7 @@ import Immutable from 'seamless-immutable';
 import actionTypes from '../actions/activity.types';
 
 const initialState = Immutable({
-  activities: [],
+  all: [],
   loading: true,
   error: false,
   errorMsg: '',
@@ -15,7 +15,7 @@ export default function activityReducers(state = initialState, action = {}) {
       return Immutable.merge(state, {
         loading: false,
         error: false,
-        activities: action.activities,
+        all: action.activities,
       });
 
     case actionTypes.START_FETCH_ALL_ACTIVITIES:

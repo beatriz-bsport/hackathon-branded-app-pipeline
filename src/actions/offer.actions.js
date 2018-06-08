@@ -5,12 +5,17 @@ import types from './offer.types';
 import moment from 'moment';
 
 export function fetchAllOffers() {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    /*
+    if (getState().offer.loading) {
+      return dispatch(offerAlreadyLoading());
+    }
+    */
     dispatch(startFetchAllOffers());
 
     try {
-      const response = await api.offer.fetchAllOffers();
-      const offersFromServer = response.data;
+      const response = await api.offer.fetchAllEvents();
+      const offers = response.data;
       dispatch(fetchedAllOffers(offers));
     } catch (err) {
       dispatch(errorFetchingAllOffers());
@@ -27,4 +32,7 @@ export function startFetchAllOffers() {
 
 export function errorFetchingAllOffers() {
   return { type: types.ERROR_FETCHING_ALL_OFFERS };
+}
+export function offerAlreadyLoading() {
+  return { type: types.OFFER_ALREADY_LOADING };
 }

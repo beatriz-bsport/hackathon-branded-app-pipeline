@@ -6,7 +6,16 @@ const DEFAULT_PROFIL_PIC =
   'https://ssl.gstatic.com/images/branding/product/1x/avatar_circle_blue_512dp.png';
 
 export default function(props) {
-  const { coach } = props;
+  const { coach, variant } = props;
+  let HEIGHT = 60;
+  let noname = false;
+  if (variant === 'small') {
+    HEIGHT = 42;
+    noname = true;
+  }
+
+  const WIDTH = HEIGHT;
+
   return (
     <Grid
       container
@@ -18,12 +27,15 @@ export default function(props) {
       <Grid item>
         <img
           src={coach.photo || DEFAULT_PROFIL_PIC}
-          height={60}
-          width={60}
-          style={{ borderRadius: 30, border: 'solid #EEEEEE 2px' }}
+          height={HEIGHT}
+          width={WIDTH}
+          style={{
+            borderRadius: parseInt(HEIGHT / 2, 10),
+            border: 'solid #EEEEEE 2px',
+          }}
         />
       </Grid>
-      <Grid item>{coach.name || '-'}</Grid>
+      {noname ? null : <Grid item>{coach.name || '-'}</Grid>}
     </Grid>
   );
 }

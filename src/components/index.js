@@ -11,8 +11,16 @@ import Level from './Level.component';
 import Sport from './Sport.component';
 import BookingTable from './BookingTable.component';
 import ActionButton from './ActionButton.component';
+import ActivityCard from './ActivityCard.component';
+import ActivityStats from './ActivityStats.component';
+import ActivityCover from './ActivityCover.component';
+import Filter from './Filter.component';
+import GreatFilter from './GreatFilter.component';
+import ActivityBasicInfo from './ActivityBasicInfo.component';
 
 export {
+  GreatFilter,
+  Filter,
   TopBar,
   NavBar,
   DisconnectButton,
@@ -26,4 +34,8 @@ export {
   Sport,
   BookingTable,
   ActionButton,
+  ActivityCard,
+  ActivityStats,
+  ActivityCover,
+  ActivityBasicInfo,
 };

@@ -15,7 +15,7 @@ import reducers from './reducers';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth', 'activity', 'offer'],
+  whitelist: ['auth', 'activity', 'offer', 'stats'],
   transforms: [immutableTransform()],
 };
 

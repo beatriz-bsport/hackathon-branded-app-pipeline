@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+
 import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n/index';
 
@@ -38,7 +40,9 @@ export class App extends Component {
       <Provider store={this.store}>
         <BrowserRouter>
           <MuiThemeProvider theme={theme}>
-            <Root />
+            <CssBaseline>
+              <Root />
+            </CssBaseline>
           </MuiThemeProvider>
         </BrowserRouter>
       </Provider>

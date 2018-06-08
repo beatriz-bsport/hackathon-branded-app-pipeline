@@ -12,6 +12,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { activity as activityActions } from '../actions';
 import { offer as offerActions } from '../actions';
+import ActivityList from './ActivityList.component';
+import Activity from './Activity.component';
 
 const styles = (theme) => ({
   content: {
@@ -20,6 +22,9 @@ const styles = (theme) => ({
     padding: theme.spacing.unit * 3,
   },
   toolbar: theme.mixins.toolbar,
+  progress: {
+    flexGrow: 1,
+  },
 });
 
 export class Backoffice extends Component<{}> {
@@ -52,18 +57,22 @@ export class Backoffice extends Component<{}> {
         {drawerOpen ? <NavBar /> : null}
         */
 
+    /*
+        {activityLoading || offerLoading ? (
+          <CircularProgress className={classes.progress} size={50} />
+        ) : (
+        )}
+    */
     return (
       <ResponsiveDrawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          {activityLoading || offerLoading ? (
-            <CircularProgress className={classes.progress} size={50} />
-          ) : (
-            <div>
-              <Route path="/calendar" component={Calendar} />
-              <Route exact path="/" component={Dashboard} />
-            </div>
-          )}
+          <div>
+            <Route path="/calendar" component={Calendar} />
+            <Route exact path="/activity" component={ActivityList} />
+            <Route path="/activity/:id" component={Activity} />
+            <Route exact path="/" component={Dashboard} />
+          </div>
         </main>
       </ResponsiveDrawer>
     );

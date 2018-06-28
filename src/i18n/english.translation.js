@@ -12,6 +12,7 @@ export default {
       sport: 'Sport',
       filterBy: 'Filter by: ',
       edit: 'Edit',
+      activities: 'Activities',
     },
     navigation: {
       dashboard: 'Dashboard',

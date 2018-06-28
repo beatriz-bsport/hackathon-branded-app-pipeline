@@ -17,6 +17,8 @@ import ActivityCover from './ActivityCover.component';
 import Filter from './Filter.component';
 import GreatFilter from './GreatFilter.component';
 import ActivityBasicInfo from './ActivityBasicInfo.component';
+import CoachCard from './CoachCard.component';
+import ActivityMinimalSummary from './ActivityMinimalSummary.component';
 
 export {
   GreatFilter,
@@ -38,4 +40,6 @@ export {
   ActivityStats,
   ActivityCover,
   ActivityBasicInfo,
+  CoachCard,
+  ActivityMinimalSummary,
 };

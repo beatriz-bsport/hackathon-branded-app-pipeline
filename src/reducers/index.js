@@ -5,6 +5,7 @@ import offerReducers from './offer';
 import bookingReducers from './booking';
 import activityReducers from './activity';
 import statsReducers from './stats';
+import coachReducers from './coach';
 
 export default combineReducers({
   auth: authReducers,
@@ -12,4 +13,5 @@ export default combineReducers({
   booking: bookingReducers,
   activity: activityReducers,
   stats: statsReducers,
+  coach: coachReducers,
 });

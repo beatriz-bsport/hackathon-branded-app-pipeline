@@ -46,7 +46,11 @@ export async function getSCT() {
 }
 
 export async function accessLevel(token) {
-  return getAuth(`${API_URI}/access_level`, (token = token));
+  return getAuth(`${API_URI}/saas/access_level`, (token = token));
+}
+
+export async function fetchAssociatedCoaches() {
+  return getAuth(`${API_URI}/coach/associated`);
 }
 
 export default {
@@ -68,5 +72,8 @@ export default {
     fetchAllActivities,
     getStats,
     getAllStats,
+  },
+  coach: {
+    fetchAssociated: fetchAssociatedCoaches,
   },
 };

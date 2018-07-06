@@ -15,29 +15,16 @@ class Activity extends Component<Props> {
   render() {
     const { activities, stats } = this.props;
     return (
-      <Grid
-        container
-        direction="row"
-        alignItems="center"
-        justify="center"
-        spacing={24}
-      >
-        <Grid item>
-          <GreatFilter />
-        </Grid>
-        <Grid item>
-          <Grid container spacing={24}>
-            {activities.map((a) => {
-              const aStats = stats.filter((s) => s.id === a.id);
-              const s = aStats || [null];
-              return (
-                <Grid item xs={12} sm={6} md={4} key={a.id}>
-                  <ActivityCard activity={a} stats={s[0]} />
-                </Grid>
-              );
-            })}
-          </Grid>
-        </Grid>
+      <Grid container direction="row" spacing={24}>
+        {activities.map((a) => {
+          const aStats = stats.filter((s) => s.id === a.id);
+          const s = aStats || [null];
+          return (
+            <Grid item xs={12} sm={6} md={4} key={a.id}>
+              <ActivityCard activity={a} stats={s[0]} />
+            </Grid>
+          );
+        })}
       </Grid>
     );
   }

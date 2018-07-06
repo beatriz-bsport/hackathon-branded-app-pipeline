@@ -46,7 +46,7 @@ export async function getSCT() {
 }
 
 export async function accessLevel(token) {
-  return getAuth(`${API_URI}/access_level`, (token = token));
+  return getAuth(`${API_URI}/saas/access_level`, (token = token));
 }
 
 export default {

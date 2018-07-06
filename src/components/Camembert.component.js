@@ -1,10 +1,17 @@
 import React from 'react';
 
-import { Grid, Typography } from '@material-ui/core';
+import { Paper, Typography, withStyles } from '@material-ui/core';
 
-export default function Camembert() {
+const styles = (theme) => ({
+  paper: {
+    spacing: theme.spacing.unit * 2,
+  },
+});
+
+export function Camembert(props) {
+  const { classes } = props;
   return (
-    <Grid container style={{ width: 400, padding: 20 }} direction="column">
+    <Paper className={classes.paper}>
       <Typography variant="title">Camembert</Typography>
       <Typography>
         <br />
@@ -12,6 +19,8 @@ export default function Camembert() {
         fezfjeiofjezoifj<br />eziofjeoizjf<br />
         <br />
       </Typography>
-    </Grid>
+    </Paper>
   );
 }
+
+export default withStyles()(Camembert);

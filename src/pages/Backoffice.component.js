@@ -14,6 +14,7 @@ import { activity as activityActions } from '../actions';
 import { offer as offerActions } from '../actions';
 import ActivityList from './ActivityList.component';
 import Activity from './Activity.component';
+import CoachList from './CoachList.component.js';
 
 const styles = (theme) => ({
   content: {
@@ -71,6 +72,7 @@ export class Backoffice extends Component<{}> {
             <Route path="/calendar" component={Calendar} />
             <Route exact path="/activity" component={ActivityList} />
             <Route path="/activity/:id" component={Activity} />
+            <Route path="/coach" component={CoachList} />
             <Route exact path="/" component={Dashboard} />
           </div>
         </main>

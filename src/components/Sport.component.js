@@ -12,7 +12,7 @@ const LEVELS = [
 ];
 
 export function Sport(props) {
-  const { parentCategory, category, t } = props;
+  const { parentCategory, category, t, noname } = props;
   const variant = props.variant || 'body1';
 
   const sport = SPORTS.filter((s) => s.id === parentCategory)[0];
@@ -28,9 +28,11 @@ export function Sport(props) {
       <Grid item>
         <img src={sport.icon} height={30} width={30} />
       </Grid>
-      <Grid item>
-        <Typography variant={variant}>{sport.text}</Typography>
-      </Grid>
+      {noname ? null : (
+        <Grid item>
+          <Typography variant={variant}>{sport.text}</Typography>
+        </Grid>
+      )}
     </Grid>
   );
 }

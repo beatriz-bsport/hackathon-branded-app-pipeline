@@ -28,6 +28,7 @@ import {
   TrendingUp,
   Email,
   HighlightOff,
+  FitnessCenter,
 } from '@material-ui/icons';
 import MenuIcon from '@material-ui/icons/Menu';
 
@@ -110,6 +111,14 @@ class ResponsiveDrawer extends React.Component {
               <ListItemText primary={t('navigation.dashboard')} />
             </ListItem>
           </Link>
+          <Link to="/calendar" style={{ textDecoration: 'none' }}>
+            <ListItem button>
+              <ListItemIcon>
+                <Today />
+              </ListItemIcon>
+              <ListItemText primary={t('navigation.calendar')} />
+            </ListItem>
+          </Link>
           <Divider />
           <Link to="/activity" style={{ textDecoration: 'none' }}>
             <ListItem button>
@@ -119,12 +128,12 @@ class ResponsiveDrawer extends React.Component {
               <ListItemText primary={t('navigation.activity')} />
             </ListItem>
           </Link>
-          <Link to="/calendar" style={{ textDecoration: 'none' }}>
+          <Link to="/coach" style={{ textDecoration: 'none' }}>
             <ListItem button>
               <ListItemIcon>
-                <Today />
+                <FitnessCenter />
               </ListItemIcon>
-              <ListItemText primary={t('navigation.calendar')} />
+              <ListItemText primary={t('common.coach')} />
             </ListItem>
           </Link>
           <Divider />

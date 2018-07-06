@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Grid } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 
 const DEFAULT_PROFIL_PIC =
   'https://ssl.gstatic.com/images/branding/product/1x/avatar_circle_blue_512dp.png';
@@ -12,6 +12,8 @@ export default function(props) {
   if (variant === 'small') {
     HEIGHT = 42;
     noname = true;
+  } else if (variant === 'large') {
+    HEIGHT = 140;
   }
 
   const WIDTH = HEIGHT;
@@ -35,7 +37,11 @@ export default function(props) {
           }}
         />
       </Grid>
-      {noname ? null : <Grid item>{coach.name || '-'}</Grid>}
+      {noname ? null : (
+        <Grid item>
+          <Typography variant="body1">{coach.name || '-'}</Typography>
+        </Grid>
+      )}
     </Grid>
   );
 }

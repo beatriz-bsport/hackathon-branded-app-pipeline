@@ -13,10 +13,10 @@ export function requestLogin(username, password) {
 
       const response_ = await api.auth.accessLevel(token);
       console.log(response_.data);
-      const { is_company, is_coach } = response_.data;
+      const { is_manager, is_coach } = response_.data;
 
       if (token) {
-        dispatch(setLogin({ username, password, token, is_company, is_coach }));
+        dispatch(setLogin({ username, password, token, is_manager, is_coach }));
       } else {
         dispatch(errorLogin());
       }
@@ -26,13 +26,13 @@ export function requestLogin(username, password) {
   };
 }
 
-export function setLogin({ username, password, token, is_company, is_coach }) {
+export function setLogin({ username, password, token, is_manager, is_coach }) {
   return {
     type: types.LOGIN_SUCCESSFUL,
     username,
     password,
     token,
-    is_company,
+    is_manager,
     is_coach,
   };
 }

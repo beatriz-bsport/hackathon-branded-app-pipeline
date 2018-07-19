@@ -12,13 +12,16 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { activity as activityActions } from '../actions';
 import { offer as offerActions } from '../actions';
+import { member as memberActions } from '../actions';
 import ActivityList from './ActivityList.component';
 import Activity from './Activity.component';
 import CoachList from './CoachList.component.js';
+import Payment from './Payment.component';
+import MemberList from './MemberList.component';
+import Member from './Member.component';
 
 const styles = (theme) => ({
   content: {
-    flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3,
   },
@@ -39,6 +42,7 @@ export class Backoffice extends Component<{}> {
   componentDidMount() {
     this.props.fetchAllActivities();
     this.props.fetchAllOffers();
+    this.props.fetchAllMembers();
   }
 
   toogleDrawer = () => {
@@ -73,6 +77,9 @@ export class Backoffice extends Component<{}> {
             <Route exact path="/activity" component={ActivityList} />
             <Route path="/activity/:id" component={Activity} />
             <Route path="/coach" component={CoachList} />
+            <Route path="/payment" component={Payment} />
+            <Route exact path="/member" component={MemberList} />
+            <Route path="/member/:id" component={Member} />
             <Route exact path="/" component={Dashboard} />
           </div>
         </main>
@@ -93,6 +100,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    fetchAllMembers() {
+      dispatch(memberActions.fetchAll());
+    },
     fetchAllOffers() {
       dispatch(offerActions.fetchAllOffers());
     },

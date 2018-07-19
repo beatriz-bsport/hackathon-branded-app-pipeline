@@ -21,6 +21,10 @@ const styles = (theme) => ({
 });
 export class CoachCard extends Component {
   getActivityList = () => {
+    const { t } = this.props;
+    if (!this.props.coach.activities.length) {
+      return <Typography variant="body">{t('coach.noActivity')}</Typography>;
+    }
     return (
       <Grid container direction="column" spacing={16}>
         {this.props.coach.activities.map((a) => (
@@ -46,7 +50,7 @@ export class CoachCard extends Component {
           <Grid item>
             <Grid container spacing={16} direction="column">
               <Grid item>
-                <Typography variant="title2">
+                <Typography variant="title">
                   {t('common.activities')}
                 </Typography>
               </Grid>

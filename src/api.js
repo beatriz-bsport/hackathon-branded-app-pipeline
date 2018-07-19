@@ -53,6 +53,14 @@ export async function fetchAssociatedCoaches() {
   return getAuth(`${API_URI}/coach/associated`);
 }
 
+export async function fetchAllMembers() {
+  return getAuth(`${API_URI}/saas/members`);
+}
+
+export async function fetchMemberBookings(memberId) {
+  return getAuth(`${API_URI}/saas/members/${memberId}/bookings`);
+}
+
 export default {
   category: {
     getSCT,
@@ -75,5 +83,9 @@ export default {
   },
   coach: {
     fetchAssociated: fetchAssociatedCoaches,
+  },
+  member: {
+    fetchAll: fetchAllMembers,
+    fetchBookings: fetchMemberBookings,
   },
 };

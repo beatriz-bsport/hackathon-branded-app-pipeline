@@ -12,17 +12,14 @@ import {
   Typography,
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
-import { connect } from 'react-redux';
 
 import { colors } from 'bsport-commons/lib/colors';
 
-import { booking as bookingActions } from '../actions';
 import { ActionButton } from '../components';
 
 type Props = {
-  offerId: Number,
-  pending_bookings: Array<Object>,
-  validated_bookings: Array<Object>,
+  pendingBookings: Array<Object>,
+  validatedBookings: Array<Object>,
 };
 
 const styles = (theme) => ({
@@ -42,26 +39,10 @@ function getStatusStyle(status) {
 }
 export class BookingTable extends Component<Props> {
   static defaultProps = {
-    pending_bookings: [],
-    validated_bookings: [],
+    loading: true,
+    pendingBookings: [],
+    validatedBookings: [],
   };
-  constructor(props) {
-    super(props);
-    this.state = {
-      offer: { id: 0 }, //cf getDerivedStateFromProps
-      selected: props.validated_bookings.map((b) => b.id),
-    };
-  }
-
-  componentDidMount() {
-    this.props.fetchBookings(this.props.offerId);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.offerId !== this.props.offerId) {
-      this.props.fetchBookings(nextProps.offerId);
-    }
-  }
 
   handleClick = (event, booking) => {
     const { status, id } = booking;
@@ -73,9 +54,9 @@ export class BookingTable extends Component<Props> {
   };
 
   render() {
-    const { t, offer, classes } = this.props;
-    const { validated_bookings, pending_bookings } = this.props;
-    const all_bookings = [...pending_bookings, ...validated_bookings];
+    const { t, classes } = this.props;
+    const { validatedBookings, pendingBookings } = this.props;
+    const all_bookings = [...pendingBookings, ...validatedBookings];
     return (
       <Grid container spacing={16} className={classes.root}>
         <Grid item>
@@ -116,25 +97,7 @@ export class BookingTable extends Component<Props> {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchBookings(offerId) {
-      dispatch(bookingActions.fetchBookingsByOffer(offerId));
-    },
-  };
-}
-
-function mapStateToProps(state) {
-  return {
-    loading: state.booking.loading,
-    validated_bookings: state.booking.validated,
-    pending_bookings: state.booking.pending,
-  };
-}
-
-export default withStyles(styles)(
-  translate()(connect(mapStateToProps, mapDispatchToProps)(BookingTable)),
-);
+export default withStyles(styles)(translate()(BookingTable));
 
 function contains(array, element) {
   return array.findIndex((i) => i === element) >= 0;

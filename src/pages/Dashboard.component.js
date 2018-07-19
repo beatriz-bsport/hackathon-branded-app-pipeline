@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Paper, Grid } from '@material-ui/core';
+import { Paper, Grid, Typography } from '@material-ui/core';
 import { Camembert, GreatFilter, Histogram } from '../components';
 
 import { translate } from 'react-i18next';
@@ -17,13 +17,7 @@ export class Dashboard extends Component {
     const { t } = this.props;
     return (
       <Grid container spacing={24}>
-        <GreatFilter />
-        <Grid item xs={12} md={6}>
-          <Camembert data={[]} />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Histogram data={[]} />
-        </Grid>
+        <Typography variant="display1">Welcome to bsport SaaS</Typography>
       </Grid>
     );
   }

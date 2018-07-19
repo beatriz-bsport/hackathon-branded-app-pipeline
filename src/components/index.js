@@ -10,6 +10,8 @@ import CoachThumbnail from './CoachThumbnail.component';
 import Level from './Level.component';
 import Sport from './Sport.component';
 import BookingTable from './BookingTable.component';
+import OfferBookingTable from './OfferBookingTable.component';
+import CustomerBookingTable from './CustomerBookingTable.component';
 import ActionButton from './ActionButton.component';
 import ActivityCard from './ActivityCard.component';
 import ActivityStats from './ActivityStats.component';
@@ -19,6 +21,8 @@ import GreatFilter from './GreatFilter.component';
 import ActivityBasicInfo from './ActivityBasicInfo.component';
 import CoachCard from './CoachCard.component';
 import ActivityMinimalSummary from './ActivityMinimalSummary.component';
+import PaymentTable from './PaymentTable.component';
+import FeatureTable from './FeatureTable.component';
 
 export {
   GreatFilter,
@@ -35,6 +39,8 @@ export {
   Level,
   Sport,
   BookingTable,
+  CustomerBookingTable,
+  OfferBookingTable,
   ActionButton,
   ActivityCard,
   ActivityStats,
@@ -42,4 +48,6 @@ export {
   ActivityBasicInfo,
   CoachCard,
   ActivityMinimalSummary,
+  PaymentTable,
+  FeatureTable,
 };

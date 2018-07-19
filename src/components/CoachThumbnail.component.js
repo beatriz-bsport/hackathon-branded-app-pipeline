@@ -14,6 +14,9 @@ export default function(props) {
     noname = true;
   } else if (variant === 'large') {
     HEIGHT = 140;
+  } else if (variant == 'mediumNoname') {
+    HEIGHT = 90;
+    noname = true;
   }
 
   const WIDTH = HEIGHT;

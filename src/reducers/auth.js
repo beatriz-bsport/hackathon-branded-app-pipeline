@@ -9,7 +9,7 @@ const initialState = Immutable({
   authenticated: false,
   error: false,
   loading: false,
-  is_company: true,
+  is_manager: true,
   is_coach: true,
 });
 
@@ -26,12 +26,12 @@ export default function authReducer(state = initialState, action = {}) {
       });
 
     case actionTypes.LOGIN_SUCCESSFUL:
-      const { username, token, is_company, is_coach } = action;
+      const { username, token, is_manager, is_coach } = action;
       setAuthToken(token);
       return Immutable.merge(state, {
         username,
         token,
-        is_company,
+        is_manager,
         is_coach,
         authenticated: true,
         error: false,

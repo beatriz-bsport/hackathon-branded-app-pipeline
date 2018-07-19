@@ -13,6 +13,28 @@ export default {
       filterBy: 'Filter by: ',
       edit: 'Edit',
       activities: 'Activities',
+      email: 'Email',
+      show_more: 'Show more',
+      yes: 'Yes',
+      no: 'No',
+      sort: 'Sort',
+      contact: 'Contact',
+      members: 'My users',
+      selected: 'Selected',
+    },
+    pagination: {
+      rowPerPage: 'Rows per page',
+      outOf: ' of ',
+    },
+    member: {
+      date_joined: 'Member since',
+      offers_joined: 'Activities joined',
+      pass_owner: 'Pas valid',
+      memberSince: 'Member since: ',
+    },
+    coach: {
+      noActivity: 'This coach does not manage any activity.',
+      selfNoActivity: 'You are not managing any activity.',
     },
     navigation: {
       dashboard: 'Dashboard',
@@ -22,6 +44,14 @@ export default {
       member: 'Members',
       payment: 'Payments',
       logoff: 'Sign out',
+      goBack: 'Go back',
+    },
+    payment: {
+      type: 'Type',
+      amount: 'Amount (€)',
+      consumer: 'Client',
+      paymentDate: 'Payment date',
+      object: 'Description',
     },
     login: {
       password: 'Password',

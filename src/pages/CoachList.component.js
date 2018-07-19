@@ -27,9 +27,9 @@ export class CoachList extends Component<Props> {
   };
 
   getAssociatedCoaches = () => {
-    const { associatedCoaches, is_company } = this.props;
+    const { associatedCoaches, is_manager } = this.props;
 
-    if (!is_company) {
+    if (!is_manager) {
       return null;
     }
 
@@ -55,7 +55,7 @@ function mapStateToProps(state) {
     selfCoach: state.coach.selfCoach,
     associatedCoaches: state.coach.companyAssociated,
     is_coach: state.auth.is_coach,
-    is_company: state.auth.is_company,
+    is_manager: state.auth.is_manager,
   };
 }
 

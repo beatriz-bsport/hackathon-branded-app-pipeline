@@ -12,6 +12,28 @@ export default {
       filterBy: 'Filtrer par : ',
       edit: 'Modifier',
       activities: 'Activités',
+      email: 'Email',
+      show_more: 'Voir +',
+      yes: 'Oui',
+      no: 'Non',
+      sort: 'Trier',
+      contact: 'Contact',
+      members: 'Mes utilisateurs',
+      selected: 'Séléctionné(s)',
+    },
+    pagination: {
+      rowPerPage: 'Eléments par page',
+      outOf: ' sur ',
+    },
+    member: {
+      date_joined: "Date d'inscription",
+      offers_joined: 'Nb séances inscrit(e)',
+      pass_owner: 'Abonnement valide',
+      memberSince: 'Inscrit le ',
+    },
+    coach: {
+      noActivity: 'Ce coach ne gère aucune activité.',
+      selfNoActivity: "Vous n'êtes en charge d'aucune activité.",
     },
     navigation: {
       dashboard: 'Dashboard',
@@ -21,6 +43,14 @@ export default {
       member: 'Membres',
       payment: 'Paiements',
       logoff: 'Déconnexion',
+      goBack: 'Retour',
+    },
+    payment: {
+      type: 'Type',
+      amount: 'Montant (€)',
+      consumer: 'Client',
+      paymentDate: "Date d'achat",
+      object: 'Description',
     },
     login: {
       password: 'Mot de passe',

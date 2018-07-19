@@ -14,7 +14,7 @@ import {
 import { LocationOn, AccessTime } from '@material-ui/icons';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { translate } from 'react-i18next';
-import { Level, Sport, CoachThumbnail, BookingTable } from '../components';
+import { Level, Sport, CoachThumbnail, OfferBookingTable } from '../components';
 
 import { humanizeDate } from '../datetime';
 
@@ -226,7 +226,7 @@ export class OfferCard extends Component<Props> {
               <Typography>{t('booking.seeCustomers')}</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
-              <BookingTable offerId={offer.id} />
+              <OfferBookingTable offerId={offer.id} />
             </ExpansionPanelDetails>
           </ExpansionPanel>
         </Grid>

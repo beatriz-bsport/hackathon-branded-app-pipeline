@@ -26,7 +26,7 @@ const styles = (theme) => ({
     overflowX: 'auto',
   },
   table: {
-    minWidth: 700,
+    minWidth: 10,
   },
   row: {
     '&:nth-of-type(odd)': {

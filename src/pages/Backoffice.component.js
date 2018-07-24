@@ -19,11 +19,13 @@ import CoachList from './CoachList.component.js';
 import Payment from './Payment.component';
 import MemberList from './MemberList.component';
 import Member from './Member.component';
+import PaymentPackList from './PaymentPackList.component';
 
 const styles = (theme) => ({
   content: {
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3,
+    flexGrow: 1,
   },
   toolbar: theme.mixins.toolbar,
   progress: {
@@ -73,14 +75,17 @@ export class Backoffice extends Component<{}> {
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <div>
-            <Route path="/calendar" component={Calendar} />
-            <Route exact path="/activity" component={ActivityList} />
-            <Route path="/activity/:id" component={Activity} />
-            <Route path="/coach" component={CoachList} />
-            <Route path="/payment" component={Payment} />
-            <Route exact path="/member" component={MemberList} />
-            <Route path="/member/:id" component={Member} />
-            <Route exact path="/" component={Dashboard} />
+            <Switch>
+              <Route path="/calendar" component={Calendar} />
+              <Route exact path="/activity" component={ActivityList} />
+              <Route path="/activity/:id" component={Activity} />
+              <Route path="/coach" component={CoachList} />
+              <Route path="/payment" component={Payment} />
+              <Route path="/payment-pack" component={PaymentPackList} />
+              <Route exact path="/member" component={MemberList} />
+              <Route path="/member/:id" component={Member} />
+              <Route exact path="/" component={PaymentPackList} />
+            </Switch>
           </div>
         </main>
       </ResponsiveDrawer>

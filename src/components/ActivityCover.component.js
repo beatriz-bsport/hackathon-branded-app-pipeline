@@ -10,7 +10,7 @@ export default class ActivityCover extends Component {
     objectFitImages();
   }
   render() {
-    const { cover_thumbnail, level_id, parent_category } = this.props.activity;
+    const { cover_thumbnail, levels, parent_category } = this.props.activity;
 
     const sport = SPORTS.filter((s) => s.id === parent_category)[0];
 
@@ -34,7 +34,13 @@ export default class ActivityCover extends Component {
           <div
             style={{ position: 'absolute', top: 10, zIndex: 9000, right: 10 }}
           >
-            <Level levelId={level_id} />
+            <Grid container direction="column" spacing={8}>
+              {levels.map((l) => (
+                <Grid item>
+                  <Level levelId={l.id} />
+                </Grid>
+              ))}
+            </Grid>
           </div>
         </div>
       );
@@ -45,7 +51,13 @@ export default class ActivityCover extends Component {
           <div
             style={{ position: 'absolute', top: 10, zIndex: 9000, right: 10 }}
           >
-            <Level levelId={level_id} />
+            <Grid container direction="column" spacing={8}>
+              {levels.map((l) => (
+                <Grid item>
+                  <Level levelId={l.id} />
+                </Grid>
+              ))}
+            </Grid>
           </div>
         </div>
       );

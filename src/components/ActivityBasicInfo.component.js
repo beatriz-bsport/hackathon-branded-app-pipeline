@@ -1,26 +1,56 @@
 import React, { Component } from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import {
+  Grid,
+  Typography,
+  ListItemText,
+  ListItemIcon,
+  List,
+  ListItem,
+  Tooltip,
+  IconButton,
+  withStyles,
+} from '@material-ui/core';
+import { translate } from 'react-i18next';
 
 import SPORTS from 'bsport-commons/lib/master-data/sports';
-import { CoachThumbnail } from '../components';
+import { Avatar } from '../components';
 
-export default function ActivityBasicInfo(props) {
-  const { name, etablissement, coach } = props.activity;
+const styles = (theme) => ({
+  noMargin: {
+    margin: 0,
+    padding: 0,
+  },
+});
+
+export function ActivityBasicInfo(props) {
+  const { t, classes } = props;
+  const { name, etablissements, coaches } = props.activity;
   return (
-    <Grid container justify="space-between" alignItems="center" direction="row">
+    <Grid container direction="row" justify="space-between" alignItems="center">
       <Grid item>
-        <Grid container direction="column">
-          <Grid item>
-            <Typography variant="subheading">{name}</Typography>
-          </Grid>
-          <Grid item>
-            <Typography variant="body1">{etablissement.title}</Typography>
-          </Grid>
-        </Grid>
+        <Typography variant="title">{name}</Typography>
       </Grid>
       <Grid item>
-        <CoachThumbnail coach={coach} variant="small" />
+        <Grid
+          container
+          direction="row"
+          spacing={8}
+          justify="flex-end"
+          alignItems="center"
+        >
+          {coaches.map((coach) => (
+            <Grid item>
+              <Tooltip title={coach.name}>
+                <IconButton disableRipple className={classes.noMargin}>
+                  <Avatar user={coach} variant="small" noname />
+                </IconButton>
+              </Tooltip>
+            </Grid>
+          ))}
+        </Grid>
       </Grid>
     </Grid>
   );
 }
+
+export default translate()(withStyles(styles)(ActivityBasicInfo));

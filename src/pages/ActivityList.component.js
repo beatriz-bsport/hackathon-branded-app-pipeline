@@ -45,6 +45,6 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default withStyles()(
-  translate()(connect(mapStateToProps, mapDispatchToProps)(Activity)),
+export default translate()(
+  connect(mapStateToProps, mapDispatchToProps)(Activity),
 );

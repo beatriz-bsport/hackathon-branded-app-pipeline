@@ -8,7 +8,12 @@ import {
   CardActions,
   Button,
   Typography,
+  ListItem,
+  List,
+  ListItemIcon,
+  ListItemText,
 } from '@material-ui/core';
+import { LocationOn } from '@material-ui/icons';
 import { translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
@@ -24,7 +29,7 @@ import api from '../api';
 
 export class ActivityCard extends Component<{}> {
   render() {
-    const { activity, t, classes, stats } = this.props;
+    const { activity, t, stats } = this.props;
     const {
       id,
       parent_category,
@@ -32,7 +37,7 @@ export class ActivityCard extends Component<{}> {
       level_id,
       cover_thumbnail,
       coach,
-      etablissement,
+      etablissements,
     } = activity;
 
     return (
@@ -43,6 +48,20 @@ export class ActivityCard extends Component<{}> {
         </CardContent>
         <CardContent>
           <ActivityStats activity={activity} stats={stats} />
+        </CardContent>
+        <CardContent>
+          <List>
+            {etablissements.map((e) => (
+              <ListItem>
+                <ListItemIcon>
+                  <LocationOn />
+                </ListItemIcon>
+                <ListItemText>
+                  <Typography variant="body1">{e.title}</Typography>
+                </ListItemText>
+              </ListItem>
+            ))}
+          </List>
         </CardContent>
         <CardActions>
           <Link to={`/activity/${id}`} style={{ textDecoration: 'none' }}>
@@ -56,4 +75,4 @@ export class ActivityCard extends Component<{}> {
   }
 }
 
-export default translate()(withStyles()(ActivityCard));
+export default translate()(ActivityCard);

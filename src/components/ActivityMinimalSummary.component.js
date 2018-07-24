@@ -1,33 +1,46 @@
 import React from 'react';
 
-import { Grid, Button } from '@material-ui/core';
+import {
+  Grid,
+  ListItem,
+  ListItemText,
+  ListItemSecondaryAction,
+  Typography,
+  Button,
+  IconButton,
+  withStyles,
+} from '@material-ui/core';
+import EmailIcon from '@material-ui/icons/Email';
 
-import { Link } from 'react-router-dom';
 import { translate } from 'react-i18next';
 
-import { Sport } from '../components';
+import { Level, Sport } from '../components';
+
+const styles = (theme) => ({
+  listItem: {
+    width: '100%',
+  },
+});
 
 export function ActivityMinimalSummary(props) {
-  const { activity, t } = props;
-  const { name, id, parent_category } = activity;
+  const { activity, t, classes } = props;
+  const {
+    name,
+    id,
+    parent_category,
+    level,
+    etablissement,
+    next_slot,
+  } = activity;
 
   return (
-    <Grid container justify="space-between">
-      <Grid item>
-        <Grid container direction="row" alignItems="center" spacing={8}>
-          <Grid item>
-            <Sport parentCategory={parent_category} noname />
-          </Grid>
-          <Grid item>{name}</Grid>
-        </Grid>
-      </Grid>
-      <Grid item>
-        <Link to={`/activity/${id}`} style={{ textDecoration: 'none' }}>
-          <Button variant="primary">{t('common.seeMore')}</Button>
-        </Link>
-      </Grid>
-    </Grid>
+    <ListItem key={id} dense button className={classes.listItem} divider>
+      <IconButton disableRipple>
+        <Sport parentCategory={parent_category} noname />
+      </IconButton>
+      <ListItemText primary={name} secondary={next_slot} />
+    </ListItem>
   );
 }
 
-export default translate()(ActivityMinimalSummary);
+export default translate()(withStyles(styles)(ActivityMinimalSummary));

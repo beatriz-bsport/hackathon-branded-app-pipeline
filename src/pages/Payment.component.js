@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 
 import { PaymentTable } from '../components';
 
@@ -23,6 +25,19 @@ export default class Payment extends Component<{}> {
         consumer: 'Jean Jacques',
       },
     ];
-    return <PaymentTable data={data} />;
+    return (
+      <Grid container spacing={32} alignItems="flex-end">
+        <Grid item xs={12}>
+          <PaymentTable data={data} />
+        </Grid>
+        <Grid item>
+          <div style={{ right: 0 }}>
+            <Button variant="raised" color="primary">
+              Voir mes factures
+            </Button>
+          </div>
+        </Grid>
+      </Grid>
+    );
   }
 }

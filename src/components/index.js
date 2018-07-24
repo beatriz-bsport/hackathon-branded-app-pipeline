@@ -11,7 +11,6 @@ import Level from './Level.component';
 import Sport from './Sport.component';
 import BookingTable from './BookingTable.component';
 import OfferBookingTable from './OfferBookingTable.component';
-import CustomerBookingTable from './CustomerBookingTable.component';
 import ActionButton from './ActionButton.component';
 import ActivityCard from './ActivityCard.component';
 import ActivityStats from './ActivityStats.component';
@@ -47,7 +46,6 @@ export {
   Level,
   Sport,
   BookingTable,
-  CustomerBookingTable,
   OfferBookingTable,
   ActionButton,
   ActivityCard,

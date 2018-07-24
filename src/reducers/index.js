@@ -7,6 +7,7 @@ import activityReducers from './activity';
 import statsReducers from './stats';
 import coachReducers from './coach';
 import memberReducer from './member';
+import paymentPackReducers from './paymentPack';
 
 export default combineReducers({
   auth: authReducers,
@@ -16,4 +17,5 @@ export default combineReducers({
   stats: statsReducers,
   coach: coachReducers,
   member: memberReducer,
+  paymentPack: paymentPackReducers,
 });

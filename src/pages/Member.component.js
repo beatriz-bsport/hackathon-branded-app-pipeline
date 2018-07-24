@@ -11,14 +11,18 @@ import {
   ExpansionPanelSummary,
   ExpansionPanelDetails,
   Button,
+  Divider,
+  CircularProgress,
 } from '@material-ui/core';
 import EmailIcon from '@material-ui/icons/Email';
 import CallIcon from '@material-ui/icons/Call';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { member as memberActions } from '../actions';
 
-import { CoachThumbnail, CustomerBookingTable } from '../components';
+import { MemberBookingGraph, Avatar, BookingTable } from '../components';
 
 const styles = (theme) => ({
   backButton: {
@@ -26,99 +30,212 @@ const styles = (theme) => ({
   },
   paperContainer: {
     padding: theme.spacing.unit * 2,
-    width: '100%',
+  },
+  root: {},
+  firstRow: {
+    padding: theme.spacing.unit * 2,
+  },
+  headingExpansionPanel: {
+    fontSize: theme.typography.pxToRem(15),
+    flexBasis: '33.33%',
+    flexShrink: 0,
+  },
+  secondaryHeadingExpansionPanel: {
+    fontSize: theme.typography.pxToRem(15),
+    color: theme.palette.text.secondary,
   },
 });
 
 export class Member extends Component<{}> {
-  getFirstRow = (data) => {
-    const { t } = this.props;
-    return (
-      <Grid
-        container
-        direction="row"
-        justifyContent="space-between"
-        alignItems="center"
-        spacing={24}
-      >
-        <Grid item>
-          <Grid container direction="row" alignItems="center" spacing={16}>
-            <Grid item>
-              <CoachThumbnail coach={data} variant="mediumNoname" />
-            </Grid>
-            <Grid item>
-              <Grid
-                container
-                direction="column"
-                alignItems="flex-start"
-                justifyContent="space-around"
-                spacing={8}
-              >
-                <Grid item>
-                  <Typography>{data.name}</Typography>
-                </Grid>
-                <Grid item>
-                  <Typography>
-                    {t('member.memberSince') + data.date_joined}
-                  </Typography>
+  componentWillMount() {
+    this.props.fetchMember(this.props.match.params.id);
+  }
+
+  getFirstRow = () => {
+    const { t, member, classes } = this.props;
+    const { consumer } = member;
+    // ugly FIXME: because loading should never be set to true
+    // if member=={}
+    if (consumer) {
+      return (
+        <Grid
+          container
+          direction="row"
+          justify="space-between"
+          alignItems="center"
+          spacing={24}
+          className={classes.firstRow}
+        >
+          <Grid item>
+            <Grid container direction="row" alignItems="center" spacing={16}>
+              <Grid item>
+                <Avatar user={consumer} variant="mediumNoname" />
+              </Grid>
+              <Grid item>
+                <Grid
+                  container
+                  direction="column"
+                  alignItems="flex-start"
+                  justify="space-around"
+                  spacing={8}
+                >
+                  <Grid item>
+                    <Typography>
+                      {consumer.first_name} {consumer.last_name}
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    <Typography>
+                      {t('member.memberSince') + member.date_joined}
+                    </Typography>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
           </Grid>
-        </Grid>
-        <Grid item>
-          <Grid container direction="column" spacing={8}>
-            <Grid item>
-              <IconButton>
-                <CallIcon />
-              </IconButton>
-            </Grid>
-            <Grid item>
-              <IconButton>
-                <EmailIcon />
-              </IconButton>
+          <Grid item>
+            <Grid container direction="column" spacing={8}>
+              <Grid item>
+                <IconButton>
+                  <CallIcon />
+                </IconButton>
+              </Grid>
+              <Grid item>
+                <IconButton>
+                  <EmailIcon />
+                </IconButton>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
-    );
+      );
+    }
+    return null;
   };
 
-  getFutureBookings = (data) => {
-    const { t } = this.props;
+  getFutureBookings = () => {
+    const { t, member, classes } = this.props;
+    const { next_bookings } = member;
+    if (next_bookings) {
+      const validatedBookings = next_bookings.filter((b) => b.status === true);
+      const pendingBookings = next_bookings.filter((b) => b.status !== true);
+      const nextBookingDate = next_bookings.length
+        ? `${next_bookings[0].date_start}`
+        : t('common.nothing');
+      return (
+        <ExpansionPanel>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography className={classes.headingExpansionPanel}>
+              {t('member.showNextBooking')}
+            </Typography>
+            <Typography className={classes.secondaryHeadingExpansionPanel}>
+              {nextBookingDate}
+            </Typography>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+            <BookingTable
+              heading="date_start"
+              validatedBookings={validatedBookings}
+              pendingBookings={pendingBookings}
+            />
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+      );
+    }
+    return null;
+  };
+
+  getPastBookings = () => {
+    const { t, member, classes } = this.props;
+    const { previous_bookings } = member;
+    if (previous_bookings) {
+      const validatedBookings = previous_bookings.filter(
+        (b) => b.status === true,
+      );
+      const pendingBookings = previous_bookings.filter(
+        (b) => b.status !== true,
+      );
+      const previousBookingDate = previous_bookings.length
+        ? `${previous_bookings[0].date_start}`
+        : t('common.nothing');
+      return (
+        <ExpansionPanel>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography className={classes.headingExpansionPanel}>
+              {t('member.showPreviousBooking')}
+            </Typography>
+            <Typography className={classes.secondaryHeadingExpansionPanel}>
+              {previousBookingDate}
+            </Typography>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+            <BookingTable
+              heading="date_start"
+              validatedBookings={validatedBookings}
+              pendingBookings={pendingBookings}
+            />
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+      );
+    }
+    return null;
+  };
+
+  getBookingsGraph = () => {
     return (
-      <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography>{t('booking.seeCustomers')}</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <CustomerBookingTable future offerId={1} />
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
+      <MemberBookingGraph
+        bookings={this.props.member.previous_bookings}
+        graphId="memberBookingsGraph"
+      />
     );
   };
-  render() {
-    const { t, classes } = this.props;
-    const data = {
-      name: 'Jean Jacques',
-      date_joined: Date.now(),
-      phone: '56789',
-      email: 'fghjk@hj.fr',
-    };
 
+  render() {
+    const { loading, t, classes } = this.props;
     return (
       <div>
-        <Link to="/member" style={{ textDecoration: 'none' }}>
-          <Button size="large" color="primary" className={classes.backButton}>
-            {t('navigation.goBack')}
-          </Button>
-        </Link>
-        <Paper className={classes.paperContainer}>
-          {this.getFirstRow(data)}
-        </Paper>
+        <div>
+          <Link to="/member" style={{ textDecoration: 'none' }}>
+            <Button size="large" color="primary" className={classes.backButton}>
+              {t('navigation.goBack')}
+            </Button>
+          </Link>
+        </div>
+        <div>
+          {loading ? (
+            <CircularProgress />
+          ) : this.props.member.consumer ? (
+            <div>
+              <Paper className={classes.paperContainer}>
+                {this.getFirstRow()}
+                {this.getBookingsGraph()}
+              </Paper>
+              {this.getFutureBookings()}
+              {this.getPastBookings()}
+            </div>
+          ) : (
+            <CircularProgress />
+          )}
+        </div>
       </div>
     );
   }
 }
 
-export default withStyles(styles)(translate()(Member));
+function mapStateToProps(state) {
+  return {
+    loading: state.member.loading,
+    member: state.member.member,
+  };
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchMember(memberId) {
+      dispatch(memberActions.fetchMember(memberId));
+    },
+  };
+}
+
+export default withStyles(styles)(
+  translate()(connect(mapStateToProps, mapDispatchToProps)(Member)),
+);

@@ -11,9 +11,11 @@ import {
   Button,
   IconButton,
   Checkbox,
+  Typography,
 } from '@material-ui/core';
 import EmailIcon from '@material-ui/icons/Email';
 import CallIcon from '@material-ui/icons/Call';
+import { connect } from 'react-redux';
 
 import { FeatureTable } from '../components';
 
@@ -27,75 +29,20 @@ const styles = (theme) => ({
 });
 
 export class Members extends Component<{}> {
-  renderRow = (member, handleClick, isSelected) => {
+  getColumnData = () => {
     const { t } = this.props;
-    return (
-      <TableRow
-        hover
-        onClick={(event) => handleClick(event, member.id)}
-        role="checkbox"
-        aria-checked={isSelected}
-        tabIndex={-1}
-        key={member.id}
-        selected={isSelected}
-      >
-        <TableCell padding="checkbox">
-          <Checkbox checked={isSelected} />
-        </TableCell>
-        <TableCell component="th" scope="row">
-          {member.name}
-        </TableCell>
-        <TableCell>{member.offers_joined}</TableCell>
-        <TableCell>{member.status}</TableCell>
-        <TableCell>{member.date_joined}</TableCell>
-        <TableCell padding="dense">
-          <IconButton>
-            <CallIcon />
-          </IconButton>
-        </TableCell>
-        <TableCell padding="dense">
-          <IconButton>
-            <EmailIcon />
-          </IconButton>
-        </TableCell>
-        <TableCell padding="dense">
-          <Link to={`/member/${member.id}`} style={{ textDecoration: 'none' }}>
-            <Button color="primary">{t('common.show_more')}</Button>
-          </Link>
-        </TableCell>
-      </TableRow>
-    );
-  };
-  render() {
-    const { t, classes } = this.props;
-    const data = [
-      {
-        id: 1,
-        name: 'Jean Jacques',
-        date_joined: '21/07/1998',
-        offers_joined: '5 séances (0 pass actif)',
-        status: 'Séance dans 2h',
-      },
-      {
-        id: 2,
-        name: 'Marie Paul',
-        date_joined: '24/12/2017',
-        offers_joined: '0 séance (1 pass actif)',
-        status: 'Inactif depuis 6 mois',
-      },
-    ];
-    const columnData = [
+    return [
       {
         id: 'name',
         label: t('common.name'),
       },
       {
         id: 'offers_joined',
-        label: t('member.offers_joined'),
+        label: t('member.engagement'),
       },
       {
         id: 'status',
-        label: t('common.status'),
+        label: t('booking.lastBooking'),
       },
       {
         id: 'date_joined',
@@ -114,11 +61,66 @@ export class Members extends Component<{}> {
         label: '',
       },
     ];
+  };
+  renderRow = (member, handleClick, isSelected) => {
+    const { t } = this.props;
+    const status = member.next_booking ? (
+      <Typography color="primary">{member.next_booking}</Typography>
+    ) : (
+      <Typography color="error">
+        {member.previous_booking || t('common.nothing')}
+      </Typography>
+    );
+    return (
+      <TableRow
+        hover
+        onClick={(event) => handleClick(event, member.id)}
+        role="checkbox"
+        aria-checked={isSelected}
+        tabIndex={-1}
+        key={member.id}
+        selected={isSelected}
+      >
+        <TableCell padding="checkbox">
+          <Checkbox checked={isSelected} />
+        </TableCell>
+        <TableCell component="th" scope="row">
+          {member.name}
+        </TableCell>
+        <TableCell>{`${member.nb_bookings} ${t(
+          'common.booking_s',
+        ).toLowerCase()} - ${member.nb_pass_active} ${t(
+          'common.pass',
+        ).toLowerCase()}`}</TableCell>
+        <TableCell>{status}</TableCell>
+        <TableCell>{member.date_joined}</TableCell>
+        <TableCell padding="dense">
+          <IconButton>
+            <CallIcon />
+          </IconButton>
+        </TableCell>
+        <TableCell padding="none">
+          <IconButton>
+            <EmailIcon />
+          </IconButton>
+        </TableCell>
+        <TableCell padding="dense">
+          <Link to={`/member/${member.id}`} style={{ textDecoration: 'none' }}>
+            <Button color="primary">{t('common.show_more')}</Button>
+          </Link>
+        </TableCell>
+      </TableRow>
+    );
+  };
+  render() {
+    const { t, classes } = this.props;
+    const { loading, members } = this.props;
     return (
       <FeatureTable
-        data={data}
+        data={members}
         renderRow={this.renderRow}
-        columnData={columnData}
+        columnData={this.getColumnData()}
+        loading={loading}
         title={t('common.members')}
         selectionFeature={
           <Tooltip title="Email">
@@ -133,4 +135,13 @@ export class Members extends Component<{}> {
   }
 }
 
-export default withStyles(styles)(translate()(Members));
+function mapStateToProps(state) {
+  return {
+    loading: state.member.loading,
+    members: state.member.all.asMutable(),
+  };
+}
+
+export default withStyles(styles)(
+  translate()(connect(mapStateToProps)(Members)),
+);

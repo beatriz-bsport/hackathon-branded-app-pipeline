@@ -26,15 +26,15 @@ export async function login(username, password) {
 }
 
 export async function fetchAllActivities() {
-  return getAuth(`${API_URI}/as_coach/activities/`);
+  return getAuth(`${API_URI}/saas/meta-activities/`);
 }
 
-export async function getStats(activityId) {
-  return getAuth(`${API_URI}/as_coach/activity/${activityId}/stats`);
+export async function getStats(metaActivityId) {
+  return getAuth(`${API_URI}/saas/meta-activity/${metaActivityId}/stats`);
 }
 
 export async function getAllStats() {
-  return getAuth(`${API_URI}/as_coach/activity/stats`);
+  return getAuth(`${API_URI}/saas/meta-activity/stats`);
 }
 
 export async function fetchBookingsByOffer(offerId) {
@@ -59,6 +59,13 @@ export async function fetchAllMembers() {
 
 export async function fetchMemberBookings(memberId) {
   return getAuth(`${API_URI}/saas/members/${memberId}/bookings`);
+}
+
+export async function fetchMember(memberId) {
+  return getAuth(`${API_URI}/saas/members/${memberId}`);
+}
+export async function fetchAllPaymentPacks() {
+  return getAuth(`${API_URI}/saas/payment-pack`);
 }
 
 export default {
@@ -87,5 +94,9 @@ export default {
   member: {
     fetchAll: fetchAllMembers,
     fetchBookings: fetchMemberBookings,
+    fetchMember: fetchMember,
+  },
+  paymentPack: {
+    fetchAll: fetchAllPaymentPacks,
   },
 };

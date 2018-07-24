@@ -26,7 +26,7 @@ import Signout from './pages/Signout.component';
 
 import { NavBar, TopBar } from './components';
 
-const styles = {
+const styles = (theme) => ({
   root: {
     flexGrow: 1,
     zIndex: 1,
@@ -34,7 +34,7 @@ const styles = {
     position: 'relative',
     display: 'flex',
   },
-};
+});
 
 export class Root extends Component<{}> {
   render() {

@@ -23,4 +23,4 @@ export function Camembert(props) {
   );
 }
 
-export default withStyles()(Camembert);
+export default withStyles(styles)(Camembert);

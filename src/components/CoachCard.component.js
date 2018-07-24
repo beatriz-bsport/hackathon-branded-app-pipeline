@@ -5,17 +5,25 @@ import {
   Paper,
   Divider,
   Typography,
+  List,
+  ListItem,
   withStyles,
+  IconButton,
+  Button,
 } from '@material-ui/core';
+import CallIcon from '@material-ui/icons/Call';
+import EmailIcon from '@material-ui/icons/Email';
+import { Link } from 'react-router-dom';
 import { translate } from 'react-i18next';
 
-import { CoachThumbnail, ActivityMinimalSummary } from '../components';
+import { Avatar, ActivityMinimalSummary } from '../components';
 
-const OVERFLOW = 110;
+const OVERFLOW = 100;
 
 const styles = (theme) => ({
   paper: {
-    padding: theme.spacing.unit * 4,
+    padding: theme.spacing.unit * 3,
+    paddingBottom: theme.spacing.unit,
     marginTop: OVERFLOW,
   },
 });
@@ -26,14 +34,16 @@ export class CoachCard extends Component {
       return <Typography variant="body">{t('coach.noActivity')}</Typography>;
     }
     return (
-      <Grid container direction="column" spacing={16}>
+      <List>
         {this.props.coach.activities.map((a) => (
-          <Grid item>
+          <Link
+            to={`/activity/${a.meta_activity_id}`}
+            style={{ textDecoration: 'none' }}
+          >
             <ActivityMinimalSummary activity={a} />
-            <Divider />
-          </Grid>
+          </Link>
         ))}
-      </Grid>
+      </List>
     );
   };
 
@@ -43,9 +53,28 @@ export class CoachCard extends Component {
       <Paper className={classes.paper}>
         <Grid container direction="column" spacing={24}>
           <Grid item>
-            <div style={{ marginTop: -OVERFLOW }}>
-              <CoachThumbnail coach={coach} variant="large" />
-            </div>
+            <Grid
+              container
+              direciton="row"
+              justify="space-between"
+              alignItems="flex-start"
+            >
+              <Grid item>
+                <IconButton>
+                  <CallIcon />
+                </IconButton>
+              </Grid>
+              <Grid item>
+                <div style={{ marginTop: -OVERFLOW }}>
+                  <Avatar user={coach} variant="large" />
+                </div>
+              </Grid>
+              <Grid item>
+                <IconButton>
+                  <EmailIcon />
+                </IconButton>
+              </Grid>
+            </Grid>
           </Grid>
           <Grid item>
             <Grid container spacing={16} direction="column">
@@ -56,6 +85,11 @@ export class CoachCard extends Component {
               </Grid>
               <Grid item>{this.getActivityList()}</Grid>
             </Grid>
+          </Grid>
+          <Grid item>
+            <Button size="small" color="primary">
+              {t('common.showDetails')}
+            </Button>
           </Grid>
         </Grid>
       </Paper>

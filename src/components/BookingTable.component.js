@@ -54,16 +54,20 @@ export class BookingTable extends Component<Props> {
   };
 
   render() {
-    const { t, classes } = this.props;
+    const { t, classes, heading } = this.props;
     const { validatedBookings, pendingBookings } = this.props;
     const all_bookings = [...pendingBookings, ...validatedBookings];
+    let firstRowHeading = t('common.name');
+    if (heading === 'date_start') {
+      firstRowHeading = t('common.date');
+    }
     return (
       <Grid container spacing={16} className={classes.root}>
         <Grid item>
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
-                <TableCell>{t('common.name')}</TableCell>
+                <TableCell>{firstRowHeading}</TableCell>
                 <TableCell>{t('booking.source')}</TableCell>
                 <TableCell numeric>{t('booking.nb_booking')}</TableCell>
                 <TableCell>{t('common.status')}</TableCell>
@@ -79,7 +83,7 @@ export class BookingTable extends Component<Props> {
                     role="checkbox"
                   >
                     <TableCell component="th" scope="row">
-                      {b.user.name}
+                      {heading === 'name' ? b.user.name : b.date_start}
                     </TableCell>
                     <TableCell>{t(`booking.sources.${b.source}`)}</TableCell>
                     <TableCell numeric>{b.nb_booking}</TableCell>

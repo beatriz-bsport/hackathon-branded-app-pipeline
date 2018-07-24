@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Grid, Paper } from '@material-ui/core';
+import { CircularProgress, Grid, Paper } from '@material-ui/core';
 import { connect } from 'react-redux';
 
 import { CoachCard } from '../components';
@@ -34,13 +34,16 @@ export class CoachList extends Component<Props> {
     }
 
     return associatedCoaches.map((coach) => (
-      <Grid item xs={12} sm={6} md={4}>
+      <Grid item xs={12} md={6}>
         <CoachCard coach={coach} />
       </Grid>
     ));
   };
 
   render() {
+    if (this.props.loading) {
+      return <CircularProgress />;
+    }
     return (
       <Grid container direction="row" spacing={24}>
         {this.getSelfCoach()}
@@ -52,6 +55,7 @@ export class CoachList extends Component<Props> {
 
 function mapStateToProps(state) {
   return {
+    loading: state.coach.loading,
     selfCoach: state.coach.selfCoach,
     associatedCoaches: state.coach.companyAssociated,
     is_coach: state.auth.is_coach,

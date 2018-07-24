@@ -29,6 +29,7 @@ import {
   Email,
   HighlightOff,
   FitnessCenter,
+  VpnKey,
 } from '@material-ui/icons';
 import MenuIcon from '@material-ui/icons/Menu';
 
@@ -126,6 +127,14 @@ class ResponsiveDrawer extends React.Component {
                 <Star />
               </ListItemIcon>
               <ListItemText primary={t('navigation.activity')} />
+            </ListItem>
+          </Link>
+          <Link to="/payment-pack" style={{ textDecoration: 'none' }}>
+            <ListItem button>
+              <ListItemIcon>
+                <VpnKey />
+              </ListItemIcon>
+              <ListItemText primary={t('navigation.pass')} />
             </ListItem>
           </Link>
           <Link to="/coach" style={{ textDecoration: 'none' }}>

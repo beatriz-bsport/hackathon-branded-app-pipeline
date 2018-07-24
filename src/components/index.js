@@ -6,7 +6,7 @@ import Camembert from './Camembert.component';
 import Histogram from './Histogram.component';
 import LanguageButton from './LanguageButton.component';
 import OfferCard from './OfferCard.component';
-import CoachThumbnail from './CoachThumbnail.component';
+import Avatar from './Avatar.component';
 import Level from './Level.component';
 import Sport from './Sport.component';
 import BookingTable from './BookingTable.component';
@@ -22,10 +22,18 @@ import ActivityBasicInfo from './ActivityBasicInfo.component';
 import CoachCard from './CoachCard.component';
 import ActivityMinimalSummary from './ActivityMinimalSummary.component';
 import PaymentTable from './PaymentTable.component';
-import FeatureTable from './FeatureTable.component';
+import FeatureTable from './FeatureTable/';
+import MemberBookingGraph from './MemberBookingGraph.component';
+import PaymentPack from './PaymentPack.component';
+import ConsumerRowSummary from './ConsumerRowSummary.component';
+import ConsumerPaymentPackConsumersTable from './ConsumerPaymentPackConsumersTable.component';
 
 export {
+  ConsumerRowSummary,
+  ConsumerPaymentPackConsumersTable,
+  PaymentPack,
   GreatFilter,
+  MemberBookingGraph,
   Filter,
   TopBar,
   NavBar,
@@ -35,7 +43,7 @@ export {
   Histogram,
   LanguageButton,
   OfferCard,
-  CoachThumbnail,
+  Avatar,
   Level,
   Sport,
   BookingTable,

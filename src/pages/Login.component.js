@@ -9,11 +9,18 @@ import {
   Paper,
   Grid,
   TextField,
+  withStyles,
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
 import { auth as authActions } from '../actions';
 import { LoginBase } from '../components';
+
+const styles = (theme) => ({
+  loading: {
+    margin: theme.spacing.unit * 2,
+  },
+});
 
 export class Login extends Component<{}> {
   constructor(props) {
@@ -50,7 +57,7 @@ export class Login extends Component<{}> {
   };
 
   render() {
-    const { t } = this.props;
+    const { t, classes } = this.props;
 
     if (this.props.authenticated) {
       return <Redirect push to="/" />;
@@ -90,7 +97,11 @@ export class Login extends Component<{}> {
               <Button type="submit" color="primary" variant="raised">
                 OK
               </Button>
-              {this.props.loading ? <CircularProgress /> : <div />}
+              {this.props.loading ? (
+                <CircularProgress className={classes.loading} />
+              ) : (
+                <div />
+              )}
             </Grid>
           </div>
         </form>
@@ -114,4 +125,6 @@ function mapDispatchToProps(dispatch) {
     },
   };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(translate()(Login));
+export default connect(mapStateToProps, mapDispatchToProps)(
+  translate()(withStyles(styles)(Login)),
+);

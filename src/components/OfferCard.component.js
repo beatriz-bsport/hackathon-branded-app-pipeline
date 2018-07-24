@@ -14,7 +14,7 @@ import {
 import { LocationOn, AccessTime } from '@material-ui/icons';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { translate } from 'react-i18next';
-import { Level, Sport, CoachThumbnail, OfferBookingTable } from '../components';
+import { Level, Sport, Avatar, OfferBookingTable } from '../components';
 
 import { humanizeDate } from '../datetime';
 
@@ -153,7 +153,7 @@ export class OfferCard extends Component<Props> {
         className={classes.footer}
       >
         <Grid item xs={4} style={{ borderRight: '1px solid #EEEEEE' }}>
-          <CoachThumbnail coach={coach} />
+          <Avatar user={coach} />
         </Grid>
         <Grid item xs={8}>
           <Grid

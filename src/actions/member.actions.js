@@ -39,3 +39,29 @@ export function fetchBookings(memberId) {
 export function hasFetchedMemberBookings(bookings) {
   return { type: types.HAS_FETCHED_MEMBER_BOOKINGS, bookings };
 }
+
+export function fetchMember(id) {
+  return async (dispatch) => {
+    dispatch(startFetchMember());
+
+    try {
+      const response = await api.member.fetchMember(id);
+      const member = response.data;
+      dispatch(hasFetchedMember(member));
+    } catch (err) {
+      dispatch(errorFetchingMember());
+    }
+  };
+}
+
+export function startFetchMember() {
+  return { type: types.START_FETCH_MEMBER };
+}
+
+export function hasFetchedMember(member) {
+  return { type: types.HAS_FETCHED_MEMBER, member };
+}
+
+export function errorFetchingMember() {
+  return { type: types.ERROR_FETCHING_MEMBER };
+}

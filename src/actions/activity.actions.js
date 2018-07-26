@@ -35,3 +35,21 @@ export function errorFetchingAllActivities() {
 export function activityAlreadyLoading() {
   return { type: types.ACTIVITY_ALREADY_LOADING };
 }
+
+export function fetchMetaActivityDetails(id) {
+  return async (dispatch, getState) => {
+    dispatch(startFetchAllActivities());
+
+    try {
+      const response = await api.activity.fetchMetaActivityDetails(id);
+      const metaActivity = response.data;
+      dispatch(fetchedMetaActivityDetails(metaActivity));
+    } catch (err) {
+      dispatch(errorFetchingAllActivities());
+    }
+  };
+}
+
+export function fetchedMetaActivityDetails(metaActivity) {
+  return { type: types.FETCHED_META_ACTIVITY_DETAILS, metaActivity };
+}

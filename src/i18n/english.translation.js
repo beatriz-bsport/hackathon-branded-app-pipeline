@@ -86,6 +86,13 @@ export default {
       grossVolume: 'Gross volume',
       totalCustomers: 'Total bookings',
       fillrate: 'Average fillrate',
+      description: 'Description',
+      offersThisDay: 'Activities this day:',
+      noOfferThisDay: 'No activity this day, please select another date',
+      orNcredits1: '(or ',
+      orNcredits2: ' credits)',
+      packsAvailable: 'Pass available for this activity :',
+      reviews: 'Customer reviews: ',
     },
     booking: {
       fillRate: 'Filled',

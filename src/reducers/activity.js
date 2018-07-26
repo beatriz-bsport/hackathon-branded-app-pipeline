@@ -7,6 +7,7 @@ const initialState = Immutable({
   loading: true,
   error: false,
   errorMsg: '',
+  metaActivity: null,
 });
 
 export default function activityReducers(state = initialState, action = {}) {
@@ -26,6 +27,13 @@ export default function activityReducers(state = initialState, action = {}) {
         loading: false,
         error: true,
         errorMsg: action.error,
+      });
+
+    case actionTypes.FETCHED_META_ACTIVITY_DETAILS:
+      return Immutable.merge(state, {
+        loading: false,
+        error: false,
+        metaActivity: action.metaActivity,
       });
 
     default:

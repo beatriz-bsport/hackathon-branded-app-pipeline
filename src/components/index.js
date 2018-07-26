@@ -26,8 +26,14 @@ import MemberBookingGraph from './MemberBookingGraph.component';
 import PaymentPack from './PaymentPack.component';
 import ConsumerRowSummary from './ConsumerRowSummary.component';
 import ConsumerPaymentPackConsumersTable from './ConsumerPaymentPackConsumersTable.component';
+import DayPicker from './DayPicker.component';
+import PackMinimalSummary from './PackMinimalSummary.component';
+import Review from './Review.component';
 
 export {
+  PackMinimalSummary,
+  Review,
+  DayPicker,
   ConsumerRowSummary,
   ConsumerPaymentPackConsumersTable,
   PaymentPack,

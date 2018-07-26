@@ -16,7 +16,9 @@ export function Level(props) {
   const variant = props.variant || 'body1';
 
   const stylesheet = noStyle
-    ? {}
+    ? {
+        color: getLevelColorById(levelId),
+      }
     : {
         padding: '10px',
         paddingTop: '4px',

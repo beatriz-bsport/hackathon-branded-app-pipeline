@@ -20,7 +20,7 @@ class Activity extends Component<Props> {
           const aStats = stats.filter((s) => s.id === a.id);
           const s = aStats || [null];
           return (
-            <Grid item xs={12} sm={6} md={4} key={a.id}>
+            <Grid item xs={12} sm={6} key={a.id}>
               <ActivityCard activity={a} stats={s[0]} />
             </Grid>
           );

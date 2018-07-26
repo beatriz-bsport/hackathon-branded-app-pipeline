@@ -27,9 +27,16 @@ import {
 } from '../components';
 import api from '../api';
 
+const styles = (theme) => ({
+  unPaddedHorizontal: {
+    marginLeft: -theme.spacing.unit * 3,
+    marginRight: -theme.spacing.unit * 3,
+  },
+});
+
 export class ActivityCard extends Component<{}> {
   render() {
-    const { activity, t, stats } = this.props;
+    const { activity, t, stats, classes } = this.props;
     const {
       id,
       parent_category,
@@ -46,13 +53,13 @@ export class ActivityCard extends Component<{}> {
         <CardContent>
           <ActivityBasicInfo activity={activity} />
         </CardContent>
-        <CardContent>
+        <CardContent className={classes.unPaddedHorizontal}>
           <ActivityStats activity={activity} stats={stats} />
         </CardContent>
         <CardContent>
           <List>
             {etablissements.map((e) => (
-              <ListItem>
+              <ListItem key={e.id}>
                 <ListItemIcon>
                   <LocationOn />
                 </ListItemIcon>
@@ -75,4 +82,4 @@ export class ActivityCard extends Component<{}> {
   }
 }
 
-export default translate()(ActivityCard);
+export default withStyles(styles)(translate()(ActivityCard));

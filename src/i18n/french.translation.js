@@ -104,6 +104,14 @@ export default {
       grossVolume: "Chiffre d'affaire",
       totalCustomers: 'Total réservations',
       fillrate: 'Remplissage moyen',
+      description: 'Description',
+      offersThisDay: 'Séances ce jour :',
+      noOfferThisDay:
+        'Pas de séance, sélectionnedz une autre date sur le calendrier',
+      orNcredits1: '(ou ',
+      orNcredits2: ' credits)',
+      packsAvailable: 'Eligible aux pass :',
+      reviews: 'Avis clients: ',
     },
     booking: {
       fillRate: 'Taux de remplissage',
@@ -130,7 +138,7 @@ export default {
     level: {
       all: 'Tous niveaux',
       beginner: 'Débutant',
-      intermediate: 'Intermédiare',
+      intermediate: 'Intermédiaire',
       advanced: 'Avancé',
     },
     time: {

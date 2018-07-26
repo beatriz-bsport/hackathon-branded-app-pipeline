@@ -39,7 +39,7 @@ export function ActivityBasicInfo(props) {
           alignItems="center"
         >
           {coaches.map((coach) => (
-            <Grid item>
+            <Grid item key={coach.id}>
               <Tooltip title={coach.name}>
                 <IconButton disableRipple className={classes.noMargin}>
                   <Avatar user={coach} variant="small" noname />

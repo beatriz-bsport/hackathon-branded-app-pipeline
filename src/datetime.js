@@ -80,3 +80,15 @@ export function humanizeDate(date) {
     timeFixed: getTime(d, true),
   };
 }
+
+export function isSameDay(date, date_) {
+  const day = date.getDate();
+  const month = date.getMonth();
+  const year = date.getYear();
+
+  const day_ = date_.getDate();
+  const month_ = date_.getMonth();
+  const year_ = date_.getYear();
+
+  return day === day_ && month === month_ && year === year_;
+}

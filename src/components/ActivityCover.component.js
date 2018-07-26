@@ -16,7 +16,7 @@ export default class ActivityCover extends Component {
 
     const imgStyle = {
       backgroundColor: 'rgba(50,50,50,.5)',
-      height: '200px',
+      minHeight: '200px',
       width: '100%',
       objectFit: 'cover',
     };
@@ -36,7 +36,7 @@ export default class ActivityCover extends Component {
           >
             <Grid container direction="column" spacing={8}>
               {levels.map((l) => (
-                <Grid item>
+                <Grid item key={l.id}>
                   <Level levelId={l.id} />
                 </Grid>
               ))}

@@ -24,8 +24,8 @@ import {
   ActivityBasicInfo,
   Level,
   CoachThumbnail,
-} from '../components';
-import api from '../api';
+} from '../../components';
+import api from '../../api';
 
 const styles = (theme) => ({
   unPaddedHorizontal: {

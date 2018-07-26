@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Grid, Typography } from '@material-ui/core';
+import objectFitImages from 'object-fit-images';
 
 import SPORTS from 'bsport-commons/lib/master-data/sports';
-import { Level } from '../components';
-import objectFitImages from 'object-fit-images';
+import { Level } from '../../components';
 
 export default class ActivityCover extends Component {
   componentDidMount() {

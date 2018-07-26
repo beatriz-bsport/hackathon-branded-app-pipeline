@@ -1,7 +1,7 @@
 import React from 'react';
 
-const VALIDATE_ASSET = require('../public/images/validate.png');
-const CANCEL_ASSET = require('../public/images/remove.png');
+const VALIDATE_ASSET = require('../../public/images/validate.png');
+const CANCEL_ASSET = require('../../public/images/remove.png');
 export default function ActionButton(props) {
   let src = '';
   switch (props.variant) {

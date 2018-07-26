@@ -13,7 +13,7 @@ import {
 import { translate } from 'react-i18next';
 
 import SPORTS from 'bsport-commons/lib/master-data/sports';
-import { Avatar } from '../components';
+import { Avatar } from '../../components';
 
 const styles = (theme) => ({
   noMargin: {

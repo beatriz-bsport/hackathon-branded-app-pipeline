@@ -34,8 +34,8 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 
 import { Link } from 'react-router-dom';
-import { DisconnectButton, LanguageButton } from '../components';
-import LOGO_ASSET from '../public/images/banner_lowres.png';
+import { DisconnectButton, LanguageButton } from '../../components';
+import LOGO_ASSET from '../../public/images/banner_lowres.png';
 
 const drawerWidth = 240;
 

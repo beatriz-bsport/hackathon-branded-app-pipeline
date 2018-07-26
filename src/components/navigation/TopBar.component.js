@@ -17,9 +17,9 @@ import {
 import { Menu } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
 
-import { DisconnectButton } from './index';
+import { DisconnectButton } from '../../components';
 
-import LOGO_ASSET from '../public/images/banner_lowres.png';
+import LOGO_ASSET from '../../public/images/banner_lowres.png';
 
 const styles = (theme) => ({
   flex: {

@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
-import { ConsumerRowSummary } from '../components';
+import { ConsumerRowSummary } from '../../components';
 
 const styles = (theme) => ({
   horizontalDivider: {

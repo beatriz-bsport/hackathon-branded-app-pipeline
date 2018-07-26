@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
-import { availableLanguages } from '../i18n/';
+import { availableLanguages } from '../../i18n/';
 
 export class LanguageButton extends Component {
   handleChange = (event) => {

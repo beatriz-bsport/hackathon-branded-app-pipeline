@@ -15,7 +15,7 @@ import EmailIcon from '@material-ui/icons/Email';
 
 import { translate } from 'react-i18next';
 
-import { Level, Sport, Avatar } from '../components';
+import { Level, Sport, Avatar } from '../../components';
 
 const styles = (theme) => ({
   listItem: {

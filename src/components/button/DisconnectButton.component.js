@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Button, Typography } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
-import { auth as authActions } from '../actions';
+import { auth as authActions } from '../../actions';
 import { colors } from 'bsport-commons/lib/colors';
 
 export function DisconnectButton(props) {

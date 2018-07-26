@@ -58,6 +58,9 @@ const styles = (theme) => ({
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
   },
+  responsiveSubBlock: {
+    marginBottom: theme.spacing.unit * 3,
+  },
   dot: {
     backgroundColor: colors.primaryDark,
     height: 4,
@@ -194,7 +197,7 @@ export class MetaActivity extends Component<Props> {
         direction="column"
         alignItems="center"
         justify="flex-start"
-        style={{ width: 38, height: 38 }}
+        style={{ width: 28, height: 28 }}
       >
         <Grid item>{day}</Grid>
         <Grid item style={{ marginTop: 5 }}>
@@ -219,13 +222,8 @@ export class MetaActivity extends Component<Props> {
     const { activities } = metaActivity;
     const { offersOnSelectedDay } = this.state;
     return (
-      <Grid
-        container
-        direction="row"
-        alignItems="flex-start"
-        justify="space-around"
-      >
-        <Grid item xs={12} md={6}>
+      <Grid container direction="row" alignItems="flex-start">
+        <Grid item xs={12} md={6} className={classes.responsiveSubBlock}>
           <DayPicker
             handleDayClick={this.handleDayClick}
             renderDay={this.renderDay}
@@ -274,6 +272,7 @@ export class MetaActivity extends Component<Props> {
             spacing={16}
             justify="center"
             alignItems="center"
+            className={classes.responsiveSubBlock}
           >
             <Grid item>
               <Typography variant="display2">{default_price} €</Typography>
@@ -290,7 +289,9 @@ export class MetaActivity extends Component<Props> {
           <Typography className={classes.blockTitleLargeMargin} variant="title">
             {t('activity.packsAvailable')}
           </Typography>
-          {payment_packs_available.map((p) => <PackMinimalSummary pack={p} />)}
+          {payment_packs_available.map((p) => (
+            <PackMinimalSummary key={p.id} pack={p} />
+          ))}
         </Grid>
       </Grid>
     );
@@ -310,10 +311,9 @@ export class MetaActivity extends Component<Props> {
           alignItems="center"
           direction="row"
           spacing={32}
-          flexWrap="nowrap"
         >
           {reviews.map((r) => (
-            <Grid item xs={6} md={4}>
+            <Grid item xs={6} md={4} key={r.id}>
               <Review review={r} />
             </Grid>
           ))}

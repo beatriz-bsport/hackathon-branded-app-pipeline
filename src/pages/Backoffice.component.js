@@ -5,7 +5,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { TopBar, NavBar } from '../components';
 import Calendar from './Calendar.component';
 import Dashboard from './Dashboard.component';
-import ResponsiveDrawer from './ResponsiveDrawer.component';
+import { ResponsiveDrawer } from '../components';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';

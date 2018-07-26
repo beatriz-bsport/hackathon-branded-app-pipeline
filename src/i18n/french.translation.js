@@ -107,7 +107,7 @@ export default {
       description: 'Description',
       offersThisDay: 'Séances ce jour :',
       noOfferThisDay:
-        'Pas de séance, sélectionnedz une autre date sur le calendrier',
+        'Pas de séance, sélectionnez une autre date sur le calendrier',
       orNcredits1: '(ou ',
       orNcredits2: ' credits)',
       packsAvailable: 'Eligible aux pass :',

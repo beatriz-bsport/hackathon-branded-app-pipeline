@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import SimpleDayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
+import './DayPicker.css';
+import MomentLocaleUtils from 'react-day-picker/moment';
+import i18n from '../i18n';
 
 type Props = {
   handleDayClick: () => void,
@@ -39,6 +42,8 @@ export default class DayPicker extends Component<Props> {
         {...this.props}
         selectedDays={this.state.selectedDays}
         onDayClick={this.handleClick}
+        localeUtils={MomentLocaleUtils}
+        locale={i18n.language.slice(0, 2)}
       />
     );
   }

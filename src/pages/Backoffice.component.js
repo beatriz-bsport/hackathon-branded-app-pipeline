@@ -14,7 +14,7 @@ import { activity as activityActions } from '../actions';
 import { offer as offerActions } from '../actions';
 import { member as memberActions } from '../actions';
 import ActivityList from './ActivityList.component';
-import Activity from './Activity.component';
+import MetaActivity from './MetaActivity.component';
 import CoachList from './CoachList.component.js';
 import Payment from './Payment.component';
 import MemberList from './MemberList.component';
@@ -78,13 +78,13 @@ export class Backoffice extends Component<{}> {
             <Switch>
               <Route path="/calendar" component={Calendar} />
               <Route exact path="/activity" component={ActivityList} />
-              <Route path="/activity/:id" component={Activity} />
+              <Route path="/activity/:id" component={MetaActivity} />
               <Route path="/coach" component={CoachList} />
               <Route path="/payment" component={Payment} />
               <Route path="/payment-pack" component={PaymentPackList} />
               <Route exact path="/member" component={MemberList} />
               <Route path="/member/:id" component={Member} />
-              <Route exact path="/" component={PaymentPackList} />
+              <Route exact path="/" component={ActivityList} />
             </Switch>
           </div>
         </main>

@@ -4,15 +4,10 @@ import { CircularProgress, Grid, Paper } from '@material-ui/core';
 import { connect } from 'react-redux';
 
 import { CoachCard } from '../components';
-import { coach as coachActions } from '../actions';
 
 type Props = {};
 
 export class CoachList extends Component<Props> {
-  componentDidMount() {
-    this.props.fetchAssociatedCoaches();
-  }
-
   getSelfCoach = () => {
     const { is_coach, selfCoach } = this.props;
     if (!is_coach) {
@@ -63,12 +58,4 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchAssociatedCoaches() {
-      dispatch(coachActions.fetchAssociated());
-    },
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(CoachList);
+export default connect(mapStateToProps)(CoachList);

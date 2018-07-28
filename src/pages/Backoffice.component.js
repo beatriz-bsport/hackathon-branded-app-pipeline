@@ -14,6 +14,7 @@ import { activity as activityActions } from '../actions';
 import { metaActivity as metaActivityActions } from '../actions';
 import { offer as offerActions } from '../actions';
 import { member as memberActions } from '../actions';
+import { coach as coachActions } from '../actions';
 import MetaActivityList from './MetaActivityList.component';
 import MetaActivity from './MetaActivity.component';
 import CoachList from './CoachList.component.js';
@@ -48,6 +49,7 @@ export class Backoffice extends Component<{}> {
     this.props.fetchAllOffers();
     this.props.fetchAllMembers();
     this.props.fetchActivitiesMinimal();
+    this.props.fetchAssociatedCoaches();
   }
 
   toogleDrawer = () => {
@@ -119,6 +121,9 @@ function mapDispatchToProps(dispatch) {
     },
     fetchActivitiesMinimal() {
       dispatch(activityActions.fetchActivities());
+    },
+    fetchAssociatedCoaches() {
+      dispatch(coachActions.fetchAssociated());
     },
   };
 }

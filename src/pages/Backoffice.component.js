@@ -11,9 +11,10 @@ import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { activity as activityActions } from '../actions';
+import { metaActivity as metaActivityActions } from '../actions';
 import { offer as offerActions } from '../actions';
 import { member as memberActions } from '../actions';
-import ActivityList from './ActivityList.component';
+import MetaActivityList from './MetaActivityList.component';
 import MetaActivity from './MetaActivity.component';
 import CoachList from './CoachList.component.js';
 import Payment from './Payment.component';
@@ -56,7 +57,7 @@ export class Backoffice extends Component<{}> {
   render() {
     const { classes } = this.props;
     const { drawerOpen } = this.state;
-    const { activityLoading, offerLoading } = this.props;
+    const { metaActivityLoading, offerLoading } = this.props;
 
     if (!this.props.authenticated) {
       return <Redirect to="/login" />;
@@ -67,7 +68,7 @@ export class Backoffice extends Component<{}> {
         */
 
     /*
-        {activityLoading || offerLoading ? (
+        {metaActivityLoading || offerLoading ? (
           <CircularProgress className={classes.progress} size={50} />
         ) : (
         )}
@@ -79,7 +80,7 @@ export class Backoffice extends Component<{}> {
           <div>
             <Switch>
               <Route path="/calendar" component={Planning} />
-              <Route exact path="/activity" component={ActivityList} />
+              <Route exact path="/activity" component={MetaActivityList} />
               <Route path="/activity/:id" component={MetaActivity} />
               <Route path="/coach" component={CoachList} />
               <Route path="/payment" component={Payment} />
@@ -100,7 +101,7 @@ const themedBackoffice = withStyles(styles)(Backoffice);
 function mapStateToProps(state) {
   return {
     authenticated: state.auth.authenticated,
-    activityLoading: state.activity.loading,
+    metaActivityLoading: state.metaActivity.loading,
     offerLoading: state.offer.loading,
   };
 }
@@ -114,10 +115,10 @@ function mapDispatchToProps(dispatch) {
       dispatch(offerActions.fetchAllOffers());
     },
     fetchAllActivities() {
-      dispatch(activityActions.fetchAllActivities());
+      dispatch(metaActivityActions.fetchAllActivities());
     },
     fetchActivitiesMinimal() {
-      dispatch(activityActions.fetchActivitiesMinimal());
+      dispatch(activityActions.fetchActivities());
     },
   };
 }

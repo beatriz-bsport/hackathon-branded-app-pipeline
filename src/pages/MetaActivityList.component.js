@@ -13,10 +13,10 @@ class Activity extends Component<Props> {
   }
 
   render() {
-    const { activities, stats } = this.props;
+    const { metaActivities, stats } = this.props;
     return (
       <Grid container direction="row" spacing={24}>
-        {activities.map((a) => {
+        {metaActivities.map((a) => {
           const aStats = stats.filter((s) => s.id === a.id);
           const s = aStats || [null];
           return (
@@ -32,7 +32,7 @@ class Activity extends Component<Props> {
 
 function mapStateToProps(state) {
   return {
-    activities: state.activity.all,
+    metaActivities: state.metaActivity.all,
     stats: state.stats.activities,
   };
 }

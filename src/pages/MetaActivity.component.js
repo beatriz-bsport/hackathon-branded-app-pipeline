@@ -30,7 +30,7 @@ import {
   ActivityMinimalSummary,
   PackMinimalSummary,
 } from '../components';
-import { activity as activityActions } from '../actions';
+import { metaActivity as metaActivityActions } from '../actions';
 
 type Props = {};
 
@@ -370,9 +370,8 @@ export class MetaActivity extends Component<Props> {
 
 function mapStateToProps(state) {
   return {
-    loading: state.activity.loading,
-    activities: state.activity.all,
-    metaActivity: state.activity.metaActivity,
+    loading: state.metaActivity.loading,
+    metaActivity: state.metaActivity.metaActivity,
     stats: state.stats.activities,
   };
 }
@@ -380,7 +379,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     fetchMetaActivityDetails(id) {
-      dispatch(activityActions.fetchMetaActivityDetails(id));
+      dispatch(metaActivityActions.fetchMetaActivityDetails(id));
     },
   };
 }

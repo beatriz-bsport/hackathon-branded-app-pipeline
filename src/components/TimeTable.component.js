@@ -15,7 +15,6 @@ import { Moment } from '../i18n';
 import { ActivityMinimalSummary } from '../components';
 
 const styles = (theme) => ({
-  container: {},
   emptyMessage: {
     margin: theme.spacing.unit * 3,
   },
@@ -96,9 +95,11 @@ export class TimeTable extends Component<Props> {
       return <CircularProgress />;
     }
     return offersToday.length ? (
-      <Paper className={classes.container}>
-        <List>{offersToday.map((o) => this.renderActivity(o))}</List>
-      </Paper>
+      <List>
+        <Paper className={classes.container}>
+          {offersToday.map((o) => this.renderActivity(o))}
+        </Paper>
+      </List>
     ) : (
       <div className={classes.emptyMessage}>
         <Typography variant="caption">
@@ -112,7 +113,7 @@ export class TimeTable extends Component<Props> {
 function mapStateToProps(state) {
   return {
     offers: state.offer.calendar,
-    activities: state.activity.activitiesMinimal,
+    activities: state.activity.all,
     loading: state.activity.loading,
   };
 }

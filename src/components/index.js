@@ -31,12 +31,12 @@ import DayPicker from './DayPicker.component';
 import PackMinimalSummary from './PackMinimalSummary.component';
 import Review from './Review.component';
 import ResponsiveDrawer from './navigation/ResponsiveDrawer.component';
-import WeekWidget from './WeekWidget.component';
+import Calendar from './Calendar.component';
 import TimeTable from './TimeTable.component';
 
 export {
   TimeTable,
-  WeekWidget,
+  Calendar,
   ResponsiveDrawer,
   PackMinimalSummary,
   Review,

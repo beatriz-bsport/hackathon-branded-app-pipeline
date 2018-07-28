@@ -11,6 +11,8 @@ import {
 } from '@material-ui/core';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ViewWeek from '@material-ui/icons/ViewWeek';
+import ViewComfy from '@material-ui/icons/ViewComfy';
 import { translate } from 'react-i18next';
 import { Moment } from '../i18n';
 
@@ -30,10 +32,15 @@ const styles = (theme) => ({
   dayButton: {
     marginLeft: -theme.spacing.unit * 2,
     marginRight: -theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit,
   },
-  dots: { height: 5, marginBottom: 5 },
+  dots: {
+    height: 5,
+    marginBottom: theme.spacing.unit,
+  },
   weekdayNameRow: {
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit,
   },
 });
 
@@ -89,11 +96,18 @@ export class WeekWidget extends Component<Props> {
     }
   };
 
+  toogleWeekMode = () => {
+    this.setState({ displayMode: WEEKMODE });
+  };
+  toogleMonthMode = () => {
+    this.setState({ displayMode: MONTHMODE });
+  };
+
   formatDay = (day) => {
     // TODO optimize this
     const { classes } = this.props;
     const { displayMode } = this.state;
-    const weekdays = Moment.weekdaysShort();
+    const weekdays = Moment.weekdaysShort(true); //true for starting on local day
     return (
       <Grid container direction="column" alignItems="center">
         {displayMode === WEEKMODE ? (
@@ -151,7 +165,14 @@ export class WeekWidget extends Component<Props> {
     const year = selectedDay.year();
     return (
       <Grid container justify="space-between" alignItems="center">
-        <Grid item />
+        <Grid item>
+          <IconButton
+            onClick={this.toogleWeekMode}
+            color={displayMode === WEEKMODE ? 'primary' : ''}
+          >
+            <ViewWeek />
+          </IconButton>
+        </Grid>
         <Grid item>
           <Grid container justify="center" alignItems="center" spacing={16}>
             <Grid item>
@@ -172,11 +193,12 @@ export class WeekWidget extends Component<Props> {
           </Grid>
         </Grid>
         <Grid item>
-          <Button onClick={this.toogleDisplayMode} color="primary">
-            {displayMode === MONTHMODE
-              ? t('calendar.showWeek')
-              : t('calendar.showMonth')}
-          </Button>
+          <IconButton
+            onClick={this.toogleMonthMode}
+            color={displayMode === MONTHMODE ? 'primary' : ''}
+          >
+            <ViewComfy />
+          </IconButton>
         </Grid>
       </Grid>
     );
@@ -223,7 +245,7 @@ export class WeekWidget extends Component<Props> {
             justify="space-between"
             className={classes.weekdayNameRow}
           >
-            {Moment.weekdaysShort().map((wds) => (
+            {Moment.weekdaysShort(true).map((wds) => (
               <Grid item>
                 <Typography variant="title">{wds}</Typography>
               </Grid>

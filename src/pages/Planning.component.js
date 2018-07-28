@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { Paper, Grid, Typography } from '@material-ui/core';
-import { OfferCard, TimeTable, WeekWidget } from '../components';
+import { OfferCard, TimeTable, Calendar } from '../components';
 import { activity as activityActions } from '../actions';
 
 import { translate } from 'react-i18next';
-import Moment from 'moment';
+import { Moment } from '../i18n';
 
 export class Planning extends Component {
   constructor(props) {
@@ -29,14 +29,23 @@ export class Planning extends Component {
   };
 
   render() {
-    const { t } = this.props;
+    const { t, offers } = this.props;
     const { date, selectedOffer } = this.state;
+    const events = {};
+    for (const o of offers) {
+      const midnight = Moment(o.date_start).startOf('day');
+      if (events.hasOwnProperty(midnight)) {
+        events[midnight].push(o);
+      } else {
+        events[midnight] = [o];
+      }
+    }
     return (
       <Grid container spacing={24}>
         <Grid item xs={12} md={6}>
           <Grid container spacing={8}>
             <Grid item xs={12}>
-              <WeekWidget onDateClick={this.onDateClick} />
+              <Calendar events={events} onDateClick={this.onDateClick} />
             </Grid>
             <Grid item xs={12}>
               <TimeTable date={date} onOfferSelected={this.onOfferSelected} />
@@ -53,4 +62,9 @@ export class Planning extends Component {
   }
 }
 
-export default translate()(Planning);
+function mapStateToProps(state) {
+  return {
+    offers: state.offer.calendar,
+  };
+}
+export default translate()(connect(mapStateToProps)(Planning));

@@ -122,9 +122,7 @@ export class WeekWidget extends Component<Props> {
   };
 
   formatDots = (date) => {
-    const dots = this.props.offers.filter((o) =>
-      Moment(o.date_start).isSame(date, 'day'),
-    );
+    const dots = this.props.events[date.startOf('day')] || [];
     return (
       <Grid container direction="row">
         {dots.map((d) => <Grid item> • </Grid>)}
@@ -315,11 +313,4 @@ export class WeekWidget extends Component<Props> {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    offers: state.offer.calendar,
-  };
-}
-export default withStyles(styles)(
-  translate()(connect(mapStateToProps)(WeekWidget)),
-);
+export default withStyles(styles)(translate()(WeekWidget));

@@ -24,7 +24,17 @@ const styles = (theme) => ({
 });
 
 export function ActivityMinimalSummary(props) {
-  const { activity, date, showCoach, t, classes } = props;
+  const {
+    activity,
+    additionalInfo,
+    additionalInfoTypoProps,
+    additionalInfoSecondary,
+    date,
+    showCoach,
+    overrideClickAction,
+    t,
+    classes,
+  } = props;
   const {
     name,
     id,
@@ -38,7 +48,14 @@ export function ActivityMinimalSummary(props) {
   const dateToShow = date || next_slot;
 
   return (
-    <ListItem key={id} dense button className={classes.listItem} divider>
+    <ListItem
+      key={id}
+      dense
+      button
+      onClick={overrideClickAction ? overrideClickAction : () => {}}
+      className={classes.listItem}
+      divider
+    >
       {showCoach ? (
         <Tooltip title={coach.name}>
           <IconButton disableRipple className={classes.noMargin}>
@@ -51,6 +68,13 @@ export function ActivityMinimalSummary(props) {
         </IconButton>
       )}
       <ListItemText primary={name} secondary={dateToShow} />
+      {additionalInfo ? (
+        <ListItemText
+          primary={additionalInfo}
+          primaryTypographyProps={additionalInfoTypoProps}
+          secondary={additionalInfoSecondary}
+        />
+      ) : null}
       <ListItemText
         primary={etablissement.title}
         secondary={<Level noStyle levelId={level} variant="caption" />}

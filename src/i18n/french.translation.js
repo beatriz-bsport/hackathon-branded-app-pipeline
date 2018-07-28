@@ -97,6 +97,8 @@ export default {
       time: 'heure',
       event: 'séance',
       showMore: (total) => `+ ${total} séance(s) supplémentaire(s)`,
+      showMonth: 'Affichage mois',
+      showWeek: 'Affichage semaine',
     },
     activity: {
       name: 'Titre',

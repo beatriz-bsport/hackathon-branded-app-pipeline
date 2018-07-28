@@ -4,6 +4,7 @@ import actionTypes from '../actions/activity.types';
 
 const initialState = Immutable({
   all: [],
+  activitiesMinimal: [],
   loading: true,
   error: false,
   errorMsg: '',
@@ -34,6 +35,13 @@ export default function activityReducers(state = initialState, action = {}) {
         loading: false,
         error: false,
         metaActivity: action.metaActivity,
+      });
+
+    case actionTypes.FETCHED_ACTIVITIES_MINIMAL:
+      return Immutable.merge(state, {
+        activitiesMinimal: action.activitiesMinimal,
+        loading: false,
+        error: false,
       });
 
     default:

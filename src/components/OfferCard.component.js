@@ -38,9 +38,11 @@ const styles = (theme) => ({
     padding: theme.spacing.unit * 4,
   },
   footer: {
-    padding: theme.spacing.unit * 2,
-    paddingBottom: 0,
     borderTop: 'solid 1px #EEEEEE',
+  },
+  stat: {
+    paddingTop: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit * 2,
   },
   info: {
     paddingLeft: theme.spacing.unit * 3,
@@ -86,6 +88,7 @@ export class OfferCard extends Component<Props> {
             alignItems="center"
             direction="column"
             spacing={8}
+            className={classes.stat}
           >
             <Grid item>
               <Typography variant="display2" color="primary">
@@ -97,13 +100,14 @@ export class OfferCard extends Component<Props> {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={4} style={{ borderRight: '1px solid #EEEEEE' }}>
           <Grid
             container
             justify="center"
             alignItems="center"
             direction="column"
             spacing={8}
+            className={classes.stat}
           >
             <Grid item>
               <Typography variant="display2" color="secondary">
@@ -121,8 +125,8 @@ export class OfferCard extends Component<Props> {
             justify="center"
             alignItems="center"
             direction="column"
-            style={{ borderRight: '1px solid #EEEEEE' }}
             spacing={8}
+            className={classes.stat}
           >
             <Grid item>
               <Typography
@@ -152,10 +156,15 @@ export class OfferCard extends Component<Props> {
         direction="row"
         className={classes.footer}
       >
-        <Grid item xs={4} style={{ borderRight: '1px solid #EEEEEE' }}>
+        <Grid
+          item
+          xs={4}
+          style={{ borderRight: '1px solid #EEEEEE' }}
+          className={classes.stat}
+        >
           <Avatar user={coach} />
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={8} className={classes.stat}>
           <Grid
             container
             spacing={8}
@@ -165,7 +174,7 @@ export class OfferCard extends Component<Props> {
             className={classes.info}
           >
             <Grid item>
-              <Grid container direction="column">
+              <Grid container direction="column" spacing={8}>
                 <Grid item>
                   <Grid
                     container
@@ -199,7 +208,7 @@ export class OfferCard extends Component<Props> {
                           <Typography>{etablissement.title}</Typography>
                         </Grid>
                         <Grid item>
-                          <Typography>
+                          <Typography variant="caption">
                             {etablissement.location.address}
                           </Typography>
                         </Grid>
@@ -235,12 +244,12 @@ export class OfferCard extends Component<Props> {
   };
 
   render() {
-    const { classes, offer, t } = this.props;
+    const { noHeader, classes, offer, t } = this.props;
     if (offer) {
       return (
         <Paper>
           <Grid container direction="column" className={classes.root}>
-            <Grid item>{this.getHeader()}</Grid>
+            {noHeader ? null : <Grid item>{this.getHeader()}</Grid>}
             <Grid item>{this.getStatsBody()}</Grid>
             <Grid item>{this.getFooter()}</Grid>
             <Grid item xs={12}>

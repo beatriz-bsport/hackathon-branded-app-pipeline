@@ -53,3 +53,21 @@ export function fetchMetaActivityDetails(id) {
 export function fetchedMetaActivityDetails(metaActivity) {
   return { type: types.FETCHED_META_ACTIVITY_DETAILS, metaActivity };
 }
+
+export function fetchActivitiesMinimal() {
+  return async (dispatch, getState) => {
+    dispatch(startFetchAllActivities());
+
+    try {
+      const response = await api.activity.fetchMinimal();
+      const activitiesMinimal = response.data;
+      dispatch(fetchedActivitiesMinimal(activitiesMinimal));
+    } catch (err) {
+      dispatch(errorFetchingAllActivities());
+    }
+  };
+}
+
+export function fetchedActivitiesMinimal(activitiesMinimal) {
+  return { type: types.FETCHED_ACTIVITIES_MINIMAL, activitiesMinimal };
+}

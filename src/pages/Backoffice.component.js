@@ -20,6 +20,7 @@ import Payment from './Payment.component';
 import MemberList from './MemberList.component';
 import Member from './Member.component';
 import PaymentPackList from './PaymentPackList.component';
+import Planning from './Planning.component';
 
 const styles = (theme) => ({
   content: {
@@ -45,6 +46,7 @@ export class Backoffice extends Component<{}> {
     this.props.fetchAllActivities();
     this.props.fetchAllOffers();
     this.props.fetchAllMembers();
+    this.props.fetchActivitiesMinimal();
   }
 
   toogleDrawer = () => {
@@ -76,7 +78,7 @@ export class Backoffice extends Component<{}> {
           <div className={classes.toolbar} />
           <div>
             <Switch>
-              <Route path="/calendar" component={Calendar} />
+              <Route path="/calendar" component={Planning} />
               <Route exact path="/activity" component={ActivityList} />
               <Route path="/activity/:id" component={MetaActivity} />
               <Route path="/coach" component={CoachList} />
@@ -84,7 +86,7 @@ export class Backoffice extends Component<{}> {
               <Route path="/payment-pack" component={PaymentPackList} />
               <Route exact path="/member" component={MemberList} />
               <Route path="/member/:id" component={Member} />
-              <Route exact path="/" component={ActivityList} />
+              <Route exact path="/" component={Planning} />
             </Switch>
           </div>
         </main>
@@ -113,6 +115,9 @@ function mapDispatchToProps(dispatch) {
     },
     fetchAllActivities() {
       dispatch(activityActions.fetchAllActivities());
+    },
+    fetchActivitiesMinimal() {
+      dispatch(activityActions.fetchActivitiesMinimal());
     },
   };
 }

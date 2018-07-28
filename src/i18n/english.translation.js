@@ -93,7 +93,7 @@ export default {
       orNcredits2: ' credits)',
       packsAvailable: 'Pass available for this activity :',
       reviews: 'Customer reviews: ',
-    },
+      },
     booking: {
       fillRate: 'Filled',
       waiting: 'on waiting list',
@@ -120,7 +120,9 @@ export default {
       intermediate: 'Intermediate',
       advanced: 'Advanced',
     },
-    calendar: {}, // used for big-calendar localization - en is default
+    calendar: {
+      showMonth: 'Show month',
+    }, // used for big-calendar localization - en is default
     time: {
       weekday: {
         sunday: 'Sunday',

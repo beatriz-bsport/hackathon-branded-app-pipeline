@@ -29,6 +29,10 @@ export async function fetchAllActivities() {
   return getAuth(`${API_URI}/saas/meta-activities/`);
 }
 
+export async function fetchActivitiesMinimal() {
+  return getAuth(`${API_URI}/saas/activities/minimal/`);
+}
+
 export async function fetchMetaActivityDetails(id) {
   return getAuth(`${API_URI}/saas/meta-activities/${id}/`);
 }
@@ -92,6 +96,7 @@ export default {
     getStats,
     getAllStats,
     fetchMetaActivityDetails,
+    fetchMinimal: fetchActivitiesMinimal,
   },
   coach: {
     fetchAssociated: fetchAssociatedCoaches,

@@ -1,0 +1,303 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import {
+  IconButton,
+  Grid,
+  Paper,
+  Typography,
+  Button,
+  withStyles,
+} from '@material-ui/core';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import { translate } from 'react-i18next';
+import { Moment } from '../i18n';
+
+const WEEKMODE = 0;
+const MONTHMODE = 1;
+
+const styles = (theme) => ({
+  container: {
+    padding: theme.spacing.unit * 2,
+  },
+  arrowIconLeft: {
+    marginLeft: -theme.spacing.unit * 2,
+  },
+  arrowIconRight: {
+    marginRight: -theme.spacing.unit * 2,
+  },
+  dayButton: {
+    marginLeft: -theme.spacing.unit * 2,
+    marginRight: -theme.spacing.unit * 2,
+  },
+  dots: { height: 5, marginBottom: 5 },
+  weekdayNameRow: {
+    marginBottom: theme.spacing.unit * 2,
+  },
+});
+
+type Props = {
+  onDateClick: () => void,
+};
+
+export class WeekWidget extends Component<Props> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      displayMode: WEEKMODE,
+      selectedDay: Moment()
+        .set('hours', 0)
+        .set('minutes', 0)
+        .set('milliseconds', 0),
+    };
+  }
+
+  static defaultProps = {
+    onDateClick: () => {},
+  };
+
+  selectDate = (date) => {
+    this.setState({ selectedDay: date });
+    this.props.onDateClick(date);
+  };
+
+  showNextWeek = () => {
+    const { selectedDay } = this.state;
+    this.selectDate(Moment(selectedDay.add(7, 'days')));
+  };
+  showPreviousWeek = () => {
+    const { selectedDay } = this.state;
+    this.selectDate(Moment(selectedDay.add(-7, 'days')));
+  };
+
+  showNextMonth = () => {
+    const { selectedDay } = this.state;
+    this.selectDate(Moment(selectedDay.add(1, 'months')));
+  };
+  showPreviousMonth = () => {
+    const { selectedDay } = this.state;
+    this.selectDate(Moment(selectedDay.add(-1, 'months')));
+  };
+
+  toogleDisplayMode = () => {
+    const { displayMode } = this.state;
+    if (displayMode === WEEKMODE) {
+      this.setState({ displayMode: MONTHMODE });
+    } else if (displayMode === MONTHMODE) {
+      this.setState({ displayMode: WEEKMODE });
+    }
+  };
+
+  formatDay = (day) => {
+    // TODO optimize this
+    const { classes } = this.props;
+    const { displayMode } = this.state;
+    const weekdays = Moment.weekdaysShort();
+    return (
+      <Grid container direction="column" alignItems="center">
+        {displayMode === WEEKMODE ? (
+          <Grid item>{weekdays[day.weekday()]}</Grid>
+        ) : null}
+        <Grid item>{day.date()}</Grid>
+        <Grid item className={classes.dots}>
+          {this.formatDots(day)}
+        </Grid>
+      </Grid>
+    );
+  };
+
+  formatDots = (date) => {
+    const dots = this.props.offers.filter((o) =>
+      Moment(o.date_start).isSame(date, 'day'),
+    );
+    return (
+      <Grid container direction="row">
+        {dots.map((d) => <Grid item> • </Grid>)}
+      </Grid>
+    );
+  };
+
+  renderDay = (day) => {
+    const { selectedDay } = this.state;
+    const { classes } = this.props;
+    const isSelected = day.isSame(selectedDay, 'days');
+
+    return (
+      <Grid item>
+        <Grid container direction="column" alignItems="center">
+          <Grid item>
+            <Button
+              variant={isSelected ? 'raised' : null}
+              color="primary"
+              className={classes.dayButton}
+              disabled={!day.isSame(selectedDay, 'months')}
+              onClick={() => {
+                this.selectDate(day);
+              }}
+            >
+              {this.formatDay(day)}
+            </Button>
+          </Grid>
+        </Grid>
+      </Grid>
+    );
+  };
+
+  renderHeader = () => {
+    const { t } = this.props;
+    const { selectedDay, displayMode } = this.state;
+    const month = Moment.months()[selectedDay.month()];
+    const year = selectedDay.year();
+    return (
+      <Grid container justify="space-between" alignItems="center">
+        <Grid item />
+        <Grid item>
+          <Grid container justify="center" alignItems="center" spacing={16}>
+            <Grid item>
+              <IconButton onClick={this.showPreviousMonth}>
+                <ChevronLeftIcon />
+              </IconButton>
+            </Grid>
+            <Grid item>
+              <Typography variant="title">
+                {month} {year}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <IconButton onClick={this.showNextMonth}>
+                <ChevronRightIcon />
+              </IconButton>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item>
+          <Button onClick={this.toogleDisplayMode} color="primary">
+            {displayMode === MONTHMODE
+              ? t('calendar.showWeek')
+              : t('calendar.showMonth')}
+          </Button>
+        </Grid>
+      </Grid>
+    );
+  };
+
+  renderWeekFrom = (firstDayWeek) => {
+    return (
+      <Grid
+        container
+        direction="row"
+        alignItems="center"
+        justify="space-between"
+      >
+        {this.renderDay(Moment(firstDayWeek).add(0, 'days'))}
+        {this.renderDay(Moment(firstDayWeek).add(1, 'days'))}
+        {this.renderDay(Moment(firstDayWeek).add(2, 'days'))}
+        {this.renderDay(Moment(firstDayWeek).add(3, 'days'))}
+        {this.renderDay(Moment(firstDayWeek).add(4, 'days'))}
+        {this.renderDay(Moment(firstDayWeek).add(5, 'days'))}
+        {this.renderDay(Moment(firstDayWeek).add(6, 'days'))}
+      </Grid>
+    );
+  };
+
+  renderMonthFrom = (firstDayMonth) => {
+    const { t, classes } = this.props;
+    const { selectedDay } = this.state;
+
+    const weekRows = [];
+    for (var i = 0; i < 6; i++) {
+      const firstDayInRow = Moment(firstDayMonth).add(i * 7, 'days');
+      if (firstDayInRow.isSameOrBefore(selectedDay, 'month')) {
+        weekRows.push(<Grid item>{this.renderWeekFrom(firstDayInRow)}</Grid>);
+      }
+    }
+
+    return (
+      <Grid container direction="column" alignItems="stretch">
+        <Grid item>
+          <Grid
+            container
+            direction="row"
+            alignItems="center"
+            justify="space-between"
+            className={classes.weekdayNameRow}
+          >
+            {Moment.weekdaysShort().map((wds) => (
+              <Grid item>
+                <Typography variant="title">{wds}</Typography>
+              </Grid>
+            ))}
+          </Grid>
+        </Grid>
+        {weekRows}
+      </Grid>
+    );
+  };
+
+  renderBulkDays = () => {
+    const { classes } = this.props;
+    const { selectedDay, displayMode } = this.state;
+    const firstDayWeek = Moment(selectedDay).add(
+      -selectedDay.weekday(),
+      'days',
+    );
+    const firstDayMonth = Moment(selectedDay).add(
+      -selectedDay.date() + 1,
+      'days',
+    );
+    firstDayMonth.add(-firstDayMonth.weekday(), 'days');
+    switch (displayMode) {
+      case WEEKMODE:
+        return this.renderWeekFrom(firstDayWeek);
+      case MONTHMODE:
+        return this.renderMonthFrom(firstDayMonth);
+    }
+    return 'nik';
+  };
+
+  render() {
+    const { classes } = this.props;
+    return (
+      <Paper className={classes.container}>
+        <Grid container spacing={16} direction="column">
+          <Grid item xs={12}>
+            {this.renderHeader()}
+          </Grid>
+          <Grid item xs={12}>
+            <Grid container direction="row" alignItems="center">
+              <Grid item xs={1}>
+                <IconButton
+                  onClick={this.showPreviousWeek}
+                  className={classes.arrowIconLeft}
+                >
+                  <ChevronLeftIcon />
+                </IconButton>
+              </Grid>
+              <Grid item xs={10}>
+                {this.renderBulkDays()}
+              </Grid>
+              <Grid item xs={1}>
+                <IconButton
+                  onClick={this.showNextWeek}
+                  className={classes.arrowIconRight}
+                >
+                  <ChevronRightIcon />
+                </IconButton>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Paper>
+    );
+  }
+}
+
+function mapStateToProps(state) {
+  return {
+    offers: state.offer.calendar,
+  };
+}
+export default withStyles(styles)(
+  translate()(connect(mapStateToProps)(WeekWidget)),
+);

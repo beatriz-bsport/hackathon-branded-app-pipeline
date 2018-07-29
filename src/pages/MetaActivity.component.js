@@ -14,6 +14,7 @@ import {
   Input,
   CircularProgress,
   Divider,
+  List,
 } from '@material-ui/core';
 
 import { Moment } from '../i18n';
@@ -27,7 +28,6 @@ import {
   ActivityCover,
   ActivityBasicInfo,
   ActivityStats,
-  DayPicker,
   ActivityMinimalSummary,
   PackMinimalSummary,
   Calendar,
@@ -250,9 +250,15 @@ export class MetaActivity extends Component<Props> {
           <Typography className={classes.blockTitleLargeMargin} variant="title">
             {t('activity.packsAvailable')}
           </Typography>
-          {payment_packs_available.map((p) => (
-            <PackMinimalSummary key={p.id} pack={p} />
-          ))}
+          {payment_packs_available.length ? (
+            <Paper>
+              <List>
+                {payment_packs_available.map((p) => (
+                  <PackMinimalSummary key={p.id} pack={p} />
+                ))}
+              </List>
+            </Paper>
+          ) : null}
         </Grid>
       </Grid>
     );

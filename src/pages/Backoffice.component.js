@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { TopBar, NavBar } from '../components';
-import Calendar from './Calendar.component';
 import Dashboard from './Dashboard.component';
 import { ResponsiveDrawer } from '../components';
 import { withStyles } from '@material-ui/core/styles';

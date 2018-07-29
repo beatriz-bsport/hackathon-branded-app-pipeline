@@ -27,7 +27,6 @@ import PaymentPack from './PaymentPack.component';
 import ConsumerRowSummary from './consumer/ConsumerRowSummary.component';
 import ConsumerListItem from './consumer/ConsumerListItem.component';
 import ConsumerPaymentPackConsumersTable from './consumer/ConsumerPaymentPackConsumersTable.component';
-import DayPicker from './DayPicker.component';
 import PackMinimalSummary from './PackMinimalSummary.component';
 import Review from './Review.component';
 import ResponsiveDrawer from './navigation/ResponsiveDrawer.component';
@@ -44,7 +43,6 @@ EstablishmentCard,
   ResponsiveDrawer,
   PackMinimalSummary,
   Review,
-  DayPicker,
   ConsumerRowSummary,
   ConsumerListItem,
   ConsumerPaymentPackConsumersTable,

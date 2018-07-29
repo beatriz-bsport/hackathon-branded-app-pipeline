@@ -291,7 +291,6 @@ export class Calendar extends Component<Props> {
       case MONTHMODE:
         return this.renderMonthFrom(firstDayMonth);
     }
-    return 'nik';
   };
 
   render() {

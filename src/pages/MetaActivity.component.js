@@ -31,6 +31,7 @@ import {
   ActivityMinimalSummary,
   PackMinimalSummary,
   Calendar,
+  TimeTable,
 } from '../components';
 import { metaActivity as metaActivityActions } from '../actions';
 
@@ -64,6 +65,7 @@ const styles = (theme) => ({
     marginBottom: theme.spacing.unit * 3,
   },
   calendarContainer: {
+    paddingLeft: theme.spacing.unit * 2,
     paddingRight: theme.spacing.unit * 4,
   },
 });
@@ -76,6 +78,7 @@ export class MetaActivity extends Component<Props> {
       data: [],
       sportCategories: [],
       offersOnSelectedDay: [],
+      dateSelected: Moment(),
     };
   }
 
@@ -192,13 +195,13 @@ export class MetaActivity extends Component<Props> {
     const offersOnSelectedDay = metaActivity.offers.filter((o) =>
       Moment(o.date_start).isSame(date, 'day'),
     );
-    this.setState({ offersOnSelectedDay });
+    this.setState({ offersOnSelectedDay, dateSelected: date });
   };
 
   getActivitiesWithCalendar = () => {
     const { t, metaActivity, classes } = this.props;
     const { activities } = metaActivity;
-    const { offersOnSelectedDay } = this.state;
+    const { offersOnSelectedDay, dateSelected } = this.state;
     return (
       <Grid container direction="row" alignItems="flex-start">
         <Grid item xs={12} md={6} className={classes.responsiveSubBlock}>
@@ -208,24 +211,7 @@ export class MetaActivity extends Component<Props> {
           <Typography variant="title" className={classes.blockTitleLargeMargin}>
             {t('activity.offersThisDay')}
           </Typography>
-          {offersOnSelectedDay.length ? (
-            offersOnSelectedDay
-              .filter((a) => {
-                return true;
-              })
-              .map((o) => (
-                <ActivityMinimalSummary
-                  key={o.id}
-                  activity={o.activity}
-                  date={o.date_start}
-                  showCoach
-                />
-              ))
-          ) : (
-            <Typography variant="caption">
-              {t('activity.noOfferThisDay')}
-            </Typography>
-          )}
+          <TimeTable date={dateSelected} metaActivityId={metaActivity.id} />
         </Grid>
       </Grid>
     );

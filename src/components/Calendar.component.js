@@ -22,7 +22,6 @@ const MONTHMODE = 1;
 const styles = (theme) => ({
   container: {
     marginRight: theme.spacing.unit * 2,
-    marginLeft: theme.spacing.unit * 2,
   },
 
   arrowIconLeft: {
@@ -244,7 +243,11 @@ export class Calendar extends Component<Props> {
     for (var i = 0; i < 6; i++) {
       const firstDayInRow = Moment(firstDayMonth).add(i * 7, 'days');
       if (firstDayInRow.isSameOrBefore(selectedDay, 'month')) {
-        weekRows.push(<Grid item>{this.renderWeekFrom(firstDayInRow)}</Grid>);
+        weekRows.push(
+          <Grid item key={i}>
+            {this.renderWeekFrom(firstDayInRow)}
+          </Grid>,
+        );
       }
     }
 
@@ -299,7 +302,7 @@ export class Calendar extends Component<Props> {
         container
         spacing={16}
         direction="column"
-        className={classes.container}
+        className={displayMode === WEEKMODE ? classes.container : null}
       >
         <Grid item xs={12}>
           {this.renderHeader()}

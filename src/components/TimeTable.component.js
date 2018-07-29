@@ -28,6 +28,7 @@ type Props = {
   date: Object,
   offers: Array,
   onOfferSelected: () => void,
+  metaActivityId: Number,
 };
 
 export class TimeTable extends Component<Props> {
@@ -41,6 +42,7 @@ export class TimeTable extends Component<Props> {
 
   static defaultProps = {
     onOfferSelected: () => {},
+    metaActivityId: null,
   };
 
   componentWillReceiveProps(nextProps) {
@@ -55,9 +57,14 @@ export class TimeTable extends Component<Props> {
   }
 
   renderActivity = (offer) => {
-    const activityF = this.props.activities.filter(
-      (a) => a.id === offer.activity_id,
-    );
+    const { activities, metaActivityId } = this.props;
+    let activityF = activities.filter((a) => a.id === offer.activity_id);
+    if (metaActivityId) {
+      activityF = activityF.filter(
+        (a) =>
+          parseInt(a.meta_activity_id, 10) === parseInt(metaActivityId, 10),
+      );
+    }
     if (activityF.length) {
       const activity = activityF[0];
       return (

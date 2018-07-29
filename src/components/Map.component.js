@@ -57,7 +57,7 @@ export default class SimpleExample extends Component<Props> {
     const { markerClicked } = this.props;
     const { location, id } = marker;
     return (
-      <Marker position={[location.latitude, location.longitude]}>
+      <Marker position={[location.latitude, location.longitude]} key={id}>
         <Button
           onClick={() => {
             markerClicked(id);

@@ -54,6 +54,7 @@ export default {
       activity: 'My activities',
       calendar: 'Calendar',
       message: 'Messages',
+      establishment: 'Establishments',
       member: 'Members',
       payment: 'Payments',
       logoff: 'Sign out',
@@ -93,7 +94,7 @@ export default {
       orNcredits2: ' credits)',
       packsAvailable: 'Pass available for this activity :',
       reviews: 'Customer reviews: ',
-      },
+    },
     booking: {
       fillRate: 'Filled',
       waiting: 'on waiting list',

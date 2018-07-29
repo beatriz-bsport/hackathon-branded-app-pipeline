@@ -30,6 +30,7 @@ import {
   HighlightOff,
   FitnessCenter,
   VpnKey,
+  LocationOn,
 } from '@material-ui/icons';
 import MenuIcon from '@material-ui/icons/Menu';
 
@@ -129,14 +130,6 @@ class ResponsiveDrawer extends React.Component {
               <ListItemText primary={t('navigation.activity')} />
             </ListItem>
           </Link>
-          <Link to="/payment-pack" style={{ textDecoration: 'none' }}>
-            <ListItem button>
-              <ListItemIcon>
-                <VpnKey />
-              </ListItemIcon>
-              <ListItemText primary={t('navigation.pass')} />
-            </ListItem>
-          </Link>
           <Link to="/coach" style={{ textDecoration: 'none' }}>
             <ListItem button>
               <ListItemIcon>
@@ -145,7 +138,23 @@ class ResponsiveDrawer extends React.Component {
               <ListItemText primary={t('common.coach')} />
             </ListItem>
           </Link>
+          <Link to="/map" style={{ textDecoration: 'none' }}>
+            <ListItem button>
+              <ListItemIcon>
+                <LocationOn />
+              </ListItemIcon>
+              <ListItemText primary={t('navigation.establishment')} />
+            </ListItem>
+          </Link>
           <Divider />
+          <Link to="/payment-pack" style={{ textDecoration: 'none' }}>
+            <ListItem button>
+              <ListItemIcon>
+                <VpnKey />
+              </ListItemIcon>
+              <ListItemText primary={t('navigation.pass')} />
+            </ListItem>
+          </Link>
           <Link to="/messaging" style={{ textDecoration: 'none' }}>
             <ListItem button>
               <ListItemIcon>

@@ -33,8 +33,12 @@ import Review from './Review.component';
 import ResponsiveDrawer from './navigation/ResponsiveDrawer.component';
 import Calendar from './Calendar.component';
 import TimeTable from './TimeTable.component';
+import Map from './Map.component';
+import EstablishmentCard from './EstablishmentCard.component';
 
 export {
+EstablishmentCard,
+  Map,
   TimeTable,
   Calendar,
   ResponsiveDrawer,

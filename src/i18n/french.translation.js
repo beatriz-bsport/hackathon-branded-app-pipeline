@@ -56,6 +56,7 @@ export default {
       calendar: 'Calendrier',
       message: 'Messages',
       member: 'Membres',
+      establishment: 'Etablissements',
       payment: 'Paiements',
       logoff: 'Déconnexion',
       goBack: 'Retour',

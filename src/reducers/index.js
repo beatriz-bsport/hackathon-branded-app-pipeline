@@ -9,9 +9,11 @@ import statsReducers from './stats';
 import coachReducers from './coach';
 import memberReducer from './member';
 import paymentPackReducers from './paymentPack';
+import establishmentReducers from './establishment';
 
 export default combineReducers({
   auth: authReducers,
+  establishment: establishmentReducers,
   offer: offerReducers,
   booking: bookingReducers,
   activity: activityReducers,

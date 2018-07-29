@@ -7,9 +7,11 @@ import * as stats from './stats.actions';
 import * as coach from './coach.actions';
 import * as member from './member.actions';
 import * as paymentPack from './paymentPack.actions';
+import * as establishment from './establishment.actions';
 
 export {
   auth,
+  establishment,
   offer,
   booking,
   activity,

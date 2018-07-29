@@ -15,6 +15,7 @@ import { metaActivity as metaActivityActions } from '../actions';
 import { offer as offerActions } from '../actions';
 import { member as memberActions } from '../actions';
 import { coach as coachActions } from '../actions';
+import { establishment as establishmentActions } from '../actions';
 import MetaActivityList from './MetaActivityList.component';
 import MetaActivity from './MetaActivity.component';
 import CoachList from './CoachList.component.js';
@@ -23,6 +24,7 @@ import MemberList from './MemberList.component';
 import Member from './Member.component';
 import PaymentPackList from './PaymentPackList.component';
 import Planning from './Planning.component';
+import EstablishmentMap from './EstablishmentMap.component';
 
 const styles = (theme) => ({
   content: {
@@ -50,6 +52,7 @@ export class Backoffice extends Component<{}> {
     this.props.fetchAllMembers();
     this.props.fetchActivitiesMinimal();
     this.props.fetchAssociatedCoaches();
+    this.props.fetchAllEstablishments();
   }
 
   toogleDrawer = () => {
@@ -89,7 +92,8 @@ export class Backoffice extends Component<{}> {
               <Route path="/payment-pack" component={PaymentPackList} />
               <Route exact path="/member" component={MemberList} />
               <Route path="/member/:id" component={Member} />
-              <Route exact path="/" component={Planning} />
+              <Route exact path="/map" component={EstablishmentMap} />
+              <Route exact path="/" component={EstablishmentMap} />
             </Switch>
           </div>
         </main>
@@ -110,6 +114,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    fetchAllEstablishments() {
+      dispatch(establishmentActions.fetchEstablishments());
+    },
     fetchAllMembers() {
       dispatch(memberActions.fetchAll());
     },

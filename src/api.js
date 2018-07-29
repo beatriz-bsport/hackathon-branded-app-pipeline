@@ -25,6 +25,10 @@ export async function login(username, password) {
   });
 }
 
+export async function fetchAllEstablishments() {
+  return getAuth(`${API_URI}/saas/establishments/`);
+}
+
 export async function fetchAllActivities() {
   return getAuth(`${API_URI}/saas/meta-activities/`);
 }
@@ -90,6 +94,9 @@ export default {
     resetPassword,
     login,
     accessLevel,
+  },
+  establishment: {
+    fetchAll: fetchAllEstablishments,
   },
   activity: {
     fetchAllActivities,

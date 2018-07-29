@@ -21,8 +21,10 @@ const MONTHMODE = 1;
 
 const styles = (theme) => ({
   container: {
-    padding: theme.spacing.unit * 2,
+    marginRight: theme.spacing.unit * 2,
+    marginLeft: theme.spacing.unit * 2,
   },
+
   arrowIconLeft: {
     marginLeft: -theme.spacing.unit * 2,
   },
@@ -46,13 +48,15 @@ const styles = (theme) => ({
 
 type Props = {
   onDateClick: () => void,
+  events: Object,
+  forceMonthDisplay: boolean,
 };
 
-export class WeekWidget extends Component<Props> {
+export class Calendar extends Component<Props> {
   constructor(props) {
     super(props);
     this.state = {
-      displayMode: WEEKMODE,
+      displayMode: props.forceMonthDisplay ? MONTHMODE : WEEKMODE,
       selectedDay: Moment()
         .set('hours', 0)
         .set('minutes', 0)
@@ -62,6 +66,8 @@ export class WeekWidget extends Component<Props> {
 
   static defaultProps = {
     onDateClick: () => {},
+    events: {},
+    forceMonthDisplay: false,
   };
 
   selectDate = (date) => {
@@ -125,7 +131,12 @@ export class WeekWidget extends Component<Props> {
     const dots = this.props.events[date.startOf('day')] || [];
     return (
       <Grid container direction="row">
-        {dots.map((d) => <Grid item> • </Grid>)}
+        {dots.map((d) => (
+          <Grid item key={Math.random()}>
+            {' '}
+            •{' '}
+          </Grid>
+        ))}
       </Grid>
     );
   };
@@ -157,20 +168,22 @@ export class WeekWidget extends Component<Props> {
   };
 
   renderHeader = () => {
-    const { t } = this.props;
+    const { t, forceMonthDisplay } = this.props;
     const { selectedDay, displayMode } = this.state;
     const month = Moment.months()[selectedDay.month()];
     const year = selectedDay.year();
     return (
       <Grid container justify="space-between" alignItems="center">
-        <Grid item>
-          <IconButton
-            onClick={this.toogleWeekMode}
-            color={displayMode === WEEKMODE ? 'primary' : ''}
-          >
-            <ViewWeek />
-          </IconButton>
-        </Grid>
+        {forceMonthDisplay ? null : (
+          <Grid item>
+            <IconButton
+              onClick={this.toogleWeekMode}
+              color={displayMode === WEEKMODE ? 'primary' : 'default'}
+            >
+              <ViewWeek />
+            </IconButton>
+          </Grid>
+        )}
         <Grid item>
           <Grid container justify="center" alignItems="center" spacing={16}>
             <Grid item>
@@ -190,14 +203,16 @@ export class WeekWidget extends Component<Props> {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item>
-          <IconButton
-            onClick={this.toogleMonthMode}
-            color={displayMode === MONTHMODE ? 'primary' : ''}
-          >
-            <ViewComfy />
-          </IconButton>
-        </Grid>
+        {forceMonthDisplay ? null : (
+          <Grid item>
+            <IconButton
+              onClick={this.toogleMonthMode}
+              color={displayMode === MONTHMODE ? 'primary' : 'default'}
+            >
+              <ViewComfy />
+            </IconButton>
+          </Grid>
+        )}
       </Grid>
     );
   };
@@ -244,7 +259,7 @@ export class WeekWidget extends Component<Props> {
             className={classes.weekdayNameRow}
           >
             {Moment.weekdaysShort(true).map((wds) => (
-              <Grid item>
+              <Grid item key={wds}>
                 <Typography variant="title">{wds}</Typography>
               </Grid>
             ))}
@@ -278,14 +293,20 @@ export class WeekWidget extends Component<Props> {
 
   render() {
     const { classes } = this.props;
+    const { displayMode } = this.state;
     return (
-      <Paper className={classes.container}>
-        <Grid container spacing={16} direction="column">
-          <Grid item xs={12}>
-            {this.renderHeader()}
-          </Grid>
-          <Grid item xs={12}>
-            <Grid container direction="row" alignItems="center">
+      <Grid
+        container
+        spacing={16}
+        direction="column"
+        className={classes.container}
+      >
+        <Grid item xs={12}>
+          {this.renderHeader()}
+        </Grid>
+        <Grid item xs={12}>
+          <Grid container direction="row" alignItems="center">
+            {displayMode === MONTHMODE ? null : (
               <Grid item xs={1}>
                 <IconButton
                   onClick={this.showPreviousWeek}
@@ -294,9 +315,11 @@ export class WeekWidget extends Component<Props> {
                   <ChevronLeftIcon />
                 </IconButton>
               </Grid>
-              <Grid item xs={10}>
-                {this.renderBulkDays()}
-              </Grid>
+            )}
+            <Grid item xs={displayMode === MONTHMODE ? 12 : 10}>
+              {this.renderBulkDays()}
+            </Grid>
+            {displayMode === MONTHMODE ? null : (
               <Grid item xs={1}>
                 <IconButton
                   onClick={this.showNextWeek}
@@ -305,12 +328,12 @@ export class WeekWidget extends Component<Props> {
                   <ChevronRightIcon />
                 </IconButton>
               </Grid>
-            </Grid>
+            )}
           </Grid>
         </Grid>
-      </Paper>
+      </Grid>
     );
   }
 }
 
-export default withStyles(styles)(translate()(WeekWidget));
+export default withStyles(styles)(translate()(Calendar));

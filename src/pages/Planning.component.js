@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import { Paper, Grid, Typography } from '@material-ui/core';
+import { withStyles, Paper, Grid, Typography } from '@material-ui/core';
 import { OfferCard, TimeTable, Calendar } from '../components';
 import { activity as activityActions } from '../actions';
 
 import { translate } from 'react-i18next';
 import { Moment } from '../i18n';
+
+const styles = (theme) => ({
+  calendarContainer: {
+    padding: theme.spacing.unit * 2,
+  },
+});
 
 export class Planning extends Component {
   constructor(props) {
@@ -29,7 +35,7 @@ export class Planning extends Component {
   };
 
   render() {
-    const { t, offers } = this.props;
+    const { t, offers, classes } = this.props;
     const { date, selectedOffer } = this.state;
     const events = {};
     for (const o of offers) {
@@ -45,7 +51,9 @@ export class Planning extends Component {
         <Grid item xs={12} md={6}>
           <Grid container spacing={8}>
             <Grid item xs={12}>
-              <Calendar events={events} onDateClick={this.onDateClick} />
+              <Paper className={classes.calendarContainer}>
+                <Calendar events={events} onDateClick={this.onDateClick} />
+              </Paper>
             </Grid>
             <Grid item xs={12}>
               <TimeTable date={date} onOfferSelected={this.onOfferSelected} />
@@ -67,4 +75,6 @@ function mapStateToProps(state) {
     offers: state.offer.calendar,
   };
 }
-export default translate()(connect(mapStateToProps)(Planning));
+export default translate()(
+  connect(mapStateToProps)(withStyles(styles)(Planning)),
+);

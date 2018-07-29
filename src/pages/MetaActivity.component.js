@@ -15,10 +15,11 @@ import {
   CircularProgress,
   Divider,
 } from '@material-ui/core';
+
+import { Moment } from '../i18n';
 import SPORTS from 'bsport-commons/lib/master-data/sports';
 import { colors } from 'bsport-commons/lib/colors';
 
-import { isSameDay } from '../datetime';
 import api from '../api';
 import {
   Sport,
@@ -29,6 +30,7 @@ import {
   DayPicker,
   ActivityMinimalSummary,
   PackMinimalSummary,
+  Calendar,
 } from '../components';
 import { metaActivity as metaActivityActions } from '../actions';
 
@@ -61,13 +63,8 @@ const styles = (theme) => ({
   responsiveSubBlock: {
     marginBottom: theme.spacing.unit * 3,
   },
-  dot: {
-    backgroundColor: colors.primaryDark,
-    height: 4,
-    width: 4,
-    marginLeft: 1,
-    marginRight: 2,
-    borderRadius: 4,
+  calendarContainer: {
+    paddingRight: theme.spacing.unit * 4,
   },
 });
 
@@ -170,49 +167,30 @@ export class MetaActivity extends Component<Props> {
     );
   };
 
-  renderDay = (selected_date) => {
-    const { classes } = this.props;
-    const day = selected_date.getDate();
-    const month = selected_date.getMonth();
-    const year = selected_date.getYear();
-
-    let eventsThisDay = 0;
-    for (const o of this.props.metaActivity.offers) {
-      const date = new Date(o.date_start);
-      if (selected_date) {
-        if (isSameDay(date, selected_date)) {
-          eventsThisDay += 1;
-        }
+  getCalendar = (selected_date) => {
+    const { offers } = this.props.metaActivity;
+    const events = {};
+    for (const o of offers) {
+      const midnight = Moment(o.date_start).startOf('day');
+      if (events.hasOwnProperty(midnight)) {
+        events[midnight].push(o);
+      } else {
+        events[midnight] = [o];
       }
     }
-
-    const dots = [];
-    while (dots.length < eventsThisDay) {
-      dots.push(<Grid key={dots.length} item className={classes.dot} />);
-    }
-
     return (
-      <Grid
-        container
-        direction="column"
-        alignItems="center"
-        justify="flex-start"
-        style={{ width: 28, height: 28 }}
-      >
-        <Grid item>{day}</Grid>
-        <Grid item style={{ marginTop: 5 }}>
-          <Grid container direction="row" justify="center">
-            {eventsThisDay ? dots : null}
-          </Grid>
-        </Grid>
-      </Grid>
+      <Calendar
+        events={events}
+        onDateClick={this.handleDayClick}
+        forceMonthDisplay
+      />
     );
   };
 
   handleDayClick = (date) => {
     const { metaActivity } = this.props;
     const offersOnSelectedDay = metaActivity.offers.filter((o) =>
-      isSameDay(new Date(o.date_start), date),
+      Moment(o.date_start).isSame(date, 'day'),
     );
     this.setState({ offersOnSelectedDay });
   };
@@ -224,10 +202,7 @@ export class MetaActivity extends Component<Props> {
     return (
       <Grid container direction="row" alignItems="flex-start">
         <Grid item xs={12} md={6} className={classes.responsiveSubBlock}>
-          <DayPicker
-            handleDayClick={this.handleDayClick}
-            renderDay={this.renderDay}
-          />
+          <div className={classes.calendarContainer}>{this.getCalendar()}</div>
         </Grid>
         <Grid item xs={12} md={6}>
           <Typography variant="title" className={classes.blockTitleLargeMargin}>
@@ -300,26 +275,28 @@ export class MetaActivity extends Component<Props> {
   getReviews = () => {
     const { metaActivity, classes, t } = this.props;
     const { reviews } = metaActivity;
-    return (
-      <div className={classes.paddedPaper}>
-        <Typography variant="title" className={classes.blockTitleLargeMargin}>
-          {t('activity.reviews')}
-        </Typography>
-        <Grid
-          container
-          justify="center"
-          alignItems="center"
-          direction="row"
-          spacing={32}
-        >
-          {reviews.map((r) => (
-            <Grid item xs={6} md={4} key={r.id}>
-              <Review review={r} />
-            </Grid>
-          ))}
-        </Grid>
-      </div>
-    );
+    if (reviews.length) {
+      return (
+        <Paper className={classes.paddedPaper}>
+          <Typography variant="title" className={classes.blockTitleLargeMargin}>
+            {t('activity.reviews')}
+          </Typography>
+          <Grid
+            container
+            justify="center"
+            alignItems="center"
+            direction="row"
+            spacing={32}
+          >
+            {reviews.map((r) => (
+              <Grid item xs={6} md={4} key={r.id}>
+                <Review review={r} />
+              </Grid>
+            ))}
+          </Grid>
+        </Paper>
+      );
+    }
   };
 
   render() {
@@ -361,7 +338,7 @@ export class MetaActivity extends Component<Props> {
           </Paper>
         </Grid>
         <Grid item xs={12} xl={6}>
-          <Paper>{this.getReviews()}</Paper>
+          {this.getReviews()}
         </Grid>
       </Grid>
     );

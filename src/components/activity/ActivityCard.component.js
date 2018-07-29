@@ -63,9 +63,10 @@ export class ActivityCard extends Component<{}> {
                 <ListItemIcon>
                   <LocationOn />
                 </ListItemIcon>
-                <ListItemText>
-                  <Typography variant="body1">{e.title}</Typography>
-                </ListItemText>
+                <ListItemText
+                  primary={e.title}
+                  secondary={e.location.address}
+                />
               </ListItem>
             ))}
           </List>

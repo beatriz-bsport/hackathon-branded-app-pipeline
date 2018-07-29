@@ -141,7 +141,7 @@ export class Calendar extends Component<Props> {
   };
 
   renderDay = (day) => {
-    const { selectedDay } = this.state;
+    const { selectedDay, displayMode } = this.state;
     const { classes } = this.props;
     const isSelected = day.isSame(selectedDay, 'days');
 
@@ -153,7 +153,9 @@ export class Calendar extends Component<Props> {
               variant={isSelected ? 'raised' : null}
               color="primary"
               className={classes.dayButton}
-              disabled={!day.isSame(selectedDay, 'months')}
+              disabled={
+                !day.isSame(selectedDay, 'months') && displayMode === MONTHMODE
+              }
               onClick={() => {
                 this.selectDate(day);
               }}
@@ -172,7 +174,7 @@ export class Calendar extends Component<Props> {
     const month = Moment.months()[selectedDay.month()];
     const year = selectedDay.year();
     return (
-      <Grid container justify="space-between" alignItems="center">
+      <Grid container justify="space-between" alignItems="center" wrap="nowrap">
         {forceMonthDisplay ? null : (
           <Grid item>
             <IconButton
@@ -184,7 +186,14 @@ export class Calendar extends Component<Props> {
           </Grid>
         )}
         <Grid item>
-          <Grid container justify="center" alignItems="center" spacing={16}>
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+            spacing={16}
+            wrap="nowrap"
+          >
             <Grid item>
               <IconButton onClick={this.showPreviousMonth}>
                 <ChevronLeftIcon />
@@ -223,6 +232,7 @@ export class Calendar extends Component<Props> {
         direction="row"
         alignItems="center"
         justify="space-between"
+        wrap="nowrap"
       >
         {this.renderDay(Moment(firstDayWeek).add(0, 'days'))}
         {this.renderDay(Moment(firstDayWeek).add(1, 'days'))}
@@ -260,6 +270,7 @@ export class Calendar extends Component<Props> {
             alignItems="center"
             justify="space-between"
             className={classes.weekdayNameRow}
+            wrap="nowrap"
           >
             {Moment.weekdaysShort(true).map((wds) => (
               <Grid item key={wds}>

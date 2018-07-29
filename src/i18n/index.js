@@ -4,6 +4,7 @@ import { reactI18nextModule } from 'react-i18next';
 import ENGLISH_PACK from './english.translation';
 import FRENCH_PACK from './french.translation';
 import Moment from 'moment';
+import 'moment/locale/fr';
 
 i18n.on('languageChanged', function(lng) {
   Moment.locale(lng);
@@ -47,6 +48,8 @@ const availableLanguages = [
     translation: FRENCH_PACK,
   },
 ];
+
+Moment.locale(i18n.lng);
 
 export default i18n;
 export { Moment, availableLanguages };

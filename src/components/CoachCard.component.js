@@ -39,6 +39,7 @@ export class CoachCard extends Component {
           <Link
             to={`/activity/${a.meta_activity_id}`}
             style={{ textDecoration: 'none' }}
+            key={a.id}
           >
             <ActivityMinimalSummary activity={a} />
           </Link>

@@ -24,9 +24,12 @@ export default render(map, document.getElementById('container'));
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
-import { Button } from '@material-ui/core';
+import { Button, withStyles, Grid, Typography } from '@material-ui/core';
+import { translate } from 'react-i18next';
 
 import './Map.css';
+
+const styles = (theme) => ({});
 
 const TILE_LAYER_URL =
   'https://cartodb-basemaps-{s}.global.ssl.fastly.net/{variant}/{z}/{x}/{y}{r}.png';
@@ -38,7 +41,7 @@ type Props = {
   markerClicked: () => void,
 };
 
-export default class SimpleExample extends Component<Props> {
+export class MyMap extends Component<Props> {
   constructor() {
     super();
     this.state = {
@@ -54,17 +57,30 @@ export default class SimpleExample extends Component<Props> {
   };
 
   renderMarker = (marker) => {
-    const { markerClicked } = this.props;
-    const { location, id } = marker;
+    const { t, classes, markerClicked } = this.props;
+    const { title, location, id } = marker;
     return (
       <Marker position={[location.latitude, location.longitude]} key={id}>
-        <Button
-          onClick={() => {
-            markerClicked(id);
-          }}
-        >
-          OOO
-        </Button>
+        <Popup>
+          <Grid container spacing={8}>
+            <Grid item>
+              <Typography variant="title">{title}</Typography>
+            </Grid>
+            <Grid item>
+              <Typography variant="caption">{location.address}</Typography>
+            </Grid>
+            <Grid item>
+              <Button
+                color="primary"
+                onClick={() => {
+                  markerClicked(id);
+                }}
+              >
+                {t('common.show_more')}
+              </Button>
+            </Grid>
+          </Grid>
+        </Popup>
       </Marker>
     );
   };
@@ -81,3 +97,5 @@ export default class SimpleExample extends Component<Props> {
     );
   }
 }
+
+export default withStyles(styles)(translate()(MyMap));

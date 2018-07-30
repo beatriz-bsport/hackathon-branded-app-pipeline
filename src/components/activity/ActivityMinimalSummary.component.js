@@ -31,6 +31,7 @@ export function ActivityMinimalSummary(props) {
     additionalInfoSecondary,
     date,
     showCoach,
+    showCoachName,
     overrideClickAction,
     t,
     classes,
@@ -45,6 +46,7 @@ export function ActivityMinimalSummary(props) {
     coach,
   } = activity;
 
+  const nextSlotFormatted = next_slot || t('activity.noNextSlot');
   const dateToShow = date || next_slot;
 
   return (
@@ -76,7 +78,7 @@ export function ActivityMinimalSummary(props) {
         />
       ) : null}
       <ListItemText
-        primary={etablissement.title}
+        primary={showCoachName ? coach.name : etablissement.title}
         secondary={<Level noStyle levelId={level} variant="caption" />}
       />
     </ListItem>

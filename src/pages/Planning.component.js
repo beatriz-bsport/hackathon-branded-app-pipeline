@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { withRouter } from 'react-router-dom';
+
 import { connect } from 'react-redux';
 import { withStyles, Paper, Grid, Typography } from '@material-ui/core';
 import { OfferCard, TimeTable, Calendar } from '../components';
@@ -49,16 +51,18 @@ export class Planning extends Component {
     return (
       <Grid container spacing={24}>
         <Grid item xs={12} md={6}>
-          <Grid container spacing={8}>
-            <Grid item xs={12}>
-              <Paper className={classes.calendarContainer}>
-                <Calendar events={events} onDateClick={this.onDateClick} />
-              </Paper>
+          <Paper>
+            <Grid container>
+              <Grid item xs={12}>
+                <div className={classes.calendarContainer}>
+                  <Calendar events={events} onDateClick={this.onDateClick} />
+                </div>
+              </Grid>
+              <Grid item xs={12}>
+                <TimeTable date={date} onOfferSelected={this.onOfferSelected} />
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <TimeTable date={date} onOfferSelected={this.onOfferSelected} />
-            </Grid>
-          </Grid>
+          </Paper>
         </Grid>
         {selectedOffer ? (
           <Grid item xs={12} md={6}>
@@ -76,5 +80,5 @@ function mapStateToProps(state) {
   };
 }
 export default translate()(
-  connect(mapStateToProps)(withStyles(styles)(Planning)),
+  withRouter(connect(mapStateToProps)(withStyles(styles)(Planning))),
 );

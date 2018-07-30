@@ -82,8 +82,13 @@ export default {
       authError: 'Email and password mismatch',
       forgottenPassword: 'Forgotten password',
     },
+    establishment: {
+      pleaseSelectOne: 'Please select a club in the map to show its details',
+      offers: 'Sessions calendar:',
+    },
     activity: {
       name: 'Title',
+      noNextSlot: 'No more slot',
       grossVolume: 'Gross volume',
       totalCustomers: 'Total bookings',
       fillrate: 'Average fillrate',

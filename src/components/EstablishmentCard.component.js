@@ -97,7 +97,12 @@ export class EstablishmentCard extends Component<Props> {
                   to={`/activity/${a.meta_activity_id}`}
                   style={{ textDecoration: 'none' }}
                 >
-                  <ActivityMinimalSummary activity={a} key={a.id} showCoach />
+                  <ActivityMinimalSummary
+                    activity={a}
+                    key={a.id}
+                    showCoach
+                    showCoachName
+                  />
                 </Link>
               ))}
           </Grid>

@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import {
   CircularProgress,
   List,
-  Paper,
   Grid,
   Typography,
   withStyles,
@@ -24,31 +23,59 @@ function getOffersToday(date, offers) {
   return offers.filter((o) => Moment(o.date_start).isSame(date, 'day'));
 }
 
+function filterOffers(offers, metaActivityId, establishmentId) {
+  let offersFiltered = offers;
+  if (metaActivityId) {
+    offersFiltered = offersFiltered.filter(
+      (o) => parseInt(o.meta_activity_id, 10) === parseInt(metaActivityId, 10),
+    );
+  }
+  if (establishmentId) {
+    offersFiltered = offersFiltered.filter(
+      (o) => parseInt(o.etablissement.id, 10) === parseInt(establishmentId, 10),
+    );
+  }
+  return offersFiltered;
+}
+
 type Props = {
   date: Object,
   offers: Array,
   onOfferSelected: () => void,
   metaActivityId: Number,
+  establishmentId: Number,
 };
 
 export class TimeTable extends Component<Props> {
   constructor(props) {
     super(props);
-    const offersToday = getOffersToday(props.date, props.offers);
+    const offersTodayUnfiltered = getOffersToday(props.date, props.offers);
+    const offersToday = filterOffers(
+      offersTodayUnfiltered,
+      props.metaActivityId,
+      props.establishmentId,
+    );
+
     this.state = {
       offersToday,
     };
   }
 
   static defaultProps = {
+    date: Moment().startOf('day'),
     onOfferSelected: () => {},
     metaActivityId: null,
+    establishmentId: null,
   };
 
   componentWillReceiveProps(nextProps) {
-    const offersToday = getOffersToday(
-      nextProps.date || this.props.date,
-      nextProps.offers || this.props.offers,
+    const offersToday = filterOffers(
+      getOffersToday(
+        nextProps.date || this.props.date,
+        nextProps.offers || this.props.offers,
+      ),
+      nextProps.metaActivityId,
+      nextProps.establishmentId,
     );
 
     this.setState({
@@ -57,14 +84,8 @@ export class TimeTable extends Component<Props> {
   }
 
   renderActivity = (offer) => {
-    const { activities, metaActivityId } = this.props;
-    let activityF = activities.filter((a) => a.id === offer.activity_id);
-    if (metaActivityId) {
-      activityF = activityF.filter(
-        (a) =>
-          parseInt(a.meta_activity_id, 10) === parseInt(metaActivityId, 10),
-      );
-    }
+    const { activities, metaActivityId, establishmentId } = this.props;
+    const activityF = activities.filter((a) => a.id === offer.activity_id);
     if (activityF.length) {
       const activity = activityF[0];
       return (
@@ -102,11 +123,7 @@ export class TimeTable extends Component<Props> {
       return <CircularProgress />;
     }
     return offersToday.length ? (
-      <List>
-        <Paper className={classes.container}>
-          {offersToday.map((o) => this.renderActivity(o))}
-        </Paper>
-      </List>
+      <List>{offersToday.map((o) => this.renderActivity(o))}</List>
     ) : (
       <div className={classes.emptyMessage}>
         <Typography variant="caption">

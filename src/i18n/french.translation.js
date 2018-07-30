@@ -24,6 +24,7 @@ export default {
       selected: 'Séléctionné(s)',
       pass: 'Pass',
       booking_s: 'Séance(s)',
+      offers: 'Séances',
       date: 'Date',
       nothing: 'Aucune',
       bookings: 'Réservations',
@@ -104,6 +105,7 @@ export default {
     activity: {
       name: 'Titre',
       // eslint-disable-next-line
+      noNextSlot: 'Plus de séance',
       grossVolume: "Chiffre d'affaire",
       totalCustomers: 'Total réservations',
       fillrate: 'Remplissage moyen',
@@ -115,6 +117,10 @@ export default {
       orNcredits2: ' credits)',
       packsAvailable: 'Eligible aux pass :',
       reviews: 'Avis clients: ',
+    },
+    establishment: {
+      pleaseSelectOne: 'Veuillez sélectionner un club sur la carte',
+      offers: 'Calendrier des séances:',
     },
     booking: {
       fillRate: 'Taux de remplissage',

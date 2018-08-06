@@ -29,10 +29,24 @@ export default {
       nothing: 'Aucune',
       bookings: 'Réservations',
       places: 'Lieux',
+      male: 'Homme',
+      female: 'Femme',
     },
     pagination: {
       rowPerPage: 'Eléments par page',
       outOf: ' sur ',
+    },
+    form: {
+      newCoach: 'Nouveau Coach',
+      firstname: 'Prénom',
+      lastname: 'Nom de famille',
+      gender: 'Sexe',
+      birthdayYear: 'Année de naissance',
+      phone: 'Numéro de téléphone',
+      email: 'Adresse email',
+      description: 'Description',
+      send: 'Envoyer',
+      discard: 'Annuler',
     },
     member: {
       // eslint-disable-next-line
@@ -47,6 +61,7 @@ export default {
       engagement: 'Engagement',
     },
     coach: {
+      addCoach: 'Ajouter un coach',
       noActivity: 'Ce coach ne gère aucune activité.',
       // eslint-disable-next-line
       selfNoActivity: "Vous n'êtes en charge d'aucune activité.",
@@ -101,6 +116,8 @@ export default {
       showMore: (total) => `+ ${total} séance(s) supplémentaire(s)`,
       showMonth: 'Affichage mois',
       showWeek: 'Affichage semaine',
+      pleaseSelectOffer:
+        'Sélectionnez une séance pour voir les membres inscrits',
     },
     activity: {
       name: 'Titre',

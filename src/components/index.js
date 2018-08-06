@@ -34,9 +34,13 @@ import Calendar from './Calendar.component';
 import TimeTable from './TimeTable.component';
 import Map from './Map.component';
 import EstablishmentCard from './EstablishmentCard.component';
+import FormField from './FormField.component';
+import AvatarUploader from './AvatarUploader.component';
 
 export {
-EstablishmentCard,
+  AvatarUploader,
+  FormField,
+  EstablishmentCard,
   Map,
   TimeTable,
   Calendar,

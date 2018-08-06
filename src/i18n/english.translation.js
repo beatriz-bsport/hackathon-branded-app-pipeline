@@ -29,10 +29,24 @@ export default {
       nothing: 'Nothing',
       bookings: 'Bookings',
       places: 'Places',
+      male: 'male',
+      female: 'female',
     },
     pagination: {
       rowPerPage: 'Rows per page',
       outOf: ' of ',
+    },
+    form: {
+      newCoach: 'New Coach',
+      firstname: 'Firstname',
+      lastname: 'Lastname',
+      gender: 'Gender',
+      birthdayYear: 'Year of birth',
+      phone: 'Phone number',
+      email: 'Email address',
+      description: 'Description',
+      send: 'Send',
+      discard: 'Discard',
     },
     member: {
       date_joined: 'Member since',
@@ -46,6 +60,7 @@ export default {
       engagement: 'Engagement',
     },
     coach: {
+      addCoach: 'Add a coach',
       noActivity: 'This coach does not manage any activity.',
       selfNoActivity: 'You are not managing any activity.',
     },
@@ -128,6 +143,7 @@ export default {
     },
     calendar: {
       showMonth: 'Show month',
+      pleaseSelectOffer: 'Select a session to show the bookings',
     }, // used for big-calendar localization - en is default
     time: {
       weekday: {

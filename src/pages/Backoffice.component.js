@@ -24,6 +24,7 @@ import Member from './Member.component';
 import PaymentPackList from './PaymentPackList.component';
 import Planning from './Planning.component';
 import EstablishmentMap from './EstablishmentMap.component';
+import CoachForm from './CoachForm.component';
 
 const styles = (theme) => ({
   content: {
@@ -86,13 +87,14 @@ export class Backoffice extends Component<{}> {
               <Route path="/calendar" component={Planning} />
               <Route exact path="/activity" component={MetaActivityList} />
               <Route path="/activity/:id" component={MetaActivity} />
+              <Route exact path="/coach/add" component={CoachForm} />
               <Route path="/coach" component={CoachList} />
               <Route path="/payment" component={Payment} />
               <Route path="/payment-pack" component={PaymentPackList} />
               <Route exact path="/member" component={MemberList} />
               <Route path="/member/:id" component={Member} />
               <Route exact path="/map" component={EstablishmentMap} />
-              <Route exact path="/" component={EstablishmentMap} />
+              <Route exact path="/" component={CoachForm} />
             </Switch>
           </div>
         </main>

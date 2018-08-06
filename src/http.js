@@ -44,7 +44,8 @@ export async function getAuth(uri: string, token = null) {
   return get(uri, { Authorization: `Token ${token_}` });
 }
 
-export async function postAuth(uri, string, data: Object) {
-  const token = getAuthToken();
-  return post(uri, data, { Authorization: `Token ${token}` });
+export async function postAuth(uri, string, data: Object, token = null) {
+  const token_ = token || getAuthToken();
+  console.log(token_);
+  return post(uri, data, { Authorization: `Token ${token_}` });
 }

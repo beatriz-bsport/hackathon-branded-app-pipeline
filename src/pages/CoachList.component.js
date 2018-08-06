@@ -1,9 +1,27 @@
 import React, { Component } from 'react';
 
-import { CircularProgress, Grid, Paper } from '@material-ui/core';
+import {
+  withStyles,
+  CircularProgress,
+  Button,
+  Grid,
+  Paper,
+} from '@material-ui/core';
 import { connect } from 'react-redux';
+import AddIcon from '@material-ui/icons/Add';
+import { translate } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 import { CoachCard } from '../components';
+
+const styles = (theme) => ({
+  button: {
+    margin: theme.spacing.unit,
+  },
+  extendedIcon: {
+    marginRight: theme.spacing.unit,
+  },
+});
 
 type Props = {};
 
@@ -36,13 +54,33 @@ export class CoachList extends Component<Props> {
   };
 
   render() {
+    const { is_manager, classes, t } = this.props;
     if (this.props.loading) {
       return <CircularProgress />;
     }
     return (
-      <Grid container direction="row" spacing={24}>
-        {this.getSelfCoach()}
-        {this.getAssociatedCoaches()}
+      <Grid container direction="column" alignItems="center">
+        {is_manager ? (
+          <Grid item>
+            <Link to="/coach/add" style={{ textDecoration: 'none' }}>
+              <Button
+                variant="extendedFab"
+                aria-label="Add"
+                className={classes.button}
+                color="primary"
+              >
+                <AddIcon className={classes.extendedIcon} />
+                {t('coach.addCoach')}
+              </Button>
+            </Link>
+          </Grid>
+        ) : null}
+        <Grid item>
+          <Grid container direction="row" spacing={24}>
+            {this.getSelfCoach()}
+            {this.getAssociatedCoaches()}
+          </Grid>
+        </Grid>
       </Grid>
     );
   }
@@ -58,4 +96,6 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(CoachList);
+export default connect(mapStateToProps)(
+  withStyles(styles)(translate()(CoachList)),
+);

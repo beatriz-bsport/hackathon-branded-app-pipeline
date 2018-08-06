@@ -1,10 +1,16 @@
 import axios from 'axios';
 import moment from 'moment';
 
-import { getAuth } from './http';
+import { getAuth, postAuth } from './http';
 
 const BASE_URI = process.env.REACT_APP_BASE_URI;
 const API_URI = `${BASE_URI}/api-v0`;
+
+`${API_URI}/saas/create-coach/`;
+
+export async function addCoach(data) {
+  return postAuth(`${API_URI}/saas/create-coach/`, data);
+}
 
 export async function resetPassword(email) {
   return axios.get(`${BASE_URI}/authentication/password_reset_email/${email}`);
@@ -107,6 +113,7 @@ export default {
   },
   coach: {
     fetchAssociated: fetchAssociatedCoaches,
+    addCoach,
   },
   member: {
     fetchAll: fetchAllMembers,

@@ -14,6 +14,9 @@ const styles = (theme) => ({
   calendarContainer: {
     padding: theme.spacing.unit * 2,
   },
+  emptyOffer: {
+    margin: theme.spacing.unit * 3,
+  },
 });
 
 export class Planning extends Component {
@@ -34,6 +37,15 @@ export class Planning extends Component {
 
   onOfferSelected = (offer) => {
     this.setState({ selectedOffer: offer });
+  };
+
+  renderNoOfferSelected = () => {
+    const { t, classes } = this.props;
+    return (
+      <Typography variant="caption" className={classes.emptyOffer}>
+        {t('calendar.pleaseSelectOffer')}
+      </Typography>
+    );
   };
 
   render() {
@@ -68,7 +80,9 @@ export class Planning extends Component {
           <Grid item xs={12} md={6}>
             <OfferCard offer={selectedOffer} />
           </Grid>
-        ) : null}
+        ) : (
+          this.renderNoOfferSelected()
+        )}
       </Grid>
     );
   }

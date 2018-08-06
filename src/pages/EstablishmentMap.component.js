@@ -21,6 +21,7 @@ const styles = (theme) => ({
   },
   paperContainer: {
     padding: theme.spacing.unit * 3,
+    paddingRight: 0,
   },
   calendarContainer: {
     marginRight: theme.spacing.unit * 2,
@@ -116,11 +117,9 @@ export class EstablishmentList extends Component<Props> {
   render() {
     const { classes, t, loading, establishments } = this.props;
     const { selectedEstablishment } = this.state;
-    /*
     if (loading) {
       return <CircularProgress />;
     }
-    */
     return (
       <Grid container spacing={16}>
         <Grid item xs={12} md={6}>

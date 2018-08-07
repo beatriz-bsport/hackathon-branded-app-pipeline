@@ -47,7 +47,7 @@ export function ActivityMinimalSummary(props) {
   } = activity;
 
   const nextSlotFormatted = next_slot || t('activity.noNextSlot');
-  const dateToShow = date || next_slot;
+  const dateToShow = date || nextSlotFormatted;
 
   return (
     <ListItem

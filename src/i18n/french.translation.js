@@ -47,6 +47,21 @@ export default {
       description: 'Description',
       send: 'Envoyer',
       discard: 'Annuler',
+      name: 'Nom',
+      SCT: 'Sport',
+      default_price: 'Prix',
+      default_credits: 'Prix (crédits)',
+      default_last_booking_minutes: 'Dernière réservation avant',
+      default_last_discard_minutes: "Dernière annulation jusqu'à",
+      default_duration_minutes: 'Durée de la séance',
+      newMetaActivity: 'Nouvelle activité',
+      quarterHour: '15min',
+      halfHour: '30min',
+      oneHour: '1h',
+      oneHourAndHalf: '1h30',
+      twoHour: '2h',
+      sixHour: '6h',
+      oneDay: '1 journée',
     },
     member: {
       // eslint-disable-next-line
@@ -70,7 +85,7 @@ export default {
       dashboard: 'Dashboard',
       activity: 'Mes activités',
       calendar: 'Calendrier',
-      message: 'Messages',
+      message: 'Marketing',
       member: 'Membres',
       establishment: 'Etablissements',
       payment: 'Paiements',
@@ -120,6 +135,7 @@ export default {
         'Sélectionnez une séance pour voir les membres inscrits',
     },
     activity: {
+      addActivity: 'Ajouter une activité',
       name: 'Titre',
       // eslint-disable-next-line
       noNextSlot: 'Plus de séance',

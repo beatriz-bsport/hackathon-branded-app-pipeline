@@ -4,15 +4,8 @@ import { Typography, Grid } from '@material-ui/core';
 import SPORTS from 'bsport-commons/lib/master-data/sports';
 import { translate } from 'react-i18next';
 
-const LEVELS = [
-  'level.all',
-  'level.beginner',
-  'level.intermediate',
-  'level.advanced',
-];
-
 export function Sport(props) {
-  const { parentCategory, category, t, noname } = props;
+  const { parentCategory, SCTName, t, noname } = props;
   const variant = props.variant || 'body1';
 
   const sport = SPORTS.filter((s) => s.id === parentCategory)[0];
@@ -30,7 +23,7 @@ export function Sport(props) {
       </Grid>
       {noname ? null : (
         <Grid item>
-          <Typography variant={variant}>{sport.text}</Typography>
+          <Typography variant={variant}>{SCTName || sport.text}</Typography>
         </Grid>
       )}
     </Grid>

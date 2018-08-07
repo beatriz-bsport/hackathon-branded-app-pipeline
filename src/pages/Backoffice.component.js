@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { TopBar, NavBar } from '../components';
-import Dashboard from './Dashboard.component';
 import { ResponsiveDrawer } from '../components';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -15,6 +13,10 @@ import { offer as offerActions } from '../actions';
 import { member as memberActions } from '../actions';
 import { coach as coachActions } from '../actions';
 import { establishment as establishmentActions } from '../actions';
+import { category as categoryActions } from '../actions';
+
+import { TopBar, NavBar } from '../components';
+import Dashboard from './Dashboard.component';
 import MetaActivityList from './MetaActivityList.component';
 import MetaActivity from './MetaActivity.component';
 import CoachList from './CoachList.component.js';
@@ -25,6 +27,7 @@ import PaymentPackList from './PaymentPackList.component';
 import Planning from './Planning.component';
 import EstablishmentMap from './EstablishmentMap.component';
 import CoachForm from './CoachForm.component';
+import MetaActivityForm from './MetaActivityForm.component';
 
 const styles = (theme) => ({
   content: {
@@ -53,6 +56,7 @@ export class Backoffice extends Component<{}> {
     this.props.fetchActivitiesMinimal();
     this.props.fetchAssociatedCoaches();
     this.props.fetchAllEstablishments();
+    this.props.fetchSCT();
   }
 
   toogleDrawer = () => {
@@ -88,13 +92,18 @@ export class Backoffice extends Component<{}> {
               <Route exact path="/activity" component={MetaActivityList} />
               <Route path="/activity/:id" component={MetaActivity} />
               <Route exact path="/coach/add" component={CoachForm} />
+              <Route
+                exact
+                path="/meta-activity/add"
+                component={MetaActivityForm}
+              />
               <Route path="/coach" component={CoachList} />
               <Route path="/payment" component={Payment} />
               <Route path="/payment-pack" component={PaymentPackList} />
               <Route exact path="/member" component={MemberList} />
               <Route path="/member/:id" component={Member} />
               <Route exact path="/map" component={EstablishmentMap} />
-              <Route exact path="/" component={CoachForm} />
+              <Route exact path="/" component={Planning} />
             </Switch>
           </div>
         </main>
@@ -132,6 +141,9 @@ function mapDispatchToProps(dispatch) {
     },
     fetchAssociatedCoaches() {
       dispatch(coachActions.fetchAssociated());
+    },
+    fetchSCT() {
+      dispatch(categoryActions.fetchSCT());
     },
   };
 }

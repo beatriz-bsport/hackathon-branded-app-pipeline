@@ -10,6 +10,7 @@ import coachReducers from './coach';
 import memberReducer from './member';
 import paymentPackReducers from './paymentPack';
 import establishmentReducers from './establishment';
+import categoryReducers from './category';
 
 export default combineReducers({
   auth: authReducers,
@@ -22,4 +23,5 @@ export default combineReducers({
   coach: coachReducers,
   member: memberReducer,
   paymentPack: paymentPackReducers,
+  category: categoryReducers,
 });

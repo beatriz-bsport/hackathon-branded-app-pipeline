@@ -8,6 +8,7 @@ import * as coach from './coach.actions';
 import * as member from './member.actions';
 import * as paymentPack from './paymentPack.actions';
 import * as establishment from './establishment.actions';
+import * as category from './category.actions';
 
 export {
   auth,
@@ -20,4 +21,5 @@ export {
   coach,
   member,
   paymentPack,
+  category,
 };

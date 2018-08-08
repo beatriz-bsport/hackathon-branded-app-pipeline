@@ -4,10 +4,10 @@ import { withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { withStyles, Paper, Grid, Typography } from '@material-ui/core';
-import { OfferCard, TimeTable, Calendar } from '../components';
-import { activity as activityActions } from '../actions';
-
 import { translate } from 'react-i18next';
+
+import { OfferCard, TimeTable, Calendar } from '../components';
+
 import { Moment } from '../i18n';
 
 const styles = (theme) => ({
@@ -30,6 +30,7 @@ export class Planning extends Component {
         .set('milliseconds', 0),
     };
   }
+
   onDateClick = (date) => {
     this.setState({ date });
     this.setState({ selectedOffer: null });
@@ -49,35 +50,34 @@ export class Planning extends Component {
   };
 
   render() {
-    const { t, offers, classes } = this.props;
+    const { offers, classes } = this.props;
     const { date, selectedOffer } = this.state;
     const events = {};
-    for (const o of offers) {
+    offers.forEach((o) => {
       const midnight = Moment(o.date_start).startOf('day');
-      if (events.hasOwnProperty(midnight)) {
-        events[midnight].push(o);
-      } else {
-        events[midnight] = [o];
+      if (!events[midnight]) {
+        events[midnight] = [];
       }
-    }
+      events[midnight].push(o);
+    });
     return (
       <Grid container spacing={24}>
-        <Grid item xs={12} md={6}>
+        <Grid item md={12} lg={6}>
           <Paper>
             <Grid container>
-              <Grid item xs={12}>
+              <Grid item md={12}>
                 <div className={classes.calendarContainer}>
                   <Calendar events={events} onDateClick={this.onDateClick} />
                 </div>
               </Grid>
-              <Grid item xs={12}>
+              <Grid item md={12}>
                 <TimeTable date={date} onOfferSelected={this.onOfferSelected} />
               </Grid>
             </Grid>
           </Paper>
         </Grid>
         {selectedOffer ? (
-          <Grid item xs={12} md={6}>
+          <Grid item md={12} lg={6}>
             <OfferCard offer={selectedOffer} />
           </Grid>
         ) : (

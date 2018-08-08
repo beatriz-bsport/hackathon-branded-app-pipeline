@@ -2,7 +2,7 @@ import axios from 'axios';
 
 let authToken = '';
 
-import { storage } from './App';
+const storage = window.localStorage;
 
 export function setAuthToken(token: string) {
   storage.setItem('http:token', token);

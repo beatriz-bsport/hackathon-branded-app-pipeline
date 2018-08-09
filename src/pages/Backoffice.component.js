@@ -28,6 +28,8 @@ import Planning from './Planning.component';
 import EstablishmentMap from './EstablishmentMap.component';
 import CoachForm from './CoachForm.component';
 import MetaActivityForm from './MetaActivityForm.component';
+import MarketingDashboard from './MarketingDashboard.component';
+import MarketingRule from './MarketingRule.component';
 
 const styles = (theme) => ({
   content: {
@@ -103,7 +105,9 @@ export class Backoffice extends Component<{}> {
               <Route exact path="/member" component={MemberList} />
               <Route path="/member/:id" component={Member} />
               <Route exact path="/map" component={EstablishmentMap} />
-              <Route exact path="/" component={Planning} />
+              <Route path="/marketing/rule/:id" component={MarketingRule} />
+              <Route path="/marketing" component={MarketingDashboard} />
+              <Route exact path="/" component={MarketingDashboard} />
             </Switch>
           </div>
         </main>

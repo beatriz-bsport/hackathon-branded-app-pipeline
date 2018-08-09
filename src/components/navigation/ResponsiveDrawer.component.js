@@ -155,7 +155,7 @@ class ResponsiveDrawer extends React.Component {
               <ListItemText primary={t('navigation.pass')} />
             </ListItem>
           </Link>
-          <Link to="/messaging" style={{ textDecoration: 'none' }}>
+          <Link to="/marketing" style={{ textDecoration: 'none' }}>
             <ListItem button>
               <ListItemIcon>
                 <Email />

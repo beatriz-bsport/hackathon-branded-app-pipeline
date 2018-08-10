@@ -23,13 +23,10 @@ const styles = (theme) => ({
 });
 
 export class Login extends Component<{}> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      password: '',
-    };
-  }
+  state = {
+    email: '',
+    password: '',
+  };
 
   updateEmail = (event) => {
     this.setState({

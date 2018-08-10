@@ -2,11 +2,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { Paper, Grid, Typography } from '@material-ui/core';
-import {
-  Camembert,
-  GreatFilter,
-  Histogram,
-} from '../components';
+import { Camembert, GreatFilter, Histogram } from '../components';
 import { activity as activityActions } from '../actions';
 
 import { translate } from 'react-i18next';

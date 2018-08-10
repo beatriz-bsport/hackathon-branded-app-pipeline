@@ -30,12 +30,14 @@ const styles = (theme) => ({
 export class CoachCard extends Component {
   getActivityList = () => {
     const { t } = this.props;
-    if (!this.props.coach.activities.length) {
+    const { coach } = this.props;
+
+    if (!coach || !coach.activities.length) {
       return <Typography variant="body">{t('coach.noActivity')}</Typography>;
     }
     return (
       <List>
-        {this.props.coach.activities.map((a) => (
+        {coach.activities.map((a) => (
           <Link
             to={`/activity/${a.meta_activity_id}`}
             style={{ textDecoration: 'none' }}
@@ -56,7 +58,7 @@ export class CoachCard extends Component {
           <Grid item>
             <Grid
               container
-              direciton="row"
+              direction="row"
               justify="space-between"
               alignItems="flex-start"
             >
@@ -67,7 +69,7 @@ export class CoachCard extends Component {
               </Grid>
               <Grid item>
                 <div style={{ marginTop: -OVERFLOW }}>
-                  <Avatar user={coach} variant="large" />
+                  {coach ? <Avatar user={coach} variant="large" /> : null}
                 </div>
               </Grid>
               <Grid item>

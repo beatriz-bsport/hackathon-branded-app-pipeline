@@ -61,7 +61,7 @@ export class CoachList extends Component<Props> {
     return (
       <Grid container direction="column" alignItems="center">
         {is_manager ? (
-          <Grid item>
+          <Grid item xs="12">
             <Link to="/coach/add" style={{ textDecoration: 'none' }}>
               <Button
                 variant="extendedFab"

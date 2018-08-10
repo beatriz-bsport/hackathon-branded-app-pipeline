@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Typography } from '@material-ui/core';
-import { getLevelColorById } from 'bsport-commons/lib/colors';
+import { getLevelColor } from 'bsport-commons/lib/colors';
 import { translate } from 'react-i18next';
 
 const LEVELS = [
@@ -17,14 +17,14 @@ export function Level(props) {
 
   const stylesheet = noStyle
     ? {
-        color: getLevelColorById(levelId),
+        color: getLevelColor(levelId),
       }
     : {
         padding: '10px',
         paddingTop: '4px',
         paddingBottom: '4px',
         borderRadius: 5,
-        backgroundColor: getLevelColorById(levelId),
+        backgroundColor: getLevelColor(levelId),
         color: 'white',
       };
 

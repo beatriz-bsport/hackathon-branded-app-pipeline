@@ -9,10 +9,7 @@ import {
   Button,
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
-import { RotateLeft } from '@material-ui/icons';
-import { Receipt } from '@material-ui/icons';
-import { ShoppingCart } from '@material-ui/icons';
-import { Stars } from '@material-ui/icons';
+import { RotateLeft, Receipt, ShoppingCart, Stars } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 
 import { Moment } from '../i18n';
@@ -41,8 +38,8 @@ const styles = (theme) => ({
   },
 });
 
-type Props = {
-  rules: Array,
+type State = {
+  rules: Array<*>,
 };
 
 const RULES = [
@@ -106,16 +103,13 @@ const RULES = [
   },
 ];
 
-export class MarketingDashboard extends Component<Props> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      rules: RULES,
-    };
-  }
+export class MarketingDashboard extends Component<{}, State> {
+  state = {
+    rules: RULES,
+  };
 
   renderRuleStats = (rule) => {
-    const { t, classes } = this.props;
+    const { t } = this.props;
     return (
       <Grid
         container
@@ -199,7 +193,7 @@ export class MarketingDashboard extends Component<Props> {
   };
 
   renderRuleActions = (rule) => {
-    const { classes, t } = this.props;
+    const { t } = this.props;
     return (
       <Grid container direction="column" spacing={16}>
         <Grid item>
@@ -208,7 +202,7 @@ export class MarketingDashboard extends Component<Props> {
         <Grid item>
           <Grid container direction="row" spacing={8} alignItems="flex-end">
             <Grid item>
-              <Typography variant="body">{rule.SMSSent}</Typography>
+              <Typography variant="body1">{rule.SMSSent}</Typography>
             </Grid>
             <Grid item>
               <Typography variant="caption">
@@ -220,7 +214,7 @@ export class MarketingDashboard extends Component<Props> {
         <Grid item>
           <Grid container direction="row" spacing={8} alignItems="flex-end">
             <Grid item>
-              <Typography variant="body">{rule.EmailSent}</Typography>
+              <Typography variant="body1">{rule.EmailSent}</Typography>
             </Grid>
             <Grid item>
               <Typography variant="caption">
@@ -232,7 +226,7 @@ export class MarketingDashboard extends Component<Props> {
         <Grid item>
           <Grid container direction="row" spacing={8} alignItems="flex-end">
             <Grid item>
-              <Typography variant="body">{rule.notificationSent}</Typography>
+              <Typography variant="body1">{rule.notificationSent}</Typography>
             </Grid>
             <Grid item>
               <Typography variant="caption">
@@ -244,7 +238,7 @@ export class MarketingDashboard extends Component<Props> {
         <Grid item>
           <Grid container direction="row" spacing={8} alignItems="flex-end">
             <Grid item>
-              <Typography variant="body">{rule.clientReached}</Typography>
+              <Typography variant="body1">{rule.clientReached}</Typography>
             </Grid>
             <Grid item>
               <Typography variant="caption">
@@ -258,19 +252,18 @@ export class MarketingDashboard extends Component<Props> {
   };
 
   renderRuleTriggers = (rule) => {
-    const { classes, t } = this.props;
+    const { t } = this.props;
     return (
       <Grid container direction="column" spacing={16}>
         <Grid item>
           <Typography variant="title">{t('marketing.criterias')}</Typography>
         </Grid>
         {rule.criterias.map((c) => (
-          <Grid item>
+          <Grid key={c.name} item>
             <Grid container direction="row" spacing={8}>
               <Grid item>
-                <Typography variant="caption" style={{ color: 'black' }}>
-                  {c.name} :{' '}
-                </Typography>
+                <Typography variant="caption" style={{ color: 'black' }} />
+                {c.name} :{' '}
               </Grid>
               <Grid item>
                 <Typography variant="caption">{c.value} </Typography>
@@ -283,7 +276,7 @@ export class MarketingDashboard extends Component<Props> {
   };
 
   renderRuleDetails = (rule) => {
-    const { t, classes } = this.props;
+    const { classes } = this.props;
     return (
       <Grid container direction="row">
         <Grid item xs={6}>
@@ -344,7 +337,7 @@ export class MarketingDashboard extends Component<Props> {
         </Typography>
         <Grid container direction="row" spacing={32}>
           {rules.map((r) => (
-            <Grid item xs={12} lg={6}>
+            <Grid key={r.id} item xs={12} lg={6}>
               <Paper className={classes.paperContainer}>
                 {this.renderRule(r)}
               </Paper>

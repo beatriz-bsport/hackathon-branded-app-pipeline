@@ -1,32 +1,17 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
-import {
-  AppBar,
-  Button,
-  IconButton,
-  Toolbar,
-  Typography,
-  Grid,
-  Drawer,
-  List,
-  Divider,
-} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-
-import { Menu } from '@material-ui/icons';
+import { CircularProgress } from '@material-ui/core';
 
 import Backoffice from './pages/Backoffice.component';
 import Login from './pages/Login.component';
 import ResetPassword from './pages/ResetPassword.component';
-import AuthenticatedHome from './pages/AuthenticatedHome.component';
 import Signout from './pages/Signout.component';
 
-import { NavBar, TopBar } from './components';
-
-const styles = (theme) => ({
+const styles = () => ({
   root: {
     flexGrow: 1,
     zIndex: 1,
@@ -38,7 +23,12 @@ const styles = (theme) => ({
 
 export class Root extends Component<{}> {
   render() {
-    const { classes } = this.props;
+    const { classes, rehydrated } = this.props;
+
+    if (!rehydrated) {
+      return <CircularProgress />;
+    }
+
     return (
       <div className={classes.root}>
         <Switch>
@@ -52,4 +42,9 @@ export class Root extends Component<{}> {
   }
 }
 
-export default withStyles(styles)(Root);
+function mapStateToProps(state) {
+  return {
+    rehydrated: state._persist && state._persist.rehydrated,
+  };
+}
+export default withStyles(styles)(connect(mapStateToProps)(Root));

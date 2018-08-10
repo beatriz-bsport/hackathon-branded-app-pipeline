@@ -33,7 +33,7 @@ export class CoachCard extends Component {
     const { coach } = this.props;
 
     if (!coach || !coach.activities.length) {
-      return <Typography variant="body">{t('coach.noActivity')}</Typography>;
+      return <Typography variant="body1">{t('coach.noActivity')}</Typography>;
     }
     return (
       <List>

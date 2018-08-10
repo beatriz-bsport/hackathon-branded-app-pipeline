@@ -59,6 +59,7 @@ export default {
       outOf: ' of ',
     },
     form: {
+      newMember: 'New Member',
       newCoach: 'New Coach',
       firstname: 'Firstname',
       lastname: 'Lastname',
@@ -95,6 +96,7 @@ export default {
       showPreviousBooking: 'Show past bookings',
       nextBooking: 'previous: ',
       engagement: 'Engagement',
+      addMember: 'Add a member profile',
     },
     coach: {
       addCoach: 'Add a coach',

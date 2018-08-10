@@ -116,21 +116,36 @@ export class Members extends Component<{}> {
     const { t, classes } = this.props;
     const { loading, members } = this.props;
     return (
-      <FeatureTable
-        data={members}
-        renderRow={this.renderRow}
-        columnData={this.getColumnData()}
-        loading={loading}
-        title={t('common.members')}
-        selectionFeature={
-          <Tooltip title="Email">
-            <Button variant="contained" className={classes.button}>
-              Email
-              <EmailIcon className={classes.rightIcon} />
-            </Button>
-          </Tooltip>
-        }
-      />
+      <Grid container direction="column" alignItems="stretch" spacing={16}>
+        <Grid item xs={12}>
+          <FeatureTable
+            data={members}
+            renderRow={this.renderRow}
+            columnData={this.getColumnData()}
+            loading={loading}
+            title={t('common.members')}
+            selectionFeature={
+              <Tooltip title="Email">
+                <Button variant="contained" className={classes.button}>
+                  Email
+                  <EmailIcon className={classes.rightIcon} />
+                </Button>
+              </Tooltip>
+            }
+          />
+        </Grid>
+        <Grid item>
+          <Grid container justify="flex-end">
+            <Grid item>
+              <Link style={{ textDecoration: 'none' }} to="/member/add/">
+                <Button variant="raised" color="primary">
+                  {t('member.addMember')}
+                </Button>
+              </Link>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
     );
   }
 }

@@ -45,6 +45,10 @@ export async function fetchMetaActivityDetails(id) {
   return getAuth(`${API_URI}/saas/meta-activities/${id}/`);
 }
 
+export async function addMetaActivity(data) {
+  return postAuth(`${API_URI}/saas/create-meta-activity/`, data);
+}
+
 export async function getStats(metaActivityId) {
   return getAuth(`${API_URI}/saas/meta-activity/${metaActivityId}/stats`);
 }
@@ -80,6 +84,11 @@ export async function fetchMemberBookings(memberId) {
 export async function fetchMember(memberId) {
   return getAuth(`${API_URI}/saas/members/${memberId}`);
 }
+
+export async function addMember(data) {
+  return postAuth(`${API_URI}/saas/create-member/`, data);
+}
+
 export async function fetchAllPaymentPacks() {
   return getAuth(`${API_URI}/saas/payment-pack/`);
 }
@@ -108,6 +117,7 @@ export default {
     getAllStats,
     fetchMetaActivityDetails,
     fetchMinimal: fetchActivitiesMinimal,
+    addMetaActivity: addMetaActivity,
   },
   coach: {
     fetchAssociated: fetchAssociatedCoaches,
@@ -117,6 +127,7 @@ export default {
     fetchAll: fetchAllMembers,
     fetchBookings: fetchMemberBookings,
     fetchMember: fetchMember,
+    addMember,
   },
   paymentPack: {
     fetchAll: fetchAllPaymentPacks,

@@ -18,9 +18,38 @@ type Props = {};
 export class MetaActivityForm extends Component<Props> {
   onSubmit = (event) => {
     event.preventDefault();
+    const {
+      name,
+      SCT,
+      description,
+      coach,
+      establishment,
+      default_price,
+      default_credits,
+      default_last_booking_minutes,
+      default_last_discard_minutes,
+      default_duration_minutes,
+      customer_enabled,
+    } = this.state;
+
+    api.activity.addMetaActivity({
+      name,
+      SCT,
+      description,
+      coach,
+      establishment,
+      default_price,
+      default_credits,
+      default_last_booking_minutes,
+      default_last_discard_minutes,
+      default_duration_minutes,
+      customer_enabled,
+    });
   };
 
-  onFormFieldChange = () => () => {};
+  onFormFieldChange = (id) => (value, error) => {
+    this.setState({ [id]: (value, error) });
+  };
 
   render() {
     const { SCTs, associatedCoaches, establishments, classes, t } = this.props;

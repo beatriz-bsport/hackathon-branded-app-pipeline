@@ -30,6 +30,7 @@ import CoachForm from './CoachForm.component';
 import MetaActivityForm from './MetaActivityForm.component';
 import MarketingDashboard from './MarketingDashboard.component';
 import MarketingRule from './MarketingRule.component';
+import MemberForm from './MemberForm.component';
 
 const styles = (theme) => ({
   content: {
@@ -103,6 +104,7 @@ export class Backoffice extends Component<{}> {
               <Route path="/payment" component={Payment} />
               <Route path="/payment-pack" component={PaymentPackList} />
               <Route exact path="/member" component={MemberList} />
+              <Route path="/member/add" component={MemberForm} />
               <Route path="/member/:id" component={Member} />
               <Route exact path="/map" component={EstablishmentMap} />
               <Route path="/marketing/rule/:id" component={MarketingRule} />

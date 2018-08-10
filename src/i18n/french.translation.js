@@ -38,6 +38,7 @@ export default {
       outOf: ' sur ',
     },
     form: {
+      newMember: 'Nouveau membre',
       newCoach: 'Nouveau Coach',
       firstname: 'Prénom',
       lastname: 'Nom de famille',
@@ -75,6 +76,7 @@ export default {
       showPreviousBooking: 'Voir les réservations passées',
       pastBooking: 'dernière : ',
       engagement: 'Engagement',
+      addMember: 'Ajouter une fiche de membre',
     },
     coach: {
       addCoach: 'Ajouter un coach',

@@ -180,6 +180,7 @@ export default {
     establishment: {
       pleaseSelectOne: 'Veuillez sélectionner un club sur la carte',
       offers: 'Calendrier des séances:',
+      noMoreOffers: 'Plus aucune séance de prévue',
     },
     booking: {
       fillRate: 'Taux de remplissage',

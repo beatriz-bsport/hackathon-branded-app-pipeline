@@ -41,8 +41,10 @@ export class EstablishmentList extends Component<Props> {
     };
   }
 
-  onDateClick = (date) => {
-    this.setState({ selectedDay: date.startOf('day') });
+  onDateClick = (establishmentId) => (date) => {
+    const { selectedDay } = this.state;
+    selectedDay[establishmentId] = date.startOf('day');
+    this.setState({ selectedDay });
   };
 
   establishmentSelected = (establishmentId) => {
@@ -55,12 +57,17 @@ export class EstablishmentList extends Component<Props> {
     });
   };
 
-  renderEstablishment = () => {
-    const { selectedEstablishment } = this.state;
-    if (selectedEstablishment) {
-      return <EstablishmentCard establishment={selectedEstablishment} />;
-    }
-    return null;
+  renderEstablishment = (establishment) => {
+    return (
+      <Grid container direction="row" spacing={16}>
+        <Grid item xs={12} md={6}>
+          <EstablishmentCard establishment={establishment} />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          {this.renderCalendar(establishment)}
+        </Grid>
+      </Grid>
+    );
   };
 
   renderNoEstablishment = () => {
@@ -74,13 +81,12 @@ export class EstablishmentList extends Component<Props> {
     );
   };
 
-  renderCalendar = () => {
+  renderCalendar = (establishment) => {
     const { offers, t, classes } = this.props;
-    const { selectedEstablishment, selectedDay } = this.state;
+    const { selectedDay } = this.state;
     const offersInEstablishment = offers.filter(
       (o) =>
-        parseInt(o.etablissement.id, 10) ===
-        parseInt(selectedEstablishment.id, 10),
+        parseInt(o.etablissement.id, 10) === parseInt(establishment.id, 10),
     );
     const events = {};
     for (const o of offersInEstablishment) {
@@ -93,20 +99,20 @@ export class EstablishmentList extends Component<Props> {
     }
     return (
       <div>
-        <Typography variant="title" className={classes.title}>
-          {t('establishment.offers')}
-        </Typography>
         <Paper className={classes.paperContainer}>
           <Grid container>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12}>
               <div className={classes.calendarContainer}>
-                <Calendar events={events} onDateClick={this.onDateClick} />
+                <Calendar
+                  events={events}
+                  onDateClick={this.onDateClick(establishment.id)}
+                />
               </div>
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12}>
               <TimeTable
-                establishmentId={selectedEstablishment.id}
-                date={selectedDay}
+                establishmentId={establishment.id}
+                date={selectedDay[establishment.id]}
               />
             </Grid>
           </Grid>
@@ -116,13 +122,12 @@ export class EstablishmentList extends Component<Props> {
   };
   render() {
     const { classes, t, loading, establishments } = this.props;
-    const { selectedEstablishment } = this.state;
     if (loading) {
       return <CircularProgress />;
     }
     return (
       <Grid container spacing={16}>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12}>
           <Paper>
             <Map
               markers={establishments}
@@ -130,13 +135,12 @@ export class EstablishmentList extends Component<Props> {
             />
           </Paper>
         </Grid>
-        <Grid item xs={12} md={6}>
-          {selectedEstablishment
-            ? this.renderEstablishment()
-            : this.renderNoEstablishment()}
-        </Grid>
         <Grid item xs={12}>
-          {selectedEstablishment ? this.renderCalendar() : null}
+          <Grid container direction="column" spacing={16}>
+            {establishments.map((e) => (
+              <Grid item>{this.renderEstablishment(e)}</Grid>
+            ))}
+          </Grid>
         </Grid>
       </Grid>
     );

@@ -21,7 +21,9 @@ type Props = {
 };
 
 const styles = (theme) => ({
-  container: {},
+  noMoreOffersMessage: {
+    margin: theme.spacing.unit * 2,
+  },
   horizontalBlock: {
     margin: theme.spacing.unit * 2,
   },
@@ -70,6 +72,9 @@ export class EstablishmentCard extends Component<Props> {
     const { classes, t, establishment, myActivities } = this.props;
     const { title, specific_info, activities, location } = establishment;
     const establishmentActivitiesId = activities.map((a) => a.id);
+    const establishmentActivities = myActivities.filter((a) =>
+      establishmentActivitiesId.includes(a.id),
+    );
     return (
       <Paper className={classes.container}>
         <Grid container direction="column">
@@ -90,9 +95,8 @@ export class EstablishmentCard extends Component<Props> {
           ) : null}
           <Divider />
           <Grid item>
-            {myActivities
-              .filter((a) => establishmentActivitiesId.includes(a.id))
-              .map((a) => (
+            {establishmentActivities.length ? (
+              establishmentActivities.map((a) => (
                 <Link
                   to={`/activity/${a.meta_activity_id}`}
                   style={{ textDecoration: 'none' }}
@@ -104,7 +108,16 @@ export class EstablishmentCard extends Component<Props> {
                     showCoachName
                   />
                 </Link>
-              ))}
+              ))
+            ) : (
+              <Typography
+                variant="caption"
+                color="error"
+                className={classes.noMoreOffersMessage}
+              >
+                {t('establishment.noMoreOffers')}
+              </Typography>
+            )}
           </Grid>
         </Grid>
       </Paper>

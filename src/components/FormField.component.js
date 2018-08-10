@@ -9,11 +9,14 @@ import {
   Button,
   Input,
   InputAdornment,
+  ListItemText,
+  ListItemIcon,
+  Avatar,
   withStyles,
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
-import { Sport, Avatar } from '../components';
+import { Sport } from '../components';
 
 const styles = (theme) => ({
   textInput: {
@@ -107,6 +110,21 @@ export class FormField extends Component<Props> {
             <Sport parentCategory={elt.SCS.id} SCTName={elt.name} />
           </MenuItem>
         );
+      case 'coach':
+        return (
+          <MenuItem value={elt.id}>
+            <ListItemIcon>
+              <Avatar src={elt.photo} />
+            </ListItemIcon>
+            <ListItemText>{elt.name}</ListItemText>
+          </MenuItem>
+        );
+      case 'establishment':
+        return (
+          <MenuItem value={elt.id}>
+            <ListItemText>{elt.title}</ListItemText>
+          </MenuItem>
+        );
     }
   };
 
@@ -189,9 +207,11 @@ export class FormField extends Component<Props> {
           </FormControl>
         );
       case 'SCT':
+      case 'coach':
+      case 'establishment':
         return (
           <FormControl
-            className={classes.formControl}
+            className={classes.formControlLarge}
             required={required}
             margin="normal"
           >

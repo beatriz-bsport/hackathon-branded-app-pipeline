@@ -78,6 +78,7 @@
     "whatwg-fetch": "^2.0.3"
   },
   "scripts": {
+    "format": "find src -name \"*.js\" | xargs yarn prettier --write",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",

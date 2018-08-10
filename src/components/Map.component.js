@@ -69,16 +69,6 @@ export class MyMap extends Component<Props> {
             <Grid item>
               <Typography variant="caption">{location.address}</Typography>
             </Grid>
-            <Grid item>
-              <Button
-                color="primary"
-                onClick={() => {
-                  markerClicked(id);
-                }}
-              >
-                {t('common.show_more')}
-              </Button>
-            </Grid>
           </Grid>
         </Popup>
       </Marker>

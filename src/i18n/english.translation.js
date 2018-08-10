@@ -59,6 +59,8 @@ export default {
       outOf: ' of ',
     },
     form: {
+      establishment: 'Establishment',
+      coach: 'Coach',
       newMember: 'New Member',
       newCoach: 'New Coach',
       firstname: 'Firstname',

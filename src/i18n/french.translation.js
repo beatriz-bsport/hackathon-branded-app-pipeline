@@ -38,6 +38,8 @@ export default {
       outOf: ' sur ',
     },
     form: {
+      establishment: 'Etablissement',
+      coach: 'Coach',
       newMember: 'Nouveau membre',
       newCoach: 'Nouveau Coach',
       firstname: 'Prénom',

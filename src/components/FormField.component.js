@@ -33,7 +33,8 @@ const styles = (theme) => ({
 });
 
 type Props = {
-  id: String,
+  id: string,
+  value: string,
   onChange: () => void,
 };
 
@@ -41,12 +42,16 @@ type Props = {
 const emailRegexp = new RegExp('[A-z0-9-_]+@[A-z0-9-_]+\.[A-z]+$');
 
 export class FormField extends Component<Props> {
+  state = {
+    error: false,
+    value: null,
+  };
+
   constructor(props) {
     super(props);
-    this.state = {
-      error: false,
-      value: null,
-    };
+    if (props.value) {
+      this.state.value = props.value;
+    }
   }
 
   validator = (value) => {

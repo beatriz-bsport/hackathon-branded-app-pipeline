@@ -19,9 +19,8 @@ export async function post(uri: string, data: Object, headers: Object) {
   };
 
   try {
-    const response = await axios.post(uri, {
+    const response = await axios.post(uri, data, {
       headers: Object.assign(baseHeaders, headers),
-      body: JSON.stringify(data),
     });
 
     const json = await response.json();
@@ -44,8 +43,7 @@ export async function getAuth(uri: string, token = null) {
   return get(uri, { Authorization: `Token ${token_}` });
 }
 
-export async function postAuth(uri, string, data: Object, token = null) {
+export async function postAuth(uri: string, data: Object, token = null) {
   const token_ = token || getAuthToken();
-  console.log(token_);
   return post(uri, data, { Authorization: `Token ${token_}` });
 }

@@ -1,3 +1,4 @@
+const path = require('path');
 // you can use this file to add your custom webpack plugins, loaders and anything you like.
 // This is just the basic way to add additional webpack configurations.
 // For more information refer the docs: https://storybook.js.org/configurations/custom-webpack-config
@@ -12,7 +13,19 @@ module.exports = {
   ],
   module: {
     rules: [
-      // add your custom rules.
+      {
+        test: /\.(gif|jpg|png|svg)$/,
+        loaders: [{ loader: 'url-loader?limit=40000' }],
+      },
+      {
+        test: /\.s?css$/,
+        exclude: /node_modules/,
+        loaders: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
+          { loader: 'sass-loader' },
+        ],
+      },
     ],
   },
 };

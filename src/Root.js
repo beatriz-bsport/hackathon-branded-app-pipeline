@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 
@@ -47,4 +48,4 @@ function mapStateToProps(state) {
     rehydrated: state._persist && state._persist.rehydrated,
   };
 }
-export default withStyles(styles)(connect(mapStateToProps)(Root));
+export default withRouter(withStyles(styles)(connect(mapStateToProps)(Root)));

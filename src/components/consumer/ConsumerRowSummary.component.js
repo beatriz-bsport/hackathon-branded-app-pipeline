@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
 import { withStyles, Grid, IconButton, Typography } from '@material-ui/core';
 import { translate } from 'react-i18next';
-import { Avatar } from '../../components';
+import Avatar from '../Avatar.component';
 
-const styles = (theme) => ({
+const styles = () => ({
   container: {},
 });
+
+type Props = {};
 
 export class ConsumerRowSummary extends Component<Props> {
   render() {

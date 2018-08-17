@@ -111,13 +111,13 @@ export class FormField extends Component<Props> {
     switch (id) {
       case 'SCT':
         return (
-          <MenuItem value={elt.id}>
+          <MenuItem key={elt.id} value={elt.id}>
             <Sport parentCategory={elt.SCS.id} SCTName={elt.name} />
           </MenuItem>
         );
       case 'coach':
         return (
-          <MenuItem value={elt.id}>
+          <MenuItem key={elt.id} value={elt.id}>
             <ListItemIcon>
               <Avatar src={elt.photo} />
             </ListItemIcon>
@@ -126,7 +126,7 @@ export class FormField extends Component<Props> {
         );
       case 'establishment':
         return (
-          <MenuItem value={elt.id}>
+          <MenuItem key={elt.id} value={elt.id}>
             <ListItemText>{elt.title}</ListItemText>
           </MenuItem>
         );

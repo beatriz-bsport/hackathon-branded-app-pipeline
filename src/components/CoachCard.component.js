@@ -10,6 +10,9 @@ import {
   withStyles,
   IconButton,
   Button,
+  Card,
+  CardContent,
+  CardActions,
 } from '@material-ui/core';
 import CallIcon from '@material-ui/icons/Call';
 import EmailIcon from '@material-ui/icons/Email';

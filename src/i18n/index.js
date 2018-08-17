@@ -1,12 +1,13 @@
 import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { reactI18nextModule } from 'react-i18next';
-import ENGLISH_PACK from './english.translation';
-import FRENCH_PACK from './french.translation';
 import Moment from 'moment';
 import 'moment/locale/fr';
 
-i18n.on('languageChanged', function(lng) {
+import ENGLISH_PACK from './english.translation';
+import FRENCH_PACK from './french.translation';
+
+i18n.on('languageChanged', (lng) => {
   Moment.locale(lng);
 });
 

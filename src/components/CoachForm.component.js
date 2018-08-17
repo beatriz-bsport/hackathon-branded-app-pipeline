@@ -41,11 +41,9 @@ export class CoachForm extends Component<Props> {
   constructor(props) {
     super(props);
 
-    console.log(props);
     Object.keys(props.initial || {}).forEach((key) => {
       this.state[key] = props.initial[key];
     });
-    console.log(this.state);
   }
 
   onFormFieldChange = (id) => (value) => {

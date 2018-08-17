@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-import { I18nextProvider } from 'react-i18next';
-import i18n from './i18n/index';
+import { colors } from 'bsport-commons/lib/colors';
+
+import './i18n/index';
 
 import Root from './Root';
 import './App.scss';
-import { colors } from 'bsport-commons/lib/colors';
 
 import initStore from './store';
 
@@ -37,15 +37,15 @@ export class App extends Component {
 
   render() {
     return (
-      <Provider store={this.store}>
-        <BrowserRouter>
-          <MuiThemeProvider theme={theme}>
-            <CssBaseline>
+      <MuiThemeProvider theme={theme}>
+        <CssBaseline>
+          <Provider store={this.store}>
+            <BrowserRouter>
               <Root />
-            </CssBaseline>
-          </MuiThemeProvider>
-        </BrowserRouter>
-      </Provider>
+            </BrowserRouter>
+          </Provider>
+        </CssBaseline>
+      </MuiThemeProvider>
     );
   }
 }

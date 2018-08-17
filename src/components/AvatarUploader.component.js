@@ -23,7 +23,6 @@ export class AvatarUploader extends Component<Props> {
   onChange = (event) => {
     if (event.target.files.length) {
       const oldphoto = this.state.photo;
-      debugger;
       this.setState({ photo: event.target.files[0] });
     }
   };

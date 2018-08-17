@@ -112,7 +112,6 @@ class MemberTable extends React.Component {
     const { selected } = this.state;
     const selectedIndex = selected.indexOf(id);
     let newSelected = [];
-    debugger;
 
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, id);

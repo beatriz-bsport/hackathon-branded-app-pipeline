@@ -25,7 +25,6 @@ export class Dashboard extends Component {
 
   onDateClick = (date) => {
     this.setState({ date });
-    debugger;
   };
 
   render() {

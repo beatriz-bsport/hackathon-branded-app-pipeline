@@ -7,24 +7,6 @@ import { Moment } from '../i18n';
 
 import RuleCard from '../components/marketing/RuleCard.component';
 
-const styles = (theme) => ({
-  container: {},
-  title: {
-    marginBottom: theme.spacing.unit * 4,
-  },
-  verticalDivider: {
-    width: 1,
-    height: '100%',
-    backgroundColor: '#DDDDDD',
-  },
-  horizontalDivider: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
-    marginRight: -theme.spacing.unit * 4,
-    marginLeft: -theme.spacing.unit * 4,
-  },
-});
-
 type State = {
   rules: Array<*>,
 };
@@ -111,5 +93,11 @@ export class MarketingDashboard extends Component<{}, State> {
     );
   }
 }
+
+const styles = (theme) => ({
+  title: {
+    marginBottom: theme.spacing.unit * 4,
+  },
+});
 
 export default withStyles(styles)(translate()(MarketingDashboard));

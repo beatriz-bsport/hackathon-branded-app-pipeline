@@ -247,6 +247,17 @@ const styles = (theme) => ({
   paperContainer: {
     padding: theme.spacing.unit * 4,
   },
+  verticalDivider: {
+    width: 1,
+    height: '100%',
+    backgroundColor: '#DDDDDD',
+  },
+  horizontalDivider: {
+    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 2,
+    marginRight: -theme.spacing.unit * 4,
+    marginLeft: -theme.spacing.unit * 4,
+  },
 });
 
 export default withStyles(styles)(translate()(RuleCard));

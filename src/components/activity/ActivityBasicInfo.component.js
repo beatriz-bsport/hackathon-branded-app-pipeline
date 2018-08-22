@@ -1,19 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   Grid,
   Typography,
-  ListItemText,
-  ListItemIcon,
-  List,
-  ListItem,
   Tooltip,
   IconButton,
   withStyles,
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
-import SPORTS from 'bsport-commons/lib/master-data/sports';
-import { Avatar } from '../../components';
+import Avatar from '../Avatar.component';
 
 const styles = (theme) => ({
   noMargin: {
@@ -23,8 +18,8 @@ const styles = (theme) => ({
 });
 
 export function ActivityBasicInfo(props) {
-  const { t, classes } = props;
-  const { name, etablissements, coaches } = props.activity;
+  const { classes } = props;
+  const { name, coaches } = props.activity;
   return (
     <Grid container direction="row" justify="space-between" alignItems="center">
       <Grid item>

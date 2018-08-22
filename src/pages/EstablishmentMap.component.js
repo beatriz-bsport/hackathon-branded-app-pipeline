@@ -136,7 +136,7 @@ export class EstablishmentList extends Component<Props> {
           </Paper>
         </Grid>
         <Grid item xs={12}>
-          <Grid container direction="column" spacing={16}>
+          <Grid container direction="column" spacing={32}>
             {establishments.map((e) => (
               <Grid item>{this.renderEstablishment(e)}</Grid>
             ))}

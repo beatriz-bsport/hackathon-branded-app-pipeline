@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import {
   withStyles,
-  Grid,
   Card,
-  CardMedia,
   CardContent,
   CardActions,
   Button,
-  Typography,
   ListItem,
   List,
   ListItemIcon,
@@ -17,15 +14,9 @@ import { LocationOn } from '@material-ui/icons';
 import { translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import SPORTS from 'bsport-commons/lib/master-data/sports';
-import {
-  ActivityCover,
-  ActivityStats,
-  ActivityBasicInfo,
-  Level,
-  CoachThumbnail,
-} from '../../components';
-import api from '../../api';
+import ActivityCover from './ActivityCover.component';
+import ActivityStats from './ActivityStats.component';
+import ActivityBasicInfo from './ActivityBasicInfo.component';
 
 const styles = (theme) => ({
   unPaddedHorizontal: {

@@ -145,6 +145,7 @@ export default {
     },
     activity: {
       addActivity: 'Add an activity',
+      addOffers: 'Add sessions',
       name: 'Title',
       noNextSlot: 'No more slot',
       grossVolume: 'Gross volume',

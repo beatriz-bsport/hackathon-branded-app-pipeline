@@ -5,17 +5,12 @@ import {
   TableCell,
   TableRow,
   TableBody,
-  Button,
   Grid,
   withStyles,
-  Checkbox,
-  Typography,
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
 import { colors } from 'bsport-commons/lib/colors';
-
-import { ActionButton } from '../components';
 
 type Props = {
   pendingBookings: Array<Object>,

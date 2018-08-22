@@ -161,6 +161,7 @@ export default {
         'Sélectionnez une séance pour voir les membres inscrits',
     },
     activity: {
+      addOffers: 'Ajouter des séances',
       addActivity: 'Ajouter une activité',
       name: 'Titre',
       // eslint-disable-next-line

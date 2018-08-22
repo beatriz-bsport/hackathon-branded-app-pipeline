@@ -21,7 +21,7 @@ import ActivityBasicInfo from './activity/ActivityBasicInfo.component';
 import CoachCard from './CoachCard.component';
 import ActivityMinimalSummary from './activity/ActivityMinimalSummary.component';
 import PaymentTable from './PaymentTable.component';
-import FeatureTable from './FeatureTable/';
+import FeatureTable from './FeatureTable';
 import MemberBookingGraph from './MemberBookingGraph.component';
 import PaymentPack from './PaymentPack.component';
 import ConsumerRowSummary from './consumer/ConsumerRowSummary.component';
@@ -36,8 +36,10 @@ import Map from './Map.component';
 import EstablishmentCard from './EstablishmentCard.component';
 import FormField from './FormField.component';
 import AvatarUploader from './AvatarUploader.component';
+import OfferForm from './OfferForm.component';
 
 export {
+  OfferForm,
   AvatarUploader,
   FormField,
   EstablishmentCard,

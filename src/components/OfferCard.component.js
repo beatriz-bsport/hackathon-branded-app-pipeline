@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 
 import {
-  Card,
-  Divider,
   Typography,
   Grid,
   Paper,
@@ -14,7 +12,10 @@ import {
 import { LocationOn, AccessTime } from '@material-ui/icons';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { translate } from 'react-i18next';
-import { Level, Sport, Avatar, OfferBookingTable } from '../components';
+import Level from './Level.component';
+import Sport from './Sport.component';
+import Avatar from './Avatar.component';
+import OfferBookingTable from './OfferBookingTable.component';
 
 import { humanizeDate } from '../datetime';
 

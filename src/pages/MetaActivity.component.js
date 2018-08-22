@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Grid, withStyles } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
   FormControl,
   InputLabel,
@@ -15,20 +15,18 @@ import {
   CircularProgress,
   Divider,
   List,
+  Grid,
+  withStyles,
 } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 
 import { Moment } from '../i18n';
-import SPORTS from 'bsport-commons/lib/master-data/sports';
-import { colors } from 'bsport-commons/lib/colors';
 
-import api from '../api';
 import {
-  Sport,
   Review,
   ActivityCover,
   ActivityBasicInfo,
   ActivityStats,
-  ActivityMinimalSummary,
   PackMinimalSummary,
   Calendar,
   TimeTable,
@@ -77,7 +75,6 @@ export class MetaActivity extends Component<Props> {
       editable: false,
       data: [],
       sportCategories: [],
-      offersOnSelectedDay: [],
       dateSelected: Moment(),
     };
   }
@@ -90,19 +87,15 @@ export class MetaActivity extends Component<Props> {
   onEditToogle = () => {
     this.setState({ editable: !this.state.editable });
   };
+
   onEdit = () => {};
 
-  getById = (array, id) => {
-    // used to object from store collection on each render, default to {}
-    return (array.filter((a) => a.id === id) || [{}])[0];
-  };
+  getById = (array, id) => (array.filter((a) => a.id === id) || [{}])[0];
 
-  handleChange = (fieldName) => {
-    return (event) => {
-      const { data } = this.state;
-      data[fieldName] = event.target.value;
-      this.setState({ data });
-    };
+  handleChange = (fieldName) => (event) => {
+    const { data } = this.state;
+    data[fieldName] = event.target.value;
+    this.setState({ data });
   };
 
   getHeader = (activity) => {
@@ -112,8 +105,8 @@ export class MetaActivity extends Component<Props> {
     let name = null;
     let category = null;
     if (editable) {
-      name = data['name'] || activity.name;
-      category = data['category'] || activity.category_id;
+      name = data.name || activity.name;
+      category = data.category || activity.category_id;
     } else {
       name = activity.name;
       category = activity.category_id;
@@ -170,7 +163,7 @@ export class MetaActivity extends Component<Props> {
     );
   };
 
-  getCalendar = (selected_date) => {
+  getCalendar = () => {
     const { offers } = this.props.metaActivity;
     const events = {};
     for (const o of offers) {
@@ -191,27 +184,54 @@ export class MetaActivity extends Component<Props> {
   };
 
   handleDayClick = (date) => {
-    const { metaActivity } = this.props;
-    const offersOnSelectedDay = metaActivity.offers.filter((o) =>
-      Moment(o.date_start).isSame(date, 'day'),
-    );
-    this.setState({ offersOnSelectedDay, dateSelected: date });
+    this.setState({ dateSelected: date });
   };
 
   getActivitiesWithCalendar = () => {
     const { t, metaActivity, classes } = this.props;
-    const { activities } = metaActivity;
-    const { offersOnSelectedDay, dateSelected } = this.state;
+    const { dateSelected } = this.state;
     return (
       <Grid container direction="row" alignItems="flex-start">
         <Grid item xs={12} md={6} className={classes.responsiveSubBlock}>
           <div className={classes.calendarContainer}>{this.getCalendar()}</div>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Typography variant="title" className={classes.blockTitleLargeMargin}>
-            {t('activity.offersThisDay')}
-          </Typography>
-          <TimeTable date={dateSelected} metaActivityId={metaActivity.id} />
+          <Grid container direction="column" spacing={32}>
+            <Grid item>
+              <Typography
+                variant="title"
+                className={classes.blockTitleLargeMargin}
+              >
+                {t('activity.offersThisDay')}
+              </Typography>
+              <TimeTable date={dateSelected} metaActivityId={metaActivity.id} />
+            </Grid>
+            <Grid item>
+              <Grid
+                container
+                direction="column"
+                alignItems="center"
+                spacing={16}
+              >
+                <Grid item>
+                  <Link
+                    to={`/add-offers/${metaActivity.id}`}
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <Button
+                      variant="extendedFab"
+                      aria-label="Add"
+                      className={classes.button}
+                      color="primary"
+                    >
+                      <AddIcon className={classes.extendedIcon} />
+                      {t('activity.addOffers')}
+                    </Button>
+                  </Link>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     );
@@ -240,9 +260,11 @@ export class MetaActivity extends Component<Props> {
             </Grid>
             <Grid item>-</Grid>
             <Grid item>
-              <Typography>{`${t('activity.orNcredits1')} ${default_credits} ${t(
-                'activity.orNcredits2',
-              )}`}</Typography>
+              <Typography>
+                {`${t('activity.orNcredits1')} ${default_credits} ${t(
+                  'activity.orNcredits2',
+                )}`}
+              </Typography>
             </Grid>
           </Grid>
         </Grid>
@@ -289,6 +311,7 @@ export class MetaActivity extends Component<Props> {
         </Paper>
       );
     }
+    return null;
   };
 
   render() {
@@ -298,7 +321,7 @@ export class MetaActivity extends Component<Props> {
     const activity = this.props.metaActivity;
     const stats = this.getById(this.props.stats, this.activityId);
 
-    const { classes, t } = this.props;
+    const { classes } = this.props;
 
     return (
       <Grid container direction="row" spacing={32}>

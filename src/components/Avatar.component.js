@@ -13,7 +13,7 @@ export default function(props) {
     HEIGHT = 42;
   } else if (variant === 'large') {
     HEIGHT = 140;
-  } else if (variant == 'mediumNoname') {
+  } else if (variant === 'mediumNoname') {
     HEIGHT = 90;
   }
 

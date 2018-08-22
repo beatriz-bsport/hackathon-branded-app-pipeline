@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { booking as bookingActions } from '../actions';
-import { BookingTable } from '../components';
+import BookingTable from './BookingTable.component';
 
 type Props = {
   offerId: Number,

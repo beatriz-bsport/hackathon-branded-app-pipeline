@@ -3,12 +3,13 @@ import { Grid, Typography } from '@material-ui/core';
 import objectFitImages from 'object-fit-images';
 
 import SPORTS from 'bsport-commons/lib/master-data/sports';
-import { Level } from '../../components';
+import Level from '../Level.component';
 
 export default class ActivityCover extends Component {
   componentDidMount() {
     objectFitImages();
   }
+
   render() {
     const { cover_thumbnail, levels, parent_category } = this.props.activity;
 

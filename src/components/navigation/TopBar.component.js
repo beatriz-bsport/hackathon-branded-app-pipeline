@@ -1,23 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import { connect } from 'react-redux';
-import { Redirect, Route, Switch } from 'react-router-dom';
-
-import {
-  AppBar,
-  Button,
-  IconButton,
-  Toolbar,
-  Typography,
-  Grid,
-  Drawer,
-  List,
-  Divider,
-} from '@material-ui/core';
+import { AppBar, IconButton, Toolbar } from '@material-ui/core';
 import { Menu } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
 
-import { DisconnectButton } from '../../components';
+import DisconnectButton from '../button/DisconnectButton.component';
 
 import LOGO_ASSET from '../../public/images/banner_lowres.png';
 
@@ -35,7 +22,7 @@ const styles = (theme) => ({
 });
 
 export function TopBar(props) {
-  const { classes, authenticated, toogleDrawer } = props;
+  const { classes, toogleDrawer } = props;
 
   return (
     <AppBar position="absolute" className={classes.appBar}>

@@ -9,8 +9,10 @@ import * as member from './member.actions';
 import * as paymentPack from './paymentPack.actions';
 import * as establishment from './establishment.actions';
 import * as category from './category.actions';
+import * as transaction from './transaction.actions';
 
 export {
+  transaction,
   auth,
   establishment,
   offer,

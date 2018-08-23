@@ -44,29 +44,27 @@ export class PaymentTable extends Component<{}> {
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
+              <CustomTableCell>ID</CustomTableCell>
               <CustomTableCell>{t('payment.consumer')}</CustomTableCell>
-              <CustomTableCell numeric>{t('payment.type')}</CustomTableCell>
+              <CustomTableCell>{t('payment.type')}</CustomTableCell>
               <CustomTableCell numeric>{t('payment.amount')}</CustomTableCell>
               <CustomTableCell numeric>
                 {t('payment.paymentDate')}
               </CustomTableCell>
-              <CustomTableCell numeric>{t('payment.object')}</CustomTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((n) => {
-              return (
-                <TableRow className={classes.row} key={n.id}>
-                  <CustomTableCell component="th" scope="row">
-                    {n.consumer}
-                  </CustomTableCell>
-                  <CustomTableCell numeric>{n.payment_type}</CustomTableCell>
-                  <CustomTableCell numeric>{n.amount}</CustomTableCell>
-                  <CustomTableCell numeric>{n.payment_date}</CustomTableCell>
-                  <CustomTableCell numeric>{n.payment_object}</CustomTableCell>
-                </TableRow>
-              );
-            })}
+            {data.map((n) => (
+              <TableRow className={classes.row} key={n.id}>
+                <CustomTableCell component="th" scope="row">
+                  {n.id.slice(0, 8).toUpperCase()}
+                </CustomTableCell>
+                <CustomTableCell>{n.name}</CustomTableCell>
+                <CustomTableCell>{n.kind}</CustomTableCell>
+                <CustomTableCell numeric>{n.price}</CustomTableCell>
+                <CustomTableCell numeric>{n.date}</CustomTableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </Paper>

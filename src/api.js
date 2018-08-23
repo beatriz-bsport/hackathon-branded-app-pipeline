@@ -92,15 +92,22 @@ export async function fetchAllPaymentPacks() {
   return getAuth(`${API_URI}/saas/payment-pack/`);
 }
 
+export async function fetchTransactions() {
+  return getAuth(`${API_URI}/saas/transactions`);
+}
+
 export default {
   category: {
     fetchSCT,
+  },
+  transaction: {
+    fetchAll: fetchTransactions,
   },
   booking: {
     fetchBookingsByOffer,
   },
   offer: {
-    fetchAllEvents: fetchAllEvents,
+    fetchAllEvents,
   },
   auth: {
     resetPassword,
@@ -116,7 +123,7 @@ export default {
     getAllStats,
     fetchMetaActivityDetails,
     fetchMinimal: fetchActivitiesMinimal,
-    addMetaActivity: addMetaActivity,
+    addMetaActivity,
   },
   coach: {
     fetchAssociated: fetchAssociatedCoaches,
@@ -125,7 +132,7 @@ export default {
   member: {
     fetchAll: fetchAllMembers,
     fetchBookings: fetchMemberBookings,
-    fetchMember: fetchMember,
+    fetchMember,
     addMember,
   },
   paymentPack: {

@@ -11,6 +11,7 @@ import memberReducer from './member';
 import paymentPackReducers from './paymentPack';
 import establishmentReducers from './establishment';
 import categoryReducers from './category';
+import transactionReducers from './transaction';
 
 export default combineReducers({
   auth: authReducers,
@@ -24,4 +25,5 @@ export default combineReducers({
   member: memberReducer,
   paymentPack: paymentPackReducers,
   category: categoryReducers,
+  transaction: transactionReducers,
 });

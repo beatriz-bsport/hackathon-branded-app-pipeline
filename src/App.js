@@ -3,10 +3,13 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
+import MomentUtils from 'material-ui-pickers/utils/moment-utils';
 
 import { colors } from 'bsport-commons/lib/colors';
 
 import './i18n/index';
+import { Moment } from './i18n';
 
 import Root from './Root';
 import './App.scss';
@@ -41,7 +44,13 @@ export class App extends Component {
         <CssBaseline>
           <Provider store={this.store}>
             <BrowserRouter>
-              <Root />
+              <MuiPickersUtilsProvider
+                utils={MomentUtils}
+                moment={Moment}
+                locale={Moment.locale()}
+              >
+                <Root />
+              </MuiPickersUtilsProvider>
             </BrowserRouter>
           </Provider>
         </CssBaseline>

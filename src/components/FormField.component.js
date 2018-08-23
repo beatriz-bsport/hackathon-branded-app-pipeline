@@ -6,17 +6,27 @@ import {
   Select,
   MenuItem,
   TextField,
-  Button,
-  Input,
   InputAdornment,
   ListItemText,
-  ListItemIcon,
   Avatar,
+  FormLabel,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
   withStyles,
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
+import DateTimePicker from 'material-ui-pickers/DateTimePicker';
+import DatePicker from 'material-ui-pickers/DatePicker';
+import TimePicker from 'material-ui-pickers/TimePicker';
 
-import { Sport } from '../components';
+import LEVELS from 'bsport-commons/lib/master-data/levels';
+import Sport from './Sport.component';
+import Level from './Level.component';
+
+export const NOT_RECURRENT = '0';
+export const WEEKLY = '1';
+export const MONTHLY = '2';
 
 const styles = (theme) => ({
   textInput: {
@@ -38,13 +48,14 @@ type Props = {
   onChange: () => void,
 };
 
-//prettier-ignore
+// prettier-ignore
 const emailRegexp = new RegExp('[A-z0-9-_]+@[A-z0-9-_]+\.[A-z]+$');
 
 export class FormField extends Component<Props> {
   state = {
     error: false,
     value: null,
+    selectedDate: new Date(),
   };
 
   constructor(props) {
@@ -53,6 +64,11 @@ export class FormField extends Component<Props> {
       this.state.value = props.value;
     }
   }
+
+  handleDateChange = (date) => {
+    this.setState({ selectedDate: date });
+    this.handleChange({ target: { value: date } });
+  };
 
   validator = (value) => {
     /*
@@ -66,12 +82,12 @@ export class FormField extends Component<Props> {
       case 'email':
         if (value) {
           return !emailRegexp.test(value);
-        } else {
-          return true;
         }
+        return true;
+
       case 'birthdayYear':
         const year = parseInt(value, 10);
-        return year > 2020 || 1900 > year;
+        return year > 2020 || year < 1900;
       default:
         return false;
     }
@@ -84,6 +100,10 @@ export class FormField extends Component<Props> {
       case 'phone':
       case 'default_price':
       case 'default_credits':
+      case 'price':
+      case 'credits':
+      case 'effectif':
+      case 'duration_minute':
         return input.replace(/[^0-9+]/g, '');
       default:
         return input;
@@ -117,17 +137,15 @@ export class FormField extends Component<Props> {
         );
       case 'coach':
         return (
-          <MenuItem key={elt.id} value={elt.id}>
-            <ListItemIcon>
-              <Avatar src={elt.photo} />
-            </ListItemIcon>
-            <ListItemText>{elt.name}</ListItemText>
+          <MenuItem dense key={elt.id} value={elt.id}>
+            <Avatar src={elt.photo} />
+            <ListItemText primary={elt.name} />
           </MenuItem>
         );
       case 'establishment':
         return (
           <MenuItem key={elt.id} value={elt.id}>
-            <ListItemText>{elt.title}</ListItemText>
+            <ListItemText primary={elt.title} />
           </MenuItem>
         );
     }
@@ -142,11 +160,12 @@ export class FormField extends Component<Props> {
       fullWidth,
       required,
       classes,
+      disabled,
     } = this.props;
-    const { value, error } = this.state;
+    const { value, error, selectedDate } = this.state;
 
     const InputProps =
-      'default_price' === id
+      id === 'default_price' || id === 'price'
         ? {
             endAdornment: <InputAdornment position="end">€</InputAdornment>,
           }
@@ -162,6 +181,9 @@ export class FormField extends Component<Props> {
       case 'name':
       case 'default_price':
       case 'default_credits':
+      case 'price':
+      case 'credits':
+      case 'effectif':
         return (
           <TextField
             className={classes.textInput}
@@ -176,6 +198,57 @@ export class FormField extends Component<Props> {
             InputProps={InputProps}
           />
         );
+      case 'date_time':
+        return (
+          <DateTimePicker
+            value={selectedDate}
+            onChange={this.handleDateChange}
+          />
+        );
+      case 'date_interval_start':
+      case 'date_interval_end':
+        return (
+          <DatePicker
+            format="DD/MM/YYYY"
+            value={selectedDate}
+            disabled={disabled}
+            onChange={this.handleDateChange}
+          />
+        );
+      case 'hour':
+        return (
+          <TimePicker value={selectedDate} onChange={this.handleDateChange} />
+        );
+      case 'recurrence':
+        return (
+          <FormControl component="fieldset">
+            <RadioGroup
+              aria-label={t('form.recurrence')}
+              row
+              name={id}
+              className={classes.group}
+              value={value || NOT_RECURRENT}
+              onChange={this.handleChange}
+            >
+              <FormControlLabel
+                value={NOT_RECURRENT}
+                control={<Radio />}
+                label={t('form.notRecurrent')}
+              />
+              <FormControlLabel
+                value={WEEKLY}
+                control={<Radio />}
+                label={t('form.weekly')}
+              />
+              <FormControlLabel
+                value={MONTHLY}
+                control={<Radio />}
+                label={t('form.monthly')}
+              />
+            </RadioGroup>
+          </FormControl>
+        );
+
       case 'gender':
         return (
           <FormControl
@@ -190,9 +263,27 @@ export class FormField extends Component<Props> {
             </Select>
           </FormControl>
         );
+      case 'level':
+        return (
+          <FormControl
+            className={classes.formControl}
+            required={required}
+            margin="normal"
+          >
+            <InputLabel htmlFor={`${id}-helper`}>{t('form.level')}</InputLabel>
+            <Select value={value || 1} onChange={this.handleChange}>
+              {LEVELS.map((l) => (
+                <MenuItem value={l.id}>
+                  <Level levelId={l.id} />
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        );
       case 'default_last_booking_minutes':
       case 'default_last_discard_minutes':
       case 'default_duration_minutes':
+      case 'duration_minute':
         return (
           <FormControl
             className={classes.formControlLarge}

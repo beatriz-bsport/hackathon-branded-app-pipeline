@@ -4,7 +4,7 @@ import { Typography } from '@material-ui/core';
 import { getLevelColorById } from 'bsport-commons/lib/colors';
 import { translate } from 'react-i18next';
 
-const LEVELS = [
+export const LEVELS = [
   'level.all',
   'level.beginner',
   'level.intermediate',

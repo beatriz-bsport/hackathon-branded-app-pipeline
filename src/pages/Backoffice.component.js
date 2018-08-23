@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { ResponsiveDrawer } from '../components';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { ResponsiveDrawer } from '../components';
 
 import { activity as activityActions } from '../actions';
 import { metaActivity as metaActivityActions } from '../actions';
@@ -14,6 +14,7 @@ import { member as memberActions } from '../actions';
 import { coach as coachActions } from '../actions';
 import { establishment as establishmentActions } from '../actions';
 import { category as categoryActions } from '../actions';
+import { transaction as transactionActions } from '../actions';
 
 import { TopBar, NavBar } from '../components';
 import Dashboard from './Dashboard.component';
@@ -31,6 +32,7 @@ import MetaActivityForm from './MetaActivityForm.component';
 import MarketingDashboard from './MarketingDashboard.component';
 import MarketingRule from './MarketingRule.component';
 import MemberForm from './MemberForm.component';
+import OfferFormPage from './OfferFormPage.component';
 
 const styles = (theme) => ({
   content: {
@@ -60,6 +62,7 @@ export class Backoffice extends Component<{}> {
     this.props.fetchAssociatedCoaches();
     this.props.fetchAllEstablishments();
     this.props.fetchSCT();
+    this.props.fetchTransactions();
   }
 
   toogleDrawer = () => {
@@ -94,6 +97,7 @@ export class Backoffice extends Component<{}> {
               <Route path="/calendar" component={Planning} />
               <Route exact path="/activity" component={MetaActivityList} />
               <Route path="/activity/:id" component={MetaActivity} />
+              <Route exact path="/add-offers/:id" component={OfferFormPage} />
               <Route exact path="/coach/add" component={CoachForm} />
               <Route
                 exact
@@ -150,6 +154,9 @@ function mapDispatchToProps(dispatch) {
     },
     fetchSCT() {
       dispatch(categoryActions.fetchSCT());
+    },
+    fetchTransactions() {
+      dispatch(transactionActions.fetchAll());
     },
   };
 }

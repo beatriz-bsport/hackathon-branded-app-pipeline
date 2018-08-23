@@ -168,13 +168,19 @@ export class RuleCard extends React.Component<Props> {
         </Grid>
         {rule.criterias.map((c) => (
           <Grid key={c.name} item>
-            <Grid container direction="row" spacing={8}>
+            <Grid
+              container
+              direction="row"
+              spacing={8}
+              alignItems="center"
+              justify="space-between"
+            >
               <Grid item>
-                <Typography variant="caption" style={{ color: 'black' }} />
+                <Typography />
                 {c.name} :{' '}
               </Grid>
               <Grid item>
-                <Typography variant="caption">{c.value} </Typography>
+                <Typography color="primary">{c.value} </Typography>
               </Grid>
             </Grid>
           </Grid>

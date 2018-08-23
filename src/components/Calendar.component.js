@@ -43,6 +43,12 @@ const styles = (theme) => ({
     marginBottom: theme.spacing.unit * 3,
     marginTop: theme.spacing.unit,
   },
+  dayRow: {
+    [theme.breakpoints.up('md')]: {
+      marginLeft: theme.spacing.unit,
+      marginRight: theme.spacing.unit,
+    },
+  },
 });
 
 type Props = {
@@ -78,18 +84,28 @@ export class Calendar extends Component<Props> {
     const { selectedDay } = this.state;
     this.selectDate(Moment(selectedDay.add(7, 'days')));
   };
+
   showPreviousWeek = () => {
     const { selectedDay } = this.state;
     this.selectDate(Moment(selectedDay.add(-7, 'days')));
   };
 
-  showNextMonth = () => {
-    const { selectedDay } = this.state;
-    this.selectDate(Moment(selectedDay.add(1, 'months')));
+  showNext = () => {
+    const { displayMode, selectedDay } = this.state;
+    if (WEEKMODE === displayMode) {
+      this.selectDate(Moment(selectedDay.add(1, 'weeks')));
+    } else {
+      this.selectDate(Moment(selectedDay.add(1, 'months')));
+    }
   };
-  showPreviousMonth = () => {
-    const { selectedDay } = this.state;
-    this.selectDate(Moment(selectedDay.add(-1, 'months')));
+
+  showPrevious = () => {
+    const { displayMode, selectedDay } = this.state;
+    if (WEEKMODE === displayMode) {
+      this.selectDate(Moment(selectedDay.add(-1, 'weeks')));
+    } else {
+      this.selectDate(Moment(selectedDay.add(-1, 'months')));
+    }
   };
 
   toogleDisplayMode = () => {
@@ -104,6 +120,7 @@ export class Calendar extends Component<Props> {
   toogleWeekMode = () => {
     this.setState({ displayMode: WEEKMODE });
   };
+
   toogleMonthMode = () => {
     this.setState({ displayMode: MONTHMODE });
   };
@@ -112,7 +129,7 @@ export class Calendar extends Component<Props> {
     // TODO optimize this
     const { classes } = this.props;
     const { displayMode } = this.state;
-    const weekdays = Moment.weekdaysShort(true); //true for starting on local day
+    const weekdays = Moment.weekdaysShort(true); // true for starting on local day
     return (
       <Grid container direction="column" alignItems="center">
         {displayMode === WEEKMODE ? (
@@ -195,7 +212,7 @@ export class Calendar extends Component<Props> {
             wrap="nowrap"
           >
             <Grid item>
-              <IconButton onClick={this.showPreviousMonth}>
+              <IconButton onClick={this.showPrevious}>
                 <ChevronLeftIcon />
               </IconButton>
             </Grid>
@@ -205,7 +222,7 @@ export class Calendar extends Component<Props> {
               </Typography>
             </Grid>
             <Grid item>
-              <IconButton onClick={this.showNextMonth}>
+              <IconButton onClick={this.showNext}>
                 <ChevronRightIcon />
               </IconButton>
             </Grid>
@@ -225,32 +242,30 @@ export class Calendar extends Component<Props> {
     );
   };
 
-  renderWeekFrom = (firstDayWeek) => {
-    return (
-      <Grid
-        container
-        direction="row"
-        alignItems="center"
-        justify="space-between"
-        wrap="nowrap"
-      >
-        {this.renderDay(Moment(firstDayWeek).add(0, 'days'))}
-        {this.renderDay(Moment(firstDayWeek).add(1, 'days'))}
-        {this.renderDay(Moment(firstDayWeek).add(2, 'days'))}
-        {this.renderDay(Moment(firstDayWeek).add(3, 'days'))}
-        {this.renderDay(Moment(firstDayWeek).add(4, 'days'))}
-        {this.renderDay(Moment(firstDayWeek).add(5, 'days'))}
-        {this.renderDay(Moment(firstDayWeek).add(6, 'days'))}
-      </Grid>
-    );
-  };
+  renderWeekFrom = (firstDayWeek) => (
+    <Grid
+      container
+      direction="row"
+      alignItems="center"
+      justify="space-between"
+      wrap="nowrap"
+    >
+      {this.renderDay(Moment(firstDayWeek).add(0, 'days'))}
+      {this.renderDay(Moment(firstDayWeek).add(1, 'days'))}
+      {this.renderDay(Moment(firstDayWeek).add(2, 'days'))}
+      {this.renderDay(Moment(firstDayWeek).add(3, 'days'))}
+      {this.renderDay(Moment(firstDayWeek).add(4, 'days'))}
+      {this.renderDay(Moment(firstDayWeek).add(5, 'days'))}
+      {this.renderDay(Moment(firstDayWeek).add(6, 'days'))}
+    </Grid>
+  );
 
   renderMonthFrom = (firstDayMonth) => {
     const { t, classes } = this.props;
     const { selectedDay } = this.state;
 
     const weekRows = [];
-    for (var i = 0; i < 6; i++) {
+    for (let i = 0; i < 6; i++) {
       const firstDayInRow = Moment(firstDayMonth).add(i * 7, 'days');
       if (firstDayInRow.isSameOrBefore(selectedDay, 'month')) {
         weekRows.push(
@@ -285,7 +300,6 @@ export class Calendar extends Component<Props> {
   };
 
   renderBulkDays = () => {
-    const { classes } = this.props;
     const { selectedDay, displayMode } = this.state;
     const firstDayWeek = Moment(selectedDay).add(
       -selectedDay.weekday(),
@@ -317,32 +331,8 @@ export class Calendar extends Component<Props> {
         <Grid item xs={12}>
           {this.renderHeader()}
         </Grid>
-        <Grid item xs={12}>
-          <Grid container direction="row" alignItems="center">
-            {displayMode === MONTHMODE ? null : (
-              <Grid item xs={1}>
-                <IconButton
-                  onClick={this.showPreviousWeek}
-                  className={classes.arrowIconLeft}
-                >
-                  <ChevronLeftIcon />
-                </IconButton>
-              </Grid>
-            )}
-            <Grid item xs={displayMode === MONTHMODE ? 12 : 10}>
-              {this.renderBulkDays()}
-            </Grid>
-            {displayMode === MONTHMODE ? null : (
-              <Grid item xs={1}>
-                <IconButton
-                  onClick={this.showNextWeek}
-                  className={classes.arrowIconRight}
-                >
-                  <ChevronRightIcon />
-                </IconButton>
-              </Grid>
-            )}
-          </Grid>
+        <Grid item xs={12} className={classes.dayRow}>
+          {this.renderBulkDays()}
         </Grid>
       </Grid>
     );

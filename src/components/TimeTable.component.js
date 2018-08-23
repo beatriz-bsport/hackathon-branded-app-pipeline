@@ -11,11 +11,15 @@ import {
 import { translate } from 'react-i18next';
 import { Moment } from '../i18n';
 
-import { ActivityMinimalSummary } from '../components';
+import { ActivityMinimalSummary } from '.';
 
 const styles = (theme) => ({
   emptyMessage: {
     margin: theme.spacing.unit * 3,
+  },
+  loadingContainer: {
+    marginLeft: theme.spacing.unit * 3,
+    marginBottom: theme.spacing.unit * 2,
   },
 });
 
@@ -120,7 +124,11 @@ export class TimeTable extends Component<Props> {
     const { offersToday } = this.state;
     const { loading, t, classes } = this.props;
     if (loading) {
-      return <CircularProgress />;
+      return (
+        <div className={classes.loadingContainer}>
+          <CircularProgress />
+        </div>
+      );
     }
     return offersToday.length ? (
       <List>{offersToday.map((o) => this.renderActivity(o))}</List>

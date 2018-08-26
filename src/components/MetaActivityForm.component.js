@@ -21,7 +21,7 @@ type Props = {
 };
 
 export class MetaActivityForm extends Component<Props> {
-  state = {};
+  state = { default_waiting_list_max_size: 0 };
 
   constructor(props) {
     super(props);
@@ -39,6 +39,7 @@ export class MetaActivityForm extends Component<Props> {
       description,
       coach,
       establishment,
+      default_waiting_list_max_size,
       default_price,
       default_credits,
       default_last_booking_minutes,
@@ -53,6 +54,7 @@ export class MetaActivityForm extends Component<Props> {
       description,
       coach,
       establishment,
+      default_waiting_list_max_size,
       default_price,
       default_credits,
       default_last_booking_minutes,
@@ -156,6 +158,14 @@ export class MetaActivityForm extends Component<Props> {
                     id="default_duration_minutes"
                     required
                     value={this.state.default_duration_minutes}
+                    onChange={this.onFormFieldChange}
+                  />
+                </Grid>
+                <Grid item>
+                  <FormField
+                    id="default_waiting_list_max_size"
+                    required
+                    value={this.state.default_waiting_list_max_size}
                     onChange={this.onFormFieldChange}
                   />
                 </Grid>

@@ -59,7 +59,8 @@ export default {
       outOf: ' of ',
     },
     form: {
-    generateOffers: 'Create sessions',
+      default_waiting_list_max_size: 'Size of the waiting list',
+      generateOffers: 'Create sessions',
       offersWillBeGenerated: 'sessions will be generated',
       offerWillBeGenerated: 'session will be generated',
       recurrence: 'Recurrence',

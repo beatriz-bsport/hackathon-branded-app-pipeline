@@ -38,6 +38,8 @@ export default {
       outOf: ' sur ',
     },
     form: {
+      // eslint-disable-next-line
+      default_waiting_list_max_size: "Taille de la liste d'attente",
       generateOffers: 'Créer les séances',
       offersWillBeGenerated: 'séances vont être crées',
       offerWillBeGenerated: 'séance va être créée',

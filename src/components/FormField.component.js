@@ -88,6 +88,9 @@ export class FormField extends Component<Props> {
       case 'birthdayYear':
         const year = parseInt(value, 10);
         return year > 2020 || year < 1900;
+      case 'waiting_list_max_size':
+        const size = parseInt(value, 10);
+        return size > 100 || size < 0;
       default:
         return false;
     }
@@ -99,6 +102,7 @@ export class FormField extends Component<Props> {
       case 'birthdayYear':
       case 'phone':
       case 'default_price':
+      case 'default_waiting_list_max_size':
       case 'default_credits':
       case 'price':
       case 'credits':
@@ -184,6 +188,7 @@ export class FormField extends Component<Props> {
       case 'price':
       case 'credits':
       case 'effectif':
+      case 'default_waiting_list_max_size':
         return (
           <TextField
             className={classes.textInput}

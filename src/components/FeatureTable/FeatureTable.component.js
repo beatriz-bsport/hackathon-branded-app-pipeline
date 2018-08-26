@@ -5,60 +5,19 @@ import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
-import DeleteIcon from '@material-ui/icons/Delete';
-import FilterListIcon from '@material-ui/icons/FilterList';
-import Button from '@material-ui/core/Button';
-import EmailIcon from '@material-ui/icons/Email';
-import CallIcon from '@material-ui/icons/Call';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { lighten } from '@material-ui/core/styles/colorManipulator';
 import { translate } from 'react-i18next';
 
 import EnhancedTableToolbar from './EnhancedTableToolbar.component';
 import EnhancedTableHead from './EnhancedTableHead.component';
 
-let counter = 0;
-
 function getSorting(order, orderBy, t) {
   return order === 'desc'
     ? (a, b) => (b[orderBy] < a[orderBy] ? -1 : 1)
     : (a, b) => (a[orderBy] < b[orderBy] ? -1 : 1);
-}
-
-function columnData(t) {
-  return [
-    {
-      id: 'name',
-      label: t('common.name'),
-    },
-    {
-      id: 'offers_joined',
-      label: t('member.offers_joined'),
-    },
-    {
-      id: 'status',
-      label: t('common.status'),
-    },
-    {
-      id: 'date_joined',
-      label: t('member.date_joined'),
-    },
-    {
-      id: 'contact',
-      label: '',
-    },
-  ];
 }
 
 const styles = (theme) => ({

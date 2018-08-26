@@ -49,19 +49,12 @@ export class Members extends Component<{}> {
         label: t('member.date_joined'),
       },
       {
-        id: 'phone',
-        label: '',
-      },
-      {
-        id: 'email',
-        label: '',
-      },
-      {
         id: 'more',
         label: '',
       },
     ];
   };
+
   renderRow = (member, handleClick, isSelected) => {
     const { t } = this.props;
     const status = member.next_booking ? (
@@ -87,23 +80,13 @@ export class Members extends Component<{}> {
         <TableCell component="th" scope="row">
           {member.name}
         </TableCell>
-        <TableCell>{`${member.nb_bookings} ${t(
-          'common.booking_s',
-        ).toLowerCase()} - ${member.nb_pass_active} ${t(
-          'common.pass',
-        ).toLowerCase()}`}</TableCell>
+        <TableCell>
+          {`${member.nb_bookings} ${t('common.booking_s').toLowerCase()} - ${
+            member.nb_pass_active
+          } ${t('common.pass').toLowerCase()}`}
+        </TableCell>
         <TableCell>{status}</TableCell>
         <TableCell>{member.date_joined}</TableCell>
-        <TableCell padding="dense">
-          <IconButton>
-            <CallIcon />
-          </IconButton>
-        </TableCell>
-        <TableCell padding="none">
-          <IconButton>
-            <EmailIcon />
-          </IconButton>
-        </TableCell>
         <TableCell padding="dense">
           <Link to={`/member/${member.id}`} style={{ textDecoration: 'none' }}>
             <Button color="primary">{t('common.show_more')}</Button>
@@ -112,6 +95,7 @@ export class Members extends Component<{}> {
       </TableRow>
     );
   };
+
   render() {
     const { t, classes } = this.props;
     const { loading, members } = this.props;

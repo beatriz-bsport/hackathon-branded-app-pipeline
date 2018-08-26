@@ -6,13 +6,14 @@ import {
   Paper,
   withStyles,
   IconButton,
-  ExpandMore,
   ExpansionPanel,
   ExpansionPanelSummary,
   ExpansionPanelDetails,
   Button,
-  Divider,
   CircularProgress,
+  List,
+  ListItem,
+  ListItemText,
 } from '@material-ui/core';
 import EmailIcon from '@material-ui/icons/Email';
 import CallIcon from '@material-ui/icons/Call';
@@ -69,7 +70,7 @@ export class Member extends Component<{}> {
           <Grid item>
             <Grid container direction="row" alignItems="center" spacing={16}>
               <Grid item>
-                <Avatar user={consumer} variant="mediumNoname" />
+                <Avatar user={consumer} variant="mediumNoname" noname />
               </Grid>
               <Grid item>
                 <Grid
@@ -94,18 +95,22 @@ export class Member extends Component<{}> {
             </Grid>
           </Grid>
           <Grid item>
-            <Grid container direction="column" spacing={8}>
-              <Grid item>
+            <List>
+              <ListItem>
                 <IconButton>
                   <CallIcon />
                 </IconButton>
-              </Grid>
-              <Grid item>
+                <ListItemText
+                  primary={member.consumer.phonenumber.phone_number}
+                />
+              </ListItem>
+              <ListItem>
                 <IconButton>
                   <EmailIcon />
                 </IconButton>
-              </Grid>
-            </Grid>
+                <ListItemText primary={member.consumer.email || ' - '} />
+              </ListItem>
+            </List>
           </Grid>
         </Grid>
       );
@@ -181,14 +186,12 @@ export class Member extends Component<{}> {
     return null;
   };
 
-  getBookingsGraph = () => {
-    return (
-      <MemberBookingGraph
-        bookings={this.props.member.previous_bookings}
-        graphId="memberBookingsGraph"
-      />
-    );
-  };
+  getBookingsGraph = () => (
+    <MemberBookingGraph
+      bookings={this.props.member.previous_bookings}
+      graphId="memberBookingsGraph"
+    />
+  );
 
   render() {
     const { loading, t, classes } = this.props;
@@ -208,10 +211,12 @@ export class Member extends Component<{}> {
             <div>
               <Paper className={classes.paperContainer}>
                 {this.getFirstRow()}
-                {this.getBookingsGraph()}
               </Paper>
               {this.getFutureBookings()}
               {this.getPastBookings()}
+              <Paper className={classes.paperContainer}>
+                {this.getBookingsGraph()}
+              </Paper>
             </div>
           ) : (
             <CircularProgress />

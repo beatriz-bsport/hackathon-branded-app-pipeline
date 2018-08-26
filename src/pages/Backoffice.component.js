@@ -15,6 +15,7 @@ import { coach as coachActions } from '../actions';
 import { establishment as establishmentActions } from '../actions';
 import { category as categoryActions } from '../actions';
 import { transaction as transactionActions } from '../actions';
+import { paymentPack as paymentPackActions } from '../actions';
 
 import { TopBar, NavBar } from '../components';
 import Dashboard from './Dashboard.component';
@@ -63,6 +64,7 @@ export class Backoffice extends Component<{}> {
     this.props.fetchAllEstablishments();
     this.props.fetchSCT();
     this.props.fetchTransactions();
+    this.props.fetchAllPaymentPacks();
   }
 
   toogleDrawer = () => {
@@ -157,6 +159,9 @@ function mapDispatchToProps(dispatch) {
     },
     fetchTransactions() {
       dispatch(transactionActions.fetchAll());
+    },
+    fetchAllPaymentPacks() {
+      dispatch(paymentPackActions.fetchAll());
     },
   };
 }

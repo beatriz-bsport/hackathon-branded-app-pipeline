@@ -5,7 +5,6 @@ import { CircularProgress, withStyles, Grid } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
 import { PaymentPack } from '../components';
-import { paymentPack as paymentPackActions } from '../actions';
 
 const styles = (theme) => ({
   paymentPackContainer: {
@@ -14,16 +13,12 @@ const styles = (theme) => ({
 });
 
 type Props = {
-  fetchAllPaymentPacks: () => void,
   loading: boolean,
   classes: Object,
   packs: Array,
 };
 
 export class PaymentPackList extends Component<Props> {
-  componentDidMount() {
-    this.props.fetchAllPaymentPacks();
-  }
   render() {
     const { loading, classes } = this.props;
     if (loading) {
@@ -55,14 +50,6 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchAllPaymentPacks() {
-      dispatch(paymentPackActions.fetchAll());
-    },
-  };
-}
-
 export default withStyles(styles)(
-  translate()(connect(mapStateToProps, mapDispatchToProps)(PaymentPackList)),
+  translate()(connect(mapStateToProps)(PaymentPackList)),
 );

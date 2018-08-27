@@ -15,7 +15,21 @@ import reducers from './reducers';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth', 'activity', 'offer', 'stats', 'category'],
+  whitelist: [
+    'auth',
+    'activity',
+    'metaActivity',
+    'booking',
+    'offer',
+    'stats',
+    'category',
+    'paymentPack',
+    'establishment',
+    'coach',
+    'member',
+    'category',
+    'transaction',
+  ],
   transforms: [immutableTransform()],
 };
 

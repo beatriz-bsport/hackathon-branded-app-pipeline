@@ -15,7 +15,7 @@ import EmailIcon from '@material-ui/icons/Email';
 
 import { translate } from 'react-i18next';
 
-import { Level, Sport, Avatar } from '../../components';
+import { Level, Sport, Avatar } from '..';
 
 const styles = (theme) => ({
   listItem: {
@@ -54,7 +54,7 @@ export function ActivityMinimalSummary(props) {
       key={id}
       dense
       button
-      onClick={overrideClickAction ? overrideClickAction : () => {}}
+      onClick={overrideClickAction}
       className={classes.listItem}
       divider
     >
@@ -84,5 +84,7 @@ export function ActivityMinimalSummary(props) {
     </ListItem>
   );
 }
+
+ActivityMinimalSummary.defaultProps = { overrideClickAction: () => {} };
 
 export default translate()(withStyles(styles)(ActivityMinimalSummary));

@@ -48,14 +48,6 @@ export async function addMetaActivity(data) {
   return postAuth(`${API_URI}/saas/create-meta-activity/`, data);
 }
 
-export async function getStats(metaActivityId) {
-  return getAuth(`${API_URI}/saas/meta-activity/${metaActivityId}/stats`);
-}
-
-export async function getAllStats() {
-  return getAuth(`${API_URI}/saas/meta-activity/stats`);
-}
-
 export async function fetchBookingsByOffer(offerId) {
   return getAuth(`${API_URI}/as_coach/offer/${offerId}/bookings`);
 }
@@ -96,6 +88,18 @@ export async function fetchTransactions() {
   return getAuth(`${API_URI}/saas/transactions`);
 }
 
+export async function fetchDashboardStats() {
+  return getAuth(`${API_URI}/saas/stats/dashboard`);
+}
+
+export async function fetchAllActivitiesStats() {
+  return getAuth(`${API_URI}/saas/stats/meta-activity`);
+}
+
+export async function fetchActivityStats(metaActivityId) {
+  return getAuth(`${API_URI}/saas/stats/meta-activity/${metaActivityId}`);
+}
+
 export default {
   category: {
     fetchSCT,
@@ -117,10 +121,13 @@ export default {
   establishment: {
     fetchAll: fetchAllEstablishments,
   },
+  stats: {
+    fetchDashboard: fetchDashboardStats,
+    fetchActivities: fetchAllActivitiesStats,
+    fetchActivity: fetchActivityStats,
+  },
   activity: {
     fetchAllActivities,
-    getStats,
-    getAllStats,
     fetchMetaActivityDetails,
     fetchMinimal: fetchActivitiesMinimal,
     addMetaActivity,

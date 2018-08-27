@@ -3,25 +3,25 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { ResponsiveDrawer } from '../components';
 
-import { activity as activityActions } from '../actions';
-import { metaActivity as metaActivityActions } from '../actions';
-import { offer as offerActions } from '../actions';
-import { member as memberActions } from '../actions';
-import { coach as coachActions } from '../actions';
-import { establishment as establishmentActions } from '../actions';
-import { category as categoryActions } from '../actions';
-import { transaction as transactionActions } from '../actions';
-import { paymentPack as paymentPackActions } from '../actions';
+import {
+  activity as activityActions,
+  metaActivity as metaActivityActions,
+  offer as offerActions,
+  member as memberActions,
+  coach as coachActions,
+  establishment as establishmentActions,
+  category as categoryActions,
+  transaction as transactionActions,
+  paymentPack as paymentPackActions,
+  stats as statsActions,
+} from '../actions';
 
-import { TopBar, NavBar } from '../components';
 import Dashboard from './Dashboard.component';
 import MetaActivityList from './MetaActivityList.component';
 import MetaActivity from './MetaActivity.component';
-import CoachList from './CoachList.component.js';
+import CoachList from './CoachList.component';
 import Payment from './Payment.component';
 import MemberList from './MemberList.component';
 import Member from './Member.component';
@@ -65,6 +65,7 @@ export class Backoffice extends Component<{}> {
     this.props.fetchSCT();
     this.props.fetchTransactions();
     this.props.fetchAllPaymentPacks();
+    this.props.fetchDashboardStats();
   }
 
   toogleDrawer = () => {
@@ -115,7 +116,7 @@ export class Backoffice extends Component<{}> {
               <Route exact path="/map" component={EstablishmentMap} />
               <Route path="/marketing/rule/:id" component={MarketingRule} />
               <Route path="/marketing" component={MarketingDashboard} />
-              <Route exact path="/" component={MarketingDashboard} />
+              <Route exact path="/" component={Dashboard} />
             </Switch>
           </div>
         </main>
@@ -162,6 +163,9 @@ function mapDispatchToProps(dispatch) {
     },
     fetchAllPaymentPacks() {
       dispatch(paymentPackActions.fetchAll());
+    },
+    fetchDashboardStats() {
+      dispatch(statsActions.fetchDashboard());
     },
   };
 }

@@ -1,51 +1,173 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import { Paper, Grid, Typography } from '@material-ui/core';
-import { Camembert, GreatFilter, Histogram } from '../components';
-import { activity as activityActions } from '../actions';
+import {
+  CircularProgress,
+  Paper,
+  Grid,
+  Typography,
+  withStyles,
+} from '@material-ui/core';
 
 import { translate } from 'react-i18next';
-import * as d3 from 'd3';
-import Moment from 'moment';
 
 export class Dashboard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      date: Moment()
-        .set('hours', 0)
-        .set('minutes', 0)
-        .set('milliseconds', 0),
-    };
-  }
-  componentDidMount() {
-    this.props.fetchActivitiesMinimal();
-  }
+  state = {};
 
-  onDateClick = (date) => {
-    this.setState({ date });
+  renderStatCard = ({ name, old_stat, new_stat }) => {
+    const { classes } = this.props;
+
+    const evolutionPercent = parseInt(new_stat / old_stat * 100, 10);
+    const positiveEvolution = new_stat >= old_stat;
+    const evolutionColor = positiveEvolution ? 'primary' : 'error';
+    const formattedEvolutionPercent = isFinite(evolutionPercent)
+      ? `${positiveEvolution ? '+' : ''}${evolutionPercent}%`
+      : ' - ';
+
+    return (
+      <Paper className={classes.statPaper}>
+        <Grid container direction="column" alignItems="center" spacing={8}>
+          <Grid item style={{ marginLeft: 80 }}>
+            <Grid container direction="row" justify="space-between" spacing={8}>
+              <Grid item>
+                <Typography variant="title">
+                  {formattedEvolutionPercent}
+                </Typography>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item>
+            <Typography color={evolutionColor} variant="display3">
+              {new_stat}
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography variant="subheading">{name}</Typography>
+          </Grid>
+        </Grid>
+      </Paper>
+    );
+  };
+
+  renderWeekStat = () => {
+    const { t, classes, stats } = this.props;
+    return (
+      <Grid container direction="column" spacing={16}>
+        <Grid item>
+          <Typography variant="display1">{t('dashboard.thisWeek')}</Typography>
+        </Grid>
+        <Grid item>
+          <Grid container direction="row" spacing={16}>
+            <Grid item xs={12} sm={6} md={3}>
+              {this.renderStatCard({
+                name: t('dashboard.newMembers'),
+                old_stat: stats.previous_week.new_members,
+                new_stat: stats.current_week.new_members,
+              })}
+            </Grid>
+            <Grid item xs={12} sm={6} md={3}>
+              {this.renderStatCard({
+                name: t('dashboard.turnover'),
+                old_stat: stats.previous_week.turnover,
+                new_stat: stats.current_week.turnover,
+              })}
+            </Grid>
+            <Grid item xs={12} sm={6} md={3}>
+              {this.renderStatCard({
+                name: t('dashboard.nbOffers'),
+                old_stat: stats.previous_week.offers,
+                new_stat: stats.current_week.offers,
+              })}
+            </Grid>
+            <Grid item xs={12} sm={6} md={3}>
+              {this.renderStatCard({
+                name: t('dashboard.nbBookings'),
+                old_stat: stats.previous_week.bookings,
+                new_stat: stats.current_week.bookings,
+              })}
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    );
+  };
+
+  renderMonthStat = () => {
+    const { t, classes, stats } = this.props;
+    return (
+      <Grid container direction="column" spacing={16}>
+        <Grid item>
+          <Typography variant="display1">{t('dashboard.thisMonth')}</Typography>
+        </Grid>
+        <Grid item>
+          <Grid container direction="row" spacing={16}>
+            <Grid item xs={12} sm={6} md={3}>
+              {this.renderStatCard({
+                name: t('dashboard.newMembers'),
+                old_stat: stats.previous_month.new_members,
+                new_stat: stats.current_month.new_members,
+              })}
+            </Grid>
+            <Grid item xs={12} sm={6} md={3}>
+              {this.renderStatCard({
+                name: t('dashboard.turnover'),
+                old_stat: stats.previous_month.turnover,
+                new_stat: stats.current_month.turnover,
+              })}
+            </Grid>
+            <Grid item xs={12} sm={6} md={3}>
+              {this.renderStatCard({
+                name: t('dashboard.nbOffers'),
+                old_stat: stats.previous_month.offers,
+                new_stat: stats.current_month.offers,
+              })}
+            </Grid>
+            <Grid item xs={12} sm={6} md={3}>
+              {this.renderStatCard({
+                name: t('dashboard.nbBookings'),
+                old_stat: stats.previous_month.bookings,
+                new_stat: stats.current_month.bookings,
+              })}
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    );
   };
 
   render() {
-    const { t } = this.props;
-    const { date } = this.state;
+    const { loading } = this.props;
+
+    if (loading) {
+      return <CircularProgress />;
+    }
     return (
-      <Grid container spacing={24}>
+      <Grid container direction="column" spacing={24}>
         <Grid item xs={12}>
-          <Typography variant="display1">Welcome to bsport SaaS</Typography>
+          {this.renderWeekStat()}
+        </Grid>
+        <Grid item xs={12}>
+          {this.renderMonthStat()}
         </Grid>
       </Grid>
     );
   }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapStateToProps(state) {
   return {
-    fetchActivitiesMinimal() {
-      dispatch(activityActions.fetchActivitiesMinimal());
-    },
+    stats: state.stats.dashboard,
+    loading: state.stats.dashboardLoading,
   };
 }
 
-export default translate()(connect(null, mapDispatchToProps)(Dashboard));
+const styles = (theme) => ({
+  container: {},
+  statPaper: {
+    padding: theme.spacing.unit * 3,
+  },
+});
+
+export default translate()(
+  connect(mapStateToProps)(withStyles(styles)(Dashboard)),
+);

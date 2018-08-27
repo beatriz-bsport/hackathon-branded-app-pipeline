@@ -58,6 +58,14 @@ export default {
       rowPerPage: 'Rows per page',
       outOf: ' of ',
     },
+    dashboard: {
+      thisWeek: 'This week',
+      thisMonth: 'This month',
+      newMembers: 'New members',
+      nbOffers: 'Sessions',
+      turnover: 'Turnover (€)',
+      nbBookings: 'Sessions booked',
+    },
     form: {
       default_waiting_list_max_size: 'Size of the waiting list',
       generateOffers: 'Create sessions',

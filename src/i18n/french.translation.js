@@ -107,6 +107,15 @@ export default {
       // eslint-disable-next-line
       selfNoActivity: "Vous n'êtes en charge d'aucune activité.",
     },
+    dashboard: {
+      thisWeek: 'Cette semaine',
+      thisMonth: 'Ce mois',
+      newMembers: 'Nouveaux membres',
+      nbOffers: 'Séances',
+      // eslint-disable-next-line
+      turnover: "Chiffre d'affaire (€)",
+      nbBookings: 'Inscrits',
+    },
     marketing: {
       dashboard: 'Tableau de bord',
       conversionRate: 'Taux de conversion',

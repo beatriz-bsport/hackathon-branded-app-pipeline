@@ -136,9 +136,10 @@ export class Dashboard extends Component {
   };
 
   render() {
-    const { loading } = this.props;
+    const { loading, stats } = this.props;
 
-    if (loading) {
+    // FIXME set loading on all reducers state at logoff
+    if (loading || !stats.previous_week) {
       return <CircularProgress />;
     }
     return (

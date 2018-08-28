@@ -1,5 +1,3 @@
-import { post, get } from '../http';
-import axios from 'axios';
 import api from '../api';
 import types from './auth.types';
 
@@ -12,11 +10,19 @@ export function requestLogin(username, password) {
       const { token } = response.data;
 
       const response_ = await api.auth.accessLevel(token);
-      console.log(response_.data);
-      const { is_manager, is_coach } = response_.data;
+      const { is_manager, is_coach, is_consumer } = response_.data;
 
       if (token) {
-        dispatch(setLogin({ username, password, token, is_manager, is_coach }));
+        dispatch(
+          setLogin({
+            username,
+            password,
+            token,
+            is_manager,
+            is_coach,
+            is_consumer,
+          }),
+        );
       } else {
         dispatch(errorLogin());
       }
@@ -26,7 +32,14 @@ export function requestLogin(username, password) {
   };
 }
 
-export function setLogin({ username, password, token, is_manager, is_coach }) {
+export function setLogin({
+  username,
+  password,
+  token,
+  is_manager,
+  is_coach,
+  is_consumer,
+}) {
   return {
     type: types.LOGIN_SUCCESSFUL,
     username,
@@ -34,6 +47,7 @@ export function setLogin({ username, password, token, is_manager, is_coach }) {
     token,
     is_manager,
     is_coach,
+    is_consumer,
   };
 }
 
@@ -67,11 +81,11 @@ export async function fpost(uri: string, data: Object, headers: Object) {
       body: JSON.stringify(data),
     });
 
-    alert('response : ' + JSON.stringify(response));
+    alert(`response : ${JSON.stringify(response)}`);
 
     const json = await response.json();
     return json;
   } catch (e) {
-    alert('error : ' + JSON.stringify(e));
+    alert(`error : ${JSON.stringify(e)}`);
   }
 }

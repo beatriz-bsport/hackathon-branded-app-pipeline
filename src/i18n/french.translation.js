@@ -138,6 +138,11 @@ export default {
       noPromo: 'Aucun',
     },
     navigation: {
+      consumer: {
+        pass: 'Abonnements',
+        bookings: 'Mes réservations ',
+        profile: 'Profil',
+      },
       dashboard: 'Dashboard',
       activity: 'Mes activités',
       calendar: 'Calendrier',

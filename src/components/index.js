@@ -37,8 +37,10 @@ import EstablishmentCard from './EstablishmentCard.component';
 import FormField from './FormField.component';
 import AvatarUploader from './AvatarUploader.component';
 import OfferForm from './OfferForm.component';
+import ConsumerMenu from './ConsumerMenu.component';
 
 export {
+  ConsumerMenu,
   OfferForm,
   AvatarUploader,
   FormField,

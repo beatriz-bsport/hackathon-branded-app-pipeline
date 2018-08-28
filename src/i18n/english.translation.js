@@ -134,6 +134,12 @@ export default {
       selfNoActivity: 'You are not managing any activity.',
     },
     navigation: {
+      consumer: {
+        pass: 'Pass',
+        bookings: 'My bookings',
+        profile: 'Profile',
+      },
+
       dashboard: 'Dashboard',
       activity: 'My activities',
       calendar: 'Calendar',

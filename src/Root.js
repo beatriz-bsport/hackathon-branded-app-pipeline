@@ -7,7 +7,7 @@ import { Route, Switch } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import { CircularProgress } from '@material-ui/core';
 
-import Backoffice from './pages/Backoffice.component';
+import UserspaceSwitcher from './pages/UserspaceSwitcher.component';
 import Login from './pages/Login.component';
 import ResetPassword from './pages/ResetPassword.component';
 import Signout from './pages/Signout.component';
@@ -36,7 +36,7 @@ export class Root extends Component<{}> {
           <Route path="/login" component={Login} />
           <Route path="/reset_password" component={ResetPassword} />
           <Route path="/signout" component={Signout} />
-          <Route path="/" component={Backoffice} />
+          <Route path="/" component={UserspaceSwitcher} />
         </Switch>
       </div>
     );

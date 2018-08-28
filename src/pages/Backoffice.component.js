@@ -38,7 +38,11 @@ import OfferFormPage from './OfferFormPage.component';
 const styles = (theme) => ({
   content: {
     backgroundColor: theme.palette.background.default,
-    padding: theme.spacing.unit * 3,
+    paddingTop: theme.spacing.unit * 3,
+    [theme.breakpoints.up('sm')]: {
+      paddingLeft: theme.spacing.unit * 3,
+      paddingRight: theme.spacing.unit * 3,
+    },
     flexGrow: 1,
   },
   toolbar: theme.mixins.toolbar,

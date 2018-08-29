@@ -125,9 +125,18 @@ export class TimeTable extends Component<Props> {
     const { loading, t, classes } = this.props;
     if (loading) {
       return (
-        <div className={classes.loadingContainer}>
-          <CircularProgress />
-        </div>
+        <Grid
+          container
+          direction="column"
+          spacing={16}
+          className={classes.loadingContainer}
+          alignItems="center"
+          justify="center"
+        >
+          <Grid item>
+            <CircularProgress />
+          </Grid>
+        </Grid>
       );
     }
     return offersToday.length ? (

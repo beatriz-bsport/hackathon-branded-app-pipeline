@@ -28,6 +28,10 @@ export class Login extends Component<{}> {
     password: '',
   };
 
+  componentWillMount() {
+    document.title = 'Login - bsport';
+  }
+
   updateEmail = (event) => {
     this.setState({
       email: event.target.value,

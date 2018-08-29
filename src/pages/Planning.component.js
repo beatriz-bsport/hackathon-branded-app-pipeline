@@ -62,22 +62,22 @@ export class Planning extends Component {
     });
     return (
       <Grid container spacing={24}>
-        <Grid item md={12} lg={6}>
+        <Grid item xs={12} lg={6}>
           <Paper>
             <Grid container>
-              <Grid item md={12}>
+              <Grid item xs={12}>
                 <div className={classes.calendarContainer}>
                   <Calendar events={events} onDateClick={this.onDateClick} />
                 </div>
               </Grid>
-              <Grid item md={12}>
+              <Grid item xs={12}>
                 <TimeTable date={date} onOfferSelected={this.onOfferSelected} />
               </Grid>
             </Grid>
           </Paper>
         </Grid>
         {selectedOffer ? (
-          <Grid item md={12} lg={6}>
+          <Grid item xs={12} lg={6}>
             <OfferCard offer={selectedOffer} />
           </Grid>
         ) : (

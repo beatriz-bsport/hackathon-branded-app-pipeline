@@ -9,7 +9,6 @@ import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Hidden from '@material-ui/core/Hidden';
 import Divider from '@material-ui/core/Divider';
@@ -19,10 +18,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Grid from '@material-ui/core/Grid';
 
 import {
-  Menu,
   Today,
   Star,
-  Inbox,
   People,
   Payment,
   TrendingUp,
@@ -35,7 +32,7 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 
 import { Link } from 'react-router-dom';
-import { DisconnectButton, LanguageButton } from '../../components';
+import { LanguageButton } from '../button/LanguageButton.component';
 import LOGO_ASSET from '../../public/images/banner_lowres.png';
 
 const drawerWidth = 240;
@@ -106,7 +103,7 @@ class ResponsiveDrawer extends React.Component {
         <Divider />
         <List>
           <Link to="/" style={{ textDecoration: 'none' }}>
-            <ListItem button>
+            <ListItem button onClick={this.handleDrawerToggle}>
               <ListItemIcon>
                 <TrendingUp />
               </ListItemIcon>
@@ -114,7 +111,7 @@ class ResponsiveDrawer extends React.Component {
             </ListItem>
           </Link>
           <Link to="/calendar" style={{ textDecoration: 'none' }}>
-            <ListItem button>
+            <ListItem button onClick={this.handleDrawerToggle}>
               <ListItemIcon>
                 <Today />
               </ListItemIcon>
@@ -123,7 +120,7 @@ class ResponsiveDrawer extends React.Component {
           </Link>
           <Divider />
           <Link to="/activity" style={{ textDecoration: 'none' }}>
-            <ListItem button>
+            <ListItem button onClick={this.handleDrawerToggle}>
               <ListItemIcon>
                 <Star />
               </ListItemIcon>
@@ -131,7 +128,7 @@ class ResponsiveDrawer extends React.Component {
             </ListItem>
           </Link>
           <Link to="/coach" style={{ textDecoration: 'none' }}>
-            <ListItem button>
+            <ListItem button onClick={this.handleDrawerToggle}>
               <ListItemIcon>
                 <FitnessCenter />
               </ListItemIcon>
@@ -139,7 +136,7 @@ class ResponsiveDrawer extends React.Component {
             </ListItem>
           </Link>
           <Link to="/map" style={{ textDecoration: 'none' }}>
-            <ListItem button>
+            <ListItem button onClick={this.handleDrawerToggle}>
               <ListItemIcon>
                 <LocationOn />
               </ListItemIcon>
@@ -148,7 +145,7 @@ class ResponsiveDrawer extends React.Component {
           </Link>
           <Divider />
           <Link to="/payment-pack" style={{ textDecoration: 'none' }}>
-            <ListItem button>
+            <ListItem button onClick={this.handleDrawerToggle}>
               <ListItemIcon>
                 <VpnKey />
               </ListItemIcon>
@@ -156,7 +153,7 @@ class ResponsiveDrawer extends React.Component {
             </ListItem>
           </Link>
           <Link to="/marketing" style={{ textDecoration: 'none' }}>
-            <ListItem button>
+            <ListItem button onClick={this.handleDrawerToggle}>
               <ListItemIcon>
                 <Email />
               </ListItemIcon>
@@ -164,7 +161,7 @@ class ResponsiveDrawer extends React.Component {
             </ListItem>
           </Link>
           <Link to="/member" style={{ textDecoration: 'none' }}>
-            <ListItem button>
+            <ListItem button onClick={this.handleDrawerToggle}>
               <ListItemIcon>
                 <People />
               </ListItemIcon>
@@ -173,7 +170,7 @@ class ResponsiveDrawer extends React.Component {
           </Link>
           <Divider />
           <Link to="/payment" style={{ textDecoration: 'none' }}>
-            <ListItem button>
+            <ListItem button onClick={this.handleDrawerToggle}>
               <ListItemIcon>
                 <Payment />
               </ListItemIcon>
@@ -182,7 +179,7 @@ class ResponsiveDrawer extends React.Component {
           </Link>
           <Divider />
           <Link to="/signout" style={{ textDecoration: 'none' }}>
-            <ListItem button>
+            <ListItem button onClick={this.handleDrawerToggle}>
               <ListItemIcon>
                 <HighlightOff />
               </ListItemIcon>

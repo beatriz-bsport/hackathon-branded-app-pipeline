@@ -59,6 +59,10 @@ export class Backoffice extends Component<{}> {
     };
   }
 
+  componentWillMount() {
+    document.title = 'Backoffice - bsport';
+  }
+
   componentDidMount() {
     this.props.fetchAllActivities();
     this.props.fetchAllOffers();

@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Hidden from '@material-ui/core/Hidden';
 import Divider from '@material-ui/core/Divider';
+import Paper from '@material-ui/core/Paper';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import AssignmentIcon from '@material-ui/icons/Assignment';
@@ -38,45 +39,45 @@ class ConsumerMenu extends React.Component {
     const { classes, theme, t } = this.props;
 
     const drawer = (
-      <List>
-        <Divider />
-        <Link to="/" style={{ textDecoration: 'none' }}>
-          <ListItem button>
-            <ListItemIcon>
-              <EventIcon />
-            </ListItemIcon>
-            <ListItemText primary={t('navigation.consumer.bookings')} />
-          </ListItem>
-        </Link>
-        <Divider />
-        <Link to="/pass" style={{ textDecoration: 'none' }}>
-          <ListItem button>
-            <ListItemIcon>
-              <AssignmentIcon />
-            </ListItemIcon>
-            <ListItemText primary={t('navigation.consumer.pass')} />
-          </ListItem>
-        </Link>
-        <Divider />
-        <Link to="/profile" style={{ textDecoration: 'none' }}>
-          <ListItem button>
-            <ListItemIcon>
-              <AccountCircleIcon />
-            </ListItemIcon>
-            <ListItemText primary={t('navigation.consumer.profile')} />
-          </ListItem>
-        </Link>
-        <Divider />
-        <Link to="/signout" style={{ textDecoration: 'none' }}>
-          <ListItem button>
-            <ListItemIcon>
-              <HighlightOff />
-            </ListItemIcon>
-            <ListItemText primary={t('navigation.logoff')} />
-          </ListItem>
-        </Link>
-        <Divider />
-      </List>
+      <Paper className={classes.drawerPaper}>
+        <List>
+          <Link to="/" style={{ textDecoration: 'none' }}>
+            <ListItem button onClick={this.handleDrawerToggle}>
+              <ListItemIcon>
+                <EventIcon />
+              </ListItemIcon>
+              <ListItemText primary={t('navigation.consumer.bookings')} />
+            </ListItem>
+          </Link>
+          <Divider />
+          <Link to="/pass" style={{ textDecoration: 'none' }}>
+            <ListItem button onClick={this.handleDrawerToggle}>
+              <ListItemIcon>
+                <AssignmentIcon />
+              </ListItemIcon>
+              <ListItemText primary={t('navigation.consumer.pass')} />
+            </ListItem>
+          </Link>
+          <Divider />
+          <Link to="/profile" style={{ textDecoration: 'none' }}>
+            <ListItem button onClick={this.handleDrawerToggle}>
+              <ListItemIcon>
+                <AccountCircleIcon />
+              </ListItemIcon>
+              <ListItemText primary={t('navigation.consumer.profile')} />
+            </ListItem>
+          </Link>
+          <Divider />
+          <Link to="/signout" style={{ textDecoration: 'none' }}>
+            <ListItem button onClick={this.handleDrawerToggle}>
+              <ListItemIcon>
+                <HighlightOff />
+              </ListItemIcon>
+              <ListItemText primary={t('navigation.logoff')} />
+            </ListItem>
+          </Link>
+        </List>
+      </Paper>
     );
 
     return (
@@ -104,9 +105,6 @@ class ConsumerMenu extends React.Component {
             anchor={theme.direction === 'rtl' ? 'right' : 'left'}
             open={this.state.mobileOpen}
             onClose={this.handleDrawerToggle}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
             ModalProps={{
               keepMounted: true, // Better open performance on mobile.
             }}
@@ -115,13 +113,7 @@ class ConsumerMenu extends React.Component {
           </Drawer>
         </Hidden>
         <Hidden smDown implementation="css">
-          <Drawer
-            variant="permanent"
-            open
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-          >
+          <Drawer variant="permanent" open style={{ width: drawerWidth }}>
             {drawer}
           </Drawer>
         </Hidden>
@@ -142,7 +134,6 @@ ConsumerMenu.propTypes = {
 const styles = (theme) => ({
   root: {
     flexGrow: 1,
-    height: 440,
     zIndex: 1,
     overflow: 'hidden',
     position: 'relative',
@@ -163,7 +154,9 @@ const styles = (theme) => ({
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
+    marginTop: 50,
     width: drawerWidth,
+    height: '100%',
     [theme.breakpoints.up('md')]: {
       position: 'relative',
     },

@@ -33,6 +33,7 @@ export function ActivityMinimalSummary(props) {
     showCoach,
     showCoachName,
     overrideClickAction,
+    noDivider,
     t,
     classes,
   } = props;
@@ -56,7 +57,7 @@ export function ActivityMinimalSummary(props) {
       button
       onClick={overrideClickAction}
       className={classes.listItem}
-      divider
+      divider={!noDivider}
     >
       {showCoach ? (
         <Tooltip title={coach.name}>

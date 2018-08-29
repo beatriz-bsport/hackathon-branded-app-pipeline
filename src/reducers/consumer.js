@@ -1,7 +1,5 @@
 import Immutable from 'seamless-immutable';
 
-import actionTypes from '../actions/consumer.types';
-
 const initialState = Immutable({
   loading: false,
   bookings: [],

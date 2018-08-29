@@ -1,6 +1,9 @@
 export default {
   translation: {
     hi: 'Salut',
+    pageTitle: {
+      myAccount: 'Mon compte',
+    },
     common: {
       name: 'Nom',
       status: 'Status',
@@ -155,6 +158,7 @@ export default {
       pass: 'Abonnements',
     },
     payment: {
+      pay: 'Payer',
       type: 'Type',
       amount: 'Montant (€)',
       consumer: 'Client',

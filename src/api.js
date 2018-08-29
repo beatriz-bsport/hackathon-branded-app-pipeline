@@ -100,6 +100,20 @@ export async function fetchActivityStats(metaActivityId) {
   return getAuth(`${API_URI}/saas/stats/meta-activity/${metaActivityId}`);
 }
 
+export async function pay(token, purchaseId, purchaseType) {
+  return postAuth(`${API_URI}/pay/stripe/${purchaseType}/${purchaseId}`, {
+    token,
+  });
+}
+
+export async function consumerRequestOffer(offerId) {
+  return getAuth(`${API_URI}/offer/${offerId}/`);
+}
+
+export async function consumerRequestPaymentPack(paymentPackId) {
+  return getAuth(`${API_URI}/saas/payment-pack/${paymentPackId}`);
+}
+
 export default {
   category: {
     fetchSCT,
@@ -144,5 +158,12 @@ export default {
   },
   paymentPack: {
     fetchAll: fetchAllPaymentPacks,
+  },
+  payment: {
+    pay,
+  },
+  payment: {
+    fetchOffer: consumerRequestOffer,
+    fetchPaymentPack: consumerRequestPaymentPack,
   },
 };

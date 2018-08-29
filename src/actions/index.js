@@ -10,10 +10,10 @@ import * as paymentPack from './paymentPack.actions';
 import * as establishment from './establishment.actions';
 import * as category from './category.actions';
 import * as transaction from './transaction.actions';
-import * as consumer from './consumer.actions';
+import * as payment from './payment.actions';
 
 export {
-  consumer,
+  payment,
   transaction,
   auth,
   establishment,

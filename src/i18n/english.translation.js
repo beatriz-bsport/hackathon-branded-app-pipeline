@@ -1,6 +1,9 @@
 export default {
   translation: {
     hi: 'Hi',
+    pageTitle: {
+      myAccount: 'My account',
+    },
     common: {
       name: 'Name',
       status: 'Status',
@@ -152,6 +155,7 @@ export default {
       pass: 'Subscriptions',
     },
     payment: {
+      pay: 'Pay',
       type: 'Type',
       amount: 'Amount (€)',
       consumer: 'Client',

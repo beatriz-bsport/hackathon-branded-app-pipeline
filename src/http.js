@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-let authToken = '';
+const authToken = '';
 
 const storage = window.localStorage;
 
@@ -23,8 +23,7 @@ export async function post(uri: string, data: Object, headers: Object) {
       headers: Object.assign(baseHeaders, headers),
     });
 
-    const json = await response.json();
-    return json;
+    return response;
   } catch (e) {
     console.log(e);
   }
@@ -34,7 +33,7 @@ export async function get(uri: string, headers = {}) {
   return axios({
     url: uri,
     method: 'get',
-    headers: headers,
+    headers,
   });
 }
 

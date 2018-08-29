@@ -12,9 +12,11 @@ import paymentPackReducers from './paymentPack';
 import establishmentReducers from './establishment';
 import categoryReducers from './category';
 import transactionReducers from './transaction';
+import paymentReducers from './payment';
 import consumerReducers from './consumer';
 
 export default combineReducers({
+  payment: paymentReducers,
   consumer: consumerReducers,
   auth: authReducers,
   establishment: establishmentReducers,

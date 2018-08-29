@@ -9,10 +9,10 @@ const styles = (theme) => ({
 
 type Props = {};
 
-export class MyBookingOptions extends Component<Props> {
+export class MyProfile extends Component<Props> {
   render() {
     return <div />;
   }
 }
 
-export default withStyles(styles)(translate()(MyBookingOptions));
+export default withStyles(styles)(translate()(MyProfile));

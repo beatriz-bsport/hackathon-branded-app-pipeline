@@ -105,16 +105,22 @@ export class OfferPayment extends Component<Props> {
             </Grid>
           </Grid>
           <Grid item>
-            <CardElement />
+            <div className={classes.cardContainer}>
+              <CardElement />
+            </div>
           </Grid>
-          <Grid item>
-            {loading ? (
-              <CircularProgress />
-            ) : (
+          <Grid
+            item
+            container
+            direction="row"
+            alignItems="center"
+            justify="flex-end"
+          >
+            <Grid item>
               <Button variant="raised" color="primary" onClick={this.submit}>
                 {t('payment.pay')}
               </Button>
-            )}
+            </Grid>
           </Grid>
         </Grid>
       </Paper>
@@ -128,6 +134,11 @@ const styles = (theme) => ({
   },
   paymentContainer: {
     padding: theme.spacing.unit * 3,
+  },
+  cardContainer: {
+    padding: theme.spacing.unit,
+    backgroundColor: '#F3F3F3',
+    borderRadius: 5,
   },
 });
 

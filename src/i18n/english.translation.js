@@ -136,6 +136,16 @@ export default {
       noActivity: 'This coach does not manage any activity.',
       selfNoActivity: 'You are not managing any activity.',
     },
+    booking: {
+      confirmBooking: 'Confirm booking',
+      waitingSlot: 'Waiting a slot',
+      myFutureBookings: 'My next bookings',
+      myPastBookings: 'My past bookings',
+      myOptions: 'Bookings on waiting list',
+      noBookingOptions: 'You have no booking on waiting list',
+      noFutureBookings: 'No future session',
+      noPastBookings: 'No past booking',
+    },
     navigation: {
       consumer: {
         pass: 'Pass',
@@ -154,6 +164,9 @@ export default {
       goBack: 'Go back',
       pass: 'Subscriptions',
     },
+    consumer: {
+      company: 'Club',
+    },
     payment: {
       pay: 'Pay',
       type: 'Type',
@@ -163,6 +176,9 @@ export default {
       object: 'Description',
     },
     paymentPack: {
+      validUntil: 'Valid until',
+      expirationDate: 'Expiration date',
+      never: 'Never',
       unlimitedCredits: 'Unlimited',
       credits: 'Credits',
       availableOnFollowingSports: 'Available on following sports: ',

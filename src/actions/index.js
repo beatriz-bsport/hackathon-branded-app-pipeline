@@ -11,8 +11,10 @@ import * as establishment from './establishment.actions';
 import * as category from './category.actions';
 import * as transaction from './transaction.actions';
 import * as payment from './payment.actions';
+import * as consumer from './consumer.actions';
 
 export {
+  consumer,
   payment,
   transaction,
   auth,

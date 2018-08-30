@@ -12,16 +12,21 @@ type Props = {};
 export class PaymentPackMinimalSummary extends Component<Props> {
   render() {
     const { t, paymentPack } = this.props;
-    const { name, credits, ending_date } = paymentPack;
+    const { name, credits, ending_date, unlimited } = paymentPack;
 
-    const creditsFormatted = credits
-      ? t('paymentPack.unlimited')
+    const creditsFormatted = unlimited
+      ? t('paymentPack.unlimitedCredits')
       : `${t('paymentPack.credits')}: ${credits}`;
+
+    const endingDateFormatted = ending_date || t('paymentPack.never');
 
     return (
       <ListItem>
         <ListItemText primary={name} secondary={creditsFormatted} />
-        <ListItemText primary={ending_date} />
+        <ListItemText
+          primary={t('paymentPack.expirationDate')}
+          secondary={endingDateFormatted}
+        />
       </ListItem>
     );
   }

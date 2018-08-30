@@ -114,6 +114,22 @@ export async function consumerRequestPaymentPack(paymentPackId) {
   return getAuth(`${API_URI}/saas/payment-pack/${paymentPackId}`);
 }
 
+export async function fetchConsumerOptions() {
+  return getAuth(`${API_URI}/booking/options/`);
+}
+
+export async function fetchConsumerPastBookings() {
+  return getAuth(`${API_URI}/booking/past/`);
+}
+
+export async function fetchConsumerFutureBookings() {
+  return getAuth(`${API_URI}/booking/future/`);
+}
+
+export async function fetchConsumerPaymentPacks() {
+  return getAuth(`${API_URI}/consumer/payment-pack/`);
+}
+
 export default {
   category: {
     fetchSCT,
@@ -161,9 +177,13 @@ export default {
   },
   payment: {
     pay,
-  },
-  payment: {
     fetchOffer: consumerRequestOffer,
     fetchPaymentPack: consumerRequestPaymentPack,
+  },
+  consumer: {
+    fetchFutureBookings: fetchConsumerFutureBookings,
+    fetchPastBookings: fetchConsumerPastBookings,
+    fetchOptions: fetchConsumerOptions,
+    fetchConsumerPaymentPacks,
   },
 };

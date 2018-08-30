@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { Switch, Route } from 'react-router-dom';
 
+import { consumer as consumerActions } from '../actions';
 import MyBookings from './consumer/MyBookings.component';
 import MyPaymentPacks from './consumer/MyPaymentPacks.component';
 import MyProfile from './consumer/MyProfile.component';
@@ -13,7 +14,7 @@ import PaymentPackPayment from '../components/consumer/PaymentPackPayment.compon
 
 import { ConsumerMenu } from '../components';
 
-const styles = (theme) => ({
+const styles = () => ({
   container: {},
 });
 
@@ -25,6 +26,12 @@ export class ConsumerHome extends Component<Props> {
     document.title = t('pageTitle.myAccount');
   }
 
+  componentDidMount() {
+    this.props.fetchBookings();
+    this.props.fetchOptions();
+    this.props.fetchConsumerPaymentPacks();
+  }
+
   render() {
     return (
       <ConsumerMenu>
@@ -32,11 +39,27 @@ export class ConsumerHome extends Component<Props> {
           <Route path="/pass" component={MyPaymentPacks} />
           <Route path="/profile" component={MyProfile} />
           <Route path="/payment/offer/:id" component={OfferPayment} />
-          <Route path="/" component={PaymentPackPayment} />
+          <Route path="/payment/pass/:id" component={PaymentPackPayment} />
+          <Route path="/" component={MyBookings} />
         </Switch>
       </ConsumerMenu>
     );
   }
 }
 
-export default withStyles(styles)(translate()(ConsumerHome));
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchBookings() {
+      dispatch(consumerActions.fetchBookings());
+    },
+    fetchOptions() {
+      dispatch(consumerActions.fetchOptions());
+    },
+    fetchConsumerPaymentPacks() {
+      dispatch(consumerActions.fetchConsumerPaymentPacks());
+    },
+  };
+}
+export default withStyles(styles)(
+  translate()(connect(null, mapDispatchToProps)(ConsumerHome)),
+);

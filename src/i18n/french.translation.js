@@ -140,6 +140,21 @@ export default {
       promo: 'Réduction de ',
       noPromo: 'Aucun',
     },
+    booking: {
+      confirmBooking: 'Confirmer la réservation',
+      wiaitingSlot: 'En attente',
+      myFutureBookings: 'Prochaines séances',
+      myPastBookings: 'Mes précédentes réservations',
+      // eslint-disable-next-line
+      myOptions: "Réservations sur liste d'attente",
+      // eslint-disable-next-line
+      noBookingOptions: "Aucune réservation sur liste d'attente",
+      noFutureBookings: 'Aucune réservation prévue',
+      noPastBookings: 'Aucune réservation passée',
+    },
+    consumer: {
+      company: 'Club',
+    },
     navigation: {
       consumer: {
         pass: 'Abonnements',
@@ -167,6 +182,9 @@ export default {
       object: 'Description',
     },
     paymentPack: {
+      validUntil: "Valide jusqu'au",
+      expirationDate: 'Expire au',
+      never: 'Jamais',
       unlimitedCredits: 'Illimité',
       credits: 'Crédits',
       availableOnFollowingSports: 'Sports éligibles : ',

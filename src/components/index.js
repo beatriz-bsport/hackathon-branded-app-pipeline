@@ -38,8 +38,12 @@ import FormField from './FormField.component';
 import AvatarUploader from './AvatarUploader.component';
 import OfferForm from './OfferForm.component';
 import ConsumerMenu from './ConsumerMenu.component';
+import BookingListItem from './consumer/BookingListItem.component';
+import BookingOptionListItem from './consumer/BookingOptionListItem.component';
 
 export {
+  BookingListItem,
+  BookingOptionListItem,
   ConsumerMenu,
   OfferForm,
   AvatarUploader,

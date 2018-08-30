@@ -1,23 +1,20 @@
 import React from 'react';
 
 import {
-  Grid,
   ListItem,
   ListItemText,
-  ListItemSecondaryAction,
-  Typography,
-  Button,
   IconButton,
   Tooltip,
   withStyles,
 } from '@material-ui/core';
-import EmailIcon from '@material-ui/icons/Email';
 
 import { translate } from 'react-i18next';
 
-import { Level, Sport, Avatar } from '..';
+import Level from '../Level.component';
+import Sport from '../Sport.component';
+import Avatar from '../Avatar.component';
 
-const styles = (theme) => ({
+const styles = () => ({
   listItem: {
     width: '100%',
   },

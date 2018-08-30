@@ -1,8 +1,6 @@
 import React from 'react';
 
 import {
-  Grid,
-  Typography,
   Paper,
   Table,
   TableBody,
@@ -10,6 +8,7 @@ import {
   TableHead,
   TableRow,
 } from '@material-ui/core';
+import { translate } from 'react-i18next';
 
 type Props = {
   packs: *[],
@@ -17,43 +16,42 @@ type Props = {
 
 export class ConsumerPacks extends React.Component<Props> {
   renderPackRow = (pack) => {
-    const { name, used_credits, deactivated_until, base } = pack;
+    const { t } = this.props;
+    const { name, used_credits, deactivated_until, payment_pack } = pack;
     return (
       <TableRow>
-        <TableCell>{name}</TableCell>
-        <TableCell>{base.base_name}</TableCell>
-        <TableCell>{base.company.name}</TableCell>
-        <TableCell>{base.endingDate.format('DD MMM YYYY')}</TableCell>
+        <TableCell>{payment_pack.name}</TableCell>
+        <TableCell>{payment_pack.company.name}</TableCell>
+        <TableCell>{payment_pack.ending_date || ' - '}</TableCell>
         <TableCell>
-          {base.credits - used_credits} / {base.credits}
+          {payment_pack.unlimited
+            ? t('paymentPack.unlimitedCredits')
+            : `${payment_pack.credits - used_credits} / ${
+                payment_pack.credits
+              }`}
         </TableCell>
       </TableRow>
     );
   };
 
   render() {
-    const { packs } = this.props;
+    const { packs, t } = this.props;
     return (
-      <Grid container>
-        <Grid item xs={12} md={6}>
-          <Paper>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Name</TableCell>
-                  <TableCell>Base name</TableCell>
-                  <TableCell>Company</TableCell>
-                  <TableCell>Valid until</TableCell>
-                  <TableCell>Credits</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>{packs.map(this.renderPackRow)}</TableBody>
-            </Table>
-          </Paper>
-        </Grid>
-      </Grid>
+      <Paper>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>{t('common.name')}</TableCell>
+              <TableCell>{t('consumer.company')}</TableCell>
+              <TableCell>{t('paymentPack.validUntil')}</TableCell>
+              <TableCell>{t('paymentPack.credits')}</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>{packs.map(this.renderPackRow)}</TableBody>
+        </Table>
+      </Paper>
     );
   }
 }
 
-export default ConsumerPacks;
+export default translate()(ConsumerPacks);

@@ -36,6 +36,7 @@ export class CoachForm extends Component<Props> {
     email: '',
     phone: '',
     sex: 'M',
+    description: '',
   };
 
   constructor(props) {
@@ -135,6 +136,7 @@ export class CoachForm extends Component<Props> {
                   <FormField
                     fullWidth
                     multiline
+                    required
                     id="description"
                     onChange={this.onFormFieldChange}
                   />

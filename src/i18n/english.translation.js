@@ -5,10 +5,12 @@ export default {
       myAccount: 'My account',
     },
     common: {
+      or: 'or',
+      cancel: 'Cancel',
+      confirm: 'Confirm',
       name: 'Name',
       status: 'Status',
       ok: 'ok',
-      cancel: 'cancel',
       seeMore: 'Show',
       coach: 'Coach',
       coaches: 'Coaches',
@@ -20,7 +22,6 @@ export default {
       email: 'Email',
       show_more: 'Show more',
       showDetails: 'Show details',
-      edit: 'Edit',
       yes: 'Yes',
       no: 'No',
       sort: 'Sort',
@@ -70,6 +71,7 @@ export default {
       nbBookings: 'Sessions booked',
     },
     form: {
+      password: 'Password',
       default_waiting_list_max_size: 'Size of the waiting list',
       generateOffers: 'Create sessions',
       offersWillBeGenerated: 'sessions will be generated',
@@ -127,7 +129,7 @@ export default {
       showNextBooking: 'Show next bookings',
       nextBooking: 'next: ',
       showPreviousBooking: 'Show past bookings',
-      nextBooking: 'previous: ',
+      previousBooking: 'previous: ',
       engagement: 'Engagement',
       addMember: 'Add a member profile',
     },
@@ -135,16 +137,6 @@ export default {
       addCoach: 'Add a coach',
       noActivity: 'This coach does not manage any activity.',
       selfNoActivity: 'You are not managing any activity.',
-    },
-    booking: {
-      confirmBooking: 'Confirm booking',
-      waitingSlot: 'Waiting a slot',
-      myFutureBookings: 'My next bookings',
-      myPastBookings: 'My past bookings',
-      myOptions: 'Bookings on waiting list',
-      noBookingOptions: 'You have no booking on waiting list',
-      noFutureBookings: 'No future session',
-      noPastBookings: 'No past booking',
     },
     navigation: {
       consumer: {
@@ -165,7 +157,26 @@ export default {
       pass: 'Subscriptions',
     },
     consumer: {
+      myPaymentPacks: 'My pass',
       company: 'Club',
+      help: {
+        areYouSureCancelBookingOption:
+          'Are you really cancelling your option ?',
+        explainCancelBookingOption:
+          'After the cancellation, if you take another option for this session, your place on the waiting-list will be reset.',
+      },
+      booking: {
+        cancelBooking: 'Cancel booking',
+        confirmBooking: 'Confirm',
+        waitingSlot: 'Waiting a slot',
+        myFutureBookings: 'My next bookings',
+        myPastBookings: 'My past bookings',
+        myOptions: 'Bookings on waiting list',
+        noBookingOptions: 'You have no booking on waiting list',
+        noFutureBookings: 'No future session',
+        noPastBookings: 'No past booking',
+        cancelOption: 'Discard',
+      },
     },
     payment: {
       pay: 'Pay',
@@ -188,6 +199,10 @@ export default {
       boughtConsumerPaymentPacks: 'Purchases',
     },
     login: {
+      choseYourUserspace: 'Who are you ?',
+      loginAsPro: 'I am a club manager',
+      loginAsConsumer: 'I am an athlete',
+      noAccount: 'No account ? Create one !',
       password: 'Password',
       authError: 'Email and password mismatch',
       forgottenPassword: 'Forgotten password',

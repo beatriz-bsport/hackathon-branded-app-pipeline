@@ -5,16 +5,35 @@ const initialState = Immutable({
   error: false,
   errorMsg: null,
   optionsLoading: false,
+  optionCurrentlyCancelling: null,
   bookingsLoading: false,
   paymentPacksLoading: false,
   futureBookings: [],
   pastBookings: [],
   bookingOptions: [],
   consumerPaymentPacks: [],
+  profile: null,
 });
 
 export default function consumerReducers(state = initialState, action = {}) {
   switch (action.type) {
+    case actionTypes.CONSUMER_HAS_FETCHED_PROFILE:
+      return Immutable.merge(state, { profile: action.profile });
+    case actionTypes.CONSUMER_CANCELLING_BOOKING_OPTION:
+      return Immutable.merge(state, {
+        optionCurrentlyCancelling: action.optionId,
+      });
+    case actionTypes.CONSUMER_BOOKING_OPTION_CANCELLED:
+      return Immutable.merge(state, {
+        optionCurrentlyCancelling: null,
+        bookingOptions: state.bookingOptions.filter(
+          (bo) => bo.id !== action.optionId,
+        ),
+      });
+    case actionTypes.CONSUMER_ERROR_CANCELLING_BOOKING_OPTION:
+      return Immutable.merge(state, {
+        optionCurrentlyCancelling: null,
+      });
     case actionTypes.CONSUMER_HAS_FETCHED_BOOKINGS:
       return Immutable.merge(state, {
         bookingsloading: false,

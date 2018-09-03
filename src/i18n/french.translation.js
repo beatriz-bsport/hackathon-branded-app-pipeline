@@ -5,6 +5,9 @@ export default {
       myAccount: 'Mon compte',
     },
     common: {
+      or: 'ou',
+      cancel: 'Annuler',
+      confirm: 'Confirmer',
       name: 'Nom',
       status: 'Status',
       ok: 'ok',
@@ -17,7 +20,6 @@ export default {
       edit: 'Modifier',
       activities: 'Activités',
       email: 'Email',
-      edit: 'Modifier',
       show_more: 'Voir +',
       showDetails: 'Voir détails',
       yes: 'Oui',
@@ -41,6 +43,7 @@ export default {
       outOf: ' sur ',
     },
     form: {
+      password: 'Mot de passe',
       // eslint-disable-next-line
       default_waiting_list_max_size: "Taille de la liste d'attente",
       generateOffers: 'Créer les séances',
@@ -80,6 +83,7 @@ export default {
       default_price: 'Prix',
       default_credits: 'Prix (crédits)',
       default_last_booking_minutes: 'Dernière réservation avant',
+      // eslint-disable-next-line
       default_last_discard_minutes: "Dernière annulation jusqu'à",
       default_duration_minutes: 'Durée de la séance',
       newMetaActivity: 'Nouvelle activité',
@@ -140,20 +144,29 @@ export default {
       promo: 'Réduction de ',
       noPromo: 'Aucun',
     },
-    booking: {
-      confirmBooking: 'Confirmer la réservation',
-      wiaitingSlot: 'En attente',
-      myFutureBookings: 'Prochaines séances',
-      myPastBookings: 'Mes précédentes réservations',
-      // eslint-disable-next-line
-      myOptions: "Réservations sur liste d'attente",
-      // eslint-disable-next-line
-      noBookingOptions: "Aucune réservation sur liste d'attente",
-      noFutureBookings: 'Aucune réservation prévue',
-      noPastBookings: 'Aucune réservation passée',
-    },
     consumer: {
+      myPaymentPacks: 'Mes abonnements',
       company: 'Club',
+      help: {
+        areYouSureCancelBookingOption:
+          'Voulez-vous vraiment annuler votre option ?',
+        explainCancelBookingOption:
+          "La suppression est définitive, si vous prenez de nouveau une option sur cette séance votre place sur la liste d'attente sera réinitialisée.",
+      },
+      booking: {
+        cancelBooking: 'Annuler la réservation',
+        confirmBooking: 'Confirmer',
+        waitingSlot: 'En attente',
+        myFutureBookings: 'Prochaines séances',
+        myPastBookings: 'Mes précédentes réservations',
+        // eslint-disable-next-line
+        myOptions: "Réservations sur liste d'attente",
+        // eslint-disable-next-line
+        noBookingOptions: "Aucune réservation sur liste d'attente",
+        noFutureBookings: 'Aucune réservation prévue',
+        noPastBookings: 'Aucune réservation passée',
+        cancelOption: 'Annuler',
+      },
     },
     navigation: {
       consumer: {
@@ -182,6 +195,7 @@ export default {
       object: 'Description',
     },
     paymentPack: {
+      // eslint-disable-next-line
       validUntil: "Valide jusqu'au",
       expirationDate: 'Expire au',
       never: 'Jamais',
@@ -194,6 +208,10 @@ export default {
       boughtConsumerPaymentPacks: 'Achats',
     },
     login: {
+      choseYourUserspace: 'Qui êtes-vous ?',
+      loginAsPro: 'Un manager de club de sport',
+      loginAsConsumer: 'Un sportif',
+      noAccount: 'Pas encore compte ? Créez-en un ici !',
       password: 'Mot de passe',
       authError: 'Email ou mot de passe erroné',
       forgottenPassword: 'Mot de passe oublié',
@@ -221,8 +239,8 @@ export default {
       addOffers: 'Ajouter des séances',
       addActivity: 'Ajouter une activité',
       name: 'Titre',
-      // eslint-disable-next-line
       noNextSlot: 'Plus de séance',
+      // eslint-disable-next-line
       grossVolume: "Chiffre d'affaire",
       totalCustomers: 'Total réservations',
       fillrate: 'Remplissage moyen',

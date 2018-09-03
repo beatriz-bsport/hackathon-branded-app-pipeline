@@ -130,6 +130,13 @@ export async function fetchConsumerPaymentPacks() {
   return getAuth(`${API_URI}/consumer/payment-pack/`);
 }
 
+export async function consumerCancelBookingOption(optionId) {
+  return getAuth(`${API_URI}/booking/options/${optionId}/cancel/`);
+}
+export async function consumerFetchProfile() {
+  return getAuth(`${API_URI}/user/self/info/`);
+}
+
 export default {
   category: {
     fetchSCT,
@@ -185,5 +192,7 @@ export default {
     fetchPastBookings: fetchConsumerPastBookings,
     fetchOptions: fetchConsumerOptions,
     fetchConsumerPaymentPacks,
+    cancelBookingOption: consumerCancelBookingOption,
+    fetchProfile: consumerFetchProfile,
   },
 };

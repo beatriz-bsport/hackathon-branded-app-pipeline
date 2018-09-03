@@ -165,6 +165,7 @@ export class FormField extends Component<Props> {
       required,
       classes,
       disabled,
+      type,
     } = this.props;
     const { value, error, selectedDate } = this.state;
 
@@ -189,6 +190,7 @@ export class FormField extends Component<Props> {
       case 'credits':
       case 'effectif':
       case 'default_waiting_list_max_size':
+      case 'password':
         return (
           <TextField
             className={classes.textInput}
@@ -201,6 +203,7 @@ export class FormField extends Component<Props> {
             multiline={multiline}
             fullWidth={fullWidth}
             InputProps={InputProps}
+            type={type}
           />
         );
       case 'date_time':

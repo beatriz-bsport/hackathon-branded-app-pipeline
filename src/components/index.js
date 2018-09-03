@@ -40,8 +40,14 @@ import OfferForm from './OfferForm.component';
 import ConsumerMenu from './ConsumerMenu.component';
 import BookingListItem from './consumer/BookingListItem.component';
 import BookingOptionListItem from './consumer/BookingOptionListItem.component';
+import FacebookLoginButton from './button/FacebookLoginButton.component';
+import ConsumerProfile from './consumer/Profile.component';
+import ConsumerLogin from './consumer/ConsumerLogin.component';
 
 export {
+  ConsumerLogin,
+  ConsumerProfile,
+  FacebookLoginButton,
   BookingListItem,
   BookingOptionListItem,
   ConsumerMenu,

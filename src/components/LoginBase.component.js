@@ -1,26 +1,47 @@
 import React, { Component } from 'react';
 
-import { Paper, Grid } from '@material-ui/core';
+import { Paper, Grid, withStyles } from '@material-ui/core';
 
 import B_ASSET from '../public/images/b_dark.jpg';
 
-export default class LoginBase extends Component<{}> {
+const styles = () => ({
+  container: {
+    marginTop: 50,
+    marginBottom: 50,
+  },
+  bsportLogo: {
+    marginTop: 30,
+    height: 80,
+    width: 80,
+  },
+});
+export class LoginBase extends Component<{}> {
   render() {
+    const { classes } = this.props;
     return (
-      <Grid container direction="column" justify="center" alignItems="center">
-        <Paper style={{ margin: 50, padding: 30 }}>
+      <Grid
+        container
+        item
+        justify="center"
+        alignItems="center"
+        className={classes.container}
+      >
+        <Paper>
           <Grid
             container
             direction="column"
-            justify="center"
+            justify="stretch"
             alignItems="center"
           >
-            <img style={{ height: 80, width: 80 }} src={B_ASSET} />
-            {this.props.children}
-            <Grid container direction="column" />
+            <Grid item>
+              <img className={classes.bsportLogo} src={B_ASSET} />
+            </Grid>
+            <Grid item>{this.props.children}</Grid>
           </Grid>
         </Paper>
       </Grid>
     );
   }
 }
+
+export default withStyles(styles)(LoginBase);

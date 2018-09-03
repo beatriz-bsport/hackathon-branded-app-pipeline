@@ -154,7 +154,7 @@ const styles = (theme) => ({
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
-    marginTop: 50,
+    marginTop: 70,
     width: drawerWidth,
     height: '100%',
     [theme.breakpoints.up('md')]: {

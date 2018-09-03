@@ -82,7 +82,9 @@ export class MyBookings extends Component<Props> {
         <Paper>
           {futureBookings.length ? (
             <List>
-              {futureBookings.map((b) => <BookingListItem booking={b} />)}
+              {futureBookings.map((b) => (
+                <BookingListItem booking={b} key={b.id} />
+              ))}
             </List>
           ) : (
             <Typography variant="caption" className={classes.emptyMsg}>
@@ -186,7 +188,7 @@ export class MyBookings extends Component<Props> {
         {bookingOptions.length ? (
           <List>
             {bookingOptions.map((o) => (
-              <div className={classes.bookingOptionElement}>
+              <div className={classes.bookingOptionElement} key={o.id}>
                 <BookingOptionListItem
                   bookingOption={o}
                   cancelBookingOption={() => this.cancelBookingOption(o.id)}
@@ -215,7 +217,9 @@ export class MyBookings extends Component<Props> {
         <Paper>
           {pastBookings.length ? (
             <List>
-              {pastBookings.map((b) => <BookingListItem booking={b} />)}
+              {pastBookings.map((b) => (
+                <BookingListItem booking={b} key={b.id} />
+              ))}
             </List>
           ) : (
             <Typography variant="caption" className={classes.emptyMsg}>

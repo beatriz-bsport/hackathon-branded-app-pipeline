@@ -17,9 +17,9 @@ type Props = {
 export class ConsumerPacks extends React.Component<Props> {
   renderPackRow = (pack) => {
     const { t } = this.props;
-    const { name, used_credits, deactivated_until, payment_pack } = pack;
+    const { id, name, used_credits, deactivated_until, payment_pack } = pack;
     return (
-      <TableRow>
+      <TableRow key={id}>
         <TableCell>{payment_pack.name}</TableCell>
         <TableCell>{payment_pack.company.name}</TableCell>
         <TableCell>{payment_pack.ending_date || ' - '}</TableCell>

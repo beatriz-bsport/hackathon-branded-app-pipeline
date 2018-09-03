@@ -70,13 +70,7 @@ export class ConsumerLogin extends Component<Props> {
   );
 
   getPhoneLogin = () => (
-    <Grid
-      container
-      direction="row"
-      alignItems="center"
-      justify="stretch"
-      spacing={16}
-    >
+    <Grid container direction="row" alignItems="center" spacing={16}>
       <Button
         color="primary"
         variant="raised"

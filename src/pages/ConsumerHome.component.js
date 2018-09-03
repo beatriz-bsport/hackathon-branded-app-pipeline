@@ -1,9 +1,10 @@
+// @flow
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { withStyles } from '@material-ui/core';
 import { translate } from 'react-i18next';
-import { Redirect, Switch, Route } from 'react-router-dom';
+import { withRouter, Redirect, Switch, Route } from 'react-router-dom';
 
 import { consumer as consumerActions } from '../actions';
 import MyBookings from './consumer/MyBookings.component';
@@ -14,19 +15,15 @@ import PaymentPackPayment from '../components/consumer/PaymentPackPayment.compon
 
 import { ConsumerMenu } from '../components';
 
-const styles = (theme) => ({
-  modal: {
-    top: '30%',
-    left: '30%',
-    position: 'absolute',
-    width: 600,
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing.unit * 4,
-  },
-});
-
-type Props = {};
+type Props = {
+  t: (x: string) => string,
+  location: { pathname: string },
+  authenticated: boolean,
+  fetchBookings: () => void,
+  fetchOptions: () => void,
+  fetchConsumerPaymentPacks: () => void,
+  fetchProfile: () => void,
+};
 
 export class ConsumerHome extends Component<Props> {
   componentWillMount() {
@@ -42,9 +39,11 @@ export class ConsumerHome extends Component<Props> {
   }
 
   render() {
-    const { classes, authenticated } = this.props;
+    const { authenticated } = this.props;
     if (!authenticated) {
-      return <Redirect to="/login/consumer" />;
+      return (
+        <Redirect to={`/login/consumer?next=${this.props.location.pathname}`} />
+      );
     }
     return (
       <ConsumerMenu>
@@ -88,6 +87,6 @@ function mapDispatchToProps(dispatch) {
     },
   };
 }
-export default withStyles(styles)(
-  translate()(connect(mapStateToProps, mapDispatchToProps)(ConsumerHome)),
+export default translate()(
+  connect(mapStateToProps, mapDispatchToProps)(withRouter(ConsumerHome)),
 );

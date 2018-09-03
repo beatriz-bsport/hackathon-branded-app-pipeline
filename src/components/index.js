@@ -43,8 +43,10 @@ import BookingOptionListItem from './consumer/BookingOptionListItem.component';
 import FacebookLoginButton from './button/FacebookLoginButton.component';
 import ConsumerProfile from './consumer/Profile.component';
 import ConsumerLogin from './consumer/ConsumerLogin.component';
+import RedButton from './button/RedButton.component';
 
 export {
+  RedButton,
   ConsumerLogin,
   ConsumerProfile,
   FacebookLoginButton,

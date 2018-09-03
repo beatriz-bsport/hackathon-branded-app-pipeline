@@ -12,6 +12,7 @@ import {
 import { translate } from 'react-i18next';
 
 import ActivityMinimalSummary from '../activity/ActivityMinimalSummary.component';
+import RedButton from '../button/RedButton.component';
 
 const styles = () => ({
   container: {},
@@ -47,11 +48,9 @@ export class BookingOptionListItem extends Component<Props> {
   renderCancelButton = () => {
     const { t, cancelBookingOption } = this.props;
     return (
-      <Button color="error" onClick={cancelBookingOption}>
-        <Typography color="error">
-          {t('consumer.booking.cancelOption')}
-        </Typography>
-      </Button>
+      <RedButton onClick={cancelBookingOption}>
+        {t('consumer.booking.cancelOption')}
+      </RedButton>
     );
   };
 

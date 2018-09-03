@@ -27,12 +27,7 @@ export class LoginBase extends Component<{}> {
         className={classes.container}
       >
         <Paper>
-          <Grid
-            container
-            direction="column"
-            justify="stretch"
-            alignItems="center"
-          >
+          <Grid container direction="column" alignItems="center">
             <Grid item>
               <img className={classes.bsportLogo} src={B_ASSET} />
             </Grid>

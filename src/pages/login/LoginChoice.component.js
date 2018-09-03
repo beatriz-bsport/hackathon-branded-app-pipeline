@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 
 import { Typography, Button, Grid, withStyles } from '@material-ui/core';
@@ -15,7 +16,10 @@ const styles = (theme) => ({
   },
 });
 
-type Props = {};
+type Props = {
+  t: (x: string) => string,
+  classes: Object,
+};
 
 export class LoginChoice extends Component<Props> {
   renderChoiceButtons = () => (

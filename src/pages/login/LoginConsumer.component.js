@@ -4,6 +4,7 @@ import { Modal, Paper, withStyles } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
 import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
+import qs from 'query-string';
 
 import { ConsumerLogin, ConsumerMenu } from '../../components';
 
@@ -21,7 +22,11 @@ const styles = (theme) => ({
   },
 });
 
-type Props = {};
+type Props = {
+  authenticated: boolean,
+  classes: Object,
+  t: (x: string) => string,
+};
 
 export class ConsumerLoginPage extends Component<Props> {
   /*
@@ -38,16 +43,24 @@ export class ConsumerLoginPage extends Component<Props> {
     const { authenticated, classes } = this.props;
 
     if (authenticated) {
+      const { next } = qs.parse(this.props.location.search, {
+        ignoreQueryPrefix: true,
+      });
+      if (next) {
+        return <Redirect push to={next} />;
+      }
       return <Redirect push to="/" />;
     }
 
     return (
       <div>
         <ConsumerMenu />
-        <Modal className={classes.modal} open>
-          <Paper className={classes.paperContainer}>
-            <ConsumerLogin />
-          </Paper>
+        <Modal open>
+          <div className={classes.modal}>
+            <Paper className={classes.paperContainer}>
+              <ConsumerLogin />
+            </Paper>
+          </div>
         </Modal>
       </div>
     );

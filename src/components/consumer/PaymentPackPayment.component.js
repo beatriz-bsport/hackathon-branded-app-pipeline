@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 
-import { withStyles } from '@material-ui/core';
+import { Grid, withStyles, Divider } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 
@@ -33,14 +33,18 @@ export class PaymentPackPayment extends Component<Props> {
     const { loading, paymentPack } = this.props;
     return (
       <StripeProvider apiKey={STRIPE_KEY}>
-        <Elements>
-          <StripeCheckout
-            price={paymentPack === null ? ' - ' : paymentPack.price}
-            loading={loading}
-          >
-            {this.getBasket()}
-          </StripeCheckout>
-        </Elements>
+        <Grid container spacing={16} direction="column">
+          <Grid item>{this.getBasket()}</Grid>
+          <Divider />
+          <Grid item>
+            <Elements>
+              <StripeCheckout
+                price={paymentPack === null ? ' - ' : paymentPack.price}
+                loading={loading}
+              />
+            </Elements>
+          </Grid>
+        </Grid>
       </StripeProvider>
     );
   }

@@ -1,13 +1,13 @@
+// @flow
+
 import React, { Component } from 'react';
 
-import { Typography, withStyles, Button } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { Elements, StripeProvider } from 'react-stripe-elements';
-import { connect } from 'react-redux';
 
 import StripeCheckout from './StripeCheckout.component';
 import PaymentPackSummary from './PaymentPackSummary.component';
-import { payment as paymentActions } from '../../actions';
 
 const STRIPE_KEY = process.env.REACT_APP_STRIPE_PK_KEY;
 
@@ -16,20 +16,11 @@ const styles = () => ({
 });
 
 type Props = {
-  paymentPackId: Number,
-  fetchOffer: () => void,
+  loading: boolean,
+  paymentPack: Object,
 };
 
 export class PaymentPackPayment extends Component<Props> {
-  static defaultProps = {
-    paymentPackId: 1,
-  };
-
-  componentDidMount() {
-    const { paymentPackId } = this.props;
-    this.props.fetchPaymentPack(paymentPackId);
-  }
-
   getBasket = () => {
     const { paymentPack } = this.props;
     if (paymentPack) {
@@ -55,21 +46,4 @@ export class PaymentPackPayment extends Component<Props> {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    paymentPack: state.payment.wantedPaymentPack,
-    loading: state.payment.loading,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchPaymentPack(id) {
-      dispatch(paymentActions.fetchPaymentPack(id));
-    },
-  };
-}
-
-export default withStyles(styles)(
-  translate()(connect(mapStateToProps, mapDispatchToProps)(PaymentPackPayment)),
-);
+export default withStyles(styles)(translate()(PaymentPackPayment));

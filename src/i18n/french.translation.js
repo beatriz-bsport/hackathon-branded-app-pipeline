@@ -186,6 +186,11 @@ export default {
       pass: 'Abonnements',
     },
     payment: {
+      noCreditLeft: 'Pas assez de crédit',
+      yourBasket: 'Votre achat',
+      availablePaymentPacks: ' abonnements compatibles',
+      payWithNCredits1: 'Réserver avec',
+      payWithNCredits2: 'crédit',
       pay: 'Payer',
       type: 'Type',
       amount: 'Montant (€)',

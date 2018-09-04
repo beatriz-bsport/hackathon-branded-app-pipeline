@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { CardElement, injectStripe } from 'react-stripe-elements';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import api from '../../api';
 
@@ -49,31 +49,6 @@ export class OfferPayment extends Component<Props> {
     }
   };
 
-  getPaymentInfo = () => {
-    const { loading, price, children } = this.props;
-    if (loading) {
-      return (
-        <Grid container alignItems="center" justify="center">
-          <Grid item>
-            <CircularProgress />
-          </Grid>
-        </Grid>
-      );
-    }
-
-    return (
-      <Grid
-        direction="column"
-        container
-        alignItems="center"
-        justify="center"
-        spacing={24}
-      >
-        <Grid item>{children}</Grid>
-      </Grid>
-    );
-  };
-
   render() {
     const { price, classes, t } = this.props;
     const { loading, completed } = this.state;
@@ -90,48 +65,46 @@ export class OfferPayment extends Component<Props> {
     }
 
     return (
-      <Paper className={classes.container}>
-        {this.getPaymentInfo()}
-        <Divider />
-        <Grid
-          container
-          direction="column"
-          spacing={24}
-          className={classes.paymentContainer}
-        >
-          <Grid item container justify="center" alignItems="center">
-            <Grid item>
-              <Typography variant="display2">{price} €</Typography>
-            </Grid>
-          </Grid>
+      <Grid
+        container
+        direction="column"
+        spacing={24}
+        className={classes.paymentContainer}
+      >
+        <Grid item container justify="center" alignItems="center">
           <Grid item>
-            <div className={classes.cardContainer}>
-              <CardElement />
-            </div>
-          </Grid>
-          <Grid
-            item
-            container
-            direction="row"
-            alignItems="center"
-            justify="flex-end"
-          >
-            <Grid item>
-              <Button variant="raised" color="primary" onClick={this.submit}>
-                {t('payment.pay')}
-              </Button>
-            </Grid>
+            <Typography variant="display2">{price} €</Typography>
           </Grid>
         </Grid>
-      </Paper>
+        <Grid item>
+          <div className={classes.cardContainer}>
+            <CardElement />
+          </div>
+        </Grid>
+        <Grid
+          item
+          container
+          direction="row"
+          alignItems="center"
+          justify="space-between"
+        >
+          <Grid item>
+            <Link to="/" style={{ textDecoration: 'none' }}>
+              <Button>{t('common.cancel')}</Button>
+            </Link>
+          </Grid>
+          <Grid item>
+            <Button variant="raised" color="primary" onClick={this.submit}>
+              {t('payment.pay')}
+            </Button>
+          </Grid>
+        </Grid>
+      </Grid>
     );
   }
 }
 
 const styles = (theme) => ({
-  container: {
-    maxWidth: 500,
-  },
   paymentContainer: {
     padding: theme.spacing.unit * 3,
   },
@@ -142,4 +115,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(translate()(injectStripe(OfferPayment)));
+export default injectStripe(withStyles(styles)(translate()(OfferPayment)));

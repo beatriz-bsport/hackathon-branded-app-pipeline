@@ -100,7 +100,7 @@ export async function fetchActivityStats(metaActivityId) {
   return getAuth(`${API_URI}/saas/stats/meta-activity/${metaActivityId}`);
 }
 
-export async function pay(token, purchaseId, purchaseType) {
+export async function payWithStripe(token, purchaseId, purchaseType) {
   return postAuth(`${API_URI}/pay/stripe/${purchaseType}/${purchaseId}`, {
     token,
   });
@@ -135,6 +135,19 @@ export async function consumerCancelBookingOption(optionId) {
 }
 export async function consumerFetchProfile() {
   return getAuth(`${API_URI}/user/self/info/`);
+}
+
+export async function consumerFetchCompatiblePass(offerId) {
+  return getAuth(`${API_URI}/pay/offer/${offerId}/compatible-packs`);
+}
+
+export async function consumerPayWithConsumerPaymentPack(
+  consumerPaymentPackId,
+  offerId,
+) {
+  return postAuth(`${API_URI}/pay/pass/offer/${offerId}`, {
+    token: consumerPaymentPackId,
+  });
 }
 
 export default {
@@ -183,9 +196,11 @@ export default {
     fetchAll: fetchAllPaymentPacks,
   },
   payment: {
-    pay,
+    payWithStripe,
+    payWithConsumerPaymentPack: consumerPayWithConsumerPaymentPack,
     fetchOffer: consumerRequestOffer,
     fetchPaymentPack: consumerRequestPaymentPack,
+    fetchCompatiblePass: consumerFetchCompatiblePass,
   },
   consumer: {
     fetchFutureBookings: fetchConsumerFutureBookings,

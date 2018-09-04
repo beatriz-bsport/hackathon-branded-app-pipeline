@@ -8,7 +8,6 @@ import MomentUtils from 'material-ui-pickers/utils/moment-utils';
 
 import { colors } from 'bsport-commons/lib/colors';
 
-import './i18n/index';
 import { Moment } from './i18n';
 
 import Root from './Root';

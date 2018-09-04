@@ -179,6 +179,11 @@ export default {
       },
     },
     payment: {
+      noCreditLeft: 'Not enough credit left',
+      yourBasket: 'Your basket',
+      availablePaymentPacks: ' pass compatible',
+      payWithNCredits1: 'Book with',
+      payWithNCredits2: 'credit',
       pay: 'Pay',
       type: 'Type',
       amount: 'Amount (€)',

@@ -46,3 +46,26 @@ export function fetchPaymentPack(id) {
     }
   };
 }
+
+export function startFetchCompatiblePass() {
+  return { type: types.PAYMENT_START_FETCH_COMPATIBLE_PASS };
+}
+export function errorFetchingCompatiblePass() {
+  return { type: types.PAYMENT_ERROR_FETCHING_COMPATIBLE_PASS };
+}
+export function fetchedCompatiblePass(consumerPacks) {
+  return { type: types.PAYMENT_HAS_FETCHED_COMPATIBLE_PASS, consumerPacks };
+}
+export function fetchCompatiblePass(offerId) {
+  return async (dispatch) => {
+    dispatch(startFetchCompatiblePass());
+
+    try {
+      const response = await api.payment.fetchCompatiblePass(offerId);
+      const consumerPacks = response.data;
+      dispatch(fetchedCompatiblePass(consumerPacks));
+    } catch (err) {
+      dispatch(errorFetchingCompatiblePass());
+    }
+  };
+}

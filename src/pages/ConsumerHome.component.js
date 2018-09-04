@@ -10,8 +10,8 @@ import { consumer as consumerActions } from '../actions';
 import MyBookings from './consumer/MyBookings.component';
 import MyPaymentPacks from './consumer/MyPaymentPacks.component';
 import MyProfile from './consumer/MyProfile.component';
-import OfferPayment from '../components/consumer/OfferPayment.component';
-import PaymentPackPayment from '../components/consumer/PaymentPackPayment.component';
+import OfferPaymentPage from './consumer/payment/OfferPaymentPage.component';
+import PaymentPackPaymentPage from './consumer/payment/PaymentPackPaymentPage.component';
 
 import { ConsumerMenu } from '../components';
 
@@ -52,11 +52,11 @@ export class ConsumerHome extends Component<Props> {
           <Route path="/(|consumer/)profile" component={MyProfile} />
           <Route
             path="/(|consumer/)payment/offer/:id"
-            component={OfferPayment}
+            component={OfferPaymentPage}
           />
           <Route
             path="/(|consumer/)payment/pass/:id"
-            component={PaymentPackPayment}
+            component={PaymentPackPaymentPage}
           />
           <Route path="/(|consumer)" component={MyBookings} />
         </Switch>
@@ -88,5 +88,5 @@ function mapDispatchToProps(dispatch) {
   };
 }
 export default translate()(
-  connect(mapStateToProps, mapDispatchToProps)(withRouter(ConsumerHome)),
+  connect(mapStateToProps, mapDispatchToProps)(ConsumerHome),
 );

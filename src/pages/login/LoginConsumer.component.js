@@ -1,30 +1,16 @@
+// @flow
+
 import React, { Component } from 'react';
 
-import { Modal, Paper, withStyles } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
 import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 import qs from 'query-string';
 
-import { ConsumerLogin, ConsumerMenu } from '../../components';
-
-const styles = (theme) => ({
-  paperContainer: {
-    padding: theme.spacing.unit * 3,
-  },
-  modal: {
-    top: '10%',
-    left: '30%',
-    position: 'absolute',
-    width: 350,
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
-  },
-});
+import { ConsumerModalContainer, ConsumerLogin } from '../../components';
 
 type Props = {
   authenticated: boolean,
-  classes: Object,
   t: (x: string) => string,
 };
 
@@ -40,7 +26,7 @@ export class ConsumerLoginPage extends Component<Props> {
   */
 
   render() {
-    const { authenticated, classes } = this.props;
+    const { authenticated } = this.props;
 
     if (authenticated) {
       const { next } = qs.parse(this.props.location.search, {
@@ -53,16 +39,9 @@ export class ConsumerLoginPage extends Component<Props> {
     }
 
     return (
-      <div>
-        <ConsumerMenu />
-        <Modal open>
-          <div className={classes.modal}>
-            <Paper className={classes.paperContainer}>
-              <ConsumerLogin />
-            </Paper>
-          </div>
-        </Modal>
-      </div>
+      <ConsumerModalContainer>
+        <ConsumerLogin />
+      </ConsumerModalContainer>
     );
   }
 }
@@ -73,6 +52,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default withStyles(styles)(
-  translate()(connect(mapStateToProps)(ConsumerLoginPage)),
-);
+export default translate()(connect(mapStateToProps)(ConsumerLoginPage));

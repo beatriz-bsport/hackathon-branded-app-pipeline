@@ -44,8 +44,14 @@ import FacebookLoginButton from './button/FacebookLoginButton.component';
 import ConsumerProfile from './consumer/Profile.component';
 import ConsumerLogin from './consumer/ConsumerLogin.component';
 import RedButton from './button/RedButton.component';
+import ConsumerModalContainer from './consumer/ConsumerModalContainer.component';
+import PaymentPackPayment from './consumer/PaymentPackPayment.component';
+import OfferPayment from './consumer/OfferPayment.component';
 
 export {
+  OfferPayment,
+  PaymentPackPayment,
+  ConsumerModalContainer,
   RedButton,
   ConsumerLogin,
   ConsumerProfile,

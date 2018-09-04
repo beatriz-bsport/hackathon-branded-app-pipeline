@@ -27,6 +27,21 @@ type Props = {
 };
 
 export class OfferPayment extends Component<Props> {
+  state = {
+    stripe: null,
+  };
+
+  componentDidMount() {
+    if (window.Stripe) {
+      this.setState({ stripe: window.Stripe(STRIPE_KEY) });
+    } else {
+      document.querySelector('#stripe-js').addEventListener('load', () => {
+        // Create Stripe instance once Stripe.js loads
+        this.setState({ stripe: window.Stripe(STRIPE_KEY) });
+      });
+    }
+  }
+
   getBasket = () => {
     const { offer, loading, t } = this.props;
     if (offer && !loading) {
@@ -96,10 +111,39 @@ export class OfferPayment extends Component<Props> {
     );
   };
 
+  getCompatibleUnlimitedPass = () => {
+    const { compatibleConsumerPacks } = this.props;
+    return compatibleConsumerPacks.filter((cpp) => cpp.payment_pack.unlimited);
+  };
+
+  renderBookingWithUnlimitedPass = (unlimitedPacks: Array<Object>) => (
+    <ConsumerPackCheckout
+      consumerPack={unlimitedPacks[0]}
+      offerId={this.props.offer.id}
+      creditPrice={this.props.offer.credit_price}
+      onCompletePurchase={this.props.onCompletePurchase}
+    />
+  );
+
   render() {
     const { loading, offer } = this.props;
+    const { stripe } = this.state;
+
+    const unlimitedPacks = this.getCompatibleUnlimitedPass();
+    if (unlimitedPacks.length && !loading && !(offer === null)) {
+      return (
+        <Grid container spacing={16} direction="column">
+          <Grid item>{this.getBasket()}</Grid>
+          <Divider />
+          <Grid item>
+            {this.renderBookingWithUnlimitedPass(unlimitedPacks)}
+          </Grid>
+        </Grid>
+      );
+    }
+
     return (
-      <StripeProvider apiKey={STRIPE_KEY}>
+      <StripeProvider stripe={stripe}>
         <Grid container spacing={16} direction="column">
           <Grid item>{this.getBasket()}</Grid>
           <Divider />

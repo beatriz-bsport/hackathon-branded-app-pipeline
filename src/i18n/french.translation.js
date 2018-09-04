@@ -186,6 +186,7 @@ export default {
       pass: 'Abonnements',
     },
     payment: {
+      bookWithUnlimitedPack: 'Réserver avec votre abonnement',
       noCreditLeft: 'Pas assez de crédit',
       yourBasket: 'Votre achat',
       availablePaymentPacks: ' abonnements compatibles',

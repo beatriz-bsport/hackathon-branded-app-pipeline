@@ -179,6 +179,7 @@ export default {
       },
     },
     payment: {
+      bookWithUnlimitedPack: 'Book with your pass',
       noCreditLeft: 'Not enough credit left',
       yourBasket: 'Your basket',
       availablePaymentPacks: ' pass compatible',

@@ -49,17 +49,21 @@ export class ConsumerPackCheckout extends Component<Props> {
     const { processing } = this.state;
     const { payment_pack, available_credits } = consumerPack;
 
-    const paymentIsPossible = available_credits >= creditPrice;
+    const paymentIsPossible =
+      available_credits >= creditPrice || payment_pack.unlimited;
 
     if (processing) {
       return <CircularProgress />;
     }
     if (paymentIsPossible) {
+      const buttonText = payment_pack.unlimited
+        ? t('payment.bookWithUnlimitedPack')
+        : `${t('payment.payWithNCredits1')} ${creditPrice} ${t(
+            'payment.payWithNCredits2',
+          )}`;
       return (
         <Button variant="raised" color="primary" onClick={this.pay}>
-          {`${t('payment.payWithNCredits1')} ${creditPrice} ${t(
-            'payment.payWithNCredits2',
-          )}`}
+          {buttonText}
         </Button>
       );
     }

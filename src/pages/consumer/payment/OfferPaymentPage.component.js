@@ -11,6 +11,7 @@ type Props = {
   loading: boolean,
   match: Object,
   offer: ?Object,
+  compatibleConsumerPacksLoading: boolean,
   fetchOffer: (Number) => void,
   fetchCompatiblePass: (Number) => void,
 };
@@ -39,11 +40,13 @@ export class OfferPaymentPage extends Component<Props, State> {
       compatibleConsumerPacksLoading,
       compatibleConsumerPacks,
     } = this.props;
+
     const { completed } = this.state;
 
     if (completed) {
       return <Redirect to="/" />;
     }
+
     return (
       <ConsumerModalContainer>
         <OfferPayment
@@ -80,5 +83,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default translate()(
-  connect(mapStateToProps, mapDispatchToProps)(OfferPaymentPage),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(OfferPaymentPage),
 );

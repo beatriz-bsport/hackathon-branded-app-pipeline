@@ -12,6 +12,8 @@ import { translate } from 'react-i18next';
 
 import { colors } from 'bsport-commons/lib/colors';
 
+import { formatAsDatetime } from '../datetime';
+
 type Props = {
   pendingBookings: Array<Object>,
   validatedBookings: Array<Object>,
@@ -44,7 +46,6 @@ export class BookingTable extends Component<Props> {
 
     // not selectable if booking already validated
     if (status) {
-      return;
     }
   };
 
@@ -69,25 +70,25 @@ export class BookingTable extends Component<Props> {
               </TableRow>
             </TableHead>
             <TableBody>
-              {all_bookings.map((b) => {
-                return (
-                  <TableRow
-                    key={b.id}
-                    hover
-                    onClick={(event) => this.handleClick(event, b)}
-                    role="checkbox"
-                  >
-                    <TableCell component="th" scope="row">
-                      {heading === 'name' ? b.user.name : b.date_start}
-                    </TableCell>
-                    <TableCell>{t(`booking.sources.${b.source}`)}</TableCell>
-                    <TableCell numeric>{b.nb_booking}</TableCell>
-                    <TableCell style={getStatusStyle(b.status)}>
-                      {t(`booking.status.${b.status}`)}
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
+              {all_bookings.map((b) => (
+                <TableRow
+                  key={b.id}
+                  hover
+                  onClick={(event) => this.handleClick(event, b)}
+                  role="checkbox"
+                >
+                  <TableCell component="th" scope="row">
+                    {heading === 'name'
+                      ? b.user.name
+                      : formatAsDatetime(b.date_start)}
+                  </TableCell>
+                  <TableCell>{t(`booking.sources.${b.source}`)}</TableCell>
+                  <TableCell numeric>{b.nb_booking}</TableCell>
+                  <TableCell style={getStatusStyle(b.status)}>
+                    {t(`booking.status.${b.status}`)}
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         </Grid>

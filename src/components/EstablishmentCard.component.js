@@ -11,8 +11,8 @@ import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { ActivityMinimalSummary } from '../components';
 import SPORTS from 'bsport-commons/lib/master-data/sports';
+import { ActivityMinimalSummary } from '.';
 
 const DEFAULT_SPORT = 7;
 

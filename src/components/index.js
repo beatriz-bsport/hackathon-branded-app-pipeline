@@ -23,10 +23,9 @@ import ActivityMinimalSummary from './activity/ActivityMinimalSummary.component'
 import PaymentTable from './PaymentTable.component';
 import FeatureTable from './FeatureTable';
 import MemberBookingGraph from './MemberBookingGraph.component';
-import PaymentPack from './PaymentPack.component';
+import PaymentPack from './payment-pack/PaymentPack.component';
 import ConsumerRowSummary from './consumer/ConsumerRowSummary.component';
 import ConsumerListItem from './consumer/ConsumerListItem.component';
-import ConsumerPaymentPackConsumersTable from './consumer/ConsumerPaymentPackConsumersTable.component';
 import PackMinimalSummary from './PackMinimalSummary.component';
 import Review from './Review.component';
 import ResponsiveDrawer from './navigation/ResponsiveDrawer.component';
@@ -49,8 +48,10 @@ import PaymentPackPayment from './consumer/PaymentPackPayment.component';
 import OfferPayment from './consumer/OfferPayment.component';
 import SignUpForm from './form/SignUpForm.component';
 import SMSCodeForm from './form/SMSCodeForm.component';
+import ConsumersPackSummaryTable from './payment-pack/ConsumersPackSummaryTable.component';
 
 export {
+  ConsumersPackSummaryTable,
   SMSCodeForm,
   SignUpForm,
   OfferPayment,
@@ -75,7 +76,6 @@ export {
   Review,
   ConsumerRowSummary,
   ConsumerListItem,
-  ConsumerPaymentPackConsumersTable,
   PaymentPack,
   GreatFilter,
   MemberBookingGraph,

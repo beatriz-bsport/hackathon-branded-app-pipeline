@@ -139,6 +139,18 @@ export async function consumerRequestPaymentPack(paymentPackId) {
   return getAuth(`${API_URI}/saas/payment-pack/${paymentPackId}`);
 }
 
+export async function addCreditToConsumerPack(paymentPackId, nbCredit) {
+  return getAuth(
+    `${API_URI}/saas/payment-pack/${paymentPackId}/add-credit/${nbCredit}`,
+  );
+}
+
+export async function subCreditToConsumerPack(paymentPackId, nbCredit) {
+  return getAuth(
+    `${API_URI}/saas/payment-pack/${paymentPackId}/sub-credit/${nbCredit}`,
+  );
+}
+
 export async function fetchConsumerOptions() {
   return getAuth(`${API_URI}/booking/options/`);
 }
@@ -222,6 +234,8 @@ export default {
   },
   paymentPack: {
     fetchAll: fetchAllPaymentPacks,
+    addCredit: addCreditToConsumerPack,
+    subCredit: subCreditToConsumerPack,
   },
   payment: {
     payWithStripe,

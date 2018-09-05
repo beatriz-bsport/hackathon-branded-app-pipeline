@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
 import {
   Paper,
   Grid,
   Divider,
-  Button,
   Typography,
   List,
   ListItem,
@@ -17,12 +15,9 @@ import {
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { translate } from 'react-i18next';
 
-import {
-  ActivityMinimalSummary,
-  ConsumerListItem,
-  Sport,
-  ConsumerPaymentPackConsumersTable,
-} from './';
+import ActivityMinimalSummary from '../activity/ActivityMinimalSummary.component';
+import Sport from '../Sport.component';
+import ConsumersPackSummaryTable from './ConsumersPackSummaryTable.component';
 
 const styles = (theme) => ({
   paper: {
@@ -47,7 +42,18 @@ const styles = (theme) => ({
   },
 });
 
+type Props = {
+  incrementCredit: (id: Number) => void,
+  decrementCredit: (id: Number) => void,
+  updatingConsumerPacks: Array<Number>,
+};
+
 export class PaymentPack extends Component<Props> {
+  static defaultProps = {
+    incrementCredit: () => {},
+    decrementCredit: () => {},
+  };
+
   getSportScope = () => {
     const { pack, t, classes } = this.props;
     const { categories } = pack;
@@ -94,9 +100,9 @@ export class PaymentPack extends Component<Props> {
 
   getPackHeadingInfo = () => {
     const { pack, t, classes } = this.props;
-    const { base_price, name, credits, categories } = pack;
+    const { unlimited, base_price, name, credits, categories } = pack;
     let creditsFormatted = t('paymentPack.unlimitedCredits');
-    if (credits) {
+    if (!unlimited) {
       creditsFormatted = `${credits} ${t('paymentPack.credits').toLowerCase()}`;
     }
     return (
@@ -132,7 +138,14 @@ export class PaymentPack extends Component<Props> {
   };
 
   getConsumerPaymentPacks = () => {
-    const { t, classes, pack } = this.props;
+    const {
+      t,
+      classes,
+      pack,
+      decrementCredit,
+      incrementCredit,
+      updatingConsumerPacks,
+    } = this.props;
     const { consumer_payment_packs, credits } = pack;
     const disabled = consumer_payment_packs.length === 0;
     return (
@@ -145,7 +158,12 @@ export class PaymentPack extends Component<Props> {
           </Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <ConsumerPaymentPackConsumersTable paymentPack={pack} />
+          <ConsumersPackSummaryTable
+            updatingConsumerPacks={updatingConsumerPacks}
+            paymentPack={pack}
+            incrementCredit={incrementCredit}
+            decrementCredit={decrementCredit}
+          />
         </ExpansionPanelDetails>
       </ExpansionPanel>
     );

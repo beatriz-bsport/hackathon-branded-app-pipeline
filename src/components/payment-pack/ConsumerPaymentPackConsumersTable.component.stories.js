@@ -5,16 +5,16 @@ import { object, number } from '@storybook/addon-knobs';
 
 import { storiesOf } from '../../stories';
 
-import ConsumerPaymentPackConsumersTable from './ConsumerPaymentPackConsumersTable.component';
+import ConsumersPackSummaryTable from './ConsumersPackSummaryTable.component';
 
-storiesOf('Consumer/ConsumerPaymentPackConsumersTable', module).add(
+storiesOf('PaymentPack/ConsumersPackSummaryTable', module).add(
   'default',
   () => {
     const paymentPack = object('Payment pack', {
       credits: number('Credits', 10),
       consumer_payment_packs: [
         {
-          used_credits: 5,
+          available_credits: 2,
           consumer: {
             first_name: 'John',
             last_name: 'Doe',
@@ -22,6 +22,6 @@ storiesOf('Consumer/ConsumerPaymentPackConsumersTable', module).add(
         },
       ],
     });
-    return <ConsumerPaymentPackConsumersTable paymentPack={paymentPack} />;
+    return <ConsumersPackSummaryTable paymentPack={paymentPack} />;
   },
 );

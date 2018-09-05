@@ -4,6 +4,7 @@ import actionTypes from '../actions/paymentPack.types';
 
 const initialState = Immutable({
   all: [],
+  updatingConsumerPacks: [],
   loading: true,
   error: false,
   errorMsg: '',
@@ -27,6 +28,22 @@ export default function activityReducers(state = initialState, action = {}) {
         error: true,
         errorMsg: action.err,
       });
+
+    case actionTypes.UPDATING_CONSUMER_PACK_CREDIT: {
+      const updatingConsumerPacks = [
+        ...state.updatingConsumerPacks,
+        action.consumerPackId,
+      ];
+      return Immutable.merge(state, { updatingConsumerPacks });
+    }
+    case actionTypes.UPDATE_CONSUMER_PACK_CREDIT_FAILED:
+    case actionTypes.UPDATE_CONSUMER_PACK_CREDIT_DONE: {
+      return Immutable.merge(state, {
+        updatingConsumerPacks: state.updatingConsumerPacks.filter(
+          (id) => id !== action.consumerPackId,
+        ),
+      });
+    }
 
     default:
       return state;

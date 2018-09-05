@@ -5,6 +5,7 @@ import { CircularProgress, withStyles, Grid } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
 import { PaymentPack } from '../components';
+import { paymentPack as paymentPackActions } from '../actions';
 
 const styles = (theme) => ({
   paymentPackContainer: {
@@ -14,17 +15,26 @@ const styles = (theme) => ({
 
 type Props = {
   loading: boolean,
+  packs: Array<Object>,
+  updatingConsumerPacks: Array<Number>,
+  incrementCredit: (id: Number) => void,
+  decrementCredit: (id: Number) => void,
   classes: Object,
-  packs: Array,
 };
 
 export class PaymentPackList extends Component<Props> {
   render() {
-    const { loading, classes } = this.props;
+    const {
+      packs,
+      loading,
+      updatingConsumerPacks,
+      incrementCredit,
+      decrementCredit,
+      classes,
+    } = this.props;
     if (loading) {
       return <CircularProgress />;
     }
-    const { packs } = this.props;
     return (
       <Grid container direction="row">
         {packs.map((p) => (
@@ -35,7 +45,12 @@ export class PaymentPackList extends Component<Props> {
             key={p.id}
             className={classes.paymentPackContainer}
           >
-            <PaymentPack pack={p} />
+            <PaymentPack
+              pack={p}
+              incrementCredit={incrementCredit}
+              decrementCredit={decrementCredit}
+              updatingConsumerPacks={updatingConsumerPacks}
+            />
           </Grid>
         ))}
       </Grid>
@@ -47,9 +62,26 @@ function mapStateToProps(state) {
   return {
     loading: state.paymentPack.loading,
     packs: state.paymentPack.all,
+    updatingConsumerPacks: state.paymentPack.updatingConsumerPacks,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    incrementCredit(consumerPackId) {
+      dispatch(paymentPackActions.addCredit(consumerPackId, 1));
+    },
+    decrementCredit(consumerPackId) {
+      dispatch(paymentPackActions.addCredit(consumerPackId, -1));
+    },
   };
 }
 
 export default withStyles(styles)(
-  translate()(connect(mapStateToProps)(PaymentPackList)),
+  translate()(
+    connect(
+      mapStateToProps,
+      mapDispatchToProps,
+    )(PaymentPackList),
+  ),
 );

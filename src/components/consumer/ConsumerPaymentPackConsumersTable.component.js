@@ -49,8 +49,8 @@ export class ConsumerPaymentPackConsumersTable extends Component<Props> {
                   alignItems="center"
                 >
                   <Grid item>
-                    <Typography color={negativeCredit ? 'primary' : 'error'}>
-                      {`${used_credits - credits} ${t(
+                    <Typography color={negativeCredit ? 'error' : 'default'}>
+                      {`${credits - used_credits} / ${credits} ${t(
                         'paymentPack.credits',
                       ).toLowerCase()}`}
                     </Typography>

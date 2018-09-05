@@ -1,9 +1,11 @@
+// @flow
+
 import React, { Component } from 'react';
 
 import { Button, Paper, Grid, Typography, withStyles } from '@material-ui/core';
 import { translate } from 'react-i18next';
-import api from '../api';
 import { Link } from 'react-router-dom';
+import api from '../api';
 import { AvatarUploader, FormField } from '../components';
 
 const styles = (theme) => ({
@@ -24,36 +26,41 @@ const styles = (theme) => ({
   },
 });
 
-type Props = {};
+type Props = {
+  classes: Object,
+  t: (x: string) => string,
+};
 
-//prettier-ignore
-const emailRegexp = new RegExp('[A-z0-9-_]+@[A-z0-9-_]+\.[A-z]+$');
+type State = {
+  firstname: string,
+  lastname: string,
+  email: string,
+  phone: string,
+  sex: string,
+};
 
-export class MemberForm extends Component<Props> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      firstname: null,
-      lastname: null,
-      email: null,
-      phone: '',
-      sex: 'M',
-      emailIsCorrect: true,
-    };
-  }
+export class MemberForm extends Component<Props, State> {
+  state = {
+    firstname: null,
+    lastname: null,
+    email: null,
+    phone: '',
+    sex: 'M',
+  };
 
-  onFormFieldChange = (id) => (value, error) => {
+  onFormFieldChange = (id: string) => (value, error: boolean) => {
     this.setState({ [id]: (value, error) });
   };
 
   onSubmit = (event) => {
     event.preventDefault();
-    const { firstname, lastname, email, phone } = this.state;
+    const { sex, firstname, lastname, email, phone } = this.state;
     api.member.addMember({
       lastname,
       firstname,
       email,
       phone,
+      sex,
     });
   };
 

@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import { BookingListItem, BookingOptionListItem } from '../../components';
 import { consumer as consumerActions } from '../../actions';
@@ -48,11 +49,13 @@ type Props = {
   futureBookings: Array,
   pastBookings: Array,
   bookingOptions: Array,
+  requestRedirect: String,
 };
 
 export class MyBookings extends Component<Props> {
   state = {
     modalCancellingBookingOptionOpen: false,
+    requestRedirect: '',
   };
 
   renderLoading = () => {
@@ -169,6 +172,10 @@ export class MyBookings extends Component<Props> {
     });
   };
 
+  confirmBookingOption = (offerId) => {
+    this.setState({ requestRedirect: `/payment/offer/${offerId}` });
+  };
+
   renderBookingOptions = () => {
     const {
       t,
@@ -190,6 +197,9 @@ export class MyBookings extends Component<Props> {
             {bookingOptions.map((o) => (
               <div className={classes.bookingOptionElement} key={o.id}>
                 <BookingOptionListItem
+                  confirmBookingOption={() =>
+                    this.confirmBookingOption(o.offer.id)
+                  }
                   bookingOption={o}
                   cancelBookingOption={() => this.cancelBookingOption(o.id)}
                   loading={o.id === optionCurrentlyCancelling}
@@ -232,6 +242,10 @@ export class MyBookings extends Component<Props> {
   };
 
   render() {
+    const { requestRedirect } = this.state;
+    if (requestRedirect) {
+      return <Redirect to={requestRedirect} />;
+    }
     return (
       <div>
         <Grid container direction="row" spacing={16}>
@@ -271,5 +285,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default withStyles(styles)(
-  connect(mapStateToProps, mapDispatchToProps)(translate()(MyBookings)),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(translate()(MyBookings)),
 );

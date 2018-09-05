@@ -1,3 +1,19 @@
+import { Moment } from './i18n';
+
+export function formatAsDate(date) {
+  const momentDate = Moment(date);
+  return momentDate.format('DD/MM/YYYY');
+}
+
+export function formatAsTime(date) {
+  const momentDate = Moment(date);
+  return momentDate.format('LT');
+}
+
+export function formatAsDatetime(date) {
+  return `${formatAsDate(date)} - ${formatAsTime(date)}`;
+}
+
 const WEEK_DAYS = [
   'time.weekday.monday',
   'time.weekday.tuesday',

@@ -13,6 +13,7 @@ import { translate } from 'react-i18next';
 import Level from '../Level.component';
 import Sport from '../Sport.component';
 import Avatar from '../Avatar.component';
+import { formatAsDatetime } from '../../datetime';
 
 const styles = () => ({
   listItem: {
@@ -44,7 +45,9 @@ export function ActivityMinimalSummary(props) {
     coach,
   } = activity;
 
-  const nextSlotFormatted = next_slot || t('activity.noNextSlot');
+  const nextSlotFormatted = next_slot
+    ? formatAsDatetime(next_slot)
+    : t('activity.noNextSlot');
   const dateToShow = date || nextSlotFormatted;
 
   return (

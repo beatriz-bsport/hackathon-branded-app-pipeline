@@ -13,6 +13,7 @@ import { translate } from 'react-i18next';
 
 import ActivityMinimalSummary from '../activity/ActivityMinimalSummary.component';
 import RedButton from '../button/RedButton.component';
+import { formatAsDatetime } from '../../datetime';
 
 const styles = () => ({
   container: {},
@@ -110,7 +111,7 @@ export class BookingOptionListItem extends Component<Props> {
             <ActivityMinimalSummary
               noDivider
               activity={activity}
-              date={offer.date_start}
+              date={formatAsDatetime(offer.date_start)}
             />
           </Grid>
           <Divider />

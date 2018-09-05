@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
 import ActivityMinimalSummary from '../activity/ActivityMinimalSummary.component';
+import { formatAsDatetime } from '../../datetime';
 
 const styles = () => ({
   container: {},
@@ -19,7 +20,10 @@ export class BookingListItem extends Component<Props> {
     const { offer } = booking;
     const { activity, date_start } = offer;
     return (
-      <ActivityMinimalSummary activity={activity} date={offer.date_start} />
+      <ActivityMinimalSummary
+        activity={activity}
+        date={formatAsDatetime(offer.date_start)}
+      />
     );
   }
 }

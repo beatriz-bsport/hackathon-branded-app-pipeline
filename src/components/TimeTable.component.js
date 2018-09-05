@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { Moment } from '../i18n';
+import { formatAsTime } from '../datetime';
 
 import { ActivityMinimalSummary } from '.';
 
@@ -95,7 +96,7 @@ export class TimeTable extends Component<Props> {
       return (
         <ActivityMinimalSummary
           showCoach
-          date={offer.date_start}
+          date={formatAsTime(offer.date_start)}
           key={activity.id}
           overrideClickAction={() => {
             this.props.onOfferSelected(offer);
@@ -110,7 +111,7 @@ export class TimeTable extends Component<Props> {
                 : 'primary',
           }}
           additionalInfoSecondary={`${parseInt(
-            offer.nb_validated / offer.effectif * 100,
+            (offer.nb_validated / offer.effectif) * 100,
             10,
           )}%`}
           activity={activity}

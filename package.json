@@ -63,6 +63,7 @@
     "react-i18next": "^7.6.1",
     "react-leaflet": "^2.0.0",
     "react-number-format": "^3.5.0",
+    "react-phone-number-input": "^2.2.2",
     "react-redux": "^5.0.7",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.2.2",
@@ -147,6 +148,6 @@
     "flow-bin": "^0.80.0",
     "jquery": "^3.3.1",
     "popper.js": "^1.14.3",
-    "prettier": "^1.12.1"
+    "prettier": "^1.14.2"
   }
 }

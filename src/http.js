@@ -29,6 +29,17 @@ export async function post(uri: string, data: Object, headers: Object) {
   }
 }
 
+export async function put(uri: string, data: Object, headers: Object) {
+  const baseHeaders = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  };
+
+  return axios.put(uri, data, {
+    headers: Object.assign(baseHeaders, headers),
+  });
+}
+
 export async function get(uri: string, headers = {}) {
   return axios({
     url: uri,
@@ -45,4 +56,9 @@ export async function getAuth(uri: string, token = null) {
 export async function postAuth(uri: string, data: Object, token = null) {
   const token_ = token || getAuthToken();
   return post(uri, data, { Authorization: `Token ${token_}` });
+}
+
+export async function putAuth(uri: string, data: Object, token = null) {
+  const token_ = token || getAuthToken();
+  return put(uri, data, { Authorization: `Token ${token_}` });
 }

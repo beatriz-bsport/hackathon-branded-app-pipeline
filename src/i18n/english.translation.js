@@ -71,6 +71,9 @@ export default {
       nbBookings: 'Sessions booked',
     },
     form: {
+      pleaseEnterYourSMSCode: 'Please enter the code sent by SMS',
+      code: 'Code',
+      signUpTitle: 'Sign Up',
       password: 'Password',
       default_waiting_list_max_size: 'Size of the waiting list',
       generateOffers: 'Create sessions',

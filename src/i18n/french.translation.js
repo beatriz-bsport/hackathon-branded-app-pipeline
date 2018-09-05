@@ -43,6 +43,9 @@ export default {
       outOf: ' sur ',
     },
     form: {
+      pleaseEnterYourSMSCode: 'Veuillez entrer le code envoyé par SMS',
+      code: 'Code',
+      signUpTitle: 'Inscription',
       password: 'Mot de passe',
       // eslint-disable-next-line
       default_waiting_list_max_size: "Taille de la liste d'attente",

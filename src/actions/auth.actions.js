@@ -1,6 +1,48 @@
 import api from '../api';
 import types from './auth.types';
 
+export function updateProfile({ email, firstname, lastname }) {
+  console.log({ email, firstname, lastname });
+  // TODO update firstname email and lastname
+  api.auth.updateProfile({ email });
+  return { email, firstname, lastname, type: types.PROFILE_UPDATED };
+}
+
+export function signUpPhone({ phone, code, email, firstname, lastname }) {
+  return async (dispatch) => {
+    dispatch(validatePhone({ phone, code }));
+    dispatch(updateProfile({ email, firstname, lastname }));
+  };
+}
+export function validatePhone({ phone, code }) {
+  return async (dispatch) => {
+    dispatch(initiatedLogin(phone));
+    try {
+      const response = await api.auth.validatePhone(phone, code);
+      const { token } = response.data;
+
+      const response_ = await api.auth.accessLevel(token);
+      const { is_manager, is_coach, is_consumer } = response_.data;
+
+      if (token) {
+        dispatch(
+          setLogin({
+            username: phone,
+            token,
+            is_manager,
+            is_coach,
+            is_consumer,
+          }),
+        );
+      } else {
+        dispatch(errorLogin());
+      }
+    } catch (err) {
+      dispatch(errorLogin());
+    }
+  };
+}
+
 export function requestLogin(username, password) {
   return async (dispatch) => {
     dispatch(initiatedLogin(username));
@@ -16,7 +58,6 @@ export function requestLogin(username, password) {
         dispatch(
           setLogin({
             username,
-            password,
             token,
             is_manager,
             is_coach,
@@ -34,7 +75,6 @@ export function requestLogin(username, password) {
 
 export function setLogin({
   username,
-  password,
   token,
   is_manager,
   is_coach,
@@ -43,7 +83,6 @@ export function setLogin({
   return {
     type: types.LOGIN_SUCCESSFUL,
     username,
-    password,
     token,
     is_manager,
     is_coach,

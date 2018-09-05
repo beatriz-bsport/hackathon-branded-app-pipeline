@@ -47,8 +47,12 @@ import RedButton from './button/RedButton.component';
 import ConsumerModalContainer from './consumer/ConsumerModalContainer.component';
 import PaymentPackPayment from './consumer/PaymentPackPayment.component';
 import OfferPayment from './consumer/OfferPayment.component';
+import SignUpForm from './form/SignUpForm.component';
+import SMSCodeForm from './form/SMSCodeForm.component';
 
 export {
+  SMSCodeForm,
+  SignUpForm,
   OfferPayment,
   PaymentPackPayment,
   ConsumerModalContainer,

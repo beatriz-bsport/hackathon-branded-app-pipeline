@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { getAuth, postAuth } from './http';
+import { getAuth, postAuth, putAuth } from './http';
 
 const BASE_URI = process.env.REACT_APP_BASE_URI;
 const API_URI = `${BASE_URI}/api-v0`;
@@ -24,6 +24,31 @@ export async function login(username, password) {
     data: {
       username,
       password,
+    },
+  });
+}
+
+export async function updateProfile(data) {
+  return putAuth(`${API_URI}/profile/update`, data);
+}
+
+export async function requestSMSCode(phonenumber) {
+  return axios({
+    url: `${BASE_URI}/authentication/with-phone/`,
+    method: 'post',
+    data: {
+      phonenumber,
+    },
+  });
+}
+
+export async function validatePhone(phonenumber, code) {
+  return axios({
+    url: `${BASE_URI}/authentication/validate-phone/`,
+    method: 'post',
+    data: {
+      code,
+      phonenumber,
     },
   });
 }
@@ -164,9 +189,12 @@ export default {
     fetchAllEvents,
   },
   auth: {
+    updateProfile,
     resetPassword,
     login,
     accessLevel,
+    requestSMSCode,
+    validatePhone,
   },
   establishment: {
     fetchAll: fetchAllEstablishments,

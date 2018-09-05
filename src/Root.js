@@ -12,6 +12,7 @@ import ResetPassword from './pages/ResetPassword.component';
 import Signout from './pages/Signout.component';
 import ConsumerHome from './pages/ConsumerHome.component';
 import LoginRouter from './pages/login/LoginRouter.component';
+import ConsumerSignUp from './pages/signup/ConsumerSignUp.component';
 
 const styles = () => ({
   root: {
@@ -34,6 +35,7 @@ export class Root extends Component<{}> {
     return (
       <div className={classes.root}>
         <Switch>
+          <Route path="/signup" component={ConsumerSignUp} />
           <Route path="/login" component={LoginRouter} />
           <Route path="/reset_password" component={ResetPassword} />
           <Route path="/signout" component={Signout} />

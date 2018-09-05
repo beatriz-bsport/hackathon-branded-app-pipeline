@@ -108,6 +108,7 @@ export class FormField extends Component<Props> {
       case 'credits':
       case 'effectif':
       case 'duration_minute':
+      case 'code':
         return input.replace(/[^0-9+]/g, '');
       default:
         return input;
@@ -191,6 +192,7 @@ export class FormField extends Component<Props> {
       case 'effectif':
       case 'default_waiting_list_max_size':
       case 'password':
+      case 'code':
         return (
           <TextField
             className={classes.textInput}

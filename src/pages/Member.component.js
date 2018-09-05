@@ -24,6 +24,7 @@ import { connect } from 'react-redux';
 import { member as memberActions } from '../actions';
 
 import { MemberBookingGraph, Avatar, BookingTable } from '../components';
+import { formatAsDatetime } from '../datetime';
 
 const styles = (theme) => ({
   backButton: {
@@ -125,17 +126,23 @@ export class Member extends Component<{}> {
       const validatedBookings = next_bookings.filter((b) => b.status === true);
       const pendingBookings = next_bookings.filter((b) => b.status !== true);
       const nextBookingDate = next_bookings.length
-        ? `${next_bookings[0].date_start}`
+        ? `${formatAsDatetime(next_bookings[0].date_start)}`
         : t('common.nothing');
       return (
         <ExpansionPanel>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.headingExpansionPanel}>
-              {t('member.showNextBooking')}
-            </Typography>
-            <Typography className={classes.secondaryHeadingExpansionPanel}>
-              {nextBookingDate}
-            </Typography>
+            <Grid container direction="row" justify="space-between">
+              <Grid item>
+                <Typography className={classes.headingExpansionPanel}>
+                  {t('member.showNextBooking')}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography className={classes.secondaryHeadingExpansionPanel}>
+                  {`${t('booking.next')} ${nextBookingDate}`}
+                </Typography>
+              </Grid>
+            </Grid>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <BookingTable
@@ -161,17 +168,23 @@ export class Member extends Component<{}> {
         (b) => b.status !== true,
       );
       const previousBookingDate = previous_bookings.length
-        ? `${previous_bookings[0].date_start}`
+        ? `${formatAsDatetime(previous_bookings[0].date_start)}`
         : t('common.nothing');
       return (
         <ExpansionPanel>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.headingExpansionPanel}>
-              {t('member.showPreviousBooking')}
-            </Typography>
-            <Typography className={classes.secondaryHeadingExpansionPanel}>
-              {previousBookingDate}
-            </Typography>
+            <Grid container direction="row" justify="space-between">
+              <Grid item>
+                <Typography className={classes.headingExpansionPanel}>
+                  {t('member.showPreviousBooking')}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography className={classes.secondaryHeadingExpansionPanel}>
+                  {`${t('booking.last')} ${previousBookingDate}`}
+                </Typography>
+              </Grid>
+            </Grid>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <BookingTable
@@ -208,16 +221,24 @@ export class Member extends Component<{}> {
           {loading ? (
             <CircularProgress />
           ) : this.props.member.consumer ? (
-            <div>
-              <Paper className={classes.paperContainer}>
-                {this.getFirstRow()}
-              </Paper>
-              {this.getFutureBookings()}
-              {this.getPastBookings()}
-              <Paper className={classes.paperContainer}>
-                {this.getBookingsGraph()}
-              </Paper>
-            </div>
+            <Grid container direction="row" spacing={16}>
+              <Grid item xs={12}>
+                <Paper className={classes.paperContainer}>
+                  {this.getFirstRow()}
+                </Paper>
+              </Grid>
+              <Grid item xs={12} lg={6}>
+                {this.getFutureBookings()}
+              </Grid>
+              <Grid item xs={12} lg={6}>
+                {this.getPastBookings()}
+              </Grid>
+              <Grid item xs={12}>
+                <Paper className={classes.paperContainer}>
+                  {this.getBookingsGraph()}
+                </Paper>
+              </Grid>
+            </Grid>
           ) : (
             <CircularProgress />
           )}
@@ -242,5 +263,10 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default withStyles(styles)(
-  translate()(connect(mapStateToProps, mapDispatchToProps)(Member)),
+  translate()(
+    connect(
+      mapStateToProps,
+      mapDispatchToProps,
+    )(Member),
+  ),
 );

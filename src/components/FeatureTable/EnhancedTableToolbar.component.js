@@ -50,7 +50,7 @@ const toolbarStyles = (theme) => ({
   },
 });
 
-let EnhancedTableToolbar = (props) => {
+const EnhancedTableToolbar = (props) => {
   const { numSelected, title, t, classes, selectionFeature } = props;
 
   return (
@@ -79,7 +79,6 @@ let EnhancedTableToolbar = (props) => {
 };
 
 EnhancedTableToolbar.propTypes = {
-  title: String,
   classes: PropTypes.object.isRequired,
   numSelected: PropTypes.number.isRequired,
 };

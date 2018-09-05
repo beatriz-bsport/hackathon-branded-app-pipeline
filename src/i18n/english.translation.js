@@ -238,6 +238,8 @@ export default {
       reviews: 'Customer reviews: ',
     },
     booking: {
+      last: 'Last:',
+      next: 'Next:',
       fillRate: 'Filled',
       waiting: 'on waiting list',
       confirmed: 'confirmed',

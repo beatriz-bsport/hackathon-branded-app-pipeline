@@ -16,7 +16,9 @@ import {
 import EmailIcon from '@material-ui/icons/Email';
 import CallIcon from '@material-ui/icons/Call';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
+import { formatAsDatetime } from '../datetime';
 import { FeatureTable } from '../components';
 
 const styles = (theme) => ({
@@ -29,6 +31,8 @@ const styles = (theme) => ({
 });
 
 export class Members extends Component<{}> {
+  state = { requestedRedirection: null };
+
   getColumnData = () => {
     const { t } = this.props;
     return [
@@ -48,35 +52,31 @@ export class Members extends Component<{}> {
         id: 'date_joined',
         label: t('member.date_joined'),
       },
-      {
-        id: 'more',
-        label: '',
-      },
     ];
   };
 
   renderRow = (member, handleClick, isSelected) => {
     const { t } = this.props;
     const status = member.next_booking ? (
-      <Typography color="primary">{member.next_booking}</Typography>
+      <Typography color="primary">
+        {formatAsDatetime(member.next_booking)}
+      </Typography>
     ) : (
       <Typography color="error">
-        {member.previous_booking || t('common.nothing')}
+        {member.previous_booking
+          ? formatAsDatetime(member.previous_booking)
+          : t('common.nothing')}
       </Typography>
     );
     return (
       <TableRow
         hover
-        onClick={(event) => handleClick(event, member.id)}
-        role="checkbox"
+        onClick={() => this.redirectToMemberPage(member.id)}
         aria-checked={isSelected}
         tabIndex={-1}
         key={member.id}
         selected={isSelected}
       >
-        <TableCell padding="checkbox">
-          <Checkbox checked={isSelected} />
-        </TableCell>
         <TableCell component="th" scope="row">
           {member.name}
         </TableCell>
@@ -87,35 +87,32 @@ export class Members extends Component<{}> {
         </TableCell>
         <TableCell>{status}</TableCell>
         <TableCell>{member.date_joined}</TableCell>
-        <TableCell padding="dense">
-          <Link to={`/member/${member.id}`} style={{ textDecoration: 'none' }}>
-            <Button color="primary">{t('common.show_more')}</Button>
-          </Link>
-        </TableCell>
       </TableRow>
     );
   };
 
+  redirectToMemberPage = (memberId) => {
+    this.setState({ requestedRedirection: `/member/${memberId}` });
+  };
+
   render() {
-    const { t, classes } = this.props;
-    const { loading, members } = this.props;
+    const { requestedRedirection } = this.state;
+    const { t, classes, loading, members } = this.props;
+
+    if (requestedRedirection) {
+      return <Redirect to={requestedRedirection} />;
+    }
+
+    const mutableMembers = members.asMutable ? members.asMutable() : members;
     return (
       <Grid container direction="column" alignItems="stretch" spacing={16}>
         <Grid item xs={12}>
           <FeatureTable
-            data={members}
+            data={mutableMembers}
             renderRow={this.renderRow}
             columnData={this.getColumnData()}
             loading={loading}
             title={t('common.members')}
-            selectionFeature={
-              <Tooltip title="Email">
-                <Button variant="contained" className={classes.button}>
-                  Email
-                  <EmailIcon className={classes.rightIcon} />
-                </Button>
-              </Tooltip>
-            }
           />
         </Grid>
         <Grid item>
@@ -137,7 +134,7 @@ export class Members extends Component<{}> {
 function mapStateToProps(state) {
   return {
     loading: state.member.loading,
-    members: state.member.all.asMutable(),
+    members: state.member.all,
   };
 }
 

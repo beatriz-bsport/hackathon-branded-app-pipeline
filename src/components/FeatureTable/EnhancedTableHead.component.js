@@ -38,21 +38,24 @@ class EnhancedTableHead extends React.Component {
       numSelected,
       rowCount,
       columnData,
+      showCheckboxes,
       t,
     } = this.props;
 
     return (
       <TableHead>
         <TableRow>
+            {showCheckboxes ? (
           <TableCell padding="checkbox">
-            <Checkbox
-              indeterminate={numSelected > 0 && numSelected < rowCount}
-              checked={numSelected === rowCount}
-              onChange={onSelectAllClick}
-            />
+              <Checkbox
+                indeterminate={numSelected > 0 && numSelected < rowCount}
+                checked={numSelected === rowCount}
+                onChange={onSelectAllClick}
+              />
           </TableCell>
-          {columnData.map((column) => {
-            return (
+            ) : null}
+          {columnData.map(
+            (column) => (
               <TableCell
                 key={column.id}
                 numeric={column.numeric}
@@ -73,8 +76,9 @@ class EnhancedTableHead extends React.Component {
                   </TableSortLabel>
                 </Tooltip>
               </TableCell>
-            );
-          }, this)}
+            ),
+            this,
+          )}
         </TableRow>
       </TableHead>
     );

@@ -268,6 +268,8 @@ export default {
       noMoreOffers: 'Plus aucune séance de prévue',
     },
     booking: {
+      last: 'Dernière:',
+      next: 'Prochaine:',
       fillRate: 'Taux de remplissage',
       nb_booking: 'Nb de place',
       status: {

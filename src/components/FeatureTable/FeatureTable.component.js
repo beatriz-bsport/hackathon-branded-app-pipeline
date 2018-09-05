@@ -108,6 +108,7 @@ class MemberTable extends React.Component {
       title,
       selectionFeature,
       loading,
+      showCheckboxes,
     } = this.props;
 
     const { order, orderBy, selected, rowsPerPage, page } = this.state;
@@ -131,6 +132,7 @@ class MemberTable extends React.Component {
               onRequestSort={this.handleRequestSort}
               rowCount={data.length}
               columnData={columnData}
+              showCheckboxes={showCheckboxes}
             />
             <TableBody>
               {data
@@ -174,7 +176,6 @@ class MemberTable extends React.Component {
 }
 
 MemberTable.propTypes = {
-  title: String,
   columnData: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
 };

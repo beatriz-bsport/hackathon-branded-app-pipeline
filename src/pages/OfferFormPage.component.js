@@ -29,7 +29,11 @@ export class OfferFormPage extends Component<Props> {
     return (
       <Grid container>
         <Grid item xs={12} lg={6}>
-          <OfferForm metaActivity={metaActivity} />
+          <OfferForm
+            metaActivity={metaActivity}
+            coaches={this.props.coaches}
+            establishments={this.props.establishments}
+          />
         </Grid>
       </Grid>
     );
@@ -39,6 +43,8 @@ export class OfferFormPage extends Component<Props> {
 function mapStateToProps(state) {
   return {
     metaActivities: state.metaActivity.all,
+    coaches: state.coach.companyAssociated,
+    establishments: state.establishment.all,
     loading: state.metaActivity.loading,
   };
 }

@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -11,8 +13,9 @@ import {
 import { translate } from 'react-i18next';
 import { Moment } from '../i18n';
 import { formatAsTime } from '../datetime';
+import { Offer } from '../api/types';
 
-import { ActivityMinimalSummary } from '.';
+import ActivityMinimalSummary from './activity/ActivityMinimalSummary.component';
 
 const styles = (theme) => ({
   emptyMessage: {
@@ -24,12 +27,17 @@ const styles = (theme) => ({
   },
 });
 
-function getOffersToday(date, offers) {
+function getOffersToday(date: Object, offers: Array<Offer>): Array<Offer> {
   return offers.filter((o) => Moment(o.date_start).isSame(date, 'day'));
 }
 
-function filterOffers(offers, metaActivityId, establishmentId) {
+function filterOffers(
+  offers: Array<Offer>,
+  metaActivityId: Number,
+  establishmentId: Number,
+): Array<Offer> {
   let offersFiltered = offers;
+
   if (metaActivityId) {
     offersFiltered = offersFiltered.filter(
       (o) => parseInt(o.meta_activity_id, 10) === parseInt(metaActivityId, 10),
@@ -44,15 +52,23 @@ function filterOffers(offers, metaActivityId, establishmentId) {
 }
 
 type Props = {
+  loading: boolean,
+  activities: Array<Object>,
   date: Object,
-  offers: Array,
-  onOfferSelected: () => void,
+  offers: Array<Offer>,
+  onOfferSelected: (offer: Offer) => void,
   metaActivityId: Number,
   establishmentId: Number,
+  classes: Object,
+  t: (x: string) => string,
 };
 
-export class TimeTable extends Component<Props> {
-  constructor(props) {
+type State = {
+  offersToday: Array<Offer>,
+};
+
+export class TimeTable extends Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     const offersTodayUnfiltered = getOffersToday(props.date, props.offers);
     const offersToday = filterOffers(
@@ -73,7 +89,7 @@ export class TimeTable extends Component<Props> {
     establishmentId: null,
   };
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: Props) {
     const offersToday = filterOffers(
       getOffersToday(
         nextProps.date || this.props.date,
@@ -88,11 +104,21 @@ export class TimeTable extends Component<Props> {
     });
   }
 
-  renderActivity = (offer) => {
-    const { activities, metaActivityId, establishmentId } = this.props;
+  renderActivity = (offer: Offer) => {
+    const { activities } = this.props;
     const activityF = activities.filter((a) => a.id === offer.activity_id);
     if (activityF.length) {
       const activity = activityF[0];
+      const fillingInfo = `${offer.nb_validated}/${
+        offer.effectif
+      } (+${offer.nb_pending + offer.nb_option})`;
+      const fillingInfoProps = {
+        color: offer.nb_validated < offer.effectif ? 'error' : 'primary',
+      };
+      const formattedFillingRate = `${parseInt(
+        (offer.nb_validated / offer.effectif) * 100,
+        10,
+      )}%`;
       return (
         <ActivityMinimalSummary
           showCoach
@@ -101,19 +127,9 @@ export class TimeTable extends Component<Props> {
           overrideClickAction={() => {
             this.props.onOfferSelected(offer);
           }}
-          additionalInfo={`${offer.nb_validated}/${offer.effectif} (+${
-            offer.nb_pending
-          })`}
-          additionalInfoTypoProps={{
-            color:
-              offer.nb_validated + offer.nb_pending < offer.effectif
-                ? 'error'
-                : 'primary',
-          }}
-          additionalInfoSecondary={`${parseInt(
-            (offer.nb_validated / offer.effectif) * 100,
-            10,
-          )}%`}
+          additionalInfo={fillingInfo}
+          additionalInfoTypoProps={fillingInfoProps}
+          additionalInfoSecondary={formattedFillingRate}
           activity={activity}
         />
       );
@@ -152,14 +168,4 @@ export class TimeTable extends Component<Props> {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    offers: state.offer.calendar,
-    activities: state.activity.all,
-    loading: state.activity.loading,
-  };
-}
-
-export default withStyles(styles)(
-  translate()(connect(mapStateToProps)(TimeTable)),
-);
+export default withStyles(styles)(translate()(TimeTable));

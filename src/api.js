@@ -155,10 +155,21 @@ export async function fetchActivityStats(metaActivityId) {
   return getAuth(`${API_URI}/saas/stats/meta-activity/${metaActivityId}`);
 }
 
-export async function payWithStripe(token, purchaseId, purchaseType) {
-  return postAuth(`${API_URI}/pay/stripe/${purchaseType}/${purchaseId}`, {
-    token,
-  });
+export async function payWithStripe(
+  token,
+  purchaseId,
+  purchaseType,
+  urlParams,
+) {
+  const formatParams = Object.keys(urlParams)
+    .map((k) => `${k}=${urlParams[k]}`)
+    .join(',');
+  return postAuth(
+    `${API_URI}/pay/stripe/${purchaseType}/${purchaseId}?${formatParams}`,
+    {
+      token,
+    },
+  );
 }
 
 export async function consumerRequestOffer(offerId) {
@@ -211,8 +222,12 @@ export async function consumerFetchCompatiblePass(offerId) {
 export async function consumerPayWithConsumerPaymentPack(
   consumerPaymentPackId,
   offerId,
+  urlParams,
 ) {
-  return postAuth(`${API_URI}/pay/pass/offer/${offerId}`, {
+  const formatParams = Object.keys(urlParams)
+    .map((k) => `${k}=${urlParams[k]}`)
+    .join(',');
+  return postAuth(`${API_URI}/pay/pass/offer/${offerId}?${formatParams}`, {
     token: consumerPaymentPackId,
   });
 }

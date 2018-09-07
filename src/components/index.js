@@ -10,7 +10,6 @@ import Avatar from './Avatar.component';
 import Level from './Level.component';
 import Sport from './Sport.component';
 import BookingTable from './booking/BookingTable.component';
-import OfferBookingTable from './OfferBookingTable.component';
 import ActionButton from './button/ActionButton.component';
 import ActivityCard from './activity/ActivityCard.component';
 import ActivityStats from './activity/ActivityStats.component';
@@ -92,7 +91,6 @@ export {
   Level,
   Sport,
   BookingTable,
-  OfferBookingTable,
   ActionButton,
   ActivityCard,
   ActivityStats,

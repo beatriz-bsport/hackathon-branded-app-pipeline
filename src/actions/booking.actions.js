@@ -1,18 +1,18 @@
 import api from '../api';
 import types from './booking.types';
 
-export function updatingBookingOption(bookingOptionId: Number) {
+export function updatingBookingOption(bookingOptionId: number) {
   return { type: types.START_UPDATING_BOOKING_OPTION, bookingOptionId };
 }
 
-export function errorUpdatingBookingOption(bookingOptionId: Number) {
+export function errorUpdatingBookingOption(bookingOptionId: number) {
   return { type: types.ERROR_UPDATING_BOOKING_OPTION, bookingOptionId };
 }
 
 export function bookingOptionUpdated(bookingOption: Object) {
   return { type: types.BOOKING_OPTION_UPDATED, bookingOption };
 }
-export function discardBookingOption(bookingOptionId: Number) {
+export function discardBookingOption(bookingOptionId: number) {
   return async (dispatch) => {
     dispatch(updatingBookingOption(bookingOptionId));
 
@@ -25,11 +25,11 @@ export function discardBookingOption(bookingOptionId: Number) {
   };
 }
 
-export function updatingBookingStatus(bookingId: Number) {
+export function updatingBookingStatus(bookingId: number) {
   return { type: types.START_UPDATING_BOOKING_STATUS, bookingId };
 }
 
-export function errorUpdatingBookingStatus(bookingId: Number) {
+export function errorUpdatingBookingStatus(bookingId: number) {
   return { type: types.ERROR_UPDATING_BOOKING_STATUS, bookingId };
 }
 
@@ -38,8 +38,8 @@ export function bookingStatusUpdated(booking: Object) {
 }
 
 function bookingUpdateWrapper(
-  apiCall: (bookingId: Number) => Object,
-  bookingId: Number,
+  apiCall: (bookingId: number) => Object,
+  bookingId: number,
 ) {
   return async (dispatch) => {
     dispatch(updatingBookingStatus(bookingId));
@@ -54,16 +54,16 @@ function bookingUpdateWrapper(
     return dispatch(errorUpdatingBookingStatus(bookingId));
   };
 }
-export function confirmBookingAttendance(bookingId: Number) {
+export function confirmBookingAttendance(bookingId: number) {
   return bookingUpdateWrapper(api.booking.confirmAttendance, bookingId);
 }
-export function discardBookingAttendance(bookingId: Number) {
+export function discardBookingAttendance(bookingId: number) {
   return bookingUpdateWrapper(api.booking.discardAttendance, bookingId);
 }
-export function confirmBooking(bookingId: Number) {
+export function confirmBooking(bookingId: number) {
   return bookingUpdateWrapper(api.booking.validate, bookingId);
 }
-export function discardBooking(bookingId: Number) {
+export function discardBooking(bookingId: number) {
   return bookingUpdateWrapper(api.booking.discard, bookingId);
 }
 

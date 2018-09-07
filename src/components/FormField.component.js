@@ -265,6 +265,7 @@ export class FormField extends Component<Props> {
             className={classes.formControl}
             required={required}
             margin="normal"
+            fullWidth={true}
           >
             <InputLabel htmlFor="gender-helper">{t('form.gender')}</InputLabel>
             <Select value={value || 'M'} onChange={this.handleChange}>
@@ -332,5 +333,9 @@ export class FormField extends Component<Props> {
     }
   }
 }
+
+FormField.defaultProps = {
+  fullWidth: true,
+};
 
 export default withStyles(styles)(translate()(FormField));

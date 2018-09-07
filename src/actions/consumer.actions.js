@@ -71,7 +71,7 @@ export function cancelBookingOption(optionId) {
     dispatch(startCancellingOption());
 
     try {
-      const response = await api.consumer.cancelBookingOption(optionId);
+      const response = await api.consumer.discardBookingOption(optionId);
 
       if (response.status === 200) {
         dispatch(optionCancelled(optionId));

@@ -14,6 +14,7 @@ export function signUpPhone({ phone, code, email, firstname, lastname }) {
     dispatch(updateProfile({ email, firstname, lastname }));
   };
 }
+
 export function validatePhone({ phone, code }) {
   return async (dispatch) => {
     dispatch(initiatedLogin(phone));

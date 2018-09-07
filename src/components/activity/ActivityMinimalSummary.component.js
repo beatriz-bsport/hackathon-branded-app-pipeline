@@ -5,6 +5,7 @@ import {
   ListItemText,
   IconButton,
   Tooltip,
+  Divider,
   withStyles,
 } from '@material-ui/core';
 
@@ -51,38 +52,40 @@ export function ActivityMinimalSummary(props) {
   const dateToShow = date || nextSlotFormatted;
 
   return (
-    <ListItem
-      key={id}
-      dense
-      button
-      onClick={overrideClickAction}
-      className={classes.listItem}
-      divider={!noDivider}
-    >
-      {showCoach ? (
-        <Tooltip title={coach.name}>
-          <IconButton disableRipple className={classes.noMargin}>
-            <Avatar user={coach} variant="small" noname />
+    <div>
+      {noDivider ? null : <Divider />}
+      <ListItem
+        key={id}
+        dense
+        button
+        onClick={overrideClickAction}
+        className={classes.listItem}
+      >
+        {showCoach ? (
+          <Tooltip title={coach.name}>
+            <IconButton disableRipple className={classes.noMargin}>
+              <Avatar user={coach} variant="small" noname />
+            </IconButton>
+          </Tooltip>
+        ) : (
+          <IconButton disableRipple>
+            <Sport parentCategory={parent_category} noname />
           </IconButton>
-        </Tooltip>
-      ) : (
-        <IconButton disableRipple>
-          <Sport parentCategory={parent_category} noname />
-        </IconButton>
-      )}
-      <ListItemText primary={name} secondary={dateToShow} />
-      {additionalInfo ? (
+        )}
+        <ListItemText primary={name} secondary={dateToShow} />
+        {additionalInfo ? (
+          <ListItemText
+            primary={additionalInfo}
+            primaryTypographyProps={additionalInfoTypoProps}
+            secondary={additionalInfoSecondary}
+          />
+        ) : null}
         <ListItemText
-          primary={additionalInfo}
-          primaryTypographyProps={additionalInfoTypoProps}
-          secondary={additionalInfoSecondary}
+          primary={showCoachName ? coach.name : etablissement.title}
+          secondary={<Level noStyle levelId={level} variant="caption" />}
         />
-      ) : null}
-      <ListItemText
-        primary={showCoachName ? coach.name : etablissement.title}
-        secondary={<Level noStyle levelId={level} variant="caption" />}
-      />
-    </ListItem>
+      </ListItem>
+    </div>
   );
 }
 

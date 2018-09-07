@@ -49,11 +49,6 @@ type Props = {
 };
 
 export class PaymentPack extends Component<Props> {
-  static defaultProps = {
-    incrementCredit: () => {},
-    decrementCredit: () => {},
-  };
-
   getSportScope = () => {
     const { pack, t, classes } = this.props;
     const { categories } = pack;
@@ -99,8 +94,8 @@ export class PaymentPack extends Component<Props> {
   };
 
   getPackHeadingInfo = () => {
-    const { pack, t, classes } = this.props;
-    const { unlimited, base_price, name, credits, categories } = pack;
+    const { pack, t } = this.props;
+    const { unlimited, base_price, name, credits } = pack;
     let creditsFormatted = t('paymentPack.unlimitedCredits');
     if (!unlimited) {
       creditsFormatted = `${credits} ${t('paymentPack.credits').toLowerCase()}`;
@@ -140,13 +135,12 @@ export class PaymentPack extends Component<Props> {
   getConsumerPaymentPacks = () => {
     const {
       t,
-      classes,
       pack,
       decrementCredit,
       incrementCredit,
       updatingConsumerPacks,
     } = this.props;
-    const { consumer_payment_packs, credits } = pack;
+    const { consumer_payment_packs } = pack;
     const disabled = consumer_payment_packs.length === 0;
     return (
       <ExpansionPanel disabled={disabled}>
@@ -170,7 +164,7 @@ export class PaymentPack extends Component<Props> {
   };
 
   render() {
-    const { t, classes } = this.props;
+    const { classes } = this.props;
     return (
       <Paper className={classes.paper}>
         <Grid container direction="column">

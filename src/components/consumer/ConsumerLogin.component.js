@@ -17,6 +17,8 @@ import FacebookLoginButton from '../button/FacebookLoginButton.component';
 import FormField from '../FormField.component';
 import { auth as authActions } from '../../actions';
 
+import ConsumerSMSLoginForm from '../form/ConsumerSMSLoginForm.component';
+
 const styles = (theme) => ({
   buttonIcon: {
     marginRight: theme.spacing.unit * 2,
@@ -117,33 +119,8 @@ export class ConsumerLogin extends Component<Props> {
     }
 
     switch (loginMethod) {
-      case EMAIL_LOGIN:
-        return (
-          <Grid
-            container
-            direction="row"
-            alignItems="center"
-            justify="stretch"
-            spacing={16}
-          >
-            <Grid item xs={9}>
-              <FormField
-                id="password"
-                onChange={this.onFormFieldChange}
-                type="password"
-              />
-            </Grid>
-            <Grid item xs={3}>
-              <Button
-                color="primary"
-                variant="raised"
-                onClick={this.doEmailLogin}
-              >
-                OK
-              </Button>
-            </Grid>
-          </Grid>
-        );
+      case PHONE_LOGIN:
+        return <ConsumerSMSLoginForm />;
       default:
         return (
           <Grid container direction="column" alignItems="center" spacing={24}>
@@ -184,5 +161,10 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default withStyles(styles)(
-  translate()(connect(mapStateToProps, mapDispatchToProps)(ConsumerLogin)),
+  translate()(
+    connect(
+      mapStateToProps,
+      mapDispatchToProps,
+    )(ConsumerLogin),
+  ),
 );

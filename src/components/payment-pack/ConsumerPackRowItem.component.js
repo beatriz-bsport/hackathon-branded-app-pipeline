@@ -1,14 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import {
-  Divider,
-  Grid,
-  Typography,
-  Button,
-  CircularProgress,
-  withStyles,
-} from '@material-ui/core';
+import { Grid, Typography, Button, CircularProgress } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
 import ConsumerRowSummary from '../consumer/ConsumerRowSummary.component';
@@ -21,7 +14,6 @@ type Props = {
   incrementCredit: (id: Number) => void,
   decrementCredit: (id: Number) => void,
   t: (x: String) => String,
-  classes: Object,
 };
 
 export class ConsumerPackRowItem extends Component<Props> {
@@ -78,7 +70,7 @@ export class ConsumerPackRowItem extends Component<Props> {
   };
 
   render() {
-    const { classes, consumerPack, paymentPack } = this.props;
+    const { consumerPack, paymentPack } = this.props;
 
     const { unlimited } = paymentPack;
     const { consumer } = consumerPack;
@@ -103,11 +95,4 @@ export class ConsumerPackRowItem extends Component<Props> {
   }
 }
 
-const styles = (theme) => ({
-  horizontalDivider: {
-    marginBottom: theme.spacing.unit,
-    marginTop: theme.spacing.unit,
-  },
-});
-
-export default translate()(withStyles(styles)(ConsumerPackRowItem));
+export default translate()(ConsumerPackRowItem);

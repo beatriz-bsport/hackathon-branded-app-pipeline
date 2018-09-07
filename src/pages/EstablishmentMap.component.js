@@ -57,18 +57,16 @@ export class EstablishmentList extends Component<Props> {
     });
   };
 
-  renderEstablishment = (establishment) => {
-    return (
-      <Grid container direction="row" spacing={16}>
-        <Grid item xs={12} md={6}>
-          <EstablishmentCard establishment={establishment} />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          {this.renderCalendar(establishment)}
-        </Grid>
+  renderEstablishment = (establishment) => (
+    <Grid container direction="row" spacing={16}>
+      <Grid item xs={12} md={6}>
+        <EstablishmentCard establishment={establishment} />
       </Grid>
-    );
-  };
+      <Grid item xs={12} md={6}>
+        {this.renderCalendar(establishment)}
+      </Grid>
+    </Grid>
+  );
 
   renderNoEstablishment = () => {
     const { classes, t } = this.props;
@@ -82,7 +80,7 @@ export class EstablishmentList extends Component<Props> {
   };
 
   renderCalendar = (establishment) => {
-    const { offers, t, classes } = this.props;
+    const { offers, activities, timetableLoading, classes } = this.props;
     const { selectedDay } = this.state;
     const offersInEstablishment = offers.filter(
       (o) =>
@@ -111,6 +109,9 @@ export class EstablishmentList extends Component<Props> {
             </Grid>
             <Grid item xs={12}>
               <TimeTable
+                loading={timetableLoading}
+                activities={activities}
+                offers={offers}
                 establishmentId={establishment.id}
                 date={selectedDay[establishment.id]}
               />
@@ -120,6 +121,7 @@ export class EstablishmentList extends Component<Props> {
       </div>
     );
   };
+
   render() {
     const { classes, t, loading, establishments } = this.props;
     if (loading) {
@@ -152,6 +154,8 @@ function mapStateToProps(state) {
     loading: state.establishment.loading,
     establishments: state.establishment.all,
     offers: state.offer.calendar,
+    timetableLoading: state.activity.loading,
+    activities: state.activity.all,
   };
 }
 

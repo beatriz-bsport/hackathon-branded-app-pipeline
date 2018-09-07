@@ -51,7 +51,7 @@ export class MemberForm extends Component<Props, State> {
   }
 
   onFormFieldChange = (id: string) => (value, error: boolean) => {
-    this.setState({ [id]: (value, error) });
+    this.setState({ [id]: value });
   };
 
   onSubmit = (event) => {

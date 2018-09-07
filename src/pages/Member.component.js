@@ -233,11 +233,6 @@ export class Member extends Component<{}> {
               <Grid item xs={12} lg={6}>
                 {this.getPastBookings()}
               </Grid>
-              <Grid item xs={12}>
-                <Paper className={classes.paperContainer}>
-                  {this.getBookingsGraph()}
-                </Paper>
-              </Grid>
             </Grid>
           ) : (
             <CircularProgress />

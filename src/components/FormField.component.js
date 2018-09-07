@@ -150,7 +150,7 @@ export class FormField extends Component<Props> {
       case 'establishment':
         return (
           <MenuItem key={elt.id} value={elt.id}>
-            <ListItemText primary={elt.title} />
+            <ListItemText primary={elt.name} />
           </MenuItem>
         );
     }

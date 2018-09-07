@@ -13,7 +13,6 @@ export class MetaActivityFormPage extends Component<Props> {
 
   render() {
     const { SCTs, associatedCoaches, establishments } = this.props;
-    console.log(establishments);
     return (
       <MetaActivityForm
         coaches={associatedCoaches}

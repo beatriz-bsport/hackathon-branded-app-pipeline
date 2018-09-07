@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
@@ -35,7 +37,7 @@ import MarketingRule from './MarketingRule.component';
 import MemberForm from './MemberForm.component';
 import OfferFormPage from './OfferFormPage.component';
 
-const styles = (theme) => ({
+const styles = (theme: Object) => ({
   content: {
     backgroundColor: theme.palette.background.default,
     paddingTop: theme.spacing.unit * 3,
@@ -51,14 +53,22 @@ const styles = (theme) => ({
   },
 });
 
-export class Backoffice extends Component<{}> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      drawerOpen: true,
-    };
-  }
+type Props = {
+  classes: Object,
+  authenticated: boolean,
+  fetchAllActivities: () => void,
+  fetchAllOffers: () => void,
+  fetchAllMembers: () => void,
+  fetchActivitiesMinimal: () => void,
+  fetchAssociatedCoaches: () => void,
+  fetchAllEstablishments: () => void,
+  fetchSCT: () => void,
+  fetchTransactions: () => void,
+  fetchAllPaymentPacks: () => void,
+  fetchDashboardStats: () => void,
+};
 
+export class Backoffice extends Component<Props> {
   componentWillMount() {
     document.title = 'Backoffice - bsport';
   }
@@ -76,29 +86,13 @@ export class Backoffice extends Component<{}> {
     this.props.fetchDashboardStats();
   }
 
-  toogleDrawer = () => {
-    this.setState({ drawerOpen: !this.state.drawerOpen });
-  };
-
   render() {
     const { classes } = this.props;
-    const { drawerOpen } = this.state;
-    const { metaActivityLoading, offerLoading } = this.props;
 
     if (!this.props.authenticated) {
       return <Redirect to="/login" />;
     }
-    /*
-        <TopBar toogleDrawer={this.toogleDrawer} />
-        {drawerOpen ? <NavBar /> : null}
-        */
 
-    /*
-        {metaActivityLoading || offerLoading ? (
-          <CircularProgress className={classes.progress} size={50} />
-        ) : (
-        )}
-    */
     return (
       <ResponsiveDrawer>
         <main className={classes.content}>
@@ -138,8 +132,6 @@ const themedBackoffice = withStyles(styles)(Backoffice);
 function mapStateToProps(state) {
   return {
     authenticated: state.auth.authenticated,
-    metaActivityLoading: state.metaActivity.loading,
-    offerLoading: state.offer.loading,
   };
 }
 

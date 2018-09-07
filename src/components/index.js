@@ -1,7 +1,5 @@
-import TopBar from './navigation/TopBar.component';
 import NavBar from './navigation/NavBar.component';
 import LoginBase from './LoginBase.component';
-import DisconnectButton from './button/DisconnectButton.component';
 import Camembert from './Camembert.component';
 import Histogram from './Histogram.component';
 import LanguageButton from './button/LanguageButton.component';
@@ -79,9 +77,7 @@ export {
   GreatFilter,
   MemberBookingGraph,
   Filter,
-  TopBar,
   NavBar,
-  DisconnectButton,
   LoginBase,
   Camembert,
   Histogram,

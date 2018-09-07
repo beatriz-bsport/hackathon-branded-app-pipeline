@@ -1,35 +1,49 @@
+// @flow
+
 import React, { Component } from 'react';
 
-import {
-  List,
-  Grid,
-  CircularProgress,
-  Typography,
-  Divider,
-  withStyles,
-} from '@material-ui/core';
+import { Grid, CircularProgress, Typography, Divider } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { Elements, StripeProvider } from 'react-stripe-elements';
+import qs from 'query-string';
+import { withRouter } from 'react-router-dom';
 
 import StripeCheckout from './StripeCheckout.component';
 import OfferSummary from './OfferSummary.component';
 import ConsumerPackCheckout from './ConsumerPackCheckout.component';
+import { ConsumerPaymentPackConsumerView, Offer } from '../../api/types';
 
 const STRIPE_KEY = process.env.REACT_APP_STRIPE_PK_KEY;
 
-const styles = () => ({
-  container: {},
-});
-
 type Props = {
   loading: boolean,
-  offer: Object,
+  offer: Offer,
+  location: Object,
+  t: (x: string) => string,
+  onCompletePurchase: () => void,
+  compatibleConsumerPacks: Array<ConsumerPaymentPackConsumerView>,
+  compatibleConsumerPacksLoading: boolean,
 };
 
-export class OfferPayment extends Component<Props> {
+type State = {
+  stripe: ?Object,
+};
+
+export class OfferPayment extends Component<Props, State> {
   state = {
     stripe: null,
   };
+
+  componentWillMount() {
+    const { option_id } = qs.parse(this.props.location.search, {
+      ignoreQueryPrefix: true,
+    });
+    if (option_id) {
+      this.urlParams = { option_id };
+    } else {
+      this.urlParams = {};
+    }
+  }
 
   componentDidMount() {
     if (window.Stripe) {
@@ -73,10 +87,12 @@ export class OfferPayment extends Component<Props> {
       compatibleConsumerPacksLoading,
       onCompletePurchase,
     } = this.props;
+
+    // prettier-ignore
     if (
-      compatibleConsumerPacksLoading ||
-      offer === null ||
-      compatibleConsumerPacks.length === 0
+      compatibleConsumerPacksLoading
+      || offer === null
+      || compatibleConsumerPacks.length === 0
     ) {
       return null;
     }
@@ -103,6 +119,7 @@ export class OfferPayment extends Component<Props> {
               offerId={offer.id}
               creditPrice={offer.credit_price}
               onCompletePurchase={onCompletePurchase}
+              urlParams={this.urlParams}
             />
           </Grid>
         ))}
@@ -153,6 +170,9 @@ export class OfferPayment extends Component<Props> {
               <StripeCheckout
                 price={offer === null ? ' - ' : offer.price}
                 loading={loading}
+                urlParams={this.urlParams}
+                purchaseType="offer"
+                purchaseId={(offer || { id: null }).id}
               />
             </Elements>
           </Grid>
@@ -162,4 +182,4 @@ export class OfferPayment extends Component<Props> {
   }
 }
 
-export default withStyles(styles)(translate()(OfferPayment));
+export default withRouter(translate()(OfferPayment));

@@ -1,13 +1,13 @@
+// @flow
+
 import React, { Component } from 'react';
 
 import {
   Grid,
-  Paper,
   CircularProgress,
   withStyles,
   Typography,
   Button,
-  Divider,
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { CardElement, injectStripe } from 'react-stripe-elements';
@@ -16,33 +16,41 @@ import { Link, Redirect } from 'react-router-dom';
 import api from '../../api';
 
 type Props = {
-  price: Number,
-  purchaseId: Number,
-  purchaseType: String,
+  price: ?number,
+  purchaseId: ?number,
+  purchaseType: ?string,
+  urlParams: ?string,
+  stripe: Object,
+  t: (x: string) => string,
+  classes: Object,
 };
 
-export class OfferPayment extends Component<Props> {
-  state = { completed: false, loading: false };
+type State = {
+  completed: boolean,
+  loading: boolean,
+};
 
-  static defaultProps = {
-    price: 0.0,
-    basket: null,
-    purchaseId: 0,
-    purchaseType: 'test',
-  };
+export class OfferPayment extends Component<Props, State> {
+  state = { completed: false, loading: false };
 
   submit = async () => {
     this.setState({ loading: true });
-    const { purchaseId, purchaseType } = this.props;
+    const { urlParams, purchaseId, purchaseType } = this.props;
     try {
       const { token } = await this.props.stripe.createToken();
-      const response = await api.payment.pay(
+      const response = await api.payment.payWithStripe(
         token.id,
         purchaseId,
         purchaseType,
+        urlParams,
       );
 
-      if (response.status === 200) this.setState({ completed: true });
+      if (response.status === 200) {
+        this.setState({
+          completed: true,
+          loading: false,
+        });
+      }
     } catch (err) {
       alert(`An error occured:\n${JSON.stringify(err)}`);
       this.setState({ loading: false });
@@ -56,14 +64,6 @@ export class OfferPayment extends Component<Props> {
       return <Redirect to="/" />;
     }
 
-    if (loading) {
-      return (
-        <Paper className={classes.paymentContainer}>
-          <CircularProgress />
-        </Paper>
-      );
-    }
-
     return (
       <Grid
         container
@@ -73,7 +73,7 @@ export class OfferPayment extends Component<Props> {
       >
         <Grid item container justify="center" alignItems="center">
           <Grid item>
-            <Typography variant="display2">{price} €</Typography>
+            <Typography variant="display2">{price || ' - '} €</Typography>
           </Grid>
         </Grid>
         <Grid item>
@@ -94,9 +94,13 @@ export class OfferPayment extends Component<Props> {
             </Link>
           </Grid>
           <Grid item>
-            <Button variant="raised" color="primary" onClick={this.submit}>
-              {t('payment.pay')}
-            </Button>
+            {loading ? (
+              <CircularProgress />
+            ) : (
+              <Button variant="raised" color="primary" onClick={this.submit}>
+                {t('payment.pay')}
+              </Button>
+            )}
           </Grid>
         </Grid>
       </Grid>

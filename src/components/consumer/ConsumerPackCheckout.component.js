@@ -5,37 +5,36 @@ import {
   ListItemText,
   Button,
   Grid,
-  Divider,
-  withStyles,
   CircularProgress,
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import api from '../../api';
-
-const styles = (theme) => ({
-  container: {},
-});
+import { ConsumerPaymentPackConsumerView } from '../../api/types';
 
 type Props = {
   onCompletePurchase: () => void,
-  offerId: Number,
-  consumerPack: Object,
-  creditPrice: Number,
+  offerId: number,
+  consumerPack: ConsumerPaymentPackConsumerView,
+  creditPrice: number,
   t: (x: string) => string,
-  classes: Object,
 };
 
-export class ConsumerPackCheckout extends Component<Props> {
+type State = {
+  processing: boolean,
+};
+
+export class ConsumerPackCheckout extends Component<Props, State> {
   state = {
     processing: false,
   };
 
   pay = async () => {
     this.setState({ processing: true });
-    const { consumerPack, offerId } = this.props;
+    const { urlParams, consumerPack, offerId } = this.props;
     const response = await api.payment.payWithConsumerPaymentPack(
       consumerPack.id,
       offerId,
+      urlParams,
     );
     if (response.status === 200) {
       this.props.onCompletePurchase();
@@ -49,18 +48,17 @@ export class ConsumerPackCheckout extends Component<Props> {
     const { processing } = this.state;
     const { payment_pack, available_credits } = consumerPack;
 
-    const paymentIsPossible =
-      available_credits >= creditPrice || payment_pack.unlimited;
+    const hasCredits = available_credits >= creditPrice;
+    const paymentIsPossible = hasCredits || payment_pack.unlimited;
 
     if (processing) {
       return <CircularProgress />;
     }
     if (paymentIsPossible) {
+      // prettier-ignore
       const buttonText = payment_pack.unlimited
         ? t('payment.bookWithUnlimitedPack')
-        : `${t('payment.payWithNCredits1')} ${creditPrice} ${t(
-            'payment.payWithNCredits2',
-          )}`;
+        : `${t('payment.payWithNCredits1')} ${creditPrice} ${t('payment.payWithNCredits2')}`;
       return (
         <Button variant="raised" color="primary" onClick={this.pay}>
           {buttonText}
@@ -71,14 +69,14 @@ export class ConsumerPackCheckout extends Component<Props> {
   };
 
   render() {
-    const { classes, t, consumerPack, creditPrice } = this.props;
+    const { t, consumerPack } = this.props;
     const { payment_pack, available_credits } = consumerPack;
 
+    // prettier-ignore
     const formattedCredits = payment_pack.unlimited
       ? t('paymentPack.unlimitedCredits')
-      : `${available_credits}/${payment_pack.credits} ${t(
-          'paymentPack.credits',
-        )}`;
+      : `${available_credits}/${payment_pack.credits} ${t('paymentPack.credits')}`;
+
     return (
       <Grid container direction="column" alignItems="stretch" spacing={0}>
         <Grid item>
@@ -99,4 +97,4 @@ export class ConsumerPackCheckout extends Component<Props> {
   }
 }
 
-export default withStyles(styles)(translate()(ConsumerPackCheckout));
+export default translate()(ConsumerPackCheckout);

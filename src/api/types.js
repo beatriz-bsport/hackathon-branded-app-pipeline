@@ -1,16 +1,16 @@
 export type Offer = {
-  id: Number,
-  activity_id: Number,
+  id: number,
+  activity_id: number,
   category: string,
   coach: {
-    id: Number,
+    id: number,
     name: string,
     photo: string,
   },
   cover_main: string,
   date_end: string,
   date_start: string,
-  effectif: Number,
+  effectif: number,
   etablissement: {
     city: {
       name: string,
@@ -18,33 +18,46 @@ export type Offer = {
     },
     cover: string,
     cover_thumnail: string,
-    id: Number,
+    id: number,
     location: {
       address: string,
-      latitude: Number,
-      longitude: Number,
+      latitude: number,
+      longitude: number,
     },
     slug: string,
     title: string,
   },
   level: string,
-  level_id: Number,
-  meta_activity_id: Number,
+  level_id: number,
+  meta_activity_id: number,
   name: string,
-  nb_option: Number,
-  nb_pending: Number,
-  nb_validated: Number,
-  parent_category: Number,
-  price: Number,
-  price_coach: Number,
+  nb_option: number,
+  nb_pending: number,
+  nb_validated: number,
+  parent_category: number,
+  price: number,
+  price_coach: number,
 };
 
 export type Booking = {
-  id: Number,
+  id: number,
   status: ?boolean,
 };
 
 export type BookingOption = {
-  id: Number,
+  id: number,
   cancelled: boolean,
+};
+
+export type PaymentPack = {
+  id: number,
+  unlimited: boolean,
+  name: string,
+  credits: number,
+};
+
+export type ConsumerPaymentPackConsumerView = {
+  available_credits: number,
+  id: number,
+  payment_pack: PaymentPack,
 };

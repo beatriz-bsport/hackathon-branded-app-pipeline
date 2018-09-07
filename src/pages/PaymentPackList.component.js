@@ -18,9 +18,9 @@ const styles = (theme) => ({
 type Props = {
   loading: boolean,
   packs: Array<Object>,
-  updatingConsumerPacks: Array<Number>,
-  incrementCredit: (id: Number) => void,
-  decrementCredit: (id: Number) => void,
+  updatingConsumerPacks: Array<number>,
+  incrementCredit: (id: number) => void,
+  decrementCredit: (id: number) => void,
   classes: Object,
 };
 

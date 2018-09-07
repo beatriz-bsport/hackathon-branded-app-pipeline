@@ -9,9 +9,9 @@ import ConsumerPackRowItem from './ConsumerPackRowItem.component';
 
 type Props = {
   paymentPack: Object,
-  updatingConsumerPacks: Array<Number>,
-  decrementCredit: (id: Number) => void,
-  incrementCredit: (id: Number) => void,
+  updatingConsumerPacks: Array<number>,
+  decrementCredit: (id: number) => void,
+  incrementCredit: (id: number) => void,
 };
 
 export class ConsumersPackSummaryTable extends Component<Props> {

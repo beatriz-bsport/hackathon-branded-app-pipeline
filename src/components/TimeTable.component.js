@@ -17,24 +17,14 @@ import { Offer } from '../api/types';
 
 import ActivityMinimalSummary from './activity/ActivityMinimalSummary.component';
 
-const styles = (theme) => ({
-  emptyMessage: {
-    margin: theme.spacing.unit * 3,
-  },
-  loadingContainer: {
-    marginLeft: theme.spacing.unit * 3,
-    marginBottom: theme.spacing.unit * 2,
-  },
-});
-
 function getOffersToday(date: Object, offers: Array<Offer>): Array<Offer> {
   return offers.filter((o) => Moment(o.date_start).isSame(date, 'day'));
 }
 
 function filterOffers(
   offers: Array<Offer>,
-  metaActivityId: Number,
-  establishmentId: Number,
+  metaActivityId: ?number,
+  establishmentId: ?number,
 ): Array<Offer> {
   let offersFiltered = offers;
 
@@ -57,8 +47,8 @@ type Props = {
   date: Object,
   offers: Array<Offer>,
   onOfferSelected: (offer: Offer) => void,
-  metaActivityId: Number,
-  establishmentId: Number,
+  metaActivityId: ?number,
+  establishmentId: number,
   classes: Object,
   t: (x: string) => string,
 };
@@ -84,9 +74,6 @@ export class TimeTable extends Component<Props, State> {
 
   static defaultProps = {
     date: Moment().startOf('day'),
-    onOfferSelected: () => {},
-    metaActivityId: null,
-    establishmentId: null,
   };
 
   componentWillReceiveProps(nextProps: Props) {
@@ -167,5 +154,15 @@ export class TimeTable extends Component<Props, State> {
     );
   }
 }
+
+const styles = (theme) => ({
+  emptyMessage: {
+    margin: theme.spacing.unit * 3,
+  },
+  loadingContainer: {
+    marginLeft: theme.spacing.unit * 3,
+    marginBottom: theme.spacing.unit * 2,
+  },
+});
 
 export default withStyles(styles)(translate()(TimeTable));

@@ -11,9 +11,9 @@ type Props = {
   loading: boolean,
   consumerPack: Object,
   paymentPack: Object,
-  incrementCredit: (id: Number) => void,
-  decrementCredit: (id: Number) => void,
-  t: (x: String) => String,
+  incrementCredit: (id: number) => void,
+  decrementCredit: (id: number) => void,
+  t: (x: string) => string,
 };
 
 export class ConsumerPackRowItem extends Component<Props> {

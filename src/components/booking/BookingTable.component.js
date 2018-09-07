@@ -14,12 +14,12 @@ type Props = {
   pendingBookings: Array<Object>,
   bookingOptions: Array<Object>,
   loading: boolean,
-  discardOption: (id: Number) => void,
+  discardOption: (id: number) => void,
   bookingUpdaters: {
-    discardBooking: (id: Number) => void,
-    discardBookingAttendance: (id: Number) => void,
-    confirmBooking: (id: Number) => void,
-    confirmBookingAttendance: (id: Number) => void,
+    discardBooking: (id: number) => void,
+    discardBookingAttendance: (id: number) => void,
+    confirmBooking: (id: number) => void,
+    confirmBookingAttendance: (id: number) => void,
   },
 };
 

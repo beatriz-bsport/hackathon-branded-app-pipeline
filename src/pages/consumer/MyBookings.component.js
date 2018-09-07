@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 
 import {
@@ -17,45 +19,31 @@ import { Redirect } from 'react-router-dom';
 
 import { BookingListItem, BookingOptionListItem } from '../../components';
 import { consumer as consumerActions } from '../../actions';
-
-const styles = (theme) => ({
-  container: {},
-  title: {
-    margin: theme.spacing.unit * 2,
-  },
-  emptyMsg: {
-    padding: theme.spacing.unit * 2,
-  },
-  loadingContainer: {
-    margin: theme.spacing.unit * 3,
-  },
-  bookingOptionElement: {
-    marginBottom: theme.spacing.unit,
-  },
-  modalContainer: {
-    top: '30%',
-    left: '30%',
-  },
-  modal: {
-    position: 'absolute',
-    width: 600,
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing.unit * 4,
-  },
-});
+import { Booking, BookingOption } from '../../api/types';
 
 type Props = {
-  futureBookings: Array,
-  pastBookings: Array,
-  bookingOptions: Array,
-  requestRedirect: String,
+  classes: Object,
+  loadingBooking: boolean,
+  loadingOption: boolean,
+  futureBookings: Array<Booking>,
+  pastBookings: Array<Booking>,
+  bookingOptions: Array<BookingOption>,
+  optionCurrentlyCancelling: ?number,
+  cancelBookingOption: (id: number) => void,
+  t: (x: string) => string,
 };
 
-export class MyBookings extends Component<Props> {
+type State = {
+  modalCancellingBookingOptionOpen: boolean,
+  requestRedirect: ?string,
+  optionIdBeingCancelled: ?number,
+};
+
+export class MyBookings extends Component<Props, State> {
   state = {
     modalCancellingBookingOptionOpen: false,
-    requestRedirect: '',
+    requestRedirect: null,
+    optionIdBeingCancelled: null,
   };
 
   renderLoading = () => {
@@ -114,7 +102,7 @@ export class MyBookings extends Component<Props> {
       <Modal
         aria-labelledby="cancel-booking-option"
         open={modalCancellingBookingOptionOpen}
-        onClose={this.handleClose}
+        onClose={this.handleCloseModal}
         className={classes.modalContainer}
       >
         <Grid
@@ -165,15 +153,18 @@ export class MyBookings extends Component<Props> {
     );
   };
 
-  cancelBookingOption = (optionId) => {
+  cancelBookingOption = (optionId: number) => {
     this.setState({
       optionIdBeingCancelled: optionId,
       modalCancellingBookingOptionOpen: true,
     });
+    this.props.cancelBookingOption(optionId);
   };
 
-  confirmBookingOption = (offerId) => {
-    this.setState({ requestRedirect: `/payment/offer/${offerId}` });
+  confirmBookingOption = (offerId: number, optionId: number) => {
+    this.setState({
+      requestRedirect: `/payment/offer/${offerId}?option_id=${optionId}`,
+    });
   };
 
   renderBookingOptions = () => {
@@ -198,7 +189,7 @@ export class MyBookings extends Component<Props> {
               <div className={classes.bookingOptionElement} key={o.id}>
                 <BookingOptionListItem
                   confirmBookingOption={() =>
-                    this.confirmBookingOption(o.offer.id)
+                    this.confirmBookingOption(o.offer.id, o.id)
                   }
                   bookingOption={o}
                   cancelBookingOption={() => this.cancelBookingOption(o.id)}
@@ -283,6 +274,32 @@ function mapDispatchToProps(dispatch) {
     },
   };
 }
+
+const styles = (theme) => ({
+  title: {
+    margin: theme.spacing.unit * 2,
+  },
+  emptyMsg: {
+    padding: theme.spacing.unit * 2,
+  },
+  loadingContainer: {
+    margin: theme.spacing.unit * 3,
+  },
+  bookingOptionElement: {
+    marginBottom: theme.spacing.unit,
+  },
+  modalContainer: {
+    top: '30%',
+    left: '30%',
+  },
+  modal: {
+    position: 'absolute',
+    width: 600,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing.unit * 4,
+  },
+});
 
 export default withStyles(styles)(
   connect(

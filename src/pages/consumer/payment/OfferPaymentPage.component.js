@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 
 import { translate } from 'react-i18next';
@@ -6,14 +8,16 @@ import { Redirect } from 'react-router-dom';
 
 import { payment as paymentActions } from '../../../actions';
 import { ConsumerModalContainer, OfferPayment } from '../../../components';
+import { ConsumerPaymentPackManagerView } from '../../../api/types';
 
 type Props = {
   loading: boolean,
   match: Object,
   offer: ?Object,
+  compatibleConsumerPacks: Array<ConsumerPaymentPackManagerView>,
   compatibleConsumerPacksLoading: boolean,
-  fetchOffer: (Number) => void,
-  fetchCompatiblePass: (Number) => void,
+  fetchOffer: (number) => void,
+  fetchCompatiblePass: (number) => void,
 };
 
 type State = {

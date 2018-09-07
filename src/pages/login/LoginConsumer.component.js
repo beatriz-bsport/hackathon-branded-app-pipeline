@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 
 import { Redirect } from 'react-router-dom';
-import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 import qs from 'query-string';
 
@@ -11,11 +10,12 @@ import { ConsumerModalContainer, ConsumerLogin } from '../../components';
 
 type Props = {
   authenticated: boolean,
-  t: (x: string) => string,
+  location: Object,
 };
 
 export class ConsumerLoginPage extends Component<Props> {
   /*
+  FIXME TODO
   renderCreateAccount = () => (
     <Link to="/create_account" style={{ textDecoration: 'none' }}>
       <Typography color="error" variant="caption">
@@ -52,4 +52,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default translate()(connect(mapStateToProps)(ConsumerLoginPage));
+export default connect(mapStateToProps)(ConsumerLoginPage);

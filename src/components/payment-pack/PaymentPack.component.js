@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 
 import {
@@ -18,34 +20,15 @@ import { translate } from 'react-i18next';
 import ActivityMinimalSummary from '../activity/ActivityMinimalSummary.component';
 import Sport from '../Sport.component';
 import ConsumersPackSummaryTable from './ConsumersPackSummaryTable.component';
-
-const styles = (theme) => ({
-  paper: {
-    paddingTop: theme.spacing.unit * 3,
-  },
-  horizontalBlock: {
-    marginBottom: theme.spacing.unit * 2,
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
-  },
-  horizontalDivider: {
-    marginBottom: theme.spacing.unit * 2,
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-  },
-  verticalDivider: {
-    marginLeft: theme.spacing.unit * 2,
-    marginRiht: theme.spacing.unit * 2,
-  },
-  tabList: {
-    marginLeft: theme.spacing.unit * 3,
-  },
-});
+import { PaymentPackManagerView } from '../../api/types';
 
 type Props = {
-  incrementCredit: (id: Number) => void,
-  decrementCredit: (id: Number) => void,
-  updatingConsumerPacks: Array<Number>,
+  incrementCredit: (id: number) => void,
+  decrementCredit: (id: number) => void,
+  updatingConsumerPacks: Array<number>,
+  pack: PaymentPackManagerView,
+  t: (x: string) => string,
+  classes: Object,
 };
 
 export class PaymentPack extends Component<Props> {
@@ -189,5 +172,28 @@ export class PaymentPack extends Component<Props> {
     );
   }
 }
+
+const styles = (theme) => ({
+  paper: {
+    paddingTop: theme.spacing.unit * 3,
+  },
+  horizontalBlock: {
+    marginBottom: theme.spacing.unit * 2,
+    marginLeft: theme.spacing.unit * 3,
+    marginRight: theme.spacing.unit * 3,
+  },
+  horizontalDivider: {
+    marginBottom: theme.spacing.unit * 2,
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+  },
+  verticalDivider: {
+    marginLeft: theme.spacing.unit * 2,
+    marginRiht: theme.spacing.unit * 2,
+  },
+  tabList: {
+    marginLeft: theme.spacing.unit * 3,
+  },
+});
 
 export default withStyles(styles)(translate()(PaymentPack));

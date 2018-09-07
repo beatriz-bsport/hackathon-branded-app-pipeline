@@ -61,3 +61,17 @@ export type ConsumerPaymentPackConsumerView = {
   id: number,
   payment_pack: PaymentPack,
 };
+
+export type ConsumerPaymentPackManagerView = {
+  id: number,
+};
+
+export type PaymentPackManagerView = {
+  consumer_payment_packs: Array<ConsumerPaymentPackManagerView>,
+  unlimited: boolean,
+  base_price: number,
+  name: string,
+  credits: number,
+  categories: Array<number>,
+  activities: Array<Object>,
+};

@@ -25,12 +25,12 @@ const styles = (theme) => ({
 type Props = {
   t: (x: string) => string,
   classes: Object,
-  discardOption: (id: Number) => void,
-  discardBooking: (id: Number) => void,
-  discardBookingAttendance: (id: Number) => void,
-  confirmBooking: (id: Number) => void,
-  confirmBookingAttendance: (id: Number) => void,
-  fetchBookings: (id: Number) => void,
+  discardOption: (id: number) => void,
+  discardBooking: (id: number) => void,
+  discardBookingAttendance: (id: number) => void,
+  confirmBooking: (id: number) => void,
+  confirmBookingAttendance: (id: number) => void,
+  fetchBookings: (id: number) => void,
   offers: Array<Offer>,
   bookingLoading: boolean,
   validatedBookings: Array<Object>,
@@ -41,7 +41,7 @@ type Props = {
 };
 
 type State = {
-  selectedOffer: ?Number,
+  selectedOffer: ?number,
   date: Object,
 };
 

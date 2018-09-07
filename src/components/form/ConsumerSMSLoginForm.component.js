@@ -1,6 +1,8 @@
+// @flow
+
 import React, { Component } from 'react';
 
-import { Button, Grid, Typography, withStyles } from '@material-ui/core';
+import { Button, Grid, Typography } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
@@ -10,41 +12,50 @@ import SMSCodeForm from './SMSCodeForm.component';
 import { auth as authActions } from '../../actions';
 import api from '../../api';
 
-const styles = (theme) => ({
-  container: {},
-});
-
 type Props = {
+  signInPhone: ({ code: string, phone: string }) => void,
   t: (x: string) => string,
-  classes: Object,
+};
+
+type State = {
+  phone: ?string,
+  step: number,
 };
 
 const STEPS = { REQUEST_PHONE_NUMBER: 0, REQUEST_PHONE_CODE: 1 };
 
-export class ConsumerSMSLoginForm extends Component<Props> {
+export class ConsumerSMSLoginForm extends Component<Props, State> {
   state = {
     phone: null,
     step: STEPS.REQUEST_PHONE_NUMBER,
   };
 
-  onPhoneComplete = async (event) => {
+  onPhoneComplete = async (event: Object) => {
     event.preventDefault();
     const { phone } = this.state;
-    const response = await api.auth.requestSMSCodeNoRegistration(phone);
-    if (response.status === 200) {
-      this.setState({ step: STEPS.REQUEST_PHONE_CODE });
-    }
+    const { t } = this.props;
+    try {
+      const response = await api.auth.requestSMSCodeNoRegistration(phone);
+      if (response.status === 200) {
+        this.setState({ step: STEPS.REQUEST_PHONE_CODE });
+        return;
+      }
+    } catch (err) {}
+    alert(t('login.invalidPhone'));
   };
 
-  validateSMSCode = (code) => {
+  validateSMSCode = (code: string) => {
     const { phone } = this.state;
     this.props.signInPhone({ phone, code });
   };
 
   getContent = () => {
     const { t } = this.props;
-    const { step, phone } = this.state;
+    const { step } = this.state;
     switch (step) {
+      case STEPS.REQUEST_PHONE_CODE:
+        return <SMSCodeForm onComplete={this.validateSMSCode} />;
+      default:
       case STEPS.REQUEST_PHONE_NUMBER:
         return (
           <form onSubmit={this.onPhoneComplete}>
@@ -66,8 +77,6 @@ export class ConsumerSMSLoginForm extends Component<Props> {
             </Grid>
           </form>
         );
-      case STEPS.REQUEST_PHONE_CODE:
-        return <SMSCodeForm onComplete={this.validateSMSCode} />;
     }
   };
 
@@ -95,11 +104,9 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default withStyles(styles)(
-  translate()(
-    connect(
-      null,
-      mapDispatchToProps,
-    )(ConsumerSMSLoginForm),
-  ),
+export default translate()(
+  connect(
+    null,
+    mapDispatchToProps,
+  )(ConsumerSMSLoginForm),
 );

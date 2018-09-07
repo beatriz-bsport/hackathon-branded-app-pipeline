@@ -1,29 +1,22 @@
-import React, { Component } from 'react';
+// @flow
 
-import { Typography, Grid, withStyles } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import React from 'react';
 
 import ActivityMinimalSummary from '../activity/ActivityMinimalSummary.component';
-
-const styles = () => ({
-  container: {},
-});
+import { formatAsDatetime } from '../../datetime';
+import { Offer } from '../../api/types';
 
 type Props = {
-  offer: Object,
+  offer: Offer,
 };
 
-export class OfferSummary extends Component<Props> {
-  render() {
-    const { offer } = this.props;
-    return (
-      <ActivityMinimalSummary
-        date={offer.date_start}
-        activity={offer.activity}
-        noDivider
-      />
-    );
-  }
+export default function OfferSummary(props: Props) {
+  const { offer } = props;
+  return (
+    <ActivityMinimalSummary
+      date={formatAsDatetime(offer.date_start)}
+      activity={offer.activity}
+      noDivider
+    />
+  );
 }
-
-export default withStyles(styles)(translate()(OfferSummary));

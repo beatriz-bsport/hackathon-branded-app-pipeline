@@ -22,7 +22,7 @@ import Dashboard from './Dashboard.component';
 import MetaActivityList from './MetaActivityList.component';
 import MetaActivity from './MetaActivity.component';
 import CoachList from './CoachList.component';
-import Payment from './Payment.component';
+import TransactionList from './TransactionList.component';
 import MemberList from './MemberList.component';
 import Member from './Member.component';
 import PaymentPackList from './PaymentPackList.component';
@@ -116,7 +116,7 @@ export class Backoffice extends Component<{}> {
                 component={MetaActivityForm}
               />
               <Route path="/coach" component={CoachList} />
-              <Route path="/payment" component={Payment} />
+              <Route path="/payment" component={TransactionList} />
               <Route path="/payment-pack" component={PaymentPackList} />
               <Route exact path="/member" component={MemberList} />
               <Route path="/member/add" component={MemberForm} />
@@ -178,4 +178,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(themedBackoffice);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(themedBackoffice);

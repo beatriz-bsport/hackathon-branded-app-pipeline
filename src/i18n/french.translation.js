@@ -27,6 +27,7 @@ export default {
       sort: 'Trier',
       contact: 'Contact',
       members: 'Mes utilisateurs',
+      transactions: 'Mes transactions',
       selected: 'Séléctionné(s)',
       pass: 'Pass',
       booking_s: 'Séance(s)',
@@ -46,6 +47,9 @@ export default {
       pleaseEnterYourSMSCode: 'Veuillez entrer le code envoyé par SMS',
       code: 'Code',
       signUpTitle: 'Inscription',
+      SMSSignInTitle: 'Connexion SMS',
+      signInPhoneInstruction:
+        'Veuillez entrer votre numéro de téléphone, un code de confirmation vous sera envoyé par SMS',
       password: 'Mot de passe',
       // eslint-disable-next-line
       default_waiting_list_max_size: "Taille de la liste d'attente",
@@ -214,7 +218,7 @@ export default {
       anySport: 'Tout sport',
       availableOnFollowingActivities: 'Séances éligibles : ',
       anyActivity: 'Toute séance',
-      boughtConsumerPaymentPacks: 'Achats',
+      boughtConsumerPaymentPacks: 'Abonnés',
     },
     login: {
       choseYourUserspace: 'Qui êtes-vous ?',
@@ -268,6 +272,20 @@ export default {
       noMoreOffers: 'Plus aucune séance de prévue',
     },
     booking: {
+      attend: 'Présent',
+      doNotAttend: 'Absent',
+      discard: 'Annuler',
+      // eslint-disable-next-line
+      onWaitingList: "Sur liste d'attente",
+      onHold: 'En attente',
+      waitingUserConfirmation: 'En attente de confirmation client',
+      confirm: 'Encaisser',
+      validated: 'Payé',
+      pending: 'En attente de validation',
+      cancelled: 'Annulé',
+      cancelBooking: 'Annuler',
+      noBookingOnThisOffer:
+        'Aucune réservation enregistrée sur cette séance pour le moment',
       last: 'Dernière:',
       next: 'Prochaine:',
       fillRate: 'Taux de remplissage',

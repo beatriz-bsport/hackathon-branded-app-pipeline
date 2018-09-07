@@ -9,7 +9,7 @@ import OfferCard from './OfferCard.component';
 import Avatar from './Avatar.component';
 import Level from './Level.component';
 import Sport from './Sport.component';
-import BookingTable from './BookingTable.component';
+import BookingTable from './booking/BookingTable.component';
 import OfferBookingTable from './OfferBookingTable.component';
 import ActionButton from './button/ActionButton.component';
 import ActivityCard from './activity/ActivityCard.component';

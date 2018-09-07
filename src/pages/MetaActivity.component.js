@@ -188,7 +188,14 @@ export class MetaActivity extends Component<Props> {
   };
 
   getActivitiesWithCalendar = () => {
-    const { t, metaActivity, classes } = this.props;
+    const {
+      t,
+      metaActivity,
+      classes,
+      timetableLoading,
+      activities,
+      offers,
+    } = this.props;
     const { dateSelected } = this.state;
     return (
       <Grid container direction="row" alignItems="flex-start">
@@ -204,7 +211,13 @@ export class MetaActivity extends Component<Props> {
               >
                 {t('activity.offersThisDay')}
               </Typography>
-              <TimeTable date={dateSelected} metaActivityId={metaActivity.id} />
+              <TimeTable
+                date={dateSelected}
+                metaActivityId={metaActivity.id}
+                offers={offers}
+                loading={timetableLoading}
+                activities={activities}
+              />
             </Grid>
             <Grid item>
               <Grid
@@ -365,6 +378,9 @@ function mapStateToProps(state) {
     loading: state.metaActivity.loading,
     metaActivity: state.metaActivity.metaActivity,
     stats: state.stats.activities,
+    offers: state.offer.calendar,
+    timetableLoading: state.activity.loading,
+    activities: state.activity.all,
   };
 }
 
@@ -376,6 +392,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  withStyles(styles)(translate()(MetaActivity)),
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withStyles(styles)(translate()(MetaActivity)));

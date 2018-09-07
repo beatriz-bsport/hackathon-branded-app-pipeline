@@ -25,63 +25,70 @@ const styles = (theme) => ({
 
 type Props = {};
 
+function SelfCoachCard(props) {
+  const { isCoach, selfCoach } = props;
+  if (!isCoach) {
+    return null;
+  }
+
+  return (
+    <Grid item xs={12} sm={6} md={4} xm={3}>
+      <CoachCard coach={selfCoach} />
+    </Grid>
+  );
+}
+
+function AssociatedCoaches(props) {
+  const { associatedCoaches, isManager } = props;
+
+  if (!isManager) {
+    return null;
+  }
+
+  return associatedCoaches.map((coach) => (
+    <Grid item xs={12} sm={6} md={4}>
+      <CoachCard coach={coach} />
+    </Grid>
+  ));
+}
+
 export class CoachList extends Component<Props> {
-  getSelfCoach = () => {
-    const { is_coach, selfCoach } = this.props;
-    if (!is_coach) {
-      return null;
-    }
-
-    return (
-      <Grid item xs={12} sm={6} md={4} xm={3}>
-        <CoachCard coach={selfCoach} />
-      </Grid>
-    );
-  };
-
-  getAssociatedCoaches = () => {
-    const { associatedCoaches, is_manager } = this.props;
-
-    if (!is_manager) {
-      return null;
-    }
-
-    return associatedCoaches.map((coach) => (
-      <Grid item xs={12} md={6}>
-        <CoachCard coach={coach} />
-      </Grid>
-    ));
-  };
-
   render() {
-    const { is_manager, classes, t } = this.props;
     if (this.props.loading) {
       return <CircularProgress />;
     }
+
+    const {
+      isManager,
+      classes,
+      t,
+      isCoach,
+      selfCoach,
+      associatedCoaches,
+    } = this.props;
     return (
-      <Grid container direction="column" alignItems="center">
-        {is_manager ? (
-          <Grid item xs="12">
-            <Link to="/coach/add" style={{ textDecoration: 'none' }}>
-              <Button
-                variant="extendedFab"
-                aria-label="Add"
-                className={classes.button}
-                color="primary"
-              >
-                <AddIcon className={classes.extendedIcon} />
-                {t('coach.addCoach')}
-              </Button>
-            </Link>
-          </Grid>
+      <div>
+        {isManager ? (
+          <Link to="/coach/add" style={{ textDecoration: 'none' }}>
+            <Button
+              variant="extendedFab"
+              aria-label="Add"
+              className={classes.button}
+              color="primary"
+            >
+              <AddIcon className={classes.extendedIcon} />
+              {t('coach.addCoach')}
+            </Button>
+          </Link>
         ) : null}
-        <Grid item>
-          <Grid container direction="row" spacing={24}>
-            {this.getSelfCoach()}
-            {this.getAssociatedCoaches()}
-          </Grid>
+        <SelfCoachCard isCoach={isCoach} selfCoach={selfCoach} />
+        <Grid container spacing={8}>
+          <AssociatedCoaches
+            associatedCoaches={associatedCoaches}
+            isManager={isManager}
+          />
         </Grid>
-      </Grid>
+      </div>
     );
   }
 }

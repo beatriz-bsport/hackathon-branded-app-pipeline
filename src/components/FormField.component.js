@@ -150,7 +150,7 @@ export class FormField extends Component<Props> {
       case 'establishment':
         return (
           <MenuItem key={elt.id} value={elt.id}>
-            <ListItemText primary={elt.name} />
+            <ListItemText primary={elt.title} />
           </MenuItem>
         );
     }
@@ -188,6 +188,7 @@ export class FormField extends Component<Props> {
       case 'default_price':
       case 'default_credits':
       case 'price':
+      case 'title':
       case 'credits':
       case 'effectif':
       case 'default_waiting_list_max_size':

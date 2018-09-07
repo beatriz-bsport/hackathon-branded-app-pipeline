@@ -5,5 +5,5 @@ faker.locale = 'fr';
 
 FactoryBot.define('Establishment', {
   id: FactoryBot.sequence(),
-  name: faker.company.companyName,
+  title: faker.company.companyName,
 });

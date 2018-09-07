@@ -29,8 +29,7 @@ type State = {
   completed: boolean,
   loading: boolean,
 };
-
-export class OfferPayment extends Component<Props, State> {
+export class StripeCheckout extends Component<Props, State> {
   state = { completed: false, loading: false };
 
   submit = async () => {
@@ -119,4 +118,4 @@ const styles = (theme) => ({
   },
 });
 
-export default injectStripe(withStyles(styles)(translate()(OfferPayment)));
+export default injectStripe(withStyles(styles)(translate()(StripeCheckout)));

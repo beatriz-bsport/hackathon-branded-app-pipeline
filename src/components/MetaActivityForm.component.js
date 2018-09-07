@@ -93,6 +93,7 @@ export class MetaActivityForm extends Component<Props> {
                   <FormField
                     id="SCT"
                     required
+                    value={this.state.SCT}
                     choices={SCTs}
                     onChange={this.onFormFieldChange}
                   />
@@ -111,12 +112,14 @@ export class MetaActivityForm extends Component<Props> {
                   <FormField
                     id="coach"
                     required
+                    value={this.state.coach}
                     choices={coaches}
                     onChange={this.onFormFieldChange}
                   />
                   <FormField
                     id="establishment"
                     required
+                    value={this.state.establishment}
                     choices={establishments}
                     onChange={this.onFormFieldChange}
                   />

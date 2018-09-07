@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 
 import {
@@ -15,43 +17,27 @@ import { translate } from 'react-i18next';
 import Level from './Level.component';
 import Sport from './Sport.component';
 import Avatar from './Avatar.component';
-import OfferBookingTable from './OfferBookingTable.component';
+import BookingTable from './booking/BookingTable.component';
 
-import { humanizeDate } from '../datetime';
-
-const styles = (theme) => ({
-  paper: {
-    flexGrow: 1,
-    padding: theme.spacing.unit * 4,
-    color: theme.palette.text.secondary,
-  },
-  header: {
-    flexGrow: 1,
-    direction: 'row',
-    justify: 'space-between',
-    alignItems: 'center',
-  },
-  innerElement: {
-    flexGrow: 1,
-    padding: theme.spacing.unit * 4,
-  },
-  paddedBlock: {
-    padding: theme.spacing.unit * 4,
-  },
-  footer: {
-    borderTop: 'solid 1px #EEEEEE',
-  },
-  stat: {
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
-  },
-  info: {
-    paddingLeft: theme.spacing.unit * 3,
-  },
-});
+import { formatAsTime } from '../datetime';
+import { Offer } from '../api/types';
 
 type Props = {
-  offer: Object,
+  t: (x: string) => string,
+  classes: Object,
+  offer: Offer,
+  bookingLoading: boolean,
+  noHeader: ?boolean,
+  validatedBookings: Array<Object>,
+  pendingBookings: Array<Object>,
+  bookingOptions: Array<Object>,
+  discardOption: (id: Number) => void,
+  bookingUpdaters: {
+    discardBooking: (id: Number) => void,
+    discardBookingAttendance: (id: Number) => void,
+    confirmBooking: (id: Number) => void,
+    confirmBookingAttendance: (id: Number) => void,
+  },
 };
 
 export class OfferCard extends Component<Props> {
@@ -79,7 +65,7 @@ export class OfferCard extends Component<Props> {
 
   getStatsBody = () => {
     const { classes, t } = this.props;
-    const { nb_pending, nb_validated, effectif } = this.props.offer;
+    const { nb_pending, nb_validated, nb_option, effectif } = this.props.offer;
     return (
       <Grid container direction="row" justify="center" alignItems="center">
         <Grid item xs={4} style={{ borderRight: '1px solid #EEEEEE' }}>
@@ -112,7 +98,7 @@ export class OfferCard extends Component<Props> {
           >
             <Grid item>
               <Typography variant="display2" color="secondary">
-                {parseInt(nb_validated / effectif, 10)} %
+                {parseInt((nb_validated / effectif) * 100, 10)} %
               </Typography>
             </Grid>
             <Grid item>
@@ -132,9 +118,9 @@ export class OfferCard extends Component<Props> {
             <Grid item>
               <Typography
                 variant="display2"
-                color={nb_pending ? 'error' : 'secondary'}
+                color={nb_pending + nb_option ? 'error' : 'secondary'}
               >
-                {nb_pending}
+                {nb_pending + nb_option}
               </Typography>
             </Grid>
             <Grid item>
@@ -188,7 +174,7 @@ export class OfferCard extends Component<Props> {
                     </Grid>
                     <Grid item>
                       <Typography variant="subheading">
-                        {humanizeDate(date_start).time}
+                        {formatAsTime(date_start)}
                       </Typography>
                     </Grid>
                   </Grid>
@@ -226,7 +212,15 @@ export class OfferCard extends Component<Props> {
   };
 
   getCustomer = () => {
-    const { t, offer, classes } = this.props;
+    const {
+      t,
+      pendingBookings,
+      validatedBookings,
+      bookingOptions,
+      bookingLoading,
+      discardOption,
+      bookingUpdaters,
+    } = this.props;
 
     return (
       <Grid container>
@@ -236,7 +230,14 @@ export class OfferCard extends Component<Props> {
               <Typography>{t('booking.seeCustomers')}</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
-              <OfferBookingTable offerId={offer.id} />
+              <BookingTable
+                loading={bookingLoading}
+                validatedBookings={validatedBookings}
+                pendingBookings={pendingBookings}
+                bookingOptions={bookingOptions}
+                discardOption={discardOption}
+                bookingUpdaters={bookingUpdaters}
+              />
             </ExpansionPanelDetails>
           </ExpansionPanel>
         </Grid>
@@ -245,23 +246,44 @@ export class OfferCard extends Component<Props> {
   };
 
   render() {
-    const { noHeader, classes, offer, t } = this.props;
+    const { noHeader, offer } = this.props;
     if (offer) {
       return (
-        <Paper>
-          <Grid container direction="column" className={classes.root}>
-            {noHeader ? null : <Grid item>{this.getHeader()}</Grid>}
-            <Grid item>{this.getStatsBody()}</Grid>
-            <Grid item>{this.getFooter()}</Grid>
-            <Grid item xs={12}>
-              {this.getCustomer()}
-            </Grid>
+        <Grid container direction="column">
+          <Grid item>
+            <Paper square>
+              <Grid container direction="column">
+                {noHeader ? null : <Grid item>{this.getHeader()}</Grid>}
+                <Grid item>{this.getStatsBody()}</Grid>
+                <Grid item>{this.getFooter()}</Grid>
+              </Grid>
+            </Paper>
           </Grid>
-        </Paper>
+
+          <Grid item xs={12}>
+            {this.getCustomer()}
+          </Grid>
+        </Grid>
       );
     }
     return null;
   }
 }
+
+const styles = (theme) => ({
+  paddedBlock: {
+    padding: theme.spacing.unit * 4,
+  },
+  footer: {
+    borderTop: 'solid 1px #EEEEEE',
+  },
+  stat: {
+    paddingTop: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit * 2,
+  },
+  info: {
+    paddingLeft: theme.spacing.unit * 3,
+  },
+});
 
 export default withStyles(styles)(translate()(OfferCard));

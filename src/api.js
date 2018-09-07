@@ -17,6 +17,22 @@ export async function fetchAllEvents() {
   return getAuth(`${API_URI}/as_coach/offers/minimal`);
 }
 
+export async function confirmAttendanceBooking(bookingId) {
+  return getAuth(`${API_URI}/saas/booking/${bookingId}/attendance/confirm`);
+}
+
+export async function discardAttendanceBooking(bookingId) {
+  return getAuth(`${API_URI}/saas/booking/${bookingId}/attendance/discard`);
+}
+
+export async function validateBooking(bookingId) {
+  return getAuth(`${API_URI}/saas/booking/${bookingId}/validate`);
+}
+
+export async function discardBooking(bookingId) {
+  return getAuth(`${API_URI}/saas/booking/${bookingId}/discard`);
+}
+
 export async function login(username, password) {
   return axios({
     url: `${BASE_URI}/authentication/with-login/`,
@@ -53,6 +69,16 @@ export async function validatePhone(phonenumber, code) {
   });
 }
 
+export async function requestSMSCodeNoRegistration(phonenumber) {
+  return axios({
+    url: `${BASE_URI}/authentication/with-phone/no-user-creation`,
+    method: 'post',
+    data: {
+      phonenumber,
+    },
+  });
+}
+
 export async function fetchAllEstablishments() {
   return getAuth(`${API_URI}/saas/establishments/`);
 }
@@ -75,6 +101,10 @@ export async function addMetaActivity(data) {
 
 export async function fetchBookingsByOffer(offerId) {
   return getAuth(`${API_URI}/as_coach/offer/${offerId}/bookings`);
+}
+
+export async function fetchBookingOptionsByOffer(offerId) {
+  return getAuth(`${API_URI}/as_coach/offer/${offerId}/options`);
 }
 
 export async function fetchSCT() {
@@ -167,8 +197,8 @@ export async function fetchConsumerPaymentPacks() {
   return getAuth(`${API_URI}/consumer/payment-pack/`);
 }
 
-export async function consumerCancelBookingOption(optionId) {
-  return getAuth(`${API_URI}/booking/options/${optionId}/cancel/`);
+export async function discardBookingOption(optionId) {
+  return getAuth(`${API_URI}/saas/booking-option/${optionId}/discard`);
 }
 export async function consumerFetchProfile() {
   return getAuth(`${API_URI}/user/self/info/`);
@@ -196,6 +226,11 @@ export default {
   },
   booking: {
     fetchBookingsByOffer,
+    discard: discardBooking,
+    validate: validateBooking,
+    discardAttendance: discardAttendanceBooking,
+    confirmAttendance: confirmAttendanceBooking,
+    discardBookingOption,
   },
   offer: {
     fetchAllEvents,
@@ -206,6 +241,7 @@ export default {
     login,
     accessLevel,
     requestSMSCode,
+    requestSMSCodeNoRegistration,
     validatePhone,
   },
   establishment: {
@@ -249,7 +285,7 @@ export default {
     fetchPastBookings: fetchConsumerPastBookings,
     fetchOptions: fetchConsumerOptions,
     fetchConsumerPaymentPacks,
-    cancelBookingOption: consumerCancelBookingOption,
+    discardBookingOption,
     fetchProfile: consumerFetchProfile,
   },
 };

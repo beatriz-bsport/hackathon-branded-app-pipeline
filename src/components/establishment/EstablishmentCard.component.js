@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 
 import {
@@ -12,12 +14,16 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import SPORTS from 'bsport-commons/lib/master-data/sports';
-import { ActivityMinimalSummary } from '.';
+import ActivityMinimalSummary from '../activity/ActivityMinimalSummary.component';
+import { Activity, Establishment } from '../../api/types';
 
 const DEFAULT_SPORT = 7;
 
 type Props = {
-  establishment: Object,
+  establishment: Establishment,
+  classes: Object,
+  allActivities: Array<Activity>,
+  t: (x: string) => string,
 };
 
 const styles = (theme) => ({
@@ -55,7 +61,7 @@ export class EstablishmentCard extends Component<Props> {
             className={classes.imgStyle}
           >
             <Grid item>
-              <img style={{ margin: 'auto' }} src={sport.icon} />
+              <img style={{ margin: 'auto' }} src={sport.icon} alt="sport" />
             </Grid>
           </Grid>
         </div>
@@ -63,16 +69,21 @@ export class EstablishmentCard extends Component<Props> {
     }
     return (
       <div style={{ position: 'relative' }}>
-        <img className={classes.imgStyle} src={cover} />
+        <img
+          className={classes.imgStyle}
+          src={cover}
+          alt="establishment-cover"
+        />
       </div>
     );
   };
 
   render() {
-    const { classes, t, establishment, myActivities } = this.props;
+    const { classes, t, establishment, allActivities } = this.props;
     const { title, specific_info, activities, location } = establishment;
+    // activities in establishment props are simplified, getting the full object
     const establishmentActivitiesId = activities.map((a) => a.id);
-    const establishmentActivities = myActivities.filter((a) =>
+    const establishmentActivities = allActivities.filter((a) =>
       establishmentActivitiesId.includes(a.id),
     );
     return (
@@ -125,12 +136,4 @@ export class EstablishmentCard extends Component<Props> {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    myActivities: state.activity.all,
-  };
-}
-
-export default withStyles(styles)(
-  translate()(connect(mapStateToProps)(EstablishmentCard)),
-);
+export default withStyles(styles)(translate()(EstablishmentCard));

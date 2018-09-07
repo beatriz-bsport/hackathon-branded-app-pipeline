@@ -11,25 +11,11 @@ import {
 import { translate } from 'react-i18next';
 import { EstablishmentCard, TimeTable, Calendar, Map } from '../components';
 import { Moment } from '../i18n';
-
-const styles = (theme) => ({
-  emptyEstablishment: {
-    padding: theme.spacing.unit * 3,
-  },
-  title: {
-    margin: theme.spacing.unit * 2,
-  },
-  paperContainer: {
-    padding: theme.spacing.unit * 3,
-    paddingRight: 0,
-  },
-  calendarContainer: {
-    marginRight: theme.spacing.unit * 2,
-  },
-});
+import { Establishment, Activity } from '../api/types';
 
 type Props = {
-  establishments: Array,
+  establishments: Array<Establishment>,
+  activities: Array<Activity>,
 };
 
 export class EstablishmentList extends Component<Props> {
@@ -60,7 +46,10 @@ export class EstablishmentList extends Component<Props> {
   renderEstablishment = (establishment) => (
     <Grid container direction="row" spacing={16}>
       <Grid item xs={12} md={6}>
-        <EstablishmentCard establishment={establishment} />
+        <EstablishmentCard
+          establishment={establishment}
+          allActivities={this.props.activities}
+        />
       </Grid>
       <Grid item xs={12} md={6}>
         {this.renderCalendar(establishment)}
@@ -158,6 +147,22 @@ function mapStateToProps(state) {
     activities: state.activity.all,
   };
 }
+
+const styles = (theme) => ({
+  emptyEstablishment: {
+    padding: theme.spacing.unit * 3,
+  },
+  title: {
+    margin: theme.spacing.unit * 2,
+  },
+  paperContainer: {
+    padding: theme.spacing.unit * 3,
+    paddingRight: 0,
+  },
+  calendarContainer: {
+    marginRight: theme.spacing.unit * 2,
+  },
+});
 
 export default withStyles(styles)(
   translate()(connect(mapStateToProps)(EstablishmentList)),

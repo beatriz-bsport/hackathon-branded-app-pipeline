@@ -128,6 +128,8 @@ export class Member extends Component<{}> {
       const nextBookingDate = next_bookings.length
         ? `${formatAsDatetime(next_bookings[0].date_start)}`
         : t('common.nothing');
+      // FIXME get this from state.booking and filter member id + add options
+      // format to add date instead of member name
       return (
         <ExpansionPanel>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
@@ -149,6 +151,8 @@ export class Member extends Component<{}> {
               heading="date_start"
               validatedBookings={validatedBookings}
               pendingBookings={pendingBookings}
+              bookingOptions={[]}
+              bookingUpdaters={{}}
             />
           </ExpansionPanelDetails>
         </ExpansionPanel>
@@ -161,6 +165,8 @@ export class Member extends Component<{}> {
     const { t, member, classes } = this.props;
     const { previous_bookings } = member;
     if (previous_bookings) {
+      // FIXME get this from state.booking and filter member id + add options
+      // format to add date instead of member name
       const validatedBookings = previous_bookings.filter(
         (b) => b.status === true,
       );
@@ -170,6 +176,7 @@ export class Member extends Component<{}> {
       const previousBookingDate = previous_bookings.length
         ? `${formatAsDatetime(previous_bookings[0].date_start)}`
         : t('common.nothing');
+
       return (
         <ExpansionPanel>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
@@ -191,6 +198,8 @@ export class Member extends Component<{}> {
               heading="date_start"
               validatedBookings={validatedBookings}
               pendingBookings={pendingBookings}
+              bookingOptions={[]}
+              bookingUpdaters={{}}
             />
           </ExpansionPanelDetails>
         </ExpansionPanel>

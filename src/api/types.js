@@ -1,3 +1,11 @@
+export type ActivitySimplified = {
+id: number,
+}
+
+export type Activity = {
+  id: number,
+};
+
 export type Offer = {
   id: number,
   activity_id: number,
@@ -74,4 +82,18 @@ export type PaymentPackManagerView = {
   credits: number,
   categories: Array<number>,
   activities: Array<Object>,
+};
+
+export type Location = {
+  name: string,
+  address: string,
+  latitude: number,
+  longitude: number,
+};
+export type Establishment = {
+  cover: string,
+  title: string,
+  specific_info: string,
+  activities: Array<ActivitySimplified>,
+  location: Location,
 };

@@ -127,6 +127,7 @@ storiesOf('Calendar/OfferCard', module)
         date: '2018-09-03T23:45:19.073230+02:00',
         source: 'MOB',
         status: null,
+        attendance: true,
         date_start: '2018-09-06 21:45:10.517633+00:00',
       },
       {
@@ -140,6 +141,7 @@ storiesOf('Calendar/OfferCard', module)
         date: '2018-09-03T23:45:19.073230+02:00',
         source: 'WEB',
         status: null,
+        attendance: true,
         date_start: '2018-09-06 21:45:10.517633+00:00',
       },
     ];
@@ -155,6 +157,7 @@ storiesOf('Calendar/OfferCard', module)
         date: '2018-09-03T23:45:19.073230+02:00',
         source: 'MOB',
         status: true,
+        attendance: true,
         date_start: '2018-09-06 21:45:10.517633+00:00',
       },
       {
@@ -168,6 +171,7 @@ storiesOf('Calendar/OfferCard', module)
         date: '2018-09-03T23:45:19.073230+02:00',
         source: 'WEB',
         status: true,
+        attendance: false,
         date_start: '2018-09-06 21:45:10.517633+00:00',
       },
     ];
@@ -220,6 +224,7 @@ storiesOf('Calendar/OfferCard', module)
         pendingBookings={pendingBookings}
         validatedBookings={validatedBookings}
         bookingOptions={bookingOptions}
+        bookingUpdaters={{}}
       />
     );
   });

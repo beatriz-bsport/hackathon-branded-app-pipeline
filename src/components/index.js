@@ -1,7 +1,5 @@
 import NavBar from './navigation/NavBar.component';
 import LoginBase from './LoginBase.component';
-import Camembert from './Camembert.component';
-import Histogram from './Histogram.component';
 import LanguageButton from './button/LanguageButton.component';
 import OfferCard from './OfferCard.component';
 import Avatar from './Avatar.component';
@@ -19,7 +17,7 @@ import CoachCard from './CoachCard.component';
 import ActivityMinimalSummary from './activity/ActivityMinimalSummary.component';
 import PaymentTable from './PaymentTable.component';
 import FeatureTable from './FeatureTable';
-import MemberBookingGraph from './MemberBookingGraph.component';
+import MemberBookingGraph from './member/MemberBookingGraph.component';
 import PaymentPack from './payment-pack/PaymentPack.component';
 import ConsumerRowSummary from './consumer/ConsumerRowSummary.component';
 import ConsumerListItem from './consumer/ConsumerListItem.component';
@@ -28,8 +26,8 @@ import Review from './Review.component';
 import ResponsiveDrawer from './navigation/ResponsiveDrawer.component';
 import Calendar from './Calendar.component';
 import TimeTable from './TimeTable.component';
-import Map from './Map.component';
-import EstablishmentCard from './EstablishmentCard.component';
+import Map from './establishment/Map.component';
+import EstablishmentCard from './establishment/EstablishmentCard.component';
 import FormField from './FormField.component';
 import AvatarUploader from './AvatarUploader.component';
 import OfferForm from './OfferForm.component';
@@ -79,8 +77,6 @@ export {
   Filter,
   NavBar,
   LoginBase,
-  Camembert,
-  Histogram,
   LanguageButton,
   OfferCard,
   Avatar,

@@ -212,6 +212,7 @@ export default {
       boughtConsumerPaymentPacks: 'Subscribers',
     },
     login: {
+      invalidPhone: 'Unknown phone number',
       choseYourUserspace: 'Who are you ?',
       loginAsPro: 'I am a club manager',
       loginAsConsumer: 'I am an athlete',

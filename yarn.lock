@@ -4491,6 +4491,10 @@ extsprintf@^1.2.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
 
+faker@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/faker/-/faker-4.1.0.tgz#1e45bbbecc6774b3c195fad2835109c6d748cc3f"
+
 fast-deep-equal@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-1.1.0.tgz#c053477817c86b51daa853c81e059b733d023614"
@@ -11278,6 +11282,10 @@ y18n@^3.2.1:
 y18n@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/y18n/-/y18n-4.0.0.tgz#95ef94f85ecc81d007c264e190a120f0a3c8566b"
+
+ya-factorybot@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/ya-factorybot/-/ya-factorybot-0.1.0.tgz#465b95d929aa75cf8ef8e2a82365daa6c367dd9d"
 
 yallist@^2.1.2:
   version "2.1.2"

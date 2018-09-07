@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { Button, Paper, Grid, Typography, withStyles } from '@material-ui/core';
 import { Info as InfoIcon, Today as CalendarIcon } from '@material-ui/icons';
 import { translate } from 'react-i18next';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { Moment } from '../i18n';
@@ -43,7 +42,10 @@ export class OfferForm extends Component<Props> {
 
   generateOffers = () => {
     const datesToGenerate = this.getDates();
-    // TODO FORM
+
+    console.log(this.state);
+
+    this.props.onSubmit(datesToGenerate);
   };
 
   getDates = () => {
@@ -326,11 +328,8 @@ export class OfferForm extends Component<Props> {
       <Paper className={classes.paperContainer}>
         <Grid container direction="column" spacing={40}>
           <Grid item>{this.renderTitle()}</Grid>
-          <Grid item />
           <Grid item>{this.renderTimeSettings()}</Grid>
-          <Grid item />
           <Grid item>{this.renderBilling()}</Grid>
-          <Grid item />
           <Grid item>{this.renderSpecificities()}</Grid>
           <Grid item>{this.renderFooter()}</Grid>
         </Grid>
@@ -339,13 +338,4 @@ export class OfferForm extends Component<Props> {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    coaches: state.coach.companyAssociated,
-    establishments: state.establishment.all,
-  };
-}
-
-export default withStyles(styles)(
-  translate()(connect(mapStateToProps)(OfferForm)),
-);
+export default withStyles(styles)(translate()(OfferForm));

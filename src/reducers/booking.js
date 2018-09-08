@@ -1,7 +1,9 @@
+// @flow
+
 import Immutable from 'seamless-immutable';
 
 import actionTypes from '../actions/booking.types';
-import { Booking, BookingOption } from '../api/types';
+import type { Booking, BookingOption } from '../api/types';
 
 function updateBookings(
   booking: Booking,

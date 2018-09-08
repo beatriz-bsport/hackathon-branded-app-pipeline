@@ -20,7 +20,7 @@ import { translate } from 'react-i18next';
 import ActivityMinimalSummary from '../activity/ActivityMinimalSummary.component';
 import Sport from '../Sport.component';
 import ConsumersPackSummaryTable from './ConsumersPackSummaryTable.component';
-import { PaymentPackManagerView } from '../../api/types';
+import type { PaymentPackManagerView } from '../../api/types';
 
 type Props = {
   incrementCredit: (id: number) => void,

@@ -8,12 +8,12 @@ import { Redirect } from 'react-router-dom';
 
 import { payment as paymentActions } from '../../../actions';
 import { ConsumerModalContainer, OfferPayment } from '../../../components';
-import { ConsumerPaymentPackManagerView } from '../../../api/types';
+import type { Offer, ConsumerPaymentPackManagerView } from '../../../api/types';
 
 type Props = {
   loading: boolean,
   match: Object,
-  offer: ?Object,
+  offer: ?Offer,
   compatibleConsumerPacks: Array<ConsumerPaymentPackManagerView>,
   compatibleConsumerPacksLoading: boolean,
   fetchOffer: (number) => void,

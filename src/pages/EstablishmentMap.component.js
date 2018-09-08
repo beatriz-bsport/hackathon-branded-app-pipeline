@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -11,39 +13,34 @@ import {
 import { translate } from 'react-i18next';
 import { EstablishmentCard, TimeTable, Calendar, Map } from '../components';
 import { Moment } from '../i18n';
-import { Establishment, Activity } from '../api/types';
+import type { Establishment, Activity, Offer } from '../api/types';
 
 type Props = {
+  timetableLoading: boolean,
+  establishmentsLoading: boolean,
   establishments: Array<Establishment>,
   activities: Array<Activity>,
+  offers: Array<Offer>,
+  classes: Object,
+  t: (x: string) => string,
 };
 
-export class EstablishmentList extends Component<Props> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedEstablishment: null,
-      selectedDay: Moment().startOf('day'),
-    };
-  }
+type State = {
+  selectedDay: Object,
+};
 
-  onDateClick = (establishmentId) => (date) => {
+export class EstablishmentList extends Component<Props, State> {
+  state = {
+    selectedDay: Moment().startOf('day'),
+  };
+
+  onDateClick = (establishmentId: number) => (date: Object) => {
     const { selectedDay } = this.state;
     selectedDay[establishmentId] = date.startOf('day');
     this.setState({ selectedDay });
   };
 
-  establishmentSelected = (establishmentId) => {
-    const { establishments } = this.props;
-
-    const selectedEstablishment =
-      establishments.filter((e) => e.id === establishmentId)[0] || null;
-    this.setState({
-      selectedEstablishment,
-    });
-  };
-
-  renderEstablishment = (establishment) => (
+  renderEstablishment = (establishment: Establishment) => (
     <Grid container direction="row" spacing={16}>
       <Grid item xs={12} md={6}>
         <EstablishmentCard
@@ -68,7 +65,7 @@ export class EstablishmentList extends Component<Props> {
     );
   };
 
-  renderCalendar = (establishment) => {
+  renderCalendar = (establishment: Establishment) => {
     const { offers, activities, timetableLoading, classes } = this.props;
     const { selectedDay } = this.state;
     const offersInEstablishment = offers.filter(
@@ -112,18 +109,15 @@ export class EstablishmentList extends Component<Props> {
   };
 
   render() {
-    const { classes, t, loading, establishments } = this.props;
-    if (loading) {
+    const { establishmentsLoading, establishments } = this.props;
+    if (establishmentsLoading) {
       return <CircularProgress />;
     }
     return (
       <Grid container spacing={16}>
         <Grid item xs={12}>
           <Paper>
-            <Map
-              markers={establishments}
-              markerClicked={this.establishmentSelected}
-            />
+            <Map markers={establishments} markerClicked={() => {}} />
           </Paper>
         </Grid>
         <Grid item xs={12}>
@@ -140,7 +134,7 @@ export class EstablishmentList extends Component<Props> {
 
 function mapStateToProps(state) {
   return {
-    loading: state.establishment.loading,
+    establishentsLoading: state.establishment.loading,
     establishments: state.establishment.all,
     offers: state.offer.calendar,
     timetableLoading: state.activity.loading,

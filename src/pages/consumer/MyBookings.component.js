@@ -19,7 +19,7 @@ import { Redirect } from 'react-router-dom';
 
 import { BookingListItem, BookingOptionListItem } from '../../components';
 import { consumer as consumerActions } from '../../actions';
-import { Booking, BookingOption } from '../../api/types';
+import type { Booking, BookingOption } from '../../api/types';
 
 type Props = {
   classes: Object,

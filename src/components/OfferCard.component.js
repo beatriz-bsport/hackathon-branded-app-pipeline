@@ -20,7 +20,7 @@ import Avatar from './Avatar.component';
 import BookingTable from './booking/BookingTable.component';
 
 import { formatAsTime } from '../datetime';
-import { Offer } from '../api/types';
+import type { Offer } from '../api/types';
 
 type Props = {
   t: (x: string) => string,

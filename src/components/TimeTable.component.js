@@ -13,7 +13,7 @@ import {
 import { translate } from 'react-i18next';
 import { Moment } from '../i18n';
 import { formatAsTime } from '../datetime';
-import { Offer } from '../api/types';
+import type { Offer } from '../api/types';
 
 import ActivityMinimalSummary from './activity/ActivityMinimalSummary.component';
 
@@ -110,7 +110,7 @@ export class TimeTable extends Component<Props, State> {
         <ActivityMinimalSummary
           showCoach
           date={formatAsTime(offer.date_start)}
-          key={activity.id}
+          key={offer.id}
           overrideClickAction={() => {
             this.props.onOfferSelected(offer);
           }}

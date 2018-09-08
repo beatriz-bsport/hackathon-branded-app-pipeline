@@ -11,7 +11,7 @@ import { translate } from 'react-i18next';
 import { OfferCard, TimeTable, Calendar } from '../components';
 import { booking as bookingActions } from '../actions';
 import { Moment } from '../i18n';
-import { Offer } from '../api/types';
+import type { Offer, Booking, BookingOption } from '../api/types';
 
 const styles = (theme) => ({
   calendarContainer: {
@@ -33,15 +33,15 @@ type Props = {
   fetchBookings: (id: number) => void,
   offers: Array<Offer>,
   bookingLoading: boolean,
-  validatedBookings: Array<Object>,
-  pendingBookings: Array<Object>,
-  bookingOptions: Array<Object>,
+  validatedBookings: Array<Booking>,
+  pendingBookings: Array<Booking>,
+  bookingOptions: Array<BookingOption>,
   timetableLoading: boolean,
   activities: Array<Object>,
 };
 
 type State = {
-  selectedOffer: ?number,
+  selectedOffer: ?Offer,
   date: Object,
 };
 

@@ -11,7 +11,7 @@ import { withRouter } from 'react-router-dom';
 import StripeCheckout from './StripeCheckout.component';
 import OfferSummary from './OfferSummary.component';
 import ConsumerPackCheckout from './ConsumerPackCheckout.component';
-import { ConsumerPaymentPackConsumerView, Offer } from '../../api/types';
+import type { ConsumerPaymentPackConsumerView, Offer } from '../../api/types';
 
 const STRIPE_KEY = process.env.REACT_APP_STRIPE_PK_KEY;
 

@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 
 import {
@@ -9,13 +11,14 @@ import {
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import api from '../../api';
-import { ConsumerPaymentPackConsumerView } from '../../api/types';
+import type { ConsumerPaymentPackConsumerView } from '../../api/types';
 
 type Props = {
   onCompletePurchase: () => void,
   offerId: number,
   consumerPack: ConsumerPaymentPackConsumerView,
   creditPrice: number,
+  urlParams: ?string,
   t: (x: string) => string,
 };
 

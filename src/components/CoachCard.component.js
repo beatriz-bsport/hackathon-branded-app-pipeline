@@ -19,7 +19,7 @@ import EmailIcon from '@material-ui/icons/Email';
 import { Link } from 'react-router-dom';
 import { translate } from 'react-i18next';
 
-import { Avatar, ActivityMinimalSummary } from '../components';
+import { Avatar, ActivityMinimalSummary } from '.';
 
 const OVERFLOW = 100;
 
@@ -91,11 +91,6 @@ export class CoachCard extends Component {
               </Grid>
               <Grid item>{this.getActivityList()}</Grid>
             </Grid>
-          </Grid>
-          <Grid item>
-            <Button size="small" color="primary">
-              {t('common.showDetails')}
-            </Button>
           </Grid>
         </Grid>
       </Paper>

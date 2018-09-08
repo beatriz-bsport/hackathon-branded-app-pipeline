@@ -21,8 +21,8 @@ import DatePicker from 'material-ui-pickers/DatePicker';
 import TimePicker from 'material-ui-pickers/TimePicker';
 
 import LEVELS from 'bsport-commons/lib/master-data/levels';
-import Sport from './Sport.component';
-import Level from './Level.component';
+import Sport from '../Sport.component';
+import Level from '../Level.component';
 
 export const NOT_RECURRENT = '0';
 export const WEEKLY = '1';
@@ -267,7 +267,7 @@ export class FormField extends Component<Props> {
             className={classes.formControl}
             required={required}
             margin="normal"
-            fullWidth={true}
+            fullWidth
           >
             <InputLabel htmlFor="gender-helper">{t('form.gender')}</InputLabel>
             <Select value={value || 'M'} onChange={this.handleChange}>

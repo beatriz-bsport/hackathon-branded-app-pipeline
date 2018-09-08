@@ -4,7 +4,7 @@ import { Grid, Paper, Typography, Button, withStyles } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import { FormField } from '.';
+import { FormField } from '../input';
 
 const styles = (theme) => ({
   paperContainer: {

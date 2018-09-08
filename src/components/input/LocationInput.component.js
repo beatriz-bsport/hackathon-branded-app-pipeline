@@ -3,7 +3,7 @@
 import React from 'react';
 import { TextField } from '@material-ui/core';
 
-import Map from './Map.component';
+import Map from '../establishment/Map.component';
 
 type Props = {};
 type State = {};

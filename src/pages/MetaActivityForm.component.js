@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import MetaActivityForm from '../components/MetaActivityForm.component';
+import MetaActivityForm from '../components/form/MetaActivityForm.component';
 import api from '../api';
 
 type Props = {};

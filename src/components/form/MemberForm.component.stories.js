@@ -3,8 +3,8 @@ import React from 'react';
 import { action } from '@storybook/addon-actions';
 import { object } from '@storybook/addon-knobs';
 
-import FactoryBot from '../../factories';
-import { storiesOf } from '../stories';
+import FactoryBot from '../../../factories';
+import { storiesOf } from '../../stories';
 
 import MemberForm from './MemberForm.component';
 

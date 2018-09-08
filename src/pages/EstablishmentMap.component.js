@@ -113,7 +113,7 @@ export class EstablishmentList extends Component<Props, State> {
   };
 
   render() {
-    const { establishmentsLoading, establishments } = this.props;
+    const { classes, t, establishmentsLoading, establishments } = this.props;
     if (establishmentsLoading) {
       return <CircularProgress />;
     }

@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import { withRouter } from 'react-router';
 
-import EstablishmentForm from '../components/EstablishmentForm.component';
+import EstablishmentForm from '../components/form/EstablishmentForm.component';
 
 import api from '../api';
 

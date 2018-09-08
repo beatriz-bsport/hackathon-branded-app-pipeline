@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, Grid, Typography } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
-import FormField from '../FormField.component';
+import { FormField } from '../input';
 
 type Props = {
   onComplete: (code: String) => void,

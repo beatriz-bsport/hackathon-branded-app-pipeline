@@ -5,12 +5,12 @@ import { Info as InfoIcon, Today as CalendarIcon } from '@material-ui/icons';
 import { translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import { Moment } from '../i18n';
+import { Moment } from '../../i18n';
 import FormField, {
   NOT_RECURRENT,
   WEEKLY,
   MONTHLY,
-} from './FormField.component';
+} from '../input/FormField.component';
 
 const styles = (theme) => ({
   paperContainer: {
@@ -34,6 +34,7 @@ export class OfferForm extends Component<Props> {
     date_interval_start: Moment(),
     date_interval_end: Moment(),
     hour: Moment(),
+    effectif: '0',
   };
 
   onFormFieldChange = (id) => (value, error) => {
@@ -162,7 +163,12 @@ export class OfferForm extends Component<Props> {
           <Typography variant="title">{t('form.caracteristics')}</Typography>
         </Grid>
         <Grid item>
-          <FormField id="effectif" required onChange={this.onFormFieldChange} />
+          <FormField
+            id="effectif"
+            required
+            onChange={this.onFormFieldChange}
+            value={this.state.effectif}
+          />
           <FormField id="level" required onChange={this.onFormFieldChange} />
         </Grid>
         <Grid item>

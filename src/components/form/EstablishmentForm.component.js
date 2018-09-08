@@ -5,8 +5,7 @@ import React, { Component } from 'react';
 import { translate } from 'react-i18next';
 import { Paper, Grid, withStyles, Typography, Button } from '@material-ui/core';
 
-import FormField from './FormField.component';
-import LocationInput from './LocationInput.component';
+import { FormField, LocationInput } from '../input';
 
 type Props = {};
 type State = {};

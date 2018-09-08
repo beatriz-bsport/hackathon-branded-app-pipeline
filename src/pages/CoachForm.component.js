@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import { withRouter } from 'react-router';
 
-import CoachForm from '../components/CoachForm.component';
+import CoachForm from '../components/form/CoachForm.component';
 
 import api from '../api';
 

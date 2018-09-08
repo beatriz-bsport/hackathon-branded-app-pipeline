@@ -4,7 +4,8 @@ import React, { Component } from 'react';
 import { Grid, Button, Paper, withStyles, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { translate } from 'react-i18next';
-import { AvatarUploader, FormField } from '../components';
+import { AvatarUploader } from '..';
+import FormField from '../input/FormField.component';
 
 const styles = (theme) => ({
   paperContainer: {

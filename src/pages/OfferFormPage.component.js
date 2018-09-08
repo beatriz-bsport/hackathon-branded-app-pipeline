@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
 
-import { Grid, CircularProgress, withStyles } from '@material-ui/core';
+import { Grid, CircularProgress } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 
 import { OfferForm } from '../components';
-
-const styles = (theme) => ({
-  container: {},
-});
 
 type Props = {};
 
@@ -49,6 +45,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default withStyles(styles)(
-  translate()(connect(mapStateToProps)(OfferFormPage)),
-);
+export default translate()(connect(mapStateToProps)(OfferFormPage));

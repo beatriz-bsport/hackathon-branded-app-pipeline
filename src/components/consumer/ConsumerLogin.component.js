@@ -5,16 +5,14 @@ import {
   Typography,
   Grid,
   Button,
-  Paper,
   withStyles,
 } from '@material-ui/core';
 import CallIcon from '@material-ui/icons/Call';
 import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 
 import FacebookLoginButton from '../button/FacebookLoginButton.component';
-import FormField from '../FormField.component';
+import { FormField } from '../input';
 import { auth as authActions } from '../../actions';
 
 import ConsumerSMSLoginForm from '../form/ConsumerSMSLoginForm.component';

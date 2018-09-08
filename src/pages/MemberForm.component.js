@@ -6,7 +6,7 @@ import { withRouter } from 'react-router';
 
 import api from '../api';
 
-import MemberForm from '../components/MemberForm.component';
+import MemberForm from '../components/form/MemberForm.component';
 
 type Props = {};
 type State = {

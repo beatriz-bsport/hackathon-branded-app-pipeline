@@ -4,7 +4,7 @@ import { Grid, Button } from '@material-ui/core';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 
-import FormField from '../FormField.component';
+import { FormField } from '../input';
 
 type Props = {
   onComplete: (Object) => void,

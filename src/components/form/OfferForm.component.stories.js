@@ -4,7 +4,7 @@ import moment from 'moment';
 import { action } from '@storybook/addon-actions';
 import { object } from '@storybook/addon-knobs';
 
-import { storiesOf } from '../stories';
+import { storiesOf } from '../../stories';
 
 import OfferForm from './OfferForm.component';
 

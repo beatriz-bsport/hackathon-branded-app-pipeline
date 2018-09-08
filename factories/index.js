@@ -7,5 +7,7 @@ import './Establishment.factory';
 import './MetaActivity.factory';
 import './SCT.factory';
 import './SCS.factory';
+import './Location.factory';
+import './EasyAccess.factory';
 
 export default FactoryBot;

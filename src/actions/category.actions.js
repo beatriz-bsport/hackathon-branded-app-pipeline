@@ -4,13 +4,19 @@ import types from './category.types';
 export function fetchSCT() {
   return async (dispatch, getState) => {
     try {
-      const response = await api.category.fetchSCT();
-      const SCTs = response.data;
-      dispatch(fetchedSCTs(SCTs));
+      console.log('caca');
+      const [categories, easyAccessesResponse] = await Promise.all([
+        api.category.fetchSCT(),
+        api.category.fetchEasyAccesses(),
+      ]);
+      const SCTs = categories.data;
+      const easyAccesses = easyAccessesResponse.data;
+      console.log('hello');
+      dispatch(fetchedCategories(SCTs, easyAccesses));
     } catch (err) {}
   };
 }
 
-export function fetchedSCTs(SCTs) {
-  return { SCTs, type: types.HAS_FETCHED_SCTS };
+export function fetchedCategories(SCTs, easyAccesses) {
+  return { SCTs, easyAccesses, type: types.HAS_FETCHED_SCTS };
 }

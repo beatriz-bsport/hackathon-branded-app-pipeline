@@ -3,9 +3,10 @@
 import React, { Component } from 'react';
 
 import { translate } from 'react-i18next';
-import { Paper, Grid, withStyles, Typography } from '@material-ui/core';
+import { Paper, Grid, withStyles, Typography, Button } from '@material-ui/core';
 
 import FormField from './FormField.component';
+import LocationInput from './LocationInput.component';
 
 type Props = {};
 type State = {};
@@ -24,9 +25,9 @@ export class EstablishmentForm extends Component<Props, State> {
   onSubmit = (e) => {
     e.preventDefault();
 
-    const { title } = this.state;
+    const { title, specific_info, location } = this.state;
 
-    this.props.onSubmit({ title });
+    this.props.onSubmit({ title, specific_info, location });
   };
 
   onFormFieldChange = (id) => (value, error) => {
@@ -34,16 +35,16 @@ export class EstablishmentForm extends Component<Props, State> {
   };
 
   render() {
-    const { t } = this.props;
+    const { t, classes } = this.props;
     return (
-      <Grid container direction="row" spacing={16}>
+      <Grid container>
         <Grid item xs={12} lg={6}>
-          <Paper>
+          <Paper className={classes.paperContainer}>
             <form onSubmit={this.onSubmit}>
               <Typography variant="title">
                 {t('establishment.form.new.title')}
               </Typography>
-              <Grid container spacing={8}>
+              <Grid container spacing={16}>
                 <Grid item xs={12}>
                   <FormField
                     id="title"
@@ -51,6 +52,35 @@ export class EstablishmentForm extends Component<Props, State> {
                     value={this.state.title}
                     onChange={this.onFormFieldChange}
                   />
+                </Grid>
+                <Grid item xs={12}>
+                  <FormField
+                    id="specific_info"
+                    required
+                    value={this.state.specific_info}
+                    onChange={this.onFormFieldChange}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <LocationInput
+                    id="location"
+                    value={this.state.location}
+                    onChange={this.onFormFieldChange('location')}
+                  />
+                </Grid>
+                <Grid item>
+                  <Grid
+                    container
+                    direction="row"
+                    justify="flex-end"
+                    spacing={16}
+                  >
+                    <Grid item>
+                      <Button variant="raised" color="primary" type="submit">
+                        {t('form.send')}
+                      </Button>
+                    </Grid>
+                  </Grid>
                 </Grid>
               </Grid>
             </form>

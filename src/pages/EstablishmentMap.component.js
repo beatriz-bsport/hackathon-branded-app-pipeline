@@ -1,5 +1,9 @@
+// @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import AddIcon from '@material-ui/icons/Add';
+
+import { Link } from 'react-router-dom';
 
 import {
   Typography,
@@ -7,6 +11,7 @@ import {
   Paper,
   CircularProgress,
   withStyles,
+  Button,
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { EstablishmentCard, TimeTable, Calendar, Map } from '../components';
@@ -118,6 +123,19 @@ export class EstablishmentList extends Component<Props> {
     }
     return (
       <Grid container spacing={16}>
+        <Grid item xs={12}>
+          <Link to="/establishments/add" style={{ textDecoration: 'none' }}>
+            <Button
+              variant="extendedFab"
+              aria-label="Add"
+              className={classes.button}
+              color="primary"
+            >
+              <AddIcon className={classes.extendedIcon} />
+              {t('establishment.add.button')}
+            </Button>
+          </Link>
+        </Grid>
         <Grid item xs={12}>
           <Paper>
             <Map

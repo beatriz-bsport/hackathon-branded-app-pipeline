@@ -107,12 +107,16 @@ export async function fetchBookingOptionsByOffer(offerId) {
   return getAuth(`${API_URI}/as_coach/offer/${offerId}/options`);
 }
 
+export async function fetchEasyAccesses() {
+  return getAuth(`${API_URI}/category/easy-accesses`);
+}
+
 export async function fetchSCT() {
   return getAuth(`${API_URI}/category/SCT`);
 }
 
 export async function accessLevel(token) {
-  return getAuth(`${API_URI}/saas/access_level`, (token = token));
+  return getAuth(`${API_URI}/saas/access_level`, token);
 }
 
 export async function fetchAssociatedCoaches() {
@@ -129,6 +133,10 @@ export async function fetchMemberBookings(memberId) {
 
 export async function fetchMember(memberId) {
   return getAuth(`${API_URI}/saas/members/${memberId}`);
+}
+
+export async function addEstablishment(data) {
+  return postAuth(`${API_URI}/saas/establishments/add`, data);
 }
 
 export async function addMember(data) {
@@ -235,6 +243,7 @@ export async function consumerPayWithConsumerPaymentPack(
 export default {
   category: {
     fetchSCT,
+    fetchEasyAccesses,
   },
   transaction: {
     fetchAll: fetchTransactions,
@@ -260,6 +269,7 @@ export default {
     validatePhone,
   },
   establishment: {
+    addEstablishment: addEstablishment,
     fetchAll: fetchAllEstablishments,
   },
   stats: {

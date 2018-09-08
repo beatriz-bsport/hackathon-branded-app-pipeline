@@ -27,19 +27,6 @@ export function errorFetchingMembers() {
   return { type: types.ERROR_FETCHING_MEMBERS };
 }
 
-export function fetchBookings(memberId) {
-  return async (dispatch) => {
-    const response = await api.member.fetchBookings(memberId);
-    const bookings = response.data;
-
-    dispatch(hasFetchedMemberBookings(bookings));
-  };
-}
-
-export function hasFetchedMemberBookings(bookings) {
-  return { type: types.HAS_FETCHED_MEMBER_BOOKINGS, bookings };
-}
-
 export function fetchMember(id) {
   return async (dispatch) => {
     dispatch(startFetchMember());

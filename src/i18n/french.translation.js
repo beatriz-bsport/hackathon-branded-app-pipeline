@@ -128,7 +128,7 @@ export default {
       nbOffers: 'Séances',
       // eslint-disable-next-line
       turnover: "Chiffre d'affaire (€)",
-      nbBookings: 'Inscrits',
+      nbBookings: 'Réservations',
     },
     marketing: {
       dashboard: 'Tableau de bord',
@@ -282,7 +282,7 @@ export default {
       waitingUserConfirmation: 'En attente de confirmation client',
       confirm: 'Encaisser',
       validated: 'Payé',
-      pending: 'En attente de validation',
+      pending: 'Paiement autorisé',
       cancelled: 'Annulé',
       cancelBooking: 'Annuler',
       noBookingOnThisOffer:

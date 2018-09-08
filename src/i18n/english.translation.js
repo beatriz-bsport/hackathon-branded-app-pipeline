@@ -69,7 +69,7 @@ export default {
       newMembers: 'New members',
       nbOffers: 'Sessions',
       turnover: 'Turnover (€)',
-      nbBookings: 'Sessions booked',
+      nbBookings: 'Bookings',
     },
     form: {
       pleaseEnterYourSMSCode: 'Please enter the code sent by SMS',
@@ -251,7 +251,7 @@ export default {
       waitingUserConfirmation: 'Waiting user confirmation',
       confirm: 'Checkout payment',
       validated: 'Payment confirmed',
-      pending: 'Waiting approval',
+      pending: 'Payment authorized',
       cancelled: 'Cancelled',
       cancelBooking: 'Cancel',
       noBookingOnThisOffer: 'There is no booking on this session yet',

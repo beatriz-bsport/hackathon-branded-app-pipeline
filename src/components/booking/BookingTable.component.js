@@ -10,10 +10,11 @@ import BookingOptionForManager from './BookingOptionForManager.component';
 
 type Props = {
   t: (x: string) => string,
+  loading: boolean,
+  heading: ?string,
   validatedBookings: Array<Object>,
   pendingBookings: Array<Object>,
   bookingOptions: Array<Object>,
-  loading: boolean,
   discardOption: (id: number) => void,
   bookingUpdaters: {
     discardBooking: (id: number) => void,
@@ -28,6 +29,7 @@ export class BookingTable extends Component<Props> {
     const {
       t,
       loading,
+      heading,
       bookingOptions,
       validatedBookings,
       pendingBookings,
@@ -65,6 +67,7 @@ export class BookingTable extends Component<Props> {
             <BookingItemForManager
               booking={b}
               key={b.id}
+              heading={heading}
               bookingUpdaters={{
                 confirmBooking: () => confirmBooking(b.id),
                 discardBooking: () => discardBooking(b.id),
@@ -77,6 +80,7 @@ export class BookingTable extends Component<Props> {
         {validatedBookings.map((b) => (
           <Grid item key={b.id}>
             <BookingItemForManager
+              heading={heading}
               booking={b}
               bookingUpdaters={{
                 confirmBooking: () => confirmBooking(b.id),

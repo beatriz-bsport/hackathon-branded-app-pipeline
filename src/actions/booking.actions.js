@@ -68,11 +68,19 @@ export function discardBooking(bookingId: number) {
 }
 
 export function fetchBookingsByOffer(offerId) {
+  return fetchBookingsWrapper(offerId, api.booking.fetchBookingsByOffer);
+}
+
+export function fetchBookingsByMember(memberId) {
+  return fetchBookingsWrapper(memberId, api.booking.fetchMemberBookings);
+}
+
+export function fetchBookingsWrapper(id, apiCall) {
   return async (dispatch) => {
     dispatch(startFetchBookings());
 
     try {
-      const response = await api.booking.fetchBookingsByOffer(offerId);
+      const response = await apiCall(id);
       const bookings = response.data;
 
       dispatch(fetchedBookings(bookings));

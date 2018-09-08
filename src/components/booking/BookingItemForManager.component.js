@@ -13,9 +13,11 @@ import { translate } from 'react-i18next';
 import { colors } from 'bsport-commons/lib/colors';
 
 import RedButton from '../button/RedButton.component';
+import { formatAsDatetime } from '../../datetime';
 
 type Props = {
   t: (x: string) => string,
+  heading: ?string,
   booking: Object,
   bookingUpdaters: {
     confirmBooking: () => void,
@@ -127,6 +129,16 @@ export class BookingItemForManager extends Component<Props> {
     );
   };
 
+  getHeading = () => {
+    const { heading, booking } = this.props;
+    switch (heading) {
+      case 'date_start':
+        return formatAsDatetime(booking.date_start);
+      default:
+        return booking.user.name;
+    }
+  };
+
   render() {
     const { booking } = this.props;
     // <TableCell>{t(`booking.sources.${b.source}`)}</TableCell>
@@ -151,7 +163,7 @@ export class BookingItemForManager extends Component<Props> {
             </Grid>
             <Grid item>
               <ListItemText
-                primary={booking.user.name}
+                primary={this.getHeading()}
                 secondary={statusText}
                 secondaryTypographyProps={this.getStatusStyleProps(
                   booking.status,

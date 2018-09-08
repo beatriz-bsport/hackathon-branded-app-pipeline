@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 
 import {
@@ -21,36 +23,31 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { member as memberActions } from '../actions';
 
+import { booking as bookingActions, member as memberActions } from '../actions';
 import { MemberBookingGraph, Avatar, BookingTable } from '../components';
 import { formatAsDatetime } from '../datetime';
+import type { MemberDetailed, Booking, BookingOption } from '../api/types';
+import { Moment } from '../i18n';
 
-const styles = (theme) => ({
-  backButton: {
-    marginBottom: theme.spacing.unit,
-  },
-  paperContainer: {
-    padding: theme.spacing.unit * 2,
-  },
-  root: {},
-  firstRow: {
-    padding: theme.spacing.unit * 2,
-  },
-  headingExpansionPanel: {
-    fontSize: theme.typography.pxToRem(15),
-    flexBasis: '33.33%',
-    flexShrink: 0,
-  },
-  secondaryHeadingExpansionPanel: {
-    fontSize: theme.typography.pxToRem(15),
-    color: theme.palette.text.secondary,
-  },
-});
-
-export class Member extends Component<{}> {
+type Props = {
+  loading: boolean,
+  bookingLoading: boolean,
+  member: MemberDetailed,
+  pendingBookings: Array<Booking>,
+  validatedBookings: Array<Booking>,
+  bookingOptions: Array<BookingOption>,
+  fetchMember: (id: number) => void,
+  fetchMemberBookings: (id: number) => void,
+  classes: Object,
+  match: Object,
+  t: (x: string) => string,
+};
+export class Member extends Component<Props> {
   componentWillMount() {
-    this.props.fetchMember(this.props.match.params.id);
+    this.memberId = parseInt(this.props.match.params.id, 10);
+    this.props.fetchMember(this.memberId);
+    this.props.fetchMemberBookings(this.memberId);
   }
 
   getFirstRow = () => {
@@ -120,103 +117,118 @@ export class Member extends Component<{}> {
   };
 
   getFutureBookings = () => {
-    const { t, member, classes } = this.props;
-    const { next_bookings } = member;
-    if (next_bookings) {
-      const validatedBookings = next_bookings.filter((b) => b.status === true);
-      const pendingBookings = next_bookings.filter((b) => b.status !== true);
-      const nextBookingDate = next_bookings.length
-        ? `${formatAsDatetime(next_bookings[0].date_start)}`
-        : t('common.nothing');
-      // FIXME get this from state.booking and filter member id + add options
-      // format to add date instead of member name
-      return (
-        <ExpansionPanel>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Grid container direction="row" justify="space-between">
-              <Grid item>
-                <Typography className={classes.headingExpansionPanel}>
-                  {t('member.showNextBooking')}
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography className={classes.secondaryHeadingExpansionPanel}>
-                  {`${t('booking.next')} ${nextBookingDate}`}
-                </Typography>
-              </Grid>
+    const {
+      t,
+      classes,
+      allMembers,
+      validatedBookings,
+      pendingBookings,
+      bookingOptions,
+    } = this.props;
+    const validatedBookingsFuture = validatedBookings.filter((b) =>
+      Moment(b.date_start).isAfter(Moment()),
+    );
+    const pendingBookingsFuture = pendingBookings.filter((b) =>
+      Moment(b.date_start).isAfter(Moment()),
+    );
+    const bookingOptionsFuture = bookingOptions.filter((b) =>
+      Moment(b.date_start).isAfter(Moment()),
+    );
+    const nextBookingDate = (
+      allMembers.filter((m) => m.id === this.memberId)[0] || {}
+    ).next_booking;
+    return (
+      <ExpansionPanel>
+        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+          <Grid container direction="row" justify="space-between">
+            <Grid item>
+              <Typography className={classes.headingExpansionPanel}>
+                {t('member.showNextBooking')}
+              </Typography>
             </Grid>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <BookingTable
-              heading="date_start"
-              validatedBookings={validatedBookings}
-              pendingBookings={pendingBookings}
-              bookingOptions={[]}
-              bookingUpdaters={{}}
-            />
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-      );
-    }
-    return null;
+            <Grid item>
+              <Typography className={classes.secondaryHeadingExpansionPanel}>
+                {`${t('booking.next')} ${formatAsDatetime(nextBookingDate)}`}
+              </Typography>
+            </Grid>
+          </Grid>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails>
+          <BookingTable
+            heading="date_start"
+            validatedBookings={validatedBookingsFuture}
+            pendingBookings={pendingBookingsFuture}
+            bookingOptions={bookingOptionsFuture}
+            bookingUpdaters={{}}
+          />
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+    );
   };
 
   getPastBookings = () => {
-    const { t, member, classes } = this.props;
-    const { previous_bookings } = member;
-    if (previous_bookings) {
-      // FIXME get this from state.booking and filter member id + add options
-      // format to add date instead of member name
-      const validatedBookings = previous_bookings.filter(
-        (b) => b.status === true,
-      );
-      const pendingBookings = previous_bookings.filter(
-        (b) => b.status !== true,
-      );
-      const previousBookingDate = previous_bookings.length
-        ? `${formatAsDatetime(previous_bookings[0].date_start)}`
-        : t('common.nothing');
-
-      return (
-        <ExpansionPanel>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Grid container direction="row" justify="space-between">
-              <Grid item>
-                <Typography className={classes.headingExpansionPanel}>
-                  {t('member.showPreviousBooking')}
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography className={classes.secondaryHeadingExpansionPanel}>
-                  {`${t('booking.last')} ${previousBookingDate}`}
-                </Typography>
-              </Grid>
+    const {
+      t,
+      classes,
+      allMembers,
+      validatedBookings,
+      pendingBookings,
+      bookingOptions,
+    } = this.props;
+    const validatedBookingsPast = validatedBookings.filter((b) =>
+      Moment(b.date_start).isBefore(Moment()),
+    );
+    const pendingBookingsPast = pendingBookings.filter((b) =>
+      Moment(b.date_start).isBefore(Moment()),
+    );
+    const bookingOptionsPast = bookingOptions.filter((b) =>
+      Moment(b.date_start).isBefore(Moment()),
+    );
+    const previousBookingDate = (
+      allMembers.filter((m) => m.id === this.memberId)[0] || {}
+    ).previous_booking;
+    return (
+      <ExpansionPanel>
+        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+          <Grid container direction="row" justify="space-between">
+            <Grid item>
+              <Typography className={classes.headingExpansionPanel}>
+                {t('member.showPreviousBooking')}
+              </Typography>
             </Grid>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <BookingTable
-              heading="date_start"
-              validatedBookings={validatedBookings}
-              pendingBookings={pendingBookings}
-              bookingOptions={[]}
-              bookingUpdaters={{}}
-            />
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-      );
-    }
-    return null;
+            <Grid item>
+              <Typography className={classes.secondaryHeadingExpansionPanel}>
+                {`${t('booking.last')} ${formatAsDatetime(
+                  previousBookingDate,
+                )}`}
+              </Typography>
+            </Grid>
+          </Grid>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails>
+          <BookingTable
+            heading="date_start"
+            validatedBookings={validatedBookingsPast}
+            pendingBookings={pendingBookingsPast}
+            bookingOptions={bookingOptionsPast}
+            bookingUpdaters={{}}
+          />
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+    );
   };
 
+  /*
   getBookingsGraph = () => (
     <MemberBookingGraph
       bookings={this.props.member.previous_bookings}
       graphId="memberBookingsGraph"
     />
   );
+  */
 
   render() {
-    const { loading, t, classes } = this.props;
+    const { loading, bookingLoading, t, classes } = this.props;
     return (
       <div>
         <div>
@@ -227,7 +239,7 @@ export class Member extends Component<{}> {
           </Link>
         </div>
         <div>
-          {loading ? (
+          {loading && bookingLoading ? (
             <CircularProgress />
           ) : this.props.member.consumer ? (
             <Grid container direction="row" spacing={16}>
@@ -256,6 +268,11 @@ function mapStateToProps(state) {
   return {
     loading: state.member.loading,
     member: state.member.member,
+    allMembers: state.member.all,
+    bookingLoading: state.booking.loading,
+    validatedBookings: state.booking.validated,
+    pendingBookings: state.booking.pending,
+    bookingOptions: state.booking.options,
   };
 }
 function mapDispatchToProps(dispatch) {
@@ -263,8 +280,33 @@ function mapDispatchToProps(dispatch) {
     fetchMember(memberId) {
       dispatch(memberActions.fetchMember(memberId));
     },
+    fetchMemberBookings(memberId) {
+      dispatch(bookingActions.fetchBookingsByMember(memberId));
+    },
   };
 }
+
+const styles = (theme) => ({
+  backButton: {
+    marginBottom: theme.spacing.unit,
+  },
+  paperContainer: {
+    padding: theme.spacing.unit * 2,
+  },
+  root: {},
+  firstRow: {
+    padding: theme.spacing.unit * 2,
+  },
+  headingExpansionPanel: {
+    fontSize: theme.typography.pxToRem(15),
+    flexBasis: '33.33%',
+    flexShrink: 0,
+  },
+  secondaryHeadingExpansionPanel: {
+    fontSize: theme.typography.pxToRem(15),
+    color: theme.palette.text.secondary,
+  },
+});
 
 export default withStyles(styles)(
   translate()(

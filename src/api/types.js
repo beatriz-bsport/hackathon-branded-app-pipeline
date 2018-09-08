@@ -1,6 +1,8 @@
+// @flow
+
 export type ActivitySimplified = {
-id: number,
-}
+  id: number,
+};
 
 export type Activity = {
   id: number,
@@ -47,14 +49,63 @@ export type Offer = {
   price_coach: number,
 };
 
+export type User = {
+  id: number,
+  name: string,
+  photo: string,
+};
 export type Booking = {
+  user: User,
   id: number,
   status: ?boolean,
+  date: string,
+  date_start: string,
+  attendance: boolean,
+  nb_booking: number,
+  source: string,
 };
 
 export type BookingOption = {
   id: number,
   cancelled: boolean,
+};
+
+export type Consumer = {
+  id: number,
+  last_name: string,
+  first_name: string,
+  email: string,
+  phonenumber: { phone_number: string },
+  birthday: string,
+  gender: string,
+  is_coach: boolean,
+  is_consumer: boolean,
+  photo: ?string,
+  is_complete: boolean,
+  sports: Array<Object>,
+  frequency: ?Object,
+  situation: ?Object,
+};
+
+export type Member = {
+  name: string,
+  phone_number: string,
+  email: string,
+  date_joined: string,
+  nb_bookings: number,
+  nb_pass_active: number,
+  next_booking: ?string,
+  previous_booking: ?string,
+  id: number,
+};
+
+export type MemberDetailed = {
+  consumer: Consumer,
+  next_bookings: Array<Booking>,
+  previous_bookings: Array<Booking>,
+  consumer_payment_packs: Array<ConsumerPaymentPackManagerView>,
+  date_joined: string,
+  id: number,
 };
 
 export type PaymentPack = {

@@ -112,7 +112,7 @@ export async function fetchSCT() {
 }
 
 export async function accessLevel(token) {
-  return getAuth(`${API_URI}/saas/access_level`, (token = token));
+  return getAuth(`${API_URI}/saas/access_level`, token);
 }
 
 export async function fetchAssociatedCoaches() {
@@ -241,6 +241,7 @@ export default {
   },
   booking: {
     fetchBookingsByOffer,
+    fetchMemberBookings,
     discard: discardBooking,
     validate: validateBooking,
     discardAttendance: discardAttendanceBooking,
@@ -279,7 +280,6 @@ export default {
   },
   member: {
     fetchAll: fetchAllMembers,
-    fetchBookings: fetchMemberBookings,
     fetchMember,
     addMember,
   },

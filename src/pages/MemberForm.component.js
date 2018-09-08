@@ -40,4 +40,4 @@ export class MemberFormPage extends Component<Props, State> {
   }
 }
 
-export default MemberFormPage;
+export default withRouter(MemberFormPage);

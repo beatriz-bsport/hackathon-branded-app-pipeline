@@ -1,11 +1,10 @@
 // @flow
 
-import _ from 'lodash';
 import React, { Component } from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import { withRouter } from 'react-router';
 
-import CoachForm from '../components/CoachForm.component';
+import EstablishmentForm from '../components/EstablishmentForm.component';
 
 import api from '../api';
 
@@ -17,9 +16,9 @@ type State = {
 export class CoachFormPage extends Component<Props, State> {
   state = { open: false };
 
-  createCoach = async (data) => {
+  createEstablishment = async (data) => {
     try {
-      await api.coach.addCoach(data);
+      await api.establishment.addEstablishment(data);
 
       this.setState({ open: true });
       this.props.history.goBack();
@@ -32,8 +31,8 @@ export class CoachFormPage extends Component<Props, State> {
   render() {
     return (
       <div>
-        <CoachForm onSubmit={this.createCoach} />;
-        <Snackbar open={this.state.open} message="Coach créé" />
+        <EstablishmentForm onSubmit={this.createEstablishment} />;
+        <Snackbar open={this.state.open} message="Etablissement créé" />
       </div>
     );
   }

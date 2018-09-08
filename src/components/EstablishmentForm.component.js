@@ -1,0 +1,99 @@
+// @flow
+
+import React, { Component } from 'react';
+
+import { translate } from 'react-i18next';
+import { Paper, Grid, withStyles, Typography, Button } from '@material-ui/core';
+
+import FormField from './FormField.component';
+import LocationInput from './LocationInput.component';
+
+type Props = {};
+type State = {};
+
+export class EstablishmentForm extends Component<Props, State> {
+  state = {};
+
+  constructor(props) {
+    super(props);
+
+    Object.keys(props.initial || {}).forEach((key) => {
+      this.state[key] = props.initial[key];
+    });
+  }
+
+  onSubmit = (e) => {
+    e.preventDefault();
+
+    const { title, specific_info, location } = this.state;
+
+    this.props.onSubmit({ title, specific_info, location });
+  };
+
+  onFormFieldChange = (id) => (value, error) => {
+    this.setState({ [id]: value });
+  };
+
+  render() {
+    const { t, classes } = this.props;
+    return (
+      <Grid container>
+        <Grid item xs={12} lg={6}>
+          <Paper className={classes.paperContainer}>
+            <form onSubmit={this.onSubmit}>
+              <Typography variant="title">
+                {t('establishment.form.new.title')}
+              </Typography>
+              <Grid container spacing={16}>
+                <Grid item xs={12}>
+                  <FormField
+                    id="title"
+                    required
+                    value={this.state.title}
+                    onChange={this.onFormFieldChange}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <FormField
+                    id="specific_info"
+                    required
+                    value={this.state.specific_info}
+                    onChange={this.onFormFieldChange}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <LocationInput
+                    id="location"
+                    value={this.state.location}
+                    onChange={this.onFormFieldChange('location')}
+                  />
+                </Grid>
+                <Grid item>
+                  <Grid
+                    container
+                    direction="row"
+                    justify="flex-end"
+                    spacing={16}
+                  >
+                    <Grid item>
+                      <Button variant="raised" color="primary" type="submit">
+                        {t('form.send')}
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </form>
+          </Paper>
+        </Grid>
+      </Grid>
+    );
+  }
+}
+
+const styles = (theme) => ({
+  paperContainer: {
+    padding: theme.spacing.unit * 3,
+  },
+});
+export default withStyles(styles)(translate()(EstablishmentForm));

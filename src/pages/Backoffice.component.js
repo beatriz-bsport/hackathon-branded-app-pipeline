@@ -36,6 +36,7 @@ import MarketingDashboard from './MarketingDashboard.component';
 import MarketingRule from './MarketingRule.component';
 import MemberForm from './MemberForm.component';
 import OfferFormPage from './OfferFormPage.component';
+import EstablishmentFormPage from './EstablishmentFormPage.component';
 
 const styles = (theme: Object) => ({
   content: {
@@ -116,6 +117,11 @@ export class Backoffice extends Component<Props> {
               <Route path="/member/add" component={MemberForm} />
               <Route path="/member/:id" component={Member} />
               <Route exact path="/map" component={EstablishmentMap} />
+              <Route
+                exact
+                path="/establishments/add"
+                component={EstablishmentFormPage}
+              />
               <Route path="/marketing/rule/:id" component={MarketingRule} />
               <Route path="/marketing" component={MarketingDashboard} />
               <Route exact path="/" component={Dashboard} />

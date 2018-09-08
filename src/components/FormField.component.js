@@ -188,6 +188,8 @@ export class FormField extends Component<Props> {
       case 'default_price':
       case 'default_credits':
       case 'price':
+      case 'specific_info':
+      case 'title':
       case 'credits':
       case 'effectif':
       case 'default_waiting_list_max_size':

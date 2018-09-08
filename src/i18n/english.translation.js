@@ -101,6 +101,8 @@ export default {
       addingSessionFor: 'Session form for: ',
       establishment: 'Establishment',
       coach: 'Coach',
+      title: 'Title',
+      specific_info: 'Information',
       newMember: 'New Member',
       newCoach: 'New Coach',
       firstname: 'Firstname',
@@ -225,6 +227,11 @@ export default {
       pleaseSelectOne: 'Please select a club in the map to show its details',
       offers: 'Sessions calendar:',
       noMoreOffers: 'No more sessions planned',
+      form: {
+        new: {
+          title: 'Title',
+        },
+      },
     },
     activity: {
       addActivity: 'Add an activity',

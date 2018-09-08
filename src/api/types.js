@@ -47,6 +47,7 @@ export type Offer = {
   parent_category: number,
   price: number,
   price_coach: number,
+  credit_price: number,
 };
 
 export type User = {
@@ -125,13 +126,17 @@ export type ConsumerPaymentPackManagerView = {
   id: number,
 };
 
+export type Category = {
+  id: number,
+};
+
 export type PaymentPackManagerView = {
   consumer_payment_packs: Array<ConsumerPaymentPackManagerView>,
   unlimited: boolean,
   base_price: number,
   name: string,
   credits: number,
-  categories: Array<number>,
+  categories: Array<Category>,
   activities: Array<Object>,
 };
 
@@ -142,6 +147,7 @@ export type Location = {
   longitude: number,
 };
 export type Establishment = {
+  id: number,
   cover: string,
   title: string,
   specific_info: string,

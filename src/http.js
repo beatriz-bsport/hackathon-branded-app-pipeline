@@ -4,6 +4,9 @@ const authToken = '';
 
 const storage = window.localStorage;
 
+export const BASE_URI = process.env.REACT_APP_BASE_URI;
+export const API_URI = `${BASE_URI}/api-v0`;
+
 export function setAuthToken(token: string) {
   storage.setItem('http:token', token);
 }

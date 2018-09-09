@@ -10,5 +10,12 @@ import EstablishmentForm from './EstablishmentForm.component';
 
 storiesOf('Company/EstablishmentForm', module).add('default', () => {
   const initial = object('Initial', FactoryBot.Establishment.createOne());
-  return <EstablishmentForm initial={initial} onSubmit={action('onSubmit')} />;
+  const easyAccesses = FactoryBot.EasyAccess.create(10);
+  return (
+    <EstablishmentForm
+      initial={initial}
+      onSubmit={action('onSubmit')}
+      easyAccesses={easyAccesses}
+    />
+  );
 });

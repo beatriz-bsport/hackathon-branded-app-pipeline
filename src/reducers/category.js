@@ -4,6 +4,7 @@ import actionTypes from '../actions/category.types';
 
 const initialState = Immutable({
   SCTs: [],
+  easyAccesses: [],
 });
 
 export default function categoryReducers(state = initialState, action = {}) {
@@ -11,6 +12,7 @@ export default function categoryReducers(state = initialState, action = {}) {
     case actionTypes.HAS_FETCHED_SCTS:
       return Immutable.merge(state, {
         SCTs: action.SCTs,
+        easyAccesses: action.easyAccesses,
       });
     default:
       return state;

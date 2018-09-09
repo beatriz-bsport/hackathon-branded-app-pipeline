@@ -2,8 +2,9 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import { CircularProgress, withStyles, Grid } from '@material-ui/core';
+import { CircularProgress, withStyles, Grid, Button } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
 import { PaymentPack } from '../components';
@@ -80,10 +81,5 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default withStyles(styles)(
-  translate()(
-    connect(
-      mapStateToProps,
-      mapDispatchToProps,
-    )(PaymentPackList),
-  ),
+  translate()(connect(mapStateToProps, mapDispatchToProps)(PaymentPackList)),
 );

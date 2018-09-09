@@ -1,0 +1,31 @@
+$line-bubble-size: 40px;
+$line-bubble-negative-margin: $line-bubble-size / 4;
+
+.easy-access-stack {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  padding-left: $line-bubble-negative-margin;
+
+  > .stack {
+    margin: auto 5px;
+  }
+
+  &.-xs .line-bubble {
+    width: 0.5 * $line-bubble-size;
+    height: 0.5 * $line-bubble-size;
+    line-height: 0.5 * $line-bubble-size;
+    border-radius: 0.5 * $line-bubble-size / 2;
+    margin-left: -$line-bubble-negative-margin * 0.5;
+  }
+}
+
+.line-bubble {
+  display: inline-block;
+  width: $line-bubble-size;
+  height: $line-bubble-size;
+  line-height: $line-bubble-size;
+  border-radius: $line-bubble-size / 2;
+  margin-left: -$line-bubble-negative-margin;
+  text-align: center;
+}

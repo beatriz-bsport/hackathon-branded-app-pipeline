@@ -3,17 +3,20 @@
 import React, { Component } from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
 
 import EstablishmentForm from '../components/form/EstablishmentForm.component';
 
 import api from '../api';
 
-type Props = {};
+type Props = {
+  easyAccesses: EasyAccessType[],
+};
 type State = {
   open: boolean,
 };
 
-export class CoachFormPage extends Component<Props, State> {
+export class EstablishmentFormPage extends Component<Props, State> {
   state = { open: false };
 
   createEstablishment = async (data) => {
@@ -31,11 +34,20 @@ export class CoachFormPage extends Component<Props, State> {
   render() {
     return (
       <div>
-        <EstablishmentForm onSubmit={this.createEstablishment} />;
+        <EstablishmentForm
+          easyAccesses={this.props.easyAccesses}
+          onSubmit={this.createEstablishment}
+        />;
         <Snackbar open={this.state.open} message="Etablissement créé" />
       </div>
     );
   }
 }
 
-export default withRouter(CoachFormPage);
+function mapStateToProps(state) {
+  return {
+    easyAccesses: state.category.easyAccesses || [],
+  };
+}
+
+export default connect(mapStateToProps)(withRouter(EstablishmentFormPage));

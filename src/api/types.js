@@ -1,5 +1,14 @@
 // @flow
 
+export type Coach = {
+  name: string,
+  id: number,
+  photo: string,
+};
+
+export type MetaActivity = {
+  id: number,
+};
 export type SCS = {
   id: number,
   name: string,

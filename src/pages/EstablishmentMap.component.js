@@ -128,7 +128,7 @@ export class EstablishmentList extends Component<Props, State> {
               color="primary"
             >
               <AddIcon className={classes.extendedIcon} />
-              {t('establishment.add.button')}
+              {t('establishment.addButton')}
             </Button>
           </Link>
         </Grid>

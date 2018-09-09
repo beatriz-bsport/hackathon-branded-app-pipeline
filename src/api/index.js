@@ -11,8 +11,10 @@ import member from './member';
 import paymentPack from './payment-pack';
 import payment from './payment';
 import consumer from './consumer';
+import metaActivity from './meta-activity';
 
 export default {
+  metaActivity,
   category,
   transaction,
   booking,

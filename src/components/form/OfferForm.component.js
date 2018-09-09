@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 
 import { Button, Paper, Grid, Typography, withStyles } from '@material-ui/core';
@@ -11,6 +13,7 @@ import FormField, {
   WEEKLY,
   MONTHLY,
 } from '../input/FormField.component';
+import type { Coach, MetaActivity, Establishment } from '../../api/types';
 
 const styles = (theme) => ({
   paperContainer: {
@@ -26,34 +29,87 @@ const styles = (theme) => ({
 
 type Props = {
   metaActivity: Object,
+  coaches: Array<Coach>,
+  establishments: Array<Establishment>,
+  metaActivity: MetaActivity,
+  classes: Object,
+  t: (x: string) => string,
+  onSubmit: ({
+    establishment: number,
+    coach: number,
+    price: string,
+    credits: string,
+    dates: Array<string>,
+    effectif: string,
+    level: number,
+  }) => void,
 };
 
-export class OfferForm extends Component<Props> {
+type State = {
+  recurrence: number,
+  date_interval_start: Object,
+  date_interval_end: Object,
+  hour: Object,
+  effectif: ?string,
+  coach: ?number,
+  establishment: ?number,
+  price: ?string,
+  credits: string,
+  level: ?number,
+  effectif: ?string,
+  duration_minute: number,
+};
+
+export class OfferForm extends Component<Props, State> {
   state = {
     recurrence: NOT_RECURRENT,
     date_interval_start: Moment(),
     date_interval_end: Moment(),
     hour: Moment(),
-    effectif: '0',
+    effectif: null,
+    coach: null,
+    establishment: null,
+    price: null,
+    credits: '1',
+    level: null,
+    effectif: null,
+    duration_minute: 30,
   };
 
-  onFormFieldChange = (id) => (value, error) => {
+  onFormFieldChange = (id: string) => (value: {}, error: bolean) => {
     this.setState({ [id]: value });
   };
 
-  generateOffers = () => {
+  generateOffers = (event) => {
+    event.preventDefault();
     const datesToGenerate = this.getDates();
+    const {
+      level,
+      effectif,
+      establishment,
+      coach,
+      price,
+      credits,
+      duration_minute,
+    } = this.state;
 
-    console.log(this.state);
-
-    this.props.onSubmit(datesToGenerate);
+    this.props.onSubmit({
+      dates: datesToGenerate.map((d) => d.unix()),
+      establishment,
+      coach,
+      price,
+      credits,
+      effectif,
+      level,
+      duration_minute,
+    });
   };
 
   getDates = () => {
     const {
       recurrence,
-      date_interval_start,
       hour,
+      date_interval_start,
       date_interval_end,
     } = this.state;
 
@@ -156,7 +212,7 @@ export class OfferForm extends Component<Props> {
   };
 
   renderSpecificities = () => {
-    const { t, establishments, coaches, metaActivity } = this.props;
+    const { t, establishments, coaches } = this.props;
     return (
       <Grid container direction="column" spacing={8}>
         <Grid item>
@@ -169,13 +225,18 @@ export class OfferForm extends Component<Props> {
             onChange={this.onFormFieldChange}
             value={this.state.effectif}
           />
-          <FormField id="level" required onChange={this.onFormFieldChange} />
+          <FormField
+            id="level"
+            value={this.state.level}
+            required
+            onChange={this.onFormFieldChange}
+          />
         </Grid>
         <Grid item>
           <FormField
             id="establishment"
             choices={establishments}
-            value={metaActivity.etablissements[0].id}
+            value={this.state.establishment}
             required
             onChange={this.onFormFieldChange}
           />
@@ -185,7 +246,7 @@ export class OfferForm extends Component<Props> {
             id="coach"
             required
             choices={coaches}
-            value={metaActivity.coaches[0].id}
+            value={this.state.coach}
             onChange={this.onFormFieldChange}
           />
         </Grid>
@@ -204,6 +265,7 @@ export class OfferForm extends Component<Props> {
         <Grid item>
           <FormField
             id="duration_minute"
+            value={this.state.duration_minute}
             required
             onChange={this.onFormFieldChange}
           />
@@ -290,8 +352,18 @@ export class OfferForm extends Component<Props> {
           <Typography variant="title">{t('form.priceCategory')}</Typography>
         </Grid>
         <Grid item>
-          <FormField id="credits" required onChange={this.onFormFieldChange} />
-          <FormField id="price" required onChange={this.onFormFieldChange} />
+          <FormField
+            id="credits"
+            required
+            value={this.state.credits}
+            onChange={this.onFormFieldChange}
+          />
+          <FormField
+            id="price"
+            required
+            value={this.state.price}
+            onChange={this.onFormFieldChange}
+          />
         </Grid>
       </Grid>
     );
@@ -316,11 +388,7 @@ export class OfferForm extends Component<Props> {
           </Link>
         </Grid>
         <Grid item>
-          <Button
-            variant="raised"
-            color="primary"
-            onClick={this.generateOffers}
-          >
+          <Button variant="raised" color="primary" type="submit">
             {t('form.generateOffers')}
           </Button>
         </Grid>
@@ -332,13 +400,15 @@ export class OfferForm extends Component<Props> {
     const { classes } = this.props;
     return (
       <Paper className={classes.paperContainer}>
-        <Grid container direction="column" spacing={40}>
-          <Grid item>{this.renderTitle()}</Grid>
-          <Grid item>{this.renderTimeSettings()}</Grid>
-          <Grid item>{this.renderBilling()}</Grid>
-          <Grid item>{this.renderSpecificities()}</Grid>
-          <Grid item>{this.renderFooter()}</Grid>
-        </Grid>
+        <form onSubmit={this.generateOffers}>
+          <Grid container direction="column" spacing={40}>
+            <Grid item>{this.renderTitle()}</Grid>
+            <Grid item>{this.renderTimeSettings()}</Grid>
+            <Grid item>{this.renderBilling()}</Grid>
+            <Grid item>{this.renderSpecificities()}</Grid>
+            <Grid item>{this.renderFooter()}</Grid>
+          </Grid>
+        </form>
       </Paper>
     );
   }

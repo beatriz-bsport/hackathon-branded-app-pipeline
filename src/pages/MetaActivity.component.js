@@ -35,39 +35,6 @@ import { metaActivity as metaActivityActions } from '../actions';
 
 type Props = {};
 
-const styles = (theme) => ({
-  inner: {
-    margin: theme.spacing.unit * 4,
-  },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-  },
-  paddedBlock: {
-    margin: theme.spacing.unit * 3,
-  },
-  paddedPaper: {
-    padding: theme.spacing.unit * 3,
-  },
-  blockTitle: {
-    marginBottom: theme.spacing.unit,
-  },
-  blockTitleLargeMargin: {
-    marginBottom: theme.spacing.unit * 2,
-  },
-  horizontalDivider: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-  },
-  responsiveSubBlock: {
-    marginBottom: theme.spacing.unit * 3,
-  },
-  calendarContainer: {
-    paddingLeft: theme.spacing.unit * 2,
-    paddingRight: theme.spacing.unit * 4,
-  },
-});
-
 export class MetaActivity extends Component<Props> {
   constructor(props) {
     super(props);
@@ -217,6 +184,7 @@ export class MetaActivity extends Component<Props> {
                 offers={offers}
                 loading={timetableLoading}
                 activities={activities}
+                onOfferSelected={() => {}}
               />
             </Grid>
             <Grid item>
@@ -391,6 +359,39 @@ function mapDispatchToProps(dispatch) {
     },
   };
 }
+
+const styles = (theme) => ({
+  inner: {
+    margin: theme.spacing.unit * 4,
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+  },
+  paddedBlock: {
+    margin: theme.spacing.unit * 3,
+  },
+  paddedPaper: {
+    padding: theme.spacing.unit * 3,
+  },
+  blockTitle: {
+    marginBottom: theme.spacing.unit,
+  },
+  blockTitleLargeMargin: {
+    marginBottom: theme.spacing.unit * 2,
+  },
+  horizontalDivider: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+  },
+  responsiveSubBlock: {
+    marginBottom: theme.spacing.unit * 3,
+  },
+  calendarContainer: {
+    paddingLeft: theme.spacing.unit * 2,
+    paddingRight: theme.spacing.unit * 4,
+  },
+});
 
 export default connect(
   mapStateToProps,

@@ -107,7 +107,6 @@ export class FormField extends Component<Props> {
       case 'price':
       case 'credits':
       case 'effectif':
-      case 'duration_minute':
       case 'code':
         return input.replace(/[^0-9+]/g, '');
       default:
@@ -284,7 +283,7 @@ export class FormField extends Component<Props> {
             margin="normal"
           >
             <InputLabel htmlFor={`${id}-helper`}>{t('form.level')}</InputLabel>
-            <Select value={value || 1} onChange={this.handleChange}>
+            <Select value={value} onChange={this.handleChange}>
               {LEVELS.map((l) => (
                 <MenuItem value={l.id}>
                   <Level levelId={l.id} />

@@ -2,12 +2,21 @@
 
 import React, { Component } from 'react';
 
+import type { TFunction } from 'react-i18next';
+
 import { translate } from 'react-i18next';
 import { Paper, Grid, withStyles, Typography, Button } from '@material-ui/core';
 
 import { FormField, LocationInput } from '../input';
+import EasyAccessSelect from '../EasyAccessSelect.component';
 
-type Props = {};
+type Props = {
+  initial: EstablishmentType,
+  onSubmit: (EstablishmentType) => void,
+  easyAccesses: EasyAccessType[],
+  t: TFunction,
+  classes: { [string]: string },
+};
 type State = {};
 
 export class EstablishmentForm extends Component<Props, State> {
@@ -24,17 +33,17 @@ export class EstablishmentForm extends Component<Props, State> {
   onSubmit = (e) => {
     e.preventDefault();
 
-    const { title, specific_info, location } = this.state;
+    const { title, specific_info, location, easy_access } = this.state;
 
-    this.props.onSubmit({ title, specific_info, location });
+    this.props.onSubmit({ title, specific_info, location, easy_access });
   };
 
-  onFormFieldChange = (id) => (value, error) => {
+  onFormFieldChange = (id) => (value) => {
     this.setState({ [id]: value });
   };
 
   render() {
-    const { t, classes } = this.props;
+    const { t, classes, easyAccesses } = this.props;
     return (
       <Grid container>
         <Grid item xs={12} lg={6}>
@@ -58,6 +67,13 @@ export class EstablishmentForm extends Component<Props, State> {
                     required
                     value={this.state.specific_info}
                     onChange={this.onFormFieldChange}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <EasyAccessSelect
+                    easyAccesses={easyAccesses}
+                    value={this.state.easy_access}
+                    onChange={this.onFormFieldChange('easy_access')}
                   />
                 </Grid>
                 <Grid item xs={12}>

@@ -1,6 +1,5 @@
 // @flow
 
-import _ from 'lodash';
 import React, { Component } from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import { withRouter } from 'react-router';

@@ -1,25 +1,47 @@
+// @flow
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Snackbar from '@material-ui/core/Snackbar';
+import { withRouter } from 'react-router';
 
 import MetaActivityForm from '../components/form/MetaActivityForm.component';
 import api from '../api';
 
-type Props = {};
+type Props = {
+  associatedCoaches: *[],
+  establishments: *[],
+  SCTs: *[],
+};
+type State = { open: boolean };
 
-export class MetaActivityFormPage extends Component<Props> {
-  createMetaActivity = (metaActivityData) => {
-    api.activity.addMetaActivity(metaActivityData);
+export class MetaActivityFormPage extends Component<Props, State> {
+  state = { open: false };
+
+  createMetaActivity = async (metaActivityData) => {
+    try {
+      await api.activity.addMetaActivity(metaActivityData);
+
+      this.setState({ open: true });
+      this.props.history.goBack();
+    } catch (e) {
+      console.log(e);
+      throw e;
+    }
   };
 
   render() {
     const { SCTs, associatedCoaches, establishments } = this.props;
     return (
-      <MetaActivityForm
-        coaches={associatedCoaches}
-        establishments={establishments}
-        SCTs={SCTs}
-        onSubmit={this.createMetaActivity}
-      />
+      <div>
+        <MetaActivityForm
+          coaches={associatedCoaches}
+          establishments={establishments}
+          SCTs={SCTs}
+          onSubmit={this.createMetaActivity}
+        />
+        <Snackbar open={this.state.open} message="Template d'activité créé" />
+      </div>
     );
   }
 }
@@ -31,4 +53,4 @@ function mapStateToProps(state) {
     SCTs: state.category.SCTs,
   };
 }
-export default connect(mapStateToProps)(MetaActivityFormPage);
+export default connect(mapStateToProps)(withRouter(MetaActivityFormPage));

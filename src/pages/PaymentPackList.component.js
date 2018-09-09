@@ -2,10 +2,10 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { CircularProgress, Button, withStyles, Grid } from '@material-ui/core';
 import { translate } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 
 import { PaymentPack } from '../components';
@@ -98,13 +98,11 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default translate()(
-  withStyles(styles)(
-    translate()(
-      connect(
-        mapStateToProps,
-        mapDispatchToProps,
-      )(PaymentPackList),
-    ),
+export default withStyles(styles)(
+  translate()(
+    connect(
+      mapStateToProps,
+      mapDispatchToProps,
+    )(PaymentPackList),
   ),
 );

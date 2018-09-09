@@ -202,6 +202,7 @@ export default {
       object: 'Description',
     },
     paymentPack: {
+      noPaymentPackSubscribed: 'No pass subscribed',
       validUntil: 'Valid until',
       expirationDate: 'Expiration date',
       never: 'Never',
@@ -214,6 +215,7 @@ export default {
       boughtConsumerPaymentPacks: 'Subscribers',
     },
     login: {
+      signUpConsumer: 'Create an account ?',
       invalidPhone: 'Unknown phone number',
       choseYourUserspace: 'Who are you ?',
       loginAsPro: 'I am a club manager',

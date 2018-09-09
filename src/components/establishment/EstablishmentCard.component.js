@@ -101,7 +101,7 @@ export class EstablishmentCard extends Component<Props> {
           </Grid>
           {specific_info ? (
             <Grid item className={classes.horizontalBlock}>
-              <Typography variant="body">{specific_info}</Typography>
+              <Typography variant="body1">{specific_info}</Typography>
             </Grid>
           ) : null}
           <Divider />

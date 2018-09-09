@@ -12,7 +12,7 @@ import ResetPassword from './pages/ResetPassword.component';
 import Signout from './pages/Signout.component';
 import ConsumerHome from './pages/ConsumerHome.component';
 import LoginRouter from './pages/login/LoginRouter.component';
-import ConsumerSignUp from './pages/signup/ConsumerSignUp.component';
+import ConsumerSignUp from './pages/login/ConsumerSignUp.component';
 
 const styles = () => ({
   root: {

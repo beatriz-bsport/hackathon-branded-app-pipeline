@@ -7,6 +7,8 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  withStyles,
+  Typography,
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
@@ -34,8 +36,23 @@ export class ConsumerPacks extends React.Component<Props> {
     );
   };
 
+  renderTableContent = () => {
+    const { t, packs, classes } = this.props;
+    if (packs.length > 0) {
+      return <TableBody>{packs.map(this.renderPackRow)}</TableBody>;
+    }
+
+    return (
+      <TableBody>
+        <Typography className={classes.emptyBody} variant="caption">
+          {t('paymentPack.noPaymentPackSubscribed')}
+        </Typography>
+      </TableBody>
+    );
+  };
+
   render() {
-    const { packs, t } = this.props;
+    const { t } = this.props;
     return (
       <Paper>
         <Table>
@@ -47,11 +64,17 @@ export class ConsumerPacks extends React.Component<Props> {
               <TableCell>{t('paymentPack.credits')}</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>{packs.map(this.renderPackRow)}</TableBody>
+          {this.renderTableContent()}
         </Table>
       </Paper>
     );
   }
 }
 
-export default translate()(ConsumerPacks);
+const styles = (theme) => ({
+  emptyBody: {
+    margin: theme.spacing.unit * 2,
+  },
+});
+
+export default translate()(withStyles(styles)(ConsumerPacks));

@@ -6,27 +6,28 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import qs from 'query-string';
 
+import { auth as authActions } from '../../actions';
 import { ConsumerModalContainer, ConsumerLogin } from '../../components';
 
 type Props = {
   authenticated: boolean,
+  errorLogin: boolean,
+  loginProcessing: boolean,
+  doEmailLogin: ({
+    email: string,
+    password: string,
+  }) => void,
   location: Object,
 };
 
 export class ConsumerLoginPage extends Component<Props> {
-  /*
-  FIXME TODO
-  renderCreateAccount = () => (
-    <Link to="/create_account" style={{ textDecoration: 'none' }}>
-      <Typography color="error" variant="caption">
-        {this.props.t('login.noAccount')}
-      </Typography>
-    </Link>
-  );
-  */
-
   render() {
-    const { authenticated } = this.props;
+    const {
+      authenticated,
+      errorLogin,
+      loginProcessing,
+      doEmailLogin,
+    } = this.props;
 
     if (authenticated) {
       const { next } = qs.parse(this.props.location.search, {
@@ -40,7 +41,11 @@ export class ConsumerLoginPage extends Component<Props> {
 
     return (
       <ConsumerModalContainer>
-        <ConsumerLogin />
+        <ConsumerLogin
+          doEmailLogin={doEmailLogin}
+          error={errorLogin}
+          loading={loginProcessing}
+        />
       </ConsumerModalContainer>
     );
   }
@@ -48,8 +53,20 @@ export class ConsumerLoginPage extends Component<Props> {
 
 function mapStateToProps(state) {
   return {
-    authenticated: state.auth.authenticated,
+    errorLogin: state.auth.error,
+    loginProcessing: state.auth.loading,
   };
 }
 
-export default connect(mapStateToProps)(ConsumerLoginPage);
+function mapDispatchToProps(dispatch) {
+  return {
+    doEmailLogin({ email, password }) {
+      dispatch(authActions.requestLogin(email, password));
+    },
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ConsumerLoginPage);

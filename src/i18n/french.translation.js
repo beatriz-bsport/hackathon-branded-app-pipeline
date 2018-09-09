@@ -208,6 +208,7 @@ export default {
       object: 'Description',
     },
     paymentPack: {
+      noPaymentPackSubscribed: 'Aucun abonnement',
       // eslint-disable-next-line
       validUntil: "Valide jusqu'au",
       expirationDate: 'Expire au',
@@ -221,6 +222,7 @@ export default {
       boughtConsumerPaymentPacks: 'Abonnés',
     },
     login: {
+      signUpConsumer: 'Pas encore de compte ?',
       invalidPhone: 'Numéro de téléphone inconnu',
       choseYourUserspace: 'Qui êtes-vous ?',
       loginAsPro: 'Un manager de club de sport',

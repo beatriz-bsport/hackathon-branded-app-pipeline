@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
 
-import {
-  withStyles,
-  CircularProgress,
-  Button,
-  Grid,
-  Paper,
-} from '@material-ui/core';
+import { withStyles, CircularProgress, Button, Grid } from '@material-ui/core';
 import { connect } from 'react-redux';
 import AddIcon from '@material-ui/icons/Add';
 import { translate } from 'react-i18next';
@@ -98,8 +92,8 @@ function mapStateToProps(state) {
     loading: state.coach.loading,
     selfCoach: state.coach.selfCoach,
     associatedCoaches: state.coach.companyAssociated,
-    is_coach: state.auth.is_coach,
-    is_manager: state.auth.is_manager,
+    isCoach: state.auth.is_coach,
+    isManager: state.auth.is_manager,
   };
 }
 

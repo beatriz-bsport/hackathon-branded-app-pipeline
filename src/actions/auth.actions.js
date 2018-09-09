@@ -1,17 +1,25 @@
 import api from '../api';
 import types from './auth.types';
 
+export function profileUpdated() {
+  // return { email, firstname, lastname, type: types.PROFILE_UPDATED };
+  return { type: types.PROFILE_UPDATED };
+}
 export function updateProfile({ email, firstname, lastname }) {
-  console.log({ email, firstname, lastname });
-  // TODO update firstname email and lastname
-  api.auth.updateProfile({ email });
-  return { email, firstname, lastname, type: types.PROFILE_UPDATED };
+  return async (dispatch) => {
+    // TODO update firstname email and lastname
+    const response = await api.auth.updateProfile({
+      email,
+      first_name: firstname,
+      last_name: lastname,
+    });
+    dispatch(profileUpdated());
+  };
 }
 
 export function signUpPhone({ phone, code, email, firstname, lastname }) {
   return async (dispatch) => {
     dispatch(validatePhone({ phone, code }));
-    dispatch(updateProfile({ email, firstname, lastname }));
   };
 }
 
@@ -106,26 +114,4 @@ export function initiatedLogin(username) {
 
 export function disconnect() {
   return { type: types.DISCONNECT };
-}
-
-export async function fpost(uri: string, data: Object, headers: Object) {
-  const baseHeaders = {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  };
-
-  try {
-    const response = fetch(uri, {
-      method: 'POST',
-      headers: Object.assign(baseHeaders, headers),
-      body: JSON.stringify(data),
-    });
-
-    alert(`response : ${JSON.stringify(response)}`);
-
-    const json = await response.json();
-    return json;
-  } catch (e) {
-    alert(`error : ${JSON.stringify(e)}`);
-  }
 }

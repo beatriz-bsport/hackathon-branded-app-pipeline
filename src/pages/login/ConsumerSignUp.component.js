@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 
 import { CircularProgress, Typography, Grid } from '@material-ui/core';
@@ -15,6 +17,28 @@ import { auth as authActions } from '../../actions';
 
 type Props = {
   t: (x: string) => string,
+  authenticated: boolean,
+  signUpPhone: ({
+    phone: string,
+    code: string,
+    email: string,
+    lastname: string,
+    firstname: string,
+  }) => void,
+  updateProfile: ({
+    email: string,
+    lastname: string,
+    firstname: string,
+  }) => void,
+};
+
+type State = {
+  loading: boolean,
+  step: number,
+  phone: string,
+  email: string,
+  lastname: string,
+  firstname: string,
 };
 
 const STEPS = {
@@ -22,20 +46,30 @@ const STEPS = {
   REQUEST_SMS_CODE_CONFIRMATION: 1,
 };
 
-export class ConsumerSignUp extends Component<Props> {
+export class ConsumerSignUp extends Component<Props, State> {
   state = {
+    loading: false,
     step: STEPS.REQUEST_INFO,
+    phone: '',
+    email: '',
+    firstname: '',
+    lastname: '',
   };
 
-  onChange = (phone) => {
+  onChange = (phone: string) => {
     this.setState({ phone });
   };
 
-  onFormFieldChange = (id) => (value, error) => {
+  onFormFieldChange = (id: string) => (value: Object, error: boolean) => {
     this.setState({ [id]: value });
   };
 
-  onFormComplete = async (data) => {
+  onFormComplete = async (data: {
+    phone: string,
+    email: string,
+    firstname: string,
+    lastname: string,
+  }) => {
     const { phone, email, firstname, lastname } = data;
     this.setState({ loading: true, email, phone, firstname, lastname });
 
@@ -51,7 +85,7 @@ export class ConsumerSignUp extends Component<Props> {
     }
   };
 
-  validateSMSCode = (code) => {
+  validateSMSCode = (code: string) => {
     const { phone, email, firstname, lastname } = this.state;
     this.props.signUpPhone({ phone, code, email, lastname, firstname });
   };
@@ -76,8 +110,10 @@ export class ConsumerSignUp extends Component<Props> {
   };
 
   render() {
-    const { t, authenticated } = this.props;
+    const { t, authenticated, updateProfile } = this.props;
     if (authenticated) {
+      const { email, firstname, lastname } = this.state;
+      updateProfile({ email, firstname, lastname });
       return <Redirect to="/" />;
     }
     return (
@@ -105,6 +141,9 @@ function mapDispatchToProps(dispatch) {
       dispatch(
         authActions.signUpPhone({ phone, code, email, firstname, lastname }),
       );
+    },
+    updateProfile({ email, firstname, lastname }) {
+      dispatch(authActions.updateProfile({ email, firstname, lastname }));
     },
   };
 }

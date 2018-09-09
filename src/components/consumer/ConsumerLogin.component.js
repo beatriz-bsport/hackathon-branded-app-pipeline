@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 
 import {
@@ -9,30 +11,46 @@ import {
 } from '@material-ui/core';
 import CallIcon from '@material-ui/icons/Call';
 import { translate } from 'react-i18next';
-import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import RedButton from '../button/RedButton.component';
 
 import FacebookLoginButton from '../button/FacebookLoginButton.component';
 import { FormField } from '../input';
-import { auth as authActions } from '../../actions';
 
 import ConsumerSMSLoginForm from '../form/ConsumerSMSLoginForm.component';
 
 const styles = (theme) => ({
   buttonIcon: {
-    marginRight: theme.spacing.unit * 2,
+    marginRight: theme.spacing.unit,
   },
   bottomButton: {
     marginTop: theme.spacing.unit,
   },
 });
 
-type Props = {};
+type Props = {
+  doEmailLogin: ({ email: string, password: string }) => void,
+  loading: boolean,
+  error: boolean,
+  classes: Object,
+  t: (x: string) => string,
+};
 
-const EMAIL_LOGIN = 'email';
-const PHONE_LOGIN = 'phone';
-const FACEBOOK_LOGIN = 'facebook';
+type State = {
+  loginMethod: ?number,
+  email: string,
+  password: string,
+  firstname: string,
+  lastname: string,
+  phone: string,
+  code: string,
+};
 
-export class ConsumerLogin extends Component<Props> {
+const EMAIL_LOGIN = 0;
+const PHONE_LOGIN = 1;
+const FACEBOOK_LOGIN = 2;
+
+export class ConsumerLogin extends Component<Props, State> {
   state = {
     email: '',
     phone: '',
@@ -40,12 +58,12 @@ export class ConsumerLogin extends Component<Props> {
     loginMethod: null,
   };
 
-  onFormFieldChange = (id) => (value, error) => {
+  onFormFieldChange = (id: string) => (value: Object, error: ?boolean) => {
     this.setState({ [id]: value });
   };
 
   getEmailLogin = () => (
-    <Grid container direction="column" alignItems="flex-start">
+    <Grid container direction="column" alignItems="center">
       <Grid item>
         <FormField id="email" onChange={this.onFormFieldChange} />
       </Grid>
@@ -105,8 +123,16 @@ export class ConsumerLogin extends Component<Props> {
 
   doEmailLogin = () => {
     const { email, password } = this.state;
-    this.props.emailLogin({ email, password });
+    this.props.doEmailLogin({ email, password });
   };
+
+  getSignUpButton = () => (
+    <Link style={{ textDecoration: 'none' }} to="/signup">
+      <RedButton variant="raised">
+        {this.props.t('login.signUpConsumer')}
+      </RedButton>
+    </Link>
+  );
 
   render() {
     const { loginMethod } = this.state;
@@ -122,6 +148,8 @@ export class ConsumerLogin extends Component<Props> {
       default:
         return (
           <Grid container direction="column" alignItems="center" spacing={24}>
+            <Grid item>{this.getEmailLogin()}</Grid>
+            <Grid item>{this.getDivider()}</Grid>
             <Grid item>{this.getPhoneLogin()}</Grid>
             <Grid item>{this.getDivider()}</Grid>
             <Grid item>
@@ -136,33 +164,10 @@ export class ConsumerLogin extends Component<Props> {
               </Grid>
             </Grid>
             <Grid item>{this.getDivider()}</Grid>
-            <Grid item>{this.getEmailLogin()}</Grid>
+            <Grid item>{this.getSignUpButton()}</Grid>
           </Grid>
         );
     }
   }
 }
-
-function mapStateToProps(state) {
-  return {
-    error: state.auth.error,
-    loading: state.auth.loading,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    emailLogin({ email, password }) {
-      dispatch(authActions.requestLogin(email, password));
-    },
-  };
-}
-
-export default withStyles(styles)(
-  translate()(
-    connect(
-      mapStateToProps,
-      mapDispatchToProps,
-    )(ConsumerLogin),
-  ),
-);
+export default withStyles(styles)(translate()(ConsumerLogin));

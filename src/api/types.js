@@ -1,7 +1,17 @@
 // @flow
 
+export type SCS = {
+  id: number,
+  name: string,
+};
+export type SCT = {
+  id: number,
+  name: string,
+  SCS: SCS,
+};
 export type ActivitySimplified = {
   id: number,
+  parent_category: number,
 };
 
 export type Activity = {

@@ -3,8 +3,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { CircularProgress, withStyles, Grid } from '@material-ui/core';
+import { CircularProgress, Button, withStyles, Grid } from '@material-ui/core';
 import { translate } from 'react-i18next';
+import { Link } from 'react-router-dom';
+import AddIcon from '@material-ui/icons/Add';
 
 import { PaymentPack } from '../components';
 import { paymentPack as paymentPackActions } from '../actions';
@@ -12,6 +14,9 @@ import { paymentPack as paymentPackActions } from '../actions';
 const styles = (theme) => ({
   paymentPackContainer: {
     padding: theme.spacing.unit * 2,
+  },
+  extendedIcon: {
+    marginRight: theme.spacing.unit,
   },
 });
 
@@ -22,6 +27,7 @@ type Props = {
   incrementCredit: (id: number) => void,
   decrementCredit: (id: number) => void,
   classes: Object,
+  t: (x: string) => string,
 };
 
 export class PaymentPackList extends Component<Props> {
@@ -33,28 +39,41 @@ export class PaymentPackList extends Component<Props> {
       incrementCredit,
       decrementCredit,
       classes,
+      t,
     } = this.props;
     if (loading) {
       return <CircularProgress />;
     }
     return (
-      <Grid container direction="row">
-        {packs.map((p) => (
-          <Grid
-            xs={12}
-            md={6}
-            xl={4}
-            key={p.id}
-            className={classes.paymentPackContainer}
-          >
-            <PaymentPack
-              pack={p}
-              incrementCredit={incrementCredit}
-              decrementCredit={decrementCredit}
-              updatingConsumerPacks={updatingConsumerPacks}
-            />
+      <Grid container direction="column" alignItems="center" spacing={24}>
+        <Grid item>
+          <Link to="/payment-pack/add" style={{ textDecoration: 'none' }}>
+            <Button variant="extendedFab" color="primary">
+              <AddIcon className={classes.extendedIcon} />
+              {t('paymentPack.addButton')}
+            </Button>
+          </Link>
+        </Grid>
+        <Grid item>
+          <Grid container direction="row">
+            {packs.map((p) => (
+              <Grid
+                xs={12}
+                md={6}
+                xl={4}
+                key={p.id}
+                className={classes.paymentPackContainer}
+              >
+                <PaymentPack
+                  pack={p}
+                  incrementCredit={incrementCredit}
+                  decrementCredit={decrementCredit}
+                  updatingConsumerPacks={updatingConsumerPacks}
+                />
+              </Grid>
+            ))}
           </Grid>
-        ))}
+        </Grid>
       </Grid>
     );
   }
@@ -79,11 +98,13 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default withStyles(styles)(
-  translate()(
-    connect(
-      mapStateToProps,
-      mapDispatchToProps,
-    )(PaymentPackList),
+export default translate()(
+  withStyles(styles)(
+    translate()(
+      connect(
+        mapStateToProps,
+        mapDispatchToProps,
+      )(PaymentPackList),
+    ),
   ),
 );

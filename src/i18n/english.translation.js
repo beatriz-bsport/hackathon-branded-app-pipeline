@@ -5,6 +5,10 @@ export default {
       myAccount: 'My account',
     },
     common: {
+      price: 'price',
+      sports: 'Sport',
+      credits: 'Credits',
+      create: 'Create',
       or: 'or',
       cancel: 'Cancel',
       confirm: 'Confirm',
@@ -72,6 +76,16 @@ export default {
       nbBookings: 'Bookings',
     },
     form: {
+      paymentPack: {
+        helper: {
+          name: 'Name for the payment pack',
+          price: 'Price for user for the whole pack',
+          starting_date:
+            'Start date for pack, leave blank for direct availability',
+          ending_date: 'End date for pack, leave blank for no end',
+          credits: 'Credits for the pack, leave blank for unlimited',
+        },
+      },
       pleaseEnterYourSMSCode: 'Please enter the code sent by SMS',
       code: 'Code',
       SMSSignInTitle: 'Signin via SMS',
@@ -229,6 +243,7 @@ export default {
       pleaseSelectOne: 'Please select a club in the map to show its details',
       offers: 'Sessions calendar:',
       noMoreOffers: 'No more sessions planned',
+      addButton: 'Add an establishment',
       form: {
         new: {
           title: 'Title',
@@ -289,6 +304,7 @@ export default {
       all: 'All level',
       beginner: 'Beginner',
       intermediate: 'Intermediate',
+      intermediary: 'Intermediate',
       advanced: 'Advanced',
     },
     calendar: {

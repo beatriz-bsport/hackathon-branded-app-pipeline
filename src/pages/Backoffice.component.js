@@ -28,6 +28,7 @@ import TransactionList from './TransactionList.component';
 import MemberList from './MemberList.component';
 import Member from './Member.component';
 import PaymentPackList from './PaymentPackList.component';
+import PaymentPackForm from './PaymentPackForm.component';
 import Planning from './Planning.component';
 import EstablishmentMap from './EstablishmentMap.component';
 import CoachForm from './CoachForm.component';
@@ -112,6 +113,7 @@ export class Backoffice extends Component<Props> {
               />
               <Route path="/coach" component={CoachList} />
               <Route path="/payment" component={TransactionList} />
+              <Route path="/payment-pack/add" component={PaymentPackForm} />
               <Route path="/payment-pack" component={PaymentPackList} />
               <Route exact path="/member" component={MemberList} />
               <Route path="/member/add" component={MemberForm} />

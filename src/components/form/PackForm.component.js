@@ -9,18 +9,24 @@ import {
   FormControlLabel,
   Checkbox,
   Button,
+  Grid,
+  CircularProgress,
 } from '@material-ui/core';
+import { translate } from 'react-i18next';
+import LEVELS from 'bsport-commons/lib/master-data/levels';
 
 type Props = {
   categories: *[],
   activities: *[],
   onSubmit: (*) => void,
+  loading: boolean,
+  t: (x: string) => string,
 };
 
 type State = {
   name: string,
   price: number,
-  starting_date: string,
+  starting_date: ?string,
   ending_date: string,
   credits: number,
   categories: *[],
@@ -29,17 +35,17 @@ type State = {
 
 export class PackForm extends React.Component<Props, State> {
   state = {
-    name: '',
+    name: null,
     price: 0,
-    starting_date: '',
-    ending_date: '',
-    credits: '',
+    starting_date: null,
+    ending_date: null,
+    credits: null,
     categories: {},
     activities: {},
   };
 
   handleChange = (name: string) => (element) => {
-    this.setState({ [name]: element.value });
+    this.setState({ [name]: element.target.value });
   };
 
   handleCheck = (valuesKey: string, valueId) => {
@@ -68,88 +74,118 @@ export class PackForm extends React.Component<Props, State> {
   };
 
   render() {
-    const { categories, activities } = this.props;
+    const { t, categories, loading, activities } = this.props;
     return (
       <form onSubmit={this.onSubmit}>
-        <TextField
-          id="name"
-          label="Name"
-          required
-          fullWidth
-          onChange={this.handleChange('name')}
-          helperText="Name for the payment pack"
-          value={this.state.name}
-        />
-        <TextField
-          id="price"
-          label="Price"
-          required
-          type="number"
-          InputProps={{
-            startAdornment: <InputAdornment position="start">€</InputAdornment>,
-          }}
-          fullWidth
-          onChange={this.handleChange('price')}
-          helperText="Price for user for the whole pack"
-          value={this.state.price}
-        />
-        <TextField
-          id="starting_date"
-          label="Starting date"
-          type="date"
-          helperText="Start date for pack, leave blank for direct availability"
-          onChange={this.handleChange('starting_date')}
-          fullWidth
-          value={this.state.starting_date}
-        />
-        <TextField
-          id="ending_date"
-          label="Ending date"
-          type="date"
-          fullWidth
-          onChange={this.handleChange('ending_date')}
-          helperText="End date for pack, leave blank for no end"
-          value={this.state.ending_date}
-        />
-        <TextField
-          id="credits"
-          label="Credits"
-          type="number"
-          fullWidth
-          onChange={this.handleChange('credits')}
-          helperText="Credits for the pack, leave blank for unlimited"
-          value={this.state.credits}
-        />
-        <Typography variant="subheading">Categories</Typography>
-        {categories.map((category) => (
-          <FormControlLabel
-            key={category.id}
-            label={category.name}
-            control={
-              <Checkbox
-                checked={this.isChecked('categories', category.id)}
-                onChange={this.handleCheck('categories', category.id)}
+        <Grid container direction="column" spacing={8}>
+          <Grid item>
+            <TextField
+              id="name"
+              label={t('common.name')}
+              required
+              fullWidth
+              onChange={this.handleChange('name')}
+              helperText={t('form.paymentPack.helper.name')}
+              value={this.state.name}
+            />
+          </Grid>
+          <Grid item>
+            <TextField
+              id="price"
+              label={t('common.price')}
+              required
+              type="number"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">€</InputAdornment>
+                ),
+              }}
+              fullWidth
+              onChange={this.handleChange('price')}
+              helperText={t('form.paymentPack.helper.price')}
+              value={this.state.price}
+            />
+          </Grid>
+          <Grid item>
+            <TextField
+              id="starting_date"
+              type="date"
+              helperText={t('form.paymentPack.helper.starting_date')}
+              onChange={this.handleChange('starting_date')}
+              fullWidth
+              value={this.state.starting_date}
+            />
+          </Grid>
+          <Grid item>
+            <TextField
+              id="ending_date"
+              type="date"
+              fullWidth
+              onChange={this.handleChange('ending_date')}
+              helperText={t('form.paymentPack.helper.ending_date')}
+              value={this.state.ending_date}
+            />
+          </Grid>
+          <Grid item>
+            <TextField
+              id="credits"
+              label={t('common.credits')}
+              type="number"
+              fullWidth
+              onChange={this.handleChange('credits')}
+              helperText={t('form.paymentPack.helper.credits')}
+              value={this.state.credits}
+            />
+          </Grid>
+          <Grid item>
+            <Typography variant="subheading">{t('common.sports')}</Typography>
+            {categories.map((category) => (
+              <FormControlLabel
+                key={category.id}
+                label={category.name}
+                control={
+                  <Checkbox
+                    checked={this.isChecked('categories', category.id)}
+                    onChange={this.handleCheck('categories', category.id)}
+                  />
+                }
               />
-            }
-          />
-        ))}
-        <Typography variant="subheading">Activities</Typography>
-        {activities.map((activity) => (
-          <FormControlLabel
-            key={activity.id}
-            label={activity.name}
-            control={
-              <Checkbox
-                checked={this.isChecked('activities', activity.id)}
-                onChange={this.handleCheck('activities', activity.id)}
+            ))}
+          </Grid>
+          <Grid item>
+            <Typography variant="subheading">Activities</Typography>
+            {activities.map((activity) => (
+              <FormControlLabel
+                key={activity.id}
+                label={`${activity.name} - ${activity.coach.name} - ${
+                  activity.etablissement.title
+                } - ${t(
+                  `level.${
+                    LEVELS.filter((l) => l.id === activity.level)[0].text
+                  }`,
+                )}`}
+                control={
+                  <Checkbox
+                    checked={this.isChecked('activities', activity.id)}
+                    onChange={this.handleCheck('activities', activity.id)}
+                  />
+                }
               />
-            }
-          />
-        ))}
-        <Button type="submit">Add</Button>
+            ))}
+          </Grid>
+          <Grid item>
+            {loading ? (
+              <CircularProgress />
+            ) : (
+              <Button type="submit" variant="raised" color="primary">
+                {t('common.create')}
+              </Button>
+            )}
+          </Grid>
+        </Grid>
       </form>
     );
   }
 }
 
-export default PackForm;
+export default translate()(PackForm);

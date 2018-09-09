@@ -5,6 +5,10 @@ export default {
       myAccount: 'Mon compte',
     },
     common: {
+      price: 'Prix',
+      sports: 'Sports',
+      credits: 'Crédits',
+      create: 'Créer',
       or: 'ou',
       cancel: 'Annuler',
       confirm: 'Confirmer',
@@ -44,6 +48,22 @@ export default {
       outOf: ' sur ',
     },
     form: {
+      paymentPack: {
+        helper: {
+          // eslint-disable-next-line
+          name: "Nom de l'abonnement",
+          // eslint-disable-next-line
+          price: "Prix pour le client pour l'abonnement",
+          starting_date:
+            'Début de validité du pass, laisser vide pour le rendre valable immédiatement',
+          // eslint-disable-next-line
+          ending_date:
+            "Fin de validité du pass, laisser vide pour qu'il reste toujours actif",
+          // eslint-disable-next-line
+          credits:
+            "Nombre de crédit disponibles au client de l'abonnement, laisser vide pour le rendre illimité",
+        },
+      },
       pleaseEnterYourSMSCode: 'Veuillez entrer le code envoyé par SMS',
       code: 'Code',
       signUpTitle: 'Inscription',
@@ -270,6 +290,7 @@ export default {
       reviews: 'Avis clients: ',
     },
     establishment: {
+      addButton: 'Ajouter un établissement',
       pleaseSelectOne: 'Veuillez sélectionner un club sur la carte',
       offers: 'Calendrier des séances:',
       noMoreOffers: 'Plus aucune séance de prévue',
@@ -321,6 +342,7 @@ export default {
       all: 'Tous niveaux',
       beginner: 'Débutant',
       intermediate: 'Intermédiaire',
+      intermediary: 'Intermédiaire',
       advanced: 'Avancé',
     },
     time: {

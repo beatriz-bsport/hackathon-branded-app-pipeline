@@ -1,8 +1,6 @@
 // @flow
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import { translate } from 'react-i18next';
 import { Redirect, Link } from 'react-router-dom';
 import {
@@ -18,18 +16,8 @@ import { formatAsDatetime } from '../datetime';
 import { FeatureTable } from '../components';
 import type { Member } from '../api/types';
 
-const styles = (theme) => ({
-  button: {
-    margin: theme.spacing.unit,
-  },
-  rightIcon: {
-    marginLeft: theme.spacing.unit,
-  },
-});
-
 type Props = {
   t: (x: string) => string,
-  classes: Object,
   loading: boolean,
   members: Array<Member>,
 };
@@ -150,6 +138,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default withStyles(styles)(
-  translate()(connect(mapStateToProps)(Members)),
-);
+export default translate()(connect(mapStateToProps)(Members));

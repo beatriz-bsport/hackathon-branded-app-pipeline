@@ -11,6 +11,7 @@ import api from '../api';
 
 type Props = {
   easyAccesses: EasyAccessType[],
+  history: Object,
 };
 type State = {
   open: boolean,
@@ -19,7 +20,7 @@ type State = {
 export class EstablishmentFormPage extends Component<Props, State> {
   state = { open: false };
 
-  createEstablishment = async (data) => {
+  createEstablishment = async (data: *) => {
     try {
       await api.establishment.addEstablishment(data);
 
@@ -37,8 +38,8 @@ export class EstablishmentFormPage extends Component<Props, State> {
         <EstablishmentForm
           easyAccesses={this.props.easyAccesses}
           onSubmit={this.createEstablishment}
-        />;
-        <Snackbar open={this.state.open} message="Etablissement créé" />
+        />
+        ;<Snackbar open={this.state.open} message="Etablissement créé" />
       </div>
     );
   }

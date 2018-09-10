@@ -1,11 +1,17 @@
+// @flow
 import React from 'react';
 
 import { Typography, Grid } from '@material-ui/core';
 import SPORTS from 'bsport-commons/lib/master-data/sports';
-import { translate } from 'react-i18next';
 
-export function Sport(props) {
-  const { parentCategory, SCTName, t, noname } = props;
+type Props = {
+  parentCategory: number,
+  SCTName: string,
+  noname: ?boolean,
+  variant: ?string,
+};
+export default function Sport(props: Props) {
+  const { parentCategory, SCTName, noname } = props;
   const variant = props.variant || 'body1';
 
   const sport = SPORTS.filter((s) => s.id === parentCategory)[0];
@@ -29,5 +35,3 @@ export function Sport(props) {
     </Grid>
   );
 }
-
-export default translate()(Sport);

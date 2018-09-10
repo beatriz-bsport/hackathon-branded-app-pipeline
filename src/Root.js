@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 
 import { withRouter } from 'react-router';
@@ -24,7 +25,12 @@ const styles = () => ({
   },
 });
 
-export class Root extends Component<{}> {
+type Props = {
+  classes: Object,
+  rehydrated: boolean,
+};
+
+export class Root extends Component<Props> {
   render() {
     const { classes, rehydrated } = this.props;
 

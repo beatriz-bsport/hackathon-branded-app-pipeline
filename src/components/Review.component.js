@@ -1,20 +1,20 @@
+// @flow
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
-import { Grid, Typography, withStyles } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import StarFull from '@material-ui/icons/Star';
 import StarEmpty from '@material-ui/icons/StarBorder';
-import { translate } from 'react-i18next';
 
-import { Avatar } from '../components';
+import Avatar from './Avatar.component';
+import type { Review as ReviewType } from '../api/types';
 
-const styles = (theme) => ({
-  container: {},
-});
+type Props = {
+  review: ReviewType,
+};
 
-export class Review extends Component<Props> {
+export default class Review extends Component<Props> {
   render() {
-    const { review, classes, t } = this.props;
+    const { review } = this.props;
     const { user, comment, rating } = review;
     return (
       <Grid container direction="column" spacing={24}>
@@ -58,5 +58,3 @@ export class Review extends Component<Props> {
     );
   }
 }
-
-export default withStyles(styles)(translate()(Review));

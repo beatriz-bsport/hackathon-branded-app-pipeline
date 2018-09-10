@@ -1,5 +1,5 @@
+// @flow
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,6 +8,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { translate } from 'react-i18next';
+
+import type { Transaction } from '../api/types';
 
 const CustomTableCell = withStyles((theme) => ({
   head: {
@@ -19,23 +21,13 @@ const CustomTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 
-const styles = (theme) => ({
-  root: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 3,
-    overflowX: 'auto',
-  },
-  table: {
-    minWidth: 10,
-  },
-  row: {
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.background.default,
-    },
-  },
-});
+type Props = {
+  t: (x: string) => string,
+  classes: Object,
+  data: Array<Transaction>,
+};
 
-export class PaymentTable extends Component<{}> {
+export class PaymentTable extends Component<Props> {
   render() {
     const { t, data, classes } = this.props;
 
@@ -71,4 +63,20 @@ export class PaymentTable extends Component<{}> {
     );
   }
 }
+const styles = (theme) => ({
+  root: {
+    width: '100%',
+    marginTop: theme.spacing.unit * 3,
+    overflowX: 'auto',
+  },
+  table: {
+    minWidth: 10,
+  },
+  row: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.background.default,
+    },
+  },
+});
+
 export default withStyles(styles)(translate()(PaymentTable));

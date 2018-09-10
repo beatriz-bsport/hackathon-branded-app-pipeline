@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import {
   CircularProgress,
   Typography,
@@ -89,7 +89,10 @@ export class ResetPassword extends Component<Props, State> {
   );
 
   render() {
-    const { hasSent } = this.state;
+    const { hasSent, redirectLogin } = this.state;
+    if (redirectLogin) {
+      return <Redirect to="/" />;
+    }
     return (
       <LoginBase>
         <form onSubmit={this.onSubmit}>

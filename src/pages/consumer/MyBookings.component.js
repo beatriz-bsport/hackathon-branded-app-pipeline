@@ -63,27 +63,36 @@ export class MyBookings extends Component<Props, State> {
     );
   };
 
-  renderFutureBookings = () => {
-    const { t, classes, futureBookings, loadingBooking } = this.props;
+  renderFutureBookingsContainer = () => {
+    const { t, classes } = this.props;
     return (
       <div>
         <Typography className={classes.title} variant="title">
           {t('consumer.booking.myFutureBookings')}
         </Typography>
-        <Paper>
-          {futureBookings.length ? (
-            <List>
-              {futureBookings.map((b) => (
-                <BookingListItem booking={b} key={b.id} />
-              ))}
-            </List>
-          ) : (
-            <Typography variant="caption" className={classes.emptyMsg}>
-              {t('consumer.booking.noBookingOptions')}
-            </Typography>
-          )}
-        </Paper>
+        <Paper>{this.renderFutureBookingsList()}</Paper>
       </div>
+    );
+  };
+
+  renderFutureBookingsList = () => {
+    const { t, classes, futureBookings, loadingBooking } = this.props;
+    if (loadingBooking) {
+      return <CircularProgress />;
+    }
+    if (futureBookings.length === 0) {
+      return (
+        <Typography variant="caption" className={classes.emptyMsg}>
+          {t('consumer.booking.noBookingOptions')}
+        </Typography>
+      );
+    }
+    return (
+      <List>
+        {futureBookings.map((b) => (
+          <BookingListItem booking={b} key={b.id} />
+        ))}
+      </List>
     );
   };
 
@@ -168,13 +177,7 @@ export class MyBookings extends Component<Props, State> {
   };
 
   renderBookingOptions = () => {
-    const {
-      t,
-      classes,
-      loadingOption,
-      bookingOptions,
-      optionCurrentlyCancelling,
-    } = this.props;
+    const { t, classes, bookingOptions } = this.props;
     if (bookingOptions.length === 0) {
       return null;
     }
@@ -183,52 +186,72 @@ export class MyBookings extends Component<Props, State> {
         <Typography className={classes.title} variant="title">
           {t('consumer.booking.myOptions')}
         </Typography>
-        {bookingOptions.length ? (
-          <List>
-            {bookingOptions.map((o) => (
-              <div className={classes.bookingOptionElement} key={o.id}>
-                <BookingOptionListItem
-                  confirmBookingOption={() =>
-                    this.confirmBookingOption(o.offer.id, o.id)
-                  }
-                  bookingOption={o}
-                  cancelBookingOption={() => this.cancelBookingOption(o.id)}
-                  loading={o.id === optionCurrentlyCancelling}
-                />
-                <Divider />
-              </div>
-            ))}
-          </List>
-        ) : (
-          <Typography variant="caption" className={classes.emptyMsg}>
-            {t('consumer.booking.noBookingOptions')}
-          </Typography>
-        )}
+        {this.renderBookingOptionsList()}
       </div>
     );
   };
 
-  renderPastBookings = () => {
-    const { t, classes, loadingBooking, pastBookings } = this.props;
+  renderBookingOptionsList = () => {
+    const {
+      classes,
+      loadingOption,
+      bookingOptions,
+      optionCurrentlyCancelling,
+    } = this.props;
+
+    if (loadingOption) {
+      return <CircularProgress />;
+    }
+    return (
+      <List>
+        {bookingOptions.map((o) => (
+          <div className={classes.bookingOptionElement} key={o.id}>
+            <BookingOptionListItem
+              confirmBookingOption={
+                // prettier-ignore
+                () => this.confirmBookingOption(o.offer.id, o.id)
+              }
+              bookingOption={o}
+              cancelBookingOption={() => this.cancelBookingOption(o.id)}
+              loading={o.id === optionCurrentlyCancelling}
+            />
+            <Divider />
+          </div>
+        ))}
+      </List>
+    );
+  };
+
+  renderPastBookingsContainer = () => {
+    const { t, classes } = this.props;
     return (
       <div>
         <Typography className={classes.title} variant="title">
           {t('consumer.booking.myPastBookings')}
         </Typography>
-        <Paper>
-          {pastBookings.length ? (
-            <List>
-              {pastBookings.map((b) => (
-                <BookingListItem booking={b} key={b.id} />
-              ))}
-            </List>
-          ) : (
-            <Typography variant="caption" className={classes.emptyMsg}>
-              {t('consumer.booking.noPastBookings')}
-            </Typography>
-          )}
-        </Paper>
+        <Paper>{this.renderPastBookingsList()}</Paper>
       </div>
+    );
+  };
+
+  renderPastBookingsList = () => {
+    const { t, classes, loadingBooking, pastBookings } = this.props;
+    if (loadingBooking) {
+      return <CircularProgress />;
+    }
+    if (pastBookings.length === 0) {
+      return (
+        <Typography variant="caption" className={classes.emptyMsg}>
+          {t('consumer.booking.noPastBookings')}
+        </Typography>
+      );
+    }
+    return (
+      <List>
+        {pastBookings.map((b) => (
+          <BookingListItem booking={b} key={b.id} />
+        ))}
+      </List>
     );
   };
 
@@ -241,13 +264,13 @@ export class MyBookings extends Component<Props, State> {
       <div>
         <Grid container direction="row" spacing={16}>
           <Grid item xs={12} lg={6}>
-            {this.renderFutureBookings()}
+            {this.renderFutureBookingsContainer()}
           </Grid>
           <Grid item xs={12} lg={6}>
             {this.renderBookingOptions()}
           </Grid>
           <Grid item xs={12} lg={6}>
-            {this.renderPastBookings()}
+            {this.renderPastBookingsContainer()}
           </Grid>
         </Grid>
         {this.getModalConfirmCancellingBookingOption()}

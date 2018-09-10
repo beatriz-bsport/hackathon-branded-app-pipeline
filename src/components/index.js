@@ -1,4 +1,3 @@
-import NavBar from './navigation/NavBar.component';
 import LoginBase from './LoginBase.component';
 import LanguageButton from './button/LanguageButton.component';
 import OfferCard from './OfferCard.component';
@@ -75,7 +74,6 @@ export {
   GreatFilter,
   MemberBookingGraph,
   Filter,
-  NavBar,
   LoginBase,
   LanguageButton,
   OfferCard,

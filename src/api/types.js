@@ -1,9 +1,38 @@
 // @flow
 
+export type Transaction = {
+  id: string,
+  name: string,
+  kind: string,
+  date: string,
+  price: number,
+};
+
+export type Profile = {
+  first_name: string,
+  last_name: string,
+  photo: string,
+  email: string,
+  phonenumber: { phonenumber: string },
+};
+
+export type Review = {
+  comment: string,
+  rating: number,
+  user: {
+    name: string,
+    id: number,
+    photo: string,
+  },
+};
 export type Coach = {
   name: string,
   id: number,
   photo: string,
+};
+
+export type Stat = {
+  id: number,
 };
 
 export type MetaActivity = {

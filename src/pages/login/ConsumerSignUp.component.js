@@ -100,12 +100,11 @@ export class ConsumerSignUp extends Component<Props, State> {
       );
     }
     switch (step) {
-      case STEPS.REQUEST_INFO:
-        return <SignUpForm onComplete={this.onFormComplete} />;
       case STEPS.REQUEST_SMS_CODE_CONFIRMATION:
         return <SMSCodeForm onComplete={this.validateSMSCode} />;
+      case STEPS.REQUEST_INFO:
       default:
-        return this.getInitialForm();
+        return <SignUpForm onComplete={this.onFormComplete} />;
     }
   };
 

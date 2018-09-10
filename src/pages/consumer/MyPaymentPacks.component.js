@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 
 import { Grid, Typography, withStyles } from '@material-ui/core';
@@ -5,12 +6,16 @@ import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 
 import ConsumerPacks from '../../components/consumer/ConsumerPacks.component';
+import type { ConsumerPaymentPackConsumerView } from '../../api/types';
 
 const styles = () => ({
   container: {},
 });
 
-type Props = {};
+type Props = {
+  consumerPaymentPacks: Array<ConsumerPaymentPackConsumerView>,
+  t: (x: string) => string,
+};
 
 export class MyPaymentPacks extends Component<Props> {
   render() {

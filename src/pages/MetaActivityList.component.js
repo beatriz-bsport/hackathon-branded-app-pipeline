@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 import { CircularProgress, Grid, withStyles, Button } from '@material-ui/core';
 import { translate } from 'react-i18next';
@@ -5,8 +6,9 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 
-import { GreatFilter, ActivityCard } from '../components';
+import { ActivityCard } from '../components';
 import { stats as statsActions } from '../actions';
+import type { MetaActivity, Stat } from '../api/types';
 
 const styles = (theme) => ({
   button: {
@@ -17,7 +19,15 @@ const styles = (theme) => ({
   },
 });
 
-type Props = {};
+type Props = {
+  fetchStats: () => void,
+  is_manager: boolean,
+  classes: Object,
+  t: (x: string) => string,
+  stats: Array<Stat>,
+  metaActivities: Array<MetaActivity>,
+  loading: boolean,
+};
 
 class Activity extends Component<Props> {
   componentDidMount() {
@@ -89,7 +99,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default translate()(
-  connect(mapStateToProps, mapDispatchToProps)(
-    withStyles(styles)(translate()(Activity)),
-  ),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(withStyles(styles)(translate()(Activity))),
 );

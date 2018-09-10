@@ -72,9 +72,9 @@ export class EstablishmentList extends Component<Props, State> {
   renderCalendar = (establishment: Establishment) => {
     const { offers, activities, timetableLoading, classes } = this.props;
     const { selectedDay } = this.state;
+    const establishmentId = parseInt(establishment.id, 10);
     const offersInEstablishment = offers.filter(
-      (o) =>
-        parseInt(o.etablissement.id, 10) === parseInt(establishment.id, 10),
+      (o) => parseInt(o.etablissement.id, 10) === establishmentId,
     );
     const events = {};
     for (const o of offersInEstablishment) {

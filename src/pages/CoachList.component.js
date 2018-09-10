@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 
 import { withStyles, CircularProgress, Button, Grid } from '@material-ui/core';

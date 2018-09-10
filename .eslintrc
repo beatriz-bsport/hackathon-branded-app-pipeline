@@ -17,6 +17,7 @@
     "babel"
   ],
   "rules": {
+    "camelcase": "off",
     "quotes": [1, "single"],
     "strict": 0,
     "no-underscore-dangle": 0,

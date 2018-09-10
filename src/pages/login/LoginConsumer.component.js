@@ -40,7 +40,7 @@ export class ConsumerLoginPage extends Component<Props> {
     }
 
     return (
-    <ConsumerModalContainer>
+      <ConsumerModalContainer>
         <ConsumerLogin
           doEmailLogin={doEmailLogin}
           error={errorLogin}

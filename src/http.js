@@ -1,11 +1,10 @@
+// @flow
 import axios from 'axios';
-
-const authToken = '';
 
 const storage = window.localStorage;
 
-export const BASE_URI = process.env.REACT_APP_BASE_URI;
-export const API_URI = `${BASE_URI}/api-v0`;
+export const BASE_URI: string = process.env.REACT_APP_BASE_URI;
+export const API_URI: string = `${BASE_URI}/api-v0`;
 
 export function setAuthToken(token: string) {
   storage.setItem('http:token', token);
@@ -29,6 +28,7 @@ export async function post(uri: string, data: Object, headers: Object) {
     return response;
   } catch (e) {
     console.log(e);
+    return null;
   }
 }
 
@@ -43,7 +43,7 @@ export async function put(uri: string, data: Object, headers: Object) {
   });
 }
 
-export async function get(uri: string, headers = {}) {
+export async function get(uri: string, headers: {} = {}) {
   return axios({
     url: uri,
     method: 'get',
@@ -51,17 +51,17 @@ export async function get(uri: string, headers = {}) {
   });
 }
 
-export async function getAuth(uri: string, token = null) {
-  const token_ = token || getAuthToken();
-  return get(uri, { Authorization: `Token ${token_}` });
+export async function getAuth(uri: string) {
+  const token = getAuthToken();
+  return get(uri, { Authorization: `Token ${token}` });
 }
 
-export async function postAuth(uri: string, data: Object, token = null) {
-  const token_ = token || getAuthToken();
-  return post(uri, data, { Authorization: `Token ${token_}` });
+export async function postAuth(uri: string, data: Object) {
+  const token = getAuthToken();
+  return post(uri, data, { Authorization: `Token ${token}` });
 }
 
-export async function putAuth(uri: string, data: Object, token = null) {
-  const token_ = token || getAuthToken();
-  return put(uri, data, { Authorization: `Token ${token_}` });
+export async function putAuth(uri: string, data: Object) {
+  const token = getAuthToken();
+  return put(uri, data, { Authorization: `Token ${token}` });
 }

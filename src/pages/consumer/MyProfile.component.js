@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -5,12 +6,15 @@ import { Grid, CircularProgress, withStyles } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
 import { ConsumerProfile } from '../../components';
+import type { Profile } from '../../api/types';
 
 const styles = () => ({
   container: {},
 });
 
-type Props = {};
+type Props = {
+  profile: Profile,
+};
 
 export class MyProfile extends Component<Props> {
   render() {

@@ -1,10 +1,10 @@
+// @flow
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
 import { ListItemText, ListItem, withStyles } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
-const styles = (theme) => ({
+const styles = () => ({
   listItem: {
     width: '100%',
   },
@@ -12,6 +12,8 @@ const styles = (theme) => ({
 
 type Props = {
   pack: Object,
+  t: (x: string) => string,
+  classes: Object,
 };
 
 export class PaymentPack extends Component<Props> {

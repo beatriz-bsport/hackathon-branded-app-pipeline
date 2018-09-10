@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
@@ -28,7 +29,20 @@ const styles = (theme) => ({
   },
 });
 
-export class Login extends Component<{}> {
+type Props = {
+  login: ({ email: string, password: string }) => void,
+  authenticated: boolean,
+  loading: boolean,
+  error: boolean,
+  t: (x: string) => string,
+  classes: Object,
+};
+type State = {
+  email: string,
+  password: string,
+};
+
+export class Login extends Component<Props, State> {
   state = {
     email: '',
     password: '',
@@ -38,13 +52,13 @@ export class Login extends Component<{}> {
     document.title = 'Login - bsport';
   }
 
-  updateEmail = (event) => {
+  updateEmail = (event: Object) => {
     this.setState({
       email: event.target.value,
     });
   };
 
-  updatePassword = (event) => {
+  updatePassword = (event: Object) => {
     this.setState({
       password: event.target.value,
     });
@@ -58,7 +72,7 @@ export class Login extends Component<{}> {
     });
   };
 
-  onSubmit = (event) => {
+  onSubmit = (event: Object) => {
     event.preventDefault();
     this.login();
   };
@@ -155,6 +169,7 @@ function mapDispatchToProps(dispatch) {
     },
   };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(
-  translate()(withStyles(styles)(Login)),
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(translate()(withStyles(styles)(Login)));

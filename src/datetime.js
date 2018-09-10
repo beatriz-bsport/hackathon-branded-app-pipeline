@@ -41,8 +41,8 @@ const MONTHS = [
 
 export function humanizeDuration(milliseconds) {
   const seconds = milliseconds / 1000;
-  const hours = parseInt(seconds / 3600);
-  const minutesNumber = parseInt((seconds % 3600) / 60);
+  const hours = parseInt(seconds / 3600, 10);
+  const minutesNumber = parseInt((seconds % 3600) / 60, 10);
 
   const minutes =
     minutesNumber < 10

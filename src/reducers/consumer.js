@@ -36,7 +36,7 @@ export default function consumerReducers(state = initialState, action = {}) {
       });
     case actionTypes.CONSUMER_HAS_FETCHED_BOOKINGS:
       return Immutable.merge(state, {
-        bookingsloading: false,
+        bookingsLoading: false,
         error: false,
         futureBookings: action.futureBookings,
         pastBookings: action.pastBookings,

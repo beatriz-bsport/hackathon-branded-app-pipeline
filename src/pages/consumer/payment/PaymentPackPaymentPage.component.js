@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 
 import { translate } from 'react-i18next';
@@ -7,12 +8,13 @@ import {
   ConsumerModalContainer,
   PaymentPackPayment,
 } from '../../../components';
+import type { PaymentPack } from '../../../api/types';
 
 type Props = {
   loading: boolean,
   match: Object,
-  paymentPack: ?Object,
-  fetchPaymentPack: (Number) => void,
+  paymentPack: ?PaymentPack,
+  fetchPaymentPack: (number) => void,
 };
 
 export class PaymentPackPaymentPage extends Component<Props> {
@@ -47,5 +49,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default translate()(
-  connect(mapStateToProps, mapDispatchToProps)(PaymentPackPaymentPage),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(PaymentPackPaymentPage),
 );

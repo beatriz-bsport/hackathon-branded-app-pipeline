@@ -1,6 +1,5 @@
 // @flow
 
-import _ from 'lodash';
 import React, { Component } from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import Paper from '@material-ui/core/Paper';
@@ -25,12 +24,13 @@ type State = {
   open: boolean,
   loading: boolean,
   created: boolean,
+  error: boolean,
 };
 
 export class CoachFormPage extends Component<Props, State> {
-  state = { loading: false, open: false, created: false };
+  state = { error: false, loading: false, open: false, created: false };
 
-  createPack = async (data) => {
+  createPack = async (data: *) => {
     this.setState({ loading: true });
     try {
       const response = await api.paymentPack.create(data);
@@ -38,16 +38,19 @@ export class CoachFormPage extends Component<Props, State> {
         this.setState({
           created: true,
           loading: false,
+          error: false,
         });
         return;
       }
-    } catch (err) {}
-    this.setState({ loading: false });
+      this.setState({ error: false, loading: false });
+    } catch (err) {
+      this.setState({ error: true });
+    }
   };
 
   render() {
     const { categories, activities, classes } = this.props;
-    const { created, loading } = this.state;
+    const { error, created, loading } = this.state;
     const availableCategoriesId = activities.map((a) => a.parent_category);
     const filterableCategories = categories.filter(
       (c) => availableCategoriesId.indexOf(c.id) !== -1,
@@ -66,6 +69,7 @@ export class CoachFormPage extends Component<Props, State> {
                 categories={filterableCategories || []}
                 activities={activities}
                 processing={loading}
+                error={error}
               />
             </Paper>
           </Grid>

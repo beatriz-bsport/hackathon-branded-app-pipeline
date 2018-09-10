@@ -12,20 +12,20 @@ type Props = {
   associatedCoaches: *[],
   establishments: *[],
   SCTs: *[],
+  history: Object,
 };
 type State = { open: boolean };
 
 export class MetaActivityFormPage extends Component<Props, State> {
   state = { open: false };
 
-  createMetaActivity = async (metaActivityData) => {
+  createMetaActivity = async (metaActivityData: *) => {
     try {
       await api.activity.addMetaActivity(metaActivityData);
 
       this.setState({ open: true });
       this.props.history.goBack();
     } catch (e) {
-      console.log(e);
       throw e;
     }
   };

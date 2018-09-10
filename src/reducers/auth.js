@@ -26,7 +26,7 @@ export default function authReducer(state = initialState, action = {}) {
         error: false,
       });
 
-    case actionTypes.LOGIN_SUCCESSFUL:
+    case actionTypes.LOGIN_SUCCESSFUL: {
       const { username, token, is_manager, is_coach, is_consumer } = action;
       setAuthToken(token);
       return Immutable.merge(state, {
@@ -39,6 +39,7 @@ export default function authReducer(state = initialState, action = {}) {
         error: false,
         loading: false,
       });
+    }
 
     case actionTypes.LOGIN_FAILED:
       return Immutable.merge(state, {

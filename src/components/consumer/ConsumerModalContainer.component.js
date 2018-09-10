@@ -1,4 +1,7 @@
+// @flow
+
 import React from 'react';
+import type { Node } from 'react';
 
 import { Modal, Paper, withStyles } from '@material-ui/core';
 import ConsumerMenu from '../ConsumerMenu.component';
@@ -9,17 +12,19 @@ const styles = (theme) => ({
   },
   modal: {
     top: '10%',
-    left: '30%',
+    left: '50%',
+    right: 0,
+    transform: 'translateX(-50%)',
     position: 'absolute',
-    minWidth: 350,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
+    maxWidth: 350,
   },
 });
 
 type Props = {
   classes: Object,
-  children: React.Node,
+  children: Node,
 };
 
 export function ConsumerModalContainer(props: Props) {

@@ -25,15 +25,21 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { booking as bookingActions, member as memberActions } from '../actions';
-import { MemberBookingGraph, Avatar, BookingTable } from '../components';
+import { Avatar, BookingTable } from '../components';
 import { formatAsDatetime } from '../datetime';
-import type { MemberDetailed, Booking, BookingOption } from '../api/types';
+import type {
+  MemberDetailed,
+  Member as MemberSimplified,
+  Booking,
+  BookingOption,
+} from '../api/types';
 import { Moment } from '../i18n';
 
 type Props = {
   loading: boolean,
   bookingLoading: boolean,
   member: MemberDetailed,
+  allMembers: Array<MemberSimplified>,
   pendingBookings: Array<Booking>,
   validatedBookings: Array<Booking>,
   bookingOptions: Array<BookingOption>,
@@ -44,6 +50,8 @@ type Props = {
   t: (x: string) => string,
 };
 export class Member extends Component<Props> {
+  memberId: number;
+
   componentWillMount() {
     this.memberId = parseInt(this.props.match.params.id, 10);
     this.props.fetchMember(this.memberId);
@@ -125,14 +133,17 @@ export class Member extends Component<Props> {
       pendingBookings,
       bookingOptions,
     } = this.props;
-    const validatedBookingsFuture = validatedBookings.filter((b) =>
-      Moment(b.date_start).isAfter(Moment()),
+    // prettier-ignore
+    const validatedBookingsFuture = validatedBookings.filter(
+      (b) => Moment(b.date_start).isAfter(Moment()),
     );
-    const pendingBookingsFuture = pendingBookings.filter((b) =>
-      Moment(b.date_start).isAfter(Moment()),
+    // prettier-ignore
+    const pendingBookingsFuture = pendingBookings.filter(
+      (b) => Moment(b.date_start).isAfter(Moment()),
     );
-    const bookingOptionsFuture = bookingOptions.filter((b) =>
-      Moment(b.date_start).isAfter(Moment()),
+    // prettier-ignore
+    const bookingOptionsFuture = bookingOptions.filter(
+      (b) => Moment(b.date_start).isAfter(Moment()),
     );
     const nextBookingDate = (
       allMembers.filter((m) => m.id === this.memberId)[0] || {}
@@ -175,14 +186,17 @@ export class Member extends Component<Props> {
       pendingBookings,
       bookingOptions,
     } = this.props;
-    const validatedBookingsPast = validatedBookings.filter((b) =>
-      Moment(b.date_start).isBefore(Moment()),
+    // prettier-ignore
+    const validatedBookingsPast = validatedBookings.filter(
+      (b) => Moment(b.date_start).isBefore(Moment()),
     );
-    const pendingBookingsPast = pendingBookings.filter((b) =>
-      Moment(b.date_start).isBefore(Moment()),
+    // prettier-ignore
+    const pendingBookingsPast = pendingBookings.filter(
+      (b) => Moment(b.date_start).isBefore(Moment()),
     );
-    const bookingOptionsPast = bookingOptions.filter((b) =>
-      Moment(b.date_start).isBefore(Moment()),
+    // prettier-ignore
+    const bookingOptionsPast = bookingOptions.filter(
+      (b) => Moment(b.date_start).isBefore(Moment()),
     );
     const previousBookingDate = (
       allMembers.filter((m) => m.id === this.memberId)[0] || {}
@@ -227,8 +241,30 @@ export class Member extends Component<Props> {
   );
   */
 
+  renderContent = () => {
+    if (this.props.member.consumer) {
+      return (
+        <Grid container direction="row" spacing={16}>
+          <Grid item xs={12}>
+            <Paper className={this.props.classes.paperContainer}>
+              {this.getFirstRow()}
+            </Paper>
+          </Grid>
+          <Grid item xs={12} lg={6}>
+            {this.getFutureBookings()}
+          </Grid>
+          <Grid item xs={12} lg={6}>
+            {this.getPastBookings()}
+          </Grid>
+        </Grid>
+      );
+    }
+    return <CircularProgress />;
+  };
+
   render() {
     const { loading, bookingLoading, t, classes } = this.props;
+    const stillLoading = loading && bookingLoading;
     return (
       <div>
         <div>
@@ -238,27 +274,7 @@ export class Member extends Component<Props> {
             </Button>
           </Link>
         </div>
-        <div>
-          {loading && bookingLoading ? (
-            <CircularProgress />
-          ) : this.props.member.consumer ? (
-            <Grid container direction="row" spacing={16}>
-              <Grid item xs={12}>
-                <Paper className={classes.paperContainer}>
-                  {this.getFirstRow()}
-                </Paper>
-              </Grid>
-              <Grid item xs={12} lg={6}>
-                {this.getFutureBookings()}
-              </Grid>
-              <Grid item xs={12} lg={6}>
-                {this.getPastBookings()}
-              </Grid>
-            </Grid>
-          ) : (
-            <CircularProgress />
-          )}
-        </div>
+        <div>{stillLoading ? <CircularProgress /> : this.renderContent()}</div>
       </div>
     );
   }

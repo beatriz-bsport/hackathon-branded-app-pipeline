@@ -34,13 +34,13 @@ export class ConsumerLoginPage extends Component<Props> {
         ignoreQueryPrefix: true,
       });
       if (next) {
-        return <Redirect push to={next} />;
+        return <Redirect to={next} />;
       }
-      return <Redirect push to="/" />;
+      return <Redirect to="/" />;
     }
 
     return (
-      <ConsumerModalContainer>
+    <ConsumerModalContainer>
         <ConsumerLogin
           doEmailLogin={doEmailLogin}
           error={errorLogin}
@@ -53,6 +53,7 @@ export class ConsumerLoginPage extends Component<Props> {
 
 function mapStateToProps(state) {
   return {
+    authenticated: state.auth.authenticated,
     errorLogin: state.auth.error,
     loginProcessing: state.auth.loading,
   };

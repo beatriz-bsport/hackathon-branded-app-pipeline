@@ -1,25 +1,22 @@
+// @flow
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { translate } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import Tooltip from '@material-ui/core/Tooltip';
+import { Redirect, Link } from 'react-router-dom';
 import {
   TableRow,
   TableCell,
   Grid,
   Button,
-  IconButton,
-  Checkbox,
   Typography,
 } from '@material-ui/core';
-import EmailIcon from '@material-ui/icons/Email';
-import CallIcon from '@material-ui/icons/Call';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 
 import { formatAsDatetime } from '../datetime';
 import { FeatureTable } from '../components';
+import type { Member } from '../api/types';
 
 const styles = (theme) => ({
   button: {
@@ -30,7 +27,18 @@ const styles = (theme) => ({
   },
 });
 
-export class Members extends Component<{}> {
+type Props = {
+  t: (x: string) => string,
+  classes: Object,
+  loading: boolean,
+  members: Array<Member>,
+};
+
+type State = {
+  requestedRedirection: ?string,
+};
+
+export class Members extends Component<Props, State> {
   state = { requestedRedirection: null };
 
   getColumnData = () => {
@@ -55,7 +63,11 @@ export class Members extends Component<{}> {
     ];
   };
 
-  renderRow = (member, handleClick, isSelected) => {
+  renderRow = (
+    member: Member,
+    handleClick: () => void,
+    isSelected: boolean,
+  ) => {
     const { t } = this.props;
     const status = member.next_booking ? (
       <Typography color="primary">
@@ -91,13 +103,13 @@ export class Members extends Component<{}> {
     );
   };
 
-  redirectToMemberPage = (memberId) => {
+  redirectToMemberPage = (memberId: number) => {
     this.setState({ requestedRedirection: `/member/${memberId}` });
   };
 
   render() {
     const { requestedRedirection } = this.state;
-    const { t, classes, loading, members } = this.props;
+    const { t, loading, members } = this.props;
 
     if (requestedRedirection) {
       return <Redirect to={requestedRedirection} />;

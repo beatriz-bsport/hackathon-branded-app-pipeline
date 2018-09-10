@@ -88,6 +88,7 @@ export type Booking = {
 export type BookingOption = {
   id: number,
   cancelled: boolean,
+  date_start: string,
 };
 
 export type Consumer = {

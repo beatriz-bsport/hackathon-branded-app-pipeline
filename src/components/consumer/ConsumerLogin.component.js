@@ -148,23 +148,11 @@ export class ConsumerLogin extends Component<Props, State> {
       default:
         return (
           <Grid container direction="column" alignItems="center" spacing={24}>
+            <Grid item>{this.getSignUpButton()}</Grid>
+            <Grid item>{this.getDivider()}</Grid>
             <Grid item>{this.getEmailLogin()}</Grid>
             <Grid item>{this.getDivider()}</Grid>
             <Grid item>{this.getPhoneLogin()}</Grid>
-            <Grid item>{this.getDivider()}</Grid>
-            <Grid item>
-              <Grid
-                container
-                item
-                direction="row"
-                justify="center"
-                alignItems="center"
-              >
-                <FacebookLoginButton />
-              </Grid>
-            </Grid>
-            <Grid item>{this.getDivider()}</Grid>
-            <Grid item>{this.getSignUpButton()}</Grid>
           </Grid>
         );
     }

@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 
-import { Snackbar, Grid, CircularProgress } from '@material-ui/core';
+import { Grid, CircularProgress } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -27,6 +27,8 @@ type State = {
 };
 
 export class OfferFormPage extends Component<Props, State> {
+  metaActivityId: number;
+
   state = {
     processing: false,
     created: false,
@@ -38,7 +40,6 @@ export class OfferFormPage extends Component<Props, State> {
   }
 
   createOffers = async (data: Object) => {
-    console.log(data);
     this.setState({ error: false, processing: true });
     try {
       const response = await api.metaActivity.createOffers(
@@ -60,7 +61,7 @@ export class OfferFormPage extends Component<Props, State> {
   };
 
   render() {
-    const { processing, created } = this.state;
+    const { processing, created, error } = this.state;
     const { metaActivities, loading } = this.props;
     if (loading) {
       return <CircularProgress />;
@@ -83,6 +84,7 @@ export class OfferFormPage extends Component<Props, State> {
             coaches={this.props.coaches}
             establishments={this.props.establishments}
             processing={processing}
+            error={error}
           />
         </Grid>
       </Grid>

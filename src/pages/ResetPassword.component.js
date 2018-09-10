@@ -1,36 +1,44 @@
+// @flow
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
-import { LoginBase } from '../components';
+import { Link } from 'react-router-dom';
 import {
   CircularProgress,
   Typography,
   Button,
-  Paper,
   Grid,
   TextField,
 } from '@material-ui/core';
 
 import { auth as authActions } from '../actions';
+import { LoginBase } from '../components';
 
-export class ResetPassword extends Component<{}> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      hasSent: false,
-      redirectLogin: false,
-    };
-  }
+type Props = {
+  resetPassword: (string) => void,
+  loading: boolean,
+};
 
-  updateEmail = (event) => {
+type State = {
+  email: string,
+  hasSent: boolean,
+  redirectLogin: boolean,
+};
+
+export class ResetPassword extends Component<Props, State> {
+  state = {
+    email: '',
+    hasSent: false,
+    redirectLogin: false,
+  };
+
+  updateEmail = (event: Object) => {
     this.setState({
       email: event.target.value,
     });
   };
 
-  onSubmit = (event) => {
+  onSubmit = (event: Object) => {
     event.preventDefault();
     if (!this.state.email) {
       return;
@@ -43,19 +51,17 @@ export class ResetPassword extends Component<{}> {
     this.setState({ hasSent: true });
   };
 
-  getSendingButton = () => {
-    return (
-      <div>
-        <Link style={{ textDecoration: 'none' }} to="/login">
-          <Button>ANNULER</Button>
-        </Link>
-        <Button type="submit" color="primary" variant="raised">
-          OK
-        </Button>
-        {this.props.loading ? <CircularProgress /> : <div />}
-      </div>
-    );
-  };
+  getSendingButton = () => (
+    <div>
+      <Link style={{ textDecoration: 'none' }} to="/login">
+        <Button>ANNULER</Button>
+      </Link>
+      <Button type="submit" color="primary" variant="raised">
+        OK
+      </Button>
+      {this.props.loading ? <CircularProgress /> : <div />}
+    </div>
+  );
 
   resetComponent = () => {
     this.setState({ hasSent: false });
@@ -67,25 +73,23 @@ export class ResetPassword extends Component<{}> {
     });
   };
 
-  getSuccessMsg = () => {
-    return (
-      <Grid direction="column" container>
-        <Typography>
-          Un email a été envoyé à {this.state.email} pour récupérer votre mot de
-          passe
-        </Typography>
-        <Grid direction="row" style={{ paddingTop: 20 }} container>
-          <Button onClick={this.resetComponent}>Renvoyer</Button>
-          <Button color="primary" onClick={this.redirectLogin} variant="raised">
-            OK
-          </Button>
-        </Grid>
+  getSuccessMsg = () => (
+    <Grid direction="column" container>
+      <Typography>
+        Un email a été envoyé à {this.state.email} pour récupérer votre mot de
+        passe
+      </Typography>
+      <Grid direction="row" style={{ paddingTop: 20 }} container>
+        <Button onClick={this.resetComponent}>Renvoyer</Button>
+        <Button color="primary" onClick={this.redirectLogin} variant="raised">
+          OK
+        </Button>
       </Grid>
-    );
-  };
+    </Grid>
+  );
 
   render() {
-    const { hasSent, redirectLogin } = this.state;
+    const { hasSent } = this.state;
     return (
       <LoginBase>
         <form onSubmit={this.onSubmit}>
@@ -97,8 +101,8 @@ export class ResetPassword extends Component<{}> {
                 Récupération de mot de passe
               </Typography>
               <Typography>
-                Quel était l'email du compte ?<br />Nous vous enverrons des
-                instructions de récupération
+                Quel était l'email du compte ?<br />
+                Nous vous enverrons des instructions de récupération
               </Typography>
               <TextField
                 type="email"
@@ -131,4 +135,7 @@ function mapDispatchToProps(dispatch) {
     },
   };
 }
-export default connect(null, mapDispatchToProps)(ResetPassword);
+export default connect(
+  null,
+  mapDispatchToProps,
+)(ResetPassword);

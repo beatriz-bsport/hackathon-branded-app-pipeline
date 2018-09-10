@@ -8,24 +8,28 @@ import api from '../api';
 
 import MemberForm from '../components/form/MemberForm.component';
 
-type Props = {};
+type Props = {
+  history: Object,
+};
 type State = {
   open: boolean,
+  error: boolean,
 };
 
 export class MemberFormPage extends Component<Props, State> {
   state = {
     open: false,
+    error: false,
   };
 
-  createMember = async (data) => {
+  createMember = async (data: *) => {
     try {
       await api.member.addMember(data);
 
-      this.setState({ open: true });
+      this.setState({ open: true, error: false });
       this.props.history.goBack();
     } catch (e) {
-      console.log(e);
+      this.setState({ error: true });
       throw e;
     }
   };
@@ -33,7 +37,7 @@ export class MemberFormPage extends Component<Props, State> {
   render() {
     return (
       <div>
-        <MemberForm onSubmit={this.createMember} />
+        <MemberForm onSubmit={this.createMember} error={this.state.error} />
         <Snackbar open={this.state.open} message="Membre créé" />
       </div>
     );

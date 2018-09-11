@@ -1,10 +1,10 @@
+// @flow
 import React from 'react';
-
+import type { Node } from 'react';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -26,7 +26,18 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 const drawerWidth = 280;
 
-class ConsumerMenu extends React.Component {
+type Props = {
+  classes: Object,
+  theme: Object,
+  t: (x: string) => string,
+  children: Node,
+};
+
+type State = {
+  mobileOpen: boolean,
+};
+
+class ConsumerMenu extends React.Component<Props, State> {
   state = {
     mobileOpen: false,
   };
@@ -125,11 +136,6 @@ class ConsumerMenu extends React.Component {
     );
   }
 }
-
-ConsumerMenu.propTypes = {
-  classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
-};
 
 const styles = (theme) => ({
   root: {

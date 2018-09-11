@@ -8,7 +8,9 @@ import CoachForm from '../components/form/CoachForm.component';
 
 import api from '../api';
 
-type Props = {};
+type Props = {
+  history: Object,
+};
 type State = {
   open: boolean,
 };
@@ -16,7 +18,7 @@ type State = {
 export class CoachFormPage extends Component<Props, State> {
   state = { open: false };
 
-  createCoach = async (data) => {
+  createCoach = async (data: *) => {
     try {
       await api.coach.addCoach(data);
 

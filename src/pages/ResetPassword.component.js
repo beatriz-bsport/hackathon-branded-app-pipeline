@@ -103,8 +103,8 @@ export class ResetPassword extends Component<Props, State> {
               <Typography variant="title" style={{ marginBottom: 20 }}>
                 Récupération de mot de passe
               </Typography>
+              <Typography>Quel était l email du compte ?</Typography>
               <Typography>
-                Quel était l'email du compte ?<br />
                 Nous vous enverrons des instructions de récupération
               </Typography>
               <TextField

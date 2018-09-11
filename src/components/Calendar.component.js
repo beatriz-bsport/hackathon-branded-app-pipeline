@@ -1,10 +1,9 @@
+// @flow
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
 import {
   IconButton,
   Grid,
-  Paper,
   Typography,
   Button,
   withStyles,
@@ -13,52 +12,24 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ViewWeek from '@material-ui/icons/ViewWeek';
 import ViewComfy from '@material-ui/icons/ViewComfy';
-import { translate } from 'react-i18next';
 import { Moment } from '../i18n';
 
-const WEEKMODE = 0;
-const MONTHMODE = 1;
-
-const styles = (theme) => ({
-  container: {
-    marginRight: theme.spacing.unit * 2,
-  },
-
-  arrowIconLeft: {
-    marginLeft: -theme.spacing.unit * 2,
-  },
-  arrowIconRight: {
-    marginRight: -theme.spacing.unit * 2,
-  },
-  dayButton: {
-    marginLeft: -theme.spacing.unit * 2,
-    marginRight: -theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit,
-  },
-  dots: {
-    height: 5,
-    marginBottom: theme.spacing.unit,
-  },
-  weekdayNameRow: {
-    marginBottom: theme.spacing.unit * 3,
-    marginTop: theme.spacing.unit,
-  },
-  dayRow: {
-    [theme.breakpoints.up('md')]: {
-      marginLeft: theme.spacing.unit,
-      marginRight: theme.spacing.unit,
-    },
-  },
-});
+const WEEKMODE: number = 0;
+const MONTHMODE: number = 1;
 
 type Props = {
-  onDateClick: () => void,
-  events: Object,
   forceMonthDisplay: boolean,
+  onDateClick: (Object) => void,
+  classes: Object,
 };
 
-export class Calendar extends Component<Props> {
-  constructor(props) {
+type State = {
+  displayMode: number,
+  selectedDay: Object,
+};
+
+export class Calendar extends Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = {
       displayMode: props.forceMonthDisplay ? MONTHMODE : WEEKMODE,
@@ -70,12 +41,10 @@ export class Calendar extends Component<Props> {
   }
 
   static defaultProps = {
-    onDateClick: () => {},
     events: {},
-    forceMonthDisplay: false,
   };
 
-  selectDate = (date) => {
+  selectDate = (date: Object) => {
     this.setState({ selectedDay: date });
     this.props.onDateClick(date);
   };
@@ -125,7 +94,7 @@ export class Calendar extends Component<Props> {
     this.setState({ displayMode: MONTHMODE });
   };
 
-  formatDay = (day) => {
+  formatDay = (day: Object) => {
     // TODO optimize this
     const { classes } = this.props;
     const { displayMode } = this.state;
@@ -143,11 +112,12 @@ export class Calendar extends Component<Props> {
     );
   };
 
-  formatDots = (date) => {
+  formatDots = (date: Object) => {
+    // eslint-disable-next-line
     const dots = this.props.events[date.startOf('day')] || [];
     return (
       <Grid container direction="row">
-        {dots.map((d) => (
+        {dots.map(() => (
           <Grid item key={Math.random()}>
             {' '}
             •{' '}
@@ -157,7 +127,7 @@ export class Calendar extends Component<Props> {
     );
   };
 
-  renderDay = (day) => {
+  renderDay = (day: Object) => {
     const { selectedDay, displayMode } = this.state;
     const { classes } = this.props;
     const isSelected = day.isSame(selectedDay, 'days');
@@ -186,7 +156,7 @@ export class Calendar extends Component<Props> {
   };
 
   renderHeader = () => {
-    const { t, forceMonthDisplay } = this.props;
+    const { forceMonthDisplay } = this.props;
     const { selectedDay, displayMode } = this.state;
     const month = Moment.months()[selectedDay.month()];
     const year = selectedDay.year();
@@ -242,7 +212,7 @@ export class Calendar extends Component<Props> {
     );
   };
 
-  renderWeekFrom = (firstDayWeek) => (
+  renderWeekFrom = (firstDayWeek: Object) => (
     <Grid
       container
       direction="row"
@@ -260,12 +230,12 @@ export class Calendar extends Component<Props> {
     </Grid>
   );
 
-  renderMonthFrom = (firstDayMonth) => {
-    const { t, classes } = this.props;
+  renderMonthFrom = (firstDayMonth: Object) => {
+    const { classes } = this.props;
     const { selectedDay } = this.state;
 
     const weekRows = [];
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 6; i += 1) {
       const firstDayInRow = Moment(firstDayMonth).add(i * 7, 'days');
       if (firstDayInRow.isSameOrBefore(selectedDay, 'month')) {
         weekRows.push(
@@ -314,6 +284,7 @@ export class Calendar extends Component<Props> {
       case WEEKMODE:
         return this.renderWeekFrom(firstDayWeek);
       case MONTHMODE:
+      default:
         return this.renderMonthFrom(firstDayMonth);
     }
   };
@@ -339,4 +310,36 @@ export class Calendar extends Component<Props> {
   }
 }
 
-export default withStyles(styles)(translate()(Calendar));
+const styles = (theme) => ({
+  container: {
+    marginRight: theme.spacing.unit * 2,
+  },
+
+  arrowIconLeft: {
+    marginLeft: -theme.spacing.unit * 2,
+  },
+  arrowIconRight: {
+    marginRight: -theme.spacing.unit * 2,
+  },
+  dayButton: {
+    marginLeft: -theme.spacing.unit * 2,
+    marginRight: -theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit,
+  },
+  dots: {
+    height: 5,
+    marginBottom: theme.spacing.unit,
+  },
+  weekdayNameRow: {
+    marginBottom: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit,
+  },
+  dayRow: {
+    [theme.breakpoints.up('md')]: {
+      marginLeft: theme.spacing.unit,
+      marginRight: theme.spacing.unit,
+    },
+  },
+});
+
+export default withStyles(styles)(Calendar);

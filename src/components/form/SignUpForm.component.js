@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 
 import { Grid, Button } from '@material-ui/core';
@@ -9,7 +10,14 @@ import { FormField } from '../input';
 type Props = {
   onComplete: (Object) => void,
 };
-export default class SignUpForm extends Component<Props> {
+
+type State = {
+  email: string,
+  firstname: string,
+  lastname: string,
+  phone: string,
+};
+export default class SignUpForm extends Component<Props, State> {
   state = {
     email: '',
     firstname: '',
@@ -17,13 +25,14 @@ export default class SignUpForm extends Component<Props> {
     phone: '',
   };
 
-  submitInfo = (event) => {
+  submitInfo = (event: Object) => {
     event.preventDefault();
     const { email, firstname, lastname, phone } = this.state;
     this.props.onComplete({ email, firstname, lastname, phone });
   };
 
-  onFormFieldChange = (id) => (value, error) => {
+  onFormFieldChange = (id: string) => (value: Object) => {
+    // eslint-disable-next-line
     this.setState({ [id]: value });
   };
 

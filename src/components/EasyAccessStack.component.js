@@ -4,8 +4,10 @@ import React from 'react';
 
 import { getEasyAccessOptions } from 'bsport-commons/lib/colors';
 
+// eslint-disable-next-line
 import './easy-access-stack.scss';
 
+// eslint-disable-next-line
 type Props = { name: string, lines: string[], size: 'xs' | 'md' };
 
 export function EasyAccessStack(props: Props) {
@@ -13,7 +15,9 @@ export function EasyAccessStack(props: Props) {
   return (
     <div className={`easy-access-stack -${props.size}`} title={name}>
       <div className="stack">
-        {lines.map((line) => <LineBubble key={line} id={line} />)}
+        {lines.map((line) => (
+          <LineBubble key={line} id={line} />
+        ))}
       </div>
       {name}
     </div>
@@ -21,6 +25,7 @@ export function EasyAccessStack(props: Props) {
 }
 
 EasyAccessStack.defaultProps = {
+  // eslint-disable-next-line
   size: 'md',
 };
 

@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 
 import {
@@ -15,6 +16,7 @@ import PhoneIcon from '@material-ui/icons/Call';
 import { translate } from 'react-i18next';
 
 import Avatar from '../Avatar.component';
+import type { Profile } from '../../api/types';
 
 const styles = (theme) => ({
   paperContainer: {
@@ -22,7 +24,10 @@ const styles = (theme) => ({
   },
 });
 
-type Props = {};
+type Props = {
+  classes: Object,
+  profile: Profile,
+};
 
 export class MyProfile extends Component<Props> {
   getContactInfo = () => {

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 
-import { ActivityCard } from '../components';
+import { MetaActivityCard } from '../components';
 import { stats as statsActions } from '../actions';
 import type { MetaActivity, Stat } from '../api/types';
 
@@ -70,7 +70,7 @@ class Activity extends Component<Props> {
               const s = aStats || [null];
               return (
                 <Grid item xs={12} sm={6} key={a.id}>
-                  <ActivityCard activity={a} stats={s[0]} />
+                  <MetaActivityCard metaActivity={a} stats={s[0]} />
                 </Grid>
               );
             })}

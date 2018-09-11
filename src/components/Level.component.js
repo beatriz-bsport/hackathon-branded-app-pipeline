@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 
 import { Typography } from '@material-ui/core';
@@ -11,22 +12,30 @@ export const LEVELS = [
   'level.advanced',
 ];
 
-export function Level(props) {
+type Props = {
+  noStyle: boolean,
+  levelId: number,
+  variant: ?string,
+  t: (x: string) => string,
+};
+
+export function Level(props: Props) {
   const { noStyle, levelId, t } = props;
   const variant = props.variant || 'body1';
 
-  const stylesheet = noStyle
-    ? {
-        color: getLevelColorById(levelId),
-      }
-    : {
-        padding: '10px',
-        paddingTop: '4px',
-        paddingBottom: '4px',
-        borderRadius: 5,
-        backgroundColor: getLevelColorById(levelId),
-        color: 'white',
-      };
+  let stylesheet = {
+    padding: '10px',
+    paddingTop: '4px',
+    paddingBottom: '4px',
+    borderRadius: 5,
+    backgroundColor: getLevelColorById(levelId),
+    color: 'white',
+  };
+  if (noStyle) {
+    stylesheet = {
+      color: getLevelColorById(levelId),
+    };
+  }
 
   return (
     <Typography variant={variant} style={stylesheet}>

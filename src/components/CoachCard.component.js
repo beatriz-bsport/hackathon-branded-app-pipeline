@@ -1,36 +1,32 @@
+// @flow
 import React, { Component } from 'react';
 
 import {
   Grid,
   Paper,
-  Divider,
   Typography,
   List,
-  ListItem,
   withStyles,
   IconButton,
-  Button,
-  Card,
-  CardContent,
-  CardActions,
 } from '@material-ui/core';
 import CallIcon from '@material-ui/icons/Call';
 import EmailIcon from '@material-ui/icons/Email';
 import { Link } from 'react-router-dom';
 import { translate } from 'react-i18next';
 
-import { Avatar, ActivityMinimalSummary } from '.';
+import Avatar from './Avatar.component';
+import ActivityMinimalSummary from './activity/ActivityMinimalSummary.component';
+import type { CoachDetailed } from '../api/types';
 
 const OVERFLOW = 100;
 
-const styles = (theme) => ({
-  paper: {
-    padding: theme.spacing.unit * 3,
-    paddingBottom: theme.spacing.unit,
-    marginTop: OVERFLOW,
-  },
-});
-export class CoachCard extends Component {
+type Props = {
+  t: (x: string) => string,
+  classes: Object,
+  coach: CoachDetailed,
+};
+
+export class CoachCard extends Component<Props> {
   getActivityList = () => {
     const { t } = this.props;
     const { coach } = this.props;
@@ -98,4 +94,11 @@ export class CoachCard extends Component {
   }
 }
 
+const styles = (theme) => ({
+  paper: {
+    padding: theme.spacing.unit * 3,
+    paddingBottom: theme.spacing.unit,
+    marginTop: OVERFLOW,
+  },
+});
 export default withStyles(styles)(translate()(CoachCard));

@@ -8,6 +8,7 @@ import { translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import { CoachCard } from '../components';
+import type { Coach } from '../api/types';
 
 const styles = (theme) => ({
   button: {
@@ -18,9 +19,17 @@ const styles = (theme) => ({
   },
 });
 
-type Props = {};
+type Props = {
+  loading: boolean,
+  isManager: boolean,
+  classes: Object,
+  t: (x: string) => string,
+  isCoach: boolean,
+  selfCoach: Coach,
+  associatedCoaches: Array<Coach>,
+};
 
-function SelfCoachCard(props) {
+function SelfCoachCard(props: { isCoach: boolean, selfCoach: Coach }) {
   const { isCoach, selfCoach } = props;
   if (!isCoach) {
     return null;
@@ -33,7 +42,10 @@ function SelfCoachCard(props) {
   );
 }
 
-function AssociatedCoaches(props) {
+function AssociatedCoaches(props: {
+  associatedCoaches: Array<Coach>,
+  isManager: boolean,
+}) {
   const { associatedCoaches, isManager } = props;
 
   if (!isManager) {

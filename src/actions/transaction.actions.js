@@ -1,5 +1,3 @@
-// @flow
-
 import api from '../api';
 import types from './transaction.types';
 
@@ -13,7 +11,7 @@ export function fetchedTransactions(transactions) {
   return { type: types.HAS_FETCHED_TRANSACTIONS, transactions };
 }
 export function fetchAll() {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     dispatch(startFetchTransactions());
 
     try {

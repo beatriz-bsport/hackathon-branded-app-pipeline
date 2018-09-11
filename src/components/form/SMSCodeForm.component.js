@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 import { Button, Grid, Typography } from '@material-ui/core';
 import { translate } from 'react-i18next';
@@ -5,11 +6,12 @@ import { translate } from 'react-i18next';
 import { FormField } from '../input';
 
 type Props = {
-  onComplete: (code: String) => void,
+  t: (x: string) => string,
+  onComplete: (code: ?string) => void,
 };
 
 type State = {
-  code: String,
+  code: ?string,
 };
 
 export class SMSCodeForm extends Component<Props, State> {
@@ -17,11 +19,11 @@ export class SMSCodeForm extends Component<Props, State> {
     code: null,
   };
 
-  onFormFieldChange = (id) => (value, error) => {
+  onFormFieldChange = (id: string) => (value: Object) => {
     this.setState({ [id]: value });
   };
 
-  submitSMSCode = (event) => {
+  submitSMSCode = (event: Object) => {
     event.preventDefault();
     this.props.onComplete(this.state.code);
   };

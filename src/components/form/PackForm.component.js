@@ -24,13 +24,13 @@ type Props = {
 };
 
 type State = {
-  name: string,
+  name: ?string,
   price: number,
   starting_date: ?string,
-  ending_date: string,
-  credits: number,
-  categories: *[],
-  activities: *[],
+  ending_date: ?string,
+  credits: ?number,
+  categories: Object,
+  activities: Object,
 };
 
 export class PackForm extends React.Component<Props, State> {
@@ -44,25 +44,24 @@ export class PackForm extends React.Component<Props, State> {
     activities: {},
   };
 
-  handleChange = (name: string) => (element) => {
+  handleChange = (name: string) => (element: Object) => {
     this.setState({ [name]: element.target.value });
   };
 
-  handleCheck = (valuesKey: string, valueId) => {
-    const values = this.props[valuesKey];
-    return (event) => {
-      const currentValues = this.state[valuesKey];
-      currentValues[valueId] = event.target.checked;
-      this.setState({ [valuesKey]: currentValues });
-    };
+  handleCheck = (valuesKey: string, valueId: Object) => (event: Object) => {
+    // eslint-disable-next-line
+    const currentValues = this.state[valuesKey];
+    currentValues[valueId] = event.target.checked;
+    // eslint-disable-next-line
+    this.setState({ [valuesKey]: currentValues });
   };
 
-  isChecked = (valuesKey: string, valueId) => {
+  isChecked = (valuesKey: string, valueId: Object) => {
     const values = this.state[valuesKey];
     return values[valueId];
   };
 
-  onSubmit = (event) => {
+  onSubmit = (event: Object) => {
     event.preventDefault();
 
     const keys = ['name', 'price', 'starting_date', 'ending_date', 'credits'];

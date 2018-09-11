@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import {
   Grid,
@@ -9,17 +10,15 @@ import {
 import { translate } from 'react-i18next';
 
 import Avatar from '../Avatar.component';
+import type { MetaActivity } from '../../api/types';
 
-const styles = (theme) => ({
-  noMargin: {
-    margin: 0,
-    padding: 0,
-  },
-});
-
-export function ActivityBasicInfo(props) {
+type Props = {
+  classes: Object,
+  metaActivity: MetaActivity,
+};
+export function ActivityBasicInfo(props: Props) {
   const { classes } = props;
-  const { name, coaches } = props.activity;
+  const { name, coaches } = props.metaActivity;
   return (
     <Grid container direction="row" justify="space-between" alignItems="center">
       <Grid item>
@@ -47,5 +46,12 @@ export function ActivityBasicInfo(props) {
     </Grid>
   );
 }
+
+const styles = () => ({
+  noMargin: {
+    margin: 0,
+    padding: 0,
+  },
+});
 
 export default translate()(withStyles(styles)(ActivityBasicInfo));

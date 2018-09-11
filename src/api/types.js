@@ -9,11 +9,12 @@ export type Transaction = {
 };
 
 export type Profile = {
+  name: string,
   first_name: string,
   last_name: string,
   photo: string,
   email: string,
-  phonenumber: { phonenumber: string },
+  phonenumber: { phone_number: string },
 };
 
 export type Review = {
@@ -35,9 +36,6 @@ export type Stat = {
   id: number,
 };
 
-export type MetaActivity = {
-  id: number,
-};
 export type SCS = {
   id: number,
   name: string,
@@ -50,13 +48,22 @@ export type SCT = {
 export type ActivitySimplified = {
   id: number,
   parent_category: number,
+  meta_activity_id: number,
+  name: string,
+  level: number,
+  etablissement: Establishment,
+  next_slot: string,
+  coach: Profile,
 };
 
 export type Activity = {
   id: number,
+  name: string,
+  meta_activity_id: number,
 };
 
 export type Offer = {
+  title: string,
   id: number,
   activity_id: number,
   category: string,
@@ -96,6 +103,19 @@ export type Offer = {
   price: number,
   price_coach: number,
   credit_price: number,
+  activity: ActivitySimplified,
+};
+
+export type MetaActivity = {
+  id: number,
+  name: string,
+  description: string,
+  offers: Array<Offer>,
+  coaches: Array<Coach>,
+  etablissements: Array<Establishment>,
+  cover_thumbnail: ?string,
+  levels: Array<{ id: number, name: string }>,
+  parent_category: SCS,
 };
 
 export type User = {
@@ -112,12 +132,15 @@ export type Booking = {
   attendance: boolean,
   nb_booking: number,
   source: string,
+  offer: Offer,
 };
 
 export type BookingOption = {
   id: number,
   cancelled: boolean,
   date_start: string,
+  is_convertible: boolean,
+  offer: Offer,
 };
 
 export type Consumer = {
@@ -159,16 +182,21 @@ export type MemberDetailed = {
 };
 
 export type PaymentPack = {
+  ending_date: string,
   id: number,
   unlimited: boolean,
   name: string,
   credits: number,
+  company: { name: string },
 };
 
 export type ConsumerPaymentPackConsumerView = {
   available_credits: number,
   id: number,
   payment_pack: PaymentPack,
+  name: string,
+  used_credits: number,
+  deactivated_until: ?string,
 };
 
 export type ConsumerPaymentPackManagerView = {
@@ -202,4 +230,11 @@ export type Establishment = {
   specific_info: string,
   activities: Array<ActivitySimplified>,
   location: Location,
+};
+
+export type CoachDetailed = {
+  name: string,
+  id: number,
+  photo: string,
+  activities: Array<ActivitySimplified>,
 };

@@ -28,20 +28,19 @@ const styles = (theme) => ({
 });
 
 type Props = {
-  metaActivity: Object,
   coaches: Array<Coach>,
   establishments: Array<Establishment>,
   metaActivity: MetaActivity,
   classes: Object,
   t: (x: string) => string,
   onSubmit: ({
-    establishment: number,
-    coach: number,
-    price: string,
+    establishment: ?number,
+    coach: ?number,
+    price: ?string,
     credits: string,
     dates: Array<string>,
-    effectif: string,
-    level: number,
+    effectif: ?string,
+    level: ?number,
   }) => void,
 };
 
@@ -50,7 +49,6 @@ type State = {
   date_interval_start: Object,
   date_interval_end: Object,
   hour: Object,
-  effectif: ?string,
   coach: ?number,
   establishment: ?number,
   price: ?string,
@@ -72,15 +70,14 @@ export class OfferForm extends Component<Props, State> {
     price: null,
     credits: '1',
     level: null,
-    effectif: null,
     duration_minute: 30,
   };
 
-  onFormFieldChange = (id: string) => (value: {}, error: bolean) => {
+  onFormFieldChange = (id: string) => (value: {}) => {
     this.setState({ [id]: value });
   };
 
-  generateOffers = (event) => {
+  generateOffers = (event: Object) => {
     event.preventDefault();
     const datesToGenerate = this.getDates();
     const {
@@ -98,9 +95,9 @@ export class OfferForm extends Component<Props, State> {
       establishment,
       coach,
       price,
-      credits,
       effectif,
       level,
+      credits,
       duration_minute,
     });
   };

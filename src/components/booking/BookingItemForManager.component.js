@@ -10,13 +10,13 @@ import {
 } from '@material-ui/core';
 import CachedIcon from '@material-ui/icons/Cached';
 import { translate } from 'react-i18next';
-import { colors } from 'bsport-commons/lib/colors';
 
 import RedButton from '../button/RedButton.component';
 import { formatAsDatetime } from '../../datetime';
 
 type Props = {
   t: (x: string) => string,
+  classes: Object,
   heading: ?string,
   booking: Object,
   bookingUpdaters: {
@@ -28,8 +28,12 @@ type Props = {
 };
 
 export class BookingItemForManager extends Component<Props> {
-  getStatusStyleProps = (status: ?boolean) =>
-    status ? { color: 'primary' } : { color: 'error' };
+  getStatusStyleProps = (status: ?boolean) => {
+    if (status) {
+      return { color: 'primary' };
+    }
+    return { color: 'error' };
+  };
 
   renderButton = () => {
     const { t, booking, bookingUpdaters } = this.props;

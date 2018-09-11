@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 
 import { Paper, Grid, withStyles } from '@material-ui/core';
@@ -15,7 +16,12 @@ const styles = () => ({
     width: 80,
   },
 });
-export class LoginBase extends Component<{}> {
+
+type Props = {
+  children: Object,
+  classes: Object,
+};
+export class LoginBase extends Component<Props> {
   render() {
     const { classes } = this.props;
     return (
@@ -29,7 +35,11 @@ export class LoginBase extends Component<{}> {
         <Paper>
           <Grid container direction="column" alignItems="center">
             <Grid item>
-              <img className={classes.bsportLogo} src={B_ASSET} />
+              <img
+                className={classes.bsportLogo}
+                src={B_ASSET}
+                alt="bsport logo"
+              />
             </Grid>
             <Grid item>{this.props.children}</Grid>
           </Grid>

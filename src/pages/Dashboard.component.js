@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
@@ -11,16 +12,20 @@ import {
 
 import { translate } from 'react-i18next';
 
-export class Dashboard extends Component {
-  state = {};
-
-  renderStatCard = ({ name, old_stat, new_stat }) => {
+type Props = {
+  loading: boolean,
+  stats: Object,
+  classes: Object,
+  t: (x: string) => string,
+};
+export class Dashboard extends Component<Props> {
+  renderStatCard = ({ name, old_stat, new_stat }: Object) => {
     const { classes } = this.props;
 
-    const evolutionPercent = parseInt(new_stat / old_stat * 100, 10);
+    const evolutionPercent = parseInt((new_stat / old_stat) * 100, 10);
     const positiveEvolution = new_stat >= old_stat;
     const evolutionColor = positiveEvolution ? 'primary' : 'error';
-    const formattedEvolutionPercent = isFinite(evolutionPercent)
+    const formattedEvolutionPercent = evolutionPercent
       ? `${positiveEvolution ? '+' : ''}${evolutionPercent}%`
       : ' - ';
 
@@ -50,7 +55,7 @@ export class Dashboard extends Component {
   };
 
   renderWeekStat = () => {
-    const { t, classes, stats } = this.props;
+    const { t, stats } = this.props;
     return (
       <Grid container direction="column" spacing={16}>
         <Grid item>
@@ -93,7 +98,7 @@ export class Dashboard extends Component {
   };
 
   renderMonthStat = () => {
-    const { t, classes, stats } = this.props;
+    const { t, stats } = this.props;
     return (
       <Grid container direction="column" spacing={16}>
         <Grid item>

@@ -10,7 +10,6 @@ import {
   Divider,
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import SPORTS from 'bsport-commons/lib/master-data/sports';
@@ -83,9 +82,9 @@ export class EstablishmentCard extends Component<Props> {
     const { title, specific_info, activities, location } = establishment;
     // activities in establishment props are simplified, getting the full object
     const establishmentActivitiesId = activities.map((a) => a.id);
-    const establishmentActivities = allActivities.filter((a) =>
-      establishmentActivitiesId.includes(a.id),
-    );
+    // prettier-ignore
+    const establishmentActivities = allActivities.filter((a) => (
+      establishmentActivitiesId.includes(a.id)));
     return (
       <Paper className={classes.container}>
         <Grid container direction="column">

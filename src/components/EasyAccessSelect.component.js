@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { Grid, TextField, Button, Icon } from '@material-ui/core';
+import { Grid, TextField, Button } from '@material-ui/core';
 import Fuse from 'fuse.js';
 
 import EditIcon from '@material-ui/icons/Edit';

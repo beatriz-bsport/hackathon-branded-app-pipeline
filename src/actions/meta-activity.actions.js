@@ -1,5 +1,3 @@
-//@flow
-
 import api from '../api';
 import types from './meta-activity.types';
 
@@ -21,7 +19,7 @@ export function fetchedMetaActivityDetails(metaActivity) {
   return { type: types.FETCHED_META_ACTIVITY_DETAILS, metaActivity };
 }
 export function fetchMetaActivityDetails(id) {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     dispatch(startFetchAllActivities());
 
     try {
@@ -35,7 +33,7 @@ export function fetchMetaActivityDetails(id) {
 }
 
 export function fetchAllActivities() {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     /*
     if (getState().activity.loading) {
       return dispatch(activityAlreadyLoading());

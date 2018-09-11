@@ -51,14 +51,14 @@ export async function get(uri: string, headers: {} = {}) {
   });
 }
 
-export async function getAuth(uri: string) {
-  const token = getAuthToken();
-  return get(uri, { Authorization: `Token ${token}` });
+export async function getAuth(uri: string, token) {
+  const token_ = token || getAuthToken();
+  return get(uri, { Authorization: `Token ${token_}` });
 }
 
-export async function postAuth(uri: string, data: Object) {
-  const token = getAuthToken();
-  return post(uri, data, { Authorization: `Token ${token}` });
+export async function postAuth(uri: string, data: Object, token) {
+  const token_ = token || getAuthToken();
+  return post(uri, data, { Authorization: `Token ${token_}` });
 }
 
 export async function putAuth(uri: string, data: Object) {

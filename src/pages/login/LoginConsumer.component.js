@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import qs from 'query-string';
+import qs from '../../external-modules/query-string';
 
 import { auth as authActions } from '../../actions';
 import { ConsumerModalContainer, ConsumerLogin } from '../../components';

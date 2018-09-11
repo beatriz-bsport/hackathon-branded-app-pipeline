@@ -14,7 +14,6 @@ import { translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import RedButton from '../button/RedButton.component';
 
-import FacebookLoginButton from '../button/FacebookLoginButton.component';
 import { FormField } from '../input';
 
 import ConsumerSMSLoginForm from '../form/ConsumerSMSLoginForm.component';
@@ -31,7 +30,6 @@ const styles = (theme) => ({
 type Props = {
   doEmailLogin: ({ email: string, password: string }) => void,
   loading: boolean,
-  error: boolean,
   classes: Object,
   t: (x: string) => string,
 };
@@ -40,25 +38,19 @@ type State = {
   loginMethod: ?number,
   email: string,
   password: string,
-  firstname: string,
-  lastname: string,
-  phone: string,
-  code: string,
 };
 
 const EMAIL_LOGIN = 0;
 const PHONE_LOGIN = 1;
-const FACEBOOK_LOGIN = 2;
 
 export class ConsumerLogin extends Component<Props, State> {
   state = {
     email: '',
-    phone: '',
     password: '',
     loginMethod: null,
   };
 
-  onFormFieldChange = (id: string) => (value: Object, error: ?boolean) => {
+  onFormFieldChange = (id: string) => (value: Object) => {
     this.setState({ [id]: value });
   };
 
@@ -145,6 +137,7 @@ export class ConsumerLogin extends Component<Props, State> {
     switch (loginMethod) {
       case PHONE_LOGIN:
         return <ConsumerSMSLoginForm />;
+      case EMAIL_LOGIN:
       default:
         return (
           <Grid container direction="column" alignItems="center" spacing={24}>

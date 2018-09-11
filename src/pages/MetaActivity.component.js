@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
@@ -24,48 +25,74 @@ import { Moment } from '../i18n';
 
 import {
   Review,
-  ActivityCover,
-  ActivityBasicInfo,
+  MetaActivityCover,
+  MetaActivityBasicInfo,
   ActivityStats,
   PackMinimalSummary,
   Calendar,
   TimeTable,
 } from '../components';
 import { metaActivity as metaActivityActions } from '../actions';
+import type {
+  Activity,
+  Offer,
+  MetaActivity as MetaActivityType,
+  Stat,
+} from '../api/types';
 
-type Props = {};
+type Props = {
+  metaActivity: MetaActivityType,
+  loading: boolean,
+  stats: Stat,
+  fetchMetaActivityDetails: (number) => void,
+  timetableLoading: boolean,
+  activities: Array<Activity>,
+  offers: Array<Offer>,
+  match: Object,
+  classes: Object,
+  t: (x: string) => string,
+};
 
-export class MetaActivity extends Component<Props> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      editable: false,
-      data: [],
-      sportCategories: [],
-      dateSelected: Moment(),
-    };
-  }
+type State = {
+  editable: boolean,
+  data: *,
+  sportCategories: Array<number>,
+  dateSelected: Object,
+};
+
+export class MetaActivity extends Component<Props, State> {
+  metaActivityId: number;
+
+  state = {
+    editable: false,
+    data: [],
+    sportCategories: [],
+    dateSelected: Moment(),
+  };
 
   componentDidMount() {
-    this.activityId = parseInt(this.props.match.params.id, 10);
-    this.props.fetchMetaActivityDetails(this.activityId);
+    this.metaActivityId = parseInt(this.props.match.params.id, 10);
+    this.props.fetchMetaActivityDetails(this.metaActivityId);
   }
 
   onEditToogle = () => {
-    this.setState({ editable: !this.state.editable });
+    this.setState((prevState) => ({ editable: !prevState.editable }));
   };
 
   onEdit = () => {};
 
-  getById = (array, id) => (array.filter((a) => a.id === id) || [{}])[0];
+  // prettier-ignore
+  getById = (array: Array<{ id: number }>, id: number): Array<{id: number}> => (
+    array.filter((a) => a.id === id) || [{}]
+  )[0]
 
-  handleChange = (fieldName) => (event) => {
+  handleChange = (fieldName: string) => (event: Object) => {
     const { data } = this.state;
     data[fieldName] = event.target.value;
     this.setState({ data });
   };
 
-  getHeader = (activity) => {
+  getHeader = (activity: Activity) => {
     const { classes, t } = this.props;
     const { editable, data } = this.state;
 
@@ -135,6 +162,7 @@ export class MetaActivity extends Component<Props> {
     const events = {};
     for (const o of offers) {
       const midnight = Moment(o.date_start).startOf('day');
+      // esling-disable-next-line
       if (events.hasOwnProperty(midnight)) {
         events[midnight].push(o);
       } else {
@@ -150,7 +178,7 @@ export class MetaActivity extends Component<Props> {
     );
   };
 
-  handleDayClick = (date) => {
+  handleDayClick = (date: Object) => {
     this.setState({ dateSelected: date });
   };
 
@@ -300,7 +328,7 @@ export class MetaActivity extends Component<Props> {
       return <CircularProgress />;
     }
     const activity = this.props.metaActivity;
-    const stats = this.getById(this.props.stats, this.activityId);
+    const stats = this.getById(this.props.stats, this.metaActivityId);
 
     const { classes } = this.props;
 
@@ -310,10 +338,10 @@ export class MetaActivity extends Component<Props> {
           <Paper>
             <Grid container spacing={16} direction="column">
               <Grid item>
-                <ActivityCover activity={activity} />
+                <MetaActivityCover activity={activity} />
               </Grid>
               <Grid item className={classes.paddedBlock}>
-                <ActivityBasicInfo activity={activity} />
+                <MetaActivityBasicInfo activity={activity} />
               </Grid>
               <Grid item>
                 <ActivityStats activity={activity} stats={stats} />

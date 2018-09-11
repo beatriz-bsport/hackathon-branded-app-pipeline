@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 
 import {
@@ -15,6 +16,7 @@ import Level from '../Level.component';
 import Sport from '../Sport.component';
 import Avatar from '../Avatar.component';
 import { formatAsDatetime } from '../../datetime';
+import type { ActivitySimplified } from '../../api/types';
 
 const styles = () => ({
   listItem: {
@@ -22,7 +24,22 @@ const styles = () => ({
   },
 });
 
-export function ActivityMinimalSummary(props) {
+type Props = {
+  activity: ActivitySimplified,
+  additionalInfo: ?string,
+  additionalInfoTypoProps: *,
+  additionalInfoSecondary: string,
+  date: string,
+  showCoach: ?boolean,
+  showCoachName: ?boolean,
+  overrideClickAction: () => void,
+  noDivider: ?boolean,
+  t: (x: string) => string,
+  classes: Object,
+};
+
+// prettier-disable-next-line
+export function ActivityMinimalSummary(props: Props) {
   const {
     activity,
     additionalInfo,
@@ -88,7 +105,5 @@ export function ActivityMinimalSummary(props) {
     </div>
   );
 }
-
-ActivityMinimalSummary.defaultProps = { overrideClickAction: () => {} };
 
 export default translate()(withStyles(styles)(ActivityMinimalSummary));

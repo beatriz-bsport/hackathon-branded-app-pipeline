@@ -1,8 +1,8 @@
+// @flow
 import React from 'react';
 
 import {
   Grid,
-  Typography,
   Paper,
   Table,
   TableBody,
@@ -16,7 +16,7 @@ type Props = {
 };
 
 export class ConsumerActivities extends React.Component<Props> {
-  renderActivityRow = (activity) => {
+  renderActivityRow = (activity: Object) => {
     const { name, date } = activity;
     console.log(activity);
     return (

@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 
 import { Typography, Grid, withStyles } from '@material-ui/core';
@@ -7,6 +8,10 @@ import { Moment } from '../i18n';
 
 import RuleCard from '../components/marketing/RuleCard.component';
 
+type Props = {
+  t: (x: string) => string,
+  classes: Object,
+};
 type State = {
   rules: Array<*>,
 };
@@ -72,7 +77,7 @@ const RULES = [
   },
 ];
 
-export class MarketingDashboard extends Component<{}, State> {
+export class MarketingDashboard extends Component<Props, State> {
   state = {
     rules: RULES,
   };
@@ -87,7 +92,9 @@ export class MarketingDashboard extends Component<{}, State> {
           {t('marketing.dashboard')}
         </Typography>
         <Grid container direction="row" spacing={32}>
-          {rules.map((r) => <RuleCard key={r.id} rule={r} />)}
+          {rules.map((r) => (
+            <RuleCard key={r.id} rule={r} />
+          ))}
         </Grid>
       </div>
     );

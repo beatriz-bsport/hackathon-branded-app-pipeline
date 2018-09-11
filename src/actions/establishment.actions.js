@@ -11,7 +11,7 @@ export function fetchedEstablishments(establishments) {
   return { type: types.HAS_FETCHED_ESTABLISHMENTS, establishments };
 }
 export function fetchEstablishments() {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     dispatch(startFetchEstablishments());
 
     try {

@@ -20,7 +20,7 @@ export async function discardAttendanceBooking(bookingId) {
 }
 
 export async function validateBooking(bookingId) {
-  return getAuth(`${API_URI}/saas/booking/${bookingId}/validate`);
+  return getAuth(`${API_URI}/saas/booking/${bookingId}/confirm`);
 }
 
 export async function discardBooking(bookingId) {

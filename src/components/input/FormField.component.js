@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 
 import {
@@ -9,7 +10,6 @@ import {
   InputAdornment,
   ListItemText,
   Avatar,
-  FormLabel,
   FormControlLabel,
   Radio,
   RadioGroup,
@@ -24,9 +24,9 @@ import LEVELS from 'bsport-commons/lib/master-data/levels';
 import Sport from '../Sport.component';
 import Level from '../Level.component';
 
-export const NOT_RECURRENT = '0';
-export const WEEKLY = '1';
-export const MONTHLY = '2';
+export const NOT_RECURRENT: number = 0;
+export const WEEKLY: number = 1;
+export const MONTHLY: number = 2;
 
 const styles = (theme) => ({
   textInput: {
@@ -44,28 +44,33 @@ const styles = (theme) => ({
 
 type Props = {
   id: string,
-  value: string,
+  value: ?Object,
   onChange: () => void,
 };
 
+type State = {
+  value: ?Object,
+};
+
 // prettier-ignore
+// eslint-disable-next-line no-useless-escape
 const emailRegexp = new RegExp('[A-z0-9-_]+@[A-z0-9-_]+\.[A-z]+$');
 
-export class FormField extends Component<Props> {
+export class FormField extends Component<Props, State> {
   state = {
     error: false,
     value: null,
     selectedDate: new Date(),
   };
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     if (props.value) {
       this.state.value = props.value;
     }
   }
 
-  handleDateChange = (date) => {
+  handleDateChange = (date: Object) => {
     this.setState({ selectedDate: date });
     this.handleChange({ target: { value: date } });
   };

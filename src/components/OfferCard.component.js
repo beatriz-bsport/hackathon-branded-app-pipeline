@@ -43,7 +43,7 @@ type Props = {
 export class OfferCard extends Component<Props> {
   getHeader = () => {
     const { classes, offer } = this.props;
-    const { title, level_id, category, parent_category, date_start } = offer;
+    const { title, level_id, parent_category } = offer;
     return (
       <Grid container direction="row">
         <Grid item xs={8} className={classes.paddedBlock}>
@@ -52,7 +52,7 @@ export class OfferCard extends Component<Props> {
               <Typography variant="title">{title}</Typography>
             </Grid>
             <Grid item>
-              <Sport category={category} parentCategory={parent_category} />
+              <Sport parentCategory={parent_category} />
             </Grid>
           </Grid>
         </Grid>

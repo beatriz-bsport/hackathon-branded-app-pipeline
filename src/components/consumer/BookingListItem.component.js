@@ -1,24 +1,21 @@
+// @flow
 import React, { Component } from 'react';
 
-import { withStyles } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
 import ActivityMinimalSummary from '../activity/ActivityMinimalSummary.component';
 import { formatAsDatetime } from '../../datetime';
-
-const styles = () => ({
-  container: {},
-});
+import type { Booking } from '../../api/types';
 
 type Props = {
-  booking: Object,
+  booking: Booking,
 };
 
 export class BookingListItem extends Component<Props> {
   render() {
-    const { booking, nb_place } = this.props;
+    const { booking } = this.props;
     const { offer } = booking;
-    const { activity, date_start } = offer;
+    const { activity } = offer;
     return (
       <ActivityMinimalSummary
         activity={activity}
@@ -28,4 +25,4 @@ export class BookingListItem extends Component<Props> {
   }
 }
 
-export default withStyles(styles)(translate()(BookingListItem));
+export default translate()(BookingListItem);

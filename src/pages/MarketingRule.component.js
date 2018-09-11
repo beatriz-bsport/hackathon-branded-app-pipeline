@@ -13,8 +13,6 @@ import {
 import { translate } from 'react-i18next';
 import { Sms, Email, Smartphone } from '@material-ui/icons';
 
-import { Moment } from '../i18n';
-
 const styles = (theme) => ({
   paperContainer: {
     padding: theme.spacing.unit * 3,
@@ -28,10 +26,6 @@ const styles = (theme) => ({
     marginRight: theme.spacing.unit,
   },
 });
-
-type Props = {
-  rules: Array,
-};
 
 const ACTION_KIND = [
   { id: 0, name: 'SMS' },
@@ -69,7 +63,7 @@ const RULE = {
     },
   ],
 };
-export class MarketingRule extends Component<Props> {
+export class MarketingRule extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -86,6 +80,7 @@ export class MarketingRule extends Component<Props> {
         icon = <Email color="primary" />;
         break;
       case 2:
+      default:
         icon = <Smartphone color="primary" />;
         break;
     }
@@ -100,8 +95,9 @@ export class MarketingRule extends Component<Props> {
       </MenuItem>
     );
   };
+
   renderActionKindSelect = (action) => {
-    const { classes, t } = this.props;
+    const { classes } = this.props;
     return (
       <FormControl className={classes.formControl} margin="normal">
         <Select value={action.kind} onChange={this.handleChange}>
@@ -112,7 +108,7 @@ export class MarketingRule extends Component<Props> {
   };
 
   renderMessageDisplay = (action) => {
-    const { classes, t } = this.props;
+    const { t } = this.props;
     return (
       <Grid container direction="column" spacing={16}>
         <Grid item>
@@ -155,9 +151,9 @@ export class MarketingRule extends Component<Props> {
               {PROMO.map((promo) => (
                 <MenuItem value={promo}>
                   {promo ? (
-                    <Typography>{`${t(
-                      'marketing.promo',
-                    )} ${promo}%`}</Typography>
+                    <Typography>
+                      {`${t('marketing.promo')} ${promo}%`}
+                    </Typography>
                   ) : (
                     <Typography>{t('marketing.noPromo')}</Typography>
                   )}
@@ -170,25 +166,22 @@ export class MarketingRule extends Component<Props> {
     );
   };
 
-  renderAction = (action) => {
-    const { t, classes } = this.props;
-    return (
-      <Grid container direction="row">
-        <Grid item xs={3}>
-          {this.renderTriggerSelect(action)}
-        </Grid>
-        <Grid item xs={2}>
-          {this.renderActionKindSelect(action)}
-        </Grid>
-        <Grid item xs={4}>
-          {this.renderMessageDisplay(action)}
-        </Grid>
-        <Grid item xs={3}>
-          {this.renderPromoSelect(action)}
-        </Grid>
+  renderAction = (action) => (
+    <Grid container direction="row">
+      <Grid item xs={3}>
+        {this.renderTriggerSelect(action)}
       </Grid>
-    );
-  };
+      <Grid item xs={2}>
+        {this.renderActionKindSelect(action)}
+      </Grid>
+      <Grid item xs={4}>
+        {this.renderMessageDisplay(action)}
+      </Grid>
+      <Grid item xs={3}>
+        {this.renderPromoSelect(action)}
+      </Grid>
+    </Grid>
+  );
 
   render() {
     const { rule } = this.state;

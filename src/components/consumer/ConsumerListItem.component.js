@@ -1,19 +1,13 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
 import {
-  withStyles,
   ListItem,
   ListItemText,
   IconButton,
   Typography,
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
-import { Avatar } from '../../components';
-
-const styles = (theme) => ({
-  container: {},
-});
+import Avatar from '../Avatar.component';
 
 export class ConsumerListItem extends Component<Props> {
   render() {
@@ -33,4 +27,4 @@ export class ConsumerListItem extends Component<Props> {
   }
 }
 
-export default withStyles(styles)(translate()(ConsumerListItem));
+export default translate()(ConsumerListItem);

@@ -1,11 +1,15 @@
+// @flow
 import React from 'react';
-import { withStyles, Divider, Grid, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
-const styles = (theme) => ({});
+type Props = {
+  stats: Object,
+  t: (x: string) => string,
+};
 
-export function ActivityStats(props) {
-  const { stats, t, classes } = props;
+export function ActivityStats(props: Props) {
+  const { stats, t } = props;
   const { total_customers, average_fillrate, gross_volume } = stats;
 
   return (
@@ -90,8 +94,4 @@ export function ActivityStats(props) {
   );
 }
 
-ActivityStats.defaultProps = {
-  stats: {},
-};
-
-export default withStyles(styles)(translate()(ActivityStats));
+export default translate()(ActivityStats);

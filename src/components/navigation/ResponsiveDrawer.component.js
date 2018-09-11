@@ -1,6 +1,5 @@
+// @flow
 import React from 'react';
-
-import PropTypes from 'prop-types';
 
 import { withStyles } from '@material-ui/core/styles';
 import { translate } from 'react-i18next';
@@ -37,52 +36,24 @@ import LOGO_ASSET from '../../public/images/banner_lowres.png';
 
 const drawerWidth = 240;
 
-const styles = (theme) => ({
-  root: {
-    flexGrow: 1,
-    zIndex: 1,
-    overflow: 'hidden',
-    position: 'relative',
-    display: 'flex',
-    width: '100%',
-  },
-  appBar: {
-    position: 'absolute',
-    marginLeft: drawerWidth,
-    [theme.breakpoints.up('md')]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-    },
-  },
-  navIconHide: {
-    [theme.breakpoints.up('md')]: {
-      display: 'none',
-    },
-  },
-  toolbar: theme.mixins.toolbar,
-  drawerPaper: {
-    width: drawerWidth,
-    [theme.breakpoints.up('md')]: {
-      position: 'relative',
-    },
-  },
-  content: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
-    padding: theme.spacing.unit * 3,
-  },
-  logo: {
-    alignItems: 'center',
-    justify: 'center',
-  },
-});
+type Props = {
+  children: Object,
+  theme: Object,
+  classes: Object,
+  t: (x: string) => string,
+};
 
-class ResponsiveDrawer extends React.Component {
+type State = {
+  mobileOpen: boolean,
+};
+
+class ResponsiveDrawer extends React.Component<Props, State> {
   state = {
     mobileOpen: false,
   };
 
   handleDrawerToggle = () => {
-    this.setState({ mobileOpen: !this.state.mobileOpen });
+    this.setState((prevState) => ({ mobileOpen: !prevState.mobileOpen }));
   };
 
   render() {
@@ -97,7 +68,7 @@ class ResponsiveDrawer extends React.Component {
             justify="center"
             alignItems="center"
           >
-            <img height={40} src={LOGO_ASSET} />
+            <img height={40} src={LOGO_ASSET} alt="bsport logo" />
           </Grid>
         </div>
         <Divider />
@@ -214,6 +185,7 @@ class ResponsiveDrawer extends React.Component {
                     className={classes.navIconHide}
                     height={40}
                     src={LOGO_ASSET}
+                    alt="bsport logo"
                   />
                 </Grid>
               </div>
@@ -256,10 +228,44 @@ class ResponsiveDrawer extends React.Component {
   }
 }
 
-ResponsiveDrawer.propTypes = {
-  classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
-};
+const styles = (theme) => ({
+  root: {
+    flexGrow: 1,
+    zIndex: 1,
+    overflow: 'hidden',
+    position: 'relative',
+    display: 'flex',
+    width: '100%',
+  },
+  appBar: {
+    position: 'absolute',
+    marginLeft: drawerWidth,
+    [theme.breakpoints.up('md')]: {
+      width: `calc(100% - ${drawerWidth}px)`,
+    },
+  },
+  navIconHide: {
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
+  },
+  toolbar: theme.mixins.toolbar,
+  drawerPaper: {
+    width: drawerWidth,
+    [theme.breakpoints.up('md')]: {
+      position: 'relative',
+    },
+  },
+  content: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.default,
+    padding: theme.spacing.unit * 3,
+  },
+  logo: {
+    alignItems: 'center',
+    justify: 'center',
+  },
+});
 
 export default withStyles(styles, { withTheme: true })(
   translate()(ResponsiveDrawer),

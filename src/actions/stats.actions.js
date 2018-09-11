@@ -1,10 +1,8 @@
-// @flow
-
 import api from '../api';
 import types from './stats.types';
 
 export function fetchDashboard() {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     dispatch(startFetchDashboard());
 
     /*
@@ -49,9 +47,9 @@ export function fetchActivities() {
     try {
       const response = await api.stats.getActivities();
       const stats = response.data.results;
-      dispatch(fetchedActivities(stats));
+      return dispatch(fetchedActivities(stats));
     } catch (err) {
-      dispatch(errorFetchingActivities());
+      return dispatch(errorFetchingActivities());
     }
   };
 }

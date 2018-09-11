@@ -25,15 +25,11 @@ type Props = {
 };
 
 type State = {
-  lat: number,
-  lng: number,
   zoom: number,
 };
 
 export default class MyMap extends Component<Props, State> {
   state = {
-    lat: 48.86,
-    lng: 2.33,
     zoom: 12,
   };
 

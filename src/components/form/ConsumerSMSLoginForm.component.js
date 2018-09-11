@@ -13,7 +13,7 @@ import { auth as authActions } from '../../actions';
 import api from '../../api';
 
 type Props = {
-  signInPhone: ({ code: string, phone: string }) => void,
+  signInPhone: ({ code: string, phone: ?string }) => void,
   t: (x: string) => string,
 };
 
@@ -40,6 +40,7 @@ export class ConsumerSMSLoginForm extends Component<Props, State> {
         this.setState({ step: STEPS.REQUEST_PHONE_CODE });
         return;
       }
+      // eslint-disable-next-line
     } catch (err) {}
     alert(t('login.invalidPhone'));
   };

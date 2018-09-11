@@ -1,19 +1,26 @@
 // @flow
-
-import React from 'react';
+import React, { Component } from 'react';
 import { TextField } from '@material-ui/core';
 
 import Map from '../establishment/Map.component';
 
-type Props = {};
-type State = {};
+type Props = {
+  value: Object,
+  onChange: (Object) => void,
+};
 
-export class LocationInput extends React.Component<Props, State> {
+type State = {
+  id: ?number,
+  address: string,
+};
+
+export class LocationInput extends Component<Props, State> {
   state = {
+    id: null,
     address: '',
   };
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
 
     Object.keys(props.value || {}).forEach((key) => {
@@ -21,7 +28,7 @@ export class LocationInput extends React.Component<Props, State> {
     });
   }
 
-  change = (event) => {
+  change = (event: Object) => {
     const change = { [event.target.id]: event.target.value };
     this.setState(change);
 

@@ -1,5 +1,3 @@
-// @flow
-
 import api from '../api';
 import types from './consumer.types';
 

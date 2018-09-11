@@ -1,11 +1,8 @@
-//@flow
-
 import api from '../api';
 import types from './offer.types';
-import moment from 'moment';
 
 export function fetchAllOffers() {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     /*
     if (getState().offer.loading) {
       return dispatch(offerAlreadyLoading());

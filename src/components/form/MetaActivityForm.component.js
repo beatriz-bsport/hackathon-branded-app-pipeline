@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 
 import { Grid, Paper, Typography, Button, withStyles } from '@material-ui/core';
@@ -18,12 +19,29 @@ type Props = {
   establishments: *[],
   SCTs: *[],
   onSubmit: (*) => void,
+  classes: Object,
+  t: (x: string) => string,
 };
 
-export class MetaActivityForm extends Component<Props> {
+type State = {
+  name: ?string,
+  SCT: ?number,
+  description: ?string,
+  coach: ?number,
+  establishment: ?number,
+  default_waiting_list_max_size: number,
+  default_price: ?number,
+  default_credits: ?number,
+  default_last_booking_minutes: ?number,
+  default_last_discard_minutes: ?number,
+  default_duration_minutes: ?number,
+  customer_enabled: ?boolean,
+};
+
+export class MetaActivityForm extends Component<Props, State> {
   state = { default_waiting_list_max_size: 0 };
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
 
     Object.keys(props.initial || {}).forEach((key) => {
@@ -31,7 +49,7 @@ export class MetaActivityForm extends Component<Props> {
     });
   }
 
-  onSubmit = (event) => {
+  onSubmit = (event: Object) => {
     event.preventDefault();
     const {
       name,
@@ -64,7 +82,7 @@ export class MetaActivityForm extends Component<Props> {
     });
   };
 
-  onFormFieldChange = (id) => (value, error) => {
+  onFormFieldChange = (id: string) => (value: Object) => {
     this.setState({ [id]: value });
   };
 

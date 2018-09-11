@@ -5,8 +5,8 @@ import React, { Component } from 'react';
 import { Grid, CircularProgress, Typography, Divider } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { Elements, StripeProvider } from 'react-stripe-elements';
-import qs from 'query-string';
 import { withRouter } from 'react-router-dom';
+import qs from '../../external-modules/query-string';
 
 import StripeCheckout from './StripeCheckout.component';
 import OfferSummary from './OfferSummary.component';

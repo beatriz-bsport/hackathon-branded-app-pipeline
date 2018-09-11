@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 
 import { IconButton, withStyles, Input } from '@material-ui/core';
 import { translate } from 'react-i18next';
-import { Avatar } from '../components';
+import Avatar from './Avatar.component';
 
-const styles = (theme) => ({
+const styles = () => ({
   input: {
     display: 'none',
   },
@@ -26,14 +26,15 @@ export class AvatarUploader extends Component<Props> {
       this.setState({ photo: event.target.files[0] });
     }
   };
+
   render() {
     const { classes, t } = this.props;
     const { photo } = this.state;
 
-    let photoURL =
+    const photoURL =
       'https://ssl.gstatic.com/images/branding/product/1x/avatar_circle_blue_512dp.png';
     if (photo) {
-      let photoURL = URL.createObjectURL(photo);
+      const photoURL = URL.createObjectURL(photo);
     }
     // const reader = new FileReader();
     // const photo = reader.readAsDataURL(value);

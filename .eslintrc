@@ -18,6 +18,7 @@
   ],
   "rules": {
     "camelcase": "off",
+    "import/no-extraneous-dependencies": "off",
     "quotes": [1, "single"],
     "strict": 0,
     "no-underscore-dangle": 0,

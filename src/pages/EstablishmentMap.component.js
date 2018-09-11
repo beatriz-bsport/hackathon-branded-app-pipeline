@@ -77,8 +77,10 @@ export class EstablishmentList extends Component<Props, State> {
       (o) => parseInt(o.etablissement.id, 10) === establishmentId,
     );
     const events = {};
+    // eslint-disable-next-line
     for (const o of offersInEstablishment) {
       const midnight = Moment(o.date_start).startOf('day');
+      // eslint-disable-next-line
       if (events.hasOwnProperty(midnight)) {
         events[midnight].push(o);
       } else {

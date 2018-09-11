@@ -1,8 +1,8 @@
+// @flow
 import React, { Component } from 'react';
 
 import {
   Paper,
-  Typography,
   Divider,
   Grid,
   Button,
@@ -14,23 +14,18 @@ import { translate } from 'react-i18next';
 import ActivityMinimalSummary from '../activity/ActivityMinimalSummary.component';
 import RedButton from '../button/RedButton.component';
 import { formatAsDatetime } from '../../datetime';
+import type { BookingOption } from '../../api/types';
 
-const styles = () => ({
-  container: {},
-  disabled: {
-    backgroundColor: '#F5F5F5',
-  },
-});
-
-type Props = {};
+type Props = {
+  confirmBookingOption: () => void,
+  cancelBookingOption: () => void,
+  bookingOption: BookingOption,
+  loading: boolean,
+  classes: Object,
+  t: (x: string) => string,
+};
 
 export class BookingOptionListItem extends Component<Props> {
-  static defaultProps = {
-    cancelBookingOption: () => {},
-    confirmBookingOption: () => {},
-    loading: false,
-  };
-
   renderConfirmButton = () => {
     const { t, confirmBookingOption } = this.props;
     return (
@@ -123,5 +118,11 @@ export class BookingOptionListItem extends Component<Props> {
     );
   }
 }
+
+const styles = () => ({
+  disabled: {
+    backgroundColor: '#F5F5F5',
+  },
+});
 
 export default withStyles(styles)(translate()(BookingOptionListItem));

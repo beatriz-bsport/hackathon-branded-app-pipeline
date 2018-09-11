@@ -33,12 +33,12 @@ const persistConfig = {
   transforms: [immutableTransform()],
 };
 
-export default function initStore(initialState) {
+export default function initStore(initialState: Object) {
   const rootReducer = persistReducer(persistConfig, reducers);
   const history = createHistory();
   const routerMiddlewareWithHistory = routerMiddleware(history);
-  const composeEnhancers =
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  // prettier-ignore
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   const store = createStore(
     rootReducer,
     initialState,

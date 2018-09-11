@@ -43,6 +43,7 @@ function filterOffers(
 type Props = {
   loading: boolean,
   activities: Array<Object>,
+  // eslint-disable-next-line
   date: Object,
   offers: Array<Offer>,
   onOfferSelected: (offer: Offer) => void,

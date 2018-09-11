@@ -2,7 +2,7 @@ import api from '../api';
 import types from './category.types';
 
 export function fetchSCT() {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     try {
       const [categories, easyAccessesResponse] = await Promise.all([
         api.category.fetchSCT(),
@@ -11,7 +11,9 @@ export function fetchSCT() {
       const SCTs = categories.data;
       const easyAccesses = easyAccessesResponse.data;
       dispatch(fetchedCategories(SCTs, easyAccesses));
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   };
 }
 

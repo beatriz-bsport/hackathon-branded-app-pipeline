@@ -1,7 +1,7 @@
+// @flow
 import React, { Component } from 'react';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 
-import EmailIcon from '@material-ui/icons/Email';
 import {
   MuiThemeProvider,
   createMuiTheme,
@@ -22,12 +22,13 @@ const facebookTheme = createMuiTheme({
   },
 });
 
-export class FacebookLoginButton extends Component<> {
-  static defaultProps = {
-    onClick: () => {},
-    onLoginFinished: () => {},
-  };
+type Props = {
+  onClick: () => void,
+  onLoginFinished: () => void,
+  classes: Object,
+};
 
+export class FacebookLoginButton extends Component<Props> {
   onClick = () => {
     this.props.onClick();
   };
@@ -52,7 +53,11 @@ export class FacebookLoginButton extends Component<> {
               onClick={renderProps.onClick}
               className={classes.button}
             >
-              <img src={FACEBOOK_LOGO} className={classes.facebookLogo} />
+              <img
+                src={FACEBOOK_LOGO}
+                className={classes.facebookLogo}
+                alt="facebook logo"
+              />
               Connect
             </Button>
           </MuiThemeProvider>

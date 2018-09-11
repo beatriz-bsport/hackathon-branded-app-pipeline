@@ -1,0 +1,17 @@
+**/FormField.component.js
+**/Marketing*js
+**/*stories*
+**/*story*
+**/MetaActivity.component.js
+
+**/RuleCard.component.js
+**/AvatarUploader.component.js
+
+
+**/MetaActivityForm.component.js
+**/MemberForm.component.js
+**/CoachForm.component.js
+**/Map.component.js
+
+// packages not compiling to ES5 thus placed in src/
+**/external-modules/**

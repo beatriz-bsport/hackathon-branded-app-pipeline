@@ -1,11 +1,19 @@
+// @flow
 import React from 'react';
 
 import { Grid, Typography } from '@material-ui/core';
+import type { Profile } from '../api/types';
+// prettier-ignore
+const DEFAULT_PROFIL_PIC = 'https://ssl.gstatic.com/images/branding/product/1x/avatar_circle_blue_512dp.png';
 
-const DEFAULT_PROFIL_PIC =
-  'https://ssl.gstatic.com/images/branding/product/1x/avatar_circle_blue_512dp.png';
+type Props = {
+  user: Profile,
+  variant: string,
+  noname: ?boolean,
+};
 
-export default function(props) {
+// prettier-ignore
+export default function (props: Props) {
   const { user, variant } = props;
   let HEIGHT = 60;
   const { noname } = props;
@@ -29,6 +37,7 @@ export default function(props) {
     >
       <Grid item>
         <img
+          alt="user"
           src={user.photo || DEFAULT_PROFIL_PIC}
           height={HEIGHT}
           width={WIDTH}

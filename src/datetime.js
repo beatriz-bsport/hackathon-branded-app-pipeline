@@ -44,12 +44,17 @@ export function humanizeDuration(milliseconds) {
   const hours = parseInt(seconds / 3600, 10);
   const minutesNumber = parseInt((seconds % 3600) / 60, 10);
 
-  const minutes =
-    minutesNumber < 10
-      ? minutesNumber === 0
-        ? ''
-        : `0${minutesNumber}`
-      : `${minutesNumber}`;
+  // prettier-ignore
+  let minutes = '';
+  if (minutesNumber < 10) {
+    if (minutesNumber === 0) {
+      minutes = '';
+    } else {
+      minutes = `0${minutesNumber}`;
+    }
+  } else {
+    minutes = `${minutesNumber}`;
+  }
 
   if (hours) {
     return `${hours}H${minutes}`;

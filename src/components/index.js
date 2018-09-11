@@ -6,12 +6,10 @@ import Level from './Level.component';
 import Sport from './Sport.component';
 import BookingTable from './booking/BookingTable.component';
 import ActionButton from './button/ActionButton.component';
-import ActivityCard from './activity/ActivityCard.component';
+import MetaActivityCard from './activity/MetaActivityCard.component';
 import ActivityStats from './activity/ActivityStats.component';
-import ActivityCover from './activity/ActivityCover.component';
-import Filter from './Filter.component';
-import GreatFilter from './GreatFilter.component';
-import ActivityBasicInfo from './activity/ActivityBasicInfo.component';
+import MetaActivityCover from './activity/MetaActivityCover.component';
+import MetaActivityBasicInfo from './activity/MetaActivityBasicInfo.component';
 import CoachCard from './CoachCard.component';
 import ActivityMinimalSummary from './activity/ActivityMinimalSummary.component';
 import PaymentTable from './PaymentTable.component';
@@ -71,9 +69,7 @@ export {
   ConsumerRowSummary,
   ConsumerListItem,
   PaymentPack,
-  GreatFilter,
   MemberBookingGraph,
-  Filter,
   LoginBase,
   LanguageButton,
   OfferCard,
@@ -82,10 +78,10 @@ export {
   Sport,
   BookingTable,
   ActionButton,
-  ActivityCard,
+  MetaActivityCard,
   ActivityStats,
-  ActivityCover,
-  ActivityBasicInfo,
+  MetaActivityCover,
+  MetaActivityBasicInfo,
   CoachCard,
   ActivityMinimalSummary,
   PaymentTable,

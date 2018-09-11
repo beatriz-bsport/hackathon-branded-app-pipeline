@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { translate } from 'react-i18next';
-import { withRouter, Redirect, Switch, Route } from 'react-router-dom';
+import { Redirect, Switch, Route } from 'react-router-dom';
 
 import { consumer as consumerActions } from '../actions';
 import MyBookings from './consumer/MyBookings.component';
@@ -88,5 +88,8 @@ function mapDispatchToProps(dispatch) {
   };
 }
 export default translate()(
-  connect(mapStateToProps, mapDispatchToProps)(ConsumerHome),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(ConsumerHome),
 );

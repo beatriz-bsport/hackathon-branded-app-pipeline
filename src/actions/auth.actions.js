@@ -7,8 +7,8 @@ export function profileUpdated() {
 }
 export function updateProfile({ email, firstname, lastname }) {
   return async (dispatch) => {
-    // TODO update firstname email and lastname
-    const response = await api.auth.updateProfile({
+    // TODO update firstname email and lastname in reducer
+    await api.auth.updateProfile({
       email,
       first_name: firstname,
       last_name: lastname,
@@ -17,7 +17,7 @@ export function updateProfile({ email, firstname, lastname }) {
   };
 }
 
-export function signUpPhone({ phone, code, email, firstname, lastname }) {
+export function signUpPhone({ phone, code }) {
   return async (dispatch) => {
     dispatch(validatePhone({ phone, code }));
   };
@@ -44,9 +44,11 @@ export function validatePhone({ phone, code }) {
           }),
         );
       } else {
+        debugger;
         dispatch(errorLogin());
       }
     } catch (err) {
+      debugger;
       dispatch(errorLogin());
     }
   };
@@ -74,9 +76,11 @@ export function requestLogin(username, password) {
           }),
         );
       } else {
+        debugger;
         dispatch(errorLogin());
       }
     } catch (err) {
+      debugger;
       dispatch(errorLogin());
     }
   };

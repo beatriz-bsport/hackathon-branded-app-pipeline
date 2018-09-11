@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 
 import { ListItem, ListItemText, withStyles } from '@material-ui/core';
@@ -7,7 +8,10 @@ const styles = () => ({
   container: {},
 });
 
-type Props = {};
+type Props = {
+  t: (x: string) => string,
+  paymentPack: Object,
+};
 
 export class PaymentPackMinimalSummary extends Component<Props> {
   render() {

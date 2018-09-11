@@ -60,7 +60,7 @@ export class ConsumerSignUp extends Component<Props, State> {
     this.setState({ phone });
   };
 
-  onFormFieldChange = (id: string) => (value: Object, error: boolean) => {
+  onFormFieldChange = (id: string) => (value: Object) => {
     this.setState({ [id]: value });
   };
 

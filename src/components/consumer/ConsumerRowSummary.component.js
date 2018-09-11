@@ -1,14 +1,18 @@
+// @flow
 import React, { Component } from 'react';
 
-import { withStyles, Grid, IconButton, Typography } from '@material-ui/core';
+import { withStyles, Grid, Typography } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import Avatar from '../Avatar.component';
+import type { Profile } from '../../api/types';
 
 const styles = () => ({
   container: {},
 });
 
-type Props = {};
+type Props = {
+  consumer: Profile,
+};
 
 export class ConsumerRowSummary extends Component<Props> {
   render() {

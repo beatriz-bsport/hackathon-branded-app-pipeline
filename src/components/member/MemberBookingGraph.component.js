@@ -1,10 +1,16 @@
+// @flow
 import React, { Component } from 'react';
 import Highcharts from 'highcharts';
 
 import { translate } from 'react-i18next';
 
-export class MemberBookingGraph extends Component<{}> {
-  drawChart = (data, graphId) => {
+type Props = {
+  t: (x: string) => string,
+  graphId: number,
+};
+
+export class MemberBookingGraph extends Component<Props> {
+  drawChart = (data: *, graphId: number) => {
     const { t } = this.props;
     Highcharts.chart(graphId, {
       chart: {
@@ -76,8 +82,9 @@ export class MemberBookingGraph extends Component<{}> {
         y: 100,
         floating: true,
         backgroundColor:
-          (Highcharts.theme && Highcharts.theme.legendBackgroundColor) ||
-          '#FFFFFF',
+          // prettier-ignore
+          (Highcharts.theme && Highcharts.theme.legendBackgroundColor)
+          || '#FFFFFF',
       },
       series: [
         {
@@ -126,12 +133,15 @@ export class MemberBookingGraph extends Component<{}> {
       ],
     });
   };
+
   componentDidMount() {
     this.drawChart(null, this.props.graphId);
   }
-  componentWillReceiveProps(nextProps) {
+
+  componentWillReceiveProps(nextProps: Props) {
     this.drawChart(null, nextProps.graphId);
   }
+
   render() {
     return (
       <div

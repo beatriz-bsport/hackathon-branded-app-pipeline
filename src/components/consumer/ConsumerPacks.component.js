@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 
 import {
@@ -12,26 +13,29 @@ import {
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
+import type { ConsumerPaymentPackConsumerView } from '../../api/types';
+
 type Props = {
-  packs: *[],
+  packs: Array<ConsumerPaymentPackConsumerView>,
+  classes: Object,
+  t: (x: string) => string,
 };
 
 export class ConsumerPacks extends React.Component<Props> {
-  renderPackRow = (pack) => {
+  renderPackRow = (pack: ConsumerPaymentPackConsumerView) => {
     const { t } = this.props;
-    const { id, name, used_credits, deactivated_until, payment_pack } = pack;
+    const { id, used_credits, payment_pack } = pack;
+    let creditsLeft = t('paymentPack.unlimitedCredits');
+    if (!payment_pack.unlimited) {
+      const numberOfCreditsLeft = payment_pack.credits - used_credits;
+      creditsLeft = `${numberOfCreditsLeft} / ${payment_pack.credits}`;
+    }
     return (
       <TableRow key={id}>
         <TableCell>{payment_pack.name}</TableCell>
         <TableCell>{payment_pack.company.name}</TableCell>
         <TableCell>{payment_pack.ending_date || ' - '}</TableCell>
-        <TableCell>
-          {payment_pack.unlimited
-            ? t('paymentPack.unlimitedCredits')
-            : `${payment_pack.credits - used_credits} / ${
-                payment_pack.credits
-              }`}
-        </TableCell>
+        <TableCell>{creditsLeft}</TableCell>
       </TableRow>
     );
   };

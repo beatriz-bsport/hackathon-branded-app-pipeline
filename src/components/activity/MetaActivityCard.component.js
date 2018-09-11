@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 import {
   withStyles,
@@ -14,9 +15,10 @@ import { LocationOn } from '@material-ui/icons';
 import { translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import ActivityCover from './ActivityCover.component';
+import MetaActivityCover from './MetaActivityCover.component';
 import ActivityStats from './ActivityStats.component';
-import ActivityBasicInfo from './ActivityBasicInfo.component';
+import MetaActivityBasicInfo from './MetaActivityBasicInfo.component';
+import type { MetaActivity } from '../../api/types';
 
 const styles = (theme) => ({
   unPaddedHorizontal: {
@@ -25,27 +27,25 @@ const styles = (theme) => ({
   },
 });
 
-export class ActivityCard extends Component<{}> {
+type Props = {
+  metaActivity: MetaActivity,
+  stats: Object,
+  t: (x: string) => string,
+  classes: Object,
+};
+export class ActivityCard extends Component<Props> {
   render() {
-    const { activity, t, stats, classes } = this.props;
-    const {
-      id,
-      parent_category,
-      name,
-      level_id,
-      cover_thumbnail,
-      coach,
-      etablissements,
-    } = activity;
+    const { metaActivity, t, stats, classes } = this.props;
+    const { id, etablissements } = metaActivity;
 
     return (
       <Card>
-        <ActivityCover activity={activity} />
+        <MetaActivityCover metaActivity={metaActivity} />
         <CardContent>
-          <ActivityBasicInfo activity={activity} />
+          <MetaActivityBasicInfo metaActivity={metaActivity} />
         </CardContent>
         <CardContent className={classes.unPaddedHorizontal}>
-          <ActivityStats activity={activity} stats={stats} />
+          <ActivityStats metaActivity={metaActivity} stats={stats} />
         </CardContent>
         <CardContent>
           <List>

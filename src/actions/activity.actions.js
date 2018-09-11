@@ -1,5 +1,3 @@
-//@flow
-
 import api from '../api';
 import types from './activity.types';
 
@@ -13,7 +11,7 @@ export function fetchedActivities(activities) {
   return { type: types.HAS_FETCHED_ACTIVITIES, activities };
 }
 export function fetchActivities() {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     dispatch(startFetchActivities());
 
     try {

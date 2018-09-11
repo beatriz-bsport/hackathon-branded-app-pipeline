@@ -1,20 +1,16 @@
+// @flow
 import React from 'react';
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
 import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { translate } from 'react-i18next';
 
 import EnhancedTableToolbar from './EnhancedTableToolbar.component';
 import EnhancedTableHead from './EnhancedTableHead.component';
 
-function getSorting(order, orderBy, t) {
+function getSorting(order: string, orderBy: string) {
   return order === 'desc'
     ? (a, b) => (b[orderBy] < a[orderBy] ? -1 : 1)
     : (a, b) => (a[orderBy] < b[orderBy] ? -1 : 1);
@@ -33,18 +29,38 @@ const styles = (theme) => ({
   },
 });
 
-class MemberTable extends React.Component {
-  constructor(props) {
-    super(props);
+type Props = {
+  t: (x: string) => string,
+  data: *,
+  classes: Object,
+  renderRow: (Object, () => void, boolean) => Object,
+  columnData: Object,
+  title: string,
+  selectionFeature: Object,
+  showCheckboxes: boolean,
+};
 
-    this.state = {
-      order: 'asc',
-      orderBy: 'name',
-      selected: [],
-      page: 0,
-      rowsPerPage: 5,
-    };
-  }
+type State = {
+  order: string,
+  orderBy: string,
+  selected: Array<*>,
+  page: number,
+  rowsPerPage: number,
+};
+
+class MemberTable extends React.Component<Props, State> {
+  state = {
+    order: 'asc',
+    orderBy: 'name',
+    selected: [],
+    page: 0,
+    rowsPerPage: 5,
+  };
+
+  formatPagination = (from: number, to: number, count: number) => {
+    const { t } = this.props;
+    return `${from}-${to} ${t('pagination.outOf')} ${count}`;
+  };
 
   handleRequestSort = (event, property) => {
     const orderBy = property;
@@ -59,7 +75,7 @@ class MemberTable extends React.Component {
 
   handleSelectAllClick = (event, checked) => {
     if (checked) {
-      this.setState((state) => ({
+      this.setState(() => ({
         selected: this.props.data.map((n) => n.id),
       }));
       return;
@@ -98,22 +114,44 @@ class MemberTable extends React.Component {
 
   isSelected = (id) => this.state.selected.indexOf(id) !== -1;
 
+  renderContent = () => {
+    const { data, renderRow } = this.props;
+
+    const { order, orderBy, rowsPerPage, page } = this.state;
+    // prettier-ignore
+
+    return data
+      .sort(getSorting(order, orderBy))
+      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+      .map((n) => {
+        const isSelected = this.isSelected(n.id);
+        return renderRow(n, this.handleClick, isSelected);
+      });
+    /*
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
+      emptyRows > 0 && (
+        <TableRow style={{ height: 49 * emptyRows }}>
+          <TableCell colSpan={6}>
+            {loading ? <CircularProgress /> : null}
+          </TableCell>
+        </TableRow>
+      );
+    }
+    */
+  };
+
   render() {
     const {
       t,
       data,
       classes,
-      renderRow,
       columnData,
       title,
       selectionFeature,
-      loading,
       showCheckboxes,
     } = this.props;
 
     const { order, orderBy, selected, rowsPerPage, page } = this.state;
-    const emptyRows =
-      rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
     return (
       <Paper className={classes.root}>
@@ -134,22 +172,7 @@ class MemberTable extends React.Component {
               columnData={columnData}
               showCheckboxes={showCheckboxes}
             />
-            <TableBody>
-              {data
-                .sort(getSorting(order, orderBy, t))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((n) => {
-                  const isSelected = this.isSelected(n.id);
-                  return renderRow(n, this.handleClick, isSelected);
-                })}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 49 * emptyRows }}>
-                  <TableCell colSpan={6}>
-                    {loading ? <CircularProgress /> : null}
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
+            <TableBody>{this.renderContent()}</TableBody>
           </Table>
         </div>
         <TablePagination
@@ -157,8 +180,9 @@ class MemberTable extends React.Component {
           count={data.length}
           rowsPerPage={rowsPerPage}
           labelRowsPerPage={t('pagination.rowPerPage')}
-          labelDisplayedRows={({ from, to, count }) =>
-            `${from}-${to} ${t('pagination.outOf')} ${count}`
+          labelDisplayedRows={
+            // eslint-disable-next-line
+            ({ from, to, count }) => this.formatPagination(from, to, count)
           }
           page={page}
           backIconButtonProps={{
@@ -175,8 +199,4 @@ class MemberTable extends React.Component {
   }
 }
 
-MemberTable.propTypes = {
-  columnData: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired,
-};
 export default withStyles(styles)(translate()(MemberTable));

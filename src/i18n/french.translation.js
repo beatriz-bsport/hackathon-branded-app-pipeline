@@ -114,8 +114,9 @@ export default {
       default_last_discard_minutes: "Dernière annulation jusqu'à",
       default_duration_minutes: 'Durée de la séance',
       newMetaActivity: 'Nouvelle activité',
-      quarterHour: '15min',
-      halfHour: '30min',
+      quarterHour: '15 min',
+      halfHour: '30 min',
+      halfAndQuarterHour: '45 min',
       oneHour: '1h',
       oneHourAndHalf: '1h30',
       twoHour: '2h',
@@ -228,6 +229,8 @@ export default {
       object: 'Description',
     },
     paymentPack: {
+      // eslint-disable-next-line
+      addButton: "Créer une offre d'abonnement",
       noPaymentPackSubscribed: 'Aucun abonnement',
       // eslint-disable-next-line
       validUntil: "Valide jusqu'au",

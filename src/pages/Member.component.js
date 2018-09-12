@@ -47,6 +47,10 @@ type Props = {
   fetchMemberBookings: (id: number) => void,
   classes: Object,
   match: Object,
+  confirmBooking: (id: number) => void,
+  confirmBookingAttendance: (id: number) => void,
+  discardBooking: (id: number) => void,
+  discardBookingAttendance: (id: number) => void,
   t: (x: string) => string,
 };
 export class Member extends Component<Props> {
@@ -132,6 +136,10 @@ export class Member extends Component<Props> {
       validatedBookings,
       pendingBookings,
       bookingOptions,
+      confirmBooking,
+      confirmBookingAttendance,
+      discardBooking,
+      discardBookingAttendance,
     } = this.props;
     // prettier-ignore
     const validatedBookingsFuture = validatedBookings.filter(
@@ -159,7 +167,9 @@ export class Member extends Component<Props> {
             </Grid>
             <Grid item>
               <Typography className={classes.secondaryHeadingExpansionPanel}>
-                {`${t('booking.next')} ${formatAsDatetime(nextBookingDate)}`}
+                {nextBookingDate
+                  ? `${t('booking.next')} ${formatAsDatetime(nextBookingDate)}`
+                  : ''}
               </Typography>
             </Grid>
           </Grid>
@@ -170,7 +180,12 @@ export class Member extends Component<Props> {
             validatedBookings={validatedBookingsFuture}
             pendingBookings={pendingBookingsFuture}
             bookingOptions={bookingOptionsFuture}
-            bookingUpdaters={{}}
+            bookingUpdaters={{
+              discardBooking,
+              confirmBooking,
+              discardBookingAttendance,
+              confirmBookingAttendance,
+            }}
           />
         </ExpansionPanelDetails>
       </ExpansionPanel>
@@ -185,6 +200,10 @@ export class Member extends Component<Props> {
       validatedBookings,
       pendingBookings,
       bookingOptions,
+      confirmBooking,
+      confirmBookingAttendance,
+      discardBooking,
+      discardBookingAttendance,
     } = this.props;
     // prettier-ignore
     const validatedBookingsPast = validatedBookings.filter(
@@ -212,9 +231,11 @@ export class Member extends Component<Props> {
             </Grid>
             <Grid item>
               <Typography className={classes.secondaryHeadingExpansionPanel}>
-                {`${t('booking.last')} ${formatAsDatetime(
-                  previousBookingDate,
-                )}`}
+                {previousBookingDate
+                  ? `${t('booking.last')} ${formatAsDatetime(
+                      previousBookingDate,
+                    )}`
+                  : ''}
               </Typography>
             </Grid>
           </Grid>
@@ -225,7 +246,12 @@ export class Member extends Component<Props> {
             validatedBookings={validatedBookingsPast}
             pendingBookings={pendingBookingsPast}
             bookingOptions={bookingOptionsPast}
-            bookingUpdaters={{}}
+            bookingUpdaters={{
+              discardBooking,
+              confirmBooking,
+              discardBookingAttendance,
+              confirmBookingAttendance,
+            }}
           />
         </ExpansionPanelDetails>
       </ExpansionPanel>
@@ -298,6 +324,18 @@ function mapDispatchToProps(dispatch) {
     },
     fetchMemberBookings(memberId) {
       dispatch(bookingActions.fetchBookingsByMember(memberId));
+    },
+    confirmBookingAttendance(bookingId) {
+      dispatch(bookingActions.confirmBookingAttendance(bookingId));
+    },
+    discardBookingAttendance(bookingId) {
+      dispatch(bookingActions.discardBookingAttendance(bookingId));
+    },
+    confirmBooking(bookingId) {
+      dispatch(bookingActions.confirmBooking(bookingId));
+    },
+    discardBooking(bookingId) {
+      dispatch(bookingActions.discardBooking(bookingId));
     },
   };
 }

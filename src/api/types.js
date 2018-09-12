@@ -113,7 +113,7 @@ export type MetaActivity = {
   offers: Array<Offer>,
   coaches: Array<Coach>,
   etablissements: Array<Establishment>,
-  cover_thumbnail: ?string,
+  cover_main: ?string,
   levels: Array<{ id: number, name: string }>,
   parent_category: SCS,
 };

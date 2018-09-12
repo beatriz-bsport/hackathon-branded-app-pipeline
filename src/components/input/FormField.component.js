@@ -24,9 +24,10 @@ import LEVELS from 'bsport-commons/lib/master-data/levels';
 import Sport from '../Sport.component';
 import Level from '../Level.component';
 
-export const NOT_RECURRENT: number = 0;
-export const WEEKLY: number = 1;
-export const MONTHLY: number = 2;
+// dont change to number unless good testing
+export const NOT_RECURRENT = '0';
+export const WEEKLY = '1';
+export const MONTHLY = '2';
 
 const styles = (theme) => ({
   textInput: {
@@ -243,7 +244,7 @@ export class FormField extends Component<Props, State> {
               row
               name={id}
               className={classes.group}
-              value={value || NOT_RECURRENT}
+              value={this.props.value}
               onChange={this.handleChange}
             >
               <FormControlLabel
@@ -311,6 +312,7 @@ export class FormField extends Component<Props, State> {
             <Select value={value || 30} onChange={this.handleChange}>
               <MenuItem value={15}>{t('form.quarterHour')}</MenuItem>
               <MenuItem value={30}>{t('form.halfHour')}</MenuItem>
+              <MenuItem value={45}>{t('form.halfAndQuarterHour')}</MenuItem>
               <MenuItem value={60}>{t('form.oneHour')}</MenuItem>
               <MenuItem value={90}>{t('form.oneHourAndHalf')}</MenuItem>
               <MenuItem value={120}>{t('form.twoHour')}</MenuItem>

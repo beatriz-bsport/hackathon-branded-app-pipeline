@@ -9,6 +9,7 @@ import type { MetaActivity } from '../../api/types';
 
 type Props = {
   metaActivity: MetaActivity,
+  large: ?boolean,
 };
 export default class MetaActivityCover extends Component<Props> {
   componentDidMount() {
@@ -16,23 +17,26 @@ export default class MetaActivityCover extends Component<Props> {
   }
 
   render() {
-    const {
-      cover_thumbnail,
-      levels,
-      parent_category,
-    } = this.props.metaActivity;
+    const { cover_main, levels, parent_category } = this.props.metaActivity;
 
     const sport = SPORTS.filter((s) => s.id === parent_category)[0];
 
-    const imgStyle = {
-      backgroundColor: 'rgba(50,50,50,.5)',
-      minHeight: '200px',
-      width: '100%',
-      objectFit: 'cover',
-    };
+    const imgStyle = this.props.large
+      ? {
+          backgroundColor: 'rgba(50,50,50,.5)',
+          height: '450px',
+          width: '100%',
+          objectFit: 'cover',
+        }
+      : {
+          backgroundColor: 'rgba(50,50,50,.5)',
+          height: '300px',
+          width: '100%',
+          objectFit: 'cover',
+        };
 
     let COVER = null;
-    if (!cover_thumbnail) {
+    if (!cover_main) {
       // TODO clean this shit
       COVER = (
         <div style={{ position: 'relative' }}>
@@ -57,7 +61,7 @@ export default class MetaActivityCover extends Component<Props> {
     } else {
       COVER = (
         <div style={{ position: 'relative' }}>
-          <img style={imgStyle} src={cover_thumbnail} alt="Activity" />
+          <img style={imgStyle} src={cover_main} alt="Activity" />
           <div
             style={{ position: 'absolute', top: 10, zIndex: 9000, right: 10 }}
           >

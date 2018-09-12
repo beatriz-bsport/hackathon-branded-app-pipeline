@@ -45,7 +45,7 @@ type Props = {
 };
 
 type State = {
-  recurrence: number,
+  recurrence: string,
   date_interval_start: Object,
   date_interval_end: Object,
   hour: Object,
@@ -73,7 +73,7 @@ export class OfferForm extends Component<Props, State> {
     duration_minute: 30,
   };
 
-  onFormFieldChange = (id: string) => (value: {}) => {
+  onFormFieldChange = (id: string) => (value) => {
     this.setState({ [id]: value });
   };
 
@@ -276,6 +276,7 @@ export class OfferForm extends Component<Props, State> {
               <FormField
                 id="recurrence"
                 required
+                value={this.state.recurrence}
                 onChange={this.onFormFieldChange}
               />
             </Grid>

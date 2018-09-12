@@ -338,7 +338,7 @@ export class MetaActivity extends Component<Props, State> {
           <Paper>
             <Grid container spacing={16} direction="column">
               <Grid item>
-                <MetaActivityCover metaActivity={metaActivity} />
+                <MetaActivityCover metaActivity={metaActivity} large/>
               </Grid>
               <Grid item className={classes.paddedBlock}>
                 <MetaActivityBasicInfo metaActivity={metaActivity} />

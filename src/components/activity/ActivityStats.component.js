@@ -10,7 +10,7 @@ type Props = {
 
 export function ActivityStats(props: Props) {
   const { stats, t } = props;
-  const { total_customers, average_fillrate, gross_volume } = stats;
+  const { total_customers, average_fillrate, gross_volume } = stats || {};
 
   return (
     <Grid

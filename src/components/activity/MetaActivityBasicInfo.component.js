@@ -16,7 +16,7 @@ type Props = {
   classes: Object,
   metaActivity: MetaActivity,
 };
-export function ActivityBasicInfo(props: Props) {
+export function MetaActivityBasicInfo(props: Props) {
   const { classes } = props;
   const { name, coaches } = props.metaActivity;
   return (
@@ -54,4 +54,4 @@ const styles = () => ({
   },
 });
 
-export default translate()(withStyles(styles)(ActivityBasicInfo));
+export default translate()(withStyles(styles)(MetaActivityBasicInfo));

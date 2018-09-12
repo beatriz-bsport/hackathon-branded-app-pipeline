@@ -44,11 +44,9 @@ export function validatePhone({ phone, code }) {
           }),
         );
       } else {
-        debugger;
         dispatch(errorLogin());
       }
     } catch (err) {
-      debugger;
       dispatch(errorLogin());
     }
   };
@@ -76,11 +74,9 @@ export function requestLogin(username, password) {
           }),
         );
       } else {
-        debugger;
         dispatch(errorLogin());
       }
     } catch (err) {
-      debugger;
       dispatch(errorLogin());
     }
   };

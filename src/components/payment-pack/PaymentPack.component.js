@@ -43,7 +43,7 @@ export class PaymentPack extends Component<Props> {
         <List className={classes.tabList}>
           {categories.length ? (
             categories.map((c) => (
-              <ListItem>
+              <ListItem key={c.id}>
                 <Sport parentCategory={c.id} />
               </ListItem>
             ))
@@ -65,7 +65,9 @@ export class PaymentPack extends Component<Props> {
         </Typography>
         <List className={classes.tabList}>
           {activities.length ? (
-            activities.map((a) => <ActivityMinimalSummary activity={a} />)
+            activities.map((a) => (
+              <ActivityMinimalSummary key={a.id} activity={a} />
+            ))
           ) : (
             <Typography variant="body2">
               {t('paymentPack.anyActivity')}
@@ -156,7 +158,7 @@ export class PaymentPack extends Component<Props> {
           </Grid>
           <Divider className={classes.horizontalDivider} />
           <Grid item>
-            <Grid container="row">
+            <Grid container direction="row">
               <Grid item className={classes.horizontalBlock} xs={12}>
                 {this.getSportScope()}
               </Grid>

@@ -6,7 +6,6 @@ import { Grid, CircularProgress, Typography, Divider } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 import { withRouter } from 'react-router-dom';
-import qs from '../../external-modules/query-string';
 
 import StripeCheckout from './StripeCheckout.component';
 import OfferSummary from './OfferSummary.component';
@@ -29,13 +28,34 @@ type State = {
   stripe: ?Object,
 };
 
+const QueryString = {
+  parse(url) {
+    const pos = url.lastIndexOf('?');
+    if (pos === -1) {
+      return {};
+    }
+
+    const qs = url.substring(pos + 1);
+    const params = qs
+      .split('&')
+      .map((q) => q.split('=').map(decodeURIComponent));
+
+    const q = {};
+    params.forEach(([name, value]) => {
+      q[name] = value;
+    });
+
+    return q;
+  },
+};
+
 export class OfferPayment extends Component<Props, State> {
   state = {
     stripe: null,
   };
 
   componentWillMount() {
-    const { option_id } = qs.parse(this.props.location.search, {
+    const { option_id } = QueryString.parse(this.props.location.search, {
       ignoreQueryPrefix: true,
     });
     if (option_id) {

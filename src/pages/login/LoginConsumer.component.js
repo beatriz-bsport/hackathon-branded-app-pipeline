@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import qs from '../../external-modules/query-string';
+import parse from '../../query-string';
 
 import { auth as authActions } from '../../actions';
 import { ConsumerModalContainer, ConsumerLogin } from '../../components';
@@ -30,9 +30,7 @@ export class ConsumerLoginPage extends Component<Props> {
     } = this.props;
 
     if (authenticated) {
-      const { next } = qs.parse(this.props.location.search, {
-        ignoreQueryPrefix: true,
-      });
+      const { next } = parse(this.props.location.search);
       if (next) {
         return <Redirect to={next} />;
       }
@@ -67,7 +65,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ConsumerLoginPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ConsumerLoginPage);

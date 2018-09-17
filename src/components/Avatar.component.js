@@ -30,6 +30,7 @@ export default function (props: Props) {
   return (
     <Grid
       container
+      fluid
       direction="column"
       justify="center"
       alignItems="center"

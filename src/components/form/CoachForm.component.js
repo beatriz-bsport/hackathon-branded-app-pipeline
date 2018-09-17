@@ -1,3 +1,5 @@
+// @flow
+
 import _ from 'lodash';
 import React, { Component } from 'react';
 
@@ -19,9 +21,7 @@ const styles = (theme) => ({
     marginRight: theme.spacing.unit,
   },
   avatarLarge: {
-    marginTop: 70,
-    marginRight: 100,
-    marginBottom: 40,
+    marginRight: 10,
   },
 });
 
@@ -55,6 +55,7 @@ export class CoachForm extends Component<Props> {
   onSubmit = (event) => {
     event.preventDefault();
     const {
+      avatar,
       firstname,
       lastname,
       birthdayYear,
@@ -63,15 +64,16 @@ export class CoachForm extends Component<Props> {
       phone,
       sex,
     } = this.state;
-    this.props.onSubmit({
-      lastname,
-      firstname,
-      birthdayYear: +birthdayYear,
-      description,
-      email,
-      phone,
-      sex,
-    });
+    const formData = new FormData();
+    formData.append('avatar', avatar);
+    formData.append('lastname', lastname);
+    formData.append('firstname', firstname);
+    formData.append('birthdayYear', birthdayYear);
+    formData.append('description', description);
+    formData.append('email', email);
+    formData.append('phone', phone);
+    formData.append('sex', sex);
+    this.props.onSubmit(formData);
   };
 
   render() {
@@ -93,7 +95,9 @@ export class CoachForm extends Component<Props> {
                     alignItems="center"
                   >
                     <Grid item className={classes.avatarLarge}>
-                      <AvatarUploader />
+                      <AvatarUploader
+                        onChange={this.onFormFieldChange('avatar')}
+                      />
                     </Grid>
                     <Grid item>
                       <Grid container direction="column">
@@ -120,6 +124,7 @@ export class CoachForm extends Component<Props> {
                 <Grid item>
                   <FormField id="gender" onChange={this.onFormFieldChange} />
                   <FormField
+                    required
                     id="birthdayYear"
                     onChange={this.onFormFieldChange}
                   />

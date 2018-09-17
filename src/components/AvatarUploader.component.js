@@ -1,6 +1,8 @@
+// @flow
+
 import React, { Component } from 'react';
 
-import { IconButton, withStyles, Input } from '@material-ui/core';
+import { withStyles, CircularProgress } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import Avatar from './Avatar.component';
 
@@ -10,51 +12,58 @@ const styles = () => ({
   },
 });
 
-type Props = {};
+type Props = {
+  classes: *,
+  onChange: (*) => void,
+};
+type State = {
+  photo: *,
+  previewUrl: string,
+};
 
-export class AvatarUploader extends Component<Props> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      photo: null,
-    };
+export class AvatarUploader extends Component<Props, State> {
+  state = {
+    photo: null,
+    previewUrl:
+      'https://ssl.gstatic.com/images/branding/product/1x/avatar_circle_blue_512dp.png',
+  };
+
+  componentWillUnmount() {
+    const { previewUrl } = this.state;
+    if (previewUrl && typeof previewUrl !== 'string') {
+      URL.revokeObjectURL(previewUrl);
+    }
   }
 
   onChange = (event) => {
-    if (event.target.files.length) {
-      const oldphoto = this.state.photo;
-      this.setState({ photo: event.target.files[0] });
+    const { files } = event.target;
+    if (files.length) {
+      this.setState({
+        photo: files[0],
+        previewUrl: URL.createObjectURL(files[0]),
+      });
+
+      if (this.props.onChange) {
+        this.props.onChange(files[0]);
+      }
     }
   };
 
   render() {
-    const { classes, t } = this.props;
-    const { photo } = this.state;
+    const { classes } = this.props;
+    const { previewUrl } = this.state;
 
-    const photoURL =
-      'https://ssl.gstatic.com/images/branding/product/1x/avatar_circle_blue_512dp.png';
-    if (photo) {
-      const photoURL = URL.createObjectURL(photo);
-    }
-    // const reader = new FileReader();
-    // const photo = reader.readAsDataURL(value);
     return (
       <div>
-        <Input
+        <input
           accept="image/*"
           className={classes.input}
           id="avatar-loader-button"
           type="file"
           onChange={this.onChange}
         />
-        <label htmlFor="avatar-loader-button">
-          <IconButton
-            variant="raised"
-            component="span"
-            className={classes.button}
-          >
-            <Avatar user={{ photo: photoURL }} noname variant="large" />
-          </IconButton>
+        <label htmlFor="avatar-loader-button" style={{ cursor: 'pointer' }}>
+          <Avatar user={{ photo: previewUrl }} noname variant="large" />
         </label>
       </div>
     );

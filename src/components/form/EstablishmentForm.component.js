@@ -33,13 +33,24 @@ export class EstablishmentForm extends Component<Props, State> {
   onSubmit = (e) => {
     e.preventDefault();
 
-    const { title, specific_info, location, easy_access } = this.state;
+    const { title, specific_info, location, easy_access, address } = this.state;
+    console.log(this.state);
 
-    this.props.onSubmit({ title, specific_info, location, easy_access });
+    this.props.onSubmit({
+      title,
+      specific_info,
+      location,
+      easy_access,
+      address,
+    });
   };
 
   onFormFieldChange = (id) => (value) => {
-    this.setState({ [id]: value });
+    if (id === 'location') {
+      this.setState({ location: value.location, address: value.address });
+    } else {
+      this.setState({ [id]: value });
+    }
   };
 
   render() {
@@ -67,13 +78,6 @@ export class EstablishmentForm extends Component<Props, State> {
                     required
                     value={this.state.specific_info}
                     onChange={this.onFormFieldChange}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <EasyAccessSelect
-                    easyAccesses={easyAccesses}
-                    value={this.state.easy_access}
-                    onChange={this.onFormFieldChange('easy_access')}
                   />
                 </Grid>
                 <Grid item xs={12}>

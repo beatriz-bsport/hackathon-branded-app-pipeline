@@ -5,11 +5,13 @@ import { Icon } from 'leaflet';
 import React, { Component } from 'react';
 import {
   TextField,
-  Button,
   List,
   ListItem,
   ListItemText,
+  Grid,
+  CircularProgress,
 } from '@material-ui/core';
+import IconDone from '@material-ui/icons/Done';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 
 const TILE_LAYER_URL =
@@ -35,6 +37,7 @@ export class LocationInput extends Component<Props, State> {
     candidate: null,
     center: CENTER,
     zoom: 12,
+    isLoading: false,
   };
 
   constructor(props: Props) {
@@ -45,11 +48,16 @@ export class LocationInput extends Component<Props, State> {
     });
   }
 
+  /**
+   * Load address candidates from a user typed address
+   */
   loadReversed = _.debounce(async (searchText) => {
     const address = encodeURIComponent(searchText);
+    this.setState({ isLoading: true });
     const response = await fetch(
       `${BASE_URL}?address=${address}&key=${API_KEY}`,
     );
+    this.setState({ isLoading: false });
 
     if (response.status === 200) {
       const json = await response.json();
@@ -59,10 +67,15 @@ export class LocationInput extends Component<Props, State> {
     }
   }, 800);
 
+  /**
+   * Load address candidates from a given map location
+   */
   loadFromPin = async (location) => {
     const latlng = encodeURIComponent(`${location.lat},${location.lng}`);
+    this.setState({ isLoading: true });
     const response = await fetch(`${BASE_URL}?latlng=${latlng}&key=${API_KEY}`);
 
+    this.setState({ isLoading: false });
     if (response.status === 200) {
       const json = await response.json();
       if (json.status === 'OK') {
@@ -72,6 +85,9 @@ export class LocationInput extends Component<Props, State> {
     }
   };
 
+  /**
+   * Edit the address in the input
+   */
   change = (event: Object) => {
     const newAddress = event.target.value;
     this.clearState({ address: newAddress });
@@ -79,6 +95,9 @@ export class LocationInput extends Component<Props, State> {
     this.loadReversed(newAddress);
   };
 
+  /**
+   * Select a candidate from the list of address
+   */
   selectCandidate = (c) => {
     this.clearState({
       address: c.formatted_address,
@@ -102,16 +121,24 @@ export class LocationInput extends Component<Props, State> {
       valid: false,
       candidates: [],
       candidate: [],
-      location,
-      address,
+      location: location || '',
+      address: address || '',
     });
   };
 
+  /**
+   * Handle click on the map:
+   * -> The user pin a position
+   * -> We load possible address candidates
+   */
   handleClickOnMap = (event) => {
     this.clearState({ location: event.latlng });
     this.loadFromPin(event.latlng);
   };
 
+  /**
+   * Update zoom and center when the user move on the map
+   */
   updateZoom = (e) => {
     this.setState({ center: [e.center.lat, e.center.lng], zoom: e.zoom });
   };
@@ -119,17 +146,39 @@ export class LocationInput extends Component<Props, State> {
   tempZoomOn = (c) => {};
 
   renderInputWithCandidates = () => {
-    const { candidates, address } = this.state;
+    const { candidates, address, isLoading, valid } = this.state;
     return (
       <div>
-        <TextField
-          id="address"
-          label="Adresse"
-          value={address}
-          type="text"
-          onChange={this.change}
-          fullWidth
-        />
+        <Grid container>
+          <Grid item xs>
+            <TextField
+              id="address"
+              label="Adresse"
+              value={address}
+              type="text"
+              onChange={this.change}
+              fullWidth
+            />
+          </Grid>
+          {isLoading ? (
+            <Grid item xs={1}>
+              <CircularProgress size={20} />
+            </Grid>
+          ) : null}
+          {valid ? (
+            <Grid item xs={1}>
+              <Grid
+                container
+                justify="center"
+                direction="column"
+                alignItems="center"
+                style={{ height: '100%' }}
+              >
+                <IconDone color="primary" />
+              </Grid>
+            </Grid>
+          ) : null}
+        </Grid>
         <List dense>
           {candidates
             ? candidates.map((c) => (
@@ -149,7 +198,7 @@ export class LocationInput extends Component<Props, State> {
   };
 
   render() {
-    const { candidates, location, address, center, zoom } = this.state;
+    const { location, address, center, zoom } = this.state;
     return (
       <div>
         {this.renderInputWithCandidates()}
@@ -162,7 +211,7 @@ export class LocationInput extends Component<Props, State> {
           <TileLayer url={TILE_LAYER_URL} variant="light_all" />
           {location ? (
             <Marker
-              position={center}
+              position={location}
               icon={
                 new Icon({
                   iconUrl: require('../../marker-icon-2x.png'),

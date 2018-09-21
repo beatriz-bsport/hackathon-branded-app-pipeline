@@ -35,23 +35,17 @@ export class EstablishmentForm extends Component<Props, State> {
   onSubmit = (e) => {
     e.preventDefault();
 
-    const {
-      title,
-      specific_info,
-      location,
-      easy_access,
-      address,
-      cover,
-    } = this.state;
+    const { title, specific_info, location, address, cover } = this.state;
 
-    this.props.onSubmit({
-      title,
-      specific_info,
-      location,
-      easy_access,
-      address,
-      cover,
-    });
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('specific_info', specific_info);
+    formData.append('location[x]', location.x);
+    formData.append('location[y]', location.y);
+    formData.append('address', address);
+    formData.append('cover', cover);
+
+    this.props.onSubmit(formData);
   };
 
   onFormFieldChange = (id) => (value) => {

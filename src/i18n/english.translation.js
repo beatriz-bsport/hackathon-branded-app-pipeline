@@ -5,6 +5,7 @@ export default {
       myAccount: 'My account',
     },
     common: {
+      NA: 'Not specified',
       price: 'price',
       sports: 'Sport',
       credits: 'Credits',
@@ -76,6 +77,15 @@ export default {
       nbBookings: 'Bookings',
     },
     form: {
+      offer: {
+        changeDate: 'Modify date / time',
+        changeCoach: 'Change the coach',
+        changeEstablishment: 'Change location',
+        explainRecursiveOfferEdit:
+          'Would you like to modify ALL the similar sessions to match the new conditions ?',
+        explainNotificationOnEdit:
+          'Do you want to notify your customers for this change ?',
+      },
       paymentPack: {
         helper: {
           name: 'Name for the payment pack',
@@ -205,6 +215,7 @@ export default {
     payment: {
       bookWithUnlimitedPack: 'Book with your pass',
       noCreditLeft: 'Not enough credit left',
+      noBookingsLeftOnPack: 'Pass exhausted for this week',
       yourBasket: 'Your basket',
       availablePaymentPacks: ' pass compatible',
       payWithNCredits1: 'Book with',
@@ -217,6 +228,16 @@ export default {
       object: 'Description',
     },
     paymentPack: {
+      consumer: {
+        expiresOn: 'Expires on ',
+        bookingsThisWeek: 'réservations cette semaine',
+      },
+      validity: 'Validity :',
+      validForNdays1: 'Valid for ',
+      validForNdays2: ' days after purchase',
+      validFrom: 'Valid from ',
+      validTo: ' to ',
+      bookingsLeftThisWeek: 'Max bookings per week',
       addButton: 'Create a new pass',
       noPaymentPackSubscribed: 'No pass subscribed',
       validUntil: 'Valid until',
@@ -310,6 +331,7 @@ export default {
       advanced: 'Advanced',
     },
     calendar: {
+      modifyOffer: 'Modify this session',
       showMonth: 'Show month',
       pleaseSelectOffer: 'Select a session to show the bookings',
     }, // used for big-calendar localization - en is default

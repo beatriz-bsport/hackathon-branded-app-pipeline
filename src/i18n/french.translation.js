@@ -5,6 +5,7 @@ export default {
       myAccount: 'Mon compte',
     },
     common: {
+      NA: 'Non renseigné',
       price: 'Prix',
       sports: 'Sports',
       credits: 'Crédits',
@@ -48,6 +49,15 @@ export default {
       outOf: ' sur ',
     },
     form: {
+      offer: {
+        changeDate: "Modifier l'horaire / date",
+        changeCoach: 'Modifier le coach',
+        changeEstablishment: 'Modifier le lieu',
+        explainRecursiveOfferEdit:
+          'Voulez-vous modifier TOUTES les séances similaires selon ces nouvelles conditions ?',
+        explainNotificationOnEdit:
+          'Voulez-vous informer vos clients de cette modification ?',
+      },
       paymentPack: {
         helper: {
           // eslint-disable-next-line
@@ -216,6 +226,7 @@ export default {
     payment: {
       bookWithUnlimitedPack: 'Réserver avec votre abonnement',
       noCreditLeft: 'Pas assez de crédit',
+      noBookingsLeftOnPack: 'Abonnement épuisé pour cette semaine',
       yourBasket: 'Votre achat',
       availablePaymentPacks: ' abonnements compatibles',
       payWithNCredits1: 'Réserver avec',
@@ -229,6 +240,16 @@ export default {
       object: 'Description',
     },
     paymentPack: {
+      validity: 'Valide :',
+      consumer: {
+        expiresOn: 'Expire le ',
+        bookingsThisWeek: 'booking this week',
+      },
+      validForNdays1: 'Valide ',
+      validForNdays2: ' jours après achat',
+      validFrom: 'Valide du ',
+      validTo: ' au ',
+      bookingsLeftThisWeek: 'Réservation max par semaine',
       // eslint-disable-next-line
       addButton: "Créer une offre d'abonnement",
       noPaymentPackSubscribed: 'Aucun abonnement',
@@ -256,6 +277,7 @@ export default {
       forgottenPassword: 'Mot de passe oublié',
     },
     calendar: {
+      modifyOffer: 'Modifier cette séance',
       allDay: 'journée',
       previous: '<',
       next: '>',

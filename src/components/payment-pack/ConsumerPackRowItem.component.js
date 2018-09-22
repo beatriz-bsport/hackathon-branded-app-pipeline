@@ -1,11 +1,17 @@
 // @flow
 
 import React, { Component } from 'react';
-import { Grid, Typography, Button, CircularProgress } from '@material-ui/core';
+import {
+  Avatar,
+  ListItem,
+  ListItemText,
+  ListItemSecondaryAction,
+  IconButton,
+  CircularProgress,
+} from '@material-ui/core';
 import { translate } from 'react-i18next';
 
-import ConsumerRowSummary from '../consumer/ConsumerRowSummary.component';
-import RedButton from '../button/RedButton.component';
+import { formatAsDate } from '../../datetime';
 
 type Props = {
   loading: boolean,
@@ -17,80 +23,92 @@ type Props = {
 };
 
 export class ConsumerPackRowItem extends Component<Props> {
+  renderRestrictions = () => {
+    const { t, paymentPack, consumerPack } = this.props;
+    const { bookings_this_week } = consumerPack;
+    const { credits, unlimited } = paymentPack;
+    const { available_credits } = consumerPack;
+
+    if (unlimited) {
+      return (
+        <ListItemText
+          primary={`${bookings_this_week} ${t(
+            'paymentPack.consumer.bookingsThisWeek',
+          )}`}
+        />
+      );
+    }
+    return (
+      <ListItemText
+        primary={`${available_credits} / ${credits} ${t(
+          'paymentPack.credits',
+        ).toLowerCase()}`}
+        secondary={`${bookings_this_week} ${t(
+          'paymentPack.consumer.bookingsThisWeek',
+        )}`}
+      />
+    );
+  };
+
   renderButton = () => {
     const {
-      t,
-      loading,
       paymentPack,
       consumerPack,
       incrementCredit,
       decrementCredit,
+      loading,
     } = this.props;
+    const { credits, unlimited } = paymentPack;
+    const { available_credits } = consumerPack;
+
+    if (unlimited) {
+      return null;
+    }
 
     if (loading) {
       return (
-        <Grid container item direction="row" spacing={16} alignItems="center">
+        <ListItemSecondaryAction>
           <CircularProgress />
-        </Grid>
+        </ListItemSecondaryAction>
       );
     }
 
-    const { credits } = paymentPack;
-    const { available_credits } = consumerPack;
-    const negativeCredit = available_credits <= 0;
     return (
-      <Grid container direction="row" spacing={16} alignItems="center">
-        <Grid item>
-          <Typography color={negativeCredit ? 'error' : 'default'}>
-            {`${available_credits} / ${credits} ${t(
-              'paymentPack.credits',
-            ).toLowerCase()}`}
-          </Typography>
-        </Grid>
-        <Grid item>
-          <Button
-            color="primary"
-            variant="outlined"
-            disabled={available_credits >= credits}
-            onClick={() => incrementCredit(consumerPack.id)}
-          >
-            +1
-          </Button>
-        </Grid>
-        <Grid item>
-          <RedButton
-            variant="outlined"
-            onClick={() => decrementCredit(consumerPack.id)}
-          >
-            -1
-          </RedButton>
-        </Grid>
-      </Grid>
+      <ListItemSecondaryAction>
+        <IconButton
+          aria-label="change-credits"
+          disabled={available_credits >= credits}
+          color="primary"
+          onClick={() => incrementCredit(consumerPack.id)}
+        >
+          +1
+        </IconButton>
+        <IconButton
+          aria-label="change-credits"
+          color="secondary"
+          onClick={() => decrementCredit(consumerPack.id)}
+        >
+          -1
+        </IconButton>
+      </ListItemSecondaryAction>
     );
   };
 
   render() {
-    const { consumerPack, paymentPack } = this.props;
-
-    const { unlimited } = paymentPack;
+    const { t, consumerPack } = this.props;
     const { consumer } = consumerPack;
-
-    if (unlimited) {
-      return <ConsumerRowSummary consumer={consumer} />;
-    }
     return (
-      <Grid
-        container
-        direction="row"
-        alignItems="center"
-        justify="space-between"
-        spacing={24}
-      >
-        <Grid item>
-          <ConsumerRowSummary consumer={consumer} />
-        </Grid>
-        <Grid item>{this.renderButton()}</Grid>
-      </Grid>
+      <ListItem>
+        <Avatar src={consumer.photo} />
+        <ListItemText
+          primary={`${consumer.first_name} ${consumer.last_name}`}
+          secondary={`${t('paymentPack.consumer.expiresOn')}${formatAsDate(
+            consumerPack.ending_date,
+          )}`}
+        />
+        {this.renderRestrictions()}
+        {this.renderButton()}
+      </ListItem>
     );
   }
 }

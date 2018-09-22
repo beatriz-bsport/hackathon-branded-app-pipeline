@@ -23,6 +23,7 @@ import TimePicker from 'material-ui-pickers/TimePicker';
 import LEVELS from 'bsport-commons/lib/master-data/levels';
 import Sport from '../Sport.component';
 import Level from '../Level.component';
+import { Moment } from '../../i18n';
 
 // dont change to number unless good testing
 export const NOT_RECURRENT = '0';
@@ -38,7 +39,7 @@ const styles = (theme) => ({
     marginRight: theme.spacing.unit,
   },
   formControlLarge: {
-    minWidth: 280,
+    minWidth: 200,
     marginRight: theme.spacing.unit,
   },
 });
@@ -61,13 +62,13 @@ export class FormField extends Component<Props, State> {
   state = {
     error: false,
     value: null,
-    selectedDate: new Date(),
   };
 
   constructor(props: Props) {
     super(props);
     if (props.value) {
       this.state.value = props.value;
+      this.state.selectedDate = props.value || Moment();
     }
   }
 
@@ -137,24 +138,30 @@ export class FormField extends Component<Props, State> {
   uploadHandler = () => {};
 
   getItem = (elt) => {
-    const { id } = this.props;
+    const { id, disabled } = this.props;
     switch (id) {
       case 'SCT':
         return (
-          <MenuItem key={elt.id} value={elt.id}>
+          <MenuItem key={elt.id} value={elt.id} disabled={disabled}>
             <Sport parentCategory={elt.SCS.id} SCTName={elt.name} />
           </MenuItem>
         );
       case 'coach':
         return (
-          <MenuItem dense key={elt.id} value={elt.id}>
+          <MenuItem
+            dense
+            key={elt.id}
+            value={elt.id}
+            disabled={disabled}
+            wrap="noWrap"
+          >
             <Avatar src={elt.photo} />
             <ListItemText primary={elt.name} />
           </MenuItem>
         );
       case 'establishment':
         return (
-          <MenuItem key={elt.id} value={elt.id}>
+          <MenuItem key={elt.id} value={elt.id} disabled={disabled}>
             <ListItemText primary={elt.title} />
           </MenuItem>
         );
@@ -172,6 +179,7 @@ export class FormField extends Component<Props, State> {
       classes,
       disabled,
       type,
+      defaultValue,
     } = this.props;
     const { value, error, selectedDate } = this.state;
 
@@ -224,6 +232,9 @@ export class FormField extends Component<Props, State> {
         );
       case 'date_interval_start':
       case 'date_interval_end':
+      case 'upper_date':
+      case 'lower_date':
+      case 'date':
         return (
           <DatePicker
             format="DD/MM/YYYY"
@@ -234,7 +245,11 @@ export class FormField extends Component<Props, State> {
         );
       case 'hour':
         return (
-          <TimePicker value={selectedDate} onChange={this.handleDateChange} />
+          <TimePicker
+            value={selectedDate}
+            onChange={this.handleDateChange}
+            disabled={disabled}
+          />
         );
       case 'recurrence':
         return (
@@ -323,15 +338,17 @@ export class FormField extends Component<Props, State> {
         );
       case 'SCT':
       case 'coach':
+        console.log(value || defaultValue);
       case 'establishment':
         return (
           <FormControl
             className={classes.formControlLarge}
             required={required}
             margin="normal"
+            disabled={this.props.disabled}
           >
             <InputLabel htmlFor={`${id}-helper`}>{t(`form.${id}`)}</InputLabel>
-            <Select value={value || choices[0]} onChange={this.handleChange}>
+            <Select value={value || defaultValue} onChange={this.handleChange}>
               {choices.map((elt) => this.getItem(elt))}
             </Select>
           </FormControl>

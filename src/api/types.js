@@ -182,12 +182,14 @@ export type MemberDetailed = {
 };
 
 export type PaymentPack = {
-  ending_date: string,
   id: number,
   unlimited: boolean,
   name: string,
   credits: number,
   company: { name: string },
+  max_bookings_per_week: number,
+  validity_daterange: ?{upper: string, lower: string},
+  duration_days: ?number,
 };
 
 export type ConsumerPaymentPackConsumerView = {
@@ -196,11 +198,14 @@ export type ConsumerPaymentPackConsumerView = {
   payment_pack: PaymentPack,
   name: string,
   used_credits: number,
-  deactivated_until: ?string,
+  bookings_this_week: number,
+  ending_date: string,
 };
 
 export type ConsumerPaymentPackManagerView = {
   id: number,
+  bookings_this_week: number,
+  ending_date: string,
 };
 
 export type Category = {
@@ -215,6 +220,9 @@ export type PaymentPackManagerView = {
   credits: number,
   categories: Array<Category>,
   activities: Array<Object>,
+  max_bookings_per_week: number,
+  validity_daterange: ?{upper: string, lower: string},
+  duration_days: ?number,
 };
 
 export type Location = {

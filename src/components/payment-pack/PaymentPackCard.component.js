@@ -21,6 +21,7 @@ import ActivityMinimalSummary from '../activity/ActivityMinimalSummary.component
 import Sport from '../Sport.component';
 import ConsumersPackSummaryTable from './ConsumersPackSummaryTable.component';
 import type { PaymentPackManagerView } from '../../api/types';
+import { formatAsDate } from '../../datetime';
 
 type Props = {
   incrementCredit: (id: number) => void,
@@ -31,7 +32,7 @@ type Props = {
   classes: Object,
 };
 
-export class PaymentPack extends Component<Props> {
+export class PaymentPackCard extends Component<Props> {
   getSportScope = () => {
     const { pack, t, classes } = this.props;
     const { categories } = pack;
@@ -78,6 +79,28 @@ export class PaymentPack extends Component<Props> {
     );
   };
 
+  renderTimeInfo = () => {
+    const { pack, t } = this.props;
+    if (pack.duration_days) {
+      return (
+        <Typography>
+          {`${t('paymentPack.validForNdays1')}${pack.duration_days}${t(
+            'paymentPack.validForNdays2',
+          )}`}
+        </Typography>
+      );
+    }
+    return (
+      <Typography>
+        {`${t('paymentPack.validFrom')}${formatAsDate(
+          pack.validity_daterange.lower,
+        )}${t('paymentPack.validTo')}${formatAsDate(
+          pack.validity_daterange.upper,
+        )}`}
+      </Typography>
+    );
+  };
+
   getPackHeadingInfo = () => {
     const { pack, t } = this.props;
     const { unlimited, base_price, name, credits } = pack;
@@ -93,7 +116,12 @@ export class PaymentPack extends Component<Props> {
         alignItems="center"
       >
         <Grid item xs={8}>
-          <Typography variant="title">{name}</Typography>
+          <Grid container direction="column" spacing={8}>
+            <Grid item>
+              <Typography variant="title">{name}</Typography>
+            </Grid>
+            <Grid item>{this.renderTimeInfo()}</Grid>
+          </Grid>
         </Grid>
         <Grid item xs={4}>
           <Grid
@@ -198,4 +226,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(translate()(PaymentPack));
+export default withStyles(styles)(translate()(PaymentPackCard));

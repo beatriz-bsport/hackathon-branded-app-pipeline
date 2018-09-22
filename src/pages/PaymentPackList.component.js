@@ -8,7 +8,7 @@ import { CircularProgress, Button, withStyles, Grid } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import AddIcon from '@material-ui/icons/Add';
 
-import { PaymentPack } from '../components';
+import { PaymentPackCard } from '../components';
 import { paymentPack as paymentPackActions } from '../actions';
 
 const styles = (theme) => ({
@@ -64,7 +64,7 @@ export class PaymentPackList extends Component<Props> {
                 key={p.id}
                 className={classes.paymentPackContainer}
               >
-                <PaymentPack
+                <PaymentPackCard
                   pack={p}
                   incrementCredit={incrementCredit}
                   decrementCredit={decrementCredit}

@@ -5,10 +5,12 @@ import React, { Component } from 'react';
 import type { TFunction } from 'react-i18next';
 
 import { translate } from 'react-i18next';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
 import { Paper, Grid, withStyles, Typography, Button } from '@material-ui/core';
 
-import { FormField, LocationInput } from '../input';
-import EasyAccessSelect from '../EasyAccessSelect.component';
+import { FormField, LocationInput, ImageUploader } from '../input';
 
 type Props = {
   initial: EstablishmentType,
@@ -33,16 +35,17 @@ export class EstablishmentForm extends Component<Props, State> {
   onSubmit = (e) => {
     e.preventDefault();
 
-    const { title, specific_info, location, easy_access, address } = this.state;
-    console.log(this.state);
+    const { title, specific_info, location, address, cover } = this.state;
 
-    this.props.onSubmit({
-      title,
-      specific_info,
-      location,
-      easy_access,
-      address,
-    });
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('specific_info', specific_info);
+    formData.append('location[x]', location.x);
+    formData.append('location[y]', location.y);
+    formData.append('address', address);
+    formData.append('cover', cover);
+
+    this.props.onSubmit(formData);
   };
 
   onFormFieldChange = (id) => (value) => {
@@ -60,10 +63,16 @@ export class EstablishmentForm extends Component<Props, State> {
         <Grid item xs={12} lg={6}>
           <Paper className={classes.paperContainer}>
             <form onSubmit={this.onSubmit}>
-              <Typography variant="title">
+              <Typography variant="title" className="my-4" spacing={8}>
                 {t('establishment.form.new.title')}
               </Typography>
               <Grid container spacing={16}>
+                <Grid item xs={12} style={{ marginTop: 20 }}>
+                  <label>Couverture</label>
+                  <ImageUploader onChange={this.onFormFieldChange('cover')}>
+                    <EstablishmentCardPreview />
+                  </ImageUploader>
+                </Grid>
                 <Grid item xs={12}>
                   <FormField
                     id="title"
@@ -108,6 +117,18 @@ export class EstablishmentForm extends Component<Props, State> {
       </Grid>
     );
   }
+}
+
+function EstablishmentCardPreview(props: { previewURL: string }) {
+  return (
+    <CardMedia
+      style={{ height: 300 }}
+      image={
+        props.previewURL ||
+        'https://images.pexels.com/photos/137611/pexels-photo-137611.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
+      }
+    />
+  );
 }
 
 const styles = (theme) => ({

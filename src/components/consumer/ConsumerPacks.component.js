@@ -24,18 +24,35 @@ type Props = {
 export class ConsumerPacks extends React.Component<Props> {
   renderPackRow = (pack: ConsumerPaymentPackConsumerView) => {
     const { t } = this.props;
-    const { id, used_credits, payment_pack } = pack;
+    const {
+      id,
+      used_credits,
+      payment_pack,
+      ending_date,
+      bookings_this_week,
+    } = pack;
+    const {
+      unlimited,
+      max_bookings_per_week,
+      name,
+      company,
+      credits,
+    } = payment_pack;
+
     let creditsLeft = t('paymentPack.unlimitedCredits');
-    if (!payment_pack.unlimited) {
-      const numberOfCreditsLeft = payment_pack.credits - used_credits;
-      creditsLeft = `${numberOfCreditsLeft} / ${payment_pack.credits}`;
+    if (!unlimited) {
+      const numberOfCreditsLeft = credits - used_credits;
+      creditsLeft = `${numberOfCreditsLeft} / ${credits}`;
     }
+    const bookingsLeftThisWeek = `${bookings_this_week}/${max_bookings_per_week}`;
+
     return (
       <TableRow key={id}>
-        <TableCell>{payment_pack.name}</TableCell>
-        <TableCell>{payment_pack.company.name}</TableCell>
-        <TableCell>{payment_pack.ending_date || ' - '}</TableCell>
+        <TableCell>{name}</TableCell>
+        <TableCell>{company.name}</TableCell>
+        <TableCell>{ending_date}</TableCell>
         <TableCell>{creditsLeft}</TableCell>
+        <TableCell>{bookingsLeftThisWeek}</TableCell>
       </TableRow>
     );
   };
@@ -66,6 +83,7 @@ export class ConsumerPacks extends React.Component<Props> {
               <TableCell>{t('consumer.company')}</TableCell>
               <TableCell>{t('paymentPack.validUntil')}</TableCell>
               <TableCell>{t('paymentPack.credits')}</TableCell>
+              <TableCell>{t('paymentPack.bookingsLeftThisWeek')}</TableCell>
             </TableRow>
           </TableHead>
           {this.renderTableContent()}

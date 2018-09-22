@@ -47,16 +47,25 @@ export class ConsumerPackCheckout extends Component<Props, State> {
   };
 
   renderButton = () => {
-    const { t, consumerPack, creditPrice } = this.props;
     const { processing } = this.state;
-    const { payment_pack, available_credits } = consumerPack;
-
-    const hasCredits = available_credits >= creditPrice;
-    const paymentIsPossible = hasCredits || payment_pack.unlimited;
-
     if (processing) {
       return <CircularProgress />;
     }
+
+    const { t, consumerPack, creditPrice } = this.props;
+    const {
+      payment_pack,
+      available_credits,
+      bookings_this_week,
+    } = consumerPack;
+
+    // prettier-ignore
+    const hasEnoughCredits = available_credits >= creditPrice || payment_pack.unlimited;
+    // prettier-ignore
+    const hasBookingsLeft = payment_pack.max_bookings_per_week > bookings_this_week;
+
+    const paymentIsPossible = hasEnoughCredits && hasBookingsLeft;
+
     if (paymentIsPossible) {
       // prettier-ignore
       const buttonText = payment_pack.unlimited
@@ -67,6 +76,9 @@ export class ConsumerPackCheckout extends Component<Props, State> {
           {buttonText}
         </Button>
       );
+    }
+    if (hasEnoughCredits) {
+      return <Button disabled>{t('payment.noBookingsLeftOnPack')}</Button>;
     }
     return <Button disabled>{t('payment.noCreditLeft')}</Button>;
   };

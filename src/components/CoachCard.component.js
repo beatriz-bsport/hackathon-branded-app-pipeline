@@ -8,6 +8,7 @@ import {
   List,
   withStyles,
   IconButton,
+  Tooltip,
 } from '@material-ui/core';
 import CallIcon from '@material-ui/icons/Call';
 import EmailIcon from '@material-ui/icons/Email';
@@ -62,9 +63,14 @@ export class CoachCard extends Component<Props> {
               alignItems="flex-start"
             >
               <Grid item>
-                <IconButton>
-                  <CallIcon />
-                </IconButton>
+                <Tooltip
+                  title={coach.phone || t('common.NA')}
+                  classes={{ tooltip: classes.lightTooltip }}
+                >
+                  <IconButton>
+                    <CallIcon />
+                  </IconButton>
+                </Tooltip>
               </Grid>
               <Grid item>
                 <div style={{ marginTop: -OVERFLOW }}>
@@ -72,9 +78,14 @@ export class CoachCard extends Component<Props> {
                 </div>
               </Grid>
               <Grid item>
-                <IconButton>
-                  <EmailIcon />
-                </IconButton>
+                <Tooltip
+                  title={coach.username || t('common.NA')}
+                  classes={{ tooltip: classes.lightTooltip }}
+                >
+                  <IconButton>
+                    <EmailIcon />
+                  </IconButton>
+                </Tooltip>
               </Grid>
             </Grid>
           </Grid>
@@ -99,6 +110,12 @@ const styles = (theme) => ({
     padding: theme.spacing.unit * 3,
     paddingBottom: theme.spacing.unit,
     marginTop: OVERFLOW,
+  },
+  lightTooltip: {
+    background: theme.palette.common.white,
+    color: theme.palette.text.primary,
+    boxShadow: theme.shadows[1],
+    fontSize: 14,
   },
 });
 export default withStyles(styles)(translate()(CoachCard));

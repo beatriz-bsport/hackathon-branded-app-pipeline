@@ -130,7 +130,12 @@ export class CoachForm extends Component<Props> {
                   />
                 </Grid>
                 <Grid item>
-                  <FormField id="phone" onChange={this.onFormFieldChange} />
+                  <FormField
+                    id="phone"
+                    value={this.state.phone}
+                    required
+                    onChange={this.onFormFieldChange}
+                  />
                   <FormField
                     id="email"
                     value={this.state.email}

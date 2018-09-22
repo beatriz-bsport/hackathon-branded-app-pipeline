@@ -79,7 +79,7 @@ export class CoachCard extends Component<Props> {
               </Grid>
               <Grid item>
                 <Tooltip
-                  title={coach.username || t('common.NA')}
+                  title={coach.email || t('common.NA')}
                   classes={{ tooltip: classes.lightTooltip }}
                 >
                   <IconButton>

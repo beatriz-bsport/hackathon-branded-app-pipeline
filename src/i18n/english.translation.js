@@ -5,6 +5,8 @@ export default {
       myAccount: 'My account',
     },
     common: {
+      continue: 'Continue',
+      credit_s: 'Credit(s)',
       NA: 'Not specified',
       price: 'price',
       sports: 'Sport',
@@ -64,6 +66,12 @@ export default {
       promo: 'Promotional offer ',
       noPromo: 'None',
     },
+    offer: {
+      compatiblePacks: 'Pass compatible',
+      substitute: 'Substitute',
+      disabled: 'cancelled',
+      extraordinaryEstablishment: '(temporary location)',
+    },
     pagination: {
       rowPerPage: 'Rows per page',
       outOf: ' of ',
@@ -78,7 +86,11 @@ export default {
     },
     form: {
       offer: {
+        deleteTitle: 'Cancel session',
         changeDate: 'Modify date / time',
+        explainDelete:
+          'This operation is not revertable. This session will be hidden to all new customer. You will still be able to accces the session details and bookings.',
+        explainNotifyDelete: 'Send an alert to every client with a booking',
         changeCoach: 'Change the coach',
         changeEstablishment: 'Change location',
         explainRecursiveOfferEdit:
@@ -306,7 +318,7 @@ export default {
       next: 'Next:',
       fillRate: 'Filled',
       waiting: 'on waiting list',
-      confirmed: 'confirmed',
+      confirmed: 'Confirmed',
       free: 'slots available',
       seeCustomers: 'Show all bookings',
       nb_booking: 'Nb bookings',
@@ -331,7 +343,8 @@ export default {
       advanced: 'Advanced',
     },
     calendar: {
-      modifyOffer: 'Modify this session',
+      modifyOffer: 'Edit',
+      deleteOffer: 'Cancel',
       showMonth: 'Show month',
       pleaseSelectOffer: 'Select a session to show the bookings',
     }, // used for big-calendar localization - en is default

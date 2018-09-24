@@ -5,6 +5,8 @@ export default {
       myAccount: 'Mon compte',
     },
     common: {
+      continue: 'Continuer',
+      credit_s: 'Crédit(s)',
       NA: 'Non renseigné',
       price: 'Prix',
       sports: 'Sports',
@@ -48,8 +50,18 @@ export default {
       rowPerPage: 'Eléments par page',
       outOf: ' sur ',
     },
+    offer: {
+      disabled: 'annulé',
+      substitute: 'Remplaçant',
+      compatiblePacks: 'Abonnements compatibles',
+      extraordinaryEstablishment: '(lieu temporaire)',
+    },
     form: {
-      offer: {
+    offer: {
+      deleteTitle: 'Supprimer la séance',
+        explainDelete:
+          'Attention, cette modification est définitive. Votre séance ne sera plus visible par les clients finaux. Vous pourrez toujours y accéder.',
+        explainNotifyDelete: 'Envoyer une alerte aux clients ayant réservé',
         changeDate: "Modifier l'horaire / date",
         changeCoach: 'Modifier le coach',
         changeEstablishment: 'Modifier le lieu',
@@ -277,7 +289,8 @@ export default {
       forgottenPassword: 'Mot de passe oublié',
     },
     calendar: {
-      modifyOffer: 'Modifier cette séance',
+      modifyOffer: 'Modifier',
+      deleteOffer: 'Annuler',
       allDay: 'journée',
       previous: '<',
       next: '>',
@@ -359,7 +372,7 @@ export default {
       lastBooking: 'Prochain cours',
       // eslint-disable-next-line
       waiting: "sur liste d'attente",
-      confirmed: 'confirmée(s)',
+      confirmed: 'Confirmé(s)',
       free: 'place(s) disponible(s)',
       seeCustomers: 'Afficher les réservations',
     },

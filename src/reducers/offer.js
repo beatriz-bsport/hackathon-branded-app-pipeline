@@ -7,6 +7,8 @@ const initialState = Immutable({
   loading: true,
   error: false,
   errorMsg: '',
+  compatiblePacks: [],
+  compatiblePacksLoading: false,
 });
 
 export default function offerReducers(state = initialState, action = {}) {
@@ -16,6 +18,24 @@ export default function offerReducers(state = initialState, action = {}) {
         loading: false,
         error: false,
         calendar: action.offers,
+      });
+
+    case actionTypes.HAS_FETCHED_OFFER_COMPATIBLE_PACKS:
+      return Immutable.merge(state, {
+        compatiblePacksLoading: false,
+        compatiblePacks: action.compatiblePacks,
+      });
+
+    case actionTypes.START_FETCH_OFFER_COMPATIBLE_PACKS:
+      return Immutable.merge(state, {
+        compatiblePacksLoading: true,
+        compatiblePacks: [],
+      });
+
+    case actionTypes.ERROR_FETCHING_OFFER_COMPATIBLE_PACKS:
+      return Immutable.merge(state, {
+        compatiblePacksLoading: false,
+        compatiblePacks: [],
       });
 
     case actionTypes.START_FETCH_ALL_OFFERS:

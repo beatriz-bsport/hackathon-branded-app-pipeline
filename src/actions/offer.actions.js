@@ -33,3 +33,33 @@ export function errorFetchingAllOffers() {
 export function offerAlreadyLoading() {
   return { type: types.OFFER_ALREADY_LOADING };
 }
+
+export function fetchCompatiblePacks(offerId) {
+  return async (dispatch) => {
+    /*
+    if (getState().offer.loading) {
+      return dispatch(offerAlreadyLoading());
+    }
+    */
+    dispatch(startFetchCompatiblePacks());
+
+    try {
+      const response = await api.offer.fetchCompatiblePacks(offerId);
+      const compatiblePacks = response.data;
+      dispatch(fetchedCompatiblePacks(compatiblePacks));
+    } catch (err) {
+      dispatch(errorFetchingCompatiblePacks());
+    }
+  };
+}
+
+export function fetchedCompatiblePacks(compatiblePacks) {
+  return { type: types.HAS_FETCHED_OFFER_COMPATIBLE_PACKS, compatiblePacks };
+}
+export function startFetchCompatiblePacks() {
+  return { type: types.START_FETCH_OFFER_COMPATIBLE_PACKS };
+}
+
+export function errorFetchingCompatiblePacks() {
+  return { type: types.ERROR_FETCHING_OFFER_COMPATIBLE_PACKS };
+}

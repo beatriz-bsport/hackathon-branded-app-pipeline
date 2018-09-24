@@ -63,6 +63,7 @@ export type Activity = {
 };
 
 export type Offer = {
+  available: boolean,
   title: string,
   id: number,
   activity_id: number,
@@ -188,7 +189,7 @@ export type PaymentPack = {
   credits: number,
   company: { name: string },
   max_bookings_per_week: number,
-  validity_daterange: ?{upper: string, lower: string},
+  validity_daterange: ?{ upper: string, lower: string },
   duration_days: ?number,
 };
 
@@ -221,7 +222,7 @@ export type PaymentPackManagerView = {
   categories: Array<Category>,
   activities: Array<Object>,
   max_bookings_per_week: number,
-  validity_daterange: ?{upper: string, lower: string},
+  validity_daterange: ?{ upper: string, lower: string },
   duration_days: ?number,
 };
 

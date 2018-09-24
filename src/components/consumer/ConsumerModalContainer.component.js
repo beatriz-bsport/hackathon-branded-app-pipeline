@@ -8,17 +8,22 @@ import ConsumerMenu from '../ConsumerMenu.component';
 
 const styles = (theme) => ({
   paperContainer: {
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing.unit * 1,
+    [theme.breakpoints.up('sm')]: {
+      padding: theme.spacing.unit * 3,
+    },
   },
   modal: {
-    top: '10%',
-    left: '50%',
-    right: 0,
-    transform: 'translateX(-50%)',
+    [theme.breakpoints.up('sm')]: {
+      top: '10%',
+      left: '50%',
+      right: 0,
+      transform: 'translateX(-50%)',
+    },
     position: 'absolute',
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
-    maxWidth: 350,
+    maxWidth: 550,
   },
 });
 

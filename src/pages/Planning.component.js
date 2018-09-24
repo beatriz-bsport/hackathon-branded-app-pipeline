@@ -8,12 +8,24 @@ import { connect } from 'react-redux';
 import { withStyles, Paper, Grid, Typography } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
-import { OfferCard, TimeTable, Calendar } from '../components';
-import { booking as bookingActions } from '../actions';
+import {
+  SimpleModal,
+  EditLiveOfferForm,
+  DeleteOfferForm,
+  OfferCard,
+  TimeTable,
+  Calendar,
+} from '../components';
+import { offer as offerActions, booking as bookingActions } from '../actions';
 import { Moment } from '../i18n';
+import api from '../api';
 import type { Offer, Booking, BookingOption } from '../api/types';
+import type { FormData } from '../components/form/EditLiveOfferForm.component';
 
 const styles = (theme) => ({
+  container: {
+    marginBottom: theme.spacing.unit * 2,
+  },
   calendarContainer: {
     padding: theme.spacing.unit * 2,
   },
@@ -31,6 +43,8 @@ type Props = {
   confirmBooking: (id: number) => void,
   confirmBookingAttendance: (id: number) => void,
   fetchBookings: (id: number) => void,
+  fetchCompatiblePacks: (id: number) => void,
+  fetchAllOffers: () => void,
   offers: Array<Offer>,
   bookingLoading: boolean,
   validatedBookings: Array<Booking>,
@@ -43,12 +57,20 @@ type Props = {
 type State = {
   selectedOffer: ?Offer,
   date: Object,
+  editModalOpened: boolean,
+  deleteModalOpened: boolean,
+  editOfferProcessing: boolean,
+  deletingOffer: boolean,
 };
 
 export class Planning extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
+      editModalOpened: false,
+      deleteModalOpened: false,
+      editOfferProcessing: false,
+      deletingOffer: false,
       selectedOffer: null,
       date: Moment()
         .set('hours', 0)
@@ -56,6 +78,66 @@ export class Planning extends Component<Props, State> {
         .set('milliseconds', 0),
     };
   }
+
+  openEditModal = () => {
+    this.setState({ editModalOpened: true });
+  };
+
+  openDeleteModal = () => {
+    this.setState({ deleteModalOpened: true });
+  };
+
+  onCancelModal = () => {
+    this.setState({
+      editOfferProcessing: false,
+      editModalOpened: false,
+      deleteModalOpened: false,
+    });
+  };
+
+  onConfirmModal = async ({
+    offerId,
+    data,
+  }: {
+    offerId: number,
+    data: FormData,
+  }) => {
+    this.setState({ editOfferProcessing: true });
+    try {
+      const response = await api.offer.editLiveOffer({ offerId, data });
+      if (response.status === 200) {
+        this.props.fetchAllOffers();
+        this.setState({
+          editOfferProcessing: false,
+          editModalOpened: false,
+          selectedOffer: null,
+        });
+        return;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    this.setState({ editOfferProcessing: false });
+  };
+
+  onDeleteConfirmModal = async (offerId: number) => {
+    this.setState({ deletingOffer: true });
+    try {
+      const response = await api.offer.disableOffer(offerId);
+      if (response.status === 200) {
+        this.props.fetchAllOffers();
+        this.setState({
+          deletingOffer: false,
+          deleteModalOpened: false,
+          selectedOffer: null,
+        });
+        return;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    this.setState({ deletingOffer: false });
+  };
 
   onDateClick = (date: Object) => {
     this.setState({ date });
@@ -65,6 +147,7 @@ export class Planning extends Component<Props, State> {
   onOfferSelected = (offer: Offer) => {
     this.setState({ selectedOffer: offer });
     this.props.fetchBookings(offer.id);
+    this.props.fetchCompatiblePacks(offer.id);
   };
 
   renderNoOfferSelected = () => {
@@ -74,6 +157,54 @@ export class Planning extends Component<Props, State> {
         {t('calendar.pleaseSelectOffer')}
       </Typography>
     );
+  };
+
+  renderEditModal = () => {
+    const {
+      offer,
+      coaches,
+      coachesLoading,
+      establishments,
+      establishmentsLoading,
+      compatiblePacks,
+    } = this.props;
+    const { selectedOffer, editModalOpened, editOfferProcessing } = this.state;
+
+    if (selectedOffer) {
+      return (
+        <SimpleModal open={editModalOpened}>
+          <EditLiveOfferForm
+            offer={selectedOffer}
+            coaches={coaches}
+            establishments={establishments}
+            loading={coachesLoading || establishmentsLoading}
+            onConfirm={this.onConfirmModal}
+            onCancel={this.onCancelModal}
+            processing={editOfferProcessing}
+            compatiblePacks={compatiblePacks}
+          />
+        </SimpleModal>
+      );
+    }
+    return null;
+  };
+
+  renderDeleteModal = () => {
+    const { selectedOffer, deleteModalOpened, deletingOffer } = this.state;
+
+    if (selectedOffer) {
+      return (
+        <SimpleModal open={deleteModalOpened}>
+          <DeleteOfferForm
+            offer={selectedOffer}
+            onConfirm={() => this.onDeleteConfirmModal(selectedOffer.id)}
+            onCancel={this.onCancelModal}
+            processing={deletingOffer}
+          />
+        </SimpleModal>
+      );
+    }
+    return null;
   };
 
   render() {
@@ -91,6 +222,12 @@ export class Planning extends Component<Props, State> {
       discardBookingAttendance,
       activities,
       timetableLoading,
+      establishments,
+      establishmentsLoading,
+      coaches,
+      coachesLoading,
+      compatiblePacks,
+      compatiblePacksLoading,
     } = this.props;
     const { date, selectedOffer } = this.state;
 
@@ -111,10 +248,10 @@ export class Planning extends Component<Props, State> {
     };
 
     return (
-      <Grid container spacing={24}>
+      <Grid container spacing={24} className={classes.container}>
         <Grid item xs={12} lg={6}>
           <Paper>
-            <Grid container>
+            <Grid container direction="column">
               <Grid item xs={12}>
                 <div className={classes.calendarContainer}>
                   <Calendar events={events} onDateClick={this.onDateClick} />
@@ -126,7 +263,7 @@ export class Planning extends Component<Props, State> {
                   onOfferSelected={this.onOfferSelected}
                   offers={offers}
                   activities={activities}
-                  laoding={timetableLoading}
+                  loading={timetableLoading}
                 />
               </Grid>
             </Grid>
@@ -142,11 +279,21 @@ export class Planning extends Component<Props, State> {
               bookingLoading={bookingLoading}
               bookingUpdaters={bookingUpdaters}
               discardOption={discardOption}
+              establishments={establishments}
+              coaches={coaches}
+              coachesLoading={coachesLoading}
+              establishmentsLoading={establishmentsLoading}
+              onEditButtonClick={this.openEditModal}
+              onDeleteButtonClick={this.openDeleteModal}
+              compatiblePacks={compatiblePacks}
+              compatiblePacksLoading={compatiblePacksLoading}
             />
           </Grid>
         ) : (
           this.renderNoOfferSelected()
         )}
+        {this.renderEditModal()}
+        {this.renderDeleteModal()}
       </Grid>
     );
   }
@@ -155,17 +302,29 @@ export class Planning extends Component<Props, State> {
 function mapStateToProps(state) {
   return {
     offers: state.offer.calendar,
+    compatiblePacks: state.offer.compatiblePacks,
+    compatiblePacksLoading: state.offer.compatiblePacksLoading,
     timetableLoading: state.activity.loading,
     activities: state.activity.all,
     bookingLoading: state.booking.loading,
     validatedBookings: state.booking.validated,
     pendingBookings: state.booking.pending,
     bookingOptions: state.booking.options,
+    coaches: state.coach.companyAssociated,
+    coachesLoading: state.coach.loading,
+    establishments: state.establishment.all,
+    establishmentsLoading: state.establishment.loading,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    fetchCompatiblePacks(offerId) {
+      dispatch(offerActions.fetchCompatiblePacks(offerId));
+    },
+    fetchAllOffers() {
+      dispatch(offerActions.fetchAllOffers());
+    },
     fetchBookings(offerId) {
       dispatch(bookingActions.fetchBookingsByOffer(offerId));
     },

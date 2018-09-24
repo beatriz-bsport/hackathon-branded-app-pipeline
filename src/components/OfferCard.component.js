@@ -6,21 +6,34 @@ import {
   Typography,
   Grid,
   Paper,
+  Button,
   withStyles,
   ExpansionPanel,
   ExpansionPanelDetails,
   ExpansionPanelSummary,
+  CircularProgress,
+  ListItem,
+  ListItemText,
+  Icon,
+  List,
+  Hidden,
 } from '@material-ui/core';
-import { LocationOn, AccessTime } from '@material-ui/icons';
+import EditIcon from '@material-ui/icons/Edit';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import DeleteIcon from '@material-ui/icons/Delete';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { translate } from 'react-i18next';
+
 import Level from './Level.component';
 import Sport from './Sport.component';
 import Avatar from './Avatar.component';
 import BookingTable from './booking/BookingTable.component';
+import PaymentPackSummary from './consumer/PaymentPackSummary.component';
+import RedButton from './button/RedButton.component';
 
 import { formatAsTime } from '../datetime';
-import type { Offer } from '../api/types';
+import type { Offer, PaymentPack } from '../api/types';
 
 type Props = {
   t: (x: string) => string,
@@ -32,6 +45,10 @@ type Props = {
   pendingBookings: Array<Object>,
   bookingOptions: Array<Object>,
   discardOption: (id: number) => void,
+  onEditButtonClick: () => void,
+  onDeleteButtonClick: () => void,
+  compatiblePacks: Array<PaymentPack>,
+  compatiblePacksLoading: boolean,
   bookingUpdaters: {
     discardBooking: (id: number) => void,
     discardBookingAttendance: (id: number) => void,
@@ -42,22 +59,44 @@ type Props = {
 
 export class OfferCard extends Component<Props> {
   getHeader = () => {
-    const { classes, offer } = this.props;
-    const { title, level_id, parent_category } = offer;
+    const { classes, t, offer } = this.props;
+    const {
+      available,
+      name,
+      level_id,
+      parent_category,
+      price,
+      credit_price,
+    } = offer;
+    const formattedPrice = `${price}€ - ${credit_price} ${t(
+      'common.credit_s',
+    ).toLowerCase()}`;
+
     return (
-      <Grid container direction="row">
-        <Grid item xs={8} className={classes.paddedBlock}>
-          <Grid container spacing={8} direction="column">
+      <Grid
+        container
+        direction="row"
+        wrap="nowrap"
+        alignItems="flex-start"
+        justify="space-between"
+      >
+        <ListItem className={classes.paddedBlock}>
+          <Icon>
+            <Sport noname parentCategory={parent_category} />
+          </Icon>
+          <ListItemText primary={name} secondary={formattedPrice} />
+          {available ? null : (
+            <Typography variant="title" color="error">
+              {t('offer.disabled')}
+            </Typography>
+          )}
+        </ListItem>
+        <Grid item className={classes.paddedBlock}>
+          <Grid container direction="column" alignItems="flex-end" spacing={8}>
             <Grid item>
-              <Typography variant="title">{title}</Typography>
-            </Grid>
-            <Grid item>
-              <Sport parentCategory={parent_category} />
+              <Level levelId={level_id} />
             </Grid>
           </Grid>
-        </Grid>
-        <Grid item xs={4} className={classes.paddedBlock}>
-          <Level levelId={level_id} />
         </Grid>
       </Grid>
     );
@@ -132,9 +171,61 @@ export class OfferCard extends Component<Props> {
     );
   };
 
+  renderEstablishment = () => {
+    const { offer, t } = this.props;
+    const { etablissement, establishment_override } = offer;
+    if (establishment_override) {
+      return (
+        <Grid container direction="column">
+          <Grid item>
+            <Grid container direction="row" spacing={16} alignItems="center">
+              <Grid item>
+                <Typography>{establishment_override.title}</Typography>
+              </Grid>
+              <Grid item>
+                <Typography variant="caption">
+                  {t('offer.extraordinaryEstablishment')}
+                </Typography>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item>
+            <Typography variant="caption">
+              {establishment_override.location.address}
+            </Typography>
+          </Grid>
+        </Grid>
+      );
+    }
+    return (
+      <Grid container direction="column">
+        <Grid item>
+          <Typography>{etablissement.title}</Typography>
+        </Grid>
+        <Grid item>
+          <Typography variant="caption">
+            {etablissement.location.address}
+          </Typography>
+        </Grid>
+      </Grid>
+    );
+  };
+
   getFooter = () => {
-    const { offer, classes } = this.props;
-    const { etablissement, date_start, coach } = offer;
+    const {
+      t,
+      classes,
+      offer,
+      onEditButtonClick,
+      onDeleteButtonClick,
+    } = this.props;
+    const {
+      etablissement,
+      available,
+      date_start,
+      coach,
+      coach_override,
+    } = offer;
     return (
       <Grid
         container
@@ -149,7 +240,18 @@ export class OfferCard extends Component<Props> {
           style={{ borderRight: '1px solid #EEEEEE' }}
           className={classes.stat}
         >
-          <Avatar user={coach} />
+          <Grid container direction="column" spacing={8} alignItems="center">
+            <Grid item>
+              <Avatar user={coach_override || coach} />
+            </Grid>
+            <Grid item>
+              {coach_override ? (
+                <Typography variant="caption">
+                  {t('offer.substitute')}
+                </Typography>
+              ) : null}
+            </Grid>
+          </Grid>
         </Grid>
         <Grid item xs={8} className={classes.stat}>
           <Grid
@@ -170,7 +272,7 @@ export class OfferCard extends Component<Props> {
                     alignItems="center"
                   >
                     <Grid item>
-                      <AccessTime />
+                      <AccessTimeIcon />
                     </Grid>
                     <Grid item>
                       <Typography variant="subheading">
@@ -187,25 +289,38 @@ export class OfferCard extends Component<Props> {
                     alignItems="center"
                   >
                     <Grid item>
-                      <LocationOn />
+                      <LocationOnIcon />
                     </Grid>
-                    <Grid item>
-                      <Grid container direction="column">
-                        <Grid item>
-                          <Typography>{etablissement.title}</Typography>
-                        </Grid>
-                        <Grid item>
-                          <Typography variant="caption">
-                            {etablissement.location.address}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                    </Grid>
+                    <Grid item>{this.renderEstablishment()}</Grid>
                   </Grid>
                 </Grid>
               </Grid>
             </Grid>
           </Grid>
+        </Grid>
+        <Grid item xs={12}>
+          {available ? (
+            <Grid
+              container
+              direction="row"
+              spacing={24}
+              wrap="nowrap"
+              justify="center"
+            >
+              <Grid item>
+                <Button color="primary" onClick={onEditButtonClick}>
+                  <EditIcon className={classes.iconLeft} />
+                  <Hidden xsDown>{t('calendar.modifyOffer')}</Hidden>
+                </Button>
+              </Grid>
+              <Grid item>
+                <RedButton onClick={onDeleteButtonClick}>
+                  <DeleteIcon className={classes.iconLeft} />
+                  <Hidden xsDown>{t('calendar.deleteOffer')}</Hidden>
+                </RedButton>
+              </Grid>
+            </Grid>
+          ) : null}
         </Grid>
       </Grid>
     );
@@ -220,16 +335,24 @@ export class OfferCard extends Component<Props> {
       bookingLoading,
       discardOption,
       bookingUpdaters,
+      classes,
+      offer,
     } = this.props;
+    const { available } = offer;
 
     return (
       <Grid container>
         <Grid item xs={12}>
           <ExpansionPanel>
-            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <ExpansionPanelSummary
+              expandIcon={<ExpandMoreIcon />}
+              className={available ? null : classes.disabledPaper}
+            >
               <Typography>{t('booking.seeCustomers')}</Typography>
             </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
+            <ExpansionPanelDetails
+              className={available ? null : classes.disabledPaper}
+            >
               <BookingTable
                 loading={bookingLoading}
                 validatedBookings={validatedBookings}
@@ -245,25 +368,72 @@ export class OfferCard extends Component<Props> {
     );
   };
 
+  getCompatiblePacks = () => {
+    const {
+      t,
+      classes,
+      offer,
+      compatiblePacks,
+      compatiblePacksLoading,
+    } = this.props;
+    const { available } = offer;
+
+    return (
+      <Grid container>
+        <Grid item xs={12}>
+          <ExpansionPanel>
+            <ExpansionPanelSummary
+              expandIcon={<ExpandMoreIcon />}
+              className={available ? null : classes.disabledPaper}
+            >
+              <Typography>{t('offer.compatiblePacks')}</Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails
+              className={available ? null : classes.disabledPaper}
+            >
+              {compatiblePacksLoading ? (
+                <CircularProgress />
+              ) : (
+                <List dense disablePadding style={{ width: '100%' }}>
+                  {compatiblePacks.map((cp) => (
+                    <PaymentPackSummary paymentPack={cp} key={cp.id} />
+                  ))}
+                </List>
+              )}
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+        </Grid>
+      </Grid>
+    );
+  };
+
   render() {
-    const { noHeader, offer } = this.props;
+    const { noHeader, offer, classes } = this.props;
+    const { available } = offer;
     if (offer) {
       return (
-        <Grid container direction="column">
-          <Grid item>
-            <Paper square>
-              <Grid container direction="column">
-                {noHeader ? null : <Grid item>{this.getHeader()}</Grid>}
-                <Grid item>{this.getStatsBody()}</Grid>
-                <Grid item>{this.getFooter()}</Grid>
-              </Grid>
-            </Paper>
+        <div>
+          <Grid container direction="column">
+            <Grid item>
+              <Paper
+                square
+                className={available ? null : classes.disabledPaper}
+              >
+                <Grid container direction="column">
+                  {noHeader ? null : <Grid item>{this.getHeader()}</Grid>}
+                  <Grid item>{this.getStatsBody()}</Grid>
+                  <Grid item>{this.getFooter()}</Grid>
+                </Grid>
+              </Paper>
+            </Grid>
+            <Grid item xs={12}>
+              {this.getCompatiblePacks()}
+            </Grid>
+            <Grid item xs={12}>
+              {this.getCustomer()}
+            </Grid>
           </Grid>
-
-          <Grid item xs={12}>
-            {this.getCustomer()}
-          </Grid>
-        </Grid>
+        </div>
       );
     }
     return null;
@@ -276,6 +446,7 @@ const styles = (theme) => ({
   },
   footer: {
     borderTop: 'solid 1px #EEEEEE',
+    borderBottom: 'solid 1px #EEEEEE',
   },
   stat: {
     paddingTop: theme.spacing.unit * 2,
@@ -283,6 +454,15 @@ const styles = (theme) => ({
   },
   info: {
     paddingLeft: theme.spacing.unit * 3,
+  },
+  editButtonContainer: {
+    margin: theme.spacing.unit * 2,
+  },
+  iconLeft: {
+    marginRight: theme.spacing.unit,
+  },
+  disabledPaper: {
+    backgroundColor: '#F6F6F6',
   },
 });
 

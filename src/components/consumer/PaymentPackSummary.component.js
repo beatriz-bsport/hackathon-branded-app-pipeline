@@ -1,7 +1,11 @@
 // @flow
 import React, { Component } from 'react';
 
-import { ListItem, ListItemText } from '@material-ui/core';
+import {
+  ListItem,
+  ListItemText,
+  ListItemSecondaryAction,
+} from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { Moment } from '../../i18n';
 import { formatAsDate } from '../../datetime';
@@ -38,7 +42,7 @@ export class PaymentPackMinimalSummary extends Component<Props> {
     }
 
     return (
-      <ListItem>
+      <ListItem disableGutters divider>
         <ListItemText primary={name} secondary={creditsFormatted} />
         <ListItemText
           primary={t('paymentPack.validity')}

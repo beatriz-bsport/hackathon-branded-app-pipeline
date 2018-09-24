@@ -25,7 +25,7 @@ export default function Sport(props: Props) {
       alignItems="center"
     >
       <Grid item>
-        <img src={sport.icon} height={30} width={30} alt="coach profile" />
+        <img src={sport.icon} height={26} width={26} alt="coach profile" />
       </Grid>
       {noname ? null : (
         <Grid item>

@@ -11,10 +11,9 @@ import {
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { Moment } from '../i18n';
-import { formatAsTime } from '../datetime';
 import type { Offer } from '../api/types';
 
-import ActivityMinimalSummary from './activity/ActivityMinimalSummary.component';
+import OfferMinimalSummary from './offer/OfferMinimalSummary.component';
 
 function getOffersToday(date: Object, offers: Array<Offer>): Array<Offer> {
   return offers.filter((o) => Moment(o.date_start).isSame(date, 'day'));
@@ -107,9 +106,8 @@ export class TimeTable extends Component<Props, State> {
         10,
       )}%`;
       return (
-        <ActivityMinimalSummary
+        <OfferMinimalSummary
           showCoach
-          date={formatAsTime(offer.date_start)}
           key={offer.id}
           overrideClickAction={() => {
             this.props.onOfferSelected(offer);
@@ -117,7 +115,7 @@ export class TimeTable extends Component<Props, State> {
           additionalInfo={fillingInfo}
           additionalInfoTypoProps={fillingInfoProps}
           additionalInfoSecondary={formattedFillingRate}
-          activity={activity}
+          offer={offer}
         />
       );
     }

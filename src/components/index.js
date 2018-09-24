@@ -15,7 +15,7 @@ import ActivityMinimalSummary from './activity/ActivityMinimalSummary.component'
 import PaymentTable from './PaymentTable.component';
 import FeatureTable from './FeatureTable';
 import MemberBookingGraph from './member/MemberBookingGraph.component';
-import PaymentPack from './payment-pack/PaymentPack.component';
+import PaymentPackCard from './payment-pack/PaymentPackCard.component';
 import ConsumerRowSummary from './consumer/ConsumerRowSummary.component';
 import ConsumerListItem from './consumer/ConsumerListItem.component';
 import PackMinimalSummary from './PackMinimalSummary.component';
@@ -27,6 +27,9 @@ import Map from './establishment/Map.component';
 import EstablishmentCard from './establishment/EstablishmentCard.component';
 import FormField from './input/FormField.component';
 import AvatarUploader from './AvatarUploader.component';
+import SimpleModal from './SimpleModal.component';
+import EditLiveOfferForm from './form/EditLiveOfferForm.component';
+import DeleteOfferForm from './form/DeleteOfferForm.component';
 import OfferForm from './form/OfferForm.component';
 import ConsumerMenu from './ConsumerMenu.component';
 import BookingListItem from './consumer/BookingListItem.component';
@@ -43,6 +46,9 @@ import SMSCodeForm from './form/SMSCodeForm.component';
 import ConsumersPackSummaryTable from './payment-pack/ConsumersPackSummaryTable.component';
 
 export {
+  SimpleModal,
+  EditLiveOfferForm,
+  DeleteOfferForm,
   ConsumersPackSummaryTable,
   SMSCodeForm,
   SignUpForm,
@@ -68,7 +74,7 @@ export {
   Review,
   ConsumerRowSummary,
   ConsumerListItem,
-  PaymentPack,
+  PaymentPackCard,
   MemberBookingGraph,
   LoginBase,
   LanguageButton,

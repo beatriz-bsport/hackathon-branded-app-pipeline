@@ -234,6 +234,7 @@ export class OfferForm extends Component<Props, State> {
             id="establishment"
             choices={establishments}
             value={this.state.establishment}
+            defaultValue={this.state.establishment}
             required
             onChange={this.onFormFieldChange}
           />
@@ -244,6 +245,7 @@ export class OfferForm extends Component<Props, State> {
             required
             choices={coaches}
             value={this.state.coach}
+            defaultValue={this.state.coach}
             onChange={this.onFormFieldChange}
           />
         </Grid>

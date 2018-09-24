@@ -271,7 +271,7 @@ export class PackForm extends React.Component<Props, State> {
             fullWidth
             onChange={this.handleChange('max_bookings_per_week')}
             helperText={t('form.paymentPack.helper.maxBookingPerWeek')}
-            value={this.state.maxBookingPerWeek}
+            value={this.state.max_bookings_per_week}
           />
         </Grid>
         <Grid item>

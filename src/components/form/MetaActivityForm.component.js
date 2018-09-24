@@ -132,6 +132,7 @@ export class MetaActivityForm extends Component<Props, State> {
                     required
                     value={this.state.coach}
                     choices={coaches}
+                    defaultValue={coaches[0]}
                     onChange={this.onFormFieldChange}
                   />
                   <FormField
@@ -139,6 +140,7 @@ export class MetaActivityForm extends Component<Props, State> {
                     required
                     value={this.state.establishment}
                     choices={establishments}
+                    defaultValue={establishments[0]}
                     onChange={this.onFormFieldChange}
                   />
                 </Grid>

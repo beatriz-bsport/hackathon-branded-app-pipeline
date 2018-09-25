@@ -99,6 +99,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
       data.establishment = establishment;
     }
     if (modifyRecursively) {
+      // forcedPaymentPackMigrations is not used in backend
       data.forcedPaymentPackMigrations = forcedPaymentPackMigrations;
     }
     this.props.onConfirm({ offerId: offer.id, data });
@@ -331,34 +332,29 @@ export class EditLiveOfferForm extends Component<Props, State> {
   };
 
   selectPaymentPackMigration = (id: number) => (event: Object) => {
+    // forcedPaymentPackMigrations is not used in backend
     const { forcedPaymentPackMigrations } = this.state;
     forcedPaymentPackMigrations[id] = event.target.checked;
     this.setState({ forcedPaymentPackMigrations });
   };
 
   renderWarning = () => {
-    const { compatiblePacks } = this.props;
+    const { compatiblePacks, t } = this.props;
     const { forcedPaymentPackMigrations } = this.state;
     return (
       <Grid container direction="column" spacing={16}>
         <Grid item>
-          <Typography>
-            Toutes les séances correspondant à cet horaire, ce jour de la
-            semaine, ce coach, et cet établissement, seront modifiées.
-            Attention: les abonnements suivants ne seront peut-être plus
-            compatibles, pour forcer leur compatibilité, veuillez sélectionner
-            les abonnements qui doivent rester compatibles. Les abonnements
-            non-selectionnés garderont leurs règles initiales et ne seront pas
-            modifiés.
-          </Typography>
+          <Typography>{t('form.offer.warningPackonEdit')}</Typography>
         </Grid>
         <List>
           {compatiblePacks.map((cp) => (
             <ListItem>
+              {/*
               <Switch
                 checked={forcedPaymentPackMigrations[cp.id] || false}
                 onClick={this.selectPaymentPackMigration(cp.id)}
               />
+              */}
               <PaymentPackSummary paymentPack={cp} key={cp.id} />
             </ListItem>
           ))}

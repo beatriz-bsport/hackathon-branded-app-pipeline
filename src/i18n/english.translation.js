@@ -86,6 +86,8 @@ export default {
     },
     form: {
       offer: {
+        warningPackonEdit:
+          'These change may need you to check the pass, they may not stay compatible with the new sessions.\nThe following packs were compatible with this offer, after application of the change please review them carefully.',
         deleteTitle: 'Cancel session',
         changeDate: 'Modify date / time',
         explainDelete:

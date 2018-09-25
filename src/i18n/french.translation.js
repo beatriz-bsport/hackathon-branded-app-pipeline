@@ -57,8 +57,10 @@ export default {
       extraordinaryEstablishment: '(lieu temporaire)',
     },
     form: {
-    offer: {
-      deleteTitle: 'Supprimer la séance',
+      offer: {
+        warningPackonEdit:
+          "Les changements sur les séances risquent de les rendre incompatibles avec certains abonnements. Les abonnements actuellement compatibles avec cette séance sont les suivants, après la modification veuillez prendre le temps de vérifier qu'ils resteront compatible avec les éventuels changements de lieu / coach.",
+        deleteTitle: 'Supprimer la séance',
         explainDelete:
           'Attention, cette modification est définitive. Votre séance ne sera plus visible par les clients finaux. Vous pourrez toujours y accéder.',
         explainNotifyDelete: 'Envoyer une alerte aux clients ayant réservé',

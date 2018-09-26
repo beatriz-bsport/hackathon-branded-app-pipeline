@@ -15,7 +15,12 @@ import { translate } from 'react-i18next';
 import FormField from '../input/FormField.component';
 import { Moment } from '../../i18n';
 import PaymentPackSummary from '../consumer/PaymentPackSummary.component';
-import type { Offer, PaymentPack as PaymentPackType } from '../../api/types';
+import type {
+  Coach,
+  Establishment,
+  Offer,
+  PaymentPack as PaymentPackType,
+} from '../../api/types';
 
 type Props = {
   t: (x: string) => string,
@@ -24,6 +29,8 @@ type Props = {
   processing: boolean,
   offer: Offer,
   compatiblePacks: Array<PaymentPackType>,
+  coaches: Array<Coach>,
+  establishments: Array<Establishment>,
 };
 
 type State = {
@@ -340,6 +347,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
 
   renderWarning = () => {
     const { compatiblePacks, t } = this.props;
+    // eslint-disable-next-line
     const { forcedPaymentPackMigrations } = this.state;
     return (
       <Grid container direction="column" spacing={16}>

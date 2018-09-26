@@ -19,7 +19,14 @@ import {
 import { offer as offerActions, booking as bookingActions } from '../actions';
 import { Moment } from '../i18n';
 import api from '../api';
-import type { Offer, Booking, BookingOption } from '../api/types';
+import type {
+  Offer,
+  Booking,
+  BookingOption,
+  Coach,
+  Establishment,
+  PaymentPack,
+} from '../api/types';
 import type { FormData } from '../components/form/EditLiveOfferForm.component';
 
 const styles = (theme) => ({
@@ -52,6 +59,12 @@ type Props = {
   bookingOptions: Array<BookingOption>,
   timetableLoading: boolean,
   activities: Array<Object>,
+  coaches: Array<Coach>,
+  coachesLoading: boolean,
+  establishments: Array<Establishment>,
+  establishmentsLoading: boolean,
+  compatiblePacks: Array<PaymentPack>,
+  compatiblePacksLoading: boolean,
 };
 
 type State = {
@@ -161,7 +174,6 @@ export class Planning extends Component<Props, State> {
 
   renderEditModal = () => {
     const {
-      offer,
       coaches,
       coachesLoading,
       establishments,

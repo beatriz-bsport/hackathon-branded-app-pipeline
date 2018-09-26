@@ -4,10 +4,8 @@ import React from 'react';
 import {
   ListItem,
   ListItemText,
-  Icon,
   IconButton,
   Tooltip,
-  Divider,
   Avatar,
   withStyles,
 } from '@material-ui/core';
@@ -15,9 +13,8 @@ import {
 import { translate } from 'react-i18next';
 
 import Level from '../Level.component';
-import Sport from '../Sport.component';
 import { formatAsDatetime } from '../../datetime';
-import type { Offer, ActivitySimplified } from '../../api/types';
+import type { Offer } from '../../api/types';
 
 const styles = () => ({
   listItem: {
@@ -32,7 +29,6 @@ type Props = {
   additionalInfoSecondary: string,
   showCoachName: ?boolean,
   overrideClickAction: () => void,
-  divider: ?boolean,
   t: (x: string) => string,
   classes: Object,
 };
@@ -46,18 +42,15 @@ export function OfferMinimalSummary(props: Props) {
     additionalInfoSecondary,
     showCoachName,
     overrideClickAction,
-    divider,
     t,
     classes,
   } = props;
   const {
     name,
     id,
-    parent_category,
     level_id,
     etablissement,
     establishment_override,
-    next_slot,
     coach,
     coach_override,
     available,

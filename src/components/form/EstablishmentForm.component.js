@@ -5,8 +5,6 @@ import React, { Component } from 'react';
 import type { TFunction } from 'react-i18next';
 
 import { translate } from 'react-i18next';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import { Paper, Grid, withStyles, Typography, Button } from '@material-ui/core';
 
@@ -15,7 +13,7 @@ import { FormField, LocationInput, ImageUploader } from '../input';
 type Props = {
   initial: EstablishmentType,
   onSubmit: (EstablishmentType) => void,
-  easyAccesses: EasyAccessType[],
+  // easyAccesses: EasyAccessType[],
   t: TFunction,
   classes: { [string]: string },
 };
@@ -24,7 +22,7 @@ type State = {};
 export class EstablishmentForm extends Component<Props, State> {
   state = {};
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
 
     Object.keys(props.initial || {}).forEach((key) => {
@@ -32,7 +30,7 @@ export class EstablishmentForm extends Component<Props, State> {
     });
   }
 
-  onSubmit = (e) => {
+  onSubmit = (e: Object) => {
     e.preventDefault();
 
     const { title, specific_info, location, address, cover } = this.state;
@@ -57,7 +55,7 @@ export class EstablishmentForm extends Component<Props, State> {
   };
 
   render() {
-    const { t, classes, easyAccesses } = this.props;
+    const { t, classes } = this.props;
     return (
       <Grid container>
         <Grid item xs={12} lg={6}>
@@ -124,8 +122,8 @@ function EstablishmentCardPreview(props: { previewURL: string }) {
     <CardMedia
       style={{ height: 300 }}
       image={
-        props.previewURL ||
-        'https://images.pexels.com/photos/137611/pexels-photo-137611.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
+        // prettier-ignore
+        props.previewURL || 'https://images.pexels.com/photos/137611/pexels-photo-137611.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
       }
     />
   );

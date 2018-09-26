@@ -94,7 +94,6 @@ export class TimeTable extends Component<Props, State> {
     const { activities } = this.props;
     const activityF = activities.filter((a) => a.id === offer.activity_id);
     if (activityF.length) {
-      const activity = activityF[0];
       const fillingInfo = `${offer.nb_validated}/${
         offer.effectif
       } (+${offer.nb_pending + offer.nb_option})`;

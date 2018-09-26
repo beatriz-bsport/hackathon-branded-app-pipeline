@@ -220,7 +220,6 @@ export class OfferCard extends Component<Props> {
       onDeleteButtonClick,
     } = this.props;
     const {
-      etablissement,
       available,
       date_start,
       coach,

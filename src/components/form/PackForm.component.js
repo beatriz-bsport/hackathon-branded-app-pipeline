@@ -315,7 +315,7 @@ export class PackForm extends React.Component<Props, State> {
   };
 
   render() {
-    const { t, categories, loading, activities } = this.props;
+    const { t, loading } = this.props;
     return (
       <form onSubmit={this.onSubmit}>
         <Grid container direction="column" spacing={32}>

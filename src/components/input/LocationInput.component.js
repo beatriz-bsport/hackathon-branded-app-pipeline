@@ -14,11 +14,13 @@ import {
 import IconDone from '@material-ui/icons/Done';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 
-const TILE_LAYER_URL =
-  'https://cartodb-basemaps-{s}.global.ssl.fastly.net/{variant}/{z}/{x}/{y}{r}.png';
+// prettier-ignore
+const TILE_LAYER_URL = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/{variant}/{z}/{x}/{y}{r}.png';
 const CENTER = [48.86, 2.33];
 const BASE_URL = 'https://maps.googleapis.com/maps/api/geocode/json';
 const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+
+const MARKER_ASSET = require('../../marker-icon-2x.png');
 
 type Props = {
   value: Object,
@@ -143,7 +145,7 @@ export class LocationInput extends Component<Props, State> {
     this.setState({ center: [e.center.lat, e.center.lng], zoom: e.zoom });
   };
 
-  tempZoomOn = (c) => {};
+  tempZoomOn = () => {};
 
   renderInputWithCandidates = () => {
     const { candidates, address, isLoading, valid } = this.state;
@@ -182,14 +184,16 @@ export class LocationInput extends Component<Props, State> {
         <List dense>
           {candidates
             ? candidates.map((c) => (
+                // eslint-disable-next-line
                 <ListItem
                   button
                   key={c.formatted_address}
-                  onMouseOver={() => this.tempZoomOn(c)}
+                  onMouseOver={() => this.tempZoomOn()}
                   onClick={() => this.selectCandidate(c)}
                 >
                   <ListItemText>{c.formatted_address}</ListItemText>
                 </ListItem>
+                // eslint-disable-next-line
               ))
             : null}
         </List>
@@ -214,7 +218,7 @@ export class LocationInput extends Component<Props, State> {
               position={location}
               icon={
                 new Icon({
-                  iconUrl: require('../../marker-icon-2x.png'),
+                  iconUrl: MARKER_ASSET,
                   iconSize: [50, 82],
                   iconAnchor: [25, 79],
                 })

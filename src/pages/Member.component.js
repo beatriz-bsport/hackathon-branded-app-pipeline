@@ -111,7 +111,10 @@ export class Member extends Component<Props> {
                   <CallIcon />
                 </IconButton>
                 <ListItemText
-                  primary={member.consumer.phonenumber.phone_number}
+                  primary={
+                    // prettier-ignore
+                    member.consumer.phonenumber || { phone_number: ' - ' }.phone_number
+                  }
                 />
               </ListItem>
               <ListItem>

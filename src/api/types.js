@@ -68,6 +68,11 @@ export type Offer = {
   id: number,
   activity_id: number,
   category: string,
+  coach_override: ?{
+    id: number,
+    name: string,
+    photo: string,
+  },
   coach: {
     id: number,
     name: string,
@@ -77,6 +82,22 @@ export type Offer = {
   date_end: string,
   date_start: string,
   effectif: number,
+  establishment_override: ?{
+    city: {
+      name: string,
+      slug: string,
+    },
+    cover: string,
+    cover_thumnail: string,
+    id: number,
+    location: {
+      address: string,
+      latitude: number,
+      longitude: number,
+    },
+    slug: string,
+    title: string,
+  },
   etablissement: {
     city: {
       name: string,

@@ -1,9 +1,8 @@
 // @flow
 
-import _ from 'lodash';
 import React, { Component } from 'react';
 
-import { Grid, Button, Paper, withStyles, Typography } from '@material-ui/core';
+import { Grid, CircularProgress, Button, Paper, withStyles, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { translate } from 'react-i18next';
 import { AvatarUploader } from '..';
@@ -26,11 +25,27 @@ const styles = (theme) => ({
 });
 
 type Props = {
+  processing: boolean,
   initial: { [string]: string },
+  onSubmit: (FormData) => void,
+  classes: Object,
+  t: (x: string) => string,
 };
 
-export class CoachForm extends Component<Props> {
+type State = {
+  avatar: ?string,
+  firstname: string,
+  lastname: string,
+  birthdayYear: string,
+  phone: string,
+  sex: 'M' | 'F',
+  description: string,
+  email: string,
+};
+
+export class CoachForm extends Component<Props, State> {
   state = {
+    avatar: null,
     firstname: '',
     lastname: '',
     birthdayYear: '',
@@ -40,7 +55,7 @@ export class CoachForm extends Component<Props> {
     description: '',
   };
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
 
     Object.keys(props.initial || {}).forEach((key) => {
@@ -48,11 +63,11 @@ export class CoachForm extends Component<Props> {
     });
   }
 
-  onFormFieldChange = (id) => (value) => {
+  onFormFieldChange = (id: string) => (value: Object) => {
     this.setState({ [id]: value });
   };
 
-  onSubmit = (event) => {
+  onSubmit = (event: Object) => {
     event.preventDefault();
     const {
       avatar,
@@ -65,7 +80,9 @@ export class CoachForm extends Component<Props> {
       sex,
     } = this.state;
     const formData = new FormData();
-    formData.append('avatar', avatar);
+    if (avatar) {
+      formData.append('avatar', avatar);
+    }
     formData.append('lastname', lastname);
     formData.append('firstname', firstname);
     formData.append('birthdayYear', birthdayYear);
@@ -74,6 +91,30 @@ export class CoachForm extends Component<Props> {
     formData.append('phone', phone);
     formData.append('sex', sex);
     this.props.onSubmit(formData);
+  };
+
+  renderButton = () => {
+    if (this.state.processing) {
+      return (
+        <Grid container item direction="row" justify="flex-end" spacing={16}>
+          <CircularProgress />
+        </Grid>
+      );
+    }
+    return (
+      <Grid container direction="row" justify="flex-end" spacing={16}>
+        <Grid item>
+          <Link to="/coach" style={{ textDecoration: 'none' }}>
+            <Button>{this.props.t('form.discard')}</Button>
+          </Link>
+        </Grid>
+        <Grid item>
+          <Button variant="raised" color="primary" type="submit">
+            {this.props.t('form.send')}
+          </Button>
+        </Grid>
+      </Grid>
+    );
   };
 
   render() {
@@ -152,25 +193,7 @@ export class CoachForm extends Component<Props> {
                     onChange={this.onFormFieldChange}
                   />
                 </Grid>
-                <Grid item>
-                  <Grid
-                    container
-                    direction="row"
-                    justify="flex-end"
-                    spacing={16}
-                  >
-                    <Grid item>
-                      <Link to="/coach" style={{ textDecoration: 'none' }}>
-                        <Button>{t('form.discard')}</Button>
-                      </Link>
-                    </Grid>
-                    <Grid item>
-                      <Button variant="raised" color="primary" type="submit">
-                        {t('form.send')}
-                      </Button>
-                    </Grid>
-                  </Grid>
-                </Grid>
+                <Grid item>{this.renderButton()}</Grid>
               </Grid>
             </form>
           </Paper>

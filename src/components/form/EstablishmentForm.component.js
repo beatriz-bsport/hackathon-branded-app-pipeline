@@ -6,18 +6,33 @@ import type { TFunction } from 'react-i18next';
 
 import { translate } from 'react-i18next';
 import CardMedia from '@material-ui/core/CardMedia';
-import { Paper, Grid, withStyles, Typography, Button } from '@material-ui/core';
+import {
+  CircularProgress,
+  Paper,
+  Grid,
+  withStyles,
+  Typography,
+  Button,
+} from '@material-ui/core';
 
 import { FormField, LocationInput, ImageUploader } from '../input';
+import type { Establishment as EstablishmentType } from '../../api/types';
 
 type Props = {
+  processing: boolean,
   initial: EstablishmentType,
   onSubmit: (EstablishmentType) => void,
   // easyAccesses: EasyAccessType[],
   t: TFunction,
   classes: { [string]: string },
 };
-type State = {};
+type State = {
+  title: ?string,
+  specific_info: ?string,
+  location: ?{ x: number, y: number },
+  address: ?string,
+  cover: ?string,
+};
 
 export class EstablishmentForm extends Component<Props, State> {
   state = {};
@@ -41,7 +56,9 @@ export class EstablishmentForm extends Component<Props, State> {
     formData.append('location[x]', location.x);
     formData.append('location[y]', location.y);
     formData.append('address', address);
-    formData.append('cover', cover);
+    if (cover) {
+      formData.append('cover', cover);
+    }
 
     this.props.onSubmit(formData);
   };
@@ -52,6 +69,19 @@ export class EstablishmentForm extends Component<Props, State> {
     } else {
       this.setState({ [id]: value });
     }
+  };
+
+  renderButton = () => {
+    if (this.props.processing) {
+      return <CircularProgress />;
+    }
+    return (
+      <Grid container item direction="row" justify="flex-end" spacing={16}>
+        <Button variant="raised" color="primary" type="submit">
+          {this.props.t('form.send')}
+        </Button>
+      </Grid>
+    );
   };
 
   render() {
@@ -94,20 +124,7 @@ export class EstablishmentForm extends Component<Props, State> {
                     onChange={this.onFormFieldChange('location')}
                   />
                 </Grid>
-                <Grid item>
-                  <Grid
-                    container
-                    direction="row"
-                    justify="flex-end"
-                    spacing={16}
-                  >
-                    <Grid item>
-                      <Button variant="raised" color="primary" type="submit">
-                        {t('form.send')}
-                      </Button>
-                    </Grid>
-                  </Grid>
-                </Grid>
+                <Grid item>{this.renderButton()}</Grid>
               </Grid>
             </form>
           </Paper>

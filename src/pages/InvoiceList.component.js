@@ -10,18 +10,22 @@ import { translate } from 'react-i18next';
 import { formatAsDatetime } from '../datetime';
 import { FeatureTable } from '../components';
 
+import type { Member, Invoice } from '../api/types';
+import CONTENT_TYPES from 'bsport-commons/lib/master-data/content-types';
+
 type Props = {
   t: (x: String) => String,
-  transactions: Array<Object>, // it is an immutable on which we call .asMutable() but whatever
+  invoices: Array<Object>, // it is an immutable on which we call .asMutable() but whatever
   loading: boolean,
+  members: Array<Member>,
 };
 
-export class TransactionList extends Component<Props> {
+export class InvoiceList extends Component<Props> {
   getColumnData = () => {
     const { t } = this.props;
     return [
       {
-        id: 'id',
+        id: 'iuud',
         label: 'ID',
       },
       {
@@ -29,7 +33,7 @@ export class TransactionList extends Component<Props> {
         label: t('payment.consumer'),
       },
       {
-        id: 'kind',
+        id: 'content_type',
         label: t('payment.type'),
       },
       {
@@ -43,36 +47,45 @@ export class TransactionList extends Component<Props> {
     ];
   };
 
-  renderRow = (tx) => (
-    <TableRow key={tx.id}>
+  renderRow = (inv: Invoice) => (
+    <TableRow key={inv.uuid}>
       <TableCell component="th" scope="row">
-        {tx.id.slice(0, 8).toUpperCase()}
+        {inv.uuid.slice(0, 8).toUpperCase()}
       </TableCell>
-      <TableCell>{tx.name}</TableCell>
-      <TableCell>{tx.kind}</TableCell>
-      <TableCell numeric>{tx.price}</TableCell>
-      <TableCell numeric>{formatAsDatetime(tx.date)}</TableCell>
+      <TableCell>
+        {this.props.members.filter((m) => m.id == inv.member)[0].name}
+      </TableCell>
+      <TableCell>
+        {this.props.t(
+          'content_type.' +
+            CONTENT_TYPES.filter((ct) => ct.id === inv.content_type)[0],
+        )}
+      </TableCell>
+      <TableCell numeric>{inv.price}</TableCell>
+      <TableCell numeric>{formatAsDatetime(inv.date)}</TableCell>
     </TableRow>
   );
 
   render() {
-    const { t, transactions, loading } = this.props;
+    const { t, invoices, loading } = this.props;
     if (loading) {
       return <CircularProgress />;
     }
 
-    const mutableTransactions = transactions.asMutable
-      ? transactions.asMutable()
-      : transactions;
+    const mutableInvoices = invoices.asMutable
+      ? invoices.asMutable()
+      : invoices;
     return (
       <Grid container spacing={32} alignItems="flex-end">
         <Grid item xs={12}>
           <FeatureTable
-            data={mutableTransactions}
+            data={mutableInvoices}
             renderRow={this.renderRow}
             columnData={this.getColumnData()}
             loading={loading}
             title={t('common.transactions')}
+            orderBy="date"
+            order="desc"
           />
         </Grid>
         <Grid item>
@@ -89,9 +102,10 @@ export class TransactionList extends Component<Props> {
 
 function mapStateToProps(state) {
   return {
-    transactions: state.transaction.all,
-    loading: state.transaction.loading,
+    members: state.member.all,
+    invoices: state.invoice.all,
+    loading: state.invoice.loading || state.member.loading,
   };
 }
 
-export default connect(mapStateToProps)(translate()(TransactionList));
+export default connect(mapStateToProps)(translate()(InvoiceList));

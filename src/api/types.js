@@ -1,11 +1,12 @@
 // @flow
 
-export type Transaction = {
-  id: string,
-  name: string,
-  kind: string,
+export type Invoice = {
+  uuid: string,
   date: string,
   price: number,
+  member: number,
+  content_type: string,
+  object_id: number,
 };
 
 export type Profile = {

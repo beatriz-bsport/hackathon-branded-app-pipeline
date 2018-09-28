@@ -38,6 +38,8 @@ type Props = {
   title: string,
   selectionFeature: Object,
   showCheckboxes: boolean,
+  order: 'asc' | 'desc',
+  orderBy: string,
 };
 
 type State = {
@@ -49,13 +51,16 @@ type State = {
 };
 
 class MemberTable extends React.Component<Props, State> {
-  state = {
-    order: 'asc',
-    orderBy: 'name',
-    selected: [],
-    page: 0,
-    rowsPerPage: 5,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      order: props.order || 'asc',
+      orderBy: props.orderBy || 'name',
+      selected: [],
+      page: 0,
+      rowsPerPage: 5,
+    };
+  }
 
   formatPagination = (from: number, to: number, count: number) => {
     const { t } = this.props;

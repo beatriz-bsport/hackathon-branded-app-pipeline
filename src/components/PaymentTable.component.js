@@ -9,7 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { translate } from 'react-i18next';
 
-import type { Transaction } from '../api/types';
+import type { Invoice } from '../api/types';
 
 const CustomTableCell = withStyles((theme) => ({
   head: {
@@ -24,7 +24,7 @@ const CustomTableCell = withStyles((theme) => ({
 type Props = {
   t: (x: string) => string,
   classes: Object,
-  data: Array<Transaction>,
+  data: Array<Invoice>,
 };
 
 export class PaymentTable extends Component<Props> {

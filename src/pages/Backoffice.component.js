@@ -15,7 +15,7 @@ import {
   coach as coachActions,
   establishment as establishmentActions,
   category as categoryActions,
-  transaction as transactionActions,
+  invoice as invoiceActions,
   paymentPack as paymentPackActions,
   stats as statsActions,
 } from '../actions';
@@ -24,7 +24,7 @@ import Dashboard from './Dashboard.component';
 import MetaActivityList from './MetaActivityList.component';
 import MetaActivity from './MetaActivity.component';
 import CoachList from './CoachList.component';
-import TransactionList from './TransactionList.component';
+import InvoiceList from './InvoiceList.component';
 import MemberList from './MemberList.component';
 import Member from './Member.component';
 import PaymentPackList from './PaymentPackList.component';
@@ -65,7 +65,7 @@ type Props = {
   fetchAssociatedCoaches: () => void,
   fetchAllEstablishments: () => void,
   fetchSCT: () => void,
-  fetchTransactions: () => void,
+  fetchInvoices: () => void,
   fetchAllPaymentPacks: () => void,
   fetchDashboardStats: () => void,
 };
@@ -83,7 +83,7 @@ export class Backoffice extends Component<Props> {
     this.props.fetchAssociatedCoaches();
     this.props.fetchAllEstablishments();
     this.props.fetchSCT();
-    this.props.fetchTransactions();
+    this.props.fetchInvoices();
     this.props.fetchAllPaymentPacks();
     this.props.fetchDashboardStats();
   }
@@ -112,7 +112,7 @@ export class Backoffice extends Component<Props> {
                 component={MetaActivityForm}
               />
               <Route path="/coach" component={CoachList} />
-              <Route path="/payment" component={TransactionList} />
+              <Route path="/payment" component={InvoiceList} />
               <Route path="/payment-pack/add" component={PaymentPackForm} />
               <Route path="/payment-pack" component={PaymentPackList} />
               <Route exact path="/member" component={MemberList} />
@@ -166,8 +166,8 @@ function mapDispatchToProps(dispatch) {
     fetchSCT() {
       dispatch(categoryActions.fetchSCT());
     },
-    fetchTransactions() {
-      dispatch(transactionActions.fetchAll());
+    fetchInvoices() {
+      dispatch(invoiceActions.fetchAll());
     },
     fetchAllPaymentPacks() {
       dispatch(paymentPackActions.fetchAll());

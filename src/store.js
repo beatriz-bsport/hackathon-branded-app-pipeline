@@ -28,7 +28,7 @@ const persistConfig = {
     'coach',
     'member',
     'category',
-    'transaction',
+    'invoice',
   ],
   transforms: [immutableTransform()],
 };

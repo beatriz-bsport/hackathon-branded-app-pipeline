@@ -1,5 +1,5 @@
 import category from './category';
-import transaction from './transaction';
+import invoice from './invoice';
 import booking from './booking';
 import offer from './offer';
 import auth from './auth';
@@ -16,7 +16,7 @@ import metaActivity from './meta-activity';
 export default {
   metaActivity,
   category,
-  transaction,
+  invoice,
   booking,
   offer,
   auth,

@@ -9,14 +9,14 @@ import * as member from './member.actions';
 import * as paymentPack from './paymentPack.actions';
 import * as establishment from './establishment.actions';
 import * as category from './category.actions';
-import * as transaction from './transaction.actions';
+import * as invoice from './invoice.actions';
 import * as payment from './payment.actions';
 import * as consumer from './consumer.actions';
 
 export {
   consumer,
   payment,
-  transaction,
+  invoice,
   auth,
   establishment,
   offer,

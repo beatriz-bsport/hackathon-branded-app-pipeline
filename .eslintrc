@@ -17,6 +17,8 @@
     "babel"
   ],
   "rules": {
+    "indent": 0,
+    "jsx-a11y/label-has-for": 0,
     "camelcase": "off",
     "import/no-extraneous-dependencies": "off",
     "quotes": [1, "single"],

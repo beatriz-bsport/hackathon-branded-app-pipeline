@@ -113,7 +113,7 @@ export class LocationInput extends Component<Props, State> {
     });
 
     this.props.onChange({
-      location: { x: c.geometry.location.lat, y: c.geometry.location.lng },
+      location: { x: c.geometry.location.lng, y: c.geometry.location.lat },
       address: c.formatted_address,
     });
   };

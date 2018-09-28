@@ -36,7 +36,7 @@ function SelfCoachCard(props: { isCoach: boolean, selfCoach: Coach }) {
   }
 
   return (
-    <Grid item xs={12} sm={6} md={4} xm={3}>
+    <Grid item xs={12} md={4} xl={4}>
       <CoachCard coach={selfCoach} />
     </Grid>
   );
@@ -53,7 +53,7 @@ function AssociatedCoaches(props: {
   }
 
   return associatedCoaches.map((coach) => (
-    <Grid item xs={12} sm={6} md={4}>
+    <Grid item xs={12} md={6}>
       <CoachCard coach={coach} />
     </Grid>
   ));

@@ -15,19 +15,27 @@ type Props = {
 };
 type State = {
   open: boolean,
+  processing: boolean,
 };
 
 export class EstablishmentFormPage extends Component<Props, State> {
-  state = { open: false };
+  state = { processing: false, open: false };
 
   createEstablishment = async (data: *) => {
+    this.setState({ processing: true });
     try {
       await api.establishment.addEstablishment(data);
 
-      this.setState({ open: true });
+      this.setState({
+        open: true,
+        processing: false,
+      });
       this.props.history.goBack();
     } catch (e) {
       console.log(e);
+      this.setState({
+        processing: false,
+      });
       throw e;
     }
   };
@@ -38,6 +46,7 @@ export class EstablishmentFormPage extends Component<Props, State> {
         <EstablishmentForm
           easyAccesses={this.props.easyAccesses}
           onSubmit={this.createEstablishment}
+          processing={this.state.processing}
         />
         ;<Snackbar open={this.state.open} message="Etablissement créé" />
       </div>

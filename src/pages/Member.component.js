@@ -366,10 +366,5 @@ const styles = (theme) => ({
 });
 
 export default withStyles(styles)(
-  translate()(
-    connect(
-      mapStateToProps,
-      mapDispatchToProps,
-    )(Member),
-  ),
+  translate()(connect(mapStateToProps, mapDispatchToProps)(Member)),
 );

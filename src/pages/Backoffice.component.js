@@ -24,6 +24,7 @@ import Dashboard from './Dashboard.component';
 import MetaActivityList from './MetaActivityList.component';
 import MetaActivity from './MetaActivity.component';
 import CoachList from './CoachList.component';
+import CoachPerformance from './CoachPerformance.component';
 import InvoiceList from './InvoiceList.component';
 import MemberList from './MemberList.component';
 import Member from './Member.component';
@@ -106,6 +107,11 @@ export class Backoffice extends Component<Props> {
               <Route path="/activity/:id" component={MetaActivity} />
               <Route exact path="/add-offers/:id" component={OfferFormPage} />
               <Route exact path="/coach/add" component={CoachForm} />
+              <Route
+                exact
+                path="/coach/:associatedCoachId/performance"
+                component={CoachPerformance}
+              />
               <Route
                 exact
                 path="/meta-activity/add"

@@ -9,6 +9,7 @@ import {
   withStyles,
   IconButton,
   Tooltip,
+  Button,
 } from '@material-ui/core';
 import CallIcon from '@material-ui/icons/Call';
 import EmailIcon from '@material-ui/icons/Email';
@@ -92,9 +93,26 @@ export class CoachCard extends Component<Props> {
           <Grid item>
             <Grid container spacing={16} direction="column">
               <Grid item>
-                <Typography variant="title">
-                  {t('common.activities')}
-                </Typography>
+                <Grid
+                  container
+                  direction="row"
+                  justify="space-between"
+                  alignItems="center"
+                >
+                  <Grid item>
+                    <Typography variant="title">
+                      {t('common.activities')}
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    <Link
+                      to={`/coach/${coach.associated_coach_id}/performance`}
+                      style={{ textDecoration: 'none' }}
+                    >
+                      <Button color='primary'>{t('coach.showPerformance')}</Button>
+                    </Link>
+                  </Grid>
+                </Grid>
               </Grid>
               <Grid item>{this.getActivityList()}</Grid>
             </Grid>

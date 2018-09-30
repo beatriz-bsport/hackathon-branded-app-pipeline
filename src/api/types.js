@@ -1,5 +1,13 @@
 // @flow
 
+export type OfferPerformance = {
+  id: number,
+  nb_bookings: number,
+  price_coach: number,
+};
+
+export type Performance = Array<OfferPerformance>;
+
 export type Invoice = {
   uuid: string,
   date: string,

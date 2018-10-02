@@ -9,11 +9,12 @@ import { formatAsDate } from '../../datetime';
 type Props = {
   t: (x: string) => string,
   paymentPack: Object,
+  noDivider: boolean,
 };
 
 export class PaymentPackMinimalSummary extends Component<Props> {
   render() {
-    const { t, paymentPack } = this.props;
+    const { t, paymentPack, noDivider } = this.props;
     const {
       name,
       credits,
@@ -38,7 +39,7 @@ export class PaymentPackMinimalSummary extends Component<Props> {
     }
 
     return (
-      <ListItem disableGutters divider>
+      <ListItem disableGutters divider={!noDivider}>
         <ListItemText primary={name} secondary={creditsFormatted} />
         <ListItemText
           primary={t('paymentPack.validity')}

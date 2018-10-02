@@ -4,7 +4,22 @@ export default {
     pageTitle: {
       myAccount: 'My account',
     },
+    paymentMethod: {
+      CASH: 'Cash',
+      CB: 'Credit card',
+      CHECK: 'Check',
+    },
     common: {
+      save: 'Save',
+      saveAndAdd: 'Save and add another',
+      booking: 'Booking',
+      from: 'From',
+      until: 'Until',
+      paymentMethod: 'Payment method',
+      activity: 'Activity',
+      datetime: 'Session',
+      paymentPack: 'Pass',
+      amount: 'Amount',
       continue: 'Continue',
       credit_s: 'Credit(s)',
       NA: 'Not specified',
@@ -85,6 +100,36 @@ export default {
       nbBookings: 'Bookings',
     },
     form: {
+      coachPerformance: {
+        dateTitle: 'Date range',
+        remuneration: 'Remuneration',
+        pricePerOffer: 'Price per offer',
+        bonus: 'Bonus',
+        checkboxIncludeABonus: 'Include a bonus based on performance',
+        bookingThresholdLabel: 'Booking threshold',
+        bookingThresholdHelper:
+          'Every booking over this threshold will add a bonus',
+        pricePerAdditionalBookingLabel: 'Price per booking',
+        pricePerAdditionalBookingHelper:
+          'Amount given to every booking over threshold',
+      },
+      invoice: {
+        title: 'Register a payment',
+        paymentLabel: 'Register a payment',
+        offerHelper: 'This session will be add to the account',
+        paymentPackHelper: 'This pass will be added to the account',
+        noPayedObject: 'None',
+        objectTypeLabel: 'Chose the object to be credited',
+        activityHelper: 'Chose the activity then the session',
+      },
+      payment: {
+        status: 'Status',
+        paid: 'Paid',
+        unpaid: 'Pending',
+        noPaymentExtraInfo: 'No additional information provided',
+        additionalInformationLabel: 'Information',
+        additionalInformationHelper: '(optional) check reference, date...',
+      },
       offer: {
         warningPackonEdit:
           'These change may need you to check the pass, they may not stay compatible with the new sessions.\nThe following packs were compatible with this offer, after application of the change please review them carefully.',
@@ -182,6 +227,16 @@ export default {
       addMember: 'Add a member profile',
     },
     coach: {
+      showPerformance: 'Rémunerate',
+      performance: {
+        title: 'Coach performance',
+        nbBookings: 'Bookings',
+        nbOffersTotal: 'Sessions',
+        nbBookingsOverThreshold: 'Bookings over threshold',
+        pricePerOffer: 'Price per offer',
+        pricePerAdditionalBooking: 'Price per additional booking',
+        calculate: 'Calculate',
+      },
       addCoach: 'Add a coach',
       noActivity: 'This coach does not manage any activity.',
       selfNoActivity: 'You are not managing any activity.',

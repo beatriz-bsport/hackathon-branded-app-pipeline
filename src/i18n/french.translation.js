@@ -4,7 +4,22 @@ export default {
     pageTitle: {
       myAccount: 'Mon compte',
     },
+    paymentMethods: {
+      CASH: 'Liquide',
+      CB: 'Carte bancaire',
+      CHECK: 'Chèque',
+    },
     common: {
+      save: 'Enregistrer',
+      saveAndAdd: 'Enregistrer et ajouter à nouveau',
+      booking: 'Réservation',
+      from: 'Du',
+      until: "Jusqu'au",
+      paymentMethod: 'Méthode de paiement',
+      activity: 'Activité',
+      datetime: 'Séance',
+      paymentPack: 'Abonnement',
+      amount: 'Montant',
       continue: 'Continuer',
       credit_s: 'Crédit(s)',
       NA: 'Non renseigné',
@@ -57,6 +72,37 @@ export default {
       extraordinaryEstablishment: '(lieu temporaire)',
     },
     form: {
+      coachPerformance: {
+        dateTitle: 'Plage de dates',
+        remuneration: 'Rémunération',
+        pricePerOffer: 'Montant par séance',
+        bonus: 'Bonus',
+        checkboxIncludeABonus: 'Inclure un bonus à la performance',
+        bookingThresholdLabel: 'Limite de réservations avant bonus',
+        bookingThresholdHelper:
+          'Toute réservation additionnelle ajoutera un bonus au coach',
+        pricePerAdditionalBookingLabel: 'Prix reversé',
+        pricePerAdditionalBookingHelper:
+          'Montant reversé pour toute réservation bonus',
+      },
+      invoice: {
+        title: 'Enregistrer un paiement',
+        paymentLabel: 'Ajouter une transaction',
+        offerHelper: 'Cette séance sera crédité au membre',
+        paymentPackHelper: 'Cet abonnement sera crédité au membre',
+        noPayedObject: 'Aucun',
+        objectTypeLabel: 'Objet à créditer',
+        activityHelper: "Choisissez l'activité puis la séance",
+      },
+      payment: {
+        status: 'Status',
+        paid: 'Payé',
+        unpaid: 'En attente',
+        noPaymentExtraInfo: 'Aucune information additionnelle',
+        additionalInformationLabel: 'Information',
+        additionalInformationHelper:
+          "(optionnel) numéro du chèque, date d'encaissement...",
+      },
       offer: {
         warningPackonEdit:
           "Les changements sur les séances risquent de les rendre incompatibles avec certains abonnements. Les abonnements actuellement compatibles avec cette séance sont les suivants, après la modification veuillez prendre le temps de vérifier qu'ils resteront compatible avec les éventuels changements de lieu / coach.",
@@ -161,6 +207,16 @@ export default {
       addMember: 'Ajouter une fiche de membre',
     },
     coach: {
+      showPerformance: 'Rémunérer',
+      performance: {
+        title: 'Récapitulatif coach',
+        nbBookings: 'Réservations',
+        nbOffersTotal: 'Séances',
+        nbBookingsOverThreshold: 'Réservations bonus',
+        pricePerOffer: 'Montant par séance',
+        pricePerAdditionalBooking: 'Montant par réservation',
+        calculate: 'Calculer',
+      },
       addCoach: 'Ajouter un coach',
       noActivity: 'Ce coach ne gère aucune activité.',
       // eslint-disable-next-line

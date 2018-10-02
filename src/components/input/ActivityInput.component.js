@@ -1,0 +1,69 @@
+// @flow
+import React from 'react';
+
+import {
+  withStyles,
+  FormControl,
+  InputLabel,
+  Select,
+  Input,
+  MenuItem,
+  FormHelperText,
+} from '@material-ui/core';
+import { translate } from 'react-i18next';
+
+import { formatAsDatetime } from '../../datetime';
+
+import type { Activity } from '../../api/types';
+import LEVELS from 'bsport-commons/lib/master-data/levels'
+
+const styles = (theme) => ({
+  formControl: {
+    margin: theme.spacing.unit,
+    minWidth: 200,
+  },
+});
+
+type Props = {
+  t: (x: string) => string,
+  classes: Object,
+  activities: Array<Activity>,
+  label: ?string,
+  onChange: (?number) => void,
+  helperText: string,
+  value: ?number,
+};
+
+function formatActivityName(activity: Activity) {
+  const { level } = activity;
+
+  return `${activity.name} - ${activity.etablissement.title} - ${
+    LEVELS.filter((l) => l.id === level)[0].text
+  } - ${activity.coach.name}`;
+}
+
+export function ActivityInput(props: Props) {
+  const { value, onChange, label, activities, classes, helperText } = props;
+  return (
+    <FormControl className={classes.formControl}>
+      <InputLabel shrink={value} htmlFor={`${label}-helper`}>
+        {label}
+      </InputLabel>
+      <Select
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        input={<Input name={label} id={`${label}-helper`} />}
+      >
+        <MenuItem value={null}>
+          <em> - </em>
+        </MenuItem>
+        {activities.map((a) => (
+          <MenuItem value={a.id}>{formatActivityName(a)}</MenuItem>
+        ))}
+      </Select>
+      <FormHelperText>{helperText}</FormHelperText>
+    </FormControl>
+  );
+}
+
+export default withStyles(styles)(translate()(ActivityInput));

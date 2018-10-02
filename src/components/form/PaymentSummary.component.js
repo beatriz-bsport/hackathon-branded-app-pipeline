@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react';
+import React from 'react';
 
 import { IconButton, Grid, Typography, withStyles } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/Check';
@@ -20,7 +20,6 @@ type Props = {
   t: (x: string) => string,
   classes: Object,
   payment: PaymentFormData,
-  id: number,
   onDelete: () => void,
 };
 

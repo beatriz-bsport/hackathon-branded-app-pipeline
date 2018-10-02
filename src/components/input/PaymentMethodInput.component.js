@@ -36,7 +36,7 @@ export function PaymentMethodInput(props: Props) {
       </InputLabel>
       <Select
         value={value}
-	onChange={(event) => onChange(event.target.value)}
+        onChange={(event) => onChange(event.target.value)}
         input={
           <Input name={t('common.paymentMethod')} id="paymentMethod-helper" />
         }

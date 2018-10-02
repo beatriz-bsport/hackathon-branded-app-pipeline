@@ -100,11 +100,11 @@ export class CoachPerformanceForm extends Component<Props, State> {
               required
               label={t('form.coachPerformance.pricePerOffer')}
               value={pricePerOffer}
-              onChange={(event) =>
+              onChange={(event) => {
                 this.onFieldChange('pricePerOffer')(
                   parseFloat(event.target.value),
-                )
-              }
+                );
+              }}
             />
           </Grid>
           <Grid item>
@@ -138,11 +138,11 @@ export class CoachPerformanceForm extends Component<Props, State> {
                       label={t('form.coachPerformance.bookingThresholdLabel')}
                       value={bookingThreshold}
                       disabled={!includeBonusOnOversizing}
-                      onChange={(event) =>
+                      onChange={(event) => {
                         this.onFieldChange('bookingThreshold')(
                           parseFloat(event.target.value),
-                        )
-                      }
+                        );
+                      }}
                     />
                   </Grid>
                   <Grid item>
@@ -155,11 +155,11 @@ export class CoachPerformanceForm extends Component<Props, State> {
                       )}
                       value={pricePerAdditionalBooking}
                       disabled={!includeBonusOnOversizing}
-                      onChange={(event) =>
+                      onChange={(event) => {
                         this.onFieldChange('pricePerAdditionalBooking')(
                           parseFloat(event.target.value),
-                        )
-                      }
+                        );
+                      }}
                     />
                   </Grid>
                 </Grid>

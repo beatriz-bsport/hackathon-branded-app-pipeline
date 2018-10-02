@@ -1,13 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 
-import {
-  Paper,
-  Divider,
-  Grid,
-  Typography,
-  withStyles,
-} from '@material-ui/core';
+import { Paper, Grid, Typography, withStyles } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 import { CoachPerformanceForm, CoachPerformanceSummary } from '../components';
@@ -16,6 +10,7 @@ import type { PerformanceCalculationRule } from '../components/form/types';
 import type { Coach } from '../api/types';
 
 type Props = {
+  coaches: Array<Coach>,
   loading: boolean,
   performance: Array<Object>,
   fetchPerformance: (
@@ -46,6 +41,7 @@ export class CoachPerformance extends Component<Props, State> {
       this.props.match.params.associatedCoachId,
       10,
     );
+    // eslint-disable-next-line
     this.coach = this.props.coaches.filter(
       (ac) => ac.associated_coach_id === this.associatedCoachId,
     )[0];

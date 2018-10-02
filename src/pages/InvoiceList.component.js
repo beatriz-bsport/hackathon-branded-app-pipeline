@@ -7,11 +7,12 @@ import TableCell from '@material-ui/core/TableCell';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 
+import CONTENT_TYPES from 'bsport-commons/lib/master-data/content-types';
+
 import { formatAsDatetime } from '../datetime';
 import { FeatureTable } from '../components';
 
 import type { Member, Invoice } from '../api/types';
-import CONTENT_TYPES from 'bsport-commons/lib/master-data/content-types';
 
 type Props = {
   t: (x: String) => String,
@@ -53,12 +54,13 @@ export class InvoiceList extends Component<Props> {
         {inv.uuid.slice(0, 8).toUpperCase()}
       </TableCell>
       <TableCell>
-        {this.props.members.filter((m) => m.id == inv.member)[0].name}
+        {this.props.members.filter((m) => m.id === inv.member)[0].name}
       </TableCell>
       <TableCell>
         {this.props.t(
-          'content_type.' +
-            CONTENT_TYPES.filter((ct) => ct.id === inv.content_type)[0],
+          `content_type.${
+            CONTENT_TYPES.filter((ct) => ct.id === inv.content_type)[0]
+          }`,
         )}
       </TableCell>
       <TableCell numeric>{inv.price}</TableCell>

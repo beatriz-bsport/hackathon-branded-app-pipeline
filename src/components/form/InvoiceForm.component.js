@@ -20,7 +20,7 @@ import OfferInput from '../input/OfferInput.component';
 import PaymentForm from './PaymentForm.component';
 import PaymentSummary from './PaymentSummary.component';
 
-import type { Member, Offer, Activity, PaymentPack } from '../../api/types';
+import type { Offer, Activity, PaymentPack } from '../../api/types';
 import type { PaymentFormData } from './types';
 
 const BOOKING = 'BOOKING';
@@ -33,7 +33,7 @@ type Props = {
   offers: Array<Offer>,
   activities: Array<Activity>,
   paymentPacks: Array<PaymentPack>,
-  member: Member,
+  cancel: () => void,
 };
 
 type State = {
@@ -46,7 +46,7 @@ type State = {
 
 export class InvoiceForm extends Component<Props, State> {
   state = {
-    offerId: null,
+    // offerId: null,
     paymentPackId: null,
     registeredPayments: [],
     paymentIdSeed: 0,
@@ -113,7 +113,6 @@ export class InvoiceForm extends Component<Props, State> {
             <OfferInput
               offers={offers}
               activities={activities}
-              onChange={this.storeOfferId}
               offerHelperText={t('form.invoice.offerHelper')}
               activityHelperText={t('form.invoice.activityHelper')}
             />

@@ -8,7 +8,6 @@ import ActivityInput from './ActivityInput.component';
 import BaseOfferInput from './BaseOfferInput.component';
 
 import type { Offer, Activity } from '../../api/types';
-import type { Event } from '../../types';
 
 type Props = {
   offers: Array<Offer>,

@@ -6,7 +6,7 @@ import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 
 import { InvoiceForm } from '../components';
-import type { InvoiceFormData } from '../components/form/types';
+// import type { InvoiceFormData } from '../components/form/types'; //TODO
 import type { Offer, Activity, Member, PaymentPack } from '../api/types';
 
 type Props = {

@@ -5,13 +5,14 @@ import { withStyles } from '@material-ui/core';
 import DatePicker from 'material-ui-pickers/DatePicker';
 
 type Props = {
+  classes: Object,
   value: Object,
   label: ?string,
   disabled: ?boolean,
   onChange: (value: Object) => void,
 };
 
-const styles = (theme) => ({
+const styles = () => ({
   container: {
     width: 200,
   },

@@ -12,10 +12,9 @@ import {
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
-import { formatAsDatetime } from '../../datetime';
+import LEVELS from 'bsport-commons/lib/master-data/levels';
 
 import type { Activity } from '../../api/types';
-import LEVELS from 'bsport-commons/lib/master-data/levels'
 
 const styles = (theme) => ({
   formControl: {
@@ -25,7 +24,6 @@ const styles = (theme) => ({
 });
 
 type Props = {
-  t: (x: string) => string,
   classes: Object,
   activities: Array<Activity>,
   label: ?string,

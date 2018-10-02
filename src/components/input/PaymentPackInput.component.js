@@ -24,7 +24,6 @@ const styles = (theme) => ({
 });
 
 type Props = {
-  t: (x: string) => string,
   classes: Object,
   paymentPacks: Array<PaymentPack>,
   onChange: (?number) => void,
@@ -34,15 +33,7 @@ type Props = {
 };
 
 export function PaymentPackInput(props: Props) {
-  const {
-    value,
-    label,
-    onChange,
-    paymentPacks,
-    classes,
-    helperText,
-    t,
-  } = props;
+  const { value, label, onChange, paymentPacks, classes, helperText } = props;
   return (
     <FormControl className={classes.formControl}>
       <InputLabel shrink={value} htmlFor="pass-helper">

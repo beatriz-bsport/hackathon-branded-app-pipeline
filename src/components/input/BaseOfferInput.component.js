@@ -24,7 +24,6 @@ const styles = (theme) => ({
 });
 
 type Props = {
-  t: (x: string) => string,
   classes: Object,
   offers: Array<Offer>,
   label: ?string,

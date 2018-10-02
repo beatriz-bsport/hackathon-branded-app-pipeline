@@ -109,7 +109,9 @@ export class CoachCard extends Component<Props> {
                       to={`/coach/${coach.associated_coach_id}/performance`}
                       style={{ textDecoration: 'none' }}
                     >
-                      <Button color='primary'>{t('coach.showPerformance')}</Button>
+                      <Button color="primary">
+                        {t('coach.showPerformance')}
+                      </Button>
                     </Link>
                   </Grid>
                 </Grid>

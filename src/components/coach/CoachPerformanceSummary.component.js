@@ -7,15 +7,14 @@ import {
   ListItemText,
   Divider,
   Grid,
-  IconButton,
   Typography,
   CircularProgress,
   withStyles,
 } from '@material-ui/core';
-import SaveIcon from '@material-ui/icons/Save';
+// import SaveIcon from '@material-ui/icons/Save';
 import { translate } from 'react-i18next';
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
+// import html2canvas from 'html2canvas';
+// import jsPDF from 'jspdf';
 
 import { formatAsDate } from '../../datetime';
 
@@ -48,13 +47,14 @@ export class CoachPerformanceSummary extends Component<Props> {
     let nbOffersTotal = 0;
     let nbBookingsOverThreshold = 0;
 
-    for (const offerSummary of performance) {
+    performance.map((offerSummary) => {
       const { nb_bookings } = offerSummary;
       if (nb_bookings) {
         nbOffersTotal += 1;
         nbBookingsTotal += nb_bookings;
         moneyDue += rule.pricePerOffer;
         if (includeBonusOnOversizing && pricePerAdditionalBooking) {
+          // eslint-disable-next-line
           const differentialBookings = nb_bookings - bookingThreshold;
           if (differentialBookings > 0) {
             moneyDue += differentialBookings * pricePerAdditionalBooking;
@@ -62,7 +62,8 @@ export class CoachPerformanceSummary extends Component<Props> {
           }
         }
       }
-    }
+      return null;
+    });
     return {
       moneyDue,
       nbBookingsTotal,
@@ -71,6 +72,7 @@ export class CoachPerformanceSummary extends Component<Props> {
     };
   };
 
+  /*
   printDocument() {
     const input = document.getElementById('divToPrint');
     html2canvas(input).then((canvas) => {
@@ -80,6 +82,7 @@ export class CoachPerformanceSummary extends Component<Props> {
       pdf.save('download.pdf');
     });
   }
+  */
 
   /*
   pdfToHTML() {
@@ -169,14 +172,16 @@ export class CoachPerformanceSummary extends Component<Props> {
                 )}: ${pricePerAdditionalBooking}€`}
               />
               <Typography variant="title">
-                {`${nbBookingsOverThreshold} (${nbBookingsOverThreshold *
-                  pricePerAdditionalBooking}€)`}
+                {// prettier-ignore
+                `${nbBookingsOverThreshold} (${nbBookingsOverThreshold
+                  * pricePerAdditionalBooking}€)`}
               </Typography>
             </ListItem>
           ) : null}
         </List>
       );
     }
+    return null;
   };
 
   renderHeader = () => {
@@ -201,11 +206,6 @@ export class CoachPerformanceSummary extends Component<Props> {
                 </Typography>
               </Grid>
             </Grid>
-          </Grid>
-          <Grid item>
-            <IconButton onClick={this.printDocument} color="primary">
-              <SaveIcon />
-            </IconButton>
           </Grid>
         </Grid>
       );

@@ -4,6 +4,7 @@ import { Button, Paper, Grid, Typography, withStyles } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { FormField } from '../input';
+import { AvatarUploader } from '..';
 
 const styles = (theme) => ({
   paperContainer: {
@@ -29,6 +30,7 @@ type State = {
   email: string,
   phone: string,
   sex: string,
+  avatar: *,
 };
 
 export class MemberForm extends Component<Props, State> {
@@ -38,6 +40,7 @@ export class MemberForm extends Component<Props, State> {
     email: null,
     phone: '',
     sex: 'M',
+    avatar: null,
   };
 
   constructor(props) {
@@ -54,14 +57,18 @@ export class MemberForm extends Component<Props, State> {
 
   onSubmit = (event) => {
     event.preventDefault();
-    const { sex, firstname, lastname, email, phone } = this.state;
-    this.props.onSubmit({
-      lastname,
-      firstname,
-      email,
-      phone,
-      sex,
-    });
+    const { sex, firstname, lastname, email, phone, avatar } = this.state;
+
+    const formData = new FormData();
+    avatar && formData.append('avatar', avatar);
+
+    formData.append('lastname', lastname);
+    formData.append('firstname', firstname);
+    formData.append('email', email);
+    formData.append('phone', phone);
+    formData.append('sex', sex);
+
+    this.props.onSubmit(formData);
   };
 
   render() {
@@ -71,6 +78,9 @@ export class MemberForm extends Component<Props, State> {
         <form target="/member" onSubmit={this.onSubmit}>
           <Typography variant="title">{t('form.newMember')}</Typography>
           <Grid container spacing={8}>
+            <Grid item xs={12} md={12}>
+              <AvatarUploader onChange={this.onFormFieldChange('avatar')} />
+            </Grid>
             <Grid item xs={12} md={6}>
               <FormField
                 id="firstname"

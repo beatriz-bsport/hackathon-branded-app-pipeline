@@ -1,11 +1,18 @@
 // @flow
 import React, { Component } from 'react';
 
-import { Grid, Paper, Typography, Button, withStyles } from '@material-ui/core';
+import {
+  Grid,
+  Paper,
+  Typography,
+  Button,
+  withStyles,
+  CardMedia,
+} from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import { FormField } from '../input';
+import { FormField, ImageUploader } from '../input';
 
 const styles = (theme) => ({
   paperContainer: {
@@ -39,7 +46,13 @@ type State = {
 };
 
 export class MetaActivityForm extends Component<Props, State> {
-  state = { default_waiting_list_max_size: 0 };
+  state = {
+    default_waiting_list_max_size: 0,
+    default_last_booking_minutes: 30,
+    default_last_discard_minutes: 30,
+    default_duration_minutes: 30,
+    customer_enabled: 0,
+  };
 
   constructor(props: Props) {
     super(props);
@@ -64,22 +77,34 @@ export class MetaActivityForm extends Component<Props, State> {
       default_last_discard_minutes,
       default_duration_minutes,
       customer_enabled,
+      cover,
     } = this.state;
 
-    this.props.onSubmit({
-      name,
-      SCT,
-      description,
-      coach,
-      establishment,
+    const formData = new FormData();
+    cover && formData.append('cover', cover);
+    formData.append('name', name);
+    formData.append('SCT', SCT);
+    formData.append('description', description);
+    formData.append('coach', coach);
+    formData.append('establishment', establishment);
+    formData.append(
+      'default_waiting_list_max_size',
       default_waiting_list_max_size,
-      default_price,
-      default_credits,
+    );
+    formData.append('default_price', default_price);
+    formData.append('default_credits', default_credits);
+    formData.append(
+      'default_last_booking_minutes',
       default_last_booking_minutes,
+    );
+    formData.append(
+      'default_last_discard_minutes',
       default_last_discard_minutes,
-      default_duration_minutes,
-      customer_enabled,
-    });
+    );
+    formData.append('default_duration_minutes', default_duration_minutes);
+    formData.append('customer_enabled', customer_enabled);
+
+    this.props.onSubmit(formData);
   };
 
   onFormFieldChange = (id: string) => (value: Object) => {
@@ -98,6 +123,12 @@ export class MetaActivityForm extends Component<Props, State> {
                   <Typography variant="title">
                     {t('form.newMetaActivity')}
                   </Typography>
+                </Grid>
+                <Grid item>
+                  <label>Photo</label>
+                  <ImageUploader onChange={this.onFormFieldChange('cover')}>
+                    <MetaActivityCoverPreview />
+                  </ImageUploader>
                 </Grid>
                 <Grid item>
                   <FormField
@@ -218,6 +249,18 @@ export class MetaActivityForm extends Component<Props, State> {
       </Grid>
     );
   }
+}
+
+function MetaActivityCoverPreview(props: { previewURL: string }) {
+  return (
+    <CardMedia
+      style={{ height: 250 }}
+      image={
+        props.previewURL ||
+        'https://images.pexels.com/photos/137611/pexels-photo-137611.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
+      }
+    />
+  );
 }
 
 export default withStyles(styles)(translate()(MetaActivityForm));

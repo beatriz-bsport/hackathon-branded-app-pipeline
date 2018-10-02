@@ -44,8 +44,14 @@ import OfferPayment from './consumer/OfferPayment.component';
 import SignUpForm from './form/SignUpForm.component';
 import SMSCodeForm from './form/SMSCodeForm.component';
 import ConsumersPackSummaryTable from './payment-pack/ConsumersPackSummaryTable.component';
+import CoachPerformanceForm from './coach/CoachPerformanceForm.component';
+import CoachPerformanceSummary from './coach/CoachPerformanceSummary.component';
+import InvoiceForm from './form/InvoiceForm.component';
 
 export {
+  InvoiceForm,
+  CoachPerformanceForm,
+  CoachPerformanceSummary,
   SimpleModal,
   EditLiveOfferForm,
   DeleteOfferForm,

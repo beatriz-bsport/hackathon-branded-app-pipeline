@@ -39,11 +39,13 @@ import MarketingRule from './MarketingRule.component';
 import MemberForm from './MemberForm.component';
 import OfferFormPage from './OfferFormPage.component';
 import EstablishmentFormPage from './EstablishmentFormPage.component';
+import InvoiceFormPage from './InvoiceFormPage.component';
 
 const styles = (theme: Object) => ({
   content: {
     backgroundColor: theme.palette.background.default,
     paddingTop: theme.spacing.unit * 3,
+    marginBottom: theme.spacing.unit * 2,
     [theme.breakpoints.up('sm')]: {
       paddingLeft: theme.spacing.unit * 3,
       paddingRight: theme.spacing.unit * 3,
@@ -133,6 +135,7 @@ export class Backoffice extends Component<Props> {
               <Route path="/marketing/rule/:id" component={MarketingRule} />
               <Route path="/marketing" component={MarketingDashboard} />
               <Route exact path="/" component={Dashboard} />
+              <Route path="/invoice/add" component={InvoiceFormPage} />
             </Switch>
           </div>
         </main>

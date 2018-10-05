@@ -1,0 +1,6 @@
+// @flow
+
+export default {
+  SNACKBAR_DISPLAY: 'SNACKBAR_DISPLAY',
+  SNACKBAR_DESTROY: 'SNACKBAR_DESTROY',
+};

@@ -14,6 +14,7 @@ import categoryReducers from './category';
 import invoiceReducers from './invoice';
 import paymentReducers from './payment';
 import consumerReducers from './consumer';
+import snackbarReducer from './snackbar.reducers';
 
 export default combineReducers({
   payment: paymentReducers,
@@ -30,4 +31,5 @@ export default combineReducers({
   paymentPack: paymentPackReducers,
   category: categoryReducers,
   invoice: invoiceReducers,
+  snackbar: snackbarReducer,
 });

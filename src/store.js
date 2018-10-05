@@ -6,8 +6,8 @@ import thunk from 'redux-thunk';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import createHistory from 'history/createBrowserHistory';
-import { routerMiddleware } from 'react-router-redux';
+import { createBrowserHistory } from 'history';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
 import immutableTransform from 'redux-persist-transform-immutable';
 
 import reducers from './reducers';
@@ -35,12 +35,12 @@ const persistConfig = {
 
 export default function initStore(initialState: Object) {
   const rootReducer = persistReducer(persistConfig, reducers);
-  const history = createHistory();
+  const history = createBrowserHistory();
   const routerMiddlewareWithHistory = routerMiddleware(history);
   // prettier-ignore
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   const store = createStore(
-    rootReducer,
+    connectRouter(history)(rootReducer),
     initialState,
     composeEnhancers(applyMiddleware(thunk, routerMiddlewareWithHistory)),
   );

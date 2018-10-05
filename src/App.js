@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
@@ -9,6 +9,8 @@ import MomentUtils from 'material-ui-pickers/utils/moment-utils';
 import { colors } from 'bsport-commons/lib/colors';
 
 import { Moment } from './i18n';
+
+import SnackbarPile from './SnackbarPile.component';
 
 import Root from './Root';
 import './App.scss';
@@ -33,8 +35,9 @@ export class App extends Component {
   constructor(props) {
     super(props);
 
-    const { store } = initStore();
+    const { store, history } = initStore();
     this.store = store;
+    this.history = history;
   }
 
   render() {
@@ -42,15 +45,16 @@ export class App extends Component {
       <MuiThemeProvider theme={theme}>
         <CssBaseline>
           <Provider store={this.store}>
-            <BrowserRouter>
+            <ConnectedRouter history={this.history}>
               <MuiPickersUtilsProvider
                 utils={MomentUtils}
                 moment={Moment}
                 locale={Moment.locale()}
               >
+                <SnackbarPile />
                 <Root />
               </MuiPickersUtilsProvider>
-            </BrowserRouter>
+            </ConnectedRouter>
           </Provider>
         </CssBaseline>
       </MuiThemeProvider>

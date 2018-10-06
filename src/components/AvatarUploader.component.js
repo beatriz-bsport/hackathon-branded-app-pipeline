@@ -28,6 +28,14 @@ export class AvatarUploader extends Component<Props, State> {
       'https://ssl.gstatic.com/images/branding/product/1x/avatar_circle_blue_512dp.png',
   };
 
+  constructor(props) {
+    super(props);
+
+    if (props.initial) {
+      this.state.previewUrl = props.initial;
+    }
+  }
+
   componentWillUnmount() {
     const { previewUrl } = this.state;
     if (previewUrl && typeof previewUrl !== 'string') {

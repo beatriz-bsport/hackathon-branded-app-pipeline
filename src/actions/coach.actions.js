@@ -1,4 +1,9 @@
+// @flow
+
+import { push } from 'react-router-redux';
+
 import api from '../api';
+import { snackbarSuccess, snackbarError } from './snackbar.actions';
 import types from './coach.types';
 
 export function fetchAssociated() {
@@ -12,6 +17,53 @@ export function fetchAssociated() {
     } catch (err) {
       dispatch(errorFetchingAssociatedCoaches());
     }
+  };
+}
+
+export function createOrUpdateCoach(coachData) {
+  return async (dispatch) => {
+    dispatch(actionCreateOrUpdateCoach(coachData));
+
+    const createOrUpdate = coachData.has('id')
+      ? api.coach.updateCoach
+      : api.coach.addCoach;
+    try {
+      const response = await createOrUpdate(coachData);
+
+      dispatch(actionCreateOrUpdateCoachSuccess(response));
+      dispatch(
+        snackbarSuccess(
+          coachData.has('id')
+            ? 'Coach modifié avec succès'
+            : 'Coach ajouté avec succès',
+        ),
+      );
+      dispatch(fetchAssociated());
+      dispatch(push('/coach'));
+    } catch (e) {
+      console.log(e);
+      dispatch(snackbarError('Erreur lors de la sauvegarde du coach'));
+      dispatch(actionCreateOrUpdateCoachError(e));
+    }
+  };
+}
+
+export function actionCreateOrUpdateCoach(coachData) {
+  return { type: types.COACH_CREATE_OR_UPDATE, coach: coachData };
+}
+export function actionCreateOrUpdateCoachSuccess(response) {
+  return { type: types.COACH_CREATE_OR_UPDATE_SUCCESS, response };
+}
+export function actionCreateOrUpdateCoachError(error) {
+  return { type: types.COACH_CREATE_OR_UPDATE_ERROR, error };
+}
+export function actionStartUpdate(coach) {
+  return { type: types.COACH_UPDATE, coach };
+}
+export function startUpdate(coach) {
+  return async (dispatch) => {
+    dispatch(actionStartUpdate(coach));
+    dispatch(push(`/coach/edit/${coach.id}`));
   };
 }
 

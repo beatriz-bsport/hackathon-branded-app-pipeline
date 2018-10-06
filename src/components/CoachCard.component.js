@@ -52,7 +52,7 @@ export class CoachCard extends Component<Props> {
   };
 
   render() {
-    const { coach, classes, t } = this.props;
+    const { coach, classes, t, onClickUpdate } = this.props;
     return (
       <Paper className={classes.paper}>
         <Grid container direction="column" spacing={24}>
@@ -105,6 +105,7 @@ export class CoachCard extends Component<Props> {
                     </Typography>
                   </Grid>
                   <Grid item>
+                    <Button onClick={onClickUpdate}>Modifier</Button>
                     <Link
                       to={`/coach/${coach.associated_coach_id}/performance`}
                       style={{ textDecoration: 'none' }}

@@ -7,6 +7,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
+import { coach as coachActions } from '../actions';
 import { CoachCard } from '../components';
 import type { Coach } from '../api/types';
 
@@ -53,8 +54,11 @@ function AssociatedCoaches(props: {
   }
 
   return associatedCoaches.map((coach) => (
-    <Grid item xs={12} md={6}>
-      <CoachCard coach={coach} />
+    <Grid item xs={12} md={6} key={coach.id}>
+      <CoachCard
+        coach={coach}
+        onClickUpdate={() => props.onClickUpdate(coach)}
+      />
     </Grid>
   ));
 }
@@ -93,6 +97,7 @@ export class CoachList extends Component<Props> {
           <AssociatedCoaches
             associatedCoaches={associatedCoaches}
             isManager={isManager}
+            onClickUpdate={this.props.startUpdateCoach}
           />
         </Grid>
       </div>
@@ -109,7 +114,14 @@ function mapStateToProps(state) {
     isManager: state.auth.is_manager,
   };
 }
+function mapDispatchToProps(dispatch) {
+  return {
+    startUpdateCoach(coach) {
+      dispatch(coachActions.startUpdate(coach));
+    },
+  };
+}
 
-export default connect(mapStateToProps)(
+export default connect(mapStateToProps, mapDispatchToProps)(
   withStyles(styles)(translate()(CoachList)),
 );

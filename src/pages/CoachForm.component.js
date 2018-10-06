@@ -1,71 +1,73 @@
 // @flow
 
 import React, { Component } from 'react';
-import { withStyles, Snackbar } from '@material-ui/core';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
+import { createOrUpdateCoach } from '../actions/coach.actions';
 import CoachForm from '../components/form/CoachForm.component';
 
-import api from '../api';
+import { mapFormData } from './form.utils';
 
 type Props = {
-  history: Object,
+  createOrUpdateCoach: (*) => void,
+  pending: boolean,
+  errors: *,
+  update: *,
 };
-type State = {
-  open: boolean,
-  error: ?string,
-  processing: boolean,
-};
-
-const styles = (theme) => ({
-  error: {
-    backgroundColor: theme.palette.error.dark,
-  },
-});
 
 export class CoachFormPage extends Component<Props, State> {
-  state = { open: false, error: null, processing: false };
-
   createCoach = async (data: *) => {
-    this.setState({ processing: true });
-    try {
-      const response = await api.coach.addCoach(data);
+    const formData = mapFormData(data, {
+      avatar: 'user.photo',
+      firstname: 'user.first_name',
+      lastname: 'user.last_name',
+      gender: 'user.gender',
+      birthdayYear: 'user.birthday',
+      email: 'user.email',
+      description: 'description',
+      phone: 'user.phone.phone_number',
+    });
 
-      if (!response || response.status !== 200) {
-        return this.setState({
-          error: 'Impossible de valider le formulaire',
-          processing: false,
-        });
-      }
-
-      this.setState({
-        open: true,
-        processing: false,
-      });
-      this.props.history.goBack();
-    } catch (e) {
-      console.log(e);
-      this.setState({
-        processing: false,
-      });
-      throw e;
+    if (this.props.update) {
+      formData.append('id', this.props.update.id);
     }
+
+    this.props.createOrUpdateCoach(formData);
   };
 
   render() {
-    const { classes } = this.props;
+    const { update } = this.props;
     return (
-      <div>
-        <CoachForm onSubmit={this.createCoach} processing={this.state.processing} />;
-        <Snackbar open={this.state.open} message="Coach créé" />
-        <Snackbar
-          open={this.state.error}
-          message={this.state.error}
-          className={classes.error}
-        />
-      </div>
+      <CoachForm
+        onSubmit={this.createCoach}
+        processing={this.props.pending}
+        initial={update}
+      />
     );
   }
 }
 
-export default withStyles(styles)(withRouter(CoachFormPage));
+function mapStateToProps(state, nextProps) {
+  const { match } = nextProps;
+  const id = (match && match.params && +match.params.id) || null;
+  return {
+    pending: state.coach.createOrUpdatePending,
+    errors: state.coach.createOrUpdatePending,
+    update:
+      id !== null
+        ? state.coach.companyAssociated.find((c) => c.id === id)
+        : null,
+  };
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    createOrUpdateCoach(data) {
+      dispatch(createOrUpdateCoach(data));
+    },
+  };
+}
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(CoachFormPage),
+);

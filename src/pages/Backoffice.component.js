@@ -108,7 +108,6 @@ export class Backoffice extends Component<Props> {
               <Route exact path="/activity" component={MetaActivityList} />
               <Route path="/activity/:id" component={MetaActivity} />
               <Route exact path="/add-offers/:id" component={OfferFormPage} />
-              <Route exact path="/coach/add" component={CoachForm} />
               <Route
                 exact
                 path="/coach/:associatedCoachId/performance"
@@ -119,6 +118,8 @@ export class Backoffice extends Component<Props> {
                 path="/meta-activity/add"
                 component={MetaActivityForm}
               />
+              <Route exact path="/coach/add" component={CoachForm} />
+              <Route exact path="/coach/edit/:id" component={CoachForm} />
               <Route path="/coach" component={CoachList} />
               <Route path="/payment" component={InvoiceList} />
               <Route path="/payment-pack/add" component={PaymentPackForm} />
@@ -130,6 +131,11 @@ export class Backoffice extends Component<Props> {
               <Route
                 exact
                 path="/establishments/add"
+                component={EstablishmentFormPage}
+              />
+              <Route
+                exact
+                path="/establishments/edit/:id"
                 component={EstablishmentFormPage}
               />
               <Route path="/marketing/rule/:id" component={MarketingRule} />
@@ -187,7 +193,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(themedBackoffice);
+export default connect(mapStateToProps, mapDispatchToProps)(themedBackoffice);

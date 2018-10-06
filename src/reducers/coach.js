@@ -9,6 +9,9 @@ const initialState = Immutable({
   companyAssociated: [],
   performance: null,
   performanceLoading: false,
+  // Create or Update
+  createOrUpdatePending: false,
+  createOrUpdateError: null,
 });
 
 export default function coachReducers(state = initialState, action = {}) {
@@ -43,6 +46,27 @@ export default function coachReducers(state = initialState, action = {}) {
       return Immutable.merge(state, {
         performanceLoading: false,
         performance: null,
+      });
+
+    case actionTypes.COACH_CREATE_OR_UPDATE:
+      return state.merge({
+        createOrUpdatePending: true,
+      });
+
+    case actionTypes.COACH_CREATE_OR_UPDATE_SUCCESS:
+      return state.merge({
+        createOrUpdatePending: false,
+      });
+
+    case actionTypes.COACH_CREATE_OR_UPDATE_ERROR:
+      return state.merge({
+        createOrUpdateError: action.error,
+        createOrUpdatePending: false,
+      });
+
+    case actionTypes.COACH_UPDATE:
+      return state.merge({
+        updatedCoach: action.coach,
       });
 
     default:

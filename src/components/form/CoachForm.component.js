@@ -2,7 +2,14 @@
 
 import React, { Component } from 'react';
 
-import { Grid, CircularProgress, Button, Paper, withStyles, Typography } from '@material-ui/core';
+import {
+  Grid,
+  CircularProgress,
+  Button,
+  Paper,
+  withStyles,
+  Typography,
+} from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { translate } from 'react-i18next';
 import { AvatarUploader } from '..';
@@ -38,7 +45,7 @@ type State = {
   lastname: string,
   birthdayYear: string,
   phone: string,
-  sex: 'M' | 'F',
+  gender: 'M' | 'F',
   description: string,
   email: string,
 };
@@ -51,7 +58,7 @@ export class CoachForm extends Component<Props, State> {
     birthdayYear: '',
     email: '',
     phone: '',
-    sex: 'M',
+    gender: 'M',
     description: '',
   };
 
@@ -61,6 +68,12 @@ export class CoachForm extends Component<Props, State> {
     Object.keys(props.initial || {}).forEach((key) => {
       this.state[key] = props.initial[key];
     });
+    if (props.initial.birthday) {
+      this.state.birthdayYear = props.initial.birthday.slice(0, 4);
+    }
+    if (props.initial.photo) {
+      this.state.avatar = props.initial.photo;
+    }
   }
 
   onFormFieldChange = (id: string) => (value: Object) => {
@@ -77,24 +90,25 @@ export class CoachForm extends Component<Props, State> {
       description,
       email,
       phone,
-      sex,
+      gender,
     } = this.state;
-    const formData = new FormData();
-    if (avatar) {
-      formData.append('avatar', avatar);
+    const data = {
+      lastname,
+      firstname,
+      birthdayYear,
+      description,
+      email,
+      phone,
+      gender,
+    };
+    if (typeof avatar !== 'string') {
+      data.avatar = avatar;
     }
-    formData.append('lastname', lastname);
-    formData.append('firstname', firstname);
-    formData.append('birthdayYear', birthdayYear);
-    formData.append('description', description);
-    formData.append('email', email);
-    formData.append('phone', phone);
-    formData.append('sex', sex);
-    this.props.onSubmit(formData);
+    this.props.onSubmit(data);
   };
 
   renderButton = () => {
-    if (this.state.processing) {
+    if (this.props.processing) {
       return (
         <Grid container item direction="row" justify="flex-end" spacing={16}>
           <CircularProgress />
@@ -137,6 +151,7 @@ export class CoachForm extends Component<Props, State> {
                   >
                     <Grid item className={classes.avatarLarge}>
                       <AvatarUploader
+                        initial={this.state.avatar}
                         onChange={this.onFormFieldChange('avatar')}
                       />
                     </Grid>
@@ -163,10 +178,15 @@ export class CoachForm extends Component<Props, State> {
                   </Grid>
                 </Grid>
                 <Grid item>
-                  <FormField id="gender" onChange={this.onFormFieldChange} />
+                  <FormField
+                    id="gender"
+                    value={this.state.gender}
+                    onChange={this.onFormFieldChange}
+                  />
                   <FormField
                     required
                     id="birthdayYear"
+                    value={this.state.birthdayYear}
                     onChange={this.onFormFieldChange}
                   />
                 </Grid>
@@ -190,6 +210,7 @@ export class CoachForm extends Component<Props, State> {
                     multiline
                     required
                     id="description"
+                    value={this.state.description}
                     onChange={this.onFormFieldChange}
                   />
                 </Grid>

@@ -13,6 +13,7 @@ const styles = () => ({
 type Props = {
   classes: *,
   children: React.Node,
+  initial: string,
   onChange: (*) => void,
 };
 type State = {
@@ -24,6 +25,14 @@ export class ImageUploader extends React.Component<Props, State> {
   state = {
     previewURL: '',
   };
+
+  constructor(props) {
+    super(props);
+
+    if (props.initial) {
+      this.state.previewURL = props.initial;
+    }
+  }
 
   componentWillUnmount() {
     const { previewURL } = this.state;

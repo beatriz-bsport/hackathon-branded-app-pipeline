@@ -45,9 +45,13 @@ export class LocationInput extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    Object.keys(props.value || {}).forEach((key) => {
-      this.state[key] = props.value[key];
-    });
+    if (props.value) {
+      this.state.address = props.value.address;
+      this.state.location = {
+        lat: props.value.location.y,
+        lng: props.value.location.x,
+      };
+    }
   }
 
   /**

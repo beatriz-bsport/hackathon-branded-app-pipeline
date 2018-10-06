@@ -1,63 +1,70 @@
 // @flow
 
 import React, { Component } from 'react';
-import Snackbar from '@material-ui/core/Snackbar';
-import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 
+import { createOrUpdateEstablishment } from '../actions/establishment.actions';
 import EstablishmentForm from '../components/form/EstablishmentForm.component';
 
-import api from '../api';
+import { mapFormData } from './form.utils';
 
 type Props = {
-  easyAccesses: EasyAccessType[],
-  history: Object,
-};
-type State = {
-  open: boolean,
-  processing: boolean,
+  createOrUpdateEstablishment: (*) => void,
+  pending: boolean,
+  errors: *,
+  update: *,
 };
 
 export class EstablishmentFormPage extends Component<Props, State> {
-  state = { processing: false, open: false };
-
   createEstablishment = async (data: *) => {
-    this.setState({ processing: true });
-    try {
-      await api.establishment.addEstablishment(data);
+    const formData = mapFormData(data, {
+      title: 'title',
+      specific_info: 'specific_info',
+      x: 'location.geometry.x',
+      y: 'location.geometry.y',
+      address: 'location.address',
+      cover: 'cover',
+    });
 
-      this.setState({
-        open: true,
-        processing: false,
-      });
-      this.props.history.goBack();
-    } catch (e) {
-      console.log(e);
-      this.setState({
-        processing: false,
-      });
-      throw e;
+    if (this.props.update) {
+      formData.append('id', this.props.update.id);
     }
+
+    this.props.createOrUpdateEstablishment(formData);
   };
 
   render() {
+    const { update } = this.props;
     return (
-      <div>
-        <EstablishmentForm
-          easyAccesses={this.props.easyAccesses}
-          onSubmit={this.createEstablishment}
-          processing={this.state.processing}
-        />
-        ;<Snackbar open={this.state.open} message="Etablissement créé" />
-      </div>
+      <EstablishmentForm
+        onSubmit={this.createEstablishment}
+        processing={this.props.pending}
+        initial={update}
+      />
     );
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, nextProps) {
+  const { match } = nextProps;
+  const id = (match && match.params && +match.params.id) || null;
   return {
-    easyAccesses: state.category.easyAccesses || [],
+    pending: state.establishment.createOrUpdatePending,
+    errors: state.establishment.createOrUpdateError,
+    update:
+      id !== null ? state.establishment.all.find((e) => e.id === id) : null,
   };
 }
 
-export default connect(mapStateToProps)(withRouter(EstablishmentFormPage));
+function mapDispatchToProps(dispatch) {
+  return {
+    createOrUpdateEstablishment(data) {
+      dispatch(createOrUpdateEstablishment(data));
+    },
+  };
+}
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(EstablishmentFormPage),
+);

@@ -15,6 +15,8 @@ import {
   Button,
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
+
+import { establishment as establishmentActions } from '../actions';
 import { EstablishmentCard, TimeTable, Calendar, Map } from '../components';
 import { Moment } from '../i18n';
 import type { Establishment, Activity, Offer } from '../api/types';
@@ -27,6 +29,7 @@ type Props = {
   offers: Array<Offer>,
   classes: Object,
   t: (x: string) => string,
+  startUpdateEstablishment: (*) => void,
 };
 
 type State = {
@@ -50,6 +53,9 @@ export class EstablishmentList extends Component<Props, State> {
         <EstablishmentCard
           establishment={establishment}
           allActivities={this.props.activities}
+          onClickUpdate={() =>
+            this.props.startUpdateEstablishment(establishment)
+          }
         />
       </Grid>
       <Grid item xs={12} md={6}>
@@ -142,7 +148,9 @@ export class EstablishmentList extends Component<Props, State> {
         <Grid item xs={12}>
           <Grid container direction="column" spacing={32}>
             {establishments.map((e) => (
-              <Grid item>{this.renderEstablishment(e)}</Grid>
+              <Grid item key={e.id}>
+                {this.renderEstablishment(e)}
+              </Grid>
             ))}
           </Grid>
         </Grid>
@@ -158,6 +166,14 @@ function mapStateToProps(state) {
     offers: state.offer.calendar,
     timetableLoading: state.activity.loading,
     activities: state.activity.all,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    startUpdateEstablishment(establishment) {
+      dispatch(establishmentActions.startUpdate(establishment));
+    },
   };
 }
 
@@ -178,5 +194,5 @@ const styles = (theme) => ({
 });
 
 export default withStyles(styles)(
-  translate()(connect(mapStateToProps)(EstablishmentList)),
+  translate()(connect(mapStateToProps, mapDispatchToProps)(EstablishmentList)),
 );

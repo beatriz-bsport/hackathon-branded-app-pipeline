@@ -8,6 +8,7 @@ import {
   Typography,
   Grid,
   Divider,
+  Button,
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -22,6 +23,7 @@ type Props = {
   establishment: Establishment,
   classes: Object,
   allActivities: Array<Activity>,
+  onClickUpdate: (*) => void,
   t: (x: string) => string,
 };
 
@@ -78,7 +80,13 @@ export class EstablishmentCard extends Component<Props> {
   };
 
   render() {
-    const { classes, t, establishment, allActivities } = this.props;
+    const {
+      classes,
+      t,
+      establishment,
+      allActivities,
+      onClickUpdate,
+    } = this.props;
     const { title, specific_info, activities, location } = establishment;
     // activities in establishment props are simplified, getting the full object
     const establishmentActivitiesId = activities.map((a) => a.id);
@@ -90,7 +98,12 @@ export class EstablishmentCard extends Component<Props> {
         <Grid container direction="column">
           <Grid item>{this.getCover()}</Grid>
           <Grid item className={classes.horizontalBlock}>
-            <Typography variant="title">{title}</Typography>
+            <Typography variant="title">
+              {title}
+              <Button onClick={onClickUpdate}>
+                {t('establishment.actions.edit')}
+              </Button>
+            </Typography>
             <Typography
               variant="caption"
               className={classes.subHorizontalBlock}

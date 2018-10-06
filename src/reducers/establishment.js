@@ -7,6 +7,11 @@ const initialState = Immutable({
   loading: true,
   error: false,
   errorMsg: '',
+  // Create or Update
+  createOrUpdatePending: false,
+  createOrUpdateError: null,
+  // Update
+  updatedEstablishment: null,
 });
 
 export default function establishmentReducers(
@@ -29,6 +34,27 @@ export default function establishmentReducers(
         loading: false,
         error: true,
         errorMsg: action.error,
+      });
+
+    case actionTypes.ESTABLISHMENT_CREATE_OR_UPDATE:
+      return state.merge({
+        createOrUpdatePending: true,
+      });
+
+    case actionTypes.ESTABLISHMENT_CREATE_OR_UPDATE_SUCCESS:
+      return state.merge({
+        createOrUpdatePending: false,
+      });
+
+    case actionTypes.ESTABLISHMENT_CREATE_OR_UPDATE_ERROR:
+      return state.merge({
+        createOrUpdateError: action.error,
+        createOrUpdatePending: false,
+      });
+
+    case actionTypes.ESTABLISHMENT_UPDATE:
+      return state.merge({
+        updated: action.establishment,
       });
 
     default:

@@ -22,7 +22,6 @@ type Props = {
   processing: boolean,
   initial: EstablishmentType,
   onSubmit: (EstablishmentType) => void,
-  // easyAccesses: EasyAccessType[],
   t: TFunction,
   classes: { [string]: string },
 };
@@ -40,27 +39,34 @@ export class EstablishmentForm extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    Object.keys(props.initial || {}).forEach((key) => {
-      this.state[key] = props.initial[key];
-    });
+    if (props.initial) {
+      this.state.title = props.initial.title;
+      this.state.specific_info = props.initial.specific_info;
+      this.state.address = props.initial.location.address;
+      this.state.location = {
+        x: props.initial.location.longitude,
+        y: props.initial.location.latitude,
+      };
+      this.state.cover = props.initial.cover;
+    }
   }
 
   onSubmit = (e: Object) => {
     e.preventDefault();
 
     const { title, specific_info, location, address, cover } = this.state;
-
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('specific_info', specific_info);
-    formData.append('location[x]', location.x);
-    formData.append('location[y]', location.y);
-    formData.append('address', address);
-    if (cover) {
-      formData.append('cover', cover);
+    const data = {
+      title,
+      specific_info,
+      x: location.x,
+      y: location.y,
+      address,
+    };
+    if (typeof cover !== 'string') {
+      data.cover = cover;
     }
 
-    this.props.onSubmit(formData);
+    this.props.onSubmit(data);
   };
 
   onFormFieldChange = (id) => (value) => {
@@ -97,7 +103,10 @@ export class EstablishmentForm extends Component<Props, State> {
               <Grid container spacing={16}>
                 <Grid item xs={12} style={{ marginTop: 20 }}>
                   <label>Couverture</label>
-                  <ImageUploader onChange={this.onFormFieldChange('cover')}>
+                  <ImageUploader
+                    onChange={this.onFormFieldChange('cover')}
+                    initial={this.state.cover}
+                  >
                     <EstablishmentCardPreview />
                   </ImageUploader>
                 </Grid>
@@ -120,7 +129,10 @@ export class EstablishmentForm extends Component<Props, State> {
                 <Grid item xs={12}>
                   <LocationInput
                     id="location"
-                    value={this.state.location}
+                    value={{
+                      address: this.state.address,
+                      location: this.state.location,
+                    }}
                     onChange={this.onFormFieldChange('location')}
                   />
                 </Grid>

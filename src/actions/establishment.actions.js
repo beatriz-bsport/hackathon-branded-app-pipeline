@@ -1,5 +1,10 @@
+// @flow
+
+import { push } from 'react-router-redux';
+
 import api from '../api';
 import types from './establishment.types';
+import { snackbarSuccess, snackbarError } from './snackbar.actions';
 
 export function startFetchEstablishments() {
   return { type: types.START_FETCH_ESTABLISHMENTS };
@@ -21,5 +26,54 @@ export function fetchEstablishments() {
     } catch (err) {
       dispatch(errorFetchingEstablishments());
     }
+  };
+}
+
+export function actionCreateOrUpdateEstablishment(coachData) {
+  return { type: types.ESTABLISHMENT_CREATE_OR_UPDATE, coach: coachData };
+}
+export function actionCreateOrUpdateEstablishmentSuccess(response) {
+  return { type: types.ESTABLISHMENT_CREATE_OR_UPDATE_SUCCESS, response };
+}
+export function actionCreateOrUpdateEstablishmentError(error) {
+  return { type: types.ESTABLISHMENT_CREATE_OR_UPDATE_ERROR, error };
+}
+
+export function createOrUpdateEstablishment(establishmentData) {
+  return async (dispatch) => {
+    try {
+      dispatch(actionCreateOrUpdateEstablishment(establishmentData));
+      const createOrUpdate = establishmentData.has('id')
+        ? api.establishment.updateEstablishment
+        : api.establishment.addEstablishment;
+      const response = await createOrUpdate(establishmentData);
+
+      dispatch(actionCreateOrUpdateEstablishmentSuccess(response));
+      dispatch(
+        snackbarSuccess(
+          establishmentData.has('id')
+            ? 'Etablissement modifié avec succès'
+            : 'Etablissement ajouté avec succès',
+        ),
+      );
+      dispatch(push('/map'));
+      dispatch(fetchEstablishments());
+    } catch (e) {
+      dispatch(
+        snackbarError("Erreur lors de la sauvegarde de l'établisssement"),
+      );
+      dispatch(actionCreateOrUpdateEstablishmentError(e));
+    }
+  };
+}
+
+export function actionStartUpdate(establishment) {
+  return { type: types.ESTABLISHMENT_UPDATE, establishment };
+}
+
+export function startUpdate(establishment) {
+  return async (dispatch) => {
+    dispatch(actionStartUpdate(establishment));
+    dispatch(push(`/establishments/edit/${establishment.id}`));
   };
 }

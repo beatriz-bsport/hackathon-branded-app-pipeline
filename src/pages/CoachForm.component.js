@@ -19,14 +19,14 @@ type Props = {
 export class CoachFormPage extends Component<Props, State> {
   createCoach = async (data: *) => {
     const formData = mapFormData(data, {
-      avatar: 'user.photo',
-      firstname: 'user.first_name',
-      lastname: 'user.last_name',
-      gender: 'user.gender',
-      birthdayYear: 'user.birthday',
-      email: 'user.email',
+      avatar: 'photo',
+      firstname: 'first_name',
+      lastname: 'last_name',
+      gender: 'gender',
+      birthdayYear: 'birthday',
+      email: 'email',
       description: 'description',
-      phone: 'user.phone.phone_number',
+      phone: 'phone.phone_number',
     });
 
     if (this.props.update) {

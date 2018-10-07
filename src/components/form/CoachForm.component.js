@@ -68,11 +68,13 @@ export class CoachForm extends Component<Props, State> {
     Object.keys(props.initial || {}).forEach((key) => {
       this.state[key] = props.initial[key];
     });
-    if (props.initial.birthday) {
-      this.state.birthdayYear = props.initial.birthday.slice(0, 4);
-    }
-    if (props.initial.photo) {
-      this.state.avatar = props.initial.photo;
+    if (props.initial) {
+      if (props.initial.birthday) {
+        this.state.birthdayYear = props.initial.birthday.slice(0, 4);
+      }
+      if (props.initial.photo) {
+        this.state.avatar = props.initial.photo;
+      }
     }
   }
 

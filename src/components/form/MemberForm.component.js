@@ -49,6 +49,14 @@ export class MemberForm extends Component<Props, State> {
     Object.keys(props.initial || {}).forEach((key) => {
       this.state[key] = props.initial[key];
     });
+    if (props.initial) {
+      if (props.initial.phone_number) {
+        this.state.phone = props.initial.phone_number;
+      }
+      if (props.initial.photo) {
+        this.state.avatar = props.initial.photo;
+      }
+    }
   }
 
   onFormFieldChange = (id: string) => (value, error: boolean) => {
@@ -59,27 +67,37 @@ export class MemberForm extends Component<Props, State> {
     event.preventDefault();
     const { sex, firstname, lastname, email, phone, avatar } = this.state;
 
-    const formData = new FormData();
-    avatar && formData.append('avatar', avatar);
+    const data = {
+      lastname,
+      firstname,
+      email,
+      phone,
+      sex,
+    };
 
-    formData.append('lastname', lastname);
-    formData.append('firstname', firstname);
-    formData.append('email', email);
-    formData.append('phone', phone);
-    formData.append('sex', sex);
+    if (avatar && typeof avatar !== 'string') {
+      data.avatar = avatar;
+    }
 
-    this.props.onSubmit(formData);
+    this.props.onSubmit(data);
   };
 
   render() {
-    const { classes, t } = this.props;
+    const { classes, t, initial } = this.props;
+    const { firstname, lastname } = initial || {};
+    const title = firstname
+      ? `${firstname} ${lastname}`
+      : t('members.form.title');
     return (
       <Paper className={classes.paperContainer}>
         <form target="/member" onSubmit={this.onSubmit}>
-          <Typography variant="title">{t('form.newMember')}</Typography>
+          <Typography variant="title">{title}</Typography>
           <Grid container spacing={8}>
             <Grid item xs={12} md={12}>
-              <AvatarUploader onChange={this.onFormFieldChange('avatar')} />
+              <AvatarUploader
+                initial={this.state.avatar}
+                onChange={this.onFormFieldChange('avatar')}
+              />
             </Grid>
             <Grid item xs={12} md={6}>
               <FormField
@@ -107,6 +125,7 @@ export class MemberForm extends Component<Props, State> {
             <Grid item xs={12} md={6}>
               <FormField
                 id="phone"
+                required
                 value={this.state.phone}
                 onChange={this.onFormFieldChange}
               />

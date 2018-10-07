@@ -125,6 +125,7 @@ export class Backoffice extends Component<Props> {
               <Route path="/payment-pack/add" component={PaymentPackForm} />
               <Route path="/payment-pack" component={PaymentPackList} />
               <Route exact path="/member" component={MemberList} />
+              <Route exact path="/member/edit/:id" component={MemberForm} />
               <Route path="/member/add" component={MemberForm} />
               <Route path="/member/:id" component={Member} />
               <Route exact path="/map" component={EstablishmentMap} />

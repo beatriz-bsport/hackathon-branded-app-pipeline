@@ -1,3 +1,5 @@
+// @flow
+
 import Immutable from 'seamless-immutable';
 
 import actionTypes from '../actions/member.types';
@@ -8,6 +10,9 @@ const initialState = Immutable({
   pendingBookings: [], // specific to ONE member selected
   validatedBookings: [], // specific to ONE member selected
   member: {},
+  // Create or Update
+  createOrUpdatePending: false,
+  createOrUpdateError: null,
 });
 
 export default function memberReducers(state = initialState, action = {}) {
@@ -54,6 +59,27 @@ export default function memberReducers(state = initialState, action = {}) {
         loading: false,
       });
     }
+
+    case actionTypes.MEMBER_CREATE_OR_UPDATE:
+      return state.merge({
+        createOrUpdatePending: true,
+      });
+
+    case actionTypes.MEMBER_CREATE_OR_UPDATE_SUCCESS:
+      return state.merge({
+        createOrUpdatePending: false,
+      });
+
+    case actionTypes.MEMBER_CREATE_OR_UPDATE_ERROR:
+      return state.merge({
+        createOrUpdateError: action.error,
+        createOrUpdatePending: false,
+      });
+
+    case actionTypes.MEMBER_UPDATE:
+      return state.merge({
+        updatedCoach: action.member,
+      });
 
     default:
       return state;

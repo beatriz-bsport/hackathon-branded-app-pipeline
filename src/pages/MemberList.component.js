@@ -16,7 +16,10 @@ import { formatAsDatetime } from '../datetime';
 import { FeatureTable } from '../components';
 import type { Member } from '../api/types';
 
+import { member as memberActions } from '../actions';
+
 type Props = {
+  onUpdateMember: (*) => void,
   t: (x: string) => string,
   loading: boolean,
   members: Array<Member>,
@@ -87,6 +90,11 @@ export class Members extends Component<Props, State> {
         </TableCell>
         <TableCell>{status}</TableCell>
         <TableCell>{member.date_joined}</TableCell>
+        <TableCell>
+          <Button onClick={() => this.props.onUpdateMember(member)}>
+            Modifier
+          </Button>
+        </TableCell>
       </TableRow>
     );
   };
@@ -138,4 +146,14 @@ function mapStateToProps(state) {
   };
 }
 
-export default translate()(connect(mapStateToProps)(Members));
+function mapDispatchToProps(dispatch) {
+  return {
+    onUpdateMember(member) {
+      dispatch(memberActions.startUpdate(member));
+    },
+  };
+}
+
+export default translate()(
+  connect(mapStateToProps, mapDispatchToProps)(Members),
+);

@@ -9,6 +9,11 @@ export default {
       CB: 'Carte bancaire',
       CHECK: 'Chèque',
     },
+    members: {
+      form: {
+        title: 'Nouveau membre',
+      },
+    },
     common: {
       save: 'Enregistrer',
       saveAndAdd: 'Enregistrer et ajouter à nouveau',

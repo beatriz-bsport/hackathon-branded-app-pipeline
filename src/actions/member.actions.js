@@ -1,3 +1,8 @@
+// @flow
+
+import { push } from 'react-router-redux';
+
+import { snackbarError, snackbarSuccess } from './snackbar.actions';
 import api from '../api';
 import types from './member.types';
 
@@ -51,4 +56,51 @@ export function hasFetchedMember(member) {
 
 export function errorFetchingMember() {
   return { type: types.ERROR_FETCHING_MEMBER };
+}
+
+export function createOrUpdateMember(memberData) {
+  return async (dispatch) => {
+    dispatch(actionCreateOrUpdateMember(memberData));
+
+    const createOrUpdate = memberData.has('id')
+      ? api.member.updateMember
+      : api.member.addMember;
+    try {
+      const response = await createOrUpdate(memberData);
+
+      dispatch(actionCreateOrUpdateMemberSuccess(response));
+      dispatch(
+        snackbarSuccess(
+          memberData.has('id')
+            ? 'Membre modifié avec succès'
+            : 'Membre ajouté avec succès',
+        ),
+      );
+      dispatch(fetchAll());
+      dispatch(push('/member'));
+    } catch (e) {
+      console.log(e);
+      dispatch(snackbarError('Erreur lors de la sauvegarde du membre'));
+      dispatch(actionCreateOrUpdateMemberError(e));
+    }
+  };
+}
+
+export function actionCreateOrUpdateMember(memberData) {
+  return { type: types.MEMBER_CREATE_OR_UPDATE, member: memberData };
+}
+export function actionCreateOrUpdateMemberSuccess(response) {
+  return { type: types.MEMBER_CREATE_OR_UPDATE_SUCCESS, response };
+}
+export function actionCreateOrUpdateMemberError(error) {
+  return { type: types.MEMBER_CREATE_OR_UPDATE_ERROR, error };
+}
+export function actionStartUpdate(member) {
+  return { type: types.MEMBER_UPDATE, member };
+}
+export function startUpdate(member) {
+  return async (dispatch) => {
+    dispatch(actionStartUpdate(member));
+    dispatch(push(`/member/edit/${member.id}`));
+  };
 }

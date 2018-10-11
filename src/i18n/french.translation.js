@@ -411,7 +411,7 @@ export default {
       waitingUserConfirmation: 'En attente de confirmation client',
       confirm: 'Encaisser',
       validated: 'Payé',
-      pending: 'Paiement autorisé',
+      pending: 'Non encaissé',
       cancelled: 'Annulé',
       cancelBooking: 'Annuler',
       noBookingOnThisOffer:

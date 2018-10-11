@@ -32,7 +32,7 @@ export class BookingItemForManager extends Component<Props> {
     if (status) {
       return { color: 'primary' };
     }
-    return { color: 'error' };
+    return {};
   };
 
   renderButton = () => {

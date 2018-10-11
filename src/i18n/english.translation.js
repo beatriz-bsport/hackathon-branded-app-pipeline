@@ -367,7 +367,7 @@ export default {
       waitingUserConfirmation: 'Waiting user confirmation',
       confirm: 'Checkout payment',
       validated: 'Payment confirmed',
-      pending: 'Payment authorized',
+      pending: 'Not cashed-out',
       cancelled: 'Cancelled',
       cancelBooking: 'Cancel',
       noBookingOnThisOffer: 'There is no booking on this session yet',

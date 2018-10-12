@@ -42,6 +42,7 @@ export class MemberFormPage extends Component<Props, State> {
         error={this.props.errors}
         processing={this.props.pending}
         initial={update}
+        update={!!update}
       />
     );
   }
@@ -65,5 +66,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(MemberFormPage),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(MemberFormPage),
 );

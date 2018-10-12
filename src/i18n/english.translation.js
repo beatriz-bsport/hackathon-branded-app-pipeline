@@ -1,5 +1,6 @@
 import coach from './en/coach.translations';
 import establishment from './en/establishment.translations';
+import member from './en/member.translations';
 
 export default {
   translation: {
@@ -217,18 +218,7 @@ export default {
       sixHour: '6h',
       oneDay: '1 day',
     },
-    member: {
-      date_joined: 'Member since',
-      offers_joined: 'Activities joined',
-      pass_owner: 'Pas valid',
-      memberSince: 'Member since: ',
-      showNextBooking: 'Show next bookings',
-      nextBooking: 'next: ',
-      showPreviousBooking: 'Show past bookings',
-      previousBooking: 'previous: ',
-      engagement: 'Engagement',
-      addMember: 'Add a member profile',
-    },
+    member,
     coach,
     navigation: {
       consumer: {

@@ -72,15 +72,15 @@ export function createOrUpdateMember(memberData) {
       dispatch(
         snackbarSuccess(
           memberData.has('id')
-            ? 'Membre modifié avec succès'
-            : 'Membre ajouté avec succès',
+            ? 'member.forms.update.success'
+            : 'member.forms.create.success',
         ),
       );
       dispatch(fetchAll());
       dispatch(push('/member'));
     } catch (e) {
       console.log(e);
-      dispatch(snackbarError('Erreur lors de la sauvegarde du membre'));
+      dispatch(snackbarError('members.forms.error'));
       dispatch(actionCreateOrUpdateMemberError(e));
     }
   };

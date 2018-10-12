@@ -1,5 +1,6 @@
 import coach from './fr/coach.translations';
 import establishment from './fr/establishment.translations';
+import member from './fr/member.translations';
 
 export default {
   translation: {
@@ -201,19 +202,7 @@ export default {
       sixHour: '6h',
       oneDay: '1 journée',
     },
-    member: {
-      // eslint-disable-next-line
-      date_joined: "Date d'inscription",
-      offers_joined: 'Nb séances inscrit(e)',
-      pass_owner: 'Abonnement valide',
-      memberSince: 'Inscrit le ',
-      showNextBooking: 'Voir les réservations futures',
-      nextBooking: 'prochaine : ',
-      showPreviousBooking: 'Voir les réservations passées',
-      pastBooking: 'dernière : ',
-      engagement: 'Engagement',
-      addMember: 'Ajouter une fiche de membre',
-    },
+    member,
     coach,
     dashboard: {
       thisWeek: 'Cette semaine',

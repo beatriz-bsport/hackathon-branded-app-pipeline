@@ -215,6 +215,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
           <Drawer
             variant="permanent"
             open
+            anchor="left"
             classes={{
               paper: classes.drawerPaper,
             }}
@@ -222,7 +223,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             {drawer}
           </Drawer>
         </Hidden>
-        {this.props.children}
+        <main className={classes.content}>{this.props.children}</main>
       </div>
     );
   }
@@ -236,9 +237,10 @@ const styles = (theme) => ({
     position: 'relative',
     display: 'flex',
     width: '100%',
+    paddingLeft: drawerWidth,
   },
   appBar: {
-    position: 'absolute',
+    position: 'fixed',
     marginLeft: drawerWidth,
     [theme.breakpoints.up('md')]: {
       width: `calc(100% - ${drawerWidth}px)`,
@@ -251,9 +253,10 @@ const styles = (theme) => ({
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
+    position: 'relative',
     width: drawerWidth,
     [theme.breakpoints.up('md')]: {
-      position: 'relative',
+      position: 'fixed',
     },
   },
   content: {

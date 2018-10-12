@@ -80,7 +80,7 @@ export function createOrUpdateMember(memberData) {
       dispatch(push('/member'));
     } catch (e) {
       console.log(e);
-      dispatch(snackbarError('members.forms.error'));
+      dispatch(snackbarError('member.forms.error'));
       dispatch(actionCreateOrUpdateMemberError(e));
     }
   };

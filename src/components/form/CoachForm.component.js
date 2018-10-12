@@ -103,7 +103,7 @@ export class CoachForm extends Component<Props, State> {
       phone,
       gender,
     };
-    if (typeof avatar !== 'string') {
+    if (avatar && typeof avatar !== 'string') {
       data.avatar = avatar;
     }
     this.props.onSubmit(data);
@@ -134,7 +134,7 @@ export class CoachForm extends Component<Props, State> {
   };
 
   render() {
-    const { classes, t } = this.props;
+    const { classes, t, initial } = this.props;
     return (
       <Grid container>
         <Grid item xs={12} lg={6}>
@@ -142,7 +142,13 @@ export class CoachForm extends Component<Props, State> {
             <form target="/coach" onSubmit={this.onSubmit}>
               <Grid container direction="column" spacing={16}>
                 <Grid item>
-                  <Typography variant="title">{t('form.newCoach')}</Typography>
+                  <Typography variant="title">
+                    {t(
+                      `coach.forms.${
+                        initial && initial.id ? 'update' : 'create'
+                      }.title`,
+                    )}
+                  </Typography>
                 </Grid>
                 <Grid item>
                   <Grid

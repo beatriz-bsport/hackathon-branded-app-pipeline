@@ -1,3 +1,5 @@
+import coach from './en/coach.translations';
+
 export default {
   translation: {
     hi: 'Hi',
@@ -226,21 +228,7 @@ export default {
       engagement: 'Engagement',
       addMember: 'Add a member profile',
     },
-    coach: {
-      showPerformance: 'Rémunerate',
-      performance: {
-        title: 'Coach performance',
-        nbBookings: 'Bookings',
-        nbOffersTotal: 'Sessions',
-        nbBookingsOverThreshold: 'Bookings over threshold',
-        pricePerOffer: 'Price per offer',
-        pricePerAdditionalBooking: 'Price per additional booking',
-        calculate: 'Calculate',
-      },
-      addCoach: 'Add a coach',
-      noActivity: 'This coach does not manage any activity.',
-      selfNoActivity: 'You are not managing any activity.',
-    },
+    coach,
     navigation: {
       consumer: {
         pass: 'Pass',

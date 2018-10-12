@@ -1,3 +1,5 @@
+import coach from './fr/coach.translations';
+
 export default {
   translation: {
     hi: 'Salut',
@@ -211,22 +213,7 @@ export default {
       engagement: 'Engagement',
       addMember: 'Ajouter une fiche de membre',
     },
-    coach: {
-      showPerformance: 'Rémunérer',
-      performance: {
-        title: 'Récapitulatif coach',
-        nbBookings: 'Réservations',
-        nbOffersTotal: 'Séances',
-        nbBookingsOverThreshold: 'Réservations bonus',
-        pricePerOffer: 'Montant par séance',
-        pricePerAdditionalBooking: 'Montant par réservation',
-        calculate: 'Calculer',
-      },
-      addCoach: 'Ajouter un coach',
-      noActivity: 'Ce coach ne gère aucune activité.',
-      // eslint-disable-next-line
-      selfNoActivity: "Vous n'êtes en charge d'aucune activité.",
-    },
+    coach,
     dashboard: {
       thisWeek: 'Cette semaine',
       thisMonth: 'Ce mois',

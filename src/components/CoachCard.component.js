@@ -105,7 +105,9 @@ export class CoachCard extends Component<Props> {
                     </Typography>
                   </Grid>
                   <Grid item>
-                    <Button onClick={onClickUpdate}>Modifier</Button>
+                    <Button onClick={onClickUpdate}>
+                      {t('coach.card.update')}
+                    </Button>
                     <Link
                       to={`/coach/${coach.associated_coach_id}/performance`}
                       style={{ textDecoration: 'none' }}

@@ -23,6 +23,7 @@ type Props = {
   initial: EstablishmentType,
   onSubmit: (EstablishmentType) => void,
   t: TFunction,
+  update: boolean,
   classes: { [string]: string },
 };
 type State = {
@@ -62,7 +63,7 @@ export class EstablishmentForm extends Component<Props, State> {
       y: location.y,
       address,
     };
-    if (typeof cover !== 'string') {
+    if (cover && typeof cover !== 'string') {
       data.cover = cover;
     }
 
@@ -91,14 +92,14 @@ export class EstablishmentForm extends Component<Props, State> {
   };
 
   render() {
-    const { t, classes } = this.props;
+    const { t, classes, update } = this.props;
     return (
       <Grid container>
         <Grid item xs={12} lg={6}>
           <Paper className={classes.paperContainer}>
             <form onSubmit={this.onSubmit}>
               <Typography variant="title" className="my-4" spacing={8}>
-                {t('establishment.form.new.title')}
+                {t(`establishment.forms.${update ? 'update' : 'create'}.title`)}
               </Typography>
               <Grid container spacing={16}>
                 <Grid item xs={12} style={{ marginTop: 20 }}>

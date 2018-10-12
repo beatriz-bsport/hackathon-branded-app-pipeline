@@ -41,6 +41,7 @@ export class EstablishmentFormPage extends Component<Props, State> {
         onSubmit={this.createEstablishment}
         processing={this.props.pending}
         initial={update}
+        update={this.props.update}
       />
     );
   }
@@ -66,5 +67,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(EstablishmentFormPage),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(EstablishmentFormPage),
 );

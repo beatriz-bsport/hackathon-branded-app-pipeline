@@ -1,0 +1,25 @@
+export default {
+  addButton: 'Ajouter un établissement',
+  pleaseSelectOne: 'Veuillez sélectionner un club sur la carte',
+  offers: 'Calendrier des séances:',
+  noMoreOffers: 'Plus aucune séance de prévue',
+  form: {
+    new: {
+      title: 'Titre',
+    },
+  },
+  card: {
+    update: 'Modifier',
+  },
+  forms: {
+    error: "Impossible de sauvegarde l'établissement",
+    create: {
+      title: 'Nouvel établissement',
+      success: 'Établissement créé avec succès',
+    },
+    update: {
+      title: 'Édition des informations',
+      success: 'Établissement modifié avec succès',
+    },
+  },
+};

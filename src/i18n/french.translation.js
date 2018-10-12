@@ -1,4 +1,5 @@
 import coach from './fr/coach.translations';
+import establishment from './fr/establishment.translations';
 
 export default {
   translation: {
@@ -377,17 +378,7 @@ export default {
       packsAvailable: 'Eligible aux pass :',
       reviews: 'Avis clients: ',
     },
-    establishment: {
-      addButton: 'Ajouter un établissement',
-      pleaseSelectOne: 'Veuillez sélectionner un club sur la carte',
-      offers: 'Calendrier des séances:',
-      noMoreOffers: 'Plus aucune séance de prévue',
-      form: {
-        new: {
-          title: 'Titre',
-        },
-      },
-    },
+    establishment,
     booking: {
       attend: 'Présent',
       doNotAttend: 'Absent',

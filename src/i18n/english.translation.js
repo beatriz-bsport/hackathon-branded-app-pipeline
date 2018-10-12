@@ -1,4 +1,5 @@
 import coach from './en/coach.translations';
+import establishment from './en/establishment.translations';
 
 export default {
   translation: {
@@ -319,17 +320,7 @@ export default {
       authError: 'Email and password mismatch',
       forgottenPassword: 'Forgotten password',
     },
-    establishment: {
-      pleaseSelectOne: 'Please select a club in the map to show its details',
-      offers: 'Sessions calendar:',
-      noMoreOffers: 'No more sessions planned',
-      addButton: 'Add an establishment',
-      form: {
-        new: {
-          title: 'Title',
-        },
-      },
-    },
+    establishment,
     activity: {
       addActivity: 'Add an activity',
       addOffers: 'Add sessions',

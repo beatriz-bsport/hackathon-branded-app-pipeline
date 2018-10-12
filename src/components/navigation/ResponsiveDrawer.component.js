@@ -237,7 +237,9 @@ const styles = (theme) => ({
     position: 'relative',
     display: 'flex',
     width: '100%',
-    paddingLeft: drawerWidth,
+    [theme.breakpoints.up('md')]: {
+      paddingLeft: drawerWidth,
+    },
   },
   appBar: {
     position: 'fixed',

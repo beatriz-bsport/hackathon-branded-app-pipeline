@@ -117,7 +117,7 @@ export class Calendar extends Component<Props, State> {
     const dots = this.props.events[date.startOf('day')] || [];
     return (
       <Grid container direction="row">
-        {dots.map(() => (
+        {dots.slice(0, 3).map(() => (
           <Grid item key={Math.random()}>
             {' '}
             •{' '}

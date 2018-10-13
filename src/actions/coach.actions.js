@@ -34,15 +34,15 @@ export function createOrUpdateCoach(coachData) {
       dispatch(
         snackbarSuccess(
           coachData.has('id')
-            ? 'Coach modifié avec succès'
-            : 'Coach ajouté avec succès',
+            ? 'coach.forms.update.success'
+            : 'coach.forms.create.success',
         ),
       );
       dispatch(fetchAssociated());
       dispatch(push('/coach'));
     } catch (e) {
       console.log(e);
-      dispatch(snackbarError('Erreur lors de la sauvegarde du coach'));
+      dispatch(snackbarError('coach.forms.error'));
       dispatch(actionCreateOrUpdateCoachError(e));
     }
   };

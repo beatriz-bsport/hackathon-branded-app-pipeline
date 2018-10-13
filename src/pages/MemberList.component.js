@@ -51,6 +51,10 @@ export class Members extends Component<Props, State> {
         id: 'date_joined',
         label: t('member.date_joined'),
       },
+      {
+        id: 'actions',
+        label: t('member.row.headers.actions'),
+      },
     ];
   };
 
@@ -92,7 +96,7 @@ export class Members extends Component<Props, State> {
         <TableCell>{member.date_joined}</TableCell>
         <TableCell>
           <Button onClick={() => this.props.onUpdateMember(member)}>
-            Modifier
+            {t('member.row.update')}
           </Button>
         </TableCell>
       </TableRow>
@@ -155,5 +159,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default translate()(
-  connect(mapStateToProps, mapDispatchToProps)(Members),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(Members),
 );

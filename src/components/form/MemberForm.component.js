@@ -22,6 +22,8 @@ const styles = (theme) => ({
 type Props = {
   classes: Object,
   t: (x: string) => string,
+  initial: *,
+  update: boolean,
 };
 
 type State = {
@@ -87,7 +89,7 @@ export class MemberForm extends Component<Props, State> {
     const { firstname, lastname } = initial || {};
     const title = firstname
       ? `${firstname} ${lastname}`
-      : t('members.form.title');
+      : t('member.forms.create.title');
     return (
       <Paper className={classes.paperContainer}>
         <form target="/member" onSubmit={this.onSubmit}>

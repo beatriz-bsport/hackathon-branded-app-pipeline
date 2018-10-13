@@ -52,16 +52,14 @@ export function createOrUpdateEstablishment(establishmentData) {
       dispatch(
         snackbarSuccess(
           establishmentData.has('id')
-            ? 'Etablissement modifié avec succès'
-            : 'Etablissement ajouté avec succès',
+            ? 'establishment.forms.update.success'
+            : 'establishment.forms.create.success',
         ),
       );
       dispatch(push('/map'));
       dispatch(fetchEstablishments());
     } catch (e) {
-      dispatch(
-        snackbarError("Erreur lors de la sauvegarde de l'établisssement"),
-      );
+      dispatch(snackbarError('establishment.forms.error'));
       dispatch(actionCreateOrUpdateEstablishmentError(e));
     }
   };

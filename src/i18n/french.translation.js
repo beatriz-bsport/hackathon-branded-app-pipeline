@@ -1,3 +1,7 @@
+import coach from './fr/coach.translations';
+import establishment from './fr/establishment.translations';
+import member from './fr/member.translations';
+
 export default {
   translation: {
     hi: 'Salut',
@@ -198,35 +202,8 @@ export default {
       sixHour: '6h',
       oneDay: '1 journée',
     },
-    member: {
-      // eslint-disable-next-line
-      date_joined: "Date d'inscription",
-      offers_joined: 'Nb séances inscrit(e)',
-      pass_owner: 'Abonnement valide',
-      memberSince: 'Inscrit le ',
-      showNextBooking: 'Voir les réservations futures',
-      nextBooking: 'prochaine : ',
-      showPreviousBooking: 'Voir les réservations passées',
-      pastBooking: 'dernière : ',
-      engagement: 'Engagement',
-      addMember: 'Ajouter une fiche de membre',
-    },
-    coach: {
-      showPerformance: 'Rémunérer',
-      performance: {
-        title: 'Récapitulatif coach',
-        nbBookings: 'Réservations',
-        nbOffersTotal: 'Séances',
-        nbBookingsOverThreshold: 'Réservations bonus',
-        pricePerOffer: 'Montant par séance',
-        pricePerAdditionalBooking: 'Montant par réservation',
-        calculate: 'Calculer',
-      },
-      addCoach: 'Ajouter un coach',
-      noActivity: 'Ce coach ne gère aucune activité.',
-      // eslint-disable-next-line
-      selfNoActivity: "Vous n'êtes en charge d'aucune activité.",
-    },
+    member,
+    coach,
     dashboard: {
       thisWeek: 'Cette semaine',
       thisMonth: 'Ce mois',
@@ -392,17 +369,7 @@ export default {
       packsAvailable: 'Eligible aux pass :',
       reviews: 'Avis clients: ',
     },
-    establishment: {
-      addButton: 'Ajouter un établissement',
-      pleaseSelectOne: 'Veuillez sélectionner un club sur la carte',
-      offers: 'Calendrier des séances:',
-      noMoreOffers: 'Plus aucune séance de prévue',
-      form: {
-        new: {
-          title: 'Titre',
-        },
-      },
-    },
+    establishment,
     booking: {
       attend: 'Présent',
       doNotAttend: 'Absent',

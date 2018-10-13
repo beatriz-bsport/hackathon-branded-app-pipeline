@@ -1,3 +1,7 @@
+import coach from './en/coach.translations';
+import establishment from './en/establishment.translations';
+import member from './en/member.translations';
+
 export default {
   translation: {
     hi: 'Hi',
@@ -214,33 +218,8 @@ export default {
       sixHour: '6h',
       oneDay: '1 day',
     },
-    member: {
-      date_joined: 'Member since',
-      offers_joined: 'Activities joined',
-      pass_owner: 'Pas valid',
-      memberSince: 'Member since: ',
-      showNextBooking: 'Show next bookings',
-      nextBooking: 'next: ',
-      showPreviousBooking: 'Show past bookings',
-      previousBooking: 'previous: ',
-      engagement: 'Engagement',
-      addMember: 'Add a member profile',
-    },
-    coach: {
-      showPerformance: 'Rémunerate',
-      performance: {
-        title: 'Coach performance',
-        nbBookings: 'Bookings',
-        nbOffersTotal: 'Sessions',
-        nbBookingsOverThreshold: 'Bookings over threshold',
-        pricePerOffer: 'Price per offer',
-        pricePerAdditionalBooking: 'Price per additional booking',
-        calculate: 'Calculate',
-      },
-      addCoach: 'Add a coach',
-      noActivity: 'This coach does not manage any activity.',
-      selfNoActivity: 'You are not managing any activity.',
-    },
+    member,
+    coach,
     navigation: {
       consumer: {
         pass: 'Pass',
@@ -333,17 +312,7 @@ export default {
       authError: 'Email and password mismatch',
       forgottenPassword: 'Forgotten password',
     },
-    establishment: {
-      pleaseSelectOne: 'Please select a club in the map to show its details',
-      offers: 'Sessions calendar:',
-      noMoreOffers: 'No more sessions planned',
-      addButton: 'Add an establishment',
-      form: {
-        new: {
-          title: 'Title',
-        },
-      },
-    },
+    establishment,
     activity: {
       addActivity: 'Add an activity',
       addOffers: 'Add sessions',

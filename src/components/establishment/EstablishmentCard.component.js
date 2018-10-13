@@ -101,7 +101,7 @@ export class EstablishmentCard extends Component<Props> {
             <Typography variant="title">
               {title}
               <Button onClick={onClickUpdate}>
-                {t('establishment.actions.edit')}
+                {t('establishment.card.update')}
               </Button>
             </Typography>
             <Typography

@@ -4,6 +4,8 @@ import React from 'react';
 
 import { withStyles } from '@material-ui/core';
 import { connect } from 'react-redux';
+import { translate } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 
 import green from '@material-ui/core/colors/green';
 import amber from '@material-ui/core/colors/amber';
@@ -13,6 +15,7 @@ import SnackbarContent from '@material-ui/core/SnackbarContent';
 type Props = {
   messages: { message: string }[],
   classes: *,
+  t: TFunction,
 };
 
 const styles = (theme) => ({
@@ -32,7 +35,7 @@ const styles = (theme) => ({
 
 export class SnackbarPile extends React.Component<Props> {
   render() {
-    const { classes } = this.props;
+    const { classes, t } = this.props;
     return (
       <div>
         {this.props.messages.map((snack) => (
@@ -43,7 +46,7 @@ export class SnackbarPile extends React.Component<Props> {
           >
             <SnackbarContent
               className={classes[snack.kind]}
-              message={snack.message}
+              message={t(snack.message)}
             />
           </Snackbar>
         ))}
@@ -58,4 +61,6 @@ function mapStateToProps(state) {
   };
 }
 
-export default withStyles(styles)(connect(mapStateToProps)(SnackbarPile));
+export default translate()(
+  withStyles(styles)(connect(mapStateToProps)(SnackbarPile)),
+);

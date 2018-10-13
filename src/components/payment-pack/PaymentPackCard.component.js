@@ -79,14 +79,25 @@ export class PaymentPackCard extends Component<Props> {
     );
   };
 
+  renderMaxWeekBookings = () => {
+    const { t, pack } = this.props;
+    return (
+      <Typography>
+        {t('paymentPack.maxNBookingsByWeek1')}
+        <b>{pack.max_bookings_per_week}</b>
+        {t('paymentPack.maxNBookingsByWeek2')}
+      </Typography>
+    );
+  };
+
   renderTimeInfo = () => {
     const { pack, t } = this.props;
     if (pack.duration_days) {
       return (
         <Typography>
-          {`${t('paymentPack.validForNdays1')}${pack.duration_days}${t(
-            'paymentPack.validForNdays2',
-          )}`}
+          {t('paymentPack.validForNdays1')}
+          <b>{pack.duration_days}</b>
+          {t('paymentPack.validForNdays2')}
         </Typography>
       );
     }
@@ -106,36 +117,39 @@ export class PaymentPackCard extends Component<Props> {
     const { unlimited, base_price, name, credits } = pack;
     let creditsFormatted = t('paymentPack.unlimitedCredits');
     if (!unlimited) {
-      creditsFormatted = `${credits} ${t('paymentPack.credits').toLowerCase()}`;
+      creditsFormatted = (
+        <div>
+          <b>{credits}</b> {t('paymentPack.credits').toLowerCase()}
+        </div>
+      );
     }
     return (
       <Grid
         container
         direction="row"
         justify="space-between"
-        alignItems="center"
+        alignItems="flex-start"
       >
         <Grid item xs={8}>
-          <Grid container direction="column" spacing={8}>
+          <Grid container direction="column" spacing={16}>
             <Grid item>
               <Typography variant="title">{name}</Typography>
             </Grid>
-            <Grid item>{this.renderTimeInfo()}</Grid>
+            <Grid item>
+              <Grid container direction="column" spacing={8}>
+                <Grid item>{this.renderTimeInfo()}</Grid>
+                <Grid item>{this.renderMaxWeekBookings()}</Grid>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
         <Grid item xs={4}>
-          <Grid
-            container
-            direction="column"
-            alignItems="center"
-            justify="center"
-          >
+          <Grid container direction="column" alignItems="flex-end" spacing={8}>
             <Grid item>
-              <Typography variant="title" color="primary">
+              <Typography variant="display1" color="primary">
                 {base_price} €
               </Typography>
             </Grid>
-            <Grid item>-</Grid>
             <Grid item>
               <Typography variant="subheading">{creditsFormatted}</Typography>
             </Grid>

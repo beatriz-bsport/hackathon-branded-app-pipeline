@@ -315,6 +315,8 @@ export default {
       object: 'Description',
     },
     paymentPack: {
+      maxNBookingsByWeek1: 'Max ',
+      maxNBookingsByWeek2: ' réservations par semaine',
       validity: 'Valide :',
       consumer: {
         expiresOn: 'Expire le ',

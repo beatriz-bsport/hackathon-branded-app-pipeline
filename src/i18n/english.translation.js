@@ -301,6 +301,8 @@ export default {
         expiresOn: 'Expires on ',
         bookingsThisWeek: 'réservations cette semaine',
       },
+      maxNBookingsByWeek1: 'Max ',
+      maxNBookingsByWeek2: ' bookings per week',
       validity: 'Validity :',
       validForNdays1: 'Valid for ',
       validForNdays2: ' days after purchase',

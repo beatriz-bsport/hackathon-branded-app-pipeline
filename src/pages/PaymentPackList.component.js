@@ -47,14 +47,6 @@ export class PaymentPackList extends Component<Props> {
     return (
       <Grid container direction="column" alignItems="center" spacing={24}>
         <Grid item>
-          <Link to="/payment-pack/add" style={{ textDecoration: 'none' }}>
-            <Button variant="extendedFab" color="primary">
-              <AddIcon className={classes.extendedIcon} />
-              {t('paymentPack.addButton')}
-            </Button>
-          </Link>
-        </Grid>
-        <Grid item>
           <Grid container direction="row">
             {packs.map((p) => (
               <Grid
@@ -73,6 +65,14 @@ export class PaymentPackList extends Component<Props> {
               </Grid>
             ))}
           </Grid>
+        </Grid>
+        <Grid item>
+          <Link to="/payment-pack/add" style={{ textDecoration: 'none' }}>
+            <Button variant="extendedFab" color="primary">
+              <AddIcon className={classes.extendedIcon} />
+              {t('paymentPack.addButton')}
+            </Button>
+          </Link>
         </Grid>
       </Grid>
     );

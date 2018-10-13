@@ -47,7 +47,20 @@ class Activity extends Component<Props> {
       return <CircularProgress />;
     }
     return (
-      <div>
+      <Grid container justify="center" alignItems="center" spacing={32}>
+        <Grid item>
+          <Grid container direction="row" spacing={24}>
+            {metaActivities.map((a) => {
+              const aStats = stats.filter((s) => s.id === a.id);
+              const s = aStats || [{}];
+              return (
+                <Grid item xs={12} sm={6} key={a.id}>
+                  <MetaActivityCard metaActivity={a} stats={s[0]} />
+                </Grid>
+              );
+            })}
+          </Grid>
+        </Grid>
         {is_manager ? (
           <Grid item>
             <Link to="/meta-activity/add" style={{ textDecoration: 'none' }}>
@@ -63,18 +76,7 @@ class Activity extends Component<Props> {
             </Link>
           </Grid>
         ) : null}
-        <Grid container direction="row" spacing={24}>
-          {metaActivities.map((a) => {
-            const aStats = stats.filter((s) => s.id === a.id);
-            const s = aStats || [{}];
-            return (
-              <Grid item xs={12} sm={6} key={a.id}>
-                <MetaActivityCard metaActivity={a} stats={s[0]} />
-              </Grid>
-            );
-          })}
-        </Grid>
-      </div>
+      </Grid>
     );
   }
 }
@@ -97,7 +99,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default translate()(
-  connect(mapStateToProps, mapDispatchToProps)(
-    withStyles(styles)(translate()(Activity)),
-  ),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(withStyles(styles)(translate()(Activity))),
 );

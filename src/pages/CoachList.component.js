@@ -78,29 +78,35 @@ export class CoachList extends Component<Props> {
       associatedCoaches,
     } = this.props;
     return (
-      <div>
-        {isManager ? (
-          <Link to="/coach/add" style={{ textDecoration: 'none' }}>
-            <Button
-              variant="extendedFab"
-              aria-label="Add"
-              className={classes.button}
-              color="primary"
-            >
-              <AddIcon className={classes.extendedIcon} />
-              {t('coach.addCoach')}
-            </Button>
-          </Link>
-        ) : null}
-        <SelfCoachCard isCoach={isCoach} selfCoach={selfCoach} />
-        <Grid container spacing={8}>
-          <AssociatedCoaches
-            associatedCoaches={associatedCoaches}
-            isManager={isManager}
-            onClickUpdate={this.props.startUpdateCoach}
-          />
+      <Grid container alignItems="center" justify="center" spacing={24}>
+        <Grid item>
+          <SelfCoachCard isCoach={isCoach} selfCoach={selfCoach} />
         </Grid>
-      </div>
+        <Grid item>
+          <Grid container spacing={8}>
+            <AssociatedCoaches
+              associatedCoaches={associatedCoaches}
+              isManager={isManager}
+              onClickUpdate={this.props.startUpdateCoach}
+            />
+          </Grid>
+        </Grid>
+        <Grid item>
+          {isManager ? (
+            <Link to="/coach/add" style={{ textDecoration: 'none' }}>
+              <Button
+                variant="extendedFab"
+                aria-label="Add"
+                className={classes.button}
+                color="primary"
+              >
+                <AddIcon className={classes.extendedIcon} />
+                {t('coach.addCoach')}
+              </Button>
+            </Link>
+          ) : null}
+        </Grid>
+      </Grid>
     );
   }
 }

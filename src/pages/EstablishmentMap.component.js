@@ -128,6 +128,18 @@ export class EstablishmentList extends Component<Props, State> {
     return (
       <Grid container spacing={16}>
         <Grid item xs={12}>
+          <Paper>
+            <Map markers={establishments} markerClicked={() => {}} />
+          </Paper>
+        </Grid>
+        <Grid item xs={12}>
+          <Grid container direction="column" spacing={32}>
+            {establishments.map((e) => (
+              <Grid item>{this.renderEstablishment(e)}</Grid>
+            ))}
+          </Grid>
+        </Grid>
+        <Grid item xs={12}>
           <Link to="/establishments/add" style={{ textDecoration: 'none' }}>
             <Button
               variant="extendedFab"
@@ -139,20 +151,6 @@ export class EstablishmentList extends Component<Props, State> {
               {t('establishment.addButton')}
             </Button>
           </Link>
-        </Grid>
-        <Grid item xs={12}>
-          <Paper>
-            <Map markers={establishments} markerClicked={() => {}} />
-          </Paper>
-        </Grid>
-        <Grid item xs={12}>
-          <Grid container direction="column" spacing={32}>
-            {establishments.map((e) => (
-              <Grid item key={e.id}>
-                {this.renderEstablishment(e)}
-              </Grid>
-            ))}
-          </Grid>
         </Grid>
       </Grid>
     );
@@ -194,5 +192,10 @@ const styles = (theme) => ({
 });
 
 export default withStyles(styles)(
-  translate()(connect(mapStateToProps, mapDispatchToProps)(EstablishmentList)),
+  translate()(
+    connect(
+      mapStateToProps,
+      mapDispatchToProps,
+    )(EstablishmentList),
+  ),
 );

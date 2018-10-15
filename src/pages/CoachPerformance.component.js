@@ -54,18 +54,11 @@ export class CoachPerformance extends Component<Props, State> {
       date_start.unix(),
       date_end.unix(),
     );
-    const {
-      pricePerOffer,
-      pricePerAdditionalBooking,
-      bookingThreshold,
-      includeBonusOnOversizing,
-    } = formData;
+    const { pricePerOffer, bonusRules } = formData;
     this.setState({
       rule: {
         pricePerOffer,
-        pricePerAdditionalBooking,
-        bookingThreshold,
-        includeBonusOnOversizing,
+        bonusRules,
       },
     });
   };

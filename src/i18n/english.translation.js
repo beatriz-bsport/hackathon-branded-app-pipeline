@@ -105,12 +105,12 @@ export default {
     },
     form: {
       coachPerformance: {
+        addBonus: 'Add a rule',
         dateTitle: 'Date range',
         remuneration: 'Remuneration',
         pricePerOffer: 'Price per offer',
         bonus: 'Bonus',
-        checkboxIncludeABonus: 'Include a bonus based on performance',
-        bookingThresholdLabel: 'Booking threshold',
+        bookingThresholdLabel: 'Booking threshold triggering rule',
         bookingThresholdHelper:
           'Every booking over this threshold will add a bonus',
         pricePerAdditionalBookingLabel: 'Price per booking',

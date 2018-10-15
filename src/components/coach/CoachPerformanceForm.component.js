@@ -9,10 +9,13 @@ import {
   Switch,
   withStyles,
 } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 import { translate } from 'react-i18next';
 import DateInput from '../input/DateInput.component';
 import NumericInput from '../input/NumericInput.component';
 import PriceInput from '../input/PriceInput.component';
+import BonusRuleForm, { initBonusRuleProps } from './BonusRuleForm.component';
+import type { BonusRule } from '../form/types';
 
 import { Moment } from '../../i18n';
 
@@ -25,26 +28,16 @@ type Props = {
 };
 
 type State = {
-  includeBonusOnOversizing: boolean,
-  bookingThreshold: number,
-  pricePerAdditionalBooking: number,
-  pricePerOffer: number,
   date_start: Object,
   date_end: Object,
+  bonusRules: Array<BonusRule>,
 };
 
 export class CoachPerformanceForm extends Component<Props, State> {
   state = {
-    includeBonusOnOversizing: false,
     date_start: Moment().add('months', -1),
     date_end: Moment(),
-    pricePerAdditionalBooking: 2,
-    pricePerOffer: 20,
-    bookingThreshold: 10,
-  };
-
-  toogleBonus = (event: Event) => {
-    this.setState({ includeBonusOnOversizing: event.target.checked });
+    bonusRules: [initBonusRuleProps()],
   };
 
   onFieldChange = (id: string) => (value: Object) => {
@@ -53,19 +46,55 @@ export class CoachPerformanceForm extends Component<Props, State> {
 
   onSubmit = (event: Event) => {
     event.preventDefault();
-    this.props.onSubmit(this.state);
+    const { bonusRules, date_start, date_end } = this.state;
+    this.props.onSubmit({ bonusRules, date_start, date_end });
+  };
+
+  addABonusRule = () => {
+    const bonusRule = initBonusRuleProps();
+    this.setState((prevState) => ({
+      bonusRules: [...prevState.bonusRules, bonusRule],
+    }));
+  };
+
+  handleChangeBonusRule = (bonusRule: BonusRule) => {
+    this.setState((prevState) => ({
+      bonusRules: [
+        ...prevState.bonusRules.filter((br) => br.id !== bonusRule.id),
+        bonusRule,
+      ].sort((br, br_) => br.id < br_.id),
+    }));
+  };
+
+  renderBonusRules = () => {
+    if (this.state.bonusRules.length) {
+      return (
+        <Grid item>
+          <Grid
+            container
+            direction="column"
+            spacing={32}
+            className={this.props.classes.bonusRules}
+          >
+            {this.state.bonusRules.map((br) => (
+              <Grid item>
+                <BonusRuleForm
+                  key={br.id}
+                  bonusRule={br}
+                  onChange={this.handleChangeBonusRule}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        </Grid>
+      );
+    }
+    return null;
   };
 
   render() {
     const { t, classes } = this.props;
-    const {
-      includeBonusOnOversizing,
-      date_start,
-      date_end,
-      pricePerOffer,
-      pricePerAdditionalBooking,
-      bookingThreshold,
-    } = this.state;
+    const { date_start, date_end } = this.state;
     return (
       <form onSubmit={this.onSubmit}>
         <Grid container direction="column" spacing={40}>
@@ -92,79 +121,12 @@ export class CoachPerformanceForm extends Component<Props, State> {
               </Grid>
             </Grid>
           </Grid>
+          {this.renderBonusRules()}
           <Grid item>
-            <Typography variant="subheading" className={classes.subheading}>
-              {t('form.coachPerformance.remuneration')}
-            </Typography>
-            <PriceInput
-              required
-              label={t('form.coachPerformance.pricePerOffer')}
-              value={pricePerOffer}
-              onChange={(event) => {
-                this.onFieldChange('pricePerOffer')(
-                  parseFloat(event.target.value),
-                );
-              }}
-            />
-          </Grid>
-          <Grid item>
-            <Grid container direction="row" spacing={16} alignItems="center">
-              <Grid item>
-                <Switch
-                  color="primary"
-                  checked={includeBonusOnOversizing}
-                  onChange={this.toogleBonus}
-                />
-              </Grid>
-              <Grid item>
-                <Typography>
-                  {t('form.coachPerformance.checkboxIncludeABonus')}
-                </Typography>
-              </Grid>
-            </Grid>
-            <Grid item>
-              <Collapse in={includeBonusOnOversizing} collapsedHeight="2px">
-                <Grid
-                  container
-                  direction="column"
-                  spacing={16}
-                  className={classes.paddedLeftBlock}
-                >
-                  <Grid item>
-                    <NumericInput
-                      helperText={t(
-                        'form.coachPerformance.bookingThresholdHelper',
-                      )}
-                      label={t('form.coachPerformance.bookingThresholdLabel')}
-                      value={bookingThreshold}
-                      disabled={!includeBonusOnOversizing}
-                      onChange={(event) => {
-                        this.onFieldChange('bookingThreshold')(
-                          parseFloat(event.target.value),
-                        );
-                      }}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <PriceInput
-                      helperText={t(
-                        'form.coachPerformance.pricePerAdditionalBookingHelper',
-                      )}
-                      label={t(
-                        'form.coachPerformance.pricePerAdditionalBookingLabel',
-                      )}
-                      value={pricePerAdditionalBooking}
-                      disabled={!includeBonusOnOversizing}
-                      onChange={(event) => {
-                        this.onFieldChange('pricePerAdditionalBooking')(
-                          parseFloat(event.target.value),
-                        );
-                      }}
-                    />
-                  </Grid>
-                </Grid>
-              </Collapse>
-            </Grid>
+            <Button onClick={this.addABonusRule} color="secondary">
+              <AddIcon className={classes.leftButton} />
+              {t('form.coachPerformance.addBonus')}
+            </Button>
           </Grid>
           <Grid item>
             <Grid container item justify="center">
@@ -181,10 +143,8 @@ export class CoachPerformanceForm extends Component<Props, State> {
 
 const styles = (theme) => ({
   subheading: { marginBottom: theme.spacing.unit * 2 },
-  paddedLeftBlock: {
-    padding: theme.spacing.unit * 2,
-    backgroundColor: '#F8F8F8',
-  },
+  bonusRules: { marginRight: theme.spacing.unit * 2 },
+  leftButton: { marginRight: theme.spacing.unit },
 });
 
 export default withStyles(styles)(translate()(CoachPerformanceForm));

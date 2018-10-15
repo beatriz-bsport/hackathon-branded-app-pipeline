@@ -1,11 +1,16 @@
 // @flow
+export type BonusRule = {
+  threshold: number,
+  fixedBonus: number,
+  variableBonus: number,
+  id: number,
+};
+
 export type PerformanceCalculationRule = {
   pricePerOffer: number,
-  pricePerAdditionalBooking: ?number,
-  bookingThreshold: ?number,
-  includeBonusOnOversizing: boolean,
   dateStart: Object,
   dateEnd: Object,
+  bonusRules: Array<BonusRule>,
 };
 
 export type InvoiceFormData = {};

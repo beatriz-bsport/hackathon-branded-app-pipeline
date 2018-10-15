@@ -36,11 +36,19 @@ export class CoachPerformanceSummary extends Component<Props> {
     if (!rule) {
       return { moneyDue: ' - ', nbBookingsTotal: ' - ', nbOffersTotal: ' - ' };
     }
-    const {
-      includeBonusOnOversizing,
-      bookingThreshold,
-      pricePerAdditionalBooking,
-    } = rule;
+    const { bonusRules } = rule;
+    const sortedBonusRules = bonusRules
+      .slice()
+      .sort((br, br_) => br.threshold < br_.threshold);
+    for (const idx_ in sortedBonusRules) {
+      const idx = parseInt(idx_, 10);
+      if (idx < sortedBonusRules.length - 1) {
+        sortedBonusRules[idx].threshold_max =
+          sortedBonusRules[idx + 1].threshold;
+      } else {
+        sortedBonusRules[idx].threshold_max = 100000; // forgive me
+      }
+    }
 
     let moneyDue = 0;
     let nbBookingsTotal = 0;
@@ -52,13 +60,14 @@ export class CoachPerformanceSummary extends Component<Props> {
       if (nb_bookings) {
         nbOffersTotal += 1;
         nbBookingsTotal += nb_bookings;
-        moneyDue += rule.pricePerOffer;
-        if (includeBonusOnOversizing && pricePerAdditionalBooking) {
-          // eslint-disable-next-line
-          const differentialBookings = nb_bookings - bookingThreshold;
-          if (differentialBookings > 0) {
-            moneyDue += differentialBookings * pricePerAdditionalBooking;
-            nbBookingsOverThreshold += differentialBookings;
+        for (const br of sortedBonusRules) {
+          if (br.threshold <= nb_bookings && br.threshold_max > nb_bookings) {
+            const differentialBookings = nb_bookings - br.threshold;
+            if (differentialBookings > 0) {
+              moneyDue +=
+                differentialBookings * br.variableBonus + br.fixedBonus;
+              nbBookingsOverThreshold += differentialBookings;
+            }
           }
         }
       }
@@ -131,18 +140,9 @@ export class CoachPerformanceSummary extends Component<Props> {
     </Grid>
   );
 
-  renderDetails = ({
-    nbBookingsOverThreshold,
-    nbBookingsTotal,
-    nbOffersTotal,
-  }) => {
+  renderDetails = ({ nbBookingsTotal, nbOffersTotal }) => {
     const { t, rule } = this.props;
     if (rule) {
-      const {
-        pricePerOffer,
-        pricePerAdditionalBooking,
-        includeBonusOnOversizing,
-      } = rule;
       return (
         <List>
           <Divider />
@@ -152,32 +152,10 @@ export class CoachPerformanceSummary extends Component<Props> {
           </ListItem>
           <Divider />
           <ListItem>
-            <ListItemText
-              primary={t('coach.performance.nbOffersTotal')}
-              secondary={`${t(
-                'coach.performance.pricePerOffer',
-              )}: ${pricePerOffer}€`}
-            />
-            <Typography variant="title">
-              {`${nbOffersTotal} (${nbOffersTotal * pricePerOffer}€)`}
-            </Typography>
+            <ListItemText primary={t('coach.performance.nbOffersTotal')} />
+            <Typography variant="title">{nbOffersTotal}</Typography>
           </ListItem>
           <Divider />
-          {includeBonusOnOversizing ? (
-            <ListItem>
-              <ListItemText
-                primary={t('coach.performance.nbBookingsOverThreshold')}
-                secondary={`${t(
-                  'coach.performance.pricePerAdditionalBooking',
-                )}: ${pricePerAdditionalBooking}€`}
-              />
-              <Typography variant="title">
-                {// prettier-ignore
-                `${nbBookingsOverThreshold} (${nbBookingsOverThreshold
-                  * pricePerAdditionalBooking}€)`}
-              </Typography>
-            </ListItem>
-          ) : null}
         </List>
       );
     }

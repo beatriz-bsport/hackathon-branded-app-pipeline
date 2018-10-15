@@ -82,17 +82,21 @@ export default {
     },
     form: {
       coachPerformance: {
+        addBonus: 'Ajouter une règle',
         dateTitle: 'Plage de dates',
         remuneration: 'Rémunération',
         pricePerOffer: 'Montant par séance',
         bonus: 'Bonus',
         checkboxIncludeABonus: 'Inclure un bonus à la performance',
-        bookingThresholdLabel: 'Limite de réservations avant bonus',
+        bookingThresholdLabel: 'Minimum de réservation',
         bookingThresholdHelper:
-          'Toute réservation additionnelle ajoutera un bonus au coach',
-        pricePerAdditionalBookingLabel: 'Prix reversé',
+          'Une séance ne sera comptabilisée que si elle totalise ce nombre de réservation',
+        pricePerAdditionalBookingLabel: 'Variable par réservation',
         pricePerAdditionalBookingHelper:
-          'Montant reversé pour toute réservation bonus',
+          'Montant reversé pour toute réservation au-dessus de la limite',
+        fixedPriceForAdditionalBookingLabel: 'Fixe par séance',
+        fixedPriceForAdditionalBookingHelper:
+          "Montant fixe reversé pour toute séance avec suffisamment d'inscrits",
       },
       invoice: {
         title: 'Enregistrer un paiement',

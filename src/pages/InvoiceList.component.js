@@ -90,13 +90,6 @@ export class InvoiceList extends Component<Props> {
             order="desc"
           />
         </Grid>
-        <Grid item>
-          <div style={{ right: 0 }}>
-            <Button variant="raised" color="primary">
-              Voir mes factures
-            </Button>
-          </div>
-        </Grid>
       </Grid>
     );
   }

@@ -40,11 +40,10 @@ export class CoachPerformanceSummary extends Component<Props> {
     const sortedBonusRules = bonusRules
       .slice()
       .sort((br, br_) => br.threshold < br_.threshold);
-    for (const idx_ in sortedBonusRules) {
-      const idx = parseInt(idx_, 10);
+    for (let idx = 0; idx < sortedBonusRules.length; idx += 1) {
       if (idx < sortedBonusRules.length - 1) {
-        sortedBonusRules[idx].threshold_max =
-          sortedBonusRules[idx + 1].threshold;
+        // prettier-ignore
+        sortedBonusRules[idx].threshold_max = sortedBonusRules[idx + 1].threshold;
       } else {
         sortedBonusRules[idx].threshold_max = 100000; // forgive me
       }
@@ -64,8 +63,8 @@ export class CoachPerformanceSummary extends Component<Props> {
           if (br.threshold <= nb_bookings && br.threshold_max > nb_bookings) {
             const differentialBookings = nb_bookings - br.threshold;
             if (differentialBookings > 0) {
-              moneyDue +=
-                differentialBookings * br.variableBonus + br.fixedBonus;
+              // prettier-ignore
+              moneyDue += differentialBookings * br.variableBonus + br.fixedBonus;
               nbBookingsOverThreshold += differentialBookings;
             }
           }

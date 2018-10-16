@@ -37,6 +37,8 @@ type Props = {
 };
 
 type State = {
+  // UNUSED but will be
+  // eslint-disable-next-line
   offerId: ?number,
   registeredPayments: Array<{ id: number, paymentData: PaymentFormData }>,
   paymentIdSeed: number,
@@ -46,19 +48,25 @@ type State = {
 
 export class InvoiceForm extends Component<Props, State> {
   state = {
-    // offerId: null,
+    // UNUSED but will be
+    // eslint-disable-next-line
+    offerId: null,
     paymentPackId: null,
     registeredPayments: [],
     paymentIdSeed: 0,
     payedObjectType: NOTHING,
   };
 
-  onSubmit = (event) => {
+  onSubmit = (event: Object) => {
     event.preventDefault();
     return this.state;
   };
 
+  // UNUSED but will be
+  // eslint-disable-next-line
   storeOfferId = (offerId: number) => {
+    // UNUSED but will be
+    // eslint-disable-next-line
     this.setState({ offerId });
   };
 
@@ -84,7 +92,7 @@ export class InvoiceForm extends Component<Props, State> {
     }));
   };
 
-  handleObjectTypeChange = (event) => {
+  handleObjectTypeChange = (event: Object) => {
     console.log(event.target.value);
     this.setState({ payedObjectType: event.target.value });
   };

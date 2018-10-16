@@ -53,9 +53,8 @@ export class EstablishmentList extends Component<Props, State> {
         <EstablishmentCard
           establishment={establishment}
           allActivities={this.props.activities}
-          onClickUpdate={() =>
-            this.props.startUpdateEstablishment(establishment)
-          }
+          // prettier-ignore
+          onClickUpdate={() => this.props.startUpdateEstablishment(establishment)}
         />
       </Grid>
       <Grid item xs={12} md={6}>

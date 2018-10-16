@@ -27,7 +27,7 @@ export default function snackbarReducer(state = initialState, action = {}) {
         return state;
       }
       messages.splice(pos, 1);
-      return state.merge({ messages: messages ? messages : [] });
+      return state.merge({ messages: messages || [] });
     }
 
     default:

@@ -28,18 +28,16 @@ type Props = {
 };
 
 type State = {
-  id: ?number,
   address: string,
 };
 
 export class LocationInput extends Component<Props, State> {
   state = {
-    id: null,
     address: '',
-    candidate: null,
     center: CENTER,
     zoom: 12,
     isLoading: false,
+    candidates: [],
   };
 
   constructor(props: Props) {
@@ -126,7 +124,6 @@ export class LocationInput extends Component<Props, State> {
     this.setState({
       valid: false,
       candidates: [],
-      candidate: [],
       location: location || '',
       address: address || '',
     });

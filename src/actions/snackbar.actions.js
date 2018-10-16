@@ -16,10 +16,10 @@ function sleep(time) {
   });
 }
 
-let id = 0;
+const id = 0;
 export function displaySnackbar(kind) {
   return (message) => async (dispatch) => {
-    const myId = ++id;
+    const myId = id + 1;
     dispatch(snackbarDisplay(message, myId, kind));
     await sleep(5000);
     dispatch(snackbarDestroy(myId));

@@ -28,6 +28,7 @@ type Props = {
   isCoach: boolean,
   selfCoach: Coach,
   associatedCoaches: Array<Coach>,
+  startUpdateCoach: (coach: Coach) => void,
 };
 
 function SelfCoachCard(props: { isCoach: boolean, selfCoach: Coach }) {
@@ -128,6 +129,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  withStyles(styles)(translate()(CoachList)),
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withStyles(styles)(translate()(CoachList)));

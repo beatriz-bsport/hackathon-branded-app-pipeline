@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { Grid, Button, CircularProgress } from '@material-ui/core';
+import { Grid, CircularProgress } from '@material-ui/core';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import { connect } from 'react-redux';
@@ -15,7 +15,7 @@ import { FeatureTable } from '../components';
 import type { Member, Invoice } from '../api/types';
 
 type Props = {
-  t: (x: String) => String,
+  t: (x: string) => string,
   invoices: Array<Object>, // it is an immutable on which we call .asMutable() but whatever
   loading: boolean,
   members: Array<Member>,

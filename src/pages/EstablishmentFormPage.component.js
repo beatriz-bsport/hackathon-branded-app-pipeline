@@ -12,11 +12,12 @@ import { mapFormData } from './form.utils';
 type Props = {
   createOrUpdateEstablishment: (*) => void,
   pending: boolean,
-  errors: *,
   update: *,
+  // UNUSED
+  // errors: *,
 };
 
-export class EstablishmentFormPage extends Component<Props, State> {
+export class EstablishmentFormPage extends Component<Props> {
   createEstablishment = async (data: *) => {
     const formData = mapFormData(data, {
       title: 'title',
@@ -52,7 +53,9 @@ function mapStateToProps(state, nextProps) {
   const id = (match && match.params && +match.params.id) || null;
   return {
     pending: state.establishment.createOrUpdatePending,
-    errors: state.establishment.createOrUpdateError,
+    // UNUSED
+    // errors: state.establishment.createOrUpdateError,
+    // eslint-disable-next-line
     update:
       id !== null ? state.establishment.all.find((e) => e.id === id) : null,
   };

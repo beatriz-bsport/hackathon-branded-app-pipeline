@@ -8,3 +8,5 @@ export function mapFormData(base, map) {
   }
   return formData;
 }
+
+export default { mapFormData };

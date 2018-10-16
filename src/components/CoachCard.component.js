@@ -18,11 +18,12 @@ import { translate } from 'react-i18next';
 
 import Avatar from './Avatar.component';
 import ActivityMinimalSummary from './activity/ActivityMinimalSummary.component';
-import type { CoachDetailed } from '../api/types';
+import type { CoachDetailed, AssociatedCoach } from '../api/types';
 
 const OVERFLOW = 100;
 
 type Props = {
+  onClickUpdate: (coach: AssociatedCoach) => void,
   t: (x: string) => string,
   classes: Object,
   coach: CoachDetailed,

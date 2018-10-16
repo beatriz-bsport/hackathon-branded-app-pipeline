@@ -1,19 +1,10 @@
 // @flow
 import React, { Component } from 'react';
 
-import {
-  Grid,
-  Collapse,
-  Typography,
-  Button,
-  Switch,
-  withStyles,
-} from '@material-ui/core';
+import { Grid, Typography, Button, withStyles } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { translate } from 'react-i18next';
 import DateInput from '../input/DateInput.component';
-import NumericInput from '../input/NumericInput.component';
-import PriceInput from '../input/PriceInput.component';
 import BonusRuleForm, { initBonusRuleProps } from './BonusRuleForm.component';
 import type { BonusRule } from '../form/types';
 

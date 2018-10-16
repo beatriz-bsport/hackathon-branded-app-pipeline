@@ -96,7 +96,7 @@ export class TimeTable extends Component<Props, State> {
     if (activityF.length) {
       const fillingInfo = `${offer.nb_validated}/${
         offer.effectif
-      } (+${offer.nb_pending + offer.nb_option})`;
+      } (+${offer.nb_validated + offer.nb_option})`;
       const fillingInfoProps = {
         color: offer.nb_validated < offer.effectif ? 'error' : 'primary',
       };

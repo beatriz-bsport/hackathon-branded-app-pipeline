@@ -128,7 +128,6 @@ export type Offer = {
   meta_activity_id: number,
   name: string,
   nb_option: number,
-  nb_pending: number,
   nb_validated: number,
   parent_category: number,
   price: number,

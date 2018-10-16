@@ -104,7 +104,7 @@ export class OfferCard extends Component<Props> {
 
   getStatsBody = () => {
     const { classes, t } = this.props;
-    const { nb_pending, nb_validated, nb_option, effectif } = this.props.offer;
+    const { nb_validated, nb_option, effectif } = this.props.offer;
     return (
       <Grid container direction="row" justify="center" alignItems="center">
         <Grid item xs={4} style={{ borderRight: '1px solid #EEEEEE' }}>
@@ -157,9 +157,9 @@ export class OfferCard extends Component<Props> {
             <Grid item>
               <Typography
                 variant="display2"
-                color={nb_pending + nb_option ? 'error' : 'secondary'}
+                color={nb_option ? 'error' : 'secondary'}
               >
-                {nb_pending + nb_option}
+                {nb_option}
               </Typography>
             </Grid>
             <Grid item>
@@ -219,12 +219,7 @@ export class OfferCard extends Component<Props> {
       onEditButtonClick,
       onDeleteButtonClick,
     } = this.props;
-    const {
-      available,
-      date_start,
-      coach,
-      coach_override,
-    } = offer;
+    const { available, date_start, coach, coach_override } = offer;
     return (
       <Grid
         container

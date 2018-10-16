@@ -6,6 +6,7 @@ import {
   CircularProgress,
   List,
   Grid,
+  Divider,
   Typography,
   withStyles,
 } from '@material-ui/core';
@@ -142,7 +143,10 @@ export class TimeTable extends Component<Props, State> {
       );
     }
     return offersToday.length ? (
-      <List>{offersToday.map((o) => this.renderActivity(o))}</List>
+      <List>
+        <Divider />
+        {offersToday.map((o) => this.renderActivity(o))}
+      </List>
     ) : (
       <div className={classes.emptyMessage}>
         <Typography variant="caption">

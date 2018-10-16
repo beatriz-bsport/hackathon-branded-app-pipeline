@@ -13,7 +13,7 @@ import {
 import { translate } from 'react-i18next';
 
 import Level from '../Level.component';
-import { formatAsDatetime } from '../../datetime';
+import { formatAsDatetime, formatAsTime } from '../../datetime';
 import type { Offer } from '../../api/types';
 
 const styles = () => ({
@@ -23,6 +23,7 @@ const styles = () => ({
 });
 
 type Props = {
+  noDate: ?boolean,
   offer: Offer,
   additionalInfo: ?string,
   additionalInfoTypoProps: *,
@@ -36,6 +37,7 @@ type Props = {
 // prettier-disable-next-line
 export function OfferMinimalSummary(props: Props) {
   const {
+    noDate,
     offer,
     additionalInfo,
     additionalInfoTypoProps,
@@ -69,6 +71,7 @@ export function OfferMinimalSummary(props: Props) {
     formattedName += ` - ${t('offer.disabled')}`;
   }
   const currentEstablishment = establishment_override || etablissement;
+  const dateFormatter = noDate ? formatAsTime : formatAsDatetime;
   return (
     <ListItem
       key={id}
@@ -95,7 +98,7 @@ export function OfferMinimalSummary(props: Props) {
       ) : null}
       <ListItemText
         primary={formattedName}
-        secondary={formatAsDatetime(date_start)}
+        secondary={dateFormatter(date_start)}
       />
       {additionalInfo ? (
         <ListItemText

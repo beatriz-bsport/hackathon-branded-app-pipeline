@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 
 import CONTENT_TYPES from 'bsport-commons/lib/master-data/content-types';
+import { PAYMENT_PACK } from 'bsport-commons/lib/master-data/payment-methods';
 
 import { formatAsDatetime } from '../datetime';
 import { FeatureTable } from '../components';
@@ -73,15 +74,17 @@ export class InvoiceList extends Component<Props> {
     if (loading) {
       return <CircularProgress />;
     }
-
     const mutableInvoices = invoices.asMutable
       ? invoices.asMutable()
       : invoices;
+    const moneyInvoices = mutableInvoices.filter(
+      (inv) => inv.payment_method !== PAYMENT_PACK,
+    );
     return (
       <Grid container spacing={32} alignItems="flex-end">
         <Grid item xs={12}>
           <FeatureTable
-            data={mutableInvoices}
+            data={moneyInvoices}
             renderRow={this.renderRow}
             columnData={this.getColumnData()}
             loading={loading}

@@ -87,6 +87,7 @@ export default {
     },
     offer: {
       compatiblePacks: 'Pass compatible',
+      noCompatiblePacks: 'There is no pass compatible with this session',
       substitute: 'Substitute',
       disabled: 'cancelled',
       extraordinaryEstablishment: '(temporary location)',

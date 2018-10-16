@@ -106,15 +106,16 @@ export class TimeTable extends Component<Props, State> {
       )}%`;
       return (
         <OfferMinimalSummary
-          showCoach
           key={offer.id}
+          offer={offer}
+          showCoach
+          noDate
           overrideClickAction={() => {
             this.props.onOfferSelected(offer);
           }}
           additionalInfo={fillingInfo}
           additionalInfoTypoProps={fillingInfoProps}
           additionalInfoSecondary={formattedFillingRate}
-          offer={offer}
         />
       );
     }

@@ -269,7 +269,7 @@ export class OfferCard extends Component<Props> {
                       <AccessTimeIcon />
                     </Grid>
                     <Grid item>
-                      <Typography variant="subheading">
+                      <Typography variant="title">
                         {formatAsTime(date_start)}
                       </Typography>
                     </Grid>
@@ -362,14 +362,27 @@ export class OfferCard extends Component<Props> {
     );
   };
 
+  renderPaymentPackList = () => {
+    const { t, compatiblePacks } = this.props;
+
+    if (compatiblePacks.length === 0) {
+      return (
+        <Typography variant="caption">
+          {t('offer.noCompatiblePacks')}
+        </Typography>
+      );
+    }
+    return (
+      <List dense disablePadding style={{ width: '100%' }}>
+        {compatiblePacks.map((cp) => (
+          <PaymentPackSummary paymentPack={cp} key={cp.id} />
+        ))}
+      </List>
+    );
+  };
+
   getCompatiblePacks = () => {
-    const {
-      t,
-      classes,
-      offer,
-      compatiblePacks,
-      compatiblePacksLoading,
-    } = this.props;
+    const { t, classes, offer, compatiblePacksLoading } = this.props;
     const { available } = offer;
 
     return (
@@ -388,11 +401,7 @@ export class OfferCard extends Component<Props> {
               {compatiblePacksLoading ? (
                 <CircularProgress />
               ) : (
-                <List dense disablePadding style={{ width: '100%' }}>
-                  {compatiblePacks.map((cp) => (
-                    <PaymentPackSummary paymentPack={cp} key={cp.id} />
-                  ))}
-                </List>
+                this.renderPaymentPackList()
               )}
             </ExpansionPanelDetails>
           </ExpansionPanel>
@@ -421,10 +430,10 @@ export class OfferCard extends Component<Props> {
               </Paper>
             </Grid>
             <Grid item xs={12}>
-              {this.getCompatiblePacks()}
+              {this.getCustomer()}
             </Grid>
             <Grid item xs={12}>
-              {this.getCustomer()}
+              {this.getCompatiblePacks()}
             </Grid>
           </Grid>
         </div>

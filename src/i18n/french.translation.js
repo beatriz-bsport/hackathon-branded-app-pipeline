@@ -78,6 +78,7 @@ export default {
       disabled: 'annulé',
       substitute: 'Remplaçant',
       compatiblePacks: 'Abonnements compatibles',
+      noCompatiblePacks: "Aucun abonnement n'est compatible avec cette séance",
       extraordinaryEstablishment: '(lieu temporaire)',
     },
     form: {

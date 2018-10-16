@@ -98,12 +98,21 @@ export class EstablishmentCard extends Component<Props> {
         <Grid container direction="column">
           <Grid item>{this.getCover()}</Grid>
           <Grid item className={classes.horizontalBlock}>
-            <Typography variant="title">
-              {title}
-              <Button onClick={onClickUpdate}>
-                {t('establishment.card.update')}
-              </Button>
-            </Typography>
+            <Grid
+              container
+              direction="row"
+              alignItems="center"
+              justify="space-between"
+            >
+              <Grid item>
+                <Typography variant="title">{title}</Typography>
+              </Grid>
+              <Grid item>
+                <Button onClick={onClickUpdate}>
+                  {t('establishment.card.update')}
+                </Button>
+              </Grid>
+            </Grid>
             <Typography
               variant="caption"
               className={classes.subHorizontalBlock}

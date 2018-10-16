@@ -122,6 +122,7 @@ export class EstablishmentForm extends Component<Props, State> {
                 <Grid item xs={12}>
                   <FormField
                     id="specific_info"
+                    multiline
                     required
                     value={this.state.specific_info}
                     onChange={this.onFormFieldChange}

@@ -80,10 +80,10 @@ export class CoachList extends Component<Props> {
     } = this.props;
     return (
       <Grid container alignItems="center" justify="center" spacing={24}>
-        <Grid item>
+        <Grid item xs={12}>
           <SelfCoachCard isCoach={isCoach} selfCoach={selfCoach} />
         </Grid>
-        <Grid item>
+        <Grid item xs={12}>
           <Grid container spacing={8}>
             <AssociatedCoaches
               associatedCoaches={associatedCoaches}

@@ -7,26 +7,20 @@ import type { Booking, BookingOption } from '../api/types';
 
 function updateBookings(
   booking: Booking,
-  pendingBookings: Array<Booking>,
-  validatedBookings: Array<Booking>,
-): { validated: Array<Booking>, pending: Array<Booking> } {
-  const cleanedOldPendings = pendingBookings.filter((b) => b.id !== booking.id);
-  const cleanedOldValidated = validatedBookings.filter(
-    (b) => b.id !== booking.id,
-  );
+  all: Array<Booking>,
+): { all: Array<Booking> } {
+  const cleanedOldAll = all.filter((b) => b.id !== booking.id);
   switch (booking.status) {
     case true:
       return {
-        validated: [booking, ...cleanedOldValidated],
-        pending: cleanedOldPendings,
+        all: [booking, ...cleanedOldAll],
       };
     case null:
       return {
-        validated: cleanedOldValidated,
-        pendingBookings: [booking, ...cleanedOldValidated],
+        all: cleanedOldAll,
       };
     default:
-      return { pending: cleanedOldPendings, validated: cleanedOldValidated };
+      return { all: cleanedOldAll };
   }
 }
 
@@ -40,8 +34,7 @@ function updateOptions(
 }
 const initialState = Immutable({
   loading: false,
-  validated: [],
-  pending: [],
+  all: [],
   options: [],
   bookingsUpdating: [],
   bookingOptionsUpdating: [],
@@ -82,14 +75,9 @@ export default function bookingReducers(state = initialState, action = {}) {
         bookingsUpdating: [action.bookingId, ...state.bookingsUpdating],
       });
     case actionTypes.BOOKING_STATUS_UPDATED: {
-      const { pending, validated } = updateBookings(
-        action.booking,
-        state.pending,
-        state.validated,
-      );
+      const { all } = updateBookings(action.booking, state.all);
       return Immutable.merge(state, {
-        pending,
-        validated,
+        all,
         bookingsUpdating: state.bookingsUpdating.filter(
           (id) => id !== action.bookingId,
         ),
@@ -97,15 +85,10 @@ export default function bookingReducers(state = initialState, action = {}) {
     }
 
     case actionTypes.HAS_FETCHED_BOOKINGS: {
-      const {
-        pending_bookings,
-        validated_bookings,
-        booking_options,
-      } = action.bookings;
+      const { bookings, booking_options } = action;
       return Immutable.merge(state, {
+        all: bookings,
         loading: false,
-        validated: validated_bookings,
-        pending: pending_bookings,
         options: booking_options,
         bookingOptionsUpdating: [],
       });
@@ -114,16 +97,14 @@ export default function bookingReducers(state = initialState, action = {}) {
     case actionTypes.START_FETCH_BOOKINGS:
       return Immutable.merge(state, {
         loading: true,
-        validated: [],
-        pending: [],
+        all: [],
         options: [],
       });
 
     case actionTypes.ERROR_FETCHING_BOOKINGS:
       return Immutable.merge(state, {
         loading: false,
-        validated: [],
-        pending: [],
+        all: [],
         options: [],
       });
 

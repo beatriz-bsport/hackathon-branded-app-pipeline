@@ -3,7 +3,7 @@ import { API_URI, getAuth } from '../http';
 // FETCHER
 
 export async function fetchBookingsByOffer(offerId) {
-  return getAuth(`${API_URI}/as_coach/offer/${offerId}/bookings`);
+  return getAuth(`${API_URI}/saas/offer/${offerId}/bookings`);
 }
 
 export async function fetchMemberBookings(memberId) {

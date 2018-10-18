@@ -143,6 +143,20 @@ export class BookingItemForManager extends Component<Props> {
     }
   };
 
+  getAvatar = () => {
+    const { heading, booking } = this.props;
+    switch (heading) {
+      case 'date_start':
+        return null;
+      default:
+        return (
+          <Grid item>
+            <Avatar src={booking.user.photo} />
+          </Grid>
+        );
+    }
+  };
+
   render() {
     const { booking } = this.props;
     // <TableCell>{t(`booking.sources.${b.source}`)}</TableCell>
@@ -162,9 +176,7 @@ export class BookingItemForManager extends Component<Props> {
             justify="flex-start"
             spacing={16}
           >
-            <Grid item>
-              <Avatar src={booking.user.photo} />
-            </Grid>
+            {this.getAvatar()}
             <Grid item>
               <ListItemText
                 primary={this.getHeading()}

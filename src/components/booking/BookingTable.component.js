@@ -12,8 +12,7 @@ type Props = {
   t: (x: string) => string,
   loading: boolean,
   heading: ?string,
-  validatedBookings: Array<Object>,
-  pendingBookings: Array<Object>,
+  bookings: Array<Object>,
   bookingOptions: Array<Object>,
   discardOption: (id: number) => void,
   bookingUpdaters: {
@@ -31,8 +30,7 @@ export class BookingTable extends Component<Props> {
       loading,
       heading,
       bookingOptions,
-      validatedBookings,
-      pendingBookings,
+      bookings,
       discardOption,
       bookingUpdaters,
     } = this.props;
@@ -43,8 +41,7 @@ export class BookingTable extends Component<Props> {
 
     // prettier-ignore
     if (
-      validatedBookings.length === 0
-      && pendingBookings.length === 0
+      bookings.length === 0
       && bookingOptions.length === 0
     ) {
       return (
@@ -62,22 +59,7 @@ export class BookingTable extends Component<Props> {
 
     return (
       <Grid container direction="column" spacing={8} alignItems="stretch">
-        {pendingBookings.map((b) => (
-          <Grid item key={b.id}>
-            <BookingItemForManager
-              booking={b}
-              key={b.id}
-              heading={heading}
-              bookingUpdaters={{
-                confirmBooking: () => confirmBooking(b.id),
-                discardBooking: () => discardBooking(b.id),
-                discardBookingAttendance: () => discardBookingAttendance(b.id),
-                confirmBookingAttendance: () => confirmBookingAttendance(b.id),
-              }}
-            />
-          </Grid>
-        ))}
-        {validatedBookings.map((b) => (
+        {bookings.map((b) => (
           <Grid item key={b.id}>
             <BookingItemForManager
               heading={heading}
@@ -94,6 +76,7 @@ export class BookingTable extends Component<Props> {
         {bookingOptions.map((bo) => (
           <Grid item key={bo.id}>
             <BookingOptionForManager
+              heading={heading}
               option={bo}
               key={bo.id}
               discardOption={() => discardOption(bo.id)}

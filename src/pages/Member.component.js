@@ -40,8 +40,7 @@ type Props = {
   bookingLoading: boolean,
   member: MemberDetailed,
   allMembers: Array<MemberSimplified>,
-  pendingBookings: Array<Booking>,
-  validatedBookings: Array<Booking>,
+  bookings: Array<Booking>,
   bookingOptions: Array<BookingOption>,
   fetchMember: (id: number) => void,
   fetchMemberBookings: (id: number) => void,
@@ -136,8 +135,7 @@ export class Member extends Component<Props> {
       t,
       classes,
       allMembers,
-      validatedBookings,
-      pendingBookings,
+      bookings,
       bookingOptions,
       confirmBooking,
       confirmBookingAttendance,
@@ -145,16 +143,12 @@ export class Member extends Component<Props> {
       discardBookingAttendance,
     } = this.props;
     // prettier-ignore
-    const validatedBookingsFuture = validatedBookings.filter(
-      (b) => Moment(b.date_start).isAfter(Moment()),
-    );
-    // prettier-ignore
-    const pendingBookingsFuture = pendingBookings.filter(
+    const bookingsFuture = bookings.filter(
       (b) => Moment(b.date_start).isAfter(Moment()),
     );
     // prettier-ignore
     const bookingOptionsFuture = bookingOptions.filter(
-      (b) => Moment(b.date_start).isAfter(Moment()),
+      (b) => Moment(b.offer.date_start).isAfter(Moment()),
     );
     const nextBookingDate = (
       allMembers.filter((m) => m.id === this.memberId)[0] || {}
@@ -180,8 +174,7 @@ export class Member extends Component<Props> {
         <ExpansionPanelDetails>
           <BookingTable
             heading="date_start"
-            validatedBookings={validatedBookingsFuture}
-            pendingBookings={pendingBookingsFuture}
+            bookings={bookingsFuture}
             bookingOptions={bookingOptionsFuture}
             bookingUpdaters={{
               discardBooking,
@@ -200,8 +193,7 @@ export class Member extends Component<Props> {
       t,
       classes,
       allMembers,
-      validatedBookings,
-      pendingBookings,
+      bookings,
       bookingOptions,
       confirmBooking,
       confirmBookingAttendance,
@@ -209,16 +201,12 @@ export class Member extends Component<Props> {
       discardBookingAttendance,
     } = this.props;
     // prettier-ignore
-    const validatedBookingsPast = validatedBookings.filter(
-      (b) => Moment(b.date_start).isBefore(Moment()),
-    );
-    // prettier-ignore
-    const pendingBookingsPast = pendingBookings.filter(
+    const bookingsPast = bookings.filter(
       (b) => Moment(b.date_start).isBefore(Moment()),
     );
     // prettier-ignore
     const bookingOptionsPast = bookingOptions.filter(
-      (b) => Moment(b.date_start).isBefore(Moment()),
+      (b) => Moment(b.offer.date_start).isBefore(Moment()),
     );
     const previousBookingDate = (
       allMembers.filter((m) => m.id === this.memberId)[0] || {}
@@ -246,8 +234,7 @@ export class Member extends Component<Props> {
         <ExpansionPanelDetails>
           <BookingTable
             heading="date_start"
-            validatedBookings={validatedBookingsPast}
-            pendingBookings={pendingBookingsPast}
+            bookings={bookingsPast}
             bookingOptions={bookingOptionsPast}
             bookingUpdaters={{
               discardBooking,
@@ -315,8 +302,7 @@ function mapStateToProps(state) {
     member: state.member.member,
     allMembers: state.member.all,
     bookingLoading: state.booking.loading,
-    validatedBookings: state.booking.validated,
-    pendingBookings: state.booking.pending,
+    bookings: state.booking.all,
     bookingOptions: state.booking.options,
   };
 }
@@ -366,5 +352,10 @@ const styles = (theme) => ({
 });
 
 export default withStyles(styles)(
-  translate()(connect(mapStateToProps, mapDispatchToProps)(Member)),
+  translate()(
+    connect(
+      mapStateToProps,
+      mapDispatchToProps,
+    )(Member),
+  ),
 );

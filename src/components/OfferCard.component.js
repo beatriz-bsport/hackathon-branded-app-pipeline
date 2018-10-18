@@ -41,8 +41,7 @@ type Props = {
   offer: Offer,
   bookingLoading: boolean,
   noHeader: ?boolean,
-  validatedBookings: Array<Object>,
-  pendingBookings: Array<Object>,
+  bookings: Array<Object>,
   bookingOptions: Array<Object>,
   discardOption: (id: number) => void,
   onEditButtonClick: () => void,
@@ -104,7 +103,7 @@ export class OfferCard extends Component<Props> {
 
   getStatsBody = () => {
     const { classes, t } = this.props;
-    const { nb_validated, nb_option, effectif } = this.props.offer;
+    const { nb_bookings, nb_option, effectif } = this.props.offer;
     return (
       <Grid container direction="row" justify="center" alignItems="center">
         <Grid item xs={4} style={{ borderRight: '1px solid #EEEEEE' }}>
@@ -118,7 +117,7 @@ export class OfferCard extends Component<Props> {
           >
             <Grid item>
               <Typography variant="display2" color="primary">
-                {nb_validated}
+                {nb_bookings}
               </Typography>
             </Grid>
             <Grid item>
@@ -137,7 +136,7 @@ export class OfferCard extends Component<Props> {
           >
             <Grid item>
               <Typography variant="display2" color="secondary">
-                {parseInt((nb_validated / effectif) * 100, 10)} %
+                {parseInt((nb_bookings / effectif) * 100, 10)} %
               </Typography>
             </Grid>
             <Grid item>
@@ -323,8 +322,7 @@ export class OfferCard extends Component<Props> {
   getCustomer = () => {
     const {
       t,
-      pendingBookings,
-      validatedBookings,
+      bookings,
       bookingOptions,
       bookingLoading,
       discardOption,
@@ -349,8 +347,7 @@ export class OfferCard extends Component<Props> {
             >
               <BookingTable
                 loading={bookingLoading}
-                validatedBookings={validatedBookings}
-                pendingBookings={pendingBookings}
+                bookings={bookings}
                 bookingOptions={bookingOptions}
                 discardOption={discardOption}
                 bookingUpdaters={bookingUpdaters}

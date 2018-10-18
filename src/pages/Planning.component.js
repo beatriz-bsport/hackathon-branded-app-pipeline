@@ -54,8 +54,7 @@ type Props = {
   fetchAllOffers: () => void,
   offers: Array<Offer>,
   bookingLoading: boolean,
-  validatedBookings: Array<Booking>,
-  pendingBookings: Array<Booking>,
+  bookings: Array<Booking>,
   bookingOptions: Array<BookingOption>,
   timetableLoading: boolean,
   activities: Array<Object>,
@@ -223,8 +222,7 @@ export class Planning extends Component<Props, State> {
     const {
       offers,
       classes,
-      pendingBookings,
-      validatedBookings,
+      bookings,
       bookingOptions,
       bookingLoading,
       discardOption,
@@ -285,8 +283,7 @@ export class Planning extends Component<Props, State> {
           <Grid item xs={12} lg={6}>
             <OfferCard
               offer={selectedOffer}
-              pendingBookings={pendingBookings}
-              validatedBookings={validatedBookings}
+              bookings={bookings}
               bookingOptions={bookingOptions}
               bookingLoading={bookingLoading}
               bookingUpdaters={bookingUpdaters}
@@ -319,8 +316,7 @@ function mapStateToProps(state) {
     timetableLoading: state.activity.loading,
     activities: state.activity.all,
     bookingLoading: state.booking.loading,
-    validatedBookings: state.booking.validated,
-    pendingBookings: state.booking.pending,
+    bookings: state.booking.all,
     bookingOptions: state.booking.options,
     coaches: state.coach.companyAssociated,
     coachesLoading: state.coach.loading,

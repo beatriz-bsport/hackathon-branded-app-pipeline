@@ -128,7 +128,7 @@ export type Offer = {
   meta_activity_id: number,
   name: string,
   nb_option: number,
-  nb_validated: number,
+  nb_bookings: number,
   parent_category: number,
   price: number,
   price_coach: number,

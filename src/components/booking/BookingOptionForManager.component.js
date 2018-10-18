@@ -5,10 +5,12 @@ import React, { Component } from 'react';
 import { Button, Grid, Avatar, ListItemText } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
+import { formatAsDatetime } from '../../datetime';
 import RedButton from '../button/RedButton.component';
 
 type Props = {
   t: (x: string) => string,
+  heading: ?string,
   option: Object,
   discardOption: () => void,
 };
@@ -32,6 +34,30 @@ export class BookingOptionForManager extends Component<Props> {
     );
   };
 
+  getHeading = () => {
+    const { heading, option } = this.props;
+    switch (heading) {
+      case 'date_start':
+        return formatAsDatetime(option.offer.date_start);
+      default:
+        return option.user.name;
+    }
+  };
+
+  getAvatar = () => {
+    const { heading, option } = this.props;
+    switch (heading) {
+      case 'date_start':
+        return null;
+      default:
+        return (
+          <Grid item>
+            <Avatar src={this.props.option.user.photo} />
+          </Grid>
+        );
+    }
+  };
+
   render() {
     const { option, t } = this.props;
     return (
@@ -49,12 +75,10 @@ export class BookingOptionForManager extends Component<Props> {
             alignItems="center"
             spacing={16}
           >
-            <Grid item>
-              <Avatar src={option.user.photo} />
-            </Grid>
+            {this.getAvatar()}
             <Grid item>
               <ListItemText
-                primary={option.user.name}
+                primary={this.getHeading()}
                 secondary={
                   option.is_convertible
                     ? t('booking.waitingUserConfirmation')

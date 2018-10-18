@@ -80,16 +80,16 @@ export function fetchBookingsWrapper(id, apiCall) {
 
     try {
       const response = await apiCall(id);
-      const bookings = response.data;
+      const { bookings, booking_options } = response.data;
 
-      dispatch(fetchedBookings(bookings));
+      dispatch(fetchedBookings({ bookings, booking_options }));
     } catch (err) {
       dispatch(errorFetchingBookings());
     }
   };
 }
-export function fetchedBookings(bookings) {
-  return { type: types.HAS_FETCHED_BOOKINGS, bookings };
+export function fetchedBookings({ bookings, booking_options }) {
+  return { type: types.HAS_FETCHED_BOOKINGS, bookings, booking_options };
 }
 export function startFetchBookings() {
   return { type: types.START_FETCH_BOOKINGS };

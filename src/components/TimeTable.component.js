@@ -95,14 +95,14 @@ export class TimeTable extends Component<Props, State> {
     const { activities } = this.props;
     const activityF = activities.filter((a) => a.id === offer.activity_id);
     if (activityF.length) {
-      const fillingInfo = `${offer.nb_bookings}/${
-        offer.effectif
-      } (+${offer.nb_bookings+ offer.nb_option})`;
+      const fillingInfo = `${offer.nb_bookings}/${offer.effectif} (+${
+        offer.nb_option
+      })`;
       const fillingInfoProps = {
-        color: offer.nb_bookings< offer.effectif ? 'error' : 'primary',
+        color: offer.nb_bookings < offer.effectif ? 'error' : 'primary',
       };
       const formattedFillingRate = `${parseInt(
-        (offer.nb_bookings/ offer.effectif) * 100,
+        (offer.nb_bookings / offer.effectif) * 100,
         10,
       )}%`;
       return (

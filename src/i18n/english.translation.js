@@ -334,7 +334,7 @@ export default {
       attend: 'Attend',
       doNotAttend: 'Absent',
       discard: 'Discard',
-      onWaitingList: 'On waiting list',
+      onWaitingList: 'Waiting list',
       onHold: 'On hold',
       waitingUserConfirmation: 'Waiting user confirmation',
       confirm: 'Checkout payment',

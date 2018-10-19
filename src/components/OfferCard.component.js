@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 
 import {
+  Divider,
   Typography,
   Grid,
   Paper,
@@ -106,17 +107,16 @@ export class OfferCard extends Component<Props> {
     const { nb_bookings, nb_option, effectif } = this.props.offer;
     return (
       <Grid container direction="row" justify="center" alignItems="center">
-        <Grid item xs={4} style={{ borderRight: '1px solid #EEEEEE' }}>
+        <Grid item xs={4} className={[classes.rightBorder, classes.stat]}>
           <Grid
             container
             justify="center"
             alignItems="center"
             direction="column"
             spacing={8}
-            className={classes.stat}
           >
             <Grid item>
-              <Typography variant="display2" color="primary">
+              <Typography variant="display2" color="primary" align="center">
                 {nb_bookings}
               </Typography>
             </Grid>
@@ -125,17 +125,16 @@ export class OfferCard extends Component<Props> {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={4} style={{ borderRight: '1px solid #EEEEEE' }}>
+        <Grid item xs={4} className={[classes.rightBorder, classes.stat]}>
           <Grid
             container
             justify="center"
             alignItems="center"
             direction="column"
             spacing={8}
-            className={classes.stat}
           >
             <Grid item>
-              <Typography variant="display2" color="secondary">
+              <Typography variant="display2" color="secondary" align="center">
                 {parseInt((nb_bookings / effectif) * 100, 10)} %
               </Typography>
             </Grid>
@@ -144,19 +143,19 @@ export class OfferCard extends Component<Props> {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={4} className={classes.stat}>
           <Grid
             container
             justify="center"
             alignItems="center"
             direction="column"
             spacing={8}
-            className={classes.stat}
           >
             <Grid item>
               <Typography
                 variant="display2"
                 color={nb_option ? 'error' : 'secondary'}
+                align="center"
               >
                 {nb_option}
               </Typography>
@@ -210,7 +209,7 @@ export class OfferCard extends Component<Props> {
     );
   };
 
-  getFooter = () => {
+  getPracticalInfo = () => {
     const {
       t,
       classes,
@@ -222,17 +221,11 @@ export class OfferCard extends Component<Props> {
     return (
       <Grid
         container
-        justify="center"
         alignItems="center"
         direction="row"
         className={classes.footer}
       >
-        <Grid
-          item
-          xs={4}
-          style={{ borderRight: '1px solid #EEEEEE' }}
-          className={classes.stat}
-        >
+        <Grid item xs={4}>
           <Grid container direction="column" spacing={8} alignItems="center">
             <Grid item>
               <Avatar user={coach_override || coach} />
@@ -246,7 +239,7 @@ export class OfferCard extends Component<Props> {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={8} className={classes.stat}>
+        <Grid item xs={8} style={{ borderLeft: '1px solid #EEEEEE' }}>
           <Grid
             container
             spacing={8}
@@ -256,64 +249,56 @@ export class OfferCard extends Component<Props> {
             className={classes.info}
           >
             <Grid item>
-              <Grid container direction="column" spacing={8}>
+              <Grid container spacing={16} direction="row" alignItems="center">
                 <Grid item>
-                  <Grid
-                    container
-                    spacing={16}
-                    direction="row"
-                    alignItems="center"
-                  >
-                    <Grid item>
-                      <AccessTimeIcon />
-                    </Grid>
-                    <Grid item>
-                      <Typography variant="title">
-                        {formatAsTime(date_start)}
-                      </Typography>
-                    </Grid>
-                  </Grid>
+                  <AccessTimeIcon />
                 </Grid>
                 <Grid item>
-                  <Grid
-                    container
-                    spacing={16}
-                    direction="row"
-                    alignItems="center"
-                  >
-                    <Grid item>
-                      <LocationOnIcon />
-                    </Grid>
-                    <Grid item>{this.renderEstablishment()}</Grid>
-                  </Grid>
+                  <Typography variant="title">
+                    {formatAsTime(date_start)}
+                  </Typography>
                 </Grid>
               </Grid>
+            </Grid>
+            <Grid item>
+              <Grid
+                container
+                spacing={16}
+                direction="row"
+                alignItems="center"
+                wrap="nowrap"
+              >
+                <Grid item>
+                  <LocationOnIcon />
+                </Grid>
+                <Grid item>{this.renderEstablishment()}</Grid>
+              </Grid>
+            </Grid>
+            <Grid item>
+              {available ? (
+                <Grid
+                  container
+                  direction="row"
+                  spacing={16}
+                  wrap="nowrap"
+                  className={classes.modifierButtonsBlock}
+                >
+                  <Grid item>
+                    <Button color="primary" onClick={onEditButtonClick}>
+                      <EditIcon className={classes.iconLeft} />
+                      <Hidden xsDown>{t('calendar.modifyOffer')}</Hidden>
+                    </Button>
+                  </Grid>
+                  <Grid item>
+                    <RedButton onClick={onDeleteButtonClick}>
+                      <DeleteIcon className={classes.iconLeft} />
+                      <Hidden xsDown>{t('calendar.deleteOffer')}</Hidden>
+                    </RedButton>
+                  </Grid>
+                </Grid>
+              ) : null}
             </Grid>
           </Grid>
-        </Grid>
-        <Grid item xs={12}>
-          {available ? (
-            <Grid
-              container
-              direction="row"
-              spacing={24}
-              wrap="nowrap"
-              justify="center"
-            >
-              <Grid item>
-                <Button color="primary" onClick={onEditButtonClick}>
-                  <EditIcon className={classes.iconLeft} />
-                  <Hidden xsDown>{t('calendar.modifyOffer')}</Hidden>
-                </Button>
-              </Grid>
-              <Grid item>
-                <RedButton onClick={onDeleteButtonClick}>
-                  <DeleteIcon className={classes.iconLeft} />
-                  <Hidden xsDown>{t('calendar.deleteOffer')}</Hidden>
-                </RedButton>
-              </Grid>
-            </Grid>
-          ) : null}
         </Grid>
       </Grid>
     );
@@ -333,29 +318,29 @@ export class OfferCard extends Component<Props> {
     const { available } = offer;
 
     return (
-      <Grid container>
-        <Grid item xs={12}>
-          <ExpansionPanel>
-            <ExpansionPanelSummary
-              expandIcon={<ExpandMoreIcon />}
-              className={available ? null : classes.disabledPaper}
-            >
-              <Typography>{t('booking.seeCustomers')}</Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails
-              className={available ? null : classes.disabledPaper}
-            >
-              <BookingTable
-                loading={bookingLoading}
-                bookings={bookings}
-                bookingOptions={bookingOptions}
-                discardOption={discardOption}
-                bookingUpdaters={bookingUpdaters}
-              />
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
-        </Grid>
-      </Grid>
+      <ExpansionPanel>
+        <ExpansionPanelSummary
+          expandIcon={<ExpandMoreIcon />}
+          className={available ? null : classes.disabledPaper}
+        >
+          <Typography>{t('booking.seeCustomers')}</Typography>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails
+          className={available ? null : classes.disabledPaper}
+          style={{ padding: 0 }}
+        >
+          <div style={{ width: '100%' }}>
+            <Divider />
+            <BookingTable
+              loading={bookingLoading}
+              bookings={bookings}
+              bookingOptions={bookingOptions}
+              discardOption={discardOption}
+              bookingUpdaters={bookingUpdaters}
+            />
+          </div>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
     );
   };
 
@@ -370,7 +355,7 @@ export class OfferCard extends Component<Props> {
       );
     }
     return (
-      <List dense disablePadding style={{ width: '100%' }}>
+      <List dense style={{ width: '100%' }}>
         {compatiblePacks.map((cp) => (
           <PaymentPackSummary paymentPack={cp} key={cp.id} />
         ))}
@@ -383,27 +368,29 @@ export class OfferCard extends Component<Props> {
     const { available } = offer;
 
     return (
-      <Grid container>
-        <Grid item xs={12}>
-          <ExpansionPanel>
-            <ExpansionPanelSummary
-              expandIcon={<ExpandMoreIcon />}
-              className={available ? null : classes.disabledPaper}
-            >
-              <Typography>{t('offer.compatiblePacks')}</Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails
-              className={available ? null : classes.disabledPaper}
-            >
-              {compatiblePacksLoading ? (
+      <ExpansionPanel>
+        <ExpansionPanelSummary
+          expandIcon={<ExpandMoreIcon />}
+          className={available ? null : classes.disabledPaper}
+        >
+          <Typography>{t('offer.compatiblePacks')}</Typography>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails
+          className={available ? null : classes.disabledPaper}
+          style={{ padding: 0 }}
+        >
+          <div style={{ width: '100%' }}>
+            <Divider />
+            {compatiblePacksLoading ? (
+              <Grid container item alignItems="center">
                 <CircularProgress />
-              ) : (
-                this.renderPaymentPackList()
-              )}
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
-        </Grid>
-      </Grid>
+              </Grid>
+            ) : (
+              this.renderPaymentPackList()
+            )}
+          </div>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
     );
   };
 
@@ -412,27 +399,16 @@ export class OfferCard extends Component<Props> {
     const { available } = offer;
     if (offer) {
       return (
-        <div>
-          <Grid container direction="column">
-            <Grid item>
-              <Paper
-                square
-                className={available ? null : classes.disabledPaper}
-              >
-                <Grid container direction="column">
-                  {noHeader ? null : <Grid item>{this.getHeader()}</Grid>}
-                  <Grid item>{this.getStatsBody()}</Grid>
-                  <Grid item>{this.getFooter()}</Grid>
-                </Grid>
-              </Paper>
-            </Grid>
-            <Grid item xs={12}>
-              {this.getCustomer()}
-            </Grid>
-            <Grid item xs={12}>
-              {this.getCompatiblePacks()}
-            </Grid>
-          </Grid>
+        <div style={{ width: '100%' }}>
+          <Paper square className={available ? null : classes.disabledPaper}>
+            <div>
+              {noHeader ? null : this.getHeader()}
+              {this.getStatsBody()}
+              {this.getPracticalInfo()}
+            </div>
+          </Paper>
+          {this.getCustomer()}
+          {this.getCompatiblePacks()}
         </div>
       );
     }
@@ -448,12 +424,14 @@ const styles = (theme) => ({
     borderTop: 'solid 1px #EEEEEE',
     borderBottom: 'solid 1px #EEEEEE',
   },
-  stat: {
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
-  },
   info: {
     paddingLeft: theme.spacing.unit * 3,
+    paddingTop: theme.spacing.unit * 3,
+    paddingBottom: theme.spacing.unit * 3,
+  },
+  stat: { paddingBottom: 20 },
+  rightBorder: {
+    borderRight: '1px solid #EEEEEE',
   },
   editButtonContainer: {
     margin: theme.spacing.unit * 2,
@@ -463,6 +441,9 @@ const styles = (theme) => ({
   },
   disabledPaper: {
     backgroundColor: '#F6F6F6',
+  },
+  modifierButtonsBlock: {
+    marginTop: theme.spacing.unit * 2,
   },
 });
 

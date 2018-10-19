@@ -408,7 +408,7 @@ export default {
       },
       lastBooking: 'Prochain cours',
       // eslint-disable-next-line
-      waiting: "sur liste d'attente",
+      waiting: "Liste d'attente",
       confirmed: 'Confirmé(s)',
       free: 'place(s) disponible(s)',
       seeCustomers: 'Afficher les réservations',

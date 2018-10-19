@@ -2,13 +2,19 @@
 
 import React, { Component } from 'react';
 
-import { Typography, Grid, CircularProgress } from '@material-ui/core';
+import {
+  Typography,
+  withStyles,
+  List,
+  CircularProgress,
+} from '@material-ui/core';
 import { translate } from 'react-i18next';
 
 import BookingItemForManager from './BookingItemForManager.component';
 import BookingOptionForManager from './BookingOptionForManager.component';
 
 type Props = {
+  classes: Object,
   t: (x: string) => string,
   loading: boolean,
   heading: ?string,
@@ -27,6 +33,7 @@ export class BookingTable extends Component<Props> {
   render() {
     const {
       t,
+      classes,
       loading,
       heading,
       bookingOptions,
@@ -36,7 +43,7 @@ export class BookingTable extends Component<Props> {
     } = this.props;
 
     if (loading) {
-      return <CircularProgress />;
+      return <CircularProgress className={classes.contentWithMargin} />;
     }
 
     // prettier-ignore
@@ -45,7 +52,7 @@ export class BookingTable extends Component<Props> {
       && bookingOptions.length === 0
     ) {
       return (
-        <Typography variant="caption">
+        <Typography variant="caption" className={classes.contentWithMargin}>
           {t('booking.noBookingOnThisOffer')}
         </Typography>
       );
@@ -58,34 +65,36 @@ export class BookingTable extends Component<Props> {
     } = bookingUpdaters;
 
     return (
-      <Grid container direction="column" spacing={8} alignItems="stretch">
+      <List disablePadding dense>
         {bookings.map((b) => (
-          <Grid item key={b.id}>
-            <BookingItemForManager
-              heading={heading}
-              booking={b}
-              bookingUpdaters={{
-                confirmBooking: () => confirmBooking(b.id),
-                discardBooking: () => discardBooking(b.id),
-                discardBookingAttendance: () => discardBookingAttendance(b.id),
-                confirmBookingAttendance: () => confirmBookingAttendance(b.id),
-              }}
-            />
-          </Grid>
+          <BookingItemForManager
+            key={b.id}
+            heading={heading}
+            booking={b}
+            bookingUpdaters={{
+              confirmBooking: () => confirmBooking(b.id),
+              discardBooking: () => discardBooking(b.id),
+              discardBookingAttendance: () => discardBookingAttendance(b.id),
+              confirmBookingAttendance: () => confirmBookingAttendance(b.id),
+            }}
+          />
         ))}
         {bookingOptions.map((bo) => (
-          <Grid item key={bo.id}>
-            <BookingOptionForManager
-              heading={heading}
-              option={bo}
-              key={bo.id}
-              discardOption={() => discardOption(bo.id)}
-            />
-          </Grid>
+          <BookingOptionForManager
+            heading={heading}
+            option={bo}
+            key={bo.id}
+            discardOption={() => discardOption(bo.id)}
+          />
         ))}
-      </Grid>
+      </List>
     );
   }
 }
+const styles = (theme) => ({
+  contentWithMargin: {
+    margin: theme.spacing.unit * 3,
+  },
+});
 
-export default translate()(BookingTable);
+export default withStyles(styles)(translate()(BookingTable));

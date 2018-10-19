@@ -10,18 +10,9 @@ function updateBookings(
   all: Array<Booking>,
 ): { all: Array<Booking> } {
   const cleanedOldAll = all.filter((b) => b.id !== booking.id);
-  switch (booking.status) {
-    case true:
-      return {
-        all: [booking, ...cleanedOldAll],
-      };
-    case null:
-      return {
-        all: cleanedOldAll,
-      };
-    default:
-      return { all: cleanedOldAll };
-  }
+  return {
+    all: [booking, ...cleanedOldAll],
+  };
 }
 
 function updateOptions(
@@ -91,6 +82,7 @@ export default function bookingReducers(state = initialState, action = {}) {
         loading: false,
         options: booking_options,
         bookingOptionsUpdating: [],
+        bookingsUpdating: [],
       });
     }
 

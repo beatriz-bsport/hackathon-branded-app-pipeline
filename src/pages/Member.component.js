@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 
 import {
+  Divider,
   Grid,
   Typography,
   Paper,
@@ -36,7 +37,7 @@ import type {
 import { Moment } from '../i18n';
 
 type Props = {
-  loading: boolean,
+  memberLoading: boolean,
   bookingLoading: boolean,
   member: MemberDetailed,
   allMembers: Array<MemberSimplified>,
@@ -136,6 +137,7 @@ export class Member extends Component<Props> {
       classes,
       allMembers,
       bookings,
+      bookingLoading,
       bookingOptions,
       confirmBooking,
       confirmBookingAttendance,
@@ -171,18 +173,22 @@ export class Member extends Component<Props> {
             </Grid>
           </Grid>
         </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <BookingTable
-            heading="date_start"
-            bookings={bookingsFuture}
-            bookingOptions={bookingOptionsFuture}
-            bookingUpdaters={{
-              discardBooking,
-              confirmBooking,
-              discardBookingAttendance,
-              confirmBookingAttendance,
-            }}
-          />
+        <ExpansionPanelDetails style={{ padding: 0 }}>
+          <div style={{ width: '100%' }}>
+            <Divider />
+            <BookingTable
+              heading="date_start"
+              loading={bookingLoading}
+              bookings={bookingsFuture}
+              bookingOptions={bookingOptionsFuture}
+              bookingUpdaters={{
+                discardBooking,
+                confirmBooking,
+                discardBookingAttendance,
+                confirmBookingAttendance,
+              }}
+            />
+          </div>
         </ExpansionPanelDetails>
       </ExpansionPanel>
     );
@@ -194,6 +200,7 @@ export class Member extends Component<Props> {
       classes,
       allMembers,
       bookings,
+      bookingLoading,
       bookingOptions,
       confirmBooking,
       confirmBookingAttendance,
@@ -231,18 +238,22 @@ export class Member extends Component<Props> {
             </Grid>
           </Grid>
         </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <BookingTable
-            heading="date_start"
-            bookings={bookingsPast}
-            bookingOptions={bookingOptionsPast}
-            bookingUpdaters={{
-              discardBooking,
-              confirmBooking,
-              discardBookingAttendance,
-              confirmBookingAttendance,
-            }}
-          />
+        <ExpansionPanelDetails style={{ padding: 0 }}>
+          <div style={{ width: '100%' }}>
+            <Divider />
+            <BookingTable
+              heading="date_start"
+              loading={bookingLoading}
+              bookings={bookingsPast}
+              bookingOptions={[]}
+              bookingUpdaters={{
+                discardBooking,
+                confirmBooking,
+                discardBookingAttendance,
+                confirmBookingAttendance,
+              }}
+            />
+          </div>
         </ExpansionPanelDetails>
       </ExpansionPanel>
     );
@@ -279,8 +290,7 @@ export class Member extends Component<Props> {
   };
 
   render() {
-    const { loading, bookingLoading, t, classes } = this.props;
-    const stillLoading = loading && bookingLoading;
+    const { memberLoading, bookingLoading, t, classes } = this.props;
     return (
       <div>
         <div>
@@ -290,7 +300,7 @@ export class Member extends Component<Props> {
             </Button>
           </Link>
         </div>
-        <div>{stillLoading ? <CircularProgress /> : this.renderContent()}</div>
+        <div>{memberLoading ? <CircularProgress /> : this.renderContent()}</div>
       </div>
     );
   }
@@ -298,7 +308,7 @@ export class Member extends Component<Props> {
 
 function mapStateToProps(state) {
   return {
-    loading: state.member.loading,
+    memberLoading: state.member.loading,
     member: state.member.member,
     allMembers: state.member.all,
     bookingLoading: state.booking.loading,

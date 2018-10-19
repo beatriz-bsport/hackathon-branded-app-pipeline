@@ -39,7 +39,7 @@ export class PaymentPackMinimalSummary extends Component<Props> {
     }
 
     return (
-      <ListItem disableGutters divider={!noDivider}>
+      <ListItem divider={!noDivider}>
         <ListItemText primary={name} secondary={creditsFormatted} />
         <ListItemText
           primary={t('paymentPack.validity')}

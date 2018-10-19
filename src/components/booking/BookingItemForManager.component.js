@@ -6,7 +6,9 @@ import {
   Avatar,
   Button,
   Grid,
+  ListItem,
   ListItemText,
+  ListItemSecondaryAction,
 } from '@material-ui/core';
 import CachedIcon from '@material-ui/icons/Cached';
 import { translate } from 'react-i18next';
@@ -116,20 +118,24 @@ export class BookingItemForManager extends Component<Props> {
 
     if (booking.attendance) {
       return (
-        <Button
-          color="primary"
-          onClick={bookingUpdaters.discardBookingAttendance}
-        >
-          {t('booking.attend')}
-          <CachedIcon className={classes.iconButton} />
-        </Button>
+        <ListItemSecondaryAction>
+          <Button
+            color="primary"
+            onClick={bookingUpdaters.discardBookingAttendance}
+          >
+            {t('booking.attend')}
+            <CachedIcon className={classes.iconButton} />
+          </Button>
+        </ListItemSecondaryAction>
       );
     }
     return (
-      <RedButton onClick={bookingUpdaters.confirmBookingAttendance}>
-        {t('booking.doNotAttend')}
-        <CachedIcon className={classes.iconButton} />
-      </RedButton>
+      <ListItemSecondaryAction>
+        <RedButton onClick={bookingUpdaters.confirmBookingAttendance}>
+          {t('booking.doNotAttend')}
+          <CachedIcon className={classes.iconButton} />
+        </RedButton>
+      </ListItemSecondaryAction>
     );
   };
 
@@ -149,11 +155,7 @@ export class BookingItemForManager extends Component<Props> {
       case 'date_start':
         return null;
       default:
-        return (
-          <Grid item>
-            <Avatar src={booking.user.photo} />
-          </Grid>
-        );
+        return <Avatar src={booking.user.photo} />;
     }
   };
 
@@ -162,34 +164,15 @@ export class BookingItemForManager extends Component<Props> {
     // <TableCell>{t(`booking.sources.${b.source}`)}</TableCell>
     const statusText = this.getStatusText(booking.status);
     return (
-      <Grid
-        container
-        direction="row"
-        justify="space-between"
-        alignItems="center"
-      >
-        <Grid item>
-          <Grid
-            container
-            direction="row"
-            alignItems="center"
-            justify="flex-start"
-            spacing={16}
-          >
-            {this.getAvatar()}
-            <Grid item>
-              <ListItemText
-                primary={this.getHeading()}
-                secondary={statusText}
-                secondaryTypographyProps={this.getStatusStyleProps(
-                  booking.status,
-                )}
-              />
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item>{this.renderButton()}</Grid>
-      </Grid>
+      <ListItem disabled={!booking.attendance} divider>
+        {this.getAvatar()}
+        <ListItemText
+          primary={this.getHeading()}
+          secondary={statusText}
+          secondaryTypographyProps={this.getStatusStyleProps(booking.status)}
+        />
+        {this.getAttendance()}
+      </ListItem>
     );
   }
 }

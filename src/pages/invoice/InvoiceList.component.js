@@ -10,10 +10,10 @@ import { translate } from 'react-i18next';
 import CONTENT_TYPES from 'bsport-commons/lib/master-data/content-types';
 import { PAYMENT_PACK } from 'bsport-commons/lib/master-data/payment-methods';
 
-import { formatAsDatetime } from '../datetime';
-import { FeatureTable } from '../components';
+import { formatAsDatetime } from '../../datetime';
+import { FeatureTable } from '../../components';
 
-import type { Member, Invoice } from '../api/types';
+import type { Member, Invoice } from '../../api/types';
 
 type Props = {
   t: (x: string) => string,

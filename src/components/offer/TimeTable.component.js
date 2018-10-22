@@ -11,10 +11,10 @@ import {
   withStyles,
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
-import { Moment } from '../i18n';
-import type { Offer } from '../api/types';
+import { Moment } from '../../i18n';
+import type { Offer } from '../../api/types';
 
-import OfferMinimalSummary from './offer/OfferMinimalSummary.component';
+import OfferMinimalSummary from './OfferMinimalSummary.component';
 
 function getOffersToday(date: Object, offers: Array<Offer>): Array<Offer> {
   return offers.filter((o) => Moment(o.date_start).isSame(date, 'day'));

@@ -12,11 +12,11 @@ import {
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 
-import { formatAsDatetime } from '../datetime';
-import { FeatureTable } from '../components';
-import type { Member } from '../api/types';
+import { formatAsDatetime } from '../../datetime';
+import { FeatureTable } from '../../components';
+import type { Member } from '../../api/types';
 
-import { member as memberActions } from '../actions';
+import { member as memberActions } from '../../actions';
 
 type Props = {
   onUpdateMember: (*) => void,

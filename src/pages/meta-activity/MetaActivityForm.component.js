@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import Snackbar from '@material-ui/core/Snackbar';
 import { withRouter } from 'react-router';
 
-import MetaActivityForm from '../components/form/MetaActivityForm.component';
-import api from '../api';
+import MetaActivityForm from '../../components/form/MetaActivityForm.component';
+import api from '../../api';
 
 type Props = {
   associatedCoaches: *[],

@@ -21,7 +21,7 @@ import {
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 
-import { Moment } from '../i18n';
+import { Moment } from '../../i18n';
 
 import {
   Review,
@@ -31,14 +31,14 @@ import {
   PackMinimalSummary,
   Calendar,
   TimeTable,
-} from '../components';
-import { metaActivity as metaActivityActions } from '../actions';
+  } from '../../components';
+import { metaActivity as metaActivityActions } from '../../actions';
 import type {
   Activity,
   Offer,
   MetaActivity as MetaActivityType,
   Stat,
-} from '../api/types';
+  } from '../../api/types';
 
 type Props = {
   metaActivity: MetaActivityType,

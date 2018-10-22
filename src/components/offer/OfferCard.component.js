@@ -26,15 +26,14 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { translate } from 'react-i18next';
 
-import Level from './Level.component';
-import Sport from './Sport.component';
-import Avatar from './Avatar.component';
-import BookingTable from './booking/BookingTable.component';
-import PaymentPackSummary from './consumer/PaymentPackSummary.component';
-import RedButton from './button/RedButton.component';
+import { Level, Sport } from '../category';
+import Avatar from '../Avatar.component';
+import BookingTable from '../booking/BookingTable.component';
+import PaymentPackSummary from '../consumer/PaymentPackSummary.component';
+import RedButton from '../button/RedButton.component';
 
-import { formatAsTime } from '../datetime';
-import type { Offer, PaymentPack } from '../api/types';
+import { formatAsTime } from '../../datetime';
+import type { Offer, PaymentPack } from '../../api/types';
 
 type Props = {
   t: (x: string) => string,

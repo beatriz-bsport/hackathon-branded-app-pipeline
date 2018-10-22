@@ -4,7 +4,7 @@ import React from 'react';
 import type { Node } from 'react';
 
 import { Modal, Paper, withStyles } from '@material-ui/core';
-import ConsumerMenu from '../ConsumerMenu.component';
+import ConsumerMenu from '../navigation/ConsumerMenu.component';
 
 const styles = (theme) => ({
   paperContainer: {

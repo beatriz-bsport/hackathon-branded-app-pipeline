@@ -4,10 +4,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
-import { createOrUpdateEstablishment } from '../actions/establishment.actions';
-import EstablishmentForm from '../components/form/EstablishmentForm.component';
+import { createOrUpdateEstablishment } from '../../actions/establishment.actions';
+import EstablishmentForm from '../../components/form/EstablishmentForm.component';
 
-import { mapFormData } from './form.utils';
+import { mapFormData } from '../form.utils';
 
 type Props = {
   createOrUpdateEstablishment: (*) => void,

@@ -12,7 +12,7 @@ import {
 
 import { translate } from 'react-i18next';
 
-import Level from '../Level.component';
+import { Level } from '../category';
 import { formatAsDatetime, formatAsTime } from '../../datetime';
 import type { Offer } from '../../api/types';
 

@@ -21,27 +21,27 @@ import {
 } from '../actions';
 
 import Dashboard from './Dashboard.component';
-import MetaActivityList from './MetaActivityList.component';
-import MetaActivity from './MetaActivity.component';
-import CoachList from './CoachList.component';
-import CoachPerformance from './CoachPerformance.component';
-import InvoiceList from './InvoiceList.component';
-import MemberList from './MemberList.component';
-import Member from './Member.component';
-import PaymentPackList from './PaymentPackList.component';
-import PaymentPackForm from './PaymentPackForm.component';
+
 import Planning from './Planning.component';
-import EstablishmentMap from './EstablishmentMap.component';
-import CoachForm from './CoachForm.component';
-import MetaActivityForm from './MetaActivityForm.component';
-import MarketingDashboard from './MarketingDashboard.component';
-import MarketingRule from './MarketingRule.component';
-import MemberForm from './MemberForm.component';
 import OfferFormPage from './OfferFormPage.component';
-import EstablishmentFormPage from './EstablishmentFormPage.component';
-import InvoiceFormPage from './InvoiceFormPage.component';
+
+import {
+  MetaActivityForm,
+  MetaActivityList,
+  MetaActivity,
+} from './meta-activity';
+import { MarketingDashboard, MarketingRule } from './marketing';
+import { InvoiceList, InvoiceFormPage } from './invoice';
+import { PaymentPackList, PaymentPackForm } from './payment-pack';
+import { CoachList, CoachPerformance, CoachForm } from './coach';
+import { Member, MemberList, MemberForm } from './member';
+import { EstablishmentMap, EstablishmentFormPage } from './establishment';
 
 const styles = (theme: Object) => ({
+  toolbar: theme.mixins.toolbar,
+  progress: {
+    flexGrow: 1,
+  },
   content: {
     backgroundColor: theme.palette.background.default,
     paddingTop: theme.spacing.unit * 3,
@@ -50,10 +50,6 @@ const styles = (theme: Object) => ({
       paddingLeft: theme.spacing.unit * 3,
       paddingRight: theme.spacing.unit * 3,
     },
-    flexGrow: 1,
-  },
-  toolbar: theme.mixins.toolbar,
-  progress: {
     flexGrow: 1,
   },
 });
@@ -79,16 +75,16 @@ export class Backoffice extends Component<Props> {
   }
 
   componentDidMount() {
-    this.props.fetchAllActivities();
+    this.props.fetchSCT();
+    this.props.fetchInvoices();
     this.props.fetchAllOffers();
     this.props.fetchAllMembers();
+    this.props.fetchAllActivities();
+    this.props.fetchDashboardStats();
+    this.props.fetchAllPaymentPacks();
     this.props.fetchActivitiesMinimal();
     this.props.fetchAssociatedCoaches();
     this.props.fetchAllEstablishments();
-    this.props.fetchSCT();
-    this.props.fetchInvoices();
-    this.props.fetchAllPaymentPacks();
-    this.props.fetchDashboardStats();
   }
 
   render() {
@@ -194,4 +190,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(themedBackoffice);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(themedBackoffice);

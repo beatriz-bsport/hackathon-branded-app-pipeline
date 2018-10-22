@@ -7,9 +7,9 @@ import AddIcon from '@material-ui/icons/Add';
 import { translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import { coach as coachActions } from '../actions';
-import { CoachCard } from '../components';
-import type { Coach } from '../api/types';
+import { coach as coachActions } from '../../actions';
+import { CoachCard } from '../../components';
+import type { Coach } from '../../api/types';
 
 const styles = (theme) => ({
   button: {

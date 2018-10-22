@@ -25,16 +25,19 @@ import { translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { booking as bookingActions, member as memberActions } from '../actions';
-import { Avatar, BookingTable } from '../components';
-import { formatAsDatetime } from '../datetime';
+import {
+  booking as bookingActions,
+  member as memberActions,
+} from '../../actions';
+import { Avatar, BookingTable } from '../../components';
+import { formatAsDatetime } from '../../datetime';
 import type {
   MemberDetailed,
   Member as MemberSimplified,
   Booking,
   BookingOption,
-} from '../api/types';
-import { Moment } from '../i18n';
+} from '../../api/types';
+import { Moment } from '../../i18n';
 
 type Props = {
   memberLoading: boolean,

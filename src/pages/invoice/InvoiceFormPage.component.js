@@ -5,9 +5,9 @@ import { Paper, withStyles } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 
-import { InvoiceForm } from '../components';
+import { InvoiceForm } from '../../components';
 // import type { InvoiceFormData } from '../components/form/types'; //TODO
-import type { Offer, Activity, Member, PaymentPack } from '../api/types';
+import type { Offer, Activity, Member, PaymentPack } from '../../api/types';
 
 type Props = {
   classes: Object,

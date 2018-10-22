@@ -4,10 +4,13 @@ import React, { Component } from 'react';
 import { Paper, Grid, Typography, withStyles } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
-import { CoachPerformanceForm, CoachPerformanceSummary } from '../components';
-import { coach as coachActions } from '../actions';
-import type { PerformanceCalculationRule } from '../components/form/types';
-import type { Coach } from '../api/types';
+import {
+  CoachPerformanceForm,
+  CoachPerformanceSummary,
+} from '../../components';
+import { coach as coachActions } from '../../actions';
+import type { PerformanceCalculationRule } from '../../components/form/types';
+import type { Coach } from '../../api/types';
 
 type Props = {
   coaches: Array<Coach>,

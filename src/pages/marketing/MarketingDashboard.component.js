@@ -4,9 +4,9 @@ import React, { Component } from 'react';
 import { Typography, Grid, withStyles } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
-import { Moment } from '../i18n';
+import { Moment } from '../../i18n';
 
-import RuleCard from '../components/marketing/RuleCard.component';
+import RuleCard from '../../components/marketing/RuleCard.component';
 
 type Props = {
   t: (x: string) => string,

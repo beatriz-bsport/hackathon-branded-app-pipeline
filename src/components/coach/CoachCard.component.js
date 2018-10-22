@@ -16,9 +16,9 @@ import EmailIcon from '@material-ui/icons/Email';
 import { Link } from 'react-router-dom';
 import { translate } from 'react-i18next';
 
-import Avatar from './Avatar.component';
-import ActivityMinimalSummary from './activity/ActivityMinimalSummary.component';
-import type { CoachDetailed, AssociatedCoach } from '../api/types';
+import Avatar from '../Avatar.component';
+import ActivityMinimalSummary from '../activity/ActivityMinimalSummary.component';
+import type { CoachDetailed, AssociatedCoach } from '../../api/types';
 
 const OVERFLOW = 100;
 

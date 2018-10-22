@@ -18,7 +18,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { translate } from 'react-i18next';
 
 import ActivityMinimalSummary from '../activity/ActivityMinimalSummary.component';
-import Sport from '../Sport.component';
+import { Sport } from '../category';
 import ConsumersPackSummaryTable from './ConsumersPackSummaryTable.component';
 import type { PaymentPackManagerView } from '../../api/types';
 import { formatAsDate } from '../../datetime';

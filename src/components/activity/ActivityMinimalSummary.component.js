@@ -12,10 +12,9 @@ import {
 
 import { translate } from 'react-i18next';
 
-import Level from '../Level.component';
-import Sport from '../Sport.component';
 import Avatar from '../Avatar.component';
 import { formatAsDatetime } from '../../datetime';
+import { Level, Sport } from '../category';
 import type { ActivitySimplified } from '../../api/types';
 
 const styles = () => ({

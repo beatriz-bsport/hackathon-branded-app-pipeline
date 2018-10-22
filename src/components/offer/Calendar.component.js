@@ -12,7 +12,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ViewWeek from '@material-ui/icons/ViewWeek';
 import ViewComfy from '@material-ui/icons/ViewComfy';
-import { Moment } from '../i18n';
+import { Moment } from '../../i18n';
 
 const WEEKMODE: number = 0;
 const MONTHMODE: number = 1;

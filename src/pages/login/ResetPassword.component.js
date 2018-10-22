@@ -11,8 +11,8 @@ import {
   TextField,
 } from '@material-ui/core';
 
-import { auth as authActions } from '../actions';
-import { LoginBase } from '../components';
+import { auth as authActions } from '../../actions';
+import { LoginBase } from '../../components';
 
 type Props = {
   resetPassword: (string) => void,

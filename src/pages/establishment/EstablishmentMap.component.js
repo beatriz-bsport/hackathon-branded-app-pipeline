@@ -16,10 +16,10 @@ import {
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
-import { establishment as establishmentActions } from '../actions';
-import { EstablishmentCard, TimeTable, Calendar, Map } from '../components';
-import { Moment } from '../i18n';
-import type { Establishment, Activity, Offer } from '../api/types';
+import { establishment as establishmentActions } from '../../actions';
+import { EstablishmentCard, TimeTable, Calendar, Map } from '../../components';
+import { Moment } from '../../i18n';
+import type { Establishment, Activity, Offer } from '../../api/types';
 
 type Props = {
   timetableLoading: boolean,

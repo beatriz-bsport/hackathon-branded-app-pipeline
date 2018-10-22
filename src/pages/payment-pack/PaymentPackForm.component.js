@@ -8,11 +8,11 @@ import { withStyles } from '@material-ui/core/styles';
 import { Redirect, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
-import PaymentPackForm from '../components/form/PackForm.component';
-import { paymentPack as paymentPackActions } from '../actions';
+import PaymentPackForm from '../../components/form/PackForm.component';
+import { paymentPack as paymentPackActions } from '../../actions';
 
-import api from '../api';
-import type { SCT, ActivitySimplified } from '../api/types';
+import api from '../../api';
+import type { SCT, ActivitySimplified } from '../../api/types';
 
 type Props = {
   categories: Array<SCT>,

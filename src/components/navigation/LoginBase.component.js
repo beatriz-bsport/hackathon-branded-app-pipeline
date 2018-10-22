@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 import { Paper, Grid, withStyles } from '@material-ui/core';
 
-import B_ASSET from '../public/images/b_dark.jpg';
+import B_ASSET from '../../public/images/b_dark.jpg';
 
 const styles = () => ({
   container: {

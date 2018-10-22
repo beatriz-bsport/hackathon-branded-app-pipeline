@@ -4,7 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import { auth as authActions } from '../actions';
+import { auth as authActions } from '../../actions';
 
 type Props = {
   disconnect: () => void,

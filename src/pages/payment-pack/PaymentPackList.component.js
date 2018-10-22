@@ -8,8 +8,8 @@ import { CircularProgress, Button, withStyles, Grid } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import AddIcon from '@material-ui/icons/Add';
 
-import { PaymentPackCard } from '../components';
-import { paymentPack as paymentPackActions } from '../actions';
+import { PaymentPackCard } from '../../components';
+import { paymentPack as paymentPackActions } from '../../actions';
 
 const styles = (theme) => ({
   paymentPackContainer: {

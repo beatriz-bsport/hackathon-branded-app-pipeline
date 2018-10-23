@@ -344,11 +344,14 @@ export class OfferCard extends Component<Props> {
   };
 
   renderPaymentPackList = () => {
-    const { t, compatiblePacks } = this.props;
+    const { t, classes, compatiblePacks } = this.props;
 
     if (compatiblePacks.length === 0) {
       return (
-        <Typography variant="caption">
+        <Typography
+          className={classes.noCompatiblePacksTypography}
+          variant="caption"
+        >
           {t('offer.noCompatiblePacks')}
         </Typography>
       );
@@ -443,6 +446,9 @@ const styles = (theme) => ({
   },
   modifierButtonsBlock: {
     marginTop: theme.spacing.unit * 2,
+  },
+  noCompatiblePacksTypography: {
+    padding: theme.spacing.unit * 2,
   },
 });
 

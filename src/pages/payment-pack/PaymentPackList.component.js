@@ -13,7 +13,10 @@ import { paymentPack as paymentPackActions } from '../../actions';
 
 const styles = (theme) => ({
   paymentPackContainer: {
-    padding: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit * 4,
+    [theme.breakpoints.up('sm')]: {
+      paddingRight: theme.spacing.unit * 4,
+    },
   },
   extendedIcon: {
     marginRight: theme.spacing.unit,

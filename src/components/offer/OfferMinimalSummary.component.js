@@ -80,6 +80,7 @@ export function OfferMinimalSummary(props: Props) {
       onClick={overrideClickAction}
       className={classes.listItem}
       divider
+      dense
     >
       <Tooltip title={coach.name}>
         <IconButton disableRipple disabled={coach_override}>

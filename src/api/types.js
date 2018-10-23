@@ -11,7 +11,8 @@ export type Performance = Array<OfferPerformance>;
 export type Invoice = {
   uuid: string,
   date: string,
-  price: number,
+  price_due: number,
+  price_payed: number,
   member: number,
   content_type: string,
   object_id: number,

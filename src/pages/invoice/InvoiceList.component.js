@@ -1,13 +1,18 @@
 // @flow
 
 import React, { Component } from 'react';
-import { Grid, CircularProgress } from '@material-ui/core';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
+import {
+  TableRow,
+  TableCell,
+  Typography,
+  Grid,
+  CircularProgress,
+} from '@material-ui/core';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
+import DoneIcon from '@material-ui/icons/Done';
+import ErrorIcon from '@material-ui/icons/ErrorOutline';
 
-import CONTENT_TYPES from 'bsport-commons/lib/master-data/content-types';
 import { PAYMENT_PACK } from 'bsport-commons/lib/master-data/payment-methods';
 
 import { formatAsDatetime } from '../../datetime';
@@ -22,6 +27,26 @@ type Props = {
   members: Array<Member>,
 };
 
+function renderStatus(invoice: Invoice) {
+  const payed =
+    -(invoice.price_due - invoice.price_payed - invoice.voucher) >= 0;
+  if (payed) {
+    return <DoneIcon color="primary" />;
+  }
+  return (
+    <Grid container direction="row" alignItems="flex-end" spacing={24}>
+      <Grid item>
+        <Typography>
+          - {invoice.price_due - invoice.price_payed - invoice.voucher} €
+        </Typography>
+      </Grid>
+      <Grid>
+        <ErrorIcon color="error" />
+      </Grid>
+    </Grid>
+  );
+}
+
 export class InvoiceList extends Component<Props> {
   getColumnData = () => {
     const { t } = this.props;
@@ -35,16 +60,16 @@ export class InvoiceList extends Component<Props> {
         label: t('payment.consumer'),
       },
       {
-        id: 'content_type',
-        label: t('payment.type'),
+        id: 'date',
+        label: t('payment.paymentDate'),
       },
       {
-        id: 'price',
+        id: 'price_due',
         label: t('payment.amount'),
       },
       {
-        id: 'date',
-        label: t('payment.paymentDate'),
+        id: 'status',
+        label: t('payment.fullyPaid'),
       },
     ];
   };
@@ -57,15 +82,9 @@ export class InvoiceList extends Component<Props> {
       <TableCell>
         {this.props.members.filter((m) => m.id === inv.member)[0].name}
       </TableCell>
-      <TableCell>
-        {this.props.t(
-          `content_type.${
-            CONTENT_TYPES.filter((ct) => ct.id === inv.content_type)[0]
-          }`,
-        )}
-      </TableCell>
-      <TableCell numeric>{inv.price}</TableCell>
-      <TableCell numeric>{formatAsDatetime(inv.date)}</TableCell>
+      <TableCell>{formatAsDatetime(inv.date)}</TableCell>
+      <TableCell>{inv.price_due} €</TableCell>
+      <TableCell>{renderStatus(inv)}</TableCell>
     </TableRow>
   );
 

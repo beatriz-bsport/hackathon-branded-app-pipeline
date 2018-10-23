@@ -290,7 +290,8 @@ export default {
       payWithNCredits2: 'crédit',
       pay: 'Payer',
       type: 'Type',
-      amount: 'Montant (€)',
+      amount: 'Montant',
+      fullyPaid: 'Status',
       consumer: 'Client',
       // eslint-disable-next-line
       paymentDate: "Date d'achat",

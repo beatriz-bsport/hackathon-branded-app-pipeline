@@ -43,6 +43,17 @@ export async function put(uri: string, data: Object, headers: Object) {
   });
 }
 
+export async function patch(uri: string, data: Object, headers: Object) {
+  const baseHeaders = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  };
+
+  return axios.patch(uri, data, {
+    headers: Object.assign(baseHeaders, headers),
+  });
+}
+
 export async function get(uri: string, headers: {} = {}) {
   return axios({
     url: uri,
@@ -64,4 +75,9 @@ export async function postAuth(uri: string, data: Object, token) {
 export async function putAuth(uri: string, data: Object) {
   const token = getAuthToken();
   return put(uri, data, { Authorization: `Token ${token}` });
+}
+
+export async function patchAuth(uri: string, data: Object) {
+  const token = getAuthToken();
+  return patch(uri, data, { Authorization: `Token ${token}` });
 }

@@ -26,15 +26,7 @@ type Props = {
   compatibleConsumerPacksLoading: boolean,
 };
 
-type State = {
-  stripe: ?Object,
-};
-
 export class OfferPayment extends Component<Props, State> {
-  state = {
-    stripe: null,
-  };
-
   componentWillMount() {
     const { option_id } = parse(this.props.location.search);
     if (option_id) {
@@ -44,6 +36,7 @@ export class OfferPayment extends Component<Props, State> {
     }
   }
 
+  /*
   componentDidMount() {
     if (window.Stripe) {
       this.setState({ stripe: window.Stripe(STRIPE_KEY) });
@@ -54,6 +47,7 @@ export class OfferPayment extends Component<Props, State> {
       });
     }
   }
+  */
 
   getBasket = () => {
     const { offer, loading, t } = this.props;
@@ -143,7 +137,6 @@ export class OfferPayment extends Component<Props, State> {
 
   render() {
     const { loading, offer } = this.props;
-    const { stripe } = this.state;
 
     const unlimitedPacks = this.getCompatibleUnlimitedPass();
     if (unlimitedPacks.length && !loading && !(offer === null)) {
@@ -159,7 +152,7 @@ export class OfferPayment extends Component<Props, State> {
     }
 
     return (
-      <StripeProvider stripe={stripe}>
+      <StripeProvider apiKey={STRIPE_KEY}>
         <Grid container spacing={16} direction="column">
           <Grid item>{this.getBasket()}</Grid>
           <Divider />

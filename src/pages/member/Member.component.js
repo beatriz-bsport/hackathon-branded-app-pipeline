@@ -8,7 +8,6 @@ import {
   Typography,
   Paper,
   withStyles,
-  IconButton,
   ExpansionPanel,
   ExpansionPanelSummary,
   ExpansionPanelDetails,
@@ -20,9 +19,12 @@ import {
 } from '@material-ui/core';
 import EmailIcon from '@material-ui/icons/Email';
 import CallIcon from '@material-ui/icons/Call';
+import EditIcon from '@material-ui/icons/Edit';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { goBack as routerBack, push as routerPush } from 'react-router-redux';
 import { connect } from 'react-redux';
 
 import {
@@ -54,6 +56,9 @@ type Props = {
   confirmBookingAttendance: (id: number) => void,
   discardBooking: (id: number) => void,
   discardBookingAttendance: (id: number) => void,
+  editMember: (id: number) => void,
+  billMember: (id: number) => void,
+  goBack: () => void,
   t: (x: string) => string,
 };
 export class Member extends Component<Props> {
@@ -64,6 +69,14 @@ export class Member extends Component<Props> {
     this.props.fetchMember(this.memberId);
     this.props.fetchMemberBookings(this.memberId);
   }
+
+  billMember = () => {
+    this.props.billMember(this.memberId);
+  };
+
+  editMember = () => {
+    this.props.editMember(this.memberId);
+  };
 
   getFirstRow = () => {
     const { t, member, classes } = this.props;
@@ -83,36 +96,72 @@ export class Member extends Component<Props> {
           <Grid item>
             <Grid container direction="row" alignItems="center" spacing={16}>
               <Grid item>
-                <Avatar user={consumer} variant="mediumNoname" noname />
-              </Grid>
-              <Grid item>
-                <Grid
-                  container
-                  direction="column"
-                  alignItems="flex-start"
-                  justify="space-around"
-                  spacing={8}
-                >
-                  <Grid item>
-                    <Typography>
-                      {consumer.first_name} {consumer.last_name}
-                    </Typography>
+                <Grid container direction="column" spacing={24}>
+                  <Grid
+                    container
+                    direction="row"
+                    spacing={16}
+                    alignItems="center"
+                  >
+                    <Grid item>
+                      <Avatar user={consumer} variant="mediumNoname" noname />
+                    </Grid>
+                    <Grid item>
+                      <Grid
+                        container
+                        direction="column"
+                        alignItems="flex-start"
+                        justify="space-around"
+                        spacing={8}
+                      >
+                        <Grid item>
+                          <Typography>
+                            {consumer.first_name} {consumer.last_name}
+                          </Typography>
+                        </Grid>
+                        <Grid item>
+                          <Typography>
+                            {t('member.memberSince') + member.date_joined}
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                    </Grid>
                   </Grid>
                   <Grid item>
-                    <Typography>
-                      {t('member.memberSince') + member.date_joined}
-                    </Typography>
+                    <Grid
+                      container
+                      direction="row"
+                      justify="flex-start"
+                      spacing={16}
+                    >
+                      <Grid item>
+                        <Button onClick={this.billMember}>
+                          <AttachMoneyIcon
+                            className={classes.leftIcon}
+                            color="primary"
+                          />
+                          {t('payment.toBill')}
+                        </Button>
+                      </Grid>
+                      <Grid item>
+                        <Button onClick={this.editMember}>
+                          <EditIcon
+                            className={classes.leftIcon}
+                            color="primary"
+                          />
+                          {t('common.edit')}
+                        </Button>
+                      </Grid>
+                    </Grid>
                   </Grid>
                 </Grid>
               </Grid>
             </Grid>
           </Grid>
           <Grid item>
-            <List>
+            <List dense>
               <ListItem>
-                <IconButton>
-                  <CallIcon />
-                </IconButton>
+                <CallIcon />
                 <ListItemText
                   primary={
                     // prettier-ignore
@@ -121,9 +170,7 @@ export class Member extends Component<Props> {
                 />
               </ListItem>
               <ListItem>
-                <IconButton>
-                  <EmailIcon />
-                </IconButton>
+                <EmailIcon />
                 <ListItemText primary={member.consumer.email || ' - '} />
               </ListItem>
             </List>
@@ -297,11 +344,14 @@ export class Member extends Component<Props> {
     return (
       <div>
         <div>
-          <Link to="/member" style={{ textDecoration: 'none' }}>
-            <Button size="large" color="primary" className={classes.backButton}>
-              {t('navigation.goBack')}
-            </Button>
-          </Link>
+          <Button
+            onClick={this.props.onBack}
+            size="large"
+            color="primary"
+            className={classes.backButton}
+          >
+            {t('navigation.goBack')}
+          </Button>
         </div>
         <div>{memberLoading ? <CircularProgress /> : this.renderContent()}</div>
       </div>
@@ -339,6 +389,15 @@ function mapDispatchToProps(dispatch) {
     discardBooking(bookingId) {
       dispatch(bookingActions.discardBooking(bookingId));
     },
+    billMember(id) {
+      dispatch(routerPush(`/member/add-invoice/${id}`));
+    },
+    editMember(id) {
+      dispatch(routerPush(`/member/edit/${id}`));
+    },
+    goBack() {
+      dispatch(routerBack());
+    },
   };
 }
 
@@ -361,6 +420,9 @@ const styles = (theme) => ({
   secondaryHeadingExpansionPanel: {
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
   },
 });
 

@@ -17,6 +17,7 @@ type Props = {
   InputProps: ?Object,
   helperText: ?string,
   classes: Object,
+  variant: ?string,
 };
 
 export function NumericInput(props: Props) {
@@ -30,9 +31,11 @@ export function NumericInput(props: Props) {
     error,
     InputProps,
     helperText,
+    variant,
   } = props;
   return (
     <TextField
+      variant={variant}
       className={classes.textInput}
       required={required}
       disabled={disabled}

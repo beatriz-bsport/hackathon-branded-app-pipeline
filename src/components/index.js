@@ -45,9 +45,15 @@ import ConsumersPackSummaryTable from './payment-pack/ConsumersPackSummaryTable.
 import CoachPerformanceForm from './coach/CoachPerformanceForm.component';
 import CoachPerformanceSummary from './coach/CoachPerformanceSummary.component';
 import InvoiceForm from './form/InvoiceForm.component';
+import InvoiceItemList from './invoice/InvoiceItemList.component';
+import InvoiceItemSelector from './invoice/InvoiceItemSelector.component';
+import InvoiceVoucher from './invoice/InvoiceVoucher.component';
 
 export {
+  InvoiceVoucher,
   InvoiceForm,
+  InvoiceItemList,
+  InvoiceItemSelector,
   CoachPerformanceForm,
   CoachPerformanceSummary,
   SimpleModal,

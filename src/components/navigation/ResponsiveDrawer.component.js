@@ -140,7 +140,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             </ListItem>
           </Link>
           <Divider />
-          <Link to="/payment" style={{ textDecoration: 'none' }}>
+          <Link to="/invoice" style={{ textDecoration: 'none' }}>
             <ListItem button onClick={this.handleDrawerToggle}>
               <ListItemIcon>
                 <Payment />

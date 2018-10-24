@@ -1,4 +1,5 @@
 import InvoiceList from './InvoiceList.component';
-import InvoiceFormPage from './InvoiceFormPage.component';
+import InvoiceCreate from './InvoiceCreate.component';
+import InvoiceEdit from './InvoiceEdit.component';
 
-export { InvoiceList, InvoiceFormPage };
+export { InvoiceList, InvoiceCreate, InvoiceEdit };

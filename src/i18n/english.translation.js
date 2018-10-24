@@ -104,6 +104,13 @@ export default {
       turnover: 'Turnover (€)',
       nbBookings: 'Bookings',
     },
+    invoice: {
+      forms: {
+        update: 'Invoice successfully updated',
+        create: 'Invoice created - member credited',
+        error: 'Error while creating invoice',
+      },
+    },
     form: {
       coachPerformance: {
         addBonus: 'Add a rule',
@@ -276,6 +283,30 @@ export default {
       consumer: 'Client',
       paymentDate: 'Payment date',
       object: 'Description',
+      addInvoiceItem: 'Charge',
+      addOffer: 'Session',
+      addPaymentPack: 'Pass',
+      updateInvoiceVoucher: 'Edit voucher',
+      voucher: 'voucher',
+      total: 'TOTAL',
+      paymentMethodStripe: 'Debit card',
+      paymentMethodCheck: 'Check',
+      paymentMethodCash: 'Cash',
+      invoice: 'Invoice',
+      paymentMethod: {
+        CB: 'Credit card',
+        CHECK: 'Check',
+        CASH: 'Cash',
+      },
+      paymentItemsListTitle: 'Registered payments',
+      noPaymentItem: 'No payment registered',
+      addThisPaymentItem: 'Add this note',
+      status: 'Cashed-out',
+      stillUnpaid: 'Still unpaid: ',
+      stripePaymentWillBeCashedOutOnInvoiceValidation:
+        'Payment will be cashed-out on invoice creation',
+      createInvoice: 'Save invoice',
+      toBill: 'Add invoice',
     },
     paymentPack: {
       consumer: {

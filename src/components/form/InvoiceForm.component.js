@@ -1,229 +1,486 @@
 // @flow
+
 import React, { Component } from 'react';
 
 import {
-  FormControl,
-  FormLabel,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
   Button,
   Typography,
   Grid,
+  Paper,
+  Divider,
+  CircularProgress,
   withStyles,
-  Collapse,
 } from '@material-ui/core';
+import CancelIcon from '@material-ui/icons/Cancel';
+import AddIcon from '@material-ui/icons/Add';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import { translate } from 'react-i18next';
 
-import PaymentPackInput from '../input/PaymentPackInput.component';
-import OfferInput from '../input/OfferInput.component';
+import {
+  InvoiceItemSelector,
+  InvoiceVoucher,
+  InvoiceItemList,
+} from '../invoice';
 import PaymentForm from './PaymentForm.component';
-import PaymentSummary from './PaymentSummary.component';
+import PaymentList from './PaymentList.component';
+import { formatAsDate, formatAsDatetime } from '../../datetime';
+import { Moment } from '../../i18n';
 
-import type { Offer, Activity, PaymentPack } from '../../api/types';
-import type { PaymentFormData } from './types';
-
-const BOOKING = 'BOOKING';
-const PAYMENT_PACK = 'PAYMENT_PACK';
-const NOTHING = 'NOTHING';
+import type {
+  PaymentPack,
+  Activity,
+  Offer,
+  InvoiceItem,
+} from '../../api/types';
+import type { InvoiceDataFront } from './types';
 
 type Props = {
+  offers: Array<Offer>,
+  paymentPacks: Array<PaymentPack>,
+  activities: Array<Activity>,
+  uneditablePayments: Array<Payment>,
+  uneditableInvoiceItems: Array<InvoiceItem>,
+  editMode: ?boolean,
+  processing: boolean,
+  onCancel: () => void,
+  createOrUpdate: (invoiceData: InvoiceDataFront) => void,
+  updatePaymentStatus: (uuid: string, payment_received: boolean) => void,
   t: (x: string) => string,
   classes: Object,
-  offers: Array<Offer>,
-  activities: Array<Activity>,
-  paymentPacks: Array<PaymentPack>,
-  cancel: () => void,
 };
 
 type State = {
-  // UNUSED but will be
-  // eslint-disable-next-line
-  offerId: ?number,
-  registeredPayments: Array<{ id: number, paymentData: PaymentFormData }>,
-  paymentIdSeed: number,
-  paymentPackId: ?number,
-  payedObjectType: ?string,
+  offerInvoiceItems: Array<InvoiceItem>,
+  paymentPackInvoiceItems: Array<InvoiceItem>,
+  voucherInvoiceItems: Array<InvoiceItem>,
+  paymentItems: Array<PaymentItemData>,
+  step: number,
 };
 
+const STEP_ADD_INVOICE_ITEMS = 0;
+const STEP_ADD_INVOICE_PAYMENTS = 1;
+
+function getTotal(acc, invoiceItem) {
+  return acc + invoiceItem.price;
+}
+
 export class InvoiceForm extends Component<Props, State> {
-  state = {
-    // UNUSED but will be
-    // eslint-disable-next-line
-    offerId: null,
-    paymentPackId: null,
-    registeredPayments: [],
-    paymentIdSeed: 0,
-    payedObjectType: NOTHING,
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      offerInvoiceItems: [],
+      paymentPackInvoiceItems: [],
+      voucherInvoiceItems: [],
+      paymentItems: [],
+      step: props.editMode ? STEP_ADD_INVOICE_PAYMENTS : STEP_ADD_INVOICE_ITEMS,
+    };
+  }
+
+  createInvoice = () => {
+    const {
+      offerInvoiceItems,
+      voucherInvoiceItems,
+      paymentPackInvoiceItems,
+      paymentItems,
+    } = this.state;
+
+    const data = {
+      offer_ids: offerInvoiceItems.map((oii) => oii.id),
+      voucher: -voucherInvoiceItems.reduce(getTotal, 0),
+      payment_pack_ids: paymentPackInvoiceItems.map((ppii) => ppii.id),
+      payment_items: paymentItems,
+    };
+    this.props.createOrUpdate(data);
   };
 
-  onSubmit = (event: Object) => {
-    event.preventDefault();
-    return this.state;
+  cancelPayments = () => {
+    if (this.props.editMode) {
+      this.props.onCancel();
+    } else {
+      this.setState({
+        step: STEP_ADD_INVOICE_ITEMS,
+        paymentItems: [],
+      });
+    }
   };
 
-  // UNUSED but will be
-  // eslint-disable-next-line
-  storeOfferId = (offerId: number) => {
-    // UNUSED but will be
-    // eslint-disable-next-line
-    this.setState({ offerId });
+  goToPayment = () => {
+    this.setState({ step: STEP_ADD_INVOICE_PAYMENTS });
   };
 
-  storePaymentPackId = (paymentPackId: number) => {
-    this.setState({ paymentPackId });
+  getTotalPayment = () => {
+    const { uneditablePayments } = this.props;
+    const { paymentItems } = this.state;
+
+    return (
+      paymentItems.filter((pi) => pi.payment_received).reduce(getTotal, 0) +
+      (uneditablePayments || [])
+        .filter((pi) => pi.payment_received)
+        .reduce(getTotal, 0)
+    );
   };
 
-  storePayment = (data: PaymentFormData) => {
+  getFinalPrice = () => {
+    const { uneditableInvoiceItems } = this.props;
+    const {
+      offerInvoiceItems,
+      paymentPackInvoiceItems,
+      voucherInvoiceItems,
+    } = this.state;
+
+    const sumBooking = offerInvoiceItems.reduce(getTotal, 0);
+    const sumPack = paymentPackInvoiceItems.reduce(getTotal, 0);
+    const sumVoucher = voucherInvoiceItems.reduce(getTotal, 0);
+    const sumUneditableInvoiceItems = (uneditableInvoiceItems || []).reduce(
+      getTotal,
+      0,
+    );
+
+    return sumBooking + sumPack + sumVoucher + sumUneditableInvoiceItems;
+  };
+
+  deleteVoucher = () => {
+    this.setState({ voucherInvoiceItems: [] });
+  };
+
+  deleteOfferInvoiceItem = (offerId: number) => {
+    const { offerInvoiceItems } = this.state;
+    this.setState({
+      offerInvoiceItems: offerInvoiceItems.filter((o) => o.id !== offerId),
+    });
+  };
+
+  deletePPackInvoiceItem = (ppackId: number) => {
+    const { paymentPackInvoiceItems } = this.state;
+    this.setState({
+      paymentPackInvoiceItems: paymentPackInvoiceItems.filter(
+        (pp) => pp.id !== ppackId,
+      ),
+    });
+  };
+
+  deletePaymentItem = (paymentItem) => {
     this.setState((prevState) => ({
-      registeredPayments: [
-        ...prevState.registeredPayments,
-        { paymentData: data, id: prevState.paymentIdSeed },
-      ],
-      paymentIdSeed: prevState.paymentIdSeed + 1,
-    }));
-  };
-
-  deletePaymentData = (id: number) => {
-    this.setState((prevState) => ({
-      registeredPayments: prevState.registeredPayments.filter(
-        (rp) => rp.id !== id,
+      paymentItems: prevState.paymentItems.filter(
+        (pi) => pi.id !== paymentItem.id,
       ),
     }));
   };
 
-  handleObjectTypeChange = (event: Object) => {
-    console.log(event.target.value);
-    this.setState({ payedObjectType: event.target.value });
+  onUpdateVoucher = (voucher) => {
+    const { t } = this.props;
+    this.setState({
+      voucherInvoiceItems: [
+        {
+          name: t('payment.voucher'),
+          price: -voucher,
+          id: -1,
+        },
+      ],
+    });
   };
 
-  renderObjectTypeChoser = () => {
-    const { t, classes } = this.props;
-    const { offers, activities, paymentPacks } = this.props;
-    const { paymentPackId, payedObjectType } = this.state;
-    return (
-      <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">
-          {t('form.invoice.objectTypeLabel')}
-        </FormLabel>
-        <RadioGroup
-          aria-label="ObjectType"
-          name="objectType"
-          value={payedObjectType}
-          onChange={this.handleObjectTypeChange}
+  submitFinalizedInvoice = () => {
+    console.log(this.state);
+  };
+
+  addPaymentItem = (paymentItem) => {
+    this.setState((prevState) => ({
+      paymentItems: [...prevState.paymentItems, paymentItem],
+    }));
+  };
+
+  onAddOffer = (offerId: number) => {
+    const offer = this.props.offers.find((o) => o.id === offerId);
+    const { name } = this.props.activities.find(
+      (a) => a.id === offer.activity_id,
+    );
+    if (offer) {
+      this.setState((prevState) => ({
+        offerInvoiceItems: [
+          ...prevState.offerInvoiceItems,
+          {
+            price: offer.price,
+            id: offer.id,
+            subtitle: formatAsDatetime(offer.date_start),
+            name,
+          },
+        ],
+      }));
+    }
+  };
+
+  onAddPaymentPack = (paymentPackId: number) => {
+    const paymentPack = this.props.paymentPacks.find(
+      (p) => p.id === paymentPackId,
+    );
+    if (paymentPack) {
+      this.setState((prevState) => ({
+        paymentPackInvoiceItems: [
+          ...prevState.paymentPackInvoiceItems,
+          {
+            name: paymentPack.name,
+            price: paymentPack.price,
+            id: paymentPack.id,
+            subtitle: formatAsDate(Moment()),
+          },
+        ],
+      }));
+    }
+  };
+
+  renderBottomActionButton = () => {
+    const { step } = this.state;
+    const { processing, classes, t } = this.props;
+
+    if (step === STEP_ADD_INVOICE_PAYMENTS) {
+      return (
+        <Grid
+          container
+          direction="row"
+          spacing={16}
+          className={classes.paymentSelectorButtons}
+          justify="flex-end"
         >
-          <FormControlLabel
-            value={BOOKING}
-            control={<Radio />}
-            label={t('common.booking')}
-          />
-          <Collapse in={BOOKING === payedObjectType}>
-            <OfferInput
-              offers={offers}
-              activities={activities}
-              offerHelperText={t('form.invoice.offerHelper')}
-              activityHelperText={t('form.invoice.activityHelper')}
-            />
-          </Collapse>
-          <FormControlLabel
-            value={PAYMENT_PACK}
-            control={<Radio />}
-            label={t('common.paymentPack')}
-          />
-          <Collapse in={PAYMENT_PACK === payedObjectType}>
-            <PaymentPackInput
-              value={paymentPackId}
-              paymentPacks={paymentPacks}
-              onChange={this.storePaymentPackId}
-              helperText={t('form.invoice.paymentPackHelper')}
-            />
-          </Collapse>
-          <FormControlLabel
-            value={NOTHING}
-            control={<Radio />}
-            label={t('form.invoice.noPayedObject')}
-          />
-        </RadioGroup>
-      </FormControl>
+          <Grid item>
+            <Button
+              variant="raised"
+              color="secondary"
+              onClick={this.cancelPayments}
+            >
+              <CancelIcon className={classes.leftIcon} />
+              {t('common.cancel')}
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button
+              variant="raised"
+              color="primary"
+              onClick={this.createInvoice}
+            >
+              {processing ? (
+                <CircularProgress
+                  className={classes.leftIcon}
+                  size={20}
+                  color="inherit"
+                />
+              ) : (
+                <AddIcon className={classes.leftIcon} />
+              )}
+              {t('payment.createInvoice')}
+            </Button>
+          </Grid>
+        </Grid>
+      );
+    }
+    return (
+      <Grid
+        container
+        direction="row"
+        spacing={16}
+        className={classes.paymentSelectorButtons}
+        justify="flex-end"
+      >
+        <Grid item>
+          <Button
+            variant="raised"
+            color="secondary"
+            onClick={this.props.onCancel}
+          >
+            <CancelIcon className={classes.leftIcon} />
+            {t('common.cancel')}
+          </Button>
+        </Grid>
+        <Grid item>
+          <Button
+            onClick={this.goToPayment}
+            variant="raised"
+            color="primary"
+            disabled={this.getFinalPrice() === 0}
+          >
+            <AttachMoneyIcon className={classes.leftIcon} />
+            {t('payment.addThisPaymentItem')}
+          </Button>
+        </Grid>
+      </Grid>
     );
   };
 
-  render() {
-    const { t, classes } = this.props;
-    const { registeredPayments } = this.state;
+  renderRightPanel = () => {
+    const {
+      paymentPacks,
+      offers,
+      activities,
+      t,
+      classes,
+      uneditablePayments,
+      updatePaymentStatus,
+    } = this.props;
+    const { step, paymentItems } = this.state;
+    const finalPrice = this.getFinalPrice();
+    const totalPayment = this.getTotalPayment();
+
+    if (step === STEP_ADD_INVOICE_ITEMS) {
+      return (
+        <Grid
+          container
+          direction="column"
+          alignItems="stretch"
+          justify="space-between"
+          style={{ height: '100%' }}
+        >
+          <Grid item style={{ flexGrow: 1 }}>
+            <InvoiceItemSelector
+              onAddOffer={this.onAddOffer}
+              onAddPaymentPack={this.onAddPaymentPack}
+              paymentPacks={paymentPacks}
+              activities={activities}
+              offers={offers}
+            />
+          </Grid>
+          <Grid item>
+            <Divider />
+            <div className={classes.voucher}>
+              <InvoiceVoucher onUpdateVoucher={this.onUpdateVoucher} />
+            </div>
+          </Grid>
+        </Grid>
+      );
+    }
     return (
-      <form>
-        <Grid container direction="column" spacing={24}>
-          <Grid item>
-            <Typography variant="title">{t('form.invoice.title')}</Typography>
-          </Grid>
-          <Grid item>
-            <Grid item>{this.renderObjectTypeChoser()}</Grid>
-          </Grid>
-          <Grid item>
-            <FormControl>
-              <FormLabel component="legend">
-                {t('form.invoice.paymentLabel')}
-              </FormLabel>
-              <div className={classes.insideForm}>
-                <PaymentForm onSubmit={this.storePayment} />
-              </div>
-            </FormControl>
-            <Grid
-              container
-              direction="column"
-              spacing={8}
-              className={classes.registeredPaymentContainer}
-            >
-              {registeredPayments.map((rp) => (
-                <Grid item xs={12}>
-                  <PaymentSummary
-                    payment={rp.paymentData}
-                    id={rp.id}
-                    key={rp.id}
-                    onDelete={() => this.deletePaymentData(rp.id)}
-                  />
-                </Grid>
-              ))}
+      <Grid
+        container
+        direction="column"
+        className={classes.paymentFormContainer}
+        justify="space-between"
+        alignItems="stretch"
+      >
+        <Grid item className={classes.paymentItemFormContainer}>
+          <PaymentForm onSubmit={this.addPaymentItem} />
+        </Grid>
+        <Grid item className={classes.leftPanelSubBlock}>
+          <Grid container direction="column" spacing={16}>
+            <Grid item>
+              <Typography variant="h6">
+                {t('payment.paymentItemsListTitle')}
+              </Typography>
             </Grid>
-          </Grid>
-          <Grid item>
-            <Grid container justify="flex-start" spacing={16}>
-              <Grid item>
-                <Button onClick={this.props.cancel}>
-                  {t('common.cancel')}
-                </Button>
-              </Grid>
-              <Grid item>
-                <Button
-                  onClick={this.onSubmit}
-                  type="submit"
-                  color="primary"
-                  variant="raised"
-                >
-                  {t('common.save')}
-                </Button>
+            <Grid item className={classes.paymentItemsListContainer}>
+              <PaymentList
+                paymentItems={paymentItems}
+                onDelete={this.deletePaymentItem}
+                uneditablePayments={uneditablePayments}
+                updateStatus={updatePaymentStatus}
+              />
+              <Grid
+                container
+                justify="space-between"
+                alignItems="center"
+                className={classes.totalUnpaid}
+              >
+                <Grid item>
+                  <Typography variant="subheading">
+                    {t('payment.stillUnpaid')}
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Typography
+                    variant="h6"
+                    color={finalPrice - totalPayment <= 0 ? 'primary' : 'error'}
+                  >
+                    {finalPrice - totalPayment} €
+                  </Typography>
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
         </Grid>
-      </form>
+      </Grid>
+    );
+  };
+
+  renderLeftPanel = () => {
+    const { uneditableInvoiceItems } = this.props;
+    const {
+      offerInvoiceItems,
+      paymentPackInvoiceItems,
+      voucherInvoiceItems,
+    } = this.state;
+    const finalPrice = this.getFinalPrice();
+
+    return (
+      <InvoiceItemList
+        offerInvoiceItems={offerInvoiceItems}
+        deleteOfferInvoiceItem={this.deleteOfferInvoiceItem}
+        deletePPackInvoiceItem={this.deletePPackInvoiceItem}
+        deleteVoucher={this.deleteVoucher}
+        paymentPackInvoiceItems={paymentPackInvoiceItems}
+        uneditableInvoiceItems={uneditableInvoiceItems || []}
+        voucherInvoiceItems={voucherInvoiceItems}
+        finalPrice={finalPrice}
+      />
+    );
+  };
+
+  render() {
+    const { classes } = this.props;
+    return (
+      <div>
+        <Paper className={classes.paperContainer}>
+          <Grid container direction="row" alignItems="stretch">
+            <Grid item xs={12} md={6} className={classes.invoiceList}>
+              {this.renderLeftPanel()}
+            </Grid>
+            <Grid item xs={12} md={6}>
+              {this.renderRightPanel()}
+            </Grid>
+          </Grid>
+        </Paper>
+        {this.renderBottomActionButton()}
+      </div>
     );
   }
 }
 
 const styles = (theme) => ({
-  registeredPaymentContainer: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
-  },
-  formControl: {
-    margin: theme.spacing.unit,
-  },
-  insideForm: {
-    margin: theme.spacing.unit,
+  paperContainer: {},
+  voucher: {
     padding: theme.spacing.unit * 2,
-    backgroundColor: '#FAFAFA',
+    backgroundColor: '#F8F8F8',
+  },
+  invoiceList: {
+    padding: theme.spacing.unit,
+    backgroundColor: '#F8F8F8',
+    border: '2px solid #E8E8E8',
+  },
+  paymentSelectorButtons: {
+    marginTop: theme.spacing.unit * 2,
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
+  },
+  paymentFormContainer: {
+    padding: theme.spacing.unit * 2,
+    height: '100%',
+  },
+  leftPanelSubBlock: {
+    marginTop: theme.spacing.unit * 3,
+  },
+  paymentItemsListContainer: {
+    backgroundColor: '#F8F8F8',
+    border: '2px solid #E8E8E8',
+  },
+  paymentItemFormContainer: {
+    backgroundColor: '#F8F8F8',
+  },
+  divider: {
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit,
+  },
+  totalUnpaid: {
+    paddingTop: theme.spacing.unit * 2,
+    paddingLeft: theme.spacing.unit,
+    paddingRight: theme.spacing.unit,
   },
 });
 

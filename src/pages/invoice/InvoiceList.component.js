@@ -7,7 +7,11 @@ import {
   Typography,
   Grid,
   CircularProgress,
+  Collapse,
+  withStyles,
 } from '@material-ui/core';
+
+import { push as routerPush } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 import DoneIcon from '@material-ui/icons/Done';
@@ -17,14 +21,22 @@ import { PAYMENT_PACK } from 'bsport-commons/lib/master-data/payment-methods';
 
 import { formatAsDatetime } from '../../datetime';
 import { FeatureTable } from '../../components';
+import { invoice as invoiceActions } from '../../actions';
 
 import type { Member, Invoice } from '../../api/types';
 
 type Props = {
   t: (x: string) => string,
   invoices: Array<Object>, // it is an immutable on which we call .asMutable() but whatever
+  specificInvoice: InvoiceDetailed,
+  specificInvoiceLoading: boolean,
   loading: boolean,
   members: Array<Member>,
+  classes: Object,
+};
+
+type State = {
+  selectedInvoiceUuid: ?string,
 };
 
 function renderStatus(invoice: Invoice) {
@@ -34,20 +46,17 @@ function renderStatus(invoice: Invoice) {
     return <DoneIcon color="primary" />;
   }
   return (
-    <Grid container direction="row" alignItems="flex-end" spacing={24}>
-      <Grid item>
-        <Typography>
-          - {invoice.price_due - invoice.price_payed - invoice.voucher} €
-        </Typography>
-      </Grid>
-      <Grid>
-        <ErrorIcon color="error" />
-      </Grid>
-    </Grid>
+    <Typography color="error">
+      - {invoice.price_due - invoice.price_payed - invoice.voucher} €
+    </Typography>
   );
 }
 
-export class InvoiceList extends Component<Props> {
+export class InvoiceList extends Component<Props, State> {
+  state = {
+    selectedInvoiceUuid: null,
+  };
+
   getColumnData = () => {
     const { t } = this.props;
     return [
@@ -74,13 +83,62 @@ export class InvoiceList extends Component<Props> {
     ];
   };
 
+  handleInvoiceClick = (event, selectedInvoiceUuid) => {
+    this.props.pushToInvoiceDetail(selectedInvoiceUuid);
+  };
+  /*
+    if (selectedInvoiceUuid == this.state.selectedInvoiceUuid) {
+      this.setState({ selectedInvoiceUuid: null });
+    } else {
+      this.props.fetchSpecificInvoice(selectedInvoiceUuid);
+      this.setState({ selectedInvoiceUuid });
+    }
+  };
+
+     * TODO : use mui-virtualized-table ?
+  renderInvoiceDetails = () => {
+    const { specificInvoiceLoading, specificInvoice, classes } = this.props;
+    if (specificInvoiceLoading || specificInvoice === null) {
+      return <CircularProgress />;
+    }
+    return (
+      <Table>
+        <Grid container direction="row" className={classes.invoiceDetails}>
+          <Grid item xs={12} md={6}>
+            <PaymentList
+              paymentItems={specificInvoice.payments.map((p) => ({
+                paymentInfoExtra: p.payment_note,
+                status: p.payment_received,
+                id: p.uuid,
+                paymentMethod: p.payment_method,
+                price: p.price,
+              }))}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <InvoiceItemList
+              paymentPackInvoiceItems={[]}
+              offerInvoiceItems={[]}
+              voucherInvoiceItems={[]}
+            />
+          </Grid>
+        </Grid>
+      </Table>
+    );
+  };
+  */
+
   renderRow = (inv: Invoice) => (
-    <TableRow key={inv.uuid}>
+    <TableRow
+      key={inv.uuid}
+      hover
+      onClick={(event) => this.handleInvoiceClick(event, inv.uuid)}
+    >
       <TableCell component="th" scope="row">
         {inv.uuid.slice(0, 8).toUpperCase()}
       </TableCell>
       <TableCell>
-        {this.props.members.filter((m) => m.id === inv.member)[0].name}
+        {(this.props.members.find((m) => m.id === inv.member) || {}).name}
       </TableCell>
       <TableCell>{formatAsDatetime(inv.date)}</TableCell>
       <TableCell>{inv.price_due} €</TableCell>
@@ -122,7 +180,32 @@ function mapStateToProps(state) {
     members: state.member.all,
     invoices: state.invoice.all,
     loading: state.invoice.loading || state.member.loading,
+    specificInvoiceLoading: state.invoice.loadingSpecific,
+    specificInvoice: state.invoice.invoice,
   };
 }
 
-export default connect(mapStateToProps)(translate()(InvoiceList));
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchSpecificInvoice(uuid) {
+      dispatch(invoiceActions.fetchSpecificInvoice(uuid));
+    },
+    pushToInvoiceDetail(uuid) {
+      dispatch(routerPush(`/invoice/${uuid}`));
+    },
+  };
+}
+
+const styles = (theme) => ({
+  invoiceDetails: {
+    width: '100%',
+    backgroundColor: '#F8F8F8',
+  },
+});
+
+export default translate()(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(withStyles(styles)(InvoiceList)),
+);

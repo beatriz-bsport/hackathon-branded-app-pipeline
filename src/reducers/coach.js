@@ -49,23 +49,23 @@ export default function coachReducers(state = initialState, action = {}) {
       });
 
     case actionTypes.COACH_CREATE_OR_UPDATE:
-      return state.merge({
+      return Immutable.merge(state, {
         createOrUpdatePending: true,
       });
 
     case actionTypes.COACH_CREATE_OR_UPDATE_SUCCESS:
-      return state.merge({
+      return Immutable.merge(state, {
         createOrUpdatePending: false,
       });
 
     case actionTypes.COACH_CREATE_OR_UPDATE_ERROR:
-      return state.merge({
+      return Immutable.merge(state, {
         createOrUpdateError: action.error,
         createOrUpdatePending: false,
       });
 
     case actionTypes.COACH_UPDATE:
-      return state.merge({
+      return Immutable.merge(state, {
         updatedCoach: action.coach,
       });
 

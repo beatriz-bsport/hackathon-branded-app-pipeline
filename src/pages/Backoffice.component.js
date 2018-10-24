@@ -31,7 +31,7 @@ import {
   MetaActivity,
 } from './meta-activity';
 import { MarketingDashboard, MarketingRule } from './marketing';
-import { InvoiceList, InvoiceFormPage } from './invoice';
+import { InvoiceList, InvoiceCreate, InvoiceEdit } from './invoice';
 import { PaymentPackList, PaymentPackForm } from './payment-pack';
 import { CoachList, CoachPerformance, CoachForm } from './coach';
 import { Member, MemberList, MemberForm } from './member';
@@ -117,11 +117,17 @@ export class Backoffice extends Component<Props> {
               <Route exact path="/coach/add" component={CoachForm} />
               <Route exact path="/coach/edit/:id" component={CoachForm} />
               <Route path="/coach" component={CoachList} />
-              <Route path="/payment" component={InvoiceList} />
+              <Route path="/invoice/:id" component={InvoiceEdit} />
+              <Route path="/invoice" component={InvoiceList} />
               <Route path="/payment-pack/add" component={PaymentPackForm} />
               <Route path="/payment-pack" component={PaymentPackList} />
               <Route exact path="/member" component={MemberList} />
               <Route exact path="/member/edit/:id" component={MemberForm} />
+              <Route
+                exact
+                path="/member/add-invoice/:id"
+                component={InvoiceCreate}
+              />
               <Route path="/member/add" component={MemberForm} />
               <Route path="/member/:id" component={Member} />
               <Route exact path="/map" component={EstablishmentMap} />
@@ -138,7 +144,6 @@ export class Backoffice extends Component<Props> {
               <Route path="/marketing/rule/:id" component={MarketingRule} />
               <Route path="/marketing" component={MarketingDashboard} />
               <Route exact path="/" component={Dashboard} />
-              <Route path="/invoice/add" component={InvoiceFormPage} />
             </Switch>
           </div>
         </main>

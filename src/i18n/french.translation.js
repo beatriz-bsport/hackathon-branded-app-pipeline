@@ -280,6 +280,17 @@ export default {
       goBack: 'Retour',
       pass: 'Abonnements',
     },
+    invoice: {
+      forms: {
+        update: {
+          success: 'Facture mise à jour avec succès',
+        },
+        create: {
+          success: 'Facture enregistrée - Membre crédité',
+        },
+        error: "Erreur lors de l'enregistrement - Annulé",
+      },
+    },
     payment: {
       bookWithUnlimitedPack: 'Réserver avec votre abonnement',
       noCreditLeft: 'Pas assez de crédit',
@@ -296,6 +307,30 @@ export default {
       // eslint-disable-next-line
       paymentDate: "Date d'achat",
       object: 'Description',
+      addInvoiceItem: 'Facturer',
+      addOffer: 'Séance',
+      addPaymentPack: 'Abonnement',
+      updateInvoiceVoucher: 'Ajouter une réduction',
+      voucher: 'Réduction',
+      total: 'TOTAL',
+      paymentMethodStripe: 'Carte bleue',
+      paymentMethodCheck: 'Chèque',
+      paymentMethodCash: 'Espèces',
+      invoice: 'Facture',
+      paymentMethod: {
+        CB: 'Carte bleue',
+        CHECK: 'Chèque',
+        CASH: 'Espèces',
+      },
+      paymentItemsListTitle: 'Paiements enregistrés',
+      noPaymentItem: 'Aucun paiement enregistré',
+      addThisPaymentItem: 'Encaisser',
+      status: 'Encaissé',
+      stillUnpaid: 'Reste à encaisser : ',
+      stripePaymentWillBeCashedOutOnInvoiceValidation:
+        "La CB ne sera débitée qu'après la sauvegarde de la facture",
+      createInvoice: 'Enregistrer',
+      toBill: 'Facturer',
     },
     paymentPack: {
       maxNBookingsByWeek1: 'Max ',

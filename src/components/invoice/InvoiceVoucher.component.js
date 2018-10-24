@@ -1,0 +1,61 @@
+// @flow
+import React, { Component } from 'react';
+
+import { Grid, Button, withStyles } from '@material-ui/core';
+import { translate } from 'react-i18next';
+
+import PriceInput from '../input/PriceInput.component';
+
+const styles = (theme) => ({
+  container: {},
+});
+
+type Props = {
+  updateVoucher: (price: number) => void,
+  t: (x: string) => string,
+  classes: Object,
+};
+
+type State = {
+  voucher: number,
+};
+
+export class InvoiceVoucher extends Component<Props, State> {
+  state = { voucher: 0 };
+
+  onChange = (event) => {
+    this.setState({ voucher: parseInt(event.target.value, 10) });
+  };
+
+  render() {
+    const { classes, t } = this.props;
+    const { voucher } = this.state;
+    return (
+      <Grid
+        container
+        direction="row"
+        justify="space-between"
+        alignItems="center"
+      >
+        <Grid item>
+          <Button
+            onClick={() => this.props.onUpdateVoucher(voucher)}
+            color="primary"
+            disabled={voucher === 0}
+          >
+            {t('payment.updateInvoiceVoucher')}
+          </Button>
+        </Grid>
+        <Grid item>
+          <PriceInput
+            onChange={this.onChange}
+            value={this.state.voucher}
+            variant="outlined"
+          />
+        </Grid>
+      </Grid>
+    );
+  }
+}
+
+export default withStyles(styles)(translate()(InvoiceVoucher));

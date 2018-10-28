@@ -1,19 +1,15 @@
 // @flow
 import React, { Component } from 'react';
 
-import { Grid, Button, withStyles } from '@material-ui/core';
+import { Grid, Button } from '@material-ui/core';
 import { translate } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 
 import PriceInput from '../input/PriceInput.component';
 
-const styles = (theme) => ({
-  container: {},
-});
-
 type Props = {
-  updateVoucher: (price: number) => void,
-  t: (x: string) => string,
-  classes: Object,
+  onUpdateVoucher: (price: number) => void,
+  t: TFunction,
 };
 
 type State = {
@@ -28,7 +24,7 @@ export class InvoiceVoucher extends Component<Props, State> {
   };
 
   render() {
-    const { classes, t } = this.props;
+    const { t } = this.props;
     const { voucher } = this.state;
     return (
       <Grid
@@ -58,4 +54,4 @@ export class InvoiceVoucher extends Component<Props, State> {
   }
 }
 
-export default withStyles(styles)(translate()(InvoiceVoucher));
+export default translate()(InvoiceVoucher);

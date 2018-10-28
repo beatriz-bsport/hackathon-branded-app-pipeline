@@ -23,7 +23,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { translate } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import { goBack as routerBack, push as routerPush } from 'react-router-redux';
 import { connect } from 'react-redux';
 
@@ -251,7 +250,6 @@ export class Member extends Component<Props> {
       allMembers,
       bookings,
       bookingLoading,
-      bookingOptions,
       confirmBooking,
       confirmBookingAttendance,
       discardBooking,
@@ -260,10 +258,6 @@ export class Member extends Component<Props> {
     // prettier-ignore
     const bookingsPast = bookings.filter(
       (b) => Moment(b.date_start).isBefore(Moment()),
-    );
-    // prettier-ignore
-    const bookingOptionsPast = bookingOptions.filter(
-      (b) => Moment(b.offer.date_start).isBefore(Moment()),
     );
     const previousBookingDate = (
       allMembers.filter((m) => m.id === this.memberId)[0] || {}
@@ -340,12 +334,12 @@ export class Member extends Component<Props> {
   };
 
   render() {
-    const { memberLoading, bookingLoading, t, classes } = this.props;
+    const { memberLoading, t, classes } = this.props;
     return (
       <div>
         <div>
           <Button
-            onClick={this.props.onBack}
+            onClick={this.props.goBack}
             size="large"
             color="primary"
             className={classes.backButton}

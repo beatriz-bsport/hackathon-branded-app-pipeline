@@ -13,15 +13,18 @@ import { invoice as invoiceActions } from '../../actions';
 
 type Props = {
   loading: boolean,
+  updatingInvoice: boolean,
   offers: Array<Offer>,
   paymentPacks: Array<PaymentPack>,
   activities: Array<Activity>,
   fetchInvoice: (id: number) => void,
   updatePaymentStatus: (uuid: number, status: boolean) => void,
+  updateInvoice: (invoiceData: InvoiceData) => void,
   goToInvoiceList: () => void,
   invoice: Invoice,
   t: TFunction,
   classes: Object,
+  match: Object,
 };
 
 export class InvoiceFormPage extends Component<Props> {

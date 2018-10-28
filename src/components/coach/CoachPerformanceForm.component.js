@@ -10,8 +10,6 @@ import type { BonusRule } from '../form/types';
 
 import { Moment } from '../../i18n';
 
-import type { Event } from '../../types';
-
 type Props = {
   t: (x: string) => string,
   classes: Object,
@@ -35,7 +33,7 @@ export class CoachPerformanceForm extends Component<Props, State> {
     this.setState({ [id]: value });
   };
 
-  onSubmit = (event: Event) => {
+  onSubmit = (event: Object) => {
     event.preventDefault();
     const { bonusRules, date_start, date_end } = this.state;
     this.props.onSubmit({ bonusRules, date_start, date_end });

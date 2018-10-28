@@ -17,7 +17,6 @@ type Props = {
   t: (x: string) => string,
   heading: ?string,
   option: Object,
-  discardOption: () => void,
 };
 
 export class BookingOptionForManager extends Component<Props> {
@@ -43,7 +42,7 @@ export class BookingOptionForManager extends Component<Props> {
       case 'date_start':
         return null;
       default:
-        return <Avatar src={this.props.option.user.photo} />;
+        return <Avatar src={option.user.photo} />;
     }
   };
 

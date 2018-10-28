@@ -114,8 +114,9 @@ export class InvoiceItemSelector extends Component<Props> {
               color="primary"
               onClick={this.submitInvoiceItems}
               disabled={
-                (expandedSelector === SELECTOR_OFFER && !offerId) ||
-                (expandedSelector === SELECTOR_PAYMENT_PACK && !paymentPackId)
+                // prettier-ignore
+                (expandedSelector === SELECTOR_OFFER && !offerId)
+                || (expandedSelector === SELECTOR_PAYMENT_PACK && !paymentPackId)
               }
             >
               <AddIcon className={classes.leftIcon} />

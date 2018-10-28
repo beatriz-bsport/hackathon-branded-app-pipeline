@@ -54,17 +54,25 @@ export class InvoiceItemList extends Component<Props> {
     </ListItem>
   );
 
-  renderOfferInvoiceItem = (invoiceItem) =>
-    this.renderInvoiceItem(invoiceItem, this.props.deleteOfferInvoiceItem);
+  // prettier-ignore
+  renderOfferInvoiceItem = (invoiceItem) => (
+    this.renderInvoiceItem(invoiceItem, this.props.deleteOfferInvoiceItem)
+    )
 
-  renderPPackInvoiceItem = (invoiceItem) =>
-    this.renderInvoiceItem(invoiceItem, this.props.deletePPackInvoiceItem);
+  // prettier-ignore
+  renderPPackInvoiceItem = (invoiceItem) => (
+    this.renderInvoiceItem(invoiceItem, this.props.deletePPackInvoiceItem)
+  )
 
-  renderVoucherInvoiceItem = (invoiceItem) =>
-    this.renderInvoiceItem(invoiceItem, this.props.deleteVoucher);
+  // prettier-ignore
+  renderVoucherInvoiceItem = (invoiceItem) => (
+    this.renderInvoiceItem(invoiceItem, this.props.deleteVoucher)
+  )
 
-  renderUneditableItems = (invoiceItem) =>
-    this.renderInvoiceItem(invoiceItem, null);
+  // prettier-ignore
+  renderUneditableItems = (invoiceItem) => (
+    this.renderInvoiceItem(invoiceItem, null)
+  )
 
   renderTotal = () => {
     const { t, classes, finalPrice } = this.props;
@@ -106,9 +114,8 @@ export class InvoiceItemList extends Component<Props> {
         <Grid item>
           <List disablePadding>
             {uneditableInvoiceItems.map((ii) => this.renderUneditableItems(ii))}
-            {paymentPackInvoiceItems.map((ii) =>
-              this.renderPPackInvoiceItem(ii),
-            )}
+            {// prettier-ignore
+            paymentPackInvoiceItems.map((ii) => this.renderPPackInvoiceItem(ii))}
             {offerInvoiceItems.map((ii) => this.renderOfferInvoiceItem(ii))}
             {voucherInvoiceItems.map((ii) => this.renderVoucherInvoiceItem(ii))}
           </List>

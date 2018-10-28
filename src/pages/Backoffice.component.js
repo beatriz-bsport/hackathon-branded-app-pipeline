@@ -26,24 +26,9 @@ import { CoachList, CoachPerformance, CoachForm } from './coach';
 import { Member, MemberList, MemberForm } from './member';
 import { EstablishmentMap, EstablishmentFormPage } from './establishment';
 
-const styles = (theme: Object) => ({
-  toolbar: theme.mixins.toolbar,
-  progress: {
-    flexGrow: 1,
-  },
-  content: {
-    backgroundColor: theme.palette.background.default,
-    paddingTop: theme.spacing.unit * 3,
-    marginBottom: theme.spacing.unit * 2,
-    [theme.breakpoints.up('sm')]: {
-      paddingLeft: theme.spacing.unit * 3,
-      paddingRight: theme.spacing.unit * 3,
-    },
-    flexGrow: 1,
-  },
-});
-
 type Props = {
+  refresh: () => void,
+  isRefreshing: boolean,
   classes: Object,
   authenticated: boolean,
   refreshIfNeeded: () => void,
@@ -145,6 +130,23 @@ function mapDispatchToProps(dispatch) {
     },
   };
 }
+
+const styles = (theme: Object) => ({
+  toolbar: theme.mixins.toolbar,
+  progress: {
+    flexGrow: 1,
+  },
+  content: {
+    backgroundColor: theme.palette.background.default,
+    paddingTop: theme.spacing.unit * 3,
+    marginBottom: theme.spacing.unit * 2,
+    [theme.breakpoints.up('sm')]: {
+      paddingLeft: theme.spacing.unit * 3,
+      paddingRight: theme.spacing.unit * 3,
+    },
+    flexGrow: 1,
+  },
+});
 
 export default connect(
   mapStateToProps,

@@ -39,9 +39,10 @@ export class PaymentList extends Component<Props> {
       return (
         <IconButton
           disabled={paymentItem.payment_method === PAYMENT_METHOD_CB.id}
-          onClick={() =>
-            updateStatus(paymentItem.uuid, !paymentItem.payment_received)
-          }
+          onClick={() => {
+            // prettier-ignore
+            updateStatus(paymentItem.uuid, !paymentItem.payment_received);
+          }}
           color="primary"
         >
           <CachedIcon />

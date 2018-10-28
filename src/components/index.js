@@ -90,8 +90,6 @@ export {
   LanguageButton,
   OfferCard,
   Avatar,
-  Level,
-  Sport,
   BookingTable,
   ActionButton,
   MetaActivityCard,

@@ -113,8 +113,9 @@ export class InvoiceForm extends Component<Props, State> {
     const { paymentItems } = this.state;
 
     return (
-      paymentItems.filter((pi) => pi.payment_received).reduce(getTotal, 0) +
-      (uneditablePayments || [])
+      // prettier-ignore
+      paymentItems.filter((pi) => pi.payment_received).reduce(getTotal, 0)
+      + (uneditablePayments || [])
         .filter((pi) => pi.payment_received)
         .reduce(getTotal, 0)
     );

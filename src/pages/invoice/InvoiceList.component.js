@@ -7,15 +7,12 @@ import {
   Typography,
   Grid,
   CircularProgress,
-  Collapse,
-  withStyles,
 } from '@material-ui/core';
 
 import { push as routerPush } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 import DoneIcon from '@material-ui/icons/Done';
-import ErrorIcon from '@material-ui/icons/ErrorOutline';
 
 import { PAYMENT_PACK } from 'bsport-commons/lib/master-data/payment-methods';
 
@@ -28,11 +25,9 @@ import type { Member, Invoice } from '../../api/types';
 type Props = {
   t: (x: string) => string,
   invoices: Array<Object>, // it is an immutable on which we call .asMutable() but whatever
-  specificInvoice: InvoiceDetailed,
-  specificInvoiceLoading: boolean,
   loading: boolean,
   members: Array<Member>,
-  classes: Object,
+  pushToInvoiceDetail: (uuid: string) => void,
 };
 
 type State = {
@@ -40,8 +35,14 @@ type State = {
 };
 
 function renderStatus(invoice: Invoice) {
-  const payed =
-    -(invoice.price_due - invoice.price_payed - invoice.voucher) >= 0;
+  // prettier-ignore
+  const payed = (
+    -(
+      invoice.price_due
+      - invoice.price_payed
+      - invoice.voucher
+      ) >= 0
+  );
   if (payed) {
     return <DoneIcon color="primary" />;
   }
@@ -53,10 +54,6 @@ function renderStatus(invoice: Invoice) {
 }
 
 export class InvoiceList extends Component<Props, State> {
-  state = {
-    selectedInvoiceUuid: null,
-  };
-
   getColumnData = () => {
     const { t } = this.props;
     return [
@@ -180,8 +177,6 @@ function mapStateToProps(state) {
     members: state.member.all,
     invoices: state.invoice.all,
     loading: state.invoice.loading || state.member.loading,
-    specificInvoiceLoading: state.invoice.loadingSpecific,
-    specificInvoice: state.invoice.invoice,
   };
 }
 
@@ -196,16 +191,9 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-const styles = (theme) => ({
-  invoiceDetails: {
-    width: '100%',
-    backgroundColor: '#F8F8F8',
-  },
-});
-
 export default translate()(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-  )(withStyles(styles)(InvoiceList)),
+  )(InvoiceList),
 );

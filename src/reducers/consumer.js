@@ -1,5 +1,6 @@
 import Immutable from 'seamless-immutable';
 import actionTypes from '../actions/consumer.types';
+import authActionTypes from '../actions/auth.types';
 
 const initialState = Immutable({
   error: false,
@@ -17,6 +18,8 @@ const initialState = Immutable({
 
 export default function consumerReducers(state = initialState, action = {}) {
   switch (action.type) {
+    case authActionTypes.DISCONNECT:
+      return initialState;
     case actionTypes.CONSUMER_HAS_FETCHED_PROFILE:
       return Immutable.merge(state, { profile: action.profile });
     case actionTypes.CONSUMER_CANCELLING_BOOKING_OPTION:

@@ -29,6 +29,7 @@ const persistConfig = {
     'member',
     'category',
     'invoice',
+    'refresh',
   ],
   transforms: [immutableTransform()],
 };

@@ -32,11 +32,14 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 import { Link } from 'react-router-dom';
 import { LanguageButton } from '../button/LanguageButton.component';
+import RefreshButton from '../button/RefreshButton.component';
 import LOGO_ASSET from '../../public/images/banner_lowres.png';
 
 const drawerWidth = 240;
 
 type Props = {
+  isRefreshing: boolean,
+  onRefresh: () => void,
   children: Object,
   theme: Object,
   classes: Object,
@@ -57,7 +60,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
   };
 
   render() {
-    const { classes, theme, t } = this.props;
+    const { classes, theme, t, isRefreshing, onRefresh } = this.props;
 
     const drawer = (
       <div>
@@ -190,7 +193,22 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                 </Grid>
               </div>
               <div>
-                <LanguageButton />
+                <Grid
+                  container
+                  direction="row"
+                  spacing={24}
+                  alignItems="center"
+                >
+                  <Grid item>
+                    <RefreshButton
+                      isRefreshing={isRefreshing}
+                      onRefresh={onRefresh}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <LanguageButton />
+                  </Grid>
+                </Grid>
               </div>
             </Grid>
           </Toolbar>

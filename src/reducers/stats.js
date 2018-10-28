@@ -1,6 +1,7 @@
 import Immutable from 'seamless-immutable';
 
 import actionTypes from '../actions/stats.types';
+import authActionTypes from '../actions/auth.types';
 
 const initialState = Immutable({
   activities: [],
@@ -14,6 +15,8 @@ const initialState = Immutable({
 
 export default function statsReducers(state = initialState, action = {}) {
   switch (action.type) {
+    case authActionTypes.DISCONNECT:
+      return initialState;
     case actionTypes.DASHBOARD_STATS_ALREADY_UP_TO_DATE:
       return Immutable.merge(state, {
         dashboardLoading: false,

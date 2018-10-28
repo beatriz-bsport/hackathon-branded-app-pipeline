@@ -1,6 +1,7 @@
 import Immutable from 'seamless-immutable';
 
 import actionTypes from '../actions/paymentPack.types';
+import authActionTypes from '../actions/auth.types';
 
 const initialState = Immutable({
   all: [],
@@ -12,6 +13,9 @@ const initialState = Immutable({
 
 export default function activityReducers(state = initialState, action = {}) {
   switch (action.type) {
+    case authActionTypes.DISCONNECT:
+      return initialState;
+
     case actionTypes.HAS_FETCHED_ALL_PAYMENT_PACKS:
       return Immutable.merge(state, {
         all: Array.from(action.paymentPacks),

@@ -1,6 +1,7 @@
 import Immutable from 'seamless-immutable';
 
 import actionTypes from '../actions/offer.types';
+import authActionTypes from '../actions/auth.types';
 
 const initialState = Immutable({
   calendar: [],
@@ -13,6 +14,9 @@ const initialState = Immutable({
 
 export default function offerReducers(state = initialState, action = {}) {
   switch (action.type) {
+    case authActionTypes.DISCONNECT:
+      return initialState;
+
     case actionTypes.HAS_FETCHED_ALL_OFFERS:
       return Immutable.merge(state, {
         loading: false,

@@ -11,7 +11,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@material-ui/core';
-import { LocationOn } from '@material-ui/icons';
+import LocationOn from '@material-ui/icons/LocationOn';
 import { translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
 

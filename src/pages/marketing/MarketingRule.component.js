@@ -11,7 +11,9 @@ import {
   withStyles,
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
-import { Sms, Email, Smartphone } from '@material-ui/icons';
+import Sms from '@material-ui/icons/Sms';
+import Smartphone from '@material-ui/icons/Smartphone';
+import Email from '@material-ui/icons/Email';
 
 const styles = (theme) => ({
   paperContainer: {

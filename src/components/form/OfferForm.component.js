@@ -3,7 +3,8 @@
 import React, { Component } from 'react';
 
 import { Button, Paper, Grid, Typography, withStyles } from '@material-ui/core';
-import { Info as InfoIcon, Today as CalendarIcon } from '@material-ui/icons';
+import InfoIcon from '@material-ui/icons/Info';
+import CalendarIcon from '@material-ui/icons/Today';
 import { translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
 

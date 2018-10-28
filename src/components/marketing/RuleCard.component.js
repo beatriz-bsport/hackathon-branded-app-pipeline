@@ -8,14 +8,15 @@ import {
   Divider,
   Button,
 } from '@material-ui/core';
-import { RotateLeft, Receipt, ShoppingCart, Stars } from '@material-ui/icons';
+import RotateLeft from '@material-ui/icons/RotateLeft';
+import Receipt from '@material-ui/icons/Receipt';
+import ShoppingCart from '@material-ui/icons/ShoppingCart';
+import Stars from '@material-ui/icons/Stars';
 
 import { translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-type Props = {};
-
-export class RuleCard extends React.Component<Props> {
+export class RuleCard extends React.Component<{}> {
   renderRuleStats = (rule) => {
     const { t } = this.props;
     return (

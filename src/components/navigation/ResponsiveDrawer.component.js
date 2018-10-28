@@ -16,18 +16,16 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Grid from '@material-ui/core/Grid';
 
-import {
-  Today,
-  Star,
-  People,
-  Payment,
-  TrendingUp,
-  Email,
-  HighlightOff,
-  FitnessCenter,
-  VpnKey,
-  LocationOn,
-} from '@material-ui/icons';
+import Today from '@material-ui/icons/Today';
+import Star from '@material-ui/icons/Star';
+import People from '@material-ui/icons/People';
+import Payment from '@material-ui/icons/Payment';
+import TrendingUp from '@material-ui/icons/TrendingUp';
+import Email from '@material-ui/icons/Email';
+import HighlightOff from '@material-ui/icons/HighlightOff';
+import FitnessCenter from '@material-ui/icons/FitnessCenter';
+import VpnKey from '@material-ui/icons/VpnKey';
+import LocationOn from '@material-ui/icons/LocationOn';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import { Link } from 'react-router-dom';

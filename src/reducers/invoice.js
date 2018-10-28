@@ -1,6 +1,7 @@
 import Immutable from 'seamless-immutable';
 
 import actionTypes from '../actions/invoice.types';
+import authActionTypes from '../actions/auth.types';
 
 const initialState = Immutable({
   all: [],
@@ -13,6 +14,8 @@ const initialState = Immutable({
 
 export default function invoiceReducers(state = initialState, action = {}) {
   switch (action.type) {
+    case authActionTypes.DISCONNECT:
+      return initialState;
     case actionTypes.HAS_FETCHED_INVOICES:
       return Immutable.merge(state, {
         loading: false,

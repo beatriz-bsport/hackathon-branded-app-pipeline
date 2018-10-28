@@ -7,18 +7,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import { ResponsiveDrawer } from '../components';
 
-import {
-  activity as activityActions,
-  metaActivity as metaActivityActions,
-  offer as offerActions,
-  member as memberActions,
-  coach as coachActions,
-  establishment as establishmentActions,
-  category as categoryActions,
-  invoice as invoiceActions,
-  paymentPack as paymentPackActions,
-  stats as statsActions,
-} from '../actions';
+import { refresh as refreshActions } from '../actions';
 
 import Dashboard from './Dashboard.component';
 
@@ -57,16 +46,7 @@ const styles = (theme: Object) => ({
 type Props = {
   classes: Object,
   authenticated: boolean,
-  fetchAllActivities: () => void,
-  fetchAllOffers: () => void,
-  fetchAllMembers: () => void,
-  fetchActivitiesMinimal: () => void,
-  fetchAssociatedCoaches: () => void,
-  fetchAllEstablishments: () => void,
-  fetchSCT: () => void,
-  fetchInvoices: () => void,
-  fetchAllPaymentPacks: () => void,
-  fetchDashboardStats: () => void,
+  refreshIfNeeded: () => void,
 };
 
 export class Backoffice extends Component<Props> {
@@ -75,16 +55,7 @@ export class Backoffice extends Component<Props> {
   }
 
   componentDidMount() {
-    this.props.fetchSCT();
-    this.props.fetchInvoices();
-    this.props.fetchAllOffers();
-    this.props.fetchAllMembers();
-    this.props.fetchAllActivities();
-    this.props.fetchDashboardStats();
-    this.props.fetchAllPaymentPacks();
-    this.props.fetchActivitiesMinimal();
-    this.props.fetchAssociatedCoaches();
-    this.props.fetchAllEstablishments();
+    this.props.refreshIfNeeded();
   }
 
   render() {
@@ -95,7 +66,10 @@ export class Backoffice extends Component<Props> {
     }
 
     return (
-      <ResponsiveDrawer>
+      <ResponsiveDrawer
+        onRefresh={this.props.refresh}
+        isRefreshing={this.props.isRefreshing}
+      >
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <div>
@@ -157,40 +131,17 @@ const themedBackoffice = withStyles(styles)(Backoffice);
 function mapStateToProps(state) {
   return {
     authenticated: state.auth.authenticated,
+    isRefreshing: state.refresh.isRefreshing,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchAllEstablishments() {
-      dispatch(establishmentActions.fetchEstablishments());
+    refreshIfNeeded() {
+      dispatch(refreshActions.refreshIfNeeded());
     },
-    fetchAllMembers() {
-      dispatch(memberActions.fetchAll());
-    },
-    fetchAllOffers() {
-      dispatch(offerActions.fetchAllOffers());
-    },
-    fetchAllActivities() {
-      dispatch(metaActivityActions.fetchAllActivities());
-    },
-    fetchActivitiesMinimal() {
-      dispatch(activityActions.fetchActivities());
-    },
-    fetchAssociatedCoaches() {
-      dispatch(coachActions.fetchAssociated());
-    },
-    fetchSCT() {
-      dispatch(categoryActions.fetchSCT());
-    },
-    fetchInvoices() {
-      dispatch(invoiceActions.fetchAll());
-    },
-    fetchAllPaymentPacks() {
-      dispatch(paymentPackActions.fetchAll());
-    },
-    fetchDashboardStats() {
-      dispatch(statsActions.fetchDashboard());
+    refresh() {
+      dispatch(refreshActions.forceRefresh());
     },
   };
 }

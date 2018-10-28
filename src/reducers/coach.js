@@ -1,6 +1,7 @@
 import Immutable from 'seamless-immutable';
 
 import actionTypes from '../actions/coach.types';
+import authActionTypes from '../actions/auth.types';
 
 const initialState = Immutable({
   loading: false,
@@ -16,6 +17,9 @@ const initialState = Immutable({
 
 export default function coachReducers(state = initialState, action = {}) {
   switch (action.type) {
+    case authActionTypes.DISCONNECT:
+      return initialState;
+
     case actionTypes.HAS_FETCHED_ASSOCIATED_COACH:
       return Immutable.merge(state, {
         loading: false,

@@ -1,6 +1,7 @@
 import Immutable from 'seamless-immutable';
 
 import actionTypes from '../actions/member.types';
+import authActionTypes from '../actions/auth.types';
 
 const initialState = Immutable({
   loading: true,
@@ -13,6 +14,9 @@ const initialState = Immutable({
 
 export default function memberReducers(state = initialState, action = {}) {
   switch (action.type) {
+    case authActionTypes.DISCONNECT:
+      return initialState;
+
     case actionTypes.HAS_FETCHED_MEMBERS: {
       const all = action.members;
       return Immutable.merge(state, {

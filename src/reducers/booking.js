@@ -3,6 +3,7 @@
 import Immutable from 'seamless-immutable';
 
 import actionTypes from '../actions/booking.types';
+import authActionTypes from '../actions/auth.types';
 import type { Booking, BookingOption } from '../api/types';
 
 function updateBookings(
@@ -33,6 +34,9 @@ const initialState = Immutable({
 
 export default function bookingReducers(state = initialState, action = {}) {
   switch (action.type) {
+    case authActionTypes.DISCONNECT:
+      return initialState;
+
     case actionTypes.ERROR_UPDATING_BOOKING_OPTION:
       return Immutable.merge(state, {
         bookingOptionsUpdating: state.bookingOptionsUpdating.filter(

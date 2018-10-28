@@ -1,6 +1,7 @@
 import Immutable from 'seamless-immutable';
 
 import actionTypes from '../actions/establishment.types';
+import authActionTypes from '../actions/auth.types';
 
 const initialState = Immutable({
   all: [],
@@ -19,6 +20,8 @@ export default function establishmentReducers(
   action = {},
 ) {
   switch (action.type) {
+    case authActionTypes.DISCONNECT:
+      return initialState;
     case actionTypes.HAS_FETCHED_ESTABLISHMENTS:
       return Immutable.merge(state, {
         loading: false,

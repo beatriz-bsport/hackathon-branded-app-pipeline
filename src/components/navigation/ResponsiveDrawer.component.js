@@ -3,6 +3,7 @@ import React from 'react';
 
 import { withStyles } from '@material-ui/core/styles';
 import { translate } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -26,11 +27,12 @@ import HighlightOff from '@material-ui/icons/HighlightOff';
 import FitnessCenter from '@material-ui/icons/FitnessCenter';
 import VpnKey from '@material-ui/icons/VpnKey';
 import LocationOn from '@material-ui/icons/LocationOn';
+import Search from '@material-ui/icons/Search';
 import MenuIcon from '@material-ui/icons/Menu';
 
-import { Link } from 'react-router-dom';
 import { LanguageButton } from '../button/LanguageButton.component';
 import RefreshButton from '../button/RefreshButton.component';
+import SearchBar from '../SearchBar.component';
 import LOGO_ASSET from '../../public/images/banner_lowres.png';
 
 const drawerWidth = 240;
@@ -72,6 +74,19 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             <img height={40} src={LOGO_ASSET} alt="bsport logo" />
           </Grid>
         </div>
+        <Divider className={classes.menuMobile} />
+        <Link
+          to="/search/results"
+          style={{ textDecoration: 'none' }}
+          className={classes.menuMobile}
+        >
+          <ListItem button onClick={this.handleDrawerToggle}>
+            <ListItemIcon>
+              <Search />
+            </ListItemIcon>
+            <ListItemText primary={t('navigation.search')} />
+          </ListItem>
+        </Link>
         <Divider />
         <List>
           <Link to="/" style={{ textDecoration: 'none' }}>
@@ -183,20 +198,19 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                     <MenuIcon />
                   </IconButton>
                   <img
-                    className={classes.navIconHide}
+                    className={`${classes.navIconHide} ${classes.menuIcon}`}
                     height={40}
                     src={LOGO_ASSET}
                     alt="bsport logo"
                   />
                 </Grid>
               </div>
-              <div>
-                <Grid
-                  container
-                  direction="row"
-                  spacing={24}
-                  alignItems="center"
-                >
+              <div className={classes.grow} />
+              <Hidden smDown implementation="css">
+                <Grid container alignItems="center" direction="row">
+                  <Grid item className={classes.searchBar}>
+                    <SearchBar />
+                  </Grid>
                   <Grid item>
                     <RefreshButton
                       isRefreshing={isRefreshing}
@@ -207,7 +221,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                     <LanguageButton />
                   </Grid>
                 </Grid>
-              </div>
+              </Hidden>
             </Grid>
           </Toolbar>
         </AppBar>
@@ -232,6 +246,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             variant="permanent"
             open
             anchor="left"
+            elevation={20}
             classes={{
               paper: classes.drawerPaper,
             }}
@@ -257,6 +272,14 @@ const styles = (theme) => ({
       paddingLeft: drawerWidth,
     },
   },
+  grow: {
+    flex: 1,
+  },
+  menuMobile: {
+    [theme.breakpoints.up('sm')]: {
+      display: 'none',
+    },
+  },
   appBar: {
     position: 'fixed',
     marginLeft: drawerWidth,
@@ -268,6 +291,9 @@ const styles = (theme) => ({
     [theme.breakpoints.up('md')]: {
       display: 'none',
     },
+  },
+  menuIcon: {
+    height: 32,
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
@@ -282,11 +308,15 @@ const styles = (theme) => ({
     backgroundColor: theme.palette.background.default,
     [theme.breakpoints.up('md')]: {
       padding: theme.spacing.unit * 3,
+      paddingTop: 80,
     },
   },
   logo: {
     alignItems: 'center',
     justify: 'center',
+  },
+  searchBar: {
+    marginRight: theme.spacing.unit,
   },
 });
 

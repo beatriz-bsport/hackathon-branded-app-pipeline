@@ -1,3 +1,5 @@
+// @flow
+
 import { combineReducers } from 'redux';
 
 import authReducers from './auth';
@@ -16,6 +18,7 @@ import paymentReducers from './payment';
 import consumerReducers from './consumer';
 import snackbarReducer from './snackbar.reducers';
 import refreshReducer from './refresh';
+import searchReducer from './search.reducers';
 
 export default combineReducers({
   payment: paymentReducers,
@@ -34,4 +37,5 @@ export default combineReducers({
   invoice: invoiceReducers,
   snackbar: snackbarReducer,
   refresh: refreshReducer,
+  search: searchReducer,
 });

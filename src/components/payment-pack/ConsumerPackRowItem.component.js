@@ -17,6 +17,7 @@ type Props = {
   loading: boolean,
   consumerPack: Object,
   paymentPack: Object,
+  hideConsumer: ?boolean,
   incrementCredit: (id: number) => void,
   decrementCredit: (id: number) => void,
   t: (x: string) => string,
@@ -95,13 +96,17 @@ export class ConsumerPackRowItem extends Component<Props> {
   };
 
   render() {
-    const { t, consumerPack } = this.props;
+    const { t, consumerPack, hideConsumer, paymentPack } = this.props;
     const { consumer } = consumerPack;
     return (
       <ListItem>
-        <Avatar src={consumer.photo} />
+        {hideConsumer ? null : <Avatar src={consumer.photo} />}
         <ListItemText
-          primary={`${consumer.first_name} ${consumer.last_name}`}
+          primary={
+            hideConsumer
+              ? paymentPack.name
+              : `${consumer.first_name} ${consumer.last_name}`
+          }
           secondary={`${t('paymentPack.consumer.expiresOn')}${formatAsDate(
             consumerPack.ending_date,
           )}`}

@@ -1,4 +1,7 @@
+// @flow
+
 import api from '../api';
+import { snackbarSuccess } from './snackbar.actions';
 import types from './paymentPack.types';
 
 export function fetchedAllPaymentPacks(paymentPacks) {
@@ -35,8 +38,12 @@ export function startUpdatingCredit(consumerPackId) {
   return { type: types.UPDATING_CONSUMER_PACK_CREDIT, consumerPackId };
 }
 
-export function updateCreditDone(consumerPackId) {
-  return { type: types.UPDATE_CONSUMER_PACK_CREDIT_DONE, consumerPackId };
+export function updateCreditDone(consumerPackId, nbCredit) {
+  return {
+    type: types.UPDATE_CONSUMER_PACK_CREDIT_DONE,
+    consumerPackId,
+    nbCredit,
+  };
 }
 
 export function updateCreditFailed(consumerPackId) {
@@ -47,19 +54,16 @@ export function addCredit(consumerPackId, nbCredit) {
   return async (dispatch) => {
     dispatch(startUpdatingCredit(consumerPackId));
     try {
-      let apiCall = () => {};
-      if (nbCredit >= 0) {
-        apiCall = api.paymentPack.addCredit;
-      } else {
-        apiCall = api.paymentPack.subCredit;
-      }
+      const apiCall =
+        api.paymentPack[nbCredit >= 0 ? 'addCredit' : 'subCredit'];
       const response = await apiCall(
         consumerPackId,
         nbCredit >= 0 ? nbCredit : -nbCredit,
       );
       if (response.status === 200) {
         dispatch(refreshAllPaymentPack());
-        dispatch(updateCreditDone(consumerPackId));
+        dispatch(updateCreditDone(consumerPackId, nbCredit));
+        dispatch(snackbarSuccess('paymentPack.credit.updated'));
       } else {
         dispatch(updateCreditFailed(consumerPackId));
       }

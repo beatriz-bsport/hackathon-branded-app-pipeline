@@ -25,6 +25,7 @@ import { PaymentPackList, PaymentPackForm } from './payment-pack';
 import { CoachList, CoachPerformance, CoachForm } from './coach';
 import { Member, MemberList, MemberForm } from './member';
 import { EstablishmentMap, EstablishmentFormPage } from './establishment';
+import SearchResults from './SearchResults.component';
 
 type Props = {
   refresh: () => void,
@@ -103,6 +104,7 @@ export class Backoffice extends Component<Props> {
               <Route path="/marketing/rule/:id" component={MarketingRule} />
               <Route path="/marketing" component={MarketingDashboard} />
               <Route exact path="/" component={Dashboard} />
+              <Route exact path="/search/results" component={SearchResults} />
             </Switch>
           </div>
         </main>
@@ -132,18 +134,17 @@ function mapDispatchToProps(dispatch) {
 }
 
 const styles = (theme: Object) => ({
-  toolbar: theme.mixins.toolbar,
-  progress: {
-    flexGrow: 1,
-  },
   content: {
     backgroundColor: theme.palette.background.default,
-    paddingTop: theme.spacing.unit * 3,
-    marginBottom: theme.spacing.unit * 2,
-    [theme.breakpoints.up('sm')]: {
-      paddingLeft: theme.spacing.unit * 3,
-      paddingRight: theme.spacing.unit * 3,
-    },
+    //paddingTop: theme.spacing.unit * 3,
+    //[theme.breakpoints.up('sm')]: {
+    //  paddingLeft: theme.spacing.unit * 3,
+    //  paddingRight: theme.spacing.unit * 3,
+    //},
+    flexGrow: 1,
+  },
+  toolbar: theme.mixins.toolbar,
+  progress: {
     flexGrow: 1,
   },
 });

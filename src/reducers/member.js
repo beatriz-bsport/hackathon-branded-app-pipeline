@@ -2,6 +2,7 @@ import Immutable from 'seamless-immutable';
 
 import actionTypes from '../actions/member.types';
 import authActionTypes from '../actions/auth.types';
+import paymentPackActionTypes from '../actions/paymentPack.types';
 
 const initialState = Immutable({
   loading: true,
@@ -71,6 +72,26 @@ export default function memberReducers(state = initialState, action = {}) {
       return state.merge({
         updatedCoach: action.member,
       });
+
+    case paymentPackActionTypes.UPDATE_CONSUMER_PACK_CREDIT_DONE: {
+      const paymentPacks =
+        (state.member && state.member.consumer_payment_pack) || [];
+      const paymentPackIdx = paymentPacks.findIndex(
+        (p) => p.id === action.consumerPackId,
+      );
+      if (paymentPackIdx === -1) {
+        return state;
+      }
+
+      const p = paymentPacks[paymentPackIdx];
+      const path = ['member', 'consumer_payment_pack', paymentPackIdx];
+      return state
+        .setIn(path.concat(['used_credits']), p.used_credits - action.nbCredit)
+        .setIn(
+          path.concat(['available_credits']),
+          p.available_credits + action.nbCredit,
+        );
+    }
 
     default:
       return state;

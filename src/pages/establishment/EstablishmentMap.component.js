@@ -134,7 +134,9 @@ export class EstablishmentList extends Component<Props, State> {
         <Grid item xs={12}>
           <Grid container direction="column" spacing={32}>
             {establishments.map((e) => (
-              <Grid item>{this.renderEstablishment(e)}</Grid>
+              <Grid key={e.id} item>
+                {this.renderEstablishment(e)}
+              </Grid>
             ))}
           </Grid>
         </Grid>

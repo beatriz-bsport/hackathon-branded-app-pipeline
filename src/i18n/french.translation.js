@@ -1,6 +1,10 @@
+// @flow
+
 import coach from './fr/coach.translations';
 import establishment from './fr/establishment.translations';
 import member from './fr/member.translations';
+import search from './fr/search.translations';
+import paymentPack from './fr/payment-pack.translations';
 
 export default {
   translation: {
@@ -269,6 +273,7 @@ export default {
         bookings: 'Mes réservations ',
         profile: 'Profil',
       },
+      search: 'Rechercher',
       dashboard: 'Dashboard',
       activity: 'Mes activités',
       calendar: 'Calendrier',
@@ -332,34 +337,7 @@ export default {
       createInvoice: 'Enregistrer',
       toBill: 'Facturer',
     },
-    paymentPack: {
-      maxNBookingsByWeek1: 'Max ',
-      maxNBookingsByWeek2: ' réservations par semaine',
-      validity: 'Valide :',
-      consumer: {
-        expiresOn: 'Expire le ',
-        bookingsThisWeek: 'booking this week',
-      },
-      validForNdays1: 'Valide ',
-      validForNdays2: ' jours après achat',
-      validFrom: 'Valide du ',
-      validTo: ' au ',
-      bookingsLeftThisWeek: 'Réservation max par semaine',
-      // eslint-disable-next-line
-      addButton: "Créer une offre d'abonnement",
-      noPaymentPackSubscribed: 'Aucun abonnement',
-      // eslint-disable-next-line
-      validUntil: "Valide jusqu'au",
-      expirationDate: 'Expire au',
-      never: 'Jamais',
-      unlimitedCredits: 'Illimité',
-      credits: 'Crédits',
-      availableOnFollowingSports: 'Sports éligibles : ',
-      anySport: 'Tout sport',
-      availableOnFollowingActivities: 'Séances éligibles : ',
-      anyActivity: 'Toute séance',
-      boughtConsumerPaymentPacks: 'Abonnés',
-    },
+    paymentPack,
     login: {
       signUpConsumer: 'Pas encore de compte ?',
       invalidPhone: 'Numéro de téléphone inconnu',
@@ -411,6 +389,7 @@ export default {
       reviews: 'Avis clients: ',
     },
     establishment,
+    search,
     booking: {
       attend: 'Présent',
       doNotAttend: 'Absent',

@@ -13,6 +13,7 @@ import * as invoice from './invoice.actions';
 import * as payment from './payment.actions';
 import * as consumer from './consumer.actions';
 import * as refresh from './refresh.actions';
+import * as search from './search.actions';
 
 export {
   refresh,
@@ -30,4 +31,5 @@ export {
   member,
   paymentPack,
   category,
+  search,
 };

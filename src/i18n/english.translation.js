@@ -1,6 +1,8 @@
 import coach from './en/coach.translations';
 import establishment from './en/establishment.translations';
 import member from './en/member.translations';
+import search from './en/search.translations';
+import paymentPack from './en/payment-pack.translations';
 
 export default {
   translation: {
@@ -234,7 +236,7 @@ export default {
         bookings: 'My bookings',
         profile: 'Profile',
       },
-
+      search: 'Search',
       dashboard: 'Dashboard',
       activity: 'My activities',
       calendar: 'Calendar',
@@ -308,32 +310,7 @@ export default {
       createInvoice: 'Save invoice',
       toBill: 'Add invoice',
     },
-    paymentPack: {
-      consumer: {
-        expiresOn: 'Expires on ',
-        bookingsThisWeek: 'réservations cette semaine',
-      },
-      maxNBookingsByWeek1: 'Max ',
-      maxNBookingsByWeek2: ' bookings per week',
-      validity: 'Validity :',
-      validForNdays1: 'Valid for ',
-      validForNdays2: ' days after purchase',
-      validFrom: 'Valid from ',
-      validTo: ' to ',
-      bookingsLeftThisWeek: 'Max bookings per week',
-      addButton: 'Create a new pass',
-      noPaymentPackSubscribed: 'No pass subscribed',
-      validUntil: 'Valid until',
-      expirationDate: 'Expiration date',
-      never: 'Never',
-      unlimitedCredits: 'Unlimited',
-      credits: 'Credits',
-      availableOnFollowingSports: 'Available on following sports: ',
-      anySport: 'Any sports',
-      availableOnFollowingActivities: 'Available on following slot: ',
-      anyActivity: 'Any slot',
-      boughtConsumerPaymentPacks: 'Subscribers',
-    },
+    paymentPack,
     login: {
       signUpConsumer: 'Create an account ?',
       invalidPhone: 'Unknown phone number',
@@ -346,6 +323,7 @@ export default {
       forgottenPassword: 'Forgotten password',
     },
     establishment,
+    search,
     activity: {
       addActivity: 'Add an activity',
       addOffers: 'Add sessions',

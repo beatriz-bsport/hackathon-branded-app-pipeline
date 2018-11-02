@@ -8,9 +8,14 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { createBrowserHistory } from 'history';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
-import immutableTransform from 'redux-persist-transform-immutable';
+import {
+  seamlessImmutableReconciler,
+  seamlessImmutableTransformCreator,
+} from 'redux-persist-seamless-immutable';
 
 import reducers from './reducers';
+
+const transformerConfig = {};
 
 const persistConfig = {
   key: 'root',
@@ -30,8 +35,10 @@ const persistConfig = {
     'category',
     'invoice',
     'refresh',
+    'search',
   ],
-  transforms: [immutableTransform()],
+  stateReconciler: seamlessImmutableReconciler,
+  transforms: [seamlessImmutableTransformCreator(transformerConfig)],
 };
 
 export default function initStore(initialState: Object) {

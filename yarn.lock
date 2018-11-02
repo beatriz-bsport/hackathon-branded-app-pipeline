@@ -6244,7 +6244,7 @@ ignore@^4.0.2:
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-4.0.3.tgz#e2d58c9654d75b542529fa28d80ac95b29e4f467"
   integrity sha512-Z/vAH2GGIEATQnBVXMclE2IGV6i0GyVngKThcGZ5kHgHMxLo9Ow2+XHRq1aEKEej5vOF1TPJNbvX6J/anT0M7A==
 
-immutable@^3.8.1, immutable@^3.8.2:
+immutable@^3.8.1:
   version "3.8.2"
   resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.2.tgz#c2439951455bb39913daf281376f1530e104adf3"
   integrity sha1-wkOZUUVbs5kT2vKBN28VMOEErfM=
@@ -7206,11 +7206,6 @@ js-yaml@~3.7.0:
     argparse "^1.0.7"
     esprima "^2.6.0"
 
-jsan@^3.1.9:
-  version "3.1.10"
-  resolved "https://registry.yarnpkg.com/jsan/-/jsan-3.1.10.tgz#ba9917b864defff567e0c990a34ae7a8d5eb1d90"
-  integrity sha512-Rpme/mJFG3BlIM8/9L+0qAIGccx6dyYEODdkZUHYKyJI3NIl6d13buXa7aE3lO1kZAGMalG0/6QzalXdDdUc4g==
-
 jsbn@~0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/jsbn/-/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
@@ -7970,6 +7965,10 @@ mem@^1.1.0:
   integrity sha1-Xt1StIXKHZAP5kiVUFOZoN+kX3Y=
   dependencies:
     mimic-fn "^1.0.0"
+
+memoize-one@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/memoize-one/-/memoize-one-4.0.2.tgz#3fb8db695aa14ab9c0f1644e1585a8806adc1aee"
 
 memory-fs@^0.4.0, memory-fs@~0.4.1:
   version "0.4.1"
@@ -10480,12 +10479,10 @@ reduce-function-call@^1.0.1:
   dependencies:
     balanced-match "^0.4.2"
 
-redux-persist-transform-immutable@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/redux-persist-transform-immutable/-/redux-persist-transform-immutable-5.0.0.tgz#0ae277b4d8d662016f62af394df2572525ad6671"
-  integrity sha512-Gf7pNqHIVrCM459BzyqT25A8+8/PP6ce57kXY+PEgYnWn8jQRCAZaSNxw7T1eqKGXrJfICnMQ39RwehvMqlJMg==
-  dependencies:
-    remotedev-serialize "^0.1.0"
+redux-persist-seamless-immutable@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/redux-persist-seamless-immutable/-/redux-persist-seamless-immutable-2.0.0.tgz#7433d6b04f58a98bc1b7d57f6f2884884c57f8d4"
+  integrity sha512-o23ej9EcEzI61XgzRw23mde73Ejo3s4M5UpCuSq/ZXHbBHcLWw/I6holYnzrpytltdjUNU1MXLzb+AUiAjQ5tQ==
 
 redux-persist@^5.9.1:
   version "5.9.1"
@@ -10623,13 +10620,6 @@ relateurl@0.2.x:
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
   integrity sha1-VNvzd+UUQKypCkzSdGANP/LYiKk=
-
-remotedev-serialize@^0.1.0:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/remotedev-serialize/-/remotedev-serialize-0.1.1.tgz#0f598000b7dd7515d67f9b51a61d211e18ce9554"
-  integrity sha1-D1mAALfddRXWf5tRph0hHhjOlVQ=
-  dependencies:
-    jsan "^3.1.9"
 
 remove-trailing-separator@^1.0.1:
   version "1.1.0"

@@ -19,6 +19,7 @@ import consumerReducers from './consumer';
 import snackbarReducer from './snackbar.reducers';
 import refreshReducer from './refresh';
 import searchReducer from './search.reducers';
+import companiesReducers from './companies.reducers';
 
 export default combineReducers({
   payment: paymentReducers,
@@ -38,4 +39,5 @@ export default combineReducers({
   snackbar: snackbarReducer,
   refresh: refreshReducer,
   search: searchReducer,
+  companies: companiesReducers,
 });

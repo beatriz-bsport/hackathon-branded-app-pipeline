@@ -55,6 +55,9 @@ const styles = (theme) => ({
     },
   },
   root: {
+    [theme.breakpoints.down('md')]: {
+      paddingTop: 60,
+    },
     [theme.breakpoints.up('md')]: {
       margin: -theme.spacing.unit * 3,
       width: `calc(100% + ${theme.spacing.unit * 6}px)`,

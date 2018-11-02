@@ -28,6 +28,7 @@ import FitnessCenter from '@material-ui/icons/FitnessCenter';
 import VpnKey from '@material-ui/icons/VpnKey';
 import LocationOn from '@material-ui/icons/LocationOn';
 import Search from '@material-ui/icons/Search';
+import SettingsIcon from '@material-ui/icons/Settings';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import { LanguageButton } from '../button/LanguageButton.component';
@@ -61,6 +62,97 @@ class ResponsiveDrawer extends React.Component<Props, State> {
 
   render() {
     const { classes, theme, t, isRefreshing, onRefresh } = this.props;
+    const items = [
+      {
+        to: '/search/results',
+        text: t('navigation.search'),
+        icon: Search,
+        className: classes.menuMobile,
+      },
+      { type: 'divider', className: classes.menuMobile },
+      {
+        to: '/',
+        text: t('navigation.dashboard'),
+        icon: TrendingUp,
+      },
+      {
+        to: '/calendar',
+        icon: Today,
+        text: t('navigation.calendar'),
+      },
+      'divider',
+      {
+        to: '/activity',
+        icon: Star,
+        text: t('navigation.activity'),
+      },
+      {
+        to: '/coach',
+        icon: FitnessCenter,
+        text: t('common.coach'),
+      },
+      {
+        to: '/map',
+        icon: LocationOn,
+        text: t('navigation.establishment'),
+      },
+      {
+        to: '/payment-pack',
+        icon: VpnKey,
+        text: t('navigation.pass'),
+      },
+      'divider',
+      {
+        to: '/marketing',
+        icon: Email,
+        text: t('navigation.message'),
+      },
+      {
+        to: '/member',
+        icon: People,
+        text: t('navigation.member'),
+      },
+      {
+        to: '/payment',
+        icon: Payment,
+        text: t('navigation.payment'),
+      },
+      'divider',
+      {
+        to: '/settings/company',
+        icon: SettingsIcon,
+        text: t('navigation.settings'),
+      },
+      'divider',
+      {
+        to: '/signout',
+        icon: HighlightOff,
+        text: t('navigation.logoff'),
+      },
+    ].map((item, i) => {
+      if (item === 'divider') {
+        return <Divider key={i} />;
+      }
+      if (item.type === 'divider') {
+        return <Divider key={i} className={item.className} />;
+      }
+
+      return (
+        <Link
+          key={i}
+          to={item.to}
+          style={{ textDecoration: 'none' }}
+          className={item.className || ''}
+        >
+          <ListItem button onClick={this.handleDrawerToggle}>
+            <ListItemIcon>
+              <item.icon />
+            </ListItemIcon>
+            <ListItemText primary={item.text} />
+          </ListItem>
+        </Link>
+      );
+    });
 
     const drawer = (
       <div>
@@ -74,106 +166,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             <img height={40} src={LOGO_ASSET} alt="bsport logo" />
           </Grid>
         </div>
-        <Divider className={classes.menuMobile} />
-        <Link
-          to="/search/results"
-          style={{ textDecoration: 'none' }}
-          className={classes.menuMobile}
-        >
-          <ListItem button onClick={this.handleDrawerToggle}>
-            <ListItemIcon>
-              <Search />
-            </ListItemIcon>
-            <ListItemText primary={t('navigation.search')} />
-          </ListItem>
-        </Link>
-        <Divider />
-        <List>
-          <Link to="/" style={{ textDecoration: 'none' }}>
-            <ListItem button onClick={this.handleDrawerToggle}>
-              <ListItemIcon>
-                <TrendingUp />
-              </ListItemIcon>
-              <ListItemText primary={t('navigation.dashboard')} />
-            </ListItem>
-          </Link>
-          <Link to="/calendar" style={{ textDecoration: 'none' }}>
-            <ListItem button onClick={this.handleDrawerToggle}>
-              <ListItemIcon>
-                <Today />
-              </ListItemIcon>
-              <ListItemText primary={t('navigation.calendar')} />
-            </ListItem>
-          </Link>
-          <Divider />
-          <Link to="/activity" style={{ textDecoration: 'none' }}>
-            <ListItem button onClick={this.handleDrawerToggle}>
-              <ListItemIcon>
-                <Star />
-              </ListItemIcon>
-              <ListItemText primary={t('navigation.activity')} />
-            </ListItem>
-          </Link>
-          <Link to="/coach" style={{ textDecoration: 'none' }}>
-            <ListItem button onClick={this.handleDrawerToggle}>
-              <ListItemIcon>
-                <FitnessCenter />
-              </ListItemIcon>
-              <ListItemText primary={t('common.coach')} />
-            </ListItem>
-          </Link>
-          <Link to="/map" style={{ textDecoration: 'none' }}>
-            <ListItem button onClick={this.handleDrawerToggle}>
-              <ListItemIcon>
-                <LocationOn />
-              </ListItemIcon>
-              <ListItemText primary={t('navigation.establishment')} />
-            </ListItem>
-          </Link>
-          <Divider />
-          <Link to="/payment-pack" style={{ textDecoration: 'none' }}>
-            <ListItem button onClick={this.handleDrawerToggle}>
-              <ListItemIcon>
-                <VpnKey />
-              </ListItemIcon>
-              <ListItemText primary={t('navigation.pass')} />
-            </ListItem>
-          </Link>
-          <Link to="/marketing" style={{ textDecoration: 'none' }}>
-            <ListItem button onClick={this.handleDrawerToggle}>
-              <ListItemIcon>
-                <Email />
-              </ListItemIcon>
-              <ListItemText primary={t('navigation.message')} />
-            </ListItem>
-          </Link>
-          <Link to="/member" style={{ textDecoration: 'none' }}>
-            <ListItem button onClick={this.handleDrawerToggle}>
-              <ListItemIcon>
-                <People />
-              </ListItemIcon>
-              <ListItemText primary={t('navigation.member')} />
-            </ListItem>
-          </Link>
-          <Divider />
-          <Link to="/invoice" style={{ textDecoration: 'none' }}>
-            <ListItem button onClick={this.handleDrawerToggle}>
-              <ListItemIcon>
-                <Payment />
-              </ListItemIcon>
-              <ListItemText primary={t('navigation.payment')} />
-            </ListItem>
-          </Link>
-          <Divider />
-          <Link to="/signout" style={{ textDecoration: 'none' }}>
-            <ListItem button onClick={this.handleDrawerToggle}>
-              <ListItemIcon>
-                <HighlightOff />
-              </ListItemIcon>
-              <ListItemText primary={t('navigation.logoff')} />
-            </ListItem>
-          </Link>
-        </List>
+        <List>{items}</List>
       </div>
     );
 
@@ -276,7 +269,7 @@ const styles = (theme) => ({
     flex: 1,
   },
   menuMobile: {
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       display: 'none',
     },
   },

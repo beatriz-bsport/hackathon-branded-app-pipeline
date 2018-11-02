@@ -5,9 +5,11 @@ import establishment from './fr/establishment.translations';
 import member from './fr/member.translations';
 import search from './fr/search.translations';
 import paymentPack from './fr/payment-pack.translations';
+import companies from './fr/companies.translations';
 
 export default {
   translation: {
+    companies,
     hi: 'Salut',
     pageTitle: {
       myAccount: 'Mon compte',
@@ -284,6 +286,7 @@ export default {
       logoff: 'Déconnexion',
       goBack: 'Retour',
       pass: 'Abonnements',
+      settings: 'Paramètres',
     },
     invoice: {
       forms: {

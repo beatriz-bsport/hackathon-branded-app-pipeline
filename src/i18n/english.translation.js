@@ -3,9 +3,11 @@ import establishment from './en/establishment.translations';
 import member from './en/member.translations';
 import search from './en/search.translations';
 import paymentPack from './en/payment-pack.translations';
+import companies from './en/companies.translations';
 
 export default {
   translation: {
+    companies,
     hi: 'Hi',
     pageTitle: {
       myAccount: 'My account',
@@ -247,6 +249,7 @@ export default {
       logoff: 'Sign out',
       goBack: 'Go back',
       pass: 'Subscriptions',
+      settings: 'Settings',
     },
     consumer: {
       myPaymentPacks: 'My pass',

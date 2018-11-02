@@ -1,3 +1,5 @@
+// @flow
+
 import category from './category';
 import invoice from './invoice';
 import booking from './booking';
@@ -12,6 +14,7 @@ import paymentPack from './payment-pack';
 import payment from './payment';
 import consumer from './consumer';
 import metaActivity from './meta-activity';
+import companies from './companies';
 
 export default {
   metaActivity,
@@ -28,4 +31,5 @@ export default {
   paymentPack,
   payment,
   consumer,
+  companies,
 };

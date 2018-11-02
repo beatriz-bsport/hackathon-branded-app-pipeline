@@ -18,6 +18,8 @@ export default {
       CHECK: 'Check',
     },
     common: {
+      firstname: 'Firstname',
+      lastname: 'Lastname',
       save: 'Save',
       saveAndAdd: 'Save and add another',
       booking: 'Booking',

@@ -25,6 +25,8 @@ export default {
       },
     },
     common: {
+      firstname: 'Prénom',
+      lastname: 'Nom de famille',
       save: 'Enregistrer',
       saveAndAdd: 'Enregistrer et ajouter à nouveau',
       booking: 'Réservation',

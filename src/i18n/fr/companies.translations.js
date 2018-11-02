@@ -1,4 +1,5 @@
 export default {
+  general: 'Général',
   owner_address: 'Addresse gérant',
   address: 'Addresse',
   bank_details: 'Informations bancaires',

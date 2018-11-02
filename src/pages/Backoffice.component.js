@@ -58,7 +58,6 @@ export class Backoffice extends Component<Props> {
         isRefreshing={this.props.isRefreshing}
       >
         <main className={classes.content}>
-          <div className={classes.toolbar} />
           <div>
             <Switch>
               <Route path="/calendar" component={Planning} />

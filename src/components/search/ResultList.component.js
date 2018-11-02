@@ -21,6 +21,7 @@ type Props = {
   goToMember: (*) => void,
   selected: number,
   classes: *,
+  className: number,
   t: TFunction,
 };
 type State = {};

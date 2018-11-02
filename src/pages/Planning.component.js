@@ -27,7 +27,6 @@ import type {
   Establishment,
   PaymentPack,
 } from '../api/types';
-import type { FormData } from '../components/form/EditLiveOfferForm.component';
 
 const styles = (theme) => ({
   container: {
@@ -107,13 +106,7 @@ export class Planning extends Component<Props, State> {
     });
   };
 
-  onConfirmModal = async ({
-    offerId,
-    data,
-  }: {
-    offerId: number,
-    data: FormData,
-  }) => {
+  onConfirmModal = async ({ offerId, data }) => {
     this.setState({ editOfferProcessing: true });
     try {
       const response = await api.offer.editLiveOffer({ offerId, data });

@@ -19,8 +19,11 @@ import { search as searchActions } from '../actions';
 
 type Props = {
   t: TFunction,
-  searchForText: (string) => void,
+  searchForText: (string, path: ?string) => void,
   searchText: string,
+  clearSearch: () => void,
+  location: Object,
+  history: Object,
   classes: *,
   className: string,
 };
@@ -33,7 +36,7 @@ export class SearchBar extends Component<Props, State> {
     searchText: '',
   };
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
 
     const query = parse((props.location && props.location.search) || '');
@@ -47,14 +50,14 @@ export class SearchBar extends Component<Props, State> {
     }
   }
 
-  handleChange = (e) => {
-    const value = e.target.value;
+  handleChange = (e: Object) => {
+    const { value } = e.target;
     if (!value) {
-      return this.clearSearch();
+      this.clearSearch();
+    } else {
+      this.setState({ searchText: value });
+      this.props.searchForText(value, this.props.history.location.pathname);
     }
-    this.setState({ searchText: value });
-
-    this.props.searchForText(value, this.props.history.location.pathname);
   };
 
   clearSearch = () => {
@@ -108,7 +111,7 @@ function mapDisPatchToProps(dispatch) {
   };
 }
 
-const styles = (theme) => ({
+const styles = () => ({
   bar: {
     width: '100%',
   },

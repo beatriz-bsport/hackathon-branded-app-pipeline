@@ -17,10 +17,18 @@
     "babel"
   ],
   "rules": {
+    // DISABLED BY SOFIAN
+    "no-restricted-syntax": 0,
+    "react/no-array-index-key": 0,
+    "operator-linebreak": 0,
+    "implicit-arrow-linebreak": 0,
     "indent": 0,
     "jsx-a11y/label-has-for": 0,
+    "jsx-a11y/label-has-associated-control": 0,
     "camelcase": "off",
     "import/no-extraneous-dependencies": "off",
+    "arrow-body-style": 0,
+    // END DISABLED BY SOFIAN
     "quotes": [1, "single"],
     "strict": 0,
     "no-underscore-dangle": 0,

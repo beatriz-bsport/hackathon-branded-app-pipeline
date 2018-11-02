@@ -28,7 +28,7 @@ export class AddressDetail extends Component<Props, State> {
   }
 }
 
-const styles = (theme) => ({
+const styles = () => ({
   content: {
     textTransform: 'uppercase',
   },

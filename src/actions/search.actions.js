@@ -1,13 +1,11 @@
-// @flow
-
-import { push, replace, goBack, go } from 'react-router-redux';
+import { push, replace } from 'react-router-redux';
 
 import { fetchMember } from './member.actions';
 import { fetchBookingsByMember } from './booking.actions';
 
 import types from './search.types';
 
-export function actionSearchTextStart(text: string, path: string) {
+export function actionSearchTextStart(text, path) {
   return { type: types.SEARCH_TEXT_START, text, path };
 }
 
@@ -19,7 +17,7 @@ export function actionSearchTextError(error) {
   return { type: types.SEARCH_TEXT_ERROR, error };
 }
 
-export function searchText(text: string, path: string) {
+export function searchText(text, path) {
   return async (dispatch) => {
     dispatch(actionSearchTextStart(text, path));
 

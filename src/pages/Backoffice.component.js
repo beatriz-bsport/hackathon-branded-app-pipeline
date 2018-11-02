@@ -115,8 +115,6 @@ export class Backoffice extends Component<Props> {
   }
 }
 
-const themedBackoffice = withStyles(styles)(Backoffice);
-
 function mapStateToProps(state) {
   return {
     authenticated: state.auth.authenticated,
@@ -138,11 +136,11 @@ function mapDispatchToProps(dispatch) {
 const styles = (theme: Object) => ({
   content: {
     backgroundColor: theme.palette.background.default,
-    //paddingTop: theme.spacing.unit * 3,
-    //[theme.breakpoints.up('sm')]: {
+    // paddingTop: theme.spacing.unit * 3,
+    // [theme.breakpoints.up('sm')]: {
     //  paddingLeft: theme.spacing.unit * 3,
     //  paddingRight: theme.spacing.unit * 3,
-    //},
+    // },
     flexGrow: 1,
   },
   toolbar: theme.mixins.toolbar,
@@ -150,6 +148,8 @@ const styles = (theme: Object) => ({
     flexGrow: 1,
   },
 });
+
+const themedBackoffice = withStyles(styles)(Backoffice);
 
 export default connect(
   mapStateToProps,

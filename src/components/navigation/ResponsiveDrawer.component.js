@@ -113,7 +113,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         text: t('navigation.member'),
       },
       {
-        to: '/payment',
+        to: '/invoice',
         icon: Payment,
         text: t('navigation.payment'),
       },
@@ -125,7 +125,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
       },
       'divider',
       {
-        to: '/signout',
+        to: '/login/signout',
         icon: HighlightOff,
         text: t('navigation.logoff'),
       },

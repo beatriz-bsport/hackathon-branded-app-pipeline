@@ -9,7 +9,6 @@ import { withStyles } from '@material-ui/core/styles';
 import { CircularProgress } from '@material-ui/core';
 
 import UserspaceSwitcher from './pages/UserspaceSwitcher.component';
-import Signout from './pages/login/Signout.component';
 import ConsumerHome from './pages/ConsumerHome.component';
 import LoginRouter from './pages/login/LoginRouter.component';
 import ConsumerSignUp from './pages/login/ConsumerSignUp.component';

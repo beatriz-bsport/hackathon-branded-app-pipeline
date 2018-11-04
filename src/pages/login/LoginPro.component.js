@@ -111,7 +111,7 @@ export class Login extends Component<Props, State> {
                     />
                     <div style={{ paddingTop: 12 }}>
                       <Link
-                        to="/reset_password"
+                        to="/login/reset_password"
                         style={{ textDecoration: 'none' }}
                       >
                         <Typography color="secondary" variant="caption">

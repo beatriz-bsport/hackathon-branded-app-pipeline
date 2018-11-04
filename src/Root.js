@@ -9,7 +9,6 @@ import { withStyles } from '@material-ui/core/styles';
 import { CircularProgress } from '@material-ui/core';
 
 import UserspaceSwitcher from './pages/UserspaceSwitcher.component';
-import ResetPassword from './pages/login/ResetPassword.component';
 import Signout from './pages/login/Signout.component';
 import ConsumerHome from './pages/ConsumerHome.component';
 import LoginRouter from './pages/login/LoginRouter.component';
@@ -43,8 +42,6 @@ export class Root extends Component<Props> {
         <Switch>
           <Route path="/signup" component={ConsumerSignUp} />
           <Route path="/login" component={LoginRouter} />
-          <Route path="/reset_password" component={ResetPassword} />
-          <Route path="/signout" component={Signout} />
           <Route path="/consumer" component={ConsumerHome} />
           <Route path="/" component={UserspaceSwitcher} />
         </Switch>

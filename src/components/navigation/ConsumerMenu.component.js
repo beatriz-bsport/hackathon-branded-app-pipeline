@@ -79,7 +79,7 @@ class ConsumerMenu extends React.Component<Props, State> {
             </ListItem>
           </Link>
           <Divider />
-          <Link to="/signout" style={{ textDecoration: 'none' }}>
+          <Link to="/login/signout" style={{ textDecoration: 'none' }}>
             <ListItem button onClick={this.handleDrawerToggle}>
               <ListItemIcon>
                 <HighlightOff />

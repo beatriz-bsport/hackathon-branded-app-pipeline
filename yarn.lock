@@ -2712,10 +2712,6 @@ bser@^2.0.0:
   dependencies:
     node-int64 "^0.4.0"
 
-"bsport-commons@ssh://git@gitlab.com:bsport/bsport-commons-js.git":
-  version "1.0.0"
-  resolved "ssh://git@gitlab.com:bsport/bsport-commons-js.git#4c743bedd503ba65e7cc6ff8f5875be0d7d7c3dc"
-
 buble@^0.16.0:
   version "0.16.0"
   resolved "https://registry.yarnpkg.com/buble/-/buble-0.16.0.tgz#1773e7b5a383f5c722af6b1b16b2ba49cb866a98"

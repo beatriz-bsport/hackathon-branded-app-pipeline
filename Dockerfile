@@ -12,6 +12,7 @@ ADD ./yarn.lock /app/
 
 WORKDIR /app
 
+RUN yarn link bsport-commons
 RUN yarn install
 
 ADD . .

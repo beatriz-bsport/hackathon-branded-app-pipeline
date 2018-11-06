@@ -1,0 +1,5 @@
+tags
+build
+node_modules
+*.log
+.git*

@@ -14,6 +14,7 @@ import {
 import CancelIcon from '@material-ui/icons/Cancel';
 import AddIcon from '@material-ui/icons/Add';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { translate } from 'react-i18next';
 
 import {
@@ -146,17 +147,24 @@ export class InvoiceForm extends Component<Props, State> {
 
   deleteOfferInvoiceItem = (offerId: number) => {
     const { offerInvoiceItems } = this.state;
+    offerInvoiceItems.splice(
+      offerInvoiceItems.findIndex((o) => o.id === offerId),
+      1,
+    );
+
     this.setState({
-      offerInvoiceItems: offerInvoiceItems.filter((o) => o.id !== offerId),
+      offerInvoiceItems,
     });
   };
 
   deletePPackInvoiceItem = (ppackId: number) => {
     const { paymentPackInvoiceItems } = this.state;
+    paymentPackInvoiceItems.splice(
+      paymentPackInvoiceItems.findIndex((pp) => pp.id === ppackId),
+      1,
+    );
     this.setState({
-      paymentPackInvoiceItems: paymentPackInvoiceItems.filter(
-        (pp) => pp.id !== ppackId,
-      ),
+      paymentPackInvoiceItems,
     });
   };
 
@@ -249,8 +257,8 @@ export class InvoiceForm extends Component<Props, State> {
               color="secondary"
               onClick={this.cancelPayments}
             >
-              <CancelIcon className={classes.leftIcon} />
-              {t('common.cancel')}
+              <ArrowBackIcon className={classes.leftIcon} />
+              {t('common.previous')}
             </Button>
           </Grid>
           <Grid item>

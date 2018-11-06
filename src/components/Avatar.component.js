@@ -50,7 +50,7 @@ export default function (props: Props) {
       </Grid>
       {noname ? null : (
         <Grid item>
-          <Typography variant="body1">{user.name || '-'}</Typography>
+          <Typography noWrap variant="body1">{user.name || '-'}</Typography>
         </Grid>
       )}
     </Grid>

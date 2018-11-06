@@ -47,6 +47,7 @@ type Props = {
   date: Object,
   offers: Array<Offer>,
   onOfferSelected: (offer: Offer) => void,
+  selected: number,
   metaActivityId: ?number,
   establishmentId: number,
   classes: Object,
@@ -91,7 +92,7 @@ export class TimeTable extends Component<Props, State> {
     });
   }
 
-  renderActivity = (offer: Offer) => {
+  renderOffer = (offer: Offer) => {
     const { activities } = this.props;
     const activityF = activities.filter((a) => a.id === offer.activity_id);
     if (activityF.length) {
@@ -111,6 +112,7 @@ export class TimeTable extends Component<Props, State> {
           offer={offer}
           showCoach
           noDate
+          selected={this.props.selected === offer.id}
           overrideClickAction={() => {
             this.props.onOfferSelected(offer);
           }}
@@ -145,7 +147,7 @@ export class TimeTable extends Component<Props, State> {
     return offersToday.length ? (
       <List>
         <Divider />
-        {offersToday.map((o) => this.renderActivity(o))}
+        {offersToday.map((o) => this.renderOffer(o))}
       </List>
     ) : (
       <div className={classes.emptyMessage}>

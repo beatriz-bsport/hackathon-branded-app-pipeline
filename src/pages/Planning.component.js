@@ -267,6 +267,11 @@ export class Planning extends Component<Props, State> {
                   offers={offers}
                   activities={activities}
                   loading={timetableLoading}
+                  selected={
+                    this.state.selectedOffer
+                      ? this.state.selectedOffer.id
+                      : null
+                  }
                 />
               </Grid>
             </Grid>

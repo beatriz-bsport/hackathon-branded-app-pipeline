@@ -2,6 +2,7 @@
 import React from 'react';
 
 import {
+  Grid,
   ListItem,
   ListItemText,
   IconButton,
@@ -20,6 +21,9 @@ const styles = () => ({
   listItem: {
     width: '100%',
   },
+  disabled: {
+    backgroundColor: '#FFDDDD',
+  },
 });
 
 type Props = {
@@ -29,6 +33,7 @@ type Props = {
   additionalInfoTypoProps: *,
   additionalInfoSecondary: string,
   showCoachName: ?boolean,
+  selected: boolean,
   overrideClickAction: () => void,
   t: (x: string) => string,
   classes: Object,
@@ -44,6 +49,7 @@ export function OfferMinimalSummary(props: Props) {
     additionalInfoSecondary,
     showCoachName,
     overrideClickAction,
+    selected,
     t,
     classes,
   } = props;
@@ -77,40 +83,57 @@ export function OfferMinimalSummary(props: Props) {
       key={id}
       dense
       button
+      selected={selected}
       onClick={overrideClickAction}
-      className={classes.listItem}
+      className={[classes.listItem, available ? {} : classes.disabled]}
       divider
     >
-      <Tooltip title={coach.name}>
-        <IconButton disableRipple disabled={coach_override}>
-          <Avatar
-            src={coach.photo}
-            imgProps={coach_override ? disabledAvatarProps : {}}
+      <Grid container directon="row" alignItems="center">
+        <Grid item xs={6}>
+          <Grid container direction="row" alignItems="center">
+            <Grid item>
+              <Tooltip title={coach.name}>
+                <IconButton disableRipple disabled={coach_override}>
+                  <Avatar
+                    src={coach.photo}
+                    imgProps={coach_override ? disabledAvatarProps : {}}
+                  />
+                </IconButton>
+              </Tooltip>
+            </Grid>
+            <Grid item style={coach_override ? { marginLeft: -30 } : {}}>
+              {coach_override ? (
+                <Tooltip title={coach_override.name}>
+                  <IconButton disableRipple>
+                    <Avatar src={coach_override.photo} />
+                  </IconButton>
+                </Tooltip>
+              ) : null}
+            </Grid>
+            <Grid item>
+              <ListItemText
+                primary={formattedName}
+                secondary={dateFormatter(date_start)}
+              />
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={3}>
+          {additionalInfo ? (
+            <ListItemText
+              primary={additionalInfo}
+              primaryTypographyProps={additionalInfoTypoProps}
+              secondary={additionalInfoSecondary}
+            />
+          ) : null}
+        </Grid>
+        <Grid item xs={3}>
+          <ListItemText
+            primary={showCoachName ? coach.name : currentEstablishment.title}
+            secondary={<Level noStyle levelId={level_id} variant="caption" />}
           />
-        </IconButton>
-      </Tooltip>
-      {coach_override ? (
-        <Tooltip title={coach_override.name}>
-          <IconButton disableRipple>
-            <Avatar src={coach_override.photo} />
-          </IconButton>
-        </Tooltip>
-      ) : null}
-      <ListItemText
-        primary={formattedName}
-        secondary={dateFormatter(date_start)}
-      />
-      {additionalInfo ? (
-        <ListItemText
-          primary={additionalInfo}
-          primaryTypographyProps={additionalInfoTypoProps}
-          secondary={additionalInfoSecondary}
-        />
-      ) : null}
-      <ListItemText
-        primary={showCoachName ? coach.name : currentEstablishment.title}
-        secondary={<Level noStyle levelId={level_id} variant="caption" />}
-      />
+        </Grid>
+      </Grid>
     </ListItem>
   );
 }

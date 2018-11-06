@@ -25,6 +25,7 @@ export default {
       },
     },
     common: {
+      previous: 'Précédent',
       firstname: 'Prénom',
       lastname: 'Nom de famille',
       save: 'Enregistrer',
@@ -334,12 +335,12 @@ export default {
       },
       paymentItemsListTitle: 'Paiements enregistrés',
       noPaymentItem: 'Aucun paiement enregistré',
-      addThisPaymentItem: 'Encaisser',
+      addThisPaymentItem: 'Paiement',
       status: 'Encaissé',
       stillUnpaid: 'Reste à encaisser : ',
       stripePaymentWillBeCashedOutOnInvoiceValidation:
         "La CB ne sera débitée qu'après la sauvegarde de la facture",
-      createInvoice: 'Enregistrer',
+      createInvoice: 'Paiement',
       toBill: 'Facturer',
     },
     paymentPack,

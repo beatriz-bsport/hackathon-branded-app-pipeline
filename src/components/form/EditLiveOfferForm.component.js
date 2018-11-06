@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 
 import {
-  Checkbox,
   Switch,
   Button,
   Grid,
@@ -13,6 +12,7 @@ import {
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import FormField from '../input/FormField.component';
+import PriceInput from '../input/PriceInput.component';
 import { Moment } from '../../i18n';
 import PaymentPackSummary from '../consumer/PaymentPackSummary.component';
 import type {
@@ -21,6 +21,7 @@ import type {
   Offer,
   PaymentPack as PaymentPackType,
 } from '../../api/types';
+import { formatAsTime } from '../../datetime';
 
 type Props = {
   t: (x: string) => string,
@@ -34,15 +35,13 @@ type Props = {
 };
 
 type State = {
-  changeDateTime: boolean,
-  changeCoach: boolean,
-  changeEstablishment: boolean,
+  price_coach: number,
   modifyRecursively: boolean,
   notifyConsumers: boolean,
   establishment: number,
   coach: number,
   date: Object,
-  hour: Object,
+  hour: string,
   step: number,
   forcedPaymentPackMigrations: Object,
 };
@@ -63,52 +62,90 @@ export class EditLiveOfferForm extends Component<Props, State> {
     super(props);
     this.state = {
       step: STEPS.GATHER_INFO,
-      changeDateTime: false,
-      changeCoach: false,
-      changeEstablishment: false,
       modifyRecursively: false,
       notifyConsumers: true,
       establishment: props.offer.etablissement.id,
       coach: props.offer.coach.id,
       date: Moment(props.offer.date_start),
-      hour: Moment(props.offer.date_start),
+      hour: formatAsTime(Moment(props.offer.date_start)),
       forcedPaymentPackMigrations: {},
+      price_coach: props.offer.price_coach,
+    };
+    this.initialOfferState = {
+      date_start: Moment(props.offer.date_start),
+      coach: props.offer.coach.id,
+      establishment: props.offer.etablissement.id,
+      price_coach: props.offer.price_coach,
     };
   }
+
+  hasChangePrice = () => {
+    const { price_coach } = this.state;
+    return price_coach !== this.initialOfferState.price_coach;
+  };
+
+  hasChangedDatetime = () => {
+    const { date, hour } = this.state;
+    const initialDateStart = this.initialOfferState.date_start;
+    return (
+      date.date() !== initialDateStart.date() ||
+      date.month() !== initialDateStart.month() ||
+      date.year() !== initialDateStart.year() ||
+      Moment(hour, 'HH:mm').hour() !== initialDateStart.hour() ||
+      Moment(hour, 'HH:mm').minute() !== initialDateStart.minute()
+    );
+  };
+
+  hasChangedCoach = () => {
+    const { coach } = this.state;
+    return coach !== this.initialOfferState.coach;
+  };
+
+  hasChangedEstablishment = () => {
+    const { establishment } = this.state;
+    return establishment !== this.initialOfferState.establishment;
+  };
+
+  hasChangePrice = () => {
+    const { price_coach } = this.state;
+    return price_coach !== this.initialOfferState.price_coach;
+  };
 
   onConfirm = () => {
     const { offer } = this.props;
     const {
       notifyConsumers,
       modifyRecursively,
-      changeCoach,
-      changeEstablishment,
-      changeDateTime,
       date,
       hour,
       establishment,
       coach,
       forcedPaymentPackMigrations,
+      price_coach,
     } = this.state;
     const data: FormData = { notifyConsumers, modifyRecursively };
-    if (changeDateTime) {
+    if (this.hasChangedDatetime()) {
       data.date_start = Moment(
         `${pad(date.date())}/${pad(date.month() + 1)}/${pad(date.year())} ${pad(
-          hour.hour(),
-        )}:${pad(hour.minute())}`,
+          Moment(hour, 'HH:mm').hour(),
+        )}:${pad(Moment(hour, 'HH:mm').minute())}`,
         'DD/MM/YYYY hh:mm',
       );
     }
-    if (changeCoach) {
+    if (this.hasChangedCoach()) {
       data.coach = coach;
     }
-    if (changeEstablishment) {
+    if (this.hasChangedEstablishment()) {
       data.establishment = establishment;
     }
     if (modifyRecursively) {
       // forcedPaymentPackMigrations is not used in backend
       data.forcedPaymentPackMigrations = forcedPaymentPackMigrations;
     }
+    if (this.hasChangePrice()) {
+      data.price_coach = price_coach;
+    }
+
     this.props.onConfirm({ offerId: offer.id, data });
   };
 
@@ -126,18 +163,10 @@ export class EditLiveOfferForm extends Component<Props, State> {
       <Grid item>
         <Grid container direction="row" spacing={16} alignItems="center">
           <Grid item>
-            <Checkbox
-              onChange={(event) => {
-                this.setState({ changeDateTime: event.target.checked });
-              }}
-            />
-          </Grid>
-          <Grid item>
             <FormField
               id="date"
               value={this.state.date}
               onChange={this.onFormFieldChange}
-              disabled={!this.state.changeDateTime}
             />
           </Grid>
           <Grid item>
@@ -145,7 +174,6 @@ export class EditLiveOfferForm extends Component<Props, State> {
               id="hour"
               value={this.state.hour}
               onChange={this.onFormFieldChange}
-              disabled={!this.state.changeDateTime}
             />
           </Grid>
         </Grid>
@@ -154,63 +182,28 @@ export class EditLiveOfferForm extends Component<Props, State> {
   );
 
   renderModifyCoach = () => (
-    <Grid container direction="column" spacing={8}>
-      <Grid item>
-        <Typography variant="caption">
-          {this.props.t('form.offer.changeCoach')}
-        </Typography>
-      </Grid>
-      <Grid item>
-        <Grid container direction="row" spacing={16} alignItems="center">
-          <Grid item>
-            <Checkbox
-              onChange={(event) => {
-                this.setState({ changeCoach: event.target.checked });
-              }}
-            />
-          </Grid>
-          <Grid item>
-            <FormField
-              id="coach"
-              onChange={this.onFormFieldChange}
-              disabled={!this.state.changeCoach}
-              choices={this.props.coaches}
-              value={this.state.coach}
-            />
-          </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
+    <FormField
+      id="coach"
+      onChange={this.onFormFieldChange}
+      choices={this.props.coaches}
+      value={this.state.coach}
+    />
   );
 
   renderModifyEstablishment = () => (
-    <Grid container direction="column" spacing={8}>
-      <Grid item>
-        <Typography variant="caption">
-          {this.props.t('form.offer.changeEstablishment')}
-        </Typography>
-      </Grid>
-      <Grid item>
-        <Grid container direction="row" spacing={16} alignItems="center">
-          <Grid item>
-            <Checkbox
-              onChange={(event) => {
-                this.setState({ changeEstablishment: event.target.checked });
-              }}
-            />
-          </Grid>
-          <Grid item>
-            <FormField
-              id="establishment"
-              onChange={this.onFormFieldChange}
-              disabled={!this.state.changeEstablishment}
-              choices={this.props.establishments}
-              value={this.state.establishment}
-            />
-          </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
+    <FormField
+      id="establishment"
+      onChange={this.onFormFieldChange}
+      choices={this.props.establishments}
+      value={this.state.establishment}
+    />
+  );
+
+  renderPrice = () => (
+    <PriceInput
+      value={this.state.price_coach}
+      onChange={(e) => this.onFormFieldChange('price_coach')(e.target.value)}
+    />
   );
 
   renderRecursiveToogle = () => {
@@ -262,7 +255,6 @@ export class EditLiveOfferForm extends Component<Props, State> {
 
   renderButton = () => {
     const { t, onCancel, processing } = this.props;
-    const { changeDateTime, changeCoach, changeEstablishment } = this.state;
     if (processing) {
       return (
         <Grid
@@ -292,7 +284,14 @@ export class EditLiveOfferForm extends Component<Props, State> {
             onClick={this.onConfirm}
             variant="raised"
             color="primary"
-            disabled={!(changeDateTime || changeCoach || changeEstablishment)}
+            disabled={
+              !(
+                this.hasChangedCoach() ||
+                this.hasChangedEstablishment() ||
+                this.hasChangedDatetime() ||
+                this.hasChangePrice()
+              )
+            }
           >
             {t('common.confirm')}
           </Button>
@@ -312,7 +311,6 @@ export class EditLiveOfferForm extends Component<Props, State> {
 
   renderNextStepButton = () => {
     const { t, onCancel } = this.props;
-    const { changeDateTime, changeCoach, changeEstablishment } = this.state;
     return (
       <Grid
         container
@@ -328,7 +326,14 @@ export class EditLiveOfferForm extends Component<Props, State> {
           <Button
             variant="raised"
             color="primary"
-            disabled={!(changeDateTime || changeCoach || changeEstablishment)}
+            disabled={
+              !(
+                this.hasChangedCoach() ||
+                this.hasChangedEstablishment() ||
+                this.hasChangedDatetime() ||
+                this.hasChangePrice()
+              )
+            }
             onClick={this.onConfirmGatherInfoStep}
           >
             {t('common.continue')}
@@ -384,9 +389,14 @@ export class EditLiveOfferForm extends Component<Props, State> {
                 {t('calendar.modifyOffer')}
               </Typography>
             </Grid>
+            <Grid item>{this.renderPrice()}</Grid>
             <Grid item>{this.renderModifyDatetime()}</Grid>
-            <Grid item>{this.renderModifyCoach()}</Grid>
-            <Grid item>{this.renderModifyEstablishment()}</Grid>
+            <Grid item>
+              <Grid container direction="row" sacing={16}>
+                <Grid item>{this.renderModifyCoach()}</Grid>
+                <Grid item>{this.renderModifyEstablishment()}</Grid>
+              </Grid>
+            </Grid>
             <Grid item>{this.renderConfigSwitches()}</Grid>
             <Grid item>{this.renderNextStepButton()}</Grid>
           </Grid>

@@ -18,6 +18,7 @@ export default {
       CHECK: 'Check',
     },
     common: {
+      previous: 'Previous',
       firstname: 'Firstname',
       lastname: 'Lastname',
       save: 'Save',
@@ -307,7 +308,7 @@ export default {
       },
       paymentItemsListTitle: 'Registered payments',
       noPaymentItem: 'No payment registered',
-      addThisPaymentItem: 'Add this note',
+      addThisPaymentItem: 'Payment',
       status: 'Cashed-out',
       stillUnpaid: 'Still unpaid: ',
       stripePaymentWillBeCashedOutOnInvoiceValidation:

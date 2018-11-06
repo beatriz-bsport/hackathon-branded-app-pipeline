@@ -2712,6 +2712,10 @@ bser@^2.0.0:
   dependencies:
     node-int64 "^0.4.0"
 
+"bsport-commons@ssh://git@gitlab.com:bsport/bsport-commons-js.git":
+  version "1.0.0"
+  resolved "ssh://git@gitlab.com:bsport/bsport-commons-js.git#4c743bedd503ba65e7cc6ff8f5875be0d7d7c3dc"
+
 buble@^0.16.0:
   version "0.16.0"
   resolved "https://registry.yarnpkg.com/buble/-/buble-0.16.0.tgz#1773e7b5a383f5c722af6b1b16b2ba49cb866a98"
@@ -5429,6 +5433,13 @@ getpass@^0.1.1:
   dependencies:
     assert-plus "^1.0.0"
 
+git@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/git/-/git-0.1.5.tgz#9ef62df93f851c27542143bf52d1c68b1017ca15"
+  integrity sha1-nvYt+T+FHCdUIUO/UtHGixAXyhU=
+  dependencies:
+    mime "1.2.9"
+
 glamor@^2.20.40:
   version "2.20.40"
   resolved "https://registry.yarnpkg.com/glamor/-/glamor-2.20.40.tgz#f606660357b7cf18dface731ad1a2cfa93817f05"
@@ -7907,6 +7918,11 @@ mime-types@^2.1.12, mime-types@~2.1.17, mime-types@~2.1.18, mime-types@~2.1.19:
   integrity sha512-3iL6DbwpyLzjR3xHSFNFeb9Nz/M8WDkX33t1GFQnFOllWk8pOrh/LSrB5OXlnlW5P9LH73X6loW/eogc+F5lJg==
   dependencies:
     mime-db "~1.37.0"
+
+mime@1.2.9:
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/mime/-/mime-1.2.9.tgz#009cd40867bd35de521b3b966f04e2f8d4d13d09"
+  integrity sha1-AJzUCGe9Nd5SGzuWbwTi+NTRPQk=
 
 mime@1.4.1:
   version "1.4.1"

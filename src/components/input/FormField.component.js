@@ -155,7 +155,6 @@ export class FormField extends Component<Props, State> {
             disabled={disabled}
             wrap="noWrap"
           >
-            <Avatar src={elt.photo} />
             <ListItemText primary={elt.name} />
           </MenuItem>
         );
@@ -245,9 +244,11 @@ export class FormField extends Component<Props, State> {
         );
       case 'hour':
         return (
-          <TimePicker
-            value={selectedDate}
-            onChange={this.handleDateChange}
+          <TextField
+            style={{ minWidth: 120 }}
+            type="time"
+            value={value}
+            onChange={this.handleChange}
             disabled={disabled}
           />
         );

@@ -45,10 +45,12 @@ export class LocationInput extends Component<Props, State> {
 
     if (props.value) {
       this.state.address = props.value.address;
-      this.state.location = {
-        lat: props.value.location.y,
-        lng: props.value.location.x,
-      };
+      if (props.value.location) {
+        this.state.location = {
+          lat: props.value.location.y,
+          lng: props.value.location.x,
+        };
+      }
     }
   }
 

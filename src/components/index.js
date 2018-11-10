@@ -35,7 +35,6 @@ import BookingOptionListItem from './consumer/BookingOptionListItem.component';
 import FacebookLoginButton from './button/FacebookLoginButton.component';
 import ConsumerProfile from './consumer/Profile.component';
 import ConsumerLogin from './consumer/login/ConsumerLogin.component';
-import ConsumerSignUp from './consumer/login/ConsumerSignUp.component';
 import RedButton from './button/RedButton.component';
 import ConsumerModalContainer from './consumer/ConsumerModalContainer.component';
 import PaymentPackPayment from './consumer/PaymentPackPayment.component';
@@ -51,7 +50,6 @@ import InvoiceItemSelector from './invoice/InvoiceItemSelector.component';
 import InvoiceVoucher from './invoice/InvoiceVoucher.component';
 
 export {
-  ConsumerSignUp,
   InvoiceVoucher,
   InvoiceForm,
   InvoiceItemList,

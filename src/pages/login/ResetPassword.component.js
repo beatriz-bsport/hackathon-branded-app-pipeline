@@ -18,6 +18,7 @@ import { LoginBase } from '../../components';
 type Props = {
   resetPassword: (string) => void,
   loading: boolean,
+  classes: Object,
 };
 
 type State = {

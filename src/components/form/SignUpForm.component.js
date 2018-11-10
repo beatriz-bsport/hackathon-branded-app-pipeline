@@ -22,6 +22,7 @@ import { EmailInput } from '../input';
 type Props = {
   onComplete: (Object) => void,
   t: TFunction,
+  classes: Object,
 };
 
 type State = {
@@ -80,7 +81,7 @@ export class SignUpForm extends Component<Props, State> {
   };
 
   onFormFieldChange = (id: string) => (event: Object) => {
-    const value = event.target.value;
+    const { value } = event.target;
     // eslint-disable-next-line
     this.setState((prevState) => ({
       [id]: value,
@@ -205,7 +206,7 @@ export class SignUpForm extends Component<Props, State> {
                 <TextField
                   type="password"
                   required
-                  value={this.state.password}
+                  value={password}
                   error={!this.state.passwordIsConform}
                   onChange={this.onPasswordChange}
                   placeholder={t('form.password')}
@@ -216,7 +217,7 @@ export class SignUpForm extends Component<Props, State> {
                 <TextField
                   type="password"
                   required
-                  value={this.state.passwordConfirm}
+                  value={passwordConfirm}
                   error={!passwordEqual}
                   onChange={this.onPasswordConfirmChange}
                   placeholder={t('form.signup.confirmPassword')}

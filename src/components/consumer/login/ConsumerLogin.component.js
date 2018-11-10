@@ -10,7 +10,6 @@ import {
   withStyles,
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import RedButton from '../../button/RedButton.component';
 
 import { FormField } from '../../input';
@@ -29,6 +28,7 @@ const styles = (theme) => ({
 
 type Props = {
   doEmailLogin: ({ email: string, password: string }) => void,
+  requestSignUp: () => void,
   loading: boolean,
   classes: Object,
   t: (x: string) => string,

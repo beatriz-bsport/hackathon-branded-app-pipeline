@@ -7,18 +7,14 @@ import { translate } from 'react-i18next';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import {
-  SignUpForm,
-  ConsumerModalContainer,
-  SMSCodeForm,
-} from '../../components';
-import api from '../../api';
-import { auth as authActions } from '../../actions';
+import api from '../../../api';
+import { auth as authActions } from '../../../actions';
+import SignUpForm from '../../form/SignUpForm.component';
 
 type Props = {
   t: (x: string) => string,
   authenticated: boolean,
-  signUpPhone: ({
+  signUpEmail: ({
     phone: string,
     code: string,
     email: string,
@@ -34,22 +30,15 @@ type Props = {
 
 type State = {
   loading: boolean,
-  step: number,
   phone: string,
   email: string,
   lastname: string,
   firstname: string,
 };
 
-const STEPS = {
-  REQUEST_INFO: 0,
-  REQUEST_SMS_CODE_CONFIRMATION: 1,
-};
-
 export class ConsumerSignUp extends Component<Props, State> {
   state = {
     loading: false,
-    step: STEPS.REQUEST_INFO,
     phone: '',
     email: '',
     firstname: '',
@@ -77,7 +66,6 @@ export class ConsumerSignUp extends Component<Props, State> {
 
     if (response.status === 200) {
       this.setState({
-        step: STEPS.REQUEST_SMS_CODE_CONFIRMATION,
         loading: false,
       });
     } else {
@@ -85,13 +73,13 @@ export class ConsumerSignUp extends Component<Props, State> {
     }
   };
 
-  validateSMSCode = (code: string) => {
+  validateEmail = (code: string) => {
     const { phone, email, firstname, lastname } = this.state;
-    this.props.signUpPhone({ phone, code, email, lastname, firstname });
+    this.props.signUpEmail({ phone, code, email, lastname, firstname });
   };
 
   getContent = () => {
-    const { loading, step } = this.state;
+    const { loading } = this.state;
     if (loading) {
       return (
         <Grid container item justify="center" alignItems="center">
@@ -99,13 +87,7 @@ export class ConsumerSignUp extends Component<Props, State> {
         </Grid>
       );
     }
-    switch (step) {
-      case STEPS.REQUEST_SMS_CODE_CONFIRMATION:
-        return <SMSCodeForm onComplete={this.validateSMSCode} />;
-      case STEPS.REQUEST_INFO:
-      default:
-        return <SignUpForm onComplete={this.onFormComplete} />;
-    }
+    return <SignUpForm onComplete={this.props.onComplete} />;
   };
 
   render() {
@@ -116,14 +98,12 @@ export class ConsumerSignUp extends Component<Props, State> {
       return <Redirect to="/" />;
     }
     return (
-      <ConsumerModalContainer>
-        <Grid container direction="column" spacing={32}>
-          <Grid item>
-            <Typography variant="title">{t('form.signUpTitle')}</Typography>
-          </Grid>
-          <Grid item>{this.getContent()}</Grid>
+      <Grid container direction="column" spacing={32}>
+        <Grid item>
+          <Typography variant="h2">{t('form.signUpTitle')}</Typography>
         </Grid>
-      </ConsumerModalContainer>
+        <Grid item>{this.getContent()}</Grid>
+      </Grid>
     );
   }
 }
@@ -136,11 +116,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    signUpPhone({ phone, code, email, firstname, lastname }) {
-      dispatch(
-        authActions.signUpPhone({ phone, code, email, firstname, lastname }),
-      );
-    },
     updateProfile({ email, firstname, lastname }) {
       dispatch(authActions.updateProfile({ email, firstname, lastname }));
     },

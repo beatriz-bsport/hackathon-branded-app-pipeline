@@ -1,8 +1,12 @@
 import axios from 'axios';
-import { API_URI, BASE_URI, putAuth, getAuth } from '../http';
+import { API_URI, BASE_URI, post, putAuth, getAuth } from '../http';
 
 export async function accessLevel(token) {
   return getAuth(`${API_URI}/saas/access_level`, token);
+}
+
+export async function signup(data) {
+  return post(`${API_URI}/auth/signup`, data);
 }
 
 export async function resetPassword(email) {
@@ -63,4 +67,5 @@ export default {
   requestSMSCode,
   requestSMSCodeNoRegistration,
   validatePhone,
+  signup,
 };

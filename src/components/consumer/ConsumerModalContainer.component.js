@@ -9,6 +9,7 @@ import ConsumerMenu from '../navigation/ConsumerMenu.component';
 const styles = (theme) => ({
   paperContainer: {
     padding: theme.spacing.unit * 1,
+    overflowY: 'auto',
     [theme.breakpoints.up('sm')]: {
       padding: theme.spacing.unit * 3,
     },
@@ -24,6 +25,8 @@ const styles = (theme) => ({
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     maxWidth: 550,
+    maxHeight: '80%',
+    overflowY: 'auto',
   },
 });
 

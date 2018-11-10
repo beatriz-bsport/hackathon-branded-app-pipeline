@@ -91,6 +91,17 @@ export default {
       extraordinaryEstablishment: '(lieu temporaire)',
     },
     form: {
+      signup: {
+        typePhone: 'Tél. portable',
+        confirmPasswordLabel: 'Confirmation',
+        rgpdTitle:
+          "Comment préférez-vous que les coachs vous contactent pour les annulations/changement d'heure ?",
+        communication: {
+          email: 'par email',
+          sms: 'par SMS',
+        },
+        signupButton: "S'inscrire",
+      },
       coachPerformance: {
         addBonus: 'Ajouter une règle',
         dateTitle: 'Plage de dates',
@@ -345,6 +356,7 @@ export default {
     },
     paymentPack,
     login: {
+      welcome: 'Bienvenue !',
       signUpConsumer: 'Pas encore de compte ?',
       invalidPhone: 'Numéro de téléphone inconnu',
       choseYourUserspace: 'Qui êtes-vous ?',

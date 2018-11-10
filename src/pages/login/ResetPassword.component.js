@@ -9,6 +9,7 @@ import {
   Button,
   Grid,
   TextField,
+  withStyles,
 } from '@material-ui/core';
 
 import { auth as authActions } from '../../actions';
@@ -80,7 +81,6 @@ export class ResetPassword extends Component<Props, State> {
         passe
       </Typography>
       <Grid direction="row" style={{ paddingTop: 20 }} container>
-        <Button onClick={this.resetComponent}>Renvoyer</Button>
         <Button color="primary" onClick={this.redirectLogin} variant="raised">
           OK
         </Button>
@@ -89,13 +89,14 @@ export class ResetPassword extends Component<Props, State> {
   );
 
   render() {
+    const { classes } = this.props;
     const { hasSent, redirectLogin } = this.state;
     if (redirectLogin) {
       return <Redirect to="/" />;
     }
     return (
       <LoginBase>
-        <form onSubmit={this.onSubmit}>
+        <form onSubmit={this.onSubmit} className={classes.container}>
           {hasSent ? (
             <div />
           ) : (
@@ -138,7 +139,14 @@ function mapDispatchToProps(dispatch) {
     },
   };
 }
+
+const styles = (theme) => ({
+  container: {
+    margin: theme.spacing.unit * 4,
+  },
+});
+
 export default connect(
   null,
   mapDispatchToProps,
-)(ResetPassword);
+)(withStyles(styles)(ResetPassword));

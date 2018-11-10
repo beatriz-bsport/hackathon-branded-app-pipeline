@@ -119,6 +119,17 @@ export default {
       },
     },
     form: {
+      signup: {
+        typePhone: 'Cellphone',
+        confirmPasswordLabel: 'Confirm',
+        rgpdTitle:
+          'Which way do you prefer for the coach to contact you about change in timeline, cancelling session... ?',
+        communication: {
+          email: 'via email',
+          sms: 'via SMS',
+        },
+        signupButton: 'Signup',
+      },
       coachPerformance: {
         addBonus: 'Add a rule',
         dateTitle: 'Date range',
@@ -318,6 +329,7 @@ export default {
     },
     paymentPack,
     login: {
+      welcome: 'Welcome !',
       signUpConsumer: 'Create an account ?',
       invalidPhone: 'Unknown phone number',
       choseYourUserspace: 'Who are you ?',

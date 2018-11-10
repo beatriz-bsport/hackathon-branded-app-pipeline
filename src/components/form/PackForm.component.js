@@ -6,7 +6,9 @@ import {
   TextField,
   InputAdornment,
   Typography,
+  Collapse,
   FormControlLabel,
+  RadioGroup,
   Checkbox,
   Button,
   Grid,
@@ -135,70 +137,67 @@ export class PackForm extends React.Component<Props, State> {
       <Grid container direction="row" alignItems="flex-start" spacing={24}>
         <Grid item xs={12}>
           <Typography variant="title">
-            {t('form.paymentPack.timeSettingTitle')}
+            {t('form.paymentPack.timeSettingsTitle')}
           </Typography>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Grid container direction="column" spacing={16}>
-            <Grid item>
-              <FormControlLabel
-                value="duration"
-                control={
-                  <Radio
-                    checked={timeType === VALID_BY_DURATION}
-                    onChange={this.setTimeTypeToDuration}
-                    name="radio-button-time-type-duration"
-                  />
-                }
-                label={t('form.paymentPack.validByDuration')}
-                labelPlacement="start"
-              />
-            </Grid>
-            <Grid item>
-              <TextField
-                label={t('form.paymentPack.durationDays')}
-                required
-                type="number"
-                fullWidth
-                onChange={this.handleChange('duration_days')}
-                helperText={t('form.paymentPack.helper.price')}
-                value={this.state.duration_days}
-              />
-            </Grid>
-          </Grid>
+          <RadioGroup>
+            <FormControlLabel
+              value="duration"
+              control={
+                <Radio
+                  checked={timeType === VALID_BY_DURATION}
+                  onChange={this.setTimeTypeToDuration}
+                  name="radio-button-time-type-duration"
+                />
+              }
+              label={t('form.paymentPack.validByDuration')}
+            />
+            <FormControlLabel
+              value="daterange"
+              control={
+                <Radio
+                  checked={timeType === VALID_BY_DATERANGE}
+                  onChange={this.setTimeTypeToDaterange}
+                  name="radio-button-time-type-daterange"
+                />
+              }
+              label={t('form.paymentPack.validByDaterange')}
+            />
+          </RadioGroup>
         </Grid>
         <Grid item xs={12} md={6}>
           <Grid container direction="column" spacing={16}>
             <Grid item>
-              <FormControlLabel
-                value="daterange"
-                control={
-                  <Radio
-                    checked={timeType === VALID_BY_DATERANGE}
-                    onChange={this.setTimeTypeToDaterange}
-                    name="radio-button-time-type-daterange"
-                  />
-                }
-                label={t('form.paymentPack.validByDaterange')}
-                labelPlacement="start"
-              />
-            </Grid>
-            <Grid item>
               <Grid container direction="column" spacing={8}>
-                <Grid item>
-                  <FormField
-                    id="lower_date"
-                    value={this.state.lower_date}
-                    onChange={this.handleFormFieldChange}
-                  />
-                </Grid>
-                <Grid item>
-                  <FormField
-                    id="upper_date"
-                    value={this.state.upper_date}
-                    onChange={this.handleFormFieldChange}
-                  />
-                </Grid>
+                <Collapse in={timeType === VALID_BY_DURATION}>
+                  <Grid item>
+                    <TextField
+                      label={t('form.paymentPack.durationDays')}
+                      required
+                      type="number"
+                      fullWidth
+                      onChange={this.handleChange('duration_days')}
+                      value={this.state.duration_days}
+                    />
+                  </Grid>
+                </Collapse>
+                <Collapse in={timeType === VALID_BY_DATERANGE}>
+                  <Grid item>
+                    <FormField
+                      id="lower_date"
+                      value={this.state.lower_date}
+                      onChange={this.handleFormFieldChange}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <FormField
+                      id="upper_date"
+                      value={this.state.upper_date}
+                      onChange={this.handleFormFieldChange}
+                    />
+                  </Grid>
+                </Collapse>
               </Grid>
             </Grid>
           </Grid>

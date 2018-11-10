@@ -166,7 +166,16 @@ export default {
           // eslint-disable-next-line
           credits:
             "Nombre de crédit disponibles au client de l'abonnement, laisser vide pour le rendre illimité",
+          maxBookingPerWeek:
+            "Nombre maximum d'utilisation autorisée par semaine",
         },
+        timeSettingsTitle: "Validité de l'abonnement",
+        generalSettingsTitle: 'Général',
+        validByDuration: 'Abonnement valide N jours après achat',
+        validByDaterange: 'Abonnement valide sur un créneau de date précis',
+        durationDays: "Durée de validité (jours) de l'abonnement après achat ",
+        restrictionsTitle: 'Restrictions',
+        maxBookingPerWeek: 'Utilisation max par semaine',
       },
       pleaseEnterYourSMSCode: 'Veuillez entrer le code envoyé par SMS',
       code: 'Code',

@@ -38,17 +38,11 @@ export class CoachCard extends Component<Props> {
       return <Typography variant="body1">{t('coach.noActivity')}</Typography>;
     }
     return (
-      <List>
+      <Grid container direction="column" alignItems="stretch">
         {coach.activities.map((a) => (
-          <Link
-            to={`/activity/${a.meta_activity_id}`}
-            style={{ textDecoration: 'none' }}
-            key={a.id}
-          >
-            <ActivityMinimalSummary activity={a} />
-          </Link>
+          <ActivityMinimalSummary activity={a} />
         ))}
-      </List>
+      </Grid>
     );
   };
 
@@ -92,7 +86,7 @@ export class CoachCard extends Component<Props> {
             </Grid>
           </Grid>
           <Grid item>
-            <Grid container spacing={16} direction="column">
+            <Grid container direction="column" justify="flex-start">
               <Grid item>
                 <Grid
                   container

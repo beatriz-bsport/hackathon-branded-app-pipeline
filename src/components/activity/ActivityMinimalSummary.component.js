@@ -7,6 +7,7 @@ import {
   IconButton,
   Tooltip,
   Divider,
+  ListItemSecondaryAction,
   withStyles,
 } from '@material-ui/core';
 
@@ -96,10 +97,14 @@ export function ActivityMinimalSummary(props: Props) {
             secondary={additionalInfoSecondary}
           />
         ) : null}
-        <ListItemText
-          primary={showCoachName ? coach.name : etablissement.title}
-          secondary={<Level noStyle levelId={level} variant="caption" />}
-        />
+        <ListItemSecondaryAction>
+          <ListItemText
+            primary={showCoachName ? coach.name : etablissement.title}
+            primaryTypographyProps={{ align: 'right' }}
+            secondaryTypographyProps={{ align: 'right' }}
+            secondary={<Level noStyle levelId={level} variant="caption" />}
+          />
+        </ListItemSecondaryAction>
       </ListItem>
     </div>
   );

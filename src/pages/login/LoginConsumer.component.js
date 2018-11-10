@@ -2,16 +2,16 @@
 
 import React, { Component } from 'react';
 
+import { Grid, Typography } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { translate } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 import parse from '../../query-string';
 
 import { auth as authActions } from '../../actions';
-import {
-  ConsumerModalContainer,
-  ConsumerLogin,
-  ConsumerSignUp,
-} from '../../components';
+import { ConsumerModalContainer, ConsumerLogin } from '../../components';
+import SignUpForm from '../../components/form/SignUpForm.component';
 
 import api from '../../api';
 
@@ -24,6 +24,7 @@ type Props = {
     password: string,
   }) => void,
   location: Object,
+  t: TFunction,
 };
 
 const STEPS = {
@@ -77,6 +78,7 @@ export class ConsumerLoginPage extends Component<Props> {
       errorLogin,
       loginProcessing,
       doEmailLogin,
+      t,
     } = this.props;
 
     if (authenticated) {
@@ -104,11 +106,18 @@ export class ConsumerLoginPage extends Component<Props> {
 
     return (
       <ConsumerModalContainer>
-        <ConsumerSignUp
-          loading={loginProcessing}
-          onComplete={this.signUp}
-          onCancel={this.cancelSignUp}
-        />
+        <Grid container direction="column" spacing={32}>
+          <Grid item>
+            <Typography variant="h2">{t('form.signUpTitle')}</Typography>
+          </Grid>
+          <Grid item>
+            <SignUpForm
+              loading={loginProcessing}
+              onComplete={this.signUp}
+              onCancel={this.cancelSignUp}
+            />
+          </Grid>
+        </Grid>
       </ConsumerModalContainer>
     );
   }
@@ -136,4 +145,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ConsumerLoginPage);
+)(translate()(ConsumerLoginPage));

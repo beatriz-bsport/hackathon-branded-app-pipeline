@@ -8,6 +8,7 @@ import {
   Button,
   Paper,
   withStyles,
+  TextField,
   Typography,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
@@ -48,6 +49,8 @@ type State = {
   gender: 'M' | 'F',
   description: string,
   email: string,
+  facebook_url: '',
+  instagram_url: '',
 };
 
 export class CoachForm extends Component<Props, State> {
@@ -60,6 +63,8 @@ export class CoachForm extends Component<Props, State> {
     phone: '',
     gender: 'M',
     description: '',
+    instagram_url: '',
+    facebook_url: '',
   };
 
   constructor(props: Props) {
@@ -93,6 +98,8 @@ export class CoachForm extends Component<Props, State> {
       email,
       phone,
       gender,
+      instagram_url,
+      facebook_url,
     } = this.state;
     const data = {
       lastname,
@@ -102,6 +109,8 @@ export class CoachForm extends Component<Props, State> {
       email,
       phone,
       gender,
+      facebook_url,
+      instagram_url,
     };
     if (avatar && typeof avatar !== 'string') {
       data.avatar = avatar;
@@ -186,41 +195,86 @@ export class CoachForm extends Component<Props, State> {
                   </Grid>
                 </Grid>
                 <Grid item>
-                  <FormField
-                    id="gender"
-                    value={this.state.gender}
-                    onChange={this.onFormFieldChange}
-                  />
-                  <FormField
-                    required
-                    id="birthdayYear"
-                    value={this.state.birthdayYear}
-                    onChange={this.onFormFieldChange}
-                  />
+                  <Grid
+                    container
+                    direction="row"
+                    alignItems="center"
+                    spacing={16}
+                  >
+                    <Grid item>
+                      <FormField
+                        id="gender"
+                        value={this.state.gender}
+                        onChange={this.onFormFieldChange}
+                      />
+                    </Grid>
+                    <Grid item>
+                      <FormField
+                        required
+                        id="birthdayYear"
+                        value={this.state.birthdayYear}
+                        onChange={this.onFormFieldChange}
+                      />
+                    </Grid>
+                  </Grid>
                 </Grid>
                 <Grid item>
-                  <FormField
-                    id="phone"
-                    value={this.state.phone}
-                    required
-                    onChange={this.onFormFieldChange}
-                  />
-                  <FormField
-                    id="email"
-                    value={this.state.email}
-                    required
-                    onChange={this.onFormFieldChange}
-                  />
+                  <Grid
+                    container
+                    direction="row"
+                    spacing={16}
+                    alignItems="center"
+                  >
+                    <Grid item>
+                      <FormField
+                        id="phone"
+                        value={this.state.phone}
+                        required
+                        onChange={this.onFormFieldChange}
+                      />
+                    </Grid>
+                    <Grid item>
+                      <FormField
+                        id="email"
+                        value={this.state.email}
+                        required
+                        onChange={this.onFormFieldChange}
+                      />
+                    </Grid>
+                  </Grid>
                 </Grid>
                 <Grid item>
                   <FormField
                     fullWidth
                     multiline
-                    required
                     id="description"
                     value={this.state.description}
                     onChange={this.onFormFieldChange}
                   />
+                </Grid>
+                <Grid item>
+                  <Grid container spacing={16} alignItems="center">
+                    <Grid item>
+                      <TextField
+                        label="Facebook url"
+                        value={this.state.facebook_url}
+                        onChange={(e) =>
+                          this.onFormFieldChange('facebook_url')(e.target.value)
+                        }
+                      />
+                    </Grid>
+                    <Grid item>
+                      <TextField
+                        label="Instagram url"
+                        value={this.state.instagram_url}
+                        onChange={(e) =>
+                          this.onFormFieldChange('instagram_url')(
+                            e.target.value,
+                          )
+                        }
+                      />
+                    </Grid>
+                  </Grid>
                 </Grid>
                 <Grid item>{this.renderButton()}</Grid>
               </Grid>

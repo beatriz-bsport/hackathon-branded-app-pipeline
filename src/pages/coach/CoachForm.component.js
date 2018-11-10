@@ -27,6 +27,8 @@ export class CoachFormPage extends Component<Props, State> {
       email: 'email',
       description: 'description',
       phone: 'phone.phone_number',
+      facebook_url: 'facebook_url',
+      instagram_url: 'instagram_url',
     });
 
     if (this.props.update) {

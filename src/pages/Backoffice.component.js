@@ -103,9 +103,10 @@ export class Backoffice extends Component<Props> {
               />
               <Route path="/marketing/rule/:id" component={MarketingRule} />
               <Route path="/marketing" component={MarketingDashboard} />
-              <Route exact path="/" component={Dashboard} />
+              <Route exact path="/dashboard" component={Dashboard} />
               <Route exact path="/search/results" component={SearchResults} />
               <Route path="/settings/company" component={CompanyDetailPage} />
+              <Route path="/" component={Planning} />
             </Switch>
           </div>
         </main>

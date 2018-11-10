@@ -71,7 +71,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
       },
       { type: 'divider', className: classes.menuMobile },
       {
-        to: '/',
+        to: '/dashboard',
         text: t('navigation.dashboard'),
         icon: TrendingUp,
       },

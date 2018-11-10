@@ -51,25 +51,26 @@ export class ConsumerLoginPage extends Component<Props> {
   };
 
   signUp = async (data) => {
+    /* eslint-disable */
     const r = await api.auth.signup(data);
     if (r) {
       switch (r.status) {
         case 201: {
-          return this.props.doEmailLogin({
+          this.props.doEmailLogin({
             email: data.email,
             password: data.password,
           });
+          return;
         }
         case 200: {
           alert(r.data.message);
           return;
         }
-        default:
-          alert(
-            "Impossible de créer votre compte pour le moment, veuillez réessayer d'ici quelques minutes",
-          );
       }
     }
+    alert(
+      "Impossible de créer votre compte pour le moment, veuillez réessayer d'ici quelques minutes",
+    );
   };
 
   render() {

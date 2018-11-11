@@ -351,6 +351,10 @@ export default {
     establishment,
     search,
     activity: {
+      settings: 'Parameters',
+      sizeOfWaitingList: 'Size of waiting list',
+      lastBookingBeforeMinutes: 'Last booking is possible until',
+      lastDiscardBeforeMinutes: 'Last discard booking is possible until',
       addActivity: 'Add an activity',
       addOffers: 'Add sessions',
       name: 'Title',

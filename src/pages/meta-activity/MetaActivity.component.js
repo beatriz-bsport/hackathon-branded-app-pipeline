@@ -31,14 +31,15 @@ import {
   PackMinimalSummary,
   Calendar,
   TimeTable,
-  } from '../../components';
+} from '../../components';
 import { metaActivity as metaActivityActions } from '../../actions';
 import type {
   Activity,
   Offer,
   MetaActivity as MetaActivityType,
   Stat,
-  } from '../../api/types';
+} from '../../api/types';
+import { formatMinutes } from '../../datetime';
 
 type Props = {
   metaActivity: MetaActivityType,
@@ -249,30 +250,40 @@ export class MetaActivity extends Component<Props, State> {
   getPriceAndPacks = () => {
     const { metaActivity, classes, t } = this.props;
     const {
+      default_waiting_list_max_size,
       payment_packs_available,
-      default_price,
-      default_credits,
+      last_booking_minutes,
+      last_discard_minutes,
     } = metaActivity;
     return (
-      <Grid container direction="row" alignItems="center" justify="center">
+      <Grid container direction="row" justify="center">
         <Grid item xs={12} md={6}>
-          <Grid
-            container
-            direction="column"
-            spacing={16}
-            justify="center"
-            alignItems="center"
-            className={classes.responsiveSubBlock}
-          >
+          <Typography className={classes.blockTitleLargeMargin} variant="title">
+            {t('activity.settings')}
+          </Typography>
+          <Grid container direction="column" spacing={16}>
             <Grid item>
-              <Typography variant="display2">{default_price} €</Typography>
+              <Typography variant="subheading">
+                {`${t('activity.sizeOfWaitingList')}`}
+              </Typography>
+              <Typography variant="title">
+                {default_waiting_list_max_size}
+              </Typography>
             </Grid>
-            <Grid item>-</Grid>
             <Grid item>
-              <Typography>
-                {`${t('activity.orNcredits1')} ${default_credits} ${t(
-                  'activity.orNcredits2',
-                )}`}
+              <Typography variant="subheading">
+                {`${t('activity.lastBookingBeforeMinutes')}`}
+              </Typography>
+              <Typography variant="title">
+                {formatMinutes(last_booking_minutes)}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography variant="subheading">
+                {`${t('activity.lastDiscardBeforeMinutes')}`}
+              </Typography>
+              <Typography variant="title">
+                {formatMinutes(last_discard_minutes)}
               </Typography>
             </Grid>
           </Grid>
@@ -338,7 +349,7 @@ export class MetaActivity extends Component<Props, State> {
           <Paper>
             <Grid container spacing={16} direction="column">
               <Grid item>
-                <MetaActivityCover metaActivity={metaActivity} large/>
+                <MetaActivityCover metaActivity={metaActivity} large />
               </Grid>
               <Grid item className={classes.paddedBlock}>
                 <MetaActivityBasicInfo metaActivity={metaActivity} />

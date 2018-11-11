@@ -398,6 +398,12 @@ export default {
         'Sélectionnez une séance pour voir les membres inscrits',
     },
     activity: {
+      settings: 'Paramètres',
+      sizeOfWaitingList: "Taille par défaut de la liste d'attente: ",
+      lastBookingBeforeMinutes:
+        'Avant le début du cours, dernière réservation possible',
+      lastDiscardBeforeMinutes:
+        'Avant le début du cours, dernière annulation possible',
       addOffers: 'Ajouter des séances',
       addActivity: 'Ajouter une activité',
       name: 'Titre',

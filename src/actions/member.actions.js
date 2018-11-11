@@ -68,16 +68,21 @@ export function createOrUpdateMember(memberData) {
     try {
       const response = await createOrUpdate(memberData);
 
-      dispatch(actionCreateOrUpdateMemberSuccess(response));
-      dispatch(
-        snackbarSuccess(
-          memberData.has('id')
-            ? 'member.forms.update.success'
-            : 'member.forms.create.success',
-        ),
-      );
-      dispatch(fetchAll());
-      dispatch(push('/member'));
+      if (response.status === 201 || response.status ===200) {
+        dispatch(actionCreateOrUpdateMemberSuccess(response));
+        dispatch(
+          snackbarSuccess(
+            memberData.has('id')
+              ? 'member.forms.update.success'
+              : 'member.forms.create.success',
+          ),
+        );
+        dispatch(fetchAll());
+        dispatch(push('/member'));
+      } else {
+        dispatch(snackbarError('member.forms.error'));
+        dispatch(actionCreateOrUpdateMemberError());
+      }
     } catch (e) {
       console.log(e);
       dispatch(snackbarError('member.forms.error'));

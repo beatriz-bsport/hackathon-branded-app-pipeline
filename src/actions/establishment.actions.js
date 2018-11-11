@@ -48,16 +48,21 @@ export function createOrUpdateEstablishment(establishmentData) {
         : api.establishment.addEstablishment;
       const response = await createOrUpdate(establishmentData);
 
-      dispatch(actionCreateOrUpdateEstablishmentSuccess(response));
-      dispatch(
-        snackbarSuccess(
-          establishmentData.has('id')
-            ? 'establishment.forms.update.success'
-            : 'establishment.forms.create.success',
-        ),
-      );
-      dispatch(push('/map'));
-      dispatch(fetchEstablishments());
+      if (response.status === 200 && response.status === 201) {
+        dispatch(actionCreateOrUpdateEstablishmentSuccess(response));
+        dispatch(
+          snackbarSuccess(
+            establishmentData.has('id')
+              ? 'establishment.forms.update.success'
+              : 'establishment.forms.create.success',
+          ),
+        );
+        dispatch(push('/map'));
+        dispatch(fetchEstablishments());
+      } else {
+        dispatch(snackbarError('establishment.forms.error'));
+        dispatch(actionCreateOrUpdateEstablishmentError(response.data));
+      }
     } catch (e) {
       dispatch(snackbarError('establishment.forms.error'));
       dispatch(actionCreateOrUpdateEstablishmentError(e));

@@ -30,16 +30,21 @@ export function createOrUpdateCoach(coachData) {
     try {
       const response = await createOrUpdate(coachData);
 
-      dispatch(actionCreateOrUpdateCoachSuccess(response));
-      dispatch(
-        snackbarSuccess(
-          coachData.has('id')
-            ? 'coach.forms.update.success'
-            : 'coach.forms.create.success',
-        ),
-      );
-      dispatch(fetchAssociated());
-      dispatch(push('/coach'));
+      if (response.status === 201 || response.status === 200) {
+        dispatch(actionCreateOrUpdateCoachSuccess(response));
+        dispatch(
+          snackbarSuccess(
+            coachData.has('id')
+              ? 'coach.forms.update.success'
+              : 'coach.forms.create.success',
+          ),
+        );
+        dispatch(fetchAssociated());
+        dispatch(push('/coach'));
+      } else {
+        dispatch(snackbarError('coach.forms.error'));
+        dispatch(actionCreateOrUpdateCoachError(response.data));
+      }
     } catch (e) {
       console.log(e);
       dispatch(snackbarError('coach.forms.error'));

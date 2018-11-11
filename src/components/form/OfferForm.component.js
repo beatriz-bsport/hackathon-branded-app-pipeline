@@ -112,8 +112,8 @@ export class OfferForm extends Component<Props, State> {
     } = this.state;
 
     const firstSession = date_interval_start;
-    firstSession.set('hour', hour.get('hour'));
-    firstSession.set('minute', hour.get('minute'));
+    firstSession.set('hour', Moment(hour, 'HH:mm').get('hour'));
+    firstSession.set('minute', Moment(hour, 'HH:mm').get('minute'));
 
     const allDates = [];
 

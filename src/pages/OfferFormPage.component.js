@@ -8,7 +8,7 @@ import { Redirect } from 'react-router-dom';
 
 import { OfferForm } from '../components';
 import api from '../api';
-import { offer as offerActions } from '../actions';
+import { activity as activityActions, offer as offerActions } from '../actions';
 import type { Coach, MetaActivity, Establishment } from '../api/types';
 
 type Props = {
@@ -18,6 +18,7 @@ type Props = {
   establishments: Array<Establishment>,
   metaActivities: Array<MetaActivity>,
   fetchAllOffers: () => void,
+  fetchAllActivities: () => void,
 };
 
 type State = {
@@ -48,6 +49,7 @@ export class OfferFormPage extends Component<Props, State> {
       );
       if (response.status === 200) {
         this.setState({ processing: false, created: true });
+        this.props.fetchOffers();
         return;
       }
       this.throwError();
@@ -69,6 +71,7 @@ export class OfferFormPage extends Component<Props, State> {
 
     if (created) {
       this.props.fetchAllOffers();
+      this.props.fetchAllActivities();
       return <Redirect to={`/activity/${this.metaActivityId}`} />;
     }
 
@@ -105,6 +108,9 @@ function mapDispatchToProps(dispatch) {
   return {
     fetchAllOffers() {
       dispatch(offerActions.fetchAllOffers());
+    },
+    fetchAllActivities() {
+      dispatch(activityActions.fetchActivities());
     },
   };
 }

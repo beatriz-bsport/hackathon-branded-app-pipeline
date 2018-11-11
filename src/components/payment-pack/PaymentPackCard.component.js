@@ -17,7 +17,7 @@ import {
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { translate } from 'react-i18next';
 
-import ActivityMinimalSummary from '../activity/ActivityMinimalSummary.component';
+import MetaActivityMinimalSummary from '../activity/MetaActivityMinimalSummary.component';
 import { Sport } from '../category';
 import ConsumersPackSummaryTable from './ConsumersPackSummaryTable.component';
 import type { PaymentPackManagerView } from '../../api/types';
@@ -57,17 +57,20 @@ export class PaymentPackCard extends Component<Props> {
   };
 
   getActivityScope = () => {
-    const { pack, t, classes } = this.props;
-    const { activities } = pack;
+    const { pack, t, classes, metaActivities } = this.props;
+    const packMetaActivities = pack.metaActivities;
     return (
       <div>
         <Typography variant="subheading">
           {t('paymentPack.availableOnFollowingActivities')}
         </Typography>
         <List className={classes.tabList}>
-          {activities.length ? (
-            activities.map((a) => (
-              <ActivityMinimalSummary key={a.id} activity={a} />
+          {packMetaActivities.length ? (
+            packMetaActivities.map((ma) => (
+              <MetaActivityMinimalSummary
+                key={ma.id}
+                metaActivity={metaActivities.find((m) => m.id === ma)}
+              />
             ))
           ) : (
             <Typography variant="body2">

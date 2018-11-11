@@ -12,11 +12,11 @@ import PaymentPackForm from '../../components/form/PackForm.component';
 import { paymentPack as paymentPackActions } from '../../actions';
 
 import api from '../../api';
-import type { SCT, ActivitySimplified } from '../../api/types';
+import type { SCT, MetaActivity } from '../../api/types';
 
 type Props = {
   categories: Array<SCT>,
-  activities: Array<ActivitySimplified>,
+  metaActivities: Array<MetaActivity>,
   fetchPaymentPacks: () => void,
   classes: Object,
 };
@@ -49,9 +49,9 @@ export class CoachFormPage extends Component<Props, State> {
   };
 
   render() {
-    const { categories, activities, classes } = this.props;
+    const { categories, metaActivities, classes } = this.props;
     const { error, created, loading } = this.state;
-    const availableCategoriesId = activities.map((a) => a.parent_category);
+    const availableCategoriesId = metaActivities.map((a) => a.parent_category);
     const filterableCategories = categories.filter(
       (c) => availableCategoriesId.indexOf(c.id) !== -1,
     );
@@ -67,7 +67,7 @@ export class CoachFormPage extends Component<Props, State> {
               <PaymentPackForm
                 onSubmit={this.createPack}
                 categories={filterableCategories || []}
-                activities={activities}
+                metaActivities={metaActivities}
                 processing={loading}
                 error={error}
               />
@@ -83,7 +83,7 @@ export class CoachFormPage extends Component<Props, State> {
 function mapStateToProps(state) {
   return {
     categories: state.category.SCSs,
-    activities: state.activity.all,
+    metaActivities: state.metaActivity.all,
   };
 }
 

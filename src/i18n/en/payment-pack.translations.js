@@ -23,7 +23,7 @@ export default {
   credits: 'Credits',
   availableOnFollowingSports: 'Available on following sports: ',
   anySport: 'Any sports',
-  availableOnFollowingActivities: 'Available on following slot: ',
-  anyActivity: 'Any slot',
+  availableOnFollowingActivities: 'Available on following activities: ',
+  anyActivity: 'Any activity',
   boughtConsumerPaymentPacks: 'Subscribers',
 };

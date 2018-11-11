@@ -23,7 +23,7 @@ import { Moment } from '../../i18n';
 
 type Props = {
   categories: *[],
-  activities: *[],
+  metaActivities: *[],
   onSubmit: (*) => void,
   loading: boolean,
   t: (x: string) => string,
@@ -36,7 +36,7 @@ type State = {
   ending_date: ?string,
   credits: ?number,
   categories: Object,
-  activities: Object,
+  metaActivities: Object,
   timeType: number,
   lower_date: Object,
   upper_date: Object,
@@ -62,7 +62,7 @@ export class PackForm extends React.Component<Props, State> {
     ending_date: null,
     credits: null,
     categories: {},
-    activities: {},
+    metaActivities: {},
     timeType: VALID_BY_DURATION,
     duration_days: 30,
     max_bookings_per_week: 10,
@@ -97,7 +97,7 @@ export class PackForm extends React.Component<Props, State> {
     const keys = ['name', 'price', 'credits', 'max_bookings_per_week'];
     const data = _.pick(this.state, keys);
     data.categories = Object.keys(this.state.categories);
-    data.activities = Object.keys(this.state.activities);
+    data.metaActivities = Object.keys(this.state.metaActivities);
 
     switch (this.state.timeType) {
       case VALID_BY_DATERANGE: {
@@ -114,7 +114,8 @@ export class PackForm extends React.Component<Props, State> {
         data.validity_daterange = null;
         break;
     }
-
+    console.log('sending:');
+    console.log(data);
     this.props.onSubmit(data);
   };
 
@@ -254,7 +255,7 @@ export class PackForm extends React.Component<Props, State> {
   );
 
   renderRestrictions = () => {
-    const { t, categories, activities } = this.props;
+    const { t, categories, metaActivities } = this.props;
     return (
       <Grid container direction="column" spacing={16}>
         <Grid item>
@@ -290,20 +291,14 @@ export class PackForm extends React.Component<Props, State> {
         </Grid>
         <Grid item>
           <Typography variant="subheading">{t('common.activities')}</Typography>
-          {activities.map((activity) => (
+          {metaActivities.map((metaActivity) => (
             <FormControlLabel
-              key={activity.id}
-              label={`${activity.name} - ${activity.coach.name} - ${
-                activity.etablissement.title
-              } - ${t(
-                `level.${
-                  LEVELS.filter((l) => l.id === activity.level)[0].text
-                }`,
-              )}`}
+              key={metaActivity.id}
+              label={metaActivity.name}
               control={
                 <Checkbox
-                  checked={this.isChecked('activities', activity.id)}
-                  onChange={this.handleCheck('activities', activity.id)}
+                  checked={this.isChecked('metaActivities', metaActivity.id)}
+                  onChange={this.handleCheck('metaActivities', metaActivity.id)}
                 />
               }
             />

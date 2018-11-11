@@ -22,8 +22,8 @@ export default {
   credits: 'Crédits',
   availableOnFollowingSports: 'Sports éligibles : ',
   anySport: 'Tout sport',
-  availableOnFollowingActivities: 'Séances éligibles : ',
-  anyActivity: 'Toute séance',
+  availableOnFollowingActivities: 'Activités éligibles : ',
+  anyActivity: 'Toute activité',
   boughtConsumerPaymentPacks: 'Abonnés',
   credit: {
     updated: 'Crédits mis à jour',

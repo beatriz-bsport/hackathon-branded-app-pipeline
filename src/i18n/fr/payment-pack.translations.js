@@ -25,6 +25,8 @@ export default {
   availableOnFollowingActivities: 'Activités éligibles : ',
   anyActivity: 'Toute activité',
   boughtConsumerPaymentPacks: 'Abonnés',
+  noRestrictionOnActivityType:
+    'Toutes les activités sont compatibles avec cet abonnement',
   credit: {
     updated: 'Crédits mis à jour',
   },

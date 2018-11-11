@@ -15,6 +15,7 @@ import * as consumer from './consumer.actions';
 import * as refresh from './refresh.actions';
 import * as search from './search.actions';
 import * as companies from './companies.actions';
+import * as marketplace from './marketplace.actions';
 
 export {
   refresh,
@@ -34,4 +35,5 @@ export {
   category,
   search,
   companies,
+  marketplace,
 };

@@ -119,7 +119,7 @@ export class ConsumerLogin extends Component<Props, State> {
   };
 
   getSignUpButton = () => (
-    <Link style={{ textDecoration: 'none' }} to="/signup">
+    <Link style={{ textDecoration: 'none' }} to="/login/signup">
       <RedButton variant="raised">
         {this.props.t('login.signUpConsumer')}
       </RedButton>

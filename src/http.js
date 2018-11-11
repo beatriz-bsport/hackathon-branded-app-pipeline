@@ -5,6 +5,7 @@ const storage = window.localStorage;
 
 export const BASE_URI: string = process.env.REACT_APP_BASE_URI;
 export const API_URI: string = `${BASE_URI}/api-v0`;
+export const PAYMENT_URI: string = `${BASE_URI}/payment`;
 
 export function setAuthToken(token: string) {
   storage.setItem('http:token', token);

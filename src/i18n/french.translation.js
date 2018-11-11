@@ -507,5 +507,13 @@ export default {
         december: 'Décembre',
       },
     },
+    marketplace: {
+      book: 'Réserver',
+      sessionThisDay: 'Séance ce jour :',
+      calendar: 'Calendrier',
+      welcomeTo: 'Bienvenue chez ',
+      pass: 'Abonnement',
+      buyPack: 'Ajouter',
+    },
   },
 };

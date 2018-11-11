@@ -20,6 +20,7 @@ import snackbarReducer from './snackbar.reducers';
 import refreshReducer from './refresh';
 import searchReducer from './search.reducers';
 import companiesReducers from './companies.reducers';
+import marketplaceReducer from './marketplace';
 
 export default combineReducers({
   payment: paymentReducers,
@@ -40,4 +41,5 @@ export default combineReducers({
   refresh: refreshReducer,
   search: searchReducer,
   companies: companiesReducers,
+  marketplace: marketplaceReducer,
 });

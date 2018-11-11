@@ -12,6 +12,7 @@ import {
 import { translate } from 'react-i18next';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 import { Link, Redirect } from 'react-router-dom';
+import { CB as PAYMENT_METHOD_CB } from 'bsport-commons/lib/master-data/payment-methods';
 
 import api from '../../api';
 
@@ -37,12 +38,13 @@ export class StripeCheckout extends Component<Props, State> {
     const { urlParams, purchaseId, purchaseType } = this.props;
     try {
       const { token } = await this.props.stripe.createToken();
-      const response = await api.payment.payWithStripe(
-        token.id,
-        purchaseId,
-        purchaseType,
+      const response = await api.payment.consumerBuy({
+        token: token.id,
+        objectId: purchaseId,
+        paymentMethod: PAYMENT_METHOD_CB.id,
+        objectClassName: purchaseType,
         urlParams,
-      );
+      });
 
       if (response.status === 200) {
         this.setState({

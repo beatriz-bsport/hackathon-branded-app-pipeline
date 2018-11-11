@@ -26,4 +26,5 @@ export default {
   availableOnFollowingActivities: 'Available on following activities: ',
   anyActivity: 'Any activity',
   boughtConsumerPaymentPacks: 'Subscribers',
+  noRestrictionOnActivityType: 'No restriction on activity',
 };

@@ -194,27 +194,44 @@ export class PaymentPackCard extends Component<Props> {
     );
   };
 
+  renderScope = () => {
+    const { t, classes } = this.props;
+    const { metaActivities, categories } = this.props.pack;
+    if (metaActivities.length === 0 && categories.length === 0) {
+      return (
+        <div className={classes.noRestriction}>
+          <Typography>{t('paymentPack.noRestrictionOnActivityType')}</Typography>
+        </div>
+      );
+    }
+    return (
+      <Grid container direction="row">
+        {categories.length ? (
+          <Grid item className={classes.horizontalBlock} xs={12}>
+            {this.getSportScope()}
+          </Grid>
+        ) : null}
+        {metaActivities.length ? (
+          <Grid item className={classes.horizontalBlock} xs={12}>
+            {this.getActivityScope()}
+          </Grid>
+        ) : null}
+      </Grid>
+    );
+  };
+
   render() {
-    const { classes } = this.props;
+    const { classes, onlyPublic } = this.props;
     return (
       <Paper className={classes.paper}>
         <Grid container direction="column">
           <Grid item className={classes.horizontalBlock}>
             {this.getPackHeadingInfo()}
           </Grid>
-          <Divider className={classes.horizontalDivider} />
-          <Grid item>
-            <Grid container direction="row">
-              <Grid item className={classes.horizontalBlock} xs={12}>
-                {this.getSportScope()}
-              </Grid>
-              <Divider className={classes.horizontalDivider} />
-              <Grid item className={classes.horizontalBlock} xs={12}>
-                {this.getActivityScope()}
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item>{this.getConsumerPaymentPacks()}</Grid>
+          <Grid item>{this.renderScope()}</Grid>
+          {onlyPublic ? null : (
+            <Grid item>{this.getConsumerPaymentPacks()}</Grid>
+          )}
         </Grid>
       </Paper>
     );
@@ -226,7 +243,6 @@ const styles = (theme) => ({
     paddingTop: theme.spacing.unit * 3,
   },
   horizontalBlock: {
-    marginBottom: theme.spacing.unit * 2,
     marginLeft: theme.spacing.unit * 3,
     marginRight: theme.spacing.unit * 3,
   },
@@ -241,6 +257,11 @@ const styles = (theme) => ({
   },
   tabList: {
     marginLeft: theme.spacing.unit * 3,
+  },
+  noRestriction: {
+    marginLeft: theme.spacing.unit * 3,
+    marginRight: theme.spacing.unit * 3,
+    marginBottom: theme.spacing.unit * 3,
   },
 });
 

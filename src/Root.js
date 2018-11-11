@@ -11,6 +11,7 @@ import { CircularProgress } from '@material-ui/core';
 import UserspaceSwitcher from './pages/UserspaceSwitcher.component';
 import ConsumerHome from './pages/ConsumerHome.component';
 import LoginRouter from './pages/login/LoginRouter.component';
+import MarketPlace from './pages/MarketPlace.component';
 
 const styles = () => ({
   root: {
@@ -39,7 +40,8 @@ export class Root extends Component<Props> {
       <div className={classes.root}>
         <Switch>
           <Route path="/login" component={LoginRouter} />
-          <Route path="/consumer" component={ConsumerHome} />
+          <Route path="/customer" component={ConsumerHome} />
+          <Route path="/marketplace/:id" component={MarketPlace} />
           <Route path="/" component={UserspaceSwitcher} />
         </Switch>
       </div>

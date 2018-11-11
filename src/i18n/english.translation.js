@@ -456,5 +456,13 @@ export default {
         december: 'December',
       },
     },
+    marketplace: {
+      book: 'Book',
+      sessionThisDay: 'Sessions this day: ',
+      calendar: 'Planning',
+      welcomeTo: 'Welcome to ',
+      pass: 'Pass',
+      buyPack: 'Buy',
+    },
   },
 };

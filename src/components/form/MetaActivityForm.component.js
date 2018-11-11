@@ -159,40 +159,6 @@ export class MetaActivityForm extends Component<Props, State> {
                 </Grid>
                 <Grid item>
                   <FormField
-                    id="coach"
-                    required
-                    value={this.state.coach}
-                    choices={coaches}
-                    defaultValue={coaches[0]}
-                    onChange={this.onFormFieldChange}
-                  />
-                  <FormField
-                    id="establishment"
-                    required
-                    value={this.state.establishment}
-                    choices={establishments}
-                    defaultValue={establishments[0]}
-                    onChange={this.onFormFieldChange}
-                  />
-                </Grid>
-                <Grid item>
-                  <FormField
-                    id="default_price"
-                    required
-                    value={this.state.default_price}
-                    onChange={this.onFormFieldChange}
-                  />
-                </Grid>
-                <Grid item>
-                  <FormField
-                    id="default_credits"
-                    required
-                    value={this.state.default_credits}
-                    onChange={this.onFormFieldChange}
-                  />
-                </Grid>
-                <Grid item>
-                  <FormField
                     id="default_last_booking_minutes"
                     required
                     value={this.state.default_last_booking_minutes}
@@ -204,14 +170,6 @@ export class MetaActivityForm extends Component<Props, State> {
                     id="default_last_discard_minutes"
                     required
                     value={this.state.default_last_discard_minutes}
-                    onChange={this.onFormFieldChange}
-                  />
-                </Grid>
-                <Grid item>
-                  <FormField
-                    id="default_duration_minutes"
-                    required
-                    value={this.state.default_duration_minutes}
                     onChange={this.onFormFieldChange}
                   />
                 </Grid>

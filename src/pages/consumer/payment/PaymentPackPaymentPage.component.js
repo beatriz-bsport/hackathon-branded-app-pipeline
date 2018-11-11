@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 
 import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
+import { CircularProgress } from '@material-ui/core';
 import { payment as paymentActions } from '../../../actions';
 import {
   ConsumerModalContainer,
@@ -25,6 +26,9 @@ export class PaymentPackPaymentPage extends Component<Props> {
 
   render() {
     const { paymentPack, loading } = this.props;
+    if (!paymentPack) {
+      return <CircularProgress />;
+    }
     return (
       <ConsumerModalContainer>
         <PaymentPackPayment paymentPack={paymentPack} loading={loading} />

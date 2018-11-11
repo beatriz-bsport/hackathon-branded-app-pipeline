@@ -25,7 +25,7 @@ export class LoginChoice extends Component<Props> {
   renderChoiceButtons = () => (
     <Grid container direction="column" alignItems="flex-start" spacing={24}>
       <Grid item>
-        <Link style={{ textDecoration: 'none' }} to="/login/consumer">
+        <Link style={{ textDecoration: 'none' }} to="/login/customer">
           <Button color="primary" variant="raised">
             {this.props.t('login.loginAsConsumer')}
           </Button>

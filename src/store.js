@@ -36,6 +36,7 @@ const persistConfig = {
     'invoice',
     'refresh',
     'search',
+    'marketplace',
   ],
   stateReconciler: seamlessImmutableReconciler,
   transforms: [seamlessImmutableTransformCreator(transformerConfig)],

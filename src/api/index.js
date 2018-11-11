@@ -15,6 +15,7 @@ import payment from './payment';
 import consumer from './consumer';
 import metaActivity from './meta-activity';
 import companies from './companies';
+import marketplace from './marketplace';
 
 export default {
   metaActivity,
@@ -32,4 +33,5 @@ export default {
   payment,
   consumer,
   companies,
+  marketplace,
 };

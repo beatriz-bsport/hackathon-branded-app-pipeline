@@ -39,6 +39,8 @@ export class PaymentPackPayment extends Component<Props> {
           <Grid item>
             <Elements>
               <StripeCheckout
+                purchaseType="pass"
+                purchaseId={paymentPack.id}
                 price={paymentPack === null ? ' - ' : paymentPack.price}
                 loading={loading}
               />

@@ -42,23 +42,23 @@ export class ConsumerHome extends Component<Props> {
     const { authenticated } = this.props;
     if (!authenticated) {
       return (
-        <Redirect to={`/login/consumer?next=${this.props.location.pathname}`} />
+        <Redirect to={`/login/customer?next=${this.props.location.pathname}`} />
       );
     }
     return (
       <ConsumerMenu>
         <Switch>
-          <Route path="/(|consumer/)pass" component={MyPaymentPacks} />
-          <Route path="/(|consumer/)profile" component={MyProfile} />
+          <Route path="/(|customer/)pass" component={MyPaymentPacks} />
+          <Route path="/(|customer/)profile" component={MyProfile} />
           <Route
-            path="/(|consumer/)payment/offer/:id"
+            path="/(|customer/)payment/offer/:id"
             component={OfferPaymentPage}
           />
           <Route
-            path="/(|consumer/)payment/pass/:id"
+            path="/(|customer/)payment/pass/:id"
             component={PaymentPackPaymentPage}
           />
-          <Route path="/(|consumer)" component={MyBookings} />
+          <Route path="/(|customer)" component={MyBookings} />
         </Switch>
       </ConsumerMenu>
     );

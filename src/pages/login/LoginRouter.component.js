@@ -10,8 +10,10 @@ import ResetPassword from './ResetPassword.component';
 export default function LoginRouter() {
   return (
     <Switch>
+      <Route path="/login/signout" component={Signout} />
+      <Route path="/login/reset_password" component={ResetPassword} />
       <Route path="/login/pro" component={LoginPro} />
-      <Route path="/login/consumer" component={LoginConsumer} />
+      <Route path="/login/customer" component={LoginConsumer} />
       <Route path="/login/reset_password" component={ResetPassword} />
       <Route path="/login/signout" component={Signout} />
       <Route path="/login" component={LoginChoice} />

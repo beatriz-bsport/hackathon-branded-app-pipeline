@@ -68,7 +68,7 @@ export function createOrUpdateMember(memberData) {
     try {
       const response = await createOrUpdate(memberData);
 
-      if (response.status === 201 || response.status ===200) {
+      if (response.status === 201 || response.status === 200) {
         dispatch(actionCreateOrUpdateMemberSuccess(response));
         dispatch(
           snackbarSuccess(

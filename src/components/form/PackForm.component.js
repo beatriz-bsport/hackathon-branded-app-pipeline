@@ -16,7 +16,6 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
-import LEVELS from 'bsport-commons/lib/master-data/levels';
 
 import FormField from '../input/FormField.component';
 import { Moment } from '../../i18n';

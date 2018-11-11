@@ -5,7 +5,6 @@ import {
   Grid,
   Paper,
   Typography,
-  List,
   withStyles,
   IconButton,
   Tooltip,

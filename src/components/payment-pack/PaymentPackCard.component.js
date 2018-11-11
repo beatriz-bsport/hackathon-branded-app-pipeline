@@ -20,7 +20,7 @@ import { translate } from 'react-i18next';
 import MetaActivityMinimalSummary from '../activity/MetaActivityMinimalSummary.component';
 import { Sport } from '../category';
 import ConsumersPackSummaryTable from './ConsumersPackSummaryTable.component';
-import type { PaymentPackManagerView } from '../../api/types';
+import type { PaymentPackManagerView, MetaActivity } from '../../api/types';
 import { formatAsDate } from '../../datetime';
 
 type Props = {
@@ -28,6 +28,7 @@ type Props = {
   decrementCredit: (id: number) => void,
   updatingConsumerPacks: Array<number>,
   pack: PaymentPackManagerView,
+  metaActivities: Array<MetaActivity>,
   t: (x: string) => string,
   classes: Object,
 };

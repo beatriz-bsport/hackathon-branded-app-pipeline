@@ -10,6 +10,7 @@ import AddIcon from '@material-ui/icons/Add';
 
 import { PaymentPackCard } from '../../components';
 import { paymentPack as paymentPackActions } from '../../actions';
+import type { MetaActivity } from '../../api/types';
 
 const styles = (theme) => ({
   paymentPackContainer: {
@@ -29,6 +30,7 @@ type Props = {
   updatingConsumerPacks: Array<number>,
   incrementCredit: (id: number) => void,
   decrementCredit: (id: number) => void,
+  metaActivities: Array<MetaActivity>,
   classes: Object,
   t: (x: string) => string,
 };

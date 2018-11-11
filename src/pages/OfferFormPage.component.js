@@ -49,7 +49,7 @@ export class OfferFormPage extends Component<Props, State> {
       );
       if (response.status === 200) {
         this.setState({ processing: false, created: true });
-        this.props.fetchOffers();
+        this.props.fetchAllOffers();
         return;
       }
       this.throwError();

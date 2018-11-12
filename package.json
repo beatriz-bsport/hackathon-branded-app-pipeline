@@ -94,6 +94,7 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "server:build": "webpack -p --progress",
+     "stats": "webpack --profile --json > stats.json && webpack-bundle-analyzer stats.json ",
     "test": "node scripts/test.js --env=jsdom",
     "lint": "eslint src",
     "storybook": "start-storybook -p 6006",
@@ -155,6 +156,7 @@
     "jquery": "^3.3.1",
     "popper.js": "^1.14.3",
     "prettier": "^1.14.2",
+    "webpack-bundle-analyzer": "^3.0.3",
     "ya-factorybot": "^0.1.0"
   }
 }

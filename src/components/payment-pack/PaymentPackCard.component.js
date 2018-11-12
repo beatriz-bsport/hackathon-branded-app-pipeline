@@ -5,7 +5,6 @@ import React, { Component } from 'react';
 import {
   Paper,
   Grid,
-  Divider,
   Typography,
   List,
   ListItem,
@@ -31,6 +30,7 @@ type Props = {
   metaActivities: Array<MetaActivity>,
   t: (x: string) => string,
   classes: Object,
+  onlyPublic: ?boolean,
 };
 
 export class PaymentPackCard extends Component<Props> {
@@ -200,7 +200,9 @@ export class PaymentPackCard extends Component<Props> {
     if (metaActivities.length === 0 && categories.length === 0) {
       return (
         <div className={classes.noRestriction}>
-          <Typography>{t('paymentPack.noRestrictionOnActivityType')}</Typography>
+          <Typography>
+            {t('paymentPack.noRestrictionOnActivityType')}
+          </Typography>
         </div>
       );
     }

@@ -18,7 +18,7 @@ import { connect } from 'react-redux';
 import { push as pushRouter } from 'react-router-redux';
 
 import { Calendar, PaymentPackCard } from '../components';
-import { MarketplaceTimetable } from '../components/marketplace';
+import MarketplaceTimetable from '../components/marketplace/MarketplaceTimetable.component';
 import { Moment } from '../i18n';
 import { marketplace as marketplaceActions } from '../actions';
 
@@ -33,6 +33,7 @@ type Props = {
   fetchCompany: (companyId: number) => void,
   fetchCalendar: (companyId: number) => void,
   fetchOffersByDay: ({ companyId: number, date: Object }) => void,
+  fetchPaymentPacks: (companyId: number) => void,
   pushPackCheckout: (packId: number) => void,
   t: (x: string) => string,
   classes: Object,
@@ -132,8 +133,8 @@ export class MarketPlace extends Component<Props, State> {
     const { t } = this.props;
     return (
       <Grid container direction="row" spacing={16}>
-	{//Forgive me but i haz no tiime
-	this.props.paymentPacks
+        {// Forgive me but i haz no tiime
+        this.props.paymentPacks
           .map((p) => ({
             ...p,
             metaActivities: p.metaActivities.map((ma) => ma.id),

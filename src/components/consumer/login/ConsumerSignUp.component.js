@@ -36,11 +36,6 @@ type State = {
   firstname: string,
 };
 
-const STEPS = {
-  REQUEST_INFO: 0,
-  REQUEST_SMS_CODE_CONFIRMATION: 1,
-};
-
 export class ConsumerSignUp extends Component<Props, State> {
   state = {
     loading: false,

@@ -74,6 +74,7 @@
     "react-router-dom": "^4.2.2",
     "react-stripe-elements": "^2.0.1",
     "redux": "^4.0.0",
+    "redux-actions": "^2.6.4",
     "redux-persist": "^5.9.1",
     "redux-persist-seamless-immutable": "^2.0.0",
     "redux-thunk": "^2.2.0",

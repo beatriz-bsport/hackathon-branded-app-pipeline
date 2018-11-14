@@ -1,36 +1,35 @@
 // @flow
 
 import Immutable from 'seamless-immutable';
+import { handleActions } from 'redux-actions';
 
-import actionTypes from '../actions/snackbar.types';
+import { snackbarDisplay, snackbarDestroy } from '../actions/snackbar.actions';
 
 const initialState = Immutable({
   messages: [],
 });
 
-export default function snackbarReducer(state = initialState, action = {}) {
-  switch (action.type) {
-    case actionTypes.SNACKBAR_DISPLAY: {
+export default handleActions(
+  {
+    [snackbarDisplay]: (state, { payload }) => {
       const messages = state.messages.asMutable();
       messages.push({
-        message: action.message,
-        id: action.id,
-        kind: action.kind,
+        message: payload.message,
+        id: payload.id,
+        kind: payload.kind,
       });
       return state.merge({ messages });
-    }
+    },
 
-    case actionTypes.SNACKBAR_DESTROY: {
+    [snackbarDestroy]: (state, { payload }) => {
       const messages = state.messages.asMutable();
-      const pos = messages.findIndex((k) => k.id === action.id);
+      const pos = messages.findIndex((k) => k.id === payload);
       if (pos === -1) {
         return state;
       }
       messages.splice(pos, 1);
       return state.merge({ messages: messages || [] });
-    }
-
-    default:
-      return state;
-  }
-}
+    },
+  },
+  initialState,
+);

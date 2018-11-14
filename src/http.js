@@ -82,3 +82,15 @@ export async function patchAuth(uri: string, data: Object) {
   const token = getAuthToken();
   return patch(uri, data, { Authorization: `Token ${token}` });
 }
+
+export async function getJSONAuth(uri: string, token) {
+  const token_ = token || getAuthToken();
+  const response = await get(uri, { Authorization: `Token ${token_}` });
+
+  if (response.status !== 200 && response.status !== 201) {
+    console.error(response);
+    throw new Error(response);
+  }
+
+  return response.data;
+}

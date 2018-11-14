@@ -1,69 +1,36 @@
+// @flow
+
+import { createAction } from 'redux-actions';
+import moment from 'moment';
+
 import api from '../api';
-import types from './stats.types';
+
+export const dateRangeChange = createAction('STATISTICS/DATE_RANGE/CHANGE');
+export const statIsLoading = createAction('STATISTICS/IS_LOADING');
+export const statLoaded = createAction('STATISTICS/LOADED');
+export const statError = createAction('STATISTICS/ERROR');
+
+async function fetchStats(dispatch, identifier, callee) {
+  dispatch(statIsLoading({ identifier, loading: true }));
+  dispatch(statError({ identifier, error: null }));
+
+  try {
+    const data = (await callee())
+      .map((row) => {
+        return { d: moment(row.d, 'YYYY-MM-DD').valueOf(), v: row.v };
+      })
+      .sort((u, v) => u.d - v.d);
+    dispatch(statLoaded({ identifier, data }));
+  } catch (error) {
+    dispatch(statError({ identifier, error }));
+  }
+  dispatch(statIsLoading({ identifier, loading: false }));
+}
 
 export function fetchDashboard() {
   return async (dispatch) => {
-    dispatch(startFetchDashboard());
-
-    /*
-    if (Date.now() - getState().stats.dashboardLastUpdate < 60 * 5 * 1000) {
-      return dispatch(dashboardAlreadyUpToDate());
-    }
-    */
-
-    try {
-      const response = await api.stats.fetchDashboard();
-      const dashboardStats = response.data;
-      dispatch(fetchedDashboard(dashboardStats));
-    } catch (err) {
-      dispatch(errorFetchingDashboard(err));
-    }
+    fetchStats(dispatch, 'bookings', api.stats.bookings);
+    fetchStats(dispatch, 'newMembers', api.stats.newMembers);
+    fetchStats(dispatch, 'turnover', api.stats.turnover);
   };
-}
-
-export function fetchedDashboard(dashboardStats) {
-  return { type: types.HAS_FETCHED_STATS_DASHBOARD, dashboardStats };
-}
-export function startFetchDashboard() {
-  return { type: types.START_FETCH_STATS_DASHBOARD };
-}
-
-export function errorFetchingDashboard(error) {
-  return { type: types.ERROR_FETCHING_STATS_DASHBOARD, error };
-}
-
-export function dashboardAlreadyUpToDate() {
-  return { type: types.DASHBOARD_STATS_ALREADY_UP_TO_DATE };
-}
-
-export function fetchActivities() {
-  return async (dispatch, getState) => {
-    dispatch(startFetchActivities());
-
-    if (Date.now() - getState().stats.lastUpdate < 60 * 5 * 1000) {
-      return dispatch(alreadyUpToDate());
-    }
-
-    try {
-      const response = await api.stats.getActivities();
-      const stats = response.data.results;
-      return dispatch(fetchedActivities(stats));
-    } catch (err) {
-      return dispatch(errorFetchingActivities());
-    }
-  };
-}
-
-export function fetchedActivities(stats) {
-  return { type: types.HAS_FETCHED_STATS_ACTIVITIES, stats };
-}
-export function startFetchActivities() {
-  return { type: types.START_FETCH_STATS_ACTIVITIES };
-}
-
-export function errorFetchingActivities() {
-  return { type: types.ERROR_FETCHING_STATS_ACTIVITIES };
-}
-export function alreadyUpToDate() {
-  return { type: types.STATS_ALREADY_UP_TO_DATE };
 }

@@ -1,11 +1,15 @@
+// @flow
+
 import coach from './en/coach.translations';
 import establishment from './en/establishment.translations';
 import member from './en/member.translations';
 import search from './en/search.translations';
 import paymentPack from './en/payment-pack.translations';
 import companies from './en/companies.translations';
+import dashboard from './en/dashboard.translations';
 
 export default {
+  dashboard,
   translation: {
     companies,
     hi: 'Hi',
@@ -104,14 +108,6 @@ export default {
     pagination: {
       rowPerPage: 'Rows per page',
       outOf: ' of ',
-    },
-    dashboard: {
-      thisWeek: 'This week',
-      thisMonth: 'This month',
-      newMembers: 'New members',
-      nbOffers: 'Sessions',
-      turnover: 'Turnover (€)',
-      nbBookings: 'Bookings',
     },
     invoice: {
       forms: {

@@ -6,8 +6,10 @@ import member from './fr/member.translations';
 import search from './fr/search.translations';
 import paymentPack from './fr/payment-pack.translations';
 import companies from './fr/companies.translations';
+import dashboard from './fr/dashboard.translations';
 
 export default {
+  dashboard,
   translation: {
     companies,
     hi: 'Salut',
@@ -263,15 +265,6 @@ export default {
     },
     member,
     coach,
-    dashboard: {
-      thisWeek: 'Cette semaine',
-      thisMonth: 'Ce mois',
-      newMembers: 'Nouveaux membres',
-      nbOffers: 'Séances',
-      // eslint-disable-next-line
-      turnover: "Chiffre d'affaire (€)",
-      nbBookings: 'Réservations',
-    },
     marketing: {
       dashboard: 'Tableau de bord',
       conversionRate: 'Taux de conversion',

@@ -27,15 +27,15 @@ export class PaymentPackMinimalSummary extends Component<Props> {
       ? t('paymentPack.unlimitedCredits')
       : `${t('paymentPack.credits')}: ${credits}`;
 
-    let starting_date = null;
-    let ending_date = null;
+    let dateInfo = '';
     if (duration_days) {
-      starting_date = Moment();
-      ending_date = Moment().add('days', duration_days);
-    }
-    if (validity_daterange) {
-      starting_date = Moment(validity_daterange.lower);
-      ending_date = Moment(validity_daterange.upper);
+      dateInfo = `${t('paymentPack.validForNdays1')} ${duration_days} ${t(
+        'paymentPack.validForNdays2',
+      )}`;
+    } else {
+      dateInfo = `${formatAsDate(Moment(validity_daterange.lower))} - ${Moment(
+        validity_daterange.upper,
+      )}`;
     }
 
     return (
@@ -43,9 +43,9 @@ export class PaymentPackMinimalSummary extends Component<Props> {
         <ListItemText primary={name} secondary={creditsFormatted} />
         <ListItemText
           primary={t('paymentPack.validity')}
-          secondary={`${formatAsDate(starting_date)} - ${formatAsDate(
-            ending_date,
-          )}`}
+          secondary={dateInfo}
+          primaryTypographyProps={{ align: 'right' }}
+          secondaryTypographyProps={{ align: 'right' }}
         />
       </ListItem>
     );

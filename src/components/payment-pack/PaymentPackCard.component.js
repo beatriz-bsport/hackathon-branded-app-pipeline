@@ -18,6 +18,7 @@ import { translate } from 'react-i18next';
 
 import MetaActivityMinimalSummary from '../activity/MetaActivityMinimalSummary.component';
 import { Sport } from '../category';
+import { SCT } from '../category';
 import ConsumersPackSummaryTable from './ConsumersPackSummaryTable.component';
 import type { PaymentPackManagerView, MetaActivity } from '../../api/types';
 import { formatAsDate } from '../../datetime';
@@ -46,7 +47,7 @@ export class PaymentPackCard extends Component<Props> {
           {categories.length ? (
             categories.map((c) => (
               <ListItem key={c.id}>
-                <Sport parentCategory={c.id} />
+                <Sport SCTName={c.name} parentCategory={c.SCS.id} />
               </ListItem>
             ))
           ) : (
@@ -108,9 +109,9 @@ export class PaymentPackCard extends Component<Props> {
     return (
       <Typography>
         {`${t('paymentPack.validFrom')}${formatAsDate(
-          pack.validity_daterange.lower,
+          JSON.parse(pack.validity_daterange).lower,
         )}${t('paymentPack.validTo')}${formatAsDate(
-          pack.validity_daterange.upper,
+          JSON.parse(pack.validity_daterange).upper,
         )}`}
       </Typography>
     );

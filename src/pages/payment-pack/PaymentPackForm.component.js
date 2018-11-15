@@ -51,7 +51,7 @@ export class CoachFormPage extends Component<Props, State> {
   render() {
     const { categories, metaActivities, classes } = this.props;
     const { error, created, loading } = this.state;
-    const availableCategoriesId = metaActivities.map((a) => a.parent_category);
+    const availableCategoriesId = metaActivities.map((a) => a.category_id);
     const filterableCategories = categories.filter(
       (c) => availableCategoriesId.indexOf(c.id) !== -1,
     );
@@ -82,7 +82,7 @@ export class CoachFormPage extends Component<Props, State> {
 
 function mapStateToProps(state) {
   return {
-    categories: state.category.SCSs,
+    categories: state.category.SCTs,
     metaActivities: state.metaActivity.all,
   };
 }

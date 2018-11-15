@@ -28,9 +28,12 @@ export async function consumerBuy({
   objectClassName,
   urlParams,
 }) {
-  const formatParams = Object.keys(urlParams)
-    .map((k) => `${k}=${urlParams[k]}`)
-    .join(',');
+  let formatParams = '';
+  if (urlParams) {
+    formatParams = Object.keys(urlParams)
+      .map((k) => `${k}=${urlParams[k]}`)
+      .join(',');
+  }
   return postAuth(
     `${PAYMENT_URI}/buy/${paymentMethod}/${objectClassName}/${objectId}?${formatParams}`,
     {

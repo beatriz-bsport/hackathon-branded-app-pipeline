@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Button, Paper, Grid, Typography, withStyles } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import PhoneInput from 'react-phone-number-input';
 import { FormField } from '../input';
 import { AvatarUploader } from '..';
 
@@ -67,14 +68,14 @@ export class MemberForm extends Component<Props, State> {
 
   onSubmit = (event) => {
     event.preventDefault();
-    const { sex, firstname, lastname, email, phone, avatar } = this.state;
+    const { gender, firstname, lastname, email, phone, avatar } = this.state;
 
     const data = {
       lastname,
       firstname,
       email,
       phone,
-      sex,
+      gender,
     };
 
     if (avatar && typeof avatar !== 'string') {
@@ -94,7 +95,7 @@ export class MemberForm extends Component<Props, State> {
       <Paper className={classes.paperContainer}>
         <form target="/member" onSubmit={this.onSubmit}>
           <Typography variant="title">{title}</Typography>
-          <Grid container spacing={8}>
+          <Grid container spacing={16}>
             <Grid item xs={12} md={12}>
               <AvatarUploader
                 initial={this.state.avatar}
@@ -126,18 +127,19 @@ export class MemberForm extends Component<Props, State> {
             </Grid>
             <Grid item xs={12} md={6}>
               <FormField
-                id="phone"
-                required
-                value={this.state.phone}
-                onChange={this.onFormFieldChange}
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <FormField
                 id="email"
                 required
                 value={this.state.email}
                 onChange={this.onFormFieldChange}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <PhoneInput
+                country="FR"
+                placeholder={t('form.member.phone')}
+                value={this.state.phone}
+                required
+                onChange={this.onFormFieldChange('phone')}
               />
             </Grid>
             <Grid item xs={12}>

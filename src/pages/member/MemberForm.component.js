@@ -23,7 +23,7 @@ export class MemberFormPage extends Component<Props, State> {
       firstname: 'first_name',
       email: 'email',
       phone: 'phone.phone_number',
-      sex: 'gender',
+      gender: 'gender',
       avatar: 'photo',
     });
 

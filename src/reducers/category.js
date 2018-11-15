@@ -12,7 +12,9 @@ export default function categoryReducers(state = initialState, action = {}) {
   switch (action.type) {
     case actionTypes.HAS_FETCHED_SCTS: {
       const { SCTs, easyAccesses } = action;
-      const SCSs = SCTs.filter((v, i, a) => a.indexOf(v) === i);
+      const SCSs = SCTs.map((sct) => sct.SCS.id)
+        .filter((v, i, a) => a.indexOf(v) === i)
+        .map((scsId) => SCTs.find((sct) => sct.SCS.id === scsId).SCS);
       return Immutable.merge(state, {
         SCTs,
         SCSs,

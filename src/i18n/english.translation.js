@@ -18,6 +18,7 @@ export default {
       CHECK: 'Check',
     },
     common: {
+      show: 'Show',
       previous: 'Previous',
       firstname: 'Firstname',
       lastname: 'Lastname',
@@ -119,6 +120,16 @@ export default {
       },
     },
     form: {
+      member: {
+        phone: 'Phone number',
+        birthdayYear: 'Year of birth',
+        referenceNumber: 'Membership ID',
+        referenceNumberHelper:
+          '(optionnal) if empty an ID will be automaticcaly assigned',
+      },
+      metaActivity: {
+        cantAddSameName: 'An activity with the same name already exists !',
+      },
       signup: {
         typePhone: 'Cellphone',
         confirmPasswordLabel: 'Confirm',
@@ -183,7 +194,7 @@ export default {
             'Start date for pack, leave blank for direct availability',
           ending_date: 'End date for pack, leave blank for no end',
           credits: 'Credits for the pack, leave blank for unlimited',
-          maxBookingPerWeek: 'Booking quota per week',
+          maxBookingPerWeek: 'Booking quota per week, empty means no limit',
         },
         timeSettingsTitle: 'Pass validity',
         generalSettingsTitle: 'General',

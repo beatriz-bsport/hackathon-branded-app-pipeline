@@ -95,8 +95,11 @@ export class Members extends Component<Props, State> {
         <TableCell>{status}</TableCell>
         <TableCell>{member.date_joined}</TableCell>
         <TableCell>
-          <Button onClick={() => this.props.onUpdateMember(member)}>
-            {t('member.row.update')}
+          <Button
+            onClick={() => this.redirectToMemberPage(member.id)}
+            color="primary"
+          >
+            {t('common.show')}
           </Button>
         </TableCell>
       </TableRow>

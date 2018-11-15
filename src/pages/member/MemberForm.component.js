@@ -25,6 +25,8 @@ export class MemberFormPage extends Component<Props, State> {
       phone: 'phone.phone_number',
       gender: 'gender',
       avatar: 'photo',
+      birthdayYear: 'birthday',
+      reference_number: 'reference_number',
     });
 
     if (this.props.update) {

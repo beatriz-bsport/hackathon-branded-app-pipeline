@@ -25,6 +25,7 @@ export default {
       },
     },
     common: {
+      show: 'Voir',
       previous: 'Précédent',
       firstname: 'Prénom',
       lastname: 'Nom de famille',
@@ -91,6 +92,16 @@ export default {
       extraordinaryEstablishment: '(lieu temporaire)',
     },
     form: {
+      member: {
+        phone: 'Téléphone',
+        birthdayYear: 'Année de naissance',
+        referenceNumber: "Numéro d'adhérent",
+        referenceNumberHelper:
+          '(optionnel) si vide un numéro sera automatiquement créé',
+      },
+      metaActivity: {
+        cantAddSameName: 'Une activité du même nom existe déjà !',
+      },
       signup: {
         typePhone: 'Tél. portable',
         confirmPasswordLabel: 'Confirmation',
@@ -166,8 +177,7 @@ export default {
           // eslint-disable-next-line
           credits:
             "Nombre de crédit disponibles au client de l'abonnement, laisser vide pour le rendre illimité",
-          maxBookingPerWeek:
-            "Nombre maximum d'utilisation autorisée par semaine",
+          maxBookingPerWeek: 'Laisser vide pour ne pas imposer de limite',
         },
         timeSettingsTitle: "Validité de l'abonnement",
         generalSettingsTitle: 'Général',

@@ -18,6 +18,8 @@ import {
   ListItemText,
 } from '@material-ui/core';
 import EmailIcon from '@material-ui/icons/Email';
+import TodayIcon from '@material-ui/icons/Today';
+import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import CallIcon from '@material-ui/icons/Call';
 import EditIcon from '@material-ui/icons/Edit';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
@@ -156,6 +158,31 @@ export class Member extends Component<Props> {
                 </Grid>
               </Grid>
             </Grid>
+          </Grid>
+          <Grid item>
+            <List dense>
+              <ListItem>
+                <TodayIcon />
+                <ListItemText
+                  primary={`
+              ${t('member.bornIn')} 
+              ${
+                member.consumer.birthday
+                  ? Moment(member.consumer.birthday).year()
+                  : '  NA  '
+              }`}
+                />
+              </ListItem>
+              <ListItem>
+                <PersonOutlineIcon />
+                <ListItemText
+                  primary={`
+              N°
+	      ${member.reference_number}
+	      `}
+                />
+              </ListItem>
+            </List>
           </Grid>
           <Grid item>
             <List dense>
@@ -336,19 +363,22 @@ export class Member extends Component<Props> {
   render() {
     const { memberLoading, t, classes } = this.props;
     return (
-      <div>
-        <div>
+      <Grid container direciotn="column" spacing={16}>
+        <Grid item>
+          {memberLoading ? <CircularProgress /> : this.renderContent()}
+        </Grid>
+        <Grid item>
           <Button
             onClick={this.props.goBack}
             size="large"
-            color="primary"
+            color="secondary"
+            variant="outlined"
             className={classes.backButton}
           >
             {t('navigation.goBack')}
           </Button>
-        </div>
-        <div>{memberLoading ? <CircularProgress /> : this.renderContent()}</div>
-      </div>
+        </Grid>
+      </Grid>
     );
   }
 }
@@ -390,7 +420,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(routerPush(`/member/edit/${id}`));
     },
     goBack() {
-      dispatch(routerBack());
+      dispatch(routerPush('/member'));
     },
   };
 }

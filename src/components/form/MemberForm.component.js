@@ -1,11 +1,19 @@
 // @flow
 import React, { Component } from 'react';
-import { Button, Paper, Grid, Typography, withStyles } from '@material-ui/core';
+import {
+  TextField,
+  Button,
+  Paper,
+  Grid,
+  Typography,
+  withStyles,
+} from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import PhoneInput from 'react-phone-number-input';
 import { FormField } from '../input';
 import { AvatarUploader } from '..';
+import { Moment } from '../../i18n';
 
 const styles = (theme) => ({
   paperContainer: {
@@ -33,7 +41,10 @@ type State = {
   email: string,
   phone: string,
   sex: string,
+  reference_number: ?string,
+  birthdayYear: ?number,
   avatar: *,
+  processing: boolean,
 };
 
 export class MemberForm extends Component<Props, State> {
@@ -42,8 +53,10 @@ export class MemberForm extends Component<Props, State> {
     lastname: null,
     email: null,
     phone: '',
-    sex: 'M',
+    gender: 'M',
     avatar: null,
+    reference_number: null,
+    birthdayYear: null,
   };
 
   constructor(props) {
@@ -59,6 +72,12 @@ export class MemberForm extends Component<Props, State> {
       if (props.initial.photo) {
         this.state.avatar = props.initial.photo;
       }
+      if (props.initial.birthday) {
+        this.state.birthdayYear = Moment(
+          props.initial.birthday,
+          'YYYY-MM-DD',
+        ).year();
+      }
     }
   }
 
@@ -68,7 +87,16 @@ export class MemberForm extends Component<Props, State> {
 
   onSubmit = (event) => {
     event.preventDefault();
-    const { gender, firstname, lastname, email, phone, avatar } = this.state;
+    const {
+      gender,
+      firstname,
+      reference_number,
+      birthdayYear,
+      lastname,
+      email,
+      phone,
+      avatar,
+    } = this.state;
 
     const data = {
       lastname,
@@ -76,13 +104,28 @@ export class MemberForm extends Component<Props, State> {
       email,
       phone,
       gender,
+      reference_number,
     };
 
     if (avatar && typeof avatar !== 'string') {
       data.avatar = avatar;
     }
 
+    if (birthdayYear) {
+      data.birthdayYear = parseInt(birthdayYear, 10);
+    }
+
     this.props.onSubmit(data);
+  };
+
+  handleReferenceNumber = (e) => {
+    const { value } = e.target;
+    if (value) {
+      return this.setState({
+        reference_number: value.slice(0, 12).toUpperCase(),
+      });
+    }
+    return this.setState({ reference_number: value });
   };
 
   render() {
@@ -134,6 +177,27 @@ export class MemberForm extends Component<Props, State> {
               />
             </Grid>
             <Grid item xs={12} md={6}>
+              <TextField
+                label={t('form.member.referenceNumber')}
+                helperText={t('form.member.referenceNumberHelper')}
+                shrink={this.state.reference_number}
+                value={this.state.reference_number}
+                fullWidth
+                onChange={this.handleReferenceNumber}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <TextField
+                type="number"
+                value={this.state.birthdayYear}
+                shrink={this.state.birthdayYear}
+                onChange={(e) =>
+                  this.onFormFieldChange('birthdayYear')(e.target.value)
+                }
+                label={t('form.member.birthdayYear')}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
               <PhoneInput
                 country="FR"
                 placeholder={t('form.member.phone')}
@@ -150,7 +214,12 @@ export class MemberForm extends Component<Props, State> {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Button variant="raised" color="primary" type="submit">
+                  <Button
+                    disabled={this.props.processing}
+                    variant="raised"
+                    color="primary"
+                    type="submit"
+                  >
                     {t('form.send')}
                   </Button>
                 </Grid>

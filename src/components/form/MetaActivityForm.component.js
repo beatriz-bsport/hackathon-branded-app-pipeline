@@ -27,6 +27,7 @@ type Props = {
   SCTs: *[],
   onSubmit: (*) => void,
   classes: Object,
+  metaActivityNames: Array<string>,
   t: (x: string) => string,
 };
 
@@ -79,6 +80,12 @@ export class MetaActivityForm extends Component<Props, State> {
       customer_enabled,
       cover,
     } = this.state;
+    const { t, metaActivityNames } = this.props;
+
+    if (metaActivityNames.find((n) => n.toUpperCase() === name.toUpperCase())) {
+      alert(t('form.metaActivity.cantAddSameName'));
+      return;
+    }
 
     const formData = new FormData();
     cover && formData.append('cover', cover);

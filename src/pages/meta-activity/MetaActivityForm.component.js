@@ -12,6 +12,7 @@ type Props = {
   associatedCoaches: *[],
   establishments: *[],
   SCTs: *[],
+  metaActivityNames: Array<string>,
   history: Object,
 };
 type State = { open: boolean };
@@ -31,7 +32,12 @@ export class MetaActivityFormPage extends Component<Props, State> {
   };
 
   render() {
-    const { SCTs, associatedCoaches, establishments } = this.props;
+    const {
+      SCTs,
+      associatedCoaches,
+      establishments,
+      metaActivityNames,
+    } = this.props;
     return (
       <div>
         <MetaActivityForm
@@ -39,8 +45,9 @@ export class MetaActivityFormPage extends Component<Props, State> {
           establishments={establishments}
           SCTs={SCTs}
           onSubmit={this.createMetaActivity}
+          metaActivityNames={metaActivityNames}
         />
-        <Snackbar open={this.state.open} message="Template d'activité créé" />
+        <Snackbar open={this.state.open} message="Activité créée" />
       </div>
     );
   }
@@ -51,6 +58,7 @@ function mapStateToProps(state) {
     associatedCoaches: state.coach.companyAssociated,
     establishments: state.establishment.all,
     SCTs: state.category.SCTs,
+    metaActivityNames: state.metaActivity.all.map((ma) => ma.name),
   };
 }
 export default connect(mapStateToProps)(withRouter(MetaActivityFormPage));

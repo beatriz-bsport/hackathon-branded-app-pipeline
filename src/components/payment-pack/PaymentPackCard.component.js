@@ -86,13 +86,17 @@ export class PaymentPackCard extends Component<Props> {
 
   renderMaxWeekBookings = () => {
     const { t, pack } = this.props;
-    return (
-      <Typography>
-        {t('paymentPack.maxNBookingsByWeek1')}
-        <b>{pack.max_bookings_per_week}</b>
-        {t('paymentPack.maxNBookingsByWeek2')}
-      </Typography>
-    );
+    const { max_bookings_per_week } = pack;
+    if (max_bookings_per_week) {
+      return (
+        <Typography>
+          {t('paymentPack.maxNBookingsByWeek1')}
+          <b>{max_bookings_per_week}</b>
+          {t('paymentPack.maxNBookingsByWeek2')}
+        </Typography>
+      );
+    }
+    return null;
   };
 
   renderTimeInfo = () => {

@@ -64,7 +64,7 @@ export class PackForm extends React.Component<Props, State> {
     metaActivities: {},
     timeType: VALID_BY_DURATION,
     duration_days: 30,
-    max_bookings_per_week: 10,
+    max_bookings_per_week: null,
     lower_date: Moment(),
     upper_date: Moment().add('days', 365),
   };
@@ -265,7 +265,6 @@ export class PackForm extends React.Component<Props, State> {
         <Grid item>
           <TextField
             label={t('form.paymentPack.maxBookingPerWeek')}
-            required
             type="number"
             fullWidth
             onChange={this.handleChange('max_bookings_per_week')}

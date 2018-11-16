@@ -41,7 +41,7 @@ type State = {
   email: string,
   phone: string,
   sex: string,
-  reference_number: ?string,
+  membership_ID: ?string,
   birthdayYear: ?number,
   avatar: *,
   processing: boolean,
@@ -55,7 +55,7 @@ export class MemberForm extends Component<Props, State> {
     phone: '',
     gender: 'M',
     avatar: null,
-    reference_number: null,
+    membership_ID: null,
     birthdayYear: null,
   };
 
@@ -90,7 +90,7 @@ export class MemberForm extends Component<Props, State> {
     const {
       gender,
       firstname,
-      reference_number,
+      membership_ID,
       birthdayYear,
       lastname,
       email,
@@ -104,7 +104,7 @@ export class MemberForm extends Component<Props, State> {
       email,
       phone,
       gender,
-      reference_number,
+      membership_ID,
     };
 
     if (avatar && typeof avatar !== 'string') {
@@ -122,10 +122,10 @@ export class MemberForm extends Component<Props, State> {
     const { value } = e.target;
     if (value) {
       return this.setState({
-        reference_number: value.slice(0, 12).toUpperCase(),
+        membership_ID: value.slice(0, 12).toUpperCase(),
       });
     }
-    return this.setState({ reference_number: value });
+    return this.setState({ membership_ID: value });
   };
 
   render() {
@@ -180,8 +180,8 @@ export class MemberForm extends Component<Props, State> {
               <TextField
                 label={t('form.member.referenceNumber')}
                 helperText={t('form.member.referenceNumberHelper')}
-                shrink={this.state.reference_number}
-                value={this.state.reference_number}
+                shrink={this.state.membership_ID}
+                value={this.state.membership_ID}
                 fullWidth
                 onChange={this.handleReferenceNumber}
               />

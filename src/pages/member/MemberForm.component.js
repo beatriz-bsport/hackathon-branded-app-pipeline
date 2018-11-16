@@ -26,7 +26,7 @@ export class MemberFormPage extends Component<Props, State> {
       gender: 'gender',
       avatar: 'photo',
       birthdayYear: 'birthday',
-      reference_number: 'reference_number',
+      membership_ID: 'membership_ID',
     });
 
     if (this.props.update) {

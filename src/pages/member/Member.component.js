@@ -178,7 +178,7 @@ export class Member extends Component<Props> {
                 <ListItemText
                   primary={`
               N°
-	      ${member.reference_number}
+	      ${member.membership_ID}
 	      `}
                 />
               </ListItem>

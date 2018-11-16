@@ -3,167 +3,131 @@
 import React, { Component } from 'react';
 
 import Moment from 'moment';
-import { compose } from 'recompose';
+import { compose, withProps, withPropsOnChange } from 'recompose';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 
-import { translate, withNamespaces } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import {
   bookingStatSelector,
   newMembersStatSelector,
   turnoverStatSelector,
   dateRangeSelector,
+  mainChartSelector,
 } from '../state/stats/selectors';
 
 import DateRangeFilter from '../components/DateRangeFilter.component';
-import { dateRangeChange } from '../actions/stats.actions';
+import { dateRangeChange, mainChartChange } from '../actions/stats.actions';
 import Figure from '../components/Figure.component';
-import {
-  SimpleBarChart,
-  SimpleLineChart,
-  SimpleAreaChart,
-  BarChart,
-} from '../components/Charts.component';
+import { SimpleBarChart, BarChart } from '../components/Charts.component';
+
+function createChartOptions(identifier, data, domain, color) {
+  return {
+    name: identifier,
+    count: data.total,
+    color,
+    chart: (
+      <SimpleBarChart
+        height={80}
+        data={data.table}
+        domain={domain}
+        xKey="d"
+        yKey="v"
+        color="darkBackground"
+      />
+    ),
+  };
+}
+
+type ChartData = {
+  d: number,
+  v: number,
+}[];
 
 type Props = {
-  loading: boolean,
-  stats: Object,
   classes: Object,
   t: (x: string) => string,
+  dateRange: { start: Moment, end: Moment, kind: string },
+  miniStats: { [string]: { table: ChartData, total: number } },
+  quickDateFilters: *[],
+  changeDateRange: (Moment, Moment, ?string) => void,
+  mainChartButtons: *[],
+  mainChartData: ChartData,
 };
-export class Dashboard extends Component<Props> {
-  render() {
-    const { loading, stats, t, classes } = this.props;
 
-    // FIXME set loading on all reducers state at logoff
-    if (loading || !stats.previous_week) {
-      return <CircularProgress />;
-    }
+export function Dashboard(props: Props) {
+  const { t, classes, dateRange, miniStats, mainChart } = props;
+  const { newMembers, turnover, bookings } = miniStats;
 
-    const data1 = [
-      { name: 'Décembre', uv: 3490, pv: 4300, amt: 2100 },
-      { name: 'Janvier', uv: 4000, pv: 2400, amt: 2400 },
-      { name: 'Février', uv: 3000, pv: 1398, amt: 2210 },
-      { name: 'Mars', uv: 2000, pv: 9800, amt: 2290 },
-      { name: 'Avril', uv: 2780, pv: 3908, amt: 2000 },
-      { name: 'Mai', uv: 1890, pv: 4800, amt: 2181 },
-      { name: 'Juin', uv: 2390, pv: 3800, amt: 2500 },
-      { name: 'Juillet', uv: 3490, pv: 4300, amt: 2100 },
-      { name: 'Septembre', uv: 3490, pv: 4300, amt: 2100 },
-      { name: 'Octobre', uv: 3490, pv: 4300, amt: 2100 },
-      { name: 'Novembre', uv: 3490, pv: 4300, amt: 2100 },
-    ];
-    const stats1 = [
-      {
-        name: t('newMembers'),
-        count: this.props.miniStats.newMembers.total,
-        color: 'green',
-        chart: (
-          <SimpleAreaChart
-            height={80}
-            data={this.props.miniStats.newMembers.table}
-            xKey="d"
-            yKey="v"
-            color="darkBackground"
-          />
-        ),
-      },
-      {
-        name: t('turnover'),
-        count: this.props.miniStats.turnover.total,
-        color: 'marine',
-        chart: (
-          <SimpleLineChart
-            height={80}
-            data={this.props.miniStats.turnover.table}
-            domain={[
-              this.props.dateRange.start.valueOf(),
-              this.props.dateRange.end.valueOf(),
-            ]}
-            xKey="d"
-            yKey="v"
-            color="darkBackground"
-          />
-        ),
-      },
-      {
-        name: t('nbBookings'),
-        count: this.props.miniStats.bookings.total,
-        color: 'red',
-        chart: (
-          <SimpleLineChart
-            height={80}
-            data={this.props.miniStats.bookings.table}
-            domain={[
-              this.props.dateRange.start.valueOf(),
-              this.props.dateRange.end.valueOf(),
-            ]}
-            xKey="d"
-            yKey="v"
-            color="darkBackground"
-          />
-        ),
-      },
-    ];
-    return (
-      <div className="dashboard">
-        <header>
-          <DateRangeFilter
-            quickRanges={this.props.quickDateFilters}
-            onChange={this.props.changeDateRange}
-            start={this.props.dateRange.start}
-            end={this.props.dateRange.end}
-          />
-        </header>
-        <br />
-        <Grid container direction="row" spacing={16}>
-          {stats1.map((stat) => {
-            return (
-              <Grid key={stat.name} item xs={12} md={4}>
-                <Figure name={stat.name} count={stat.count} color={stat.color}>
-                  {stat.chart}
-                </Figure>
-              </Grid>
-            );
-          })}
-        </Grid>
-        <br />
-        <header>
+  const domain = [
+    Moment(dateRange.start)
+      .subtract(0.5, 'day')
+      .valueOf(),
+    Moment(dateRange.end)
+      .add(0.5, 'day')
+      .valueOf(),
+  ];
+  const stats1 = [
+    createChartOptions('newMembers', newMembers, domain, 'green'),
+    createChartOptions('turnover', turnover, domain, 'marine'),
+    createChartOptions('bookings', bookings, domain, 'red'),
+  ];
+  return (
+    <div className="dashboard">
+      <header>
+        <DateRangeFilter
+          quickRanges={props.quickDateFilters}
+          onChange={props.changeDateRange}
+          start={dateRange.start}
+          end={dateRange.end}
+        />
+      </header>
+      <br />
+      <Grid container direction="row" spacing={16}>
+        {stats1.map((stat) => {
+          return (
+            <Grid key={stat.name} item xs={12} md={4}>
+              <Figure name={t(stat.name)} count={stat.count} color={stat.color}>
+                {stat.chart}
+              </Figure>
+            </Grid>
+          );
+        })}
+      </Grid>
+      <br />
+      <header>
+        {props.mainChartButtons.map((button) => (
           <Button
             variant="contained"
-            color="primary"
+            color={button.selected ? 'primary' : 'default'}
             className={classes.headerButton}
+            onClick={button.onClick}
           >
-            Chiffres d\'affaire
+            {button.title}
           </Button>
-          <Button variant="contained" className={classes.headerButton}>
-            Churn
-          </Button>
-          <Button variant="contained" className={classes.headerButton}>
-            Engagement
-          </Button>
-          <Button variant="contained" className={classes.headerButton}>
-            Publicité
-          </Button>
-        </header>
-        <BarChart
-          data={data1}
-          height={400}
-          bars={[
-            { key: 'amt', name: '2016', color: 'yellow' },
-            { key: 'pv', name: '2017', color: 'red' },
-            { key: 'uv', name: '2018', color: 'blue' },
-          ]}
-        />
-      </div>
-    );
-  }
+        ))}
+      </header>
+      <BarChart
+        data={props.mainChartData}
+        height={400}
+        domain={domain}
+        xKey="d"
+        yKey="v"
+        color={getDashboardColor(mainChart)}
+      />
+    </div>
+  );
+}
+
+function getDashboardColor(mainChart) {
+  return {
+    newMembers: 'green',
+    turnover: 'marine',
+    bookings: 'red',
+  }[mainChart];
 }
 
 function mapStateToProps(state) {
@@ -174,37 +138,17 @@ function mapStateToProps(state) {
       turnover: turnoverStatSelector(state),
     },
     dateRange: dateRangeSelector(state),
-    stats: state.stats.dashboard,
-    loading: state.stats.dashboardLoading,
-    quickDateFilters: [
-      {
-        key: 'current_week',
-        start: Moment().subtract(7, 'days'),
-        end: Moment(),
-      },
-      {
-        key: 'current_month',
-        start: Moment().subtract(1, 'month'),
-        end: Moment(),
-      },
-      {
-        key: 'last_three_months',
-        start: Moment().subtract(3, 'months'),
-        end: Moment(),
-      },
-      {
-        key: 'current_year',
-        start: Moment().subtract(1, 'year'),
-        end: Moment(),
-      },
-    ],
+    mainChart: mainChartSelector(state),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeDateRange(start, end) {
-      dispatch(dateRangeChange({ start, end }));
+    changeDateRange(start, end, kind = 'custom') {
+      dispatch(dateRangeChange({ start, end, kind }));
+    },
+    changeMainChart(chart) {
+      dispatch(mainChartChange({ chart }));
     },
   };
 }
@@ -225,5 +169,59 @@ export default compose(
   connect(
     mapStateToProps,
     mapDispatchToProps,
+  ),
+  withProps(({ mainChart, miniStats }) => ({
+    mainChartData: miniStats[mainChart].table,
+  })),
+  withProps(({ dateRange }) => ({
+    quickDateFilters: [
+      {
+        key: 'current_week',
+        start: Moment().subtract(7, 'days'),
+        end: Moment(),
+        selected: dateRange.kind === 'current_week',
+      },
+      {
+        key: 'current_month',
+        start: Moment().subtract(1, 'month'),
+        end: Moment(),
+        selected: dateRange.kind === 'current_month',
+      },
+      {
+        key: 'last_three_months',
+        start: Moment().subtract(3, 'months'),
+        end: Moment(),
+        selected: dateRange.kind === 'last_three_months',
+      },
+      {
+        key: 'current_year',
+        start: Moment().subtract(1, 'year'),
+        end: Moment(),
+        selected: dateRange.kind === 'current_year',
+      },
+    ],
+  })),
+  // Add buttons to select main chart
+  withPropsOnChange(
+    ['t', 'changeMainChart', 'mainChart'],
+    ({ t, mainChart, changeMainChart }) => ({
+      mainChartButtons: [
+        {
+          title: t('newMembers'),
+          onClick: () => changeMainChart('newMembers'),
+          selected: mainChart === 'newMembers',
+        },
+        {
+          title: t('turnover'),
+          onClick: () => changeMainChart('turnover'),
+          selected: mainChart === 'turnover',
+        },
+        {
+          title: t('bookings'),
+          onClick: () => changeMainChart('bookings'),
+          selected: mainChart === 'bookings',
+        },
+      ],
+    }),
   ),
 )(Dashboard);

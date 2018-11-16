@@ -11,7 +11,7 @@ export default {
   nbOffers: 'Sessions',
   // eslint-disable-next-line
   turnover: 'Turnover (€)',
-  nbBookings: 'Bookings',
+  bookings: 'Bookings',
   dateRange: {
     start: 'Start',
     end: 'End',

@@ -6,6 +6,7 @@ import moment from 'moment';
 import api from '../api';
 
 export const dateRangeChange = createAction('STATISTICS/DATE_RANGE/CHANGE');
+export const mainChartChange = createAction('STATISTICS/MAIN_CHART/CHANGE');
 export const statIsLoading = createAction('STATISTICS/IS_LOADING');
 export const statLoaded = createAction('STATISTICS/LOADED');
 export const statError = createAction('STATISTICS/ERROR');

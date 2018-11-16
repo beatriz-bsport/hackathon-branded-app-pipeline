@@ -5,6 +5,7 @@ import { handleActions } from 'redux-actions';
 
 import {
   dateRangeChange,
+  mainChartChange,
   statIsLoading,
   statLoaded,
   statError,
@@ -13,7 +14,8 @@ import {
 import authActionTypes from '../actions/auth.types';
 
 const initialState = Immutable({
-  dateRange: { start: null, end: null },
+  dateRange: { start: null, end: null, kind: 'custom' },
+  chart: 'turnover',
   stats: {},
 });
 
@@ -22,11 +24,15 @@ export default handleActions(
     [authActionTypes.DISCONNECT]: () => {
       return initialState;
     },
-    [dateRangeChange]: (state, { payload: { start, end } }) => {
-      return state.setIn(['dateRange'], {
+    [dateRangeChange]: (state, { payload: { start, end, kind } }) => {
+      return state.set('dateRange', {
         start: start && start.valueOf(),
         end: end && end.valueOf(),
+        kind,
       });
+    },
+    [mainChartChange]: (state, { payload: { chart } }) => {
+      return state.set('mainChart', chart);
     },
     [statIsLoading]: (state, { payload: { identifier, loading } }) => {
       return state.setIn(['stats', identifier, 'isLoading'], loading);

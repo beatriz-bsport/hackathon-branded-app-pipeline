@@ -9,7 +9,7 @@ export default {
   nbOffers: 'Séances',
   // eslint-disable-next-line
   turnover: "Chiffre d'affaire (€)",
-  nbBookings: 'Réservations',
+  bookings: 'Réservations',
   dateRange: {
     start: 'Début',
     end: 'Fin',

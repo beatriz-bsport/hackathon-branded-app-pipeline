@@ -11,8 +11,7 @@ import TextField from '@material-ui/core/TextField';
 
 type QuickRange = {
   key: string,
-  start: Moment,
-  end: Moment,
+  onClick: (Moment, Moment, ?string) => void,
 };
 type Props = {
   classes: { [string]: string },
@@ -53,7 +52,7 @@ export function DateRangeFilter(props: Props) {
             variant="contained"
             color={selectedColor}
             className={classes.button}
-            onClick={() => onChange(range.start, range.end)}
+            onClick={() => onChange(range.start, range.end, range.key)}
           >
             {t(range.key)}
           </Button>

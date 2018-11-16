@@ -26,6 +26,12 @@ const colors = {
     fill: 'rgba(255,255,255,0.4)',
     stroke: 'rgba(255,255,255,0.5)',
   },
+  green: {
+    fill: '#469B7C',
+  },
+  marine: {
+    fill: '#3f5a96',
+  },
   blue: {
     fill: '#9BD1E8',
     stroke: '#9BD1E8',
@@ -44,7 +50,7 @@ const colors = {
   },
 };
 function getStyle(color) {
-  return colors[color || 'green'] || colors.green;
+  return colors[color || 'blue'] || colors.green;
 }
 
 export function SimpleBarChart(props: Props) {
@@ -62,6 +68,7 @@ export function SimpleBarChart(props: Props) {
           dataKey={xKey}
           domain={domain}
           tickFormatter={(timeStr) => moment(timeStr).format('DD MMM')}
+          hide
         />
         <YAxis dataKey={yKey} hide />
         <Tooltip />
@@ -71,12 +78,10 @@ export function SimpleBarChart(props: Props) {
   );
 }
 
-type BarChartProps = {
-  bars: [{ name: string, key: stristats.current_week.bookingsng }],
-} & Props;
+type BarChartProps = Props;
 
 export function BarChart(props: BarChartProps) {
-  const { height, data, bars } = props;
+  const { height, data, xKey, yKey, color, domain } = props;
   return (
     <ResponsiveContainer width="100%" height={height}>
       <Recharts.BarChart
@@ -84,18 +89,16 @@ export function BarChart(props: BarChartProps) {
         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
+        <XAxis
+          type="number"
+          dataKey={xKey}
+          domain={domain}
+          tickFormatter={(timeStr) => moment(timeStr).format('DD MMM')}
+        />
+        <YAxis dataKey={yKey} />
         <Tooltip />
         <Legend />
-        {bars.map((bar) => (
-          <Bar
-            key={bar.key}
-            dataKey={bar.key}
-            fill={getStyle(bar.color).fill}
-            name={bar.name}
-          />
-        ))}
+        <Bar dataKey={yKey} fill={getStyle(color).fill} />
       </Recharts.BarChart>
     </ResponsiveContainer>
   );

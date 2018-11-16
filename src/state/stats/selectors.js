@@ -60,8 +60,8 @@ function statSelector(identifier) {
     },
     (dateRange, data) => {
       const table = filterDataTable(data.asMutable(), dateRange);
-      const aumentedData = addFakeData(table, dateRange);
-      const discretizedData = discretizeDataBy(aumentedData, dateRange);
+      // const aumentedData = addFakeData(table, dateRange);
+      const discretizedData = discretizeDataBy(table, dateRange);
 
       const total = discretizedData.table.reduce((sum, x) => sum + x.v, 0);
       return { ...discretizedData, total };

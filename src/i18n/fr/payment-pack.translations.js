@@ -1,10 +1,13 @@
 export default {
+  disabled: 'Désactivé',
+  disableConsumer: 'Bloquer',
+  enableConsumer: 'Débloquer',
   maxNBookingsByWeek1: 'Max ',
   maxNBookingsByWeek2: ' réservations par semaine',
   validity: 'Valide :',
   consumer: {
     expiresOn: 'Expire le ',
-    bookingsThisWeek: 'booking this week',
+    bookingsThisWeek: 'réservation(s) cette semaine',
   },
   validForNdays1: 'Valide ',
   validForNdays2: ' jours après achat',

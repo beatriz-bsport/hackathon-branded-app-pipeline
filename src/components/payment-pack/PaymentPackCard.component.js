@@ -8,17 +8,21 @@ import {
   Typography,
   List,
   ListItem,
+  Button,
   withStyles,
   ExpansionPanel,
   ExpansionPanelSummary,
   ExpansionPanelDetails,
+  Hidden,
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 import { translate } from 'react-i18next';
 
+import RedButton from '../button/RedButton.component';
 import MetaActivityMinimalSummary from '../activity/MetaActivityMinimalSummary.component';
 import { Sport } from '../category';
-import { SCT } from '../category';
 import ConsumersPackSummaryTable from './ConsumersPackSummaryTable.component';
 import type { PaymentPackManagerView, MetaActivity } from '../../api/types';
 import { formatAsDate } from '../../datetime';
@@ -29,6 +33,8 @@ type Props = {
   updatingConsumerPacks: Array<number>,
   pack: PaymentPackManagerView,
   metaActivities: Array<MetaActivity>,
+  onDeleteButtonClick: () => void,
+  onEditButtonClick: () => void,
   t: (x: string) => string,
   classes: Object,
   onlyPublic: ?boolean,
@@ -46,7 +52,7 @@ export class PaymentPackCard extends Component<Props> {
         <List className={classes.tabList}>
           {categories.length ? (
             categories.map((c) => (
-              <ListItem key={c.id}>
+              <ListItem key={c.id} dense divider>
                 <Sport SCTName={c.name} parentCategory={c.SCS.id} />
               </ListItem>
             ))
@@ -227,17 +233,59 @@ export class PaymentPackCard extends Component<Props> {
     );
   };
 
-  render() {
-    const { classes, onlyPublic } = this.props;
+  renderEditDeleteButtons = () => {
+    const { pack, classes, t } = this.props;
+    if (pack.disabled) {
+      return (
+        <Grid container item justify="center" alignItems="center">
+          <Typography color="error" variant="h6">
+            {t('paymentPack.disabled')}
+          </Typography>
+        </Grid>
+      );
+    }
     return (
-      <Paper className={classes.paper}>
+      <Grid
+        container
+        direction="row"
+        justify="flex-end"
+        spacing={16}
+        wrap="nowrap"
+      >
+        <Grid item>
+          <Button color="primary" onClick={this.props.onEditButtonClick}>
+            <EditIcon className={classes.iconLeft} />
+            <Hidden xsDown>{t('common.edit')}</Hidden>
+          </Button>
+        </Grid>
+        <Grid item>
+          <RedButton onClick={this.props.onDeleteButtonClick}>
+            <DeleteIcon className={classes.iconLeft} />
+            <Hidden xsDown>{t('common.delete')}</Hidden>
+          </RedButton>
+        </Grid>
+      </Grid>
+    );
+  };
+
+  render() {
+    const { classes, onlyPublic, t, pack } = this.props;
+    return (
+      <Paper
+        className={[classes.paper, pack.disabled ? classes.disabled : null]}
+      >
         <Grid container direction="column">
           <Grid item className={classes.horizontalBlock}>
             {this.getPackHeadingInfo()}
           </Grid>
           <Grid item>{this.renderScope()}</Grid>
           {onlyPublic ? null : (
-            <Grid item>{this.getConsumerPaymentPacks()}</Grid>
+            <React.Fragment>
+              <Grid item className={classes.buttonBlock}>
+                {this.renderEditDeleteButtons()}
+              </Grid>
+              <Grid item>{this.getConsumerPaymentPacks()}</Grid>
+            </React.Fragment>
           )}
         </Grid>
       </Paper>
@@ -248,6 +296,9 @@ export class PaymentPackCard extends Component<Props> {
 const styles = (theme) => ({
   paper: {
     paddingTop: theme.spacing.unit * 3,
+  },
+  disabled: {
+    backgroundColor: '#F8F8F8',
   },
   horizontalBlock: {
     marginLeft: theme.spacing.unit * 3,
@@ -269,6 +320,12 @@ const styles = (theme) => ({
     marginLeft: theme.spacing.unit * 3,
     marginRight: theme.spacing.unit * 3,
     marginBottom: theme.spacing.unit * 3,
+  },
+  iconLeft: {
+    marginRight: theme.spacing.unit,
+  },
+  buttonBlock: {
+    marginBottom: theme.spacing.unit,
   },
 });
 

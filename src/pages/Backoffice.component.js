@@ -80,6 +80,10 @@ export class Backoffice extends Component<Props> {
               <Route path="/invoice/:id" component={InvoiceEdit} />
               <Route path="/invoice" component={InvoiceList} />
               <Route path="/payment-pack/add" component={PaymentPackForm} />
+              <Route
+                path="/payment-pack/:id/edit"
+                component={PaymentPackForm}
+              />
               <Route path="/payment-pack" component={PaymentPackList} />
               <Route exact path="/member" component={MemberList} />
               <Route exact path="/member/edit/:id" component={MemberForm} />

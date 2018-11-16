@@ -6,6 +6,7 @@ import authActionTypes from '../actions/auth.types';
 const initialState = Immutable({
   all: [],
   updatingConsumerPacks: [],
+  updatingPaymentPacks: [],
   loading: true,
   error: false,
   errorMsg: '',
@@ -21,6 +22,9 @@ export default function activityReducers(state = initialState, action = {}) {
         all: Array.from(action.paymentPacks),
         loading: false,
         error: false,
+        updatingPaymentPacks: [],
+        updatingConsumerPacks: [],
+        createOrUpdatePending: false,
       });
 
     case actionTypes.START_FETCH_ALL_PAYMENT_PACKS:
@@ -46,6 +50,48 @@ export default function activityReducers(state = initialState, action = {}) {
         updatingConsumerPacks: state.updatingConsumerPacks.filter(
           (id) => id !== action.consumerPackId,
         ),
+      });
+    }
+
+    case actionTypes.PAYMENT_PACK_PATCH_START:
+      return Immutable.merge(state, {
+        updatingPaymentPacks: [...state.updatingPaymentPacks, action.id],
+      });
+
+    case actionTypes.PAYMENT_PACK_PATCH_ERROR:
+      return Immutable.merge(state, {
+        updatingPaymentPacks: [
+          ...state.updatingPaymentPacks.filter((id) => id !== action.id),
+        ],
+      });
+
+    case actionTypes.PAYMENT_PACK_PATCH_SUCCESS: {
+      const { paymentPack } = action;
+      return Immutable.merge(state, {
+        updatingPaymentPacks: [
+          ...state.updatingPaymentPacks.filter((id) => id !== action.id),
+        ],
+        all: [
+          paymentPack,
+          ...state.all.filter((pp) => pp.id !== paymentPack.id),
+        ],
+      });
+    }
+
+    case actionTypes.PAYMENT_PACK_CREATEORUPDATE_START: {
+      return Immutable.merge(state, { createOrUpdatePending: true });
+    }
+    case actionTypes.PAYMENT_PACK_CREATEORUPDATE_ERROR: {
+      return Immutable.merge(state, { createOrUpdatePending: false });
+    }
+    case actionTypes.PAYMENT_PACK_CREATEORUPDATE_SUCCESS: {
+      const { paymentPack } = action;
+      const paymentPackArray = state.all.filter(
+        (pp) => pp.id !== paymentPack.id,
+      );
+      return Immutable.merge(state, {
+        all: [paymentPack, ...paymentPackArray],
+        createOrUpdatePending: false,
       });
     }
 

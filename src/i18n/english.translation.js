@@ -21,6 +21,7 @@ export default {
       show: 'Show',
       previous: 'Previous',
       firstname: 'Firstname',
+      delete: 'Delete',
       lastname: 'Lastname',
       save: 'Save',
       saveAndAdd: 'Save and add another',
@@ -203,6 +204,18 @@ export default {
         durationDays: 'Days after purchase in which the pass is active',
         restrictionsTitle: 'Restrictions',
         maxBookingPerWeek: 'Max usage per week',
+        noneMeansAll: 'Keep empty to authorize all',
+        update: {
+          success: 'Pass: operation succeeded',
+          error: "Pass: operation failed",
+        },
+        delete: {
+          title: 'Deleting pass :',
+          askConfirmation:
+            'Be careful ! This deletion is definitive. The pass will not be visible anymore and will be unavailable for purchase.',
+          thereAreConsumers:
+            'Be careful ! Some members have bought this pass, if you disable it, they can continue to use until they exhaust their credits. If you want to disable it completely, consider reducing their credits here. The pass will not appear in your marketplace anymore.',
+        },
       },
       pleaseEnterYourSMSCode: 'Please enter the code sent by SMS',
       code: 'Code',

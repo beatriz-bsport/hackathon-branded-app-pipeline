@@ -11,9 +11,13 @@ import {
   RadioGroup,
   Checkbox,
   Button,
+  FormHelperText,
+  FormGroup,
   Grid,
   Radio,
   CircularProgress,
+  FormControl,
+  FormLabel,
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
@@ -31,8 +35,6 @@ type Props = {
 type State = {
   name: ?string,
   price: number,
-  starting_date: ?string,
-  ending_date: ?string,
   credits: ?number,
   categories: Object,
   metaActivities: Object,
@@ -54,20 +56,42 @@ const VALID_BY_DURATION = 0;
 const VALID_BY_DATERANGE = 1;
 
 export class PackForm extends React.Component<Props, State> {
-  state = {
-    name: null,
-    price: 0,
-    starting_date: null,
-    ending_date: null,
-    credits: null,
-    categories: {},
-    metaActivities: {},
-    timeType: VALID_BY_DURATION,
-    duration_days: 30,
-    max_bookings_per_week: null,
-    lower_date: Moment(),
-    upper_date: Moment().add('days', 365),
-  };
+  constructor(props) {
+    super(props);
+    if (props.initial) {
+      const valid_by_duration = props.initial.duration_days;
+      this.state = {
+        id: props.initial.id,
+        name: props.initial.name,
+        price: props.initial.price,
+        credits: props.initial.credits,
+        categories: props.initial.categories.map((c) => c.id),
+        metaActivities: props.initial.metaActivities,
+        timeType: valid_by_duration ? VALID_BY_DURATION : VALID_BY_DATERANGE,
+        duration_days: 30,
+        max_bookings_per_week: props.initial.max_bookings_per_week,
+        lower_date: valid_by_duration
+          ? Moment()
+          : Moment(JSON.parse(props.initial.validity_daterange).lower),
+        upper_date: valid_by_duration
+          ? Moment().add('days', 365)
+          : Moment(JSON.parse(props.initial.validity_daterange).upper),
+      };
+    } else {
+      this.state = {
+        name: null,
+        price: 0,
+        credits: null,
+        categories: [],
+        metaActivities: [],
+        timeType: VALID_BY_DURATION,
+        duration_days: 30,
+        max_bookings_per_week: null,
+        lower_date: Moment(),
+        upper_date: Moment().add('days', 365),
+      };
+    }
+  }
 
   handleChange = (name: string) => (element: Object) => {
     this.setState({ [name]: element.target.value });
@@ -77,26 +101,39 @@ export class PackForm extends React.Component<Props, State> {
     this.setState({ [name]: element });
   };
 
-  handleCheck = (valuesKey: string, valueId: Object) => (event: Object) => {
-    // eslint-disable-next-line
-    const currentValues = this.state[valuesKey];
-    currentValues[valueId] = event.target.checked;
-    // eslint-disable-next-line
-    this.setState({ [valuesKey]: currentValues });
+  handleCatCheck = (checked: boolean, id: number) => {
+    if (checked && !this.state.categories.find((cat) => id === cat)) {
+      return this.setState((prevState) => ({
+        categories: [...prevState.categories, id],
+      }));
+    }
+    if (!checked) {
+      return this.setState((prevState) => ({
+        categories: prevState.categories.filter((c) => c !== id),
+      }));
+    }
   };
 
-  isChecked = (valuesKey: string, valueId: Object) => {
-    const values = this.state[valuesKey];
-    return values[valueId];
+  handleMetaActivityCheck = (checked: boolean, id: number) => {
+    if (checked && !this.state.metaActivities.find((cat) => id === cat)) {
+      return this.setState((prevState) => ({
+        metaActivities: [...prevState.metaActivities, id],
+      }));
+    }
+    if (!checked) {
+      return this.setState((prevState) => ({
+        metaActivities: prevState.metaActivities.filter((c) => c !== id),
+      }));
+    }
   };
 
   onSubmit = (event: Object) => {
     event.preventDefault();
 
-    const keys = ['name', 'price', 'credits', 'max_bookings_per_week'];
+    const keys = ['name', 'price', 'credits', 'max_bookings_per_week', 'id'];
     const data = _.pick(this.state, keys);
-    data.categories = Object.keys(this.state.categories);
-    data.metaActivities = Object.keys(this.state.metaActivities);
+    data.categories = this.state.categories;
+    data.metaActivities = this.state.metaActivities;
 
     switch (this.state.timeType) {
       case VALID_BY_DATERANGE: {
@@ -113,8 +150,6 @@ export class PackForm extends React.Component<Props, State> {
         data.validity_daterange = null;
         break;
     }
-    console.log('sending:');
-    console.log(data);
     this.props.onSubmit(data);
   };
 
@@ -256,7 +291,7 @@ export class PackForm extends React.Component<Props, State> {
   renderRestrictions = () => {
     const { t, categories, metaActivities } = this.props;
     return (
-      <Grid container direction="column" spacing={16}>
+      <Grid container direction="column" spacing={32}>
         <Grid item>
           <Typography variant="title">
             {t('form.paymentPack.restrictionsTitle')}
@@ -273,34 +308,68 @@ export class PackForm extends React.Component<Props, State> {
           />
         </Grid>
         <Grid item>
-          <Typography variant="subheading">{t('common.sports')}</Typography>
-          {categories.map((category) => (
-            <FormControlLabel
-              key={category.id}
-              label={category.name}
-              control={
-                <Checkbox
-                  checked={this.isChecked('categories', category.id)}
-                  onChange={this.handleCheck('categories', category.id)}
-                />
-              }
-            />
-          ))}
-        </Grid>
-        <Grid item>
-          <Typography variant="subheading">{t('common.activities')}</Typography>
-          {metaActivities.map((metaActivity) => (
-            <FormControlLabel
-              key={metaActivity.id}
-              label={metaActivity.name}
-              control={
-                <Checkbox
-                  checked={this.isChecked('metaActivities', metaActivity.id)}
-                  onChange={this.handleCheck('metaActivities', metaActivity.id)}
-                />
-              }
-            />
-          ))}
+          <Grid container direction="row" spacing={32}>
+            <Grid item>
+              <FormControl component="fieldset">
+                <FormLabel component="legend">{t('common.sports')}</FormLabel>
+                <FormGroup>
+                  {categories.map((category) => (
+                    <FormControlLabel
+                      key={category.id}
+                      label={category.name}
+                      control={
+                        <Checkbox
+                          checked={this.state.categories.find(
+                            (cat) => category.id === cat,
+                          )}
+                          onChange={(event) =>
+                            this.handleCatCheck(
+                              event.target.checked,
+                              category.id,
+                            )
+                          }
+                        />
+                      }
+                    />
+                  ))}
+                </FormGroup>
+                <FormHelperText>
+                  {t('form.paymentPack.noneMeansAll')}
+                </FormHelperText>
+              </FormControl>
+            </Grid>
+            <Grid item>
+              <FormControl component="fieldset">
+                <FormLabel component="legend">
+                  {t('common.activities')}
+                </FormLabel>
+                <FormGroup>
+                  {metaActivities.map((metaActivity) => (
+                    <FormControlLabel
+                      key={metaActivity.id}
+                      label={metaActivity.name}
+                      control={
+                        <Checkbox
+                          checked={this.state.metaActivities.find(
+                            (ma) => ma === metaActivity.id,
+                          )}
+                          onChange={(event) =>
+                            this.handleMetaActivityCheck(
+                              event.target.checked,
+                              metaActivity.id,
+                            )
+                          }
+                        />
+                      }
+                    />
+                  ))}
+                </FormGroup>
+                <FormHelperText>
+                  {t('form.paymentPack.noneMeansAll')}
+                </FormHelperText>
+              </FormControl>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     );

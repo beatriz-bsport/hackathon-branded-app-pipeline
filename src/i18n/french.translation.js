@@ -26,6 +26,7 @@ export default {
     },
     common: {
       show: 'Voir',
+      delete: 'Supprimer',
       previous: 'Précédent',
       firstname: 'Prénom',
       lastname: 'Nom de famille',
@@ -186,6 +187,18 @@ export default {
         durationDays: "Durée de validité (jours) de l'abonnement après achat ",
         restrictionsTitle: 'Restrictions',
         maxBookingPerWeek: 'Utilisation max par semaine',
+        noneMeansAll: 'Laisser vide pour tout autoriser',
+        update: {
+          success: 'Abonnement: opération effectuée avec succès',
+          error: "Abonnement : erreur lors de l'opération",
+        },
+        delete: {
+          title: "Suppression de l'abonnement :",
+          askConfirmation:
+            "Attention ! Cette opération est définitive. L'abonnement ne sera plus visible et deviendra indisponible à l'achat.",
+          thereAreConsumers:
+            "Attention ! Des membres ont acheté cet abonnement, si vous le supprimez ces derniers pourront toujours utiliser leurs crédits restants. Vous pouvez les réduire manuellement à zéro ici.\n\nL'abonnement n'apparaitra plus dans votre magasin pour les nouveaux acheteurs.",
+        },
       },
       pleaseEnterYourSMSCode: 'Veuillez entrer le code envoyé par SMS',
       code: 'Code',

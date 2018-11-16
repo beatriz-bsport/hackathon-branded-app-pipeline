@@ -1,4 +1,6 @@
 export default {
+  disableConsumer: 'Block',
+  enableConsumer: 'Unblock',
   credit: {
     updated: 'Credits updated',
   },
@@ -27,4 +29,5 @@ export default {
   anyActivity: 'Any activity',
   boughtConsumerPaymentPacks: 'Subscribers',
   noRestrictionOnActivityType: 'No restriction on activity',
+  disabled: 'Disabled',
 };

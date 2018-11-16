@@ -18,6 +18,8 @@ type Props = {
   categories: Array<SCT>,
   metaActivities: Array<MetaActivity>,
   fetchPaymentPacks: () => void,
+  update: ?PaymentPack,
+  createOrUpdate: (data: [*]) => void,
   classes: Object,
 };
 type State = {
@@ -27,25 +29,11 @@ type State = {
   error: boolean,
 };
 
-export class CoachFormPage extends Component<Props, State> {
+export class PaymentPackFormPage extends Component<Props, State> {
   state = { error: false, loading: false, open: false, created: false };
 
   createPack = async (data: *) => {
-    this.setState({ loading: true });
-    try {
-      const response = await api.paymentPack.create(data);
-      if (response.status === 200) {
-        this.setState({
-          created: true,
-          loading: false,
-          error: false,
-        });
-        return;
-      }
-      this.setState({ error: false, loading: false });
-    } catch (err) {
-      this.setState({ error: true });
-    }
+    this.props.createOrUpdate(data);
   };
 
   render() {
@@ -68,8 +56,9 @@ export class CoachFormPage extends Component<Props, State> {
                 onSubmit={this.createPack}
                 categories={filterableCategories || []}
                 metaActivities={metaActivities}
-                processing={loading}
+                loading={loading}
                 error={error}
+                initial={this.props.update}
               />
             </Paper>
           </Grid>
@@ -80,10 +69,14 @@ export class CoachFormPage extends Component<Props, State> {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, nextProps) {
+  const { match } = nextProps;
+  const id = (match && match.params && +match.params.id) || null;
   return {
+    update: id !== null ? state.paymentPack.all.find((m) => m.id === id) : null,
     categories: state.category.SCTs,
     metaActivities: state.metaActivity.all,
+    loading: state.paymentPack.createOrUpdate,
   };
 }
 
@@ -91,6 +84,9 @@ function mapDisPatchToProps(dispatch) {
   return {
     fetchPaymentPacks() {
       dispatch(paymentPackActions.fetchAll());
+    },
+    createOrUpdate(data) {
+      dispatch(paymentPackActions.createOrUpdate(data));
     },
   };
 }
@@ -106,6 +102,6 @@ export default withRouter(
     connect(
       mapStateToProps,
       mapDisPatchToProps,
-    )(CoachFormPage),
+    )(PaymentPackFormPage),
   ),
 );

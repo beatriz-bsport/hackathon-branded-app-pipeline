@@ -7,11 +7,13 @@ import {
   ListItemText,
   ListItemSecondaryAction,
   IconButton,
+  Button,
   CircularProgress,
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
 import { formatAsDate } from '../../datetime';
+import RedButton from '../button/RedButton.component';
 
 type Props = {
   loading: boolean,
@@ -20,6 +22,7 @@ type Props = {
   hideConsumer: ?boolean,
   incrementCredit: (id: number) => void,
   decrementCredit: (id: number) => void,
+  disableConsumerPack: (id: number) => void,
   t: (x: string) => string,
 };
 
@@ -58,11 +61,33 @@ export class ConsumerPackRowItem extends Component<Props> {
       incrementCredit,
       decrementCredit,
       loading,
+      t,
     } = this.props;
     const { credits, unlimited } = paymentPack;
     const { available_credits } = consumerPack;
 
     if (unlimited) {
+      if (consumerPack.disabled) {
+        return (
+          <Button
+            onClick={() => incrementCredit(consumerPack.id)}
+            variant="outlined"
+          >
+            {t('paymentPack.enableConsumer')}
+          </Button>
+        );
+      }
+      return (
+        <RedButton
+          onClick={() => decrementCredit(consumerPack.id)}
+          variant="outlined"
+        >
+          {t('paymentPack.disableConsumer')}
+        </RedButton>
+      );
+    }
+
+    if (!incrementCredit || !decrementCredit) {
       return null;
     }
 

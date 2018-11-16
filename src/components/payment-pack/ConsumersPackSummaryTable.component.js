@@ -12,6 +12,7 @@ type Props = {
   updatingConsumerPacks: Array<number>,
   decrementCredit: (id: number) => void,
   incrementCredit: (id: number) => void,
+  disableConsumerPack: (id: number) => void,
 };
 
 export class ConsumersPackSummaryTable extends Component<Props> {
@@ -21,6 +22,7 @@ export class ConsumersPackSummaryTable extends Component<Props> {
       updatingConsumerPacks,
       decrementCredit,
       incrementCredit,
+      disableConsumerPack,
     } = this.props;
     const { consumer_payment_packs } = paymentPack;
     return (
@@ -33,7 +35,8 @@ export class ConsumersPackSummaryTable extends Component<Props> {
             decrementCredit={decrementCredit}
             incrementCredit={incrementCredit}
             loading={
-              updatingConsumerPacks.filter((id) => id === cpp.id).length > 0
+              (updatingConsumerPacks || []).filter((id) => id === cpp.id)
+                .length > 0
             }
           />
         ))}

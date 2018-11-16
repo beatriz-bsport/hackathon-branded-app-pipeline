@@ -2,7 +2,8 @@
 
 import React, { Component } from 'react';
 
-import Moment from 'moment';
+import moment from 'moment';
+import type { Moment } from 'moment';
 import { compose, withProps, withPropsOnChange } from 'recompose';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
@@ -24,24 +25,6 @@ import { dateRangeChange, mainChartChange } from '../actions/stats.actions';
 import Figure from '../components/Figure.component';
 import { SimpleBarChart, BarChart } from '../components/Charts.component';
 
-function createChartOptions(identifier, data, domain, color) {
-  return {
-    name: identifier,
-    count: data.total,
-    color,
-    chart: (
-      <SimpleBarChart
-        height={80}
-        data={data.table}
-        domain={domain}
-        xKey="d"
-        yKey="v"
-        color="darkBackground"
-      />
-    ),
-  };
-}
-
 type ChartData = {
   d: number,
   v: number,
@@ -58,22 +41,75 @@ type Props = {
   mainChartData: ChartData,
 };
 
+function dateFormatter(kind) {
+  if (kind === 'month') {
+    return (d) => moment(d).format('MMM YYYY');
+  }
+  if (kind === 'week') {
+    return (d) => `Semaine ${moment(d).format('W')}`;
+  }
+  return (d) => moment(d).format('ddd DD MMM');
+}
+
+const chartConfigs = {
+  newMembers: {
+    color: 'green',
+    xFormat: dateFormatter,
+    yFormat: (v) => Math.ceil(v),
+    label: 'Nombre',
+  },
+  turnover: {
+    color: 'marine',
+    xFormat: dateFormatter,
+    yFormat: (v) => `${v.toFixed(2)} €`,
+    label: 'CA',
+  },
+  bookings: {
+    color: 'red',
+    xFormat: dateFormatter,
+    yFormat: (v) => Math.ceil(v),
+    label: 'Nombre',
+  },
+};
+
+function createChartOptions(identifier, data, domain) {
+  const options = chartConfigs[identifier];
+  return {
+    name: identifier,
+    count: options.yFormat(data.total),
+    color: options.color,
+    chart: (
+      <SimpleBarChart
+        height={80}
+        data={data.table}
+        domain={domain}
+        xFormatter={options.xFormat(data.formatter)}
+        yFormatter={options.yFormat}
+        xKey="d"
+        yKey="v"
+        color="darkBackground"
+      />
+    ),
+  };
+}
+
 export function Dashboard(props: Props) {
-  const { t, classes, dateRange, miniStats, mainChart } = props;
+  const { t, classes, dateRange, miniStats } = props;
+  const { mainChartOptions } = props;
   const { newMembers, turnover, bookings } = miniStats;
 
   const domain = [
-    Moment(dateRange.start)
+    moment(dateRange.start)
       .subtract(0.5, 'day')
       .valueOf(),
-    Moment(dateRange.end)
+    moment(dateRange.end)
       .add(0.5, 'day')
       .valueOf(),
   ];
   const stats1 = [
-    createChartOptions('newMembers', newMembers, domain, 'green'),
-    createChartOptions('turnover', turnover, domain, 'marine'),
-    createChartOptions('bookings', bookings, domain, 'red'),
+    createChartOptions('newMembers', newMembers, domain),
+    createChartOptions('turnover', turnover, domain),
+    createChartOptions('bookings', bookings, domain),
   ];
   return (
     <div className="dashboard">
@@ -98,9 +134,10 @@ export function Dashboard(props: Props) {
         })}
       </Grid>
       <br />
-      <header>
+      <header className={classes.header}>
         {props.mainChartButtons.map((button) => (
           <Button
+            key={button.title}
             variant="contained"
             color={button.selected ? 'primary' : 'default'}
             className={classes.headerButton}
@@ -111,23 +148,18 @@ export function Dashboard(props: Props) {
         ))}
       </header>
       <BarChart
-        data={props.mainChartData}
+        data={props.mainChartData.table}
         height={400}
         domain={domain}
         xKey="d"
         yKey="v"
-        color={getDashboardColor(mainChart)}
+        label={mainChartOptions.label}
+        yFormatter={mainChartOptions.yFormat}
+        xFormatter={mainChartOptions.xFormat(props.mainChartData.formatter)}
+        color={mainChartOptions.color}
       />
     </div>
   );
-}
-
-function getDashboardColor(mainChart) {
-  return {
-    newMembers: 'green',
-    turnover: 'marine',
-    bookings: 'red',
-  }[mainChart];
 }
 
 function mapStateToProps(state) {
@@ -161,6 +193,9 @@ const styles = (theme) => ({
   headerButton: {
     margin: theme.spacing.unit,
   },
+  header: {
+    marginBottom: theme.spacing.unit * 2,
+  },
 });
 
 export default compose(
@@ -171,32 +206,33 @@ export default compose(
     mapDispatchToProps,
   ),
   withProps(({ mainChart, miniStats }) => ({
-    mainChartData: miniStats[mainChart].table,
+    mainChartOptions: chartConfigs[mainChart],
+    mainChartData: miniStats[mainChart],
   })),
   withProps(({ dateRange }) => ({
     quickDateFilters: [
       {
         key: 'current_week',
-        start: Moment().subtract(7, 'days'),
-        end: Moment(),
+        start: moment().subtract(7, 'days'),
+        end: moment(),
         selected: dateRange.kind === 'current_week',
       },
       {
         key: 'current_month',
-        start: Moment().subtract(1, 'month'),
-        end: Moment(),
+        start: moment().subtract(1, 'month'),
+        end: moment(),
         selected: dateRange.kind === 'current_month',
       },
       {
         key: 'last_three_months',
-        start: Moment().subtract(3, 'months'),
-        end: Moment(),
+        start: moment().subtract(3, 'months'),
+        end: moment(),
         selected: dateRange.kind === 'last_three_months',
       },
       {
         key: 'current_year',
-        start: Moment().subtract(1, 'year'),
-        end: Moment(),
+        start: moment().subtract(1, 'year'),
+        end: moment(),
         selected: dateRange.kind === 'current_year',
       },
     ],

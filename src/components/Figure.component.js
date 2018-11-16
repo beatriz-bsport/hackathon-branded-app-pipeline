@@ -64,7 +64,7 @@ export function Figure(props: Props) {
           <Typography
             variant="subtitle1"
             gutterBottom
-            className={[classes.textLight, classes.text]}
+            className={[classes.textLight, classes.text].join(' ')}
           >
             {count}
           </Typography>

@@ -1,5 +1,6 @@
 // @flow
 
+import moment from 'moment';
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
@@ -14,7 +15,11 @@ import {
 import authActionTypes from '../actions/auth.types';
 
 const initialState = Immutable({
-  dateRange: { start: null, end: null, kind: 'custom' },
+  dateRange: {
+    start: moment().subtract(7, 'days'),
+    end: moment(),
+    kind: 'custom',
+  },
   chart: 'turnover',
   stats: {},
 });

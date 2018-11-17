@@ -20,7 +20,7 @@ const styles = (theme) => ({
 });
 
 type Props = {
-  fetchStats: () => void,
+  // fetchStats: () => void,
   is_manager: boolean,
   classes: Object,
   t: (x: string) => string,
@@ -30,9 +30,11 @@ type Props = {
 };
 
 class Activity extends Component<Props> {
+  /*
   componentDidMount() {
     this.props.fetchStats();
   }
+  */
 
   render() {
     const {
@@ -90,6 +92,7 @@ function mapStateToProps(state) {
   };
 }
 
+/*
 function mapDispatchToProps(dispatch) {
   return {
     fetchStats() {
@@ -97,10 +100,11 @@ function mapDispatchToProps(dispatch) {
     },
   };
 }
+*/
 
 export default translate()(
   connect(
     mapStateToProps,
-    mapDispatchToProps,
+    // mapDispatchToProps,
   )(withStyles(styles)(translate()(Activity))),
 );

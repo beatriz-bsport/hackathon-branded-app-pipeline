@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 import { withStyles, CircularProgress } from '@material-ui/core';
 import { translate } from 'react-i18next';
-import Avatar from './Avatar.component';
+import Avatar from '../Avatar.component';
 
 const styles = () => ({
   input: {

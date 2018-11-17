@@ -22,8 +22,8 @@ import {
 
 import DateRangeFilter from '../components/DateRangeFilter.component';
 import { dateRangeChange, mainChartChange } from '../actions/stats.actions';
-import Figure from '../components/Figure.component';
-import { SimpleBarChart, BarChart } from '../components/Charts.component';
+import Figure from '../components/graph/Figure.component';
+import { SimpleBarChart, BarChart } from '../components/graph/Charts.component';
 
 type ChartData = {
   d: number,

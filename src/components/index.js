@@ -23,7 +23,7 @@ import TimeTable from './offer/TimeTable.component';
 import Map from './establishment/Map.component';
 import EstablishmentCard from './establishment/EstablishmentCard.component';
 import FormField from './input/FormField.component';
-import AvatarUploader from './AvatarUploader.component';
+import AvatarUploader from './input/AvatarUploader.component';
 import SimpleModal from './navigation/SimpleModal.component';
 import EditLiveOfferForm from './form/EditLiveOfferForm.component';
 import DeleteOfferForm from './form/DeleteOfferForm.component';

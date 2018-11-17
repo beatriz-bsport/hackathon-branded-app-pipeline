@@ -59,7 +59,10 @@ function statSelector(identifier) {
       return (stat && stat.data) || [];
     },
     (dateRange, data) => {
-      const table = filterDataTable(data.asMutable(), dateRange);
+      const table = filterDataTable(
+        data.asMutable ? data.asMutable() : data,
+        dateRange,
+      );
       // const aumentedData = addFakeData(table, dateRange);
       const discretizedData = discretizeDataBy(table, dateRange);
 

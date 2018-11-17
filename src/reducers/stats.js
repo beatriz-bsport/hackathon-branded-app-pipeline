@@ -16,11 +16,13 @@ import authActionTypes from '../actions/auth.types';
 
 const initialState = Immutable({
   dateRange: {
-    start: moment().subtract(7, 'days'),
-    end: moment(),
+    start: moment()
+      .subtract(7, 'days')
+      .valueOf(),
+    end: moment().valueOf(),
     kind: 'custom',
   },
-  chart: 'turnover',
+  mainChart: 'turnover',
   stats: {},
 });
 

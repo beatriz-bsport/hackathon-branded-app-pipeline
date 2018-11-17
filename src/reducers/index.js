@@ -22,7 +22,7 @@ import searchReducer from './search.reducers';
 import companiesReducers from './companies.reducers';
 import marketplaceReducer from './marketplace';
 
-export default combineReducers({
+const rootReducer = combineReducers({
   payment: paymentReducers,
   consumer: consumerReducers,
   auth: authReducers,
@@ -43,3 +43,8 @@ export default combineReducers({
   companies: companiesReducers,
   marketplace: marketplaceReducer,
 });
+
+export default (state, action) => {
+  const newState = action.type === 'DISCONNECT' ? { nav: state.nav } : state;
+  return rootReducer(newState, action);
+};

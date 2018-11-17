@@ -27,11 +27,15 @@ export class MemberFormPage extends Component<Props, State> {
       avatar: 'photo',
       birthdayYear: 'birthday',
       membership_ID: 'membership_ID',
+      accept_email: 'accept_email',
+      accept_sms: 'accept_sms',
     });
 
     if (this.props.update) {
       formData.append('id', this.props.update.id);
     }
+
+    alert(JSON.stringify(formData));
 
     this.props.createOrUpdateMember(formData);
   };

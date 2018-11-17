@@ -1,4 +1,8 @@
 export default {
+  createOrUpdate: {
+    succes: 'Pass successfully saved',
+    fail: "Error: pass would not be saved",
+  },
   disableConsumer: 'Block',
   enableConsumer: 'Unblock',
   credit: {

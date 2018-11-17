@@ -4,6 +4,11 @@ import {
   TextField,
   Button,
   Paper,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  FormGroup,
+  Checkbox,
   Grid,
   Typography,
   withStyles,
@@ -57,6 +62,8 @@ export class MemberForm extends Component<Props, State> {
     avatar: null,
     membership_ID: null,
     birthdayYear: null,
+    accept_email: true,
+    accept_sms: true,
   };
 
   constructor(props) {
@@ -96,6 +103,8 @@ export class MemberForm extends Component<Props, State> {
       email,
       phone,
       avatar,
+      accept_email,
+      accept_sms,
     } = this.state;
 
     const data = {
@@ -103,6 +112,8 @@ export class MemberForm extends Component<Props, State> {
       firstname,
       email,
       phone,
+      accept_email,
+      accept_sms,
       gender,
       membership_ID,
     };
@@ -205,6 +216,41 @@ export class MemberForm extends Component<Props, State> {
                 required
                 onChange={this.onFormFieldChange('phone')}
               />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <FormControl component="fieldset" className={classes.rgpdControl}>
+                <FormLabel component="legend">
+                  {t('form.member.rgpdTitle')}
+                </FormLabel>
+                <FormGroup
+                  aria-label="Communication"
+                  name="communication"
+                  className={classes.radioGroup}
+                >
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={this.state.accept_email}
+                        onChange={(e) =>
+                          this.setState({ accept_email: e.target.checked })
+                        }
+                      />
+                    }
+                    label={t('form.signup.communication.email')}
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={this.state.accept_sms}
+                        onChange={(e) =>
+                          this.setState({ accept_sms: e.target.checked })
+                        }
+                      />
+                    }
+                    label={t('form.signup.communication.sms')}
+                  />
+                </FormGroup>
+              </FormControl>
             </Grid>
             <Grid item xs={12}>
               <Grid container direction="row" justify="flex-end" spacing={16}>

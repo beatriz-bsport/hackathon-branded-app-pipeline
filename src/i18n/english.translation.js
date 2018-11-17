@@ -123,6 +123,8 @@ export default {
     form: {
       member: {
         phone: 'Phone number',
+        rgpdTitle:
+          'Communication accepted by the member (alert cancellation, modification, etc...)',
         birthdayYear: 'Year of birth',
         referenceNumber: 'Membership ID',
         referenceNumberHelper:
@@ -207,7 +209,7 @@ export default {
         noneMeansAll: 'Keep empty to authorize all',
         update: {
           success: 'Pass: operation succeeded',
-          error: "Pass: operation failed",
+          error: 'Pass: operation failed',
         },
         delete: {
           title: 'Deleting pass :',

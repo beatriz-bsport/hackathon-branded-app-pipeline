@@ -95,6 +95,8 @@ export default {
     form: {
       member: {
         phone: 'Téléphone',
+        rgpdTitle:
+          'Moyen de communication accepté par le membre (alerte annulation, modification, etc...)',
         birthdayYear: 'Année de naissance',
         referenceNumber: "Numéro d'adhérent",
         referenceNumberHelper:

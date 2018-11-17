@@ -15,6 +15,7 @@ import {
   CircularProgress,
   List,
   ListItem,
+  ListItemSecondaryAction,
   ListItemText,
 } from '@material-ui/core';
 import EmailIcon from '@material-ui/icons/Email';
@@ -27,6 +28,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { translate } from 'react-i18next';
 import { goBack as routerBack, push as routerPush } from 'react-router-redux';
 import { connect } from 'react-redux';
+import NotificationActiveIcon from '@material-ui/icons/NotificationsActive';
+import NotificationOffIcon from '@material-ui/icons/NotificationsOff';
 
 import {
   booking as bookingActions,
@@ -194,10 +197,24 @@ export class Member extends Component<Props> {
                     (member.consumer.phonenumber || { phone_number: ' - ' }).phone_number
                   }
                 />
+                <ListItemSecondaryAction>
+                  {member.accept_sms ? (
+                    <NotificationActiveIcon />
+                  ) : (
+                    <NotificationOffIcon />
+                  )}
+                </ListItemSecondaryAction>
               </ListItem>
               <ListItem>
                 <EmailIcon />
                 <ListItemText primary={member.consumer.email || ' - '} />
+                <ListItemSecondaryAction>
+                  {member.accept_email ? (
+                    <NotificationActiveIcon />
+                  ) : (
+                    <NotificationOffIcon />
+                  )}
+                </ListItemSecondaryAction>
               </ListItem>
             </List>
           </Grid>

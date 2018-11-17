@@ -1,4 +1,8 @@
 export default {
+  createOrUpdate: {
+    succes: 'Abonnement enregistré',
+    fail: "Erreur lors de l'enregistrement de l'abonnement",
+  },
   disabled: 'Désactivé',
   disableConsumer: 'Bloquer',
   enableConsumer: 'Débloquer',

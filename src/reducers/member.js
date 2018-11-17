@@ -23,6 +23,7 @@ export default function memberReducers(state = initialState, action = {}) {
       return Immutable.merge(state, {
         all,
         loading: false,
+        createOrUpdatePending: false,
       });
     }
 
@@ -39,10 +40,12 @@ export default function memberReducers(state = initialState, action = {}) {
     case actionTypes.START_FETCH_MEMBER:
       return Immutable.merge(state, {
         loading: true,
+        createOrUpdatePending: false,
       });
     case actionTypes.ERROR_FETCHING_MEMBER:
       return Immutable.merge(state, {
         loading: false,
+        createOrUpdatePending: false,
       });
     case actionTypes.HAS_FETCHED_MEMBER: {
       const { member } = action;

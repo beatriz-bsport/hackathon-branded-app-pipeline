@@ -381,10 +381,10 @@ export class Member extends Component<Props> {
     const { memberLoading, t, classes } = this.props;
     return (
       <Grid container direciotn="column" spacing={16}>
-        <Grid item>
+        <Grid item xs={12}>
           {memberLoading ? <CircularProgress /> : this.renderContent()}
         </Grid>
-        <Grid item>
+        <Grid item xs={12}>
           <Button
             onClick={this.props.goBack}
             size="large"

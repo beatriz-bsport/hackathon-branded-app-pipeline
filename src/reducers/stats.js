@@ -1,57 +1,55 @@
-import Immutable from 'seamless-immutable';
+// @flow
 
-import actionTypes from '../actions/stats.types';
+import moment from 'moment';
+import Immutable from 'seamless-immutable';
+import { handleActions } from 'redux-actions';
+
+import {
+  dateRangeChange,
+  mainChartChange,
+  statIsLoading,
+  statLoaded,
+  statError,
+} from '../actions/stats.actions';
+
 import authActionTypes from '../actions/auth.types';
 
 const initialState = Immutable({
-  activities: [],
-  dashboard: {},
-  dashboardLoading: true,
-  lastUpdate: new Date(Date.now() - 60 * 60 * 1000),
-  loading: true,
-  error: false,
-  errorMsg: '',
+  dateRange: {
+    start: moment()
+      .subtract(7, 'days')
+      .valueOf(),
+    end: moment().valueOf(),
+    kind: 'custom',
+  },
+  mainChart: 'turnover',
+  stats: {},
 });
 
-export default function statsReducers(state = initialState, action = {}) {
-  switch (action.type) {
-    case authActionTypes.DISCONNECT:
+export default handleActions(
+  {
+    [authActionTypes.DISCONNECT]: () => {
       return initialState;
-    case actionTypes.DASHBOARD_STATS_ALREADY_UP_TO_DATE:
-      return Immutable.merge(state, {
-        dashboardLoading: false,
+    },
+    [dateRangeChange]: (state, { payload: { start, end, kind } }) => {
+      return state.set('dateRange', {
+        start: start && start.valueOf(),
+        end: end && end.valueOf(),
+        kind,
       });
-    case actionTypes.HAS_FETCHED_STATS_DASHBOARD:
-      return Immutable.merge(state, {
-        dashboard: action.dashboardStats,
-        dashboardLoading: false,
-      });
-    case actionTypes.START_FETCH_STATS_DASHBOARD:
-      return Immutable.merge(state, { dashboardLoading: true, error: false });
-    case actionTypes.ERROR_FETCHING_STATS_DASHBOARD:
-      return Immutable.merge(state, {
-        dashboardLoading: false,
-        error: true,
-        errorMsg: action.error,
-      });
-
-    case actionTypes.HAS_FETCHED_STATS_ACTIVITIES:
-      return Immutable.merge(state, {
-        lastUpdate: Date.now(),
-        loading: false,
-        error: false,
-        activities: action.stats,
-      });
-    case actionTypes.START_FETCH_STATS_ACTIVITIES:
-      return Immutable.merge(state, { loading: true, error: false });
-    case actionTypes.ERROR_FETCHING_STATS_ACTIVITIES:
-      return Immutable.merge(state, {
-        loading: false,
-        error: true,
-        errorMsg: action.error,
-      });
-
-    default:
-      return state;
-  }
-}
+    },
+    [mainChartChange]: (state, { payload: { chart } }) => {
+      return state.set('mainChart', chart);
+    },
+    [statIsLoading]: (state, { payload: { identifier, loading } }) => {
+      return state.setIn(['stats', identifier, 'isLoading'], loading);
+    },
+    [statLoaded]: (state, { payload: { identifier, data } }) => {
+      return state.setIn(['stats', identifier, 'data'], data);
+    },
+    [statError]: (state, { payload: { identifier, error } }) => {
+      return state.setIn(['stats', identifier, 'error'], error);
+    },
+  },
+  initialState,
+);

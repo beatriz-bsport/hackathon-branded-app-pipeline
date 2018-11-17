@@ -125,11 +125,7 @@ export class PaymentPackList extends Component<Props, State> {
               (pp) => pp.id === this.state.paymentPackToDeleteId,
             )}
             onDelete={() =>
-              this.deletePaymentPack(
-                this.props.packs.find(
-                  (pp) => pp.id === this.state.paymentPackToDeleteId,
-                ),
-              )
+              this.deletePaymentPack(this.state.paymentPackToDeleteId)
             }
             onCancel={this.cancelDelete}
             incrementCredit={incrementCredit}
@@ -160,7 +156,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(paymentPackActions.addCredit(consumerPackId, -1));
     },
     updatePaymentPack(paymentPackId, data) {
-      dispatch(paymentPackActions.update(paymentPackId, data, true));
+      dispatch(paymentPackActions.patch(paymentPackId, data, true));
     },
     pushToEdit(paymentPackId: number) {
       dispatch(pushRouter(`/payment-pack/${paymentPackId}/edit`));

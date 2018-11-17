@@ -18,7 +18,7 @@ i18n
     fallbackLng: 'en-US',
 
     // have a common namespace used around the full app
-    ns: ['translations'],
+    defaultNS: 'translation',
 
     debug: true,
 

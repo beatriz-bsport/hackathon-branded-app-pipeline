@@ -269,7 +269,7 @@ export class PaymentPackCard extends Component<Props> {
   };
 
   render() {
-    const { classes, onlyPublic, t, pack } = this.props;
+    const { classes, onlyPublic, pack } = this.props;
     return (
       <Paper
         className={[classes.paper, pack.disabled ? classes.disabled : null]}

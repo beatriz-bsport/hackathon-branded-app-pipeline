@@ -12,7 +12,6 @@ type Props = {
   updatingConsumerPacks: Array<number>,
   decrementCredit: (id: number) => void,
   incrementCredit: (id: number) => void,
-  disableConsumerPack: (id: number) => void,
 };
 
 export class ConsumersPackSummaryTable extends Component<Props> {
@@ -22,7 +21,6 @@ export class ConsumersPackSummaryTable extends Component<Props> {
       updatingConsumerPacks,
       decrementCredit,
       incrementCredit,
-      disableConsumerPack,
     } = this.props;
     const { consumer_payment_packs } = paymentPack;
     return (

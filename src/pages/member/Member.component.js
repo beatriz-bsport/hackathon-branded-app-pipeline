@@ -26,7 +26,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { translate } from 'react-i18next';
-import { goBack as routerBack, push as routerPush } from 'react-router-redux';
+import { push as routerPush } from 'react-router-redux';
 import { connect } from 'react-redux';
 import NotificationActiveIcon from '@material-ui/icons/NotificationsActive';
 import NotificationOffIcon from '@material-ui/icons/NotificationsOff';
@@ -178,12 +178,7 @@ export class Member extends Component<Props> {
               </ListItem>
               <ListItem>
                 <PersonOutlineIcon />
-                <ListItemText
-                  primary={`
-              N°
-	      ${member.membership_ID}
-	      `}
-                />
+                <ListItemText primary={`N°${member.membership_ID}`} />
               </ListItem>
             </List>
           </Grid>
@@ -346,15 +341,6 @@ export class Member extends Component<Props> {
       </ExpansionPanel>
     );
   };
-
-  /*
-  getBookingsGraph = () => (
-    <MemberBookingGraph
-      bookings={this.props.member.previous_bookings}
-      graphId="memberBookingsGraph"
-    />
-  );
-  */
 
   renderContent = () => {
     if (this.props.member.consumer) {

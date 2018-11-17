@@ -16,10 +16,7 @@ import { formatAsDatetime } from '../../datetime';
 import { FeatureTable } from '../../components';
 import type { Member } from '../../api/types';
 
-import { member as memberActions } from '../../actions';
-
 type Props = {
-  onUpdateMember: (*) => void,
   t: (x: string) => string,
   loading: boolean,
   members: Array<Member>,
@@ -153,17 +150,4 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    onUpdateMember(member) {
-      dispatch(memberActions.startUpdate(member));
-    },
-  };
-}
-
-export default translate()(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  )(Members),
-);
+export default translate()(connect(mapStateToProps)(Members));

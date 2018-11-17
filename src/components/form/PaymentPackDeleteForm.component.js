@@ -14,8 +14,9 @@ type Props = {
   pack: PaymentPack,
   incrementCredit: (id: number) => void,
   decrementCredit: (id: number) => void,
-  disableConsumerPack: (id: number) => void,
   updatingConsumerPacks: Array<number>,
+  onCancel: (consumerPackId: number) => void,
+  onDelete: () => void,
 };
 
 export class PaymentPackDeleteForm extends Component<Props> {
@@ -25,7 +26,6 @@ export class PaymentPackDeleteForm extends Component<Props> {
       pack,
       incrementCredit,
       decrementCredit,
-      disableConsumerPack,
       updatingConsumerPacks,
     } = this.props;
     return (

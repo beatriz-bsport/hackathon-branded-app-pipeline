@@ -30,6 +30,7 @@ type Props = {
   onSubmit: (*) => void,
   loading: boolean,
   t: (x: string) => string,
+  initial: ?Object,
 };
 
 type State = {
@@ -112,6 +113,7 @@ export class PackForm extends React.Component<Props, State> {
         categories: prevState.categories.filter((c) => c !== id),
       }));
     }
+    return null;
   };
 
   handleMetaActivityCheck = (checked: boolean, id: number) => {
@@ -125,6 +127,7 @@ export class PackForm extends React.Component<Props, State> {
         metaActivities: prevState.metaActivities.filter((c) => c !== id),
       }));
     }
+    return null;
   };
 
   onSubmit = (event: Object) => {

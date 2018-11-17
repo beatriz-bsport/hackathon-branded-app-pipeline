@@ -12,7 +12,6 @@ import { push as pushRouter } from 'react-router-redux';
 import { SimpleModal, PaymentPackCard } from '../../components';
 import PaymentPackDeleteForm from '../../components/form/PaymentPackDeleteForm.component';
 import { paymentPack as paymentPackActions } from '../../actions';
-import api from '../../api';
 import type { MetaActivity } from '../../api/types';
 
 const styles = (theme) => ({
@@ -34,9 +33,8 @@ type Props = {
   incrementCredit: (id: number) => void,
   decrementCredit: (id: number) => void,
   metaActivities: Array<MetaActivity>,
-  disablePaymentPack: (id: number) => void,
-  editPaymentPack: (data: [*]) => void,
   updatePaymentPack: (id: number, data: [*]) => void,
+  pushToEdit: (id: number) => void,
   classes: Object,
   t: (x: string) => string,
 };
@@ -82,7 +80,6 @@ export class PaymentPackList extends Component<Props, State> {
       return <CircularProgress />;
     }
 
-    const { disableConsumerPack } = api.paymentPack;
     return (
       <Grid container direction="column" alignItems="center" spacing={24}>
         <Grid item>

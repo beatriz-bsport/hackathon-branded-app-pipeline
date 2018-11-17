@@ -80,6 +80,7 @@
     "resolve": "1.6.0",
     "sass-loader": "^7.0.1",
     "seamless-immutable": "^7.1.3",
+    "source-map-explorer": "^1.6.0",
     "style-loader": "0.19.0",
     "sw-precache-webpack-plugin": "0.11.4",
     "thunk": "^0.0.1",
@@ -90,11 +91,11 @@
     "whatwg-fetch": "^2.0.3"
   },
   "scripts": {
+    "analyze": "source-map-explorer build/static/js/main.*",
     "format": "find src -name \"*.js\" | xargs yarn prettier --write",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "server:build": "webpack -p --progress",
-     "stats": "webpack --profile --json > stats.json && webpack-bundle-analyzer stats.json ",
     "test": "node scripts/test.js --env=jsdom",
     "lint": "eslint src",
     "storybook": "start-storybook -p 6006",

@@ -11,7 +11,6 @@ import { connect } from 'react-redux';
 import PaymentPackForm from '../../components/form/PackForm.component';
 import { paymentPack as paymentPackActions } from '../../actions';
 
-import api from '../../api';
 import type { SCT, MetaActivity } from '../../api/types';
 
 type Props = {

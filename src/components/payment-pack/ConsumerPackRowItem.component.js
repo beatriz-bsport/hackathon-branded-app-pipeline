@@ -22,7 +22,6 @@ type Props = {
   hideConsumer: ?boolean,
   incrementCredit: (id: number) => void,
   decrementCredit: (id: number) => void,
-  disableConsumerPack: (id: number) => void,
   t: (x: string) => string,
 };
 

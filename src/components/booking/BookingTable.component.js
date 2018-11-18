@@ -21,6 +21,10 @@ type Props = {
   bookings: Array<Object>,
   bookingOptions: Array<Object>,
   discardOption: (id: number) => void,
+  showQuickInvoiceButton: boolean,
+  onQuickInvoiceClick: (member: Member) => void,
+  invoices: Array<Invoice>,
+  paymentPacks: Array<PaymentPack>,
   bookingUpdaters: {
     discardBooking: (id: number) => void,
     discardBookingAttendance: (id: number) => void,
@@ -40,9 +44,11 @@ export class BookingTable extends Component<Props> {
       bookings,
       discardOption,
       bookingUpdaters,
+      showQuickInvoiceButton,
+      onQuickInvoiceClick,
     } = this.props;
 
-    if (loading) {
+    if (loading || !bookings) {
       return <CircularProgress className={classes.contentWithMargin} />;
     }
 
@@ -68,9 +74,13 @@ export class BookingTable extends Component<Props> {
       <List disablePadding dense>
         {bookings.map((b) => (
           <BookingItemForManager
+            showQuickInvoiceButton={showQuickInvoiceButton}
+            onQuickInvoiceClick={() => onQuickInvoiceClick(b.member)}
             key={b.id}
             heading={heading}
             booking={b}
+            invoices={this.props.invoices}
+            paymentPacks={this.props.paymentPacks}
             bookingUpdaters={{
               confirmBooking: () => confirmBooking(b.id),
               discardBooking: () => discardBooking(b.id),

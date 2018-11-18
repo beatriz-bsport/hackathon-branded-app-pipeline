@@ -1,6 +1,8 @@
 import api from '../api';
 import types from './booking.types';
 
+import { refreshAllPaymentPack } from './paymentPack.actions'; // TODO do it elsewhere
+
 export function updatingBookingOption(bookingOptionId) {
   return { type: types.START_UPDATING_BOOKING_OPTION, bookingOptionId };
 }
@@ -48,7 +50,6 @@ function bookingUpdateWrapper(apiCall, bookingId) {
         return dispatch(bookingStatusUpdated(booking));
       }
     } catch (err) {
-      console.log(err);
     }
     return dispatch(errorUpdatingBookingStatus(bookingId));
   };
@@ -67,11 +68,37 @@ export function discardBooking(bookingId) {
 }
 
 export function fetchBookingsByOffer(offerId) {
-  return fetchBookingsWrapper(offerId, api.booking.fetchBookingsByOffer);
+  return async (dispatch) => {
+    dispatch(startFetchBookings());
+
+    try {
+      const response = await api.booking.fetchBookingsByOffer(offerId);
+      const bookings = response.data;
+      const response_ = await api.booking.fetchOptionsByOffer(offerId);
+      const booking_options = response_.data;
+
+      dispatch(fetchedBookings({ bookings, booking_options }));
+    } catch (err) {
+      dispatch(errorFetchingBookings());
+    }
+  };
 }
 
 export function fetchBookingsByMember(memberId) {
-  return fetchBookingsWrapper(memberId, api.booking.fetchMemberBookings);
+  return async (dispatch) => {
+    dispatch(startFetchBookings());
+
+    try {
+      const response = await api.booking.fetchBookingsByMember(memberId);
+      const bookings = response.data;
+      const response_ = await api.booking.fetchOptionsByMember(memberId);
+      const booking_options = response_.data;
+
+      dispatch(fetchedBookings({ bookings, booking_options }));
+    } catch (err) {
+      dispatch(errorFetchingBookings());
+    }
+  };
 }
 
 export function fetchBookingsWrapper(id, apiCall) {
@@ -96,4 +123,35 @@ export function startFetchBookings() {
 }
 export function errorFetchingBookings() {
   return { type: types.ERROR_FETCHING_BOOKINGS };
+}
+
+export function addBooking({ offerId, consumerPaymentPackId }) {
+  return async (dispatch) => {
+    dispatch(addBookingStart());
+
+    try {
+      const response = await api.booking.addToOffer({
+        consumerPaymentPackId,
+        offerId,
+      });
+      const booking = response.data;
+
+      dispatch(addBookingSuccess(booking));
+      dispatch(refreshAllPaymentPack());
+    } catch (err) {
+      dispatch(addBookingError());
+    }
+  };
+}
+
+export function addBookingStart() {
+  return { type: types.BOOKING_ADD_START };
+}
+
+export function addBookingError() {
+  return { type: types.BOOKING_ADD_ERROR };
+}
+
+export function addBookingSuccess(booking) {
+  return { type: types.BOOKING_ADD_SUCCESS, booking };
 }

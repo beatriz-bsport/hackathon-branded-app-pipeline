@@ -3,7 +3,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import { Paper } from '@material-ui/core';
 
+import { goBack } from 'react-router-redux';
 import { createOrUpdateMember } from '../../actions/member.actions';
 import MemberForm from '../../components/form/MemberForm.component';
 
@@ -41,15 +43,18 @@ export class MemberFormPage extends Component<Props, State> {
   };
 
   render() {
-    const { update } = this.props;
+    const { goBack, update, pushToMemberList } = this.props;
     return (
-      <MemberForm
-        onSubmit={this.createMember}
-        error={this.props.errors}
-        processing={this.props.pending}
-        initial={update}
-        update={!!update}
-      />
+      <Paper>
+        <MemberForm
+          onCancel={goBack}
+          onSubmit={this.createMember}
+          error={this.props.errors}
+          processing={this.props.pending}
+          initial={update}
+          update={!!update}
+        />
+      </Paper>
     );
   }
 }
@@ -67,6 +72,9 @@ function mapDispatchToProps(dispatch) {
   return {
     createOrUpdateMember(data) {
       dispatch(createOrUpdateMember(data));
+    },
+    goBack() {
+      dispatch(goBack());
     },
   };
 }

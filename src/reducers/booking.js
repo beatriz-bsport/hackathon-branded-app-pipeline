@@ -104,6 +104,12 @@ export default function bookingReducers(state = initialState, action = {}) {
         options: [],
       });
 
+    case actionTypes.BOOKING_ADD_SUCCESS: {
+      return Immutable.merge(state, {
+        all: [action.booking, ...state.all],
+      });
+    }
+
     default:
       return state;
   }

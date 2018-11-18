@@ -34,8 +34,11 @@ import NotificationOffIcon from '@material-ui/icons/NotificationsOff';
 import {
   booking as bookingActions,
   member as memberActions,
+  paymentPack as paymentPackActions,
 } from '../../actions';
-import { Avatar, BookingTable } from '../../components';
+import { Avatar } from '../../components';
+import BookingTable from '../../components/booking/BookingTable.container'
+import ConsumerPackRowItem from '../../components/payment-pack/ConsumerPackRowItem.component';
 import { formatAsDatetime } from '../../datetime';
 import type {
   MemberDetailed,
@@ -80,6 +83,16 @@ export class Member extends Component<Props> {
 
   editMember = () => {
     this.props.editMember(this.memberId);
+  };
+
+  incrementCredit = (id) => {
+    this.props.incrementCredit(id);
+    this.props.fetchMember(this.memberId);
+  };
+
+  decrementCredit = (id) => {
+    this.props.decrementCredit(id);
+    this.props.fetchMember(this.memberId);
   };
 
   getFirstRow = () => {
@@ -342,6 +355,47 @@ export class Member extends Component<Props> {
     );
   };
 
+  renderPaymentPacks = () => {
+    const { member, t, classes } = this.props;
+    const packs = member.consumer_payment_packs;
+    if (!packs || !packs.length) {
+      return (
+        <Typography variant="caption" className={classes.noPass}>
+          {t('paymentPack.noPaymentPackSubscribed')}
+        </Typography>
+      );
+    }
+    return (
+      <ExpansionPanel>
+        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography className={classes.headingExpansionPanel}>
+            {t('common.paymentPack')}
+          </Typography>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails style={{ padding: 0 }}>
+          <div style={{ width: '100%' }}>
+            <Divider />
+            {packs.map((consumerPack) => {
+              const paymentPack = this.props.paymentPacks.find(
+                (p) => p.id === +consumerPack.payment_pack_id,
+              );
+              return (
+                <ConsumerPackRowItem
+                  key={consumerPack.id}
+                  hideConsumer
+                  consumerPack={consumerPack}
+                  paymentPack={paymentPack}
+                  decrementCredit={() => this.decrementCredit(consumerPack.id)}
+                  incrementCredit={() => this.incrementCredit(consumerPack.id)}
+                />
+              );
+            })}
+          </div>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+    );
+  };
+
   renderContent = () => {
     if (this.props.member.consumer) {
       return (
@@ -350,6 +404,9 @@ export class Member extends Component<Props> {
             <Paper className={this.props.classes.paperContainer}>
               {this.getFirstRow()}
             </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            {this.renderPaymentPacks()}
           </Grid>
           <Grid item xs={12} lg={6}>
             {this.getFutureBookings()}
@@ -394,6 +451,7 @@ function mapStateToProps(state) {
     bookingLoading: state.booking.loading,
     bookings: state.booking.all,
     bookingOptions: state.booking.options,
+    paymentPacks: state.paymentPack.all,
   };
 }
 function mapDispatchToProps(dispatch) {
@@ -424,6 +482,12 @@ function mapDispatchToProps(dispatch) {
     },
     goBack() {
       dispatch(routerPush('/member'));
+    },
+    incrementCredit(consumerPackId) {
+      dispatch(paymentPackActions.addCredit(consumerPackId, 1));
+    },
+    decrementCredit(consumerPackId) {
+      dispatch(paymentPackActions.addCredit(consumerPackId, -1));
     },
   };
 }

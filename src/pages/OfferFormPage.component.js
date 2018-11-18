@@ -1,10 +1,11 @@
 // @flow
 import React, { Component } from 'react';
 
-import { Grid, CircularProgress } from '@material-ui/core';
+import { Paper, Grid, CircularProgress } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { goBackAction } from 'react-router-redux';
 
 import { OfferForm } from '../components';
 import api from '../api';
@@ -19,6 +20,7 @@ type Props = {
   metaActivities: Array<MetaActivity>,
   fetchAllOffers: () => void,
   fetchAllActivities: () => void,
+  goBack: () => void,
 };
 
 type State = {
@@ -64,7 +66,7 @@ export class OfferFormPage extends Component<Props, State> {
 
   render() {
     const { processing, created, error } = this.state;
-    const { metaActivities, loading } = this.props;
+    const { metaActivities, loading, goBack } = this.props;
     if (loading) {
       return <CircularProgress />;
     }
@@ -81,14 +83,17 @@ export class OfferFormPage extends Component<Props, State> {
     return (
       <Grid container>
         <Grid item xs={12} lg={6}>
-          <OfferForm
-            onSubmit={this.createOffers}
-            metaActivity={metaActivity}
-            coaches={this.props.coaches}
-            establishments={this.props.establishments}
-            processing={processing}
-            error={error}
-          />
+          <Paper>
+            <OfferForm
+              onSubmit={this.createOffers}
+              metaActivity={metaActivity}
+              coaches={this.props.coaches}
+              establishments={this.props.establishments}
+              processing={processing}
+              error={error}
+              onCancel={goBack}
+            />
+          </Paper>
         </Grid>
       </Grid>
     );
@@ -111,6 +116,9 @@ function mapDispatchToProps(dispatch) {
     },
     fetchAllActivities() {
       dispatch(activityActions.fetchActivities());
+    },
+    goBack() {
+      dispatch(goBackAction());
     },
   };
 }

@@ -58,7 +58,7 @@ export function errorFetchingMember() {
   return { type: types.ERROR_FETCHING_MEMBER };
 }
 
-export function createOrUpdateMember(memberData) {
+export function createOrUpdateMember(memberData, dontRedirect) {
   return async (dispatch) => {
     dispatch(actionCreateOrUpdateMember(memberData));
 
@@ -78,7 +78,9 @@ export function createOrUpdateMember(memberData) {
           ),
         );
         dispatch(fetchAll());
-        dispatch(push('/member'));
+        if (dontRedirect) {
+          dispatch(push('/member'));
+        }
       } else {
         dispatch(snackbarError('member.forms.error'));
         dispatch(actionCreateOrUpdateMemberError());

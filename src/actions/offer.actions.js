@@ -63,3 +63,28 @@ export function startFetchCompatiblePacks() {
 export function errorFetchingCompatiblePacks() {
   return { type: types.ERROR_FETCHING_OFFER_COMPATIBLE_PACKS };
 }
+
+export function fetchOffersByDay({ year, month, day }) {
+  return async (dispatch) => {
+    dispatch(startFetchDetailedOffers());
+
+    try {
+      const response = await api.offer.fetchOffersByDay({ year, month, day });
+      const offers = response.data;
+      dispatch(fetchedDetailed(offers));
+    } catch (err) {
+      dispatch(errorFetchingDetailedOffers());
+    }
+  };
+}
+
+export function fetchedDetailed(offers) {
+  return { type: types.HAS_FETCHED_DETAILED_OFFERS, offers };
+}
+export function startFetchDetailedOffers() {
+  return { type: types.START_FETCH_DETAILED_OFFERS };
+}
+
+export function errorFetchingDetailedOffers() {
+  return { type: types.ERROR_FETCHING_DETAILED_OFFERS };
+}

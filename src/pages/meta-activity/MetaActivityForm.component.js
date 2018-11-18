@@ -7,12 +7,14 @@ import { withRouter } from 'react-router';
 
 import MetaActivityForm from '../../components/form/MetaActivityForm.component';
 import api from '../../api';
+import { metaActivity as metaActivityActions } from '../../actions';
 
 type Props = {
   associatedCoaches: *[],
   establishments: *[],
   SCTs: *[],
   metaActivityNames: Array<string>,
+  fetchAllActivities: () => void,
   history: Object,
 };
 type State = { open: boolean };
@@ -25,6 +27,7 @@ export class MetaActivityFormPage extends Component<Props, State> {
       await api.activity.addMetaActivity(metaActivityData);
 
       this.setState({ open: true });
+      this.props.fetchAllActivities();
       this.props.history.goBack();
     } catch (e) {
       throw e;
@@ -61,4 +64,15 @@ function mapStateToProps(state) {
     metaActivityNames: state.metaActivity.all.map((ma) => ma.name),
   };
 }
-export default connect(mapStateToProps)(withRouter(MetaActivityFormPage));
+
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchAllActivities() {
+      dispatch(metaActivityActions.fetchAllActivities());
+    },
+  };
+}
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withRouter(MetaActivityFormPage));

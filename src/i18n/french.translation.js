@@ -16,10 +16,11 @@ export default {
     pageTitle: {
       myAccount: 'Mon compte',
     },
-    paymentMethods: {
+    paymentMethod: {
       CASH: 'Liquide',
       CB: 'Carte bancaire',
       CHECK: 'Chèque',
+      CB_MANUAL: 'Carte bancaire (manuel)',
     },
     members: {
       form: {
@@ -88,11 +89,23 @@ export default {
       outOf: ' sur ',
     },
     offer: {
+      noPackAvailableForOfferPurchase:
+        'Aucun abonnement compatible possédé par ce membre !',
+      subscribeToOffer: 'Inscrire',
+      backToCalendar: 'Retour au calendrier',
       disabled: 'annulé',
       substitute: 'Remplaçant',
       compatiblePacks: 'Abonnements compatibles',
       noCompatiblePacks: "Aucun abonnement n'est compatible avec cette séance",
       extraordinaryEstablishment: '(lieu temporaire)',
+      addInvoice: 'Facturer',
+      myBookings: 'Mes réservations',
+      hasntBooked: 'Non inscrit',
+      hasBooked: 'Inscrit',
+      createBooking: 'Inscrire',
+      noQuickInvoiceOpened: 'Aucune facturation ouverte',
+      myOpenedInvoices: 'Factures rapides',
+      manageOffer: 'Gérer mes réservations',
     },
     form: {
       member: {

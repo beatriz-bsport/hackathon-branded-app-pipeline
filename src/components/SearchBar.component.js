@@ -19,13 +19,14 @@ import { search as searchActions } from '../actions';
 
 type Props = {
   t: TFunction,
-  searchForText: (string, path: ?string) => void,
+  searchForText: (string, path: ?string, changeLocation: boolean) => void,
   searchText: string,
   clearSearch: () => void,
   location: Object,
   history: Object,
   classes: *,
   className: string,
+  changeLocation: boolean,
 };
 type State = {
   searchText: string,
@@ -46,7 +47,11 @@ export class SearchBar extends Component<Props, State> {
     }
 
     if (this.state.searchText) {
-      this.props.searchForText(this.state.searchText);
+      this.props.searchForText(
+        this.state.searchText,
+        null,
+        this.props.changeLocation,
+      );
     }
   }
 
@@ -56,13 +61,17 @@ export class SearchBar extends Component<Props, State> {
       this.clearSearch();
     } else {
       this.setState({ searchText: value });
-      this.props.searchForText(value, this.props.history.location.pathname);
+      this.props.searchForText(
+        value,
+        this.props.history.location.pathname,
+        this.props.changeLocation,
+      );
     }
   };
 
   clearSearch = () => {
     this.setState({ searchText: '' });
-    this.props.clearSearch();
+    this.props.clearSearch(this.props.changeLocation);
   };
 
   render() {
@@ -102,11 +111,11 @@ export class SearchBar extends Component<Props, State> {
 
 function mapDisPatchToProps(dispatch) {
   return {
-    searchForText(text: string, replace: boolean) {
-      dispatch(searchActions.searchText(text, replace));
+    searchForText(text: string, replace: boolean, changeLocation: boolean) {
+      dispatch(searchActions.searchText(text, replace, changeLocation));
     },
-    clearSearch() {
-      dispatch(searchActions.clearSearch());
+    clearSearch(changeLocation: boolean) {
+      dispatch(searchActions.clearSearch(changeLocation));
     },
   };
 }

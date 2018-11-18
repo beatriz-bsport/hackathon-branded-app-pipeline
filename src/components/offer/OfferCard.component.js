@@ -28,7 +28,7 @@ import { translate } from 'react-i18next';
 
 import { Level, Sport } from '../category';
 import Avatar from '../Avatar.component';
-import BookingTable from '../booking/BookingTable.component';
+import BookingTable from '../booking/BookingTable.container';
 import PaymentPackSummary from '../consumer/PaymentPackSummary.component';
 import RedButton from '../button/RedButton.component';
 
@@ -48,6 +48,7 @@ type Props = {
   onDeleteButtonClick: () => void,
   compatiblePacks: Array<PaymentPack>,
   compatiblePacksLoading: boolean,
+  goToOfferManagement: (offerId: number) => void,
   bookingUpdaters: {
     discardBooking: (id: number) => void,
     discardBookingAttendance: (id: number) => void,
@@ -397,7 +398,7 @@ export class OfferCard extends Component<Props> {
   };
 
   render() {
-    const { noHeader, offer, classes } = this.props;
+    const { noHeader, offer, classes, t } = this.props;
     const { available } = offer;
     if (offer) {
       return (
@@ -409,8 +410,15 @@ export class OfferCard extends Component<Props> {
               {this.getPracticalInfo()}
             </div>
           </Paper>
-          {this.getCustomer()}
           {this.getCompatiblePacks()}
+          <Button
+            onClick={() => this.props.goToOfferManagement(offer.id)}
+            color="primary"
+            variant="contained"
+            className={classes.manageButton}
+          >
+            {t('offer.manageOffer')}
+          </Button>
         </div>
       );
     }
@@ -449,6 +457,11 @@ const styles = (theme) => ({
   },
   noCompatiblePacksTypography: {
     padding: theme.spacing.unit * 2,
+  },
+  manageButton: {
+    width: '100%',
+    paddingTop: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit * 2,
   },
 });
 

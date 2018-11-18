@@ -14,7 +14,7 @@ import { translate } from 'react-i18next';
 
 import { formatAsDatetime } from '../../datetime';
 
-import type { Offer } from '../../api/types';
+import type { Event } from '../../api/types';
 
 const styles = (theme) => ({
   formControl: {
@@ -25,7 +25,7 @@ const styles = (theme) => ({
 
 type Props = {
   classes: Object,
-  offers: Array<Offer>,
+  events: Array<Event>,
   label: ?string,
   onChange: (?number) => void,
   helperText: string,
@@ -33,7 +33,7 @@ type Props = {
 };
 
 export function BaseOfferInput(props: Props) {
-  const { value, onChange, label, offers, classes, helperText } = props;
+  const { value, onChange, label, events, classes, helperText } = props;
   return (
     <FormControl className={classes.formControl}>
       <InputLabel shrink={value} htmlFor={`${label}-helper`}>
@@ -47,8 +47,8 @@ export function BaseOfferInput(props: Props) {
         <MenuItem value={null}>
           <em> - </em>
         </MenuItem>
-        {offers.map((o) => (
-          <MenuItem value={o.id}>{formatAsDatetime(o.date_start)}</MenuItem>
+        {events.map((e) => (
+          <MenuItem value={e.id}>{formatAsDatetime(e.date_start)}</MenuItem>
         ))}
       </Select>
       <FormHelperText>{helperText}</FormHelperText>

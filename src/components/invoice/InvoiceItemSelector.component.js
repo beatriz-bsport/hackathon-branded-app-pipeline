@@ -32,7 +32,7 @@ const SELECTOR_PAYMENT_PACK = 1;
 
 export class InvoiceItemSelector extends Component<Props> {
   state = {
-    expandedSelector: SELECTOR_OFFER,
+    expandedSelector: SELECTOR_PAYMENT_PACK,
     offerId: null,
     paymentPackId: null,
   };
@@ -66,6 +66,7 @@ export class InvoiceItemSelector extends Component<Props> {
     const { offers, activities, paymentPacks, classes, t } = this.props;
     const { paymentPackId, offerId } = this.state;
     const { expandedSelector } = this.state;
+    // <Tab label={t('payment.addOffer')} value={SELECTOR_OFFER} />
     return (
       <div className={classes.container}>
         <Paper>
@@ -76,7 +77,6 @@ export class InvoiceItemSelector extends Component<Props> {
             onChange={this.onSelectorChange}
             fullWidth
           >
-            <Tab label={t('payment.addOffer')} value={SELECTOR_OFFER} />
             <Tab
               label={t('payment.addPaymentPack')}
               value={SELECTOR_PAYMENT_PACK}

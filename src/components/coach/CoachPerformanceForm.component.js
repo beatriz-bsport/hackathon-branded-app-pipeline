@@ -119,7 +119,7 @@ export class CoachPerformanceForm extends Component<Props, State> {
           </Grid>
           <Grid item>
             <Grid container item justify="center">
-              <Button variant="raised" color="primary" type="submit">
+              <Button variant="contained" color="primary" type="submit">
                 {t('coach.performance.calculate')}
               </Button>
             </Grid>

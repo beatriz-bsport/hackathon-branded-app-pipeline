@@ -134,7 +134,7 @@ export class Login extends Component<Props, State> {
                       alignItems="center"
                       justify="center"
                     >
-                      <Button type="submit" color="primary" variant="raised">
+                      <Button type="submit" color="primary" variant="contained">
                         OK
                       </Button>
                       {this.props.loading ? (

@@ -235,7 +235,7 @@ export class SignUpForm extends Component<Props, State> {
               justify="flex-end"
               alignItems="flex-end"
             >
-              <Button type="submit" color="primary" variant="raised">
+              <Button type="submit" color="primary" variant="contained">
                 {t('form.signup.signupButton')}
               </Button>
             </Grid>

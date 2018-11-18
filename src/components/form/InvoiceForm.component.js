@@ -253,7 +253,7 @@ export class InvoiceForm extends Component<Props, State> {
         >
           <Grid item>
             <Button
-              variant="raised"
+              variant="contained"
               color="secondary"
               onClick={this.cancelPayments}
             >
@@ -263,7 +263,7 @@ export class InvoiceForm extends Component<Props, State> {
           </Grid>
           <Grid item>
             <Button
-              variant="raised"
+              variant="contained"
               color="primary"
               onClick={this.createInvoice}
             >
@@ -292,7 +292,7 @@ export class InvoiceForm extends Component<Props, State> {
       >
         <Grid item>
           <Button
-            variant="raised"
+            variant="contained"
             color="secondary"
             onClick={this.props.onCancel}
           >
@@ -303,7 +303,7 @@ export class InvoiceForm extends Component<Props, State> {
         <Grid item>
           <Button
             onClick={this.goToPayment}
-            variant="raised"
+            variant="contained"
             color="primary"
             disabled={this.getFinalPrice() === 0}
           >

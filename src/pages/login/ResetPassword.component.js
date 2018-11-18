@@ -58,7 +58,7 @@ export class ResetPassword extends Component<Props, State> {
       <Link style={{ textDecoration: 'none' }} to="/login">
         <Button>ANNULER</Button>
       </Link>
-      <Button type="submit" color="primary" variant="raised">
+      <Button type="submit" color="primary" variant="contained">
         OK
       </Button>
       {this.props.loading ? <CircularProgress /> : <div />}
@@ -82,7 +82,7 @@ export class ResetPassword extends Component<Props, State> {
         passe
       </Typography>
       <Grid direction="row" style={{ paddingTop: 20 }} container>
-        <Button color="primary" onClick={this.redirectLogin} variant="raised">
+        <Button color="primary" onClick={this.redirectLogin} variant="contained">
           OK
         </Button>
       </Grid>

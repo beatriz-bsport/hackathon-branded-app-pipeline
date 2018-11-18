@@ -84,7 +84,7 @@ export class EstablishmentForm extends Component<Props, State> {
     }
     return (
       <Grid container item direction="row" justify="flex-end" spacing={16}>
-        <Button variant="raised" color="primary" type="submit">
+        <Button variant="contained" color="primary" type="submit">
           {this.props.t('form.send')}
         </Button>
       </Grid>

@@ -98,7 +98,7 @@ export class StripeCheckout extends Component<Props, State> {
             {loading ? (
               <CircularProgress />
             ) : (
-              <Button variant="raised" color="primary" onClick={this.submit}>
+              <Button variant="contained" color="primary" onClick={this.submit}>
                 {t('payment.pay')}
               </Button>
             )}

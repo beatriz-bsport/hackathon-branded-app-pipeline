@@ -72,7 +72,7 @@ export class ConsumerPackCheckout extends Component<Props, State> {
         ? t('payment.bookWithUnlimitedPack')
         : `${t('payment.payWithNCredits1')} ${creditPrice} ${t('payment.payWithNCredits2')}`;
       return (
-        <Button variant="raised" color="primary" onClick={this.pay}>
+        <Button variant="contained" color="primary" onClick={this.pay}>
           {buttonText}
         </Button>
       );

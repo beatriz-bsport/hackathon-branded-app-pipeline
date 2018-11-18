@@ -203,7 +203,7 @@ export class MetaActivityForm extends Component<Props, State> {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Button variant="raised" color="primary" type="submit">
+                  <Button variant="contained" color="primary" type="submit">
                     {t('form.send')}
                   </Button>
                 </Grid>

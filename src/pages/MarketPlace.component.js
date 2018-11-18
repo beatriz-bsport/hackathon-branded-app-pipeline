@@ -151,7 +151,7 @@ export class MarketPlace extends Component<Props, State> {
                 style={{ width: '100%' }}
                 onClick={() => this.props.pushPackCheckout(pp.id)}
                 color="primary"
-                variant="raised"
+                variant="contained"
               >
                 {t('marketplace.buyPack')}
               </Button>

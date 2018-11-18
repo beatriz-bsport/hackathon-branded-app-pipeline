@@ -390,7 +390,7 @@ export class PackForm extends React.Component<Props, State> {
             {loading ? (
               <CircularProgress />
             ) : (
-              <Button type="submit" variant="raised" color="primary">
+              <Button type="submit" variant="contained" color="primary">
                 {t('common.create')}
               </Button>
             )}

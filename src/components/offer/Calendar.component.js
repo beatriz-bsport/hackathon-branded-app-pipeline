@@ -137,7 +137,7 @@ export class Calendar extends Component<Props, State> {
         <Grid container direction="column" alignItems="center">
           <Grid item>
             <Button
-              variant={isSelected ? 'raised' : null}
+              variant={isSelected ? 'contained' : null}
               color="primary"
               className={classes.dayButton}
               disabled={

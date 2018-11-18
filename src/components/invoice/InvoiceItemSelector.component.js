@@ -110,7 +110,7 @@ export class InvoiceItemSelector extends Component<Props> {
           </Grid>
           <Grid item className={classes.addButton}>
             <Button
-              variant="raised"
+              variant="contained"
               color="primary"
               onClick={this.submitInvoiceItems}
               disabled={

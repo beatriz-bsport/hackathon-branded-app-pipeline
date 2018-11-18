@@ -121,7 +121,7 @@ export class PaymentPackDeleteForm extends Component<Props> {
             </Grid>
             <Grid item>
               <Grid item>
-                <RedButton variant="raised" onClick={this.props.onDelete}>
+                <RedButton variant="contained" onClick={this.props.onDelete}>
                   {t('common.delete')}
                 </RedButton>
               </Grid>

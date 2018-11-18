@@ -262,7 +262,7 @@ export class MemberForm extends Component<Props, State> {
                 <Grid item>
                   <Button
                     disabled={this.props.processing}
-                    variant="raised"
+                    variant="contained"
                     color="primary"
                     type="submit"
                   >

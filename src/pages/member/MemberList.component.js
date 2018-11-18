@@ -131,7 +131,7 @@ export class Members extends Component<Props, State> {
           <Grid container justify="flex-end">
             <Grid item>
               <Link style={{ textDecoration: 'none' }} to="/member/add/">
-                <Button variant="raised" color="primary">
+                <Button variant="contained" color="primary">
                   {t('member.addMember')}
                 </Button>
               </Link>

@@ -65,7 +65,7 @@ export class ConsumerLogin extends Component<Props, State> {
         <Button
           className={this.props.classes.bottomButton}
           color="primary"
-          variant="raised"
+          variant="contained"
           onClick={this.doEmailLogin}
         >
           LOGIN
@@ -101,7 +101,7 @@ export class ConsumerLogin extends Component<Props, State> {
   };
 
   getSignUpButton = () => (
-    <RedButton variant="raised" onClick={this.props.requestSignUp}>
+    <RedButton variant="contained" onClick={this.props.requestSignUp}>
       {this.props.t('login.signUpConsumer')}
     </RedButton>
   );

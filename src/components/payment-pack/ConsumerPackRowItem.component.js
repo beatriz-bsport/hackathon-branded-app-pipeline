@@ -123,7 +123,7 @@ export class ConsumerPackRowItem extends Component<Props> {
     const { t, consumerPack, hideConsumer, paymentPack } = this.props;
     const { consumer } = consumerPack;
     return (
-      <ListItem>
+      <ListItem dense divider>
         {hideConsumer ? null : <Avatar src={consumer.photo} />}
         <ListItemText
           primary={

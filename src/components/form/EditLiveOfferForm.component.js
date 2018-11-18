@@ -282,7 +282,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
         <Grid item>
           <Button
             onClick={this.onConfirm}
-            variant="raised"
+            variant="contained"
             color="primary"
             disabled={
               !(
@@ -324,7 +324,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
         </Grid>
         <Grid item>
           <Button
-            variant="raised"
+            variant="contained"
             color="primary"
             disabled={
               !(

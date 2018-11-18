@@ -70,7 +70,7 @@ export class ConsumerLogin extends Component<Props, State> {
         <Button
           className={this.props.classes.bottomButton}
           color="primary"
-          variant="raised"
+          variant="contained"
           onClick={this.doEmailLogin}
         >
           LOGIN
@@ -83,7 +83,7 @@ export class ConsumerLogin extends Component<Props, State> {
     <Grid container direction="row" alignItems="center" spacing={16}>
       <Button
         color="primary"
-        variant="raised"
+        variant="contained"
         onClick={() => this.setState({ loginMethod: PHONE_LOGIN })}
       >
         <CallIcon className={this.props.classes.buttonIcon} />
@@ -120,7 +120,7 @@ export class ConsumerLogin extends Component<Props, State> {
 
   getSignUpButton = () => (
     <Link style={{ textDecoration: 'none' }} to="/login/signup">
-      <RedButton variant="raised">
+      <RedButton variant="contained">
         {this.props.t('login.signUpConsumer')}
       </RedButton>
     </Link>

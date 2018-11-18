@@ -105,6 +105,10 @@ export function createOrUpdateInvoice(invoiceData) {
   };
 }
 
+export function createOrUpdateReset() {
+  return { type: types.INVOICE_CREATE_OR_UPDATE_RESET };
+}
+
 export function actionCreateOrUpdateInvoice(invoiceData) {
   return { type: types.INVOICE_CREATE_OR_UPDATE, invoice: invoiceData };
 }

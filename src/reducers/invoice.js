@@ -83,6 +83,10 @@ export default function invoiceReducers(state = initialState, action = {}) {
         refreshingSpecific: false,
       });
 
+    case actionTypes.INVOICE_CREATE_OR_UPDATE_RESET:
+      return Immutable.merge(state, {
+        createOrUpdatePending: false,
+      });
     case actionTypes.INVOICE_CREATE_OR_UPDATE:
       return Immutable.merge(state, {
         createOrUpdatePending: true,

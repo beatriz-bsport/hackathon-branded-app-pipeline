@@ -2,11 +2,17 @@
 
 import React, { Component } from 'react';
 
-import { Button, Paper, Grid, Typography, withStyles } from '@material-ui/core';
+import {
+  Button,
+  CircularProgress,
+  Grid,
+  Typography,
+  withStyles,
+} from '@material-ui/core';
 import InfoIcon from '@material-ui/icons/Info';
 import CalendarIcon from '@material-ui/icons/Today';
+import AddIcon from '@material-ui/icons/Add';
 import { translate } from 'react-i18next';
-import { Link } from 'react-router-dom';
 
 import { Moment } from '../../i18n';
 import FormField, {
@@ -26,6 +32,9 @@ const styles = (theme) => ({
   generationSummary: {
     marginTop: theme.spacing.unit * 4,
   },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
+  },
 });
 
 type Props = {
@@ -34,6 +43,8 @@ type Props = {
   metaActivity: MetaActivity,
   classes: Object,
   t: (x: string) => string,
+  processing: boolean,
+  onCancel: () => void,
   onSubmit: ({
     establishment: ?number,
     coach: ?number,
@@ -371,7 +382,7 @@ export class OfferForm extends Component<Props, State> {
   };
 
   renderFooter = () => {
-    const { t, metaActivity } = this.props;
+    const { t, processing, onCancel, classes } = this.props;
     return (
       <Grid
         container
@@ -381,15 +392,15 @@ export class OfferForm extends Component<Props, State> {
         alignItems="center"
       >
         <Grid item>
-          <Link
-            to={`/activity/${metaActivity.id}`}
-            style={{ textDecoration: 'none' }}
-          >
-            <Button>{t('form.discard')}</Button>
-          </Link>
+          <Button onClick={onCancel}>{t('form.discard')}</Button>
         </Grid>
         <Grid item>
           <Button variant="contained" color="primary" type="submit">
+            {processing ? (
+              <CircularProgress size={24} className={classes.leftIcon} />
+            ) : (
+              <AddIcon className={classes.leftIcon} />
+            )}
             {t('form.generateOffers')}
           </Button>
         </Grid>
@@ -400,7 +411,7 @@ export class OfferForm extends Component<Props, State> {
   render() {
     const { classes } = this.props;
     return (
-      <Paper className={classes.paperContainer}>
+      <div className={classes.paperContainer}>
         <form onSubmit={this.generateOffers}>
           <Grid container direction="column" spacing={40}>
             <Grid item>{this.renderTitle()}</Grid>
@@ -410,7 +421,7 @@ export class OfferForm extends Component<Props, State> {
             <Grid item>{this.renderFooter()}</Grid>
           </Grid>
         </form>
-      </Paper>
+      </div>
     );
   }
 }

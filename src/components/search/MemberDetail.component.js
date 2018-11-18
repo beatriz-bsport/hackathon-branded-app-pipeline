@@ -9,7 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import { withStyles } from '@material-ui/core/styles';
 
-import BookingTable from '../booking/BookingTable.component';
+import BookingTable from '../booking/BookingTable.container';
 import ConsumerPackRowItem from '../payment-pack/ConsumerPackRowItem.component';
 
 type Props = {
@@ -50,7 +50,7 @@ export class MemberDetail extends Component<Props, State> {
 
   renderPaymentPacks = () => {
     const { member, t, classes } = this.props;
-    const packs = member.consumer_payment_pack;
+    const packs = member.consumer_payment_packs;
     if (!packs || !packs.length) {
       return (
         <Typography variant="caption" className={classes.noPass}>

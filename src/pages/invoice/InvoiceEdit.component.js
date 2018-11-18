@@ -25,12 +25,14 @@ type Props = {
   t: TFunction,
   classes: Object,
   match: Object,
+  resetCreateOrUpdateStatus: () => void,
 };
 
 export class InvoiceFormPage extends Component<Props> {
   componentDidMount() {
     this.uuid = this.props.match.params.id;
     this.props.fetchInvoice(this.uuid);
+    this.props.resetCreateOrUpdateStatus()
   }
 
   updateInvoice = (invoiceData: InvoiceData) => {
@@ -120,6 +122,9 @@ function mapDispatchToProps(dispatch) {
     },
     updateInvoice(invoiceData: InvoiceData) {
       dispatch(invoiceActions.createOrUpdateInvoice(invoiceData));
+    },
+    resetCreateOrUpdateStatus() {
+      dispatch(invoiceActions.createOrUpdateReset());
     },
   };
 }

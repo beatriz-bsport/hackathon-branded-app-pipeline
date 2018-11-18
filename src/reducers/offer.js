@@ -5,12 +5,15 @@ import authActionTypes from '../actions/auth.types';
 
 const initialState = Immutable({
   calendar: [],
+  offers: [],
   loading: true,
   error: false,
   errorMsg: '',
   compatiblePacks: [],
   compatiblePacksLoading: false,
 });
+
+const REFRESHED_INTERVAL = 60 * 60 * 24 * 5;
 
 export default function offerReducers(state = initialState, action = {}) {
   switch (action.type) {
@@ -51,6 +54,27 @@ export default function offerReducers(state = initialState, action = {}) {
         error: true,
         errorMsg: action.error,
       });
+
+    case actionTypes.START_FETCH_DETAILED_OFFERS: {
+      const { offers } = state;
+      return Immutable.merge(state, {
+        offers: offers.filter(
+          (o) => o.refreshed_on - new Date() / 1000 < REFRESHED_INTERVAL,
+        ),
+      });
+    }
+    case actionTypes.HAS_FETCHED_DETAILED_OFFERS: {
+      const { offers } = action;
+      const oldOffers = state.offers.filter(
+        (old_o) => !offers.find((new_o) => new_o.id === old_o.id),
+      );
+      return Immutable.merge(state, {
+        offers: [
+          ...oldOffers,
+          ...offers.map((o) => ({ ...o, refreshed_on: new Date() / 1000 })),
+        ],
+      });
+    }
 
     default:
       return state;

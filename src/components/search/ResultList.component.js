@@ -1,6 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
+import type { Node } from 'react';
 import { translate } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
@@ -23,26 +24,19 @@ type Props = {
   classes: *,
   className: number,
   t: TFunction,
+  renderListComponent: (*) => Node,
 };
 type State = {};
 
 export class ResultList extends Component<Props, State> {
   state = {};
 
-  render() {
-    const { selected, classes, t, className } = this.props;
-    const emptyResults = (
-      <ListItem>
-        <ListItemIcon>
-          <HighlightOffIcon />
-        </ListItemIcon>
-        <ListItemText
-          primaryTypographyProps={{ noWrap: true }}
-          primary={t('search.noResult')}
-        />
-      </ListItem>
-    );
-    const results = this.props.items.map((item) => (
+  renderResults = () => {
+    const { renderListComponent, selected, classes, t } = this.props;
+    if (renderListComponent) {
+      return this.props.items.map((item) => renderListComponent(item));
+    }
+    return this.props.items.map((item) => (
       <ListItem
         key={item.id}
         button
@@ -72,9 +66,24 @@ export class ResultList extends Component<Props, State> {
         </ListItemSecondaryAction>
       </ListItem>
     ));
+  };
+
+  render() {
+    const { classes, t, className } = this.props;
+    const emptyResults = (
+      <ListItem>
+        <ListItemIcon>
+          <HighlightOffIcon />
+        </ListItemIcon>
+        <ListItemText
+          primaryTypographyProps={{ noWrap: true }}
+          primary={t('search.noResult')}
+        />
+      </ListItem>
+    );
     return (
       <List className={`${classes.list} ${className}`} elevation={10}>
-        {results.length ? results : emptyResults}
+        {this.props.items.length ? this.renderResults() : emptyResults}
       </List>
     );
   }

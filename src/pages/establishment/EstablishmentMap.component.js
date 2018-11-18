@@ -16,7 +16,10 @@ import {
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
-import { establishment as establishmentActions } from '../../actions';
+import {
+  establishment as establishmentActions,
+  offer as offerActions,
+} from '../../actions';
 import { EstablishmentCard, TimeTable, Calendar, Map } from '../../components';
 import { Moment } from '../../i18n';
 import type { Establishment, Activity, Offer } from '../../api/types';
@@ -30,6 +33,7 @@ type Props = {
   classes: Object,
   t: (x: string) => string,
   startUpdateEstablishment: (*) => void,
+  fetchOffersByDay: ({ year: number, month: number, day: number }) => void,
 };
 
 type State = {
@@ -45,6 +49,12 @@ export class EstablishmentList extends Component<Props, State> {
     const { selectedDay } = this.state;
     selectedDay[establishmentId] = date.startOf('day');
     this.setState({ selectedDay });
+    const momentDay = Moment(date);
+    this.props.fetchOffersByDay({
+      year: momentDay.year(),
+      month: momentDay.month() + 1,
+      day: momentDay.date(),
+    });
   };
 
   renderEstablishment = (establishment: Establishment) => (
@@ -77,19 +87,16 @@ export class EstablishmentList extends Component<Props, State> {
   renderCalendar = (establishment: Establishment) => {
     const { offers, activities, timetableLoading, classes } = this.props;
     const { selectedDay } = this.state;
-    const establishmentId = parseInt(establishment.id, 10);
-    const offersInEstablishment = offers.filter(
-      (o) => parseInt(o.etablissement.id, 10) === establishmentId,
-    );
-    const events = {};
+    const offersInEstablishment = establishment.events;
+    const events_ = {};
     // eslint-disable-next-line
     for (const o of offersInEstablishment) {
       const midnight = Moment(o.date_start).startOf('day');
       // eslint-disable-next-line
-      if (events.hasOwnProperty(midnight)) {
-        events[midnight].push(o);
+      if (events_.hasOwnProperty(midnight)) {
+        events_[midnight].push(o);
       } else {
-        events[midnight] = [o];
+        events_[midnight] = [o];
       }
     }
     return (
@@ -99,7 +106,7 @@ export class EstablishmentList extends Component<Props, State> {
             <Grid item xs={12}>
               <div className={classes.calendarContainer}>
                 <Calendar
-                  events={events}
+                  events={events_}
                   onDateClick={this.onDateClick(establishment.id)}
                 />
               </div>
@@ -108,9 +115,12 @@ export class EstablishmentList extends Component<Props, State> {
               <TimeTable
                 loading={timetableLoading}
                 activities={activities}
-                offers={offers}
+                offers={offers.filter(
+                  (o) => o.etablissement.id === establishment.id,
+                )}
                 establishmentId={establishment.id}
                 date={selectedDay[establishment.id]}
+                onOfferSelected={() => {}}
               />
             </Grid>
           </Grid>
@@ -162,7 +172,7 @@ function mapStateToProps(state) {
   return {
     establishentsLoading: state.establishment.loading,
     establishments: state.establishment.all,
-    offers: state.offer.calendar,
+    offers: state.offer.offers,
     timetableLoading: state.activity.loading,
     activities: state.activity.all,
   };
@@ -172,6 +182,9 @@ function mapDispatchToProps(dispatch) {
   return {
     startUpdateEstablishment(establishment) {
       dispatch(establishmentActions.startUpdate(establishment));
+    },
+    fetchOffersByDay({ year, month, day }) {
+      dispatch(offerActions.fetchOffersByDay({ year, month, day }));
     },
   };
 }

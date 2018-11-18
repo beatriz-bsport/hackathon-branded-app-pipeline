@@ -1,0 +1,441 @@
+// @flow
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import {
+  Collapse,
+  Grid,
+  Paper,
+  Divider,
+  Button,
+  Typography,
+  IconButton,
+  withStyles,
+} from '@material-ui/core';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import TodayIcon from '@material-ui/icons/Today';
+import { translate } from 'react-i18next';
+import { goBack } from 'react-router-redux';
+
+import Fuse from 'fuse.js';
+import memoize from 'memoize-one';
+
+import {
+  booking as bookingActions,
+  search as searchActions,
+  invoice as invoiceActions,
+  offer as offerActions,
+} from '../actions';
+import BookingTable from '../components/booking/BookingTable.container';
+import SearchBar from '../components/SearchBar.component';
+import ResultList from '../components/search/ResultList.component';
+import MemberBookingHelper from '../components/search/MemberBookingHelper.component';
+import SimpleModal from '../components/navigation/SimpleModal.component';
+import MemberForm from '../components/form/MemberForm.component';
+import QuickInvoice from '../components/invoice/QuickInvoice.component';
+import { createOrUpdateMember } from '../actions/member.actions';
+import RegisterMemberToOfferForm from '../components/form/RegisterMemberToOfferForm.component';
+
+import { mapFormData } from './form.utils';
+
+type Props = {
+  createInvoice: ([*]) => void,
+  fetchBookings: (offerId: number) => void,
+  offerId: number,
+  update: Offer,
+  createOrUpdateMember: (data: [*]) => void,
+  clearSearch: () => void,
+  members: Array<Member>,
+  searchedText: string,
+  bookings: Array<Booking>,
+  paymentPacks: Array<PaymentPack>,
+  offers: Array<Event>,
+  offer: ?Offer,
+  activities: Array<Activity>,
+  bookingLoading: ?boolean,
+  bookingOptions: Array<BookingOption>,
+  discardOption: (id: number) => void,
+  bookingUpdaters: Object,
+  memberCreationErrors: boolean,
+  memberCreationPending: boolean,
+  memberToRegister: ?Member,
+  addToOffer: ({ offerId: number, consumerPaymentPackId: number }) => void,
+
+  goBack: () => void,
+  t: (x: string) => string,
+  classes: Object,
+};
+
+type State = {
+  quickInvoices: [*],
+  addMemberModal: boolean,
+};
+export class OfferManagement extends Component<Props, State> {
+  state = {
+    quickInvoices: [],
+    addMemberModal: false,
+    memberToRegister: null,
+  };
+
+  componentWillMount() {
+    this.props.fetchCompatiblePacks(this.props.offerId);
+  }
+
+  closeQuickInvoice = (memberId) => {
+    this.setState((prevState) => ({
+      quickInvoices: prevState.quickInvoices.filter(
+        (qi) => qi.member.id !== memberId,
+      ),
+    }));
+  };
+
+  registerMember = (consumerPaymentPackId: number) => {
+    this.props.addToOffer({
+      offerId: this.props.offerId,
+      consumerPaymentPackId,
+    });
+    this.setState({ memberToRegister: null });
+  };
+
+  createInvoice = (invoiceData, memberId) => {
+    this.props.createInvoice(invoiceData);
+    this.closeQuickInvoice(memberId);
+    setTimeout(() => this.props.fetchBookings(this.props.offerId), 5000);
+  };
+
+  createMember = async (data: *) => {
+    const formData = mapFormData(data, {
+      lastname: 'last_name',
+      firstname: 'first_name',
+      email: 'email',
+      phone: 'phone.phone_number',
+      sex: 'gender',
+      avatar: 'photo',
+    });
+
+    if (this.props.update) {
+      formData.append('id', this.props.update.id);
+    }
+
+    this.props.createOrUpdateMember(formData);
+    this.setState({ addMemberModal: false });
+  };
+
+  openAddMemberModal = () => {
+    this.setState({ addMemberModal: true });
+    this.props.clearSearch();
+  };
+
+  closeAddMemberModal = () => {
+    this.setState({ addMemberModal: false });
+  };
+
+  componentDidMount() {
+    this.props.fetchBookings(this.props.offerId);
+    this.props.clearSearch();
+  }
+
+  getFuse = memoize((items) => {
+    const options = {
+      shouldSort: true,
+      threshold: 0.6,
+      location: 0,
+      distance: 100,
+      maxPatternLength: 32,
+      minMatchCharLength: 2,
+      keys: ['name', 'email'],
+    };
+    return new Fuse(items, options);
+  });
+
+  getResults = () =>
+    this.getFuse(this.props.members)
+      .search(this.props.searchedText)
+      .slice(0, 30);
+
+  renderSearchedMember = (member: Member) => {
+    const hasBooked = Boolean(
+      this.props.bookings.find((b) => b.member === member.id),
+    );
+    if (hasBooked) {
+      return (
+        <MemberBookingHelper
+          onClick={() => this.addToQuickInvoicePanel(member.id)}
+          member={member}
+          t={this.props.t}
+          hasBooked
+        />
+      );
+    }
+    return (
+      <MemberBookingHelper
+        onClick={() => this.setState({ memberToRegister: member })}
+        member={member}
+        t={this.props.t}
+        hasBooked={false}
+      />
+    );
+  };
+
+  addToQuickInvoicePanel = (memberId: number) => {
+    const { bookings, offer } = this.props;
+    const { quickInvoices } = this.state;
+    const isOpened = quickInvoices.find((qi) => qi.member.id === memberId);
+    const selectedMember = this.props.members.find((m) => m.id === memberId);
+
+    const quickInvoiceToAdd = bookings.find((b) => b.member === memberId)
+      ? {
+          member: selectedMember,
+          invoiceItems: { offers: [] },
+        }
+      : {
+          member: selectedMember,
+          invoiceItems: { offers: [offer] },
+        };
+
+    if (!isOpened) {
+      this.setState((prevState) => ({
+        quickInvoices: [quickInvoiceToAdd, ...prevState.quickInvoices],
+      }));
+    }
+    this.props.clearSearch();
+  };
+
+  renderBookingHeader = () => {
+    const { classes, t } = this.props;
+    return (
+      <Grid
+        container
+        direction="row"
+        justify="space-between"
+        alignItems="center"
+        spacing={16}
+        className={classes.bookingsHeader}
+      >
+        <Grid item>
+          <Typography variant="title">{t('offer.myBookings')}</Typography>
+        </Grid>
+        <Grid item>
+          <Grid container direction="row" alignItems="center" spacing={16}>
+            <Grid item>
+              <IconButton onClick={this.openAddMemberModal} color="primary">
+                <AddCircleIcon />
+              </IconButton>
+            </Grid>
+            <Grid item>
+              <SearchBar changeLocation={false} />
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    );
+  };
+
+  renderQuickInvoicePanel = () => {
+    const { classes, t } = this.props;
+    const { quickInvoices } = this.state;
+    return (
+      <Paper>
+        <Typography className={classes.bookingsHeader} variant="title">
+          {t('offer.myOpenedInvoices')}
+        </Typography>
+        <Divider />
+        {quickInvoices.length ? (
+          <div>
+            {quickInvoices.map((qi) => (
+              <QuickInvoice
+                key={qi.member.id}
+                quickInvoice={qi}
+                onClose={() => this.closeQuickInvoice(qi.member.id)}
+                onSubmit={this.saveQuickInvoice}
+                paymentPacks={this.props.paymentPacks}
+                offers={this.props.offers}
+                activities={this.props.activities}
+                createInvoice={(invoiceData) =>
+                  this.createInvoice(invoiceData, qi.member.id)
+                }
+              />
+            ))}
+          </div>
+        ) : (
+          <Typography variant="caption" className={classes.emptyTextContainer}>
+            {t('offer.noQuickInvoiceOpened')}
+          </Typography>
+        )}
+      </Paper>
+    );
+  };
+
+  render() {
+    const {
+      bookings,
+      bookingLoading,
+      bookingOptions,
+      discardOption,
+      bookingUpdaters,
+      searchedText,
+      t,
+      classes,
+    } = this.props;
+
+    return (
+      <Grid container direction="row" spacing={16}>
+        <Grid item xs={12} md={6}>
+          <Paper>
+            <Grid container direction="column">
+              <Grid item>{this.renderBookingHeader()}</Grid>
+              <Divider />
+              <Grid item>
+                <Collapse in={searchedText}>
+                  <div className={classes.resultListContainer}>
+                    <ResultList
+                      items={this.getResults()}
+                      renderListComponent={this.renderSearchedMember}
+                    />
+                  </div>
+                  <Divider />
+                </Collapse>
+              </Grid>
+              <Grid item>
+                <BookingTable
+                  loading={bookingLoading}
+                  bookings={bookings}
+                  bookingOptions={bookingOptions}
+                  discardOption={discardOption}
+                  bookingUpdaters={bookingUpdaters}
+                  showQuickInvoiceButton
+                  onQuickInvoiceClick={this.addToQuickInvoicePanel}
+                />
+              </Grid>
+            </Grid>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          {this.renderQuickInvoicePanel()}
+        </Grid>
+        <Grid item>
+          <Button
+            onClick={this.props.goBack}
+            color="secondary"
+            variant="outlined"
+          >
+            <TodayIcon className={classes.leftIcon} />
+            {t('offer.backToCalendar')}
+          </Button>
+        </Grid>
+        <SimpleModal open={!!this.state.memberToRegister}>
+          <RegisterMemberToOfferForm
+            offer={this.props.offer}
+            member={this.state.memberToRegister}
+            open={!!this.state.memberToRegister}
+            loading={this.props.compatiblePacksLoading}
+            compatiblePacks={this.props.compatiblePacks}
+            onCancel={() => this.setState({ memberToRegister: null })}
+            subscribeToOffer={this.registerMember}
+          />
+        </SimpleModal>
+        <SimpleModal open={this.state.addMemberModal}>
+          <MemberForm
+            onCancel={this.closeAddMemberModal}
+            onSubmit={this.createMember}
+            error={this.props.memberCreationErrors}
+            processing={this.props.memberCreationPending}
+            initial={null}
+            update={false}
+          />
+        </SimpleModal>
+      </Grid>
+    );
+  }
+}
+
+function mapStateToProps(state, nextProps) {
+  const { match } = nextProps;
+  const offerId = (match && match.params && +match.params.id) || null;
+
+  return {
+    offerId,
+    offer: state.offer.offers.find((o) => o.id === offerId),
+    offers: state.offer.calendar,
+    activities: state.activity.all,
+    paymentPacks: state.paymentPack.all,
+    searchedText: state.search.text,
+    members: state.member.all,
+    bookings: state.booking.all,
+    bookingLoading: state.booking.loading,
+    bookingOptions: state.booking.options,
+    memberCreationPending: state.member.createOrUpdatePending,
+    memberCreationErrors: state.member.createOrUpdateErrors,
+    compatiblePacks: state.offer.compatiblePacks,
+    compatiblePacksLoading: state.offer.compatiblePacksLoading,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    clearSearch() {
+      dispatch(searchActions.clearSearch(false));
+    },
+    fetchBookings(offerId) {
+      dispatch(bookingActions.fetchBookingsByOffer(offerId));
+    },
+    bookingUpdaters: {
+      discardBooking(bookingId) {
+        dispatch(bookingActions.discardBooking(bookingId));
+      },
+      confirmBooking(bookingId) {
+        dispatch(bookingActions.confirmBooking(bookingId));
+      },
+      discardBookingAttendance(bookingId) {
+        dispatch(bookingActions.discardBookingAttendance(bookingId));
+      },
+      confirmBookingAttendance(bookingId) {
+        dispatch(bookingActions.confirmBookingAttendance(bookingId));
+      },
+    },
+    discardOption(optionId) {
+      dispatch(bookingActions.discardBookingOption(optionId));
+    },
+    createOrUpdateMember(data) {
+      dispatch(createOrUpdateMember(data, true));
+    },
+    createInvoice(invoiceData: InvoiceData) {
+      dispatch(invoiceActions.createOrUpdateInvoice(invoiceData, true));
+    },
+    goBack() {
+      dispatch(goBack());
+    },
+    fetchCompatiblePacks(id: number) {
+      dispatch(offerActions.fetchCompatiblePacks(id));
+    },
+    addToOffer({ offerId, consumerPaymentPackId }) {
+      dispatch(bookingActions.addBooking({ offerId, consumerPaymentPackId }));
+    },
+  };
+}
+
+const styles = (theme) => ({
+  bookingsHeader: {
+    padding: theme.spacing.unit * 2,
+    paddingTop: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit,
+  },
+  quickInvoiceContainer: {},
+  emptyTextContainer: {
+    paddingTop: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit * 3,
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
+  },
+});
+
+export default withStyles(styles)(
+  translate()(
+    connect(
+      mapStateToProps,
+      mapDispatchToProps,
+    )(OfferManagement),
+  ),
+);

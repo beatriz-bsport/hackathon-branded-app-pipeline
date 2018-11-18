@@ -40,6 +40,10 @@ export class Calendar extends Component<Props, State> {
     };
   }
 
+  componentWillMount() {
+    this.props.onDateClick(this.state.selectedDay);
+  }
+
   static defaultProps = {
     events: {},
   };

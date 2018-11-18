@@ -74,12 +74,8 @@ export function updatePaymentStatus(uuid, newStatus) {
   };
 }
 
-export function createOrUpdateInvoice(invoiceData) {
-  return async (dispatch, getState) => {
-    if (getState().invoice.createOrUpdatePending) {
-      return;
-    }
-
+export function createOrUpdateInvoice(invoiceData, noRedirect) {
+  return async (dispatch) => {
     dispatch(actionCreateOrUpdateInvoice(invoiceData));
 
     const createOrUpdate = invoiceData.uuid
@@ -96,9 +92,10 @@ export function createOrUpdateInvoice(invoiceData) {
         dispatch(actionCreateInvoiceSuccess(invoice));
         dispatch(snackbarSuccess('invoice.forms.create.success'));
       }
-      dispatch(pushRouter('/invoice'));
+      if (!noRedirect) {
+        dispatch(pushRouter('/invoice'));
+      }
     } catch (e) {
-      console.log(e);
       dispatch(snackbarError('invoice.forms.error'));
       dispatch(actionCreateOrUpdateInvoiceError(e));
     }

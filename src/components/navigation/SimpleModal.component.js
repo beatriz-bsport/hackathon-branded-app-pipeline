@@ -11,6 +11,7 @@ const styles = (theme) => ({
     height: '100%',
     position: 'absolute',
     backgroundColor: theme.palette.paper,
+    width: '100vh',
   },
   modal: {
     position: 'absolute',

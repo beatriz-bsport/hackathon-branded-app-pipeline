@@ -28,6 +28,7 @@ import SimpleModal from './navigation/SimpleModal.component';
 import EditLiveOfferForm from './form/EditLiveOfferForm.component';
 import DeleteOfferForm from './form/DeleteOfferForm.component';
 import OfferForm from './form/OfferForm.component';
+import OfferFormWithActivity from './form/OfferFormWithActivity.component';
 import ConsumerMenu from './navigation/ConsumerMenu.component';
 import BookingListItem from './consumer/BookingListItem.component';
 import BookingOptionListItem from './consumer/BookingOptionListItem.component';
@@ -72,6 +73,7 @@ export {
   BookingOptionListItem,
   ConsumerMenu,
   OfferForm,
+  OfferFormWithActivity,
   AvatarUploader,
   FormField,
   EstablishmentCard,

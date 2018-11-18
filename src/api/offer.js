@@ -4,6 +4,10 @@ export async function fetchAllEvents() {
   return getAuth(`${API_URI}/saas/offers/minimal`);
 }
 
+export async function fetchOffersByDay({ year, month, day }) {
+  return getAuth(`${API_URI}/saas/offers/${year}/${month}/${day}`);
+}
+
 export async function editLiveOffer({ offerId, data }) {
   return putAuth(`${API_URI}/saas/offer/${offerId}/edit`, data);
 }
@@ -21,4 +25,5 @@ export default {
   editLiveOffer,
   fetchCompatiblePacks,
   disableOffer,
+  fetchOffersByDay,
 };

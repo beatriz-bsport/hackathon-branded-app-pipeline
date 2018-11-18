@@ -59,11 +59,23 @@ export class ConsumerPackRowItem extends Component<Props> {
       consumerPack,
       incrementCredit,
       decrementCredit,
+      subscribeToOffer,
       loading,
       t,
     } = this.props;
     const { credits, unlimited } = paymentPack;
     const { available_credits } = consumerPack;
+
+    if (subscribeToOffer) {
+      return (
+        <Button
+          onClick={() => subscribeToOffer(consumerPack.id)}
+          variant="outlined"
+        >
+          {t('paymentPack.subscribeToOffer')}
+        </Button>
+      );
+    }
 
     if (unlimited) {
       if (consumerPack.disabled) {

@@ -17,15 +17,23 @@ const styles = () => ({
 type Props = {
   metaActivity: MetaActivity,
   classes: Object,
+  onClick: () => void,
 };
 
 // prettier-disable-next-line
 export function MetaActivityMinimalSummary(props: Props) {
-  const { classes, metaActivity } = props;
+  const { classes, metaActivity, onClick } = props;
   const { name, id, parent_category } = metaActivity;
 
   return (
-    <ListItem divider key={id} dense button className={classes.listItem}>
+    <ListItem
+      divider
+      key={id}
+      dense
+      button={!!onClick}
+      className={classes.listItem}
+      onClick={onClick}
+    >
       <Icon>
         <Sport parentCategory={parent_category} noname />
       </Icon>

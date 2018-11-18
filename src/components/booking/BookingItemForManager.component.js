@@ -11,6 +11,7 @@ import {
   ListItemSecondaryAction,
 } from '@material-ui/core';
 import CachedIcon from '@material-ui/icons/Cached';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import { translate } from 'react-i18next';
 
 import RedButton from '../button/RedButton.component';
@@ -21,6 +22,8 @@ type Props = {
   classes: Object,
   heading: ?string,
   booking: Object,
+  showQuickInvoiceButton: boolean,
+  onQuickInvoiceClick: () => void,
   bookingUpdaters: {
     confirmBooking: () => void,
     discardBooking: () => void,
@@ -100,25 +103,56 @@ export class BookingItemForManager extends Component<Props> {
     }
   };
 
-  getStatusText = (status: ?boolean) => {
+  getStatusText = (booking: Booking) => {
     const { t } = this.props;
-    switch (status) {
-      case true:
-        return t('booking.validated');
-      case false:
-        return t('booking.cancelled');
-      case null:
-      default:
-        return t('booking.pending');
+    const { paymentPacks, invoices } = this.props;
+    if (booking.consumer_payment_pack && booking.payment_pack) {
+      const payment_pack = this.props.paymentPacks.find(
+        (pp) => pp.id === booking.payment_pack,
+      );
+      const consumer_payment_pack = (
+        payment_pack.consumer_payment_packs || []
+      ).find((cpp) => cpp.id === booking.consumer_payment_pack);
+      if (!payment_pack.credits) {
+        return [`${payment_pack.name} (illimité)`, 'primary'];
+      }
+      const { available_credits } = consumer_payment_pack;
+      const { credits } = payment_pack;
+      return [
+        `${payment_pack.name}: ${available_credits}/${credits}`,
+        available_credits / credits < 0.1 ? 'error' : 'primary',
+      ];
     }
+    const invoice = this.props.invoices.find(
+      (inv) => inv.uuid === booking.invoice,
+    );
+    if (invoice) {
+      if (invoice.fully_payed) {
+        return ['Payé via application bsport', 'primary'];
+      }
+      return [`Impayé : ${invoice.price_due - invoice.price_payed} €`, 'error'];
+    }
+    return ['Impayé', 'error'];
   };
 
   getAttendance = () => {
-    const { t, booking, bookingUpdaters, classes } = this.props;
+    const {
+      t,
+      booking,
+      showQuickInvoiceButton,
+      bookingUpdaters,
+      classes,
+    } = this.props;
 
     if (booking.attendance) {
       return (
         <ListItemSecondaryAction>
+          {showQuickInvoiceButton ? (
+            <Button color="secondary" onClick={this.props.onQuickInvoiceClick}>
+              {t('offer.addInvoice')}
+              <AttachMoneyIcon className={classes.iconButton} />
+            </Button>
+          ) : null}
           <Button
             color="primary"
             onClick={bookingUpdaters.discardBookingAttendance}
@@ -162,14 +196,14 @@ export class BookingItemForManager extends Component<Props> {
   render() {
     const { booking } = this.props;
     // <TableCell>{t(`booking.sources.${b.source}`)}</TableCell>
-    const statusText = this.getStatusText(booking.status);
+    const [statusText, color] = this.getStatusText(booking);
     return (
       <ListItem disabled={!booking.attendance} divider>
         {this.getAvatar()}
         <ListItemText
           primary={this.getHeading()}
           secondary={statusText}
-          secondaryTypographyProps={this.getStatusStyleProps(booking.status)}
+          secondaryTypographyProps={{ color }}
         />
         {this.getAttendance()}
       </ListItem>

@@ -20,7 +20,7 @@ import PaymentPackInput from '../input/PaymentPackInput.component';
 type Props = {
   t: (x: string) => string,
   classes: Object,
-  offers: Array<Offer>,
+  events: Array<Event>,
   activities: Array<Activity>,
   paymentPacks: Array<PaymentPack>,
   onAddOffer: (offerId: number) => void,
@@ -63,7 +63,7 @@ export class InvoiceItemSelector extends Component<Props> {
   };
 
   render() {
-    const { offers, activities, paymentPacks, classes, t } = this.props;
+    const { events, activities, paymentPacks, classes, t } = this.props;
     const { paymentPackId, offerId } = this.state;
     const { expandedSelector } = this.state;
     // <Tab label={t('payment.addOffer')} value={SELECTOR_OFFER} />
@@ -92,7 +92,7 @@ export class InvoiceItemSelector extends Component<Props> {
           <Grid item className={classes.input}>
             <Collapse in={SELECTOR_OFFER === expandedSelector}>
               <OfferInput
-                offers={offers}
+                events={events}
                 activities={activities}
                 offerHelperText={t('form.invoice.offerHelper')}
                 activityHelperText={t('form.invoice.activityHelper')}

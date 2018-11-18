@@ -9,14 +9,11 @@ import {
   IconButton,
   Typography,
   Grid,
-  Divider,
   withStyles,
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { translate } from 'react-i18next';
 
 type Props = {
-  finalPrice: number,
   offerInvoiceItems: Array<InvoiceItem>,
   paymentPackInvoiceItems: Array<InvoiceItem>,
   voucherInvoiceItems: Array<InvoiceItem>,
@@ -24,7 +21,7 @@ type Props = {
   deleteOfferInvoiceItem: (id: number) => void,
   deletePPackInvoiceItem: (id: number) => void,
   deleteVoucher: () => void,
-  t: (x: string) => string,
+  compact: boolean,
   classes: Object,
 };
 
@@ -74,66 +71,37 @@ export class InvoiceItemList extends Component<Props> {
     this.renderInvoiceItem(invoiceItem, null)
   )
 
-  renderTotal = () => {
-    const { t, classes, finalPrice } = this.props;
-    return (
-      <div>
-        <Divider />
-        <Grid
-          container
-          direction="row"
-          justify="space-between"
-          className={classes.totalLine}
-        >
-          <Grid item>
-            <Typography variant="h6">{t('payment.total')}</Typography>
-          </Grid>
-          <Grid>
-            <Typography variant="h6">{finalPrice} €</Typography>
-          </Grid>
-        </Grid>
-      </div>
-    );
-  };
-
   render() {
     const {
       paymentPackInvoiceItems,
       offerInvoiceItems,
       voucherInvoiceItems,
       uneditableInvoiceItems,
+      compact,
       classes,
     } = this.props;
     return (
-      <Grid
-        container
-        direction="column"
-        justify="space-between"
-        className={classes.container}
-      >
-        <Grid item>
-          <List disablePadding>
-            {uneditableInvoiceItems.map((ii) => this.renderUneditableItems(ii))}
-            {// prettier-ignore
-            paymentPackInvoiceItems.map((ii) => this.renderPPackInvoiceItem(ii))}
-            {offerInvoiceItems.map((ii) => this.renderOfferInvoiceItem(ii))}
-            {voucherInvoiceItems.map((ii) => this.renderVoucherInvoiceItem(ii))}
-          </List>
-        </Grid>
-        <Grid item>{this.renderTotal()}</Grid>
-      </Grid>
+      <div className={compact ? classes.compactContainer : classes.container}>
+        <List disablePadding>
+          {uneditableInvoiceItems.map((ii) => this.renderUneditableItems(ii))}
+          {// prettier-ignore
+          paymentPackInvoiceItems.map((ii) => this.renderPPackInvoiceItem(ii))}
+          {offerInvoiceItems.map((ii) => this.renderOfferInvoiceItem(ii))}
+          {voucherInvoiceItems.map((ii) => this.renderVoucherInvoiceItem(ii))}
+        </List>
+      </div>
     );
   }
 }
 
-const styles = (theme) => ({
+const styles = () => ({
   container: {
     height: '100%',
     minHeight: 400,
   },
-  totalLine: {
-    padding: theme.spacing.unit * 2,
+  compactContainer: {
+    width: '100%',
   },
 });
 
-export default withStyles(styles)(translate()(InvoiceItemList));
+export default withStyles(styles)(InvoiceItemList);

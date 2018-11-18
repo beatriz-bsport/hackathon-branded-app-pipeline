@@ -1,4 +1,4 @@
-import { API_URI, getAuth } from '../http';
+import { API_URI, postAuth, getAuth } from '../http';
 
 // FETCHER
 
@@ -6,8 +6,16 @@ export async function fetchBookingsByOffer(offerId) {
   return getAuth(`${API_URI}/saas/offer/${offerId}/bookings`);
 }
 
-export async function fetchMemberBookings(memberId) {
+export async function fetchOptionsByOffer(offerId) {
+  return getAuth(`${API_URI}/saas/offer/${offerId}/options`);
+}
+
+export async function fetchBookingsByMember(memberId) {
   return getAuth(`${API_URI}/saas/members/${memberId}/bookings`);
+}
+
+export async function fetchOptionsByMember(memberId) {
+  return getAuth(`${API_URI}/saas/members/${memberId}/options`);
 }
 
 // BOOKING ACTION
@@ -32,12 +40,21 @@ export async function discardBookingOption(optionId) {
   return getAuth(`${API_URI}/saas/booking-option/${optionId}/discard`);
 }
 
+export async function addToOffer({ consumerPaymentPackId, offerId }) {
+  return postAuth(`${API_URI}/payment/register/booking/${offerId}`, {
+    consumer_payment_pack: consumerPaymentPackId,
+  });
+}
+
 export default {
+  fetchOptionsByOffer,
   fetchBookingsByOffer,
-  fetchMemberBookings,
+  fetchBookingsByMember,
+  fetchOptionsByMember,
   discard: discardBooking,
   validate: validateBooking,
   discardAttendance: discardAttendanceBooking,
   confirmAttendance: confirmAttendanceBooking,
   discardBookingOption,
+  addToOffer,
 };

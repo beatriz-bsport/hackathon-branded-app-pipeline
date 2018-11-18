@@ -26,9 +26,14 @@ type Props = {
   creatingInvoice: boolean,
   t: TFunction,
   classes: Object,
+  resetCreateOrUpdateStatus: () => void,
 };
 
 export class InvoiceCreatePage extends Component<Props> {
+  componentDidMount() {
+    this.props.resetCreateOrUpdateStatus();
+  }
+
   createInvoice = (invoiceData: InvoiceDataFront) => {
     this.props.createInvoice({ ...invoiceData, member: this.props.member.id });
   };
@@ -89,6 +94,9 @@ function mapDispatchToProps(dispatch) {
     },
     createInvoice(invoiceData: InvoiceData) {
       dispatch(invoiceActions.createOrUpdateInvoice(invoiceData));
+    },
+    resetCreateOrUpdateStatus() {
+      dispatch(invoiceActions.createOrUpdateReset());
     },
   };
 }

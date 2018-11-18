@@ -53,7 +53,7 @@ class Activity extends Component<Props> {
         <Grid item>
           <Grid container direction="row" spacing={24}>
             {metaActivities.map((a) => {
-              const aStats = stats.filter((s) => s.id === a.id);
+              const aStats = (stats || []).filter((s) => s.id === a.id);
               const s = aStats || [{}];
               return (
                 <Grid item xs={12} sm={6} key={a.id}>

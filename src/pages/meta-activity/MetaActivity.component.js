@@ -339,7 +339,7 @@ export class MetaActivity extends Component<Props, State> {
     if (this.props.loading || !metaActivity) {
       return <CircularProgress />;
     }
-    const stats = this.getById(this.props.stats, this.metaActivityId);
+    // const stats = this.getById(this.props.stats, this.metaActivityId);
 
     const { classes } = this.props;
 
@@ -355,7 +355,7 @@ export class MetaActivity extends Component<Props, State> {
                 <MetaActivityBasicInfo metaActivity={metaActivity} />
               </Grid>
               <Grid item>
-                <ActivityStats stats={stats} />
+                <ActivityStats stats={{}} />
               </Grid>
               <Divider className={classes.horizontalDivider} />
               <Grid item className={classes.paddedBlock}>

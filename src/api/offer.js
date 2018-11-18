@@ -1,7 +1,7 @@
 import { API_URI, getAuth, putAuth } from '../http';
 
 export async function fetchAllEvents() {
-  return getAuth(`${API_URI}/as_coach/offers/minimal`);
+  return getAuth(`${API_URI}/saas/offers/minimal`);
 }
 
 export async function editLiveOffer({ offerId, data }) {

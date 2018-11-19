@@ -148,6 +148,8 @@ export default {
           "Montant fixe reversé pour toute séance avec suffisamment d'inscrits",
       },
       invoice: {
+        dateStartPaymentPack: "Début de l'abonnement le",
+        backToInvoiceItemList: 'Retour à la liste',
         title: 'Enregistrer un paiement',
         paymentLabel: 'Ajouter une transaction',
         offerHelper: 'Cette séance sera crédité au membre',
@@ -368,7 +370,7 @@ export default {
       // eslint-disable-next-line
       paymentDate: "Date d'achat",
       object: 'Description',
-      addInvoiceItem: 'Facturer',
+      addInvoiceItem: 'Ajouter à la facture',
       addOffer: 'Séance',
       addPaymentPack: 'Abonnement',
       updateInvoiceVoucher: 'Ajouter une réduction',

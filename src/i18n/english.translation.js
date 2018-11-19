@@ -165,6 +165,8 @@ export default {
           'Amount given to every booking over threshold',
       },
       invoice: {
+        dateStartPaymentPack: 'Pass starting date',
+        backToInvoiceItemList: 'Back to invoice listing',
         title: 'Register a payment',
         paymentLabel: 'Register a payment',
         offerHelper: 'This session will be add to the account',

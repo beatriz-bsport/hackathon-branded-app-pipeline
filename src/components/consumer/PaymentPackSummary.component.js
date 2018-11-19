@@ -35,7 +35,7 @@ export class PaymentPackMinimalSummary extends Component<Props> {
     } else {
       dateInfo = `${formatAsDate(
         Moment(validity_daterange.lower),
-      )} - ${formatAsDate(Moment(validity_daterange.upper))}`;
+      )} - ${formatAsDate(Moment(JSON.parse(validity_daterange).upper))}`;
     }
 
     return (

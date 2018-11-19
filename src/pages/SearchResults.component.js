@@ -31,7 +31,7 @@ type Props = {
   selected: number,
   bookings: *[],
   paymentPacks: *[],
-  goToMember: (*) => void,
+  pushToMember: (memberId: number) => void,
   bookingUpdaters: {
     confirmBooking: (id: number) => void,
     confirmBookingAttendance: (id: number) => void,
@@ -188,9 +188,6 @@ function mapDispatchToProps(dispatch) {
     },
     decrementCredit(consumerPackId) {
       dispatch(paymentPackActions.addCredit(consumerPackId, -1));
-    },
-    goToMember(id) {
-      dispatch(push(`/member/${id}`));
     },
     bookingUpdaters: {
       confirmBookingAttendance(bookingId) {

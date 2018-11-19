@@ -10,16 +10,12 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
-import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 type Props = {
   items: *[],
   selectEntity: (*) => void,
-  goToMember: (*) => void,
   selected: number,
   classes: *,
   className: number,
@@ -32,7 +28,7 @@ export class ResultList extends Component<Props, State> {
   state = {};
 
   renderResults = () => {
-    const { renderListComponent, selected, classes, t } = this.props;
+    const { renderListComponent, selected, classes } = this.props;
     if (renderListComponent) {
       return this.props.items.map((item) => renderListComponent(item));
     }

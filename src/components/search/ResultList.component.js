@@ -56,14 +56,6 @@ export class ResultList extends Component<Props, State> {
           secondary={item.email}
           classes={{ secondary: classes.email }}
         />
-        <ListItemSecondaryAction>
-          <IconButton
-            aria-label={t('search.member.go_to')}
-            onClick={() => this.props.goToMember(item.id)}
-          >
-            <OpenInNewIcon />
-          </IconButton>
-        </ListItemSecondaryAction>
       </ListItem>
     ));
   };

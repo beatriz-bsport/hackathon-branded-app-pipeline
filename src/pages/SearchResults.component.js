@@ -110,6 +110,14 @@ export class SearchResults extends Component<Props, State> {
       .search(this.props.searchText)
       .slice(0, 30);
 
+  selectEntity = (entity) => {
+    if (entity.type === 'member') {
+      this.props.pushToMember(entity.data.id);
+    } else {
+      this.props.selectEntity(entity);
+    }
+  };
+
   render() {
     const { t, classes, member, bookings, selected } = this.props;
     const results = this.getResults();
@@ -133,8 +141,7 @@ export class SearchResults extends Component<Props, State> {
           <ResultList
             items={results}
             selected={selected}
-            selectEntity={this.props.selectEntity}
-            goToMember={this.props.goToMember}
+            selectEntity={this.selectEntity}
             className={selected && !isLoadingMember ? classes.hidden : ''}
           />
           <div className={classes.detail}>
@@ -170,6 +177,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    pushToMember(memberId: number) {
+      dispatch(push(`/member/${memberId}`));
+    },
     selectEntity(entity) {
       dispatch(searchActions.selectEntity(entity));
     },

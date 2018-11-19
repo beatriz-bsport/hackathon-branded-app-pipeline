@@ -62,9 +62,12 @@ export class InvoiceItemList extends Component<Props> {
   )
 
   // prettier-ignore
-  renderVoucherInvoiceItem = (invoiceItem) => (
-    this.renderInvoiceItem(invoiceItem, this.props.deleteVoucher)
-  )
+  renderVoucherInvoiceItem = (invoiceItem) => {
+    if (invoiceItem.price) {
+      return this.renderInvoiceItem(invoiceItem, this.props.deleteVoucher);
+    }
+    return null;
+  }
 
   // prettier-ignore
   renderUneditableItems = (invoiceItem) => (

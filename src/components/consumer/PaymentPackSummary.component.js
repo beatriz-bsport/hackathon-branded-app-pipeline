@@ -33,9 +33,9 @@ export class PaymentPackMinimalSummary extends Component<Props> {
         'paymentPack.validForNdays2',
       )}`;
     } else {
-      dateInfo = `${formatAsDate(Moment(validity_daterange.lower))} - ${Moment(
-        validity_daterange.upper,
-      )}`;
+      dateInfo = `${formatAsDate(
+        Moment(validity_daterange.lower),
+      )} - ${formatAsDate(Moment(validity_daterange.upper))}`;
     }
 
     return (

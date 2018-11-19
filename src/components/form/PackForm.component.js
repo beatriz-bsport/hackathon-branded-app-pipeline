@@ -391,7 +391,7 @@ export class PackForm extends React.Component<Props, State> {
               <CircularProgress />
             ) : (
               <Button type="submit" variant="contained" color="primary">
-                {t('common.create')}
+                {this.props.initial ? t('common.edit') : t('common.create')}
               </Button>
             )}
           </Grid>

@@ -2,6 +2,7 @@ import { push as pushRouter } from 'react-router-redux';
 import api from '../api';
 import types from './invoice.types';
 import { snackbarSuccess, snackbarError } from './snackbar.actions';
+import { fetchAll as fetchAllPaymentPacks } from './paymentPack.actions';
 
 export function startFetchInvoices() {
   return { type: types.START_FETCH_INVOICES };
@@ -92,6 +93,7 @@ export function createOrUpdateInvoice(invoiceData, noRedirect) {
         dispatch(actionCreateInvoiceSuccess(invoice));
         dispatch(snackbarSuccess('invoice.forms.create.success'));
       }
+      dispatch(fetchAllPaymentPacks());
       if (!noRedirect) {
         dispatch(pushRouter('/invoice'));
       }

@@ -52,6 +52,16 @@ export class RegisterMemberToOfferForm extends Component<Props> {
         </Grid>
       );
     }
+    if (availablePacks.length === 1) {
+      // auto book with first pack if only one is available
+      const availableConsumerPacks = availablePacks[0].consumer_payment_packs.filter(
+        (cpp) => cpp.member_id === member.id,
+      );
+      if (availableConsumerPacks.length === 1) {
+        subscribeToOffer(availableConsumerPacks[0].id);
+        return <CircularProgress />;
+      }
+    }
     return (
       <List>
         {availablePacks.map((compatiblePack) => (

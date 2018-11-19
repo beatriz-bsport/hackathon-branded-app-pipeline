@@ -147,28 +147,46 @@ export class BookingItemForManager extends Component<Props> {
     if (booking.attendance) {
       return (
         <ListItemSecondaryAction>
-          {showQuickInvoiceButton ? (
-            <Button color="secondary" onClick={this.props.onQuickInvoiceClick}>
-              {t('offer.addInvoice')}
-              <AttachMoneyIcon className={classes.iconButton} />
-            </Button>
-          ) : null}
           <Button
             color="primary"
+            variant="outlined"
             onClick={bookingUpdaters.discardBookingAttendance}
           >
             {t('booking.attend')}
             <CachedIcon className={classes.iconButton} />
           </Button>
+          {showQuickInvoiceButton ? (
+            <Button
+              variant="outlined"
+              color="secondary"
+              onClick={this.props.onQuickInvoiceClick}
+              className={classes.rightButton}
+            >
+              <AttachMoneyIcon />
+            </Button>
+          ) : null}
         </ListItemSecondaryAction>
       );
     }
     return (
       <ListItemSecondaryAction>
-        <RedButton onClick={bookingUpdaters.confirmBookingAttendance}>
+        <RedButton
+          variant="outlined"
+          onClick={bookingUpdaters.confirmBookingAttendance}
+        >
           {t('booking.doNotAttend')}
           <CachedIcon className={classes.iconButton} />
         </RedButton>
+        {showQuickInvoiceButton ? (
+          <Button
+            variant="outlined"
+            color="secondary"
+            onClick={this.props.onQuickInvoiceClick}
+            className={classes.rightButton}
+          >
+            <AttachMoneyIcon />
+          </Button>
+        ) : null}
       </ListItemSecondaryAction>
     );
   };
@@ -213,6 +231,9 @@ export class BookingItemForManager extends Component<Props> {
 
 const styles = (theme) => ({
   iconButton: {
+    marginLeft: theme.spacing.unit,
+  },
+  rightButton: {
     marginLeft: theme.spacing.unit,
   },
 });

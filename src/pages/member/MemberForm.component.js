@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Paper } from '@material-ui/core';
 
-import { goBack } from 'react-router-redux';
+import { push as routerPush, goBack } from 'react-router-redux';
 import { createOrUpdateMember } from '../../actions/member.actions';
 import MemberForm from '../../components/form/MemberForm.component';
 
@@ -13,6 +13,8 @@ import { mapFormData } from '../form.utils';
 
 type Props = {
   createOrUpdateMember: (*) => void,
+  routerPush: (path: string) => void,
+  goBack: () => void,
   pending: boolean,
   errors: *,
   update: *,
@@ -31,13 +33,12 @@ export class MemberFormPage extends Component<Props, State> {
       membership_ID: 'membership_ID',
       accept_email: 'accept_email',
       accept_sms: 'accept_sms',
+      date_joined: 'date_joined',
     });
 
     if (this.props.update) {
       formData.append('id', this.props.update.id);
     }
-
-    alert(JSON.stringify(formData));
 
     this.props.createOrUpdateMember(formData);
   };
@@ -75,6 +76,9 @@ function mapDispatchToProps(dispatch) {
     },
     goBack() {
       dispatch(goBack());
+    },
+    routerPush(path) {
+      dispatch(routerPush(path));
     },
   };
 }

@@ -78,7 +78,7 @@ export function createOrUpdateMember(memberData, dontRedirect) {
           ),
         );
         dispatch(fetchAll());
-        if (dontRedirect) {
+        if (!dontRedirect) {
           dispatch(push('/member'));
         }
       } else {

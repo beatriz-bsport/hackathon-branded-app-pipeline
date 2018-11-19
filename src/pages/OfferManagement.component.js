@@ -114,8 +114,13 @@ export class OfferManagement extends Component<Props, State> {
       firstname: 'first_name',
       email: 'email',
       phone: 'phone.phone_number',
-      sex: 'gender',
+      gender: 'gender',
       avatar: 'photo',
+      birthdayYear: 'birthday',
+      membership_ID: 'membership_ID',
+      accept_email: 'accept_email',
+      accept_sms: 'accept_sms',
+      date_joined: 'date_joined',
     });
 
     if (this.props.update) {

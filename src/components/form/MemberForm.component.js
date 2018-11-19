@@ -14,6 +14,7 @@ import {
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import PhoneInput from 'react-phone-number-input';
+import DatePicker from 'material-ui-pickers/DatePicker';
 import { FormField } from '../input';
 import { AvatarUploader } from '..';
 import { Moment } from '../../i18n';
@@ -46,6 +47,7 @@ type State = {
   sex: string,
   membership_ID: ?string,
   birthdayYear: ?number,
+  date_joined: ?Object,
   avatar: *,
   processing: boolean,
 };
@@ -62,6 +64,7 @@ export class MemberForm extends Component<Props, State> {
     birthdayYear: null,
     accept_email: true,
     accept_sms: true,
+    date_joined: Moment(),
   };
 
   constructor(props) {
@@ -83,6 +86,15 @@ export class MemberForm extends Component<Props, State> {
           'YYYY-MM-DD',
         ).year();
       }
+      if (props.initial.date_joined) {
+        this.state.date_joined = Moment(
+          props.initial.date_joined,
+          'YYYY-MM-DD',
+        );
+      }
+      if (props.initial.sex) {
+        this.state.gender = props.initial.sex;
+      }
     }
   }
 
@@ -103,6 +115,7 @@ export class MemberForm extends Component<Props, State> {
       avatar,
       accept_email,
       accept_sms,
+      date_joined,
     } = this.state;
 
     const data = {
@@ -122,6 +135,9 @@ export class MemberForm extends Component<Props, State> {
 
     if (birthdayYear) {
       data.birthdayYear = parseInt(birthdayYear, 10);
+    }
+    if (date_joined) {
+      data.date_joined = Moment(date_joined).format('YYYY-MM-DD');
     }
 
     this.props.onSubmit(data);
@@ -196,15 +212,27 @@ export class MemberForm extends Component<Props, State> {
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <TextField
-                type="number"
-                value={this.state.birthdayYear}
-                shrink={this.state.birthdayYear}
-                onChange={(e) =>
-                  this.onFormFieldChange('birthdayYear')(e.target.value)
-                }
-                label={t('form.member.birthdayYear')}
-              />
+              <Grid container direction="row" spacing={16}>
+                <Grid item>
+                  <TextField
+                    type="number"
+                    value={this.state.birthdayYear}
+                    shrink={this.state.birthdayYear}
+                    onChange={(e) =>
+                      this.onFormFieldChange('birthdayYear')(e.target.value)
+                    }
+                    label={t('form.member.birthdayYear')}
+                  />
+                </Grid>
+                <Grid item>
+                  <DatePicker
+                    format="DD/MM/YYYY"
+                    value={this.state.date_joined}
+                    label={t('member.date_joined')}
+                    onChange={(d) => this.setState({ date_joined: Moment(d) })}
+                  />
+                </Grid>
+              </Grid>
             </Grid>
             <Grid item xs={12} md={6}>
               <PhoneInput

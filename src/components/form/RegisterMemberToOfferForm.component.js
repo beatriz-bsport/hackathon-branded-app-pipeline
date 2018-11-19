@@ -7,23 +7,19 @@ import {
   Grid,
   Typography,
   List,
-  withStyles,
 } from '@material-ui/core';
 import WarningIcon from '@material-ui/icons/Warning';
 import { translate } from 'react-i18next';
 
 import ConsumerPackRowItem from '../payment-pack/ConsumerPackRowItem.component';
 
-const styles = (theme) => ({
-  container: {},
-});
-
 type Props = {
   compatiblePacks: Array<PaymentPack>,
   member: Member,
   onCancel: () => void,
   t: (x: string) => string,
-  classes: Object,
+  loading: boolean,
+  subscribeToOffer: (id) => void,
 };
 
 export class RegisterMemberToOfferForm extends Component<Props> {
@@ -90,4 +86,4 @@ export class RegisterMemberToOfferForm extends Component<Props> {
   }
 }
 
-export default withStyles(styles)(translate()(RegisterMemberToOfferForm));
+export default translate()(RegisterMemberToOfferForm);

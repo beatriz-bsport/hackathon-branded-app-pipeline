@@ -50,6 +50,7 @@ function bookingUpdateWrapper(apiCall, bookingId) {
         return dispatch(bookingStatusUpdated(booking));
       }
     } catch (err) {
+      console.log(err);
     }
     return dispatch(errorUpdatingBookingStatus(bookingId));
   };

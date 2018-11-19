@@ -22,6 +22,7 @@ type Props = {
   hideConsumer: ?boolean,
   incrementCredit: (id: number) => void,
   decrementCredit: (id: number) => void,
+  subscribeToOffer: ?(id: number) => void,
   t: (x: string) => string,
 };
 

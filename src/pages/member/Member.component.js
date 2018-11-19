@@ -37,7 +37,7 @@ import {
   paymentPack as paymentPackActions,
 } from '../../actions';
 import { Avatar } from '../../components';
-import BookingTable from '../../components/booking/BookingTable.container'
+import BookingTable from '../../components/booking/BookingTable.container';
 import ConsumerPackRowItem from '../../components/payment-pack/ConsumerPackRowItem.component';
 import { formatAsDatetime } from '../../datetime';
 import type {
@@ -55,16 +55,21 @@ type Props = {
   allMembers: Array<MemberSimplified>,
   bookings: Array<Booking>,
   bookingOptions: Array<BookingOption>,
-  fetchMember: (id: number) => void,
-  fetchMemberBookings: (id: number) => void,
   classes: Object,
   match: Object,
+  paymentPacks: Array<PaymentPack>,
+
+  fetchMember: (id: number) => void,
+  fetchMemberBookings: (id: number) => void,
   confirmBooking: (id: number) => void,
   confirmBookingAttendance: (id: number) => void,
   discardBooking: (id: number) => void,
   discardBookingAttendance: (id: number) => void,
   editMember: (id: number) => void,
   billMember: (id: number) => void,
+  incrementCredit: (id: number) => void,
+  decrementCredit: (id: number) => void,
+
   goBack: () => void,
   t: (x: string) => string,
 };

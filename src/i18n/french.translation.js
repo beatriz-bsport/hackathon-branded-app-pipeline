@@ -91,7 +91,6 @@ export default {
     offer: {
       noPackAvailableForOfferPurchase:
         'Aucun abonnement compatible possédé par ce membre !',
-      subscribeToOffer: 'Inscrire',
       backToCalendar: 'Retour au calendrier',
       disabled: 'annulé',
       substitute: 'Remplaçant',

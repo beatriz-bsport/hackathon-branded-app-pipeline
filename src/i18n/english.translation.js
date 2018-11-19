@@ -101,7 +101,6 @@ export default {
     offer: {
       noPackAvailableForOfferPurchase:
         'No compatible pass found for this member!',
-      subscribeToOffer: 'Register',
       backToCalendar: 'Back to calendar',
       compatiblePacks: 'Pass compatible',
       noCompatiblePacks: 'There is no pass compatible with this session',

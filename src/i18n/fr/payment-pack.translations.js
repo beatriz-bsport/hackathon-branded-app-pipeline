@@ -1,4 +1,5 @@
 export default {
+  subscribeToOffer: 'Inscrire',
   createOrUpdate: {
     succes: 'Abonnement enregistré',
     fail: "Erreur lors de l'enregistrement de l'abonnement",

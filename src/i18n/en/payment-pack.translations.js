@@ -1,4 +1,5 @@
 export default {
+  subscribeToOffer: 'Register',
   createOrUpdate: {
     succes: 'Pass successfully saved',
     fail: "Error: pass would not be saved",

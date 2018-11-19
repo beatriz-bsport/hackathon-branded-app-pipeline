@@ -40,26 +40,30 @@ import { mapFormData } from './form.utils';
 
 type Props = {
   createInvoice: ([*]) => void,
-  fetchBookings: (offerId: number) => void,
   offerId: number,
   update: Offer,
-  createOrUpdateMember: (data: [*]) => void,
   clearSearch: () => void,
-  members: Array<Member>,
   searchedText: string,
-  bookings: Array<Booking>,
-  paymentPacks: Array<PaymentPack>,
-  offers: Array<Event>,
   offer: ?Offer,
-  activities: Array<Activity>,
   bookingLoading: ?boolean,
-  bookingOptions: Array<BookingOption>,
-  discardOption: (id: number) => void,
   bookingUpdaters: Object,
   memberCreationErrors: boolean,
   memberCreationPending: boolean,
-  memberToRegister: ?Member,
+  compatiblePacksLoading: boolean,
+
+  bookingOptions: Array<BookingOption>,
+  activities: Array<Activity>,
+  bookings: Array<Booking>,
+  members: Array<Member>,
+  paymentPacks: Array<PaymentPack>,
+  offers: Array<Event>,
+  compatiblePacks: Array<PaymentPack>,
+
+  fetchBookings: (offerId: number) => void,
+  fetchCompatiblePacks: (offerId: number) => void,
+  createOrUpdateMember: (data: [*]) => void,
   addToOffer: ({ offerId: number, consumerPaymentPackId: number }) => void,
+  discardOption: (id: number) => void,
 
   goBack: () => void,
   t: (x: string) => string,
@@ -69,6 +73,7 @@ type Props = {
 type State = {
   quickInvoices: [*],
   addMemberModal: boolean,
+  memberToRegister: ?Member,
 };
 export class OfferManagement extends Component<Props, State> {
   state = {
@@ -278,6 +283,8 @@ export class OfferManagement extends Component<Props, State> {
       classes,
     } = this.props;
 
+    const { memberToRegister } = this.state;
+
     return (
       <Grid container direction="row" spacing={16}>
         <Grid item xs={12} md={6}>
@@ -323,11 +330,11 @@ export class OfferManagement extends Component<Props, State> {
             {t('offer.backToCalendar')}
           </Button>
         </Grid>
-        <SimpleModal open={!!this.state.memberToRegister}>
+        <SimpleModal open={!!memberToRegister}>
           <RegisterMemberToOfferForm
             offer={this.props.offer}
-            member={this.state.memberToRegister}
-            open={!!this.state.memberToRegister}
+            member={memberToRegister}
+            open={!!memberToRegister}
             loading={this.props.compatiblePacksLoading}
             compatiblePacks={this.props.compatiblePacks}
             onCancel={() => this.setState({ memberToRegister: null })}

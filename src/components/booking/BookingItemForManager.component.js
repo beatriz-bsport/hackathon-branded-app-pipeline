@@ -13,15 +13,18 @@ import {
 import CachedIcon from '@material-ui/icons/Cached';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import { translate } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 
 import RedButton from '../button/RedButton.component';
 import { formatAsDatetime } from '../../datetime';
 
 type Props = {
-  t: (x: string) => string,
+  t: TFunction,
   classes: Object,
   heading: ?string,
   booking: Object,
+  paymentPacks: Array<PaymentPack>,
+  invoices: Array<Invoice>,
   showQuickInvoiceButton: boolean,
   onQuickInvoiceClick: () => void,
   bookingUpdaters: {
@@ -104,10 +107,9 @@ export class BookingItemForManager extends Component<Props> {
   };
 
   getStatusText = (booking: Booking) => {
-    const { t } = this.props;
     const { paymentPacks, invoices } = this.props;
     if (booking.consumer_payment_pack && booking.payment_pack) {
-      const payment_pack = this.props.paymentPacks.find(
+      const payment_pack = paymentPacks.find(
         (pp) => pp.id === booking.payment_pack,
       );
       const consumer_payment_pack = (
@@ -123,9 +125,7 @@ export class BookingItemForManager extends Component<Props> {
         available_credits / credits < 0.1 ? 'error' : 'primary',
       ];
     }
-    const invoice = this.props.invoices.find(
-      (inv) => inv.uuid === booking.invoice,
-    );
+    const invoice = invoices.find((inv) => inv.uuid === booking.invoice);
     if (invoice) {
       if (invoice.fully_payed) {
         return ['Payé via application bsport', 'primary'];

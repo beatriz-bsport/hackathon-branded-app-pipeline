@@ -32,7 +32,7 @@ export class InvoiceFormPage extends Component<Props> {
   componentDidMount() {
     this.uuid = this.props.match.params.id;
     this.props.fetchInvoice(this.uuid);
-    this.props.resetCreateOrUpdateStatus()
+    this.props.resetCreateOrUpdateStatus();
   }
 
   updateInvoice = (invoiceData: InvoiceData) => {

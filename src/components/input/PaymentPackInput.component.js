@@ -47,11 +47,14 @@ export function PaymentPackInput(props: Props) {
         <MenuItem value={null}>
           <em> - </em>
         </MenuItem>
-        {paymentPacks.map((pp) => (
-          <MenuItem value={pp.id}>
-            <PaymentPackSummary noDivider paymentPack={pp} />
-          </MenuItem>
-        ))}
+        {paymentPacks
+          .asMutable()
+          .sort((pp, pp_) => pp.name > pp_.name)
+          .map((pp) => (
+            <MenuItem value={pp.id}>
+              <PaymentPackSummary noDivider paymentPack={pp} />
+            </MenuItem>
+          ))}
       </Select>
       <FormHelperText>{helperText}</FormHelperText>
     </FormControl>

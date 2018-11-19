@@ -22,6 +22,7 @@ function filterDataTable(table, dateRange) {
   );
 }
 
+/*
 function addFakeData(table, dateRange) {
   const dates = [];
   let date = moment(dateRange.start);
@@ -33,6 +34,7 @@ function addFakeData(table, dateRange) {
 
   return table.concat(dates);
 }
+*/
 
 function discretizeDataBy(table, dateRange) {
   const duration = moment.duration(dateRange.end.diff(dateRange.start));

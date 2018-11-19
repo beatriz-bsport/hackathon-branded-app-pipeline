@@ -1,13 +1,10 @@
 // @flow
 
-import moment from 'moment';
 import * as React from 'react';
-import * as Recharts from 'recharts';
 import {
-  Line,
+  BarChart as BarChartBase,
   ResponsiveContainer,
   Bar,
-  Area,
   Legend,
   Tooltip,
   YAxis,
@@ -19,6 +16,10 @@ type Props = {
   height: number,
   data: *,
   color: 'blue' | 'blueLight' | 'yellow' | 'red',
+  xKey: Object,
+  yKey: Object,
+  xFormatter: Object,
+  domain: Object,
 };
 
 const colors = {
@@ -54,27 +55,18 @@ function getStyle(color) {
 }
 
 export function SimpleBarChart(props: Props) {
-  const {
-    height,
-    data,
-    color,
-    xKey,
-    yKey,
-    yFormatter,
-    xFormatter,
-    domain,
-  } = props;
+  const { height, data, color, xKey, yKey, xFormatter, domain } = props;
   const style = getStyle(color);
   return (
     <ResponsiveContainer width="100%" height={height}>
-      <Recharts.BarChart
+      <BarChartBase
         data={data}
         margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
       >
         <XAxis dataKey={xKey} domain={domain} tickFormatter={xFormatter} hide />
         <YAxis dataKey={yKey} hide />
         <Bar dataKey={yKey} fill={style.fill} />
-      </Recharts.BarChart>
+      </BarChartBase>
     </ResponsiveContainer>
   );
 }
@@ -94,7 +86,7 @@ export function BarChart(props: BarChartProps) {
   } = props;
   return (
     <ResponsiveContainer width="100%" height={height}>
-      <Recharts.BarChart
+      <BarChartBase
         data={data}
         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
       >
@@ -109,7 +101,7 @@ export function BarChart(props: BarChartProps) {
           name={props.label}
           label={{ position: 'top', formatter: yFormatter }}
         />
-      </Recharts.BarChart>
+      </BarChartBase>
     </ResponsiveContainer>
   );
 }

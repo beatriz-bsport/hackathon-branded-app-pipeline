@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 
 import { MetaActivityCard } from '../../components';
-import { stats as statsActions } from '../../actions';
+// import { stats as statsActions } from '../../actions';
 import type { MetaActivity, Stat } from '../../api/types';
 
 const styles = (theme) => ({

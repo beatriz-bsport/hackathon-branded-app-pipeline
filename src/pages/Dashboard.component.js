@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React from 'react';
 
 import moment from 'moment';
 import type { Moment } from 'moment';
@@ -39,6 +39,7 @@ type Props = {
   changeDateRange: (Moment, Moment, ?string) => void,
   mainChartButtons: *[],
   mainChartData: ChartData,
+  mainChartOptions: Object,
 };
 
 function dateFormatter(kind) {

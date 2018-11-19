@@ -79,6 +79,9 @@ export class InvoiceItemSelector extends Component<Props> {
       showCancel,
     } = this.props;
     const { paymentPackId, offerId } = this.state;
+    const selectedPaymentPack = paymentPacks.find(
+      (pp) => pp.id === paymentPackId,
+    );
     const { expandedSelector } = this.state;
     // <Tab label={t('payment.addOffer')} value={SELECTOR_OFFER} />
     return (
@@ -130,6 +133,7 @@ export class InvoiceItemSelector extends Component<Props> {
                 </Grid>
                 <Grid item>
                   <DatePicker
+                    disabled={!(selectedPaymentPack || {}).duration_days}
                     value={this.state.date_bought}
                     onChange={(date_bought) =>
                       this.setState({ date_bought: Moment(date_bought) })

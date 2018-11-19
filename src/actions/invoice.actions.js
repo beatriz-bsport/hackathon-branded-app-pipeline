@@ -3,6 +3,7 @@ import api from '../api';
 import types from './invoice.types';
 import { snackbarSuccess, snackbarError } from './snackbar.actions';
 import { fetchAll as fetchAllPaymentPacks } from './paymentPack.actions';
+import { fetchAll as fetchAllMembers } from './member.actions';
 
 export function startFetchInvoices() {
   return { type: types.START_FETCH_INVOICES };
@@ -94,6 +95,7 @@ export function createOrUpdateInvoice(invoiceData, noRedirect) {
         dispatch(snackbarSuccess('invoice.forms.create.success'));
       }
       dispatch(fetchAllPaymentPacks());
+      dispatch(fetchAllMembers()); // TODO optimize not to reload everything
       if (!noRedirect) {
         dispatch(pushRouter('/invoice'));
       }

@@ -147,6 +147,11 @@ export class Planning extends Component<Props, State> {
   onDateClick = (date: Object) => {
     this.setState({ date });
     this.setState({ selectedOffer: null });
+    this.props.fetchOffersByDay({
+      year: Moment(date).year(),
+      month: Moment(date).month() + 1,
+      day: Moment(date).date(),
+    });
   };
 
   onOfferSelected = (offer: Offer) => {

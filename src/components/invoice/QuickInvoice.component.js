@@ -252,7 +252,9 @@ export class QuickInvoice extends Component<Props> {
     return (
       <InvoiceItemSelector
         onAddOffer={this.addOffer}
-        onAddPaymentPack={this.addPaymentPack}
+	onAddPaymentPack={this.addPaymentPack}
+	showCancel
+	onCancel={() => this.setState({ showInvoiceItemSelector: false})}
       />
     );
   };

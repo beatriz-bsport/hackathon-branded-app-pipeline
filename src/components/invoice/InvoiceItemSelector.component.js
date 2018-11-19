@@ -25,6 +25,8 @@ type Props = {
   events: Array<Event>,
   activities: Array<Activity>,
   paymentPacks: Array<PaymentPack>,
+  showCancel: ?boolean,
+  onCancel: ?() => void,
   onAddOffer: (offerId: number) => void,
   onAddPaymentPack: (paymentPackId: number) => void,
 };
@@ -45,12 +47,10 @@ export class InvoiceItemSelector extends Component<Props> {
   };
 
   storePaymentPackId = (event) => {
-    console.log(event);
     this.setState({ paymentPackId: event });
   };
 
   storeOfferId = (event) => {
-    console.log(event);
     this.setState({ offerId: event });
   };
 
@@ -69,7 +69,15 @@ export class InvoiceItemSelector extends Component<Props> {
   };
 
   render() {
-    const { events, activities, paymentPacks, classes, t } = this.props;
+    const {
+      events,
+      activities,
+      paymentPacks,
+      classes,
+      t,
+      onCancel,
+      showCancel,
+    } = this.props;
     const { paymentPackId, offerId } = this.state;
     const { expandedSelector } = this.state;
     // <Tab label={t('payment.addOffer')} value={SELECTOR_OFFER} />
@@ -127,13 +135,23 @@ export class InvoiceItemSelector extends Component<Props> {
                       this.setState({ date_bought: Moment(date_bought) })
                     }
                     format="DD-MM-YYYY"
-                    label="Date d'achat"
+                    label={t('form.invoice.dateStartPaymentPack')}
                   />
                 </Grid>
               </Grid>
             </Collapse>
           </Grid>
           <Grid item className={classes.addButton}>
+            {showCancel ? (
+              <Button
+                color="secondary"
+                variant="outlined"
+                onClick={onCancel}
+                className={classes.cancelButton}
+              >
+                {t('form.invoice.backToInvoiceItemList')}
+              </Button>
+            ) : null}
             <Button
               variant="contained"
               color="primary"
@@ -173,6 +191,9 @@ const styles = (theme) => ({
   },
   leftIcon: {
     marginRight: theme.spacing.unit,
+  },
+  cancelButton: {
+    marginRight: theme.spacing.unit * 2,
   },
 });
 

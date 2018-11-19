@@ -14,8 +14,10 @@ import {
 import AddIcon from '@material-ui/icons/Add';
 import { translate } from 'react-i18next';
 
+import DatePicker from 'material-ui-pickers/DatePicker';
 import OfferInput from '../input/OfferInput.component';
 import PaymentPackInput from '../input/PaymentPackInput.component';
+import { Moment } from '../../i18n';
 
 type Props = {
   t: (x: string) => string,
@@ -35,6 +37,7 @@ export class InvoiceItemSelector extends Component<Props> {
     expandedSelector: SELECTOR_PAYMENT_PACK,
     offerId: null,
     paymentPackId: null,
+    date_bought: Moment(),
   };
 
   onSelectorChange = (event, value) => {
@@ -58,7 +61,10 @@ export class InvoiceItemSelector extends Component<Props> {
         break;
       case SELECTOR_PAYMENT_PACK:
       default:
-        this.props.onAddPaymentPack(this.state.paymentPackId);
+        this.props.onAddPaymentPack(
+          this.state.paymentPackId,
+          this.state.date_bought,
+        );
     }
   };
 
@@ -100,12 +106,31 @@ export class InvoiceItemSelector extends Component<Props> {
               />
             </Collapse>
             <Collapse in={SELECTOR_PAYMENT_PACK === expandedSelector}>
-              <PaymentPackInput
-                value={paymentPackId}
-                paymentPacks={paymentPacks}
-                onChange={this.storePaymentPackId}
-                helperText={t('form.invoice.paymentPackHelper')}
-              />
+              <Grid
+                container
+                direction="column"
+                spacing={16}
+                alignItems="flex-start"
+              >
+                <Grid item>
+                  <PaymentPackInput
+                    value={paymentPackId}
+                    paymentPacks={paymentPacks}
+                    onChange={this.storePaymentPackId}
+                    helperText={t('form.invoice.paymentPackHelper')}
+                  />
+                </Grid>
+                <Grid item>
+                  <DatePicker
+                    value={this.state.date_bought}
+                    onChange={(date_bought) =>
+                      this.setState({ date_bought: Moment(date_bought) })
+                    }
+                    format="DD-MM-YYYY"
+                    label="Date d'achat"
+                  />
+                </Grid>
+              </Grid>
             </Collapse>
           </Grid>
           <Grid item className={classes.addButton}>

@@ -88,7 +88,10 @@ export class InvoiceForm extends Component<Props, State> {
     const data = {
       offer_ids: offerInvoiceItems.map((oii) => oii.id),
       voucher: -voucherInvoiceItems.reduce(getTotal, 0),
-      payment_pack_ids: paymentPackInvoiceItems.map((ppii) => ppii.id),
+      payment_pack_ids: paymentPackInvoiceItems.map((ppii) => [
+        ppii.id,
+        ppii.date_bought,
+      ]),
       payment_items: paymentItems,
     };
     this.props.createOrUpdate(data);
@@ -217,7 +220,7 @@ export class InvoiceForm extends Component<Props, State> {
     }
   };
 
-  onAddPaymentPack = (paymentPackId: number) => {
+  onAddPaymentPack = (paymentPackId: number, date_bought: Object) => {
     const paymentPack = this.props.paymentPacks.find(
       (p) => p.id === paymentPackId,
     );
@@ -229,7 +232,8 @@ export class InvoiceForm extends Component<Props, State> {
             name: paymentPack.name,
             price: paymentPack.price,
             id: paymentPack.id,
-            subtitle: formatAsDate(Moment()),
+            subtitle: formatAsDate(date_bought || Moment()),
+            date_bought: date_bought.format('YYYY-MM-DD'),
           },
         ],
       }));

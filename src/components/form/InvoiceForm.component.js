@@ -201,9 +201,7 @@ export class InvoiceForm extends Component<Props, State> {
 
   onAddOffer = (offerId: number) => {
     const offer = this.props.offers.find((o) => o.id === offerId);
-    const { name } = this.props.activities.find(
-      (a) => a.id === offer.activity_id,
-    );
+    const { name } = this.props.activities.find((a) => a.id === offer.activity);
     if (offer) {
       this.setState((prevState) => ({
         offerInvoiceItems: [
@@ -344,7 +342,7 @@ export class InvoiceForm extends Component<Props, State> {
               onAddPaymentPack={this.onAddPaymentPack}
               paymentPacks={paymentPacks}
               activities={activities}
-              offers={offers}
+              events={offers}
             />
           </Grid>
           <Grid item>
@@ -408,6 +406,29 @@ export class InvoiceForm extends Component<Props, State> {
     );
   };
 
+  renderTotal = () => {
+    const { t, classes } = this.props;
+    const finalPrice = this.getFinalPrice();
+    return (
+      <div>
+        <Divider />
+        <Grid
+          container
+          direction="row"
+          justify="space-between"
+          className={classes.totalLine}
+        >
+          <Grid item>
+            <Typography variant="h6">{t('payment.total')}</Typography>
+          </Grid>
+          <Grid>
+            <Typography variant="h6">{finalPrice} €</Typography>
+          </Grid>
+        </Grid>
+      </div>
+    );
+  };
+
   renderLeftPanel = () => {
     const { uneditableInvoiceItems } = this.props;
     const {
@@ -415,19 +436,22 @@ export class InvoiceForm extends Component<Props, State> {
       paymentPackInvoiceItems,
       voucherInvoiceItems,
     } = this.state;
-    const finalPrice = this.getFinalPrice();
 
     return (
-      <InvoiceItemList
-        offerInvoiceItems={offerInvoiceItems}
-        deleteOfferInvoiceItem={this.deleteOfferInvoiceItem}
-        deletePPackInvoiceItem={this.deletePPackInvoiceItem}
-        deleteVoucher={this.deleteVoucher}
-        paymentPackInvoiceItems={paymentPackInvoiceItems}
-        uneditableInvoiceItems={uneditableInvoiceItems || []}
-        voucherInvoiceItems={voucherInvoiceItems}
-        finalPrice={finalPrice}
-      />
+      <Grid container direction="column" justify="space-between">
+        <Grid item>
+          <InvoiceItemList
+            offerInvoiceItems={offerInvoiceItems}
+            deleteOfferInvoiceItem={this.deleteOfferInvoiceItem}
+            deletePPackInvoiceItem={this.deletePPackInvoiceItem}
+            deleteVoucher={this.deleteVoucher}
+            paymentPackInvoiceItems={paymentPackInvoiceItems}
+            uneditableInvoiceItems={uneditableInvoiceItems || []}
+            voucherInvoiceItems={voucherInvoiceItems}
+          />
+        </Grid>
+        <Grid item>{this.renderTotal()}</Grid>
+      </Grid>
     );
   };
 
@@ -490,6 +514,9 @@ const styles = (theme) => ({
     paddingTop: theme.spacing.unit * 2,
     paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
+  },
+  totalLine: {
+    padding: theme.spacing.unit * 2,
   },
 });
 

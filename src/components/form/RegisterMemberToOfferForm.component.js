@@ -1,0 +1,93 @@
+// @flow
+import React, { Component } from 'react';
+
+import {
+  CircularProgress,
+  Button,
+  Grid,
+  Typography,
+  List,
+  withStyles,
+} from '@material-ui/core';
+import WarningIcon from '@material-ui/icons/Warning';
+import { translate } from 'react-i18next';
+
+import ConsumerPackRowItem from '../payment-pack/ConsumerPackRowItem.component';
+
+const styles = (theme) => ({
+  container: {},
+});
+
+type Props = {
+  compatiblePacks: Array<PaymentPack>,
+  member: Member,
+  onCancel: () => void,
+  t: (x: string) => string,
+  classes: Object,
+};
+
+export class RegisterMemberToOfferForm extends Component<Props> {
+  renderContent = () => {
+    const {
+      loading,
+      subscribeToOffer,
+      compatiblePacks,
+      t,
+      member,
+    } = this.props;
+    if (loading) {
+      return <CircularProgress />;
+    }
+    const availablePacks = compatiblePacks.filter((pack) =>
+      pack.consumer_payment_packs.find((cpp) => cpp.member_id === member.id),
+    );
+
+    if (!availablePacks.length) {
+      return (
+        <Grid container direction="row" spacing={24}>
+          <Grid item>
+            <WarningIcon color="error" />
+          </Grid>
+          <Grid item>
+            <Typography>
+              {t('offer.noPackAvailableForOfferPurchase')}
+            </Typography>
+          </Grid>
+        </Grid>
+      );
+    }
+    return (
+      <List>
+        {availablePacks.map((compatiblePack) => (
+          <ConsumerPackRowItem
+            paymentPack={compatiblePack}
+            hideConsumer
+            subscribeToOffer={subscribeToOffer}
+            consumerPack={compatiblePack.consumer_payment_packs.find(
+              (cpp) => cpp.member_id === member.id,
+            )}
+          />
+        ))}
+      </List>
+    );
+  };
+
+  render() {
+    const { t, onCancel } = this.props;
+    return (
+      <Grid container spacing={24} direction="column">
+        <Grid item>
+          <Typography variant="h3">Inscription à la séance</Typography>
+        </Grid>
+        <Grid item>{this.renderContent()}</Grid>
+        <Grid item>
+          <Button variant="outlined" onClick={onCancel}>
+            {t('common.cancel')}
+          </Button>
+        </Grid>
+      </Grid>
+    );
+  }
+}
+
+export default withStyles(styles)(translate()(RegisterMemberToOfferForm));

@@ -26,6 +26,7 @@ import { PaymentPackList, PaymentPackForm } from './payment-pack';
 import { CoachList, CoachPerformance, CoachForm } from './coach';
 import { Member, MemberList, MemberForm } from './member';
 import { EstablishmentMap, EstablishmentFormPage } from './establishment';
+import OfferManagement from './OfferManagement.component';
 import SearchResults from './SearchResults.component';
 
 type Props = {
@@ -60,6 +61,7 @@ export class Backoffice extends Component<Props> {
         <main className={classes.content}>
           <div>
             <Switch>
+              <Route path="/offer/:id" component={OfferManagement} />
               <Route path="/calendar" component={Planning} />
               <Route exact path="/activity" component={MetaActivityList} />
               <Route path="/activity/:id" component={MetaActivity} />

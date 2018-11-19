@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import {
   TextField,
   Button,
-  Paper,
   FormControl,
   FormControlLabel,
   FormLabel,
@@ -14,7 +13,6 @@ import {
   withStyles,
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import PhoneInput from 'react-phone-number-input';
 import { FormField } from '../input';
 import { AvatarUploader } from '..';
@@ -146,7 +144,7 @@ export class MemberForm extends Component<Props, State> {
       ? `${firstname} ${lastname}`
       : t('member.forms.create.title');
     return (
-      <Paper className={classes.paperContainer}>
+      <div className={classes.paperContainer}>
         <form target="/member" onSubmit={this.onSubmit}>
           <Typography variant="title">{title}</Typography>
           <Grid container spacing={16}>
@@ -255,9 +253,9 @@ export class MemberForm extends Component<Props, State> {
             <Grid item xs={12}>
               <Grid container direction="row" justify="flex-end" spacing={16}>
                 <Grid item>
-                  <Link to="/member" style={{ textDecoration: 'none' }}>
-                    <Button>{t('form.discard')}</Button>
-                  </Link>
+                  <Button onClick={this.props.onCancel}>
+                    {t('form.discard')}
+                  </Button>
                 </Grid>
                 <Grid item>
                   <Button
@@ -273,7 +271,7 @@ export class MemberForm extends Component<Props, State> {
             </Grid>
           </Grid>
         </form>
-      </Paper>
+      </div>
     );
   }
 }

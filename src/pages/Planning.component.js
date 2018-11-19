@@ -5,8 +5,10 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import { withStyles, Paper, Grid, Typography } from '@material-ui/core';
+import { withStyles, Button, Paper, Grid, Typography } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 import { translate } from 'react-i18next';
+import { push as pushRouter } from 'react-router-redux';
 
 import {
   SimpleModal,
@@ -15,8 +17,13 @@ import {
   OfferCard,
   TimeTable,
   Calendar,
+  OfferFormWithActivity,
 } from '../components';
-import { offer as offerActions, booking as bookingActions } from '../actions';
+import {
+  offer as offerActions,
+  booking as bookingActions,
+  activity as activityActions,
+} from '../actions';
 import { Moment } from '../i18n';
 import api from '../api';
 import type {
@@ -29,14 +36,14 @@ import type {
 } from '../api/types';
 
 const styles = (theme) => ({
-  container: {
-    marginBottom: theme.spacing.unit * 2,
-  },
   calendarContainer: {
     padding: theme.spacing.unit * 2,
   },
   emptyOffer: {
     margin: theme.spacing.unit * 3,
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
   },
 });
 
@@ -51,18 +58,23 @@ type Props = {
   fetchBookings: (id: number) => void,
   fetchCompatiblePacks: (id: number) => void,
   fetchAllOffers: () => void,
+  fetchAllActivities: () => void,
   offers: Array<Offer>,
   bookingLoading: boolean,
   bookings: Array<Booking>,
   bookingOptions: Array<BookingOption>,
   timetableLoading: boolean,
   activities: Array<Object>,
+  metaActivities: Array<MetaActivity>,
   coaches: Array<Coach>,
   coachesLoading: boolean,
   establishments: Array<Establishment>,
   establishmentsLoading: boolean,
   compatiblePacks: Array<PaymentPack>,
   compatiblePacksLoading: boolean,
+  fetchOffersByDay: ({ year: number, month: number, day: number }) => void,
+  events: Array<Event>,
+  goToOfferManagement: () => void,
 };
 
 type State = {
@@ -72,22 +84,32 @@ type State = {
   deleteModalOpened: boolean,
   editOfferProcessing: boolean,
   deletingOffer: boolean,
+  createOfferModalOpened: boolean,
+  creatingOffers: boolean,
 };
 
 export class Planning extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
+    const date = Moment()
+      .set('hours', 0)
+      .set('minutes', 0)
+      .set('milliseconds', 0);
     this.state = {
       editModalOpened: false,
       deleteModalOpened: false,
       editOfferProcessing: false,
       deletingOffer: false,
       selectedOffer: null,
-      date: Moment()
-        .set('hours', 0)
-        .set('minutes', 0)
-        .set('milliseconds', 0),
+      date,
+      createOfferModalOpened: false,
+      creatingOffers: false,
     };
+    props.fetchOffersByDay({
+      year: date.year(),
+      month: date.month() + 1,
+      day: date.date(),
+    });
   }
 
   openEditModal = () => {
@@ -104,6 +126,14 @@ export class Planning extends Component<Props, State> {
       editModalOpened: false,
       deleteModalOpened: false,
     });
+  };
+
+  openCreateOfferModal = () => {
+    this.setState({ createOfferModalOpened: true });
+  };
+
+  closeCreateOffersModal = () => {
+    this.setState({ createOfferModalOpened: false });
   };
 
   onConfirmModal = async ({ offerId, data }) => {
@@ -198,6 +228,44 @@ export class Planning extends Component<Props, State> {
     return null;
   };
 
+  renderCreateModal = () => {
+    const { metaActivities, coaches, establishments } = this.props;
+    const { createOfferModalOpened, creatingOffers } = this.state;
+
+    return (
+      <SimpleModal open={createOfferModalOpened}>
+        <OfferFormWithActivity
+          metaActivities={metaActivities}
+          coaches={coaches}
+          establishments={establishments}
+          onSubmit={this.createOffers}
+          onCancel={this.closeCreateOffersModal}
+          processing={creatingOffers}
+        />
+      </SimpleModal>
+    );
+  };
+
+  createOffers = async (metaActivityId: number, data: Object) => {
+    this.setState({ creatingOffers: true });
+    try {
+      const response = await api.metaActivity.createOffers(
+        metaActivityId,
+        data,
+      );
+      if (response.status === 200) {
+        this.setState({ creatingOffers: false });
+        this.props.fetchAllOffers();
+        this.props.fetchAllActivities();
+        this.setState({ createOfferModalOpened: false });
+        return;
+      }
+      this.setState({ creatingOffers: false });
+    } catch (err) {
+      this.setState({ creatingOffers: false });
+    }
+  };
+
   renderDeleteModal = () => {
     const { selectedOffer, deleteModalOpened, deletingOffer } = this.state;
 
@@ -219,7 +287,9 @@ export class Planning extends Component<Props, State> {
   render() {
     const {
       offers,
+      events,
       classes,
+      t,
       bookings,
       bookingOptions,
       bookingLoading,
@@ -239,13 +309,13 @@ export class Planning extends Component<Props, State> {
     } = this.props;
     const { date, selectedOffer } = this.state;
 
-    const events = {};
-    offers.forEach((o) => {
+    const events_ = {};
+    events.forEach((o) => {
       const midnight = Moment(o.date_start).startOf('day');
-      if (!events[midnight]) {
-        events[midnight] = [];
+      if (!events_[midnight]) {
+        events_[midnight] = [];
       }
-      events[midnight].push(o);
+      events_[midnight].push(o);
     });
 
     const bookingUpdaters = {
@@ -256,31 +326,54 @@ export class Planning extends Component<Props, State> {
     };
 
     return (
-      <Grid container spacing={24} className={classes.container}>
+      <Grid container spacing={24}>
         <Grid item xs={12} lg={6}>
-          <Paper>
-            <Grid container direction="column">
-              <Grid item xs={12}>
-                <div className={classes.calendarContainer}>
-                  <Calendar events={events} onDateClick={this.onDateClick} />
-                </div>
-              </Grid>
-              <Grid item xs={12}>
-                <TimeTable
-                  date={date}
-                  onOfferSelected={this.onOfferSelected}
-                  offers={offers}
-                  activities={activities}
-                  loading={timetableLoading}
-                  selected={
-                    this.state.selectedOffer
-                      ? this.state.selectedOffer.id
-                      : null
-                  }
-                />
+          <Grid container direction="column" spacing={32} alignItems="stretch">
+            <Grid item>
+              <Paper>
+                <Grid container direction="column" alignItems="stretch">
+                  <Grid item>
+                    <div className={classes.calendarContainer}>
+                      <Calendar
+                        events={events_}
+                        onDateClick={this.onDateClick}
+                      />
+                    </div>
+                  </Grid>
+                  <Grid item>
+                    <TimeTable
+                      date={date}
+                      onOfferSelected={this.onOfferSelected}
+                      offers={offers.filter((o) =>
+                        Moment(o.date_start).isSame(Moment(date), 'day'),
+                      )}
+                      activities={activities}
+                      loading={timetableLoading}
+                      selected={
+                        this.state.selectedOffer
+                          ? this.state.selectedOffer.id
+                          : null
+                      }
+                    />
+                  </Grid>
+                </Grid>
+              </Paper>
+            </Grid>
+            <Grid item>
+              <Grid container item justify="center">
+                <Button
+                  variant="extendedFab"
+                  aria-label="Add"
+                  className={classes.button}
+                  color="primary"
+                  onClick={this.openCreateOfferModal}
+                >
+                  <AddIcon className={classes.leftIcon} />
+                  {t('activity.addOffers')}
+                </Button>
               </Grid>
             </Grid>
-          </Paper>
+          </Grid>
         </Grid>
         {selectedOffer ? (
           <Grid item xs={12} lg={6}>
@@ -299,6 +392,7 @@ export class Planning extends Component<Props, State> {
               onDeleteButtonClick={this.openDeleteModal}
               compatiblePacks={compatiblePacks}
               compatiblePacksLoading={compatiblePacksLoading}
+              goToOfferManagement={this.props.goToOfferManagement}
             />
           </Grid>
         ) : (
@@ -306,6 +400,7 @@ export class Planning extends Component<Props, State> {
         )}
         {this.renderEditModal()}
         {this.renderDeleteModal()}
+        {this.renderCreateModal()}
       </Grid>
     );
   }
@@ -313,7 +408,8 @@ export class Planning extends Component<Props, State> {
 
 function mapStateToProps(state) {
   return {
-    offers: state.offer.calendar,
+    offers: state.offer.offers,
+    events: state.offer.calendar,
     compatiblePacks: state.offer.compatiblePacks,
     compatiblePacksLoading: state.offer.compatiblePacksLoading,
     timetableLoading: state.activity.loading,
@@ -325,16 +421,23 @@ function mapStateToProps(state) {
     coachesLoading: state.coach.loading,
     establishments: state.establishment.all,
     establishmentsLoading: state.establishment.loading,
+    metaActivities: state.metaActivity.all,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    goToOfferManagement(offerId) {
+      dispatch(pushRouter(`/offer/${offerId}`));
+    },
     fetchCompatiblePacks(offerId) {
       dispatch(offerActions.fetchCompatiblePacks(offerId));
     },
     fetchAllOffers() {
       dispatch(offerActions.fetchAllOffers());
+    },
+    fetchAllActivities() {
+      dispatch(activityActions.fetchActivities());
     },
     fetchBookings(offerId) {
       dispatch(bookingActions.fetchBookingsByOffer(offerId));
@@ -353,6 +456,9 @@ function mapDispatchToProps(dispatch) {
     },
     discardOption(optionId) {
       dispatch(bookingActions.discardBookingOption(optionId));
+    },
+    fetchOffersByDay({ year, month, day }) {
+      dispatch(offerActions.fetchOffersByDay({ year, month, day }));
     },
   };
 }

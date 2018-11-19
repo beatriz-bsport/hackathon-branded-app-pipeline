@@ -32,7 +32,10 @@ import {
   Calendar,
   TimeTable,
 } from '../../components';
-import { metaActivity as metaActivityActions } from '../../actions';
+import {
+  metaActivity as metaActivityActions,
+  offer as offerActions,
+} from '../../actions';
 import type {
   Activity,
   Offer,
@@ -159,20 +162,23 @@ export class MetaActivity extends Component<Props, State> {
   };
 
   getCalendar = () => {
-    const { offers } = this.props.metaActivity;
-    const events = {};
-    for (const o of offers) {
+    const { metaActivity } = this.props;
+    const events = this.props.events.filter((e) =>
+      metaActivity.activities.find((a) => a.id === e.activity),
+    );
+    const events_ = {};
+    for (const o of events) {
       const midnight = Moment(o.date_start).startOf('day');
       // esling-disable-next-line
-      if (events.hasOwnProperty(midnight)) {
-        events[midnight].push(o);
+      if (events_.hasOwnProperty(midnight)) {
+        events_[midnight].push(o);
       } else {
-        events[midnight] = [o];
+        events_[midnight] = [o];
       }
     }
     return (
       <Calendar
-        events={events}
+        events={events_}
         onDateClick={this.handleDayClick}
         forceMonthDisplay
       />
@@ -181,6 +187,11 @@ export class MetaActivity extends Component<Props, State> {
 
   handleDayClick = (date: Object) => {
     this.setState({ dateSelected: date });
+    this.props.fetchOffersByDay({
+      year: date.year(),
+      month: date.month() + 1,
+      day: date.date(),
+    });
   };
 
   getActivitiesWithCalendar = () => {
@@ -210,7 +221,9 @@ export class MetaActivity extends Component<Props, State> {
               <TimeTable
                 date={dateSelected}
                 metaActivityId={metaActivity.id}
-                offers={offers}
+                offers={offers.filter(
+                  (o) => o.meta_activity_id === metaActivity.id,
+                )}
                 loading={timetableLoading}
                 activities={activities}
                 onOfferSelected={() => {}}
@@ -385,7 +398,8 @@ function mapStateToProps(state) {
     loading: state.metaActivity.loading,
     metaActivity: state.metaActivity.metaActivity,
     stats: state.stats.activities,
-    offers: state.offer.calendar,
+    events: state.offer.calendar,
+    offers: state.offer.offers,
     timetableLoading: state.activity.loading,
     activities: state.activity.all,
   };
@@ -395,6 +409,9 @@ function mapDispatchToProps(dispatch) {
   return {
     fetchMetaActivityDetails(id) {
       dispatch(metaActivityActions.fetchMetaActivityDetails(id));
+    },
+    fetchOffersByDay({ year, month, day }) {
+      dispatch(offerActions.fetchOffersByDay({ year, month, day }));
     },
   };
 }

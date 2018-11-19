@@ -202,7 +202,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
               <Hidden smDown implementation="css">
                 <Grid container alignItems="center" direction="row">
                   <Grid item className={classes.searchBar}>
-                    <SearchBar />
+                    <SearchBar changeLocation />
                   </Grid>
                   <Grid item>
                     <RefreshButton

@@ -7,10 +7,10 @@ import { translate } from 'react-i18next';
 import ActivityInput from './ActivityInput.component';
 import BaseOfferInput from './BaseOfferInput.component';
 
-import type { Offer, Activity } from '../../api/types';
+import type { Event, Activity } from '../../api/types';
 
 type Props = {
-  offers: Array<Offer>,
+  events: Array<Event>,
   activities: Array<Activity>,
   onChange: (number) => void,
   t: (x: string) => string,
@@ -32,12 +32,10 @@ export class OfferInput extends Component<Props, State> {
   };
 
   onSelectActivity = (activityId: ?number) => {
-    const { offers } = this.props;
+    const { events } = this.props;
     this.setState({
       activityId,
-      offersMatchingActivityId: offers.filter(
-        (o) => o.activity_id === activityId,
-      ),
+      offersMatchingActivityId: events.filter((e) => e.activity === activityId),
     });
   };
 
@@ -66,7 +64,7 @@ export class OfferInput extends Component<Props, State> {
             helperText={offerHelperText}
             value={offerId}
             disabled={!activityId}
-            offers={offersMatchingActivityId}
+            events={offersMatchingActivityId}
             onChange={this.onSelectOffer}
           />
         </Grid>

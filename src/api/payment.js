@@ -1,3 +1,4 @@
+import { PAYMENT_PACK as PAYMENT_METHOD_PAYMENT_PACK } from 'bsport-commons/lib/master-data/payment-methods';
 import { API_URI, PAYMENT_URI, getAuth, postAuth } from '../http';
 
 export async function consumerFetchCompatiblePass(offerId) {
@@ -9,12 +10,20 @@ export async function consumerPayWithConsumerPaymentPack(
   offerId,
   urlParams,
 ) {
-  const formatParams = Object.keys(urlParams)
-    .map((k) => `${k}=${urlParams[k]}`)
-    .join(',');
-  return postAuth(`${PAYMENT_URI}/buy/pass/offer/${offerId}?${formatParams}`, {
-    token: consumerPaymentPackId,
-  });
+  let formatParams = '';
+  if (urlParams) {
+    formatParams = Object.keys(urlParams)
+      .map((k) => `${k}=${urlParams[k]}`)
+      .join(',');
+  }
+  return postAuth(
+    `${PAYMENT_URI}/buy/${
+      PAYMENT_METHOD_PAYMENT_PACK.id
+    }/offer/${offerId}?${formatParams}`,
+    {
+      token: consumerPaymentPackId,
+    },
+  );
 }
 
 export async function consumerRequestOffer(offerId) {

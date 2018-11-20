@@ -157,6 +157,9 @@ export default {
         noPayedObject: 'Aucun',
         objectTypeLabel: 'Objet à créditer',
         activityHelper: "Choisissez l'activité puis la séance",
+        titleUnevenInvoice: 'Facture non-équilibrée',
+        explainUnevenInvoice: ({ totalInvoiceItems, totalPayments }) =>
+          `Cette facture n'est pas équilibrée !\nLe total s'élève à ${totalInvoiceItems}€ quand le total des paiements est à ${totalPayments}€. Vous pouvez ajouter des paiements via le bouton "+ Paiement"`,
       },
       payment: {
         status: 'Status',

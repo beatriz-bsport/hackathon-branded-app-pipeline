@@ -363,13 +363,6 @@ export class Member extends Component<Props> {
   renderPaymentPacks = () => {
     const { member, t, classes } = this.props;
     const packs = member.consumer_payment_packs;
-    if (!packs || !packs.length) {
-      return (
-        <Typography variant="caption" className={classes.noPass}>
-          {t('paymentPack.noPaymentPackSubscribed')}
-        </Typography>
-      );
-    }
     return (
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>

@@ -5,7 +5,15 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import { withStyles, Button, Paper, Grid, Typography } from '@material-ui/core';
+import {
+  Dialog,
+  DialogContent,
+  withStyles,
+  Button,
+  Paper,
+  Grid,
+  Typography,
+} from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { translate } from 'react-i18next';
 import {
@@ -14,7 +22,6 @@ import {
 } from 'react-router-redux';
 
 import {
-  SimpleModal,
   EditLiveOfferForm,
   DeleteOfferForm,
   OfferCard,
@@ -53,6 +60,29 @@ const styles = (theme) => ({
 type Props = {
   t: (x: string) => string,
   classes: Object,
+  match: Object,
+
+  bookingLoading: boolean,
+  timetableLoading: boolean,
+  coachesLoading: boolean,
+  establishmentsLoading: boolean,
+  compatiblePacksLoading: boolean,
+
+  offers: Array<Offer>,
+  events: Array<Event>,
+  bookings: Array<Booking>,
+  bookingOptions: Array<BookingOption>,
+  activities: Array<Activity>,
+  metaActivities: Array<MetaActivity>,
+  coaches: Array<Coach>,
+  establishments: Array<Establishment>,
+  compatiblePacks: Array<PaymentPack>,
+
+  fetchAllOffers: () => void,
+  fetchAllActivities: () => void,
+  goToOfferManagement: () => void,
+  replaceRouter: () => void,
+
   discardOption: (id: number) => void,
   discardBooking: (id: number) => void,
   discardBookingAttendance: (id: number) => void,
@@ -60,24 +90,7 @@ type Props = {
   confirmBookingAttendance: (id: number) => void,
   fetchBookings: (id: number) => void,
   fetchCompatiblePacks: (id: number) => void,
-  fetchAllOffers: () => void,
-  fetchAllActivities: () => void,
-  offers: Array<Offer>,
-  bookingLoading: boolean,
-  bookings: Array<Booking>,
-  bookingOptions: Array<BookingOption>,
-  timetableLoading: boolean,
-  activities: Array<Object>,
-  metaActivities: Array<MetaActivity>,
-  coaches: Array<Coach>,
-  coachesLoading: boolean,
-  establishments: Array<Establishment>,
-  establishmentsLoading: boolean,
-  compatiblePacks: Array<PaymentPack>,
-  compatiblePacksLoading: boolean,
   fetchOffersByDay: ({ year: number, month: number, day: number }) => void,
-  events: Array<Event>,
-  goToOfferManagement: () => void,
 };
 
 type State = {
@@ -226,18 +239,20 @@ export class Planning extends Component<Props, State> {
 
     if (selectedOffer) {
       return (
-        <SimpleModal open={editModalOpened}>
-          <EditLiveOfferForm
-            offer={selectedOffer}
-            coaches={coaches}
-            establishments={establishments}
-            loading={coachesLoading || establishmentsLoading}
-            onConfirm={this.onConfirmModal}
-            onCancel={this.onCancelModal}
-            processing={editOfferProcessing}
-            compatiblePacks={compatiblePacks}
-          />
-        </SimpleModal>
+        <Dialog open={editModalOpened} onClose={this.onCancelModal}>
+          <DialogContent>
+            <EditLiveOfferForm
+              offer={selectedOffer}
+              coaches={coaches}
+              establishments={establishments}
+              loading={coachesLoading || establishmentsLoading}
+              onConfirm={this.onConfirmModal}
+              onCancel={this.onCancelModal}
+              processing={editOfferProcessing}
+              compatiblePacks={compatiblePacks}
+            />
+          </DialogContent>
+        </Dialog>
       );
     }
     return null;
@@ -248,16 +263,21 @@ export class Planning extends Component<Props, State> {
     const { createOfferModalOpened, creatingOffers } = this.state;
 
     return (
-      <SimpleModal open={createOfferModalOpened}>
-        <OfferFormWithActivity
-          metaActivities={metaActivities}
-          coaches={coaches}
-          establishments={establishments}
-          onSubmit={this.createOffers}
-          onCancel={this.closeCreateOffersModal}
-          processing={creatingOffers}
-        />
-      </SimpleModal>
+      <Dialog
+        onClose={this.closeCreateOffersModal}
+        open={createOfferModalOpened}
+      >
+        <DialogContent style={{ minWidth: 350 }}>
+          <OfferFormWithActivity
+            metaActivities={metaActivities}
+            coaches={coaches}
+            establishments={establishments}
+            onSubmit={this.createOffers}
+            onCancel={this.closeCreateOffersModal}
+            processing={creatingOffers}
+          />
+        </DialogContent>
+      </Dialog>
     );
   };
 
@@ -286,14 +306,16 @@ export class Planning extends Component<Props, State> {
 
     if (selectedOffer) {
       return (
-        <SimpleModal open={deleteModalOpened}>
-          <DeleteOfferForm
-            offer={selectedOffer}
-            onConfirm={() => this.onDeleteConfirmModal(selectedOffer.id)}
-            onCancel={this.onCancelModal}
-            processing={deletingOffer}
-          />
-        </SimpleModal>
+        <Dialog onClose={this.onCancelModal} open={deleteModalOpened}>
+          <DialogContent>
+            <DeleteOfferForm
+              offer={selectedOffer}
+              onConfirm={() => this.onDeleteConfirmModal(selectedOffer.id)}
+              onCancel={this.onCancelModal}
+              processing={deletingOffer}
+            />
+          </DialogContent>
+        </Dialog>
       );
     }
     return null;

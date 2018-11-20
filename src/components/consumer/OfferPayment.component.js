@@ -19,14 +19,17 @@ import ConsumerPackCheckout from './ConsumerPackCheckout.component';
 import type { ConsumerPaymentPackConsumerView, Offer } from '../../api/types';
 
 type Props = {
-  loading: boolean,
-  offer: Offer,
   location: Object,
-  t: (x: string) => string,
-  onCompletePurchase: () => void,
+
+  offer: Offer,
   compatibleConsumerPacks: Array<ConsumerPaymentPackConsumerView>,
+
   compatibleConsumerPacksLoading: boolean,
+  loading: boolean,
+
+  t: (x: string) => string,
   goToPassMarketplace: () => void,
+  onCompletePurchase: () => void,
 };
 
 export class OfferPayment extends Component<Props> {
@@ -66,7 +69,6 @@ export class OfferPayment extends Component<Props> {
     const {
       t,
       offer,
-      loading,
       compatibleConsumerPacks,
       compatibleConsumerPacksLoading,
       onCompletePurchase,

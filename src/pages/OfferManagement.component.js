@@ -11,6 +11,8 @@ import {
   Typography,
   IconButton,
   withStyles,
+  Dialog,
+  DialogContent,
 } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import TodayIcon from '@material-ui/icons/Today';
@@ -30,7 +32,6 @@ import BookingTable from '../components/booking/BookingTable.container';
 import SearchBar from '../components/SearchBar.component';
 import ResultList from '../components/search/ResultList.component';
 import MemberBookingHelper from '../components/search/MemberBookingHelper.component';
-import SimpleModal from '../components/navigation/SimpleModal.component';
 import MemberForm from '../components/form/MemberForm.component';
 import QuickInvoice from '../components/invoice/QuickInvoice.component';
 import { createOrUpdateMember } from '../actions/member.actions';
@@ -342,27 +343,37 @@ export class OfferManagement extends Component<Props, State> {
             {t('offer.backToCalendar')}
           </Button>
         </Grid>
-        <SimpleModal open={!!memberToRegister}>
-          <RegisterMemberToOfferForm
-            offer={this.props.offer}
-            member={memberToRegister}
-            open={!!memberToRegister}
-            loading={this.props.compatiblePacksLoading}
-            compatiblePacks={this.props.compatiblePacks}
-            onCancel={() => this.setState({ memberToRegister: null })}
-            subscribeToOffer={this.registerMember}
-          />
-        </SimpleModal>
-        <SimpleModal open={this.state.addMemberModal}>
-          <MemberForm
-            onCancel={this.closeAddMemberModal}
-            onSubmit={this.createMember}
-            error={this.props.memberCreationErrors}
-            processing={this.props.memberCreationPending}
-            initial={null}
-            update={false}
-          />
-        </SimpleModal>
+        <Dialog
+          onClose={() => this.setState({ memberToRegister: null })}
+          open={!!memberToRegister}
+        >
+          <DialogContent>
+            <RegisterMemberToOfferForm
+              offer={this.props.offer}
+              member={memberToRegister}
+              open={!!memberToRegister}
+              loading={this.props.compatiblePacksLoading}
+              compatiblePacks={this.props.compatiblePacks}
+              onCancel={() => this.setState({ memberToRegister: null })}
+              subscribeToOffer={this.registerMember}
+            />
+          </DialogContent>
+        </Dialog>
+        <Dialog
+          open={!!this.state.addMemberModal}
+          onClose={this.closeAddMemberModal}
+        >
+          <DialogContent>
+            <MemberForm
+              onCancel={this.closeAddMemberModal}
+              onSubmit={this.createMember}
+              error={this.props.memberCreationErrors}
+              processing={this.props.memberCreationPending}
+              initial={null}
+              update={false}
+            />
+          </DialogContent>
+        </Dialog>
       </Grid>
     );
   }

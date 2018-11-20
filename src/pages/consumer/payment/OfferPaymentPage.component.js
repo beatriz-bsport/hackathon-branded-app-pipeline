@@ -12,11 +12,15 @@ import { ConsumerModalContainer, OfferPayment } from '../../../components';
 import type { Offer, ConsumerPaymentPackManagerView } from '../../../api/types';
 
 type Props = {
-  loading: boolean,
   match: Object,
+
   offer: ?Offer,
-  compatibleConsumerPacks: Array<ConsumerPaymentPackManagerView>,
+  loading: boolean,
   compatibleConsumerPacksLoading: boolean,
+
+  compatibleConsumerPacks: Array<ConsumerPaymentPackManagerView>,
+
+  goToPassMarketplace: (companyId: number) => void,
   fetchOffer: (number) => void,
   fetchCompatiblePass: (number) => void,
 };

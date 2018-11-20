@@ -31,10 +31,13 @@ export class RegisterMemberToOfferForm extends Component<Props> {
       t,
       member,
     } = this.props;
+    if (!member) {
+      return null;
+    }
     if (loading) {
       return <CircularProgress />;
     }
-    const availablePacks = compatiblePacks.filter((pack) =>
+    const availablePacks = (compatiblePacks || []).filter((pack) =>
       pack.consumer_payment_packs.find((cpp) => cpp.member_id === member.id),
     );
 

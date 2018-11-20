@@ -165,6 +165,9 @@ export default {
           'Amount given to every booking over threshold',
       },
       invoice: {
+        titleUnevenInvoice: 'Uneven invoice',
+        explainUnevenInvoice: ({ totalInvoiceItems, totalPayments }) =>
+          `This invoice is not even ! You are billing your customer ${totalInvoiceItems}€ while you are registering only ${totalPayments}€ as customer payments. You can add payments via the button "+ Payment"`,
         dateStartPaymentPack: 'Pass starting date',
         backToInvoiceItemList: 'Back to invoice listing',
         title: 'Register a payment',

@@ -2,19 +2,21 @@
 
 import React, { Component } from 'react';
 
-import { Grid, CircularProgress, Typography, Divider } from '@material-ui/core';
+import {
+  Button,
+  Grid,
+  CircularProgress,
+  Typography,
+  Divider,
+} from '@material-ui/core';
 import { translate } from 'react-i18next';
-import { Elements, StripeProvider } from 'react-stripe-elements';
 import { withRouter } from 'react-router-dom';
 
 import parse from '../../query-string';
 
-import StripeCheckout from './StripeCheckout.component';
 import OfferSummary from './OfferSummary.component';
 import ConsumerPackCheckout from './ConsumerPackCheckout.component';
 import type { ConsumerPaymentPackConsumerView, Offer } from '../../api/types';
-
-const STRIPE_KEY = process.env.REACT_APP_STRIPE_PK_KEY;
 
 type Props = {
   loading: boolean,
@@ -24,9 +26,10 @@ type Props = {
   onCompletePurchase: () => void,
   compatibleConsumerPacks: Array<ConsumerPaymentPackConsumerView>,
   compatibleConsumerPacksLoading: boolean,
+  goToPassMarketplace: () => void,
 };
 
-export class OfferPayment extends Component<Props, State> {
+export class OfferPayment extends Component<Props> {
   componentWillMount() {
     const { option_id } = parse(this.props.location.search);
     if (option_id) {
@@ -35,19 +38,6 @@ export class OfferPayment extends Component<Props, State> {
       this.urlParams = {};
     }
   }
-
-  /*
-  componentDidMount() {
-    if (window.Stripe) {
-      this.setState({ stripe: window.Stripe(STRIPE_KEY) });
-    } else {
-      document.querySelector('#stripe-js').addEventListener('load', () => {
-        // Create Stripe instance once Stripe.js loads
-        this.setState({ stripe: window.Stripe(STRIPE_KEY) });
-      });
-    }
-  }
-  */
 
   getBasket = () => {
     const { offer, loading, t } = this.props;
@@ -76,18 +66,39 @@ export class OfferPayment extends Component<Props, State> {
     const {
       t,
       offer,
+      loading,
       compatibleConsumerPacks,
       compatibleConsumerPacksLoading,
       onCompletePurchase,
     } = this.props;
 
     // prettier-ignore
+
     if (
       compatibleConsumerPacksLoading
       || offer === null
-      || compatibleConsumerPacks.length === 0
     ) {
-      return null;
+    return null;
+    }
+    if (compatibleConsumerPacks.length === 0) {
+      return (
+        <Grid container direction="column" spacing={16} alignItems="flex-start">
+          <Grid item>
+            <Typography>
+              Vous ne disposez pas de pass compatible avec cette séance !
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.props.goToPassMarketplace}
+            >
+              Voir les offres
+            </Button>
+          </Grid>
+        </Grid>
+      );
     }
     return (
       <Grid container direction="column" alignItems="stretch" spacing={32}>
@@ -152,24 +163,11 @@ export class OfferPayment extends Component<Props, State> {
     }
 
     return (
-      <StripeProvider apiKey={STRIPE_KEY}>
-        <Grid container spacing={16} direction="column">
-          <Grid item>{this.getBasket()}</Grid>
-          <Divider />
-          <Grid item>{this.getPaymentPacksCheckout()}</Grid>
-          <Grid item>
-            <Elements>
-              <StripeCheckout
-                price={offer === null ? ' - ' : offer.price}
-                loading={loading}
-                urlParams={this.urlParams}
-                purchaseType="offer"
-                purchaseId={(offer || { id: null }).id}
-              />
-            </Elements>
-          </Grid>
-        </Grid>
-      </StripeProvider>
+      <Grid container spacing={16} direction="column">
+        <Grid item>{this.getBasket()}</Grid>
+        <Divider />
+        <Grid item>{this.getPaymentPacksCheckout()}</Grid>
+      </Grid>
     );
   }
 }

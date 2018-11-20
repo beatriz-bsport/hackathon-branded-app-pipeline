@@ -109,6 +109,7 @@ export class MarketPlace extends Component<Props, State> {
             <Calendar
               forceMonthDisplay
               onDateClick={this.handleDateChange}
+              date={selectedDate}
               events={events}
             />
           </div>

@@ -62,6 +62,7 @@ export class Backoffice extends Component<Props> {
           <div>
             <Switch>
               <Route path="/offer/:id" component={OfferManagement} />
+              <Route path="/calendar/:year/:month/:date" component={Planning} />
               <Route path="/calendar" component={Planning} />
               <Route exact path="/activity" component={MetaActivityList} />
               <Route path="/activity/:id" component={MetaActivity} />

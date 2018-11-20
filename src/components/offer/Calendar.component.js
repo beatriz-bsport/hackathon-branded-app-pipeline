@@ -18,6 +18,7 @@ const WEEKMODE: number = 0;
 const MONTHMODE: number = 1;
 
 type Props = {
+  date: Object,
   forceMonthDisplay: boolean,
   onDateClick: (Object) => void,
   classes: Object,
@@ -25,7 +26,6 @@ type Props = {
 
 type State = {
   displayMode: number,
-  selectedDay: Object,
 };
 
 export class Calendar extends Component<Props, State> {
@@ -33,15 +33,11 @@ export class Calendar extends Component<Props, State> {
     super(props);
     this.state = {
       displayMode: props.forceMonthDisplay ? MONTHMODE : WEEKMODE,
-      selectedDay: Moment()
-        .set('hours', 0)
-        .set('minutes', 0)
-        .set('milliseconds', 0),
     };
   }
 
   componentWillMount() {
-    this.props.onDateClick(this.state.selectedDay);
+    this.props.onDateClick(this.props.date);
   }
 
   static defaultProps = {
@@ -49,35 +45,36 @@ export class Calendar extends Component<Props, State> {
   };
 
   selectDate = (date: Object) => {
-    this.setState({ selectedDay: date });
     this.props.onDateClick(date);
   };
 
   showNextWeek = () => {
-    const { selectedDay } = this.state;
-    this.selectDate(Moment(selectedDay.add(7, 'days')));
+    const { date } = this.props;
+    this.selectDate(Moment(date.add(7, 'days')));
   };
 
   showPreviousWeek = () => {
-    const { selectedDay } = this.state;
-    this.selectDate(Moment(selectedDay.add(-7, 'days')));
+    const { date } = this.props;
+    this.selectDate(Moment(date.add(-7, 'days')));
   };
 
   showNext = () => {
-    const { displayMode, selectedDay } = this.state;
+    const { displayMode } = this.state;
+    const { date } = this.props;
     if (WEEKMODE === displayMode) {
-      this.selectDate(Moment(selectedDay.add(1, 'weeks')));
+      this.selectDate(Moment(date.add(1, 'weeks')));
     } else {
-      this.selectDate(Moment(selectedDay.add(1, 'months')));
+      this.selectDate(Moment(date.add(1, 'months')));
     }
   };
 
   showPrevious = () => {
-    const { displayMode, selectedDay } = this.state;
+    const { displayMode } = this.state;
+    const { date } = this.props;
     if (WEEKMODE === displayMode) {
-      this.selectDate(Moment(selectedDay.add(-1, 'weeks')));
+      this.selectDate(Moment(date.add(-1, 'weeks')));
     } else {
-      this.selectDate(Moment(selectedDay.add(-1, 'months')));
+      this.selectDate(Moment(date.add(-1, 'months')));
     }
   };
 
@@ -132,9 +129,10 @@ export class Calendar extends Component<Props, State> {
   };
 
   renderDay = (day: Object) => {
-    const { selectedDay, displayMode } = this.state;
+    const { displayMode } = this.state;
+    const { date } = this.props;
     const { classes } = this.props;
-    const isSelected = day.isSame(selectedDay, 'days');
+    const isSelected = day.isSame(date, 'days');
 
     return (
       <Grid item>
@@ -145,7 +143,7 @@ export class Calendar extends Component<Props, State> {
               color="primary"
               className={classes.dayButton}
               disabled={
-                !day.isSame(selectedDay, 'months') && displayMode === MONTHMODE
+                !day.isSame(date, 'months') && displayMode === MONTHMODE
               }
               onClick={() => {
                 this.selectDate(day);
@@ -160,10 +158,10 @@ export class Calendar extends Component<Props, State> {
   };
 
   renderHeader = () => {
-    const { forceMonthDisplay } = this.props;
-    const { selectedDay, displayMode } = this.state;
-    const month = Moment.months()[selectedDay.month()];
-    const year = selectedDay.year();
+    const { date, forceMonthDisplay } = this.props;
+    const { displayMode } = this.state;
+    const month = Moment.months()[date.month()];
+    const year = date.year();
     return (
       <Grid container justify="space-between" alignItems="center" wrap="nowrap">
         {forceMonthDisplay ? null : (
@@ -235,13 +233,12 @@ export class Calendar extends Component<Props, State> {
   );
 
   renderMonthFrom = (firstDayMonth: Object) => {
-    const { classes } = this.props;
-    const { selectedDay } = this.state;
+    const { date, classes } = this.props;
 
     const weekRows = [];
     for (let i = 0; i < 6; i += 1) {
       const firstDayInRow = Moment(firstDayMonth).add(i * 7, 'days');
-      if (firstDayInRow.isSameOrBefore(selectedDay, 'month')) {
+      if (firstDayInRow.isSameOrBefore(date, 'month')) {
         weekRows.push(
           <Grid item key={i}>
             {this.renderWeekFrom(firstDayInRow)}
@@ -274,15 +271,10 @@ export class Calendar extends Component<Props, State> {
   };
 
   renderBulkDays = () => {
-    const { selectedDay, displayMode } = this.state;
-    const firstDayWeek = Moment(selectedDay).add(
-      -selectedDay.weekday(),
-      'days',
-    );
-    const firstDayMonth = Moment(selectedDay).add(
-      -selectedDay.date() + 1,
-      'days',
-    );
+    const { displayMode } = this.state;
+    const { date } = this.props;
+    const firstDayWeek = Moment(date).add(-date.weekday(), 'days');
+    const firstDayMonth = Moment(date).add(-date.date() + 1, 'days');
     firstDayMonth.add(-firstDayMonth.weekday(), 'days');
     switch (displayMode) {
       case WEEKMODE:

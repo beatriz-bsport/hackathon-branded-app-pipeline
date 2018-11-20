@@ -35,6 +35,7 @@ import MemberForm from '../components/form/MemberForm.component';
 import QuickInvoice from '../components/invoice/QuickInvoice.component';
 import { createOrUpdateMember } from '../actions/member.actions';
 import RegisterMemberToOfferForm from '../components/form/RegisterMemberToOfferForm.component';
+import { formatAsDatetime } from '../datetime';
 
 import { mapFormData } from './form.utils';
 
@@ -292,6 +293,12 @@ export class OfferManagement extends Component<Props, State> {
 
     return (
       <Grid container direction="row" spacing={16}>
+        <Grid item xs={12}>
+          <Typography variant="h3">
+            {this.props.offer.name} -{' '}
+            {formatAsDatetime(this.props.offer.date_start)}
+          </Typography>
+        </Grid>
         <Grid item xs={12} md={6}>
           <Paper>
             <Grid container direction="column">

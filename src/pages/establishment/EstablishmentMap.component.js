@@ -108,6 +108,7 @@ export class EstablishmentList extends Component<Props, State> {
                 <Calendar
                   events={events_}
                   onDateClick={this.onDateClick(establishment.id)}
+                  date={selectedDay[establishment.id] || Moment()}
                 />
               </div>
             </Grid>

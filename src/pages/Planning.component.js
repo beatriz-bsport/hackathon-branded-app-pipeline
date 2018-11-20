@@ -8,7 +8,10 @@ import { connect } from 'react-redux';
 import { withStyles, Button, Paper, Grid, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { translate } from 'react-i18next';
-import { push as pushRouter } from 'react-router-redux';
+import {
+  push as pushRouter,
+  replace as replaceRouter,
+} from 'react-router-redux';
 
 import {
   SimpleModal,
@@ -91,24 +94,31 @@ type State = {
 export class Planning extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    const date = Moment()
-      .set('hours', 0)
-      .set('minutes', 0)
-      .set('milliseconds', 0);
+
     this.state = {
       editModalOpened: false,
       deleteModalOpened: false,
       editOfferProcessing: false,
       deletingOffer: false,
       selectedOffer: null,
-      date,
       createOfferModalOpened: false,
       creatingOffers: false,
     };
+    const { match } = props;
+    const day = (match && match.params && +match.params.date) || null;
+    const year = (match && match.params && +match.params.year) || null;
+    const month = (match && match.params && +match.params.month) || null;
+
+    if (year && month && day) {
+      const date = Moment(`${day}-${month}-${year}`, 'DD-MM-YYYY');
+      this.state.date = date;
+    } else {
+      this.state.date = Moment();
+    }
     props.fetchOffersByDay({
-      year: date.year(),
-      month: date.month() + 1,
-      day: date.date(),
+      year: this.state.date.year(),
+      month: this.state.date.month() + 1,
+      day: this.state.date.date(),
     });
   }
 
@@ -177,11 +187,16 @@ export class Planning extends Component<Props, State> {
   onDateClick = (date: Object) => {
     this.setState({ date });
     this.setState({ selectedOffer: null });
+    const momentDate = Moment(date);
     this.props.fetchOffersByDay({
-      year: Moment(date).year(),
-      month: Moment(date).month() + 1,
-      day: Moment(date).date(),
+      year: momentDate.year(),
+      month: momentDate.month() + 1,
+      day: momentDate.date(),
     });
+    this.props.replaceRouter(
+      `/calendar/${momentDate.year()}/${momentDate.month() +
+        1}/${momentDate.date()}`,
+    );
   };
 
   onOfferSelected = (offer: Offer) => {
@@ -337,6 +352,7 @@ export class Planning extends Component<Props, State> {
                       <Calendar
                         events={events_}
                         onDateClick={this.onDateClick}
+                        date={this.state.date}
                       />
                     </div>
                   </Grid>
@@ -359,24 +375,10 @@ export class Planning extends Component<Props, State> {
                 </Grid>
               </Paper>
             </Grid>
-            <Grid item>
-              <Grid container item justify="center">
-                <Button
-                  variant="extendedFab"
-                  aria-label="Add"
-                  className={classes.button}
-                  color="primary"
-                  onClick={this.openCreateOfferModal}
-                >
-                  <AddIcon className={classes.leftIcon} />
-                  {t('activity.addOffers')}
-                </Button>
-              </Grid>
-            </Grid>
           </Grid>
         </Grid>
-        {selectedOffer ? (
-          <Grid item xs={12} lg={6}>
+        <Grid item xs={12} lg={6}>
+          {selectedOffer ? (
             <OfferCard
               offer={selectedOffer}
               bookings={bookings}
@@ -394,10 +396,26 @@ export class Planning extends Component<Props, State> {
               compatiblePacksLoading={compatiblePacksLoading}
               goToOfferManagement={this.props.goToOfferManagement}
             />
+          ) : (
+            this.renderNoOfferSelected()
+          )}
+        </Grid>
+        <Grid item xs={12} lg={6}>
+          <Grid item>
+            <Grid container item justify="center">
+              <Button
+                variant="extendedFab"
+                aria-label="Add"
+                className={classes.button}
+                color="primary"
+                onClick={this.openCreateOfferModal}
+              >
+                <AddIcon className={classes.leftIcon} />
+                {t('activity.addOffers')}
+              </Button>
+            </Grid>
           </Grid>
-        ) : (
-          this.renderNoOfferSelected()
-        )}
+        </Grid>
         {this.renderEditModal()}
         {this.renderDeleteModal()}
         {this.renderCreateModal()}
@@ -427,6 +445,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    replaceRouter(path) {
+      dispatch(replaceRouter(path));
+    },
     goToOfferManagement(offerId) {
       dispatch(pushRouter(`/offer/${offerId}`));
     },

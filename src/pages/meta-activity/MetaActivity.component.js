@@ -163,6 +163,7 @@ export class MetaActivity extends Component<Props, State> {
 
   getCalendar = () => {
     const { metaActivity } = this.props;
+    const { dateSelected } = this.state;
     const events = this.props.events.filter((e) =>
       metaActivity.activities.find((a) => a.id === e.activity),
     );
@@ -179,6 +180,7 @@ export class MetaActivity extends Component<Props, State> {
     return (
       <Calendar
         events={events_}
+        date={dateSelected}
         onDateClick={this.handleDayClick}
         forceMonthDisplay
       />

@@ -493,6 +493,7 @@ export default {
       },
     },
     marketplace: {
+      noSessionToday: 'No session',
       book: 'Book',
       sessionThisDay: 'Sessions this day: ',
       calendar: 'Planning',

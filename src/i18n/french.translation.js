@@ -540,6 +540,7 @@ export default {
       },
     },
     marketplace: {
+      noSessionToday: 'Aucune séance',
       book: 'Réserver',
       sessionThisDay: 'Séance ce jour :',
       calendar: 'Calendrier',

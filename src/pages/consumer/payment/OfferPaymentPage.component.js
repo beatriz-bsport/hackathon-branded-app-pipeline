@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { push as routerPush } from 'react-router-redux';
 
 import { payment as paymentActions } from '../../../actions';
 import { ConsumerModalContainer, OfferPayment } from '../../../components';
@@ -37,6 +38,11 @@ export class OfferPaymentPage extends Component<Props, State> {
     this.props.fetchCompatiblePass(offerId);
   }
 
+  goToPassMarketplace = () => {
+    const { company } = this.props.offer.activity;
+    this.props.goToPassMarketplace(parseInt(company, 10));
+  };
+
   render() {
     const {
       offer,
@@ -59,6 +65,7 @@ export class OfferPaymentPage extends Component<Props, State> {
           compatibleConsumerPacks={compatibleConsumerPacks}
           compatibleConsumerPacksLoading={compatibleConsumerPacksLoading}
           onCompletePurchase={this.onCompletePurchase}
+          goToPassMarketplace={this.goToPassMarketplace}
         />
       </ConsumerModalContainer>
     );
@@ -82,6 +89,9 @@ function mapDispatchToProps(dispatch) {
     },
     fetchCompatiblePass(id) {
       dispatch(paymentActions.fetchCompatiblePass(id));
+    },
+    goToPassMarketplace(companyId) {
+      dispatch(routerPush(`/marketplace/${companyId}`));
     },
   };
 }

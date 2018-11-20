@@ -10,6 +10,11 @@ import {
   Divider,
   CircularProgress,
   withStyles,
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  DialogActions,
 } from '@material-ui/core';
 import CancelIcon from '@material-ui/icons/Cancel';
 import AddIcon from '@material-ui/icons/Add';
@@ -56,6 +61,7 @@ type State = {
   voucherInvoiceItems: Array<InvoiceItem>,
   paymentItems: Array<PaymentItemData>,
   step: number,
+  unevenInvoiceAlertOpen: boolean,
 };
 
 const STEP_ADD_INVOICE_ITEMS = 0;
@@ -74,10 +80,17 @@ export class InvoiceForm extends Component<Props, State> {
       voucherInvoiceItems: [],
       paymentItems: [],
       step: props.editMode ? STEP_ADD_INVOICE_PAYMENTS : STEP_ADD_INVOICE_ITEMS,
+      unevenInvoiceAlertOpen: false,
     };
   }
 
   createInvoice = () => {
+    if (
+      this.getTotalPayment() < this.getFinalPrice() &&
+      !this.state.unevenInvoiceAlertOpen
+    ) {
+      return this.setState({ unevenInvoiceAlertOpen: true });
+    }
     const {
       offerInvoiceItems,
       voucherInvoiceItems,
@@ -278,7 +291,7 @@ export class InvoiceForm extends Component<Props, State> {
               ) : (
                 <AddIcon className={classes.leftIcon} />
               )}
-              {t('payment.createInvoice')}
+              {t('common.save')}
             </Button>
           </Grid>
         </Grid>
@@ -459,6 +472,44 @@ export class InvoiceForm extends Component<Props, State> {
     );
   };
 
+  renderUnevenInvoiceAlert = () => {
+    const { t } = this.props;
+
+    const totalPayments = this.getTotalPayment();
+    const totalInvoiceItems = this.getFinalPrice();
+    return (
+      <Dialog
+        open={this.state.unevenInvoiceAlertOpen}
+        onClose={() => this.setState({ unevenInvoiceAlertOpen: false })}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {t('form.invoice.titleUnevenInvoice')}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            {t('form.invoice.explainUnevenInvoice')({
+              totalInvoiceItems,
+              totalPayments,
+            })}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => this.setState({ unevenInvoiceAlertOpen: false })}
+            color="secondary"
+          >
+            {t('common.cancel')}
+          </Button>
+          <Button onClick={this.createInvoice} color="primary" autoFocus>
+            {t('common.confirm')}
+          </Button>
+        </DialogActions>
+      </Dialog>
+    );
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -474,6 +525,7 @@ export class InvoiceForm extends Component<Props, State> {
           </Grid>
         </Paper>
         {this.renderBottomActionButton()}
+        {this.renderUnevenInvoiceAlert()}
       </div>
     );
   }

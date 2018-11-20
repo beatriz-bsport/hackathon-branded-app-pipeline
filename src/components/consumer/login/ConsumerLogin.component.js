@@ -10,6 +10,7 @@ import {
   withStyles,
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import RedButton from '../../button/RedButton.component';
 
 import { FormField } from '../../input';
@@ -31,6 +32,7 @@ type Props = {
   requestSignUp: () => void,
   loading: boolean,
   classes: Object,
+  error: ?boolean,
   t: (x: string) => string,
 };
 
@@ -70,6 +72,22 @@ export class ConsumerLogin extends Component<Props, State> {
         >
           LOGIN
         </Button>
+      </Grid>
+      <Grid item>
+        <div style={{ paddingTop: 12 }}>
+          {this.props.error ? (
+            <Typography color="error">
+              {this.props.t('login.authError')}
+            </Typography>
+          ) : (
+            <div />
+          )}
+          <Link to="/login/reset_password" style={{ textDecoration: 'none' }}>
+            <Typography color="secondary" variant="caption">
+              {this.props.t('login.forgottenPassword')}
+            </Typography>
+          </Link>
+        </div>
       </Grid>
     </Grid>
   );

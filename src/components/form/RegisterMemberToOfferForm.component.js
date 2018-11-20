@@ -66,6 +66,7 @@ export class RegisterMemberToOfferForm extends Component<Props> {
       <List>
         {availablePacks.map((compatiblePack) => (
           <ConsumerPackRowItem
+            key={compatiblePack.id}
             paymentPack={compatiblePack}
             hideConsumer
             subscribeToOffer={subscribeToOffer}

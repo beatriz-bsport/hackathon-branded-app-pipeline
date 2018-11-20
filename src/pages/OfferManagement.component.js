@@ -301,47 +301,51 @@ export class OfferManagement extends Component<Props, State> {
           </Typography>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Paper>
-            <Grid container direction="column">
-              <Grid item>{this.renderBookingHeader()}</Grid>
-              <Divider />
-              <Grid item>
-                <Collapse in={searchedText}>
-                  <div className={classes.resultListContainer}>
-                    <ResultList
-                      items={this.getResults()}
-                      renderListComponent={this.renderSearchedMember}
-                    />
-                  </div>
+          <Grid container direction="column" spacing={16}>
+            <Grid item xs={12}>
+              <Paper>
+                <Grid container direction="column">
+                  <Grid item>{this.renderBookingHeader()}</Grid>
                   <Divider />
-                </Collapse>
-              </Grid>
-              <Grid item>
-                <BookingTable
-                  loading={bookingLoading}
-                  bookings={bookings}
-                  bookingOptions={bookingOptions}
-                  discardOption={discardOption}
-                  bookingUpdaters={bookingUpdaters}
-                  showQuickInvoiceButton
-                  onQuickInvoiceClick={this.addToQuickInvoicePanel}
-                />
-              </Grid>
+                  <Grid item>
+                    <Collapse in={searchedText}>
+                      <div className={classes.resultListContainer}>
+                        <ResultList
+                          items={this.getResults()}
+                          renderListComponent={this.renderSearchedMember}
+                        />
+                      </div>
+                      <Divider />
+                    </Collapse>
+                  </Grid>
+                  <Grid item>
+                    <BookingTable
+                      loading={bookingLoading}
+                      bookings={bookings}
+                      bookingOptions={bookingOptions}
+                      discardOption={discardOption}
+                      bookingUpdaters={bookingUpdaters}
+                      showQuickInvoiceButton
+                      onQuickInvoiceClick={this.addToQuickInvoicePanel}
+                    />
+                  </Grid>
+                </Grid>
+              </Paper>
             </Grid>
-          </Paper>
+            <Grid item>
+              <Button
+                onClick={this.props.goBack}
+                color="secondary"
+                variant="outlined"
+              >
+                <TodayIcon className={classes.leftIcon} />
+                {t('offer.backToCalendar')}
+              </Button>
+            </Grid>
+          </Grid>
         </Grid>
         <Grid item xs={12} md={6}>
           {this.renderQuickInvoicePanel()}
-        </Grid>
-        <Grid item>
-          <Button
-            onClick={this.props.goBack}
-            color="secondary"
-            variant="outlined"
-          >
-            <TodayIcon className={classes.leftIcon} />
-            {t('offer.backToCalendar')}
-          </Button>
         </Grid>
         <Dialog
           onClose={() => this.setState({ memberToRegister: null })}

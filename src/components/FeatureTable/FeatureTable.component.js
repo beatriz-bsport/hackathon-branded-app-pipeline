@@ -58,7 +58,7 @@ class MemberTable extends React.Component<Props, State> {
       orderBy: props.orderBy || 'name',
       selected: [],
       page: 0,
-      rowsPerPage: 5,
+      rowsPerPage: 10,
     };
   }
 

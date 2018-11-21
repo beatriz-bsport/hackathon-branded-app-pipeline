@@ -30,6 +30,7 @@ type Props = {
   showRevertBookingButton: ?boolean,
   onQuickInvoiceClick: () => void,
   handleRevert: () => void,
+  requestRefreshPaymentPack: () => void,
   bookingUpdaters: {
     confirmBooking: () => void,
     discardBooking: () => void,
@@ -47,7 +48,7 @@ export class BookingItemForManager extends Component<Props> {
   };
 
   getStatusText = (booking: Booking) => {
-    const { paymentPacks, invoices } = this.props;
+    const { paymentPacks, invoices, t } = this.props;
     if (booking.consumer_payment_pack && booking.payment_pack) {
       const payment_pack = paymentPacks.find(
         (pp) => pp.id === booking.payment_pack,
@@ -55,7 +56,12 @@ export class BookingItemForManager extends Component<Props> {
       const consumer_payment_pack = (
         payment_pack.consumer_payment_packs || []
       ).find((cpp) => cpp.id === booking.consumer_payment_pack);
-      if (!payment_pack.credits) {
+
+      if (!consumer_payment_pack) {
+        this.props.requestRefreshPaymentPack();
+        return [t('common.loading'), 'secondary'];
+      }
+      if (payment_pack.unlimited) {
         return [`${payment_pack.name} (illimité)`, 'primary'];
       }
       const { available_credits } = consumer_payment_pack;

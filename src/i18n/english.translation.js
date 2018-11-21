@@ -22,6 +22,7 @@ export default {
       CHECK: 'Check',
     },
     common: {
+      loading: 'Loading...',
       show: 'Show',
       previous: 'Previous',
       firstname: 'Firstname',

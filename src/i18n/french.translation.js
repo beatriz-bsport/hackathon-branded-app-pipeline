@@ -28,6 +28,8 @@ export default {
       },
     },
     common: {
+      notes: 'Notes',
+      add: 'Ajouter',
       loading: 'Chargement...',
       show: 'Voir',
       delete: 'Supprimer',
@@ -115,6 +117,14 @@ export default {
         },
       },
       member: {
+        createOrUpdate: {
+          error: "Erreur lors de l'enregistrement de la note",
+          success: 'Note enregistrée',
+        },
+        delete: {
+          error: 'Erreur lors de la suppression de la note',
+          success: 'Note supprimée',
+        },
         phone: 'Téléphone',
         rgpdTitle:
           'Moyen de communication accepté par le membre (alerte annulation, modification, etc...)',

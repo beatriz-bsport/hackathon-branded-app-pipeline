@@ -22,6 +22,8 @@ export default {
       CHECK: 'Check',
     },
     common: {
+      notes: 'Notes',
+      add: 'Add',
       loading: 'Loading...',
       show: 'Show',
       previous: 'Previous',
@@ -136,6 +138,14 @@ export default {
         },
       },
       member: {
+        createOrUpdate: {
+          error: 'Not could not be saved',
+          success: 'Note saved',
+        },
+        delete: {
+          error: 'Error while deleting note',
+          success: 'Note deleted',
+        },
         phone: 'Phone number',
         rgpdTitle:
           'Communication accepted by the member (alert cancellation, modification, etc...)',

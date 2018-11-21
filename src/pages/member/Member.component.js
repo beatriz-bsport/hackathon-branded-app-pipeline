@@ -23,6 +23,7 @@ import TodayIcon from '@material-ui/icons/Today';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import CallIcon from '@material-ui/icons/Call';
 import EditIcon from '@material-ui/icons/Edit';
+import AddIcon from '@material-ui/icons/Add';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { translate } from 'react-i18next';
@@ -30,6 +31,7 @@ import { push as routerPush } from 'react-router-redux';
 import { connect } from 'react-redux';
 import NotificationActiveIcon from '@material-ui/icons/NotificationsActive';
 import NotificationOffIcon from '@material-ui/icons/NotificationsOff';
+import MemberNote from '../../components/member/MemberNote.component';
 
 import {
   booking as bookingActions,
@@ -69,11 +71,21 @@ type Props = {
   billMember: (id: number) => void,
   incrementCredit: (id: number) => void,
   decrementCredit: (id: number) => void,
+  createOrUpdateNote: ({ id: ?number, text: string, memberId: number }) => void,
+  deleteNote: ({ memberId: number, noteId: number }) => void,
 
   goBack: () => void,
   t: (x: string) => string,
 };
-export class Member extends Component<Props> {
+
+type State = {
+  newNote: Note,
+};
+export class Member extends Component<Props, State> {
+  state = {
+    newNote: null,
+  };
+
   memberId: number;
 
   componentWillMount() {
@@ -367,7 +379,7 @@ export class Member extends Component<Props> {
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <Typography className={classes.headingExpansionPanel}>
-            {t('common.paymentPack')}
+            {t('member.showPaymentPack')}
           </Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails style={{ padding: 0 }}>
@@ -394,8 +406,101 @@ export class Member extends Component<Props> {
     );
   };
 
+  handleNoteSubmit = (id: number, text: string) => {
+    this.props.createOrUpdateNote({ id, text, memberId: this.memberId });
+    if (id === null) {
+      this.setState({ newNote: null });
+    }
+  };
+
+  handleNoteDelete = (id: number) => {
+    this.props.deleteNote({ noteId: id, memberId: this.memberId });
+  };
+
+  deleteNewNote = () => {
+    this.setState({ newNote: null });
+  };
+
+  addNewNote = (event) => {
+    event.preventDefault();
+    if (this.state.newNote) {
+      event.stopPropagation();
+    }
+    this.setState({
+      newNote: {
+        text: '',
+      },
+    });
+  };
+
+  renderNotes = () => {
+    const { member, t, classes } = this.props;
+    const { newNote } = this.state;
+    const notes = member.notes || [];
+    return (
+      <ExpansionPanel>
+        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="center"
+          >
+            <Grid item>
+              <Typography className={classes.headingExpansionPanel}>
+                {`${t('member.showNotes')} (${notes.length})`}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Button onClick={this.addNewNote} color="primary">
+                <AddIcon className={classes.iconLeft} />
+                {t('common.add')}
+              </Button>
+            </Grid>
+          </Grid>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails style={{ padding: 0 }}>
+          <div style={{ width: '100%' }}>
+            <Divider />
+            {newNote ? (
+              <div className={classes.noteContainer}>
+                <MemberNote
+                  editMode
+                  autoFocus
+                  onSubmit={(text) => this.handleNoteSubmit(null, text)}
+                  onDelete={this.deleteNewNote}
+                  note={newNote}
+                />
+              </div>
+            ) : null}
+            {notes.length ? (
+              notes.map((note) => (
+                <div className={classes.noteContainer} key={note.id}>
+                  <MemberNote
+                    onSubmit={(text) => this.handleNoteSubmit(note.id, text)}
+                    onDelete={() => this.handleNoteDelete(note.id)}
+                    note={note}
+                    key={note.id}
+                  />
+                </div>
+              ))
+            ) : (
+              <Typography
+                variant="caption"
+                className={this.props.classes.emptyMessage}
+              >
+                {this.props.t('member.noNoteSaved')}
+              </Typography>
+            )}
+          </div>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+    );
+  };
+
   renderContent = () => {
-    if (this.props.member.consumer) {
+    const { member, t, classes } = this.props;
+    if (member.consumer) {
       return (
         <Grid container direction="row" spacing={16}>
           <Grid item xs={12}>
@@ -403,14 +508,36 @@ export class Member extends Component<Props> {
               {this.getFirstRow()}
             </Paper>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} md={6}>
+            <Typography
+              variant="title"
+              align="right"
+              className={classes.expansionTitle}
+            >
+              {t('common.booking')}
+            </Typography>
+            {this.getFutureBookings()}
+            {this.getPastBookings()}
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Typography
+              variant="title"
+              align="right"
+              className={classes.expansionTitle}
+            >
+              {t('common.paymentPack')}
+            </Typography>
             {this.renderPaymentPacks()}
           </Grid>
-          <Grid item xs={12} lg={6}>
-            {this.getFutureBookings()}
-          </Grid>
-          <Grid item xs={12} lg={6}>
-            {this.getPastBookings()}
+          <Grid item xs={12} md={6}>
+            <Typography
+              variant="title"
+              align="right"
+              className={classes.expansionTitle}
+            >
+              {t('common.notes')}
+            </Typography>
+            {this.renderNotes()}
           </Grid>
         </Grid>
       );
@@ -487,6 +614,12 @@ function mapDispatchToProps(dispatch) {
     decrementCredit(consumerPackId) {
       dispatch(paymentPackActions.addCredit(consumerPackId, -1));
     },
+    createOrUpdateNote({ id, text, memberId }) {
+      dispatch(memberActions.createOrUpdateNote(id, text, memberId));
+    },
+    deleteNote({ noteId, memberId }) {
+      dispatch(memberActions.deleteNote({ noteId, memberId }));
+    },
   };
 }
 
@@ -511,6 +644,16 @@ const styles = (theme) => ({
     color: theme.palette.text.secondary,
   },
   leftIcon: {
+    marginRight: theme.spacing.unit,
+  },
+  noteContainer: {
+    padding: theme.spacing.unit * 2,
+  },
+  emptyMessage: {
+    margin: theme.spacing.unit * 3,
+  },
+  expansionTitle: {
+    marginBottom: theme.spacing.unit,
     marginRight: theme.spacing.unit,
   },
 });

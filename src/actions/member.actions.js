@@ -111,3 +111,75 @@ export function startUpdate(member) {
     dispatch(push(`/member/edit/${member.id}`));
   };
 }
+
+export function createOrUpdateNote(id: number, text: string, memberId: number) {
+  return async (dispatch) => {
+    dispatch(actionCreateOrUpdateNoteStart());
+
+    const createOrUpdate = id ? api.member.updateNote : api.member.createNote;
+    try {
+      const response = await createOrUpdate(id, text, memberId);
+
+      if (response.status === 201 || response.status === 200) {
+        const note = response.data;
+        dispatch(actionCreateOrUpdateNoteSuccess(note));
+        dispatch(snackbarSuccess('form.member.createOrUpdate.success'));
+      } else {
+        dispatch(snackbarError('form.member.createOrUpdate.error'));
+        dispatch(actionCreateOrUpdateNoteError());
+      }
+    } catch (e) {
+      dispatch(snackbarError('form.member.createOrUpdate.error'));
+      dispatch(actionCreateOrUpdateNoteError(e));
+    }
+  };
+}
+
+export function actionCreateOrUpdateNoteError() {
+  return { type: types.MEMBER_NOTE_CREATEORUPDATE_ERROR };
+}
+
+export function actionCreateOrUpdateNoteSuccess(note) {
+  return { type: types.MEMBER_NOTE_CREATEORUPDATE_SUCCESS, note };
+}
+
+export function actionCreateOrUpdateNoteStart() {
+  return { type: types.MEMBER_NOTE_CREATEORUPDATE_START };
+}
+
+export function deleteNote({ noteId, memberId }) {
+  return async (dispatch) => {
+    dispatch(actionDeleteNoteStart());
+
+    try {
+      const response = await api.member.deleteNote(noteId);
+
+      if (
+        response.status === 201 ||
+        response.status === 200 ||
+        response.status === 204
+      ) {
+        dispatch(actionDeleteNoteSuccess(noteId, memberId));
+        dispatch(snackbarSuccess('form.member.delete.success'));
+      } else {
+        dispatch(snackbarError('form.member.delete.error'));
+        dispatch(actionDeleteNoteError());
+      }
+    } catch (e) {
+      dispatch(snackbarError('form.member.delete.error'));
+      dispatch(actionDeleteNoteError());
+    }
+  };
+}
+
+export function actionDeleteNoteError() {
+  return { type: types.MEMBER_NOTE_DELETE_ERROR };
+}
+
+export function actionDeleteNoteSuccess(noteId: number, memberId: number) {
+  return { type: types.MEMBER_NOTE_DELETE_SUCCESS, noteId, memberId };
+}
+
+export function actionDeleteNoteStart() {
+  return { type: types.MEMBER_NOTE_DELETE_START };
+}

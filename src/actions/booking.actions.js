@@ -87,11 +87,11 @@ export function deleteBooking(bookingId) {
         dispatch(refreshAllPaymentPack());
       } else {
         dispatch(deleteBookingError(bookingId));
-        dispatch(snackbarSuccess('form.booking.delete.error'));
+        dispatch(snackbarError('form.booking.delete.error'));
       }
     } catch (err) {
       dispatch(deleteBookingError(bookingId));
-      dispatch(snackbarSuccess('form.booking.delete.error'));
+      dispatch(snackbarError('form.booking.delete.error'));
     }
   };
 }

@@ -29,6 +29,7 @@ type Props = {
   showQuickInvoiceButton: ?boolean,
   showRevertBookingButton: ?boolean,
   onQuickInvoiceClick: () => void,
+  handleRevert: () => void,
   bookingUpdaters: {
     confirmBooking: () => void,
     discardBooking: () => void,
@@ -107,7 +108,7 @@ export class BookingItemForManager extends Component<Props> {
             </Button>
           ) : null}
           {showRevertBookingButton ? (
-            <IconButton color="secondary" onClick={this.props.handleRevert}>
+            <IconButton color="secondary" onClick={handleRevert}>
               <CancelIcon />
             </IconButton>
           ) : null}

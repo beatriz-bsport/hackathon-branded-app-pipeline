@@ -70,6 +70,7 @@ type Props = {
   createOrUpdateMember: (data: [*]) => void,
   addToOffer: ({ offerId: number, consumerPaymentPackId: number }) => void,
   discardOption: (id: number) => void,
+  deleteBooking: (bookingId: number) => void,
 
   goBack: () => void,
   t: TFunction,

@@ -12,11 +12,15 @@ import {
   IconButton,
   withStyles,
   Dialog,
+  DialogTitle,
   DialogContent,
+  DialogContentText,
+  DialogActions,
 } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import TodayIcon from '@material-ui/icons/Today';
 import { translate } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 import { goBack } from 'react-router-redux';
 
 import Fuse from 'fuse.js';
@@ -37,7 +41,7 @@ import QuickInvoice from '../components/invoice/QuickInvoice.component';
 import { createOrUpdateMember } from '../actions/member.actions';
 import RegisterMemberToOfferForm from '../components/form/RegisterMemberToOfferForm.component';
 import { formatAsDatetime } from '../datetime';
-
+import RedButton from '../components/button/RedButton.component';
 import { mapFormData } from './form.utils';
 
 type Props = {
@@ -68,7 +72,7 @@ type Props = {
   discardOption: (id: number) => void,
 
   goBack: () => void,
-  t: (x: string) => string,
+  t: TFunction,
   classes: Object,
 };
 
@@ -278,6 +282,80 @@ export class OfferManagement extends Component<Props, State> {
     );
   };
 
+  closeRevertBookingDialog = () => {
+    this.setState({ bookingToRevert: null });
+  };
+
+  handleBookingRevert = (booking: Booking) => {
+    this.setState({ bookingToRevert: booking });
+  };
+
+  handleBookingDeletion = (bookingId: number) => {
+    this.props.deleteBooking(bookingId);
+    this.closeRevertBookingDialog();
+  };
+
+  renderRevertBookingDialog = () => {
+    const { t } = this.props;
+    const { bookingToRevert } = this.state;
+    if (!bookingToRevert) {
+      return null;
+    }
+    if (bookingToRevert.payment_pack) {
+      return (
+        <Dialog
+          open={!!this.state.bookingToRevert}
+          onClose={this.closeRevertBookingDialog}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {t('booking.revertBookingTitle')}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              {t('booking.revertBookingExplain')(bookingToRevert.user.name)}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.closeRevertBookingDialog} color="secondary">
+              {t('common.cancel')}
+            </Button>
+            <RedButton
+              onClick={() => this.handleBookingDeletion(bookingToRevert.id)}
+              color="primary"
+              autoFocus
+            >
+              {t('common.confirm')}
+            </RedButton>
+          </DialogActions>
+        </Dialog>
+      );
+    }
+    return (
+      <Dialog
+        open={!!this.state.bookingToRevert}
+        onClose={this.closeRevertBookingDialog}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {t('booking.revertBookingTitle')}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            {t('booking.revertBookingWithInvoiceImpossibleExplain')}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={this.closeRevertBookingDialog} color="secondary">
+            {t('common.cancel')}
+          </Button>
+        </DialogActions>
+      </Dialog>
+    );
+  };
+
   render() {
     const {
       bookings,
@@ -295,42 +373,17 @@ export class OfferManagement extends Component<Props, State> {
     return (
       <Grid container direction="row" spacing={16}>
         <Grid item xs={12}>
-          <Typography variant="h3">
-            {this.props.offer.name} -{' '}
-            {formatAsDatetime(this.props.offer.date_start)}
-          </Typography>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Grid container direction="column" spacing={16}>
-            <Grid item xs={12}>
-              <Paper>
-                <Grid container direction="column">
-                  <Grid item>{this.renderBookingHeader()}</Grid>
-                  <Divider />
-                  <Grid item>
-                    <Collapse in={searchedText}>
-                      <div className={classes.resultListContainer}>
-                        <ResultList
-                          items={this.getResults()}
-                          renderListComponent={this.renderSearchedMember}
-                        />
-                      </div>
-                      <Divider />
-                    </Collapse>
-                  </Grid>
-                  <Grid item>
-                    <BookingTable
-                      loading={bookingLoading}
-                      bookings={bookings}
-                      bookingOptions={bookingOptions}
-                      discardOption={discardOption}
-                      bookingUpdaters={bookingUpdaters}
-                      showQuickInvoiceButton
-                      onQuickInvoiceClick={this.addToQuickInvoicePanel}
-                    />
-                  </Grid>
-                </Grid>
-              </Paper>
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="center"
+          >
+            <Grid item>
+              <Typography variant="h3">
+                {this.props.offer.name} -{' '}
+                {formatAsDatetime(this.props.offer.date_start)}
+              </Typography>
             </Grid>
             <Grid item>
               <Button
@@ -343,6 +396,38 @@ export class OfferManagement extends Component<Props, State> {
               </Button>
             </Grid>
           </Grid>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Paper>
+            <Grid container direction="column">
+              <Grid item>{this.renderBookingHeader()}</Grid>
+              <Divider />
+              <Grid item>
+                <Collapse in={searchedText}>
+                  <div className={classes.resultListContainer}>
+                    <ResultList
+                      items={this.getResults()}
+                      renderListComponent={this.renderSearchedMember}
+                    />
+                  </div>
+                  <Divider />
+                </Collapse>
+              </Grid>
+              <Grid item>
+                <BookingTable
+                  loading={bookingLoading}
+                  bookings={bookings}
+                  bookingOptions={bookingOptions}
+                  discardOption={discardOption}
+                  bookingUpdaters={bookingUpdaters}
+                  showQuickInvoiceButton
+                  showRevertBookingButton
+                  handleRevert={this.handleBookingRevert}
+                  onQuickInvoiceClick={this.addToQuickInvoicePanel}
+                />
+              </Grid>
+            </Grid>
+          </Paper>
         </Grid>
         <Grid item xs={12} md={6}>
           {this.renderQuickInvoicePanel()}
@@ -378,6 +463,7 @@ export class OfferManagement extends Component<Props, State> {
             />
           </DialogContent>
         </Dialog>
+        {this.renderRevertBookingDialog()}
       </Grid>
     );
   }
@@ -409,6 +495,9 @@ function mapDispatchToProps(dispatch) {
   return {
     clearSearch() {
       dispatch(searchActions.clearSearch(false));
+    },
+    deleteBooking(bookingId) {
+      dispatch(bookingActions.deleteBooking(bookingId));
     },
     fetchBookings(offerId) {
       dispatch(bookingActions.fetchBookingsByOffer(offerId));

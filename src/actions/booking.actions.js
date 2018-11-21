@@ -2,6 +2,7 @@ import api from '../api';
 import types from './booking.types';
 
 import { refreshAllPaymentPack } from './paymentPack.actions'; // TODO do it elsewhere
+import { snackbarSuccess, snackbarError } from './snackbar.actions';
 
 export function updatingBookingOption(bookingOptionId) {
   return { type: types.START_UPDATING_BOOKING_OPTION, bookingOptionId };
@@ -64,8 +65,35 @@ export function discardBookingAttendance(bookingId) {
 export function confirmBooking(bookingId) {
   return bookingUpdateWrapper(api.booking.validate, bookingId);
 }
-export function discardBooking(bookingId) {
-  return bookingUpdateWrapper(api.booking.discard, bookingId);
+
+export function deleteBookingStart(bookingId) {
+  return { type: types.BOOKING_DELETE_START, bookingId };
+}
+export function deleteBookingSuccess(bookingId) {
+  return { type: types.BOOKING_DELETE_SUCCESS, bookingId };
+}
+export function deleteBookingError(bookingId) {
+  return { type: types.BOOKING_DELETE_ERROR, bookingId };
+}
+export function deleteBooking(bookingId) {
+  return async (dispatch) => {
+    dispatch(deleteBookingStart(bookingId));
+
+    try {
+      const response = await api.booking.discard(bookingId);
+      if (response.status === 204) {
+        dispatch(deleteBookingSuccess(bookingId));
+        dispatch(snackbarSuccess('form.booking.delete.success'));
+        dispatch(refreshAllPaymentPack());
+      } else {
+        dispatch(deleteBookingError(bookingId));
+        dispatch(snackbarSuccess('form.booking.delete.error'));
+      }
+    } catch (err) {
+      dispatch(deleteBookingError(bookingId));
+      dispatch(snackbarSuccess('form.booking.delete.error'));
+    }
+  };
 }
 
 export function fetchBookingsByOffer(offerId) {

@@ -55,6 +55,18 @@ export async function patch(uri: string, data: Object, headers: Object) {
   });
 }
 
+export async function delete_(uri: string, headers: Object) {
+  const baseHeaders = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  };
+  return axios({
+    url: uri,
+    method: 'delete',
+    headers: Object.assign(baseHeaders, headers),
+  });
+}
+
 export async function get(uri: string, headers: {} = {}) {
   return axios({
     url: uri,
@@ -81,6 +93,11 @@ export async function putAuth(uri: string, data: Object) {
 export async function patchAuth(uri: string, data: Object) {
   const token = getAuthToken();
   return patch(uri, data, { Authorization: `Token ${token}` });
+}
+
+export async function deleteAuth(uri: string) {
+  const token = getAuthToken();
+  return delete_(uri, { Authorization: `Token ${token}` });
 }
 
 export async function getJSONAuth(uri: string, token) {

@@ -128,6 +128,12 @@ export default {
       },
     },
     form: {
+      booking: {
+        delete: {
+          success: 'Booking deleted',
+          error: 'Error while deleting booking',
+        },
+      },
       member: {
         phone: 'Phone number',
         rgpdTitle:
@@ -410,6 +416,11 @@ export default {
       reviews: 'Customer reviews: ',
     },
     booking: {
+      revertBookingTitle: 'Delete boking',
+      revertBookingExplain: (name: string) =>
+        `Are you sure you want to delete ${name}'s booking ? Used credits will be given back to your member. If you do not want to increments credits, you can pass the booking status to "Absent" by clicking "Attend" button.`,
+      revertBookingWithInvoiceImpossibleExplain:
+        'This booking has already been chased-out and can not be deleted. You can still change its status to "Absent".',
       attend: 'Attend',
       doNotAttend: 'Absent',
       discard: 'Discard',

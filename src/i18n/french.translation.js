@@ -107,6 +107,12 @@ export default {
       manageOffer: 'Gérer mes réservations',
     },
     form: {
+      booking: {
+        delete: {
+          success: 'Réservation supprimée',
+          error: 'Erreur lors de la suppression',
+        },
+      },
       member: {
         phone: 'Téléphone',
         rgpdTitle:
@@ -459,6 +465,11 @@ export default {
     establishment,
     search,
     booking: {
+      revertBookingTitle: "Annuler l'inscription",
+      revertBookingExplain: (name: string) =>
+        `Êtes-vous sûr de vouloir supprimer la réservation de ${name} ? Les crédits utilisés seront recrédités. Si vous ne souhaites pas recréditer le member, passez la réservation en Absent en cliquant sur le bouton "Présent"`,
+      revertBookingWithInvoiceImpossibleExplain:
+        'Cette reservation a déjà été payée par le membre et ne eut être annulée. Toute fois vous pouvez passer la réservation en "Absent"',
       attend: 'Présent',
       doNotAttend: 'Absent',
       discard: 'Annuler',

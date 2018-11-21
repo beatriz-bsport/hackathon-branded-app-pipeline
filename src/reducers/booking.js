@@ -110,6 +110,15 @@ export default function bookingReducers(state = initialState, action = {}) {
       });
     }
 
+    case actionTypes.BOOKING_DELETE_ERROR:
+    case actionTypes.BOOKING_DELETE_START:
+      return state;
+    case actionTypes.BOOKING_DELETE_SUCCESS: {
+      return Immutable.merge(state, {
+        all: state.all.filter((b) => b.id !== action.bookingId),
+      });
+    }
+
     default:
       return state;
   }

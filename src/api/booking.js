@@ -1,4 +1,4 @@
-import { API_URI, postAuth, getAuth } from '../http';
+import { API_URI, postAuth, getAuth, deleteAuth } from '../http';
 
 // FETCHER
 
@@ -32,7 +32,7 @@ export async function validateBooking(bookingId) {
 }
 
 export async function discardBooking(bookingId) {
-  return getAuth(`${API_URI}/saas/booking/${bookingId}/discard`);
+  return deleteAuth(`${API_URI}/saas/booking/${bookingId}/discard`);
 }
 
 // BOOKING OPTION ACTION

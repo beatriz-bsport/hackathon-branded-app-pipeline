@@ -105,6 +105,7 @@ export class OfferManagement extends Component<Props, State> {
       offerId: this.props.offerId,
       consumerPaymentPackId,
     });
+    this.props.clearSearch();
     this.setState({ memberToRegister: null });
   };
 
@@ -154,7 +155,7 @@ export class OfferManagement extends Component<Props, State> {
   getFuse = memoize((items) => {
     const options = {
       shouldSort: true,
-      threshold: 0.6,
+      threshold: 0.3,
       location: 0,
       distance: 100,
       maxPatternLength: 32,
@@ -167,7 +168,7 @@ export class OfferManagement extends Component<Props, State> {
   getResults = () =>
     this.getFuse(this.props.members)
       .search(this.props.searchedText)
-      .slice(0, 30);
+      .slice(0, 8);
 
   renderSearchedMember = (member: Member) => {
     const hasBooked = Boolean(
@@ -176,18 +177,18 @@ export class OfferManagement extends Component<Props, State> {
     if (hasBooked) {
       return (
         <MemberBookingHelper
+          key={member.id}
           onClick={() => this.addToQuickInvoicePanel(member.id)}
           member={member}
-          t={this.props.t}
           hasBooked
         />
       );
     }
     return (
       <MemberBookingHelper
+        key={member.id}
         onClick={() => this.setState({ memberToRegister: member })}
         member={member}
-        t={this.props.t}
         hasBooked={false}
       />
     );
@@ -211,7 +212,7 @@ export class OfferManagement extends Component<Props, State> {
 
     if (!isOpened) {
       this.setState((prevState) => ({
-        quickInvoices: [quickInvoiceToAdd, ...prevState.quickInvoices],
+        quickInvoices: [...prevState.quickInvoices, quickInvoiceToAdd],
       }));
     }
     this.props.clearSearch();

@@ -58,7 +58,7 @@ class MemberTable extends React.Component<Props, State> {
       orderBy: props.orderBy || 'name',
       selected: [],
       page: 0,
-      rowsPerPage: 10,
+      rowsPerPage: 25,
     };
   }
 
@@ -160,11 +160,13 @@ class MemberTable extends React.Component<Props, State> {
 
     return (
       <Paper className={classes.root}>
-        <EnhancedTableToolbar
-          numSelected={selected.length}
-          title={title}
-          selectionFeature={selectionFeature}
-        />
+        {title ? (
+          <EnhancedTableToolbar
+            numSelected={selected.length}
+            title={title}
+            selectionFeature={selectionFeature}
+          />
+        ) : null}
         <div className={classes.tableWrapper}>
           <Table className={classes.table} aria-labelledby="tableTitle">
             <EnhancedTableHead
@@ -184,6 +186,7 @@ class MemberTable extends React.Component<Props, State> {
           component="div"
           count={data.length}
           rowsPerPage={rowsPerPage}
+          rowsPerPageOptions={[5, 10, 25, 50, 100]}
           labelRowsPerPage={t('pagination.rowPerPage')}
           labelDisplayedRows={
             // eslint-disable-next-line

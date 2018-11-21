@@ -9,6 +9,7 @@ import {
   Grid,
   Button,
   Typography,
+  withStyles,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 
@@ -109,7 +110,7 @@ export class Members extends Component<Props, State> {
 
   render() {
     const { requestedRedirection } = this.state;
-    const { t, loading, members } = this.props;
+    const { t, loading, members, classes } = this.props;
 
     if (requestedRedirection) {
       return <Redirect to={requestedRedirection} />;
@@ -117,18 +118,18 @@ export class Members extends Component<Props, State> {
 
     const mutableMembers = members.asMutable ? members.asMutable() : members;
     return (
-      <Grid container direction="column" alignItems="stretch" spacing={16}>
+      <Grid container direction="row" spacing={32}>
         <Grid item xs={12}>
-          <FeatureTable
-            data={mutableMembers}
-            renderRow={this.renderRow}
-            columnData={this.getColumnData()}
-            loading={loading}
-            title={t('common.members')}
-          />
-        </Grid>
-        <Grid item>
-          <Grid container justify="flex-end">
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="center"
+            className={classes.header}
+          >
+            <Grid item>
+              <Typography variant="h3">{t('common.members')}</Typography>
+            </Grid>
             <Grid item>
               <Link style={{ textDecoration: 'none' }} to="/member/add/">
                 <Button variant="contained" color="primary">
@@ -136,6 +137,14 @@ export class Members extends Component<Props, State> {
                 </Button>
               </Link>
             </Grid>
+          </Grid>
+          <Grid item xs={12}>
+            <FeatureTable
+              data={mutableMembers}
+              renderRow={this.renderRow}
+              columnData={this.getColumnData()}
+              loading={loading}
+            />
           </Grid>
         </Grid>
       </Grid>
@@ -150,4 +159,13 @@ function mapStateToProps(state) {
   };
 }
 
-export default translate()(connect(mapStateToProps)(Members));
+const styles = (theme) => ({
+  header: {
+    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 3,
+  },
+});
+
+export default translate()(
+  withStyles(styles)(connect(mapStateToProps)(Members)),
+);

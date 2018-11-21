@@ -21,7 +21,8 @@ import type { TFunction } from 'react-i18next';
 import PriceInput from '../input/PriceInput.component';
 import InvoiceItemList from './InvoiceItemList.component';
 import InvoiceItemSelector from './InvoiceItemSelector.container';
-import { formatAsDatetime } from '../../datetime';
+import { formatAsDate, formatAsDatetime } from '../../datetime';
+import { Moment } from '../../i18n';
 
 type Props = {
   quickInvoice: { member: Member, invoiceItems: { offers: Array<Event> } },
@@ -195,11 +196,21 @@ export class QuickInvoice extends Component<Props> {
     }));
   };
 
-  addPaymentPack = (paymentPackId: number) => {
+  addPaymentPack = (paymentPackId: number, date_bought: Object) => {
+    alert(JSON.stringify(date_bought));
+    const ppToAdd = this.props.paymentPacks.find(
+      (pp) => pp.id === paymentPackId,
+    );
     this.setState((prevState) => ({
       additionalPaymentPacks: [
         ...prevState.additionalPaymentPacks,
-        this.props.paymentPacks.find((pp) => pp.id === paymentPackId),
+        {
+          name: ppToAdd.name,
+          price: ppToAdd.price,
+          id: ppToAdd.id,
+          subtitle: formatAsDate(date_bought || Moment()),
+          date_bought: date_bought.format('YYYY-MM-DD'),
+        },
       ],
       showInvoiceItemSelector: false,
     }));
@@ -238,9 +249,10 @@ export class QuickInvoice extends Component<Props> {
         ...this.state.additionalOffers.map((oii) => oii.id),
         ...this.props.quickInvoice.invoiceItems.offers.map((o) => o.id),
       ],
-      payment_pack_ids: this.state.additionalPaymentPacks.map(
-        (ppii) => ppii.id,
-      ),
+      payment_pack_ids: this.state.additionalPaymentPacks.map((ppii) => [
+        ppii.id,
+        ppii.date_bought,
+      ]),
       voucher: 0,
       payment_items: this.generatePaymentItemsObject(),
       member: this.props.quickInvoice.member.id,

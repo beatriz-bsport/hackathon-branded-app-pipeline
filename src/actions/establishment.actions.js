@@ -48,7 +48,7 @@ export function createOrUpdateEstablishment(establishmentData) {
         : api.establishment.addEstablishment;
       const response = await createOrUpdate(establishmentData);
 
-      if (response.status === 200 && response.status === 201) {
+      if (response.status === 200 || response.status === 201) {
         dispatch(actionCreateOrUpdateEstablishmentSuccess(response));
         dispatch(
           snackbarSuccess(

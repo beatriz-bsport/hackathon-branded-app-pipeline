@@ -11,6 +11,9 @@ export default {
   pastBooking: 'dernière : ',
   engagement: 'Engagement',
   addMember: 'Ajouter une fiche de membre',
+  noNoteSaved: 'Aucune note enregistrée',
+  showNotes: 'Voir les notes',
+  showPaymentPack: 'Voir les abonnements',
   row: {
     headers: {
       actions: 'Actions',

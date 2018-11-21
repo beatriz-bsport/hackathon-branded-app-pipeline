@@ -96,6 +96,36 @@ export default function memberReducers(state = initialState, action = {}) {
         );
     }
 
+    case actionTypes.MEMBER_NOTE_CREATEORUPDATE_ERROR:
+    case actionTypes.MEMBER_NOTE_CREATEORUPDATE_START:
+      return state;
+
+    case actionTypes.MEMBER_NOTE_CREATEORUPDATE_SUCCESS: {
+      if (state.member.id === action.note.member) {
+        return state.merge({
+          member: {
+            ...state.member,
+            notes: [
+              action.note,
+              ...state.member.notes.filter((n) => n.id !== action.note.id),
+            ],
+          },
+        });
+      }
+      return state;
+    }
+    case actionTypes.MEMBER_NOTE_DELETE_SUCCESS: {
+      if (state.member.id === action.memberId) {
+        return state.merge({
+          member: {
+            ...state.member,
+            notes: state.member.notes.filter((n) => n.id !== action.noteId),
+          },
+        });
+      }
+      return state;
+    }
+
     default:
       return state;
   }

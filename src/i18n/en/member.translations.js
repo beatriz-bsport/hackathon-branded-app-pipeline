@@ -6,10 +6,13 @@ export default {
   memberSince: 'Member since: ',
   showNextBooking: 'Show next bookings',
   nextBooking: 'next: ',
+  noNoteSaved: 'No note saved yet',
   showPreviousBooking: 'Show past bookings',
   previousBooking: 'previous: ',
   engagement: 'Engagement',
   addMember: 'Add a member profile',
+  showNotes: 'Show notes',
+  showPaymentPack: 'Show pass',
   row: {
     headers: {
       actions: 'Actions',

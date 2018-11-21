@@ -30,6 +30,7 @@ type Props = {
   discardOption: (id: number) => void,
   onQuickInvoiceClick: (member: Member) => void,
   handleRevert: (booking: Booking) => void,
+  requestRefreshPaymentPack: () => void,
   bookingUpdaters: {
     discardBooking: (id: number) => void,
     discardBookingAttendance: (id: number) => void,
@@ -53,6 +54,7 @@ export class BookingTable extends Component<Props> {
       showRevertBookingButton,
       handleRevert,
       onQuickInvoiceClick,
+      requestRefreshPaymentPack,
     } = this.props;
 
     if (loading || !bookings) {
@@ -83,6 +85,7 @@ export class BookingTable extends Component<Props> {
           <BookingItemForManager
             showQuickInvoiceButton={showQuickInvoiceButton}
             onQuickInvoiceClick={() => onQuickInvoiceClick(b.member)}
+            requestRefreshPaymentPack={requestRefreshPaymentPack}
             key={b.id}
             heading={heading}
             booking={b}

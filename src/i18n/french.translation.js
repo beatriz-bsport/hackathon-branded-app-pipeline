@@ -28,6 +28,7 @@ export default {
       },
     },
     common: {
+      loading: 'Chargement...',
       show: 'Voir',
       delete: 'Supprimer',
       previous: 'Précédent',

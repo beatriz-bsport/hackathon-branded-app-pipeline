@@ -13,14 +13,16 @@ import {
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 
+import type { TFunction } from 'react-i18next';
 import { formatAsDatetime } from '../../datetime';
 import { FeatureTable } from '../../components';
 import type { Member } from '../../api/types';
 
 type Props = {
-  t: (x: string) => string,
+  t: TFunction,
   loading: boolean,
   members: Array<Member>,
+  classes: Object,
 };
 
 type State = {

@@ -140,6 +140,11 @@ export class BookingItemForManager extends Component<Props> {
             <AttachMoneyIcon />
           </Button>
         ) : null}
+          {showRevertBookingButton ? (
+            <IconButton color="secondary" onClick={handleRevert}>
+              <CancelIcon />
+            </IconButton>
+          ) : null}
       </ListItemSecondaryAction>
     );
   };

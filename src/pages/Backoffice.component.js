@@ -17,6 +17,7 @@ import CompanyDetailPage from './CompanyDetailPage.component';
 
 import {
   MetaActivityForm,
+  MetaActivityEditForm,
   MetaActivityList,
   MetaActivity,
 } from './meta-activity';
@@ -65,6 +66,11 @@ export class Backoffice extends Component<Props> {
               <Route path="/calendar/:year/:month/:date" component={Planning} />
               <Route path="/calendar" component={Planning} />
               <Route exact path="/activity" component={MetaActivityList} />
+              <Route
+                exact
+                path="/activity/:id/edit"
+                component={MetaActivityEditForm}
+              />
               <Route path="/activity/:id" component={MetaActivity} />
               <Route exact path="/add-offers/:id" component={OfferFormPage} />
               <Route

@@ -68,6 +68,11 @@ export class ActivityCard extends Component<Props> {
               {t('common.seeMore')}
             </Button>
           </Link>
+          <Link to={`/activity/${id}/edit`} style={{ textDecoration: 'none' }}>
+            <Button size="small" color="secondary">
+              {t('common.edit')}
+            </Button>
+          </Link>
         </CardActions>
       </Card>
     );

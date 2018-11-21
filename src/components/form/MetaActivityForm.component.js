@@ -22,12 +22,11 @@ const styles = (theme) => ({
 
 type Props = {
   initial: *,
-  coaches: *[],
-  establishments: *[],
   SCTs: *[],
   onSubmit: (*) => void,
   classes: Object,
   metaActivityNames: Array<string>,
+  initial: ?MetaActivity,
   t: (x: string) => string,
 };
 
@@ -35,26 +34,36 @@ type State = {
   name: ?string,
   SCT: ?number,
   description: ?string,
-  coach: ?number,
-  establishment: ?number,
   default_waiting_list_max_size: number,
-  default_price: ?number,
-  default_credits: ?number,
   default_last_booking_minutes: ?number,
   default_last_discard_minutes: ?number,
-  default_duration_minutes: ?number,
   customer_enabled: ?boolean,
 };
 
 export class MetaActivityForm extends Component<Props, State> {
-  state = {
-    default_waiting_list_max_size: 0,
-    default_last_booking_minutes: 30,
-    default_last_discard_minutes: 30,
-    default_duration_minutes: 30,
-    customer_enabled: 0,
-  };
+  constructor(props: Props) {
+    super(props);
 
+    this.state = {
+      default_waiting_list_max_size: 0,
+      default_last_booking_minutes: 30,
+      default_last_discard_minutes: 30,
+      customer_enabled: true,
+    };
+    const { initial } = this.props;
+    if (initial) {
+      this.state.name = initial.name;
+      this.state.default_waiting_list_max_size =
+        initial.default_waiting_list_max_size;
+      this.state.default_last_booking_minutes = initial.last_booking_minutes;
+      this.state.default_last_discard_minutes = initial.last_discard_minutes;
+      this.state.customer_enabled = initial.customer_enabled;
+      this.state.SCT = initial.category_id;
+      this.state.cover = initial.cover_main;
+      this.state.description = initial.description;
+    }
+  }
+  /*
   constructor(props: Props) {
     super(props);
 
@@ -62,6 +71,7 @@ export class MetaActivityForm extends Component<Props, State> {
       this.state[key] = props.initial[key];
     });
   }
+  */
 
   onSubmit = (event: Object) => {
     event.preventDefault();
@@ -69,14 +79,9 @@ export class MetaActivityForm extends Component<Props, State> {
       name,
       SCT,
       description,
-      coach,
-      establishment,
       default_waiting_list_max_size,
-      default_price,
-      default_credits,
       default_last_booking_minutes,
       default_last_discard_minutes,
-      default_duration_minutes,
       customer_enabled,
       cover,
     } = this.state;
@@ -92,14 +97,10 @@ export class MetaActivityForm extends Component<Props, State> {
     formData.append('name', name);
     formData.append('SCT', SCT);
     formData.append('description', description);
-    formData.append('coach', coach);
-    formData.append('establishment', establishment);
     formData.append(
       'default_waiting_list_max_size',
       default_waiting_list_max_size,
     );
-    formData.append('default_price', default_price);
-    formData.append('default_credits', default_credits);
     formData.append(
       'default_last_booking_minutes',
       default_last_booking_minutes,
@@ -108,9 +109,7 @@ export class MetaActivityForm extends Component<Props, State> {
       'default_last_discard_minutes',
       default_last_discard_minutes,
     );
-    formData.append('default_duration_minutes', default_duration_minutes);
     formData.append('customer_enabled', customer_enabled);
-
     this.props.onSubmit(formData);
   };
 
@@ -119,7 +118,7 @@ export class MetaActivityForm extends Component<Props, State> {
   };
 
   render() {
-    const { SCTs, coaches, establishments, classes, t } = this.props;
+    const { SCTs, classes, t } = this.props;
     return (
       <Grid container direction="row" spacing={16}>
         <Grid item xs={12} lg={6}>
@@ -133,7 +132,10 @@ export class MetaActivityForm extends Component<Props, State> {
                 </Grid>
                 <Grid item>
                   <label>Photo</label>
-                  <ImageUploader onChange={this.onFormFieldChange('cover')}>
+                  <ImageUploader
+                    onChange={this.onFormFieldChange('cover')}
+                    initial={this.state.cover}
+                  >
                     <MetaActivityCoverPreview />
                   </ImageUploader>
                 </Grid>

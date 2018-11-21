@@ -107,7 +107,7 @@ export class InvoiceForm extends Component<Props, State> {
       ]),
       payment_items: paymentItems,
     };
-    this.props.createOrUpdate(data);
+    return this.props.createOrUpdate(data);
   };
 
   cancelPayments = () => {

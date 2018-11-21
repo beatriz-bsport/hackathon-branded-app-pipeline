@@ -16,15 +16,20 @@ import BookingOptionForManager from './BookingOptionForManager.component';
 type Props = {
   classes: Object,
   t: (x: string) => string,
+
   loading: boolean,
+  showRevertBookingButton: boolean,
+  showQuickInvoiceButton: boolean,
   heading: ?string,
+
   bookings: Array<Object>,
   bookingOptions: Array<Object>,
-  discardOption: (id: number) => void,
-  showQuickInvoiceButton: boolean,
-  onQuickInvoiceClick: (member: Member) => void,
   invoices: Array<Invoice>,
   paymentPacks: Array<PaymentPack>,
+
+  discardOption: (id: number) => void,
+  onQuickInvoiceClick: (member: Member) => void,
+  handleRevert: (booking: Booking) => void,
   bookingUpdaters: {
     discardBooking: (id: number) => void,
     discardBookingAttendance: (id: number) => void,
@@ -45,6 +50,8 @@ export class BookingTable extends Component<Props> {
       discardOption,
       bookingUpdaters,
       showQuickInvoiceButton,
+      showRevertBookingButton,
+      handleRevert,
       onQuickInvoiceClick,
     } = this.props;
 
@@ -81,6 +88,8 @@ export class BookingTable extends Component<Props> {
             booking={b}
             invoices={this.props.invoices}
             paymentPacks={this.props.paymentPacks}
+            showRevertBookingButton={showRevertBookingButton}
+            handleRevert={() => handleRevert(b)}
             bookingUpdaters={{
               confirmBooking: () => confirmBooking(b.id),
               discardBooking: () => discardBooking(b.id),

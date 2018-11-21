@@ -5,12 +5,13 @@ import {
   withStyles,
   Avatar,
   Button,
-  Grid,
+  IconButton,
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
 } from '@material-ui/core';
 import CachedIcon from '@material-ui/icons/Cached';
+import CancelIcon from '@material-ui/icons/Cancel';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import { translate } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -25,7 +26,8 @@ type Props = {
   booking: Object,
   paymentPacks: Array<PaymentPack>,
   invoices: Array<Invoice>,
-  showQuickInvoiceButton: boolean,
+  showQuickInvoiceButton: ?boolean,
+  showRevertBookingButton: ?boolean,
   onQuickInvoiceClick: () => void,
   bookingUpdaters: {
     confirmBooking: () => void,
@@ -41,69 +43,6 @@ export class BookingItemForManager extends Component<Props> {
       return { color: 'primary' };
     }
     return {};
-  };
-
-  renderButton = () => {
-    const { t, booking, bookingUpdaters } = this.props;
-    const { confirmBooking, discardBooking } = bookingUpdaters;
-
-    switch (booking.status) {
-      case true:
-        /*
-            <Grid item>
-              <Button variant="outlined" disabled color="primary">
-                {t('booking.confirm')}
-              </Button>
-            </Grid>
-            */
-        return (
-          <Grid container direction="row" spacing={16}>
-            <Grid item>{this.getAttendance()}</Grid>
-            <Grid item>
-              <RedButton variant="outlined" disabled onClick={discardBooking}>
-                {t('booking.discard')}
-              </RedButton>
-            </Grid>
-          </Grid>
-        );
-      case false:
-        // should never be reached via API but whatever
-        return (
-          <Grid container direction="row" spacing={16}>
-            <Grid item>{this.getAttendance()}</Grid>
-            <Grid item>
-              <Button variant="outlined" disabled>
-                {t('booking.confirm')}
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button variant="outlined" disabled>
-                {t('booking.discard')}
-              </Button>
-            </Grid>
-          </Grid>
-        );
-      default:
-        return (
-          <Grid container direction="row" spacing={16}>
-            <Grid item>{this.getAttendance()}</Grid>
-            <Grid item>
-              <Button
-                variant="outlined"
-                color="primary"
-                onClick={confirmBooking}
-              >
-                {t('booking.confirm')}
-              </Button>
-            </Grid>
-            <Grid item>
-              <RedButton variant="outlined" onClick={discardBooking}>
-                {t('booking.discard')}
-              </RedButton>
-            </Grid>
-          </Grid>
-        );
-    }
   };
 
   getStatusText = (booking: Booking) => {
@@ -135,12 +74,14 @@ export class BookingItemForManager extends Component<Props> {
     return ['Impayé', 'error'];
   };
 
-  getAttendance = () => {
+  renderButtons = () => {
     const {
       t,
       booking,
       showQuickInvoiceButton,
       bookingUpdaters,
+      showRevertBookingButton,
+      handleRevert,
       classes,
     } = this.props;
 
@@ -164,6 +105,11 @@ export class BookingItemForManager extends Component<Props> {
             >
               <AttachMoneyIcon />
             </Button>
+          ) : null}
+          {showRevertBookingButton ? (
+            <IconButton color="secondary" onClick={this.props.handleRevert}>
+              <CancelIcon />
+            </IconButton>
           ) : null}
         </ListItemSecondaryAction>
       );
@@ -223,7 +169,7 @@ export class BookingItemForManager extends Component<Props> {
           secondary={statusText}
           secondaryTypographyProps={{ color }}
         />
-        {this.getAttendance()}
+        {this.renderButtons()}
       </ListItem>
     );
   }

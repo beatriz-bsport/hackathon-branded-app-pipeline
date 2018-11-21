@@ -5,7 +5,6 @@ import {
   withStyles,
   Avatar,
   Button,
-  CircularProgress,
   IconButton,
   ListItem,
   ListItemText,

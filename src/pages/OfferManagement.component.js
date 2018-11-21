@@ -380,6 +380,7 @@ export class OfferManagement extends Component<Props, State> {
             direction="row"
             justify="space-between"
             alignItems="center"
+            className={classes.titleBanner}
           >
             <Grid item>
               <Typography variant="h3">
@@ -553,6 +554,9 @@ const styles = (theme) => ({
   },
   leftIcon: {
     marginRight: theme.spacing.unit,
+  },
+  titleBanner: {
+    marginTop: theme.spacing.unit,
   },
 });
 

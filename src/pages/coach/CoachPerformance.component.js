@@ -1,9 +1,16 @@
 // @flow
+
 import React, { Component } from 'react';
+
+import { compose, withProps } from 'recompose';
 
 import { Paper, Grid, Typography, withStyles } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
+
+import mapParamsToProps from '../../hocs/router-params-to-props.hoc';
+import { associatedCoachSelector } from '../../state/coaches/selectors';
+
 import {
   CoachPerformanceForm,
   CoachPerformanceSummary,
@@ -13,7 +20,8 @@ import type { PerformanceCalculationRule } from '../../components/form/types';
 import type { Coach } from '../../api/types';
 
 type Props = {
-  coaches: Array<Coach>,
+  coach: Coach,
+  associatedCoachId: number,
   loading: boolean,
   performance: Array<Object>,
   fetchPerformance: (
@@ -23,7 +31,6 @@ type Props = {
   ) => void,
   t: (x: string) => string,
   classes: Object,
-  match: Object,
 };
 
 type State = {
@@ -31,29 +38,14 @@ type State = {
 };
 
 export class CoachPerformance extends Component<Props, State> {
-  coach: ?Coach = null;
-
-  associatedCoachId: ?number = null;
-
   state = {
     rule: null,
   };
 
-  componentDidMount() {
-    this.associatedCoachId = parseInt(
-      this.props.match.params.associatedCoachId,
-      10,
-    );
-    // eslint-disable-next-line
-    this.coach = this.props.coaches.filter(
-      (ac) => ac.associated_coach_id === this.associatedCoachId,
-    )[0];
-  }
-
   onSubmit = (formData: Object) => {
     const { date_start, date_end } = formData;
     this.props.fetchPerformance(
-      this.associatedCoachId,
+      this.props.associatedCoachId,
       date_start.unix(),
       date_end.unix(),
     );
@@ -67,25 +59,16 @@ export class CoachPerformance extends Component<Props, State> {
   };
 
   render() {
-    const { classes, t, loading, performance } = this.props;
+    const { classes, t, loading, performance, coach } = this.props;
     const { rule } = this.state;
     return (
       <Grid container spacing={16} className={classes.container}>
         <Grid item xs={12} lg={6}>
           <Paper className={classes.paperForm}>
-            <Grid container direction="column" spacing={40}>
-              <Grid item>
-                <Typography variant="title">
-                  {t('coach.performance.title')}
-                </Typography>
-              </Grid>
-              <Grid item>
-                <CoachPerformanceForm
-                  onSubmit={this.onSubmit}
-                  loading={loading}
-                />
-              </Grid>
-            </Grid>
+            <Typography variant="title">
+              {t('coach.performance.title')}
+            </Typography>
+            <CoachPerformanceForm onSubmit={this.onSubmit} loading={loading} />
           </Paper>
         </Grid>
         <Grid item xs={12} lg={6}>
@@ -94,7 +77,7 @@ export class CoachPerformance extends Component<Props, State> {
               performance={performance}
               loading={loading}
               rule={rule}
-              coach={this.coach}
+              coach={coach}
             />
           </Paper>
         </Grid>
@@ -103,10 +86,11 @@ export class CoachPerformance extends Component<Props, State> {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, props) {
   return {
     performance: state.coach.performance,
     loading: state.coach.performanceLoading,
+    coach: associatedCoachSelector(state, props.associatedCoachId),
     coaches: state.coach.companyAssociated,
   };
 }
@@ -136,11 +120,15 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(
-  translate()(
-    connect(
-      mapStateToProps,
-      mapDispatchToProps,
-    )(CoachPerformance),
+export default compose(
+  withStyles(styles),
+  translate(),
+  mapParamsToProps(['associatedCoachId']),
+  withProps((props) => ({
+    associatedCoachId: +props.associatedCoachId,
+  })),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
   ),
-);
+)(CoachPerformance);

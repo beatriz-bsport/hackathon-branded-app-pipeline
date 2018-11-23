@@ -22,8 +22,10 @@ import MarketplaceTimetable from '../components/marketplace/MarketplaceTimetable
 import { Moment } from '../i18n';
 import { marketplace as marketplaceActions } from '../actions';
 
+import api from '../api';
+
 type Props = {
-  companyId: ?number,
+  companyName: ?string,
   company: MarketPlaceCompany,
   offers: Array<OfferBasic>,
   selectedDayOffers: ?Array<OfferMarketplace>,
@@ -53,16 +55,25 @@ export class MarketPlace extends Component<Props, State> {
     tabSelected: TAB_CALENDAR,
   };
 
-  componentDidMount() {
-    const {
-      companyId,
-      fetchCompany,
-      fetchCalendar,
-      fetchPaymentPacks,
-    } = this.props;
-    fetchCompany(companyId);
-    fetchCalendar(companyId);
-    fetchPaymentPacks(companyId);
+  async componentDidMount() {
+    try {
+      const response = await api.marketplace.getIdByName(
+        this.props.companyName,
+      );
+      if (response.status === 200) {
+        this.companyId = response.data;
+        this.props.fetchCompany(this.companyId);
+      } else {
+        this.showError();
+      }
+    } catch (e) {
+      console.log(e);
+      this.showError();
+    }
+    const { fetchCompany, fetchCalendar, fetchPaymentPacks } = this.props;
+    fetchCompany(this.companyId);
+    fetchCalendar(this.companyId);
+    fetchPaymentPacks(this.companyId);
     this.updateOfferList(this.state.selectedDate);
   }
 
@@ -78,11 +89,15 @@ export class MarketPlace extends Component<Props, State> {
   };
 
   updateOfferList = (selectedDate) => {
-    const { companyId } = this.props;
     const day = selectedDate.date();
     const year = selectedDate.year();
     const month = selectedDate.month() + 1;
-    this.props.fetchOffersByDay({ companyId, year, month, day });
+    this.props.fetchOffersByDay({
+      companyId: this.companyId,
+      year,
+      month,
+      day,
+    });
   };
 
   renderCalendar = () => {
@@ -206,9 +221,9 @@ export class MarketPlace extends Component<Props, State> {
 
 function mapStateToProps(state, nextProps) {
   const { match } = nextProps;
-  const companyId = (match && match.params && +match.params.id) || null;
+  const companyName = match.params.id;
   return {
-    companyId,
+    companyName,
     company: state.marketplace.company,
     offers: state.marketplace.offers,
     activities: state.marketplace.activities,

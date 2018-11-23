@@ -18,9 +18,14 @@ export async function fetchPaymentPacks(companyId) {
   return get(`${API_URI}/marketplace/company/${companyId}/payment-packs`);
 }
 
+export async function getIdByName(companyName) {
+  return get(`${API_URI}/marketplace/${companyName}`);
+}
+
 export default {
   fetchCompany,
   fetchCalendar,
   fetchOffersByDay,
   fetchPaymentPacks,
+  getIdByName,
 };

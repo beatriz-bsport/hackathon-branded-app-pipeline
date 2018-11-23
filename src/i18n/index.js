@@ -15,7 +15,7 @@ i18n
   .use(LanguageDetector)
   .use(reactI18nextModule)
   .init({
-    fallbackLng: 'en-US',
+    fallbackLng: 'fr-FR',
 
     // have a common namespace used around the full app
     defaultNS: 'translation',
@@ -23,8 +23,8 @@ i18n
     debug: true,
 
     resources: {
-      'en-US': ENGLISH_PACK,
       'fr-FR': FRENCH_PACK,
+      'en-US': ENGLISH_PACK,
     },
 
     interpolation: {
@@ -41,12 +41,12 @@ i18n
 
 const availableLanguages = [
   {
-    lang: 'en-US',
-    translation: ENGLISH_PACK,
-  },
-  {
     lang: 'fr-FR',
     translation: FRENCH_PACK,
+  },
+  {
+    lang: 'en-US',
+    translation: ENGLISH_PACK,
   },
 ];
 

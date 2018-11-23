@@ -110,6 +110,14 @@ export default {
       manageOffer: 'Gérer mes réservations',
     },
     form: {
+      login: {
+        changePasswordTitle: 'Modification du mot de passe',
+        password: 'Mot de passe',
+        confirmPassword: 'Confirmer',
+        passwordTooEasy: 'Veuillez complexifier votre mot de passe',
+        passwordChangedSuccess: 'Mot de passe modifié avec succès !',
+        passwordMismatch: 'Les mots de passe ne correspondent pas',
+      },
       booking: {
         delete: {
           success: 'Réservation supprimée',
@@ -565,6 +573,7 @@ export default {
       },
     },
     marketplace: {
+      showMarketplace: 'Voir le calendrier de ',
       noSessionToday: 'Aucune séance',
       book: 'Réserver',
       sessionThisDay: 'Séance ce jour :',

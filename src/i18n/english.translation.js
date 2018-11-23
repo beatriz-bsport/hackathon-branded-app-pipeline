@@ -131,6 +131,14 @@ export default {
       },
     },
     form: {
+      login: {
+        changePasswordTitle: 'Change password',
+        password: 'Password',
+        confirmPassword: 'Confirm',
+        passwordTooEasy: 'Please complexify your password',
+        passwordChangedSuccess: 'Password reset successfull !',
+        passwordMismatch: 'Password confirmation mismatch',
+      },
       booking: {
         delete: {
           success: 'Booking deleted',
@@ -518,6 +526,7 @@ export default {
       },
     },
     marketplace: {
+      showMarketplace: 'Show calendar of ',
       noSessionToday: 'No session',
       book: 'Book',
       sessionThisDay: 'Sessions this day: ',

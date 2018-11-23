@@ -16,6 +16,7 @@ import {
 import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { push as pushRouter } from 'react-router-redux';
 
 import { BookingListItem, BookingOptionListItem } from '../../components';
 import { consumer as consumerActions } from '../../actions';
@@ -30,6 +31,7 @@ type Props = {
   bookingOptions: Array<BookingOption>,
   optionCurrentlyCancelling: ?number,
   cancelBookingOption: (id: number) => void,
+  pushToMarketplace: (name: string) => void,
   t: (x: string) => string,
 };
 
@@ -255,6 +257,29 @@ export class MyBookings extends Component<Props, State> {
     );
   };
 
+  renderMembershipButtons = () => {
+    const { t, profile, pushToMarketplace, classes } = this.props;
+    if (!profile) {
+      return null;
+    }
+    return (
+      <Grid container direction="row">
+        {profile.memberships.map((membership) => (
+          <Grid item key={membership.id}>
+            <Button
+              className={classes.membershipButton}
+              onClick={() => pushToMarketplace(membership.name)}
+              variant="contained"
+              color="primary"
+            >
+              {`${t('marketplace.showMarketplace')} ${membership.name}`}
+            </Button>
+          </Grid>
+        ))}
+      </Grid>
+    );
+  };
+
   render() {
     const { requestRedirect } = this.state;
     if (requestRedirect) {
@@ -263,6 +288,9 @@ export class MyBookings extends Component<Props, State> {
     return (
       <div>
         <Grid container direction="row" spacing={16}>
+          <Grid item xs={12}>
+            {this.renderMembershipButtons()}
+          </Grid>
           <Grid item xs={12} lg={6}>
             {this.renderFutureBookingsContainer()}
           </Grid>
@@ -281,6 +309,7 @@ export class MyBookings extends Component<Props, State> {
 
 function mapStateToProps(state) {
   return {
+    profile: state.consumer.profile,
     bookingOptions: state.consumer.bookingOptions,
     futureBookings: state.consumer.futureBookings,
     pastBookings: state.consumer.pastBookings,
@@ -294,6 +323,9 @@ function mapDispatchToProps(dispatch) {
   return {
     cancelBookingOption(optionId) {
       dispatch(consumerActions.cancelBookingOption(optionId));
+    },
+    pushToMarketplace(name) {
+      dispatch(pushRouter(`/m/${name}`));
     },
   };
 }
@@ -314,6 +346,9 @@ const styles = (theme) => ({
   modalContainer: {
     top: '30%',
     left: '30%',
+  },
+  membershipButton: {
+    margin: theme.spacing.unit,
   },
   modal: {
     position: 'absolute',

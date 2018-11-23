@@ -20,7 +20,7 @@ type Props = {
 
   compatibleConsumerPacks: Array<ConsumerPaymentPackManagerView>,
 
-  goToPassMarketplace: (companyId: number) => void,
+  goToPassMarketplace: (companyName: string) => void,
   fetchOffer: (number) => void,
   fetchCompatiblePass: (number) => void,
 };
@@ -43,8 +43,8 @@ export class OfferPaymentPage extends Component<Props, State> {
   }
 
   goToPassMarketplace = () => {
-    const { company } = this.props.offer.activity;
-    this.props.goToPassMarketplace(parseInt(company, 10));
+    const { company_name } = this.props.offer.activity;
+    this.props.goToPassMarketplace(company_name);
   };
 
   render() {
@@ -94,8 +94,8 @@ function mapDispatchToProps(dispatch) {
     fetchCompatiblePass(id) {
       dispatch(paymentActions.fetchCompatiblePass(id));
     },
-    goToPassMarketplace(companyId) {
-      dispatch(routerPush(`/marketplace/${companyId}`));
+    goToPassMarketplace(companyName) {
+      dispatch(routerPush(`/m/${companyName}`));
     },
   };
 }

@@ -59,6 +59,15 @@ export async function requestSMSCodeNoRegistration(phonenumber) {
   });
 }
 
+export async function changePassword({ uid, token, password }) {
+  return post(`${API_URI}/auth/password/reset/confirm/`, {
+    uid,
+    token,
+    new_password1: password,
+    new_password2: password,
+  });
+}
+
 export default {
   updateProfile,
   resetPassword,
@@ -68,4 +77,5 @@ export default {
   requestSMSCodeNoRegistration,
   validatePhone,
   signup,
+  changePassword,
 };

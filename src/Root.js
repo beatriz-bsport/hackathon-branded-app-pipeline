@@ -41,7 +41,7 @@ export class Root extends Component<Props> {
         <Switch>
           <Route path="/login" component={LoginRouter} />
           <Route path="/customer" component={ConsumerHome} />
-          <Route path="/marketplace/:id" component={MarketPlace} />
+          <Route path="/m/:id" component={MarketPlace} />
           <Route path="/" component={UserspaceSwitcher} />
         </Switch>
       </div>

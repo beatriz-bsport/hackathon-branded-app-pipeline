@@ -6,6 +6,7 @@ import LoginPro from './LoginPro.component';
 import LoginConsumer from './LoginConsumer.component';
 import Signout from './Signout.component';
 import ResetPassword from './ResetPassword.component';
+import ChangePassword from './ChangePassword.component';
 
 export default function LoginRouter() {
   return (
@@ -16,6 +17,10 @@ export default function LoginRouter() {
       <Route path="/login/customer" component={LoginConsumer} />
       <Route path="/login/reset_password" component={ResetPassword} />
       <Route path="/login/signout" component={Signout} />
+      <Route
+        path="/login/change_password/:uid/:token"
+        component={ChangePassword}
+      />
       <Route path="/login" component={LoginChoice} />
     </Switch>
   );

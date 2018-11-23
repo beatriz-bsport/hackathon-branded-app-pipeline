@@ -15,9 +15,12 @@ type Props = {
   associatedCoaches: *[],
   establishments: *[],
   SCTs: *[],
-  metaActivityNames: Array<string>,
   fetchAllActivities: () => void,
-  history: Object,
+  fetchMetaActivityDetails: (id: number) => void,
+  id: number,
+  push: (path: string) => void,
+  loading: ?boolean,
+  metaActivity: MetaActivity,
 };
 type State = { open: boolean };
 
@@ -46,14 +49,7 @@ export class MetaActivityFormPage extends Component<Props, State> {
   };
 
   render() {
-    const {
-      SCTs,
-      associatedCoaches,
-      establishments,
-      metaActivityNames,
-      loading,
-      id,
-    } = this.props;
+    const { SCTs, associatedCoaches, establishments, loading, id } = this.props;
     if (id === null || loading) {
       return (
         <Grid container item justify="center" alignItems="center">

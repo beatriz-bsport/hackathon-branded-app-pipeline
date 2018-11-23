@@ -24,6 +24,7 @@ import type { Booking, BookingOption } from '../../api/types';
 
 type Props = {
   classes: Object,
+  profile: Profile,
   loadingBooking: boolean,
   loadingOption: boolean,
   futureBookings: Array<Booking>,

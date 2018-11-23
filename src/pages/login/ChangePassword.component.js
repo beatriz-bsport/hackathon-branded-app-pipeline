@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -7,6 +8,7 @@ import {
   Grid,
   TextField,
   withStyles,
+  CircularProgress,
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -23,15 +25,25 @@ const styles = (theme) => ({
 });
 
 type Props = {
+  match: Object,
+  pushToLogin: (successMessage: string) => void,
   t: TFunction,
   classes: Object,
 };
 
-export class ChangePassword extends Component<Props> {
+type State = {
+  password1: ?string,
+  password2: ?string,
+  error: ?string,
+  processing: boolean,
+};
+
+export class ChangePassword extends Component<Props, State> {
   state = {
     password1: null,
     password2: null,
     error: null,
+    processing: false,
   };
 
   componentWillMount() {
@@ -49,13 +61,16 @@ export class ChangePassword extends Component<Props> {
 
   onSubmit = async (event) => {
     event.preventDefault();
+    this.setState({ processing: true });
     const { t } = this.props;
     const { password1, password2 } = this.state;
     if (password1 !== password2) {
-      this.setState({ error: t('form.login.passwordMismatch') });
+      this.setState({
+        processing: false,
+        error: t('form.login.passwordMismatch'),
+      });
     } else {
-      const uid = this.uid;
-      const token = this.token;
+      const { uid, token } = this;
       try {
         const response = await api.auth.changePassword({
           uid,
@@ -63,20 +78,25 @@ export class ChangePassword extends Component<Props> {
           password: password1,
         });
         if (response.status !== 200) {
-          console.log(response);
-          this.setState({ error: t('form.login.passwordTooEasy') });
+          this.setState({
+            processing: false,
+            error: t('form.login.passwordTooEasy'),
+          });
         } else {
           this.props.pushToLogin(t('form.login.passwordChangedSuccess'));
         }
       } catch (e) {
-        this.setState({ error: t('form.login.passwordTooEasy') });
+        this.setState({
+          processing: false,
+          error: t('form.login.passwordTooEasy'),
+        });
       }
     }
   };
 
   render() {
     const { t, classes } = this.props;
-    const { password1, error, password2 } = this.state;
+    const { processing, password1, error, password2 } = this.state;
     return (
       <LoginBase>
         <form onSubmit={this.onSubmit} className={classes.formContainer}>
@@ -112,19 +132,19 @@ export class ChangePassword extends Component<Props> {
               </Grid>
             ) : null}
             <Grid item>
-              <Button color="primary" variant="contained" type="submit">
-                OK
-              </Button>
+              {processing ? (
+                <CircularProgress />
+              ) : (
+                <Button color="primary" variant="contained" type="submit">
+                  OK
+                </Button>
+              )}
             </Grid>
           </Grid>
         </form>
       </LoginBase>
     );
   }
-}
-
-function mapStateToProps(state) {
-  return {};
 }
 
 function mapDispatchToProps(dispatch) {
@@ -139,7 +159,7 @@ function mapDispatchToProps(dispatch) {
 export default withStyles(styles)(
   translate()(
     connect(
-      mapStateToProps,
+      null,
       mapDispatchToProps,
     )(ChangePassword),
   ),

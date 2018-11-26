@@ -197,7 +197,6 @@ export class QuickInvoice extends Component<Props> {
   };
 
   addPaymentPack = (paymentPackId: number, date_bought: Object) => {
-    alert(JSON.stringify(date_bought));
     const ppToAdd = this.props.paymentPacks.find(
       (pp) => pp.id === paymentPackId,
     );

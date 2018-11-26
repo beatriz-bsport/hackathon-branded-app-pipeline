@@ -481,6 +481,7 @@ export class Member extends Component<Props, State> {
                     onDelete={() => this.handleNoteDelete(note.id)}
                     note={note}
                     key={note.id}
+                    date={note.date}
                   />
                 </div>
               ))

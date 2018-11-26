@@ -1,10 +1,12 @@
 // @flow
 import React, { Component } from 'react';
 
-import { Grid, TextField, IconButton } from '@material-ui/core';
+import { withStyles, Grid, TextField, IconButton } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
+import { formatAsDate } from '../../datetime';
+import { Moment } from '../../i18n';
 
 type Props = {
   editMode: ?boolean,
@@ -23,7 +25,7 @@ type State = {
   text: string,
 };
 
-export default class MemberNote extends Component<Props, State> {
+export class MemberNote extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -46,8 +48,8 @@ export default class MemberNote extends Component<Props, State> {
   };
 
   render() {
-    const { autoFocus } = this.props;
-    const { text, editMode } = this.state;
+    const { autoFocus, classes } = this.props;
+    const { text, editMode, date } = this.state;
     return (
       <Grid container direction="row" justify="space-between">
         <Grid item xs={10}>
@@ -58,7 +60,9 @@ export default class MemberNote extends Component<Props, State> {
             multiline
             value={text}
             variant="outlined"
+            label={formatAsDate(date || Moment())}
             onChange={this.handleChange}
+            inputProps={{ className: classes.text }}
           />
         </Grid>
         <Grid item xs={2}>
@@ -86,3 +90,11 @@ export default class MemberNote extends Component<Props, State> {
     );
   }
 }
+
+const styles = (theme) => ({
+  text: {
+    color: '#000000',
+  },
+});
+
+export default withStyles(styles)(MemberNote);

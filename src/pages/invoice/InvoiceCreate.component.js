@@ -18,9 +18,9 @@ import type { InvoiceDataFront } from '../../components/form/types';
 
 type Props = {
   member: Member,
-  offers: Array<Offer>,
   paymentPacks: Array<PaymentPack>,
   activities: Array<Activity>,
+  shopItems: Array<ShopItem>,
   goToInvoiceList: () => void,
   createInvoice: () => void,
   creatingInvoice: boolean,
@@ -42,11 +42,11 @@ export class InvoiceCreatePage extends Component<Props> {
     const {
       member,
       activities,
-      offers,
       paymentPacks,
       t,
       classes,
       goToInvoiceList,
+      shopItems,
       creatingInvoice,
     } = this.props;
     if (member === null) {
@@ -61,9 +61,9 @@ export class InvoiceCreatePage extends Component<Props> {
         </Typography>
         <InvoiceForm
           member={member}
-          offers={offers}
           activities={activities}
           paymentPacks={paymentPacks}
+          shopItems={shopItems}
           createOrUpdate={this.createInvoice}
           uneditablePayments={[]}
           uneditableInvoiceItems={[]}
@@ -80,9 +80,9 @@ function mapStateToProps(state, nextProps) {
   const id = (match && match.params && +match.params.id) || null;
   return {
     member: id !== null ? state.member.all.find((m) => m.id === id) : null,
-    offers: state.offer.calendar,
     activities: state.activity.all,
     paymentPacks: state.paymentPack.all,
+    shopItems: state.shop.all,
     creatingInvoice: state.invoice.createOrUpdatePending,
   };
 }

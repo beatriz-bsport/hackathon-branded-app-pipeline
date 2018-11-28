@@ -30,6 +30,7 @@ import LocationOn from '@material-ui/icons/LocationOn';
 import Search from '@material-ui/icons/Search';
 import SettingsIcon from '@material-ui/icons/Settings';
 import MenuIcon from '@material-ui/icons/Menu';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 import { LanguageButton } from '../button/LanguageButton.component';
 import RefreshButton from '../button/RefreshButton.component';
@@ -116,6 +117,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         to: '/invoice',
         icon: Payment,
         text: t('navigation.payment'),
+      },
+      {
+        to: '/shop',
+        icon: ShoppingCartIcon,
+        text: t('shop.myShop'),
       },
       'divider',
       {

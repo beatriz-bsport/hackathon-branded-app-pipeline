@@ -62,6 +62,7 @@ type Props = {
   bookings: Array<Booking>,
   members: Array<Member>,
   paymentPacks: Array<PaymentPack>,
+  shopItems: Array<ShopItem>,
   offers: Array<Event>,
   compatiblePacks: Array<PaymentPack>,
 
@@ -267,6 +268,7 @@ export class OfferManagement extends Component<Props, State> {
                 onClose={() => this.closeQuickInvoice(qi.member.id)}
                 onSubmit={this.saveQuickInvoice}
                 paymentPacks={this.props.paymentPacks}
+                shopItems={this.props.shopItems}
                 offers={this.props.offers}
                 activities={this.props.activities}
                 createInvoice={(invoiceData) =>
@@ -482,6 +484,7 @@ function mapStateToProps(state, nextProps) {
     offers: state.offer.calendar,
     activities: state.activity.all,
     paymentPacks: state.paymentPack.all,
+    shopItems: state.shop.all,
     searchedText: state.search.text,
     members: state.member.all,
     bookings: state.booking.all,

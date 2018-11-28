@@ -15,53 +15,62 @@ import AddIcon from '@material-ui/icons/Add';
 import { translate } from 'react-i18next';
 
 import DatePicker from 'material-ui-pickers/DatePicker';
-import OfferInput from '../input/OfferInput.component';
 import PaymentPackInput from '../input/PaymentPackInput.component';
+import ShopItemInput from '../input/ShopItemInput.container';
 import { Moment } from '../../i18n';
 
 type Props = {
   t: (x: string) => string,
   classes: Object,
-  events: Array<Event>,
-  activities: Array<Activity>,
   paymentPacks: Array<PaymentPack>,
   showCancel: ?boolean,
+  defaultTab: ?number,
   onCancel: ?() => void,
-  onAddOffer: (offerId: number) => void,
   onAddPaymentPack: (paymentPackId: number) => void,
+  onAddShopItem: (shopItemId: number) => void,
 };
 
-const SELECTOR_OFFER = 0;
-const SELECTOR_PAYMENT_PACK = 1;
+type State = {
+  expandedSelector: number,
+  paymentPackId: ?number,
+  shopItemId: ?number,
+  date_bought: Object,
+};
 
-export class InvoiceItemSelector extends Component<Props> {
-  state = {
-    expandedSelector: SELECTOR_PAYMENT_PACK,
-    offerId: null,
-    paymentPackId: null,
-    date_bought: Moment(),
-  };
+export const SELECTOR_PAYMENT_PACK = 1;
+export const SELECTOR_SHOP = 2;
 
-  onSelectorChange = (event, value) => {
+export class InvoiceItemSelector extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      expandedSelector: props.defaultTab || SELECTOR_PAYMENT_PACK,
+      paymentPackId: null,
+      shopItemId: null,
+      date_bought: Moment(),
+    };
+  }
+
+  onSelectorChange = (event: Object, value: number) => {
     this.setState({ expandedSelector: value });
   };
 
-  storePaymentPackId = (event) => {
+  storePaymentPackId = (event: Object) => {
     this.setState({ paymentPackId: event });
   };
 
-  storeOfferId = (event) => {
-    this.setState({ offerId: event });
+  storeShopItemId = (shopItemId: number) => {
+    this.setState({ shopItemId });
   };
 
   submitInvoiceItems = () => {
     switch (this.state.expandedSelector) {
-      case SELECTOR_OFFER:
-        this.props.onAddOffer(this.state.offerId);
-        break;
+      case SELECTOR_SHOP: {
+        return this.props.onAddShopItem(this.state.shopItemId);
+      }
       case SELECTOR_PAYMENT_PACK:
       default:
-        this.props.onAddPaymentPack(
+        return this.props.onAddPaymentPack(
           this.state.paymentPackId,
           this.state.date_bought,
         );
@@ -69,21 +78,12 @@ export class InvoiceItemSelector extends Component<Props> {
   };
 
   render() {
-    const {
-      events,
-      activities,
-      paymentPacks,
-      classes,
-      t,
-      onCancel,
-      showCancel,
-    } = this.props;
-    const { paymentPackId, offerId } = this.state;
+    const { paymentPacks, classes, t, onCancel, showCancel } = this.props;
+    const { paymentPackId, shopItemId } = this.state;
     const selectedPaymentPack = paymentPacks.find(
       (pp) => pp.id === paymentPackId,
     );
     const { expandedSelector } = this.state;
-    // <Tab label={t('payment.addOffer')} value={SELECTOR_OFFER} />
     return (
       <div className={classes.container}>
         <Paper>
@@ -98,6 +98,7 @@ export class InvoiceItemSelector extends Component<Props> {
               label={t('payment.addPaymentPack')}
               value={SELECTOR_PAYMENT_PACK}
             />
+            <Tab label={t('shop.myShop')} value={SELECTOR_SHOP} />
           </Tabs>
         </Paper>
         <Grid
@@ -107,13 +108,10 @@ export class InvoiceItemSelector extends Component<Props> {
           justify="space-between"
         >
           <Grid item className={classes.input}>
-            <Collapse in={SELECTOR_OFFER === expandedSelector}>
-              <OfferInput
-                events={events}
-                activities={activities}
-                offerHelperText={t('form.invoice.offerHelper')}
-                activityHelperText={t('form.invoice.activityHelper')}
-                onChange={this.storeOfferId}
+            <Collapse in={SELECTOR_SHOP === expandedSelector}>
+              <ShopItemInput
+                value={shopItemId}
+                onChange={this.storeShopItemId}
               />
             </Collapse>
             <Collapse in={SELECTOR_PAYMENT_PACK === expandedSelector}>
@@ -162,8 +160,8 @@ export class InvoiceItemSelector extends Component<Props> {
               onClick={this.submitInvoiceItems}
               disabled={
                 // prettier-ignore
-                (expandedSelector === SELECTOR_OFFER && !offerId)
-                || (expandedSelector === SELECTOR_PAYMENT_PACK && !paymentPackId)
+                (expandedSelector === SELECTOR_PAYMENT_PACK && !paymentPackId)
+                || (expandedSelector === SELECTOR_SHOP && !shopItemId)
               }
             >
               <AddIcon className={classes.leftIcon} />

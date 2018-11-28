@@ -1,4 +1,5 @@
 // @flow
+
 import React from 'react';
 
 import {
@@ -12,28 +13,28 @@ import {
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
-import PaymentPackSummary from '../consumer/PaymentPackSummary.component';
+import ShopItemSummary from '../shop/ShopItemSummary.component';
 
-import type { PaymentPack } from '../../api/types';
+import type { ShopItem } from '../../api/types';
 
 const styles = (theme) => ({
   formControl: {
     margin: theme.spacing.unit,
-    minWidth: 260,
+    minWidth: 360,
   },
 });
 
 type Props = {
   classes: Object,
-  paymentPacks: Array<PaymentPack>,
+  shopItems: Array<ShopItem>,
   onChange: (?number) => void,
   helperText: string,
   value: ?number,
   label: ?string,
 };
 
-export function PaymentPackInput(props: Props) {
-  const { value, label, onChange, paymentPacks, classes, helperText } = props;
+export function ShopItemInput(props: Props) {
+  const { value, label, onChange, shopItems, classes, helperText } = props;
   return (
     <FormControl className={classes.formControl}>
       <InputLabel shrink={value} htmlFor="pass-helper">
@@ -42,17 +43,17 @@ export function PaymentPackInput(props: Props) {
       <Select
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        input={<Input name="pass" id="pass-helper" />}
+        input={<Input name="shop-item" id="shop-item-helper" />}
       >
         <MenuItem value={null}>
           <em> - </em>
         </MenuItem>
-        {paymentPacks
+        {shopItems
           .asMutable()
-          .sort((pp, pp_) => pp.name > pp_.name)
-          .map((pp) => (
-            <MenuItem value={pp.id} key={pp.id}>
-              <PaymentPackSummary noDivider paymentPack={pp} />
+          .sort((si, si_) => si.name > si_.name)
+          .map((si) => (
+            <MenuItem value={si.id} key={si.id}>
+              <ShopItemSummary shopItem={si} />
             </MenuItem>
           ))}
       </Select>
@@ -61,4 +62,4 @@ export function PaymentPackInput(props: Props) {
   );
 }
 
-export default withStyles(styles)(translate()(PaymentPackInput));
+export default withStyles(styles)(translate()(ShopItemInput));

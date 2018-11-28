@@ -10,40 +10,31 @@ import {
   Divider,
   CircularProgress,
   withStyles,
-  Dialog,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  DialogActions,
 } from '@material-ui/core';
 import CancelIcon from '@material-ui/icons/Cancel';
 import AddIcon from '@material-ui/icons/Add';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { translate } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 
 import {
   InvoiceItemSelector,
   InvoiceVoucher,
   InvoiceItemList,
+  UnevenInvoiceDialog,
 } from '../invoice';
 import PaymentForm from './PaymentForm.component';
 import PaymentList from './PaymentList.component';
-import { formatAsDate, formatAsDatetime } from '../../datetime';
+import { formatAsDate } from '../../datetime';
 import { Moment } from '../../i18n';
 
-import type {
-  PaymentPack,
-  Activity,
-  Offer,
-  InvoiceItem,
-} from '../../api/types';
+import type { PaymentPack, InvoiceItem } from '../../api/types';
 import type { InvoiceDataFront } from './types';
 
 type Props = {
-  offers: Array<Offer>,
   paymentPacks: Array<PaymentPack>,
-  activities: Array<Activity>,
+  shopItems: Array<ShopItem>,
   uneditablePayments: Array<Payment>,
   uneditableInvoiceItems: Array<InvoiceItem>,
   editMode: ?boolean,
@@ -51,14 +42,14 @@ type Props = {
   onCancel: () => void,
   createOrUpdate: (invoiceData: InvoiceDataFront) => void,
   updatePaymentStatus: (uuid: string, payment_received: boolean) => void,
-  t: (x: string) => string,
+  t: TFunction,
   classes: Object,
 };
 
 type State = {
-  offerInvoiceItems: Array<InvoiceItem>,
   paymentPackInvoiceItems: Array<InvoiceItem>,
-  voucherInvoiceItems: Array<InvoiceItem>,
+  shopItemInvoiceItems: Array<InvoiceItem>,
+  voucher: ?number,
   paymentItems: Array<PaymentItemData>,
   step: number,
   unevenInvoiceAlertOpen: boolean,
@@ -75,9 +66,9 @@ export class InvoiceForm extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      offerInvoiceItems: [],
       paymentPackInvoiceItems: [],
-      voucherInvoiceItems: [],
+      shopItemInvoiceItems: [],
+      voucher: 0,
       paymentItems: [],
       step: props.editMode ? STEP_ADD_INVOICE_PAYMENTS : STEP_ADD_INVOICE_ITEMS,
       unevenInvoiceAlertOpen: false,
@@ -86,21 +77,22 @@ export class InvoiceForm extends Component<Props, State> {
 
   createInvoice = () => {
     if (
-      this.getTotalPayment() < this.getFinalPrice() &&
+      this.getTotalPayment() !== this.getFinalPrice() &&
       !this.state.unevenInvoiceAlertOpen
     ) {
       return this.setState({ unevenInvoiceAlertOpen: true });
     }
+    this.closeUnevenInvoiceAlert();
     const {
-      offerInvoiceItems,
-      voucherInvoiceItems,
+      voucher,
       paymentPackInvoiceItems,
+      shopItemInvoiceItems,
       paymentItems,
     } = this.state;
 
     const data = {
-      offer_ids: offerInvoiceItems.map((oii) => oii.id),
-      voucher: -voucherInvoiceItems.reduce(getTotal, 0),
+      voucher,
+      shop_item_ids: shopItemInvoiceItems.map((siii) => siii.id),
       payment_pack_ids: paymentPackInvoiceItems.map((ppii) => [
         ppii.id,
         ppii.date_bought,
@@ -141,36 +133,23 @@ export class InvoiceForm extends Component<Props, State> {
   getFinalPrice = () => {
     const { uneditableInvoiceItems } = this.props;
     const {
-      offerInvoiceItems,
+      shopItemInvoiceItems,
       paymentPackInvoiceItems,
-      voucherInvoiceItems,
+      voucher,
     } = this.state;
 
-    const sumBooking = offerInvoiceItems.reduce(getTotal, 0);
     const sumPack = paymentPackInvoiceItems.reduce(getTotal, 0);
-    const sumVoucher = voucherInvoiceItems.reduce(getTotal, 0);
+    const sumShop = shopItemInvoiceItems.reduce(getTotal, 0);
     const sumUneditableInvoiceItems = (uneditableInvoiceItems || []).reduce(
       getTotal,
       0,
     );
 
-    return sumBooking + sumPack + sumVoucher + sumUneditableInvoiceItems;
+    return sumPack - (voucher || 0) + sumUneditableInvoiceItems + sumShop;
   };
 
   deleteVoucher = () => {
-    this.setState({ voucherInvoiceItems: [] });
-  };
-
-  deleteOfferInvoiceItem = (offerId: number) => {
-    const { offerInvoiceItems } = this.state;
-    offerInvoiceItems.splice(
-      offerInvoiceItems.findIndex((o) => o.id === offerId),
-      1,
-    );
-
-    this.setState({
-      offerInvoiceItems,
-    });
+    this.setState({ voucher: 0 });
   };
 
   deletePPackInvoiceItem = (ppackId: number) => {
@@ -184,6 +163,17 @@ export class InvoiceForm extends Component<Props, State> {
     });
   };
 
+  deleteShopItemInvoiceItem = (shopItemIIId: number) => {
+    const { shopItemInvoiceItems } = this.state;
+    shopItemInvoiceItems.splice(
+      shopItemInvoiceItems.findIndex((siii) => siii.id === shopItemIIId),
+      1,
+    );
+    this.setState({
+      shopItemInvoiceItems,
+    });
+  };
+
   deletePaymentItem = (paymentItem) => {
     this.setState((prevState) => ({
       paymentItems: prevState.paymentItems.filter(
@@ -193,16 +183,9 @@ export class InvoiceForm extends Component<Props, State> {
   };
 
   onUpdateVoucher = (voucher) => {
-    const { t } = this.props;
-    this.setState({
-      voucherInvoiceItems: [
-        {
-          name: t('payment.voucher'),
-          price: -voucher,
-          id: -1,
-        },
-      ],
-    });
+    this.setState((prevState) => ({
+      voucher: (prevState.voucher || 0) + voucher,
+    }));
   };
 
   submitFinalizedInvoice = () => {
@@ -213,24 +196,6 @@ export class InvoiceForm extends Component<Props, State> {
     this.setState((prevState) => ({
       paymentItems: [...prevState.paymentItems, paymentItem],
     }));
-  };
-
-  onAddOffer = (offerId: number) => {
-    const offer = this.props.offers.find((o) => o.id === offerId);
-    const { name } = this.props.activities.find((a) => a.id === offer.activity);
-    if (offer) {
-      this.setState((prevState) => ({
-        offerInvoiceItems: [
-          ...prevState.offerInvoiceItems,
-          {
-            price: offer.price,
-            id: offer.id,
-            subtitle: formatAsDatetime(offer.date_start),
-            name,
-          },
-        ],
-      }));
-    }
   };
 
   onAddPaymentPack = (paymentPackId: number, date_bought: Object) => {
@@ -253,8 +218,25 @@ export class InvoiceForm extends Component<Props, State> {
     }
   };
 
+  onAddShopItem = (shopItemId: number) => {
+    const shopItem = this.props.shopItems.find((si) => si.id === shopItemId);
+    if (shopItem) {
+      this.setState((prevState) => ({
+        shopItemInvoiceItems: [
+          ...prevState.shopItemInvoiceItems,
+          {
+            name: shopItem.name,
+            price: shopItem.price,
+            id: shopItem.id,
+            subtitle: shopItem.subtitle,
+          },
+        ],
+      }));
+    }
+  };
+
   renderBottomActionButton = () => {
-    const { step } = this.state;
+    const { step, voucher } = this.state;
     const { processing, classes, t } = this.props;
 
     if (step === STEP_ADD_INVOICE_PAYMENTS) {
@@ -320,7 +302,7 @@ export class InvoiceForm extends Component<Props, State> {
             onClick={this.goToPayment}
             variant="contained"
             color="primary"
-            disabled={this.getFinalPrice() === 0}
+            disabled={this.getFinalPrice() + (voucher || 0) === 0}
           >
             <AttachMoneyIcon className={classes.leftIcon} />
             {t('payment.addThisPaymentItem')}
@@ -333,8 +315,6 @@ export class InvoiceForm extends Component<Props, State> {
   renderRightPanel = () => {
     const {
       paymentPacks,
-      offers,
-      activities,
       t,
       classes,
       uneditablePayments,
@@ -357,9 +337,8 @@ export class InvoiceForm extends Component<Props, State> {
             <InvoiceItemSelector
               onAddOffer={this.onAddOffer}
               onAddPaymentPack={this.onAddPaymentPack}
+              onAddShopItem={this.onAddShopItem}
               paymentPacks={paymentPacks}
-              activities={activities}
-              events={offers}
             />
           </Grid>
           <Grid item>
@@ -449,22 +428,23 @@ export class InvoiceForm extends Component<Props, State> {
   renderLeftPanel = () => {
     const { uneditableInvoiceItems } = this.props;
     const {
-      offerInvoiceItems,
       paymentPackInvoiceItems,
-      voucherInvoiceItems,
+      shopItemInvoiceItems,
+      voucher,
     } = this.state;
 
     return (
       <Grid container direction="column" justify="space-between">
         <Grid item>
           <InvoiceItemList
-            offerInvoiceItems={offerInvoiceItems}
             deleteOfferInvoiceItem={this.deleteOfferInvoiceItem}
             deletePPackInvoiceItem={this.deletePPackInvoiceItem}
+            deleteShopItemInvoiceItem={this.deleteShopItemInvoiceItem}
             deleteVoucher={this.deleteVoucher}
             paymentPackInvoiceItems={paymentPackInvoiceItems}
+            shopItemInvoiceItems={shopItemInvoiceItems}
             uneditableInvoiceItems={uneditableInvoiceItems || []}
-            voucherInvoiceItems={voucherInvoiceItems}
+            voucher={voucher}
           />
         </Grid>
         <Grid item>{this.renderTotal()}</Grid>
@@ -472,41 +452,23 @@ export class InvoiceForm extends Component<Props, State> {
     );
   };
 
+  closeUnevenInvoiceAlert = () => {
+    this.setState({ unevenInvoiceAlertOpen: false });
+  };
+
   renderUnevenInvoiceAlert = () => {
-    const { t } = this.props;
+    const { unevenInvoiceAlertOpen } = this.state;
 
     const totalPayments = this.getTotalPayment();
     const totalInvoiceItems = this.getFinalPrice();
     return (
-      <Dialog
-        open={this.state.unevenInvoiceAlertOpen}
-        onClose={() => this.setState({ unevenInvoiceAlertOpen: false })}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {t('form.invoice.titleUnevenInvoice')}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            {t('form.invoice.explainUnevenInvoice')({
-              totalInvoiceItems,
-              totalPayments,
-            })}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={() => this.setState({ unevenInvoiceAlertOpen: false })}
-            color="secondary"
-          >
-            {t('common.cancel')}
-          </Button>
-          <Button onClick={this.createInvoice} color="primary" autoFocus>
-            {t('common.confirm')}
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <UnevenInvoiceDialog
+        open={unevenInvoiceAlertOpen}
+        onClose={this.closeUnevenInvoiceAlert}
+        totalItem={totalInvoiceItems}
+        totalPayment={totalPayments}
+        onSubmit={this.createInvoice}
+      />
     );
   };
 

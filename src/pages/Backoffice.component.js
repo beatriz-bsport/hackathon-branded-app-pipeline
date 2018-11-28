@@ -29,6 +29,7 @@ import { Member, MemberList, MemberForm } from './member';
 import { EstablishmentMap, EstablishmentFormPage } from './establishment';
 import OfferManagement from './OfferManagement.component';
 import SearchResults from './SearchResults.component';
+import ShopManager from './shop/ShopManager.component';
 
 type Props = {
   refresh: () => void,
@@ -62,6 +63,7 @@ export class Backoffice extends Component<Props> {
         <main className={classes.content}>
           <div>
             <Switch>
+              <Route path="/shop" component={ShopManager} />
               <Route path="/offer/:id" component={OfferManagement} />
               <Route path="/calendar/:year/:month/:date" component={Planning} />
               <Route path="/calendar" component={Planning} />

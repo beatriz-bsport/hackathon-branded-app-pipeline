@@ -16,6 +16,7 @@ import consumer from './consumer';
 import metaActivity from './meta-activity';
 import companies from './companies';
 import marketplace from './marketplace';
+import shop from './shop';
 
 export default {
   metaActivity,
@@ -34,4 +35,5 @@ export default {
   consumer,
   companies,
   marketplace,
+  shop,
 };

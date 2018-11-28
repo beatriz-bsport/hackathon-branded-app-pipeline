@@ -16,10 +16,12 @@ import * as refresh from './refresh.actions';
 import * as search from './search.actions';
 import * as companies from './companies.actions';
 import * as marketplace from './marketplace.actions';
+import * as shop from './shop.actions';
 
 export {
   refresh,
   consumer,
+  shop,
   payment,
   invoice,
   auth,

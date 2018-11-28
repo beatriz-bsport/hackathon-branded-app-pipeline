@@ -12,17 +12,21 @@ import {
   withStyles,
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { translate } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 
 type Props = {
-  offerInvoiceItems: Array<InvoiceItem>,
   paymentPackInvoiceItems: Array<InvoiceItem>,
-  voucherInvoiceItems: Array<InvoiceItem>,
-  uneditableInvoiceItems: Array<InvoiceItem>,
+  shopItemInvoiceItems: Array<InvoiceItem>,
+  voucher: ?number,
+  uneditableInvoiceItems: ?Array<InvoiceItem>,
   deleteOfferInvoiceItem: (id: number) => void,
   deletePPackInvoiceItem: (id: number) => void,
+  deleteShopItemInvoiceItem: (id: number) => void,
   deleteVoucher: () => void,
   compact: boolean,
   classes: Object,
+  t: TFunction,
 };
 
 export class InvoiceItemList extends Component<Props> {
@@ -62,11 +66,19 @@ export class InvoiceItemList extends Component<Props> {
   )
 
   // prettier-ignore
-  renderVoucherInvoiceItem = (invoiceItem) => {
-    if (invoiceItem.price) {
-      return this.renderInvoiceItem(invoiceItem, this.props.deleteVoucher);
-    }
-    return null;
+  renderShopItemInvoiceItem= (invoiceItem) => (
+    this.renderInvoiceItem(invoiceItem, this.props.deleteShopItemInvoiceItem)
+  )
+
+  // prettier-ignore
+  renderVoucherInvoiceItem = (voucher: number) => {
+    const { t } = this.props;
+    const voucherAsInvoiceItem = {
+          name: t('payment.voucher'),
+          price: -voucher,
+          id: -1,
+        };
+      return this.renderInvoiceItem(voucherAsInvoiceItem, this.props.deleteVoucher);
   }
 
   // prettier-ignore
@@ -77,8 +89,8 @@ export class InvoiceItemList extends Component<Props> {
   render() {
     const {
       paymentPackInvoiceItems,
-      offerInvoiceItems,
-      voucherInvoiceItems,
+      shopItemInvoiceItems,
+      voucher,
       uneditableInvoiceItems,
       compact,
       classes,
@@ -86,11 +98,13 @@ export class InvoiceItemList extends Component<Props> {
     return (
       <div className={compact ? classes.compactContainer : classes.container}>
         <List disablePadding>
-          {uneditableInvoiceItems.map((ii) => this.renderUneditableItems(ii))}
+          {(uneditableInvoiceItems || []).map((ii) =>
+            this.renderUneditableItems(ii),
+          )}
           {// prettier-ignore
           paymentPackInvoiceItems.map((ii) => this.renderPPackInvoiceItem(ii))}
-          {offerInvoiceItems.map((ii) => this.renderOfferInvoiceItem(ii))}
-          {voucherInvoiceItems.map((ii) => this.renderVoucherInvoiceItem(ii))}
+          {shopItemInvoiceItems.map((ii) => this.renderShopItemInvoiceItem(ii))}
+          {voucher ? this.renderVoucherInvoiceItem(voucher) : null}
         </List>
       </div>
     );
@@ -107,4 +121,4 @@ const styles = () => ({
   },
 });
 
-export default withStyles(styles)(InvoiceItemList);
+export default translate()(withStyles(styles)(InvoiceItemList));

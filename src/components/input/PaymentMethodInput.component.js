@@ -42,7 +42,7 @@ export function PaymentMethodInput(props: Props) {
         }
       >
         {PAYMENT_METHODS.map((pm) => (
-          <MenuItem value={pm.id}>{t(`paymentMethods.${pm.text}`)}</MenuItem>
+          <MenuItem key={pm.id} value={pm.id}>{t(`paymentMethods.${pm.text}`)}</MenuItem>
         ))}
       </Select>
     </FormControl>

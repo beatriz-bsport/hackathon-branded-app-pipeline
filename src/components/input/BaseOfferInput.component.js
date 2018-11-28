@@ -48,7 +48,7 @@ export function BaseOfferInput(props: Props) {
           <em> - </em>
         </MenuItem>
         {events.map((e) => (
-          <MenuItem value={e.id}>{formatAsDatetime(e.date_start)}</MenuItem>
+          <MenuItem key={e.id} value={e.id}>{formatAsDatetime(e.date_start)}</MenuItem>
         ))}
       </Select>
       <FormHelperText>{helperText}</FormHelperText>

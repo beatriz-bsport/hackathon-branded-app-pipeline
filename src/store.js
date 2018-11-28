@@ -37,6 +37,7 @@ const persistConfig = {
     'refresh',
     'search',
     'marketplace',
+    'shop',
   ],
   stateReconciler: seamlessImmutableReconciler,
   transforms: [seamlessImmutableTransformCreator(transformerConfig)],

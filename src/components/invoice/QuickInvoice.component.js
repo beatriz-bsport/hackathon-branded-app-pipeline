@@ -21,56 +21,69 @@ import type { TFunction } from 'react-i18next';
 import PriceInput from '../input/PriceInput.component';
 import InvoiceItemList from './InvoiceItemList.component';
 import InvoiceItemSelector from './InvoiceItemSelector.container';
-import { formatAsDate, formatAsDatetime } from '../../datetime';
+import UnevenInvoiceDialog from './UnevenInvoiceDialog.component';
+import { SELECTOR_SHOP as INVOICE_SELECTOR_SHOP_TAB } from './InvoiceItemSelector.component';
+import { formatAsDate } from '../../datetime';
 import { Moment } from '../../i18n';
 
 type Props = {
-  quickInvoice: { member: Member, invoiceItems: { offers: Array<Event> } },
+  quickInvoice: { member: Member },
   onClose: () => void,
   classes: Object,
-  offers: Array<Event>,
-  activities: Array<Activity>,
   paymentPacks: Array<PaymentPack>,
+  shopItems: Array<ShopItem>,
   createInvoice: (data: [*]) => void,
   t: TFunction,
+};
+
+type State = {
+  cb: number,
+  check: number,
+  cash: number,
+  voucher: number,
+  showInvoiceItemSelector: boolean,
+  additionalPaymentPacks: Array<PaymentPack>,
+  additionalShopItems: Array<ShopItem>,
+  unevenInvoiceAlertOpen: boolean,
 };
 
 function getTotal(acc, invoiceItem) {
   return acc + parseInt(invoiceItem.price, 10);
 }
 
-export class QuickInvoice extends Component<Props> {
+export class QuickInvoice extends Component<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
       cb: 0,
       cash: 0,
       check: 0,
+      voucher: 0,
       showInvoiceItemSelector: true,
-      additionalOffers: [],
       additionalPaymentPacks: [],
+      additionalShopItems: [],
+      unevenInvoiceAlertOpen: false,
     };
   }
 
   getTotalPayment = () => {
-    const { cb, cash, check } = this.state;
-    return cb + check + cash;
+    const { cb, cash, check, voucher } = this.state;
+    return cb + check + cash + voucher;
   };
 
   handlePaymentChange = (payment_type) => (e) => {
-    this.setState({ [payment_type]: e.target.value });
+    this.setState({ [payment_type]: parseInt(e.target.value, 10) });
+  };
+
+  handleVoucher = (event) => {
+    this.setState({ voucher: parseInt(event.target.value, 10) });
   };
 
   getFinalPrice = () => {
-    const { additionalOffers, additionalPaymentPacks } = this.state;
-    const sumBooking = additionalOffers.reduce(getTotal, 0);
+    const { additionalShopItems, additionalPaymentPacks } = this.state;
     const sumPack = additionalPaymentPacks.reduce(getTotal, 0);
-    const sumUneditableOffers = this.props.quickInvoice.invoiceItems.offers.reduce(
-      getTotal,
-      0,
-    );
-
-    return sumBooking + sumPack + sumUneditableOffers;
+    const sumShop = additionalShopItems.reduce(getTotal, 0);
+    return sumPack + sumShop;
   };
 
   choseInvoiceItem = () => {
@@ -100,8 +113,13 @@ export class QuickInvoice extends Component<Props> {
     );
   }
 
+  closeUnevenInvoiceDialog = () => {
+    this.setState({ unevenInvoiceAlertOpen: false });
+  };
+
   renderPayment = () => {
     const { classes, t } = this.props;
+    const { unevenInvoiceAlertOpen } = this.state;
     const finalPrice = this.getFinalPrice();
     const totalPayment = this.getTotalPayment();
     return (
@@ -160,40 +178,43 @@ export class QuickInvoice extends Component<Props> {
               />
             </Grid>
           </Grid>
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="center"
+          >
+            <Grid item>
+              <Typography>{t('payment.voucher')}</Typography>
+            </Grid>
+            <Grid item>
+              <PriceInput
+                value={this.state.voucher}
+                onChange={this.handleVoucher}
+              />
+            </Grid>
+          </Grid>
         </Grid>
         <Grid item xs={6}>
           <Grid item container justify="center" alignItems="center">
             <Button
               color="primary"
-              onClick={this.onSubmit}
+              onClick={() => this.checkUnvenOrSubmit(finalPrice, totalPayment)}
               disabled={totalPayment === 0 && finalPrice === 0}
             >
               {t('common.save')}
             </Button>
           </Grid>
         </Grid>
+        <UnevenInvoiceDialog
+          open={unevenInvoiceAlertOpen}
+          onClose={this.closeUnevenInvoiceDialog}
+          onSubmit={this.onSubmit}
+          totalPayment={totalPayment}
+          totalItem={finalPrice}
+        />
       </Grid>
     );
-  };
-
-  addOffer = (offerId: number) => {
-    const addedOffer = this.props.offers.find((o) => o.id === offerId);
-    const { name } = this.props.activities.find(
-      (a) => a.id === addedOffer.activity,
-    );
-
-    this.setState((prevState) => ({
-      additionalOffers: [
-        ...prevState.additionalOffers,
-        {
-          name,
-          subtitle: formatAsDatetime(addedOffer.date_start),
-          price: addedOffer.price,
-          id: offerId,
-        },
-      ],
-      showInvoiceItemSelector: false,
-    }));
   };
 
   addPaymentPack = (paymentPackId: number, date_bought: Object) => {
@@ -213,6 +234,24 @@ export class QuickInvoice extends Component<Props> {
       ],
       showInvoiceItemSelector: false,
     }));
+  };
+
+  addShopItem = (shopItemId: number) => {
+    const shopItem = this.props.shopItems.find((si) => si.id === shopItemId);
+    if (shopItem) {
+      this.setState((prevState) => ({
+        additionalShopItems: [
+          ...prevState.additionalShopItems,
+          {
+            name: shopItem.name,
+            price: shopItem.price,
+            id: shopItem.id,
+            subtitle: shopItem.subtitle,
+          },
+        ],
+        showInvoiceItemSelector: false,
+      }));
+    }
   };
 
   generatePaymentItemsObject = () => {
@@ -243,30 +282,42 @@ export class QuickInvoice extends Component<Props> {
   };
 
   onSubmit = () => {
+    const { additionalShopItems, additionalPaymentPacks, voucher } = this.state;
+    const { quickInvoice, createInvoice } = this.props;
     const invoiceData = {
-      offer_ids: [
-        ...this.state.additionalOffers.map((oii) => oii.id),
-        ...this.props.quickInvoice.invoiceItems.offers.map((o) => o.id),
-      ],
-      payment_pack_ids: this.state.additionalPaymentPacks.map((ppii) => [
+      shop_item_ids: additionalShopItems.map((siii) => siii.id),
+      payment_pack_ids: additionalPaymentPacks.map((ppii) => [
         ppii.id,
         ppii.date_bought,
       ]),
-      voucher: 0,
+      voucher,
       payment_items: this.generatePaymentItemsObject(),
-      member: this.props.quickInvoice.member.id,
+      member: quickInvoice.member.id,
     };
-    this.props.createInvoice(invoiceData);
+    createInvoice(invoiceData);
+    this.setState({ unevenInvoiceAlertOpen: false });
+  };
+
+  checkUnvenOrSubmit = (finalPrice: number, totalPayment: number) => {
+    if (finalPrice === totalPayment) {
+      this.onSubmit();
+    } else {
+      this.setState({ unevenInvoiceAlertOpen: true });
+    }
   };
 
   renderInvoiceItemSelector = () => {
+    const { classes } = this.props;
     return (
-      <InvoiceItemSelector
-        onAddOffer={this.addOffer}
-        onAddPaymentPack={this.addPaymentPack}
-        showCancel
-        onCancel={() => this.setState({ showInvoiceItemSelector: false })}
-      />
+      <div className={classes.paper}>
+        <InvoiceItemSelector
+          onAddPaymentPack={this.addPaymentPack}
+          onAddShopItem={this.addShopItem}
+          showCancel
+          defaultTab={INVOICE_SELECTOR_SHOP_TAB}
+          onCancel={() => this.setState({ showInvoiceItemSelector: false })}
+        />
+      </div>
     );
   };
 
@@ -275,15 +326,6 @@ export class QuickInvoice extends Component<Props> {
       return this.renderInvoiceItemSelector();
     }
     return this.renderInvoiceItemList();
-  };
-
-  deleteOffer = (offerId) => {
-    const { additionalOffers } = this.state;
-    additionalOffers.splice(
-      additionalOffers.findIndex((o) => o.id === offerId),
-      1,
-    );
-    this.setState({ additionalOffers });
   };
 
   deletePaymentPack = (paymentPackId) => {
@@ -295,19 +337,24 @@ export class QuickInvoice extends Component<Props> {
     this.setState({ additionalPaymentPacks });
   };
 
+  deleteShopItem = (shopItemId) => {
+    const { additionalShopItems } = this.state;
+    additionalShopItems.splice(
+      additionalShopItems.findIndex((siii) => siii.id === shopItemId),
+      1,
+    );
+    this.setState({ additionalShopItems });
+  };
+
   renderInvoiceItemList = () => {
     const { classes } = this.props;
-    const { invoiceItems } = this.props.quickInvoice;
     return (
       <Grid container direction="row">
         <Grid item xs={9} className={classes.invoiceItemListContainer}>
           <InvoiceItemList
             compact
-            offerInvoiceItems={this.state.additionalOffers}
             paymentPackInvoiceItems={this.state.additionalPaymentPacks}
-            uneditableInvoiceItems={invoiceItems.offers}
-            voucherInvoiceItems={[]}
-            deleteOfferInvoiceItem={this.deleteOffer}
+            shopItemInvoiceItems={this.state.additionalShopItems}
             deletePPackInvoiceItem={this.deletePaymentPack}
           />
         </Grid>
@@ -370,6 +417,9 @@ const styles = (theme) => ({
   invoiceItemListContainer: {
     backgroundColor: '#F8F8F8',
     border: 'solid 1px #E0E0E0',
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
   },
 });
 

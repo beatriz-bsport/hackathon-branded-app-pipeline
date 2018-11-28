@@ -130,6 +130,18 @@ export default {
         error: 'Error while creating invoice',
       },
     },
+    shop: {
+      myShop: 'My shop',
+      ht: 'excl tax',
+      noProvisionUpdates: 'No provision',
+      subShop: {
+        delete: {
+          explain:
+            'Are you sure ? All the items contained in this category will also be deleted.',
+          title: 'Delete',
+        },
+      },
+    },
     form: {
       login: {
         changePasswordTitle: 'Change password',
@@ -138,6 +150,44 @@ export default {
         passwordTooEasy: 'Please complexify your password',
         passwordChangedSuccess: 'Password reset successfull !',
         passwordMismatch: 'Password confirmation mismatch',
+        },
+      shop: {
+        subShop: {
+          nameTitle: 'New category',
+          namePlaceholder: 'Juices',
+          delete: {
+            success: 'Category deleted',
+            error: 'Error while deleting category',
+          },
+        },
+        item: {
+          updateProvisions: {
+            success: 'Provisions updated',
+            error: 'Error while updating provisions',
+          },
+          deleteTitle: 'Delete',
+          deleteExplain:
+            'Be careful! This deletion is not revertable, all provisions wil be deleted and your customers will not be able to buy this item anymore',
+          modifyProvisions: 'Update provisions',
+          updateProvisionExplain:
+            'Enter the inventory update. It will be added to your current provisions.',
+          updateProvisionTitle: 'Inventory update',
+          createOrUpdate: {
+            success: 'Saved',
+            error: 'Error while saving',
+          },
+          delete: {
+            success: 'Deleted',
+            error: 'Error while deleting',
+          },
+          add: 'Add an item',
+          subtitle: 'Subtitle',
+          description: 'Description',
+          provisions: 'Provisions',
+          name: 'Name',
+          price: 'Price',
+          tva: 'Tax',
+        },
       },
       booking: {
         delete: {

@@ -56,7 +56,9 @@ export function ActivityInput(props: Props) {
           <em> - </em>
         </MenuItem>
         {activities.map((a) => (
-          <MenuItem value={a.id}>{formatActivityName(a)}</MenuItem>
+          <MenuItem key={a.id} value={a.id}>
+            {formatActivityName(a)}
+          </MenuItem>
         ))}
       </Select>
       <FormHelperText>{helperText}</FormHelperText>

@@ -21,6 +21,7 @@ import refreshReducer from './refresh';
 import searchReducer from './search.reducers';
 import companiesReducers from './companies.reducers';
 import marketplaceReducer from './marketplace';
+import shopReducer from './shop';
 
 const rootReducer = combineReducers({
   payment: paymentReducers,
@@ -42,6 +43,7 @@ const rootReducer = combineReducers({
   search: searchReducer,
   companies: companiesReducers,
   marketplace: marketplaceReducer,
+  shop: shopReducer,
 });
 
 export default (state, action) => {

@@ -109,6 +109,18 @@ export default {
       myOpenedInvoices: 'Factures rapides',
       manageOffer: 'Gérer mes réservations',
     },
+    shop: {
+      myShop: 'Mon magasin',
+      subShop: {
+        delete: {
+          explain:
+            "Êtes-vous sûr de vouloir supprimer cette catégorie ? Tous les éléments qu'elle contient seront également supprimés",
+          title: 'Suppression',
+        },
+      },
+      ht: 'HT',
+      noProvisionUpdates: 'Aucun stock',
+    },
     form: {
       login: {
         changePasswordTitle: 'Modification du mot de passe',
@@ -117,6 +129,44 @@ export default {
         passwordTooEasy: 'Veuillez complexifier votre mot de passe',
         passwordChangedSuccess: 'Mot de passe modifié avec succès !',
         passwordMismatch: 'Les mots de passe ne correspondent pas',
+      },
+      shop: {
+        subShop: {
+          nameTitle: 'Nouvelle catégorie',
+          namePlaceholder: 'Jus de fruits',
+          delete: {
+            success: 'Catégorie supprimée',
+            error: 'Impossible de supprimer la catégorie',
+          },
+        },
+        item: {
+          deleteTitle: 'Suppression',
+          deleteExplain:
+            'Attention cette suppression est définitive, aucun client ne pourra plus acheter ce produit, les stocks seront supprimés.',
+          updateProvisions: {
+            success: 'Stock mis à jour',
+            error: "Erreur lors de l'enregistrement du stock",
+          },
+          modifyProvisions: 'Mettre à jour le stock',
+          updateProvisionExplain:
+            "Entrez l'apport à votre inventaire. Celui-ci sera additionné à votre stock actuel",
+          updateProvisionTitle: 'Modification du stock',
+          createOrUpdate: {
+            success: 'Enregsitré',
+            error: "Erreur lors de l'enregistrement",
+          },
+          delete: {
+            success: 'Element supprimé',
+            error: 'Erreur lors de la suppression',
+          },
+          add: 'Ajouter un élément',
+          subtitle: 'Sous-titre',
+          description: 'Description',
+          provisions: 'Stock',
+          name: 'Nom',
+          price: 'Prix',
+          tva: 'TVA',
+        },
       },
       booking: {
         delete: {

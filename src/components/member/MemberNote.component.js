@@ -18,11 +18,13 @@ type Props = {
   },
   onSubmit: (text: string) => void,
   onDelete: () => void,
+  classes: Object,
 };
 
 type State = {
   editMode: boolean,
   text: string,
+  date: ?Object,
 };
 
 export class MemberNote extends Component<Props, State> {

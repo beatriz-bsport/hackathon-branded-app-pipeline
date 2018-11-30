@@ -196,7 +196,6 @@ export class MemberForm extends Component<Props, State> {
             <Grid item xs={12} md={6}>
               <FormField
                 id="email"
-                required
                 value={this.state.email}
                 onChange={this.onFormFieldChange}
               />
@@ -239,7 +238,6 @@ export class MemberForm extends Component<Props, State> {
                 country="FR"
                 placeholder={t('form.member.phone')}
                 value={this.state.phone}
-                required
                 onChange={this.onFormFieldChange('phone')}
               />
             </Grid>

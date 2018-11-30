@@ -93,7 +93,7 @@ export class MemberNote extends Component<Props, State> {
   }
 }
 
-const styles = (theme) => ({
+const styles = () => ({
   text: {
     color: '#000000',
   },

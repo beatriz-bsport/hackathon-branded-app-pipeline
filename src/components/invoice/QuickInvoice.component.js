@@ -356,6 +356,7 @@ export class QuickInvoice extends Component<Props, State> {
             paymentPackInvoiceItems={this.state.additionalPaymentPacks}
             shopItemInvoiceItems={this.state.additionalShopItems}
             deletePPackInvoiceItem={this.deletePaymentPack}
+            deleteShopItemInvoiceItem={this.deleteShopItem}
           />
         </Grid>
         <Grid item xs={3}>

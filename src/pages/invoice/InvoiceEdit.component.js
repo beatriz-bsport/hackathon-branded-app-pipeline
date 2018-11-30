@@ -60,7 +60,7 @@ export class InvoiceFormPage extends Component<Props> {
     }
 
     let uneditableInvoiceItems = [];
-    if (invoice.voucher) {
+    if (invoice.voucher && invoice.voucher.price) {
       // yea ok fuck me
       uneditableInvoiceItems = [
         ...invoice.invoice_items,

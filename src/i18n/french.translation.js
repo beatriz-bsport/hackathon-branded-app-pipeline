@@ -261,6 +261,8 @@ export default {
           'Voulez-vous informer vos clients de cette modification ?',
       },
       paymentPack: {
+        newMemberOnly: 'Uniquement pour les nouveaux membres',
+        managerOnly: "Disponible à l'achat",
         helper: {
           // eslint-disable-next-line
           name: "Nom de l'abonnement",

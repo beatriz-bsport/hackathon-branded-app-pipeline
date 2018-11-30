@@ -1,8 +1,11 @@
 export default {
+  newMemberOnly: 'Disponible uniquement aux nouveaux membres',
+  publicPacksTitle: 'Pass available for purchase',
+  privatePacksTitle: 'Pass unavailable for purchase',
   subscribeToOffer: 'Register',
   createOrUpdate: {
     succes: 'Pass successfully saved',
-    fail: "Error: pass would not be saved",
+    fail: 'Error: pass would not be saved',
   },
   disableConsumer: 'Block',
   enableConsumer: 'Unblock',

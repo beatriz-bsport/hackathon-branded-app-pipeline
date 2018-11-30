@@ -4,7 +4,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { CircularProgress, Button, withStyles, Grid } from '@material-ui/core';
+import {
+  Typography,
+  CircularProgress,
+  Divider,
+  Button,
+  withStyles,
+  Grid,
+} from '@material-ui/core';
 import { translate } from 'react-i18next';
 import AddIcon from '@material-ui/icons/Add';
 import { push as pushRouter } from 'react-router-redux';
@@ -23,6 +30,14 @@ const styles = (theme) => ({
   },
   extendedIcon: {
     marginRight: theme.spacing.unit,
+  },
+  titleContainer: {
+    marginTop: theme.spacing.unit * 2,
+    marginLeft: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit,
+  },
+  title: {
+    marginBottom: theme.spacing.unit,
   },
 });
 
@@ -65,6 +80,39 @@ export class PaymentPackList extends Component<Props, State> {
     this.setState({ paymentPackToDeleteId: null });
   };
 
+  renderPacks = (packs) => {
+    const {
+      classes,
+      metaActivities,
+      incrementCredit,
+      decrementCredit,
+      updatingConsumerPacks,
+    } = this.props;
+    return (
+      <Grid container direction="row">
+        {packs.map((p) => (
+          <Grid
+            xs={12}
+            md={6}
+            xl={4}
+            key={p.id}
+            className={classes.paymentPackContainer}
+          >
+            <PaymentPackCard
+              pack={p}
+              metaActivities={metaActivities}
+              incrementCredit={incrementCredit}
+              decrementCredit={decrementCredit}
+              updatingConsumerPacks={updatingConsumerPacks}
+              onEditButtonClick={() => this.requestEdit(p)}
+              onDeleteButtonClick={() => this.requestDelete(p)}
+            />
+          </Grid>
+        ))}
+      </Grid>
+    );
+  };
+
   render() {
     const {
       packs,
@@ -80,36 +128,35 @@ export class PaymentPackList extends Component<Props, State> {
       return <CircularProgress />;
     }
 
+    const showablePacks = packs.filter(
+      (p) => !p.disabled || (p.disabled && p.consumer_payment_packs.length),
+    );
+    const publicPacks = showablePacks.filter((p) => !p.manager_only);
+    const managerPacks = showablePacks.filter((p) => Boolean(p.manager_only));
+
     return (
-      <Grid container direction="column" alignItems="center" spacing={24}>
-        <Grid item>
-          <Grid container direction="row">
-            {packs
-              .filter(
-                (p) =>
-                  !p.disabled ||
-                  (p.disabled && p.consumer_payment_packs.length),
-              )
-              .map((p) => (
-                <Grid
-                  xs={12}
-                  md={6}
-                  xl={4}
-                  key={p.id}
-                  className={classes.paymentPackContainer}
-                >
-                  <PaymentPackCard
-                    pack={p}
-                    metaActivities={metaActivities}
-                    incrementCredit={incrementCredit}
-                    decrementCredit={decrementCredit}
-                    updatingConsumerPacks={updatingConsumerPacks}
-                    onEditButtonClick={() => this.requestEdit(p)}
-                    onDeleteButtonClick={() => this.requestDelete(p)}
-                  />
-                </Grid>
-              ))}
-          </Grid>
+      <Grid container direction="column" spacing={24}>
+        {publicPacks.length ? (
+          <div className={classes.titleContainer}>
+            <Typography variant="h4" className={classes.title}>
+              {t('paymentPack.publicPacksTitle')}
+            </Typography>
+            <Divider />
+          </div>
+        ) : null}
+        <Grid item xs={12}>
+          {this.renderPacks(publicPacks)}
+        </Grid>
+        {managerPacks.length ? (
+          <div className={classes.titleContainer}>
+            <Typography variant="h4" className={classes.title}>
+              {t('paymentPack.privatePacksTitle')}
+            </Typography>
+            <Divider />
+          </div>
+        ) : null}
+        <Grid item xs={12}>
+          {this.renderPacks(managerPacks)}
         </Grid>
         <Grid item>
           <Link to="/payment-pack/add" style={{ textDecoration: 'none' }}>

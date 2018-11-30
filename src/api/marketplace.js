@@ -1,4 +1,4 @@
-import { API_URI, get } from '../http';
+import { API_URI, get, getAuth } from '../http';
 
 export async function fetchCompany(companyId) {
   return get(`${API_URI}/marketplace/company/${companyId}/summary`);
@@ -15,7 +15,7 @@ export async function fetchOffersByDay({ companyId, year, month, day }) {
 }
 
 export async function fetchPaymentPacks(companyId) {
-  return get(`${API_URI}/marketplace/company/${companyId}/payment-packs`);
+  return getAuth(`${API_URI}/marketplace/company/${companyId}/payment-packs`);
 }
 
 export async function getIdByName(companyName) {

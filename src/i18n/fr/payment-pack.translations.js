@@ -1,4 +1,7 @@
 export default {
+  newMemberOnly: 'Disponible uniquement aux nouveaux inscrits',
+  publicPacksTitle: "Abonnements disponibles à l'achat",
+  privatePacksTitle: "Abonnements non disponibles à l'achat",
   subscribeToOffer: 'Inscrire',
   createOrUpdate: {
     succes: 'Abonnement enregistré',

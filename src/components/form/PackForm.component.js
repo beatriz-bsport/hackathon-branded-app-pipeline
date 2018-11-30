@@ -12,6 +12,7 @@ import {
   Checkbox,
   Button,
   FormHelperText,
+  Switch,
   FormGroup,
   Grid,
   Radio,
@@ -43,6 +44,8 @@ type State = {
   lower_date: Object,
   upper_date: Object,
   max_bookings_per_week: number,
+  manager_only: boolean,
+  new_member_only: boolean,
 };
 
 /*
@@ -66,6 +69,8 @@ export class PackForm extends React.Component<Props, State> {
         name: props.initial.name,
         price: props.initial.price,
         credits: props.initial.credits,
+        new_member_only: props.initial.new_member_only,
+        manager_only: props.initial.manager_only,
         categories: props.initial.categories.map((c) => c.id),
         metaActivities: props.initial.metaActivities,
         timeType: valid_by_duration ? VALID_BY_DURATION : VALID_BY_DATERANGE,
@@ -83,6 +88,8 @@ export class PackForm extends React.Component<Props, State> {
         name: null,
         price: 0,
         credits: null,
+        new_member_only: false,
+        manager_only: false,
         categories: [],
         metaActivities: [],
         timeType: VALID_BY_DURATION,
@@ -133,7 +140,15 @@ export class PackForm extends React.Component<Props, State> {
   onSubmit = (event: Object) => {
     event.preventDefault();
 
-    const keys = ['name', 'price', 'credits', 'max_bookings_per_week', 'id'];
+    const keys = [
+      'name',
+      'price',
+      'credits',
+      'max_bookings_per_week',
+      'id',
+      'new_member_only',
+      'manager_only',
+    ];
     const data = _.pick(this.state, keys);
     data.categories = this.state.categories;
     data.metaActivities = this.state.metaActivities;
@@ -293,6 +308,7 @@ export class PackForm extends React.Component<Props, State> {
 
   renderRestrictions = () => {
     const { t, categories, metaActivities } = this.props;
+    const { new_member_only, manager_only } = this.state;
     return (
       <Grid container direction="column" spacing={32}>
         <Grid item>
@@ -308,6 +324,34 @@ export class PackForm extends React.Component<Props, State> {
             onChange={this.handleChange('max_bookings_per_week')}
             helperText={t('form.paymentPack.helper.maxBookingPerWeek')}
             value={this.state.max_bookings_per_week}
+          />
+        </Grid>
+
+        <Grid item>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={new_member_only}
+                disabled={manager_only}
+                onChange={(event) =>
+                  this.setState({ new_member_only: event.target.checked })
+                }
+              />
+            }
+            label={t('form.paymentPack.newMemberOnly')}
+          />
+        </Grid>
+        <Grid item>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={manager_only}
+                onChange={(event) =>
+                  this.setState({ manager_only: event.target.checked })
+                }
+              />
+            }
+            label={t('form.paymentPack.managerOnly')}
           />
         </Grid>
         <Grid item>

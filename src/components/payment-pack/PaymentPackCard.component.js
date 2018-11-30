@@ -18,6 +18,7 @@ import {
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import { translate } from 'react-i18next';
 
 import RedButton from '../button/RedButton.component';
@@ -128,8 +129,8 @@ export class PaymentPackCard extends Component<Props> {
   };
 
   getPackHeadingInfo = () => {
-    const { pack, t } = this.props;
-    const { unlimited, base_price, name, credits } = pack;
+    const { pack, t, classes, onlyPublic } = this.props;
+    const { unlimited, new_member_only, base_price, name, credits } = pack;
     let creditsFormatted = t('paymentPack.unlimitedCredits');
     if (!unlimited) {
       creditsFormatted = (
@@ -150,6 +151,23 @@ export class PaymentPackCard extends Component<Props> {
             <Grid item>
               <Typography variant="title">{name}</Typography>
             </Grid>
+            {new_member_only && !onlyPublic ? (
+              <Grid item>
+                <Grid
+                  container
+                  direction="row"
+                  alignItems="center"
+                  className={classes.newMemberOnlyContainer}
+                >
+                  <Grid item>
+                    <VisibilityOffIcon className={classes.iconLeft} />
+                  </Grid>
+                  <Grid item>
+                    <Typography>{t('paymentPack.newMemberOnly')}</Typography>
+                  </Grid>
+                </Grid>
+              </Grid>
+            ) : null}
             <Grid item>
               <Grid container direction="column" spacing={8}>
                 <Grid item>{this.renderTimeInfo()}</Grid>
@@ -320,6 +338,10 @@ const styles = (theme) => ({
     marginLeft: theme.spacing.unit * 3,
     marginRight: theme.spacing.unit * 3,
     marginBottom: theme.spacing.unit * 3,
+  },
+  newMemberOnlyContainer: {
+    backgroundColor: '#F2F2F2',
+    padding: theme.spacing.unit,
   },
   iconLeft: {
     marginRight: theme.spacing.unit,

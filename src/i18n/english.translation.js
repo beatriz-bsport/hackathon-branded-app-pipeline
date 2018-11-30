@@ -150,7 +150,7 @@ export default {
         passwordTooEasy: 'Please complexify your password',
         passwordChangedSuccess: 'Password reset successfull !',
         passwordMismatch: 'Password confirmation mismatch',
-        },
+      },
       shop: {
         subShop: {
           nameTitle: 'New category',
@@ -277,6 +277,8 @@ export default {
           'Do you want to notify your customers for this change ?',
       },
       paymentPack: {
+        newMemberOnly: 'Only available to new members',
+        managerOnly: 'Available for customers',
         helper: {
           name: 'Name for the payment pack',
           price: 'Price for user for the whole pack',

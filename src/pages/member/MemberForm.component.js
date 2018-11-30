@@ -20,7 +20,7 @@ type Props = {
   update: *,
 };
 
-export class MemberFormPage extends Component<Props, State> {
+export class MemberFormPage extends Component<Props> {
   createMember = async (data: *) => {
     const formData = mapFormData(data, {
       lastname: 'last_name',

@@ -13,6 +13,7 @@ import {
   CircularProgress,
   withStyles,
 } from '@material-ui/core';
+import TodayIcon from '@material-ui/icons/Today';
 import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -49,23 +50,6 @@ export class MyBookings extends Component<Props, State> {
     optionIdBeingCancelled: null,
   };
 
-  renderLoading = () => {
-    const { classes } = this.props;
-    return (
-      <Grid
-        container
-        direction="row"
-        alignItems="center"
-        justify="center"
-        className={classes.loadingContainer}
-      >
-        <Grid item>
-          <CircularProgress />
-        </Grid>
-      </Grid>
-    );
-  };
-
   renderFutureBookingsContainer = () => {
     const { t, classes } = this.props;
     return (
@@ -81,7 +65,7 @@ export class MyBookings extends Component<Props, State> {
   renderFutureBookingsList = () => {
     const { t, classes, futureBookings, loadingBooking } = this.props;
     if (loadingBooking) {
-      return <CircularProgress />;
+      return <CircularProgress className={classes.loadingIndicator} />;
     }
     if (futureBookings.length === 0) {
       return (
@@ -203,7 +187,7 @@ export class MyBookings extends Component<Props, State> {
     } = this.props;
 
     if (loadingOption) {
-      return <CircularProgress />;
+      return <CircularProgress className={classes.loadingIndicator} />;
     }
     return (
       <List>
@@ -240,7 +224,7 @@ export class MyBookings extends Component<Props, State> {
   renderPastBookingsList = () => {
     const { t, classes, loadingBooking, pastBookings } = this.props;
     if (loadingBooking) {
-      return <CircularProgress />;
+      return <CircularProgress className={classes.loadingIndicator} />;
     }
     if (pastBookings.length === 0) {
       return (
@@ -273,6 +257,7 @@ export class MyBookings extends Component<Props, State> {
               variant="contained"
               color="primary"
             >
+              <TodayIcon className={classes.leftIcon} />
               {`${t('marketplace.showMarketplace')} ${membership.name}`}
             </Button>
           </Grid>
@@ -332,6 +317,9 @@ function mapDispatchToProps(dispatch) {
 }
 
 const styles = (theme) => ({
+  loadingIndicator: {
+    margin: theme.spacing.unit * 2,
+  },
   title: {
     margin: theme.spacing.unit * 2,
   },
@@ -350,6 +338,9 @@ const styles = (theme) => ({
   },
   membershipButton: {
     margin: theme.spacing.unit,
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
   },
   modal: {
     position: 'absolute',

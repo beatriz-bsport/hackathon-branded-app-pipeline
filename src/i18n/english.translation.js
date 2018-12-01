@@ -22,6 +22,7 @@ export default {
       CHECK: 'Check',
     },
     common: {
+      establishments: 'Locations',
       notes: 'Notes',
       add: 'Add',
       loading: 'Loading...',

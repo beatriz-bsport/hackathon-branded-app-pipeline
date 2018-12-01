@@ -84,6 +84,7 @@ export class PaymentPackList extends Component<Props, State> {
     const {
       classes,
       metaActivities,
+      establishments,
       incrementCredit,
       decrementCredit,
       updatingConsumerPacks,
@@ -101,6 +102,7 @@ export class PaymentPackList extends Component<Props, State> {
             <PaymentPackCard
               pack={p}
               metaActivities={metaActivities}
+              establishments={establishments}
               incrementCredit={incrementCredit}
               decrementCredit={decrementCredit}
               updatingConsumerPacks={updatingConsumerPacks}
@@ -121,7 +123,6 @@ export class PaymentPackList extends Component<Props, State> {
       incrementCredit,
       decrementCredit,
       classes,
-      metaActivities,
       t,
     } = this.props;
     if (loading) {
@@ -190,6 +191,7 @@ function mapStateToProps(state) {
     loading: state.paymentPack.loading,
     packs: state.paymentPack.all,
     metaActivities: state.metaActivity.all,
+    establishments: state.establishment.all,
     updatingConsumerPacks: state.paymentPack.updatingConsumerPacks,
   };
 }

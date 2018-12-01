@@ -28,6 +28,7 @@ export default {
       },
     },
     common: {
+      establishments: 'Lieux',
       notes: 'Notes',
       add: 'Ajouter',
       loading: 'Chargement...',

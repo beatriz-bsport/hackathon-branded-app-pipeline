@@ -32,6 +32,7 @@ export default {
   unlimitedCredits: 'Illimité',
   credits: 'Crédits',
   availableOnFollowingSports: 'Sports éligibles : ',
+  availableOnFollowingEstablishments: 'Lieux éligibles : ',
   anySport: 'Tout sport',
   availableOnFollowingActivities: 'Activités éligibles : ',
   anyActivity: 'Toute activité',

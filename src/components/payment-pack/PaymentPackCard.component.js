@@ -23,6 +23,7 @@ import { translate } from 'react-i18next';
 
 import RedButton from '../button/RedButton.component';
 import MetaActivityMinimalSummary from '../activity/MetaActivityMinimalSummary.component';
+import EstablishmentSummary from '../establishment/EstablishmentSummary.component';
 import { Sport } from '../category';
 import ConsumersPackSummaryTable from './ConsumersPackSummaryTable.component';
 import type { PaymentPackManagerView, MetaActivity } from '../../api/types';
@@ -84,6 +85,32 @@ export class PaymentPackCard extends Component<Props> {
           ) : (
             <Typography variant="body2">
               {t('paymentPack.anyActivity')}
+            </Typography>
+          )}
+        </List>
+      </div>
+    );
+  };
+
+  getEstablishmentScope = () => {
+    const { pack, t, classes, establishments } = this.props;
+    const packEstablishments = pack.establishments;
+    return (
+      <div>
+        <Typography variant="subheading">
+          {t('paymentPack.availableOnFollowingEstablishments')}
+        </Typography>
+        <List className={classes.tabList}>
+          {packEstablishments.length ? (
+            packEstablishments.map((eee) => (
+              <EstablishmentSummary
+                key={eee.id}
+                establishment={establishments.find((e) => e.id === eee)}
+              />
+            ))
+          ) : (
+            <Typography variant="body2">
+              {t('paymentPack.anyEstablishment')}
             </Typography>
           )}
         </List>
@@ -225,8 +252,12 @@ export class PaymentPackCard extends Component<Props> {
 
   renderScope = () => {
     const { t, classes } = this.props;
-    const { metaActivities, categories } = this.props.pack;
-    if (metaActivities.length === 0 && categories.length === 0) {
+    const { metaActivities, establishments, categories } = this.props.pack;
+    if (
+      metaActivities.length === 0 &&
+      categories.length === 0 &&
+      establishments.length === 0
+    ) {
       return (
         <div className={classes.noRestriction}>
           <Typography>
@@ -245,6 +276,11 @@ export class PaymentPackCard extends Component<Props> {
         {metaActivities.length ? (
           <Grid item className={classes.horizontalBlock} xs={12}>
             {this.getActivityScope()}
+          </Grid>
+        ) : null}
+        {establishments.length ? (
+          <Grid item className={classes.horizontalBlock} xs={12}>
+            {this.getEstablishmentScope()}
           </Grid>
         ) : null}
       </Grid>

@@ -28,6 +28,7 @@ import { Moment } from '../../i18n';
 type Props = {
   categories: *[],
   metaActivities: *[],
+  establishments: *[],
   onSubmit: (*) => void,
   loading: boolean,
   t: (x: string) => string,
@@ -40,6 +41,7 @@ type State = {
   credits: ?number,
   categories: Object,
   metaActivities: Object,
+  establishments: Object,
   timeType: number,
   lower_date: Object,
   upper_date: Object,
@@ -60,7 +62,7 @@ const VALID_BY_DURATION = 0;
 const VALID_BY_DATERANGE = 1;
 
 export class PackForm extends React.Component<Props, State> {
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     if (props.initial) {
       const valid_by_duration = props.initial.duration_days;
@@ -73,6 +75,7 @@ export class PackForm extends React.Component<Props, State> {
         manager_only: props.initial.manager_only,
         categories: props.initial.categories.map((c) => c.id),
         metaActivities: props.initial.metaActivities,
+        establishments: props.initial.establishments || [],
         timeType: valid_by_duration ? VALID_BY_DURATION : VALID_BY_DATERANGE,
         duration_days: 30,
         max_bookings_per_week: props.initial.max_bookings_per_week,
@@ -92,6 +95,7 @@ export class PackForm extends React.Component<Props, State> {
         manager_only: false,
         categories: [],
         metaActivities: [],
+        establishments: [],
         timeType: VALID_BY_DURATION,
         duration_days: 30,
         max_bookings_per_week: null,
@@ -137,6 +141,20 @@ export class PackForm extends React.Component<Props, State> {
     return null;
   };
 
+  handleEstablishmentCheck = (checked: boolean, id: number) => {
+    if (checked && !this.state.establishments.find((cat) => id === cat)) {
+      return this.setState((prevState) => ({
+        establishments: [...prevState.establishments, id],
+      }));
+    }
+    if (!checked) {
+      return this.setState((prevState) => ({
+        establishments: prevState.establishments.filter((c) => c !== id),
+      }));
+    }
+    return null;
+  };
+
   onSubmit = (event: Object) => {
     event.preventDefault();
 
@@ -152,6 +170,7 @@ export class PackForm extends React.Component<Props, State> {
     const data = _.pick(this.state, keys);
     data.categories = this.state.categories;
     data.metaActivities = this.state.metaActivities;
+    data.establishments = this.state.establishments;
 
     switch (this.state.timeType) {
       case VALID_BY_DATERANGE: {
@@ -307,7 +326,7 @@ export class PackForm extends React.Component<Props, State> {
   );
 
   renderRestrictions = () => {
-    const { t, categories, metaActivities } = this.props;
+    const { t, categories, metaActivities, establishments } = this.props;
     const { new_member_only, manager_only } = this.state;
     return (
       <Grid container direction="column" spacing={32}>
@@ -404,6 +423,37 @@ export class PackForm extends React.Component<Props, State> {
                             this.handleMetaActivityCheck(
                               event.target.checked,
                               metaActivity.id,
+                            )
+                          }
+                        />
+                      }
+                    />
+                  ))}
+                </FormGroup>
+                <FormHelperText>
+                  {t('form.paymentPack.noneMeansAll')}
+                </FormHelperText>
+              </FormControl>
+            </Grid>
+            <Grid item>
+              <FormControl component="fieldset">
+                <FormLabel component="legend">
+                  {t('common.establishments')}
+                </FormLabel>
+                <FormGroup>
+                  {establishments.map((establishment) => (
+                    <FormControlLabel
+                      key={establishment.id}
+                      label={establishment.title}
+                      control={
+                        <Checkbox
+                          checked={this.state.establishments.find(
+                            (e) => e === establishment.id,
+                          )}
+                          onChange={(event) =>
+                            this.handleEstablishmentCheck(
+                              event.target.checked,
+                              establishment.id,
                             )
                           }
                         />

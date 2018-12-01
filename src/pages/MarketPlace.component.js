@@ -64,11 +64,10 @@ export class MarketPlace extends Component<Props, State> {
         this.companyId = response.data;
         this.props.fetchCompany(this.companyId);
       } else {
-        this.showError();
+        console.log(response);
       }
     } catch (e) {
       console.log(e);
-      this.showError();
     }
     const { fetchCompany, fetchCalendar, fetchPaymentPacks } = this.props;
     fetchCompany(this.companyId);
@@ -155,12 +154,15 @@ export class MarketPlace extends Component<Props, State> {
             ...p,
             metaActivities: p.metaActivities.map((ma) => ma.id),
             metaActivitiesFull: p.metaActivities,
+            establishments: p.establishments.map((e) => e.id),
+            establishmentsFull: p.establishments,
           }))
           .map((pp) => (
             <Grid item xs={12} md={6} lg={4}>
               <PaymentPackCard
                 pack={pp}
                 metaActivities={pp.metaActivitiesFull}
+                establishments={pp.establishmentsFull}
                 onlyPublic
               />
               <Button

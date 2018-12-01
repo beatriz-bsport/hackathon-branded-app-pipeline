@@ -16,6 +16,7 @@ import type { SCT, MetaActivity } from '../../api/types';
 type Props = {
   categories: Array<SCT>,
   metaActivities: Array<MetaActivity>,
+  establishments: Array<Establishment>,
   fetchPaymentPacks: () => void,
   update: ?PaymentPack,
   createOrUpdate: (data: [*]) => void,
@@ -36,7 +37,7 @@ export class PaymentPackFormPage extends Component<Props, State> {
   };
 
   render() {
-    const { categories, metaActivities, classes } = this.props;
+    const { categories, metaActivities, establishments, classes } = this.props;
     const { error, created, loading } = this.state;
     const availableCategoriesId = metaActivities.map((a) => a.category_id);
     const filterableCategories = categories.filter(
@@ -55,6 +56,7 @@ export class PaymentPackFormPage extends Component<Props, State> {
                 onSubmit={this.createPack}
                 categories={filterableCategories || []}
                 metaActivities={metaActivities}
+                establishments={establishments}
                 loading={loading}
                 error={error}
                 initial={this.props.update}
@@ -75,6 +77,7 @@ function mapStateToProps(state, nextProps) {
     update: id !== null ? state.paymentPack.all.find((m) => m.id === id) : null,
     categories: state.category.SCTs,
     metaActivities: state.metaActivity.all,
+    establishments: state.establishment.all,
     loading: state.paymentPack.createOrUpdate,
   };
 }

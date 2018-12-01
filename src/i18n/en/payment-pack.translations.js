@@ -32,6 +32,7 @@ export default {
   unlimitedCredits: 'Unlimited',
   credits: 'Credits',
   availableOnFollowingSports: 'Available on following sports: ',
+  availableOnFollowingEstablishments: 'Available on following locations: ',
   anySport: 'Any sports',
   availableOnFollowingActivities: 'Available on following activities: ',
   anyActivity: 'Any activity',

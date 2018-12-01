@@ -35,6 +35,7 @@ type Props = {
   updatingConsumerPacks: Array<number>,
   pack: PaymentPackManagerView,
   metaActivities: Array<MetaActivity>,
+  establishments: Array<Establishment>,
   onDeleteButtonClick: () => void,
   onEditButtonClick: () => void,
   t: (x: string) => string,

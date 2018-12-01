@@ -43,6 +43,7 @@ const styles = (theme) => ({
 
 type Props = {
   loading: boolean,
+  establishments: Array<Establishment>,
   packs: Array<Object>,
   updatingConsumerPacks: Array<number>,
   incrementCredit: (id: number) => void,

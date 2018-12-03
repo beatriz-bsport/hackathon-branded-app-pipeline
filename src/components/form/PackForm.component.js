@@ -364,9 +364,9 @@ export class PackForm extends React.Component<Props, State> {
           <FormControlLabel
             control={
               <Switch
-                checked={manager_only}
+                checked={!manager_only}
                 onChange={(event) =>
-                  this.setState({ manager_only: event.target.checked })
+                  this.setState({ manager_only: !event.target.checked })
                 }
               />
             }

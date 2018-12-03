@@ -274,7 +274,11 @@ export class ShopItemCard extends PureComponent<Props, State> {
                 </Grid>
                 <Grid item>
                   <Typography variant="caption">
-                    {item.price / ((100 + item.tva) * 100)}€ {t('shop.ht')}
+                    {(
+                      item.price /
+                      ((100 + parseInt(item.tva, 10)) / 100)
+                    ).toFixed(2)}
+                    € {t('shop.ht')}
                   </Typography>
                 </Grid>
               </Grid>

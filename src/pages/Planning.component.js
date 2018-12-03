@@ -165,6 +165,7 @@ export class Planning extends Component<Props, State> {
       const response = await api.offer.editLiveOffer({ offerId, data });
       if (response.status === 200) {
         this.props.fetchAllOffers();
+        this.props.fetchAllActivities();
         this.setState({
           editOfferProcessing: false,
           editModalOpened: false,

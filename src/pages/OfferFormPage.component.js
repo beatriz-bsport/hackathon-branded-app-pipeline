@@ -5,7 +5,7 @@ import { Paper, Grid, CircularProgress } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { goBackAction } from 'react-router-redux';
+import { goBack as goBackAction } from 'react-router-redux';
 
 import { OfferForm } from '../components';
 import api from '../api';

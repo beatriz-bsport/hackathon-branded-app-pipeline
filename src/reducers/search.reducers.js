@@ -2,14 +2,21 @@
 
 import Immutable from 'seamless-immutable';
 
+import type { SearchAction, SearchState } from '../state/search/types';
+
 import actionTypes from '../actions/search.types';
 
 const initialState = Immutable({
+  path: '',
   text: '',
   detail: null,
+  selectedId: null,
 });
 
-export default function searchReducer(state = initialState, action = {}) {
+export default function searchReducer(
+  state: SearchState = initialState,
+  action: SearchAction = { type: null },
+): SearchState {
   switch (action.type) {
     case actionTypes.SEARCH_TEXT_START: {
       const path = state.path || action.path;

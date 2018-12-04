@@ -1,134 +1,113 @@
 // @flow
 
-import React, { Component } from 'react';
+import React from 'react';
 
-import { compose, withProps } from 'recompose';
-
-import { Paper, Grid, Typography, withStyles } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { compose, withProps, withHandlers } from 'recompose';
+import { withNamespaces } from 'react-i18next';
 import { connect } from 'react-redux';
+
+import type { TFunction } from 'react-i18next';
+
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core';
+
+import { computePerformance } from '../../libs/payment-rules/utils';
 
 import mapParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { associatedCoachSelector } from '../../state/coaches/selectors';
+import {
+  paymentRuleSelector,
+  paymentRulesSelector,
+} from '../../libs/payment-rules/selectors';
 
 import {
   CoachPerformanceForm,
   CoachPerformanceSummary,
 } from '../../components';
+import CoachPerformanceSessionTable from '../../components/coach/CoachPerformanceSessionTable.component';
+
 import { coach as coachActions } from '../../actions';
-import type { PerformanceCalculationRule } from '../../components/form/types';
+
 import type { Coach } from '../../api/types';
 
 type Props = {
   coach: Coach,
-  associatedCoachId: number,
   loading: boolean,
   performance: Array<Object>,
-  fetchPerformance: (
-    associatedCoachId: number,
-    date_start: number,
-    date_end: number,
-  ) => void,
-  t: (x: string) => string,
+  t: TFunction,
   classes: Object,
+  onSubmit: () => void,
 };
 
-type State = {
-  rule: ?PerformanceCalculationRule,
-};
+export function CoachPerformance(props: Props) {
+  const {
+    classes,
+    t,
+    loading,
+    performance,
+    coach,
+    onSubmit,
+    paymentRules,
+    setSessionPaymentRule,
+  } = props;
 
-export class CoachPerformance extends Component<Props, State> {
-  state = {
-    rule: null,
-  };
-
-  onSubmit = (formData: Object) => {
-    const { date_start, date_end } = formData;
-    this.props.fetchPerformance(
-      this.props.associatedCoachId,
-      date_start.unix(),
-      date_end.unix(),
-    );
-    const { pricePerOffer, bonusRules } = formData;
-    this.setState({
-      rule: {
-        pricePerOffer,
-        bonusRules,
-      },
-    });
-  };
-
-  render() {
-    const { classes, t, loading, performance, coach } = this.props;
-    const { rule } = this.state;
-    return (
-      <Grid container spacing={16} className={classes.container}>
-        <Grid item xs={12} lg={6}>
-          <Paper className={classes.paperForm}>
-            <Typography variant="title">
-              {t('coach.performance.title')}
-            </Typography>
-            <CoachPerformanceForm onSubmit={this.onSubmit} loading={loading} />
-          </Paper>
-        </Grid>
-        <Grid item xs={12} lg={6}>
-          <Paper className={classes.paperSummary}>
-            <CoachPerformanceSummary
-              performance={performance}
-              loading={loading}
-              rule={rule}
-              coach={coach}
-            />
-          </Paper>
-        </Grid>
-      </Grid>
-    );
-  }
+  return (
+    <div>
+      <Typography variant="h4">{t('title', { name: coach.name })}</Typography>
+      <header className={classes.header}>
+        <CoachPerformanceForm onSubmit={onSubmit} loading={loading} />
+      </header>
+      <CoachPerformanceSummary {...performance} />
+      <Paper>
+        {loading ? <LinearProgress /> : null}
+        <CoachPerformanceSessionTable
+          sessions={performance.sessions}
+          paymentRules={paymentRules}
+          setSessionPaymentRule={setSessionPaymentRule}
+        />
+      </Paper>
+    </div>
+  );
 }
 
-function mapStateToProps(state, props) {
-  return {
-    performance: state.coach.performance,
-    loading: state.coach.performanceLoading,
-    coach: associatedCoachSelector(state, props.associatedCoachId),
-    coaches: state.coach.companyAssociated,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchPerformance(associatedCoachId, dateStart, dateEnd) {
-      dispatch(
-        coachActions.fetchAssociatedCoachPerformance(
-          associatedCoachId,
-          dateStart,
-          dateEnd,
-        ),
-      );
-    },
-  };
-}
 const styles = (theme) => ({
-  paperForm: {
-    padding: theme.spacing.unit * 3,
-  },
-  paperSummary: {
-    marginBottom: theme.spacing.unit * 2,
-  },
-  container: {
-    marginBottom: theme.spacing.unit * 2,
+  header: {
+    marginTop: theme.spacing.unit * 2,
   },
 });
 
 export default compose(
   withStyles(styles),
-  translate(),
+  withNamespaces(['paymentRules']),
   mapParamsToProps(['associatedCoachId']),
   withProps((props) => ({
     associatedCoachId: +props.associatedCoachId,
   })),
   connect(
-    mapStateToProps,
-    mapDispatchToProps,
+    (state, props) => {
+      const coach = associatedCoachSelector(state, props.associatedCoachId);
+      return {
+        performance: state.coach.performance.result,
+        loading: state.coach.performance.loading,
+        paymentRule: paymentRuleSelector(state, coach.default_payment_rule_id),
+        paymentRules: paymentRulesSelector(state),
+        coach,
+      };
+    },
+    {
+      setSessionPaymentRule: coachActions.setSessionPaymentRule,
+      fetchPerformance: coachActions.fetchAssociatedCoachPerformance,
+    },
   ),
+  withProps(({ performance, paymentRule, paymentRules }) => ({
+    performance: computePerformance(performance, paymentRules, paymentRule),
+  })),
+  withHandlers({
+    onSubmit: ({ associatedCoachId, fetchPerformance }) => (data: Object) => {
+      const { dateStart, dateEnd } = data;
+      fetchPerformance(associatedCoachId, dateStart.unix(), dateEnd.unix());
+    },
+  }),
 )(CoachPerformance);

@@ -1,5 +1,7 @@
 // @flow
-import React, { Component } from 'react';
+
+import React from 'react';
+
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -27,41 +29,39 @@ type Props = {
   data: Array<Invoice>,
 };
 
-export class PaymentTable extends Component<Props> {
-  render() {
-    const { t, data, classes } = this.props;
+export function PaymentTable(props: Props) {
+  const { t, data, classes } = props;
 
-    return (
-      <Paper className={classes.root}>
-        <Table className={classes.table}>
-          <TableHead>
-            <TableRow>
-              <CustomTableCell>ID</CustomTableCell>
-              <CustomTableCell>{t('payment.consumer')}</CustomTableCell>
-              <CustomTableCell>{t('payment.type')}</CustomTableCell>
-              <CustomTableCell numeric>{t('payment.amount')}</CustomTableCell>
-              <CustomTableCell numeric>
-                {t('payment.paymentDate')}
+  return (
+    <Paper className={classes.root}>
+      <Table className={classes.table}>
+        <TableHead>
+          <TableRow>
+            <CustomTableCell>ID</CustomTableCell>
+            <CustomTableCell>{t('payment.consumer')}</CustomTableCell>
+            <CustomTableCell>{t('payment.type')}</CustomTableCell>
+            <CustomTableCell numeric>{t('payment.amount')}</CustomTableCell>
+            <CustomTableCell numeric>
+              {t('payment.paymentDate')}
+            </CustomTableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {data.map((n) => (
+            <TableRow className={classes.row} key={n.id}>
+              <CustomTableCell component="th" scope="row">
+                {n.id.slice(0, 8).toUpperCase()}
               </CustomTableCell>
+              <CustomTableCell>{n.name}</CustomTableCell>
+              <CustomTableCell>{n.kind}</CustomTableCell>
+              <CustomTableCell numeric>{n.price}</CustomTableCell>
+              <CustomTableCell numeric>{n.date}</CustomTableCell>
             </TableRow>
-          </TableHead>
-          <TableBody>
-            {data.map((n) => (
-              <TableRow className={classes.row} key={n.id}>
-                <CustomTableCell component="th" scope="row">
-                  {n.id.slice(0, 8).toUpperCase()}
-                </CustomTableCell>
-                <CustomTableCell>{n.name}</CustomTableCell>
-                <CustomTableCell>{n.kind}</CustomTableCell>
-                <CustomTableCell numeric>{n.price}</CustomTableCell>
-                <CustomTableCell numeric>{n.date}</CustomTableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Paper>
-    );
-  }
+          ))}
+        </TableBody>
+      </Table>
+    </Paper>
+  );
 }
 const styles = (theme) => ({
   root: {

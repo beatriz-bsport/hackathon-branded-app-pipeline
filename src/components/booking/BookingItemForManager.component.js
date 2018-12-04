@@ -18,14 +18,15 @@ import type { TFunction } from 'react-i18next';
 
 import RedButton from '../button/RedButton.component';
 import { formatAsDatetime } from '../../datetime';
+import type { Invoice, PaymentPack, Booking } from '../../api/types';
 
 type Props = {
   t: TFunction,
   classes: Object,
   heading: ?string,
   booking: Object,
-  paymentPacks: Array<PaymentPack>,
-  invoices: Array<Invoice>,
+  paymentPacks: PaymentPack[],
+  invoices: Invoice[],
   showQuickInvoiceButton: ?boolean,
   showRevertBookingButton: ?boolean,
   onQuickInvoiceClick: () => void,

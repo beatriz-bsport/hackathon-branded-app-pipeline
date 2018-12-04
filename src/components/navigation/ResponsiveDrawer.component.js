@@ -125,7 +125,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
       },
       'divider',
       {
-        to: '/settings/company',
+        to: '/settings/payment-rules',
         icon: SettingsIcon,
         text: t('navigation.settings'),
       },

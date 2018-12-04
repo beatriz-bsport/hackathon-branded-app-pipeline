@@ -1,19 +1,27 @@
 // @flow
+
 import React, { Component } from 'react';
 
-import { withStyles, CircularProgress, Button, Grid } from '@material-ui/core';
+import { compose, withHandlers } from 'recompose';
+
+import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
-import AddIcon from '@material-ui/icons/Add';
 import { translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
+
+import { withStyles, CircularProgress, Button, Grid } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 
 import { coach as coachActions } from '../../actions';
 import { CoachCard } from '../../components';
 import type { Coach } from '../../api/types';
+import { paymentRulesSelector } from '../../libs/payment-rules/selectors';
 
 const styles = (theme) => ({
   button: {
-    margin: theme.spacing.unit,
+    position: 'fixed',
+    right: theme.spacing.unit * 2,
+    bottom: theme.spacing.unit * 2,
   },
   extendedIcon: {
     marginRight: theme.spacing.unit,
@@ -31,6 +39,16 @@ type Props = {
   startUpdateCoach: (coach: Coach) => void,
 };
 
+const ConnectedCoachCard = compose(
+  connect(
+    null,
+    (dispatch, { coach }) => ({
+      goToCoachPerformance: () =>
+        dispatch(push(`/coach/${coach.associated_coach_id}/performance`)),
+    }),
+  ),
+)(CoachCard);
+
 function SelfCoachCard(props: { isCoach: boolean, selfCoach: Coach }) {
   const { isCoach, selfCoach } = props;
   if (!isCoach) {
@@ -39,7 +57,7 @@ function SelfCoachCard(props: { isCoach: boolean, selfCoach: Coach }) {
 
   return (
     <Grid item xs={12} md={4} xl={4}>
-      <CoachCard coach={selfCoach} />
+      <ConnectedCoachCard coach={selfCoach} />
     </Grid>
   );
 }
@@ -48,7 +66,12 @@ function AssociatedCoaches(props: {
   associatedCoaches: Array<Coach>,
   isManager: boolean,
 }) {
-  const { associatedCoaches, isManager } = props;
+  const {
+    associatedCoaches,
+    isManager,
+    paymentRules,
+    setCoachPaymentRule,
+  } = props;
 
   if (!isManager) {
     return null;
@@ -56,9 +79,11 @@ function AssociatedCoaches(props: {
 
   return associatedCoaches.map((coach) => (
     <Grid item xs={12} md={6} key={coach.id}>
-      <CoachCard
+      <ConnectedCoachCard
         coach={coach}
         onClickUpdate={() => props.onClickUpdate(coach)}
+        paymentRules={paymentRules}
+        setCoachPaymentRule={setCoachPaymentRule}
       />
     </Grid>
   ));
@@ -77,37 +102,35 @@ export class CoachList extends Component<Props> {
       isCoach,
       selfCoach,
       associatedCoaches,
+      paymentRules,
+      setCoachPaymentRule,
     } = this.props;
     return (
-      <Grid container alignItems="center" justify="center" spacing={24}>
-        <Grid item xs={12}>
-          <SelfCoachCard isCoach={isCoach} selfCoach={selfCoach} />
+      <div>
+        <SelfCoachCard isCoach={isCoach} selfCoach={selfCoach} />
+        <Grid container spacing={8}>
+          <AssociatedCoaches
+            associatedCoaches={associatedCoaches}
+            isManager={isManager}
+            onClickUpdate={this.props.startUpdateCoach}
+            paymentRules={paymentRules}
+            setCoachPaymentRule={setCoachPaymentRule}
+          />
         </Grid>
-        <Grid item xs={12}>
-          <Grid container spacing={8}>
-            <AssociatedCoaches
-              associatedCoaches={associatedCoaches}
-              isManager={isManager}
-              onClickUpdate={this.props.startUpdateCoach}
-            />
-          </Grid>
-        </Grid>
-        <Grid item>
-          {isManager ? (
-            <Link to="/coach/add" style={{ textDecoration: 'none' }}>
-              <Button
-                variant="extendedFab"
-                aria-label="Add"
-                className={classes.button}
-                color="primary"
-              >
-                <AddIcon className={classes.extendedIcon} />
-                {t('coach.addCoach')}
-              </Button>
-            </Link>
-          ) : null}
-        </Grid>
-      </Grid>
+        {isManager ? (
+          <Link to="/coach/add" style={{ textDecoration: 'none' }}>
+            <Button
+              variant="extendedFab"
+              aria-label="Add"
+              className={classes.button}
+              color="primary"
+            >
+              <AddIcon className={classes.extendedIcon} />
+              {t('coach.addCoach')}
+            </Button>
+          </Link>
+        ) : null}
+      </div>
     );
   }
 }
@@ -119,17 +142,21 @@ function mapStateToProps(state) {
     associatedCoaches: state.coach.companyAssociated,
     isCoach: state.auth.is_coach,
     isManager: state.auth.is_manager,
-  };
-}
-function mapDispatchToProps(dispatch) {
-  return {
-    startUpdateCoach(coach) {
-      dispatch(coachActions.startUpdate(coach));
-    },
+    paymentRules: paymentRulesSelector(state),
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(withStyles(styles)(translate()(CoachList)));
+export default compose(
+  connect(
+    mapStateToProps,
+    (dispatch) => ({
+      startUpdateCoach: (...args) =>
+        dispatch(coachActions.startUpdateCoach(...args)),
+      setCoachPaymentRule: (...args) =>
+        dispatch(coachActions.setCoachPaymentRule(...args)),
+      goToCreateCoach: () => dispatch(push('/coach/add')),
+    }),
+  ),
+  withStyles(styles),
+  translate(),
+)(CoachList);

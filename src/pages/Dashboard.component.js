@@ -208,7 +208,7 @@ export default compose(
   ),
   withProps(({ mainChart, miniStats }) => ({
     mainChartOptions: chartConfigs[mainChart],
-    mainChartData: miniStats[mainChart],
+    mainChartData: miniStats[mainChart] || { table: [] },
   })),
   withProps(({ dateRange }) => ({
     quickDateFilters: [

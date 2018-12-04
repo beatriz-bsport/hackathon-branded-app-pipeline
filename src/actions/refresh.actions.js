@@ -12,6 +12,7 @@ import { fetchAll as fetchInvoices } from './invoice.actions';
 import { fetchAll as fetchAllPaymentPacks } from './paymentPack.actions';
 import { fetchDashboard as fetchDashboardStats } from './stats.actions';
 import { fetchAll as fetchShop } from './shop.actions';
+import { fetchPaymentRules } from '../libs/payment-rules/actions';
 
 const THRESHOLD_MINUTES = 30;
 
@@ -44,6 +45,7 @@ export function forceRefresh() {
       dispatch(fetchAllPaymentPacks()),
       dispatch(fetchDashboardStats()),
       dispatch(fetchShop()),
+      dispatch(fetchPaymentRules()),
     ]).then(() => dispatch(storeHasRefreshed()));
   };
 }

@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 
 import { MetaActivityCard } from '../../components';
-// import { stats as statsActions } from '../../actions';
+import { stats as statsActions } from '../../actions';
 import type { MetaActivity, Stat } from '../../api/types';
 
 const styles = (theme) => ({
@@ -30,11 +30,9 @@ type Props = {
 };
 
 class Activity extends Component<Props> {
-  /*
   componentDidMount() {
     this.props.fetchStats();
   }
-  */
 
   render() {
     const {
@@ -86,25 +84,15 @@ class Activity extends Component<Props> {
 function mapStateToProps(state) {
   return {
     metaActivities: state.metaActivity.all,
-    stats: state.stats.activities,
+    stats: state.stats.activities.items,
     is_manager: state.auth.is_manager,
     loading: state.activity.loading,
   };
 }
 
-/*
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchStats() {
-      dispatch(statsActions.fetchActivities());
-    },
-  };
-}
-*/
-
 export default translate()(
   connect(
     mapStateToProps,
-    // mapDispatchToProps,
+    { fetchStats: statsActions.fetchStatActivities },
   )(withStyles(styles)(translate()(Activity))),
 );

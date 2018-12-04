@@ -7,9 +7,39 @@ import search from './fr/search.translations';
 import paymentPack from './fr/payment-pack.translations';
 import companies from './fr/companies.translations';
 import dashboard from './fr/dashboard.translations';
+import settings from './fr/settings.translations';
+import paymentRules from './fr/payment-rules.translations';
 
 export default {
   dashboard,
+  settings,
+  paymentRules,
+  coachPerformance: {
+    fields: {
+      bonus: 'Bonus',
+      base: 'Base',
+      duration: 'Durée',
+      nb_bookings: 'Réservations',
+      name: 'Nom',
+      date: 'Date',
+      rule: 'Régle',
+    },
+    addBonus: 'Ajouter une règle',
+    dateTitle: 'Plage de dates',
+    remuneration: 'Rémunération',
+    pricePerOffer: 'Montant par séance',
+    bonus: 'Bonus',
+    checkboxIncludeABonus: 'Inclure un bonus à la performance',
+    bookingThresholdLabel: 'Minimum de réservation',
+    bookingThresholdHelper:
+      'Une séance ne sera comptabilisée que si elle totalise ce nombre de réservation',
+    pricePerAdditionalBookingLabel: 'Variable par réservation',
+    pricePerAdditionalBookingHelper:
+      'Montant reversé pour toute réservation au-dessus de la limite',
+    fixedPriceForAdditionalBookingLabel: 'Fixe par séance',
+    fixedPriceForAdditionalBookingHelper:
+      "Montant fixe reversé pour toute séance avec suffisamment d'inscrits",
+  },
   translation: {
     companies,
     hi: 'Salut',
@@ -205,23 +235,6 @@ export default {
           sms: 'par SMS',
         },
         signupButton: "S'inscrire",
-      },
-      coachPerformance: {
-        addBonus: 'Ajouter une règle',
-        dateTitle: 'Plage de dates',
-        remuneration: 'Rémunération',
-        pricePerOffer: 'Montant par séance',
-        bonus: 'Bonus',
-        checkboxIncludeABonus: 'Inclure un bonus à la performance',
-        bookingThresholdLabel: 'Minimum de réservation',
-        bookingThresholdHelper:
-          'Une séance ne sera comptabilisée que si elle totalise ce nombre de réservation',
-        pricePerAdditionalBookingLabel: 'Variable par réservation',
-        pricePerAdditionalBookingHelper:
-          'Montant reversé pour toute réservation au-dessus de la limite',
-        fixedPriceForAdditionalBookingLabel: 'Fixe par séance',
-        fixedPriceForAdditionalBookingHelper:
-          "Montant fixe reversé pour toute séance avec suffisamment d'inscrits",
       },
       invoice: {
         dateStartPaymentPack: "Début de l'abonnement le",

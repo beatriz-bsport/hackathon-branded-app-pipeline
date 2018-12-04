@@ -38,12 +38,13 @@ const persistConfig = {
     'search',
     'marketplace',
     'shop',
+    'paymentRules',
   ],
   stateReconciler: seamlessImmutableReconciler,
   transforms: [seamlessImmutableTransformCreator(transformerConfig)],
 };
 
-export default function initStore(initialState: Object) {
+export default function initStore(initialState: Object = {}) {
   const rootReducer = persistReducer(persistConfig, reducers);
   const history = createBrowserHistory();
   const routerMiddlewareWithHistory = routerMiddleware(history);

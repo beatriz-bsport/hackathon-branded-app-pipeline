@@ -22,8 +22,14 @@ import searchReducer from './search.reducers';
 import companiesReducers from './companies.reducers';
 import marketplaceReducer from './marketplace';
 import shopReducer from './shop';
+import paymentRulesReducer from '../libs/payment-rules/reducers';
+
+import types from '../actions/refresh.types';
+
+import type { State, Action } from '../state/types';
 
 const rootReducer = combineReducers({
+  paymentRules: paymentRulesReducer,
   payment: paymentReducers,
   consumer: consumerReducers,
   auth: authReducers,
@@ -46,7 +52,11 @@ const rootReducer = combineReducers({
   shop: shopReducer,
 });
 
-export default (state, action) => {
+export default (state: State, action: Action) => {
   const newState = action.type === 'DISCONNECT' ? { nav: state.nav } : state;
-  return rootReducer(newState, action);
+  const refreshedState =
+    action.type === types.REFRESH_STORE_START
+      ? { nav: state.nav, auth: state.auth }
+      : state;
+  return rootReducer(refreshedState, action);
 };

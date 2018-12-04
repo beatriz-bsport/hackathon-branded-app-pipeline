@@ -10,6 +10,8 @@ import {
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
+import type { Member, Booking, PaymentPack, Invoice } from '../../api/types';
+
 import BookingItemForManager from './BookingItemForManager.component';
 import BookingOptionForManager from './BookingOptionForManager.component';
 

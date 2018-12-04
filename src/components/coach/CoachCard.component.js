@@ -1,19 +1,23 @@
 // @flow
+
 import React, { Component } from 'react';
 
-import {
-  Grid,
-  Paper,
-  Typography,
-  withStyles,
-  IconButton,
-  Tooltip,
-  Button,
-} from '@material-ui/core';
+import { compose, withState } from 'recompose';
+import { withNamespaces } from 'react-i18next';
+
+import Popover from '@material-ui/core/Popover';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core';
 import CallIcon from '@material-ui/icons/Call';
 import EmailIcon from '@material-ui/icons/Email';
-import { Link } from 'react-router-dom';
-import { translate } from 'react-i18next';
+
+import { PaymentRuleSelector } from '../../libs/payment-rules';
+import type { PaymentRule } from '../../libs/payment-rules';
 
 import Avatar from '../Avatar.component';
 import ActivityMinimalSummary from '../activity/ActivityMinimalSummary.component';
@@ -26,9 +30,17 @@ type Props = {
   t: (x: string) => string,
   classes: Object,
   coach: CoachDetailed,
+  paymentRules: PaymentRule[],
+  setCoachPaymentRule: (number, number) => void,
+  goToCoachPerformance: () => void,
 };
 
 export class CoachCard extends Component<Props> {
+  constructor(props) {
+    super(props);
+    this.refPaymentRuleSelector = React.createRef();
+  }
+
   getActivityList = () => {
     const { t } = this.props;
     const { coach } = this.props;
@@ -39,83 +51,117 @@ export class CoachCard extends Component<Props> {
     return (
       <Grid container direction="column" alignItems="stretch">
         {coach.activities.map((a) => (
-          <ActivityMinimalSummary activity={a} />
+          <ActivityMinimalSummary key={a.id} activity={a} />
         ))}
       </Grid>
     );
   };
 
   render() {
-    const { coach, classes, t, onClickUpdate } = this.props;
+    const {
+      coach,
+      classes,
+      t,
+      onClickUpdate,
+      paymentRules,
+      setCoachPaymentRule,
+    } = this.props;
     return (
       <Paper className={classes.paper}>
-        <Grid container direction="column" spacing={24}>
+        <Grid
+          container
+          direction="row"
+          justify="space-between"
+          alignItems="flex-start"
+        >
+          <Grid item>
+            <Tooltip
+              title={coach.phone || t('common.NA')}
+              classes={{ tooltip: classes.lightTooltip }}
+            >
+              <IconButton>
+                <CallIcon />
+              </IconButton>
+            </Tooltip>
+          </Grid>
+          <Grid item>
+            <div style={{ marginTop: -OVERFLOW }}>
+              {coach ? <Avatar user={coach} variant="large" /> : null}
+            </div>
+          </Grid>
+          <Grid item>
+            <Tooltip
+              title={coach.email || t('common.NA')}
+              classes={{ tooltip: classes.lightTooltip }}
+            >
+              <IconButton>
+                <EmailIcon />
+              </IconButton>
+            </Tooltip>
+          </Grid>
+        </Grid>
+        <Typography variant="subtitle">{t('paymentRules:label')}</Typography>
+        <div ref={this.refPaymentRuleSelector}>
+          <PaymentRuleSelector
+            paymentRules={paymentRules}
+            selected={coach.default_payment_rule_id}
+            onChange={({ value }) => setCoachPaymentRule(coach.id, value)}
+          />
+        </div>
+        <Popover
+          open={this.props.paymentRulePopoverOpen}
+          anchorEl={this.refPaymentRuleSelector.current}
+          onClose={() => this.props.togglePaymentRulePopover(false)}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+          }}
+        >
+          <Typography className={classes.popoverNoPaymentRule}>
+            {t('paymentRules:setPaymentRuleSetForCoachFirst')}
+          </Typography>
+        </Popover>
+        <Grid container direction="column" justify="flex-start">
           <Grid item>
             <Grid
               container
               direction="row"
               justify="space-between"
-              alignItems="flex-start"
+              alignItems="center"
             >
               <Grid item>
-                <Tooltip
-                  title={coach.phone || t('common.NA')}
-                  classes={{ tooltip: classes.lightTooltip }}
-                >
-                  <IconButton>
-                    <CallIcon />
-                  </IconButton>
-                </Tooltip>
+                <Typography variant="title">
+                  {t('common.activities')}
+                </Typography>
               </Grid>
               <Grid item>
-                <div style={{ marginTop: -OVERFLOW }}>
-                  {coach ? <Avatar user={coach} variant="large" /> : null}
-                </div>
-              </Grid>
-              <Grid item>
-                <Tooltip
-                  title={coach.email || t('common.NA')}
-                  classes={{ tooltip: classes.lightTooltip }}
+                <Button onClick={onClickUpdate}>
+                  {t('coach.card.update')}
+                </Button>
+                <Button
+                  color="primary"
+                  onClick={() => {
+                    if (
+                      paymentRules.find(
+                        (p) => p.id === coach.default_payment_rule_id,
+                      )
+                    ) {
+                      this.props.goToCoachPerformance();
+                    } else {
+                      this.props.togglePaymentRulePopover(true);
+                    }
+                  }}
                 >
-                  <IconButton>
-                    <EmailIcon />
-                  </IconButton>
-                </Tooltip>
+                  {t('coach.showPerformance')}
+                </Button>
               </Grid>
             </Grid>
           </Grid>
-          <Grid item>
-            <Grid container direction="column" justify="flex-start">
-              <Grid item>
-                <Grid
-                  container
-                  direction="row"
-                  justify="space-between"
-                  alignItems="center"
-                >
-                  <Grid item>
-                    <Typography variant="title">
-                      {t('common.activities')}
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <Button onClick={onClickUpdate}>
-                      {t('coach.card.update')}
-                    </Button>
-                    <Link
-                      to={`/coach/${coach.associated_coach_id}/performance`}
-                      style={{ textDecoration: 'none' }}
-                    >
-                      <Button color="primary">
-                        {t('coach.showPerformance')}
-                      </Button>
-                    </Link>
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid item>{this.getActivityList()}</Grid>
-            </Grid>
-          </Grid>
+          <Grid item>{this.getActivityList()}</Grid>
         </Grid>
       </Paper>
     );
@@ -134,5 +180,12 @@ const styles = (theme) => ({
     boxShadow: theme.shadows[1],
     fontSize: 14,
   },
+  popoverNoPaymentRule: {
+    margin: theme.spacing.unit * 2,
+  },
 });
-export default withStyles(styles)(translate()(CoachCard));
+export default compose(
+  withStyles(styles),
+  withNamespaces(['translation', 'paymentRules']),
+  withState('paymentRulePopoverOpen', 'togglePaymentRulePopover', false),
+)(CoachCard);

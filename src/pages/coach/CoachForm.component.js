@@ -54,8 +54,8 @@ function mapStateToProps(state, nextProps) {
   const { match } = nextProps;
   const id = (match && match.params && +match.params.id) || null;
   return {
-    pending: state.coach.createOrUpdatePending,
-    errors: state.coach.createOrUpdatePending,
+    pending: state.coach.upsert.loading,
+    errors: state.coach.upsert.error,
     update:
       id !== null
         ? state.coach.companyAssociated.find((c) => c.id === id)

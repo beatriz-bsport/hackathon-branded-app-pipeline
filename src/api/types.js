@@ -9,8 +9,12 @@ export type OfferPerformance = {
 export type Performance = Array<OfferPerformance>;
 
 export type Invoice = {
+  id: string,
   uuid: string,
   date: string,
+  name: string,
+  kind: string,
+  price: number,
   price_due: number,
   price_payed: number,
   member: number,
@@ -275,5 +279,9 @@ export type CoachDetailed = {
   name: string,
   id: number,
   photo: string,
+  phone: string,
+  email: string,
+  associated_coach_id: number,
+  default_payment_rule_id: ?number,
   activities: Array<ActivitySimplified>,
 };

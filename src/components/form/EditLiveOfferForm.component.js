@@ -149,7 +149,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
     this.props.onConfirm({ offerId: offer.id, data });
   };
 
-  onFormFieldChange = (id) => (value) => {
+  onFormFieldChange = (id: string) => (value: *) => {
     this.setState({ [id]: value });
   };
 

@@ -1,6 +1,6 @@
 // @flow
 
-export default function parse(url) {
+export default function parse(url: string) {
   const pos = url.lastIndexOf('?');
   if (pos === -1) {
     return {};

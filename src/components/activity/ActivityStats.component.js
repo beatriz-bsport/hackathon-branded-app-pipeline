@@ -28,7 +28,7 @@ export function ActivityStats(props: Props) {
           spacing={8}
         >
           <Grid item>
-            <Typography variant="display1">
+            <Typography variant="body1">
               {parseInt(total_customers, 10) || '-'}
             </Typography>
           </Grid>
@@ -50,7 +50,7 @@ export function ActivityStats(props: Props) {
           <Grid item>
             <Grid container direction="row" spacing={8} alignItems="center">
               <Grid item>
-                <Typography variant="display1" color="primary">
+                <Typography variant="body1" color="primary">
                   {parseInt(gross_volume, 10) || '-'}
                 </Typography>
               </Grid>
@@ -78,7 +78,7 @@ export function ActivityStats(props: Props) {
           <Grid item>
             <Grid container direction="row" spacing={8} alignItems="center">
               <Grid item>
-                <Typography variant="display1">
+                <Typography variant="body1">
                   {parseInt(average_fillrate * 100, 10) || '-'}
                 </Typography>
               </Grid>

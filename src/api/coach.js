@@ -2,11 +2,11 @@
 
 import { API_URI, getAuth, postAuth, putAuth } from '../http';
 
-export async function addCoach(data) {
+export async function addCoach(data: *) {
   return postAuth(`${API_URI}/saas/create-coach/`, data);
 }
 
-export async function updateCoach(data) {
+export async function updateCoach(data: *) {
   return putAuth(`${API_URI}/saas/coach/${data.get('id')}`, data);
 }
 
@@ -15,9 +15,9 @@ export async function fetchAssociatedCoaches() {
 }
 
 export async function fetchAssociatedCoachPerformance(
-  associatedCoachId,
-  start_timestamp,
-  end_timestamp,
+  associatedCoachId: number,
+  start_timestamp: number,
+  end_timestamp: number,
 ) {
   return getAuth(
     `${API_URI}/saas/associated-coach/${associatedCoachId}/performance/${start_timestamp}/${end_timestamp}`,

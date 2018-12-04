@@ -4,8 +4,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { companies as companiesActions } from '../actions';
-import CompanyDetail from '../components/companies/CompanyDetail.component';
+import { companies as companiesActions } from '../../actions';
+import CompanyDetail from '../../components/companies/CompanyDetail.component';
 
 type Props = {
   company: *,

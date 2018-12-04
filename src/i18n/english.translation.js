@@ -7,9 +7,26 @@ import search from './en/search.translations';
 import paymentPack from './en/payment-pack.translations';
 import companies from './en/companies.translations';
 import dashboard from './en/dashboard.translations';
+import settings from './en/settings.translations';
+import paymentRules from './en/payment-rules.translations';
 
 export default {
   dashboard,
+  settings,
+  paymentRules,
+  coachPerformance: {
+    addBonus: 'Add a rule',
+    dateTitle: 'Date range',
+    remuneration: 'Remuneration',
+    pricePerOffer: 'Price per offer',
+    bonus: 'Bonus',
+    bookingThresholdLabel: 'Booking threshold triggering rule',
+    bookingThresholdHelper:
+      'Every booking over this threshold will add a bonus',
+    pricePerAdditionalBookingLabel: 'Price per booking',
+    pricePerAdditionalBookingHelper:
+      'Amount given to every booking over threshold',
+  },
   translation: {
     companies,
     hi: 'Hi',
@@ -226,19 +243,6 @@ export default {
           sms: 'via SMS',
         },
         signupButton: 'Signup',
-      },
-      coachPerformance: {
-        addBonus: 'Add a rule',
-        dateTitle: 'Date range',
-        remuneration: 'Remuneration',
-        pricePerOffer: 'Price per offer',
-        bonus: 'Bonus',
-        bookingThresholdLabel: 'Booking threshold triggering rule',
-        bookingThresholdHelper:
-          'Every booking over this threshold will add a bonus',
-        pricePerAdditionalBookingLabel: 'Price per booking',
-        pricePerAdditionalBookingHelper:
-          'Amount given to every booking over threshold',
       },
       invoice: {
         titleUnevenInvoice: 'Uneven invoice',

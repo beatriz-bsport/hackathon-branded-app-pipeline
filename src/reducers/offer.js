@@ -1,82 +1,74 @@
+// @flow
+
+import lodash from 'lodash';
+
+import { handleActions } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
-import actionTypes from '../actions/offer.types';
+import { offers, compatiblePacks, offerByDay } from '../actions/offer.actions';
 import authActionTypes from '../actions/auth.types';
 
 const initialState = Immutable({
   calendar: [],
-  offers: [],
   loading: true,
   error: false,
-  errorMsg: '',
-  compatiblePacks: [],
-  compatiblePacksLoading: false,
+
+  // By Day
+  offers: [],
+
+  // Compatible Packs
+  compatiblePacks: {
+    items: [],
+    loading: false,
+    error: null,
+  },
 });
 
 const REFRESHED_INTERVAL = 60 * 60 * 24 * 5;
 
-export default function offerReducers(state = initialState, action = {}) {
-  switch (action.type) {
-    case authActionTypes.DISCONNECT:
-      return initialState;
-
-    case actionTypes.HAS_FETCHED_ALL_OFFERS:
-      return Immutable.merge(state, {
-        loading: false,
-        error: false,
-        calendar: action.offers,
-      });
-
-    case actionTypes.HAS_FETCHED_OFFER_COMPATIBLE_PACKS:
-      return Immutable.merge(state, {
-        compatiblePacksLoading: false,
-        compatiblePacks: action.compatiblePacks,
-      });
-
-    case actionTypes.START_FETCH_OFFER_COMPATIBLE_PACKS:
-      return Immutable.merge(state, {
-        compatiblePacksLoading: true,
-        compatiblePacks: [],
-      });
-
-    case actionTypes.ERROR_FETCHING_OFFER_COMPATIBLE_PACKS:
-      return Immutable.merge(state, {
-        compatiblePacksLoading: false,
-        compatiblePacks: [],
-      });
-
-    case actionTypes.START_FETCH_ALL_OFFERS:
-      return Immutable.merge(state, { loading: true, error: false });
-
-    case actionTypes.ERROR_FETCHING_ALL_OFFERS:
-      return Immutable.merge(state, {
-        loading: false,
-        error: true,
-        errorMsg: action.error,
-      });
-
-    case actionTypes.START_FETCH_DETAILED_OFFERS: {
-      const { offers } = state;
-      return Immutable.merge(state, {
-        offers: offers.filter(
-          (o) => o.refreshed_on - new Date() / 1000 < REFRESHED_INTERVAL,
-        ),
-      });
-    }
-    case actionTypes.HAS_FETCHED_DETAILED_OFFERS: {
-      const { offers } = action;
-      const oldOffers = state.offers.filter(
-        (old_o) => !offers.find((new_o) => new_o.id === old_o.id),
+export default handleActions(
+  {
+    [authActionTypes.DISCONNECT]: () => initialState,
+    [offers.isLoading]: (state, { payload }) => {
+      return state.setIn(['loading'], payload);
+    },
+    [offers.error]: (state, { payload }) => {
+      return state.setIn(['error'], payload);
+    },
+    [offers.success]: (state, { payload }) => {
+      return state
+        .setIn(['calendar'], payload)
+        .setIn(['lastFetched'], new Date());
+    },
+    [compatiblePacks.isLoading]: (state, { payload }) => {
+      return state.setIn(['compatiblePacks', 'loading'], payload);
+    },
+    [compatiblePacks.error]: (state, { payload }) => {
+      return state.setIn(['compatiblePacks', 'error'], payload);
+    },
+    [compatiblePacks.success]: (state, { payload }) => {
+      return state
+        .setIn(['compatiblePacks', 'items'], payload)
+        .setIn(['compatiblePacks', 'lastFetched'], new Date());
+    },
+    [offerByDay.isLoading]: (state, { payload }) => {
+      const items = state.offers.filter(
+        (o) => o.lastRefresh - new Date() / 1000 < REFRESHED_INTERVAL,
       );
-      return Immutable.merge(state, {
-        offers: [
-          ...oldOffers,
-          ...offers.map((o) => ({ ...o, refreshed_on: new Date() / 1000 })),
-        ],
-      });
-    }
-
-    default:
-      return state;
-  }
-}
+      return state.setIn(['byDay', 'loading'], payload).set('offers', items);
+    },
+    [offerByDay.error]: (state, { payload }) => {
+      return state.setIn(['byDay', 'error'], payload);
+    },
+    [offerByDay.success]: (state, { payload }) => {
+      const oldItems = state.offers;
+      const newItems = payload.map((o) => ({
+        ...o,
+        lastRefresh: new Date() / 1000,
+      }));
+      const allItems = lodash.uniqBy([].concat(oldItems, newItems), 'id');
+      return state.set('offers', allItems);
+    },
+  },
+  initialState,
+);

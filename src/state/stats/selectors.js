@@ -5,9 +5,11 @@ import moment from 'moment';
 import { createSelector } from 'reselect';
 import createCachedSelector from 're-reselect';
 
-export const mainChartSelector = (state) => state.stats.mainChart;
+import type { State } from '../types';
+
+export const mainChartSelector = (state: State) => state.stats.mainChart;
 export const dateRangeSelector = createSelector(
-  (state) => state.stats.dateRange,
+  (state: State) => state.stats.dateRange,
   (dateRange) => ({
     start: moment(dateRange.start),
     end: moment(dateRange.end),

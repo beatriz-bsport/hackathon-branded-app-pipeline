@@ -2,18 +2,22 @@
 
 import Immutable from 'seamless-immutable';
 
+import type { ShopState, ShopAction } from '../state/shop/types';
 import actionTypes from '../actions/shop.types';
 
-const initialState = Immutable({
+const initialState: ShopState = Immutable({
   loading: false,
   all: [],
   subShops: [],
 });
 
-export default function shopReducers(state = initialState, action = {}) {
+export default function shopReducers(
+  state: ShopState = initialState,
+  action: ShopAction,
+): ShopState {
   switch (action.type) {
     case actionTypes.SHOP_FETCH_START:
-      return Immutable.merge(state, {
+      return state.merge({
         loading: true,
         all: [],
       });
@@ -27,31 +31,22 @@ export default function shopReducers(state = initialState, action = {}) {
         all: action.shopItems,
       });
     case actionTypes.SHOP_ITEM_CREATEOR_UPDATE_SUCCESS: {
-      if (state.all.find((si) => si.id === action.shopItem.id)) {
-        return {
-          ...state,
-          all: state.all.map((item) => {
-            if (item.id === action.shopItem.id) {
-              return action.shopItem;
-            }
-
-            return item;
-          }),
-        };
+      const { shopItem } = action;
+      if (state.all.find((si) => si.id === shopItem.id)) {
+        const index = state.all.findIndex((s) => s.id === shopItem.id);
+        return state.setIn(['all', index], shopItem);
       }
-      return Immutable.merge(state, {
-        all: [...state.all, action.shopItem],
-      });
+      return state.set('all', [...state.all, shopItem]);
     }
     case actionTypes.SHOP_ITEM_DELETE_SUCCESS: {
+      const { id } = action;
       return Immutable.merge(state, {
-        all: state.all.filter((item) => item.id !== action.id),
+        all: state.all.filter((item) => item.id !== id),
       });
     }
     case actionTypes.SUB_SHOP_DELETE_SUCCESS: {
-      return Immutable.merge(state, {
-        subShops: state.subShops.filter((ss) => ss.id !== action.id),
-      });
+      const { id } = action;
+      return state.set('subShops', state.subShops.filter((ss) => ss.id !== id));
     }
     case actionTypes.SUB_SHOP_FETCH_SUCCESS: {
       return Immutable.merge(state, {
@@ -64,22 +59,22 @@ export default function shopReducers(state = initialState, action = {}) {
       });
     }
     case actionTypes.SUB_SHOP_UPDATE_SUCCESS: {
+      const { subShop } = action;
       return Immutable.merge(state, {
         subShops: [
-          action.subShop,
-          ...state.subShops.filter((ss) => ss.id !== action.subShop.id),
+          subShop,
+          ...state.subShops.filter((ss) => ss.id !== subShop.id),
         ],
       });
     }
     case actionTypes.SHOP_ITEM_UPDATE_PROVISIONS_SUCCESS: {
-      return Immutable.merge(state, {
-        all: [
-          action.shopItem,
-          ...state.all.filter((item) => item.id !== action.shopItem.id),
-        ],
-      });
+      const { shopItem } = action;
+      return state.set('all', [
+        shopItem,
+        ...state.all.filter((item) => item.id !== shopItem.id),
+      ]);
     }
     default:
+      return state;
   }
-  return state;
 }

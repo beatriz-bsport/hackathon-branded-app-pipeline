@@ -13,7 +13,7 @@ import Dashboard from './Dashboard.component';
 
 import Planning from './Planning.component';
 import OfferFormPage from './OfferFormPage.component';
-import CompanyDetailPage from './CompanyDetailPage.component';
+import Settings from './settings/Settings.component';
 
 import {
   MetaActivityForm,
@@ -120,7 +120,7 @@ export class Backoffice extends Component<Props> {
               <Route path="/marketing" component={MarketingDashboard} />
               <Route exact path="/dashboard" component={Dashboard} />
               <Route exact path="/search/results" component={SearchResults} />
-              <Route path="/settings/company" component={CompanyDetailPage} />
+              <Route path="/settings/" component={Settings} />
               <Route path="/" component={Planning} />
             </Switch>
           </div>

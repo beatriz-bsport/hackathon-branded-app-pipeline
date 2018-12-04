@@ -6,8 +6,10 @@ import { snackbarError, snackbarSuccess } from './snackbar.actions';
 import api from '../api';
 import types from './member.types';
 
+import type { Dispatch } from '../state/types';
+
 export function fetchAll() {
-  return async (dispatch) => {
+  return async (dispatch: Dispatch) => {
     dispatch(startFetchMembers());
 
     try {
@@ -21,7 +23,7 @@ export function fetchAll() {
   };
 }
 
-export function fetchedMembers(members) {
+export function fetchedMembers(members: {}[]) {
   return { type: types.HAS_FETCHED_MEMBERS, members };
 }
 export function startFetchMembers() {
@@ -32,8 +34,8 @@ export function errorFetchingMembers() {
   return { type: types.ERROR_FETCHING_MEMBERS };
 }
 
-export function fetchMember(id) {
-  return async (dispatch) => {
+export function fetchMember(id: number) {
+  return async (dispatch: Dispatch) => {
     dispatch(startFetchMember());
 
     try {
@@ -50,7 +52,7 @@ export function startFetchMember() {
   return { type: types.START_FETCH_MEMBER };
 }
 
-export function hasFetchedMember(member) {
+export function hasFetchedMember(member: *) {
   return { type: types.HAS_FETCHED_MEMBER, member };
 }
 
@@ -58,8 +60,11 @@ export function errorFetchingMember() {
   return { type: types.ERROR_FETCHING_MEMBER };
 }
 
-export function createOrUpdateMember(memberData, dontRedirect) {
-  return async (dispatch) => {
+export function createOrUpdateMember(
+  memberData: FormData,
+  dontRedirect: boolean,
+) {
+  return async (dispatch: Dispatch) => {
     dispatch(actionCreateOrUpdateMember(memberData));
 
     const createOrUpdate = memberData.has('id')
@@ -93,27 +98,27 @@ export function createOrUpdateMember(memberData, dontRedirect) {
   };
 }
 
-export function actionCreateOrUpdateMember(memberData) {
+export function actionCreateOrUpdateMember(memberData: *) {
   return { type: types.MEMBER_CREATE_OR_UPDATE, member: memberData };
 }
-export function actionCreateOrUpdateMemberSuccess(response) {
+export function actionCreateOrUpdateMemberSuccess(response: *) {
   return { type: types.MEMBER_CREATE_OR_UPDATE_SUCCESS, response };
 }
-export function actionCreateOrUpdateMemberError(error) {
+export function actionCreateOrUpdateMemberError(error: ?Error) {
   return { type: types.MEMBER_CREATE_OR_UPDATE_ERROR, error };
 }
-export function actionStartUpdate(member) {
+export function actionStartUpdate(member: *) {
   return { type: types.MEMBER_UPDATE, member };
 }
-export function startUpdate(member) {
-  return async (dispatch) => {
+export function startUpdate(member: { id: number }) {
+  return async (dispatch: Dispatch) => {
     dispatch(actionStartUpdate(member));
     dispatch(push(`/member/edit/${member.id}`));
   };
 }
 
 export function createOrUpdateNote(id: number, text: string, memberId: number) {
-  return async (dispatch) => {
+  return async (dispatch: Dispatch) => {
     dispatch(actionCreateOrUpdateNoteStart());
 
     const createOrUpdate = id ? api.member.updateNote : api.member.createNote;
@@ -147,8 +152,14 @@ export function actionCreateOrUpdateNoteStart() {
   return { type: types.MEMBER_NOTE_CREATEORUPDATE_START };
 }
 
-export function deleteNote({ noteId, memberId }) {
-  return async (dispatch) => {
+export function deleteNote({
+  noteId,
+  memberId,
+}: {
+  noteId: number,
+  memberId: number,
+}) {
+  return async (dispatch: Dispatch) => {
     dispatch(actionDeleteNoteStart());
 
     try {

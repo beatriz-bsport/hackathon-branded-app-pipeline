@@ -1,90 +1,76 @@
+// @flow
+
+import { createAction } from 'redux-actions';
+
+import { putAuth, API_URI } from '../http';
+import { snackbarSuccess, snackbarError } from './snackbar.actions';
 import api from '../api';
-import types from './offer.types';
+import type { Dispatch } from '../state/types';
+
+export const offers = {
+  isLoading: createAction('OFFERS/LIST/IS_LOADING'),
+  error: createAction('OFFERS/LIST/ERROR'),
+  success: createAction('OFFERS/LIST/SUCCESS'),
+};
 
 export function fetchAllOffers() {
-  return async (dispatch) => {
-    /*
-    if (getState().offer.loading) {
-      return dispatch(offerAlreadyLoading());
-    }
-    */
-    dispatch(startFetchAllOffers());
+  return async (dispatch: Dispatch) => {
+    dispatch(offers.isLoading(true));
+    dispatch(offers.error(null));
 
     try {
       const response = await api.offer.fetchAllEvents();
-      const offers = response.data;
-      dispatch(fetchedAllOffers(offers));
+      dispatch(offers.success(response.data));
     } catch (err) {
-      dispatch(errorFetchingAllOffers());
+      dispatch(offers.error(err));
     }
+    dispatch(offers.isLoading(false));
   };
 }
 
-export function fetchedAllOffers(offers) {
-  return { type: types.HAS_FETCHED_ALL_OFFERS, offers };
-}
-export function startFetchAllOffers() {
-  return { type: types.START_FETCH_ALL_OFFERS };
-}
+export const compatiblePacks = {
+  isLoading: createAction('OFFERS/COMPATIBLE_PACKS/IS_LOADING'),
+  error: createAction('OFFERS/COMPATIBLE_PACKS/ERROR'),
+  success: createAction('OFFERS/COMPATIBLE_PACKS/SUCCESS'),
+};
 
-export function errorFetchingAllOffers() {
-  return { type: types.ERROR_FETCHING_ALL_OFFERS };
-}
-export function offerAlreadyLoading() {
-  return { type: types.OFFER_ALREADY_LOADING };
-}
-
-export function fetchCompatiblePacks(offerId) {
-  return async (dispatch) => {
-    /*
-    if (getState().offer.loading) {
-      return dispatch(offerAlreadyLoading());
-    }
-    */
-    dispatch(startFetchCompatiblePacks());
+export function fetchCompatiblePacks(offerId: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(compatiblePacks.isLoading(true));
+    dispatch(compatiblePacks.error(null));
+    dispatch(compatiblePacks.success([]));
 
     try {
       const response = await api.offer.fetchCompatiblePacks(offerId);
-      const compatiblePacks = response.data;
-      dispatch(fetchedCompatiblePacks(compatiblePacks));
-    } catch (err) {
-      dispatch(errorFetchingCompatiblePacks());
+      dispatch(compatiblePacks.success(response.data));
+    } catch (error) {
+      dispatch(compatiblePacks.error(error));
     }
+    dispatch(compatiblePacks.isLoading(false));
   };
 }
 
-export function fetchedCompatiblePacks(compatiblePacks) {
-  return { type: types.HAS_FETCHED_OFFER_COMPATIBLE_PACKS, compatiblePacks };
-}
-export function startFetchCompatiblePacks() {
-  return { type: types.START_FETCH_OFFER_COMPATIBLE_PACKS };
-}
+export const offerByDay = {
+  isLoading: createAction('OFFERS/DAY/IS_LOADING'),
+  error: createAction('OFFERS/DAY/ERROR'),
+  success: createAction('OFFERS/DAY/SUCCESS'),
+};
 
-export function errorFetchingCompatiblePacks() {
-  return { type: types.ERROR_FETCHING_OFFER_COMPATIBLE_PACKS };
-}
-
-export function fetchOffersByDay({ year, month, day }) {
-  return async (dispatch) => {
-    dispatch(startFetchDetailedOffers());
+export function fetchOffersByDay(day: {
+  year: number,
+  month: number,
+  day: number,
+}) {
+  return async (dispatch: Dispatch) => {
+    dispatch(offerByDay.isLoading(true));
+    dispatch(offerByDay.error(null));
 
     try {
-      const response = await api.offer.fetchOffersByDay({ year, month, day });
-      const offers = response.data;
-      dispatch(fetchedDetailed(offers));
-    } catch (err) {
-      dispatch(errorFetchingDetailedOffers());
+      const response = await api.offer.fetchOffersByDay(day);
+      dispatch(offerByDay.success(response.data));
+    } catch (error) {
+      dispatch(offerByDay.error(error));
     }
+    dispatch(offerByDay.isLoading(false));
   };
-}
-
-export function fetchedDetailed(offers) {
-  return { type: types.HAS_FETCHED_DETAILED_OFFERS, offers };
-}
-export function startFetchDetailedOffers() {
-  return { type: types.START_FETCH_DETAILED_OFFERS };
-}
-
-export function errorFetchingDetailedOffers() {
-  return { type: types.ERROR_FETCHING_DETAILED_OFFERS };
 }

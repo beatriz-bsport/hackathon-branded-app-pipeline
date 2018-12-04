@@ -2,6 +2,8 @@
 
 import Immutable from 'seamless-immutable';
 
+import type { BookingsState, BookingsAction } from '../state/bookings/types';
+
 import actionTypes from '../actions/booking.types';
 import authActionTypes from '../actions/auth.types';
 import type { Booking, BookingOption } from '../api/types';
@@ -32,17 +34,22 @@ const initialState = Immutable({
   bookingOptionsUpdating: [],
 });
 
-export default function bookingReducers(state = initialState, action = {}) {
+export default function bookingReducers(
+  state: BookingsState = initialState,
+  action: BookingsAction = { type: null },
+): BookingsState {
   switch (action.type) {
     case authActionTypes.DISCONNECT:
       return initialState;
 
-    case actionTypes.ERROR_UPDATING_BOOKING_OPTION:
-      return Immutable.merge(state, {
+    case actionTypes.ERROR_UPDATING_BOOKING_OPTION: {
+      const { bookingOptionId } = action;
+      return state.merge({
         bookingOptionsUpdating: state.bookingOptionsUpdating.filter(
-          (id) => id !== action.bookingOptionId,
+          (id) => id !== bookingOptionId,
         ),
       });
+    }
     case actionTypes.START_UPDATING_BOOKING_OPTION:
       return Immutable.merge(state, {
         bookingOptionsUpdating: [
@@ -51,30 +58,36 @@ export default function bookingReducers(state = initialState, action = {}) {
         ],
       });
     case actionTypes.BOOKING_OPTION_UPDATED: {
+      const { bookingOption, bookingOptionId } = action;
       return Immutable.merge(state, {
-        options: updateOptions(action.bookingOption, state.options),
+        options: updateOptions(bookingOption, state.options),
         bookingOptionsUpdating: state.bookingOptionsUpdating.filter(
-          (id) => id !== action.bookingOptionId,
+          (id) => id !== bookingOptionId,
         ),
       });
     }
 
-    case actionTypes.ERROR_UPDATING_BOOKING_STATUS:
+    case actionTypes.ERROR_UPDATING_BOOKING_STATUS: {
+      const { bookingId } = action;
       return Immutable.merge(state, {
         bookingsUpdating: state.bookingsUpdating.filter(
-          (b) => b.id !== action.bookingId,
+          (b) => b.id !== bookingId,
         ),
       });
-    case actionTypes.START_UPDATING_BOOKING_STATUS:
+    }
+    case actionTypes.START_UPDATING_BOOKING_STATUS: {
+      const { bookingId } = action;
       return Immutable.merge(state, {
-        bookingsUpdating: [action.bookingId, ...state.bookingsUpdating],
+        bookingsUpdating: [bookingId, ...state.bookingsUpdating],
       });
+    }
     case actionTypes.BOOKING_STATUS_UPDATED: {
-      const { all } = updateBookings(action.booking, state.all);
+      const { booking, bookingId } = action;
+      const { all } = updateBookings(booking, state.all);
       return Immutable.merge(state, {
         all,
         bookingsUpdating: state.bookingsUpdating.filter(
-          (id) => id !== action.bookingId,
+          (id) => id !== bookingId,
         ),
       });
     }
@@ -114,8 +127,9 @@ export default function bookingReducers(state = initialState, action = {}) {
     case actionTypes.BOOKING_DELETE_START:
       return state;
     case actionTypes.BOOKING_DELETE_SUCCESS: {
+      const { bookingId } = action;
       return Immutable.merge(state, {
-        all: state.all.filter((b) => b.id !== action.bookingId),
+        all: state.all.filter((b) => b.id !== bookingId),
       });
     }
 

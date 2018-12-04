@@ -1,79 +1,87 @@
-import Immutable from 'seamless-immutable';
+// @flow
 
-import actionTypes from '../actions/coach.types';
-import authActionTypes from '../actions/auth.types';
+import Immutable from 'seamless-immutable';
+import { handleActions } from 'redux-actions';
+
+import {
+  associated,
+  performance,
+  upsert,
+  setPaymentRule,
+  sessionPaymentRule,
+} from '../actions/coach.actions';
 
 const initialState = Immutable({
   loading: false,
   error: '',
-  selfCoach: null,
   companyAssociated: [],
-  performance: null,
-  performanceLoading: false,
-  // Create or Update
-  createOrUpdatePending: false,
-  createOrUpdateError: null,
+  // Performance
+  performance: {
+    loading: false,
+    error: null,
+    result: [],
+  },
+  // Upsert
+  upsert: {
+    loading: false,
+    error: null,
+  },
 });
 
-export default function coachReducers(state = initialState, action = {}) {
-  switch (action.type) {
-    case authActionTypes.DISCONNECT:
-      return initialState;
-
-    case actionTypes.HAS_FETCHED_ASSOCIATED_COACH:
-      return Immutable.merge(state, {
-        loading: false,
-        error: false,
-        companyAssociated: action.coaches,
+export default handleActions(
+  {
+    [associated.success]: (state, { payload }) => {
+      return state.set('companyAssociated', payload);
+    },
+    [associated.isLoading]: (state, { payload }) => {
+      return state.set('loading', payload);
+    },
+    [associated.error]: (state, { payload }) => {
+      return state.set('error', payload);
+    },
+    [performance.isLoading]: (state, { payload }) => {
+      return state.setIn(['performance', 'loading'], payload);
+    },
+    [performance.error]: (state, { payload }) => {
+      return state.setIn(['performance', 'error'], payload);
+    },
+    [performance.success]: (state, { payload }) => {
+      return state.setIn(['performance', 'result'], payload);
+    },
+    [upsert.isLoading]: (state, { payload }) => {
+      return state.setIn(['upsert', 'loading'], payload);
+    },
+    [upsert.error]: (state, { payload }) => {
+      return state.setIn(['upsert', 'error'], payload);
+    },
+    [upsert.success]: (state, { payload }) => {
+      return state.setIn(['upsert', 'result'], payload);
+    },
+    [setPaymentRule.success]: (state, { payload }) => {
+      const coach = state.companyAssociated.find(
+        (c) => c.id === payload.coachId,
+      );
+      const updatedCoach = { ...coach, ...payload.data };
+      return state.merge({
+        companyAssociated: [updatedCoach].concat(
+          state.companyAssociated.filter((c) => c.id !== payload.coachId),
+        ),
       });
-
-    case actionTypes.START_FETCH_ASSOCIATED_COACH:
-      return Immutable.merge(state, { loading: true, error: false });
-
-    case actionTypes.ERROR_FETCHING_ASSOCIATED_COACH:
-      return Immutable.merge(state, {
-        loading: false,
-        error: true,
-        errorMsg: action.error,
-      });
-
-    case actionTypes.HAS_FETCHED_ASSOCIATED_COACH_PERFORMANCE:
-      return Immutable.merge(state, {
-        performanceLoading: false,
-        performance: action.performance,
-      });
-
-    case actionTypes.START_FETCH_ASSOCIATED_COACH_PERFORMANCE:
-      return Immutable.merge(state, { performanceLoading: true });
-
-    case actionTypes.ERROR_FETCHING_ASSOCIATED_COACH_PERFORMANCE:
-      return Immutable.merge(state, {
-        performanceLoading: false,
-        performance: null,
-      });
-
-    case actionTypes.COACH_CREATE_OR_UPDATE:
-      return Immutable.merge(state, {
-        createOrUpdatePending: true,
-      });
-
-    case actionTypes.COACH_CREATE_OR_UPDATE_SUCCESS:
-      return Immutable.merge(state, {
-        createOrUpdatePending: false,
-      });
-
-    case actionTypes.COACH_CREATE_OR_UPDATE_ERROR:
-      return Immutable.merge(state, {
-        createOrUpdateError: action.error,
-        createOrUpdatePending: false,
-      });
-
-    case actionTypes.COACH_UPDATE:
-      return Immutable.merge(state, {
-        updatedCoach: action.coach,
-      });
-
-    default:
-      return state;
-  }
-}
+    },
+    [sessionPaymentRule.isLoading]: (state, { payload }) => {
+      return state.setIn(['upsert', 'loading'], payload);
+    },
+    [sessionPaymentRule.error]: (state, { payload }) => {
+      return state.setIn(['upsert', 'error'], payload);
+    },
+    [sessionPaymentRule.success]: (state, { payload }) => {
+      const index = state.performance.result.findIndex(
+        (s) => s.id === payload.sessionId,
+      );
+      const session = state.performance.result[index];
+      const updatedSession = { ...session, ...payload.data };
+      return state.setIn(['performance', 'result', index], updatedSession);
+    },
+  },
+  initialState,
+);

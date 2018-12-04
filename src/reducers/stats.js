@@ -10,6 +10,7 @@ import {
   statIsLoading,
   statLoaded,
   statError,
+  statActivities,
 } from '../actions/stats.actions';
 
 import authActionTypes from '../actions/auth.types';
@@ -24,6 +25,11 @@ const initialState = Immutable({
   },
   mainChart: 'turnover',
   stats: {},
+  activities: {
+    loading: false,
+    error: null,
+    items: [],
+  },
 });
 
 export default handleActions(
@@ -49,6 +55,17 @@ export default handleActions(
     },
     [statError]: (state, { payload: { identifier, error } }) => {
       return state.setIn(['stats', identifier, 'error'], error);
+    },
+    [statActivities.isLoading]: (state, { payload }) => {
+      return state.setIn(['activities', 'loading'], payload);
+    },
+    [statActivities.error]: (state, { payload }) => {
+      return state.setIn(['activities', 'error'], payload);
+    },
+    [statActivities.success]: (state, { payload }) => {
+      return state
+        .setIn(['activities', 'items'], payload)
+        .setIn(['activities', 'lastUpdate'], new Date());
     },
   },
   initialState,

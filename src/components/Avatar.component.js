@@ -2,12 +2,11 @@
 import React from 'react';
 
 import { Grid, Typography } from '@material-ui/core';
-import type { Profile } from '../api/types';
 // prettier-ignore
 const DEFAULT_PROFIL_PIC = 'https://ssl.gstatic.com/images/branding/product/1x/avatar_circle_blue_512dp.png';
 
 type Props = {
-  user: Profile,
+  user: { photo: string, name: string },
   variant: string,
   noname: ?boolean,
 };
@@ -30,7 +29,6 @@ export default function (props: Props) {
   return (
     <Grid
       container
-      fluid
       direction="column"
       justify="center"
       alignItems="center"
@@ -45,6 +43,7 @@ export default function (props: Props) {
           style={{
             borderRadius: parseInt(HEIGHT / 2, 10),
             border: 'solid #EEEEEE 2px',
+            objectFit: 'cover'
           }}
         />
       </Grid>

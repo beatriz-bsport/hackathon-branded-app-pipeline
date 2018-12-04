@@ -12,6 +12,10 @@ type Props = {
   large: ?boolean,
 };
 export default class MetaActivityCover extends Component<Props> {
+  static defaultProps = {
+    large: false,
+  };
+
   componentDidMount() {
     objectFitImages();
   }
@@ -67,7 +71,7 @@ export default class MetaActivityCover extends Component<Props> {
           >
             <Grid container direction="column" spacing={8}>
               {levels.map((l) => (
-                <Grid item>
+                <Grid item key={l.id}>
                   <Level levelId={l.id} />
                 </Grid>
               ))}

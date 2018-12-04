@@ -1,3 +1,5 @@
+// @flow
+
 import api from '../api';
 import types from './shop.types';
 

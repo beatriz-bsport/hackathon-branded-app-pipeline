@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
@@ -8,6 +10,7 @@ import MomentUtils from 'material-ui-pickers/utils/moment-utils';
 
 import { colors } from 'bsport-commons/lib/colors';
 
+import withSentryErrorReporting from './hocs/error-boundary.hoc';
 import { Moment } from './i18n';
 
 import SnackbarPile from './SnackbarPile.component';
@@ -34,8 +37,12 @@ const theme = createMuiTheme({
   },
 });
 
-export class App extends Component {
-  constructor(props) {
+export class App extends Component<{}, {}> {
+  store: *;
+
+  history: *;
+
+  constructor(props: {}) {
     super(props);
 
     const { store, history } = initStore();
@@ -67,4 +74,4 @@ export class App extends Component {
 
 export const storage = window.localStorage;
 
-export default App;
+export default withSentryErrorReporting(App);

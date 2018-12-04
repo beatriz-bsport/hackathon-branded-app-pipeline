@@ -20,8 +20,8 @@ import type { Establishment as EstablishmentType } from '../../api/types';
 
 type Props = {
   processing: boolean,
-  initial: EstablishmentType,
-  onSubmit: (EstablishmentType) => void,
+  initial: $Shape<EstablishmentType>,
+  onSubmit: ($Shape<EstablishmentType>) => void,
   t: TFunction,
   update: boolean,
   classes: { [string]: string },
@@ -59,8 +59,8 @@ export class EstablishmentForm extends Component<Props, State> {
     const data = {
       title,
       specific_info,
-      x: location.x,
-      y: location.y,
+      x: location && location.x,
+      y: location && location.y,
       address,
     };
     if (cover && typeof cover !== 'string') {

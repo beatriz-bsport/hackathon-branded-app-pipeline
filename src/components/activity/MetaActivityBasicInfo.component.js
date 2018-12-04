@@ -22,7 +22,7 @@ export function MetaActivityBasicInfo(props: Props) {
   return (
     <Grid container direction="row" justify="space-between" alignItems="center">
       <Grid item>
-        <Typography variant="title">{name}</Typography>
+        <Typography variant="h6">{name}</Typography>
       </Grid>
       <Grid item>
         <Grid

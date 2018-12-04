@@ -1,5 +1,9 @@
 // @flow
+
 import React, { Component } from 'react';
+import { translate } from 'react-i18next';
+import { Link } from 'react-router-dom';
+
 import {
   withStyles,
   Card,
@@ -12,8 +16,6 @@ import {
   ListItemText,
 } from '@material-ui/core';
 import LocationOn from '@material-ui/icons/LocationOn';
-import { translate } from 'react-i18next';
-import { Link } from 'react-router-dom';
 
 import MetaActivityCover from './MetaActivityCover.component';
 import ActivityStats from './ActivityStats.component';
@@ -33,6 +35,7 @@ type Props = {
   t: (x: string) => string,
   classes: Object,
 };
+
 export class ActivityCard extends Component<Props> {
   render() {
     const { metaActivity, t, stats, classes } = this.props;

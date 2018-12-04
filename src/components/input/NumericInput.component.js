@@ -46,6 +46,8 @@ export function NumericInput(props: Props) {
       InputProps={InputProps}
       type="number"
       helperText={helperText}
+      fullWidth={props.fullWidth}
+      margin={props.margin}
     />
   );
 }

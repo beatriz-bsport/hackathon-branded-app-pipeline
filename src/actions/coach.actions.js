@@ -1,28 +1,46 @@
 // @flow
 
 import { push } from 'react-router-redux';
+import { createAction } from 'redux-actions';
 
-import api from '../api';
+import { putAuth, API_URI } from '../http';
 import { snackbarSuccess, snackbarError } from './snackbar.actions';
-import types from './coach.types';
+import api from '../api';
+
+import type { Dispatch } from '../state/types';
+
+type CoachPayload = FormData;
+
+export const associated = {
+  isLoading: createAction('COACH/ASSOCIATED/IS_LOADING'),
+  error: createAction('COACH/ASSOCIATED/ERROR'),
+  success: createAction('COACH/ASSOCIATED/SUCCESS'),
+};
 
 export function fetchAssociated() {
-  return async (dispatch) => {
-    dispatch(startFetchAssociatedCoaches());
-
+  return async (dispatch: Dispatch) => {
+    dispatch(associated.isLoading(true));
+    dispatch(associated.error(null));
     try {
       const response = await api.coach.fetchAssociated();
-      const associatedCoaches = response.data;
-      dispatch(fetchedAssociatedCoaches(associatedCoaches));
-    } catch (err) {
-      dispatch(errorFetchingAssociatedCoaches());
+      dispatch(associated.success(response.data));
+    } catch (error) {
+      dispatch(associated.error(error));
     }
+    dispatch(associated.isLoading(false));
   };
 }
 
-export function createOrUpdateCoach(coachData) {
-  return async (dispatch) => {
-    dispatch(actionCreateOrUpdateCoach(coachData));
+export const upsert = {
+  isLoading: createAction('COACH/UPSERT/IS_LOADING'),
+  error: createAction('COACH/UPSERT/ERROR'),
+  success: createAction('COACH/UPSERT/SUCCESS'),
+};
+
+export function createOrUpdateCoach(coachData: CoachPayload) {
+  return async (dispatch: Dispatch) => {
+    dispatch(upsert.isLoading(true));
+    dispatch(upsert.error(null));
 
     const createOrUpdate = coachData.has('id')
       ? api.coach.updateCoach
@@ -30,91 +48,109 @@ export function createOrUpdateCoach(coachData) {
     try {
       const response = await createOrUpdate(coachData);
 
-      if (response.status === 201 || response.status === 200) {
-        dispatch(actionCreateOrUpdateCoachSuccess(response));
-        dispatch(
-          snackbarSuccess(
-            coachData.has('id')
-              ? 'coach.forms.update.success'
-              : 'coach.forms.create.success',
-          ),
-        );
-        dispatch(fetchAssociated());
-        dispatch(push('/coach'));
-      } else {
-        dispatch(snackbarError('coach.forms.error'));
-        dispatch(actionCreateOrUpdateCoachError(response.data));
+      if (response.status !== 201 && response.status !== 200) {
+        throw new Error(response);
       }
-    } catch (e) {
-      console.log(e);
+
+      dispatch(upsert.success(response));
+      const key = coachData.has('id') ? 'update' : 'create';
+      dispatch(snackbarSuccess(`coach.forms.${key}.success`));
+      dispatch(fetchAssociated());
+      dispatch(push('/coach'));
+    } catch (error) {
+      console.log(error);
       dispatch(snackbarError('coach.forms.error'));
-      dispatch(actionCreateOrUpdateCoachError(e));
+      dispatch(upsert.error(error));
     }
+    dispatch(upsert.isLoading(false));
   };
 }
 
-export function actionCreateOrUpdateCoach(coachData) {
-  return { type: types.COACH_CREATE_OR_UPDATE, coach: coachData };
-}
-export function actionCreateOrUpdateCoachSuccess(response) {
-  return { type: types.COACH_CREATE_OR_UPDATE_SUCCESS, response };
-}
-export function actionCreateOrUpdateCoachError(error) {
-  return { type: types.COACH_CREATE_OR_UPDATE_ERROR, error };
-}
-export function actionStartUpdate(coach) {
-  return { type: types.COACH_UPDATE, coach };
-}
-export function startUpdate(coach) {
-  return async (dispatch) => {
-    dispatch(actionStartUpdate(coach));
+export function startUpdate(coach: { id: number }) {
+  return async (dispatch: Dispatch) => {
     dispatch(push(`/coach/edit/${coach.id}`));
   };
 }
 
-export function fetchedAssociatedCoaches(coaches) {
-  return { type: types.HAS_FETCHED_ASSOCIATED_COACH, coaches };
-}
-export function startFetchAssociatedCoaches() {
-  return { type: types.START_FETCH_ASSOCIATED_COACH };
-}
-
-export function errorFetchingAssociatedCoaches() {
-  return { type: types.ERROR_FETCHING_ASSOCIATED_COACH };
-}
-export function associatedCoachesAlreadyLoading() {
-  return { type: types.ASSOCIATED_COACH_ALREADY_LOADING };
-}
+export const performance = {
+  isLoading: createAction('COACH/PERFORMANCE/IS_LOADING'),
+  error: createAction('COACH/PERFORMANCE/ERROR'),
+  success: createAction('COACH/PERFORMANCE/SUCCESS'),
+};
 
 export function fetchAssociatedCoachPerformance(
-  associatedCoachId,
-  start_timestamp,
-  end_timestamp,
+  associatedCoachId: number,
+  start: number,
+  end: number,
 ) {
-  return async (dispatch) => {
-    dispatch(startFetchAssociatedCoachPerformance());
+  return async (dispatch: Dispatch) => {
+    dispatch(performance.isLoading(true));
+    dispatch(performance.error(null));
 
     try {
       const response = await api.coach.fetchAssociatedCoachPerformance(
         associatedCoachId,
-        start_timestamp,
-        end_timestamp,
+        start,
+        end,
       );
-      const performance = response.data;
-      dispatch(fetchedAssociatedCoachPerformance(performance));
+      dispatch(performance.success(response.data));
     } catch (err) {
-      dispatch(errorFetchingAssociatedCoachPerformance());
+      dispatch(performance.error(err));
     }
+    dispatch(performance.isLoading(false));
   };
 }
 
-export function fetchedAssociatedCoachPerformance(performance) {
-  return { type: types.HAS_FETCHED_ASSOCIATED_COACH_PERFORMANCE, performance };
-}
-export function startFetchAssociatedCoachPerformance() {
-  return { type: types.START_FETCH_ASSOCIATED_COACH_PERFORMANCE };
+export const setPaymentRule = {
+  success: createAction('COACH/PAYMENT_RULE/SUCCESS'),
+};
+
+export function setCoachPaymentRule(coachId: number, paymentRuleId: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(upsert.isLoading(true));
+    dispatch(upsert.error(null));
+
+    try {
+      const response = await putAuth(
+        `${API_URI}/accounts/coaches/${coachId}/set_payment_rule/`,
+        { default_payment_rule_id: paymentRuleId },
+      );
+      dispatch(snackbarSuccess('paymentRules:update.success'));
+      dispatch(setPaymentRule.success({ coachId, data: response.data }));
+    } catch (err) {
+      dispatch(snackbarError('paymentRules:update.error'));
+      dispatch(upsert.error(err));
+    }
+    dispatch(upsert.isLoading(false));
+  };
 }
 
-export function errorFetchingAssociatedCoachPerformance() {
-  return { type: types.ERROR_FETCHING_ASSOCIATED_COACH_PERFORMANCE };
+export const sessionPaymentRule = {
+  isLoading: createAction('SESSIONS/PAYMENT_RULE/IS_LOADING'),
+  error: createAction('SESSIONS/PAYMENT_RULE/ERROR'),
+  success: createAction('SESSIONS/PAYMENT_RULE/SUCCESS'),
+};
+
+export function setSessionPaymentRule(
+  sessionId: number,
+  paymentRuleId: number,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(sessionPaymentRule.isLoading(true));
+    dispatch(sessionPaymentRule.error(null));
+
+    try {
+      const response = await putAuth(
+        `${API_URI}/bookings/sessions/${sessionId}/set_payment_rule/`,
+        { payment_rule_id: paymentRuleId },
+      );
+      dispatch(sessionPaymentRule.success({ sessionId, data: response.data }));
+      dispatch(snackbarSuccess('paymentRules:update.success'));
+    } catch (error) {
+      console.log(error);
+      dispatch(snackbarError('paymentRules:update.error'));
+      dispatch(sessionPaymentRule.error(error));
+    }
+    dispatch(sessionPaymentRule.isLoading(false));
+  };
 }

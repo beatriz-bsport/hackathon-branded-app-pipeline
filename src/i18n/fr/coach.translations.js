@@ -8,6 +8,7 @@ export default {
     pricePerOffer: 'Montant par séance',
     pricePerAdditionalBooking: 'Montant par réservation',
     calculate: 'Calculer',
+    payment: 'Rémunération',
   },
   addCoach: 'Ajouter un coach',
   noActivity: 'Ce coach ne gère aucune activité.',

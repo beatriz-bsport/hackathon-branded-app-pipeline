@@ -1,19 +1,21 @@
 // @flow
 
 import { createAction } from 'redux-actions';
+import type { SnackKind } from '../libs/snackbar/types';
+import type { Dispatch } from '../state/types';
 
 export const snackbarDisplay = createAction('SNACKBAR/DISPLAY');
 export const snackbarDestroy = createAction('SNACKBAR/DESTROY');
 
-function sleep(time) {
+function sleep(time: number) {
   return new Promise((resolve) => {
     setTimeout(resolve, time);
   });
 }
 
-const id = 0;
-export function displaySnackbar(kind) {
-  return (message) => async (dispatch) => {
+let id = 0;
+export function displaySnackbar(kind: SnackKind) {
+  return (message: string) => async (dispatch: Dispatch) => {
     const myId = id + 1;
     dispatch(snackbarDisplay({ id: myId, message, kind }));
     await sleep(5000);

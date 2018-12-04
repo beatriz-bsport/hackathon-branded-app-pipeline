@@ -451,8 +451,8 @@ function mapStateToProps(state) {
   return {
     offers: state.offer.offers,
     events: state.offer.calendar,
-    compatiblePacks: state.offer.compatiblePacks,
-    compatiblePacksLoading: state.offer.compatiblePacksLoading,
+    compatiblePacks: state.offer.compatiblePacks.items,
+    compatiblePacksLoading: state.offer.compatiblePacks.loading,
     timetableLoading: state.activity.loading,
     activities: state.activity.all,
     bookingLoading: state.booking.loading,

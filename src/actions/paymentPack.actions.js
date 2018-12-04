@@ -5,6 +5,8 @@ import api from '../api';
 import { snackbarSuccess, snackbarError } from './snackbar.actions';
 import types from './paymentPack.types';
 
+import type { Dispatch } from '../state/types';
+
 export function fetchedAllPaymentPacks(paymentPacks: Array<PaymentPack>) {
   return { type: types.HAS_FETCHED_ALL_PAYMENT_PACKS, paymentPacks };
 }

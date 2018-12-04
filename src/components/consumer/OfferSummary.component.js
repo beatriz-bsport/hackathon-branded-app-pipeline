@@ -4,7 +4,7 @@ import React from 'react';
 
 import ActivityMinimalSummary from '../activity/ActivityMinimalSummary.component';
 import { formatAsDatetime } from '../../datetime';
-import { Offer } from '../../api/types';
+import type { Offer } from '../../api/types';
 
 type Props = {
   offer: Offer,

@@ -21,7 +21,7 @@ type Props = {
   t: TFunction,
   searchForText: (string, path: ?string, changeLocation: boolean) => void,
   searchText: string,
-  clearSearch: () => void,
+  clearSearch: (boolean) => void,
   location: Object,
   history: Object,
   classes: *,

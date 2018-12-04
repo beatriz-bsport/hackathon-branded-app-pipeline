@@ -4,6 +4,7 @@ import React from 'react';
 import { compose } from 'recompose';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import type { Moment } from 'moment';
 
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -11,13 +12,16 @@ import TextField from '@material-ui/core/TextField';
 
 type QuickRange = {
   key: string,
+  start: Moment,
+  end: Moment,
+  selected: boolean,
   onClick: (Moment, Moment, ?string) => void,
 };
 type Props = {
   classes: { [string]: string },
   t: TFunction,
   quickRanges: QuickRange[],
-  onChange: (Moment, Moment) => void,
+  onChange: (Moment, Moment, ?string) => void,
   start: Moment,
   end: Moment,
 };

@@ -10,6 +10,7 @@ type Props = {
   label: ?string,
   disabled: ?boolean,
   onChange: (value: Object) => void,
+  className: string,
 };
 
 const styles = () => ({
@@ -19,7 +20,7 @@ const styles = () => ({
 });
 
 export function DateInput(props: Props) {
-  const { onChange, label, value, disabled, classes } = props;
+  const { onChange, label, value, disabled, classes, className } = props;
   return (
     <DatePicker
       format="DD/MM/YYYY"
@@ -27,7 +28,7 @@ export function DateInput(props: Props) {
       disabled={disabled}
       onChange={onChange}
       label={label}
-      className={classes.container}
+      className={`${className || ''} ${classes.container}`}
     />
   );
 }

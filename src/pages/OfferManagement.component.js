@@ -492,8 +492,8 @@ function mapStateToProps(state, nextProps) {
     bookingOptions: state.booking.options,
     memberCreationPending: state.member.createOrUpdatePending,
     memberCreationErrors: state.member.createOrUpdateErrors,
-    compatiblePacks: state.offer.compatiblePacks,
-    compatiblePacksLoading: state.offer.compatiblePacksLoading,
+    compatiblePacks: state.offer.compatiblePacks.items,
+    compatiblePacksLoading: state.offer.compatiblePacks.loading,
   };
 }
 

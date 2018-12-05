@@ -3,7 +3,9 @@
 import React from 'react';
 import type { Node } from 'react';
 
-import { Modal, Paper, withStyles } from '@material-ui/core';
+import { Dialog, DialogContent, withStyles } from '@material-ui/core';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
+
 import ConsumerMenu from '../navigation/ConsumerMenu.component';
 
 const styles = (theme) => ({
@@ -39,15 +41,15 @@ export function ConsumerModalContainer(props: Props) {
   return (
     <div>
       <ConsumerMenu />
-      <Modal open>
-        <div className={props.classes.modal}>
-          <Paper className={props.classes.paperContainer}>
-            {props.children}
-          </Paper>
-        </div>
-      </Modal>
+      <Dialog
+        fullScreen={props.fullScreen}
+        open
+        aria-labelledby="responsive-consumer-dialog"
+      >
+        <DialogContent>{props.children}</DialogContent>
+      </Dialog>
     </div>
   );
 }
 
-export default withStyles(styles)(ConsumerModalContainer);
+export default withMobileDialog()(withStyles(styles)(ConsumerModalContainer));

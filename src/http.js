@@ -87,6 +87,9 @@ export async function get(uri: string, headers: {} = {}) {
 
 export async function getAuth(uri: string, token) {
   const token_ = token || getAuthToken();
+  if (!token_ || token_ === 'null') {
+    return get(uri);
+  }
   return get(uri, { Authorization: `Token ${token_}` });
 }
 

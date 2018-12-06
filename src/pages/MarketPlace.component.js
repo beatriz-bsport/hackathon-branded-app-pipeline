@@ -17,10 +17,13 @@ import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 
+import moment from 'moment';
+
 import routerParamsToProps from '../hocs/router-params-to-props.hoc';
 
 import MarketplacePassList from '../components/marketplace/MarketplacePassList.component';
 import MarketplaceCalendar from '../components/marketplace/MarketplaceCalendar.component';
+import MarketplaceActivityDialog from '../components/marketplace/MarketplaceActivityDialog.component';
 
 import { Moment } from '../i18n';
 import { marketplace as marketplaceActions } from '../actions';
@@ -47,6 +50,7 @@ type Props = {
 type State = {
   selectedDate: Object,
   tabSelected: number,
+  offerId: ?number,
 };
 
 const TAB_CALENDAR = 0;
@@ -56,6 +60,7 @@ export class MarketPlace extends Component<Props, State> {
   state = {
     selectedDate: Moment(),
     tabSelected: TAB_CALENDAR,
+    offerId: null,
   };
 
   async componentDidMount() {
@@ -69,8 +74,8 @@ export class MarketPlace extends Component<Props, State> {
       }
       this.companyId = response.data;
       this.props.fetchCompany(this.companyId);
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.error(error);
     }
     const { fetchCompany, fetchCalendar, fetchPaymentPacks } = this.props;
     fetchCompany(this.companyId);
@@ -94,12 +99,19 @@ export class MarketPlace extends Component<Props, State> {
     const day = selectedDate.date();
     const year = selectedDate.year();
     const month = selectedDate.month() + 1;
+    if (!this.companyId) {
+      return;
+    }
     this.props.fetchOffersByDay({
       companyId: this.companyId,
       year,
       month,
       day,
     });
+  };
+
+  openOfferDialog = (offerId) => {
+    this.setState({ offerId });
   };
 
   renderContent = () => {
@@ -128,6 +140,7 @@ export class MarketPlace extends Component<Props, State> {
             offers={offers}
             dayOffers={selectedDayOffers}
             dayOffersLoading={selectedDayOffersLoading}
+            onClickOffer={this.openOfferDialog}
             calendarLoading={calendarLoading}
             onSelectDate={this.handleDateChange}
           />
@@ -151,6 +164,13 @@ export class MarketPlace extends Component<Props, State> {
           {`${t('marketplace.welcomeTo')} ${company.name}`}
         </Typography>
         <AppBar position="relative" color="default">
+          {this.state.offerId ? (
+            <MarketplaceActivityDialog
+              offerId={this.state.offerId}
+              showBookingButton
+              displayPacksInformation
+            />
+          ) : null}
           <Tabs
             value={this.state.tabSelected}
             onChange={this.handleTabChange}
@@ -198,7 +218,9 @@ const styles = (theme) => ({
 export default compose(
   withStyles(styles),
   translate(),
-  routerParamsToProps({ id: 'companyName' }),
+  routerParamsToProps({
+    id: 'companyName',
+  }),
   connect(
     mapStateToProps,
     {

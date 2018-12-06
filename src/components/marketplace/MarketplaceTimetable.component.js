@@ -35,7 +35,11 @@ export class MarketplaceTimetable extends Component<Props> {
     return (
       <List>
         {offers.map((o) => (
-          <MarketplaceOffer key={o.id} offer={o} />
+          <MarketplaceOffer
+            key={o.id}
+            offer={o}
+            onClickOffer={this.props.onClickOffer}
+          />
         ))}
       </List>
     );

@@ -25,6 +25,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { push as pushRouter } from 'react-router-redux';
 
+import MarketplaceActivityDialog from '../../components/marketplace/MarketplaceActivityDialog.component';
 import { BookingListItem, BookingOptionListItem } from '../../components';
 import RedButton from '../../components/button/RedButton.component';
 import { consumer as consumerActions } from '../../actions';
@@ -56,6 +57,7 @@ export class MyBookings extends Component<Props, State> {
     modalCancellingBookingOptionOpen: false,
     requestRedirect: null,
     optionIdBeingCancelled: null,
+    offerId: null,
   };
 
   renderFutureBookingsContainer = () => {
@@ -89,6 +91,7 @@ export class MyBookings extends Component<Props, State> {
             onDiscard={() => this.prepareDiscardBooking(b)}
             booking={b}
             key={b.id}
+            overrideClickAction={() => this.setState({ offerId: b.offer.id })}
           />
         ))}
       </List>
@@ -332,6 +335,9 @@ export class MyBookings extends Component<Props, State> {
             {this.renderMembershipButtons()}
           </Grid>
           <Grid item xs={12} lg={6}>
+            {this.state.offerId ? (
+              <MarketplaceActivityDialog offerId={this.state.offerId} />
+            ) : null}
             {this.renderFutureBookingsContainer()}
           </Grid>
           <Grid item xs={12} lg={6}>

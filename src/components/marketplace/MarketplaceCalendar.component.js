@@ -56,6 +56,7 @@ export function MarketplaceCalendar(props: Props) {
           <MarketplaceTimetable
             offers={dayOffers}
             date={selectedDate}
+            onClickOffer={props.onClickOffer}
             loading={dayOffersLoading}
           />
         </div>

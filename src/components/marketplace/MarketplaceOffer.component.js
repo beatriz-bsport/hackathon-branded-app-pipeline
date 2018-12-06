@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import {
   ListItem,
@@ -22,11 +23,12 @@ type Props = {
 
 export class MarketplaceOffer extends Component<Props> {
   renderButton = () => {
-    const { t, offer } = this.props;
+    const { t, offer, companyId } = this.props;
     if (offer.is_full) {
       return (
         <Link
-          to={`/customer/payment/offer/${offer.id}`}
+          to={`/customer/payment/offer/${offer.id}?membership=${companyId ||
+            0}`}
           style={{ textDecoration: 'none' }}
         >
           <Button variant="outlined" color="secondary">
@@ -37,7 +39,7 @@ export class MarketplaceOffer extends Component<Props> {
     }
     return (
       <Link
-        to={`/customer/payment/offer/${offer.id}`}
+        to={`/customer/payment/offer/${offer.id}?membership=${companyId || 0}`}
         style={{ textDecoration: 'none' }}
       >
         <Button variant="outlined" color="primary">
@@ -62,4 +64,10 @@ export class MarketplaceOffer extends Component<Props> {
   }
 }
 
-export default translate()(MarketplaceOffer);
+function mapStateToProps(state) {
+  return {
+    companyId: state.marketplace.company.id,
+  };
+}
+
+export default translate()(connect(mapStateToProps)(MarketplaceOffer));

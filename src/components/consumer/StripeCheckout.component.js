@@ -11,8 +11,10 @@ import {
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { CardElement, injectStripe } from 'react-stripe-elements';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+import { goBack as goBackRouter } from 'react-router-redux';
 import { CB as PAYMENT_METHOD_CB } from 'bsport-commons/lib/master-data/payment-methods';
+import { connect } from 'react-redux';
 
 import api from '../../api';
 
@@ -35,7 +37,7 @@ export class StripeCheckout extends Component<Props, State> {
 
   submit = async () => {
     this.setState({ loading: true });
-    const { urlParams, purchaseId, purchaseType, offerToBuy } = this.props;
+    const { t, urlParams, purchaseId, purchaseType, offerToBuy } = this.props;
     try {
       const { token } = await this.props.stripe.createToken();
       const response = await api.payment.consumerBuy({
@@ -47,14 +49,17 @@ export class StripeCheckout extends Component<Props, State> {
         urlParams,
       });
 
-      if (response.status === 200) {
+      if (response && (response.status === 200 || response.status === 201)) {
         this.setState({
           completed: true,
           loading: false,
         });
+      } else {
+        alert(t('error.connectionError'));
+        this.setState({ loading: false });
       }
-    } catch (err) {
-      alert(`An error occured:\n${JSON.stringify(err)}`);
+    } catch (error) {
+      alert(JSON.stringify(error.response.data));
       this.setState({ loading: false });
     }
   };
@@ -91,9 +96,7 @@ export class StripeCheckout extends Component<Props, State> {
           justify="space-between"
         >
           <Grid item>
-            <Link to="/" style={{ textDecoration: 'none' }}>
-              <Button>{t('common.cancel')}</Button>
-            </Link>
+            <Button onClick={this.props.goBack}>{t('common.cancel')}</Button>
           </Grid>
           <Grid item>
             {loading ? (
@@ -121,4 +124,15 @@ const styles = (theme) => ({
   },
 });
 
-export default injectStripe(withStyles(styles)(translate()(StripeCheckout)));
+function mapDispatchToProps(dispatch) {
+  return {
+    goBack() {
+      dispatch(goBackRouter());
+    },
+  };
+}
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(injectStripe(withStyles(styles)(translate()(StripeCheckout))));

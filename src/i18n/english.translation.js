@@ -410,6 +410,11 @@ export default {
       },
       booking: {
         cancelBooking: 'Cancel booking',
+        discardBookingTitle: 'Discard booking',
+        discardPossibleExplain:
+          'Do you really want to discard your booking ? Your credits will be available for another booking.',
+        discardImpossibleExplain:
+          'Are your sure you want to discard your booking ? You are canceliing too late for the club thus your credits will not be available again and will be lost',
         confirmBooking: 'Confirm',
         waitingSlot: 'Waiting a slot',
         myFutureBookings: 'My next bookings',

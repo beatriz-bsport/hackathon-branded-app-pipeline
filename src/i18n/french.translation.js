@@ -411,6 +411,11 @@ export default {
       },
       booking: {
         cancelBooking: 'Annuler la réservation',
+        discardBookingTitle: 'Annuler la réservation',
+        discardPossibleExplain:
+          'Êtes-vous sûr de vouloir annuler cette réservation ? Votre crédit sera de nouveau utilisable.',
+        discardImpossibleExplain:
+          'Êtes-vous sûr de vouloir annuler cette réservation ? Vous annulez trop tard pour le club et votre abonnement ne sera pas recrédité.',
         confirmBooking: 'Confirmer',
         waitingSlot: 'En attente',
         myFutureBookings: 'Prochaines séances',

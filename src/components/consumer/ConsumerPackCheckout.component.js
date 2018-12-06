@@ -62,7 +62,10 @@ export class ConsumerPackCheckout extends Component<Props, State> {
     // prettier-ignore
     const hasEnoughCredits = available_credits >= creditPrice || payment_pack.unlimited;
     // prettier-ignore
-    const hasBookingsLeft = payment_pack.max_bookings_per_week > bookings_this_week;
+    const hasBookingsLeft = (
+      payment_pack.max_bookings_per_week > bookings_this_week
+      || !payment_pack.max_bookings_per_week
+    );
 
     const paymentIsPossible = hasEnoughCredits && hasBookingsLeft;
 

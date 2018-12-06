@@ -27,6 +27,7 @@ type Props = {
   stats: Array<Stat>,
   metaActivities: Array<MetaActivity>,
   loading: boolean,
+  fetchStats: () => void,
 };
 
 class Activity extends Component<Props> {

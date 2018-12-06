@@ -43,7 +43,7 @@ export default function (props: Props) {
           style={{
             borderRadius: parseInt(HEIGHT / 2, 10),
             border: 'solid #EEEEEE 2px',
-            objectFit: 'cover'
+            objectFit: 'cover',
           }}
         />
       </Grid>

@@ -2,8 +2,6 @@
 
 import { createAction } from 'redux-actions';
 
-import { putAuth, API_URI } from '../http';
-import { snackbarSuccess, snackbarError } from './snackbar.actions';
 import api from '../api';
 import type { Dispatch } from '../state/types';
 

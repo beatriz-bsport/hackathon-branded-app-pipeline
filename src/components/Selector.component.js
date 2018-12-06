@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import type { Node } from 'react';
 
 import { compose } from 'recompose';
 
@@ -15,7 +16,13 @@ import MenuItem from '@material-ui/core/MenuItem';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
 
-function NoOptionsMessage(props) {
+type Props = {
+  selectProps: Object,
+  innerProps: Object,
+  children: Node,
+};
+
+function NoOptionsMessage(props: Props) {
   return (
     <Typography
       color="textSecondary"

@@ -13,7 +13,7 @@ function sleep(time: number) {
   });
 }
 
-let id = 0;
+const id = 0;
 export function displaySnackbar(kind: SnackKind) {
   return (message: string) => async (dispatch: Dispatch) => {
     const myId = id + 1;

@@ -12,7 +12,7 @@ import amber from '@material-ui/core/colors/amber';
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 
-import type { Snack, SnackKind } from './libs/snackbar/types';
+import type { Snack } from './libs/snackbar/types';
 
 type Props = {
   messages: Snack[],

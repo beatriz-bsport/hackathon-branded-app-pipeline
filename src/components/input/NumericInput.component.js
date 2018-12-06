@@ -13,6 +13,8 @@ type Props = {
   required: ?boolean,
   disabled: ?boolean,
   error: ?boolean,
+  fullWidth: ?boolean,
+  margin: ?number,
   label: ?string,
   InputProps: ?Object,
   helperText: ?string,

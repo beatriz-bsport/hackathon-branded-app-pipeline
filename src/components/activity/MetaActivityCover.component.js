@@ -12,10 +12,6 @@ type Props = {
   large: ?boolean,
 };
 export default class MetaActivityCover extends Component<Props> {
-  static defaultProps = {
-    large: false,
-  };
-
   componentDidMount() {
     objectFitImages();
   }

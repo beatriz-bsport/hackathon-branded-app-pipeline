@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 
-import { compose, withHandlers } from 'recompose';
+import { compose } from 'recompose';
 
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
@@ -35,6 +35,8 @@ type Props = {
   t: (x: string) => string,
   isCoach: boolean,
   selfCoach: Coach,
+  paymentRules: Array<PaymentRule>,
+  setCoachPaymentRule: (*) => void,
   associatedCoaches: Array<Coach>,
   startUpdateCoach: (coach: Coach) => void,
 };

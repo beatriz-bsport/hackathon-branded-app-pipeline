@@ -1,6 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
+import { Icon } from 'leaflet';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Grid, Typography } from '@material-ui/core';
 
@@ -9,6 +10,7 @@ import './Map.css';
 const TILE_LAYER_URL =
   'https://cartodb-basemaps-{s}.global.ssl.fastly.net/{variant}/{z}/{x}/{y}{r}.png';
 
+const MARKER_ASSET = require('../../marker-icon-2x.png');
 const CENTER = [48.86, 2.33];
 
 type MarkerType = {
@@ -21,7 +23,8 @@ type MarkerType = {
   },
 };
 type Props = {
-  markers: Array<MarkerType>,
+  markers: ?Array<MarkerType>,
+  center: ?[number, number],
 };
 
 type State = {
@@ -37,14 +40,29 @@ export default class MyMap extends Component<Props, State> {
     markers: [],
   };
 
+  constructor(props) {
+    super(props);
+    this.state.zoom = props.zoom || 12;
+  }
+
   renderMarker = (marker: MarkerType) => {
     const { title, location, id } = marker;
     return (
-      <Marker position={[location.latitude, location.longitude]} key={id}>
+      <Marker
+        position={[location.latitude, location.longitude]}
+        key={id}
+        icon={
+          new Icon({
+            iconUrl: MARKER_ASSET,
+            iconSize: [50, 82],
+            iconAnchor: [25, 79],
+          })
+        }
+      >
         <Popup>
           <Grid container spacing={8}>
             <Grid item>
-              <Typography variant="title">{title}</Typography>
+              <Typography variant="subtitle1">{title}</Typography>
             </Grid>
             <Grid item>
               <Typography variant="caption">{location.address}</Typography>
@@ -57,9 +75,10 @@ export default class MyMap extends Component<Props, State> {
 
   render() {
     const { markers } = this.props;
+    const center = this.props.center || CENTER;
     return (
       <div className="map-container">
-        <Map center={CENTER} zoom={this.state.zoom}>
+        <Map center={center} zoom={this.state.zoom}>
           <TileLayer url={TILE_LAYER_URL} variant="light_all" />
           {markers.map((m) => this.renderMarker(m))}
         </Map>

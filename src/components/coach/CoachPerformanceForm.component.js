@@ -4,7 +4,7 @@ import React from 'react';
 
 import { compose, withStateHandlers, withHandlers } from 'recompose';
 
-import { Grid, Typography, Button, withStyles } from '@material-ui/core';
+import { Button, withStyles } from '@material-ui/core';
 import { withNamespaces } from 'react-i18next';
 
 import DateInput from '../input/DateInput.component';

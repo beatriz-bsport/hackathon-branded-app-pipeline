@@ -7,6 +7,7 @@ import { translate } from 'react-i18next';
 import { Redirect, Switch, Route } from 'react-router-dom';
 
 import { consumer as consumerActions } from '../actions';
+import parse from '../query-string';
 import MyBookings from './consumer/MyBookings.component';
 import MyPaymentPacks from './consumer/MyPaymentPacks.component';
 import MyProfile from './consumer/MyProfile.component';
@@ -41,8 +42,13 @@ export class ConsumerHome extends Component<Props> {
   render() {
     const { authenticated } = this.props;
     if (!authenticated) {
+      const { membership } = parse(this.props.location.search) || 0;
       return (
-        <Redirect to={`/login/customer?next=${this.props.location.pathname}`} />
+        <Redirect
+          to={`/login/customer?next=${
+            this.props.location.pathname
+          }&membership=${membership}`}
+        />
       );
     }
     return (

@@ -36,7 +36,7 @@ type Props = {
   fetchCalendar: (companyId: number) => void,
   fetchOffersByDay: ({ companyId: number, date: Object }) => void,
   fetchPaymentPacks: (companyId: number) => void,
-  pushPackCheckout: (packId: number) => void,
+  pushPackCheckout: (packId: number, companyId: number) => void,
   t: (x: string) => string,
   classes: Object,
 };
@@ -167,7 +167,9 @@ export class MarketPlace extends Component<Props, State> {
               />
               <Button
                 style={{ width: '100%' }}
-                onClick={() => this.props.pushPackCheckout(pp.id)}
+                onClick={() =>
+                  this.props.pushPackCheckout(pp.id, this.companyId)
+                }
                 color="primary"
                 variant="contained"
               >
@@ -251,8 +253,10 @@ function mapDispatchToProps(dispatch) {
     fetchPaymentPacks(companyId) {
       dispatch(marketplaceActions.fetchPaymentPacks(companyId));
     },
-    pushPackCheckout(packId) {
-      dispatch(pushRouter(`/customer/payment/pass/${packId}`));
+    pushPackCheckout(packId, companyId) {
+      dispatch(
+        pushRouter(`/customer/payment/pass/${packId}?membership=${companyId}`),
+      );
     },
   };
 }

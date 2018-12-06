@@ -1,7 +1,18 @@
 // @flow
 import React, { Component } from 'react';
 
-import { withStyles, Typography, Grid, Button } from '@material-ui/core';
+import {
+  withStyles,
+  Typography,
+  Grid,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  withMobileDialog,
+} from '@material-ui/core';
 import { translate } from 'react-i18next';
 
 import WarningIcon from '@material-ui/icons/Warning';
@@ -19,7 +30,7 @@ type Props = {
   onDelete: () => void,
 };
 
-export class PaymentPackDeleteForm extends Component<Props> {
+export class PaymentPackDeleteDialog extends Component<Props> {
   renderCheckConsumerPacks = () => {
     const {
       t,
@@ -49,25 +60,27 @@ export class PaymentPackDeleteForm extends Component<Props> {
 
   renderWarningMessage = (text: string) => {
     return (
-      <Grid
-        container
-        direction="row"
-        spacing={16}
-        alignItems="center"
-        className={this.props.classes.warningMessage}
-      >
-        <Grid item>
-          <WarningIcon
-            fontSize="large"
-            color="error"
-            size={32}
-            alignItems="center"
-          />
+      <DialogContentText>
+        <Grid
+          container
+          direction="row"
+          spacing={16}
+          alignItems="center"
+          className={this.props.classes.warningMessage}
+        >
+          <Grid item>
+            <WarningIcon
+              fontSize="large"
+              color="error"
+              size={32}
+              alignItems="center"
+            />
+          </Grid>
+          <Grid item>
+            <Typography>{text}</Typography>
+          </Grid>
         </Grid>
-        <Grid item>
-          <Typography>{text}</Typography>
-        </Grid>
-      </Grid>
+      </DialogContentText>
     );
   };
 
@@ -90,6 +103,9 @@ export class PaymentPackDeleteForm extends Component<Props> {
   };
 
   renderContent = () => {
+    if (!this.props.pack) {
+      return null;
+    }
     if (this.props.pack.consumer_payment_packs.length) {
       return this.renderCheckConsumerPacks();
     }
@@ -99,36 +115,35 @@ export class PaymentPackDeleteForm extends Component<Props> {
   };
 
   render() {
-    const { t } = this.props;
+    const { t, fullScreen, onCancel, open } = this.props;
     return (
-      <Grid container spacing={32} direction="column">
-        <Grid item>
-          <Typography variant="h4">
-            {`${t('form.paymentPack.delete.title')} ${this.props.pack.name}`}
-          </Typography>
-        </Grid>
-        <Grid item>{this.renderContent()}</Grid>
-        <Grid item>
-          <Grid container direction="row" spacing={16}>
-            <Grid item>
-              <Button
-                onClick={this.props.onCancel}
-                variant="outlined"
-                color="secondary"
-              >
-                {t('common.cancel')}
-              </Button>
-            </Grid>
-            <Grid item>
-              <Grid item>
-                <RedButton variant="contained" onClick={this.props.onDelete}>
-                  {t('common.delete')}
-                </RedButton>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
+      <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        onClose={onCancel}
+        fullWidth
+        maxWidth="md"
+        scroll="body"
+      >
+        <DialogTitle>
+          {`${t('form.paymentPack.delete.title')} ${
+            this.props.pack ? this.props.pack.name : null
+          }`}
+        </DialogTitle>
+        <DialogContent>{this.renderContent()}</DialogContent>
+        <DialogActions>
+          <Button
+            onClick={this.props.onCancel}
+            variant="outlined"
+            color="secondary"
+          >
+            {t('common.cancel')}
+          </Button>
+          <RedButton variant="contained" onClick={this.props.onDelete}>
+            {t('common.delete')}
+          </RedButton>
+        </DialogActions>
+      </Dialog>
     );
   }
 }
@@ -136,9 +151,10 @@ export class PaymentPackDeleteForm extends Component<Props> {
 const styles = (theme) => ({
   warningMessage: {
     backgroundColor: '#F8F8F8',
-    margin: theme.spacing.unit * 2,
     padding: theme.spacing.unit,
   },
 });
 
-export default withStyles(styles)(translate()(PaymentPackDeleteForm));
+export default withMobileDialog()(
+  withStyles(styles)(translate()(PaymentPackDeleteDialog)),
+);

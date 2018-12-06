@@ -17,7 +17,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { push as pushRouter } from 'react-router-redux';
 
 import { SimpleModal, PaymentPackCard } from '../../components';
-import PaymentPackDeleteForm from '../../components/form/PaymentPackDeleteForm.component';
+import PaymentPackDeleteDialog from '../../components/form/PaymentPackDeleteDialog.component';
 import { paymentPack as paymentPackActions } from '../../actions';
 import type { MetaActivity } from '../../api/types';
 
@@ -168,20 +168,19 @@ export class PaymentPackList extends Component<Props, State> {
             </Button>
           </Link>
         </Grid>
-        <SimpleModal open={this.state.paymentPackToDeleteId}>
-          <PaymentPackDeleteForm
-            pack={this.props.packs.find(
-              (pp) => pp.id === this.state.paymentPackToDeleteId,
-            )}
-            onDelete={() =>
-              this.deletePaymentPack(this.state.paymentPackToDeleteId)
-            }
-            onCancel={this.cancelDelete}
-            incrementCredit={incrementCredit}
-            decrementCredit={decrementCredit}
-            updatingConsumerPacks={updatingConsumerPacks}
-          />
-        </SimpleModal>
+        <PaymentPackDeleteDialog
+          open={!!this.state.paymentPackToDeleteId}
+          pack={this.props.packs.find(
+            (pp) => pp.id === this.state.paymentPackToDeleteId,
+          )}
+          onDelete={() =>
+            this.deletePaymentPack(this.state.paymentPackToDeleteId)
+          }
+          onCancel={this.cancelDelete}
+          incrementCredit={incrementCredit}
+          decrementCredit={decrementCredit}
+          updatingConsumerPacks={updatingConsumerPacks}
+        />
       </Grid>
     );
   }

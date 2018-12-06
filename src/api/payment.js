@@ -36,23 +36,32 @@ export async function consumerBuy({
   objectId,
   objectClassName,
   urlParams,
+  offerToBuy,
 }) {
   let formatParams = '';
+  const data = { token };
   if (urlParams) {
     formatParams = Object.keys(urlParams)
       .map((k) => `${k}=${urlParams[k]}`)
       .join(',');
   }
+  if (offerToBuy) {
+    data.offerToBuy = offerToBuy;
+  }
   return postAuth(
     `${PAYMENT_URI}/buy/${paymentMethod}/${objectClassName}/${objectId}?${formatParams}`,
-    {
-      token,
-    },
+    data,
   );
 }
 
 export async function consumerRequestPaymentPack(paymentPackId) {
   return getAuth(`${API_URI}/saas/payment-pack/${paymentPackId}`);
+}
+
+export async function fetchCompatiblePaymentPacks(offerId) {
+  return getAuth(
+    `${API_URI}/consumer/offer/${offerId}/compatible-payment-packs`,
+  );
 }
 
 export default {
@@ -61,4 +70,5 @@ export default {
   fetchOffer: consumerRequestOffer,
   fetchPaymentPack: consumerRequestPaymentPack,
   fetchCompatiblePass: consumerFetchCompatiblePass,
+  fetchCompatiblePaymentPacks,
 };

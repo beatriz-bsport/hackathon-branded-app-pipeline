@@ -9,6 +9,7 @@ import {
   ConsumerModalContainer,
   PaymentPackPayment,
 } from '../../../components';
+import parse from '../../../query-string';
 import type { PaymentPack } from '../../../api/types';
 
 type Props = {
@@ -21,6 +22,8 @@ type Props = {
 export class PaymentPackPaymentPage extends Component<Props> {
   componentDidMount() {
     const paymentPackId = parseInt(this.props.match.params.id, 10);
+    const { nextOffer } = parse(this.props.location.search);
+    this.nextOffer = nextOffer ? parseInt(nextOffer, 10) : null;
     this.props.fetchPaymentPack(paymentPackId);
   }
 
@@ -31,7 +34,11 @@ export class PaymentPackPaymentPage extends Component<Props> {
     }
     return (
       <ConsumerModalContainer>
-        <PaymentPackPayment paymentPack={paymentPack} loading={loading} />
+        <PaymentPackPayment
+          paymentPack={paymentPack}
+          loading={loading}
+          offerToBuy={this.nextOffer}
+        />
       </ConsumerModalContainer>
     );
   }

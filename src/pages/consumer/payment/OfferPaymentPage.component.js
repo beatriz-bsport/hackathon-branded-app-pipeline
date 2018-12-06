@@ -17,12 +17,15 @@ type Props = {
   offer: ?Offer,
   loading: boolean,
   compatibleConsumerPacksLoading: boolean,
+  compatiblePaymentPacksLoading: boolean,
 
   compatibleConsumerPacks: Array<ConsumerPaymentPackManagerView>,
+  compatiblePaymentPacks: Array<PaymentPack>,
 
   goToPassMarketplace: (companyName: string) => void,
   fetchOffer: (number) => void,
   fetchCompatiblePass: (number) => void,
+  fetchCompatiblePaymentPacks: (number) => void,
 };
 
 type State = {
@@ -38,13 +41,21 @@ export class OfferPaymentPage extends Component<Props, State> {
 
   componentDidMount() {
     const offerId = parseInt(this.props.match.params.id, 10);
+    this.offerId = offerId;
     this.props.fetchOffer(offerId);
     this.props.fetchCompatiblePass(offerId);
+    this.props.fetchCompatiblePaymentPacks(offerId);
   }
 
   goToPassMarketplace = () => {
     const { company_name } = this.props.offer.activity;
     this.props.goToPassMarketplace(company_name);
+  };
+
+  buyPaymentPack = (packId: number) => {
+    this.props.pushRouter(
+      `/customer/payment/pass/${packId}?nextOffer=${this.offerId}`,
+    );
   };
 
   render() {
@@ -53,6 +64,8 @@ export class OfferPaymentPage extends Component<Props, State> {
       loading,
       compatibleConsumerPacksLoading,
       compatibleConsumerPacks,
+      compatiblePaymentPacks,
+      compatiblePaymentPacksLoading,
     } = this.props;
 
     const { completed } = this.state;
@@ -68,7 +81,10 @@ export class OfferPaymentPage extends Component<Props, State> {
           loading={loading}
           compatibleConsumerPacks={compatibleConsumerPacks}
           compatibleConsumerPacksLoading={compatibleConsumerPacksLoading}
+          compatiblePaymentPacksLoading={compatiblePaymentPacksLoading}
+          compatiblePaymentPacks={compatiblePaymentPacks}
           onCompletePurchase={this.onCompletePurchase}
+          onBuyPaymentPack={this.buyPaymentPack}
           goToPassMarketplace={this.goToPassMarketplace}
         />
       </ConsumerModalContainer>
@@ -81,6 +97,8 @@ function mapStateToProps(state) {
     offer: state.payment.wantedOffer,
     loading: state.payment.loading,
     compatibleConsumerPacks: state.payment.compatibleConsumerPacks,
+    compatiblePaymentPacks: state.payment.compatiblePaymentPacks,
+    compatiblePaymentPacksLoading: state.payment.compatibleConsumerPacksLoading,
     compatibleConsumerPacksLoading:
       state.payment.compatibleConsumerPacksLoading,
   };
@@ -94,8 +112,14 @@ function mapDispatchToProps(dispatch) {
     fetchCompatiblePass(id) {
       dispatch(paymentActions.fetchCompatiblePass(id));
     },
+    fetchCompatiblePaymentPacks(id) {
+      dispatch(paymentActions.fetchCompatiblePaymentPacks(id));
+    },
     goToPassMarketplace(companyName) {
       dispatch(routerPush(`/m/${companyName}`));
+    },
+    pushRouter(path) {
+      dispatch(routerPush(path));
     },
   };
 }

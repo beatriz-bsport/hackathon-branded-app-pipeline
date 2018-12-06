@@ -4,8 +4,10 @@ import React, { Component } from 'react';
 
 import {
   Button,
+  List,
   Grid,
   CircularProgress,
+  ListItem,
   Typography,
   Divider,
 } from '@material-ui/core';
@@ -16,6 +18,7 @@ import parse from '../../query-string';
 
 import OfferSummary from './OfferSummary.component';
 import ConsumerPackCheckout from './ConsumerPackCheckout.component';
+import PaymentPackSummary from './PaymentPackSummary.component';
 import type { ConsumerPaymentPackConsumerView, Offer } from '../../api/types';
 
 type Props = {
@@ -23,8 +26,11 @@ type Props = {
 
   offer: Offer,
   compatibleConsumerPacks: Array<ConsumerPaymentPackConsumerView>,
+  compatiblePaymentPacks: Array<PaymentPack>,
 
   compatibleConsumerPacksLoading: boolean,
+  compatiblePaymentPacksLoading: boolean,
+
   loading: boolean,
 
   t: (x: string) => string,
@@ -53,7 +59,7 @@ export class OfferPayment extends Component<Props> {
             </Typography>
           </Grid>
           <Grid item>
-            <OfferSummary offer={offer} />;
+            <OfferSummary offer={offer} />
           </Grid>
         </Grid>
       );
@@ -70,7 +76,9 @@ export class OfferPayment extends Component<Props> {
       t,
       offer,
       compatibleConsumerPacks,
+      compatiblePaymentPacks,
       compatibleConsumerPacksLoading,
+      compatiblePaymentPacksLoading,
       onCompletePurchase,
     } = this.props;
 
@@ -89,15 +97,6 @@ export class OfferPayment extends Component<Props> {
             <Typography>
               Vous ne disposez pas de pass compatible avec cette séance !
             </Typography>
-          </Grid>
-          <Grid item>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={this.props.goToPassMarketplace}
-            >
-              Voir les offres
-            </Button>
           </Grid>
         </Grid>
       );
@@ -148,8 +147,59 @@ export class OfferPayment extends Component<Props> {
     />
   );
 
+  renderBuyCompatiblePaymentPack = () => {
+    const {
+      t,
+      compatiblePaymentPacksLoading,
+      compatiblePaymentPacks,
+      compatibleConsumerPacksLoading,
+    } = this.props;
+    if (compatibleConsumerPacksLoading) {
+      return null; // avoid double loader indicator
+    }
+    if (compatiblePaymentPacksLoading) {
+      return (
+        <Grid container item justify="center" alignItems="center">
+          <CircularProgress />
+        </Grid>
+      );
+    }
+    return (
+      <List>
+        {(compatiblePaymentPacks || []).length ? (
+          <Typography variant="h6">
+            Pass compatible avec cette séance
+          </Typography>
+        ) : null}
+        {(compatiblePaymentPacks || []).map((pp) => (
+          <ListItem divider key={pp.id}>
+            <Grid
+              container
+              direction="row"
+              justify="space-betweeen"
+              alignItems="center"
+            >
+              <Grid item>
+                <PaymentPackSummary noDivider paymentPack={pp} />
+              </Grid>
+              <Grid item>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={() => this.props.onBuyPaymentPack(pp.id)}
+                >
+                  {t('common.buy')}
+                </Button>
+              </Grid>
+            </Grid>
+          </ListItem>
+        ))}
+      </List>
+    );
+  };
+
   render() {
-    const { loading, offer } = this.props;
+    const { loading, offer, t } = this.props;
 
     const unlimitedPacks = this.getCompatibleUnlimitedPass();
     if (unlimitedPacks.length && !loading && !(offer === null)) {
@@ -160,6 +210,14 @@ export class OfferPayment extends Component<Props> {
           <Grid item>
             {this.renderBookingWithUnlimitedPass(unlimitedPacks)}
           </Grid>
+          <Grid item>{this.renderBuyCompatiblePaymentPack()}</Grid>
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={this.props.goToPassMarketplace}
+          >
+            {t('marketplace.backToCalendar')}
+          </Button>
         </Grid>
       );
     }
@@ -169,6 +227,14 @@ export class OfferPayment extends Component<Props> {
         <Grid item>{this.getBasket()}</Grid>
         <Divider />
         <Grid item>{this.getPaymentPacksCheckout()}</Grid>
+        <Grid item>{this.renderBuyCompatiblePaymentPack()}</Grid>
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={this.props.goToPassMarketplace}
+        >
+          {t('marketplace.backToCalendar')}
+        </Button>
       </Grid>
     );
   }

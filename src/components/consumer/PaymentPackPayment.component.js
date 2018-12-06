@@ -30,7 +30,7 @@ export class PaymentPackPayment extends Component<Props> {
   };
 
   render() {
-    const { loading, paymentPack } = this.props;
+    const { loading, paymentPack, offerToBuy } = this.props;
     return (
       <StripeProvider apiKey={STRIPE_KEY}>
         <Grid container spacing={16} direction="column">
@@ -43,6 +43,7 @@ export class PaymentPackPayment extends Component<Props> {
                 purchaseId={paymentPack.id}
                 price={paymentPack === null ? ' - ' : paymentPack.price}
                 loading={loading}
+                offerToBuy={offerToBuy}
               />
             </Elements>
           </Grid>

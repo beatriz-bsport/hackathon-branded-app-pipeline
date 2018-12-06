@@ -1,7 +1,12 @@
 // @flow
 import React, { Component } from 'react';
 
-import { ListItem, ListItemText } from '@material-ui/core';
+import {
+  ListItemSecondaryAction,
+  Button,
+  ListItem,
+  ListItemText,
+} from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { Moment } from '../../i18n';
 import { formatAsDate } from '../../datetime';
@@ -10,11 +15,13 @@ type Props = {
   t: (x: string) => string,
   paymentPack: Object,
   noDivider: boolean,
+  onBuy: () => void,
+  buyButton: boolean,
 };
 
 export class PaymentPackMinimalSummary extends Component<Props> {
   render() {
-    const { t, paymentPack, noDivider } = this.props;
+    const { t, paymentPack, noDivider, buyButton, onBuy } = this.props;
     const {
       name,
       credits,
@@ -47,6 +54,10 @@ export class PaymentPackMinimalSummary extends Component<Props> {
           primaryTypographyProps={{ align: 'right' }}
           secondaryTypographyProps={{ align: 'right' }}
         />
+        {buyButton ? (
+          <ListItemSecondaryAction>
+          </ListItemSecondaryAction>
+        ) : null}
       </ListItem>
     );
   }

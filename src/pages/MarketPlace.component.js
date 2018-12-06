@@ -1,6 +1,8 @@
 // @flow
 import React, { Component } from 'react';
 
+import { compose } from 'recompose';
+
 import {
   Grid,
   CircularProgress,
@@ -8,17 +10,18 @@ import {
   Paper,
   AppBar,
   Tab,
-  Button,
   Tabs,
-  LinearProgress,
   withStyles,
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
-import { push as pushRouter } from 'react-router-redux';
+import { push } from 'connected-react-router';
 
-import { Calendar, PaymentPackCard } from '../components';
-import MarketplaceTimetable from '../components/marketplace/MarketplaceTimetable.component';
+import routerParamsToProps from '../hocs/router-params-to-props.hoc';
+
+import MarketplacePassList from '../components/marketplace/MarketplacePassList.component';
+import MarketplaceCalendar from '../components/marketplace/MarketplaceCalendar.component';
+
 import { Moment } from '../i18n';
 import { marketplace as marketplaceActions } from '../actions';
 
@@ -60,12 +63,12 @@ export class MarketPlace extends Component<Props, State> {
       const response = await api.marketplace.getIdByName(
         this.props.companyName,
       );
-      if (response.status === 200) {
-        this.companyId = response.data;
-        this.props.fetchCompany(this.companyId);
-      } else {
+      if (response.status !== 200) {
         console.log(response);
+        throw new Error(response);
       }
+      this.companyId = response.data;
+      this.props.fetchCompany(this.companyId);
     } catch (e) {
       console.log(e);
     }
@@ -99,95 +102,37 @@ export class MarketPlace extends Component<Props, State> {
     });
   };
 
-  renderCalendar = () => {
-    const {
-      classes,
-      calendarLoading,
-      offers,
-      selectedDayOffers,
-      selectedDayOffersLoading,
-    } = this.props;
-    const { selectedDate } = this.state;
-    const events = {};
-    offers.forEach((o) => {
-      const midnight = Moment(o.date_start).startOf('day');
-      if (!events[midnight]) {
-        events[midnight] = [];
-      }
-      events[midnight].push(o);
-    });
-    return (
-      <Grid container direction="row" alignItems="stretch">
-        <Grid item xs={12} md={6}>
-          <div className={classes.leftPanel}>
-            <Calendar
-              forceMonthDisplay
-              onDateClick={this.handleDateChange}
-              date={selectedDate}
-              events={events}
-            />
-          </div>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <div className={classes.rightPanel}>
-            <MarketplaceTimetable
-              offers={selectedDayOffers}
-              date={selectedDate}
-              loading={selectedDayOffersLoading}
-            />
-          </div>
-        </Grid>
-        <Grid item xs={12}>
-          {calendarLoading ? <LinearProgress /> : null}
-        </Grid>
-      </Grid>
-    );
-  };
-
-  renderPass = () => {
-    const { t } = this.props;
-    return (
-      <Grid container direction="row" spacing={16}>
-        {// Forgive me but i haz no tiime
-        this.props.paymentPacks
-          .map((p) => ({
-            ...p,
-            metaActivities: p.metaActivities.map((ma) => ma.id),
-            metaActivitiesFull: p.metaActivities,
-            establishments: p.establishments.map((e) => e.id),
-            establishmentsFull: p.establishments,
-          }))
-          .map((pp) => (
-            <Grid item xs={12} md={6} lg={4}>
-              <PaymentPackCard
-                pack={pp}
-                metaActivities={pp.metaActivitiesFull}
-                establishments={pp.establishmentsFull}
-                onlyPublic
-              />
-              <Button
-                style={{ width: '100%' }}
-                onClick={() =>
-                  this.props.pushPackCheckout(pp.id, this.companyId)
-                }
-                color="primary"
-                variant="contained"
-              >
-                {t('marketplace.buyPack')}
-              </Button>
-            </Grid>
-          ))}
-      </Grid>
-    );
-  };
-
   renderContent = () => {
     switch (this.state.tabSelected) {
       case TAB_PASS:
-        return this.renderPass();
+        return (
+          <MarketplacePassList
+            paymentPacks={this.props.paymentPacks}
+            pushPackCheckout={(packId) =>
+              this.props.pushPackCheckout(packId, this.companyId)
+            }
+          />
+        );
       case TAB_CALENDAR:
-      default:
-        return this.renderCalendar();
+      default: {
+        const {
+          calendarLoading,
+          offers,
+          selectedDayOffers,
+          selectedDayOffersLoading,
+        } = this.props;
+        const { selectedDate } = this.state;
+        return (
+          <MarketplaceCalendar
+            selectedDate={selectedDate}
+            offers={offers}
+            dayOffers={selectedDayOffers}
+            dayOffersLoading={selectedDayOffersLoading}
+            calendarLoading={calendarLoading}
+            onSelectDate={this.handleDateChange}
+          />
+        );
+      }
     }
   };
 
@@ -223,11 +168,8 @@ export class MarketPlace extends Component<Props, State> {
   }
 }
 
-function mapStateToProps(state, nextProps) {
-  const { match } = nextProps;
-  const companyName = match.params.id;
+function mapStateToProps(state) {
   return {
-    companyName,
     company: state.marketplace.company,
     offers: state.marketplace.offers,
     activities: state.marketplace.activities,
@@ -235,29 +177,6 @@ function mapStateToProps(state, nextProps) {
     selectedDayOffers: state.marketplace.detailedOffers,
     selectedDayOffersLoading: state.marketplace.detailedOffersLoading,
     paymentPacks: state.marketplace.paymentPacks,
-  };
-}
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchCompany(companyId: number) {
-      dispatch(marketplaceActions.fetchCompany(companyId));
-    },
-    fetchCalendar(companyId) {
-      dispatch(marketplaceActions.fetchCalendar(companyId));
-    },
-    fetchOffersByDay({ companyId, year, month, day }) {
-      dispatch(
-        marketplaceActions.fetchOffersByDay({ companyId, year, month, day }),
-      );
-    },
-    fetchPaymentPacks(companyId) {
-      dispatch(marketplaceActions.fetchPaymentPacks(companyId));
-    },
-    pushPackCheckout(packId, companyId) {
-      dispatch(
-        pushRouter(`/customer/payment/pass/${packId}?membership=${companyId}`),
-      );
-    },
   };
 }
 
@@ -274,20 +193,21 @@ const styles = (theme) => ({
   paperContainer: {
     padding: theme.spacing.unit,
   },
-  leftPanel: {
-    padding: theme.spacing.unit * 2,
-  },
-  rightPanel: {
-    borderLeft: '1px solid #F0F0F0',
-    height: '100%',
-  },
 });
 
-export default withStyles(styles)(
-  translate()(
-    connect(
-      mapStateToProps,
-      mapDispatchToProps,
-    )(MarketPlace),
+export default compose(
+  withStyles(styles),
+  translate(),
+  routerParamsToProps({ id: 'companyName' }),
+  connect(
+    mapStateToProps,
+    {
+      fetchCompany: marketplaceActions.fetchCompany,
+      fetchCalendar: marketplaceActions.fetchCalendar,
+      fetchOffersByDay: marketplaceActions.fetchOffersByDay,
+      fetchPaymentPacks: marketplaceActions.fetchPaymentPacks,
+      pushPackCheckout: (packId, companyId) =>
+        push(`/customer/payment/pass/${packId}?membership=${companyId}`),
+    },
   ),
-);
+)(MarketPlace);

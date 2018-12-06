@@ -35,7 +35,7 @@ export class StripeCheckout extends Component<Props, State> {
 
   submit = async () => {
     this.setState({ loading: true });
-    const { urlParams, purchaseId, purchaseType } = this.props;
+    const { urlParams, purchaseId, purchaseType, offerToBuy } = this.props;
     try {
       const { token } = await this.props.stripe.createToken();
       const response = await api.payment.consumerBuy({
@@ -43,6 +43,7 @@ export class StripeCheckout extends Component<Props, State> {
         objectId: purchaseId,
         paymentMethod: PAYMENT_METHOD_CB.id,
         objectClassName: purchaseType,
+        offerToBuy,
         urlParams,
       });
 

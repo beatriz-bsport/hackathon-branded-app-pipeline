@@ -80,7 +80,7 @@ export class StripeCheckout extends Component<Props, State> {
         </Grid>
         <Grid item>
           <div className={classes.cardContainer}>
-            <CardElement />
+            <CardElement hidePostalCode />
           </div>
         </Grid>
         <Grid

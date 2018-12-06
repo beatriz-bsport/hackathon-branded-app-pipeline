@@ -42,6 +42,9 @@ export default {
   },
   translation: {
     companies,
+    error: {
+      connectionError: 'Erreur réseau',
+    },
     hi: 'Salut',
     pageTitle: {
       myAccount: 'Mon compte',
@@ -227,7 +230,7 @@ export default {
         cantAddSameName: 'Une activité du même nom existe déjà !',
       },
       signup: {
-        typePhone: 'Tél. portable',
+        typePhone: 'Tél. portable *',
         confirmPasswordLabel: 'Confirmation',
         rgpdTitle:
           "Comment préférez-vous que les coachs vous contactent pour les annulations/changement d'heure ?",

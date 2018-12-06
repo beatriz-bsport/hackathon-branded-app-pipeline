@@ -29,6 +29,9 @@ export default {
   },
   translation: {
     companies,
+    error: {
+      connectionError: 'Connection error',
+    },
     hi: 'Hi',
     pageTitle: {
       myAccount: 'My account',

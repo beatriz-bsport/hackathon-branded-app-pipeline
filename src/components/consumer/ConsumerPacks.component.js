@@ -52,7 +52,11 @@ export class ConsumerPacks extends React.Component<Props> {
         <TableCell>{company.name}</TableCell>
         <TableCell>{ending_date}</TableCell>
         <TableCell>{creditsLeft}</TableCell>
-        <TableCell>{bookingsLeftThisWeek}</TableCell>
+        <TableCell>
+          {max_bookings_per_week
+            ? bookingsLeftThisWeek
+            : t('paymentPack.unlimitedCredits')}
+        </TableCell>
       </TableRow>
     );
   };
@@ -75,8 +79,8 @@ export class ConsumerPacks extends React.Component<Props> {
   render() {
     const { t } = this.props;
     return (
-      <Paper>
-        <Table>
+      <Table>
+        <Paper>
           <TableHead>
             <TableRow>
               <TableCell>{t('common.name')}</TableCell>
@@ -87,8 +91,8 @@ export class ConsumerPacks extends React.Component<Props> {
             </TableRow>
           </TableHead>
           {this.renderTableContent()}
-        </Table>
-      </Paper>
+        </Paper>
+      </Table>
     );
   }
 }

@@ -9,6 +9,7 @@ import {
   Button,
   withStyles,
 } from '@material-ui/core';
+import PersonIcon from '@material-ui/icons/Person';
 import { translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import RedButton from '../../button/RedButton.component';
@@ -16,6 +17,11 @@ import RedButton from '../../button/RedButton.component';
 import { FormField } from '../../input';
 
 const styles = (theme) => ({
+  headIcon: {
+    height: 90,
+    width: 90,
+    marginBottom: theme.spacing.unit * 2,
+  },
   buttonIcon: {
     marginRight: theme.spacing.unit,
   },
@@ -54,6 +60,9 @@ export class ConsumerLogin extends Component<Props, State> {
   getEmailLogin = () => (
     <Grid container direction="column" alignItems="center">
       <Grid item>
+        <PersonIcon className={this.props.classes.headIcon} />
+      </Grid>
+      <Grid item>
         <FormField id="email" onChange={this.onFormFieldChange} />
       </Grid>
       <Grid item>
@@ -64,6 +73,19 @@ export class ConsumerLogin extends Component<Props, State> {
         />
       </Grid>
       <Grid item>
+        <div style={{ paddingTop: 12 }}>
+          <Typography color="error">
+            {this.props.error ? this.props.t('login.authError') : ''}
+          </Typography>
+          <div />
+          <Link to="/login/reset_password" style={{ textDecoration: 'none' }}>
+            <Typography color="secondary" variant="caption">
+              {this.props.t('login.forgottenPassword')}
+            </Typography>
+          </Link>
+        </div>
+      </Grid>
+      <Grid item>
         <Button
           className={this.props.classes.bottomButton}
           color="primary"
@@ -72,22 +94,6 @@ export class ConsumerLogin extends Component<Props, State> {
         >
           LOGIN
         </Button>
-      </Grid>
-      <Grid item>
-        <div style={{ paddingTop: 12 }}>
-          {this.props.error ? (
-            <Typography color="error">
-              {this.props.t('login.authError')}
-            </Typography>
-          ) : (
-            <div />
-          )}
-          <Link to="/login/reset_password" style={{ textDecoration: 'none' }}>
-            <Typography color="secondary" variant="caption">
-              {this.props.t('login.forgottenPassword')}
-            </Typography>
-          </Link>
-        </div>
       </Grid>
     </Grid>
   );
@@ -125,7 +131,7 @@ export class ConsumerLogin extends Component<Props, State> {
   );
 
   render() {
-    const { loading, t, classes } = this.props;
+    const { loading, classes } = this.props;
 
     if (loading) {
       return <CircularProgress />;
@@ -133,9 +139,6 @@ export class ConsumerLogin extends Component<Props, State> {
 
     return (
       <Grid container direction="column" alignItems="center" spacing={24}>
-        <Typography className={classes.title} variant="h2">
-          {t('login.welcome')}
-        </Typography>
         <Grid item>{this.getEmailLogin()}</Grid>
         <Grid item>{this.getDivider()}</Grid>
         <Grid item>{this.getSignUpButton()}</Grid>

@@ -2,7 +2,12 @@
 
 import React, { Component } from 'react';
 
-import { CircularProgress, Typography, Grid } from '@material-ui/core';
+import {
+  CircularProgress,
+  withStyles,
+  Typography,
+  Grid,
+} from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -91,14 +96,19 @@ export class ConsumerSignUp extends Component<Props, State> {
   };
 
   render() {
-    const { t, authenticated, updateProfile } = this.props;
+    const { t, authenticated, updateProfile, classes } = this.props;
     if (authenticated) {
       const { email, firstname, lastname } = this.state;
       updateProfile({ email, firstname, lastname });
       return <Redirect to="/" />;
     }
     return (
-      <Grid container direction="column" spacing={32}>
+      <Grid
+        container
+        direction="column"
+        spacing={32}
+        className={classes.container}
+      >
         <Grid item>
           <Typography variant="title">{t('form.signUpTitle')}</Typography>
         </Grid>
@@ -122,9 +132,17 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default translate()(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  )(ConsumerSignUp),
+const styles = (theme) => ({
+  container: {
+    padding: theme.spacing.unit * 2,
+  },
+});
+
+export default withStyles(styles)(
+  translate()(
+    connect(
+      mapStateToProps,
+      mapDispatchToProps,
+    )(ConsumerSignUp),
+  ),
 );

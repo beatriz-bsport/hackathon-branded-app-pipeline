@@ -17,10 +17,11 @@ import 'react-phone-number-input/style.css';
 import { translate } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import { EmailInput } from '../input';
+import { EmailInput, GenderInput } from '../input';
 
 type Props = {
-  onComplete: (Object) => void,
+onComplete: (Object) => void,
+onCancel: () => void,
   t: TFunction,
   classes: Object,
 };
@@ -48,6 +49,7 @@ export class SignUpForm extends Component<Props, State> {
     passwordEqual: true,
     accept_email: true,
     accept_sms: true,
+    gender: 'F',
   };
 
   submitInfo = (event: Object) => {
@@ -61,6 +63,7 @@ export class SignUpForm extends Component<Props, State> {
       phone,
       accept_sms,
       accept_email,
+      gender,
     } = this.state;
     if (password === passwordConfirm) {
       this.props.onComplete({
@@ -72,6 +75,7 @@ export class SignUpForm extends Component<Props, State> {
         accept_sms,
         accept_email,
         username: email,
+        gender,
       });
     }
   };
@@ -112,6 +116,10 @@ export class SignUpForm extends Component<Props, State> {
 
   toogleEmail = (event) => {
     this.setState({ accept_email: event.target.checked });
+  };
+
+  handleGender = (event) => {
+    this.setState({ gender: event.target.value });
   };
 
   renderRGPD = () => {
@@ -179,6 +187,13 @@ export class SignUpForm extends Component<Props, State> {
             </Grid>
           </Grid>
           <Grid item>
+            <GenderInput
+              value={this.state.gender}
+              onChange={this.handleGender}
+              required
+            />
+          </Grid>
+          <Grid item>
             <Grid container direction="row" spacing={16} alignItems="flex-end">
               <Grid item>
                 <EmailInput
@@ -234,7 +249,11 @@ export class SignUpForm extends Component<Props, State> {
               direction="row"
               justify="flex-end"
               alignItems="flex-end"
+              spacing={16}
             >
+              <Button color="secondary" onClick={this.props.onCancel}>
+                {t('common.cancel')}
+              </Button>
               <Button type="submit" color="primary" variant="contained">
                 {t('form.signup.signupButton')}
               </Button>

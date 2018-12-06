@@ -91,6 +91,14 @@ export default function consumerReducers(state = initialState, action = {}) {
         error: true,
         errorMsg: action.error,
       });
+
+    case actionTypes.CONSUMER_BOOKING_DISCARD_SUCCESS:
+      return Immutable.merge(state, {
+        futureBookings: state.futureBookings.filter(
+          (fb) => fb.id !== action.bookingId,
+        ),
+      });
+
     default:
       return state;
   }

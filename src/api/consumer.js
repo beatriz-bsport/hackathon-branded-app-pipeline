@@ -1,4 +1,4 @@
-import { API_URI, getAuth } from '../http';
+import { API_URI, getAuth, deleteAuth } from '../http';
 
 export async function fetchConsumerOptions() {
   return getAuth(`${API_URI}/booking/options/`);
@@ -24,6 +24,10 @@ export async function discardBookingOption(optionId) {
   return getAuth(`${API_URI}/saas/booking-option/${optionId}/discard`);
 }
 
+export async function discardBooking(bookingId) {
+  return deleteAuth(`${API_URI}/booking/${bookingId}/discard`);
+}
+
 export default {
   fetchFutureBookings: fetchConsumerFutureBookings,
   fetchPastBookings: fetchConsumerPastBookings,
@@ -31,4 +35,5 @@ export default {
   fetchConsumerPaymentPacks,
   discardBookingOption,
   fetchProfile: consumerFetchProfile,
+  discardBooking,
 };

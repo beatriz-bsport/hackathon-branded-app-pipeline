@@ -127,3 +127,30 @@ export function fetchProfile() {
     dispatch(fetchedProfile(profile));
   };
 }
+
+export function discardBookingStart(bookingId) {
+  return { type: types.CONSUMER_BOOKING_DISCARD_START, bookingId };
+}
+export function discardBookingSuccess(bookingId) {
+  return { type: types.CONSUMER_BOOKING_DISCARD_SUCCESS, bookingId };
+}
+export function discardBookingError(bookingId) {
+  return { type: types.CONSUMER_BOOKING_DISCARD_ERROR, bookingId };
+}
+export function discardBooking(bookingId) {
+  return async (dispatch) => {
+    dispatch(discardBookingStart(bookingId));
+
+    try {
+      const response = await api.consumer.discardBooking(bookingId);
+
+      if (response.status === 204) {
+        dispatch(discardBookingSuccess(bookingId));
+        return;
+      }
+    } catch (err) {
+      console.log(JSON.stringify(err));
+    }
+    dispatch(discardBookingError(bookingId));
+  };
+}

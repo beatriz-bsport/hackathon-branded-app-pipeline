@@ -27,7 +27,7 @@ export async function consumerPayWithConsumerPaymentPack(
 }
 
 export async function consumerRequestOffer(offerId) {
-  return getAuth(`${API_URI}/offer/${offerId}/`);
+  return getAuth(`${API_URI}/offer/${offerId}/?noLog=true`);
 }
 
 export async function consumerBuy({

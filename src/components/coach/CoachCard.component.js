@@ -102,37 +102,31 @@ export class CoachCard extends Component<Props> {
             </Tooltip>
           </Grid>
         </Grid>
-        {true ? null : (
-          <React.Fragment>
-            <Typography variant="subtitle">
-              {t('paymentRules:label')}
-            </Typography>
-            <div ref={this.refPaymentRuleSelector}>
-              <PaymentRuleSelector
-                paymentRules={paymentRules}
-                selected={coach.default_payment_rule_id}
-                onChange={({ value }) => setCoachPaymentRule(coach.id, value)}
-              />
-            </div>
-            <Popover
-              open={this.props.paymentRulePopoverOpen}
-              anchorEl={this.refPaymentRuleSelector.current}
-              onClose={() => this.props.togglePaymentRulePopover(false)}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'center',
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'center',
-              }}
-            >
-              <Typography className={classes.popoverNoPaymentRule}>
-                {t('paymentRules:setPaymentRuleSetForCoachFirst')}
-              </Typography>
-            </Popover>
-          </React.Fragment>
-        )}
+        <Typography variant="subtitle">{t('paymentRules:label')}</Typography>
+        <div ref={this.refPaymentRuleSelector}>
+          <PaymentRuleSelector
+            paymentRules={paymentRules}
+            selected={coach.default_payment_rule_id}
+            onChange={({ value }) => setCoachPaymentRule(coach.id, value)}
+          />
+        </div>
+        <Popover
+          open={this.props.paymentRulePopoverOpen}
+          anchorEl={this.refPaymentRuleSelector.current}
+          onClose={() => this.props.togglePaymentRulePopover(false)}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+          }}
+        >
+          <Typography className={classes.popoverNoPaymentRule}>
+            {t('paymentRules:setPaymentRuleSetForCoachFirst')}
+          </Typography>
+        </Popover>
         <Grid container direction="column" justify="flex-start">
           <Grid item>
             <Grid
@@ -150,24 +144,22 @@ export class CoachCard extends Component<Props> {
                 <Button onClick={onClickUpdate}>
                   {t('coach.card.update')}
                 </Button>
-                {true ? null : (
-                  <Button
-                    color="primary"
-                    onClick={() => {
-                      if (
-                        paymentRules.find(
-                          (p) => p.id === coach.default_payment_rule_id,
-                        )
-                      ) {
-                        this.props.goToCoachPerformance();
-                      } else {
-                        this.props.togglePaymentRulePopover(true);
-                      }
-                    }}
-                  >
-                    {t('coach.showPerformance')}
-                  </Button>
-                )}
+                <Button
+                  color="primary"
+                  onClick={() => {
+                    if (
+                      paymentRules.find(
+                        (p) => p.id === coach.default_payment_rule_id,
+                      )
+                    ) {
+                      this.props.goToCoachPerformance();
+                    } else {
+                      this.props.togglePaymentRulePopover(true);
+                    }
+                  }}
+                >
+                  {t('coach.showPerformance')}
+                </Button>
               </Grid>
             </Grid>
           </Grid>

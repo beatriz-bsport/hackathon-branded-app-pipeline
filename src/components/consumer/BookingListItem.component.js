@@ -2,8 +2,16 @@
 import React, { Component } from 'react';
 
 import { translate } from 'react-i18next';
-
-import ActivityMinimalSummary from '../activity/ActivityMinimalSummary.component';
+import {
+  IconButton,
+  Avatar,
+  Tooltip,
+  ListItem,
+  withStyles,
+  ListItemText,
+  ListItemSecondaryAction,
+} from '@material-ui/core';
+import CancelIcon from '@material-ui/icons/Cancel';
 import { formatAsDatetime } from '../../datetime';
 import type { Booking } from '../../api/types';
 
@@ -13,16 +21,43 @@ type Props = {
 
 export class BookingListItem extends Component<Props> {
   render() {
-    const { booking } = this.props;
+    const { booking, overrideClickAction, onDiscard, classes } = this.props;
     const { offer } = booking;
     const { activity } = offer;
+    const coach = offer.coach_substitute
+      ? offer.coach_substitute
+      : offer.activity.coach;
     return (
-      <ActivityMinimalSummary
-        activity={activity}
-        date={formatAsDatetime(offer.date_start)}
-      />
+      <ListItem
+        key={booking.id}
+        dense
+        button
+        onClick={overrideClickAction || (() => {})}
+        className={classes.listItem}
+      >
+        {coach.photo ? (
+          <Tooltip title={coach.name}>
+            <Avatar src={coach.photo} />
+          </Tooltip>
+        ) : null}
+        <ListItemText
+          primary={activity.name}
+          secondary={formatAsDatetime(offer.date_start)}
+        />
+        {onDiscard ? (
+          <ListItemSecondaryAction>
+            <IconButton onClick={onDiscard}>
+              <CancelIcon />
+            </IconButton>
+          </ListItemSecondaryAction>
+        ) : null}
+      </ListItem>
     );
   }
 }
 
-export default translate()(BookingListItem);
+const styles = () => ({
+  listItem: {},
+});
+
+export default withStyles(styles)(translate()(BookingListItem));

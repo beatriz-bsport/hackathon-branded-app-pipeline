@@ -11,6 +11,12 @@ import {
   List,
   Typography,
   CircularProgress,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  withMobileDialog,
   withStyles,
 } from '@material-ui/core';
 import TodayIcon from '@material-ui/icons/Today';
@@ -20,12 +26,14 @@ import { Redirect } from 'react-router-dom';
 import { push as pushRouter } from 'react-router-redux';
 
 import { BookingListItem, BookingOptionListItem } from '../../components';
+import RedButton from '../../components/button/RedButton.component';
 import { consumer as consumerActions } from '../../actions';
 import type { Booking, BookingOption } from '../../api/types';
 
 type Props = {
   classes: Object,
   profile: Profile,
+  fullScreen: boolean,
   loadingBooking: boolean,
   loadingOption: boolean,
   futureBookings: Array<Booking>,
@@ -77,10 +85,24 @@ export class MyBookings extends Component<Props, State> {
     return (
       <List>
         {futureBookings.map((b) => (
-          <BookingListItem booking={b} key={b.id} />
+          <BookingListItem
+            onDiscard={() => this.prepareDiscardBooking(b)}
+            booking={b}
+            key={b.id}
+          />
         ))}
       </List>
     );
+  };
+
+  prepareDiscardBooking = (booking) => {
+    this.setState({ bookingToDiscard: booking });
+  };
+
+  performDiscard = () => {
+    const { bookingToDiscard } = this.state;
+    this.props.discardBooking(bookingToDiscard.id);
+    this.setState({ bookingToDiscard: null });
   };
 
   handleCloseModal = () => {
@@ -266,6 +288,38 @@ export class MyBookings extends Component<Props, State> {
     );
   };
 
+  getDialogCancelBooking = () => {
+    const { bookingToDiscard } = this.state;
+    const { t, fullScreen } = this.props;
+    return (
+      <Dialog
+        open={Boolean(bookingToDiscard)}
+        fullScreen={fullScreen}
+        onClose={() => this.setState({ bookingToDiscard: null })}
+      >
+        <DialogTitle>{t('consumer.booking.discardBookingTitle')}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            {(bookingToDiscard || {}).is_discardable
+              ? t('consumer.booking.discardPossibleExplain')
+              : t('consumer.booking.discardImpossibleExplain')}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            color="secondary"
+            onClick={() => this.setState({ bookingToDiscard: null })}
+          >
+            {t('common.cancel')}
+          </Button>
+          <RedButton onClick={this.performDiscard}>
+            {t('common.delete')}
+          </RedButton>
+        </DialogActions>
+      </Dialog>
+    );
+  };
+
   render() {
     const { requestRedirect } = this.state;
     if (requestRedirect) {
@@ -288,6 +342,7 @@ export class MyBookings extends Component<Props, State> {
           </Grid>
         </Grid>
         {this.getModalConfirmCancellingBookingOption()}
+        {this.getDialogCancelBooking()}
       </div>
     );
   }
@@ -312,6 +367,9 @@ function mapDispatchToProps(dispatch) {
     },
     pushToMarketplace(name) {
       dispatch(pushRouter(`/m/${name}`));
+    },
+    discardBooking(bookingId) {
+      dispatch(consumerActions.discardBooking(bookingId));
     },
   };
 }
@@ -351,9 +409,11 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  )(translate()(MyBookings)),
+export default withMobileDialog()(
+  withStyles(styles)(
+    connect(
+      mapStateToProps,
+      mapDispatchToProps,
+    )(translate()(MyBookings)),
+  ),
 );

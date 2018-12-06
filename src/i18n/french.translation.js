@@ -58,6 +58,7 @@ export default {
       },
     },
     common: {
+      buy: 'Acheter',
       establishments: 'Lieux',
       notes: 'Notes',
       add: 'Ajouter',
@@ -312,6 +313,8 @@ export default {
             "Attention ! Des membres ont acheté cet abonnement, si vous le supprimez ces derniers pourront toujours utiliser leurs crédits restants. Vous pouvez les réduire manuellement à zéro ici.\n\nL'abonnement n'apparaitra plus dans votre magasin pour les nouveaux acheteurs.",
         },
       },
+      title: 'Titre',
+      specific_info: 'Description',
       pleaseEnterYourSMSCode: 'Veuillez entrer le code envoyé par SMS',
       code: 'Code',
       signUpTitle: 'Inscription',
@@ -639,6 +642,7 @@ export default {
       },
     },
     marketplace: {
+      backToCalendar: 'Retour au calendrier',
       showMarketplace: 'Voir le calendrier de ',
       noSessionToday: 'Aucune séance',
       book: 'Réserver',

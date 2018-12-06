@@ -39,6 +39,7 @@ export default {
       CHECK: 'Check',
     },
     common: {
+      buy: 'Buy',
       establishments: 'Locations',
       notes: 'Notes',
       add: 'Add',
@@ -313,6 +314,8 @@ export default {
             'Be careful ! Some members have bought this pass, if you disable it, they can continue to use until they exhaust their credits. If you want to disable it completely, consider reducing their credits here. The pass will not appear in your marketplace anymore.',
         },
       },
+      title: 'Title',
+      specific_info: 'Description',
       pleaseEnterYourSMSCode: 'Please enter the code sent by SMS',
       code: 'Code',
       SMSSignInTitle: 'Signin via SMS',
@@ -583,6 +586,7 @@ export default {
       },
     },
     marketplace: {
+      backToCalendar: 'Back to calendar',
       showMarketplace: 'Show calendar of ',
       noSessionToday: 'No session',
       book: 'Book',

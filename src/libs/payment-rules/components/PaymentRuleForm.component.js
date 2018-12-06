@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { compose, withHandlers } from 'recompose';
+import { compose } from 'recompose';
 import { withNamespaces } from 'react-i18next';
 
 import type { TFunction } from 'react-i18next';

@@ -322,11 +322,12 @@ export class MyBookings extends Component<Props, State> {
 
   render() {
     const { requestRedirect } = this.state;
+    const { classes } = this.props;
     if (requestRedirect) {
       return <Redirect to={requestRedirect} />;
     }
     return (
-      <div>
+      <div className={classes.container}>
         <Grid container direction="row" spacing={16}>
           <Grid item xs={12}>
             {this.renderMembershipButtons()}
@@ -375,6 +376,10 @@ function mapDispatchToProps(dispatch) {
 }
 
 const styles = (theme) => ({
+  container: {
+    marginBottom: theme.spacing.unit * 2,
+    marginTop: theme.spacing.unit * 2,
+  },
   loadingIndicator: {
     margin: theme.spacing.unit * 2,
   },

@@ -4,7 +4,7 @@ export default {
   privatePacksTitle: 'Pass unavailable for purchase',
   subscribeToOffer: 'Register',
   createOrUpdate: {
-    succes: 'Pass successfully saved',
+    success: 'Pass successfully saved',
     fail: 'Error: pass would not be saved',
   },
   disableConsumer: 'Block',

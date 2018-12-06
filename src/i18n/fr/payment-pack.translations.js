@@ -4,7 +4,7 @@ export default {
   privatePacksTitle: "Abonnements non disponibles à l'achat",
   subscribeToOffer: 'Inscrire',
   createOrUpdate: {
-    succes: 'Abonnement enregistré',
+    success: 'Abonnement enregistré',
     fail: "Erreur lors de l'enregistrement de l'abonnement",
   },
   disabled: 'Désactivé',

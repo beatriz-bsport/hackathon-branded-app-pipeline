@@ -23,7 +23,7 @@ export default {
   forms: {
     error: 'Impossible de sauvegarde le membre',
     create: {
-      title: 'Nouveau member',
+      title: 'Nouveau membre',
       success: 'Membre créé avec succès',
     },
     update: {

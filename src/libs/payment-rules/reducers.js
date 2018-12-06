@@ -11,7 +11,7 @@ import {
   showDialog,
 } from './actions';
 
-import type { PaymentRulesState, PaymentRulesAction } from './types';
+import type { PaymentRulesState } from './types';
 
 const initialState: PaymentRulesState = Immutable({
   items: {},

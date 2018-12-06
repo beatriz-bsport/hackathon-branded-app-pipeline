@@ -10,6 +10,8 @@ import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
 import TextField from '@material-ui/core/TextField';
 
+import type { PaymentRule } from '../types';
+
 import PriceInput from '../../../components/input/PriceInput.component';
 
 const styles = (theme) => ({
@@ -24,7 +26,7 @@ const styles = (theme) => ({
 
 type Props = {
   onRemove: () => void,
-  rule: *,
+  rule: PaymentRule,
   classes: Object,
   handleChange: (string) => (event: Object) => void,
 };
@@ -50,7 +52,7 @@ export function BonusRuleForm(props: Props) {
         <PriceInput
           margin="dense"
           value={variable_bonus}
-          onChange={handleChange('variableBonus')}
+          onChange={handleChange('variable_bonus')}
           fullWidth
         />
       </TableCell>

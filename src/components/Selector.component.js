@@ -95,7 +95,11 @@ function SingleValue(props) {
   );
 }
 
-function ValueContainer(props) {
+type ValueContainerProps = {
+  children: Node,
+  selectProps: { classes: { valueContainer: string } },
+};
+function ValueContainer(props: ValueContainerProps) {
   return (
     <div className={props.selectProps.classes.valueContainer}>
       {props.children}

@@ -14,7 +14,7 @@ export const paymentRuleSelector = (state: State, id: number) =>
 export const paymentRulesSelector = (state: State) =>
   lodash.values(state.paymentRules.items).map((rule: PaymentRule) => ({
     ...rule,
-    coaches: rule.coaches.map((coachId: number) =>
-      coachSelector(state, coachId),
+    coaches: lodash.compact(
+      rule.coaches.map((coachId: number) => coachSelector(state, coachId)),
     ),
   }));

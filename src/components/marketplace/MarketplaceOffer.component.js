@@ -53,7 +53,7 @@ export class MarketplaceOffer extends Component<Props> {
     const { offer, selected, onClickOffer } = this.props;
     const onClick = onClickOffer ? () => onClickOffer(offer.id) : null;
     return (
-      <ListItem selected={selected} onClick={onClick} divider>
+      <ListItem button selected={selected} onClick={onClick} divider>
         <Avatar src={offer.coach.photo} />
         <ListItemText
           primary={`${offer.name} - ${formatAsTime(offer.date_start)}`}

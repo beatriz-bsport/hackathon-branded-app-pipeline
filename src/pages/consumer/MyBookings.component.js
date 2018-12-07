@@ -261,7 +261,11 @@ export class MyBookings extends Component<Props, State> {
     return (
       <List>
         {pastBookings.map((b) => (
-          <BookingListItem booking={b} key={b.id} />
+          <BookingListItem
+            booking={b}
+            key={b.id}
+            overrideClickAction={() => {}}
+          />
         ))}
       </List>
     );
@@ -323,6 +327,10 @@ export class MyBookings extends Component<Props, State> {
     );
   };
 
+  onCloseOfferDialog = () => {
+    this.setState({ offerId: null });
+  };
+
   render() {
     const { requestRedirect } = this.state;
     const { classes } = this.props;
@@ -337,7 +345,10 @@ export class MyBookings extends Component<Props, State> {
           </Grid>
           <Grid item xs={12} lg={6}>
             {this.state.offerId ? (
-              <MarketplaceActivityDialog offerId={this.state.offerId} />
+              <MarketplaceActivityDialog
+                onClose={this.onCloseOfferDialog}
+                offerId={this.state.offerId}
+              />
             ) : null}
             {this.renderFutureBookingsContainer()}
           </Grid>

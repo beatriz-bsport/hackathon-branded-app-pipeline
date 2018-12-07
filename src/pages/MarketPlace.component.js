@@ -114,6 +114,10 @@ export class MarketPlace extends Component<Props, State> {
     this.setState({ offerId });
   };
 
+  closeOfferDialog = () => {
+    this.setState({ offerId: null });
+  };
+
   renderContent = () => {
     switch (this.state.tabSelected) {
       case TAB_PASS:
@@ -169,6 +173,7 @@ export class MarketPlace extends Component<Props, State> {
               offerId={this.state.offerId}
               showBookingButton
               displayPacksInformation
+              onClose={this.closeOfferDialog}
             />
           ) : null}
           <Tabs

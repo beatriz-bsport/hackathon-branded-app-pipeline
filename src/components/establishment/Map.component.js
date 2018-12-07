@@ -11,6 +11,7 @@ const TILE_LAYER_URL =
   'https://cartodb-basemaps-{s}.global.ssl.fastly.net/{variant}/{z}/{x}/{y}{r}.png';
 
 const MARKER_ASSET = require('../../marker-icon-2x.png');
+
 const CENTER = [48.86, 2.33];
 
 type MarkerType = {
@@ -76,9 +77,18 @@ export default class MyMap extends Component<Props, State> {
   render() {
     const { markers } = this.props;
     const center = this.props.center || CENTER;
+    const mapOptions = (map) => {
+      map.boxZoom.disable();
+      map.scrollWheelZoom.disable();
+    };
     return (
       <div className="map-container">
-        <Map center={center} zoom={this.state.zoom}>
+        <Map
+          center={center}
+          zoom={this.state.zoom}
+          scrollWheelZoom={false}
+          boxZoom={false}
+        >
           <TileLayer url={TILE_LAYER_URL} variant="light_all" />
           {markers.map((m) => this.renderMarker(m))}
         </Map>

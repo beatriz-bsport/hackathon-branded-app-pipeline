@@ -4,6 +4,7 @@ import React from 'react';
 
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
+import { push as pushRouter } from 'react-router-redux';
 
 import { withStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
@@ -14,7 +15,10 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
 import LinearProgress from '@material-ui/core/LinearProgress';
+
+import CancelIcon from '@material-ui/icons/Cancel';
 
 import { get, API_URI } from '../../http';
 
@@ -51,7 +55,7 @@ export class MarketPlaceActivity extends React.Component {
         </div>
       );
     }
-    const { offer, classes } = this.props;
+    const { offer, classes, onClose, pushRouter } = this.props;
     const { activity } = this.state;
     const establishment = offer.establishment_override || offer.etablissement;
     const { location } = establishment || { location: null };
@@ -59,6 +63,9 @@ export class MarketPlaceActivity extends React.Component {
     const markers = location ? [establishment] : [];
     return (
       <Card className={classes.card}>
+        <IconButton className={classes.cancelButton} onClick={onClose}>
+          <CancelIcon className={classes.cancelIcon} />
+        </IconButton>
         <CardMedia
           className={classes.media}
           src={offer.cover_main}
@@ -71,6 +78,7 @@ export class MarketPlaceActivity extends React.Component {
               variant="contained"
               color="primary"
               className={classes.callButton}
+              onClick={() => pushRouter(`/customer/payment/offer/${offer.id}`)}
             >
               Réserver
             </Button>
@@ -87,7 +95,8 @@ export class MarketPlaceActivity extends React.Component {
               </Typography>
               <Typography variant="body2">{activity.description}</Typography>
               {this.props.displayPacksInformation &&
-              this.props.compatibleConsumerPacks.length ? (
+              this.props.compatibleConsumerPacks.length &&
+              false ? (
                 <div>
                   <Typography variant="subtitle1" className={classes.title}>
                     Mes abonnements compatibles
@@ -97,13 +106,14 @@ export class MarketPlaceActivity extends React.Component {
                       key={p.id}
                       offerId={offer.id}
                       consumerPack={p}
-                      urlParams={''}
+                      urlParams=""
                     />
                   ))}
                 </div>
               ) : null}
               {this.props.displayPacksInformation &&
-              this.props.compatiblePaymentPacks.length ? (
+              this.props.compatiblePaymentPacks.length &&
+              false ? (
                 <div>
                   <Typography variant="subtitle1" className={classes.title}>
                     Abonnements compatibles
@@ -132,7 +142,12 @@ export class MarketPlaceActivity extends React.Component {
         </CardContent>
         {this.props.showBookingButton ? (
           <CardActions>
-            <Button fullWidth variant="contained" color="primary">
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              onClick={() => pushRouter(`/customer/payment/offer/${offer.id}`)}
+            >
               Réserver
             </Button>
           </CardActions>
@@ -175,6 +190,17 @@ const styles = () => ({
   loading: {
     padding: 40,
   },
+  cancelButton: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    zIndex: 1000,
+  },
+  cancelIcon: {
+    color: 'secondary',
+    height: 32,
+    width: 32,
+  },
 });
 
 function mapStateToProps(state, props) {
@@ -194,6 +220,7 @@ export default compose(
     {
       fetchPaymentPacks: paymentActions.fetchCompatiblePaymentPacks,
       fetchPass: paymentActions.fetchCompatiblePass,
+      pushRouter,
     },
   ),
 )(MarketPlaceActivity);

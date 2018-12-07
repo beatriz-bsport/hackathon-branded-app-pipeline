@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { withStyles } from '@material-ui/core';
+import { withStyles, withMobileDialog } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 
@@ -14,9 +14,9 @@ type Props = {
 };
 
 export function MarketplaceActivityDialog(props: Props) {
-  const { classes } = props;
+  const { classes, onClose, fullScreen } = props;
   return (
-    <Dialog open scroll="paper">
+    <Dialog open scroll="paper" onClose={onClose} fullScreen={fullScreen}>
       <DialogContent className={classes.dialogContent}>
         <MarketPlaceActivity {...props} />
       </DialogContent>
@@ -30,4 +30,6 @@ const styles = () => ({
     paddingTop: '0 !important',
   },
 });
-export default withStyles(styles)(MarketplaceActivityDialog);
+export default withMobileDialog({ breakpoint: 'xs' })(
+  withStyles(styles)(MarketplaceActivityDialog),
+);

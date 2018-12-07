@@ -9,8 +9,8 @@ import withMobileDialog from '@material-ui/core/withMobileDialog';
 import ConsumerMenu from '../navigation/ConsumerMenu.component';
 
 type Props = {
-  classes: Object,
   children: Node,
+  fullScreen: boolean,
 };
 
 export function ConsumerModalContainer(props: Props) {

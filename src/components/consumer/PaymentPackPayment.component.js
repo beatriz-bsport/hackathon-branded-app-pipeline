@@ -18,6 +18,7 @@ const styles = () => ({
 type Props = {
   loading: boolean,
   paymentPack: Object,
+  offerToBuy: ?number,
 };
 
 export class PaymentPackPayment extends Component<Props> {

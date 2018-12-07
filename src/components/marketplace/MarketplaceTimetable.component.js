@@ -16,6 +16,7 @@ type Props = {
   date: Object,
   loading: boolean,
   classes: Object,
+  onClickOffer: () => void,
   t: TFunction,
 };
 

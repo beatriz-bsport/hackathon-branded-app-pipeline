@@ -12,13 +12,15 @@ import { translate } from 'react-i18next';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import type { TFunction } from 'react-i18next';
 import api from '../../../api';
 import { auth as authActions } from '../../../actions';
 import SignUpForm from '../../form/SignUpForm.component';
 
 type Props = {
-  t: (x: string) => string,
+  t: TFunction,
   authenticated: boolean,
+  classes: Object,
   signUpEmail: ({
     phone: string,
     code: string,

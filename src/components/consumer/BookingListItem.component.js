@@ -17,6 +17,9 @@ import type { Booking } from '../../api/types';
 
 type Props = {
   booking: Booking,
+  overrideClickAction: () => void,
+  onDiscard: () => void,
+  classes: Object,
 };
 
 export class BookingListItem extends Component<Props> {

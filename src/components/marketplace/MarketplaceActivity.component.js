@@ -10,7 +10,6 @@ import { withStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -29,7 +28,21 @@ import PaymentPackSummary from '../consumer/PaymentPackSummary.component';
 
 import * as paymentActions from '../../actions/payment.actions';
 
-export class MarketPlaceActivity extends React.Component {
+type Props = {
+  offer: Offer,
+  fetchPass: (id: number) => void,
+  offerId: number,
+  fetchPaymentPacks: (id: number) => void,
+  classes: Object,
+  onClose: () => void,
+  pushRouter: (path: string) => void,
+  showBookingButton: ?boolean,
+  displayPacksInformation: ?boolean,
+  compatibleConsumerPacks: Array<ConsumerPaymentPack>,
+  compatiblePaymentPacks: Array<PaymentPack>,
+};
+
+export class MarketPlaceActivity extends React.Component<Props> {
   state = {
     loading: false,
     activity: null,

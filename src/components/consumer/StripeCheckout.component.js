@@ -15,6 +15,7 @@ import { Redirect } from 'react-router-dom';
 import { goBack as goBackRouter } from 'react-router-redux';
 import { CB as PAYMENT_METHOD_CB } from 'bsport-commons/lib/master-data/payment-methods';
 import { connect } from 'react-redux';
+import type { TFunction } from 'react-i18next';
 
 import api from '../../api';
 
@@ -24,7 +25,7 @@ type Props = {
   purchaseType: ?string,
   urlParams: ?string,
   stripe: Object,
-  t: (x: string) => string,
+  goBack: TFunction,
   classes: Object,
 };
 

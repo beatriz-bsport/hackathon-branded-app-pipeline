@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 
 import {
   ListItemSecondaryAction,
-  Button,
   ListItem,
   ListItemText,
 } from '@material-ui/core';
@@ -15,13 +14,12 @@ type Props = {
   t: (x: string) => string,
   paymentPack: Object,
   noDivider: boolean,
-  onBuy: () => void,
   buyButton: boolean,
 };
 
 export class PaymentPackMinimalSummary extends Component<Props> {
   render() {
-    const { t, paymentPack, noDivider, buyButton, onBuy } = this.props;
+    const { t, paymentPack, noDivider, buyButton } = this.props;
     const {
       name,
       credits,
@@ -54,10 +52,7 @@ export class PaymentPackMinimalSummary extends Component<Props> {
           primaryTypographyProps={{ align: 'right' }}
           secondaryTypographyProps={{ align: 'right' }}
         />
-        {buyButton ? (
-          <ListItemSecondaryAction>
-          </ListItemSecondaryAction>
-        ) : null}
+        {buyButton ? <ListItemSecondaryAction /> : null}
       </ListItem>
     );
   }

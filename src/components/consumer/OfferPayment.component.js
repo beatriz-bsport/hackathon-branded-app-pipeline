@@ -36,6 +36,7 @@ type Props = {
   t: (x: string) => string,
   goToPassMarketplace: () => void,
   onCompletePurchase: () => void,
+  onBuyPaymentPack: (packId: number) => void,
 };
 
 export class OfferPayment extends Component<Props> {
@@ -76,9 +77,7 @@ export class OfferPayment extends Component<Props> {
       t,
       offer,
       compatibleConsumerPacks,
-      compatiblePaymentPacks,
       compatibleConsumerPacksLoading,
-      compatiblePaymentPacksLoading,
       onCompletePurchase,
     } = this.props;
 

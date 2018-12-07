@@ -28,6 +28,8 @@ type Props = {
   updatingConsumerPacks: Array<number>,
   onCancel: (consumerPackId: number) => void,
   onDelete: () => void,
+  fullScreen: boolean,
+  open: boolean,
 };
 
 export class PaymentPackDeleteDialog extends Component<Props> {

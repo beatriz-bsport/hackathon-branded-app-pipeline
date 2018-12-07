@@ -19,6 +19,7 @@ type Props = {
   offers: *[],
   dayOffers: *[],
   dayOffersLoading: boolean,
+  onClickOffer: () => void,
 };
 
 export function MarketplaceCalendar(props: Props) {

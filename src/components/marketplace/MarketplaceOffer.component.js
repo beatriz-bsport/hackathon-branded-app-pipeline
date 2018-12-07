@@ -20,6 +20,8 @@ import { formatAsTime } from '../../datetime';
 type Props = {
   offer: Offer,
   selected: ?boolean,
+  onClickOffer: ?() => void,
+  companyId: number,
   t: TFunction,
 };
 

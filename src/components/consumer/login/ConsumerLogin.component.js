@@ -131,7 +131,7 @@ export class ConsumerLogin extends Component<Props, State> {
   );
 
   render() {
-    const { loading, classes } = this.props;
+    const { loading } = this.props;
 
     if (loading) {
       return <CircularProgress />;

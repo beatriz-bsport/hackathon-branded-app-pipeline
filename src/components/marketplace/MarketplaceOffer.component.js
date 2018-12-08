@@ -10,7 +10,7 @@ import {
   Button,
   IconButton,
 } from '@material-ui/core';
-import InfoIcon from '@material-ui/icons/Info';
+import InfoIcon from '@material-ui/icons/InfoOutlined';
 import { translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import type { TFunction } from 'react-i18next';
@@ -63,8 +63,12 @@ export class MarketplaceOffer extends Component<Props> {
           primary={`${offer.name} - ${formatAsTime(offer.date_start)}`}
           secondary={offer.etablissement.title}
         />
-        <ListItemSecondaryAction>
-          <IconButton onClick={onClick} color="secondary">
+        <ListItemSecondaryAction style={{ marginRight: 12 }}>
+          <IconButton
+            onClick={onClick}
+            color="secondary"
+            style={{ marginRight: 6 }}
+          >
             <InfoIcon />
           </IconButton>
           {this.renderButton()}

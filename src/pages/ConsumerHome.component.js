@@ -18,7 +18,7 @@ import { ConsumerMenu } from '../components';
 
 type Props = {
   t: (x: string) => string,
-  location: { pathname: string },
+  location: { pathname: string, search: Object },
   authenticated: boolean,
   fetchBookings: () => void,
   fetchOptions: () => void,

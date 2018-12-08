@@ -433,7 +433,7 @@ export default {
       consumer: {
         pass: 'Abonnements',
         bookings: 'Mes réservations ',
-        profile: 'Profil',
+        profile: 'Mon Profil',
       },
       search: 'Rechercher',
       dashboard: 'Dashboard',

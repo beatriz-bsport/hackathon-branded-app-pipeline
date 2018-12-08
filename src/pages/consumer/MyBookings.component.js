@@ -33,14 +33,18 @@ import type { Booking, BookingOption } from '../../api/types';
 
 type Props = {
   classes: Object,
-  profile: Profile,
   fullScreen: boolean,
   loadingBooking: boolean,
   loadingOption: boolean,
+
+  profile: Profile,
+
   futureBookings: Array<Booking>,
   pastBookings: Array<Booking>,
   bookingOptions: Array<BookingOption>,
   optionCurrentlyCancelling: ?number,
+
+  discardBooking: (id: number) => void,
   cancelBookingOption: (id: number) => void,
   pushToMarketplace: (name: string) => void,
   t: (x: string) => string,

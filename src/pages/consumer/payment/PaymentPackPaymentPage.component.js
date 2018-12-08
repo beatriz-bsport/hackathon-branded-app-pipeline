@@ -15,6 +15,7 @@ import type { PaymentPack } from '../../../api/types';
 type Props = {
   loading: boolean,
   match: Object,
+  location: Object,
   paymentPack: ?PaymentPack,
   fetchPaymentPack: (number) => void,
 };

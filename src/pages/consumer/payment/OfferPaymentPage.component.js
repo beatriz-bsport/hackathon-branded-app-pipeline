@@ -22,6 +22,7 @@ type Props = {
   compatibleConsumerPacks: Array<ConsumerPaymentPackManagerView>,
   compatiblePaymentPacks: Array<PaymentPack>,
 
+  pushRouter: (path: string) => void,
   goToPassMarketplace: (companyName: string) => void,
   fetchOffer: (number) => void,
   fetchCompatiblePass: (number) => void,

@@ -24,9 +24,11 @@ type Props = {
   purchaseId: ?number,
   purchaseType: ?string,
   urlParams: ?string,
+  offerToBuy: ?number,
   stripe: Object,
-  goBack: TFunction,
+  goBack: () => void,
   classes: Object,
+  t: TFunction,
 };
 
 type State = {

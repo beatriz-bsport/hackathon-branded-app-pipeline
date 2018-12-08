@@ -16,7 +16,7 @@ import { translate } from 'react-i18next';
 import AddIcon from '@material-ui/icons/Add';
 import { push as pushRouter } from 'react-router-redux';
 
-import { SimpleModal, PaymentPackCard } from '../../components';
+import { PaymentPackCard } from '../../components';
 import PaymentPackDeleteDialog from '../../components/form/PaymentPackDeleteDialog.component';
 import { paymentPack as paymentPackActions } from '../../actions';
 import type { MetaActivity } from '../../api/types';

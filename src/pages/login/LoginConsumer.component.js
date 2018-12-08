@@ -52,7 +52,7 @@ export class ConsumerLoginPage extends Component<Props> {
   };
 
   signUp = async (data) => {
-    const membership = parse(this.props.location.search) || 0;
+    const { membership } = parse(this.props.location.search) || 0;
     if (membership) {
       data.membership = membership;
     }

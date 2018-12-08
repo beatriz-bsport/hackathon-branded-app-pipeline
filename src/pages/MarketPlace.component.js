@@ -6,7 +6,6 @@ import { compose } from 'recompose';
 import {
   Grid,
   CircularProgress,
-  Typography,
   Paper,
   AppBar,
   Tab,
@@ -17,7 +16,7 @@ import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 
-import moment from 'moment';
+import ConsumerAppBar from '../components/navigation/ConsumerAppBar.component';
 
 import routerParamsToProps from '../hocs/router-params-to-props.hoc';
 
@@ -163,31 +162,31 @@ export class MarketPlace extends Component<Props, State> {
       );
     }
     return (
-      <div className={classes.container}>
-        <Typography variant="h2" className={classes.title}>
-          {`${t('marketplace.welcomeTo')} ${company.name}`}
-        </Typography>
-        <AppBar position="relative" color="default">
-          {this.state.offerId ? (
-            <MarketplaceActivityDialog
-              offerId={this.state.offerId}
-              showBookingButton
-              displayPacksInformation
-              onClose={this.closeOfferDialog}
-            />
-          ) : null}
-          <Tabs
-            value={this.state.tabSelected}
-            onChange={this.handleTabChange}
-            textColor="primary"
-            indicatorColor="primary"
-            centered
-          >
-            <Tab value={TAB_CALENDAR} label={t('marketplace.calendar')} />
-            <Tab value={TAB_PASS} label={t('marketplace.pass')} />
-          </Tabs>
-        </AppBar>
-        <Paper>{this.renderContent()}</Paper>
+      <div style={{ width: '100%' }}>
+        <ConsumerAppBar title={company.name} />
+        <div className={classes.container}>
+          <AppBar position="relative" color="default">
+            {this.state.offerId ? (
+              <MarketplaceActivityDialog
+                offerId={this.state.offerId}
+                showBookingButton
+                displayPacksInformation
+                onClose={this.closeOfferDialog}
+              />
+            ) : null}
+            <Tabs
+              value={this.state.tabSelected}
+              onChange={this.handleTabChange}
+              textColor="primary"
+              indicatorColor="primary"
+              centered
+            >
+              <Tab value={TAB_CALENDAR} label={t('marketplace.calendar')} />
+              <Tab value={TAB_PASS} label={t('marketplace.pass')} />
+            </Tabs>
+          </AppBar>
+          <Paper>{this.renderContent()}</Paper>
+        </div>
       </div>
     );
   }
@@ -208,9 +207,12 @@ function mapStateToProps(state) {
 const styles = (theme) => ({
   container: {
     [theme.breakpoints.up('sm')]: {
-      margin: theme.spacing.unit * 2,
+      padding: theme.spacing.unit * 2,
     },
     width: '100%',
+  },
+  appBar: {
+    padding: theme.spacing.unit * 2,
   },
   title: {
     marginBottom: theme.spacing.unit * 6,

@@ -9,7 +9,7 @@ import registerServiceWorker from './registerServiceWorker';
 import './material-dashboard-react.css';
 
 Sentry.init({
-  dsn: '', //'https://88b735c4d80f4f83b12e79ed072f8f4e@sentry.io/1331952',
+  dsn: process.env.REACT_APP_SENTRY_DSN,
 });
 
 ReactDOM.render(<App />, document.getElementById('root'));

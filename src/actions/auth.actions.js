@@ -115,3 +115,22 @@ export function initiatedLogin(username) {
 export function disconnect() {
   return { type: types.DISCONNECT };
 }
+
+export function signup(data) {
+  return async (dispatch) => {
+    try {
+      const response = await api.auth.signup(data);
+      if (response && response.status === 201) {
+        return dispatch(requestLogin(data.email, data.password));
+      }
+      if (response && response.status === 200) {
+        alert(response.data);
+      }
+    } catch (err) {
+      alert(
+        "Impossible de créer votre compte pour le moment, veuillez réessayer d'ici quelques minutes",
+      );
+    }
+    return dispatch(errorLogin());
+  };
+}

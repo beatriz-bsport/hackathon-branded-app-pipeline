@@ -105,29 +105,15 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchOffer(id) {
-      dispatch(paymentActions.fetchOffer(id));
-    },
-    fetchCompatiblePass(id) {
-      dispatch(paymentActions.fetchCompatiblePass(id));
-    },
-    fetchCompatiblePaymentPacks(id) {
-      dispatch(paymentActions.fetchCompatiblePaymentPacks(id));
-    },
-    goToPassMarketplace(companyName) {
-      dispatch(routerPush(`/m/${companyName}`));
-    },
-    pushRouter(path) {
-      dispatch(routerPush(path));
-    },
-  };
-}
-
 export default translate()(
   connect(
     mapStateToProps,
-    mapDispatchToProps,
+    {
+      fetchOffer: paymentActions.fetchOffer,
+      fetchCompatiblePass: paymentActions.fetchCompatiblePass,
+      fetchCompatiblePaymentPacks: paymentActions.fetchCompatiblePaymentPacks,
+      goToPassMarketplace: (companyName) => routerPush(`/m/${companyName}`),
+      pushRouter: (path) => routerPush(path),
+    },
   )(OfferPaymentPage),
 );

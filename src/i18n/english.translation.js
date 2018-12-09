@@ -318,7 +318,7 @@ export default {
         },
       },
       title: 'Title',
-      specific_info: 'Description',
+      specific_info: 'Information',
       pleaseEnterYourSMSCode: 'Please enter the code sent by SMS',
       code: 'Code',
       SMSSignInTitle: 'Signin via SMS',

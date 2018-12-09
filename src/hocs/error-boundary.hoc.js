@@ -19,7 +19,11 @@ export default function(WrappedComponent) {
 
     render() {
       if (this.state.error) {
-        return <a onClick={() => Sentry.showReportDialog()}>Report feedback</a>;
+        return (
+          <button type="button" onClick={() => Sentry.showReportDialog()}>
+            Report feedback
+          </button>
+        );
       }
       return <WrappedComponent />;
     }

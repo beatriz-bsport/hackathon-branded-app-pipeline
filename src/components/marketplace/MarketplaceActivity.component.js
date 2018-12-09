@@ -4,7 +4,7 @@ import React from 'react';
 
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { push as pushRouter } from 'react-router-redux';
+import { push } from 'react-router-redux';
 
 import { withStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
@@ -233,7 +233,7 @@ export default compose(
     {
       fetchPaymentPacks: paymentActions.fetchCompatiblePaymentPacks,
       fetchPass: paymentActions.fetchCompatiblePass,
-      pushRouter,
+      pushRouter: push,
     },
   ),
 )(MarketPlaceActivity);

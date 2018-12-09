@@ -176,7 +176,6 @@ const styles = () => ({
   card: {
     margin: '0 auto',
     minWidth: 200,
-    maxWidth: 700,
   },
   media: {
     maxHeight: 200,

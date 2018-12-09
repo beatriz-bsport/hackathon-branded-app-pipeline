@@ -137,14 +137,17 @@ export class OfferPayment extends Component<Props> {
     return compatibleConsumerPacks.filter((cpp) => cpp.payment_pack.unlimited);
   };
 
-  renderBookingWithUnlimitedPass = (unlimitedPacks: Array<Object>) => (
-    <ConsumerPackCheckout
-      consumerPack={unlimitedPacks[0]}
-      offerId={this.props.offer.id}
-      creditPrice={this.props.offer.credit_price}
-      onCompletePurchase={this.props.onCompletePurchase}
-    />
-  );
+  renderBookingWithUnlimitedPass = (unlimitedPacks: Array<Object>) => {
+    return unlimitedPacks.map((pack) => (
+      <ConsumerPackCheckout
+        key={pack.id}
+        consumerPack={pack}
+        offerId={this.props.offer.id}
+        creditPrice={this.props.offer.credit_price}
+        onCompletePurchase={this.props.onCompletePurchase}
+      />
+    ));
+  };
 
   renderBuyCompatiblePaymentPack = () => {
     const {

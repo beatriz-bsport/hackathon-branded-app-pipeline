@@ -6,6 +6,8 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
+import { translate } from 'react-i18next';
+
 import { withStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -18,6 +20,8 @@ import IconButton from '@material-ui/core/IconButton';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import CancelIcon from '@material-ui/icons/Cancel';
+
+import { snackbarSuccess } from '../../actions/snackbar.actions';
 
 import { get, API_URI } from '../../http';
 
@@ -40,6 +44,7 @@ type Props = {
   displayPacksInformation: ?boolean,
   compatibleConsumerPacks: Array<ConsumerPaymentPack>,
   compatiblePaymentPacks: Array<PaymentPack>,
+  goToPackPayment: (packId: number, offerId: number) => void,
 };
 
 export class MarketPlaceActivity extends React.Component<Props> {
@@ -68,7 +73,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
         </div>
       );
     }
-    const { offer, classes, onClose, pushRouter } = this.props;
+    const { t, offer, classes, onClose, pushRouter } = this.props;
     const { activity } = this.state;
     const establishment = offer.establishment_override || offer.etablissement;
     const { location } = establishment || { location: null };
@@ -108,8 +113,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
               </Typography>
               <Typography variant="body2">{activity.description}</Typography>
               {this.props.displayPacksInformation &&
-              this.props.compatibleConsumerPacks.length &&
-              false ? (
+              this.props.compatibleConsumerPacks.length ? (
                 <div>
                   <Typography variant="subtitle1" className={classes.title}>
                     Mes abonnements compatibles
@@ -119,26 +123,41 @@ export class MarketPlaceActivity extends React.Component<Props> {
                       key={p.id}
                       offerId={offer.id}
                       consumerPack={p}
-                      urlParams=""
+                      urlParams={{}}
+                      onCompletePurchase={() => {
+                        this.props.goToHome();
+                        this.props.snackbarSuccess(
+                          'Votre réservation a été enregistrée',
+                        );
+                      }}
                     />
                   ))}
                 </div>
               ) : null}
               {this.props.displayPacksInformation &&
-              this.props.compatiblePaymentPacks.length &&
-              false ? (
+              this.props.compatiblePaymentPacks.length ? (
                 <div>
                   <Typography variant="subtitle1" className={classes.title}>
                     Abonnements compatibles
                   </Typography>
                   <div className={classes.listPaymentPacks}>
                     {this.props.compatiblePaymentPacks.map((p) => (
-                      <PaymentPackSummary
-                        key={p.id}
-                        paymentPack={p}
-                        noDivider
-                        buyButton
-                      />
+                      <div key={p.id}>
+                        <PaymentPackSummary
+                          paymentPack={p}
+                          noDivider
+                          buyButton
+                        />
+                        <Button
+                          variant="outlined"
+                          color="primary"
+                          onClick={() =>
+                            this.props.goToPackPayment(p.id, this.props.offerId)
+                          }
+                        >
+                          {t('common.buy')}
+                        </Button>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -167,8 +186,6 @@ export class MarketPlaceActivity extends React.Component<Props> {
         ) : null}
       </Card>
     );
-
-    // JSON.stringify(props);
   }
 }
 
@@ -227,12 +244,17 @@ function mapStateToProps(state, props) {
 
 export default compose(
   withStyles(styles),
+  translate(),
   connect(
     mapStateToProps,
     {
       fetchPaymentPacks: paymentActions.fetchCompatiblePaymentPacks,
       fetchPass: paymentActions.fetchCompatiblePass,
       pushRouter: push,
+      goToHome: () => push('/'),
+      snackbarSuccess,
+      goToPackPayment: (packId, offerId) =>
+        push(`/customer/payment/pass/${packId}?nextOffer=${offerId}`),
     },
   ),
 )(MarketPlaceActivity);

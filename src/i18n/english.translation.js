@@ -598,6 +598,7 @@ export default {
       showMarketplace: 'Show calendar of ',
       noSessionToday: 'No session',
       book: 'Book',
+      bookOption: 'Waiting list',
       sessionThisDay: 'Sessions this day: ',
       calendar: 'Planning',
       welcomeTo: 'Welcome to ',

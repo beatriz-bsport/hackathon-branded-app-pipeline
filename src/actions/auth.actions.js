@@ -123,8 +123,13 @@ export function signup(data) {
       if (response && response.status === 201) {
         return dispatch(requestLogin(data.email, data.password));
       }
-      if (response && response.status === 200) {
-        alert(response.data);
+      if (
+        response &&
+        response.status === 200 &&
+        response.data &&
+        response.data.message
+      ) {
+        alert(response.data.message);
       }
     } catch (err) {
       alert(

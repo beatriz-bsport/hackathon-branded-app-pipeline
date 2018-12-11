@@ -654,6 +654,7 @@ export default {
       showMarketplace: 'Voir le calendrier de ',
       noSessionToday: 'Aucune séance',
       book: 'Réserver',
+      bookOption: "Liste d'attente",
       sessionThisDay: 'Séance ce jour :',
       calendar: 'Calendrier',
       welcomeTo: 'Bienvenue chez ',

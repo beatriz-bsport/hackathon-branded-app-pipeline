@@ -23,6 +23,7 @@ type Props = {
     email: string,
     password: string,
   }) => void,
+  signup: (data: [*]) => void,
   location: Object,
   t: TFunction,
   classes: Object,
@@ -51,39 +52,13 @@ export class ConsumerLoginPage extends Component<Props> {
     });
   };
 
-  signUp = async (data) => {
-    const { membership } = parse(this.props.location.search) || 0;
-    if (membership) {
-      data.membership = membership;
-    }
-    /* eslint-disable */
-    const r = await api.auth.signup(data);
-    if (r) {
-      switch (r.status) {
-        case 201: {
-          this.props.doEmailLogin({
-            email: data.email,
-            password: data.password,
-          });
-          return;
-        }
-        case 200: {
-          alert(r.data.message);
-          return;
-        }
-      }
-    }
-    alert(
-      "Impossible de créer votre compte pour le moment, veuillez réessayer d'ici quelques minutes",
-    );
-  };
-
   render() {
     const {
       authenticated,
       errorLogin,
       loginProcessing,
       doEmailLogin,
+      signup,
       classes,
       t,
     } = this.props;
@@ -127,7 +102,7 @@ export class ConsumerLoginPage extends Component<Props> {
           <Grid item>
             <SignUpForm
               loading={loginProcessing}
-              onComplete={this.signUp}
+              onComplete={signup}
               onCancel={this.cancelSignUp}
             />
           </Grid>

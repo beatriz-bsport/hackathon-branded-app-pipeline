@@ -561,6 +561,7 @@ export default {
     establishment,
     search,
     booking: {
+      success: 'Réservation enregistrée',
       revertBookingTitle: "Annuler l'inscription",
       revertBookingExplain: (name: string) =>
         `Êtes-vous sûr de vouloir supprimer la réservation de ${name} ? Les crédits utilisés seront recrédités. Si vous ne souhaites pas recréditer le member, passez la réservation en Absent en cliquant sur le bouton "Présent"`,

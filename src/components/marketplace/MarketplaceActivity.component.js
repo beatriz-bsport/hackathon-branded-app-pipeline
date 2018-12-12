@@ -126,9 +126,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
                       urlParams={{}}
                       onCompletePurchase={() => {
                         this.props.goToHome();
-                        this.props.snackbarSuccess(
-                          'Votre réservation a été enregistrée',
-                        );
+                        this.props.snackbarSuccess('booking.success');
                       }}
                     />
                   ))}

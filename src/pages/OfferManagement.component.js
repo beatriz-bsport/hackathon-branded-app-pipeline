@@ -16,6 +16,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
+  CircularProgress,
 } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import TodayIcon from '@material-ui/icons/Today';
@@ -362,6 +363,7 @@ export class OfferManagement extends Component<Props, State> {
 
   render() {
     const {
+      offer,
       bookings,
       bookingLoading,
       bookingOptions,
@@ -373,6 +375,10 @@ export class OfferManagement extends Component<Props, State> {
     } = this.props;
 
     const { memberToRegister } = this.state;
+
+    if (!offer) {
+      return <CircularProgress />;
+    }
 
     return (
       <Grid container direction="row" spacing={16}>
@@ -386,8 +392,7 @@ export class OfferManagement extends Component<Props, State> {
           >
             <Grid item>
               <Typography variant="h3">
-                {this.props.offer.name} -{' '}
-                {formatAsDatetime(this.props.offer.date_start)}
+                {offer.name} - {formatAsDatetime(offer.date_start)}
               </Typography>
             </Grid>
             <Grid item>
@@ -443,7 +448,7 @@ export class OfferManagement extends Component<Props, State> {
         >
           <DialogContent>
             <RegisterMemberToOfferForm
-              offer={this.props.offer}
+              offer={offer}
               member={memberToRegister}
               open={!!memberToRegister}
               loading={this.props.compatiblePacksLoading}

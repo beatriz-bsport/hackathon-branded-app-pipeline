@@ -348,8 +348,6 @@ export default {
       addingSessionFor: 'Session form for: ',
       establishment: 'Establishment',
       coach: 'Coach',
-      title: 'Title',
-      specific_info: 'Information',
       newMember: 'New Member',
       newCoach: 'New Coach',
       firstname: 'Firstname',

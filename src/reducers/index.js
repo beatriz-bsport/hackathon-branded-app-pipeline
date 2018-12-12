@@ -54,9 +54,5 @@ const rootReducer = combineReducers({
 
 export default (state: State, action: Action) => {
   const newState = action.type === 'DISCONNECT' ? { nav: state.nav } : state;
-  const refreshedState =
-    action.type === types.REFRESH_STORE_START
-      ? { nav: newState.nav, auth: newState.auth }
-      : newState;
-  return rootReducer(refreshedState, action);
+  return rootReducer(newState, action);
 };

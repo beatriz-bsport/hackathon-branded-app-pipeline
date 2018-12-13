@@ -3,12 +3,10 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import MomentUtils from 'material-ui-pickers/utils/moment-utils';
-
-import { colors } from 'bsport-commons/lib/colors';
 
 import withSentryErrorReporting from './hocs/error-boundary.hoc';
 import { Moment } from './i18n';
@@ -20,22 +18,7 @@ import './App.scss';
 
 import initStore from './store';
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: colors.primary,
-    },
-    secondary: {
-      main: colors.secondary,
-    },
-    error: {
-      main: colors.orange,
-    },
-  },
-  typography: {
-    useNextVariants: true,
-  },
-});
+import theme from './theme';
 
 export class App extends Component<{}, {}> {
   store: *;

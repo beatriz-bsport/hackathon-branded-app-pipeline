@@ -7,12 +7,16 @@ import { compose, withState, withProps } from 'recompose';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Fab from '@material-ui/core/Fab';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import AddIcon from '@material-ui/icons/Add';
 
 import type { ReportConfiguration, ReportCategoryEnum } from './types';
 
 import ReportCategorySelector from './ReportCategorySelector.component';
 import ReportList from './ReportList.component';
+import ReportConfigurationForm from './ReportConfigurationForm.component';
 
 type Props = {
   setSelectedCategory: (ReportCategoryEnum) => void,
@@ -20,6 +24,8 @@ type Props = {
   classes: { [string]: string },
   setShowModalAdd: (boolean) => void,
   showModalAdd: boolean,
+  reportConfiguration: ReportConfiguration,
+  upsertReportConfiguration: (ReportConfiguration) => void,
 };
 
 export function ReportDashboard(props: Props) {
@@ -29,6 +35,8 @@ export function ReportDashboard(props: Props) {
     classes,
     showModalAdd,
     setShowModalAdd,
+    upsertReportConfiguration,
+    reportConfiguration,
   } = props;
   return (
     <Paper className={classes.root}>
@@ -41,6 +49,17 @@ export function ReportDashboard(props: Props) {
       >
         <AddIcon />
       </Fab>
+      {showModalAdd ? (
+        <Dialog open>
+          <DialogTitle>New report</DialogTitle>
+          <DialogContent>
+            <ReportConfigurationForm
+              initial={reportConfiguration}
+              onSubmit={upsertReportConfiguration}
+            />
+          </DialogContent>
+        </Dialog>
+      ) : null}
     </Paper>
   );
 }
@@ -62,6 +81,7 @@ const styles = (theme) => ({
 export default compose(
   withStyles(styles),
   withState('selectedCategory', 'setSelectedCategory', null),
+  withState('reportConfiguration', 'setReportConfigurationToEdit', null),
   withProps(({ reportConfigurations, selectedCategory }) => ({
     reportConfigurations: selectedCategory
       ? reportConfigurations.filter((c) => c.category === selectedCategory)

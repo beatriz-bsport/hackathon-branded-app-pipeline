@@ -9,11 +9,13 @@ import companies from './fr/companies.translations';
 import dashboard from './fr/dashboard.translations';
 import settings from './fr/settings.translations';
 import paymentRules from './fr/payment-rules.translations';
+import reporting from './fr/reporting.translations';
 
 export default {
   dashboard,
   settings,
   paymentRules,
+  reporting,
   coachPerformance: {
     fields: {
       bonus: 'Bonus',

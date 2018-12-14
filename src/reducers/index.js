@@ -28,7 +28,10 @@ import types from '../actions/refresh.types';
 
 import type { State, Action } from '../state/types';
 
+import { reducer } from '../resources';
+
 const rootReducer = combineReducers({
+  '@api': reducer,
   paymentRules: paymentRulesReducer,
   payment: paymentReducers,
   consumer: consumerReducers,

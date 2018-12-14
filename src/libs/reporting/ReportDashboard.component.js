@@ -19,14 +19,16 @@ import ReportCategorySelector from './ReportCategorySelector.component';
 import ReportList from './ReportList.component';
 import ReportConfigurationForm from './ReportConfigurationForm.component';
 
-type Props = {
-  setSelectedCategory: (ReportCategoryEnum) => void,
+type ExternalProps = {
   reportConfigurations: ReportConfiguration[],
+  upsertReportConfiguration: (ReportConfiguration) => void,
+};
+type Props = ExternalProps & {
+  setSelectedCategory: (ReportCategoryEnum) => void,
   classes: { [string]: string },
   setShowModalAdd: (boolean) => void,
   showModalAdd: boolean,
   reportConfiguration: ReportConfiguration,
-  upsertReportConfiguration: (ReportConfiguration) => void,
 };
 
 export function ReportDashboard(props: Props) {
@@ -62,7 +64,10 @@ export function ReportDashboard(props: Props) {
           <DialogContent>
             <ReportConfigurationForm
               initial={reportConfiguration}
-              onSubmit={upsertReportConfiguration}
+              onSubmit={(data) => {
+                upsertReportConfiguration(data);
+                setShowModalAdd(false);
+              }}
             />
           </DialogContent>
         </Dialog>

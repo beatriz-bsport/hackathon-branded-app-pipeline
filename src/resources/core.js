@@ -65,7 +65,7 @@ function createEffects(resourceId, path, actions) {
       return async (dispatch) => {
         dispatch(actions.update.start(data));
         try {
-          const url = `${API_URI}/${path}/${data.id}`;
+          const url = `${API_URI}/${path}/${data.id}/`;
           const response = await putAuth(url, data);
           dispatch(actions.update.success(response.data));
         } catch (error) {

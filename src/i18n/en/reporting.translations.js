@@ -6,5 +6,6 @@ export default {
     email: 'Email',
     phonenumber: 'Phone number',
     date_joined: 'Date joined',
+    gender: 'Gender',
   },
 };

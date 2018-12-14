@@ -10,5 +10,13 @@ import ReportList from './ReportList.component';
 
 storiesOf('Reporting/ReportList', module).add('default', () => {
   const configurations = FactoryBot.ReportConfiguration.create(6);
-  return <ReportList items={configurations} />;
+  return (
+    <ReportList
+      items={configurations}
+      itemProps={{
+        onDetail: action('onDetail'),
+        onEdit: action('onEdit'),
+      }}
+    />
+  );
 });

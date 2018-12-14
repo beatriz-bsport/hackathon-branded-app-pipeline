@@ -29,6 +29,7 @@ type Props = ExternalProps & {
   setShowModalAdd: (boolean) => void,
   showModalAdd: boolean,
   reportConfiguration: ReportConfiguration,
+  onReportDetail: (ReportConfiguration) => void,
 };
 
 export function ReportDashboard(props: Props) {
@@ -40,12 +41,25 @@ export function ReportDashboard(props: Props) {
     setShowModalAdd,
     upsertReportConfiguration,
     reportConfiguration,
+    onReportDetail,
+    setReportConfigurationToEdit,
   } = props;
+  const itemProps = {
+    onEdit: (report: ReportConfiguration) => {
+      setReportConfigurationToEdit(report);
+      setShowModalAdd(true);
+    },
+    onDetail: onReportDetail,
+  };
   return (
     <Paper className={classes.root}>
       <ReportCategorySelector onSelect={setSelectedCategory} />
       {reportConfigurations.length ? (
-        <ReportList items={reportConfigurations} className={classes.list} />
+        <ReportList
+          items={reportConfigurations}
+          className={classes.list}
+          itemProps={itemProps}
+        />
       ) : (
         <Typography variant="body1" className={classes.messageNoReports}>
           No reports here? Create a new one now!

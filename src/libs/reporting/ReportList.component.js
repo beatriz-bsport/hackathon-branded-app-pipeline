@@ -14,9 +14,13 @@ type Props = {
   items: ReportConfiguration[],
   classes: { [string]: string },
   className: string,
+  itemProps: {
+    onEdit: (report: ReportConfiguration) => void,
+    onDetail: (report: ReportConfiguration) => void,
+  },
 };
 
-export function ReportList({ items, classes, className }: Props) {
+export function ReportList({ items, classes, className, itemProps }: Props) {
   return (
     <Paper className={className}>
       <List className={classes.list}>
@@ -25,6 +29,7 @@ export function ReportList({ items, classes, className }: Props) {
             <ReportListItem
               key={reportConfiguration.id}
               report={reportConfiguration}
+              {...itemProps}
             />
           );
         })}

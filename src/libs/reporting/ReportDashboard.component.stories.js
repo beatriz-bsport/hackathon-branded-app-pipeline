@@ -14,6 +14,7 @@ storiesOf('Reporting/ReportDashboard', module).add('default', () => {
     <ReportDashboard
       reportConfigurations={configurations}
       upsertReportConfiguration={action('upsertReportConfiguration')}
+      onReportDetail={action('onReportDetail')}
     />
   );
 });

@@ -318,7 +318,7 @@ export default {
         },
       },
       title: 'Title',
-      specific_info: 'Description',
+      specific_info: 'Information',
       pleaseEnterYourSMSCode: 'Please enter the code sent by SMS',
       code: 'Code',
       SMSSignInTitle: 'Signin via SMS',
@@ -501,6 +501,7 @@ export default {
       reviews: 'Customer reviews: ',
     },
     booking: {
+      success: 'Booking saved',
       revertBookingTitle: 'Delete boking',
       revertBookingExplain: (name: string) =>
         `Are you sure you want to delete ${name}'s booking ? Used credits will be given back to your member. If you do not want to increments credits, you can pass the booking status to "Absent" by clicking "Attend" button.`,

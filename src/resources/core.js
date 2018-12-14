@@ -1,9 +1,15 @@
 // @flow
 
+import * as Sentry from '@sentry/browser';
 import lodash from 'lodash';
 import Immutable from 'seamless-immutable';
 
 import { postAuth, getAuth, putAuth, API_URI } from '../http';
+
+function handleError(error) {
+  console.error(error);
+  Sentry.captureException(error);
+}
 
 function createAction(type) {
   return (payload) => {
@@ -44,7 +50,7 @@ function createEffects(resourceId, path, actions) {
           dispatch(actions.list.success(response.data));
         } catch (error) {
           dispatch(actions.list.error(error));
-          console.error(error);
+          handleError(error);
         }
       };
     },
@@ -57,7 +63,7 @@ function createEffects(resourceId, path, actions) {
           dispatch(actions.create.success(response.data));
         } catch (error) {
           dispatch(actions.create.error(error));
-          console.error(error);
+          handleError(error);
         }
       };
     },
@@ -70,7 +76,7 @@ function createEffects(resourceId, path, actions) {
           dispatch(actions.update.success(response.data));
         } catch (error) {
           dispatch(actions.update.error({ error, data }));
-          console.error(error);
+          handleError(error);
         }
       };
     },

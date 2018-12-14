@@ -30,6 +30,7 @@ import { EstablishmentMap, EstablishmentFormPage } from './establishment';
 import OfferManagement from './OfferManagement.component';
 import SearchResults from './SearchResults.component';
 import ShopManager from './shop/ShopManager.component';
+import Reporting from './reporting/Reporting.component';
 
 type Props = {
   refresh: () => void,
@@ -118,6 +119,7 @@ export class Backoffice extends Component<Props> {
               />
               <Route path="/marketing/rule/:id" component={MarketingRule} />
               <Route path="/marketing" component={MarketingDashboard} />
+              <Route path="/reporting" component={Reporting} />
               <Route exact path="/dashboard" component={Dashboard} />
               <Route exact path="/search/results" component={SearchResults} />
               <Route path="/settings/" component={Settings} />

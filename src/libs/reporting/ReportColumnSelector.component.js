@@ -36,6 +36,7 @@ export default withStyles(styles)((props: Props) => {
           : () => onChange(value.concat([identifier]));
         return (
           <Chip
+            key={identifier}
             label={name}
             color={color}
             className={classes.chip}

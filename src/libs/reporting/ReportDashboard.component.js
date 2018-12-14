@@ -10,6 +10,7 @@ import Fab from '@material-ui/core/Fab';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Typography from '@material-ui/core/Typography';
 import AddIcon from '@material-ui/icons/Add';
 
 import type { ReportConfiguration, ReportCategoryEnum } from './types';
@@ -41,7 +42,13 @@ export function ReportDashboard(props: Props) {
   return (
     <Paper className={classes.root}>
       <ReportCategorySelector onSelect={setSelectedCategory} />
-      <ReportList items={reportConfigurations} className={classes.list} />
+      {reportConfigurations.length ? (
+        <ReportList items={reportConfigurations} className={classes.list} />
+      ) : (
+        <Typography variant="body1" className={classes.messageNoReports}>
+          No reports here? Create a new one now!
+        </Typography>
+      )}
       <Fab
         color="primary"
         className={classes.fabAdd}
@@ -75,6 +82,11 @@ const styles = (theme) => ({
     position: 'fixed',
     bottom: theme.spacing.unit * 2,
     right: theme.spacing.unit * 2,
+  },
+  messageNoReports: {
+    textAlign: 'center',
+    paddingTop: theme.spacing.unit * 10,
+    paddingBottom: theme.spacing.unit * 10,
   },
 });
 

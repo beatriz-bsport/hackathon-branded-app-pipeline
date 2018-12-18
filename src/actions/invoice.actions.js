@@ -3,7 +3,10 @@ import api from '../api';
 import types from './invoice.types';
 import { snackbarSuccess, snackbarError } from './snackbar.actions';
 import { fetchAll as fetchAllPaymentPacks } from './paymentPack.actions';
-import { fetchAll as fetchAllMembers } from './member.actions';
+import {
+  fetchAll as fetchAllMembers,
+  quickFetch as quickFetchMember,
+} from './member.actions';
 
 export function startFetchInvoices() {
   return { type: types.START_FETCH_INVOICES };
@@ -76,7 +79,7 @@ export function updatePaymentStatus(uuid, newStatus) {
   };
 }
 
-export function createOrUpdateInvoice(invoiceData, noRedirect) {
+export function createOrUpdateInvoice(invoiceData, noRedirect, memberId) {
   return async (dispatch) => {
     dispatch(actionCreateOrUpdateInvoice(invoiceData));
 
@@ -95,7 +98,11 @@ export function createOrUpdateInvoice(invoiceData, noRedirect) {
         dispatch(snackbarSuccess('invoice.forms.create.success'));
       }
       dispatch(fetchAllPaymentPacks());
-      dispatch(fetchAllMembers()); // TODO optimize not to reload everything
+      if (memberId) {
+        dispatch(quickFetchMember(memberId));
+      } else {
+        dispatch(fetchAllMembers()); // TODO optimize not to reload everything
+      }
       if (!noRedirect) {
         dispatch(pushRouter('/invoice'));
       }

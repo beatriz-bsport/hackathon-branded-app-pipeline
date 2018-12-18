@@ -171,6 +171,7 @@ export class Planning extends Component<Props, State> {
           editModalOpened: false,
           selectedOffer: null,
         });
+        this.onDateClick(this.state.date);
         return;
       }
     } catch (err) {

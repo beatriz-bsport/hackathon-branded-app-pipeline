@@ -27,6 +27,13 @@ export default function memberReducers(state = initialState, action = {}) {
       });
     }
 
+    case actionTypes.SUCCESS_QUICK_FETCH_MEMBER: {
+      const { member } = action;
+      return Immutable.merge(state, {
+        all: [member, ...state.all.filter((m) => m.id !== member.id)],
+      });
+    }
+
     case actionTypes.START_FETCH_MEMBERS: {
       return Immutable.merge(state, {
         loading: true,

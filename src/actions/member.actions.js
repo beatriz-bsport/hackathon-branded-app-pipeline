@@ -8,6 +8,23 @@ import types from './member.types';
 
 import type { Dispatch } from '../state/types';
 
+export function quickFetchSuccess(member: {}) {
+  return { type: types.SUCCESS_QUICK_FETCH_MEMBER, member };
+}
+
+export function quickFetch(id: number) {
+  return async (dispatch: Dispatch) => {
+    try {
+      const response = await api.member.quickFetch(id);
+      const member = response.data;
+
+      dispatch(quickFetchSuccess(member));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+}
+
 export function fetchAll() {
   return async (dispatch: Dispatch) => {
     dispatch(startFetchMembers());

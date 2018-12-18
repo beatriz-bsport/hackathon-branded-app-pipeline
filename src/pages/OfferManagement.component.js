@@ -32,6 +32,7 @@ import {
   search as searchActions,
   invoice as invoiceActions,
   offer as offerActions,
+  member as memberActions,
 } from '../actions';
 import BookingTable from '../components/booking/BookingTable.container';
 import SearchBar from '../components/SearchBar.component';
@@ -46,7 +47,7 @@ import RedButton from '../components/button/RedButton.component';
 import { mapFormData } from './form.utils';
 
 type Props = {
-  createInvoice: ([*]) => void,
+  createInvoice: ([*], number) => void,
   offerId: number,
   update: Offer,
   clearSearch: () => void,
@@ -70,9 +71,14 @@ type Props = {
   fetchBookings: (offerId: number) => void,
   fetchCompatiblePacks: (offerId: number) => void,
   createOrUpdateMember: (data: [*]) => void,
-  addToOffer: ({ offerId: number, consumerPaymentPackId: number }) => void,
+  addToOffer: ({
+    offerId: number,
+    consumerPaymentPackId: number,
+    memberId: number,
+  }) => void,
   discardOption: (id: number) => void,
-  deleteBooking: (bookingId: number) => void,
+  deleteBooking: (bookingId: number, memberId: number) => void,
+  quickFetchMember: (memberId: number) => void,
 
   goBack: () => void,
   t: TFunction,
@@ -104,18 +110,22 @@ export class OfferManagement extends Component<Props, State> {
   };
 
   registerMember = (consumerPaymentPackId: number) => {
+    const { memberToRegister } = this.state;
     this.props.addToOffer({
       offerId: this.props.offerId,
       consumerPaymentPackId,
+      memberId: memberToRegister.id,
     });
     this.props.clearSearch();
     this.setState({ memberToRegister: null });
   };
 
   createInvoice = (invoiceData, memberId) => {
-    this.props.createInvoice(invoiceData);
+    this.props.createInvoice(invoiceData, memberId);
     this.closeQuickInvoice(memberId);
-    setTimeout(() => this.props.fetchBookings(this.props.offerId), 5000);
+    setTimeout(() => {
+      this.props.fetchBookings(this.props.offerId);
+    }, 5000);
   };
 
   createMember = async (data: *) => {
@@ -295,8 +305,8 @@ export class OfferManagement extends Component<Props, State> {
     this.setState({ bookingToRevert: booking });
   };
 
-  handleBookingDeletion = (bookingId: number) => {
-    this.props.deleteBooking(bookingId);
+  handleBookingDeletion = (bookingId: number, memberId: number) => {
+    this.props.deleteBooking(bookingId, memberId);
     this.closeRevertBookingDialog();
   };
 
@@ -327,7 +337,12 @@ export class OfferManagement extends Component<Props, State> {
               {t('common.cancel')}
             </Button>
             <RedButton
-              onClick={() => this.handleBookingDeletion(bookingToRevert.id)}
+              onClick={() =>
+                this.handleBookingDeletion(
+                  bookingToRevert.id,
+                  bookingToRevert.member,
+                )
+              }
               color="primary"
               autoFocus
             >
@@ -507,8 +522,8 @@ function mapDispatchToProps(dispatch) {
     clearSearch() {
       dispatch(searchActions.clearSearch(false));
     },
-    deleteBooking(bookingId) {
-      dispatch(bookingActions.deleteBooking(bookingId));
+    deleteBooking(bookingId, memberId) {
+      dispatch(bookingActions.deleteBooking(bookingId, memberId));
     },
     fetchBookings(offerId) {
       dispatch(bookingActions.fetchBookingsByOffer(offerId));
@@ -533,8 +548,10 @@ function mapDispatchToProps(dispatch) {
     createOrUpdateMember(data) {
       dispatch(createOrUpdateMember(data, true));
     },
-    createInvoice(invoiceData: InvoiceData) {
-      dispatch(invoiceActions.createOrUpdateInvoice(invoiceData, true));
+    createInvoice(invoiceData: InvoiceData, memberId: number) {
+      dispatch(
+        invoiceActions.createOrUpdateInvoice(invoiceData, true, memberId),
+      );
     },
     goBack() {
       dispatch(goBack());
@@ -542,8 +559,10 @@ function mapDispatchToProps(dispatch) {
     fetchCompatiblePacks(id: number) {
       dispatch(offerActions.fetchCompatiblePacks(id));
     },
-    addToOffer({ offerId, consumerPaymentPackId }) {
-      dispatch(bookingActions.addBooking({ offerId, consumerPaymentPackId }));
+    addToOffer({ offerId, consumerPaymentPackId, memberId }) {
+      dispatch(
+        bookingActions.addBooking({ offerId, consumerPaymentPackId, memberId }),
+      );
     },
   };
 }

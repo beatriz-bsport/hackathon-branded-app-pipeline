@@ -44,6 +44,8 @@ export default {
       CHECK: 'Check',
     },
     common: {
+      export: 'Export',
+      generate: 'Generate',
       buy: 'Buy',
       establishments: 'Locations',
       notes: 'Notes',

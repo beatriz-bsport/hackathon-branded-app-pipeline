@@ -9,7 +9,13 @@ import { withFormik, Form, Field, FieldArray } from 'formik';
 
 import Typography from '@material-ui/core/Typography';
 
-import { AlertError, TextField, Submit } from '../../components/forms';
+import {
+  AlertError,
+  TextField,
+  Submit,
+  FormControl,
+  Actions,
+} from '../../components/forms';
 
 import type { ReportConfiguration } from './types';
 import metadata from './configuration';
@@ -38,20 +44,20 @@ export function ReportConfigurationForm(props: Props) {
       <AlertError name="name" />
       <TextField name="description" fullWidth label="Description" />
       <AlertError name="description" />
-      <Typography variant="body1">Category</Typography>
-      <Field name="category">
-        {({ field: { value, onChange } }) => (
-          <ReportCategorySelector
-            selected={value}
-            onSelect={onChange('category')}
-          />
-        )}
-      </Field>
-      <AlertError name="category" />
+      <FormControl label="Category">
+        <Field name="category">
+          {({ field: { value, onChange } }) => (
+            <ReportCategorySelector
+              selected={value}
+              onSelect={onChange('category')}
+            />
+          )}
+        </Field>
+        <AlertError name="category" />
+      </FormControl>
 
       {categoryMetadata ? (
-        <div>
-          <Typography variant="body1">Columns</Typography>
+        <FormControl label="Columns">
           <FieldArray name="columns">
             {({ name, form: { values, setFieldValue } }) => (
               <ReportColumnSelector
@@ -64,9 +70,11 @@ export function ReportConfigurationForm(props: Props) {
             )}
           </FieldArray>
           <AlertError name="columns" />
-        </div>
+        </FormControl>
       ) : null}
-      <Submit disabled={isSubmitting}>Save</Submit>
+      <Actions>
+        <Submit disabled={isSubmitting}>Save</Submit>
+      </Actions>
     </Form>
   );
 }

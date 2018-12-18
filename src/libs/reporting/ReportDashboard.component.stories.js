@@ -8,7 +8,7 @@ import { storiesOf } from '../../stories';
 
 import ReportDashboard from './ReportDashboard.component';
 
-storiesOf('Reporting/ReportDashboard', module).add('default', () => {
+storiesOf('Reporting/Pages/ReportDashboard', module).add('default', () => {
   const configurations = FactoryBot.ReportConfiguration.create(6);
   return (
     <ReportDashboard

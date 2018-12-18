@@ -53,26 +53,34 @@ export function TextField(props: props) {
 }
 
 const buttonStyles = (theme) => ({
-  row: {
-    textAlign: 'right',
-  },
-  root: {
-    margin: theme.spacing.unit,
+  button: {
+    marginLeft: theme.spacing.unit * 2,
   },
 });
 export const Submit = withStyles(buttonStyles)((props: SubmitProps) => {
   const { classes } = props;
   return (
-    <div className={classes.row}>
-      <MuiButton
-        variant="contained"
-        type="submit"
-        color="primary"
-        {...props}
-        classes={props.classes}
-      />
-    </div>
+    <MuiButton
+      variant="contained"
+      type="submit"
+      color="primary"
+      {...props}
+      className={classes.button}
+      classes={props.classes}
+    />
   );
+});
+
+const actionsStyles = (theme) => ({
+  row: {
+    textAlign: 'right',
+    paddingTop: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit * 2,
+  },
+});
+export const Actions = withStyles(actionsStyles)((props: ActionsProps) => {
+  const { classes } = props;
+  return <div className={classes.row}>{props.children}</div>;
 });
 
 export const DateField = (props: DateFieldProps) => {
@@ -90,3 +98,28 @@ export const DateField = (props: DateFieldProps) => {
     />
   );
 };
+
+type FormControlProps = {};
+
+const formControlStyles = (theme) => ({
+  control: {
+    marginTop: theme.spacing.unit,
+  },
+  label: {
+    marginBottom: theme.spacing.unit,
+  },
+});
+
+export const FormControl = withStyles(formControlStyles)(
+  (props: FormControlProps) => {
+    const { classes, label, children } = props;
+    return (
+      <div className={classes.control}>
+        <Typography variant="body2" className={classes.label}>
+          {label}
+        </Typography>
+        {children}
+      </div>
+    );
+  },
+);

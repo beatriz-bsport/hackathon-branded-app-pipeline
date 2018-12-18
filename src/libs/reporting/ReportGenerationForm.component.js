@@ -4,16 +4,21 @@ import React from 'react';
 
 import moment from 'moment';
 
+import { compose } from 'recompose';
+
 import * as Yup from 'yup';
 import { withFormik, Form } from 'formik';
 
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
+import { withStyles } from '@material-ui/core/styles';
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
+import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import { AlertError, DateField, Submit } from '../../components/forms';
+import { AlertError, DateField, Submit, Actions } from '../../components/forms';
 
 import type { ReportConfiguration } from './types';
 
@@ -21,6 +26,7 @@ type Props = {
   reportConfiguration: ReportConfiguration,
   isSubmitting: boolean,
   t: TFunction,
+  exportLink?: string,
 };
 
 const ReportGenerationSchema = Yup.object().shape({
@@ -29,7 +35,7 @@ const ReportGenerationSchema = Yup.object().shape({
 });
 
 export function ReportGenerationForm(props: Props) {
-  const { t, isSubmitting, reportConfiguration } = props;
+  const { t, isSubmitting, reportConfiguration, exportLink, classes } = props;
   return (
     <Form>
       <Typography variant="subtitle1">{reportConfiguration.name}</Typography>
@@ -43,12 +49,32 @@ export function ReportGenerationForm(props: Props) {
           <AlertError name="dateEnd" />
         </Grid>
       </Grid>
-      <Submit disabled={isSubmitting}>{t('common.generate')}</Submit>
+      <Actions>
+        <Button
+          component="a"
+          href={exportLink}
+          variant="contained"
+          color="secondary"
+          disabled={!exportLink}
+        >
+          {t('common.export')}
+          <CloudDownloadIcon className={classes.rightIcon} />
+        </Button>
+        <Submit disabled={isSubmitting}>{t('common.generate')}</Submit>
+      </Actions>
     </Form>
   );
 }
 
-export default withNamespaces()(
+const styles = (theme) => ({
+  rightIcon: {
+    marginLeft: theme.spacing.unit,
+  },
+});
+
+export default compose(
+  withNamespaces(),
+  withStyles(styles),
   withFormik({
     mapPropsToValues: ({ initial }) =>
       initial || {
@@ -62,5 +88,5 @@ export default withNamespaces()(
         setSubmitting(false);
       }, 500);
     },
-  })(ReportGenerationForm),
-);
+  }),
+)(ReportGenerationForm);

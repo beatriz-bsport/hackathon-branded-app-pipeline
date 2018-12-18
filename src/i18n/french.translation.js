@@ -63,6 +63,8 @@ export default {
       },
     },
     common: {
+      export: 'Exporter',
+      generate: 'Générer',
       buy: 'Acheter',
       establishments: 'Lieux',
       notes: 'Notes',

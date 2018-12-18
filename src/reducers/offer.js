@@ -66,7 +66,14 @@ export default handleActions(
         ...o,
         lastRefresh: new Date() / 1000,
       }));
-      const allItems = lodash.uniqBy([].concat(oldItems, newItems), 'id');
+      const newIds = newItems.map((o) => o.id);
+      const allItems = lodash.uniqBy(
+        [].concat(
+          newItems,
+          oldItems.filter((old) => +newIds.findIndex((idx) => old.id === idx)),
+          'id',
+        ),
+      );
       return state.set('offers', allItems);
     },
   },

@@ -3,6 +3,7 @@ import types from './booking.types';
 
 import { refreshAllPaymentPack } from './paymentPack.actions'; // TODO do it elsewhere
 import { snackbarSuccess, snackbarError } from './snackbar.actions';
+import { quickFetch as quickFetchMember } from './member.actions';
 
 export function updatingBookingOption(bookingOptionId) {
   return { type: types.START_UPDATING_BOOKING_OPTION, bookingOptionId };
@@ -75,7 +76,7 @@ export function deleteBookingSuccess(bookingId) {
 export function deleteBookingError(bookingId) {
   return { type: types.BOOKING_DELETE_ERROR, bookingId };
 }
-export function deleteBooking(bookingId) {
+export function deleteBooking(bookingId, memberId) {
   return async (dispatch) => {
     dispatch(deleteBookingStart(bookingId));
 
@@ -85,6 +86,9 @@ export function deleteBooking(bookingId) {
         dispatch(deleteBookingSuccess(bookingId));
         dispatch(snackbarSuccess('form.booking.delete.success'));
         dispatch(refreshAllPaymentPack());
+        if (memberId) {
+          dispatch(quickFetchMember(memberId));
+        }
       } else {
         dispatch(deleteBookingError(bookingId));
         dispatch(snackbarError('form.booking.delete.error'));
@@ -154,7 +158,7 @@ export function errorFetchingBookings() {
   return { type: types.ERROR_FETCHING_BOOKINGS };
 }
 
-export function addBooking({ offerId, consumerPaymentPackId }) {
+export function addBooking({ offerId, consumerPaymentPackId, memberId }) {
   return async (dispatch) => {
     dispatch(addBookingStart());
 
@@ -167,6 +171,9 @@ export function addBooking({ offerId, consumerPaymentPackId }) {
 
       dispatch(addBookingSuccess(booking));
       dispatch(refreshAllPaymentPack());
+      if (memberId) {
+        dispatch(quickFetchMember(memberId));
+      }
     } catch (err) {
       dispatch(addBookingError());
     }

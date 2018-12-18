@@ -12,6 +12,10 @@ export async function fetchAllMembers() {
   return getAuth(`${API_URI}/saas/members`);
 }
 
+export async function quickFetch(memberId: number) {
+  return getAuth(`${API_URI}/saas/members/${memberId}/summary`);
+}
+
 export async function fetchMember(memberId: number) {
   return getAuth(`${API_URI}/saas/members/${memberId}`);
 }
@@ -45,4 +49,5 @@ export default {
   createNote,
   updateNote,
   deleteNote,
+  quickFetch,
 };

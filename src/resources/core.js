@@ -6,18 +6,158 @@ import Immutable from 'seamless-immutable';
 
 import { postAuth, getAuth, putAuth, API_URI } from '../http';
 
-function handleError(error) {
+function toSnakeCase(s) {
+  return s.replace(
+    /([a-z-0-9])([A-Z])/g,
+    (_, before, upper) => `${before}_${upper.toLowerCase()}`,
+  );
+}
+
+export function asQueryParams(ob) {
+  const keyed = lodash.mapKeys(ob, (v, k) => toSnakeCase(k));
+  return lodash.map(keyed, (v, k) => `${k}=${v}`).join('&');
+}
+
+function handleError(error: Error): void {
   console.error(error);
   Sentry.captureException(error);
 }
 
-function createAction(type) {
+export type ActionCreator<S, T> = (T) => { type: S, payload: T };
+
+function createActionCreator<T>(type: string): ActionCreator<string, T> {
   return (payload) => {
     return { type, payload };
   };
 }
 
-function createAsyncTypes(resourceId, verb) {
+const DEFAULT_VERBS = {
+  get: {
+    effect(path, action) {
+      return (...args) => {
+        return async (dispatch) => {
+          dispatch(action.start());
+
+          try {
+            const url = `${API_URI}/${path(...args)}`;
+            const response = await getAuth(url);
+            dispatch(action.success(response.data));
+          } catch (error) {
+            dispatch(action.error(error));
+            handleError(error);
+          }
+        };
+      };
+    },
+    reducer(type) {
+      return {
+        [type.start]: (state) =>
+          state.merge({ value: null, error: null, loading: true }),
+        [type.error]: (state, payload) => {
+          return state.merge({ error: payload, loading: false });
+        },
+        [type.success]: (state, payload) => {
+          return state.merge({ value: payload, loading: false });
+        },
+      };
+    },
+  },
+  list: {
+    effectName: 'fetchAll',
+    effect(path, action) {
+      return () => {
+        return async (dispatch) => {
+          dispatch(action.start());
+          try {
+            const url = `${API_URI}/${path}/`;
+            const response = await getAuth(url);
+            dispatch(action.success(response.data));
+          } catch (error) {
+            dispatch(action.error(error));
+            handleError(error);
+          }
+        };
+      };
+    },
+    reducer(type) {
+      return {
+        [type.start]: (state) => state.merge({ error: null, loading: true }),
+        [type.error]: (state, payload) => {
+          return state.merge({ error: payload, loading: false });
+        },
+        [type.success]: (state, payload) => {
+          return state
+            .set('items', lodash.keyBy(payload, 'id'))
+            .set('loading', false);
+        },
+      };
+    },
+  },
+  create: {
+    effect(path, action) {
+      return (data) => {
+        return async (dispatch) => {
+          dispatch(action.start(data));
+          try {
+            const url = `${API_URI}/${path}/`;
+            const response = await postAuth(url, data);
+            dispatch(action.success(response.data));
+          } catch (error) {
+            dispatch(action.error(error));
+            handleError(error);
+          }
+        };
+      };
+    },
+    reducer(type) {
+      return {
+        [type.start]: (state) => state.set('creating', true),
+        [type.error]: (state, payload) => {
+          return state.set('error', payload).set('creating', false);
+        },
+        [type.success]: (state, payload) => {
+          const { id } = payload;
+          return state.set('creating', false).setIn(['items', id], payload);
+        },
+      };
+    },
+  },
+  update: {
+    effect(path, action) {
+      return (data) => {
+        return async (dispatch) => {
+          dispatch(action.start(data));
+          try {
+            const url = `${API_URI}/${path}/${data.id}/`;
+            const response = await putAuth(url, data);
+            dispatch(action.success(response.data));
+          } catch (error) {
+            dispatch(action.error({ error, data }));
+            handleError(error);
+          }
+        };
+      };
+    },
+    reducer(type) {
+      return {
+        [type.start]: (state, { id }) => {
+          return state.setIn(['items', id, 'updating'], true);
+        },
+        [type.error]: (state, { id, error }) => {
+          return state
+            .setIn(['items', id, 'updating'], false)
+            .set('error', error);
+        },
+        [type.success]: (state, payload) => {
+          const { id } = payload;
+          return state.setIn(['items', id], payload);
+        },
+      };
+    },
+  },
+};
+
+function createAsyncTypes(resourceId: string, verb: string) {
   return {
     start: `@@api/${resourceId}/${verb}/start`,
     success: `@@api/${resourceId}/${verb}/success`,
@@ -25,62 +165,34 @@ function createAsyncTypes(resourceId, verb) {
   };
 }
 
-function createTypes(resourceId) {
-  return {
-    list: createAsyncTypes(resourceId, 'list'),
-    update: createAsyncTypes(resourceId, 'update'),
-    create: createAsyncTypes(resourceId, 'create'),
-  };
-}
-
-function createActions(types) {
-  return lodash.mapValues(types, (asyncTypes) => {
-    return lodash.mapValues(asyncTypes, createAction);
+function createTypes(resourceId, verbs) {
+  const typesObject = lodash.keyBy(verbs);
+  return lodash.mapValues(typesObject, (verb) => {
+    return createAsyncTypes(resourceId, verb);
   });
 }
 
-function createEffects(resourceId, path, actions) {
-  const effects = {
-    fetchAll() {
-      return async (dispatch) => {
-        dispatch(actions.list.start());
-        try {
-          const url = `${API_URI}/${path}/`;
-          const response = await getAuth(url);
-          dispatch(actions.list.success(response.data));
-        } catch (error) {
-          dispatch(actions.list.error(error));
-          handleError(error);
-        }
-      };
-    },
-    create(data) {
-      return async (dispatch) => {
-        dispatch(actions.create.start(data));
-        try {
-          const url = `${API_URI}/${path}/`;
-          const response = await postAuth(url, data);
-          dispatch(actions.create.success(response.data));
-        } catch (error) {
-          dispatch(actions.create.error(error));
-          handleError(error);
-        }
-      };
-    },
-    update(data) {
-      return async (dispatch) => {
-        dispatch(actions.update.start(data));
-        try {
-          const url = `${API_URI}/${path}/${data.id}/`;
-          const response = await putAuth(url, data);
-          dispatch(actions.update.success(response.data));
-        } catch (error) {
-          dispatch(actions.update.error({ error, data }));
-          handleError(error);
-        }
-      };
-    },
-  };
+function createActionsCreators(types) {
+  return lodash.mapValues(types, (asyncTypes) => {
+    return lodash.mapValues(asyncTypes, createActionCreator);
+  });
+}
+
+function createEffect(verb, path, action) {
+  const defaultVerb = DEFAULT_VERBS[verb];
+  if (defaultVerb) {
+    return defaultVerb.effect(path, action);
+  }
+  return DEFAULT_VERBS.get.effect(path, action);
+}
+
+function createEffects(verbs, path, actions) {
+  const namedEffects = lodash.keyBy(verbs, (v) => {
+    return DEFAULT_VERBS[v].effectName || v;
+  });
+  const effects = lodash.mapValues(namedEffects, (verb) =>
+    createEffect(verb, path, actions[verb]),
+  );
 
   effects.upsert = (data) => {
     return data.id ? effects.update(data) : effects.create(data);
@@ -96,46 +208,29 @@ function createState() {
   });
 }
 
-function createReducer(resourceId, types) {
+function createRestReducer(resourceId, types, verbs) {
   const defaultState = createState();
+  const verbsReducers = verbs.map((verb) =>
+    DEFAULT_VERBS[verb].reducer(types[verb]),
+  );
+  const combinedReducers = Object.assign({}, ...verbsReducers);
   return (state = defaultState, { type, payload } = { type: null }) => {
-    switch (type) {
-      case types.list.start:
-        return state.merge({ error: null, loading: true });
-      case types.list.error:
-        return state.merge({ error: payload, loading: false });
-      case types.list.success:
-        return state
-          .set('items', lodash.keyBy(payload, 'id'))
-          .set('loading', false);
+    const reducer = combinedReducers[type];
+    return reducer ? reducer(state, payload) : state;
+  };
+}
 
-      case types.create.start: {
-        return state.set('creating', true);
-      }
-      case types.create.error: {
-        return state.set('error', payload).set('creating', false);
-      }
-      case types.create.success: {
-        const { id } = payload;
-        return state.set('creating', false).setIn(['items', id], payload);
-      }
-      case types.update.start: {
-        const { id } = payload;
-        return state.setIn(['items', id, 'updating'], true);
-      }
-      case types.update.error: {
-        const { id, error } = payload;
-        return state
-          .setIn(['items', id, 'updating'], false)
-          .set('error', error);
-      }
-      case types.update.success: {
-        const { id } = payload;
-        return state.setIn(['items', id], payload);
-      }
-      default:
-        return defaultState;
-    }
+function createSingleReducer(resourceId, types, verb) {
+  const defaultState = Immutable({
+    value: null,
+    loading: false,
+  });
+  const verbDefault = DEFAULT_VERBS[verb] || DEFAULT_VERBS.get;
+  const verbReducer = verbDefault.reducer(types);
+  return (state = defaultState, { type, payload } = { type: null }) => {
+    const actionReducer = verbReducer[type];
+    console.log(actionReducer, verbReducer, verbDefault);
+    return actionReducer ? actionReducer(state, payload) : state;
   };
 }
 
@@ -144,16 +239,37 @@ function createSelectors(resourceId) {
     all(state) {
       return lodash.map(state['@api'][resourceId].items);
     },
+    get(state, id) {
+      const item = state['@api'][resourceId].items[id];
+      return item || { loading: true };
+    },
   };
 }
 
-export function createResource(resourceId, path) {
-  const types = createTypes(resourceId);
-  const actions = createActions(types);
-  const effects = createEffects(resourceId, path, actions);
-  const reducer = createReducer(resourceId, types);
+export function createRestResource(resourceId, path) {
+  const verbs = ['list', 'create', 'update'];
+
+  const types = createTypes(resourceId, verbs);
+  const actions = createActionsCreators(types);
+  const effects = createEffects(verbs, path, actions);
+  const reducer = createRestReducer(resourceId, types, verbs);
   const selectors = createSelectors(resourceId);
 
+  return { types, actions, effects, reducer, selectors };
+}
+
+export function createResource(resourceId, { url, verb }) {
+  const verbs = [verb];
+  const types = createTypes(resourceId, verbs);
+  const actions = createActionsCreators(types);
+  const effects = { [verb]: createEffect(verb, url, actions[verb]) };
+  const reducer = createSingleReducer(resourceId, types[verb], verb);
+  const selectors = {
+    get(state) {
+      const result = state['@api'][resourceId];
+      return result;
+    },
+  };
   return { types, actions, effects, reducer, selectors };
 }
 

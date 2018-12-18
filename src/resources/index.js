@@ -2,8 +2,9 @@
 
 import { combineResourceReducers } from './core';
 
-import { reports } from './reporting';
+import { reports, reportResult } from './reporting';
 
 export const reducer = combineResourceReducers({
   reports: reports.reducer,
+  reportResult: reportResult.reducer,
 });

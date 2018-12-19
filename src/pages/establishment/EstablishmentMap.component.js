@@ -42,7 +42,7 @@ type State = {
 
 export class EstablishmentList extends Component<Props, State> {
   state = {
-    selectedDay: Moment().startOf('day'),
+    selectedDay: {},
   };
 
   onDateClick = (establishmentId: number) => (date: Object) => {

@@ -218,7 +218,7 @@ const styles = () => ({
     padding: 40,
   },
   cancelButton: {
-    position: 'absolute',
+    position: 'fixed',
     top: 10,
     right: 10,
     zIndex: 1000,

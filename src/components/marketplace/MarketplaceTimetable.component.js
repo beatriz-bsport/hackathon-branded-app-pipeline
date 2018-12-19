@@ -51,7 +51,7 @@ export class MarketplaceTimetable extends Component<Props> {
     return (
       <div>
         <Typography variant="title" className={classes.title}>
-          {`${formatAsDate(date)} - ${t('marketplace.sessionThisDay')}`}
+          {formatAsDate(date)}
         </Typography>
         {this.renderContent()}
       </div>
@@ -61,7 +61,7 @@ export class MarketplaceTimetable extends Component<Props> {
 
 const styles = (theme) => ({
   title: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing.unit * 2,
   },
   emptyContent: {
     margin: theme.spacing.unit * 2,

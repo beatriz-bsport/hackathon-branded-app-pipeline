@@ -7,8 +7,6 @@ import { compose, withProps } from 'recompose';
 import * as Yup from 'yup';
 import { withFormik, Form, Field, FieldArray } from 'formik';
 
-import Typography from '@material-ui/core/Typography';
-
 import {
   AlertError,
   TextField,
@@ -17,14 +15,16 @@ import {
   Actions,
 } from '../../components/forms';
 
-import type { ReportConfiguration } from './types';
-import metadata from './configuration';
+import type { ReportConfiguration, ReportCategoryMetadata } from './types';
 
 import ReportCategorySelector from './ReportCategorySelector.component';
 import ReportColumnSelector from './ReportColumnSelector.component';
 
+import { CATEGORIES } from './utils';
+
 type Props = {
   isSubmitting: boolean,
+  categoryMetadata: ReportCategoryMetadata,
 };
 
 const ReportConfigurationSchema = Yup.object().shape({
@@ -37,7 +37,7 @@ const ReportConfigurationSchema = Yup.object().shape({
 });
 
 export function ReportConfigurationForm(props: Props) {
-  const { isSubmitting, categoryMetadata } = props;
+  const { isSubmitting, categoryMetadata, categories } = props;
   return (
     <Form>
       <TextField name="name" fullWidth label="Name" />
@@ -49,6 +49,7 @@ export function ReportConfigurationForm(props: Props) {
           {({ field: { value, onChange } }) => (
             <ReportCategorySelector
               selected={value}
+              categories={categories}
               onSelect={onChange('category')}
             />
           )}
@@ -97,7 +98,8 @@ export default compose(
       setSubmitting(false);
     },
   }),
-  withProps(({ values: { category } }) => ({
+  withProps(({ metadata, values: { category } }) => ({
     categoryMetadata: metadata.find((m) => m.category === category),
+    categories: metadata.map((c) => c.category),
   })),
 )(ReportConfigurationForm);

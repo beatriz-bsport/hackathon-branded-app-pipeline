@@ -13,7 +13,11 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 import AddIcon from '@material-ui/icons/Add';
 
-import type { ReportConfiguration, ReportCategoryEnum } from './types';
+import type {
+  ReportConfiguration,
+  ReportCategoryEnum,
+  ReportMetadata,
+} from './types';
 
 import ReportCategorySelector from './ReportCategorySelector.component';
 import ReportList from './ReportList.component';
@@ -30,6 +34,8 @@ type Props = ExternalProps & {
   showModalAdd: boolean,
   reportConfiguration: ReportConfiguration,
   onReportDetail: (ReportConfiguration) => void,
+  metadata: ReportMetadata,
+  setReportConfigurationToEdit: (ReportConfiguration) => void,
 };
 
 export function ReportDashboard(props: Props) {
@@ -43,6 +49,7 @@ export function ReportDashboard(props: Props) {
     reportConfiguration,
     onReportDetail,
     setReportConfigurationToEdit,
+    metadata,
   } = props;
   const itemProps = {
     onEdit: (report: ReportConfiguration) => {
@@ -51,9 +58,13 @@ export function ReportDashboard(props: Props) {
     },
     onDetail: onReportDetail,
   };
+  const categories = metadata.map((c) => c.category);
   return (
     <Paper className={classes.root}>
-      <ReportCategorySelector onSelect={setSelectedCategory} />
+      <ReportCategorySelector
+        categories={categories}
+        onSelect={setSelectedCategory}
+      />
       {reportConfigurations.length ? (
         <ReportList
           items={reportConfigurations}
@@ -77,6 +88,7 @@ export function ReportDashboard(props: Props) {
           <DialogTitle>New report</DialogTitle>
           <DialogContent>
             <ReportConfigurationForm
+              metadata={metadata}
               initial={reportConfiguration}
               onSubmit={(data) => {
                 upsertReportConfiguration(data);

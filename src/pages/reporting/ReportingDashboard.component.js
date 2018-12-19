@@ -5,20 +5,40 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 
+import LinearProgress from '@material-ui/core/LinearProgress';
+
 import ReportDashboard from '../../libs/reporting/ReportDashboard.component';
 
-import { reports } from '../../resources/reporting';
+import {
+  reports as reportsRes,
+  reportMetadata,
+} from '../../resources/reporting';
 
-type Props = {};
+type Props = {
+  metadata: ReportMetadata,
+  reports: ReportConfiguration[],
+  fetchReportMetadata: () => void,
+  fetchReports: () => void,
+  goToReport: (ReportConfiguration) => void,
+  upsertReport: (ReportConfiguration) => void,
+};
 
-export class ReportingDashboard extends React.Component {
+export class ReportingDashboard extends React.Component<Props> {
   componentWillMount() {
     this.props.fetchReports();
+    this.props.fetchReportMetadata();
   }
+
   render() {
-    const { reports, upsertReport, goToReport } = this.props;
+    const { reports, upsertReport, goToReport, metadata } = this.props;
+
+    if (metadata.loading || !metadata.value) {
+      return <LinearProgress />;
+    }
+
     return (
       <ReportDashboard
+        metadata={metadata.value}
         reportConfigurations={reports}
         upsertReportConfiguration={upsertReport}
         onReportDetail={goToReport}
@@ -29,11 +49,13 @@ export class ReportingDashboard extends React.Component {
 
 export default connect(
   (state) => ({
-    reports: reports.selectors.all(state),
+    metadata: reportMetadata.selectors.get(state),
+    reports: reportsRes.selectors.all(state),
   }),
   {
-    fetchReports: reports.effects.fetchAll,
-    upsertReport: reports.effects.upsert,
+    fetchReportMetadata: reportMetadata.effects.get,
+    fetchReports: reportsRes.effects.fetchAll,
+    upsertReport: reportsRes.effects.upsert,
     goToReport: (r: ReportConfiguration) => push(`/reporting/${r.id}`),
   },
 )(ReportingDashboard);

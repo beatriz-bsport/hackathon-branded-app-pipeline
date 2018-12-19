@@ -12,7 +12,7 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import ReportGeneration from '../../libs/reporting/ReportGeneration.component';
 
-import { reports, reportResult } from '../../resources/reporting';
+import { reports, reportResult, urls } from '../../resources/reporting';
 
 import type {
   ReportConfiguration,
@@ -59,11 +59,9 @@ export default compose(
   withState('exportLink', 'setExportLink', null),
   withProps(({ id, fetchExtractResult, result, setExportLink }) => ({
     handleGenerate({ dateStart, dateEnd }) {
-      fetchExtractResult(id, dateStart, dateEnd);
-      const params = asQueryParams({ dateStart, dateEnd });
-      const exportLink =
-        result &&
-        `${API_URI}/reporting/reports/${id}/export/?fileformat=csv&${params}`;
+      fetchExtractResult(id, { dateStart, dateEnd });
+      const params = { fileformat: 'csv', dateStart, dateEnd };
+      const exportLink = result && urls.export(id, params);
       setExportLink(exportLink);
     },
   })),

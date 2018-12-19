@@ -13,13 +13,20 @@ import type { ReportCategoryEnum } from './types';
 type Props = {
   classes: { [string]: string },
   selected: ReportCategoryEnum,
+  categories: ReportCategoryEnum[],
   onSelect: (ReportCategoryEnum) => void,
 };
 
-export function ReportCategorySelector({ classes, onSelect, selected }: Props) {
+export function ReportCategorySelector({
+  classes,
+  onSelect,
+  selected,
+  categories,
+}: Props) {
+  const cats = categories.map((c) => CATEGORIES.find((b) => b.id === c));
   return (
     <div>
-      {CATEGORIES.map((category) => {
+      {cats.map((category) => {
         const Icon = category.icon;
         const isSelected = category.id === selected;
         const color = isSelected ? 'primary' : 'default';
@@ -28,9 +35,11 @@ export function ReportCategorySelector({ classes, onSelect, selected }: Props) {
           <Chip
             key={category.id}
             avatar={
-              <Avatar>
-                <Icon />
-              </Avatar>
+              Icon ? (
+                <Avatar>
+                  <Icon />
+                </Avatar>
+              ) : null
             }
             color={color}
             label={category.name}

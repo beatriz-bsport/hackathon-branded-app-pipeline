@@ -31,6 +31,55 @@ function createActionCreator<T>(type: string): ActionCreator<string, T> {
   };
 }
 
+function parseParamPattern(param) {
+  const name = param.substring(1);
+  if (name[0] === '?') {
+    return { type: 'query', name: name.substring(1), base: param };
+  }
+  return { type: 'normal', name, base: param };
+}
+
+function zip(a, b) {
+  const c = [];
+  a.forEach((_, i) => {
+    c.push(a[i]);
+    c.push(b[i]);
+  });
+  return c.join('');
+}
+
+/**
+ * Template literal that parse a uri and return a function that generate the
+ * corresponding uri with the given arguments.
+ *
+ * For instance
+ *  uri`/mypath/:hello/from/:?params`
+ *  will return a function of two args: (hello: string, params: Object)
+ *
+ *  Using a ? before the parameter name will tell the functions to generate
+ * a query string from the given argument.
+ */
+export function uri(strings, ...args) {
+  const q = zip(strings, args);
+  const params = q.match(/:[^/0-9]\??[a-z0-9]+/gi).map(parseParamPattern);
+  return (...pargs) => {
+    return params.reduce((s, { type, name, base }, i) => {
+      if (pargs[i] === undefined && type === 'normal') {
+        throw new Error(`Param ${name} is undefined`);
+      }
+      const value = type === 'query' ? `?${asQueryParams(pargs[i])}` : pargs[i];
+      return s.replace(base, value);
+    }, q);
+  };
+}
+
+function createUri(path, args) {
+  if (typeof path === 'string') {
+    return path;
+  }
+  return path(...args);
+}
+
 const DEFAULT_VERBS = {
   get: {
     effect(path, action) {
@@ -39,7 +88,7 @@ const DEFAULT_VERBS = {
           dispatch(action.start());
 
           try {
-            const url = `${API_URI}/${path(...args)}`;
+            const url = `${API_URI}/${createUri(path, args)}`;
             const response = await getAuth(url);
             dispatch(action.success(response.data));
           } catch (error) {

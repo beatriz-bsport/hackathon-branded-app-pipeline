@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { push as routerPush } from 'react-router-redux';
 import {
   FormControl,
   InputLabel,
@@ -228,7 +229,7 @@ export class MetaActivity extends Component<Props, State> {
                 )}
                 loading={timetableLoading}
                 activities={activities}
-                onOfferSelected={() => {}}
+                onOfferSelected={(o) => this.props.push(`/offer/${o.id}`)}
               />
             </Grid>
             <Grid item>
@@ -414,6 +415,9 @@ function mapDispatchToProps(dispatch) {
     },
     fetchOffersByDay({ year, month, day }) {
       dispatch(offerActions.fetchOffersByDay({ year, month, day }));
+    },
+    push(path) {
+      dispatch(routerPush(path));
     },
   };
 }

@@ -22,7 +22,7 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import TodayIcon from '@material-ui/icons/Today';
 import { translate } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import { goBack } from 'react-router-redux';
+import { push as routerPush, goBack } from 'react-router-redux';
 
 import Fuse from 'fuse.js';
 import memoize from 'memoize-one';
@@ -47,7 +47,6 @@ import RedButton from '../components/button/RedButton.component';
 import { mapFormData } from './form.utils';
 
 type Props = {
-  createInvoice: ([*], number) => void,
   offerId: number,
   update: Offer,
   clearSearch: () => void,
@@ -71,6 +70,7 @@ type Props = {
   fetchBookings: (offerId: number) => void,
   fetchCompatiblePacks: (offerId: number) => void,
   createOrUpdateMember: (data: [*]) => void,
+  createInvoice: ([*], number) => void,
   addToOffer: ({
     offerId: number,
     consumerPaymentPackId: number,
@@ -81,6 +81,7 @@ type Props = {
   quickFetchMember: (memberId: number) => void,
 
   goBack: () => void,
+  push: (path: string) => void,
   t: TFunction,
   classes: Object,
 };
@@ -192,6 +193,7 @@ export class OfferManagement extends Component<Props, State> {
         <MemberBookingHelper
           key={member.id}
           onClick={() => this.addToQuickInvoicePanel(member.id)}
+          onClickListItem={() => this.props.push(`/member/${member.id}`)}
           member={member}
           hasBooked
         />
@@ -201,6 +203,7 @@ export class OfferManagement extends Component<Props, State> {
       <MemberBookingHelper
         key={member.id}
         onClick={() => this.setState({ memberToRegister: member })}
+        onClickListItem={() => this.props.push(`/member/${member.id}`)}
         member={member}
         hasBooked={false}
       />
@@ -440,6 +443,7 @@ export class OfferManagement extends Component<Props, State> {
               </Grid>
               <Grid item>
                 <BookingTable
+                  redirectToMember
                   loading={bookingLoading}
                   bookings={bookings}
                   bookingOptions={bookingOptions}
@@ -555,6 +559,9 @@ function mapDispatchToProps(dispatch) {
     },
     goBack() {
       dispatch(goBack());
+    },
+    push(path) {
+      dispatch(routerPush(path));
     },
     fetchCompatiblePacks(id: number) {
       dispatch(offerActions.fetchCompatiblePacks(id));

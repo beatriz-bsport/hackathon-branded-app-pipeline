@@ -15,6 +15,8 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import { translate } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import { push as routerPush } from 'react-router-redux';
+import { connect } from 'react-redux';
 
 import RedButton from '../button/RedButton.component';
 import { formatAsDatetime } from '../../datetime';
@@ -29,6 +31,7 @@ type Props = {
   invoices: Invoice[],
   showQuickInvoiceButton: ?boolean,
   showRevertBookingButton: ?boolean,
+  redirectToMember: ?boolean,
   onQuickInvoiceClick: () => void,
   handleRevert: () => void,
   requestRefreshPaymentPack: () => void,
@@ -170,12 +173,25 @@ export class BookingItemForManager extends Component<Props> {
     }
   };
 
+  handleListItemClick = (event) => {
+    event.preventDefault();
+    const { redirectToMember, booking } = this.props;
+    if (redirectToMember) {
+      this.props.push(`/member/${booking.member}`);
+    }
+  };
+
   render() {
-    const { booking } = this.props;
+    const { booking, redirectToMember } = this.props;
     // <TableCell>{t(`booking.sources.${b.source}`)}</TableCell>
     const [statusText, color] = this.getStatusText(booking);
     return (
-      <ListItem disabled={!booking.attendance} divider>
+      <ListItem
+        disabled={!booking.attendance}
+        divider
+        button={redirectToMember}
+        onClick={this.handleListItemClick}
+      >
         {this.getAvatar()}
         <ListItemText
           primary={this.getHeading()}
@@ -197,4 +213,19 @@ const styles = (theme) => ({
   },
 });
 
-export default translate()(withStyles(styles)(BookingItemForManager));
+function mapDispatchToProps(dispatch) {
+  return {
+    push(path) {
+      dispatch(routerPush(path));
+    },
+  };
+}
+
+export default translate()(
+  withStyles(styles)(
+    connect(
+      null,
+      mapDispatchToProps,
+    )(BookingItemForManager),
+  ),
+);

@@ -20,6 +20,7 @@ type Props = {
   t: (x: string) => string,
 
   loading: boolean,
+  redirectToMember: ?boolean,
   showRevertBookingButton: boolean,
   showQuickInvoiceButton: boolean,
   heading: ?string,
@@ -53,6 +54,7 @@ export class BookingTable extends Component<Props> {
       discardOption,
       bookingUpdaters,
       showQuickInvoiceButton,
+      redirectToMember,
       showRevertBookingButton,
       handleRevert,
       onQuickInvoiceClick,
@@ -85,6 +87,7 @@ export class BookingTable extends Component<Props> {
       <List disablePadding dense>
         {bookings.map((b) => (
           <BookingItemForManager
+            redirectToMember={redirectToMember}
             showQuickInvoiceButton={showQuickInvoiceButton}
             onQuickInvoiceClick={() => onQuickInvoiceClick(b.member)}
             requestRefreshPaymentPack={requestRefreshPaymentPack}

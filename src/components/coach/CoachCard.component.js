@@ -102,31 +102,38 @@ export class CoachCard extends Component<Props> {
             </Tooltip>
           </Grid>
         </Grid>
-        <Typography variant="subtitle">{t('paymentRules:label')}</Typography>
-        <div ref={this.refPaymentRuleSelector}>
-          <PaymentRuleSelector
-            paymentRules={paymentRules}
-            selected={coach.default_payment_rule_id}
-            onChange={({ value }) => setCoachPaymentRule(coach.id, value)}
-          />
-        </div>
-        <Popover
-          open={this.props.paymentRulePopoverOpen}
-          anchorEl={this.refPaymentRuleSelector.current}
-          onClose={() => this.props.togglePaymentRulePopover(false)}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'center',
-          }}
+        <Grid
+          container
+          item
+          direction="row"
+          justify="flex-end"
+          className={classes.ruleContainer}
         >
-          <Typography className={classes.popoverNoPaymentRule}>
-            {t('paymentRules:setPaymentRuleSetForCoachFirst')}
-          </Typography>
-        </Popover>
+          <div ref={this.refPaymentRuleSelector}>
+            <PaymentRuleSelector
+              paymentRules={paymentRules}
+              selected={coach.default_payment_rule_id}
+              onChange={({ value }) => setCoachPaymentRule(coach.id, value)}
+            />
+          </div>
+          <Popover
+            open={this.props.paymentRulePopoverOpen}
+            anchorEl={this.refPaymentRuleSelector.current}
+            onClose={() => this.props.togglePaymentRulePopover(false)}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+          >
+            <Typography className={classes.popoverNoPaymentRule}>
+              {t('paymentRules:setPaymentRuleSetForCoachFirst')}
+            </Typography>
+          </Popover>
+        </Grid>
         <Grid container direction="column" justify="flex-start">
           <Grid item>
             <Grid
@@ -184,6 +191,9 @@ const styles = (theme) => ({
   },
   popoverNoPaymentRule: {
     margin: theme.spacing.unit * 2,
+  },
+  ruleContainer: {
+    marginTop: theme.spacing.unit * 2,
   },
 });
 export default compose(

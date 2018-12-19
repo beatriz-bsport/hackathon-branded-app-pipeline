@@ -70,7 +70,9 @@ export default handleActions(
       const allItems = lodash.uniqBy(
         [].concat(
           newItems,
-          oldItems.filter((old) => +newIds.findIndex((idx) => old.id === idx)),
+          oldItems.filter(
+            (old) => newIds.findIndex((idx) => old.id === idx) < 0,
+          ),
           'id',
         ),
       );

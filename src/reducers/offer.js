@@ -73,7 +73,6 @@ export default handleActions(
           oldItems.filter(
             (old) => newIds.findIndex((idx) => old.id === idx) < 0,
           ),
-          'id',
         ),
       );
       return state.set('offers', allItems);

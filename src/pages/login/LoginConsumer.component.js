@@ -93,11 +93,11 @@ export class ConsumerLoginPage extends Component<Props> {
         <Grid
           container
           direction="column"
-          spacing={32}
+          spacing={16}
           className={classes.container}
         >
           <Grid item>
-            <Typography variant="h2">{t('form.signUpTitle')}</Typography>
+            <Typography variant="h4">{t('form.signUpTitle')}</Typography>
           </Grid>
           <Grid item>
             <SignUpForm
@@ -134,6 +134,7 @@ function mapDispatchToProps(dispatch) {
 const styles = (theme) => ({
   container: {
     padding: theme.spacing.unit * 4,
+    paddingTop: 0,
   },
 });
 

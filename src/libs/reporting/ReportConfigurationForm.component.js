@@ -13,6 +13,7 @@ import {
   Submit,
   FormControl,
   Actions,
+  defaultHandleSubmit,
 } from '../../components/forms';
 
 import type { ReportConfiguration, ReportCategoryMetadata } from './types';
@@ -90,13 +91,7 @@ export default compose(
         columns: [],
       },
     validationSchema: ReportConfigurationSchema,
-    handleSubmit: (
-      values: ReportConfiguration,
-      { props: { onSubmit }, setSubmitting },
-    ) => {
-      onSubmit(values);
-      setSubmitting(false);
-    },
+    handleSubmit: defaultHandleSubmit,
   }),
   withProps(({ metadata, values: { category } }) => ({
     categoryMetadata: metadata.find((m) => m.category === category),

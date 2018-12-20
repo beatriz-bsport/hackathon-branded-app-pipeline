@@ -18,7 +18,13 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import { AlertError, DateField, Submit, Actions } from '../../components/forms';
+import {
+  AlertError,
+  DateField,
+  Submit,
+  Actions,
+  defaultHandleSubmit,
+} from '../../components/forms';
 
 import type { ReportConfiguration } from './types';
 
@@ -82,11 +88,6 @@ export default compose(
         dateEnd: moment(),
       },
     validationSchema: ReportGenerationSchema,
-    handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
-      setTimeout(() => {
-        onSubmit(values);
-        setSubmitting(false);
-      }, 500);
-    },
+    handleSubmit: defaultHandleSubmit,
   }),
 )(ReportGenerationForm);

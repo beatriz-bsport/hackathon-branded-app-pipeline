@@ -19,6 +19,7 @@ import type {
   ReportMetadata,
 } from './types';
 
+import { bindSubmitHandlers } from '../../components/forms';
 import ReportCategorySelector from './ReportCategorySelector.component';
 import ReportList from './ReportList.component';
 import ReportConfigurationForm from './ReportConfigurationForm.component';
@@ -90,10 +91,9 @@ export function ReportDashboard(props: Props) {
             <ReportConfigurationForm
               metadata={metadata}
               initial={reportConfiguration}
-              onSubmit={(data) => {
-                upsertReportConfiguration(data);
-                setShowModalAdd(false);
-              }}
+              onSubmit={bindSubmitHandlers(upsertReportConfiguration, {
+                onSuccess: () => setShowModalAdd(false),
+              })}
             />
           </DialogContent>
         </Dialog>

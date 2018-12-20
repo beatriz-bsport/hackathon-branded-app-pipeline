@@ -4,7 +4,7 @@ import * as Sentry from '@sentry/browser';
 import lodash from 'lodash';
 import Immutable from 'seamless-immutable';
 
-import { postAuth, getAuth, putAuth, API_URI } from '../http';
+import { postBaseAuth as postAuth, getAuth, putAuth, API_URI } from '../http';
 
 function toSnakeCase(s) {
   return s.replace(
@@ -80,6 +80,11 @@ function createUri(path, args) {
   return path(...args);
 }
 
+export type UpsertOptions<T> = {
+  onSuccess?: (T) => void,
+  onError?: (T, *) => void,
+};
+
 const DEFAULT_VERBS = {
   get: {
     effect(path, action) {
@@ -144,16 +149,18 @@ const DEFAULT_VERBS = {
   },
   create: {
     effect(path, action) {
-      return (data) => {
+      return (data, { onSuccess, onError }: ?UpsertOptions = {}) => {
         return async (dispatch) => {
           dispatch(action.start(data));
           try {
             const url = `${API_URI}/${path}/`;
             const response = await postAuth(url, data);
             dispatch(action.success(response.data));
+            if (onSuccess) onSuccess(response.data);
           } catch (error) {
             dispatch(action.error(error));
             handleError(error);
+            if (onError) onError(error.response.data, error);
           }
         };
       };
@@ -173,16 +180,18 @@ const DEFAULT_VERBS = {
   },
   update: {
     effect(path, action) {
-      return (data) => {
+      return (data, { onSuccess, onError }: ?UpsertOptions = {}) => {
         return async (dispatch) => {
           dispatch(action.start(data));
           try {
             const url = `${API_URI}/${path}/${data.id}/`;
             const response = await putAuth(url, data);
             dispatch(action.success(response.data));
+            if (onSuccess) onSuccess(response.data);
           } catch (error) {
             dispatch(action.error({ error, data }));
             handleError(error);
+            if (onError) onError(error.response.data, error);
           }
         };
       };
@@ -192,7 +201,7 @@ const DEFAULT_VERBS = {
         [type.start]: (state, { id }) => {
           return state.setIn(['items', id, 'updating'], true);
         },
-        [type.error]: (state, { id, error }) => {
+        [type.error]: (state, { data: { id }, error }) => {
           return state
             .setIn(['items', id, 'updating'], false)
             .set('error', error);
@@ -243,8 +252,9 @@ function createEffects(verbs, path, actions) {
     createEffect(verb, path, actions[verb]),
   );
 
-  effects.upsert = (data) => {
-    return data.id ? effects.update(data) : effects.create(data);
+  effects.upsert = (data, options: ?UpsertOptions) => {
+    const effect = data.id ? effects.update : effects.create;
+    return effect(data, options);
   };
   return effects;
 }
@@ -278,7 +288,6 @@ function createSingleReducer(resourceId, types, verb) {
   const verbReducer = verbDefault.reducer(types);
   return (state = defaultState, { type, payload } = { type: null }) => {
     const actionReducer = verbReducer[type];
-    console.log(actionReducer, verbReducer, verbDefault);
     return actionReducer ? actionReducer(state, payload) : state;
   };
 }

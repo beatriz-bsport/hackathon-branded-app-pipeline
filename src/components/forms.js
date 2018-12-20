@@ -123,3 +123,45 @@ export const FormControl = withStyles(formControlStyles)(
     );
   },
 );
+
+export function addFieldsErrors(errors, setFieldError) {
+  Object.keys(errors).forEach((key) => {
+    const messages = errors[key];
+    if (messages.length) {
+      messages.forEach((error) => setFieldError(key, error.message));
+    }
+  });
+}
+
+export function bindFormHandlers({ setSubmitting, setFieldError }) {
+  return {
+    onSuccess: () => setSubmitting(false),
+    onError: (errors) => {
+      setSubmitting(false);
+      addFieldsErrors(errors, setFieldError);
+    },
+  };
+}
+
+export function bindSubmitHandlers(handler, { onSuccess, onError } = {}) {
+  return (data, baseOptions) => {
+    const composedOptions = {
+      onSuccess() {
+        if (onSuccess) onSuccess();
+        if (baseOptions.onSuccess) baseOptions.onSuccess();
+      },
+      onError(errors) {
+        if (onError) onError(errors);
+        if (baseOptions.onError) baseOptions.onError(errors);
+      },
+    };
+    handler(data, composedOptions);
+  };
+}
+
+export function defaultHandleSubmit<T>(
+  values: T,
+  { props: { onSubmit }, setSubmitting, setFieldError },
+) {
+  onSubmit(values, bindFormHandlers({ setSubmitting, setFieldError }));
+}

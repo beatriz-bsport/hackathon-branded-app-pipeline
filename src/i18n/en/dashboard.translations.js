@@ -16,4 +16,6 @@ export default {
     start: 'Start',
     end: 'End',
   },
+  filterByDateTitle: 'Filter by date',
+  detailsGraphTitle: 'Detailed data',
 };

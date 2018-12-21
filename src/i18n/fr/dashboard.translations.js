@@ -14,4 +14,6 @@ export default {
     start: 'Début',
     end: 'Fin',
   },
+  filterByDateTitle: 'Filtrer par date',
+  detailsGraphTitle: 'En détails',
 };

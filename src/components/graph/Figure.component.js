@@ -6,6 +6,8 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
+import { colors as bsportColors } from 'bsport-commons/lib/colors';
+
 type colors = 'blue' | 'blueLight' | 'yellow' | 'red';
 
 type Props = {
@@ -18,11 +20,11 @@ type Props = {
 const styles = () => ({
   green: {
     borderColor: '#469B7C',
-    backgroundColor: '#469B7C',
+    backgroundColor: bsportColors.primary,
   },
   blue: {
     borderColor: '#187DAB',
-    backgroundColor: '#20a8d8',
+    backgroundColor: bsportColors.secondary,
   },
   blueLight: {
     borderColor: '#2eadd3',
@@ -30,7 +32,7 @@ const styles = () => ({
   },
   marine: {
     borderColor: 'rgb(36, 54, 92)',
-    backgroundColor: '#3f5a96',
+    backgroundColor: bsportColors.secondary,
   },
   yellow: {
     borderColor: '#c69500',

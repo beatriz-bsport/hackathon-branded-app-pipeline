@@ -4,14 +4,21 @@ import React from 'react';
 
 import moment from 'moment';
 import type { Moment } from 'moment';
-import { compose, withProps, withPropsOnChange } from 'recompose';
+import { compose, withProps, withPropsOnChange, withState } from 'recompose';
 import { connect } from 'react-redux';
+
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import { withStyles } from '@material-ui/core/styles';
 
 import { withNamespaces } from 'react-i18next';
 
+import { colors } from 'bsport-commons/lib/colors';
 import {
   bookingStatSelector,
   newMembersStatSelector,
@@ -23,7 +30,11 @@ import {
 import DateRangeFilter from '../components/DateRangeFilter.component';
 import { dateRangeChange, mainChartChange } from '../actions/stats.actions';
 import Figure from '../components/graph/Figure.component';
-import { SimpleBarChart, BarChart } from '../components/graph/Charts.component';
+import {
+  ComposedChart,
+  SimpleBarChart,
+  BarChart,
+} from '../components/graph/Charts.component';
 
 type ChartData = {
   d: number,
@@ -60,7 +71,7 @@ const chartConfigs = {
     label: 'Nombre',
   },
   turnover: {
-    color: 'marine',
+    color: 'blue',
     xFormat: dateFormatter,
     yFormat: (v) => `${v.toFixed(2)} €`,
     label: 'CA',
@@ -95,7 +106,7 @@ function createChartOptions(identifier, data, domain) {
 }
 
 export function Dashboard(props: Props) {
-  const { t, classes, dateRange, miniStats } = props;
+  const { t, classes, dateRange, miniStats, tab, setTab } = props;
   const { mainChartOptions } = props;
   const { newMembers, turnover, bookings } = miniStats;
 
@@ -114,51 +125,61 @@ export function Dashboard(props: Props) {
   ];
   return (
     <div className="dashboard">
-      <header>
+      <AppBar position="static" color="default" className={classes.bar}>
         <DateRangeFilter
           quickRanges={props.quickDateFilters}
           onChange={props.changeDateRange}
           start={dateRange.start}
           end={dateRange.end}
         />
-      </header>
-      <br />
-      <Grid container direction="row" spacing={16}>
-        {stats1.map((stat) => {
-          return (
-            <Grid key={stat.name} item xs={12} md={4}>
-              <Figure name={t(stat.name)} count={stat.count} color={stat.color}>
-                {stat.chart}
-              </Figure>
-            </Grid>
-          );
-        })}
-      </Grid>
-      <br />
-      <header className={classes.header}>
-        {props.mainChartButtons.map((button) => (
-          <Button
-            key={button.title}
-            variant="contained"
-            color={button.selected ? 'primary' : 'default'}
-            className={classes.headerButton}
-            onClick={button.onClick}
+      </AppBar>
+      <div className={classes.block}>
+        <Grid container direction="row" spacing={16}>
+          {stats1.map((stat) => {
+            return (
+              <Grid key={stat.name} item xs={12} md={4}>
+                <Figure
+                  name={t(stat.name)}
+                  count={stat.count}
+                  color={stat.color}
+                >
+                  {stat.chart}
+                </Figure>
+              </Grid>
+            );
+          })}
+        </Grid>
+      </div>
+      <div className={classes.block}>
+        <AppBar position="static" color="default">
+          <Tabs
+            value={tab}
+            onChange={(event, value) => {
+              setTab(value);
+              props.mainChartButtons[value].onClick();
+            }}
+            indicatorColor="primary"
+            textColor="primary"
           >
-            {button.title}
-          </Button>
-        ))}
-      </header>
-      <BarChart
-        data={props.mainChartData.table}
-        height={400}
-        domain={domain}
-        xKey="d"
-        yKey="v"
-        label={mainChartOptions.label}
-        yFormatter={mainChartOptions.yFormat}
-        xFormatter={mainChartOptions.xFormat(props.mainChartData.formatter)}
-        color={mainChartOptions.color}
-      />
+            {props.mainChartButtons.map((button) => (
+              <Tab key={button.title} label={button.title} />
+            ))}
+          </Tabs>
+        </AppBar>
+        <Paper className={classes.mainChartPaper}>
+          <ComposedChart
+            data={props.mainChartData.table}
+            height={400}
+            domain={domain}
+            xKey="d"
+            yKey="v"
+            label={mainChartOptions.label}
+            yFormatter={mainChartOptions.yFormat}
+            xFormatter={mainChartOptions.xFormat(props.mainChartData.formatter)}
+            color={mainChartOptions.color}
+          />
+        </Paper>
+      </div>
     </div>
   );
 }
@@ -196,6 +217,22 @@ const styles = (theme) => ({
   },
   header: {
     marginBottom: theme.spacing.unit * 2,
+  },
+  block: {
+    marginBottom: theme.spacing.unit * 4,
+  },
+  title: {
+    marginBottom: theme.spacing.unit,
+  },
+  bar: {
+    width: `calc(100% + ${theme.spacing.unit * 6}px)`,
+    marginTop: -theme.spacing.unit * 2,
+    marginRight: -theme.spacing.unit * 3,
+    marginLeft: -theme.spacing.unit * 3,
+    marginBottom: theme.spacing.unit * 3,
+  },
+  mainChartPaper: {
+    borderRadius: '0 0 4px 4px',
   },
 });
 
@@ -238,6 +275,7 @@ export default compose(
       },
     ],
   })),
+  withState('tab', 'setTab', 0),
   // Add buttons to select main chart
   withPropsOnChange(
     ['t', 'changeMainChart', 'mainChart'],

@@ -16,6 +16,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Grid from '@material-ui/core/Grid';
+import Collapse from '@material-ui/core/Collapse';
 
 import Today from '@material-ui/icons/Today';
 import Star from '@material-ui/icons/Star';
@@ -31,13 +32,17 @@ import Search from '@material-ui/icons/Search';
 import SettingsIcon from '@material-ui/icons/Settings';
 import MenuIcon from '@material-ui/icons/Menu';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
+import { colors } from 'bsport-commons/lib/colors';
 import { LanguageButton } from '../button/LanguageButton.component';
 import RefreshButton from '../button/RefreshButton.component';
 import SearchBar from '../SearchBar.component';
 import LOGO_ASSET from '../../public/images/banner_lowres.png';
 
-const drawerWidth = 240;
+const drawerWidth = 260;
 
 type Props = {
   isRefreshing: boolean,
@@ -50,15 +55,77 @@ type Props = {
 
 type State = {
   mobileOpen: boolean,
+  open: {},
 };
 
 class ResponsiveDrawer extends React.Component<Props, State> {
   state = {
     mobileOpen: false,
+    open: {},
   };
 
   handleDrawerToggle = () => {
     this.setState((prevState) => ({ mobileOpen: !prevState.mobileOpen }));
+  };
+
+  handleClick = (i: number) => {
+    this.setState((prevState) => ({
+      open: { ...prevState.open, [i]: !prevState.open[i] },
+    }));
+  };
+
+  renderMenuItem = (item, i, isNested) => {
+    const { classes } = this.props;
+    if (item === 'divider') {
+      return <Divider key={i} />;
+    }
+    if (item.type === 'nested') {
+      return (
+        <React.Fragment>
+          <ListItem button onClick={() => this.handleClick(i)}>
+            <ListItemIcon>
+              <item.icon />
+            </ListItemIcon>
+            <ListItemText inset primary={item.text} />
+            {this.state.open[i] ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+          </ListItem>
+          <Divider key={`${String(i)}nestedDivider`} />
+          <Collapse in={this.state.open[i]} timeout="auto" unmountOnExit>
+            <List disablePadding className={classes.nestedList}>
+              {item.nestedItems.map((subitem, subi) =>
+                this.renderMenuItem(subitem, subi, true),
+              )}
+            </List>
+          </Collapse>
+          {this.state.open[i] ? (
+            <Divider key={`${String(i)}nestedDivider`} />
+          ) : null}
+        </React.Fragment>
+      );
+    }
+    if (item.type === 'divider') {
+      return <Divider key={i} className={item.className} />;
+    }
+
+    return (
+      <Link
+        key={i}
+        to={item.to}
+        style={{ textDecoration: 'none' }}
+        className={item.className || ''}
+      >
+        <ListItem
+          button
+          onClick={this.handleDrawerToggle}
+          className={isNested ? classes.nestedItem : null}
+        >
+          <ListItemIcon>
+            <item.icon />
+          </ListItemIcon>
+          <ListItemText primary={item.text} />
+        </ListItem>
+      </Link>
+    );
   };
 
   render() {
@@ -83,26 +150,41 @@ class ResponsiveDrawer extends React.Component<Props, State> {
       },
       'divider',
       {
-        to: '/activity',
-        icon: Star,
-        text: t('navigation.activity'),
+        icon: BusinessCenterIcon,
+        text: t('navigation.myClub'),
+        type: 'nested',
+        nestedItems: [
+          {
+            to: '/activity',
+            icon: Star,
+            text: t('navigation.activity'),
+          },
+          'divider',
+          {
+            to: '/coach',
+            icon: FitnessCenter,
+            text: t('common.coach'),
+          },
+          'divider',
+          {
+            to: '/map',
+            icon: LocationOn,
+            text: t('navigation.establishment'),
+          },
+          'divider',
+          {
+            to: '/payment-pack',
+            icon: VpnKey,
+            text: t('navigation.pass'),
+          },
+          'divider',
+          {
+            to: '/shop',
+            icon: ShoppingCartIcon,
+            text: t('shop.myShop'),
+          },
+        ],
       },
-      {
-        to: '/coach',
-        icon: FitnessCenter,
-        text: t('common.coach'),
-      },
-      {
-        to: '/map',
-        icon: LocationOn,
-        text: t('navigation.establishment'),
-      },
-      {
-        to: '/payment-pack',
-        icon: VpnKey,
-        text: t('navigation.pass'),
-      },
-      'divider',
       {
         to: '/marketing',
         icon: Email,
@@ -118,11 +200,6 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         icon: Payment,
         text: t('navigation.payment'),
       },
-      {
-        to: '/shop',
-        icon: ShoppingCartIcon,
-        text: t('shop.myShop'),
-      },
       'divider',
       {
         to: '/settings/payment-rules',
@@ -136,32 +213,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         text: t('navigation.logoff'),
       },
     ].map((item, i) => {
-      if (item === 'divider') {
-        return <Divider key={i} />;
-      }
-      if (item.type === 'divider') {
-        return <Divider key={i} className={item.className} />;
-      }
-
-      return (
-        <Link
-          key={i}
-          to={item.to}
-          style={{ textDecoration: 'none' }}
-          className={item.className || ''}
-        >
-          <ListItem button onClick={this.handleDrawerToggle}>
-            <ListItemIcon>
-              <item.icon />
-            </ListItemIcon>
-            <ListItemText primary={item.text} />
-          </ListItem>
-        </Link>
-      );
+      return this.renderMenuItem(item, i);
     });
 
     const drawer = (
-      <div>
+      <div className={classes.scrollable}>
         <div className={classes.toolbar}>
           <Grid
             container
@@ -263,8 +319,8 @@ const styles = (theme) => ({
   root: {
     flexGrow: 1,
     zIndex: 1,
-    overflow: 'hidden',
     position: 'relative',
+    overflow: 'hidden',
     display: 'flex',
     width: '100%',
     [theme.breakpoints.up('md')]: {
@@ -295,7 +351,13 @@ const styles = (theme) => ({
     height: 32,
   },
   toolbar: theme.mixins.toolbar,
+  scrollable: {
+    overflow: 'auto',
+    paddingRight: 50,
+    marginRight: -50,
+  },
   drawerPaper: {
+    overflow: 'hidden',
     position: 'relative',
     width: drawerWidth,
     [theme.breakpoints.up('md')]: {
@@ -316,6 +378,14 @@ const styles = (theme) => ({
   },
   searchBar: {
     marginRight: theme.spacing.unit,
+  },
+  nestedList: {
+    backgroundColor: '#F8F8F8',
+    borderLeft: `4px solid ${colors.primary}`,
+  },
+  nestedItem: {
+    marginLeft: theme.spacing.unit * 2,
+    width: '100%',
   },
 });
 

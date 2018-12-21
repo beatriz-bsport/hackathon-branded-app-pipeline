@@ -396,6 +396,7 @@ export default {
       goBack: 'Go back',
       pass: 'Subscriptions',
       settings: 'Settings',
+      myClub: 'My Club',
     },
     consumer: {
       myPaymentPacks: 'My pass',

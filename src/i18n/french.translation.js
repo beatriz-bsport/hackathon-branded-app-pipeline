@@ -447,6 +447,7 @@ export default {
       goBack: 'Retour',
       pass: 'Abonnements',
       settings: 'Paramètres',
+      myClub: 'Mon Club',
     },
     invoice: {
       forms: {

@@ -1,4 +1,4 @@
-import { API_URI, getAuth, putAuth } from '../http';
+import { API_URI, getAuth, putAuth, deleteAuth, patchAuth } from '../http';
 
 export async function fetchAllEvents() {
   return getAuth(`${API_URI}/saas/offers/minimal`);
@@ -16,8 +16,16 @@ export async function fetchCompatiblePacks(offerId) {
   return getAuth(`${API_URI}/saas/offer/${offerId}/compatible-packs/`);
 }
 
-export async function disableOffer(offerId) {
-  return getAuth(`${API_URI}/saas/offer/${offerId}/disable/`);
+export async function disableOffer({ offerId, notify, cashback }) {
+  return patchAuth(`${API_URI}/saas/offer/${offerId}/disable/`, {
+    available: false,
+    notify,
+    cashback,
+  });
+}
+
+export async function deleteOffer(offerId) {
+  return deleteAuth(`${API_URI}/saas/offer/${offerId}/disable/`);
 }
 
 export default {
@@ -25,5 +33,6 @@ export default {
   editLiveOffer,
   fetchCompatiblePacks,
   disableOffer,
+  delete: deleteOffer,
   fetchOffersByDay,
 };

@@ -288,15 +288,21 @@ export default {
           'These change may need you to check the pass, they may not stay compatible with the new sessions.\nThe following packs were compatible with this offer, after application of the change please review them carefully.',
         deleteTitle: 'Cancel session',
         changeDate: 'Modify date / time',
-        explainDelete:
-          'This operation is not revertable. This session will be hidden to all new customer. You will still be able to accces the session details and bookings.',
-        explainNotifyDelete: 'Send an alert to every client with a booking',
         changeCoach: 'Change the coach',
         changeEstablishment: 'Change location',
         explainRecursiveOfferEdit:
           'Would you like to modify ALL the similar sessions to match the new conditions ?',
         explainNotificationOnEdit:
           'Do you want to notify your customers for this change ?',
+        delete: {
+          buttonHardDelete: 'Delete',
+          explainHardDelete:
+            'Remove offer from list ? You will not be able to access this session anymore, nor any of the booking related to it. Be careful !',
+          explainCreditBack: 'Send back all credits used for booking',
+          explainNotify: 'Send an alert to every client with a booking',
+          explainModalities:
+            'This operation is not revertable. This session will be hidden to all new customer. You will still be able to accces the session details and bookings.',
+        },
       },
       paymentPack: {
         newMemberOnly: 'Only available to new members',

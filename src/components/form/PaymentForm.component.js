@@ -24,6 +24,7 @@ import {
   CB as PAYMENT_METHOD_CB,
   CASH as PAYMENT_METHOD_CASH,
   CHECK as PAYMENT_METHOD_CHECK,
+  CHECK_FR as PAYMENT_METHOD_CHECK_FR,
 } from 'bsport-commons/lib/master-data/payment-methods';
 
 import { Elements, StripeProvider } from 'react-stripe-elements';
@@ -197,6 +198,13 @@ export class PaymentForm extends Component<Props, State> {
                 icon={<AttachMoneyIcon />}
                 label={t(`payment.paymentMethod.${PAYMENT_METHOD_CASH.text}`)}
                 value={PAYMENT_METHOD_CASH.id}
+              />
+              <Tab
+                icon={<NoteIcon />}
+                label={t(
+                  `payment.paymentMethod.${PAYMENT_METHOD_CHECK_FR.text}`,
+                )}
+                value={PAYMENT_METHOD_CHECK_FR.id}
               />
             </Tabs>
           </Paper>

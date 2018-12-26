@@ -1,8 +1,12 @@
 // @flow
 
 import React, { Component } from 'react';
+
+import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import AddIcon from '@material-ui/icons/Add';
+
+import { push } from 'connected-react-router';
 
 import { Link } from 'react-router-dom';
 
@@ -100,33 +104,23 @@ export class EstablishmentList extends Component<Props, State> {
       }
     }
     return (
-      <div>
-        <Paper className={classes.paperContainer}>
-          <Grid container>
-            <Grid item xs={12}>
-              <div className={classes.calendarContainer}>
-                <Calendar
-                  events={events_}
-                  onDateClick={this.onDateClick(establishment.id)}
-                  date={selectedDay[establishment.id] || Moment()}
-                />
-              </div>
-            </Grid>
-            <Grid item xs={12}>
-              <TimeTable
-                loading={timetableLoading}
-                activities={activities}
-                offers={offers.filter(
-                  (o) => o.etablissement.id === establishment.id,
-                )}
-                establishmentId={establishment.id}
-                date={selectedDay[establishment.id]}
-                onOfferSelected={() => {}}
-              />
-            </Grid>
-          </Grid>
-        </Paper>
-      </div>
+      <Paper className={classes.paperContainer}>
+        <div className={classes.calendarContainer}>
+          <Calendar
+            events={events_}
+            onDateClick={this.onDateClick(establishment.id)}
+            date={selectedDay[establishment.id] || Moment()}
+          />
+        </div>
+        <TimeTable
+          loading={timetableLoading}
+          activities={activities}
+          offers={offers.filter((o) => o.etablissement.id === establishment.id)}
+          establishmentId={establishment.id}
+          date={selectedDay[establishment.id]}
+          onOfferSelected={() => {}}
+        />
+      </Paper>
     );
   };
 
@@ -136,35 +130,28 @@ export class EstablishmentList extends Component<Props, State> {
       return <CircularProgress />;
     }
     return (
-      <Grid container spacing={16}>
-        <Grid item xs={12}>
-          <Paper>
-            <Map markers={establishments} markerClicked={() => {}} />
-          </Paper>
+      <div className={classes.root}>
+        <Paper className={classes.map}>
+          <Map markers={establishments} markerClicked={() => {}} />
+        </Paper>
+        <Grid container direction="column" spacing={32}>
+          {establishments.map((e) => (
+            <Grid key={e.id} item>
+              {this.renderEstablishment(e)}
+            </Grid>
+          ))}
         </Grid>
-        <Grid item xs={12}>
-          <Grid container direction="column" spacing={32}>
-            {establishments.map((e) => (
-              <Grid key={e.id} item>
-                {this.renderEstablishment(e)}
-              </Grid>
-            ))}
-          </Grid>
-        </Grid>
-        <Grid item xs={12}>
-          <Link to="/establishments/add" style={{ textDecoration: 'none' }}>
-            <Button
-              variant="extendedFab"
-              aria-label="Add"
-              className={classes.button}
-              color="primary"
-            >
-              <AddIcon className={classes.extendedIcon} />
-              {t('establishment.addButton')}
-            </Button>
-          </Link>
-        </Grid>
-      </Grid>
+        <Button
+          variant="extendedFab"
+          aria-label="Add"
+          className={classes.button}
+          color="primary"
+          onClick={this.props.goToCreateEstablishment}
+        >
+          <AddIcon className={classes.extendedIcon} />
+          {t('establishment.addButton')}
+        </Button>
+      </div>
     );
   }
 }
@@ -179,18 +166,13 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    startUpdateEstablishment(establishment) {
-      dispatch(establishmentActions.startUpdate(establishment));
-    },
-    fetchOffersByDay({ year, month, day }) {
-      dispatch(offerActions.fetchOffersByDay({ year, month, day }));
-    },
-  };
-}
-
 const styles = (theme) => ({
+  root: {},
+  button: {
+    position: 'fixed',
+    right: theme.spacing.unit * 2,
+    bottom: theme.spacing.unit * 2,
+  },
   emptyEstablishment: {
     padding: theme.spacing.unit * 3,
   },
@@ -201,16 +183,24 @@ const styles = (theme) => ({
     padding: theme.spacing.unit * 3,
     paddingRight: 0,
   },
+  map: {
+    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 2,
+  },
   calendarContainer: {
-    marginRight: theme.spacing.unit * 2,
+    margin: theme.spacing.unit * 2,
   },
 });
 
-export default withStyles(styles)(
-  translate()(
-    connect(
-      mapStateToProps,
-      mapDispatchToProps,
-    )(EstablishmentList),
+export default compose(
+  withStyles(styles),
+  translate(),
+  connect(
+    mapStateToProps,
+    {
+      startUpdateEstablishment: establishmentActions.startUpdate,
+      fetchOffersByDay: offerActions.fetchOffersByDay,
+      goToCreateEstablishment: () => push('/establishments/add'),
+    },
   ),
-);
+)(EstablishmentList);

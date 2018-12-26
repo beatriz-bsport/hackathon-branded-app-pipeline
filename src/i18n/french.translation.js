@@ -41,6 +41,12 @@ export default {
       "Montant fixe reversé pour toute séance avec suffisamment d'inscrits",
   },
   translation: {
+    metaActivity: {
+      update: {
+        imageUploaderRequireEditMessage:
+          "Une fois votre activité créée, vous aurez la possibilité d'ajouter des images supplémentaires.",
+      },
+    },
     companies,
     error: {
       connectionError: 'Erreur réseau',
@@ -61,6 +67,10 @@ export default {
       },
     },
     common: {
+      uploadOneImage: {
+        new: 'Glisser et déposer ou cliquer ici pour ajouter une image',
+        edit: "Glisser et déposer ou cliquer ici pour changer l'image",
+      },
       buy: 'Acheter',
       establishments: 'Lieux',
       notes: 'Notes',
@@ -489,6 +499,7 @@ export default {
       paymentMethod: {
         CB: 'Carte bleue',
         CHECK: 'Chèque',
+        CHECK_FR: 'Chèque vacances',
         CASH: 'Espèces',
       },
       paymentItemsListTitle: 'Paiements enregistrés',

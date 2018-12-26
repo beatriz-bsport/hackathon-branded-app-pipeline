@@ -1,38 +1,27 @@
-import Immutable from 'seamless-immutable';
+// @flow
 
-import actionTypes from '../actions/activity.types';
-import authActionTypes from '../actions/auth.types';
+import Immutable from 'seamless-immutable';
+import { handleActions } from 'redux-actions';
+
+import { fetchAll, removeImage, addImage } from '../actions/activity.actions';
 
 const initialState = Immutable({
   all: [],
   loading: true,
-  error: false,
-  errorMsg: '',
+  error: null,
 });
 
-export default function activityReducers(state = initialState, action = {}) {
-  switch (action.type) {
-    case authActionTypes.DISCONNECT:
-      return initialState;
-
-    case actionTypes.HAS_FETCHED_ACTIVITIES:
-      return Immutable.merge(state, {
-        loading: false,
-        error: false,
-        all: action.activities,
-      });
-
-    case actionTypes.START_FETCH_ACTIVITIES:
-      return Immutable.merge(state, { loading: true, error: false });
-
-    case actionTypes.ERROR_FETCHING_ACTIVITIES:
-      return Immutable.merge(state, {
-        loading: false,
-        error: true,
-        errorMsg: action.error,
-      });
-
-    default:
-      return state;
-  }
-}
+export default handleActions(
+  {
+    [fetchAll.isLoading]: (state, { payload }) => {
+      return state.setIn(['loading'], payload);
+    },
+    [fetchAll.error]: (state, { payload }) => {
+      return state.setIn(['error'], payload);
+    },
+    [fetchAll.success]: (state, { payload }) => {
+      return state.setIn(['all'], payload).setIn(['lastFetched'], new Date());
+    },
+  },
+  initialState,
+);

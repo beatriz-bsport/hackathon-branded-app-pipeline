@@ -1,4 +1,4 @@
-// @flow
+// @flow weak
 
 import api from '../api';
 import types from './companies.types';

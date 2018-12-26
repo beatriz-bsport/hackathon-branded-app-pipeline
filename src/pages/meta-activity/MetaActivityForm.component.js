@@ -2,9 +2,9 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Snackbar from '@material-ui/core/Snackbar';
 import { withRouter } from 'react-router';
 
+import { snackbarSuccess } from '../../actions/snackbar.actions';
 import MetaActivityForm from '../../components/form/MetaActivityForm.component';
 import api from '../../api';
 import { metaActivity as metaActivityActions } from '../../actions';
@@ -17,16 +17,14 @@ type Props = {
   fetchAllActivities: () => void,
   history: Object,
 };
-type State = { open: boolean };
+type State = {};
 
 export class MetaActivityFormPage extends Component<Props, State> {
-  state = { open: false };
-
   createMetaActivity = async (metaActivityData: *) => {
     try {
       await api.activity.addMetaActivity(metaActivityData);
 
-      this.setState({ open: true });
+      this.props.snackbarSuccess('Activité créée');
       this.props.fetchAllActivities();
       this.props.history.goBack();
     } catch (e) {
@@ -50,7 +48,6 @@ export class MetaActivityFormPage extends Component<Props, State> {
           onSubmit={this.createMetaActivity}
           metaActivityNames={metaActivityNames}
         />
-        <Snackbar open={this.state.open} message="Activité créée" />
       </div>
     );
   }
@@ -65,14 +62,10 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchAllActivities() {
-      dispatch(metaActivityActions.fetchAllActivities());
-    },
-  };
-}
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  {
+    fetchAllActivities: metaActivityActions.fetchAllActivities,
+    snackbarSuccess,
+  },
 )(withRouter(MetaActivityFormPage));

@@ -45,7 +45,6 @@ export const statActivities = {
 function canUpdateStatActivities(lastDate) {
   return Date.now() - lastDate < 60 * 5 * 1000;
 }
-
 export function fetchStatActivities() {
   return async (dispatch, getState) => {
     dispatch(statActivities.isLoading(true));

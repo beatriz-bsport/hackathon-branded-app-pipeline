@@ -1,25 +1,29 @@
-import api from '../api';
-import types from './activity.types';
+// @flow
 
-export function startFetchActivities() {
-  return { type: types.START_FETCH_ACTIVITIES };
-}
-export function errorFetchingActivities() {
-  return { type: types.ERROR_FETCHING_ACTIVITIES };
-}
-export function fetchedActivities(activities) {
-  return { type: types.HAS_FETCHED_ACTIVITIES, activities };
-}
+import * as Sentry from '@sentry/browser';
+
+import { createAction } from 'redux-actions';
+
+import api from '../api';
+
+export const fetchAll = {
+  isLoading: createAction('ACTIVITIES/LIST/IS_LOADING'),
+  error: createAction('ACTIVITIES/LIST/ERROR'),
+  success: createAction('ACTIVITIES/LIST/SUCCESS'),
+};
+
 export function fetchActivities() {
   return async (dispatch) => {
-    dispatch(startFetchActivities());
+    dispatch(fetchAll.isLoading(true));
+    dispatch(fetchAll.error(null));
 
     try {
       const response = await api.activity.fetchMinimal();
-      const activities = response.data;
-      dispatch(fetchedActivities(activities));
+      dispatch(fetchAll.success(response.data));
     } catch (err) {
-      dispatch(errorFetchingActivities());
+      dispatch(fetchAll.error(err));
+      Sentry.captureException(err);
     }
+    dispatch(fetchAll.isLoading(false));
   };
 }

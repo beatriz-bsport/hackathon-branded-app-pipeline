@@ -28,6 +28,12 @@ export default {
       'Amount given to every booking over threshold',
   },
   translation: {
+    metaActivity: {
+      update: {
+        imageUploaderRequireEditMessage:
+          'Once you have created your activity you will be able to add additional images.',
+      },
+    },
     companies,
     error: {
       connectionError: 'Connection error',
@@ -42,6 +48,10 @@ export default {
       CHECK: 'Check',
     },
     common: {
+      uploadOneImage: {
+        new: 'Drag and drop or click here to add your image',
+        edit: 'Drag and drop or click here to change the image',
+      },
       buy: 'Buy',
       establishments: 'Locations',
       notes: 'Notes',
@@ -453,6 +463,7 @@ export default {
       paymentMethod: {
         CB: 'Credit card',
         CHECK: 'Check',
+        CHECK_FR: 'Other',
         CASH: 'Cash',
         CB_MANUAL: 'Credit card (manual)',
       },

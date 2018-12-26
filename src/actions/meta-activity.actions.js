@@ -1,52 +1,102 @@
+// @flow
+
+import * as Sentry from '@sentry/browser';
+import { createAction } from 'redux-actions';
+
+import { postAuth, deleteAuth, API_URI } from '../http';
 import api from '../api';
-import types from './meta-activity.types';
 
-export function fetchedAllActivities(activities) {
-  return { type: types.HAS_FETCHED_ALL_ACTIVITIES, activities };
-}
-export function startFetchAllActivities() {
-  return { type: types.START_FETCH_ALL_ACTIVITIES };
-}
+export const fetchOne = {
+  isLoading: createAction('META_ACTIVITIES/DETAIL/IS_LOADING'),
+  error: createAction('META_ACTIVITIES/DETAIL/ERROR'),
+  success: createAction('META_ACTIVITIES/DETAIL/SUCCESS'),
+};
 
-export function errorFetchingAllActivities() {
-  return { type: types.ERROR_FETCHING_ALL_ACTIVITIES };
-}
-export function activityAlreadyLoading() {
-  return { type: types.ACTIVITY_ALREADY_LOADING };
-}
-
-export function fetchedMetaActivityDetails(metaActivity) {
-  return { type: types.FETCHED_META_ACTIVITY_DETAILS, metaActivity };
-}
 export function fetchMetaActivityDetails(id) {
   return async (dispatch) => {
-    dispatch(startFetchAllActivities());
+    dispatch(fetchAll.isLoading(true));
+    dispatch(fetchAll.error(null));
 
     try {
       const response = await api.activity.fetchMetaActivityDetails(id);
-      const metaActivity = response.data;
-      dispatch(fetchedMetaActivityDetails(metaActivity));
+      dispatch(fetchOne.success(response.data));
     } catch (err) {
-      dispatch(errorFetchingAllActivities());
+      dispatch(fetchAll.error(err));
+      Sentry.captureException(err);
     }
+    dispatch(fetchAll.isLoading(false));
   };
 }
 
+export const fetchAll = {
+  isLoading: createAction('META_ACTIVITIES/LIST/IS_LOADING'),
+  error: createAction('META_ACTIVITIES/LIST/ERROR'),
+  success: createAction('META_ACTIVITIES/LIST/SUCCESS'),
+};
+
 export function fetchAllActivities() {
   return async (dispatch) => {
-    /*
-    if (getState().activity.loading) {
-      return dispatch(activityAlreadyLoading());
-    }
-    */
-    dispatch(startFetchAllActivities());
+    dispatch(fetchAll.isLoading(true));
+    dispatch(fetchAll.error(null));
 
     try {
       const response = await api.activity.fetchAllActivities();
-      const activities = response.data;
-      dispatch(fetchedAllActivities(activities));
+      dispatch(fetchAll.success(response.data));
     } catch (err) {
-      dispatch(errorFetchingAllActivities());
+      dispatch(fetchAll.error(err));
+      Sentry.captureException(err);
     }
+    dispatch(fetchAll.isLoading(false));
+  };
+}
+
+export const addImage = {
+  isLoading: createAction('META_ACTIVITIES/ADD_IMAGE/IS_LOADING'),
+  error: createAction('META_ACTIVITIES/ADD_IMAGE/ERROR'),
+  success: createAction('META_ACTIVITIES/ADD_IMAGE/SUCCESS'),
+};
+
+export function addImageToMetaActivity(id: number, image: File) {
+  return async (dispatch: Dispatch) => {
+    dispatch(addImage.isLoading({ id, loading: true }));
+    dispatch(addImage.error(null));
+
+    try {
+      const data = new FormData();
+      data.append('image', image);
+      const response = await postAuth(
+        `${API_URI}/meta-activities/${id}/images/`,
+        data,
+      );
+      dispatch(addImage.success({ id, image: response.data }));
+    } catch (error) {
+      console.error(error);
+      dispatch(addImage.error(error));
+      Sentry.captureException(error);
+    }
+    dispatch(addImage.isLoading({ id, loading: false }));
+  };
+}
+
+export const removeImage = {
+  isLoading: createAction('META_ACTIVITIES/REMOVE_IMAGE/IS_LOADING'),
+  error: createAction('META_ACTIVITIES/REMOVE_IMAGE/ERROR'),
+  success: createAction('META_ACTIVITIES/REMOVE_IMAGE/SUCCESS'),
+};
+
+export function removeImageFromMetaActivity(id: number, imageId: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(removeImage.isLoading({ id, imageId, loading: true }));
+    dispatch(removeImage.error(null));
+
+    try {
+      await deleteAuth(`${API_URI}/meta-activities/${id}/images/${imageId}/`);
+      dispatch(removeImage.success({ id, imageId }));
+    } catch (error) {
+      console.error(error);
+      dispatch(removeImage.error(error));
+      Sentry.captureException(error);
+    }
+    dispatch(removeImage.isLoading({ id, imageId, loading: false }));
   };
 }

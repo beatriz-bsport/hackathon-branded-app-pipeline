@@ -1,24 +1,17 @@
 // @flow
 import React, { Component } from 'react';
 
-import {
-  Grid,
-  Paper,
-  Typography,
-  Button,
-  withStyles,
-  CardMedia,
-} from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
+import MultipleImageUploader from '../MultipleImageUploader.component';
+import ImageList from '../ImageList.component';
 import { FormField, ImageUploader } from '../input';
-
-const styles = (theme) => ({
-  paperContainer: {
-    padding: theme.spacing.unit * 3,
-  },
-});
 
 type Props = {
   initial: *,
@@ -28,6 +21,10 @@ type Props = {
   metaActivityNames: Array<string>,
   initial: ?MetaActivity,
   t: (x: string) => string,
+  imageUploader: ?{
+    onAddImage: (image) => void,
+    onRemoveImage: (image) => void,
+  },
 };
 
 type State = {
@@ -59,19 +56,10 @@ export class MetaActivityForm extends Component<Props, State> {
       this.state.default_last_discard_minutes = initial.last_discard_minutes;
       this.state.customer_enabled = initial.customer_enabled;
       this.state.SCT = initial.category_id;
-      this.state.cover = initial.cover_main;
+      this.state.cover_main = initial.cover_main;
       this.state.description = initial.description;
     }
   }
-  /*
-  constructor(props: Props) {
-    super(props);
-
-    Object.keys(props.initial || {}).forEach((key) => {
-      this.state[key] = props.initial[key];
-    });
-  }
-  */
 
   onSubmit = (event: Object) => {
     event.preventDefault();
@@ -83,7 +71,7 @@ export class MetaActivityForm extends Component<Props, State> {
       default_last_booking_minutes,
       default_last_discard_minutes,
       customer_enabled,
-      cover,
+      cover_main,
     } = this.state;
     const { t, metaActivityNames } = this.props;
 
@@ -93,7 +81,9 @@ export class MetaActivityForm extends Component<Props, State> {
     }
 
     const formData = new FormData();
-    cover && formData.append('cover', cover);
+    if (cover_main && typeof cover_main !== 'string') {
+      formData.append('cover_main', cover_main);
+    }
     formData.append('name', name);
     formData.append('SCT', SCT);
     formData.append('description', description);
@@ -118,116 +108,123 @@ export class MetaActivityForm extends Component<Props, State> {
   };
 
   render() {
-    const { SCTs, classes, t } = this.props;
+    const { SCTs, classes, t, imageUploader } = this.props;
+    const images = (this.props.initial || {}).images || [];
     return (
-      <Grid container direction="row" spacing={16}>
-        <Grid item xs={12} lg={6}>
-          <Paper className={classes.paperContainer}>
-            <form onSubmit={this.onSubmit}>
-              <Grid container direction="column" spacing={16}>
-                <Grid item>
-                  <Typography variant="title">
-                    {t('form.newMetaActivity')}
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <label>Photo</label>
-                  <ImageUploader
-                    onChange={this.onFormFieldChange('cover')}
-                    initial={this.state.cover}
-                  >
-                    <MetaActivityCoverPreview />
-                  </ImageUploader>
-                </Grid>
-                <Grid item>
-                  <FormField
-                    id="name"
-                    required
-                    value={this.state.name}
-                    onChange={this.onFormFieldChange}
-                  />
-                </Grid>
-                <Grid item>
-                  <FormField
-                    id="SCT"
-                    required
-                    value={this.state.SCT}
-                    choices={SCTs}
-                    onChange={this.onFormFieldChange}
-                  />
-                </Grid>
-                <Grid item>
-                  <FormField
-                    id="description"
-                    required
-                    multiline
-                    fullWidth
-                    value={this.state.description}
-                    onChange={this.onFormFieldChange}
-                  />
-                </Grid>
-                <Grid item>
-                  <FormField
-                    id="default_last_booking_minutes"
-                    required
-                    value={this.state.default_last_booking_minutes}
-                    onChange={this.onFormFieldChange}
-                  />
-                </Grid>
-                <Grid item>
-                  <FormField
-                    id="default_last_discard_minutes"
-                    required
-                    value={this.state.default_last_discard_minutes}
-                    onChange={this.onFormFieldChange}
-                  />
-                </Grid>
-                <Grid item>
-                  <FormField
-                    id="default_waiting_list_max_size"
-                    required
-                    value={this.state.default_waiting_list_max_size}
-                    onChange={this.onFormFieldChange}
-                  />
-                </Grid>
-                <Grid item>
-                  <FormField
-                    id="customer_enabled"
-                    required
-                    onChange={this.onFormFieldChange}
-                  />
-                </Grid>
+      <form onSubmit={this.onSubmit}>
+        <Paper className={classes.paperContainer}>
+          <ImageUploader
+            onChange={this.onFormFieldChange('cover_main')}
+            initial={this.state.cover_main}
+          />
+          <div className={classes.container}>
+            <Grid container direction="column" spacing={16}>
+              <Grid item>
+                <FormField
+                  id="name"
+                  required
+                  value={this.state.name}
+                  onChange={this.onFormFieldChange}
+                />
               </Grid>
-              <Grid container direction="row" justify="flex-end">
-                <Grid item>
-                  <Link to="/activity" style={{ textDecoration: 'none' }}>
-                    <Button>{t('form.discard')}</Button>
-                  </Link>
+              {imageUploader ? (
+                <Grid item xs={12} style={{ marginTop: 20 }}>
+                  <label>Carousel</label>
+                  <MultipleImageUploader
+                    initial={images}
+                    onAddImage={imageUploader.onAddImage}
+                    onRemoveImage={imageUploader.onRemoveImage}
+                  />
+                  {images.length ? (
+                    <ImageList
+                      images={images}
+                      onRemoveImage={imageUploader.onRemoveImage}
+                    />
+                  ) : null}
                 </Grid>
-                <Grid item>
-                  <Button variant="contained" color="primary" type="submit">
-                    {t('form.send')}
-                  </Button>
-                </Grid>
+              ) : (
+                <p>
+                  {t('metaActivity.update.imageUploaderRequireEditMessage')}
+                </p>
+              )}
+              <Grid item>
+                <FormField
+                  id="SCT"
+                  required
+                  value={this.state.SCT}
+                  choices={SCTs}
+                  onChange={this.onFormFieldChange}
+                />
               </Grid>
-            </form>
-          </Paper>
-        </Grid>
-      </Grid>
+              <Grid item>
+                <FormField
+                  id="description"
+                  required
+                  multiline
+                  fullWidth
+                  value={this.state.description}
+                  onChange={this.onFormFieldChange}
+                />
+              </Grid>
+              <Grid item>
+                <FormField
+                  id="default_last_booking_minutes"
+                  required
+                  value={this.state.default_last_booking_minutes}
+                  onChange={this.onFormFieldChange}
+                />
+              </Grid>
+              <Grid item>
+                <FormField
+                  id="default_last_discard_minutes"
+                  required
+                  value={this.state.default_last_discard_minutes}
+                  onChange={this.onFormFieldChange}
+                />
+              </Grid>
+              <Grid item>
+                <FormField
+                  id="default_waiting_list_max_size"
+                  required
+                  value={this.state.default_waiting_list_max_size}
+                  onChange={this.onFormFieldChange}
+                />
+              </Grid>
+              <Grid item>
+                <FormField
+                  id="customer_enabled"
+                  required
+                  onChange={this.onFormFieldChange}
+                />
+              </Grid>
+            </Grid>
+            <Grid container direction="row" justify="flex-end">
+              <Grid item>
+                <Link to="/activity" style={{ textDecoration: 'none' }}>
+                  <Button>{t('form.discard')}</Button>
+                </Link>
+              </Grid>
+              <Grid item>
+                <Button variant="contained" color="primary" type="submit">
+                  {t('form.send')}
+                </Button>
+              </Grid>
+            </Grid>
+          </div>
+        </Paper>
+      </form>
     );
   }
 }
 
-function MetaActivityCoverPreview(props: { previewURL: string }) {
-  return (
-    <CardMedia
-      style={{ height: 250 }}
-      image={
-        props.previewURL ||
-        'https://images.pexels.com/photos/137611/pexels-photo-137611.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
-      }
-    />
-  );
-}
+const styles = (theme) => ({
+  paperContainer: {
+    maxWidth: 800,
+    margin: '0 auto',
+  },
+  container: {
+    padding: theme.spacing.unit * 3,
+  },
+});
 
 export default withStyles(styles)(translate()(MetaActivityForm));

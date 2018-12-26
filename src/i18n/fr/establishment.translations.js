@@ -3,6 +3,7 @@ export default {
   pleaseSelectOne: 'Veuillez sélectionner un club sur la carte',
   offers: 'Calendrier des séances:',
   noMoreOffers: 'Plus aucune séance de prévue',
+  goBackToList: 'Retour aux établissements',
   form: {
     new: {
       title: 'Titre',
@@ -10,6 +11,10 @@ export default {
   },
   card: {
     update: 'Modifier',
+  },
+  update: {
+    imageUploaderRequireEditMessage:
+      "Une fois votre établissement créé, vous aurez la possibilité d'ajouter des images supplémentaires.",
   },
   forms: {
     error: "Impossible de sauvegarde l'établissement",

@@ -1,4 +1,4 @@
-// @flow
+// @flow weak
 
 import { push } from 'react-router-redux';
 

@@ -1,7 +1,14 @@
-import Immutable from 'seamless-immutable';
+// @flow
 
-import actionTypes from '../actions/meta-activity.types';
-import authActionTypes from '../actions/auth.types';
+import Immutable from 'seamless-immutable';
+import { handleActions } from 'redux-actions';
+
+import {
+  fetchAll,
+  fetchOne,
+  removeImage,
+  addImage,
+} from '../actions/meta-activity.actions';
 
 const initialState = Immutable({
   all: [],
@@ -11,36 +18,34 @@ const initialState = Immutable({
   metaActivity: null,
 });
 
-export default function activityReducers(state = initialState, action = {}) {
-  switch (action.type) {
-    case authActionTypes.DISCONNECT:
-      return initialState;
-
-    case actionTypes.HAS_FETCHED_ALL_ACTIVITIES:
-      return Immutable.merge(state, {
-        loading: false,
-        error: false,
-        all: action.activities,
-      });
-
-    case actionTypes.START_FETCH_ALL_ACTIVITIES:
-      return Immutable.merge(state, { loading: true, error: false });
-
-    case actionTypes.ERROR_FETCHING_ALL_ACTIVITIES:
-      return Immutable.merge(state, {
-        loading: false,
-        error: true,
-        errorMsg: action.error,
-      });
-
-    case actionTypes.FETCHED_META_ACTIVITY_DETAILS:
-      return Immutable.merge(state, {
-        loading: false,
-        error: false,
-        metaActivity: action.metaActivity,
-      });
-
-    default:
-      return state;
-  }
-}
+export default handleActions(
+  {
+    [fetchAll.isLoading]: (state, { payload }) => {
+      return state.setIn(['loading'], payload);
+    },
+    [fetchAll.error]: (state, { payload }) => {
+      return state.setIn(['error'], payload);
+    },
+    [fetchAll.success]: (state, { payload }) => {
+      return state.setIn(['all'], payload).setIn(['lastFetched'], new Date());
+    },
+    [fetchOne.success]: (state, { payload }) => {
+      return state
+        .setIn(['metaActivity'], payload)
+        .setIn(['lastFetched'], new Date());
+    },
+    [addImage.success]: (state, { payload }) => {
+      const { image } = payload;
+      const { images } = state.metaActivity;
+      return state.setIn(['metaActivity', 'images'], [image].concat(images));
+    },
+    [removeImage.success]: (state, { payload }) => {
+      const images = state.metaActivity.images.filter(
+        (i) => i.id !== payload.imageId,
+      );
+      console.log(images);
+      return state.setIn(['metaActivity', 'images'], images);
+    },
+  },
+  initialState,
+);

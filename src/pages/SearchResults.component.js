@@ -32,12 +32,8 @@ type Props = {
   bookings: *[],
   paymentPacks: *[],
   pushToMember: (memberId: number) => void,
-  bookingUpdaters: {
-    confirmBooking: (id: number) => void,
-    confirmBookingAttendance: (id: number) => void,
-    discardBooking: (id: number) => void,
-    discardBookingAttendance: (id: number) => void,
-  },
+  confirmBookingAttendance: (id: number) => void,
+  discardBookingAttendance: (id: number) => void,
   incrementCredit: () => void,
   decrementCredit: () => void,
   selectEntity: (*) => void,
@@ -149,7 +145,8 @@ export class SearchResults extends Component<Props, State> {
               <MemberDetail
                 member={member}
                 bookings={bookings}
-                bookingUpdaters={this.props.bookingUpdaters}
+                discardBookingAttendance={this.props.discardBookingAttendance}
+                confirmBookingAttendance={this.props.confirmBookingAttendance}
                 decrementCredit={this.props.decrementCredit}
                 incrementCredit={this.props.incrementCredit}
                 paymentPacks={this.props.paymentPacks}
@@ -189,19 +186,11 @@ function mapDispatchToProps(dispatch) {
     decrementCredit(consumerPackId) {
       dispatch(paymentPackActions.addCredit(consumerPackId, -1));
     },
-    bookingUpdaters: {
-      confirmBookingAttendance(bookingId) {
-        dispatch(bookingActions.confirmBookingAttendance(bookingId));
-      },
-      discardBookingAttendance(bookingId) {
-        dispatch(bookingActions.discardBookingAttendance(bookingId));
-      },
-      confirmBooking(bookingId) {
-        dispatch(bookingActions.confirmBooking(bookingId));
-      },
-      discardBooking(bookingId) {
-        dispatch(bookingActions.discardBooking(bookingId));
-      },
+    discardBookingAttendance(bookingId) {
+      dispatch(bookingActions.discardBookingAttendance(bookingId));
+    },
+    discardBooking(bookingId) {
+      dispatch(bookingActions.discardBooking(bookingId));
     },
   };
 }

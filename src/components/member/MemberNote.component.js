@@ -54,7 +54,7 @@ export class MemberNote extends Component<Props, State> {
     const { text, editMode, date } = this.state;
     return (
       <Grid container direction="row" justify="space-between">
-        <Grid item xs={10}>
+        <Grid item xs={8}>
           <TextField
             fullWidth
             disabled={!editMode}
@@ -67,8 +67,14 @@ export class MemberNote extends Component<Props, State> {
             inputProps={{ className: classes.text }}
           />
         </Grid>
-        <Grid item xs={2}>
-          <Grid container direction="column" spacing={16} alignItems="flex-end">
+        <Grid item xs={4}>
+          <Grid
+            container
+            direction="column"
+            spacing={16}
+            alignItems="flex-end"
+            wrap="nowrap"
+          >
             <Grid item>
               {editMode ? (
                 <IconButton>

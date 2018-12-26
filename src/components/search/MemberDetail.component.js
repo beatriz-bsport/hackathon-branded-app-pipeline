@@ -20,12 +20,8 @@ type Props = {
   paymentPacks: *[],
   incrementCredit: () => void,
   decrementCredit: () => void,
-  bookingUpdaters: {
-    confirmBooking: (id: number) => void,
-    confirmBookingAttendance: (id: number) => void,
-    discardBooking: (id: number) => void,
-    discardBookingAttendance: (id: number) => void,
-  },
+  confirmBookingAttendance: (id: number) => void,
+  discardBookingAttendance: (id: number) => void,
 };
 type State = {};
 
@@ -33,7 +29,11 @@ export class MemberDetail extends Component<Props, State> {
   state = {};
 
   renderSessions = () => {
-    const { bookings, bookingUpdaters } = this.props;
+    const {
+      bookings,
+      discardBookingAttendance,
+      confirmBookingAttendance,
+    } = this.props;
     if (!bookings) {
       return null;
     }
@@ -43,7 +43,8 @@ export class MemberDetail extends Component<Props, State> {
         bookingOptions={[]}
         bookings={bookings}
         heading="date_start"
-        bookingUpdaters={bookingUpdaters}
+        discardBookingAttendance={discardBookingAttendance}
+        confirmBookingAttendance={confirmBookingAttendance}
       />
     );
   };

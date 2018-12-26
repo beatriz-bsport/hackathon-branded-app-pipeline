@@ -447,11 +447,6 @@ export class Planning extends Component<Props, State> {
           {selectedOffer ? (
             <OfferCard
               offer={selectedOffer}
-              bookings={bookings}
-              bookingOptions={bookingOptions}
-              bookingLoading={bookingLoading}
-              bookingUpdaters={bookingUpdaters}
-              discardOption={discardOption}
               establishments={establishments}
               coaches={coaches}
               coachesLoading={coachesLoading}

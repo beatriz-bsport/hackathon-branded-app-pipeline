@@ -13,42 +13,30 @@ import {
   ExpansionPanelDetails,
   Button,
   CircularProgress,
-  List,
-  ListItem,
-  ListItemSecondaryAction,
-  ListItemText,
 } from '@material-ui/core';
-import EmailIcon from '@material-ui/icons/Email';
-import TodayIcon from '@material-ui/icons/Today';
-import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
-import CallIcon from '@material-ui/icons/Call';
-import EditIcon from '@material-ui/icons/Edit';
-import AddIcon from '@material-ui/icons/Add';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { translate } from 'react-i18next';
 import { push as routerPush } from 'react-router-redux';
 import { connect } from 'react-redux';
-import NotificationActiveIcon from '@material-ui/icons/NotificationsActive';
-import NotificationOffIcon from '@material-ui/icons/NotificationsOff';
-import MemberNote from '../../components/member/MemberNote.component';
 
 import {
   booking as bookingActions,
   member as memberActions,
   paymentPack as paymentPackActions,
-} from '../../actions';
-import { Avatar } from '../../components';
-import BookingTable from '../../components/booking/BookingTable.container';
-import ConsumerPackRowItem from '../../components/payment-pack/ConsumerPackRowItem.component';
-import { formatAsDatetime } from '../../datetime';
+} from '../../../actions';
+import BookingTable from '../../../components/booking/BookingTable.container';
+import ConsumerPackRowItem from '../../../components/payment-pack/ConsumerPackRowItem.component';
+import { formatAsDatetime } from '../../../datetime';
 import type {
   MemberDetailed,
   Member as MemberSimplified,
   Booking,
   BookingOption,
-} from '../../api/types';
-import { Moment } from '../../i18n';
+} from '../../../api/types';
+import { Moment } from '../../../i18n';
+
+import MemberNotePanel from './MemberNotePanel.component';
+import MemberSummaryCard from './MemberSummaryCard.component';
 
 type Props = {
   memberLoading: boolean,
@@ -63,9 +51,7 @@ type Props = {
 
   fetchMember: (id: number) => void,
   fetchMemberBookings: (id: number) => void,
-  confirmBooking: (id: number) => void,
   confirmBookingAttendance: (id: number) => void,
-  discardBooking: (id: number) => void,
   discardBookingAttendance: (id: number) => void,
   editMember: (id: number) => void,
   billMember: (id: number) => void,
@@ -80,10 +66,12 @@ type Props = {
 
 type State = {
   newNote: Note,
+  noteExpanded: boolean,
 };
 export class Member extends Component<Props, State> {
   state = {
     newNote: null,
+    noteExpanded: false,
   };
 
   memberId: number;
@@ -112,143 +100,6 @@ export class Member extends Component<Props, State> {
     this.props.fetchMember(this.memberId);
   };
 
-  getFirstRow = () => {
-    const { t, member, classes } = this.props;
-    const { consumer } = member;
-    // ugly FIXME: because loading should never be set to true
-    // if member=={}
-    if (consumer) {
-      return (
-        <Grid
-          container
-          direction="row"
-          justify="space-between"
-          alignItems="center"
-          spacing={24}
-          className={classes.firstRow}
-        >
-          <Grid item>
-            <Grid container direction="row" alignItems="center" spacing={16}>
-              <Grid item>
-                <Grid container direction="column" spacing={24}>
-                  <Grid
-                    container
-                    direction="row"
-                    spacing={16}
-                    alignItems="center"
-                  >
-                    <Grid item>
-                      <Avatar user={consumer} variant="mediumNoname" noname />
-                    </Grid>
-                    <Grid item>
-                      <Grid
-                        container
-                        direction="column"
-                        alignItems="flex-start"
-                        justify="space-around"
-                        spacing={8}
-                      >
-                        <Grid item>
-                          <Typography>
-                            {consumer.first_name} {consumer.last_name}
-                          </Typography>
-                        </Grid>
-                        <Grid item>
-                          <Typography>
-                            {t('member.memberSince') + member.date_joined}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                  <Grid item>
-                    <Grid
-                      container
-                      direction="row"
-                      justify="flex-start"
-                      spacing={16}
-                    >
-                      <Grid item>
-                        <Button onClick={this.billMember}>
-                          <AttachMoneyIcon
-                            className={classes.leftIcon}
-                            color="primary"
-                          />
-                          {t('payment.toBill')}
-                        </Button>
-                      </Grid>
-                      <Grid item>
-                        <Button onClick={this.editMember}>
-                          <EditIcon
-                            className={classes.leftIcon}
-                            color="primary"
-                          />
-                          {t('common.edit')}
-                        </Button>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item>
-            <List dense>
-              <ListItem>
-                <TodayIcon />
-                <ListItemText
-                  primary={`
-              ${t('member.bornIn')} 
-              ${
-                member.consumer.birthday
-                  ? Moment(member.consumer.birthday).year()
-                  : '  NA  '
-              }`}
-                />
-              </ListItem>
-              <ListItem>
-                <PersonOutlineIcon />
-                <ListItemText primary={`N°${member.membership_ID}`} />
-              </ListItem>
-            </List>
-          </Grid>
-          <Grid item>
-            <List dense>
-              <ListItem>
-                <CallIcon />
-                <ListItemText
-                  primary={
-                    // prettier-ignore
-                    (member.consumer.phonenumber || { phone_number: ' - ' }).phone_number
-                  }
-                />
-                <ListItemSecondaryAction>
-                  {member.accept_sms ? (
-                    <NotificationActiveIcon />
-                  ) : (
-                    <NotificationOffIcon />
-                  )}
-                </ListItemSecondaryAction>
-              </ListItem>
-              <ListItem>
-                <EmailIcon />
-                <ListItemText primary={member.consumer.email || ' - '} />
-                <ListItemSecondaryAction>
-                  {member.accept_email ? (
-                    <NotificationActiveIcon />
-                  ) : (
-                    <NotificationOffIcon />
-                  )}
-                </ListItemSecondaryAction>
-              </ListItem>
-            </List>
-          </Grid>
-        </Grid>
-      );
-    }
-    return null;
-  };
-
   getFutureBookings = () => {
     const {
       t,
@@ -257,9 +108,7 @@ export class Member extends Component<Props, State> {
       bookings,
       bookingLoading,
       bookingOptions,
-      confirmBooking,
       confirmBookingAttendance,
-      discardBooking,
       discardBookingAttendance,
     } = this.props;
     // prettier-ignore
@@ -297,14 +146,10 @@ export class Member extends Component<Props, State> {
             <BookingTable
               heading="date_start"
               loading={bookingLoading}
-              bookings={bookingsFuture}
               bookingOptions={bookingOptionsFuture}
-              bookingUpdaters={{
-                discardBooking,
-                confirmBooking,
-                discardBookingAttendance,
-                confirmBookingAttendance,
-              }}
+              bookings={bookingsFuture}
+              discardBookingAttendance={discardBookingAttendance}
+              confirmBookingAttendance={confirmBookingAttendance}
             />
           </div>
         </ExpansionPanelDetails>
@@ -319,9 +164,7 @@ export class Member extends Component<Props, State> {
       allMembers,
       bookings,
       bookingLoading,
-      confirmBooking,
       confirmBookingAttendance,
-      discardBooking,
       discardBookingAttendance,
     } = this.props;
     // prettier-ignore
@@ -359,12 +202,8 @@ export class Member extends Component<Props, State> {
               loading={bookingLoading}
               bookings={bookingsPast}
               bookingOptions={[]}
-              bookingUpdaters={{
-                discardBooking,
-                confirmBooking,
-                discardBookingAttendance,
-                confirmBookingAttendance,
-              }}
+              discardBookingAttendance={confirmBookingAttendance}
+              confirmBookingAttendance={discardBookingAttendance}
             />
           </div>
         </ExpansionPanelDetails>
@@ -422,82 +261,39 @@ export class Member extends Component<Props, State> {
   };
 
   addNewNote = (event) => {
-    event.preventDefault();
-    if (this.state.newNote) {
-      event.stopPropagation();
-    }
+    event.stopPropagation();
     this.setState({
+      noteExpanded: true,
       newNote: {
         text: '',
       },
     });
   };
 
-  renderNotes = () => {
-    const { member, t, classes } = this.props;
-    const { newNote } = this.state;
-    const notes = member.notes || [];
+  renderNotePanel = () => {
     return (
-      <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Grid
-            container
-            direction="row"
-            justify="space-between"
-            alignItems="center"
-          >
-            <Grid item>
-              <Typography className={classes.headingExpansionPanel}>
-                {`${t('member.showNotes')} (${notes.length})`}
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Button onClick={this.addNewNote} color="primary">
-                <AddIcon className={classes.iconLeft} />
-                {t('common.add')}
-              </Button>
-            </Grid>
-          </Grid>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails style={{ padding: 0 }}>
-          <div style={{ width: '100%' }}>
-            <Divider />
-            {newNote ? (
-              <div className={classes.noteContainer}>
-                <MemberNote
-                  editMode
-                  autoFocus
-                  onSubmit={(text) => this.handleNoteSubmit(null, text)}
-                  onDelete={this.deleteNewNote}
-                  note={newNote}
-                />
-              </div>
-            ) : null}
-            {notes.length ? (
-              notes.map((note) => (
-                <div className={classes.noteContainer} key={note.id}>
-                  <MemberNote
-                    onSubmit={(text) => this.handleNoteSubmit(note.id, text)}
-                    onDelete={() => this.handleNoteDelete(note.id)}
-                    note={note}
-                    key={note.id}
-                    date={note.date}
-                  />
-                </div>
-              ))
-            ) : (
-              <Typography
-                variant="caption"
-                className={this.props.classes.emptyMessage}
-              >
-                {this.props.t('member.noNoteSaved')}
-              </Typography>
-            )}
-          </div>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
+      <MemberNotePanel
+        newNote={this.state.newNote}
+        member={this.props.member}
+        addNewNote={this.addNewNote}
+        expanded={this.state.noteExpanded}
+        onChange={(_, noteExpanded) => {
+          this.setState({ noteExpanded });
+        }}
+        deleteNewNote={this.deleteNewNote}
+        handleNoteSubmit={this.handleNoteSubmit}
+        handleNoteDelete={this.handleNoteDelete}
+      />
     );
   };
+
+  renderSummaryCard = () => (
+    <MemberSummaryCard
+      member={this.props.member}
+      editMember={this.editMember}
+      billMember={this.billMember}
+    />
+  );
 
   renderContent = () => {
     const { member, t, classes } = this.props;
@@ -506,7 +302,7 @@ export class Member extends Component<Props, State> {
         <Grid container direction="row" spacing={16}>
           <Grid item xs={12}>
             <Paper className={this.props.classes.paperContainer}>
-              {this.getFirstRow()}
+              {this.renderSummaryCard()}
             </Paper>
           </Grid>
           <Grid item xs={12} md={6}>
@@ -538,7 +334,7 @@ export class Member extends Component<Props, State> {
             >
               {t('common.notes')}
             </Typography>
-            {this.renderNotes()}
+            {this.renderNotePanel()}
           </Grid>
         </Grid>
       );
@@ -594,12 +390,6 @@ function mapDispatchToProps(dispatch) {
     discardBookingAttendance(bookingId) {
       dispatch(bookingActions.discardBookingAttendance(bookingId));
     },
-    confirmBooking(bookingId) {
-      dispatch(bookingActions.confirmBooking(bookingId));
-    },
-    discardBooking(bookingId) {
-      dispatch(bookingActions.discardBooking(bookingId));
-    },
     billMember(id) {
       dispatch(routerPush(`/member/add-invoice/${id}`));
     },
@@ -632,9 +422,6 @@ const styles = (theme) => ({
     padding: theme.spacing.unit * 2,
   },
   root: {},
-  firstRow: {
-    padding: theme.spacing.unit * 2,
-  },
   headingExpansionPanel: {
     fontSize: theme.typography.pxToRem(15),
     flexBasis: '33.33%',
@@ -643,15 +430,6 @@ const styles = (theme) => ({
   secondaryHeadingExpansionPanel: {
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,
-  },
-  leftIcon: {
-    marginRight: theme.spacing.unit,
-  },
-  noteContainer: {
-    padding: theme.spacing.unit * 2,
-  },
-  emptyMessage: {
-    margin: theme.spacing.unit * 3,
   },
   expansionTitle: {
     marginBottom: theme.spacing.unit,

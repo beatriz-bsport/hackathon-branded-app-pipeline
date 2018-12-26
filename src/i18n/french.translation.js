@@ -198,7 +198,7 @@ export default {
             "Entrez l'apport à votre inventaire. Celui-ci sera additionné à votre stock actuel",
           updateProvisionTitle: 'Modification du stock',
           createOrUpdate: {
-            success: 'Enregsitré',
+            success: 'Enregistré',
             error: "Erreur lors de l'enregistrement",
           },
           delete: {
@@ -250,6 +250,8 @@ export default {
           sms: 'par SMS',
         },
         signupButton: "S'inscrire",
+        iAcceptPrivacyPolicy: "J'accepte les ",
+        privacyPolicy: "Conditions générales d'utilisation",
       },
       invoice: {
         dateStartPaymentPack: "Début de l'abonnement le",

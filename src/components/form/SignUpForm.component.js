@@ -10,18 +10,20 @@ import {
   TextField,
   Grid,
   Button,
+  Typography,
   withStyles,
 } from '@material-ui/core';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import { translate } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 import { EmailInput, GenderInput } from '../input';
 
 type Props = {
-onComplete: (Object) => void,
-onCancel: () => void,
+  onComplete: (Object) => void,
+  onCancel: () => void,
   t: TFunction,
   classes: Object,
 };
@@ -33,9 +35,11 @@ type State = {
   phone: string,
   password: string,
   passwordConfirm: string,
+  gender: string,
   passwordIsConform: boolean,
   accept_sms: boolean,
   accept_email: boolean,
+  acceptPrivacyPolicy: boolean,
 };
 export class SignUpForm extends Component<Props, State> {
   state = {
@@ -49,6 +53,7 @@ export class SignUpForm extends Component<Props, State> {
     passwordEqual: true,
     accept_email: true,
     accept_sms: true,
+    acceptPrivacyPolicy: false,
     gender: 'F',
   };
 
@@ -63,8 +68,14 @@ export class SignUpForm extends Component<Props, State> {
       phone,
       accept_sms,
       accept_email,
+      acceptPrivacyPolicy,
       gender,
     } = this.state;
+    const { t } = this.props;
+    if (!acceptPrivacyPolicy) {
+      alert(t('form.signup.pleaseAcceptPrivacyPolicy'));
+      return;
+    }
     if (password === passwordConfirm) {
       this.props.onComplete({
         email,
@@ -127,11 +138,7 @@ export class SignUpForm extends Component<Props, State> {
     return (
       <FormControl component="fieldset" className={classes.rgpdControl}>
         <FormLabel component="legend">{t('form.signup.rgpdTitle')}</FormLabel>
-        <FormGroup
-          aria-label="Communication"
-          name="communication"
-          className={classes.radioGroup}
-        >
+        <FormGroup aria-label="Communication" name="communication">
           <FormControlLabel
             control={
               <Checkbox
@@ -171,6 +178,7 @@ export class SignUpForm extends Component<Props, State> {
               <Grid item>
                 <TextField
                   required
+                  autoComplete="first name"
                   value={this.state.first_name}
                   label={t('common.firstname')}
                   onChange={this.onFormFieldChange('first_name')}
@@ -179,6 +187,7 @@ export class SignUpForm extends Component<Props, State> {
               <Grid item>
                 <TextField
                   required
+                  autoComplete="last name"
                   value={this.state.last_name}
                   label={t('common.lastname')}
                   onChange={this.onFormFieldChange('last_name')}
@@ -199,6 +208,7 @@ export class SignUpForm extends Component<Props, State> {
                 <EmailInput
                   required
                   type="email"
+                  autoComplete="email"
                   value={this.state.email}
                   label={t('common.email')}
                   onChange={this.onFormFieldChange('email')}
@@ -207,6 +217,7 @@ export class SignUpForm extends Component<Props, State> {
               <Grid item>
                 <PhoneInput
                   country="FR"
+                  autoComplete="tel"
                   placeholder={t('form.signup.typePhone')}
                   value={this.state.phone}
                   required
@@ -242,6 +253,40 @@ export class SignUpForm extends Component<Props, State> {
             </Grid>
           </Grid>
           <Grid item>{this.renderRGPD()}</Grid>
+          <Grid item>
+            <Grid
+              container
+              direction="row"
+              alignItems="center"
+              justify="flex-start"
+            >
+              <Grid item>
+                <FormGroup aria-label="privacy-policy" name="privacy-policy">
+                  <FormControlLabel
+                    label={
+                      <Typography>
+                        {t('form.signup.iAcceptPrivacyPolicy')}
+                        <a href="https://bsport.io/blog/privacy_policy">
+                          {t('form.signup.privacyPolicy').toLowerCase()}
+                        </a>
+                        {'.'}
+                      </Typography>
+                    }
+                    control={
+                      <Checkbox
+                        checked={this.state.acceptPrivacyPolicy}
+                        onChange={(event) =>
+                          this.setState({
+                            acceptPrivacyPolicy: event.target.checked,
+                          })
+                        }
+                      />
+                    }
+                  />
+                </FormGroup>
+              </Grid>
+            </Grid>
+          </Grid>
           <Grid item>
             <Grid
               container

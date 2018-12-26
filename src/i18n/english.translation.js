@@ -258,6 +258,8 @@ export default {
           sms: 'via SMS',
         },
         signupButton: 'Signup',
+        iAcceptPrivacyPolicy: 'I accept ',
+        privacyPolicy: 'Term of use',
       },
       invoice: {
         titleUnevenInvoice: 'Uneven invoice',

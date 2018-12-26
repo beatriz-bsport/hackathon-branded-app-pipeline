@@ -76,6 +76,7 @@ export default {
       credit_s: 'Credit(s)',
       NA: 'Not specified',
       price: 'price',
+      priceIncludingTax: 'Price tax incl.',
       sports: 'Sport',
       credits: 'Credits',
       create: 'Create',

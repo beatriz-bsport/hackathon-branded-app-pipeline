@@ -398,7 +398,7 @@ export class OfferCard extends Component<Props> {
   };
 
   render() {
-    const { noHeader, offer, classes, t } = this.props;
+    const { noHeader, offer, onDeleteButtonClick, classes, t } = this.props;
     const { available } = offer;
     if (offer) {
       return (
@@ -419,6 +419,15 @@ export class OfferCard extends Component<Props> {
           >
             {t('offer.manageOffer')}
           </Button>
+          {available ? null : (
+            <RedButton
+              onClick={onDeleteButtonClick}
+              variant="contained"
+              className={classes.manageButton}
+            >
+              {t('form.offer.delete.buttonHardDelete')}
+            </RedButton>
+          )}
         </div>
       );
     }

@@ -28,7 +28,6 @@ import { translate } from 'react-i18next';
 
 import { Level, Sport } from '../category';
 import Avatar from '../Avatar.component';
-import BookingTable from '../booking/BookingTable.container';
 import PaymentPackSummary from '../consumer/PaymentPackSummary.component';
 import RedButton from '../button/RedButton.component';
 
@@ -39,22 +38,12 @@ type Props = {
   t: (x: string) => string,
   classes: Object,
   offer: Offer,
-  bookingLoading: boolean,
   noHeader: ?boolean,
-  bookings: Array<Object>,
-  bookingOptions: Array<Object>,
-  discardOption: (id: number) => void,
   onEditButtonClick: () => void,
   onDeleteButtonClick: () => void,
   compatiblePacks: Array<PaymentPack>,
   compatiblePacksLoading: boolean,
   goToOfferManagement: (offerId: number) => void,
-  bookingUpdaters: {
-    discardBooking: (id: number) => void,
-    discardBookingAttendance: (id: number) => void,
-    confirmBooking: (id: number) => void,
-    confirmBookingAttendance: (id: number) => void,
-  },
 };
 
 export class OfferCard extends Component<Props> {
@@ -301,46 +290,6 @@ export class OfferCard extends Component<Props> {
           </Grid>
         </Grid>
       </Grid>
-    );
-  };
-
-  getCustomer = () => {
-    const {
-      t,
-      bookings,
-      bookingOptions,
-      bookingLoading,
-      discardOption,
-      bookingUpdaters,
-      classes,
-      offer,
-    } = this.props;
-    const { available } = offer;
-
-    return (
-      <ExpansionPanel>
-        <ExpansionPanelSummary
-          expandIcon={<ExpandMoreIcon />}
-          className={available ? null : classes.disabledPaper}
-        >
-          <Typography>{t('booking.seeCustomers')}</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails
-          className={available ? null : classes.disabledPaper}
-          style={{ padding: 0 }}
-        >
-          <div style={{ width: '100%' }}>
-            <Divider />
-            <BookingTable
-              loading={bookingLoading}
-              bookings={bookings}
-              bookingOptions={bookingOptions}
-              discardOption={discardOption}
-              bookingUpdaters={bookingUpdaters}
-            />
-          </div>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
     );
   };
 

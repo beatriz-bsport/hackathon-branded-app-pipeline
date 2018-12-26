@@ -35,12 +35,8 @@ type Props = {
   onQuickInvoiceClick: () => void,
   handleRevert: () => void,
   requestRefreshPaymentPack: () => void,
-  bookingUpdaters: {
-    confirmBooking: () => void,
-    discardBooking: () => void,
-    confirmBookingAttendance: () => void,
-    discardBookingAttendance: () => void,
-  },
+  confirmBookingAttendance: () => void,
+  discardBookingAttendance: () => void,
 };
 
 export class BookingItemForManager extends Component<Props> {
@@ -90,7 +86,8 @@ export class BookingItemForManager extends Component<Props> {
       t,
       booking,
       showQuickInvoiceButton,
-      bookingUpdaters,
+      discardBookingAttendance,
+      confirmBookingAttendance,
       showRevertBookingButton,
       handleRevert,
       classes,
@@ -102,7 +99,7 @@ export class BookingItemForManager extends Component<Props> {
           <Button
             color="primary"
             variant="outlined"
-            onClick={bookingUpdaters.discardBookingAttendance}
+            onClick={discardBookingAttendance}
           >
             {t('booking.attend')}
             <CachedIcon className={classes.iconButton} />
@@ -129,7 +126,7 @@ export class BookingItemForManager extends Component<Props> {
       <ListItemSecondaryAction>
         <RedButton
           variant="outlined"
-          onClick={bookingUpdaters.confirmBookingAttendance}
+          onClick={confirmBookingAttendance}
         >
           {t('booking.doNotAttend')}
           <CachedIcon className={classes.iconButton} />

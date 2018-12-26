@@ -158,7 +158,7 @@ export class PaymentPackCard extends Component<Props> {
 
   getPackHeadingInfo = () => {
     const { pack, t, classes, onlyPublic } = this.props;
-    const { unlimited, new_member_only, base_price, name, credits } = pack;
+    const { unlimited, new_member_only, base_price, name, credits, tax } = pack;
     let creditsFormatted = t('paymentPack.unlimitedCredits');
     if (!unlimited) {
       creditsFormatted = (
@@ -207,9 +207,23 @@ export class PaymentPackCard extends Component<Props> {
         <Grid item xs={4}>
           <Grid container direction="column" alignItems="flex-end" spacing={8}>
             <Grid item>
-              <Typography variant="display1" color="primary">
-                {base_price} €
-              </Typography>
+              <Grid container direction="column" alignItems="flex-end">
+                <Grid item>
+                  <Typography variant="display1" color="primary">
+                    {base_price} €
+                  </Typography>
+                </Grid>
+                {onlyPublic ? null : (
+                  <Grid item>
+                    <Typography variant="caption">
+                      {(base_price / ((100 + parseInt(tax, 10)) / 100)).toFixed(
+                        2,
+                      )}
+                      € {t('shop.ht')}
+                    </Typography>
+                  </Grid>
+                )}
+              </Grid>
             </Grid>
             <Grid item>
               <Typography variant="subheading">{creditsFormatted}</Typography>

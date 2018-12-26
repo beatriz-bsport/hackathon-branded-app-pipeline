@@ -23,6 +23,7 @@ import {
 import { translate } from 'react-i18next';
 
 import FormField from '../input/FormField.component';
+import NumericInput from '../input/NumericInput.component';
 import { Moment } from '../../i18n';
 
 type Props = {
@@ -38,6 +39,7 @@ type Props = {
 type State = {
   name: ?string,
   price: number,
+  tax: number,
   credits: ?number,
   categories: Object,
   metaActivities: Object,
@@ -70,6 +72,7 @@ export class PackForm extends React.Component<Props, State> {
         id: props.initial.id,
         name: props.initial.name,
         price: props.initial.price,
+        tax: props.initial.tax,
         credits: props.initial.credits,
         new_member_only: props.initial.new_member_only,
         manager_only: props.initial.manager_only,
@@ -90,6 +93,7 @@ export class PackForm extends React.Component<Props, State> {
       this.state = {
         name: null,
         price: 0,
+        tax: 0,
         credits: null,
         new_member_only: false,
         manager_only: false,
@@ -161,6 +165,7 @@ export class PackForm extends React.Component<Props, State> {
     const keys = [
       'name',
       'price',
+      'tax',
       'credits',
       'max_bookings_per_week',
       'id',
@@ -297,19 +302,39 @@ export class PackForm extends React.Component<Props, State> {
         />
       </Grid>
       <Grid item>
-        <TextField
-          id="price"
-          label={this.props.t('common.price')}
-          required
-          type="number"
-          InputProps={{
-            startAdornment: <InputAdornment position="start">€</InputAdornment>,
-          }}
-          fullWidth
-          onChange={this.handleChange('price')}
-          helperText={this.props.t('form.paymentPack.helper.price')}
-          value={this.state.price}
-        />
+        <Grid container direction="row" spacing={16}>
+          <Grid item xs={6}>
+            <TextField
+              id="price"
+              label={this.props.t('common.priceIncludingTax')}
+              required
+              type="number"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">€</InputAdornment>
+                ),
+              }}
+              fullWidth
+              onChange={this.handleChange('price')}
+              helperText={this.props.t('form.paymentPack.helper.price')}
+              value={this.state.price}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <NumericInput
+              value={this.state.tax}
+              label={this.props.t('common.tax')}
+              required
+              fullWidth
+              max={100}
+              InputProps={{
+                inputProps: { min: 0, max: 100 },
+                endAdornment: <InputAdornment position="end">%</InputAdornment>,
+              }}
+              onChange={this.handleChange('tax')}
+            />
+          </Grid>
+        </Grid>
       </Grid>
       <Grid item>
         <TextField

@@ -97,7 +97,7 @@ export class SubShopList extends Component<Props, State> {
     }));
   };
 
-  createOrUpdateShopItem = (shopItemData: [*], id: ?number) => {
+  createOrUpdateShopItem = (data: FormData, id: ?number) => {
     if (id) {
       this.setState((prevState) => ({
         itemInEditMode: prevState.itemInEditMode.filter((id_) => id_ !== id),
@@ -105,10 +105,8 @@ export class SubShopList extends Component<Props, State> {
     } else {
       this.closeNewItemForm();
     }
-    this.props.createOrUpdateShopItem(
-      { ...shopItemData, subshop: this.props.subShop.id },
-      id,
-    );
+    data.append('subshop', this.props.subShop.id);
+    this.props.createOrUpdateShopItem(data, id);
   };
 
   handleChangeName = (event) => {

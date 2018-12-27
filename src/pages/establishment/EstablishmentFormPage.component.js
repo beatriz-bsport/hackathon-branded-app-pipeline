@@ -1,20 +1,33 @@
 // @flow
 
 import React, { Component } from 'react';
+
+import { compose } from 'recompose';
+
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import { push } from 'connected-react-router';
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 
-import { createOrUpdateEstablishment } from '../../actions/establishment.actions';
+import Button from '@material-ui/core/Button';
+
+import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';
+import * as actions from '../../actions/establishment.actions';
 import EstablishmentForm from '../../components/form/EstablishmentForm.component';
 
 import { mapFormData } from '../form.utils';
 
 type Props = {
-  createOrUpdateEstablishment: (*) => void,
+  upsertEstablishment: (*) => void,
+  goToEstablishmentList: () => void,
+  addImage: (number, File) => void,
+  removeImage: (number, number) => void,
+  establishmentId: number,
   pending: boolean,
   update: *,
-  // UNUSED
-  // errors: *,
+  t: TFunction,
+  isNew: boolean,
 };
 
 export class EstablishmentFormPage extends Component<Props> {
@@ -32,46 +45,62 @@ export class EstablishmentFormPage extends Component<Props> {
       formData.append('id', this.props.update.id);
     }
 
-    this.props.createOrUpdateEstablishment(formData);
+    this.props.upsertEstablishment(formData);
   };
 
   render() {
-    const { update } = this.props;
+    const {
+      update,
+      t,
+      isNew,
+      addImage,
+      removeImage,
+      establishmentId,
+    } = this.props;
+    const imageUploader = isNew
+      ? null
+      : {
+          onAddImage: (file: File) => addImage(establishmentId, file),
+          onRemoveImage: (id: number) => removeImage(establishmentId, id),
+        };
     return (
-      <EstablishmentForm
-        onSubmit={this.createEstablishment}
-        processing={this.props.pending}
-        initial={update}
-        update={this.props.update}
-      />
+      <div>
+        <Button onClick={this.props.goToEstablishmentList}>
+          {t('establishment.goBackToList')}
+        </Button>
+        <EstablishmentForm
+          onSubmit={this.createEstablishment}
+          processing={this.props.pending}
+          initial={update}
+          update={this.props.update}
+          imageUploader={imageUploader}
+        />
+      </div>
     );
   }
 }
 
-function mapStateToProps(state, nextProps) {
-  const { match } = nextProps;
-  const id = (match && match.params && +match.params.id) || null;
+function mapStateToProps(state, { establishmentId }) {
+  const isNew = !establishmentId;
+  const establishments = state.establishment.all;
   return {
+    isNew,
     pending: state.establishment.createOrUpdatePending,
-    // UNUSED
-    // errors: state.establishment.createOrUpdateError,
-    // eslint-disable-next-line
-    update:
-      id !== null ? state.establishment.all.find((e) => e.id === id) : null,
+    update: isNew ? null : establishments.find((e) => e.id === establishmentId),
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    createOrUpdateEstablishment(data) {
-      dispatch(createOrUpdateEstablishment(data));
-    },
-  };
-}
-
-export default withRouter(
+export default compose(
+  withNamespaces([]),
+  withRouter,
+  mapRouterParamsToProps({ id: 'establishmentId:number' }),
   connect(
     mapStateToProps,
-    mapDispatchToProps,
-  )(EstablishmentFormPage),
-);
+    {
+      upsertEstablishment: actions.createOrUpdateEstablishment,
+      addImage: actions.addImageToEstablishment,
+      removeImage: actions.removeImageFromEstablishment,
+      goToEstablishmentList: () => push('/map'),
+    },
+  ),
+)(EstablishmentFormPage);

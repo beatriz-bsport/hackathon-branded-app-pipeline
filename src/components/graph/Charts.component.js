@@ -7,10 +7,14 @@ import {
   Bar,
   Legend,
   Tooltip,
+  Line,
+  ComposedChart as ComposedChartBase,
   YAxis,
   XAxis,
   CartesianGrid,
 } from 'recharts';
+
+import { colors as bsportColors } from 'bsport-commons/lib/colors';
 
 type Props = {
   height: number,
@@ -28,14 +32,14 @@ const colors = {
     stroke: 'rgba(255,255,255,0.5)',
   },
   green: {
-    fill: '#469B7C',
+    fill: bsportColors.primary,
   },
   marine: {
-    fill: '#3f5a96',
+    fill: bsportColors.secondaryDark,
   },
   blue: {
-    fill: '#9BD1E8',
-    stroke: '#9BD1E8',
+    fill: bsportColors.secondary,
+    stroke: bsportColors.secondary,
   },
   blueLight: {
     fill: '#9BD1E8',
@@ -46,12 +50,12 @@ const colors = {
     fill: '#F9CE69',
   },
   red: {
-    fill: '#ED908D',
-    stroke: '#F99B99',
+    fill: bsportColors.orange,
+    stroke: bsportColors.orange,
   },
 };
 function getStyle(color) {
-  return colors[color || 'blue'] || colors.green;
+  return colors[color || bsportColors.secondary] || colors.green;
 }
 
 export function SimpleBarChart(props: Props) {
@@ -65,7 +69,7 @@ export function SimpleBarChart(props: Props) {
       >
         <XAxis dataKey={xKey} domain={domain} tickFormatter={xFormatter} hide />
         <YAxis dataKey={yKey} hide />
-        <Bar dataKey={yKey} fill={style.fill} />
+        <Bar dataKey={yKey} fill={style.fill} barSize={30} />
       </BarChartBase>
     </ResponsiveContainer>
   );
@@ -93,15 +97,48 @@ export function BarChart(props: BarChartProps) {
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey={xKey} domain={domain} tickFormatter={xFormatter} />
         <YAxis dataKey={yKey} />
-        <Tooltip labelFormatter={xFormatter} formatter={yFormatter} />
         <Legend />
         <Bar
           dataKey={yKey}
           fill={getStyle(color).fill}
+          barSize={60}
+          name={props.label}
+          label={{ stroke: 'white', position: 'center', formatter: yFormatter }}
+        />
+      </BarChartBase>
+    </ResponsiveContainer>
+  );
+}
+
+export function ComposedChart(props: BarChartProps) {
+  const {
+    height,
+    data,
+    xKey,
+    yKey,
+    color,
+    domain,
+    xFormatter,
+    yFormatter,
+  } = props;
+  return (
+    <ResponsiveContainer width="100%" height={height}>
+      <ComposedChartBase
+        data={data}
+        margin={{ top: 40, right: 20, bottom: 20, left: 20 }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey={xKey} domain={domain} tickFormatter={xFormatter} />
+        <YAxis dataKey={yKey} />
+        <Bar
+          dataKey={yKey}
+          fill={getStyle(color).fill}
+          barSize={60}
           name={props.label}
           label={{ position: 'top', formatter: yFormatter }}
         />
-      </BarChartBase>
+        <Line type="monotone" dataKey={yKey} stroke={getStyle(color).fill} />
+      </ComposedChartBase>
     </ResponsiveContainer>
   );
 }

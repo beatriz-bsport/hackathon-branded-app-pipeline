@@ -9,7 +9,15 @@ export const offers = {
   isLoading: createAction('OFFERS/LIST/IS_LOADING'),
   error: createAction('OFFERS/LIST/ERROR'),
   success: createAction('OFFERS/LIST/SUCCESS'),
+  delete: createAction('OFFERS/LIST/DELETE'),
 };
+
+export function deleteOffer(id: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(offers.delete(id));
+    dispatch(offerByDay.delete(id));
+  };
+}
 
 export function fetchAllOffers() {
   return async (dispatch: Dispatch) => {
@@ -52,6 +60,7 @@ export const offerByDay = {
   isLoading: createAction('OFFERS/DAY/IS_LOADING'),
   error: createAction('OFFERS/DAY/ERROR'),
   success: createAction('OFFERS/DAY/SUCCESS'),
+  delete: createAction('OFFERS/DAY/DELETE'),
 };
 
 export function fetchOffersByDay(day: {

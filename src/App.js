@@ -17,10 +17,15 @@ import Root from './Root';
 import './App.scss';
 
 import initStore from './store';
+import { refresh as refreshActions } from './actions';
 
 import theme from './theme';
 
 export class App extends Component<{}, {}> {
+  state = {
+    reloaded: false,
+  };
+
   store: *;
 
   history: *;
@@ -31,6 +36,13 @@ export class App extends Component<{}, {}> {
     const { store, history } = initStore();
     this.store = store;
     this.history = history;
+  }
+
+  componentDidMount() {
+    if (!this.state.reloaded && window.location.search === '?storeReload') {
+      this.setState({ reloaded: true });
+      this.store.dispatch(refreshActions.forceRefresh());
+    }
   }
 
   render() {

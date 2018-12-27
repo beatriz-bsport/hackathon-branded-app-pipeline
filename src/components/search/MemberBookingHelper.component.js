@@ -19,12 +19,19 @@ type Props = {
   hasBooked: ?boolean,
   t: TFunction,
   onClick: () => void,
+  onClickListItem: ?() => void,
   classes: Object,
 };
 
 function MemberBookingHelper(props: Props) {
   return (
-    <ListItem selected={props.selected} divider dense>
+    <ListItem
+      button={props.onClickListItem}
+      selected={props.selected}
+      divider
+      dense
+      onClick={props.onClickListItem || (() => {})}
+    >
       <ListItemText
         primary={props.member.name}
         secondary={

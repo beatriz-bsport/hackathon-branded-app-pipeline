@@ -16,7 +16,13 @@ type Props = {
 export function MarketplaceActivityDialog(props: Props) {
   const { classes, onClose, fullScreen } = props;
   return (
-    <Dialog open scroll="paper" onClose={onClose} fullScreen={fullScreen}>
+    <Dialog
+      open
+      scroll="paper"
+      onClose={onClose}
+      classes={{ paper: classes.dialog }}
+      fullScreen={fullScreen}
+    >
       <DialogContent className={classes.dialogContent}>
         <MarketPlaceActivity {...props} />
       </DialogContent>
@@ -25,6 +31,9 @@ export function MarketplaceActivityDialog(props: Props) {
 }
 
 const styles = () => ({
+  dialog: {
+    minWidth: '60vw',
+  },
   dialogContent: {
     padding: 0,
     paddingTop: '0 !important',

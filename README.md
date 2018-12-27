@@ -1,7 +1,9 @@
 INSTALLATION
 ============
 
-First initialize a postgres db for bsport-django. Default name is currently geodjango_saas in bsport-django.
+Running with a local backend server
+-----------------------------------
+First initialize a postgres db for bsport-django.
 ```sh
 su postgres
 createdb geodjango_saas
@@ -21,6 +23,19 @@ pipenv run python manage.py populate_with_fake_data
 ```
 
 This will prepare the db and create test accounts
+
+Running with the distant (staging) backend server
+-------------------------------------------------
+Set in your `.env.local` file these variables (copy/paste `.env.template` first)
+```sh
+REACT_APP_BASE_URI='http://api.ci.bsport.io'
+REACT_APP_API_URI='http://api.ci.bsport.io/api-v0'
+REACT_APP_STRIPE_PK_KEY='pk_test_lFB5CxcyTCaQcS00MiE1ebEO'
+```
+
+LOGIN
+=====
+
 Currently the only user usable with full feature and (theorically) no bug is :
 
 ```sh
@@ -31,8 +46,17 @@ password: test
 RUN
 ===
 
-Go at the root of this project and run
+First prepare the linking of `bsport-commons`
+
 ```sh
-yarn
-yarn start
+pushd ../bsport-commons
+yarn link
+popd
+yarn link bsport-commons
+```
+
+Now you can run
+```sh
+yarn       // install all deps
+yarn start // start the dev server
 ```

@@ -1,11 +1,16 @@
 // @flow
 
 import React, { Component } from 'react';
+
+import { compose } from 'recompose';
+
 import { connect } from 'react-redux';
-import Snackbar from '@material-ui/core/Snackbar';
-import { withRouter } from 'react-router';
 import { push } from 'react-router-redux';
 import { Grid, CircularProgress } from '@material-ui/core';
+
+import Snackbar from '@material-ui/core/Snackbar';
+
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import MetaActivityForm from '../../components/form/MetaActivityForm.component';
 import api from '../../api';
@@ -21,6 +26,8 @@ type Props = {
   push: (path: string) => void,
   loading: ?boolean,
   metaActivity: MetaActivity,
+  removeImage: (number, number) => void,
+  addImage: (number, File) => void,
 };
 type State = { open: boolean };
 
@@ -49,7 +56,15 @@ export class MetaActivityFormPage extends Component<Props, State> {
   };
 
   render() {
-    const { SCTs, associatedCoaches, establishments, loading, id } = this.props;
+    const {
+      SCTs,
+      associatedCoaches,
+      establishments,
+      loading,
+      id,
+      addImage,
+      removeImage,
+    } = this.props;
     if (id === null || loading) {
       return (
         <Grid container item justify="center" alignItems="center">
@@ -57,6 +72,11 @@ export class MetaActivityFormPage extends Component<Props, State> {
         </Grid>
       );
     }
+
+    const imageUploader = {
+      onAddImage: (file: File) => addImage(id, file),
+      onRemoveImage: (imageId: number) => removeImage(id, imageId),
+    };
     return (
       <div>
         <MetaActivityForm
@@ -66,6 +86,7 @@ export class MetaActivityFormPage extends Component<Props, State> {
           onSubmit={this.updateMetaActivity}
           metaActivityNames={[]}
           initial={this.props.metaActivity}
+          imageUploader={imageUploader}
         />
         <Snackbar open={this.state.open} message="Activité créée" />
       </div>
@@ -73,9 +94,7 @@ export class MetaActivityFormPage extends Component<Props, State> {
   }
 }
 
-function mapStateToProps(state, nextProps) {
-  const { match } = nextProps;
-  const id = (match && match.params && +match.params.id) || null;
+function mapStateToProps(state, { id }) {
   return {
     id,
     loading: state.metaActivity.loading,
@@ -86,20 +105,16 @@ function mapStateToProps(state, nextProps) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchAllActivities() {
-      dispatch(metaActivityActions.fetchAllActivities());
+export default compose(
+  routerParamsToProps({ id: 'id:number' }),
+  connect(
+    mapStateToProps,
+    {
+      fetchAllActivities: metaActivityActions.fetchAllActivities,
+      fetchMetaActivityDetails: metaActivityActions.fetchMetaActivityDetails,
+      addImage: metaActivityActions.addImageToMetaActivity,
+      removeImage: metaActivityActions.removeImageFromMetaActivity,
+      push,
     },
-    fetchMetaActivityDetails(id) {
-      dispatch(metaActivityActions.fetchMetaActivityDetails(id));
-    },
-    push(path) {
-      dispatch(push(path));
-    },
-  };
-}
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(withRouter(MetaActivityFormPage));
+  ),
+)(MetaActivityFormPage);

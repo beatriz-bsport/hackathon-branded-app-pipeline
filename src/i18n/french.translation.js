@@ -43,6 +43,12 @@ export default {
       "Montant fixe reversé pour toute séance avec suffisamment d'inscrits",
   },
   translation: {
+    metaActivity: {
+      update: {
+        imageUploaderRequireEditMessage:
+          "Une fois votre activité créée, vous aurez la possibilité d'ajouter des images supplémentaires.",
+      },
+    },
     companies,
     error: {
       connectionError: 'Erreur réseau',
@@ -65,6 +71,10 @@ export default {
     common: {
       export: 'Exporter',
       generate: 'Générer',
+      uploadOneImage: {
+        new: 'Glisser et déposer ou cliquer ici pour ajouter une image',
+        edit: "Glisser et déposer ou cliquer ici pour changer l'image",
+      },
       buy: 'Acheter',
       establishments: 'Lieux',
       notes: 'Notes',
@@ -89,6 +99,7 @@ export default {
       credit_s: 'Crédit(s)',
       NA: 'Non renseigné',
       price: 'Prix',
+      priceIncludingTax: 'Prix TTC',
       sports: 'Sports',
       credits: 'Crédits',
       create: 'Créer',
@@ -191,7 +202,7 @@ export default {
             "Entrez l'apport à votre inventaire. Celui-ci sera additionné à votre stock actuel",
           updateProvisionTitle: 'Modification du stock',
           createOrUpdate: {
-            success: 'Enregsitré',
+            success: 'Enregistré',
             error: "Erreur lors de l'enregistrement",
           },
           delete: {
@@ -243,6 +254,8 @@ export default {
           sms: 'par SMS',
         },
         signupButton: "S'inscrire",
+        iAcceptPrivacyPolicy: "J'accepte les ",
+        privacyPolicy: "Conditions générales d'utilisation",
       },
       invoice: {
         dateStartPaymentPack: "Début de l'abonnement le",
@@ -271,9 +284,6 @@ export default {
         warningPackonEdit:
           "Les changements sur les séances risquent de les rendre incompatibles avec certains abonnements. Les abonnements actuellement compatibles avec cette séance sont les suivants, après la modification veuillez prendre le temps de vérifier qu'ils resteront compatible avec les éventuels changements de lieu / coach.",
         deleteTitle: 'Supprimer la séance',
-        explainDelete:
-          'Attention, cette modification est définitive. Votre séance ne sera plus visible par les clients finaux. Vous pourrez toujours y accéder.',
-        explainNotifyDelete: 'Envoyer une alerte aux clients ayant réservé',
         changeDate: "Modifier l'horaire / date",
         changeCoach: 'Modifier le coach',
         changeEstablishment: 'Modifier le lieu',
@@ -281,6 +291,15 @@ export default {
           'Voulez-vous modifier TOUTES les séances similaires selon ces nouvelles conditions ?',
         explainNotificationOnEdit:
           'Voulez-vous informer vos clients de cette modification ?',
+        delete: {
+          buttonHardDelete: 'Supprimer',
+          explainHardDelete:
+            "Supprimer la séance de la liste ? Attention celle-ci deviendra invisible, ainsi que les réservations associées, vous n'aurez plus accès à l'historique !",
+          explainCreditBack: 'Rembourser les crédits dépensés aux clients',
+          explainNotify: 'Envoyer une alerte aux clients ayant réservé',
+          explainModalities:
+            'Attention, cette modification est définitive. Votre séance ne sera plus visible par les clients finaux. Vous pourrez toujours y accéder.',
+        },
       },
       paymentPack: {
         newMemberOnly: 'Uniquement pour les nouveaux membres',
@@ -451,6 +470,7 @@ export default {
       goBack: 'Retour',
       pass: 'Abonnements',
       settings: 'Paramètres',
+      myClub: 'Mon Club',
     },
     invoice: {
       forms: {
@@ -492,6 +512,7 @@ export default {
       paymentMethod: {
         CB: 'Carte bleue',
         CHECK: 'Chèque',
+        CHECK_FR: 'Chèque vacances',
         CASH: 'Espèces',
       },
       paymentItemsListTitle: 'Paiements enregistrés',
@@ -565,6 +586,7 @@ export default {
     establishment,
     search,
     booking: {
+      success: 'Réservation enregistrée',
       revertBookingTitle: "Annuler l'inscription",
       revertBookingExplain: (name: string) =>
         `Êtes-vous sûr de vouloir supprimer la réservation de ${name} ? Les crédits utilisés seront recrédités. Si vous ne souhaites pas recréditer le member, passez la réservation en Absent en cliquant sur le bouton "Présent"`,

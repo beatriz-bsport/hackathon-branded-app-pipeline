@@ -5,7 +5,6 @@ import React, { Component } from 'react';
 import type { TFunction } from 'react-i18next';
 
 import { translate } from 'react-i18next';
-import CardMedia from '@material-ui/core/CardMedia';
 import {
   CircularProgress,
   Paper,
@@ -16,7 +15,10 @@ import {
 } from '@material-ui/core';
 
 import { FormField, LocationInput, ImageUploader } from '../input';
+import MultipleImageUploader from '../MultipleImageUploader.component';
 import type { Establishment as EstablishmentType } from '../../api/types';
+
+import ImageList from '../ImageList.component';
 
 type Props = {
   processing: boolean,
@@ -25,6 +27,10 @@ type Props = {
   t: TFunction,
   update: boolean,
   classes: { [string]: string },
+  imageUploader: ?{
+    onAddImage: (image) => void,
+    onRemoveImage: (image) => void,
+  },
 };
 type State = {
   title: ?string,
@@ -70,7 +76,7 @@ export class EstablishmentForm extends Component<Props, State> {
     this.props.onSubmit(data);
   };
 
-  onFormFieldChange = (id) => (value) => {
+  onFormFieldChange = (id: string) => (value) => {
     if (id === 'location') {
       this.setState({ location: value.location, address: value.address });
     } else {
@@ -92,76 +98,79 @@ export class EstablishmentForm extends Component<Props, State> {
   };
 
   render() {
-    const { t, classes, update } = this.props;
+    const { t, classes, update, imageUploader } = this.props;
+    const images = (this.props.initial || {}).images || [];
     return (
-      <Grid container>
-        <Grid item xs={12} lg={6}>
-          <Paper className={classes.paperContainer}>
-            <form onSubmit={this.onSubmit}>
-              <Typography variant="title" className="my-4" spacing={8}>
-                {t(`establishment.forms.${update ? 'update' : 'create'}.title`)}
-              </Typography>
-              <Grid container spacing={16}>
-                <Grid item xs={12} style={{ marginTop: 20 }}>
-                  <label>Couverture</label>
-                  <ImageUploader
-                    onChange={this.onFormFieldChange('cover')}
-                    initial={this.state.cover}
-                  >
-                    <EstablishmentCardPreview />
-                  </ImageUploader>
-                </Grid>
-                <Grid item xs={12}>
-                  <FormField
-                    id="title"
-                    required
-                    value={this.state.title}
-                    onChange={this.onFormFieldChange}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <FormField
-                    id="specific_info"
-                    multiline
-                    required
-                    value={this.state.specific_info}
-                    onChange={this.onFormFieldChange}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <LocationInput
-                    id="location"
-                    value={{
-                      address: this.state.address,
-                      location: this.state.location,
-                    }}
-                    onChange={this.onFormFieldChange('location')}
-                  />
-                </Grid>
-                <Grid item>{this.renderButton()}</Grid>
+      <form onSubmit={this.onSubmit}>
+        <Paper className={classes.paperContainer}>
+          <ImageUploader
+            onChange={this.onFormFieldChange('cover')}
+            initial={this.state.cover}
+          />
+          <div className={classes.container}>
+            <Grid container spacing={16}>
+              <Grid item xs={12}>
+                <FormField
+                  id="title"
+                  required
+                  value={this.state.title}
+                  onChange={this.onFormFieldChange}
+                />
               </Grid>
-            </form>
-          </Paper>
-        </Grid>
-      </Grid>
+              {imageUploader ? (
+                <Grid item xs={12} style={{ marginTop: 20 }}>
+                  <label>Carousel</label>
+                  <MultipleImageUploader
+                    initial={images}
+                    onAddImage={imageUploader.onAddImage}
+                    onRemoveImage={imageUploader.onRemoveImage}
+                  />
+                  {images.length ? (
+                    <ImageList
+                      images={images}
+                      onRemoveImage={imageUploader.onRemoveImage}
+                    />
+                  ) : null}
+                </Grid>
+              ) : (
+                <p>
+                  {t('establishment.update.imageUploaderRequireEditMessage')}
+                </p>
+              )}
+              <Grid item xs={12}>
+                <FormField
+                  id="specific_info"
+                  multiline
+                  required
+                  value={this.state.specific_info}
+                  onChange={this.onFormFieldChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <LocationInput
+                  id="location"
+                  value={{
+                    address: this.state.address,
+                    location: this.state.location,
+                  }}
+                  onChange={this.onFormFieldChange('location')}
+                />
+              </Grid>
+              <Grid item>{this.renderButton()}</Grid>
+            </Grid>
+          </div>
+        </Paper>
+      </form>
     );
   }
 }
 
-function EstablishmentCardPreview(props: { previewURL: string }) {
-  return (
-    <CardMedia
-      style={{ height: 300 }}
-      image={
-        // prettier-ignore
-        props.previewURL || 'https://images.pexels.com/photos/137611/pexels-photo-137611.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
-      }
-    />
-  );
-}
-
 const styles = (theme) => ({
   paperContainer: {
+    maxWidth: 800,
+    margin: '0 auto',
+  },
+  container: {
     padding: theme.spacing.unit * 3,
   },
 });

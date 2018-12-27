@@ -83,6 +83,7 @@ type Props = {
   goToOfferManagement: () => void,
   replaceRouter: () => void,
 
+  deleteOffer: (id: number) => void,
   discardOption: (id: number) => void,
   discardBooking: (id: number) => void,
   discardBookingAttendance: (id: number) => void,
@@ -171,6 +172,7 @@ export class Planning extends Component<Props, State> {
           editModalOpened: false,
           selectedOffer: null,
         });
+        this.onDateClick(this.state.date);
         return;
       }
     } catch (err) {
@@ -179,12 +181,45 @@ export class Planning extends Component<Props, State> {
     this.setState({ editOfferProcessing: false });
   };
 
-  onDeleteConfirmModal = async (offerId: number) => {
+  onCancelOffer = async (data: {
+    offerId: number,
+    cashback: ?boolean,
+    notify: ?boolean,
+  }) => {
     this.setState({ deletingOffer: true });
     try {
-      const response = await api.offer.disableOffer(offerId);
+      const { notify, cashback, offerId } = data;
+      const response = await api.offer.disableOffer({
+        offerId,
+        cashback,
+        notify,
+      });
       if (response.status === 200) {
         this.props.fetchAllOffers();
+        this.onDateClick(this.state.date);
+        this.setState({
+          deletingOffer: false,
+          deleteModalOpened: false,
+          selectedOffer: null,
+        });
+        this.onDateClick(this.state.date);
+        return;
+      }
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+    this.setState({ deletingOffer: false });
+  };
+
+  onHardDeleteOffer = async (offerId: number) => {
+    this.setState({ deletingOffer: true });
+    try {
+      const response = await api.offer.delete(offerId);
+      if (response.status === 204) {
+        this.props.fetchAllOffers();
+        this.props.deleteOffer(offerId);
+        this.onDateClick(this.state.date);
         this.setState({
           deletingOffer: false,
           deleteModalOpened: false,
@@ -193,7 +228,7 @@ export class Planning extends Component<Props, State> {
         return;
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
     this.setState({ deletingOffer: false });
   };
@@ -311,7 +346,15 @@ export class Planning extends Component<Props, State> {
           <DialogContent>
             <DeleteOfferForm
               offer={selectedOffer}
-              onConfirm={() => this.onDeleteConfirmModal(selectedOffer.id)}
+              offerWasCancelled={!selectedOffer.available}
+              onCancelOffer={({ cashback, notify }) =>
+                this.onCancelOffer({
+                  offerId: selectedOffer.id,
+                  cashback,
+                  notify,
+                })
+              }
+              onHardDelete={() => this.onHardDeleteOffer(selectedOffer.id)}
               onCancel={this.onCancelModal}
               processing={deletingOffer}
             />
@@ -404,11 +447,6 @@ export class Planning extends Component<Props, State> {
           {selectedOffer ? (
             <OfferCard
               offer={selectedOffer}
-              bookings={bookings}
-              bookingOptions={bookingOptions}
-              bookingLoading={bookingLoading}
-              bookingUpdaters={bookingUpdaters}
-              discardOption={discardOption}
               establishments={establishments}
               coaches={coaches}
               coachesLoading={coachesLoading}
@@ -503,6 +541,9 @@ function mapDispatchToProps(dispatch) {
     },
     fetchOffersByDay({ year, month, day }) {
       dispatch(offerActions.fetchOffersByDay({ year, month, day }));
+    },
+    deleteOffer(offerId: number) {
+      dispatch(offerActions.deleteOffer(offerId));
     },
   };
 }

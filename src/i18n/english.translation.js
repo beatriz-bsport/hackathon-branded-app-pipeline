@@ -30,6 +30,12 @@ export default {
       'Amount given to every booking over threshold',
   },
   translation: {
+    metaActivity: {
+      update: {
+        imageUploaderRequireEditMessage:
+          'Once you have created your activity you will be able to add additional images.',
+      },
+    },
     companies,
     error: {
       connectionError: 'Connection error',
@@ -46,6 +52,10 @@ export default {
     common: {
       export: 'Export',
       generate: 'Generate',
+      uploadOneImage: {
+        new: 'Drag and drop or click here to add your image',
+        edit: 'Drag and drop or click here to change the image',
+      },
       buy: 'Buy',
       establishments: 'Locations',
       notes: 'Notes',
@@ -70,6 +80,7 @@ export default {
       credit_s: 'Credit(s)',
       NA: 'Not specified',
       price: 'price',
+      priceIncludingTax: 'Price tax incl.',
       sports: 'Sport',
       credits: 'Credits',
       create: 'Create',
@@ -251,6 +262,8 @@ export default {
           sms: 'via SMS',
         },
         signupButton: 'Signup',
+        iAcceptPrivacyPolicy: 'I accept ',
+        privacyPolicy: 'Term of use',
       },
       invoice: {
         titleUnevenInvoice: 'Uneven invoice',
@@ -279,15 +292,21 @@ export default {
           'These change may need you to check the pass, they may not stay compatible with the new sessions.\nThe following packs were compatible with this offer, after application of the change please review them carefully.',
         deleteTitle: 'Cancel session',
         changeDate: 'Modify date / time',
-        explainDelete:
-          'This operation is not revertable. This session will be hidden to all new customer. You will still be able to accces the session details and bookings.',
-        explainNotifyDelete: 'Send an alert to every client with a booking',
         changeCoach: 'Change the coach',
         changeEstablishment: 'Change location',
         explainRecursiveOfferEdit:
           'Would you like to modify ALL the similar sessions to match the new conditions ?',
         explainNotificationOnEdit:
           'Do you want to notify your customers for this change ?',
+        delete: {
+          buttonHardDelete: 'Delete',
+          explainHardDelete:
+            'Remove offer from list ? You will not be able to access this session anymore, nor any of the booking related to it. Be careful !',
+          explainCreditBack: 'Send back all credits used for booking',
+          explainNotify: 'Send an alert to every client with a booking',
+          explainModalities:
+            'This operation is not revertable. This session will be hidden to all new customer. You will still be able to accces the session details and bookings.',
+        },
       },
       paymentPack: {
         newMemberOnly: 'Only available to new members',
@@ -322,7 +341,7 @@ export default {
         },
       },
       title: 'Title',
-      specific_info: 'Description',
+      specific_info: 'Information',
       pleaseEnterYourSMSCode: 'Please enter the code sent by SMS',
       code: 'Code',
       SMSSignInTitle: 'Signin via SMS',
@@ -400,6 +419,7 @@ export default {
       goBack: 'Go back',
       pass: 'Subscriptions',
       settings: 'Settings',
+      myClub: 'My Club',
     },
     consumer: {
       myPaymentPacks: 'My pass',
@@ -456,6 +476,7 @@ export default {
       paymentMethod: {
         CB: 'Credit card',
         CHECK: 'Check',
+        CHECK_FR: 'Other',
         CASH: 'Cash',
         CB_MANUAL: 'Credit card (manual)',
       },
@@ -505,6 +526,7 @@ export default {
       reviews: 'Customer reviews: ',
     },
     booking: {
+      success: 'Booking saved',
       revertBookingTitle: 'Delete boking',
       revertBookingExplain: (name: string) =>
         `Are you sure you want to delete ${name}'s booking ? Used credits will be given back to your member. If you do not want to increments credits, you can pass the booking status to "Absent" by clicking "Attend" button.`,

@@ -20,6 +20,7 @@ type Props = {
   t: (x: string) => string,
 
   loading: boolean,
+  redirectToMember: ?boolean,
   showRevertBookingButton: boolean,
   showQuickInvoiceButton: boolean,
   heading: ?string,
@@ -33,12 +34,8 @@ type Props = {
   onQuickInvoiceClick: (member: Member) => void,
   handleRevert: (booking: Booking) => void,
   requestRefreshPaymentPack: () => void,
-  bookingUpdaters: {
-    discardBooking: (id: number) => void,
-    discardBookingAttendance: (id: number) => void,
-    confirmBooking: (id: number) => void,
-    confirmBookingAttendance: (id: number) => void,
-  },
+  discardBookingAttendance: (id: number) => void,
+  confirmBookingAttendance: (id: number) => void,
 };
 
 export class BookingTable extends Component<Props> {
@@ -51,8 +48,10 @@ export class BookingTable extends Component<Props> {
       bookingOptions,
       bookings,
       discardOption,
-      bookingUpdaters,
+      confirmBookingAttendance,
+      discardBookingAttendance,
       showQuickInvoiceButton,
+      redirectToMember,
       showRevertBookingButton,
       handleRevert,
       onQuickInvoiceClick,
@@ -74,17 +73,12 @@ export class BookingTable extends Component<Props> {
         </Typography>
       );
     }
-    const {
-      confirmBooking,
-      confirmBookingAttendance,
-      discardBooking,
-      discardBookingAttendance,
-    } = bookingUpdaters;
 
     return (
       <List disablePadding dense>
         {bookings.map((b) => (
           <BookingItemForManager
+            redirectToMember={redirectToMember}
             showQuickInvoiceButton={showQuickInvoiceButton}
             onQuickInvoiceClick={() => onQuickInvoiceClick(b.member)}
             requestRefreshPaymentPack={requestRefreshPaymentPack}
@@ -95,12 +89,8 @@ export class BookingTable extends Component<Props> {
             paymentPacks={this.props.paymentPacks}
             showRevertBookingButton={showRevertBookingButton}
             handleRevert={() => handleRevert(b)}
-            bookingUpdaters={{
-              confirmBooking: () => confirmBooking(b.id),
-              discardBooking: () => discardBooking(b.id),
-              discardBookingAttendance: () => discardBookingAttendance(b.id),
-              confirmBookingAttendance: () => confirmBookingAttendance(b.id),
-            }}
+            discardBookingAttendance={() => discardBookingAttendance(b.id)}
+            confirmBookingAttendance={() => confirmBookingAttendance(b.id)}
           />
         ))}
         {bookingOptions.map((bo) => (

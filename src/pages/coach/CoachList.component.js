@@ -153,7 +153,7 @@ export default compose(
     mapStateToProps,
     (dispatch) => ({
       startUpdateCoach: (...args) =>
-        dispatch(coachActions.startUpdateCoach(...args)),
+        dispatch(coachActions.startUpdate(...args)),
       setCoachPaymentRule: (...args) =>
         dispatch(coachActions.setCoachPaymentRule(...args)),
       goToCreateCoach: () => dispatch(push('/coach/add')),

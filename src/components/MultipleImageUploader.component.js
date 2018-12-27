@@ -1,96 +1,105 @@
 // @flow
 
+import lodash from 'lodash';
 import React from 'react';
 
 import Dropzone from 'react-dropzone';
-import { translate } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
 import classnames from 'classnames';
+
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 
 import { withStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 
-import { styles as baseStyles } from './uploader.styles';
+type ImageFile = {
+  id: ?number,
+  image: ?DOMString,
+  file: ?File,
+};
 
 type Props = {
   classes: *,
   initial: string,
-  onChange: (*) => void,
   t: TFunction,
+  onChange: (ImageFile[]) => void,
 };
+
 type State = {
-  photo: *,
-  previewURL: string | *,
+  files: ImageFile[],
 };
 
 export class ImageUploader extends React.Component<Props, State> {
   state = {
-    previewURL: '',
+    files: [],
   };
 
   constructor(props) {
     super(props);
 
     if (props.initial) {
-      this.state.previewURL = props.initial;
+      this.state.files = props.initial;
     }
   }
 
   componentWillUnmount() {
-    const { previewURL } = this.state;
-    if (previewURL && typeof previewURL !== 'string') {
-      URL.revokeObjectURL(previewURL);
-    }
+    const { files } = this.state;
+    files.forEach((file) => {
+      if (file.preview) {
+        URL.revokeObjectURL(file.preview);
+      }
+    });
   }
 
   handleDrop = (acceptedFiles) => {
-    if (acceptedFiles.length) {
-      const file = acceptedFiles[0];
-      this.setState({
-        previewURL: URL.createObjectURL(file),
-        file,
-      });
+    const { files } = this.state;
 
-      if (this.props.onChange) {
-        this.props.onChange(file);
-      }
+    acceptedFiles.forEach((file) => {
+      this.props.onAddImage(file);
+    });
+
+    const newFiles = acceptedFiles.map((file, i) => ({
+      id: -lodash.sum(files.map((x) => Math.abs(x.id))) - i - 1,
+      preview: URL.createObjectURL(file),
+      file,
+    }));
+    const allFiles = newFiles.concat(files);
+    this.setState({ files: allFiles });
+
+    if (this.props.onChange) {
+      this.props.onChange(allFiles);
     }
   };
 
   render() {
     const { classes, t } = this.props;
-    const { previewURL } = this.state;
+
+    const { files } = this.state;
 
     return (
-      <Dropzone onDrop={this.handleDrop} accept="image/*">
-        {({ getRootProps, getInputProps, isDragActive }) => {
-          return (
-            <div className={classes.dropzone} {...getRootProps()}>
-              <input {...getInputProps()} />
-              {previewURL ? (
-                <div className={classes.imagePreview} key={previewURL}>
-                  <img src={previewURL} className={classes.image} />
-                </div>
-              ) : null}
+      <Dropzone onDrop={this.handleDrop} accept="image/*" multiple>
+        {({ getRootProps, getInputProps, isDragActive }) => (
+          <div className={classes.dropzone} {...getRootProps()}>
+            <input {...getInputProps()} />
+            <div className={classes.previews}>
               <div
                 className={classnames(classes.textContainer, {
                   [classes.textContainerActive]: isDragActive,
                 })}
               >
                 <Typography className={classes.text}>
-                  {t(`common.uploadOneImage.${previewURL ? 'edit' : 'new'}`)}
+                  {t('common.uploadOneImage.new')}
                 </Typography>
               </div>
             </div>
-          );
-        }}
+          </div>
+        )}
       </Dropzone>
     );
   }
 }
 
 const styles = (theme) => ({
-  ...baseStyles(theme),
   imagePreview: {
     position: 'absolute',
     top: 0,
@@ -112,7 +121,7 @@ const styles = (theme) => ({
     bottom: 0,
   },
   textContainerActive: {
-    backgroundColor: 'rgba(0,0,0,0.7)',
+    backgroundColor: 'rgba(0,0,0,0.2)',
   },
   text: {
     top: '50%',
@@ -125,10 +134,9 @@ const styles = (theme) => ({
   dropzone: {
     width: '100%',
     position: 'relative',
-    minHeight: 20 * theme.spacing.unit,
+    minHeight: 5 * theme.spacing.unit,
     backgroundColor: '#F7F7F7',
     cursor: 'pointer',
   },
 });
-
-export default translate()(withStyles(styles)(ImageUploader));
+export default withNamespaces()(withStyles(styles)(ImageUploader));

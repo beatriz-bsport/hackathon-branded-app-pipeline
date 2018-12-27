@@ -51,6 +51,14 @@ export default handleActions(
         .setIn(['compatiblePacks', 'items'], payload)
         .setIn(['compatiblePacks', 'lastFetched'], new Date());
     },
+    [offerByDay.delete]: (state, { payload }) => {
+      const items = state.offers.filter((o) => o.id !== payload);
+      return state.set('offers', items);
+    },
+    [offers.delete]: (state, { payload }) => {
+      const items = state.calendar.filter((o) => o.id !== payload);
+      return state.set('calendar', items);
+    },
     [offerByDay.isLoading]: (state, { payload }) => {
       const items = state.offers.filter(
         (o) => o.lastRefresh - new Date() / 1000 < REFRESHED_INTERVAL,
@@ -66,7 +74,15 @@ export default handleActions(
         ...o,
         lastRefresh: new Date() / 1000,
       }));
-      const allItems = lodash.uniqBy([].concat(oldItems, newItems), 'id');
+      const newIds = newItems.map((o) => o.id);
+      const allItems = lodash.uniqBy(
+        [].concat(
+          newItems,
+          oldItems.filter(
+            (old) => newIds.findIndex((idx) => old.id === idx) < 0,
+          ),
+        ),
+      );
       return state.set('offers', allItems);
     },
   },

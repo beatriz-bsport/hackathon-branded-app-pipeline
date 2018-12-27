@@ -221,6 +221,8 @@ export type PaymentPack = {
   unlimited: boolean,
   name: string,
   credits: number,
+  base_price: number,
+  tax: number,
   company: { name: string },
   max_bookings_per_week: number,
   validity_daterange: ?{ upper: string, lower: string },
@@ -248,6 +250,7 @@ export type Category = {
 };
 
 export type PaymentPackManagerView = {
+  tax: number,
   consumer_payment_packs: Array<ConsumerPaymentPackManagerView>,
   unlimited: boolean,
   base_price: number,

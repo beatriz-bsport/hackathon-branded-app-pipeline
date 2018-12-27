@@ -2,7 +2,14 @@
 
 import React, { Component } from 'react';
 
-import { Grid, Typography, Switch, Button } from '@material-ui/core';
+import {
+  Grid,
+  CircularProgress,
+  Typography,
+  Switch,
+  Button,
+  withStyles,
+} from '@material-ui/core';
 import { translate } from 'react-i18next';
 
 import RedButton from '../button/RedButton.component';
@@ -10,25 +17,84 @@ import RedButton from '../button/RedButton.component';
 type Props = {
   t: (x: string) => string,
   onCancel: () => void,
-  onConfirm: () => void,
+  offerWasCancelled: ?boolean,
+  processing: ?boolean,
+  onHardDelete: () => void,
+  onCancelOffer: ({ cashback: boolean, notify: boolean }) => void,
+  classes: Object,
 };
 
 type State = {
-  notifyConsumer: boolean,
+  notify: boolean,
+  cashback: boolean,
 };
 
 export class DeleteOfferForm extends Component<Props, State> {
   state = {
-    notifyConsumer: true,
+    notify: true,
+    cashback: true,
+  };
+
+  onCreditBackSwitch = (event: Object) => {
+    this.setState({ cashback: event.target.checked });
   };
 
   onNotifySwitch = (event: Object) => {
-    this.setState({ notifyConsumer: event.target.checked });
+    this.setState({ notify: event.target.checked });
+  };
+
+  onConfirm = () => {
+    const { offerWasCancelled } = this.props;
+    const { notify, cashback } = this.state;
+    if (offerWasCancelled) {
+      return this.props.onHardDelete();
+    }
+    return this.props.onCancelOffer({ notify, cashback });
+  };
+
+  renderInside = () => {
+    const { t, classes, offerWasCancelled } = this.props;
+    if (offerWasCancelled) {
+      return (
+        <Typography>{t('form.offer.delete.explainHardDelete')}</Typography>
+      );
+    }
+    const { notify, cashback } = this.state;
+    return (
+      <Grid container direction="column">
+        <Grid item>
+          <Typography className={classes.explainText}>
+            {t('form.offer.delete.explainModalities')}
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Grid container direction="row" spacing={16} alignItems="center">
+            <Grid item>
+              <Switch checked={cashback} onChange={this.onCreditBackSwitch} />
+            </Grid>
+            <Grid item>
+              <Typography disabled>
+                {t('form.offer.delete.explainCreditBack')}
+              </Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item>
+          <Grid container direction="row" spacing={16} alignItems="center">
+            <Grid item>
+              <Switch checked={notify} onChange={this.onNotifySwitch} />
+            </Grid>
+            <Grid item>
+              <Typography>{t('form.offer.delete.explainNotify')}</Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    );
   };
 
   render() {
-    const { t, onCancel, onConfirm } = this.props;
-    const { notifyConsumer } = this.state;
+    const { t, processing, onCancel } = this.props;
     return (
       <Grid
         container
@@ -39,23 +105,17 @@ export class DeleteOfferForm extends Component<Props, State> {
         <Grid item>
           <Typography variant="title">{t('form.offer.deleteTitle')}</Typography>
         </Grid>
-        <Grid item>
-          <Typography>{t('form.offer.explainDelete')}</Typography>
-        </Grid>
-        <Grid item>
-          <Grid container direction="row" spacing={16} alignItems="center">
-            <Grid item>
-              <Switch checked={notifyConsumer} onChange={this.onNotifySwitch} />
-            </Grid>
-            <Grid item>
-              <Typography>{t('form.offer.explainNotifyDelete')}</Typography>
-            </Grid>
-          </Grid>
-        </Grid>
+        <Grid item>{this.renderInside()}</Grid>
         <Grid item>
           <Grid container item justify="flex-end">
             <Button onClick={onCancel}>{t('common.cancel')}</Button>
-            <RedButton onClick={onConfirm}>{t('common.confirm')}</RedButton>
+            {processing ? (
+              <CircularProgress />
+            ) : (
+              <RedButton onClick={this.onConfirm}>
+                {t('common.confirm')}
+              </RedButton>
+            )}
           </Grid>
         </Grid>
       </Grid>
@@ -63,4 +123,12 @@ export class DeleteOfferForm extends Component<Props, State> {
   }
 }
 
-export default translate()(DeleteOfferForm);
+const styles = (theme) => ({
+  explainText: {
+    marginBottom: theme.spacing.unit * 2,
+    padding: theme.spacing.unit * 2,
+    backgroundColor: '#F2F2F2',
+  },
+});
+
+export default translate()(withStyles(styles)(DeleteOfferForm));

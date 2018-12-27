@@ -43,6 +43,7 @@ export default function mapRouterParamsToProps(paramsMapper: ParamsMap) {
         const mappedProps = lodash.mapKeys(convertedParams, (value, key) => {
           return mapperConv[key].key;
         });
+        console.log(convertedParams, mappedProps);
         return <WrappedComponent {...this.props} {...mappedProps} />;
       }
     };

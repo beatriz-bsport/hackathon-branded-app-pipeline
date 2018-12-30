@@ -6,7 +6,6 @@ import {
   ResponsiveContainer,
   Bar,
   Legend,
-  Tooltip,
   Line,
   ComposedChart as ComposedChartBase,
   YAxis,

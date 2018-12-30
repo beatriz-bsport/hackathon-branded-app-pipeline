@@ -10,7 +10,6 @@ import {
   Paper,
   Grid,
   withStyles,
-  Typography,
   Button,
 } from '@material-ui/core';
 
@@ -25,7 +24,6 @@ type Props = {
   initial: $Shape<EstablishmentType>,
   onSubmit: ($Shape<EstablishmentType>) => void,
   t: TFunction,
-  update: boolean,
   classes: { [string]: string },
   imageUploader: ?{
     onAddImage: (image) => void,
@@ -98,7 +96,7 @@ export class EstablishmentForm extends Component<Props, State> {
   };
 
   render() {
-    const { t, classes, update, imageUploader } = this.props;
+    const { t, classes, imageUploader } = this.props;
     const images = (this.props.initial || {}).images || [];
     return (
       <form onSubmit={this.onSubmit}>

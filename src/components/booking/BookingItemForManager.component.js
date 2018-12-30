@@ -32,6 +32,8 @@ type Props = {
   showQuickInvoiceButton: ?boolean,
   showRevertBookingButton: ?boolean,
   redirectToMember: ?boolean,
+
+  push: (path: string) => void,
   onQuickInvoiceClick: () => void,
   handleRevert: () => void,
   requestRefreshPaymentPack: () => void,
@@ -124,10 +126,7 @@ export class BookingItemForManager extends Component<Props> {
     }
     return (
       <ListItemSecondaryAction>
-        <RedButton
-          variant="outlined"
-          onClick={confirmBookingAttendance}
-        >
+        <RedButton variant="outlined" onClick={confirmBookingAttendance}>
           {t('booking.doNotAttend')}
           <CachedIcon className={classes.iconButton} />
         </RedButton>

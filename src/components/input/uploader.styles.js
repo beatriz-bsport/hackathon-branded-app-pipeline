@@ -1,5 +1,3 @@
-// @flow
-
 export const styles = (theme) => ({
   dropzone: {
     width: '100%',
@@ -38,5 +36,17 @@ export const styles = (theme) => ({
     position: 'absolute',
     top: 0,
     right: 0,
+  },
+});
+
+export const smallStyles = (theme) => ({
+  ...styles(theme),
+  dropzone: {
+    width: 32,
+    height: 32,
+    minHeight: 20 * theme.spacing.unit,
+    border: '2px gray dashed',
+    backgroundColor: '#F7F7F7',
+    cursor: 'pointer',
   },
 });

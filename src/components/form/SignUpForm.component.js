@@ -17,7 +17,6 @@ import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import { translate } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import { Link } from 'react-router-dom';
 
 import { EmailInput, GenderInput } from '../input';
 

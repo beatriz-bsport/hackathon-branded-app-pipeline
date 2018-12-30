@@ -48,7 +48,6 @@ export class ImageUploader extends React.Component<Props, State> {
       const file = acceptedFiles[0];
       this.setState({
         previewURL: URL.createObjectURL(file),
-        file,
       });
 
       if (this.props.onChange) {
@@ -69,7 +68,11 @@ export class ImageUploader extends React.Component<Props, State> {
               <input {...getInputProps()} />
               {previewURL ? (
                 <div className={classes.imagePreview} key={previewURL}>
-                  <img src={previewURL} className={classes.image} />
+                  <img
+                    alt="preview"
+                    src={previewURL}
+                    className={classes.image}
+                  />
                 </div>
               ) : null}
               <div

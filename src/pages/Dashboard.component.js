@@ -7,18 +7,16 @@ import type { Moment } from 'moment';
 import { compose, withProps, withPropsOnChange, withState } from 'recompose';
 import { connect } from 'react-redux';
 
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { withStyles } from '@material-ui/core/styles';
 
 import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 
-import { colors } from 'bsport-commons/lib/colors';
 import {
   bookingStatSelector,
   newMembersStatSelector,
@@ -33,7 +31,6 @@ import Figure from '../components/graph/Figure.component';
 import {
   ComposedChart,
   SimpleBarChart,
-  BarChart,
 } from '../components/graph/Charts.component';
 
 type ChartData = {
@@ -43,7 +40,9 @@ type ChartData = {
 
 type Props = {
   classes: Object,
-  t: (x: string) => string,
+  t: TFunction,
+  tab: ?number,
+  setTab: (value: number) => void,
   dateRange: { start: Moment, end: Moment, kind: string },
   miniStats: { [string]: { table: ChartData, total: number } },
   quickDateFilters: *[],

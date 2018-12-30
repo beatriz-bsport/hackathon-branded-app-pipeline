@@ -18,6 +18,7 @@ type Props = {
   classes: Object,
   onClickOffer: () => void,
   t: TFunction,
+  classes: Object,
 };
 
 export class MarketplaceTimetable extends Component<Props> {
@@ -47,7 +48,7 @@ export class MarketplaceTimetable extends Component<Props> {
   };
 
   render() {
-    const { date, t, classes } = this.props;
+    const { date, classes } = this.props;
     return (
       <div>
         <Typography variant="title" className={classes.title}>

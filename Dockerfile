@@ -1,6 +1,6 @@
-FROM bsport-commons as dependencies
+FROM registry.gitlab.com/bsport/bsport-commons-js as dependencies
 
-FROM node
+FROM node:8-alpine
 
 COPY --from=dependencies /app/ /bsport-commons
 WORKDIR /bsport-commons

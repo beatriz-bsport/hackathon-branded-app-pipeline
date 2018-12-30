@@ -13,8 +13,6 @@ import { auth as authActions } from '../../actions';
 import { ConsumerModalContainer, ConsumerLogin } from '../../components';
 import SignUpForm from '../../components/form/SignUpForm.component';
 
-import api from '../../api';
-
 type Props = {
   authenticated: boolean,
   errorLogin: boolean,

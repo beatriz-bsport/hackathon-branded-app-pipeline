@@ -36,14 +36,7 @@ import {
 } from '../actions';
 import { Moment } from '../i18n';
 import api from '../api';
-import type {
-  Offer,
-  Booking,
-  BookingOption,
-  Coach,
-  Establishment,
-  PaymentPack,
-} from '../api/types';
+import type { Offer, Coach, Establishment, PaymentPack } from '../api/types';
 
 const styles = (theme) => ({
   calendarContainer: {
@@ -62,7 +55,6 @@ type Props = {
   classes: Object,
   match: Object,
 
-  bookingLoading: boolean,
   timetableLoading: boolean,
   coachesLoading: boolean,
   establishmentsLoading: boolean,
@@ -70,8 +62,6 @@ type Props = {
 
   offers: Array<Offer>,
   events: Array<Event>,
-  bookings: Array<Booking>,
-  bookingOptions: Array<BookingOption>,
   activities: Array<Activity>,
   metaActivities: Array<MetaActivity>,
   coaches: Array<Coach>,
@@ -84,11 +74,6 @@ type Props = {
   replaceRouter: () => void,
 
   deleteOffer: (id: number) => void,
-  discardOption: (id: number) => void,
-  discardBooking: (id: number) => void,
-  discardBookingAttendance: (id: number) => void,
-  confirmBooking: (id: number) => void,
-  confirmBookingAttendance: (id: number) => void,
   fetchBookings: (id: number) => void,
   fetchCompatiblePacks: (id: number) => void,
   fetchOffersByDay: ({ year: number, month: number, day: number }) => void,
@@ -371,14 +356,6 @@ export class Planning extends Component<Props, State> {
       events,
       classes,
       t,
-      bookings,
-      bookingOptions,
-      bookingLoading,
-      discardOption,
-      confirmBooking,
-      confirmBookingAttendance,
-      discardBooking,
-      discardBookingAttendance,
       activities,
       timetableLoading,
       establishments,
@@ -398,13 +375,6 @@ export class Planning extends Component<Props, State> {
       }
       events_[midnight].push(o);
     });
-
-    const bookingUpdaters = {
-      discardBooking,
-      confirmBooking,
-      discardBookingAttendance,
-      confirmBookingAttendance,
-    };
 
     return (
       <Grid container spacing={24}>
@@ -493,9 +463,6 @@ function mapStateToProps(state) {
     compatiblePacksLoading: state.offer.compatiblePacks.loading,
     timetableLoading: state.activity.loading,
     activities: state.activity.all,
-    bookingLoading: state.booking.loading,
-    bookings: state.booking.all,
-    bookingOptions: state.booking.options,
     coaches: state.coach.companyAssociated,
     coachesLoading: state.coach.loading,
     establishments: state.establishment.all,
@@ -523,21 +490,6 @@ function mapDispatchToProps(dispatch) {
     },
     fetchBookings(offerId) {
       dispatch(bookingActions.fetchBookingsByOffer(offerId));
-    },
-    confirmBookingAttendance(bookingId) {
-      dispatch(bookingActions.confirmBookingAttendance(bookingId));
-    },
-    discardBookingAttendance(bookingId) {
-      dispatch(bookingActions.discardBookingAttendance(bookingId));
-    },
-    confirmBooking(bookingId) {
-      dispatch(bookingActions.confirmBooking(bookingId));
-    },
-    discardBooking(bookingId) {
-      dispatch(bookingActions.discardBooking(bookingId));
-    },
-    discardOption(optionId) {
-      dispatch(bookingActions.discardBookingOption(optionId));
     },
     fetchOffersByDay({ year, month, day }) {
       dispatch(offerActions.fetchOffersByDay({ year, month, day }));

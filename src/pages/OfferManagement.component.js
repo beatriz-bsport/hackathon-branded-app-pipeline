@@ -32,7 +32,6 @@ import {
   search as searchActions,
   invoice as invoiceActions,
   offer as offerActions,
-  member as memberActions,
 } from '../actions';
 import BookingTable from '../components/booking/BookingTable.container';
 import SearchBar from '../components/SearchBar.component';
@@ -78,7 +77,6 @@ type Props = {
   }) => void,
   discardOption: (id: number) => void,
   deleteBooking: (bookingId: number, memberId: number) => void,
-  quickFetchMember: (memberId: number) => void,
 
   goBack: () => void,
   push: (path: string) => void,

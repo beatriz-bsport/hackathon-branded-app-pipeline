@@ -8,8 +8,6 @@ import AddIcon from '@material-ui/icons/Add';
 
 import { push } from 'connected-react-router';
 
-import { Link } from 'react-router-dom';
-
 import {
   Typography,
   Grid,
@@ -20,6 +18,7 @@ import {
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
+import type { TFunction } from 'react-i18next';
 import {
   establishment as establishmentActions,
   offer as offerActions,
@@ -34,10 +33,13 @@ type Props = {
   establishments: Array<Establishment>,
   activities: Array<Activity>,
   offers: Array<Offer>,
-  classes: Object,
-  t: (x: string) => string,
+
   startUpdateEstablishment: (*) => void,
   fetchOffersByDay: ({ year: number, month: number, day: number }) => void,
+  goToCreateEstablishment: () => void,
+
+  classes: Object,
+  t: TFunction,
 };
 
 type State = {

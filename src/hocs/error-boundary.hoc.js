@@ -4,7 +4,7 @@ import * as Sentry from '@sentry/browser';
 
 import React from 'react';
 
-import '../errors.sass';
+import '../errors.scss';
 
 /* eslint-disable */
 export default function(WrappedComponent) {
@@ -22,7 +22,7 @@ export default function(WrappedComponent) {
     }
 
     render() {
-      if (this.state.error) {
+      if (!this.state.error) {
         return (
           <div>
             <div className="error-screen-wrapper">

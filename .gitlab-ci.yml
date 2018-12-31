@@ -19,11 +19,12 @@ before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
 
 stages:
-  - build
+  - build_source_image
   - lint
+  - build_app
 
-build:
-  stage: build
+build_source_image:
+  stage: build-source-image
   script:
     - docker pull $CONTAINER_IMAGE/$CI_COMMIT_REF_NAME:latest || true
     - docker build --cache-from $CONTAINER_IMAGE/$CI_COMMIT_REF_NAME:latest --tag $CONTAINER_IMAGE/$CI_COMMIT_REF_NAME:latest .
@@ -34,3 +35,9 @@ lint:
   script:
     - docker pull $CONTAINER_IMAGE/$CI_COMMIT_REF_NAME:latest
     - docker run $CONTAINER_IMAGE/$CI_COMMIT_REF_NAME:latest yarn lint
+
+build_app:
+  stage: build_app
+  script:
+    - docker pull $CONTAINER_IMAGE/$CI_COMMIT_REF_NAME:latest
+    - docker run $CONTAINER_IMAGE/$CI_COMMIT_REF_NAME:latest yarn build

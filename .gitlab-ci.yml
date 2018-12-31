@@ -24,7 +24,7 @@ stages:
   - build_app
 
 build_source_image:
-  stage: build-source-image
+  stage: build_source_image
   script:
     - docker pull $CONTAINER_IMAGE/$CI_COMMIT_REF_NAME:latest || true
     - docker build --cache-from $CONTAINER_IMAGE/$CI_COMMIT_REF_NAME:latest --tag $CONTAINER_IMAGE/$CI_COMMIT_REF_NAME:latest .

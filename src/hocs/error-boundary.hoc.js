@@ -22,7 +22,7 @@ export default function(WrappedComponent) {
     }
 
     render() {
-      if (!this.state.error) {
+      if (this.state.error) {
         return (
           <div>
             <div className="error-screen-wrapper">

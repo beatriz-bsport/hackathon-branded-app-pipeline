@@ -18,6 +18,7 @@ import DatePicker from 'material-ui-pickers/DatePicker';
 import { FormField } from '../input';
 import { AvatarUploader } from '..';
 import { Moment } from '../../i18n';
+import AddressForm from './AddressForm.component';
 
 const styles = (theme) => ({
   paperContainer: {
@@ -50,6 +51,13 @@ type State = {
   date_joined: ?Object,
   avatar: *,
   processing: boolean,
+  address: {
+    address_line_1: ?string,
+    address_line_2: ?string,
+    city: ?string,
+    country: ?string,
+    zipcode: ?string,
+  },
 };
 
 export class MemberForm extends Component<Props, State> {
@@ -65,9 +73,10 @@ export class MemberForm extends Component<Props, State> {
     accept_email: true,
     accept_sms: true,
     date_joined: Moment(),
+    address: {},
   };
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
 
     Object.keys(props.initial || {}).forEach((key) => {
@@ -95,6 +104,11 @@ export class MemberForm extends Component<Props, State> {
       if (props.initial.sex) {
         this.state.gender = props.initial.sex;
       }
+      if (props.initial.address) {
+        this.state.address = props.initial.address || {};
+      } else {
+        this.state.address = {};
+      }
     }
   }
 
@@ -116,6 +130,7 @@ export class MemberForm extends Component<Props, State> {
       accept_email,
       accept_sms,
       date_joined,
+      address,
     } = this.state;
 
     const data = {
@@ -124,6 +139,7 @@ export class MemberForm extends Component<Props, State> {
       email,
       phone,
       accept_email,
+      address: JSON.stringify(address),
       accept_sms,
       gender,
       membership_ID,
@@ -153,8 +169,15 @@ export class MemberForm extends Component<Props, State> {
     return this.setState({ membership_ID: value });
   };
 
+  handleAddressChange = (id: string) => (event: Object) => {
+    this.setState((prevState) => ({
+      address: { ...prevState.address, [id]: event.target.value },
+    }));
+  };
+
   render() {
     const { classes, t, initial } = this.props;
+    const { address } = this.state;
     const { firstname, lastname } = initial || {};
     const title = firstname
       ? `${firstname} ${lastname}`
@@ -239,6 +262,16 @@ export class MemberForm extends Component<Props, State> {
                 placeholder={t('form.member.phone')}
                 value={this.state.phone}
                 onChange={this.onFormFieldChange('phone')}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <AddressForm
+                address_line_1={address.address_line_1}
+                address_line_2={address.address_line_2}
+                city={address.city}
+                country={address.country}
+                zipcode={address.zipcode}
+                onChange={this.handleAddressChange}
               />
             </Grid>
             <Grid item xs={12} md={6}>

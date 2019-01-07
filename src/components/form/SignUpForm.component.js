@@ -19,6 +19,12 @@ import { translate } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { EmailInput, GenderInput } from '../input';
+import AddressForm from './AddressForm.component';
+
+import type { ConsumerAddress } from '../../api/types';
+
+const STEP_GENERAL_INFORMATION = 0;
+const STEP_REQUEST_ADDRESS = 1;
 
 type Props = {
   onComplete: (Object) => void,
@@ -36,12 +42,16 @@ type State = {
   passwordConfirm: string,
   gender: string,
   passwordIsConform: boolean,
+  passwordEqual: boolean,
   accept_sms: boolean,
   accept_email: boolean,
   acceptPrivacyPolicy: boolean,
+  gender: string,
+  step: number,
 };
 export class SignUpForm extends Component<Props, State> {
   state = {
+    step: STEP_GENERAL_INFORMATION,
     email: '',
     first_name: '',
     last_name: '',
@@ -56,8 +66,16 @@ export class SignUpForm extends Component<Props, State> {
     gender: 'F',
   };
 
-  submitInfo = (event: Object) => {
+  goToAddressForm = (event: Object) => {
     event.preventDefault();
+    if (!this.state.acceptPrivacyPolicy) {
+      alert(this.props.t('form.signup.pleaseAcceptPrivacyPolicy'));
+      return;
+    }
+    this.setState({ step: STEP_REQUEST_ADDRESS });
+  };
+
+  submitInfo = () => {
     const {
       email,
       password,
@@ -90,7 +108,7 @@ export class SignUpForm extends Component<Props, State> {
     }
   };
 
-  isPasswordConform = (password) => {
+  isPasswordConform = (password: string) => {
     return password.length > 7;
   };
 
@@ -102,7 +120,7 @@ export class SignUpForm extends Component<Props, State> {
     }));
   };
 
-  onPasswordChange = (event) => {
+  onPasswordChange = (event: Object) => {
     const password = event.target.value;
     const passwordIsConform = this.isPasswordConform(password);
     this.setState((prevState) => ({
@@ -112,7 +130,7 @@ export class SignUpForm extends Component<Props, State> {
     }));
   };
 
-  onPasswordConfirmChange = (event) => {
+  onPasswordConfirmChange = (event: Object) => {
     const passwordConfirm = event.target.value;
     this.setState((prevState) => ({
       passwordConfirm,
@@ -120,15 +138,15 @@ export class SignUpForm extends Component<Props, State> {
     }));
   };
 
-  toogleSMS = (event) => {
+  toogleSMS = (event: Object) => {
     this.setState({ accept_sms: event.target.checked });
   };
 
-  toogleEmail = (event) => {
+  toogleEmail = (event: Object) => {
     this.setState({ accept_email: event.target.checked });
   };
 
-  handleGender = (event) => {
+  handleGender = (event: Object) => {
     this.setState({ gender: event.target.value });
   };
 
@@ -161,11 +179,50 @@ export class SignUpForm extends Component<Props, State> {
     );
   };
 
+  receiveAddress = (data: ConsumerAddress) => {
+    const {
+      email,
+      password,
+      passwordConfirm,
+      first_name,
+      last_name,
+      phone,
+      accept_sms,
+      accept_email,
+      gender,
+    } = this.state;
+    if (password === passwordConfirm) {
+      this.props.onComplete({
+        email,
+        password,
+        first_name,
+        last_name,
+        phone,
+        accept_sms,
+        accept_email,
+        username: email,
+        gender,
+        address: data,
+      });
+    }
+  };
+
   render() {
     const { classes, t } = this.props;
-    const { passwordEqual, password, passwordConfirm } = this.state;
+    const { passwordEqual, password, passwordConfirm, step } = this.state;
+    if (step === STEP_REQUEST_ADDRESS) {
+      return (
+        <AddressForm
+          onCancel={() => this.setState({ step: STEP_GENERAL_INFORMATION })}
+          autoComplete
+          onSkip={this.submitInfo}
+          onSubmit={this.receiveAddress}
+          submitText={t('form.signup.signupButton')}
+        />
+      );
+    }
     return (
-      <form onSubmit={this.submitInfo} className={classes.container}>
+      <form onSubmit={this.goToAddressForm} className={classes.container}>
         <Grid container direction="column" spacing={16} alignItems="flex-start">
           <Grid item>
             <Grid
@@ -298,7 +355,12 @@ export class SignUpForm extends Component<Props, State> {
               <Button color="secondary" onClick={this.props.onCancel}>
                 {t('common.cancel')}
               </Button>
-              <Button type="submit" color="primary" variant="contained">
+              <Button
+                type="submit"
+                color="primary"
+                variant="contained"
+                disabled={!this.state.acceptPrivacyPolicy}
+              >
                 {t('form.signup.signupButton')}
               </Button>
             </Grid>

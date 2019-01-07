@@ -38,13 +38,13 @@ export default {
       'Montant reversé pour toute réservation au-dessus de la limite',
     fixedPriceForAdditionalBookingLabel: 'Fixe par séance',
     fixedPriceForAdditionalBookingHelper:
-      "Montant fixe reversé pour toute séance avec suffisamment d'inscrits",
+      'Montant fixe reversé pour toute séance avec suffisamment d\'inscrits',
   },
   translation: {
     metaActivity: {
       update: {
         imageUploaderRequireEditMessage:
-          "Une fois votre activité créée, vous aurez la possibilité d'ajouter des images supplémentaires.",
+          'Une fois votre activité créée, vous aurez la possibilité d\'ajouter des images supplémentaires.',
       },
     },
     companies,
@@ -67,9 +67,10 @@ export default {
       },
     },
     common: {
+      skip: 'Passer',
       uploadOneImage: {
         new: 'Glisser et déposer ou cliquer ici pour ajouter une image',
-        edit: "Glisser et déposer ou cliquer ici pour changer l'image",
+        edit: 'Glisser et déposer ou cliquer ici pour changer l\'image',
       },
       buy: 'Acheter',
       establishments: 'Lieux',
@@ -85,7 +86,7 @@ export default {
       saveAndAdd: 'Enregistrer et ajouter à nouveau',
       booking: 'Réservation',
       from: 'Du',
-      until: "Jusqu'au",
+      until: 'Jusqu\'au',
       paymentMethod: 'Méthode de paiement',
       activity: 'Activité',
       datetime: 'Séance',
@@ -144,7 +145,7 @@ export default {
       disabled: 'annulé',
       substitute: 'Remplaçant',
       compatiblePacks: 'Abonnements compatibles',
-      noCompatiblePacks: "Aucun abonnement n'est compatible avec cette séance",
+      noCompatiblePacks: 'Aucun abonnement n\'est compatible avec cette séance',
       extraordinaryEstablishment: '(lieu temporaire)',
       addInvoice: 'Facturer',
       myBookings: 'Mes réservations',
@@ -160,7 +161,7 @@ export default {
       subShop: {
         delete: {
           explain:
-            "Êtes-vous sûr de vouloir supprimer cette catégorie ? Tous les éléments qu'elle contient seront également supprimés",
+            'Êtes-vous sûr de vouloir supprimer cette catégorie ? Tous les éléments qu\'elle contient seront également supprimés',
           title: 'Suppression',
         },
       },
@@ -168,6 +169,14 @@ export default {
       noProvisionUpdates: 'Aucun stock',
     },
     form: {
+      address: {
+        streetNumber: 'N°',
+        addressLine1: 'Adresse',
+        addressLine2: 'Complément d\'adresse',
+        city: 'Ville',
+        country: 'Pays',
+        zipcode: 'Code postal',
+      },
       login: {
         changePasswordTitle: 'Modification du mot de passe',
         password: 'Mot de passe',
@@ -191,15 +200,15 @@ export default {
             'Attention cette suppression est définitive, aucun client ne pourra plus acheter ce produit, les stocks seront supprimés.',
           updateProvisions: {
             success: 'Stock mis à jour',
-            error: "Erreur lors de l'enregistrement du stock",
+            error: 'Erreur lors de l\'enregistrement du stock',
           },
           modifyProvisions: 'Mettre à jour le stock',
           updateProvisionExplain:
-            "Entrez l'apport à votre inventaire. Celui-ci sera additionné à votre stock actuel",
+            'Entrez l\'apport à votre inventaire. Celui-ci sera additionné à votre stock actuel',
           updateProvisionTitle: 'Modification du stock',
           createOrUpdate: {
             success: 'Enregistré',
-            error: "Erreur lors de l'enregistrement",
+            error: 'Erreur lors de l\'enregistrement',
           },
           delete: {
             success: 'Element supprimé',
@@ -222,7 +231,7 @@ export default {
       },
       member: {
         createOrUpdate: {
-          error: "Erreur lors de l'enregistrement de la note",
+          error: 'Erreur lors de l\'enregistrement de la note',
           success: 'Note enregistrée',
         },
         delete: {
@@ -233,7 +242,7 @@ export default {
         rgpdTitle:
           'Moyen de communication accepté par le membre (alerte annulation, modification, etc...)',
         birthdayYear: 'Année de naissance',
-        referenceNumber: "Numéro d'adhérent",
+        referenceNumber: 'Numéro d\'adhérent',
         referenceNumberHelper:
           '(optionnel) si vide un numéro sera automatiquement créé',
       },
@@ -243,18 +252,19 @@ export default {
       signup: {
         typePhone: 'Tél. portable *',
         confirmPasswordLabel: 'Confirmation',
+        confirmPassword: 'Mot de passe',
         rgpdTitle:
-          "Comment préférez-vous que les coachs vous contactent pour les annulations/changement d'heure ?",
+          'Comment préférez-vous que les coachs vous contactent pour les annulations/changement d\'heure ?',
         communication: {
           email: 'par email',
           sms: 'par SMS',
         },
-        signupButton: "S'inscrire",
-        iAcceptPrivacyPolicy: "J'accepte les ",
-        privacyPolicy: "Conditions générales d'utilisation",
+        signupButton: 'S\'inscrire',
+        iAcceptPrivacyPolicy: 'J\'accepte les ',
+        privacyPolicy: 'Conditions générales d\'utilisation',
       },
       invoice: {
-        dateStartPaymentPack: "Début de l'abonnement le",
+        dateStartPaymentPack: 'Début de l\'abonnement le',
         backToInvoiceItemList: 'Retour à la liste',
         title: 'Enregistrer un paiement',
         paymentLabel: 'Ajouter une transaction',
@@ -262,7 +272,7 @@ export default {
         paymentPackHelper: 'Cet abonnement sera crédité au membre',
         noPayedObject: 'Aucun',
         objectTypeLabel: 'Objet à créditer',
-        activityHelper: "Choisissez l'activité puis la séance",
+        activityHelper: 'Choisissez l\'activité puis la séance',
         titleUnevenInvoice: 'Facture non-équilibrée',
         explainUnevenInvoice: ({ totalInvoiceItems, totalPayments }) =>
           `Cette facture n'est pas équilibrée !\nLe total s'élève à ${totalInvoiceItems}€ quand le total des paiements est à ${totalPayments}€. Vous pouvez ajouter des paiements via le bouton "+ Paiement"`,
@@ -274,13 +284,13 @@ export default {
         noPaymentExtraInfo: 'Aucune information additionnelle',
         additionalInformationLabel: 'Information',
         additionalInformationHelper:
-          "(optionnel) numéro du chèque, date d'encaissement...",
+          '(optionnel) numéro du chèque, date d\'encaissement...',
       },
       offer: {
         warningPackonEdit:
-          "Les changements sur les séances risquent de les rendre incompatibles avec certains abonnements. Les abonnements actuellement compatibles avec cette séance sont les suivants, après la modification veuillez prendre le temps de vérifier qu'ils resteront compatible avec les éventuels changements de lieu / coach.",
+          'Les changements sur les séances risquent de les rendre incompatibles avec certains abonnements. Les abonnements actuellement compatibles avec cette séance sont les suivants, après la modification veuillez prendre le temps de vérifier qu\'ils resteront compatible avec les éventuels changements de lieu / coach.',
         deleteTitle: 'Supprimer la séance',
-        changeDate: "Modifier l'horaire / date",
+        changeDate: 'Modifier l\'horaire / date',
         changeCoach: 'Modifier le coach',
         changeEstablishment: 'Modifier le lieu',
         explainRecursiveOfferEdit:
@@ -290,7 +300,7 @@ export default {
         delete: {
           buttonHardDelete: 'Supprimer',
           explainHardDelete:
-            "Supprimer la séance de la liste ? Attention celle-ci deviendra invisible, ainsi que les réservations associées, vous n'aurez plus accès à l'historique !",
+            'Supprimer la séance de la liste ? Attention celle-ci deviendra invisible, ainsi que les réservations associées, vous n\'aurez plus accès à l\'historique !',
           explainCreditBack: 'Rembourser les crédits dépensés aux clients',
           explainNotify: 'Envoyer une alerte aux clients ayant réservé',
           explainModalities:
@@ -299,7 +309,7 @@ export default {
       },
       paymentPack: {
         newMemberOnly: 'Uniquement pour les nouveaux membres',
-        managerOnly: "Disponible à l'achat",
+        managerOnly: 'Disponible à l\'achat',
         helper: {
           // eslint-disable-next-line
           name: "Nom de l'abonnement",
@@ -309,30 +319,30 @@ export default {
             'Début de validité du pass, laisser vide pour le rendre valable immédiatement',
           // eslint-disable-next-line
           ending_date:
-            "Fin de validité du pass, laisser vide pour qu'il reste toujours actif",
+            'Fin de validité du pass, laisser vide pour qu\'il reste toujours actif',
           // eslint-disable-next-line
           credits:
-            "Nombre de crédit disponibles au client de l'abonnement, laisser vide pour le rendre illimité",
+            'Nombre de crédit disponibles au client de l\'abonnement, laisser vide pour le rendre illimité',
           maxBookingPerWeek: 'Laisser vide pour ne pas imposer de limite',
         },
-        timeSettingsTitle: "Validité de l'abonnement",
+        timeSettingsTitle: 'Validité de l\'abonnement',
         generalSettingsTitle: 'Général',
         validByDuration: 'Abonnement valide N jours après achat',
         validByDaterange: 'Abonnement valide sur un créneau de date précis',
-        durationDays: "Durée de validité (jours) de l'abonnement après achat ",
+        durationDays: 'Durée de validité (jours) de l\'abonnement après achat ',
         restrictionsTitle: 'Restrictions',
         maxBookingPerWeek: 'Utilisation max par semaine',
         noneMeansAll: 'Laisser vide pour tout autoriser',
         update: {
           success: 'Abonnement: opération effectuée avec succès',
-          error: "Abonnement : erreur lors de l'opération",
+          error: 'Abonnement : erreur lors de l\'opération',
         },
         delete: {
-          title: "Suppression de l'abonnement :",
+          title: 'Suppression de l\'abonnement :',
           askConfirmation:
-            "Attention ! Cette opération est définitive. L'abonnement ne sera plus visible et deviendra indisponible à l'achat.",
+            'Attention ! Cette opération est définitive. L\'abonnement ne sera plus visible et deviendra indisponible à l\'achat.',
           thereAreConsumers:
-            "Attention ! Des membres ont acheté cet abonnement, si vous le supprimez ces derniers pourront toujours utiliser leurs crédits restants. Vous pouvez les réduire manuellement à zéro ici.\n\nL'abonnement n'apparaitra plus dans votre magasin pour les nouveaux acheteurs.",
+            'Attention ! Des membres ont acheté cet abonnement, si vous le supprimez ces derniers pourront toujours utiliser leurs crédits restants. Vous pouvez les réduire manuellement à zéro ici.\n\nL\'abonnement n\'apparaitra plus dans votre magasin pour les nouveaux acheteurs.',
         },
       },
       title: 'Titre',
@@ -426,7 +436,7 @@ export default {
         areYouSureCancelBookingOption:
           'Voulez-vous vraiment annuler votre option ?',
         explainCancelBookingOption:
-          "La suppression est définitive, si vous prenez de nouveau une option sur cette séance votre place sur la liste d'attente sera réinitialisée.",
+          'La suppression est définitive, si vous prenez de nouveau une option sur cette séance votre place sur la liste d\'attente sera réinitialisée.',
       },
       booking: {
         cancelBooking: 'Annuler la réservation',
@@ -476,7 +486,7 @@ export default {
         create: {
           success: 'Facture enregistrée - Membre crédité',
         },
-        error: "Erreur lors de l'enregistrement - Annulé",
+        error: 'Erreur lors de l\'enregistrement - Annulé',
       },
     },
     payment: {
@@ -517,7 +527,7 @@ export default {
       status: 'Encaissé',
       stillUnpaid: 'Reste à encaisser : ',
       stripePaymentWillBeCashedOutOnInvoiceValidation:
-        "La CB ne sera débitée qu'après la sauvegarde de la facture",
+        'La CB ne sera débitée qu\'après la sauvegarde de la facture',
       createInvoice: 'Paiement',
       toBill: 'Facturer',
     },
@@ -557,7 +567,7 @@ export default {
     },
     activity: {
       settings: 'Paramètres',
-      sizeOfWaitingList: "Taille par défaut de la liste d'attente: ",
+      sizeOfWaitingList: 'Taille par défaut de la liste d\'attente: ',
       lastBookingBeforeMinutes:
         'Avant le début du cours, dernière réservation possible',
       lastDiscardBeforeMinutes:
@@ -583,7 +593,7 @@ export default {
     search,
     booking: {
       success: 'Réservation enregistrée',
-      revertBookingTitle: "Annuler l'inscription",
+      revertBookingTitle: 'Annuler l\'inscription',
       revertBookingExplain: (name: string) =>
         `Êtes-vous sûr de vouloir supprimer la réservation de ${name} ? Les crédits utilisés seront recrédités. Si vous ne souhaites pas recréditer le member, passez la réservation en Absent en cliquant sur le bouton "Présent"`,
       revertBookingWithInvoiceImpossibleExplain:
@@ -676,7 +686,7 @@ export default {
       showMarketplace: 'Voir le calendrier de ',
       noSessionToday: 'Aucune séance',
       book: 'Réserver',
-      bookOption: "Liste d'attente",
+      bookOption: 'Liste d\'attente',
       sessionThisDay: 'Séance ce jour :',
       calendar: 'Calendrier',
       welcomeTo: 'Bienvenue chez ',

@@ -48,6 +48,7 @@ export default {
       CHECK: 'Check',
     },
     common: {
+      skip: 'Skip',
       uploadOneImage: {
         new: 'Drag and drop or click here to add your image',
         edit: 'Drag and drop or click here to change the image',
@@ -176,6 +177,14 @@ export default {
       },
     },
     form: {
+      address: {
+        streetNumber: 'N°',
+        addressLine1: 'Address',
+        addressLine2: 'Additional info',
+        city: 'City',
+        country: 'Country',
+        zipcode: 'Zipcode',
+      },
       login: {
         changePasswordTitle: 'Change password',
         password: 'Password',
@@ -251,6 +260,7 @@ export default {
       signup: {
         typePhone: 'Cellphone',
         confirmPasswordLabel: 'Confirm',
+        confirmPassword: 'Password',
         rgpdTitle:
           'Which way do you prefer for the coach to contact you about change in timeline, cancelling session... ?',
         communication: {

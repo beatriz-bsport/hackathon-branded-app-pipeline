@@ -34,6 +34,7 @@ export class MemberFormPage extends Component<Props> {
       accept_email: 'accept_email',
       accept_sms: 'accept_sms',
       date_joined: 'date_joined',
+      address: 'address',
     });
 
     if (this.props.update) {

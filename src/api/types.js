@@ -288,3 +288,11 @@ export type CoachDetailed = {
   default_payment_rule_id: ?number,
   activities: Array<ActivitySimplified>,
 };
+
+export type ConsumerAddress = {
+  route: string,
+  street_number: string,
+  city: string,
+  country: string,
+  zipcode: string,
+};

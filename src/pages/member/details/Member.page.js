@@ -15,6 +15,8 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import EditIcon from '@material-ui/icons/Edit';
 import { translate } from 'react-i18next';
 import { push as routerPush } from 'react-router-redux';
 import { connect } from 'react-redux';
@@ -303,6 +305,7 @@ export class Member extends Component<Props, State> {
           <Grid item xs={12}>
             <Paper className={this.props.classes.paperContainer}>
               {this.renderSummaryCard()}
+              {this.renderButtons()}
             </Paper>
           </Grid>
           <Grid item xs={12} md={6}>
@@ -342,25 +345,51 @@ export class Member extends Component<Props, State> {
     return <CircularProgress />;
   };
 
-  render() {
-    const { memberLoading, t, classes } = this.props;
+  renderButtons = () => {
+    const { classes, t } = this.props;
     return (
-      <Grid container direciotn="column" spacing={16}>
-        <Grid item xs={12}>
-          {memberLoading ? <CircularProgress /> : this.renderContent()}
+      <Grid container direction="row" justify="flex-start" spacing={16}>
+        <Grid item>
+          <Button color="primary" variant="contained" onClick={this.billMember}>
+            <AttachMoneyIcon className={classes.leftIcon} />
+            {t('payment.toBill')}
+          </Button>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item>
           <Button
-            onClick={this.props.goBack}
-            size="large"
+            onClick={this.editMember}
             color="secondary"
             variant="outlined"
-            className={classes.backButton}
           >
-            {t('navigation.goBack')}
+            <EditIcon className={classes.leftIcon} />
+            {t('common.edit')}
           </Button>
         </Grid>
       </Grid>
+    );
+  };
+
+  render() {
+    const { memberLoading, t, classes } = this.props;
+    return (
+      <div style={{ height: '100%' }}>
+        <Grid container direciotn="column" spacing={16}>
+          <Grid item xs={12}>
+            {memberLoading ? <CircularProgress /> : this.renderContent()}
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              onClick={this.props.goBack}
+              size="large"
+              color="secondary"
+              variant="outlined"
+              className={classes.backButton}
+            >
+              {t('navigation.goBack')}
+            </Button>
+          </Grid>
+        </Grid>
+      </div>
     );
   }
 }
@@ -433,6 +462,9 @@ const styles = (theme) => ({
   },
   expansionTitle: {
     marginBottom: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+  },
+  leftIcon: {
     marginRight: theme.spacing.unit,
   },
 });

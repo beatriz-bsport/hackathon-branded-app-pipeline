@@ -48,6 +48,7 @@ export default {
       CHECK: 'Check',
     },
     common: {
+      tax: 'Tax',
       skip: 'Skip',
       uploadOneImage: {
         new: 'Drag and drop or click here to add your image',

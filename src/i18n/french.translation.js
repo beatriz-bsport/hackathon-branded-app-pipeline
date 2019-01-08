@@ -67,6 +67,7 @@ export default {
       },
     },
     common: {
+      tax: 'TVA',
       skip: 'Passer',
       uploadOneImage: {
         new: 'Glisser et déposer ou cliquer ici pour ajouter une image',

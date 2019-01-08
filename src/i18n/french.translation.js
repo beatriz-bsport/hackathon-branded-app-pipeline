@@ -517,6 +517,7 @@ export default {
       invoice: 'Facture',
       paymentMethod: {
         CB: 'Carte bleue',
+        CB_MANUAL: 'Carte bleue (manuel)',
         CHECK: 'Chèque',
         CHECK_FR: 'Chèque vacances',
         CASH: 'Espèces',

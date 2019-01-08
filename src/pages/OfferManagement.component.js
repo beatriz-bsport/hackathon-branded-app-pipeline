@@ -446,7 +446,7 @@ export class OfferManagement extends Component<Props, State> {
                   bookings={bookings}
                   bookingOptions={bookingOptions}
                   discardOption={discardOption}
-                  bookingUpdaters={bookingUpdaters}
+                  {...bookingUpdaters}
                   showQuickInvoiceButton
                   showRevertBookingButton
                   handleRevert={this.handleBookingRevert}

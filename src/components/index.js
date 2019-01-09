@@ -25,7 +25,7 @@ import EstablishmentCard from './establishment/EstablishmentCard.component';
 import FormField from './input/FormField.component';
 import AvatarUploader from './input/AvatarUploader.component';
 import SimpleModal from './navigation/SimpleModal.component';
-import EditLiveOfferForm from './form/EditLiveOfferForm.component';
+import EditLiveOfferForm from './form/edit-offer/EditLiveOfferForm.component';
 import DeleteOfferForm from './form/DeleteOfferForm.component';
 import OfferForm from './form/OfferForm.component';
 import OfferFormWithActivity from './form/OfferFormWithActivity.component';

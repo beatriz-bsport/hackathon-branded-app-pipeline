@@ -5,6 +5,27 @@ import { createAction } from 'redux-actions';
 import api from '../api';
 import type { Dispatch } from '../state/types';
 
+export const similarOffers = {
+  isLoading: createAction('OFFERS/SIMILAR/IS_LOADING'),
+  error: createAction('OFFERS/SIMILAR/ERROR'),
+  success: createAction('OFFERS/SIMILAR/SUCCESS'),
+};
+
+export function fetchSimilarOffers(offerId: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(similarOffers.isLoading(true));
+    dispatch(similarOffers.error(null));
+    dispatch(similarOffers.success([]));
+    try {
+      const response = await api.offer.fetchSimilarOffers(offerId);
+      dispatch(similarOffers.success(response.data));
+    } catch (error) {
+      dispatch(similarOffers.error(error));
+    }
+    dispatch(similarOffers.isLoading(false));
+  };
+}
+
 export const offers = {
   isLoading: createAction('OFFERS/LIST/IS_LOADING'),
   error: createAction('OFFERS/LIST/ERROR'),

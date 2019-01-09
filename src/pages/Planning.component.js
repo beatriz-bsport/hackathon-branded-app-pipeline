@@ -59,8 +59,10 @@ type Props = {
   coachesLoading: boolean,
   establishmentsLoading: boolean,
   compatiblePacksLoading: boolean,
+  similarOfferLoading: boolean,
 
   offers: Array<Offer>,
+  similarOffers: Array<Offer>,
   events: Array<Event>,
   activities: Array<Activity>,
   metaActivities: Array<MetaActivity>,
@@ -77,6 +79,7 @@ type Props = {
   fetchBookings: (id: number) => void,
   fetchCompatiblePacks: (id: number) => void,
   fetchOffersByDay: ({ year: number, month: number, day: number }) => void,
+  fetchSimilarOffers: (offerId: number) => void,
 };
 
 type State = {
@@ -255,6 +258,9 @@ export class Planning extends Component<Props, State> {
       establishments,
       establishmentsLoading,
       compatiblePacks,
+      fetchSimilarOffers,
+      similarOfferLoading,
+      similarOffers,
     } = this.props;
     const { selectedOffer, editModalOpened, editOfferProcessing } = this.state;
 
@@ -271,6 +277,9 @@ export class Planning extends Component<Props, State> {
               onCancel={this.onCancelModal}
               processing={editOfferProcessing}
               compatiblePacks={compatiblePacks}
+              fetchSimilarOffers={fetchSimilarOffers}
+              similarOffers={similarOffers}
+              similarOfferLoading={similarOfferLoading}
             />
           </DialogContent>
         </Dialog>
@@ -468,6 +477,9 @@ function mapStateToProps(state) {
     establishments: state.establishment.all,
     establishmentsLoading: state.establishment.loading,
     metaActivities: state.metaActivity.all,
+
+    similarOfferLoading: state.offer.similarOffers.loading,
+    similarOffers: state.offer.similarOffers.items,
   };
 }
 
@@ -496,6 +508,9 @@ function mapDispatchToProps(dispatch) {
     },
     deleteOffer(offerId: number) {
       dispatch(offerActions.deleteOffer(offerId));
+    },
+    fetchSimilarOffers(offerId) {
+      dispatch(offerActions.fetchSimilarOffers(offerId));
     },
   };
 }

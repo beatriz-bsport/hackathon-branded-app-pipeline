@@ -137,6 +137,7 @@ export default {
       noPromo: 'None',
     },
     offer: {
+      offersPendingChange: 'Sessions pending change:',
       noPackAvailableForOfferPurchase:
         'No compatible pass found for this member!',
       backToCalendar: 'Back to calendar',
@@ -295,6 +296,14 @@ export default {
         additionalInformationHelper: '(optional) check reference, date...',
       },
       offer: {
+        coachChangeWarning:
+          'If you modify the coach, this modification will impact all future sessions. If this is not what you want consider using "substitute coach" for that. Any modification on price on this form will also be executed on future offers (change in day of the week / price / ...).',
+        establishmentChangeWarning:
+          'If you modify the establishment, this modification will impact all future sessions. If this is not what you want consider using "substitute coach" for that. Any modification on price on this form will also be executed on future offers (change in day of the week / price / ...).',
+        substituteCoachLabel: 'Substitute',
+        coachLabel: 'Coach',
+        establishmentLabel: 'Establishment',
+        substituteEstablishmentLabel: 'Establishement (exceptional)',
         warningPackonEdit:
           'These change may need you to check the pass, they may not stay compatible with the new sessions.\nThe following packs were compatible with this offer, after application of the change please review them carefully.',
         deleteTitle: 'Cancel session',

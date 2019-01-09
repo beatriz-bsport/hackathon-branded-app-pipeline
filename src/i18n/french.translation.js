@@ -140,6 +140,7 @@ export default {
       outOf: ' sur ',
     },
     offer: {
+      offersPendingChange: 'Séances qui seront modifiées :',
       noPackAvailableForOfferPurchase:
         'Aucun abonnement compatible possédé par ce membre !',
       backToCalendar: 'Retour au calendrier',
@@ -288,6 +289,14 @@ export default {
           '(optionnel) numéro du chèque, date d\'encaissement...',
       },
       offer: {
+        coachChangeWarning:
+          'Si vous modifiez le coach, cette modification sera effective pour toutes les séances futures. Si ce n\'est pas ce que vous souhaitez, utilisez le champ "Remplaçant". Toute autre modification enregistrée ici (établissement, prix, jour de la semaine...) sera donc appliquée à toutes les séances.',
+        establishmentChangeWarning:
+          'Si vous modifiez l\'établissement, cette modification sera effective pour toutes les séances futures. Si ce n\'est pas ce que vous souhaites, utilisez le champ "Etablissement temporaire". Toute autre modification enregistrée ici (jour de la semaine, prix, remplaçaant, coach...) sera donc appliquée à toutes les séances.',
+        substituteCoachLabel: 'Remplaçant',
+        coachLabel: 'Coach',
+        establishmentLabel: 'Etablissement',
+        substituteEstablishmentLabel: 'Etablissement (lieu temporaire)',
         warningPackonEdit:
           'Les changements sur les séances risquent de les rendre incompatibles avec certains abonnements. Les abonnements actuellement compatibles avec cette séance sont les suivants, après la modification veuillez prendre le temps de vérifier qu\'ils resteront compatible avec les éventuels changements de lieu / coach.',
         deleteTitle: 'Supprimer la séance',

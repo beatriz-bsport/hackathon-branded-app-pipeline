@@ -12,6 +12,10 @@ export async function editLiveOffer({ offerId, data }) {
   return putAuth(`${API_URI}/saas/offer/${offerId}/edit`, data);
 }
 
+export async function fetchSimilarOffers(offerId) {
+  return getAuth(`${API_URI}/saas/offer/${offerId}/edit`);
+}
+
 export async function fetchCompatiblePacks(offerId) {
   return getAuth(`${API_URI}/saas/offer/${offerId}/compatible-packs/`);
 }
@@ -35,4 +39,5 @@ export default {
   disableOffer,
   delete: deleteOffer,
   fetchOffersByDay,
+  fetchSimilarOffers,
 };

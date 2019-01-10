@@ -58,10 +58,13 @@ function DownloadButton(props: DownloadButtonProps) {
           type: response.headers['content-type'],
         });
         const link = document.createElement('a');
+        link.setAttribute('type', 'hidden');
         link.target = '_blank';
         link.href = window.URL.createObjectURL(file);
         link.download = filename;
+        document.body.appendChild(link);
         link.click();
+        link.remove();
       }}
       disabled={!exportLink}
     >

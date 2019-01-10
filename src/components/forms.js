@@ -146,13 +146,13 @@ export function bindFormHandlers({ setSubmitting, setFieldError }) {
 export function bindSubmitHandlers(handler, { onSuccess, onError } = {}) {
   return (data, baseOptions) => {
     const composedOptions = {
-      onSuccess() {
-        if (onSuccess) onSuccess();
-        if (baseOptions.onSuccess) baseOptions.onSuccess();
+      onSuccess(...args) {
+        if (onSuccess) onSuccess(...args);
+        if (baseOptions.onSuccess) baseOptions.onSuccess(...args);
       },
-      onError(errors) {
-        if (onError) onError(errors);
-        if (baseOptions.onError) baseOptions.onError(errors);
+      onError(...args) {
+        if (onError) onError(...args);
+        if (baseOptions.onError) baseOptions.onError(...args);
       },
     };
     handler(data, composedOptions);

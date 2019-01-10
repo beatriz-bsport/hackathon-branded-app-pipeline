@@ -118,7 +118,10 @@ export function ReportDashboard(props: Props) {
               metadata={metadata}
               initial={reportConfiguration}
               onSubmit={bindSubmitHandlers(upsertReportConfiguration, {
-                onSuccess: () => setShowModalAdd(false),
+                onSuccess: (report) => {
+                  setShowModalAdd(false);
+                  onReportDetail(report);
+                },
               })}
             />
           </DialogContent>

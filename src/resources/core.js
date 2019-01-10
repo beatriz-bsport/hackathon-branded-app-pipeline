@@ -162,11 +162,11 @@ const DEFAULT_VERBS = {
             const url = `${API_URI}/${path}/`;
             const response = await postAuth(url, data);
             dispatch(action.success(response.data));
-            if (onSuccess) onSuccess(response.data);
+            if (onSuccess) onSuccess(response.data, data);
           } catch (error) {
             dispatch(action.error(error));
             handleError(error);
-            if (onError) onError(error.response.data, error);
+            if (onError) onError(error.response.data, error, data);
           }
         };
       };

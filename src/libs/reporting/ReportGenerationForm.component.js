@@ -28,6 +28,8 @@ import {
 
 import type { ReportConfiguration } from './types';
 
+import { getAuth } from '../../http';
+
 type Props = {
   reportConfiguration: ReportConfiguration,
   isSubmitting: boolean,
@@ -39,6 +41,34 @@ const ReportGenerationSchema = Yup.object().shape({
   dateStart: Yup.date().required('required'),
   dateEnd: Yup.date().required('required'),
 });
+
+function DownloadButton(props: DownloadButtonProps) {
+  const { exportLink, classes, t } = props;
+  return (
+    <Button
+      variant="contained"
+      color="secondary"
+      onClick={async () => {
+        const response = await getAuth(exportLink);
+        const filename = /"(.+)"/gi.exec(
+          response.headers['content-disposition'],
+        )[1];
+        const file = new Blob([response.data], {
+          type: response.headers['content-type'],
+        });
+        const link = document.createElement('a');
+        link.target = '_blank';
+        link.href = window.URL.createObjectURL(file);
+        link.download = filename;
+        link.click();
+      }}
+      disabled={!exportLink}
+    >
+      {t('common.export')}
+      <CloudDownloadIcon className={classes.rightIcon} />
+    </Button>
+  );
+}
 
 export function ReportGenerationForm(props: Props) {
   const { t, isSubmitting, reportConfiguration, exportLink, classes } = props;
@@ -56,16 +86,7 @@ export function ReportGenerationForm(props: Props) {
         </Grid>
       </Grid>
       <Actions>
-        <Button
-          component="a"
-          href={exportLink}
-          variant="contained"
-          color="secondary"
-          disabled={!exportLink}
-        >
-          {t('common.export')}
-          <CloudDownloadIcon className={classes.rightIcon} />
-        </Button>
+        <DownloadButton exportLink={exportLink} classes={classes} t={t} />
         <Submit disabled={isSubmitting}>{t('common.generate')}</Submit>
       </Actions>
     </Form>

@@ -123,7 +123,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
           <ListItemIcon>
             <item.icon />
           </ListItemIcon>
-          <ListItemText primary={item.text} />
+          <ListItemText
+            primary={item.text}
+            secondary={item.subtext}
+            secondaryTypographyProps={{ style: { color: colors.primaryDark } }}
+          />
         </ListItem>
       </Link>
     );
@@ -187,11 +191,6 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         ],
       },
       {
-        to: '/marketing',
-        icon: Email,
-        text: t('navigation.message'),
-      },
-      {
         to: '/member',
         icon: People,
         text: t('navigation.member'),
@@ -201,10 +200,18 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         icon: Payment,
         text: t('navigation.payment'),
       },
+      'divider',
       {
         to: '/reporting',
         icon: DescriptionIcon,
         text: t('navigation.reporting'),
+        subtext: 'beta',
+      },
+      {
+        to: '/marketing',
+        icon: Email,
+        text: t('navigation.message'),
+        subtext: 'beta',
       },
       'divider',
       {

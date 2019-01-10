@@ -4,7 +4,13 @@ import * as Sentry from '@sentry/browser';
 import lodash from 'lodash';
 import Immutable from 'seamless-immutable';
 
-import { postBaseAuth as postAuth, getAuth, putAuth, API_URI } from '../http';
+import {
+  postBaseAuth as postAuth,
+  getAuth,
+  deleteAuth,
+  putAuth,
+  API_URI,
+} from '../http';
 
 function toSnakeCase(s) {
   return s.replace(
@@ -213,6 +219,41 @@ const DEFAULT_VERBS = {
       };
     },
   },
+  delete: {
+    effect(path, action) {
+      return (id, { onSuccess, onError }: ?UpsertOptions = {}) => {
+        return async (dispatch) => {
+          dispatch(action.start(id));
+          try {
+            const url = `${API_URI}/${path}/${id}/`;
+            const response = await deleteAuth(url);
+            dispatch(action.success({ data: response.data, id }));
+            if (onSuccess) onSuccess(response.data);
+          } catch (error) {
+            dispatch(action.error({ error, id }));
+            handleError(error);
+            if (onError) onError(error.response.data, error);
+          }
+        };
+      };
+    },
+    reducer(type) {
+      return {
+        [type.start]: (state, id) => {
+          return state.setIn(['items', id, 'deleting'], true);
+        },
+        [type.error]: (state, { id, error }) => {
+          return state
+            .setIn(['items', id, 'deleting'], false)
+            .set('error', error);
+        },
+        [type.success]: (state, { id }) => {
+          const items = lodash.filter(state.items, (item) => item.id !== id);
+          return state.set('items', items);
+        },
+      };
+    },
+  },
 };
 
 function createAsyncTypes(resourceId: string, verb: string) {
@@ -305,7 +346,7 @@ function createSelectors(resourceId) {
 }
 
 export function createRestResource(resourceId, path) {
-  const verbs = ['list', 'create', 'update'];
+  const verbs = ['list', 'create', 'update', 'delete'];
 
   const types = createTypes(resourceId, verbs);
   const actions = createActionsCreators(types);

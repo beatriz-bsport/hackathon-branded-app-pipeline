@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { action } from '@storybook/addon-actions';
-import { select, object } from '@storybook/addon-knobs';
 
 import FactoryBot from '../../../factories';
 import { storiesOf } from '../../stories';
@@ -15,6 +14,7 @@ storiesOf('Reporting/ReportListItem', module).add('default', () => {
       report={report}
       onEdit={action('onEdit')}
       onDetail={action('onDetail')}
+      onDelete={action('onDelete')}
     />
   );
 });

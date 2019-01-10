@@ -16,6 +16,7 @@ storiesOf('Reporting/ReportList', module).add('default', () => {
       itemProps={{
         onDetail: action('onDetail'),
         onEdit: action('onEdit'),
+        onDelete: action('onDelete'),
       }}
     />
   );

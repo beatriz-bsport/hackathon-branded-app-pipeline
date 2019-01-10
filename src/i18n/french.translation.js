@@ -43,6 +43,9 @@ export default {
       "Montant fixe reversé pour toute séance avec suffisamment d'inscrits",
   },
   translation: {
+    report: {
+      delete: "Suppression d'un rapport",
+    },
     metaActivity: {
       update: {
         imageUploaderRequireEditMessage:

@@ -13,6 +13,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import EditIcon from '@material-ui/icons/Edit';
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
+import ClearIcon from '@material-ui/icons/Clear';
 
 import type { ReportConfiguration } from './types';
 import { getIconFromCategory } from './utils';
@@ -23,6 +24,7 @@ type Props = {
   classes: { [string]: string },
   onEdit: (report: ReportConfiguration) => void,
   onDetail: (report: ReportConfiguration) => void,
+  onDelete: (report: ReportConfiguration) => void,
 };
 
 export function ReportListItem({
@@ -31,6 +33,7 @@ export function ReportListItem({
   t,
   onEdit,
   onDetail,
+  onDelete,
 }: Props) {
   const { name, description, category } = report;
   const Icon = getIconFromCategory(category);
@@ -51,6 +54,9 @@ export function ReportListItem({
         </IconButton>
         <IconButton onClick={() => onEdit(report)}>
           <EditIcon />
+        </IconButton>
+        <IconButton onClick={() => onDelete(report)}>
+          <ClearIcon />
         </IconButton>
       </ListItemSecondaryAction>
     </ListItem>

@@ -36,6 +36,9 @@ export default {
           'Once you have created your activity you will be able to add additional images.',
       },
     },
+    report: {
+      delete: 'Report deletion',
+    },
     companies,
     error: {
       connectionError: 'Connection error',

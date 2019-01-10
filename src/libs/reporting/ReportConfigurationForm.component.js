@@ -2,6 +2,9 @@
 
 import React from 'react';
 
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
+
 import { compose, withProps } from 'recompose';
 
 import * as Yup from 'yup';
@@ -26,6 +29,9 @@ import { CATEGORIES } from './utils';
 type Props = {
   isSubmitting: boolean,
   categoryMetadata: ReportCategoryMetadata,
+  t: TFunction,
+  classes: { [string]: string },
+  categories: *[],
 };
 
 const ReportConfigurationSchema = Yup.object().shape({
@@ -38,14 +44,14 @@ const ReportConfigurationSchema = Yup.object().shape({
 });
 
 export function ReportConfigurationForm(props: Props) {
-  const { isSubmitting, categoryMetadata, categories } = props;
+  const { isSubmitting, categoryMetadata, categories, t } = props;
   return (
     <Form>
-      <TextField name="name" fullWidth label="Name" />
+      <TextField name="name" fullWidth label={t('form.name')} />
       <AlertError name="name" />
-      <TextField name="description" fullWidth label="Description" />
+      <TextField name="description" fullWidth label={t('form.description')} />
       <AlertError name="description" />
-      <FormControl label="Category">
+      <FormControl label={t('form.category')}>
         <Field name="category">
           {({ field: { value, onChange } }) => (
             <ReportCategorySelector
@@ -59,7 +65,7 @@ export function ReportConfigurationForm(props: Props) {
       </FormControl>
 
       {categoryMetadata ? (
-        <FormControl label="Columns">
+        <FormControl label={t('form.columns')}>
           <FieldArray name="columns">
             {({ name, form: { values, setFieldValue } }) => (
               <ReportColumnSelector
@@ -82,6 +88,7 @@ export function ReportConfigurationForm(props: Props) {
 }
 
 export default compose(
+  withNamespaces(['reporting']),
   withFormik({
     mapPropsToValues: ({ initial }) =>
       initial || {

@@ -21,6 +21,7 @@ type Props = {
   fetchReports: () => void,
   goToReport: (ReportConfiguration) => void,
   upsertReport: (ReportConfiguration) => void,
+  deleteReport: (ReportConfiguration) => void,
 };
 
 export class ReportingDashboard extends React.Component<Props> {
@@ -30,7 +31,13 @@ export class ReportingDashboard extends React.Component<Props> {
   }
 
   render() {
-    const { reports, upsertReport, goToReport, metadata } = this.props;
+    const {
+      reports,
+      upsertReport,
+      goToReport,
+      metadata,
+      deleteReport,
+    } = this.props;
 
     if (metadata.loading || !metadata.value) {
       return <LinearProgress />;
@@ -42,6 +49,7 @@ export class ReportingDashboard extends React.Component<Props> {
         reportConfigurations={reports}
         upsertReportConfiguration={upsertReport}
         onReportDetail={goToReport}
+        onDeleteReport={deleteReport}
       />
     );
   }
@@ -56,6 +64,7 @@ export default connect(
     fetchReportMetadata: reportMetadata.effects.get,
     fetchReports: reportsRes.effects.fetchAll,
     upsertReport: reportsRes.effects.upsert,
+    deleteReport: reportsRes.effects.delete,
     goToReport: (r: ReportConfiguration) => push(`/reporting/${r.id}`),
   },
 )(ReportingDashboard);

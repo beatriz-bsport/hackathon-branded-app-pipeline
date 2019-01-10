@@ -3,6 +3,8 @@
 import React from 'react';
 
 import { compose, withState, withProps } from 'recompose';
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -19,6 +21,7 @@ import type {
   ReportMetadata,
 } from './types';
 
+import ModalConfirm from '../../components/ModalConfirm.component';
 import { bindSubmitHandlers } from '../../components/forms';
 import ReportCategorySelector from './ReportCategorySelector.component';
 import ReportList from './ReportList.component';
@@ -37,6 +40,7 @@ type Props = ExternalProps & {
   onReportDetail: (ReportConfiguration) => void,
   metadata: ReportMetadata,
   setReportConfigurationToEdit: (ReportConfiguration) => void,
+  t: TFunction,
 };
 
 export function ReportDashboard(props: Props) {
@@ -51,6 +55,11 @@ export function ReportDashboard(props: Props) {
     onReportDetail,
     setReportConfigurationToEdit,
     metadata,
+    t,
+    setSelectedForDeletion,
+    selectedForDeletion,
+    onCancelDeletion,
+    onConfirmDeletion,
   } = props;
   const itemProps = {
     onEdit: (report: ReportConfiguration) => {
@@ -58,6 +67,7 @@ export function ReportDashboard(props: Props) {
       setShowModalAdd(true);
     },
     onDetail: onReportDetail,
+    onDelete: (r) => setSelectedForDeletion(r),
   };
   const categories = metadata.map((c) => c.category);
   return (
@@ -67,14 +77,28 @@ export function ReportDashboard(props: Props) {
         onSelect={setSelectedCategory}
       />
       {reportConfigurations.length ? (
-        <ReportList
-          items={reportConfigurations}
-          className={classes.list}
-          itemProps={itemProps}
-        />
+        <div>
+          <ReportList
+            items={reportConfigurations}
+            className={classes.list}
+            itemProps={itemProps}
+          />
+          <ModalConfirm
+            open={!!selectedForDeletion}
+            options={{
+              title: 'report.delete',
+              Content: () =>
+                t('report.delete_message', {
+                  name: selectedForDeletion && selectedForDeletion.name,
+                }),
+            }}
+            handleConfirm={onConfirmDeletion}
+            handleCancel={onCancelDeletion}
+          />
+        </div>
       ) : (
         <Typography variant="body1" className={classes.messageNoReports}>
-          No reports here? Create a new one now!
+          {t('list.empty')}
         </Typography>
       )}
       <Fab
@@ -86,7 +110,9 @@ export function ReportDashboard(props: Props) {
       </Fab>
       {showModalAdd ? (
         <Dialog open>
-          <DialogTitle>New report</DialogTitle>
+          <DialogTitle>
+            {reportConfigurations.name || t('form.title')}
+          </DialogTitle>
           <DialogContent>
             <ReportConfigurationForm
               metadata={metadata}
@@ -122,6 +148,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
+  withNamespaces(['reporting']),
   withStyles(styles),
   withState('selectedCategory', 'setSelectedCategory', null),
   withState('reportConfiguration', 'setReportConfigurationToEdit', null),
@@ -131,4 +158,14 @@ export default compose(
       : reportConfigurations,
   })),
   withState('showModalAdd', 'setShowModalAdd', false),
+  withState('selectedForDeletion', 'setSelectedForDeletion', null),
+  withProps(
+    ({ selectedForDeletion, onDeleteReport, setSelectedForDeletion }) => ({
+      onConfirmDeletion: () => {
+        onDeleteReport(selectedForDeletion.id);
+        setSelectedForDeletion(null);
+      },
+      onCancelDeletion: () => setSelectedForDeletion(null),
+    }),
+  ),
 )(ReportDashboard);

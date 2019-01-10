@@ -2,6 +2,9 @@
 
 import React from 'react';
 
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
+
 import { withStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 
@@ -12,6 +15,7 @@ type Props = {
   onChange: (string[]) => void,
   columns: ReportMetadataColumn[],
   classes: { [string]: string },
+  t: TFunction,
 };
 
 const styles = (theme) => ({
@@ -21,11 +25,11 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)((props: Props) => {
-  const { columns, value, classes, onChange } = props;
+export function ReportColumnSelector(props: Props) {
+  const { columns, value, classes, onChange, t } = props;
   return (
     <div>
-      {columns.map(({ identifier, name }) => {
+      {columns.map(({ identifier }) => {
         const isSelected = (value || []).includes(identifier);
         const color = isSelected ? 'primary' : 'default';
         const onDelete = isSelected
@@ -37,7 +41,7 @@ export default withStyles(styles)((props: Props) => {
         return (
           <Chip
             key={identifier}
-            label={name}
+            label={t(`columns.${identifier}`)}
             color={color}
             className={classes.chip}
             onDelete={onDelete}
@@ -48,4 +52,8 @@ export default withStyles(styles)((props: Props) => {
       })}
     </div>
   );
-});
+}
+
+export default withStyles(styles)(
+  withNamespaces(['reporting'])(ReportColumnSelector),
+);

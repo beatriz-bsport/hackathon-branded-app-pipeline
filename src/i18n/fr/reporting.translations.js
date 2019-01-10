@@ -13,14 +13,17 @@ export default {
     activity_duration: 'Durée',
     member_identifier: 'ID Membre',
   },
+  report: {
+    delete_message: 'Êtes-vous sûr de vouloir supprimer le rapport {{name}} ?',
+  },
   form: {
-    title: 'New report',
-    name: 'Nom',
+    title: 'Nouveau rapport',
+    name: 'Name',
     description: 'Description',
-    category: 'Category',
-    columms: 'Columns',
+    category: 'Catégorie',
+    columns: 'Colonnes',
   },
   list: {
-    empty: 'No reports here? Create a new one now!',
+    empty: 'Aucun rapport ? Créer un premier rapport !',
   },
 };

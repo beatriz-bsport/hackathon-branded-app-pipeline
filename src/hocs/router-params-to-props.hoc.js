@@ -9,6 +9,12 @@ const converters = {
   number: (x) => +x,
 };
 
+type Props = {
+  match: ?{
+    params: { [string]: * },
+  },
+};
+
 export default function mapRouterParamsToProps(paramsMapper: ParamsMap) {
   // Convert mapper to canonical form { [string]: string }
   const mapper = paramsMapper.length
@@ -24,7 +30,7 @@ export default function mapRouterParamsToProps(paramsMapper: ParamsMap) {
   });
 
   return (WrappedComponent) => {
-    return class extends React.Component {
+    return class extends React.Component<Props> {
       render() {
         const { match } = this.props;
 
@@ -43,7 +49,6 @@ export default function mapRouterParamsToProps(paramsMapper: ParamsMap) {
         const mappedProps = lodash.mapKeys(convertedParams, (value, key) => {
           return mapperConv[key].key;
         });
-        console.log(convertedParams, mappedProps);
         return <WrappedComponent {...this.props} {...mappedProps} />;
       }
     };

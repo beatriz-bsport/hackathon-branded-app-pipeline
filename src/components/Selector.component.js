@@ -16,13 +16,26 @@ import MenuItem from '@material-ui/core/MenuItem';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
 
-type Props = {
-  selectProps: Object,
-  innerProps: Object,
-  children: Node,
+type SelectProps = {
+  classes: {
+    valueContainer: string,
+    noOptionsMessage: string,
+    input: string,
+    placeholder: string,
+    singleValue: string,
+    chip: string,
+    paper: string,
+  },
+  textFieldProps: *,
 };
 
-function NoOptionsMessage(props: Props) {
+type NoOptionsMessageProps = {
+  selectProps: SelectProps,
+  innerProps: *,
+  children: React.Node,
+};
+
+function NoOptionsMessage(props: NoOptionsMessageProps) {
   return (
     <Typography
       color="textSecondary"
@@ -34,11 +47,21 @@ function NoOptionsMessage(props: Props) {
   );
 }
 
-function inputComponent({ inputRef, ...props }) {
+type InputComponentProps = {
+  inputRef: *,
+};
+function inputComponent({ inputRef, ...props }: InputComponentProps) {
   return <div ref={inputRef} {...props} />;
 }
 
-function Control(props) {
+type ControlProps = {
+  selectProps: SelectProps,
+  innerRef: *,
+  children: React.Node,
+  innerProps: *,
+};
+
+function Control(props: ControlProps) {
   return (
     <TextField
       fullWidth
@@ -56,7 +79,14 @@ function Control(props) {
   );
 }
 
-function Option(props) {
+type OptionProps = {
+  innerRef: *,
+  isFocused: boolean,
+  isSelected: boolean,
+  innerProps: *,
+  children: React.Node,
+};
+function Option(props: OptionProps) {
   return (
     <MenuItem
       buttonRef={props.innerRef}
@@ -72,7 +102,12 @@ function Option(props) {
   );
 }
 
-function Placeholder(props) {
+type PlaceholderProps = {
+  selectProps: SelectProps,
+  children: React.Node,
+  innerProps: *,
+};
+function Placeholder(props: PlaceholderProps) {
   return (
     <Typography
       color="textSecondary"
@@ -84,7 +119,12 @@ function Placeholder(props) {
   );
 }
 
-function SingleValue(props) {
+type SingleValueProps = {
+  selectProps: SelectProps,
+  children: React.Node,
+  innerProps: *,
+};
+function SingleValue(props: SingleValueProps) {
   return (
     <Typography
       className={props.selectProps.classes.singleValue}
@@ -97,7 +137,7 @@ function SingleValue(props) {
 
 type ValueContainerProps = {
   children: Node,
-  selectProps: { classes: { valueContainer: string } },
+  selectProps: SelectProps,
 };
 function ValueContainer(props: ValueContainerProps) {
   return (
@@ -107,7 +147,12 @@ function ValueContainer(props: ValueContainerProps) {
   );
 }
 
-function MultiValue(props) {
+type MultiValueProps = {
+  selectProps: SelectProps,
+  removeProps: *,
+  children: React.Node,
+};
+function MultiValue(props: MultiValueProps) {
   return (
     <Chip
       tabIndex={-1}
@@ -119,7 +164,12 @@ function MultiValue(props) {
   );
 }
 
-function Menu(props) {
+type MenuProps = {
+  children: React.Node,
+  innerProps: *,
+  selectProps: SelectProps,
+};
+function Menu(props: MenuProps) {
   return (
     <Paper
       square

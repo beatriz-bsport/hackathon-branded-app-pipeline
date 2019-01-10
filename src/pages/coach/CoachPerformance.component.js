@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core';
 
 import { computePerformance } from '../../libs/payment-rules/utils';
+import type { PaymentRule } from '../../libs/payment-rules/types';
 
 import mapParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { associatedCoachSelector } from '../../state/coaches/selectors';
@@ -39,6 +40,8 @@ type Props = {
   t: TFunction,
   classes: Object,
   onSubmit: () => void,
+  paymentRules: PaymentRule[],
+  setSessionPaymentRule: (PaymentRule) => void,
 };
 
 export function CoachPerformance(props: Props) {

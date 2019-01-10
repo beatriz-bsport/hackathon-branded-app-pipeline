@@ -4,12 +4,14 @@ import React from 'react';
 
 import ModalConfirm from '../components/ModalConfirm.component';
 
+type Props = {};
+
 export default function withConfirm<T>(
   Component: React.Component<T>,
   handler: string,
   options: {},
 ): React.Component<T> {
-  return class extends React.Component {
+  return class extends React.Component<Props> {
     state = {
       dialogOpen: false,
     };

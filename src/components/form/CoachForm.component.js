@@ -104,16 +104,20 @@ export class CoachForm extends Component<Props, State> {
     const data = {
       lastname,
       firstname,
-      birthdayYear,
       description,
       email,
-      phone,
       gender,
       facebook_url,
       instagram_url,
     };
     if (avatar && typeof avatar !== 'string') {
       data.avatar = avatar;
+    }
+    if (phone) {
+      data.phone = phone;
+    }
+    if (birthdayYear) {
+      data.birthdayYear = birthdayYear;
     }
     this.props.onSubmit(data);
   };
@@ -198,6 +202,30 @@ export class CoachForm extends Component<Props, State> {
                   <Grid
                     container
                     direction="row"
+                    spacing={16}
+                    alignItems="center"
+                  >
+                    <Grid item>
+                      <FormField
+                        id="email"
+                        value={this.state.email}
+                        required
+                        onChange={this.onFormFieldChange}
+                      />
+                    </Grid>
+                    <Grid item>
+                      <FormField
+                        id="phone"
+                        value={this.state.phone}
+                        onChange={this.onFormFieldChange}
+                      />
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Grid item>
+                  <Grid
+                    container
+                    direction="row"
                     alignItems="center"
                     spacing={16}
                   >
@@ -210,7 +238,6 @@ export class CoachForm extends Component<Props, State> {
                     </Grid>
                     <Grid item>
                       <FormField
-                        required
                         id="birthdayYear"
                         value={this.state.birthdayYear}
                         onChange={this.onFormFieldChange}
@@ -219,37 +246,15 @@ export class CoachForm extends Component<Props, State> {
                   </Grid>
                 </Grid>
                 <Grid item>
-                  <Grid
-                    container
-                    direction="row"
-                    spacing={16}
-                    alignItems="center"
-                  >
-                    <Grid item>
-                      <FormField
-                        id="phone"
-                        value={this.state.phone}
-                        required
-                        onChange={this.onFormFieldChange}
-                      />
-                    </Grid>
-                    <Grid item>
-                      <FormField
-                        id="email"
-                        value={this.state.email}
-                        required
-                        onChange={this.onFormFieldChange}
-                      />
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid item>
-                  <FormField
+                  <TextField
                     fullWidth
                     multiline
-                    id="description"
+                    label="Description"
+                    inputProps={{ maxLength: 4999 }}
                     value={this.state.description}
-                    onChange={this.onFormFieldChange}
+                    onChange={(event) =>
+                      this.onFormFieldChange('description')(event.target.value)
+                    }
                   />
                 </Grid>
                 <Grid item>

@@ -36,6 +36,12 @@ const theme = createMuiTheme({
   typography: {
     useNextVariants: true,
   },
+  props: {
+    MuiWithWidth: {
+      // Initial width property
+      initialWidth: 'lg',
+    },
+  },
 });
 
 export class App extends Component<{}, {}> {
@@ -68,11 +74,7 @@ export class App extends Component<{}, {}> {
         <CssBaseline>
           <Provider store={this.store}>
             <ConnectedRouter history={this.history}>
-              <MuiPickersUtilsProvider
-                utils={MomentUtils}
-                moment={Moment}
-                locale={Moment.locale()}
-              >
+              <MuiPickersUtilsProvider utils={MomentUtils} moment={Moment} locale={Moment.locale()}>
                 <SnackbarPile />
                 <Root />
               </MuiPickersUtilsProvider>

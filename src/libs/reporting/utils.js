@@ -1,7 +1,5 @@
 // @flow
 
-import lodash from 'lodash';
-
 import PeopleIcon from '@material-ui/icons/People';
 import PaymentIcon from '@material-ui/icons/Payment';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';

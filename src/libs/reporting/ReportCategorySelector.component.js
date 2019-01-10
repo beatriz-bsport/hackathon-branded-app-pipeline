@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { compose, withState, withHandlers } from 'recompose';
+import { compose } from 'recompose';
 
 import { withStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';

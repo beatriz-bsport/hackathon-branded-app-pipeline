@@ -35,6 +35,7 @@ type Props = {
   isSubmitting: boolean,
   t: TFunction,
   exportLink?: string,
+  classes: { [string]: string },
 };
 
 const ReportGenerationSchema = Yup.object().shape({
@@ -92,6 +93,10 @@ export function ReportGenerationForm(props: Props) {
     </Form>
   );
 }
+
+ReportGenerationForm.defaultProps = {
+  exportLink: null,
+};
 
 const styles = (theme) => ({
   rightIcon: {

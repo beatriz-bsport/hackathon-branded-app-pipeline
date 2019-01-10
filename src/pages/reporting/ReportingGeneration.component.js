@@ -6,8 +6,6 @@ import { compose, withProps, withState } from 'recompose';
 
 import { connect } from 'react-redux';
 
-import { API_URI } from '../../http';
-import { asQueryParams } from '../../resources/core';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import ReportGeneration from '../../libs/reporting/ReportGeneration.component';
@@ -23,6 +21,8 @@ type Props = {
   report: ReportConfiguration,
   result: ReportExtractResult,
   exportLink: string,
+  fetchReports: () => void,
+  handleGenerate: () => void,
 };
 
 export class ReportingGeneration extends React.Component<Props> {

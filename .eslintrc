@@ -37,6 +37,7 @@
     "no-use-before-define": 0,
     "new-cap": 0,
     "react/display-name": 0,
+    "react/jsx-indent": 0,
     "react/jsx-boolean-value": 1,
     "react/jsx-sort-prop-types": 0,
     "react/jsx-sort-props": 0,

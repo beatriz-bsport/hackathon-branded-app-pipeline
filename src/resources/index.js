@@ -9,3 +9,9 @@ export const reducer = combineResourceReducers({
   reportResult: reportResult.reducer,
   reportMetadata: reportMetadata.reducer,
 });
+
+export const resources = {
+  reports,
+  reportResult,
+  reportMetadata,
+};

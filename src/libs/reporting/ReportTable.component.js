@@ -19,6 +19,7 @@ type Props = {
   result: ReportExtractResult,
   loading?: boolean,
   t: TFunction,
+  classes: { [string]: string },
 };
 
 export function ReportTable(props: Props) {

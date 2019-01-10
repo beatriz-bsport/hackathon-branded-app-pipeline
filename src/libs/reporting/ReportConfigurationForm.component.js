@@ -19,12 +19,10 @@ import {
   defaultHandleSubmit,
 } from '../../components/forms';
 
-import type { ReportConfiguration, ReportCategoryMetadata } from './types';
+import type { ReportCategoryMetadata } from './types';
 
 import ReportCategorySelector from './ReportCategorySelector.component';
 import ReportColumnSelector from './ReportColumnSelector.component';
-
-import { CATEGORIES } from './utils';
 
 type Props = {
   isSubmitting: boolean,

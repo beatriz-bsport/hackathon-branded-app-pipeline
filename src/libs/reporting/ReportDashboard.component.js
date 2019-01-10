@@ -41,6 +41,10 @@ type Props = ExternalProps & {
   metadata: ReportMetadata,
   setReportConfigurationToEdit: (ReportConfiguration) => void,
   t: TFunction,
+  setSelectedForDeletion: (?ReportConfiguration) => void,
+  selectedForDeletion: ?ReportConfiguration,
+  onCancelDeletion: () => void,
+  onConfirmDeletion: () => void,
 };
 
 export function ReportDashboard(props: Props) {

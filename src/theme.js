@@ -17,4 +17,10 @@ export default createMuiTheme({
   typography: {
     useNextVariants: true,
   },
+  props: {
+    MuiWithWidth: {
+      // Initial width property
+      initialWidth: 'lg',
+    },
+  },
 });

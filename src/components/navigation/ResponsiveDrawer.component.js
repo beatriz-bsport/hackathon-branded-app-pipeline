@@ -374,9 +374,11 @@ const styles = (theme) => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     [theme.breakpoints.up('md')]: {
-      padding: theme.spacing.unit * 3,
-      paddingTop: 80,
+      paddingLeft: theme.spacing.unit * 3,
+      paddingRight: theme.spacing.unit * 3,
     },
+    paddingBottom: theme.spacing.unit * 3,
+    paddingTop: 80,
   },
   logo: {
     alignItems: 'center',

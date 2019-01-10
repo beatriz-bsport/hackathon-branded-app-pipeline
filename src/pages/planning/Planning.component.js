@@ -1,10 +1,12 @@
 // @flow
-
 import React, { Component } from 'react';
 
 import { withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
+
+import { isWidthUp, isWidthDown } from '@material-ui/core/withWidth';
+
 import {
   Dialog,
   DialogContent,
@@ -13,13 +15,15 @@ import {
   Paper,
   Grid,
   Typography,
+  withWidth,
+  Slide,
 } from '@material-ui/core';
+
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+
 import AddIcon from '@material-ui/icons/Add';
 import { translate } from 'react-i18next';
-import {
-  push as pushRouter,
-  replace as replaceRouter,
-} from 'react-router-redux';
+import { push as pushRouter, goBack as goBackRouter } from 'react-router-redux';
 
 import {
   EditLiveOfferForm,
@@ -28,15 +32,14 @@ import {
   TimeTable,
   Calendar,
   OfferFormWithActivity,
-} from '../components';
+} from '../../components';
 import {
   offer as offerActions,
-  booking as bookingActions,
   activity as activityActions,
-} from '../actions';
-import { Moment } from '../i18n';
-import api from '../api';
-import type { Offer, Coach, Establishment, PaymentPack } from '../api/types';
+} from '../../actions';
+import { Moment } from '../../i18n';
+import api from '../../api';
+import type { Offer, Coach, Establishment, PaymentPack } from '../../api/types';
 
 const styles = (theme) => ({
   calendarContainer: {
@@ -53,19 +56,21 @@ const styles = (theme) => ({
 type Props = {
   t: (x: string) => string,
   classes: Object,
-  match: Object,
+  date: Moment,
+  selectedOffer: Offer,
 
   timetableLoading: boolean,
   coachesLoading: boolean,
   establishmentsLoading: boolean,
   compatiblePacksLoading: boolean,
   similarOfferLoading: boolean,
+  width: string,
 
+  activities: Array<Activity>,
+  metaActivities: Array<MetaActivity>,
   offers: Array<Offer>,
   similarOffers: Array<Offer>,
   events: Array<Event>,
-  activities: Array<Activity>,
-  metaActivities: Array<MetaActivity>,
   coaches: Array<Coach>,
   establishments: Array<Establishment>,
   compatiblePacks: Array<PaymentPack>,
@@ -73,18 +78,15 @@ type Props = {
   fetchAllOffers: () => void,
   fetchAllActivities: () => void,
   goToOfferManagement: () => void,
-  replaceRouter: () => void,
+  goBack: () => void,
+  loadDayData: (Object) => void,
+  loadOfferData: (Offer) => void,
 
   deleteOffer: (id: number) => void,
-  fetchBookings: (id: number) => void,
-  fetchCompatiblePacks: (id: number) => void,
-  fetchOffersByDay: ({ year: number, month: number, day: number }) => void,
   fetchSimilarOffers: (offerId: number) => void,
 };
 
 type State = {
-  selectedOffer: ?Offer,
-  date: Object,
   editModalOpened: boolean,
   deleteModalOpened: boolean,
   editOfferProcessing: boolean,
@@ -102,26 +104,18 @@ export class Planning extends Component<Props, State> {
       deleteModalOpened: false,
       editOfferProcessing: false,
       deletingOffer: false,
-      selectedOffer: null,
       createOfferModalOpened: false,
       creatingOffers: false,
     };
-    const { match } = props;
-    const day = (match && match.params && +match.params.date) || null;
-    const year = (match && match.params && +match.params.year) || null;
-    const month = (match && match.params && +match.params.month) || null;
+  }
 
-    if (year && month && day) {
-      const date = Moment(`${day}-${month}-${year}`, 'DD-MM-YYYY');
-      this.state.date = date;
-    } else {
-      this.state.date = Moment();
+  componentDidMount() {
+    if (this.props.selectedOffer) {
+      this.props.loadOfferData(this.props.selectedOffer);
     }
-    props.fetchOffersByDay({
-      year: this.state.date.year(),
-      month: this.state.date.month() + 1,
-      day: this.state.date.date(),
-    });
+    if (this.props.date) {
+      this.props.loadDayData(this.props.date);
+    }
   }
 
   openEditModal = () => {
@@ -158,9 +152,8 @@ export class Planning extends Component<Props, State> {
         this.setState({
           editOfferProcessing: false,
           editModalOpened: false,
-          selectedOffer: null,
         });
-        this.onDateClick(this.state.date);
+        this.onDateClick(this.props.date);
         return;
       }
     } catch (err) {
@@ -184,13 +177,12 @@ export class Planning extends Component<Props, State> {
       });
       if (response.status === 200) {
         this.props.fetchAllOffers();
-        this.onDateClick(this.state.date);
+        this.onDateClick(this.props.date);
         this.setState({
           deletingOffer: false,
           deleteModalOpened: false,
-          selectedOffer: null,
         });
-        this.onDateClick(this.state.date);
+        this.onDateClick(this.props.date);
         return;
       }
     } catch (err) {
@@ -207,11 +199,10 @@ export class Planning extends Component<Props, State> {
       if (response.status === 204) {
         this.props.fetchAllOffers();
         this.props.deleteOffer(offerId);
-        this.onDateClick(this.state.date);
+        this.onDateClick(this.props.date);
         this.setState({
           deletingOffer: false,
           deleteModalOpened: false,
-          selectedOffer: null,
         });
         return;
       }
@@ -222,24 +213,11 @@ export class Planning extends Component<Props, State> {
   };
 
   onDateClick = (date: Object) => {
-    this.setState({ date });
-    this.setState({ selectedOffer: null });
     const momentDate = Moment(date);
-    this.props.fetchOffersByDay({
-      year: momentDate.year(),
-      month: momentDate.month() + 1,
-      day: momentDate.date(),
-    });
-    this.props.replaceRouter(
-      `/calendar/${momentDate.year()}/${momentDate.month() +
-        1}/${momentDate.date()}`,
-    );
-  };
-
-  onOfferSelected = (offer: Offer) => {
-    this.setState({ selectedOffer: offer });
-    this.props.fetchBookings(offer.id);
-    this.props.fetchCompatiblePacks(offer.id);
+    // check if the user has picked a different date
+    if (!momentDate.isSame(this.props.date) || !this.props.selectedOffer) {
+      this.props.loadDayData(momentDate);
+    }
   };
 
   renderNoOfferSelected = () => {
@@ -262,7 +240,8 @@ export class Planning extends Component<Props, State> {
       similarOfferLoading,
       similarOffers,
     } = this.props;
-    const { selectedOffer, editModalOpened, editOfferProcessing } = this.state;
+    const { editModalOpened, editOfferProcessing } = this.state;
+    const { selectedOffer } = this.props;
 
     if (selectedOffer) {
       return (
@@ -332,7 +311,8 @@ export class Planning extends Component<Props, State> {
   };
 
   renderDeleteModal = () => {
-    const { selectedOffer, deleteModalOpened, deletingOffer } = this.state;
+    const { deleteModalOpened, deletingOffer } = this.state;
+    const { selectedOffer } = this.props;
 
     if (selectedOffer) {
       return (
@@ -359,12 +339,44 @@ export class Planning extends Component<Props, State> {
     return null;
   };
 
+  renderAddOffersButton = () => {
+    const { classes, t } = this.props;
+    return (
+      <Button
+        variant="extendedFab"
+        aria-label="Add"
+        className={classes.button}
+        color="primary"
+        onClick={this.openCreateOfferModal}
+      >
+        <AddIcon className={classes.leftIcon} />
+        {t('activity.addOffers')}
+      </Button>
+    );
+  };
+
+  renderGoBackButton = () => {
+    const { width, classes, selectedOffer, t } = this.props;
+    if (isWidthDown('md', width) && selectedOffer) {
+      return (
+        <Button
+          size="small"
+          className={classes.button}
+          onClick={this.props.goBack}
+        >
+          <KeyboardArrowLeft />
+          {t('offer.backToCalendar')}
+        </Button>
+      );
+    }
+    return null;
+  };
+
   render() {
     const {
       offers,
       events,
       classes,
-      t,
       activities,
       timetableLoading,
       establishments,
@@ -373,8 +385,10 @@ export class Planning extends Component<Props, State> {
       coachesLoading,
       compatiblePacks,
       compatiblePacksLoading,
+      width,
+      date,
+      selectedOffer,
     } = this.props;
-    const { date, selectedOffer } = this.state;
 
     const events_ = {};
     events.forEach((o) => {
@@ -387,74 +401,75 @@ export class Planning extends Component<Props, State> {
 
     return (
       <Grid container spacing={24}>
-        <Grid item xs={12} lg={6}>
-          <Grid container direction="column" spacing={32} alignItems="stretch">
-            <Grid item>
-              <Paper>
-                <Grid container direction="column" alignItems="stretch">
-                  <Grid item>
-                    <div className={classes.calendarContainer}>
-                      <Calendar
-                        events={events_}
-                        onDateClick={this.onDateClick}
-                        date={this.state.date}
+        {isWidthUp('lg', width) || !selectedOffer ? (
+          <Grid item xs={12} lg={6}>
+            <Grid
+              container
+              direction="column"
+              spacing={32}
+              alignItems="stretch"
+            >
+              <Grid item>
+                <Paper>
+                  <Grid container direction="column" alignItems="stretch">
+                    <Grid item>
+                      <div className={classes.calendarContainer}>
+                        <Calendar
+                          events={events_}
+                          onDateClick={this.onDateClick}
+                          date={this.props.date}
+                        />
+                      </div>
+                    </Grid>
+                    <Grid item>
+                      <TimeTable
+                        date={date}
+                        onOfferSelected={this.props.loadOfferData}
+                        offers={offers.filter((o) =>
+                          Moment(o.date_start).isSame(Moment(date), 'day'),
+                        )}
+                        activities={activities}
+                        loading={timetableLoading}
+                        selected={selectedOffer ? selectedOffer.id : null}
                       />
-                    </div>
+                    </Grid>
                   </Grid>
-                  <Grid item>
-                    <TimeTable
-                      date={date}
-                      onOfferSelected={this.onOfferSelected}
-                      offers={offers.filter((o) =>
-                        Moment(o.date_start).isSame(Moment(date), 'day'),
-                      )}
-                      activities={activities}
-                      loading={timetableLoading}
-                      selected={
-                        this.state.selectedOffer
-                          ? this.state.selectedOffer.id
-                          : null
-                      }
-                    />
-                  </Grid>
+                </Paper>
+              </Grid>
+              <Grid item>
+                <Grid container item alignItems="center" justify="center">
+                  {this.renderAddOffersButton()}
                 </Grid>
-              </Paper>
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
+        ) : (
+          <Typography />
+        )}
         <Grid item xs={12} lg={6}>
           {selectedOffer ? (
-            <OfferCard
-              offer={selectedOffer}
-              establishments={establishments}
-              coaches={coaches}
-              coachesLoading={coachesLoading}
-              establishmentsLoading={establishmentsLoading}
-              onEditButtonClick={this.openEditModal}
-              onDeleteButtonClick={this.openDeleteModal}
-              compatiblePacks={compatiblePacks}
-              compatiblePacksLoading={compatiblePacksLoading}
-              goToOfferManagement={this.props.goToOfferManagement}
-            />
+            <Slide in direction="left" timeout={200}>
+              <OfferCard
+                offer={selectedOffer}
+                establishments={establishments}
+                coaches={coaches}
+                coachesLoading={coachesLoading}
+                establishmentsLoading={establishmentsLoading}
+                onEditButtonClick={this.openEditModal}
+                onDeleteButtonClick={this.openDeleteModal}
+                compatiblePacks={compatiblePacks}
+                compatiblePacksLoading={compatiblePacksLoading}
+                goToOfferManagement={this.props.goToOfferManagement}
+              />
+            </Slide>
           ) : (
             this.renderNoOfferSelected()
           )}
         </Grid>
         <Grid item xs={12} lg={6}>
-          <Grid item>
-            <Grid container item justify="center">
-              <Button
-                variant="extendedFab"
-                aria-label="Add"
-                className={classes.button}
-                color="primary"
-                onClick={this.openCreateOfferModal}
-              >
-                <AddIcon className={classes.leftIcon} />
-                {t('activity.addOffers')}
-              </Button>
-            </Grid>
-          </Grid>
+          {isWidthDown('md', width) && selectedOffer
+            ? this.renderGoBackButton()
+            : null}
         </Grid>
         {this.renderEditModal()}
         {this.renderDeleteModal()}
@@ -485,26 +500,17 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    replaceRouter(path) {
-      dispatch(replaceRouter(path));
+    goBack() {
+      dispatch(goBackRouter());
     },
     goToOfferManagement(offerId) {
       dispatch(pushRouter(`/offer/${offerId}`));
-    },
-    fetchCompatiblePacks(offerId) {
-      dispatch(offerActions.fetchCompatiblePacks(offerId));
     },
     fetchAllOffers() {
       dispatch(offerActions.fetchAllOffers());
     },
     fetchAllActivities() {
       dispatch(activityActions.fetchActivities());
-    },
-    fetchBookings(offerId) {
-      dispatch(bookingActions.fetchBookingsByOffer(offerId));
-    },
-    fetchOffersByDay({ year, month, day }) {
-      dispatch(offerActions.fetchOffersByDay({ year, month, day }));
     },
     deleteOffer(offerId: number) {
       dispatch(offerActions.deleteOffer(offerId));
@@ -520,6 +526,6 @@ export default translate()(
     connect(
       mapStateToProps,
       mapDispatchToProps,
-    )(withStyles(styles)(Planning)),
+    )(withStyles(styles)(withWidth()(Planning))),
   ),
 );

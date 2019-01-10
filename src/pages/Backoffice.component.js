@@ -5,13 +5,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
+
 import { ResponsiveDrawer } from '../components';
 
 import { refresh as refreshActions } from '../actions';
 
 import Dashboard from './Dashboard.component';
 
-import Planning from './Planning.component';
 import OfferFormPage from './OfferFormPage.component';
 import Settings from './settings/Settings.component';
 
@@ -31,6 +31,7 @@ import OfferManagement from './OfferManagement.component';
 import SearchResults from './SearchResults.component';
 import ShopManager from './shop/ShopManager.component';
 import Reporting from './reporting/Reporting.component';
+import PlanningRouter from './planning/Planning.router';
 
 type Props = {
   refresh: () => void,
@@ -55,7 +56,6 @@ export class Backoffice extends Component<Props> {
     if (!this.props.authenticated) {
       return <Redirect to="/login" />;
     }
-
     return (
       <ResponsiveDrawer
         onRefresh={this.props.refresh}
@@ -66,8 +66,7 @@ export class Backoffice extends Component<Props> {
             <Switch>
               <Route path="/shop" component={ShopManager} />
               <Route path="/offer/:id" component={OfferManagement} />
-              <Route path="/calendar/:year/:month/:date" component={Planning} />
-              <Route path="/calendar" component={Planning} />
+              <Route exact path="/calendar" component={PlanningRouter} />
               <Route exact path="/activity" component={MetaActivityList} />
               <Route
                 exact
@@ -123,7 +122,7 @@ export class Backoffice extends Component<Props> {
               <Route exact path="/dashboard" component={Dashboard} />
               <Route exact path="/search/results" component={SearchResults} />
               <Route path="/settings/" component={Settings} />
-              <Route path="/" component={Planning} />
+              <Route path="/" component={PlanningRouter} />
             </Switch>
           </div>
         </main>

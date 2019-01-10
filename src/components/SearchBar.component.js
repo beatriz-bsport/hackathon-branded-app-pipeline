@@ -1,6 +1,8 @@
 // @flow
 
 import React, { Component } from 'react';
+import { compose } from 'recompose';
+
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { translate } from 'react-i18next';
@@ -22,67 +24,40 @@ type Props = {
   searchForText: (string, path: ?string, changeLocation: boolean) => void,
   searchText: string,
   clearSearch: (boolean) => void,
-  location: Object,
   history: Object,
   classes: *,
   className: string,
   changeLocation: boolean,
 };
-type State = {
-  searchText: string,
-};
 
-export class SearchBar extends Component<Props, State> {
-  state = {
-    searchText: '',
-  };
-
-  constructor(props: Props) {
-    super(props);
-
-    const query = parse((props.location && props.location.search) || '');
-    this.state.searchText = query.q;
-    if (props.searchText) {
-      this.state.searchText = props.searchText;
-    }
-
-    if (this.state.searchText) {
-      this.props.searchForText(
-        this.state.searchText,
-        null,
-        this.props.changeLocation,
-      );
-    }
-  }
-
+export class SearchBar extends Component<Props> {
   handleChange = (e: Object) => {
     const { value } = e.target;
+
     if (!value) {
       this.clearSearch();
     } else {
-      this.setState({ searchText: value });
-      this.props.searchForText(
-        value,
-        this.props.history.location.pathname,
-        this.props.changeLocation,
-      );
+      const { searchForText, history, changeLocation, searchText } = this.props;
+
+      if (value !== searchText) {
+        searchForText(value, history.location.pathname, changeLocation);
+      }
     }
   };
 
   clearSearch = () => {
-    this.setState({ searchText: '' });
     this.props.clearSearch(this.props.changeLocation);
   };
 
   render() {
-    const { t, classes, className } = this.props;
+    const { t, classes, className, searchText } = this.props;
     return (
       <div className={`${classes.bar} ${className}`}>
         <TextField
           variant="outlined"
           className={classes.field}
           placeholder={t('search.input')}
-          value={this.state.searchText || ''}
+          value={searchText || ''}
           fullWidth
           onChange={this.handleChange}
           InputProps={{
@@ -92,10 +67,10 @@ export class SearchBar extends Component<Props, State> {
                 <SearchIcon />
               </InputAdornment>
             ),
-            endAdornment: this.state.searchText ? (
+            endAdornment: searchText ? (
               <InputAdornment position="end">
                 <IconButton
-                  aria-label={this.state.searchText ? 'Clear search' : 'Search'}
+                  aria-label={searchText ? 'Clear search' : 'Search'}
                   onClick={this.clearSearch}
                 >
                   <ClearIcon />
@@ -132,13 +107,22 @@ const styles = () => ({
   },
 });
 
-export default withStyles(styles)(
-  translate()(
-    withRouter(
-      connect(
-        null,
-        mapDisPatchToProps,
-      )(SearchBar),
-    ),
+function getSearchText(state, location) {
+  if (state.search.searchText) {
+    return state.search.searchText;
+  }
+  const query = parse((location && location.search) || '');
+  return query.q;
+}
+
+export default compose(
+  withStyles(styles),
+  translate(),
+  withRouter,
+  connect(
+    (state, { location }) => ({
+      searchText: getSearchText(state, location),
+    }),
+    mapDisPatchToProps,
   ),
-);
+)(SearchBar);

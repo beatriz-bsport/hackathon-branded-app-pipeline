@@ -18,9 +18,15 @@ export default function searchReducer(
   action: SearchAction = { type: null },
 ): SearchState {
   switch (action.type) {
-    case actionTypes.SEARCH_TEXT_START: {
-      const path = state.path || action.path;
-      return state.merge({ text: action.text, path, selectedId: null });
+    case '@@router/LOCATION_CHANGE': {
+      const { pathname, search } = action.payload.location;
+      if (pathname === '/search/results') {
+        return state.merge({
+          text: search.substr(search.indexOf('=') + 1),
+          selectedId: null,
+        });
+      }
+      return state.merge({ text: '', selectedId: null });
     }
 
     case actionTypes.SEARCH_SELECT_ENTITY_START:

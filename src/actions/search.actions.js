@@ -1,4 +1,6 @@
-import { push, replace } from 'react-router-redux';
+// @flow
+
+import { push, replace } from 'connected-react-router';
 
 import { fetchMember } from './member.actions';
 import { fetchBookingsByMember } from './booking.actions';
@@ -23,13 +25,9 @@ export function searchText(text, path, changeLocation) {
     dispatch(actionSearchTextStart(text, path, changeLocation));
     if (changeLocation) {
       try {
-        const mustPush = path === '/search/results';
-        const updateHistory = mustPush ? push : replace;
-        dispatch(
-          updateHistory(`/search/results?q=${encodeURIComponent(text)}`),
-        );
-        // const response = await search.forUsers(text);
-        // dispatch(actionSearchTextSuccess(response));
+        const mustPush = path !== '/search/results';
+        const goto = mustPush ? push : replace;
+        dispatch(goto(`/search/results?q=${encodeURIComponent(text)}`));
       } catch (error) {
         dispatch(actionSearchTextError(error));
       }
@@ -39,7 +37,6 @@ export function searchText(text, path, changeLocation) {
 
 export function clearSearch(changeLocation) {
   return async (dispatch, getState) => {
-    dispatch(searchText('', null, changeLocation));
     if (changeLocation) {
       dispatch(push(getState().search.path));
     }

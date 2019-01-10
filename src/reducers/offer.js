@@ -5,7 +5,12 @@ import lodash from 'lodash';
 import { handleActions } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
-import { offers, compatiblePacks, offerByDay } from '../actions/offer.actions';
+import {
+  offers,
+  compatiblePacks,
+  similarOffers,
+  offerByDay,
+} from '../actions/offer.actions';
 import authActionTypes from '../actions/auth.types';
 
 const initialState = Immutable({
@@ -15,6 +20,12 @@ const initialState = Immutable({
 
   // By Day
   offers: [],
+
+  similarOffers: {
+    items: [],
+    loading: false,
+    error: null,
+  },
 
   // Compatible Packs
   compatiblePacks: {
@@ -39,6 +50,17 @@ export default handleActions(
       return state
         .setIn(['calendar'], payload)
         .setIn(['lastFetched'], new Date());
+    },
+    [similarOffers.isLoading]: (state, { payload }) => {
+      return state.setIn(['similarOffers', 'loading'], payload);
+    },
+    [similarOffers.error]: (state, { payload }) => {
+      return state.setIn(['similarOffers', 'error'], payload);
+    },
+    [similarOffers.success]: (state, { payload }) => {
+      return state
+        .setIn(['similarOffers', 'items'], payload)
+        .setIn(['similarOffers', 'lastFetched'], new Date());
     },
     [compatiblePacks.isLoading]: (state, { payload }) => {
       return state.setIn(['compatiblePacks', 'loading'], payload);

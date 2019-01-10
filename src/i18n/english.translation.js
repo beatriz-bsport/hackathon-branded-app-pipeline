@@ -52,6 +52,8 @@ export default {
     common: {
       export: 'Export',
       generate: 'Generate',
+      tax: 'Tax',
+      skip: 'Skip',
       uploadOneImage: {
         new: 'Drag and drop or click here to add your image',
         edit: 'Drag and drop or click here to change the image',
@@ -139,6 +141,7 @@ export default {
       noPromo: 'None',
     },
     offer: {
+      offersPendingChange: 'Sessions pending change:',
       noPackAvailableForOfferPurchase:
         'No compatible pass found for this member!',
       backToCalendar: 'Back to calendar',
@@ -180,6 +183,14 @@ export default {
       },
     },
     form: {
+      address: {
+        streetNumber: 'N°',
+        addressLine1: 'Address',
+        addressLine2: 'Additional info',
+        city: 'City',
+        country: 'Country',
+        zipcode: 'Zipcode',
+      },
       login: {
         changePasswordTitle: 'Change password',
         password: 'Password',
@@ -255,6 +266,7 @@ export default {
       signup: {
         typePhone: 'Cellphone',
         confirmPasswordLabel: 'Confirm',
+        confirmPassword: 'Password',
         rgpdTitle:
           'Which way do you prefer for the coach to contact you about change in timeline, cancelling session... ?',
         communication: {
@@ -288,6 +300,14 @@ export default {
         additionalInformationHelper: '(optional) check reference, date...',
       },
       offer: {
+        coachChangeWarning:
+          'If you modify the coach, this modification will impact all future sessions. If this is not what you want consider using "substitute coach" for that. Any modification on price on this form will also be executed on future offers (change in day of the week / price / ...).',
+        establishmentChangeWarning:
+          'If you modify the establishment, this modification will impact all future sessions. If this is not what you want consider using "substitute coach" for that. Any modification on price on this form will also be executed on future offers (change in day of the week / price / ...).',
+        substituteCoachLabel: 'Substitute',
+        coachLabel: 'Coach',
+        establishmentLabel: 'Establishment',
+        substituteEstablishmentLabel: 'Establishement (exceptional)',
         warningPackonEdit:
           'These change may need you to check the pass, they may not stay compatible with the new sessions.\nThe following packs were compatible with this offer, after application of the change please review them carefully.',
         deleteTitle: 'Cancel session',

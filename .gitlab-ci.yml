@@ -1,0 +1,43 @@
+image: docker:stable
+
+variables:
+  YARN_CACHE_DIR: "$CI_PROJECT_DIR/yarn-cache"
+  DOCKER_HOST: tcp://docker:2375/
+  DOCKER_DRIVER: overlay2
+  CONTAINER_IMAGE: registry.gitlab.com/$CI_PROJECT_PATH
+
+
+services:
+  - docker:dind
+
+cache:
+  paths:
+    - "$YARN_CACHE_DIR"
+  key: "$CI_PROJECT_ID"
+
+before_script:
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+
+stages:
+  - build_source_image
+  - lint
+  - build_app
+
+build_source_image:
+  stage: build_source_image
+  script:
+    - docker pull $CONTAINER_IMAGE/$CI_COMMIT_REF_NAME:latest || true
+    - docker build --cache-from $CONTAINER_IMAGE/$CI_COMMIT_REF_NAME:latest --tag $CONTAINER_IMAGE/$CI_COMMIT_REF_NAME:latest .
+    - docker push $CONTAINER_IMAGE/$CI_COMMIT_REF_NAME:latest
+
+lint:
+  stage: lint
+  script:
+    - docker pull $CONTAINER_IMAGE/$CI_COMMIT_REF_NAME:latest
+    - docker run $CONTAINER_IMAGE/$CI_COMMIT_REF_NAME:latest yarn lint
+
+build_app:
+  stage: build_app
+  script:
+    - docker pull $CONTAINER_IMAGE/$CI_COMMIT_REF_NAME:latest
+    - docker run $CONTAINER_IMAGE/$CI_COMMIT_REF_NAME:latest yarn build

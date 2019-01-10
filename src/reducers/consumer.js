@@ -76,7 +76,7 @@ export default function consumerReducers(state = initialState, action = {}) {
       return Immutable.merge(state, {
         paymentPacksLoading: false,
         error: false,
-        consumerPaymentPacks: action.consumerPaymentPacks,
+        consumerPaymentPacks: action.consumerPaymentPacks || [],
       });
 
     case actionTypes.CONSUMER_START_FETCH_PAYMENT_PACKS:

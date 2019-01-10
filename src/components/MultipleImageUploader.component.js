@@ -34,7 +34,7 @@ export class ImageUploader extends React.Component<Props, State> {
     files: [],
   };
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
 
     if (props.initial) {
@@ -51,7 +51,7 @@ export class ImageUploader extends React.Component<Props, State> {
     });
   }
 
-  handleDrop = (acceptedFiles) => {
+  handleDrop = (acceptedFiles: Array<File>) => {
     const { files } = this.state;
 
     acceptedFiles.forEach((file) => {
@@ -73,8 +73,6 @@ export class ImageUploader extends React.Component<Props, State> {
 
   render() {
     const { classes, t } = this.props;
-
-    const { files } = this.state;
 
     return (
       <Dropzone onDrop={this.handleDrop} accept="image/*" multiple>

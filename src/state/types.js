@@ -11,6 +11,7 @@ export type State = {
   stats: StatsState,
   coach: CoachesState,
   search: SearchState,
+  nav: NavigationState,
 };
 export type Action = SearchAction | AuthAction;
 

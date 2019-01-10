@@ -4,8 +4,9 @@ import * as Sentry from '@sentry/browser';
 
 import React from 'react';
 
-import '../errors.sass';
+import '../errors.scss';
 
+/* eslint-disable */
 export default function(WrappedComponent) {
   return class extends React.Component {
     state = { error: null };
@@ -65,3 +66,4 @@ export default function(WrappedComponent) {
     }
   };
 }
+/* eslint-enable */

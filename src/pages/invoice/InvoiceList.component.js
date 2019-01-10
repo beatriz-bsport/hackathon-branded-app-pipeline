@@ -70,7 +70,7 @@ export class InvoiceList extends Component<Props, State> {
         label: t('payment.paymentDate'),
       },
       {
-        id: 'price_due',
+        id: 'price_payed',
         label: t('payment.amount'),
       },
       {
@@ -138,7 +138,7 @@ export class InvoiceList extends Component<Props, State> {
         {(this.props.members.find((m) => m.id === inv.member) || {}).name}
       </TableCell>
       <TableCell>{formatAsDatetime(inv.date)}</TableCell>
-      <TableCell>{inv.price_due} €</TableCell>
+      <TableCell>{inv.price_payed} €</TableCell>
       <TableCell>{renderStatus(inv)}</TableCell>
     </TableRow>
   );

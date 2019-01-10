@@ -71,6 +71,8 @@ export default {
     common: {
       export: 'Exporter',
       generate: 'Générer',
+      tax: 'TVA',
+      skip: 'Passer',
       uploadOneImage: {
         new: 'Glisser et déposer ou cliquer ici pour ajouter une image',
         edit: "Glisser et déposer ou cliquer ici pour changer l'image",
@@ -142,6 +144,7 @@ export default {
       outOf: ' sur ',
     },
     offer: {
+      offersPendingChange: 'Séances qui seront modifiées :',
       noPackAvailableForOfferPurchase:
         'Aucun abonnement compatible possédé par ce membre !',
       backToCalendar: 'Retour au calendrier',
@@ -172,6 +175,14 @@ export default {
       noProvisionUpdates: 'Aucun stock',
     },
     form: {
+      address: {
+        streetNumber: 'N°',
+        addressLine1: 'Adresse',
+        addressLine2: "Complément d'adresse",
+        city: 'Ville',
+        country: 'Pays',
+        zipcode: 'Code postal',
+      },
       login: {
         changePasswordTitle: 'Modification du mot de passe',
         password: 'Mot de passe',
@@ -247,6 +258,7 @@ export default {
       signup: {
         typePhone: 'Tél. portable *',
         confirmPasswordLabel: 'Confirmation',
+        confirmPassword: 'Mot de passe',
         rgpdTitle:
           "Comment préférez-vous que les coachs vous contactent pour les annulations/changement d'heure ?",
         communication: {
@@ -281,6 +293,14 @@ export default {
           "(optionnel) numéro du chèque, date d'encaissement...",
       },
       offer: {
+        coachChangeWarning:
+          'Si vous modifiez le coach, cette modification sera effective pour toutes les séances futures. Si ce n\'est pas ce que vous souhaitez, utilisez le champ "Remplaçant". Toute autre modification enregistrée ici (établissement, prix, jour de la semaine...) sera donc appliquée à toutes les séances.',
+        establishmentChangeWarning:
+          'Si vous modifiez l\'établissement, cette modification sera effective pour toutes les séances futures. Si ce n\'est pas ce que vous souhaites, utilisez le champ "Etablissement temporaire". Toute autre modification enregistrée ici (jour de la semaine, prix, remplaçaant, coach...) sera donc appliquée à toutes les séances.',
+        substituteCoachLabel: 'Remplaçant',
+        coachLabel: 'Coach',
+        establishmentLabel: 'Etablissement',
+        substituteEstablishmentLabel: 'Etablissement (lieu temporaire)',
         warningPackonEdit:
           "Les changements sur les séances risquent de les rendre incompatibles avec certains abonnements. Les abonnements actuellement compatibles avec cette séance sont les suivants, après la modification veuillez prendre le temps de vérifier qu'ils resteront compatible avec les éventuels changements de lieu / coach.",
         deleteTitle: 'Supprimer la séance',
@@ -511,6 +531,7 @@ export default {
       invoice: 'Facture',
       paymentMethod: {
         CB: 'Carte bleue',
+        CB_MANUAL: 'Carte bleue (manuel)',
         CHECK: 'Chèque',
         CHECK_FR: 'Chèque vacances',
         CASH: 'Espèces',

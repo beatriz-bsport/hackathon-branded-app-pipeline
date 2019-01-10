@@ -21,6 +21,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 
 import CancelIcon from '@material-ui/icons/Cancel';
 
+import type { TFunction } from 'react-i18next';
 import { snackbarSuccess } from '../../actions/snackbar.actions';
 
 import { get, API_URI } from '../../http';
@@ -34,17 +35,23 @@ import * as paymentActions from '../../actions/payment.actions';
 
 type Props = {
   offer: Offer,
-  fetchPass: (id: number) => void,
   offerId: number,
-  fetchPaymentPacks: (id: number) => void,
-  classes: Object,
-  onClose: () => void,
-  pushRouter: (path: string) => void,
   showBookingButton: ?boolean,
   displayPacksInformation: ?boolean,
   compatibleConsumerPacks: Array<ConsumerPaymentPack>,
   compatiblePaymentPacks: Array<PaymentPack>,
+
+  goToHome: () => void,
   goToPackPayment: (packId: number, offerId: number) => void,
+  fetchPass: (id: number) => void,
+  fetchPaymentPacks: (id: number) => void,
+  onClose: () => void,
+  pushRouter: (path: string) => void,
+
+  snackbarSuccess: Object,
+
+  t: TFunction,
+  classes: Object,
 };
 
 export class MarketPlaceActivity extends React.Component<Props> {

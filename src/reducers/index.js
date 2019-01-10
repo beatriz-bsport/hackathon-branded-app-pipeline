@@ -24,8 +24,6 @@ import marketplaceReducer from './marketplace';
 import shopReducer from './shop';
 import paymentRulesReducer from '../libs/payment-rules/reducers';
 
-import types from '../actions/refresh.types';
-
 import type { State, Action } from '../state/types';
 
 import { reducer } from '../resources';

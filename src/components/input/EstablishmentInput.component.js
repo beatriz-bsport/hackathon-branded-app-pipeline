@@ -18,7 +18,7 @@ import type { Establishment } from '../../api/types';
 const styles = (theme) => ({
   formControl: {
     margin: theme.spacing.unit,
-    minWidth: 200,
+    minWidth: 400,
   },
 });
 
@@ -28,14 +28,16 @@ type Props = {
   establishments: Array<Establishment>,
   onChange: (?number) => void,
   value: ?number,
+  noBlank: ?boolean,
+  label: ?string,
 };
 
 export function EstablishmentInput(props: Props) {
-  const { establishments, value, t, classes, onChange } = props;
+  const { noBlank, establishments, value, t, label, classes, onChange } = props;
   return (
     <FormControl className={classes.formControl}>
       <InputLabel shrink={value} htmlFor="establishment-helper">
-        {t('common.establishment')}
+        {label || t('common.establishment')}
       </InputLabel>
       <Select
         value={value}
@@ -44,9 +46,11 @@ export function EstablishmentInput(props: Props) {
           <Input name={t('common.establishment')} id="establishment-helper" />
         }
       >
-        <MenuItem value={null}>
-          <em> - </em>
-        </MenuItem>
+        {noBlank ? null : (
+          <MenuItem value={null}>
+            <em> - </em>
+          </MenuItem>
+        )}
         {establishments.map((e) => (
           <MenuItem key={e.id} value={e.id}>
             <ListItemText primary={e.title} secondary={e.location.address} />

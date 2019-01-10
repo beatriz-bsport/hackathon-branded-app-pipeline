@@ -9,6 +9,8 @@ import DeleteIcon from '@material-ui/icons/DeleteForever';
 type Props = {
   onRemoveImage: (number) => void,
   images: *[],
+
+  classes: Object,
 };
 
 export function ImageList(props: Props) {
@@ -28,7 +30,7 @@ export function ImageList(props: Props) {
           >
             <DeleteIcon />
           </Button>
-          <img src={image.image} className={classes.image} />
+          <img alt="preview" src={image.image} className={classes.image} />
         </div>
       ))}
     </div>

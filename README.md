@@ -39,8 +39,8 @@ LOGIN
 Currently the only user usable with full feature and (theorically) no bug is :
 
 ```sh
-username: manager@bsport.io
-password: test
+username: contact@classdiggers.com
+password: demo
 ```
 
 RUN

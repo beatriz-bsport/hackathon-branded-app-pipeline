@@ -3,7 +3,7 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
-import { fetchAll, removeImage, addImage } from '../actions/activity.actions';
+import { fetchAll } from '../actions/activity.actions';
 
 const initialState = Immutable({
   all: [],

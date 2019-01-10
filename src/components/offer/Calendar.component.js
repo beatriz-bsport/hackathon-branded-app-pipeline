@@ -22,6 +22,7 @@ type Props = {
   forceMonthDisplay: boolean,
   onDateClick: (Object) => void,
   classes: Object,
+  events?: { [*]: *[] },
 };
 
 type State = {

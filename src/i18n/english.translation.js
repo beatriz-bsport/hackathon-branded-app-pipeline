@@ -9,11 +9,13 @@ import companies from './en/companies.translations';
 import dashboard from './en/dashboard.translations';
 import settings from './en/settings.translations';
 import paymentRules from './en/payment-rules.translations';
+import reporting from './en/reporting.translations';
 
 export default {
   dashboard,
   settings,
   paymentRules,
+  reporting,
   coachPerformance: {
     addBonus: 'Add a rule',
     dateTitle: 'Date range',
@@ -34,6 +36,9 @@ export default {
           'Once you have created your activity you will be able to add additional images.',
       },
     },
+    report: {
+      delete: 'Report deletion',
+    },
     companies,
     error: {
       connectionError: 'Connection error',
@@ -48,6 +53,8 @@ export default {
       CHECK: 'Check',
     },
     common: {
+      export: 'Export',
+      generate: 'Generate',
       tax: 'Tax',
       skip: 'Skip',
       uploadOneImage: {
@@ -423,6 +430,7 @@ export default {
         bookings: 'My bookings',
         profile: 'Profile',
       },
+      reporting: 'Reporting',
       search: 'Search',
       dashboard: 'Dashboard',
       activity: 'My activities',

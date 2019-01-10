@@ -21,6 +21,7 @@ type Props = {
   open: boolean,
   handleClose: () => void,
   initial: PaymentRuleSet,
+  onSubmit: (*) => void,
 };
 
 export function PaymentRuleSetFormDialog(props: Props) {

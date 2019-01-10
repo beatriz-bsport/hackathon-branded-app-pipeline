@@ -23,6 +23,7 @@ type Props = {
   initial: string,
   t: TFunction,
   onChange: (ImageFile[]) => void,
+  onAddImage: (File) => void,
 };
 
 type State = {

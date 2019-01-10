@@ -26,7 +26,10 @@ import paymentRulesReducer from '../libs/payment-rules/reducers';
 
 import type { State, Action } from '../state/types';
 
+import { reducer } from '../resources';
+
 const rootReducer = combineReducers({
+  '@api': reducer,
   paymentRules: paymentRulesReducer,
   payment: paymentReducers,
   consumer: consumerReducers,

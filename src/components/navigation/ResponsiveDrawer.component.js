@@ -35,6 +35,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import DescriptionIcon from '@material-ui/icons/Description';
 
 import { colors } from 'bsport-commons/lib/colors';
 import { LanguageButton } from '../button/LanguageButton.component';
@@ -122,7 +123,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
           <ListItemIcon>
             <item.icon />
           </ListItemIcon>
-          <ListItemText primary={item.text} />
+          <ListItemText
+            primary={item.text}
+            secondary={item.subtext}
+            secondaryTypographyProps={{ style: { color: colors.primaryDark } }}
+          />
         </ListItem>
       </Link>
     );
@@ -186,11 +191,6 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         ],
       },
       {
-        to: '/marketing',
-        icon: Email,
-        text: t('navigation.message'),
-      },
-      {
         to: '/member',
         icon: People,
         text: t('navigation.member'),
@@ -199,6 +199,19 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         to: '/invoice',
         icon: Payment,
         text: t('navigation.payment'),
+      },
+      'divider',
+      {
+        to: '/reporting',
+        icon: DescriptionIcon,
+        text: t('navigation.reporting'),
+        subtext: 'beta',
+      },
+      {
+        to: '/marketing',
+        icon: Email,
+        text: t('navigation.message'),
+        subtext: 'beta',
       },
       'divider',
       {

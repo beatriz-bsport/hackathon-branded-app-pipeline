@@ -11,6 +11,8 @@ import MarketPlaceActivity from './MarketplaceActivity.component';
 type Props = {
   offerId: number,
   classes: { [string]: string },
+  onClose: () => void,
+  fullScreen: boolean,
 };
 
 export function MarketplaceActivityDialog(props: Props) {

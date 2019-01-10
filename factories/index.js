@@ -9,5 +9,6 @@ import './SCT.factory';
 import './SCS.factory';
 import './Location.factory';
 import './EasyAccess.factory';
+import './ReportConfiguration.factory';
 
 export default FactoryBot;

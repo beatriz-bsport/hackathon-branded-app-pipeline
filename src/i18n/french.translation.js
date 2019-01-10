@@ -476,6 +476,8 @@ export default {
       },
     },
     navigation: {
+      alpha: 'en développement',
+      beta: 'beta',
       consumer: {
         pass: 'Abonnements',
         bookings: 'Mes réservations ',

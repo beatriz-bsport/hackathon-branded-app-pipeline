@@ -425,6 +425,8 @@ export default {
     member,
     coach,
     navigation: {
+      alpha: 'in development',
+      beta: 'beta',
       consumer: {
         pass: 'Pass',
         bookings: 'My bookings',

@@ -205,13 +205,14 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         to: '/reporting',
         icon: DescriptionIcon,
         text: t('navigation.reporting'),
-        subtext: 'beta',
+        subtext: t('navigation.beta'),
       },
+      'divider',
       {
         to: '/marketing',
         icon: Email,
         text: t('navigation.message'),
-        subtext: 'beta',
+        subtext: t('navigation.alpha'),
       },
       'divider',
       {

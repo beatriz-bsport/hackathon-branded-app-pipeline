@@ -430,6 +430,7 @@ export default {
         bookings: 'My bookings',
         profile: 'Profile',
       },
+      reporting: 'Reporting',
       search: 'Search',
       dashboard: 'Dashboard',
       activity: 'My activities',

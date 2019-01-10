@@ -481,6 +481,7 @@ export default {
         bookings: 'Mes réservations ',
         profile: 'Mon Profil',
       },
+      reporting: 'Rapports',
       search: 'Rechercher',
       dashboard: 'Dashboard',
       activity: 'Mes activités',

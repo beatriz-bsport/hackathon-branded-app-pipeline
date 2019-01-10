@@ -248,7 +248,7 @@ const DEFAULT_VERBS = {
             .set('error', error);
         },
         [type.success]: (state, { id }) => {
-          const items = lodash.filter(state.items, (item) => item.id !== id);
+          const items = lodash.omit(state.items, id);
           return state.set('items', items);
         },
       };

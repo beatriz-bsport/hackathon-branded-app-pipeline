@@ -4,9 +4,6 @@ import React, { Component } from 'react';
 
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import AddIcon from '@material-ui/icons/Add';
-
-import { push } from 'connected-react-router';
 
 import {
   Typography,
@@ -14,11 +11,11 @@ import {
   Paper,
   CircularProgress,
   withStyles,
-  Button,
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
 import type { TFunction } from 'react-i18next';
+import i18next from 'i18next';
 import {
   establishment as establishmentActions,
   offer as offerActions,
@@ -26,6 +23,8 @@ import {
 import { EstablishmentCard, TimeTable, Calendar, Map } from '../../components';
 import { Moment } from '../../i18n';
 import type { Establishment, Activity, Offer } from '../../api/types';
+
+import withBottomButtons from '../../hocs/inject-bottom-buttons';
 
 type Props = {
   timetableLoading: boolean,
@@ -36,7 +35,6 @@ type Props = {
 
   startUpdateEstablishment: (*) => void,
   fetchOffersByDay: ({ year: number, month: number, day: number }) => void,
-  goToCreateEstablishment: () => void,
 
   classes: Object,
   t: TFunction,
@@ -127,7 +125,7 @@ export class EstablishmentList extends Component<Props, State> {
   };
 
   render() {
-    const { classes, t, establishmentsLoading, establishments } = this.props;
+    const { classes, establishmentsLoading, establishments } = this.props;
     if (establishmentsLoading) {
       return <CircularProgress />;
     }
@@ -143,16 +141,6 @@ export class EstablishmentList extends Component<Props, State> {
             </Grid>
           ))}
         </Grid>
-        <Button
-          variant="extendedFab"
-          aria-label="Add"
-          className={classes.button}
-          color="primary"
-          onClick={this.props.goToCreateEstablishment}
-        >
-          <AddIcon className={classes.extendedIcon} />
-          {t('establishment.addButton')}
-        </Button>
       </div>
     );
   }
@@ -170,11 +158,6 @@ function mapStateToProps(state) {
 
 const styles = (theme) => ({
   root: {},
-  button: {
-    position: 'fixed',
-    right: theme.spacing.unit * 2,
-    bottom: theme.spacing.unit * 2,
-  },
   emptyEstablishment: {
     padding: theme.spacing.unit * 3,
   },
@@ -202,7 +185,12 @@ export default compose(
     {
       startUpdateEstablishment: establishmentActions.startUpdate,
       fetchOffersByDay: offerActions.fetchOffersByDay,
-      goToCreateEstablishment: () => push('/establishments/add'),
     },
   ),
+  withBottomButtons({
+    addButton: {
+      path: '/establishments/add',
+      text: i18next.t('establishment.addButton'),
+    },
+  }),
 )(EstablishmentList);

@@ -466,6 +466,7 @@ export class Planning extends Component<Props, State> {
             this.renderNoOfferSelected()
           )}
         </Grid>
+
         <Grid item xs={12} lg={6}>
           {isWidthDown('md', width) && selectedOffer
             ? this.renderGoBackButton()

@@ -2,34 +2,44 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import {
   Typography,
   CircularProgress,
   Divider,
-  Button,
   withStyles,
   Grid,
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
-import AddIcon from '@material-ui/icons/Add';
 import { push as pushRouter } from 'react-router-redux';
 
+import i18next from 'i18next';
 import { PaymentPackCard } from '../../components';
 import PaymentPackDeleteDialog from '../../components/form/PaymentPackDeleteDialog.component';
 import { paymentPack as paymentPackActions } from '../../actions';
 import type { MetaActivity } from '../../api/types';
 
+import withBottomButtons from '../../hocs/inject-bottom-buttons';
+
 const styles = (theme) => ({
+  fabSwitchButton: {
+    position: 'fixed',
+    right: theme.spacing.unit * 2,
+    bottom: theme.spacing.unit * 9,
+  },
+  fabAddButton: {
+    position: 'fixed',
+    right: theme.spacing.unit * 2,
+    bottom: theme.spacing.unit * 2,
+  },
+  extendedIcon: {
+    marginRight: theme.spacing.unit,
+  },
   paymentPackContainer: {
     paddingBottom: theme.spacing.unit * 4,
     [theme.breakpoints.up('sm')]: {
       paddingRight: theme.spacing.unit * 4,
     },
-  },
-  extendedIcon: {
-    marginRight: theme.spacing.unit,
   },
   titleContainer: {
     marginTop: theme.spacing.unit * 2,
@@ -81,7 +91,7 @@ export class PaymentPackList extends Component<Props, State> {
     this.setState({ paymentPackToDeleteId: null });
   };
 
-  renderPacks = (packs) => {
+  renderPacks = (packs: Array<PaymentPack>) => {
     const {
       classes,
       metaActivities,
@@ -126,6 +136,7 @@ export class PaymentPackList extends Component<Props, State> {
       classes,
       t,
     } = this.props;
+
     if (loading) {
       return <CircularProgress />;
     }
@@ -160,14 +171,7 @@ export class PaymentPackList extends Component<Props, State> {
         <Grid item xs={12}>
           {this.renderPacks(managerPacks)}
         </Grid>
-        <Grid item>
-          <Link to="/payment-pack/add" style={{ textDecoration: 'none' }}>
-            <Button variant="extendedFab" color="primary">
-              <AddIcon className={classes.extendedIcon} />
-              {t('paymentPack.addButton')}
-            </Button>
-          </Link>
-        </Grid>
+
         <PaymentPackDeleteDialog
           open={!!this.state.paymentPackToDeleteId}
           pack={this.props.packs.find(
@@ -218,6 +222,13 @@ export default withStyles(styles)(
     connect(
       mapStateToProps,
       mapDispatchToProps,
-    )(PaymentPackList),
+    )(
+      withBottomButtons({
+        addButton: {
+          path: '/payment-pack/add',
+          text: i18next.t('paymentPack.addButton'),
+        },
+      })(PaymentPackList),
+    ),
   ),
 );

@@ -7,32 +7,19 @@ import { compose } from 'recompose';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
-import { Link } from 'react-router-dom';
 
-import { withStyles, CircularProgress, Button, Grid } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
+import { CircularProgress, Grid } from '@material-ui/core';
 
+import i18next from 'i18next';
 import { coach as coachActions } from '../../actions';
 import { CoachCard } from '../../components';
 import type { Coach } from '../../api/types';
 import { paymentRulesSelector } from '../../libs/payment-rules/selectors';
-
-const styles = (theme) => ({
-  button: {
-    position: 'fixed',
-    right: theme.spacing.unit * 2,
-    bottom: theme.spacing.unit * 2,
-  },
-  extendedIcon: {
-    marginRight: theme.spacing.unit,
-  },
-});
+import withBottomButtons from '../../hocs/inject-bottom-buttons';
 
 type Props = {
   loading: boolean,
   isManager: boolean,
-  classes: Object,
-  t: (x: string) => string,
   isCoach: boolean,
   selfCoach: Coach,
   paymentRules: Array<PaymentRule>,
@@ -99,14 +86,13 @@ export class CoachList extends Component<Props> {
 
     const {
       isManager,
-      classes,
-      t,
       isCoach,
       selfCoach,
       associatedCoaches,
       paymentRules,
       setCoachPaymentRule,
     } = this.props;
+
     return (
       <div>
         <SelfCoachCard isCoach={isCoach} selfCoach={selfCoach} />
@@ -119,19 +105,6 @@ export class CoachList extends Component<Props> {
             setCoachPaymentRule={setCoachPaymentRule}
           />
         </Grid>
-        {isManager ? (
-          <Link to="/coach/add" style={{ textDecoration: 'none' }}>
-            <Button
-              variant="extendedFab"
-              aria-label="Add"
-              className={classes.button}
-              color="primary"
-            >
-              <AddIcon className={classes.extendedIcon} />
-              {t('coach.addCoach')}
-            </Button>
-          </Link>
-        ) : null}
       </div>
     );
   }
@@ -159,6 +132,8 @@ export default compose(
       goToCreateCoach: () => dispatch(push('/coach/add')),
     }),
   ),
-  withStyles(styles),
   translate(),
+  withBottomButtons({
+    addButton: { path: '/coach/add', text: i18next.t('coach.addCoach') },
+  }),
 )(CoachList);

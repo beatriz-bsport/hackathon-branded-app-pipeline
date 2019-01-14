@@ -16,6 +16,7 @@ import { Link } from 'react-router-dom';
 import SPORTS from 'bsport-commons/lib/master-data/sports';
 import ActivityMinimalSummary from '../activity/ActivityMinimalSummary.component';
 import type { Activity, Establishment } from '../../api/types';
+import EasyAccessStack from './EasyAccessStack.component';
 
 const DEFAULT_SPORT = 7;
 
@@ -87,7 +88,13 @@ export class EstablishmentCard extends Component<Props> {
       allActivities,
       onClickUpdate,
     } = this.props;
-    const { title, specific_info, activities, location } = establishment;
+    const {
+      title,
+      specific_info,
+      activities,
+      location,
+      easy_access,
+    } = establishment;
     // activities in establishment props are simplified, getting the full object
     const establishmentActivitiesId = activities.map((a) => a.id);
     // prettier-ignore
@@ -95,63 +102,61 @@ export class EstablishmentCard extends Component<Props> {
       establishmentActivitiesId.includes(a.id)));
     return (
       <Paper className={classes.container}>
-        <Grid container direction="column">
-          <Grid item>{this.getCover()}</Grid>
-          <Grid item className={classes.horizontalBlock}>
-            <Grid
-              container
-              direction="row"
-              alignItems="center"
-              justify="space-between"
-            >
-              <Grid item>
-                <Typography variant="title">{title}</Typography>
-              </Grid>
-              <Grid item>
-                <Button onClick={onClickUpdate}>
-                  {t('establishment.card.update')}
-                </Button>
-              </Grid>
+        {this.getCover()}
+        <div className={classes.horizontalBlock}>
+          <Grid
+            container
+            direction="row"
+            alignItems="center"
+            justify="space-between"
+          >
+            <Grid item>
+              <Typography variant="title">{title}</Typography>
             </Grid>
-            <Typography
-              variant="caption"
-              className={classes.subHorizontalBlock}
-            >
-              {location.address}
-            </Typography>
-          </Grid>
-          {specific_info ? (
-            <Grid item className={classes.horizontalBlock}>
-              <Typography variant="body1">{specific_info}</Typography>
+            <Grid item>
+              <Button onClick={onClickUpdate}>
+                {t('establishment.card.update')}
+              </Button>
             </Grid>
-          ) : null}
-          <Divider />
-          <Grid item>
-            {establishmentActivities.length ? (
-              establishmentActivities.map((a) => (
-                <Link
-                  to={`/activity/${a.meta_activity_id}`}
-                  style={{ textDecoration: 'none' }}
-                >
-                  <ActivityMinimalSummary
-                    activity={a}
-                    key={a.id}
-                    showCoach
-                    showCoachName
-                  />
-                </Link>
-              ))
-            ) : (
-              <Typography
-                variant="caption"
-                color="error"
-                className={classes.noMoreOffersMessage}
-              >
-                {t('establishment.noMoreOffers')}
-              </Typography>
-            )}
           </Grid>
-        </Grid>
+          <EasyAccessStack
+            name={easy_access.name}
+            lines={easy_access.lines}
+            size="xs"
+          />
+          <Typography variant="caption" className={classes.subHorizontalBlock}>
+            {location.address}
+          </Typography>
+        </div>
+        {specific_info ? (
+          <div className={classes.horizontalBlock}>
+            <Typography variant="body1">{specific_info}</Typography>
+          </div>
+        ) : null}
+        <Divider />
+        {establishmentActivities.length ? (
+          establishmentActivities.map((a) => (
+            <Link
+              to={`/activity/${a.meta_activity_id}`}
+              style={{ textDecoration: 'none' }}
+            >
+              <ActivityMinimalSummary
+                activity={a}
+                key={a.id}
+                showCoach
+                showCoachName
+              />
+            </Link>
+          ))
+        ) : (
+          <Typography
+            variant="caption"
+            color="error"
+            className={classes.noMoreOffersMessage}
+          >
+            {t('establishment.noMoreOffers')}
+          </Typography>
+        )}
       </Paper>
     );
   }

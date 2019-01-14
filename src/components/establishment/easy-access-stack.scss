@@ -5,7 +5,6 @@ $line-bubble-negative-margin: $line-bubble-size / 4;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-  padding-left: $line-bubble-negative-margin;
 
   > .stack {
     margin: auto 5px;

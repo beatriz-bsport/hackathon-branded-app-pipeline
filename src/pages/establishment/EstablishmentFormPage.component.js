@@ -85,7 +85,7 @@ function mapStateToProps(state, { establishmentId }) {
   const establishments = state.establishment.all;
   return {
     isNew,
-    pending: state.establishment.createOrUpdatePending,
+    pending: state.establishment.upsert.loading,
     update: isNew ? null : establishments.find((e) => e.id === establishmentId),
   };
 }

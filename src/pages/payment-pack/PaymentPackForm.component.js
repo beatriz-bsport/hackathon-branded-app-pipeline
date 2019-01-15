@@ -14,6 +14,7 @@ import { paymentPack as paymentPackActions } from '../../actions';
 import type { SCT, MetaActivity } from '../../api/types';
 
 type Props = {
+  loading: boolean,
   categories: Array<SCT>,
   metaActivities: Array<MetaActivity>,
   establishments: Array<Establishment>,
@@ -24,21 +25,26 @@ type Props = {
 };
 type State = {
   open: boolean,
-  loading: boolean,
   created: boolean,
   error: boolean,
 };
 
 export class PaymentPackFormPage extends Component<Props, State> {
-  state = { error: false, loading: false, open: false, created: false };
+  state = { error: false, open: false, created: false };
 
   createPack = async (data: *) => {
     this.props.createOrUpdate(data);
   };
 
   render() {
-    const { categories, metaActivities, establishments, classes } = this.props;
-    const { error, created, loading } = this.state;
+    const {
+      categories,
+      metaActivities,
+      loading,
+      establishments,
+      classes,
+    } = this.props;
+    const { error, created } = this.state;
     const availableCategoriesId = metaActivities.map((a) => a.category_id);
     const filterableCategories = categories.filter(
       (c) => availableCategoriesId.indexOf(c.id) !== -1,
@@ -78,7 +84,7 @@ function mapStateToProps(state, nextProps) {
     categories: state.category.SCTs,
     metaActivities: state.metaActivity.all,
     establishments: state.establishment.all,
-    loading: state.paymentPack.createOrUpdate,
+    loading: state.paymentPack.createOrUpdatePending,
   };
 }
 

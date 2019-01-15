@@ -32,13 +32,14 @@ type Props = {
 type State = { open: boolean };
 
 export class MetaActivityFormPage extends Component<Props, State> {
-  state = { open: false };
+  state = { open: false, processing: false };
 
   componentWillMount() {
     this.props.fetchMetaActivityDetails(this.props.id);
   }
 
   updateMetaActivity = async (metaActivityData: *) => {
+    this.setState({ processing: true });
     try {
       const response = await api.activity.updateMetaActivity(
         metaActivityData,
@@ -51,8 +52,10 @@ export class MetaActivityFormPage extends Component<Props, State> {
         this.props.push(`/activity/${this.props.id}`);
       }
     } catch (e) {
+      this.setState({ processing: false });
       throw e;
     }
+    this.setState({ processing: false });
   };
 
   render() {
@@ -87,6 +90,7 @@ export class MetaActivityFormPage extends Component<Props, State> {
           metaActivityNames={[]}
           initial={this.props.metaActivity}
           imageUploader={imageUploader}
+          loading={this.state.processing}
         />
         <Snackbar open={this.state.open} message="Activité créée" />
       </div>

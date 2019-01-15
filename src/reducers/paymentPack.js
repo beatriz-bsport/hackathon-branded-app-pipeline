@@ -7,6 +7,7 @@ const initialState = Immutable({
   all: [],
   updatingConsumerPacks: [],
   updatingPaymentPacks: [],
+  createOrUpdatePending: false,
   loading: true,
   error: false,
   errorMsg: '',

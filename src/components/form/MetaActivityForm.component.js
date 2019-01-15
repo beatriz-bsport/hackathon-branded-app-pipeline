@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -108,7 +108,7 @@ export class MetaActivityForm extends Component<Props, State> {
   };
 
   render() {
-    const { SCTs, classes, t, imageUploader } = this.props;
+    const { SCTs, classes, t, imageUploader, loading } = this.props;
     const images = (this.props.initial || {}).images || [];
     return (
       <form onSubmit={this.onSubmit}>
@@ -205,9 +205,13 @@ export class MetaActivityForm extends Component<Props, State> {
                 </Link>
               </Grid>
               <Grid item>
-                <Button variant="contained" color="primary" type="submit">
-                  {t('form.send')}
-                </Button>
+                {loading ? (
+                  <CircularProgress />
+                ) : (
+                  <Button variant="contained" color="primary" type="submit">
+                    {t('form.send')}
+                  </Button>
+                )}
               </Grid>
             </Grid>
           </div>

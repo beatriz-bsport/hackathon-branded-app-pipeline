@@ -21,15 +21,19 @@ type State = {};
 
 export class MetaActivityFormPage extends Component<Props, State> {
   createMetaActivity = async (metaActivityData: *) => {
+  this.setState({ processing: true})
     try {
       await api.activity.addMetaActivity(metaActivityData);
 
       this.props.snackbarSuccess('Activité créée');
       this.props.fetchAllActivities();
       this.props.history.goBack();
+  this.setState({ processing: false})
     } catch (e) {
+  this.setState({ processing: false})
       throw e;
     }
+  this.setState({ processing: false})
   };
 
   render() {
@@ -38,7 +42,7 @@ export class MetaActivityFormPage extends Component<Props, State> {
       associatedCoaches,
       establishments,
       metaActivityNames,
-    } = this.props;
+      } = this.props
     return (
       <div>
         <MetaActivityForm
@@ -47,6 +51,7 @@ export class MetaActivityFormPage extends Component<Props, State> {
           SCTs={SCTs}
           onSubmit={this.createMetaActivity}
           metaActivityNames={metaActivityNames}
+          loading={this.state.processing}
         />
       </div>
     );

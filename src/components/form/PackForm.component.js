@@ -80,7 +80,7 @@ export class PackForm extends React.Component<Props, State> {
         metaActivities: props.initial.metaActivities,
         establishments: props.initial.establishments || [],
         timeType: valid_by_duration ? VALID_BY_DURATION : VALID_BY_DATERANGE,
-        duration_days: 30,
+        duration_days: valid_by_duration ? props.initial.duration_days : null,
         max_bookings_per_week: props.initial.max_bookings_per_week,
         lower_date: valid_by_duration
           ? Moment()

@@ -395,14 +395,14 @@ export class OfferForm extends Component<Props, State> {
           <Button onClick={onCancel}>{t('form.discard')}</Button>
         </Grid>
         <Grid item>
-          <Button variant="contained" color="primary" type="submit">
-            {processing ? (
-              <CircularProgress size={24} className={classes.leftIcon} />
-            ) : (
+          {processing ? (
+            <CircularProgress size={24} className={classes.leftIcon} />
+          ) : (
+            <Button variant="contained" color="primary" type="submit">
               <AddIcon className={classes.leftIcon} />
-            )}
-            {t('form.generateOffers')}
-          </Button>
+              {t('form.generateOffers')}
+            </Button>
+          )}
         </Grid>
       </Grid>
     );

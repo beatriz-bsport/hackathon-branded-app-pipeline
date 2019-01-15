@@ -99,7 +99,7 @@ export function fetchConsumerPaymentPacks() {
     dispatch(startFetchConsumerPaymentPacks());
 
     const response = await api.consumer.fetchConsumerPaymentPacks();
-    const consumerPaymentPacks = response.data.results;
+    const consumerPaymentPacks = response.data;
 
     dispatch(fetchedConsumerPaymentPacks(consumerPaymentPacks));
   };

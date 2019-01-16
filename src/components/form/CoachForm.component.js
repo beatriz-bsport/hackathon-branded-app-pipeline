@@ -16,22 +16,6 @@ import { translate } from 'react-i18next';
 import { AvatarUploader } from '..';
 import FormField from '../input/FormField.component';
 
-const styles = (theme) => ({
-  paperContainer: {
-    padding: theme.spacing.unit * 3,
-  },
-  textInput: {
-    marginRight: theme.spacing.unit,
-  },
-  formControl: {
-    minWidth: 130,
-    marginRight: theme.spacing.unit,
-  },
-  avatarLarge: {
-    marginRight: 10,
-  },
-});
-
 type Props = {
   processing: boolean,
   initial: { [string]: string },
@@ -52,6 +36,8 @@ type State = {
   facebook_url: '',
   instagram_url: '',
 };
+
+const MARGIN_AVATAR = 100;
 
 export class CoachForm extends Component<Props, State> {
   state = {
@@ -149,146 +135,114 @@ export class CoachForm extends Component<Props, State> {
   render() {
     const { classes, t, initial } = this.props;
     return (
-      <Grid container>
-        <Grid item xs={12} lg={6}>
-          <Paper className={classes.paperContainer}>
-            <form target="/coach" onSubmit={this.onSubmit}>
-              <Grid container direction="column" spacing={16}>
-                <Grid item>
-                  <Typography variant="title">
-                    {t(
-                      `coach.forms.${
-                        initial && initial.id ? 'update' : 'create'
-                      }.title`,
-                    )}
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Grid
-                    container
-                    direction="row"
-                    spacing={16}
-                    alignItems="center"
-                  >
-                    <Grid item className={classes.avatarLarge}>
-                      <AvatarUploader
-                        initial={this.state.avatar}
-                        onChange={this.onFormFieldChange('avatar')}
-                      />
-                    </Grid>
-                    <Grid item>
-                      <Grid container direction="column">
-                        <Grid item>
-                          <FormField
-                            id="firstname"
-                            required
-                            value={this.state.firstname}
-                            onChange={this.onFormFieldChange}
-                          />
-                        </Grid>
-                        <Grid item>
-                          <FormField
-                            id="lastname"
-                            value={this.state.lastname}
-                            required
-                            onChange={this.onFormFieldChange}
-                          />
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid item>
-                  <Grid
-                    container
-                    direction="row"
-                    spacing={16}
-                    alignItems="center"
-                  >
-                    <Grid item>
-                      <FormField
-                        id="email"
-                        value={this.state.email}
-                        required
-                        onChange={this.onFormFieldChange}
-                      />
-                    </Grid>
-                    <Grid item>
-                      <FormField
-                        id="phone"
-                        value={this.state.phone}
-                        onChange={this.onFormFieldChange}
-                      />
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid item>
-                  <Grid
-                    container
-                    direction="row"
-                    alignItems="center"
-                    spacing={16}
-                  >
-                    <Grid item>
-                      <FormField
-                        id="gender"
-                        value={this.state.gender}
-                        onChange={this.onFormFieldChange}
-                      />
-                    </Grid>
-                    <Grid item>
-                      <FormField
-                        id="birthdayYear"
-                        value={this.state.birthdayYear}
-                        onChange={this.onFormFieldChange}
-                      />
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid item>
-                  <TextField
-                    fullWidth
-                    multiline
-                    label="Description"
-                    inputProps={{ maxLength: 4999 }}
-                    value={this.state.description}
-                    onChange={(event) =>
-                      this.onFormFieldChange('description')(event.target.value)
-                    }
-                  />
-                </Grid>
-                <Grid item>
-                  <Grid container spacing={16} alignItems="center">
-                    <Grid item>
-                      <TextField
-                        label="Facebook url"
-                        value={this.state.facebook_url}
-                        onChange={(e) =>
-                          this.onFormFieldChange('facebook_url')(e.target.value)
-                        }
-                      />
-                    </Grid>
-                    <Grid item>
-                      <TextField
-                        label="Instagram url"
-                        value={this.state.instagram_url}
-                        onChange={(e) =>
-                          this.onFormFieldChange('instagram_url')(
-                            e.target.value,
-                          )
-                        }
-                      />
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid item>{this.renderButton()}</Grid>
-              </Grid>
-            </form>
-          </Paper>
-        </Grid>
-      </Grid>
+      <Paper className={classes.paperContainer}>
+        <form target="/coach" onSubmit={this.onSubmit}>
+          <div style={{ marginTop: -MARGIN_AVATAR }}>
+            <AvatarUploader
+              initial={this.state.avatar}
+              onChange={this.onFormFieldChange('avatar')}
+            />
+          </div>
+          <Grid container spacing={16} className={classes.fieldset}>
+            <Grid item xs={12} md={6}>
+              <FormField
+                id="firstname"
+                required
+                fullWidth
+                value={this.state.firstname}
+                onChange={this.onFormFieldChange}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <FormField
+                id="lastname"
+                value={this.state.lastname}
+                required
+                fullWidth
+                onChange={this.onFormFieldChange}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <FormField
+                id="email"
+                value={this.state.email}
+                required
+                fullWidth
+                onChange={this.onFormFieldChange}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <FormField
+                id="phone"
+                fullWidth
+                value={this.state.phone}
+                onChange={this.onFormFieldChange}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <FormField
+                id="gender"
+                value={this.state.gender}
+                onChange={this.onFormFieldChange}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <FormField
+                id="birthdayYear"
+                value={this.state.birthdayYear}
+                onChange={this.onFormFieldChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                multiline
+                label="Description"
+                inputProps={{ maxLength: 4999 }}
+                value={this.state.description}
+                onChange={(event) =>
+                  this.onFormFieldChange('description')(event.target.value)
+                }
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <TextField
+                label="Facebook url"
+                fullWidth
+                value={this.state.facebook_url}
+                onChange={(e) =>
+                  this.onFormFieldChange('facebook_url')(e.target.value)
+                }
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <TextField
+                fullWidth
+                label="Instagram url"
+                value={this.state.instagram_url}
+                onChange={(e) =>
+                  this.onFormFieldChange('instagram_url')(e.target.value)
+                }
+              />
+            </Grid>
+          </Grid>
+          {this.renderButton()}
+        </form>
+      </Paper>
     );
   }
 }
+
+const styles = (theme) => ({
+  paperContainer: {
+    marginTop: MARGIN_AVATAR,
+    padding: theme.spacing.unit * 3,
+    maxWidth: 800,
+  },
+  fieldset: {
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit,
+  },
+});
 
 export default withStyles(styles)(translate()(CoachForm));

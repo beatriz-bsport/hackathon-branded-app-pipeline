@@ -131,7 +131,7 @@ function mapDispatchToProps(dispatch) {
 
 const styles = (theme) => ({
   container: {
-    padding: theme.spacing.unit * 4,
+    padding: theme.spacing.unit * 2,
     paddingTop: 0,
   },
 });

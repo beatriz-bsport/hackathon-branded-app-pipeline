@@ -11,6 +11,7 @@ import statsReducers from './stats';
 import coachReducers from './coach';
 import memberReducer from './member';
 import paymentPackReducers from './paymentPack';
+import consumerPaymentPackReducers from './consumer-payment-pack';
 import establishmentReducers from './establishment';
 import categoryReducers from './category';
 import invoiceReducers from './invoice';
@@ -43,6 +44,7 @@ const rootReducer = combineReducers({
   coach: coachReducers,
   member: memberReducer,
   paymentPack: paymentPackReducers,
+  consumerPaymentPack: consumerPaymentPackReducers,
   category: categoryReducers,
   invoice: invoiceReducers,
   snackbar: snackbarReducer,

@@ -1,3 +1,5 @@
+// @flow
+
 import { push as pushRouter } from 'react-router-redux';
 import api from '../api';
 import types from './invoice.types';
@@ -7,6 +9,37 @@ import {
   fetchAll as fetchAllMembers,
   quickFetch as quickFetchMember,
 } from './member.actions';
+import type { Dispatch } from '../state/types';
+import type { Invoice, Payment } from '../api/types';
+
+export function startCreateQuickInvoice() {
+  return { type: types.INVOICE_QUICK_CREATE_START };
+}
+export function errorCreatingQuickInvoice() {
+  return { type: types.INVOICE_QUICK_CREATE_ERROR };
+}
+export function resetQuickInvoices(uuid: ?string) {
+  return { type: types.INVOICE_QUICK_RESET, uuid };
+}
+export function createdQuickInvoice(invoice: Invoice) {
+  return { type: types.INVOICE_QUICK_CREATE_SUCCESS, invoice };
+}
+export function createQuickInvoice(data: {
+  memberId: number,
+  offerId: number,
+  paymentPackId: number,
+}) {
+  return async (dispatch: Dispatch) => {
+    dispatch(startCreateQuickInvoice());
+    try {
+      const response = await api.invoice.createQuick(data);
+      const invoice = response.data;
+      dispatch(createdQuickInvoice(invoice));
+    } catch (err) {
+      dispatch(errorCreatingQuickInvoice());
+    }
+  };
+}
 
 export function startFetchInvoices() {
   return { type: types.START_FETCH_INVOICES };
@@ -14,11 +47,11 @@ export function startFetchInvoices() {
 export function errorFetchingInvoices() {
   return { type: types.ERROR_FETCHING_INVOICES };
 }
-export function fetchedInvoices(invoices) {
+export function fetchedInvoices(invoices: Array<Invoice>) {
   return { type: types.HAS_FETCHED_INVOICES, invoices };
 }
 export function fetchAll() {
-  return async (dispatch) => {
+  return async (dispatch: Dispatch) => {
     dispatch(startFetchInvoices());
 
     try {
@@ -37,12 +70,12 @@ export function startFetchSpecificInvoice() {
 export function errorFetchingSpeciicInvoice() {
   return { type: types.INVOICE_SPECIFIC_ERROR_FETCHING };
 }
-export function fetchedSpecificInvoice(invoice) {
+export function fetchedSpecificInvoice(invoice: Invoice) {
   return { type: types.INVOICE_SPECIFIC_SUCCESS_FETCH, invoice };
 }
 
-export function fetchSpecificInvoice(invoiceId) {
-  return async (dispatch) => {
+export function fetchSpecificInvoice(invoiceId: number) {
+  return async (dispatch: Dispatch) => {
     dispatch(startFetchSpecificInvoice());
 
     try {
@@ -61,12 +94,12 @@ export function startUpdatePaymentStatus() {
 export function errorUpdatingPaymentStatus() {
   return { type: types.PAYMENT_ITEM_ERROR_PAYMENT_STATUS };
 }
-export function updatedPaymentStatus(payment) {
+export function updatedPaymentStatus(payment: Payment) {
   return { type: types.PAYMENT_ITEM_UPDATED_PAYMENT_STATUS, payment };
 }
 
-export function updatePaymentStatus(uuid, newStatus) {
-  return async (dispatch) => {
+export function updatePaymentStatus(uuid: string, newStatus: boolean) {
+  return async (dispatch: Dispatch) => {
     dispatch(startUpdatePaymentStatus());
 
     try {
@@ -79,8 +112,12 @@ export function updatePaymentStatus(uuid, newStatus) {
   };
 }
 
-export function createOrUpdateInvoice(invoiceData, noRedirect, memberId) {
-  return async (dispatch) => {
+export function createOrUpdateInvoice(
+  invoiceData: [*],
+  noRedirect: ?boolean,
+  memberId: number,
+) {
+  return async (dispatch: Dispatch) => {
     dispatch(actionCreateOrUpdateInvoice(invoiceData));
 
     const createOrUpdate = invoiceData.uuid
@@ -89,10 +126,10 @@ export function createOrUpdateInvoice(invoiceData, noRedirect, memberId) {
     try {
       const response = await createOrUpdate(invoiceData);
       const invoice = response.data;
-
       if (invoiceData.uuid) {
         dispatch(actionUpdateInvoiceSuccess(invoice));
         dispatch(snackbarSuccess('invoice.forms.update.success'));
+        dispatch(resetQuickInvoices(invoiceData.uuid));
       } else {
         dispatch(actionCreateInvoiceSuccess(invoice));
         dispatch(snackbarSuccess('invoice.forms.create.success'));
@@ -117,16 +154,16 @@ export function createOrUpdateReset() {
   return { type: types.INVOICE_CREATE_OR_UPDATE_RESET };
 }
 
-export function actionCreateOrUpdateInvoice(invoiceData) {
+export function actionCreateOrUpdateInvoice(invoiceData: [*]) {
   return { type: types.INVOICE_CREATE_OR_UPDATE, invoice: invoiceData };
 }
-export function actionCreateInvoiceSuccess(invoice) {
+export function actionCreateInvoiceSuccess(invoice: Invoice) {
   return { type: types.INVOICE_CREATE_SUCCESS, invoice };
 }
-export function actionUpdateInvoiceSuccess(invoice) {
+export function actionUpdateInvoiceSuccess(invoice: Invoice) {
   return { type: types.INVOICE_UPDATE_SUCCESS, invoice };
 }
-export function actionCreateOrUpdateInvoiceError(error) {
+export function actionCreateOrUpdateInvoiceError(error: ?Object) {
   return {
     type: types.INVOICE_CREATE_OR_UPDATE_ERROR,
     error: JSON.stringify(error),

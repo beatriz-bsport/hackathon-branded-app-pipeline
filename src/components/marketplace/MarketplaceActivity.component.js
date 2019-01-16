@@ -29,7 +29,7 @@ import { get, API_URI } from '../../http';
 import Map from '../establishment/Map.component';
 
 import ConsumerPackCheckout from '../consumer/ConsumerPackCheckout.component';
-import PaymentPackSummary from '../consumer/PaymentPackSummary.component';
+import PaymentPackSummary from '../payment-pack/PaymentPackSummary.component';
 
 import * as paymentActions from '../../actions/payment.actions';
 
@@ -150,18 +150,21 @@ export class MarketPlaceActivity extends React.Component<Props> {
                       <div key={p.id}>
                         <PaymentPackSummary
                           paymentPack={p}
-                          noDivider
-                          buyButton
-                        />
-                        <Button
-                          variant="outlined"
-                          color="primary"
-                          onClick={() =>
-                            this.props.goToPackPayment(p.id, this.props.offerId)
+                          buyButton={
+                            <Button
+                              variant="outlined"
+                              color="primary"
+                              onClick={() =>
+                                this.props.goToPackPayment(
+                                  p.id,
+                                  this.props.offerId,
+                                )
+                              }
+                            >
+                              {t('common.buy')}
+                            </Button>
                           }
-                        >
-                          {t('common.buy')}
-                        </Button>
+                        />
                       </div>
                     ))}
                   </div>

@@ -7,6 +7,7 @@ import * as stats from './stats.actions';
 import * as coach from './coach.actions';
 import * as member from './member.actions';
 import * as paymentPack from './paymentPack.actions';
+import * as consumerPaymentPack from './consumer-payment-pack.actions';
 import * as establishment from './establishment.actions';
 import * as category from './category.actions';
 import * as invoice from './invoice.actions';
@@ -34,6 +35,7 @@ export {
   coach,
   member,
   paymentPack,
+  consumerPaymentPack,
   category,
   search,
   companies,

@@ -25,10 +25,15 @@ export async function update(invoiceData) {
   );
 }
 
+export async function createQuick(invoiceData) {
+  return postAuth(`${API_URI}/payment/invoices/quick-create`, invoiceData);
+}
+
 export default {
   fetchAll,
   fetchSpecific,
   updatePaymentStatus,
   create,
   update,
+  createQuick,
 };

@@ -12,10 +12,7 @@ import {
   IconButton,
   withStyles,
   Dialog,
-  DialogTitle,
   DialogContent,
-  DialogContentText,
-  DialogActions,
   CircularProgress,
 } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
@@ -29,27 +26,25 @@ import memoize from 'memoize-one';
 
 import {
   booking as bookingActions,
-  search as searchActions,
   invoice as invoiceActions,
   offer as offerActions,
-} from '../actions';
-import BookingTable from '../components/booking/BookingTable.container';
-import SearchBar from '../components/SearchBar.component';
-import ResultList from '../components/search/ResultList.component';
-import MemberBookingHelper from '../components/search/MemberBookingHelper.component';
-import MemberForm from '../components/form/MemberForm.component';
-import QuickInvoice from '../components/invoice/QuickInvoice.component';
-import { createOrUpdateMember } from '../actions/member.actions';
-import RegisterMemberToOfferForm from '../components/form/RegisterMemberToOfferForm.component';
-import { formatAsDatetime } from '../datetime';
-import RedButton from '../components/button/RedButton.component';
-import { mapFormData } from './form.utils';
+} from '../../actions';
+import BookingTable from '../../components/booking/BookingTable.container';
+import ResultList from '../../components/search/ResultList.component';
+import MemberBookingHelper from './MemberBookingHelper.component';
+import MemberForm from '../../components/form/MemberForm.component';
+import { createOrUpdateMember } from '../../actions/member.actions';
+import { formatAsDatetime } from '../../datetime';
+import { mapFormData } from '../form.utils';
+
+import QuickInvoicePanel from './QuickInvoicePanel.component';
+import SearchMember from './SearchMember.component';
+import RevertBookingDialog from './RevertBookingDialog.component';
+import RegisterMemberToOfferForm from './RegisterMemberToOfferForm.component';
 
 type Props = {
   offerId: number,
   update: Offer,
-  clearSearch: () => void,
-  searchedText: string,
   offer: ?Offer,
   bookingLoading: ?boolean,
   bookingUpdaters: Object,
@@ -65,11 +60,18 @@ type Props = {
   shopItems: Array<ShopItem>,
   offers: Array<Event>,
   compatiblePacks: Array<PaymentPack>,
+  unevenSavedInvoices: Array<Invoice>,
 
   fetchBookings: (offerId: number) => void,
   fetchCompatiblePacks: (offerId: number) => void,
   createOrUpdateMember: (data: [*]) => void,
   createInvoice: ([*], number) => void,
+  resetQuickInvoices: () => void,
+  createQuickUnevenInvoice: ({
+    memberId: number,
+    offerId: number,
+    paymentPackId: number,
+  }) => void,
   addToOffer: ({
     offerId: number,
     consumerPaymentPackId: number,
@@ -85,19 +87,23 @@ type Props = {
 };
 
 type State = {
-  quickInvoices: [*],
+  quickInvoices: [*], // put here non-saved invoice
+  quickInvoiceEdit: [*], // put here invoice to edit
   addMemberModal: boolean,
   memberToRegister: ?Member,
+  searchedText: string,
 };
 export class OfferManagement extends Component<Props, State> {
   state = {
     quickInvoices: [],
     addMemberModal: false,
     memberToRegister: null,
+    searchedText: '',
   };
 
   componentWillMount() {
     this.props.fetchCompatiblePacks(this.props.offerId);
+    this.props.resetQuickInvoices();
   }
 
   closeQuickInvoice = (memberId) => {
@@ -108,6 +114,19 @@ export class OfferManagement extends Component<Props, State> {
     }));
   };
 
+  registerMemberAndOpenUnevenInvoice = (
+    memberId: number,
+    paymentPackId: number,
+  ) => {
+    const offerId = this.props.offer.id;
+    this.props.createQuickUnevenInvoice({ memberId, paymentPackId, offerId });
+    this.clearSearch();
+    this.setState({ memberToRegister: null });
+    setTimeout(() => {
+      this.props.fetchBookings(this.props.offerId);
+    }, 5000);
+  };
+
   registerMember = (consumerPaymentPackId: number) => {
     const { memberToRegister } = this.state;
     this.props.addToOffer({
@@ -115,16 +134,18 @@ export class OfferManagement extends Component<Props, State> {
       consumerPaymentPackId,
       memberId: memberToRegister.id,
     });
-    this.props.clearSearch();
+    this.clearSearch();
     this.setState({ memberToRegister: null });
   };
 
-  createInvoice = (invoiceData, memberId) => {
+  createInvoice = (invoiceData, memberId, isQuickInvoice) => {
     this.props.createInvoice(invoiceData, memberId);
-    this.closeQuickInvoice(memberId);
-    setTimeout(() => {
-      this.props.fetchBookings(this.props.offerId);
-    }, 5000);
+    if (!isQuickInvoice) {
+      this.closeQuickInvoice(memberId);
+      setTimeout(() => {
+        this.props.fetchBookings(this.props.offerId);
+      }, 5000);
+    }
   };
 
   createMember = async (data: *) => {
@@ -140,6 +161,7 @@ export class OfferManagement extends Component<Props, State> {
       accept_email: 'accept_email',
       accept_sms: 'accept_sms',
       date_joined: 'date_joined',
+      address: 'address',
     });
 
     if (this.props.update) {
@@ -152,7 +174,7 @@ export class OfferManagement extends Component<Props, State> {
 
   openAddMemberModal = () => {
     this.setState({ addMemberModal: true });
-    this.props.clearSearch();
+    this.clearSearch();
   };
 
   closeAddMemberModal = () => {
@@ -161,7 +183,6 @@ export class OfferManagement extends Component<Props, State> {
 
   componentDidMount() {
     this.props.fetchBookings(this.props.offerId);
-    this.props.clearSearch();
   }
 
   getFuse = memoize((items) => {
@@ -179,7 +200,7 @@ export class OfferManagement extends Component<Props, State> {
 
   getResults = () =>
     this.getFuse(this.props.members)
-      .search(this.props.searchedText)
+      .search(this.state.searchedText)
       .slice(0, 8);
 
   renderSearchedMember = (member: Member) => {
@@ -229,8 +250,10 @@ export class OfferManagement extends Component<Props, State> {
         quickInvoices: [...prevState.quickInvoices, quickInvoiceToAdd],
       }));
     }
-    this.props.clearSearch();
+    this.clearSearch();
   };
+
+  clearSearch = () => this.setState({ searchedText: '' });
 
   renderBookingHeader = () => {
     const { classes, t } = this.props;
@@ -254,47 +277,17 @@ export class OfferManagement extends Component<Props, State> {
               </IconButton>
             </Grid>
             <Grid item>
-              <SearchBar changeLocation={false} />
+              <SearchMember
+                onChange={(event) =>
+                  this.setState({ searchedText: event.target.value })
+                }
+                value={this.state.searchedText}
+                onReset={this.clearSearch}
+              />
             </Grid>
           </Grid>
         </Grid>
       </Grid>
-    );
-  };
-
-  renderQuickInvoicePanel = () => {
-    const { classes, t } = this.props;
-    const { quickInvoices } = this.state;
-    return (
-      <Paper>
-        <Typography className={classes.bookingsHeader} variant="title">
-          {t('offer.myOpenedInvoices')}
-        </Typography>
-        <Divider />
-        {quickInvoices.length ? (
-          <div>
-            {quickInvoices.map((qi) => (
-              <QuickInvoice
-                key={qi.member.id}
-                quickInvoice={qi}
-                onClose={() => this.closeQuickInvoice(qi.member.id)}
-                onSubmit={this.saveQuickInvoice}
-                paymentPacks={this.props.paymentPacks}
-                shopItems={this.props.shopItems}
-                offers={this.props.offers}
-                activities={this.props.activities}
-                createInvoice={(invoiceData) =>
-                  this.createInvoice(invoiceData, qi.member.id)
-                }
-              />
-            ))}
-          </div>
-        ) : (
-          <Typography variant="caption" className={classes.emptyTextContainer}>
-            {t('offer.noQuickInvoiceOpened')}
-          </Typography>
-        )}
-      </Paper>
     );
   };
 
@@ -306,75 +299,12 @@ export class OfferManagement extends Component<Props, State> {
     this.setState({ bookingToRevert: booking });
   };
 
-  handleBookingDeletion = (bookingId: number, memberId: number) => {
-    this.props.deleteBooking(bookingId, memberId);
-    this.closeRevertBookingDialog();
-  };
-
-  renderRevertBookingDialog = () => {
-    const { t } = this.props;
-    const { bookingToRevert } = this.state;
-    if (!bookingToRevert) {
-      return null;
-    }
-    if (bookingToRevert.payment_pack) {
-      return (
-        <Dialog
-          open={!!this.state.bookingToRevert}
-          onClose={this.closeRevertBookingDialog}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">
-            {t('booking.revertBookingTitle')}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              {t('booking.revertBookingExplain')(bookingToRevert.user.name)}
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.closeRevertBookingDialog} color="secondary">
-              {t('common.cancel')}
-            </Button>
-            <RedButton
-              onClick={() =>
-                this.handleBookingDeletion(
-                  bookingToRevert.id,
-                  bookingToRevert.member,
-                )
-              }
-              color="primary"
-              autoFocus
-            >
-              {t('common.confirm')}
-            </RedButton>
-          </DialogActions>
-        </Dialog>
-      );
-    }
-    return (
-      <Dialog
-        open={!!this.state.bookingToRevert}
-        onClose={this.closeRevertBookingDialog}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {t('booking.revertBookingTitle')}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            {t('booking.revertBookingWithInvoiceImpossibleExplain')}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={this.closeRevertBookingDialog} color="secondary">
-            {t('common.cancel')}
-          </Button>
-        </DialogActions>
-      </Dialog>
+  handleBookingDeletion = () => {
+    this.props.deleteBooking(
+      this.state.bookingToRevert.id,
+      this.state.bookingToRevert.member,
     );
+    this.closeRevertBookingDialog();
   };
 
   render() {
@@ -385,12 +315,11 @@ export class OfferManagement extends Component<Props, State> {
       bookingOptions,
       discardOption,
       bookingUpdaters,
-      searchedText,
       t,
       classes,
     } = this.props;
 
-    const { memberToRegister } = this.state;
+    const { searchedText, memberToRegister } = this.state;
 
     if (!offer) {
       return <CircularProgress />;
@@ -441,6 +370,7 @@ export class OfferManagement extends Component<Props, State> {
               </Grid>
               <Grid item>
                 <BookingTable
+                  sortedBy="name"
                   redirectToMember
                   loading={bookingLoading}
                   bookings={bookings}
@@ -457,7 +387,18 @@ export class OfferManagement extends Component<Props, State> {
           </Paper>
         </Grid>
         <Grid item xs={12} md={6}>
-          {this.renderQuickInvoicePanel()}
+          <QuickInvoicePanel
+            unevenSavedInvoices={this.props.unevenSavedInvoices}
+            quickInvoices={this.state.quickInvoices}
+            members={this.props.members}
+            createInvoice={this.createInvoice}
+            closeQuickInvoice={this.closeQuickInvoice}
+            saveQuickInvoice={this.saveQuickInvoice}
+            paymentPacks={this.props.paymentPacks}
+            shopItems={this.props.shopItems}
+            offers={this.props.offers}
+            activities={this.props.activities}
+          />
         </Grid>
         <Dialog
           onClose={() => this.setState({ memberToRegister: null })}
@@ -472,6 +413,12 @@ export class OfferManagement extends Component<Props, State> {
               compatiblePacks={this.props.compatiblePacks}
               onCancel={() => this.setState({ memberToRegister: null })}
               subscribeToOffer={this.registerMember}
+              subscribeToPackAndOffer={(paymentPackId) =>
+                this.registerMemberAndOpenUnevenInvoice(
+                  memberToRegister.id,
+                  paymentPackId,
+                )
+              }
             />
           </DialogContent>
         </Dialog>
@@ -490,7 +437,11 @@ export class OfferManagement extends Component<Props, State> {
             />
           </DialogContent>
         </Dialog>
-        {this.renderRevertBookingDialog()}
+        <RevertBookingDialog
+          handleBookingDeletion={this.handleBookingDeletion}
+          bookingToRevert={this.state.bookingToRevert}
+          closeRevertBookingDialog={this.closeRevertBookingDialog}
+        />
       </Grid>
     );
   }
@@ -507,7 +458,6 @@ function mapStateToProps(state, nextProps) {
     activities: state.activity.all,
     paymentPacks: state.paymentPack.all,
     shopItems: state.shop.all,
-    searchedText: state.search.text,
     members: state.member.all,
     bookings: state.booking.all,
     bookingLoading: state.booking.loading,
@@ -516,14 +466,12 @@ function mapStateToProps(state, nextProps) {
     memberCreationErrors: state.member.createOrUpdateErrors,
     compatiblePacks: state.offer.compatiblePacks.items,
     compatiblePacksLoading: state.offer.compatiblePacks.loading,
+    unevenSavedInvoices: state.invoice.quickInvoices,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    clearSearch() {
-      dispatch(searchActions.clearSearch(false));
-    },
     deleteBooking(bookingId, memberId) {
       dispatch(bookingActions.deleteBooking(bookingId, memberId));
     },
@@ -550,10 +498,21 @@ function mapDispatchToProps(dispatch) {
     createOrUpdateMember(data) {
       dispatch(createOrUpdateMember(data, true));
     },
-    createInvoice(invoiceData: InvoiceData, memberId: number) {
+    createInvoice(invoiceData: InvoiceData, memberId: number, isQuickInvoice) {
       dispatch(
-        invoiceActions.createOrUpdateInvoice(invoiceData, true, memberId),
+        invoiceActions.createOrUpdateInvoice(
+          invoiceData,
+          true,
+          memberId,
+          isQuickInvoice,
+        ),
       );
+    },
+    createQuickUnevenInvoice(data) {
+      dispatch(invoiceActions.createQuickInvoice(data));
+    },
+    resetQuickInvoices() {
+      dispatch(invoiceActions.resetQuickInvoices());
     },
     goBack() {
       dispatch(goBack());

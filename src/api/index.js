@@ -11,6 +11,7 @@ import activity from './activity';
 import coach from './coach';
 import member from './member';
 import paymentPack from './payment-pack';
+import consumerPaymentPack from './consumer-payment-pack';
 import payment from './payment';
 import consumer from './consumer';
 import metaActivity from './meta-activity';
@@ -31,6 +32,7 @@ export default {
   coach,
   member,
   paymentPack,
+  consumerPaymentPack,
   payment,
   consumer,
   companies,

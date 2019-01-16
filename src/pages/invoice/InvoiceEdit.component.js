@@ -92,6 +92,7 @@ export class InvoiceFormPage extends Component<Props> {
           createOrUpdate={this.updateInvoice}
           onCancel={goToInvoiceList}
           processing={updatingInvoice}
+          uneditableVoucher={invoice.voucher || 0}
         />
       </div>
     );

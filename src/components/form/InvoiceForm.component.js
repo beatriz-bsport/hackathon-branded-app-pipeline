@@ -42,6 +42,7 @@ type Props = {
   onCancel: () => void,
   createOrUpdate: (invoiceData: InvoiceDataFront) => void,
   updatePaymentStatus: (uuid: string, payment_received: boolean) => void,
+  uneditableVoucher: ?number,
   t: TFunction,
   classes: Object,
 };
@@ -445,6 +446,7 @@ export class InvoiceForm extends Component<Props, State> {
             shopItemInvoiceItems={shopItemInvoiceItems}
             uneditableInvoiceItems={uneditableInvoiceItems || []}
             voucher={voucher}
+            uneditableVoucher={parseFloat(this.props.uneditableVoucher)}
           />
         </Grid>
         <Grid item>{this.renderTotal()}</Grid>

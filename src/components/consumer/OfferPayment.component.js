@@ -18,7 +18,7 @@ import parse from '../../query-string';
 
 import OfferSummary from './OfferSummary.component';
 import ConsumerPackCheckout from './ConsumerPackCheckout.component';
-import PaymentPackSummary from './PaymentPackSummary.component';
+import PaymentPackSummary from '../payment-pack/PaymentPackSummary.component';
 import type { ConsumerPaymentPackConsumerView, Offer } from '../../api/types';
 
 type Props = {

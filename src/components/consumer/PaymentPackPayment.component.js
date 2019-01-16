@@ -7,7 +7,7 @@ import { translate } from 'react-i18next';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 
 import StripeCheckout from './StripeCheckout.component';
-import PaymentPackSummary from './PaymentPackSummary.component';
+import PaymentPackSummary from '../payment-pack/PaymentPackSummary.component';
 
 const STRIPE_KEY = process.env.REACT_APP_STRIPE_PK_KEY;
 

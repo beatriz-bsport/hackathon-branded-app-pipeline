@@ -13,7 +13,7 @@ import { translate } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import PriceInput from '../../input/PriceInput.component';
 import { Moment } from '../../../i18n';
-import PaymentPackSummary from '../../consumer/PaymentPackSummary.component';
+import PaymentPackSummary from '../../payment-pack/PaymentPackSummary.component';
 import type {
   Coach,
   Establishment,

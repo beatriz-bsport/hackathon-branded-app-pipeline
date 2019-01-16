@@ -1,7 +1,6 @@
 import Immutable from 'seamless-immutable';
 
 import actionTypes from '../actions/invoice.types';
-import authActionTypes from '../actions/auth.types';
 
 const initialState = Immutable({
   all: [],
@@ -10,31 +9,60 @@ const initialState = Immutable({
   errorSpecific: false,
   invoice: null,
   createOrUpdatePending: false,
+
+  quickInvoices: [],
+  quickInvoiceLoading: false,
 });
 
 export default function invoiceReducers(state = initialState, action = {}) {
   switch (action.type) {
-    case authActionTypes.DISCONNECT:
-      return initialState;
+    case actionTypes.INVOICE_QUICK_CREATE_START:
+      return state.merge({
+        quickInvoicesLoading: true,
+      });
+
+    case actionTypes.INVOICE_QUICK_CREATE_SUCCESS:
+      return state.merge({
+        quickInvoices: [...state.quickInvoices, action.invoice],
+        quickInvoicesLoading: false,
+      });
+
+    case actionTypes.INVOICE_QUICK_RESET:
+      if (action.uuid) {
+        return state.merge({
+          quickInvoiceLoading: false,
+          quickInvoices: state.quickInvoices.filter(
+            (qi) => qi.uuid !== action.uuid,
+          ),
+        });
+      }
+      return state.merge(state, {
+        quickInvoiceLoading: false,
+        quickInvoices: [],
+      });
+
+    case actionTypes.INVOICE_QUICK_CREATE_ERROR:
+      return state.merge({ quickInvoiceLoading: false });
+
     case actionTypes.HAS_FETCHED_INVOICES:
-      return Immutable.merge(state, {
+      return state.merge({
         loading: false,
         error: false,
         all: action.invoices,
       });
 
     case actionTypes.START_FETCH_INVOICES:
-      return Immutable.merge(state, { loading: true, error: false });
+      return state.merge({ loading: true, error: false });
 
     case actionTypes.ERROR_FETCHING_INVOICES:
-      return Immutable.merge(state, {
+      return state.merge({
         loading: false,
         error: true,
         errorMsg: action.error,
       });
 
     case actionTypes.INVOICE_SPECIFIC_SUCCESS_FETCH:
-      return Immutable.merge(state, {
+      return state.merge({
         loadingSpecific: false,
         errorSpecific: false,
         createOrUpdatePending: false,
@@ -42,14 +70,14 @@ export default function invoiceReducers(state = initialState, action = {}) {
       });
 
     case actionTypes.INVOICE_SPECIFIC_START_FETCH:
-      return Immutable.merge(state, {
+      return state.merge({
         loadingSpecific: true,
         errorSpecific: false,
         invoice: null,
       });
 
     case actionTypes.INVOICE_SPECIFIC_ERROR_FETCHING:
-      return Immutable.merge(state, {
+      return state.merge({
         loadingSpecific: false,
         errorSpecific: true,
         errorMsg: action.error,
@@ -57,12 +85,12 @@ export default function invoiceReducers(state = initialState, action = {}) {
       });
 
     case actionTypes.PAYMENT_ITEM_START_UPDATE_STATUS:
-      return Immutable.merge(state, {
+      return state.merge({
         refreshingSpecific: true,
       });
 
     case actionTypes.PAYMENT_ITEM_ERROR_PAYMENT_STATUS:
-      return Immutable.merge(state, {
+      return state.merge({
         refreshingSpecific: false,
       });
 
@@ -74,38 +102,38 @@ export default function invoiceReducers(state = initialState, action = {}) {
           ),
           action.payment,
         ];
-        return Immutable.merge(state, {
+        return state.merge({
           refreshingSpecific: false,
           invoice: { ...state.invoice, payments: refreshedPayments },
         });
       }
-      return Immutable.merge(state, {
+      return state.merge({
         refreshingSpecific: false,
       });
 
     case actionTypes.INVOICE_CREATE_OR_UPDATE_RESET:
-      return Immutable.merge(state, {
+      return state.merge({
         createOrUpdatePending: false,
       });
     case actionTypes.INVOICE_CREATE_OR_UPDATE:
-      return Immutable.merge(state, {
+      return state.merge({
         createOrUpdatePending: true,
       });
 
     case actionTypes.INVOICE_CREATE_SUCCESS:
-      return Immutable.merge(state, {
+      return state.merge({
         createOrUpdatePending: false,
         all: [...state.all, action.invoice],
       });
 
     case actionTypes.INVOICE_CREATE_OR_UPDATE_ERROR:
-      return Immutable.merge(state, {
+      return state.merge({
         createOrUpdateError: action.error,
         createOrUpdatePending: false,
       });
 
     case actionTypes.INVOICE_UPDATE_SUCCESS:
-      return Immutable.merge(state, {
+      return state.merge({
         all: [
           action.invoice,
           ...state.all.filter((inv) => inv.uuid !== action.invoice.uuid),

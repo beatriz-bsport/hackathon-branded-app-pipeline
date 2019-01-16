@@ -1,11 +1,8 @@
 // @flow
 import React, { Component } from 'react';
+import type { Node } from 'react';
 
-import {
-  ListItemSecondaryAction,
-  ListItem,
-  ListItemText,
-} from '@material-ui/core';
+import { ListItem, ListItemText } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { Moment } from '../../i18n';
 import { formatAsDate } from '../../datetime';
@@ -14,7 +11,7 @@ type Props = {
   t: (x: string) => string,
   paymentPack: Object,
   noDivider: boolean,
-  buyButton: boolean,
+  buyButton: ?Node,
 };
 
 export class PaymentPackMinimalSummary extends Component<Props> {
@@ -38,7 +35,7 @@ export class PaymentPackMinimalSummary extends Component<Props> {
         'paymentPack.validForNdays2',
       )}`;
     } else {
-      dateInfo = `${formatAsDate(
+      dateInfo = `${t('paymentPack.validity')} ${formatAsDate(
         Moment(validity_daterange.lower),
       )} - ${formatAsDate(Moment(JSON.parse(validity_daterange).upper))}`;
     }
@@ -47,12 +44,10 @@ export class PaymentPackMinimalSummary extends Component<Props> {
       <ListItem divider={!noDivider}>
         <ListItemText primary={name} secondary={creditsFormatted} />
         <ListItemText
-          primary={t('paymentPack.validity')}
-          secondary={dateInfo}
-          primaryTypographyProps={{ align: 'right' }}
-          secondaryTypographyProps={{ align: 'right' }}
+          primary={dateInfo}
+          primaryTypographyProps={{ align: 'right', variant: 'caption' }}
         />
-        {buyButton ? <ListItemSecondaryAction /> : null}
+        {buyButton}
       </ListItem>
     );
   }

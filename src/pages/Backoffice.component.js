@@ -27,7 +27,7 @@ import { PaymentPackList, PaymentPackForm } from './payment-pack';
 import { CoachList, CoachPerformance, CoachForm } from './coach';
 import { Member, MemberList, MemberForm } from './member';
 import { EstablishmentMap, EstablishmentFormPage } from './establishment';
-import OfferManagement from './OfferManagement.component';
+import OfferManagement from './offer-management/OfferManagement.component';
 import SearchResults from './SearchResults.component';
 import ShopManager from './shop/ShopManager.component';
 import Reporting from './reporting/Reporting.component';

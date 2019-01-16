@@ -18,7 +18,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import EditIcon from '@material-ui/icons/Edit';
 import { translate } from 'react-i18next';
-import { push as routerPush } from 'react-router-redux';
+import { goBack, push as routerPush } from 'react-router-redux';
 import { connect } from 'react-redux';
 
 import {
@@ -426,7 +426,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(routerPush(`/member/edit/${id}`));
     },
     goBack() {
-      dispatch(routerPush('/member'));
+      dispatch(goBack());
     },
     incrementCredit(consumerPackId) {
       dispatch(paymentPackActions.addCredit(consumerPackId, 1));

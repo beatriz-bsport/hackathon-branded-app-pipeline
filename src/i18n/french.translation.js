@@ -148,7 +148,8 @@ export default {
     },
     offer: {
       offersPendingChange: 'Séances qui seront modifiées :',
-      noPackAvailableForOfferPurchase:
+      noPackAvailableForOfferPurchase: 'Aucun abonnement compatible avec cette séance !',
+      noConsumerPackAvailableForPurchase:
         'Aucun abonnement compatible possédé par ce membre !',
       backToCalendar: 'Retour au calendrier',
       disabled: 'annulé',
@@ -271,6 +272,10 @@ export default {
         signupButton: "S'inscrire",
         iAcceptPrivacyPolicy: "J'accepte les ",
         privacyPolicy: "Conditions générales d'utilisation",
+      },
+      quickInvoice: {
+        totalPurchase: 'Achats',
+        totalPayment: 'Paiements',
       },
       invoice: {
         dateStartPaymentPack: "Début de l'abonnement le",

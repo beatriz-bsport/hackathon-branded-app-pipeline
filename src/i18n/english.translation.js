@@ -147,6 +147,8 @@ export default {
       offersPendingChange: 'Sessions pending change:',
       noPackAvailableForOfferPurchase:
         'No compatible pass found for this member!',
+      noConsumerPackAvailableForPurchase:
+        'No pass available for this session !',
       backToCalendar: 'Back to calendar',
       compatiblePacks: 'Pass compatible',
       noCompatiblePacks: 'There is no pass compatible with this session',
@@ -279,6 +281,10 @@ export default {
         signupButton: 'Signup',
         iAcceptPrivacyPolicy: 'I accept ',
         privacyPolicy: 'Term of use',
+      },
+      quickInvoice: {
+        totalPurchase: 'Purchases',
+        totalPayment: 'Payments',
       },
       invoice: {
         titleUnevenInvoice: 'Uneven invoice',

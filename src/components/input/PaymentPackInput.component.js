@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
-import PaymentPackSummary from '../consumer/PaymentPackSummary.component';
+import PaymentPackSummary from '../payment-pack/PaymentPackSummary.component';
 
 import type { PaymentPack } from '../../api/types';
 

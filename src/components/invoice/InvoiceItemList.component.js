@@ -24,6 +24,7 @@ type Props = {
   deletePPackInvoiceItem: (id: number) => void,
   deleteShopItemInvoiceItem: (id: number) => void,
   deleteVoucher: () => void,
+  uneditableVoucher: ?number,
   compact: boolean,
   classes: Object,
   t: TFunction,
@@ -55,36 +56,30 @@ export class InvoiceItemList extends Component<Props> {
     </ListItem>
   );
 
-  // prettier-ignore
-  renderOfferInvoiceItem = (invoiceItem) => (
-    this.renderInvoiceItem(invoiceItem, this.props.deleteOfferInvoiceItem)
-    )
+  renderOfferInvoiceItem = (invoiceItem) =>
+    this.renderInvoiceItem(invoiceItem, this.props.deleteOfferInvoiceItem);
 
-  // prettier-ignore
-  renderPPackInvoiceItem = (invoiceItem) => (
-    this.renderInvoiceItem(invoiceItem, this.props.deletePPackInvoiceItem)
-  )
+  renderPPackInvoiceItem = (invoiceItem) =>
+    this.renderInvoiceItem(invoiceItem, this.props.deletePPackInvoiceItem);
 
-  // prettier-ignore
-  renderShopItemInvoiceItem= (invoiceItem) => (
-    this.renderInvoiceItem(invoiceItem, this.props.deleteShopItemInvoiceItem)
-  )
+  renderShopItemInvoiceItem = (invoiceItem) =>
+    this.renderInvoiceItem(invoiceItem, this.props.deleteShopItemInvoiceItem);
 
-  // prettier-ignore
-  renderVoucherInvoiceItem = (voucher: number) => {
+  renderVoucherInvoiceItem = (voucher: number, editable: boolean) => {
     const { t } = this.props;
     const voucherAsInvoiceItem = {
-          name: t('payment.voucher'),
-          price: -voucher,
-          id: -1,
-        };
-      return this.renderInvoiceItem(voucherAsInvoiceItem, this.props.deleteVoucher);
-  }
+      name: t('payment.voucher'),
+      price: -voucher,
+      id: -1,
+    };
+    return this.renderInvoiceItem(
+      voucherAsInvoiceItem,
+      editable ? this.props.deleteVoucher : null,
+    );
+  };
 
-  // prettier-ignore
-  renderUneditableItems = (invoiceItem) => (
-    this.renderInvoiceItem(invoiceItem, null)
-  )
+  renderUneditableItems = (invoiceItem) =>
+    this.renderInvoiceItem(invoiceItem, null);
 
   render() {
     const {
@@ -92,6 +87,7 @@ export class InvoiceItemList extends Component<Props> {
       shopItemInvoiceItems,
       voucher,
       uneditableInvoiceItems,
+      uneditableVoucher,
       compact,
       classes,
     } = this.props;
@@ -104,7 +100,10 @@ export class InvoiceItemList extends Component<Props> {
           {// prettier-ignore
           paymentPackInvoiceItems.map((ii) => this.renderPPackInvoiceItem(ii))}
           {shopItemInvoiceItems.map((ii) => this.renderShopItemInvoiceItem(ii))}
-          {voucher ? this.renderVoucherInvoiceItem(voucher) : null}
+          {voucher ? this.renderVoucherInvoiceItem(voucher, true) : null}
+          {uneditableVoucher
+            ? this.renderVoucherInvoiceItem(uneditableVoucher, false)
+            : null}
         </List>
       </div>
     );

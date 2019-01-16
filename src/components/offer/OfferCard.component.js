@@ -28,7 +28,7 @@ import { translate } from 'react-i18next';
 
 import { Level, Sport } from '../category';
 import Avatar from '../Avatar.component';
-import PaymentPackSummary from '../consumer/PaymentPackSummary.component';
+import PaymentPackSummary from '../payment-pack/PaymentPackSummary.component';
 import RedButton from '../button/RedButton.component';
 
 import { formatAsTime } from '../../datetime';

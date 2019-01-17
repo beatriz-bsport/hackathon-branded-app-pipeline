@@ -8,9 +8,11 @@ import {
   FormGroup,
   Checkbox,
   TextField,
+  Select,
   Grid,
   Button,
   Typography,
+  InputLabel,
   withStyles,
 } from '@material-ui/core';
 import PhoneInput from 'react-phone-number-input';
@@ -223,147 +225,127 @@ export class SignUpForm extends Component<Props, State> {
     }
     return (
       <form onSubmit={this.goToAddressForm} className={classes.container}>
-        <Grid container direction="column" spacing={16} alignItems="flex-start">
-          <Grid item>
-            <Grid
-              container
-              direction="row"
-              spacing={16}
-              alignItems="flex-start"
-            >
-              <Grid item>
-                <TextField
-                  required
-                  autoComplete="first name"
-                  value={this.state.first_name}
-                  label={t('common.firstname')}
-                  onChange={this.onFormFieldChange('first_name')}
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  required
-                  autoComplete="last name"
-                  value={this.state.last_name}
-                  label={t('common.lastname')}
-                  onChange={this.onFormFieldChange('last_name')}
-                />
-              </Grid>
-            </Grid>
+        <Grid container direction="row" spacing={16}>
+          <Grid item xs={12} md={6}>
+            <TextField
+              required
+              fullWidth
+              autoComplete="first name"
+              value={this.state.first_name}
+              label={t('common.firstname')}
+              onChange={this.onFormFieldChange('first_name')}
+            />
           </Grid>
-          <Grid item>
+          <Grid item xs={12} md={6}>
+            <TextField
+              required
+              fullWidth
+              autoComplete="last name"
+              value={this.state.last_name}
+              label={t('common.lastname')}
+              onChange={this.onFormFieldChange('last_name')}
+            />
+          </Grid>
+          <Grid item xs={12}>
             <GenderInput
+              fullWidth
               value={this.state.gender}
               onChange={this.handleGender}
               required
             />
           </Grid>
-          <Grid item>
-            <Grid container direction="row" spacing={16} alignItems="flex-end">
-              <Grid item>
-                <EmailInput
-                  required
-                  type="email"
-                  autoComplete="email"
-                  value={this.state.email}
-                  label={t('common.email')}
-                  onChange={this.onFormFieldChange('email')}
-                />
-              </Grid>
-              <Grid item>
-                <PhoneInput
-                  country="FR"
-                  autoComplete="tel"
-                  placeholder={t('form.signup.typePhone')}
-                  value={this.state.phone}
-                  required
-                  onChange={(phone) => this.setState({ phone })}
-                />
-              </Grid>
-            </Grid>
+          <Grid item xs={12} md={6}>
+            <EmailInput
+              fullWidth
+              required
+              type="email"
+              autoComplete="email"
+              value={this.state.email}
+              label={t('common.email')}
+              onChange={this.onFormFieldChange('email')}
+            />
           </Grid>
-          <Grid item>
-            <Grid container direction="row" spacing={16} alignItems="flex-end">
-              <Grid item>
-                <TextField
-                  type="password"
-                  required
-                  value={password}
-                  error={!this.state.passwordIsConform}
-                  onChange={this.onPasswordChange}
-                  placeholder={t('form.password')}
-                  label={t('form.password')}
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  type="password"
-                  required
-                  value={passwordConfirm}
-                  error={!passwordEqual}
-                  onChange={this.onPasswordConfirmChange}
-                  placeholder={t('form.signup.confirmPassword')}
-                  label={t('form.signup.confirmPasswordLabel')}
-                />
-              </Grid>
-            </Grid>
+          <Grid item xs={12} md={6}>
+            <FormControl fullWidth>
+              <InputLabel shrink htmlFor="phone-helper">
+                {t('form.signup.typePhone')}
+              </InputLabel>
+              <PhoneInput
+                fullWidth
+                country="FR"
+                autoComplete="tel"
+                value={this.state.phone}
+                selectCountryComponent={Select}
+                required
+                className={classes.phoneInput}
+                onChange={(phone) => this.setState({ phone })}
+              />
+            </FormControl>
           </Grid>
-          <Grid item>{this.renderRGPD()}</Grid>
-          <Grid item>
-            <Grid
-              container
-              direction="row"
-              alignItems="center"
-              justify="flex-start"
-            >
-              <Grid item>
-                <FormGroup aria-label="privacy-policy" name="privacy-policy">
-                  <FormControlLabel
-                    label={
-                      <Typography>
-                        {t('form.signup.iAcceptPrivacyPolicy')}
-                        <a href="https://bsport.io/blog/privacy_policy">
-                          {t('form.signup.privacyPolicy').toLowerCase()}
-                        </a>
-                        {'.'}
-                      </Typography>
-                    }
-                    control={
-                      <Checkbox
-                        checked={this.state.acceptPrivacyPolicy}
-                        onChange={(event) =>
-                          this.setState({
-                            acceptPrivacyPolicy: event.target.checked,
-                          })
-                        }
-                      />
+          <Grid item xs={12} md={6}>
+            <TextField
+              type="password"
+              fullWidth
+              required
+              value={password}
+              error={!this.state.passwordIsConform}
+              onChange={this.onPasswordChange}
+              placeholder={t('form.password')}
+              label={t('form.password')}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              type="password"
+              fullWidth
+              required
+              value={passwordConfirm}
+              error={!passwordEqual}
+              onChange={this.onPasswordConfirmChange}
+              placeholder={t('form.signup.confirmPassword')}
+              label={t('form.signup.confirmPasswordLabel')}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            {this.renderRGPD()}
+          </Grid>
+          <Grid item xs={12}>
+            <FormGroup aria-label="privacy-policy" name="privacy-policy">
+              <FormControlLabel
+                label={
+                  <Typography>
+                    {t('form.signup.iAcceptPrivacyPolicy')}
+                    <a href="https://bsport.io/blog/privacy_policy">
+                      {t('form.signup.privacyPolicy').toLowerCase()}
+                    </a>
+                    {'.'}
+                  </Typography>
+                }
+                control={
+                  <Checkbox
+                    checked={this.state.acceptPrivacyPolicy}
+                    onChange={(event) =>
+                      this.setState({
+                        acceptPrivacyPolicy: event.target.checked,
+                      })
                     }
                   />
-                </FormGroup>
-              </Grid>
-            </Grid>
+                }
+              />
+            </FormGroup>
           </Grid>
-          <Grid item>
-            <Grid
-              container
-              item
-              direction="row"
-              justify="flex-end"
-              alignItems="flex-end"
-              spacing={16}
+          <Grid item xs={12} className={classes.actions}>
+            <Button color="secondary" onClick={this.props.onCancel}>
+              {t('common.cancel')}
+            </Button>
+            <Button
+              type="submit"
+              color="primary"
+              variant="contained"
+              disabled={!this.state.acceptPrivacyPolicy}
             >
-              <Button color="secondary" onClick={this.props.onCancel}>
-                {t('common.cancel')}
-              </Button>
-              <Button
-                type="submit"
-                color="primary"
-                variant="contained"
-                disabled={!this.state.acceptPrivacyPolicy}
-              >
-                {t('form.signup.signupButton')}
-              </Button>
-            </Grid>
+              {t('form.signup.signupButton')}
+            </Button>
           </Grid>
         </Grid>
       </form>
@@ -376,6 +358,10 @@ const styles = (theme) => ({
   rgpdControl: {
     marginTop: theme.spacing.unit * 2,
   },
+  actions: {
+    textAlign: 'right',
+  },
+  phoneInput: { marginTop: 18 },
 });
 
 export default translate()(withStyles(styles)(SignUpForm));

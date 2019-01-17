@@ -22,12 +22,13 @@ type Props = {
   t: TFunction,
   onChange: (string) => void,
   value: string,
+  fullWidth?: boolean,
 };
 
 export function GenderInput(props: Props) {
-  const { t, value, onChange, classes } = props;
+  const { t, value, onChange, classes, fullWidth } = props;
   return (
-    <FormControl className={classes.formControl}>
+    <FormControl className={classes.formControl} fullWidth={fullWidth}>
       <InputLabel shrink htmlFor="gender-helper">
         {t('form.gender')}
       </InputLabel>
@@ -42,5 +43,7 @@ export function GenderInput(props: Props) {
     </FormControl>
   );
 }
+
+GenderInput.defaultProps = { fullWidth: false };
 
 export default withStyles(styles)(translate()(GenderInput));

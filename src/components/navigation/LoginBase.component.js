@@ -8,7 +8,7 @@ import B_ASSET from '../../public/images/b_dark.jpg';
 
 const styles = (theme) => ({
   container: {
-    maxWidth: 500,
+    maxWidth: 320,
     margin: '50px auto',
     textAlign: 'center',
     padding: 0,

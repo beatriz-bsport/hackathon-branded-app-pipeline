@@ -43,6 +43,7 @@ export default {
       "Montant fixe reversé pour toute séance avec suffisamment d'inscrits",
   },
   translation: {
+    button: { login: 'Connexion' },
     report: {
       delete: "Suppression d'un rapport",
     },

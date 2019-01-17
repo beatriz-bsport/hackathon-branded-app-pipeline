@@ -36,5 +36,6 @@ export const CATEGORIES: ReportCategory[] = [
 ];
 
 export function getIconFromCategory(category: ReportCategoryEnum): * {
-  return CATEGORIES.find((c) => c.id === category).icon || LensIcon;
+  const cat = CATEGORIES.find((c) => c.id === category);
+  return (cat && cat.icon) || LensIcon;
 }

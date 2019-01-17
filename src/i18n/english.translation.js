@@ -30,6 +30,7 @@ export default {
       'Amount given to every booking over threshold',
   },
   translation: {
+    button: { login: 'Log in' },
     metaActivity: {
       update: {
         imageUploaderRequireEditMessage:

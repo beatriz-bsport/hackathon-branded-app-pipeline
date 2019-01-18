@@ -40,8 +40,10 @@ export function PaymentTable(props: Props) {
             <CustomTableCell>ID</CustomTableCell>
             <CustomTableCell>{t('payment.consumer')}</CustomTableCell>
             <CustomTableCell>{t('payment.type')}</CustomTableCell>
-            <CustomTableCell numeric>{t('payment.amount')}</CustomTableCell>
-            <CustomTableCell numeric>
+            <CustomTableCell align="right">
+              {t('payment.amount')}
+            </CustomTableCell>
+            <CustomTableCell align="right">
               {t('payment.paymentDate')}
             </CustomTableCell>
           </TableRow>
@@ -54,8 +56,8 @@ export function PaymentTable(props: Props) {
               </CustomTableCell>
               <CustomTableCell>{n.name}</CustomTableCell>
               <CustomTableCell>{n.kind}</CustomTableCell>
-              <CustomTableCell numeric>{n.price}</CustomTableCell>
-              <CustomTableCell numeric>{n.date}</CustomTableCell>
+              <CustomTableCell align="right">{n.price}</CustomTableCell>
+              <CustomTableCell align="right">{n.date}</CustomTableCell>
             </TableRow>
           ))}
         </TableBody>

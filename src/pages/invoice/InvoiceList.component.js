@@ -138,7 +138,7 @@ export class InvoiceList extends Component<Props, State> {
         {(this.props.members.find((m) => m.id === inv.member) || {}).name}
       </TableCell>
       <TableCell>{formatAsDatetime(inv.date)}</TableCell>
-      <TableCell>{inv.price_payed} €</TableCell>
+      <TableCell>{inv.price_due} €</TableCell>
       <TableCell>{renderStatus(inv)}</TableCell>
     </TableRow>
   );

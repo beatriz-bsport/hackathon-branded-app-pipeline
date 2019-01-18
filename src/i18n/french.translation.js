@@ -558,7 +558,7 @@ export default {
       welcome: 'Bienvenue !',
       signUpConsumer: 'Pas encore de compte ?',
       invalidPhone: 'Numéro de téléphone inconnu',
-      choseYourUserspace: 'Qui êtes-vous ?',
+      choseYourUserspace: 'Je suis',
       loginAsPro: 'Un manager de club de sport',
       loginAsConsumer: 'Un sportif',
       noAccount: 'Pas encore compte ? Créez-en un ici !',

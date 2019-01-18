@@ -287,7 +287,6 @@ export class FormField extends Component<Props, State> {
           <FormControl
             className={classes.formControl}
             required={required}
-            margin="normal"
             fullWidth
           >
             <InputLabel htmlFor="gender-helper">{t('form.gender')}</InputLabel>

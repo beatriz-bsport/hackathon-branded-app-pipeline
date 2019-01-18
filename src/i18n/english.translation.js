@@ -30,6 +30,7 @@ export default {
       'Amount given to every booking over threshold',
   },
   translation: {
+    button: { login: 'Log in' },
     metaActivity: {
       update: {
         imageUploaderRequireEditMessage:
@@ -527,7 +528,7 @@ export default {
       welcome: 'Welcome !',
       signUpConsumer: 'Create an account ?',
       invalidPhone: 'Unknown phone number',
-      choseYourUserspace: 'Who are you ?',
+      choseYourUserspace: 'I am',
       loginAsPro: 'I am a club manager',
       loginAsConsumer: 'I am an athlete',
       noAccount: 'No account ? Create one !',

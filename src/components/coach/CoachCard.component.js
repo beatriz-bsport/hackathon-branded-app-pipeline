@@ -102,13 +102,7 @@ export class CoachCard extends Component<Props> {
             </Tooltip>
           </Grid>
         </Grid>
-        <Grid
-          container
-          item
-          direction="row"
-          justify="flex-end"
-          className={classes.ruleContainer}
-        >
+        <Grid item className={classes.ruleContainer}>
           <div ref={this.refPaymentRuleSelector}>
             <PaymentRuleSelector
               paymentRules={paymentRules}

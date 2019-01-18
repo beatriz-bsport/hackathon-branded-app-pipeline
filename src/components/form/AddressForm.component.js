@@ -167,7 +167,7 @@ export class AddressForm extends Component<Props, State> {
 
 const styles = (theme) => ({
   container: {
-    padding: theme.spacing.unit * 2,
+    padding: 0,
   },
   street: {
     flexDirection: 'row',

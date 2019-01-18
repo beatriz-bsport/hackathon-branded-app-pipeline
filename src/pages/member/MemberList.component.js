@@ -38,6 +38,7 @@ export class Members extends Component<Props, State> {
       {
         id: 'name',
         label: t('common.name'),
+        sortable: true,
       },
       {
         id: 'offers_joined',
@@ -46,6 +47,7 @@ export class Members extends Component<Props, State> {
       {
         id: 'status',
         label: t('booking.lastBooking'),
+        sortable: true,
       },
       {
         id: 'date_joined',

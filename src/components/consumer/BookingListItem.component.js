@@ -12,7 +12,7 @@ import {
   ListItemSecondaryAction,
 } from '@material-ui/core';
 import CancelIcon from '@material-ui/icons/Cancel';
-import { formatAsDatetime } from '../../datetime';
+import { humanizeDuration, formatAsDatetime } from '../../datetime';
 import type { Booking } from '../../api/types';
 
 type Props = {
@@ -45,7 +45,9 @@ export class BookingListItem extends Component<Props> {
         ) : null}
         <ListItemText
           primary={activity.name}
-          secondary={formatAsDatetime(offer.date_start)}
+          secondary={`${formatAsDatetime(
+            offer.date_start,
+          )} - ${humanizeDuration(offer.duration_minute * 60000)}`}
         />
         {onDiscard ? (
           <ListItemSecondaryAction>

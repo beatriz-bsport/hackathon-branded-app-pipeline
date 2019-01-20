@@ -20,6 +20,7 @@ import FormField, {
   WEEKLY,
   MONTHLY,
 } from '../input/FormField.component';
+import DurationInput from '../input/DurationInput.component';
 import type { Coach, MetaActivity, Establishment } from '../../api/types';
 
 const styles = (theme) => ({
@@ -274,11 +275,10 @@ export class OfferForm extends Component<Props, State> {
           <Typography variant="title">{t('form.timeSettings')}</Typography>
         </Grid>
         <Grid item>
-          <FormField
-            id="duration_minute"
-            value={this.state.duration_minute}
+          <DurationInput
             required
-            onChange={this.onFormFieldChange}
+            value={this.state.duration_minute}
+            onChange={this.onFormFieldChange('duration_minute')}
           />
         </Grid>
         <Grid item>

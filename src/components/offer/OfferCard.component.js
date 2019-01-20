@@ -31,7 +31,7 @@ import Avatar from '../Avatar.component';
 import PaymentPackSummary from '../payment-pack/PaymentPackSummary.component';
 import RedButton from '../button/RedButton.component';
 
-import { formatAsTime } from '../../datetime';
+import { formatAsTime, humanizeDuration } from '../../datetime';
 import type { Offer, PaymentPack } from '../../api/types';
 
 type Props = {
@@ -206,7 +206,13 @@ export class OfferCard extends Component<Props> {
       onEditButtonClick,
       onDeleteButtonClick,
     } = this.props;
-    const { available, date_start, coach, coach_override } = offer;
+    const {
+      available,
+      date_start,
+      coach,
+      coach_override,
+      duration_minute,
+    } = offer;
     return (
       <Grid
         container
@@ -244,7 +250,9 @@ export class OfferCard extends Component<Props> {
                 </Grid>
                 <Grid item>
                   <Typography variant="title">
-                    {formatAsTime(date_start)}
+                    {`${formatAsTime(date_start)} - ${humanizeDuration(
+                      duration_minute * 60000,
+                    )}`}
                   </Typography>
                 </Grid>
               </Grid>

@@ -4,6 +4,9 @@ import React from 'react';
 
 import { Field, ErrorMessage } from 'formik';
 
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
+
 import DatePicker from 'material-ui-pickers/DatePicker';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -13,7 +16,9 @@ import {
   Button as MuiButton,
 } from '@material-ui/core';
 
-type AlertErrorProps = {};
+type AlertErrorProps = {
+  t: TFunction,
+};
 
 const styles = (theme) => ({
   alertError: {
@@ -23,19 +28,21 @@ const styles = (theme) => ({
   },
 });
 
-export const AlertError = withStyles(styles)((props: AlertErrorProps) => {
-  const { classes } = props;
-  return (
-    <ErrorMessage
-      {...props}
-      render={(message) => (
-        <Typography variant="body2" className={classes.alertError}>
-          {message}
-        </Typography>
-      )}
-    />
-  );
-});
+export const AlertError = withNamespaces([])(
+  withStyles(styles)((props: AlertErrorProps) => {
+    const { classes, t } = props;
+    return (
+      <ErrorMessage
+        {...props}
+        render={(message) => (
+          <Typography variant="body2" className={classes.alertError}>
+            {t(message)}
+          </Typography>
+        )}
+      />
+    );
+  }),
+);
 
 export function TextField(props: props) {
   return (
@@ -87,10 +94,13 @@ export const DateField = (props: DateFieldProps) => {
   return (
     <Field
       {...props}
-      render={({ field, form: { touched, errors } }) => (
+      render={({ field, form: { touched, errors, setFieldValue } }) => (
         <DatePicker
           {...field}
           {...props}
+          onChange={(date) => {
+            setFieldValue(props.name, date);
+          }}
           format="DD/MM/YYYY"
           error={!!(touched[field.name] && errors[field.name])}
         />
@@ -125,6 +135,7 @@ export const FormControl = withStyles(formControlStyles)(
 );
 
 export function addFieldsErrors(errors, setFieldError) {
+  if (!errors) return;
   Object.keys(errors).forEach((key) => {
     const messages = errors[key];
     if (messages.length) {
@@ -135,7 +146,9 @@ export function addFieldsErrors(errors, setFieldError) {
 
 export function bindFormHandlers({ setSubmitting, setFieldError }) {
   return {
-    onSuccess: () => setSubmitting(false),
+    onSuccess: () => {
+      setSubmitting(false);
+    },
     onError: (errors) => {
       setSubmitting(false);
       addFieldsErrors(errors, setFieldError);

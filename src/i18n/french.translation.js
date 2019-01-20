@@ -67,6 +67,10 @@ export default {
       CHECK: 'Chèque',
       CB_MANUAL: 'Carte bancaire (manuel)',
     },
+    errors: {
+      end_before_start: 'La date de fin doit être après la date de début',
+      start_after_end: 'La date de début doit être antérieure à la date de fin',
+    },
     members: {
       form: {
         title: 'Nouveau membre',

@@ -41,6 +41,10 @@ export default {
       delete: 'Report deletion',
     },
     companies,
+    errors: {
+      end_before_start: 'End date must be after start date',
+      start_after_end: 'Start date must be before end date',
+    },
     error: {
       connectionError: 'Connection error',
     },

@@ -14,27 +14,43 @@ type Props = {
   resultLoading?: boolean,
   report: ReportConfiguration,
   result: ReportExtractResult,
+  metadata: ReportMetadata,
   handleGenerate: (*) => void,
   exportLink?: string,
+  dateRange: *,
 };
 
 export default function ReportGeneration(props: Props) {
-  const { report, result, resultLoading, handleGenerate, exportLink } = props;
+  const {
+    report,
+    result,
+    resultLoading,
+    handleGenerate,
+    exportLink,
+    metadata,
+    dateRange,
+  } = props;
 
-  if (!report || report.loading) {
+  if (!report || report.loading || metadata.loading) {
     return <LinearProgress />;
   }
 
   return (
     <div>
       <ReportGenerationForm
+        initial={dateRange}
         reportConfiguration={report}
         onSubmit={handleGenerate}
         exportLink={exportLink}
       />
       {resultLoading ? <LinearProgress /> : null}
       <Paper>
-        <ReportTable report={report} result={result} loading={resultLoading} />
+        <ReportTable
+          report={report}
+          result={result}
+          loading={resultLoading}
+          metadata={metadata}
+        />
       </Paper>
     </div>
   );

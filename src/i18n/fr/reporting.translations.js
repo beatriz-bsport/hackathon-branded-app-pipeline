@@ -12,18 +12,32 @@ export default {
     activity_date: "Date de l'activité",
     activity_duration: 'Durée',
     member_identifier: 'ID Membre',
+    payment_date: 'Date de paiement',
+    payment_method: 'Méthode de paiement',
+    product_price: 'Prix',
+    product: 'Produit',
+    product_type: 'Type de produit',
+  },
+  payment_method: {
+    cash: 'Espèces',
+    check: 'Chèque',
+    stripe: 'CB',
+  },
+  product_type: {
+    payment_pack: 'Abonnement',
   },
   report: {
     delete_message: 'Êtes-vous sûr de vouloir supprimer le rapport {{name}} ?',
   },
   form: {
     title: 'Nouveau rapport',
-    name: 'Name',
+    name: 'Nom',
     description: 'Description',
     category: 'Catégorie',
     columns: 'Colonnes',
   },
   list: {
     empty: 'Aucun rapport ? Créer un premier rapport !',
+    button_new: 'Je crée mon premier rapport',
   },
 };

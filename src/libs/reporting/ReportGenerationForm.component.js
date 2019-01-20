@@ -40,7 +40,12 @@ type Props = {
 
 const ReportGenerationSchema = Yup.object().shape({
   dateStart: Yup.date().required('required'),
-  dateEnd: Yup.date().required('required'),
+  dateEnd: Yup.date()
+    .required('required')
+    .test('is-after-start', 'errors.end_before_start', function(dateEnd) {
+      const { dateStart } = this.parent;
+      return moment(dateStart).isSameOrBefore(moment(dateEnd));
+    }),
 });
 
 function DownloadButton(props: DownloadButtonProps) {
@@ -51,17 +56,10 @@ function DownloadButton(props: DownloadButtonProps) {
       color="secondary"
       onClick={async () => {
         const response = await getAuth(exportLink);
-        const filename = /"(.+)"/gi.exec(
-          response.headers['content-disposition'],
-        )[1];
-        const file = new Blob([response.data], {
-          type: response.headers['content-type'],
-        });
         const link = document.createElement('a');
         link.setAttribute('type', 'hidden');
-        link.target = '_blank';
-        link.href = window.URL.createObjectURL(file);
-        link.download = filename;
+        link.href = response.data;
+        link.download = response.data.split('/').pop();
         document.body.appendChild(link);
         link.click();
         link.remove();

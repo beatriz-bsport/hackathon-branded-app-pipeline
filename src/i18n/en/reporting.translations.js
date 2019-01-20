@@ -12,18 +12,32 @@ export default {
     activity_date: 'Date',
     activity_duration: 'Duration',
     member_identifier: 'Member identifier',
+    payment_date: 'Transaction date',
+    payment_method: 'Payment method',
+    product_price: 'Prix',
+    product: 'Product',
+    product_type: 'Type de produit',
+  },
+  payment_method: {
+    cash: 'Cash',
+    check: 'Check',
+    stripe: 'Credit card',
+  },
+  product_type: {
+    payment_pack: 'Membership card',
   },
   report: {
     delete_message: 'Are you sure you want to remove the report {{name}} ?',
   },
   form: {
     title: 'New report',
-    name: 'Nom',
+    name: 'Name',
     description: 'Description',
     category: 'Category',
     columms: 'Columns',
   },
   list: {
     empty: 'No reports here? Create a new one now!',
+    button_new: 'I create my first report',
   },
 };

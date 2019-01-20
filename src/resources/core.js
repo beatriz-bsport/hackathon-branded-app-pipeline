@@ -94,17 +94,21 @@ export type UpsertOptions<T> = {
 const DEFAULT_VERBS = {
   get: {
     effect(path, action) {
-      return (...args) => {
+      return (id, params = {}, options = {}) => {
         return async (dispatch) => {
           dispatch(action.start());
 
           try {
-            const url = `${API_URI}/${createUri(path, args)}`;
+            const url = `${API_URI}/${createUri(path, [id].concat([params]))}`;
             const response = await getAuth(url);
             dispatch(action.success(response.data));
+            if (options && options.onSuccess) options.onSuccess(response.data);
           } catch (error) {
             dispatch(action.error(error));
             handleError(error);
+            if (options && options.onError) {
+              options.onError(error.response && error.response.data);
+            }
           }
         };
       };

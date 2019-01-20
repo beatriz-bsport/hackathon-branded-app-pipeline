@@ -9,6 +9,7 @@ import type { TFunction } from 'react-i18next';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Fab from '@material-ui/core/Fab';
+import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -101,9 +102,17 @@ export function ReportDashboard(props: Props) {
           />
         </div>
       ) : (
-        <Typography variant="body1" className={classes.messageNoReports}>
-          {t('list.empty')}
-        </Typography>
+        <div className={classes.messageNoReports}>
+          <Typography variant="body1">{t('list.empty')}</Typography>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => setShowModalAdd(true)}
+            className={classes.buttonNew}
+          >
+            {t('list.button_new')}
+          </Button>
+        </div>
       )}
       <Fab
         color="primary"
@@ -151,6 +160,9 @@ const styles = (theme) => ({
     textAlign: 'center',
     paddingTop: theme.spacing.unit * 10,
     paddingBottom: theme.spacing.unit * 10,
+  },
+  buttonNew: {
+    marginTop: theme.spacing.unit,
   },
 });
 

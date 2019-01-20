@@ -1,5 +1,6 @@
 // @flow
 
+import moment from 'moment';
 import React from 'react';
 
 import { compose, withProps, withState } from 'recompose';
@@ -10,31 +11,52 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import ReportGeneration from '../../libs/reporting/ReportGeneration.component';
 
-import { reports, reportResult, urls } from '../../resources/reporting';
+import {
+  reports,
+  reportResult,
+  reportMetadata,
+  urls,
+} from '../../resources/reporting';
 
 import type {
   ReportConfiguration,
   ReportExtractResult,
+  ReportMetadata,
 } from '../../libs/reporting/types';
 
 type Props = {
   report: ReportConfiguration,
   result: ReportExtractResult,
+  metadata: ReportMetadata,
   exportLink: string,
   fetchReports: () => void,
+  fetchReportMetadata: () => void,
   handleGenerate: () => void,
+  dateRange: *,
 };
 
 export class ReportingGeneration extends React.Component<Props> {
   componentWillMount() {
+    const { dateRange } = this.props;
     this.props.fetchReports();
+    this.props.fetchReportMetadata();
+    this.props.handleGenerate(dateRange);
   }
 
   render() {
-    const { report, result, handleGenerate, exportLink } = this.props;
+    const {
+      report,
+      result,
+      handleGenerate,
+      exportLink,
+      metadata,
+      dateRange,
+    } = this.props;
     return (
       <ReportGeneration
+        dateRange={dateRange}
         report={report}
+        metadata={metadata}
         resultLoading={report.loading || result.loading}
         result={result.value}
         handleGenerate={handleGenerate}
@@ -50,19 +72,28 @@ export default compose(
     (state, { id }) => ({
       report: reports.selectors.get(state, id),
       result: reportResult.selectors.get(state),
+      metadata: reportMetadata.selectors.get(state),
     }),
     {
+      fetchReportMetadata: reportMetadata.effects.get,
       fetchReports: reports.effects.fetchAll,
       fetchExtractResult: reportResult.effects.generate,
     },
   ),
+  withState('dateRange', 'setDateRange', {
+    dateStart: moment().subtract(3, 'months'),
+    dateEnd: moment(),
+  }),
   withState('exportLink', 'setExportLink', null),
-  withProps(({ id, fetchExtractResult, result, setExportLink }) => ({
-    handleGenerate({ dateStart, dateEnd }) {
-      fetchExtractResult(id, { dateStart, dateEnd });
-      const params = { fileformat: 'csv', dateStart, dateEnd };
-      const exportLink = result && urls.export(id, params);
-      setExportLink(exportLink);
-    },
-  })),
+  withProps(
+    ({ id, fetchExtractResult, result, setExportLink, setDateRange }) => ({
+      handleGenerate({ dateStart, dateEnd }, options) {
+        setDateRange({ dateStart, dateEnd });
+        fetchExtractResult(id, { dateStart, dateEnd }, options);
+        const params = { fileformat: 'xlsx', dateStart, dateEnd };
+        const exportLink = result && urls.export(id, params);
+        setExportLink(exportLink);
+      },
+    }),
+  ),
 )(ReportingGeneration);

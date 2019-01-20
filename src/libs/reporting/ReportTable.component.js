@@ -1,5 +1,7 @@
 // @flow
 
+import moment from 'moment';
+
 import React from 'react';
 
 import { withNamespaces } from 'react-i18next';
@@ -12,22 +14,58 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 
-import type { ReportConfiguration, ReportExtractResult } from './types';
+import type {
+  ReportConfiguration,
+  ReportExtractResult,
+  ReportMetadata,
+} from './types';
 
 type Props = {
   report: ReportConfiguration,
   result: ReportExtractResult,
+  metadata: ReportMetadata,
   loading?: boolean,
   t: TFunction,
   classes: { [string]: string },
 };
 
+function getConverter({ datatype }, classes, t) {
+  return (value) => {
+    if (datatype === 'price') {
+      return {
+        cellProps: { className: classes.right },
+        value: `${value} €`,
+      };
+    }
+    if (datatype === 'datetime') {
+      return { value: moment(value).format('DD MMM YYYY HH[h]mm') };
+    }
+    if (datatype === 'product_type') {
+      return { value: t(`product_type.${value}`) };
+    }
+    if (datatype === 'payment_method') {
+      return { value: t(`payment_method.${value}`) };
+    }
+    return { value };
+  };
+}
+
+function getColumn(metadata, report, column) {
+  const reportMetadata = metadata.value.find(
+    (r) => r.category === report.category,
+  );
+  return reportMetadata.columns.find((c) => c.identifier === column);
+}
+
 export function ReportTable(props: Props) {
-  const { report, result, loading, classes, t } = props;
+  const { report, result, loading, classes, t, metadata } = props;
   const { columns } = report;
+  const columnsConfigs = columns.map((c) => getColumn(metadata, report, c));
+  const converters = columnsConfigs.map((c) => getConverter(c, classes, t));
+
   return (
     <div className={classes.responsive}>
-      <Table>
+      <Table padding="dense">
         <TableHead>
           <TableRow>
             {columns.map((column) => (
@@ -38,10 +76,22 @@ export function ReportTable(props: Props) {
         <TableBody>
           {!loading && result
             ? result.map((row) => (
-                <TableRow key={row[0] + row[1]}>
-                  {columns.map((column, i) => (
-                    <TableCell key={row[0]}>{row[i]}</TableCell>
-                  ))}
+                <TableRow
+                  key={row[0] + row[1]}
+                  classes={{ root: classes.trRoot }}
+                >
+                  {columns.map((column, i) => {
+                    const { value, cellProps } = converters[i](row[i]);
+                    return (
+                      <TableCell
+                        key={columnsConfigs[i].identifier}
+                        {...cellProps || {}}
+                        classes={{ paddingDense: classes.paddingDense }}
+                      >
+                        {value}
+                      </TableCell>
+                    );
+                  })}
                 </TableRow>
               ))
             : null}
@@ -60,5 +110,12 @@ const styles = () => ({
     overflowX: 'scroll',
     maxWidth: 'calc(100vw - 280px)',
   },
+  right: {
+    textAlign: 'right',
+  },
+  trRoot: {
+    height: 'auto',
+  },
+  paddingDense: {},
 });
 export default withStyles(styles)(withNamespaces(['reporting'])(ReportTable));

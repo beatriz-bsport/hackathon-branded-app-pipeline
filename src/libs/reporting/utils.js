@@ -4,6 +4,9 @@ import PeopleIcon from '@material-ui/icons/People';
 import PaymentIcon from '@material-ui/icons/Payment';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import LensIcon from '@material-ui/icons/Lens';
+import EventIcon from '@material-ui/icons/Event';
+import EventAvailableIcon from '@material-ui/icons/EventAvailable';
+import CreditCardIcon from '@material-ui/icons/CreditCard';
 
 import type { ReportCategoryEnum, ReportCategory } from './types';
 
@@ -16,12 +19,12 @@ export const CATEGORIES: ReportCategory[] = [
   {
     id: 'sessions',
     name: 'Sessions',
-    icon: null,
+    icon: EventIcon,
   },
   {
     id: 'sessions_detailed',
     name: 'Bookings',
-    icon: null,
+    icon: EventAvailableIcon,
   },
   {
     id: 'payments',
@@ -32,6 +35,11 @@ export const CATEGORIES: ReportCategory[] = [
     id: 'products',
     name: 'Products',
     icon: ShoppingBasketIcon,
+  },
+  {
+    id: 'invoices',
+    name: 'Paiements',
+    icon: CreditCardIcon,
   },
 ];
 

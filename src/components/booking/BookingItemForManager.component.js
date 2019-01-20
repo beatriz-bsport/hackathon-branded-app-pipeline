@@ -51,13 +51,11 @@ export class BookingItemForManager extends Component<Props> {
 
   getStatusText = (booking: Booking) => {
     const { paymentPacks, invoices, t } = this.props;
-    if (booking.consumer_payment_pack && booking.payment_pack) {
+    const { consumer_payment_pack } = booking;
+    if (consumer_payment_pack && booking.payment_pack) {
       const payment_pack = paymentPacks.find(
         (pp) => pp.id === booking.payment_pack,
       );
-      const consumer_payment_pack = (
-        payment_pack.consumer_payment_packs || []
-      ).find((cpp) => cpp.id === booking.consumer_payment_pack);
 
       if (!consumer_payment_pack) {
         this.props.requestRefreshPaymentPack();

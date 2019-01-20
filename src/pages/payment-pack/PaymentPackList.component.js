@@ -11,67 +11,49 @@ import {
   Grid,
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 import { push as pushRouter } from 'react-router-redux';
 
 import i18next from 'i18next';
 import { PaymentPackCard } from '../../components';
 import PaymentPackDeleteDialog from '../../components/form/PaymentPackDeleteDialog.component';
-import { paymentPack as paymentPackActions } from '../../actions';
+import {
+  consumerPaymentPack as consumerPackActions,
+  paymentPack as paymentPackActions,
+} from '../../actions';
 import type { MetaActivity } from '../../api/types';
 
 import withBottomButtons from '../../hocs/inject-bottom-buttons';
 
-const styles = (theme) => ({
-  fabSwitchButton: {
-    position: 'fixed',
-    right: theme.spacing.unit * 2,
-    bottom: theme.spacing.unit * 9,
-  },
-  fabAddButton: {
-    position: 'fixed',
-    right: theme.spacing.unit * 2,
-    bottom: theme.spacing.unit * 2,
-  },
-  extendedIcon: {
-    marginRight: theme.spacing.unit,
-  },
-  paymentPackContainer: {
-    paddingBottom: theme.spacing.unit * 4,
-    [theme.breakpoints.up('sm')]: {
-      paddingRight: theme.spacing.unit * 4,
-    },
-  },
-  titleContainer: {
-    marginTop: theme.spacing.unit * 2,
-    marginLeft: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit,
-  },
-  title: {
-    marginBottom: theme.spacing.unit,
-  },
-});
-
 type Props = {
   loading: boolean,
-  establishments: Array<Establishment>,
+  consumerPacksFetching: boolean,
+
   packs: Array<Object>,
+  metaActivities: Array<MetaActivity>,
+  establishments: Array<Establishment>,
   updatingConsumerPacks: Array<number>,
+  consumerPacks: Array<ConsumerPaymentPack>,
+
+  pushToEdit: (id: number) => void,
   incrementCredit: (id: number) => void,
   decrementCredit: (id: number) => void,
-  metaActivities: Array<MetaActivity>,
   updatePaymentPack: (id: number, data: [*]) => void,
-  pushToEdit: (id: number) => void,
+  fetchConsumerPacks: (paymentPackId: number) => void,
+
   classes: Object,
-  t: (x: string) => string,
+  t: TFunction,
 };
 
 type State = {
   paymentPackToDeleteId: ?number,
+  expandedPaymentPack: ?number,
 };
 
 export class PaymentPackList extends Component<Props, State> {
   state = {
     paymentPackToDeleteId: null,
+    expandedPaymentPack: null,
   };
 
   requestEdit = (p: PaymentPack) => {
@@ -79,7 +61,11 @@ export class PaymentPackList extends Component<Props, State> {
   };
 
   requestDelete = (paymentPack: Object) => {
-    this.setState({ paymentPackToDeleteId: paymentPack.id });
+    this.setState({
+      paymentPackToDeleteId: paymentPack.id,
+      expandedPaymentPack: null,
+    });
+    this.props.fetchConsumerPacks(paymentPack.id);
   };
 
   cancelDelete = () => {
@@ -89,6 +75,15 @@ export class PaymentPackList extends Component<Props, State> {
   deletePaymentPack = async (id: number) => {
     this.props.updatePaymentPack(id, { disabled: true });
     this.setState({ paymentPackToDeleteId: null });
+  };
+
+  expandConsumerPacks = (paymentPackId: number) => (expanded: boolean) => {
+    if (expanded) {
+      this.props.fetchConsumerPacks(paymentPackId);
+      this.setState({ expandedPaymentPack: paymentPackId });
+    } else {
+      this.setState({ expandedPaymentPack: null });
+    }
   };
 
   renderPacks = (packs: Array<PaymentPack>) => {
@@ -112,11 +107,15 @@ export class PaymentPackList extends Component<Props, State> {
           >
             <PaymentPackCard
               pack={p}
+              expanded={p.id === this.state.expandedPaymentPack}
               metaActivities={metaActivities}
               establishments={establishments}
               incrementCredit={incrementCredit}
               decrementCredit={decrementCredit}
               updatingConsumerPacks={updatingConsumerPacks}
+              onExpand={this.expandConsumerPacks(p.id)}
+              consumerPacks={this.props.consumerPacks}
+              consumerPacksFetching={this.props.consumerPacksFetching}
               onEditButtonClick={() => this.requestEdit(p)}
               onDeleteButtonClick={() => this.requestDelete(p)}
             />
@@ -141,9 +140,7 @@ export class PaymentPackList extends Component<Props, State> {
       return <CircularProgress />;
     }
 
-    const showablePacks = packs.filter(
-      (p) => !p.disabled || (p.disabled && p.consumer_payment_packs.length),
-    );
+    const showablePacks = packs.filter((p) => !p.disabled);
     const publicPacks = showablePacks.filter((p) => !p.manager_only);
     const managerPacks = showablePacks.filter((p) => Boolean(p.manager_only));
 
@@ -180,6 +177,8 @@ export class PaymentPackList extends Component<Props, State> {
           onDelete={() =>
             this.deletePaymentPack(this.state.paymentPackToDeleteId)
           }
+          consumerPacks={this.props.consumerPacks}
+          consumerPacksFetching={this.props.consumerPacksFetching}
           onCancel={this.cancelDelete}
           incrementCredit={incrementCredit}
           decrementCredit={decrementCredit}
@@ -190,6 +189,36 @@ export class PaymentPackList extends Component<Props, State> {
   }
 }
 
+const styles = (theme) => ({
+  fabSwitchButton: {
+    position: 'fixed',
+    right: theme.spacing.unit * 2,
+    bottom: theme.spacing.unit * 9,
+  },
+  fabAddButton: {
+    position: 'fixed',
+    right: theme.spacing.unit * 2,
+    bottom: theme.spacing.unit * 2,
+  },
+  extendedIcon: {
+    marginRight: theme.spacing.unit,
+  },
+  paymentPackContainer: {
+    paddingBottom: theme.spacing.unit * 4,
+    [theme.breakpoints.up('sm')]: {
+      paddingRight: theme.spacing.unit * 4,
+    },
+  },
+  titleContainer: {
+    marginTop: theme.spacing.unit * 2,
+    marginLeft: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit,
+  },
+  title: {
+    marginBottom: theme.spacing.unit,
+  },
+});
+
 function mapStateToProps(state) {
   return {
     loading: state.paymentPack.loading,
@@ -197,6 +226,8 @@ function mapStateToProps(state) {
     metaActivities: state.metaActivity.all,
     establishments: state.establishment.all,
     updatingConsumerPacks: state.paymentPack.updatingConsumerPacks,
+    consumerPacks: state.consumerPaymentPack.byPaymentPack.items,
+    consumerPacksFetching: state.consumerPaymentPack.byPaymentPack.loading,
   };
 }
 
@@ -213,6 +244,9 @@ function mapDispatchToProps(dispatch) {
     },
     pushToEdit(paymentPackId: number) {
       dispatch(pushRouter(`/payment-pack/${paymentPackId}/edit`));
+    },
+    fetchConsumerPacks(paymentPackId: number) {
+      dispatch(consumerPackActions.fetchByPaymentPack(paymentPackId));
     },
   };
 }

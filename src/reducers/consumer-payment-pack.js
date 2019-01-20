@@ -4,6 +4,7 @@ import { handleActions } from 'redux-actions';
 import {
   byOfferByMember,
   byPaymentPack,
+  updateConsumerPack,
 } from '../actions/consumer-payment-pack.actions';
 
 const initialState = Immutable({
@@ -18,6 +19,7 @@ const initialState = Immutable({
     error: false,
     items: [],
   },
+  updatingConsumerPacks: [],
   /* dead code
   byMember: {
     loading: false,
@@ -46,6 +48,44 @@ export default handleActions(
     },
     [byOfferByMember.success]: (state, { payload }) => {
       return state.setIn(['byOfferByMember', 'items'], payload);
+    },
+    [updateConsumerPack.success]: (state, { payload }) => {
+      const indexByMember = state.byOfferByMember.items.findIndex(
+        (cpp) => cpp.id === payload.id,
+      );
+      const indexByPaymentPack = state.byPaymentPack.items.findIndex(
+        (cpp) => cpp.id === payload.id,
+      );
+      if (indexByMember >= 0 && indexByPaymentPack >= 0) {
+        return state
+          .setIn(['byOfferByMember', 'items', indexByMember], payload)
+          .setIn(['byPaymentPack', 'items', indexByPaymentPack], payload);
+      }
+      if (indexByMember >= 0) {
+        return state.setIn(
+          ['byOfferByMember', 'items', indexByMember],
+          payload,
+        );
+      }
+      if (indexByPaymentPack >= 0) {
+        return state.setIn(
+          ['byPaymentPack', 'items', indexByPaymentPack],
+          payload,
+        );
+      }
+      return state;
+    },
+    [updateConsumerPack.isLoading]: (state, { payload }) => {
+      if (!payload.loading) {
+        return state.setIn(
+          ['updatingConsumerPacks'],
+          state.updatingConsumerPacks.filter((id) => id !== payload.id),
+        );
+      }
+      return state.setIn(
+        ['updatingConsumerPacks'],
+        [...state.updatingConsumerPacks, payload.id],
+      );
     },
     /* dead code
     [byOfferByMember.isLoading]: (state, { payload }) => {

@@ -25,6 +25,7 @@ import {
   booking as bookingActions,
   member as memberActions,
   paymentPack as paymentPackActions,
+  consumerPaymentPack as consumerPackActions,
 } from '../../../actions';
 import BookingTable from '../../../components/booking/BookingTable.container';
 import ConsumerPackRowItem from '../../../components/payment-pack/ConsumerPackRowItem.component';
@@ -431,10 +432,10 @@ function mapDispatchToProps(dispatch) {
       dispatch(goBack());
     },
     incrementCredit(consumerPackId) {
-      dispatch(paymentPackActions.addCredit(consumerPackId, 1));
+      dispatch(consumerPackActions.updateCredit(consumerPackId, 1));
     },
     decrementCredit(consumerPackId) {
-      dispatch(paymentPackActions.addCredit(consumerPackId, -1));
+      dispatch(consumerPackActions.updateCredit(consumerPackId, -1));
     },
     createOrUpdateNote({ id, text, memberId }) {
       dispatch(memberActions.createOrUpdateNote(id, text, memberId));

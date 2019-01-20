@@ -4,6 +4,7 @@ import { createAction } from 'redux-actions';
 
 import api from '../api';
 import type { Dispatch } from '../state/types';
+import { snackbarSuccess, snackbarError } from './snackbar.actions';
 
 export const byOfferByMember = {
   isLoading: createAction('CONSUMER_PACK/BY_OFFER_BY_MEMBER/IS_LOADING'),
@@ -49,6 +50,38 @@ export function fetchByPaymentPack(paymentPackId: number) {
       dispatch(byPaymentPack.error(error));
     }
     dispatch(byPaymentPack.isLoading(false));
+  };
+}
+
+export const updateConsumerPack = {
+  isLoading: createAction('CONSUMER_PACK/UPDATE/IS_LOADING'),
+  error: createAction('CONSUMER_PACK/UPDATE/ERROR'),
+  success: createAction('CONSUMER_PACK/UPDATE/SUCCESS'),
+};
+
+export function updateCredit(consumerPackId: number, nbCredit: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(
+      updateConsumerPack.isLoading({ id: consumerPackId, loading: true }),
+    );
+    try {
+      const apiCall =
+        api.paymentPack[nbCredit >= 0 ? 'addCredit' : 'subCredit'];
+      const response = await apiCall(
+        consumerPackId,
+        nbCredit >= 0 ? nbCredit : -nbCredit,
+      );
+      if (response.status === 200) {
+        dispatch(updateConsumerPack.success(response.data));
+        dispatch(snackbarSuccess('paymentPack.credit.updated'));
+      }
+    } catch (err) {
+      dispatch(updateConsumerPack.error(err));
+      dispatch(snackbarSuccess('paymentPack.credit.error'));
+    }
+    dispatch(
+      updateConsumerPack.isLoading({ id: consumerPackId, loading: false }),
+    );
   };
 }
 

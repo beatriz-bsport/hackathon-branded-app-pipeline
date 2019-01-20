@@ -37,18 +37,6 @@ export function fetchAll() {
   };
 }
 
-export function startUpdatingCredit(consumerPackId: number) {
-  return { type: types.UPDATING_CONSUMER_PACK_CREDIT, consumerPackId };
-}
-
-export function updateCreditDone(consumerPackId: number, nbCredit: number) {
-  return {
-    type: types.UPDATE_CONSUMER_PACK_CREDIT_DONE,
-    consumerPackId,
-    nbCredit,
-  };
-}
-
 export function patch(id: number, data: [*]) {
   return async (dispatch: Dispatch) => {
     dispatch(startPatchingPack(id));
@@ -79,33 +67,6 @@ export function patchedPack(paymentPack: PaymentPack) {
 
 export function errorPatchingPack(id: number) {
   return { type: types.PAYMENT_PACK_PATCH_ERROR, id };
-}
-
-export function updateCreditFailed(consumerPackId: number) {
-  return { type: types.UPDATE_CONSUMER_PACK_CREDIT_FAILED, consumerPackId };
-}
-
-export function addCredit(consumerPackId: number, nbCredit: number) {
-  return async (dispatch: Dispatch) => {
-    dispatch(startUpdatingCredit(consumerPackId));
-    try {
-      const apiCall =
-        api.paymentPack[nbCredit >= 0 ? 'addCredit' : 'subCredit'];
-      const response = await apiCall(
-        consumerPackId,
-        nbCredit >= 0 ? nbCredit : -nbCredit,
-      );
-      if (response.status === 200) {
-        dispatch(refreshAllPaymentPack());
-        dispatch(updateCreditDone(consumerPackId, nbCredit));
-        dispatch(snackbarSuccess('paymentPack.credit.updated'));
-      } else {
-        dispatch(updateCreditFailed(consumerPackId));
-      }
-    } catch (err) {
-      dispatch(updateCreditFailed(consumerPackId));
-    }
-  };
 }
 
 export function createOrUpdate(data: PaymentPackFormData) {

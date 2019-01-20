@@ -225,7 +225,7 @@ function mapStateToProps(state) {
     packs: state.paymentPack.all,
     metaActivities: state.metaActivity.all,
     establishments: state.establishment.all,
-    updatingConsumerPacks: state.paymentPack.updatingConsumerPacks,
+    updatingConsumerPacks: state.consumerPaymentPack.updatingConsumerPacks,
     consumerPacks: state.consumerPaymentPack.byPaymentPack.items,
     consumerPacksFetching: state.consumerPaymentPack.byPaymentPack.loading,
   };
@@ -234,10 +234,10 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     incrementCredit(consumerPackId) {
-      dispatch(paymentPackActions.addCredit(consumerPackId, 1));
+      dispatch(consumerPackActions.updateCredit(consumerPackId, 1));
     },
     decrementCredit(consumerPackId) {
-      dispatch(paymentPackActions.addCredit(consumerPackId, -1));
+      dispatch(consumerPackActions.updateCredit(consumerPackId, -1));
     },
     updatePaymentPack(paymentPackId, data) {
       dispatch(paymentPackActions.patch(paymentPackId, data, true));

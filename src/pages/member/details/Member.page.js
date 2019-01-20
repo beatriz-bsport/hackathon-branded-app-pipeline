@@ -94,11 +94,13 @@ export class Member extends Component<Props, State> {
 
   incrementCredit = (id) => {
     this.props.incrementCredit(id);
+    this.props.fetchMemberBookings(this.memberId);
     this.props.fetchMember(this.memberId);
   };
 
   decrementCredit = (id) => {
     this.props.decrementCredit(id);
+    this.props.fetchMemberBookings(this.memberId);
     this.props.fetchMember(this.memberId);
   };
 

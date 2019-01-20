@@ -5,6 +5,7 @@ import {
   withStyles,
   Typography,
   Grid,
+  CircularProgress,
   Button,
   Dialog,
   DialogTitle,
@@ -14,22 +15,28 @@ import {
   withMobileDialog,
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 
 import WarningIcon from '@material-ui/icons/Warning';
 import ConsumersPackSummaryTable from '../payment-pack/ConsumersPackSummaryTable.component';
 import RedButton from '../button/RedButton.component';
 
 type Props = {
-  t: (x: string) => string,
-  classes: Object,
-  pack: PaymentPack,
-  incrementCredit: (id: number) => void,
-  decrementCredit: (id: number) => void,
-  updatingConsumerPacks: Array<number>,
-  onCancel: (consumerPackId: number) => void,
-  onDelete: () => void,
   fullScreen: boolean,
   open: boolean,
+  consumerPacksFetching: boolean,
+
+  pack: PaymentPack,
+  updatingConsumerPacks: Array<number>,
+  consumerPacks: Array<ConsumerPaymentPack>,
+
+  onDelete: () => void,
+  incrementCredit: (id: number) => void,
+  decrementCredit: (id: number) => void,
+  onCancel: (consumerPackId: number) => void,
+
+  classes: Object,
+  t: TFunction,
 };
 
 export class PaymentPackDeleteDialog extends Component<Props> {
@@ -40,6 +47,8 @@ export class PaymentPackDeleteDialog extends Component<Props> {
       incrementCredit,
       decrementCredit,
       updatingConsumerPacks,
+      consumerPacksFetching,
+      consumerPacks,
     } = this.props;
     return (
       <Grid container direction="column" spacing={16}>
@@ -49,12 +58,19 @@ export class PaymentPackDeleteDialog extends Component<Props> {
           )}
         </Grid>
         <Grid item>
-          <ConsumersPackSummaryTable
-            incrementCredit={incrementCredit}
-            updatingConsumerPacks={updatingConsumerPacks}
-            decrementCredit={decrementCredit}
-            paymentPack={pack}
-          />
+          {consumerPacksFetching ? (
+            <Grid container item justify="center" alignItems="center">
+              <CircularProgress />
+            </Grid>
+          ) : (
+            <ConsumersPackSummaryTable
+              incrementCredit={incrementCredit}
+              updatingConsumerPacks={updatingConsumerPacks}
+              decrementCredit={decrementCredit}
+              paymentPack={pack}
+              consumerPacks={consumerPacks}
+            />
+          )}
         </Grid>
       </Grid>
     );
@@ -108,7 +124,7 @@ export class PaymentPackDeleteDialog extends Component<Props> {
     if (!this.props.pack) {
       return null;
     }
-    if (this.props.pack.consumer_payment_packs.length) {
+    if (this.props.consumerPacks.length) {
       return this.renderCheckConsumerPacks();
     }
     return this.renderWarningMessage(

@@ -11,6 +11,7 @@ import {
   Button,
   withStyles,
   ExpansionPanel,
+  CircularProgress,
   ExpansionPanelSummary,
   ExpansionPanelDetails,
   Hidden,
@@ -20,6 +21,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import { translate } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 
 import RedButton from '../button/RedButton.component';
 import MetaActivityMinimalSummary from '../activity/MetaActivityMinimalSummary.component';
@@ -30,17 +32,25 @@ import type { PaymentPackManagerView, MetaActivity } from '../../api/types';
 import { formatAsDate } from '../../datetime';
 
 type Props = {
-  incrementCredit: (id: number) => void,
-  decrementCredit: (id: number) => void,
-  updatingConsumerPacks: Array<number>,
+  onlyPublic: ?boolean,
+  consumerPacksFetching: ?boolean,
+  expanded: boolean,
+
   pack: PaymentPackManagerView,
+
+  updatingConsumerPacks: Array<number>,
   metaActivities: Array<MetaActivity>,
   establishments: Array<Establishment>,
-  onDeleteButtonClick: () => void,
+  consumerPacks: Array<ConsumerPaymentPack>,
+
+  onExpand: (boolean) => void,
   onEditButtonClick: () => void,
-  t: (x: string) => string,
+  onDeleteButtonClick: () => void,
+  incrementCredit: (id: number) => void,
+  decrementCredit: (id: number) => void,
+
+  t: TFunction,
   classes: Object,
-  onlyPublic: ?boolean,
 };
 
 export class PaymentPackCard extends Component<Props> {
@@ -234,6 +244,10 @@ export class PaymentPackCard extends Component<Props> {
     );
   };
 
+  handleExpandChange = (event, expanded) => {
+    this.props.onExpand(expanded);
+  };
+
   getConsumerPaymentPacks = () => {
     const {
       t,
@@ -241,25 +255,36 @@ export class PaymentPackCard extends Component<Props> {
       decrementCredit,
       incrementCredit,
       updatingConsumerPacks,
+      consumerPacksFetching,
+      consumerPacks,
     } = this.props;
-    const { consumer_payment_packs } = pack;
-    const disabled = consumer_payment_packs.length === 0;
     return (
-      <ExpansionPanel disabled={disabled}>
+      <ExpansionPanel
+        disabled={pack.nb_consumer_payment_packs === 0}
+        expanded={this.props.expanded}
+        onChange={this.handleExpandChange}
+      >
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <Typography variant="body2">
             {`${t('paymentPack.boughtConsumerPaymentPacks')} (${
-              consumer_payment_packs.length
+              pack.nb_consumer_payment_packs
             })`}
           </Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <ConsumersPackSummaryTable
-            updatingConsumerPacks={updatingConsumerPacks}
-            paymentPack={pack}
-            incrementCredit={incrementCredit}
-            decrementCredit={decrementCredit}
-          />
+          {consumerPacksFetching ? (
+            <Grid container item justify="center" alignItems="center">
+              <CircularProgress />
+            </Grid>
+          ) : (
+            <ConsumersPackSummaryTable
+              updatingConsumerPacks={updatingConsumerPacks}
+              paymentPack={pack}
+              consumerPacks={consumerPacks}
+              incrementCredit={incrementCredit}
+              decrementCredit={decrementCredit}
+            />
+          )}
         </ExpansionPanelDetails>
       </ExpansionPanel>
     );

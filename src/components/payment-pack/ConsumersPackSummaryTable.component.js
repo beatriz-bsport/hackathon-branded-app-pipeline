@@ -10,6 +10,7 @@ import ConsumerPackRowItem from './ConsumerPackRowItem.component';
 type Props = {
   paymentPack: Object,
   updatingConsumerPacks: Array<number>,
+  consumerPacks: Array<ConsumerPaymentPack>,
   decrementCredit: (id: number) => void,
   incrementCredit: (id: number) => void,
 };
@@ -21,11 +22,11 @@ export class ConsumersPackSummaryTable extends Component<Props> {
       updatingConsumerPacks,
       decrementCredit,
       incrementCredit,
+      consumerPacks,
     } = this.props;
-    const { consumer_payment_packs } = paymentPack;
     return (
       <Grid container direction="column" spacing={8}>
-        {consumer_payment_packs.map((cpp) => (
+        {consumerPacks.map((cpp) => (
           <ConsumerPackRowItem
             key={cpp.id}
             consumerPack={cpp}

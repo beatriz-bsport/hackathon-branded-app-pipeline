@@ -43,44 +43,6 @@ export class RegisterMemberToOfferForm extends Component<Props> {
     );
   }
 
-  renderContent = () => {
-    const { subscribeToOffer, compatiblePacks, t, member } = this.props;
-    const availablePacks = (compatiblePacks || []).filter((pack) =>
-      pack.consumer_payment_packs.find((cpp) => cpp.member_id === member.id),
-    );
-
-    if (!availablePacks.length) {
-      return (
-        <Grid container direction="row" spacing={24}>
-          <Grid item>
-            <WarningIcon color="error" />
-          </Grid>
-          <Grid item>
-            <Typography>
-              {t('offer.noPackAvailableForOfferPurchase')}
-            </Typography>
-          </Grid>
-        </Grid>
-      );
-    }
-
-    return (
-      <List>
-        {availablePacks.map((compatiblePack) => (
-          <ConsumerPackRowItem
-            key={compatiblePack.id}
-            paymentPack={compatiblePack}
-            hideConsumer
-            subscribeToOffer={subscribeToOffer}
-            consumerPack={compatiblePack.consumer_payment_packs.find(
-              (cpp) => cpp.member_id === member.id,
-            )}
-          />
-        ))}
-      </List>
-    );
-  };
-
   renderWarning = (text: string) => (
     <Grid container direction="row" spacing={24}>
       <Grid item>
@@ -166,8 +128,8 @@ export class RegisterMemberToOfferForm extends Component<Props> {
 export default translate()(
   connect(
     (state) => ({
-      consumerPacksLoading: state.consumerPaymentPack.loading,
-      consumerPacks: state.consumerPaymentPack.byOfferByMember,
+      consumerPacksLoading: state.consumerPaymentPack.byOfferByMember.loading,
+      consumerPacks: state.consumerPaymentPack.byOfferByMember.items,
       allPaymentPacks: state.paymentPack.all,
     }),
     {

@@ -15,7 +15,7 @@ import { translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import type { TFunction } from 'react-i18next';
 
-import { formatAsTime } from '../../datetime';
+import { humanizeDuration, formatAsTime } from '../../datetime';
 
 type Props = {
   offer: Offer,
@@ -60,7 +60,9 @@ export class MarketplaceOffer extends Component<Props> {
       <ListItem button selected={selected} onClick={onClick} divider>
         <Avatar src={offer.coach.photo} />
         <ListItemText
-          primary={`${offer.name} - ${formatAsTime(offer.date_start)}`}
+          primary={`${offer.name} - ${formatAsTime(
+            offer.date_start,
+          )} - ${humanizeDuration(offer.duration_minute * 60000)}`}
           secondary={offer.etablissement.title}
         />
         <ListItemSecondaryAction style={{ marginRight: 12 }}>

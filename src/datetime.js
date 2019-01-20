@@ -39,6 +39,11 @@ const MONTHS = [
   'time.month.december',
 ];
 
+export function formatDuration(minutes) {
+  const moduloMinutes = parseInt(minutes / 60, 10) * 60;
+  return `${minutes % 60}h${moduloMinutes ? `${moduloMinutes}min` : ''}`;
+}
+
 export function formatMinutes(minutes) {
   switch (minutes) {
     case minutes < 60: {

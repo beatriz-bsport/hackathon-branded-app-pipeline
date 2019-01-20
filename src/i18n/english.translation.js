@@ -54,6 +54,8 @@ export default {
       CHECK: 'Check',
     },
     common: {
+      hourSmall: 'h',
+      minuteSmall: 'min',
       export: 'Export',
       generate: 'Generate',
       tax: 'Tax',

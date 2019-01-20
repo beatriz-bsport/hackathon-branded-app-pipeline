@@ -14,7 +14,11 @@ import {
 import { translate } from 'react-i18next';
 
 import { Level } from '../category';
-import { formatAsDatetime, formatAsTime } from '../../datetime';
+import {
+  humanizeDuration,
+  formatAsDatetime,
+  formatAsTime,
+} from '../../datetime';
 import type { Offer } from '../../api/types';
 
 const styles = () => ({
@@ -59,6 +63,7 @@ export function OfferMinimalSummary(props: Props) {
     level_id,
     etablissement,
     establishment_override,
+    duration_minute,
     coach,
     coach_override,
     available,
@@ -113,7 +118,9 @@ export function OfferMinimalSummary(props: Props) {
             <Grid item>
               <ListItemText
                 primary={formattedName}
-                secondary={dateFormatter(date_start)}
+                secondary={`${dateFormatter(date_start)} - ${humanizeDuration(
+                  duration_minute * 60000,
+                )}`}
               />
             </Grid>
           </Grid>

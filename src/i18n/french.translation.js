@@ -73,6 +73,8 @@ export default {
       },
     },
     common: {
+      hourSmall: 'h',
+      minuteSmall: 'min',
       export: 'Exporter',
       generate: 'Générer',
       tax: 'TVA',

@@ -50,6 +50,15 @@ export class ConsumerLoginPage extends Component<Props> {
     });
   };
 
+  signup = (data: *) => {
+    const { membership } = parse(this.props.location.search);
+    if (membership) {
+      this.props.signup({ ...data, membership });
+    } else {
+      this.props.signup(data);
+    }
+  };
+
   render() {
     const {
       authenticated,
@@ -100,7 +109,7 @@ export class ConsumerLoginPage extends Component<Props> {
           <Grid item>
             <SignUpForm
               loading={loginProcessing}
-              onComplete={signup}
+              onComplete={this.signup}
               onCancel={this.cancelSignUp}
             />
           </Grid>

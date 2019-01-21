@@ -60,7 +60,7 @@ export class ConsumerPackCheckout extends Component<Props, State> {
     } = consumerPack;
 
     // prettier-ignore
-    const hasEnoughCredits = available_credits >= creditPrice || payment_pack.unlimited;
+    const hasEnoughCredits = (available_credits >= creditPrice) || payment_pack.unlimited;
     // prettier-ignore
     const hasBookingsLeft = (
       payment_pack.max_bookings_per_week > bookings_this_week
@@ -68,7 +68,6 @@ export class ConsumerPackCheckout extends Component<Props, State> {
     );
 
     const paymentIsPossible = hasEnoughCredits && hasBookingsLeft;
-
     if (paymentIsPossible) {
       // prettier-ignore
       const buttonText = payment_pack.unlimited
@@ -80,7 +79,7 @@ export class ConsumerPackCheckout extends Component<Props, State> {
         </Button>
       );
     }
-    if (hasEnoughCredits) {
+    if (!hasEnoughCredits) {
       return <Button disabled>{t('payment.noBookingsLeftOnPack')}</Button>;
     }
     return <Button disabled>{t('payment.noCreditLeft')}</Button>;

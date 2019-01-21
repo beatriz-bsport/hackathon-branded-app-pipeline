@@ -175,25 +175,19 @@ export class OfferPayment extends Component<Props> {
         ) : null}
         {(compatiblePaymentPacks || []).map((pp) => (
           <ListItem divider key={pp.id}>
-            <Grid
-              container
-              direction="row"
-              justify="space-betweeen"
-              alignItems="center"
-            >
-              <Grid item>
-                <PaymentPackSummary noDivider paymentPack={pp} />
-              </Grid>
-              <Grid item>
+            <PaymentPackSummary
+              noDivider
+              paymentPack={pp}
+              buyButton={
                 <Button
                   variant="outlined"
                   color="primary"
                   onClick={() => this.props.onBuyPaymentPack(pp.id)}
                 >
-                  {t('common.buy')}
+                  {`${pp.price} €`}
                 </Button>
-              </Grid>
-            </Grid>
+              }
+            />
           </ListItem>
         ))}
       </List>

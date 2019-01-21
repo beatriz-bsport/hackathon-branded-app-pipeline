@@ -127,6 +127,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
                   </Typography>
                   {this.props.compatibleConsumerPacks.map((p) => (
                     <ConsumerPackCheckout
+                      creditPrice={offer.credit_price}
                       key={p.id}
                       offerId={offer.id}
                       consumerPack={p}
@@ -161,7 +162,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
                                 )
                               }
                             >
-                              {t('common.buy')}
+                              {`${p.price} €`}
                             </Button>
                           }
                         />

@@ -65,7 +65,6 @@ export class ConsumerLoginPage extends Component<Props> {
       errorLogin,
       loginProcessing,
       doEmailLogin,
-      signup,
       classes,
       t,
     } = this.props;

@@ -151,7 +151,6 @@ export class OfferPayment extends Component<Props> {
 
   renderBuyCompatiblePaymentPack = () => {
     const {
-      t,
       compatiblePaymentPacksLoading,
       compatiblePaymentPacks,
       compatibleConsumerPacksLoading,

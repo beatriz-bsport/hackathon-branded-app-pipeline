@@ -4,7 +4,7 @@ import { createAction } from 'redux-actions';
 
 import api from '../api';
 import type { Dispatch } from '../state/types';
-import { snackbarSuccess, snackbarError } from './snackbar.actions';
+import { snackbarSuccess } from './snackbar.actions';
 
 export const byOfferByMember = {
   isLoading: createAction('CONSUMER_PACK/BY_OFFER_BY_MEMBER/IS_LOADING'),

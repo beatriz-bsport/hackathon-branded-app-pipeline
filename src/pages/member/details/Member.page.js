@@ -24,7 +24,6 @@ import { connect } from 'react-redux';
 import {
   booking as bookingActions,
   member as memberActions,
-  paymentPack as paymentPackActions,
   consumerPaymentPack as consumerPackActions,
 } from '../../../actions';
 import BookingTable from '../../../components/booking/BookingTable.container';

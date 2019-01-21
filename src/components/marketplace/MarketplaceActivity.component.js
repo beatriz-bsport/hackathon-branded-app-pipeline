@@ -80,7 +80,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
         </div>
       );
     }
-    const { t, offer, classes, onClose, pushRouter } = this.props;
+    const { offer, classes, onClose, pushRouter } = this.props;
     const { activity } = this.state;
     const establishment = offer.establishment_override || offer.etablissement;
     const { location } = establishment || { location: null };

@@ -6,8 +6,6 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
-import { translate } from 'react-i18next';
-
 import { withStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -21,7 +19,6 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 
 import CancelIcon from '@material-ui/icons/Cancel';
 
-import type { TFunction } from 'react-i18next';
 import { snackbarSuccess } from '../../actions/snackbar.actions';
 
 import { get, API_URI } from '../../http';
@@ -50,7 +47,6 @@ type Props = {
 
   snackbarSuccess: Object,
 
-  t: TFunction,
   classes: Object,
 };
 
@@ -253,7 +249,6 @@ function mapStateToProps(state, props) {
 
 export default compose(
   withStyles(styles),
-  translate(),
   connect(
     mapStateToProps,
     {

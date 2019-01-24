@@ -16,7 +16,6 @@ import {
   Grid,
   Typography,
   withWidth,
-  Slide,
 } from '@material-ui/core';
 
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
@@ -448,7 +447,6 @@ export class Planning extends Component<Props, State> {
         )}
         <Grid item xs={12} lg={6}>
           {selectedOffer ? (
-            <Slide in direction="left" timeout={200}>
               <OfferCard
                 offer={selectedOffer}
                 establishments={establishments}
@@ -461,7 +459,6 @@ export class Planning extends Component<Props, State> {
                 compatiblePacksLoading={compatiblePacksLoading}
                 goToOfferManagement={this.props.goToOfferManagement}
               />
-            </Slide>
           ) : (
             this.renderNoOfferSelected()
           )}

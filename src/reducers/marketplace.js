@@ -3,7 +3,7 @@ import Immutable from 'seamless-immutable';
 import actionTypes from '../actions/marketplace.types';
 
 const initialState = Immutable({
-  detailedOffers: null,
+  detailedOffers: [],
   detaildOffersLoading: false,
   offers: [],
   paymentPacks: [],

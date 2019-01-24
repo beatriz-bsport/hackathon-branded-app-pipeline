@@ -15,9 +15,13 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Avatar from '@material-ui/core/Avatar';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import CancelIcon from '@material-ui/icons/Cancel';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
 import { snackbarSuccess } from '../../actions/snackbar.actions';
 
@@ -25,7 +29,7 @@ import { get, API_URI } from '../../http';
 
 import Map from '../establishment/Map.component';
 
-import ConsumerPackCheckout from '../consumer/ConsumerPackCheckout.component';
+import ConsumerPackCheckout from '../../pages/payment/offer/ConsumerPackCheckout.component';
 import PaymentPackSummary from '../payment-pack/PaymentPackSummary.component';
 
 import * as paymentActions from '../../actions/payment.actions';
@@ -33,6 +37,7 @@ import * as paymentActions from '../../actions/payment.actions';
 type Props = {
   offer: Offer,
   offerId: number,
+  offer: Offer,
   showBookingButton: ?boolean,
   displayPacksInformation: ?boolean,
   compatibleConsumerPacks: Array<ConsumerPaymentPack>,
@@ -67,6 +72,24 @@ export class MarketPlaceActivity extends React.Component<Props> {
     this.props.fetchPass(this.props.offerId);
     this.props.fetchPaymentPacks(this.props.offerId);
   }
+
+  renderCoachBanner = () => {
+    const { offer, classes } = this.props;
+    if (offer && offer.coach) {
+      return (
+        <div>
+          <Typography variant="h6" className={classes.title}>
+            Coach
+          </Typography>
+          <ListItem>
+            <Avatar src={offer.coach.photo} />
+            <ListItemText primary={offer.coach.name} />
+          </ListItem>
+        </div>
+      );
+    }
+    return null;
+  };
 
   render() {
     if (this.state.loading || !this.state.activity) {
@@ -111,14 +134,15 @@ export class MarketPlaceActivity extends React.Component<Props> {
               <Typography variant="body2" className={classes.hashtags}>
                 {activity.hashtags}
               </Typography>
-              <Typography variant="subtitle1" className={classes.title}>
+              <Typography variant="h6" className={classes.title}>
                 {offer.name}
               </Typography>
               <Typography variant="body2">{activity.description}</Typography>
+              {this.renderCoachBanner()}
               {this.props.displayPacksInformation &&
               this.props.compatibleConsumerPacks.length ? (
                 <div>
-                  <Typography variant="subtitle1" className={classes.title}>
+                  <Typography variant="h6" className={classes.title}>
                     Mes abonnements compatibles
                   </Typography>
                   {this.props.compatibleConsumerPacks.map((p) => (
@@ -139,7 +163,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
               {this.props.displayPacksInformation &&
               this.props.compatiblePaymentPacks.length ? (
                 <div>
-                  <Typography variant="subtitle1" className={classes.title}>
+                  <Typography variant="h6" className={classes.title}>
                     Abonnements compatibles
                   </Typography>
                   <div className={classes.listPaymentPacks}>
@@ -158,6 +182,9 @@ export class MarketPlaceActivity extends React.Component<Props> {
                                 )
                               }
                             >
+                              <AddShoppingCartIcon
+                                className={classes.leftIcon}
+                              />
                               {`${p.price} €`}
                             </Button>
                           }
@@ -167,8 +194,8 @@ export class MarketPlaceActivity extends React.Component<Props> {
                   </div>
                 </div>
               ) : null}
-              <Typography variant="subtitle1" className={classes.title}>
-                Etablissement
+              <Typography variant="h6" className={classes.title}>
+                {establishment.title}
               </Typography>
               <Typography variant="body2" className={classes.address}>
                 {establishment.location.address}
@@ -194,7 +221,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
   }
 }
 
-const styles = () => ({
+const styles = (theme) => ({
   card: {
     margin: '0 auto',
     minWidth: 200,
@@ -208,7 +235,8 @@ const styles = () => ({
   },
   title: {
     fontWeight: 500,
-    marginTop: 20,
+    marginTop: theme.spacing.unit * 4,
+    marginBottom: theme.spacing.unit,
   },
   address: {
     marginBottom: 20,
@@ -235,13 +263,13 @@ const styles = () => ({
     height: 32,
     width: 32,
   },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
+  },
 });
 
-function mapStateToProps(state, props) {
+function mapStateToProps(state) {
   return {
-    offer:
-      state.marketplace.detailedOffers.find((o) => o.id === props.offerId) ||
-      {},
     compatibleConsumerPacks: state.payment.compatibleConsumerPacks || [],
     compatiblePaymentPacks: state.payment.compatiblePaymentPacks || [],
   };

@@ -30,15 +30,11 @@ import DeleteOfferForm from './form/DeleteOfferForm.component';
 import OfferForm from './form/OfferForm.component';
 import OfferFormWithActivity from './form/OfferFormWithActivity.component';
 import ConsumerMenu from './navigation/ConsumerMenu.component';
-import BookingListItem from './consumer/BookingListItem.component';
-import BookingOptionListItem from './consumer/BookingOptionListItem.component';
 import FacebookLoginButton from './button/FacebookLoginButton.component';
 import ConsumerProfile from './consumer/Profile.component';
 import ConsumerLogin from './consumer/login/ConsumerLogin.component';
 import RedButton from './button/RedButton.component';
 import ConsumerModalContainer from './consumer/ConsumerModalContainer.component';
-import PaymentPackPayment from './consumer/PaymentPackPayment.component';
-import OfferPayment from './consumer/OfferPayment.component';
 import SignUpForm from './form/SignUpForm.component';
 import SMSCodeForm from './form/SMSCodeForm.component';
 import ConsumersPackSummaryTable from './payment-pack/ConsumersPackSummaryTable.component';
@@ -62,15 +58,11 @@ export {
   ConsumersPackSummaryTable,
   SMSCodeForm,
   SignUpForm,
-  OfferPayment,
-  PaymentPackPayment,
   ConsumerModalContainer,
   RedButton,
   ConsumerLogin,
   ConsumerProfile,
   FacebookLoginButton,
-  BookingListItem,
-  BookingOptionListItem,
   ConsumerMenu,
   OfferForm,
   OfferFormWithActivity,

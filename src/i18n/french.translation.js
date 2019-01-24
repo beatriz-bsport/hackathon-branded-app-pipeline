@@ -155,7 +155,8 @@ export default {
     },
     offer: {
       offersPendingChange: 'Séances qui seront modifiées :',
-      noPackAvailableForOfferPurchase: 'Aucun abonnement compatible avec cette séance !',
+      noPackAvailableForOfferPurchase:
+        'Aucun abonnement compatible avec cette séance !',
       noConsumerPackAvailableForPurchase:
         'Aucun abonnement compatible possédé par ce membre !',
       backToCalendar: 'Retour au calendrier',
@@ -628,7 +629,7 @@ export default {
       success: 'Réservation enregistrée',
       revertBookingTitle: "Annuler l'inscription",
       revertBookingExplain: (name: string) =>
-        `Êtes-vous sûr de vouloir supprimer la réservation de ${name} ? Les crédits utilisés seront recrédités. Si vous ne souhaites pas recréditer le member, passez la réservation en Absent en cliquant sur le bouton "Présent"`,
+        `Êtes-vous sûr de vouloir supprimer la réservation de ${name} ? Les crédits utilisés seront recrédités. Si vous ne souhaitez pas recréditer le membre, passez la réservation en Absent en cliquant sur le bouton "Présent"`,
       revertBookingWithInvoiceImpossibleExplain:
         'Cette reservation a déjà été payée par le membre et ne eut être annulée. Toute fois vous pouvez passer la réservation en "Absent"',
       attend: 'Présent',

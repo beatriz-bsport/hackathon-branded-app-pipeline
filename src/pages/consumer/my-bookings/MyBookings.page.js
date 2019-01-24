@@ -25,11 +25,13 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { push as pushRouter } from 'react-router-redux';
 
-import MarketplaceActivityDialog from '../../components/marketplace/MarketplaceActivityDialog.component';
-import { BookingListItem, BookingOptionListItem } from '../../components';
-import RedButton from '../../components/button/RedButton.component';
-import { consumer as consumerActions } from '../../actions';
-import type { Booking, BookingOption } from '../../api/types';
+import RedButton from '../../../components/button/RedButton.component';
+import { consumer as consumerActions } from '../../../actions';
+import type { Booking, BookingOption } from '../../../api/types';
+
+import ActivityDetailModal from './ActivityDetailModal.component';
+import BookingListItem from './BookingListItem.component';
+import BookingOptionListItem from './BookingOptionListItem.component';
 
 type Props = {
   classes: Object,
@@ -61,7 +63,7 @@ export class MyBookings extends Component<Props, State> {
     modalCancellingBookingOptionOpen: false,
     requestRedirect: null,
     optionIdBeingCancelled: null,
-    offerId: null,
+    offer: null,
   };
 
   renderFutureBookingsContainer = () => {
@@ -95,7 +97,11 @@ export class MyBookings extends Component<Props, State> {
             onDiscard={() => this.prepareDiscardBooking(b)}
             booking={b}
             key={b.id}
-            overrideClickAction={() => this.setState({ offerId: b.offer.id })}
+            overrideClickAction={() =>
+              this.setState({
+                offer: b.offer,
+              })
+            }
           />
         ))}
       </List>
@@ -268,7 +274,11 @@ export class MyBookings extends Component<Props, State> {
           <BookingListItem
             booking={b}
             key={b.id}
-            overrideClickAction={() => {}}
+            overrideClickAction={() =>
+              this.setState({
+                offer: b.offer,
+              })
+            }
           />
         ))}
       </List>
@@ -332,7 +342,7 @@ export class MyBookings extends Component<Props, State> {
   };
 
   onCloseOfferDialog = () => {
-    this.setState({ offerId: null });
+    this.setState({ offer: null });
   };
 
   render() {
@@ -348,10 +358,10 @@ export class MyBookings extends Component<Props, State> {
             {this.renderMembershipButtons()}
           </Grid>
           <Grid item xs={12} lg={6}>
-            {this.state.offerId ? (
-              <MarketplaceActivityDialog
+            {this.state.offer ? (
+              <ActivityDetailModal
                 onClose={this.onCloseOfferDialog}
-                offerId={this.state.offerId}
+                offer={this.state.offer}
               />
             ) : null}
             {this.renderFutureBookingsContainer()}

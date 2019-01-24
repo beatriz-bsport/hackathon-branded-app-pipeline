@@ -11,10 +11,10 @@ import {
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 
-import ActivityMinimalSummary from '../activity/ActivityMinimalSummary.component';
-import RedButton from '../button/RedButton.component';
-import { formatAsDatetime } from '../../datetime';
-import type { BookingOption } from '../../api/types';
+import ActivityMinimalSummary from '../../../components/activity/ActivityMinimalSummary.component';
+import RedButton from '../../../components/button/RedButton.component';
+import { formatAsDatetime } from '../../../datetime';
+import type { BookingOption } from '../../../api/types';
 
 type Props = {
   confirmBookingOption: () => void,

@@ -4,13 +4,12 @@ import React, { Component } from 'react';
 import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 import { CircularProgress } from '@material-ui/core';
-import { payment as paymentActions } from '../../../actions';
-import {
-  ConsumerModalContainer,
-  PaymentPackPayment,
-} from '../../../components';
-import parse from '../../../query-string';
-import type { PaymentPack } from '../../../api/types';
+import { payment as paymentActions } from '../../actions';
+import { ConsumerModalContainer } from '../../components';
+import parse from '../../query-string';
+import type { PaymentPack } from '../../api/types';
+
+import PaymentPackPaymentForm from './payment-pack/PaymentPackForm.component';
 
 type Props = {
   loading: boolean,
@@ -35,7 +34,7 @@ export class PaymentPackPaymentPage extends Component<Props> {
     }
     return (
       <ConsumerModalContainer>
-        <PaymentPackPayment
+        <PaymentPackPaymentForm
           paymentPack={paymentPack}
           loading={loading}
           offerToBuy={this.nextOffer}

@@ -17,7 +17,7 @@ import { CB as PAYMENT_METHOD_CB } from 'bsport-commons/lib/master-data/payment-
 import { connect } from 'react-redux';
 import type { TFunction } from 'react-i18next';
 
-import api from '../../api';
+import api from '../../../api';
 
 type Props = {
   price: ?number,
@@ -68,9 +68,12 @@ export class StripeCheckout extends Component<Props, State> {
   };
 
   render() {
-    const { price, classes, t } = this.props;
+    const { price, classes, t, purchaseType } = this.props;
     const { loading, completed } = this.state;
     if (completed) {
+      if (purchaseType === 'pass') {
+        return <Redirect to="/pass" />;
+      }
       return <Redirect to="/" />;
     }
 

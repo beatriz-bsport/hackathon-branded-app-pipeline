@@ -12,8 +12,8 @@ import {
   ListItemSecondaryAction,
 } from '@material-ui/core';
 import CancelIcon from '@material-ui/icons/Cancel';
-import { humanizeDuration, formatAsDatetime } from '../../datetime';
-import type { Booking } from '../../api/types';
+import { humanizeDuration, formatAsDatetime } from '../../../datetime';
+import type { Booking } from '../../../api/types';
 
 type Props = {
   booking: Booking,

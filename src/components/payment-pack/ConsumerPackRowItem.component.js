@@ -1,6 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
+import type { Node } from 'react';
 import {
   Avatar,
   ListItem,
@@ -11,19 +12,25 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
+import { Moment } from '../../i18n';
 
 import { formatAsDate } from '../../datetime';
 import RedButton from '../button/RedButton.component';
 
 type Props = {
   loading: boolean,
-  consumerPack: Object,
-  paymentPack: Object,
   hideConsumer: ?boolean,
+
+  consumerPack: ConsumerPaymentPack,
+  paymentPack: PaymentPack,
+  button: ?Node,
+
   incrementCredit: (id: number) => void,
   decrementCredit: (id: number) => void,
   subscribeToOffer: ?(id: number) => void,
-  t: (x: string) => string,
+
+  t: TFunction,
 };
 
 export class ConsumerPackRowItem extends Component<Props> {
@@ -133,8 +140,9 @@ export class ConsumerPackRowItem extends Component<Props> {
   };
 
   render() {
-    const { t, consumerPack, hideConsumer, paymentPack } = this.props;
+    const { t, consumerPack, button, hideConsumer, paymentPack } = this.props;
     const { consumer } = consumerPack;
+    const isExpired = Moment(consumerPack.ending_date).isBefore(Moment());
     return (
       <ListItem dense divider>
         {hideConsumer ? null : <Avatar src={consumer.photo} />}
@@ -147,9 +155,10 @@ export class ConsumerPackRowItem extends Component<Props> {
           secondary={`${t('paymentPack.consumer.expiresOn')}${formatAsDate(
             consumerPack.ending_date,
           )}`}
+          secondaryTypographyProps={{ color: isExpired ? 'error' : 'inherit' }}
         />
         {this.renderRestrictions()}
-        {this.renderButton()}
+        {button || this.renderButton()}
       </ListItem>
     );
   }

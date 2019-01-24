@@ -110,7 +110,10 @@ export class MarketPlace extends Component<Props, State> {
   };
 
   openOfferDialog = (offerId) => {
-    this.setState({ offerId });
+    this.setState({
+      offerId,
+      offer: this.props.selectedDayOffers.find((o) => o.id === offerId),
+    });
   };
 
   closeOfferDialog = () => {
@@ -169,6 +172,7 @@ export class MarketPlace extends Component<Props, State> {
             {this.state.offerId ? (
               <MarketplaceActivityDialog
                 offerId={this.state.offerId}
+                offer={this.state.offer}
                 showBookingButton
                 displayPacksInformation
                 onClose={this.closeOfferDialog}

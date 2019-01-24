@@ -3,12 +3,11 @@
 import React, { Component } from 'react';
 
 import {
-  CircularProgress,
   List,
-  Grid,
   Divider,
   Typography,
   withStyles,
+  LinearProgress,
 } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { Moment } from '../../i18n';
@@ -128,20 +127,7 @@ export class TimeTable extends Component<Props, State> {
     const { offersToday } = this.state;
     const { loading, t, classes } = this.props;
     if (loading) {
-      return (
-        <Grid
-          container
-          direction="column"
-          spacing={16}
-          className={classes.loadingContainer}
-          alignItems="center"
-          justify="center"
-        >
-          <Grid item>
-            <CircularProgress />
-          </Grid>
-        </Grid>
-      );
+      return <LinearProgress />;
     }
     return offersToday.length ? (
       <List>

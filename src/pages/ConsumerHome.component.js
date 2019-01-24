@@ -8,11 +8,11 @@ import { Redirect, Switch, Route } from 'react-router-dom';
 
 import { consumer as consumerActions } from '../actions';
 import parse from '../query-string';
-import MyBookings from './consumer/MyBookings.component';
+import MyBookings from './consumer/my-bookings/MyBookings.page';
 import MyPaymentPacks from './consumer/MyPaymentPacks.component';
 import MyProfile from './consumer/MyProfile.component';
-import OfferPaymentPage from './consumer/payment/OfferPaymentPage.component';
-import PaymentPackPaymentPage from './consumer/payment/PaymentPackPaymentPage.component';
+import OfferPaymentPage from './payment/OfferPayment.page';
+import PaymentPackPaymentPage from './payment/PaymentPackPayment.page';
 
 import { ConsumerMenu } from '../components';
 

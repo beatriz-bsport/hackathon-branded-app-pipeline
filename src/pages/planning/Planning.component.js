@@ -152,7 +152,7 @@ export class Planning extends Component<Props, State> {
           editOfferProcessing: false,
           editModalOpened: false,
         });
-        this.onDateClick(this.props.date);
+        this.props.loadDayData(this.props.date);
         return;
       }
     } catch (err) {
@@ -176,12 +176,12 @@ export class Planning extends Component<Props, State> {
       });
       if (response.status === 200) {
         this.props.fetchAllOffers();
-        this.onDateClick(this.props.date);
+        this.props.loadDayData(this.props.date);
         this.setState({
           deletingOffer: false,
           deleteModalOpened: false,
         });
-        this.onDateClick(this.props.date);
+        this.props.loadDayData(this.props.date);
         return;
       }
     } catch (err) {
@@ -198,7 +198,7 @@ export class Planning extends Component<Props, State> {
       if (response.status === 204) {
         this.props.fetchAllOffers();
         this.props.deleteOffer(offerId);
-        this.onDateClick(this.props.date);
+        this.props.loadDayData(this.props.date);
         this.setState({
           deletingOffer: false,
           deleteModalOpened: false,
@@ -209,14 +209,6 @@ export class Planning extends Component<Props, State> {
       console.error(err);
     }
     this.setState({ deletingOffer: false });
-  };
-
-  onDateClick = (date: Object) => {
-    const momentDate = Moment(date);
-    // check if the user has picked a different date
-    if (!momentDate.isSame(this.props.date) || !this.props.selectedOffer) {
-      this.props.loadDayData(momentDate);
-    }
   };
 
   renderNoOfferSelected = () => {
@@ -354,22 +346,16 @@ export class Planning extends Component<Props, State> {
     );
   };
 
-  renderGoBackButton = () => {
-    const { width, classes, selectedOffer, t } = this.props;
-    if (isWidthDown('md', width) && selectedOffer) {
-      return (
-        <Button
-          size="small"
-          className={classes.button}
-          onClick={this.props.goBack}
-        >
-          <KeyboardArrowLeft />
-          {t('offer.backToCalendar')}
-        </Button>
-      );
-    }
-    return null;
-  };
+  renderGoBackButton = () => (
+    <Button
+      size="small"
+      className={this.props.classes.button}
+      onClick={this.props.goBack}
+    >
+      <KeyboardArrowLeft />
+      {this.props.t('offer.backToCalendar')}
+    </Button>
+  );
 
   render() {
     const {
@@ -415,7 +401,7 @@ export class Planning extends Component<Props, State> {
                       <div className={classes.calendarContainer}>
                         <Calendar
                           events={events_}
-                          onDateClick={this.onDateClick}
+                          onDateClick={this.props.loadDayData}
                           date={this.props.date}
                         />
                       </div>
@@ -483,7 +469,7 @@ function mapStateToProps(state) {
     events: state.offer.calendar,
     compatiblePacks: state.offer.compatiblePacks.items,
     compatiblePacksLoading: state.offer.compatiblePacks.loading,
-    timetableLoading: state.activity.loading,
+    timetableLoading: state.activity.loading || state.offer.byDay.loading,
     activities: state.activity.all,
     coaches: state.coach.companyAssociated,
     coachesLoading: state.coach.loading,

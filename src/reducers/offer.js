@@ -26,6 +26,7 @@ const initialState = Immutable({
     loading: false,
     error: null,
   },
+  byDay: { loading: false, error: null },
 
   // Compatible Packs
   compatiblePacks: {

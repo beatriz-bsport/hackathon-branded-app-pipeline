@@ -10,19 +10,27 @@ import {
   ListItem,
   Typography,
   Divider,
+  withStyles,
 } from '@material-ui/core';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { translate } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
 
-import parse from '../../query-string';
+import parse from '../../../query-string';
 
-import OfferSummary from './OfferSummary.component';
 import ConsumerPackCheckout from './ConsumerPackCheckout.component';
-import PaymentPackSummary from '../payment-pack/PaymentPackSummary.component';
-import type { ConsumerPaymentPackConsumerView, Offer } from '../../api/types';
+import PaymentPackSummary from '../../../components/payment-pack/PaymentPackSummary.component';
+import type {
+  ConsumerPaymentPackConsumerView,
+  Offer,
+} from '../../../api/types';
+
+import { ActivityMinimalSummary } from '../../../components';
+import { formatAsDatetime } from '../../../datetime';
 
 type Props = {
   location: Object,
+  classes: Object,
 
   offer: Offer,
   compatibleConsumerPacks: Array<ConsumerPaymentPackConsumerView>,
@@ -38,6 +46,14 @@ type Props = {
   onCompletePurchase: () => void,
   onBuyPaymentPack: (packId: number) => void,
 };
+
+const OfferSummary = (props: { offer: Offer }) => (
+  <ActivityMinimalSummary
+    date={formatAsDatetime(props.offer.date_start)}
+    activity={props.offer.activity}
+    noDivider
+  />
+);
 
 export class OfferPayment extends Component<Props> {
   componentWillMount() {
@@ -173,7 +189,7 @@ export class OfferPayment extends Component<Props> {
           </Typography>
         ) : null}
         {(compatiblePaymentPacks || []).map((pp) => (
-          <ListItem divider key={pp.id}>
+          <ListItem divider dense key={pp.id}>
             <PaymentPackSummary
               noDivider
               paymentPack={pp}
@@ -183,6 +199,9 @@ export class OfferPayment extends Component<Props> {
                   color="primary"
                   onClick={() => this.props.onBuyPaymentPack(pp.id)}
                 >
+                  <AddShoppingCartIcon
+                    className={this.props.classes.leftIcon}
+                  />
                   {`${pp.price} €`}
                 </Button>
               }
@@ -235,4 +254,10 @@ export class OfferPayment extends Component<Props> {
   }
 }
 
-export default withRouter(translate()(OfferPayment));
+const styles = (theme) => ({
+  leftIcon: {
+    marginRight: theme.spacing.unit,
+  },
+});
+
+export default withRouter(translate()(withStyles(styles)(OfferPayment)));

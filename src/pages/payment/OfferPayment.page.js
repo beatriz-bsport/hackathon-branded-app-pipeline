@@ -6,10 +6,13 @@ import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { push as routerPush } from 'react-router-redux';
+import { compose } from 'recompose';
 
-import { payment as paymentActions } from '../../../actions';
-import { ConsumerModalContainer, OfferPayment } from '../../../components';
-import type { Offer, ConsumerPaymentPackManagerView } from '../../../api/types';
+import { payment as paymentActions } from '../../actions';
+import { ConsumerModalContainer } from '../../components';
+import type { Offer, ConsumerPaymentPackManagerView } from '../../api/types';
+
+import OfferPaymentForm from './offer/OfferPaymentForm.component';
 
 type Props = {
   match: Object,
@@ -60,30 +63,23 @@ export class OfferPaymentPage extends Component<Props, State> {
   };
 
   render() {
-    const {
-      offer,
-      loading,
-      compatibleConsumerPacksLoading,
-      compatibleConsumerPacks,
-      compatiblePaymentPacks,
-      compatiblePaymentPacksLoading,
-    } = this.props;
-
-    const { completed } = this.state;
-
-    if (completed) {
+    if (this.state.completed) {
       return <Redirect to="/" />;
     }
 
     return (
       <ConsumerModalContainer>
-        <OfferPayment
-          offer={offer}
-          loading={loading}
-          compatibleConsumerPacks={compatibleConsumerPacks}
-          compatibleConsumerPacksLoading={compatibleConsumerPacksLoading}
-          compatiblePaymentPacksLoading={compatiblePaymentPacksLoading}
-          compatiblePaymentPacks={compatiblePaymentPacks}
+        <OfferPaymentForm
+          offer={this.props.offer}
+          loading={this.props.loading}
+          compatibleConsumerPacks={this.props.compatibleConsumerPacks}
+          compatibleConsumerPacksLoading={
+            this.props.compatibleConsumerPacksLoading
+          }
+          compatiblePaymentPacksLoading={
+            this.props.compatiblePaymentPacksLoading
+          }
+          compatiblePaymentPacks={this.props.compatiblePaymentPacks}
           onCompletePurchase={this.onCompletePurchase}
           onBuyPaymentPack={this.buyPaymentPack}
           goToPassMarketplace={this.goToPassMarketplace}
@@ -93,21 +89,19 @@ export class OfferPaymentPage extends Component<Props, State> {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    offer: state.payment.wantedOffer,
-    loading: state.payment.loading,
-    compatibleConsumerPacks: state.payment.compatibleConsumerPacks,
-    compatiblePaymentPacks: state.payment.compatiblePaymentPacks,
-    compatiblePaymentPacksLoading: state.payment.compatibleConsumerPacksLoading,
-    compatibleConsumerPacksLoading:
-      state.payment.compatibleConsumerPacksLoading,
-  };
-}
-
-export default translate()(
+export default compose(
+  translate(),
   connect(
-    mapStateToProps,
+    (state) => ({
+      offer: state.payment.wantedOffer,
+      loading: state.payment.loading,
+      compatibleConsumerPacks: state.payment.compatibleConsumerPacks,
+      compatiblePaymentPacks: state.payment.compatiblePaymentPacks,
+      compatiblePaymentPacksLoading:
+        state.payment.compatibleConsumerPacksLoading,
+      compatibleConsumerPacksLoading:
+        state.payment.compatibleConsumerPacksLoading,
+    }),
     {
       fetchOffer: paymentActions.fetchOffer,
       fetchCompatiblePass: paymentActions.fetchCompatiblePass,
@@ -115,5 +109,5 @@ export default translate()(
       goToPassMarketplace: (companyName) => routerPush(`/m/${companyName}`),
       pushRouter: (path) => routerPush(path),
     },
-  )(OfferPaymentPage),
-);
+  ),
+)(OfferPaymentPage);

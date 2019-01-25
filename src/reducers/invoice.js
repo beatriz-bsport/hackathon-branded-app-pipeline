@@ -36,7 +36,7 @@ export default function invoiceReducers(state = initialState, action = {}) {
           ),
         });
       }
-      return state.merge(state, {
+      return state.merge({
         quickInvoiceLoading: false,
         quickInvoices: [],
       });

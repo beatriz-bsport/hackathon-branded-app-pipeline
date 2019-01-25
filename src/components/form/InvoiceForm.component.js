@@ -146,7 +146,13 @@ export class InvoiceForm extends Component<Props, State> {
       0,
     );
 
-    return sumPack - (voucher || 0) + sumUneditableInvoiceItems + sumShop;
+    return (
+      sumPack -
+      (voucher || 0) +
+      sumUneditableInvoiceItems +
+      sumShop -
+      parseFloat(this.props.uneditableVoucher | 0)
+    );
   };
 
   deleteVoucher = () => {

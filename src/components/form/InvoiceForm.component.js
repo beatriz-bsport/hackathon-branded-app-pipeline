@@ -151,7 +151,7 @@ export class InvoiceForm extends Component<Props, State> {
       (voucher || 0) +
       sumUneditableInvoiceItems +
       sumShop -
-      parseFloat(this.props.uneditableVoucher | 0)
+      parseFloat(this.props.uneditableVoucher || 0)
     );
   };
 

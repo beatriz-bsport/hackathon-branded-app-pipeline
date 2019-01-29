@@ -114,7 +114,7 @@ export function removeImageFromEstablishment(id: number, imageId: number) {
     dispatch(removeImage.error(null));
 
     try {
-      await deleteAuth(`${API_URI}/establishments/${id}/images/${imageId}`);
+      await deleteAuth(`${API_URI}/establishments/${id}/images/${imageId}/`);
       dispatch(removeImage.success({ id, imageId }));
     } catch (error) {
       console.error(error);

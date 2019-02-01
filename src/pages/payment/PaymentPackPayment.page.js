@@ -17,6 +17,8 @@ type Props = {
   location: Object,
   paymentPack: ?PaymentPack,
   fetchPaymentPack: (number) => void,
+  fetchOffer: (number) => void,
+  offer: ?Offer,
 };
 
 export class PaymentPackPaymentPage extends Component<Props> {

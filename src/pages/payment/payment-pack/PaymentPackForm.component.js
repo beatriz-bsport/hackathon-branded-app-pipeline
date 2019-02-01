@@ -6,6 +6,7 @@ import { Divider, Typography, Grid, withStyles } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 
+import type { TFunction } from 'react-i18next';
 import StripeCheckout from './StripeCheckout.component';
 import PaymentPackSummary from '../../../components/payment-pack/PaymentPackSummary.component';
 import { formatAsDatetime, humanizeDate } from '../../../datetime';
@@ -24,6 +25,8 @@ type Props = {
   loading: boolean,
   paymentPack: Object,
   offerToBuy: ?number,
+  t: TFunction,
+  classes: Object,
 };
 
 export class PaymentPackPayment extends Component<Props> {

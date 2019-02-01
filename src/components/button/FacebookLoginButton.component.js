@@ -20,6 +20,9 @@ const facebookTheme = createMuiTheme({
       main: '#3b5998',
     },
   },
+  typography: {
+    useNextVariants: true,
+  },
 });
 
 type Props = {

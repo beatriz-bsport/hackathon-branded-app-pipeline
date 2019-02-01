@@ -8,9 +8,11 @@ import registerServiceWorker from './registerServiceWorker';
 
 import './material-dashboard-react.css';
 
-Sentry.init({
-  dsn: process.env.REACT_APP_SENTRY_DSN,
-});
+if (process.env.NODE_ENV === 'production') {
+  Sentry.init({
+    dsn: process.env.REACT_APP_SENTRY_DSN,
+  });
+}
 
 ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();

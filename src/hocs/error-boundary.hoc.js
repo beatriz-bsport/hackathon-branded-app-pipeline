@@ -18,6 +18,7 @@ export default function(WrappedComponent) {
           scope.setExtra(key, errorInfo[key]);
         });
         Sentry.captureException(error);
+        console.error(error);
       });
     }
 

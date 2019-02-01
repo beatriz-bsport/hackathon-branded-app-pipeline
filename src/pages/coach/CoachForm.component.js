@@ -1,78 +1,77 @@
 // @flow
 
-import React, { Component } from 'react';
+import React from 'react';
+import { compose, withProps } from 'recompose';
+
+import { goBack } from 'connected-react-router';
+
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+
+import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import { createOrUpdateCoach } from '../../actions/coach.actions';
 import CoachForm from '../../components/form/CoachForm.component';
 
-import { mapFormData } from '../form.utils';
+import { mapFormData, unmap } from '../form.utils';
 
 type Props = {
-  createOrUpdateCoach: (*) => void,
-  pending: boolean,
-  errors: *,
-  update: *,
+  initial: *,
+  onSubmit: (*) => void,
+  onCancel: (*) => void,
 };
 
-export class CoachFormPage extends Component<Props, State> {
-  createCoach = async (data: *) => {
-    const formData = mapFormData(data, {
-      avatar: 'photo',
-      firstname: 'first_name',
-      lastname: 'last_name',
-      gender: 'gender',
-      birthdayYear: 'birthday',
-      email: 'email',
-      description: 'description',
-      phone: 'phone.phone_number',
-      facebook_url: 'facebook_url',
-      instagram_url: 'instagram_url',
-    });
+const CoachMap = {
+  avatar: 'photo',
+  firstname: 'first_name',
+  lastname: 'last_name',
+  gender: 'gender',
+  birthdayYear: 'birthday',
+  email: 'email',
+  description: 'description',
+  phone: 'phone.phone_number',
+  facebook_url: 'facebook_url',
+  instagram_url: 'instagram_url',
+};
 
-    if (this.props.update) {
-      formData.append('id', this.props.update.id);
-    }
-
-    this.props.createOrUpdateCoach(formData);
-  };
-
-  render() {
-    const { update } = this.props;
-    return (
-      <CoachForm
-        onSubmit={this.createCoach}
-        processing={this.props.pending}
-        initial={update}
-      />
-    );
-  }
+export function CoachFormPage(props: Props) {
+  const { initial, onSubmit, onCancel } = props;
+  const initialData = initial
+    ? {
+        ...unmap(initial, CoachMap),
+        birthdayYear: initial ? initial.birthday.slice(0, 4) : '',
+      }
+    : null;
+  console.log(initialData);
+  return (
+    <CoachForm onSubmit={onSubmit} onCancel={onCancel} initial={initialData} />
+  );
 }
 
-function mapStateToProps(state, nextProps) {
-  const { match } = nextProps;
-  const id = (match && match.params && +match.params.id) || null;
-  return {
-    pending: state.coach.upsert.loading,
-    errors: state.coach.upsert.error,
-    update:
-      id !== null
-        ? state.coach.companyAssociated.find((c) => c.id === id)
-        : null,
-  };
-}
-function mapDispatchToProps(dispatch) {
-  return {
-    createOrUpdateCoach(data) {
-      dispatch(createOrUpdateCoach(data));
-    },
-  };
-}
-
-export default withRouter(
+export default compose(
+  mapRouterParamsToProps({ id: 'coachId:number' }),
   connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  )(CoachFormPage),
-);
+    (state, { coachId }) => ({
+      pending: state.coach.upsert.loading,
+      errors: state.coach.upsert.error,
+      initial:
+        coachId !== null
+          ? state.coach.companyAssociated.find((c) => c.id === coachId)
+          : null,
+    }),
+    {
+      onCancel: goBack,
+      upsertCoach: createOrUpdateCoach,
+    },
+  ),
+  withProps(({ upsertCoach, initial }) => ({
+    onSubmit: (values, options) => {
+      const formData = mapFormData(values, CoachMap);
+
+      if (initial) {
+        formData.append('id', initial.id);
+      }
+
+      upsertCoach(formData, options);
+    },
+  })),
+)(CoachFormPage);

@@ -111,7 +111,8 @@ export default compose(
         dispatch(actions.showDialog(false));
         setInitial(null);
       },
-      upsertPaymentRule: (p) => dispatch(actions.upsertPaymentRule(p)),
+      upsertPaymentRule: (p, options) =>
+        dispatch(actions.upsertPaymentRule(p, options)),
       loadPaymentRules: (p) => dispatch(actions.fetchPaymentRules(p)),
     }),
   ),

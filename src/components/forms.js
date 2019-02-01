@@ -1,5 +1,7 @@
 // @flow
 
+import lodash from 'lodash';
+
 import React from 'react';
 
 import { Field, ErrorMessage } from 'formik';
@@ -11,10 +13,27 @@ import DatePicker from 'material-ui-pickers/DatePicker';
 
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormLabel from '@material-ui/core/FormLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Switch from '@material-ui/core/Switch';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+
 import {
   TextField as MuiTextField,
   Button as MuiButton,
+  FormControl as MuiFormControl,
+  InputAdornment,
 } from '@material-ui/core';
+
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
 
 type AlertErrorProps = {
   t: TFunction,
@@ -44,17 +63,39 @@ export const AlertError = withNamespaces([])(
   }),
 );
 
-export function TextField(props: props) {
+const textFieldStyles = (theme) => ({
+  field: {
+    marginBottom: theme.spacing.unit,
+  },
+});
+
+export const TextField = withStyles(textFieldStyles)((props: Props) => {
+  const { classes } = props;
   return (
-    <Field
-      {...props}
-      render={({ field, form: { touched, errors } }) => (
-        <MuiTextField
-          {...field}
-          {...props}
-          error={!!(touched[field.name] && errors[field.name])}
-        />
+    <Field {...props}>
+      {({ field, form: { touched, errors } }) => (
+        <div>
+          <MuiTextField
+            className={classes.field}
+            {...field}
+            {...props}
+            error={!!(touched[field.name] && errors[field.name])}
+          />
+        </div>
       )}
+    </Field>
+  );
+});
+
+export function PriceField(props) {
+  return (
+    <TextField
+      InputProps={{
+        inputProps: { min: 0, step: 0.01 },
+        startAdornment: <InputAdornment position="start">€</InputAdornment>,
+      }}
+      type="number"
+      {...props}
     />
   );
 }
@@ -106,6 +147,202 @@ export const DateField = (props: DateFieldProps) => {
         />
       )}
     />
+  );
+};
+
+type PhoneFieldProps = {};
+
+const phoneStyles = () => ({
+  phoneInput: { marginTop: 18 },
+  labelRoot: {
+    position: 'absolute',
+    left: 42,
+  },
+  labelShrink: {
+    left: 0,
+  },
+});
+export const PhoneField = withNamespaces([])(
+  withStyles(phoneStyles)((props: PhoneFieldProps) => {
+    const { t, label, name, classes, fullWidth, required } = props;
+    return (
+      <Field {...props}>
+        {({ field, form: { touched, errors, setFieldValue } }) => (
+          <div>
+            <MuiFormControl
+              required={required}
+              error={!!(touched[field.name] && errors[field.name])}
+              fullWidth={fullWidth}
+            >
+              <InputLabel
+                htmlFor={name}
+                shrink
+                classes={{
+                  root: classes.labelRoot,
+                  shrink: classes.labelShrink,
+                }}
+              >
+                {label}
+              </InputLabel>
+              <PhoneInput
+                country="FR"
+                autoComplete="tel"
+                {...field}
+                name={name}
+                /* FIXME */
+                onBlur={(e) => field.onBlur(e)}
+                onChange={(value) => setFieldValue(field.name, value)}
+                {...lodash.omit(props, [
+                  'fullWidth',
+                  't',
+                  'tReady',
+                  'i18n',
+                  'i18nOptions',
+                  'defaultNS',
+                  'reportNS',
+                ])}
+                className={classes.phoneInput}
+              />
+            </MuiFormControl>
+            <ErrorMessage {...props}>
+              {(message) => (
+                <Typography variant="body2" className={classes.alertError}>
+                  {t(message)}
+                </Typography>
+              )}
+            </ErrorMessage>
+          </div>
+        )}
+      </Field>
+    );
+  }),
+);
+
+export const GenderField = withStyles(styles)(
+  withNamespaces([])((props: GenderFieldProps) => {
+    const { t, label, fullWidth, classes, required } = props;
+    return (
+      <Field {...props}>
+        {({ field, form: { touched, errors } }) => (
+          <MuiFormControl
+            fullWidth={fullWidth}
+            required={required}
+            error={!!(touched[field.name] && errors[field.name])}
+          >
+            <InputLabel shrink htmlFor="gender-helper">
+              {label}
+            </InputLabel>
+            <Select
+              {...field}
+              {...lodash.omit(props, [
+                't',
+                'tReady',
+                'defaultNS',
+                'i18n',
+                'i18nOptions',
+                'reportNS',
+              ])}
+            >
+              <MenuItem key="F" value="F">
+                {t('common.female')}
+              </MenuItem>
+              <MenuItem key="M" value="M">
+                {t('common.male')}
+              </MenuItem>
+            </Select>
+            <ErrorMessage {...props}>
+              {(message) => (
+                <Typography variant="body2" className={classes.alertError}>
+                  {t(message)}
+                </Typography>
+              )}
+            </ErrorMessage>
+          </MuiFormControl>
+        )}
+      </Field>
+    );
+  }),
+);
+
+export const MultipleCheckboxField = (props: Props) => {
+  const { choices, label, name, helperText } = props;
+  return (
+    <FormControl component="fieldset">
+      <FormLabel component="legend">{label}</FormLabel>
+      <FormGroup>
+        <Field name={name}>
+          {({ field, form: { setFieldValue } }) =>
+            choices.map(({ id, optionLabel }) => (
+              <FormControlLabel
+                key={id}
+                name={name}
+                label={optionLabel}
+                control={
+                  <Checkbox
+                    checked={field.value.some((v) => v === id)}
+                    onChange={() => {
+                      const newValue = field.value.some((v) => v === id)
+                        ? field.value.filter((v) => v === id)
+                        : [...field.value, id];
+                      setFieldValue(field.name, newValue);
+                    }}
+                    value={`${id}`}
+                  />
+                }
+              />
+            ))
+          }
+        </Field>
+      </FormGroup>
+      <FormHelperText>{helperText}</FormHelperText>
+    </FormControl>
+  );
+};
+
+type SwitchFieldProps = { name: string, disabled: boolean, label: string };
+export const SwitchField = (props: SwitchFieldProps) => {
+  const { name, disabled, label } = props;
+  return (
+    <Field name={name}>
+      {({ field }) => (
+        <FormControlLabel
+          {...field}
+          value=""
+          checked={field.value}
+          label={label}
+          disabled={disabled}
+          control={<Switch />}
+        />
+      )}
+    </Field>
+  );
+};
+
+type RadioFieldProps = {
+  name: string,
+  choices: { label: string, value: * }[],
+};
+
+export const RadioGroupField = (props: RadioFieldProps) => {
+  const { name, choices } = props;
+  return (
+    <Field name={name}>
+      {({ field, form: { setFieldValue } }) => (
+        <RadioGroup
+          name={name}
+          onChange={(_, value) => setFieldValue(field.name, value)}
+        >
+          {choices.map(({ label, value }) => (
+            <FormControlLabel
+              key={value}
+              value={value}
+              control={<Radio checked={field.value === `${value}`} />}
+              label={label}
+            />
+          ))}
+        </RadioGroup>
+      )}
+    </Field>
   );
 };
 

@@ -8,7 +8,7 @@ import type { TFunction } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
-import PaymentPackCard from '../payment-pack/PaymentPackCard.component';
+import PaymentPackCard from '../../libs/payment-packs/PaymentPackCard.component';
 
 type Props = {
   t: TFunction,

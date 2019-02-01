@@ -1,10 +1,12 @@
 // @flow
 
-import { compose, withHandlers, withStateHandlers } from 'recompose';
+import React from 'react';
+import { compose } from 'recompose';
+
+import { Form } from 'formik';
+
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-
-import React from 'react';
 
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -12,78 +14,49 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import PaymentRuleForm from './PaymentRuleForm.component';
+import { Submit } from '../../../components/forms';
 
-import type { PaymentRuleSet } from '../types';
+import PaymentRuleFields, {
+  PaymentRuleFormHoc,
+} from './PaymentRuleForm.component';
 
 type Props = {
   t: TFunction,
   open: boolean,
   handleClose: () => void,
-  initial: PaymentRuleSet,
   onSubmit: (*) => void,
+  isSubmitting: boolean,
 };
 
 export function PaymentRuleSetFormDialog(props: Props) {
-  const { t, open, handleClose } = props;
+  const { t, open, handleClose, isSubmitting } = props;
   return (
     <Dialog
       open={open}
       onClose={handleClose}
       aria-labelledby="form-dialog-title"
     >
-      <form onSubmit={props.onSubmit}>
+      <Form>
         <DialogTitle id="form-dialog-title">{t('addNew')}</DialogTitle>
         <DialogContent>
-          <PaymentRuleForm {...props} />
+          <PaymentRuleFields {...props} />
         </DialogContent>
         <DialogActions>
-          <Button onClick={props.handleClose} color="primary">
+          <Button
+            onClick={props.handleClose}
+            color="secondary"
+            disabled={isSubmitting}
+          >
             {t('cancel')}
           </Button>
-          <Button color="primary" type="submit">
-            {t('save')}
-          </Button>
+          <Submit disabled={isSubmitting}>{t('save')}</Submit>
         </DialogActions>
-      </form>
+      </Form>
     </Dialog>
   );
 }
 
 export default compose(
   withNamespaces(['paymentRules']),
-  withStateHandlers(
-    ({ initial }) => initial || { name: '', base_price: 10, bonuses: [] },
-    {
-      onChangeName: () => (event: Object) => ({ name: event.target.value }),
-      onChangeBasePrice: () => (event: Object) => ({
-        base_price: event.target.value,
-      }),
-      removeRule: ({ bonuses }) => (bonus: PaymentRuleBonus) => ({
-        bonuses: bonuses.filter((b) => b.id !== bonus.id),
-      }),
-      addRule: ({ bonuses }) => () => {
-        const bonusRule = {
-          id: -bonuses.reduce((s, a) => s + Math.abs(a.id), 1),
-          threshold: bonuses.reduce((a, b) => Math.max(a, b.threshold), 0) + 5,
-          variable_bonus:
-            bonuses.reduce((a, b) => Math.max(a, b.variable_bonus), 0) + 1,
-        };
-        return {
-          bonuses: [...bonuses, bonusRule],
-        };
-      },
-      handleChangeRule: ({ bonuses }) => (bonus: PaymentRuleBonus) => ({
-        bonuses: [...bonuses.filter((b) => b.id !== bonus.id), bonus].sort(
-          (a, b) => a.threshold - b.threshold,
-        ),
-      }),
-    },
-  ),
-  withHandlers({
-    onSubmit: ({ id, name, base_price, bonuses, onSubmit }) => (event) => {
-      event.preventDefault();
-      onSubmit({ id, name, base_price, bonuses });
-    },
-  }),
+  PaymentRuleFormHoc,
 )(PaymentRuleSetFormDialog);

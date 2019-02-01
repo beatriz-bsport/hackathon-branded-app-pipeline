@@ -23,11 +23,11 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import { translate } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import RedButton from '../button/RedButton.component';
-import MetaActivityMinimalSummary from '../activity/MetaActivityMinimalSummary.component';
-import EstablishmentSummary from '../establishment/EstablishmentSummary.component';
-import { Sport } from '../category';
-import ConsumersPackSummaryTable from './ConsumersPackSummaryTable.component';
+import RedButton from '../../components/button/RedButton.component';
+import MetaActivityMinimalSummary from '../../components/activity/MetaActivityMinimalSummary.component';
+import EstablishmentSummary from '../../components/establishment/EstablishmentSummary.component';
+import { Sport } from '../../components/category';
+import ConsumersPackSummaryTable from '../../components/payment-pack/ConsumersPackSummaryTable.component';
 import type { PaymentPackManagerView, MetaActivity } from '../../api/types';
 import { formatAsDate } from '../../datetime';
 
@@ -82,7 +82,7 @@ export class PaymentPackCard extends Component<Props> {
     const packMetaActivities = pack.metaActivities;
     return (
       <div>
-        <Typography variant="subheading">
+        <Typography variant="subtitle1">
           {t('paymentPack.availableOnFollowingActivities')}
         </Typography>
         <List className={classes.tabList}>
@@ -108,7 +108,7 @@ export class PaymentPackCard extends Component<Props> {
     const packEstablishments = pack.establishments;
     return (
       <div>
-        <Typography variant="subheading">
+        <Typography variant="subtitle1">
           {t('paymentPack.availableOnFollowingEstablishments')}
         </Typography>
         <List className={classes.tabList}>
@@ -187,7 +187,7 @@ export class PaymentPackCard extends Component<Props> {
         <Grid item xs={8}>
           <Grid container direction="column" spacing={16}>
             <Grid item>
-              <Typography variant="title">{name}</Typography>
+              <Typography variant="h6">{name}</Typography>
             </Grid>
             {new_member_only && !onlyPublic ? (
               <Grid item>
@@ -219,7 +219,7 @@ export class PaymentPackCard extends Component<Props> {
             <Grid item>
               <Grid container direction="column" alignItems="flex-end">
                 <Grid item>
-                  <Typography variant="display1" color="primary">
+                  <Typography variant="h4" color="primary">
                     {base_price} €
                   </Typography>
                 </Grid>
@@ -236,7 +236,7 @@ export class PaymentPackCard extends Component<Props> {
               </Grid>
             </Grid>
             <Grid item>
-              <Typography variant="subheading">{creditsFormatted}</Typography>
+              <Typography variant="subtitle1">{creditsFormatted}</Typography>
             </Grid>
           </Grid>
         </Grid>
@@ -366,22 +366,23 @@ export class PaymentPackCard extends Component<Props> {
     const { classes, onlyPublic, pack } = this.props;
     return (
       <Paper
-        className={[classes.paper, pack.disabled ? classes.disabled : null]}
+        className={[
+          classes.paper,
+          pack.disabled ? classes.disabled : null,
+        ].join(' ')}
       >
-        <Grid container direction="column">
-          <Grid item className={classes.horizontalBlock}>
-            {this.getPackHeadingInfo()}
-          </Grid>
-          <Grid item>{this.renderScope()}</Grid>
-          {onlyPublic ? null : (
-            <React.Fragment>
-              <Grid item className={classes.buttonBlock}>
-                {this.renderEditDeleteButtons()}
-              </Grid>
-              <Grid item>{this.getConsumerPaymentPacks()}</Grid>
-            </React.Fragment>
-          )}
-        </Grid>
+        <div className={classes.horizontalBlock}>
+          {this.getPackHeadingInfo()}
+        </div>
+        {this.renderScope()}
+        {onlyPublic ? null : (
+          <div>
+            <div className={classes.buttonBlock}>
+              {this.renderEditDeleteButtons()}
+            </div>
+            <div>{this.getConsumerPaymentPacks()}</div>
+          </div>
+        )}
       </Paper>
     );
   }

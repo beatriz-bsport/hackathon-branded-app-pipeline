@@ -12,6 +12,9 @@ const redTheme = createMuiTheme({
       main: colors.orange,
     },
   },
+  typography: {
+    useNextVariants: true,
+  },
 });
 
 type Props = {

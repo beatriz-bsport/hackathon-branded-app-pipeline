@@ -45,7 +45,7 @@ export const paymentRuleSetUpsert = {
 
 export const showDialog = createAction('PAYMENT_RULES/DIALOG/IS_OPEN');
 
-export function upsertPaymentRule(rule: PaymentRule) {
+export function upsertPaymentRule(rule: PaymentRule, options = {}) {
   return async (dispatch: Dispatch) => {
     dispatch(paymentRuleSetUpsert.isLoading(true));
     dispatch(paymentRuleSetUpsert.error(null));
@@ -59,9 +59,11 @@ export function upsertPaymentRule(rule: PaymentRule) {
       dispatch(paymentRuleSetUpsert.success(response.data));
       dispatch(snackbarSuccess(`paymentRules:${kind}.success`));
       dispatch(showDialog(false));
+      if (options.onSuccess) options.onSuccess();
     } catch (error) {
       dispatch(snackbarError(`paymentRules:${kind}.error`));
       dispatch(paymentRuleSetUpsert.error(error.response.data));
+      if (options.onError) options.onError();
     }
   };
 }

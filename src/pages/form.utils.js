@@ -4,9 +4,24 @@ export function mapFormData(base, map) {
     if (!map[key]) {
       throw new Error(`Mapping for key ${key} does not exist.`);
     }
-    formData.append(map[key], value);
+    if (value !== undefined) {
+      formData.append(map[key], value);
+    }
   }
   return formData;
 }
 
-export default { mapFormData };
+function resolve(ob, path) {
+  return path.reduce((o, attr) => o && o[attr], ob);
+}
+
+export function unmap(ob, map) {
+  const newOb = {};
+  Object.keys(map).forEach((k) => {
+    const path = map[k].split('.');
+    newOb[k] = resolve(ob, path) || (ob && ob[k]);
+  });
+  return newOb;
+}
+
+export default { mapFormData, unmap };

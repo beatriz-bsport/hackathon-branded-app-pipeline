@@ -2,88 +2,76 @@
 
 import React from 'react';
 
-import { compose, withStateHandlers, withHandlers } from 'recompose';
+import * as Yup from 'yup';
+import { withFormik, Form } from 'formik';
 
-import { Button, withStyles } from '@material-ui/core';
+import { compose } from 'recompose';
+
+import { withStyles } from '@material-ui/core/styles';
 import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 
-import DateInput from '../input/DateInput.component';
+import { Submit, DateField } from '../forms';
 
 import { Moment } from '../../i18n';
 
 type Props = {
-  t: (x: string) => string,
+  t: TFunction,
   classes: Object,
-  dateStart: Moment,
-  dateEnd: Moment,
-  changeDateStart: (event: Object) => void,
-  changeDateEnd: (event: Object) => void,
-  onSubmit: (performanceForm: PerformanceForm) => void,
+  isSubmitting: boolean,
 };
 
 export function CoachPerformanceForm(props: Props) {
-  const { t, classes, dateStart, dateEnd } = props;
+  const { t, classes, isSubmitting } = props;
   return (
-    <form onSubmit={props.onSubmit}>
-      <DateInput
+    <Form className={classes.alignCenter}>
+      <DateField
         required
-        value={dateStart}
-        onChange={props.changeDateStart}
+        name="dateStart"
         label={t('common.from')}
         className={classes.dateInput}
-        fullWidth
       />
-      <DateInput
+      <DateField
         required
-        value={dateEnd}
-        onChange={props.changeDateEnd}
+        name="dateEnd"
         label={t('common.until')}
         className={classes.dateInput}
-        fullWidth
       />
-      <Button
-        variant="contained"
-        color="primary"
-        type="submit"
-        className={classes.button}
-      >
+      <Submit variant="outlined" color="secondary" disabled={isSubmitting}>
         {t('calculate')}
-      </Button>
-    </form>
+      </Submit>
+    </Form>
   );
 }
 
 const styles = (theme) => ({
-  button: {
-    textAlign: 'center',
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
+  alignCenter: {
+    display: 'flex',
   },
   dateInput: {
     marginRight: theme.spacing.unit * 2,
   },
-  subheading: { marginBottom: theme.spacing.unit * 2 },
-  bonusRules: { marginRight: theme.spacing.unit * 2 },
-  leftButton: { marginRight: theme.spacing.unit },
+});
+
+const CoachPerformanceSchema = Yup.object().shape({
+  dateStart: Yup.date(),
+  dateEnd: Yup.date(),
 });
 
 export default compose(
   withStyles(styles),
   withNamespaces(['paymentRules', 'coachPerformance', 'translation']),
-  withStateHandlers(
-    {
+  withFormik({
+    mapPropsToValues: () => ({
       dateStart: Moment().subtract(1, 'month'),
       dateEnd: Moment(),
-    },
-    {
-      changeDateStart: () => (dateStart: Moment) => ({ dateStart }),
-      changeDateEnd: () => (dateEnd: Moment) => ({ dateEnd }),
-    },
-  ),
-  withHandlers({
-    onSubmit: ({ dateStart, dateEnd, onSubmit }) => (event) => {
-      event.preventDefault();
-      onSubmit({ dateStart, dateEnd });
+    }),
+    validationSchema: CoachPerformanceSchema,
+    handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
+      onSubmit(values, {
+        onError: () => setSubmitting(false),
+        onSuccess: () => setSubmitting(false),
+      });
     },
   }),
 )(CoachPerformanceForm);

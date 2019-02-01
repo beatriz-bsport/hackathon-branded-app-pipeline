@@ -360,7 +360,9 @@ export default {
         generalSettingsTitle: 'General',
         validByDuration: 'Pass valid N days after purchase',
         validByDaterange: 'Pass valid on a specific date range',
-        durationDays: 'Days after purchase in which the pass is active',
+        durationDays: 'Validity period',
+        durationDaysHelperText:
+          'Numbers of days for which the pass will stay active after purchase',
         restrictionsTitle: 'Restrictions',
         maxBookingPerWeek: 'Max usage per week',
         noneMeansAll: 'Keep empty to authorize all',

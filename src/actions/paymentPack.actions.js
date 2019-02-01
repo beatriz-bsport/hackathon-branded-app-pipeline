@@ -1,6 +1,5 @@
 // @flow
 
-import { push as pushRouter } from 'react-router-redux';
 import api from '../api';
 import { snackbarSuccess, snackbarError } from './snackbar.actions';
 import types from './paymentPack.types';
@@ -69,7 +68,7 @@ export function errorPatchingPack(id: number) {
   return { type: types.PAYMENT_PACK_PATCH_ERROR, id };
 }
 
-export function createOrUpdate(data: PaymentPackFormData) {
+export function createOrUpdate(data: PaymentPackFormData, options = {}) {
   return async (dispatch: Dispatch) => {
     dispatch(startCreateOrUpdate());
     try {
@@ -84,12 +83,13 @@ export function createOrUpdate(data: PaymentPackFormData) {
       if (response.status === 200) {
         dispatch(createOrUpdateSuccess(response.data));
         dispatch(snackbarSuccess('paymentPack.createOrUpdate.success'));
-        dispatch(pushRouter('/payment-pack'));
+        if (options.onSuccess) options.onSuccess();
       }
     } catch (err) {
       console.log(err);
       dispatch(createOrUpdateFailed());
       dispatch(snackbarError('paymentPack.createOrUpdate.fail'));
+      if (options.onError) options.onError();
     }
   };
 }

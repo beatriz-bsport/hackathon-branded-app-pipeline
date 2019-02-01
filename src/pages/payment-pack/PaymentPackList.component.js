@@ -15,7 +15,8 @@ import type { TFunction } from 'react-i18next';
 import { push as pushRouter } from 'react-router-redux';
 
 import i18next from 'i18next';
-import { PaymentPackCard } from '../../components';
+
+import PaymentPackCard from '../../libs/payment-packs/PaymentPackCard.component';
 import PaymentPackDeleteDialog from '../../components/form/PaymentPackDeleteDialog.component';
 import {
   consumerPaymentPack as consumerPackActions,
@@ -99,6 +100,7 @@ export class PaymentPackList extends Component<Props, State> {
       <Grid container direction="row">
         {packs.map((p) => (
           <Grid
+            item
             xs={12}
             md={6}
             xl={4}

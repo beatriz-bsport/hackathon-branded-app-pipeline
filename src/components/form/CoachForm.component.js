@@ -1,248 +1,171 @@
 // @flow
 
-import React, { Component } from 'react';
+import React from 'react';
+import { compose } from 'recompose';
 
-import {
-  Grid,
-  CircularProgress,
-  Button,
-  Paper,
-  withStyles,
-  TextField,
-  Typography,
-} from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import { translate } from 'react-i18next';
-import { AvatarUploader } from '..';
-import FormField from '../input/FormField.component';
+import * as Yup from 'yup';
+import { withFormik, Form } from 'formik';
+
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
+
+import { withStyles } from '@material-ui/core/styles';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+import AvatarField from '../forms/AvatarField.component';
+
+import { TextField, PhoneField, GenderField, Actions, Submit } from '../forms';
 
 type Props = {
-  processing: boolean,
-  initial: { [string]: string },
-  onSubmit: (FormData) => void,
+  isSubmitting: boolean,
   classes: Object,
-  t: (x: string) => string,
+  t: TFunction,
+  onCancel: () => void,
 };
 
-type State = {
-  avatar: ?string,
-  firstname: string,
-  lastname: string,
-  birthdayYear: string,
-  phone: string,
-  gender: 'M' | 'F',
-  description: string,
-  email: string,
-  facebook_url: '',
-  instagram_url: '',
-};
+export function CoachForm(props: Props) {
+  const { classes, t, isSubmitting, onCancel } = props;
+  return (
+    <Paper className={classes.paperContainer}>
+      <Form className={classes.content}>
+        <div className={classes.avatar}>
+          <AvatarField name="avatar" />
+        </div>
 
-const MARGIN_AVATAR = 100;
-
-export class CoachForm extends Component<Props, State> {
-  state = {
-    avatar: null,
-    firstname: '',
-    lastname: '',
-    birthdayYear: '',
-    email: '',
-    phone: '',
-    gender: 'M',
-    description: '',
-    instagram_url: '',
-    facebook_url: '',
-  };
-
-  constructor(props: Props) {
-    super(props);
-
-    Object.keys(props.initial || {}).forEach((key) => {
-      this.state[key] = props.initial[key];
-    });
-    if (props.initial) {
-      if (props.initial.birthday) {
-        this.state.birthdayYear = props.initial.birthday.slice(0, 4);
-      }
-      if (props.initial.photo) {
-        this.state.avatar = props.initial.photo;
-      }
-    }
-  }
-
-  onFormFieldChange = (id: string) => (value: Object) => {
-    this.setState({ [id]: value });
-  };
-
-  onSubmit = (event: Object) => {
-    event.preventDefault();
-    const {
-      avatar,
-      firstname,
-      lastname,
-      birthdayYear,
-      description,
-      email,
-      phone,
-      gender,
-      instagram_url,
-      facebook_url,
-    } = this.state;
-    const data = {
-      lastname,
-      firstname,
-      description,
-      email,
-      gender,
-      facebook_url,
-      instagram_url,
-    };
-    if (avatar && typeof avatar !== 'string') {
-      data.avatar = avatar;
-    }
-    if (phone) {
-      data.phone = phone;
-    }
-    if (birthdayYear) {
-      data.birthdayYear = birthdayYear;
-    }
-    this.props.onSubmit(data);
-  };
-
-  renderButton = () => {
-    if (this.props.processing) {
-      return (
-        <Grid container item direction="row" justify="flex-end" spacing={16}>
-          <CircularProgress />
-        </Grid>
-      );
-    }
-    return (
-      <Grid container direction="row" justify="flex-end" spacing={16}>
-        <Grid item>
-          <Link to="/coach" style={{ textDecoration: 'none' }}>
-            <Button>{this.props.t('form.discard')}</Button>
-          </Link>
-        </Grid>
-        <Grid item>
-          <Button variant="contained" color="primary" type="submit">
-            {this.props.t('form.send')}
-          </Button>
-        </Grid>
-      </Grid>
-    );
-  };
-
-  render() {
-    const { classes, t, initial } = this.props;
-    return (
-      <Paper className={classes.paperContainer}>
-        <form target="/coach" onSubmit={this.onSubmit}>
-          <div style={{ marginTop: -MARGIN_AVATAR }}>
-            <AvatarUploader
-              initial={this.state.avatar}
-              onChange={this.onFormFieldChange('avatar')}
+        <Grid container spacing={8} className={classes.fieldset}>
+          <Grid item xs={12} md={6}>
+            <TextField
+              name="firstname"
+              label={t('form.firstname')}
+              required
+              fullWidth
             />
-          </div>
-          <Grid container spacing={16} className={classes.fieldset}>
-            <Grid item xs={12} md={6}>
-              <FormField
-                id="firstname"
-                required
-                fullWidth
-                value={this.state.firstname}
-                onChange={this.onFormFieldChange}
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <FormField
-                id="lastname"
-                value={this.state.lastname}
-                required
-                fullWidth
-                onChange={this.onFormFieldChange}
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <FormField
-                id="email"
-                value={this.state.email}
-                required
-                fullWidth
-                onChange={this.onFormFieldChange}
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <FormField
-                id="phone"
-                fullWidth
-                value={this.state.phone}
-                onChange={this.onFormFieldChange}
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <FormField
-                id="gender"
-                value={this.state.gender}
-                onChange={this.onFormFieldChange}
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <FormField
-                id="birthdayYear"
-                value={this.state.birthdayYear}
-                onChange={this.onFormFieldChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                multiline
-                label="Description"
-                inputProps={{ maxLength: 4999 }}
-                value={this.state.description}
-                onChange={(event) =>
-                  this.onFormFieldChange('description')(event.target.value)
-                }
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                label="Facebook url"
-                fullWidth
-                value={this.state.facebook_url}
-                onChange={(e) =>
-                  this.onFormFieldChange('facebook_url')(e.target.value)
-                }
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                fullWidth
-                label="Instagram url"
-                value={this.state.instagram_url}
-                onChange={(e) =>
-                  this.onFormFieldChange('instagram_url')(e.target.value)
-                }
-              />
-            </Grid>
           </Grid>
-          {this.renderButton()}
-        </form>
-      </Paper>
-    );
-  }
+          <Grid item xs={12} md={6}>
+            <TextField
+              name="lastname"
+              label={t('form.lastname')}
+              required
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              name="email"
+              label={t('form.email')}
+              type="email"
+              required
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <PhoneField
+              name="phone"
+              label={t('form.phone')}
+              required
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <GenderField
+              name="gender"
+              label={t('form.gender')}
+              required
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              type="number"
+              label={t('form.birthdayYear')}
+              name="birthdayYear"
+              required
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              multiline
+              name="description"
+              label={t('form.description')}
+              inputProps={{ maxLength: 4999 }}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField name="facebook_url" label="Facebook URL" fullWidth />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField fullWidth label="Instagram URL" name="instagram_url" />
+          </Grid>
+        </Grid>
+        <Actions>
+          <Button color="secondary" onClick={onCancel} disabled={isSubmitting}>
+            {t('form.discard')}
+          </Button>
+          <Submit disabled={isSubmitting}>{t('form.send')}</Submit>
+        </Actions>
+      </Form>
+      <LinearProgress
+        style={{ visibility: isSubmitting ? 'visible' : 'hidden' }}
+      />
+    </Paper>
+  );
 }
+
+const MARGIN_AVATAR = 140;
 
 const styles = (theme) => ({
   paperContainer: {
-    marginTop: MARGIN_AVATAR,
-    padding: theme.spacing.unit * 3,
     maxWidth: 800,
+    marginTop: MARGIN_AVATAR / 2,
   },
-  fieldset: {
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
+  content: {
+    paddingTop: MARGIN_AVATAR / 2 + theme.spacing.unit,
+    paddingLeft: theme.spacing.unit * 3,
+    paddingRight: theme.spacing.unit * 3,
+    position: 'relative',
+  },
+  avatar: {
+    top: -MARGIN_AVATAR / 2,
+    position: 'absolute',
+    left: '50%',
+    transform: 'translateX(-50%)',
   },
 });
 
-export default withStyles(styles)(translate()(CoachForm));
+const CoachSchema = Yup.object().shape({});
+
+export default compose(
+  withStyles(styles),
+  withNamespaces([]),
+  withFormik({
+    mapPropsToValues: ({ initial }) =>
+      initial || {
+        avatar: '',
+        firstname: '',
+        lastname: '',
+        email: '',
+        phone: '',
+        gender: 'F',
+        birthdayYear: '',
+        description: '',
+        facebook_url: '',
+        instagram_url: '',
+      },
+    validationSchema: CoachSchema,
+    handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
+      const { avatar } = values;
+      const data = {
+        ...values,
+        avatar: typeof avatar !== 'string' ? avatar : undefined,
+      };
+      onSubmit(data, {
+        onSuccess: () => setSubmitting(false),
+        onError: () => setSubmitting(false),
+      });
+    },
+  }),
+)(CoachForm);

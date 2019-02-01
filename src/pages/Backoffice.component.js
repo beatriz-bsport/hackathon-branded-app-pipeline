@@ -23,7 +23,8 @@ import {
 } from './meta-activity';
 import { MarketingDashboard, MarketingRule } from './marketing';
 import { InvoiceList, InvoiceCreate, InvoiceEdit } from './invoice';
-import { PaymentPackList, PaymentPackForm } from './payment-pack';
+import PaymentPackForm from './payment-pack/PaymentPackForm.component';
+import PaymentPackList from './payment-pack/PaymentPackList.component';
 import { CoachList, CoachPerformance, CoachForm } from './coach';
 import { Member, MemberList, MemberForm } from './member';
 import { EstablishmentMap, EstablishmentFormPage } from './establishment';

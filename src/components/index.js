@@ -12,7 +12,6 @@ import CoachCard from './coach/CoachCard.component';
 import ActivityMinimalSummary from './activity/ActivityMinimalSummary.component';
 import PaymentTable from './PaymentTable.component';
 import FeatureTable from './FeatureTable';
-import PaymentPackCard from './payment-pack/PaymentPackCard.component';
 import ConsumerRowSummary from './consumer/ConsumerRowSummary.component';
 import ConsumerListItem from './consumer/ConsumerListItem.component';
 import PackMinimalSummary from './PackMinimalSummary.component';
@@ -77,7 +76,6 @@ export {
   Review,
   ConsumerRowSummary,
   ConsumerListItem,
-  PaymentPackCard,
   LoginBase,
   LanguageButton,
   OfferCard,

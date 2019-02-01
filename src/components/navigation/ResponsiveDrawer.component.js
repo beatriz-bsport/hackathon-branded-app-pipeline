@@ -82,7 +82,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
     }
     if (item.type === 'nested') {
       return (
-        <React.Fragment>
+        <React.Fragment key={item.to}>
           <ListItem button onClick={() => this.handleClick(i)}>
             <ListItemIcon>
               <item.icon />

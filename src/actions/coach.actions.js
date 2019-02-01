@@ -82,6 +82,7 @@ export function fetchAssociatedCoachPerformance(
   associatedCoachId: number,
   start: number,
   end: number,
+  options = {},
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(performance.isLoading(true));
@@ -94,8 +95,10 @@ export function fetchAssociatedCoachPerformance(
         end,
       );
       dispatch(performance.success(response.data));
+      if (options.onSuccess) options.onSuccess();
     } catch (err) {
       dispatch(performance.error(err));
+      if (options.onError) options.onError();
     }
     dispatch(performance.isLoading(false));
   };

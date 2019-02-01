@@ -359,7 +359,9 @@ export default {
         generalSettingsTitle: 'Général',
         validByDuration: 'Abonnement valide N jours après achat',
         validByDaterange: 'Abonnement valide sur un créneau de date précis',
-        durationDays: "Durée de validité (jours) de l'abonnement après achat ",
+        durationDays: 'Durée de validité',
+        durationDaysHelperText:
+          "Période en jours pour laquelle l'abonnement sera valide après achat ",
         restrictionsTitle: 'Restrictions',
         maxBookingPerWeek: 'Utilisation max par semaine',
         noneMeansAll: 'Laisser vide pour tout autoriser',

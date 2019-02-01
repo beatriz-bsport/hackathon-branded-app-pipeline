@@ -4,8 +4,9 @@ import React, { Component } from 'react';
 import type { Node } from 'react';
 import { Link } from 'react-router-dom';
 
+import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import { withStyles, Button } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
 type addButtonProps = {
   path: string,
@@ -48,17 +49,17 @@ export default function withButton(params: injectButtonProps) {
             style={{ textDecoration: 'none' }}
             className={this.props.classes.fabAddButton}
           >
-            <Button variant="extendedFab" aria-label="Add" color="primary">
+            <Fab variant="extended" aria-label="Add" color="primary">
               <AddIcon className={this.props.classes.extendedIcon} />
               {params.addButton.text}
-            </Button>
+            </Fab>
           </Link>
         );
 
         renderSwitchButton = () => (
-          <Button variant="extendedFab" aria-label="Add" color="primary">
+          <Fab variant="extended" aria-label="Add" color="primary">
             <AddIcon />
-          </Button>
+          </Fab>
         );
 
         render() {

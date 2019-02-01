@@ -12,6 +12,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core';
+import AppBar from '@material-ui/core/AppBar';
 
 import { computePerformance } from '../../libs/payment-rules/utils';
 import type { PaymentRule } from '../../libs/payment-rules/types';
@@ -58,10 +59,10 @@ export function CoachPerformance(props: Props) {
 
   return (
     <div>
-      <Typography variant="h4">{t('title', { name: coach.name })}</Typography>
-      <header className={classes.header}>
+      <AppBar position="static" color="default" className={classes.bar}>
         <CoachPerformanceForm onSubmit={onSubmit} loading={loading} />
-      </header>
+      </AppBar>
+      <Typography variant="h4">{t('title', { name: coach.name })}</Typography>
       <CoachPerformanceSummary {...performance} />
       <Paper>
         {loading ? <LinearProgress /> : null}
@@ -76,6 +77,14 @@ export function CoachPerformance(props: Props) {
 }
 
 const styles = (theme) => ({
+  bar: {
+    width: `calc(100% + ${theme.spacing.unit * 6}px)`,
+    marginTop: -theme.spacing.unit * 2,
+    marginRight: -theme.spacing.unit * 3,
+    marginLeft: -theme.spacing.unit * 3,
+    marginBottom: theme.spacing.unit * 3,
+    padding: theme.spacing.unit * 2,
+  },
   header: {
     marginTop: theme.spacing.unit * 2,
   },
@@ -108,9 +117,17 @@ export default compose(
     performance: computePerformance(performance, paymentRules, paymentRule),
   })),
   withHandlers({
-    onSubmit: ({ associatedCoachId, fetchPerformance }) => (data: Object) => {
+    onSubmit: ({ associatedCoachId, fetchPerformance }) => (
+      data: Object,
+      options,
+    ) => {
       const { dateStart, dateEnd } = data;
-      fetchPerformance(associatedCoachId, dateStart.unix(), dateEnd.unix());
+      fetchPerformance(
+        associatedCoachId,
+        dateStart.unix(),
+        dateEnd.unix(),
+        options,
+      );
     },
   }),
 )(CoachPerformance);

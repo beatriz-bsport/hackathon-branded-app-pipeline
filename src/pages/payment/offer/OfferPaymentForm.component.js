@@ -24,9 +24,10 @@ import type {
   ConsumerPaymentPackConsumerView,
   Offer,
 } from '../../../api/types';
+import { Moment } from '../../../i18n';
 
 import { ActivityMinimalSummary } from '../../../components';
-import { formatAsDatetime } from '../../../datetime';
+import { humanizeDate, formatAsDatetime } from '../../../datetime';
 
 type Props = {
   location: Object,
@@ -68,11 +69,14 @@ export class OfferPayment extends Component<Props> {
   getBasket = () => {
     const { offer, loading, t } = this.props;
     if (offer && !loading) {
+      const humanDate = humanizeDate(Moment(offer.date_start));
       return (
         <Grid container direction="column" spacing={16}>
           <Grid item>
             <Typography variant="display2">
-              {t('payment.yourBasket')}
+              {`${t(humanDate.weekDay)} ${humanDate.day} ${t(
+                humanDate.month,
+              )} - ${humanDate.time}`}
             </Typography>
           </Grid>
           <Grid item>

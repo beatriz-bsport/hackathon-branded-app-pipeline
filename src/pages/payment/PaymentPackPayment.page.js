@@ -25,6 +25,9 @@ export class PaymentPackPaymentPage extends Component<Props> {
     const { nextOffer } = parse(this.props.location.search);
     this.nextOffer = nextOffer ? parseInt(nextOffer, 10) : null;
     this.props.fetchPaymentPack(paymentPackId);
+    if (nextOffer) {
+      this.props.fetchOffer(nextOffer);
+    }
   }
 
   render() {
@@ -37,7 +40,7 @@ export class PaymentPackPaymentPage extends Component<Props> {
         <PaymentPackPaymentForm
           paymentPack={paymentPack}
           loading={loading}
-          offerToBuy={this.nextOffer}
+          offerToBuy={this.nextOffer ? this.props.offer : null}
         />
       </ConsumerModalContainer>
     );
@@ -48,6 +51,7 @@ function mapStateToProps(state) {
   return {
     paymentPack: state.payment.wantedPaymentPack,
     loading: state.payment.loading,
+    offer: state.payment.wantedOffer,
   };
 }
 
@@ -55,6 +59,9 @@ function mapDispatchToProps(dispatch) {
   return {
     fetchPaymentPack(id) {
       dispatch(paymentActions.fetchPaymentPack(id));
+    },
+    fetchOffer(id) {
+      dispatch(paymentActions.fetchOffer(id));
     },
   };
 }

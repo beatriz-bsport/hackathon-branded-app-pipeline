@@ -2,17 +2,22 @@
 
 import React, { Component } from 'react';
 
-import { Grid, withStyles, Divider } from '@material-ui/core';
+import { Divider, Typography, Grid, withStyles } from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 
 import StripeCheckout from './StripeCheckout.component';
 import PaymentPackSummary from '../../../components/payment-pack/PaymentPackSummary.component';
+import { formatAsDatetime, humanizeDate } from '../../../datetime';
+import { ActivityMinimalSummary } from '../../../components';
+import { Moment } from '../../../i18n';
 
 const STRIPE_KEY = process.env.REACT_APP_STRIPE_PK_KEY;
 
-const styles = () => ({
-  container: {},
+const styles = (theme) => ({
+  offerTitle: {
+    marginBottom: theme.spacing.unit * 2,
+  },
 });
 
 type Props = {
@@ -23,9 +28,27 @@ type Props = {
 
 export class PaymentPackPayment extends Component<Props> {
   getBasket = () => {
-    const { paymentPack } = this.props;
+    const { t, paymentPack, offerToBuy, classes } = this.props;
+    if (paymentPack && offerToBuy) {
+      const humanDate = humanizeDate(Moment(offerToBuy.date_start));
+      return (
+        <div>
+          <Typography variant="display2" className={classes.offerTitle}>
+            {`${t(humanDate.weekDay)} ${humanDate.day} ${t(
+              humanDate.month,
+            )} - ${humanDate.time}`}
+          </Typography>
+          <ActivityMinimalSummary
+            date={formatAsDatetime(offerToBuy.date_start)}
+            activity={offerToBuy.activity}
+          />
+          <Divider />
+          <PaymentPackSummary paymentPack={paymentPack} />
+        </div>
+      );
+    }
     if (paymentPack) {
-      return <PaymentPackSummary paymentPack={this.props.paymentPack} />;
+      return <PaymentPackSummary paymentPack={paymentPack} />;
     }
     return null;
   };
@@ -44,7 +67,7 @@ export class PaymentPackPayment extends Component<Props> {
                 purchaseId={paymentPack.id}
                 price={paymentPack === null ? ' - ' : paymentPack.price}
                 loading={loading}
-                offerToBuy={offerToBuy}
+                offerToBuy={offerToBuy ? offerToBuy.id : null}
               />
             </Elements>
           </Grid>

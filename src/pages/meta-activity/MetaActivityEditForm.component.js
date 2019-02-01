@@ -46,7 +46,7 @@ export class MetaActivityFormPage extends Component<Props, State> {
         this.props.id,
       );
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         this.setState({ open: true });
         this.props.fetchAllActivities();
         this.props.push(`/activity/${this.props.id}`);

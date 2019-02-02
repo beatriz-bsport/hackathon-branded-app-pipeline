@@ -74,9 +74,7 @@ export class OfferPayment extends Component<Props> {
         <Grid container direction="column" spacing={16}>
           <Grid item>
             <Typography variant="display2">
-              {`${humanDate.day} ${t(
-                humanDate.month,
-              )} - ${humanDate.time}`}
+              {`${humanDate.day} ${t(humanDate.month)} - ${humanDate.time}`}
             </Typography>
           </Grid>
           <Grid item>
@@ -216,6 +214,30 @@ export class OfferPayment extends Component<Props> {
     );
   };
 
+  renderBuyingMethods = () => (
+    <React.Fragment>
+      <Grid item>{this.getPaymentPacksCheckout()}</Grid>
+      <Grid item>{this.renderBuyCompatiblePaymentPack()}</Grid>
+    </React.Fragment>
+  );
+
+  renderOfferNotAvailable = () => {
+    if (this.props.offer && !this.props.offer.available) {
+      return (
+        <Grid item>
+          <Typography
+            variant="h4"
+            color="secondary"
+            className={this.props.classes.noOfferTypography}
+          >
+            Cette séance a été annulée par le coach
+          </Typography>
+        </Grid>
+      );
+    }
+    return null;
+  };
+
   render() {
     const { loading, offer, t } = this.props;
 
@@ -244,8 +266,9 @@ export class OfferPayment extends Component<Props> {
       <Grid container spacing={16} direction="column">
         <Grid item>{this.getBasket()}</Grid>
         <Divider />
-        <Grid item>{this.getPaymentPacksCheckout()}</Grid>
-        <Grid item>{this.renderBuyCompatiblePaymentPack()}</Grid>
+        {offer && offer.available
+          ? this.renderBuyingMethods()
+          : this.renderOfferNotAvailable()}
         <Button
           color="primary"
           variant="contained"
@@ -261,6 +284,9 @@ export class OfferPayment extends Component<Props> {
 const styles = (theme) => ({
   leftIcon: {
     marginRight: theme.spacing.unit,
+  },
+  noOfferTypography: {
+    margin: theme.spacing.unit * 2,
   },
 });
 

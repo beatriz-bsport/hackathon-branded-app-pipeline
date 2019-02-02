@@ -37,7 +37,7 @@ export class PaymentPackPayment extends Component<Props> {
       return (
         <div>
           <Typography variant="display2" className={classes.offerTitle}>
-            {`${t(humanDate.weekDay)} ${humanDate.day} ${t(
+            {`${humanDate.day} ${t(
               humanDate.month,
             )} - ${humanDate.time}`}
           </Typography>

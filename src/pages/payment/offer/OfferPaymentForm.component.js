@@ -74,7 +74,7 @@ export class OfferPayment extends Component<Props> {
         <Grid container direction="column" spacing={16}>
           <Grid item>
             <Typography variant="display2">
-              {`${t(humanDate.weekDay)} ${humanDate.day} ${t(
+              {`${humanDate.day} ${t(
                 humanDate.month,
               )} - ${humanDate.time}`}
             </Typography>

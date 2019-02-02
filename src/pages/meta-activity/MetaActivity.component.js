@@ -308,7 +308,7 @@ export class MetaActivity extends Component<Props, State> {
           <Typography className={classes.blockTitleLargeMargin} variant="title">
             {t('activity.packsAvailable')}
           </Typography>
-          {payment_packs_available.length ? (
+          {payment_packs_available && payment_packs_available.length ? (
             <Paper>
               <List>
                 {payment_packs_available.map((p) => (

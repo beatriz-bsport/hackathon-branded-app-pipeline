@@ -1,4 +1,6 @@
 // @flow
+
+import moment from 'moment';
 import React, { Component } from 'react';
 import {
   List,
@@ -52,7 +54,7 @@ export class MarketplaceTimetable extends Component<Props> {
     return (
       <div>
         <Typography variant="title" className={classes.title}>
-          {formatAsDate(date)}
+          {moment(date).format('dddd Do MMMM')}
         </Typography>
         {this.renderContent()}
       </div>

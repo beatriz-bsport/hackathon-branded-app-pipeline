@@ -287,7 +287,7 @@ export default {
         },
         signupButton: 'Signup',
         iAcceptPrivacyPolicy: 'I accept ',
-        privacyPolicy: 'Term of use',
+        privacyPolicy: 'the terms of use and the privacy policy',
       },
       quickInvoice: {
         totalPurchase: 'Purchases',

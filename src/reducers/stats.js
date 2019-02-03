@@ -6,7 +6,6 @@ import { handleActions } from 'redux-actions';
 
 import {
   dateRangeChange,
-  mainChartChange,
   statIsLoading,
   statLoaded,
   statError,
@@ -43,9 +42,6 @@ export default handleActions(
         end: end && end.valueOf(),
         kind,
       });
-    },
-    [mainChartChange]: (state, { payload: { chart } }) => {
-      return state.set('mainChart', chart);
     },
     [statIsLoading]: (state, { payload: { identifier, loading } }) => {
       return state.setIn(['stats', identifier, 'isLoading'], loading);

@@ -22,11 +22,10 @@ import {
   newMembersStatSelector,
   turnoverStatSelector,
   dateRangeSelector,
-  mainChartSelector,
 } from '../state/stats/selectors';
 
 import DateRangeFilter from '../components/DateRangeFilter.component';
-import { dateRangeChange, mainChartChange } from '../actions/stats.actions';
+import { dateRangeChange } from '../actions/stats.actions';
 import Figure from '../components/graph/Figure.component';
 import {
   ComposedChart,
@@ -183,29 +182,6 @@ export function Dashboard(props: Props) {
   );
 }
 
-function mapStateToProps(state) {
-  return {
-    miniStats: {
-      bookings: bookingStatSelector(state),
-      newMembers: newMembersStatSelector(state),
-      turnover: turnoverStatSelector(state),
-    },
-    dateRange: dateRangeSelector(state),
-    mainChart: mainChartSelector(state),
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    changeDateRange(start, end, kind = 'custom') {
-      dispatch(dateRangeChange({ start, end, kind }));
-    },
-    changeMainChart(chart) {
-      dispatch(mainChartChange({ chart }));
-    },
-  };
-}
-
 const styles = (theme) => ({
   container: {},
   statPaper: {
@@ -238,9 +214,20 @@ const styles = (theme) => ({
 export default compose(
   withStyles(styles),
   withNamespaces('dashboard'),
+  withState('mainChart', 'changeMainChart', 'turnover'),
   connect(
-    mapStateToProps,
-    mapDispatchToProps,
+    (state) => ({
+      miniStats: {
+        bookings: bookingStatSelector(state),
+        newMembers: newMembersStatSelector(state),
+        turnover: turnoverStatSelector(state),
+      },
+      dateRange: dateRangeSelector(state),
+    }),
+    {
+      changeDateRange: (start, end, kind = 'custom') =>
+        dateRangeChange({ start, end, kind }),
+    },
   ),
   withProps(({ mainChart, miniStats }) => ({
     mainChartOptions: chartConfigs[mainChart],
@@ -274,7 +261,16 @@ export default compose(
       },
     ],
   })),
-  withState('tab', 'setTab', 0),
+  withState(
+    'tab',
+    'setTab',
+    ({ mainChart }) =>
+      ({
+        newMembers: 0,
+        turnover: 1,
+        bookings: 2,
+      }[mainChart]),
+  ),
   // Add buttons to select main chart
   withPropsOnChange(
     ['t', 'changeMainChart', 'mainChart'],

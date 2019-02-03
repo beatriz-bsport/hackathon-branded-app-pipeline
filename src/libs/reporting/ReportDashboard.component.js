@@ -122,7 +122,7 @@ export function ReportDashboard(props: Props) {
         <AddIcon />
       </Fab>
       {showModalAdd ? (
-        <Dialog open>
+        <Dialog open handleClose={() => setShowModalAdd(false)}>
           <DialogTitle>
             {reportConfigurations.name || t('form.title')}
           </DialogTitle>

@@ -6,9 +6,9 @@ import { linkTo } from '@storybook/addon-links';
 import { checkA11y } from '@storybook/addon-a11y';
 import { withKnobs, text, boolean, number } from '@storybook/addon-knobs';
 
-import PackForm from './PackForm.component';
+import PaymentPackForm from './PaymentPackForm.component';
 
-storiesOf('Packs/PackForm', module)
+storiesOf('Payment Packs/Forms/PaymentPackForm', module)
   .addDecorator(checkA11y)
   .add('default', () => {
     const activities = [
@@ -20,7 +20,7 @@ storiesOf('Packs/PackForm', module)
       { name: 'Category 2', id: 2 },
     ];
     return (
-      <PackForm
+      <PaymentPackForm
         categories={categories}
         activities={activities}
         onSubmit={action('onSubmit')}

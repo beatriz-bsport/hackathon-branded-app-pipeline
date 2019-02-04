@@ -338,8 +338,8 @@ export default {
         },
       },
       paymentPack: {
-        newMemberOnly: 'Uniquement pour les nouveaux membres',
-        managerOnly: "Disponible à l'achat",
+        newMemberOnly: 'Uniquement pour les nouveaux clients',
+        managerOnly: 'Invisible pour les clients',
         helper: {
           // eslint-disable-next-line
           name: "Nom de l'abonnement",

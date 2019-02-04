@@ -1,4 +1,6 @@
 // @flow
+
+import moment from 'moment';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -25,9 +27,14 @@ type Props = {
   t: TFunction,
 };
 
+function isOfferAvailable(offer) {
+  return !moment(offer.date_start).isSameOrBefore(moment());
+}
+
 export class MarketplaceOffer extends Component<Props> {
   renderButton = () => {
     const { t, offer, companyId } = this.props;
+    const disabled = !isOfferAvailable(offer);
     if (offer.is_full) {
       return (
         <Link
@@ -35,7 +42,7 @@ export class MarketplaceOffer extends Component<Props> {
             0}`}
           style={{ textDecoration: 'none' }}
         >
-          <Button variant="outlined" color="secondary">
+          <Button variant="outlined" color="secondary" disabled={disabled}>
             {t('marketplace.bookOption')}
           </Button>
         </Link>
@@ -46,7 +53,7 @@ export class MarketplaceOffer extends Component<Props> {
         to={`/customer/payment/offer/${offer.id}?membership=${companyId || 0}`}
         style={{ textDecoration: 'none' }}
       >
-        <Button variant="outlined" color="primary">
+        <Button variant="outlined" color="primary" disabled={disabled}>
           {t('marketplace.book')}
         </Button>
       </Link>
@@ -55,9 +62,16 @@ export class MarketplaceOffer extends Component<Props> {
 
   render() {
     const { offer, selected, onClickOffer } = this.props;
-    const onClick = onClickOffer ? () => onClickOffer(offer.id) : null;
+    const available = isOfferAvailable(offer);
+    const onClick =
+      onClickOffer && available ? () => onClickOffer(offer.id) : null;
     return (
-      <ListItem button selected={selected} onClick={onClick} divider>
+      <ListItem
+        button={available}
+        selected={selected}
+        onClick={onClick}
+        divider
+      >
         <Avatar src={offer.coach.photo} />
         <ListItemText
           primary={`${offer.name} - ${formatAsTime(
@@ -66,13 +80,15 @@ export class MarketplaceOffer extends Component<Props> {
           secondary={offer.etablissement.title}
         />
         <ListItemSecondaryAction style={{ marginRight: 12 }}>
-          <IconButton
-            onClick={onClick}
-            color="secondary"
-            style={{ marginRight: 6 }}
-          >
-            <InfoIcon />
-          </IconButton>
+          {available ? (
+            <IconButton
+              onClick={onClick}
+              color="secondary"
+              style={{ marginRight: 6 }}
+            >
+              <InfoIcon />
+            </IconButton>
+          ) : null}
           {this.renderButton()}
         </ListItemSecondaryAction>
       </ListItem>

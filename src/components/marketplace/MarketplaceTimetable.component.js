@@ -1,4 +1,6 @@
 // @flow
+
+import moment from 'moment';
 import React, { Component } from 'react';
 import {
   List,
@@ -9,7 +11,6 @@ import {
 import { translate } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import MarketplaceOffer from './MarketplaceOffer.component';
-import { formatAsDate } from '../../datetime';
 
 type Props = {
   offers: ?Array<Offer>,
@@ -52,7 +53,7 @@ export class MarketplaceTimetable extends Component<Props> {
     return (
       <div>
         <Typography variant="title" className={classes.title}>
-          {formatAsDate(date)}
+          {moment(date).format('dddd Do MMMM')}
         </Typography>
         {this.renderContent()}
       </div>

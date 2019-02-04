@@ -11,7 +11,6 @@ import {
 import { translate } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import MarketplaceOffer from './MarketplaceOffer.component';
-import { formatAsDate } from '../../datetime';
 
 type Props = {
   offers: ?Array<Offer>,

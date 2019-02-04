@@ -59,24 +59,25 @@ export class RegisterMemberToOfferForm extends Component<Props> {
     if (!compatiblePacks.length) {
       return this.renderWarning(t('offer.noPackAvailableForOfferPurchase'));
     }
-
     return (
       <List>
-        {compatiblePacks.map((pack) => (
-          <PaymentPackSummary
-            buyButton={
-              <Button
-                variant="outlined"
-                onClick={() => this.props.subscribeToPackAndOffer(pack.id)}
-              >
-                {t('offer.createBooking')}
-              </Button>
-            }
-            key={pack.id}
-            paymentPack={pack}
-            hideConsumer
-          />
-        ))}
+        {compatiblePacks
+          .filter((pack) => !pack.disabled)
+          .map((pack) => (
+            <PaymentPackSummary
+              buyButton={
+                <Button
+                  variant="outlined"
+                  onClick={() => this.props.subscribeToPackAndOffer(pack.id)}
+                >
+                  {t('offer.createBooking')}
+                </Button>
+              }
+              key={pack.id}
+              paymentPack={pack}
+              hideConsumer
+            />
+          ))}
       </List>
     );
   };

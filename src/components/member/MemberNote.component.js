@@ -33,6 +33,7 @@ export class MemberNote extends Component<Props, State> {
     this.state = {
       editMode: props.editMode || false,
       text: props.note.text,
+      date: props.note.date,
     };
   }
 

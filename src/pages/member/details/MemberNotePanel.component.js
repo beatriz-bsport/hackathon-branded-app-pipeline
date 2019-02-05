@@ -86,7 +86,7 @@ export function MemberNotePanel(props: Props) {
             notes.map((note) => (
               <div className={classes.noteContainer} key={note.id}>
                 <MemberNote
-                  onSubmit={(text) => this.handleNoteSubmit(note.id, text)}
+                  onSubmit={(text) => handleNoteSubmit(note.id, text)}
                   onDelete={() => this.handleNoteDelete(note.id)}
                   note={note}
                   key={note.id}

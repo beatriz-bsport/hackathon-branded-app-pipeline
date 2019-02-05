@@ -345,8 +345,8 @@ export default {
         },
       },
       paymentPack: {
-        newMemberOnly: 'Only available to new members',
-        managerOnly: 'Available for customers',
+        newMemberOnly: 'Only available to new customers',
+        managerOnly: 'Unavailable for customers',
         helper: {
           name: 'Name for the payment pack',
           price: 'Price for user for the whole pack',

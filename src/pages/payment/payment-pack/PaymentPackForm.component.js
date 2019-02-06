@@ -2,7 +2,13 @@
 
 import React, { Component } from 'react';
 
-import { Divider, Typography, Grid, withStyles } from '@material-ui/core';
+import {
+  Button,
+  Divider,
+  Typography,
+  Grid,
+  withStyles,
+} from '@material-ui/core';
 import { translate } from 'react-i18next';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 
@@ -19,12 +25,17 @@ const styles = (theme) => ({
   offerTitle: {
     marginBottom: theme.spacing.unit * 2,
   },
+  onlyForNewMember: {
+    margin: theme.spacing.unit * 2,
+  },
 });
 
 type Props = {
   loading: boolean,
   paymentPack: Object,
+  membership: Membership,
   offerToBuy: ?number,
+  goBack: () => void,
   t: TFunction,
   classes: Object,
 };
@@ -37,9 +48,7 @@ export class PaymentPackPayment extends Component<Props> {
       return (
         <div>
           <Typography variant="display2" className={classes.offerTitle}>
-            {`${humanDate.day} ${t(
-              humanDate.month,
-            )} - ${humanDate.time}`}
+            {`${humanDate.day} ${t(humanDate.month)} - ${humanDate.time}`}
           </Typography>
           <ActivityMinimalSummary
             date={formatAsDatetime(offerToBuy.date_start)}
@@ -56,24 +65,48 @@ export class PaymentPackPayment extends Component<Props> {
     return null;
   };
 
+  renderStripeForm = () => {
+    const { t, classes, loading, paymentPack, offerToBuy } = this.props;
+    if (paymentPack.new_member_only && this.props.hasBoughtSomething) {
+      return (
+        <div>
+          <Typography className={classes.onlyForNewMember}>
+            {
+              "Cette offre n'est disponible que pour les membres n'ayant jamais réservé !"
+            }
+          </Typography>
+          <Grid container item justify="center" alignItems="stretch">
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={this.props.goBack}
+            >
+              {t('marketplace.backToCalendar')}
+            </Button>
+          </Grid>
+        </div>
+      );
+    }
+    return (
+      <Elements>
+        <StripeCheckout
+          purchaseType="pass"
+          purchaseId={paymentPack.id}
+          price={paymentPack === null ? ' - ' : paymentPack.price}
+          loading={loading}
+          offerToBuy={offerToBuy ? offerToBuy.id : null}
+        />
+      </Elements>
+    );
+  };
+
   render() {
-    const { loading, paymentPack, offerToBuy } = this.props;
     return (
       <StripeProvider apiKey={STRIPE_KEY}>
         <Grid container spacing={16} direction="column">
           <Grid item>{this.getBasket()}</Grid>
           <Divider />
-          <Grid item>
-            <Elements>
-              <StripeCheckout
-                purchaseType="pass"
-                purchaseId={paymentPack.id}
-                price={paymentPack === null ? ' - ' : paymentPack.price}
-                loading={loading}
-                offerToBuy={offerToBuy ? offerToBuy.id : null}
-              />
-            </Elements>
-          </Grid>
+          <Grid item>{this.renderStripeForm()}</Grid>
         </Grid>
       </StripeProvider>
     );

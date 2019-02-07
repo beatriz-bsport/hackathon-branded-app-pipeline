@@ -78,15 +78,16 @@ export class MemberNote extends Component<Props, State> {
           >
             <Grid item>
               {editMode ? (
-                <IconButton>
-                  <SaveIcon color="primary" onClick={this.onSubmit} />
+                <IconButton onClick={this.onSubmit}>
+                  <SaveIcon color="primary" />
                 </IconButton>
               ) : (
-                <IconButton>
-                  <EditIcon
-                    color="primary"
-                    onClick={() => this.setState({ editMode: true })}
-                  />
+                <IconButton
+                  onClick={() => {
+                    this.setState({ editMode: true });
+                  }}
+                >
+                  <EditIcon color="primary" />
                 </IconButton>
               )}
               <IconButton onClick={this.handleDelete}>

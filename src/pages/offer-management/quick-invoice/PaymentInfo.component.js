@@ -24,6 +24,7 @@ type Props = {
   handlePaymentChange: (string) => (number) => void,
   handleVoucher: (number) => void,
   onSubmit: () => void,
+  disabled: boolean,
   classes: Object,
   t: TFunction,
 };
@@ -41,6 +42,7 @@ export function PaymentInfo(props: Props) {
     handlePaymentChange,
     handleVoucher,
     onSubmit,
+    disabled,
   } = props;
   return (
     <div>
@@ -110,7 +112,7 @@ export function PaymentInfo(props: Props) {
             color="primary"
             variant="contained"
             onClick={onSubmit}
-            disabled={totalPayment === 0 && finalPrice === 0}
+            disabled={disabled}
           >
             <SaveIcon className={classes.iconLeft} />
             {t('common.save')}

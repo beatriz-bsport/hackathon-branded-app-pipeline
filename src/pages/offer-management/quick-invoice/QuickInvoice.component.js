@@ -299,6 +299,13 @@ export class QuickInvoice extends Component<Props, State> {
               handlePaymentChange={this.handlePaymentChange}
               handleVoucher={this.handleVoucher}
               onSubmit={this.checkUnvenOrSubmit}
+              disabled={
+                !(
+                  (this.state.additionalPaymentPacks || []).length ||
+                  (this.state.additionalShopItems || []).length ||
+                  (this.props.uneditableInvoiceItems || []).length
+                )
+              }
             />
           </React.Fragment>
         )}

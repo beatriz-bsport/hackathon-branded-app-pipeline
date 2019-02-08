@@ -178,6 +178,7 @@ export class FormField extends Component<Props, State> {
       classes,
       disabled,
       type,
+      name,
       defaultValue,
     } = this.props;
     const { value, error, selectedDate } = this.state;
@@ -213,6 +214,7 @@ export class FormField extends Component<Props, State> {
             required={required}
             value={value}
             id={id}
+            name={name}
             label={t(`form.${id}`)}
             onChange={this.handleChange}
             error={error}

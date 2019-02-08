@@ -161,6 +161,7 @@
     "@storybook/addon-viewport": "^3.4.8",
     "@storybook/addons": "^3.4.8",
     "@storybook/react": "^3.4.8",
+    "cypress": "^3.1.4",
     "eslint-config-airbnb": "^17.0.0",
     "faker": "^4.1.0",
     "flow-bin": "0.87",

@@ -51,7 +51,7 @@ export class BookingListItem extends Component<Props> {
         />
         {onDiscard ? (
           <ListItemSecondaryAction>
-            <IconButton onClick={onDiscard}>
+            <IconButton onClick={onDiscard} id={`booking-cancel-${booking.id}`}>
               <CancelIcon />
             </IconButton>
           </ListItemSecondaryAction>

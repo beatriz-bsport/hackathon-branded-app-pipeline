@@ -38,17 +38,6 @@ export async function requestSMSCode(phonenumber) {
   });
 }
 
-export async function validatePhone(phonenumber, code) {
-  return axios({
-    url: `${BASE_URI}/authentication/validate-phone/`,
-    method: 'post',
-    data: {
-      code,
-      phonenumber,
-    },
-  });
-}
-
 export async function requestSMSCodeNoRegistration(phonenumber) {
   return axios({
     url: `${BASE_URI}/authentication/with-phone/no-user-creation`,
@@ -75,7 +64,6 @@ export default {
   accessLevel,
   requestSMSCode,
   requestSMSCodeNoRegistration,
-  validatePhone,
   signup,
   changePassword,
 };

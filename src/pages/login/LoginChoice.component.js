@@ -34,6 +34,7 @@ export function LoginChoice(props: Props) {
         </Typography>
         <Link style={{ textDecoration: 'none' }} to="/login/customer">
           <Button
+            id="btn-login-customer"
             color="primary"
             variant="contained"
             className={classes.button}

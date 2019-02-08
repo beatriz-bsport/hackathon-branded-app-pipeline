@@ -230,6 +230,7 @@ export class SignUpForm extends Component<Props, State> {
             <TextField
               required
               fullWidth
+              name="first_name"
               autoComplete="first name"
               value={this.state.first_name}
               label={t('common.firstname')}
@@ -240,6 +241,7 @@ export class SignUpForm extends Component<Props, State> {
             <TextField
               required
               fullWidth
+              name="last_name"
               autoComplete="last name"
               value={this.state.last_name}
               label={t('common.lastname')}
@@ -258,6 +260,7 @@ export class SignUpForm extends Component<Props, State> {
             <EmailInput
               fullWidth
               required
+              name="email"
               type="email"
               autoComplete="email"
               value={this.state.email}
@@ -274,6 +277,7 @@ export class SignUpForm extends Component<Props, State> {
                 fullWidth
                 country="FR"
                 autoComplete="tel"
+                name="phonenumber"
                 value={this.state.phone}
                 selectCountryComponent={Select}
                 required
@@ -287,6 +291,7 @@ export class SignUpForm extends Component<Props, State> {
               type="password"
               fullWidth
               required
+              name="password"
               value={password}
               error={!this.state.passwordIsConform}
               onChange={this.onPasswordChange}
@@ -299,6 +304,7 @@ export class SignUpForm extends Component<Props, State> {
               type="password"
               fullWidth
               required
+              name="passwordConfirm"
               value={passwordConfirm}
               error={!passwordEqual}
               onChange={this.onPasswordConfirmChange}
@@ -310,7 +316,7 @@ export class SignUpForm extends Component<Props, State> {
             {this.renderRGPD()}
           </Grid>
           <Grid item xs={12}>
-            <FormGroup aria-label="privacy-policy" name="privacy-policy">
+            <FormGroup aria-label="privacy-policy" name="acceptPrivacyPolicy">
               <FormControlLabel
                 label={
                   <Typography>
@@ -339,6 +345,7 @@ export class SignUpForm extends Component<Props, State> {
               {t('common.cancel')}
             </Button>
             <Button
+              id="btn-signup-next"
               type="submit"
               color="primary"
               variant="contained"

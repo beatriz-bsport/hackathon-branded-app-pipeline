@@ -1,5 +1,12 @@
+// @flow
+
+import { push } from 'connected-react-router';
+import { createAction } from 'redux-actions';
+
 import api from '../api';
 import types from './auth.types';
+
+export const initiateInterface = createAction('initiate');
 
 export function profileUpdated() {
   // return { email, firstname, lastname, type: types.PROFILE_UPDATED };
@@ -17,42 +24,32 @@ export function updateProfile({ email, firstname, lastname }) {
   };
 }
 
-export function signUpPhone({ phone, code }) {
+export function fetchAccessLevel(token, username, options = {}) {
   return async (dispatch) => {
-    dispatch(validatePhone({ phone, code }));
-  };
-}
-
-export function validatePhone({ phone, code }) {
-  return async (dispatch) => {
-    dispatch(initiatedLogin(phone));
     try {
-      const response = await api.auth.validatePhone(phone, code);
-      const { token } = response.data;
+      const response = await api.auth.accessLevel(token);
+      console.log(response);
+      const { is_manager, is_coach, is_consumer } = response.data;
 
-      const response_ = await api.auth.accessLevel(token);
-      const { is_manager, is_coach, is_consumer } = response_.data;
-
-      if (token) {
-        dispatch(
-          setLogin({
-            username: phone,
-            token,
-            is_manager,
-            is_coach,
-            is_consumer,
-          }),
-        );
-      } else {
-        dispatch(errorLogin());
-      }
+      dispatch(
+        setLogin({
+          username,
+          token,
+          is_manager,
+          is_coach,
+          is_consumer,
+        }),
+      );
+      const next = options && options.next;
+      if (next) dispatch(push(next));
     } catch (err) {
       dispatch(errorLogin());
     }
+    if (options && options.onDone) options.onDone();
   };
 }
 
-export function requestLogin(username, password) {
+export function requestLogin(username, password, options = {}) {
   return async (dispatch) => {
     dispatch(initiatedLogin(username));
 
@@ -60,22 +57,11 @@ export function requestLogin(username, password) {
       const response = await api.auth.login(username, password);
       const { token } = response.data;
 
-      const response_ = await api.auth.accessLevel(token);
-      const { is_manager, is_coach, is_consumer } = response_.data;
-
-      if (token) {
-        dispatch(
-          setLogin({
-            username,
-            token,
-            is_manager,
-            is_coach,
-            is_consumer,
-          }),
-        );
-      } else {
-        dispatch(errorLogin());
+      if (!token) {
+        throw new Error('No token');
       }
+
+      dispatch(fetchAccessLevel(token, username, options));
     } catch (err) {
       dispatch(errorLogin());
     }
@@ -116,12 +102,12 @@ export function disconnect() {
   return { type: types.DISCONNECT };
 }
 
-export function signup(data) {
+export function signup(data, options = {}) {
   return async (dispatch) => {
     try {
       const response = await api.auth.signup(data);
       if (response && response.status === 201) {
-        return dispatch(requestLogin(data.email, data.password));
+        return dispatch(requestLogin(data.email, data.password, options));
       }
       if (
         response &&

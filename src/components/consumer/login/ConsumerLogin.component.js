@@ -98,9 +98,15 @@ export class ConsumerLogin extends Component<Props, State> {
     return (
       <div className={classes.loginContainer}>
         <PersonIcon className={classes.headIcon} />
-        <FormField id="email" onChange={this.onFormFieldChange} fullWidth />
+        <FormField
+          id="email"
+          name="login"
+          onChange={this.onFormFieldChange}
+          fullWidth
+        />
         <FormField
           id="password"
+          name="password"
           onChange={this.onFormFieldChange}
           type="password"
           fullWidth
@@ -115,6 +121,7 @@ export class ConsumerLogin extends Component<Props, State> {
           color="primary"
           variant="contained"
           onClick={this.doEmailLogin}
+          id="btn-signin"
         >
           LOGIN
         </Button>
@@ -147,7 +154,11 @@ export class ConsumerLogin extends Component<Props, State> {
           <Divider t={t} />
         </Grid>
         <Grid item>
-          <RedButton variant="contained" onClick={requestSignUp}>
+          <RedButton
+            id="btn-goto-signup"
+            variant="contained"
+            onClick={requestSignUp}
+          >
             {t('login.signUpConsumer')}
           </RedButton>
         </Grid>

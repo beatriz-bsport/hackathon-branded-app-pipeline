@@ -108,7 +108,12 @@ export class StripeCheckout extends Component<Props, State> {
             {loading ? (
               <CircularProgress />
             ) : (
-              <Button variant="contained" color="primary" onClick={this.submit}>
+              <Button
+                variant="contained"
+                color="primary"
+                id="stripe-pay"
+                onClick={this.submit}
+              >
                 {t('payment.pay')}
               </Button>
             )}

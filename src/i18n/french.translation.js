@@ -43,6 +43,7 @@ export default {
       "Montant fixe reversé pour toute séance avec suffisamment d'inscrits",
   },
   translation: {
+    bookingConfirmed: 'Réservation confirmée',
     button: { login: 'Connexion' },
     report: {
       delete: "Suppression d'un rapport",

@@ -309,7 +309,13 @@ export class InvoiceForm extends Component<Props, State> {
             onClick={this.goToPayment}
             variant="contained"
             color="primary"
-            disabled={this.getFinalPrice() + (voucher || 0) === 0}
+            disabled={
+              !(
+                (this.state.paymentPackInvoiceItems || []).length ||
+                (this.state.shopItemInvoiceItems || []).length ||
+                (this.props.uneditableInvoiceItems || []).length
+              )
+            }
           >
             <AttachMoneyIcon className={classes.leftIcon} />
             {t('payment.addThisPaymentItem')}

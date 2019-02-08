@@ -12,10 +12,13 @@ const initialState = Immutable({
   is_manager: true,
   is_coach: true,
   is_consumer: true,
+  initializating: false,
 });
 
 export default function authReducer(state = initialState, action = {}) {
   switch (action.type) {
+    case 'initiate':
+      return state.set('initializating', action.payload);
     case actionTypes.DISCONNECT:
       return initialState;
 

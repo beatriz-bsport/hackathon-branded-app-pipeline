@@ -79,7 +79,12 @@ export class ConsumerPackCheckout extends Component<Props, State> {
 
     const buyButtonText = this.getBuyText();
     return (
-      <Button variant="contained" color="primary" onClick={this.pay}>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={this.pay}
+        id={`btn-payment-pack-user-${consumerPack.id}`}
+      >
         {buyButtonText}
       </Button>
     );

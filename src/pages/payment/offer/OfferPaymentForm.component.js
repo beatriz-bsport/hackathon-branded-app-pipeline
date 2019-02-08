@@ -199,6 +199,7 @@ export class OfferPayment extends Component<Props> {
                 <Button
                   variant="outlined"
                   color="primary"
+                  id={`payment-pack-buy-${pp.id}`}
                   onClick={() => this.props.onBuyPaymentPack(pp.id)}
                 >
                   <AddShoppingCartIcon

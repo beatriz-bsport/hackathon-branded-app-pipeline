@@ -3,10 +3,14 @@
 import React, { Component } from 'react';
 
 import { translate } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
+
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { push as routerPush } from 'react-router-redux';
 import { compose } from 'recompose';
+
+import withSnackbar from '../../hocs/with-snackbar.hoc';
 
 import { payment as paymentActions } from '../../actions';
 import { ConsumerModalContainer } from '../../components';
@@ -17,6 +21,7 @@ import OfferPaymentForm from './offer/OfferPaymentForm.component';
 type Props = {
   match: Object,
 
+  t: TFunction,
   offer: ?Offer,
   loading: boolean,
   compatibleConsumerPacksLoading: boolean,
@@ -30,6 +35,7 @@ type Props = {
   fetchOffer: (number) => void,
   fetchCompatiblePass: (number) => void,
   fetchCompatiblePaymentPacks: (number) => void,
+  snackbar: { success: (string) => void },
 };
 
 type State = {
@@ -40,6 +46,8 @@ export class OfferPaymentPage extends Component<Props, State> {
   state = { completed: false };
 
   onCompletePurchase = () => {
+    const { snackbar, t } = this.props;
+    snackbar.success(t('bookingConfirmed'));
     this.setState({ completed: true });
   };
 
@@ -91,6 +99,7 @@ export class OfferPaymentPage extends Component<Props, State> {
 
 export default compose(
   translate(),
+  withSnackbar,
   connect(
     (state) => ({
       offer: state.payment.wantedOffer,

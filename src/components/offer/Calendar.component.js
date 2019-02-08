@@ -140,6 +140,7 @@ export class Calendar extends Component<Props, State> {
         <Grid container direction="column" alignItems="center">
           <Grid item>
             <Button
+              id={`calendar-day-${day.format('YYYY-MM-DD')}`}
               variant={isSelected ? 'contained' : null}
               color="primary"
               className={classes.dayButton}
@@ -195,7 +196,7 @@ export class Calendar extends Component<Props, State> {
               </Typography>
             </Grid>
             <Grid item>
-              <IconButton onClick={this.showNext}>
+              <IconButton id="calendar-next-month" onClick={this.showNext}>
                 <ChevronRightIcon />
               </IconButton>
             </Grid>
@@ -291,6 +292,7 @@ export class Calendar extends Component<Props, State> {
     const { displayMode } = this.state;
     return (
       <Grid
+        id="calendar"
         container
         spacing={16}
         direction="column"

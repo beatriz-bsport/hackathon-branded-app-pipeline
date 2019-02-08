@@ -109,6 +109,7 @@ export class ChangePassword extends Component<Props, State> {
             <Grid item>
               <TextField
                 type="password"
+                name="password"
                 value={password1}
                 required
                 placeholder={t('form.login.password')}
@@ -118,6 +119,7 @@ export class ChangePassword extends Component<Props, State> {
             <Grid item>
               <TextField
                 type="password"
+                name="passwordConfirm"
                 value={password2}
                 required
                 placeholder={t('form.login.confirmPassword')}
@@ -135,7 +137,12 @@ export class ChangePassword extends Component<Props, State> {
               {processing ? (
                 <CircularProgress />
               ) : (
-                <Button color="primary" variant="contained" type="submit">
+                <Button
+                  color="primary"
+                  variant="contained"
+                  type="submit"
+                  id="btn-new-password-confirm"
+                >
                   OK
                 </Button>
               )}

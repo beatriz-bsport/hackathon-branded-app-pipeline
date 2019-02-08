@@ -53,7 +53,12 @@ export class MarketplaceOffer extends Component<Props> {
         to={`/customer/payment/offer/${offer.id}?membership=${companyId || 0}`}
         style={{ textDecoration: 'none' }}
       >
-        <Button variant="outlined" color="primary" disabled={disabled}>
+        <Button
+          variant="outlined"
+          color="primary"
+          id={`offer-book-${offer.id}`}
+          disabled={disabled}
+        >
           {t('marketplace.book')}
         </Button>
       </Link>

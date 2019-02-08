@@ -27,3 +27,10 @@ export const snackbarSuccess = displaySnackbar('success');
 export const snackbarError = displaySnackbar('error');
 export const snackbarInfo = displaySnackbar('info');
 export const snackbarWarning = displaySnackbar('warning');
+
+export const snackbar = {
+  success: snackbarSuccess,
+  error: snackbarError,
+  info: snackbarInfo,
+  warning: snackbarWarning,
+};

@@ -1,8 +1,10 @@
 // @flow
 
 import React, { Component } from 'react';
+import { compose } from 'recompose';
 
 import { withStyles, Grid, Typography } from '@material-ui/core';
+import { withRouter } from 'react-router';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
@@ -118,21 +120,15 @@ export class ConsumerLoginPage extends Component<Props> {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    authenticated: state.auth.authenticated,
-    errorLogin: state.auth.error,
-    loginProcessing: state.auth.loading,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch, props) {
+  const search = ((props && props.location) || {}).search || '';
+  const opts = { next: parse(search).next };
   return {
     doEmailLogin({ email, password }) {
-      dispatch(authActions.requestLogin(email, password));
+      dispatch(authActions.requestLogin(email, password, opts));
     },
     signup(data) {
-      dispatch(authActions.signup(data));
+      dispatch(authActions.signup(data, opts));
     },
   };
 }
@@ -144,9 +140,16 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(
+export default compose(
+  withStyles(styles),
+  translate(),
+  withRouter,
   connect(
-    mapStateToProps,
+    (state) => ({
+      authenticated: state.auth.authenticated,
+      errorLogin: state.auth.error,
+      loginProcessing: state.auth.loading,
+    }),
     mapDispatchToProps,
-  )(translate()(ConsumerLoginPage)),
-);
+  ),
+)(ConsumerLoginPage);

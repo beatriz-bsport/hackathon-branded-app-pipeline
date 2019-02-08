@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 
 import { withStyles } from '@material-ui/core/styles';
-import { CircularProgress } from '@material-ui/core';
+import { LinearProgress } from '@material-ui/core';
 
 import UserspaceSwitcher from './pages/UserspaceSwitcher.component';
 import ConsumerHome from './pages/ConsumerHome.component';
@@ -26,14 +26,15 @@ const styles = () => ({
 type Props = {
   classes: Object,
   rehydrated: boolean,
+  initializating: boolean,
 };
 
 export class Root extends Component<Props> {
   render() {
-    const { classes, rehydrated } = this.props;
+    const { classes, rehydrated, initializating } = this.props;
 
-    if (!rehydrated) {
-      return <CircularProgress />;
+    if (!rehydrated || initializating) {
+      return <LinearProgress />;
     }
 
     return (
@@ -52,6 +53,7 @@ export class Root extends Component<Props> {
 function mapStateToProps(state) {
   return {
     rehydrated: state._persist && state._persist.rehydrated,
+    initializating: state.auth.initializating,
   };
 }
 export default withRouter(withStyles(styles)(connect(mapStateToProps)(Root)));

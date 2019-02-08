@@ -150,10 +150,15 @@ export class AddressForm extends Component<Props, State> {
                 alignItems="center"
                 justify="flex-end"
               >
-                <Button color="secondary" onClick={onSkip}>
+                <Button id="btn-signup-skip" color="secondary" onClick={onSkip}>
                   {t('common.skip')}
                 </Button>
-                <Button color="primary" variant="contained" type="submit">
+                <Button
+                  id="btn-signup"
+                  color="primary"
+                  variant="contained"
+                  type="submit"
+                >
                   {this.props.submitText || t('form.save')}
                 </Button>
               </Grid>

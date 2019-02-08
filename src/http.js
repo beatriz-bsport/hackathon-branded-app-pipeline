@@ -11,8 +11,14 @@ export function setAuthToken(token: string) {
   storage.setItem('http:token', token);
 }
 
+export function getCookie(name) {
+  const values = document.cookie.split(';').map((s) => s.split('='));
+  const item = values.find((c) => c[0].trim() === name);
+  return item && item[1];
+}
+
 export function getAuthToken(): ?string {
-  return storage.getItem('http:token');
+  return storage.getItem('http:token') || getCookie('auth_token');
 }
 
 export async function postBase(uri: string, data: Object, headers: Object) {

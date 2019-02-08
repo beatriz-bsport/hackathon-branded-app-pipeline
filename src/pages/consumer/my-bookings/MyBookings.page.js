@@ -312,9 +312,12 @@ export class MyBookings extends Component<Props, State> {
   getDialogCancelBooking = () => {
     const { bookingToDiscard } = this.state;
     const { t, fullScreen } = this.props;
+    if (!bookingToDiscard) {
+      return null;
+    }
     return (
       <Dialog
-        open={Boolean(bookingToDiscard)}
+        open={!!bookingToDiscard}
         fullScreen={fullScreen}
         onClose={() => this.setState({ bookingToDiscard: null })}
       >
@@ -329,11 +332,15 @@ export class MyBookings extends Component<Props, State> {
         <DialogActions>
           <Button
             color="secondary"
+            id={`booking-cancel-cancel-${bookingToDiscard.id}`}
             onClick={() => this.setState({ bookingToDiscard: null })}
           >
             {t('common.cancel')}
           </Button>
-          <RedButton onClick={this.performDiscard}>
+          <RedButton
+            onClick={this.performDiscard}
+            id={`booking-cancel-confirm-${bookingToDiscard.id}`}
+          >
             {t('common.delete')}
           </RedButton>
         </DialogActions>

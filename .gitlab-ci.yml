@@ -41,3 +41,9 @@ build_app:
   script:
     - docker pull $CONTAINER_IMAGE/$CI_COMMIT_REF_NAME:latest
     - docker run $CONTAINER_IMAGE/$CI_COMMIT_REF_NAME:latest yarn build
+
+
+# run_e2e_test:
+#   stage: test
+#   script:
+#     - cypress run --record --key 29017f03-970c-4c8d-91cf-d62da85f8bef

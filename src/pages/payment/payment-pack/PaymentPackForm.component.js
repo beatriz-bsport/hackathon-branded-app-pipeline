@@ -31,9 +31,9 @@ const styles = (theme) => ({
 });
 
 type Props = {
+  hasBoughtSomething: ?boolean,
   loading: boolean,
   paymentPack: Object,
-  membership: Membership,
   offerToBuy: ?number,
   goBack: () => void,
   t: TFunction,

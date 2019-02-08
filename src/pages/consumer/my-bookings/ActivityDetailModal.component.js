@@ -30,19 +30,35 @@ type Props = {
   fullScreen: boolean,
 };
 
-export class ActivityDetailModal extends Component<Props> {
+type State = {
+  activity: ?Activity,
+  loading: boolean,
+};
+
+export class ActivityDetailModal extends Component<Props, State> {
   state = {
     loading: false,
     activity: null,
   };
 
   componentDidMount() {
+    this._isMounted = true;
     this.setState({ loading: true });
     get(`${API_URI}/activity/${this.props.offer.activity.id}/detail`)
       .then((response) => {
-        this.setState({ activity: response.data, loading: false });
+        if (this._isMounted) {
+          this.setState({ activity: response.data, loading: false });
+        }
       })
-      .catch(() => this.setState({ loading: false }));
+      .catch(() => {
+        if (this._isMounted) {
+          this.setState({ loading: false });
+        }
+      });
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   renderCoachBanner = () => {

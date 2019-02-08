@@ -52,6 +52,7 @@ export class Members extends Component<Props, State> {
       {
         id: 'date_joined',
         label: t('member.date_joined'),
+        sortable: true,
       },
       {
         id: 'actions',
@@ -145,6 +146,8 @@ export class Members extends Component<Props, State> {
           <Grid item xs={12}>
             <FeatureTable
               data={mutableMembers}
+              order="desc"
+              orderBy="date_joined"
               renderRow={this.renderRow}
               columnData={this.getColumnData()}
               loading={loading}

@@ -1,5 +1,5 @@
 export default {
-  showPerformance: 'Rémunerate',
+  showPerformance: 'Remunerate',
   performance: {
     title: 'Coach performance',
     nbBookings: 'Bookings',

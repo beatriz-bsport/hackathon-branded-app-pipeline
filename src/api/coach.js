@@ -1,9 +1,9 @@
 // @flow
 
-import { API_URI, getAuth, postAuth, putAuth } from '../http';
+import { API_URI, getAuth, postBaseAuth, putAuth } from '../http';
 
 export async function addCoach(data: *) {
-  return postAuth(`${API_URI}/saas/create-coach/`, data);
+  return postBaseAuth(`${API_URI}/saas/create-coach/`, data);
 }
 
 export async function updateCoach(data: *) {

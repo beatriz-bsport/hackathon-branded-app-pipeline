@@ -61,12 +61,7 @@ export function CoachForm(props: Props) {
             />
           </Grid>
           <Grid item xs={12} md={6}>
-            <PhoneField
-              name="phone"
-              label={t('form.phone')}
-              required
-              fullWidth
-            />
+            <PhoneField name="phone" label={t('form.phone')} fullWidth />
           </Grid>
           <Grid item xs={12} md={6}>
             <GenderField
@@ -81,7 +76,6 @@ export function CoachForm(props: Props) {
               type="number"
               label={t('form.birthdayYear')}
               name="birthdayYear"
-              required
               fullWidth
             />
           </Grid>
@@ -98,7 +92,7 @@ export function CoachForm(props: Props) {
             <TextField name="facebook_url" label="Facebook URL" fullWidth />
           </Grid>
           <Grid item xs={12} md={6}>
-            <TextField fullWidth label="Instagram URL" name="instagram_url" />
+            <TextField name="instagram_url" label="Instagram URL" fullWidth />
           </Grid>
         </Grid>
         <Actions>
@@ -156,15 +150,22 @@ export default compose(
         instagram_url: '',
       },
     validationSchema: CoachSchema,
-    handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
+    handleSubmit: (
+      values,
+      { props: { onSubmit }, setSubmitting, setFieldError },
+    ) => {
       const { avatar } = values;
       const data = {
         ...values,
         avatar: typeof avatar !== 'string' ? avatar : undefined,
+        birthdayYear: values.birthdayYear || undefined,
+        phone: values.phone || undefined,
       };
       onSubmit(data, {
         onSuccess: () => setSubmitting(false),
-        onError: () => setSubmitting(false),
+        onError: (errors) => {
+          setSubmitting(false);
+        },
       });
     },
   }),

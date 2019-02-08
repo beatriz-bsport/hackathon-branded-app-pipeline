@@ -37,7 +37,7 @@ export const upsert = {
   success: createAction('COACH/UPSERT/SUCCESS'),
 };
 
-export function createOrUpdateCoach(coachData: CoachPayload) {
+export function createOrUpdateCoach(coachData: CoachPayload, options) {
   return async (dispatch: Dispatch) => {
     dispatch(upsert.isLoading(true));
     dispatch(upsert.error(null));
@@ -57,10 +57,12 @@ export function createOrUpdateCoach(coachData: CoachPayload) {
       dispatch(snackbarSuccess(`coach.forms.${key}.success`));
       dispatch(fetchAssociated());
       dispatch(push('/coach'));
+      if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
-      console.log(error);
+      console.error(error);
       dispatch(snackbarError('coach.forms.error'));
       dispatch(upsert.error(error));
+      if (options && options.onError) options.onError(error.response.data);
     }
     dispatch(upsert.isLoading(false));
   };

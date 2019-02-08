@@ -42,7 +42,6 @@ export function CoachFormPage(props: Props) {
           initial && initial.birthday ? initial.birthday.slice(0, 4) : '',
       }
     : null;
-  console.log(initialData);
   return (
     <CoachForm onSubmit={onSubmit} onCancel={onCancel} initial={initialData} />
   );

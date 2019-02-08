@@ -282,7 +282,7 @@ export const MultipleCheckboxField = (props: Props) => {
                     checked={field.value.some((v) => v === id)}
                     onChange={() => {
                       const newValue = field.value.some((v) => v === id)
-                        ? field.value.filter((v) => v === id)
+                        ? field.value.filter((v) => v !== id)
                         : [...field.value, id];
                       setFieldValue(field.name, newValue);
                     }}

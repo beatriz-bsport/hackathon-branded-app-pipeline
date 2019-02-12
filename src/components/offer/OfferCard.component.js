@@ -75,7 +75,7 @@ export class OfferCard extends Component<Props> {
           </Icon>
           <ListItemText primary={name} secondary={formattedPrice} />
           {available ? null : (
-            <Typography variant="title" color="error">
+            <Typography variant="h2" color="error">
               {t('offer.disabled')}
             </Typography>
           )}
@@ -93,7 +93,12 @@ export class OfferCard extends Component<Props> {
 
   getStatsBody = () => {
     const { classes, t } = this.props;
-    const { nb_bookings, nb_option, effectif } = this.props.offer;
+    const {
+      nb_bookings,
+      nb_option,
+      waiting_list_max_size,
+      effectif,
+    } = this.props.offer;
     return (
       <Grid container direction="row" justify="center" alignItems="center">
         <Grid item xs={4} className={[classes.rightBorder, classes.stat]}>
@@ -105,8 +110,21 @@ export class OfferCard extends Component<Props> {
             spacing={8}
           >
             <Grid item>
-              <Typography variant="display2" color="primary" align="center">
+              <Typography
+                variant="h3"
+                color="primary"
+                align="center"
+                style={{ position: 'relative' }}
+              >
                 {nb_bookings}
+                <Typography
+                  variant="h6"
+                  color="primary"
+                  noWrap
+                  style={{ position: 'absolute', right: -30, top: 0 }}
+                >
+                  {`/${effectif}`}
+                </Typography>
               </Typography>
             </Grid>
             <Grid item>
@@ -123,7 +141,7 @@ export class OfferCard extends Component<Props> {
             spacing={8}
           >
             <Grid item>
-              <Typography variant="display2" color="secondary" align="center">
+              <Typography variant="h3" color="secondary" align="center">
                 {parseInt((nb_bookings / effectif) * 100, 10)} %
               </Typography>
             </Grid>
@@ -142,11 +160,18 @@ export class OfferCard extends Component<Props> {
           >
             <Grid item>
               <Typography
-                variant="display2"
+                variant="h3"
                 color={nb_option ? 'error' : 'secondary'}
                 align="center"
+                style={{ position: 'relative' }}
               >
                 {nb_option}
+                <Typography
+                  variant="h6"
+                  style={{ position: 'absolute', top: 0, right: -30 }}
+                >
+                  {`/${waiting_list_max_size}`}
+                </Typography>
               </Typography>
             </Grid>
             <Grid item>
@@ -249,7 +274,7 @@ export class OfferCard extends Component<Props> {
                   <AccessTimeIcon />
                 </Grid>
                 <Grid item>
-                  <Typography variant="title">
+                  <Typography variant="h6">
                     {`${formatAsTime(date_start)} - ${humanizeDuration(
                       duration_minute * 60000,
                     )}`}

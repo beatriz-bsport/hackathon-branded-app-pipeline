@@ -82,6 +82,7 @@ export type Offer = {
   id: number,
   activity_id: number,
   category: string,
+  waiting_list_max_size: number,
   coach_override: ?{
     id: number,
     name: string,

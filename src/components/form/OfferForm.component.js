@@ -53,6 +53,7 @@ type Props = {
     credits: string,
     dates: Array<string>,
     effectif: ?string,
+    waiting_list_max_size: ?number,
     level: ?number,
   }) => void,
 };
@@ -68,6 +69,7 @@ type State = {
   credits: string,
   level: ?number,
   effectif: ?string,
+  waiting_list_max_size: ?number,
   duration_minute: number,
 };
 
@@ -78,6 +80,7 @@ export class OfferForm extends Component<Props, State> {
     date_interval_end: Moment(),
     hour: Moment(),
     effectif: null,
+    waiting_list_max_size: 0,
     coach: null,
     establishment: null,
     price: null,
@@ -96,6 +99,7 @@ export class OfferForm extends Component<Props, State> {
     const {
       level,
       effectif,
+      waiting_list_max_size,
       establishment,
       coach,
       price,
@@ -109,6 +113,7 @@ export class OfferForm extends Component<Props, State> {
       coach,
       price,
       effectif,
+      waiting_list_max_size,
       level,
       credits,
       duration_minute,
@@ -234,6 +239,12 @@ export class OfferForm extends Component<Props, State> {
             required
             onChange={this.onFormFieldChange}
             value={this.state.effectif}
+          />
+          <FormField
+            id="waiting_list_max_size"
+            required
+            onChange={this.onFormFieldChange}
+            value={this.state.waiting_list_max_size}
           />
           <FormField
             id="level"

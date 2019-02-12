@@ -109,7 +109,6 @@ export class FormField extends Component<Props, State> {
       case 'birthdayYear':
       case 'phone':
       case 'default_price':
-      case 'default_waiting_list_max_size':
       case 'default_credits':
       case 'price':
       case 'credits':
@@ -205,7 +204,7 @@ export class FormField extends Component<Props, State> {
       case 'title':
       case 'credits':
       case 'effectif':
-      case 'default_waiting_list_max_size':
+      case 'waiting_list_max_size':
       case 'password':
       case 'code':
         return (

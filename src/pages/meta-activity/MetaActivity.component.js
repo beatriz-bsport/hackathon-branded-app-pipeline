@@ -266,7 +266,6 @@ export class MetaActivity extends Component<Props, State> {
   getPriceAndPacks = () => {
     const { metaActivity, classes, t } = this.props;
     const {
-      default_waiting_list_max_size,
       payment_packs_available,
       last_booking_minutes,
       last_discard_minutes,
@@ -278,14 +277,6 @@ export class MetaActivity extends Component<Props, State> {
             {t('activity.settings')}
           </Typography>
           <Grid container direction="column" spacing={16}>
-            <Grid item>
-              <Typography variant="subheading">
-                {`${t('activity.sizeOfWaitingList')}`}
-              </Typography>
-              <Typography variant="title">
-                {default_waiting_list_max_size}
-              </Typography>
-            </Grid>
             <Grid item>
               <Typography variant="subheading">
                 {`${t('activity.lastBookingBeforeMinutes')}`}

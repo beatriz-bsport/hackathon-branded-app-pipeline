@@ -31,7 +31,6 @@ type State = {
   name: ?string,
   SCT: ?number,
   description: ?string,
-  default_waiting_list_max_size: number,
   default_last_booking_minutes: ?number,
   default_last_discard_minutes: ?number,
   customer_enabled: ?boolean,
@@ -42,7 +41,6 @@ export class MetaActivityForm extends Component<Props, State> {
     super(props);
 
     this.state = {
-      default_waiting_list_max_size: 0,
       default_last_booking_minutes: 30,
       default_last_discard_minutes: 30,
       customer_enabled: true,
@@ -50,8 +48,6 @@ export class MetaActivityForm extends Component<Props, State> {
     const { initial } = this.props;
     if (initial) {
       this.state.name = initial.name;
-      this.state.default_waiting_list_max_size =
-        initial.default_waiting_list_max_size;
       this.state.default_last_booking_minutes = initial.last_booking_minutes;
       this.state.default_last_discard_minutes = initial.last_discard_minutes;
       this.state.customer_enabled = initial.customer_enabled;
@@ -67,7 +63,6 @@ export class MetaActivityForm extends Component<Props, State> {
       name,
       SCT,
       description,
-      default_waiting_list_max_size,
       default_last_booking_minutes,
       default_last_discard_minutes,
       customer_enabled,
@@ -87,10 +82,6 @@ export class MetaActivityForm extends Component<Props, State> {
     formData.append('name', name);
     formData.append('SCT', SCT);
     formData.append('description', description);
-    formData.append(
-      'default_waiting_list_max_size',
-      default_waiting_list_max_size,
-    );
     formData.append(
       'default_last_booking_minutes',
       default_last_booking_minutes,
@@ -179,14 +170,6 @@ export class MetaActivityForm extends Component<Props, State> {
                   id="default_last_discard_minutes"
                   required
                   value={this.state.default_last_discard_minutes}
-                  onChange={this.onFormFieldChange}
-                />
-              </Grid>
-              <Grid item>
-                <FormField
-                  id="default_waiting_list_max_size"
-                  required
-                  value={this.state.default_waiting_list_max_size}
                   onChange={this.onFormFieldChange}
                 />
               </Grid>

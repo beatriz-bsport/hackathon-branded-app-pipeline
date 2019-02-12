@@ -243,7 +243,7 @@ export class InvoiceForm extends Component<Props, State> {
   };
 
   renderBottomActionButton = () => {
-    const { step, voucher } = this.state;
+    const { step } = this.state;
     const { processing, classes, t } = this.props;
 
     if (step === STEP_ADD_INVOICE_PAYMENTS) {

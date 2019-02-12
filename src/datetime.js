@@ -45,16 +45,14 @@ export function formatDuration(minutes) {
 }
 
 export function formatMinutes(minutes) {
-  switch (minutes) {
-    case minutes < 60: {
-      return `${minutes}min`;
+  const minutesNumber = parseInt(minutes, 10);
+    if (minutesNumber < 60) {
+      return `${minutesNumber}min`;
     }
-    case !(minutes % 60): {
-      return `${parseInt(minutes / 60, 10)}h${minutes % 60}`;
+    if (!(minutesNumber % 60)) {
+      return `${parseInt(minutesNumber / 60, 10)}h${minutesNumber % 60}`;
     }
-    default:
-      return `${parseInt(minutes / 60, 10)}h`;
-  }
+    return `${parseInt(minutesNumber / 60, 10)}h`;
 }
 
 export function humanizeDuration(milliseconds) {

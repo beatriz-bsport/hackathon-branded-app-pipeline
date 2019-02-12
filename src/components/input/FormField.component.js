@@ -325,7 +325,8 @@ export class FormField extends Component<Props, State> {
             margin="normal"
           >
             <InputLabel htmlFor={`${id}-helper`}>{t(`form.${id}`)}</InputLabel>
-            <Select value={value || 30} onChange={this.handleChange}>
+            <Select value={value || 0} onChange={this.handleChange}>
+              <MenuItem value={0}>{t('form.zeroMinute')}</MenuItem>
               <MenuItem value={15}>{t('form.quarterHour')}</MenuItem>
               <MenuItem value={30}>{t('form.halfHour')}</MenuItem>
               <MenuItem value={45}>{t('form.halfAndQuarterHour')}</MenuItem>
@@ -339,17 +340,22 @@ export class FormField extends Component<Props, State> {
         );
       case 'SCT':
       case 'coach':
-        console.log(value || defaultValue);
       case 'establishment':
         return (
           <FormControl
             className={classes.formControlLarge}
             required={required}
             margin="normal"
+            id="sport-category-select"
             disabled={this.props.disabled}
           >
             <InputLabel htmlFor={`${id}-helper`}>{t(`form.${id}`)}</InputLabel>
-            <Select value={value || defaultValue} onChange={this.handleChange}>
+            <Select
+              name={name}
+              value={value || defaultValue}
+              onChange={this.handleChange}
+              required={required}
+            >
               {choices.map((elt) => this.getItem(elt))}
             </Select>
           </FormControl>

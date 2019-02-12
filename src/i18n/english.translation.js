@@ -30,6 +30,7 @@ export default {
       'Amount given to every booking over threshold',
   },
   translation: {
+    activityCreated: 'Activity added',
     bookingConfirmed: 'Booking confirmed',
     button: { login: 'Log in' },
     metaActivity: {
@@ -429,6 +430,7 @@ export default {
       default_last_discard_minutes: 'Last booking discard until',
       default_duration_minutes: 'Duration of session',
       newMetaActivity: 'New activity',
+      zeroMinute: '0 min',
       quarterHour: '15 min',
       halfHour: '30 min',
       halfAndQuarterHour: '45 min',

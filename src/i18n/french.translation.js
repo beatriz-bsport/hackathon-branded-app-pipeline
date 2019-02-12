@@ -43,6 +43,7 @@ export default {
       "Montant fixe reversé pour toute séance avec suffisamment d'inscrits",
   },
   translation: {
+    activityCreated: 'Activité ajoutée',
     bookingConfirmed: 'Réservation confirmée',
     button: { login: 'Connexion' },
     report: {
@@ -430,6 +431,7 @@ export default {
       default_last_discard_minutes: "Dernière annulation jusqu'à",
       default_duration_minutes: 'Durée de la séance',
       newMetaActivity: 'Nouvelle activité',
+      zeroMinute: '0 min',
       quarterHour: '15 min',
       halfHour: '30 min',
       halfAndQuarterHour: '45 min',

@@ -1,6 +1,5 @@
 // @flow
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
 import {
   Collapse,
@@ -19,22 +18,14 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import TodayIcon from '@material-ui/icons/Today';
 import { translate } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import { push as routerPush, goBack } from 'react-router-redux';
 
 import Fuse from 'fuse.js';
 import memoize from 'memoize-one';
 
-import {
-  booking as bookingActions,
-  invoice as invoiceActions,
-  offer as offerActions,
-} from '../../actions';
 import BookingTable from '../../components/booking/BookingTable.container';
 import ResultList from '../../components/search/ResultList.component';
 import MemberBookingHelper from './MemberBookingHelper.component';
 import MemberForm from '../../components/form/MemberForm.component';
-import { createOrUpdateMember } from '../../actions/member.actions';
-import { formatAsDatetime } from '../../datetime';
 import { mapFormData } from '../form.utils';
 
 import QuickInvoicePanel from './QuickInvoicePanel.component';
@@ -336,11 +327,6 @@ export class OfferManagement extends Component<Props, State> {
             className={classes.titleBanner}
           >
             <Grid item>
-              <Typography variant="h3">
-                {offer.name} - {formatAsDatetime(offer.date_start)}
-              </Typography>
-            </Grid>
-            <Grid item>
               <Button
                 onClick={this.props.goBack}
                 color="secondary"
@@ -446,91 +432,6 @@ export class OfferManagement extends Component<Props, State> {
     );
   }
 }
-
-function mapStateToProps(state, nextProps) {
-  const { match } = nextProps;
-  const offerId = (match && match.params && +match.params.id) || null;
-
-  return {
-    offerId,
-    offer: state.offer.offers.find((o) => o.id === offerId),
-    offers: state.offer.calendar,
-    activities: state.activity.all,
-    paymentPacks: state.paymentPack.all,
-    shopItems: state.shop.all,
-    members: state.member.all,
-    bookings: state.booking.all,
-    bookingLoading: state.booking.loading,
-    bookingOptions: state.booking.options,
-    memberCreationPending: state.member.createOrUpdatePending,
-    memberCreationErrors: state.member.createOrUpdateErrors,
-    compatiblePacks: state.offer.compatiblePacks.items,
-    compatiblePacksLoading: state.offer.compatiblePacks.loading,
-    unevenSavedInvoices: state.invoice.quickInvoices,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    deleteBooking(bookingId, memberId) {
-      dispatch(bookingActions.deleteBooking(bookingId, memberId));
-    },
-    fetchBookings(offerId) {
-      dispatch(bookingActions.fetchBookingsByOffer(offerId));
-    },
-    bookingUpdaters: {
-      discardBooking(bookingId) {
-        dispatch(bookingActions.discardBooking(bookingId));
-      },
-      confirmBooking(bookingId) {
-        dispatch(bookingActions.confirmBooking(bookingId));
-      },
-      discardBookingAttendance(bookingId) {
-        dispatch(bookingActions.discardBookingAttendance(bookingId));
-      },
-      confirmBookingAttendance(bookingId) {
-        dispatch(bookingActions.confirmBookingAttendance(bookingId));
-      },
-    },
-    discardOption(optionId) {
-      dispatch(bookingActions.discardBookingOption(optionId));
-    },
-    createOrUpdateMember(data) {
-      dispatch(createOrUpdateMember(data, true));
-    },
-    createInvoice(invoiceData: InvoiceData, memberId: number, isQuickInvoice) {
-      dispatch(
-        invoiceActions.createOrUpdateInvoice(
-          invoiceData,
-          true,
-          memberId,
-          isQuickInvoice,
-        ),
-      );
-    },
-    createQuickUnevenInvoice(data) {
-      dispatch(invoiceActions.createQuickInvoice(data));
-    },
-    resetQuickInvoices() {
-      dispatch(invoiceActions.resetQuickInvoices());
-    },
-    goBack() {
-      dispatch(goBack());
-    },
-    push(path) {
-      dispatch(routerPush(path));
-    },
-    fetchCompatiblePacks(id: number) {
-      dispatch(offerActions.fetchCompatiblePacks(id));
-    },
-    addToOffer({ offerId, consumerPaymentPackId, memberId }) {
-      dispatch(
-        bookingActions.addBooking({ offerId, consumerPaymentPackId, memberId }),
-      );
-    },
-  };
-}
-
 const styles = (theme) => ({
   bookingsHeader: {
     padding: theme.spacing.unit * 2,
@@ -551,11 +452,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(
-  translate()(
-    connect(
-      mapStateToProps,
-      mapDispatchToProps,
-    )(OfferManagement),
-  ),
-);
+export default withStyles(styles)(translate()(OfferManagement));

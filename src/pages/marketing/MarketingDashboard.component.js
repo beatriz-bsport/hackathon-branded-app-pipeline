@@ -8,6 +8,8 @@ import { Moment } from '../../i18n';
 
 import RuleCard from '../../components/marketing/RuleCard.component';
 
+import withDrawer from '../../hocs/with-drawer.hoc';
+
 type Props = {
   t: (x: string) => string,
   classes: Object,
@@ -87,10 +89,6 @@ export class MarketingDashboard extends Component<Props, State> {
     const { classes, t } = this.props;
     return (
       <div>
-        <Typography variant="display2" className={classes.title}>
-          {' '}
-          {t('marketing.dashboard')}
-        </Typography>
         <Grid container direction="row" spacing={32}>
           {rules.map((r) => (
             <RuleCard key={r.id} rule={r} />
@@ -107,4 +105,6 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(translate()(MarketingDashboard));
+export default withStyles(styles)(
+  translate()(withDrawer('marketingDashboard')(MarketingDashboard)),
+);

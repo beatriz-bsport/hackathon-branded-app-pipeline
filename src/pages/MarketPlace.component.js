@@ -68,7 +68,6 @@ export class MarketPlace extends Component<Props, State> {
         this.props.companyName,
       );
       if (response.status !== 200) {
-        console.log(response);
         throw new Error(response);
       }
       this.companyId = response.data;

@@ -25,6 +25,7 @@ import { Moment } from '../../i18n';
 import type { Establishment, Activity, Offer } from '../../api/types';
 
 import withBottomButtons from '../../hocs/inject-bottom-buttons';
+import withDrawer from '../../hocs/with-drawer.hoc';
 
 type Props = {
   timetableLoading: boolean,
@@ -161,11 +162,8 @@ const styles = (theme) => ({
   emptyEstablishment: {
     padding: theme.spacing.unit * 3,
   },
-  title: {
-    margin: theme.spacing.unit * 2,
-  },
   paperContainer: {
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing.unit * 2,
     paddingRight: 0,
   },
   map: {
@@ -193,4 +191,4 @@ export default compose(
       text: i18next.t('establishment.addButton'),
     },
   }),
-)(EstablishmentList);
+)(withDrawer('establishmentList')(EstablishmentList));

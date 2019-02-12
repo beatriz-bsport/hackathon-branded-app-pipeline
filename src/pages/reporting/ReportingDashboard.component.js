@@ -14,6 +14,8 @@ import {
   reportMetadata,
 } from '../../resources/reporting';
 
+import withDrawer from '../../hocs/with-drawer.hoc';
+
 type Props = {
   metadata: ReportMetadata,
   reports: ReportConfiguration[],
@@ -67,4 +69,4 @@ export default connect(
     deleteReport: reportsRes.effects.delete,
     goToReport: (r: ReportConfiguration) => push(`/reporting/${r.id}`),
   },
-)(ReportingDashboard);
+)(withDrawer('reportingDashboard')(ReportingDashboard));

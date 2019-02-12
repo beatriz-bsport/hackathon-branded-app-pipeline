@@ -4,6 +4,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -17,6 +18,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Grid from '@material-ui/core/Grid';
 import Collapse from '@material-ui/core/Collapse';
+import Typography from '@material-ui/core/Typography';
 
 import Today from '@material-ui/icons/Today';
 import Star from '@material-ui/icons/Star';
@@ -43,6 +45,8 @@ import RefreshButton from '../button/RefreshButton.component';
 import SearchBar from '../SearchBar.component';
 import LOGO_ASSET from '../../public/images/banner_lowres.png';
 
+import { DrawerContext } from '../../hocs/with-drawer.hoc';
+
 const drawerWidth = 260;
 
 type Props = {
@@ -52,6 +56,7 @@ type Props = {
   theme: Object,
   classes: Object,
   t: (x: string) => string,
+  location: Object,
 };
 
 type State = {
@@ -66,24 +71,34 @@ class ResponsiveDrawer extends React.Component<Props, State> {
   };
 
   handleDrawerToggle = () => {
-    this.setState((prevState) => ({ mobileOpen: !prevState.mobileOpen }));
-  };
-
-  handleClick = (i: number) => {
     this.setState((prevState) => ({
-      open: { ...prevState.open, [i]: !prevState.open[i] },
+      mobileOpen: !prevState.mobileOpen,
     }));
   };
 
-  renderMenuItem = (item, i, isNested) => {
-    const { classes } = this.props;
+  handleClick = (item: Object, i: number) => {
+    this.setState((prevState) => ({
+      open: {
+        ...prevState.open,
+        [i]: !prevState.open[i],
+      },
+    }));
+  };
+
+  renderMenuItem = (item: Object, i, isNested) => {
+    const { classes, location } = this.props;
+    const isActive = location.pathname.startsWith(item.to);
     if (item === 'divider') {
       return <Divider key={i} />;
     }
     if (item.type === 'nested') {
       return (
-        <React.Fragment key={item.to}>
-          <ListItem button onClick={() => this.handleClick(i)}>
+        <React.Fragment>
+          <ListItem
+            button
+            onClick={() => this.handleClick(item, i)}
+            selected={isActive}
+          >
             <ListItemIcon>
               <item.icon />
             </ListItemIcon>
@@ -117,10 +132,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
       >
         <ListItem
           button
-          onClick={this.handleDrawerToggle}
+          onClick={() => this.handleDrawerToggle()}
+          selected={isActive}
           className={isNested ? classes.nestedItem : null}
         >
-          <ListItemIcon>
+          <ListItemIcon className={isNested ? classes.nestedIcon : null}>
             <item.icon />
           </ListItemIcon>
           <ListItemText
@@ -229,7 +245,6 @@ class ResponsiveDrawer extends React.Component<Props, State> {
     ].map((item, i) => {
       return this.renderMenuItem(item, i);
     });
-
     const drawer = (
       <div className={classes.scrollable}>
         <div className={classes.toolbar}>
@@ -245,86 +260,97 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         <List>{items}</List>
       </div>
     );
-
     return (
-      <div className={classes.root}>
-        <AppBar className={classes.appBar} color="inherit">
-          <Toolbar>
-            <Grid
-              container
-              direction="row"
-              alignItems="center"
-              justify="space-between"
-            >
-              <div>
-                <Grid container alignItems="center" direction="row">
-                  <IconButton
-                    color="inherit"
-                    aria-label="open drawer"
-                    onClick={this.handleDrawerToggle}
-                    className={classes.navIconHide}
-                  >
-                    <MenuIcon />
-                  </IconButton>
-                  <img
-                    className={`${classes.navIconHide} ${classes.menuIcon}`}
-                    height={40}
-                    src={LOGO_ASSET}
-                    alt="bsport logo"
-                  />
+      <DrawerContext.Consumer>
+        {(drawerContext) => (
+          <div className={classes.root}>
+            <AppBar className={classes.appBar} color="inherit">
+              <Toolbar>
+                <Grid
+                  container
+                  direction="row"
+                  alignItems="center"
+                  justify="space-between"
+                >
+                  <div>
+                    <Grid container alignItems="center" direction="row">
+                      <IconButton
+                        color="inherit"
+                        aria-label="open drawer"
+                        onClick={this.handleDrawerToggle}
+                        className={classes.navIconHide}
+                      >
+                        <MenuIcon />
+                      </IconButton>
+                      <img
+                        className={`${classes.navIconHide} ${classes.menuIcon}`}
+                        height={40}
+                        src={LOGO_ASSET}
+                        alt="bsport logo"
+                      />
+                      <Typography
+                        className={classes.title}
+                        variant="h6"
+                        color="inherit"
+                        noWrap
+                      >
+                        {drawerContext.title}
+                      </Typography>
+                    </Grid>
+                  </div>
+                  <div className={classes.grow} />
+                  <Hidden smDown implementation="css">
+                    <Grid container alignItems="center" direction="row">
+                      <Grid item className={classes.searchBar}>
+                        <SearchBar changeLocation />
+                      </Grid>
+                      <Grid item>
+                        <RefreshButton
+                          isRefreshing={isRefreshing}
+                          onRefresh={onRefresh}
+                        />
+                      </Grid>
+                      <Grid item>
+                        <LanguageButton />
+                      </Grid>
+                    </Grid>
+                  </Hidden>
                 </Grid>
-              </div>
-              <div className={classes.grow} />
-              <Hidden smDown implementation="css">
-                <Grid container alignItems="center" direction="row">
-                  <Grid item className={classes.searchBar}>
-                    <SearchBar changeLocation />
-                  </Grid>
-                  <Grid item>
-                    <RefreshButton
-                      isRefreshing={isRefreshing}
-                      onRefresh={onRefresh}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <LanguageButton />
-                  </Grid>
-                </Grid>
-              </Hidden>
-            </Grid>
-          </Toolbar>
-        </AppBar>
-        <Hidden mdUp>
-          <Drawer
-            variant="temporary"
-            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-            open={this.state.mobileOpen}
-            onClose={this.handleDrawerToggle}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-        <Hidden smDown implementation="css">
-          <Drawer
-            variant="permanent"
-            open
-            anchor="left"
-            elevation={20}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-        <main className={classes.content}>{this.props.children}</main>
-      </div>
+              </Toolbar>
+            </AppBar>
+            <Hidden mdUp>
+              <Drawer
+                variant="temporary"
+                anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+                open={this.state.mobileOpen}
+                onClose={this.handleDrawerToggle}
+                classes={{
+                  paper: classes.drawerPaper,
+                }}
+                ModalProps={{
+                  keepMounted: true, // Better open performance on mobile.
+                }}
+              >
+                {drawer}
+              </Drawer>
+            </Hidden>
+            <Hidden smDown implementation="css">
+              <Drawer
+                variant="permanent"
+                open
+                anchor="left"
+                elevation={20}
+                classes={{
+                  paper: classes.drawerPaper,
+                }}
+              >
+                {drawer}
+              </Drawer>
+            </Hidden>
+            <main className={classes.content}>{this.props.children}</main>
+          </div>
+        )}
+      </DrawerContext.Consumer>
     );
   }
 }
@@ -356,6 +382,12 @@ const styles = (theme) => ({
       width: `calc(100% - ${drawerWidth}px)`,
     },
   },
+  title: {
+    display: 'none',
+    [theme.breakpoints.up('md')]: {
+      display: 'block',
+    },
+  },
   navIconHide: {
     [theme.breakpoints.up('md')]: {
       display: 'none',
@@ -373,6 +405,7 @@ const styles = (theme) => ({
   drawerPaper: {
     overflow: 'hidden',
     position: 'relative',
+    display: 'inherit',
     width: drawerWidth,
     [theme.breakpoints.up('md')]: {
       position: 'fixed',
@@ -400,11 +433,13 @@ const styles = (theme) => ({
     borderLeft: `4px solid ${colors.primary}`,
   },
   nestedItem: {
-    marginLeft: theme.spacing.unit * 2,
     width: '100%',
+  },
+  nestedIcon: {
+    marginLeft: theme.spacing.unit * 2,
   },
 });
 
-export default withStyles(styles, { withTheme: true })(
-  translate()(ResponsiveDrawer),
+export default translate()(
+  withStyles(styles, { withTheme: true })(withRouter(ResponsiveDrawer)),
 );

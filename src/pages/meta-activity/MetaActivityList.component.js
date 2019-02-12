@@ -17,18 +17,18 @@ import type { MetaActivity, Stat } from '../../api/types';
 
 import withBottomButtons from '../../hocs/inject-bottom-buttons';
 
+import withDrawer from '../../hocs/with-drawer.hoc';
+
 type Props = {
   stats: Array<Stat>,
   metaActivities: Array<MetaActivity>,
 };
 
 export function Activity(props: Props) {
-  const { metaActivities, stats } = props;
-
   return (
     <Grid container direction="row" spacing={24}>
-      {metaActivities.map((a) => {
-        const aStats = (stats || []).filter((s) => s.id === a.id);
+      {props.metaActivities.map((a) => {
+        const aStats = (props.stats || []).filter((s) => s.id === a.id);
         const s = aStats || [{}];
         return (
           <Grid item xs={12} sm={6} key={a.id}>
@@ -63,4 +63,4 @@ export default compose(
       text: i18next.t('activity.addActivity'),
     },
   }),
-)(Activity);
+)(withDrawer('metaActivityList')(Activity));

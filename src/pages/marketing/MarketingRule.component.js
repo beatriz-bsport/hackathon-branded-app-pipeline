@@ -14,6 +14,7 @@ import { translate } from 'react-i18next';
 import Sms from '@material-ui/icons/Sms';
 import Smartphone from '@material-ui/icons/Smartphone';
 import Email from '@material-ui/icons/Email';
+import withDrawer from '../../hocs/with-drawer.hoc';
 
 const styles = (theme) => ({
   paperContainer: {
@@ -231,4 +232,6 @@ export class MarketingRule extends Component {
   }
 }
 
-export default withStyles(styles)(translate()(MarketingRule));
+export default withStyles(styles)(
+  translate()(withDrawer('marketingRule')(MarketingRule)),
+);

@@ -2,14 +2,19 @@
 
 import React, { Component } from 'react';
 
-import { withStyles, Typography, CircularProgress } from '@material-ui/core';
+import { CircularProgress } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push as pushRouter } from 'react-router-redux';
+import { compose } from 'recompose';
+import { withRouter } from 'react-router';
 
 import InvoiceForm from '../../components/form/InvoiceForm.component';
 import { invoice as invoiceActions } from '../../actions';
+import withDrawer from '../../hocs/with-drawer.hoc';
+
+import type { PaymentPack, Offer, Activity, Invoice } from '../../api/types';
 
 type Props = {
   loading: boolean,
@@ -23,7 +28,6 @@ type Props = {
   goToInvoiceList: () => void,
   invoice: Invoice,
   t: TFunction,
-  classes: Object,
   match: Object,
   resetCreateOrUpdateStatus: () => void,
 };
@@ -51,7 +55,6 @@ export class InvoiceFormPage extends Component<Props> {
       offers,
       paymentPacks,
       goToInvoiceList,
-      classes,
       updatingInvoice,
       t,
     } = this.props;
@@ -75,26 +78,19 @@ export class InvoiceFormPage extends Component<Props> {
       uneditableInvoiceItems = [...invoice.invoice_items]; // for mutability
     }
     return (
-      <div>
-        <Typography variant="h4" className={classes.title}>
-          {`${t('payment.invoice')} - ${invoice.uuid
-            .slice(0, 8)
-            .toUpperCase()}`}
-        </Typography>
-        <InvoiceForm
-          offers={offers}
-          activities={activities}
-          paymentPacks={paymentPacks}
-          editMode
-          uneditableInvoiceItems={uneditableInvoiceItems}
-          uneditablePayments={invoice.payments}
-          updatePaymentStatus={this.updatePaymentStatus}
-          createOrUpdate={this.updateInvoice}
-          onCancel={goToInvoiceList}
-          processing={updatingInvoice}
-          uneditableVoucher={invoice.voucher || 0}
-        />
-      </div>
+      <InvoiceForm
+        offers={offers}
+        activities={activities}
+        paymentPacks={paymentPacks}
+        editMode
+        uneditableInvoiceItems={uneditableInvoiceItems}
+        uneditablePayments={invoice.payments}
+        updatePaymentStatus={this.updatePaymentStatus}
+        createOrUpdate={this.updateInvoice}
+        onCancel={goToInvoiceList}
+        processing={updatingInvoice}
+        uneditableVoucher={invoice.voucher || 0}
+      />
     );
   }
 }
@@ -130,17 +126,19 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-const styles = (theme) => ({
-  title: {
-    paddingBottom: theme.spacing.unit * 4,
-  },
-});
+/* i have used withProps over withPropsOnChange because
+the last one did not correctly when page changed */
 
-export default withStyles(styles)(
-  translate()(
-    connect(
-      mapStateToProps,
-      mapDispatchToProps,
-    )(InvoiceFormPage),
+export default compose(
+  translate(),
+  withRouter,
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
   ),
-);
+  withDrawer(
+    ({ t, match }) =>
+      `${t('payment.invoice')} - ${match.params.id.slice(0, 8).toUpperCase()}`,
+    true,
+  ),
+)(InvoiceFormPage);

@@ -22,6 +22,7 @@ import { refresh as refreshActions } from './actions';
 import { initLoginFromCookie } from './auth';
 
 import theme from './theme';
+import { DrawerContextProvider } from './hocs/with-drawer.hoc';
 
 export class App extends Component<{}, {}> {
   state = {
@@ -55,14 +56,16 @@ export class App extends Component<{}, {}> {
         <CssBaseline>
           <Provider store={this.store}>
             <ConnectedRouter history={this.history}>
-              <MuiPickersUtilsProvider
-                utils={MomentUtils}
-                moment={Moment}
-                locale={Moment.locale()}
-              >
-                <SnackbarPile />
-                <Root />
-              </MuiPickersUtilsProvider>
+              <DrawerContextProvider>
+                <MuiPickersUtilsProvider
+                  utils={MomentUtils}
+                  moment={Moment}
+                  locale={Moment.locale()}
+                >
+                  <SnackbarPile />
+                  <Root />
+                </MuiPickersUtilsProvider>
+              </DrawerContextProvider>
             </ConnectedRouter>
           </Provider>
         </CssBaseline>

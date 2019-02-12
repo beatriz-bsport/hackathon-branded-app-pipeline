@@ -20,6 +20,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import { translate } from 'react-i18next';
 import { goBack, push as routerPush } from 'react-router-redux';
 import { connect } from 'react-redux';
+import { compose } from 'recompose';
 
 import {
   booking as bookingActions,
@@ -39,6 +40,7 @@ import { Moment } from '../../../i18n';
 
 import MemberNotePanel from './MemberNotePanel.component';
 import MemberSummaryCard from './MemberSummaryCard.component';
+import withDrawer from '../../../hocs/with-drawer.hoc';
 
 type Props = {
   memberLoading: boolean,
@@ -471,11 +473,22 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(
-  translate()(
-    connect(
-      mapStateToProps,
-      mapDispatchToProps,
-    )(Member),
+export default compose(
+  withStyles(styles),
+  translate(),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
   ),
-);
+  withDrawer(({ allMembers, match }) => {
+    if (match && match.params && match.params.id) {
+      const member = (allMembers || []).filter(
+        (m) => m.id === parseInt(match.params.id, 10),
+      );
+      if ((member || []).length === 1) {
+        return `${member[0].firstname} ${member[0].lastname}`;
+      }
+    }
+    return '';
+  }, true),
+)(Member);

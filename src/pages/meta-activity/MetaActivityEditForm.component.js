@@ -15,6 +15,7 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import MetaActivityForm from '../../components/form/MetaActivityForm.component';
 import api from '../../api';
 import { metaActivity as metaActivityActions } from '../../actions';
+import withDrawer from '../../hocs/with-drawer.hoc';
 
 type Props = {
   associatedCoaches: *[],
@@ -121,4 +122,4 @@ export default compose(
       push,
     },
   ),
-)(MetaActivityFormPage);
+)(withDrawer('metaActivityFormPage')(MetaActivityFormPage));

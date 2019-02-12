@@ -15,6 +15,7 @@ import { invoice as invoiceActions } from '../../actions';
 
 import type { Member } from '../../api/types';
 import type { InvoiceDataFront } from '../../components/form/types';
+import withDrawer from '../../hocs/with-drawer.hoc';
 
 type Props = {
   member: Member,
@@ -112,6 +113,6 @@ export default withStyles(styles)(
     connect(
       mapStateToProps,
       mapDispatchToProps,
-    )(InvoiceCreatePage),
+    )(withDrawer('invoiceCreatePage')(InvoiceCreatePage)),
   ),
 );

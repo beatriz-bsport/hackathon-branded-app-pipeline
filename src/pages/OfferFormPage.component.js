@@ -11,6 +11,7 @@ import { OfferForm } from '../components';
 import api from '../api';
 import { activity as activityActions, offer as offerActions } from '../actions';
 import type { Coach, MetaActivity, Establishment } from '../api/types';
+import withDrawer from '../hocs/with-drawer.hoc';
 
 type Props = {
   match: Object,
@@ -127,5 +128,5 @@ export default translate()(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-  )(OfferFormPage),
+  )(withDrawer('offerFormPage')(OfferFormPage)),
 );

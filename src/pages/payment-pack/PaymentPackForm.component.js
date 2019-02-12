@@ -12,7 +12,7 @@ import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import PaymentPackForm from '../../libs/payment-packs/PaymentPackForm.component';
 import { paymentPack as paymentPackActions } from '../../actions';
-
+import withDrawer from '../../hocs/with-drawer.hoc';
 import type { SCT, MetaActivity } from '../../api/types';
 
 type Props = {
@@ -85,4 +85,5 @@ export default compose(
       });
     },
   })),
+  withDrawer('paymentPackFormPage'),
 )(PaymentPackFormPage);

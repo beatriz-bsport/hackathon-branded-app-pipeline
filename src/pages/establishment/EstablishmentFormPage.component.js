@@ -17,6 +17,7 @@ import * as actions from '../../actions/establishment.actions';
 import EstablishmentForm from '../../components/form/EstablishmentForm.component';
 
 import { mapFormData } from '../form.utils';
+import withDrawer from '../../hocs/with-drawer.hoc';
 
 type Props = {
   upsertEstablishment: (*) => void,
@@ -103,4 +104,4 @@ export default compose(
       goToEstablishmentList: () => push('/map'),
     },
   ),
-)(EstablishmentFormPage);
+)(withDrawer('establishmentFormPage')(EstablishmentFormPage));

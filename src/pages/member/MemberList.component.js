@@ -2,27 +2,29 @@
 
 import React, { Component } from 'react';
 import { translate } from 'react-i18next';
-import { Redirect, Link } from 'react-router-dom';
+import i18next from 'i18next';
+import { Redirect } from 'react-router-dom';
 import {
   TableRow,
   TableCell,
   Grid,
   Button,
   Typography,
-  withStyles,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
+import { compose } from 'recompose';
 
 import type { TFunction } from 'react-i18next';
 import { formatAsDatetime } from '../../datetime';
 import { FeatureTable } from '../../components';
 import type { Member } from '../../api/types';
+import withDrawer from '../../hocs/with-drawer.hoc';
+import withBottomButtons from '../../hocs/inject-bottom-buttons';
 
 type Props = {
   t: TFunction,
   loading: boolean,
   members: Array<Member>,
-  classes: Object,
 };
 
 type State = {
@@ -115,7 +117,7 @@ export class Members extends Component<Props, State> {
 
   render() {
     const { requestedRedirection } = this.state;
-    const { t, loading, members, classes } = this.props;
+    const { loading, members } = this.props;
 
     if (requestedRedirection) {
       return <Redirect to={requestedRedirection} />;
@@ -125,24 +127,6 @@ export class Members extends Component<Props, State> {
     return (
       <Grid container direction="row" spacing={32}>
         <Grid item xs={12}>
-          <Grid
-            container
-            direction="row"
-            justify="space-between"
-            alignItems="center"
-            className={classes.header}
-          >
-            <Grid item>
-              <Typography variant="h3">{t('common.members')}</Typography>
-            </Grid>
-            <Grid item>
-              <Link style={{ textDecoration: 'none' }} to="/member/add/">
-                <Button variant="contained" color="primary">
-                  {t('member.addMember')}
-                </Button>
-              </Link>
-            </Grid>
-          </Grid>
           <Grid item xs={12}>
             <FeatureTable
               data={mutableMembers}
@@ -166,13 +150,14 @@ function mapStateToProps(state) {
   };
 }
 
-const styles = (theme) => ({
-  header: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 3,
-  },
-});
-
-export default translate()(
-  withStyles(styles)(connect(mapStateToProps)(Members)),
-);
+export default compose(
+  translate(),
+  connect(mapStateToProps),
+  withDrawer('members'),
+  withBottomButtons({
+    addButton: {
+      path: '/member/add',
+      text: i18next.t('member.addMember'),
+    },
+  }),
+)(Members);

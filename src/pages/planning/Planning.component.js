@@ -23,6 +23,7 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import AddIcon from '@material-ui/icons/Add';
 import { translate } from 'react-i18next';
 import { push as pushRouter, goBack as goBackRouter } from 'react-router-redux';
+import withDrawer from '../../hocs/with-drawer.hoc';
 
 import {
   EditLiveOfferForm,
@@ -346,16 +347,22 @@ export class Planning extends Component<Props, State> {
     );
   };
 
-  renderGoBackButton = () => (
-    <Button
-      size="small"
-      className={this.props.classes.button}
-      onClick={this.props.goBack}
-    >
-      <KeyboardArrowLeft />
-      {this.props.t('offer.backToCalendar')}
-    </Button>
-  );
+  renderGoBackButton = () => {
+    const { width, classes, selectedOffer, t } = this.props;
+    if (isWidthDown('md', width) && selectedOffer) {
+      return (
+        <Button
+          size="small"
+          className={classes.button}
+          onClick={this.props.goBack}
+        >
+          <KeyboardArrowLeft />
+          {t('offer.backToCalendar')}
+        </Button>
+      );
+    }
+    return null;
+  };
 
   render() {
     const {
@@ -510,6 +517,6 @@ export default translate()(
     connect(
       mapStateToProps,
       mapDispatchToProps,
-    )(withStyles(styles)(withWidth()(Planning))),
+    )(withStyles(styles)(withWidth()(withDrawer('planning')(Planning)))),
   ),
 );

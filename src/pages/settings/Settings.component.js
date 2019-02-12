@@ -17,6 +17,7 @@ import AppBar from '@material-ui/core/AppBar';
 
 import PaymentRuleSetsDashboard from './PaymentRuleSetsDashboard.component';
 import CompanyDetailPage from './CompanyDetailPage.component';
+import withDrawer from '../../hocs/with-drawer.hoc';
 
 type Props = {
   t: TFunction,
@@ -76,4 +77,4 @@ export default compose(
     null,
     { push },
   ),
-)(Settings);
+)(withDrawer('settings')(Settings));

@@ -41,15 +41,14 @@ export class MetaActivityForm extends Component<Props, State> {
     super(props);
 
     this.state = {
-      default_last_booking_minutes: 30,
-      default_last_discard_minutes: 30,
+      default_last_booking_minutes: 0,
+      default_last_discard_minutes: 0,
       customer_enabled: true,
     };
     const { initial } = this.props;
     if (initial) {
       this.state.name = initial.name;
       this.state.default_last_booking_minutes = initial.last_booking_minutes;
-      this.state.default_last_discard_minutes = initial.last_discard_minutes;
       this.state.customer_enabled = initial.customer_enabled;
       this.state.SCT = initial.category_id;
       this.state.cover_main = initial.cover_main;
@@ -113,6 +112,7 @@ export class MetaActivityForm extends Component<Props, State> {
               <Grid item>
                 <FormField
                   id="name"
+                  name="name"
                   required
                   value={this.state.name}
                   onChange={this.onFormFieldChange}
@@ -141,6 +141,7 @@ export class MetaActivityForm extends Component<Props, State> {
               <Grid item>
                 <FormField
                   id="SCT"
+                  name="SCT"
                   required
                   value={this.state.SCT}
                   choices={SCTs}
@@ -150,6 +151,7 @@ export class MetaActivityForm extends Component<Props, State> {
               <Grid item>
                 <FormField
                   id="description"
+                  name="description"
                   required
                   multiline
                   fullWidth

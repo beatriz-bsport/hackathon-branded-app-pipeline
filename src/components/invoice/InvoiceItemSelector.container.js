@@ -30,7 +30,7 @@ function mapStateToProps(state) {
   return {
     activities: state.activity.all,
     offers: state.offer.calendar,
-    paymentPacks: state.paymentPack.all,
+    paymentPacks: (state.paymentPack.all || []).filter((pp) => !pp.disabled),
   };
 }
 export default connect(mapStateToProps)(InvoiceItemSelectorContained);

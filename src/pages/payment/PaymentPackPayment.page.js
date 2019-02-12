@@ -59,8 +59,9 @@ function mapStateToProps(state) {
   const hasBoughtSomething =
     state.payment.wantedPaymentPack &&
     !state.consumer.loading &&
+    !!state.consumer &&
     !!state.consumer.profile
-      ? !!state.consumer.profile.memberships.filter(
+      ? !!(state.consumer.profile.memberships || []).filter(
           (m) =>
             m.company_id === state.payment.wantedPaymentPack.company_id &&
             m.has_bought_something === true,

@@ -215,12 +215,24 @@ export class OfferPayment extends Component<Props> {
     );
   };
 
-  renderBuyingMethods = () => (
-    <React.Fragment>
-      <Grid item>{this.getPaymentPacksCheckout()}</Grid>
-      <Grid item>{this.renderBuyCompatiblePaymentPack()}</Grid>
-    </React.Fragment>
-  );
+  renderBuyingMethods = () => {
+    const { offer, classes } = this.props;
+    if (offer && Moment(offer.date_start).isBefore(Moment())) {
+      return (
+        <Grid item>
+          <Typography variant="h6" className={classes.doNotBookPast}>
+            Impossible de réserver une séance dans le passé !
+          </Typography>
+        </Grid>
+      );
+    }
+    return (
+      <React.Fragment>
+        <Grid item>{this.getPaymentPacksCheckout()}</Grid>
+        <Grid item>{this.renderBuyCompatiblePaymentPack()}</Grid>
+      </React.Fragment>
+    );
+  };
 
   renderOfferNotAvailable = () => {
     if (this.props.offer && !this.props.offer.available) {
@@ -287,6 +299,9 @@ const styles = (theme) => ({
     marginRight: theme.spacing.unit,
   },
   noOfferTypography: {
+    margin: theme.spacing.unit * 2,
+  },
+  doNotBookPast: {
     margin: theme.spacing.unit * 2,
   },
 });

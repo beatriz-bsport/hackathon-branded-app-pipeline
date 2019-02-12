@@ -8,7 +8,7 @@ import { snackbarSuccess } from '../../actions/snackbar.actions';
 import MetaActivityForm from '../../components/form/MetaActivityForm.component';
 import api from '../../api';
 import { metaActivity as metaActivityActions } from '../../actions';
-
+import withDrawer from '../../hocs/with-drawer.hoc';
 type Props = {
   associatedCoaches: *[],
   establishments: *[],
@@ -76,4 +76,4 @@ export default connect(
     fetchAllActivities: metaActivityActions.fetchAllActivities,
     snackbarSuccess,
   },
-)(withRouter(MetaActivityFormPage));
+)(withRouter(withDrawer('metaActivityFormPage')(MetaActivityFormPage)));

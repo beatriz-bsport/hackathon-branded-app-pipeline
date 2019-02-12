@@ -14,6 +14,8 @@ import CoachForm from '../../components/form/CoachForm.component';
 
 import { mapFormData, unmap } from '../form.utils';
 
+import withDrawer from '../../hocs/with-drawer.hoc';
+
 type Props = {
   initial: *,
   onSubmit: (*) => void,
@@ -74,4 +76,5 @@ export default compose(
       upsertCoach(formData, options);
     },
   })),
+  withDrawer('coachFormPage'),
 )(CoachFormPage);

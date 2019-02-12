@@ -34,6 +34,8 @@ import { coach as coachActions } from '../../actions';
 
 import type { Coach } from '../../api/types';
 
+import withDrawer from '../../hocs/with-drawer.hoc';
+
 type Props = {
   coach: Coach,
   loading: boolean,
@@ -130,4 +132,4 @@ export default compose(
       );
     },
   }),
-)(CoachPerformance);
+)(withDrawer('coachPerformance')(CoachPerformance));

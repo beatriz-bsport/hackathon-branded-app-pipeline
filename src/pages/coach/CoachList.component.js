@@ -16,6 +16,7 @@ import { CoachCard } from '../../components';
 import type { Coach } from '../../api/types';
 import { paymentRulesSelector } from '../../libs/payment-rules/selectors';
 import withBottomButtons from '../../hocs/inject-bottom-buttons';
+import withDrawer from '../../hocs/with-drawer.hoc';
 
 type Props = {
   loading: boolean,
@@ -136,4 +137,4 @@ export default compose(
   withBottomButtons({
     addButton: { path: '/coach/add', text: i18next.t('coach.addCoach') },
   }),
-)(CoachList);
+)(withDrawer('coachList')(CoachList));

@@ -24,6 +24,8 @@ import SubShopList from './SubShopList.component';
 
 import { mapFormData } from '../form.utils';
 
+import withDrawer from '../../hocs/with-drawer.hoc';
+
 type Props = {
   t: TFunction,
   classes: Object,
@@ -175,12 +177,9 @@ export class ShopItemList extends Component<Props, State> {
   };
 
   render() {
-    const { shopItems, loading, subShops, t, classes } = this.props;
+    const { shopItems, loading, subShops } = this.props;
     return (
       <div>
-        <Typography variant="h2" className={classes.title}>
-          {t('shop.myShop')}
-        </Typography>
         {loading ? (
           <CircularProgress />
         ) : (
@@ -245,4 +244,4 @@ const styles = (theme) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(withStyles(styles)(translate()(ShopItemList)));
+)(withStyles(styles)(translate()(withDrawer('shopManager')(ShopItemList))));

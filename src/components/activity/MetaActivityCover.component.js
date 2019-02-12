@@ -46,7 +46,7 @@ export default class MetaActivityCover extends Component<Props> {
             </Grid>
           </Grid>
           <div
-            style={{ position: 'absolute', top: 10, zIndex: 9000, right: 10 }}
+            style={{ position: 'absolute', top: 10, zIndex: 1000, right: 10 }}
           >
             <Grid container direction="column" spacing={8}>
               {levels.map((l) => (
@@ -63,7 +63,7 @@ export default class MetaActivityCover extends Component<Props> {
         <div style={{ position: 'relative' }}>
           <img style={imgStyle} src={cover_main} alt="Activity" />
           <div
-            style={{ position: 'absolute', top: 10, zIndex: 9000, right: 10 }}
+            style={{ position: 'absolute', top: 10, zIndex: 1000, right: 10 }}
           >
             <Grid container direction="column" spacing={8}>
               {levels.map((l) => (

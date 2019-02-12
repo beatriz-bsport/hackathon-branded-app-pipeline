@@ -8,6 +8,7 @@ import { Paper } from '@material-ui/core';
 import { push as routerPush, goBack } from 'react-router-redux';
 import { createOrUpdateMember } from '../../actions/member.actions';
 import MemberForm from '../../components/form/MemberForm.component';
+import withDrawer from '../../hocs/with-drawer.hoc';
 
 import { mapFormData } from '../form.utils';
 
@@ -88,5 +89,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-  )(MemberFormPage),
+  )(withDrawer('memberFormPage')(MemberFormPage)),
 );

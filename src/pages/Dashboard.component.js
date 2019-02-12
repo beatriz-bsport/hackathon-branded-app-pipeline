@@ -32,6 +32,8 @@ import {
   SimpleBarChart,
 } from '../components/graph/Charts.component';
 
+import withDrawer from '../hocs/with-drawer.hoc';
+
 type ChartData = {
   d: number,
   v: number,
@@ -121,6 +123,7 @@ export function Dashboard(props: Props) {
     createChartOptions('turnover', turnover, domain),
     createChartOptions('bookings', bookings, domain),
   ];
+
   return (
     <div className="dashboard">
       <AppBar position="static" color="default" className={classes.bar}>
@@ -294,4 +297,4 @@ export default compose(
       ],
     }),
   ),
-)(Dashboard);
+)(withDrawer('dashboard')(Dashboard));

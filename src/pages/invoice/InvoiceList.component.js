@@ -21,6 +21,7 @@ import { FeatureTable } from '../../components';
 import { invoice as invoiceActions } from '../../actions';
 
 import type { Member, Invoice } from '../../api/types';
+import withDrawer from '../../hocs/with-drawer.hoc';
 
 type Props = {
   t: (x: string) => string,
@@ -144,7 +145,7 @@ export class InvoiceList extends Component<Props, State> {
   );
 
   render() {
-    const { t, invoices, loading } = this.props;
+    const { invoices, loading } = this.props;
     if (loading) {
       return <CircularProgress />;
     }
@@ -162,7 +163,6 @@ export class InvoiceList extends Component<Props, State> {
             renderRow={this.renderRow}
             columnData={this.getColumnData()}
             loading={loading}
-            title={t('common.transactions')}
             orderBy="date"
             order="desc"
           />
@@ -195,5 +195,5 @@ export default translate()(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-  )(InvoiceList),
+  )(withDrawer('invoiceList')(InvoiceList)),
 );

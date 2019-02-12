@@ -23,6 +23,8 @@ import {
   booking as bookingActions,
 } from '../actions';
 
+import withDrawer from '../hocs/with-drawer.hoc';
+
 type Props = {
   searchText: string,
   members: *[],
@@ -200,6 +202,6 @@ export default withStyles(styles)(
     connect(
       mapStateToProps,
       mapDispatchToProps,
-    )(SearchResults),
+    )(withDrawer('searchResults')(SearchResults)),
   ),
 );

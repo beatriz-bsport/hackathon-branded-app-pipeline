@@ -4,6 +4,7 @@ import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { push as routerPush } from 'react-router-redux';
+import { compose, withPropsOnChange } from 'recompose';
 import {
   FormControl,
   InputLabel,
@@ -44,6 +45,7 @@ import type {
   Stat,
 } from '../../api/types';
 import { formatMinutes } from '../../datetime';
+import withDrawer from '../../hocs/with-drawer.hoc';
 
 type Props = {
   metaActivity: MetaActivityType,
@@ -391,6 +393,7 @@ function mapStateToProps(state) {
   return {
     loading: state.metaActivity.loading,
     metaActivity: state.metaActivity.metaActivity,
+    metaActivities: state.metaActivity.all,
     stats: state.stats.activities,
     events: state.offer.calendar,
     offers: state.offer.offers,
@@ -446,7 +449,22 @@ const styles = (theme) => ({
   },
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(withStyles(styles)(translate()(MetaActivity)));
+export default compose(
+  withStyles(styles),
+  translate(),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  ),
+  withDrawer(({ match, metaActivities }) => {
+    if (match && match.params && match.params.id) {
+      const metaActivity = (metaActivities || []).filter(
+        (m) => m.id === parseInt(match.params.id, 10),
+      );
+      if ((metaActivity || []).length === 1) {
+        return metaActivity[0].name;
+      }
+    }
+    return '';
+  }, true),
+)(MetaActivity);

@@ -25,6 +25,7 @@ import {
 import type { MetaActivity } from '../../api/types';
 
 import withBottomButtons from '../../hocs/inject-bottom-buttons';
+import withDrawer from '../../hocs/with-drawer.hoc';
 
 type Props = {
   loading: boolean,
@@ -264,7 +265,7 @@ export default withStyles(styles)(
           path: '/payment-pack/add',
           text: i18next.t('paymentPack.addButton'),
         },
-      })(PaymentPackList),
+      })(withDrawer('paymentPackList')(PaymentPackList)),
     ),
   ),
 );

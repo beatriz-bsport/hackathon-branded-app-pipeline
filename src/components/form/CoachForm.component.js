@@ -56,7 +56,6 @@ export function CoachForm(props: Props) {
               name="email"
               label={t('form.email')}
               type="email"
-              required
               fullWidth
             />
           </Grid>

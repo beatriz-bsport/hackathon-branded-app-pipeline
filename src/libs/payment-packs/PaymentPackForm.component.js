@@ -134,7 +134,7 @@ export function PaymentPackForm(props: Props) {
             <Grid item xs={12} md={6}>
               <Collapse in={timeType === VALID_BY_DURATION}>
                 <TextField
-                  name="duration_day"
+                  name="duration_days"
                   label={t('form.paymentPack.durationDays')}
                   helperText={t('form.paymentPack.durationDaysHelperText')}
                   type="number"
@@ -237,14 +237,28 @@ const PackSchema = Yup.object().shape({
   tax: Yup.number().min(0),
   credits: Yup.number().min(0),
   timeType: Yup.string().required(),
-  duration_days: Yup.number()
-    .min(0)
-    .nullable(),
+  duration_days: Yup.number().when('timeType', {
+    is: VALID_BY_DURATION,
+    then: Yup.number()
+      .min(1)
+      .required(),
+    otherwise: Yup.number()
+      .min(0)
+      .nullable(),
+  }),
   max_bookings_per_week: Yup.number()
     .min(0)
     .nullable(),
-  lower_date: Yup.date(),
-  upper_date: Yup.date(),
+  lower_date: Yup.date().when('timeType', {
+    is: VALID_BY_DATERANGE,
+    then: Yup.date().required(),
+    otherwise: Yup.date().nullable(),
+  }),
+  upper_date: Yup.date().when('timeType', {
+    is: VALID_BY_DATERANGE,
+    then: Yup.date().required(),
+    otherwise: Yup.date().nullable(),
+  }),
   new_member_only: Yup.boolean(),
   manager_only: Yup.boolean(),
   categories: Yup.array().of(Yup.number()),

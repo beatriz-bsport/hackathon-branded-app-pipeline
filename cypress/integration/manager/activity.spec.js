@@ -1,4 +1,4 @@
-/// <reference types="Cypress" />
+// / <reference types="Cypress" />
 
 context('Manager - Activity', () => {
   beforeEach(() => {
@@ -10,7 +10,7 @@ context('Manager - Activity', () => {
       });
   });
 
-  it('manager can create a new activity', function() {
+  it('manager can create a new activity', () => {
     cy.visit('/meta-activity/add');
 
     cy.get('[name=name]').type('Aqua poney');
@@ -19,7 +19,6 @@ context('Manager - Activity', () => {
     cy.get('[data-value=48]').click();
 
     cy.get('[name=description]').type('Super activity');
-    cy.get('[name=default_waiting_list_max_size]').type('3');
 
     cy.get('[type=submit]').click();
 

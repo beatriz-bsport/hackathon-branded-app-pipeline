@@ -4,6 +4,7 @@ import React, { Component, createContext } from 'react';
 import type { Node } from 'react';
 import { translate } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import i18next from 'i18next';
 
 export const DrawerContext = createContext({
   title: '',
@@ -46,9 +47,7 @@ const withDrawer = (
           this.context.setTitle(titleString);
         }
         if (titleString && !noTranslation) {
-          this.context.setTitle(
-            this.props.t(`appbar.title.${titleString}` || ''),
-          );
+          this.context.setTitle(i18next.t(`appbar.title.${titleString}` || ''));
         }
       }
 
@@ -62,7 +61,7 @@ const withDrawer = (
         return <WrappedComponent {...this.props} {...this.context} />;
       }
     }
-    return translate()(Wrapper);
+    return Wrapper;
   };
 };
 

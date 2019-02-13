@@ -84,7 +84,6 @@ export function CoachForm(props: Props) {
               multiline
               name="description"
               label={t('form.description')}
-              inputProps={{ maxLength: 4999 }}
             />
           </Grid>
           <Grid item xs={12} md={6}>

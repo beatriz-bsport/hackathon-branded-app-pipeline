@@ -100,7 +100,7 @@ function mapStateToProps(state) {
     loading: state.invoice.loadingSpecific,
     offers: state.offer.calendar,
     activities: state.activity.all,
-    paymentPacks: state.paymentPack.all,
+    paymentPacks: (state.paymentPack.all || []).filter((pp) => !pp.disabled),
     invoice: state.invoice.invoice,
     updatingInvoice: state.invoice.createOrUpdatePending,
   };

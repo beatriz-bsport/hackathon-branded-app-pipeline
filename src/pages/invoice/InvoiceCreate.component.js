@@ -82,7 +82,7 @@ function mapStateToProps(state, nextProps) {
   return {
     member: id !== null ? state.member.all.find((m) => m.id === id) : null,
     activities: state.activity.all,
-    paymentPacks: state.paymentPack.all,
+    paymentPacks: (state.paymentPack.all || []).filter((pp) => !pp.disabled),
     shopItems: state.shop.all,
     creatingInvoice: state.invoice.createOrUpdatePending,
   };

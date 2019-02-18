@@ -119,7 +119,7 @@ export function signup(data, options = {}) {
       }
     } catch (err) {
       alert(
-        "Impossible de créer votre compte pour le moment, veuillez réessayer d'ici quelques minutes",
+        'Impossible de créer votre compte pour le moment, veuillez réessayer d\'ici quelques minutes',
       );
     }
     return dispatch(errorLogin());

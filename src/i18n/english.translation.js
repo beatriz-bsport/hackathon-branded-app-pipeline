@@ -31,6 +31,7 @@ export default {
   },
   translation: {
     activityCreated: 'Activity added',
+    activityUpdated: 'Activity updated',
     bookingConfirmed: 'Booking confirmed',
     button: { login: 'Log in' },
     metaActivity: {
@@ -60,6 +61,7 @@ export default {
       CHECK: 'Check',
     },
     common: {
+      description: 'Description',
       hourSmall: 'h',
       minuteSmall: 'min',
       export: 'Export',
@@ -550,6 +552,7 @@ export default {
     establishment,
     search,
     activity: {
+      nextSlotAt: 'Next session: ',
       settings: 'Parameters',
       sizeOfWaitingList: 'Size of waiting list',
       lastBookingBeforeMinutes: 'Last booking is possible until',
@@ -557,7 +560,7 @@ export default {
       addActivity: 'Add an activity',
       addOffers: 'Add sessions',
       name: 'Title',
-      noNextSlot: 'No more slot',
+      noNextSlot: 'No more session planned',
       grossVolume: 'Gross volume',
       totalCustomers: 'Total bookings',
       fillrate: 'Average fillrate',

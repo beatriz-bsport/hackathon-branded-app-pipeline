@@ -54,7 +54,7 @@ export function createOrUpdateEstablishment(establishmentData: FormData) {
         ? 'establishment.forms.update.success'
         : 'establishment.forms.create.success';
       dispatch(snackbarSuccess(message));
-      dispatch(push('/map'));
+      dispatch(push('/establishment'));
       dispatch(fetchEstablishments());
     } catch (error) {
       dispatch(snackbarError('establishment.forms.error'));
@@ -94,7 +94,6 @@ export function addImageToEstablishment(id: number, image: File) {
       );
       dispatch(addImage.success({ id, image: response.data }));
     } catch (error) {
-      console.error(error);
       dispatch(addImage.error(error));
       Sentry.captureException(error);
     }
@@ -117,7 +116,6 @@ export function removeImageFromEstablishment(id: number, imageId: number) {
       await deleteAuth(`${API_URI}/establishments/${id}/images/${imageId}/`);
       dispatch(removeImage.success({ id, imageId }));
     } catch (error) {
-      console.error(error);
       dispatch(removeImage.error(error));
       Sentry.captureException(error);
     }

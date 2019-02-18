@@ -130,7 +130,7 @@ export class TimeTable extends Component<Props, State> {
       return <LinearProgress />;
     }
     return offersToday.length ? (
-      <List>
+      <List disablePadding>
         <Divider />
         {offersToday.map((o) => this.renderOffer(o))}
       </List>

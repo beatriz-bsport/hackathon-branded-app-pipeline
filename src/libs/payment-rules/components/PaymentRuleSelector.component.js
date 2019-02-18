@@ -37,7 +37,7 @@ export function PaymentRuleSelector(props: Props) {
 
 const styles = () => ({
   root: {
-    minWidth: 200,
+    minWidth: 280,
   },
 });
 

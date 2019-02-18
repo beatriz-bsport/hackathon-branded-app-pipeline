@@ -15,24 +15,19 @@ import Dashboard from './Dashboard.component';
 import OfferFormPage from './OfferFormPage.component';
 import Settings from './settings/Settings.component';
 
-import {
-  MetaActivityForm,
-  MetaActivityEditForm,
-  MetaActivityList,
-  MetaActivity,
-} from './meta-activity';
 import { MarketingDashboard, MarketingRule } from './marketing';
 import { InvoiceList, InvoiceCreate, InvoiceEdit } from './invoice';
-import PaymentPackForm from './payment-pack/PaymentPackForm.component';
-import PaymentPackList from './payment-pack/PaymentPackList.component';
-import { CoachList, CoachPerformance, CoachForm } from './coach';
-import { Member, MemberList, MemberForm } from './member';
-import { EstablishmentMap, EstablishmentFormPage } from './establishment';
 import OfferManagement from './offer-management/OfferManagement.page';
 import SearchResults from './SearchResults.component';
 import ShopManager from './shop/ShopManager.component';
 import Reporting from './reporting/Reporting.component';
+
 import PlanningRouter from './planning/Planning.router';
+import Establishment from './establishment/Establishment.router';
+import Coach from './coach/Coach.router';
+import MetaActivity from './meta-activity/MetaActivity.router';
+import PaymentPack from './payment-pack/PaymentPack.router';
+import Member from './member/Member.router';
 
 type Props = {
   refresh: () => void,
@@ -68,55 +63,19 @@ export class Backoffice extends Component<Props> {
               <Route path="/shop" component={ShopManager} />
               <Route path="/offer/:id" component={OfferManagement} />
               <Route exact path="/calendar" component={PlanningRouter} />
-              <Route exact path="/activity" component={MetaActivityList} />
-              <Route
-                exact
-                path="/activity/:id/edit"
-                component={MetaActivityEditForm}
-              />
-              <Route path="/activity/:id" component={MetaActivity} />
               <Route exact path="/add-offers/:id" component={OfferFormPage} />
-              <Route
-                exact
-                path="/coach/:associatedCoachId/performance"
-                component={CoachPerformance}
-              />
-              <Route
-                exact
-                path="/meta-activity/add"
-                component={MetaActivityForm}
-              />
-              <Route exact path="/coach/add" component={CoachForm} />
-              <Route exact path="/coach/edit/:id" component={CoachForm} />
-              <Route path="/coach" component={CoachList} />
+              <Route path="/coach" component={Coach} />
               <Route path="/invoice/:id" component={InvoiceEdit} />
               <Route path="/invoice" component={InvoiceList} />
-              <Route path="/payment-pack/add" component={PaymentPackForm} />
-              <Route
-                path="/payment-pack/:id/edit"
-                component={PaymentPackForm}
-              />
-              <Route path="/payment-pack" component={PaymentPackList} />
-              <Route exact path="/member" component={MemberList} />
-              <Route exact path="/member/edit/:id" component={MemberForm} />
+              <Route path="/payment-pack" component={PaymentPack} />
               <Route
                 exact
                 path="/member/add-invoice/:id"
                 component={InvoiceCreate}
               />
-              <Route path="/member/add" component={MemberForm} />
-              <Route path="/member/:id" component={Member} />
-              <Route exact path="/map" component={EstablishmentMap} />
-              <Route
-                exact
-                path="/establishments/add"
-                component={EstablishmentFormPage}
-              />
-              <Route
-                exact
-                path="/establishments/edit/:id"
-                component={EstablishmentFormPage}
-              />
+              <Route path="/member" component={Member} />
+              <Route path="/activity" component={MetaActivity} />
+              <Route path="/establishment" component={Establishment} />
               <Route path="/marketing/rule/:id" component={MarketingRule} />
               <Route path="/marketing" component={MarketingDashboard} />
               <Route path="/reporting/" component={Reporting} />

@@ -1,17 +1,16 @@
 // @flow
 
 import React, { Component, createContext } from 'react';
-import type { Node } from 'react';
-import { translate } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import type { AbstractComponent } from 'react';
 import i18next from 'i18next';
 
 export const DrawerContext = createContext({
   title: '',
 });
+
 type State = {
-  title: string,
-  setTitle: (title: string) => {},
+  title: ?string,
+  setTitle: (title: string) => void,
 };
 type Props = {
   children: any,
@@ -36,8 +35,8 @@ const withDrawer = (
   noTranslation: ?boolean,
 ) => {
   const mapPropsToTitle = typeof title === 'string' ? () => title : title;
-  return (WrappedComponent: Node) => {
-    class Wrapper extends Component<{ t: TFunction }> {
+  return (WrappedComponent: AbstractComponent<any>) => {
+    class Wrapper extends Component<any> {
       static contextType = DrawerContext;
 
       componentDidMount() {

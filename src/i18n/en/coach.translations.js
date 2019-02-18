@@ -1,5 +1,9 @@
 export default {
   showPerformance: 'Remunerate',
+  showActivities: 'Show activities',
+  showDescription: 'Show description',
+  description: 'Description',
+  emptyDescription: 'No description provided',
   performance: {
     title: 'Coach performance',
     nbBookings: 'Bookings',
@@ -8,6 +12,7 @@ export default {
     pricePerOffer: 'Price per offer',
     pricePerAdditionalBooking: 'Price per additional booking',
     calculate: 'Calculate',
+    payment: 'Remunerate',
   },
   addCoach: 'Add a coach',
   noActivity: 'This coach does not manage any activity.',

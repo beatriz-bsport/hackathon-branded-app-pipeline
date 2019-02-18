@@ -23,6 +23,7 @@ import { initLoginFromCookie } from './auth';
 
 import theme from './theme';
 import { DrawerContextProvider } from './hocs/with-drawer.hoc';
+import { ListViewContextProvider } from './hocs/inject-bottom-buttons';
 
 export class App extends Component<{}, {}> {
   state = {
@@ -57,14 +58,16 @@ export class App extends Component<{}, {}> {
           <Provider store={this.store}>
             <ConnectedRouter history={this.history}>
               <DrawerContextProvider>
-                <MuiPickersUtilsProvider
-                  utils={MomentUtils}
-                  moment={Moment}
-                  locale={Moment.locale()}
-                >
-                  <SnackbarPile />
-                  <Root />
-                </MuiPickersUtilsProvider>
+                <ListViewContextProvider>
+                  <MuiPickersUtilsProvider
+                    utils={MomentUtils}
+                    moment={Moment}
+                    locale={Moment.locale()}
+                  >
+                    <SnackbarPile />
+                    <Root />
+                  </MuiPickersUtilsProvider>
+                </ListViewContextProvider>
               </DrawerContextProvider>
             </ConnectedRouter>
           </Provider>

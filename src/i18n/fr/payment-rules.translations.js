@@ -29,7 +29,7 @@ export default {
   dateTitle: 'Plage de dates',
   coaches: 'Coachs',
   setPaymentRuleSetForCoachFirst:
-    "Attribuez tout d'abord une régle de rémunération par défaut à ce coach.",
+    'Attribuez tout d\'abord une régle de rémunération par défaut à ce coach.',
   modal: {
     delete: {
       title: 'Supprimez un règle',

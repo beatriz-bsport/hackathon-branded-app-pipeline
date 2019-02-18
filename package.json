@@ -164,7 +164,7 @@
     "cypress": "^3.1.4",
     "eslint-config-airbnb": "^17.0.0",
     "faker": "^4.1.0",
-    "flow-bin": "0.87",
+    "flow-bin": "0.93.0",
     "flow-coverage-report": "^0.6.0",
     "jquery": "^3.3.1",
     "popper.js": "^1.14.3",

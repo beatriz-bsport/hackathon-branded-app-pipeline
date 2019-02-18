@@ -4,11 +4,6 @@ import OfferCard from './offer/OfferCard.component';
 import Avatar from './Avatar.component';
 import BookingTable from './booking/BookingTable.component';
 import ActionButton from './button/ActionButton.component';
-import MetaActivityCard from './activity/MetaActivityCard.component';
-import ActivityStats from './activity/ActivityStats.component';
-import MetaActivityCover from './activity/MetaActivityCover.component';
-import MetaActivityBasicInfo from './activity/MetaActivityBasicInfo.component';
-import CoachCard from './coach/CoachCard.component';
 import ActivityMinimalSummary from './activity/ActivityMinimalSummary.component';
 import PaymentTable from './PaymentTable.component';
 import FeatureTable from './FeatureTable';
@@ -37,8 +32,6 @@ import ConsumerModalContainer from './consumer/ConsumerModalContainer.component'
 import SignUpForm from './form/SignUpForm.component';
 import SMSCodeForm from './form/SMSCodeForm.component';
 import ConsumersPackSummaryTable from './payment-pack/ConsumersPackSummaryTable.component';
-import CoachPerformanceForm from './coach/CoachPerformanceForm.component';
-import CoachPerformanceSummary from './coach/CoachPerformanceSummary.component';
 import InvoiceForm from './form/InvoiceForm.component';
 import InvoiceItemList from './invoice/InvoiceItemList.component';
 import InvoiceItemSelector from './invoice/InvoiceItemSelector.component';
@@ -49,8 +42,6 @@ export {
   InvoiceForm,
   InvoiceItemList,
   InvoiceItemSelector,
-  CoachPerformanceForm,
-  CoachPerformanceSummary,
   SimpleModal,
   EditLiveOfferForm,
   DeleteOfferForm,
@@ -82,11 +73,6 @@ export {
   Avatar,
   BookingTable,
   ActionButton,
-  MetaActivityCard,
-  ActivityStats,
-  MetaActivityCover,
-  MetaActivityBasicInfo,
-  CoachCard,
   ActivityMinimalSummary,
   PaymentTable,
   FeatureTable,

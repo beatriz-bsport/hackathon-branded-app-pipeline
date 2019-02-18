@@ -70,7 +70,11 @@ export class ResultList extends Component<Props, State> {
       </ListItem>
     );
     return (
-      <List className={`${classes.list} ${className}`} elevation={10}>
+      <List
+        className={`${classes.list} ${className}`}
+        elevation={10}
+        disablePadding
+      >
         {this.props.items.length ? this.renderResults() : emptyResults}
       </List>
     );

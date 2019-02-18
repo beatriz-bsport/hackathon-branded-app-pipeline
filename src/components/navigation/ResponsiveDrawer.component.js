@@ -188,7 +188,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
           },
           'divider',
           {
-            to: '/map',
+            to: '/establishment',
             icon: LocationOn,
             text: t('navigation.establishment'),
           },

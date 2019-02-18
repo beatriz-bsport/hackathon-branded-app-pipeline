@@ -25,13 +25,14 @@ import memoize from 'memoize-one';
 import BookingTable from '../../components/booking/BookingTable.container';
 import ResultList from '../../components/search/ResultList.component';
 import MemberBookingHelper from './MemberBookingHelper.component';
-import MemberForm from '../../components/form/MemberForm.component';
 import { mapFormData } from '../form.utils';
 
 import QuickInvoicePanel from './QuickInvoicePanel.component';
 import SearchMember from './SearchMember.component';
 import RevertBookingDialog from './RevertBookingDialog.component';
 import RegisterMemberToOfferForm from './RegisterMemberToOfferForm.component';
+
+import MemberForm from '../../libs/member/MemberForm.component';
 
 type Props = {
   offerId: number,

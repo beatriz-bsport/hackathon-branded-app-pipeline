@@ -1,11 +1,11 @@
 export default {
   newMemberOnly: 'Disponible uniquement aux nouveaux inscrits',
-  publicPacksTitle: "Abonnements disponibles à l'achat",
-  privatePacksTitle: "Abonnements non disponibles à l'achat",
+  publicPacksTitle: 'Abonnements disponibles à l\'achat',
+  privatePacksTitle: 'Abonnements non disponibles à l\'achat',
   subscribeToOffer: 'Inscrire',
   createOrUpdate: {
     success: 'Abonnement enregistré',
-    fail: "Erreur lors de l'enregistrement de l'abonnement",
+    fail: 'Erreur lors de l\'enregistrement de l\'abonnement',
   },
   disabled: 'Désactivé',
   disableConsumer: 'Bloquer',

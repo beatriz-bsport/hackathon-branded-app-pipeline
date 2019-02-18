@@ -1,5 +1,9 @@
 export default {
   showPerformance: 'Rémunérer',
+  showActivities: 'Afficher les activités',
+  showDescription: 'Afficher la description',
+  description: 'Description',
+  emptyDescription: 'Aucune description fournie',
   performance: {
     title: 'Récapitulatif coach',
     nbBookings: 'Réservations',

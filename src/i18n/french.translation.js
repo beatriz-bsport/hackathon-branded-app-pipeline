@@ -44,6 +44,7 @@ export default {
   },
   translation: {
     activityCreated: 'Activité ajoutée',
+    activityUpdated: 'Activité modifiée',
     bookingConfirmed: 'Réservation confirmée',
     button: { login: 'Connexion' },
     report: {
@@ -79,6 +80,7 @@ export default {
       },
     },
     common: {
+      description: 'Description',
       hourSmall: 'h',
       minuteSmall: 'min',
       export: 'Exporter',
@@ -605,6 +607,7 @@ export default {
         'Sélectionnez une séance pour voir les membres inscrits',
     },
     activity: {
+      nextSlotAt: 'Prochaine séance le ',
       settings: 'Paramètres',
       sizeOfWaitingList: "Taille par défaut de la liste d'attente: ",
       lastBookingBeforeMinutes:
@@ -614,7 +617,7 @@ export default {
       addOffers: 'Ajouter des séances',
       addActivity: 'Ajouter une activité',
       name: 'Titre',
-      noNextSlot: 'Plus de séance',
+      noNextSlot: 'Plus aucune séance programmée',
       // eslint-disable-next-line
       grossVolume: "Chiffre d'affaire",
       totalCustomers: 'Total réservations',

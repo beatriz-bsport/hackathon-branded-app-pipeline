@@ -288,6 +288,9 @@ export type CoachDetailed = {
   associated_coach_id: number,
   default_payment_rule_id: ?number,
   activities: Array<ActivitySimplified>,
+  birthday: string,
+  gender: string,
+  description: string,
 };
 
 export type ConsumerAddress = {

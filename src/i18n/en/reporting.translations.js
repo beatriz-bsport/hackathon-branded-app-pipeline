@@ -14,6 +14,7 @@ export default {
     member_identifier: 'Member identifier',
     payment_date: 'Transaction date',
     payment_method: 'Payment method',
+    payment_identifier: 'Payment identifier',
     product_price: 'Prix',
     product: 'Product',
     product_type: 'Type de produit',

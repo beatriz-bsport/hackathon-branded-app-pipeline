@@ -14,6 +14,7 @@ export default {
     member_identifier: 'ID Membre',
     payment_date: 'Date de paiement',
     payment_method: 'Méthode de paiement',
+    payment_identifier: 'Identifiant de paiement',
     product_price: 'Prix',
     product: 'Produit',
     product_type: 'Type de produit',

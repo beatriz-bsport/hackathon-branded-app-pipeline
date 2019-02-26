@@ -11,7 +11,7 @@ import {
   withStyles,
 } from '@material-ui/core';
 import ExpandIcon from '@material-ui/icons/ExpandMore';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import OfferMinimalSummary from '../../offer/OfferMinimalSummary.component';
 
@@ -110,4 +110,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(translate()(RecursiveToogle));
+export default withStyles(styles)(withNamespaces()(RecursiveToogle));

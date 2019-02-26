@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 import { Grid, InputAdornment, TextField, withStyles } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 const styles = () => ({
@@ -92,4 +92,4 @@ export class DurationInput extends Component<Props, State> {
   }
 }
 
-export default withStyles(styles)(translate()(DurationInput));
+export default withStyles(styles)(withNamespaces()(DurationInput));

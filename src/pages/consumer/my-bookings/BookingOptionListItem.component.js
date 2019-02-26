@@ -9,7 +9,7 @@ import {
   CircularProgress,
   withStyles,
 } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import ActivityMinimalSummary from '../../../components/activity/ActivityMinimalSummary.component';
 import RedButton from '../../../components/button/RedButton.component';
@@ -125,4 +125,4 @@ const styles = () => ({
   },
 });
 
-export default withStyles(styles)(translate()(BookingOptionListItem));
+export default withStyles(styles)(withNamespaces()(BookingOptionListItem));

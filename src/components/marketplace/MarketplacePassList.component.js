@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import Grid from '@material-ui/core/Grid';
@@ -51,4 +51,4 @@ export function MarketplacePassList(props: Props) {
   );
 }
 
-export default translate()(MarketplacePassList);
+export default withNamespaces()(MarketplacePassList);

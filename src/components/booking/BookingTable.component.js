@@ -8,7 +8,7 @@ import {
   List,
   CircularProgress,
 } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import type { Member, Booking, PaymentPack, Invoice } from '../../api/types';
 
@@ -125,4 +125,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(translate()(BookingTable));
+export default withStyles(styles)(withNamespaces()(BookingTable));

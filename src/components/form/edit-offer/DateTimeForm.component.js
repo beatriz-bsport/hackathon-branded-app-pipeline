@@ -3,7 +3,7 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import FormField from '../../input/FormField.component';
 
@@ -35,4 +35,4 @@ export function DateTimeForm(props: Props) {
   );
 }
 
-export default translate()(DateTimeForm);
+export default withNamespaces()(DateTimeForm);

@@ -10,7 +10,7 @@ import {
   LinearProgress,
   withStyles,
 } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import Sms from '@material-ui/icons/Sms';
 import Smartphone from '@material-ui/icons/Smartphone';
 import Email from '@material-ui/icons/Email';
@@ -194,10 +194,10 @@ export class MarketingRule extends Component {
         <Grid item xs={6}>
           <Grid container direction="row" spacing={8}>
             <Grid item>
-              <Typography variant="title">{t('marketing.strategy')}</Typography>
+              <Typography variant="h6">{t('marketing.strategy')}</Typography>
             </Grid>
             <Grid item>
-              <Typography variant="title" color="primary">
+              <Typography variant="h6" color="primary">
                 {rule.name}
               </Typography>
             </Grid>
@@ -211,7 +211,7 @@ export class MarketingRule extends Component {
                   <Typography>{t('marketing.estimatedTarget')}</Typography>
                 </Grid>
                 <Grid item>
-                  <Typography variant="title">31 %</Typography>
+                  <Typography variant="h6">31 %</Typography>
                 </Grid>
               </Grid>
             </Grid>
@@ -233,5 +233,5 @@ export class MarketingRule extends Component {
 }
 
 export default withStyles(styles)(
-  translate()(withDrawer('marketingRule')(MarketingRule)),
+  withNamespaces()(withDrawer('marketingRule')(MarketingRule)),
 );

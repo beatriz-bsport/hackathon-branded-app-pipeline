@@ -12,7 +12,7 @@ import {
   Tabs,
   withStyles,
 } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 
@@ -227,7 +227,7 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  translate(),
+  withNamespaces(),
   routerParamsToProps({
     id: 'companyName',
   }),

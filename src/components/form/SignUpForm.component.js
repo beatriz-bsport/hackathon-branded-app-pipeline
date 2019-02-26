@@ -17,7 +17,7 @@ import {
 } from '@material-ui/core';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { EmailInput, GenderInput } from '../input';
@@ -371,4 +371,4 @@ const styles = (theme) => ({
   phoneInput: { marginTop: 18 },
 });
 
-export default translate()(withStyles(styles)(SignUpForm));
+export default withNamespaces()(withStyles(styles)(SignUpForm));

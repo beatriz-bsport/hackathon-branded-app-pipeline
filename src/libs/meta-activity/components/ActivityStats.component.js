@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 type Props = {
   stats: Object,
@@ -28,7 +28,7 @@ export function ActivityStats(props: Props) {
           spacing={8}
         >
           <Grid item>
-            <Typography variant="body1">
+            <Typography variant="body2">
               {parseInt(total_customers, 10) || '-'}
             </Typography>
           </Grid>
@@ -50,7 +50,7 @@ export function ActivityStats(props: Props) {
           <Grid item>
             <Grid container direction="row" spacing={8} alignItems="center">
               <Grid item>
-                <Typography variant="body1" color="primary">
+                <Typography variant="body2" color="primary">
                   {parseInt(gross_volume, 10) || '-'}
                 </Typography>
               </Grid>
@@ -78,7 +78,7 @@ export function ActivityStats(props: Props) {
           <Grid item>
             <Grid container direction="row" spacing={8} alignItems="center">
               <Grid item>
-                <Typography variant="body1">
+                <Typography variant="body2">
                   {parseInt(average_fillrate * 100, 10) || '-'}
                 </Typography>
               </Grid>
@@ -94,4 +94,4 @@ export function ActivityStats(props: Props) {
   );
 }
 
-export default translate()(ActivityStats);
+export default withNamespaces()(ActivityStats);

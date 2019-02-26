@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import {
   withStyles,
   Grid,
@@ -119,7 +119,7 @@ export function PaymentInfo(props: Props) {
           </Button>
         </Grid>
         <Grid item className={classes.totalInvoiceItemContainer}>
-          <Typography variant="subheading">
+          <Typography variant="subtitle1">
             {t('form.quickInvoice.totalPurchase')} : {finalPrice}€
           </Typography>
         </Grid>
@@ -130,7 +130,7 @@ export function PaymentInfo(props: Props) {
             totalPayment < finalPrice ? { backgroundColor: '#FFDDDD' } : {}
           }
         >
-          <Typography variant="subheading">
+          <Typography variant="subtitle1">
             {`${t('form.quickInvoice.totalPayment')} : ${totalPayment}€`}
           </Typography>
         </Grid>
@@ -163,4 +163,4 @@ const styles = (theme) => ({
   },
 });
 
-export default translate()(withStyles(styles)(PaymentInfo));
+export default withNamespaces()(withStyles(styles)(PaymentInfo));

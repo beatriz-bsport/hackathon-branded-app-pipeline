@@ -10,7 +10,7 @@ import {
   Divider,
   Button,
 } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import SPORTS from 'bsport-commons/lib/master-data/sports';
@@ -111,7 +111,7 @@ export class EstablishmentCard extends Component<Props> {
             justify="space-between"
           >
             <Grid item>
-              <Typography variant="title">{title}</Typography>
+              <Typography variant="h6">{title}</Typography>
             </Grid>
             <Grid item>
               <Button onClick={onClickUpdate}>
@@ -130,7 +130,7 @@ export class EstablishmentCard extends Component<Props> {
         </div>
         {specific_info ? (
           <div className={classes.horizontalBlock}>
-            <Typography variant="body1">{specific_info}</Typography>
+            <Typography variant="body2">{specific_info}</Typography>
           </div>
         ) : null}
         <Divider />
@@ -162,4 +162,4 @@ export class EstablishmentCard extends Component<Props> {
   }
 }
 
-export default withStyles(styles)(translate()(EstablishmentCard));
+export default withStyles(styles)(withNamespaces()(EstablishmentCard));

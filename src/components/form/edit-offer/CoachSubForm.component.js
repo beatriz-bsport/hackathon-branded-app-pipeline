@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { Grid } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import CoachInput from '../../input/CoachInput.component';
 
@@ -69,4 +69,4 @@ export class CoachSubForm extends Component<Props> {
   }
 }
 
-export default translate()(CoachSubForm);
+export default withNamespaces()(CoachSubForm);

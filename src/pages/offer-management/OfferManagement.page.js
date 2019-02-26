@@ -1,7 +1,7 @@
 // @flow
 import { connect } from 'react-redux';
 
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import { push as routerPush, goBack } from 'react-router-redux';
 import { compose } from 'recompose';
 
@@ -110,7 +110,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default compose(
-  translate(),
+  withNamespaces(),
   connect(
     mapStateToProps,
     mapDispatchToProps,

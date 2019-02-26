@@ -8,7 +8,7 @@ import {
   DialogContent,
   DialogActions,
 } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import RedButton from '../../components/button/RedButton.component';
 
@@ -80,4 +80,4 @@ export function RevertBookingDialog(props: Props) {
   );
 }
 
-export default translate()(RevertBookingDialog);
+export default withNamespaces()(RevertBookingDialog);

@@ -24,7 +24,7 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import { Level, Sport } from '../category';
 import Avatar from '../Avatar.component';
@@ -456,4 +456,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(translate()(OfferCard));
+export default withStyles(styles)(withNamespaces()(OfferCard));

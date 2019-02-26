@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 type Props = {
@@ -66,4 +66,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(translate()(MemberBookingHelper));
+export default withStyles(styles)(withNamespaces()(MemberBookingHelper));

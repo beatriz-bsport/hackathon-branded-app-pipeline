@@ -9,7 +9,7 @@ import {
   DialogActions,
   Button,
 } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 type Props = {
@@ -53,4 +53,4 @@ export function UnevenInvoiceDialog(props: Props) {
   );
 }
 
-export default translate()(UnevenInvoiceDialog);
+export default withNamespaces()(UnevenInvoiceDialog);

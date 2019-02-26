@@ -15,7 +15,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import AddIcon from '@material-ui/icons/Add';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import {
@@ -395,7 +395,7 @@ export class InvoiceForm extends Component<Props, State> {
                 className={classes.totalUnpaid}
               >
                 <Grid item>
-                  <Typography variant="subheading">
+                  <Typography variant="subtitle1">
                     {t('payment.stillUnpaid')}
                   </Typography>
                 </Grid>
@@ -552,4 +552,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(translate()(InvoiceForm));
+export default withStyles(styles)(withNamespaces()(InvoiceForm));

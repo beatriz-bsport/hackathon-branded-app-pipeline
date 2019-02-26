@@ -3,7 +3,7 @@
 import React from 'react';
 
 import Dropzone from 'react-dropzone';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import classnames from 'classnames';
 
@@ -135,4 +135,4 @@ const styles = (theme) => ({
   },
 });
 
-export default translate()(withStyles(styles)(ImageUploader));
+export default withNamespaces()(withStyles(styles)(ImageUploader));

@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 
 import { Button, CircularProgress } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import api from '../../../api';
 import type { ConsumerPaymentPackConsumerView } from '../../../api/types';
 import ConsumerPackRowItem from '../../../components/payment-pack/ConsumerPackRowItem.component';
@@ -102,4 +102,4 @@ export class ConsumerPackCheckout extends Component<Props, State> {
   }
 }
 
-export default translate()(ConsumerPackCheckout);
+export default withNamespaces()(ConsumerPackCheckout);

@@ -11,7 +11,7 @@ import {
   withStyles,
 } from '@material-ui/core';
 import FaceIcon from '@material-ui/icons/Face';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import type { Coach } from '../../api/types';
@@ -82,4 +82,4 @@ export function CoachInput(props: Props) {
   );
 }
 
-export default withStyles(styles)(translate()(CoachInput));
+export default withStyles(styles)(withNamespaces()(CoachInput));

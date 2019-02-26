@@ -5,7 +5,7 @@ import { compose } from 'recompose';
 
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -117,7 +117,7 @@ function getSearchText(state, location) {
 
 export default compose(
   withStyles(styles),
-  translate(),
+  withNamespaces(),
   withRouter,
   connect(
     (state, { location }) => ({

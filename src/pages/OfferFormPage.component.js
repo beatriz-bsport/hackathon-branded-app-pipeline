@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 import { Paper, Grid, CircularProgress } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { goBack as goBackAction } from 'react-router-redux';
@@ -124,7 +124,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default translate()(
+export default withNamespaces()(
   connect(
     mapStateToProps,
     mapDispatchToProps,

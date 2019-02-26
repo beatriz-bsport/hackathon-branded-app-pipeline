@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import {
   IconButton,
   Avatar,
@@ -65,4 +65,4 @@ const styles = () => ({
   listItem: {},
 });
 
-export default withStyles(styles)(translate()(BookingListItem));
+export default withStyles(styles)(withNamespaces()(BookingListItem));

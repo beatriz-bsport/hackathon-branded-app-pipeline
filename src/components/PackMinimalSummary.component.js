@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 import { ListItemText, ListItem, withStyles } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 const styles = () => ({
   listItem: {
@@ -37,4 +37,4 @@ export class PaymentPack extends Component<Props> {
   }
 }
 
-export default withStyles(styles)(translate()(PaymentPack));
+export default withStyles(styles)(withNamespaces()(PaymentPack));

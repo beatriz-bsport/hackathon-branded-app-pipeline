@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import type { TFunction } from 'react-i18next';
 import MemberNote from '../../../components/member/MemberNote.component';
@@ -119,4 +119,4 @@ const styles = (theme) => ({
   },
 });
 
-export default translate()(withStyles(styles)(MemberNotePanel));
+export default withNamespaces()(withStyles(styles)(MemberNotePanel));

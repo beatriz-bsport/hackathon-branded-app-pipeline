@@ -12,7 +12,7 @@ import {
 import InfoIcon from '@material-ui/icons/Info';
 import CalendarIcon from '@material-ui/icons/Today';
 import AddIcon from '@material-ui/icons/Add';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import { Moment } from '../../i18n';
 import FormField, {
@@ -181,12 +181,12 @@ export class OfferForm extends Component<Props, State> {
           <InfoIcon />
         </Grid>
         <Grid item>
-          <Typography variant="subheading" color="primary">
+          <Typography variant="subtitle1" color="primary">
             {nbOffer}
           </Typography>
         </Grid>
         <Grid item>
-          <Typography variant="body1">
+          <Typography variant="body2">
             {nbOffer > 1
               ? t('form.offersWillBeGenerated')
               : t('form.offerWillBeGenerated')}
@@ -211,12 +211,12 @@ export class OfferForm extends Component<Props, State> {
               <CalendarIcon />
             </Grid>
             <Grid item className={classes.headlineElt}>
-              <Typography variant="headline">
+              <Typography variant="h5">
                 {`${t('form.addingSessionFor')}`}
               </Typography>
             </Grid>
             <Grid item className={classes.headlineElt}>
-              <Typography variant="headline" color="primary">
+              <Typography variant="h5" color="primary">
                 {metaActivity.name}
               </Typography>
             </Grid>
@@ -231,7 +231,7 @@ export class OfferForm extends Component<Props, State> {
     return (
       <Grid container direction="column" spacing={8}>
         <Grid item>
-          <Typography variant="title">{t('form.caracteristics')}</Typography>
+          <Typography variant="h6">{t('form.caracteristics')}</Typography>
         </Grid>
         <Grid item>
           <FormField
@@ -283,7 +283,7 @@ export class OfferForm extends Component<Props, State> {
     return (
       <Grid container direction="column" spacing={8}>
         <Grid item>
-          <Typography variant="title">{t('form.timeSettings')}</Typography>
+          <Typography variant="h6">{t('form.timeSettings')}</Typography>
         </Grid>
         <Grid item>
           <DurationInput
@@ -372,7 +372,7 @@ export class OfferForm extends Component<Props, State> {
     return (
       <Grid container direction="column" spacing={8}>
         <Grid item>
-          <Typography variant="title">{t('form.priceCategory')}</Typography>
+          <Typography variant="h6">{t('form.priceCategory')}</Typography>
         </Grid>
         <Grid item>
           <FormField
@@ -437,4 +437,4 @@ export class OfferForm extends Component<Props, State> {
   }
 }
 
-export default withStyles(styles)(translate()(OfferForm));
+export default withStyles(styles)(withNamespaces()(OfferForm));

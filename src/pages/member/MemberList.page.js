@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import i18next from 'i18next';
 import { Redirect } from 'react-router-dom';
 import {
@@ -151,7 +151,7 @@ function mapStateToProps(state) {
 }
 
 export default compose(
-  translate(),
+  withNamespaces(),
   connect(mapStateToProps),
   withDrawer('members'),
   withBottomButtons({

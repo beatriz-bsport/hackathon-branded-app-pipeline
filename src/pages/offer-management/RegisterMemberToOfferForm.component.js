@@ -9,7 +9,7 @@ import {
   List,
 } from '@material-ui/core';
 import WarningIcon from '@material-ui/icons/Warning';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
 
@@ -126,7 +126,7 @@ export class RegisterMemberToOfferForm extends Component<Props> {
   }
 }
 
-export default translate()(
+export default withNamespaces()(
   connect(
     (state) => ({
       consumerPacksLoading: state.consumerPaymentPack.byOfferByMember.loading,

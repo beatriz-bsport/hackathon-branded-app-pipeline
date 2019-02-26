@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import Typography from '@material-ui/core/Typography';
@@ -81,14 +81,12 @@ export class MemberDetail extends Component<Props, State> {
     return (
       <Grid container spacing={16} direction="column">
         <Grid item>
-          <Typography variant="title">
-            {t('search.member.packs.title')}
-          </Typography>
+          <Typography variant="h6">{t('search.member.packs.title')}</Typography>
           {this.renderPaymentPacks()}
         </Grid>
         <Divider />
         <Grid item>
-          <Typography variant="title">
+          <Typography variant="h6">
             {t('search.member.sessions.title')}
           </Typography>
           {this.renderSessions()}
@@ -104,4 +102,4 @@ const styles = (theme) => ({
   },
 });
 
-export default translate()(withStyles(styles)(MemberDetail));
+export default withNamespaces()(withStyles(styles)(MemberDetail));

@@ -17,11 +17,11 @@ export class ConsumerSummary extends React.Component<Props> {
     return (
       <Grid container>
         <Grid item xs={12} md={6}>
-          <Typography variant="title">Packs</Typography>
+          <Typography variant="h6">Packs</Typography>
           <ConsumerPacks packs={packs} />
         </Grid>
         <Grid item xs={12} md={6}>
-          <Typography variant="title">Upcoming activities</Typography>
+          <Typography variant="h6">Upcoming activities</Typography>
           <ConsumerActivities activities={activities} />
         </Grid>
       </Grid>

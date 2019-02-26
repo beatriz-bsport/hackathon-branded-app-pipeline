@@ -6,7 +6,7 @@ import {
   IconButton,
   Typography,
 } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import Avatar from '../Avatar.component';
 
 export class ConsumerListItem extends Component<Props> {
@@ -27,4 +27,4 @@ export class ConsumerListItem extends Component<Props> {
   }
 }
 
-export default translate()(ConsumerListItem);
+export default withNamespaces()(ConsumerListItem);

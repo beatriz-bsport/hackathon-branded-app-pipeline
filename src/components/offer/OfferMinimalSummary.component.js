@@ -11,7 +11,7 @@ import {
   withStyles,
 } from '@material-ui/core';
 
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import { Level } from '../category';
 import {
@@ -145,4 +145,4 @@ export function OfferMinimalSummary(props: Props) {
   );
 }
 
-export default translate()(withStyles(styles)(OfferMinimalSummary));
+export default withNamespaces()(withStyles(styles)(OfferMinimalSummary));

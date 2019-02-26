@@ -20,7 +20,7 @@ import {
   withStyles,
 } from '@material-ui/core';
 import TodayIcon from '@material-ui/icons/Today';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { push as pushRouter } from 'react-router-redux';
@@ -70,7 +70,7 @@ export class MyBookings extends Component<Props, State> {
     const { t, classes } = this.props;
     return (
       <div>
-        <Typography className={classes.title} variant="title">
+        <Typography className={classes.title} variant="h6">
           {t('consumer.booking.myFutureBookings')}
         </Typography>
         <Paper>{this.renderFutureBookingsList()}</Paper>
@@ -144,7 +144,7 @@ export class MyBookings extends Component<Props, State> {
           className={classes.modal}
         >
           <Grid item>
-            <Typography variant="title">
+            <Typography variant="h6">
               {t('consumer.help.areYouSureCancelBookingOption')}
             </Typography>
           </Grid>
@@ -205,7 +205,7 @@ export class MyBookings extends Component<Props, State> {
     }
     return (
       <div>
-        <Typography className={classes.title} variant="title">
+        <Typography className={classes.title} variant="h6">
           {t('consumer.booking.myOptions')}
         </Typography>
         {this.renderBookingOptionsList()}
@@ -248,7 +248,7 @@ export class MyBookings extends Component<Props, State> {
     const { t, classes } = this.props;
     return (
       <div>
-        <Typography className={classes.title} variant="title">
+        <Typography className={classes.title} variant="h6">
           {t('consumer.booking.myPastBookings')}
         </Typography>
         <Paper>{this.renderPastBookingsList()}</Paper>
@@ -457,6 +457,6 @@ export default withMobileDialog()(
     connect(
       mapStateToProps,
       mapDispatchToProps,
-    )(translate()(MyBookings)),
+    )(withNamespaces()(MyBookings)),
   ),
 );

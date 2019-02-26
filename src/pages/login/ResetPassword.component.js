@@ -111,7 +111,7 @@ export class ResetPassword extends Component<Props, State> {
             <div />
           ) : (
             <Grid style={{ marginTop: 20 }}>
-              <Typography variant="title" style={{ marginBottom: 20 }}>
+              <Typography variant="h6" style={{ marginBottom: 20 }}>
                 Récupération de mot de passe
               </Typography>
               <Typography>Quel était l email du compte ?</Typography>

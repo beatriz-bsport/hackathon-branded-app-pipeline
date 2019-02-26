@@ -16,7 +16,7 @@ import {
 } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import TodayIcon from '@material-ui/icons/Today';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import Fuse from 'fuse.js';
@@ -259,7 +259,7 @@ export class OfferManagement extends Component<Props, State> {
         className={classes.bookingsHeader}
       >
         <Grid item>
-          <Typography variant="title">{t('offer.myBookings')}</Typography>
+          <Typography variant="h6">{t('offer.myBookings')}</Typography>
         </Grid>
         <Grid item>
           <Grid container direction="row" alignItems="center" spacing={16}>
@@ -453,4 +453,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(translate()(OfferManagement));
+export default withStyles(styles)(withNamespaces()(OfferManagement));

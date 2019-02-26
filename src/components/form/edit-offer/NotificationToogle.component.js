@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Grid, Switch, Typography } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 type Props = {
@@ -32,4 +32,4 @@ export function NotificationToogle(props: Props) {
   );
 }
 
-export default translate()(NotificationToogle);
+export default withNamespaces()(NotificationToogle);

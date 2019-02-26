@@ -11,7 +11,7 @@ import {
   withStyles,
   Typography,
 } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -115,4 +115,4 @@ const styles = (theme) => ({
   },
 });
 
-export default translate()(withStyles(styles)(PaymentList));
+export default withNamespaces()(withStyles(styles)(PaymentList));

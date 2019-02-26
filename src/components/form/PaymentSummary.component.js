@@ -4,7 +4,7 @@ import React from 'react';
 import { IconButton, Grid, Typography, withStyles } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/Check';
 import CancelIcon from '@material-ui/icons/Cancel';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import DeleteIcon from '@material-ui/icons/Delete';
 import PAYMENT_METHODS from 'bsport-commons/lib/master-data/payment-methods';
 
@@ -90,4 +90,4 @@ export function PaymentSummary(props: Props) {
   );
 }
 
-export default withStyles(styles)(translate()(PaymentSummary));
+export default withStyles(styles)(withNamespaces()(PaymentSummary));

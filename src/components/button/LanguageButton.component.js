@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 import { FormControl, Select, MenuItem } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import i18n, { availableLanguages } from '../../i18n';
 
@@ -29,4 +29,4 @@ export class LanguageButton extends Component {
   }
 }
 
-export default translate()(LanguageButton);
+export default withNamespaces()(LanguageButton);

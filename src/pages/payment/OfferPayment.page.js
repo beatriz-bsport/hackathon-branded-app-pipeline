@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { connect } from 'react-redux';
@@ -98,7 +98,7 @@ export class OfferPaymentPage extends Component<Props, State> {
 }
 
 export default compose(
-  translate(),
+  withNamespaces(),
   withSnackbar,
   connect(
     (state) => ({

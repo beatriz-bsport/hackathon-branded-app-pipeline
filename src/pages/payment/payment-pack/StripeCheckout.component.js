@@ -9,7 +9,7 @@ import {
   Typography,
   Button,
 } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 import { Redirect } from 'react-router-dom';
 import { goBack as goBackRouter } from 'react-router-redux';
@@ -86,7 +86,7 @@ export class StripeCheckout extends Component<Props, State> {
       >
         <Grid item container justify="center" alignItems="center">
           <Grid item>
-            <Typography variant="display2">{price || ' - '} €</Typography>
+            <Typography variant="h3">{price || ' - '} €</Typography>
           </Grid>
         </Grid>
         <Grid item>
@@ -146,4 +146,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   null,
   mapDispatchToProps,
-)(injectStripe(withStyles(styles)(translate()(StripeCheckout))));
+)(injectStripe(withStyles(styles)(withNamespaces()(StripeCheckout))));

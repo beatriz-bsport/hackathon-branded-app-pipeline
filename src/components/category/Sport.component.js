@@ -12,7 +12,7 @@ type Props = {
 };
 export default function Sport(props: Props) {
   const { parentCategory, SCTName, noname } = props;
-  const variant = props.variant || 'body1';
+  const variant = props.variant || 'body2';
 
   const sport = SPORTS.filter((s) => s.id === parentCategory)[0];
 

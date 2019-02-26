@@ -11,7 +11,7 @@ import {
   withStyles,
   Typography,
 } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import type { ConsumerPaymentPackConsumerView } from '../../api/types';
 
@@ -103,4 +103,4 @@ const styles = (theme) => ({
   },
 });
 
-export default translate()(withStyles(styles)(ConsumerPacks));
+export default withNamespaces()(withStyles(styles)(ConsumerPacks));

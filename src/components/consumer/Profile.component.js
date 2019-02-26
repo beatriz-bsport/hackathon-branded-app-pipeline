@@ -13,7 +13,7 @@ import {
 import EmailIcon from '@material-ui/icons/Email';
 import PhoneIcon from '@material-ui/icons/Call';
 
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import Avatar from '../Avatar.component';
 import type { Profile } from '../../api/types';
@@ -73,10 +73,10 @@ export class MyProfile extends Component<Props> {
             spacing={16}
           >
             <Grid item>
-              <Typography variant="subheading">{profile.first_name}</Typography>
+              <Typography variant="subtitle1">{profile.first_name}</Typography>
             </Grid>
             <Grid item>
-              <Typography variant="subheading">{profile.last_name}</Typography>
+              <Typography variant="subtitle1">{profile.last_name}</Typography>
             </Grid>
           </Grid>
         </Grid>
@@ -97,4 +97,4 @@ export class MyProfile extends Component<Props> {
   }
 }
 
-export default withStyles(styles)(translate()(MyProfile));
+export default withStyles(styles)(withNamespaces()(MyProfile));

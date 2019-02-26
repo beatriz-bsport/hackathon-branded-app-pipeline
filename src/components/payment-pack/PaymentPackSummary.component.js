@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import type { Node } from 'react';
 
 import { ListItem, ListItemText } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import { Moment } from '../../i18n';
 import { formatAsDate } from '../../datetime';
 
@@ -53,4 +53,4 @@ export class PaymentPackMinimalSummary extends Component<Props> {
   }
 }
 
-export default translate()(PaymentPackMinimalSummary);
+export default withNamespaces()(PaymentPackMinimalSummary);

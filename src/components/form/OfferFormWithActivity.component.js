@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 import { Button, Grid, Typography, List } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import type { TFunction } from 'react-i18next';
 import OfferForm from './OfferForm.component';
@@ -89,4 +89,4 @@ export class OfferFormWithActivity extends Component<Props, State> {
   }
 }
 
-export default translate()(OfferFormWithActivity);
+export default withNamespaces()(OfferFormWithActivity);

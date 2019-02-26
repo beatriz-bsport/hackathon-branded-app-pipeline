@@ -9,7 +9,7 @@ import {
   Avatar,
   Button,
 } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import { formatAsDatetime } from '../../datetime';
 
@@ -65,4 +65,4 @@ export class BookingOptionForManager extends Component<Props> {
   }
 }
 
-export default translate()(BookingOptionForManager);
+export default withNamespaces()(BookingOptionForManager);

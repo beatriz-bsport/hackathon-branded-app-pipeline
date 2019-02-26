@@ -13,7 +13,7 @@ import {
 import CachedIcon from '@material-ui/icons/Cached';
 import CancelIcon from '@material-ui/icons/Cancel';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push as routerPush } from 'react-router-redux';
 import { connect } from 'react-redux';
@@ -215,7 +215,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default translate()(
+export default withNamespaces()(
   withStyles(styles)(
     connect(
       null,

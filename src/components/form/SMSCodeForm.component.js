@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { Button, Grid, Typography } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import { FormField } from '../input';
 
@@ -53,4 +53,4 @@ export class SMSCodeForm extends Component<Props, State> {
   }
 }
 
-export default translate()(SMSCodeForm);
+export default withNamespaces()(SMSCodeForm);

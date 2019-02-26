@@ -12,7 +12,7 @@ import {
   Typography,
   withStyles,
 } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import PhoneInput from 'react-phone-number-input';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import { FormField } from '../../components/input';
@@ -185,7 +185,7 @@ export class MemberForm extends Component<Props, State> {
     return (
       <div className={classes.paperContainer}>
         <form target="/member" onSubmit={this.onSubmit}>
-          <Typography variant="title">{title}</Typography>
+          <Typography variant="h6">{title}</Typography>
           <Grid container spacing={16}>
             <Grid item xs={12} md={12}>
               <AvatarUploader
@@ -342,4 +342,4 @@ export class MemberForm extends Component<Props, State> {
   }
 }
 
-export default withStyles(styles)(translate()(MemberForm));
+export default withStyles(styles)(withNamespaces()(MemberForm));

@@ -13,7 +13,7 @@ import Receipt from '@material-ui/icons/Receipt';
 import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import Stars from '@material-ui/icons/Stars';
 
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 export class RuleCard extends React.Component<{}> {
@@ -38,7 +38,7 @@ export class RuleCard extends React.Component<{}> {
                   <RotateLeft color="primary" />
                 </Grid>
                 <Grid item>
-                  <Typography variant="title">
+                  <Typography variant="h6">
                     {rule.conversionRate * 100} %
                   </Typography>
                 </Grid>
@@ -57,7 +57,7 @@ export class RuleCard extends React.Component<{}> {
                   <Receipt color="primary" />
                 </Grid>
                 <Grid item>
-                  <Typography variant="title">{rule.sales}</Typography>
+                  <Typography variant="h6">{rule.sales}</Typography>
                 </Grid>
               </Grid>
             </Grid>
@@ -74,7 +74,7 @@ export class RuleCard extends React.Component<{}> {
                   <ShoppingCart color="primary" />
                 </Grid>
                 <Grid item>
-                  <Typography variant="title">{rule.averageBuy} €</Typography>
+                  <Typography variant="h6">{rule.averageBuy} €</Typography>
                 </Grid>
               </Grid>
             </Grid>
@@ -91,7 +91,7 @@ export class RuleCard extends React.Component<{}> {
                   <Stars color="primary" />
                 </Grid>
                 <Grid item>
-                  <Typography variant="title">{rule.totalBuy} €</Typography>
+                  <Typography variant="h6">{rule.totalBuy} €</Typography>
                 </Grid>
               </Grid>
             </Grid>
@@ -106,12 +106,12 @@ export class RuleCard extends React.Component<{}> {
     return (
       <Grid container direction="column" spacing={16}>
         <Grid item>
-          <Typography variant="title">{t('marketing.action')}</Typography>
+          <Typography variant="h6">{t('marketing.action')}</Typography>
         </Grid>
         <Grid item>
           <Grid container direction="row" spacing={8} alignItems="flex-end">
             <Grid item>
-              <Typography variant="body1">{rule.SMSSent}</Typography>
+              <Typography variant="body2">{rule.SMSSent}</Typography>
             </Grid>
             <Grid item>
               <Typography variant="caption">
@@ -123,7 +123,7 @@ export class RuleCard extends React.Component<{}> {
         <Grid item>
           <Grid container direction="row" spacing={8} alignItems="flex-end">
             <Grid item>
-              <Typography variant="body1">{rule.EmailSent}</Typography>
+              <Typography variant="body2">{rule.EmailSent}</Typography>
             </Grid>
             <Grid item>
               <Typography variant="caption">
@@ -135,7 +135,7 @@ export class RuleCard extends React.Component<{}> {
         <Grid item>
           <Grid container direction="row" spacing={8} alignItems="flex-end">
             <Grid item>
-              <Typography variant="body1">{rule.notificationSent}</Typography>
+              <Typography variant="body2">{rule.notificationSent}</Typography>
             </Grid>
             <Grid item>
               <Typography variant="caption">
@@ -147,7 +147,7 @@ export class RuleCard extends React.Component<{}> {
         <Grid item>
           <Grid container direction="row" spacing={8} alignItems="flex-end">
             <Grid item>
-              <Typography variant="body1">{rule.clientReached}</Typography>
+              <Typography variant="body2">{rule.clientReached}</Typography>
             </Grid>
             <Grid item>
               <Typography variant="caption">
@@ -165,7 +165,7 @@ export class RuleCard extends React.Component<{}> {
     return (
       <Grid container direction="column" spacing={16}>
         <Grid item>
-          <Typography variant="title">{t('marketing.criterias')}</Typography>
+          <Typography variant="h6">{t('marketing.criterias')}</Typography>
         </Grid>
         {rule.criterias.map((c) => (
           <Grid key={c.name} item>
@@ -222,7 +222,7 @@ export class RuleCard extends React.Component<{}> {
                 alignItems="center"
               >
                 <Grid item>
-                  <Typography variant="title" className={classes.ruleTitle}>
+                  <Typography variant="h6" className={classes.ruleTitle}>
                     {rule.name}
                   </Typography>
                 </Grid>
@@ -267,4 +267,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(translate()(RuleCard));
+export default withStyles(styles)(withNamespaces()(RuleCard));

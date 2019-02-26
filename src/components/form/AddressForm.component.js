@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 import { Grid, Button, TextField, withStyles } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 type Props = {
@@ -190,4 +190,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(translate()(AddressForm));
+export default withStyles(styles)(withNamespaces()(AddressForm));

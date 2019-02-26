@@ -5,7 +5,7 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TablePagination from '@material-ui/core/TablePagination';
 import Paper from '@material-ui/core/Paper';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import EnhancedTableToolbar from './EnhancedTableToolbar.component';
 import EnhancedTableHead from './EnhancedTableHead.component';
@@ -207,4 +207,4 @@ class MemberTable extends React.Component<Props, State> {
   }
 }
 
-export default withStyles(styles)(translate()(MemberTable));
+export default withStyles(styles)(withNamespaces()(MemberTable));

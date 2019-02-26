@@ -4,7 +4,7 @@ import React from 'react';
 
 import { withStyles } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import green from '@material-ui/core/colors/green';
@@ -63,6 +63,6 @@ function mapStateToProps(state) {
   };
 }
 
-export default translate()(
+export default withNamespaces()(
   withStyles(styles)(connect(mapStateToProps)(SnackbarPile)),
 );

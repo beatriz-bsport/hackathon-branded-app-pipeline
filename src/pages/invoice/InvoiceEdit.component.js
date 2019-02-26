@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 import { CircularProgress } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push as pushRouter } from 'react-router-redux';
 import { compose } from 'recompose';
@@ -130,7 +130,7 @@ function mapDispatchToProps(dispatch) {
 the last one did not correctly when page changed */
 
 export default compose(
-  translate(),
+  withNamespaces(),
   withRouter,
   connect(
     mapStateToProps,

@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { withStyles, Divider, Typography, Paper } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import QuickInvoice from './quick-invoice/QuickInvoice.component';
 
 export function QuickInvoicePanel(props: Props) {
@@ -21,7 +21,7 @@ export function QuickInvoicePanel(props: Props) {
   } = props;
   return (
     <Paper>
-      <Typography className={classes.bookingsHeader} variant="title">
+      <Typography className={classes.bookingsHeader} variant="h6">
         {t('offer.myOpenedInvoices')}
       </Typography>
       <Divider />
@@ -85,4 +85,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(translate()(QuickInvoicePanel));
+export default withStyles(styles)(withNamespaces()(QuickInvoicePanel));

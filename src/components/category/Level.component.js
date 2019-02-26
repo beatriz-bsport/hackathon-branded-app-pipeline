@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Typography } from '@material-ui/core';
 import { getLevelColorById } from 'bsport-commons/lib/colors';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 export const LEVELS = [
   'level.all',
@@ -21,7 +21,7 @@ type Props = {
 
 export function Level(props: Props) {
   const { noStyle, levelId, t } = props;
-  const variant = props.variant || 'body1';
+  const variant = props.variant || 'body2';
 
   let stylesheet = {
     padding: '10px',
@@ -44,4 +44,4 @@ export function Level(props: Props) {
   );
 }
 
-export default translate()(Level);
+export default withNamespaces()(Level);

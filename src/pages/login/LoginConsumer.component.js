@@ -7,7 +7,7 @@ import { withStyles, Grid, Typography } from '@material-ui/core';
 import { withRouter } from 'react-router';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import parse from '../../query-string';
 
@@ -142,7 +142,7 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  translate(),
+  withNamespaces(),
   withRouter,
   connect(
     (state) => ({

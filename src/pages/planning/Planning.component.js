@@ -21,7 +21,7 @@ import {
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 
 import AddIcon from '@material-ui/icons/Add';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import { push as pushRouter, goBack as goBackRouter } from 'react-router-redux';
 import withDrawer from '../../hocs/with-drawer.hoc';
 
@@ -440,18 +440,18 @@ export class Planning extends Component<Props, State> {
         )}
         <Grid item xs={12} lg={6}>
           {selectedOffer ? (
-              <OfferCard
-                offer={selectedOffer}
-                establishments={establishments}
-                coaches={coaches}
-                coachesLoading={coachesLoading}
-                establishmentsLoading={establishmentsLoading}
-                onEditButtonClick={this.openEditModal}
-                onDeleteButtonClick={this.openDeleteModal}
-                compatiblePacks={compatiblePacks}
-                compatiblePacksLoading={compatiblePacksLoading}
-                goToOfferManagement={this.props.goToOfferManagement}
-              />
+            <OfferCard
+              offer={selectedOffer}
+              establishments={establishments}
+              coaches={coaches}
+              coachesLoading={coachesLoading}
+              establishmentsLoading={establishmentsLoading}
+              onEditButtonClick={this.openEditModal}
+              onDeleteButtonClick={this.openDeleteModal}
+              compatiblePacks={compatiblePacks}
+              compatiblePacksLoading={compatiblePacksLoading}
+              goToOfferManagement={this.props.goToOfferManagement}
+            />
           ) : (
             this.renderNoOfferSelected()
           )}
@@ -512,7 +512,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default translate()(
+export default withNamespaces()(
   withRouter(
     connect(
       mapStateToProps,

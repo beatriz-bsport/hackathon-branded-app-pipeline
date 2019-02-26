@@ -14,7 +14,7 @@ import {
   DialogContentText,
   withMobileDialog,
 } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import WarningIcon from '@material-ui/icons/Warning';
@@ -174,5 +174,5 @@ const styles = (theme) => ({
 });
 
 export default withMobileDialog()(
-  withStyles(styles)(translate()(PaymentPackDeleteDialog)),
+  withStyles(styles)(withNamespaces()(PaymentPackDeleteDialog)),
 );

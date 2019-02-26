@@ -2,7 +2,7 @@
 import React from 'react';
 import type { Node } from 'react';
 import { connect } from 'react-redux';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -104,7 +104,7 @@ class ConsumerMenu extends React.Component<Props, State> {
               >
                 <MenuIcon />
               </IconButton>
-              <Typography variant="title" color="inherit" noWrap>
+              <Typography variant="h6" color="inherit" noWrap>
                 Menu
               </Typography>
             </Toolbar>
@@ -185,5 +185,5 @@ function mapStateToProps(state) {
 }
 
 export default withStyles(styles, { withTheme: true })(
-  translate()(connect(mapStateToProps)(ConsumerMenu)),
+  withNamespaces()(connect(mapStateToProps)(ConsumerMenu)),
 );

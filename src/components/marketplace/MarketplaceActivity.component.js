@@ -131,13 +131,13 @@ export class MarketPlaceActivity extends React.Component<Props> {
             <LinearProgress />
           ) : (
             <div>
-              <Typography variant="body2" className={classes.hashtags}>
+              <Typography variant="body1" className={classes.hashtags}>
                 {activity.hashtags}
               </Typography>
               <Typography variant="h6" className={classes.title}>
                 {offer.name}
               </Typography>
-              <Typography variant="body2">{activity.description}</Typography>
+              <Typography variant="body1">{activity.description}</Typography>
               {this.renderCoachBanner()}
               {this.props.displayPacksInformation &&
               this.props.compatibleConsumerPacks.length ? (
@@ -197,7 +197,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
               <Typography variant="h6" className={classes.title}>
                 {establishment.title}
               </Typography>
-              <Typography variant="body2" className={classes.address}>
+              <Typography variant="body1" className={classes.address}>
                 {establishment.location.address}
               </Typography>
               <Map center={center} markers={markers} zoom={15} />

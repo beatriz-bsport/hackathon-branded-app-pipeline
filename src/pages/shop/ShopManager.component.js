@@ -15,7 +15,7 @@ import {
 import AddIcon from '@material-ui/icons/Add';
 import SaveIcon from '@material-ui/icons/Save';
 import CancelIcon from '@material-ui/icons/Cancel';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
 import { shop as shopActions } from '../../actions';
@@ -244,4 +244,6 @@ const styles = (theme) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(withStyles(styles)(translate()(withDrawer('shopManager')(ShopItemList))));
+)(
+  withStyles(styles)(withNamespaces()(withDrawer('shopManager')(ShopItemList))),
+);

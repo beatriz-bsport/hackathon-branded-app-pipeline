@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 import { Grid, Button } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import PriceInput from '../input/PriceInput.component';
@@ -54,4 +54,4 @@ export class InvoiceVoucher extends Component<Props, State> {
   }
 }
 
-export default translate()(InvoiceVoucher);
+export default withNamespaces()(InvoiceVoucher);

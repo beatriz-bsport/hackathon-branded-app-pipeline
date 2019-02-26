@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { withStyles } from '@material-ui/core/styles';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 
@@ -440,6 +440,6 @@ const styles = (theme) => ({
   },
 });
 
-export default translate()(
+export default withNamespaces()(
   withStyles(styles, { withTheme: true })(withRouter(ResponsiveDrawer)),
 );

@@ -9,7 +9,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import type { Invoice } from '../api/types';
 
@@ -81,4 +81,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(translate()(PaymentTable));
+export default withStyles(styles)(withNamespaces()(PaymentTable));

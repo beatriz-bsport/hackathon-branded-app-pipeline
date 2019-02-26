@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 import { withStyles, Grid, Typography } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import Avatar from '../Avatar.component';
 import type { Profile } from '../../api/types';
 
@@ -32,4 +32,4 @@ export class ConsumerRowSummary extends Component<Props> {
   }
 }
 
-export default withStyles(styles)(translate()(ConsumerRowSummary));
+export default withStyles(styles)(withNamespaces()(ConsumerRowSummary));

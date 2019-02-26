@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import {
@@ -84,4 +84,4 @@ export class ActivityCard extends Component<Props> {
   }
 }
 
-export default withStyles(styles)(translate()(ActivityCard));
+export default withStyles(styles)(withNamespaces()(ActivityCard));

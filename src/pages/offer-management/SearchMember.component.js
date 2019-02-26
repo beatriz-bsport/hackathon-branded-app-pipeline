@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import SearchIcon from '@material-ui/icons/Search';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 type Props = {
@@ -60,4 +60,4 @@ const styles = () => ({
   },
 });
 
-export default translate()(withStyles(styles)(SearchMember));
+export default withNamespaces()(withStyles(styles)(SearchMember));

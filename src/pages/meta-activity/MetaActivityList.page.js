@@ -2,7 +2,7 @@
 import React from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import { Paper, List, Grid } from '@material-ui/core';
 import i18next from 'i18next';
 
@@ -64,7 +64,7 @@ function mapStateToProps(state) {
 }
 
 export default compose(
-  translate(),
+  withNamespaces(),
   connect(
     mapStateToProps,
     {

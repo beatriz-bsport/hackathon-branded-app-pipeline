@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import { Redirect, Switch, Route } from 'react-router-dom';
 
 import { consumer as consumerActions } from '../actions';
@@ -89,7 +89,7 @@ function mapDispatchToProps(dispatch) {
     },
   };
 }
-export default translate()(
+export default withNamespaces()(
   connect(
     mapStateToProps,
     mapDispatchToProps,

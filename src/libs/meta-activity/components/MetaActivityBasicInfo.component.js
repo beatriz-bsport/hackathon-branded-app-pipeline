@@ -7,7 +7,7 @@ import {
   IconButton,
   withStyles,
 } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import Avatar from '../../../components/Avatar.component';
 import type { MetaActivity } from '../../../api/types';
@@ -54,4 +54,4 @@ const styles = () => ({
   },
 });
 
-export default translate()(withStyles(styles)(MetaActivityBasicInfo));
+export default withNamespaces()(withStyles(styles)(MetaActivityBasicInfo));

@@ -8,7 +8,7 @@ import {
   Typography,
   withStyles,
 } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import MarketplaceOffer from './MarketplaceOffer.component';
 
@@ -52,7 +52,7 @@ export class MarketplaceTimetable extends Component<Props> {
     const { date, classes } = this.props;
     return (
       <div>
-        <Typography variant="title" className={classes.title}>
+        <Typography variant="h6" className={classes.title}>
           {moment(date).format('dddd Do MMMM')}
         </Typography>
         {this.renderContent()}
@@ -70,4 +70,4 @@ const styles = (theme) => ({
   },
 });
 
-export default translate()(withStyles(styles)(MarketplaceTimetable));
+export default withNamespaces()(withStyles(styles)(MarketplaceTimetable));

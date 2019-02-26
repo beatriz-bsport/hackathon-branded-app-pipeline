@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import { connect } from 'react-redux';
 import { CircularProgress } from '@material-ui/core';
 import { goBack } from 'react-router-redux';
@@ -89,7 +89,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default translate()(
+export default withNamespaces()(
   connect(
     mapStateToProps,
     mapDispatchToProps,

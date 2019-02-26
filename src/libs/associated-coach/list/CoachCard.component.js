@@ -48,7 +48,7 @@ export class CoachCard extends Component<Props> {
     const { coach } = this.props;
 
     if (!coach || !coach.activities.length) {
-      return <Typography variant="body1">{t('coach.noActivity')}</Typography>;
+      return <Typography variant="body2">{t('coach.noActivity')}</Typography>;
     }
     return (
       <Grid container direction="column" alignItems="stretch">
@@ -137,9 +137,7 @@ export class CoachCard extends Component<Props> {
               alignItems="center"
             >
               <Grid item>
-                <Typography variant="title">
-                  {t('common.activities')}
-                </Typography>
+                <Typography variant="h6">{t('common.activities')}</Typography>
               </Grid>
               <Grid item>
                 <Button onClick={onClickUpdate}>

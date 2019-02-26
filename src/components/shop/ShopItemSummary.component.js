@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 import { ListItem, ListItemText } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 type Props = {
   t: (x: string) => string,
@@ -26,4 +26,4 @@ export class ShopItemSummary extends Component<Props> {
   }
 }
 
-export default translate()(ShopItemSummary);
+export default withNamespaces()(ShopItemSummary);

@@ -21,7 +21,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import CancelIcon from '@material-ui/icons/Cancel';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import SaveIcon from '@material-ui/icons/Save';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import ShopItemCard from '../../components/shop/ShopItemCard.component';
@@ -282,4 +282,4 @@ export class SubShopList extends Component<Props, State> {
   }
 }
 
-export default withStyles(styles)(translate()(SubShopList));
+export default withStyles(styles)(withNamespaces()(SubShopList));

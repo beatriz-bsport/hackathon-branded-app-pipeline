@@ -239,7 +239,7 @@ export class QuickInvoice extends Component<Props, State> {
           className={classes.header}
         >
           <Grid item>
-            <Typography variant="title">{quickInvoiceTitle}</Typography>
+            <Typography variant="h6">{quickInvoiceTitle}</Typography>
           </Grid>
           {onClose ? (
             <Grid item>

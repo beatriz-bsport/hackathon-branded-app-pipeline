@@ -103,7 +103,7 @@ export function ReportDashboard(props: Props) {
         </div>
       ) : (
         <div className={classes.messageNoReports}>
-          <Typography variant="body1">{t('list.empty')}</Typography>
+          <Typography variant="body2">{t('list.empty')}</Typography>
           <Button
             variant="outlined"
             color="primary"

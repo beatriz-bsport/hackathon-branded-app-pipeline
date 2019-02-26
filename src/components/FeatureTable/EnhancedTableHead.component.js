@@ -6,7 +6,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Tooltip from '@material-ui/core/Tooltip';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 type Props = {
   onSelectAllClick: () => void,
@@ -89,4 +89,4 @@ class EnhancedTableHead extends React.Component<Props> {
   }
 }
 
-export default translate()(EnhancedTableHead);
+export default withNamespaces()(EnhancedTableHead);

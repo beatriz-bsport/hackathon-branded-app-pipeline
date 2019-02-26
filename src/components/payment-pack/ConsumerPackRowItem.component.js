@@ -11,7 +11,7 @@ import {
   Button,
   CircularProgress,
 } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { Moment } from '../../i18n';
 
@@ -165,4 +165,4 @@ export class ConsumerPackRowItem extends Component<Props> {
   }
 }
 
-export default translate()(ConsumerPackRowItem);
+export default withNamespaces()(ConsumerPackRowItem);

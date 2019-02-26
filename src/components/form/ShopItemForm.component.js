@@ -17,7 +17,7 @@ import LocalDrinkIcon from '@material-ui/icons/LocalDrink';
 import CheckIcon from '@material-ui/icons/Check';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import type { ShopItem } from '../../api/types';
 import NumericInput from '../input/NumericInput.component';
@@ -269,4 +269,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(translate()(ShopItemForm));
+export default withStyles(styles)(withNamespaces()(ShopItemForm));

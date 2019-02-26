@@ -13,7 +13,7 @@ import {
   withStyles,
 } from '@material-ui/core';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
 
 import parse from '../../../query-string';
@@ -73,7 +73,7 @@ export class OfferPayment extends Component<Props> {
       return (
         <Grid container direction="column" spacing={16}>
           <Grid item>
-            <Typography variant="display2">
+            <Typography variant="h3">
               {`${humanDate.day} ${t(humanDate.month)} - ${humanDate.time}`}
             </Typography>
           </Grid>
@@ -123,12 +123,12 @@ export class OfferPayment extends Component<Props> {
         <Grid item>
           <Grid container spacing={8}>
             <Grid item>
-              <Typography variant="title" color="primary">
+              <Typography variant="h6" color="primary">
                 {compatibleConsumerPacks.length}
               </Typography>
             </Grid>
             <Grid item>
-              <Typography variant="title">
+              <Typography variant="h6">
                 {t('payment.availablePaymentPacks')}
               </Typography>
             </Grid>
@@ -306,4 +306,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withRouter(translate()(withStyles(styles)(OfferPayment)));
+export default withRouter(withNamespaces()(withStyles(styles)(OfferPayment)));

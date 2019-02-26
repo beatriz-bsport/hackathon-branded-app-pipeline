@@ -11,7 +11,7 @@ import {
 
 import { push as routerPush } from 'react-router-redux';
 import { connect } from 'react-redux';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import DoneIcon from '@material-ui/icons/Done';
 
 import { PAYMENT_PACK } from 'bsport-commons/lib/master-data/payment-methods';
@@ -191,7 +191,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default translate()(
+export default withNamespaces()(
   connect(
     mapStateToProps,
     mapDispatchToProps,

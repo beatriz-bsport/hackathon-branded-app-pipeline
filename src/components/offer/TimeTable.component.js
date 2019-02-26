@@ -9,7 +9,7 @@ import {
   withStyles,
   LinearProgress,
 } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import { Moment } from '../../i18n';
 import type { Offer } from '../../api/types';
 
@@ -154,4 +154,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(translate()(TimeTable));
+export default withStyles(styles)(withNamespaces()(TimeTable));

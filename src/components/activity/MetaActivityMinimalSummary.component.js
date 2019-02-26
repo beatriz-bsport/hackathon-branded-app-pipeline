@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Icon, ListItem, ListItemText, withStyles } from '@material-ui/core';
 
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import { Sport } from '../category';
 import type { MetaActivity } from '../../api/types';
@@ -42,4 +42,4 @@ export function MetaActivityMinimalSummary(props: Props) {
   );
 }
 
-export default translate()(withStyles(styles)(MetaActivityMinimalSummary));
+export default withNamespaces()(withStyles(styles)(MetaActivityMinimalSummary));

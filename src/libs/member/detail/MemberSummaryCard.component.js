@@ -15,7 +15,7 @@ import TodayIcon from '@material-ui/icons/Today';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import CallIcon from '@material-ui/icons/Call';
 import PlaceIcon from '@material-ui/icons/Place';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import NotificationActiveIcon from '@material-ui/icons/NotificationsActive';
 import NotificationOffIcon from '@material-ui/icons/NotificationsOff';
 
@@ -164,4 +164,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(translate()(MemberSummaryCard));
+export default withStyles(styles)(withNamespaces()(MemberSummaryCard));

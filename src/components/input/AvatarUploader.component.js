@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 
 import { withStyles, CircularProgress } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import Avatar from '../Avatar.component';
 
 const styles = () => ({
@@ -78,4 +78,4 @@ export class AvatarUploader extends Component<Props, State> {
   }
 }
 
-export default withStyles(styles)(translate()(AvatarUploader));
+export default withStyles(styles)(withNamespaces()(AvatarUploader));

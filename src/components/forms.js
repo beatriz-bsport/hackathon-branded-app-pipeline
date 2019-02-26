@@ -54,7 +54,7 @@ export const AlertError = withNamespaces([])(
       <ErrorMessage
         {...props}
         render={(message) => (
-          <Typography variant="body2" className={classes.alertError}>
+          <Typography variant="body1" className={classes.alertError}>
             {t(message)}
           </Typography>
         )}
@@ -206,7 +206,7 @@ export const PhoneField = withNamespaces([])(
             </MuiFormControl>
             <ErrorMessage {...props}>
               {(message) => (
-                <Typography variant="body2" className={classes.alertError}>
+                <Typography variant="body1" className={classes.alertError}>
                   {t(message)}
                 </Typography>
               )}
@@ -252,7 +252,7 @@ export const GenderField = withStyles(styles)(
             </Select>
             <ErrorMessage {...props}>
               {(message) => (
-                <Typography variant="body2" className={classes.alertError}>
+                <Typography variant="body1" className={classes.alertError}>
                   {t(message)}
                 </Typography>
               )}
@@ -362,7 +362,7 @@ export const FormControl = withStyles(formControlStyles)(
     const { classes, label, children } = props;
     return (
       <div className={classes.control}>
-        <Typography variant="body2" className={classes.label}>
+        <Typography variant="body1" className={classes.label}>
           {label}
         </Typography>
         {children}

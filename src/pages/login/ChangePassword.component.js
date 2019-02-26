@@ -10,7 +10,7 @@ import {
   withStyles,
   CircularProgress,
 } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push as pushRouter } from 'react-router-redux';
 
@@ -164,7 +164,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default withStyles(styles)(
-  translate()(
+  withNamespaces()(
     connect(
       null,
       mapDispatchToProps,

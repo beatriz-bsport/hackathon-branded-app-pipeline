@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 import type { TFunction } from 'react-i18next';
 
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import {
   CircularProgress,
   Paper,
@@ -176,4 +176,4 @@ const styles = (theme) => ({
     padding: theme.spacing.unit * 3,
   },
 });
-export default withStyles(styles)(translate()(EstablishmentForm));
+export default withStyles(styles)(withNamespaces()(EstablishmentForm));

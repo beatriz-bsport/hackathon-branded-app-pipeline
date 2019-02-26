@@ -3,7 +3,7 @@
 import React from 'react';
 
 import { Grid } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import ConsumerPackRowItem from './ConsumerPackRowItem.component';
 
@@ -42,4 +42,4 @@ export function ConsumersPackSummaryTable(props: Props) {
   );
 }
 
-export default translate()(ConsumersPackSummaryTable);
+export default withNamespaces()(ConsumersPackSummaryTable);

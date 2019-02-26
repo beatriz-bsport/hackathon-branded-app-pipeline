@@ -321,7 +321,7 @@ export class Member extends Component<Props, State> {
           </Grid>
           <Grid item xs={12} md={6}>
             <Typography
-              variant="title"
+              variant="h6"
               align="right"
               className={classes.expansionTitle}
             >
@@ -332,7 +332,7 @@ export class Member extends Component<Props, State> {
           </Grid>
           <Grid item xs={12} md={6}>
             <Typography
-              variant="title"
+              variant="h6"
               align="right"
               className={classes.expansionTitle}
             >
@@ -342,7 +342,7 @@ export class Member extends Component<Props, State> {
           </Grid>
           <Grid item xs={12} md={6}>
             <Typography
-              variant="title"
+              variant="h6"
               align="right"
               className={classes.expansionTitle}
             >

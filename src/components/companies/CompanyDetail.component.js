@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -44,7 +44,7 @@ export class CompanyDetail extends Component<Props, State> {
             <Grid container direction="column" spacing={24}>
               <Grid item>
                 <Paper className={classes.paper}>
-                  <Typography variant="title" className={classes.title}>
+                  <Typography variant="h6" className={classes.title}>
                     {t('companies.general')}
                   </Typography>
                   <strong>
@@ -69,11 +69,11 @@ export class CompanyDetail extends Component<Props, State> {
               </Grid>
               <Grid item>
                 <Paper className={classes.paper}>
-                  <Typography variant="title" className={classes.title}>
+                  <Typography variant="h6" className={classes.title}>
                     {t('companies.address')}
                   </Typography>
                   <AddressDetail address={getAddress(company, '')} />
-                  <Typography variant="title" className={classes.title}>
+                  <Typography variant="h6" className={classes.title}>
                     {t('companies.owner_address')}
                   </Typography>
                   <AddressDetail address={getAddress(company, 'owner')} />
@@ -83,7 +83,7 @@ export class CompanyDetail extends Component<Props, State> {
           </Grid>
           <Grid item xs={12} md={6}>
             <Paper className={classes.paper}>
-              <Typography variant="title" className={classes.title}>
+              <Typography variant="h6" className={classes.title}>
                 {t('companies.bank_details')}
               </Typography>
               <p>
@@ -114,4 +114,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(translate()(CompanyDetail));
+export default withStyles(styles)(withNamespaces()(CompanyDetail));

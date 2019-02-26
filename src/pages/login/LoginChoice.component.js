@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { Typography, Button, withStyles } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import { LoginBase } from '../../components';
@@ -29,7 +29,7 @@ export function LoginChoice(props: Props) {
   return (
     <LoginBase>
       <div className={classes.container}>
-        <Typography variant="subheading">
+        <Typography variant="subtitle1">
           {t('login.choseYourUserspace')}
         </Typography>
         <Link style={{ textDecoration: 'none' }} to="/login/customer">
@@ -56,4 +56,4 @@ export function LoginChoice(props: Props) {
   );
 }
 
-export default withStyles(styles)(translate()(LoginChoice));
+export default withStyles(styles)(withNamespaces()(LoginChoice));

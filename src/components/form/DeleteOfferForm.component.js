@@ -10,7 +10,7 @@ import {
   Button,
   withStyles,
 } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import RedButton from '../button/RedButton.component';
 
@@ -103,7 +103,7 @@ export class DeleteOfferForm extends Component<Props, State> {
         style={{ height: '100%' }}
       >
         <Grid item>
-          <Typography variant="title">{t('form.offer.deleteTitle')}</Typography>
+          <Typography variant="h6">{t('form.offer.deleteTitle')}</Typography>
         </Grid>
         <Grid item>{this.renderInside()}</Grid>
         <Grid item>
@@ -131,4 +131,4 @@ const styles = (theme) => ({
   },
 });
 
-export default translate()(withStyles(styles)(DeleteOfferForm));
+export default withNamespaces()(withStyles(styles)(DeleteOfferForm));

@@ -10,7 +10,7 @@ import {
   MenuItem,
   ListItemText,
 } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import type { Establishment } from '../../api/types';
@@ -61,4 +61,4 @@ export function EstablishmentInput(props: Props) {
   );
 }
 
-export default withStyles(styles)(translate()(EstablishmentInput));
+export default withStyles(styles)(withNamespaces()(EstablishmentInput));

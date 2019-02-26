@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { Grid } from '@material-ui/core';
 
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import EstablishmentInput from '../../input/EstablishmentInput.component';
@@ -61,4 +61,4 @@ export class EstablishmentSubForm extends Component<Props> {
   }
 }
 
-export default translate()(EstablishmentSubForm);
+export default withNamespaces()(EstablishmentSubForm);

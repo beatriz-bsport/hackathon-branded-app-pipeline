@@ -17,7 +17,7 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import { push } from 'react-router-redux';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
 
@@ -228,4 +228,4 @@ const styles = (theme) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(withStyles(styles)(translate()(ConsumerAppBar)));
+)(withStyles(styles)(withNamespaces()(ConsumerAppBar)));

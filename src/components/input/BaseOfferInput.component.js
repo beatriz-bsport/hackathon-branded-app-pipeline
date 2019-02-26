@@ -10,7 +10,7 @@ import {
   MenuItem,
   FormHelperText,
 } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import { formatAsDatetime } from '../../datetime';
 
@@ -48,7 +48,9 @@ export function BaseOfferInput(props: Props) {
           <em> - </em>
         </MenuItem>
         {events.map((e) => (
-          <MenuItem key={e.id} value={e.id}>{formatAsDatetime(e.date_start)}</MenuItem>
+          <MenuItem key={e.id} value={e.id}>
+            {formatAsDatetime(e.date_start)}
+          </MenuItem>
         ))}
       </Select>
       <FormHelperText>{helperText}</FormHelperText>
@@ -56,4 +58,4 @@ export function BaseOfferInput(props: Props) {
   );
 }
 
-export default withStyles(styles)(translate()(BaseOfferInput));
+export default withStyles(styles)(withNamespaces()(BaseOfferInput));

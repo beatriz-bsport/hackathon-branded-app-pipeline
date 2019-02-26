@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 import { Grid, Typography, withStyles } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import { connect } from 'react-redux';
 
 import type { TFunction } from 'react-i18next';
@@ -35,9 +35,7 @@ export class MyPaymentPacks extends Component<Props> {
         className={classes.container}
       >
         <Grid item>
-          <Typography variant="title">
-            {t('consumer.myPaymentPacks')}
-          </Typography>
+          <Typography variant="h6">{t('consumer.myPaymentPacks')}</Typography>
         </Grid>
         <Grid item xs={12} lg={8}>
           <ConsumerPacks packs={consumerPaymentPacks} />
@@ -54,5 +52,5 @@ function mapStateToProps(state) {
 }
 
 export default withStyles(styles)(
-  translate()(connect(mapStateToProps)(MyPaymentPacks)),
+  withNamespaces()(connect(mapStateToProps)(MyPaymentPacks)),
 );

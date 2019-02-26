@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import { Typography, Button, TextField, withStyles } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import { auth as authActions } from '../../actions';
 import { LoginBase } from '../../components';
@@ -148,4 +148,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(translate()(withStyles(styles)(Login)));
+)(withNamespaces()(withStyles(styles)(Login)));

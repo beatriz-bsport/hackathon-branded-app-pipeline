@@ -33,7 +33,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import AddIcon from '@material-ui/icons/Add';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import type { ShopItem } from '../../api/types';
 import NumericInput from '../input/NumericInput.component';
@@ -302,7 +302,7 @@ export class ShopItemCard extends PureComponent<Props, State> {
                 <Grid container direction="row" alignItems="center">
                   <Grid item>
                     <Typography
-                      variant="subheading"
+                      variant="subtitle1"
                       alignItems="center"
                       className={classes.provisions}
                       color={item.current_stock ? 'inherits' : 'error'}
@@ -382,4 +382,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(translate()(ShopItemCard));
+export default withStyles(styles)(withNamespaces()(ShopItemCard));

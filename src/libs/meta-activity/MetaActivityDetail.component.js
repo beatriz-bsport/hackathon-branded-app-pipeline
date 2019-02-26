@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { compose } from 'recompose';
 import {
@@ -137,7 +137,7 @@ export class MetaActivityDetail extends Component<Props, State> {
         </FormControl>
       </div>
     ) : (
-      <Typography variant="title">{name}</Typography>
+      <Typography variant="h6">{name}</Typography>
     );
   };
 
@@ -146,7 +146,7 @@ export class MetaActivityDetail extends Component<Props, State> {
     const { description } = metaActivity;
     return (
       <div>
-        <Typography variant="title" className={classes.blockTitle}>
+        <Typography variant="h6" className={classes.blockTitle}>
           {t('activity.description')}
         </Typography>
         <Typography>{description}</Typography>
@@ -208,7 +208,7 @@ export class MetaActivityDetail extends Component<Props, State> {
           <Grid container direction="column" spacing={32}>
             <Grid item>
               <Typography
-                variant="title"
+                variant="h6"
                 className={classes.blockTitleLargeMargin}
               >
                 {t('activity.offersThisDay')}
@@ -265,30 +265,30 @@ export class MetaActivityDetail extends Component<Props, State> {
     return (
       <Grid container direction="row" justify="center">
         <Grid item xs={12} md={6}>
-          <Typography className={classes.blockTitleLargeMargin} variant="title">
+          <Typography className={classes.blockTitleLargeMargin} variant="h6">
             {t('activity.settings')}
           </Typography>
           <Grid container direction="column" spacing={16}>
             <Grid item>
-              <Typography variant="subheading">
+              <Typography variant="subtitle1">
                 {`${t('activity.lastBookingBeforeMinutes')}`}
               </Typography>
-              <Typography variant="title">
+              <Typography variant="h6">
                 {formatMinutes(last_booking_minutes)}
               </Typography>
             </Grid>
             <Grid item>
-              <Typography variant="subheading">
+              <Typography variant="subtitle1">
                 {`${t('activity.lastDiscardBeforeMinutes')}`}
               </Typography>
-              <Typography variant="title">
+              <Typography variant="h6">
                 {formatMinutes(last_discard_minutes)}
               </Typography>
             </Grid>
           </Grid>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Typography className={classes.blockTitleLargeMargin} variant="title">
+          <Typography className={classes.blockTitleLargeMargin} variant="h6">
             {t('activity.packsAvailable')}
           </Typography>
           {payment_packs_available && payment_packs_available.length ? (
@@ -311,7 +311,7 @@ export class MetaActivityDetail extends Component<Props, State> {
     if (reviews.length) {
       return (
         <Paper className={classes.paddedPaper}>
-          <Typography variant="title" className={classes.blockTitleLargeMargin}>
+          <Typography variant="h6" className={classes.blockTitleLargeMargin}>
             {t('activity.reviews')}
           </Typography>
           <Grid
@@ -411,5 +411,5 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  translate(),
+  withNamespaces(),
 )(MetaActivityDetail);

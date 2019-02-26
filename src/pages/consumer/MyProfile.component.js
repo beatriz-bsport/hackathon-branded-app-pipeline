@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { Grid, CircularProgress, withStyles } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import { ConsumerProfile } from '../../components';
 import type { Profile } from '../../api/types';
@@ -43,5 +43,5 @@ function mapStateToProps(state) {
 }
 
 export default withStyles(styles)(
-  translate()(connect(mapStateToProps)(MyProfile)),
+  withNamespaces()(connect(mapStateToProps)(MyProfile)),
 );

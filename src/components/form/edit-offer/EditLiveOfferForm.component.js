@@ -9,7 +9,7 @@ import {
   Typography,
   CircularProgress,
 } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import PriceInput from '../../input/PriceInput.component';
 import { Moment } from '../../../i18n';
@@ -327,7 +327,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
   renderChangeForm = () => (
     <Grid container direction="column" spacing={40}>
       <Grid item>
-        <Typography variant="title">
+        <Typography variant="h6">
           {this.props.t('calendar.modifyOffer')}
         </Typography>
       </Grid>
@@ -396,7 +396,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
   renderConfirmChange = () => (
     <Grid container direction="column" spacing={32}>
       <Grid item>
-        <Typography variant="title">
+        <Typography variant="h6">
           {this.props.t('calendar.modifyOffer')}
         </Typography>
       </Grid>
@@ -417,4 +417,4 @@ export class EditLiveOfferForm extends Component<Props, State> {
   }
 }
 
-export default translate()(EditLiveOfferForm);
+export default withNamespaces()(EditLiveOfferForm);

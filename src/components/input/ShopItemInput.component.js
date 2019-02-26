@@ -11,7 +11,7 @@ import {
   MenuItem,
   FormHelperText,
 } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import ShopItemSummary from '../shop/ShopItemSummary.component';
 
@@ -62,4 +62,4 @@ export function ShopItemInput(props: Props) {
   );
 }
 
-export default withStyles(styles)(translate()(ShopItemInput));
+export default withStyles(styles)(withNamespaces()(ShopItemInput));

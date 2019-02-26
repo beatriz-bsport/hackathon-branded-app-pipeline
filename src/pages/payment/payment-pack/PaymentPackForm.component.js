@@ -9,7 +9,7 @@ import {
   Grid,
   withStyles,
 } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 
 import type { TFunction } from 'react-i18next';
@@ -50,7 +50,7 @@ export class PaymentPackPayment extends Component<Props> {
       const humanDate = humanizeDate(Moment(offerToBuy.date_start));
       return (
         <div>
-          <Typography variant="display2" className={classes.offerTitle}>
+          <Typography variant="h3" className={classes.offerTitle}>
             {`${humanDate.day} ${t(humanDate.month)} - ${humanDate.time}`}
           </Typography>
           <ActivityMinimalSummary
@@ -125,4 +125,4 @@ export class PaymentPackPayment extends Component<Props> {
   }
 }
 
-export default withStyles(styles)(translate()(PaymentPackPayment));
+export default withStyles(styles)(withNamespaces()(PaymentPackPayment));

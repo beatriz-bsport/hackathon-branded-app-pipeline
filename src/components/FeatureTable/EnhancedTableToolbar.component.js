@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 const toolbarStyles = (theme) => ({
   root: {
@@ -50,11 +50,11 @@ const EnhancedTableToolbar = (props: Props) => {
     >
       <div className={classes.title}>
         {numSelected > 0 ? (
-          <Typography color="inherit" variant="subheading">
+          <Typography color="inherit" variant="subtitle1">
             {numSelected} {t('common.selected').toLowerCase()}
           </Typography>
         ) : (
-          <Typography variant="title" id="tableTitle">
+          <Typography variant="h6" id="tableTitle">
             {title}
           </Typography>
         )}
@@ -67,4 +67,6 @@ const EnhancedTableToolbar = (props: Props) => {
   );
 };
 
-export default withStyles(toolbarStyles)(translate()(EnhancedTableToolbar));
+export default withStyles(toolbarStyles)(
+  withNamespaces()(EnhancedTableToolbar),
+);

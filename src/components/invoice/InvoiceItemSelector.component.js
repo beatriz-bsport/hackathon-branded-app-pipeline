@@ -12,7 +12,7 @@ import {
   withStyles,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import DatePicker from 'material-ui-pickers/DatePicker';
 import PaymentPackInput from '../input/PaymentPackInput.component';
@@ -199,4 +199,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(translate()(InvoiceItemSelector));
+export default withStyles(styles)(withNamespaces()(InvoiceItemSelector));

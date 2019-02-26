@@ -10,7 +10,7 @@ import {
   Button,
 } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 
 type Props = {
@@ -99,4 +99,6 @@ const styles = (theme) => ({
   },
 });
 
-export default injectStripe(withStyles(styles)(translate()(StripeCheckout)));
+export default injectStripe(
+  withStyles(styles)(withNamespaces()(StripeCheckout)),
+);

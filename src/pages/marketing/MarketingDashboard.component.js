@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 import { Typography, Grid, withStyles } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import { Moment } from '../../i18n';
 
@@ -106,5 +106,5 @@ const styles = (theme) => ({
 });
 
 export default withStyles(styles)(
-  translate()(withDrawer('marketingDashboard')(MarketingDashboard)),
+  withNamespaces()(withDrawer('marketingDashboard')(MarketingDashboard)),
 );

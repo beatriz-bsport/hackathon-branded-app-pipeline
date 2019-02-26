@@ -6,7 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import MultipleImageUploader from '../../components/MultipleImageUploader.component';
@@ -220,4 +220,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(translate()(MetaActivityForm));
+export default withStyles(styles)(withNamespaces()(MetaActivityForm));

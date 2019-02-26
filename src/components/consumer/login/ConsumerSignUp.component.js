@@ -8,7 +8,7 @@ import {
   Typography,
   Grid,
 } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -112,7 +112,7 @@ export class ConsumerSignUp extends Component<Props, State> {
         className={classes.container}
       >
         <Grid item>
-          <Typography variant="title">{t('form.signUpTitle')}</Typography>
+          <Typography variant="h6">{t('form.signUpTitle')}</Typography>
         </Grid>
         <Grid item>{this.getContent()}</Grid>
       </Grid>
@@ -141,7 +141,7 @@ const styles = (theme) => ({
 });
 
 export default withStyles(styles)(
-  translate()(
+  withNamespaces()(
     connect(
       mapStateToProps,
       mapDispatchToProps,

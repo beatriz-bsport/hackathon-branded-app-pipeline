@@ -191,7 +191,7 @@ export class Calendar extends Component<Props, State> {
               </IconButton>
             </Grid>
             <Grid item>
-              <Typography variant="title">
+              <Typography variant="h6">
                 {month} {year}
               </Typography>
             </Grid>
@@ -262,7 +262,7 @@ export class Calendar extends Component<Props, State> {
           >
             {Moment.weekdaysShort(true).map((wds) => (
               <Grid item key={wds}>
-                <Typography variant="title">{wds}</Typography>
+                <Typography variant="h6">{wds}</Typography>
               </Grid>
             ))}
           </Grid>

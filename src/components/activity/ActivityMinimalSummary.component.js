@@ -11,7 +11,7 @@ import {
   withStyles,
 } from '@material-ui/core';
 
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import Avatar from '../Avatar.component';
 import { formatAsDatetime } from '../../datetime';
@@ -110,4 +110,4 @@ export function ActivityMinimalSummary(props: Props) {
   );
 }
 
-export default translate()(withStyles(styles)(ActivityMinimalSummary));
+export default withNamespaces()(withStyles(styles)(ActivityMinimalSummary));

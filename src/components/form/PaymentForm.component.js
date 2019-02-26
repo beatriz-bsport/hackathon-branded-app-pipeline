@@ -18,7 +18,7 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import NoteIcon from '@material-ui/icons/Note';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import {
   CB as PAYMENT_METHOD_CB,
@@ -277,4 +277,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(translate()(PaymentForm));
+export default withStyles(styles)(withNamespaces()(PaymentForm));

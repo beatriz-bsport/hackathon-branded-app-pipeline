@@ -9,7 +9,7 @@ import {
   InputLabel,
   withStyles,
 } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import PAYMENT_METHODS from 'bsport-commons/lib/master-data/payment-methods';
 
@@ -42,11 +42,13 @@ export function PaymentMethodInput(props: Props) {
         }
       >
         {PAYMENT_METHODS.map((pm) => (
-          <MenuItem key={pm.id} value={pm.id}>{t(`paymentMethods.${pm.text}`)}</MenuItem>
+          <MenuItem key={pm.id} value={pm.id}>
+            {t(`paymentMethods.${pm.text}`)}
+          </MenuItem>
         ))}
       </Select>
     </FormControl>
   );
 }
 
-export default withStyles(styles)(translate()(PaymentMethodInput));
+export default withStyles(styles)(withNamespaces()(PaymentMethodInput));

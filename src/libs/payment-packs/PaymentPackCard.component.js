@@ -18,7 +18,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import RedButton from '../../components/button/RedButton.component';
@@ -57,7 +57,7 @@ export class PaymentPackCard extends Component<Props> {
     const { categories } = pack;
     return (
       <div>
-        <Typography variant="subheading">
+        <Typography variant="subtitle1">
           {t('paymentPack.availableOnFollowingSports')}
         </Typography>
         <List className={classes.tabList}>
@@ -68,7 +68,7 @@ export class PaymentPackCard extends Component<Props> {
               </ListItem>
             ))
           ) : (
-            <Typography variant="body2">{t('paymentPack.anySport')}</Typography>
+            <Typography variant="body1">{t('paymentPack.anySport')}</Typography>
           )}
         </List>
       </div>
@@ -92,7 +92,7 @@ export class PaymentPackCard extends Component<Props> {
               />
             ))
           ) : (
-            <Typography variant="body2">
+            <Typography variant="body1">
               {t('paymentPack.anyActivity')}
             </Typography>
           )}
@@ -118,7 +118,7 @@ export class PaymentPackCard extends Component<Props> {
               />
             ))
           ) : (
-            <Typography variant="body2">
+            <Typography variant="body1">
               {t('paymentPack.anyEstablishment')}
             </Typography>
           )}
@@ -263,7 +263,7 @@ export class PaymentPackCard extends Component<Props> {
         onChange={this.handleExpandChange}
       >
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography variant="body2">
+          <Typography variant="body1">
             {`${t('paymentPack.boughtConsumerPaymentPacks')} (${
               pack.nb_consumer_payment_packs
             })`}
@@ -426,4 +426,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(translate()(PaymentPackCard));
+export default withStyles(styles)(withNamespaces()(PaymentPackCard));

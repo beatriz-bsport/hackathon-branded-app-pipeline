@@ -13,7 +13,7 @@ import {
   IconButton,
 } from '@material-ui/core';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import type { TFunction } from 'react-i18next';
 
@@ -107,4 +107,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default translate()(connect(mapStateToProps)(MarketplaceOffer));
+export default withNamespaces()(connect(mapStateToProps)(MarketplaceOffer));

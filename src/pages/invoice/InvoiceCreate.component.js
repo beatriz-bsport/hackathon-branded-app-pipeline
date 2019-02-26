@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 import { withStyles, Typography, CircularProgress } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import { push as pushRouter } from 'react-router-redux';
 
 import type { TFunction } from 'react-i18next';
@@ -109,7 +109,7 @@ const styles = (theme) => ({
 });
 
 export default withStyles(styles)(
-  translate()(
+  withNamespaces()(
     connect(
       mapStateToProps,
       mapDispatchToProps,

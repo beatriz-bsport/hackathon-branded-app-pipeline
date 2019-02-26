@@ -3,6 +3,10 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
+
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
+
 import { push } from 'connected-react-router';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -69,4 +73,6 @@ export default connect(
     deleteReport: reportsRes.effects.delete,
     goToReport: (r: ReportConfiguration) => push(`/reporting/${r.id}`),
   },
-)(withDrawer('reportingDashboard')(ReportingDashboard));
+  withNamespaces(),
+  withDrawer(({ t }: { t: TFunction }) => t('appbar.title.reportingDashboard')),
+)(ReportingDashboard);

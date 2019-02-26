@@ -104,4 +104,7 @@ export default compose(
       goToEstablishmentList: () => push('/establishment'),
     },
   ),
-)(withDrawer('establishmentFormPage')(EstablishmentFormPage));
+  withDrawer(({ t }: { t: TFunction }) =>
+    t('appbar.title.establishmentFormPage'),
+  ),
+)(EstablishmentFormPage);

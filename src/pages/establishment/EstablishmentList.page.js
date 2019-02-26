@@ -11,7 +11,7 @@ import {
   List,
   withStyles,
 } from '@material-ui/core';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import i18next from 'i18next';
 import { push } from 'react-router-redux';
@@ -129,7 +129,7 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  translate(),
+  withNamespaces(),
   connect(
     mapStateToProps,
     {
@@ -145,4 +145,5 @@ export default compose(
     },
     switchButton: true,
   }),
-)(withDrawer('establishmentList')(EstablishmentList));
+  withDrawer(({ t }: { t: TFunction }) => t('appbar.title.establishmentList')),
+)(EstablishmentList);

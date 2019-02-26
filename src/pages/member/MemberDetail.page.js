@@ -176,5 +176,5 @@ export default compose(
       }
     }
     return '';
-  }, true),
+  }),
 )(Member);

@@ -2,7 +2,6 @@
 
 import React, { Component, createContext } from 'react';
 import type { AbstractComponent } from 'react';
-import i18next from 'i18next';
 
 export const DrawerContext = createContext({
   title: '',
@@ -30,24 +29,15 @@ export class DrawerContextProvider extends Component<Props, State> {
   }
 }
 
-const withDrawer = (
-  title: string | ((*) => string),
-  noTranslation: ?boolean,
-) => {
-  const mapPropsToTitle = typeof title === 'string' ? () => title : title;
+const withDrawer = (mapPropsToTitle: () => void) => {
   return (WrappedComponent: AbstractComponent<any>) => {
     class Wrapper extends Component<any> {
       static contextType = DrawerContext;
 
       componentDidMount() {
         // set the title only when it provided
-        const titleString = mapPropsToTitle(this.props);
-        if (titleString && noTranslation) {
-          this.context.setTitle(titleString);
-        }
-        if (titleString && !noTranslation) {
-          this.context.setTitle(i18next.t(`appbar.title.${titleString}` || ''));
-        }
+        const title = mapPropsToTitle(this.props) || '';
+        this.context.setTitle(title);
       }
 
       componentWillUnmount() {

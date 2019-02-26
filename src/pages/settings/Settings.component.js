@@ -77,4 +77,5 @@ export default compose(
     null,
     { push },
   ),
-)(withDrawer('settings')(Settings));
+  withDrawer(({ t }: { t: TFunction }) => t('pageTitle')),
+)(Settings);

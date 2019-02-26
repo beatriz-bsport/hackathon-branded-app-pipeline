@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 import i18next from 'i18next';
 import { Redirect } from 'react-router-dom';
 import {
@@ -14,7 +15,6 @@ import {
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 
-import type { TFunction } from 'react-i18next';
 import { formatAsDatetime } from '../../datetime';
 import { FeatureTable } from '../../components';
 import type { Member } from '../../api/types';
@@ -153,7 +153,7 @@ function mapStateToProps(state) {
 export default compose(
   withNamespaces(),
   connect(mapStateToProps),
-  withDrawer('members'),
+  withDrawer(({ t }: { t: TFunction }) => t('appbar.title.members')),
   withBottomButtons({
     addButton: {
       path: '/member/add',

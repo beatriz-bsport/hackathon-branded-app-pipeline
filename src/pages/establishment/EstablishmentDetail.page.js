@@ -3,9 +3,10 @@
 import React from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import { push } from 'react-router-redux';
 import type { Establishment, Activity, Offer } from '../../api/types';
+import withDrawer from '../../hocs/with-drawer.hoc';
 
 import {
   establishment as establishmentActions,
@@ -47,7 +48,7 @@ function mapStateToProps(state, nextProps) {
 }
 
 export default compose(
-  translate(),
+  withNamespaces(),
   connect(
     mapStateToProps,
     {
@@ -56,4 +57,7 @@ export default compose(
       goToOffer: (offerId: number) => push(`/offer/${offerId}`),
     },
   ),
+  withDrawer(({ establishment }) => {
+    return establishment ? `${establishment.title}` : '';
+  }),
 )(EstablishmentDetails);

@@ -88,5 +88,7 @@ export default compose(
     },
   ),
   withRouter,
-  withDrawer('metaActivityFormPage'),
+  withDrawer(({ t }: { t: TFunction }) =>
+    t('appbar.title.metaActivityFormPage'),
+  ),
 )(MetaActivityFormPage);

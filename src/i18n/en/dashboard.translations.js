@@ -9,6 +9,7 @@ export default {
   thisMonth: 'This month',
   newMembers: 'New members',
   nbOffers: 'Sessions',
+  pageTitle: 'Dashboard',
   // eslint-disable-next-line
   turnover: 'Turnover (€)',
   bookings: 'Bookings',

@@ -2,11 +2,11 @@
 import React, { Component } from 'react';
 
 import { withRouter } from 'react-router-dom';
-
 import { connect } from 'react-redux';
-
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
+import { compose } from 'recompose';
 import { isWidthUp, isWidthDown } from '@material-ui/core/withWidth';
-
 import {
   Dialog,
   DialogContent,
@@ -17,12 +17,10 @@ import {
   Typography,
   withWidth,
 } from '@material-ui/core';
-
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-
 import AddIcon from '@material-ui/icons/Add';
-import { withNamespaces } from 'react-i18next';
 import { push as pushRouter, goBack as goBackRouter } from 'react-router-redux';
+
 import withDrawer from '../../hocs/with-drawer.hoc';
 
 import {
@@ -512,11 +510,14 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default withNamespaces()(
-  withRouter(
-    connect(
-      mapStateToProps,
-      mapDispatchToProps,
-    )(withStyles(styles)(withWidth()(withDrawer('planning')(Planning)))),
+export default compose(
+  withNamespaces(),
+  withRouter,
+  withStyles(styles),
+  withWidth(),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
   ),
-);
+  withDrawer(({ t }: { t: TFunction }) => t('appbar.title.planning')),
+)(Planning);

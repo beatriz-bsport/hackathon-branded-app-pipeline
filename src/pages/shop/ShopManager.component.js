@@ -18,6 +18,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
+import { compose } from 'recompose';
 import { shop as shopActions } from '../../actions';
 
 import SubShopList from './SubShopList.component';
@@ -241,9 +242,12 @@ const styles = (theme) => ({
   },
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(
-  withStyles(styles)(withNamespaces()(withDrawer('shopManager')(ShopItemList))),
-);
+export default compose(
+  withNamespaces(),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  ),
+  withStyles(styles),
+  withDrawer(({ t }: { t: TFunction }) => t('appbar.title.shopManager')),
+)(ShopItemList);

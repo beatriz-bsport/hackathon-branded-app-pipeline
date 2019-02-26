@@ -5,6 +5,8 @@ import { compose, withProps } from 'recompose';
 
 import { goBack } from 'connected-react-router';
 import { connect } from 'react-redux';
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 
 import Grid from '@material-ui/core/Grid';
 
@@ -55,6 +57,7 @@ export function PaymentPackFormPage(props: Props) {
 }
 
 export default compose(
+  withNamespaces(),
   mapRouterParamsToProps({ id: 'paymentPackId:number' }),
   connect(
     (state, { paymentPackId }) => ({
@@ -85,5 +88,7 @@ export default compose(
       });
     },
   })),
-  withDrawer('paymentPackFormPage'),
+  withDrawer(({ t }: { t: TFunction }) =>
+    t('appbar.title.paymentPackFormPage'),
+  ),
 )(PaymentPackFormPage);

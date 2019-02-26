@@ -2,10 +2,11 @@
 
 import React, { Component } from 'react';
 
-import { withStyles, Typography, CircularProgress } from '@material-ui/core';
+import { withStyles, CircularProgress } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import { push as pushRouter } from 'react-router-redux';
+import { compose } from 'recompose';
 
 import type { TFunction } from 'react-i18next';
 import InvoiceForm from '../../components/form/InvoiceForm.component';
@@ -25,8 +26,6 @@ type Props = {
   goToInvoiceList: () => void,
   createInvoice: () => void,
   creatingInvoice: boolean,
-  t: TFunction,
-  classes: Object,
   resetCreateOrUpdateStatus: () => void,
 };
 
@@ -44,8 +43,6 @@ export class InvoiceCreatePage extends Component<Props> {
       member,
       activities,
       paymentPacks,
-      t,
-      classes,
       goToInvoiceList,
       shopItems,
       creatingInvoice,
@@ -55,11 +52,6 @@ export class InvoiceCreatePage extends Component<Props> {
     }
     return (
       <div>
-        <Typography variant="h4" className={classes.title}>
-          {`${t('payment.invoice')} - ${formatAsDate(Moment())} - ${
-            member.name
-          }`}
-        </Typography>
         <InvoiceForm
           member={member}
           activities={activities}
@@ -108,11 +100,15 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(
-  withNamespaces()(
-    connect(
-      mapStateToProps,
-      mapDispatchToProps,
-    )(withDrawer('invoiceCreatePage')(InvoiceCreatePage)),
+export default compose(
+  withStyles(styles),
+  withNamespaces(),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
   ),
-);
+  withDrawer(
+    ({ t, member }: { t: TFunction, member: Member }) =>
+      `${t('payment.invoice')} - ${formatAsDate(Moment())} - ${member.name}`,
+  ),
+)(InvoiceCreatePage);

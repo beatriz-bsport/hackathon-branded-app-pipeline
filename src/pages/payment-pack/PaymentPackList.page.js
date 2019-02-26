@@ -264,5 +264,5 @@ export default compose(
     },
     switchButton: false,
   }),
-  withDrawer('paymentPackList'),
+  withDrawer(({ t }: { t: TFunction }) => t('appbar.title.paymentPackList')),
 )(PaymentPackList);

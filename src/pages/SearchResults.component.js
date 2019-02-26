@@ -202,6 +202,10 @@ export default withStyles(styles)(
     connect(
       mapStateToProps,
       mapDispatchToProps,
-    )(withDrawer('searchResults')(SearchResults)),
+    )(
+      withDrawer(({ t }: { t: TFunction }) => t('appbar.title.searchResults'))(
+        SearchResults,
+      ),
+    ),
   ),
 );

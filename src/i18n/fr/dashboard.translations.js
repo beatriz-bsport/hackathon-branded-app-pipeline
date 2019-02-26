@@ -7,6 +7,7 @@ export default {
   thisMonth: 'Ce mois',
   newMembers: 'Nouveaux membres',
   nbOffers: 'Séances',
+  pageTitle: 'Tableau de bord',
   // eslint-disable-next-line
   turnover: "Chiffre d'affaire (€)",
   bookings: 'Réservations',

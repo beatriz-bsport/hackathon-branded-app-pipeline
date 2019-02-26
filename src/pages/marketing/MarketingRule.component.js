@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 
 import {
@@ -11,6 +12,7 @@ import {
   withStyles,
 } from '@material-ui/core';
 import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 import Sms from '@material-ui/icons/Sms';
 import Smartphone from '@material-ui/icons/Smartphone';
 import Email from '@material-ui/icons/Email';
@@ -233,5 +235,9 @@ export class MarketingRule extends Component {
 }
 
 export default withStyles(styles)(
-  withNamespaces()(withDrawer('marketingRule')(MarketingRule)),
+  withNamespaces()(
+    withDrawer(({ t }: { t: TFunction }) => t('appbar.title.marketingRule'))(
+      MarketingRule,
+    ),
+  ),
 );

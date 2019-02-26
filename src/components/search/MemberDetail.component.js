@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import { compose } from 'recompose';
 
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -11,6 +12,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import BookingTable from '../booking/BookingTable.container';
 import ConsumerPackRowItem from '../payment-pack/ConsumerPackRowItem.component';
+import withDrawer from '../../hocs/with-drawer.hoc';
 
 type Props = {
   member: *,
@@ -102,4 +104,8 @@ const styles = (theme) => ({
   },
 });
 
-export default withNamespaces()(withStyles(styles)(MemberDetail));
+export default compose(
+  withNamespaces(),
+  withStyles(styles),
+  withDrawer(({ member }) => `${member.firstname} ${member.lastname}` || ''),
+)(MemberDetail);

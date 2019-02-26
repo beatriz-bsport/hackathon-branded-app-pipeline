@@ -3,6 +3,7 @@ import React from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 import { Paper, List, Grid } from '@material-ui/core';
 import i18next from 'i18next';
 
@@ -79,4 +80,5 @@ export default compose(
     },
     switchButton: true,
   }),
-)(withDrawer('metaActivityList')(Activity));
+  withDrawer(({ t }: { t: TFunction }) => t('appbar.title.metaActivityList')),
+)(Activity);

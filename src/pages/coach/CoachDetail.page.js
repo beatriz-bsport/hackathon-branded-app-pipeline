@@ -5,7 +5,8 @@ import React, { Component } from 'react';
 import { Grid, Button, withStyles, LinearProgress } from '@material-ui/core';
 
 import { connect } from 'react-redux';
-import { translate, TFunction } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
 import { push as routerPush } from 'react-router-redux';
 import { compose, withProps } from 'recompose';
@@ -15,6 +16,7 @@ import { paymentRulesSelector } from '../../libs/payment-rules/selectors';
 import CoachDetail from '../../libs/associated-coach/detail/CoachDetail.component';
 import type { CoachDetailed } from '../../api/types';
 import type { PaymentRule } from '../../libs/payment-rules';
+import withDrawer from '../../hocs/with-drawer.hoc';
 
 type Props = {
   t: TFunction,
@@ -99,10 +101,13 @@ export default compose(
     mapStateToProps,
     mapDispatchToProps,
   ),
-  translate(),
+  withNamespaces(),
   withProps(({ associatedCoaches, match }) => ({
     coach: associatedCoaches.find(
       (coach) => coach.id === parseInt(match.params.coachId, 10),
     ),
   })),
+  withDrawer(({ coach }) => {
+    return coach ? `${coach.name}` : '';
+  }),
 )(Coach);

@@ -6,7 +6,8 @@ import { compose } from 'recompose';
 
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 import {
   CircularProgress,
   Paper,
@@ -114,10 +115,11 @@ export default compose(
       goToCoachDetail: (coachId) => dispatch(push(`/coach/${coachId}`)),
     }),
   ),
-  translate(),
+  withNamespaces(),
   withStyles(styles),
   withBottomButtons({
     addButton: { path: '/coach/add', text: i18next.t('coach.addCoach') },
     switchButton: true,
   }),
-)(withDrawer('coachList')(CoachList));
+  withDrawer(({ t }: { t: TFunction }) => t('appbar.title.coachList')),
+)(CoachList);

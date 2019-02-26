@@ -191,4 +191,5 @@ export default compose(
       text: i18next.t('establishment.addButton'),
     },
   }),
-)(withDrawer('establishmentList')(EstablishmentList));
+  withDrawer(({ t }: { t: TFunction }) => t('eappbar.title.establishmentList')),
+)(EstablishmentList);

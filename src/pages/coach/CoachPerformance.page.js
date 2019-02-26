@@ -121,5 +121,7 @@ export default compose(
       );
     },
   }),
-  withDrawer((props) => props.t('title', { name: props.coach.name }), true),
+  withDrawer(({ t, coach }: { t: TFunction, coach: Coach }) =>
+    t('title', { name: coach.name }),
+  ),
 )(CoachPerformance);

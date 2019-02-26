@@ -139,6 +139,5 @@ export default compose(
   withDrawer(
     ({ t, match }) =>
       `${t('payment.invoice')} - ${match.params.id.slice(0, 8).toUpperCase()}`,
-    true,
   ),
 )(InvoiceFormPage);

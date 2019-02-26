@@ -743,7 +743,7 @@ export default {
         planning: 'Planning',
         dashboard: 'Tableau de bord',
         shopManager: 'Mon magasin',
-        coachList: 'Coach',
+        coachList: 'Entraîneurs',
         offerManagement: 'Mes réservations',
         metaActivity: 'Activités',
         metaActivityEditForm: 'Formulaire Activité',

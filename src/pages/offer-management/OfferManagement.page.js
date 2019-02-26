@@ -115,5 +115,5 @@ export default compose(
     mapStateToProps,
     mapDispatchToProps,
   ),
-  withDrawer(({ offer }: { offer: Offer }) => formatTitle(offer), true),
+  withDrawer(({ offer }: { offer: Offer }) => formatTitle(offer)),
 )(OfferManagementComponent);

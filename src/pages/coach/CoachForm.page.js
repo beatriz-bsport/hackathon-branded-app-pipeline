@@ -7,6 +7,9 @@ import { goBack } from 'connected-react-router';
 
 import { connect } from 'react-redux';
 
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
+
 import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import { createOrUpdateCoach } from '../../actions/coach.actions';
@@ -50,6 +53,7 @@ export function CoachFormPage(props: Props) {
 }
 
 export default compose(
+  withNamespaces(),
   mapRouterParamsToProps({ id: 'coachId:number' }),
   connect(
     (state, { coachId }) => ({
@@ -76,5 +80,5 @@ export default compose(
       upsertCoach(formData, options);
     },
   })),
-  withDrawer('coachFormPage'),
+  withDrawer(({ t }: { t: TFunction }) => t('appbar.title.coachFormPage')),
 )(CoachFormPage);

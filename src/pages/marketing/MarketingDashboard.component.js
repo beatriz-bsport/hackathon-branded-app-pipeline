@@ -1,8 +1,9 @@
 // @flow
 import React, { Component } from 'react';
 
-import { Typography, Grid, withStyles } from '@material-ui/core';
+import { Grid, withStyles } from '@material-ui/core';
 import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 
 import { Moment } from '../../i18n';
 
@@ -106,5 +107,9 @@ const styles = (theme) => ({
 });
 
 export default withStyles(styles)(
-  withNamespaces()(withDrawer('marketingDashboard')(MarketingDashboard)),
+  withNamespaces()(
+    withDrawer(({ t }: { t: TFunction }) =>
+      t('appbar.title.marketingDashboard'),
+    )(MarketingDashboard),
+  ),
 );

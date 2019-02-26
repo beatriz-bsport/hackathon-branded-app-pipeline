@@ -110,5 +110,5 @@ export default compose(
       }
     }
     return '';
-  }, true),
+  }),
 )(MetaActivity);

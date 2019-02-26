@@ -4,6 +4,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Paper } from '@material-ui/core';
+import { compose } from 'recompose';
+import type { TFunction } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import { goBack } from 'react-router-redux';
 import { createOrUpdateMember } from '../../actions/member.actions';
@@ -82,9 +85,12 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default withRouter(
+export default compose(
+  withNamespaces(),
+  withRouter,
   connect(
     mapStateToProps,
     mapDispatchToProps,
-  )(withDrawer('memberFormPage')(MemberFormPage)),
-);
+  ),
+  withDrawer(({ t }: { t: TFunction }) => t('appbar.title.memberFormPage')),
+)(MemberFormPage);

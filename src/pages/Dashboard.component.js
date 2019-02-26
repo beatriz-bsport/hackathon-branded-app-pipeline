@@ -6,6 +6,8 @@ import moment from 'moment';
 import type { Moment } from 'moment';
 import { compose, withProps, withPropsOnChange, withState } from 'recompose';
 import { connect } from 'react-redux';
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -13,9 +15,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { withStyles } from '@material-ui/core/styles';
-
-import { withNamespaces } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
 
 import {
   bookingStatSelector,
@@ -297,4 +296,5 @@ export default compose(
       ],
     }),
   ),
-)(withDrawer('dashboard')(Dashboard));
+  withDrawer(({ t }: { t: TFunction }) => t('pageTitle')),
+)(Dashboard);

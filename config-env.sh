@@ -1,5 +1,4 @@
-#!/bin/sh
-
+#!/bin/bash
 source .env
 export $(cut -d= -f1 .env)
 envsubst < public/env.template.js > build/env.js

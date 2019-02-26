@@ -59,9 +59,6 @@ context('Manager - PaymentPack', () => {
       expect(newPass.establishments).to.be.empty;
       expect(newPass.metaActivities).to.be.empty;
     });
-    cy.url()
-      .location('pathname')
-      .should('eq', '/payment-pack/add');
   });
 
   it('Manager can create a new pass with all fields required', () => {
@@ -132,9 +129,5 @@ context('Manager - PaymentPack', () => {
       // expect(newPass.establishments).to.not.be.empty;
       // expect(newPass.metaActivities).to.not.be.empty;
     });
-    cy.visit('/payment-pack');
-    cy.url()
-      .location('pathname')
-      .should('eq', '/payment-pack');
   });
 });

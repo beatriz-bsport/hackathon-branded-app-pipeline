@@ -30,7 +30,7 @@ import { AvatarUploader } from '../../components';
 import { Moment } from '../../i18n';
 import AddressForm from '../../components/form/AddressForm.component';
 
-import AlertExistingUser from '../members/AlertExistingUser.component';
+import AlertExistingUser from './AlertExistingUser.component';
 
 const styles = (theme) => ({
   container: {
@@ -237,23 +237,6 @@ export class MemberForm extends Component<Props, State> {
               </Grid>
               <Grid item xs={12} md={6}>
                 <FormField
-                  id="email"
-                  name="email"
-                  value={this.state.email}
-                  onChange={this.onFormFieldChange}
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <PhoneInput
-                  country="FR"
-                  name="phone_number"
-                  placeholder={t('form.member.phone')}
-                  value={this.state.phone}
-                  onChange={this.onFormFieldChange('phone')}
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <FormField
                   id="firstname"
                   name="firstname"
                   required
@@ -268,6 +251,23 @@ export class MemberForm extends Component<Props, State> {
                   required
                   value={this.state.lastname}
                   onChange={this.onFormFieldChange}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <FormField
+                  id="email"
+                  name="email"
+                  value={this.state.email}
+                  onChange={this.onFormFieldChange}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <PhoneInput
+                  country="FR"
+                  name="phone_number"
+                  placeholder={t('form.member.phone')}
+                  value={this.state.phone}
+                  onChange={this.onFormFieldChange('phone')}
                 />
               </Grid>
               <Grid item xs={12} md={6}>

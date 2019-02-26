@@ -12,7 +12,7 @@ import { CircularProgress, Grid } from '@material-ui/core';
 
 import i18next from 'i18next';
 import { coach as coachActions } from '../../actions';
-import { CoachCard } from '../../components';
+import CoachCard from '../../libs/associated-coach/list/CoachCard.component';
 import type { Coach } from '../../api/types';
 import { paymentRulesSelector } from '../../libs/payment-rules/selectors';
 import withBottomButtons from '../../hocs/inject-bottom-buttons';

@@ -31,4 +31,29 @@ export default {
       success: 'Membre modifié avec succès',
     },
   },
+  user: {
+    existsWithEmail:
+      "Un utilisateur avec l'adresse email {{email}} existe déjà.",
+    existsWithPhone:
+      'Un utilisateur avec le numéro de téléphone {{phonenumber}} existe déjà.',
+  },
+  member: {
+    existsWithEmail: "Un membre avec l'adresse email {{email}} existe déjà.",
+    existsWithPhone:
+      'Un membre avec le numéro de téléphone {{phonenumber}} existe déjà.',
+  },
+  exists: {
+    goTo: 'Aller à la fiche membre',
+    linkUser: "Lier l'utilisateur",
+  },
+  link: {
+    success: 'Membre lié avec succès',
+  },
+  linkDialog: {
+    title: 'Lier un utilisateur existant',
+    content:
+      "En liant l'utilisateur à votre compte entreprise, vous confirmez que celui-ci a expressement donné son consentement à cet effet.",
+    cancel: 'Annuler',
+    confirm: 'Je confirme et lie le compte utilisateur',
+  },
 };

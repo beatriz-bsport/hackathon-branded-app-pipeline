@@ -82,13 +82,21 @@ class CoachSummaryCard extends React.Component<Props> {
     <List dense>
       <ListItem>
         <Icon color="primary">
-          <img style={{ height: 24, width: 24 }} src={FACEBOOK_PNG} />
+          <img
+            style={{ height: 24, width: 24 }}
+            src={FACEBOOK_PNG}
+            alt="facebook"
+          />
         </Icon>
         <ListItemText primary={this.props.coach.facebook_url || '  -  '} />
       </ListItem>
       <ListItem>
         <Icon color="primary">
-          <img style={{ height: 24, width: 24 }} src={INSTAGRAM_PNG} />
+          <img
+            style={{ height: 24, width: 24 }}
+            src={INSTAGRAM_PNG}
+            alt="instagram"
+          />
         </Icon>
         <ListItemText primary={this.props.coach.instagram_url || '  -  '} />
       </ListItem>

@@ -31,6 +31,7 @@ Set in your `.env.local` file these variables (copy/paste `.env.template` first)
 REACT_APP_BASE_URI='http://api.ci.bsport.io'
 REACT_APP_API_URI='http://api.ci.bsport.io/api-v0'
 REACT_APP_STRIPE_PK_KEY='pk_test_lFB5CxcyTCaQcS00MiE1ebEO'
+REACT_APP_GOOGLE_MAPS_API_KEY='AIzaSyD5aOL4nVUjsFNIj3jSpCTtqHHkem8NcZM'
 ```
 
 LOGIN

@@ -210,6 +210,7 @@ export class LocationInput extends Component<Props, State> {
       <div>
         {this.renderInputWithCandidates()}
         <Map
+          id="cy-map-container"
           center={center}
           zoom={zoom}
           onClick={this.handleClickOnMap}

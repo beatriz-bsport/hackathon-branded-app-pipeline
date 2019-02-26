@@ -84,11 +84,13 @@ export class AddressForm extends Component<Props, State> {
             shrink={Boolean(
               this.state.address_line_1 || this.props.address_line_1,
             )}
+            name="address_line_1"
             fullWidth
             label={t('form.address.addressLine1')}
             onChange={this.handleChange('address_line_1')}
           />
           <TextField
+            name="address_line_2"
             value={this.state.address_line_2 || this.props.address_line_2}
             autoComplete={autoComplete ? 'address-line2' : null}
             fullWidth
@@ -101,6 +103,7 @@ export class AddressForm extends Component<Props, State> {
           <Grid container direction="row" spacing={16} className={classes.city}>
             <Grid item>
               <TextField
+                name="city"
                 value={this.state.city || this.props.city}
                 autoComplete={autoComplete ? 'city' : null}
                 shrink={Boolean(this.state.city || this.props.city)}
@@ -111,6 +114,7 @@ export class AddressForm extends Component<Props, State> {
             </Grid>
             <Grid item>
               <TextField
+                name="zipcode"
                 value={this.state.zipcode || this.props.zipcode}
                 autoComplete={autoComplete ? 'zipcode' : null}
                 shrink={Boolean(this.state.zipcode || this.props.zipcode)}
@@ -121,6 +125,7 @@ export class AddressForm extends Component<Props, State> {
             </Grid>
           </Grid>
           <TextField
+            name="country"
             value={this.state.country || this.props.country}
             shrink={Boolean(this.state.country || this.props.country)}
             autoComplete={autoComplete ? 'country' : null}

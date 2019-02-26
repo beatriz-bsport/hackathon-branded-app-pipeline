@@ -291,7 +291,11 @@ export class FormField extends Component<Props, State> {
             fullWidth
           >
             <InputLabel htmlFor="gender-helper">{t('form.gender')}</InputLabel>
-            <Select value={value || 'M'} onChange={this.handleChange}>
+            <Select
+              name="gender"
+              value={value || 'M'}
+              onChange={this.handleChange}
+            >
               <MenuItem value="M">{t('common.male')}</MenuItem>
               <MenuItem value="F">{t('common.female')}</MenuItem>
             </Select>
@@ -305,7 +309,7 @@ export class FormField extends Component<Props, State> {
             margin="normal"
           >
             <InputLabel htmlFor={`${id}-helper`}>{t('form.level')}</InputLabel>
-            <Select value={value} onChange={this.handleChange}>
+            <Select name="level" value={value} onChange={this.handleChange}>
               {LEVELS.map((l) => (
                 <MenuItem value={l.id}>
                   <Level levelId={l.id} />
@@ -323,9 +327,10 @@ export class FormField extends Component<Props, State> {
             className={classes.formControlLarge}
             required={required}
             margin="normal"
+            data-cy={name}
           >
             <InputLabel htmlFor={`${id}-helper`}>{t(`form.${id}`)}</InputLabel>
-            <Select value={value || 0} onChange={this.handleChange}>
+            <Select value={value || 0} onChange={this.handleChange} name={name}>
               <MenuItem value={0}>{t('form.zeroMinute')}</MenuItem>
               <MenuItem value={15}>{t('form.quarterHour')}</MenuItem>
               <MenuItem value={30}>{t('form.halfHour')}</MenuItem>

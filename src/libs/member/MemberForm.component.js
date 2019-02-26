@@ -45,6 +45,7 @@ type State = {
   email: string,
   phone: string,
   sex: string,
+  gender: string,
   membership_ID: ?string,
   birthdayYear: ?number,
   date_joined: ?Object,
@@ -195,6 +196,7 @@ export class MemberForm extends Component<Props, State> {
             <Grid item xs={12} md={6}>
               <FormField
                 id="firstname"
+                name="firstname"
                 required
                 value={this.state.firstname}
                 onChange={this.onFormFieldChange}
@@ -203,6 +205,7 @@ export class MemberForm extends Component<Props, State> {
             <Grid item xs={12} md={6}>
               <FormField
                 id="lastname"
+                name="lastname"
                 required
                 value={this.state.lastname}
                 onChange={this.onFormFieldChange}
@@ -218,12 +221,14 @@ export class MemberForm extends Component<Props, State> {
             <Grid item xs={12} md={6}>
               <FormField
                 id="email"
+                name="email"
                 value={this.state.email}
                 onChange={this.onFormFieldChange}
               />
             </Grid>
             <Grid item xs={12} md={6}>
               <TextField
+                name="membership_id"
                 label={t('form.member.referenceNumber')}
                 helperText={t('form.member.referenceNumberHelper')}
                 shrink={this.state.membership_ID}
@@ -236,6 +241,7 @@ export class MemberForm extends Component<Props, State> {
               <Grid container direction="row" spacing={16}>
                 <Grid item>
                   <TextField
+                    name="birthday_year"
                     type="number"
                     value={this.state.birthdayYear}
                     shrink={this.state.birthdayYear}
@@ -247,6 +253,7 @@ export class MemberForm extends Component<Props, State> {
                 </Grid>
                 <Grid item>
                   <DatePicker
+                    name="date_joined"
                     format="DD/MM/YYYY"
                     value={this.state.date_joined}
                     label={t('member.date_joined')}
@@ -257,6 +264,7 @@ export class MemberForm extends Component<Props, State> {
             </Grid>
             <Grid item xs={12} md={6}>
               <PhoneInput
+                name="phone_number"
                 country="FR"
                 placeholder={t('form.member.phone')}
                 value={this.state.phone}

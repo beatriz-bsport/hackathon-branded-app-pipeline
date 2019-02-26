@@ -17,6 +17,7 @@ type Props = {
   initial: string,
   onChange: (*) => void,
   t: TFunction,
+  name: string,
 };
 type State = {
   photo: *,
@@ -57,7 +58,7 @@ export class ImageUploader extends React.Component<Props, State> {
   };
 
   render() {
-    const { classes, t } = this.props;
+    const { classes, t, name } = this.props;
     const { previewURL } = this.state;
 
     return (
@@ -65,7 +66,7 @@ export class ImageUploader extends React.Component<Props, State> {
         {({ getRootProps, getInputProps, isDragActive }) => {
           return (
             <div className={classes.dropzone} {...getRootProps()}>
-              <input {...getInputProps()} />
+              <input {...getInputProps()} name={name} />
               {previewURL ? (
                 <div className={classes.imagePreview} key={previewURL}>
                   <img

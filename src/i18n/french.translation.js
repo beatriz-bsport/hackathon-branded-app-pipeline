@@ -55,6 +55,9 @@ export default {
         imageUploaderRequireEditMessage:
           "Une fois votre activité créée, vous aurez la possibilité d'ajouter des images supplémentaires.",
       },
+      create: {
+        success: 'Activité créée',
+      },
     },
     companies,
     error: {

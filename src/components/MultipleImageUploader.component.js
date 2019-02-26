@@ -24,6 +24,7 @@ type Props = {
   t: TFunction,
   onChange: (ImageFile[]) => void,
   onAddImage: (File) => void,
+  name: string,
 };
 
 type State = {
@@ -73,13 +74,13 @@ export class ImageUploader extends React.Component<Props, State> {
   };
 
   render() {
-    const { classes, t } = this.props;
+    const { classes, t, name } = this.props;
 
     return (
       <Dropzone onDrop={this.handleDrop} accept="image/*" multiple>
         {({ getRootProps, getInputProps, isDragActive }) => (
           <div className={classes.dropzone} {...getRootProps()}>
-            <input {...getInputProps()} />
+            <input {...getInputProps()} name={name} />
             <div className={classes.previews}>
               <div
                 className={classnames(classes.textContainer, {

@@ -11,11 +11,18 @@
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
+// const dotenv = require('dotenv-expand');
+const dotenv = require('dotenv').config({ path: '.env.local' });
+
 module.exports = (on, config) => {
+  // load cypress config from .env
+  config.env = dotenv.parsed;
+  // cypress base url
+  config.baseUrl = config.env.CYPRESS_BASE_URL;
+
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
   on('before:browser:launch', (browser = {}, args) => {
-    console.log(browser, args);
     if (browser.name === 'chrome') {
       args.push(
         '--disable-features=CrossSiteDocumentBlockingIfIsolating,CrossSiteDocumentBlockingAlways,IsolateOrigins,site-per-process',
@@ -27,4 +34,5 @@ module.exports = (on, config) => {
       return args;
     }
   });
+  return config;
 };

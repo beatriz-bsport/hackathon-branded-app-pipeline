@@ -104,6 +104,7 @@ export class MetaActivityForm extends Component<Props, State> {
       <form onSubmit={this.onSubmit}>
         <Paper className={classes.paperContainer}>
           <ImageUploader
+            name="cover"
             onChange={this.onFormFieldChange('cover_main')}
             initial={this.state.cover_main}
           />
@@ -122,6 +123,7 @@ export class MetaActivityForm extends Component<Props, State> {
                 <Grid item xs={12} style={{ marginTop: 20 }}>
                   <label>Carousel</label>
                   <MultipleImageUploader
+                    name="carousel_images"
                     initial={images}
                     onAddImage={imageUploader.onAddImage}
                     onRemoveImage={imageUploader.onRemoveImage}
@@ -162,6 +164,7 @@ export class MetaActivityForm extends Component<Props, State> {
               <Grid item>
                 <FormField
                   id="default_last_booking_minutes"
+                  name="default_last_booking_minutes"
                   required
                   value={this.state.default_last_booking_minutes}
                   onChange={this.onFormFieldChange}
@@ -170,6 +173,7 @@ export class MetaActivityForm extends Component<Props, State> {
               <Grid item>
                 <FormField
                   id="default_last_discard_minutes"
+                  name="default_last_discard_minutes"
                   required
                   value={this.state.default_last_discard_minutes}
                   onChange={this.onFormFieldChange}

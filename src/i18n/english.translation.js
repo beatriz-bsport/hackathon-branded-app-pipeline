@@ -39,6 +39,9 @@ export default {
         imageUploaderRequireEditMessage:
           'Once you have created your activity you will be able to add additional images.',
       },
+      create: {
+        success: 'Activity successfully created',
+      },
     },
     report: {
       delete: 'Report deletion',

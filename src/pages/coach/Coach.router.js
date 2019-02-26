@@ -14,8 +14,8 @@ export default () => (
       path="/coach/:associatedCoachId/performance"
       component={CoachPerformance}
     />
-    <Route exact path="/coach/:coachId" component={CoachDetail} />
     <Route exact path="/coach/add" component={CoachForm} />
+    <Route exact path="/coach/:coachId" component={CoachDetail} />
     <Route exact path="/coach/edit/:id" component={CoachForm} />
     <Route path="/coach" component={CoachList} />
   </Switch>

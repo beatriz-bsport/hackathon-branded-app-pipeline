@@ -78,6 +78,7 @@ export function CoachForm(props: Props) {
           </Grid>
           <Grid item xs={12} md={6}>
             <TextField
+              name="birthYear"
               type="number"
               label={t('form.birthdayYear')}
               name="birthdayYear"

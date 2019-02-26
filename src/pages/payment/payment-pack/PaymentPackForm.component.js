@@ -19,7 +19,9 @@ import { formatAsDatetime, humanizeDate } from '../../../datetime';
 import { ActivityMinimalSummary } from '../../../components';
 import { Moment } from '../../../i18n';
 
-const STRIPE_KEY = process.env.REACT_APP_STRIPE_PK_KEY;
+import Config from '../../../config';
+
+const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
 
 const styles = (theme) => ({
   doNotBookPast: {

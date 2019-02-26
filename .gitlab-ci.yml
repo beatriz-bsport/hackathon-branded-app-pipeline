@@ -1,47 +1,52 @@
-image: docker:stable
+image: node:alpine
 
 variables:
   YARN_CACHE_DIR: "$CI_PROJECT_DIR/yarn-cache"
-  DOCKER_HOST: tcp://docker:2375/
-  DOCKER_DRIVER: overlay2
-  CONTAINER_IMAGE: registry.gitlab.com/$CI_PROJECT_PATH
-
-
-services:
-  - docker:dind
 
 cache:
   paths:
     - "$YARN_CACHE_DIR"
+    - "$CI_PROJECT_DIR/node_modules"
   key: "$CI_PROJECT_ID"
 
-before_script:
-  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
-
 stages:
-  - build_source_image
   - lint
-  - build_app
+  - test
+  - build
 
-build_source_image:
-  stage: build_source_image
-  script:
-    - docker pull $CONTAINER_IMAGE/$CI_COMMIT_REF_NAME:latest || true
-    - docker build --cache-from $CONTAINER_IMAGE/$CI_COMMIT_REF_NAME:latest --tag $CONTAINER_IMAGE/$CI_COMMIT_REF_NAME:latest .
-    - docker push $CONTAINER_IMAGE/$CI_COMMIT_REF_NAME:latest
+before_script:
+  - yarn config set cache-folder $YARN_CACHE_DIR
+  - yarn install
+  - du -hs $YARN_CACHE_DIR
+  - du -hs "$CI_PROJECT_DIR/node_modules"
 
 lint:
   stage: lint
   script:
-    - docker pull $CONTAINER_IMAGE/$CI_COMMIT_REF_NAME:latest
-    - docker run $CONTAINER_IMAGE/$CI_COMMIT_REF_NAME:latest yarn lint
+    - yarn lint --quiet
 
-build_app:
-  stage: build_app
+test:
+  stage: test
   script:
-    - docker pull $CONTAINER_IMAGE/$CI_COMMIT_REF_NAME:latest
-    - docker run $CONTAINER_IMAGE/$CI_COMMIT_REF_NAME:latest yarn build
+    - yarn test
 
+build:
+  stage: build
+  script:
+    - yarn build
+  artifacts:
+    paths:
+      - build
+    expire_in: 1 month
+
+release on sentry:
+  stage: build
+  script:
+    - yarn add @sentry/cli --dev
+    - ./scripts/make-release.sh
+  only:
+    refs:
+      - master
 
 # run_e2e_test:
 #   stage: test

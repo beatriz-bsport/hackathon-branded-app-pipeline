@@ -2,8 +2,8 @@
 import React, { Component } from 'react';
 import { Grid } from '@material-ui/core';
 import objectFitImages from 'object-fit-images';
+import SPORTS from '@bsport/common/lib/master-data/sports';
 
-import SPORTS from 'bsport-commons/lib/master-data/sports';
 import { Level } from '../../../components/category';
 import type { MetaActivity } from '../../../api/types';
 

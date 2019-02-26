@@ -21,7 +21,7 @@ import CachedIcon from '@material-ui/icons/Cached';
 
 import PAYMENT_METHODS, {
   CB as PAYMENT_METHOD_CB,
-} from 'bsport-commons/lib/master-data/payment-methods';
+} from '@bsport/common/lib/master-data/payment-methods';
 
 type Props = {
   paymentItems: Array<PaymentItemData>,

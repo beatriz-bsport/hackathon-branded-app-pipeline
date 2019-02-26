@@ -15,7 +15,7 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import DoneIcon from '@material-ui/icons/Done';
 
-import { PAYMENT_PACK } from 'bsport-commons/lib/master-data/payment-methods';
+import { PAYMENT_PACK } from '@bsport/common/lib/master-data/payment-methods';
 
 import { formatAsDatetime } from '../../datetime';
 import { FeatureTable } from '../../components';

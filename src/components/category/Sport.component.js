@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { Typography, Grid } from '@material-ui/core';
-import SPORTS from 'bsport-commons/lib/master-data/sports';
+import SPORTS from '@bsport/common/lib/master-data/sports';
 
 type Props = {
   parentCategory: number,

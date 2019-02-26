@@ -15,7 +15,7 @@ import {
   CB_MANUAL as PAYMENT_METHOD_CB_MANUAL,
   CHECK as PAYMENT_METHOD_CHECK,
   CASH as PAYMENT_METHOD_CASH,
-} from 'bsport-commons/lib/master-data/payment-methods';
+} from '@bsport/common/lib/master-data/payment-methods';
 import InvoiceItemList from '../../../components/invoice/InvoiceItemList.component';
 import UnevenInvoiceDialog from '../../../components/invoice/UnevenInvoiceDialog.component';
 import InvoiceItemSelector from '../../../components/invoice/InvoiceItemSelector.container';

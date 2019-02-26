@@ -2,7 +2,7 @@
 
 import { createMuiTheme } from '@material-ui/core/styles';
 
-import { colors } from 'bsport-commons/lib/colors';
+import { colors } from '@bsport/common/lib/colors';
 
 export default createMuiTheme({
   palette: {

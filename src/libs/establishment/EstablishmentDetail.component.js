@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
-import SPORTS from 'bsport-commons/lib/master-data/sports';
+import SPORTS from '@bsport/common/lib/master-data/sports';
 import Paper from '@material-ui/core/Paper';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';

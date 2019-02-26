@@ -24,7 +24,6 @@ import DeleteOfferForm from './form/DeleteOfferForm.component';
 import OfferForm from './form/OfferForm.component';
 import OfferFormWithActivity from './form/OfferFormWithActivity.component';
 import ConsumerMenu from './navigation/ConsumerMenu.component';
-import FacebookLoginButton from './button/FacebookLoginButton.component';
 import ConsumerProfile from './consumer/Profile.component';
 import ConsumerLogin from './consumer/login/ConsumerLogin.component';
 import RedButton from './button/RedButton.component';
@@ -52,7 +51,6 @@ export {
   RedButton,
   ConsumerLogin,
   ConsumerProfile,
-  FacebookLoginButton,
   ConsumerMenu,
   OfferForm,
   OfferFormWithActivity,

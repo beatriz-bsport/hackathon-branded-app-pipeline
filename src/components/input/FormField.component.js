@@ -20,7 +20,7 @@ import DateTimePicker from 'material-ui-pickers/DateTimePicker';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import TimePicker from 'material-ui-pickers/TimePicker';
 
-import LEVELS from 'bsport-commons/lib/master-data/levels';
+import LEVELS from '@bsport/common/lib/master-data/levels';
 
 import { Level, Sport } from '../category';
 import { Moment } from '../../i18n';

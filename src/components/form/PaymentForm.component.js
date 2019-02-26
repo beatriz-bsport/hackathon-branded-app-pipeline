@@ -25,13 +25,16 @@ import {
   CASH as PAYMENT_METHOD_CASH,
   CHECK as PAYMENT_METHOD_CHECK,
   CHECK_FR as PAYMENT_METHOD_CHECK_FR,
-} from 'bsport-commons/lib/master-data/payment-methods';
+} from '@bsport/common/lib/master-data/payment-methods';
 
 import { Elements, StripeProvider } from 'react-stripe-elements';
+
+import Config from '../../config';
+
 import PriceInput from '../input/PriceInput.component';
 import StripeForm from './StripeForm.component';
 
-const STRIPE_KEY = process.env.REACT_APP_STRIPE_PK_KEY;
+const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
 
 type Props = {
   t: (x: string) => string,

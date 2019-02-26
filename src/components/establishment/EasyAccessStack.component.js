@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { getEasyAccessOptions } from 'bsport-commons/lib/colors';
+import { getEasyAccessOptions } from '@bsport/common/lib/colors';
 
 // eslint-disable-next-line
 import './easy-access-stack.scss';

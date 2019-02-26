@@ -6,7 +6,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
-import { colors as bsportColors } from 'bsport-commons/lib/colors';
+import { colors as bsportColors } from '@bsport/common/lib/colors';
 
 type colors = 'blue' | 'blueLight' | 'yellow' | 'red';
 

@@ -13,7 +13,7 @@ import { withNamespaces } from 'react-i18next';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 import { Redirect } from 'react-router-dom';
 import { goBack as goBackRouter } from 'react-router-redux';
-import { CB as PAYMENT_METHOD_CB } from 'bsport-commons/lib/master-data/payment-methods';
+import { CB as PAYMENT_METHOD_CB } from '@bsport/common/lib/master-data/payment-methods';
 import { connect } from 'react-redux';
 import type { TFunction } from 'react-i18next';
 

@@ -47,17 +47,17 @@ password: demo
 RUN
 ===
 
-First prepare the linking of `bsport-commons`
-
-```sh
-pushd ../bsport-commons
-yarn link
-popd
-yarn link bsport-commons
-```
-
 Now you can run
 ```sh
 yarn       // install all deps
 yarn start // start the dev server
+```
+
+If you need to update the @bsport/common package
+================================================
+```sh
+pushd ../bsport-commons-js
+yarn link
+popd
+yarn link @bsport/common
 ```

@@ -1,4 +1,4 @@
-import { PAYMENT_PACK as PAYMENT_METHOD_PAYMENT_PACK } from 'bsport-commons/lib/master-data/payment-methods';
+import { PAYMENT_PACK as PAYMENT_METHOD_PAYMENT_PACK } from '@bsport/common/lib/master-data/payment-methods';
 import { API_URI, PAYMENT_URI, getAuth, postBaseAuth } from '../http';
 
 export async function consumerFetchCompatiblePass(offerId) {

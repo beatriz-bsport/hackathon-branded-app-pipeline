@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 import { withNamespaces } from 'react-i18next';
 
-import LEVELS from 'bsport-commons/lib/master-data/levels';
+import LEVELS from '@bsport/common/lib/master-data/levels';
 
 import type { Activity } from '../../api/types';
 

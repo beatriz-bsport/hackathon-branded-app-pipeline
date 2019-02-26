@@ -13,7 +13,7 @@ import {
 import { withNamespaces } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import SPORTS from 'bsport-commons/lib/master-data/sports';
+import SPORTS from '@bsport/common/lib/master-data/sports';
 import ActivityMinimalSummary from '../activity/ActivityMinimalSummary.component';
 import type { Activity, Establishment } from '../../api/types';
 import EasyAccessStack from './EasyAccessStack.component';

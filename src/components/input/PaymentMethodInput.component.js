@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import { withNamespaces } from 'react-i18next';
 
-import PAYMENT_METHODS from 'bsport-commons/lib/master-data/payment-methods';
+import PAYMENT_METHODS from '@bsport/common/lib/master-data/payment-methods';
 
 const styles = (theme) => ({
   formControl: {

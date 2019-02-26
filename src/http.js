@@ -1,9 +1,12 @@
 // @flow
+
 import axios from 'axios';
+
+import Config from './config';
 
 const storage = window.localStorage;
 
-export const BASE_URI: string = process.env.REACT_APP_BASE_URI;
+export const BASE_URI: string = Config.REACT_APP_BASE_URI;
 export const API_URI: string = `${BASE_URI}/api-v0`;
 export const PAYMENT_URI: string = `${BASE_URI}/payment`;
 

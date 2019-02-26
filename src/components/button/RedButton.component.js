@@ -4,7 +4,7 @@ import type { Node } from 'react';
 
 import { Button, createMuiTheme, MuiThemeProvider } from '@material-ui/core';
 
-import { colors } from 'bsport-commons/lib/colors';
+import { colors } from '@bsport/common/lib/colors';
 
 const redTheme = createMuiTheme({
   palette: {

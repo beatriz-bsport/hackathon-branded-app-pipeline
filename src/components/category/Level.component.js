@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { Typography } from '@material-ui/core';
-import { getLevelColorById } from 'bsport-commons/lib/colors';
+import { getLevelColorById } from '@bsport/common/lib/colors';
 import { withNamespaces } from 'react-i18next';
 
 export const LEVELS = [

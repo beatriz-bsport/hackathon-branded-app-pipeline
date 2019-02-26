@@ -2,7 +2,7 @@ import { computePerformance, computeBonus } from './utils';
 
 const defaultRate = {
   base_price: 10,
-  rules: [
+  bonuses: [
     {
       threshold: 3,
       variable_bonus: 2,

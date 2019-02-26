@@ -6,7 +6,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { withNamespaces } from 'react-i18next';
 import DeleteIcon from '@material-ui/icons/Delete';
-import PAYMENT_METHODS from 'bsport-commons/lib/master-data/payment-methods';
+import PAYMENT_METHODS from '@bsport/common/lib/master-data/payment-methods';
 
 const styles = (theme) => ({
   container: {

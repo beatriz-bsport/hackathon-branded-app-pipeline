@@ -7,10 +7,6 @@ import 'moment/locale/fr';
 import ENGLISH_PACK from './english.translation';
 import FRENCH_PACK from './french.translation';
 
-i18n.on('languageChanged', (lng) => {
-  Moment.locale(lng);
-});
-
 i18n
   .use(LanguageDetector)
   .use(reactI18nextModule)
@@ -20,7 +16,7 @@ i18n
     // have a common namespace used around the full app
     defaultNS: 'translation',
 
-    debug: true,
+    debug: !['production', 'test'].includes(process.env.NODE_ENV),
 
     resources: {
       'fr-FR': FRENCH_PACK,
@@ -49,6 +45,10 @@ const availableLanguages = [
     translation: ENGLISH_PACK,
   },
 ];
+
+i18n.on('languageChanged', (lng) => {
+  Moment.locale(lng);
+});
 
 Moment.locale(i18n.lng);
 

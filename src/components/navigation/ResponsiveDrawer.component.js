@@ -39,7 +39,7 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DescriptionIcon from '@material-ui/icons/Description';
 
-import { colors } from 'bsport-commons/lib/colors';
+import { colors } from '@bsport/common/lib/colors';
 import { LanguageButton } from '../button/LanguageButton.component';
 import RefreshButton from '../button/RefreshButton.component';
 import SearchBar from '../SearchBar.component';

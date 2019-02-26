@@ -17,7 +17,7 @@ type Props = {
   startUpdateCoach: (coach: CoachDetailed) => void,
   coach: CoachDetailed,
   t: TFunction,
-  classes: Object,
+  classes: { [string]: string },
 };
 
 export const Description = (props: Props) => {

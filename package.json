@@ -3,18 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@bsport/common": "^1.0.0",
     "@material-ui/core": "^3.9.0",
     "@material-ui/icons": "^3.0.1",
     "@sentry/browser": "^4.4.1",
     "autoprefixer": "7.1.6",
     "axios": "^0.18.0",
-    "babel-core": "^6.26.0",
-    "babel-eslint": "^8.2.6",
-    "babel-jest": "20.0.3",
-    "babel-loader": "7.1.2",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react-app": "^3.1.1",
-    "babel-runtime": "6.26.0",
     "case-sensitive-paths-webpack-plugin": "2.1.1",
     "chalk": "^2.4.1",
     "classnames": "^2.2.6",
@@ -23,14 +17,6 @@
     "dotenv": "4.0.0",
     "dotenv-expand": "^4.2.0",
     "downshift": "^2.2.3",
-    "eslint": "^5.3.0",
-    "eslint-config-react-app": "^2.1.0",
-    "eslint-loader": "1.9.0",
-    "eslint-plugin-babel": "^5.1.0",
-    "eslint-plugin-flowtype": "2.39.1",
-    "eslint-plugin-import": "^2.13.0",
-    "eslint-plugin-jsx-a11y": "^6.1.1",
-    "eslint-plugin-react": "^7.10.0",
     "extract-text-webpack-plugin": "3.0.2",
     "file-loader": "1.1.5",
     "formik": "^1.4.0",
@@ -103,7 +89,7 @@
   "scripts": {
     "analyze": "source-map-explorer build/static/js/main.*",
     "format": "find src -name \"*.js\" | xargs yarn prettier --write",
-    "start": "node scripts/start.js",
+    "start": "./config-env.sh && node scripts/start.js",
     "build": "node scripts/build.js",
     "server:build": "webpack -p --progress",
     "test": "node scripts/test.js --env=jsdom",
@@ -112,12 +98,12 @@
     "build-storybook": "build-storybook"
   },
   "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx,mjs}"
-    ],
+    "collectCoverageFrom": ["src/**/*.{js,jsx,mjs}"],
     "setupFiles": [
-      "<rootDir>/config/polyfills.js"
+      "<rootDir>/config/polyfills.js",
+      "<rootDir>/dev/setupTests.js"
     ],
+    "snapshotSerializers": ["enzyme-to-json/serializer"],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}",
       "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,mjs}"
@@ -129,9 +115,7 @@
       "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
       "^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
     },
-    "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
-    ],
+    "transformIgnorePatterns": ["[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"],
     "moduleNameMapper": {
       "^react-native$": "react-native-web"
     },
@@ -146,14 +130,13 @@
     ]
   },
   "babel": {
-    "presets": [
-      "react-app"
-    ]
+    "presets": ["react-app"]
   },
   "eslintConfig": {
     "extends": "react-app"
   },
   "devDependencies": {
+    "@sentry/cli": "^1.37.4",
     "@storybook/addon-a11y": "^3.4.8",
     "@storybook/addon-actions": "^3.4.8",
     "@storybook/addon-knobs": "^3.4.8",
@@ -161,14 +144,33 @@
     "@storybook/addon-viewport": "^3.4.8",
     "@storybook/addons": "^3.4.8",
     "@storybook/react": "^3.4.8",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.6",
+    "babel-jest": "20.0.3",
+    "babel-loader": "7.1.2",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react-app": "^3.1.1",
+    "babel-runtime": "6.26.0",
     "cypress": "^3.1.4",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.10.0",
+    "enzyme-to-json": "^3.3.5",
+    "eslint": "^5.3.0",
     "eslint-config-airbnb": "^17.0.0",
+    "eslint-config-react-app": "^2.1.0",
+    "eslint-loader": "1.9.0",
+    "eslint-plugin-babel": "^5.1.0",
+    "eslint-plugin-flowtype": "2.39.1",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.10.0",
     "faker": "^4.1.0",
     "flow-bin": "0.93.0",
     "flow-coverage-report": "^0.6.0",
     "jquery": "^3.3.1",
     "popper.js": "^1.14.3",
     "prettier": "^1.14.2",
+    "react-test-renderer": "^16.8.3",
     "webpack-bundle-analyzer": "^3.0.3",
     "ya-factorybot": "^0.1.0"
   }

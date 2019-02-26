@@ -85,7 +85,7 @@ class CoachSummaryCard extends React.Component<Props> {
           <img
             style={{ height: 24, width: 24 }}
             src={FACEBOOK_PNG}
-            alt="facebook"
+            alt="Facebook"
           />
         </Icon>
         <ListItemText primary={this.props.coach.facebook_url || '  -  '} />
@@ -95,7 +95,7 @@ class CoachSummaryCard extends React.Component<Props> {
           <img
             style={{ height: 24, width: 24 }}
             src={INSTAGRAM_PNG}
-            alt="instagram"
+            alt="Instagram"
           />
         </Icon>
         <ListItemText primary={this.props.coach.instagram_url || '  -  '} />

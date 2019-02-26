@@ -1,7 +1,7 @@
 import FactoryBot from 'ya-factorybot';
 import faker from 'faker';
 
-import SPORTS from 'bsport-commons/lib/master-data/sports';
+import SPORTS from '@bsport/common/lib/master-data/sports';
 
 faker.locale = 'fr';
 

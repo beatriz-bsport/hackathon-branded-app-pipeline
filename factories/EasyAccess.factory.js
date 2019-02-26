@@ -1,7 +1,7 @@
 import FactoryBot from 'ya-factorybot';
 import faker from 'faker';
 
-import { METRO_COLORS } from 'bsport-commons/lib/colors';
+import { METRO_COLORS } from '@bsport/common/lib/colors';
 
 faker.locale = 'fr';
 

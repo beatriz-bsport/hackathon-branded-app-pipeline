@@ -294,9 +294,11 @@ export class MetaActivityDetail extends Component<Props, State> {
           {payment_packs_available && payment_packs_available.length ? (
             <Paper>
               <List>
-                {payment_packs_available.map((p) => (
-                  <PackMinimalSummary key={p.id} pack={p} />
-                ))}
+                {payment_packs_available
+                  .filter((pp) => !pp.disabled)
+                  .map((p) => (
+                    <PackMinimalSummary key={p.id} pack={p} />
+                  ))}
               </List>
             </Paper>
           ) : null}

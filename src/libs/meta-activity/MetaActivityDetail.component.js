@@ -1,7 +1,6 @@
 // @flow
 import React, { Component } from 'react';
 import { withNamespaces } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import { compose } from 'recompose';
 import {
   FormControl,
@@ -19,6 +18,7 @@ import {
   withStyles,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import type { TFunction } from 'react-i18next';
 
 import { Moment } from '../../i18n';
 
@@ -47,6 +47,7 @@ type Props = {
   // eslint-disable-next-line
   stats: Stat,
   fetchOffersByDay: (year: number, month: number, day: number) => void,
+  createActivityOffers: (metActivityId: number) => void,
   events: Array<Event>,
   timetableLoading: boolean,
   activities: Array<Activity>,
@@ -232,20 +233,18 @@ export class MetaActivityDetail extends Component<Props, State> {
                 spacing={16}
               >
                 <Grid item>
-                  <Link
-                    to={`/add-offers/${metaActivity.id}`}
-                    style={{ textDecoration: 'none' }}
+                  <Button
+                    variant="extendedFab"
+                    aria-label="Add"
+                    className={classes.button}
+                    color="primary"
+                    onClick={() =>
+                      this.props.createActivityOffers(metaActivity.id)
+                    }
                   >
-                    <Button
-                      variant="extendedFab"
-                      aria-label="Add"
-                      className={classes.button}
-                      color="primary"
-                    >
-                      <AddIcon className={classes.extendedIcon} />
-                      {t('activity.addOffers')}
-                    </Button>
-                  </Link>
+                    <AddIcon className={classes.extendedIcon} />
+                    {t('activity.addOffers')}
+                  </Button>
                 </Grid>
               </Grid>
             </Grid>

@@ -182,6 +182,12 @@ class ResponsiveDrawer extends React.Component<Props, State> {
           },
           'divider',
           {
+            to: '/workshop-activity',
+            icon: Today,
+            text: t('navigation.workshopActivities'),
+          },
+          'divider',
+          {
             to: '/coach',
             icon: FitnessCenter,
             text: t('common.coach'),

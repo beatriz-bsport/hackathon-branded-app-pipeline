@@ -8,6 +8,7 @@ import {
   fetchOne,
   removeImage,
   addImage,
+  upsertActions,
 } from '../actions/meta-activity.actions';
 
 const initialState = Immutable({
@@ -16,6 +17,10 @@ const initialState = Immutable({
   error: false,
   errorMsg: '',
   metaActivity: null,
+  upsert: {
+    loading: false,
+    error: null,
+  },
 });
 
 export default handleActions(
@@ -45,6 +50,18 @@ export default handleActions(
       );
       console.log(images);
       return state.setIn(['metaActivity', 'images'], images);
+    },
+    [upsertActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['upsert', 'loading'], payload);
+    },
+    [upsertActions.error]: (state, { payload }) => {
+      return state.setIn(['upsert', 'error'], payload);
+    },
+    [upsertActions.success]: (state, { payload }) => {
+      return state.set('all', [
+        payload,
+        ...state.all.filter((ma) => ma.id !== payload.id),
+      ]);
     },
   },
   initialState,

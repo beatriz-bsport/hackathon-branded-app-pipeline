@@ -17,7 +17,8 @@ export async function addMetaActivity(data) {
 }
 
 export async function updateMetaActivity(data, id) {
-  return patchAuth(`${API_URI}/saas/update-meta-activity/${id}`, data);
+  const aId = data.get('id') || id;
+  return patchAuth(`${API_URI}/saas/update-meta-activity/${aId}`, data);
 }
 
 export default {

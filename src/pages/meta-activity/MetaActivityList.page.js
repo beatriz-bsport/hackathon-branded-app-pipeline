@@ -4,7 +4,8 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import { Paper, List, Grid } from '@material-ui/core';
+import { CircularProgress } from '@material-ui/core';
+import { push } from 'react-router-redux';
 import i18next from 'i18next';
 
 import { stats as statsActions } from '../../actions';
@@ -12,8 +13,7 @@ import withBottomButtons from '../../hocs/inject-bottom-buttons';
 import withDrawer from '../../hocs/with-drawer.hoc';
 import withAsyncData from '../../hocs/with-async-data.hoc';
 
-import MetaActivityListItem from '../../libs/meta-activity/list/MetaActivityListItem.component';
-import MetaActivityCard from '../../libs/meta-activity/list/MetaActivityCard.component';
+import MetaActivityList from '../../libs/meta-activity/MetaActivityList.component';
 
 import type { MetaActivity, Stat } from '../../api/types';
 
@@ -21,55 +21,45 @@ type Props = {
   stats: Array<Stat>,
   metaActivities: Array<MetaActivity>,
   isCardView: boolean,
+  loading: boolean,
+
+  goToDetail: (metaActivityId: number) => void,
+  goToEdit: (metaActivityId: number) => void,
 };
 
-export function Activity(props: Props) {
-  const { metaActivities, stats, isCardView } = props;
-  if (!metaActivities.length) {
+export function MetaActivityListPage(props: Props) {
+  const { metaActivities, stats, loading, isCardView } = props;
+  if (loading) {
+    return <CircularProgress />;
+  }
+  if (!(metaActivities || []).length) {
     // TODO
     return null;
   }
 
-  if (isCardView) {
-    return (
-      <Grid container direction="row" spacing={24}>
-        {metaActivities.map((a) => {
-          const aStats = (stats || []).filter((s) => s.id === a.id);
-          const s = aStats || [{}];
-          return (
-            <Grid item xs={12} sm={6} key={a.id}>
-              <MetaActivityCard metaActivity={a} stats={s[0]} />
-            </Grid>
-          );
-        })}
-      </Grid>
-    );
-  }
   return (
-    <Paper>
-      <List disablePadding>
-        {metaActivities.map((ma) => (
-          <MetaActivityListItem divider metaActivity={ma} />
-        ))}
-      </List>
-    </Paper>
+    <MetaActivityList
+      stats={stats}
+      metaActivities={metaActivities}
+      isCardView={isCardView}
+      goToDetail={props.goToDetail}
+      goToEdit={props.goToEdit}
+    />
   );
-}
-
-function mapStateToProps(state) {
-  return {
-    metaActivities: state.metaActivity.all || [],
-    stats: state.stats.activities.items,
-    loading: state.stats.activities.loading,
-  };
 }
 
 export default compose(
   withNamespaces(),
   connect(
-    mapStateToProps,
+    (state) => ({
+      metaActivities: state.metaActivity.all || [],
+      stats: state.stats.activities.items,
+      loading: state.stats.activities.loading,
+    }),
     {
       fetchStats: statsActions.fetchStatActivities,
+      goToDetail: (metaActivityId) => push(`/activity/${metaActivityId}`),
+      goToEdit: (metaActivityId) => push(`/activity/${metaActivityId}/edit`),
     },
   ),
   withAsyncData('fetchStats', 'loading'),
@@ -81,4 +71,4 @@ export default compose(
     switchButton: true,
   }),
   withDrawer(({ t }: { t: TFunction }) => t('appbar.title.metaActivityList')),
-)(Activity);
+)(MetaActivityListPage);

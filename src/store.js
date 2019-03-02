@@ -24,6 +24,7 @@ const persistConfig = {
     'auth',
     'activity',
     'metaActivity',
+    'workshopActivity',
     'booking',
     'offer',
     'stats',

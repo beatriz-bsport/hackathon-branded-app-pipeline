@@ -46,7 +46,7 @@ export class ListViewContextProvider extends Component<
 export default function withButton(params: injectButtonProps) {
   const styles = (theme) => ({
     oneButtonMargin: {
-      marginBottom: theme.spacing.unit * 6,
+      marginBottom: theme.spacing.unit * 14,
     },
     extendedIcon: {
       marginRight: theme.spacing.unit,
@@ -128,13 +128,7 @@ export default function withButton(params: injectButtonProps) {
           const { classes } = this.props;
           const { addButton, switchButton } = params;
           return (
-            <div
-              className={
-                addButton && switchButton
-                  ? classes.wrappedWithMargin
-                  : classes.oneButtonMargin
-              }
-            >
+            <div className={classes.oneButtonMargin}>
               <WrappedComponent
                 {...this.props}
                 isCardView={this.context.isCardView}

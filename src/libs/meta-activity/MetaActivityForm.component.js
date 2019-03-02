@@ -1,213 +1,121 @@
 // @flow
-import React, { Component } from 'react';
+import React from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core';
 import { withNamespaces } from 'react-i18next';
-import { Link } from 'react-router-dom';
 
+import { withFormik, Form } from 'formik';
+import * as Yup from 'yup';
+import _ from 'lodash';
+import { compose } from 'recompose';
 import MultipleImageUploader from '../../components/MultipleImageUploader.component';
 import ImageList from '../../components/ImageList.component';
-import { FormField, ImageUploader } from '../../components/input';
+import ImageField from '../../components/forms/ImageField.component';
+import {
+  Submit,
+  SCTSelectField,
+  TextField,
+  DurationMinuteSelectField,
+} from '../../components/forms';
 
 type Props = {
-  initial: *,
   SCTs: *[],
   onSubmit: (*) => void,
   classes: Object,
-  metaActivityNames: Array<string>,
   initial: ?MetaActivity,
   t: (x: string) => string,
+  onCancel: () => void,
   imageUploader: ?{
     onAddImage: (image) => void,
     onRemoveImage: (image) => void,
   },
 };
 
-type State = {
-  name: ?string,
-  SCT: ?number,
-  description: ?string,
-  default_last_booking_minutes: ?number,
-  default_last_discard_minutes: ?number,
-  customer_enabled: ?boolean,
-};
-
-export class MetaActivityForm extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {
-      default_last_booking_minutes: 0,
-      default_last_discard_minutes: 0,
-      customer_enabled: true,
-    };
-    const { initial } = this.props;
-    if (initial) {
-      this.state.name = initial.name;
-      this.state.default_last_booking_minutes = initial.last_booking_minutes;
-      this.state.customer_enabled = initial.customer_enabled;
-      this.state.SCT = initial.category_id;
-      this.state.cover_main = initial.cover_main;
-      this.state.description = initial.description;
-    }
-  }
-
-  onSubmit = (event: Object) => {
-    event.preventDefault();
-    const {
-      name,
-      SCT,
-      description,
-      default_last_booking_minutes,
-      default_last_discard_minutes,
-      customer_enabled,
-      cover_main,
-    } = this.state;
-    const { t, metaActivityNames } = this.props;
-
-    if (metaActivityNames.find((n) => n.toUpperCase() === name.toUpperCase())) {
-      alert(t('form.metaActivity.cantAddSameName'));
-      return;
-    }
-
-    const formData = new FormData();
-    if (cover_main && typeof cover_main !== 'string') {
-      formData.append('cover_main', cover_main);
-    }
-    formData.append('name', name);
-    formData.append('SCT', SCT);
-    formData.append('description', description);
-    formData.append(
-      'default_last_booking_minutes',
-      default_last_booking_minutes,
-    );
-    formData.append(
-      'default_last_discard_minutes',
-      default_last_discard_minutes,
-    );
-    formData.append('customer_enabled', customer_enabled);
-    this.props.onSubmit(formData);
-  };
-
-  onFormFieldChange = (id: string) => (value: Object) => {
-    this.setState({ [id]: value });
-  };
-
-  render() {
-    const { SCTs, classes, t, imageUploader, loading } = this.props;
-    const images = (this.props.initial || {}).images || [];
-    return (
-      <form onSubmit={this.onSubmit}>
-        <Paper className={classes.paperContainer}>
-          <ImageUploader
-            name="cover"
-            onChange={this.onFormFieldChange('cover_main')}
-            initial={this.state.cover_main}
-          />
-          <div className={classes.container}>
-            <Grid container direction="column" spacing={16}>
-              <Grid item>
-                <FormField
-                  id="name"
-                  name="name"
-                  required
-                  value={this.state.name}
-                  onChange={this.onFormFieldChange}
+export function MetaActivityForm(props: Props) {
+  const { isSubmitting, SCTs, classes, t, imageUploader } = props;
+  const images = (props.initial || {}).images || [];
+  return (
+    <Form>
+      <Paper className={classes.paperContainer}>
+        <ImageField name="cover_main" />
+        <div className={classes.container}>
+          <Grid container direction="column" spacing={16}>
+            <Grid item>
+              <TextField
+                label={t('activity.name')}
+                name="name"
+                required
+                fullWidth
+              />
+            </Grid>
+            {imageUploader ? (
+              <Grid item xs={12} style={{ marginTop: 20 }}>
+                <label>Carousel</label>
+                <MultipleImageUploader
+                  initial={images}
+                  onAddImage={imageUploader.onAddImage}
+                  onRemoveImage={imageUploader.onRemoveImage}
                 />
-              </Grid>
-              {imageUploader ? (
-                <Grid item xs={12} style={{ marginTop: 20 }}>
-                  <label>Carousel</label>
-                  <MultipleImageUploader
-                    name="carousel_images"
-                    initial={images}
-                    onAddImage={imageUploader.onAddImage}
+                {images.length ? (
+                  <ImageList
+                    images={images}
                     onRemoveImage={imageUploader.onRemoveImage}
                   />
-                  {images.length ? (
-                    <ImageList
-                      images={images}
-                      onRemoveImage={imageUploader.onRemoveImage}
-                    />
-                  ) : null}
-                </Grid>
-              ) : (
-                <p>
-                  {t('metaActivity.update.imageUploaderRequireEditMessage')}
-                </p>
-              )}
-              <Grid item>
-                <FormField
-                  id="SCT"
-                  name="SCT"
-                  required
-                  value={this.state.SCT}
-                  choices={SCTs}
-                  onChange={this.onFormFieldChange}
-                />
+                ) : null}
               </Grid>
-              <Grid item>
-                <FormField
-                  id="description"
-                  name="description"
-                  required
-                  multiline
-                  fullWidth
-                  value={this.state.description}
-                  onChange={this.onFormFieldChange}
-                />
-              </Grid>
-              <Grid item>
-                <FormField
-                  id="default_last_booking_minutes"
-                  name="default_last_booking_minutes"
-                  required
-                  value={this.state.default_last_booking_minutes}
-                  onChange={this.onFormFieldChange}
-                />
-              </Grid>
-              <Grid item>
-                <FormField
-                  id="default_last_discard_minutes"
-                  name="default_last_discard_minutes"
-                  required
-                  value={this.state.default_last_discard_minutes}
-                  onChange={this.onFormFieldChange}
-                />
-              </Grid>
-              <Grid item>
-                <FormField
-                  id="customer_enabled"
-                  required
-                  onChange={this.onFormFieldChange}
-                />
-              </Grid>
+            ) : (
+              <p>{t('metaActivity.update.imageUploaderRequireEditMessage')}</p>
+            )}
+            <Grid item>
+              <SCTSelectField
+                choices={SCTs}
+                label={t('activity.category')}
+                fullWidth
+                name="category"
+                required
+              />
             </Grid>
-            <Grid container direction="row" justify="flex-end">
-              <Grid item>
-                <Link to="/activity" style={{ textDecoration: 'none' }}>
-                  <Button>{t('form.discard')}</Button>
-                </Link>
-              </Grid>
-              <Grid item>
-                {loading ? (
-                  <CircularProgress />
-                ) : (
-                  <Button variant="contained" color="primary" type="submit">
-                    {t('form.send')}
-                  </Button>
-                )}
-              </Grid>
+            <Grid item>
+              <TextField
+                name="description"
+                label={t('activity.description')}
+                required
+                multiline
+                fullWidth
+              />
             </Grid>
-          </div>
-        </Paper>
-      </form>
-    );
-  }
+            <Grid item>
+              <DurationMinuteSelectField
+                label={t('activity.lastBookingBeforeMinutes')}
+                name="last_booking_minutes"
+                fullWidth
+                required
+              />
+            </Grid>
+            <Grid item>
+              <DurationMinuteSelectField
+                name="last_discard_minutes"
+                label={t('activity.lastDiscardBeforeMinutes')}
+                fullWidth
+                required
+              />
+            </Grid>
+          </Grid>
+          <Grid container direction="row" justify="flex-end">
+            <Grid item>
+              <Button onClick={props.onCancel}>{t('form.discard')}</Button>
+            </Grid>
+            <Grid item>
+              <Submit disabled={isSubmitting}>{t('form.send')}</Submit>
+            </Grid>
+          </Grid>
+        </div>
+      </Paper>
+    </Form>
+  );
 }
 
 const styles = (theme) => ({
@@ -220,4 +128,49 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(withNamespaces()(MetaActivityForm));
+const MetaActivitySchema = Yup.object().shape({
+  cover_main: Yup.object().nullable(),
+  name: Yup.string().required(),
+  description: Yup.string().required(),
+  last_booking_minutes: Yup.number(),
+  last_discard_minutes: Yup.number(),
+  SCT: Yup.number(),
+});
+
+export default compose(
+  withStyles(styles),
+  withNamespaces(),
+  withFormik({
+    mapPropsToValues: ({ initial }) =>
+      Object.assign(
+        {
+          cover_main: '',
+          name: '',
+          description: '',
+          category: null,
+          last_booking_minutes: 0,
+          last_discard_minutes: 0,
+        },
+        initial || {},
+      ),
+    validationSchema: MetaActivitySchema,
+    handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
+      const keys = [
+        'name',
+        'description',
+        'category',
+        'last_booking_minutes',
+        'last_discard_minutes',
+      ];
+      const { cover_main } = values;
+      const data = {
+        ..._.pick(values, keys),
+        cover_main: typeof cover_main !== 'string' ? cover_main : undefined,
+      };
+      onSubmit(data, {
+        onSuccess: () => setSubmitting(false),
+        onError: () => setSubmitting(false),
+      });
+    },
+  }),
+)(MetaActivityForm);

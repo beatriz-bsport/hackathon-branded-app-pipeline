@@ -2,6 +2,8 @@
 
 import * as Sentry from '@sentry/browser';
 import { createAction } from 'redux-actions';
+import { push } from 'react-router-redux';
+import { snackbarSuccess, snackbarError } from './snackbar.actions';
 
 import { postAuth, deleteAuth, API_URI } from '../http';
 import api from '../api';
@@ -98,5 +100,37 @@ export function removeImageFromMetaActivity(id: number, imageId: number) {
       Sentry.captureException(error);
     }
     dispatch(removeImage.isLoading({ id, imageId, loading: false }));
+  };
+}
+
+export const upsertActions = {
+  isLoading: createAction('META_ACTIVITY/UPSERT/IS_LOADING'),
+  error: createAction('META_ACTIVITY/UPSERT/ERROR'),
+  success: createAction('META_ACTIVITY/UPSERT/SUCCESS'),
+};
+
+export function upsert(metaActivityData, options) {
+  return async (dispatch: Dispatch) => {
+    dispatch(upsertActions.isLoading(true));
+    dispatch(upsertActions.error(null));
+
+    const createOrUpdate = metaActivityData.has('id')
+      ? api.activity.updateMetaActivity
+      : api.activity.addMetaActivity;
+    try {
+      const response = await createOrUpdate(metaActivityData);
+
+      dispatch(upsertActions.success(response.data));
+      const key = metaActivityData.has('id') ? 'update' : 'create';
+      dispatch(snackbarSuccess(`activity.forms.${key}.success`));
+      dispatch(push('/activity'));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      console.error(error);
+      dispatch(snackbarError('activity.forms.error'));
+      dispatch(upsertActions.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(upsertActions.isLoading(false));
   };
 }

@@ -499,6 +499,7 @@ export default {
       },
     },
     navigation: {
+      workshopActivities: 'Ateliers',
       alpha: 'en développement',
       beta: 'beta',
       consumer: {
@@ -610,6 +611,16 @@ export default {
         'Sélectionnez une séance pour voir les membres inscrits',
     },
     activity: {
+      forms: {
+        create: {
+          succes: 'Activité sauvegardée',
+          error: "Impossible de sauvegarder l'activité",
+        },
+        update: {
+          success: 'Activité mise à jour',
+          error: "Impossible de mettre à jour l'activité",
+        },
+      },
       nextSlotAt: 'Prochaine séance le ',
       settings: 'Paramètres',
       sizeOfWaitingList: "Taille par défaut de la liste d'attente: ",
@@ -626,6 +637,7 @@ export default {
       totalCustomers: 'Total réservations',
       fillrate: 'Remplissage moyen',
       description: 'Description',
+      category: 'Sport',
       offersThisDay: 'Séances ce jour :',
       noOfferThisDay:
         'Pas de séance, sélectionnez une autre date sur le calendrier',
@@ -636,6 +648,19 @@ export default {
     },
     establishment,
     search,
+    workshopActivity: {
+      addWorkshopActivity: 'Ajouter un atelier',
+      forms: {
+        create: {
+          succes: 'Atelier sauvegardé',
+          error: "Impossible de sauvegarder l'atelier",
+        },
+        update: {
+          success: 'Atelier mis à jour',
+          error: "Impossible de mettre à jour l'atelier",
+        },
+      },
+    },
     booking: {
       success: 'Réservation enregistrée',
       revertBookingTitle: "Annuler l'inscription",
@@ -746,9 +771,11 @@ export default {
         coachList: 'Entraîneurs',
         offerManagement: 'Mes réservations',
         metaActivity: 'Activités',
+        workshopActivityList: 'Ateliers',
+        WorkshopActivityFormPage: 'Formulaire Ateliers',
         metaActivityEditForm: 'Formulaire Activité',
         metaActivityList: 'Activités',
-        metaActivityFormPage: 'Créer une activité',
+        metaActivityFormPage: 'Formulaire Activité',
         offerFormPage: 'Création de séance',
         coachPerformance: 'Perforamce du coach',
         coachFormPage: 'Formulaire coach',

@@ -28,6 +28,7 @@ import Coach from './coach/Coach.router';
 import MetaActivity from './meta-activity/MetaActivity.router';
 import PaymentPack from './payment-pack/PaymentPack.router';
 import Member from './member/Member.router';
+import WorkshopActivity from './workshop-activity/WorkshopActivity.router';
 
 type Props = {
   refresh: () => void,
@@ -75,6 +76,7 @@ export class Backoffice extends Component<Props> {
               />
               <Route path="/member" component={Member} />
               <Route path="/activity" component={MetaActivity} />
+              <Route path="/workshop-activity" component={WorkshopActivity} />
               <Route path="/establishment" component={Establishment} />
               <Route path="/marketing/rule/:id" component={MarketingRule} />
               <Route path="/marketing" component={MarketingDashboard} />

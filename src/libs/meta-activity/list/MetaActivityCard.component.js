@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import { withNamespaces } from 'react-i18next';
-import { Link } from 'react-router-dom';
 
 import {
   withStyles,
@@ -36,12 +35,14 @@ type Props = {
   stats: Object,
   t: (x: string) => string,
   classes: Object,
+  goToEdit: (metaActivityId: number) => void,
+  goToDetail: (metaActivityId: number) => void,
 };
 
 export class ActivityCard extends Component<Props> {
   render() {
     const { metaActivity, t, stats, classes } = this.props;
-    const { id, etablissements } = metaActivity;
+    const { etablissements } = metaActivity;
 
     return (
       <Card>
@@ -49,9 +50,11 @@ export class ActivityCard extends Component<Props> {
         <CardContent>
           <MetaActivityBasicInfo metaActivity={metaActivity} />
         </CardContent>
-        <CardContent className={classes.unPaddedHorizontal}>
-          <ActivityStats metaActivity={metaActivity} stats={stats} />
-        </CardContent>
+        {stats ? (
+          <CardContent className={classes.unPaddedHorizontal}>
+            <ActivityStats metaActivity={metaActivity} stats={stats} />
+          </CardContent>
+        ) : null}
         <CardContent>
           <List>
             {etablissements.map((e) => (
@@ -68,16 +71,20 @@ export class ActivityCard extends Component<Props> {
           </List>
         </CardContent>
         <CardActions>
-          <Link to={`/activity/${id}`} style={{ textDecoration: 'none' }}>
-            <Button size="small" color="primary">
-              {t('common.seeMore')}
-            </Button>
-          </Link>
-          <Link to={`/activity/${id}/edit`} style={{ textDecoration: 'none' }}>
-            <Button size="small" color="secondary">
-              {t('common.edit')}
-            </Button>
-          </Link>
+          <Button
+            size="small"
+            color="primary"
+            onClick={() => this.props.goToDetail(metaActivity.id)}
+          >
+            {t('common.seeMore')}
+          </Button>
+          <Button
+            size="small"
+            color="secondary"
+            onClick={() => this.props.goToEdit(metaActivity.id)}
+          >
+            {t('common.edit')}
+          </Button>
         </CardActions>
       </Card>
     );

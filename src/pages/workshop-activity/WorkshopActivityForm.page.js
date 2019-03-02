@@ -1,15 +1,18 @@
 // @flow
 
-import { withNamespaces } from 'react-i18next';
-
-import { goBack } from 'connected-react-router';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
+import { withNamespaces } from 'react-i18next';
 import { withProps, compose } from 'recompose';
 
+import { goBack } from 'react-router-redux';
 import { mapFormData, unmap } from '../form.utils';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import { metaActivity as metaActivityActions } from '../../actions';
+import {
+  metaActivity as metaActivityActions,
+  workshopActivity as workshopActivityActions,
+} from '../../actions';
 
 import withDrawer from '../../hocs/with-drawer.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -31,7 +34,7 @@ type Props = {
 
   goToPreviousPage: () => void,
 };
-const MetaActivityMap = {
+const WorkshopActivityMap = {
   cover_main: 'cover_main',
   description: 'description',
   name: 'name',
@@ -41,7 +44,7 @@ const MetaActivityMap = {
   category: 'category',
 };
 
-export class MetaActivityFormPage extends Component<Props> {
+export class WorkshopActivityFormPage extends Component<Props> {
   render() {
     const {
       SCTs,
@@ -55,7 +58,7 @@ export class MetaActivityFormPage extends Component<Props> {
     } = this.props;
     const initialData = initial
       ? {
-          ...unmap(initial, MetaActivityMap),
+          ...unmap(initial, WorkshopActivityMap),
           category: initial.category_id,
         }
       : null;
@@ -85,12 +88,13 @@ function mapStateToProps(state, { id }) {
   return {
     id,
     initial:
-      id !== null ? state.metaActivity.all.find((ma) => ma.id === id) : null,
+      id !== null
+        ? state.workshopActivity.all.find((oa) => oa.id === id)
+        : null,
     associatedCoaches: state.coach.companyAssociated,
     establishments: state.establishment.all,
     SCTs: state.category.SCTs,
-    loading: state.metaActivity.loading,
-    metaActivityNames: state.metaActivity.all.map((ma) => ma.name),
+    loading: state.workshopActivity.loading,
   };
 }
 
@@ -100,23 +104,21 @@ export default compose(
   connect(
     mapStateToProps,
     {
-      upsertMetaActivity: metaActivityActions.upsert,
+      upsertWorkshopActivity: workshopActivityActions.upsert,
       goToPreviousPage: goBack,
       addImage: metaActivityActions.addImageToMetaActivity,
       removeImage: metaActivityActions.removeImageFromMetaActivity,
     },
   ),
-  withProps(({ upsertMetaActivity, initial }) => ({
+  withProps(({ upsertWorkshopActivity, initial }) => ({
     onSubmit: (values, options) => {
-      const formData = mapFormData(values, MetaActivityMap);
+      const formData = mapFormData(values, WorkshopActivityMap);
       if (initial) {
         formData.append('id', initial.id);
       }
-      formData.append('is_workshop', false);
-      upsertMetaActivity(formData, options);
+      formData.append('is_workshop', true);
+      upsertWorkshopActivity(formData, options);
     },
   })),
-  withDrawer(({ t }: { t: TFunction }) =>
-    t('appbar.title.metaActivityFormPage'),
-  ),
-)(MetaActivityFormPage);
+  withDrawer(({ t }) => t('appbar.title.WorkshopActivityFormPage')),
+)(WorkshopActivityFormPage);

@@ -35,6 +35,8 @@ import {
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 
+import { Sport } from './category';
+
 type AlertErrorProps = {
   t: TFunction,
 };
@@ -262,6 +264,85 @@ export const GenderField = withStyles(styles)(
       </Field>
     );
   }),
+);
+
+export const SelectField = withStyles(styles)(
+  withNamespaces([])((props: SelectFieldProps) => {
+    const { t, choices, label, fullWidth, classes, required } = props;
+    return (
+      <Field {...props}>
+        {({ field, form: { touched, errors } }) => (
+          <MuiFormControl
+            fullWidth={fullWidth}
+            required={required}
+            error={!!(touched[field.name] && errors[field.name])}
+          >
+            <InputLabel shrink htmlFor="select-helper">
+              {label}
+            </InputLabel>
+            <Select
+              {...field}
+              {...lodash.omit(props, [
+                't',
+                'tReady',
+                'defaultNS',
+                'i18n',
+                'i18nOptions',
+                'reportNS',
+              ])}
+            >
+              {choices.map((c) => {
+                if (props.itemRenderer) {
+                  return props.itemRenderer(c);
+                }
+                return (
+                  <MenuItem key={c.value} value={c.value}>
+                    {t(c.label)}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+            <ErrorMessage {...props}>
+              {(message) => (
+                <Typography variant="body2" className={classes.alertError}>
+                  {t(message)}
+                </Typography>
+              )}
+            </ErrorMessage>
+          </MuiFormControl>
+        )}
+      </Field>
+    );
+  }),
+);
+
+const SCTMenuItemRenderer = (elt) => (
+  <MenuItem key={elt.id} value={elt.id}>
+    <Sport parentCategory={elt.SCS.id} SCTName={elt.name} />
+  </MenuItem>
+);
+
+export const SCTSelectField = (props: SelectFieldProps) => (
+  <SelectField {...props} itemRenderer={SCTMenuItemRenderer} />
+);
+
+export const DurationMinuteSelectField = withNamespaces()(
+  (props: SelectFieldProps) => (
+    <SelectField
+      choices={[
+        { value: 0, label: 'form.zeroMinute' },
+        { value: 15, label: 'form.quarterHour' },
+        { value: 30, label: 'form.halfHour' },
+        { value: 45, label: 'form.halfAndQuarterHour' },
+        { value: 60, label: 'form.oneHour' },
+        { value: 90, label: 'form.oneHourAndHalf' },
+        { value: 120, label: 'form.twoHour' },
+        { value: 360, label: 'form.sixHour' },
+        { value: 24 * 60, label: 'form.oneDay' },
+      ]}
+      {...props}
+    />
+  ),
 );
 
 export const MultipleCheckboxField = (props: Props) => {

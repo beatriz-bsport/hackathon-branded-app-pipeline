@@ -458,6 +458,7 @@ export default {
       reporting: 'Reporting',
       search: 'Search',
       dashboard: 'Dashboard',
+      workshopActivities: 'Workshops',
       activity: 'My activities',
       calendar: 'Calendar',
       message: 'Marketing',
@@ -554,6 +555,19 @@ export default {
     },
     establishment,
     search,
+    workshopActivity: {
+      addWorkshopActivity: 'Create a workshop',
+      forms: {
+        create: {
+          success: 'Workshop created',
+          error: 'Impossible to save workshop',
+        },
+        update: {
+          success: 'Workshop updated',
+          error: 'Impossible to update workshop',
+        },
+      },
+    },
     activity: {
       nextSlotAt: 'Next session: ',
       settings: 'Parameters',
@@ -561,6 +575,7 @@ export default {
       lastBookingBeforeMinutes: 'Last booking is possible until',
       lastDiscardBeforeMinutes: 'Last discard booking is possible until',
       addActivity: 'Add an activity',
+      category: 'Sport',
       addOffers: 'Add sessions',
       name: 'Title',
       noNextSlot: 'No more session planned',
@@ -689,7 +704,9 @@ export default {
         metaActivity: 'Activities',
         metaActivityEditForm: 'Edit Activity',
         metaActivityList: 'Activities',
-        metaActivityFormPage: 'Create Activity',
+        workshopActivityList: 'Workshops',
+        WorkshopActivityFormPage: 'Workshop form',
+        metaActivityFormPage: 'Activity form',
         offerFormPage: 'Add offers',
         coachPerformance: 'Coach Perforamce',
         coachFormPage: 'Coach Form',

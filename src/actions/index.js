@@ -18,6 +18,7 @@ import * as search from './search.actions';
 import * as companies from './companies.actions';
 import * as marketplace from './marketplace.actions';
 import * as shop from './shop.actions';
+import * as workshopActivity from './workshop-activity.actions';
 
 export {
   refresh,
@@ -40,4 +41,5 @@ export {
   search,
   companies,
   marketplace,
+  workshopActivity,
 };

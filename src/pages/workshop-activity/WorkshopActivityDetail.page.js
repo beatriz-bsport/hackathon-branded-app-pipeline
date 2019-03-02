@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push as routerPush } from 'react-router-redux';
 import { compose } from 'recompose';
-import { LinearProgress } from '@material-ui/core';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import {
   metaActivity as metaActivityActions,
   offer as offerActions,
@@ -15,11 +15,12 @@ import type {
   Stat,
 } from '../../api/types';
 import withDrawer from '../../hocs/with-drawer.hoc';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import MetaActivityDetail from '../../libs/meta-activity/MetaActivityDetail.component';
 
 type Props = {
-  metaActivity: MetaActivityType,
+  workshopActivity: MetaActivityType,
   loading: boolean,
   // eslint-disable-next-line
   stats: Stat,
@@ -33,7 +34,14 @@ type Props = {
   match: Object,
 };
 
-export class MetaActivity extends Component<Props> {
+type State = {
+  editable: boolean,
+  data: *,
+  sportCategories: Array<number>,
+  dateSelected: Object,
+};
+
+export class WorkshopActivity extends Component<Props, State> {
   metaActivityId: number;
 
   componentDidMount() {
@@ -41,39 +49,32 @@ export class MetaActivity extends Component<Props> {
     this.props.fetchMetaActivityDetails(this.metaActivityId);
   }
 
-  goToOffer = (o: Offer) => {
-    this.props.push(`/offer/${o.id}`);
-  };
-
-  createActivityOffers = (metaActivityId: number) => {
-    this.props.push(`/add-offers/${metaActivityId}`);
-  };
-
   render() {
-    if (this.props.loading || !this.props.metaActivity) {
+    if (this.props.loading || !this.props.workshopActivity) {
       return <LinearProgress />;
     }
     return (
       <MetaActivityDetail
-        metaActivity={this.props.metaActivity}
+        metaActivity={this.props.workshopActivity}
         stats={this.props.stats}
         fetchOffersByDay={this.props.fetchOffersByDay}
         events={this.props.events}
+        fetchMetaActivityDetails
         timetableLoading={this.props.timetableLoading}
         activities={this.props.activities}
         offers={this.props.offers}
-        goToOffer={this.goToOffer}
-        createActivityOffers={this.createActivityOffers}
+        goToOffer={(o) => this.props.push(`/offer/${o.id}`)}
       />
     );
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, { id }) {
   return {
+    id,
     loading: state.metaActivity.loading,
-    metaActivity: state.metaActivity.metaActivity,
-    metaActivities: state.metaActivity.all,
+    workshopActivity: state.metaActivity.metaActivity,
+    workshopActivities: state.workshopActivity.all,
     stats: state.stats.activities,
     events: state.offer.calendar,
     offers: state.offer.offers,
@@ -97,19 +98,20 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default compose(
+  routerParamsToProps({ id: 'id:number' }),
   connect(
     mapStateToProps,
     mapDispatchToProps,
   ),
-  withDrawer(({ match, metaActivities }) => {
-    if (match && match.params && match.params.id) {
-      const metaActivity = (metaActivities || []).filter(
-        (m) => m.id === parseInt(match.params.id, 10),
+  withDrawer(({ id, workshopActivities }) => {
+    if (id) {
+      const workshopActivity = (workshopActivities || []).filter(
+        (m) => m.id === id,
       );
-      if ((metaActivity || []).length === 1) {
-        return metaActivity[0].name;
+      if ((workshopActivity || []).length === 1) {
+        return workshopActivity[0].name;
       }
     }
     return '';
   }),
-)(MetaActivity);
+)(WorkshopActivity);

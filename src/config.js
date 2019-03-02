@@ -14,11 +14,13 @@ if (runtime && runtime.env) setConfigFrom(runtime.env);
 
 export default Config;
 
-function checkConfigValue(name) {
-  if (!Config[name]) {
-    throw new Error(
-      `The config value for ${name} is invalid (got: ${Config[name]})`,
-    );
+function checkConfigValue(name, silent) {
+  const value = Config[name];
+  if (!value) {
+    const text = `The config value for ${name} is invalid (got: ${value})`;
+    if (!silent) {
+      throw new Error(text);
+    } else console.error(text);
   }
 }
 
@@ -27,5 +29,5 @@ checkConfigValue('REACT_APP_STRIPE_PK_KEY');
 checkConfigValue('REACT_APP_GOOGLE_MAPS_API_KEY');
 
 if (Config.NODE_ENV === 'production') {
-  checkConfigValue('REACT_APP_SENTRY_DSN');
+  checkConfigValue('REACT_APP_SENTRY_DSN', true);
 }

@@ -26,18 +26,17 @@ This will prepare the db and create test accounts
 
 Running with the distant (staging) backend server
 -------------------------------------------------
-Set in your `.env.local` file these variables (copy/paste `.env.template` first)
+Set in your `.env` first)
 ```sh
-REACT_APP_BASE_URI='http://api.ci.bsport.io'
-REACT_APP_API_URI='http://api.ci.bsport.io/api-v0'
-REACT_APP_STRIPE_PK_KEY='pk_test_lFB5CxcyTCaQcS00MiE1ebEO'
-REACT_APP_GOOGLE_MAPS_API_KEY='AIzaSyD5aOL4nVUjsFNIj3jSpCTtqHHkem8NcZM'
+BASE_URI='http://api.ci.bsport.io'
+STRIPE_PK_KEY='pk_test_lFB5CxcyTCaQcS00MiE1ebEO'
+GOOGLE_MAPS_API_KEY='AIzaSyD5aOL4nVUjsFNIj3jSpCTtqHHkem8NcZM'
 ```
 
 LOGIN
 =====
 
-Currently the only user usable with full feature and (theorically) no bug is :
+You can use the following user
 
 ```sh
 username: contact@classdiggers.com

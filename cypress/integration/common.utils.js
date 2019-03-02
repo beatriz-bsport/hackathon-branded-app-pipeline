@@ -1,7 +1,6 @@
-export const REACT_APP_URI = Cypress.env('REACT_APP_API_URI');
-export const REACT_APP_TEST_URI = `${Cypress.env(
-  'REACT_APP_BASE_URI',
-)}/state/reset`;
+export const BASE_URI = Cypress.env('BASE_URI');
+export const REACT_APP_URI = `${BASE_URI}/api-v0/`;
+export const REACT_APP_TEST_URI = `${BASE_URI}/state/reset`;
 
 export function generateNumber(max) {
   return Math.floor(Math.random() * Math.floor(max));

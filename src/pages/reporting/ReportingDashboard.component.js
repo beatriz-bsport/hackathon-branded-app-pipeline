@@ -3,6 +3,7 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
+import { compose } from 'recompose';
 
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -61,18 +62,20 @@ export class ReportingDashboard extends React.Component<Props> {
   }
 }
 
-export default connect(
-  (state) => ({
-    metadata: reportMetadata.selectors.get(state),
-    reports: reportsRes.selectors.all(state),
-  }),
-  {
-    fetchReportMetadata: reportMetadata.effects.get,
-    fetchReports: reportsRes.effects.fetchAll,
-    upsertReport: reportsRes.effects.upsert,
-    deleteReport: reportsRes.effects.delete,
-    goToReport: (r: ReportConfiguration) => push(`/reporting/${r.id}`),
-  },
+export default compose(
+  connect(
+    (state) => ({
+      metadata: reportMetadata.selectors.get(state),
+      reports: reportsRes.selectors.all(state),
+    }),
+    {
+      fetchReportMetadata: reportMetadata.effects.get,
+      fetchReports: reportsRes.effects.fetchAll,
+      upsertReport: reportsRes.effects.upsert,
+      deleteReport: reportsRes.effects.delete,
+      goToReport: (r: ReportConfiguration) => push(`/reporting/${r.id}`),
+    },
+  ),
   withNamespaces(),
   withDrawer(({ t }: { t: TFunction }) => t('appbar.title.reportingDashboard')),
 )(ReportingDashboard);

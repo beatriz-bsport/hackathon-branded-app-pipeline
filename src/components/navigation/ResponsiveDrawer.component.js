@@ -93,11 +93,12 @@ class ResponsiveDrawer extends React.Component<Props, State> {
     }
     if (item.type === 'nested') {
       return (
-        <React.Fragment>
+        <React.Fragment key={String(i)}>
           <ListItem
             button
             onClick={() => this.handleClick(item, i)}
             selected={isActive}
+            key={String(i)}
           >
             <ListItemIcon>
               <item.icon />
@@ -105,8 +106,13 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             <ListItemText inset primary={item.text} />
             {this.state.open[i] ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </ListItem>
-          <Divider key={`${String(i)}nestedDivider`} />
-          <Collapse in={this.state.open[i]} timeout="auto" unmountOnExit>
+          <Divider key={`${i}-first-nestedDivider`} />
+          <Collapse
+            in={this.state.open[i]}
+            key={`${i}-collapse`}
+            timeout="auto"
+            unmountOnExit
+          >
             <List disablePadding className={classes.nestedList}>
               {item.nestedItems.map((subitem, subi) =>
                 this.renderMenuItem(subitem, subi, true),
@@ -114,7 +120,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             </List>
           </Collapse>
           {this.state.open[i] ? (
-            <Divider key={`${String(i)}nestedDivider`} />
+            <Divider key={`${i}-second-nestedDivider`} />
           ) : null}
         </React.Fragment>
       );

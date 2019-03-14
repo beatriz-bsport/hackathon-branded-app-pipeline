@@ -301,6 +301,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                         alt="bsport logo"
                       />
                       <Typography
+                        id="app-title"
                         className={classes.title}
                         variant="h6"
                         color="inherit"

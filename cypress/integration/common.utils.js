@@ -1,5 +1,5 @@
 export const BASE_URI = Cypress.env('BASE_URI');
-export const REACT_APP_URI = `${BASE_URI}/api-v0/`;
+export const REACT_APP_URI = `${BASE_URI}/api-v0`;
 export const REACT_APP_TEST_URI = `${BASE_URI}/state/reset`;
 
 export function generateNumber(max) {
@@ -11,4 +11,12 @@ export function selectCountryPhoneCode(selector, countryName, countryCode) {
     .select(countryCode)
     .invoke('val')
     .should('equal', countryCode);
+}
+
+export function notErrorPage() {
+  cy.get('.error-screen').should('not.exist');
+  cy.get('body')
+    .find('p')
+    .contains('Vous venez de rencontrer une erreur.')
+    .should('not.exist');
 }

@@ -10,6 +10,7 @@ import dashboard from './fr/dashboard.translations';
 import settings from './fr/settings.translations';
 import paymentRules from './fr/payment-rules.translations';
 import reporting from './fr/reporting.translations';
+import stripe from './fr/stripe.translations';
 
 export default {
   dashboard,
@@ -43,6 +44,7 @@ export default {
       "Montant fixe reversé pour toute séance avec suffisamment d'inscrits",
   },
   translation: {
+    stripe,
     activityCreated: 'Activité ajoutée',
     activityUpdated: 'Activité modifiée',
     bookingConfirmed: 'Réservation confirmée',

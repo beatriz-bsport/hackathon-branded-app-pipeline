@@ -10,6 +10,7 @@ import dashboard from './en/dashboard.translations';
 import settings from './en/settings.translations';
 import paymentRules from './en/payment-rules.translations';
 import reporting from './en/reporting.translations';
+import stripe from './fr/stripe.translations';
 
 export default {
   dashboard,
@@ -30,6 +31,7 @@ export default {
       'Amount given to every booking over threshold',
   },
   translation: {
+    stripe,
     activityCreated: 'Activity added',
     activityUpdated: 'Activity updated',
     bookingConfirmed: 'Booking confirmed',

@@ -1,21 +1,23 @@
 // @flow
 
 import React, { Component } from 'react';
+import { compose } from 'recompose';
 
-import {
-  Grid,
-  CircularProgress,
-  withStyles,
-  Typography,
-  Button,
-} from '@material-ui/core';
-import { withNamespaces } from 'react-i18next';
-import { CardElement, injectStripe } from 'react-stripe-elements';
-import { Redirect } from 'react-router-dom';
-import { goBack as goBackRouter } from 'react-router-redux';
-import { CB as PAYMENT_METHOD_CB } from '@bsport/common/lib/master-data/payment-methods';
 import { connect } from 'react-redux';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import { Redirect } from 'react-router-dom';
+import { goBack as goBackRouter } from 'connected-react-router';
+
+import Grid from '@material-ui/core/Grid';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
+
+import { CardElement, injectStripe } from 'react-stripe-elements';
+
+import { CB as PAYMENT_METHOD_CB } from '@bsport/common/lib/master-data/payment-methods';
 
 import api from '../../../api';
 
@@ -29,21 +31,43 @@ type Props = {
   goBack: () => void,
   classes: Object,
   t: TFunction,
+  i18n: *,
 };
 
 type State = {
   completed: boolean,
   loading: boolean,
 };
+
+function getStripeErrorMessage(t, i18n, errorCode, declineCode) {
+  if (!errorCode) return null;
+
+  const tCode = `stripe.errors.${errorCode}`;
+  const message = i18n.exists(tCode)
+    ? t(tCode)
+    : t('stripe.errors.processing_error');
+  const reason = i18n.exists(`stripe.errors.${declineCode}`)
+    ? t(`stripe.errors.${declineCode}`)
+    : null;
+  return `${message}${reason ? `\n${reason}` : ''}`;
+}
+
 export class StripeCheckout extends Component<Props, State> {
-  state = { completed: false, loading: false };
+  state = { completed: false, loading: false, error: null };
 
   submit = async () => {
-    this.setState({ loading: true });
-    const { t, urlParams, purchaseId, purchaseType, offerToBuy } = this.props;
+    this.setState({ loading: true, error: null, completed: false });
+
+    const { t, i18n } = this.props;
+    const { urlParams, purchaseId, purchaseType, offerToBuy } = this.props;
     try {
-      const { token } = await this.props.stripe.createToken();
-      const response = await api.payment.consumerBuy({
+      const tokenizer = await this.props.stripe.createToken();
+      if (tokenizer.error) {
+        throw new Error(getStripeErrorMessage(t, i18n, tokenizer.error.code));
+      }
+      const { token } = tokenizer;
+
+      await api.payment.consumerBuy({
         token: token.id,
         objectId: purchaseId,
         paymentMethod: PAYMENT_METHOD_CB.id,
@@ -52,24 +76,25 @@ export class StripeCheckout extends Component<Props, State> {
         urlParams,
       });
 
-      if (response && (response.status === 200 || response.status === 201)) {
-        this.setState({
-          completed: true,
-          loading: false,
-        });
-      } else {
-        alert(t('error.connectionError'));
-        this.setState({ loading: false });
-      }
+      this.setState({
+        completed: true,
+        loading: false,
+      });
     } catch (error) {
-      alert(JSON.stringify(error.response.data));
-      this.setState({ loading: false });
+      const data = (error.response && error.response.data) || {};
+      const err =
+        getStripeErrorMessage(t, i18n, data.code, data.decline_code) ||
+        t('error.connectionError');
+      this.setState({
+        loading: false,
+        error: err,
+      });
     }
   };
 
   render() {
     const { price, classes, t, purchaseType } = this.props;
-    const { loading, completed } = this.state;
+    const { loading, completed, error } = this.state;
     if (completed) {
       if (purchaseType === 'pass') {
         return <Redirect to="/pass" />;
@@ -93,6 +118,9 @@ export class StripeCheckout extends Component<Props, State> {
           <div className={classes.cardContainer}>
             <CardElement hidePostalCode />
           </div>
+          {error ? (
+            <Typography className={classes.error}>{error}</Typography>
+          ) : null}
         </Grid>
         <Grid
           item
@@ -105,20 +133,18 @@ export class StripeCheckout extends Component<Props, State> {
             <Button onClick={this.props.goBack}>{t('common.cancel')}</Button>
           </Grid>
           <Grid item>
-            {loading ? (
-              <CircularProgress />
-            ) : (
-              <Button
-                variant="contained"
-                color="primary"
-                id="stripe-pay"
-                onClick={this.submit}
-              >
-                {t('payment.pay')}
-              </Button>
-            )}
+            <Button
+              variant="contained"
+              color="primary"
+              id="stripe-pay"
+              disabled={loading}
+              onClick={this.submit}
+            >
+              {t('payment.pay')}
+            </Button>
           </Grid>
         </Grid>
+        {loading ? <LinearProgress /> : null}
       </Grid>
     );
   }
@@ -133,17 +159,21 @@ const styles = (theme) => ({
     backgroundColor: '#F3F3F3',
     borderRadius: 5,
   },
+  error: {
+    paddingTop: theme.spacing.unit * 2,
+    fontSize: '0.8rem',
+    color: theme.palette.error.dark,
+  },
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    goBack() {
-      dispatch(goBackRouter());
+export default compose(
+  withNamespaces([]),
+  withStyles(styles),
+  connect(
+    null,
+    {
+      goBack: goBackRouter,
     },
-  };
-}
-
-export default connect(
-  null,
-  mapDispatchToProps,
-)(injectStripe(withStyles(styles)(withNamespaces()(StripeCheckout))));
+  ),
+  injectStripe,
+)(StripeCheckout);

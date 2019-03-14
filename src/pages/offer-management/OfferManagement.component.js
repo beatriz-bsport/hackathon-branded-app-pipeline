@@ -427,6 +427,7 @@ export class OfferManagement extends Component<Props, State> {
         <RevertBookingDialog
           handleBookingDeletion={this.handleBookingDeletion}
           bookingToRevert={this.state.bookingToRevert}
+          offerIsAvailable={this.props.offer.available}
           closeRevertBookingDialog={this.closeRevertBookingDialog}
         />
       </Grid>

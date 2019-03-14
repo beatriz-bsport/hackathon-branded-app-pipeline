@@ -13,10 +13,13 @@ import type { TFunction } from 'react-i18next';
 import RedButton from '../../components/button/RedButton.component';
 
 type Props = {
-  t: TFunction,
+  offerIsAvailable: boolean,
   bookingToRevert: Booking,
+
   closeRevertBookingDialog: () => void,
   handleBookingDeletion: () => void,
+
+  t: TFunction,
 };
 
 export function RevertBookingDialog(props: Props) {
@@ -42,7 +45,10 @@ export function RevertBookingDialog(props: Props) {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            {t('booking.revertBookingExplain')(bookingToRevert.user.name)}
+            {t('booking.revertBookingExplain')(
+              bookingToRevert.user.name,
+              props.offerIsAvailable,
+            )}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -68,7 +74,10 @@ export function RevertBookingDialog(props: Props) {
       </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          {t('booking.revertBookingWithInvoiceImpossibleExplain')}
+          {t(
+            'booking.revertBookingWithInvoiceImpossibleExplain',
+            props.offerIsAvailable,
+          )}
         </DialogContentText>
       </DialogContent>
       <DialogActions>

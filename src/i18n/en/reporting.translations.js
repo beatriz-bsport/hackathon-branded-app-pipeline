@@ -18,6 +18,11 @@ export default {
     product_price: 'Prix',
     product: 'Product',
     product_type: 'Type de produit',
+    start_date: 'Start date',
+    price: 'Price',
+    membership_duration: 'Duration',
+    membership_name: 'Payment pack name',
+    amortized_price: 'Deffered amount',
   },
   payment_method: {
     cash: 'Cash',

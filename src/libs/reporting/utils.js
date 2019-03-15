@@ -7,6 +7,8 @@ import LensIcon from '@material-ui/icons/Lens';
 import EventIcon from '@material-ui/icons/Event';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
+import CategoryIcon from '@material-ui/icons/Category';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 
 import type { ReportCategoryEnum, ReportCategory } from './types';
 
@@ -41,9 +43,24 @@ export const CATEGORIES: ReportCategory[] = [
     name: 'Paiements',
     icon: CreditCardIcon,
   },
+  {
+    id: 'memberships',
+    name: 'Abonnements',
+    icon: AccountBoxIcon,
+  },
 ];
 
-export function getIconFromCategory(category: ReportCategoryEnum): * {
-  const cat = CATEGORIES.find((c) => c.id === category);
+export function getCategory(categoryID: ReportCategoryEnum): * {
+  return (
+    CATEGORIES.find((c) => c.id === categoryID) || {
+      icon: CategoryIcon,
+      name: categoryID,
+      id: categoryID,
+    }
+  );
+}
+
+export function getIconFromCategory(categoryID: ReportCategoryEnum): * {
+  const cat = getCategory(categoryID);
   return (cat && cat.icon) || LensIcon;
 }

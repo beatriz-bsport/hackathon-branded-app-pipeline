@@ -29,7 +29,11 @@ type Props = {
   classes: { [string]: string },
 };
 
-function getConverter({ datatype }, classes, t) {
+function getConverter(column, classes, t) {
+  if (!column || !column.datatype) {
+    return (value) => ({ value });
+  }
+  const { datatype } = column;
   return (value) => {
     if (datatype === 'price') {
       return {
@@ -54,7 +58,12 @@ function getColumn(metadata, report, column) {
   const reportMetadata = metadata.value.find(
     (r) => r.category === report.category,
   );
-  return reportMetadata.columns.find((c) => c.identifier === column);
+  return (
+    reportMetadata.columns.find((c) => c.identifier === column) || {
+      identifier: column,
+      datatype: 'string',
+    }
+  );
 }
 
 export function ReportTable(props: Props) {

@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
 
-import { CATEGORIES } from './utils';
+import { getCategory } from './utils';
 import type { ReportCategoryEnum } from './types';
 
 type Props = {
@@ -23,7 +23,7 @@ export function ReportCategorySelector({
   selected,
   categories,
 }: Props) {
-  const cats = categories.map((c) => CATEGORIES.find((b) => b.id === c));
+  const cats = categories.map((c) => getCategory(c));
   return (
     <div>
       {cats.map((category) => {

@@ -34,17 +34,20 @@ import { Moment } from '../../i18n';
 
 import MemberNotePanel from './detail/MemberNotePanel.component';
 import MemberSummaryCard from './detail/MemberSummaryCard.component';
+import InvoiceList from './detail/InvoiceList.component';
 
 type Props = {
   bookingLoading: boolean,
+  memberId: number,
+
   member: MemberDetailed,
+  invoices: Array<Invoice>,
   allMembers: Array<MemberSimplified>,
   bookings: Array<Booking>,
   bookingOptions: Array<BookingOption>,
-  classes: Object,
   paymentPacks: Array<PaymentPack>,
-  memberId: number,
 
+  onInvoiceClick: (uuid: string) => void,
   fetchMember: (id: number) => void,
   fetchMemberBookings: (id: number) => void,
   confirmBookingAttendance: (id: number) => void,
@@ -57,6 +60,7 @@ type Props = {
   deleteNote: ({ memberId: number, noteId: number }) => void,
 
   t: TFunction,
+  classes: Object,
 };
 
 type State = {
@@ -284,25 +288,76 @@ export class Member extends Component<Props, State> {
     />
   );
 
-  renderButtons = () => {
-    const { classes, t } = this.props;
+  renderInvoices = () => {
+    const { classes, t, invoices } = this.props;
     return (
-      <Grid container direction="row" justify="flex-start" spacing={16}>
+      <ExpansionPanel>
+        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography className={classes.headingExpansionPanel}>
+            {`${t('member.showInvoices')} (${invoices.length})`}
+          </Typography>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails style={{ padding: 0 }}>
+          <div style={{ width: '100%' }}>
+            <Divider />
+            <InvoiceList
+              invoices={invoices}
+              onClick={this.props.onInvoiceClick}
+            />
+          </div>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+    );
+  };
+
+  renderButtons = () => {
+    const { classes, t, member } = this.props;
+    return (
+      <Grid
+        container
+        direction="row"
+        justify="space-between"
+        alignItems="flex-end"
+      >
         <Grid item>
-          <Button color="primary" variant="contained" onClick={this.billMember}>
-            <AttachMoneyIcon className={classes.leftIcon} />
-            {t('payment.toBill')}
-          </Button>
+          <Grid container direction="row" justify="flex-start" spacing={16}>
+            <Grid item>
+              <Button
+                color="primary"
+                variant="contained"
+                onClick={this.billMember}
+              >
+                <AttachMoneyIcon className={classes.leftIcon} />
+                {t('payment.toBill')}
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button
+                onClick={this.editMember}
+                color="secondary"
+                variant="outlined"
+              >
+                <EditIcon className={classes.leftIcon} />
+                {t('common.edit')}
+              </Button>
+            </Grid>
+          </Grid>
         </Grid>
-        <Grid item>
-          <Button
-            onClick={this.editMember}
-            color="secondary"
-            variant="outlined"
+        <Grid item className={classes.accountBalance}>
+          <Typography variant="subtitle2" inline>
+            {t('payment.creditAccountBalance')}
+          </Typography>
+          <Typography
+            inline
+            variant="subtitle2"
+            color={
+              parseFloat(member.credit_account_balance) > 0
+                ? 'primary'
+                : 'error'
+            }
           >
-            <EditIcon className={classes.leftIcon} />
-            {t('common.edit')}
-          </Button>
+            {member.credit_account_balance} €
+          </Typography>
         </Grid>
       </Grid>
     );
@@ -350,6 +405,16 @@ export class Member extends Component<Props, State> {
             </Typography>
             {this.renderNotePanel()}
           </Grid>
+          <Grid item xs={12} md={6}>
+            <Typography
+              variant="h6"
+              align="right"
+              className={classes.expansionTitle}
+            >
+              {t('common.invoices')}
+            </Typography>
+            {this.renderInvoices()}
+          </Grid>
         </Grid>
       );
     }
@@ -380,6 +445,11 @@ const styles = (theme) => ({
   },
   leftIcon: {
     marginRight: theme.spacing.unit,
+  },
+  accountBalance: {
+    backgroundColor: '#F8F8F8',
+    padding: theme.spacing.unit * 2,
+    border: '2px solid #E8E8E8',
   },
 });
 

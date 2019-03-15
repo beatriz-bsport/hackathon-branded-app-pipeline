@@ -7,26 +7,33 @@ import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push as pushRouter } from 'react-router-redux';
-import { compose } from 'recompose';
+import { withProps, compose } from 'recompose';
 import { withRouter } from 'react-router';
 
-import InvoiceForm from '../../components/form/InvoiceForm.component';
 import { invoice as invoiceActions } from '../../actions';
 import withDrawer from '../../hocs/with-drawer.hoc';
 
 import type { PaymentPack, Offer, Activity, Invoice } from '../../api/types';
 
+import InvoiceForm from '../../libs/invoice/InvoiceForm.component';
+
 type Props = {
   loading: boolean,
   updatingInvoice: boolean,
+
+  invoice: Invoice,
+  member: Member,
+
   offers: Array<Offer>,
-  paymentPacks: Array<PaymentPack>,
   activities: Array<Activity>,
+  paymentPacks: Array<PaymentPack>,
+
+  goToInvoiceList: () => void,
+  goToMemberPage: () => void,
   fetchInvoice: (id: number) => void,
   updatePaymentStatus: (uuid: number, status: boolean) => void,
   updateInvoice: (invoiceData: InvoiceData) => void,
-  goToInvoiceList: () => void,
-  invoice: Invoice,
+
   t: TFunction,
   match: Object,
   resetCreateOrUpdateStatus: () => void,
@@ -55,6 +62,7 @@ export class InvoiceFormPage extends Component<Props> {
       offers,
       paymentPacks,
       goToInvoiceList,
+      goToMemberPage,
       updatingInvoice,
       t,
     } = this.props;
@@ -75,7 +83,7 @@ export class InvoiceFormPage extends Component<Props> {
         },
       ];
     } else {
-      uneditableInvoiceItems = [...invoice.invoice_items]; // for mutability
+      uneditableInvoiceItems = [...(invoice.invoice_items || [])]; // for mutability
     }
     return (
       <InvoiceForm
@@ -83,61 +91,60 @@ export class InvoiceFormPage extends Component<Props> {
         activities={activities}
         paymentPacks={paymentPacks}
         editMode
-        uneditableInvoiceItems={uneditableInvoiceItems}
-        uneditablePayments={invoice.payments}
+        invoice={invoice}
+        uneditableInvoiceItems={uneditableInvoiceItems || []}
+        uneditablePayments={invoice.payments || []}
         updatePaymentStatus={this.updatePaymentStatus}
         createOrUpdate={this.updateInvoice}
         onCancel={goToInvoiceList}
+        goToMemberPage={goToMemberPage}
         processing={updatingInvoice}
         uneditableVoucher={invoice.voucher || 0}
+        member={this.props.member}
       />
     );
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    loading: state.invoice.loadingSpecific,
-    offers: state.offer.calendar,
-    activities: state.activity.all,
-    paymentPacks: (state.paymentPack.all || []).filter((pp) => !pp.disabled),
-    invoice: state.invoice.invoice,
-    updatingInvoice: state.invoice.createOrUpdatePending,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchInvoice(uuid) {
-      dispatch(invoiceActions.fetchSpecificInvoice(uuid));
-    },
-    updatePaymentStatus(uuid, newStatus) {
-      dispatch(invoiceActions.updatePaymentStatus(uuid, newStatus));
-    },
-    goToInvoiceList() {
-      dispatch(pushRouter('/invoice'));
-    },
-    updateInvoice(invoiceData: InvoiceData) {
-      dispatch(invoiceActions.createOrUpdateInvoice(invoiceData));
-    },
-    resetCreateOrUpdateStatus() {
-      dispatch(invoiceActions.createOrUpdateReset());
-    },
-  };
-}
-
-/* i have used withProps over withPropsOnChange because
-the last one did not correctly when page changed */
-
 export default compose(
   withNamespaces(),
   withRouter,
   connect(
-    mapStateToProps,
-    mapDispatchToProps,
+    (state) => ({
+      loading: state.invoice.loadingSpecific,
+      offers: state.offer.calendar,
+      activities: state.activity.all,
+      paymentPacks: (state.paymentPack.all || []).filter((pp) => !pp.disabled),
+      invoice: state.invoice.invoice,
+      updatingInvoice: state.invoice.createOrUpdatePending,
+      members: state.member.all,
+    }),
+    {
+      fetchInvoice: invoiceActions.fetchSpecificInvoice,
+      updatePaymentStatus: invoiceActions.updatePaymentStatus,
+      push: pushRouter,
+      updateInvoice: invoiceActions.createOrUpdateInvoice,
+      resetCreateOrUpdateStatus: invoiceActions.createOrUpdateReset,
+    },
   ),
+  withProps(({ invoice, members, push }) => {
+    if (invoice && invoice.member) {
+      return {
+        goToInvoiceList: () => push('/invoice'),
+        goToMemberPage: () => push(`/member/${invoice.member}`),
+        member: members.find((m) => m.id === invoice.member) || null,
+      };
+    }
+    return {
+      member: null,
+      goToMemberPage: null,
+      goToInvoiceList: () => push('/invoice'),
+    };
+  }),
   withDrawer(
-    ({ t, match }) =>
-      `${t('payment.invoice')} - ${match.params.id.slice(0, 8).toUpperCase()}`,
+    ({ t, match, member }) =>
+      `${t('payment.invoice')} - ${match.params.id
+        .slice(0, 8)
+        .toUpperCase()} - ${member ? member.name : ''}`,
   ),
 )(InvoiceFormPage);

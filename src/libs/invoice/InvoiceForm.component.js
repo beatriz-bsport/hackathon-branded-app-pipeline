@@ -13,47 +13,60 @@ import {
 } from '@material-ui/core';
 import CancelIcon from '@material-ui/icons/Cancel';
 import AddIcon from '@material-ui/icons/Add';
+import DownloadIcon from '@material-ui/icons/Attachment';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import PersonIcon from '@material-ui/icons/Person';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import { CREDIT_ACCOUNT as PAYMENT_METHOD_CREDIT_ACCOUNT } from '@bsport/common/lib/master-data/payment-methods';
+import sum from 'lodash/sum';
 
-import {
-  InvoiceItemSelector,
-  InvoiceVoucher,
-  InvoiceItemList,
-  UnevenInvoiceDialog,
-} from '../invoice';
-import PaymentForm from './PaymentForm.component';
-import PaymentList from './PaymentList.component';
+import PaymentForm from './form/PaymentForm.component';
+import PaymentList from './form/PaymentList.component';
 import { formatAsDate } from '../../datetime';
 import { Moment } from '../../i18n';
 
-import type { PaymentPack, InvoiceItem } from '../../api/types';
-import type { InvoiceDataFront } from './types';
+import type { Invoice, PaymentPack, InvoiceItem } from '../../api/types';
+import type { InvoiceDataFront } from './form/types';
+
+import InvoiceVoucher from './form/InvoiceVoucher.component';
+import UnevenInvoiceDialog from './dialog/UnevenInvoiceDialog.component';
+import InvoiceItemList from './invoice-item/InvoiceItemList.component';
+import InvoiceItemSelector from './invoice-item/InvoiceItemSelector.component';
 
 type Props = {
+  editMode: ?boolean,
+  processing: boolean,
+  uneditableVoucher: ?number,
+
+  member: Member,
+  invoice: ?Invoice,
+
   paymentPacks: Array<PaymentPack>,
   shopItems: Array<ShopItem>,
   uneditablePayments: Array<Payment>,
   uneditableInvoiceItems: Array<InvoiceItem>,
-  editMode: ?boolean,
-  processing: boolean,
+
   onCancel: () => void,
+  goToMemberPage: () => void,
   createOrUpdate: (invoiceData: InvoiceDataFront) => void,
   updatePaymentStatus: (uuid: string, payment_received: boolean) => void,
-  uneditableVoucher: ?number,
+
   t: TFunction,
   classes: Object,
 };
 
 type State = {
-  paymentPackInvoiceItems: Array<InvoiceItem>,
-  shopItemInvoiceItems: Array<InvoiceItem>,
-  voucher: ?number,
-  paymentItems: Array<PaymentItemData>,
   step: number,
   unevenInvoiceAlertOpen: boolean,
+
+  voucher: ?number,
+  topUp: ?number,
+
+  paymentItems: Array<PaymentItemData>,
+  shopItemInvoiceItems: Array<InvoiceItem>,
+  paymentPackInvoiceItems: Array<InvoiceItem>,
 };
 
 const STEP_ADD_INVOICE_ITEMS = 0;
@@ -71,6 +84,7 @@ export class InvoiceForm extends Component<Props, State> {
       shopItemInvoiceItems: [],
       voucher: 0,
       paymentItems: [],
+      topUp: 0,
       step: props.editMode ? STEP_ADD_INVOICE_PAYMENTS : STEP_ADD_INVOICE_ITEMS,
       unevenInvoiceAlertOpen: false,
     };
@@ -89,10 +103,12 @@ export class InvoiceForm extends Component<Props, State> {
       paymentPackInvoiceItems,
       shopItemInvoiceItems,
       paymentItems,
+      topUp,
     } = this.state;
 
     const data = {
       voucher,
+      top_up: topUp,
       shop_item_ids: shopItemInvoiceItems.map((siii) => siii.id),
       payment_pack_ids: paymentPackInvoiceItems.map((ppii) => [
         ppii.id,
@@ -106,16 +122,19 @@ export class InvoiceForm extends Component<Props, State> {
   cancelPayments = () => {
     if (this.props.editMode) {
       this.props.onCancel();
-    } else {
-      this.setState({
-        step: STEP_ADD_INVOICE_ITEMS,
-        paymentItems: [],
-      });
     }
+    this.setState({
+      step: STEP_ADD_INVOICE_ITEMS,
+      paymentItems: [],
+    });
   };
 
   goToPayment = () => {
     this.setState({ step: STEP_ADD_INVOICE_PAYMENTS });
+  };
+
+  deleteTopUp = () => {
+    this.setState({ topUp: 0 });
   };
 
   getTotalPayment = () => {
@@ -131,12 +150,21 @@ export class InvoiceForm extends Component<Props, State> {
     );
   };
 
+  getUpdatedCreditAccountBalance = () =>
+    (this.props.member.credit_account_balance || 0) -
+    sum(
+      this.state.paymentItems
+        .filter((pi) => pi.payment_method === PAYMENT_METHOD_CREDIT_ACCOUNT.id)
+        .map((pi) => parseFloat(pi.price)),
+    );
+
   getFinalPrice = () => {
     const { uneditableInvoiceItems } = this.props;
     const {
       shopItemInvoiceItems,
       paymentPackInvoiceItems,
       voucher,
+      topUp,
     } = this.state;
 
     const sumPack = paymentPackInvoiceItems.reduce(getTotal, 0);
@@ -147,6 +175,7 @@ export class InvoiceForm extends Component<Props, State> {
     );
 
     return (
+      topUp +
       sumPack -
       (voucher || 0) +
       sumUneditableInvoiceItems +
@@ -195,10 +224,6 @@ export class InvoiceForm extends Component<Props, State> {
     }));
   };
 
-  submitFinalizedInvoice = () => {
-    console.log(this.state);
-  };
-
   addPaymentItem = (paymentItem) => {
     this.setState((prevState) => ({
       paymentItems: [...prevState.paymentItems, paymentItem],
@@ -225,6 +250,12 @@ export class InvoiceForm extends Component<Props, State> {
     }
   };
 
+  onTopUp = (amount: number) => {
+    this.setState((prevState) => ({
+      topUp: prevState.topUp + amount,
+    }));
+  };
+
   onAddShopItem = (shopItemId: number) => {
     const shopItem = this.props.shopItems.find((si) => si.id === shopItemId);
     if (shopItem) {
@@ -242,46 +273,84 @@ export class InvoiceForm extends Component<Props, State> {
     }
   };
 
+  downloadInvoicePdf = () => {
+    window.location.href = this.props.invoice.stripe_invoice_pdf;
+  };
+
+  createOrDownloadButton = () => {
+    const { processing, invoice, classes, t } = this.props;
+    if (!invoice || !invoice.stripe_invoice_pdf) {
+      return (
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={this.createInvoice}
+        >
+          {processing ? (
+            <CircularProgress
+              className={classes.leftIcon}
+              size={20}
+              color="inherit"
+            />
+          ) : (
+            <AddIcon className={classes.leftIcon} />
+          )}
+          {t('common.save')}
+        </Button>
+      );
+    }
+    return (
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={this.downloadInvoicePdf}
+      >
+        <DownloadIcon className={classes.leftIcon} />
+        {t('common.download')}
+      </Button>
+    );
+  };
+
   renderBottomActionButton = () => {
     const { step } = this.state;
-    const { processing, classes, t } = this.props;
+    const { classes, t } = this.props;
 
     if (step === STEP_ADD_INVOICE_PAYMENTS) {
       return (
         <Grid
           container
           direction="row"
-          spacing={16}
           className={classes.paymentSelectorButtons}
-          justify="flex-end"
+          justify="space-between"
         >
           <Grid item>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={this.cancelPayments}
-            >
-              <ArrowBackIcon className={classes.leftIcon} />
-              {t('common.previous')}
-            </Button>
+            {this.props.goToMemberPage ? (
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={this.props.goToMemberPage}
+              >
+                <PersonIcon className={classes.leftIcon} />
+                {this.props.member.name}
+              </Button>
+            ) : (
+              <div />
+            )}
           </Grid>
           <Grid item>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={this.createInvoice}
-            >
-              {processing ? (
-                <CircularProgress
-                  className={classes.leftIcon}
-                  size={20}
-                  color="inherit"
-                />
-              ) : (
-                <AddIcon className={classes.leftIcon} />
-              )}
-              {t('common.save')}
-            </Button>
+            <Grid container direction="row" spacing={16}>
+              <Grid item>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={this.cancelPayments}
+                >
+                  <ArrowBackIcon className={classes.leftIcon} />
+                  {t('common.previous')}
+                </Button>
+              </Grid>
+              <Grid item>{this.createOrDownloadButton()}</Grid>
+            </Grid>
           </Grid>
         </Grid>
       );
@@ -290,36 +359,54 @@ export class InvoiceForm extends Component<Props, State> {
       <Grid
         container
         direction="row"
-        spacing={16}
         className={classes.paymentSelectorButtons}
-        justify="flex-end"
+        justify="space-between"
       >
         <Grid item>
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={this.props.onCancel}
-          >
-            <CancelIcon className={classes.leftIcon} />
-            {t('common.cancel')}
-          </Button>
+          {this.props.goToMemberPage ? (
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={this.props.goToMemberPage}
+            >
+              <PersonIcon className={classes.leftIcon} />
+              {this.props.member.name}
+            </Button>
+          ) : (
+            <div />
+          )}
         </Grid>
         <Grid item>
-          <Button
-            onClick={this.goToPayment}
-            variant="contained"
-            color="primary"
-            disabled={
-              !(
-                (this.state.paymentPackInvoiceItems || []).length ||
-                (this.state.shopItemInvoiceItems || []).length ||
-                (this.props.uneditableInvoiceItems || []).length
-              )
-            }
-          >
-            <AttachMoneyIcon className={classes.leftIcon} />
-            {t('payment.addThisPaymentItem')}
-          </Button>
+          <Grid container direction="row" spacing={16}>
+            <Grid item>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={this.props.onCancel}
+              >
+                <CancelIcon className={classes.leftIcon} />
+                {t('common.cancel')}
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button
+                onClick={this.goToPayment}
+                variant="contained"
+                color="primary"
+                disabled={
+                  !(
+                    (this.state.paymentPackInvoiceItems || []).length ||
+                    (this.state.shopItemInvoiceItems || []).length ||
+                    (this.props.uneditableInvoiceItems || []).length ||
+                    !!this.state.topUp
+                  )
+                }
+              >
+                <AttachMoneyIcon className={classes.leftIcon} />
+                {t('payment.addThisPaymentItem')}
+              </Button>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     );
@@ -336,6 +423,7 @@ export class InvoiceForm extends Component<Props, State> {
     const { step, paymentItems } = this.state;
     const finalPrice = this.getFinalPrice();
     const totalPayment = this.getTotalPayment();
+    const updatedCreditAccountBalance = this.getUpdatedCreditAccountBalance();
 
     if (step === STEP_ADD_INVOICE_ITEMS) {
       return (
@@ -348,9 +436,10 @@ export class InvoiceForm extends Component<Props, State> {
         >
           <Grid item style={{ flexGrow: 1 }}>
             <InvoiceItemSelector
-              onAddOffer={this.onAddOffer}
+              creditAccountBalance={updatedCreditAccountBalance}
               onAddPaymentPack={this.onAddPaymentPack}
               onAddShopItem={this.onAddShopItem}
+              onTopUp={this.onTopUp}
               paymentPacks={paymentPacks}
             />
           </Grid>
@@ -372,7 +461,16 @@ export class InvoiceForm extends Component<Props, State> {
         alignItems="stretch"
       >
         <Grid item className={classes.paymentItemFormContainer}>
-          <PaymentForm onSubmit={this.addPaymentItem} />
+          {this.props.invoice && this.props.invoice.stripe_invoice_pdf ? (
+            <Typography style={{ padding: 12 }}>
+              {t('payment.invoiceFinalizedThusNotEditable')}
+            </Typography>
+          ) : (
+            <PaymentForm
+              onSubmit={this.addPaymentItem}
+              creditAccountBalance={updatedCreditAccountBalance}
+            />
+          )}
         </Grid>
         <Grid item className={classes.leftPanelSubBlock}>
           <Grid container direction="column" spacing={16}>
@@ -443,6 +541,7 @@ export class InvoiceForm extends Component<Props, State> {
     const {
       paymentPackInvoiceItems,
       shopItemInvoiceItems,
+      topUp,
       voucher,
     } = this.state;
 
@@ -450,15 +549,16 @@ export class InvoiceForm extends Component<Props, State> {
       <Grid container direction="column" justify="space-between">
         <Grid item>
           <InvoiceItemList
-            deleteOfferInvoiceItem={this.deleteOfferInvoiceItem}
             deletePPackInvoiceItem={this.deletePPackInvoiceItem}
             deleteShopItemInvoiceItem={this.deleteShopItemInvoiceItem}
             deleteVoucher={this.deleteVoucher}
+            deleteTopUp={this.deleteTopUp}
             paymentPackInvoiceItems={paymentPackInvoiceItems}
             shopItemInvoiceItems={shopItemInvoiceItems}
             uneditableInvoiceItems={uneditableInvoiceItems || []}
-            voucher={voucher}
             uneditableVoucher={parseFloat(this.props.uneditableVoucher)}
+            voucher={voucher}
+            topUp={topUp}
           />
         </Grid>
         <Grid item>{this.renderTotal()}</Grid>
@@ -537,6 +637,7 @@ const styles = (theme) => ({
   },
   paymentItemFormContainer: {
     backgroundColor: '#F8F8F8',
+    border: '2px solid #E8E8E8',
   },
   divider: {
     marginTop: theme.spacing.unit,

@@ -16,7 +16,6 @@ import OfferFormPage from './OfferFormPage.component';
 import Settings from './settings/Settings.component';
 
 import { MarketingDashboard, MarketingRule } from './marketing';
-import { InvoiceList, InvoiceCreate, InvoiceEdit } from './invoice';
 import OfferManagement from './offer-management/OfferManagement.page';
 import SearchResults from './SearchResults.component';
 import ShopManager from './shop/ShopManager.component';
@@ -29,6 +28,7 @@ import MetaActivity from './meta-activity/MetaActivity.router';
 import PaymentPack from './payment-pack/PaymentPack.router';
 import Member from './member/Member.router';
 import WorkshopActivity from './workshop-activity/WorkshopActivity.router';
+import Invoice from './invoice/Invoice.router';
 
 type Props = {
   refresh: () => void,
@@ -66,14 +66,8 @@ export class Backoffice extends Component<Props> {
               <Route exact path="/calendar" component={PlanningRouter} />
               <Route exact path="/add-offers/:id" component={OfferFormPage} />
               <Route path="/coach" component={Coach} />
-              <Route path="/invoice/:id" component={InvoiceEdit} />
-              <Route path="/invoice" component={InvoiceList} />
               <Route path="/payment-pack" component={PaymentPack} />
-              <Route
-                exact
-                path="/member/add-invoice/:id"
-                component={InvoiceCreate}
-              />
+              <Route path="/invoice" component={Invoice} />
               <Route path="/member" component={Member} />
               <Route path="/activity" component={MetaActivity} />
               <Route path="/workshop-activity" component={WorkshopActivity} />

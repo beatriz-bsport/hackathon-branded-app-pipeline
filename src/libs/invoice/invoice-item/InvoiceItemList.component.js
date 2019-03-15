@@ -16,22 +16,30 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 type Props = {
+  compact: boolean,
+  voucher: ?number,
+  topUp: ?number,
+  uneditableVoucher: ?number,
+
   paymentPackInvoiceItems: Array<InvoiceItem>,
   shopItemInvoiceItems: Array<InvoiceItem>,
-  voucher: ?number,
   uneditableInvoiceItems: ?Array<InvoiceItem>,
-  deleteOfferInvoiceItem: (id: number) => void,
+
+  deleteTopUp: () => void,
+  deleteVoucher: () => void,
+
   deletePPackInvoiceItem: (id: number) => void,
   deleteShopItemInvoiceItem: (id: number) => void,
-  deleteVoucher: () => void,
-  uneditableVoucher: ?number,
-  compact: boolean,
+
   classes: Object,
   t: TFunction,
 };
 
 export class InvoiceItemList extends Component<Props> {
-  renderInvoiceItem = (invoiceItem, onDelete) => (
+  renderInvoiceItem = (
+    invoiceItem: InvoiceItem,
+    onDelete: ?(invoiceItemId: number) => void,
+  ) => (
     <ListItem divider key={invoiceItem.id} dense disabled={onDelete === null}>
       <ListItemText
         primary={invoiceItem.name}
@@ -44,7 +52,7 @@ export class InvoiceItemList extends Component<Props> {
           </Grid>
           <Grid item>
             <IconButton
-              onClick={() => onDelete(invoiceItem.id)}
+              onClick={() => (onDelete || (() => {}))(invoiceItem.id)}
               disabled={onDelete === null}
               color="primary"
             >
@@ -56,13 +64,10 @@ export class InvoiceItemList extends Component<Props> {
     </ListItem>
   );
 
-  renderOfferInvoiceItem = (invoiceItem) =>
-    this.renderInvoiceItem(invoiceItem, this.props.deleteOfferInvoiceItem);
-
-  renderPPackInvoiceItem = (invoiceItem) =>
+  renderPPackInvoiceItem = (invoiceItem: InvoiceItem) =>
     this.renderInvoiceItem(invoiceItem, this.props.deletePPackInvoiceItem);
 
-  renderShopItemInvoiceItem = (invoiceItem) =>
+  renderShopItemInvoiceItem = (invoiceItem: InvoiceItem) =>
     this.renderInvoiceItem(invoiceItem, this.props.deleteShopItemInvoiceItem);
 
   renderVoucherInvoiceItem = (voucher: number, editable: boolean) => {
@@ -78,7 +83,20 @@ export class InvoiceItemList extends Component<Props> {
     );
   };
 
-  renderUneditableItems = (invoiceItem) =>
+  renderTopUpInvoiceItem = (topUp: number, editable: boolean) => {
+    const { t } = this.props;
+    const topUpAsInvoiceItem = {
+      name: t('payment.topUp'),
+      price: topUp,
+      id: -2,
+    };
+    return this.renderInvoiceItem(
+      topUpAsInvoiceItem,
+      editable ? this.props.deleteTopUp : null,
+    );
+  };
+
+  renderUneditableItems = (invoiceItem: InvoiceItem) =>
     this.renderInvoiceItem(invoiceItem, null);
 
   render() {
@@ -90,6 +108,7 @@ export class InvoiceItemList extends Component<Props> {
       uneditableVoucher,
       compact,
       classes,
+      topUp,
     } = this.props;
     return (
       <div className={compact ? classes.compactContainer : classes.container}>
@@ -97,10 +116,10 @@ export class InvoiceItemList extends Component<Props> {
           {(uneditableInvoiceItems || []).map((ii) =>
             this.renderUneditableItems(ii),
           )}
-          {// prettier-ignore
-          paymentPackInvoiceItems.map((ii) => this.renderPPackInvoiceItem(ii))}
+          {paymentPackInvoiceItems.map((ii) => this.renderPPackInvoiceItem(ii))}
           {shopItemInvoiceItems.map((ii) => this.renderShopItemInvoiceItem(ii))}
           {voucher ? this.renderVoucherInvoiceItem(voucher, true) : null}
+          {topUp ? this.renderTopUpInvoiceItem(topUp, true) : null}
           {uneditableVoucher
             ? this.renderVoucherInvoiceItem(uneditableVoucher, false)
             : null}

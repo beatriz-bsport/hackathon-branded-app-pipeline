@@ -18,10 +18,8 @@ type Props = {
   finalPrice: number,
   totalPayment: number,
   voucher: number,
-  cb: number,
-  cash: number,
-  check: number,
-  handlePaymentChange: (string) => (number) => void,
+  paymentItems: Array<{ id: number, text: string, amount: number }>,
+  handlePaymentChange: (number) => (number) => void,
   handleVoucher: (number) => void,
   onSubmit: () => void,
   disabled: boolean,
@@ -33,12 +31,10 @@ export function PaymentInfo(props: Props) {
   const {
     classes,
     t,
+    paymentItems,
     finalPrice,
     totalPayment,
     voucher,
-    cb,
-    cash,
-    check,
     handlePaymentChange,
     handleVoucher,
     onSubmit,
@@ -47,45 +43,25 @@ export function PaymentInfo(props: Props) {
   return (
     <div>
       <div className={classes.paymentContainer}>
-        <Grid
-          container
-          direction="row"
-          justify="space-between"
-          alignItems="center"
-        >
-          <Grid item>
-            <Typography>{t('paymentMethod.CB')}</Typography>
+        {paymentItems.map((pi) => (
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="center"
+          >
+            <Grid item>
+              <Typography>{t(`payment.paymentMethods.${pi.text}`)}</Typography>
+            </Grid>
+            <Grid item>
+              <PriceInput
+                value={pi.amount}
+                onChange={handlePaymentChange(pi.id)}
+              />
+            </Grid>
           </Grid>
-          <Grid item>
-            <PriceInput value={cb} onChange={handlePaymentChange('cb')} />
-          </Grid>
-        </Grid>
-        <Grid
-          container
-          direction="row"
-          justify="space-between"
-          alignItems="center"
-        >
-          <Grid item>
-            <Typography>{t('paymentMethod.CASH')}</Typography>
-          </Grid>
-          <Grid item>
-            <PriceInput value={cash} onChange={handlePaymentChange('cash')} />
-          </Grid>
-        </Grid>
-        <Grid
-          container
-          direction="row"
-          justify="space-between"
-          alignItems="center"
-        >
-          <Grid item>
-            <Typography>{t('paymentMethod.CHECK')}</Typography>
-          </Grid>
-          <Grid item>
-            <PriceInput value={check} onChange={handlePaymentChange('check')} />
-          </Grid>
-        </Grid>
+        ))}
+
         <Grid
           container
           direction="row"

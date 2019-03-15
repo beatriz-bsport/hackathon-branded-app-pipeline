@@ -2,7 +2,23 @@
 import React from 'react';
 import { withStyles, Divider, Typography, Paper } from '@material-ui/core';
 import { withNamespaces } from 'react-i18next';
-import QuickInvoice from './quick-invoice/QuickInvoice.component';
+import type { TFunction } from 'react-i18next';
+import QuickInvoice from '../../libs/invoice/quick-invoice/QuickInvoice.component';
+
+type Props = {
+  classes: Object,
+  t: TFunction,
+  unevenSavedInvoices: Array<Invoice>,
+  quickInvoices: Array<Invoice>,
+  members: Array<Member>,
+  createInvoice: (InvoiceData) => void,
+  closeQuickInvoice: (memberId: number) => void,
+  saveQuickInvoice: (InvoiceData) => void,
+  paymentPacks: Array<PaymentPack>,
+  shopItems: Array<ShopItem>,
+  offers: Array<Offer>,
+  activities: Array<Activity>,
+};
 
 export function QuickInvoicePanel(props: Props) {
   const {

@@ -5,7 +5,7 @@ import { Grid, Button } from '@material-ui/core';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import PriceInput from '../input/PriceInput.component';
+import PriceInput from '../../../components/input/PriceInput.component';
 
 type Props = {
   onUpdateVoucher: (price: number) => void,
@@ -19,7 +19,7 @@ type State = {
 export class InvoiceVoucher extends Component<Props, State> {
   state = { voucher: 0 };
 
-  onChange = (event) => {
+  onChange = (event: SyntheticEvent<>) => {
     this.setState({ voucher: parseInt(event.target.value, 10) });
   };
 

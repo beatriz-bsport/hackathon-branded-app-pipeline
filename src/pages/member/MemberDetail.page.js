@@ -30,6 +30,8 @@ type Props = {
   memberLoading: boolean,
   bookingLoading: boolean,
   member: MemberDetailed,
+
+  invoices: Aray<Invoice>,
   allMembers: Array<MemberSimplified>,
   bookings: Array<Booking>,
   bookingOptions: Array<BookingOption>,
@@ -37,6 +39,7 @@ type Props = {
   id: number,
   paymentPacks: Array<PaymentPack>,
 
+  pushToInvoice: (uuid: string) => void,
   fetchMember: (id: number) => void,
   fetchMemberBookings: (id: number) => void,
   confirmBookingAttendance: (id: number) => void,
@@ -83,6 +86,8 @@ export class Member extends Component<Props> {
               decrementCredit={this.props.decrementCredit}
               createOrUpdateNote={this.props.createOrUpdateNote}
               deleteNote={this.props.deleteNote}
+              invoices={this.props.invoices}
+              onInvoiceClick={this.props.pushToInvoice}
             />
           </Grid>
           <Grid item xs={12}>
@@ -112,6 +117,7 @@ function mapStateToProps(state, { id }) {
     bookings: state.booking.all,
     bookingOptions: state.booking.options,
     paymentPacks: state.paymentPack.all,
+    invoices: state.invoice.all.filter((inv) => inv.member === id),
   };
 }
 function mapDispatchToProps(dispatch) {
@@ -129,13 +135,16 @@ function mapDispatchToProps(dispatch) {
       dispatch(bookingActions.discardBookingAttendance(bookingId));
     },
     billMember(id) {
-      dispatch(routerPush(`/member/add-invoice/${id}`));
+      dispatch(routerPush(`/invoice/add/member/${id}`));
     },
     editMember(id) {
       dispatch(routerPush(`/member/edit/${id}`));
     },
     goBack() {
       dispatch(goBack());
+    },
+    pushToInvoice(uuid: string) {
+      dispatch(routerPush(`/invoice/${uuid}`));
     },
     incrementCredit(consumerPackId) {
       dispatch(consumerPackActions.updateCredit(consumerPackId, 1));

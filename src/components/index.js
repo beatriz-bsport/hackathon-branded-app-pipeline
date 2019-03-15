@@ -31,16 +31,8 @@ import ConsumerModalContainer from './consumer/ConsumerModalContainer.component'
 import SignUpForm from './form/SignUpForm.component';
 import SMSCodeForm from './form/SMSCodeForm.component';
 import ConsumersPackSummaryTable from './payment-pack/ConsumersPackSummaryTable.component';
-import InvoiceForm from './form/InvoiceForm.component';
-import InvoiceItemList from './invoice/InvoiceItemList.component';
-import InvoiceItemSelector from './invoice/InvoiceItemSelector.component';
-import InvoiceVoucher from './invoice/InvoiceVoucher.component';
 
 export {
-  InvoiceVoucher,
-  InvoiceForm,
-  InvoiceItemList,
-  InvoiceItemSelector,
   SimpleModal,
   EditLiveOfferForm,
   DeleteOfferForm,

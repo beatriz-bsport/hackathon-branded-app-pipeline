@@ -13,6 +13,7 @@ export default {
   addMember: 'Add a member profile',
   showNotes: 'Show notes',
   showPaymentPack: 'Show pass',
+  showInvoices: 'Show invoices',
   row: {
     headers: {
       actions: 'Actions',

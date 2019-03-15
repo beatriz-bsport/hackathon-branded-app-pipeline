@@ -1,6 +1,7 @@
 // @flow
 
 import { push as pushRouter } from 'react-router-redux';
+import { createAction } from 'redux-actions';
 import api from '../api';
 import types from './invoice.types';
 import { snackbarSuccess, snackbarError } from './snackbar.actions';
@@ -11,6 +12,25 @@ import {
 } from './member.actions';
 import type { Dispatch } from '../state/types';
 import type { Invoice, Payment } from '../api/types';
+
+export const finalizeInvoiceActions = {
+  isLoading: createAction('INVOICE/FINALIZE/IS_LOADING'),
+  error: createAction('INVOICE/FINALIZE/ERROR'),
+  success: createAction('INVOICE/FINALIZE/SUCCESS'),
+};
+
+export function finalizeInvoice(uuid: string) {
+  return async (dispatch: Dispatch) => {
+    dispatch(finalizeInvoiceActions.isLoading({ uuid, loading: true }));
+    try {
+      const response = await api.invoice.finalize(uuid);
+      dispatch(finalizeInvoiceActions.success(response.data));
+    } catch (err) {
+      dispatch(finalizeInvoiceActions.error(err));
+    }
+    dispatch(finalizeInvoiceActions.isLoading({ uuid, loading: false }));
+  };
+}
 
 export function startCreateQuickInvoice() {
   return { type: types.INVOICE_QUICK_CREATE_START };

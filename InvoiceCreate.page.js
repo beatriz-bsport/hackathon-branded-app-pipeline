@@ -9,7 +9,6 @@ import { push as pushRouter } from 'react-router-redux';
 import { compose } from 'recompose';
 
 import type { TFunction } from 'react-i18next';
-import InvoiceForm from '../../components/form/InvoiceForm.component';
 import { Moment } from '../../i18n';
 import { formatAsDate } from '../../datetime';
 import { invoice as invoiceActions } from '../../actions';
@@ -18,12 +17,15 @@ import type { Member } from '../../api/types';
 import type { InvoiceDataFront } from '../../components/form/types';
 import withDrawer from '../../hocs/with-drawer.hoc';
 
+import InvoiceForm from '../../libs/invoice/InvoiceForm.component';
+
 type Props = {
   member: Member,
   paymentPacks: Array<PaymentPack>,
   activities: Array<Activity>,
   shopItems: Array<ShopItem>,
   goToInvoiceList: () => void,
+  accountCredit: AccountCredit,
   createInvoice: () => void,
   creatingInvoice: boolean,
   resetCreateOrUpdateStatus: () => void,

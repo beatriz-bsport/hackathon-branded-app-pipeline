@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import InvoiceItemSelector from './InvoiceItemSelector.component';
-import type { Offer, Activity, PaymentPack } from '../../api/types';
+import type { Offer, Activity, PaymentPack } from '../../../api/types';
 
 type Props = {
   t: (x: string) => string,

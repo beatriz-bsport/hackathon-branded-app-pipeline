@@ -7,38 +7,36 @@ import {
   FormControlLabel,
   FormGroup,
   Grid,
-  Paper,
+  Input,
+  MenuItem,
+  Select,
+  InputLabel,
   Button,
   TextField,
-  Tab,
-  Tabs,
   withStyles,
+  Typography,
 } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import NoteIcon from '@material-ui/icons/Note';
-import CreditCardIcon from '@material-ui/icons/CreditCard';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import { withNamespaces } from 'react-i18next';
 
-import {
+import PAYMENT_METHODS, {
   CB as PAYMENT_METHOD_CB,
-  CASH as PAYMENT_METHOD_CASH,
-  CHECK as PAYMENT_METHOD_CHECK,
-  CHECK_FR as PAYMENT_METHOD_CHECK_FR,
+  CREDIT_ACCOUNT as PAYMENT_METHOD_CREDIT_ACCOUNT,
 } from '@bsport/common/lib/master-data/payment-methods';
 
 import { Elements, StripeProvider } from 'react-stripe-elements';
 
-import Config from '../../config';
+import Config from '../../../config';
 
-import PriceInput from '../input/PriceInput.component';
-import StripeForm from './StripeForm.component';
+import PriceInput from '../../../components/input/PriceInput.component';
+import StripeForm from '../../../components/form/StripeForm.component';
 
 const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
 
 type Props = {
   t: (x: string) => string,
   classes: Object,
+  creditAccountBalance: number,
   onSubmit: (formData: PaymentFormData) => void,
 };
 
@@ -140,8 +138,29 @@ export class PaymentForm extends Component<Props, State> {
   };
 
   renderPaymentExtraInfo = () => {
-    const { t, classes } = this.props;
+    const { t, classes, creditAccountBalance } = this.props;
     const { payment_method, payment_note, price } = this.state;
+    if (payment_method === PAYMENT_METHOD_CREDIT_ACCOUNT.id) {
+      return (
+        <div className={classes.accountBalanceInfo}>
+          <Grid container justify="space-between" alignItems="center">
+            <Grid item>
+              <Typography variant="h6">
+                {t('payment.creditAccountBalance')}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography
+                variant="h6"
+                color={creditAccountBalance <= 0 ? 'error' : 'primary'}
+              >
+                {`${creditAccountBalance} €`}
+              </Typography>
+            </Grid>
+          </Grid>
+        </div>
+      );
+    }
     if (payment_method === PAYMENT_METHOD_CB.id) {
       return (
         <div className={classes.stripeFormContainer}>
@@ -172,47 +191,53 @@ export class PaymentForm extends Component<Props, State> {
     );
   };
 
+  handlePaymentMethodChange = (payment_method) => {
+    this.setState({ payment_method });
+  };
+
   render() {
     const { t, classes } = this.props;
     const { payment_method, payment_received, price } = this.state;
     return (
-      <Grid container direction="column" spacing={24}>
-        <Grid item>
-          <Paper>
-            <Tabs
-              value={payment_method}
-              indicatorColor="primary"
-              textColor="primary"
-              onChange={this.onChangePaymentMethod}
-              scrollable
-              scrollButtons="auto"
+      <Grid
+        container
+        direction="column"
+        spacing={24}
+        className={classes.innerForm}
+      >
+        <Grid item xs={12}>
+          <FormControl>
+            <InputLabel
+              shrink
+              htmlFor="payment-method-helper"
+              className={classes.paymentMethodLabel}
             >
-              <Tab
-                icon={<CreditCardIcon />}
-                label={t(`payment.paymentMethod.${PAYMENT_METHOD_CB.text}`)}
-                value={PAYMENT_METHOD_CB.id}
-              />
-              <Tab
-                icon={<NoteIcon />}
-                label={t(`payment.paymentMethod.${PAYMENT_METHOD_CHECK.text}`)}
-                value={PAYMENT_METHOD_CHECK.id}
-              />
-              <Tab
-                icon={<AttachMoneyIcon />}
-                label={t(`payment.paymentMethod.${PAYMENT_METHOD_CASH.text}`)}
-                value={PAYMENT_METHOD_CASH.id}
-              />
-              <Tab
-                icon={<NoteIcon />}
-                label={t(
-                  `payment.paymentMethod.${PAYMENT_METHOD_CHECK_FR.text}`,
-                )}
-                value={PAYMENT_METHOD_CHECK_FR.id}
-              />
-            </Tabs>
-          </Paper>
+              {t('payment.paymentMethod')}
+            </InputLabel>
+            <Select
+              fullWidth
+              value={payment_method}
+              className={classes.paymentMethodInput}
+              onChange={(event) =>
+                this.handlePaymentMethodChange(event.target.value)
+              }
+              input={
+                <Input
+                  className={classes.input}
+                  name="payment-method"
+                  id="payment-method-helper"
+                />
+              }
+            >
+              {PAYMENT_METHODS.map((pm) => (
+                <MenuItem key={pm.id} value={pm.id}>
+                  {t(`payment.paymentMethods.${pm.text}`)}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </Grid>
-        <Grid item className={classes.innerForm}>
+        <Grid item>
           <form>
             <div>
               <Grid container direction="row" alignItems="center" spacing={24}>
@@ -226,6 +251,7 @@ export class PaymentForm extends Component<Props, State> {
                           variant="outlined"
                           margin="dense"
                           required
+                          fullWidth
                         />
                       }
                     />
@@ -238,7 +264,11 @@ export class PaymentForm extends Component<Props, State> {
                         label={t('payment.status')}
                         control={
                           <Checkbox
-                            disabled={payment_method === PAYMENT_METHOD_CB.id}
+                            disabled={
+                              payment_method === PAYMENT_METHOD_CB.id ||
+                              payment_method ===
+                                PAYMENT_METHOD_CREDIT_ACCOUNT.id
+                            }
                             checked={payment_received}
                             onChange={this.storeStatus}
                             color="primary"
@@ -268,15 +298,36 @@ const styles = (theme) => ({
     marginRight: theme.spacing.unit,
   },
   innerForm: {
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
+    padding: theme.spacing.unit * 3,
   },
   priceInputContainer: {
     marginLeft: theme.spacing.unit * 2,
   },
+  accountBalanceInfo: {
+    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 2,
+    padding: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit * 2,
+    paddingRight: theme.spacing.unit * 2,
+    border: '1px solid #ced4da',
+    backgroundColor: theme.palette.background.paper,
+  },
   stripeFormContainer: {
     marginTop: theme.spacing.unit * 2,
     marginBottom: theme.spacing.unit * 2,
+  },
+  paymentMethodInput: {
+    marginTop: theme.spacing.unit,
+    padding: theme.spacing.unit,
+    backgroundColor: theme.palette.background.paper,
+    border: '1px solid #ced4da',
+    minWidth: 260,
+  },
+  input: {
+    marginTop: theme.spacing.unit,
+  },
+  paymentMethodLabel: {
+    paddingBottom: theme.spacing.unit * 2,
   },
 });
 

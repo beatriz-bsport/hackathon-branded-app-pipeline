@@ -9,25 +9,34 @@ import {
   Button,
   Collapse,
   Grid,
+  Typography,
   withStyles,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 
 import DatePicker from 'material-ui-pickers/DatePicker';
-import PaymentPackInput from '../input/PaymentPackInput.component';
-import ShopItemInput from '../input/ShopItemInput.container';
-import { Moment } from '../../i18n';
+
+import { Moment } from '../../../i18n';
+
+import PaymentPackInput from '../../../components/input/PaymentPackInput.component';
+import ShopItemInput from '../../../components/input/ShopItemInput.container';
+import PriceInput from '../../../components/input/PriceInput.component';
 
 type Props = {
-  t: (x: string) => string,
-  classes: Object,
   paymentPacks: Array<PaymentPack>,
   showCancel: ?boolean,
   defaultTab: ?number,
+  creditAccountBalance: number,
+
   onCancel: ?() => void,
-  onAddPaymentPack: (paymentPackId: number) => void,
-  onAddShopItem: (shopItemId: number) => void,
+  onTopUp: (number) => void,
+  onAddPaymentPack: (paymentPackId: ?number, date_bought: Object) => void,
+  onAddShopItem: (shopItemId: ?number) => void,
+
+  t: TFunction,
+  classes: Object,
 };
 
 type State = {
@@ -35,10 +44,12 @@ type State = {
   paymentPackId: ?number,
   shopItemId: ?number,
   date_bought: Object,
+  creditTopUp: number,
 };
 
 export const SELECTOR_PAYMENT_PACK = 1;
 export const SELECTOR_SHOP = 2;
+export const SELECTOR_CREDIT_ACCOUNT = 3;
 
 export class InvoiceItemSelector extends Component<Props, State> {
   constructor(props: Props) {
@@ -48,6 +59,7 @@ export class InvoiceItemSelector extends Component<Props, State> {
       paymentPackId: null,
       shopItemId: null,
       date_bought: Moment(),
+      creditTopUp: 0,
     };
   }
 
@@ -68,6 +80,9 @@ export class InvoiceItemSelector extends Component<Props, State> {
       case SELECTOR_SHOP: {
         return this.props.onAddShopItem(this.state.shopItemId);
       }
+      case SELECTOR_CREDIT_ACCOUNT: {
+        return this.props.onTopUp(this.state.creditTopUp);
+      }
       case SELECTOR_PAYMENT_PACK:
       default:
         return this.props.onAddPaymentPack(
@@ -77,12 +92,82 @@ export class InvoiceItemSelector extends Component<Props, State> {
     }
   };
 
-  render() {
-    const { paymentPacks, classes, t, onCancel, showCancel } = this.props;
-    const { paymentPackId, shopItemId } = this.state;
+  renderPaymentPackSelector = () => {
+    const { paymentPacks, t } = this.props;
+    const { paymentPackId } = this.state;
     const selectedPaymentPack = paymentPacks.find(
       (pp) => pp.id === paymentPackId,
     );
+    return (
+      <Grid container direction="column" spacing={16} alignItems="flex-start">
+        <Grid item>
+          <PaymentPackInput
+            value={paymentPackId}
+            paymentPacks={paymentPacks}
+            onChange={this.storePaymentPackId}
+            helperText={t('form.invoice.paymentPackHelper')}
+          />
+        </Grid>
+        <Grid item>
+          <DatePicker
+            disabled={!(selectedPaymentPack || {}).duration_days}
+            value={this.state.date_bought}
+            onChange={(date_bought) =>
+              this.setState({ date_bought: Moment(date_bought) })
+            }
+            format="DD-MM-YYYY"
+            label={t('form.invoice.dateStartPaymentPack')}
+          />
+        </Grid>
+      </Grid>
+    );
+  };
+
+  renderShopItemSelector = () => (
+    <ShopItemInput
+      value={this.state.shopItemId}
+      onChange={this.storeShopItemId}
+    />
+  );
+
+  renderCreditTopUpSelector = () => {
+    const { classes, creditAccountBalance, t } = this.props;
+    const { creditTopUp } = this.state;
+    return (
+      <div>
+        <Grid
+          container
+          justify="space-between"
+          className={classes.accountBalanceInfo}
+        >
+          <Grid item>
+            <Typography variant="h6">
+              {t('payment.creditAccountBalance')}
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography
+              variant="h6"
+              color={creditAccountBalance <= 0 ? 'error' : 'primary'}
+            >
+              {`${creditAccountBalance} €`}
+            </Typography>
+          </Grid>
+        </Grid>
+        <PriceInput
+          variant="outlined"
+          value={creditTopUp}
+          onChange={(e) =>
+            this.setState({ creditTopUp: parseFloat(e.target.value) })
+          }
+        />
+      </div>
+    );
+  };
+
+  render() {
+    const { classes, t, onCancel, showCancel } = this.props;
+    const { paymentPackId, shopItemId, creditTopUp } = this.state;
     const { expandedSelector } = this.state;
     return (
       <div className={classes.container}>
@@ -99,6 +184,7 @@ export class InvoiceItemSelector extends Component<Props, State> {
               value={SELECTOR_PAYMENT_PACK}
             />
             <Tab label={t('shop.myShop')} value={SELECTOR_SHOP} />
+            <Tab label={t('payment.credit')} value={SELECTOR_CREDIT_ACCOUNT} />
           </Tabs>
         </Paper>
         <Grid
@@ -109,38 +195,13 @@ export class InvoiceItemSelector extends Component<Props, State> {
         >
           <Grid item className={classes.input}>
             <Collapse in={SELECTOR_SHOP === expandedSelector}>
-              <ShopItemInput
-                value={shopItemId}
-                onChange={this.storeShopItemId}
-              />
+              {this.renderShopItemSelector()}
             </Collapse>
             <Collapse in={SELECTOR_PAYMENT_PACK === expandedSelector}>
-              <Grid
-                container
-                direction="column"
-                spacing={16}
-                alignItems="flex-start"
-              >
-                <Grid item>
-                  <PaymentPackInput
-                    value={paymentPackId}
-                    paymentPacks={paymentPacks}
-                    onChange={this.storePaymentPackId}
-                    helperText={t('form.invoice.paymentPackHelper')}
-                  />
-                </Grid>
-                <Grid item>
-                  <DatePicker
-                    disabled={!(selectedPaymentPack || {}).duration_days}
-                    value={this.state.date_bought}
-                    onChange={(date_bought) =>
-                      this.setState({ date_bought: Moment(date_bought) })
-                    }
-                    format="DD-MM-YYYY"
-                    label={t('form.invoice.dateStartPaymentPack')}
-                  />
-                </Grid>
-              </Grid>
+              {this.renderPaymentPackSelector()}
+            </Collapse>
+            <Collapse in={SELECTOR_CREDIT_ACCOUNT === expandedSelector}>
+              {this.renderCreditTopUpSelector()}
             </Collapse>
           </Grid>
           <Grid item className={classes.addButton}>
@@ -162,6 +223,7 @@ export class InvoiceItemSelector extends Component<Props, State> {
                 // prettier-ignore
                 (expandedSelector === SELECTOR_PAYMENT_PACK && !paymentPackId)
                 || (expandedSelector === SELECTOR_SHOP && !shopItemId)
+                || (expandedSelector === SELECTOR_CREDIT_ACCOUNT && !creditTopUp)
               }
             >
               <AddIcon className={classes.leftIcon} />
@@ -196,6 +258,13 @@ const styles = (theme) => ({
   },
   cancelButton: {
     marginRight: theme.spacing.unit * 2,
+  },
+  accountBalanceInfo: {
+    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 2,
+    padding: theme.spacing.unit,
+    border: '1px solid #ced4da',
+    backgroundColor: '#F8F8F8',
   },
 });
 

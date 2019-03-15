@@ -14,6 +14,7 @@ export default {
   noNoteSaved: 'Aucune note enregistrée',
   showNotes: 'Voir les notes',
   showPaymentPack: 'Voir les abonnements',
+  showInvoices: 'Voir les factures',
   row: {
     headers: {
       actions: 'Actions',

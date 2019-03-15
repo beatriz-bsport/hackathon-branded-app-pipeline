@@ -70,7 +70,12 @@ export class PaymentList extends Component<Props> {
       (pm) => pm.id === payment_method,
     ).text;
     return (
-      <ListItem dense divider fullWidth key={uuid || id} disabled={uneditable}>
+      <ListItem
+        dense
+        divider
+        key={`${uuid}-${id}-{payment_method}-{price}`}
+        disabled={uneditable}
+      >
         <ListItemIcon>
           {payment_received ? (
             <CheckIcon color="secondary" />
@@ -80,7 +85,7 @@ export class PaymentList extends Component<Props> {
         </ListItemIcon>
         <ListItemText
           primary={`${price} €  -  ${t(
-            `payment.paymentMethod.${paymentMethodText}`,
+            `payment.paymentMethods.${paymentMethodText}`,
           )}`}
           secondary={payment_note}
         />

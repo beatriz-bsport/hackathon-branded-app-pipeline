@@ -18,6 +18,12 @@ export async function create(invoiceData) {
   return postAuth(`${API_URI}/payment/invoices`, invoiceData);
 }
 
+export async function finalize(uuid) {
+  return patchAuth(`${API_URI}/payment/invoices/${uuid}/finalize`, {
+    is_finalized: true,
+  });
+}
+
 export async function update(invoiceData) {
   return patchAuth(
     `${API_URI}/payment/invoices/${invoiceData.uuid}`,
@@ -36,4 +42,5 @@ export default {
   create,
   update,
   createQuick,
+  finalize,
 };

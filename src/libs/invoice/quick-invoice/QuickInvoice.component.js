@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-
+import sum from 'lodash/sum';
 import {
   Button,
   Divider,
@@ -11,17 +11,18 @@ import {
 } from '@material-ui/core';
 import CancelIcon from '@material-ui/icons/Cancel';
 import AddIcon from '@material-ui/icons/Add';
-import {
-  CB_MANUAL as PAYMENT_METHOD_CB_MANUAL,
-  CHECK as PAYMENT_METHOD_CHECK,
-  CASH as PAYMENT_METHOD_CASH,
+import PAYMENT_METHODS, {
+  CB as PAYMENT_METHOD_CB,
 } from '@bsport/common/lib/master-data/payment-methods';
-import InvoiceItemList from '../../../components/invoice/InvoiceItemList.component';
-import UnevenInvoiceDialog from '../../../components/invoice/UnevenInvoiceDialog.component';
-import InvoiceItemSelector from '../../../components/invoice/InvoiceItemSelector.container';
-import { SELECTOR_SHOP as INVOICE_SELECTOR_SHOP_TAB } from '../../../components/invoice/InvoiceItemSelector.component';
+
 import { formatAsDate } from '../../../datetime';
 import { Moment } from '../../../i18n';
+
+import InvoiceItemList from '../invoice-item/InvoiceItemList.component';
+import UnevenInvoiceDialog from '../dialog/UnevenInvoiceDialog.component';
+import InvoiceItemSelector from '../invoice-item/InvoiceItemSelector.container';
+import { SELECTOR_SHOP as INVOICE_SELECTOR_SHOP_TAB } from '../invoice-item/InvoiceItemSelector.component';
+
 import PaymentInfo from './PaymentInfo.component';
 
 type Props = {
@@ -38,9 +39,7 @@ type Props = {
 };
 
 type State = {
-  cb: number,
-  check: number,
-  cash: number,
+  payments: Array<{ id: number, text: string, amount: number }>,
   voucher: number,
   showInvoiceItemSelector: boolean,
   additionalPaymentPacks: Array<PaymentPack>,
@@ -52,28 +51,48 @@ function getTotal(acc, invoiceItem) {
   return acc + parseFloat(invoiceItem.price);
 }
 
+// initiliaze a 0€ payment for all payment method except Stripe CB
+const mapPaymentMethodToState = () =>
+  PAYMENT_METHODS.map((pm) => ({
+    id: pm.id,
+    text: pm.text,
+    amount: 0,
+  }))
+    .filter((pm) => pm.id !== PAYMENT_METHOD_CB.id)
+    .sort((pm, pm_) => pm.id - pm_.id);
+
 export class QuickInvoice extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      cb: 0,
-      cash: 0,
-      check: 0,
+      payments: mapPaymentMethodToState(),
       voucher: 0,
       showInvoiceItemSelector: !props.editMode,
       additionalPaymentPacks: [],
       additionalShopItems: [],
+      topUp: 0,
       unevenInvoiceAlertOpen: false,
     };
   }
 
   getTotalPayment = () => {
-    const { cb, cash, check, voucher } = this.state;
-    return (cb || 0) + (check || 0) + (cash || 0) + (voucher || 0);
+    const { payments, voucher } = this.state;
+    return sum(payments.map((pm) => pm.amount || 0)) + (voucher || 0);
   };
 
-  handlePaymentChange = (payment_type) => (e) => {
-    this.setState({ [payment_type]: parseFloat(e.target.value) });
+  handlePaymentChange = (payment_type: number) => (e: SyntheticEvent) => {
+    const newAmount = parseFloat(e.target.value);
+    this.setState((prevState) => {
+      const oldPayment = prevState.payments.filter(
+        (pm) => pm.id === payment_type,
+      )[0];
+      return {
+        payments: [
+          ...prevState.payments.filter((pm) => pm.id !== payment_type),
+          { ...oldPayment, amount: newAmount },
+        ].sort((pm, pm_) => pm.id - pm_.id),
+      };
+    });
   };
 
   handleVoucher = (event) => {
@@ -82,11 +101,11 @@ export class QuickInvoice extends Component<Props, State> {
 
   getFinalPrice = () => {
     const { uneditableInvoiceItems } = this.props;
-    const { additionalShopItems, additionalPaymentPacks } = this.state;
+    const { additionalShopItems, additionalPaymentPacks, topUp } = this.state;
     const sumPack = additionalPaymentPacks.reduce(getTotal, 0);
     const sumShop = additionalShopItems.reduce(getTotal, 0);
     const sumUneditable = (uneditableInvoiceItems || []).reduce(getTotal, 0);
-    return sumPack + sumShop + sumUneditable;
+    return sumPack + sumShop + sumUneditable + topUp;
   };
 
   choseInvoiceItem = () => {
@@ -116,6 +135,17 @@ export class QuickInvoice extends Component<Props, State> {
     }));
   };
 
+  onTopUp = (amount: number) => {
+    this.setState((prevState) => ({
+      topUp: prevState.topUp + amount,
+      showInvoiceItemSelector: false,
+    }));
+  };
+
+  deleteTopUp = () => {
+    this.setState({ topUp: 0 });
+  };
+
   addShopItem = (shopItemId: number) => {
     const shopItem = this.props.shopItems.find((si) => si.id === shopItemId);
     if (shopItem) {
@@ -135,34 +165,22 @@ export class QuickInvoice extends Component<Props, State> {
   };
 
   generatePaymentItemsObject = () => {
-    const payment_items = [];
-    const { cb, cash, check } = this.state;
-    if (cb) {
-      payment_items.push({
-        payment_received: true,
-        price: cb,
-        payment_method: PAYMENT_METHOD_CB_MANUAL.id,
-      });
-    }
-    if (check) {
-      payment_items.push({
-        payment_received: true,
-        price: check,
-        payment_method: PAYMENT_METHOD_CHECK.id,
-      });
-    }
-    if (cash) {
-      payment_items.push({
-        payment_received: true,
-        price: cash,
-        payment_method: PAYMENT_METHOD_CASH.id,
-      });
-    }
+    const { payments } = this.state;
+    const payment_items = payments.map((pm) => ({
+      payment_received: true,
+      price: pm.amount,
+      payment_method: pm.id,
+    }));
     return payment_items;
   };
 
   onSubmit = () => {
-    const { additionalShopItems, additionalPaymentPacks, voucher } = this.state;
+    const {
+      topUp,
+      additionalShopItems,
+      additionalPaymentPacks,
+      voucher,
+    } = this.state;
     const { quickInvoice, createInvoice } = this.props;
     const invoiceData = {
       shop_item_ids: additionalShopItems.map((siii) => siii.id),
@@ -172,6 +190,7 @@ export class QuickInvoice extends Component<Props, State> {
       ]),
       voucher,
       payment_items: this.generatePaymentItemsObject(),
+      top_up: topUp,
       member: quickInvoice.member.id,
     };
     if (this.props.editMode) {
@@ -218,9 +237,6 @@ export class QuickInvoice extends Component<Props, State> {
       uneditableInvoiceItems,
     } = this.props;
     const {
-      cb,
-      cash,
-      check,
       voucher,
       additionalShopItems,
       additionalPaymentPacks,
@@ -253,6 +269,10 @@ export class QuickInvoice extends Component<Props, State> {
         {this.state.showInvoiceItemSelector ? (
           <div className={classes.paper}>
             <InvoiceItemSelector
+              creditAccountBalance={
+                this.props.quickInvoice.member.credit_account_balance
+              }
+              onTopUp={this.onTopUp}
               onAddPaymentPack={this.addPaymentPack}
               onAddShopItem={this.addShopItem}
               showCancel={
@@ -271,8 +291,10 @@ export class QuickInvoice extends Component<Props, State> {
                   uneditableInvoiceItems={uneditableInvoiceItems}
                   paymentPackInvoiceItems={additionalPaymentPacks}
                   shopItemInvoiceItems={additionalShopItems}
+                  topUp={this.state.topUp}
                   deletePPackInvoiceItem={this.deletePaymentPack}
                   deleteShopItemInvoiceItem={this.deleteShopItem}
+                  deleteTopUp={this.deleteTopUp}
                 />
               </Grid>
               <Grid item xs={3}>
@@ -292,9 +314,7 @@ export class QuickInvoice extends Component<Props, State> {
             <PaymentInfo
               finalPrice={finalPrice}
               totalPayment={totalPayment}
-              cb={cb}
-              cash={cash}
-              check={check}
+              paymentItems={this.state.payments}
               voucher={voucher}
               handlePaymentChange={this.handlePaymentChange}
               handleVoucher={this.handleVoucher}
@@ -303,7 +323,8 @@ export class QuickInvoice extends Component<Props, State> {
                 !(
                   (this.state.additionalPaymentPacks || []).length ||
                   (this.state.additionalShopItems || []).length ||
-                  (this.props.uneditableInvoiceItems || []).length
+                  (this.props.uneditableInvoiceItems || []).length ||
+                  !!this.state.topUp
                 )
               }
             />

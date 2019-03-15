@@ -61,11 +61,19 @@ export default {
       myAccount: 'My account',
     },
     paymentMethod: {
-      CASH: 'Cash',
       CB: 'Credit card',
       CHECK: 'Check',
+      HOLDAY_CHECK: 'Other',
+      CASH: 'Cash',
+      CB_MANUAL: 'Credit card (manual)',
+      EVENT_BRITE: 'EventBrite',
+      AMEX: 'AMEX',
+      BANK_TRANSFER: 'Bank transfer',
+      CREDIT_ACCOUNT: 'Credit account',
     },
     common: {
+      invoices: 'Invoices',
+      download: 'Download',
       description: 'Description',
       hourSmall: 'h',
       minuteSmall: 'min',
@@ -185,6 +193,9 @@ export default {
       outOf: ' of ',
     },
     invoice: {
+      finalize: 'Finalize the invoice',
+      explainFinalize:
+        'Beware ! A finalized invoice is not editable anymore, moreover every payment will be considered as checked-out. Once finalized the invoice will be exportable so you can download it as PDF.',
       forms: {
         update: 'Invoice successfully updated',
         create: 'Invoice created - member credited',
@@ -317,6 +328,11 @@ export default {
         activityHelper: 'Chose the activity then the session',
       },
       payment: {
+        credit: 'Credit',
+        topUp: 'Top-up credit',
+        invoiceFinalizedThusNotEditable:
+          'Invoice was finalized and can not be edited anymore',
+        actions: 'Actions',
         status: 'Status',
         paid: 'Paid',
         unpaid: 'Pending',
@@ -525,12 +541,18 @@ export default {
       paymentMethodCheck: 'Check',
       paymentMethodCash: 'Cash',
       invoice: 'Invoice',
-      paymentMethod: {
+      paymentMethod: 'Payment methods',
+      creditAccountBalance: 'Current accout balance: ',
+      paymentMethods: {
         CB: 'Credit card',
         CHECK: 'Check',
-        CHECK_FR: 'Other',
+        HOLDAY_CHECK: 'Other',
         CASH: 'Cash',
         CB_MANUAL: 'Credit card (manual)',
+        EVENT_BRITE: 'EventBrite',
+        AMEX: 'AMEX',
+        BANK_TRANSFER: 'Bank transfer',
+        CREDIT_ACCOUNT: 'Credit account',
       },
       paymentItemsListTitle: 'Registered payments',
       noPaymentItem: 'No payment registered',

@@ -8,6 +8,7 @@ const initialState = Immutable({
   loadingSpecific: false,
   errorSpecific: false,
   invoice: null,
+  error: null,
   createOrUpdatePending: false,
 
   quickInvoices: [],
@@ -16,6 +17,23 @@ const initialState = Immutable({
 
 export default function invoiceReducers(state = initialState, action = {}) {
   switch (action.type) {
+    case 'INVOICE/FINALIZE/IS_LOADING': {
+      const index = state.all.findIndex(
+        (inv) => inv.uuid === action.payload.uuid,
+      );
+      const invoice = state.all[index];
+      const updatedInvoice = { ...invoice, loading: action.payload.loading };
+      return state.setIn(['all', index], updatedInvoice);
+    }
+    case 'INVOICE/FINALIZE/SUCCESS': {
+      const index = state.all.findIndex(
+        (inv) => inv.uuid === action.payload.uuid,
+      );
+      return state.setIn(['all', index], action.payload);
+    }
+    case 'INVOICE/FINALIZE/ERROR': {
+      return state.set('error', action.payload);
+    }
     case actionTypes.INVOICE_QUICK_CREATE_START:
       return state.merge({
         quickInvoicesLoading: true,

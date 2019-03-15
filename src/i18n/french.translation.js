@@ -70,10 +70,16 @@ export default {
       myAccount: 'Mon compte',
     },
     paymentMethod: {
-      CASH: 'Liquide',
-      CB: 'Carte bancaire',
+      // TODO: remove that
+      CB: 'Carte bleue',
+      CB_MANUAL: 'Carte bleue (manuel)',
       CHECK: 'Chèque',
-      CB_MANUAL: 'Carte bancaire (manuel)',
+      HOLIDAY_CHECK: 'Chèque vacances',
+      CASH: 'Espèces',
+      EVENT_BRITE: 'EventBrite',
+      AMEX: 'AMEX',
+      BANK_TRANSFER: 'Virement',
+      CREDIT_ACCOUNT: 'Compte interne (crédit)',
     },
     errors: {
       end_before_start: 'La date de fin doit être après la date de début',
@@ -85,6 +91,8 @@ export default {
       },
     },
     common: {
+      invoices: 'Factures',
+      download: 'Télécharger',
       description: 'Description',
       hourSmall: 'h',
       minuteSmall: 'min',
@@ -525,6 +533,9 @@ export default {
       myClub: 'Mon Club',
     },
     invoice: {
+      finalize: 'Finaliser la facture',
+      explainFinalize:
+        "Attention ! Une facture finalisée n'est plus modifiable, de plus tous les paiement marqués en attente d'encaissement seront considérés comme encaissés. Une fois la facture finalisée vous pourrez l'exporter en tant que PDF",
       forms: {
         update: {
           success: 'Facture mise à jour avec succès',
@@ -536,6 +547,11 @@ export default {
       },
     },
     payment: {
+      credit: 'Crédit',
+      topUp: 'Crédit',
+      invoiceFinalizedThusNotEditable:
+        "La facture a été finalisée et n'est donc plus modifiable",
+      actions: 'Actions',
       bookWithUnlimitedPack: 'Réserver avec votre abonnement',
       noCreditLeft: 'Pas assez de crédit',
       noBookingsLeftOnPack: 'Abonnement épuisé pour cette semaine',
@@ -561,12 +577,18 @@ export default {
       paymentMethodCheck: 'Chèque',
       paymentMethodCash: 'Espèces',
       invoice: 'Facture',
-      paymentMethod: {
+      paymentMethod: 'Mode de paiement',
+      creditAccountBalance: 'Accompte actuel : ',
+      paymentMethods: {
         CB: 'Carte bleue',
         CB_MANUAL: 'Carte bleue (manuel)',
         CHECK: 'Chèque',
-        CHECK_FR: 'Chèque vacances',
+        HOLIDAY_CHECK: 'Chèque vacances',
         CASH: 'Espèces',
+        EVENT_BRITE: 'EventBrite',
+        AMEX: 'AMEX',
+        BANK_TRANSFER: 'Virement',
+        CREDIT_ACCOUNT: 'Compte interne (crédit)',
       },
       paymentItemsListTitle: 'Paiements enregistrés',
       noPaymentItem: 'Aucun paiement enregistré',

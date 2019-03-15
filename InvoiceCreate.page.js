@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 
-import { withStyles, CircularProgress } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import { push as pushRouter } from 'react-router-redux';
@@ -15,6 +15,7 @@ import { invoice as invoiceActions } from '../../actions';
 
 import type { Member } from '../../api/types';
 import type { InvoiceDataFront } from '../../components/form/types';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import withDrawer from '../../hocs/with-drawer.hoc';
 
 import InvoiceForm from '../../libs/invoice/InvoiceForm.component';
@@ -50,7 +51,7 @@ export class InvoiceCreatePage extends Component<Props> {
       creatingInvoice,
     } = this.props;
     if (member === null) {
-      return <CircularProgress />;
+      return <LinearProgress />;
     }
     return (
       <div>

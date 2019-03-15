@@ -10,7 +10,7 @@ import type { TFunction } from 'react-i18next';
 
 import { push } from 'connected-react-router';
 
-import LinearProgress from '@material-ui/core/LinearProgress';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import ReportDashboard from '../../libs/reporting/ReportDashboard.component';
 

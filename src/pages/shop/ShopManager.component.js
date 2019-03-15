@@ -6,7 +6,6 @@ import {
   Divider,
   TextField,
   IconButton,
-  CircularProgress,
   Typography,
   Grid,
   withStyles,
@@ -23,6 +22,7 @@ import { shop as shopActions } from '../../actions';
 
 import SubShopList from './SubShopList.component';
 
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import { mapFormData } from '../form.utils';
 
 import withDrawer from '../../hocs/with-drawer.hoc';
@@ -182,7 +182,7 @@ export class ShopItemList extends Component<Props, State> {
     return (
       <div>
         {loading ? (
-          <CircularProgress />
+          <LinearProgress />
         ) : (
           <React.Fragment>
             {subShops.map((ss) => this.renderSubShop(ss, shopItems))}

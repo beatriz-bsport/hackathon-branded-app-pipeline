@@ -4,7 +4,6 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import { CircularProgress } from '@material-ui/core';
 import { push } from 'react-router-redux';
 import i18next from 'i18next';
 
@@ -12,6 +11,7 @@ import { stats as statsActions } from '../../actions';
 import withBottomButtons from '../../hocs/inject-bottom-buttons';
 import withDrawer from '../../hocs/with-drawer.hoc';
 import withAsyncData from '../../hocs/with-async-data.hoc';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import MetaActivityList from '../../libs/meta-activity/MetaActivityList.component';
 
@@ -30,7 +30,7 @@ type Props = {
 export function MetaActivityListPage(props: Props) {
   const { metaActivities, stats, loading, isCardView } = props;
   if (loading) {
-    return <CircularProgress />;
+    return <LinearProgress />;
   }
   if (!(metaActivities || []).length) {
     // TODO

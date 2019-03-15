@@ -7,7 +7,6 @@ import {
   Typography,
   Grid,
   Paper,
-  CircularProgress,
   List,
   withStyles,
 } from '@material-ui/core';
@@ -24,6 +23,7 @@ import type { Establishment, Activity, Offer } from '../../api/types';
 
 import withBottomButtons from '../../hocs/inject-bottom-buttons';
 import withDrawer from '../../hocs/with-drawer.hoc';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import EstablishmentListItem from '../../libs/establishment/list/EstablishmentListItem.component';
 import EstablishmentCardItem from '../../libs/establishment/list/EstablishmentCardItem.component';
@@ -95,7 +95,7 @@ export class EstablishmentList extends Component<Props> {
   render() {
     const { establishmentsLoading, establishments } = this.props;
     if (establishmentsLoading) {
-      return <CircularProgress />;
+      return <LinearProgress />;
     }
     if ((establishments || []).length === 0) {
       return this.renderNoEstablishment();

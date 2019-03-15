@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 
-import { CircularProgress } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -10,6 +9,7 @@ import { push as pushRouter } from 'react-router-redux';
 import { withProps, compose } from 'recompose';
 import { withRouter } from 'react-router';
 
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import { invoice as invoiceActions } from '../../actions';
 import withDrawer from '../../hocs/with-drawer.hoc';
 
@@ -67,7 +67,7 @@ export class InvoiceFormPage extends Component<Props> {
       t,
     } = this.props;
     if (!invoice || loading) {
-      return <CircularProgress />;
+      return <LinearProgress />;
     }
 
     let uneditableInvoiceItems = [];

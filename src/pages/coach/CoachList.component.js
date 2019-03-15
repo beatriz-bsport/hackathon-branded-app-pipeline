@@ -8,11 +8,12 @@ import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 
-import { CircularProgress, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 
 import i18next from 'i18next';
 import { coach as coachActions } from '../../actions';
 import CoachCard from '../../libs/associated-coach/list/CoachCard.component';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import type { Coach } from '../../api/types';
 import { paymentRulesSelector } from '../../libs/payment-rules/selectors';
 import withBottomButtons from '../../hocs/inject-bottom-buttons';
@@ -82,7 +83,7 @@ function AssociatedCoaches(props: {
 export class CoachList extends Component<Props> {
   render() {
     if (this.props.loading) {
-      return <CircularProgress />;
+      return <LinearProgress />;
     }
 
     const {

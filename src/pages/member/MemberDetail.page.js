@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 
-import { Grid, withStyles, Button, CircularProgress } from '@material-ui/core';
+import { Grid, withStyles, Button } from '@material-ui/core';
 import { withNamespaces } from 'react-i18next';
 import { goBack, push as routerPush } from 'react-router-redux';
 import { connect } from 'react-redux';
@@ -23,6 +23,7 @@ import type {
 
 import withDrawer from '../../hocs/with-drawer.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import MemberDetail from '../../libs/member/MemberDetail.component';
 
@@ -64,7 +65,7 @@ export class Member extends Component<Props> {
   render() {
     const { memberLoading, t, classes, member } = this.props;
     if (memberLoading || !member) {
-      return <CircularProgress />;
+      return <LinearProgress />;
     }
     return (
       <div style={{ height: '100%' }}>

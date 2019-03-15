@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 
-import { Grid, Button, withStyles, LinearProgress } from '@material-ui/core';
+import { Grid, Button, withStyles } from '@material-ui/core';
 
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
@@ -11,6 +11,7 @@ import { withRouter } from 'react-router-dom';
 import { push as routerPush } from 'react-router-redux';
 import { compose, withProps } from 'recompose';
 
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import { coach as coachActions } from '../../actions';
 import { paymentRulesSelector } from '../../libs/payment-rules/selectors';
 import CoachDetail from '../../libs/associated-coach/detail/CoachDetail.component';

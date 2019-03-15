@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push as routerPush } from 'react-router-redux';
 import { compose } from 'recompose';
-import { LinearProgress } from '@material-ui/core';
 import {
   metaActivity as metaActivityActions,
   offer as offerActions,
@@ -15,6 +14,7 @@ import type {
   Stat,
 } from '../../api/types';
 import withDrawer from '../../hocs/with-drawer.hoc';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import MetaActivityDetail from '../../libs/meta-activity/MetaActivityDetail.component';
 

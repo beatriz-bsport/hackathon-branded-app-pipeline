@@ -32,7 +32,6 @@ import type {
   Activity,
   Offer,
   MetaActivity as MetaActivityType,
-  Stat,
 } from '../../api/types';
 import { formatMinutes } from '../../datetime';
 
@@ -44,8 +43,7 @@ import {
 
 type Props = {
   metaActivity: MetaActivityType,
-  // eslint-disable-next-line
-  stats: Stat,
+  coverImages: Array<Object>,
   fetchOffersByDay: (year: number, month: number, day: number) => void,
   createActivityOffers: (metActivityId: number) => void,
   events: Array<Event>,
@@ -78,10 +76,8 @@ export class MetaActivityDetail extends Component<Props, State> {
 
   onEdit = () => {};
 
-  // prettier-ignore
-  getById = (array: Array<{ id: number }>, id: number): Array<{id: number}> => (
-    array.filter((a) => a.id === id) || [{}]
-  )[0]
+  getById = (array: Array<{ id: number }>, id: number): Array<{ id: number }> =>
+    (array.filter((a) => a.id === id) || [{}])[0];
 
   handleChange = (fieldName: string) => (event: Object) => {
     const { data } = this.state;
@@ -93,15 +89,12 @@ export class MetaActivityDetail extends Component<Props, State> {
     const { classes, t } = this.props;
     const { editable, data } = this.state;
 
-    let name = null;
-    let category = null;
+    let { name } = activity.name;
+    let category = activity.category_id;
+
     if (editable) {
       name = data.name || activity.name;
       category = data.category || activity.category_id;
-    } else {
-      // eslint-disable-next-line
-      name = activity.name;
-      category = activity.category_id;
     }
 
     const categorySelectedName =
@@ -164,8 +157,8 @@ export class MetaActivityDetail extends Component<Props, State> {
     const events_ = {};
     for (const o of events) {
       const midnight = Moment(o.date_start).startOf('day');
-      // eslint-disable-next-line
-      if (events_.hasOwnProperty(midnight)) {
+
+      if (Object.prototype.hasOwnProperty.call(events_, midnight)) {
         events_[midnight].push(o);
       } else {
         events_[midnight] = [o];
@@ -335,10 +328,7 @@ export class MetaActivityDetail extends Component<Props, State> {
   };
 
   render() {
-    const { metaActivity } = this.props;
-    // const stats = this.getById(this.props.stats, this.metaActivityId);
-
-    const { classes } = this.props;
+    const { metaActivity, classes, coverImages } = this.props;
 
     return (
       <Grid container direction="row" spacing={32}>
@@ -346,7 +336,11 @@ export class MetaActivityDetail extends Component<Props, State> {
           <Paper>
             <Grid container spacing={16} direction="column">
               <Grid item>
-                <MetaActivityCover metaActivity={metaActivity} large />
+                <MetaActivityCover
+                  metaActivity={metaActivity}
+                  coverImages={coverImages}
+                  large
+                />
               </Grid>
               <Grid item className={classes.paddedBlock}>
                 <MetaActivityBasicInfo metaActivity={metaActivity} />

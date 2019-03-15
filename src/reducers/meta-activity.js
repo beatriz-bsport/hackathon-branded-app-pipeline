@@ -13,7 +13,7 @@ import {
 
 const initialState = Immutable({
   all: [],
-  loading: true,
+  loading: false,
   error: false,
   errorMsg: '',
   metaActivity: null,

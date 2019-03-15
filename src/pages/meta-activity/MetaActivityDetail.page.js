@@ -21,7 +21,6 @@ import MetaActivityDetail from '../../libs/meta-activity/MetaActivityDetail.comp
 type Props = {
   metaActivity: MetaActivityType,
   loading: boolean,
-  // eslint-disable-next-line
   stats: Stat,
   fetchOffersByDay: (year: number, month: number, day: number) => void,
   push: (path: string) => void,
@@ -31,6 +30,7 @@ type Props = {
   activities: Array<Activity>,
   offers: Array<Offer>,
   match: Object,
+  metaActivityImages: Array<Object>,
 };
 
 export class MetaActivity extends Component<Props> {
@@ -55,6 +55,7 @@ export class MetaActivity extends Component<Props> {
     }
     return (
       <MetaActivityDetail
+        coverImages={this.props.metaActivityImages}
         metaActivity={this.props.metaActivity}
         stats={this.props.stats}
         fetchOffersByDay={this.props.fetchOffersByDay}
@@ -74,6 +75,10 @@ function mapStateToProps(state) {
     loading: state.metaActivity.loading,
     metaActivity: state.metaActivity.metaActivity,
     metaActivities: state.metaActivity.all,
+    metaActivityImages:
+      (state.metaActivity.metaActivity &&
+        state.metaActivity.metaActivity.images) ||
+      [],
     stats: state.stats.activities,
     events: state.offer.calendar,
     offers: state.offer.offers,

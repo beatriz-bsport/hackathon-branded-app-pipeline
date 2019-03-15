@@ -6,6 +6,7 @@ import { goBack } from 'connected-react-router';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withProps, compose } from 'recompose';
+import { Button } from '@material-ui/core';
 
 import { mapFormData, unmap } from '../form.utils';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
@@ -67,16 +68,18 @@ export class MetaActivityFormPage extends Component<Props> {
       onRemoveImage: (imageId: number) => removeImage(id, imageId),
     };
     return (
-      <MetaActivityForm
-        coaches={associatedCoaches}
-        establishments={establishments}
-        SCTs={SCTs}
-        onSubmit={this.props.onSubmit}
-        onCancel={this.props.goToPreviousPage}
-        metaActivityNames={[]}
-        initial={initialData}
-        imageUploader={id ? imageUploader : null}
-      />
+      <div>
+        <MetaActivityForm
+          coaches={associatedCoaches}
+          establishments={establishments}
+          SCTs={SCTs}
+          onSubmit={this.props.onSubmit}
+          onCancel={this.props.goToPreviousPage}
+          metaActivityNames={[]}
+          initial={{ ...initialData, images: initial.images || [] }}
+          imageUploader={id ? imageUploader : null}
+        />
+      </div>
     );
   }
 }
@@ -84,8 +87,7 @@ export class MetaActivityFormPage extends Component<Props> {
 function mapStateToProps(state, { id }) {
   return {
     id,
-    initial:
-      id !== null ? state.metaActivity.all.find((ma) => ma.id === id) : null,
+    initial: id !== null ? state.metaActivity.metaActivity : null,
     associatedCoaches: state.coach.companyAssociated,
     establishments: state.establishment.all,
     SCTs: state.category.SCTs,

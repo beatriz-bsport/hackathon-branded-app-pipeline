@@ -6,7 +6,6 @@ import { goBack } from 'connected-react-router';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withProps, compose } from 'recompose';
-import { Button } from '@material-ui/core';
 
 import { mapFormData, unmap } from '../form.utils';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';

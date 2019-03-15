@@ -88,6 +88,8 @@ export class Member extends Component<Props> {
               deleteNote={this.props.deleteNote}
               invoices={this.props.invoices}
               onInvoiceClick={this.props.pushToInvoice}
+              fetchMemberBookings={this.props.fetchMemberBookings}
+              fetchMember={this.props.fetchMember}
             />
           </Grid>
           <Grid item xs={12}>

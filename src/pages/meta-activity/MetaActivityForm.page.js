@@ -42,6 +42,10 @@ const MetaActivityMap = {
 };
 
 export class MetaActivityFormPage extends Component<Props> {
+  componentDidMount() {
+    this.props.fetchMetaActivity(this.props.id);
+  }
+
   render() {
     const {
       SCTs,
@@ -101,6 +105,7 @@ export default compose(
   connect(
     mapStateToProps,
     {
+      fetchMetaActivity: metaActivityActions.fetchMetaActivityDetails,
       upsertMetaActivity: metaActivityActions.upsert,
       goToPreviousPage: goBack,
       addImage: metaActivityActions.addImageToMetaActivity,

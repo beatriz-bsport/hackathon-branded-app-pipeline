@@ -3,15 +3,18 @@
 import { createAction } from 'redux-actions';
 
 import { push } from 'react-router-redux';
+import * as Sentry from '@sentry/browser';
 import { snackbarSuccess, snackbarError } from './snackbar.actions';
 import api from '../api';
 
 import type { Dispatch } from '../state/types';
 
+import { postAuth, deleteAuth, API_URI } from '../http';
+
 export const listingActions = {
-  isLoading: createAction('META_ACTIVITY/ONESHOT_LIST/IS_LOADING'),
-  error: createAction('META_ACTIVITY/ONESHOT_LIST/ERROR'),
-  success: createAction('META_ACTIVITY/ONESHOT_LIST/SUCCESS'),
+  isLoading: createAction('WORKSHOP/LIST/IS_LOADING'),
+  error: createAction('WORKSHOP/LIST/ERROR'),
+  success: createAction('WORKSHOP/LIST/SUCCESS'),
 };
 
 export function fetchAll() {
@@ -30,9 +33,9 @@ export function fetchAll() {
 }
 
 export const upsertActions = {
-  isLoading: createAction('META_ACTIVITY/ONESHOT_UPSERT/IS_LOADING'),
-  error: createAction('META_ACTIVITY/ONESHOT_UPSERT/ERROR'),
-  success: createAction('META_ACTIVITY/ONESHOT_UPSERT/SUCCESS'),
+  isLoading: createAction('WORKSHOP/UPSERT/IS_LOADING'),
+  error: createAction('WORKSHOP/UPSERT/ERROR'),
+  success: createAction('WORKSHOP/UPSERT/SUCCESS'),
 };
 
 export function upsert(workshopActivityData, options) {
@@ -58,5 +61,56 @@ export function upsert(workshopActivityData, options) {
       if (options && options.onError) options.onError(error);
     }
     dispatch(upsertActions.isLoading(false));
+  };
+}
+
+export const addImage = {
+  isLoading: createAction('WORKSHOP/ADD_IMAGE/IS_LOADING'),
+  error: createAction('WORKSHOP/ADD_IMAGE/ERROR'),
+  success: createAction('WORKSHOP/ADD_IMAGE/SUCCESS'),
+};
+
+export function addImageToWorkshop(id: number, image: File) {
+  return async (dispatch: Dispatch) => {
+    dispatch(addImage.isLoading({ id, loading: true }));
+    dispatch(addImage.error(null));
+
+    try {
+      const data = new FormData();
+      data.append('image', image);
+      const response = await postAuth(
+        `${API_URI}/meta-activities/${id}/images/`,
+        data,
+      );
+      dispatch(addImage.success({ id, image: response.data }));
+    } catch (error) {
+      console.error(error);
+      dispatch(addImage.error(error));
+      Sentry.captureException(error);
+    }
+    dispatch(addImage.isLoading({ id, loading: false }));
+  };
+}
+
+export const removeImage = {
+  isLoading: createAction('WORKSHOP/REMOVE_IMAGE/IS_LOADING'),
+  error: createAction('WORKSHOP/REMOVE_IMAGE/ERROR'),
+  success: createAction('WORKSHOP/REMOVE_IMAGE/SUCCESS'),
+};
+
+export function removeImageFromWorkshop(id: number, imageId: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(removeImage.isLoading({ id, imageId, loading: true }));
+    dispatch(removeImage.error(null));
+
+    try {
+      await deleteAuth(`${API_URI}/meta-activities/${id}/images/${imageId}/`);
+      dispatch(removeImage.success({ id, imageId }));
+    } catch (error) {
+      console.error(error);
+      dispatch(removeImage.error(error));
+      Sentry.captureException(error);
+    }
+    dispatch(removeImage.isLoading({ id, imageId, loading: false }));
   };
 }

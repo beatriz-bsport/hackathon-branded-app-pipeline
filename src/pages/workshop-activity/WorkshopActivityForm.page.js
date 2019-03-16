@@ -77,7 +77,7 @@ export class WorkshopActivityFormPage extends Component<Props> {
         onSubmit={this.props.onSubmit}
         onCancel={this.props.goToPreviousPage}
         metaActivityNames={[]}
-        initial={initialData}
+        initial={{ ...initialData, images: (initial || {}).images || [] }}
         imageUploader={id ? imageUploader : null}
       />
     );
@@ -85,12 +85,12 @@ export class WorkshopActivityFormPage extends Component<Props> {
 }
 
 function mapStateToProps(state, { id }) {
+  const id_ = id || null;
   return {
-    id,
-    initial:
-      id !== null
-        ? state.workshopActivity.all.find((oa) => oa.id === id)
-        : null,
+    id: id_,
+    initial: id_
+      ? state.workshopActivity.all.find((oa) => oa.id === id_)
+      : null,
     associatedCoaches: state.coach.companyAssociated,
     establishments: state.establishment.all,
     SCTs: state.category.SCTs,
@@ -106,8 +106,8 @@ export default compose(
     {
       upsertWorkshopActivity: workshopActivityActions.upsert,
       goToPreviousPage: goBack,
-      addImage: metaActivityActions.addImageToMetaActivity,
-      removeImage: metaActivityActions.removeImageFromMetaActivity,
+      addImage: workshopActivityActions.addImageToWorkshop,
+      removeImage: workshopActivityActions.removeImageFromWorkshop,
     },
   ),
   withProps(({ upsertWorkshopActivity, initial }) => ({

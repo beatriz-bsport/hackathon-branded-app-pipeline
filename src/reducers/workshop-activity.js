@@ -6,6 +6,8 @@ import { handleActions } from 'redux-actions';
 import {
   listingActions,
   upsertActions,
+  addImage,
+  removeImage,
 } from '../actions/workshop-activity.actions';
 
 const initialState = Immutable({
@@ -40,6 +42,20 @@ export default handleActions(
         payload,
         ...state.all.filter((oa) => oa.id !== payload.id),
       ]);
+    },
+    [addImage.success]: (state, { payload }) => {
+      const { image, id } = payload;
+      const idx = state.all.findIndex((wo) => wo.id === id);
+      const workshop = state.all[idx];
+      const { images } = workshop;
+      return state.setIn(['all', idx, 'images'], [image].concat(images));
+    },
+    [removeImage.success]: (state, { payload }) => {
+      const idx = state.all.findIndex((wo) => wo.id === payload.id);
+      const images = state.all[idx].images.filter(
+        (i) => i.id !== payload.imageId,
+      );
+      return state.setIn(['all', idx, 'images'], images);
     },
   },
   initialState,

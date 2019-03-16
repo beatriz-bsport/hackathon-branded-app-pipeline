@@ -75,7 +75,7 @@ export class MetaActivityFormPage extends Component<Props> {
           onSubmit={this.props.onSubmit}
           onCancel={this.props.goToPreviousPage}
           metaActivityNames={[]}
-          initial={{ ...initialData, images: initial.images || [] }}
+          initial={{ ...initialData, images: (initial || {}).images || [] }}
           imageUploader={id ? imageUploader : null}
         />
       </div>

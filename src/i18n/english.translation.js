@@ -37,6 +37,12 @@ export default {
     bookingConfirmed: 'Booking confirmed',
     button: { login: 'Log in' },
     metaActivity: {
+      forms: {
+        create: {
+          success: 'Activity successfully created',
+          error: 'Could not save the activity',
+        },
+      },
       update: {
         imageUploaderRequireEditMessage:
           'Once you have created your activity you will be able to add additional images.',
@@ -215,6 +221,7 @@ export default {
       },
     },
     form: {
+      waiting_list_max_size: 'Waiting list max size',
       address: {
         streetNumber: 'N°',
         addressLine1: 'Address',
@@ -235,6 +242,10 @@ export default {
         subShop: {
           nameTitle: 'New category',
           namePlaceholder: 'Juices',
+          createOrUpdate: {
+            success: 'Catégory successfully saved',
+            error: 'Impossible to save category',
+          },
           delete: {
             success: 'Category deleted',
             error: 'Error while deleting category',

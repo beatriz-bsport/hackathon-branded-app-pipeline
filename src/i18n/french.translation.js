@@ -53,6 +53,12 @@ export default {
       delete: "Suppression d'un rapport",
     },
     metaActivity: {
+      forms: {
+        create: {
+          success: 'Activité créée',
+          error: "Erreur lors de l'enregistrement de l'activité",
+        },
+      },
       update: {
         imageUploaderRequireEditMessage:
           "Une fois votre activité créée, vous aurez la possibilité d'ajouter des images supplémentaires.",
@@ -204,6 +210,7 @@ export default {
       noProvisionUpdates: 'Aucun stock',
     },
     form: {
+      waiting_list_max_size: "Taille de la liste d'attente",
       address: {
         streetNumber: 'N°',
         addressLine1: 'Adresse',
@@ -224,6 +231,10 @@ export default {
         subShop: {
           nameTitle: 'Nouvelle catégorie',
           namePlaceholder: 'Jus de fruits',
+          createOrUpdate: {
+            success: 'Catégorie enregistrée avec succès',
+            error: "Impossible d'enregsitrer la catégorie",
+          },
           delete: {
             success: 'Catégorie supprimée',
             error: 'Impossible de supprimer la catégorie',

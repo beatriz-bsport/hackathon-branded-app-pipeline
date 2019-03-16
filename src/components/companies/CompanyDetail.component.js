@@ -36,8 +36,8 @@ export class CompanyDetail extends Component<Props, State> {
     const { company, t, classes } = this.props;
     return (
       <div className="company-detail">
-        <Typography variant="h1" className={classes.pageTitle}>
-          {company.business_name} {company.name}
+        <Typography variant="h4" className={classes.pageTitle}>
+          {`${company.business_name} (${company.name.toLowerCase()})`}
         </Typography>
         <Grid container direction="row" spacing={24}>
           <Grid item xs={12} md={6}>
@@ -87,10 +87,10 @@ export class CompanyDetail extends Component<Props, State> {
                 {t('companies.bank_details')}
               </Typography>
               <p>
-                <strong>{t('companies.fields.iban')}:</strong>
+                <strong>{t('companies.fields.iban')} : </strong>
                 {company.iban}
                 <br />
-                <strong>{t('companies.fields.bank_account_holder')}:</strong>
+                <strong>{t('companies.fields.bank_account_holder')} : </strong>
                 {company.bank_account_holder}
                 <br />
               </p>

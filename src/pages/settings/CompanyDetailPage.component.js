@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { withStyles, CircularProgress } from '@material-ui/core';
 
 import { companies as companiesActions } from '../../actions';
 import CompanyDetail from '../../components/companies/CompanyDetail.component';
@@ -21,9 +21,9 @@ export class CompanyDetailPage extends Component<Props, State> {
   }
 
   render() {
-    const { company } = this.props;
+    const { company, classes } = this.props;
     return (
-      <div className="company-detail-page">
+      <div className={classes.container}>
         {company ? <CompanyDetail company={company} /> : <CircularProgress />}
       </div>
     );
@@ -42,7 +42,15 @@ function mapDispatchToProps(dispatch) {
     },
   };
 }
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(CompanyDetailPage);
+
+const styles = (theme) => ({
+  container: {
+    margin: theme.spacing.unit * 3,
+  },
+});
+export default withStyles(styles)(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(CompanyDetailPage),
+);

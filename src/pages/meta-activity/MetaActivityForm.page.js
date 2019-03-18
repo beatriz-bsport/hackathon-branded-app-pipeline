@@ -25,6 +25,7 @@ type Props = {
   establishments: *[],
   SCTs: *[],
 
+  fetchMetaActivity: (id: number) => void,
   removeImage: () => void,
   addImage: () => void,
   onSubmit: (*) => void,

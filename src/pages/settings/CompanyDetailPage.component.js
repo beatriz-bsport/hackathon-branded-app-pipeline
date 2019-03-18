@@ -10,6 +10,7 @@ import CompanyDetail from '../../components/companies/CompanyDetail.component';
 type Props = {
   company: *,
   fetchCompany: () => void,
+  classes: Object,
 };
 type State = {};
 

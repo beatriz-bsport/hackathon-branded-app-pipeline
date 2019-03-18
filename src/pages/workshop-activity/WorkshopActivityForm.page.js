@@ -10,7 +10,6 @@ import { goBack } from 'react-router-redux';
 import { mapFormData, unmap } from '../form.utils';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import {
-  metaActivity as metaActivityActions,
   workshopActivity as workshopActivityActions,
 } from '../../actions';
 

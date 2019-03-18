@@ -21,6 +21,7 @@ import NotificationOffIcon from '@material-ui/icons/NotificationsOff';
 
 import type { TFunction } from 'react-i18next';
 
+import { formatAsDate } from '../../../datetime';
 import { Avatar } from '../../../components';
 import { Moment } from '../../../i18n';
 import type { Member } from '../../../api/types';
@@ -129,7 +130,7 @@ export class MemberSummaryCard extends Component<Props> {
             </Grid>
             <Grid item>
               <Typography>
-                {t('member.memberSince') + member.date_joined}
+                {t('member.memberSince') + formatAsDate(member.date_joined)}
               </Typography>
             </Grid>
           </Grid>

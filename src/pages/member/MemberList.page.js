@@ -15,7 +15,7 @@ import {
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 
-import { formatAsDatetime } from '../../datetime';
+import { formatAsDate, formatAsDatetime } from '../../datetime';
 import { FeatureTable } from '../../components';
 import type { Member } from '../../api/types';
 import withDrawer from '../../hocs/with-drawer.hoc';
@@ -98,7 +98,7 @@ export class Members extends Component<Props, State> {
           } ${t('common.pass').toLowerCase()}`}
         </TableCell>
         <TableCell>{status}</TableCell>
-        <TableCell>{member.date_joined}</TableCell>
+        <TableCell>{formatAsDate(member.date_joined)}</TableCell>
         <TableCell>
           <Button
             onClick={() => this.redirectToMemberPage(member.id)}

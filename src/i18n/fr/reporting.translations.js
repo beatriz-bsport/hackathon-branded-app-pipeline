@@ -28,6 +28,12 @@ export default {
     cash: 'Espèces',
     check: 'Chèque',
     stripe: 'CB',
+    manual_credit_card: 'CB (manuel)',
+    holiday_check: 'Chèque vacance',
+    amex: 'Amex',
+    bank_transfer: 'Virement',
+    event_brite: 'EventBrite',
+    none: 'Aucun',
   },
   product_type: {
     payment_pack: 'Abonnement',

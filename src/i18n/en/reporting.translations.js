@@ -28,6 +28,12 @@ export default {
     cash: 'Cash',
     check: 'Check',
     stripe: 'Credit card',
+    manual_credit_card: 'Credit card (manual)',
+    holiday_check: 'Holiday check',
+    amex: 'Amex',
+    bank_transfer: 'Bank transfer',
+    event_brite: 'EventBrite',
+    none: 'None',
   },
   product_type: {
     payment_pack: 'Membership card',

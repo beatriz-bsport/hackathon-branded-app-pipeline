@@ -34,9 +34,9 @@ build:
   stage: build
   script:
     - yarn build
-    - yarn global add netlify-cli
+#    - yarn global add netlify-cli
     - $CI_PROJECT_DIR/scripts/configure_build.sh
-    - netlify deploy --auth=$NETLIFY_TOKEN --site=3d93de4c-10d3-4b08-a9e1-8355d90b56d7 --dir=build
+#    - netlify deploy --auth=$NETLIFY_TOKEN --site=3d93de4c-10d3-4b08-a9e1-8355d90b56d7 --dir=build
     - rm build/env.js
   artifacts:
     paths:

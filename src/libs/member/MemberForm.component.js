@@ -83,7 +83,7 @@ export class MemberForm extends Component<Props, State> {
   state = {
     firstname: null,
     lastname: null,
-    email: null,
+    email: '',
     phone: '',
     gender: 'M',
     avatar: null,
@@ -101,6 +101,7 @@ export class MemberForm extends Component<Props, State> {
     Object.keys(props.initial || {}).forEach((key) => {
       this.state[key] = props.initial[key];
     });
+    this.state.email = this.state.email || '';
     if (props.initial) {
       if (props.initial.phone_number) {
         this.state.phone = props.initial.phone_number;

@@ -235,7 +235,7 @@ const PackSchema = Yup.object().shape({
   name: Yup.string().required(),
   price: Yup.number().min(0),
   tax: Yup.number().min(0),
-  credits: Yup.number().min(0),
+  credits: Yup.number().min(0).nullable(),
   timeType: Yup.string().required(),
   duration_days: Yup.number().when('timeType', {
     is: VALID_BY_DURATION,

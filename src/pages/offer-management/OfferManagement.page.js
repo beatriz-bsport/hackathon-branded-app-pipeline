@@ -42,7 +42,9 @@ function mapStateToProps(state, nextProps) {
     bookingOptions: state.booking.options,
     memberCreationPending: state.member.createOrUpdatePending,
     memberCreationErrors: state.member.createOrUpdateErrors,
-    compatiblePacks: state.offer.compatiblePacks.items,
+    compatiblePacks: state.offer.compatiblePacks.items.filter(
+      (pp) => !pp.disabled,
+    ),
     compatiblePacksLoading: state.offer.compatiblePacks.loading,
     unevenSavedInvoices: state.invoice.quickInvoices,
   };

@@ -323,6 +323,7 @@ export default {
       quickInvoice: {
         totalPurchase: 'Purchases',
         totalPayment: 'Payments',
+        paymentDue: 'Payment remaining',
       },
       invoice: {
         titleUnevenInvoice: 'Uneven invoice',

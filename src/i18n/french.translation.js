@@ -312,6 +312,7 @@ export default {
       quickInvoice: {
         totalPurchase: 'Achats',
         totalPayment: 'Paiements',
+        paymentDue: 'Paiement dû',
       },
       invoice: {
         dateStartPaymentPack: "Début de l'abonnement le",

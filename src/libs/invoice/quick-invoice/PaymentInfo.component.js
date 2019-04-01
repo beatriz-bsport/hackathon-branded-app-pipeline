@@ -107,7 +107,10 @@ export function PaymentInfo(props: Props) {
           }
         >
           <Typography variant="subtitle1">
-            {`${t('form.quickInvoice.totalPayment')} : ${totalPayment}€`}
+            {`${t('form.quickInvoice.paymentDue')} : ${Math.max(
+              0,
+              finalPrice - totalPayment,
+            )}€`}
           </Typography>
         </Grid>
       </Grid>

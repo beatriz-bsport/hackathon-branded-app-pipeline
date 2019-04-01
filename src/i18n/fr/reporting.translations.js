@@ -23,6 +23,9 @@ export default {
     membership_duration: 'Durée de validité',
     membership_name: 'Abonnement',
     amortized_price: 'Restant dû',
+    end_date: 'Fin de validité',
+    credits: 'Crédits totaux',
+    available_credits: 'Crédits disponibles',
   },
   payment_method: {
     cash: 'Espèces',

@@ -23,6 +23,9 @@ export default {
     membership_duration: 'Duration',
     membership_name: 'Payment pack name',
     amortized_price: 'Deffered amount',
+    end_date: 'End of validity',
+    credits: 'Total credits',
+    available_credits: 'Available credits',
   },
   payment_method: {
     cash: 'Cash',

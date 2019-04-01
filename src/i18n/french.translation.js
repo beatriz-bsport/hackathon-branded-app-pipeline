@@ -697,6 +697,12 @@ export default {
       },
     },
     booking: {
+      statusCode: {
+        cancelledByManager: 'Annulé par le manager',
+        cancelledByConsumer: 'Annulé par le client',
+        cancelledByOffer: 'Séance annulée par le club',
+      },
+      wasRefunded: 'Remboursé',
       success: 'Réservation enregistrée',
       revertBookingTitle: "Annuler l'inscription",
       revertBookingExplain: (name: string, offerIsAvailable) => {

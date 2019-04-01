@@ -626,6 +626,12 @@ export default {
       reviews: 'Customer reviews: ',
     },
     booking: {
+      statusCode: {
+        cancelledByManager: 'Cancelled by manager',
+        cancelledByConsumer: 'Cancelled by customer',
+        cancelledByOffer: 'Session cancelled by club',
+      },
+      wasRefunded: 'Refunded',
       success: 'Booking saved',
       revertBookingTitle: 'Delete boking',
       revertBookingExplain: (name: string, offerIsAvailable: boolean) => {

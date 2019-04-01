@@ -17,6 +17,7 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push as routerPush } from 'react-router-redux';
 import { connect } from 'react-redux';
+import { getBookingStatusCode } from './Booking.utils';
 
 import RedButton from '../button/RedButton.component';
 import { formatAsDatetime } from '../../datetime';
@@ -67,7 +68,9 @@ export class BookingItemForManager extends Component<Props> {
       const { available_credits } = consumer_payment_pack;
       const { credits } = payment_pack;
       return [
-        `${payment_pack.name}: ${available_credits}/${credits}`,
+        `${payment_pack.name}: ${available_credits}/${credits}${
+          booking.was_refunded ? ` (${t('booking.wasRefunded')})` : ''
+        }`,
         available_credits / credits < 0.1 ? 'error' : 'primary',
       ];
     }
@@ -176,7 +179,7 @@ export class BookingItemForManager extends Component<Props> {
   };
 
   render() {
-    const { booking, redirectToMember } = this.props;
+    const { t, booking, redirectToMember } = this.props;
     // <TableCell>{t(`booking.sources.${b.source}`)}</TableCell>
     const [statusText, color] = this.getStatusText(booking);
     return (
@@ -188,7 +191,7 @@ export class BookingItemForManager extends Component<Props> {
       >
         {this.getAvatar()}
         <ListItemText
-          primary={this.getHeading()}
+          primary={this.getHeading() + getBookingStatusCode(t, booking)}
           secondary={statusText}
           secondaryTypographyProps={{ color }}
         />

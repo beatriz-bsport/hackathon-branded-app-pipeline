@@ -27,6 +27,9 @@ const styles = () => ({
   },
   disabled: {
     backgroundColor: '#FFDDDD',
+    '&:hover': {
+      backgroundColor: '#FFC1C1',
+    },
   },
 });
 

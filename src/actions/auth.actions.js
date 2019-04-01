@@ -29,14 +29,17 @@ export function fetchAccessLevel(token, username, options = {}) {
     try {
       const response = await api.auth.accessLevel(token);
       console.log(response);
-      const { is_manager, is_coach, is_consumer } = response.data;
+      const { is_manager, is_consumer } = response.data;
+
+      if (!is_manager && is_consumer) {
+        dispatch(errorLogin());
+      }
 
       dispatch(
         setLogin({
           username,
           token,
           is_manager,
-          is_coach,
           is_consumer,
         }),
       );
@@ -119,7 +122,7 @@ export function signup(data, options = {}) {
       }
     } catch (err) {
       alert(
-        'Impossible de créer votre compte pour le moment, veuillez réessayer d\'ici quelques minutes',
+        "Impossible de créer votre compte pour le moment, veuillez réessayer d'ici quelques minutes",
       );
     }
     return dispatch(errorLogin());

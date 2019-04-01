@@ -44,10 +44,11 @@ export class BookingListItem extends Component<Props> {
           </Tooltip>
         ) : null}
         <ListItemText
-          primary={activity.name}
+          primary={(offer.available ? '' : 'ANNULÉ ') + activity.name}
           secondary={`${formatAsDatetime(
             offer.date_start,
           )} - ${humanizeDuration(offer.duration_minute * 60000)}`}
+          secondaryTypographyProps={offer.available ? {} : { color: 'error' }}
         />
         {onDiscard ? (
           <ListItemSecondaryAction>

@@ -12,7 +12,7 @@ type Props = {
 export class ShopItemSummary extends Component<Props> {
   render() {
     const { t } = this.props;
-    const { name, subtitle, current_stock } = this.props.shopItem;
+    const { price, name, subtitle, current_stock } = this.props.shopItem;
 
     return (
       <ListItem divider>
@@ -20,6 +20,8 @@ export class ShopItemSummary extends Component<Props> {
         <ListItemText
           primary={`${t('form.shop.item.provisions')} : ${current_stock}`}
           primaryTypographyProps={{ align: 'right' }}
+          secondaryTypographyProps={{ align: 'right' }}
+          secondary={`${price} € `}
         />
       </ListItem>
     );

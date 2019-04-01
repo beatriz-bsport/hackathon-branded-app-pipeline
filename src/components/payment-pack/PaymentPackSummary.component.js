@@ -23,6 +23,7 @@ export class PaymentPackMinimalSummary extends Component<Props> {
       validity_daterange,
       duration_days,
       unlimited,
+      price,
     } = paymentPack;
 
     const creditsFormatted = unlimited
@@ -46,6 +47,8 @@ export class PaymentPackMinimalSummary extends Component<Props> {
         <ListItemText
           primary={dateInfo}
           primaryTypographyProps={{ align: 'right', variant: 'caption' }}
+          secondaryTypographyProps={{ align: 'right', variant: 'caption' }}
+          secondary={`${price} €`}
         />
         {buyButton}
       </ListItem>

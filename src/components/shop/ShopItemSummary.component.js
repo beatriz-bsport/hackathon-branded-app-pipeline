@@ -16,7 +16,7 @@ export class ShopItemSummary extends Component<Props> {
 
     return (
       <ListItem divider>
-        <ListItemText primary={name} secondary={subtitle} />
+        <ListItemText primary={name} secondary={subtitle || ''} />
         <ListItemText
           primary={`${t('form.shop.item.provisions')} : ${current_stock}`}
           primaryTypographyProps={{ align: 'right' }}

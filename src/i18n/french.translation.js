@@ -241,6 +241,7 @@ export default {
           },
         },
         item: {
+          unlimitedProvision: 'Pas de gestion du stock',
           deleteTitle: 'Suppression',
           deleteExplain:
             'Attention cette suppression est définitive, aucun client ne pourra plus acheter ce produit, les stocks seront supprimés.',

@@ -44,7 +44,6 @@ type Props = {
   item: ShopItem,
   onEdit: () => void,
   onDelete: () => void,
-  onEdit: () => void,
   onUpdateProvisions: (qty: number) => void,
   deleteProvisionUpdate: (id: number) => void,
   t: TFunction,
@@ -209,6 +208,9 @@ export class ShopItemCard extends PureComponent<Props, State> {
 
   renderProvisionHistory = () => {
     const { t, classes, item, deleteProvisionUpdate } = this.props;
+    if (item.unlimited_provisions) {
+      return <div />;
+    }
     const { provision_updates } = item;
     return (
       <Collapse in={this.state.showHistory}>
@@ -260,7 +262,7 @@ export class ShopItemCard extends PureComponent<Props, State> {
               )
             }
             title={item.name}
-            subheader={item.subtitle}
+            subheader={item.subtitle || ''}
             action={
               <Grid
                 container
@@ -287,7 +289,7 @@ export class ShopItemCard extends PureComponent<Props, State> {
           <CardContent className={classes.content}>
             <div className={classes.description}>
               <Typography variant="body" color="textSecondary">
-                {item.description}
+                {item.description || ''}
               </Typography>
             </div>
           </CardContent>
@@ -298,25 +300,29 @@ export class ShopItemCard extends PureComponent<Props, State> {
               justify="space-between"
               alignItems="center"
             >
-              <Grid item>
-                <Grid container direction="row" alignItems="center">
-                  <Grid item>
-                    <Typography
-                      variant="subtitle1"
-                      alignItems="center"
-                      className={classes.provisions}
-                      color={item.current_stock ? 'inherits' : 'error'}
-                    >
-                      {t('form.shop.item.provisions')}: {item.current_stock}
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <IconButton onClick={this.toogleShowProvisionUpdates}>
-                      <ExpandMoreIcon />
-                    </IconButton>
+              {item.unlimited_provisions ? (
+                <Grid item />
+              ) : (
+                <Grid item>
+                  <Grid container direction="row" alignItems="center">
+                    <Grid item>
+                      <Typography
+                        variant="subtitle1"
+                        alignItems="center"
+                        className={classes.provisions}
+                        color={item.current_stock ? 'inherits' : 'error'}
+                      >
+                        {t('form.shop.item.provisions')}: {item.current_stock}
+                      </Typography>
+                    </Grid>
+                    <Grid item>
+                      <IconButton onClick={this.toogleShowProvisionUpdates}>
+                        <ExpandMoreIcon />
+                      </IconButton>
+                    </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
+              )}
               <Grid item className={classes.buttons}>
                 <IconButton onClick={this.props.onEdit} color="primary">
                   <EditIcon />
@@ -326,9 +332,11 @@ export class ShopItemCard extends PureComponent<Props, State> {
                 >
                   <DeleteIcon />
                 </IconButton>
-                <IconButton onClick={this.handleOpenMenu}>
-                  <MoreVertIcon />
-                </IconButton>
+                {item.unlimited_provisions ? null : (
+                  <IconButton onClick={this.handleOpenMenu}>
+                    <MoreVertIcon />
+                  </IconButton>
+                )}
               </Grid>
             </Grid>
           </CardActions>

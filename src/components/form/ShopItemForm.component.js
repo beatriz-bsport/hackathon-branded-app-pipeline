@@ -10,6 +10,8 @@ import {
   CardActions,
   TextField,
   withStyles,
+  FormControlLabel,
+  Checkbox,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import CancelIcon from '@material-ui/icons/Cancel';
@@ -39,6 +41,7 @@ type State = {
   cover: ?string,
   tva: ?number,
   description: ?string,
+  unlimited_provisions: boolean,
 };
 
 function ShopItemPreview(props: { previewURL: string }) {
@@ -92,6 +95,7 @@ export class ShopItemForm extends Component<Props, State> {
         price: initial.price,
         tva: initial.tva,
         description: initial.description,
+        unlimited_provisions: initial.unlimited_provisions,
       };
     } else {
       this.state = {
@@ -101,6 +105,7 @@ export class ShopItemForm extends Component<Props, State> {
         price: null,
         tva: null,
         description: null,
+        unlimited_provisions: false,
       };
     }
   }
@@ -121,13 +126,18 @@ export class ShopItemForm extends Component<Props, State> {
     const id = initial ? initial.id : null;
     const data = new FormData();
     data.append('name', this.state.name);
-    data.append('description', this.state.description);
-    data.append('subtitle', this.state.subtitle);
+    if (this.state.description) {
+      data.append('description', this.state.description);
+    }
+    if (this.state.subtitle) {
+      data.append('subtitle', this.state.subtitle);
+    }
     data.append('tva', this.state.tva);
     data.append('price', this.state.price);
     if (this.state.cover && typeof this.state.cover !== 'string') {
       data.append('cover', this.state.cover);
     }
+    data.append('unlimited_provisions', this.state.unlimited_provisions);
     this.props.createOrUpdate(data, id);
   };
 
@@ -156,7 +166,6 @@ export class ShopItemForm extends Component<Props, State> {
               <TextField
                 label={t('form.shop.item.subtitle')}
                 value={subtitle}
-                required
                 onChange={this.handleField('subtitle')}
                 fullWidth
               />
@@ -189,6 +198,22 @@ export class ShopItemForm extends Component<Props, State> {
               />
             </Grid>
           </Grid>
+          <Grid item xs={12} className={classes.itemRow}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={this.state.unlimited_provisions}
+                  onChange={(event) => {
+                    this.setState({
+                      unlimited_provisions: event.target.checked,
+                    });
+                  }}
+                />
+              }
+              label={t('form.shop.item.unlimitedProvision')}
+              fullWidth
+            />
+          </Grid>
           <CardContent className={classes.content}>
             <div className={classes.description}>
               <TextField
@@ -198,7 +223,6 @@ export class ShopItemForm extends Component<Props, State> {
                 color="textSecondary"
                 value={description}
                 label={t('form.shop.item.description')}
-                required
                 onChange={this.handleField('description')}
               />
             </div>

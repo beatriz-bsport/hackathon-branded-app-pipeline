@@ -252,6 +252,7 @@ export default {
           },
         },
         item: {
+          unlimitedProvision: 'No provision management',
           updateProvisions: {
             success: 'Provisions updated',
             error: 'Error while updating provisions',

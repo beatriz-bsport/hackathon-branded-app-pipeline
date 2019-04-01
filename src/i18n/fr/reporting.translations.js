@@ -34,6 +34,7 @@ export default {
     bank_transfer: 'Virement',
     event_brite: 'EventBrite',
     none: 'Aucun',
+    subscription_cb: 'Paiement automatique CB',
   },
   product_type: {
     payment_pack: 'Abonnement',

@@ -86,6 +86,7 @@ export default {
       AMEX: 'AMEX',
       BANK_TRANSFER: 'Virement',
       CREDIT_ACCOUNT: 'Compte interne (crédit)',
+      SUBSCRIPTION_CB: 'Paiement automatique CB',
     },
     errors: {
       end_before_start: 'La date de fin doit être après la date de début',
@@ -600,6 +601,7 @@ export default {
         AMEX: 'AMEX',
         BANK_TRANSFER: 'Virement',
         CREDIT_ACCOUNT: 'Compte interne (crédit)',
+        SUBSCRIPTION_CB: 'Paiement automatique CB',
       },
       paymentItemsListTitle: 'Paiements enregistrés',
       noPaymentItem: 'Aucun paiement enregistré',

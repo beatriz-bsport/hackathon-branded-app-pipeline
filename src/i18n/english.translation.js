@@ -76,6 +76,7 @@ export default {
       AMEX: 'AMEX',
       BANK_TRANSFER: 'Bank transfer',
       CREDIT_ACCOUNT: 'Credit account',
+      SUBSCRIPTION_CB: 'Automatic credit card debit',
     },
     common: {
       invoices: 'Invoices',
@@ -564,6 +565,7 @@ export default {
         AMEX: 'AMEX',
         BANK_TRANSFER: 'Bank transfer',
         CREDIT_ACCOUNT: 'Credit account',
+        SUBSCRIPTION_CB: 'Automatic credit card debit',
       },
       paymentItemsListTitle: 'Registered payments',
       noPaymentItem: 'No payment registered',

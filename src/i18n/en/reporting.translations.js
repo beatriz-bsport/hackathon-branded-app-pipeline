@@ -34,6 +34,7 @@ export default {
     bank_transfer: 'Bank transfer',
     event_brite: 'EventBrite',
     none: 'None',
+    subscription_cb: 'Automatic credit card debit',
   },
   product_type: {
     payment_pack: 'Membership card',

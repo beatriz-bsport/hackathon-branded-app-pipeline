@@ -45,10 +45,10 @@ export class PaymentPackMinimalSummary extends Component<Props> {
       <ListItem divider={!noDivider}>
         <ListItemText primary={name} secondary={creditsFormatted} />
         <ListItemText
-          primary={dateInfo}
+          primary={`${price} €`}
           primaryTypographyProps={{ align: 'right', variant: 'caption' }}
           secondaryTypographyProps={{ align: 'right', variant: 'caption' }}
-          secondary={`${price} €`}
+          secondary={dateInfo}
         />
         {buyButton}
       </ListItem>

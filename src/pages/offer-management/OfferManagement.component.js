@@ -56,7 +56,7 @@ type Props = {
 
   fetchBookings: (offerId: number) => void,
   fetchCompatiblePacks: (offerId: number) => void,
-  createOrUpdateMember: (data: [*]) => void,
+  createMember: (data: [*], options: *) => void,
   createInvoice: ([*], number) => void,
   resetQuickInvoices: () => void,
   createQuickUnevenInvoice: ({
@@ -140,27 +140,9 @@ export class OfferManagement extends Component<Props, State> {
     }
   };
 
-  createMember = async (data: *) => {
-    const formData = mapFormData(data, {
-      lastname: 'last_name',
-      firstname: 'first_name',
-      email: 'email',
-      phone: 'phone.phone_number',
-      gender: 'gender',
-      avatar: 'photo',
-      birthdayYear: 'birthday',
-      membership_ID: 'membership_ID',
-      accept_email: 'accept_email',
-      accept_sms: 'accept_sms',
-      date_joined: 'date_joined',
-      address: 'address',
-    });
-
-    if (this.props.update) {
-      formData.append('id', this.props.update.id);
-    }
-
-    this.props.createOrUpdateMember(formData);
+  createMember = (data: *, options) => {
+    const formData = mapFormData(data, MemberMap);
+    this.props.createMember(formData, options);
     this.setState({ addMemberModal: false });
   };
 
@@ -417,10 +399,7 @@ export class OfferManagement extends Component<Props, State> {
             <MemberForm
               onCancel={this.closeAddMemberModal}
               onSubmit={this.createMember}
-              error={this.props.memberCreationErrors}
-              processing={this.props.memberCreationPending}
-              initial={null}
-              update={false}
+              initial={{ rgpd: [] }}
             />
           </DialogContent>
         </Dialog>
@@ -434,6 +413,26 @@ export class OfferManagement extends Component<Props, State> {
     );
   }
 }
+
+const MemberMap = {
+  lastname: 'last_name',
+  firstname: 'first_name',
+  email: 'email',
+  address_line_1: 'address.address_line_1',
+  address_line_2: 'address.address_line_2',
+  zipcode: 'address.zipcode',
+  city: 'address.city',
+  country: 'address.country',
+  phone: 'phone.phone_number',
+  gender: 'gender',
+  avatar: 'photo',
+  birthdayYear: 'birthday',
+  membership_ID: 'membership_ID',
+  rgpd: 'rgpd',
+  date_joined: 'date_joined',
+  address: 'address',
+};
+
 const styles = (theme) => ({
   bookingsHeader: {
     padding: theme.spacing.unit * 2,

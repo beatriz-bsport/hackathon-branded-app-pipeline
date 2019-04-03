@@ -80,6 +80,7 @@ export function errorFetchingMember() {
 export function createOrUpdateMember(
   memberData: FormData,
   dontRedirect: boolean,
+  options,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(actionCreateOrUpdateMember(memberData));
@@ -90,27 +91,29 @@ export function createOrUpdateMember(
     try {
       const response = await createOrUpdate(memberData);
 
-      if (response.status === 201 || response.status === 200) {
-        dispatch(actionCreateOrUpdateMemberSuccess(response));
-        dispatch(
-          snackbarSuccess(
-            memberData.has('id')
-              ? 'member.forms.update.success'
-              : 'member.forms.create.success',
-          ),
-        );
-        dispatch(fetchAll());
-        if (!dontRedirect) {
-          dispatch(push('/member'));
-        }
-      } else {
-        dispatch(snackbarError('member.forms.error'));
-        dispatch(actionCreateOrUpdateMemberError());
+      if (response.status !== 201 && response.status !== 200) {
+        throw new Error(response);
+      }
+      dispatch(actionCreateOrUpdateMemberSuccess(response));
+      dispatch(
+        snackbarSuccess(
+          memberData.has('id')
+            ? 'member.forms.update.success'
+            : 'member.forms.create.success',
+        ),
+      );
+      dispatch(fetchAll());
+      if (options && options.onSuccess) options.onSuccess();
+      if (!dontRedirect) {
+        dispatch(push('/member'));
       }
     } catch (e) {
       console.log(e);
       dispatch(snackbarError('member.forms.error'));
       dispatch(actionCreateOrUpdateMemberError(e));
+      if (options && options.onError) {
+        options.onError((e || {}).response ? e.response.data : {});
+      }
     }
   };
 }

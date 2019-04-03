@@ -8,9 +8,10 @@ const initialState = Immutable({
   loading: true,
   all: [], // all the members
   member: {}, // currently showed member
-  // Create or Update
-  createOrUpdatePending: false,
-  createOrUpdateError: null,
+  upsert: {
+    loading: false,
+    error: null,
+  },
 });
 
 export default function memberReducers(state = initialState, action = {}) {
@@ -23,7 +24,6 @@ export default function memberReducers(state = initialState, action = {}) {
       return Immutable.merge(state, {
         all,
         loading: false,
-        createOrUpdatePending: false,
       });
     }
 
@@ -47,12 +47,10 @@ export default function memberReducers(state = initialState, action = {}) {
     case actionTypes.START_FETCH_MEMBER:
       return Immutable.merge(state, {
         loading: true,
-        createOrUpdatePending: false,
       });
     case actionTypes.ERROR_FETCHING_MEMBER:
       return Immutable.merge(state, {
         loading: false,
-        createOrUpdatePending: false,
       });
     case actionTypes.HAS_FETCHED_MEMBER: {
       const { member } = action;
@@ -62,20 +60,19 @@ export default function memberReducers(state = initialState, action = {}) {
       });
     }
 
-    case actionTypes.MEMBER_CREATE_OR_UPDATE:
+    case actionTypes.MEMBER_UPSERT_LOADING:
       return state.merge({
-        createOrUpdatePending: true,
+        upsert: { loading: true, error: null },
       });
 
     case actionTypes.MEMBER_CREATE_OR_UPDATE_SUCCESS:
       return state.merge({
-        createOrUpdatePending: false,
+        upsert: { error: null, loading: false },
       });
 
     case actionTypes.MEMBER_CREATE_OR_UPDATE_ERROR:
       return state.merge({
-        createOrUpdateError: action.error,
-        createOrUpdatePending: false,
+        upsert: { error: action.error, loading: false },
       });
 
     case actionTypes.MEMBER_UPDATE:

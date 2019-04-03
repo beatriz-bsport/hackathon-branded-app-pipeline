@@ -277,6 +277,10 @@ export default {
         },
       },
       member: {
+        rgpd: {
+          email: 'Accepte les notification par email',
+          sms: 'Accepte les notifications SMS',
+        },
         createOrUpdate: {
           error: "Erreur lors de l'enregistrement de la note",
           success: 'Note enregistrée',

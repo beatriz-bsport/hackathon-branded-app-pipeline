@@ -292,6 +292,10 @@ export default {
           error: 'Not could not be saved',
           success: 'Note saved',
         },
+        rgpd: {
+          email: 'Accept email notifications',
+          sms: 'Accept SMS notifications',
+        },
         delete: {
           error: 'Error while deleting note',
           success: 'Note deleted',

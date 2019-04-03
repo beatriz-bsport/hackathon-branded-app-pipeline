@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import i18next from 'i18next';
-import { Redirect } from 'react-router-dom';
 import {
   TableRow,
   TableCell,
@@ -12,6 +11,7 @@ import {
   Button,
   Typography,
 } from '@material-ui/core';
+import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 
@@ -25,15 +25,10 @@ type Props = {
   t: TFunction,
   loading: boolean,
   members: Array<Member>,
+  goToMemberDetail: (memberId: number) => void,
 };
 
-type State = {
-  requestedRedirection: ?string,
-};
-
-export class Members extends Component<Props, State> {
-  state = { requestedRedirection: null };
-
+export class Members extends Component<Props> {
   getColumnData = () => {
     const { t } = this.props;
     return [
@@ -83,7 +78,7 @@ export class Members extends Component<Props, State> {
     return (
       <TableRow
         hover
-        onClick={() => this.redirectToMemberPage(member.id)}
+        onClick={() => this.props.goToMemberDetail(member.id)}
         aria-checked={isSelected}
         tabIndex={-1}
         key={member.id}
@@ -101,7 +96,7 @@ export class Members extends Component<Props, State> {
         <TableCell>{formatAsDate(member.date_joined)}</TableCell>
         <TableCell>
           <Button
-            onClick={() => this.redirectToMemberPage(member.id)}
+            onClick={() => this.props.goToMemberDetail(member.id)}
             color="primary"
           >
             {t('common.show')}
@@ -111,17 +106,8 @@ export class Members extends Component<Props, State> {
     );
   };
 
-  redirectToMemberPage = (memberId: number) => {
-    this.setState({ requestedRedirection: `/member/${memberId}` });
-  };
-
   render() {
-    const { requestedRedirection } = this.state;
     const { loading, members } = this.props;
-
-    if (requestedRedirection) {
-      return <Redirect to={requestedRedirection} />;
-    }
 
     const mutableMembers = members.asMutable ? members.asMutable() : members;
     return (
@@ -143,17 +129,18 @@ export class Members extends Component<Props, State> {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    loading: state.member.loading,
-    members: state.member.all,
-  };
-}
-
 export default compose(
   withNamespaces(),
-  connect(mapStateToProps),
   withDrawer(({ t }: { t: TFunction }) => t('appbar.title.members')),
+  connect(
+    (state) => ({
+      loading: state.member.loading,
+      members: state.member.all,
+    }),
+    {
+      goToMemberDetail: (id: number) => push(`/member/${id}`),
+    },
+  ),
   withBottomButtons({
     addButton: {
       path: '/member/add',

@@ -40,8 +40,8 @@ function mapStateToProps(state, nextProps) {
     bookings: state.booking.all,
     bookingLoading: state.booking.loading,
     bookingOptions: state.booking.options,
-    memberCreationPending: state.member.createOrUpdatePending,
-    memberCreationErrors: state.member.createOrUpdateErrors,
+    memberCreationPending: state.member.upsert.loading,
+    memberCreationErrors: state.member.upsert.error,
     compatiblePacks: state.offer.compatiblePacks.items.filter(
       (pp) => !pp.disabled,
     ),
@@ -75,8 +75,8 @@ function mapDispatchToProps(dispatch) {
     discardOption(optionId) {
       dispatch(bookingActions.discardBookingOption(optionId));
     },
-    createOrUpdateMember(data) {
-      dispatch(createOrUpdateMember(data, true));
+    createMember(data, options) {
+      dispatch(createOrUpdateMember(data, true, options));
     },
     createInvoice(invoiceData: InvoiceData, memberId: number, isQuickInvoice) {
       dispatch(

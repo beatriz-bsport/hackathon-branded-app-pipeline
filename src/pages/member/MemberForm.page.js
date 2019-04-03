@@ -1,85 +1,96 @@
 // @flow
 
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Paper } from '@material-ui/core';
-import { compose } from 'recompose';
 import type { TFunction } from 'react-i18next';
 import { withNamespaces } from 'react-i18next';
 
 import { goBack } from 'react-router-redux';
+import { compose, withProps } from 'recompose';
 import { createOrUpdateMember } from '../../actions/member.actions';
 import withDrawer from '../../hocs/with-drawer.hoc';
-
-import { mapFormData } from '../form.utils';
-
 import MemberForm from '../../libs/member/MemberForm.component';
 
+import { mapFormData, unmap } from '../form.utils';
+
 type Props = {
-  createOrUpdateMember: (*) => void,
-  goToPreviousPage: () => void,
-  pending: boolean,
-  errors: *,
-  update: *,
+  initial: *,
+  onSubmit: (*) => void,
+  onCancel: () => void,
 };
 
-export class MemberFormPage extends Component<Props> {
-  createMember = async (data: *) => {
-    const formData = mapFormData(data, {
-      lastname: 'last_name',
-      firstname: 'first_name',
-      email: 'email',
-      phone: 'phone.phone_number',
-      gender: 'gender',
-      avatar: 'photo',
-      birthdayYear: 'birthday',
-      membership_ID: 'membership_ID',
-      accept_email: 'accept_email',
-      accept_sms: 'accept_sms',
-      date_joined: 'date_joined',
-      address: 'address',
-    });
+const MemberMap = {
+  lastname: 'last_name',
+  firstname: 'first_name',
+  email: 'email',
+  address_line_1: 'address.address_line_1',
+  address_line_2: 'address.address_line_2',
+  zipcode: 'address.zipcode',
+  city: 'address.city',
+  country: 'address.country',
+  phone: 'phone.phone_number',
+  gender: 'gender',
+  avatar: 'photo',
+  birthdayYear: 'birthday',
+  membership_ID: 'membership_ID',
+  rgpd: 'rgpd',
+  date_joined: 'date_joined',
+  address: 'address',
+};
 
-    if (this.props.update) {
-      formData.append('id', this.props.update.id);
+export function MemberFormPage(props: Props) {
+  const { initial, onCancel, onSubmit } = props;
+  const initialData = initial
+    ? {
+        ...unmap(initial, MemberMap),
+        rgpd: [],
+        birthdayYear:
+          initial && initial.birthday ? initial.birthday.slice(0, 4) : null,
+      }
+    : {};
+
+  if (initialData && initial) {
+    if (initial.phone_number) {
+      initialData.phone = initial.phone_number;
     }
-
-    this.props.createOrUpdateMember(formData);
-  };
-
-  render() {
-    const { goToPreviousPage, update } = this.props;
-    return (
-      <Paper>
-        <MemberForm
-          onCancel={goToPreviousPage}
-          onSubmit={this.createMember}
-          error={this.props.errors}
-          processing={this.props.pending}
-          initial={update}
-          update={!!update}
-        />
-      </Paper>
-    );
+    if (initial.accept_email) {
+      initialData.rgpd.push('accept_email');
+    }
+    if (initial.accept_sms) {
+      initialData.rgpd.push('accept_sms');
+    }
+    delete initialData.address;
+  } else {
+    initialData.rgpd = ['accept_email', 'accept_sms'];
   }
+  return (
+    <Paper>
+      <MemberForm
+        onCancel={onCancel}
+        onSubmit={onSubmit}
+        initial={initialData}
+      />
+    </Paper>
+  );
 }
 
 function mapStateToProps(state, nextProps) {
   const { match } = nextProps;
   const id = (match && match.params && +match.params.id) || null;
   return {
-    pending: state.member.createOrUpdatePending,
-    errors: state.member.createOrUpdateErrors,
-    update: id !== null ? state.member.all.find((m) => m.id === id) : null,
+    errors: state.member.upsert.error,
+    initial: id !== null ? state.member.all.find((m) => m.id === id) : null,
   };
 }
 function mapDispatchToProps(dispatch) {
   return {
-    createOrUpdateMember(data) {
-      dispatch(createOrUpdateMember(data, false));
+    upsertMember(data, options) {
+      console.log(data);
+      dispatch(createOrUpdateMember(data, false, options));
     },
-    goToPreviousPage() {
+    onCancel() {
       dispatch(goBack());
     },
   };
@@ -93,4 +104,16 @@ export default compose(
     mapDispatchToProps,
   ),
   withDrawer(({ t }: { t: TFunction }) => t('appbar.title.memberFormPage')),
+  withProps(({ upsertMember, initial }) => ({
+    onSubmit: (values, options) => {
+      console.log(values);
+      const formData = mapFormData(values, MemberMap);
+
+      if (initial) {
+        formData.append('id', initial.id);
+      }
+
+      upsertMember(formData, options);
+    },
+  })),
 )(MemberFormPage);

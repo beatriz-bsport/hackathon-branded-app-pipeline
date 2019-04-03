@@ -62,7 +62,9 @@ export function createOrUpdateCoach(coachData: CoachPayload, options) {
       console.error(error);
       dispatch(snackbarError('coach.forms.error'));
       dispatch(upsert.error(error));
-      if (options && options.onError) options.onError(error.response.data);
+      if (options && options.onError) {
+        options.onError((error || []).response ? error.response.data : {});
+      }
     }
     dispatch(upsert.isLoading(false));
   };

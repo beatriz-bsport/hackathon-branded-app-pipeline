@@ -19,11 +19,14 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import Grid from '@material-ui/core/Grid';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Switch from '@material-ui/core/Switch';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
+
+import * as Yup from 'yup';
 
 import {
   TextField as MuiTextField,
@@ -151,6 +154,65 @@ export const DateField = (props: DateFieldProps) => {
     />
   );
 };
+
+type AddressFieldsProps = {
+  t: TFunction,
+  autoComplete: boolean,
+  required: boolean,
+};
+
+export const AddressFieldsSchema = {
+  address_line_1: Yup.string().required(),
+  address_line_2: Yup.string(),
+  city: Yup.string().required(),
+  zipcode: Yup.string().required(),
+  country: Yup.string().required(),
+};
+
+export const AddressFields = withNamespaces([])((props: AddressFieldsProps) => {
+  const { t, autoComplete, required } = props;
+  return (
+    <div>
+      <TextField
+        required={required}
+        name="address_line_1"
+        autoComplete={autoComplete ? 'address-line1' : null}
+        fullWidth
+        label={t('form.address.addressLine1')}
+      />
+      <TextField
+        name="address_line_2"
+        autoComplete={autoComplete ? 'address-line2' : null}
+        fullWidth
+        label={t('form.address.addressLine2')}
+      />
+      <Grid container direction="row" spacing={16}>
+        <Grid item>
+          <TextField
+            name="zipcode"
+            autoComplete={autoComplete ? 'zipcode' : null}
+            label={t('form.address.zipcode')}
+            required={required}
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            name="city"
+            autoComplete={autoComplete ? 'city' : null}
+            label={t('form.address.city')}
+            required={required}
+          />
+        </Grid>
+      </Grid>
+      <TextField
+        name="country"
+        autoComplete={autoComplete ? 'country' : null}
+        required={required}
+        label={t('form.address.country')}
+      />
+    </div>
+  );
+});
 
 type PhoneFieldProps = {};
 

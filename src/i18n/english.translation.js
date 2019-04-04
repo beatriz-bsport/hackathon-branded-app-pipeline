@@ -486,6 +486,10 @@ export default {
       twoHour: '2h',
       sixHour: '6h',
       oneDay: '1 day',
+      twoDays: '2 days',
+      oneWeek: '1 week',
+      tenDays: '10 days',
+      twoWeeks: '2 weeks',
     },
     member,
     coach,
@@ -604,6 +608,10 @@ export default {
     establishment,
     search,
     workshopActivity: {
+      lastBookingBeforeMinutes: 'Last booking is possible until',
+      lastDiscardBeforeMinutes: 'Last discard booking is possible until',
+      imageUploaderRequireEditMessage:
+        'Once you have created your workshop you will be able to add additional images.',
       addWorkshopActivity: 'Create a workshop',
       forms: {
         create: {

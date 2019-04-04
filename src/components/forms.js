@@ -388,20 +388,35 @@ export const SCTSelectField = (props: SelectFieldProps) => (
   <SelectField {...props} itemRenderer={SCTMenuItemRenderer} />
 );
 
+const DURATION_CHOICES_SHORT = [
+  { value: 0, label: 'form.zeroMinute' },
+  { value: 15, label: 'form.quarterHour' },
+  { value: 30, label: 'form.halfHour' },
+  { value: 45, label: 'form.halfAndQuarterHour' },
+  { value: 60, label: 'form.oneHour' },
+  { value: 90, label: 'form.oneHourAndHalf' },
+  { value: 120, label: 'form.twoHour' },
+  { value: 360, label: 'form.sixHour' },
+  { value: 24 * 60, label: 'form.oneDay' },
+];
+
+const DURATION_CHOICES_LONG = [
+  { value: 0, label: 'form.zeroMinute' },
+  { value: 24 * 60, label: 'form.oneDay' },
+  { value: 2 * 24 * 60, label: 'form.twoDays' },
+  { value: 7 * 24 * 60, label: 'form.oneWeek' },
+  { value: 10 * 24 * 60, label: 'form.tenDays' },
+  { value: 14 * 24 * 60, label: 'form.twoWeeks' },
+];
+
 export const DurationMinuteSelectField = withNamespaces()(
   (props: SelectFieldProps) => (
     <SelectField
-      choices={[
-        { value: 0, label: 'form.zeroMinute' },
-        { value: 15, label: 'form.quarterHour' },
-        { value: 30, label: 'form.halfHour' },
-        { value: 45, label: 'form.halfAndQuarterHour' },
-        { value: 60, label: 'form.oneHour' },
-        { value: 90, label: 'form.oneHourAndHalf' },
-        { value: 120, label: 'form.twoHour' },
-        { value: 360, label: 'form.sixHour' },
-        { value: 24 * 60, label: 'form.oneDay' },
-      ]}
+      choices={
+        props.variant === 'long'
+          ? DURATION_CHOICES_LONG
+          : DURATION_CHOICES_SHORT
+      }
       {...props}
     />
   ),

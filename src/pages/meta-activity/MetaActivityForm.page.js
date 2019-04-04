@@ -44,7 +44,9 @@ const MetaActivityMap = {
 
 export class MetaActivityFormPage extends Component<Props> {
   componentDidMount() {
-    this.props.fetchMetaActivity(this.props.id);
+    if (this.props.id) {
+      this.props.fetchMetaActivity(this.props.id);
+    }
   }
 
   render() {

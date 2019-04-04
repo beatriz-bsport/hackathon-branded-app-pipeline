@@ -35,7 +35,7 @@ type Props = {
 };
 
 export function MetaActivityForm(props: Props) {
-  const { isSubmitting, SCTs, classes, t, imageUploader } = props;
+  const { isSubmitting, SCTs, classes, t, imageUploader, variant } = props;
   const images = (props.initial || {}).images || [];
   return (
     <Form>
@@ -67,7 +67,11 @@ export function MetaActivityForm(props: Props) {
                 ) : null}
               </Grid>
             ) : (
-              <p>{t('metaActivity.update.imageUploaderRequireEditMessage')}</p>
+              <p>
+                {variant === 'workshop'
+                  ? t('workshopActivity.imageUploaderRequireEditMessage')
+                  : t('metaActivity.update.imageUploaderRequireEditMessage')}
+              </p>
             )}
             <Grid item>
               <SCTSelectField
@@ -89,8 +93,13 @@ export function MetaActivityForm(props: Props) {
             </Grid>
             <Grid item>
               <DurationMinuteSelectField
-                label={t('activity.lastBookingBeforeMinutes')}
+                label={
+                  variant === 'workshop'
+                    ? t('workshopActivity.lastBookingBeforeMinutes')
+                    : t('activity.lastBookingBeforeMinutes')
+                }
                 name="last_booking_minutes"
+                variant={variant === 'workshop' ? 'long' : null}
                 fullWidth
                 required
               />
@@ -98,7 +107,12 @@ export function MetaActivityForm(props: Props) {
             <Grid item>
               <DurationMinuteSelectField
                 name="last_discard_minutes"
-                label={t('activity.lastDiscardBeforeMinutes')}
+                label={
+                  variant === 'workshop'
+                    ? t('workshopActivity.lastDiscardBeforeMinutes')
+                    : t('activity.lastDiscardBeforeMinutes')
+                }
+                variant={variant === 'workshop' ? 'long' : null}
                 fullWidth
                 required
               />

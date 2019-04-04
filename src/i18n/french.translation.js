@@ -479,6 +479,10 @@ export default {
       twoHour: '2h',
       sixHour: '6h',
       oneDay: '1 journée',
+      twoDays: '2 journées',
+      oneWeek: '1 semaine',
+      tenDays: '10 jours',
+      twoWeeks: '2 semaines',
     },
     member,
     coach,
@@ -697,6 +701,12 @@ export default {
     search,
     workshopActivity: {
       addWorkshopActivity: 'Ajouter un atelier',
+        imageUploaderRequireEditMessage:
+          "Une fois votre atelier créé, vous aurez la possibilité d'ajouter des images supplémentaires.",
+      lastBookingBeforeMinutes:
+        "Avant le début de l'atelier, dernière réservation possible",
+      lastDiscardBeforeMinutes:
+        "Avant le début de l'atelier, dernière annulation possible",
       forms: {
         create: {
           succes: 'Atelier sauvegardé',

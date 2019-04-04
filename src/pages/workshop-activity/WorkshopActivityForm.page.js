@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import { withNamespaces } from 'react-i18next';
@@ -9,9 +9,7 @@ import { withProps, compose } from 'recompose';
 import { goBack } from 'react-router-redux';
 import { mapFormData, unmap } from '../form.utils';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import {
-  workshopActivity as workshopActivityActions,
-} from '../../actions';
+import { workshopActivity as workshopActivityActions } from '../../actions';
 
 import withDrawer from '../../hocs/with-drawer.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -43,44 +41,43 @@ const WorkshopActivityMap = {
   category: 'category',
 };
 
-export class WorkshopActivityFormPage extends Component<Props> {
-  render() {
-    const {
-      SCTs,
-      associatedCoaches,
-      establishments,
-      loading,
-      id,
-      addImage,
-      removeImage,
-      initial,
-    } = this.props;
-    const initialData = initial
-      ? {
-          ...unmap(initial, WorkshopActivityMap),
-          category: initial.category_id,
-        }
-      : null;
-    if (loading) {
-      return <LinearProgress />;
-    }
-    const imageUploader = {
-      onAddImage: (file: File) => addImage(id, file),
-      onRemoveImage: (imageId: number) => removeImage(id, imageId),
-    };
-    return (
-      <MetaActivityForm
-        coaches={associatedCoaches}
-        establishments={establishments}
-        SCTs={SCTs}
-        onSubmit={this.props.onSubmit}
-        onCancel={this.props.goToPreviousPage}
-        metaActivityNames={[]}
-        initial={{ ...initialData, images: (initial || {}).images || [] }}
-        imageUploader={id ? imageUploader : null}
-      />
-    );
+export function WorkshopActivityFormPage(props: Props) {
+  const {
+    SCTs,
+    associatedCoaches,
+    establishments,
+    loading,
+    id,
+    addImage,
+    removeImage,
+    initial,
+  } = props;
+  const initialData = initial
+    ? {
+        ...unmap(initial, WorkshopActivityMap),
+        category: initial.category_id,
+      }
+    : null;
+  if (loading) {
+    return <LinearProgress />;
   }
+  const imageUploader = {
+    onAddImage: (file: File) => addImage(id, file),
+    onRemoveImage: (imageId: number) => removeImage(id, imageId),
+  };
+  return (
+    <MetaActivityForm
+      coaches={associatedCoaches}
+      variant="workshop"
+      establishments={establishments}
+      SCTs={SCTs}
+      onSubmit={props.onSubmit}
+      onCancel={props.goToPreviousPage}
+      metaActivityNames={[]}
+      initial={{ ...initialData, images: (initial || {}).images || [] }}
+      imageUploader={id ? imageUploader : null}
+    />
+  );
 }
 
 function mapStateToProps(state, { id }) {

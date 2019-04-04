@@ -48,6 +48,7 @@ export function fetchAllOffers() {
     try {
       const response = await api.offer.fetchAllEvents();
       dispatch(offers.success(response.data));
+      dispatch(offerByDay.reset())
     } catch (err) {
       dispatch(offers.error(err));
     }
@@ -82,6 +83,7 @@ export const offerByDay = {
   error: createAction('OFFERS/DAY/ERROR'),
   success: createAction('OFFERS/DAY/SUCCESS'),
   delete: createAction('OFFERS/DAY/DELETE'),
+  reset: createAction('OFFER/DAY/RESET'),
 };
 
 export function fetchOffersByDay(day: {

@@ -420,7 +420,11 @@ export class EditLiveOfferForm extends Component<Props, State> {
           <Grid item>
             <RecursionToogle
               loading={this.props.similarOfferLoading}
-              similarOffers={this.props.similarOffers}
+              similarOffers={this.props.similarOffers.filter(
+                (o) => o.available,
+              )}
+              message={this.props.t('form.offer.explainRecursiveOfferEdit')}
+              listTitle={this.props.t('offer.offersPendingChange')}
               shouldModifyAllDates={this.shouldModifyAllDates()}
               disabled={
                 this.hasChangedCoach() ||

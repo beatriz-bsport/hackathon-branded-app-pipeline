@@ -180,6 +180,7 @@ export default {
       effectif: 'Effectif',
       sizeOfWaitingList: "Taille de la liste d'attente",
       offersPendingChange: 'Séances qui seront modifiées :',
+      offersPendingDelete: 'Séances qui seront suprimées :',
       noPackAvailableForOfferPurchase:
         'Aucun abonnement compatible avec cette séance !',
       noConsumerPackAvailableForPurchase:
@@ -361,6 +362,8 @@ export default {
         changeDate: "Modifier l'horaire / date",
         changeCoach: 'Modifier le coach',
         changeEstablishment: 'Modifier le lieu',
+        explainRecursiveOfferDelete:
+          'Voulez-vous supprimer TOUTES les séances similaires ?',
         explainRecursiveOfferEdit:
           'Voulez-vous modifier TOUTES les séances similaires selon ces nouvelles conditions ?',
         explainNotificationOnEdit:

@@ -177,6 +177,7 @@ export default {
       effectif: 'Number of customer (max)',
       sizeOfWaitingList: 'Size of waiting list',
       offersPendingChange: 'Sessions pending change:',
+      offersPendingDelete: 'Sessions pending removal:',
       noPackAvailableForOfferPurchase:
         'No compatible pass found for this member!',
       noConsumerPackAvailableForPurchase:
@@ -376,6 +377,8 @@ export default {
         changeDate: 'Modify date / time',
         changeCoach: 'Change the coach',
         changeEstablishment: 'Change location',
+        explainRecursiveOfferDelete:
+          'Would you like to delete ALL the similar sessions ?',
         explainRecursiveOfferEdit:
           'Would you like to modify ALL the similar sessions to match the new conditions ?',
         explainNotificationOnEdit:

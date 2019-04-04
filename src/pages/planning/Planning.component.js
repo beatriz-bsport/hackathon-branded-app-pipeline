@@ -189,10 +189,10 @@ export class Planning extends Component<Props, State> {
     this.setState({ deletingOffer: false });
   };
 
-  onHardDeleteOffer = async (offerId: number) => {
+  onHardDeleteOffer = async (offerId: number, data) => {
     this.setState({ deletingOffer: true });
     try {
-      const response = await api.offer.delete(offerId);
+      const response = await api.offer.delete(offerId, data);
       if (response.status === 204) {
         this.props.fetchAllOffers();
         this.props.deleteOffer(offerId);
@@ -318,7 +318,10 @@ export class Planning extends Component<Props, State> {
                   deleteAll,
                 })
               }
-              onHardDelete={() => this.onHardDeleteOffer(selectedOffer.id)}
+              onHardDelete={(data) => this.onHardDeleteOffer(selectedOffer.id, data)}
+              fetchSimilarOffers={() => {
+                this.props.fetchSimilarOffers(selectedOffer.id);
+              }}
               onCancel={this.onCancelModal}
               processing={deletingOffer}
               similarOffers={this.props.similarOffers}

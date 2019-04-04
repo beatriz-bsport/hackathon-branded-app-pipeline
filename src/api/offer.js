@@ -29,8 +29,8 @@ export async function disableOffer({ offerId, notify, cashback, deleteAll }) {
   });
 }
 
-export async function deleteOffer(offerId) {
-  return deleteAuth(`${API_URI}/saas/offer/${offerId}/disable/`);
+export async function deleteOffer(offerId, data) {
+  return deleteAuth(`${API_URI}/saas/offer/${offerId}/disable/`, data || {});
 }
 
 export default {

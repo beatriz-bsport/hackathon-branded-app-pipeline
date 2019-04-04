@@ -38,6 +38,10 @@ export class DeleteOfferForm extends Component<Props, State> {
     deleteAll: false,
   };
 
+  componentWillMount() {
+    this.props.fetchSimilarOffers();
+  }
+
   onCreditBackSwitch = (event: Object) => {
     this.setState({ cashback: event.target.checked });
   };
@@ -50,7 +54,7 @@ export class DeleteOfferForm extends Component<Props, State> {
     const { offerWasCancelled } = this.props;
     const { notify, cashback, deleteAll } = this.state;
     if (offerWasCancelled) {
-      return this.props.onHardDelete();
+      return this.props.onHardDelete({ deleteAll });
     }
     return this.props.onCancelOffer({ notify, cashback, deleteAll });
   };
@@ -59,7 +63,20 @@ export class DeleteOfferForm extends Component<Props, State> {
     const { t, classes, offerWasCancelled } = this.props;
     if (offerWasCancelled) {
       return (
-        <Typography>{t('form.offer.delete.explainHardDelete')}</Typography>
+        <div>
+          <Typography>{t('form.offer.delete.explainHardDelete')}</Typography>
+          <RecursiveToogle
+            color="secondary"
+            shouldModifyAllDates={this.state.deleteAll}
+            message={this.props.t('form.offer.explainRecursiveOfferDelete')}
+            listTitle={this.props.t('offer.offersPendingDelete')}
+            loading={this.props.similarOfferLoading}
+            similarOffers={this.props.similarOffers}
+            onChangeRecursion={({ modifyRecursively }) =>
+              this.setState({ deleteAll: modifyRecursively })
+            }
+          />
+        </div>
       );
     }
     const { notify, cashback, deleteAll } = this.state;
@@ -96,8 +113,10 @@ export class DeleteOfferForm extends Component<Props, State> {
           <RecursiveToogle
             color="secondary"
             shouldModifyAllDates={deleteAll}
+            message={this.props.t('form.offer.explainRecursiveOfferDelete')}
+            listTitle={this.props.t('offer.offersPendingDelete')}
             loading={this.props.similarOfferLoading}
-            similarOffers={this.props.similarOffers}
+            similarOffers={this.props.similarOffers.filter((o) => o.available)}
             onChangeRecursion={({ modifyRecursively }) =>
               this.setState({ deleteAll: modifyRecursively })
             }

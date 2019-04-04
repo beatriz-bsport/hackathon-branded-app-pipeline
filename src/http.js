@@ -74,7 +74,7 @@ export async function patch(uri: string, data: Object, headers: Object) {
   });
 }
 
-export async function delete_(uri: string, headers: Object) {
+export async function delete_(uri: string, data, headers: Object) {
   const baseHeaders = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -83,6 +83,7 @@ export async function delete_(uri: string, headers: Object) {
     url: uri,
     method: 'delete',
     headers: Object.assign(baseHeaders, headers),
+    data,
   });
 }
 
@@ -122,9 +123,9 @@ export async function patchAuth(uri: string, data: Object) {
   return patch(uri, data, { Authorization: `Token ${token}` });
 }
 
-export async function deleteAuth(uri: string) {
+export async function deleteAuth(uri: string, data) {
   const token = getAuthToken();
-  return delete_(uri, { Authorization: `Token ${token}` });
+  return delete_(uri, data || {}, { Authorization: `Token ${token}` });
 }
 
 export async function getJSONAuth(uri: string, token) {

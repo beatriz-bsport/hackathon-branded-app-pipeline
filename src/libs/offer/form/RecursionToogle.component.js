@@ -23,6 +23,9 @@ type Props = {
   disabled: boolean,
   color: ?string,
 
+  message: string,
+  listTitle: string,
+
   shouldModifyAllDates: boolean,
   similarOffers: Array<Offer>,
 
@@ -36,7 +39,7 @@ type State = {
   isSimilarOfferListExpanded: boolean,
 };
 
-export class RecursiveToogle extends Component<Props, State> {
+export class RecursionToogle extends Component<Props, State> {
   state = {
     isSimilarOfferListExpanded: true,
   };
@@ -61,9 +64,7 @@ export class RecursiveToogle extends Component<Props, State> {
           className={classes.similarListHeader}
         >
           <Grid item>
-            <Typography variant="body">
-              {t('offer.offersPendingChange')}
-            </Typography>
+            <Typography variant="body">{this.props.listTitle}</Typography>
           </Grid>
           <Grid item>
             {loading ? (
@@ -115,7 +116,7 @@ export class RecursiveToogle extends Component<Props, State> {
         >
           <Grid item>{this.renderSwitchButton()}</Grid>
           <Grid item>
-            <Typography>{t('form.offer.explainRecursiveOfferEdit')}</Typography>
+            <Typography>{this.props.message}</Typography>
           </Grid>
         </Grid>
         {shouldModifyAllDates ? this.renderSimilarOffers() : null}
@@ -131,4 +132,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(withNamespaces()(RecursiveToogle));
+export default withStyles(styles)(withNamespaces()(RecursionToogle));

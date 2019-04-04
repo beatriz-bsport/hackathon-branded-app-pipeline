@@ -11,6 +11,7 @@ function mapStateToProps(state) {
   return {
     invoices: state.invoice.all,
     paymentPacks: state.paymentPack.all,
+    members: state.member.all,
   };
 }
 

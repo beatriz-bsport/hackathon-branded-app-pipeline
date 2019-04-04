@@ -215,7 +215,7 @@ const styles = (theme) => ({
 
 function mapStateToProps(state) {
   return {
-    loading: state.paymentPack.loading,
+    loading: state.paymentPack.loading || state.establishment.loading,
     packs: state.paymentPack.all,
     metaActivities: state.metaActivity.all,
     establishments: state.establishment.all,

@@ -27,6 +27,7 @@ type Props = {
 
   sortedBy: ?string,
   bookings: Array<Object>,
+  members: Array<Member>,
   bookingOptions: Array<Object>,
   invoices: Array<Invoice>,
   paymentPacks: Array<PaymentPack>,
@@ -92,6 +93,7 @@ export class BookingTable extends Component<Props> {
       <List disablePadding dense>
         {sortedBookings.map((b) => (
           <BookingItemForManager
+            member={this.props.members.find((m) => m.id === b.member)}
             redirectToMember={redirectToMember}
             showQuickInvoiceButton={showQuickInvoiceButton}
             onQuickInvoiceClick={() => onQuickInvoiceClick(b.member)}

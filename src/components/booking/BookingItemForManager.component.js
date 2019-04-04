@@ -8,6 +8,7 @@ import {
   IconButton,
   ListItem,
   ListItemText,
+  Badge,
   ListItemSecondaryAction,
 } from '@material-ui/core';
 import CachedIcon from '@material-ui/icons/Cached';
@@ -161,12 +162,28 @@ export class BookingItemForManager extends Component<Props> {
   };
 
   getAvatar = () => {
-    const { heading, booking } = this.props;
+    const { heading, booking, classes, member } = this.props;
     switch (heading) {
       case 'date_start':
         return null;
       default:
-        return <Avatar src={booking.user.photo} />;
+        const credits = parseFloat(member.credit_account_balance);
+        let creditsFormatted = '';
+        if (credits > 0) {
+          creditsFormatted = `${credits.toFixed(2)}€`;
+        }
+        if (credits < 0) {
+          creditsFormatted = `${credits.toFixed(2)}€`;
+        }
+        return (
+          <Badge
+            badgeContent={creditsFormatted}
+            color={credits > 0 ? 'primary' : 'error'}
+            className={classes.badge}
+          >
+            <Avatar src={booking.user.photo} />
+          </Badge>
+        );
     }
   };
 
@@ -206,6 +223,9 @@ const styles = (theme) => ({
     marginLeft: theme.spacing.unit,
   },
   rightButton: {
+    marginLeft: theme.spacing.unit,
+  },
+  badge: {
     marginLeft: theme.spacing.unit,
   },
 });

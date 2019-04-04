@@ -29,6 +29,7 @@ type Props = {
   classes: Object,
   heading: ?string,
   booking: Object,
+  member: Member,
   paymentPacks: PaymentPack[],
   invoices: Invoice[],
   showQuickInvoiceButton: ?boolean,
@@ -166,7 +167,7 @@ export class BookingItemForManager extends Component<Props> {
     switch (heading) {
       case 'date_start':
         return null;
-      default:
+      default: {
         const credits = parseFloat(member.credit_account_balance);
         let creditsFormatted = '';
         if (credits > 0) {
@@ -184,6 +185,7 @@ export class BookingItemForManager extends Component<Props> {
             <Avatar src={booking.user.photo} />
           </Badge>
         );
+      }
     }
   };
 

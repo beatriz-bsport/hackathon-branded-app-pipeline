@@ -14,13 +14,16 @@ import CalendarIcon from '@material-ui/icons/Today';
 import AddIcon from '@material-ui/icons/Add';
 import { withNamespaces } from 'react-i18next';
 
+import CoachInput from '../../components/input/CoachInput.component';
+import EstablishmentInput from '../../components/input/EstablishmentInput.component';
 import { Moment } from '../../i18n';
 import FormField, {
   NOT_RECURRENT,
   WEEKLY,
   MONTHLY,
-} from '../input/FormField.component';
-import DurationInput from '../input/DurationInput.component';
+} from '../../components/input/FormField.component';
+import DurationInput from '../../components/input/DurationInput.component';
+import DateInput from '../../components/input/DateInput.component';
 import type { Coach, MetaActivity, Establishment } from '../../api/types';
 
 const styles = (theme) => ({
@@ -49,7 +52,6 @@ type Props = {
   onSubmit: ({
     establishment: ?number,
     coach: ?number,
-    price: ?string,
     credits: string,
     dates: Array<string>,
     effectif: ?string,
@@ -65,7 +67,6 @@ type State = {
   hour: Object,
   coach: ?number,
   establishment: ?number,
-  price: ?string,
   credits: string,
   level: ?number,
   effectif: ?string,
@@ -78,14 +79,13 @@ export class OfferForm extends Component<Props, State> {
     recurrence: NOT_RECURRENT,
     date_interval_start: Moment(),
     date_interval_end: Moment(),
-    hour: Moment(),
+    hour: null,
     effectif: null,
     waiting_list_max_size: 0,
     coach: null,
     establishment: null,
-    price: null,
     credits: '1',
-    level: null,
+    level: 1,
     duration_minute: 30,
   };
 
@@ -95,6 +95,9 @@ export class OfferForm extends Component<Props, State> {
 
   generateOffers = (event: Object) => {
     event.preventDefault();
+    if (this.endDateIsInvalid()) {
+      return;
+    }
     const datesToGenerate = this.getDates();
     const {
       level,
@@ -102,7 +105,6 @@ export class OfferForm extends Component<Props, State> {
       waiting_list_max_size,
       establishment,
       coach,
-      price,
       credits,
       duration_minute,
     } = this.state;
@@ -111,7 +113,6 @@ export class OfferForm extends Component<Props, State> {
       dates: datesToGenerate.map((d) => d.unix()),
       establishment,
       coach,
-      price,
       effectif,
       waiting_list_max_size,
       level,
@@ -254,32 +255,42 @@ export class OfferForm extends Component<Props, State> {
           />
         </Grid>
         <Grid item>
-          <FormField
+          <EstablishmentInput
+            noBlank
             id="establishment"
-            choices={establishments}
+            label={this.props.t('form.offer.establishmentLabel')}
+            onChange={this.onFormFieldChange('establishment')}
+            establishments={establishments}
             value={this.state.establishment}
-            defaultValue={this.state.establishment}
-            required
-            onChange={this.onFormFieldChange}
           />
         </Grid>
         <Grid item>
-          <FormField
+          <CoachInput
             id="coach"
+            label={this.props.t('form.offer.coachLabel')}
             required
-            choices={coaches}
             value={this.state.coach}
-            defaultValue={this.state.coach}
-            onChange={this.onFormFieldChange}
+            onChange={(event) =>
+              this.onFormFieldChange('coach')(event.target.value)
+            }
+            choices={coaches}
           />
         </Grid>
       </Grid>
     );
   };
 
+  endDateIsInvalid = () => {
+    if (this.state.recurrence !== NOT_RECURRENT) {
+      return this.state.date_interval_start
+        .startOf('day')
+        .isSameOrAfter(this.state.date_interval_end.startOf('day'));
+    }
+    return false;
+  };
+
   renderTimeSettings = () => {
     const { t, classes } = this.props;
-    const { recurrence } = this.state;
     return (
       <Grid container direction="column" spacing={8}>
         <Grid item>
@@ -317,10 +328,13 @@ export class OfferForm extends Component<Props, State> {
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <FormField
-                    id="date_interval_start"
+                  <DateInput
+                    format="DD/MM/YYYY"
+                    value={this.state.date_interval_start}
                     required
-                    onChange={this.onFormFieldChange}
+                    onChange={(e) =>
+                      this.onFormFieldChange('date_interval_start')(e)
+                    }
                   />
                 </Grid>
               </Grid>
@@ -349,11 +363,16 @@ export class OfferForm extends Component<Props, State> {
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <FormField
-                    id="date_interval_end"
+                  <DateInput
+                    format="DD/MM/YYYY"
+                    value={this.state.date_interval_end}
+                    minDate={this.state.date_interval_start}
                     required
-                    disabled={recurrence === NOT_RECURRENT}
-                    onChange={this.onFormFieldChange}
+                    disabled={this.state.recurrence === NOT_RECURRENT}
+                    error={this.endDateIsInvalid()}
+                    onChange={(e) =>
+                      this.onFormFieldChange('date_interval_end')(e)
+                    }
                   />
                 </Grid>
               </Grid>
@@ -379,12 +398,6 @@ export class OfferForm extends Component<Props, State> {
             id="credits"
             required
             value={this.state.credits}
-            onChange={this.onFormFieldChange}
-          />
-          <FormField
-            id="price"
-            required
-            value={this.state.price}
             onChange={this.onFormFieldChange}
           />
         </Grid>

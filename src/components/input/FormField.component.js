@@ -250,6 +250,7 @@ export class FormField extends Component<Props, State> {
             type="time"
             value={value}
             onChange={this.handleChange}
+            required={required}
             disabled={disabled}
           />
         );

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Grid } from '@material-ui/core';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import CoachInput from '../../input/CoachInput.component';
+import CoachInput from '../../../components/input/CoachInput.component';
 
 import WarningForceRecursion from './WarningForceRecursion.component';
 

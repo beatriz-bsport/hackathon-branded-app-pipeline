@@ -6,7 +6,7 @@ import { Grid } from '@material-ui/core';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import EstablishmentInput from '../../input/EstablishmentInput.component';
+import EstablishmentInput from '../../../components/input/EstablishmentInput.component';
 
 import WarningForceRecursion from './WarningForceRecursion.component';
 

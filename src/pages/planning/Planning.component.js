@@ -24,12 +24,10 @@ import { push as pushRouter, goBack as goBackRouter } from 'react-router-redux';
 import withDrawer from '../../hocs/with-drawer.hoc';
 
 import {
-  EditLiveOfferForm,
   DeleteOfferForm,
   OfferCard,
   TimeTable,
   Calendar,
-  OfferFormWithActivity,
 } from '../../components';
 import {
   offer as offerActions,
@@ -38,6 +36,9 @@ import {
 import { Moment } from '../../i18n';
 import api from '../../api';
 import type { Offer, Coach, Establishment, PaymentPack } from '../../api/types';
+
+import OfferEditForm from '../../libs/offer/OfferEditForm.component';
+import OfferFormWithActivity from '../../libs/offer/OfferFormWithActivity.component';
 
 const styles = (theme) => ({
   calendarContainer: {
@@ -237,7 +238,7 @@ export class Planning extends Component<Props, State> {
       return (
         <Dialog open={editModalOpened} onClose={this.onCancelModal}>
           <DialogContent>
-            <EditLiveOfferForm
+            <OfferEditForm
               offer={selectedOffer}
               coaches={coaches}
               establishments={establishments}

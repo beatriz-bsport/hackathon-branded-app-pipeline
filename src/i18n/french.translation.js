@@ -177,6 +177,8 @@ export default {
       outOf: ' sur ',
     },
     offer: {
+      effectif: 'Effectif',
+      sizeOfWaitingList: "Taille de la liste d'attente",
       offersPendingChange: 'Séances qui seront modifiées :',
       noPackAvailableForOfferPurchase:
         'Aucun abonnement compatible avec cette séance !',
@@ -343,6 +345,8 @@ export default {
           "(optionnel) numéro du chèque, date d'encaissement...",
       },
       offer: {
+        levelChangeWarning:
+          'Si vous modifiez le niveau du cours, cette modification sera effective pour toutes les séances futures. Toute autre modification enregistrée ici (établissement, prix, jour de la semaine...) sera donc appliquée à toutes les séances.',
         coachChangeWarning:
           'Si vous modifiez le coach, cette modification sera effective pour toutes les séances futures. Si ce n\'est pas ce que vous souhaitez, utilisez le champ "Remplaçant". Toute autre modification enregistrée ici (établissement, prix, jour de la semaine...) sera donc appliquée à toutes les séances.',
         establishmentChangeWarning:
@@ -438,7 +442,7 @@ export default {
       credits: 'Crédit (prix)',
       price: 'Prix',
       caracteristics: 'Caractéristiques',
-      effectif: 'effectif',
+      effectif: 'Effectif',
       level: 'Niveau',
       addingSessionFor: 'Création de séance pour : ',
       establishment: 'Etablissement',
@@ -664,7 +668,6 @@ export default {
       },
       nextSlotAt: 'Prochaine séance le ',
       settings: 'Paramètres',
-      sizeOfWaitingList: "Taille par défaut de la liste d'attente: ",
       lastBookingBeforeMinutes:
         'Avant le début du cours, dernière réservation possible',
       lastDiscardBeforeMinutes:

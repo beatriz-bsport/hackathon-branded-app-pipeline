@@ -14,33 +14,30 @@ const styles = () => ({
 type Props = {
   t: TFunction,
   classes: Object,
+  value: ?(number | string),
   onChange: (nbMinutes: number) => void,
 };
 
-type State = {
-  hours: number,
-  minutes: number,
+const getMinutes = (totalMinutes) => {
+  return parseInt(totalMinutes, 10) % 60;
 };
 
-export class DurationInput extends Component<Props, State> {
-  state = {
-    hours: 0,
-    minutes: 0,
-  };
+const getHours = (totalMinutes) => {
+  return parseInt(
+    (parseInt(totalMinutes, 10) - getMinutes(totalMinutes)) / 60,
+    10,
+  );
+};
 
-  getDuration = (hours: ?number, minutes: number) =>
-    parseInt(hours || 0, 10) * 60 + parseInt(minutes, 10);
-
+export class DurationInput extends Component<Props> {
   onChangeHours = (event: Object) => {
-    const hours = event.target.value;
-    this.setState({ hours });
-    this.props.onChange(this.getDuration(hours, this.state.minutes));
+    const hours = parseInt(event.target.value, 10);
+    this.props.onChange(hours * 60 + getMinutes(this.props.value));
   };
 
   onChangeMinutes = (event: Object) => {
-    const minutes = Math.min(event.target.value || 0, 59);
-    this.setState({ minutes });
-    this.props.onChange(this.getDuration(this.state.hours, minutes));
+    const minutes = parseInt(event.target.value, 10);
+    this.props.onChange(minutes + getHours(this.props.value) * 60);
   };
 
   render() {
@@ -52,7 +49,7 @@ export class DurationInput extends Component<Props, State> {
             label="Durée"
             className={classes.inputText}
             defaultValue={null}
-            value={this.state.hours}
+            value={getHours(this.props.value)}
             onChange={this.onChangeHours}
             type="number"
             InputProps={{
@@ -74,7 +71,7 @@ export class DurationInput extends Component<Props, State> {
             label=" "
             className={classes.inputText}
             defaultValue={0}
-            value={this.state.minutes}
+            value={getMinutes(this.props.value)}
             onChange={this.onChangeMinutes}
             type="number"
             InputProps={{

@@ -11,22 +11,26 @@ import {
 } from '@material-ui/core';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import PriceInput from '../../input/PriceInput.component';
-import { Moment } from '../../../i18n';
-import PaymentPackSummary from '../../payment-pack/PaymentPackSummary.component';
+import { Moment } from '../../i18n';
+import PaymentPackSummary from '../../components/payment-pack/PaymentPackSummary.component';
+import DurationInput from '../../components/input/DurationInput.component';
+import NumericInput from '../../components/input/NumericInput.component';
 import type {
   Coach,
   Establishment,
   Offer,
   PaymentPack as PaymentPackType,
-} from '../../../api/types';
-import { formatAsTime } from '../../../datetime';
+} from '../../api/types';
+import { formatAsTime } from '../../datetime';
 
-import DateTimeForm from './DateTimeForm.component';
-import RecursionToogle from './RecursionToogle.component';
-import EstablishmentSubForm from './EstablishmentSubForm.component';
-import CoachSubForm from './CoachSubForm.component';
-import NotificationToogle from './NotificationToogle.component';
+import DateTimeForm from './form/DateTimeForm.component';
+import RecursionToogle from './form/RecursionToogle.component';
+import EstablishmentSubForm from './form/EstablishmentSubForm.component';
+import CoachSubForm from './form/CoachSubForm.component';
+import NotificationToogle from './form/NotificationToogle.component';
+import WarningForceRecursion from './form/WarningForceRecursion.component';
+
+import LevelInput from '../../components/input/LevelInput.component';
 
 type Props = {
   processing: boolean,
@@ -48,11 +52,11 @@ type State = {
   hour: string,
   step: number,
   coach: number,
-  price_coach: number,
   establishment: number,
   modifyRecursively: boolean,
   notifyConsumers: boolean,
   date: Object,
+  duration_minute: ?number,
 
   coach_override: ?Coach,
   establishment_override: ?Establishment,
@@ -68,6 +72,36 @@ function pad(n) {
 const STEPS = {
   GATHER_INFO: 0,
   SHOW_WARNING: 1,
+};
+
+const FIELDS = [
+  'establishment',
+  'establishment_override',
+  'coach',
+  'coach_override',
+  'duration_minute',
+  'effectif',
+  'credit_price_override',
+  'waiting_list_max_size',
+  'level',
+];
+
+const getModifiedFields = (oldData, newData) => {
+  const modifiedFields = [];
+  for (const field of FIELDS) {
+    if (oldData[field] !== newData[field]) {
+      modifiedFields.push(field);
+    }
+  }
+  return modifiedFields;
+};
+const appendModifiedData = (oldData, newData, data) => {
+  for (const field of FIELDS) {
+    if (oldData[field] !== newData[field]) {
+      // eslint-disable-next-line
+      data[field] = newData[field];
+    }
+  }
 };
 
 export class EditLiveOfferForm extends Component<Props, State> {
@@ -87,8 +121,12 @@ export class EditLiveOfferForm extends Component<Props, State> {
         ? props.offer.coach_override.id
         : null,
       date: Moment(props.offer.date_start),
+      duration_minute: props.offer.duration_minute,
       hour: formatAsTime(Moment(props.offer.date_start)),
-      price_coach: props.offer.price_coach,
+      effectif: props.offer.effectif,
+      credit_price_override: props.offer.credit_price_override,
+      waiting_list_max_size: props.offer.waiting_list_max_size,
+      level: props.offer.level_id,
     };
     this.initialOfferState = {
       date_start: Moment(props.offer.date_start),
@@ -100,7 +138,11 @@ export class EditLiveOfferForm extends Component<Props, State> {
         : null,
       coach: props.offer.coach.id,
       establishment: props.offer.etablissement.id,
-      price_coach: props.offer.price_coach,
+      duration_minute: props.offer.duration_minute,
+      effectif: props.offer.effectif,
+      credit_price_override: props.offer.credit_price_override,
+      waiting_list_max_size: props.offer.waiting_list_max_size,
+      level: props.offer.level_id,
     };
   }
 
@@ -117,12 +159,8 @@ export class EditLiveOfferForm extends Component<Props, State> {
   shouldModifyAllDates = () =>
     this.state.modifyRecursively ||
     this.hasChangedCoach() ||
-    this.hasChangedEstablishment();
-
-  hasChangePrice = () => {
-    const { price_coach } = this.state;
-    return price_coach !== this.initialOfferState.price_coach;
-  };
+    this.hasChangedEstablishment() ||
+    this.hasChangedLevel();
 
   hasChangedDatetime = () => {
     const { date, hour } = this.state;
@@ -136,45 +174,9 @@ export class EditLiveOfferForm extends Component<Props, State> {
     );
   };
 
-  hasChangedCoach = () => {
-    const { coach } = this.state;
-    return coach !== this.initialOfferState.coach;
-  };
-
-  hasChangedSubstituteCoach = () => {
-    const { coach_override } = this.state;
-    return coach_override !== this.initialOfferState.coach_override;
-  };
-
-  hasChangedEstablishment = () => {
-    const { establishment } = this.state;
-    return establishment !== this.initialOfferState.establishment;
-  };
-
-  hasChangedSubstituteEstablishment = () => {
-    const { establishment_override } = this.state;
-    return (
-      establishment_override !== this.initialOfferState.establishment_override
-    );
-  };
-
-  hasChangePrice = () => {
-    const { price_coach } = this.state;
-    return price_coach !== this.initialOfferState.price_coach;
-  };
-
   onConfirm = () => {
     const { offer } = this.props;
-    const {
-      notifyConsumers,
-      date,
-      hour,
-      establishment,
-      coach,
-      establishment_override,
-      coach_override,
-      price_coach,
-    } = this.state;
+    const { notifyConsumers, date, hour } = this.state;
     const data: FormData = {
       notifyConsumers,
       modifyAllDates: this.shouldModifyAllDates(),
@@ -188,14 +190,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
       );
     }
 
-    data.coach = coach;
-    data.establishment = establishment;
-    data.establishment_override = establishment_override;
-    data.coach_override = coach_override;
-
-    if (this.hasChangePrice()) {
-      data.price_coach = price_coach;
-    }
+    appendModifiedData(this.initialOfferState, this.state, data);
 
     this.props.onConfirm({ offerId: offer.id, data });
   };
@@ -203,13 +198,6 @@ export class EditLiveOfferForm extends Component<Props, State> {
   onFormFieldChange = (id: string) => (value: *) => {
     this.setState({ [id]: value });
   };
-
-  renderPrice = () => (
-    <PriceInput
-      value={this.state.price_coach}
-      onChange={(e) => this.onFormFieldChange('price_coach')(e.target.value)}
-    />
-  );
 
   renderButton = () => {
     const { t, similarOfferLoading, onCancel, processing } = this.props;
@@ -245,12 +233,8 @@ export class EditLiveOfferForm extends Component<Props, State> {
             disabled={
               (similarOfferLoading && this.shouldModifyAllDates()) ||
               !(
-                this.hasChangedCoach() ||
-                this.hasChangedSubstituteCoach() ||
-                this.hasChangedEstablishment() ||
-                this.hasChangedSubstituteEstablishment() ||
-                this.hasChangedDatetime() ||
-                this.hasChangePrice()
+                getModifiedFields(this.initialOfferState, this.state).length ||
+                this.hasChangedDatetime()
               )
             }
           >
@@ -268,6 +252,13 @@ export class EditLiveOfferForm extends Component<Props, State> {
       this.onConfirm();
     }
   };
+
+  hasChangedCoach = () => this.state.coach !== this.initialOfferState.coach;
+
+  hasChangedLevel = () => this.state.level !== this.initialOfferState.level;
+
+  hasChangedEstablishment = () =>
+    this.state.establishment !== this.initialOfferState.establishment;
 
   renderNextStepButton = () => {
     const { t, onCancel, similarOfferLoading } = this.props;
@@ -289,11 +280,8 @@ export class EditLiveOfferForm extends Component<Props, State> {
             disabled={
               (similarOfferLoading && this.shouldModifyAllDates()) ||
               !(
-                this.hasChangedCoach() ||
-                this.hasChangedSubstituteCoach() ||
-                this.hasChangedSubstituteEstablishment() ||
-                this.hasChangedDatetime() ||
-                this.hasChangePrice()
+                getModifiedFields(this.initialOfferState, this.state).length ||
+                this.hasChangedDatetime()
               )
             }
             onClick={this.onConfirmGatherInfoStep}
@@ -305,33 +293,69 @@ export class EditLiveOfferForm extends Component<Props, State> {
     );
   };
 
-  renderWarning = () => {
-    const { compatiblePacks, t } = this.props;
-    // eslint-disable-next-line
-    return (
-      <Grid container direction="column" spacing={16}>
-        <Grid item>
-          <Typography>{t('form.offer.warningPackonEdit')}</Typography>
-        </Grid>
-        <List>
-          {compatiblePacks.map((cp) => (
-            <ListItem>
-              <PaymentPackSummary paymentPack={cp} key={cp.id} />
-            </ListItem>
-          ))}
-        </List>
+  renderWarning = () => (
+    <Grid container direction="column" spacing={16}>
+      <Grid item>
+        <Typography>{this.props.t('form.offer.warningPackonEdit')}</Typography>
       </Grid>
-    );
-  };
+      <List>
+        {this.props.compatiblePacks.map((cp) => (
+          <ListItem>
+            <PaymentPackSummary paymentPack={cp} key={cp.id} />
+          </ListItem>
+        ))}
+      </List>
+    </Grid>
+  );
 
   renderChangeForm = () => (
     <Grid container direction="column" spacing={40}>
       <Grid item>
         <Typography variant="h6">
-          {this.props.t('calendar.modifyOffer')}
+          {this.props.t('form.caracteristics')}
         </Typography>
       </Grid>
-      <Grid item>{this.renderPrice()}</Grid>
+      <Grid item>
+        <Grid container direction="row" spacing={16}>
+          <Grid item>
+            <NumericInput
+              required
+              label={this.props.t('offer.effectif')}
+              value={this.state.effectif}
+              onChange={(event) =>
+                this.onFormFieldChange('effectif')(event.target.value)
+              }
+            />
+          </Grid>
+          <Grid item>
+            <NumericInput
+              required
+              value={this.state.waiting_list_max_size}
+              label={this.props.t('offer.sizeOfWaitingList')}
+              onChange={(event) =>
+                this.onFormFieldChange('waiting_list_max_size')(
+                  event.target.value,
+                )
+              }
+            />
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item>
+        <NumericInput
+          required
+          label={this.props.t('credit')}
+          value={this.state.credit_price_override}
+          onChange={(event) =>
+            this.onFormFieldChange('credit_price_override')(event.target.value)
+          }
+        />
+      </Grid>
+      <Grid item>
+        <Typography variant="h6">
+          {this.props.t('form.timeSettings')}
+        </Typography>
+      </Grid>
       <Grid item>
         <DateTimeForm
           date={this.state.date}
@@ -340,16 +364,37 @@ export class EditLiveOfferForm extends Component<Props, State> {
         />
       </Grid>
       <Grid item>
+        <DurationInput
+          required
+          value={this.state.duration_minute}
+          onChange={this.onFormFieldChange('duration_minute')}
+        />
+      </Grid>
+      <Grid item>
+        <LevelInput
+          required
+          value={this.state.level}
+          onChange={(e) =>
+            parseInt(this.onFormFieldChange('level')(e.target.value), 10)
+          }
+        />
+        {this.state.level !== this.initialOfferState.level ? (
+          <WarningForceRecursion
+            text={this.props.t('form.offer.levelChangeWarning')}
+          />
+        ) : null}
+      </Grid>
+      <Grid item>
         <CoachSubForm
+          coaches={this.props.coaches}
+          coach={this.state.coach}
+          coach_override={this.state.coach_override}
+          offer={this.props.offer}
           hasChangedCoach={this.hasChangedCoach()}
           onFormFieldChange={this.onFormFieldChange}
           onDeleteCoachSubstitute={() =>
             this.setState({ coach_override: null })
           }
-          coaches={this.props.coaches}
-          coach={this.state.coach}
-          coach_override={this.state.coach_override}
-          offer={this.props.offer}
         />
       </Grid>
       <Grid item>
@@ -378,7 +423,9 @@ export class EditLiveOfferForm extends Component<Props, State> {
               similarOffers={this.props.similarOffers}
               shouldModifyAllDates={this.shouldModifyAllDates()}
               disabled={
-                this.hasChangedCoach() || this.hasChangedEstablishment()
+                this.hasChangedCoach() ||
+                this.hasChangedEstablishment() ||
+                this.hasChangedLevel()
               }
               onChangeRecursion={() =>
                 this.setState((prevState) => ({

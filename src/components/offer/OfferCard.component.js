@@ -54,10 +54,9 @@ export class OfferCard extends Component<Props> {
       name,
       level_id,
       parent_category,
-      price_coach,
       credit_price,
     } = offer;
-    const formattedPrice = `${price_coach}€ - ${credit_price} ${t(
+    const formattedPrice = `${credit_price} ${t(
       'common.credit_s',
     ).toLowerCase()}`;
 

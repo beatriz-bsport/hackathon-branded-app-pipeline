@@ -174,6 +174,8 @@ export default {
       noPromo: 'None',
     },
     offer: {
+      effectif: 'Number of customer (max)',
+      sizeOfWaitingList: 'Size of waiting list',
       offersPendingChange: 'Sessions pending change:',
       noPackAvailableForOfferPurchase:
         'No compatible pass found for this member!',
@@ -358,6 +360,8 @@ export default {
         additionalInformationHelper: '(optional) check reference, date...',
       },
       offer: {
+        levelChangeWarning:
+          'If you modify the level, this modification will impact all future sessions. Any modification on price on this form will also be executed on future offers (change in day of the week / price / ...).',
         coachChangeWarning:
           'If you modify the coach, this modification will impact all future sessions. If this is not what you want consider using "substitute coach" for that. Any modification on price on this form will also be executed on future offers (change in day of the week / price / ...).',
         establishmentChangeWarning:

@@ -6,7 +6,7 @@ import { withNamespaces } from 'react-i18next';
 
 import type { TFunction } from 'react-i18next';
 import OfferForm from './OfferForm.component';
-import MetaActivityMinimalSummary from '../activity/MetaActivityMinimalSummary.component';
+import MetaActivityMinimalSummary from '../../components/activity/MetaActivityMinimalSummary.component';
 
 const STEP_META_ACTIVITY_CHOSER = 0;
 const STEP_OFFER_FORM = 1;

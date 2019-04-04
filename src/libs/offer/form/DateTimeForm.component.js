@@ -5,7 +5,7 @@ import { Grid, Typography } from '@material-ui/core';
 
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import FormField from '../../input/FormField.component';
+import FormField from '../../../components/input/FormField.component';
 
 type Props = {
   date: Object,

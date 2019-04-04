@@ -13,7 +13,7 @@ import {
 import ExpandIcon from '@material-ui/icons/ExpandMore';
 import { withNamespaces } from 'react-i18next';
 
-import OfferMinimalSummary from '../../offer/OfferMinimalSummary.component';
+import OfferMinimalSummary from '../../../components/offer/OfferMinimalSummary.component';
 
 export class RecursiveToogle extends Component<Props> {
   state = {

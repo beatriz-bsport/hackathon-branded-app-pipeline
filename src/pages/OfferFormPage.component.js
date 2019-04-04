@@ -8,11 +8,12 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { goBack as goBackAction } from 'react-router-redux';
 
-import { OfferForm } from '../components';
 import api from '../api';
 import { activity as activityActions, offer as offerActions } from '../actions';
 import type { Coach, MetaActivity, Establishment } from '../api/types';
 import withDrawer from '../hocs/with-drawer.hoc';
+
+import OfferForm from '../libs/offer/OfferForm.component';
 
 type Props = {
   match: Object,

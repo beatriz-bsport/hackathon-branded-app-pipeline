@@ -19,7 +19,6 @@ import EstablishmentCard from './establishment/EstablishmentCard.component';
 import FormField from './input/FormField.component';
 import AvatarUploader from './input/AvatarUploader.component';
 import SimpleModal from './navigation/SimpleModal.component';
-import DeleteOfferForm from './form/DeleteOfferForm.component';
 import ConsumerMenu from './navigation/ConsumerMenu.component';
 import ConsumerProfile from './consumer/Profile.component';
 import ConsumerLogin from './consumer/login/ConsumerLogin.component';
@@ -31,7 +30,6 @@ import ConsumersPackSummaryTable from './payment-pack/ConsumersPackSummaryTable.
 
 export {
   SimpleModal,
-  DeleteOfferForm,
   ConsumersPackSummaryTable,
   SMSCodeForm,
   SignUpForm,

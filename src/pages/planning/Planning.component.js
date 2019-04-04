@@ -23,12 +23,7 @@ import { push as pushRouter, goBack as goBackRouter } from 'react-router-redux';
 
 import withDrawer from '../../hocs/with-drawer.hoc';
 
-import {
-  DeleteOfferForm,
-  OfferCard,
-  TimeTable,
-  Calendar,
-} from '../../components';
+import { OfferCard, TimeTable, Calendar } from '../../components';
 import {
   offer as offerActions,
   activity as activityActions,
@@ -39,6 +34,7 @@ import type { Offer, Coach, Establishment, PaymentPack } from '../../api/types';
 
 import OfferEditForm from '../../libs/offer/OfferEditForm.component';
 import OfferFormWithActivity from '../../libs/offer/OfferFormWithActivity.component';
+import DeleteOfferForm from '../../libs/offer/DeleteOfferForm.component';
 
 const styles = (theme) => ({
   calendarContainer: {
@@ -165,14 +161,16 @@ export class Planning extends Component<Props, State> {
     offerId: number,
     cashback: ?boolean,
     notify: ?boolean,
+    deleteAll: ?boolean,
   }) => {
     this.setState({ deletingOffer: true });
     try {
-      const { notify, cashback, offerId } = data;
+      const { notify, cashback, deleteAll, offerId } = data;
       const response = await api.offer.disableOffer({
         offerId,
         cashback,
         notify,
+        deleteAll,
       });
       if (response.status === 200) {
         this.props.fetchAllOffers();
@@ -312,16 +310,19 @@ export class Planning extends Component<Props, State> {
             <DeleteOfferForm
               offer={selectedOffer}
               offerWasCancelled={!selectedOffer.available}
-              onCancelOffer={({ cashback, notify }) =>
+              onCancelOffer={({ cashback, notify, deleteAll }) =>
                 this.onCancelOffer({
                   offerId: selectedOffer.id,
                   cashback,
                   notify,
+                  deleteAll,
                 })
               }
               onHardDelete={() => this.onHardDeleteOffer(selectedOffer.id)}
               onCancel={this.onCancelModal}
               processing={deletingOffer}
+              similarOffers={this.props.similarOffers}
+              similarOfferLoading={this.props.similarOfferLoading}
             />
           </DialogContent>
         </Dialog>

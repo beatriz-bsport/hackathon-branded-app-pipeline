@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 import {
   Grid,
@@ -12,10 +14,29 @@ import {
 } from '@material-ui/core';
 import ExpandIcon from '@material-ui/icons/ExpandMore';
 import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 
 import OfferMinimalSummary from '../../../components/offer/OfferMinimalSummary.component';
 
-export class RecursiveToogle extends Component<Props> {
+type Props = {
+  loading: boolean,
+  disabled: boolean,
+  color: ?string,
+
+  shouldModifyAllDates: boolean,
+  similarOffers: Array<Offer>,
+
+  onChangeRecursion: ({ modifyRecursively: boolean }) => void,
+
+  classes: Object,
+  t: TFunction,
+};
+
+type State = {
+  isSimilarOfferListExpanded: boolean,
+};
+
+export class RecursiveToogle extends Component<Props, State> {
   state = {
     isSimilarOfferListExpanded: true,
   };
@@ -70,7 +91,7 @@ export class RecursiveToogle extends Component<Props> {
 
   renderSwitchButton = () => (
     <Switch
-      color="primary"
+      color={this.props.color || 'primary'}
       checked={this.props.shouldModifyAllDates}
       disabled={this.props.disabled}
       onChange={(event) => {

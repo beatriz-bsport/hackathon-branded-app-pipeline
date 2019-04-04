@@ -12,7 +12,8 @@ import {
 } from '@material-ui/core';
 import { withNamespaces } from 'react-i18next';
 
-import RedButton from '../button/RedButton.component';
+import RecursiveToogle from './form/RecursionToogle.component';
+import RedButton from '../../components/button/RedButton.component';
 
 type Props = {
   t: (x: string) => string,
@@ -27,12 +28,14 @@ type Props = {
 type State = {
   notify: boolean,
   cashback: boolean,
+  deleteAll: boolean,
 };
 
 export class DeleteOfferForm extends Component<Props, State> {
   state = {
     notify: true,
     cashback: true,
+    deleteAll: false,
   };
 
   onCreditBackSwitch = (event: Object) => {
@@ -45,11 +48,11 @@ export class DeleteOfferForm extends Component<Props, State> {
 
   onConfirm = () => {
     const { offerWasCancelled } = this.props;
-    const { notify, cashback } = this.state;
+    const { notify, cashback, deleteAll } = this.state;
     if (offerWasCancelled) {
       return this.props.onHardDelete();
     }
-    return this.props.onCancelOffer({ notify, cashback });
+    return this.props.onCancelOffer({ notify, cashback, deleteAll });
   };
 
   renderInside = () => {
@@ -59,7 +62,7 @@ export class DeleteOfferForm extends Component<Props, State> {
         <Typography>{t('form.offer.delete.explainHardDelete')}</Typography>
       );
     }
-    const { notify, cashback } = this.state;
+    const { notify, cashback, deleteAll } = this.state;
     return (
       <Grid container direction="column">
         <Grid item>
@@ -88,6 +91,17 @@ export class DeleteOfferForm extends Component<Props, State> {
               <Typography>{t('form.offer.delete.explainNotify')}</Typography>
             </Grid>
           </Grid>
+        </Grid>
+        <Grid item>
+          <RecursiveToogle
+            color="secondary"
+            shouldModifyAllDates={deleteAll}
+            loading={this.props.similarOfferLoading}
+            similarOffers={this.props.similarOffers}
+            onChangeRecursion={({ modifyRecursively }) =>
+              this.setState({ deleteAll: modifyRecursively })
+            }
+          />
         </Grid>
       </Grid>
     );

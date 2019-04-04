@@ -96,7 +96,7 @@ export function PaymentInfo(props: Props) {
         </Grid>
         <Grid item className={classes.totalInvoiceItemContainer}>
           <Typography variant="subtitle1">
-            {t('form.quickInvoice.totalPurchase')} : {finalPrice}€
+            {t('form.quickInvoice.totalPurchase')} : {finalPrice.toFixed(2)}€
           </Typography>
         </Grid>
         <Grid
@@ -110,7 +110,7 @@ export function PaymentInfo(props: Props) {
             {`${t('form.quickInvoice.paymentDue')} : ${Math.max(
               0,
               finalPrice - totalPayment,
-            )}€`}
+            ).toFixed(2)}€`}
           </Typography>
         </Grid>
       </Grid>

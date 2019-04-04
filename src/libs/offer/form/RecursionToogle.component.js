@@ -14,7 +14,6 @@ import {
 } from '@material-ui/core';
 import ExpandIcon from '@material-ui/icons/ExpandMore';
 import { withNamespaces } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
 
 import OfferMinimalSummary from '../../../components/offer/OfferMinimalSummary.component';
 
@@ -32,7 +31,6 @@ type Props = {
   onChangeRecursion: ({ modifyRecursively: boolean }) => void,
 
   classes: Object,
-  t: TFunction,
 };
 
 type State = {
@@ -51,7 +49,7 @@ export class RecursionToogle extends Component<Props, State> {
   };
 
   renderSimilarOffers = () => {
-    const { loading, similarOffers, classes, t } = this.props;
+    const { loading, similarOffers, classes } = this.props;
     const { isSimilarOfferListExpanded } = this.state;
 
     return (
@@ -104,7 +102,7 @@ export class RecursionToogle extends Component<Props, State> {
   );
 
   render() {
-    const { t, shouldModifyAllDates } = this.props;
+    const { shouldModifyAllDates } = this.props;
     return (
       <div>
         <Grid

@@ -22,6 +22,9 @@ type Props = {
   processing: ?boolean,
   onHardDelete: () => void,
   onCancelOffer: ({ cashback: boolean, notify: boolean }) => void,
+  fetchSimilarOffers: () => void,
+  similarOfferLoading: boolean,
+  similarOffers: Array<Offer>,
   classes: Object,
 };
 

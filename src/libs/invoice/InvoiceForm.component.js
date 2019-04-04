@@ -502,7 +502,7 @@ export class InvoiceForm extends Component<Props, State> {
                     variant="h6"
                     color={finalPrice - totalPayment <= 0 ? 'primary' : 'error'}
                   >
-                    {finalPrice - totalPayment} €
+                    {(finalPrice - totalPayment).toFixed(2)} €
                   </Typography>
                 </Grid>
               </Grid>
@@ -529,7 +529,7 @@ export class InvoiceForm extends Component<Props, State> {
             <Typography variant="h6">{t('payment.total')}</Typography>
           </Grid>
           <Grid>
-            <Typography variant="h6">{finalPrice} €</Typography>
+            <Typography variant="h6">{finalPrice.toFixed(2)} €</Typography>
           </Grid>
         </Grid>
       </div>
@@ -580,7 +580,7 @@ export class InvoiceForm extends Component<Props, State> {
         open={unevenInvoiceAlertOpen}
         onClose={this.closeUnevenInvoiceAlert}
         totalItem={totalInvoiceItems}
-        totalPayment={totalPayments}
+        totalPayment={totalPayments.toFixed(2)}
         onSubmit={this.createInvoice}
       />
     );

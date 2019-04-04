@@ -74,7 +74,7 @@ export default handleActions(
         .setIn(['compatiblePacks', 'items'], payload)
         .setIn(['compatiblePacks', 'lastFetched'], new Date());
     },
-    [offerByDay.reset]: (state, { payload }) => {
+    [offerByDay.reset]: (state) => {
       return state.set('offers', []);
     },
     [offerByDay.delete]: (state, { payload }) => {

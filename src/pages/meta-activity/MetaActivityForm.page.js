@@ -91,7 +91,7 @@ export class MetaActivityFormPage extends Component<Props> {
 function mapStateToProps(state, { id }) {
   return {
     id,
-    initial: id !== null ? state.metaActivity.metaActivity : null,
+    initial: id ? state.metaActivity.metaActivity : null,
     associatedCoaches: state.coach.companyAssociated,
     establishments: state.establishment.all,
     SCTs: state.category.SCTs,

@@ -10,7 +10,7 @@ const initialState = Immutable({
   error: false,
   loading: false,
   is_manager: true,
-  is_coach: true,
+  is_coach: false,
   is_consumer: true,
   initializating: false,
 });

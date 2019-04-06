@@ -387,6 +387,8 @@ export class OfferForm extends Component<Props, State> {
   };
 
   renderBilling = () => {
+    return null;
+    /*
     const { t } = this.props;
     return (
       <Grid container direction="column" spacing={8}>
@@ -403,6 +405,7 @@ export class OfferForm extends Component<Props, State> {
         </Grid>
       </Grid>
     );
+    */
   };
 
   renderFooter = () => {

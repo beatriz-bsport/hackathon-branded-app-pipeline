@@ -61,7 +61,7 @@ export function CoachListItem(props: Props) {
                 }
                 label={coach.email}
                 className={classes.chip}
-                onClick={(e) => openEmail(e, coach.phone)}
+                onClick={(e) => openEmail(e, coach.email)}
                 clickable
                 variant="outlined"
               />

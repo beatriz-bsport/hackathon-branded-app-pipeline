@@ -18,6 +18,7 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push as routerPush } from 'react-router-redux';
 import { connect } from 'react-redux';
+import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import { getBookingStatusCode } from './Booking.utils';
 
 import RedButton from '../button/RedButton.component';
@@ -203,7 +204,10 @@ export class BookingItemForManager extends Component<Props> {
     const [statusText, color] = this.getStatusText(booking);
     return (
       <ListItem
-        disabled={!booking.attendance}
+        disabled={
+          !booking.attendance ||
+          booking.booking_status_code !== BOOKING_STATUS_OK.id
+        }
         divider
         button={redirectToMember}
         onClick={this.handleListItemClick}

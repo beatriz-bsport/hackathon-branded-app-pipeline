@@ -195,8 +195,8 @@ export class Member extends Component<Props, State> {
               loading={bookingLoading}
               bookings={bookingsPast}
               bookingOptions={[]}
-              discardBookingAttendance={confirmBookingAttendance}
-              confirmBookingAttendance={discardBookingAttendance}
+              discardBookingAttendance={discardBookingAttendance}
+              confirmBookingAttendance={confirmBookingAttendance}
             />
           </div>
         </ExpansionPanelDetails>

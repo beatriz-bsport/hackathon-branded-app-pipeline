@@ -703,8 +703,8 @@ export default {
     search,
     workshopActivity: {
       addWorkshopActivity: 'Ajouter un atelier',
-        imageUploaderRequireEditMessage:
-          "Une fois votre atelier créé, vous aurez la possibilité d'ajouter des images supplémentaires.",
+      imageUploaderRequireEditMessage:
+        "Une fois votre atelier créé, vous aurez la possibilité d'ajouter des images supplémentaires.",
       lastBookingBeforeMinutes:
         "Avant le début de l'atelier, dernière réservation possible",
       lastDiscardBeforeMinutes:
@@ -722,8 +722,8 @@ export default {
     },
     booking: {
       statusCode: {
-        cancelledByManager: 'Annulé par le manager',
-        cancelledByConsumer: 'Annulé par le client',
+        cancelledByManager: 'Réservation annulée par le manager',
+        cancelledByConsumer: 'Réservation annulée par le client',
         cancelledByOffer: 'Séance annulée par le club',
       },
       wasRefunded: 'Remboursé',
@@ -838,7 +838,7 @@ export default {
         planning: 'Planning',
         dashboard: 'Tableau de bord',
         shopManager: 'Mon magasin',
-        coachList: 'Entraîneurs',
+        coachList: 'Coach',
         offerManagement: 'Mes réservations',
         metaActivity: 'Activités',
         workshopActivityList: 'Ateliers',

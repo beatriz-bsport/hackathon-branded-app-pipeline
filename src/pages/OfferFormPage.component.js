@@ -105,7 +105,7 @@ export class OfferFormPage extends Component<Props, State> {
 
 function mapStateToProps(state) {
   return {
-    metaActivities: state.metaActivity.all,
+    metaActivities: [...state.metaActivity.all, ...state.workshopActivity.all],
     coaches: state.coach.companyAssociated,
     establishments: state.establishment.all,
     loading: state.metaActivity.loading,

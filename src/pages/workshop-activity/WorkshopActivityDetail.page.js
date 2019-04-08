@@ -49,6 +49,10 @@ export class WorkshopActivity extends Component<Props, State> {
     this.props.fetchMetaActivityDetails(this.metaActivityId);
   }
 
+  createActivityOffers = (metaActivityId: number) => {
+    this.props.push(`/add-offers/${metaActivityId}`);
+  };
+
   render() {
     if (this.props.loading || !this.props.workshopActivity) {
       return <LinearProgress />;
@@ -64,6 +68,7 @@ export class WorkshopActivity extends Component<Props, State> {
         activities={this.props.activities}
         offers={this.props.offers}
         goToOffer={(o) => this.props.push(`/offer/${o.id}`)}
+        createActivityOffers={this.createActivityOffers}
       />
     );
   }

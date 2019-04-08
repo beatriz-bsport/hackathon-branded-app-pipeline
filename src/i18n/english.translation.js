@@ -337,7 +337,8 @@ export default {
       invoice: {
         titleUnevenInvoice: 'Uneven invoice',
         explainUnevenInvoice: ({ totalInvoiceItems, totalPayments }) =>
-          `This invoice is not even ! You are billing your customer ${totalInvoiceItems}€ while you are registering only ${totalPayments}€ as customer payments. You can add payments via the button "+ Payment"`,
+          `You are billing your customer ${totalInvoiceItems}€ while you are registering only ${totalPayments}€ as customer payments. His credit account balance will be updated accordingly (${totalPayments -
+            totalInvoiceItems}€).`,
         dateStartPaymentPack: 'Pass starting date',
         backToInvoiceItemList: 'Back to invoice listing',
         title: 'Register a payment',

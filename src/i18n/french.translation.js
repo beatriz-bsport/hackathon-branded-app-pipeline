@@ -335,7 +335,7 @@ export default {
         activityHelper: "Choisissez l'activité puis la séance",
         titleUnevenInvoice: 'Facture non-équilibrée',
         explainUnevenInvoice: ({ totalInvoiceItems, totalPayments }) =>
-          `Cette facture n'est pas équilibrée !\nLe total s'élève à ${totalInvoiceItems}€ quand le total des paiements est à ${totalPayments}€. Vous pouvez ajouter des paiements via le bouton "+ Paiement"`,
+          `Le total s'élève à ${totalInvoiceItems}€ quand le total des paiements est à ${totalPayments}€. Le compte interne du membre sera crédité/débité pour équilibrer.`,
       },
       payment: {
         status: 'Status',

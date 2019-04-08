@@ -308,17 +308,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
     </Grid>
   );
 
-  renderBilling = () =>
-    null /*
-        <NumericInput
-          required
-          label={this.props.t('credit')}
-          value={this.state.credit_price_override}
-          onChange={(event) =>
-            this.onFormFieldChange('credit_price_override')(event.target.value)
-          }
-	/>
-	*/;
+  renderBilling = () => null;
 
   renderChangeForm = () => (
     <Grid container direction="column" spacing={40}>

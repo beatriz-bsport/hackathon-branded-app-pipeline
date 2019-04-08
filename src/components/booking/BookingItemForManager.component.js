@@ -170,16 +170,16 @@ export class BookingItemForManager extends Component<Props> {
       default: {
         const credits = parseFloat(member.credit_account_balance);
         let creditsFormatted = '';
-        if (credits > 0) {
-          creditsFormatted = `${credits.toFixed(2)}€`;
+        if (credits >= 0) {
+          creditsFormatted = `${credits.toFixed(1)}€`;
         }
         if (credits < 0) {
-          creditsFormatted = `${credits.toFixed(2)}€`;
+          creditsFormatted = `${-credits.toFixed(1)}€`;
         }
         return (
           <Badge
             badgeContent={creditsFormatted}
-            color={credits > 0 ? 'primary' : 'error'}
+            color={credits >= 0 ? 'primary' : 'error'}
             className={classes.badge}
           >
             <Avatar src={booking.user.photo} />

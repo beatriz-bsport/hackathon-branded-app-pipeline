@@ -64,7 +64,7 @@ export default withStyles(styles)(
       let COVER = null;
 
       const images = [cover_main].concat(
-        coverImages.map((e) => {
+        (coverImages || []).map((e) => {
           return e.image;
         }),
       );

@@ -121,7 +121,7 @@ export class Member extends Component<Props, State> {
           <Grid container direction="row" justify="space-between">
             <Grid item>
               <Typography className={classes.headingExpansionPanel}>
-                {t('member.showNextBooking')}
+                {`${t('member.showNextBooking')} (${bookingsFuture.length})`}
               </Typography>
             </Grid>
             <Grid item>
@@ -173,7 +173,7 @@ export class Member extends Component<Props, State> {
           <Grid container direction="row" justify="space-between">
             <Grid item>
               <Typography className={classes.headingExpansionPanel}>
-                {t('member.showPreviousBooking')}
+                {`${t('member.showPreviousBooking')} (${bookingsPast.length})`}
               </Typography>
             </Grid>
             <Grid item>
@@ -206,32 +206,35 @@ export class Member extends Component<Props, State> {
 
   renderPaymentPacks = () => {
     const { member, t, classes } = this.props;
-    const packs = member.consumer_payment_packs;
+    const consumerPacks = member.consumer_payment_packs;
+    const consumerAndPaymentPacks = consumerPacks.map((consumerPack) => {
+      const paymentPack = this.props.paymentPacks.find(
+        (p) => p.id === +consumerPack.payment_pack_id,
+      );
+      return [consumerPack, paymentPack];
+    });
     return (
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <Typography className={classes.headingExpansionPanel}>
-            {t('member.showPaymentPack')}
+            {`${t('member.showPaymentPack')}} (${
+              (consumerAndPaymentPacks || []).length
+            })`}
           </Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails style={{ padding: 0 }}>
           <div style={{ width: '100%' }}>
             <Divider />
-            {packs.map((consumerPack) => {
-              const paymentPack = this.props.paymentPacks.find(
-                (p) => p.id === +consumerPack.payment_pack_id,
-              );
-              return (
-                <ConsumerPackRowItem
-                  key={consumerPack.id}
-                  hideConsumer
-                  consumerPack={consumerPack}
-                  paymentPack={paymentPack}
-                  decrementCredit={() => this.decrementCredit(consumerPack.id)}
-                  incrementCredit={() => this.incrementCredit(consumerPack.id)}
-                />
-              );
-            })}
+            {consumerAndPaymentPacks.map(([consumerPack, paymentPack]) => (
+              <ConsumerPackRowItem
+                key={consumerPack.id}
+                hideConsumer
+                consumerPack={consumerPack}
+                paymentPack={paymentPack}
+                decrementCredit={() => this.decrementCredit(consumerPack.id)}
+                incrementCredit={() => this.incrementCredit(consumerPack.id)}
+              />
+            ))}
           </div>
         </ExpansionPanelDetails>
       </ExpansionPanel>

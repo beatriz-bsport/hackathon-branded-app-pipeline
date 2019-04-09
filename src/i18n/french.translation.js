@@ -98,6 +98,7 @@ export default {
       },
     },
     common: {
+      activePass: 'pass actif',
       invoices: 'Factures',
       download: 'Télécharger',
       description: 'Description',

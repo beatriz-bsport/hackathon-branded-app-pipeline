@@ -90,7 +90,7 @@ export class Members extends Component<Props> {
         <TableCell>
           {`${member.nb_bookings} ${t('common.booking_s').toLowerCase()} - ${
             member.nb_pass_active
-          } ${t('common.pass').toLowerCase()}`}
+          } ${t('common.activePass').toLowerCase()}`}
         </TableCell>
         <TableCell>{status}</TableCell>
         <TableCell>{formatAsDate(member.date_joined)}</TableCell>

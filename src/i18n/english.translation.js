@@ -79,6 +79,7 @@ export default {
       SUBSCRIPTION_CB: 'Automatic credit card debit',
     },
     common: {
+      activePass: 'active pass',
       invoices: 'Invoices',
       download: 'Download',
       description: 'Description',

@@ -4,34 +4,63 @@ import React, { Component } from 'react';
 
 import {
   Typography,
+  Select,
+  MenuItem,
   Grid,
+  FormControlLabel,
+  Checkbox,
+  Collapse,
   CircularProgress,
   withStyles,
   Button,
 } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 import { CardElement, injectStripe } from 'react-stripe-elements';
+
+import DateInput from '../input/DateInput.component';
+import NumericInput from '../input/NumericInput.component';
+import { Moment } from '../../i18n';
 
 type Props = {
   price: ?number,
   onComplete: (token: Object) => void,
   stripe: Object,
-  t: (x: string) => string,
+  t: TFunction,
   classes: Object,
+  showRecurring: ?boolean,
 };
 
 type State = {
   completed: boolean,
   loading: boolean,
+  isRecurring: boolean,
+  nb_interval: number,
+  billing_anchor: Object,
 };
+
 export class StripeCheckout extends Component<Props, State> {
-  state = { loading: false };
+  state = {
+    loading: false,
+    isRecurring: false,
+    interval: 'month',
+    nb_interval: 3,
+    billing_anchor: Moment(),
+  };
 
   submit = async () => {
     this.setState({ loading: true });
     try {
       const { token } = await this.props.stripe.createToken();
+      if (this.state.isRecurring && this.props.showRecurring) {
+        const recurringData = {
+          nb_interval: this.state.nb_interval,
+          billing_anchor: this.state.billing_anchor,
+          interval: this.state.interval,
+        };
+        this.onComplete(token, recurringData);
+      }
       this.onComplete(token);
     } catch (err) {
       alert(`An error occured:\n${JSON.stringify(err)}`);
@@ -39,14 +68,24 @@ export class StripeCheckout extends Component<Props, State> {
     }
   };
 
-  onComplete = (token) => {
+  onComplete = (token, recurringData) => {
     this.setState({ loading: false });
-    this.props.onComplete(token);
+    this.props.onComplete(token, recurringData);
   };
 
   render() {
     const { classes, t, price } = this.props;
     const { loading } = this.state;
+    const INTERVAL_CHOICES = [
+      {
+        value: 'month',
+        label: t('payment.intervalMonth'),
+      },
+      {
+        value: 'week',
+        label: t('payment.intervalWeek'),
+      },
+    ];
 
     return (
       <Grid
@@ -63,6 +102,58 @@ export class StripeCheckout extends Component<Props, State> {
             {t('payment.stripePaymentWillBeCashedOutOnInvoiceValidation')}
           </Typography>
         </Grid>
+        <div className={classes.recurringPaymentContainer}>
+          <FormControlLabel
+            label={t('payment.isRecurring')}
+            control={
+              <Checkbox
+                checked={this.state.isRecurring}
+                onChange={(e) =>
+                  this.setState({ isRecurring: e.target.checked })
+                }
+              />
+            }
+          />
+          <Collapse in={this.state.isRecurring && this.props.showRecurring}>
+            <Grid
+              container
+              spacing={16}
+              direction="column"
+              className={classes.recurringPayment}
+            >
+              <Grid item className={classes.labelAndSelectorItem}>
+                <DateInput
+                  value={this.state.billing_anchor}
+                  onChange={(e) => this.setState({ billing_anchor: e })}
+                />
+                <Typography inline>{t('payment.billingAnchor')}</Typography>
+              </Grid>
+              <Grid item className={classes.labelAndSelectorItem}>
+                <NumericInput
+                  value={this.state.nb_interval}
+                  onChange={(e) =>
+                    this.setState({ nb_interval: e.target.value })
+                  }
+                />
+                <Typography>{t('payment.nbInterval')}</Typography>
+              </Grid>
+              <Grid item className={classes.labelAndSelectorItem}>
+                <Select
+                  choices={INTERVAL_CHOICES}
+                  value={this.state.interval}
+                  onChange={(e) => this.setState({ interval: e.target.value })}
+                >
+                  {INTERVAL_CHOICES.map((c) => (
+                    <MenuItem key={c.value} value={c.value}>
+                      {c.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+                <Typography align="end">{t('payment.intervalType')}</Typography>
+              </Grid>
+            </Grid>
+          </Collapse>
+        </div>
         <Grid item container direction="row" justify="flex-end">
           <Grid item>
             {loading ? (
@@ -96,6 +187,17 @@ const styles = (theme) => ({
   },
   caption: {
     marginTop: theme.spacing.unit,
+  },
+  labelAndSelectorItem: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  recurringPaymentContainer: {
+    padding: theme.spacing.unit * 2,
+  },
+  recurringPayment: {
+    padding: theme.spacing.unit,
+    border: '1px solid #ced4da',
   },
 });
 

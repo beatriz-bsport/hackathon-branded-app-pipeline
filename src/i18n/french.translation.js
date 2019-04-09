@@ -633,6 +633,12 @@ export default {
       addThisPaymentItem: 'Paiement',
       status: 'Encaissé',
       stillUnpaid: 'Reste à encaisser : ',
+      isRecurring: 'Paiement en plusieurs fois',
+      intervalMonth: 'Mensuel',
+      intervalWeek: 'Hebdomadaire',
+      billingAnchor: 'Premier paiement',
+      nbInterval: 'Nombre de prélèvements',
+      intervalType: 'Fréquence de paiement',
       stripePaymentWillBeCashedOutOnInvoiceValidation:
         "La CB ne sera débitée qu'après la sauvegarde de la facture",
       createInvoice: 'Paiement',

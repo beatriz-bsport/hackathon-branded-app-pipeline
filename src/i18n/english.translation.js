@@ -582,6 +582,12 @@ export default {
       noPaymentItem: 'No payment registered',
       addThisPaymentItem: 'Payment',
       status: 'Cashed-out',
+      isRecurring: 'Divide payment in time',
+      intervalMonth: 'Monthly',
+      intervalWeek: 'Weekly',
+      billingAnchor: 'First payment date',
+      nbInterval: 'Number of payments',
+      intervalType: 'Frequency',
       stillUnpaid: 'Still unpaid: ',
       stripePaymentWillBeCashedOutOnInvoiceValidation:
         'Payment will be cashed-out on invoice creation',

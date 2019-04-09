@@ -22,6 +22,7 @@ import { withNamespaces } from 'react-i18next';
 import PAYMENT_METHODS, {
   CB as PAYMENT_METHOD_CB,
   CREDIT_ACCOUNT as PAYMENT_METHOD_CREDIT_ACCOUNT,
+  SUBSCRIPTION_CB as PAYMENT_METHOD_SUBSCRIPTION_CB,
 } from '@bsport/common/lib/master-data/payment-methods';
 
 import { Elements, StripeProvider } from 'react-stripe-elements';
@@ -70,7 +71,12 @@ export class PaymentForm extends Component<Props, State> {
     this.addPayment();
   };
 
-  addPayment = (tokenId: ?string) => {
+  addPayment = (
+    tokenId: ?string,
+    payment_method_override: ?number,
+    payment_note_override: ?string,
+    extraData: Object,
+  ) => {
     const {
       payment_method,
       price,
@@ -84,9 +90,10 @@ export class PaymentForm extends Component<Props, State> {
         payment_received,
         price,
         stripe_charge_id: tokenId,
-        payment_note,
-        payment_method,
+        payment_note: payment_note_override || payment_note,
+        payment_method: payment_method_override || payment_method,
         id,
+        ...(extraData || {}),
       });
       this.setState((prevState) => ({
         ...initialState,
@@ -95,9 +102,23 @@ export class PaymentForm extends Component<Props, State> {
     }
   };
 
-  receiveStripeToken = (token) => {
+  receiveStripeToken = (token, recurringData) => {
     if ((token || {}).id) {
-      this.addPayment(token.id);
+      if (recurringData) {
+        const payment_note = 'Payment auto';
+        this.addPayment(
+          token.id,
+          PAYMENT_METHOD_SUBSCRIPTION_CB.id,
+          payment_note,
+          {
+            interval: recurringData.interval,
+            nb_interval: recurringData.nb_interval,
+            billing_anchor: recurringData.billing_anchor,
+          },
+        );
+      } else {
+        this.addPayment(token.id);
+      }
     }
   };
 
@@ -165,16 +186,13 @@ export class PaymentForm extends Component<Props, State> {
       return (
         <div className={classes.stripeFormContainer}>
           <StripeProvider apiKey={STRIPE_KEY}>
-            <Grid container spacing={16} direction="column">
-              <Grid item>
-                <Elements>
-                  <StripeForm
-                    price={price}
-                    onComplete={this.receiveStripeToken}
-                  />
-                </Elements>
-              </Grid>
-            </Grid>
+            <Elements>
+              <StripeForm
+                price={price}
+                showRecurring
+                onComplete={this.receiveStripeToken}
+              />
+            </Elements>
           </StripeProvider>
         </div>
       );
@@ -229,7 +247,9 @@ export class PaymentForm extends Component<Props, State> {
                 />
               }
             >
-              {PAYMENT_METHODS.map((pm) => (
+              {PAYMENT_METHODS.filter(
+                (pm) => pm.id !== PAYMENT_METHOD_SUBSCRIPTION_CB.id,
+              ).map((pm) => (
                 <MenuItem key={pm.id} value={pm.id}>
                   {t(`payment.paymentMethods.${pm.text}`)}
                 </MenuItem>

@@ -65,7 +65,7 @@ export default function marketplaceReducer(state = initialState, action = {}) {
     case actionTypes.MARKETPLACE_PACKS_DAY_FETCH_ERROR:
       return state.set('paymentPacksLoading', false);
     case actionTypes.MARKETPLACE_PACKS_FETCH_START:
-      return state.set('paymentPacks', [], 'paymentPacksLoading', true);
+      return state.set('paymentPacks', []).set('paymentPacksLoading', true);
 
     default:
       return state;

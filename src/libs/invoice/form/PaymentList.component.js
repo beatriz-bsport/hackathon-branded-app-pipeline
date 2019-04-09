@@ -18,9 +18,11 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import CheckIcon from '@material-ui/icons/Check';
 import CancelIcon from '@material-ui/icons/Cancel';
 import CachedIcon from '@material-ui/icons/Cached';
+import HourglassEmpty from '@material-ui/icons/HourglassEmpty';
 
 import PAYMENT_METHODS, {
   CB as PAYMENT_METHOD_CB,
+  SUBSCRIPTION_CB as PAYMENT_METHOD_SUBSCRIPTION_CB,
 } from '@bsport/common/lib/master-data/payment-methods';
 
 type Props = {
@@ -38,7 +40,10 @@ export class PaymentList extends Component<Props> {
     if (uneditable) {
       return (
         <IconButton
-          disabled={paymentItem.payment_method === PAYMENT_METHOD_CB.id}
+          disabled={
+            paymentItem.payment_method === PAYMENT_METHOD_CB.id ||
+            paymentItem.payment_method === PAYMENT_METHOD_SUBSCRIPTION_CB.id
+          }
           onClick={() => {
             // prettier-ignore
             updateStatus(paymentItem.uuid, !paymentItem.payment_received);
@@ -56,11 +61,20 @@ export class PaymentList extends Component<Props> {
     );
   };
 
+  renderPaymentReceived = (paymentItem) => {
+    if (paymentItem.payment_received) {
+      return <CheckIcon color="secondary" />;
+    }
+    if (paymentItem.payment_method === PAYMENT_METHOD_SUBSCRIPTION_CB.id) {
+      return <HourglassEmpty color="secondary" />;
+    }
+    return <CancelIcon color="secondary" />;
+  };
+
   renderPaymentItem = (paymentItem, uneditable) => {
     const { t } = this.props;
     const {
       price,
-      payment_received,
       payment_note,
       id,
       uuid,
@@ -76,13 +90,7 @@ export class PaymentList extends Component<Props> {
         key={`${uuid}-${id}-{payment_method}-{price}`}
         disabled={uneditable}
       >
-        <ListItemIcon>
-          {payment_received ? (
-            <CheckIcon color="secondary" />
-          ) : (
-            <CancelIcon color="secondary" />
-          )}
-        </ListItemIcon>
+        <ListItemIcon>{this.renderPaymentReceived(paymentItem)}</ListItemIcon>
         <ListItemText
           primary={`${price} €  -  ${t(
             `payment.paymentMethods.${paymentMethodText}`,

@@ -13,6 +13,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import AddIcon from '@material-ui/icons/Add';
 import PAYMENT_METHODS, {
   CB as PAYMENT_METHOD_CB,
+  SUBSCRIPTION_CB as PAYMENT_METHOD_SUBSCRIPTION_CB,
 } from '@bsport/common/lib/master-data/payment-methods';
 
 import { formatAsDate } from '../../../datetime';
@@ -58,7 +59,11 @@ const mapPaymentMethodToState = () =>
     text: pm.text,
     amount: 0,
   }))
-    .filter((pm) => pm.id !== PAYMENT_METHOD_CB.id)
+    .filter(
+      (pm) =>
+        pm.id !== PAYMENT_METHOD_SUBSCRIPTION_CB.id &&
+        pm.id !== PAYMENT_METHOD_CB.id,
+    )
     .sort((pm, pm_) => pm.id - pm_.id);
 
 export class QuickInvoice extends Component<Props, State> {

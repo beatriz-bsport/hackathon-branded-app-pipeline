@@ -321,7 +321,11 @@ export class SignUpForm extends Component<Props, State> {
                 label={
                   <Typography>
                     {t('form.signup.iAcceptPrivacyPolicy')}
-                    <a href="https://bsport.io/blog/privacy_policy">
+                    <a
+                      href="https://bsport.io/blog/privacy_policy"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       {t('form.signup.privacyPolicy').toLowerCase()}
                     </a>
                     {'.'}

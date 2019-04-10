@@ -45,9 +45,14 @@ export function ReportConfigurationForm(props: Props) {
   const { isSubmitting, categoryMetadata, categories, t } = props;
   return (
     <Form>
-      <TextField name="name" fullWidth label={t('form.name')} />
+      <TextField required name="name" fullWidth label={t('form.name')} />
       <AlertError name="name" />
-      <TextField name="description" fullWidth label={t('form.description')} />
+      <TextField
+        required
+        name="description"
+        fullWidth
+        label={t('form.description')}
+      />
       <AlertError name="description" />
       <FormControl label={t('form.category')}>
         <Field name="category">

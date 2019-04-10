@@ -315,7 +315,7 @@ export default compose(
         gender: 'F',
         birthdayYear: '',
         membership_ID: '',
-        date_joined: Moment(),
+        date_joined: Moment().format('DD/MM/YYYY'),
         rgpd: {
           accept_sms: true,
           accept_email: true,

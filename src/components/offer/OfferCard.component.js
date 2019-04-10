@@ -49,13 +49,7 @@ type Props = {
 export class OfferCard extends Component<Props> {
   getHeader = () => {
     const { classes, t, offer } = this.props;
-    const {
-      available,
-      name,
-      level_id,
-      parent_category,
-      credit_price,
-    } = offer;
+    const { available, name, level_id, parent_category, credit_price } = offer;
     const formattedPrice = `${credit_price} ${t(
       'common.credit_s',
     ).toLowerCase()}`;
@@ -340,9 +334,11 @@ export class OfferCard extends Component<Props> {
     }
     return (
       <List dense style={{ width: '100%' }}>
-        {compatiblePacks.map((cp) => (
-          <PaymentPackSummary paymentPack={cp} key={cp.id} />
-        ))}
+        {compatiblePacks
+          .filter((cp) => !cp.disabled)
+          .map((cp) => (
+            <PaymentPackSummary paymentPack={cp} key={cp.id} />
+          ))}
       </List>
     );
   };

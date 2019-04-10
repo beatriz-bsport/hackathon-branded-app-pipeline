@@ -228,25 +228,10 @@ export class OfferForm extends Component<Props, State> {
   };
 
   renderSpecificities = () => {
-    const { t, establishments, coaches } = this.props;
+    const { establishments, coaches } = this.props;
     return (
       <Grid container direction="column" spacing={8}>
         <Grid item>
-          <Typography variant="h6">{t('form.caracteristics')}</Typography>
-        </Grid>
-        <Grid item>
-          <FormField
-            id="effectif"
-            required
-            onChange={this.onFormFieldChange}
-            value={this.state.effectif}
-          />
-          <FormField
-            id="waiting_list_max_size"
-            required
-            onChange={this.onFormFieldChange}
-            value={this.state.waiting_list_max_size}
-          />
           <FormField
             id="level"
             value={this.state.level}
@@ -261,8 +246,8 @@ export class OfferForm extends Component<Props, State> {
             label={this.props.t('form.offer.establishmentLabel')}
             onChange={this.onFormFieldChange('establishment')}
             establishments={establishments}
-	    value={this.state.establishment}
-	    required
+            value={this.state.establishment}
+            required
           />
         </Grid>
         <Grid item>
@@ -436,6 +421,30 @@ export class OfferForm extends Component<Props, State> {
     );
   };
 
+  renderCaracteristics = () => (
+    <Grid container direction="column" spacing={8}>
+      <Grid item>
+        <Typography variant="h6">
+          {this.props.t('form.caracteristics')}
+        </Typography>
+      </Grid>
+      <Grid item>
+        <FormField
+          id="effectif"
+          required
+          onChange={this.onFormFieldChange}
+          value={this.state.effectif}
+        />
+        <FormField
+          id="waiting_list_max_size"
+          required
+          onChange={this.onFormFieldChange}
+          value={this.state.waiting_list_max_size}
+        />
+      </Grid>
+    </Grid>
+  );
+
   render() {
     const { classes } = this.props;
     return (
@@ -443,8 +452,8 @@ export class OfferForm extends Component<Props, State> {
         <form onSubmit={this.generateOffers}>
           <Grid container direction="column" spacing={40}>
             <Grid item>{this.renderTitle()}</Grid>
+            <Grid item>{this.renderCaracteristics()}</Grid>
             <Grid item>{this.renderTimeSettings()}</Grid>
-            <Grid item>{this.renderBilling()}</Grid>
             <Grid item>{this.renderSpecificities()}</Grid>
             <Grid item>{this.renderFooter()}</Grid>
           </Grid>

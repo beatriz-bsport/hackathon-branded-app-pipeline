@@ -391,7 +391,8 @@ export class EditLiveOfferForm extends Component<Props, State> {
         />
       </Grid>
       <Grid item>
-        <EstablishmentSubForm
+	<EstablishmentSubForm
+	  required
           onFormFieldChange={this.onFormFieldChange}
           establishment={this.state.establishment}
           establishments={this.props.establishments}

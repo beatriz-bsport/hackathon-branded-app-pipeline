@@ -261,7 +261,8 @@ export class OfferForm extends Component<Props, State> {
             label={this.props.t('form.offer.establishmentLabel')}
             onChange={this.onFormFieldChange('establishment')}
             establishments={establishments}
-            value={this.state.establishment}
+	    value={this.state.establishment}
+	    required
           />
         </Grid>
         <Grid item>

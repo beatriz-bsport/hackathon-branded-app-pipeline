@@ -30,12 +30,22 @@ type Props = {
   value: ?number,
   noBlank: ?boolean,
   label: ?string,
+  required: ?boolean,
 };
 
 export function EstablishmentInput(props: Props) {
-  const { noBlank, establishments, value, t, label, classes, onChange } = props;
+  const {
+    noBlank,
+    required,
+    establishments,
+    value,
+    t,
+    label,
+    classes,
+    onChange,
+  } = props;
   return (
-    <FormControl className={classes.formControl}>
+    <FormControl className={classes.formControl} required={required}>
       <InputLabel shrink={value} htmlFor="establishment-helper">
         {label || t('common.establishment')}
       </InputLabel>

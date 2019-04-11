@@ -49,10 +49,7 @@ type Props = {
 export class OfferCard extends Component<Props> {
   getHeader = () => {
     const { classes, t, offer } = this.props;
-    const { available, name, level_id, parent_category, credit_price } = offer;
-    const formattedPrice = `${credit_price} ${t(
-      'common.credit_s',
-    ).toLowerCase()}`;
+    const { available, name, level_id, parent_category } = offer;
 
     return (
       <Grid
@@ -66,7 +63,7 @@ export class OfferCard extends Component<Props> {
           <Icon>
             <Sport noname parentCategory={parent_category} />
           </Icon>
-          <ListItemText primary={name} secondary={formattedPrice} />
+          <ListItemText primary={name} />
           {available ? null : (
             <Typography variant="h2" color="error">
               {t('offer.disabled')}

@@ -318,10 +318,11 @@ export class EditLiveOfferForm extends Component<Props, State> {
         </Typography>
       </Grid>
       <Grid item>
-        <Grid container direction="row" spacing={16}>
+        <Grid container direction="column" spacing={16}>
           <Grid item>
             <NumericInput
               required
+              fullWidth
               label={this.props.t('offer.effectif')}
               value={this.state.effectif}
               onChange={(event) =>
@@ -332,6 +333,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
           <Grid item>
             <NumericInput
               required
+              fullWidth
               value={this.state.waiting_list_max_size}
               label={this.props.t('offer.sizeOfWaitingList')}
               onChange={(event) =>

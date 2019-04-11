@@ -15,9 +15,8 @@ import type { TFunction } from 'react-i18next';
 
 import type { Establishment } from '../../api/types';
 
-const styles = (theme) => ({
+const styles = () => ({
   formControl: {
-    margin: theme.spacing.unit,
     minWidth: 400,
   },
 });

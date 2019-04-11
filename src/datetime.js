@@ -44,15 +44,28 @@ export function formatDuration(minutes) {
   return `${minutes % 60}h${moduloMinutes ? `${moduloMinutes}min` : ''}`;
 }
 
-export function formatMinutes(minutes) {
-  const minutesNumber = parseInt(minutes, 10);
-    if (minutesNumber < 60) {
-      return `${minutesNumber}min`;
-    }
-    if (!(minutesNumber % 60)) {
-      return `${parseInt(minutesNumber / 60, 10)}h${minutesNumber % 60}`;
-    }
-    return `${parseInt(minutesNumber / 60, 10)}h`;
+export function formatMinutes(minutesNumber, t) {
+  const minutesMinusDays = minutesNumber % (60 * 24);
+  const minutesMinusHours = minutesNumber % 60;
+
+  const days = parseInt(minutesNumber / (60 * 24), 10);
+  const hours = parseInt(minutesMinusDays / 60, 10);
+
+  let readableDuration = '';
+  if (days) {
+    readableDuration += `${days}${t('datetime.shortDayIdentifier')} `;
+  }
+  if (hours) {
+    readableDuration += `${hours}${t('datetime.shortDayIdentifier')} `;
+  }
+
+  if (minutesMinusHours || readableDuration === '') {
+    readableDuration += `${minutesMinusHours}${t(
+      'datetime.shortMinuteIdentifier',
+    )}`;
+  }
+
+  return readableDuration;
 }
 
 export function humanizeDuration(milliseconds) {

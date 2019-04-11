@@ -266,7 +266,7 @@ export class MetaActivityDetail extends Component<Props, State> {
                 {`${t('activity.lastBookingBeforeMinutes')}`}
               </Typography>
               <Typography variant="h6">
-                {formatMinutes(last_booking_minutes)}
+                {formatMinutes(last_booking_minutes, t)}
               </Typography>
             </Grid>
             <Grid item>
@@ -274,7 +274,7 @@ export class MetaActivityDetail extends Component<Props, State> {
                 {`${t('activity.lastDiscardBeforeMinutes')}`}
               </Typography>
               <Typography variant="h6">
-                {formatMinutes(last_discard_minutes)}
+                {formatMinutes(last_discard_minutes, t)}
               </Typography>
             </Grid>
           </Grid>

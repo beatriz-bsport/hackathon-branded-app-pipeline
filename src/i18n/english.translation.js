@@ -78,6 +78,11 @@ export default {
       CREDIT_ACCOUNT: 'Credit account',
       SUBSCRIPTION_CB: 'Automatic credit card debit',
     },
+    datetime: {
+      shortDayIdentifier: 'd',
+      shortMinuteIdentifier: 'min',
+      shortHourIdentifier: 'h',
+    },
     common: {
       activePass: 'active pass',
       invoices: 'Invoices',

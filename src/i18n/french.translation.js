@@ -97,6 +97,11 @@ export default {
         title: 'Nouveau membre',
       },
     },
+    datetime: {
+      shortDayIdentifier: 'j',
+      shortMinuteIdentifier: 'min',
+      shortHourIdentifier: 'h',
+    },
     common: {
       activePass: 'pass actif',
       invoices: 'Factures',

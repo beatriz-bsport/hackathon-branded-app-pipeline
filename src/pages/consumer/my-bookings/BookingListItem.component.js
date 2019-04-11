@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core';
 import CancelIcon from '@material-ui/icons/Cancel';
 import type { TFunction } from 'react-i18next';
+import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import { humanizeDuration, formatAsDatetime } from '../../../datetime';
 import type { Booking } from '../../../api/types';
 import { getBookingStatusCode } from '../../../components/booking/Booking.utils';
@@ -58,6 +59,7 @@ export class BookingListItem extends Component<Props> {
         button
         onClick={overrideClickAction || (() => {})}
         className={classes.listItem}
+        disabled={booking.booking_status_code !== BOOKING_STATUS_OK.id}
       >
         {coach.photo ? (
           <Tooltip title={coach.name}>
@@ -69,7 +71,9 @@ export class BookingListItem extends Component<Props> {
           secondary={this.getFullStatus()}
           secondaryTypographyProps={offer.available ? {} : { color: 'error' }}
         />
-        {onDiscard && !booking.was_refunded ? (
+        {onDiscard &&
+        !booking.was_refunded &&
+        booking.booking_status_code === BOOKING_STATUS_OK.id ? (
           <ListItemSecondaryAction>
             <IconButton onClick={onDiscard} id={`booking-cancel-${booking.id}`}>
               <CancelIcon />

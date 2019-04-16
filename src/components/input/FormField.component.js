@@ -115,6 +115,8 @@ export class FormField extends Component<Props, State> {
       case 'effectif':
       case 'code':
         return input.replace(/[^0-9+]/g, '');
+      case 'hour':
+        return input || 0;
       default:
         return input;
     }

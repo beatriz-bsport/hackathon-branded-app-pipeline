@@ -32,12 +32,12 @@ const getHours = (totalMinutes) => {
 export class DurationInput extends Component<Props> {
   onChangeHours = (event: Object) => {
     const hours = parseInt(event.target.value, 10);
-    this.props.onChange(hours * 60 + getMinutes(this.props.value));
+    this.props.onChange(hours * 60 + getMinutes(this.props.value) || 0);
   };
 
   onChangeMinutes = (event: Object) => {
     const minutes = parseInt(event.target.value, 10);
-    this.props.onChange(minutes + getHours(this.props.value) * 60);
+    this.props.onChange(minutes + getHours(this.props.value) * 60 || 0);
   };
 
   render() {

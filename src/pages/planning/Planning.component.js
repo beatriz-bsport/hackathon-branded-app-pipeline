@@ -234,7 +234,7 @@ export class Planning extends Component<Props, State> {
 
     if (selectedOffer) {
       return (
-        <Dialog open={editModalOpened} onClose={this.onCancelModal}>
+        <Dialog open={editModalOpened}>
           <DialogContent>
             <OfferEditForm
               offer={selectedOffer}
@@ -261,10 +261,7 @@ export class Planning extends Component<Props, State> {
     const { createOfferModalOpened, creatingOffers } = this.state;
 
     return (
-      <Dialog
-        onClose={this.closeCreateOffersModal}
-        open={createOfferModalOpened}
-      >
+      <Dialog open={createOfferModalOpened}>
         <DialogContent style={{ minWidth: 350 }}>
           <OfferFormWithActivity
             metaActivities={metaActivities}
@@ -318,7 +315,9 @@ export class Planning extends Component<Props, State> {
                   deleteAll,
                 })
               }
-              onHardDelete={(data) => this.onHardDeleteOffer(selectedOffer.id, data)}
+              onHardDelete={(data) =>
+                this.onHardDeleteOffer(selectedOffer.id, data)
+              }
               fetchSimilarOffers={() => {
                 this.props.fetchSimilarOffers(selectedOffer.id);
               }}

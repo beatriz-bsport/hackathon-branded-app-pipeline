@@ -362,7 +362,9 @@ export class EditLiveOfferForm extends Component<Props, State> {
         <DurationInput
           required
           value={this.state.duration_minute}
-          onChange={this.onFormFieldChange('duration_minute')}
+          onChange={(e) => {
+            this.onFormFieldChange('duration_minute')(e || 0);
+          }}
         />
       </Grid>
       <Grid item>

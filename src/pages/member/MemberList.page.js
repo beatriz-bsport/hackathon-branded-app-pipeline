@@ -38,10 +38,6 @@ export class Members extends Component<Props> {
         sortable: true,
       },
       {
-        id: 'offers_joined',
-        label: t('member.engagement'),
-      },
-      {
         id: 'status',
         label: t('booking.lastBooking'),
         sortable: true,
@@ -86,11 +82,6 @@ export class Members extends Component<Props> {
       >
         <TableCell component="th" scope="row">
           {member.name}
-        </TableCell>
-        <TableCell>
-          {`${member.nb_bookings} ${t('common.booking_s').toLowerCase()} - ${
-            member.nb_pass_active
-          } ${t('common.activePass').toLowerCase()}`}
         </TableCell>
         <TableCell>{status}</TableCell>
         <TableCell>{formatAsDate(member.date_joined)}</TableCell>

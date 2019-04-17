@@ -217,7 +217,10 @@ function mapStateToProps(state) {
   return {
     loading: state.paymentPack.loading || state.establishment.loading,
     packs: state.paymentPack.all,
-    metaActivities: state.metaActivity.all,
+    metaActivities: [
+      ...(state.metaActivity.all || []),
+      ...(state.workshopActivity.all || []),
+    ],
     establishments: state.establishment.all,
     updatingConsumerPacks: state.consumerPaymentPack.updatingConsumerPacks,
     consumerPacks: state.consumerPaymentPack.byPaymentPack.items,

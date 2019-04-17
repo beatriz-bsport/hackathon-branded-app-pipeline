@@ -66,7 +66,10 @@ export default compose(
           ? state.paymentPack.all.find((m) => m.id === paymentPackId)
           : null,
       categories: state.category.SCTs,
-      metaActivities: state.metaActivity.all,
+      metaActivities: [
+        ...(state.metaActivity.all || []),
+        ...(state.workshopActivity.all || []),
+      ],
       establishments: state.establishment.all,
       loading: state.paymentPack.createOrUpdatePending,
     }),

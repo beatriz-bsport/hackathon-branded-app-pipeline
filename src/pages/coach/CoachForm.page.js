@@ -43,7 +43,8 @@ export function CoachFormPage(props: Props) {
   const initialData = initial
     ? {
         ...unmap(initial, CoachMap),
-        birthdayYear: initial ? initial.birthday.slice(0, 4) : '',
+        birthdayYear:
+          initial && initial.birthday ? initial.birthday.slice(0, 4) : '',
       }
     : null;
   console.log(initialData);

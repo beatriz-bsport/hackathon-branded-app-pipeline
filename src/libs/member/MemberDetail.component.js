@@ -26,7 +26,6 @@ import ConsumerPackRowItem from '../../components/payment-pack/ConsumerPackRowIt
 import { formatAsDatetime } from '../../datetime';
 import type {
   MemberDetailed,
-  Member as MemberSimplified,
   Booking,
   BookingOption,
 } from '../../api/types';
@@ -42,7 +41,6 @@ type Props = {
 
   member: MemberDetailed,
   invoices: Array<Invoice>,
-  allMembers: Array<MemberSimplified>,
   bookings: Array<Booking>,
   bookingOptions: Array<BookingOption>,
   paymentPacks: Array<PaymentPack>,
@@ -97,12 +95,12 @@ export class Member extends Component<Props, State> {
     const {
       t,
       classes,
-      allMembers,
       bookings,
       bookingLoading,
       bookingOptions,
       confirmBookingAttendance,
       discardBookingAttendance,
+      member,
     } = this.props;
     // prettier-ignore
     const bookingsFuture = bookings.filter(
@@ -111,10 +109,8 @@ export class Member extends Component<Props, State> {
     // prettier-ignore
     const bookingOptionsFuture = bookingOptions.filter(
       (b) => Moment(b.offer.date_start).isAfter(Moment()),
-    );
-    const nextBookingDate = (
-      allMembers.filter((m) => m.id === this.props.memberId)[0] || {}
-    ).next_booking;
+      );
+    const nextBookingDate = member.next_booking;
     return (
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
@@ -154,19 +150,17 @@ export class Member extends Component<Props, State> {
     const {
       t,
       classes,
-      allMembers,
       bookings,
       bookingLoading,
       confirmBookingAttendance,
       discardBookingAttendance,
+      member,
     } = this.props;
     // prettier-ignore
     const bookingsPast = bookings.filter(
       (b) => Moment(b.date_start).isBefore(Moment()),
-    );
-    const previousBookingDate = (
-      allMembers.filter((m) => m.id === this.props.memberId)[0] || {}
-    ).previous_booking;
+      );
+    const previousBookingDate = member.previous_booking;
     return (
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>

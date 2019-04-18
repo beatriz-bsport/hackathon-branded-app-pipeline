@@ -5,7 +5,7 @@ import { compose } from 'recompose';
 
 import {
   Grid,
-  CircularProgress,
+  LinearProgress,
   Paper,
   AppBar,
   Tab,
@@ -155,11 +155,17 @@ export class MarketPlace extends Component<Props, State> {
   };
 
   render() {
-    const { classes, t, company } = this.props;
+    const { companyLoading, classes, t, company } = this.props;
     if (!company) {
+      if (!companyLoading) {
+        this.props.fetchCompany(this.companyId);
+        this.props.fetchCalendar(this.companyId);
+        this.props.fetchPaymentPacks(this.companyId);
+        this.updateOfferList(this.state.selectedDate);
+      }
       return (
         <Grid container item alignItems="center" justify="center">
-          <CircularProgress />
+          <LinearProgress />
         </Grid>
       );
     }
@@ -198,6 +204,7 @@ export class MarketPlace extends Component<Props, State> {
 function mapStateToProps(state) {
   return {
     company: state.marketplace.company,
+    companyLoading: state.marketplace.companyLoading,
     offers: state.marketplace.offers,
     activities: state.marketplace.activities,
     calendarLoading: state.marketplace.loading,

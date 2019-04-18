@@ -32,6 +32,7 @@ import api from '../api';
 type Props = {
   companyName: ?string,
   company: MarketPlaceCompany,
+  companyLoading: boolean,
   offers: Array<OfferBasic>,
   selectedDayOffers: ?Array<OfferMarketplace>,
   selectedDayOffersLoading: boolean,

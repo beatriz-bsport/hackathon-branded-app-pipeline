@@ -10,6 +10,7 @@ import metaActivityReducers from './meta-activity';
 import statsReducers from './stats';
 import coachReducers from './coach';
 import memberReducer from './member';
+import memberFetcherReducer from './member-fetcher';
 import paymentPackReducers from './paymentPack';
 import consumerPaymentPackReducers from './consumer-payment-pack';
 import establishmentReducers from './establishment';
@@ -44,6 +45,7 @@ const rootReducer = combineReducers({
   stats: statsReducers,
   coach: coachReducers,
   member: memberReducer,
+  memberFetcher: memberFetcherReducer,
   paymentPack: paymentPackReducers,
   consumerPaymentPack: consumerPaymentPackReducers,
   category: categoryReducers,

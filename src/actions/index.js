@@ -6,6 +6,7 @@ import * as metaActivity from './meta-activity.actions';
 import * as stats from './stats.actions';
 import * as coach from './coach.actions';
 import * as member from './member.actions';
+import * as memberFetcher from './member-fetcher.actions';
 import * as paymentPack from './paymentPack.actions';
 import * as consumerPaymentPack from './consumer-payment-pack.actions';
 import * as establishment from './establishment.actions';
@@ -35,6 +36,7 @@ export {
   stats,
   coach,
   member,
+  memberFetcher,
   paymentPack,
   consumerPaymentPack,
   category,

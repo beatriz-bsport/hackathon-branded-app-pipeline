@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import { withNamespaces } from 'react-i18next';
 import { Redirect, Switch, Route } from 'react-router-dom';
+import parse from '../query-string';
 
 import { consumer as consumerActions } from '../actions';
 import MyBookings from './consumer/my-bookings/MyBookings.page';
@@ -41,10 +42,14 @@ export class ConsumerHome extends Component<Props> {
   render() {
     const { authenticated } = this.props;
     if (!authenticated) {
-      const { pathname, search } = this.props.location;
-      const nextUrl = `${pathname}${search}`;
+      const { pathname } = this.props.location;
+      const { membership } = parse(this.props.location.search);
       return (
-        <Redirect to={`/login/customer?next=${encodeURIComponent(nextUrl)}`} />
+        <Redirect
+          to={`/login/customer?next=${encodeURIComponent(
+            pathname,
+          )}&membership=${membership}`}
+        />
       );
     }
     return (

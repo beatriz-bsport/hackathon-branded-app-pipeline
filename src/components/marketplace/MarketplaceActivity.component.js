@@ -44,7 +44,7 @@ type Props = {
   compatiblePaymentPacks: Array<PaymentPack>,
 
   goToHome: () => void,
-  goToPackPayment: (packId: number, offerId: number) => void,
+  goToPackPayment: (packId: number, offerId: number, companyId) => void,
   fetchPass: (id: number) => void,
   fetchPaymentPacks: (id: number) => void,
   onClose: () => void,
@@ -63,7 +63,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
 
   componentDidMount() {
     this.setState({ loading: true });
-    get(`${API_URI}/activity/${this.props.offer.activity_id}/detail`)
+    get(`${API_URI}/activity/${this.props.offer.activity_id}/detail?noapp=true`)
       .then((response) => {
         this.setState({ activity: response.data, loading: false });
       })
@@ -122,7 +122,14 @@ export class MarketPlaceActivity extends React.Component<Props> {
               variant="contained"
               color="primary"
               className={classes.callButton}
-              onClick={() => pushRouter(`/customer/payment/offer/${offer.id}`)}
+              onClick={() => {
+                debugger;
+                pushRouter(
+                  `/customer/payment/offer/${offer.id}?membership=${
+                    activity.company
+                  }`,
+                );
+              }}
             >
               Réserver
             </Button>
@@ -179,6 +186,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
                                 this.props.goToPackPayment(
                                   p.id,
                                   this.props.offerId,
+                                  activity.company,
                                 )
                               }
                             >
@@ -210,7 +218,13 @@ export class MarketPlaceActivity extends React.Component<Props> {
               fullWidth
               variant="contained"
               color="primary"
-              onClick={() => pushRouter(`/customer/payment/offer/${offer.id}`)}
+              onClick={() =>
+                pushRouter(
+                  `/customer/payment/offer/${offer.id}?membership=${
+                    activity.company
+                  }`,
+                )
+              }
             >
               Réserver
             </Button>
@@ -285,8 +299,10 @@ export default compose(
       pushRouter: push,
       goToHome: () => push('/'),
       snackbarSuccess,
-      goToPackPayment: (packId, offerId) =>
-        push(`/customer/payment/pass/${packId}?nextOffer=${offerId}`),
+      goToPackPayment: (packId, offerId, companyId) =>
+        push(
+          `/customer/payment/pass/${packId}?nextOffer=${offerId}&membership=${companyId}`,
+        ),
     },
   ),
 )(MarketPlaceActivity);

@@ -5,11 +5,11 @@ import { compose } from 'recompose';
 
 import {
   Grid,
-  LinearProgress,
   Paper,
   AppBar,
   Tab,
   Tabs,
+  LinearProgress,
   withStyles,
 } from '@material-ui/core';
 import { withNamespaces } from 'react-i18next';
@@ -33,6 +33,7 @@ type Props = {
   companyName: ?string,
   company: MarketPlaceCompany,
   companyLoading: boolean,
+  paymentPacksLoading: boolean,
   offers: Array<OfferBasic>,
   selectedDayOffers: ?Array<OfferMarketplace>,
   selectedDayOffersLoading: boolean,
@@ -57,11 +58,16 @@ const TAB_CALENDAR = 0;
 const TAB_PASS = 1;
 
 export class MarketPlace extends Component<Props, State> {
-  state = {
-    selectedDate: Moment(),
-    tabSelected: TAB_CALENDAR,
-    offerId: null,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedDate: Moment(),
+      tabSelected: window.location.href.includes('tab=pass')
+        ? TAB_PASS
+        : TAB_CALENDAR,
+      offerId: null,
+    };
+  }
 
   async componentDidMount() {
     try {
@@ -123,6 +129,9 @@ export class MarketPlace extends Component<Props, State> {
   renderContent = () => {
     switch (this.state.tabSelected) {
       case TAB_PASS:
+        if (this.props.paymentPacksLoading) {
+          return <LinearProgress />;
+        }
         return (
           <MarketplacePassList
             paymentPacks={this.props.paymentPacks}
@@ -212,6 +221,7 @@ function mapStateToProps(state) {
     selectedDayOffers: state.marketplace.detailedOffers,
     selectedDayOffersLoading: state.marketplace.detailedOffersLoading,
     paymentPacks: state.marketplace.paymentPacks,
+    paymentPacksLoading: state.marketplace.paymentPacksLoading,
   };
 }
 

@@ -7,6 +7,7 @@ const initialState = Immutable({
   detaildOffersLoading: false,
   offers: [],
   paymentPacks: [],
+  paymentPacksLoading: false,
   loading: true,
   companyLoading: false,
   refreshing: false,
@@ -74,12 +75,17 @@ export default function marketplaceReducer(state = initialState, action = {}) {
     case actionTypes.MARKETPLACE_PACKS_FETCH_SUCCESS:
       return Immutable.merge(state, {
         paymentPacks: action.paymentPacks,
+	paymentPacksLoading: false,
       });
 
     case actionTypes.MARKETPLACE_PACKS_DAY_FETCH_ERROR:
+      return Immutable.merge(state, {
+	paymentPacksLoading: false,
+      });
     case actionTypes.MARKETPLACE_PACKS_FETCH_START:
       return Immutable.merge(state, {
-        paymentPacks: [],
+	paymentPacks: [],
+	paymentPacksLoading: true,
       });
 
     default:

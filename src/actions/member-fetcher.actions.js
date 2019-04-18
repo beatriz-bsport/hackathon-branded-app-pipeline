@@ -28,7 +28,9 @@ export function fetch(memberId: number) {
       const response = await api.member.fetchMember(memberId);
       dispatch(details.success(response.data));
     } catch (error) {
-      dispatch(details.error([error, memberId]));
+      setTimeout(() => {
+        dispatch(details.error([error, memberId]));
+      }, 15000);
     }
   };
 }

@@ -11,7 +11,7 @@ export async function updateCoach(data: *) {
 }
 
 export async function fetchAssociatedCoaches() {
-  return getAuth(`${API_URI}/coach/associated/`);
+  return getAuth(`${API_URI}/saas/associated-coach/`);
 }
 
 export async function fetchAssociatedCoachPerformance(

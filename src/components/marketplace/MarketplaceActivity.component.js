@@ -123,7 +123,6 @@ export class MarketPlaceActivity extends React.Component<Props> {
               color="primary"
               className={classes.callButton}
               onClick={() => {
-                debugger;
                 pushRouter(
                   `/customer/payment/offer/${offer.id}?membership=${
                     activity.company

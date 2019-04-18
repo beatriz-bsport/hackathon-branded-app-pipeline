@@ -56,7 +56,6 @@ export class ConsumerLoginPage extends Component<Props> {
     const parser = parse;
     const location = this.props.location;
     const { membership } = parse(this.props.location.search);
-    debugger;
     if (membership) {
       this.props.signup({ ...data, membership });
     } else {

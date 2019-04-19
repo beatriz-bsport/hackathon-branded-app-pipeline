@@ -6,7 +6,6 @@ import type { TFunction } from 'react-i18next';
 import i18next from 'i18next';
 import {
   TableRow,
-  CircularProgress,
   TableCell,
   Grid,
   Button,
@@ -62,11 +61,7 @@ const renderRow = (t, fetchMember, detailedMembers, goToMemberPage) => (
   fetchMember(member.id);
 
   const detailedMember = detailedMembers.find((m) => m.id === member.id);
-  let status = (
-    <Grid container item alignItems="center">
-      <CircularProgress size={26} />
-    </Grid>
-  );
+  let status = <Typography> - </Typography>;
   if (detailedMember) {
     status = detailedMember.next_booking ? (
       <Typography color="primary">

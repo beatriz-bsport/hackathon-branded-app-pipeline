@@ -27,6 +27,7 @@ type Props = {
   goToInvoiceList: () => void,
   createInvoice: () => void,
   creatingInvoice: boolean,
+  loading: boolean,
   resetCreateOrUpdateStatus: () => void,
 };
 

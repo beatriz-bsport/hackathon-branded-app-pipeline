@@ -153,7 +153,7 @@ export default {
       pass: 'Pass',
       booking_s: 'Booking(s)',
       date: 'Date',
-      nothing: 'Nothing',
+      nothing: 'None',
       bookings: 'Bookings',
       places: 'Places',
       male: 'male',

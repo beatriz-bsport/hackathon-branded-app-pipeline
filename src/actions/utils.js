@@ -1,6 +1,7 @@
+// @flow
 import { createAction, handleActions } from 'redux-actions';
 
-export function createListHandler(objectName, endpoint) {
+export function createListHandler(objectName: string, endpoint: *) {
   const listActions = {
     isLoading: createAction(`${objectName.toUpperCase()}/LIST/IS_LOADING`),
     fetchedPage: createAction(`${objectName.toUpperCase()}/ALL/FETCHED_PAGE`),
@@ -30,7 +31,7 @@ export function createListHandler(objectName, endpoint) {
     };
   }
 
-  const listReducers = (initialState, action) =>
+  const listReducers = (initialState: State, action: Action) =>
     handleActions(
       {
         [listActions.reset]: (state) => {

@@ -75,17 +75,17 @@ export default function marketplaceReducer(state = initialState, action = {}) {
     case actionTypes.MARKETPLACE_PACKS_FETCH_SUCCESS:
       return Immutable.merge(state, {
         paymentPacks: action.paymentPacks,
-	paymentPacksLoading: false,
+        paymentPacksLoading: false,
       });
 
     case actionTypes.MARKETPLACE_PACKS_DAY_FETCH_ERROR:
       return Immutable.merge(state, {
-	paymentPacksLoading: false,
+        paymentPacksLoading: false,
       });
     case actionTypes.MARKETPLACE_PACKS_FETCH_START:
       return Immutable.merge(state, {
-	paymentPacks: [],
-	paymentPacksLoading: true,
+        paymentPacks: [],
+        paymentPacksLoading: true,
       });
 
     default:

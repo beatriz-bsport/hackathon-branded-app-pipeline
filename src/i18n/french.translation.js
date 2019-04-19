@@ -173,7 +173,7 @@ export default {
       booking_s: 'Séance(s)',
       offers: 'Séances',
       date: 'Date',
-      nothing: 'Aucune',
+      nothing: 'Aucun',
       bookings: 'Réservations',
       places: 'Lieux',
       male: 'Homme',

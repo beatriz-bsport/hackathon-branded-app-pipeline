@@ -24,11 +24,7 @@ import { compose } from 'recompose';
 import BookingTable from '../../components/booking/BookingTable.container';
 import ConsumerPackRowItem from '../../components/payment-pack/ConsumerPackRowItem.component';
 import { formatAsDatetime } from '../../datetime';
-import type {
-  MemberDetailed,
-  Booking,
-  BookingOption,
-} from '../../api/types';
+import type { MemberDetailed, Booking, BookingOption } from '../../api/types';
 import { Moment } from '../../i18n';
 
 import MemberNotePanel from './detail/MemberNotePanel.component';
@@ -211,7 +207,7 @@ export class Member extends Component<Props, State> {
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <Typography className={classes.headingExpansionPanel}>
-            {`${t('member.showPaymentPack')}} (${
+            {`${t('member.showPaymentPack')} (${
               (consumerAndPaymentPacks || []).length
             })`}
           </Typography>

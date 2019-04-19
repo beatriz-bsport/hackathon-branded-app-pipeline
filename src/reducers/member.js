@@ -3,6 +3,7 @@ import Immutable from 'seamless-immutable';
 import actionTypes from '../actions/member.types';
 import authActionTypes from '../actions/auth.types';
 import paymentPackActionTypes from '../actions/paymentPack.types';
+import { listMemberReducers } from '../actions/member.actions';
 
 const initialState = Immutable({
   loading: true,
@@ -14,7 +15,11 @@ const initialState = Immutable({
   },
 });
 
-export default function memberReducers(state = initialState, action = {}) {
+export default function(state = initialState, action = {}) {
+  return listMemberReducers(memberReducers(state, action), action);
+}
+
+function memberReducers(state = initialState, action = {}) {
   switch (action.type) {
     case authActionTypes.DISCONNECT:
       return initialState;

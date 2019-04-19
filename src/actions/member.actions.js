@@ -1,6 +1,7 @@
 // @flow weak
 
 import { push } from 'react-router-redux';
+import { createListHandler } from './utils';
 
 import { snackbarError, snackbarSuccess } from './snackbar.actions';
 import api from '../api';
@@ -25,31 +26,11 @@ export function quickFetch(id: number) {
   };
 }
 
-export function fetchAll() {
-  return async (dispatch: Dispatch) => {
-    dispatch(startFetchMembers());
-
-    try {
-      const response = await api.member.fetchAll();
-      const members = response.data;
-
-      dispatch(fetchedMembers(members));
-    } catch (err) {
-      dispatch(errorFetchingMembers());
-    }
-  };
-}
-
-export function fetchedMembers(members: {}[]) {
-  return { type: types.HAS_FETCHED_MEMBERS, members };
-}
-export function startFetchMembers() {
-  return { type: types.START_FETCH_MEMBERS };
-}
-
-export function errorFetchingMembers() {
-  return { type: types.ERROR_FETCHING_MEMBERS };
-}
+const { fetcher, listReducers } = createListHandler(
+  'member',
+  api.member.fetchAll,
+);
+export { fetcher as fetchAll, listReducers as listMemberReducers };
 
 export function fetchMember(id: number) {
   return async (dispatch: Dispatch) => {
@@ -102,7 +83,7 @@ export function createOrUpdateMember(
             : 'member.forms.create.success',
         ),
       );
-      dispatch(fetchAll());
+      dispatch(fetcher());
       if (options && options.onSuccess) options.onSuccess();
       if (!dontRedirect) {
         dispatch(push('/member'));

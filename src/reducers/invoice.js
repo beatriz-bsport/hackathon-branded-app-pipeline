@@ -1,6 +1,7 @@
 import Immutable from 'seamless-immutable';
 
 import actionTypes from '../actions/invoice.types';
+import { listReducers } from '../actions/invoice.actions';
 
 const initialState = Immutable({
   all: [],
@@ -15,7 +16,11 @@ const initialState = Immutable({
   quickInvoiceLoading: false,
 });
 
-export default function invoiceReducers(state = initialState, action = {}) {
+export default function(state = initialState, action = {}) {
+  return listReducers(invoiceReducers(state, action), action);
+}
+
+function invoiceReducers(state, action) {
   switch (action.type) {
     case 'INVOICE/FINALIZE/IS_LOADING': {
       const index = state.all.findIndex(
@@ -61,23 +66,6 @@ export default function invoiceReducers(state = initialState, action = {}) {
 
     case actionTypes.INVOICE_QUICK_CREATE_ERROR:
       return state.merge({ quickInvoiceLoading: false });
-
-    case actionTypes.HAS_FETCHED_INVOICES:
-      return state.merge({
-        loading: false,
-        error: false,
-        all: action.invoices,
-      });
-
-    case actionTypes.START_FETCH_INVOICES:
-      return state.merge({ loading: true, error: false });
-
-    case actionTypes.ERROR_FETCHING_INVOICES:
-      return state.merge({
-        loading: false,
-        error: true,
-        errorMsg: action.error,
-      });
 
     case actionTypes.INVOICE_SPECIFIC_SUCCESS_FETCH:
       return state.merge({

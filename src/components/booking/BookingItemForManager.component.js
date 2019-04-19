@@ -165,6 +165,9 @@ export class BookingItemForManager extends Component<Props> {
 
   getAvatar = () => {
     const { heading, booking, classes, member } = this.props;
+    if (!member) {
+      return null;
+    }
     switch (heading) {
       case 'date_start':
         return null;

@@ -111,7 +111,7 @@ export default compose(
   withRouter,
   connect(
     (state) => ({
-      loading: state.invoice.loadingSpecific,
+      loading: state.invoice.loadingSpecific || state.member.loading,
       offers: state.offer.calendar,
       activities: state.activity.all,
       paymentPacks: (state.paymentPack.all || []).filter((pp) => !pp.disabled),

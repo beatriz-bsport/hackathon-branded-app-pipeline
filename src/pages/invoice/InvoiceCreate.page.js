@@ -47,8 +47,9 @@ export class InvoiceCreatePage extends Component<Props> {
       goToInvoiceList,
       shopItems,
       creatingInvoice,
+      loading,
     } = this.props;
-    if (member === null) {
+    if (member === null || loading) {
       return <CircularProgress />;
     }
     return (
@@ -71,6 +72,7 @@ function mapStateToProps(state, nextProps) {
   const { match } = nextProps;
   const id = (match && match.params && +match.params.id) || null;
   return {
+    loading: state.member.loading,
     member: id !== null ? state.member.all.find((m) => m.id === id) : null,
     activities: state.activity.all,
     paymentPacks: (state.paymentPack.all || []).filter((pp) => !pp.disabled),

@@ -10,6 +10,8 @@ import {
   fetchAll as fetchAllMembers,
   quickFetch as quickFetchMember,
 } from './member.actions';
+
+import { createListHandler } from './utils';
 import type { Dispatch } from '../state/types';
 import type { Invoice, Payment } from '../api/types';
 
@@ -57,29 +59,6 @@ export function createQuickInvoice(data: {
       dispatch(createdQuickInvoice(invoice));
     } catch (err) {
       dispatch(errorCreatingQuickInvoice());
-    }
-  };
-}
-
-export function startFetchInvoices() {
-  return { type: types.START_FETCH_INVOICES };
-}
-export function errorFetchingInvoices() {
-  return { type: types.ERROR_FETCHING_INVOICES };
-}
-export function fetchedInvoices(invoices: Array<Invoice>) {
-  return { type: types.HAS_FETCHED_INVOICES, invoices };
-}
-export function fetchAll() {
-  return async (dispatch: Dispatch) => {
-    dispatch(startFetchInvoices());
-
-    try {
-      const response = await api.invoice.fetchAll();
-      const invoices = response.data;
-      dispatch(fetchedInvoices(invoices));
-    } catch (err) {
-      dispatch(errorFetchingInvoices());
     }
   };
 }
@@ -189,3 +168,9 @@ export function actionCreateOrUpdateInvoiceError(error: ?Object) {
     error: JSON.stringify(error),
   };
 }
+
+const { fetcher, listReducers } = createListHandler(
+  'invoice',
+  api.invoice.fetchAll,
+);
+export { listReducers, fetcher as fetchAll };

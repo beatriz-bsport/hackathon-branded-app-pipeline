@@ -38,9 +38,12 @@ export default {
     event_brite: 'EventBrite',
     none: 'Aucun',
     subscription_cb: 'Paiement automatique CB',
+    credit_account: 'Crédit client',
   },
   product_type: {
     payment_pack: 'Abonnement',
+    shop_item: 'Magasin',
+    top_up: 'Recharge crédit client',
   },
   report: {
     delete_message: 'Êtes-vous sûr de vouloir supprimer le rapport {{name}} ?',

@@ -38,9 +38,12 @@ export default {
     event_brite: 'EventBrite',
     none: 'None',
     subscription_cb: 'Automatic credit card debit',
+    credit_account: 'Client internal account',
   },
   product_type: {
-    payment_pack: 'Membership card',
+    payment_pack: 'Pass',
+    shop_item: 'Shop',
+    top_up: 'Top-up',
   },
   report: {
     delete_message: 'Are you sure you want to remove the report {{name}} ?',

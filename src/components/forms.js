@@ -343,6 +343,7 @@ export const SelectField = withStyles(styles)(
               {label}
             </InputLabel>
             <Select
+              nameCypress={`select-${props.name}`}
               {...field}
               {...lodash.omit(props, [
                 't',

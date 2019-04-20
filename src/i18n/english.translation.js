@@ -36,21 +36,6 @@ export default {
     activityUpdated: 'Activity updated',
     bookingConfirmed: 'Booking confirmed',
     button: { login: 'Log in' },
-    metaActivity: {
-      forms: {
-        create: {
-          success: 'Activity successfully created',
-          error: 'Could not save the activity',
-        },
-      },
-      update: {
-        imageUploaderRequireEditMessage:
-          'Once you have created your activity you will be able to add additional images.',
-      },
-      create: {
-        success: 'Activity successfully created',
-      },
-    },
     report: {
       delete: 'Report deletion',
     },
@@ -654,6 +639,19 @@ export default {
       orNcredits2: ' credits)',
       packsAvailable: 'Pass available for this activity :',
       reviews: 'Customer reviews: ',
+      forms: {
+        create: {
+          success: 'Activity successfully created',
+          error: 'Could not save the activity',
+        },
+      },
+      update: {
+        imageUploaderRequireEditMessage:
+          'Once you have created your activity you will be able to add additional images.',
+      },
+      create: {
+        success: 'Activity successfully created',
+      },
     },
     booking: {
       statusCode: {

@@ -3,5 +3,8 @@
   "projectId": "hop42j",
   "viewportWidth": 1280,
   "viewportHeight": 800,
-  "baseUrl": "http://localhost:3000"
+  "baseUrl": "http://localhost:3000",
+  "env": {
+    "BASE_URI": "http://localhost:8000"
+  }
 }

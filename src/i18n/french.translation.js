@@ -673,7 +673,7 @@ export default {
     activity: {
       forms: {
         create: {
-          succes: 'Activité sauvegardée',
+          success: 'Activité sauvegardée',
           error: "Impossible de sauvegarder l'activité",
         },
         update: {

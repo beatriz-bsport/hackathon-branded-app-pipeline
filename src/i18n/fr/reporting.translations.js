@@ -54,6 +54,8 @@ export default {
     description: 'Description',
     category: 'Catégorie',
     columns: 'Colonnes',
+    save: 'Confirmer',
+    cancel: 'Annuler',
   },
   list: {
     empty: 'Aucun rapport ? Créer un premier rapport !',

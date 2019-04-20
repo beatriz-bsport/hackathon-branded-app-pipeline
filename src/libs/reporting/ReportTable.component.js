@@ -48,7 +48,12 @@ function getConverter(column, classes, t) {
       return { value: t(`product_type.${value}`) };
     }
     if (datatype === 'payment_method') {
-      return { value: t(`payment_method.${value}`) };
+      return {
+        value: (value || '')
+          .split(',')
+          .map((v) => t(`payment_method.${v}`))
+          .join(', '),
+      };
     }
     return { value };
   };

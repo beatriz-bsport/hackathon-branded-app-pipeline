@@ -4,6 +4,7 @@ import React from 'react';
 
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import { Button } from '@material-ui/core';
 
 import { compose, withProps } from 'recompose';
 
@@ -27,6 +28,7 @@ import ReportColumnSelector from './ReportColumnSelector.component';
 type Props = {
   isSubmitting: boolean,
   categoryMetadata: ReportCategoryMetadata,
+  onClose: () => void,
   t: TFunction,
   classes: { [string]: string },
   categories: *[],
@@ -42,7 +44,7 @@ const ReportConfigurationSchema = Yup.object().shape({
 });
 
 export function ReportConfigurationForm(props: Props) {
-  const { isSubmitting, categoryMetadata, categories, t } = props;
+  const { isSubmitting, onClose, categoryMetadata, categories, t } = props;
   return (
     <Form>
       <TextField required name="name" fullWidth label={t('form.name')} />
@@ -84,7 +86,8 @@ export function ReportConfigurationForm(props: Props) {
         </FormControl>
       ) : null}
       <Actions>
-        <Submit disabled={isSubmitting}>Save</Submit>
+        <Button onClick={onClose}>{t('form.cancel')}</Button>
+        <Submit disabled={isSubmitting}>{t('form.save')}</Submit>
       </Actions>
     </Form>
   );

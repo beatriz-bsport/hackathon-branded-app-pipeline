@@ -54,6 +54,8 @@ export default {
     description: 'Description',
     category: 'Category',
     columms: 'Columns',
+    save: 'Save',
+    cancel: 'Cancel',
   },
   list: {
     empty: 'No reports here? Create a new one now!',

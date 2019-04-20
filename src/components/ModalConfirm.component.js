@@ -23,7 +23,7 @@ type Props = {
 export function ModalConfirm(props: Props) {
   const { t, options, open, handleCancel, handleConfirm } = props;
   return (
-    <Dialog open={open}>
+    <Dialog open={open} onClose={handleCancel || (() => {})}>
       <DialogTitle>{t(options.title)}</DialogTitle>
       <DialogContent>
         <DialogContentText>

@@ -60,6 +60,7 @@ export function ReportDashboard(props: Props) {
     onReportDetail,
     setReportConfigurationToEdit,
     metadata,
+    selectedCategory,
     t,
     setSelectedForDeletion,
     selectedForDeletion,
@@ -80,6 +81,7 @@ export function ReportDashboard(props: Props) {
       <ReportCategorySelector
         categories={categories}
         onSelect={setSelectedCategory}
+        selected={selectedCategory}
       />
       {reportConfigurations.length ? (
         <div>
@@ -90,6 +92,7 @@ export function ReportDashboard(props: Props) {
           />
           <ModalConfirm
             open={!!selectedForDeletion}
+            close={onCancelDeletion}
             options={{
               title: 'report.delete',
               Content: () =>
@@ -122,7 +125,7 @@ export function ReportDashboard(props: Props) {
         <AddIcon />
       </Fab>
       {showModalAdd ? (
-        <Dialog open handleClose={() => setShowModalAdd(false)}>
+        <Dialog open>
           <DialogTitle>
             {reportConfigurations.name || t('form.title')}
           </DialogTitle>
@@ -130,6 +133,7 @@ export function ReportDashboard(props: Props) {
             <ReportConfigurationForm
               metadata={metadata}
               initial={reportConfiguration}
+              onClose={() => setShowModalAdd(false)}
               onSubmit={bindSubmitHandlers(upsertReportConfiguration, {
                 onSuccess: (report) => {
                   setShowModalAdd(false);

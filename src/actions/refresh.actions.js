@@ -20,6 +20,14 @@ const THRESHOLD_MINUTES = 60 * 12;
 
 export function refreshIfNeeded() {
   return (dispatch, getState) => {
+    const memberStoreLength = getState().member.all.length;
+    const invoiceStoreLength = getState().invoice.all.length;
+    if (!memberStoreLength || !invoiceStoreLength) {
+      dispatch(storeIsRefreshing());
+      dispatch(fetchAllMembers());
+      dispatch(fetchInvoices());
+      dispatch(storeHasRefreshed());
+    }
     const { lastUpdate } = getState().refresh;
     if (
       Moment(lastUpdate * 1000).isBefore(

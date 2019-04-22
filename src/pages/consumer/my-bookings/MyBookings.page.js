@@ -292,7 +292,7 @@ export class MyBookings extends Component<Props, State> {
     }
     return (
       <Grid container direction="row">
-        {profile.memberships.map((membership) => (
+        {(profile.memberships || []).map((membership) => (
           <Grid item key={membership.id}>
             <Button
               className={classes.membershipButton}

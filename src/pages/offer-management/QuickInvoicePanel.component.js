@@ -68,7 +68,7 @@ export function QuickInvoicePanel(props: Props) {
           ))}
           {quickInvoices.map((qi) => (
             <QuickInvoice
-              quickInvoiceTitle={qi.member.name}
+              quickInvoiceTitle={(qi.member || { name: ' - ' }).name}
               key={qi.member.id}
               quickInvoice={qi}
               onClose={() => closeQuickInvoice(qi.member.id)}

@@ -89,6 +89,7 @@ const styles = (theme) => ({
     },
     maxWidth: '100%',
     flex: '0 360',
+    paddingTop: theme.spacing.unit,
     backgroundColor: theme.palette.background.paper,
     borderRight: '1px solid gray',
   },

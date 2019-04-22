@@ -93,11 +93,11 @@ export class SearchResults extends Component<Props, State> {
   getFuse = memoize((items) => {
     const options = {
       shouldSort: true,
-      threshold: 0.35,
+      threshold: 0.3,
       location: 0,
       distance: 100,
       maxPatternLength: 32,
-      minMatchCharLength: 1,
+      minMatchCharLength: 2,
       keys: ['name', 'email'],
     };
     return new Fuse(items, options);

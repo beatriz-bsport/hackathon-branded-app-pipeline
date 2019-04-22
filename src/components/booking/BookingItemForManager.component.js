@@ -65,6 +65,9 @@ export class BookingItemForManager extends Component<Props> {
         this.props.requestRefreshPaymentPack();
         return [t('common.loading'), 'secondary'];
       }
+      if (!payment_pack) {
+        return [t('common.loading'), 'secondary'];
+      }
       if (payment_pack.unlimited) {
         return [`${payment_pack.name} (illimité)`, 'primary'];
       }

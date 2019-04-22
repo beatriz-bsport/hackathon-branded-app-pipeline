@@ -1,10 +1,8 @@
 import { API_URI, getAuth, postAuth, putAuth, patchAuth } from '../http';
 
-const PAGE_SIZE = 1000;
-
-export async function fetchAll({ page }) {
+export async function fetchAll({ page, pageSize }) {
   return getAuth(
-    `${API_URI}/payment/invoices?page_size=${PAGE_SIZE}&page=${page}`,
+    `${API_URI}/payment/invoices?page_size=${pageSize}&page=${page}`,
   );
 }
 

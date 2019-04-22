@@ -12,10 +12,11 @@ import {
   seamlessImmutableReconciler,
   seamlessImmutableTransformCreator,
 } from 'redux-persist-seamless-immutable';
+import createCompressor from 'redux-persist-transform-compress';
 
 import reducers from './reducers';
 
-const transformerConfig = {};
+const transformerConfig = { whitelist: ['invoice', 'member'] };
 
 const persistConfig = {
   key: 'root',
@@ -32,7 +33,10 @@ const persistConfig = {
     'paymentPack',
     'establishment',
     'coach',
+    'member',
+    'memberFetcher',
     'category',
+    'invoice',
     'refresh',
     'search',
     'marketplace',
@@ -40,7 +44,9 @@ const persistConfig = {
     'paymentRules',
   ],
   stateReconciler: seamlessImmutableReconciler,
-  transforms: [seamlessImmutableTransformCreator(transformerConfig)],
+  transforms: [
+    createCompressor(seamlessImmutableTransformCreator(transformerConfig)),
+  ],
 };
 
 export default function initStore(initialState: Object = {}) {

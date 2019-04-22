@@ -101,7 +101,6 @@ export class BookingTable extends Component<Props> {
             key={b.id}
             heading={heading}
             booking={b}
-            invoices={this.props.invoices}
             paymentPacks={this.props.paymentPacks}
             showRevertBookingButton={showRevertBookingButton}
             handleRevert={() => handleRevert(b)}

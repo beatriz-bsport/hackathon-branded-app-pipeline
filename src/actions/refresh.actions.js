@@ -8,7 +8,6 @@ import { fetchActivities as fetchActivitiesMinimal } from './activity.actions';
 import { fetchAssociated as fetchAssociatedCoaches } from './coach.actions';
 import { fetchEstablishments } from './establishment.actions';
 import { fetchSCT } from './category.actions';
-import { fetchAll as fetchInvoices } from './invoice.actions';
 import { fetchAll as fetchAllPaymentPacks } from './paymentPack.actions';
 import { fetchDashboard as fetchDashboardStats } from './stats.actions';
 import { fetchAll as fetchShop } from './shop.actions';
@@ -20,14 +19,6 @@ const THRESHOLD_MINUTES = 60 * 12;
 
 export function refreshIfNeeded() {
   return (dispatch, getState) => {
-    const memberStoreLength = getState().member.all.length;
-    const invoiceStoreLength = getState().invoice.all.length;
-    if (!memberStoreLength || !invoiceStoreLength) {
-      dispatch(storeIsRefreshing());
-      dispatch(fetchAllMembers());
-      dispatch(fetchInvoices());
-      dispatch(storeHasRefreshed());
-    }
     const { lastUpdate } = getState().refresh;
     if (
       Moment(lastUpdate * 1000).isBefore(
@@ -52,7 +43,6 @@ export function forceRefresh() {
       dispatch(fetchAssociatedCoaches()),
       dispatch(fetchEstablishments()),
       dispatch(fetchSCT()),
-      dispatch(fetchInvoices()),
       dispatch(fetchAllPaymentPacks()),
       dispatch(fetchDashboardStats()),
       dispatch(fetchShop()),

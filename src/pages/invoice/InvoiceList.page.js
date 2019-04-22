@@ -14,7 +14,7 @@ import { invoice as invoiceActions } from '../../actions';
 import type { Member, Invoice } from '../../api/types';
 import withDrawer from '../../hocs/with-drawer.hoc';
 
-import InvoiceTable from '../../libs/invoice/InvoiceTable.component';
+import InvoiceTable from './InvoiceTable.component';
 import FinalizeInvoiceDialog from '../../libs/invoice/dialog/FinalizeInvoiceDialog.component';
 
 type Props = {

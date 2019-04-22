@@ -32,7 +32,6 @@ type Props = {
   booking: Object,
   member: Member,
   paymentPacks: PaymentPack[],
-  invoices: Invoice[],
   showQuickInvoiceButton: ?boolean,
   showRevertBookingButton: ?boolean,
   redirectToMember: ?boolean,
@@ -54,7 +53,7 @@ export class BookingItemForManager extends Component<Props> {
   };
 
   getStatusText = (booking: Booking) => {
-    const { paymentPacks, invoices, t } = this.props;
+    const { paymentPacks, t } = this.props;
     const { consumer_payment_pack } = booking;
     if (consumer_payment_pack && booking.payment_pack) {
       const payment_pack = paymentPacks.find(
@@ -80,12 +79,8 @@ export class BookingItemForManager extends Component<Props> {
         available_credits / credits < 0.1 ? 'error' : 'primary',
       ];
     }
-    const invoice = invoices.find((inv) => inv.uuid === booking.invoice);
-    if (invoice) {
-      if (invoice.fully_payed) {
-        return ['Payé via application bsport', 'primary'];
-      }
-      return [`Impayé : ${invoice.price_due - invoice.price_payed} €`, 'error'];
+    if (booking.source === 0) {
+      return ['Payé via application bsport', 'primary'];
     }
     return ['Impayé', 'error'];
   };

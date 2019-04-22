@@ -32,7 +32,6 @@ type Props = {
   bookingLoading: boolean,
   member: MemberDetailed,
 
-  invoices: Aray<Invoice>,
   allMembers: Array<MemberSimplified>,
   bookings: Array<Booking>,
   bookingOptions: Array<BookingOption>,
@@ -87,7 +86,6 @@ export class Member extends Component<Props> {
               decrementCredit={this.props.decrementCredit}
               createOrUpdateNote={this.props.createOrUpdateNote}
               deleteNote={this.props.deleteNote}
-              invoices={this.props.invoices}
               onInvoiceClick={this.props.pushToInvoice}
               fetchMemberBookings={this.props.fetchMemberBookings}
               fetchMember={this.props.fetchMember}
@@ -120,7 +118,6 @@ function mapStateToProps(state, { id }) {
     bookings: state.booking.all,
     bookingOptions: state.booking.options,
     paymentPacks: state.paymentPack.all,
-    invoices: state.invoice.all.filter((inv) => inv.member === id),
   };
 }
 function mapDispatchToProps(dispatch) {

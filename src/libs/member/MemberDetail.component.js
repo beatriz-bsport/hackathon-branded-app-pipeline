@@ -36,7 +36,6 @@ type Props = {
   memberId: number,
 
   member: MemberDetailed,
-  invoices: Array<Invoice>,
   bookings: Array<Booking>,
   bookingOptions: Array<BookingOption>,
   paymentPacks: Array<PaymentPack>,
@@ -282,7 +281,8 @@ export class Member extends Component<Props, State> {
   );
 
   renderInvoices = () => {
-    const { classes, t, invoices } = this.props;
+    const { classes, t, member } = this.props;
+    const { invoices } = member;
     return (
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>

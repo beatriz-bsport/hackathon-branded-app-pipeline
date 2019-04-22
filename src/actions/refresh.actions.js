@@ -16,7 +16,7 @@ import { fetchPaymentRules } from '../libs/payment-rules/actions';
 import { fetchAll as fetchWorkshopActivities } from './workshop-activity.actions';
 import { reset as resetMemberDetails } from './member-fetcher.actions';
 
-const THRESHOLD_MINUTES = 30;
+const THRESHOLD_MINUTES = 60 * 12;
 
 export function refreshIfNeeded() {
   return (dispatch, getState) => {

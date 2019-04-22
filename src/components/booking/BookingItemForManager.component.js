@@ -210,10 +210,6 @@ export class BookingItemForManager extends Component<Props> {
     const [statusText, color] = this.getStatusText(booking);
     return (
       <ListItem
-        disabled={
-          !booking.attendance ||
-          booking.booking_status_code !== BOOKING_STATUS_OK.id
-        }
         divider
         button={redirectToMember}
         onClick={this.handleListItemClick}

@@ -9,13 +9,14 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 import ClearIcon from '@material-ui/icons/Clear';
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import IconButton from '@material-ui/core/IconButton';
 
 import parse from '../query-string';
+import DelayedTextField from './DelayedTextField.component';
 
 import { search as searchActions } from '../actions';
 
@@ -50,21 +51,22 @@ export class SearchBar extends Component<Props> {
   };
 
   render() {
-    const { t, classes, className, searchText } = this.props;
+    const { t, loading, classes, className, searchText } = this.props;
     return (
       <div className={`${classes.bar} ${className}`}>
-        <TextField
+        <DelayedTextField
           variant="outlined"
           className={classes.field}
           placeholder={t('search.input')}
           value={searchText || ''}
           fullWidth
           onChange={this.handleChange}
+          loading={loading}
           InputProps={{
             className: classes.input,
             startAdornment: (
               <InputAdornment position="start">
-                <SearchIcon />
+                {loading ? <CircularProgress size={16} /> : <SearchIcon />}
               </InputAdornment>
             ),
             endAdornment: searchText ? (
@@ -122,6 +124,7 @@ export default compose(
   connect(
     (state, { location }) => ({
       searchText: getSearchText(state, location),
+      loading: state.search.loading,
     }),
     mapDisPatchToProps,
   ),

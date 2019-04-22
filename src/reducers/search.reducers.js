@@ -11,6 +11,7 @@ const initialState = Immutable({
   text: '',
   detail: null,
   selectedId: null,
+  loading: false,
 });
 
 export default function searchReducer(
@@ -29,6 +30,12 @@ export default function searchReducer(
       return state.merge({ text: '', selectedId: null });
     }
 
+    case actionTypes.SEARCH_FINISHED: {
+      return state.merge({ loading: false });
+    }
+    case actionTypes.SEARCH_TEXT_START: {
+      return state.merge({ loading: true });
+    }
     case actionTypes.SEARCH_SELECT_ENTITY_START:
       return state.merge({
         selectedId: action.entity && action.entity.data.id,

@@ -1,15 +1,11 @@
 // @flow
 import React from 'react';
-import {
-  withStyles,
-  TextField,
-  InputAdornment,
-  IconButton,
-} from '@material-ui/core';
+import { withStyles, InputAdornment, IconButton } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import SearchIcon from '@material-ui/icons/Search';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import DelayedTextField from '../../components/DelayedTextField.component';
 
 type Props = {
   classes: Object,
@@ -22,7 +18,7 @@ type Props = {
 export function SearchMember(props: Props) {
   const { classes, t, onReset, searchedText, onChange } = props;
   return (
-    <TextField
+    <DelayedTextField
       variant="outlined"
       className={classes.field}
       placeholder={t('search.input')}

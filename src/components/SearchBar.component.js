@@ -51,7 +51,7 @@ export class SearchBar extends Component<Props> {
   };
 
   render() {
-    const { t, loading, classes, className, searchText } = this.props;
+    const { t, classes, className, searchText } = this.props;
     return (
       <div className={`${classes.bar} ${className}`}>
         <DelayedTextField
@@ -61,12 +61,11 @@ export class SearchBar extends Component<Props> {
           value={searchText || ''}
           fullWidth
           onChange={this.handleChange}
-          loading={loading}
           InputProps={{
             className: classes.input,
             startAdornment: (
               <InputAdornment position="start">
-                {loading ? <CircularProgress size={16} /> : <SearchIcon />}
+                <SearchIcon />
               </InputAdornment>
             ),
             endAdornment: searchText ? (
@@ -124,7 +123,6 @@ export default compose(
   connect(
     (state, { location }) => ({
       searchText: getSearchText(state, location),
-      loading: state.search.loading,
     }),
     mapDisPatchToProps,
   ),

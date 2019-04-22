@@ -20,10 +20,6 @@ export function actionSearchTextError(error) {
   return { type: types.SEARCH_TEXT_ERROR, error };
 }
 
-export function searchFinished() {
-  return { type: types.SEARCH_FINISHED };
-}
-
 export function searchText(text, path, changeLocation) {
   return async (dispatch) => {
     dispatch(actionSearchTextStart(text, path, changeLocation));
@@ -32,10 +28,8 @@ export function searchText(text, path, changeLocation) {
         const mustPush = path !== '/search/results';
         const goto = mustPush ? push : replace;
         dispatch(goto(`/search/results?q=${encodeURIComponent(text)}`));
-        dispatch(searchFinished());
       } catch (error) {
         dispatch(actionSearchTextError(error));
-        dispatch(searchFinished());
       }
     }
   };
@@ -43,7 +37,6 @@ export function searchText(text, path, changeLocation) {
 
 export function clearSearch(changeLocation) {
   return async (dispatch, getState) => {
-    dispatch(searchFinished());
     if (changeLocation) {
       dispatch(push(getState().search.path));
     }

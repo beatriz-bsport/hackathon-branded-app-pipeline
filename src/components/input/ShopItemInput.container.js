@@ -14,7 +14,7 @@ export function ShopItemInputContained(props: Props) {
 
 function mapStateToProps(state) {
   return {
-    shopItems: state.shop.all,
+    shopItems: (state.shop.all || []).filter((si) => si.subshop),
   };
 }
 

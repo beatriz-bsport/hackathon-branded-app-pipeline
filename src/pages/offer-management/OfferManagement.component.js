@@ -141,6 +141,26 @@ export class OfferManagement extends Component<Props, State> {
   };
 
   createMember = (data: *, options) => {
+    if (
+      data.address_line_1 ||
+      data.address_line_2 ||
+      data.city ||
+      data.zipcode ||
+      data.country
+    ) {
+      if (
+        !data.address_line_1 ||
+        !data.city ||
+        !data.zipcode ||
+        !data.country
+      ) {
+        delete data.address_line_1;
+        delete data.address_line_2;
+        delete data.city;
+        delete data.zipcode;
+        delete data.country;
+      }
+    }
     const formData = mapFormData(data, MemberMap);
     this.props.createMember(formData, options);
     this.setState({ addMemberModal: false });

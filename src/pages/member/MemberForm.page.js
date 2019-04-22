@@ -107,6 +107,26 @@ export default compose(
   withProps(({ upsertMember, initial }) => ({
     onSubmit: (values, options) => {
       console.log(values);
+      if (
+        values.address_line_1 ||
+        values.address_line_2 ||
+        values.city ||
+        values.zipcode ||
+        values.country
+      ) {
+        if (
+          !values.address_line_1 ||
+          !values.city ||
+          !values.zipcode ||
+          !values.country
+        ) {
+          delete values.address_line_1;
+          delete values.address_line_2;
+          delete values.city;
+          delete values.zipcode;
+          delete values.country;
+        }
+      }
       const formData = mapFormData(values, MemberMap);
 
       if (initial) {

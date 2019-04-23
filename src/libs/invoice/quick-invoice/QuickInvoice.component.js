@@ -191,7 +191,7 @@ export class QuickInvoice extends Component<Props, State> {
       voucher,
       payment_items: this.generatePaymentItemsObject(),
       top_up: topUp,
-      member: quickInvoice.member.id,
+      member: quickInvoice.memberId,
     };
     if (this.props.editMode) {
       this.props.updateInvoice(invoiceData);
@@ -269,9 +269,7 @@ export class QuickInvoice extends Component<Props, State> {
         {this.state.showInvoiceItemSelector ? (
           <div className={classes.paper}>
             <InvoiceItemSelector
-              creditAccountBalance={
-                this.props.quickInvoice.member.credit_account_balance
-              }
+              creditAccountBalance={this.props.quickInvoice.creditAccount}
               onTopUp={this.onTopUp}
               onAddPaymentPack={this.addPaymentPack}
               onAddShopItem={this.addShopItem}

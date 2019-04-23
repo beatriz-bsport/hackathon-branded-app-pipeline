@@ -48,7 +48,6 @@ type Props = {
   bookingOptions: Array<BookingOption>,
   activities: Array<Activity>,
   bookings: Array<Booking>,
-  members: Array<Member>,
   paymentPacks: Array<PaymentPack>,
   shopItems: Array<ShopItem>,
   offers: Array<Event>,
@@ -102,7 +101,7 @@ export class OfferManagement extends Component<Props, State> {
   closeQuickInvoice = (memberId) => {
     this.setState((prevState) => ({
       quickInvoices: prevState.quickInvoices.filter(
-        (qi) => qi.member.id !== memberId,
+        (qi) => qi.memberId !== memberId,
       ),
     }));
   };
@@ -239,16 +238,22 @@ export class OfferManagement extends Component<Props, State> {
   addToQuickInvoicePanel = (memberId: number) => {
     const { bookings, offer } = this.props;
     const { quickInvoices } = this.state;
-    const isOpened = quickInvoices.find((qi) => qi.member.id === memberId);
+    const isOpened = quickInvoices.find((qi) => qi.memberId === memberId);
     const selectedMember = this.props.members.find((m) => m.id === memberId);
 
     const quickInvoiceToAdd = bookings.find((b) => b.member === memberId)
       ? {
-          member: selectedMember,
+          memberName: selectedMember.name,
+          memberId: selectedMember.id,
+          id: selectedMember.id,
+          creditAccount: selectedMember.credit_account_balance,
           invoiceItems: { offers: [] },
         }
       : {
-          member: selectedMember,
+          memberName: selectedMember.name,
+          memberId: selectedMember.id,
+          id: selectedMember.id,
+          creditAccount: selectedMember.credit_account_balance,
           invoiceItems: { offers: [offer] },
         };
 
@@ -382,7 +387,7 @@ export class OfferManagement extends Component<Props, State> {
                   sortedBy="name"
                   redirectToMember
                   newTab
-                  loading={bookingLoading && ((bookings||[]).length === 0)}
+                  loading={bookingLoading && (bookings || []).length === 0}
                   bookings={bookings}
                   bookingOptions={bookingOptions}
                   discardOption={discardOption}
@@ -400,7 +405,6 @@ export class OfferManagement extends Component<Props, State> {
           <QuickInvoicePanel
             unevenSavedInvoices={this.props.unevenSavedInvoices}
             quickInvoices={this.state.quickInvoices}
-            members={this.props.members}
             createInvoice={this.createInvoice}
             closeQuickInvoice={this.closeQuickInvoice}
             saveQuickInvoice={this.saveQuickInvoice}

@@ -10,7 +10,6 @@ type Props = {
   t: TFunction,
   unevenSavedInvoices: Array<Invoice>,
   quickInvoices: Array<Invoice>,
-  members: Array<Member>,
   createInvoice: (InvoiceData) => void,
   closeQuickInvoice: (memberId: number) => void,
   saveQuickInvoice: (InvoiceData) => void,
@@ -26,7 +25,6 @@ export function QuickInvoicePanel(props: Props) {
     t,
     unevenSavedInvoices,
     quickInvoices,
-    members,
     createInvoice,
     closeQuickInvoice,
     saveQuickInvoice,
@@ -45,12 +43,7 @@ export function QuickInvoicePanel(props: Props) {
         <div>
           {unevenSavedInvoices.map((inv) => (
             <QuickInvoice
-              quickInvoiceTitle={`${
-                (
-                  members.find((m) => m.id === inv.member) || {
-                    name: 'Nouveau client',
-                  }
-                ).name
+              quickInvoiceTitle={`inv.memberName
               } (${t('common.booking')})`}
               key={inv.uuid}
               quickInvoice={inv}
@@ -68,17 +61,17 @@ export function QuickInvoicePanel(props: Props) {
           ))}
           {quickInvoices.map((qi) => (
             <QuickInvoice
-              quickInvoiceTitle={(qi.member || { name: ' - ' }).name}
-              key={qi.member.id}
+              quickInvoiceTitle={qi.memberName}
+              key={qi.memberId}
               quickInvoice={qi}
-              onClose={() => closeQuickInvoice(qi.member.id)}
+              onClose={() => closeQuickInvoice(qi.memberId)}
               onSubmit={saveQuickInvoice}
               paymentPacks={paymentPacks}
               shopItems={shopItems}
               offers={offers}
               activities={activities}
               createInvoice={(invoiceData) =>
-                createInvoice(invoiceData, qi.member.id)
+                createInvoice(invoiceData, qi.memberId)
               }
             />
           ))}

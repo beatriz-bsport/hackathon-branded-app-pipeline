@@ -94,8 +94,11 @@ export class OfferManagement extends Component<Props, State> {
   };
 
   componentWillMount() {
-    this.props.fetchCompatiblePacks(this.props.offerId);
     this.props.resetQuickInvoices();
+  }
+
+  componentDidMount() {
+    this.props.fetchCompatiblePacks(this.props.offerId);
   }
 
   closeQuickInvoice = (memberId) => {

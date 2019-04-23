@@ -52,6 +52,9 @@ function mapStateToProps(state, nextProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    fetchOfferById(offerId) {
+      dispatch(offerActions.fetchOfferById(offerId));
+    },
     deleteBooking(bookingId, memberId) {
       dispatch(bookingActions.deleteBooking(bookingId, memberId));
     },

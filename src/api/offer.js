@@ -20,6 +20,10 @@ export async function fetchCompatiblePacks(offerId) {
   return getAuth(`${API_URI}/saas/offer/${offerId}/compatible-packs/`);
 }
 
+export async function fetchById(offerId) {
+  return getAuth(`${API_URI}/saas/offer/${offerId}/`);
+}
+
 export async function disableOffer({ offerId, notify, cashback, deleteAll }) {
   return patchAuth(`${API_URI}/saas/offer/${offerId}/disable/`, {
     available: false,
@@ -41,4 +45,5 @@ export default {
   delete: deleteOffer,
   fetchOffersByDay,
   fetchSimilarOffers,
+  fetchById,
 };

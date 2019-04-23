@@ -104,3 +104,18 @@ export function fetchOffersByDay(day: {
     dispatch(offerByDay.isLoading(false));
   };
 }
+
+export function fetchOfferById(id: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(offerByDay.isLoading(true));
+    dispatch(offerByDay.error(null));
+
+    try {
+      const response = await api.offer.fetchById(id);
+      dispatch(offerByDay.success([response.data]));
+    } catch (error) {
+      dispatch(offerByDay.error(error));
+    }
+    dispatch(offerByDay.isLoading(false));
+  };
+}

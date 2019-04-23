@@ -99,10 +99,6 @@ export class OfferManagement extends Component<Props, State> {
     this.props.resetQuickInvoices();
   }
 
-  componentDidMount() {
-    this.props.fetchCompatiblePacks(this.props.offerId);
-  }
-
   closeQuickInvoice = (memberId) => {
     this.setState((prevState) => ({
       quickInvoices: prevState.quickInvoices.filter(
@@ -185,8 +181,10 @@ export class OfferManagement extends Component<Props, State> {
     this.setState({ addMemberModal: false });
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     this.props.fetchBookings(this.props.offerId);
+    this.props.fetchCompatiblePacks(this.props.offerId);
+    this.props.fetchOfferById(this.props.offerId);
   }
 
   getFuse = memoize((items) => {

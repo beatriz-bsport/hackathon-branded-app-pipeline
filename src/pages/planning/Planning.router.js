@@ -52,9 +52,6 @@ function mapDispatchToProps(dispatch) {
     fetchBookings(offerId) {
       dispatch(bookingActions.fetchBookingsByOffer(offerId));
     },
-    fetchCompatiblePacks(offerId) {
-      dispatch(offerActions.fetchCompatiblePacks(offerId));
-    },
     pushRouter(path) {
       dispatch(push(path));
     },
@@ -95,17 +92,9 @@ const PlanningWithDateAndOffer = compose(
     },
   })),
   withProps(
-    ({
-      date,
-      selectedOffer,
-      fetchCompatiblePacks,
-      fetchBookings,
-      replaceRouter,
-      pushRouter,
-    }) => ({
+    ({ date, selectedOffer, fetchBookings, replaceRouter, pushRouter }) => ({
       loadOfferData: (offer) => {
         fetchBookings(offer.id);
-        fetchCompatiblePacks(offer.id);
         if (selectedOffer) {
           replaceRouter(
             `/calendar/${date.year()}/${date.month() + 1}/${date.date()}/${

@@ -347,7 +347,7 @@ export class OfferManagement extends Component<Props, State> {
               <Grid item>{this.renderBookingHeader()}</Grid>
               <Divider />
               <Grid item>
-                <Collapse in={searchedText}>
+                <Collapse in={!!searchedText}>
                   <div className={classes.resultListContainer}>
                     <ResultList
                       items={this.getResults()}

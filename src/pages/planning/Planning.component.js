@@ -1,5 +1,6 @@
 // @flow
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import memoize from 'memoize-one';
 
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -8,6 +9,7 @@ import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import { isWidthUp, isWidthDown } from '@material-ui/core/withWidth';
 import {
+  Fab,
   Dialog,
   DialogContent,
   withStyles,
@@ -88,7 +90,7 @@ type State = {
   creatingOffers: boolean,
 };
 
-export class Planning extends Component<Props, State> {
+export class Planning extends PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -103,6 +105,7 @@ export class Planning extends Component<Props, State> {
   }
 
   componentDidMount() {
+    console.log('mounting');
     if (this.props.selectedOffer) {
       this.props.loadOfferData(this.props.selectedOffer);
     }
@@ -332,8 +335,8 @@ export class Planning extends Component<Props, State> {
   renderAddOffersButton = () => {
     const { classes, t } = this.props;
     return (
-      <Button
-        variant="extendedFab"
+      <Fab
+        variant="extended"
         aria-label="Add"
         className={classes.button}
         color="primary"
@@ -341,7 +344,7 @@ export class Planning extends Component<Props, State> {
       >
         <AddIcon className={classes.leftIcon} />
         {t('activity.addOffers')}
-      </Button>
+      </Fab>
     );
   };
 
@@ -362,6 +365,19 @@ export class Planning extends Component<Props, State> {
     return null;
   };
 
+  getDayOffers = memoize((events) => {
+    console.log('fuck');
+    const events_ = {};
+    events.forEach((o) => {
+      const midnight = Moment(o.date_start).startOf('day');
+      if (!events_[midnight]) {
+        events_[midnight] = [];
+      }
+      events_[midnight].push(o);
+    });
+    return events_;
+  });
+
   render() {
     const {
       offers,
@@ -378,15 +394,7 @@ export class Planning extends Component<Props, State> {
       selectedOffer,
     } = this.props;
 
-    const events_ = {};
-    events.forEach((o) => {
-      const midnight = Moment(o.date_start).startOf('day');
-      if (!events_[midnight]) {
-        events_[midnight] = [];
-      }
-      events_[midnight].push(o);
-    });
-
+    const events_ = this.getDayOffers(events);
     return (
       <Grid container spacing={24}>
         {isWidthUp('lg', width) || !selectedOffer ? (

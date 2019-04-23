@@ -53,6 +53,7 @@ export class BookingTable extends Component<Props> {
   };
 
   render() {
+    console.log('rendering table');
     const {
       t,
       classes,
@@ -65,6 +66,7 @@ export class BookingTable extends Component<Props> {
       discardBookingAttendance,
       showQuickInvoiceButton,
       redirectToMember,
+      newTab,
       showRevertBookingButton,
       handleRevert,
       onQuickInvoiceClick,
@@ -95,6 +97,7 @@ export class BookingTable extends Component<Props> {
           <BookingItemForManager
             member={this.props.members.find((m) => m.id === b.member)}
             redirectToMember={redirectToMember}
+            newTab={newTab}
             showQuickInvoiceButton={showQuickInvoiceButton}
             onQuickInvoiceClick={() => onQuickInvoiceClick(b.member)}
             requestRefreshPaymentPack={requestRefreshPaymentPack}

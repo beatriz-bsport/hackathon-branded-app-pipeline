@@ -46,6 +46,7 @@ export function PaymentInfo(props: Props) {
         {paymentItems.map((pi) => (
           <Grid
             container
+            key={pi.id}
             direction="row"
             justify="space-between"
             alignItems="center"

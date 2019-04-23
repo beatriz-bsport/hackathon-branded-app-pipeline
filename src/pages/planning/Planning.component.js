@@ -366,7 +366,6 @@ export class Planning extends PureComponent<Props, State> {
   };
 
   getDayOffers = memoize((events) => {
-    console.log('fuck');
     const events_ = {};
     events.forEach((o) => {
       const midnight = Moment(o.date_start).startOf('day');

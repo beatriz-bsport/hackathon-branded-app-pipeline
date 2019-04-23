@@ -1,7 +1,6 @@
 import api from '../api';
 import types from './booking.types';
 
-import { refreshAllPaymentPack } from './paymentPack.actions'; // TODO do it elsewhere
 import { snackbarSuccess, snackbarError } from './snackbar.actions';
 import { quickFetch as quickFetchMember } from './member.actions';
 
@@ -85,7 +84,6 @@ export function deleteBooking(bookingId, memberId) {
       if (response.status === 204) {
         dispatch(deleteBookingSuccess(bookingId));
         dispatch(snackbarSuccess('form.booking.delete.success'));
-        dispatch(refreshAllPaymentPack());
         if (memberId) {
           dispatch(quickFetchMember(memberId));
         }
@@ -100,9 +98,9 @@ export function deleteBooking(bookingId, memberId) {
   };
 }
 
-export function fetchBookingsByOffer(offerId) {
+export function fetchBookingsByOffer(offerId, refreshOnly) {
   return async (dispatch) => {
-    dispatch(startFetchBookings());
+    dispatch(startFetchBookings(refreshOnly));
 
     try {
       const response = await api.booking.fetchBookingsByOffer(offerId);
@@ -134,25 +132,11 @@ export function fetchBookingsByMember(memberId) {
   };
 }
 
-export function fetchBookingsWrapper(id, apiCall) {
-  return async (dispatch) => {
-    dispatch(startFetchBookings());
-
-    try {
-      const response = await apiCall(id);
-      const { bookings, booking_options } = response.data;
-
-      dispatch(fetchedBookings({ bookings, booking_options }));
-    } catch (err) {
-      dispatch(errorFetchingBookings());
-    }
-  };
-}
 export function fetchedBookings({ bookings, booking_options }) {
   return { type: types.HAS_FETCHED_BOOKINGS, bookings, booking_options };
 }
-export function startFetchBookings() {
-  return { type: types.START_FETCH_BOOKINGS };
+export function startFetchBookings(refreshOnly) {
+  return { type: types.START_FETCH_BOOKINGS, refreshOnly };
 }
 export function errorFetchingBookings() {
   return { type: types.ERROR_FETCHING_BOOKINGS };
@@ -170,7 +154,6 @@ export function addBooking({ offerId, consumerPaymentPackId, memberId }) {
       const booking = response.data;
 
       dispatch(addBookingSuccess(booking));
-      dispatch(refreshAllPaymentPack());
       if (memberId) {
         dispatch(quickFetchMember(memberId));
       }

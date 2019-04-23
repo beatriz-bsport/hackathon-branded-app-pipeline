@@ -193,7 +193,13 @@ export class BookingItemForManager extends Component<Props> {
 
   handleListItemClick = (event) => {
     event.preventDefault();
-    const { redirectToMember, booking } = this.props;
+    const { redirectToMember, booking, newTab } = this.props;
+    const url = `/member/${booking.member}`;
+    if (redirectToMember && newTab) {
+      const win = window.open(url);
+      win.focus();
+      return;
+    }
     if (redirectToMember) {
       this.props.push(`/member/${booking.member}`);
     }

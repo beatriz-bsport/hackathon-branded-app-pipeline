@@ -26,7 +26,7 @@ type Props = {
 function MemberBookingHelper(props: Props) {
   return (
     <ListItem
-      button={props.onClickListItem}
+      button={!!props.onClickListItem}
       selected={props.selected}
       divider
       dense

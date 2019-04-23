@@ -55,8 +55,8 @@ function mapDispatchToProps(dispatch) {
     deleteBooking(bookingId, memberId) {
       dispatch(bookingActions.deleteBooking(bookingId, memberId));
     },
-    fetchBookings(offerId) {
-      dispatch(bookingActions.fetchBookingsByOffer(offerId));
+    fetchBookings(offerId, refreshOnly) {
+      dispatch(bookingActions.fetchBookingsByOffer(offerId, refreshOnly));
     },
     bookingUpdaters: {
       discardBooking(bookingId) {

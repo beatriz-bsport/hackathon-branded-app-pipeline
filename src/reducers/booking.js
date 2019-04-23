@@ -103,12 +103,13 @@ export default function bookingReducers(
       });
     }
 
-    case actionTypes.START_FETCH_BOOKINGS:
+    case actionTypes.START_FETCH_BOOKINGS: {
       return Immutable.merge(state, {
         loading: true,
-        all: [],
+        all: action.refreshOnly ? state.all : [],
         options: [],
       });
+    }
 
     case actionTypes.ERROR_FETCHING_BOOKINGS:
       return Immutable.merge(state, {

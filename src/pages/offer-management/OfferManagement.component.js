@@ -12,6 +12,7 @@ import {
   withStyles,
   Dialog,
   DialogContent,
+  LinearProgress,
   CircularProgress,
 } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
@@ -54,7 +55,7 @@ type Props = {
   compatiblePacks: Array<PaymentPack>,
   unevenSavedInvoices: Array<Invoice>,
 
-  fetchBookings: (offerId: number) => void,
+  fetchBookings: (offerId: number, refreshOnly: ?boolean) => void,
   fetchCompatiblePacks: (offerId: number) => void,
   createMember: (data: [*], options: *) => void,
   createInvoice: ([*], number) => void,
@@ -91,6 +92,7 @@ export class OfferManagement extends Component<Props, State> {
     addMemberModal: false,
     memberToRegister: null,
     searchedText: '',
+    loading: false,
   };
 
   componentWillMount() {
@@ -109,28 +111,33 @@ export class OfferManagement extends Component<Props, State> {
     }));
   };
 
-  registerMemberAndOpenUnevenInvoice = (
+  registerMemberAndOpenUnevenInvoice = async (
     memberId: number,
     paymentPackId: number,
   ) => {
+    this.setState({ loading: true });
     const offerId = this.props.offer.id;
-    this.props.createQuickUnevenInvoice({ memberId, paymentPackId, offerId });
+    (async () => {
+      this.props.createQuickUnevenInvoice({ memberId, paymentPackId, offerId });
+      setTimeout(() => {
+        this.props.fetchBookings(this.props.offerId, true);
+        this.setState({ loading: false });
+      }, 500);
+    })();
     this.clearSearch();
     this.setState({ memberToRegister: null });
-    setTimeout(() => {
-      this.props.fetchBookings(this.props.offerId);
-    }, 5000);
   };
 
-  registerMember = (consumerPaymentPackId: number) => {
+  registerMember = async (consumerPaymentPackId: number) => {
     const { memberToRegister } = this.state;
+    this.setState({ loading: true });
     this.props.addToOffer({
       offerId: this.props.offerId,
       consumerPaymentPackId,
       memberId: memberToRegister.id,
     });
     this.clearSearch();
-    this.setState({ memberToRegister: null });
+    this.setState({ loading: false, memberToRegister: null });
   };
 
   createInvoice = (invoiceData, memberId, isQuickInvoice) => {
@@ -138,8 +145,8 @@ export class OfferManagement extends Component<Props, State> {
     if (!isQuickInvoice) {
       this.closeQuickInvoice(memberId);
       setTimeout(() => {
-        this.props.fetchBookings(this.props.offerId);
-      }, 5000);
+        this.props.fetchBookings(this.props.offerId, true);
+      }, 500);
     }
   };
 
@@ -192,6 +199,7 @@ export class OfferManagement extends Component<Props, State> {
       minMatchCharLength: 2,
       keys: ['name', 'email'],
     };
+    console.log('searching');
     return new Fuse(items, options);
   });
 
@@ -200,16 +208,18 @@ export class OfferManagement extends Component<Props, State> {
       .search(this.state.searchedText)
       .slice(0, 8);
 
+  hasBooked = memoize((bookings, memberId) =>
+    bookings.find((b) => b.member === memberId),
+  );
+
   renderSearchedMember = (member: Member) => {
-    const hasBooked = Boolean(
-      this.props.bookings.find((b) => b.member === member.id),
-    );
+    const hasBooked = Boolean(this.hasBooked(this.props.bookings, member.id));
     if (hasBooked) {
       return (
         <MemberBookingHelper
           key={member.id}
           onClick={() => this.addToQuickInvoicePanel(member.id)}
-          onClickListItem={() => this.props.push(`/member/${member.id}`)}
+          onClickListItem={() => window.open(`/member/${member.id}`)}
           member={member}
           hasBooked
         />
@@ -219,7 +229,9 @@ export class OfferManagement extends Component<Props, State> {
       <MemberBookingHelper
         key={member.id}
         onClick={() => this.setState({ memberToRegister: member })}
-        onClickListItem={() => this.props.push(`/member/${member.id}`)}
+        onClickListItem={() => {
+          window.open(`/member/${member.id}`, '_blank');
+        }}
         member={member}
         hasBooked={false}
       />
@@ -255,36 +267,42 @@ export class OfferManagement extends Component<Props, State> {
   renderBookingHeader = () => {
     const { classes, t } = this.props;
     return (
-      <Grid
-        container
-        direction="row"
-        justify="space-between"
-        alignItems="center"
-        spacing={16}
-        className={classes.bookingsHeader}
-      >
-        <Grid item>
-          <Typography variant="h6">{t('offer.myBookings')}</Typography>
-        </Grid>
-        <Grid item>
-          <Grid container direction="row" alignItems="center" spacing={16}>
-            <Grid item>
-              <IconButton onClick={this.openAddMemberModal} color="primary">
-                <AddCircleIcon />
-              </IconButton>
-            </Grid>
-            <Grid item>
-              <SearchMember
-                onChange={(event) =>
-                  this.setState({ searchedText: event.target.value })
-                }
-                value={this.state.searchedText}
-                onReset={this.clearSearch}
-              />
+      <div>
+        <Grid
+          container
+          direction="row"
+          justify="space-between"
+          alignItems="center"
+          spacing={16}
+          className={classes.bookingsHeader}
+        >
+          <Grid item>
+            <Typography variant="h6">{t('offer.myBookings')}</Typography>
+          </Grid>
+          <Grid item>
+            <Grid container direction="row" alignItems="center" spacing={16}>
+              <Grid item>
+                <IconButton onClick={this.openAddMemberModal} color="primary">
+                  <AddCircleIcon />
+                </IconButton>
+              </Grid>
+              <Grid item>
+                <SearchMember
+                  onChange={(event) =>
+                    this.setState({ searchedText: event.target.value })
+                  }
+                  value={this.state.searchedText}
+                  onReset={this.clearSearch}
+                />
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
+        {this.state.loading ||
+        (this.props.loading && (this.props.bookings || []).length === 0) ? (
+          <LinearProgress />
+        ) : null}
+      </div>
     );
   };
 
@@ -317,6 +335,7 @@ export class OfferManagement extends Component<Props, State> {
     } = this.props;
 
     const { searchedText, memberToRegister } = this.state;
+    console.log('rendering');
 
     if (!offer) {
       return <CircularProgress />;
@@ -364,7 +383,8 @@ export class OfferManagement extends Component<Props, State> {
                 <BookingTable
                   sortedBy="name"
                   redirectToMember
-                  loading={bookingLoading}
+                  newTab
+                  loading={bookingLoading || (bookings || []).length === 0}
                   bookings={bookings}
                   bookingOptions={bookingOptions}
                   discardOption={discardOption}

@@ -52,6 +52,7 @@ export function createQuickInvoice(data: {
   paymentPackId: number,
 }) {
   return async (dispatch: Dispatch) => {
+    console.log('creating invoice');
     dispatch(startCreateQuickInvoice());
     try {
       const response = await api.invoice.createQuick(data);
@@ -60,6 +61,7 @@ export function createQuickInvoice(data: {
     } catch (err) {
       dispatch(errorCreatingQuickInvoice());
     }
+    console.log('has created invoice');
   };
 }
 
@@ -117,6 +119,7 @@ export function createOrUpdateInvoice(
   memberId: number,
 ) {
   return async (dispatch: Dispatch) => {
+    console.log('start quick create');
     dispatch(actionCreateOrUpdateInvoice(invoiceData));
 
     const createOrUpdate = invoiceData.uuid
@@ -133,7 +136,6 @@ export function createOrUpdateInvoice(
         dispatch(actionCreateInvoiceSuccess(invoice));
         dispatch(snackbarSuccess('invoice.forms.create.success'));
       }
-      dispatch(fetchAllPaymentPacks());
       if (memberId) {
         dispatch(quickFetchMember(memberId));
       } else {
@@ -146,6 +148,7 @@ export function createOrUpdateInvoice(
       dispatch(snackbarError('invoice.forms.error'));
       dispatch(actionCreateOrUpdateInvoiceError(e));
     }
+    console.log('end quick create');
   };
 }
 

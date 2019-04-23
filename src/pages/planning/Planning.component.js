@@ -57,7 +57,6 @@ type Props = {
   timetableLoading: boolean,
   coachesLoading: boolean,
   establishmentsLoading: boolean,
-  compatiblePacksLoading: boolean,
   similarOfferLoading: boolean,
   width: string,
 
@@ -68,7 +67,6 @@ type Props = {
   events: Array<Event>,
   coaches: Array<Coach>,
   establishments: Array<Establishment>,
-  compatiblePacks: Array<PaymentPack>,
 
   fetchAllOffers: () => void,
   fetchAllActivities: () => void,
@@ -224,7 +222,6 @@ export class Planning extends Component<Props, State> {
       coachesLoading,
       establishments,
       establishmentsLoading,
-      compatiblePacks,
       fetchSimilarOffers,
       similarOfferLoading,
       similarOffers,
@@ -244,7 +241,6 @@ export class Planning extends Component<Props, State> {
               onConfirm={this.onConfirmModal}
               onCancel={this.onCancelModal}
               processing={editOfferProcessing}
-              compatiblePacks={compatiblePacks}
               fetchSimilarOffers={fetchSimilarOffers}
               similarOffers={similarOffers}
               similarOfferLoading={similarOfferLoading}
@@ -377,8 +373,6 @@ export class Planning extends Component<Props, State> {
       establishmentsLoading,
       coaches,
       coachesLoading,
-      compatiblePacks,
-      compatiblePacksLoading,
       width,
       date,
       selectedOffer,
@@ -450,8 +444,6 @@ export class Planning extends Component<Props, State> {
               establishmentsLoading={establishmentsLoading}
               onEditButtonClick={this.openEditModal}
               onDeleteButtonClick={this.openDeleteModal}
-              compatiblePacks={compatiblePacks}
-              compatiblePacksLoading={compatiblePacksLoading}
               goToOfferManagement={this.props.goToOfferManagement}
             />
           ) : (
@@ -476,8 +468,6 @@ function mapStateToProps(state) {
   return {
     offers: state.offer.offers,
     events: state.offer.calendar,
-    compatiblePacks: state.offer.compatiblePacks.items,
-    compatiblePacksLoading: state.offer.compatiblePacks.loading,
     timetableLoading: state.activity.loading || state.offer.byDay.loading,
     activities: state.activity.all,
     coaches: state.coach.companyAssociated,

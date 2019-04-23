@@ -3,36 +3,28 @@
 import React, { Component } from 'react';
 
 import {
-  Divider,
   Typography,
   Grid,
   Paper,
   Button,
   withStyles,
-  ExpansionPanel,
-  ExpansionPanelDetails,
-  ExpansionPanelSummary,
-  CircularProgress,
   ListItem,
   ListItemText,
   Icon,
-  List,
   Hidden,
 } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import DeleteIcon from '@material-ui/icons/Delete';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { withNamespaces } from 'react-i18next';
 
 import { Level, Sport } from '../category';
 import Avatar from '../Avatar.component';
-import PaymentPackSummary from '../payment-pack/PaymentPackSummary.component';
 import RedButton from '../button/RedButton.component';
 
 import { formatAsTime, humanizeDuration } from '../../datetime';
-import type { Offer, PaymentPack } from '../../api/types';
+import type { Offer } from '../../api/types';
 
 type Props = {
   t: (x: string) => string,
@@ -41,8 +33,6 @@ type Props = {
   noHeader: ?boolean,
   onEditButtonClick: () => void,
   onDeleteButtonClick: () => void,
-  compatiblePacks: Array<PaymentPack>,
-  compatiblePacksLoading: boolean,
   goToOfferManagement: (offerId: number) => void,
 };
 
@@ -316,61 +306,6 @@ export class OfferCard extends Component<Props> {
     );
   };
 
-  renderPaymentPackList = () => {
-    const { t, classes, compatiblePacks } = this.props;
-
-    if (compatiblePacks.length === 0) {
-      return (
-        <Typography
-          className={classes.noCompatiblePacksTypography}
-          variant="caption"
-        >
-          {t('offer.noCompatiblePacks')}
-        </Typography>
-      );
-    }
-    return (
-      <List dense style={{ width: '100%' }}>
-        {compatiblePacks
-          .filter((cp) => !cp.disabled)
-          .map((cp) => (
-            <PaymentPackSummary paymentPack={cp} key={cp.id} />
-          ))}
-      </List>
-    );
-  };
-
-  getCompatiblePacks = () => {
-    const { t, classes, offer, compatiblePacksLoading } = this.props;
-    const { available } = offer;
-
-    return (
-      <ExpansionPanel>
-        <ExpansionPanelSummary
-          expandIcon={<ExpandMoreIcon />}
-          className={available ? null : classes.disabledPaper}
-        >
-          <Typography>{t('offer.compatiblePacks')}</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails
-          className={available ? null : classes.disabledPaper}
-          style={{ padding: 0 }}
-        >
-          <div style={{ width: '100%' }}>
-            <Divider />
-            {compatiblePacksLoading ? (
-              <Grid container item alignItems="center">
-                <CircularProgress />
-              </Grid>
-            ) : (
-              this.renderPaymentPackList()
-            )}
-          </div>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-    );
-  };
-
   render() {
     const { noHeader, offer, onDeleteButtonClick, classes, t } = this.props;
     const { available } = offer;
@@ -384,7 +319,6 @@ export class OfferCard extends Component<Props> {
               {this.getPracticalInfo()}
             </div>
           </Paper>
-          {this.getCompatiblePacks()}
           <Button
             onClick={() => this.props.goToOfferManagement(offer.id)}
             color="primary"
@@ -437,9 +371,6 @@ const styles = (theme) => ({
   },
   modifierButtonsBlock: {
     marginTop: theme.spacing.unit * 2,
-  },
-  noCompatiblePacksTypography: {
-    padding: theme.spacing.unit * 2,
   },
   manageButton: {
     width: '100%',

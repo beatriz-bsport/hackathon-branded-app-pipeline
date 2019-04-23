@@ -12,15 +12,9 @@ import {
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { Moment } from '../../i18n';
-import PaymentPackSummary from '../../components/payment-pack/PaymentPackSummary.component';
 import DurationInput from '../../components/input/DurationInput.component';
 import NumericInput from '../../components/input/NumericInput.component';
-import type {
-  Coach,
-  Establishment,
-  Offer,
-  PaymentPack as PaymentPackType,
-} from '../../api/types';
+import type { Coach, Establishment, Offer } from '../../api/types';
 import { formatAsTime } from '../../datetime';
 
 import DateTimeForm from './form/DateTimeForm.component';
@@ -39,7 +33,6 @@ type Props = {
 
   offer: Offer,
   similarOffers: Array<Offer>,
-  compatiblePacks: Array<PaymentPackType>,
   coaches: Array<Coach>,
   establishments: Array<Establishment>,
 
@@ -298,13 +291,6 @@ export class EditLiveOfferForm extends Component<Props, State> {
       <Grid item>
         <Typography>{this.props.t('form.offer.warningPackonEdit')}</Typography>
       </Grid>
-      <List>
-        {this.props.compatiblePacks.map((cp) => (
-          <ListItem>
-            <PaymentPackSummary paymentPack={cp} key={cp.id} />
-          </ListItem>
-        ))}
-      </List>
     </Grid>
   );
 

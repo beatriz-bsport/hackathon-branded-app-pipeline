@@ -382,7 +382,7 @@ export class OfferManagement extends Component<Props, State> {
                   sortedBy="name"
                   redirectToMember
                   newTab
-                  loading={bookingLoading || (bookings || []).length === 0}
+                  loading={bookingLoading && ((bookings||[]).length === 0)}
                   bookings={bookings}
                   bookingOptions={bookingOptions}
                   discardOption={discardOption}

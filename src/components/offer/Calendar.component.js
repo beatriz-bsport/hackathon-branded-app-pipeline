@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import {
   IconButton,
@@ -29,7 +29,7 @@ type State = {
   displayMode: number,
 };
 
-export class Calendar extends Component<Props, State> {
+export class Calendar extends PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {

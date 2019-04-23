@@ -87,6 +87,7 @@ export default {
       BANK_TRANSFER: 'Virement',
       CREDIT_ACCOUNT: 'Compte interne (crédit)',
       SUBSCRIPTION_CB: 'Paiement automatique CB',
+      OTHER: 'Divers',
     },
     errors: {
       end_before_start: 'La date de fin doit être après la date de début',
@@ -625,6 +626,7 @@ export default {
         BANK_TRANSFER: 'Virement',
         CREDIT_ACCOUNT: 'Compte interne (crédit)',
         SUBSCRIPTION_CB: 'Paiement automatique CB',
+        OTHER: 'Divers',
       },
       paymentItemsListTitle: 'Paiements enregistrés',
       noPaymentItem: 'Aucun paiement enregistré',

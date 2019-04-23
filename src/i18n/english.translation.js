@@ -62,6 +62,7 @@ export default {
       BANK_TRANSFER: 'Bank transfer',
       CREDIT_ACCOUNT: 'Credit account',
       SUBSCRIPTION_CB: 'Automatic credit card debit',
+      OTHER: 'Other',
     },
     datetime: {
       shortDayIdentifier: 'd',
@@ -575,6 +576,7 @@ export default {
         BANK_TRANSFER: 'Bank transfer',
         CREDIT_ACCOUNT: 'Credit account',
         SUBSCRIPTION_CB: 'Automatic credit card debit',
+        OTHER: 'Other',
       },
       paymentItemsListTitle: 'Registered payments',
       noPaymentItem: 'No payment registered',

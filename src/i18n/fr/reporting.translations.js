@@ -39,6 +39,7 @@ export default {
     none: 'Aucun',
     subscription_cb: 'Paiement automatique CB',
     credit_account: 'Crédit client',
+    other: 'Divers',
   },
   product_type: {
     payment_pack: 'Abonnement',

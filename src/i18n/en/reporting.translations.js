@@ -39,6 +39,7 @@ export default {
     none: 'None',
     subscription_cb: 'Automatic credit card debit',
     credit_account: 'Client internal account',
+    other: 'Other',
   },
   product_type: {
     payment_pack: 'Pass',

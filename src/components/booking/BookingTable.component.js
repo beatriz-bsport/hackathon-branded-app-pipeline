@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import {
   Typography,
@@ -35,12 +35,11 @@ type Props = {
   discardOption: (id: number) => void,
   onQuickInvoiceClick: (member: Member) => void,
   handleRevert: (booking: Booking) => void,
-  requestRefreshPaymentPack: () => void,
   discardBookingAttendance: (id: number) => void,
   confirmBookingAttendance: (id: number) => void,
 };
 
-export class BookingTable extends Component<Props> {
+export class BookingTable extends PureComponent<Props> {
   sortBookings = () => {
     const { sortedBy, bookings } = this.props;
 
@@ -70,7 +69,6 @@ export class BookingTable extends Component<Props> {
       showRevertBookingButton,
       handleRevert,
       onQuickInvoiceClick,
-      requestRefreshPaymentPack,
     } = this.props;
 
     if (loading || !bookings) {
@@ -100,7 +98,6 @@ export class BookingTable extends Component<Props> {
             newTab={newTab}
             showQuickInvoiceButton={showQuickInvoiceButton}
             onQuickInvoiceClick={() => onQuickInvoiceClick(b.member)}
-            requestRefreshPaymentPack={requestRefreshPaymentPack}
             key={b.id}
             heading={heading}
             booking={b}

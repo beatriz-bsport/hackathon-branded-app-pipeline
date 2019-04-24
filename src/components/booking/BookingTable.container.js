@@ -14,15 +14,4 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    requestRefreshPaymentPack() {
-      dispatch(paymentPackActions.refreshAllPaymentPack());
-    },
-  };
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(BookingTableContained);
+export default connect(mapStateToProps)(BookingTableContained);

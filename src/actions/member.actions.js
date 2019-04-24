@@ -13,6 +13,36 @@ export function quickFetchSuccess(member: {}) {
   return { type: types.SUCCESS_QUICK_FETCH_MEMBER, member };
 }
 
+export function startFetchMemberByOffer() {
+  return { type: types.START_FETCH_MEMBER_BY_OFFER };
+}
+export function hasFetchedMemberByOffer(members) {
+  return { type: types.SUCCESS_FETCH_MEMBER_BY_OFFER, members };
+}
+export function errorFetchingMemberByOffer() {
+  return { type: types.ERROR_FETCH_MEMBER_BY_OFFER };
+}
+
+export function refreshByOffer(id: number) {
+  return async (dispatch: Dispatch) => {
+    try {
+      const response = await api.member.fetchByOffer(id);
+      const members = response.data;
+      dispatch(hasFetchedMemberByOffer(members));
+    } catch (err) {
+      console.error(err);
+      dispatch(errorFetchingMemberByOffer());
+    }
+  };
+}
+
+export function fetchMemberByOffer(id: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(startFetchMemberByOffer());
+    dispatch(refreshByOffer(id));
+  };
+}
+
 export function quickFetch(id: number) {
   return async (dispatch: Dispatch) => {
     try {
@@ -62,6 +92,7 @@ export function createOrUpdateMember(
   memberData: FormData,
   dontRedirect: boolean,
   options,
+  callback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(actionCreateOrUpdateMember(memberData));
@@ -83,7 +114,11 @@ export function createOrUpdateMember(
             : 'member.forms.create.success',
         ),
       );
-      dispatch(fetcher());
+      if (callback) {
+        callback();
+      } else {
+        dispatch(fetcher());
+      }
       if (options && options.onSuccess) options.onSuccess();
       if (!dontRedirect) {
         dispatch(push('/member'));

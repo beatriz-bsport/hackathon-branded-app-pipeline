@@ -12,7 +12,6 @@ import {
   withStyles,
   Dialog,
   DialogContent,
-  LinearProgress,
   CircularProgress,
 } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
@@ -23,7 +22,7 @@ import type { TFunction } from 'react-i18next';
 import Fuse from 'fuse.js';
 import memoize from 'memoize-one';
 
-import BookingTable from '../../components/booking/BookingTable.container';
+import BookingTable from '../../components/booking/BookingTable.component';
 import ResultList from '../../components/search/ResultList.component';
 import MemberBookingHelper from './MemberBookingHelper.component';
 import { mapFormData } from '../form.utils';
@@ -54,23 +53,25 @@ type Props = {
   compatiblePacks: Array<PaymentPack>,
   unevenSavedInvoices: Array<Invoice>,
 
-  fetchBookings: (offerId: number, refreshOnly: ?boolean) => void,
   fetchCompatiblePacks: (offerId: number) => void,
-  createMember: (data: [*], options: *) => void,
-  createInvoice: ([*], number) => void,
+  createMember: (data: [*], options: *, offerId: number) => void,
+  createInvoice: ([*], number, number) => void,
   resetQuickInvoices: () => void,
-  createQuickUnevenInvoice: ({
-    memberId: number,
+  createQuickUnevenInvoice: (
+    {
+      memberId: number,
+      offerId: number,
+      paymentPackId: number,
+    },
     offerId: number,
-    paymentPackId: number,
-  }) => void,
+  ) => void,
   addToOffer: ({
     offerId: number,
     consumerPaymentPackId: number,
     memberId: number,
   }) => void,
   discardOption: (id: number) => void,
-  deleteBooking: (bookingId: number, memberId: number) => void,
+  deleteBooking: (bookingId: number, memberId: number, offerId: number) => void,
 
   goBack: () => void,
   push: (path: string) => void,
@@ -91,7 +92,6 @@ export class OfferManagement extends Component<Props, State> {
     addMemberModal: false,
     memberToRegister: null,
     searchedText: '',
-    loading: false,
   };
 
   componentWillMount() {
@@ -110,39 +110,29 @@ export class OfferManagement extends Component<Props, State> {
     memberId: number,
     paymentPackId: number,
   ) => {
-    this.setState({ loading: true });
-    const offerId = this.props.offer.id;
-    (async () => {
-      this.props.createQuickUnevenInvoice({ memberId, paymentPackId, offerId });
-      setTimeout(() => {
-        this.props.fetchBookings(this.props.offerId, true);
-        this.setState({ loading: false });
-      }, 500);
-    })();
+    const { offerId } = this.props;
+    this.props.createQuickUnevenInvoice(
+      { memberId, paymentPackId, offerId },
+      offerId,
+    );
     this.clearSearch();
     this.setState({ memberToRegister: null });
   };
 
   registerMember = async (consumerPaymentPackId: number) => {
     const { memberToRegister } = this.state;
-    this.setState({ loading: true });
     this.props.addToOffer({
       offerId: this.props.offerId,
       consumerPaymentPackId,
       memberId: memberToRegister.id,
     });
     this.clearSearch();
-    this.setState({ loading: false, memberToRegister: null });
+    this.setState({ memberToRegister: null });
   };
 
   createInvoice = (invoiceData, memberId, isQuickInvoice) => {
-    this.props.createInvoice(invoiceData, memberId);
-    if (!isQuickInvoice) {
-      this.closeQuickInvoice(memberId);
-      setTimeout(() => {
-        this.props.fetchBookings(this.props.offerId, true);
-      }, 500);
-    }
+    this.props.createInvoice(invoiceData, memberId, null, this.props.offerId);
+    this.closeQuickInvoice(memberId);
   };
 
   createMember = (data: *, options) => {
@@ -167,7 +157,7 @@ export class OfferManagement extends Component<Props, State> {
       }
     }
     const formData = mapFormData(data, MemberMap);
-    this.props.createMember(formData, options);
+    this.props.createMember(formData, options, this.props.offerId);
     this.setState({ addMemberModal: false });
   };
 
@@ -181,9 +171,9 @@ export class OfferManagement extends Component<Props, State> {
   };
 
   async componentDidMount() {
-    this.props.fetchBookings(this.props.offerId);
     this.props.fetchCompatiblePacks(this.props.offerId);
-    this.props.fetchOfferById(this.props.offerId);
+    this.props.fetchOffer(this.props.offerId);
+    this.props.refreshOfferData(this.props.offerId);
   }
 
   getFuse = memoize((items) => {
@@ -201,16 +191,12 @@ export class OfferManagement extends Component<Props, State> {
   });
 
   getResults = () =>
-    this.getFuse(this.props.members)
+    this.getFuse(this.props.allMembers)
       .search(this.state.searchedText)
       .slice(0, 8);
 
-  hasBooked = memoize((bookings, memberId) =>
-    bookings.find((b) => b.member === memberId),
-  );
-
   renderSearchedMember = (member: Member) => {
-    const hasBooked = Boolean(this.hasBooked(this.props.bookings, member.id));
+    const hasBooked = !!this.props.bookings.find((b) => b.member === member.id);
     if (hasBooked) {
       return (
         <MemberBookingHelper
@@ -301,10 +287,6 @@ export class OfferManagement extends Component<Props, State> {
             </Grid>
           </Grid>
         </Grid>
-        {this.state.loading ||
-        (this.props.loading && (this.props.bookings || []).length === 0) ? (
-          <LinearProgress />
-        ) : null}
       </div>
     );
   };
@@ -321,6 +303,7 @@ export class OfferManagement extends Component<Props, State> {
     this.props.deleteBooking(
       this.state.bookingToRevert.id,
       this.state.bookingToRevert.member,
+      this.props.offerId,
     );
     this.closeRevertBookingDialog();
   };
@@ -387,7 +370,9 @@ export class OfferManagement extends Component<Props, State> {
                   sortedBy="name"
                   redirectToMember
                   newTab
-                  loading={bookingLoading && (bookings || []).length === 0}
+                  members={this.props.members}
+                  paymentPacks={this.props.paymentPacks}
+                  loading={bookingLoading}
                   bookings={bookings}
                   bookingOptions={bookingOptions}
                   discardOption={discardOption}

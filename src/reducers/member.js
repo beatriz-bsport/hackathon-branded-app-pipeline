@@ -8,7 +8,11 @@ import { listMemberReducers } from '../actions/member.actions';
 const initialState = Immutable({
   loading: true,
   all: [], // all the members
-  member: {}, // currently showed member
+  member: {}, // currently shown member
+  byOffer: {
+    items: [],
+    loading: false,
+  },
   upsert: {
     loading: false,
     error: null,
@@ -31,11 +35,24 @@ function memberReducers(state = initialState, action = {}) {
         loading: false,
       });
     }
+    case actionTypes.START_FETCH_MEMBER_BY_OFFER: {
+      return state
+        .setIn(['byOffer', 'loading'], true)
+        .setIn(['byOffer', 'items'], []);
+    }
+    case actionTypes.ERROR_FETCH_MEMBER_BY_OFFER: {
+      return state.setIn(['byOffer', 'loading'], false);
+    }
+    case actionTypes.SUCCESS_FETCH_MEMBER_BY_OFFER: {
+      return state
+        .setIn(['byOffer', 'items'], action.members)
+        .set('loading', false);
+    }
 
     case actionTypes.SUCCESS_QUICK_FETCH_MEMBER: {
       const { member } = action;
       return Immutable.merge(state, {
-        all: [member, ...state.all.filter((m) => m.id !== member.id)],
+        all: [member, ...state.all],
       });
     }
 

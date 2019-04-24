@@ -106,7 +106,7 @@ export default function bookingReducers(
     case actionTypes.START_FETCH_BOOKINGS: {
       return Immutable.merge(state, {
         loading: true,
-        all: action.refreshOnly ? state.all : [],
+        all: [],
         options: [],
       });
     }

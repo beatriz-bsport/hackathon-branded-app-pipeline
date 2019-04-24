@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   withStyles,
   Avatar,
@@ -19,6 +19,7 @@ import type { TFunction } from 'react-i18next';
 import { push as routerPush } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
+import memoize from 'memoize-one';
 import { getBookingStatusCode } from './Booking.utils';
 
 import RedButton from '../button/RedButton.component';
@@ -39,12 +40,11 @@ type Props = {
   push: (path: string) => void,
   onQuickInvoiceClick: () => void,
   handleRevert: () => void,
-  requestRefreshPaymentPack: () => void,
   confirmBookingAttendance: () => void,
   discardBookingAttendance: () => void,
 };
 
-export class BookingItemForManager extends Component<Props> {
+export class BookingItemForManager extends PureComponent<Props> {
   getStatusStyleProps = (status: ?boolean) => {
     if (status) {
       return { color: 'primary' };
@@ -52,16 +52,17 @@ export class BookingItemForManager extends Component<Props> {
     return {};
   };
 
+  getPaymentPack = memoize((paymentPacks, booking) =>
+    paymentPacks.find((pp) => pp.id === booking.payment_pack),
+  );
+
   getStatusText = (booking: Booking) => {
     const { paymentPacks, t } = this.props;
     const { consumer_payment_pack } = booking;
     if (consumer_payment_pack && booking.payment_pack) {
-      const payment_pack = paymentPacks.find(
-        (pp) => pp.id === booking.payment_pack,
-      );
+      const payment_pack = this.getPaymentPack(paymentPacks, booking);
 
       if (!consumer_payment_pack) {
-        this.props.requestRefreshPaymentPack();
         return [t('common.loading'), 'secondary'];
       }
       if (!payment_pack) {
@@ -209,6 +210,7 @@ export class BookingItemForManager extends Component<Props> {
     const { t, booking, redirectToMember } = this.props;
     // <TableCell>{t(`booking.sources.${b.source}`)}</TableCell>
     const [statusText, color] = this.getStatusText(booking);
+    console.log(`rendering ${booking.id}`);
     return (
       <ListItem
         divider

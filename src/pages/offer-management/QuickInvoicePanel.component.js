@@ -43,8 +43,7 @@ export function QuickInvoicePanel(props: Props) {
         <div>
           {unevenSavedInvoices.map((inv) => (
             <QuickInvoice
-              quickInvoiceTitle={`inv.memberName
-              } (${t('common.booking')})`}
+              quickInvoiceTitle={`${inv.memberName} (${t('common.booking')})`}
               key={inv.uuid}
               quickInvoice={inv}
               uneditableInvoiceItems={inv.invoice_items}

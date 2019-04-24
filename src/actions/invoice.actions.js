@@ -6,10 +6,7 @@ import api from '../api';
 import types from './invoice.types';
 import { snackbarSuccess, snackbarError } from './snackbar.actions';
 import { fetchAll as fetchAllPaymentPacks } from './paymentPack.actions';
-import {
-  fetchAll as fetchAllMembers,
-  quickFetch as quickFetchMember,
-} from './member.actions';
+import { quickFetch as quickFetchMember } from './member.actions';
 
 import { createListHandler } from './utils';
 import type { Dispatch } from '../state/types';
@@ -46,11 +43,14 @@ export function resetQuickInvoices(uuid: ?string) {
 export function createdQuickInvoice(invoice: Invoice) {
   return { type: types.INVOICE_QUICK_CREATE_SUCCESS, invoice };
 }
-export function createQuickInvoice(data: {
-  memberId: number,
-  offerId: number,
-  paymentPackId: number,
-}) {
+export function createQuickInvoice(
+  data: {
+    memberId: number,
+    offerId: number,
+    paymentPackId: number,
+  },
+  callback,
+) {
   return async (dispatch: Dispatch) => {
     console.log('creating invoice');
     dispatch(startCreateQuickInvoice());
@@ -58,6 +58,9 @@ export function createQuickInvoice(data: {
       const response = await api.invoice.createQuick(data);
       const invoice = response.data;
       dispatch(createdQuickInvoice(invoice));
+      if (typeof callback === 'function') {
+        callback();
+      }
     } catch (err) {
       dispatch(errorCreatingQuickInvoice());
     }
@@ -116,7 +119,7 @@ export function updatePaymentStatus(uuid: string, newStatus: boolean) {
 export function createOrUpdateInvoice(
   invoiceData: [*],
   noRedirect: ?boolean,
-  memberId: number,
+  callback: number | (() => void),
 ) {
   return async (dispatch: Dispatch) => {
     console.log('start quick create');
@@ -136,10 +139,12 @@ export function createOrUpdateInvoice(
         dispatch(actionCreateInvoiceSuccess(invoice));
         dispatch(snackbarSuccess('invoice.forms.create.success'));
       }
-      if (memberId) {
-        dispatch(quickFetchMember(memberId));
-      } else {
-        dispatch(fetchAllMembers()); // TODO optimize not to reload everything
+      if (typeof callback === 'function') {
+        callback();
+      }
+      if (typeof callback === 'number') {
+        // FIXME
+        dispatch(quickFetchMember(callback));
       }
       if (!noRedirect) {
         dispatch(pushRouter('/invoice'));

@@ -142,19 +142,6 @@ export class SearchResults extends Component<Props, State> {
             selectEntity={this.selectEntity}
             className={selected && !isLoadingMember ? classes.hidden : ''}
           />
-          <div className={classes.detail}>
-            {hasLoaded ? (
-              <MemberDetail
-                member={member}
-                bookings={bookings}
-                discardBookingAttendance={this.props.discardBookingAttendance}
-                confirmBookingAttendance={this.props.confirmBookingAttendance}
-                decrementCredit={this.props.decrementCredit}
-                incrementCredit={this.props.incrementCredit}
-                paymentPacks={this.props.paymentPacks}
-              />
-            ) : null}
-          </div>
         </div>
       </Paper>
     );

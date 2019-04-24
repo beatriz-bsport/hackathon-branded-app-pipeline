@@ -21,7 +21,7 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 
-import BookingTable from '../../components/booking/BookingTable.container';
+import BookingTable from '../../components/booking/BookingTable.component';
 import ConsumerPackRowItem from '../../components/payment-pack/ConsumerPackRowItem.component';
 import { formatAsDatetime } from '../../datetime';
 import type { MemberDetailed, Booking, BookingOption } from '../../api/types';
@@ -129,6 +129,8 @@ export class Member extends Component<Props, State> {
             <Divider />
             <BookingTable
               heading="date_start"
+              members={[this.props.member]}
+              paymentPacks={this.props.paymentPacks}
               loading={bookingLoading}
               bookingOptions={bookingOptionsFuture}
               bookings={bookingsFuture}
@@ -183,6 +185,8 @@ export class Member extends Component<Props, State> {
               heading="date_start"
               loading={bookingLoading}
               bookings={bookingsPast}
+              members={[this.props.member]}
+              paymentPacks={this.props.paymentPacks}
               bookingOptions={[]}
               discardBookingAttendance={discardBookingAttendance}
               confirmBookingAttendance={confirmBookingAttendance}

@@ -32,7 +32,6 @@ type Props = {
   bookingLoading: boolean,
   member: MemberDetailed,
 
-  allMembers: Array<MemberSimplified>,
   bookings: Array<Booking>,
   bookingOptions: Array<BookingOption>,
   classes: Object,
@@ -74,7 +73,6 @@ export class Member extends Component<Props> {
               memberId={this.props.id}
               bookingLoading={this.props.bookingLoading}
               member={this.props.member}
-              allMembers={this.props.allMembers}
               bookings={this.props.bookings}
               bookingOptions={this.props.bookingOptions}
               paymentPacks={this.props.paymentPacks}
@@ -113,7 +111,6 @@ function mapStateToProps(state, { id }) {
     id,
     memberLoading: state.member.loading,
     member: state.member.member,
-    allMembers: state.member.all,
     bookingLoading: state.booking.loading,
     bookings: state.booking.all,
     bookingOptions: state.booking.options,
@@ -175,15 +172,4 @@ export default compose(
     mapStateToProps,
     mapDispatchToProps,
   ),
-  withDrawer(({ allMembers, match }) => {
-    if (match && match.params && match.params.id) {
-      const member = (allMembers || []).filter(
-        (m) => m.id === parseInt(match.params.id, 10),
-      );
-      if ((member || []).length === 1) {
-        return `${member[0].firstname} ${member[0].lastname}`;
-      }
-    }
-    return '';
-  }),
 )(Member);

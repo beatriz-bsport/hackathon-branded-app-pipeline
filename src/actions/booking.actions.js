@@ -2,7 +2,6 @@ import api from '../api';
 import types from './booking.types';
 
 import { snackbarSuccess, snackbarError } from './snackbar.actions';
-import { quickFetch as quickFetchMember } from './member.actions';
 
 export function updatingBookingOption(bookingOptionId) {
   return { type: types.START_UPDATING_BOOKING_OPTION, bookingOptionId };
@@ -75,7 +74,7 @@ export function deleteBookingSuccess(bookingId) {
 export function deleteBookingError(bookingId) {
   return { type: types.BOOKING_DELETE_ERROR, bookingId };
 }
-export function deleteBooking(bookingId, memberId) {
+export function deleteBooking(bookingId, successCallback) {
   return async (dispatch) => {
     dispatch(deleteBookingStart(bookingId));
 
@@ -84,8 +83,8 @@ export function deleteBooking(bookingId, memberId) {
       if (response.status === 204) {
         dispatch(deleteBookingSuccess(bookingId));
         dispatch(snackbarSuccess('form.booking.delete.success'));
-        if (memberId) {
-          dispatch(quickFetchMember(memberId));
+        if (successCallback) {
+          successCallback();
         }
       } else {
         dispatch(deleteBookingError(bookingId));
@@ -98,10 +97,8 @@ export function deleteBooking(bookingId, memberId) {
   };
 }
 
-export function fetchBookingsByOffer(offerId, refreshOnly) {
+export function refreshByOffer(offerId) {
   return async (dispatch) => {
-    dispatch(startFetchBookings(refreshOnly));
-
     try {
       const response = await api.booking.fetchBookingsByOffer(offerId);
       const bookings = response.data;
@@ -112,6 +109,13 @@ export function fetchBookingsByOffer(offerId, refreshOnly) {
     } catch (err) {
       dispatch(errorFetchingBookings());
     }
+  };
+}
+
+export function fetchBookingsByOffer(offerId) {
+  return async (dispatch) => {
+    dispatch(startFetchBookings());
+    dispatch(refreshByOffer(offerId));
   };
 }
 
@@ -135,14 +139,14 @@ export function fetchBookingsByMember(memberId) {
 export function fetchedBookings({ bookings, booking_options }) {
   return { type: types.HAS_FETCHED_BOOKINGS, bookings, booking_options };
 }
-export function startFetchBookings(refreshOnly) {
-  return { type: types.START_FETCH_BOOKINGS, refreshOnly };
+export function startFetchBookings() {
+  return { type: types.START_FETCH_BOOKINGS };
 }
 export function errorFetchingBookings() {
   return { type: types.ERROR_FETCHING_BOOKINGS };
 }
 
-export function addBooking({ offerId, consumerPaymentPackId, memberId }) {
+export function addBooking({ offerId, consumerPaymentPackId, callback }) {
   return async (dispatch) => {
     dispatch(addBookingStart());
 
@@ -154,8 +158,8 @@ export function addBooking({ offerId, consumerPaymentPackId, memberId }) {
       const booking = response.data;
 
       dispatch(addBookingSuccess(booking));
-      if (memberId) {
-        dispatch(quickFetchMember(memberId));
+      if (callback) {
+        callback();
       }
     } catch (err) {
       dispatch(addBookingError());

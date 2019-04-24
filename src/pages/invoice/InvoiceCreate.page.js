@@ -11,7 +11,10 @@ import { compose } from 'recompose';
 import type { TFunction } from 'react-i18next';
 import { Moment } from '../../i18n';
 import { formatAsDate } from '../../datetime';
-import { invoice as invoiceActions } from '../../actions';
+import {
+  member as memberActions,
+  invoice as invoiceActions,
+} from '../../actions';
 
 import type { Member } from '../../api/types';
 import type { InvoiceDataFront } from '../../components/form/types';
@@ -33,6 +36,7 @@ type Props = {
 
 export class InvoiceCreatePage extends Component<Props> {
   componentDidMount() {
+    this.props.fetchMember(this.props.memberId);
     this.props.resetCreateOrUpdateStatus();
   }
 
@@ -73,8 +77,9 @@ function mapStateToProps(state, nextProps) {
   const { match } = nextProps;
   const id = (match && match.params && +match.params.id) || null;
   return {
+    memberId: id,
     loading: state.member.loading,
-    member: id !== null ? state.member.all.find((m) => m.id === id) : null,
+    member: state.member.member,
     activities: state.activity.all,
     paymentPacks: (state.paymentPack.all || []).filter((pp) => !pp.disabled),
     shopItems: state.shop.all,
@@ -84,6 +89,9 @@ function mapStateToProps(state, nextProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    fetchMember(memberId) {
+      dispatch(memberActions.fetchMember(memberId));
+    },
     goToInvoiceList() {
       dispatch(pushRouter('/invoice'));
     },
@@ -111,6 +119,7 @@ export default compose(
   ),
   withDrawer(
     ({ t, member }: { t: TFunction, member: Member }) =>
-      `${t('payment.invoice')} - ${formatAsDate(Moment())} - ${member.name}`,
+      `${t('payment.invoice')} - ${formatAsDate(Moment())} - ${member.name ||
+        ' '}`,
   ),
 )(InvoiceCreatePage);

@@ -57,7 +57,7 @@ function mapDispatchToProps(dispatch) {
     fetchOffer(id) {
       dispatch(offerActions.fetchOfferById(id));
     },
-    refreshOfferData(offerId) {
+    fetchOfferData(offerId) {
       dispatch(bookingActions.fetchBookingsByOffer(offerId));
       dispatch(memberAction.fetchMemberByOffer(offerId));
     },

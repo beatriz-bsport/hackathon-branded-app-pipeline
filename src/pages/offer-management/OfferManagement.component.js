@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import {
   Collapse,
@@ -86,7 +86,7 @@ type State = {
   memberToRegister: ?Member,
   searchedText: string,
 };
-export class OfferManagement extends Component<Props, State> {
+export class OfferManagement extends PureComponent<Props, State> {
   state = {
     quickInvoices: [],
     addMemberModal: false,
@@ -96,6 +96,12 @@ export class OfferManagement extends Component<Props, State> {
 
   componentWillMount() {
     this.props.resetQuickInvoices();
+  }
+
+  componentDidMount() {
+    (async () => this.props.fetchCompatiblePacks(this.props.offerId))();
+    (async () => this.props.fetchOffer(this.props.offerId))();
+    (async () => this.props.fetchOfferData(this.props.offerId))();
   }
 
   closeQuickInvoice = (memberId) => {
@@ -169,12 +175,6 @@ export class OfferManagement extends Component<Props, State> {
   closeAddMemberModal = () => {
     this.setState({ addMemberModal: false });
   };
-
-  async componentDidMount() {
-    this.props.fetchCompatiblePacks(this.props.offerId);
-    this.props.fetchOffer(this.props.offerId);
-    this.props.refreshOfferData(this.props.offerId);
-  }
 
   getFuse = memoize((items) => {
     const options = {
@@ -327,10 +327,6 @@ export class OfferManagement extends Component<Props, State> {
       return <CircularProgress />;
     }
 
-    if (!this.props.compatiblePacks && !this.props.compatiblePacksLoading) {
-      this.props.fetchCompatiblePacks(this.props.offerId);
-    }
-
     return (
       <Grid container direction="row" spacing={16}>
         <Grid item xs={12}>
@@ -409,21 +405,22 @@ export class OfferManagement extends Component<Props, State> {
           open={!!memberToRegister}
         >
           <DialogContent>
-            <RegisterMemberToOfferForm
-              offer={offer}
-              member={memberToRegister}
-              open={!!memberToRegister}
-              loading={this.props.compatiblePacksLoading}
-              compatiblePacks={this.props.compatiblePacks}
-              onCancel={() => this.setState({ memberToRegister: null })}
-              subscribeToOffer={this.registerMember}
-              subscribeToPackAndOffer={(paymentPackId) =>
-                this.registerMemberAndOpenUnevenInvoice(
-                  memberToRegister.id,
-                  paymentPackId,
-                )
-              }
-            />
+            {memberToRegister ? (
+              <RegisterMemberToOfferForm
+                offerId={this.props.offerId}
+                memberId={memberToRegister.id}
+                loading={this.props.compatiblePacksLoading}
+                compatiblePacks={this.props.compatiblePacks}
+                onCancel={() => this.setState({ memberToRegister: null })}
+                subscribeToOffer={this.registerMember}
+                subscribeToPackAndOffer={(paymentPackId) =>
+                  this.registerMemberAndOpenUnevenInvoice(
+                    memberToRegister.id,
+                    paymentPackId,
+                  )
+                }
+              />
+            ) : null}
           </DialogContent>
         </Dialog>
         <Dialog

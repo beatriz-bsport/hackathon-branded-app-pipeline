@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import {
   CircularProgress,
@@ -21,8 +21,8 @@ type Props = {
   loading: boolean,
   consumerPacksLoading: boolean,
 
-  member: Member,
-  offer: Offer,
+  memberId: Member,
+  offerId: number,
   compatiblePacks: Array<PaymentPack>,
   consumerPacks: Array<ConsumerPaymentPack>,
   allPaymentPacks: Array<PaymentPack>,
@@ -35,11 +35,21 @@ type Props = {
   t: TFunction,
 };
 
-export class RegisterMemberToOfferForm extends Component<Props> {
+export class RegisterMemberToOfferForm extends PureComponent<Props> {
   componentDidMount() {
     this.props.fetchConsumerPackByOfferByMember(
-      this.props.offer.id,
-      this.props.member.id,
+      this.props.offerId,
+      this.props.memberId,
+    );
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const { props } = this;
+    return (
+      nextProps.offerId === props.offerId ||
+      nextProps.memberId === props.memberId ||
+      nextProps.loading === props.loading ||
+      nextProps.compatiblePacks.length === props.compatiblePacks.length
     );
   }
 
@@ -105,8 +115,8 @@ export class RegisterMemberToOfferForm extends Component<Props> {
   };
 
   render() {
-    const { t, onCancel, member, consumerPacksLoading, loading } = this.props;
-    if (!member || loading || consumerPacksLoading) {
+    const { t, onCancel, memberId, consumerPacksLoading, loading } = this.props;
+    if (!memberId || loading || consumerPacksLoading) {
       return <CircularProgress />;
     }
     return (

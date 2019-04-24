@@ -43,11 +43,11 @@ import { colors } from '@bsport/common/lib/colors';
 import { LanguageButton } from '../button/LanguageButton.component';
 import RefreshButton from '../button/RefreshButton.component';
 import SearchBar from '../SearchBar.component';
-import LOGO_ASSET from '../../public/images/banner_lowres.png';
 
 import { DrawerContext } from '../../hocs/with-drawer.hoc';
 
 const drawerWidth = 260;
+const LOGO_ASSET = "https://bsport.io/media/bsport_logo_txt.png"
 
 type Props = {
   isRefreshing: boolean,
@@ -266,7 +266,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             justify="center"
             alignItems="center"
           >
-            <img height={40} src={LOGO_ASSET} alt="bsport logo" />
+            <img
+              height={40}
+              src={LOGO_ASSET}
+              alt="bsport logo"
+            />
           </Grid>
         </div>
         <List>{items}</List>

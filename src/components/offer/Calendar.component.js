@@ -1,5 +1,5 @@
 // @flow
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 
 import {
   IconButton,
@@ -29,7 +29,7 @@ type State = {
   displayMode: number,
 };
 
-export class Calendar extends PureComponent<Props, State> {
+export class Calendar extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -39,15 +39,6 @@ export class Calendar extends PureComponent<Props, State> {
 
   componentWillMount() {
     this.props.onDateClick(this.props.date);
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    const { state, props } = this;
-    return (
-      nextState.displayMode !== state.displayMode ||
-      String(nextProps.date) !== String(props.date) ||
-      props.events.length !== nextProps.events.length
-    );
   }
 
   static defaultProps = {

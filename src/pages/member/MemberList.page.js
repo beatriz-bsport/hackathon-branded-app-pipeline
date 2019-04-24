@@ -62,6 +62,10 @@ const renderRow = (t, fetchMember, detailedMembers, goToMemberPage) => (
 
   const detailedMember = detailedMembers.find((m) => m.id === member.id);
   let status = <Typography> - </Typography>;
+  const date_joined = detailedMember
+    ? formatAsDate(detailedMember.date_joined)
+    : '  -  ';
+
   if (detailedMember) {
     status = detailedMember.next_booking ? (
       <Typography color="primary">
@@ -87,7 +91,7 @@ const renderRow = (t, fetchMember, detailedMembers, goToMemberPage) => (
       <TableCell component="th" scope="row">
         {member.name}
       </TableCell>
-      <TableCell>{formatAsDate(member.date_joined)}</TableCell>
+      <TableCell>{date_joined}</TableCell>
       <TableCell>{status}</TableCell>
       <TableCell>
         <Button onClick={() => goToMemberPage(member.id)} color="primary">

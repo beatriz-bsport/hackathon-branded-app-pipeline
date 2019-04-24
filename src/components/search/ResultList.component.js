@@ -43,9 +43,6 @@ export class ResultList extends Component<Props, State> {
           this.props.selectEntity({ data: item, type: 'member' });
         }}
       >
-        <Avatar>
-          <img src={item.photo} alt={item.name} className={classes.icon} />
-        </Avatar>
         <ListItemText
           primary={item.name}
           primaryTypographyProps={{ noWrap: true }}

@@ -327,6 +327,10 @@ export class OfferManagement extends Component<Props, State> {
       return <CircularProgress />;
     }
 
+    if (!this.props.compatiblePacks && !this.props.compatiblePacksLoading) {
+      this.props.fetchCompatiblePacks(this.props.offerId);
+    }
+
     return (
       <Grid container direction="row" spacing={16}>
         <Grid item xs={12}>
@@ -388,6 +392,7 @@ export class OfferManagement extends Component<Props, State> {
         </Grid>
         <Grid item xs={12} md={6}>
           <QuickInvoicePanel
+            members={this.props.members}
             unevenSavedInvoices={this.props.unevenSavedInvoices}
             quickInvoices={this.state.quickInvoices}
             createInvoice={this.createInvoice}

@@ -1,15 +1,16 @@
 // @flow
 
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Paper } from '@material-ui/core';
 import type { TFunction } from 'react-i18next';
 import { withNamespaces } from 'react-i18next';
+import { CircularProgress } from '@material-ui/core';
 
 import { goBack } from 'react-router-redux';
 import { compose, withProps } from 'recompose';
-import { createOrUpdateMember } from '../../actions/member.actions';
+import { createOrUpdateMember, quickFetch } from '../../actions/member.actions';
 import withDrawer from '../../hocs/with-drawer.hoc';
 import MemberForm from '../../libs/member/MemberForm.component';
 
@@ -40,52 +41,68 @@ const MemberMap = {
   address: 'address',
 };
 
-export function MemberFormPage(props: Props) {
-  const { initial, onCancel, onSubmit } = props;
-  const initialData = initial
-    ? {
-        ...unmap(initial, MemberMap),
-        rgpd: [],
-        birthdayYear:
-          initial && initial.birthday ? initial.birthday.slice(0, 4) : null,
-      }
-    : {};
-
-  if (initialData && initial) {
-    if (initial.phone_number) {
-      initialData.phone = initial.phone_number;
+export class MemberFormPage extends Component<Props> {
+  async componentDidMount() {
+    if (this.props.id) {
+      this.props.fetchMemberInitial(this.props.id);
     }
-    if (initial.accept_email) {
-      initialData.rgpd.push('accept_email');
-    }
-    if (initial.accept_sms) {
-      initialData.rgpd.push('accept_sms');
-    }
-    delete initialData.address;
-  } else {
-    initialData.rgpd = ['accept_email', 'accept_sms'];
   }
-  return (
-    <Paper>
-      <MemberForm
-        onCancel={onCancel}
-        onSubmit={onSubmit}
-        initial={initialData}
-      />
-    </Paper>
-  );
+
+  render() {
+    const { initial, id, onCancel, onSubmit } = this.props;
+    if (id && !initial) {
+      return <CircularProgress />;
+    }
+    const initialData = initial
+      ? {
+          ...unmap(initial, MemberMap),
+          rgpd: [],
+          birthdayYear:
+            initial && initial.birthday ? initial.birthday.slice(0, 4) : null,
+        }
+      : {};
+
+    if (initialData && initial) {
+      if (initial.phone_number) {
+        initialData.phone = initial.phone_number;
+      }
+      if (initial.accept_email) {
+        initialData.rgpd.push('accept_email');
+      }
+      if (initial.accept_sms) {
+        initialData.rgpd.push('accept_sms');
+      }
+      delete initialData.address;
+    } else {
+      initialData.rgpd = ['accept_email', 'accept_sms'];
+    }
+    return (
+      <Paper>
+        <MemberForm
+          onCancel={onCancel}
+          onSubmit={onSubmit}
+          initial={initialData}
+        />
+      </Paper>
+    );
+  }
 }
 
 function mapStateToProps(state, nextProps) {
   const { match } = nextProps;
   const id = (match && match.params && +match.params.id) || null;
   return {
+    id,
     errors: state.member.upsert.error,
-    initial: id !== null ? state.member.all.find((m) => m.id === id) : null,
+    initial:
+      id !== null ? state.member.quickFetched.find((m) => m.id === id) : null,
   };
 }
 function mapDispatchToProps(dispatch) {
   return {
+    fetchMemberInitial(id) {
+      dispatch(quickFetch(id));
+    },
     upsertMember(data, options) {
       console.log(data);
       dispatch(createOrUpdateMember(data, false, options));

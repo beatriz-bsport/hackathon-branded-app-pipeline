@@ -41,23 +41,31 @@ export function QuickInvoicePanel(props: Props) {
       <Divider />
       {quickInvoices.length || unevenSavedInvoices.length ? (
         <div>
-          {unevenSavedInvoices.map((inv) => (
-            <QuickInvoice
-              quickInvoiceTitle={`${inv.memberName} (${t('common.booking')})`}
-              key={inv.uuid}
-              quickInvoice={inv}
-              uneditableInvoiceItems={inv.invoice_items}
-              onSubmit={() => {}}
-              editMode
-              shopItems={[]}
-              activities={[]}
-              createInvoice={() => {}}
-              updateInvoice={(invoiceData) =>
-                createInvoice({ ...inv, ...invoiceData }, inv.member, true)
-              }
-              paymentPacks={[]}
-            />
-          ))}
+          {unevenSavedInvoices.map((inv) => {
+            return (
+              <QuickInvoice
+                quickInvoiceTitle={`${
+                  (
+                    props.members.find((m) => m.id === inv.member) || {
+                      name: ' - ',
+                    }
+                  ).name
+                } (${t('common.booking')})`}
+                key={inv.uuid}
+                quickInvoice={inv}
+                uneditableInvoiceItems={inv.invoice_items}
+                onSubmit={() => {}}
+                editMode
+                shopItems={[]}
+                activities={[]}
+                createInvoice={() => {}}
+                updateInvoice={(invoiceData) =>
+                  createInvoice({ ...inv, ...invoiceData }, inv.member, true)
+                }
+                paymentPacks={[]}
+              />
+            );
+          })}
           {quickInvoices.map((qi) => (
             <QuickInvoice
               quickInvoiceTitle={qi.memberName}

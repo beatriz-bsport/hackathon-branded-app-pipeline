@@ -8,6 +8,7 @@ import { listMemberReducers } from '../actions/member.actions';
 const initialState = Immutable({
   loading: true,
   all: [], // all the members
+  quickFetched: [],
   member: {}, // currently shown member
   byOffer: {
     items: [],
@@ -52,7 +53,11 @@ function memberReducers(state = initialState, action = {}) {
     case actionTypes.SUCCESS_QUICK_FETCH_MEMBER: {
       const { member } = action;
       return Immutable.merge(state, {
-        all: [member, ...state.all],
+        all: [member, ...state.all.filter((m) => m.id !== member.id)],
+        quickFetched: [
+          member,
+          ...state.quickFetched.filter((m) => m.id !== member.id),
+        ],
       });
     }
 

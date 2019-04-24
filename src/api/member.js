@@ -11,7 +11,9 @@ import {
 const PAGE_SIZE = 1000;
 
 export async function fetchAllMembers({ page }) {
-  return getAuth(`${API_URI}/saas/members?page_size=${PAGE_SIZE}&page=${page}`);
+  return getAuth(
+    `${API_URI}/saas/members/minimal?page_size=${PAGE_SIZE}&page=${page}`,
+  );
 }
 
 export async function fetchByOffer(offerId) {

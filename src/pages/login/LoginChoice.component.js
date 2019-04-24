@@ -5,7 +5,7 @@ import { Typography, Button, withStyles } from '@material-ui/core';
 import { withNamespaces } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import { LoginBase } from '../../components';
+import LoginBase from '../../components/navigation/LoginBase.component';
 
 const styles = (theme) => ({
   container: {

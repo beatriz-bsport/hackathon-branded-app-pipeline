@@ -17,76 +17,55 @@ const initialState = Immutable({
 export default function marketplaceReducer(state = initialState, action = {}) {
   switch (action.type) {
     case actionTypes.MARKETPLACE_COMPANY_FETCH_SUCCESS:
-      return Immutable.merge(state, {
-        company: action.company,
-        companyLoading: false,
-      });
+      return state.set('company', action.company).set('companyLoading', false);
 
     case actionTypes.MARKETPLACE_COMPANY_FETCH_START:
-      return Immutable.merge(state, {
-        companyLoading: true,
-      });
+      return state.set('companyLoading', true);
     case actionTypes.MARKETPLACE_COMPANY_FETCH_ERROR:
-      return Immutable.merge(state, {
-        company: null,
-        companyLoading: false,
-      });
+      return state.set('company', null).set('companyLoading', false);
 
     case actionTypes.MARKETPLACE_CALENDAR_FETCH_SUCCESS:
-      return Immutable.merge(state, {
-        loading: false,
-        refreshing: false,
-        offers: action.offers,
-      });
+      return state
+        .set('loading', false)
+        .set('refreshing', false)
+        .set('offers', action.offers);
 
     case actionTypes.MARKETPLACE_CALENDAR_FETCH_START:
       if (
         state.company &&
         state.company.id === parseInt(action.companyId, 10)
       ) {
-        return Immutable.merge(state, { refreshing: true });
+        return state.set('refreshing', true);
       }
-      return Immutable.merge(state, { loading: true, offers: [] });
+      return state.set('loading', true).set('offers', []);
 
     case actionTypes.MARKETPLACE_CALENDAR_FETCH_ERROR:
-      return Immutable.merge(state, {
-        offers: [],
-        loading: false,
-        refreshing: false,
-      });
+      return state
+        .set('offers', [])
+        .set('loading', false)
+        .set('refreshing', false);
 
     case actionTypes.MARKETPLACE_OFFERS_BY_DAY_FETCH_SUCCESS:
-      return Immutable.merge(state, {
-        detailedOffers: action.offers,
-        detailedOffersLoading: false,
-      });
+      return state
+        .set('detailedOffers', action.offers)
+        .set('detailedOffersLoading', false);
 
     case actionTypes.MARKETPLACE_OFFERS_BY_DAY_FETCH_START:
-      return Immutable.merge(state, {
-        detailedOffers: [],
-        detailedOffersLoading: true,
-      });
+      return state.set('detailedOffers', []).set('detailedOffersLoading', true);
     case actionTypes.MARKETPLACE_OFFERS_BY_DAY_FETCH_ERROR:
-      return Immutable.merge(state, {
-        detailedOffers: [],
-        detailedOffersLoading: false,
-      });
+      return state
+        .set('detailedOffers', [])
+        .set('detailedOffersLoading', false);
 
     case actionTypes.MARKETPLACE_PACKS_FETCH_SUCCESS:
-      return Immutable.merge(state, {
-        paymentPacks: action.paymentPacks,
-        paymentPacksLoading: false,
-      });
+      return state
+        .set('paymentPacks', action.paymentPacks)
+        .set('paymentPacksLoading', false);
 
     case actionTypes.MARKETPLACE_PACKS_DAY_FETCH_ERROR:
-      return Immutable.merge(state, {
-        paymentPacksLoading: false,
-      });
+      return state.set('paymentPacksLoading', false);
     case actionTypes.MARKETPLACE_PACKS_FETCH_START:
-      return Immutable.merge(state, {
-        paymentPacks: [],
-        paymentPacksLoading: true,
-      });
+      return state.set('paymentPacks', [], 'paymentPacksLoading', true);
 
     default:
       return state;

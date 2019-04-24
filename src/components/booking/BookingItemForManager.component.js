@@ -18,13 +18,12 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push as routerPush } from 'react-router-redux';
 import { connect } from 'react-redux';
-import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import memoize from 'memoize-one';
 import { getBookingStatusCode } from './Booking.utils';
 
 import RedButton from '../button/RedButton.component';
 import { formatAsDatetime } from '../../datetime';
-import type { Invoice, PaymentPack, Booking } from '../../api/types';
+import type { PaymentPack, Booking } from '../../api/types';
 
 type Props = {
   t: TFunction,
@@ -36,6 +35,7 @@ type Props = {
   showQuickInvoiceButton: ?boolean,
   showRevertBookingButton: ?boolean,
   redirectToMember: ?boolean,
+  newTab: ?boolean,
 
   push: (path: string) => void,
   onQuickInvoiceClick: () => void,

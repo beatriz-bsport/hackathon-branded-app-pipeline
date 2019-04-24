@@ -46,7 +46,7 @@ export default function consumerReducers(state = initialState, action = {}) {
       });
 
     case actionTypes.CONSUMER_START_FETCH_BOOKINGS:
-      return Immutable.merge(state, { bookingsLoading: true, error: false });
+      return state.set('bookingsLoading', true).set('error', false);
 
     case actionTypes.CONSUMER_ERROR_FETCHING_BOOKINGS:
       return Immutable.merge(state, {

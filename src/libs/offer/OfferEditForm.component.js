@@ -1,14 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 
-import {
-  Button,
-  Grid,
-  List,
-  ListItem,
-  Typography,
-  CircularProgress,
-} from '@material-ui/core';
+import { Button, Grid, Typography, CircularProgress } from '@material-ui/core';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { Moment } from '../../i18n';

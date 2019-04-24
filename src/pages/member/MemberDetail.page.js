@@ -14,14 +14,8 @@ import {
   member as memberActions,
   consumerPaymentPack as consumerPackActions,
 } from '../../actions';
-import type {
-  MemberDetailed,
-  Member as MemberSimplified,
-  Booking,
-  BookingOption,
-} from '../../api/types';
+import type { MemberDetailed, Booking, BookingOption } from '../../api/types';
 
-import withDrawer from '../../hocs/with-drawer.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 

@@ -61,7 +61,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(bookingActions.fetchBookingsByOffer(offerId));
       dispatch(memberAction.fetchMemberByOffer(offerId));
     },
-    deleteBooking(bookingId, memberId, offerId) {
+    deleteBooking(bookingId) {
       dispatch(bookingActions.deleteBooking(bookingId));
     },
     bookingUpdaters: {
@@ -145,4 +145,5 @@ export default compose(
     mapStateToProps,
     mapDispatchToProps,
   ),
+  withDrawer(({ offer }: { offer: Offer }) => formatTitle(offer)),
 )(OfferManagementComponent);

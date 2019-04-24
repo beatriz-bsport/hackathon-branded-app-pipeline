@@ -44,6 +44,8 @@ type Props = {
   memberCreationPending: boolean,
   compatiblePacksLoading: boolean,
 
+  allMembers: Array<Member>,
+  members: Array<Member>,
   bookingOptions: Array<BookingOption>,
   activities: Array<Activity>,
   bookings: Array<Booking>,
@@ -71,7 +73,10 @@ type Props = {
     memberId: number,
   }) => void,
   discardOption: (id: number) => void,
-  deleteBooking: (bookingId: number, memberId: number, offerId: number) => void,
+  deleteBooking: (bookingId: number) => void,
+
+  fetchOffer: (id: number) => void,
+  fetchOfferData: (id: number) => void,
 
   goBack: () => void,
   push: (path: string) => void,
@@ -86,6 +91,7 @@ type State = {
   memberToRegister: ?Member,
   searchedText: string,
 };
+
 export class OfferManagement extends PureComponent<Props, State> {
   state = {
     quickInvoices: [],
@@ -99,9 +105,9 @@ export class OfferManagement extends PureComponent<Props, State> {
   }
 
   componentDidMount() {
-    (async () => this.props.fetchCompatiblePacks(this.props.offerId))();
-    (async () => this.props.fetchOffer(this.props.offerId))();
-    (async () => this.props.fetchOfferData(this.props.offerId))();
+    this.props.fetchCompatiblePacks(this.props.offerId);
+    this.props.fetchOffer(this.props.offerId);
+    this.props.fetchOfferData(this.props.offerId);
   }
 
   closeQuickInvoice = (memberId) => {
@@ -136,7 +142,7 @@ export class OfferManagement extends PureComponent<Props, State> {
     this.setState({ memberToRegister: null });
   };
 
-  createInvoice = (invoiceData, memberId, isQuickInvoice) => {
+  createInvoice = (invoiceData, memberId) => {
     this.props.createInvoice(invoiceData, memberId, null, this.props.offerId);
     this.closeQuickInvoice(memberId);
   };
@@ -155,10 +161,15 @@ export class OfferManagement extends PureComponent<Props, State> {
         !data.zipcode ||
         !data.country
       ) {
+        // eslint-disable-next-line
         delete data.address_line_1;
+        // eslint-disable-next-line
         delete data.address_line_2;
+        // eslint-disable-next-line
         delete data.city;
+        // eslint-disable-next-line
         delete data.zipcode;
+        // eslint-disable-next-line
         delete data.country;
       }
     }
@@ -300,11 +311,7 @@ export class OfferManagement extends PureComponent<Props, State> {
   };
 
   handleBookingDeletion = () => {
-    this.props.deleteBooking(
-      this.state.bookingToRevert.id,
-      this.state.bookingToRevert.member,
-      this.props.offerId,
-    );
+    this.props.deleteBooking(this.state.bookingToRevert.id);
     this.closeRevertBookingDialog();
   };
 

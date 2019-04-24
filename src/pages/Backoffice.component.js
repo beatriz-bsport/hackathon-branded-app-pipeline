@@ -6,29 +6,46 @@ import { connect } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 
-import { ResponsiveDrawer } from '../components';
+import ResponsiveDrawer from '../components/navigation/ResponsiveDrawer.component';
 
 import { refresh as refreshActions } from '../actions';
-
-import Dashboard from './Dashboard.component';
-
-import OfferFormPage from './OfferFormPage.component';
-import Settings from './settings/Settings.component';
+import asyncComponent from '../AsyncComponent';
 
 import { MarketingDashboard, MarketingRule } from './marketing';
-import OfferManagement from './offer-management/OfferManagement.page';
-import SearchResults from './SearchResults.component';
-import ShopManager from './shop/ShopManager.component';
-import Reporting from './reporting/Reporting.component';
 
-import PlanningRouter from './planning/Planning.router';
-import Establishment from './establishment/Establishment.router';
-import Coach from './coach/Coach.router';
-import MetaActivity from './meta-activity/MetaActivity.router';
-import PaymentPack from './payment-pack/PaymentPack.router';
-import Member from './member/Member.router';
-import WorkshopActivity from './workshop-activity/WorkshopActivity.router';
-import Invoice from './invoice/Invoice.router';
+const Dashboard = asyncComponent(() => import('./Dashboard.component'));
+
+const OfferFormPage = asyncComponent(() => import('./OfferFormPage.component'));
+const Settings = asyncComponent(() => import('./settings/Settings.component'));
+const OfferManagement = asyncComponent(() =>
+  import('./offer-management/OfferManagement.page'),
+);
+const SearchResults = asyncComponent(() => import('./SearchResults.component'));
+const ShopManager = asyncComponent(() =>
+  import('./shop/ShopManager.component'),
+);
+const Reporting = asyncComponent(() =>
+  import('./reporting/Reporting.component'),
+);
+
+const PlanningRouter = asyncComponent(() =>
+  import('./planning/Planning.router'),
+);
+const Establishment = asyncComponent(() =>
+  import('./establishment/Establishment.router'),
+);
+const Coach = asyncComponent(() => import('./coach/Coach.router'));
+const MetaActivity = asyncComponent(() =>
+  import('./meta-activity/MetaActivity.router'),
+);
+const PaymentPack = asyncComponent(() =>
+  import('./payment-pack/PaymentPack.router'),
+);
+const Member = asyncComponent(() => import('./member/Member.router'));
+const WorkshopActivity = asyncComponent(() =>
+  import('./workshop-activity/WorkshopActivity.router'),
+);
+const Invoice = asyncComponent(() => import('./invoice/Invoice.router'));
 
 type Props = {
   refresh: () => void,

@@ -16,9 +16,7 @@ export default function combineReducers(
 ): CompaniesState {
   switch (action.type) {
     case actionTypes.COMPANIES_FETCH_SUCCESS:
-      return state.merge({
-        company: action.company,
-      });
+      return state.set('company', action.company);
 
     default:
       return state;

@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import BookingTable from './BookingTable.component';
-import { paymentPack as paymentPackActions } from '../../actions';
 
 function BookingTableContained(props) {
   return <BookingTable {...props} />;

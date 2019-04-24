@@ -77,7 +77,7 @@ const renderRows = (invoices, members, actions) => {
   }));
 };
 
-const getColumnData = (t) => {
+const getColumnData = (t: TFunction) => {
   return [
     {
       name: 'uuid',
@@ -109,6 +109,17 @@ const getColumnData = (t) => {
 type Props = {
   members: Array<Member>,
   invoices: Array<Invoice>,
+  t: TFunction,
+  finalizeInvoice: (uuid: string) => void,
+  downloadInvoice: (uuid: string) => void,
+  onInvoiceClick: (uuid: string) => void,
+};
+
+type State = {
+  invoices: Array<Invoice>,
+  loading: boolean,
+  ount: numpber,
+  tableState: { page: number },
 };
 
 export class InvoiceTable extends Component<Props> {
@@ -135,6 +146,7 @@ export class InvoiceTable extends Component<Props> {
         }));
       })
       .catch((err) => {
+        console.error(err);
         this.setState({ loading: false });
       });
   }
@@ -149,7 +161,7 @@ export class InvoiceTable extends Component<Props> {
     this.props.downloadInvoice(invoice);
   };
 
-  onRowClick = (rowData, { dataIndex, rowIndex }) => {
+  onRowClick = (rowData, { rowIndex }) => {
     this.props.onInvoiceClick(this.state.invoices[rowIndex].uuid);
   };
 

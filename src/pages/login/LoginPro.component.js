@@ -7,7 +7,7 @@ import { Typography, Button, TextField, withStyles } from '@material-ui/core';
 import { withNamespaces } from 'react-i18next';
 
 import { auth as authActions } from '../../actions';
-import { LoginBase } from '../../components';
+import LoginBase from '../../components/navigation/LoginBase.component';
 
 const styles = (theme) => ({
   container: {

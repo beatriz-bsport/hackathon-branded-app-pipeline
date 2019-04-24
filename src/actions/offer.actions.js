@@ -106,7 +106,7 @@ export function fetchOffersByDay(day: {
 }
 
 export function fetchOfferById(id: number) {
-  return async (dispatch: Dispatch) => {
+return async (dispatch: Dispatch) => {
     dispatch(offerByDay.isLoading(true));
     dispatch(offerByDay.error(null));
 

@@ -23,35 +23,32 @@ export default function authReducer(state = initialState, action = {}) {
       return initialState;
 
     case actionTypes.LOGIN_INITIATED:
-      return Immutable.merge(state, {
-        username: action.username,
-        loading: true,
-        error: false,
-      });
+      return state
+        .set('username', action.username)
+        .set('loading', true)
+        .set('error', false);
 
     case actionTypes.LOGIN_SUCCESSFUL: {
       const { username, token, is_manager, is_coach, is_consumer } = action;
       setAuthToken(token);
-      return Immutable.merge(state, {
-        username,
-        token,
-        is_manager,
-        is_coach,
-        is_consumer,
-        authenticated: true,
-        error: false,
-        loading: false,
-      });
+      return state
+        .set('username', username)
+        .set('token', token)
+        .set('is_manager', is_manager)
+        .set('is_coach', is_coach)
+        .set('is_consumer', is_consumer)
+        .set('authenticated', true)
+        .set('error', false)
+        .set('loading', false);
     }
 
     case actionTypes.LOGIN_FAILED:
-      return Immutable.merge(state, {
-        username: '',
-        token: '',
-        authenticated: false,
-        error: true,
-        loading: false,
-      });
+      return state
+        .set('username', '')
+        .set('token', '')
+        .set('authenticated', false)
+        .set('error', true)
+        .set('loading', false);
 
     default:
       return state;

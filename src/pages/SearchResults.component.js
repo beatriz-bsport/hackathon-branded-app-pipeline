@@ -14,7 +14,6 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Button from '@material-ui/core/Button';
 
 import ResultList from '../components/search/ResultList.component';
-import MemberDetail from '../components/search/MemberDetail.component';
 import SearchBar from '../components/SearchBar.component';
 
 import {
@@ -32,12 +31,7 @@ type Props = {
   member: *,
   selected: number,
   bookings: *[],
-  paymentPacks: *[],
   pushToMember: (memberId: number) => void,
-  confirmBookingAttendance: (id: number) => void,
-  discardBookingAttendance: (id: number) => void,
-  incrementCredit: () => void,
-  decrementCredit: () => void,
   selectEntity: (*) => void,
   t: TFunction,
 };

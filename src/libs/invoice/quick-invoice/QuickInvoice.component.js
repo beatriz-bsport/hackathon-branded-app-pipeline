@@ -27,7 +27,7 @@ import PaymentInfo from './PaymentInfo.component';
 
 type Props = {
   quickInvoiceTitle: string,
-  quickInvoice: { member: Member },
+  quickInvoice: { creditAccount: number, member: Member },
   uneditableInvoiceItems: Array<InvoiceItem>,
   editMode: ?boolean,
   onClose: ?() => void,

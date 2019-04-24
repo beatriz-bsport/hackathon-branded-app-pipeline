@@ -24,14 +24,19 @@ import InvoiceForm from '../../libs/invoice/InvoiceForm.component';
 
 type Props = {
   member: Member,
+
   paymentPacks: Array<PaymentPack>,
   activities: Array<Activity>,
   shopItems: Array<ShopItem>,
+
   goToInvoiceList: () => void,
   createInvoice: () => void,
+  resetCreateOrUpdateStatus: () => void,
+  fetchMember: (id: number) => void,
+  memberId: number,
+
   creatingInvoice: boolean,
   loading: boolean,
-  resetCreateOrUpdateStatus: () => void,
 };
 
 export class InvoiceCreatePage extends Component<Props> {

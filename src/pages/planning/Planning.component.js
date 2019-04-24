@@ -32,7 +32,7 @@ import {
 } from '../../actions';
 import { Moment } from '../../i18n';
 import api from '../../api';
-import type { Offer, Coach, Establishment, PaymentPack } from '../../api/types';
+import type { Offer, Coach, Establishment } from '../../api/types';
 
 import OfferEditForm from '../../libs/offer/OfferEditForm.component';
 import OfferFormWithActivity from '../../libs/offer/OfferFormWithActivity.component';

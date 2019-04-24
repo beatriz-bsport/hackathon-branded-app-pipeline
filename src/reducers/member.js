@@ -31,10 +31,7 @@ function memberReducers(state = initialState, action = {}) {
 
     case actionTypes.HAS_FETCHED_MEMBERS: {
       const all = action.members;
-      return Immutable.merge(state, {
-        all,
-        loading: false,
-      });
+      return state.set('all', all).set('loading', false);
     }
     case actionTypes.START_FETCH_MEMBER_BY_OFFER: {
       return state
@@ -52,60 +49,44 @@ function memberReducers(state = initialState, action = {}) {
 
     case actionTypes.SUCCESS_QUICK_FETCH_MEMBER: {
       const { member } = action;
-      return Immutable.merge(state, {
-        all: [member, ...state.all.filter((m) => m.id !== member.id)],
-        quickFetched: [
+      let idx = state.all.findIndex((m) => m.id === member.id);
+      if (idx === -1) {
+        idx = state.all.length;
+      }
+      return state
+        .setIn(['all', idx], member)
+        .set('quickFetched', [
           member,
           ...state.quickFetched.filter((m) => m.id !== member.id),
-        ],
-      });
+        ]);
     }
 
     case actionTypes.START_FETCH_MEMBERS: {
-      return Immutable.merge(state, {
-        loading: true,
-      });
+      return state.set('loading', true);
     }
     case actionTypes.ERROR_FETCHING_MEMBERS: {
-      return Immutable.merge(state, {
-        loading: false,
-      });
+      return state.set('loading', false);
     }
     case actionTypes.START_FETCH_MEMBER:
-      return Immutable.merge(state, {
-        loading: true,
-      });
+      return state.set('loading', true);
     case actionTypes.ERROR_FETCHING_MEMBER:
-      return Immutable.merge(state, {
-        loading: false,
-      });
+      return state.set('loading', false);
     case actionTypes.HAS_FETCHED_MEMBER: {
       const { member } = action;
-      return Immutable.merge(state, {
-        member,
-        loading: false,
-      });
+      return state.set('member', member).set('loading', false);
     }
 
     case actionTypes.MEMBER_UPSERT_LOADING:
-      return state.merge({
-        upsert: { loading: true, error: null },
-      });
+      return state.set('upsert', { loading: true, error: null });
 
     case actionTypes.MEMBER_CREATE_OR_UPDATE_SUCCESS:
-      return state.merge({
-        upsert: { error: null, loading: false },
-      });
+      return state.set('upsert', { error: null, loading: false });
 
     case actionTypes.MEMBER_CREATE_OR_UPDATE_ERROR:
-      return state.merge({
-        upsert: { error: action.error, loading: false },
-      });
+      return state.set('upsert', { error: action.error, loading: false });
 
     case actionTypes.MEMBER_UPDATE:
-      return state.merge({
-        updatedCoach: action.member,
-      });
+      return state.set('updatedCoach', action.member);
 
     case paymentPackActionTypes.UPDATE_CONSUMER_PACK_CREDIT_DONE: {
       const paymentPacks =
@@ -133,26 +114,22 @@ function memberReducers(state = initialState, action = {}) {
 
     case actionTypes.MEMBER_NOTE_CREATEORUPDATE_SUCCESS: {
       if (state.member.id === action.note.member) {
-        return state.merge({
-          member: {
-            ...state.member,
-            notes: [
-              action.note,
-              ...state.member.notes.filter((n) => n.id !== action.note.id),
-            ],
-          },
+        return state.set('member', {
+          ...state.member,
+          notes: [
+            action.note,
+            ...state.member.notes.filter((n) => n.id !== action.note.id),
+          ],
         });
       }
       return state;
     }
     case actionTypes.MEMBER_NOTE_DELETE_SUCCESS: {
       if (state.member.id === action.memberId) {
-        return state.merge({
-          member: {
-            ...state.member,
-            notes: state.member.notes.filter((n) => n.id !== action.noteId),
-          },
-        });
+        return state.setIn(
+          ['member', 'notes'],
+          state.member.notes.filter((n) => n.id !== action.noteId),
+        );
       }
       return state;
     }

@@ -12,7 +12,9 @@ import type { TFunction } from 'react-i18next';
 import parse from '../../query-string';
 
 import { auth as authActions } from '../../actions';
-import { ConsumerModalContainer, ConsumerLogin } from '../../components';
+
+import ConsumerModalContainer from '../../components/consumer/ConsumerModalContainer.component';
+import ConsumerLogin from '../../components/consumer/login/ConsumerLogin.component';
 import SignUpForm from '../../components/form/SignUpForm.component';
 
 type Props = {

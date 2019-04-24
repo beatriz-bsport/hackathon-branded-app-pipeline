@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 
 import { auth as authActions } from '../../actions';
-import { LoginBase } from '../../components';
+import LoginBase from '../../components/navigation/LoginBase.component';
 
 type Props = {
   resetPassword: (string) => void,

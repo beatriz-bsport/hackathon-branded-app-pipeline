@@ -11,17 +11,14 @@ const initialState = Immutable({
 export default function refreshReducer(state = initialState, action = {}) {
   switch (action.type) {
     case types.REFRESH_STORE_START: {
-      return Immutable.merge(state, {
-        isRefreshing: true,
-        lastUpdate: Moment().unix(),
-      });
+      return state.set('isRefreshing', true).set('lastUpdate', Moment().unix());
     }
     case types.REFRESH_STORE_UNNECESSARY:
     case types.REFRESH_STORE_DONE:
-      return Immutable.merge(state, { isRefreshing: false });
+      return state.set('isRefreshing', false);
 
     case authTypes.DISCONNECT: {
-      return Immutable.merge(state, { lastUpdate: 0, isRefreshing: false });
+      return state.set('lastUpdate', 0).set('isRefreshing', false);
     }
     default:
       return state;

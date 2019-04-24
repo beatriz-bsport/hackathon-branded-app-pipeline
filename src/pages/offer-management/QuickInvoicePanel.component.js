@@ -17,6 +17,8 @@ type Props = {
   shopItems: Array<ShopItem>,
   offers: Array<Offer>,
   activities: Array<Activity>,
+
+  members: Array<Member>,
 };
 
 export function QuickInvoicePanel(props: Props) {

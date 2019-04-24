@@ -49,4 +49,5 @@ export type BookingsState = Immutable<{
   bookingsUpdating: Booking[],
   options: BookingOption[],
   bookingOptionsUpdating: BookingOption[],
+  loading: boolean,
 }>;

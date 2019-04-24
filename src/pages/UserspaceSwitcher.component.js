@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 
 import { Redirect, Route, withRouter } from 'react-router-dom';
 
-import ConsumerHome from './ConsumerHome.component';
-import Backoffice from './Backoffice.component';
+import asyncComponent from '../AsyncComponent';
+
+const ConsumerHome = asyncComponent(() => import('./ConsumerHome.component'));
+const Backoffice = asyncComponent(() => import('./Backoffice.component'));
 
 type Props = {
   authenticated: boolean,

@@ -43,16 +43,6 @@ export class RegisterMemberToOfferForm extends PureComponent<Props> {
     );
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    const { props } = this;
-    return (
-      nextProps.offerId === props.offerId ||
-      nextProps.memberId === props.memberId ||
-      nextProps.loading === props.loading ||
-      nextProps.compatiblePacks.length === props.compatiblePacks.length
-    );
-  }
-
   renderWarning = (text: string) => (
     <Grid container direction="row" spacing={24}>
       <Grid item>

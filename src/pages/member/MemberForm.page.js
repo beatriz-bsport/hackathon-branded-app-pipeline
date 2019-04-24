@@ -3,10 +3,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { Paper } from '@material-ui/core';
 import type { TFunction } from 'react-i18next';
 import { withNamespaces } from 'react-i18next';
-import { CircularProgress } from '@material-ui/core';
+import { Paper, CircularProgress } from '@material-ui/core';
 
 import { goBack } from 'react-router-redux';
 import { compose, withProps } from 'recompose';
@@ -17,6 +16,7 @@ import MemberForm from '../../libs/member/MemberForm.component';
 import { mapFormData, unmap } from '../form.utils';
 
 type Props = {
+  id: ?number,
   initial: *,
   onSubmit: (*) => void,
   onCancel: () => void,
@@ -137,10 +137,15 @@ export default compose(
           !values.zipcode ||
           !values.country
         ) {
+          // eslint-disable-next-line
           delete values.address_line_1;
+          // eslint-disable-next-line
           delete values.address_line_2;
+          // eslint-disable-next-line
           delete values.city;
+          // eslint-disable-next-line
           delete values.zipcode;
+          // eslint-disable-next-line
           delete values.country;
         }
       }

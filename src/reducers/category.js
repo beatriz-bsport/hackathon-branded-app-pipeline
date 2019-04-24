@@ -15,11 +15,10 @@ export default function categoryReducers(state = initialState, action = {}) {
       const SCSs = SCTs.map((sct) => sct.SCS.id)
         .filter((v, i, a) => a.indexOf(v) === i)
         .map((scsId) => SCTs.find((sct) => sct.SCS.id === scsId).SCS);
-      return Immutable.merge(state, {
-        SCTs,
-        SCSs,
-        easyAccesses,
-      });
+      return state
+        .set('SCTs', SCTs)
+        .set('SCSs', SCSs)
+        .set('easyAccesses', easyAccesses);
     }
     default:
       return state;

@@ -40,47 +40,39 @@ function invoiceReducers(state, action) {
       return state.set('error', action.payload);
     }
     case actionTypes.INVOICE_QUICK_CREATE_START:
-      return state.merge({
-        quickInvoicesLoading: true,
-      });
+      return state.set('quickInvoicesLoading', true);
 
     case actionTypes.INVOICE_QUICK_CREATE_SUCCESS:
-      return state.merge({
-        quickInvoices: [...state.quickInvoices, action.invoice],
-        quickInvoicesLoading: false,
-      });
+      return state
+        .setIn(['quickInvoices', state.quickInvoices.length], action.invoice)
+        .set('quickInvoicesLoading', false);
 
     case actionTypes.INVOICE_QUICK_RESET:
       if (action.uuid) {
-        return state.merge({
-          quickInvoiceLoading: false,
-          quickInvoices: state.quickInvoices.filter(
-            (qi) => qi.uuid !== action.uuid,
-          ),
-        });
+        return state
+          .set('quickInvoiceLoading', false)
+          .set(
+            'quickInvoices',
+            state.quickInvoices.filter((qi) => qi.uuid !== action.uuid),
+          );
       }
-      return state.merge({
-        quickInvoiceLoading: false,
-        quickInvoices: [],
-      });
+      return state.set('quickInvoiceLoading', false).set('quickInvoices', []);
 
     case actionTypes.INVOICE_QUICK_CREATE_ERROR:
-      return state.merge({ quickInvoiceLoading: false });
+      return state.set('quickInvoiceLoading', false);
 
     case actionTypes.INVOICE_SPECIFIC_SUCCESS_FETCH:
-      return state.merge({
-        loadingSpecific: false,
-        errorSpecific: false,
-        createOrUpdatePending: false,
-        invoice: action.invoice,
-      });
+      return state
+        .set('loadingSpecific', false)
+        .set('errorSpecific', false)
+        .set('createOrUpdatePending', false)
+        .set('invoice', action.invoice);
 
     case actionTypes.INVOICE_SPECIFIC_START_FETCH:
-      return state.merge({
-        loadingSpecific: true,
-        errorSpecific: false,
-        invoice: null,
-      });
+      return state
+        .set('loadingSpecific', true)
+        .set('errorSpecific', false)
+        .set('invoice', null);
 
     case actionTypes.INVOICE_SPECIFIC_ERROR_FETCHING:
       return state.merge({

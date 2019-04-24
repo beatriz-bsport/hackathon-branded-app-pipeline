@@ -14,7 +14,7 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push as pushRouter } from 'react-router-redux';
 
-import { LoginBase } from '../../components';
+import LoginBase from '../../components/navigation/LoginBase.component';
 import api from '../../api';
 import { snackbarSuccess } from '../../actions/snackbar.actions';
 

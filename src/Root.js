@@ -8,10 +8,20 @@ import { Route, Switch } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import { LinearProgress } from '@material-ui/core';
 
-import UserspaceSwitcher from './pages/UserspaceSwitcher.component';
-import ConsumerHome from './pages/ConsumerHome.component';
-import LoginRouter from './pages/login/LoginRouter.component';
-import MarketPlace from './pages/MarketPlace.component';
+import asyncComponent from './AsyncComponent';
+
+const MarketPlace = asyncComponent(() =>
+  import('./pages/MarketPlace.component'),
+);
+const LoginRouter = asyncComponent(() =>
+  import('./pages/login/LoginRouter.component'),
+);
+const UserspaceSwitcher = asyncComponent(() =>
+  import('./pages/UserspaceSwitcher.component'),
+);
+const ConsumerHome = asyncComponent(() =>
+  import('./pages/ConsumerHome.component'),
+);
 
 const styles = () => ({
   root: {

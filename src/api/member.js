@@ -15,7 +15,7 @@ export async function fetchAllMembers({ page }) {
 }
 
 export async function fetchByOffer(offerId) {
-  return getAuth(`${API_URI}/saas/members/offer/${offerId}`);
+  return getAuth(`${API_URI}/saas/members/offer/${offerId}/`);
 }
 
 export async function quickFetch(memberId: number) {

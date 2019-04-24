@@ -80,15 +80,15 @@ const PlanningWithDateAndOffer = compose(
   }),
   withProps(({ replaceRouter, fetchOffersByDay }) => ({
     loadDayData: (dateClicked) => {
+      replaceRouter(
+        `/calendar/${dateClicked.year()}/${dateClicked.month() +
+          1}/${dateClicked.date()}`,
+      );
       fetchOffersByDay({
         year: dateClicked.year(),
         month: dateClicked.month() + 1,
         day: dateClicked.date(),
       });
-      replaceRouter(
-        `/calendar/${dateClicked.year()}/${dateClicked.month() +
-          1}/${dateClicked.date()}`,
-      );
     },
   })),
   withProps(

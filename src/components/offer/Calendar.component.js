@@ -41,6 +41,15 @@ export class Calendar extends PureComponent<Props, State> {
     this.props.onDateClick(this.props.date);
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    const { state, props } = this;
+    return (
+      nextState.displayMode !== state.displayMode ||
+      String(nextProps.date) !== String(props.date) ||
+      props.events.length !== nextProps.events.length
+    );
+  }
+
   static defaultProps = {
     events: {},
   };
@@ -134,6 +143,7 @@ export class Calendar extends PureComponent<Props, State> {
     const { date } = this.props;
     const { classes } = this.props;
     const isSelected = day.isSame(date, 'days');
+    console.log('rendering day ', date);
 
     return (
       <Grid item>

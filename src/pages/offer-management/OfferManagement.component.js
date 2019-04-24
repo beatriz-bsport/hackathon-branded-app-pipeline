@@ -393,7 +393,7 @@ export class OfferManagement extends Component<Props, State> {
             createInvoice={this.createInvoice}
             closeQuickInvoice={this.closeQuickInvoice}
             saveQuickInvoice={this.saveQuickInvoice}
-            paymentPacks={this.props.paymentPacks}
+            paymentPacks={this.props.paymentPacks.filter((pp) => !pp.disabled)}
             shopItems={this.props.shopItems}
             offers={this.props.offers}
             activities={this.props.activities}

@@ -1,4 +1,4 @@
-import Immutable from 'seamless-immutable';
+import Immutable from 'seamless-immutable/seamless-immutable.production.min';
 
 import actionTypes from '../actions/member.types';
 import authActionTypes from '../actions/auth.types';
@@ -34,9 +34,7 @@ function memberReducers(state = initialState, action = {}) {
       return state.set('all', all).set('loading', false);
     }
     case actionTypes.START_FETCH_MEMBER_BY_OFFER: {
-      return state
-        .setIn(['byOffer', 'loading'], true)
-        .setIn(['byOffer', 'items'], []);
+      return state.set('byOffer', { loading: true, items: [] });
     }
     case actionTypes.ERROR_FETCH_MEMBER_BY_OFFER: {
       return state.setIn(['byOffer', 'loading'], false);

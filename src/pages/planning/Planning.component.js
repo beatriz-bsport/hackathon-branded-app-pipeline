@@ -424,7 +424,9 @@ export class Planning extends PureComponent<Props, State> {
                           Moment(o.date_start).isSame(Moment(date), 'day'),
                         )}
                         activities={activities}
-                        loading={timetableLoading}
+                        loading={
+                          timetableLoading && (offers || []).length === 0
+                        }
                         selected={selectedOffer ? selectedOffer.id : null}
                       />
                     </Grid>

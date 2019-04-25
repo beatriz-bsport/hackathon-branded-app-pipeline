@@ -86,15 +86,13 @@ export const offerByDay = {
   reset: createAction('OFFER/DAY/RESET'),
 };
 
-export function fetchOffersByDay(day: {
+export function refreshOffersByDay(day: {
   year: number,
   month: number,
   day: number,
 }) {
   return async (dispatch: Dispatch) => {
-    dispatch(offerByDay.isLoading(true));
     dispatch(offerByDay.error(null));
-
     try {
       const response = await api.offer.fetchOffersByDay(day);
       dispatch(offerByDay.success(response.data));
@@ -105,8 +103,19 @@ export function fetchOffersByDay(day: {
   };
 }
 
+export function fetchOffersByDay(day: {
+  year: number,
+  month: number,
+  day: number,
+}) {
+  return async (dispatch: Dispatch) => {
+    dispatch(offerByDay.isLoading(true));
+    dispatch(refreshOffersByDay(day));
+  };
+}
+
 export function fetchOfferById(id: number) {
-return async (dispatch: Dispatch) => {
+  return async (dispatch: Dispatch) => {
     dispatch(offerByDay.isLoading(true));
     dispatch(offerByDay.error(null));
 

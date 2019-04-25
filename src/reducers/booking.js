@@ -26,6 +26,7 @@ function updateOptions(
     (o) => !o.cancelled,
   );
 }
+
 const initialState = Immutable({
   loading: false,
   all: [],

@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 
 import type { TFunction } from 'react-i18next';
+import MUILinearProgress from '@material-ui/core/LinearProgress';
 import {
   booking as bookingActions,
   member as memberActions,
@@ -63,6 +64,7 @@ export class Member extends Component<Props> {
       <div style={{ height: '100%' }}>
         <Grid container direction="column" spacing={16}>
           <Grid item xs={12}>
+            {memberLoading ? <MUILinearProgress /> : null}
             <MemberDetail
               memberId={this.props.id}
               bookingLoading={this.props.bookingLoading}

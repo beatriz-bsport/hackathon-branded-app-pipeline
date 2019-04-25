@@ -29,7 +29,7 @@ type Props = {
   goToInvoiceList: () => void,
   createInvoice: () => void,
   resetCreateOrUpdateStatus: () => void,
-  goToMemberPage: () => void,
+  goToMemberPage: (id) => void,
 
   creatingInvoice: boolean,
   loading: boolean,
@@ -54,6 +54,7 @@ export class InvoiceCreatePage extends Component<Props> {
       creatingInvoice,
       loading,
       goToMemberPage,
+      id,
     } = this.props;
     if (member === null || loading) {
       return <CircularProgress />;
@@ -69,7 +70,7 @@ export class InvoiceCreatePage extends Component<Props> {
         uneditableInvoiceItems={[]}
         onCancel={goToInvoiceList}
         processing={creatingInvoice}
-        goToMemberPage={goToMemberPage}
+        goToMemberPage={() => goToMemberPage(id)}
       />
     );
   }
@@ -89,7 +90,7 @@ function mapStateToProps(state, nextProps) {
   };
 }
 
-function mapDispatchToProps(dispatch, { id }) {
+function mapDispatchToProps(dispatch) {
   return {
     goToInvoiceList() {
       dispatch(pushRouter('/invoice'));
@@ -100,7 +101,7 @@ function mapDispatchToProps(dispatch, { id }) {
     resetCreateOrUpdateStatus() {
       dispatch(invoiceActions.createOrUpdateReset());
     },
-    goToMemberPage() {
+    goToMemberPage(id) {
       dispatch(pushRouter(`/member/${id}`));
     },
   };

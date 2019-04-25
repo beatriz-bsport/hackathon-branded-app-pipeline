@@ -45,7 +45,7 @@ const MemberMap = {
 export class MemberFormPage extends Component<Props> {
   async componentDidMount() {
     if (this.props.id) {
-      this.props.fetchMemberInitial();
+      this.props.fetchMemberInitial(this.props.id);
     }
   }
 
@@ -99,9 +99,9 @@ function mapStateToProps(state, nextProps) {
       id !== null ? state.member.quickFetched.find((m) => m.id === id) : null,
   };
 }
-function mapDispatchToProps(dispatch, { id }) {
+function mapDispatchToProps(dispatch) {
   return {
-    fetchMemberInitial() {
+    fetchMemberInitial(id) {
       dispatch(quickFetch(id));
     },
     upsertMember(data, options) {

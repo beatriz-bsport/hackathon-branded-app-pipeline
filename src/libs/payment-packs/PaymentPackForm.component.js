@@ -235,7 +235,9 @@ const PackSchema = Yup.object().shape({
   name: Yup.string().required(),
   price: Yup.number().min(0),
   tax: Yup.number().min(0),
-  credits: Yup.number().min(0).nullable(),
+  credits: Yup.number()
+    .min(0)
+    .nullable(),
   timeType: Yup.string().required(),
   duration_days: Yup.number().when('timeType', {
     is: VALID_BY_DURATION,
@@ -330,8 +332,8 @@ export default compose(
       if (values.timeType === VALID_BY_DATERANGE) {
         data.duration_days = null;
         data.validity_daterange = {
-          lower: values.lower_date,
-          upper: values.upper_date,
+          lower: Moment(values.lower_date).format('DD/MM/YYYY'),
+          upper: Moment(values.upper_date).format('DD/MM/YYYY'),
         };
       } else {
         data.duration_days = values.duration_days;

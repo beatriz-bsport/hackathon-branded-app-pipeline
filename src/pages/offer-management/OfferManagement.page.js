@@ -81,7 +81,7 @@ function mapDispatchToProps(dispatch) {
     discardOption(optionId) {
       dispatch(bookingActions.discardBookingOption(optionId));
     },
-    createMember(data, options, offerId) {
+    createMember(data, options) {
       dispatch(
         createOrUpdateMember(
           data,

@@ -9,27 +9,28 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 
-import type { Member, Booking, PaymentPack, Invoice } from '../../api/types';
+import type { Member, Booking, PaymentPack } from '../../api/types';
 
 import BookingItemForManager from './BookingItemForManager.component';
 import BookingOptionForManager from './BookingOptionForManager.component';
 
 type Props = {
   classes: Object,
-  t: (x: string) => string,
+  t: TFunction,
 
   loading: boolean,
   redirectToMember: ?boolean,
   showRevertBookingButton: boolean,
   showQuickInvoiceButton: boolean,
   heading: ?string,
+  newTab: ?boolean, // how to open member
 
   sortedBy: ?string,
   bookings: Array<Object>,
   members: Array<Member>,
   bookingOptions: Array<Object>,
-  invoices: Array<Invoice>,
   paymentPacks: Array<PaymentPack>,
 
   discardOption: (id: number) => void,

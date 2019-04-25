@@ -20,8 +20,8 @@ type Props = {
   t: (x: string) => string,
 };
 class EnhancedTableHead extends React.Component<Props> {
-  createSortHandler = (property) => (event) => {
-    this.props.onRequestSort(event, property);
+  createSortHandler = (property, dataType) => (event) => {
+    this.props.onRequestSort(event, property, dataType);
   };
 
   renderColumn = (column) => {
@@ -42,7 +42,7 @@ class EnhancedTableHead extends React.Component<Props> {
             <TableSortLabel
               active={orderBy === column.id}
               direction={order}
-              onClick={this.createSortHandler(column.id)}
+              onClick={this.createSortHandler(column.id, column.dataType)}
             >
               {column.label}
             </TableSortLabel>

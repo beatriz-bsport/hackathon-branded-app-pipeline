@@ -13,6 +13,7 @@ export default {
   addMember: 'Ajouter une fiche de membre',
   noNoteSaved: 'Aucune note enregistrée',
   showNotes: 'Voir les notes',
+  creditAccountBalance: 'Accompte crédit restant',
   showPaymentPack: 'Voir les abonnements',
   showInvoices: 'Voir les factures',
   row: {

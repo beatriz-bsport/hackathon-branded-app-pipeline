@@ -104,15 +104,16 @@ export class Member extends Component<Props, State> {
     // prettier-ignore
     const bookingOptionsFuture = bookingOptions.filter(
       (b) => Moment(b.offer.date_start).isAfter(Moment()),
-      );
+    );
     const nextBookingDate = member.next_booking;
+    const nbBookings = bookingLoading ? '...' : bookingsFuture.length;
     return (
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <Grid container direction="row" justify="space-between">
             <Grid item>
               <Typography className={classes.headingExpansionPanel}>
-                {`${t('member.showNextBooking')} (${bookingsFuture.length})`}
+                {`${t('member.showNextBooking')} (${nbBookings})`}
               </Typography>
             </Grid>
             <Grid item>
@@ -158,13 +159,14 @@ export class Member extends Component<Props, State> {
       (b) => Moment(b.date_start).isBefore(Moment()),
       );
     const previousBookingDate = member.previous_booking;
+    const nbBookings = bookingLoading ? '...' : bookingsPast.length;
     return (
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <Grid container direction="row" justify="space-between">
             <Grid item>
               <Typography className={classes.headingExpansionPanel}>
-                {`${t('member.showPreviousBooking')} (${bookingsPast.length})`}
+                {`${t('member.showPreviousBooking')} (${nbBookings})`}
               </Typography>
             </Grid>
             <Grid item>

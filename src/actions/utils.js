@@ -44,7 +44,7 @@ export function createListHandler(objectName: string, endpoint: *) {
           return state.set('error', payload);
         },
         [listActions.fetchedPage]: (state, { payload }) => {
-          return state.set('all', [...state.all, ...payload]);
+          return state.set('all', state.all.concat(payload));
         },
       },
       initialState,

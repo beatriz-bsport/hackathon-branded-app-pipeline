@@ -108,7 +108,6 @@ const getColumnData = (t: TFunction) => {
 
 type Props = {
   members: Array<Member>,
-  invoices: Array<Invoice>,
   t: TFunction,
   finalizeInvoice: (uuid: string) => void,
   downloadInvoice: (uuid: string) => void,
@@ -122,7 +121,7 @@ type State = {
   tableState: { page: number },
 };
 
-export class InvoiceTable extends Component<Props> {
+export class InvoiceTable extends Component<Props, State> {
   state = {
     invoices: [],
     loading: true,
@@ -139,11 +138,11 @@ export class InvoiceTable extends Component<Props> {
         pageSize: INVOICE_PER_PAGE,
       })
       .then((response) => {
-        this.setState((prevState) => ({
+        this.setState({
           invoices: response.data.results,
           count: response.data.count,
           loading: false,
-        }));
+        });
       })
       .catch((err) => {
         console.error(err);

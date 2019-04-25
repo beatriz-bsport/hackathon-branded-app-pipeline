@@ -15,20 +15,17 @@ import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 
-import { formatAsDate, formatAsDatetime } from '../../datetime';
+import { formatAsDate } from '../../datetime';
 import { FeatureTable } from '../../components';
 import type { Member } from '../../api/types';
 import withDrawer from '../../hocs/with-drawer.hoc';
 import withBottomButtons from '../../hocs/inject-bottom-buttons';
-import { memberFetcher } from '../../actions';
 
 type Props = {
   t: TFunction,
   loading: boolean,
   members: Array<Member>,
   goToMemberPage: (memberId: number) => void,
-  fetchMember: (id: number) => void,
-  detailedMembers: Array<MemberDetailed>,
 };
 const getColumnData = (t) => {
   return [
@@ -36,6 +33,7 @@ const getColumnData = (t) => {
       id: 'name',
       label: t('common.name'),
       sortable: true,
+      dataType: 'text',
     },
     {
       id: 'date_joined',
@@ -43,8 +41,8 @@ const getColumnData = (t) => {
       sortable: true,
     },
     {
-      id: 'status',
-      label: t('booking.lastBooking'),
+      id: 'credit_account_balance',
+      label: t('member.creditAccountBalance'),
       sortable: true,
     },
     {
@@ -53,48 +51,33 @@ const getColumnData = (t) => {
     },
   ];
 };
-const renderRow = (t, fetchMember, detailedMembers, goToMemberPage) => (
+const renderRow = (t, goToMemberPage) => (
   member: Member,
   handleClick: () => void,
   isSelected: boolean,
 ) => {
-  fetchMember(member.id);
-
-  const detailedMember = detailedMembers.find((m) => m.id === member.id);
-  let status = <Typography> - </Typography>;
-  const date_joined = detailedMember
-    ? formatAsDate(detailedMember.date_joined)
-    : '  -  ';
-
-  if (detailedMember) {
-    status = detailedMember.next_booking ? (
-      <Typography color="primary">
-        {formatAsDatetime(detailedMember.next_booking)}
-      </Typography>
-    ) : (
-      <Typography color="error">
-        {detailedMember.previous_booking
-          ? formatAsDatetime(detailedMember.previous_booking)
-          : t('common.nothing')}
-      </Typography>
-    );
-  }
+  const { credit_account_balance, date_joined, name, id } = member;
+  const credit = credit_account_balance || 0;
   return (
     <TableRow
       hover
-      onClick={() => goToMemberPage(member.id)}
+      onClick={() => goToMemberPage(id)}
       aria-checked={isSelected}
       tabIndex={-1}
-      key={member.id}
+      key={id}
       selected={isSelected}
     >
       <TableCell component="th" scope="row">
-        {member.name}
+        {name}
       </TableCell>
-      <TableCell>{date_joined}</TableCell>
-      <TableCell>{status}</TableCell>
+      <TableCell>{formatAsDate(date_joined)}</TableCell>
       <TableCell>
-        <Button onClick={() => goToMemberPage(member.id)} color="primary">
+        <Typography color={credit >= 0 ? 'primary' : 'error'}>
+          {credit.toFixed(2)} €
+        </Typography>
+      </TableCell>
+      <TableCell>
+        <Button onClick={() => goToMemberPage(id)} color="primary">
           {t('common.show')}
         </Button>
       </TableCell>
@@ -103,14 +86,7 @@ const renderRow = (t, fetchMember, detailedMembers, goToMemberPage) => (
 };
 
 export function Members(props: Props) {
-  const {
-    loading,
-    members,
-    t,
-    fetchMember,
-    detailedMembers,
-    goToMemberPage,
-  } = props;
+  const { loading, members, t, goToMemberPage } = props;
 
   const mutableMembers = members.asMutable ? members.asMutable() : members;
 
@@ -122,12 +98,7 @@ export function Members(props: Props) {
             data={mutableMembers}
             order="desc"
             orderBy="date_joined"
-            renderRow={renderRow(
-              t,
-              fetchMember,
-              detailedMembers,
-              goToMemberPage,
-            )}
+            renderRow={renderRow(t, goToMemberPage)}
             columnData={getColumnData(props.t)}
             loading={loading}
           />
@@ -144,11 +115,9 @@ export default compose(
     (state) => ({
       loading: state.member.loading,
       members: state.member.all,
-      detailedMembers: state.memberFetcher.details,
     }),
     {
       goToMemberPage: (id: number) => push(`/member/${id}`),
-      fetchMember: memberFetcher.fetchIfOld,
     },
   ),
   withBottomButtons({

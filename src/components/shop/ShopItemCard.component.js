@@ -208,7 +208,7 @@ export class ShopItemCard extends PureComponent<Props, State> {
 
   renderProvisionHistory = () => {
     const { t, classes, item, deleteProvisionUpdate } = this.props;
-    if (item.unlimited_provisions) {
+    if (item.unlimited_provisions || true) {
       return <div />;
     }
     const { provision_updates } = item;
@@ -300,7 +300,7 @@ export class ShopItemCard extends PureComponent<Props, State> {
               justify="space-between"
               alignItems="center"
             >
-              {item.unlimited_provisions ? (
+              {item.unlimited_provisions || true ? (
                 <Grid item />
               ) : (
                 <Grid item>
@@ -332,7 +332,7 @@ export class ShopItemCard extends PureComponent<Props, State> {
                 >
                   <DeleteIcon />
                 </IconButton>
-                {item.unlimited_provisions ? null : (
+                {item.unlimited_provisions || true ? null : (
                   <IconButton onClick={this.handleOpenMenu}>
                     <MoreVertIcon />
                   </IconButton>

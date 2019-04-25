@@ -44,6 +44,7 @@ type Props = ExternalProps & {
   t: TFunction,
   setSelectedForDeletion: (?ReportConfiguration) => void,
   selectedForDeletion: ?ReportConfiguration,
+  selectedCategory: ?ReportConfiguration,
   onCancelDeletion: () => void,
   onConfirmDeletion: () => void,
 };

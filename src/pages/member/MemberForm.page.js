@@ -18,6 +18,7 @@ import { mapFormData, unmap } from '../form.utils';
 type Props = {
   id: ?number,
   initial: *,
+  fetchMemberInitial: () => void,
   onSubmit: (*) => void,
   onCancel: () => void,
 };
@@ -44,7 +45,7 @@ const MemberMap = {
 export class MemberFormPage extends Component<Props> {
   async componentDidMount() {
     if (this.props.id) {
-      this.props.fetchMemberInitial(this.props.id);
+      this.props.fetchMemberInitial();
     }
   }
 
@@ -98,9 +99,9 @@ function mapStateToProps(state, nextProps) {
       id !== null ? state.member.quickFetched.find((m) => m.id === id) : null,
   };
 }
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch, { id }) {
   return {
-    fetchMemberInitial(id) {
+    fetchMemberInitial() {
       dispatch(quickFetch(id));
     },
     upsertMember(data, options) {

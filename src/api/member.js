@@ -8,7 +8,7 @@ import {
   putAuth,
 } from '../http';
 
-const PAGE_SIZE = 3000;
+const PAGE_SIZE = 2000;
 
 export async function fetchAllMembers({ page }) {
   return getAuth(

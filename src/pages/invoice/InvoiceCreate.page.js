@@ -11,10 +11,7 @@ import { compose } from 'recompose';
 import type { TFunction } from 'react-i18next';
 import { Moment } from '../../i18n';
 import { formatAsDate } from '../../datetime';
-import {
-  member as memberActions,
-  invoice as invoiceActions,
-} from '../../actions';
+import { invoice as invoiceActions } from '../../actions';
 
 import type { Member } from '../../api/types';
 import type { InvoiceDataFront } from '../../components/form/types';
@@ -32,8 +29,7 @@ type Props = {
   goToInvoiceList: () => void,
   createInvoice: () => void,
   resetCreateOrUpdateStatus: () => void,
-  fetchMember: (id: number) => void,
-  memberId: number,
+  goToMemberPage: () => void,
 
   creatingInvoice: boolean,
   loading: boolean,
@@ -41,7 +37,6 @@ type Props = {
 
 export class InvoiceCreatePage extends Component<Props> {
   componentDidMount() {
-    this.props.fetchMember(this.props.memberId);
     this.props.resetCreateOrUpdateStatus();
   }
 
@@ -58,6 +53,7 @@ export class InvoiceCreatePage extends Component<Props> {
       shopItems,
       creatingInvoice,
       loading,
+      goToMemberPage,
     } = this.props;
     if (member === null || loading) {
       return <CircularProgress />;
@@ -73,6 +69,7 @@ export class InvoiceCreatePage extends Component<Props> {
         uneditableInvoiceItems={[]}
         onCancel={goToInvoiceList}
         processing={creatingInvoice}
+        goToMemberPage={goToMemberPage}
       />
     );
   }
@@ -82,9 +79,9 @@ function mapStateToProps(state, nextProps) {
   const { match } = nextProps;
   const id = (match && match.params && +match.params.id) || null;
   return {
-    memberId: id,
+    id,
     loading: state.member.loading,
-    member: state.member.member,
+    member: state.member.all.find((m) => m.id === id),
     activities: state.activity.all,
     paymentPacks: (state.paymentPack.all || []).filter((pp) => !pp.disabled),
     shopItems: state.shop.all,
@@ -92,11 +89,8 @@ function mapStateToProps(state, nextProps) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch, { id }) {
   return {
-    fetchMember(memberId) {
-      dispatch(memberActions.fetchMember(memberId));
-    },
     goToInvoiceList() {
       dispatch(pushRouter('/invoice'));
     },
@@ -105,6 +99,9 @@ function mapDispatchToProps(dispatch) {
     },
     resetCreateOrUpdateStatus() {
       dispatch(invoiceActions.createOrUpdateReset());
+    },
+    goToMemberPage() {
+      dispatch(pushRouter(`/member/${id}`));
     },
   };
 }

@@ -5,7 +5,6 @@ import { createAction } from 'redux-actions';
 import api from '../api';
 import types from './invoice.types';
 import { snackbarSuccess, snackbarError } from './snackbar.actions';
-import { fetchAll as fetchAllPaymentPacks } from './paymentPack.actions';
 import { quickFetch as quickFetchMember } from './member.actions';
 
 import { createListHandler } from './utils';

@@ -49,14 +49,14 @@ type Props = {
 };
 
 export class Member extends Component<Props> {
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchMember(this.props.id);
     this.props.fetchMemberBookings(this.props.id);
   }
 
   render() {
     const { memberLoading, t, classes, member } = this.props;
-    if (memberLoading || !member) {
+    if (!member || (memberLoading && member.id !== this.props.id)) {
       return <LinearProgress />;
     }
     return (

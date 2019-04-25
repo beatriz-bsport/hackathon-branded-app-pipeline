@@ -12,6 +12,7 @@ export default {
   engagement: 'Engagement',
   addMember: 'Add a member profile',
   showNotes: 'Show notes',
+  creditAccountBalance: 'Internal credit account',
   showPaymentPack: 'Show pass',
   showInvoices: 'Show invoices',
   row: {

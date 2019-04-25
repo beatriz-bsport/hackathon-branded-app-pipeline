@@ -6,14 +6,26 @@ import TableBody from '@material-ui/core/TableBody';
 import TablePagination from '@material-ui/core/TablePagination';
 import Paper from '@material-ui/core/Paper';
 import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 
+import LinearProgress from '@material-ui/core/LinearProgress';
+import memoize from 'memoize-one';
 import EnhancedTableToolbar from './EnhancedTableToolbar.component';
 import EnhancedTableHead from './EnhancedTableHead.component';
 
-function getSorting(order: string, orderBy: string) {
+const isInf = memoize((dataType) => {
+  switch (dataType) {
+    case 'text':
+      return (a, b) => String(a).toLowerCase() < String(b).toLowerCase();
+    default:
+      return (a, b) => a < b;
+  }
+});
+
+function getSorting(order: string, orderBy: string, dataType) {
   return order === 'desc'
-    ? (a, b) => (b[orderBy] < a[orderBy] ? -1 : 1)
-    : (a, b) => (a[orderBy] < b[orderBy] ? -1 : 1);
+    ? (a, b) => (isInf(dataType)(b[orderBy], a[orderBy]) ? -1 : 1)
+    : (a, b) => (isInf(dataType)(a[orderBy], b[orderBy]) ? -1 : 1);
 }
 
 const styles = (theme) => ({
@@ -30,7 +42,8 @@ const styles = (theme) => ({
 });
 
 type Props = {
-  t: (x: string) => string,
+  t: TFunction,
+  loading: ?boolean,
   data: *,
   classes: Object,
   renderRow: (Object, () => void, boolean) => Object,
@@ -67,7 +80,7 @@ class MemberTable extends React.Component<Props, State> {
     return `${from}-${to} ${t('pagination.outOf')} ${count}`;
   };
 
-  handleRequestSort = (event, property) => {
+  handleRequestSort = (event, property, dataType) => {
     const orderBy = property;
     let order = 'desc';
 
@@ -75,7 +88,7 @@ class MemberTable extends React.Component<Props, State> {
       order = 'asc';
     }
 
-    this.setState({ order, orderBy });
+    this.setState({ order, orderBy, dataType });
   };
 
   handleSelectAllClick = (event, checked) => {
@@ -122,11 +135,11 @@ class MemberTable extends React.Component<Props, State> {
   renderContent = () => {
     const { data, renderRow } = this.props;
 
-    const { order, orderBy, rowsPerPage, page } = this.state;
+    const { order, orderBy, dataType, rowsPerPage, page } = this.state;
     // prettier-ignore
 
     return data
-      .sort(getSorting(order, orderBy))
+      .sort(getSorting(order, orderBy, dataType))
       .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
       .map((n) => {
         const isSelected = this.isSelected(n.id);
@@ -178,6 +191,7 @@ class MemberTable extends React.Component<Props, State> {
               rowCount={data.length}
               columnData={columnData}
               showCheckboxes={showCheckboxes}
+              loading={this.props.loading}
             />
             <TableBody>{this.renderContent()}</TableBody>
           </Table>
@@ -202,6 +216,9 @@ class MemberTable extends React.Component<Props, State> {
           onChangePage={this.handleChangePage}
           onChangeRowsPerPage={this.handleChangeRowsPerPage}
         />
+        {this.props.loading ? (
+          <LinearProgress style={{ width: '100%' }} />
+        ) : null}
       </Paper>
     );
   }

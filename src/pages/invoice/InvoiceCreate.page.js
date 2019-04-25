@@ -21,6 +21,7 @@ import InvoiceForm from '../../libs/invoice/InvoiceForm.component';
 
 type Props = {
   member: Member,
+  id: number,
 
   paymentPacks: Array<PaymentPack>,
   activities: Array<Activity>,

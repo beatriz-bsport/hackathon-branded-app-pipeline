@@ -48,14 +48,11 @@ export function ShopItemInput(props: Props) {
         <MenuItem value={null}>
           <em> - </em>
         </MenuItem>
-        {shopItems
-          .asMutable()
-          .sort((si, si_) => si.name > si_.name)
-          .map((si) => (
-            <MenuItem value={si.id} key={si.id}>
-              <ShopItemSummary shopItem={si} />
-            </MenuItem>
-          ))}
+        {shopItems.map((si) => (
+          <MenuItem value={si.id} key={si.id}>
+            <ShopItemSummary shopItem={si} />
+          </MenuItem>
+        ))}
       </Select>
       <FormHelperText>{helperText}</FormHelperText>
     </FormControl>

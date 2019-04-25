@@ -142,9 +142,7 @@ export default compose(
     };
   }),
   withDrawer(
-    ({ t, match, member }) =>
-      `${t('payment.invoice')} - ${match.params.id
-        .slice(0, 8)
-        .toUpperCase()} - ${member ? member.name : ''}`,
+    ({ t, match }) =>
+      `${t('payment.invoice')} - ${match.params.id.slice(0, 8).toUpperCase()}`,
   ),
 )(InvoiceFormPage);

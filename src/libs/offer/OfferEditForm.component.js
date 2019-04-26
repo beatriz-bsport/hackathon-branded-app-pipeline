@@ -97,7 +97,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
       isSimilarOfferListExpanded: true,
       step: STEPS.GATHER_INFO,
       modifyRecursively: false,
-      notifyConsumers: true,
+      notifyConsumers: false,
       establishment: props.offer.etablissement.id,
       establishment_override: props.offer.establishment_override
         ? props.offer.establishment_override.id

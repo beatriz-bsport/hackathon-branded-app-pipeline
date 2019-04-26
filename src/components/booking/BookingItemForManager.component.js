@@ -7,6 +7,7 @@ import {
   Button,
   IconButton,
   ListItem,
+  Typography,
   ListItemText,
   Badge,
   ListItemSecondaryAction,
@@ -19,6 +20,7 @@ import type { TFunction } from 'react-i18next';
 import { push as routerPush } from 'react-router-redux';
 import { connect } from 'react-redux';
 import memoize from 'memoize-one';
+import moment from 'moment';
 import { getBookingStatusCode } from './Booking.utils';
 
 import RedButton from '../button/RedButton.component';
@@ -44,6 +46,17 @@ type Props = {
   discardBookingAttendance: () => void,
 };
 
+const getPackEndingDate = (paymentPack, consumerPack) => {
+  const { duration_days, validity_daterange } = paymentPack;
+  if (duration_days) {
+    return moment(consumerPack.date_bought).add(duration_days, 'day');
+  }
+  if (validity_daterange) {
+    return moment(JSON.parse(validity_daterange).upper);
+  }
+  return null;
+};
+
 export class BookingItemForManager extends PureComponent<Props> {
   getStatusStyleProps = (status: ?boolean) => {
     if (status) {
@@ -63,27 +76,39 @@ export class BookingItemForManager extends PureComponent<Props> {
       const payment_pack = this.getPaymentPack(paymentPacks, booking);
 
       if (!consumer_payment_pack) {
-        return [t('common.loading'), 'secondary'];
+        return [[t('common.loading'), 'secondary']];
       }
       if (!payment_pack) {
-        return [t('common.loading'), 'secondary'];
+        return [[t('common.loading'), 'secondary']];
       }
+      const endingDate = getPackEndingDate(payment_pack, consumer_payment_pack);
+      const isEnding =
+        endingDate && endingDate.isBefore(moment().add(6, 'day'));
+      const formattedEndingDate =
+        (endingDate && `expire le ${endingDate.format('YYYY-MM-DD')}`) || '';
+
       if (payment_pack.unlimited) {
-        return [`${payment_pack.name} (illimité)`, 'primary'];
+        return [
+          [payment_pack.name, 'secondary'],
+          [`Illimité ${formattedEndingDate}`, isEnding ? 'error' : 'primary'],
+        ];
       }
       const { available_credits } = consumer_payment_pack;
       const { credits } = payment_pack;
       return [
-        `${payment_pack.name}: ${available_credits}/${credits}${
-          booking.was_refunded ? ` (${t('booking.wasRefunded')})` : ''
-        }`,
-        available_credits / credits < 0.1 ? 'error' : 'primary',
+        [payment_pack.name, 'secondary'],
+        [
+          `Credit: ${available_credits}/${credits}${
+            booking.was_refunded ? ` (${t('booking.wasRefunded')})` : ''
+          }, ${formattedEndingDate}`,
+          available_credits / credits < 0.1 || isEnding ? 'error' : 'primary',
+        ],
       ];
     }
     if (booking.source === 0) {
-      return ['Payé via application bsport', 'primary'];
+      return [['Payé via application bsport', 'primary']];
     }
-    return ['Impayé', 'error'];
+    return [['Impayé', 'error']];
   };
 
   renderButtons = () => {
@@ -173,17 +198,25 @@ export class BookingItemForManager extends PureComponent<Props> {
       default: {
         const credits = parseFloat(member.credit_account_balance);
         let creditsFormatted = '';
+        let creditColor = 'primary';
         if (credits >= 0) {
           creditsFormatted = `${credits.toFixed(1)}€`;
+          creditColor = 'primary';
+        }
+        if (!credits) {
+          creditColor = 'secondary';
         }
         if (credits < 0) {
           creditsFormatted = `${-credits.toFixed(1)}€`;
+          creditColor = 'error';
         }
+
         return (
           <Badge
             badgeContent={creditsFormatted}
-            color={credits >= 0 ? 'primary' : 'error'}
-            className={classes.badge}
+            color={creditColor}
+            colorSecondary={{ color: 'gray' }}
+            classes={{ badge: classes.badge }}
           >
             <Avatar src={booking.user.photo} />
           </Badge>
@@ -209,7 +242,7 @@ export class BookingItemForManager extends PureComponent<Props> {
   render() {
     const { t, booking, redirectToMember } = this.props;
     // <TableCell>{t(`booking.sources.${b.source}`)}</TableCell>
-    const [statusText, color] = this.getStatusText(booking);
+    const bookingStatus = this.getStatusText(booking);
     console.log(`rendering ${booking.id}`);
     return (
       <ListItem
@@ -220,8 +253,14 @@ export class BookingItemForManager extends PureComponent<Props> {
         {this.getAvatar()}
         <ListItemText
           primary={this.getHeading() + getBookingStatusCode(t, booking)}
-          secondary={statusText}
-          secondaryTypographyProps={{ color }}
+          primaryTypographyProps={{ variant: 'subtitle2' }}
+          secondary={
+            <React.Fragment>
+              {bookingStatus.map(([txt, color]) => {
+                return <Typography color={color}>{txt}</Typography>;
+              })}
+            </React.Fragment>
+          }
         />
         {this.renderButtons()}
       </ListItem>
@@ -237,7 +276,7 @@ const styles = (theme) => ({
     marginLeft: theme.spacing.unit,
   },
   badge: {
-    marginLeft: theme.spacing.unit,
+    right: '0%',
   },
 });
 

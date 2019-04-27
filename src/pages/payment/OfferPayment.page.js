@@ -13,7 +13,7 @@ import { compose } from 'recompose';
 import withSnackbar from '../../hocs/with-snackbar.hoc';
 
 import { payment as paymentActions } from '../../actions';
-import { ConsumerModalContainer } from '../../components';
+import ConsumerModalContainer from '../../components/consumer/ConsumerModalContainer.component';
 import type { Offer, ConsumerPaymentPackManagerView } from '../../api/types';
 
 import OfferPaymentForm from './offer/OfferPaymentForm.component';

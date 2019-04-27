@@ -14,7 +14,7 @@ import MyProfile from './consumer/MyProfile.component';
 import OfferPaymentPage from './payment/OfferPayment.page';
 import PaymentPackPaymentPage from './payment/PaymentPackPayment.page';
 
-import { ConsumerMenu } from '../components';
+import ConsumerMenu from '../components/navigation/ConsumerMenu.component';
 
 type Props = {
   t: (x: string) => string,

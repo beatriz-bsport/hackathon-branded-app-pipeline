@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Grid, CircularProgress, withStyles } from '@material-ui/core';
 import { withNamespaces } from 'react-i18next';
 
-import { ConsumerProfile } from '../../components';
+import ConsumerProfile from '../../components/consumer/Profile.component';
 import type { Profile } from '../../api/types';
 
 const styles = () => ({

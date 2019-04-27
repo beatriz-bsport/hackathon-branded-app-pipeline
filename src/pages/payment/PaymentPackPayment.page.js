@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { CircularProgress } from '@material-ui/core';
 import { goBack } from 'react-router-redux';
 import { payment as paymentActions } from '../../actions';
-import { ConsumerModalContainer } from '../../components';
+import ConsumerModalContainer from '../../components/consumer/ConsumerModalContainer.component';
 import parse from '../../query-string';
 import type { PaymentPack } from '../../api/types';
 

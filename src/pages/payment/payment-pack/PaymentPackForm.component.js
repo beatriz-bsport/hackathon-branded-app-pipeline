@@ -16,7 +16,7 @@ import type { TFunction } from 'react-i18next';
 import StripeCheckout from './StripeCheckout.component';
 import PaymentPackSummary from '../../../components/payment-pack/PaymentPackSummary.component';
 import { formatAsDatetime, humanizeDate } from '../../../datetime';
-import { ActivityMinimalSummary } from '../../../components';
+import ActivityMinimalSummary from '../../../components/activity/ActivityMinimalSummary.component';
 import { Moment } from '../../../i18n';
 
 import Config from '../../../config';

@@ -26,7 +26,7 @@ import type {
 } from '../../../api/types';
 import { Moment } from '../../../i18n';
 
-import { ActivityMinimalSummary } from '../../../components';
+import ActivityMinimalSummary from '../../../components/activity/ActivityMinimalSummary.component';
 import { humanizeDate, formatAsDatetime } from '../../../datetime';
 
 type Props = {

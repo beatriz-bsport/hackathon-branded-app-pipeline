@@ -23,9 +23,8 @@ import memoize from 'memoize-one';
 import moment from 'moment';
 import { getBookingStatusCode } from './Booking.utils';
 
-import { formatAsDate } from '../../datetime';
 import RedButton from '../button/RedButton.component';
-import { formatAsDatetime } from '../../datetime';
+import { formatAsDatetime, formatAsDate } from '../../datetime';
 import type { PaymentPack, Booking } from '../../api/types';
 
 type Props = {

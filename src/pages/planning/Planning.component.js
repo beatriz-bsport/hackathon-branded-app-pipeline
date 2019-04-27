@@ -25,7 +25,10 @@ import { push as pushRouter, goBack as goBackRouter } from 'react-router-redux';
 
 import withDrawer from '../../hocs/with-drawer.hoc';
 
-import { OfferCard, TimeTable, Calendar } from '../../components';
+import OfferCard from '../../components/offer/OfferCard.component';
+import TimeTable from '../../components/offer/TimeTable.component';
+import Calendar from '../../components/offer/Calendar.component';
+
 import {
   offer as offerActions,
   activity as activityActions,

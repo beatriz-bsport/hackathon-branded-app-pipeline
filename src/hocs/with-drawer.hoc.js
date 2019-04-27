@@ -47,6 +47,10 @@ const withDrawer = (mapPropsToTitle: () => void) => {
       }
 
       render() {
+        const title = mapPropsToTitle(this.props);
+        if (title !== this.context.title) {
+          this.context.setTitle(title);
+        }
         return <WrappedComponent {...this.props} {...this.context} />;
       }
     }

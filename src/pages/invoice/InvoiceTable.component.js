@@ -82,6 +82,10 @@ const getColumnData = (t: TFunction) => {
     {
       name: 'uuid',
       label: 'ID',
+      options: {
+        filter: false,
+        sort: false,
+      },
     },
     {
       name: 'name',
@@ -98,10 +102,22 @@ const getColumnData = (t: TFunction) => {
     {
       name: 'status',
       label: t('payment.fullyPaid'),
+      options: {
+        download: false,
+        filter: false,
+        sort: false,
+        print: false,
+      },
     },
     {
       name: 'actions',
       label: t('payment.actions'),
+      options: {
+        download: false,
+        filter: false,
+        sort: false,
+        print: false,
+      },
     },
   ];
 };
@@ -174,6 +190,14 @@ export class InvoiceTable extends Component<Props, State> {
       rowsPerPageOptions: [INVOICE_PER_PAGE],
       count: this.state.count,
       tableState: this.state.tableState,
+      filter: false,
+      search: false,
+      sort: false,
+      selectableRows: false,
+      downloadOptions: {
+        filename: 'invoices.csv',
+        separator: ',',
+      },
       textLabels: {
         body: {
           noMatch: loading ? (

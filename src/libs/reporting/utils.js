@@ -30,8 +30,8 @@ export const CATEGORIES: ReportCategory[] = [
   },
   {
     id: 'payments',
-    name: 'Payments',
-    icon: PaymentIcon,
+    name: 'Paiements',
+    icon: CreditCardIcon,
   },
   {
     id: 'products',
@@ -40,8 +40,8 @@ export const CATEGORIES: ReportCategory[] = [
   },
   {
     id: 'invoices',
-    name: 'Paiements',
-    icon: CreditCardIcon,
+    name: 'Achats',
+    icon: ShoppingBasketIcon,
   },
   {
     id: 'memberships',

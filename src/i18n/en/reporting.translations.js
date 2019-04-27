@@ -26,6 +26,9 @@ export default {
     end_date: 'End of validity',
     credits: 'Total credits',
     available_credits: 'Available credits',
+    product_names: 'Products',
+    payment_price: 'price',
+    payment_method_readable_identifier: 'Payment method',
   },
   payment_method: {
     cash: 'Cash',

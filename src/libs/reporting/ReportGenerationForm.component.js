@@ -76,21 +76,27 @@ export function ReportGenerationForm(props: Props) {
   const { t, isSubmitting, reportConfiguration, exportLink, classes } = props;
   return (
     <Form>
-      <Typography variant="subtitle1">{reportConfiguration.name}</Typography>
-      <Grid container spacing={16}>
-        <Grid item xs={6}>
-          <DateField name="dateStart" fullWidth label={t('common.from')} />
-          <AlertError name="dateStart" />
+      <Typography variant="h6">{reportConfiguration.name}</Typography>
+      <Grid container direction="row" justify="space-between">
+        <Grid item>
+          <Grid container spacing={16}>
+            <Grid item xs={6}>
+              <DateField name="dateStart" fullWidth label={t('common.from')} />
+              <AlertError name="dateStart" />
+            </Grid>
+            <Grid item xs={6}>
+              <DateField name="dateEnd" fullWidth label={t('common.until')} />
+              <AlertError name="dateEnd" />
+            </Grid>
+          </Grid>
         </Grid>
-        <Grid item xs={6}>
-          <DateField name="dateEnd" fullWidth label={t('common.until')} />
-          <AlertError name="dateEnd" />
+        <Grid item>
+          <Actions>
+            <DownloadButton exportLink={exportLink} classes={classes} t={t} />
+            <Submit disabled={isSubmitting}>{t('common.generate')}</Submit>
+          </Actions>
         </Grid>
       </Grid>
-      <Actions>
-        <DownloadButton exportLink={exportLink} classes={classes} t={t} />
-        <Submit disabled={isSubmitting}>{t('common.generate')}</Submit>
-      </Actions>
     </Form>
   );
 }
@@ -111,7 +117,7 @@ export default compose(
   withFormik({
     mapPropsToValues: ({ initial }) =>
       initial || {
-        dateStart: moment().subtract(30, 'days'),
+        dateStart: moment().subtract(7, 'days'),
         dateEnd: moment(),
       },
     validationSchema: ReportGenerationSchema,

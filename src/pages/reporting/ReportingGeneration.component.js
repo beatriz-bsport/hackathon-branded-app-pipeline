@@ -81,7 +81,7 @@ export default compose(
     },
   ),
   withState('dateRange', 'setDateRange', {
-    dateStart: moment().subtract(3, 'months'),
+    dateStart: moment().subtract(7, 'days'),
     dateEnd: moment(),
   }),
   withState('exportLink', 'setExportLink', null),

@@ -23,6 +23,7 @@ import memoize from 'memoize-one';
 import moment from 'moment';
 import { getBookingStatusCode } from './Booking.utils';
 
+import { formatAsDate } from '../../datetime';
 import RedButton from '../button/RedButton.component';
 import { formatAsDatetime } from '../../datetime';
 import type { PaymentPack, Booking } from '../../api/types';
@@ -46,15 +47,12 @@ type Props = {
   discardBookingAttendance: () => void,
 };
 
-const getPackEndingDate = (paymentPack, consumerPack) => {
-  const { duration_days, validity_daterange } = paymentPack;
-  if (duration_days) {
-    return moment(consumerPack.date_bought).add(duration_days, 'day');
-  }
-  if (validity_daterange) {
-    return moment(JSON.parse(validity_daterange).upper);
-  }
-  return null;
+const getPackDate = (consumerPack) => {
+  const { ending_date, starting_date } = consumerPack;
+  return [
+    `${formatAsDate(starting_date)}→${formatAsDate(ending_date)}`,
+    moment(ending_date).isBefore(moment().add(6, 'day')),
+  ];
 };
 
 export class BookingItemForManager extends PureComponent<Props> {
@@ -81,16 +79,11 @@ export class BookingItemForManager extends PureComponent<Props> {
       if (!payment_pack) {
         return [[t('common.loading'), 'secondary']];
       }
-      const endingDate = getPackEndingDate(payment_pack, consumer_payment_pack);
-      const isEnding =
-        endingDate && endingDate.isBefore(moment().add(6, 'day'));
-      const formattedEndingDate =
-        (endingDate && `expire le ${endingDate.format('YYYY-MM-DD')}`) || '';
-
+      const [packDates, soonExpired] = getPackDate(consumer_payment_pack);
       if (payment_pack.unlimited) {
         return [
           [payment_pack.name, 'secondary'],
-          [`Illimité ${formattedEndingDate}`, isEnding ? 'error' : 'primary'],
+          [`${packDates} - illimité`, soonExpired ? 'error' : 'primary'],
         ];
       }
       const { available_credits } = consumer_payment_pack;
@@ -98,10 +91,12 @@ export class BookingItemForManager extends PureComponent<Props> {
       return [
         [payment_pack.name, 'secondary'],
         [
-          `Credit: ${available_credits}/${credits}${
-            booking.was_refunded ? ` (${t('booking.wasRefunded')})` : ''
-          }, ${formattedEndingDate}`,
-          available_credits / credits < 0.1 || isEnding ? 'error' : 'primary',
+          ` ${packDates} - ${available_credits}/${credits}${
+            booking.was_refunded ? `, (${t('booking.wasRefunded')})` : ''
+          }`,
+          available_credits / credits < 0.1 || soonExpired
+            ? 'error'
+            : 'primary',
         ],
       ];
     }

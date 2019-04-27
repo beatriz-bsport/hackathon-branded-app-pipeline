@@ -4,11 +4,12 @@ import type { Node } from 'react';
 
 import { ListItem, ListItemText } from '@material-ui/core';
 import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 import { Moment } from '../../i18n';
 import { formatAsDate } from '../../datetime';
 
 type Props = {
-  t: (x: string) => string,
+  t: TFunction,
   paymentPack: Object,
   noDivider: boolean,
   buyButton: ?Node,
@@ -21,6 +22,8 @@ export function PaymentPackMinimalSummary(props: Props) {
     credits,
     validity_daterange,
     duration_days,
+    duration_months,
+    duration_years,
     unlimited,
     price,
   } = paymentPack;
@@ -30,11 +33,14 @@ export function PaymentPackMinimalSummary(props: Props) {
     : `${t('paymentPack.credits')}: ${credits}`;
 
   let dateInfo = '';
-  if (duration_days) {
-    dateInfo = `${t('paymentPack.validForNdays1')} ${duration_days} ${t(
-      'paymentPack.validForNdays2',
-    )}`;
-  } else {
+  if (duration_days || duration_months || duration_years) {
+    dateInfo = t('paymentPack.validForDuration')(
+      duration_days,
+      duration_months,
+      duration_years,
+    );
+  }
+  if (validity_daterange) {
     dateInfo = `${t('paymentPack.validity')} ${formatAsDate(
       Moment(validity_daterange.lower),
     )} - ${formatAsDate(Moment(JSON.parse(validity_daterange).upper))}`;

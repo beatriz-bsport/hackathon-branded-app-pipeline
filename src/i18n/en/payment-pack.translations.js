@@ -16,6 +16,10 @@ export default {
     expiresOn: 'Expires on ',
     bookingsThisWeek: 'réservations cette semaine',
   },
+  validForDuration: (days, months, years) =>
+    `${days ? `${days} days ` : ''}${months ? `${months} months ` : ''}${
+      years ? `${years} year` : ''
+    }`,
   maxNBookingsByWeek1: 'Max ',
   maxNBookingsByWeek2: ' bookings per week',
   validity: 'Validity :',

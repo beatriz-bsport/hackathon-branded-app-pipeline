@@ -140,6 +140,20 @@ export function PaymentPackForm(props: Props) {
                   type="number"
                   fullWidth
                 />
+                <TextField
+                  name="duration_months"
+                  label={t('form.paymentPack.durationMonths')}
+                  helperText={t('form.paymentPack.durationMonthsHelperText')}
+                  type="number"
+                  fullWidth
+                />
+                <TextField
+                  name="duration_years"
+                  label={t('form.paymentPack.durationYears')}
+                  helperText={t('form.paymentPack.durationYearsHelperText')}
+                  type="number"
+                  fullWidth
+                />
               </Collapse>
               <Collapse in={timeType === VALID_BY_DATERANGE}>
                 <DateField
@@ -242,7 +256,25 @@ const PackSchema = Yup.object().shape({
   duration_days: Yup.number().when('timeType', {
     is: VALID_BY_DURATION,
     then: Yup.number()
-      .min(1)
+      .min(0)
+      .required(),
+    otherwise: Yup.number()
+      .min(0)
+      .nullable(),
+  }),
+  duration_months: Yup.number().when('timeType', {
+    is: VALID_BY_DURATION,
+    then: Yup.number()
+      .min(0)
+      .required(),
+    otherwise: Yup.number()
+      .min(0)
+      .nullable(),
+  }),
+  duration_years: Yup.number().when('timeType', {
+    is: VALID_BY_DURATION,
+    then: Yup.number()
+      .min(0)
       .required(),
     otherwise: Yup.number()
       .min(0)
@@ -286,7 +318,9 @@ export default compose(
           tax: 0,
           credits: '',
           timeType: `${VALID_BY_DURATION}`,
-          duration_days: 30,
+          duration_days: 0,
+          duration_months: 1,
+          duration_years: 0,
           max_bookings_per_week: null,
           lower_date: Moment(),
           upper_date: Moment().add('days', 365),
@@ -300,15 +334,15 @@ export default compose(
           ...initial,
           categories: initial.categories.map((c) => c.id),
           establishments: initial.establishments || [],
-          timeType: initial.duration_days
-            ? VALID_BY_DURATION
-            : VALID_BY_DATERANGE,
-          lower_date: initial.duration_days
-            ? Moment()
-            : Moment(JSON.parse(initial.validity_daterange).lower),
-          upper_date: initial.duration_days
-            ? Moment().add('days', 365)
-            : Moment(JSON.parse(initial.validity_daterange).upper),
+          timeType: initial.validity_daterange
+            ? VALID_BY_DATERANGE
+            : VALID_BY_DURATION,
+          lower_date: initial.validity_daterange
+            ? Moment(JSON.parse(initial.validity_daterange).lower)
+            : Moment(),
+          upper_date: initial.validity_daterange
+            ? Moment(JSON.parse(initial.validity_daterange).upper)
+            : Moment().add('days', 365),
         }) ||
           {},
       ),
@@ -331,14 +365,19 @@ export default compose(
 
       if (values.timeType === VALID_BY_DATERANGE) {
         data.duration_days = null;
+        data.duration_months = null;
+        data.duration_years = null;
         data.validity_daterange = {
           lower: Moment(values.lower_date).format('DD/MM/YYYY'),
           upper: Moment(values.upper_date).format('DD/MM/YYYY'),
         };
       } else {
         data.duration_days = values.duration_days;
+        data.duration_months = values.duration_months;
+        data.duration_years = values.duration_years;
         data.validity_daterange = null;
       }
+      console.log(data);
       onSubmit(data, {
         onSuccess: () => setSubmitting(false),
         onError: () => setSubmitting(false),

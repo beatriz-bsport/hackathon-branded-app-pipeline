@@ -110,7 +110,7 @@ export class InvoiceItemSelector extends Component<Props, State> {
         </Grid>
         <Grid item>
           <DatePicker
-            disabled={!(selectedPaymentPack || {}).duration_days}
+            disabled={(selectedPaymentPack || {}).validity_daterange}
             value={this.state.date_bought}
             onChange={(date_bought) =>
               this.setState({ date_bought: Moment(date_bought) })

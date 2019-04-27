@@ -1,11 +1,11 @@
 export default {
   newMemberOnly: 'Disponible uniquement aux nouveaux inscrits',
-  publicPacksTitle: 'Abonnements disponibles à l\'achat',
-  privatePacksTitle: 'Abonnements non disponibles à l\'achat',
+  publicPacksTitle: "Abonnements disponibles à l'achat",
+  privatePacksTitle: "Abonnements non disponibles à l'achat",
   subscribeToOffer: 'Inscrire',
   createOrUpdate: {
     success: 'Abonnement enregistré',
-    fail: 'Erreur lors de l\'enregistrement de l\'abonnement',
+    fail: "Erreur lors de l'enregistrement de l'abonnement",
   },
   disabled: 'Désactivé',
   disableConsumer: 'Bloquer',
@@ -17,6 +17,10 @@ export default {
     expiresOn: 'Expire le ',
     bookingsThisWeek: 'réservation(s) cette semaine',
   },
+  validForDuration: (days, months, years) =>
+    `${days ? `${days} jour ` : ''}${months ? `${months} mois ` : ''}${
+      years ? `${years} année` : ''
+    }`,
   validForNdays1: 'Valide ',
   validForNdays2: ' jours après achat',
   validFrom: 'Valide du ',

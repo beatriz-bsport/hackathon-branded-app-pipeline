@@ -144,12 +144,14 @@ export class PaymentPackCard extends Component<Props> {
 
   renderTimeInfo = () => {
     const { pack, t } = this.props;
-    if (pack.duration_days) {
+    if (!pack.validity_daterange) {
       return (
         <Typography>
-          {t('paymentPack.validForNdays1')}
-          <b>{pack.duration_days}</b>
-          {t('paymentPack.validForNdays2')}
+          {t('paymentPack.validForDuration')(
+            pack.duration_days,
+            pack.duration_months,
+            pack.duration_years,
+          )}
         </Typography>
       );
     }

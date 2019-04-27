@@ -176,8 +176,8 @@ export default {
       noConsumerPackAvailableForPurchase:
         'No pass available for this session !',
       backToCalendar: 'Calendar',
-      previousOffer: 'Previous',
-      nextOffer: 'Next',
+      previousOffer: 'Previous session',
+      nextOffer: 'Next session',
       compatiblePacks: 'Pass compatible',
       noCompatiblePacks: 'There is no pass compatible with this session',
       substitute: 'Substitute',

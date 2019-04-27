@@ -57,6 +57,7 @@ type Props = {
   compatiblePacks: Array<PaymentPack>,
   unevenSavedInvoices: Array<Invoice>,
 
+  goToOffer: (id: number) => void,
   fetchCompatiblePacks: (offerId: number) => void,
   createMember: (data: [*], options: *, offerId: number) => void,
   createInvoice: ([*], number, number) => void,

@@ -194,8 +194,8 @@ export default {
       noConsumerPackAvailableForPurchase:
         'Aucun abonnement compatible possédé par ce membre !',
       backToCalendar: 'Calendrier',
-      previousOffer: 'Précédent',
-      nextOffer: 'Suivant',
+      previousOffer: 'Séance précédent',
+      nextOffer: 'Séance suivante',
       disabled: 'annulé',
       substitute: 'Remplaçant',
       compatiblePacks: 'Abonnements compatibles',

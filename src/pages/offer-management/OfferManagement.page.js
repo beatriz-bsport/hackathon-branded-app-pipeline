@@ -2,7 +2,11 @@
 import { connect } from 'react-redux';
 
 import { withNamespaces } from 'react-i18next';
-import { push as routerPush, goBack } from 'react-router-redux';
+import {
+  replace as replaceRouter,
+  push as routerPush,
+  goBack,
+} from 'react-router-redux';
 import { compose } from 'recompose';
 
 import {
@@ -120,6 +124,9 @@ function mapDispatchToProps(dispatch) {
     },
     goBack() {
       dispatch(goBack());
+    },
+    goToOffer(id) {
+      dispatch(replaceRouter(`/offer/${id}`));
     },
     push(path) {
       dispatch(routerPush(path));

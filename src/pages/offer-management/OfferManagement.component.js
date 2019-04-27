@@ -16,6 +16,8 @@ import {
 } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import TodayIcon from '@material-ui/icons/Today';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
@@ -315,6 +317,13 @@ export class OfferManagement extends PureComponent<Props, State> {
     this.closeRevertBookingDialog();
   };
 
+  goToOffer = (id) => {
+    this.props.fetchCompatiblePacks(id);
+    this.props.fetchOffer(id);
+    this.props.fetchOfferData(id);
+    this.props.goToOffer(id);
+  };
+
   render() {
     const {
       offer,
@@ -336,25 +345,41 @@ export class OfferManagement extends PureComponent<Props, State> {
 
     return (
       <Grid container direction="row" spacing={16}>
-        <Grid item xs={12}>
-          <Grid
-            container
-            direction="row"
-            justify="space-between"
-            alignItems="center"
-            className={classes.titleBanner}
-          >
-            <Grid item>
-              <Button
-                onClick={this.props.goBack}
-                color="secondary"
-                variant="outlined"
-              >
-                <TodayIcon className={classes.leftIcon} />
-                {t('offer.backToCalendar')}
-              </Button>
+        <Grid item xs={12} className={classes.headerContainer}>
+          <Paper>
+            <Grid
+              container
+              direction="row"
+              justify="space-between"
+              alignItems="center"
+              className={classes.titleBanner}
+            >
+              <Grid item>
+                <Button
+                  onClick={() => this.goToOffer(offer.previous_offer)}
+                  color="secondary"
+                >
+                  <ChevronLeftIcon className={classes.leftIcon} />
+                  {t('offer.previousOffer')}
+                </Button>
+              </Grid>
+              <Grid item>
+                <Button onClick={this.props.goBack} color="secondary">
+                  <TodayIcon className={classes.leftIcon} />
+                  {t('offer.backToCalendar')}
+                </Button>
+              </Grid>
+              <Grid item>
+                <Button
+                  onClick={() => this.goToOffer(offer.next_offer)}
+                  color="secondary"
+                >
+                  {t('offer.nextOffer')}
+                  <ChevronRightIcon className={classes.rightIcon} />
+                </Button>
+              </Grid>
             </Grid>
-          </Grid>
+          </Paper>
         </Grid>
         <Grid item xs={12} md={6}>
           <Paper>
@@ -487,8 +512,18 @@ const styles = (theme) => ({
   leftIcon: {
     marginRight: theme.spacing.unit,
   },
+  rightIcon: {
+    marginLight: theme.spacing.unit,
+  },
+  headerContainer: {
+    marginTop: -theme.spacing.unit * 2,
+    paddingLeft: theme.spacing.unit * 3,
+    paddingRight: theme.spacing.unit * 3,
+  },
   titleBanner: {
-    marginTop: theme.spacing.unit,
+    paddingTop: theme.spacing.unit / 2,
+    paddingBottom: theme.spacing.unit / 2,
+    backgroundColor: theme.palette.background.paper.disabled,
   },
 });
 

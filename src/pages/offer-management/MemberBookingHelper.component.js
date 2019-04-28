@@ -6,9 +6,11 @@ import {
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
+  IconButton,
   withStyles,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -46,23 +48,28 @@ function MemberBookingHelper(props: Props) {
       <ListItemSecondaryAction>
         {props.hasBooked ? (
           <Button color="secondary" onClick={props.onClick}>
+            <AttachMoneyIcon className={props.classes.rightIcon} />
             {props.t('offer.addInvoice')}
-            <AttachMoneyIcon className={props.classes.leftIcon} />
           </Button>
         ) : (
           <Button color="primary" onClick={props.onClick}>
+            <AddIcon className={props.classes.rightIcon} />
             {props.t('offer.createBooking')}
-            <AddIcon className={props.classes.leftIcon} />
           </Button>
         )}
+        {props.showMember ? (
+          <IconButton color="secondary" onClick={props.showMember}>
+            <VisibilityIcon />
+          </IconButton>
+        ) : null}
       </ListItemSecondaryAction>
     </ListItem>
   );
 }
 
 const styles = (theme) => ({
-  leftIcon: {
-    marginLeft: theme.spacing.unit,
+  rightIcon: {
+    marginRight: theme.spacing.unit,
   },
 });
 

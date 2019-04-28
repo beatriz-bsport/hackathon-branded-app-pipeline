@@ -37,7 +37,7 @@ export function refreshByOffer(id: number) {
 }
 
 export function fetchMemberByOffer(id: number) {
-return async (dispatch: Dispatch) => {
+  return async (dispatch: Dispatch) => {
     dispatch(startFetchMemberByOffer());
     dispatch(refreshByOffer(id));
   };

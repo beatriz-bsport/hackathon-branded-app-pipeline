@@ -216,7 +216,8 @@ export class OfferManagement extends PureComponent<Props, State> {
         <MemberBookingHelper
           key={member.id}
           onClick={() => this.addToQuickInvoicePanel(member.id)}
-          onClickListItem={() => window.open(`/member/${member.id}`)}
+          onClickListItem={() => this.addToQuickInvoicePanel(member.id)}
+          showMember={() => window.open(`/member/${member.id}`)}
           member={member}
           hasBooked
         />
@@ -226,7 +227,8 @@ export class OfferManagement extends PureComponent<Props, State> {
       <MemberBookingHelper
         key={member.id}
         onClick={() => this.setState({ memberToRegister: member })}
-        onClickListItem={() => {
+        onClickListItem={() => this.setState({ memberToRegister: member })}
+        showMember={() => {
           window.open(`/member/${member.id}`, '_blank');
         }}
         member={member}

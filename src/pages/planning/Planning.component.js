@@ -397,6 +397,9 @@ export class Planning extends PureComponent<Props, State> {
     } = this.props;
 
     const events_ = this.getDayOffers(events);
+    const offersToday = offers.filter((o) =>
+      Moment(o.date_start).isSame(Moment(date), 'day'),
+    );
     return (
       <Grid container spacing={24}>
         {isWidthUp('lg', width) || !selectedOffer ? (
@@ -423,12 +426,10 @@ export class Planning extends PureComponent<Props, State> {
                       <TimeTable
                         date={date}
                         onOfferSelected={this.props.loadOfferData}
-                        offers={offers.filter((o) =>
-                          Moment(o.date_start).isSame(Moment(date), 'day'),
-                        )}
+                        offers={offersToday}
                         activities={activities}
                         loading={
-                          timetableLoading && (offers || []).length === 0
+                          timetableLoading && (offersToday || []).length === 0
                         }
                         selected={selectedOffer ? selectedOffer.id : null}
                       />

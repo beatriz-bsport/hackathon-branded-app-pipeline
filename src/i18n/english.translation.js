@@ -167,6 +167,9 @@ export default {
       noPromo: 'None',
     },
     offer: {
+      attendant: 'attendant',
+      nonAttendant: 'did not attend',
+      maxBookingsNb: 'slots',
       effectif: 'Number of customer (max)',
       sizeOfWaitingList: 'Size of waiting list',
       offersPendingChange: 'Sessions pending change:',

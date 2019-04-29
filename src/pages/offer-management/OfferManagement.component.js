@@ -14,7 +14,7 @@ import {
   DialogContent,
   CircularProgress,
 } from '@material-ui/core';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import TodayIcon from '@material-ui/icons/Today';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -269,6 +269,33 @@ export class OfferManagement extends PureComponent<Props, State> {
 
   clearSearch = () => this.setState({ searchedText: '' });
 
+  getNbAttendant = () => {
+    if (this.props.bookingLoading) {
+      return '...';
+    }
+    return this.props.bookings.reduce(
+      (s, booking) => (booking.attendance ? s + 1 : s),
+      0,
+    );
+  };
+
+  getNbNonAttendant = () => {
+    if (this.props.bookingLoading) {
+      return '...';
+    }
+    return this.props.bookings.reduce(
+      (s, booking) => (!booking.attendance ? s + 1 : s),
+      0,
+    );
+  };
+
+  getMaxBookings = () => {
+    if (this.props.offerLoading) {
+      return '...';
+    }
+    return (this.props.offer && this.props.offer.effectif) || 0;
+  };
+
   renderBookingHeader = () => {
     const { classes, t } = this.props;
     return (
@@ -288,7 +315,7 @@ export class OfferManagement extends PureComponent<Props, State> {
             <Grid container direction="row" alignItems="center" spacing={16}>
               <Grid item>
                 <IconButton onClick={this.openAddMemberModal} color="primary">
-                  <AddCircleIcon />
+                  <PersonAddIcon />
                 </IconButton>
               </Grid>
               <Grid item>
@@ -399,6 +426,31 @@ export class OfferManagement extends PureComponent<Props, State> {
                   </div>
                   <Divider />
                 </Collapse>
+              </Grid>
+              <Grid item>
+                {bookingLoading || this.props.offerLoading ? null : (
+                  <Grid
+                    container
+                    className={classes.bookingSubHeader}
+                    justify="space-between"
+                  >
+                    <Grid item>
+                      <Typography variant="caption" color="primary">
+                        {this.getNbAttendant()} {t('offer.attendant')}
+                      </Typography>
+                    </Grid>
+                    <Grid item>
+                      <Typography variant="caption" color="error">
+                        {this.getNbNonAttendant()} {t('offer.nonAttendant')}
+                      </Typography>
+                    </Grid>
+                    <Grid item>
+                      <Typography variant="caption">
+                        {this.getMaxBookings()} {t('offer.maxBookingsNb')}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                )}
               </Grid>
               <Grid item>
                 <BookingTable
@@ -527,6 +579,14 @@ const styles = (theme) => ({
     paddingTop: theme.spacing.unit / 2,
     paddingBottom: theme.spacing.unit / 2,
     backgroundColor: theme.palette.background.paper.disabled,
+  },
+  bookingSubHeader: {
+    width: '100%',
+    padding: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit / 2,
+    paddingTop: theme.spacing.unit / 2,
+    background: '#F8F8F8',
+    borderBottom: 'solid 1px #E4E4E4',
   },
 });
 

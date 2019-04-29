@@ -185,6 +185,9 @@ export default {
       outOf: ' sur ',
     },
     offer: {
+      attendant: 'présent(s)',
+      nonAttendant: 'absent(s)',
+      maxBookingsNb: 'places',
       effectif: 'Effectif',
       sizeOfWaitingList: "Taille de la liste d'attente",
       offersPendingChange: 'Séances qui seront modifiées :',

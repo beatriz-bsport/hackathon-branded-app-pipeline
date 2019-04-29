@@ -18,9 +18,9 @@ export default {
     bookingsThisWeek: 'réservation(s) cette semaine',
   },
   validForDuration: (days, months, years) =>
-    `${days ? `${days} jour ` : ''}${months ? `${months} mois ` : ''}${
-      years ? `${years} année` : ''
-    }`,
+    `Validité : ${days ? `${days} jours ` : ''}${
+      months ? `${months} mois ` : ''
+    }${years ? `${years} année` : ''}`,
   validForNdays1: 'Valide ',
   validForNdays2: ' jours après achat',
   validFrom: 'Valide du ',

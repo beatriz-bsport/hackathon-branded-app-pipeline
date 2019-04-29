@@ -228,6 +228,8 @@ export type PaymentPack = {
   max_bookings_per_week: number,
   validity_daterange: ?{ upper: string, lower: string },
   duration_days: ?number,
+  duration_months: ?number,
+  duration_years: ?number,
 };
 
 export type ConsumerPaymentPackConsumerView = {

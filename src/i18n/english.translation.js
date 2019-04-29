@@ -408,6 +408,11 @@ export default {
         durationDays: 'Validity period',
         durationDaysHelperText:
           'Numbers of days for which the pass will stay active after purchase',
+        durationMonths: 'Additional duration (month)',
+        durationMonthsHelperText: 'Sum itself with the number of days',
+        durationYears: 'Additional duration (years)',
+        durationYearsHelperText:
+          'Sum itself with the number of days and months',
         restrictionsTitle: 'Restrictions',
         maxBookingPerWeek: 'Max usage per week',
         noneMeansAll: 'Keep empty to authorize all',

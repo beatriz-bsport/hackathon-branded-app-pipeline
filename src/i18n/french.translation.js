@@ -194,7 +194,7 @@ export default {
       noConsumerPackAvailableForPurchase:
         'Aucun abonnement compatible possédé par ce membre !',
       backToCalendar: 'Calendrier',
-      previousOffer: 'Séance précédent',
+      previousOffer: 'Séance précédente',
       nextOffer: 'Séance suivante',
       disabled: 'annulé',
       substitute: 'Remplaçant',
@@ -410,9 +410,13 @@ export default {
         generalSettingsTitle: 'Général',
         validByDuration: 'Abonnement valide N jours après achat',
         validByDaterange: 'Abonnement valide sur un créneau de date précis',
-        durationDays: 'Durée de validité',
+        durationDays: 'Durée de validité (jours)',
         durationDaysHelperText:
           "Période en jours pour laquelle l'abonnement sera valide après achat ",
+        durationMonths: 'Durée additionnalle (mois)',
+        durationMonthsHelperText: "S'ajoute au nombre de jours",
+        durationYears: 'Durée de validité (années)',
+        durationYearsHelperText: "S'ajoute au nombre de jours et de mois",
         restrictionsTitle: 'Restrictions',
         maxBookingPerWeek: 'Utilisation max par semaine',
         noneMeansAll: 'Laisser vide pour tout autoriser',

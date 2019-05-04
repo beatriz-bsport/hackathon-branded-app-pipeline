@@ -4,7 +4,9 @@ import React, { createContext, Component } from 'react';
 import type { AbstractComponent } from 'react';
 import { Link } from 'react-router-dom';
 
-import { withStyles, Button, Grid } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import withStyles from '@material-ui/core/styles/withStyles';
 import AddIcon from '@material-ui/icons/Add';
 import ListIcon from '@material-ui/icons/List';
 import ViewModuleIcon from '@material-ui/icons/ViewModule';

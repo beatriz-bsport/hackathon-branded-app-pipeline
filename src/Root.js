@@ -5,8 +5,8 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 
-import { withStyles } from '@material-ui/core/styles';
-import { LinearProgress } from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import asyncComponent from './AsyncComponent';
 

@@ -73,7 +73,7 @@ const STEP_ADD_INVOICE_ITEMS = 0;
 const STEP_ADD_INVOICE_PAYMENTS = 1;
 
 function getTotal(acc, invoiceItem) {
-  return acc + parseInt(invoiceItem.price, 10);
+  return acc + parseFloat(invoiceItem.price);
 }
 
 export class InvoiceForm extends Component<Props, State> {

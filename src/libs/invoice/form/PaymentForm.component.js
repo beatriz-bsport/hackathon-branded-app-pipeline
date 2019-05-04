@@ -123,7 +123,7 @@ export class PaymentForm extends Component<Props, State> {
   };
 
   storePrice = (event: Object) => {
-    const price = parseInt(event.target.value, 10);
+    const price = parseFloat(event.target.value);
     this.setState({ price });
   };
 

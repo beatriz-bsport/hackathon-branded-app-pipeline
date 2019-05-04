@@ -56,11 +56,12 @@ export function quickFetch(id: number) {
   };
 }
 
-const { fetcher, listReducers } = createListHandler(
+const { fetcher, refresher, listReducers } = createListHandler(
   'member',
   api.member.fetchAll,
+  api.member.fetchFrom,
 );
-export { fetcher as fetchAll, listReducers as listMemberReducers };
+export { fetcher as fetchAll, refresher, listReducers as listMemberReducers };
 
 export function fetchMember(id: number) {
   return async (dispatch: Dispatch) => {

@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, { Component } from 'react';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import i18next from 'i18next';
@@ -15,6 +15,7 @@ import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 
+import { member as memberActions } from '../../actions';
 import { formatAsDate } from '../../datetime';
 import { FeatureTable } from '../../components';
 import type { Member } from '../../api/types';
@@ -85,27 +86,33 @@ const renderRow = (t, goToMemberPage) => (
   );
 };
 
-export function Members(props: Props) {
-  const { loading, members, t, goToMemberPage } = props;
+export class Members extends Component<Props> {
+  componentDidMount() {
+    this.props.refresh();
+  }
 
-  const mutableMembers = members.asMutable ? members.asMutable() : members;
+  render() {
+    const { loading, members, t, goToMemberPage } = this.props;
 
-  return (
-    <Grid container direction="row" spacing={32}>
-      <Grid item xs={12}>
+    const mutableMembers = members.asMutable ? members.asMutable() : members;
+
+    return (
+      <Grid container direction="row" spacing={32}>
         <Grid item xs={12}>
-          <FeatureTable
-            data={mutableMembers}
-            order="desc"
-            orderBy="date_joined"
-            renderRow={renderRow(t, goToMemberPage)}
-            columnData={getColumnData(props.t)}
-            loading={loading}
-          />
+          <Grid item xs={12}>
+            <FeatureTable
+              data={mutableMembers}
+              order="desc"
+              orderBy="date_joined"
+              renderRow={renderRow(t, goToMemberPage)}
+              columnData={getColumnData(t)}
+              loading={loading}
+            />
+          </Grid>
         </Grid>
       </Grid>
-    </Grid>
-  );
+    );
+  }
 }
 
 export default compose(
@@ -118,6 +125,7 @@ export default compose(
     }),
     {
       goToMemberPage: (id: number) => push(`/member/${id}`),
+      refresh: memberActions.refresher,
     },
   ),
   withBottomButtons({

@@ -16,6 +16,12 @@ export async function fetchAllMembers({ page }) {
   );
 }
 
+export async function fetchFrom(id: number, page: number) {
+  return getAuth(
+    `${API_URI}/saas/members/minimal?from=${id}&page_size=${PAGE_SIZE}&page=${page}`,
+  );
+}
+
 export async function fetchByOffer(offerId) {
   return getAuth(`${API_URI}/saas/members/offer/${offerId}/`);
 }
@@ -59,4 +65,5 @@ export default {
   updateNote,
   deleteNote,
   quickFetch,
+  fetchFrom,
 };

@@ -1,7 +1,11 @@
 // @flow
 import { createAction, handleActions } from 'redux-actions';
 
-export function createListHandler(objectName: string, endpoint: *) {
+export function createListHandler(
+  objectName: string,
+  listEndpoint: *,
+  fetchFromEndpoint: *,
+) {
   const listActions = {
     isLoading: createAction(`${objectName.toUpperCase()}/LIST/IS_LOADING`),
     fetchedPage: createAction(`${objectName.toUpperCase()}/ALL/FETCHED_PAGE`),
@@ -18,10 +22,38 @@ export function createListHandler(objectName: string, endpoint: *) {
       try {
         while (next) {
           // eslint-disable-next-line
-          const response = await endpoint({ page: next });
+          const response = await listEndpoint({ page: next });
           const { results } = response.data;
           next = response.data.next_page;
           dispatch(listActions.fetchedPage(results));
+        }
+      } catch (err) {
+        console.error(err);
+        dispatch(listActions.error(err));
+      }
+      dispatch(listActions.isLoading(false));
+    };
+  }
+
+  function refresher() {
+    return async (dispatch: Dispatch, getState: () => State) => {
+      const { loading, all } = getState()[objectName];
+      if (loading || !all.length) {
+        return;
+      }
+
+      // dispatch(listActions.isLoading(true));
+      let next = 1;
+      try {
+        while (next) {
+          // eslint-disable-next-line
+          const response = await fetchFromEndpoint(
+            all[all.length - 1].id,
+            next,
+          );
+          const { results, next_page } = response.data;
+          dispatch(listActions.fetchedPage(results));
+          next = next_page;
         }
       } catch (err) {
         console.error(err);
@@ -44,11 +76,14 @@ export function createListHandler(objectName: string, endpoint: *) {
           return state.set('error', payload);
         },
         [listActions.fetchedPage]: (state, { payload }) => {
-          return state.set('all', state.all.concat(payload));
+          if ((payload || []).length) {
+            return state.set('all', state.all.concat(payload));
+          }
+          return state;
         },
       },
       initialState,
     )(initialState, action);
 
-  return { fetcher, listActions, listReducers };
+  return { fetcher, refresher, listActions, listReducers };
 }

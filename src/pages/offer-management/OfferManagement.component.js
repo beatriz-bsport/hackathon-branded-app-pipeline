@@ -446,7 +446,10 @@ export class OfferManagement extends PureComponent<Props, State> {
                     </Grid>
                     <Grid item>
                       <Typography variant="caption">
-                        {this.getMaxBookings()} {t('offer.maxBookingsNb')}
+                        {`${this.getNbAttendant() +
+                          this.getNbNonAttendant()}/${this.getMaxBookings()} ${t(
+                          'offer.maxBookingsNb',
+                        )}`}
                       </Typography>
                     </Grid>
                   </Grid>

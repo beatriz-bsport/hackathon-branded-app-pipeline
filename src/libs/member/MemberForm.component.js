@@ -281,7 +281,7 @@ export default compose(
       goToMemberList,
       goToMember,
       refreshListMember,
-      snackbar,
+      snackbarSuccess,
       t,
     }) => ({
       linkMember: () => {
@@ -291,7 +291,7 @@ export default compose(
           phonenumber,
         })
           .then(() => {
-            snackbar.success(t('member.link.success'));
+            snackbarSuccess(t('member.link.success'));
             refreshListMember();
             goToMemberList();
           })

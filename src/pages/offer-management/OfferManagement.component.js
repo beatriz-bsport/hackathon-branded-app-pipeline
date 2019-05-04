@@ -518,7 +518,11 @@ export class OfferManagement extends PureComponent<Props, State> {
             <MemberForm
               onCancel={this.closeAddMemberModal}
               onSubmit={this.createMember}
-              initial={{ rgpd: [] }}
+              initial={{ rgpd: ['accept_email', 'accept_sms'] }}
+              refreshListMember={this.props.refreshListMember}
+              goToMember={this.props.goToMember}
+              goToMemberList={() => {}}
+              snackbarSuccess={this.props.snackbarSuccess}
             />
           </DialogContent>
         </Dialog>

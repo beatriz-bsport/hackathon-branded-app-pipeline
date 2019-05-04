@@ -15,6 +15,7 @@ import {
   offer as offerActions,
   member as memberAction,
 } from '../../actions';
+import { snackbar } from '../../actions/snackbar.actions';
 import { createOrUpdateMember } from '../../actions/member.actions';
 import { formatAsDatetime } from '../../datetime';
 
@@ -132,8 +133,17 @@ function mapDispatchToProps(dispatch) {
     push(path) {
       dispatch(routerPush(path));
     },
+    goToMember(pk) {
+      dispatch(routerPush(`/member/${pk}`));
+    },
     fetchCompatiblePacks(id: number) {
       dispatch(offerActions.fetchCompatiblePacks(id));
+    },
+    refreshListMember() {
+      dispatch(memberAction.refresher());
+    },
+    snackbarSuccess(msg) {
+      dispatch(snackbar.success(msg));
     },
     addToOffer({ offerId, consumerPaymentPackId }) {
       dispatch(

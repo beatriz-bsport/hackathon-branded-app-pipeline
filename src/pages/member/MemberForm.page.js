@@ -7,9 +7,14 @@ import type { TFunction } from 'react-i18next';
 import { withNamespaces } from 'react-i18next';
 import { Paper, CircularProgress } from '@material-ui/core';
 
-import { goBack } from 'react-router-redux';
+import { push as pushRouter, goBack } from 'react-router-redux';
 import { compose, withProps } from 'recompose';
-import { createOrUpdateMember, quickFetch } from '../../actions/member.actions';
+import {
+  createOrUpdateMember,
+  refresher,
+  quickFetch,
+} from '../../actions/member.actions';
+import { snackbar } from '../../actions/snackbar.actions';
 import withDrawer from '../../hocs/with-drawer.hoc';
 import MemberForm from '../../libs/member/MemberForm.component';
 
@@ -83,6 +88,10 @@ export class MemberFormPage extends Component<Props> {
           onCancel={onCancel}
           onSubmit={onSubmit}
           initial={initialData}
+          refreshListMember={this.props.refreshListMember}
+          goToMember={this.props.goToMember}
+          goToMemberList={this.props.goToMemberList}
+          snackbarSuccess={this.props.snackbarSuccess}
         />
       </Paper>
     );
@@ -110,6 +119,18 @@ function mapDispatchToProps(dispatch) {
     },
     onCancel() {
       dispatch(goBack());
+    },
+    refreshListMember() {
+      dispatch(refresher());
+    },
+    goToMember(pk) {
+      dispatch(pushRouter(`/member/${pk}`));
+    },
+    goToMemberList() {
+      dispatch(pushRouter('/member'));
+    },
+    snackbarSuccess(msg) {
+      dispatch(snackbar.success(msg));
     },
   };
 }

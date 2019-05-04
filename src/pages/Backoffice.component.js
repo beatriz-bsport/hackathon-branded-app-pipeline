@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
+import Config from '../config';
 
 import ResponsiveDrawer from '../components/navigation/ResponsiveDrawer.component';
 
@@ -62,6 +63,13 @@ export class Backoffice extends Component<Props> {
 
   componentDidMount() {
     this.props.refreshIfNeeded();
+    window.$crisp = [];
+    window.CRISP_WEBSITE_ID = Config.REACT_APP_CRISP_WEBSITE_ID;
+    const d = document;
+    const s = d.createElement('script');
+    s.src = 'https://client.crisp.chat/l.js';
+    s.async = 1;
+    d.getElementsByTagName('head')[0].appendChild(s);
   }
 
   render() {

@@ -53,7 +53,7 @@ export function CoachPerformance(props: Props) {
   } = props;
 
   return (
-    <div>
+    <div className={classes.container}>
       <AppBar position="static" color="default" className={classes.bar}>
         <CoachPerformanceForm onSubmit={onSubmit} loading={loading} />
       </AppBar>
@@ -78,6 +78,9 @@ const styles = (theme) => ({
     marginLeft: -theme.spacing.unit * 3,
     marginBottom: theme.spacing.unit * 3,
     padding: theme.spacing.unit * 2,
+  },
+  container: {
+    marginBottom: theme.spacing.unit * 32,
   },
 });
 

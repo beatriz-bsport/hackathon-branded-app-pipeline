@@ -165,6 +165,7 @@ export default compose(
         avatar: typeof avatar !== 'string' ? avatar : undefined,
         birthdayYear: values.birthdayYear || undefined,
         phone: values.phone || undefined,
+        email: values.email || '',
       };
       onSubmit(data, {
         onSuccess: () => setSubmitting(false),

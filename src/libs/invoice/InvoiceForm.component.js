@@ -220,7 +220,7 @@ export class InvoiceForm extends Component<Props, State> {
 
   onUpdateVoucher = (voucher) => {
     this.setState((prevState) => ({
-      voucher: (prevState.voucher || 0) + voucher,
+      voucher: (prevState.voucher || 0) + parseFloat(voucher),
     }));
   };
 

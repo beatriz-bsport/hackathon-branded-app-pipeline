@@ -517,9 +517,10 @@ export default {
       payment: 'Payments',
       logoff: 'Sign out',
       goBack: 'Go back',
-      pass: 'Subscriptions',
+      pass: 'Pass',
       settings: 'Settings',
       myClub: 'My Club',
+      subscription: 'Subscription',
     },
     consumer: {
       myPaymentPacks: 'My pass',

@@ -29,7 +29,7 @@ export class DrawerContextProvider extends Component<Props, State> {
   }
 }
 
-const withDrawer = (mapPropsToTitle: () => void) => {
+const withDrawer = (mapPropsToTitle: (*) => string) => {
   return (WrappedComponent: AbstractComponent<any>) => {
     class Wrapper extends Component<any> {
       static contextType = DrawerContext;

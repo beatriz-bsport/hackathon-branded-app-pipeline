@@ -9,6 +9,7 @@ import companies from './fr/companies.translations';
 import dashboard from './fr/dashboard.translations';
 import settings from './fr/settings.translations';
 import paymentRules from './fr/payment-rules.translations';
+import subscription from './fr/subscription.translations';
 import reporting from './fr/reporting.translations';
 import stripe from './fr/stripe.translations';
 
@@ -16,6 +17,7 @@ export default {
   dashboard,
   settings,
   paymentRules,
+  subscription,
   reporting,
   coachPerformance: {
     fields: {
@@ -576,6 +578,7 @@ export default {
       pass: 'Abonnements',
       settings: 'Paramètres',
       myClub: 'Mon Club',
+      subscription: 'Souscription',
     },
     invoice: {
       finalize: 'Finaliser la facture',
@@ -883,6 +886,7 @@ export default {
         establishmentList: 'Etablissements',
         establishmentFormPage: 'Formulaire Etablissement',
         marketingRule: 'Stratégies marketing',
+        subscriptions: 'Souscription',
         marketingDashboard: 'Marketing',
         reportingDashboard: 'Rapports',
         searchResults: 'Recherche',

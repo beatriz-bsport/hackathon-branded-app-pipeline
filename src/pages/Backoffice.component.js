@@ -47,6 +47,9 @@ const WorkshopActivity = asyncComponent(() =>
   import('./workshop-activity/WorkshopActivity.router'),
 );
 const Invoice = asyncComponent(() => import('./invoice/Invoice.router'));
+const Subscription = asyncComponent(() =>
+  import('./subscription/Subscription.router'),
+);
 
 type Props = {
   refresh: () => void,
@@ -105,6 +108,7 @@ export class Backoffice extends Component<Props> {
               <Route path="/coach" component={Coach} />
               <Route path="/payment-pack" component={PaymentPack} />
               <Route path="/invoice" component={Invoice} />
+              <Route path="/subscription" component={Subscription} />
               <Route path="/member" component={Member} />
               <Route path="/activity" component={MetaActivity} />
               <Route path="/workshop-activity" component={WorkshopActivity} />

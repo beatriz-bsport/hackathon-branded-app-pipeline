@@ -11,6 +11,7 @@ type Props = {
   disabled: ?boolean,
   error: ?boolean,
   required: ?boolean,
+  minData: ?Object,
   onChange: (value: Object) => void,
   className: string,
 };
@@ -31,6 +32,7 @@ export function DateInput(props: Props) {
     disabled,
     classes,
     className,
+    minDate,
   } = props;
 
   return (
@@ -40,6 +42,7 @@ export function DateInput(props: Props) {
       required={required}
       disabled={disabled}
       onChange={onChange}
+      minDate={minDate}
       label={label}
       error={error}
       className={`${className || ''} ${classes.container}`}

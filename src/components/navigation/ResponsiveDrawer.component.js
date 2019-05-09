@@ -38,6 +38,7 @@ import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DescriptionIcon from '@material-ui/icons/Description';
+import ReceiptIcon from '@material-ui/icons/Receipt';
 
 import { colors } from '@bsport/common/lib/colors';
 import { LanguageButton } from '../button/LanguageButton.component';
@@ -227,6 +228,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         to: '/invoice',
         icon: Payment,
         text: t('navigation.payment'),
+      },
+      {
+        to: '/subscription',
+        icon: ReceiptIcon,
+        text: t('navigation.subscription'),
       },
       'divider',
       {

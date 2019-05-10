@@ -65,7 +65,6 @@ type Props = {
   similarOfferLoading: boolean,
   width: string,
 
-  activities: Array<Activity>,
   metaActivities: Array<MetaActivity>,
   offers: Array<Offer>,
   similarOffers: Array<Offer>,
@@ -385,7 +384,6 @@ export class Planning extends PureComponent<Props, State> {
       offers,
       events,
       classes,
-      activities,
       timetableLoading,
       establishments,
       establishmentsLoading,
@@ -427,7 +425,6 @@ export class Planning extends PureComponent<Props, State> {
                         date={date}
                         onOfferSelected={this.props.loadOfferData}
                         offers={offersToday}
-                        activities={activities}
                         loading={
                           timetableLoading && (offersToday || []).length === 0
                         }
@@ -482,7 +479,6 @@ function mapStateToProps(state) {
     offers: state.offer.offers,
     events: state.offer.calendar,
     timetableLoading: state.activity.loading || state.offer.byDay.loading,
-    activities: state.activity.all,
     coaches: state.coach.companyAssociated,
     coachesLoading: state.coach.loading,
     establishments: state.establishment.all,

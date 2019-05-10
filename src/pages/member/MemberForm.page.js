@@ -24,6 +24,10 @@ type Props = {
   id: ?number,
   initial: *,
   fetchMemberInitial: () => void,
+  refreshListMember: () => void,
+  goToMember: (id: number) => void,
+  goToMemberList: () => void,
+  snackbarSuccess: (msg: string) => void,
   onSubmit: (*) => void,
   onCancel: () => void,
 };

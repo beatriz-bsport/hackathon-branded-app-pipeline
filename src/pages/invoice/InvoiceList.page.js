@@ -20,13 +20,15 @@ import InvoiceTable from './InvoiceTable.component';
 import FinalizeInvoiceDialog from '../../libs/invoice/dialog/FinalizeInvoiceDialog.component';
 
 type Props = {
-  // eslint-disable-next-line
   t: TFunction,
-  invoices: Array<Invoice>, // it is an immutable on which we call .asMutable() but whatever
+
   loading: boolean,
+  invoices: Array<Invoice>, // it is an immutable on which we call .asMutable() but whatever
   members: Array<Member>,
+
   push: (path: string) => void,
   finalizeInvoice: (uuid: string) => void,
+  refreshMembers: () => void,
 };
 
 type State = {

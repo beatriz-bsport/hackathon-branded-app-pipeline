@@ -40,6 +40,7 @@ type Props = {
   offerId: number,
   update: Offer,
   offer: ?Offer,
+  offerLoading: boolean,
   bookingLoading: ?boolean,
   bookingUpdaters: Object,
   memberCreationErrors: boolean,
@@ -57,6 +58,9 @@ type Props = {
   compatiblePacks: Array<PaymentPack>,
   unevenSavedInvoices: Array<Invoice>,
 
+  refreshListMember: () => void,
+  goToMember: (id: number) => void,
+  snackbarSuccess: (msg: string) => void,
   goToOffer: (id: number) => void,
   fetchCompatiblePacks: (offerId: number) => void,
   createMember: (data: [*], options: *, offerId: number) => void,

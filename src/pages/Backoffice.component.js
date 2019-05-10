@@ -54,6 +54,7 @@ type Props = {
   classes: Object,
   authenticated: boolean,
   refreshIfNeeded: () => void,
+  refreshMembers: () => void,
 };
 
 export class Backoffice extends Component<Props> {

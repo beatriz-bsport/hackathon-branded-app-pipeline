@@ -16,13 +16,16 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 type Props = {
-  selected: boolean,
-  member: Member,
-  hasBooked: ?boolean,
   t: TFunction,
+  classes: Object,
+
+  member: Member,
+  selected: boolean,
+  hasBooked: ?boolean,
+
+  showMember: ?() => void,
   onClick: () => void,
   onClickListItem: ?() => void,
-  classes: Object,
 };
 
 function MemberBookingHelper(props: Props) {

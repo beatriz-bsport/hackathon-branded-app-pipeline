@@ -26,6 +26,8 @@ type Props = {
   t: TFunction,
   loading: boolean,
   members: Array<Member>,
+
+  refresh: () => void,
   goToMemberPage: (memberId: number) => void,
 };
 const getColumnData = (t) => {

@@ -6,8 +6,11 @@ import { connect } from 'react-redux';
 import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { goBack } from 'react-router-redux';
+import { Elements, StripeProvider } from 'react-stripe-elements';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import Config from '../../config';
+import { createFromPack } from '../../api/subscription';
 
 import SubscriptionCreateComponent from './SubscriptionCreate.component';
 import SubscriptionScheduleChecker from './SubscriptionScheduleChecker.component';
@@ -23,17 +26,12 @@ type State = {
   tempSubscription: ?SubscriptionData,
 };
 
+const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
+
 export class SubscriptionCreate extends Component<Props, State> {
   state = {
-    tempSubscription: {
-      billing_anchor: 1558389600000,
-      interval: 'month',
-      member: 10993,
-      name: '(1) Offre spéciale Ouverture',
-      nb_interval: 12,
-      paymentPack: 324,
-      recurrent_price: 749,
-    },
+    tempSubscription: null,
+    stripe_token: null,
   };
 
   storeTempSubscription = (tempSubscription: ?SubscriptionData) => {
@@ -41,19 +39,28 @@ export class SubscriptionCreate extends Component<Props, State> {
     this.setState({ tempSubscription });
   };
 
-  createSubscription = (data: SubscriptionData) => {
-    console.log(data);
+  createSubscription = async (token: string) => {
+    console.log(this.state.tempSubscription);
+    console.log(token);
+    const response = await createFromPack({
+      ...this.state.tempSubscription,
+      stripe_source: token,
+    });
   };
 
   render() {
     return (
       <Paper className={this.props.classes.container}>
         {this.state.tempSubscription ? (
-          <SubscriptionScheduleChecker
-            subscriptionData={this.state.tempSubscription}
-            onSubmit={this.createSubscription}
-            onCancel={() => this.storeTempSubscription(null)}
-          />
+          <StripeProvider apiKey={STRIPE_KEY}>
+            <Elements>
+              <SubscriptionScheduleChecker
+                subscriptionData={this.state.tempSubscription}
+                onSubmit={this.createSubscription}
+                onCancel={() => this.storeTempSubscription(null)}
+              />
+            </Elements>
+          </StripeProvider>
         ) : (
           <div className={this.props.classes.formContainer}>
             <SubscriptionCreateComponent

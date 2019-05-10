@@ -26,6 +26,7 @@ import marketplaceReducer from './marketplace';
 import shopReducer from './shop';
 import paymentRulesReducer from '../libs/payment-rules/reducers';
 import workshopActivityReducer from './workshop-activity';
+import subscriptionReducer from '../pages/subscription/reducers';
 
 import type { State, Action } from '../state/types';
 
@@ -57,6 +58,7 @@ const rootReducer = combineReducers({
   marketplace: marketplaceReducer,
   shop: shopReducer,
   workshopActivity: workshopActivityReducer,
+  subscription: subscriptionReducer,
 });
 
 export default (state: State, action: Action) => {

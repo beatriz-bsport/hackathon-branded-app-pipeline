@@ -8,6 +8,8 @@ export default {
     from: 'A partir du ',
     to: " jusqu'au ",
     forATotalOf: 'Pour un total de ',
+    includingFreeTrialOf1: ' dont ',
+    includingFreeTrialOf2: ' non-facturés ',
   },
   form: {
     check: 'Vérifier',
@@ -16,9 +18,12 @@ export default {
     cancel: 'Annuler',
   },
   parameters: {
+    voucher: 'Offre spéciale',
+    trial_nb: 'Nombre de mois offers',
+    recurrent_voucher: 'Réduction sur chaque facture',
     name: 'Nom',
     member: 'Membre',
-    billingAnchor: 'Première facturation',
+    dateCreated: 'Date de création',
     nbInterval: 'Nombre de mois',
     recurrent_price: 'Paiement récurrent',
     paymentPack: 'Abonnement',

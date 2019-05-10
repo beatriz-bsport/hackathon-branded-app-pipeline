@@ -19,6 +19,7 @@ import companies from './companies';
 import marketplace from './marketplace';
 import shop from './shop';
 import workshopActivity from './workshop-activity';
+import subscription from './subscription';
 
 export default {
   metaActivity,
@@ -40,4 +41,5 @@ export default {
   marketplace,
   shop,
   workshopActivity,
+  subscription,
 };

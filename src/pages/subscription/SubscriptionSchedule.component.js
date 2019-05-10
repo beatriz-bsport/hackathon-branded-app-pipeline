@@ -6,53 +6,56 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 
-import { formatAsDate } from '../../datetime';
-import ConsumerPackRowItem from '../../components/payment-pack/ConsumerPackRowItem.component';
+import {
+  PENDING,
+  SUCCEEDED,
+  FAILED,
+  CANCELED,
+} from '@bsport/common/lib/master-data/planned-invoice-status';
 
-import type { ScheduledInvoice } from './types';
+import { formatAsDate } from '../../datetime';
+
+import type { PlannedInvoice } from './types';
 
 const renderStatus = (status) => {
   switch (status) {
-    case 'failed':
-      return 'failed';
-    case 'succeeded':
-      return 'succeeded';
-    case 'cancelled':
-      return 'cancelled';
-    default:
+    case PENDING.id:
       return 'pending';
+    case SUCCEEDED.id:
+      return 'succeeded';
+    case CANCELED.id:
+      return 'cancelled';
+    case FAILED.id:
+    default:
+      return 'failed';
   }
 };
 
-const ScheduledInvoiceItem = (props: { invoice: ScheduledInvoice }) => (
-  <React.Fragment>
-    <ListItem divider>
-      <ListItemText
-        primary={formatAsDate(props.invoice.date)}
-        secondary={renderStatus(props.invoice.status)}
-      />
-      <ListItemSecondaryAction>
-        <ListItemText color="primary" primary={`${props.invoice.price} €`} />
-      </ListItemSecondaryAction>
-    </ListItem>
-    {(props.invoice.invoice_items &&
-      props.invoice.invoice_items.length &&
-      props.invoice.invoice_items.map((ii) => (
-        <ConsumerPackRowItem cpp={ii.content_object} />
-      ))) ||
-      null}
-  </React.Fragment>
+const PlannedInvoiceItem = (props: { invoice: PlannedInvoice }) => (
+  <ListItem divider>
+    <ListItemText
+      primary={formatAsDate(props.invoice.date)}
+      secondary={props.invoice.uuid || ''}
+    />
+    <ListItemText
+      primary={`${props.invoice.price - props.invoice.voucher} €`}
+      primaryTypographyProps={{ align: 'right' }}
+      secondaryTypographyProps={{ align: 'right' }}
+      secondary={renderStatus(props.invoice.status)}
+    />
+    <ListItemSecondaryAction />
+  </ListItem>
 );
 
 type Props = {
-  scheduledInvoices: Array<ScheduledInvoice>,
+  scheduledInvoices: Array<PlannedInvoice>,
 };
 
 export default function SubscriptionSchedule(props: Props) {
   return (
     <List dense disablePadding>
       {props.scheduledInvoices.map((si) => (
-        <ScheduledInvoiceItem invoice={si} />
+        <PlannedInvoiceItem invoice={si} />
       ))}
     </List>
   );

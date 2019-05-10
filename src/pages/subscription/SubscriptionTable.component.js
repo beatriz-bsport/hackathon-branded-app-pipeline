@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 
 import MUIDataTable from 'mui-datatables';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
@@ -13,8 +14,10 @@ const renderRows = (subscriptions, members) => {
     member: (members.find((m) => m.id === sub.member) || {}).name,
     name: sub.name,
     nb_interval: parseInt(sub.nb_interval, 10),
-    billing_anchor: formatAsDate(sub.billing_anchor),
-    recurrent_price: `${parseFloat(sub.recurrent_price).toFixed(2)}  €`,
+    date_created: formatAsDate(sub.date_created),
+    recurrent_price_with_voucher: `${(
+      parseFloat(sub.recurrent_price) - parseFloat(sub.recurrent_voucher)
+    ).toFixed(2)}  €`,
   }));
 };
 
@@ -29,29 +32,31 @@ const getColumnData = (t: TFunction) => {
       label: t('parameters.name'),
     },
     {
-      name: 'billing_anchor',
-      label: t('parameters.billingAnchor'),
+      name: 'date_created',
+      label: t('parameters.dateCreated'),
     },
     {
       name: 'nb_interval',
       label: t('parameters.nbInterval'),
     },
     {
-      name: 'recurrent_price',
+      name: 'recurrent_price_with_voucher',
       label: t('parameters.recurrent_price'),
     },
   ];
 };
 
 type Props = {
+  loading: boolean,
   subscriptions: Array<Subscription>,
   members: Array<Member>,
+  goToSubscription: (id: number) => void,
   t: TFunction,
 };
 
 export class SubscriptionTable extends Component<Props> {
-  onRowClick = () => {
-    alert('clic');
+  onRowClick = (rowData: Array<*>, { rowIndex }: { rowIndex: number }) => {
+    this.props.goToSubscription(this.props.subscriptions[rowIndex].id);
   };
 
   render() {
@@ -63,6 +68,15 @@ export class SubscriptionTable extends Component<Props> {
       sort: true,
       download: false,
       selectableRows: false,
+      textLabels: {
+        body: {
+          noMatch: this.props.loading ? (
+            <CircularProgress />
+          ) : (
+            this.props.t('list.noContent')
+          ),
+        },
+      },
     };
     return (
       <MUIDataTable

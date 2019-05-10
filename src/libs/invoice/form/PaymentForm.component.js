@@ -187,11 +187,7 @@ export class PaymentForm extends Component<Props, State> {
         <div className={classes.stripeFormContainer}>
           <StripeProvider apiKey={STRIPE_KEY}>
             <Elements>
-              <StripeForm
-                price={price}
-                showRecurring
-                onComplete={this.receiveStripeToken}
-              />
+              <StripeForm price={price} onComplete={this.receiveStripeToken} />
             </Elements>
           </StripeProvider>
         </div>

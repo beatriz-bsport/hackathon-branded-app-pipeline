@@ -1,28 +1,40 @@
 // @flow
 
-export type ScheduledInvoice = {
+export type PlannedInvoice = {
   date: number,
-  status: 'pending' | 'succeeded' | 'failed' | 'cancelled',
+  status: number,
   price: number,
-  invoice_items: Array<{ content_object: { id: number } }>,
+  voucher: number,
+  uuid: ?string,
 };
 
 export type Subscription = {
   id: number,
-  member: number,
   name: string,
+  member: number,
   nb_interval: number,
-  billing_anchor: number,
+  trial_nb: number,
   recurrent_price: number,
+  recurrent_voucher: number,
+  canceled_at: string,
+  has_ended: boolean,
   interval: 'month' | 'week',
-  invoices: Array<string>,
+  planned_invoices: Array<PlannedInvoice>,
 };
 
 export type SubscriptionData = {
-  member: number,
   name: string,
+  member: number,
   nb_interval: number,
-  billing_anchor: number,
   recurrent_price: number,
+  trial_nb: number,
   interval: 'month' | 'week',
+  recurrent_voucher: number,
+  payment_pack: number,
+};
+
+export type SubscriptionState = {
+  items: { [number]: Subscription },
+  loading: boolean,
+  error: ?Error,
 };

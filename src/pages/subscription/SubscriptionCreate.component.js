@@ -33,32 +33,40 @@ type Props = {
 };
 
 type State = {
-  paymentPack: ?number,
+  payment_pack: ?number,
   nb_interval: ?number,
-  billing_anchor: ?string,
+  recurrent_voucher: number,
+  trial_nb: number,
 };
 
 export class SubscriptionCreate extends Component<Props, State> {
   state = {
-    paymentPack: null,
+    payment_pack: null,
     nb_interval: null,
-    billing_anchor: null,
+    trial_nb: 0,
+    recurrent_voucher: 0,
   };
 
   onSubmit = () => {
     const { member } = this.props;
-    const { billing_anchor, nb_interval, paymentPack } = this.state;
+    const {
+      trial_nb,
+      recurrent_voucher,
+      nb_interval,
+      payment_pack,
+    } = this.state;
 
     const paymentPackSelected =
-      this.state.paymentPack &&
-      this.props.paymentPacks.find((pp) => pp.id === this.state.paymentPack);
+      this.state.payment_pack &&
+      this.props.paymentPacks.find((pp) => pp.id === this.state.payment_pack);
 
     const data = {
       name: paymentPackSelected.name,
       member: parseInt(this.props.member.id, 10),
       nb_interval: parseInt(nb_interval, 10),
-      paymentPack: parseInt(paymentPack, 10),
-      billing_anchor: moment(billing_anchor) + 0,
+      payment_pack: parseInt(payment_pack, 10),
+      trial_nb,
+      recurrent_voucher: parseFloat(recurrent_voucher),
       recurrent_price: parseFloat(paymentPackSelected.price),
       interval: 'month',
     };
@@ -66,18 +74,20 @@ export class SubscriptionCreate extends Component<Props, State> {
   };
 
   formIsFilled = () =>
-    this.state.paymentPack &&
-    this.state.nb_interval &&
-    this.state.billing_anchor &&
-    this.props.member;
+    this.state.payment_pack && this.state.nb_interval && this.props.member;
 
-  updatePaymentPack = (id: number) => this.setState({ paymentPack: id });
+  updatePaymentPack = (id: number) => this.setState({ payment_pack: id });
 
   updateNbInterval = (event: *) =>
     this.setState({ nb_interval: event.target.value });
 
-  updateBillingAnchor = (billing_anchor: string) =>
-    this.setState({ billing_anchor });
+  updateTrialPeriod = (event) =>
+    this.setState({ trial_nb: parseInt(event.target.value, 10) || 0 });
+
+  updateRecurrentVoucher = (event) =>
+    this.setState({
+      recurrent_voucher: event.target.value || 0,
+    });
 
   render() {
     const { t, member, paymentPacks, classes, onCancel } = this.props;
@@ -85,8 +95,8 @@ export class SubscriptionCreate extends Component<Props, State> {
       return <CircularProgress />;
     }
     const paymentPackSelected =
-      this.state.paymentPack &&
-      paymentPacks.find((pp) => pp.id === this.state.paymentPack);
+      this.state.payment_pack &&
+      paymentPacks.find((pp) => pp.id === this.state.payment_pack);
     return (
       <div>
         <Typography variant="h4">{t('form.title')}</Typography>
@@ -94,7 +104,7 @@ export class SubscriptionCreate extends Component<Props, State> {
           <Grid item>
             <PaymentPackInput
               paymentPacks={paymentPacks}
-              value={this.state.paymentPack}
+              value={this.state.payment_pack}
               onChange={this.updatePaymentPack}
               label={t('parameters.paymentPack')}
             />
@@ -107,18 +117,32 @@ export class SubscriptionCreate extends Component<Props, State> {
             />
           </Grid>
           <Grid item className={classes.field}>
-            <DateInput
-              value={this.state.billing_anchor}
-              label={t('parameters.dateStart')}
-              onChange={this.updateBillingAnchor}
-              minDate={moment().add(1, 'day')}
-            />
+            <div className={classes.voucherFields}>
+              <Typography variant="subtitle1" className={classes.voucherTitle}>
+                {t('parameters.voucher')}
+              </Typography>
+              <div className={classes.inlineField}>
+                <NumericInput
+                  value={this.state.trial_nb}
+                  label={t('parameters.trial_nb')}
+                  onChange={this.updateTrialPeriod}
+                />
+              </div>
+              <div className={classes.inlineField}>
+                <NumericInput
+                  value={this.state.recurrent_voucher}
+                  label={t('parameters.recurrent_voucher')}
+                  onChange={this.updateRecurrentVoucher}
+                />
+              </div>
+            </div>
           </Grid>
           <Grid item className={classes.recap}>
             <RecapSubscription
               periodName="month"
               member={member}
-              dateStart={this.state.billing_anchor}
+              trialNb={this.state.trial_nb}
+              recurrentVoucher={this.state.recurrent_voucher}
               nbPeriod={this.state.nb_interval}
               price={paymentPackSelected && paymentPackSelected.price}
               subscriptionContentName={
@@ -152,8 +176,19 @@ const styles = (theme) => ({
     marginTop: theme.spacing.unit,
     marginBottom: theme.spacing.unit,
   },
+  voucherFields: {
+    padding: theme.spacing.unit * 2,
+    margin: theme.spacing.unit,
+    marginLeft: 0,
+    border: '1px solid #DDDDDD',
+    borderRadius: 6,
+  },
   field: {
     marginBottom: theme.spacing.unit,
+  },
+  inlineField: {
+    marginRight: theme.spacing.unit,
+    marginTop: theme.spacing.unit,
   },
 });
 

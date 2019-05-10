@@ -1,17 +1,21 @@
 // @flow
-import React from 'react';
+import React, { Component } from 'react';
 
 import { compose } from 'recompose';
 import moment from 'moment';
 
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
+import { PENDING as PLANNED_INVOICE_PENDING } from '@bsport/common/lib/master-data/planned-invoice-status';
+import { CardElement, injectStripe } from 'react-stripe-elements';
 import SubscriptionSchedule from './SubscriptionSchedule.component';
 import type { SubscriptionData } from './types';
+import { getStripeErrorMessage } from '../../stripe-utils';
 
 type Props = {
   subscriptionData: ?SubscriptionData,
@@ -21,6 +25,10 @@ type Props = {
   classes: Object,
 };
 
+type State = {
+  loading: boolean,
+};
+
 const getScheduledInvoicesFromSubscriptionData = (
   subscriptionData: SubscriptionData,
 ) =>
@@ -28,42 +36,81 @@ const getScheduledInvoicesFromSubscriptionData = (
     (s) => [
       ...s,
       {
-        status: 'pending',
-        date: moment(subscriptionData.billing_anchor)
+        status: PLANNED_INVOICE_PENDING.id,
+        date: moment()
           .clone()
           .add(s.length, 'month'),
-        price: subscriptionData.recurrent_price,
-        invoice_items: [],
+        price:
+          subscriptionData.trial_nb > s.length
+            ? 0
+            : subscriptionData.recurrent_price,
+        voucher:
+          subscriptionData.trial_nb > s.length
+            ? 0
+            : subscriptionData.recurrent_voucher,
       },
     ],
     [],
   );
 
-export function SubscriptionScheduleChecker(props: Props) {
-  const { subscriptionData } = props;
-  if (!subscriptionData) {
-    return null;
-  }
+export class SubscriptionScheduleChecker extends Component<Props, State> {
+  state = { loading: false };
 
-  const scheduledInvoices = getScheduledInvoicesFromSubscriptionData(
-    subscriptionData,
-  );
-  return (
-    <div>
-      <Typography variant="h4" className={props.classes.title}>
-        {props.t('schedule.provisionalTitle')}
-      </Typography>
-      <SubscriptionSchedule scheduledInvoices={scheduledInvoices} />;
-      <div className={props.classes.buttonContainer}>
-        <Button onClick={props.onCancel} color="secondary">
-          {props.t('form.cancel')}
-        </Button>
-        <Button onClick={props.onSubmit} color="primary">
-          {props.t('form.submit')}
-        </Button>
+  submit = async () => {
+    this.setState({ loading: true });
+
+    const { t, i18n } = this.props;
+    try {
+      const tokenizer = await this.props.stripe.createToken();
+      if (tokenizer.error) {
+        throw new Error(getStripeErrorMessage(t, i18n, tokenizer.error.code));
+      }
+      const { token } = tokenizer;
+      this.props.onSubmit(token.id);
+    } catch (error) {
+      const data = (error.response && error.response.data) || {};
+      const err =
+        getStripeErrorMessage(t, i18n, data.code, data.decline_code) ||
+        t('stripe:error.connectionError');
+    }
+    this.setState({
+      loading: false,
+    });
+  };
+
+  render() {
+    const { subscriptionData, classes, t, onCancel, onSubmit } = this.props;
+    if (!subscriptionData) {
+      return null;
+    }
+
+    const scheduledInvoices = getScheduledInvoicesFromSubscriptionData(
+      subscriptionData,
+    );
+    return (
+      <div>
+        <Typography variant="h4" className={classes.title}>
+          {t('subscription:schedule.provisionalTitle')}
+        </Typography>
+        <SubscriptionSchedule scheduledInvoices={scheduledInvoices} />
+        <div className={classes.cardContainer}>
+          <CardElement hidePostalCode />
+        </div>
+        <div className={classes.buttonContainer}>
+          <Button onClick={onCancel} color="secondary">
+            {t('subscription:form.cancel')}
+          </Button>
+          <Button onClick={this.submit} id="stripe-pay" color="primary">
+            {this.state.loading ? (
+              <CircularProgress />
+            ) : (
+              t('subscription:form.submit')
+            )}
+          </Button>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 const styles = (theme) => ({
@@ -73,9 +120,14 @@ const styles = (theme) => ({
   buttonContainer: {
     padding: theme.spacing.unit * 2,
   },
+  cardContainer: {
+    padding: theme.spacing.unit * 2,
+    backgroundColor: '#EFEFEF',
+  },
 });
 
 export default compose(
-  withNamespaces(['subscription']),
+  withNamespaces(['stripe', 'subscription']),
   withStyles(styles),
+  injectStripe,
 )(SubscriptionScheduleChecker);

@@ -1,9 +1,9 @@
 // @flow
 
 import React, { Component } from 'react';
-import moment from 'moment';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
+import { push as pushRouter } from 'react-router-redux';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import withDrawer from '../../hocs/with-drawer.hoc';
@@ -12,23 +12,6 @@ import api from '../../api';
 
 import SubscriptionTable from './SubscriptionTable.component';
 import type { Subscription } from './types';
-
-api.subscription = {
-  fetchAll: async () => ({
-    data: [
-      {
-        id: 1,
-        member: 10993,
-        invoices: ['fjezofij-5767heziuf', 'joioi-IOH-h678'],
-        billing_anchor: moment(),
-        nb_interval: 6,
-        interval: 'month',
-        name: 'Pass 6 mois illimité',
-        recurrent_price: 40.32,
-      },
-    ],
-  }),
-};
 
 type Props = {
   members: Array<Member>,
@@ -40,12 +23,15 @@ type State = {
 export class SubscriptionList extends Component<Props, State> {
   state = {
     subscriptions: [],
+    loading: true,
   };
 
   componentDidMount() {
     api.subscription
       .fetchAll()
-      .then((response) => this.setState({ subscriptions: response.data }))
+      .then((response) =>
+        this.setState({ subscriptions: response.data, loading: false }),
+      )
       .catch((err) => console.error(err));
   }
 
@@ -54,6 +40,8 @@ export class SubscriptionList extends Component<Props, State> {
       <SubscriptionTable
         members={this.props.members}
         subscriptions={this.state.subscriptions}
+        loading={this.state.loading}
+        goToSubscription={this.props.goToSubscription}
       />
     );
   }
@@ -62,5 +50,12 @@ export class SubscriptionList extends Component<Props, State> {
 export default compose(
   withNamespaces(['', 'subscription']),
   withDrawer(({ t }: { t: TFunction }) => t('appbar.title.subscriptions')),
-  connect((state) => ({ members: state.member.all })),
+  connect(
+    (state) => ({ members: state.member.all }),
+    (dispatch) => ({
+      goToSubscription(id) {
+        dispatch(pushRouter(`/subscription/${id}`));
+      },
+    }),
+  ),
 )(SubscriptionList);

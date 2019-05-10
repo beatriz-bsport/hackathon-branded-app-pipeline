@@ -4,6 +4,7 @@ import type { AuthAction } from './auth/types';
 import type { PaymentRulesState } from '../libs/payment-rules/types';
 import type { StatsState } from './stats/types';
 import type { CoachesState } from './coaches/types';
+import type { SubscriptionState } from '../pages/subscription/types';
 import type { SearchState, SearchAction } from './search/types';
 
 export type State = {
@@ -11,6 +12,7 @@ export type State = {
   stats: StatsState,
   coach: CoachesState,
   search: SearchState,
+  subscription: SubscriptionState,
   nav: NavigationState,
 };
 export type Action = SearchAction | AuthAction;

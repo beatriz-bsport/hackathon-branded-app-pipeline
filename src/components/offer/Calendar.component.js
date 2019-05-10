@@ -134,7 +134,6 @@ export class Calendar extends Component<Props, State> {
     const { date } = this.props;
     const { classes } = this.props;
     const isSelected = day.isSame(date, 'days');
-    console.log('rendering day ', date);
 
     return (
       <Grid item>

@@ -90,9 +90,9 @@ export class TimeTable extends Component<Props, State> {
   }
 
   renderOffer = (offer: Offer) => {
-    const fillingInfo = `${offer.nb_bookings}/${offer.effectif} (+${
-      offer.nb_option
-    })`;
+    const fillingInfo = `${offer.nb_bookings} (${offer.nb_attendant}+${
+      offer.nb_non_attendant
+    }) / ${offer.effectif}`;
     const fillingInfoProps = {
       color: offer.nb_bookings < offer.effectif ? 'error' : 'primary',
     };

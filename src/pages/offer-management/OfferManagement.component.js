@@ -376,7 +376,6 @@ export class OfferManagement extends PureComponent<Props, State> {
     if (!offer) {
       return <CircularProgress />;
     }
-
     return (
       <Grid container direction="row" spacing={16}>
         <Grid item xs={12} className={classes.headerContainer}>
@@ -418,9 +417,11 @@ export class OfferManagement extends PureComponent<Props, State> {
         <Grid item xs={12} md={6}>
           <Paper>
             <Grid container direction="column">
-              <Grid item>{this.renderBookingHeader()}</Grid>
+              <Grid item xs={12}>
+                {this.renderBookingHeader()}
+              </Grid>
               <Divider />
-              <Grid item>
+              <Grid item xs={12}>
                 <Collapse in={!!searchedText}>
                   <div className={classes.resultListContainer}>
                     <ResultList
@@ -431,7 +432,7 @@ export class OfferManagement extends PureComponent<Props, State> {
                   <Divider />
                 </Collapse>
               </Grid>
-              <Grid item>
+              <Grid item xs={12}>
                 {bookingLoading || this.props.offerLoading ? null : (
                   <Grid
                     container

@@ -80,9 +80,6 @@ export class ResultList extends Component<Props, State> {
 const styles = (theme) => ({
   icon: { objectFit: 'cover', height: '100%', width: '100%' },
   list: {
-    [theme.breakpoints.down('md')]: {
-      width: '100vw',
-    },
     maxWidth: '100%',
     flex: '0 360',
     paddingTop: theme.spacing.unit,

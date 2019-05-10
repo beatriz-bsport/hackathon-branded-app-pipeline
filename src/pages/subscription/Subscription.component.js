@@ -2,33 +2,54 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import Dialog from '@material-ui/core/Dialog';
+import { compose, withState } from 'recompose';
 
 import SubscriptionSummary from './SubscriptionSummary.component';
 import SubscriptionSchedule from './SubscriptionSchedule.component';
+import StopConfirmation from './StopDialog.component';
 import type { Subscription } from './types';
 
 type Props = {
   subscription: Subscription,
+  stopSubscription: (id: number) => void,
+  setShowDialogStop: (boolean) => void,
+  showDialogStop: boolean,
 };
 
-export default function SubscriptionComponent(props: Props) {
+export function SubscriptionComponent(props: Props) {
   if (!props.subscription) {
     return null;
   }
   return (
-    <Grid container direction="row">
-      <Grid item xs={12} md={6}>
-        <Paper>
-          <SubscriptionSummary subscription={props.subscription} />
-        </Paper>
+    <div>
+      <Grid container direction="row" spacing={24}>
+        <Grid item xs={12} md={6}>
+          <Paper>
+            <SubscriptionSummary
+              subscription={props.subscription}
+              stopSubscription={() => props.setShowDialogStop(true)}
+            />
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Paper>
+            <SubscriptionSchedule
+              scheduledInvoices={props.subscription.planned_invoices}
+            />
+          </Paper>
+        </Grid>
       </Grid>
-      <Grid item xs={12} md={6}>
-        <Paper>
-          <SubscriptionSchedule
-            scheduledInvoices={props.subscription.planned_invoices}
-          />
-        </Paper>
-      </Grid>
-    </Grid>
+      <Dialog open={props.showDialogStop}>
+        <StopConfirmation
+          onSubmit={() => props.stopSubscription(props.subscription.id)}
+          onCancel={() => props.setShowDialogStop(false)}
+        />
+      </Dialog>
+    </div>
   );
 }
+
+export default compose(withState('showDialogStop', 'setShowDialogStop', false))(
+  SubscriptionComponent,
+);

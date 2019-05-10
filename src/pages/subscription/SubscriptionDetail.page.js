@@ -6,16 +6,22 @@ import { connect } from 'react-redux';
 import subscriptionSelectors from './selectors';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { fetch as fetchSubscription } from './actions';
+import {
+  fetch as fetchSubscription,
+  stop as stopSubscription,
+} from './actions';
 import SubscriptionComponent from './Subscription.component';
 
 import type { Subscription } from './types';
 
 type Props = {
   id: number,
-  subscription: Subscription,
   loading: boolean,
+
+  subscription: Subscription,
+
   fetch: (id: number) => void,
+  stop: (id: number) => void,
 };
 
 export class SubscriptionDetail extends Component<Props> {
@@ -24,11 +30,14 @@ export class SubscriptionDetail extends Component<Props> {
   }
 
   render() {
-    const { loading, subscription } = this.props;
+    const { loading, subscription, stop } = this.props;
     return (
       <div>
         {loading ? <LinearProgress /> : null}
-        <SubscriptionComponent subscription={subscription} />
+        <SubscriptionComponent
+          subscription={subscription}
+          stopSubscription={stop}
+        />
       </div>
     );
   }
@@ -43,6 +52,7 @@ export default compose(
     }),
     {
       fetch: fetchSubscription,
+      stop: stopSubscription,
     },
   ),
 )(SubscriptionDetail);

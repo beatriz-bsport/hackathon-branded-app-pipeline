@@ -99,7 +99,6 @@ export class SubscriptionCreate extends Component<Props, State> {
       paymentPacks.find((pp) => pp.id === this.state.payment_pack);
     return (
       <div>
-        <Typography variant="h4">{t('form.title')}</Typography>
         <Grid container direction="column" alignItems="flex-start">
           <Grid item>
             <PaymentPackInput

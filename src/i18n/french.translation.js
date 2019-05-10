@@ -557,6 +557,7 @@ export default {
     },
     navigation: {
       workshopActivities: 'Ateliers',
+      invoice: 'Factures',
       alpha: 'en développement',
       beta: 'beta',
       consumer: {
@@ -578,7 +579,7 @@ export default {
       pass: 'Abonnements',
       settings: 'Paramètres',
       myClub: 'Mon Club',
-      subscription: 'Souscription',
+      subscription: 'Souscriptions',
     },
     invoice: {
       finalize: 'Finaliser la facture',
@@ -655,6 +656,7 @@ export default {
         "La CB ne sera débitée qu'après la sauvegarde de la facture",
       createInvoice: 'Paiement',
       toBill: 'Facturer',
+      toSubscribe: 'Souscrire',
     },
     paymentPack,
     login: {

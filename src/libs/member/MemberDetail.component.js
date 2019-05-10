@@ -17,6 +17,7 @@ import {
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import EditIcon from '@material-ui/icons/Edit';
+import PaymentIcon from '@material-ui/icons/Payment';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
@@ -47,6 +48,7 @@ type Props = {
   discardBookingAttendance: (id: number) => void,
   editMember: (id: number) => void,
   billMember: (id: number) => void,
+  subscribeMember: (id: number) => void,
   incrementCredit: (id: number) => void,
   decrementCredit: (id: number) => void,
   createOrUpdateNote: ({ id: ?number, text: string, memberId: number }) => void,
@@ -68,6 +70,10 @@ export class Member extends Component<Props, State> {
 
   billMember = () => {
     this.props.billMember(this.props.memberId);
+  };
+
+  subscribeMember = () => {
+    this.props.subscribeMember(this.props.memberId);
   };
 
   editMember = () => {
@@ -328,6 +334,16 @@ export class Member extends Component<Props, State> {
               >
                 <AttachMoneyIcon className={classes.leftIcon} />
                 {t('payment.toBill')}
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button
+                color="secondary"
+                variant="contained"
+                onClick={this.subscribeMember}
+              >
+                <PaymentIcon className={classes.leftIcon} />
+                {t('payment.toSubscribe')}
               </Button>
             </Grid>
             <Grid item>

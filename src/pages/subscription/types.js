@@ -35,6 +35,12 @@ export type SubscriptionData = {
 
 export type SubscriptionState = {
   items: { [number]: Subscription },
-  loading: boolean,
-  error: ?Error,
+  stop: {
+    loading: boolean,
+    error: ?Error,
+  },
+  detail: {
+    loading: boolean,
+    error: ?Error,
+  },
 };

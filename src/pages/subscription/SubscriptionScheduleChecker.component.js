@@ -89,7 +89,7 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
     );
     return (
       <div>
-        <Typography variant="h4" className={classes.title}>
+        <Typography variant="h5" className={classes.title}>
           {t('subscription:schedule.provisionalTitle')}
         </Typography>
         <SubscriptionSchedule scheduledInvoices={scheduledInvoices} />

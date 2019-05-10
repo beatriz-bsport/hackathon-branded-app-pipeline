@@ -5,12 +5,14 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
+import moment from 'moment';
 
 import RedButton from '../../components/button/RedButton.component';
 
 import type { Subscription } from './types';
 
 type Props = {
+  stopSubscription: () => void,
   subscription: Subscription,
   t: TFunction,
   classes: Object,
@@ -30,7 +32,10 @@ const renderStatus = (
   }
   if (canceled_at) {
     return (
-      <Typography color="error">{t('subscriptionStatus.canceled')}</Typography>
+      <Typography color="error">
+        {t('subscriptionStatus.canceledOn') +
+          moment(canceled_at).format('DD/MM/YYYY')}
+      </Typography>
     );
   }
   return (
@@ -39,43 +44,39 @@ const renderStatus = (
 };
 
 export function SubscriptionSummary(props: Props) {
-  const { subscription, t, classes } = props;
+  const { subscription, t, classes, stopSubscription } = props;
   if (!subscription) {
     return null;
   }
   return (
-    <div>
-      <Typography variant="h4">{props.subscription.name}</Typography>
-      <div className={classes.parameters}>
+    <div className={classes.container}>
+      <Typography className={classes.title} variant="h5">
+        {subscription.name}
+      </Typography>
+      <fieldset className={classes.parameters}>
+        <legend>{t('parameters.parameters')}</legend>
         <div className={classes.field}>
           <Typography inline>{t('parameters.nbInterval')}</Typography>
           <Typography inline>{subscription.nb_interval}</Typography>
         </div>
         <div className={classes.field}>
-          <Typography inline>{t('parameters.nbInterval')}</Typography>
-          <Typography inline>{subscription.nb_interval}</Typography>
-        </div>
-        <div className={classes.field}>
-          <Typography inline>{t('parameters.trialNb')}</Typography>
+          <Typography inline>{t('parameters.trial_nb')}</Typography>
           <Typography inline>{subscription.trial_nb}</Typography>
         </div>
         <div className={classes.field}>
-          <Typography inline>{t('parameters.price')}</Typography>
-          <Typography inline>{subscription.recurrent_price}</Typography>
+          <Typography inline>{t('parameters.recurrent_price')}</Typography>
+          <Typography inline>{subscription.recurrent_price} €</Typography>
         </div>
         <div className={classes.field}>
-          <Typography inline>{t('parameters.recurrentVoucher')}</Typography>
-          <Typography inline>{subscription.recurrent_voucher}</Typography>
+          <Typography inline>{t('parameters.recurrent_voucher')}</Typography>
+          <Typography inline>{subscription.recurrent_voucher} €</Typography>
         </div>
-        <div className={classes.field}>
-          <Typography inline>{t('parameters.nbInterval')}</Typography>
-          <Typography inline>{subscription.nb_interval}</Typography>
-        </div>
-      </div>
+      </fieldset>
       <div className={classes.statusContainer}>
         {renderStatus(t, subscription.canceled_at, subscription.has_ended)}
         <RedButton
           disabled={subscription.has_ended || subscription.canceled_at}
+          onClick={stopSubscription}
         >
           {t('action.stop')}
         </RedButton>
@@ -85,18 +86,26 @@ export function SubscriptionSummary(props: Props) {
 }
 
 const styles = (theme) => ({
+  container: {
+    padding: theme.spacing.unit,
+  },
+  title: {
+    padding: theme.spacing.unit * 2,
+  },
   field: {
     display: 'flex',
-    justify: 'space-between',
+    justifyContent: 'space-between',
     padding: theme.spacing.unit,
   },
-  parameters: {
-    backgroundColor: 'EFEFEF',
-    margin: theme.spacing.unit,
-  },
+  parameters: {},
   statusContainer: {
+    marginTop: theme.spacing.unit * 2,
     padding: theme.spacing.unit,
     border: '1px solid #DDDDDD',
+    backgroundColor: '#F8F8F8',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     borderRadius: 6,
   },
 });

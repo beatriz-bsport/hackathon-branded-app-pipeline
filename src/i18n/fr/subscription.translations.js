@@ -17,7 +17,22 @@ export default {
     title: 'Nouveau paiement récurrent',
     cancel: 'Annuler',
   },
+  plannedInvoiceStatus: {
+    pending: 'En attente',
+    canceled: 'Annulé',
+    failed: 'Paiement refusé',
+    succeeded: 'Encaissé',
+  },
+  subscriptionStatus: {
+    pending: 'En cours de facturation',
+    canceledOn: 'Annulé par le manager le ',
+    hasEnded: 'Facturation terminée',
+  },
+  action: {
+    stop: 'Arrêter',
+  },
   parameters: {
+    parameters: 'Paramètres',
     voucher: 'Offre spéciale',
     trial_nb: 'Nombre de mois offers',
     recurrent_voucher: 'Réduction sur chaque facture',

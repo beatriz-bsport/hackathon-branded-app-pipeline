@@ -1,28 +1,39 @@
 // @flow
 
-import lodash from 'lodash';
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
-import { detail } from './actions';
+import { detailActions, stopActions } from './actions';
 
 import type { SubscriptionState } from './types';
 
 const initialState: SubscriptionState = Immutable({
   items: {},
-  loading: false,
-  error: null,
+  detail: {
+    loading: false,
+    error: null,
+  },
+  stop: {
+    loading: false,
+    error: null,
+  },
 });
 
 export default handleActions(
   {
-    [detail.isLoading]: (state, { payload }) => {
-      return state.set('loading', payload);
+    [detailActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['detail', 'loading'], payload);
     },
-    [detail.error]: (state, { payload }) => {
-      return state.set('error', payload);
+    [detailActions.error]: (state, { payload }) => {
+      return state.setIn(['detail', 'error'], payload);
     },
-    [detail.success]: (state, { payload }) => {
+    [stopActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['stop', 'loading'], payload);
+    },
+    [stopActions.error]: (state, { payload }) => {
+      return state.setIn(['stop', 'error'], payload);
+    },
+    [detailActions.success]: (state, { payload }) => {
       const { id } = payload;
       return state.merge({
         items: { [id]: payload },

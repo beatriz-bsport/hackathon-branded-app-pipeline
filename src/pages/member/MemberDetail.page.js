@@ -40,6 +40,7 @@ type Props = {
   discardBookingAttendance: (id: number) => void,
   editMember: (id: number) => void,
   billMember: (id: number) => void,
+  subscribeMember: (id: number) => void,
   incrementCredit: (id: number) => void,
   decrementCredit: (id: number) => void,
   createOrUpdateNote: ({ id: ?number, text: string, memberId: number }) => void,
@@ -76,6 +77,7 @@ export class Member extends Component<Props> {
               discardBookingAttendance={this.props.discardBookingAttendance}
               editMember={this.props.editMember}
               billMember={this.props.billMember}
+              subscribeMember={this.props.subscribeMember}
               incrementCredit={this.props.incrementCredit}
               decrementCredit={this.props.decrementCredit}
               createOrUpdateNote={this.props.createOrUpdateNote}
@@ -129,6 +131,9 @@ function mapDispatchToProps(dispatch) {
     },
     billMember(id) {
       dispatch(routerPush(`/invoice/add/member/${id}`));
+    },
+    subscribeMember(id) {
+      dispatch(routerPush(`/subscription/add/${id}`));
     },
     editMember(id) {
       dispatch(routerPush(`/member/edit/${id}`));

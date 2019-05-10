@@ -39,6 +39,7 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DescriptionIcon from '@material-ui/icons/Description';
 import ReceiptIcon from '@material-ui/icons/Receipt';
+import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 
 import { colors } from '@bsport/common/lib/colors';
 import { LanguageButton } from '../button/LanguageButton.component';
@@ -220,19 +221,26 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         ],
       },
       {
+        icon: EuroSymbolIcon,
+        text: t('navigation.payment'),
+        type: 'nested',
+        nestedItems: [
+          {
+            to: '/invoice',
+            icon: ReceiptIcon,
+            text: t('navigation.invoice'),
+          },
+          {
+            to: '/subscription',
+            icon: Payment,
+            text: t('navigation.subscription'),
+          },
+        ],
+      },
+      {
         to: '/member',
         icon: People,
         text: t('navigation.member'),
-      },
-      {
-        to: '/invoice',
-        icon: Payment,
-        text: t('navigation.payment'),
-      },
-      {
-        to: '/subscription',
-        icon: ReceiptIcon,
-        text: t('navigation.subscription'),
       },
       'divider',
       {

@@ -19,6 +19,8 @@
   ],
   "rules": {
     // DISABLED BY SOFIAN
+    "react/require-default-props": 0,
+    "react/default-props-match-prop-types": 0,
     "function-paren-newline": 0,
     "no-restricted-syntax": 0,
     "react/no-array-index-key": 0,

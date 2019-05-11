@@ -41,7 +41,7 @@ type Props = {
 };
 
 export class BookingTable extends PureComponent<Props> {
-  state = { compact: true };
+  state = { compact: false };
 
   componentDidMount() {
     if (this.container) {
@@ -61,7 +61,6 @@ export class BookingTable extends PureComponent<Props> {
   };
 
   render() {
-    console.log('rendering table');
     const {
       t,
       classes,
@@ -99,7 +98,11 @@ export class BookingTable extends PureComponent<Props> {
     const sortedBookings = this.sortBookings();
 
     return (
-      <div ref={(el) => (this.container = el)}>
+      <div
+        ref={(el) => {
+          this.container = el;
+        }}
+      >
         <List disablePadding dense>
           {sortedBookings.map((b) => (
             <BookingItemForManager

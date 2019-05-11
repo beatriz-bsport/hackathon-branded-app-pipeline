@@ -20,8 +20,6 @@ import InvoiceTable from './InvoiceTable.component';
 import FinalizeInvoiceDialog from '../../libs/invoice/dialog/FinalizeInvoiceDialog.component';
 
 type Props = {
-  t: TFunction,
-
   loading: boolean,
   invoices: Array<Invoice>, // it is an immutable on which we call .asMutable() but whatever
   members: Array<Member>,

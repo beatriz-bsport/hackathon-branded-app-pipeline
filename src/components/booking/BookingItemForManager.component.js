@@ -42,6 +42,7 @@ type Props = {
   showRevertBookingButton: ?boolean,
   redirectToMember: ?boolean,
   newTab: ?boolean,
+  compact: ?boolean,
 
   push: (path: string) => void,
   onQuickInvoiceClick: () => void,
@@ -58,7 +59,16 @@ const getPackDate = (consumerPack) => {
   ];
 };
 
-const AttendanceButton = (props) => {
+type AttendanceButtonProps = {
+  t: TFunction,
+  classes: Object,
+  discardBookingAttendance: () => void,
+  confirmBookingAttendance: () => void,
+  variant: ?string,
+  attendance: boolean,
+};
+
+const AttendanceButton = (props: AttendanceButtonProps) => {
   if (props.attendance) {
     return (
       <Button

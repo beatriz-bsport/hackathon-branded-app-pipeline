@@ -38,7 +38,13 @@ function getConverter(column, classes, t) {
     if (datatype === 'price') {
       return {
         cellProps: { className: classes.right },
-        value: `${value} €`,
+        value: `${value}€`,
+      };
+    }
+    if (datatype === 'tax') {
+      return {
+        cellProps: { className: classes.right },
+        value: `${value}%`,
       };
     }
     if (datatype === 'datetime') {
@@ -52,12 +58,15 @@ function getConverter(column, classes, t) {
       return { value: t(`product_type.${value}`) };
     }
     if (datatype === 'payment_method') {
-      return {
-        value: (value || '')
-          .split(',')
-          .map((v) => t(`payment_method.${v}`))
-          .join(', '),
-      };
+      if (value) {
+        return {
+          value: (value || '')
+            .split(',')
+            .map((v) => t(`payment_method.${v}`))
+            .join(', '),
+        };
+      }
+      return { value: t('payment_method.none') };
     }
     return { value };
   };

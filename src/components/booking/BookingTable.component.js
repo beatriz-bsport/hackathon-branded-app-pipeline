@@ -41,6 +41,14 @@ type Props = {
 };
 
 export class BookingTable extends PureComponent<Props> {
+  state = { compact: true };
+
+  componentDidMount() {
+    if (this.container) {
+      this.setState({ compact: this.container.clientWidth < 500 });
+    }
+  }
+
   sortBookings = () => {
     const { sortedBy, bookings } = this.props;
 
@@ -91,33 +99,36 @@ export class BookingTable extends PureComponent<Props> {
     const sortedBookings = this.sortBookings();
 
     return (
-      <List disablePadding dense>
-        {sortedBookings.map((b) => (
-          <BookingItemForManager
-            member={this.props.members.find((m) => m.id === b.member)}
-            redirectToMember={redirectToMember}
-            newTab={newTab}
-            showQuickInvoiceButton={showQuickInvoiceButton}
-            onQuickInvoiceClick={() => onQuickInvoiceClick(b.member)}
-            key={b.id}
-            heading={heading}
-            booking={b}
-            paymentPacks={this.props.paymentPacks}
-            showRevertBookingButton={showRevertBookingButton}
-            handleRevert={() => handleRevert(b)}
-            discardBookingAttendance={() => discardBookingAttendance(b.id)}
-            confirmBookingAttendance={() => confirmBookingAttendance(b.id)}
-          />
-        ))}
-        {bookingOptions.map((bo) => (
-          <BookingOptionForManager
-            heading={heading}
-            option={bo}
-            key={bo.id}
-            discardOption={() => discardOption(bo.id)}
-          />
-        ))}
-      </List>
+      <div ref={(el) => (this.container = el)}>
+        <List disablePadding dense>
+          {sortedBookings.map((b) => (
+            <BookingItemForManager
+              compact={this.state.compact}
+              member={this.props.members.find((m) => m.id === b.member)}
+              redirectToMember={redirectToMember}
+              newTab={newTab}
+              showQuickInvoiceButton={showQuickInvoiceButton}
+              onQuickInvoiceClick={() => onQuickInvoiceClick(b.member)}
+              key={b.id}
+              heading={heading}
+              booking={b}
+              paymentPacks={this.props.paymentPacks}
+              showRevertBookingButton={showRevertBookingButton}
+              handleRevert={() => handleRevert(b)}
+              discardBookingAttendance={() => discardBookingAttendance(b.id)}
+              confirmBookingAttendance={() => confirmBookingAttendance(b.id)}
+            />
+          ))}
+          {bookingOptions.map((bo) => (
+            <BookingOptionForManager
+              heading={heading}
+              option={bo}
+              key={bo.id}
+              discardOption={() => discardOption(bo.id)}
+            />
+          ))}
+        </List>
+      </div>
     );
   }
 }

@@ -7,14 +7,18 @@ import {
   Button,
   IconButton,
   ListItem,
+  ListItemIcon,
   Typography,
   ListItemText,
   Badge,
   ListItemSecondaryAction,
 } from '@material-ui/core';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import CachedIcon from '@material-ui/icons/Cached';
 import CancelIcon from '@material-ui/icons/Cancel';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push as routerPush } from 'react-router-redux';
@@ -54,7 +58,30 @@ const getPackDate = (consumerPack) => {
   ];
 };
 
+const AttendanceButton = (props) => {
+  if (props.attendance) {
+    return (
+      <Button
+        color="primary"
+        variant={props.variant}
+        onClick={props.discardBookingAttendance}
+      >
+        {props.t('booking.attend')}
+        <CachedIcon className={props.classes.iconButton} />
+      </Button>
+    );
+  }
+  return (
+    <RedButton variant={props.variant} onClick={props.confirmBookingAttendance}>
+      {props.t('booking.doNotAttend')}
+      <CachedIcon className={props.classes.iconButton} />
+    </RedButton>
+  );
+};
+
 export class BookingItemForManager extends PureComponent<Props> {
+  state = { menuAnchor: null };
+
   getStatusStyleProps = (status: ?boolean) => {
     if (status) {
       return { color: 'primary' };
@@ -105,6 +132,66 @@ export class BookingItemForManager extends PureComponent<Props> {
     return [['Impayé', 'error']];
   };
 
+  renderCompactMenu = () => {
+    const closeAndAction = (actionCallback) => () => {
+      actionCallback();
+      this.setState({ menuAnchor: null });
+    };
+    const {
+      onQuickInvoiceClick,
+      confirmBookingAttendance,
+      discardBookingAttendance,
+      handleRevert,
+      booking,
+      classes,
+      t,
+    } = this.props;
+    const attendText = booking.attendance
+      ? t('booking.attend')
+      : t('booking.doNotAttend');
+    const switchAttendance = booking.attendance
+      ? discardBookingAttendance
+      : confirmBookingAttendance;
+
+    return (
+      <ListItemSecondaryAction>
+        <IconButton
+          onClick={(event) =>
+            this.setState({ menuAnchor: event.currentTarget })
+          }
+        >
+          <MoreVertIcon />
+        </IconButton>
+
+        <Menu
+          id="simple-menu"
+          anchorEl={this.state.menuAnchor}
+          open={Boolean(this.state.menuAnchor)}
+          onClose={closeAndAction(() => {})}
+        >
+          <MenuItem onClick={closeAndAction(onQuickInvoiceClick)}>
+            <ListItemText>Facturer</ListItemText>
+            <ListItemIcon className={classes.iconButton}>
+              <EuroSymbolIcon />
+            </ListItemIcon>
+          </MenuItem>
+          <MenuItem onClick={closeAndAction(switchAttendance)}>
+            <ListItemText>{attendText}</ListItemText>
+            <ListItemIcon>
+              <CachedIcon className={classes.iconButton} />
+            </ListItemIcon>
+          </MenuItem>
+          <MenuItem onClick={closeAndAction(handleRevert)}>
+            <ListItemText>Désinscrire</ListItemText>
+            <ListItemIcon className={classes.iconButton}>
+              <CancelIcon />
+            </ListItemIcon>
+          </MenuItem>
+        </Menu>
+      </ListItemSecondaryAction>
+    );
+  };
+
   renderButtons = () => {
     const {
       t,
@@ -115,43 +202,23 @@ export class BookingItemForManager extends PureComponent<Props> {
       showRevertBookingButton,
       handleRevert,
       classes,
+      compact,
     } = this.props;
 
-    if (booking.attendance) {
-      return (
-        <ListItemSecondaryAction>
-          <Button
-            color="primary"
-            variant="outlined"
-            onClick={discardBookingAttendance}
-          >
-            {t('booking.attend')}
-            <CachedIcon className={classes.iconButton} />
-          </Button>
-          {showQuickInvoiceButton ? (
-            <Button
-              variant="outlined"
-              color="secondary"
-              onClick={this.props.onQuickInvoiceClick}
-              className={classes.rightButton}
-            >
-              <AttachMoneyIcon />
-            </Button>
-          ) : null}
-          {showRevertBookingButton ? (
-            <IconButton color="secondary" onClick={handleRevert}>
-              <CancelIcon />
-            </IconButton>
-          ) : null}
-        </ListItemSecondaryAction>
-      );
+    if (compact) {
+      return this.renderCompactMenu();
     }
+
     return (
       <ListItemSecondaryAction>
-        <RedButton variant="outlined" onClick={confirmBookingAttendance}>
-          {t('booking.doNotAttend')}
-          <CachedIcon className={classes.iconButton} />
-        </RedButton>
+        <AttendanceButton
+          attendance={booking.attendance}
+          variant="outlined"
+          t={t}
+          classes={classes}
+          discardBookingAttendance={discardBookingAttendance}
+          confirmBookingAttendance={confirmBookingAttendance}
+        />
         {showQuickInvoiceButton ? (
           <Button
             variant="outlined"
@@ -159,7 +226,7 @@ export class BookingItemForManager extends PureComponent<Props> {
             onClick={this.props.onQuickInvoiceClick}
             className={classes.rightButton}
           >
-            <AttachMoneyIcon />
+            <EuroSymbolIcon />
           </Button>
         ) : null}
         {showRevertBookingButton ? (

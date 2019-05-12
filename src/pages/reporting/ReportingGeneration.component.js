@@ -36,11 +36,17 @@ type Props = {
 };
 
 export class ReportingGeneration extends React.Component<Props> {
+  state = { loading: true };
+
   componentWillMount() {
     const { dateRange } = this.props;
     this.props.fetchReports();
     this.props.fetchReportMetadata();
     this.props.handleGenerate(dateRange);
+  }
+
+  componentDidMount() {
+    this.setState({ loading: false });
   }
 
   render() {
@@ -52,12 +58,13 @@ export class ReportingGeneration extends React.Component<Props> {
       metadata,
       dateRange,
     } = this.props;
+
     return (
       <ReportGeneration
         dateRange={dateRange}
         report={report}
         metadata={metadata}
-        resultLoading={report.loading || result.loading}
+        resultLoading={report.loading || result.loading || this.state.loading}
         result={result.value}
         handleGenerate={handleGenerate}
         exportLink={exportLink}

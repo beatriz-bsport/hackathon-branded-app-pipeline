@@ -58,7 +58,7 @@ function getConverter(column, classes, t) {
       return { value: t(`product_type.${value}`) };
     }
     if (datatype === 'payment_method') {
-      if (value) {
+      if (value && (typeof value === 'string' || !value)) {
         return {
           value: (value || '')
             .split(',')

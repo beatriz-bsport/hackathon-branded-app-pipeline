@@ -36,16 +36,20 @@ function getConverter(column, classes, t) {
   const { datatype } = column;
   return (value) => {
     if (datatype === 'price') {
-      return {
-        cellProps: { className: classes.right },
-        value: `${value}€`,
-      };
+      if (typeof value === 'number' || !value) {
+        return {
+          cellProps: { className: classes.right },
+          value: `${parseFloat(value || 0).toFixed(2)}€`,
+        };
+      }
     }
-    if (datatype === 'tax') {
-      return {
-        cellProps: { className: classes.right },
-        value: `${value}%`,
-      };
+    if (datatype === 'percent') {
+      if (typeof value === 'number' || !value) {
+        return {
+          cellProps: { className: classes.right },
+          value: `${parseFloat(value || 0).toFixed(2)}%`,
+        };
+      }
     }
     if (datatype === 'datetime') {
       return {

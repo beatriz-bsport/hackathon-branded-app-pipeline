@@ -29,6 +29,8 @@ export default {
     product_names: 'Products',
     payment_price: 'price',
     payment_method_readable_identifier: 'Payment method',
+    tax: 'Tax',
+    voucher: 'Voucher',
   },
   payment_method: {
     cash: 'Cash',

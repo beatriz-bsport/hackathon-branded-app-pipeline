@@ -29,6 +29,8 @@ export default {
     credits: 'Crédits totaux',
     available_credits: 'Crédits disponibles',
     payment_method_readable_identifier: 'Méthode de paiement',
+    tax: 'TVA',
+    voucher: 'Réduction',
   },
   payment_method: {
     cash: 'Espèces',

@@ -13,6 +13,7 @@ import withDrawer from '../../hocs/with-drawer.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import Config from '../../config';
 import api from '../../api';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import SubscriptionCreateComponent from './SubscriptionCreate.component';
 import SubscriptionScheduleChecker from './SubscriptionScheduleChecker.component';
@@ -27,6 +28,7 @@ type Props = {
 };
 type State = {
   tempSubscription: ?SubscriptionData,
+  processing: boolean,
 };
 
 const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
@@ -34,6 +36,7 @@ const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
 export class SubscriptionCreate extends Component<Props, State> {
   state = {
     tempSubscription: null,
+    processing: false,
   };
 
   storeTempSubscription = (tempSubscription: ?SubscriptionData) => {
@@ -42,6 +45,7 @@ export class SubscriptionCreate extends Component<Props, State> {
   };
 
   createSubscription = async (token: string) => {
+    this.setState({ processing: true });
     try {
       const response = await api.subscription.createFromPack({
         ...this.state.tempSubscription,
@@ -51,11 +55,13 @@ export class SubscriptionCreate extends Component<Props, State> {
     } catch (err) {
       console.error(err);
     }
+    this.setState({ processing: false });
   };
 
   render() {
     return (
       <div className={this.props.classes.container}>
+        {this.state.processing ? <LinearProgress /> : null}
         <Paper className={this.props.classes.paper}>
           {this.state.tempSubscription ? (
             <StripeProvider apiKey={STRIPE_KEY}>
@@ -64,6 +70,7 @@ export class SubscriptionCreate extends Component<Props, State> {
                   subscriptionData={this.state.tempSubscription}
                   onSubmit={this.createSubscription}
                   onCancel={() => this.storeTempSubscription(null)}
+                  processing={this.state.processing}
                 />
               </Elements>
             </StripeProvider>

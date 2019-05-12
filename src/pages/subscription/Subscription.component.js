@@ -14,6 +14,7 @@ type Props = {
   subscription: Subscription,
   stopSubscription: (id: number) => void,
   setShowDialogStop: (boolean) => void,
+  goToInvoice: (uuid: string) => void,
   showDialogStop: boolean,
 };
 
@@ -36,6 +37,7 @@ export function SubscriptionComponent(props: Props) {
           <Paper>
             <SubscriptionSchedule
               scheduledInvoices={props.subscription.planned_invoices}
+              onPlannedInvoiceClick={props.goToInvoice}
             />
           </Paper>
         </Grid>

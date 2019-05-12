@@ -50,9 +50,6 @@ export function SubscriptionSummary(props: Props) {
   }
   return (
     <div className={classes.container}>
-      <Typography className={classes.title} variant="h5">
-        {subscription.name}
-      </Typography>
       <fieldset className={classes.parameters}>
         <legend>{t('parameters.parameters')}</legend>
         <div className={classes.field}>
@@ -88,9 +85,6 @@ export function SubscriptionSummary(props: Props) {
 const styles = (theme) => ({
   container: {
     padding: theme.spacing.unit,
-  },
-  title: {
-    padding: theme.spacing.unit * 2,
   },
   field: {
     display: 'flex',

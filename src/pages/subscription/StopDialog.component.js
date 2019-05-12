@@ -20,10 +20,7 @@ type Props = {
 
 export const StopDialog = (props: Props) => (
   <div>
-    <DialogContent>
-      {props.t('action.stopExplain')}
-      {`blblbl${JSON.stringify(props.open)}`}
-    </DialogContent>
+    <DialogContent>{props.t('action.stopExplain')}</DialogContent>
     <DialogActions>
       <Button color="secondary" onClick={props.onCancel}>
         {props.t('form.cancel')}

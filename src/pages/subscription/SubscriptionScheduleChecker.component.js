@@ -19,6 +19,7 @@ import { getStripeErrorMessage } from '../../stripe-utils';
 
 type Props = {
   subscriptionData: ?SubscriptionData,
+  processing: boolean,
   onCancel: () => void,
   onSubmit: () => void,
   t: TFunction,
@@ -41,11 +42,11 @@ const getScheduledInvoicesFromSubscriptionData = (
           .clone()
           .add(s.length, 'month'),
         price:
-          subscriptionData.trial_nb > s.length
+          subscriptionData.trial_nb + s.length >= subscriptionData.nb_interval
             ? 0
             : subscriptionData.recurrent_price,
         voucher:
-          subscriptionData.trial_nb > s.length
+          subscriptionData.trial_nb + s.length >= subscriptionData.nb_interval
             ? 0
             : subscriptionData.recurrent_voucher,
       },
@@ -101,7 +102,7 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
             {t('subscription:form.cancel')}
           </Button>
           <Button onClick={this.submit} id="stripe-pay" color="primary">
-            {this.state.loading ? (
+            {this.state.loading || this.props.processing ? (
               <CircularProgress />
             ) : (
               t('subscription:form.submit')

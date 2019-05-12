@@ -56,6 +56,7 @@ const renderStatus = (t: TFunction, status: StatusCode) => {
 
 const PlannedInvoiceItem = (props: {
   invoice: PlannedInvoice,
+  onClick: (event: *) => void,
   t: TFunction,
 }) => {
   const { statusText, statusIcon } = renderStatus(
@@ -63,7 +64,7 @@ const PlannedInvoiceItem = (props: {
     props.invoice.status,
   );
   return (
-    <ListItem divider>
+    <ListItem button={!!props.onClick} onClick={props.onClick} divider>
       <ListItemText
         primary={formatAsDate(props.invoice.date)}
         secondary={(props.invoice.uuid && props.invoice.uuid.slice(0, 8)) || ''}
@@ -81,6 +82,7 @@ const PlannedInvoiceItem = (props: {
 
 type Props = {
   t: TFunction,
+  onPlannedInvoiceClick: (uuid: string) => void,
   scheduledInvoices: Array<PlannedInvoice>,
 };
 
@@ -91,7 +93,16 @@ export function SubscriptionSchedule(props: Props) {
       itemPerPage={6}
       items={props.scheduledInvoices}
       renderItem={(si, idx) => (
-        <PlannedInvoiceItem invoice={si} t={props.t} key={idx} />
+        <PlannedInvoiceItem
+          invoice={si}
+          t={props.t}
+          key={idx}
+          onClick={
+            props.onPlannedInvoiceClick
+              ? () => props.onPlannedInvoiceClick(si.uuid)
+              : null
+          }
+        />
       )}
     />
   );

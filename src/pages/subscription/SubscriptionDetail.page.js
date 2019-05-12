@@ -3,15 +3,18 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import subscriptionSelectors from './selectors';
+import { push as pushRouter } from 'react-router-redux';
+
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import withDrawer from '../../hocs/with-drawer.hoc';
+
 import {
   fetch as fetchSubscription,
   stop as stopSubscription,
 } from './actions';
+import subscriptionSelectors from './selectors';
 import SubscriptionComponent from './Subscription.component';
-
 import type { Subscription } from './types';
 
 type Props = {
@@ -22,6 +25,7 @@ type Props = {
 
   fetch: (id: number) => void,
   stop: (id: number) => void,
+  goToInvoice: (uuid: string) => void,
 };
 
 export class SubscriptionDetail extends Component<Props> {
@@ -30,13 +34,14 @@ export class SubscriptionDetail extends Component<Props> {
   }
 
   render() {
-    const { loading, subscription, stop } = this.props;
+    const { loading, subscription, stop, goToInvoice } = this.props;
     return (
       <div>
         {loading ? <LinearProgress /> : null}
         <SubscriptionComponent
           subscription={subscription}
           stopSubscription={stop}
+          goToInvoice={goToInvoice}
         />
       </div>
     );
@@ -53,6 +58,8 @@ export default compose(
     {
       fetch: fetchSubscription,
       stop: stopSubscription,
+      goToInvoice: (uuid: string) => pushRouter(`/invoice/${uuid}`),
     },
   ),
+  withDrawer(({ subscription }) => (subscription ? subscription.name : '')),
 )(SubscriptionDetail);

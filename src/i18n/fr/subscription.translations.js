@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default {
   recap: {
     willBecharged: ' sera facturé ',
@@ -30,6 +32,8 @@ export default {
   },
   action: {
     stop: 'Arrêter',
+    stopExplain:
+      'Les prochains paiements seront annulés et les factures correspondantes seront supprimés. Si une réservation a été enregistrée avec un abonnement dont la facture a été annulée, il sera également annulé.',
   },
   parameters: {
     parameters: 'Paramètres',

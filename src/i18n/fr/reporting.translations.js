@@ -15,7 +15,6 @@ export default {
     payment_date: 'Date de paiement',
     payment_method: 'Méthode de paiement',
     payment_identifier: 'Identifiant de paiement',
-    product_price: 'Prix',
     product: 'Produit',
     product_names: 'Produits',
     product_type: 'Type de produit',
@@ -31,6 +30,9 @@ export default {
     payment_method_readable_identifier: 'Méthode de paiement',
     tax: 'TVA',
     voucher: 'Réduction',
+    product_price: 'Prix produit',
+    total_price: 'Montant facturé TTC',
+    payment_note: 'Note paiement',
   },
   payment_method: {
     cash: 'Espèces',

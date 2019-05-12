@@ -14,6 +14,7 @@ import AddIcon from '@material-ui/icons/Add';
 import PAYMENT_METHODS, {
   CB as PAYMENT_METHOD_CB,
   SUBSCRIPTION_CB as PAYMENT_METHOD_SUBSCRIPTION_CB,
+  CREDIT_ACCOUNT as PAYMENT_METHOD_CREDIT_ACCOUNT,
 } from '@bsport/common/lib/master-data/payment-methods';
 
 import { formatAsDate } from '../../../datetime';
@@ -62,7 +63,8 @@ const mapPaymentMethodToState = () =>
     .filter(
       (pm) =>
         pm.id !== PAYMENT_METHOD_SUBSCRIPTION_CB.id &&
-        pm.id !== PAYMENT_METHOD_CB.id,
+        pm.id !== PAYMENT_METHOD_CB.id &&
+        pm.id !== PAYMENT_METHOD_CREDIT_ACCOUNT.id,
     )
     .sort((pm, pm_) => pm.id - pm_.id);
 

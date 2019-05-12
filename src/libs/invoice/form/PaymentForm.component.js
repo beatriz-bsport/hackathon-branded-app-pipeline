@@ -248,7 +248,9 @@ export class PaymentForm extends Component<Props, State> {
               }
             >
               {PAYMENT_METHODS.filter(
-                (pm) => pm.id !== PAYMENT_METHOD_SUBSCRIPTION_CB.id,
+                (pm) =>
+                  pm.id !== PAYMENT_METHOD_SUBSCRIPTION_CB.id &&
+                  pm.id !== PAYMENT_METHOD_CREDIT_ACCOUNT.id,
               ).map((pm) => (
                 <MenuItem key={pm.id} value={pm.id}>
                   {t(`payment.paymentMethods.${pm.text}`)}

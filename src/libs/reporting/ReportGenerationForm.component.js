@@ -16,7 +16,6 @@ import { withStyles } from '@material-ui/core/styles';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 
 import {
   AlertError,
@@ -76,7 +75,6 @@ export function ReportGenerationForm(props: Props) {
   const { t, isSubmitting, reportConfiguration, exportLink, classes } = props;
   return (
     <Form>
-      <Typography variant="h6">{reportConfiguration.name}</Typography>
       <Grid container direction="row" justify="space-between">
         <Grid item>
           <Grid container spacing={16}>

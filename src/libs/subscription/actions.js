@@ -2,7 +2,7 @@
 
 import { createAction } from 'redux-actions';
 
-import { getAuth, deleteAuth, API_URI } from '../../http';
+import api from './api';
 
 import type { Dispatch, ThunkAction } from '../../state/types';
 
@@ -10,7 +10,7 @@ export const detailActions = {
   error: createAction('SUBSCRIPTION/LOAD/ERROR'),
   isLoading: createAction('SUBSCRIPTION/LOAD/IS_LOADING'),
   success: createAction('SUBSCRIPTION/LOAD/SUCCESS'),
-  };
+};
 
 export const stopActions = {
   error: createAction('SUBSCRIPTION/STOP/ERROR'),
@@ -24,9 +24,7 @@ export function fetch(id: number): ThunkAction {
     dispatch(detailActions.error(null));
 
     try {
-      const response = await getAuth(
-        `${API_URI}/subscription/billing-plan/${id}/`,
-      );
+      const response = await api.fetchDetail(id);
 
       dispatch(detailActions.success(response.data));
     } catch (error) {
@@ -43,9 +41,7 @@ export function stop(id: number): ThunkAction {
     dispatch(stopActions.error(null));
 
     try {
-      const response = await deleteAuth(
-        `${API_URI}/subscription/billing-plan/${id}/stop/`,
-      );
+      const response = await api.stop(id);
 
       dispatch(detailActions.success(response.data));
     } catch (error) {

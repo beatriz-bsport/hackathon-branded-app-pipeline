@@ -15,7 +15,6 @@ type Props = {
   t: TFunction,
   onCancel: () => void,
   onSubmit: () => void,
-  open: boolean,
 };
 
 export const StopDialog = (props: Props) => (

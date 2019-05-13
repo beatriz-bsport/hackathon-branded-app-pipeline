@@ -10,12 +10,10 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import { withNamespaces } from 'react-i18next';
 import { compose } from 'recompose';
-import moment from 'moment';
 import type { TFunction } from 'react-i18next';
 
 import PaymentPackInput from '../../components/input/PaymentPackInput.component';
 import NumericInput from '../../components/input/NumericInput.component';
-import DateInput from '../../components/input/DateInput.component';
 
 import RecapSubscription from './RecapSubscription.component';
 

@@ -26,7 +26,7 @@ import marketplaceReducer from './marketplace';
 import shopReducer from './shop';
 import paymentRulesReducer from '../libs/payment-rules/reducers';
 import workshopActivityReducer from './workshop-activity';
-import subscriptionReducer from '../pages/subscription/reducers';
+import subscriptionReducer from '../libs/subscription/reducers';
 
 import type { State, Action } from '../state/types';
 

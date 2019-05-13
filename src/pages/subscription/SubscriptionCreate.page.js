@@ -12,12 +12,12 @@ import { withNamespaces } from 'react-i18next';
 import withDrawer from '../../hocs/with-drawer.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import Config from '../../config';
-import api from '../../api';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
-import SubscriptionCreateComponent from './SubscriptionCreate.component';
-import SubscriptionScheduleChecker from './SubscriptionScheduleChecker.component';
-import type { SubscriptionData } from './types';
+import api from '../../libs/subscription/api';
+import SubscriptionCreateComponent from '../../libs/subscription/SubscriptionCreate.component';
+import SubscriptionScheduleChecker from '../../libs/subscription/SubscriptionScheduleChecker.component';
+import type { SubscriptionData } from '../../libs/subscription/types';
 
 type Props = {
   member: Member,
@@ -47,7 +47,7 @@ export class SubscriptionCreate extends Component<Props, State> {
   createSubscription = async (token: string) => {
     this.setState({ processing: true });
     try {
-      const response = await api.subscription.createFromPack({
+      const response = await api.createFromPack({
         ...this.state.tempSubscription,
         stripe_source: token,
       });

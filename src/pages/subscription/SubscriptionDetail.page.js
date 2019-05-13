@@ -12,10 +12,10 @@ import withDrawer from '../../hocs/with-drawer.hoc';
 import {
   fetch as fetchSubscription,
   stop as stopSubscription,
-} from './actions';
-import subscriptionSelectors from './selectors';
-import SubscriptionComponent from './Subscription.component';
-import type { Subscription } from './types';
+} from '../../libs/subscription/actions';
+import subscriptionSelectors from '../../libs/subscription/selectors';
+import SubscriptionComponent from '../../libs/subscription/Subscription.component';
+import type { Subscription } from '../../libs/subscription/types';
 
 type Props = {
   id: number,

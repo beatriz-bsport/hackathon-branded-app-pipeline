@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
 
-import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
@@ -17,8 +16,6 @@ import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import CheckIcon from '@material-ui/icons/Check';
 import ErrorIcon from '@material-ui/icons/Error';
 import CancelIcon from '@material-ui/icons/Cancel';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 import type { StatusCode } from '@bsport/common/lib/master-data/planned-invoice-status';
 import type { TFunction } from 'react-i18next';

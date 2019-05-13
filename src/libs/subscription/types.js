@@ -19,6 +19,7 @@ export type Subscription = {
   canceled_at: string,
   has_ended: boolean,
   interval: 'month' | 'week',
+  date_created: string,
   planned_invoices: Array<PlannedInvoice>,
 };
 

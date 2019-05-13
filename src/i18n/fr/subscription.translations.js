@@ -1,4 +1,7 @@
 export default {
+  table: {
+    noContent: 'Aucune souscription enregistrée',
+  },
   recap: {
     willBecharged: ' sera facturé ',
     every: ' chaque ',

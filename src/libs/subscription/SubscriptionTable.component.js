@@ -73,7 +73,7 @@ export class SubscriptionTable extends Component<Props> {
           noMatch: this.props.loading ? (
             <CircularProgress />
           ) : (
-            this.props.t('list.noContent')
+            this.props.t('table.noContent')
           ),
         },
       },

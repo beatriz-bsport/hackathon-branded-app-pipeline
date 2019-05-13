@@ -102,58 +102,6 @@ export class StripeCheckout extends Component<Props, State> {
             {t('payment.stripePaymentWillBeCashedOutOnInvoiceValidation')}
           </Typography>
         </Grid>
-        <div className={classes.recurringPaymentContainer}>
-          <FormControlLabel
-            label={t('payment.isRecurring')}
-            control={
-              <Checkbox
-                checked={this.state.isRecurring}
-                onChange={(e) =>
-                  this.setState({ isRecurring: e.target.checked })
-                }
-              />
-            }
-          />
-          <Collapse in={this.state.isRecurring && this.props.showRecurring}>
-            <Grid
-              container
-              spacing={16}
-              direction="column"
-              className={classes.recurringPayment}
-            >
-              <Grid item className={classes.labelAndSelectorItem}>
-                <DateInput
-                  value={this.state.billing_anchor}
-                  onChange={(e) => this.setState({ billing_anchor: e })}
-                />
-                <Typography inline>{t('payment.billingAnchor')}</Typography>
-              </Grid>
-              <Grid item className={classes.labelAndSelectorItem}>
-                <NumericInput
-                  value={this.state.nb_interval}
-                  onChange={(e) =>
-                    this.setState({ nb_interval: e.target.value })
-                  }
-                />
-                <Typography>{t('payment.nbInterval')}</Typography>
-              </Grid>
-              <Grid item className={classes.labelAndSelectorItem}>
-                <Select
-                  choices={INTERVAL_CHOICES}
-                  value={this.state.interval}
-                  onChange={(e) => this.setState({ interval: e.target.value })}
-                >
-                  {INTERVAL_CHOICES.map((c) => (
-                    <MenuItem key={c.value} value={c.value}>
-                      {c.label}
-                    </MenuItem>
-                  ))}
-                </Select>
-                <Typography align="end">{t('payment.intervalType')}</Typography>
-              </Grid>
-            </Grid>
-          </Collapse>
-        </div>
         <Grid item container direction="row" justify="flex-end">
           <Grid item>
             {loading ? (
@@ -191,13 +139,6 @@ const styles = (theme) => ({
   labelAndSelectorItem: {
     display: 'flex',
     justifyContent: 'space-between',
-  },
-  recurringPaymentContainer: {
-    padding: theme.spacing.unit * 2,
-  },
-  recurringPayment: {
-    padding: theme.spacing.unit,
-    border: '1px solid #ced4da',
   },
 });
 

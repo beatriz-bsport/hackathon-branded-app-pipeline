@@ -44,7 +44,10 @@ export function SubscriptionComponent(props: Props) {
       </Grid>
       <Dialog open={props.showDialogStop}>
         <StopConfirmation
-          onSubmit={() => props.stopSubscription(props.subscription.id)}
+          onSubmit={() => {
+            props.stopSubscription(props.subscription.id);
+            props.setShowDialogStop(false);
+          }}
           onCancel={() => props.setShowDialogStop(false)}
         />
       </Dialog>

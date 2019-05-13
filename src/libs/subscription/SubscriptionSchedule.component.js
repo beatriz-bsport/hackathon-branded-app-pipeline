@@ -69,6 +69,8 @@ const PlannedInvoiceItem = (props: {
       <ListItemText
         primary={`${props.invoice.price - props.invoice.voucher} €`}
         secondary={statusText}
+        primaryTypographyProps={{ align: 'right' }}
+        secondaryTypographyProps={{ align: 'right' }}
       />
       <ListItemSecondaryAction>
         <IconButton disabled>{statusIcon}</IconButton>

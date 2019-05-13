@@ -46,7 +46,7 @@ export class SubscriptionCreate extends Component<Props, State> {
   };
 
   onSubmit = () => {
-    const { member } = this.props;
+    const { member, paymentPacks } = this.props;
     const {
       trial_nb,
       recurrent_voucher,
@@ -55,12 +55,11 @@ export class SubscriptionCreate extends Component<Props, State> {
     } = this.state;
 
     const paymentPackSelected =
-      this.state.payment_pack &&
-      this.props.paymentPacks.find((pp) => pp.id === this.state.payment_pack);
+      payment_pack && paymentPacks.find((pp) => pp.id === payment_pack);
 
     const data = {
       name: paymentPackSelected.name,
-      member: parseInt(this.props.member.id, 10),
+      member: parseInt(member.id, 10),
       nb_interval: parseInt(nb_interval, 10),
       payment_pack: parseInt(payment_pack, 10),
       trial_nb,
@@ -76,13 +75,13 @@ export class SubscriptionCreate extends Component<Props, State> {
 
   updatePaymentPack = (id: number) => this.setState({ payment_pack: id });
 
-  updateNbInterval = (event: *) =>
+  updateNbInterval = (event: SyntheticInputEvent<*>) =>
     this.setState({ nb_interval: event.target.value });
 
-  updateTrialPeriod = (event) =>
+  updateTrialPeriod = (event: SyntheticInputEvent<*>) =>
     this.setState({ trial_nb: parseInt(event.target.value, 10) || 0 });
 
-  updateRecurrentVoucher = (event) =>
+  updateRecurrentVoucher = (event: SyntheticInputEvent<*>) =>
     this.setState({
       recurrent_voucher: event.target.value || 0,
     });

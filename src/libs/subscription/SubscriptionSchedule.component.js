@@ -29,23 +29,23 @@ const renderStatus = (t: TFunction, status: StatusCode) => {
   switch (status) {
     case PENDING.id:
       return {
-        statusText: t('plannedInvoiceStatus.' + 'pending'),
+        statusText: t('plannedInvoiceStatus.pending'),
         statusIcon: <HourglassEmptyIcon color="secondary" />,
       };
     case SUCCEEDED.id:
       return {
-        statusText: t('plannedInvoiceStatus.' + 'succeeded'),
+        statusText: t('plannedInvoiceStatus.succeeded'),
         statusIcon: <CheckIcon color="primary" />,
       };
     case CANCELED.id:
       return {
-        statusText: t('plannedInvoiceStatus.' + 'canceled'),
+        statusText: t('plannedInvoiceStatus.canceled'),
         statusIcon: <CancelIcon color="secondary" />,
       };
     case FAILED.id:
     default:
       return {
-        statusText: t('plannedInvoiceStatus.' + 'failed'),
+        statusText: t('plannedInvoiceStatus.failed'),
         statusIcon: <ErrorIcon color="error" />,
       };
   }

@@ -15,9 +15,11 @@ import type { Subscription } from '../../libs/subscription/types';
 
 type Props = {
   members: Array<Member>,
+  goToSubscription: (id: number) => void,
 };
 type State = {
   subscriptions: Array<Subscription>,
+  loading: boolean,
 };
 
 export class SubscriptionList extends Component<Props, State> {

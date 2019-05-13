@@ -11,7 +11,7 @@ type Props = {
   disabled: ?boolean,
   error: ?boolean,
   required: ?boolean,
-  minData: ?Object,
+  minDate: ?Object,
   onChange: (value: Object) => void,
   className: string,
 };

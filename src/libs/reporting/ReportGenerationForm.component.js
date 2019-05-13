@@ -25,12 +25,9 @@ import {
   defaultHandleSubmit,
 } from '../../components/forms';
 
-import type { ReportConfiguration } from './types';
-
 import { getAuth } from '../../http';
 
 type Props = {
-  reportConfiguration: ReportConfiguration,
   isSubmitting: boolean,
   t: TFunction,
   exportLink?: string,
@@ -72,7 +69,7 @@ function DownloadButton(props: DownloadButtonProps) {
 }
 
 export function ReportGenerationForm(props: Props) {
-  const { t, isSubmitting, reportConfiguration, exportLink, classes } = props;
+  const { t, isSubmitting, exportLink, classes } = props;
   return (
     <Form>
       <Grid container direction="row" justify="space-between">

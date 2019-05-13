@@ -21,8 +21,10 @@ type Props = {
   subscriptionData: ?SubscriptionData,
   processing: boolean,
   onCancel: () => void,
-  onSubmit: () => void,
+  onSubmit: (token: string) => void,
   t: TFunction,
+  i18n: Object,
+  stripe: Stripe,
   classes: Object,
 };
 
@@ -73,6 +75,7 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
       const err =
         getStripeErrorMessage(t, i18n, data.code, data.decline_code) ||
         t('stripe:error.connectionError');
+      console.error(err);
     }
     this.setState({
       loading: false,
@@ -80,7 +83,7 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
   };
 
   render() {
-    const { subscriptionData, classes, t, onCancel, onSubmit } = this.props;
+    const { subscriptionData, classes, t, onCancel } = this.props;
     if (!subscriptionData) {
       return null;
     }

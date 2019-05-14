@@ -38,6 +38,7 @@ export default {
   },
   parameters: {
     parameters: 'Paramètres',
+    subscribeAgain: 'Souscrire à nouveau',
     voucher: 'Offre spéciale',
     trial_nb: 'Nombre de mois offers',
     recurrent_voucher: 'Réduction sur chaque facture',
@@ -49,8 +50,9 @@ export default {
     paymentPack: 'Abonnement',
     nbMonths: 'Nombre de mois',
     dateStart: 'Première facturation',
+    firstBilling: 'Premier encaissement',
   },
   schedule: {
-    provisionalTitle: 'Echeancier prévisionnel',
+    provisionalTitle: 'Echéancier prévisionnel',
   },
 };

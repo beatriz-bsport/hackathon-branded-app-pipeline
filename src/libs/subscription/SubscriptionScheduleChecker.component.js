@@ -23,8 +23,6 @@ type Props = {
   onCancel: () => void,
   onSubmit: (token: string) => void,
   t: TFunction,
-  i18n: Object,
-  stripe: Stripe,
   classes: Object,
 };
 
@@ -40,7 +38,7 @@ const getScheduledInvoicesFromSubscriptionData = (
       ...s,
       {
         status: PLANNED_INVOICE_PENDING.id,
-        date: moment()
+        date: moment(subscriptionData.first_billing_timestamp * 1000)
           .clone()
           .add(s.length, 'month'),
         price:
@@ -62,20 +60,12 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
   submit = async () => {
     this.setState({ loading: true });
 
-    const { t, i18n } = this.props;
     try {
       const tokenizer = await this.props.stripe.createToken();
-      if (tokenizer.error) {
-        throw new Error(getStripeErrorMessage(t, i18n, tokenizer.error.code));
-      }
       const { token } = tokenizer;
       this.props.onSubmit(token.id);
     } catch (error) {
-      const data = (error.response && error.response.data) || {};
-      const err =
-        getStripeErrorMessage(t, i18n, data.code, data.decline_code) ||
-        t('stripe:error.connectionError');
-      console.error(err);
+      console.error(error);
     }
     this.setState({
       loading: false,

@@ -40,7 +40,6 @@ export class SubscriptionCreate extends Component<Props, State> {
   };
 
   storeTempSubscription = (tempSubscription: ?SubscriptionData) => {
-    console.log(tempSubscription);
     this.setState({ tempSubscription });
   };
 
@@ -77,7 +76,9 @@ export class SubscriptionCreate extends Component<Props, State> {
           ) : (
             <div className={this.props.classes.formContainer}>
               <SubscriptionCreateComponent
-                paymentPacks={this.props.paymentPacks}
+                paymentPacks={this.props.paymentPacks.filter(
+                  (pp) => !pp.disabled,
+                )}
                 member={this.props.member}
                 onSubmit={this.storeTempSubscription}
                 onCancel={this.props.onCancel}

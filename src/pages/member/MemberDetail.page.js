@@ -34,6 +34,7 @@ type Props = {
   paymentPacks: Array<PaymentPack>,
 
   pushToInvoice: (uuid: string) => void,
+  pushToSubscription: (id: number) => void,
   fetchMember: (id: number) => void,
   fetchMemberBookings: (id: number) => void,
   confirmBookingAttendance: (id: number) => void,
@@ -83,6 +84,7 @@ export class Member extends Component<Props> {
               createOrUpdateNote={this.props.createOrUpdateNote}
               deleteNote={this.props.deleteNote}
               onInvoiceClick={this.props.pushToInvoice}
+              onSubscriptionClick={this.props.pushToSubscription}
               fetchMemberBookings={this.props.fetchMemberBookings}
               fetchMember={this.props.fetchMember}
             />
@@ -143,6 +145,9 @@ function mapDispatchToProps(dispatch) {
     },
     pushToInvoice(uuid: string) {
       dispatch(routerPush(`/invoice/${uuid}`));
+    },
+    pushToSubscription(id: number) {
+      dispatch(routerPush(`/subscription/${id}`));
     },
     incrementCredit(consumerPackId) {
       dispatch(consumerPackActions.updateCredit(consumerPackId, 1));

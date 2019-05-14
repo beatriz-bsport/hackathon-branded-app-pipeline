@@ -32,6 +32,7 @@ export type SubscriptionData = {
   interval: 'month' | 'week',
   recurrent_voucher: number,
   payment_pack: number,
+  first_billing_timestamp: number,
 };
 
 export type SubscriptionState = {

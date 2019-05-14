@@ -89,7 +89,7 @@ export function SubscriptionSchedule(props: Props) {
   return (
     <PaginatedList
       listProps={{ dense: true, disablePadding: true }}
-      itemPerPage={6}
+      itemPerPage={12}
       items={props.scheduledInvoices}
       renderItem={(si, idx) => (
         <PlannedInvoiceItem

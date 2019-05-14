@@ -1,6 +1,9 @@
 // @flow
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import PaymentIcon from '@material-ui/icons/Payment';
+import PersonIcon from '@material-ui/icons/Person';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -13,6 +16,7 @@ import type { Subscription } from './types';
 
 type Props = {
   stopSubscription: () => void,
+  goToSubscribe: (id: number) => void,
   subscription: Subscription,
   t: TFunction,
   classes: Object,
@@ -78,6 +82,28 @@ export function SubscriptionSummary(props: Props) {
           {t('action.stop')}
         </RedButton>
       </div>
+      <div className={classes.bottomButtonsContainer}>
+        <Button
+          color="secondary"
+          variant="contained"
+          onClick={() =>
+            props.goToSubscribe(props.subscription && props.subscription.member)
+          }
+        >
+          <PaymentIcon className={classes.leftIcon} />
+          {t('parameters.subscribeAgain')}
+        </Button>
+        {props.goToMember ? (
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => props.goToMember(props.subscription.member)}
+          >
+            <PersonIcon />
+            {props.member}
+          </Button>
+        ) : null}
+      </div>
     </div>
   );
 }
@@ -101,6 +127,15 @@ const styles = (theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     borderRadius: 6,
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
+  },
+  bottomButtonsContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    paddingTop: theme.spacing.unit * 2,
+    right: 0,
   },
 });
 

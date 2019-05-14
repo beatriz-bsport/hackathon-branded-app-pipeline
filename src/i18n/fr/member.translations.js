@@ -16,6 +16,7 @@ export default {
   creditAccountBalance: 'Accompte crédit restant',
   showPaymentPack: 'Voir les abonnements',
   showInvoices: 'Voir les factures',
+  showSubscriptions: 'Voir les souscriptions',
   row: {
     headers: {
       actions: 'Actions',

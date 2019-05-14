@@ -11,9 +11,12 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 import { compose } from 'recompose';
 import type { TFunction } from 'react-i18next';
+import moment from 'moment';
 
 import PaymentPackInput from '../../components/input/PaymentPackInput.component';
 import NumericInput from '../../components/input/NumericInput.component';
+import PriceInput from '../../components/input/PriceInput.component';
+import DateInput from '../../components/input/DateInput.component';
 
 import RecapSubscription from './RecapSubscription.component';
 
@@ -35,15 +38,20 @@ type State = {
   nb_interval: ?number,
   recurrent_voucher: number,
   trial_nb: number,
+  first_billing_timestamp: number,
 };
 
 export class SubscriptionCreate extends Component<Props, State> {
-  state = {
-    payment_pack: null,
-    nb_interval: null,
-    trial_nb: 0,
-    recurrent_voucher: 0,
-  };
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      payment_pack: null,
+      nb_interval: null,
+      trial_nb: 0,
+      recurrent_voucher: 0,
+      first_billing_timestamp: parseInt((moment() + 0) / 1000, 10),
+    };
+  }
 
   onSubmit = () => {
     const { member, paymentPacks } = this.props;
@@ -52,6 +60,7 @@ export class SubscriptionCreate extends Component<Props, State> {
       recurrent_voucher,
       nb_interval,
       payment_pack,
+      first_billing_timestamp,
     } = this.state;
 
     const paymentPackSelected =
@@ -66,6 +75,7 @@ export class SubscriptionCreate extends Component<Props, State> {
       recurrent_voucher: parseFloat(recurrent_voucher),
       recurrent_price: parseFloat(paymentPackSelected.price),
       interval: 'month',
+      first_billing_timestamp,
     };
     this.props.onSubmit(data);
   };
@@ -77,6 +87,11 @@ export class SubscriptionCreate extends Component<Props, State> {
 
   updateNbInterval = (event: SyntheticInputEvent<*>) =>
     this.setState({ nb_interval: event.target.value });
+
+  updateFirstBillingTimestamp = (event: SyntheticInputEvent<*>) =>
+    this.setState({
+      first_billing_timestamp: parseInt((event + 0) / 1000, 10),
+    });
 
   updateTrialPeriod = (event: SyntheticInputEvent<*>) =>
     this.setState({ trial_nb: parseInt(event.target.value, 10) || 0 });
@@ -113,6 +128,14 @@ export class SubscriptionCreate extends Component<Props, State> {
             />
           </Grid>
           <Grid item className={classes.field}>
+            <DateInput
+              minDate={moment().format('YYYY/MM/DD')}
+              value={this.state.first_billing_timestamp * 1000}
+              label={t('parameters.firstBilling')}
+              onChange={this.updateFirstBillingTimestamp}
+            />
+          </Grid>
+          <Grid item className={classes.field}>
             <div className={classes.voucherFields}>
               <Typography variant="subtitle1" className={classes.voucherTitle}>
                 {t('parameters.voucher')}
@@ -125,7 +148,7 @@ export class SubscriptionCreate extends Component<Props, State> {
                 />
               </div>
               <div className={classes.inlineField}>
-                <NumericInput
+                <PriceInput
                   value={this.state.recurrent_voucher}
                   label={t('parameters.recurrent_voucher')}
                   onChange={this.updateRecurrentVoucher}

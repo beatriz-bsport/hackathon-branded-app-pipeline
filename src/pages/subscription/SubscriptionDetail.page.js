@@ -26,6 +26,8 @@ type Props = {
   fetch: (id: number) => void,
   stop: (id: number) => void,
   goToInvoice: (uuid: string) => void,
+  goToMember: (id: number) => void,
+  goToSubscribe: (id: number) => void,
 };
 
 export class SubscriptionDetail extends Component<Props> {
@@ -34,7 +36,14 @@ export class SubscriptionDetail extends Component<Props> {
   }
 
   render() {
-    const { loading, subscription, stop, goToInvoice } = this.props;
+    const {
+      loading,
+      subscription,
+      stop,
+      goToInvoice,
+      goToMember,
+      goToSubscribe,
+    } = this.props;
     return (
       <div>
         {loading ? <LinearProgress /> : null}
@@ -42,6 +51,8 @@ export class SubscriptionDetail extends Component<Props> {
           subscription={subscription}
           stopSubscription={stop}
           goToInvoice={goToInvoice}
+          goToMember={goToMember}
+          goToSubscribe={goToSubscribe}
         />
       </div>
     );
@@ -59,6 +70,8 @@ export default compose(
       fetch: fetchSubscription,
       stop: stopSubscription,
       goToInvoice: (uuid: string) => pushRouter(`/invoice/${uuid}`),
+      goToMember: (id: number) => pushRouter(`/member/${id}`),
+      goToSubscribe: (id: number) => pushRouter(`/subscription/add/${id}`),
     },
   ),
   withDrawer(({ subscription }) => (subscription ? subscription.name : '')),

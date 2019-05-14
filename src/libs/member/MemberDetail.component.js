@@ -31,6 +31,7 @@ import { Moment } from '../../i18n';
 import MemberNotePanel from './detail/MemberNotePanel.component';
 import MemberSummaryCard from './detail/MemberSummaryCard.component';
 import InvoiceList from './detail/InvoiceList.component';
+import SubscriptionList from './detail/SubscriptionList.component';
 
 type Props = {
   bookingLoading: boolean,
@@ -292,6 +293,31 @@ export class Member extends Component<Props, State> {
     />
   );
 
+  renderSubscriptions = () => {
+    const { classes, t, member } = this.props;
+    const { billing_plans } = member;
+    return (
+      <ExpansionPanel>
+        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography className={classes.headingExpansionPanel}>
+            {`${t('member.showSubscriptions')} (${
+              (billing_plans || []).length
+            })`}
+          </Typography>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails style={{ padding: 0 }}>
+          <div style={{ width: '100%' }}>
+            <Divider />
+            <SubscriptionList
+              subscriptions={billing_plans || []}
+              onClick={this.props.onSubscriptionClick}
+            />
+          </div>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+    );
+  };
+
   renderInvoices = () => {
     const { classes, t, member } = this.props;
     const { invoices } = member;
@@ -429,6 +455,7 @@ export class Member extends Component<Props, State> {
               {t('common.invoices')}
             </Typography>
             {this.renderInvoices()}
+            {this.renderSubscriptions()}
           </Grid>
         </Grid>
       );

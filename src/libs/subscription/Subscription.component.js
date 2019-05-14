@@ -15,7 +15,10 @@ type Props = {
   stopSubscription: (id: number) => void,
   setShowDialogStop: (boolean) => void,
   goToInvoice: (uuid: string) => void,
+  goToSubscribe: (id: number) => void,
+  goToMember: (id: number) => void,
   showDialogStop: boolean,
+  member: ?Member,
 };
 
 export function SubscriptionComponent(props: Props) {
@@ -30,6 +33,8 @@ export function SubscriptionComponent(props: Props) {
             <SubscriptionSummary
               subscription={props.subscription}
               stopSubscription={() => props.setShowDialogStop(true)}
+              goToSubscribe={props.goToSubscribe}
+              goToMember={props.goToMember}
             />
           </Paper>
         </Grid>

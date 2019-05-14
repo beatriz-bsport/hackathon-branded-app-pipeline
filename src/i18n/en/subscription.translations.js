@@ -38,6 +38,7 @@ export default {
   },
   parameters: {
     parameters: 'Parameters',
+    subscribeAgain: 'Subscribe again',
     voucher: 'Promotion',
     trial_nb: 'Free months (at the end)',
     recurrent_voucher: 'Voucher on each bill',
@@ -49,6 +50,7 @@ export default {
     paymentPack: 'Pass',
     nbMonths: 'Number of months',
     dateStart: 'First billing',
+    firstBilling: 'First billing',
   },
   schedule: {
     provisionalTitle: 'Provisional schedule',

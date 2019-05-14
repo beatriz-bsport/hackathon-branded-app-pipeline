@@ -15,6 +15,7 @@ export default {
   creditAccountBalance: 'Internal credit account',
   showPaymentPack: 'Show pass',
   showInvoices: 'Show invoices',
+  showSubscriptions: 'Show subscriptions',
   row: {
     headers: {
       actions: 'Actions',

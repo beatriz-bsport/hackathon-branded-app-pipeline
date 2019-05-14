@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Grid, Button, Paper, Typography, withStyles } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -49,7 +49,7 @@ export class CoachDetail extends Component<Props, State> {
             variant="contained"
             onClick={this.remunerateCoach}
           >
-            <AttachMoneyIcon className={classes.leftIcon} />
+            <EuroSymbolIcon className={classes.leftIcon} />
             {t('coach.showPerformance')}
           </Button>
         </Grid>

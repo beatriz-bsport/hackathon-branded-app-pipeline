@@ -15,7 +15,7 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import EditIcon from '@material-ui/icons/Edit';
 import PaymentIcon from '@material-ui/icons/Payment';
 import { withNamespaces } from 'react-i18next';
@@ -332,7 +332,7 @@ export class Member extends Component<Props, State> {
                 variant="contained"
                 onClick={this.billMember}
               >
-                <AttachMoneyIcon className={classes.leftIcon} />
+                <EuroSymbolIcon className={classes.leftIcon} />
                 {t('payment.toBill')}
               </Button>
             </Grid>

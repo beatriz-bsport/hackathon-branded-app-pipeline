@@ -14,7 +14,7 @@ import {
 import CancelIcon from '@material-ui/icons/Cancel';
 import AddIcon from '@material-ui/icons/Add';
 import DownloadIcon from '@material-ui/icons/Attachment';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import PersonIcon from '@material-ui/icons/Person';
 import { withNamespaces } from 'react-i18next';
@@ -402,7 +402,7 @@ export class InvoiceForm extends Component<Props, State> {
                   )
                 }
               >
-                <AttachMoneyIcon className={classes.leftIcon} />
+                <EuroSymbolIcon className={classes.leftIcon} />
                 {t('payment.addThisPaymentItem')}
               </Button>
             </Grid>

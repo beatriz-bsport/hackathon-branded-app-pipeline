@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
@@ -51,7 +51,7 @@ function MemberBookingHelper(props: Props) {
       <ListItemSecondaryAction>
         {props.hasBooked ? (
           <Button color="secondary" onClick={props.onClick}>
-            <AttachMoneyIcon className={props.classes.rightIcon} />
+            <EuroSymbolIcon className={props.classes.rightIcon} />
             {props.t('offer.addInvoice')}
           </Button>
         ) : (

@@ -1,19 +1,18 @@
 // @flow
 import React, { PureComponent } from 'react';
 
-import {
-  Collapse,
-  Grid,
-  Paper,
-  Divider,
-  Button,
-  Typography,
-  IconButton,
-  withStyles,
-  Dialog,
-  DialogContent,
-  CircularProgress,
-} from '@material-ui/core';
+import Collapse from '@material-ui/core/Collapse';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Divider from '@material-ui/core/Divider';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Hidden from '@material-ui/core/Hidden';
+import IconButton from '@material-ui/core/IconButton';
+import withStyles from '@material-ui/core/styles/withStyles';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import TodayIcon from '@material-ui/icons/Today';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -393,7 +392,7 @@ export class OfferManagement extends PureComponent<Props, State> {
                   color="secondary"
                 >
                   <ChevronLeftIcon className={classes.leftIcon} />
-                  {t('offer.previousOffer')}
+                  <Hidden xsDown>{t('offer.previousOffer')}</Hidden>
                 </Button>
               </Grid>
               <Grid item>
@@ -407,7 +406,7 @@ export class OfferManagement extends PureComponent<Props, State> {
                   onClick={() => this.goToOffer(offer.next_offer)}
                   color="secondary"
                 >
-                  {t('offer.nextOffer')}
+                  <Hidden xsDown>{t('offer.nextOffer')}</Hidden>
                   <ChevronRightIcon className={classes.rightIcon} />
                 </Button>
               </Grid>

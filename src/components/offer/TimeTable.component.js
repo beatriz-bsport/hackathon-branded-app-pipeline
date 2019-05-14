@@ -90,9 +90,27 @@ export class TimeTable extends Component<Props, State> {
   }
 
   renderOffer = (offer: Offer) => {
-    const fillingInfo = `${offer.nb_bookings} (${offer.nb_attendant}+${
-      offer.nb_non_attendant
-    }) / ${offer.effectif}`;
+    const fillingInfo = (
+      <div style={{ display: 'inline-flex', alignItems: 'flex-end' }}>
+        <Typography inline variant="subtitle2" color="secondary">
+          {`${offer.nb_bookings} `}
+        </Typography>
+        <Typography variant="subtitle2">{`/${offer.effectif}`}</Typography>
+        <Typography inline variant="caption">
+          &nbsp;{'('}
+        </Typography>
+        <Typography inline variant="caption" color="primary">
+          {offer.nb_attendant}
+        </Typography>
+        <Typography inline variant="caption">
+          +
+        </Typography>
+        <Typography inline variant="caption" color="error">
+          {offer.nb_non_attendant}
+        </Typography>
+        <Typography variant="caption">)&nbsp;</Typography>
+      </div>
+    );
     const fillingInfoProps = {
       color: offer.nb_bookings < offer.effectif ? 'error' : 'primary',
     };

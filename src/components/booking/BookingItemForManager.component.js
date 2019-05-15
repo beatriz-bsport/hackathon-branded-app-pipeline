@@ -254,7 +254,7 @@ export class BookingItemForManager extends PureComponent<Props> {
       case 'date_start':
         return formatAsDatetime(booking.date_start);
       default:
-        return booking.user.name;
+        return booking.user.name + (booking.first_in_company ? ' ★' : '');
     }
   };
 

@@ -2,7 +2,7 @@ export default {
   date_joined: 'Member since',
   offers_joined: 'Activities joined',
   pass_owner: 'Pas valid',
-  bornIn: 'Born in ',
+  bornIn: 'Birthday ',
   memberSince: 'Member since: ',
   showNextBooking: 'Show next bookings',
   nextBooking: 'next: ',

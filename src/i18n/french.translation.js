@@ -475,6 +475,8 @@ export default {
       lastname: 'Nom de famille',
       gender: 'Sexe',
       birthdayYear: 'Année de naissance',
+      birthday: 'Date de naissance',
+      clearDate: 'Effacer',
       phone: 'Numéro de téléphone',
       email: 'Adresse email',
       description: 'Description',

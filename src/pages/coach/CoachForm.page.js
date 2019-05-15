@@ -30,7 +30,7 @@ const CoachMap = {
   firstname: 'first_name',
   lastname: 'last_name',
   gender: 'gender',
-  birthdayYear: 'birthday',
+  birthday: 'birthday',
   email: 'email',
   description: 'description',
   phone: 'phone.phone_number',
@@ -43,11 +43,8 @@ export function CoachFormPage(props: Props) {
   const initialData = initial
     ? {
         ...unmap(initial, CoachMap),
-        birthdayYear:
-          initial && initial.birthday ? initial.birthday.slice(0, 4) : '',
       }
     : null;
-  console.log(initialData);
   return (
     <CoachForm onSubmit={onSubmit} onCancel={onCancel} initial={initialData} />
   );
@@ -72,6 +69,9 @@ export default compose(
   ),
   withProps(({ upsertCoach, initial }) => ({
     onSubmit: (values, options) => {
+      if (!values.birthday) {
+        delete values.birthday;
+      }
       const formData = mapFormData(values, CoachMap);
 
       if (initial) {

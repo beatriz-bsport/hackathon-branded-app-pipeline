@@ -468,6 +468,8 @@ export default {
       lastname: 'Lastname',
       gender: 'Gender',
       birthdayYear: 'Year of birth',
+      birthday: 'Day of birth',
+      clearDate: 'Clear',
       phone: 'Phone number',
       email: 'Email address',
       description: 'Description',

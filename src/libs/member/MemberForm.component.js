@@ -165,10 +165,17 @@ export function MemberForm(props: Props) {
             <Grid item xs={12} md={6}>
               <Grid container direction="row" spacing={16}>
                 <Grid item>
-                  <TextField
-                    type="number"
-                    label={t('form.birthdayYear')}
-                    name="birthdayYear"
+                  <DateField
+                    format="DD/MM/YYYY"
+                    openToYearSelection
+                    clearable
+                    label={t('form.birthday')}
+                    name="birthday"
+                    returnMoment={false}
+                    disableFuture
+                    clearLabel={t('form.clearDate')}
+                    cancelLabel={t('common.cancel')}
+                    initialFocusedDate="1990/01/01"
                   />
                 </Grid>
                 <Grid item>
@@ -176,6 +183,7 @@ export function MemberForm(props: Props) {
                     format="DD/MM/YYYY"
                     name="date_joined"
                     label={t('member.date_joined')}
+                    cancelLabel={t('common.cancel')}
                   />
                 </Grid>
               </Grid>
@@ -237,8 +245,7 @@ const MemberSchema = Yup.object().shape({
     .nullable()
     .notRequired(),
   gender: Yup.string().matches(/(F|M)/),
-  birthdayYear: Yup.string()
-    .matches(/((19|20)[0-9][0-9])/)
+  birthday: Yup.string()
     .nullable()
     .notRequired(),
   membership_ID: Yup.string().nullable(),
@@ -313,7 +320,7 @@ export default compose(
         email: '',
         phone: '',
         gender: 'F',
-        birthdayYear: '',
+        birthday: undefined,
         membership_ID: '',
         date_joined: Moment().format('DD/MM/YYYY'),
         rgpd: {
@@ -335,7 +342,10 @@ export default compose(
         ...values,
         avatar: typeof avatar !== 'string' ? avatar : undefined,
         email: values.email || '',
-        birthdayYear: values.birthdayYear || '',
+        birthday:
+          values &&
+          values.birthday &&
+          Moment(values.birthday).format('DD/MM/YYYY'),
       };
       onSubmit(data, {
         onSuccess: () => setSubmitting(false),

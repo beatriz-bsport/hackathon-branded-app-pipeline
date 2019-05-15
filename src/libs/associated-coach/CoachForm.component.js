@@ -4,6 +4,7 @@ import React from 'react';
 import { compose } from 'recompose';
 
 import * as Yup from 'yup';
+import moment from 'moment';
 import { withFormik, Form } from 'formik';
 
 import { withNamespaces } from 'react-i18next';
@@ -19,6 +20,7 @@ import AvatarField from '../../components/forms/AvatarField.component';
 import {
   TextField,
   PhoneField,
+  DateField,
   GenderField,
   Actions,
   Submit,
@@ -77,12 +79,17 @@ export function CoachForm(props: Props) {
             />
           </Grid>
           <Grid item xs={12} md={6}>
-            <TextField
-              name="birthYear"
-              type="number"
-              label={t('form.birthdayYear')}
-              name="birthdayYear"
-              fullWidth
+            <DateField
+              format="DD/MM/YYYY"
+              openToYearSelection
+              clearable
+              label={t('form.birthday')}
+              name="birthday"
+              returnMoment={false}
+              disableFuture
+              clearLabel={t('form.clearDate')}
+              cancelLabel={t('common.cancel')}
+              initialFocusedDate="1990/01/01"
             />
           </Grid>
           <Grid item xs={12}>
@@ -149,7 +156,7 @@ export default compose(
         email: '',
         phone: '',
         gender: 'F',
-        birthdayYear: '',
+        birthday: null,
         description: '',
         facebook_url: '',
         instagram_url: '',
@@ -163,10 +170,15 @@ export default compose(
       const data = {
         ...values,
         avatar: typeof avatar !== 'string' ? avatar : undefined,
-        birthdayYear: values.birthdayYear || undefined,
+        birthday:
+          (values &&
+            values.birthday &&
+            moment(values.birthday).format('DD/MM/YYYY')) ||
+          '',
         phone: values.phone || undefined,
         email: values.email || '',
       };
+      console.log(data);
       onSubmit(data, {
         onSuccess: () => setSubmitting(false),
         onError: (errors) => {

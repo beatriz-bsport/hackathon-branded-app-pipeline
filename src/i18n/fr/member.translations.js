@@ -3,7 +3,7 @@ export default {
   date_joined: "Date d'inscription",
   offers_joined: 'Nb séances inscrit(e)',
   pass_owner: 'Abonnement valide',
-  bornIn: 'Né en ',
+  bornIn: 'Né le ',
   memberSince: 'Inscrit le ',
   showNextBooking: 'Voir les réservations futures',
   nextBooking: 'prochaine : ',

@@ -155,30 +155,30 @@ export class OfferManagement extends PureComponent<Props, State> {
 
   createMember = (data: *, options) => {
     if (
-      data.address_line_1 ||
-      data.address_line_2 ||
-      data.city ||
-      data.zipcode ||
-      data.country
+      !(
+        data.address_line_1 ||
+        data.address_line_2 ||
+        data.city ||
+        data.zipcode ||
+        data.country
+      )
     ) {
-      if (
-        !data.address_line_1 ||
-        !data.city ||
-        !data.zipcode ||
-        !data.country
-      ) {
-        // eslint-disable-next-line
-        delete data.address_line_1;
-        // eslint-disable-next-line
-        delete data.address_line_2;
-        // eslint-disable-next-line
-        delete data.city;
-        // eslint-disable-next-line
-        delete data.zipcode;
-        // eslint-disable-next-line
-        delete data.country;
-      }
+      // eslint-disable-next-line
+      delete data.address_line_1;
+      // eslint-disable-next-line
+      delete data.address_line_2;
+      // eslint-disable-next-line
+      delete data.city;
+      // eslint-disable-next-line
+      delete data.zipcode;
+      // eslint-disable-next-line
+      delete data.country;
     }
+    if (!data.birthday) {
+      // eslint-disable-next-line
+      delete data.birthday;
+    }
+
     const formData = mapFormData(data, MemberMap);
     this.props.createMember(formData, options, this.props.offerId);
     this.setState({ addMemberModal: false });
@@ -525,7 +525,7 @@ export class OfferManagement extends PureComponent<Props, State> {
             <MemberForm
               onCancel={this.closeAddMemberModal}
               onSubmit={this.createMember}
-              initial={{ rgpd: ['accept_email', 'accept_sms'] }}
+              initial={{ birthday: null, rgpd: ['accept_email', 'accept_sms'] }}
               refreshListMember={this.props.refreshListMember}
               goToMember={this.props.goToMember}
               goToMemberList={() => {}}
@@ -556,7 +556,7 @@ const MemberMap = {
   phone: 'phone.phone_number',
   gender: 'gender',
   avatar: 'photo',
-  birthdayYear: 'birthday',
+  birthday: 'birthday',
   membership_ID: 'membership_ID',
   rgpd: 'rgpd',
   date_joined: 'date_joined',

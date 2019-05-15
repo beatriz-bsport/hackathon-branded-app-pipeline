@@ -44,7 +44,7 @@ const MemberMap = {
   phone: 'phone.phone_number',
   gender: 'gender',
   avatar: 'photo',
-  birthdayYear: 'birthday',
+  birthday: 'birthday',
   membership_ID: 'membership_ID',
   rgpd: 'rgpd',
   date_joined: 'date_joined',
@@ -67,10 +67,10 @@ export class MemberFormPage extends Component<Props> {
       ? {
           ...unmap(initial, MemberMap),
           rgpd: [],
-          birthdayYear:
-            initial && initial.birthday ? initial.birthday.slice(0, 4) : null,
         }
-      : {};
+      : {
+          birthday: null,
+        };
 
     if (initialData && initial) {
       if (initial.phone_number) {
@@ -118,7 +118,6 @@ function mapDispatchToProps(dispatch) {
       dispatch(quickFetch(id));
     },
     upsertMember(data, options) {
-      console.log(data);
       dispatch(createOrUpdateMember(data, false, options));
     },
     onCancel() {
@@ -149,31 +148,29 @@ export default compose(
   withDrawer(({ t }: { t: TFunction }) => t('appbar.title.memberFormPage')),
   withProps(({ upsertMember, initial }) => ({
     onSubmit: (values, options) => {
-      console.log(values);
       if (
-        values.address_line_1 ||
-        values.address_line_2 ||
-        values.city ||
-        values.zipcode ||
-        values.country
+        !(
+          values.address_line_1 ||
+          values.address_line_2 ||
+          values.city ||
+          values.zipcode ||
+          values.country
+        )
       ) {
-        if (
-          !values.address_line_1 ||
-          !values.city ||
-          !values.zipcode ||
-          !values.country
-        ) {
-          // eslint-disable-next-line
-          delete values.address_line_1;
-          // eslint-disable-next-line
-          delete values.address_line_2;
-          // eslint-disable-next-line
-          delete values.city;
-          // eslint-disable-next-line
-          delete values.zipcode;
-          // eslint-disable-next-line
-          delete values.country;
-        }
+        // eslint-disable-next-line
+        delete values.address_line_1;
+        // eslint-disable-next-line
+        delete values.address_line_2;
+        // eslint-disable-next-line
+        delete values.city;
+        // eslint-disable-next-line
+        delete values.zipcode;
+        // eslint-disable-next-line
+        delete values.country;
+      }
+      if (!values.birthday) {
+        // eslint-disable-next-line
+        delete values.birthday;
       }
       const formData = mapFormData(values, MemberMap);
 

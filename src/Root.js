@@ -11,7 +11,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import asyncComponent from './AsyncComponent';
 
 const MarketPlace = asyncComponent(() =>
-  import('./pages/MarketPlace.component'),
+  import('./pages/marketplace/Marketplace.router'),
 );
 const LoginRouter = asyncComponent(() =>
   import('./pages/login/LoginRouter.component'),

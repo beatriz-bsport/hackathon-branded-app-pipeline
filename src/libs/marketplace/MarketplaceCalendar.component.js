@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 
 import { Moment } from '../../i18n';
 
-import Calendar from '../offer/Calendar.component';
+import Calendar from '../../components/offer/Calendar.component';
 import MarketplaceTimetable from './MarketplaceTimetable.component';
 
 type Props = {

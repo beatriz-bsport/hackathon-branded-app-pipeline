@@ -777,6 +777,7 @@ export default {
       },
     },
     marketplace: {
+      substitute: 'Substitute: ',
       backToCalendar: 'Back to calendar',
       showMarketplace: 'Show calendar of ',
       noSessionToday: 'No session',

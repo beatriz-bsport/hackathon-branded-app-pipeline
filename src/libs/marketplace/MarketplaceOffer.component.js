@@ -4,20 +4,20 @@ import moment from 'moment';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import {
-  ListItem,
-  Avatar,
-  ListItemText,
-  ListItemSecondaryAction,
-  Button,
-  IconButton,
-} from '@material-ui/core';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
 import { withNamespaces } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import type { TFunction } from 'react-i18next';
 
+
 import { humanizeDuration, formatAsTime } from '../../datetime';
+// eslint-disable-next-line
+import CoachAvatar from '../../libs/coach/components/CoachAvatar.component';
 
 type Props = {
   offer: Offer,
@@ -66,7 +66,7 @@ export class MarketplaceOffer extends Component<Props> {
   };
 
   render() {
-    const { offer, selected, onClickOffer } = this.props;
+    const { t, offer, selected, onClickOffer } = this.props;
     const available = isOfferAvailable(offer);
     const onClick =
       onClickOffer && available ? () => onClickOffer(offer.id) : null;
@@ -77,7 +77,11 @@ export class MarketplaceOffer extends Component<Props> {
         onClick={onClick}
         divider
       >
-        <Avatar src={offer.coach.photo} />
+        <CoachAvatar
+          t={t}
+          coach={offer.coach}
+          coach_override={offer.coach_override}
+        />
         <ListItemText
           primary={`${offer.name} - ${formatAsTime(
             offer.date_start,

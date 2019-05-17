@@ -32,6 +32,7 @@ export default {
     tax: 'Tax',
     voucher: 'Voucher',
     total_price: 'Billed price, tax inc.',
+    total_price_notax: 'Billed price, tax excl.',
     payment_note: 'Payment note',
   },
   payment_method: {

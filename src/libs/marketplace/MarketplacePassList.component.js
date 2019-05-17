@@ -8,6 +8,7 @@ import type { TFunction } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
+// eslint-disable-next-line
 import PaymentPackCard from '../../libs/payment-packs/PaymentPackCard.component';
 
 type Props = {

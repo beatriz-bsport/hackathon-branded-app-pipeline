@@ -32,6 +32,7 @@ export default {
     voucher: 'Réduction',
     product_price: 'Prix produit',
     total_price: 'Montant facturé TTC',
+    total_price_notax: 'Montant facturé HT',
     payment_note: 'Note paiement',
   },
   payment_method: {

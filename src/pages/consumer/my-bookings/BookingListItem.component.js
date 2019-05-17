@@ -4,8 +4,6 @@ import React, { Component } from 'react';
 import { withNamespaces } from 'react-i18next';
 import {
   IconButton,
-  Avatar,
-  Tooltip,
   ListItem,
   withStyles,
   ListItemText,
@@ -17,6 +15,7 @@ import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status
 import { humanizeDuration, formatAsDatetime } from '../../../datetime';
 import type { Booking } from '../../../api/types';
 import { getBookingStatusCode } from '../../../components/booking/Booking.utils';
+import CoachAvatar from '../../../libs/coach/components/CoachAvatar.component';
 
 type Props = {
   booking: Booking,
@@ -61,11 +60,10 @@ export class BookingListItem extends Component<Props> {
         className={classes.listItem}
         disabled={booking.booking_status_code !== BOOKING_STATUS_OK.id}
       >
-        {coach.photo ? (
-          <Tooltip title={coach.name}>
-            <Avatar src={coach.photo} />
-          </Tooltip>
-        ) : null}
+        <CoachAvatar
+          coach={offer.activity.coach}
+          coach_override={offer.coach_override}
+        />
         <ListItemText
           primary={activity.name}
           secondary={this.getFullStatus()}

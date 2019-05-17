@@ -5,6 +5,8 @@ import React from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 
 import { withStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
@@ -22,15 +24,16 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 
 import CancelIcon from '@material-ui/icons/Cancel';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import { colors } from '@bsport/common/lib/colors';
 
 import { snackbarSuccess } from '../../actions/snackbar.actions';
 
 import { get, API_URI } from '../../http';
 
-import Map from '../establishment/Map.component';
+import Map from '../../components/establishment/Map.component';
 
 import ConsumerPackCheckout from '../../pages/payment/offer/ConsumerPackCheckout.component';
-import PaymentPackSummary from '../payment-pack/PaymentPackSummary.component';
+import PaymentPackSummary from '../../components/payment-pack/PaymentPackSummary.component';
 
 import * as paymentActions from '../../actions/payment.actions';
 
@@ -52,6 +55,7 @@ type Props = {
 
   snackbarSuccess: Object,
 
+  t: TFunction,
   classes: Object,
 };
 
@@ -74,13 +78,25 @@ export class MarketPlaceActivity extends React.Component<Props> {
   }
 
   renderCoachBanner = () => {
-    const { offer, classes } = this.props;
+    const { offer, classes, t } = this.props;
     if (offer && offer.coach) {
       return (
         <div>
           <Typography variant="h6" className={classes.title}>
             Coach
           </Typography>
+          {offer.coach_override ? (
+            <ListItem>
+              <Avatar
+                src={offer.coach_override.photo}
+                className={classes.avatarSubstitute}
+              />
+              <ListItemText
+                primary={offer.coach_override.name}
+                secondary={t('marketplace.substitute')}
+              />
+            </ListItem>
+          ) : null}
           <ListItem>
             <Avatar src={offer.coach.photo} />
             <ListItemText primary={offer.coach.name} />
@@ -235,6 +251,10 @@ export class MarketPlaceActivity extends React.Component<Props> {
 }
 
 const styles = (theme) => ({
+  avatarSubstitute: {
+    border: '2px solid black',
+    borderColor: colors.primary,
+  },
   card: {
     margin: '0 auto',
     minWidth: 200,
@@ -290,6 +310,7 @@ function mapStateToProps(state) {
 
 export default compose(
   withStyles(styles),
+  withNamespaces([]),
   connect(
     mapStateToProps,
     {

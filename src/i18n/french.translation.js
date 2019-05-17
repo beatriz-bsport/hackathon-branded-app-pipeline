@@ -852,6 +852,7 @@ export default {
       },
     },
     marketplace: {
+    substitute: 'Remplaçant',
       backToCalendar: 'Retour au calendrier',
       showMarketplace: 'Voir le calendrier de ',
       noSessionToday: 'Aucune séance',

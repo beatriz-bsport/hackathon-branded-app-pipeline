@@ -43,8 +43,8 @@ export class MemberSummaryCard extends Component<Props> {
               ${t('member.bornIn')} 
               ${
                 member.consumer.birthday
-                  ? Moment(member.consumer.birthday).year()
-                  : '  NA  '
+                  ? formatAsDate(member.consumer.birthday)
+                  : '  -  '
               }`}
           />
         </ListItem>

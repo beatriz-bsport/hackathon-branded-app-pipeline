@@ -51,6 +51,11 @@ function getConverter(column, classes, t) {
         };
       }
     }
+    if (datatype === 'date') {
+      return {
+        value: moment(value).format('DD/MM/YYYY'),
+      };
+    }
     if (datatype === 'datetime') {
       return {
         value: moment(value, 'DD/MM/YYYY[,] HH[:]mm').format(

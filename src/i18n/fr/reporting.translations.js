@@ -34,6 +34,7 @@ export default {
     total_price: 'Montant facturé TTC',
     total_price_notax: 'Montant facturé HT',
     payment_note: 'Note paiement',
+    remaining_days: 'Jours restant',
   },
   payment_method: {
     cash: 'Espèces',

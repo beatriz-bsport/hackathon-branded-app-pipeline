@@ -42,6 +42,7 @@ export default function ReportGeneration(props: Props) {
         reportConfiguration={report}
         onSubmit={handleGenerate}
         exportLink={exportLink}
+        metadata={metadata}
       />
       {resultLoading ? <LinearProgress /> : null}
       <Paper>

@@ -34,6 +34,7 @@ export default {
     total_price: 'Billed price, tax inc.',
     total_price_notax: 'Billed price, tax excl.',
     payment_note: 'Payment note',
+    remaining_days: 'Remaining days',
   },
   payment_method: {
     cash: 'Cash',

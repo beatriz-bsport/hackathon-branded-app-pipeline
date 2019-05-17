@@ -16,6 +16,7 @@ import { withStyles } from '@material-ui/core/styles';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import Hidden from '@material-ui/core/Hidden';
 
 import {
   AlertError,
@@ -69,7 +70,7 @@ function DownloadButton(props: DownloadButtonProps) {
 }
 
 export function ReportGenerationForm(props: Props) {
-  const { t, isSubmitting, exportLink, classes } = props;
+  const { t, isSubmitting, exportLink, classes, reportConfiguration } = props;
   return (
     <Form>
       <Grid container direction="row" justify="space-between">
@@ -79,10 +80,26 @@ export function ReportGenerationForm(props: Props) {
               <DateField name="dateStart" fullWidth label={t('common.from')} />
               <AlertError name="dateStart" />
             </Grid>
-            <Grid item xs={6}>
-              <DateField name="dateEnd" fullWidth label={t('common.until')} />
-              <AlertError name="dateEnd" />
-            </Grid>
+            <Hidden
+              only={
+                reportConfiguration.date_type === 'range'
+                  ? []
+                  : ['xs', 'sm', 'md', 'lg', 'xl']
+              }
+            >
+              <Grid item xs={6}>
+                <DateField
+                  name={
+                    reportConfiguration.date_type === 'range'
+                      ? 'dateEnd'
+                      : 'dateStart'
+                  }
+                  fullWidth
+                  label={t('common.until')}
+                />
+                <AlertError name="dateStart" />
+              </Grid>
+            </Hidden>
           </Grid>
         </Grid>
         <Grid item>

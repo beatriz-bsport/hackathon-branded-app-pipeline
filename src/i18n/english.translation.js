@@ -777,7 +777,8 @@ export default {
       },
     },
     marketplace: {
-      substitute: 'Substitute: ',
+      substitute: 'Substitute',
+      substituted: 'Can not attend',
       backToCalendar: 'Back to calendar',
       showMarketplace: 'Show calendar of ',
       noSessionToday: 'No session',

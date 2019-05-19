@@ -99,7 +99,12 @@ export class MarketPlaceActivity extends React.Component<Props> {
           ) : null}
           <ListItem>
             <Avatar src={offer.coach.photo} />
-            <ListItemText primary={offer.coach.name} />
+            <ListItemText
+              primary={offer.coach.name}
+              secondary={
+                offer.coach_override ? t('marketplace.substituted') : null
+              }
+            />
           </ListItem>
         </div>
       );

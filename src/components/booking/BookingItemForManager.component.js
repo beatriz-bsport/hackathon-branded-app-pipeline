@@ -258,7 +258,7 @@ export class BookingItemForManager extends PureComponent<Props> {
     }
   };
 
-  getIsFirstIndicator = () => (this.props.booking.first_in_company ? ' ★' : '');
+  getIsFirstIndicator = () => (this.props.booking.first_in_company ? '★' : '');
 
   getAvatar = () => {
     const { heading, booking, classes, member } = this.props;
@@ -326,17 +326,18 @@ export class BookingItemForManager extends PureComponent<Props> {
         {this.getAvatar()}
         <ListItemText
           primary={
-            <span>
-              <Typography inline variant="subtitle2">
-                {this.getHeading()}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+              }}
+            >
+              <Typography inline>{this.getHeading()}</Typography>
+              <Typography inline color="primary">
+                &nbsp;{this.getIsFirstIndicator()}
               </Typography>
-              <Typography inline variant="subtitle2" color="primary">
-                {this.getIsFirstIndicator()}
-              </Typography>
-              <Typography inline variant="subtitle2">
-                {getBookingStatusCode(t, booking)}
-              </Typography>
-            </span>
+              <Typography inline>{getBookingStatusCode(t, booking)}</Typography>
+            </div>
           }
           primaryTypographyProps={{ variant: 'subtitle2' }}
           secondary={

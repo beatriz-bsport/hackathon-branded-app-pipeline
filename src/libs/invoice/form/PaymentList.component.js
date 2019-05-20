@@ -40,10 +40,7 @@ export class PaymentList extends Component<Props> {
     if (uneditable) {
       return (
         <IconButton
-          disabled={
-            paymentItem.payment_method === PAYMENT_METHOD_CB.id ||
-            paymentItem.payment_method === PAYMENT_METHOD_SUBSCRIPTION_CB.id
-          }
+          disabled
           onClick={() => {
             // prettier-ignore
             updateStatus(paymentItem.uuid, !paymentItem.payment_received);
@@ -73,13 +70,7 @@ export class PaymentList extends Component<Props> {
 
   renderPaymentItem = (paymentItem, uneditable) => {
     const { t } = this.props;
-    const {
-      price,
-      payment_note,
-      id,
-      uuid,
-      payment_method,
-    } = paymentItem;
+    const { price, payment_note, id, uuid, payment_method } = paymentItem;
     const paymentMethodText = PAYMENT_METHODS.find(
       (pm) => pm.id === payment_method,
     ).text;

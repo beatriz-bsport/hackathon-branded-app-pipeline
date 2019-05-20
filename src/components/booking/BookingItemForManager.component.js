@@ -254,9 +254,11 @@ export class BookingItemForManager extends PureComponent<Props> {
       case 'date_start':
         return formatAsDatetime(booking.date_start);
       default:
-        return booking.user.name + (booking.first_in_company ? ' ★' : '');
+        return booking.user.name;
     }
   };
+
+  getIsFirstIndicator = () => (this.props.booking.first_in_company ? ' ★' : '');
 
   getAvatar = () => {
     const { heading, booking, classes, member } = this.props;
@@ -323,7 +325,19 @@ export class BookingItemForManager extends PureComponent<Props> {
       >
         {this.getAvatar()}
         <ListItemText
-          primary={this.getHeading() + getBookingStatusCode(t, booking)}
+          primary={
+            <span>
+              <Typography inline variant="subtitle2">
+                {this.getHeading()}
+              </Typography>
+              <Typography inline variant="subtitle2" color="primary">
+                {this.getIsFirstIndicator()}
+              </Typography>
+              <Typography inline variant="subtitle2">
+                {getBookingStatusCode(t, booking)}
+              </Typography>
+            </span>
+          }
           primaryTypographyProps={{ variant: 'subtitle2' }}
           secondary={
             <React.Fragment>

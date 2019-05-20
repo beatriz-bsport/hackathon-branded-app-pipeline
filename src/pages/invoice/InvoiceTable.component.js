@@ -193,6 +193,7 @@ export class InvoiceTable extends Component<Props, State> {
       filter: false,
       search: false,
       sort: false,
+      responsive: 'scroll',
       selectableRows: false,
       downloadOptions: {
         filename: 'invoices.csv',

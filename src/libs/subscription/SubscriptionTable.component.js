@@ -67,6 +67,7 @@ export class SubscriptionTable extends Component<Props> {
       search: false,
       sort: true,
       download: false,
+      responsive: 'scroll',
       selectableRows: false,
       textLabels: {
         body: {

@@ -17,7 +17,6 @@ import type { Member, Invoice } from '../../api/types';
 import withDrawer from '../../hocs/with-drawer.hoc';
 
 import InvoiceTable from './InvoiceTable.component';
-import FinalizeInvoiceDialog from '../../libs/invoice/dialog/FinalizeInvoiceDialog.component';
 
 type Props = {
   loading: boolean,
@@ -35,28 +34,15 @@ type State = {
 
 export class InvoiceList extends Component<Props, State> {
   state = {
-    invoiceFinalizing: null,
+    processing: [],
   };
 
   componentDidMount() {
     this.props.refreshMembers();
   }
 
-  openFinalizingDialog = (uuid: string) => {
-    this.setState({ invoiceFinalizing: uuid });
-  };
-
-  closeFinalizingDialog = () => {
-    this.setState({ invoiceFinalizing: null });
-  };
-
   pushToInvoiceDetail = (uuid: string) => {
     this.props.push(`/invoice/${uuid}`);
-  };
-
-  finalizeInvoice = () => {
-    this.props.finalizeInvoice(this.state.invoiceFinalizing);
-    this.closeFinalizingDialog();
   };
 
   downloadInvoice = (invoice: Invoice) => {
@@ -74,13 +60,8 @@ export class InvoiceList extends Component<Props, State> {
           members={this.props.members}
           loading={this.props.loading}
           onInvoiceClick={this.pushToInvoiceDetail}
-          finalizeInvoice={this.openFinalizingDialog}
+          finalizeInvoice={this.props.finalizeInvoice}
           downloadInvoice={this.downloadInvoice}
-        />
-        <FinalizeInvoiceDialog
-          open={!!this.state.invoiceFinalizing}
-          onClose={this.closeFinalizingDialog}
-          onSubmit={this.finalizeInvoice}
         />
       </div>
     );

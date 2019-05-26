@@ -40,7 +40,7 @@ export class InvoiceItemList extends Component<Props> {
     invoiceItem: InvoiceItem,
     onDelete: ?(invoiceItemId: number) => void,
   ) => (
-    <ListItem divider key={invoiceItem.id} dense disabled={onDelete === null}>
+    <ListItem key={invoiceItem.id} dense disabled={onDelete === null}>
       <ListItemText
         primary={invoiceItem.name}
         secondary={invoiceItem.subtitle || null}

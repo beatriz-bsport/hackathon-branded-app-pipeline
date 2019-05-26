@@ -36,7 +36,7 @@ export function QuickInvoicePanel(props: Props) {
     activities,
   } = props;
   return (
-    <Paper>
+    <Paper className={classes.root}>
       <Typography className={classes.bookingsHeader} variant="h6">
         {t('offer.myOpenedInvoices')}
       </Typography>
@@ -95,6 +95,9 @@ export function QuickInvoicePanel(props: Props) {
 }
 
 const styles = (theme) => ({
+  root: {
+    paddingBottom: theme.spacing.unit / 2,
+  },
   bookingsHeader: {
     padding: theme.spacing.unit * 2,
     paddingTop: theme.spacing.unit,

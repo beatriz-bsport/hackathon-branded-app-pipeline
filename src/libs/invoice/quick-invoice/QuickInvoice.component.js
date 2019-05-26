@@ -274,7 +274,7 @@ export class QuickInvoice extends Component<Props, State> {
         </Grid>
         <Divider />
         {this.state.showInvoiceItemSelector ? (
-          <div className={classes.paper}>
+          <div>
             <InvoiceItemSelector
               creditAccountBalance={this.props.quickInvoice.creditAccount}
               onTopUp={this.onTopUp}
@@ -324,6 +324,7 @@ export class QuickInvoice extends Component<Props, State> {
               handlePaymentChange={this.handlePaymentChange}
               handleVoucher={this.handleVoucher}
               onSubmit={this.checkUnvenOrSubmit}
+              onClose={onClose}
               disabled={
                 !(
                   (this.state.additionalPaymentPacks || []).length ||
@@ -350,19 +351,15 @@ export class QuickInvoice extends Component<Props, State> {
 const styles = (theme) => ({
   container: {
     margin: theme.spacing.unit,
-    paddingTop: theme.spacing.unit,
-    backgroundColor: '#F2F2F2',
+    backgroundColor: '#F8F8F8',
+    border: 'solid 1px #E0E0E0',
+    borderRadius: '4px',
   },
   header: {
-    paddingLeft: theme.spacing.unit * 2,
+    padding: theme.spacing.unit,
   },
   invoiceItemListContainer: {
     backgroundColor: '#F8F8F8',
-    border: 'solid 1px #E0E0E0',
-  },
-  paper: {
-    margin: theme.spacing.unit,
-    backgroundColor: theme.palette.background.paper,
   },
 });
 

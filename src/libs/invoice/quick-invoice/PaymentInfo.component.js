@@ -10,6 +10,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
+import CancelIcon from '@material-ui/icons/Cancel';
 import type { TFunction } from 'react-i18next';
 
 import PriceInput from '../../../components/input/PriceInput.component';
@@ -22,6 +23,7 @@ type Props = {
   handlePaymentChange: (number) => (number) => void,
   handleVoucher: (number) => void,
   onSubmit: () => void,
+  onClose: () => void,
   disabled: boolean,
   classes: Object,
   t: TFunction,
@@ -38,6 +40,7 @@ export function PaymentInfo(props: Props) {
     handlePaymentChange,
     handleVoucher,
     onSubmit,
+    onClose,
     disabled,
   } = props;
   return (
@@ -80,38 +83,69 @@ export function PaymentInfo(props: Props) {
       <Divider />
       <Grid
         container
-        justify="flex-end"
+        direction="row"
+        justify="space-between"
         alignItems="center"
         className={classes.finalPaymentLine}
       >
         <Grid item>
+          <Typography variant="subtitle1">
+            {t('form.quickInvoice.totalPurchase')}
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography variant="button" gutterBottom>
+            {finalPrice.toFixed(2)} €
+          </Typography>
+        </Grid>
+      </Grid>
+      <Grid
+        container
+        direction="row"
+        justify="space-between"
+        alignItems="center"
+        className={classes.finalPaymentLine}
+      >
+        <Grid item>
+          <Typography variant="subtitle1">
+            {t('form.quickInvoice.paymentDue')}
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography
+            variant="button"
+            gutterBottom
+            style={totalPayment < finalPrice ? { color: '#e57373' } : {}}
+          >
+            {(finalPrice - totalPayment).toFixed(2)} €
+          </Typography>
+        </Grid>
+      </Grid>
+      <Divider />
+      <Grid
+        container
+        direction="row"
+        justify="flex-end"
+        alignItems="center"
+        className={classes.buttonsWrapper}
+      >
+        <Grid item className={classes.padding}>
+          <Button color="secondary" variant="outlined" onClick={onClose}>
+            <CancelIcon className={classes.iconLeft} />
+            {t('common.cancel')}
+          </Button>
+        </Grid>
+
+        <Grid item className={classes.padding}>
           <Button
             color="primary"
-            variant="contained"
+            variant="outlined"
             onClick={onSubmit}
             disabled={disabled}
           >
             <SaveIcon className={classes.iconLeft} />
             {t('common.save')}
           </Button>
-        </Grid>
-        <Grid item className={classes.totalInvoiceItemContainer}>
-          <Typography variant="subtitle1">
-            {t('form.quickInvoice.totalPurchase')} : {finalPrice.toFixed(2)}€
-          </Typography>
-        </Grid>
-        <Grid
-          item
-          className={classes.totalPaymentContainer}
-          style={
-            totalPayment < finalPrice ? { backgroundColor: '#FFDDDD' } : {}
-          }
-        >
-          <Typography variant="subtitle1">
-            {`${t('form.quickInvoice.paymentDue')} : ${(
-              finalPrice - totalPayment
-            ).toFixed(2)}€`}
-          </Typography>
         </Grid>
       </Grid>
     </div>
@@ -122,23 +156,17 @@ const styles = (theme) => ({
   paymentContainer: {
     padding: theme.spacing.unit * 2,
   },
-  totalInvoiceItemContainer: {
-    backgroundColor: '#F8F8F8',
-    border: 'solid 1px #E0E0E0',
-    padding: theme.spacing.unit,
-    marginLeft: theme.spacing.unit * 2,
-  },
   finalPaymentLine: {
     padding: theme.spacing.unit,
   },
   iconLeft: {
     marginRight: theme.spacing.unit,
   },
-  totalPaymentContainer: {
-    backgroundColor: '#F8F8F8',
-    border: 'solid 1px #E0E0E0',
+  buttonsWrapper: {
     padding: theme.spacing.unit,
-    marginLeft: theme.spacing.unit * 2,
+  },
+  padding: {
+    padding: theme.spacing.unit,
   },
 });
 

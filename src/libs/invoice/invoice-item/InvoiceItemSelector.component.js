@@ -171,7 +171,7 @@ export class InvoiceItemSelector extends Component<Props, State> {
     const { expandedSelector } = this.state;
     return (
       <div className={classes.container}>
-        <Paper>
+        <Paper className={classes.tabs}>
           <Tabs
             value={expandedSelector}
             indicatorColor="primary"
@@ -265,6 +265,11 @@ const styles = (theme) => ({
     padding: theme.spacing.unit,
     border: '1px solid #ced4da',
     backgroundColor: '#F8F8F8',
+    borderRadius: `${theme.shape.borderRadius}px`,
+  },
+  tabs: {
+    backgroundColor: '#F8F8F8',
+    borderRadius: 0,
   },
 });
 

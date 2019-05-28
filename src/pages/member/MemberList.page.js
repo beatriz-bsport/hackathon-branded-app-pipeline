@@ -101,16 +101,14 @@ export class Members extends Component<Props> {
     return (
       <Grid container direction="row" spacing={32}>
         <Grid item xs={12}>
-          <Grid item xs={12}>
-            <FeatureTable
-              data={mutableMembers}
-              order="desc"
-              orderBy="date_joined"
-              renderRow={renderRow(t, goToMemberPage)}
-              columnData={getColumnData(t)}
-              loading={loading}
-            />
-          </Grid>
+          <FeatureTable
+            data={mutableMembers}
+            order="desc"
+            orderBy="date_joined"
+            renderRow={renderRow(t, goToMemberPage)}
+            columnData={getColumnData(t)}
+            loading={loading}
+          />
         </Grid>
       </Grid>
     );

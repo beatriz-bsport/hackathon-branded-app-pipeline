@@ -24,7 +24,16 @@ i18n
     },
 
     interpolation: {
-      escapeValue: false, // not needed for react!!
+      format(value, format) {
+        if (format === 'uuid' && typeof value === 'string') {
+          return value.slice(0, 8);
+        }
+        if (format === 'price') {
+          if (typeof value === 'string') return `${value}€`;
+          if (typeof value === 'number') return `${value.toFixed(2)}€`;
+        }
+        return value;
+      },
     },
 
     react: {

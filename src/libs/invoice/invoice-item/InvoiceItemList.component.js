@@ -44,11 +44,21 @@ export class InvoiceItemList extends Component<Props> {
       <ListItemText
         primary={invoiceItem.name}
         secondary={invoiceItem.subtitle || null}
+        primaryTypographyProps={{
+          className: invoiceItem.reverted ? this.props.classes.revert : {},
+        }}
+        secondaryTypographyProps={{
+          className: invoiceItem.reverted ? this.props.classes.revert : {},
+        }}
       />
       <ListItemSecondaryAction>
         <Grid container alignItems="center" spacing={16}>
           <Grid item>
-            <Typography>{invoiceItem.price} €</Typography>
+            <Typography
+              className={invoiceItem.reverted ? this.props.classes.revert : {}}
+            >
+              {invoiceItem.price} €
+            </Typography>
           </Grid>
           <Grid item>
             <IconButton
@@ -136,6 +146,9 @@ const styles = () => ({
   },
   compactContainer: {
     width: '100%',
+  },
+  revert: {
+    textDecoration: 'line-through',
   },
 });
 

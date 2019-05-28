@@ -10,9 +10,12 @@ import Config from '../config';
 import ResponsiveDrawer from '../components/navigation/ResponsiveDrawer.component';
 
 import { refresh as refreshActions, member as memberActions } from '../actions';
+import { fetch } from '../libs/alerting/actions';
 import asyncComponent from '../AsyncComponent';
 
 import { MarketingDashboard, MarketingRule } from './marketing';
+
+import alertingSelectors from '../libs/alerting/selectors';
 
 const Dashboard = asyncComponent(() => import('./Dashboard.component'));
 
@@ -53,6 +56,8 @@ const Subscription = asyncComponent(() =>
 
 type Props = {
   refresh: () => void,
+  alertings: Array<Alerting>,
+  nbAlerting: number,
   isRefreshing: boolean,
   classes: Object,
   authenticated: boolean,
@@ -97,6 +102,8 @@ export class Backoffice extends Component<Props> {
       <ResponsiveDrawer
         onRefresh={this.props.refresh}
         isRefreshing={this.props.isRefreshing}
+        alertings={this.props.alertings}
+        nbAlerting={this.props.nbAlerting}
       >
         <main className={classes.content}>
           <div>
@@ -130,6 +137,8 @@ export class Backoffice extends Component<Props> {
 
 function mapStateToProps(state) {
   return {
+    alertings: alertingSelectors.get(state),
+    nbAlerting: alertingSelectors.countAlerting(state),
     authenticated: state.auth.authenticated,
     isRefreshing: state.refresh.isRefreshing,
   };

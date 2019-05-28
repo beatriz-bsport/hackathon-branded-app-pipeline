@@ -14,6 +14,7 @@ import { fetchAll as fetchShop } from './shop.actions';
 import { fetchPaymentRules } from '../libs/payment-rules/actions';
 import { fetchAll as fetchWorkshopActivities } from './workshop-activity.actions';
 import { reset as resetMemberDetails } from './member-fetcher.actions';
+import { fetch as fetchAllAlertings } from '../libs/alerting/actions';
 
 const THRESHOLD_MINUTES = 60 * 12;
 
@@ -35,6 +36,7 @@ export function forceRefresh() {
   return (dispatch) => {
     dispatch(storeIsRefreshing());
     Promise.all([
+      dispatch(fetchAllAlertings()),
       dispatch(resetMemberDetails()),
       dispatch(fetchAllMetaActivities()),
       dispatch(fetchAllOffers()),

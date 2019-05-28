@@ -4,12 +4,7 @@ import React, { Component } from 'react';
 
 import {
   Typography,
-  Select,
-  MenuItem,
   Grid,
-  FormControlLabel,
-  Checkbox,
-  Collapse,
   CircularProgress,
   withStyles,
   Button,
@@ -19,8 +14,6 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 
-import DateInput from '../input/DateInput.component';
-import NumericInput from '../input/NumericInput.component';
 import { Moment } from '../../i18n';
 
 type Props = {
@@ -76,16 +69,6 @@ export class StripeCheckout extends Component<Props, State> {
   render() {
     const { classes, t, price } = this.props;
     const { loading } = this.state;
-    const INTERVAL_CHOICES = [
-      {
-        value: 'month',
-        label: t('payment.intervalMonth'),
-      },
-      {
-        value: 'week',
-        label: t('payment.intervalWeek'),
-      },
-    ];
 
     return (
       <Grid

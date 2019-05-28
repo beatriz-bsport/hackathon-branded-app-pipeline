@@ -11,7 +11,6 @@ import {
   CircularProgress,
   withStyles,
 } from '@material-ui/core';
-import CancelIcon from '@material-ui/icons/Cancel';
 import AddIcon from '@material-ui/icons/Add';
 import DownloadIcon from '@material-ui/icons/Attachment';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
@@ -22,18 +21,20 @@ import type { TFunction } from 'react-i18next';
 import { CREDIT_ACCOUNT as PAYMENT_METHOD_CREDIT_ACCOUNT } from '@bsport/common/lib/master-data/payment-methods';
 import sum from 'lodash/sum';
 
-import PaymentForm from './form/PaymentForm.component';
-import PaymentList from './form/PaymentList.component';
+import PaymentForm from './payment/PaymentForm.component';
+import PaymentList from './payment/PaymentList.component';
 import { formatAsDate } from '../../datetime';
 import { Moment } from '../../i18n';
 
 import type { Invoice, PaymentPack, InvoiceItem } from '../../api/types';
-import type { InvoiceDataFront } from './form/types';
+import type { InvoiceDataFront } from './payment/types';
 
-import InvoiceVoucher from './form/InvoiceVoucher.component';
+import InvoiceVoucher from './payment/InvoiceVoucher.component';
 import UnevenInvoiceDialog from './dialog/UnevenInvoiceDialog.component';
 import InvoiceItemList from './invoice-item/InvoiceItemList.component';
 import InvoiceItemSelector from './invoice-item/InvoiceItemSelector.component';
+
+import RedButton from '../../components/button/RedButton.component';
 
 type Props = {
   editMode: ?boolean,
@@ -51,7 +52,8 @@ type Props = {
   onCancel: () => void,
   goToMemberPage: () => void,
   createOrUpdate: (invoiceData: InvoiceDataFront) => void,
-  updatePaymentStatus: (uuid: string, payment_received: boolean) => void,
+  updatePaymentMethod: (uuid: string, payment_method: number) => void,
+  revertInvoice: (uuid: string) => void,
 
   t: TFunction,
   classes: Object,
@@ -75,6 +77,65 @@ const STEP_ADD_INVOICE_PAYMENTS = 1;
 function getTotal(acc, invoiceItem) {
   return acc + parseFloat(invoiceItem.price);
 }
+
+const DownloadButton = (props: {
+  onClick: (*) => void,
+  classes: Object,
+  t: TFunction,
+}) => (
+  <Button
+    variant="contained"
+    onClick={props.onClick}
+    color="primary"
+    className={props.classes.actionButton}
+  >
+    <DownloadIcon className={props.classes.leftIcon} />
+    {props.t('common.download')}
+  </Button>
+);
+
+const RevertButton = (props: {
+  reverted: boolean,
+  processing: boolean,
+  onClick: (*) => void,
+  t: TFunction,
+}) => (
+  <RedButton
+    variant="contained"
+    color="primary"
+    onClick={props.onClick}
+    disabled={props.processing || props.reverted}
+  >
+    {props.reverted
+      ? props.t('invoice.invoiceReverted')
+      : props.t('invoice.revert')}
+  </RedButton>
+);
+
+const SaveButton = (props: {
+  t: TFunction,
+  onClick: (*) => void,
+  classes: *,
+  processing: boolean,
+}) => (
+  <Button
+    variant="contained"
+    color="primary"
+    onClick={props.onClick}
+    className={props.classes.actionButton}
+  >
+    {props.processing ? (
+      <CircularProgress
+        className={props.classes.leftIcon}
+        size={20}
+        color="inherit"
+      />
+    ) : (
+      <AddIcon className={props.classes.leftIcon} />
+    )}
+    {props.t('common.save')}
+  </Button>
+);
 
 export class InvoiceForm extends Component<Props, State> {
   constructor(props: Props) {
@@ -277,138 +338,123 @@ export class InvoiceForm extends Component<Props, State> {
     window.location.href = this.props.invoice.stripe_invoice_pdf;
   };
 
-  createOrDownloadButton = () => {
-    const { processing, invoice, classes, t } = this.props;
-    if (!invoice || !invoice.stripe_invoice_pdf) {
-      return (
+  closeUnevenInvoiceAlert = () => {
+    this.setState({ unevenInvoiceAlertOpen: false });
+  };
+
+  renderNavigationButtons = () => (
+    <div>
+      <Button
+        variant="contained"
+        color="secondary"
+        onClick={this.cancelPayments}
+        className={this.props.classes.navigationButton}
+      >
+        <ArrowBackIcon className={this.props.classes.leftIcon} />
+        {this.props.t('common.previous')}
+      </Button>
+      {this.props.goToMemberPage ? (
         <Button
           variant="contained"
-          color="primary"
-          onClick={this.createInvoice}
+          color="secondary"
+          onClick={this.props.goToMemberPage}
+          className={this.props.classes.navigationButton}
         >
-          {processing ? (
-            <CircularProgress
-              className={classes.leftIcon}
-              size={20}
-              color="inherit"
-            />
-          ) : (
-            <AddIcon className={classes.leftIcon} />
-          )}
-          {t('common.save')}
+          <PersonIcon className={this.props.classes.leftIcon} />
+          {this.props.member.name}
         </Button>
+      ) : (
+        <div />
+      )}
+    </div>
+  );
+
+  renderActionButtons = () => {
+    const { step } = this.state;
+    const { invoice, processing, classes, t } = this.props;
+
+    if (step === STEP_ADD_INVOICE_ITEMS) {
+      return (
+        <div>
+          <Button
+            onClick={this.goToPayment}
+            variant="contained"
+            color="primary"
+            className={this.props.classes.actionButton}
+            disabled={
+              !(
+                (this.state.paymentPackInvoiceItems || []).length ||
+                (this.state.shopItemInvoiceItems || []).length ||
+                (this.props.uneditableInvoiceItems || []).length ||
+                !!this.state.topUp
+              )
+            }
+          >
+            <EuroSymbolIcon className={classes.leftIcon} />
+            {t('payment.addThisPaymentItem')}
+          </Button>
+        </div>
       );
     }
     return (
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={this.downloadInvoicePdf}
-      >
-        <DownloadIcon className={classes.leftIcon} />
-        {t('common.download')}
-      </Button>
+      <div>
+        {invoice && invoice.uuid ? (
+          <RevertButton
+            t={this.props.t}
+            onClick={() => this.props.revertInvoice(invoice.uuid)}
+            processing={this.props.processing}
+            reverted={invoice.reverted}
+          />
+        ) : null}
+        {invoice && invoice.stripe_invoice_pdf ? (
+          <DownloadButton
+            classes={classes}
+            onClick={this.downloadInvoicePdf}
+            t={t}
+          />
+        ) : null}
+
+        {!invoice ||
+        (invoice && !invoice.stripe_invoice_pdf && !invoice.reverted) ? (
+          <SaveButton
+            onClick={this.createInvoice}
+            processing={processing}
+            invoiceReverted={invoice && invoice.reverted}
+            classes={this.props.classes}
+            t={this.props.t}
+          />
+        ) : null}
+      </div>
     );
   };
 
-  renderBottomActionButton = () => {
-    const { step } = this.state;
-    const { classes, t } = this.props;
+  renderBottomActionButton = () => (
+    <div className={this.props.classes.bottomButtonBar}>
+      {this.renderNavigationButtons()}
+      {this.renderActionButtons()}
+    </div>
+  );
 
-    if (step === STEP_ADD_INVOICE_PAYMENTS) {
+  renderPaymentForm = () => {
+    if (this.props.invoice && !!this.props.invoice.stripe_invoice_pdf) {
       return (
-        <Grid
-          container
-          direction="row"
-          className={classes.paymentSelectorButtons}
-          justify="space-between"
-        >
-          <Grid item>
-            {this.props.goToMemberPage ? (
-              <Button
-                variant="contained"
-                color="secondary"
-                onClick={this.props.goToMemberPage}
-              >
-                <PersonIcon className={classes.leftIcon} />
-                {this.props.member.name}
-              </Button>
-            ) : (
-              <div />
-            )}
-          </Grid>
-          <Grid item>
-            <Grid container direction="row" spacing={16}>
-              <Grid item>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={this.cancelPayments}
-                >
-                  <ArrowBackIcon className={classes.leftIcon} />
-                  {t('common.previous')}
-                </Button>
-              </Grid>
-              <Grid item>{this.createOrDownloadButton()}</Grid>
-            </Grid>
-          </Grid>
-        </Grid>
+        <Typography style={{ padding: 12 }}>
+          {this.props.t('payment.invoiceFinalizedThusNotEditable')}
+        </Typography>
+      );
+    }
+    if (this.props.invoice && this.props.invoice.reverted) {
+      return (
+        <Typography style={{ padding: 12 }}>
+          {this.props.t('payment.invoiceRevertedThusNotEditable')}
+        </Typography>
       );
     }
     return (
-      <Grid
-        container
-        direction="row"
-        className={classes.paymentSelectorButtons}
-        justify="space-between"
-      >
-        <Grid item>
-          {this.props.goToMemberPage ? (
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={this.props.goToMemberPage}
-            >
-              <PersonIcon className={classes.leftIcon} />
-              {this.props.member.name}
-            </Button>
-          ) : (
-            <div />
-          )}
-        </Grid>
-        <Grid item>
-          <Grid container direction="row" spacing={16}>
-            <Grid item>
-              <Button
-                variant="contained"
-                color="secondary"
-                onClick={this.props.onCancel}
-              >
-                <CancelIcon className={classes.leftIcon} />
-                {t('common.cancel')}
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                onClick={this.goToPayment}
-                variant="contained"
-                color="primary"
-                disabled={
-                  !(
-                    (this.state.paymentPackInvoiceItems || []).length ||
-                    (this.state.shopItemInvoiceItems || []).length ||
-                    (this.props.uneditableInvoiceItems || []).length ||
-                    !!this.state.topUp
-                  )
-                }
-              >
-                <EuroSymbolIcon className={classes.leftIcon} />
-                {t('payment.addThisPaymentItem')}
-              </Button>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
+      <PaymentForm
+        onSubmit={this.addPaymentItem}
+        creditAccountBalance={this.getUpdatedCreditAccountBalance()}
+      />
     );
   };
 
@@ -418,12 +464,11 @@ export class InvoiceForm extends Component<Props, State> {
       t,
       classes,
       uneditablePayments,
-      updatePaymentStatus,
+      updatePaymentMethod,
     } = this.props;
     const { step, paymentItems } = this.state;
     const finalPrice = this.getFinalPrice();
     const totalPayment = this.getTotalPayment();
-    const updatedCreditAccountBalance = this.getUpdatedCreditAccountBalance();
 
     if (step === STEP_ADD_INVOICE_ITEMS) {
       return (
@@ -436,7 +481,7 @@ export class InvoiceForm extends Component<Props, State> {
         >
           <Grid item style={{ flexGrow: 1 }}>
             <InvoiceItemSelector
-              creditAccountBalance={updatedCreditAccountBalance}
+              creditAccountBalance={this.getUpdatedCreditAccountBalance()}
               onAddPaymentPack={this.onAddPaymentPack}
               onAddShopItem={this.onAddShopItem}
               onTopUp={this.onTopUp}
@@ -453,85 +498,39 @@ export class InvoiceForm extends Component<Props, State> {
       );
     }
     return (
-      <Grid
-        container
-        direction="column"
-        className={classes.paymentFormContainer}
-        justify="space-between"
-        alignItems="stretch"
-      >
-        <Grid item className={classes.paymentItemFormContainer}>
-          {this.props.invoice && this.props.invoice.stripe_invoice_pdf ? (
-            <Typography style={{ padding: 12 }}>
-              {t('payment.invoiceFinalizedThusNotEditable')}
-            </Typography>
-          ) : (
-            <PaymentForm
-              onSubmit={this.addPaymentItem}
-              creditAccountBalance={updatedCreditAccountBalance}
+      <div className={classes.paymentFormContainer}>
+        <div className={classes.paymentItemFormContainer}>
+          {this.renderPaymentForm()}
+        </div>
+        <div className={classes.leftPanelSubBlock}>
+          <Typography variant="h6">
+            {t('payment.paymentItemsListTitle')}
+          </Typography>
+          <div className={classes.paymentItemsListContainer}>
+            <PaymentList
+              paymentItems={paymentItems}
+              onDelete={this.deletePaymentItem}
+              uneditablePayments={uneditablePayments}
+              updatePaymentMethod={updatePaymentMethod}
             />
-          )}
-        </Grid>
-        <Grid item className={classes.leftPanelSubBlock}>
-          <Grid container direction="column" spacing={16}>
-            <Grid item>
-              <Typography variant="h6">
-                {t('payment.paymentItemsListTitle')}
+            <div className={classes.totalUnpaid}>
+              <Typography variant="subtitle1">
+                {t('payment.stillUnpaid')}
               </Typography>
-            </Grid>
-            <Grid item className={classes.paymentItemsListContainer}>
-              <PaymentList
-                paymentItems={paymentItems}
-                onDelete={this.deletePaymentItem}
-                uneditablePayments={uneditablePayments}
-                updateStatus={updatePaymentStatus}
-              />
-              <Grid
-                container
-                justify="space-between"
-                alignItems="center"
-                className={classes.totalUnpaid}
+              <Typography
+                variant="h6"
+                color={finalPrice - totalPayment <= 0 ? 'primary' : 'error'}
+                className={
+                  this.props.invoice && this.props.invoice.reverted
+                    ? this.props.classes.revert
+                    : {}
+                }
               >
-                <Grid item>
-                  <Typography variant="subtitle1">
-                    {t('payment.stillUnpaid')}
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Typography
-                    variant="h6"
-                    color={finalPrice - totalPayment <= 0 ? 'primary' : 'error'}
-                  >
-                    {(finalPrice - totalPayment).toFixed(2)} €
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
-    );
-  };
-
-  renderTotal = () => {
-    const { t, classes } = this.props;
-    const finalPrice = this.getFinalPrice();
-    return (
-      <div>
-        <Divider />
-        <Grid
-          container
-          direction="row"
-          justify="space-between"
-          className={classes.totalLine}
-        >
-          <Grid item>
-            <Typography variant="h6">{t('payment.total')}</Typography>
-          </Grid>
-          <Grid>
-            <Typography variant="h6">{finalPrice.toFixed(2)} €</Typography>
-          </Grid>
-        </Grid>
+                {(finalPrice - totalPayment).toFixed(2)} €
+              </Typography>
+            </div>
+          </div>
+        </div>
       </div>
     );
   };
@@ -561,28 +560,25 @@ export class InvoiceForm extends Component<Props, State> {
             topUp={topUp}
           />
         </Grid>
-        <Grid item>{this.renderTotal()}</Grid>
+        <Divider />
+        <Grid item>
+          <div className={this.props.classes.totalLine}>
+            <Typography variant="h6">
+              {this.props.t('payment.total')}
+            </Typography>
+            <Typography
+              className={
+                this.props.invoice && this.props.invoice.reverted
+                  ? this.props.classes.revert
+                  : {}
+              }
+              variant="h6"
+            >
+              {this.getFinalPrice().toFixed(2)} €
+            </Typography>
+          </div>
+        </Grid>
       </Grid>
-    );
-  };
-
-  closeUnevenInvoiceAlert = () => {
-    this.setState({ unevenInvoiceAlertOpen: false });
-  };
-
-  renderUnevenInvoiceAlert = () => {
-    const { unevenInvoiceAlertOpen } = this.state;
-
-    const totalPayments = this.getTotalPayment();
-    const totalInvoiceItems = this.getFinalPrice();
-    return (
-      <UnevenInvoiceDialog
-        open={unevenInvoiceAlertOpen}
-        onClose={this.closeUnevenInvoiceAlert}
-        totalItem={totalInvoiceItems}
-        totalPayment={totalPayments.toFixed(2)}
-        onSubmit={this.createInvoice}
-      />
     );
   };
 
@@ -601,7 +597,13 @@ export class InvoiceForm extends Component<Props, State> {
           </Grid>
         </Paper>
         {this.renderBottomActionButton()}
-        {this.renderUnevenInvoiceAlert()}
+        <UnevenInvoiceDialog
+          open={this.state.unevenInvoiceAlertOpen}
+          onClose={this.closeUnevenInvoiceAlert}
+          totalItem={this.getFinalPrice()}
+          totalPayment={this.getTotalPayment().toFixed(2)}
+          onSubmit={this.createInvoice}
+        />
       </div>
     );
   }
@@ -624,9 +626,19 @@ const styles = (theme) => ({
   leftIcon: {
     marginRight: theme.spacing.unit,
   },
+  navigationButton: {
+    marginRight: theme.spacing.unit,
+  },
+  actionButton: {
+    marginLeft: theme.spacing.unit,
+  },
   paymentFormContainer: {
-    padding: theme.spacing.unit * 2,
+    paddingLeft: theme.spacing.unit * 2,
     height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'stretch',
   },
   leftPanelSubBlock: {
     marginTop: theme.spacing.unit * 3,
@@ -644,12 +656,27 @@ const styles = (theme) => ({
     marginBottom: theme.spacing.unit,
   },
   totalUnpaid: {
-    paddingTop: theme.spacing.unit * 2,
-    paddingLeft: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
+    padding: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit * 2,
+    paddingRight: theme.spacing.unit * 2,
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   totalLine: {
     padding: theme.spacing.unit * 2,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  revert: {
+    textDecoration: 'line-through',
+  },
+  bottomButtonBar: {
+    paddingTop: theme.spacing.unit,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });
 

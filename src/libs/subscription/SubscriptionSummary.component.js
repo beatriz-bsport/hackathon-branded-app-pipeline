@@ -13,11 +13,14 @@ import moment from 'moment';
 import RedButton from '../../components/button/RedButton.component';
 
 import type { Subscription } from './types';
+import type { Member } from '../../api/types';
 
 type Props = {
   stopSubscription: () => void,
   goToSubscribe: (id: number) => void,
   subscription: Subscription,
+  goToMember: (id: number) => void,
+  member: Member,
   t: TFunction,
   classes: Object,
 };

@@ -288,7 +288,6 @@ export class BookingItemForManager extends PureComponent<Props> {
           <Badge
             badgeContent={creditsFormatted}
             color={creditColor}
-            colorSecondary={{ color: 'gray' }}
             classes={{ badge: classes.badge }}
           >
             <Avatar src={booking.user.photo} />
@@ -316,7 +315,6 @@ export class BookingItemForManager extends PureComponent<Props> {
     const { t, booking, redirectToMember } = this.props;
     // <TableCell>{t(`booking.sources.${b.source}`)}</TableCell>
     const bookingStatus = this.getStatusText(booking);
-    console.log(`rendering ${booking.id}`);
     return (
       <ListItem
         divider
@@ -343,7 +341,11 @@ export class BookingItemForManager extends PureComponent<Props> {
           secondary={
             <React.Fragment>
               {bookingStatus.map(([txt, color]) => {
-                return <Typography color={color}>{txt}</Typography>;
+                return (
+                  <Typography key={txt} component="span" color={color}>
+                    {txt}
+                  </Typography>
+                );
               })}
             </React.Fragment>
           }

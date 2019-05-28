@@ -17,6 +17,7 @@ type Props = {
   shopItems: Array<ShopItem>,
   offers: Array<Offer>,
   activities: Array<Activity>,
+  revertQuickInvoice: (uuid: string) => void,
 
   members: Array<Member>,
 };
@@ -61,6 +62,7 @@ export function QuickInvoicePanel(props: Props) {
                 shopItems={[]}
                 activities={[]}
                 createInvoice={() => {}}
+                onClose={() => props.revertQuickInvoice(inv.uuid)}
                 updateInvoice={(invoiceData) =>
                   createInvoice({ ...inv, ...invoiceData }, inv.member, true)
                 }

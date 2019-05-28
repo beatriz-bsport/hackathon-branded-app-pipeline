@@ -1,6 +1,8 @@
 // @flow
 import React from 'react';
 
+import classNames from 'classnames';
+
 import {
   Grid,
   ListItem,
@@ -93,7 +95,10 @@ export function OfferMinimalSummary(props: Props) {
       button
       selected={selected}
       onClick={overrideClickAction}
-      className={[classes.listItem, available ? {} : classes.disabled]}
+      className={classNames(
+        classes.listItem,
+        available ? {} : classes.disabled,
+      )}
       divider
     >
       <Grid container directon="row" alignItems="center">
@@ -101,12 +106,14 @@ export function OfferMinimalSummary(props: Props) {
           <Grid container direction="row" alignItems="center">
             <Grid item>
               <Tooltip title={coach.name}>
-                <IconButton disableRipple disabled={coach_override}>
-                  <Avatar
-                    src={coach.photo}
-                    imgProps={coach_override ? disabledAvatarProps : {}}
-                  />
-                </IconButton>
+                <div>
+                  <IconButton disableRipple disabled={!!coach_override}>
+                    <Avatar
+                      src={coach.photo}
+                      imgProps={coach_override ? disabledAvatarProps : {}}
+                    />
+                  </IconButton>
+                </div>
               </Tooltip>
             </Grid>
             <Grid item style={coach_override ? { marginLeft: -30 } : {}}>

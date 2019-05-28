@@ -12,6 +12,7 @@ import paymentRules from './fr/payment-rules.translations';
 import subscription from './fr/subscription.translations';
 import reporting from './fr/reporting.translations';
 import stripe from './fr/stripe.translations';
+import alerting from './fr/alerting.translations';
 
 export default {
   dashboard,
@@ -19,6 +20,7 @@ export default {
   paymentRules,
   subscription,
   reporting,
+  alerting,
   coachPerformance: {
     fields: {
       bonus: 'Bonus',
@@ -584,6 +586,22 @@ export default {
       subscription: 'Souscriptions',
     },
     invoice: {
+      reverted: 'Annulé',
+      revert: 'Annuler la facture',
+      choseDate: 'Date de facturation',
+      explainDateChoser:
+        'Veuillez choisir la date de facturation. Les paiements par CB seront immédiatement encaissés quelle que soit la date choisie',
+      revertImpossibleExplainSubscription:
+        "Cette facture fait partie d'une souscription, vous ne pouvez pas annuler une facture encaissée liée à une souscription, mais vous pouvez arrêter la souscription",
+      revertExplainPayment:
+        "Les paiements par carte bleue seront reversés sur l'accompte du membre. Tous es autres modes de paiement seront supprimés.",
+      revertExplainCredits:
+        'Les débit/crédit sur le compte du membre seront inversés.',
+      revertExplainPacks:
+        'Les abonnements seront annulés ainsi que TOUTES les réservations associées',
+      revertExplainShop:
+        'Les achats du magasin seront annulés et les stocks réinitalisés.',
+      invoiceReverted: 'Facture annulée',
       finalize: 'Finaliser la facture',
       explainFinalize:
         "Attention ! Une facture finalisée n'est plus modifiable, de plus tous les paiement marqués en attente d'encaissement seront considérés comme encaissés. Une fois la facture finalisée vous pourrez l'exporter en tant que PDF",
@@ -599,6 +617,8 @@ export default {
     },
     payment: {
       credit: 'Crédit',
+      invoiceRevertedThusNotEditable:
+        "La facture a été annulée et n'est plus modifiable",
       topUp: 'Crédit',
       invoiceFinalizedThusNotEditable:
         "La facture a été finalisée et n'est donc plus modifiable",

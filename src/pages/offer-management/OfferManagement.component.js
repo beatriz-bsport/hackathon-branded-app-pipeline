@@ -37,13 +37,9 @@ import MemberForm from '../../libs/member/MemberForm.component';
 
 type Props = {
   offerId: number,
-  update: Offer,
   offer: ?Offer,
   offerLoading: boolean,
   bookingLoading: ?boolean,
-  bookingUpdaters: Object,
-  memberCreationErrors: boolean,
-  memberCreationPending: boolean,
   compatiblePacksLoading: boolean,
 
   allMembers: Array<Member>,
@@ -57,6 +53,9 @@ type Props = {
   compatiblePacks: Array<PaymentPack>,
   unevenSavedInvoices: Array<Invoice>,
 
+  confirmBookingAttendance: (bookingId: number) => void,
+  discardBookingAttendance: (bookingId: number) => void,
+  revertQuickInvoiceAndRefreshOffer: (uuid: string, offerId: number) => void,
   refreshListMember: () => void,
   goToMember: (id: number) => void,
   snackbarSuccess: (msg: string) => void,
@@ -85,7 +84,6 @@ type Props = {
   fetchOfferData: (id: number) => void,
 
   goBack: () => void,
-  push: (path: string) => void,
   t: TFunction,
   classes: Object,
 };
@@ -364,13 +362,11 @@ export class OfferManagement extends PureComponent<Props, State> {
       bookingLoading,
       bookingOptions,
       discardOption,
-      bookingUpdaters,
       t,
       classes,
     } = this.props;
 
     const { searchedText, memberToRegister } = this.state;
-    console.log('rendering');
 
     if (!offer) {
       return <CircularProgress />;
@@ -470,7 +466,8 @@ export class OfferManagement extends PureComponent<Props, State> {
                   bookings={bookings}
                   bookingOptions={bookingOptions}
                   discardOption={discardOption}
-                  {...bookingUpdaters}
+                  confirmBookingAttendance={this.props.confirmBookingAttendance}
+                  discardBookingAttendance={this.props.discardBookingAttendance}
                   showQuickInvoiceButton
                   showRevertBookingButton
                   handleRevert={this.handleBookingRevert}
@@ -484,6 +481,12 @@ export class OfferManagement extends PureComponent<Props, State> {
           <QuickInvoicePanel
             members={this.props.members}
             unevenSavedInvoices={this.props.unevenSavedInvoices}
+            revertQuickInvoice={(uuid) =>
+              this.props.revertQuickInvoiceAndRefreshOffer(
+                uuid,
+                this.props.offerId,
+              )
+            }
             quickInvoices={this.state.quickInvoices}
             createInvoice={this.createInvoice}
             closeQuickInvoice={this.closeQuickInvoice}

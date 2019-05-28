@@ -15,7 +15,6 @@ import { PENDING as PLANNED_INVOICE_PENDING } from '@bsport/common/lib/master-da
 import { CardElement, injectStripe } from 'react-stripe-elements';
 import SubscriptionSchedule from './SubscriptionSchedule.component';
 import type { SubscriptionData } from './types';
-import { getStripeErrorMessage } from '../../stripe-utils';
 
 type Props = {
   subscriptionData: ?SubscriptionData,
@@ -24,6 +23,7 @@ type Props = {
   onSubmit: (token: string) => void,
   t: TFunction,
   classes: Object,
+  stripe: Object,
 };
 
 type State = {

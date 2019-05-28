@@ -60,6 +60,13 @@ function mapStateToProps(state, nextProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    revertQuickInvoiceAndRefreshOffer(uuid, offerId) {
+      dispatch(
+        invoiceActions.revertQuickInvoice(uuid, () =>
+          dispatch(bookingActions.refreshByOffer(offerId)),
+        ),
+      );
+    },
     fetchOffer(id) {
       dispatch(offerActions.fetchOfferById(id));
     },
@@ -70,19 +77,11 @@ function mapDispatchToProps(dispatch) {
     deleteBooking(bookingId) {
       dispatch(bookingActions.deleteBooking(bookingId));
     },
-    bookingUpdaters: {
-      discardBooking(bookingId) {
-        dispatch(bookingActions.discardBooking(bookingId));
-      },
-      confirmBooking(bookingId) {
-        dispatch(bookingActions.confirmBooking(bookingId));
-      },
-      discardBookingAttendance(bookingId) {
-        dispatch(bookingActions.discardBookingAttendance(bookingId));
-      },
-      confirmBookingAttendance(bookingId) {
-        dispatch(bookingActions.confirmBookingAttendance(bookingId));
-      },
+    discardBookingAttendance(bookingId) {
+      dispatch(bookingActions.discardBookingAttendance(bookingId));
+    },
+    confirmBookingAttendance(bookingId) {
+      dispatch(bookingActions.confirmBookingAttendance(bookingId));
     },
     discardOption(optionId) {
       dispatch(bookingActions.discardBookingOption(optionId));

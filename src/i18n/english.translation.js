@@ -11,9 +11,11 @@ import settings from './en/settings.translations';
 import paymentRules from './en/payment-rules.translations';
 import reporting from './en/reporting.translations';
 import stripe from './fr/stripe.translations';
+import alerting from './fr/alerting.translations';
 
 export default {
   dashboard,
+  alerting,
   settings,
   paymentRules,
   reporting,
@@ -200,7 +202,23 @@ export default {
       outOf: ' of ',
     },
     invoice: {
+      reverted: 'Reverted',
+      revert: 'Revert',
+      invoiceReverted: 'Invoice reverted',
       finalize: 'Finalize the invoice',
+      choseDate: 'Invoice date',
+      revertExplainPayment:
+        'Credit/debut card payments will be transfered to the credit account of the member. All other payments will be canceled.',
+      revertExplainCredits:
+        'Credit and debit on member account will be reverted.',
+      revertExplainPacks:
+        'All pass will will be canceled with ALL their bookings.',
+      revertExplainShop:
+        'Purchase made on the store will be canceled and provisions reinitialized',
+      explainDateChoser:
+        'Please choose the date registered for the billing. Credit/debit card will be charged immediately independantly of the chosen date.',
+      revertImpossibleExplainSubscription:
+        'This invoice is part of a subscription plan, if you want to revert it you need to stop the subscription. You can not revert an already billed invoice linked to a subscription',
       explainFinalize:
         'Beware ! A finalized invoice is not editable anymore, moreover every payment will be considered as checked-out. Once finalized the invoice will be exportable so you can download it as PDF.',
       forms: {
@@ -347,6 +365,8 @@ export default {
         activityHelper: 'Chose the activity then the session',
       },
       payment: {
+        invoiceRevertedThusNotEditable:
+          'Invoice was reverted and is not editable',
         credit: 'Credit',
         topUp: 'Top-up credit',
         invoiceFinalizedThusNotEditable:

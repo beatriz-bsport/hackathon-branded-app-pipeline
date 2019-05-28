@@ -11,6 +11,8 @@ import { createListHandler } from './utils';
 import type { Dispatch } from '../state/types';
 import type { Invoice, Payment } from '../api/types';
 
+import { fetch as fetchAlerting } from '../libs/alerting/actions';
+
 export const finalizeInvoiceActions = {
   isLoading: createAction('INVOICE/FINALIZE/IS_LOADING'),
   error: createAction('INVOICE/FINALIZE/ERROR'),
@@ -27,6 +29,30 @@ export function finalizeInvoice(uuid: string) {
       dispatch(finalizeInvoiceActions.error(err));
     }
     dispatch(finalizeInvoiceActions.isLoading({ uuid, loading: false }));
+  };
+}
+
+export function revertQuickInvoice(uuid: string, callback: ?() => void) {
+  return async (dispatch: Dispatch) => {
+    dispatch(revertInvoice(uuid, callback));
+    dispatch(resetQuickInvoices(uuid));
+    dispatch(fetchAlerting());
+  };
+}
+
+export function revertInvoice(uuid: string, callback: ?() => void) {
+  return async (dispatch: Dispatch) => {
+    try {
+      const response = await api.invoice.revert(uuid);
+      const invoice = response.data;
+      dispatch(fetchedSpecificInvoice(invoice));
+    } catch (err) {
+      dispatch(errorFetchingSpeciicInvoice());
+    }
+    if (typeof callback === 'function') {
+      callback();
+    }
+    dispatch(fetchAlerting());
   };
 }
 
@@ -51,7 +77,6 @@ export function createQuickInvoice(
   callback,
 ) {
   return async (dispatch: Dispatch) => {
-    console.log('creating invoice');
     dispatch(startCreateQuickInvoice());
     try {
       const response = await api.invoice.createQuick(data);
@@ -63,7 +88,7 @@ export function createQuickInvoice(
     } catch (err) {
       dispatch(errorCreatingQuickInvoice());
     }
-    console.log('has created invoice');
+    dispatch(fetchAlerting());
   };
 }
 
@@ -101,12 +126,12 @@ export function updatedPaymentStatus(payment: Payment) {
   return { type: types.PAYMENT_ITEM_UPDATED_PAYMENT_STATUS, payment };
 }
 
-export function updatePaymentStatus(uuid: string, newStatus: boolean) {
+export function updatePaymentMethod(uuid: string, newMethod: number) {
   return async (dispatch: Dispatch) => {
     dispatch(startUpdatePaymentStatus());
 
     try {
-      const response = await api.invoice.updatePaymentStatus(uuid, newStatus);
+      const response = await api.invoice.updatePaymentMethod(uuid, newMethod);
       const payment = response.data;
       dispatch(updatedPaymentStatus(payment));
     } catch (err) {
@@ -152,7 +177,7 @@ export function createOrUpdateInvoice(
       dispatch(snackbarError('invoice.forms.error'));
       dispatch(actionCreateOrUpdateInvoiceError(e));
     }
-    console.log('end quick create');
+    dispatch(fetchAlerting());
   };
 }
 

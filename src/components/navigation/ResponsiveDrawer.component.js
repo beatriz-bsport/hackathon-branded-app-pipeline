@@ -40,14 +40,17 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DescriptionIcon from '@material-ui/icons/Description';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
+import type { TFunction } from 'react-i18next';
 
 import { colors } from '@bsport/common/lib/colors';
 import { LanguageButton } from '../button/LanguageButton.component';
 import RefreshButton from '../button/RefreshButton.component';
 import SearchBar from '../SearchBar.component';
 import LOGO_ASSET from '../../public/images/banner_lowres.png';
+import AlertButtonMenu from '../../libs/alerting/components/AlertButtonMenu.component';
 
 import { DrawerContext } from '../../hocs/with-drawer.hoc';
+import type { Alerting } from '../../libs/alerting/types';
 
 const drawerWidth = 260;
 
@@ -57,7 +60,9 @@ type Props = {
   children: Object,
   theme: Object,
   classes: Object,
-  t: (x: string) => string,
+  nbAlerting: number,
+  alertings: Array<Alerting>,
+  t: TFunction,
   location: Object,
 };
 
@@ -158,7 +163,15 @@ class ResponsiveDrawer extends React.Component<Props, State> {
   };
 
   render() {
-    const { classes, theme, t, isRefreshing, onRefresh } = this.props;
+    const {
+      classes,
+      theme,
+      t,
+      isRefreshing,
+      onRefresh,
+      nbAlerting,
+      alertings,
+    } = this.props;
     const items = [
       {
         to: '/search/results',
@@ -328,6 +341,12 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                   <div className={classes.grow} />
                   <Hidden smDown implementation="css">
                     <Grid container alignItems="center" direction="row">
+                      <Grid item>
+                        <AlertButtonMenu
+                          alertings={alertings}
+                          nbAlerting={nbAlerting}
+                        />
+                      </Grid>
                       <Grid item className={classes.searchBar}>
                         <SearchBar changeLocation />
                       </Grid>
@@ -445,8 +464,8 @@ const styles = (theme) => ({
       paddingLeft: theme.spacing.unit * 3,
       paddingRight: theme.spacing.unit * 3,
     },
-    paddingBottom: theme.spacing.unit * 3,
-    paddingTop: 80,
+    paddingBottom: theme.spacing.unit,
+    paddingTop: theme.spacing.unit * 10,
   },
   logo: {
     alignItems: 'center',

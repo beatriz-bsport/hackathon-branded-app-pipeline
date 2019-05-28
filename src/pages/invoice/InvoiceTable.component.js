@@ -14,6 +14,7 @@ import {
 import type { TFunction } from 'react-i18next';
 import DoneIcon from '@material-ui/icons/Done';
 import SaveIcon from '@material-ui/icons/Save';
+import CancelIcon from '@material-ui/icons/Cancel';
 import DownloadIcon from '@material-ui/icons/Attachment';
 
 import FinalizeInvoiceDialog from '../../libs/invoice/dialog/FinalizeInvoiceDialog.component';
@@ -26,7 +27,7 @@ import type { Member, Invoice } from '../../api/types';
 
 const INVOICE_PER_PAGE = 50;
 
-function renderStatus(invoice: Invoice) {
+function renderStatus(invoice: Invoice, t: TFunction) {
   // prettier-ignore
   const payed = (
     -(
@@ -35,6 +36,9 @@ function renderStatus(invoice: Invoice) {
       - invoice.voucher
       ) >= 0
   );
+  if (invoice.reverted) {
+    return t('invoice.reverted');
+  }
   if (payed) {
     return <DoneIcon color="primary" />;
   }
@@ -45,6 +49,13 @@ function renderStatus(invoice: Invoice) {
   );
 }
 const renderActions = (invoice: Invoice, action, processing) => {
+  if (invoice.reverted) {
+    return (
+      <IconButton>
+        <CancelIcon />
+      </IconButton>
+    );
+  }
   if (invoice.loading || processing) {
     return (
       <Grid container item alignItems="center">
@@ -68,13 +79,13 @@ const renderActions = (invoice: Invoice, action, processing) => {
   );
 };
 
-const renderRows = (invoices, members, processing, actions) => {
+const renderRows = (invoices, members, processing, actions, t) => {
   return invoices.map((inv) => ({
     uuid: inv.uuid.slice(0, 8).toUpperCase(),
     name: (members.find((m) => m.id === inv.member) || {}).name,
     date: formatAsDatetime(inv.date),
     price_due: `${inv.price_due} €`,
-    status: renderStatus(inv),
+    status: renderStatus(inv, t),
     actions: renderActions(inv, actions, processing.includes(inv.uuid)),
   }));
 };
@@ -257,10 +268,16 @@ export class InvoiceTable extends Component<Props, State> {
     return (
       <div>
         <MUIDataTable
-          data={renderRows(invoices, members, processing, {
-            finalizeInvoice: this.startFinalizeInvoice,
-            downloadInvoice: this.downloadInvoice,
-          })}
+          data={renderRows(
+            invoices,
+            members,
+            processing,
+            {
+              finalizeInvoice: this.startFinalizeInvoice,
+              downloadInvoice: this.downloadInvoice,
+            },
+            t,
+          )}
           columns={getColumnData(t)}
           options={options}
         />

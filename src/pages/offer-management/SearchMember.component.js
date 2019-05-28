@@ -53,6 +53,7 @@ const styles = () => ({
   },
   field: {
     backgroundColor: '#F8F8F8',
+    maxWidth: 180,
   },
 });
 

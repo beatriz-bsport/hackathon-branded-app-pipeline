@@ -28,15 +28,7 @@ type Props = {
   refreshMembers: () => void,
 };
 
-type State = {
-  invoiceFinalizing: null,
-};
-
-export class InvoiceList extends Component<Props, State> {
-  state = {
-    processing: [],
-  };
-
+export class InvoiceList extends Component<Props> {
   componentDidMount() {
     this.props.refreshMembers();
   }
@@ -54,7 +46,6 @@ export class InvoiceList extends Component<Props, State> {
       ? this.props.invoices.asMutable()
       : this.props.invoices;
     return (
-      <div>
         <InvoiceTable
           invoices={mutableInvoices}
           members={this.props.members}
@@ -63,7 +54,6 @@ export class InvoiceList extends Component<Props, State> {
           finalizeInvoice={this.props.finalizeInvoice}
           downloadInvoice={this.downloadInvoice}
         />
-      </div>
     );
   }
 }

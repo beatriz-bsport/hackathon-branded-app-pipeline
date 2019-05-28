@@ -14,9 +14,7 @@ import { Moment } from '../../i18n';
 import { marketplace as marketplaceActions } from '../../actions';
 
 type Props = {
-  companyName: ?string,
-  company: MarketPlaceCompany,
-  companyLoading: boolean,
+  companyId: number,
   offers: Array<OfferBasic>,
   selectedDayOffers: ?Array<OfferMarketplace>,
   selectedDayOffersLoading: boolean,
@@ -79,7 +77,6 @@ export class MarketPlace extends Component<Props, State> {
 
   render() {
     const {
-      loading,
       calendarLoading,
       classes,
       offers,

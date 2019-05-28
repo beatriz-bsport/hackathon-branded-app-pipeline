@@ -323,7 +323,7 @@ export default compose(
           duration_years: 0,
           max_bookings_per_week: null,
           lower_date: Moment(),
-          upper_date: Moment().add('days', 365),
+          upper_date: Moment().add('months', 1),
           new_member_only: false,
           manager_only: false,
           categories: [],
@@ -368,8 +368,8 @@ export default compose(
         data.duration_months = null;
         data.duration_years = null;
         data.validity_daterange = {
-          lower: Moment(values.lower_date).format('DD/MM/YYYY'),
-          upper: Moment(values.upper_date).format('DD/MM/YYYY'),
+          lower: Moment(values.lower_date).format('YYYY-MM-DD'),
+          upper: Moment(values.upper_date).format('YYYY-MM-DD'),
         };
       } else {
         data.duration_days = values.duration_days;

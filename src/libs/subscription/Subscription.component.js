@@ -18,7 +18,6 @@ type Props = {
   goToSubscribe: (id: number) => void,
   goToMember: (id: number) => void,
   showDialogStop: boolean,
-  member: ?Member,
 };
 
 export function SubscriptionComponent(props: Props) {

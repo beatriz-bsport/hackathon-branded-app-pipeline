@@ -27,6 +27,7 @@ import shopReducer from './shop';
 import paymentRulesReducer from '../libs/payment-rules/reducers';
 import workshopActivityReducer from './workshop-activity';
 import subscriptionReducer from '../libs/subscription/reducers';
+import alertingReducer from '../libs/alerting/reducers';
 
 import type { State, Action } from '../state/types';
 
@@ -59,6 +60,7 @@ const rootReducer = combineReducers({
   shop: shopReducer,
   workshopActivity: workshopActivityReducer,
   subscription: subscriptionReducer,
+  alerting: alertingReducer,
 });
 
 export default (state: State, action: Action) => {

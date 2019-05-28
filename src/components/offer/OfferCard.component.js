@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-
+import classNames from 'classnames';
 import {
   Typography,
   Grid,
@@ -81,7 +81,11 @@ export class OfferCard extends Component<Props> {
     } = this.props.offer;
     return (
       <Grid container direction="row" justify="center" alignItems="center">
-        <Grid item xs={4} className={[classes.rightBorder, classes.stat]}>
+        <Grid
+          item
+          xs={4}
+          className={classNames(classes.rightBorder, classes.stat)}
+        >
           <Grid
             container
             justify="center"
@@ -148,6 +152,7 @@ export class OfferCard extends Component<Props> {
                 {nb_option}
                 <Typography
                   variant="h6"
+                  component="h4"
                   style={{ position: 'absolute', top: 0, right: -30 }}
                 >
                   {`/${waiting_list_max_size}`}

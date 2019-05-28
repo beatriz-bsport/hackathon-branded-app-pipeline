@@ -94,16 +94,12 @@ function invoiceReducers(state, action) {
 
     case actionTypes.PAYMENT_ITEM_UPDATED_PAYMENT_STATUS:
       if (action.payment.invoice === state.invoice.uuid) {
-        const refreshedPayments = [
-          ...state.invoice.payments.filter(
-            (p) => p.uuid !== action.payment.uuid,
-          ),
-          action.payment,
-        ];
-        return state.merge({
-          refreshingSpecific: false,
-          invoice: { ...state.invoice, payments: refreshedPayments },
-        });
+        const paymentIndex = state.invoice.payments.findIndex(
+          (p) => p.uuid === action.payment.uuid,
+        );
+        return state
+          .set('refreshingSpecific', false)
+          .setIn(['invoice', 'payments', paymentIndex], action.payment);
       }
       return state.merge({
         refreshingSpecific: false,

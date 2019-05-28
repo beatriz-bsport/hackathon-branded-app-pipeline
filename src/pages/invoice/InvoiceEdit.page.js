@@ -6,16 +6,18 @@ import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push as pushRouter } from 'react-router-redux';
-import { withProps, compose } from 'recompose';
+import { withProps, compose, withPropsOnChange } from 'recompose';
 import { withRouter } from 'react-router';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import { invoice as invoiceActions } from '../../actions';
 import withDrawer from '../../hocs/with-drawer.hoc';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import type { PaymentPack, Offer, Activity, Invoice } from '../../api/types';
 
 import InvoiceForm from '../../libs/invoice/InvoiceForm.component';
+import RevertInvoiceDialog from '../../libs/invoice/dialog/RevertInvoiceDialog.component';
 
 type Props = {
   loading: boolean,
@@ -30,28 +32,31 @@ type Props = {
 
   goToInvoiceList: () => void,
   goToMemberPage: () => void,
-  fetchInvoice: (id: number) => void,
-  updatePaymentStatus: (uuid: number, status: boolean) => void,
+  updatePaymentMethod: (uuid: number, payment_method: number) => void,
   updateInvoice: (invoiceData: InvoiceData) => void,
+  revertInvoice: (uuid: string) => void,
 
   t: TFunction,
   match: Object,
   resetCreateOrUpdateStatus: () => void,
 };
 
-export class InvoiceFormPage extends Component<Props> {
+type State = {
+  revertDialogOpen: boolean,
+};
+
+export class InvoiceFormPage extends Component<Props, State> {
+  state = {
+    revertDialogOpen: false,
+  };
+
   componentDidMount() {
     this.uuid = this.props.match.params.id;
-    this.props.fetchInvoice(this.uuid);
     this.props.resetCreateOrUpdateStatus();
   }
 
   updateInvoice = (invoiceData: InvoiceData) => {
     this.props.updateInvoice({ uuid: this.uuid, ...invoiceData });
-  };
-
-  updatePaymentStatus = (paymentUuid, newStatus) => {
-    this.props.updatePaymentStatus(paymentUuid, newStatus);
   };
 
   render() {
@@ -86,22 +91,34 @@ export class InvoiceFormPage extends Component<Props> {
       uneditableInvoiceItems = [...(invoice.invoice_items || [])]; // for mutability
     }
     return (
-      <InvoiceForm
-        offers={offers}
-        activities={activities}
-        paymentPacks={paymentPacks}
-        editMode
-        invoice={invoice}
-        uneditableInvoiceItems={uneditableInvoiceItems || []}
-        uneditablePayments={invoice.payments || []}
-        updatePaymentStatus={this.updatePaymentStatus}
-        createOrUpdate={this.updateInvoice}
-        onCancel={goToInvoiceList}
-        goToMemberPage={goToMemberPage}
-        processing={updatingInvoice}
-        uneditableVoucher={invoice.voucher || 0}
-        member={this.props.member}
-      />
+      <div>
+        <InvoiceForm
+          offers={offers}
+          activities={activities}
+          paymentPacks={paymentPacks}
+          editMode
+          invoice={invoice}
+          uneditableInvoiceItems={uneditableInvoiceItems || []}
+          uneditablePayments={invoice.payments || []}
+          updatePaymentMethod={this.props.updatePaymentMethod}
+          createOrUpdate={this.updateInvoice}
+          onCancel={goToInvoiceList}
+          goToMemberPage={goToMemberPage}
+          processing={updatingInvoice}
+          uneditableVoucher={invoice.voucher || 0}
+          member={this.props.member}
+          revertInvoice={() => this.setState({ revertDialogOpen: true })}
+        />
+        <RevertInvoiceDialog
+          open={this.state.revertDialogOpen}
+          hasSubscription={!!invoice.plannedinvoice}
+          onSubmit={() => {
+            this.props.revertInvoice(this.uuid);
+            this.setState({ revertDialogOpen: false });
+          }}
+          onClose={() => this.setState({ revertDialogOpen: false })}
+        />
+      </div>
     );
   }
 }
@@ -109,6 +126,7 @@ export class InvoiceFormPage extends Component<Props> {
 export default compose(
   withNamespaces(),
   withRouter,
+  routerParamsToProps({ id: 'id' }),
   connect(
     (state) => ({
       loading: state.invoice.loadingSpecific || state.member.loading,
@@ -121,10 +139,11 @@ export default compose(
     }),
     {
       fetchInvoice: invoiceActions.fetchSpecificInvoice,
-      updatePaymentStatus: invoiceActions.updatePaymentStatus,
+      updatePaymentMethod: invoiceActions.updatePaymentMethod,
       push: pushRouter,
       updateInvoice: invoiceActions.createOrUpdateInvoice,
       resetCreateOrUpdateStatus: invoiceActions.createOrUpdateReset,
+      revertInvoice: invoiceActions.revertInvoice,
     },
   ),
   withProps(({ invoice, members, push }) => {
@@ -141,6 +160,14 @@ export default compose(
       goToInvoiceList: () => push('/invoice'),
     };
   }),
+  withPropsOnChange(
+    ({ id }, { id: newUuid }) => id !== newUuid,
+    ({ id, fetchInvoice }) => {
+      if (id) {
+        fetchInvoice(id);
+      }
+    },
+  ),
   withDrawer(
     ({ t, match }) =>
       `${t('payment.invoice')} - ${match.params.id.slice(0, 8).toUpperCase()}`,

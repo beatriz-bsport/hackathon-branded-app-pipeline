@@ -54,6 +54,7 @@ type Props = {
   decrementCredit: (id: number) => void,
   createOrUpdateNote: ({ id: ?number, text: string, memberId: number }) => void,
   deleteNote: ({ memberId: number, noteId: number }) => void,
+  onSubscriptionClick: (id: number) => void,
 
   t: TFunction,
   classes: Object,

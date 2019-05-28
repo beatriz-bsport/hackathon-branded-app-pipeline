@@ -70,6 +70,7 @@ export default compose(
   withProps(({ upsertCoach, initial }) => ({
     onSubmit: (values, options) => {
       if (!values.birthday) {
+        // eslint-disable-next-line
         delete values.birthday;
       }
       const formData = mapFormData(values, CoachMap);

@@ -23,7 +23,6 @@ import type { TFunction } from 'react-i18next';
 
 import { formatAsDate } from '../../../datetime';
 import { Avatar } from '../../../components';
-import { Moment } from '../../../i18n';
 import type { Member } from '../../../api/types';
 
 type Props = {

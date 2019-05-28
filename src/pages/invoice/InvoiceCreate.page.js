@@ -18,6 +18,7 @@ import type { InvoiceDataFront } from '../../components/form/types';
 import withDrawer from '../../hocs/with-drawer.hoc';
 
 import InvoiceForm from '../../libs/invoice/InvoiceForm.component';
+import InvoiceDateDialog from '../../libs/invoice/dialog/InvoiceDateDialog.component';
 
 type Props = {
   member: Member,
@@ -36,13 +37,34 @@ type Props = {
   loading: boolean,
 };
 
-export class InvoiceCreatePage extends Component<Props> {
+type State = {
+  dateDialogOpen: boolean,
+  invoiceData: ?InvoiceDataFront,
+};
+
+export class InvoiceCreatePage extends Component<Props, State> {
+  state = {
+    dateDialogOpen: false,
+    invoiceData: null,
+  };
+
   componentDidMount() {
     this.props.resetCreateOrUpdateStatus();
   }
 
-  createInvoice = (invoiceData: InvoiceDataFront) => {
-    this.props.createInvoice({ ...invoiceData, member: this.props.member.id });
+  prepareCreate = (invoiceData: InvoiceDataFront) => {
+    this.setState({
+      dateDialogOpen: true,
+      invoiceData,
+    });
+  };
+
+  createInvoiceAtDate = (date: string) => {
+    this.props.createInvoice({
+      ...this.state.invoiceData,
+      member: this.props.member.id,
+      date,
+    });
   };
 
   render() {
@@ -61,18 +83,27 @@ export class InvoiceCreatePage extends Component<Props> {
       return <CircularProgress />;
     }
     return (
-      <InvoiceForm
-        member={member}
-        activities={activities}
-        paymentPacks={paymentPacks}
-        shopItems={shopItems}
-        createOrUpdate={this.createInvoice}
-        uneditablePayments={[]}
-        uneditableInvoiceItems={[]}
-        onCancel={goToInvoiceList}
-        processing={creatingInvoice}
-        goToMemberPage={() => goToMemberPage(id)}
-      />
+      <div>
+        <InvoiceForm
+          member={member}
+          activities={activities}
+          paymentPacks={paymentPacks}
+          shopItems={shopItems}
+          createOrUpdate={this.prepareCreate}
+          uneditablePayments={[]}
+          uneditableInvoiceItems={[]}
+          onCancel={goToInvoiceList}
+          processing={creatingInvoice}
+          goToMemberPage={() => goToMemberPage(id)}
+        />
+        <InvoiceDateDialog
+          open={this.state.dateDialogOpen}
+          onClose={() =>
+            this.setState({ dateDialogOpen: false, invoiceData: null })
+          }
+          onSubmit={this.createInvoiceAtDate}
+        />
+      </div>
     );
   }
 }

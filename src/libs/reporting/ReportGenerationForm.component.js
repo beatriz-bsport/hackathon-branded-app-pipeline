@@ -28,10 +28,13 @@ import {
 
 import { getAuth } from '../../http';
 
+import type { ReportConfiguration as ReportConfigurationType } from './types';
+
 type Props = {
   isSubmitting: boolean,
   t: TFunction,
   exportLink?: string,
+  reportConfiguration: ReportConfigurationType,
   classes: { [string]: string },
 };
 

@@ -48,9 +48,6 @@ export class BookingListItem extends Component<Props> {
     const { booking, overrideClickAction, onDiscard, classes } = this.props;
     const { offer } = booking;
     const { activity } = offer;
-    const coach = offer.coach_substitute
-      ? offer.coach_substitute
-      : offer.activity.coach;
     return (
       <ListItem
         key={booking.id}

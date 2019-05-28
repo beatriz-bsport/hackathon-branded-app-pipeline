@@ -86,7 +86,6 @@ class ResponsiveDrawer extends React.Component<Props, State> {
   handleClick = (item: Object, i: number) => {
     this.setState((prevState) => ({
       open: {
-        ...prevState.open,
         [i]: !prevState.open[i],
       },
     }));

@@ -92,6 +92,7 @@ export function PaymentPackForm(props: Props) {
             <TextField
               name="tax"
               label={t('common.tax')}
+              type="number"
               required
               fullWidth
               max={100}
@@ -377,7 +378,6 @@ export default compose(
         data.duration_years = values.duration_years;
         data.validity_daterange = null;
       }
-      console.log(data);
       onSubmit(data, {
         onSuccess: () => setSubmitting(false),
         onError: () => setSubmitting(false),

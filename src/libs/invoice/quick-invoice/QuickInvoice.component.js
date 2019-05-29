@@ -5,6 +5,7 @@ import {
   Button,
   Divider,
   Grid,
+  Badge,
   Typography,
   IconButton,
   withStyles,
@@ -38,6 +39,7 @@ type Props = {
   shopItems: Array<ShopItem>,
   createInvoice: (data: [*]) => void,
   updateInvoice: (data: [*]) => void,
+  memberCreditAccountBalance: number,
 };
 
 type State = {
@@ -242,6 +244,7 @@ export class QuickInvoice extends Component<Props, State> {
       onClose,
       quickInvoiceTitle,
       uneditableInvoiceItems,
+      memberCreditAccountBalance,
     } = this.props;
     const {
       voucher,
@@ -262,7 +265,15 @@ export class QuickInvoice extends Component<Props, State> {
           className={classes.header}
         >
           <Grid item>
-            <Typography variant="h6">{quickInvoiceTitle}</Typography>
+            <Badge
+              color="secondary"
+              badgeContent={`${memberCreditAccountBalance.toFixed(1)} €`}
+              className={classes.badge}
+            >
+              <Typography variant="h6" inline>
+                {quickInvoiceTitle}
+              </Typography>
+            </Badge>
           </Grid>
           {onClose ? (
             <Grid item>
@@ -356,10 +367,14 @@ const styles = (theme) => ({
     borderRadius: '4px',
   },
   header: {
-    padding: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit,
   },
   invoiceItemListContainer: {
     backgroundColor: '#F8F8F8',
+  },
+  badge: {
+    marginTop: (theme.spacing.unit * 1) / 4,
+    padding: (theme.spacing.unit * 1) / 2,
   },
 });
 

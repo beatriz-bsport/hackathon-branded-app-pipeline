@@ -306,7 +306,6 @@ export class OfferManagement extends PureComponent<Props, State> {
           direction="row"
           justify="space-between"
           alignItems="center"
-          spacing={16}
           className={classes.bookingsHeader}
         >
           <Grid item>
@@ -410,7 +409,7 @@ export class OfferManagement extends PureComponent<Props, State> {
           </Paper>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Paper>
+          <Paper className={classes.autoScroll}>
             <Grid container direction="column">
               <Grid item xs={12}>
                 {this.renderBookingHeader()}
@@ -495,6 +494,7 @@ export class OfferManagement extends PureComponent<Props, State> {
             shopItems={this.props.shopItems}
             offers={this.props.offers}
             activities={this.props.activities}
+            className={classes.autoScroll}
           />
         </Grid>
         <Dialog
@@ -571,8 +571,8 @@ const styles = (theme) => ({
     padding: theme.spacing.unit * 2,
     paddingTop: theme.spacing.unit,
     paddingBottom: theme.spacing.unit,
+    width: '100%',
   },
-  quickInvoiceContainer: {},
   emptyTextContainer: {
     paddingTop: theme.spacing.unit,
     paddingBottom: theme.spacing.unit,
@@ -588,6 +588,12 @@ const styles = (theme) => ({
     marginTop: -theme.spacing.unit * 2,
     paddingLeft: theme.spacing.unit * 3,
     paddingRight: theme.spacing.unit * 3,
+  },
+  autoScroll: {
+    overflowY: 'auto',
+    [theme.breakpoints.up('md')]: {
+      height: `calc(100vh - ${theme.spacing.unit * 19}px)`,
+    },
   },
   titleBanner: {
     paddingTop: theme.spacing.unit / 2,

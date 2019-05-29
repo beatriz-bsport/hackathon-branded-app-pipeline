@@ -1,10 +1,11 @@
 /// <reference types="Cypress" />
 
 import { fillSignUpForm } from './customer.utils';
+import { REACT_APP_URI, REACT_APP_TEST_URI } from './common.utils';
 
 context('Consumer', () => {
   beforeEach(() => {
-    cy.request('http://localhost:8000/state/reset')
+    cy.request(REACT_APP_TEST_URI)
       .its('body')
       .as('db');
     cy.visit('http://localhost:3000');
@@ -59,7 +60,7 @@ context('Consumer', () => {
       .location('pathname')
       .should('eq', '/login');
 
-    cy.request('POST', 'http://localhost:8000/authentication/with-login/', {
+    cy.request('POST', `${REACT_APP_URI}/authentication/with-login/`, {
       username: 'customer@bsport.io',
       password: 'mynewpassword',
     }).then((response) => {

@@ -12,7 +12,7 @@
 // the project's config changing)
 
 // const dotenv = require('dotenv-expand');
-const dotenv = require('dotenv').config({ path: '.env.local' });
+const dotenv = require('dotenv').config({ path: '.env' });
 
 module.exports = (on, config) => {
   // load cypress config from .env

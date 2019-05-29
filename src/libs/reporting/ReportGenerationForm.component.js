@@ -36,6 +36,7 @@ type Props = {
   exportLink?: string,
   reportConfiguration: ReportConfigurationType,
   classes: { [string]: string },
+  reportConfiguration: Object,
 };
 
 const ReportGenerationSchema = Yup.object().shape({

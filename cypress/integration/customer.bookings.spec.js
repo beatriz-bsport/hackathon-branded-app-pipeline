@@ -3,10 +3,11 @@
 import moment from 'moment';
 
 import { fillSignUpForm } from './customer.utils';
+import { REACT_APP_TEST_URI } from './common.utils';
 
 context('Booking', () => {
   beforeEach(() => {
-    cy.request('http://localhost:8000/state/reset')
+    cy.request(REACT_APP_TEST_URI)
       .its('body')
       .as('db');
   });

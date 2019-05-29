@@ -106,29 +106,27 @@ export class Backoffice extends Component<Props> {
         nbAlerting={this.props.nbAlerting}
       >
         <main className={classes.content}>
-          <div>
-            <Switch>
-              <Route path="/shop" component={ShopManager} />
-              <Route path="/offer/:id" component={OfferManagement} />
-              <Route exact path="/calendar" component={PlanningRouter} />
-              <Route exact path="/add-offers/:id" component={OfferFormPage} />
-              <Route path="/coach" component={Coach} />
-              <Route path="/payment-pack" component={PaymentPack} />
-              <Route path="/invoice" component={Invoice} />
-              <Route path="/subscription" component={Subscription} />
-              <Route path="/member" component={Member} />
-              <Route path="/activity" component={MetaActivity} />
-              <Route path="/workshop-activity" component={WorkshopActivity} />
-              <Route path="/establishment" component={Establishment} />
-              <Route path="/marketing/rule/:id" component={MarketingRule} />
-              <Route path="/marketing" component={MarketingDashboard} />
-              <Route path="/reporting/" component={Reporting} />
-              <Route exact path="/dashboard" component={Dashboard} />
-              <Route exact path="/search/results" component={SearchResults} />
-              <Route path="/settings/" component={Settings} />
-              <Route path="/" component={PlanningRouter} />
-            </Switch>
-          </div>
+          <Switch>
+            <Route path="/shop" component={ShopManager} />
+            <Route path="/offer/:id" component={OfferManagement} />
+            <Route exact path="/calendar" component={PlanningRouter} />
+            <Route exact path="/add-offers/:id" component={OfferFormPage} />
+            <Route path="/coach" component={Coach} />
+            <Route path="/payment-pack" component={PaymentPack} />
+            <Route path="/invoice" component={Invoice} />
+            <Route path="/subscription" component={Subscription} />
+            <Route path="/member" component={Member} />
+            <Route path="/activity" component={MetaActivity} />
+            <Route path="/workshop-activity" component={WorkshopActivity} />
+            <Route path="/establishment" component={Establishment} />
+            <Route path="/marketing/rule/:id" component={MarketingRule} />
+            <Route path="/marketing" component={MarketingDashboard} />
+            <Route path="/reporting/" component={Reporting} />
+            <Route exact path="/dashboard" component={Dashboard} />
+            <Route exact path="/search/results" component={SearchResults} />
+            <Route path="/settings/" component={Settings} />
+            <Route path="/" component={PlanningRouter} />
+          </Switch>
         </main>
       </ResponsiveDrawer>
     );
@@ -161,11 +159,6 @@ function mapDispatchToProps(dispatch) {
 const styles = (theme: Object) => ({
   content: {
     backgroundColor: theme.palette.background.default,
-    // paddingTop: theme.spacing.unit * 3,
-    // [theme.breakpoints.up('sm')]: {
-    //  paddingLeft: theme.spacing.unit * 3,
-    //  paddingRight: theme.spacing.unit * 3,
-    // },
     flexGrow: 1,
   },
   toolbar: theme.mixins.toolbar,

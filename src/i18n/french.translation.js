@@ -772,8 +772,8 @@ export default {
     },
     booking: {
       statusCode: {
-        cancelledByManager: 'Réservation annulée par le manager',
-        cancelledByConsumer: 'Réservation annulée par le client',
+        cancelledByManager: 'Annulation manager',
+        cancelledByConsumer: 'Annulation client',
         cancelledByOffer: 'Séance annulée par le club',
       },
       wasRefunded: 'Remboursé',

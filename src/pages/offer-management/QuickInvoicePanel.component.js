@@ -20,6 +20,7 @@ type Props = {
   revertQuickInvoice: (uuid: string) => void,
 
   members: Array<Member>,
+  className: {},
 };
 
 export function QuickInvoicePanel(props: Props) {
@@ -35,9 +36,10 @@ export function QuickInvoicePanel(props: Props) {
     shopItems,
     offers,
     activities,
+    className,
   } = props;
   return (
-    <Paper className={classes.root}>
+    <Paper className={className}>
       <Typography className={classes.bookingsHeader} variant="h6">
         {t('offer.myOpenedInvoices')}
       </Typography>
@@ -45,15 +47,15 @@ export function QuickInvoicePanel(props: Props) {
       {quickInvoices.length || unevenSavedInvoices.length ? (
         <div>
           {unevenSavedInvoices.map((inv) => {
+            const member = props.members.find((m) => m.id === inv.member);
             return (
               <QuickInvoice
-                quickInvoiceTitle={`${
-                  (
-                    props.members.find((m) => m.id === inv.member) || {
-                      name: ' - ',
-                    }
-                  ).name
-                } (${t('common.booking')})`}
+                quickInvoiceTitle={`${member ? member.name : ' - '} (${t(
+                  'common.booking',
+                )})`}
+                memberCreditAccountBalance={
+                  member ? member.credit_account_balance : 0.0
+                }
                 key={inv.uuid}
                 quickInvoice={inv}
                 uneditableInvoiceItems={inv.invoice_items}
@@ -72,6 +74,7 @@ export function QuickInvoicePanel(props: Props) {
           })}
           {quickInvoices.map((qi) => (
             <QuickInvoice
+              memberCreditAccountBalance={qi.creditAccount || 0.0}
               quickInvoiceTitle={qi.memberName}
               key={qi.memberId}
               quickInvoice={qi}
@@ -88,7 +91,11 @@ export function QuickInvoicePanel(props: Props) {
           ))}
         </div>
       ) : (
-        <Typography variant="caption" className={classes.emptyTextContainer}>
+        <Typography
+          variant="caption"
+          color="textSecondary"
+          className={classes.emptyTextContainer}
+        >
           {t('offer.noQuickInvoiceOpened')}
         </Typography>
       )}
@@ -97,18 +104,13 @@ export function QuickInvoicePanel(props: Props) {
 }
 
 const styles = (theme) => ({
-  root: {
-    paddingBottom: theme.spacing.unit / 2,
-  },
   bookingsHeader: {
     padding: theme.spacing.unit * 2,
     paddingTop: theme.spacing.unit,
     paddingBottom: theme.spacing.unit,
   },
   emptyTextContainer: {
-    paddingTop: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 3,
+    padding: theme.spacing.unit * 2,
   },
 });
 

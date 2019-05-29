@@ -58,6 +58,7 @@ type Props = {
 
   t: TFunction,
   classes: Object,
+  onSubscriptionClick: () => void,
 };
 
 type State = {
@@ -326,7 +327,7 @@ export class Member extends Component<Props, State> {
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <Typography className={classes.headingExpansionPanel}>
-            {`${t('member.showInvoices')} (${invoices.length})`}
+            {`${t('member.showInvoices')} (${invoices ? invoices.length : 0})`}
           </Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails style={{ padding: 0 }}>

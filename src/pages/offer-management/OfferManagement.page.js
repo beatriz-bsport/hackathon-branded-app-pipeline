@@ -26,7 +26,10 @@ import type { Offer } from '../../api/types';
 
 const formatTitle = (offer: Offer) => {
   if (offer) {
-    return `${offer.name} - ${formatAsDatetime(offer.date_start)}`;
+    const { coach, coach_override } = offer;
+    return `${offer.name} - ${formatAsDatetime(offer.date_start)} - ${
+      coach_override ? coach_override.name : coach.name
+    }`;
   }
   return '';
 };

@@ -23,6 +23,8 @@ type Props = {
   member: Member,
   t: TFunction,
   classes: Object,
+  goToMember: () => void,
+  member: {},
 };
 
 const renderStatus = (

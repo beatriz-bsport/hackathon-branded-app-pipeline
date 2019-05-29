@@ -1,10 +1,11 @@
 /// <reference types="Cypress" />
 
 import moment from 'moment';
+import { REACT_APP_TEST_URI } from './common.utils';
 
 context('Payment', () => {
   beforeEach(() => {
-    cy.request('http://localhost:8000/state/reset?with_stripe=1')
+    cy.request(`${REACT_APP_TEST_URI}?with_stripe=1`)
       .its('body')
       .as('db')
       .then((response) => {

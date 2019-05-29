@@ -14,7 +14,6 @@ import { Moment } from '../../i18n';
 import { marketplace as marketplaceActions } from '../../actions';
 
 type Props = {
-  companyId: number,
   offers: Array<OfferBasic>,
   selectedDayOffers: ?Array<OfferMarketplace>,
   selectedDayOffersLoading: boolean,
@@ -22,6 +21,7 @@ type Props = {
   fetchCalendar: (companyId: number) => void,
   fetchOffersByDay: ({ companyId: number, date: Object }) => void,
   classes: Object,
+  companyId: number,
 };
 
 type State = {

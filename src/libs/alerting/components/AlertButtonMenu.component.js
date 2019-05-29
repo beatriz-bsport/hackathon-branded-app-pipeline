@@ -75,6 +75,7 @@ export function AlertButtonMenu(props: Props) {
               >
                 <AlertList
                   alertings={alertings}
+                  onClose={() => setDialogOpen(null)}
                   pushRouter={(path) => {
                     setDialogOpen(null);
                     pushRouter(path);

@@ -5,8 +5,10 @@ import React from 'react';
 import List from '@material-ui/core/List';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
 import withStyles from '@material-ui/core/styles/withStyles';
+import CloseIcon from '@material-ui/icons/Close';
 
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -17,6 +19,7 @@ import AlertListItem from './AlertListItem.component';
 type Props = {
   alertings: Array<Alerting>,
   pushRouter: (path: string) => void,
+  onClose?: () => void,
   t: TFunction,
   classes: Object,
 };
@@ -27,7 +30,16 @@ export function AlertList(props: Props) {
       disablePadding
       subheader={
         <ListSubheader disableGutters component="h2" style={{ margin: 0 }}>
-          <div className={props.classes.title}>{props.t('list.title')}</div>
+          <div className={props.classes.title}>
+            <span>{props.t('list.title')}</span>
+            <span>
+              {props.onClose ? (
+                <IconButton onClick={props.onClose} color="secondary">
+                  <CloseIcon />
+                </IconButton>
+              ) : null}
+            </span>
+          </div>
           <Divider />
         </ListSubheader>
       }
@@ -53,6 +65,8 @@ export function AlertList(props: Props) {
 
 const styles = (theme) => ({
   title: {
+    display: 'flex',
+    justifyContent: 'space-between',
     paddingLeft: theme.spacing.unit * 2,
     paddingRight: theme.spacing.unit * 2,
     backgroundColor: 'white',

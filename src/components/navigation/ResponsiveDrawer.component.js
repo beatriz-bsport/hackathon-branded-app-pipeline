@@ -472,6 +472,7 @@ const styles = (theme) => ({
   },
   searchBar: {
     marginRight: theme.spacing.unit,
+    marginLeft: theme.spacing.unit,
   },
   nestedList: {
     backgroundColor: '#F8F8F8',

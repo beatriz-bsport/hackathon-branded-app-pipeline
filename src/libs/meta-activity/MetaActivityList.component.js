@@ -41,6 +41,7 @@ export default function MetaActivityList(props: Props) {
         {metaActivities.map((ma) => (
           <MetaActivityListItem
             divider
+            key={ma.id}
             metaActivity={ma}
             goToEdit={goToEdit}
             goToDetail={goToDetail}

@@ -6,14 +6,13 @@ import { connect } from 'react-redux';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import Hidden from '@material-ui/core/Hidden';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
 import { withNamespaces } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import type { TFunction } from 'react-i18next';
-
 
 import { humanizeDuration, formatAsTime } from '../../datetime';
 // eslint-disable-next-line
@@ -88,18 +87,24 @@ export class MarketplaceOffer extends Component<Props> {
           )} - ${humanizeDuration(offer.duration_minute * 60000)}`}
           secondary={offer.etablissement.title}
         />
-        <ListItemSecondaryAction style={{ marginRight: 12 }}>
-          {available ? (
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}
+        >
+          <Hidden xsDown>
             <IconButton
+              disabled={!available}
               onClick={onClick}
               color="secondary"
-              style={{ marginRight: 6 }}
             >
               <InfoIcon />
             </IconButton>
-          ) : null}
+          </Hidden>
           {this.renderButton()}
-        </ListItemSecondaryAction>
+        </div>
       </ListItem>
     );
   }

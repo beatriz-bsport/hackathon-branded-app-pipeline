@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import {
   Button,
   Typography,
+  Hidden,
   Grid,
   Paper,
   Divider,
@@ -89,8 +90,12 @@ const DownloadButton = (props: {
     color="primary"
     className={props.classes.actionButton}
   >
-    <DownloadIcon className={props.classes.leftIcon} />
-    {props.t('common.download')}
+    <DownloadIcon />
+    <Hidden xsDown>
+      <span className={this.props.classes.rightText}>
+        {props.t('common.download')}
+      </span>
+    </Hidden>
   </Button>
 );
 
@@ -350,8 +355,12 @@ export class InvoiceForm extends Component<Props, State> {
         onClick={this.cancelPayments}
         className={this.props.classes.navigationButton}
       >
-        <ArrowBackIcon className={this.props.classes.leftIcon} />
-        {this.props.t('common.previous')}
+        <ArrowBackIcon />
+        <Hidden xsDown>
+          <span className={this.props.classes.rightText}>
+            {this.props.t('common.previous')}
+          </span>
+        </Hidden>
       </Button>
       {this.props.goToMemberPage ? (
         <Button
@@ -360,8 +369,12 @@ export class InvoiceForm extends Component<Props, State> {
           onClick={this.props.goToMemberPage}
           className={this.props.classes.navigationButton}
         >
-          <PersonIcon className={this.props.classes.leftIcon} />
-          {this.props.member.name}
+          <PersonIcon />
+          <Hidden xsDown>
+            <span className={this.props.classes.rightText}>
+              {this.props.member.name}
+            </span>
+          </Hidden>
         </Button>
       ) : (
         <div />
@@ -625,6 +638,9 @@ const styles = (theme) => ({
   },
   leftIcon: {
     marginRight: theme.spacing.unit,
+  },
+  rightText: {
+    marginLeft: theme.spacing.unit,
   },
   navigationButton: {
     marginRight: theme.spacing.unit,

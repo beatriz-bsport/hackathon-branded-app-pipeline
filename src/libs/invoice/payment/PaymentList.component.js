@@ -50,7 +50,7 @@ type PaymentItemState = {
 };
 const styles = (theme) => ({
   emptyPaymentExplainer: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing.unit * 2,
   },
   revert: {
     textDecoration: 'line-through',
@@ -164,7 +164,11 @@ export function PaymentList(props: Props) {
   const { paymentItems, t, classes, uneditablePayments } = props;
   if (paymentItems.length + uneditablePayments.length === 0) {
     return (
-      <Typography className={classes.emptyPaymentExplainer} variant="caption">
+      <Typography
+        className={classes.emptyPaymentExplainer}
+        color="textSecondary"
+        variant="caption"
+      >
         {t('payment.noPaymentItem')}
       </Typography>
     );

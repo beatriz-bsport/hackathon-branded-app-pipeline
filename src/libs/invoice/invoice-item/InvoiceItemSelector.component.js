@@ -177,7 +177,8 @@ export class InvoiceItemSelector extends Component<Props, State> {
             indicatorColor="primary"
             textColor="primary"
             onChange={this.onSelectorChange}
-            fullWidth
+            variant="scrollable"
+            scrollButtons="off"
           >
             <Tab
               label={t('payment.addPaymentPack')}
@@ -187,50 +188,47 @@ export class InvoiceItemSelector extends Component<Props, State> {
             <Tab label={t('payment.credit')} value={SELECTOR_CREDIT_ACCOUNT} />
           </Tabs>
         </Paper>
-        <Grid
-          container
-          direction="column"
-          className={classes.innerList}
-          justify="space-between"
-        >
-          <Grid item className={classes.input}>
-            <Collapse in={SELECTOR_SHOP === expandedSelector}>
-              {this.renderShopItemSelector()}
-            </Collapse>
-            <Collapse in={SELECTOR_PAYMENT_PACK === expandedSelector}>
-              {this.renderPaymentPackSelector()}
-            </Collapse>
-            <Collapse in={SELECTOR_CREDIT_ACCOUNT === expandedSelector}>
-              {this.renderCreditTopUpSelector()}
-            </Collapse>
-          </Grid>
-          <Grid item className={classes.addButton}>
-            {showCancel ? (
+        <div className={classes.innerList}>
+          <Grid container direction="column" justify="space-between">
+            <Grid item className={classes.input}>
+              <Collapse in={SELECTOR_SHOP === expandedSelector}>
+                {this.renderShopItemSelector()}
+              </Collapse>
+              <Collapse in={SELECTOR_PAYMENT_PACK === expandedSelector}>
+                {this.renderPaymentPackSelector()}
+              </Collapse>
+              <Collapse in={SELECTOR_CREDIT_ACCOUNT === expandedSelector}>
+                {this.renderCreditTopUpSelector()}
+              </Collapse>
+            </Grid>
+            <Grid item className={classes.addButton}>
+              {showCancel ? (
+                <Button
+                  color="secondary"
+                  variant="outlined"
+                  onClick={onCancel}
+                  className={classes.cancelButton}
+                >
+                  {t('form.invoice.backToInvoiceItemList')}
+                </Button>
+              ) : null}
               <Button
-                color="secondary"
-                variant="outlined"
-                onClick={onCancel}
-                className={classes.cancelButton}
-              >
-                {t('form.invoice.backToInvoiceItemList')}
-              </Button>
-            ) : null}
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={this.submitInvoiceItems}
-              disabled={
-                // prettier-ignore
-                (expandedSelector === SELECTOR_PAYMENT_PACK && !paymentPackId)
+                variant="contained"
+                color="primary"
+                onClick={this.submitInvoiceItems}
+                disabled={
+                  // prettier-ignore
+                  (expandedSelector === SELECTOR_PAYMENT_PACK && !paymentPackId)
                 || (expandedSelector === SELECTOR_SHOP && !shopItemId)
                 || (expandedSelector === SELECTOR_CREDIT_ACCOUNT && !creditTopUp)
-              }
-            >
-              <AddIcon className={classes.leftIcon} />
-              {t('payment.addInvoiceItem')}
-            </Button>
+                }
+              >
+                <AddIcon className={classes.leftIcon} />
+                {t('payment.addInvoiceItem')}
+              </Button>
+            </Grid>
           </Grid>
-        </Grid>
+        </div>
       </div>
     );
   }
@@ -246,6 +244,7 @@ const styles = (theme) => ({
     height: '100%',
     marginTop: -theme.spacing.unit * 6, // TODO understand why
     padding: theme.spacing.unit * 4,
+    paddingRight: 0, // theme.spacing.unit * 4,
   },
   input: {
     paddingTop: theme.spacing.unit * 2, // TODO understand why

@@ -10,7 +10,6 @@ import Config from '../config';
 import ResponsiveDrawer from '../components/navigation/ResponsiveDrawer.component';
 
 import { refresh as refreshActions, member as memberActions } from '../actions';
-import { fetch } from '../libs/alerting/actions';
 import asyncComponent from '../AsyncComponent';
 
 import { MarketingDashboard, MarketingRule } from './marketing';

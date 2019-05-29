@@ -92,7 +92,7 @@ const DownloadButton = (props: {
   >
     <DownloadIcon />
     <Hidden xsDown>
-      <span className={this.props.classes.rightText}>
+      <span className={props.classes.rightText}>
         {props.t('common.download')}
       </span>
     </Hidden>

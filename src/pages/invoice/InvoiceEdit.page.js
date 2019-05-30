@@ -10,11 +10,13 @@ import { withProps, compose, withPropsOnChange } from 'recompose';
 import { withRouter } from 'react-router';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import paymentPackSelectors from '../../libs/payment-packs/selectors';
+import type { PaymentPack } from '../../libs/payment-packs/types';
 import { invoice as invoiceActions } from '../../actions';
 import withDrawer from '../../hocs/with-drawer.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
-import type { PaymentPack, Offer, Activity, Invoice } from '../../api/types';
+import type { Offer, Activity, Invoice } from '../../api/types';
 
 import InvoiceForm from '../../libs/invoice/InvoiceForm.component';
 import RevertInvoiceDialog from '../../libs/invoice/dialog/RevertInvoiceDialog.component';
@@ -132,7 +134,7 @@ export default compose(
       loading: state.invoice.loadingSpecific || state.member.loading,
       offers: state.offer.calendar,
       activities: state.activity.all,
-      paymentPacks: (state.paymentPack.all || []).filter((pp) => !pp.disabled),
+      paymentPacks: paymentPackSelectors.getEnabled(state),
       invoice: state.invoice.invoice,
       updatingInvoice: state.invoice.createOrUpdatePending,
       members: state.member.all,

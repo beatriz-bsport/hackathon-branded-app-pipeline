@@ -8,13 +8,8 @@ import {
   ListItem,
   Button,
   withStyles,
-  ExpansionPanel,
-  CircularProgress,
-  ExpansionPanelSummary,
-  ExpansionPanelDetails,
   Hidden,
 } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
@@ -25,27 +20,21 @@ import RedButton from '../../components/button/RedButton.component';
 import MetaActivityMinimalSummary from '../../components/activity/MetaActivityMinimalSummary.component';
 import EstablishmentSummary from '../../components/establishment/EstablishmentSummary.component';
 import { Sport } from '../../components/category';
-import ConsumersPackSummaryTable from '../../components/payment-pack/ConsumersPackSummaryTable.component';
-import type { PaymentPackManagerView, MetaActivity } from '../../api/types';
+import type { MetaActivity } from '../../api/types';
 import { formatAsDate } from '../../datetime';
+
+import type { PaymentPack } from './types';
 
 type Props = {
   onlyPublic: ?boolean,
-  consumerPacksFetching: ?boolean,
-  expanded: boolean,
 
-  pack: PaymentPackManagerView,
+  pack: PaymentPack,
 
-  updatingConsumerPacks: Array<number>,
   metaActivities: Array<MetaActivity>,
   establishments: Array<Establishment>,
-  consumerPacks: Array<ConsumerPaymentPack>,
 
-  onExpand: (boolean) => void,
   onEditButtonClick: () => void,
   onDeleteButtonClick: () => void,
-  incrementCredit: (id: number) => void,
-  decrementCredit: (id: number) => void,
 
   t: TFunction,
   classes: Object,
@@ -244,52 +233,6 @@ export class PaymentPackCard extends Component<Props> {
     );
   };
 
-  handleExpandChange = (event, expanded) => {
-    this.props.onExpand(expanded);
-  };
-
-  getConsumerPaymentPacks = () => {
-    const {
-      t,
-      pack,
-      decrementCredit,
-      incrementCredit,
-      updatingConsumerPacks,
-      consumerPacksFetching,
-      consumerPacks,
-    } = this.props;
-    return (
-      <ExpansionPanel
-        disabled={pack.nb_consumer_payment_packs === 0}
-        expanded={this.props.expanded}
-        onChange={this.handleExpandChange}
-      >
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography variant="body1">
-            {`${t('paymentPack.boughtConsumerPaymentPacks')} (${
-              pack.nb_consumer_payment_packs
-            })`}
-          </Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          {consumerPacksFetching ? (
-            <Grid container item justify="center" alignItems="center">
-              <CircularProgress />
-            </Grid>
-          ) : (
-            <ConsumersPackSummaryTable
-              updatingConsumerPacks={updatingConsumerPacks}
-              paymentPack={pack}
-              consumerPacks={consumerPacks}
-              incrementCredit={incrementCredit}
-              decrementCredit={decrementCredit}
-            />
-          )}
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-    );
-  };
-
   renderScope = () => {
     const { t, classes } = this.props;
     const { metaActivities, establishments, categories } = this.props.pack;
@@ -376,11 +319,8 @@ export class PaymentPackCard extends Component<Props> {
         </div>
         {this.renderScope()}
         {onlyPublic ? null : (
-          <div>
-            <div className={classes.buttonBlock}>
-              {this.renderEditDeleteButtons()}
-            </div>
-            <div>{this.getConsumerPaymentPacks()}</div>
+          <div className={classes.buttonBlock}>
+            {this.renderEditDeleteButtons()}
           </div>
         )}
       </Paper>
@@ -398,15 +338,6 @@ const styles = (theme) => ({
   horizontalBlock: {
     marginLeft: theme.spacing.unit * 3,
     marginRight: theme.spacing.unit * 3,
-  },
-  horizontalDivider: {
-    marginBottom: theme.spacing.unit * 2,
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-  },
-  verticalDivider: {
-    marginLeft: theme.spacing.unit * 2,
-    marginRiht: theme.spacing.unit * 2,
   },
   tabList: {
     marginLeft: theme.spacing.unit * 3,

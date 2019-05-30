@@ -18,12 +18,14 @@ import api from '../../libs/subscription/api';
 import SubscriptionCreateComponent from '../../libs/subscription/SubscriptionCreate.component';
 import SubscriptionScheduleChecker from '../../libs/subscription/SubscriptionScheduleChecker.component';
 import type { SubscriptionData } from '../../libs/subscription/types';
+import paymentPackSelectors from '../../libs/payment-packs/selectors';
+import type { PaymentPack } from '../../libs/payment-packs/types';
 
 type Props = {
   member: Member,
   onCancel: () => void,
   paymentPacks: Array<PaymentPack>,
-  pushToSubscription: (id: nmuber) => void,
+  pushToSubscription: (id: number) => void,
   classes: Object,
 };
 type State = {
@@ -113,7 +115,7 @@ export default compose(
   withDrawer(({ t }) => t('form.title')),
   connect(
     (state, { memberId }) => ({
-      paymentPacks: state.paymentPack.all,
+      paymentPacks: paymentPackSelectors(state),
       member: state.member.all.find((m) => m.id === memberId),
     }),
     {

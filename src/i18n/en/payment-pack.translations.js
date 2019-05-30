@@ -43,4 +43,5 @@ export default {
   boughtConsumerPaymentPacks: 'Subscribers',
   noRestrictionOnActivityType: 'No restriction on activity',
   disabled: 'Disabled',
+    noConsumerPack: 'No pass registered yet',
 };

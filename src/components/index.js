@@ -26,11 +26,9 @@ import RedButton from './button/RedButton.component';
 import ConsumerModalContainer from './consumer/ConsumerModalContainer.component';
 import SignUpForm from './form/SignUpForm.component';
 import SMSCodeForm from './form/SMSCodeForm.component';
-import ConsumersPackSummaryTable from './payment-pack/ConsumersPackSummaryTable.component';
 
 export {
   SimpleModal,
-  ConsumersPackSummaryTable,
   SMSCodeForm,
   SignUpForm,
   ConsumerModalContainer,

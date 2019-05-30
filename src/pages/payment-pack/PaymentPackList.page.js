@@ -1,21 +1,30 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withStyles, Typography, Divider, Grid } from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import List from '@material-ui/core/List';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push as pushRouter } from 'react-router-redux';
 import i18next from 'i18next';
 import { compose } from 'recompose';
+import PaginatedConsumerPackList from '../../libs/payment-packs/PaginatedConsumerPackList.component';
 
-import PaymentPackCard from '../../libs/payment-packs/PaymentPackCard.component';
-import PaymentPackDeleteDialog from '../../components/form/PaymentPackDeleteDialog.component';
+import PaymentPackListItem from '../../libs/payment-packs/PaymentPackListItem.component';
+import PaymentPackDeleteDialog from '../../libs/payment-packs/PaymentPackDeleteDialog.component';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import {
   consumerPaymentPack as consumerPackActions,
   paymentPack as paymentPackActions,
 } from '../../actions';
-import type { MetaActivity } from '../../api/types';
+import paymentPackSelectors from '../../libs/payment-packs/selectors';
+import type {
+  ConsumerPaymentPack,
+  PaymentPack,
+} from '../../libs/payment-packs/types';
 import withBottomButtons from '../../hocs/inject-bottom-buttons';
 import withDrawer from '../../hocs/with-drawer.hoc';
 
@@ -24,8 +33,6 @@ type Props = {
   consumerPacksFetching: boolean,
 
   packs: Array<Object>,
-  metaActivities: Array<MetaActivity>,
-  establishments: Array<Establishment>,
   updatingConsumerPacks: Array<number>,
   consumerPacks: Array<ConsumerPaymentPack>,
 
@@ -33,92 +40,65 @@ type Props = {
   incrementCredit: (id: number) => void,
   decrementCredit: (id: number) => void,
   updatePaymentPack: (id: number, data: [*]) => void,
-  fetchConsumerPacks: (paymentPackId: number) => void,
+  fetchConsumerPacks: (
+    paymentPackId: number,
+    page: number,
+    pageSize: number,
+  ) => void,
+  resetConsumerPacks: () => void,
+  goToPack: (id: number) => void,
 
   classes: Object,
   t: TFunction,
 };
 
 type State = {
-  paymentPackToDeleteId: ?number,
-  expandedPaymentPack: ?number,
+  paymentPackToDelete: ?PaymentPack,
 };
+
+const CONSUMER_PACK_PAGINATION_SIZE = 10;
 
 export class PaymentPackList extends Component<Props, State> {
   state = {
-    paymentPackToDeleteId: null,
-    expandedPaymentPack: null,
+    paymentPackToDelete: null,
   };
 
   requestEdit = (p: PaymentPack) => {
     this.props.pushToEdit(p.id);
   };
 
-  requestDelete = (paymentPack: Object) => {
+  requestDelete = (paymentPack: PaymentPack) => {
     this.setState({
-      paymentPackToDeleteId: paymentPack.id,
-      expandedPaymentPack: null,
+      paymentPackToDelete: paymentPack,
     });
-    this.props.fetchConsumerPacks(paymentPack.id);
+    this.props.resetConsumerPacks();
   };
 
   cancelDelete = () => {
-    this.setState({ paymentPackToDeleteId: null });
+    this.setState({ paymentPackToDelete: null });
   };
 
   deletePaymentPack = async (id: number) => {
     this.props.updatePaymentPack(id, { disabled: true });
-    this.setState({ paymentPackToDeleteId: null });
+    this.setState({ paymentPackToDelete: null });
   };
 
-  expandConsumerPacks = (paymentPackId: number) => (expanded: boolean) => {
-    if (expanded) {
-      this.props.fetchConsumerPacks(paymentPackId);
-      this.setState({ expandedPaymentPack: paymentPackId });
-    } else {
-      this.setState({ expandedPaymentPack: null });
-    }
-  };
-
-  renderPacks = (packs: Array<PaymentPack>) => {
-    const {
-      classes,
-      metaActivities,
-      establishments,
-      incrementCredit,
-      decrementCredit,
-      updatingConsumerPacks,
-    } = this.props;
-    return (
-      <Grid container direction="row">
-        {packs.map((p) => (
-          <Grid
-            item
-            xs={12}
-            md={6}
-            xl={4}
-            key={p.id}
-            className={classes.paymentPackContainer}
-          >
-            <PaymentPackCard
-              pack={p}
-              expanded={p.id === this.state.expandedPaymentPack}
-              metaActivities={metaActivities}
-              establishments={establishments}
-              incrementCredit={incrementCredit}
-              decrementCredit={decrementCredit}
-              updatingConsumerPacks={updatingConsumerPacks}
-              onExpand={this.expandConsumerPacks(p.id)}
-              consumerPacks={this.props.consumerPacks}
-              consumerPacksFetching={this.props.consumerPacksFetching}
-              onEditButtonClick={() => this.requestEdit(p)}
-              onDeleteButtonClick={() => this.requestDelete(p)}
-            />
-          </Grid>
+  renderPackList = (packs: Array<PaymentPack>) => (
+    <Paper>
+      <List disablePadding>
+        {packs.map((pack) => (
+          <PaymentPackListItem
+            pack={pack}
+            divider
+            onEdit={() => this.requestEdit(pack)}
+            onDelete={() => this.requestDelete(pack)}
+            onClick={() => this.props.goToPack(pack.id)}
+            key={pack.id}
+          />
         ))}
-      </Grid>
-    );
-  };
+      </List>
+    </Paper>
+  );
 
   render() {
     const {
@@ -139,44 +119,60 @@ export class PaymentPackList extends Component<Props, State> {
     const publicPacks = showablePacks.filter((p) => !p.manager_only);
     const managerPacks = showablePacks.filter((p) => Boolean(p.manager_only));
     return (
-      <Grid container direction="column" spacing={24}>
+      <Grid container direction="row" spacing={24}>
         {publicPacks.length ? (
-          <div className={classes.titleContainer}>
-            <Typography variant="h4" className={classes.title}>
+          <Grid item xs={12} md={6}>
+            <Typography
+              variant="h5"
+              component="h2"
+              className={classes.titleContainer}
+            >
               {t('paymentPack.publicPacksTitle')}
             </Typography>
-            <Divider />
-          </div>
+            {this.renderPackList(publicPacks)}
+          </Grid>
         ) : null}
-        <Grid item xs={12}>
-          {this.renderPacks(publicPacks)}
-        </Grid>
         {managerPacks.length ? (
-          <div className={classes.titleContainer}>
-            <Typography variant="h4" className={classes.title}>
+          <Grid item xs={12} md={6}>
+            <Typography
+              variant="h5"
+              component="h2"
+              className={classes.titleContainer}
+            >
               {t('paymentPack.privatePacksTitle')}
             </Typography>
-            <Divider />
-          </div>
+            {this.renderPackList(managerPacks)}
+          </Grid>
         ) : null}
-        <Grid item xs={12}>
-          {this.renderPacks(managerPacks)}
-        </Grid>
 
         <PaymentPackDeleteDialog
-          open={!!this.state.paymentPackToDeleteId}
-          pack={this.props.packs.find(
-            (pp) => pp.id === this.state.paymentPackToDeleteId,
-          )}
+          open={!!this.state.paymentPackToDelete}
+          pack={this.state.paymentPackToDelete}
           onDelete={() =>
-            this.deletePaymentPack(this.state.paymentPackToDeleteId)
+            this.deletePaymentPack(this.state.paymentPackToDelete.id)
           }
           consumerPacks={this.props.consumerPacks}
           consumerPacksFetching={this.props.consumerPacksFetching}
           onCancel={this.cancelDelete}
-          incrementCredit={incrementCredit}
-          decrementCredit={decrementCredit}
           updatingConsumerPacks={updatingConsumerPacks}
+          consumerPackSummary={
+            this.state.paymentPackToDelete ? (
+              <PaginatedConsumerPackList
+                paymentPack={this.state.paymentPackToDelete}
+                incrementCredit={incrementCredit}
+                decrementCredit={decrementCredit}
+                items={this.props.consumerPacks.items}
+                nbItems={this.props.consumerPacks.count}
+                loading={this.props.consumerPacks.loading}
+                page={this.props.consumerPacks.page}
+                itemPerPage={CONSUMER_PACK_PAGINATION_SIZE}
+                consumerPacksUpdating={this.props.consumerPacks.updating}
+                onPageRequested={(id: number, page: number, pageSize: number) =>
+                  this.props.fetchConsumerPacks(id, page, pageSize)
+                }
+              />
+            ) : null
+          }
         />
       </Grid>
     );
@@ -197,34 +193,23 @@ const styles = (theme) => ({
   extendedIcon: {
     marginRight: theme.spacing.unit,
   },
-  paymentPackContainer: {
-    paddingBottom: theme.spacing.unit * 4,
-    [theme.breakpoints.up('sm')]: {
-      paddingRight: theme.spacing.unit * 4,
-    },
-  },
   titleContainer: {
     marginTop: theme.spacing.unit * 2,
-    marginLeft: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit,
-  },
-  title: {
     marginBottom: theme.spacing.unit,
   },
 });
 
 function mapStateToProps(state) {
   return {
-    loading: state.paymentPack.loading || state.establishment.loading,
-    packs: state.paymentPack.all,
-    metaActivities: [
-      ...(state.metaActivity.all || []),
-      ...(state.workshopActivity.all || []),
-    ],
-    establishments: state.establishment.all,
-    updatingConsumerPacks: state.consumerPaymentPack.updatingConsumerPacks,
-    consumerPacks: state.consumerPaymentPack.byPaymentPack.items,
-    consumerPacksFetching: state.consumerPaymentPack.byPaymentPack.loading,
+    loading: state.paymentPack.loading,
+    packs: paymentPackSelectors.getAll(state),
+    consumerPacks: {
+      items: state.consumerPaymentPack.byPaymentPack.items,
+      count: state.consumerPaymentPack.byPaymentPack.count,
+      loading: state.consumerPaymentPack.byPaymentPack.loading,
+      page: state.consumerPaymentPack.byPaymentPack.page,
+      updating: state.consumerPaymentPack.updatingConsumerPacks,
+    },
   };
 }
 
@@ -242,8 +227,16 @@ function mapDispatchToProps(dispatch) {
     pushToEdit(paymentPackId: number) {
       dispatch(pushRouter(`/payment-pack/${paymentPackId}/edit`));
     },
-    fetchConsumerPacks(paymentPackId: number) {
-      dispatch(consumerPackActions.fetchByPaymentPack(paymentPackId));
+    fetchConsumerPacks(paymentPackId: number, page: number, pageSize: number) {
+      dispatch(
+        consumerPackActions.fetchByPaymentPack(paymentPackId, page, pageSize),
+      );
+    },
+    goToPack(id: number) {
+      dispatch(pushRouter(`/payment-pack/${id}`));
+    },
+    resetConsumerPacks() {
+      dispatch(consumerPackActions.resetByPaymentPack());
     },
   };
 }

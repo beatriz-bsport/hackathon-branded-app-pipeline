@@ -1,6 +1,8 @@
 import { PAYMENT_PACK as PAYMENT_METHOD_PAYMENT_PACK } from '@bsport/common/lib/master-data/payment-methods';
 import { API_URI, PAYMENT_URI, getAuth, postBaseAuth } from '../http';
 
+const BOOKING_SOURCE_WEB = 1;
+
 export async function consumerFetchCompatiblePass(offerId) {
   return getAuth(`${API_URI}/pay/offer/${offerId}/compatible-packs`);
 }
@@ -22,6 +24,7 @@ export async function consumerPayWithConsumerPaymentPack(
     }/offer/${offerId}?${formatParams}`,
     {
       token: consumerPaymentPackId,
+      source: BOOKING_SOURCE_WEB,
     },
   );
 }
@@ -39,7 +42,7 @@ export async function consumerBuy({
   offerToBuy,
 }) {
   let formatParams = '';
-  const data = { token };
+  const data = { token, source: BOOKING_SOURCE_WEB };
   if (urlParams) {
     formatParams = Object.keys(urlParams)
       .map((k) => `${k}=${urlParams[k]}`)

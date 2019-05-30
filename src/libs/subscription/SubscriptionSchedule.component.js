@@ -21,7 +21,7 @@ import type { StatusCode } from '@bsport/common/lib/master-data/planned-invoice-
 import type { TFunction } from 'react-i18next';
 
 import { formatAsDate } from '../../datetime';
-import PaginatedList from '../../components/PaginatedList.component';
+import PaginatedList from '../../components/PaginatedListStateful.component';
 
 import type { PlannedInvoice } from './types';
 
@@ -89,7 +89,7 @@ export function SubscriptionSchedule(props: Props) {
   return (
     <PaginatedList
       listProps={{ dense: true, disablePadding: true }}
-      itemPerPage={12}
+      itemPerPage={6}
       items={props.scheduledInvoices}
       renderItem={(si, idx) => (
         <PlannedInvoiceItem

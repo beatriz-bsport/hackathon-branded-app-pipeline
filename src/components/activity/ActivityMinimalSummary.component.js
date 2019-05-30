@@ -1,15 +1,12 @@
 // @flow
 import React from 'react';
 
-import {
-  ListItem,
-  ListItemText,
-  IconButton,
-  Tooltip,
-  Divider,
-  ListItemSecondaryAction,
-  withStyles,
-} from '@material-ui/core';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import Divider from '@material-ui/core/Divider';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 import { withNamespaces } from 'react-i18next';
 
@@ -97,14 +94,14 @@ export function ActivityMinimalSummary(props: Props) {
             secondary={additionalInfoSecondary}
           />
         ) : null}
-        <ListItemSecondaryAction>
+        <div>
           <ListItemText
             primary={showCoachName ? coach.name : etablissement.title}
             primaryTypographyProps={{ align: 'right' }}
             secondaryTypographyProps={{ align: 'right' }}
             secondary={<Level noStyle levelId={level} variant="caption" />}
           />
-        </ListItemSecondaryAction>
+        </div>
       </ListItem>
     </div>
   );

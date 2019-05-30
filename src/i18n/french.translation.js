@@ -108,6 +108,7 @@ export default {
       shortHourIdentifier: 'h',
     },
     common: {
+      items: 'éléments',
       activePass: 'pass actif',
       invoices: 'Factures',
       download: 'Télécharger',
@@ -623,13 +624,13 @@ export default {
       invoiceFinalizedThusNotEditable:
         "La facture a été finalisée et n'est donc plus modifiable",
       actions: 'Actions',
-      bookWithUnlimitedPack: 'Réserver avec votre abonnement',
+      bookWithUnlimitedPack: 'Réserver',
       noCreditLeft: 'Pas assez de crédit',
       noBookingsLeftOnPack: 'Abonnement épuisé pour cette semaine',
       yourBasket: 'Votre achat',
       availablePaymentPacks: ' abonnements compatibles',
-      payWithNCredits1: 'Réserver avec',
-      payWithNCredits2: 'crédit',
+      payWithNCredits1: 'Réserver (',
+      payWithNCredits2: 'crédit)',
       pay: 'Payer',
       type: 'Type',
       amount: 'Montant',
@@ -874,7 +875,7 @@ export default {
     marketplace: {
       substitute: 'Remplaçant',
       substituted: 'Absent',
-      backToCalendar: 'Retour au calendrier',
+      backToCalendar: 'Retour',
       showMarketplace: 'Voir le calendrier de ',
       noSessionToday: 'Aucune séance',
       book: 'Réserver',

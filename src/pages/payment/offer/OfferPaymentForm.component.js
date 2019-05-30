@@ -2,16 +2,14 @@
 
 import React, { Component } from 'react';
 
-import {
-  Button,
-  List,
-  Grid,
-  CircularProgress,
-  ListItem,
-  Typography,
-  Divider,
-  withStyles,
-} from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import List from '@material-ui/core/List';
+import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import Paper from '@material-ui/core/Paper';
+import withStyles from '@material-ui/core/styles/withStyles';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { withNamespaces } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
@@ -78,7 +76,9 @@ export class OfferPayment extends Component<Props> {
             </Typography>
           </Grid>
           <Grid item>
-            <OfferSummary offer={offer} />
+            <Paper>
+              <OfferSummary offer={offer} />
+            </Paper>
           </Grid>
         </Grid>
       );
@@ -137,6 +137,7 @@ export class OfferPayment extends Component<Props> {
         {compatibleConsumerPacks.map((ppc) => (
           <Grid item key={ppc.id}>
             <ConsumerPackCheckout
+              noDivider
               consumerPack={ppc}
               offerId={offer.id}
               creditPrice={offer.credit_price}
@@ -158,6 +159,7 @@ export class OfferPayment extends Component<Props> {
   renderBookingWithUnlimitedPass = (unlimitedPacks: Array<Object>) => {
     return unlimitedPacks.map((pack) => (
       <ConsumerPackCheckout
+        noDivider
         key={pack.id}
         consumerPack={pack}
         offerId={this.props.offer.id}
@@ -184,16 +186,16 @@ export class OfferPayment extends Component<Props> {
       );
     }
     return (
-      <List>
+      <div>
         {(compatiblePaymentPacks || []).length ? (
-          <Typography variant="h6">
+          <Typography variant="h6" component="h2">
             Pass compatible avec cette séance
           </Typography>
         ) : null}
-        {(compatiblePaymentPacks || []).map((pp) => (
-          <ListItem divider dense key={pp.id}>
+        <List className={this.props.classes.passList} disablePadding>
+          {(compatiblePaymentPacks || []).map((pp) => (
             <PaymentPackSummary
-              noDivider
+              key={pp.id}
               paymentPack={pp}
               buyButton={
                 <Button
@@ -205,13 +207,13 @@ export class OfferPayment extends Component<Props> {
                   <AddShoppingCartIcon
                     className={this.props.classes.leftIcon}
                   />
-                  {`${pp.price} €`}
+                  <Typography color="inherit">{`${pp.price}€`}</Typography>
                 </Button>
               }
             />
-          </ListItem>
-        ))}
-      </List>
+          ))}
+        </List>
+      </div>
     );
   };
 
@@ -259,13 +261,14 @@ export class OfferPayment extends Component<Props> {
       return (
         <Grid container spacing={16} direction="column">
           <Grid item>{this.getBasket()}</Grid>
-          <Divider />
           <Grid item>
-            {this.renderBookingWithUnlimitedPass(unlimitedPacks)}
+            <div className={this.props.classes.passList}>
+              {this.renderBookingWithUnlimitedPass(unlimitedPacks)}
+            </div>
           </Grid>
           <Grid item>{this.renderBuyCompatiblePaymentPack()}</Grid>
           <Button
-            color="primary"
+            color="secondary"
             variant="contained"
             onClick={this.props.goToPassMarketplace}
           >
@@ -278,12 +281,11 @@ export class OfferPayment extends Component<Props> {
     return (
       <Grid container spacing={16} direction="column">
         <Grid item>{this.getBasket()}</Grid>
-        <Divider />
         {offer && offer.available
           ? this.renderBuyingMethods()
           : this.renderOfferNotAvailable()}
         <Button
-          color="primary"
+          color="secondary"
           variant="contained"
           onClick={this.props.goToPassMarketplace}
         >
@@ -303,6 +305,10 @@ const styles = (theme) => ({
   },
   doNotBookPast: {
     margin: theme.spacing.unit * 2,
+  },
+  passList: {
+    border: '1px solid #E8E8E8',
+    borderRadius: 8,
   },
 });
 

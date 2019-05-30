@@ -14,7 +14,8 @@ import type { TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
 
 import { consumerPaymentPack as consumerPackActions } from '../../actions';
-import ConsumerPackRowItem from '../../components/payment-pack/ConsumerPackRowItem.component';
+import ConsumerPackRowItem from '../../libs/payment-packs/ConsumerPackRowItem.component';
+import paymentPackSelectors from '../../libs/payment-packs/selectors';
 import PaymentPackSummary from '../../components/payment-pack/PaymentPackSummary.component';
 
 type Props = {
@@ -131,7 +132,7 @@ export default withNamespaces()(
     (state) => ({
       consumerPacksLoading: state.consumerPaymentPack.byOfferByMember.loading,
       consumerPacks: state.consumerPaymentPack.byOfferByMember.items,
-      allPaymentPacks: state.paymentPack.all,
+      allPaymentPacks: paymentPackSelectors.getAll(state),
     }),
     {
       fetchConsumerPackByOfferByMember:

@@ -18,8 +18,6 @@ import SearchBar from '../components/SearchBar.component';
 
 import {
   search as searchActions,
-  paymentPack as paymentPackActions,
-  booking as bookingActions,
 } from '../actions';
 
 import withDrawer from '../hocs/with-drawer.hoc';
@@ -151,7 +149,6 @@ function mapStateToProps(state) {
     searchText: state.search.text,
     bookings: state.booking.all,
     member: member && member.id === selectedId ? member : null,
-    paymentPacks: state.paymentPack.all,
   };
 }
 
@@ -162,18 +159,6 @@ function mapDispatchToProps(dispatch) {
     },
     selectEntity(entity) {
       dispatch(searchActions.selectEntity(entity));
-    },
-    incrementCredit(consumerPackId) {
-      dispatch(paymentPackActions.addCredit(consumerPackId, 1));
-    },
-    decrementCredit(consumerPackId) {
-      dispatch(paymentPackActions.addCredit(consumerPackId, -1));
-    },
-    discardBookingAttendance(bookingId) {
-      dispatch(bookingActions.discardBookingAttendance(bookingId));
-    },
-    discardBooking(bookingId) {
-      dispatch(bookingActions.discardBooking(bookingId));
     },
   };
 }

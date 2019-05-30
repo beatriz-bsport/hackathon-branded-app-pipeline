@@ -2,21 +2,20 @@
 
 import React, { Component } from 'react';
 import type { Node } from 'react';
-import {
-  Avatar,
-  ListItem,
-  ListItemText,
-  ListItemSecondaryAction,
-  IconButton,
-  Button,
-  CircularProgress,
-} from '@material-ui/core';
+import Avatar from '@material-ui/core/Avatar';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import { Moment } from '../../i18n';
+import moment from 'moment';
 
 import { formatAsDate } from '../../datetime';
-import RedButton from '../button/RedButton.component';
+import RedButton from '../../components/button/RedButton.component';
+import type { PaymentPack, ConsumerPaymentPack } from './types';
 
 type Props = {
   loading: boolean,
@@ -34,33 +33,6 @@ type Props = {
 };
 
 export class ConsumerPackRowItem extends Component<Props> {
-  renderRestrictions = () => {
-    const { t, paymentPack, consumerPack } = this.props;
-    const { bookings_this_week } = consumerPack;
-    const { credits, unlimited } = paymentPack;
-    const { available_credits } = consumerPack;
-
-    if (unlimited) {
-      return (
-        <ListItemText
-          primary={`${bookings_this_week} ${t(
-            'paymentPack.consumer.bookingsThisWeek',
-          )}`}
-        />
-      );
-    }
-    return (
-      <ListItemText
-        primary={`${available_credits} / ${credits} ${t(
-          'paymentPack.credits',
-        ).toLowerCase()}`}
-        secondary={`${bookings_this_week} ${t(
-          'paymentPack.consumer.bookingsThisWeek',
-        )}`}
-      />
-    );
-  };
-
   renderButton = () => {
     const {
       paymentPack,
@@ -113,14 +85,14 @@ export class ConsumerPackRowItem extends Component<Props> {
 
     if (loading) {
       return (
-        <ListItemSecondaryAction>
+        <div>
           <CircularProgress />
-        </ListItemSecondaryAction>
+        </div>
       );
     }
 
     return (
-      <ListItemSecondaryAction>
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
         <IconButton
           aria-label="change-credits"
           disabled={available_credits >= credits}
@@ -136,29 +108,56 @@ export class ConsumerPackRowItem extends Component<Props> {
         >
           -1
         </IconButton>
-      </ListItemSecondaryAction>
+      </div>
     );
   };
 
   render() {
     const { t, consumerPack, button, hideConsumer, paymentPack } = this.props;
     const { consumer } = consumerPack;
-    const isExpired = Moment(consumerPack.ending_date).isBefore(Moment());
+    const isExpired = moment(consumerPack.ending_date).isBefore(moment());
+
+    const { credits, unlimited } = paymentPack;
+    const { available_credits } = consumerPack;
+
+    const creditStatus = unlimited ? (
+      <Typography variant="caption" color="primary" component="span">
+        {`${t('paymentPack.unlimitedCredits')}`}
+      </Typography>
+    ) : (
+      <Typography
+        component="span"
+        variant="caption"
+        color={available_credits / credits > 0.2 ? 'primary' : 'error'}
+      >
+        {`${available_credits} / ${credits} ${t(
+          'paymentPack.credits',
+        ).toLowerCase()}`}
+      </Typography>
+    );
+
     return (
       <ListItem dense divider>
         {hideConsumer ? null : <Avatar src={consumer.photo} />}
         <ListItemText
           primary={
-            hideConsumer
-              ? paymentPack.name
-              : `${consumer.first_name} ${consumer.last_name}`
+            <span>
+              <Typography>
+                {hideConsumer
+                  ? paymentPack.name
+                  : `${consumer.first_name} ${consumer.last_name}`}
+              </Typography>
+              {creditStatus}
+            </span>
           }
           secondary={`${t('paymentPack.consumer.expiresOn')}${formatAsDate(
             consumerPack.ending_date,
           )}`}
-          secondaryTypographyProps={{ color: isExpired ? 'error' : 'inherit' }}
+          secondaryTypographyProps={{
+            variant: 'caption',
+            color: isExpired ? 'error' : 'inherit',
+          }}
         />
-        {this.renderRestrictions()}
         {button || this.renderButton()}
       </ListItem>
     );

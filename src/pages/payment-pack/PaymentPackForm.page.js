@@ -13,6 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import PaymentPackForm from '../../libs/payment-packs/PaymentPackForm.component';
+import paymentPackSelectors from '../../libs/payment-packs/selectors';
 import { paymentPack as paymentPackActions } from '../../actions';
 import withDrawer from '../../hocs/with-drawer.hoc';
 import type { SCT, MetaActivity } from '../../api/types';
@@ -63,7 +64,7 @@ export default compose(
     (state, { paymentPackId }) => ({
       initial:
         paymentPackId !== null
-          ? state.paymentPack.all.find((m) => m.id === paymentPackId)
+          ? paymentPackSelectors.get(state, paymentPackId)
           : null,
       categories: state.category.SCTs,
       metaActivities: [

@@ -9,6 +9,8 @@ import { push as pushRouter } from 'react-router-redux';
 import { compose } from 'recompose';
 
 import type { TFunction } from 'react-i18next';
+import paymentPackSelectors from '../../libs/payment-packs/selectors';
+import type { PaymentPack } from '../../libs/payment-packs/types';
 import { Moment } from '../../i18n';
 import { formatAsDate } from '../../datetime';
 import { invoice as invoiceActions } from '../../actions';
@@ -116,7 +118,7 @@ function mapStateToProps(state, nextProps) {
     loading: state.member.loading,
     member: state.member.all.find((m) => m.id === id),
     activities: state.activity.all,
-    paymentPacks: (state.paymentPack.all || []).filter((pp) => !pp.disabled),
+    paymentPacks: paymentPackSelectors.getEnabled(state),
     shopItems: state.shop.all,
     creatingInvoice: state.invoice.createOrUpdatePending,
   };

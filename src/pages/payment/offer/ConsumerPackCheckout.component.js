@@ -6,7 +6,7 @@ import { Button, CircularProgress } from '@material-ui/core';
 import { withNamespaces } from 'react-i18next';
 import api from '../../../api';
 import type { ConsumerPaymentPackConsumerView } from '../../../api/types';
-import ConsumerPackRowItem from '../../../components/payment-pack/ConsumerPackRowItem.component';
+import ConsumerPackRowItem from '../../../libs/payment-packs/ConsumerPackRowItem.component';
 
 type Props = {
   onCompletePurchase: () => void,
@@ -94,6 +94,7 @@ export class ConsumerPackCheckout extends Component<Props, State> {
     return (
       <ConsumerPackRowItem
         hideConsumer
+        noDivider
         consumerPack={this.props.consumerPack}
         paymentPack={this.props.consumerPack.payment_pack}
         button={this.renderButton()}

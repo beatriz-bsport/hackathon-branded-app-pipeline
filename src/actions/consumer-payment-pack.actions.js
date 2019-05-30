@@ -34,16 +34,31 @@ export const byPaymentPack = {
   isLoading: createAction('CONSUMER_PACK/BY_PAYMENT_PACK/IS_LOADING'),
   error: createAction('CONSUMER_PACK/BY_PAYMENT_PACK/ERROR'),
   success: createAction('CONSUMER_PACK/BY_PAYMENT_PACK/SUCCESS'),
+  setPage: createAction('CONSUMER_PACK/BY_PAYMENT_PACK/SET_PAGE'),
 };
 
-export function fetchByPaymentPack(paymentPackId: number) {
+export function resetByPaymentPack() {
+  return async (dispatch: Dispatch) => {
+    dispatch(byPaymentPack.success({ results: [], count: 0 }));
+    dispatch(byPaymentPack.setPage(1));
+    dispatch(byPaymentPack.isLoading(false));
+  };
+}
+
+export function fetchByPaymentPack(
+  paymentPackId: number,
+  page?: number,
+  pageSize?: number,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(byPaymentPack.isLoading(true));
     dispatch(byPaymentPack.error(null));
-    dispatch(byPaymentPack.success([]));
+    dispatch(byPaymentPack.setPage(page));
     try {
       const response = await api.consumerPaymentPack.fetchByPaymentPack(
         paymentPackId,
+        page,
+        pageSize,
       );
       dispatch(byPaymentPack.success(response.data));
     } catch (error) {

@@ -1,7 +1,7 @@
 export default {
   newMemberOnly: 'Disponible uniquement aux nouveaux inscrits',
-  publicPacksTitle: "Abonnements disponibles à l'achat",
-  privatePacksTitle: "Abonnements non disponibles à l'achat",
+  publicPacksTitle: 'Abonnements disponibles à la vente',
+  privatePacksTitle: 'Abonnements non disponibles à la vente',
   subscribeToOffer: 'Inscrire',
   createOrUpdate: {
     success: 'Abonnement enregistré',
@@ -35,6 +35,11 @@ export default {
   never: 'Jamais',
   unlimitedCredits: 'Illimité',
   credits: 'Crédits',
+  specifications: {
+    nbCredits: '{{credits}} crédits',
+    unlimitedCredits: 'Illimité',
+    price: '{{price, price}}',
+  },
   availableOnFollowingSports: 'Sports éligibles : ',
   availableOnFollowingEstablishments: 'Lieux éligibles : ',
   anySport: 'Tout sport',
@@ -46,4 +51,5 @@ export default {
   credit: {
     updated: 'Crédits mis à jour',
   },
+  noConsumerPack: 'Aucun achat enregistré',
 };

@@ -72,6 +72,7 @@ export default {
       shortHourIdentifier: 'h',
     },
     common: {
+      items: 'items',
       activePass: 'active pass',
       invoices: 'Invoices',
       download: 'Download',
@@ -180,7 +181,7 @@ export default {
         'No compatible pass found for this member!',
       noConsumerPackAvailableForPurchase:
         'No pass available for this session !',
-      backToCalendar: 'Calendar',
+      backToCalendar: 'Back',
       previousOffer: 'Previous session',
       nextOffer: 'Next session',
       compatiblePacks: 'Pass compatible',
@@ -572,13 +573,13 @@ export default {
       },
     },
     payment: {
-      bookWithUnlimitedPack: 'Book with your pass',
+      bookWithUnlimitedPack: 'Book',
       noCreditLeft: 'Not enough credit left',
       noBookingsLeftOnPack: 'Pass exhausted for this week',
       yourBasket: 'Your basket',
       availablePaymentPacks: ' pass compatible',
-      payWithNCredits1: 'Book with',
-      payWithNCredits2: 'credit',
+      payWithNCredits1: 'Book (',
+      payWithNCredits2: 'credit)',
       pay: 'Pay',
       type: 'Type',
       amount: 'Amount',

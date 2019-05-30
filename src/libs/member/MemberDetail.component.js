@@ -23,7 +23,7 @@ import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 
 import BookingTable from '../../components/booking/BookingTable.component';
-import ConsumerPackRowItem from '../../components/payment-pack/ConsumerPackRowItem.component';
+import ConsumerPackRowItem from '../payment-packs/ConsumerPackRowItem.component';
 import { formatAsDatetime } from '../../datetime';
 import type { MemberDetailed, Booking, BookingOption } from '../../api/types';
 import { Moment } from '../../i18n';

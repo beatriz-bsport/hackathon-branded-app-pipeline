@@ -10,6 +10,7 @@ import { compose } from 'recompose';
 
 import type { TFunction } from 'react-i18next';
 import MUILinearProgress from '@material-ui/core/LinearProgress';
+import paymentPackSelectors from '../../libs/payment-packs/selectors';
 import {
   booking as bookingActions,
   member as memberActions,
@@ -114,7 +115,7 @@ function mapStateToProps(state, { id }) {
     bookingLoading: state.booking.loading,
     bookings: state.booking.all,
     bookingOptions: state.booking.options,
-    paymentPacks: state.paymentPack.all,
+    paymentPacks: paymentPackSelectors.getAll(state),
   };
 }
 function mapDispatchToProps(dispatch) {

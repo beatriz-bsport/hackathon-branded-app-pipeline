@@ -7,17 +7,20 @@ export async function fetchByOfferByMember(offerId: number, memberId: number) {
   );
 }
 
-export async function fetchByPaymentPack(paymentPackId: number) {
+export async function fetchByPaymentPack(
+  paymentPackId: number,
+  page?: number,
+  pageSize?: number,
+) {
+  let queryParams = '';
+  if (page && pageSize) {
+    queryParams = `?page=${page}&page_size=${pageSize}`;
+  }
   return getAuth(
-    `${API_URI}/saas/payment-pack/${paymentPackId}/consumer-payment-packs`,
+    `${API_URI}/saas/payment-pack/${paymentPackId}/consumer-payment-packs${queryParams}`,
   );
 }
 
-/* dead code
-export async function fetchByMember(memberId: number) {
-  return getAuth(`${API_URI}/saas/member/${memberId}/consumer-payment-packs`);
-}
-*/
 
 export default {
   fetchByOfferByMember,

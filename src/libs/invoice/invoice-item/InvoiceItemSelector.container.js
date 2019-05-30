@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import InvoiceItemSelector from './InvoiceItemSelector.component';
 import type { Offer, Activity, PaymentPack } from '../../../api/types';
+import paymentPackSelectors from '../../payment-packs/selectors';
 
 type Props = {
   t: (x: string) => string,
@@ -30,7 +31,7 @@ function mapStateToProps(state) {
   return {
     activities: state.activity.all,
     offers: state.offer.calendar,
-    paymentPacks: (state.paymentPack.all || []).filter((pp) => !pp.disabled),
+    paymentPacks: paymentPackSelectors.getEnabled(state),
   };
 }
 export default connect(mapStateToProps)(InvoiceItemSelectorContained);

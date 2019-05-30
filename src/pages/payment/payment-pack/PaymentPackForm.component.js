@@ -2,13 +2,12 @@
 
 import React, { Component } from 'react';
 
-import {
-  Button,
-  Divider,
-  Typography,
-  Grid,
-  withStyles,
-} from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import withStyles from '@material-ui/core/styles/withStyles';
+import Paper from '@material-ui/core/Paper';
 import { withNamespaces } from 'react-i18next';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 
@@ -55,12 +54,14 @@ export class PaymentPackPayment extends Component<Props> {
           <Typography variant="h3" className={classes.offerTitle}>
             {`${humanDate.day} ${t(humanDate.month)} - ${humanDate.time}`}
           </Typography>
-          <ActivityMinimalSummary
-            date={formatAsDatetime(offerToBuy.date_start)}
-            activity={offerToBuy.activity}
-          />
-          <Divider />
-          <PaymentPackSummary paymentPack={paymentPack} />
+          <Paper>
+            <ActivityMinimalSummary
+              date={formatAsDatetime(offerToBuy.date_start)}
+              activity={offerToBuy.activity}
+            />
+            <Divider />
+            <PaymentPackSummary paymentPack={paymentPack} />
+          </Paper>
         </div>
       );
     }
@@ -91,7 +92,7 @@ export class PaymentPackPayment extends Component<Props> {
           </Typography>
           <Grid container item justify="center" alignItems="stretch">
             <Button
-              color="primary"
+              color="secondary"
               variant="contained"
               onClick={this.props.goBack}
             >
@@ -120,7 +121,6 @@ export class PaymentPackPayment extends Component<Props> {
     return (
       <Grid container spacing={16} direction="column">
         <Grid item>{this.getBasket()}</Grid>
-        <Divider />
         <Grid item>{this.renderStripeForm()}</Grid>
       </Grid>
     );

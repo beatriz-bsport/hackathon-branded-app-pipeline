@@ -18,6 +18,7 @@ import {
 import { snackbar } from '../../actions/snackbar.actions';
 import { createOrUpdateMember } from '../../actions/member.actions';
 import { formatAsDatetime } from '../../datetime';
+import paymentPackSelectors from '../../libs/payment-packs/selectors';
 
 import withDrawer from '../../hocs/with-drawer.hoc';
 import OfferManagementComponent from './OfferManagement.component';
@@ -44,7 +45,7 @@ function mapStateToProps(state, nextProps) {
     offers: state.offer.calendar,
     offerLoading: state.offer.byDay.loading,
     activities: state.activity.all,
-    paymentPacks: state.paymentPack.all,
+    paymentPacks: paymentPackSelectors.getAll(state),
     shopItems: state.shop.all,
     members: state.member.byOffer.items,
     allMembers: state.member.all,

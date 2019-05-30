@@ -13,6 +13,8 @@ const initialState = Immutable({
     loading: false,
     paymentPackId: null,
     items: [],
+    page: null,
+    count: null,
   },
   byOfferByMember: {
     loading: false,
@@ -34,8 +36,13 @@ export default handleActions(
     [byPaymentPack.isLoading]: (state, { payload }) => {
       return state.setIn(['byPaymentPack', 'loading'], payload);
     },
+    [byPaymentPack.setPage]: (state, { payload }) => {
+      return state.setIn(['byPaymentPack', 'page'], payload);
+    },
     [byPaymentPack.success]: (state, { payload }) => {
-      return state.setIn(['byPaymentPack', 'items'], payload);
+      return state
+        .setIn(['byPaymentPack', 'items'], payload.results)
+        .setIn(['byPaymentPack', 'count'], payload.count);
     },
     [byPaymentPack.error]: (state, { payload }) => {
       return state.setIn(['byPaymentPack', 'error'], payload);
@@ -87,17 +94,6 @@ export default handleActions(
         [...state.updatingConsumerPacks, payload.id],
       );
     },
-    /* dead code
-    [byOfferByMember.isLoading]: (state, { payload }) => {
-      return state.setIn(['byMember', 'loading'], payload);
-    },
-    [byOfferByMember.error]: (state, { payload }) => {
-      return state.setIn(['byMember', 'error'], payload);
-    },
-    [byOfferByMember.success]: (state, { payload }) => {
-      return state.setIn(['byMember', 'items'], payload);
-    },
-    */
   },
   initialState,
 );

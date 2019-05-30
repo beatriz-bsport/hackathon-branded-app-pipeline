@@ -5,6 +5,7 @@ import type { AbstractComponent } from 'react';
 import { Link } from 'react-router-dom';
 
 import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
 import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
 import AddIcon from '@material-ui/icons/Add';
@@ -86,10 +87,10 @@ export default function withButton(params: injectButtonProps) {
 
         renderAddButton = () => (
           <Link to={params.addButton.path}>
-            <Button variant="extendedFab" aria-label="Add" color="primary">
+            <Fab variant="extended" aria-label="Add" color="primary">
               <AddIcon className={this.props.classes.extendedIcon} />
               {params.addButton.text}
-            </Button>
+            </Fab>
           </Link>
         );
 

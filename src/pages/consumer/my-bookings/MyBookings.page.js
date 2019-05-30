@@ -91,7 +91,7 @@ export class MyBookings extends Component<Props, State> {
       );
     }
     return (
-      <List>
+      <List disablePadding>
         {futureBookings.map((b) => (
           <BookingListItem
             onDiscard={() => this.prepareDiscardBooking(b)}
@@ -301,7 +301,7 @@ export class MyBookings extends Component<Props, State> {
               color="primary"
             >
               <TodayIcon className={classes.leftIcon} />
-              {`${t('marketplace.showMarketplace')} ${membership.name}`}
+              {membership.name}
             </Button>
           </Grid>
         ))}
@@ -364,7 +364,7 @@ export class MyBookings extends Component<Props, State> {
           <Grid item xs={12}>
             {this.renderMembershipButtons()}
           </Grid>
-          <Grid item xs={12} lg={6}>
+          <Grid item xs={12} md={6}>
             {this.state.offer ? (
               <ActivityDetailModal
                 onClose={this.onCloseOfferDialog}
@@ -373,10 +373,10 @@ export class MyBookings extends Component<Props, State> {
             ) : null}
             {this.renderFutureBookingsContainer()}
           </Grid>
-          <Grid item xs={12} lg={6}>
+          <Grid item xs={12} md={6}>
             {this.renderBookingOptions()}
           </Grid>
-          <Grid item xs={12} lg={6}>
+          <Grid item xs={12} md={6}>
             {this.renderPastBookingsContainer()}
           </Grid>
         </Grid>
@@ -422,7 +422,7 @@ const styles = (theme) => ({
     margin: theme.spacing.unit * 2,
   },
   title: {
-    margin: theme.spacing.unit * 2,
+    padding: theme.spacing.unit * 2,
   },
   emptyMsg: {
     padding: theme.spacing.unit * 2,
@@ -431,7 +431,7 @@ const styles = (theme) => ({
     margin: theme.spacing.unit * 3,
   },
   bookingOptionElement: {
-    marginBottom: theme.spacing.unit,
+    padding: theme.spacing.unit,
   },
   modalContainer: {
     top: '30%',

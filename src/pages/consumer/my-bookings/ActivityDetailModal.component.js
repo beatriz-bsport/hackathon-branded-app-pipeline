@@ -44,7 +44,7 @@ export class ActivityDetailModal extends Component<Props, State> {
   componentDidMount() {
     this._isMounted = true;
     this.setState({ loading: true });
-    get(`${API_URI}/activity/${this.props.offer.activity.id}/detail`)
+    get(`${API_URI}/activity/${this.props.offer.activity.id}/detail?noapp=true`)
       .then((response) => {
         if (this._isMounted) {
           this.setState({ activity: response.data, loading: false });

@@ -53,6 +53,7 @@ export class BookingListItem extends Component<Props> {
         key={booking.id}
         dense
         button
+        divider
         onClick={overrideClickAction || (() => {})}
         className={classes.listItem}
         disabled={booking.booking_status_code !== BOOKING_STATUS_OK.id}

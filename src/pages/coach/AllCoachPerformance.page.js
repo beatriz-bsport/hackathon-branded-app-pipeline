@@ -53,7 +53,7 @@ function CoachPerformance(props: CoachPerformanceProps) {
   } = props;
 
   return (
-    <div className={classes.container}>
+    <div className={classes.performanceContainer}>
       <div
         style={{
           display: 'flex',
@@ -93,9 +93,12 @@ const styles = (theme) => ({
     marginBottom: theme.spacing.unit * 3,
     padding: theme.spacing.unit * 2,
   },
-  container: {
+  performanceContainer: {
     marginBottom: theme.spacing.unit,
     marginTop: theme.spacing.unit * 4,
+  },
+  container: {
+    marginBottom: theme.spacing.unit * 32,
   },
 });
 
@@ -143,7 +146,7 @@ type Props = {
 
 export function AllCoachPerformance(props: Props) {
   return (
-    <div>
+    <div className={props.classes.container}>
       <AppBar position="static" color="default" className={props.classes.bar}>
         <CoachPerformanceForm
           onSubmit={props.onSubmit}

@@ -890,7 +890,7 @@ export default {
     appbar: {
       title: {
         planning: 'Planning',
-        allCoachPerformance: 'Récapitulatif coach',
+        allCoachPerformance: 'Récapitulatif coaches',
         dashboard: 'Tableau de bord',
         shopManager: 'Mon magasin',
         coachList: 'Coach',

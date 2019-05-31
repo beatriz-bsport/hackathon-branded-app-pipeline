@@ -23,6 +23,7 @@ import Typography from '@material-ui/core/Typography';
 import Today from '@material-ui/icons/Today';
 import Star from '@material-ui/icons/Star';
 import People from '@material-ui/icons/People';
+import PersonIcon from '@material-ui/icons/Person';
 import Payment from '@material-ui/icons/Payment';
 import TrendingUp from '@material-ui/icons/TrendingUp';
 import Email from '@material-ui/icons/Email';
@@ -246,6 +247,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             to: '/subscription',
             icon: Payment,
             text: t('navigation.subscription'),
+          },
+          {
+            to: '/coach/performance',
+            icon: PersonIcon,
+            text: t('navigation.coachPerformance'),
           },
         ],
       },

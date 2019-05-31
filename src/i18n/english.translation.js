@@ -522,6 +522,7 @@ export default {
     coach,
     navigation: {
       alpha: 'in development',
+      coachPerformance: 'Coach',
       beta: 'beta',
       consumer: {
         pass: 'Pass',
@@ -814,6 +815,7 @@ export default {
     appbar: {
       title: {
         planning: 'Planning',
+        allCoachPerformance: 'Coaches payment',
         dashboard: 'Dashboard',
         shopManager: 'My Shop',
         coachList: 'Coach',

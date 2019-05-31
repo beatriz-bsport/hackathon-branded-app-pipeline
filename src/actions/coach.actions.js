@@ -89,8 +89,8 @@ export function fetchAssociatedCoachPerformance(
   options = {},
 ) {
   return async (dispatch: Dispatch) => {
-    dispatch(performance.isLoading(true));
-    dispatch(performance.error(null));
+    dispatch(performance.isLoading({ loading: true, associatedCoachId }));
+    dispatch(performance.error({ error: null, associatedCoachId }));
 
     try {
       const response = await api.coach.fetchAssociatedCoachPerformance(
@@ -98,13 +98,15 @@ export function fetchAssociatedCoachPerformance(
         start,
         end,
       );
-      dispatch(performance.success(response.data));
+      dispatch(
+        performance.success({ result: response.data, associatedCoachId }),
+      );
       if (options.onSuccess) options.onSuccess();
-    } catch (err) {
-      dispatch(performance.error(err));
+    } catch (error) {
+      dispatch(performance.error({ error, associatedCoachId }));
       if (options.onError) options.onError();
     }
-    dispatch(performance.isLoading(false));
+    dispatch(performance.isLoading({ associatedCoachId, loading: false }));
   };
 }
 

@@ -286,7 +286,7 @@ export class MyBookings extends Component<Props, State> {
   };
 
   renderMembershipButtons = () => {
-    const { t, profile, pushToMarketplace, classes } = this.props;
+    const { profile, pushToMarketplace, classes } = this.props;
     if (!profile) {
       return null;
     }

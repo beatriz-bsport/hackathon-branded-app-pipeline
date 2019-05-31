@@ -564,6 +564,7 @@ export default {
       workshopActivities: 'Ateliers',
       invoice: 'Factures',
       alpha: 'en développement',
+      coachPerformance: 'Coach',
       beta: 'beta',
       consumer: {
         pass: 'Abonnements',
@@ -889,6 +890,7 @@ export default {
     appbar: {
       title: {
         planning: 'Planning',
+        allCoachPerformance: 'Récapitulatif coach',
         dashboard: 'Tableau de bord',
         shopManager: 'Mon magasin',
         coachList: 'Coach',

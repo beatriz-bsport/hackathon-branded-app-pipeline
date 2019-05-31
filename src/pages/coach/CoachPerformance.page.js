@@ -17,7 +17,10 @@ import { computePerformance } from '../../libs/payment-rules/utils';
 import type { PaymentRule } from '../../libs/payment-rules/types';
 
 import mapParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { associatedCoachSelector } from '../../state/coaches/selectors';
+import {
+  associatedCoachSelector,
+  coachPerformanceSelector,
+} from '../../state/coaches/selectors';
 import {
   paymentRuleSelector,
   paymentRulesSelector,
@@ -51,6 +54,7 @@ export function CoachPerformance(props: Props) {
     paymentRules,
     setSessionPaymentRule,
   } = props;
+  console.log(performance);
 
   return (
     <div className={classes.container}>
@@ -93,10 +97,16 @@ export default compose(
   })),
   connect(
     (state, props) => {
-      const coach = associatedCoachSelector(state, props.associatedCoachId);
+      const coach = associatedCoachSelector.get(state, props.associatedCoachId);
       return {
-        performance: state.coach.performance.result,
-        loading: state.coach.performance.loading,
+        performance: coachPerformanceSelector.getPerformance(
+          state,
+          props.associatedCoachId,
+        ),
+        loading: coachPerformanceSelector.isLoading(
+          state,
+          props.associatedCoachId,
+        ),
         paymentRule: paymentRuleSelector(state, coach.default_payment_rule_id),
         paymentRules: paymentRulesSelector(state),
         coach,

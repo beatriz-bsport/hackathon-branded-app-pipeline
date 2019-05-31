@@ -3,6 +3,8 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
+import type { CoachesState } from '../state/coaches/types';
+
 import {
   associated,
   performance,
@@ -11,16 +13,12 @@ import {
   sessionPaymentRule,
 } from '../actions/coach.actions';
 
-const initialState = Immutable({
+const initialState: CoachesState = Immutable({
   loading: false,
   error: '',
   companyAssociated: [],
   // Performance
-  performance: {
-    loading: false,
-    error: null,
-    result: [],
-  },
+  performance: {},
   // Upsert
   upsert: {
     loading: false,
@@ -40,13 +38,22 @@ export default handleActions(
       return state.set('error', payload);
     },
     [performance.isLoading]: (state, { payload }) => {
-      return state.setIn(['performance', 'loading'], payload);
+      return state.setIn(
+        ['performance', payload.associatedCoachId, 'loading'],
+        payload.loading,
+      );
     },
     [performance.error]: (state, { payload }) => {
-      return state.setIn(['performance', 'error'], payload);
+      return state.setIn(
+        ['performance', payload.associatedCoachId, 'error'],
+        payload.error,
+      );
     },
     [performance.success]: (state, { payload }) => {
-      return state.setIn(['performance', 'result'], payload);
+      return state.setIn(
+        ['performance', payload.associatedCoachId, 'result'],
+        payload.result,
+      );
     },
     [upsert.isLoading]: (state, { payload }) => {
       return state.setIn(['upsert', 'loading'], payload);

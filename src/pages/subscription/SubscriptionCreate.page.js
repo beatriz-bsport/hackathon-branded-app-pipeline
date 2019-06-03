@@ -115,7 +115,7 @@ export default compose(
   withDrawer(({ t }) => t('form.title')),
   connect(
     (state, { memberId }) => ({
-      paymentPacks: paymentPackSelectors(state),
+      paymentPacks: paymentPackSelectors.getEnabled(state),
       member: state.member.all.find((m) => m.id === memberId),
     }),
     {

@@ -241,7 +241,7 @@ export class OfferPayment extends Component<Props> {
       return (
         <Grid item>
           <Typography
-            variant="h4"
+            variant="h6"
             color="secondary"
             className={this.props.classes.noOfferTypography}
           >
@@ -261,12 +261,18 @@ export class OfferPayment extends Component<Props> {
       return (
         <Grid container spacing={16} direction="column">
           <Grid item>{this.getBasket()}</Grid>
-          <Grid item>
-            <div className={this.props.classes.passList}>
-              {this.renderBookingWithUnlimitedPass(unlimitedPacks)}
-            </div>
-          </Grid>
-          <Grid item>{this.renderBuyCompatiblePaymentPack()}</Grid>
+          {offer && offer.available ? (
+            <React.Fragment>
+              <Grid item>
+                <div className={this.props.classes.passList}>
+                  {this.renderBookingWithUnlimitedPass(unlimitedPacks)}
+                </div>
+              </Grid>
+              <Grid item>{this.renderBuyCompatiblePaymentPack()}</Grid>
+            </React.Fragment>
+          ) : (
+            this.renderOfferNotAvailable()
+          )}
           <Button
             color="secondary"
             variant="contained"

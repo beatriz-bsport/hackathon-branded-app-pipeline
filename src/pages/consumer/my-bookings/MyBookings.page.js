@@ -56,6 +56,7 @@ type State = {
   modalCancellingBookingOptionOpen: boolean,
   requestRedirect: ?string,
   optionIdBeingCancelled: ?number,
+  bookingToDiscard: ?Booking,
 };
 
 export class MyBookings extends Component<Props, State> {
@@ -64,6 +65,7 @@ export class MyBookings extends Component<Props, State> {
     requestRedirect: null,
     optionIdBeingCancelled: null,
     offer: null,
+    bookingToDiscard: null,
   };
 
   renderFutureBookingsContainer = () => {
@@ -108,14 +110,16 @@ export class MyBookings extends Component<Props, State> {
     );
   };
 
-  prepareDiscardBooking = (booking) => {
+  prepareDiscardBooking = (booking: Booking) => {
     this.setState({ bookingToDiscard: booking });
   };
 
   performDiscard = () => {
     const { bookingToDiscard } = this.state;
-    this.props.discardBooking(bookingToDiscard.id);
-    this.setState({ bookingToDiscard: null });
+    if (bookingToDiscard) {
+      this.props.discardBooking(bookingToDiscard.id);
+      this.setState({ bookingToDiscard: null });
+    }
   };
 
   handleCloseModal = () => {

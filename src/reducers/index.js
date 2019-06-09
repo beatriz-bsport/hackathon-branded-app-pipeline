@@ -4,13 +4,10 @@ import { combineReducers } from 'redux';
 
 import authReducers from './auth';
 import offerReducers from './offer';
-import bookingReducers from './booking';
 import activityReducers from './activity';
 import metaActivityReducers from './meta-activity';
 import statsReducers from './stats';
 import coachReducers from './coach';
-import memberReducer from './member';
-import memberFetcherReducer from './member-fetcher';
 import paymentPackReducers from './paymentPack';
 import consumerPaymentPackReducers from './consumer-payment-pack';
 import establishmentReducers from './establishment';
@@ -28,6 +25,9 @@ import paymentRulesReducer from '../libs/payment-rules/reducers';
 import workshopActivityReducer from './workshop-activity';
 import subscriptionReducer from '../libs/subscription/reducers';
 import alertingReducer from '../libs/alerting/reducers';
+import memberReducer from '../libs/member/reducers';
+import bookingReducers from '../libs/booking/reducers';
+import tagReducers from '../libs/tag/reducers';
 
 import type { State, Action } from '../state/types';
 
@@ -47,7 +47,6 @@ const rootReducer = combineReducers({
   stats: statsReducers,
   coach: coachReducers,
   member: memberReducer,
-  memberFetcher: memberFetcherReducer,
   paymentPack: paymentPackReducers,
   consumerPaymentPack: consumerPaymentPackReducers,
   category: categoryReducers,
@@ -61,6 +60,7 @@ const rootReducer = combineReducers({
   workshopActivity: workshopActivityReducer,
   subscription: subscriptionReducer,
   alerting: alertingReducer,
+  tag: tagReducers,
 });
 
 export default (state: State, action: Action) => {

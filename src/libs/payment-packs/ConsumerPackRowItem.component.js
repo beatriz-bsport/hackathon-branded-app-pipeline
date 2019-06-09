@@ -20,11 +20,13 @@ import type { PaymentPack, ConsumerPaymentPack } from './types';
 type Props = {
   loading: boolean,
   hideConsumer: ?boolean,
+  selected?: boolean,
 
   consumerPack: ConsumerPaymentPack,
   paymentPack: PaymentPack,
   button: ?Node,
 
+  onClick: ?() => void,
   incrementCredit: (id: number) => void,
   decrementCredit: (id: number) => void,
   subscribeToOffer: ?(id: number) => void,
@@ -44,7 +46,11 @@ export class ConsumerPackRowItem extends Component<Props> {
       t,
     } = this.props;
     const { credits, unlimited } = paymentPack;
-    const { available_credits } = consumerPack;
+    const { available_credits, reverted } = consumerPack;
+
+    if (reverted) {
+      return <Button>{t('paymentPack.reverted')}</Button>;
+    }
 
     if (subscribeToOffer) {
       return (
@@ -113,7 +119,14 @@ export class ConsumerPackRowItem extends Component<Props> {
   };
 
   render() {
-    const { t, consumerPack, button, hideConsumer, paymentPack } = this.props;
+    const {
+      t,
+      consumerPack,
+      button,
+      hideConsumer,
+      paymentPack,
+      onClick,
+    } = this.props;
     const { consumer } = consumerPack;
     const isExpired = moment(consumerPack.ending_date).isBefore(moment());
 
@@ -137,7 +150,17 @@ export class ConsumerPackRowItem extends Component<Props> {
     );
 
     return (
-      <ListItem dense divider>
+      <ListItem
+        dense
+        divider
+        selected={!!this.props.selected}
+        disabled={!!consumerPack.reverted}
+        button={!!onClick}
+        onClick={onClick || null}
+        style={
+          consumerPack.disabled ? { backgroundColor: 'rgba(255,0,0,.05)' } : {}
+        }
+      >
         {hideConsumer ? null : <Avatar src={consumer.photo} />}
         <ListItemText
           primary={

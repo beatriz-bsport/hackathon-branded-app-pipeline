@@ -1,8 +1,10 @@
 import { API_URI, getAuth, postAuth, patchAuth } from '../http';
 
-export async function fetchAll({ page, pageSize }) {
+export async function fetchAll({ page, pageSize, queryParams }) {
   return getAuth(
-    `${API_URI}/payment/invoices/?page_size=${pageSize}&page=${page}`,
+    `${API_URI}/payment/invoices/?page_size=${pageSize}&page=${page}${
+      queryParams ? `&${queryParams}` : ''
+    }`,
   );
 }
 

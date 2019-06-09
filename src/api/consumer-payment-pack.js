@@ -7,6 +7,16 @@ export async function fetchByOfferByMember(offerId: number, memberId: number) {
   );
 }
 
+export async function fetchById(id: number) {
+  return getAuth(`${API_URI}/payment-pack/consumer-payment-pack/${id}/`);
+}
+
+export async function fetchByMember(memberId: number) {
+  return getAuth(
+    `${API_URI}/payment-pack/consumer-payment-pack/?memberId=${memberId}`,
+  );
+}
+
 export async function fetchByPaymentPack(
   paymentPackId: number,
   page?: number,
@@ -21,11 +31,9 @@ export async function fetchByPaymentPack(
   );
 }
 
-
 export default {
   fetchByOfferByMember,
   fetchByPaymentPack,
-  /* dead code
-    fetchByMember,
-  */
+  fetchById,
+  fetchByMember,
 };

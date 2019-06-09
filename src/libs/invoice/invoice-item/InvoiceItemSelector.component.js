@@ -2,16 +2,14 @@
 
 import React, { Component } from 'react';
 
-import {
-  Tabs,
-  Tab,
-  Paper,
-  Button,
-  Collapse,
-  Grid,
-  Typography,
-  withStyles,
-} from '@material-ui/core';
+import Tab from '@material-ui/core/Tab';
+import Tabs from '@material-ui/core/Tabs';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import Collapse from '@material-ui/core/Collapse';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import withStyles from '@material-ui/core/styles/withStyles';
 import AddIcon from '@material-ui/icons/Add';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -23,6 +21,9 @@ import { Moment } from '../../../i18n';
 import PaymentPackInput from '../../../components/input/PaymentPackInput.component';
 import ShopItemInput from '../../../components/input/ShopItemInput.container';
 import PriceInput from '../../../components/input/PriceInput.component';
+
+// eslint-disable-next-line
+import type { PaymentPack } from '../../../libs/payment-packs/types';
 
 type Props = {
   paymentPacks: Array<PaymentPack>,

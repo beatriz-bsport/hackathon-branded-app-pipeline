@@ -131,7 +131,9 @@ export default withNamespaces()(
   connect(
     (state) => ({
       consumerPacksLoading: state.consumerPaymentPack.byOfferByMember.loading,
-      consumerPacks: state.consumerPaymentPack.byOfferByMember.items,
+      consumerPacks: state.consumerPaymentPack.byOfferByMember.items.filter(
+        (cpp) => !cpp.reverted,
+      ),
       allPaymentPacks: paymentPackSelectors.getAll(state),
     }),
     {

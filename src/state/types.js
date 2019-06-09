@@ -5,7 +5,10 @@ import type { PaymentRulesState } from '../libs/payment-rules/types';
 import type { StatsState } from './stats/types';
 import type { CoachesState } from './coaches/types';
 import type { SubscriptionState } from '../libs/subscription/types';
+import type { MemberState } from '../libs/member/types';
 import type { PaymentPackState } from '../libs/payment-packs/types';
+import type { BookingsState } from '../libs/booking/types';
+import type { TagState } from '../libs/tag/types';
 import type { SearchState, SearchAction } from './search/types';
 
 export type State = {
@@ -16,6 +19,9 @@ export type State = {
   subscription: SubscriptionState,
   nav: NavigationState,
   paymentPack: PaymentPackState,
+  member: MemberState,
+  booking: BookingsState,
+  tag: TagState,
 };
 export type Action = SearchAction | AuthAction;
 

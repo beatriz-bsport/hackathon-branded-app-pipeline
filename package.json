@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@bsport/common": "^1.7.0",
+    "@bsport/common": "^1.9.0",
     "@material-ui/core": "^3.9.0",
     "@material-ui/icons": "^3.0.1",
     "@sentry/browser": "^4.4.1",

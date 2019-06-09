@@ -14,8 +14,10 @@ import type { PaymentPack } from '../../libs/payment-packs/types';
 import { Moment } from '../../i18n';
 import { formatAsDate } from '../../datetime';
 import { invoice as invoiceActions } from '../../actions';
+import { fetchMember } from '../../libs/member/actions';
 
-import type { Member } from '../../api/types';
+import type { Member } from '../../libs/member/types';
+import memberSelectors from '../../libs/member/selectors';
 import type { InvoiceDataFront } from '../../components/form/types';
 import withDrawer from '../../hocs/with-drawer.hoc';
 
@@ -23,8 +25,9 @@ import InvoiceForm from '../../libs/invoice/InvoiceForm.component';
 import InvoiceDateDialog from '../../libs/invoice/dialog/InvoiceDateDialog.component';
 
 type Props = {
-  member: Member,
+  member: ?Member,
   id: number,
+  fetch: (id: number) => void,
 
   paymentPacks: Array<PaymentPack>,
   activities: Array<Activity>,
@@ -33,7 +36,7 @@ type Props = {
   goToInvoiceList: () => void,
   createInvoice: () => void,
   resetCreateOrUpdateStatus: () => void,
-  goToMemberPage: (id) => void,
+  goToMemberPage: (id: number) => void,
 
   creatingInvoice: boolean,
   loading: boolean,
@@ -52,6 +55,13 @@ export class InvoiceCreatePage extends Component<Props, State> {
 
   componentDidMount() {
     this.props.resetCreateOrUpdateStatus();
+    this.props.fetch(this.props.id);
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (this.props.id !== prevProps.id && this.props.id) {
+      this.props.fetch(this.props.id);
+    }
   }
 
   prepareCreate = (invoiceData: InvoiceDataFront) => {
@@ -81,7 +91,7 @@ export class InvoiceCreatePage extends Component<Props, State> {
       goToMemberPage,
       id,
     } = this.props;
-    if (member === null || loading) {
+    if (!member || loading) {
       return <CircularProgress />;
     }
     return (
@@ -116,7 +126,7 @@ function mapStateToProps(state, nextProps) {
   return {
     id,
     loading: state.member.loading,
-    member: state.member.all.find((m) => m.id === id),
+    member: memberSelectors.get(state, id),
     activities: state.activity.all,
     paymentPacks: paymentPackSelectors.getEnabled(state),
     shopItems: state.shop.all,
@@ -136,7 +146,10 @@ function mapDispatchToProps(dispatch) {
       dispatch(invoiceActions.createOrUpdateReset());
     },
     goToMemberPage(id) {
-      dispatch(pushRouter(`/member/${id}`));
+      dispatch(pushRouter(`/member/${id}/`));
+    },
+    fetch(id) {
+      dispatch(fetchMember(id));
     },
   };
 }
@@ -156,7 +169,8 @@ export default compose(
   ),
   withDrawer(
     ({ t, member }: { t: TFunction, member: Member }) =>
-      `${t('payment.invoice')} - ${formatAsDate(Moment())} - ${member.name ||
-        ' '}`,
+      `${t('payment.invoice')} - ${formatAsDate(Moment())} - ${
+        member ? member.name : ' '
+      }`,
   ),
 )(InvoiceCreatePage);

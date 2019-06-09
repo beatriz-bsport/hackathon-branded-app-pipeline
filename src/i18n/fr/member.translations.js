@@ -1,6 +1,8 @@
 export default {
   // eslint-disable-next-line
   date_joined: "Date d'inscription",
+  invoiceTitle: 'Factures',
+  subscriptionTitle: 'Souscriptions',
   offers_joined: 'Nb séances inscrit(e)',
   pass_owner: 'Abonnement valide',
   bornIn: 'Né le ',
@@ -11,12 +13,22 @@ export default {
   pastBooking: 'dernière : ',
   engagement: 'Engagement',
   addMember: 'Ajouter une fiche de membre',
-  noNoteSaved: 'Aucune note enregistrée',
-  showNotes: 'Voir les notes',
+  note: {
+    noNoteSaved: 'Aucune note enregistrée',
+    addNote: 'Ajouter une note',
+    myNotes: 'Mes notes',
+  },
   creditAccountBalance: 'Accompte crédit restant',
   showPaymentPack: 'Voir les abonnements',
   showInvoices: 'Voir les factures',
   showSubscriptions: 'Voir les souscriptions',
+  menu: {
+    info: 'Général',
+    bookings: 'Réservations',
+    paymentPack: 'Abonnements',
+    invoices: 'Factures et Souscriptions',
+    payment: 'Facturation',
+  },
   row: {
     headers: {
       actions: 'Actions',

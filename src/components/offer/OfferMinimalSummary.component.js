@@ -3,17 +3,17 @@ import React from 'react';
 
 import classNames from 'classnames';
 
-import {
-  Grid,
-  ListItem,
-  ListItemText,
-  IconButton,
-  Tooltip,
-  Avatar,
-  withStyles,
-} from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import IconButton from '@material-ui/core/IconButton';
+import Avatar from '@material-ui/core/Avatar';
+import Typography from '@material-ui/core/Typography';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 import { withNamespaces } from 'react-i18next';
+import Tooltip from '../Tooltip.component';
+import EmptyListItem from '../LoadingListItem.component';
 
 import { Level } from '../category';
 import {
@@ -38,9 +38,6 @@ const styles = () => ({
 type Props = {
   noDate: ?boolean,
   offer: Offer,
-  additionalInfo: ?string,
-  additionalInfoTypoProps: *,
-  additionalInfoSecondary: string,
   showCoachName: ?boolean,
   selected: boolean,
   overrideClickAction: () => void,
@@ -48,20 +45,53 @@ type Props = {
   classes: Object,
 };
 
-// prettier-disable-next-line
+const getFillingInfo = (offer: Offer) => {
+  const fillingInfo = (
+    <div style={{ display: 'inline-flex', alignItems: 'flex-end' }}>
+      <Typography inline variant="subtitle2" color="secondary">
+        {`${offer.nb_bookings} `}
+      </Typography>
+      <Typography variant="subtitle2">{`/${offer.effectif}`}</Typography>
+      <Typography inline variant="caption">
+        &nbsp;{'('}
+      </Typography>
+      <Typography inline variant="caption" color="primary">
+        {offer.nb_attendant}
+      </Typography>
+      <Typography inline variant="caption">
+        +
+      </Typography>
+      <Typography inline variant="caption" color="error">
+        {offer.nb_non_attendant}
+      </Typography>
+      <Typography variant="caption">)&nbsp;</Typography>
+    </div>
+  );
+  const fillingInfoProps = {
+    color: offer.nb_bookings < offer.effectif ? 'error' : 'primary',
+  };
+  const formattedFillingRate = `${parseInt(
+    (offer.nb_bookings / offer.effectif) * 100,
+    10,
+  )}%`;
+
+  return [fillingInfo, fillingInfoProps, formattedFillingRate];
+};
+
 export function OfferMinimalSummary(props: Props) {
   const {
     noDate,
     offer,
-    additionalInfo,
-    additionalInfoTypoProps,
-    additionalInfoSecondary,
     showCoachName,
     overrideClickAction,
     selected,
     t,
     classes,
   } = props;
+  if (!offer) {
+    return <EmptyListItem key="" divider dense />;
+  }
+
   const {
     name,
     id,
@@ -88,6 +118,10 @@ export function OfferMinimalSummary(props: Props) {
   }
   const currentEstablishment = establishment_override || etablissement;
   const dateFormatter = noDate ? formatAsTime : formatAsDatetime;
+  const [fillingInfo, fillingInfoProps, formattedFillingRate] = getFillingInfo(
+    offer,
+  );
+
   return (
     <ListItem
       key={id}
@@ -136,13 +170,11 @@ export function OfferMinimalSummary(props: Props) {
           </Grid>
         </Grid>
         <Grid item xs={3}>
-          {additionalInfo ? (
-            <ListItemText
-              primary={additionalInfo}
-              primaryTypographyProps={additionalInfoTypoProps}
-              secondary={additionalInfoSecondary}
-            />
-          ) : null}
+          <ListItemText
+            primary={fillingInfo}
+            primaryTypographyProps={fillingInfoProps}
+            secondary={formattedFillingRate}
+          />
         </Grid>
         <Grid item xs={3}>
           <ListItemText

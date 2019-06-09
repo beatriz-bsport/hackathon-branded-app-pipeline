@@ -1,7 +1,10 @@
 // @flow
 import React from 'react';
 import lodash from 'lodash';
-import { Button, LinearProgress, Grid, withStyles } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Grid from '@material-ui/core/Grid';
+import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
@@ -180,7 +183,7 @@ export function MemberForm(props: Props) {
                 </Grid>
                 <Grid item>
                   <DateField
-                    format="DD/MM/YYYY"
+                    format="YYYY-MM-DD"
                     name="date_joined"
                     label={t('member.date_joined')}
                     cancelLabel={t('common.cancel')}
@@ -322,7 +325,7 @@ export default compose(
         gender: 'F',
         birthday: undefined,
         membership_ID: '',
-        date_joined: Moment().format('DD/MM/YYYY'),
+        date_joined: Moment().format('YYYY-MM-DD'),
         rgpd: {
           accept_sms: true,
           accept_email: true,

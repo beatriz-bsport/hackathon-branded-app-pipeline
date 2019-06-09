@@ -1,19 +1,20 @@
 // @flow
 import React, { Component } from 'react';
 
-import {
-  List,
-  ListItem,
-  ListItemText,
-  ListItemSecondaryAction,
-  IconButton,
-  Typography,
-  Grid,
-  withStyles,
-} from '@material-ui/core';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import withStyles from '@material-ui/core/styles/withStyles';
+
 import DeleteIcon from '@material-ui/icons/Delete';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+
+import type { InvoiceItem } from './types';
 
 type Props = {
   compact: boolean,

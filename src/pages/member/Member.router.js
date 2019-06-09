@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Route, Switch } from 'react-router';
+import { Redirect } from 'react-router-dom';
 
 import asyncComponent from '../../AsyncComponent';
 
@@ -18,6 +19,11 @@ export default () => (
     <Route exact path="/member" component={MemberList} />
     <Route exact path="/member/edit/:id" component={MemberForm} />
     <Route path="/member/add" component={MemberForm} />
-    <Route path="/member/:id" component={MemberDetail} />
+    <Route path="/member/:id/:tab" component={MemberDetail} />
+    <Route
+      exact
+      path="/member/:id/"
+      component={() => <Redirect to={`${window.location.pathname}info`} />}
+    />
   </Switch>
 );

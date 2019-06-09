@@ -5,9 +5,8 @@ import { createAction } from 'redux-actions';
 import api from '../api';
 import types from './invoice.types';
 import { snackbarSuccess, snackbarError } from './snackbar.actions';
-import { quickFetch as quickFetchMember } from './member.actions';
+import { fetchMember } from '../libs/member/actions';
 
-import { createListHandler } from './utils';
 import type { Dispatch } from '../state/types';
 import type { Invoice, Payment } from '../api/types';
 
@@ -102,7 +101,7 @@ export function fetchedSpecificInvoice(invoice: Invoice) {
   return { type: types.INVOICE_SPECIFIC_SUCCESS_FETCH, invoice };
 }
 
-export function fetchSpecificInvoice(invoiceId: number) {
+export function fetchSpecificInvoice(invoiceId: string) {
   return async (dispatch: Dispatch) => {
     dispatch(startFetchSpecificInvoice());
 
@@ -146,7 +145,6 @@ export function createOrUpdateInvoice(
   callback: number | (() => void),
 ) {
   return async (dispatch: Dispatch) => {
-    console.log('start quick create');
     dispatch(actionCreateOrUpdateInvoice(invoiceData));
 
     const createOrUpdate = invoiceData.uuid
@@ -168,7 +166,7 @@ export function createOrUpdateInvoice(
       }
       if (typeof callback === 'number') {
         // FIXME
-        dispatch(quickFetchMember(callback));
+        dispatch(fetchMember(callback));
       }
       if (!noRedirect) {
         dispatch(pushRouter('/invoice'));
@@ -200,9 +198,3 @@ export function actionCreateOrUpdateInvoiceError(error: ?Object) {
     error: JSON.stringify(error),
   };
 }
-
-const { fetcher, listReducers } = createListHandler(
-  'invoice',
-  api.invoice.fetchAll,
-);
-export { listReducers, fetcher as fetchAll };

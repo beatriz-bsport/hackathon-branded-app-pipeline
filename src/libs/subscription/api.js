@@ -2,8 +2,12 @@
 
 import { API_URI, deleteAuth, getAuth, postAuth } from '../../http';
 
-const fetchAll = async () => {
-  return getAuth(`${API_URI}/subscription/billing-plan/`);
+const fetchAll = async (queryParams: ?string = '') => {
+  return getAuth(
+    `${API_URI}/subscription/billing-plan/${
+      queryParams ? `?${queryParams}` : ''
+    }`,
+  );
 };
 
 const fetchDetail = async (id: number) => {

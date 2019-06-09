@@ -5,18 +5,18 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import type { TFunction } from 'react-i18next';
 import { withNamespaces } from 'react-i18next';
-import { Paper, CircularProgress } from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { push as pushRouter, goBack } from 'react-router-redux';
 import { compose, withProps } from 'recompose';
-import {
-  createOrUpdateMember,
-  refresher,
-  quickFetch,
-} from '../../actions/member.actions';
+import moment from 'moment';
 import { snackbar } from '../../actions/snackbar.actions';
 import withDrawer from '../../hocs/with-drawer.hoc';
 import MemberForm from '../../libs/member/MemberForm.component';
+import { createOrUpdateMember, fetchMember } from '../../libs/member/actions';
+import memberSelectors from '../../libs/member/selectors';
+import { getLatest as getLatestMember } from '../../libs/member/api';
 
 import { mapFormData, unmap } from '../form.utils';
 
@@ -24,7 +24,6 @@ type Props = {
   id: ?number,
   initial: *,
   fetchMemberInitial: () => void,
-  refreshListMember: () => void,
   goToMember: (id: number) => void,
   goToMemberList: () => void,
   snackbarSuccess: (msg: string) => void,
@@ -67,6 +66,7 @@ export class MemberFormPage extends Component<Props> {
       ? {
           ...unmap(initial, MemberMap),
           rgpd: [],
+          date_joined: moment(initial.date_joined),
         }
       : {
           birthday: null,
@@ -92,7 +92,6 @@ export class MemberFormPage extends Component<Props> {
           onCancel={onCancel}
           onSubmit={onSubmit}
           initial={initialData}
-          refreshListMember={this.props.refreshListMember}
           goToMember={this.props.goToMember}
           goToMemberList={this.props.goToMemberList}
           snackbarSuccess={this.props.snackbarSuccess}
@@ -108,26 +107,22 @@ function mapStateToProps(state, nextProps) {
   return {
     id,
     errors: state.member.upsert.error,
-    initial:
-      id !== null ? state.member.quickFetched.find((m) => m.id === id) : null,
+    initial: id !== null ? memberSelectors.get(state, id) : null,
   };
 }
 function mapDispatchToProps(dispatch) {
   return {
     fetchMemberInitial(id) {
-      dispatch(quickFetch(id));
+      dispatch(fetchMember(id));
     },
     upsertMember(data, options) {
-      dispatch(createOrUpdateMember(data, false, options));
+      dispatch(createOrUpdateMember(data, options));
     },
     onCancel() {
       dispatch(goBack());
     },
-    refreshListMember() {
-      dispatch(refresher());
-    },
     goToMember(pk) {
-      dispatch(pushRouter(`/member/${pk}`));
+      dispatch(pushRouter(`/member/${pk}/`));
     },
     goToMemberList() {
       dispatch(pushRouter('/member'));
@@ -146,7 +141,7 @@ export default compose(
     mapDispatchToProps,
   ),
   withDrawer(({ t }: { t: TFunction }) => t('appbar.title.memberFormPage')),
-  withProps(({ upsertMember, initial }) => ({
+  withProps(({ upsertMember, initial, goToMember, goToMemberList }) => ({
     onSubmit: (values, options) => {
       if (
         !(
@@ -178,7 +173,22 @@ export default compose(
         formData.append('id', initial.id);
       }
 
-      upsertMember(formData, options);
+      upsertMember(formData, {
+        ...options,
+        onSuccess: () => {
+          if (formData.has('id')) {
+            goToMember(formData.get('id'));
+          } else {
+              getLatestMember()
+              .then((res) => goToMember(res.data))
+              .catch((err) => {
+                console.error(err);
+                goToMemberList();
+              });
+          }
+          options.onSuccess();
+        },
+      });
     },
   })),
 )(MemberFormPage);

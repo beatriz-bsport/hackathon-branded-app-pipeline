@@ -2,8 +2,7 @@
 
 import { push, replace } from 'connected-react-router';
 
-import { fetchMember } from './member.actions';
-import { fetchBookingsByMember } from './booking.actions';
+import { search as searchMember } from '../libs/member/actions';
 
 import types from './search.types';
 
@@ -28,6 +27,7 @@ export function searchText(text, path, changeLocation) {
         const mustPush = path !== '/search/results';
         const goto = mustPush ? push : replace;
         dispatch(goto(`/search/results?q=${encodeURIComponent(text)}`));
+        dispatch(searchMember(text));
       } catch (error) {
         dispatch(actionSearchTextError(error));
       }
@@ -60,10 +60,9 @@ export function selectEntity(entity) {
     dispatch(actionSearchSelectEntityStart(entity));
 
     try {
-      if (entity) {
-        dispatch(fetchMember(entity.data.id));
-        dispatch(fetchBookingsByMember(entity.data.id));
-      }
+      // if (entity) {
+      //   dispatch(fetchMember(entity.data.id));
+      // }
       // dispatch( actionSearchSelectEntitySuccess({ }));
     } catch (error) {
       dispatch(actionSearchSelectEntityError(error));

@@ -34,7 +34,6 @@ const persistConfig = {
     'establishment',
     'coach',
     'member',
-    'memberFetcher',
     'category',
     'invoice',
     'refresh',

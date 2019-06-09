@@ -10,15 +10,32 @@ import {
 import { compose } from 'recompose';
 
 import {
-  booking as bookingActions,
   invoice as invoiceActions,
   offer as offerActions,
-  member as memberAction,
 } from '../../actions';
+
+import {
+  addBooking as addBookingAction,
+  refreshByOffer as refreshBookingsByOfferAction,
+  fetchBookingsByOffer as fetchBookingsByOfferAction,
+  deleteBooking as deleteBookingAction,
+  confirmBookingAttendance as confirmBookingAttendanceAction,
+  discardBookingAttendance as discardBookingAttendanceAction,
+  discardBookingOption as discardBookingOptionAction,
+} from '../../libs/booking/actions';
+import bookingSelectors from '../../libs/booking/selectors';
+
 import { snackbar } from '../../actions/snackbar.actions';
-import { createOrUpdateMember } from '../../actions/member.actions';
 import { formatAsDatetime } from '../../datetime';
 import paymentPackSelectors from '../../libs/payment-packs/selectors';
+
+import {
+  fetchMemberByOffer,
+  fetchMember as fetchMemberAction,
+  createOrUpdateMember,
+  search as searchMembersAction,
+  refreshByOffer as refreshMemberByOffer,
+} from '../../libs/member/actions';
 
 import withDrawer from '../../hocs/with-drawer.hoc';
 import OfferManagementComponent from './OfferManagement.component';
@@ -48,10 +65,11 @@ function mapStateToProps(state, nextProps) {
     paymentPacks: paymentPackSelectors.getAll(state),
     shopItems: state.shop.all,
     members: state.member.byOffer.items,
-    allMembers: state.member.all,
-    bookings: state.booking.all,
+    memberSearchLoading: state.member.search.loading,
+    searchedMembers: state.member.search.items,
+    bookings: bookingSelectors.getBookings(state),
     bookingLoading: state.booking.loading,
-    bookingOptions: state.booking.options,
+    bookingOptions: bookingSelectors.getOptions(state),
     memberCreationPending: state.member.upsert.loading,
     memberCreationErrors: state.member.upsert.error,
     compatiblePacks: state.offer.compatiblePacks.items.filter(
@@ -67,37 +85,34 @@ function mapDispatchToProps(dispatch) {
     revertQuickInvoiceAndRefreshOffer(uuid, offerId) {
       dispatch(
         invoiceActions.revertQuickInvoice(uuid, () =>
-          dispatch(bookingActions.refreshByOffer(offerId)),
+          dispatch(refreshBookingsByOfferAction(offerId)),
         ),
       );
     },
     fetchOffer(id) {
       dispatch(offerActions.fetchOfferById(id));
     },
+    fetchMember(id) {
+      dispatch(fetchMemberAction(id));
+    },
     fetchOfferData(offerId) {
-      dispatch(bookingActions.fetchBookingsByOffer(offerId));
-      dispatch(memberAction.fetchMemberByOffer(offerId));
+      dispatch(fetchBookingsByOfferAction(offerId));
+      dispatch(fetchMemberByOffer(offerId));
     },
     deleteBooking(bookingId) {
-      dispatch(bookingActions.deleteBooking(bookingId));
+      dispatch(deleteBookingAction(bookingId));
     },
     discardBookingAttendance(bookingId) {
-      dispatch(bookingActions.discardBookingAttendance(bookingId));
+      dispatch(discardBookingAttendanceAction(bookingId));
     },
     confirmBookingAttendance(bookingId) {
-      dispatch(bookingActions.confirmBookingAttendance(bookingId));
+      dispatch(confirmBookingAttendanceAction(bookingId));
     },
     discardOption(optionId) {
-      dispatch(bookingActions.discardBookingOption(optionId));
+      dispatch(discardBookingOptionAction(optionId));
     },
     createMember(data, options) {
-      dispatch(
-        createOrUpdateMember(
-          data,
-          true,
-          options, // TODO
-        ),
-      );
+      dispatch(createOrUpdateMember(data, options));
     },
     createInvoice(
       invoiceData: InvoiceData,
@@ -110,7 +125,7 @@ function mapDispatchToProps(dispatch) {
           invoiceData,
           true,
           () => {
-            dispatch(memberAction.refreshByOffer(offerId));
+            dispatch(refreshMemberByOffer(offerId));
           },
           isQuickInvoice,
         ),
@@ -119,8 +134,8 @@ function mapDispatchToProps(dispatch) {
     createQuickUnevenInvoice(data, offerId) {
       dispatch(
         invoiceActions.createQuickInvoice(data, () => {
-          dispatch(bookingActions.refreshByOffer(offerId));
-          dispatch(memberAction.refreshByOffer(offerId));
+          dispatch(refreshBookingsByOfferAction(offerId));
+          dispatch(refreshMemberByOffer(offerId));
         }),
       );
     },
@@ -137,23 +152,23 @@ function mapDispatchToProps(dispatch) {
       dispatch(routerPush(path));
     },
     goToMember(pk) {
-      dispatch(routerPush(`/member/${pk}`));
+      dispatch(routerPush(`/member/${pk}/`));
+    },
+    searchMembers(text: string) {
+      dispatch(searchMembersAction(text));
     },
     fetchCompatiblePacks(id: number) {
       dispatch(offerActions.fetchCompatiblePacks(id));
-    },
-    refreshListMember() {
-      dispatch(memberAction.refresher());
     },
     snackbarSuccess(msg) {
       dispatch(snackbar.success(msg));
     },
     addToOffer({ offerId, consumerPaymentPackId }) {
       dispatch(
-        bookingActions.addBooking({
+        addBookingAction({
           offerId,
           consumerPaymentPackId,
-          callback: () => dispatch(memberAction.refreshByOffer(offerId)),
+          callback: () => dispatch(refreshMemberByOffer(offerId)),
         }),
       );
     },

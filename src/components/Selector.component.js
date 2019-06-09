@@ -6,6 +6,7 @@ import type { Node } from 'react';
 import { compose } from 'recompose';
 
 import Select from 'react-select';
+import CreatableSelect from 'react-select/lib/Creatable';
 
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -203,6 +204,7 @@ type IntegrationReactSelectProps = {
   placeholder: string,
   onChange: (Suggestion) => void,
   theme: Theme,
+  onCreateOption: (label: string) => void,
 };
 
 function IntegrationReactSelect(props: IntegrationReactSelectProps) {
@@ -214,6 +216,7 @@ function IntegrationReactSelect(props: IntegrationReactSelectProps) {
     placeholder,
     selected,
     onChange,
+    onCreateOption,
   } = props;
 
   const selectStyles = {
@@ -226,9 +229,12 @@ function IntegrationReactSelect(props: IntegrationReactSelectProps) {
     }),
   };
 
+  const SelectComponent =
+    typeof onCreateOption === 'function' ? CreatableSelect : Select;
+
   return (
     <div className={`${className || ''} ${classes.root}`}>
-      <Select
+      <SelectComponent
         classes={classes}
         styles={selectStyles}
         options={suggestions}
@@ -236,6 +242,7 @@ function IntegrationReactSelect(props: IntegrationReactSelectProps) {
         value={suggestions.find((s) => s.value === selected)}
         onChange={onChange}
         placeholder={placeholder}
+        onCreateOption={onCreateOption}
       />
     </div>
   );

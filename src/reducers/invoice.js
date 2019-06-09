@@ -1,7 +1,6 @@
 import Immutable from 'seamless-immutable';
 
 import actionTypes from '../actions/invoice.types';
-import { listReducers } from '../actions/invoice.actions';
 
 const initialState = Immutable({
   all: [],
@@ -16,11 +15,7 @@ const initialState = Immutable({
   quickInvoiceLoading: false,
 });
 
-export default function(state = initialState, action = {}) {
-  return listReducers(invoiceReducers(state, action), action);
-}
-
-function invoiceReducers(state, action) {
+export default function invoiceReducers(state = initialState, action = {}) {
   switch (action.type) {
     case 'INVOICE/FINALIZE/IS_LOADING': {
       const index = state.all.findIndex(

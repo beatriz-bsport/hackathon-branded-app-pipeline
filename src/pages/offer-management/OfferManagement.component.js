@@ -12,7 +12,7 @@ import IconButton from '@material-ui/core/IconButton';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import TodayIcon from '@material-ui/icons/Today';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -23,17 +23,23 @@ import type { TFunction } from 'react-i18next';
 import Fuse from 'fuse.js';
 import memoize from 'memoize-one';
 
-import BookingTable from '../../components/booking/BookingTable.component';
 import ResultList from '../../components/search/ResultList.component';
 import MemberBookingHelper from './MemberBookingHelper.component';
 import { mapFormData } from '../form.utils';
 
 import QuickInvoicePanel from './QuickInvoicePanel.component';
 import SearchMember from './SearchMember.component';
-import RevertBookingDialog from './RevertBookingDialog.component';
+import RevertBookingDialog from '../../libs/booking/components/RevertBookingDialog.component';
 import RegisterMemberToOfferForm from './RegisterMemberToOfferForm.component';
 
 import MemberForm from '../../libs/member/MemberForm.component';
+import { getLatest as getLatestMember } from '../../libs/member/api';
+import BookingTable from '../../libs/booking/components/BookingTable.component';
+
+import type { PaymentPack } from '../../libs/payment-packs/types';
+import type { Booking, BookingOption } from '../../libs/booking/types';
+import type { Member } from '../../libs/member/types';
+import type { Invoice } from '../../libs/invoice/types';
 
 type Props = {
   offerId: number,
@@ -42,7 +48,6 @@ type Props = {
   bookingLoading: ?boolean,
   compatiblePacksLoading: boolean,
 
-  allMembers: Array<Member>,
   members: Array<Member>,
   bookingOptions: Array<BookingOption>,
   activities: Array<Activity>,
@@ -53,10 +58,13 @@ type Props = {
   compatiblePacks: Array<PaymentPack>,
   unevenSavedInvoices: Array<Invoice>,
 
+  fetchMember: (id: number) => void,
+  memberSearchLoading: boolean,
+  searchMembers: (txt: string) => void,
+  searchedMembers: Array<Member>,
   confirmBookingAttendance: (bookingId: number) => void,
   discardBookingAttendance: (bookingId: number) => void,
   revertQuickInvoiceAndRefreshOffer: (uuid: string, offerId: number) => void,
-  refreshListMember: () => void,
   goToMember: (id: number) => void,
   snackbarSuccess: (msg: string) => void,
   goToOffer: (id: number) => void,
@@ -92,7 +100,7 @@ type State = {
   quickInvoices: [*], // put here non-saved invoice
   quickInvoiceEdit: [*], // put here invoice to edit
   addMemberModal: boolean,
-  memberToRegister: ?Member,
+  memberToRegister: ?number,
   searchedText: string,
 };
 
@@ -140,7 +148,7 @@ export class OfferManagement extends PureComponent<Props, State> {
     this.props.addToOffer({
       offerId: this.props.offerId,
       consumerPaymentPackId,
-      memberId: memberToRegister.id,
+      memberId: memberToRegister,
     });
     this.clearSearch();
     this.setState({ memberToRegister: null });
@@ -178,7 +186,24 @@ export class OfferManagement extends PureComponent<Props, State> {
     }
 
     const formData = mapFormData(data, MemberMap);
-    this.props.createMember(formData, options, this.props.offerId);
+    this.props.createMember(
+      formData,
+      {
+        ...options,
+        onSuccess: () => {
+          getLatestMember()
+            .then((res) => {
+              this.props.fetchMember(res.data);
+              this.setState({ memberToRegister: res.data });
+            })
+            .catch((err) => {
+              console.error(err);
+            });
+          options.onSuccess();
+        },
+      },
+      this.props.offerId,
+    );
     this.setState({ addMemberModal: false });
   };
 
@@ -206,7 +231,7 @@ export class OfferManagement extends PureComponent<Props, State> {
   });
 
   getResults = () =>
-    this.getFuse(this.props.allMembers)
+    this.getFuse([])
       .search(this.state.searchedText)
       .slice(0, 8);
 
@@ -218,7 +243,7 @@ export class OfferManagement extends PureComponent<Props, State> {
           key={member.id}
           onClick={() => this.addToQuickInvoicePanel(member.id)}
           onClickListItem={() => this.addToQuickInvoicePanel(member.id)}
-          showMember={() => window.open(`/member/${member.id}`)}
+          showMember={() => window.open(`/member/${member.id}/`)}
           member={member}
           hasBooked
         />
@@ -227,10 +252,10 @@ export class OfferManagement extends PureComponent<Props, State> {
     return (
       <MemberBookingHelper
         key={member.id}
-        onClick={() => this.setState({ memberToRegister: member })}
-        onClickListItem={() => this.setState({ memberToRegister: member })}
+        onClick={() => this.setState({ memberToRegister: member.id })}
+        onClickListItem={() => this.setState({ memberToRegister: member.id })}
         showMember={() => {
-          window.open(`/member/${member.id}`, '_blank');
+          window.open(`/member/${member.id}/`, '_blank');
         }}
         member={member}
         hasBooked={false}
@@ -320,9 +345,10 @@ export class OfferManagement extends PureComponent<Props, State> {
               </Grid>
               <Grid item>
                 <SearchMember
-                  onChange={(event) =>
-                    this.setState({ searchedText: event.target.value })
-                  }
+                  onChange={(event) => {
+                    this.setState({ searchedText: event.target.value });
+                    this.props.searchMembers(event.target.value);
+                  }}
                   value={this.state.searchedText}
                   onReset={this.clearSearch}
                 />
@@ -354,6 +380,46 @@ export class OfferManagement extends PureComponent<Props, State> {
     this.props.goToOffer(id);
   };
 
+  getNavigationHeader = (loading: boolean) => (
+    <Paper className={this.props.classes.headerContainer}>
+      <Grid
+        container
+        direction="row"
+        justify="space-between"
+        alignItems="center"
+        className={this.props.classes.titleBanner}
+      >
+        <Grid item>
+          <Button
+            onClick={() => this.goToOffer(this.props.offer.previous_offer)}
+            color="secondary"
+            disabled={!this.props.offer}
+          >
+            <ChevronLeftIcon className={this.props.classes.leftIcon} />
+            <Hidden xsDown>{this.props.t('offer.previousOffer')}</Hidden>
+          </Button>
+        </Grid>
+        <Grid item>
+          <Button onClick={this.props.goBack} color="secondary">
+            <TodayIcon className={this.props.classes.leftIcon} />
+            {this.props.t('offer.backToCalendar')}
+          </Button>
+        </Grid>
+        <Grid item>
+          <Button
+            onClick={() => this.goToOffer(this.props.offer.next_offer)}
+            color="secondary"
+            disabled={!this.props.offer}
+          >
+            <Hidden xsDown>{this.props.t('offer.nextOffer')}</Hidden>
+            <ChevronRightIcon className={this.props.classes.rightIcon} />
+          </Button>
+        </Grid>
+      </Grid>
+      {loading ? <LinearProgress /> : null}
+    </Paper>
+  );
+
   render() {
     const {
       offer,
@@ -368,47 +434,14 @@ export class OfferManagement extends PureComponent<Props, State> {
     const { searchedText, memberToRegister } = this.state;
 
     if (!offer) {
-      return <CircularProgress />;
+      return <React.Fragment>{this.getNavigationHeader(true)}</React.Fragment>;
     }
     return (
       <Grid container direction="row" spacing={16}>
-        <Grid item xs={12} className={classes.headerContainer}>
-          <Paper>
-            <Grid
-              container
-              direction="row"
-              justify="space-between"
-              alignItems="center"
-              className={classes.titleBanner}
-            >
-              <Grid item>
-                <Button
-                  onClick={() => this.goToOffer(offer.previous_offer)}
-                  color="secondary"
-                >
-                  <ChevronLeftIcon className={classes.leftIcon} />
-                  <Hidden xsDown>{t('offer.previousOffer')}</Hidden>
-                </Button>
-              </Grid>
-              <Grid item>
-                <Button onClick={this.props.goBack} color="secondary">
-                  <TodayIcon className={classes.leftIcon} />
-                  {t('offer.backToCalendar')}
-                </Button>
-              </Grid>
-              <Grid item>
-                <Button
-                  onClick={() => this.goToOffer(offer.next_offer)}
-                  color="secondary"
-                >
-                  <Hidden xsDown>{t('offer.nextOffer')}</Hidden>
-                  <ChevronRightIcon className={classes.rightIcon} />
-                </Button>
-              </Grid>
-            </Grid>
-          </Paper>
+        <Grid item xs={12}>
+          {this.getNavigationHeader(false)}
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} lg={6}>
           <Paper className={classes.autoScroll}>
             <Grid container direction="column">
               <Grid item xs={12}>
@@ -419,7 +452,8 @@ export class OfferManagement extends PureComponent<Props, State> {
                 <Collapse in={!!searchedText}>
                   <div className={classes.resultListContainer}>
                     <ResultList
-                      items={this.getResults()}
+                      items={this.props.searchedMembers}
+                      loading={this.props.memberSearchLoading}
                       renderListComponent={this.renderSearchedMember}
                     />
                   </div>
@@ -454,9 +488,8 @@ export class OfferManagement extends PureComponent<Props, State> {
                   </Grid>
                 )}
               </Grid>
-              <Grid item>
+              <Grid item xs={12}>
                 <BookingTable
-                  sortedBy="name"
                   redirectToMember
                   newTab
                   members={this.props.members}
@@ -476,7 +509,7 @@ export class OfferManagement extends PureComponent<Props, State> {
             </Grid>
           </Paper>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} lg={6}>
           <QuickInvoicePanel
             members={this.props.members}
             unevenSavedInvoices={this.props.unevenSavedInvoices}
@@ -505,14 +538,14 @@ export class OfferManagement extends PureComponent<Props, State> {
             {memberToRegister ? (
               <RegisterMemberToOfferForm
                 offerId={this.props.offerId}
-                memberId={memberToRegister.id}
+                memberId={memberToRegister}
                 loading={this.props.compatiblePacksLoading}
                 compatiblePacks={this.props.compatiblePacks}
                 onCancel={() => this.setState({ memberToRegister: null })}
                 subscribeToOffer={this.registerMember}
                 subscribeToPackAndOffer={(paymentPackId) =>
                   this.registerMemberAndOpenUnevenInvoice(
-                    memberToRegister.id,
+                    memberToRegister,
                     paymentPackId,
                   )
                 }
@@ -529,7 +562,6 @@ export class OfferManagement extends PureComponent<Props, State> {
               onCancel={this.closeAddMemberModal}
               onSubmit={this.createMember}
               initial={{ birthday: null, rgpd: ['accept_email', 'accept_sms'] }}
-              refreshListMember={this.props.refreshListMember}
               goToMember={this.props.goToMember}
               goToMemberList={() => {}}
               snackbarSuccess={this.props.snackbarSuccess}
@@ -586,12 +618,10 @@ const styles = (theme) => ({
   },
   headerContainer: {
     marginTop: -theme.spacing.unit * 2,
-    paddingLeft: theme.spacing.unit * 3,
-    paddingRight: theme.spacing.unit * 3,
   },
   autoScroll: {
     overflowY: 'auto',
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('lg')]: {
       height: `calc(100vh - ${theme.spacing.unit * 19}px)`,
     },
   },

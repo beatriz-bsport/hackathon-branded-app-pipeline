@@ -1,5 +1,7 @@
 export default {
   date_joined: 'Member since',
+  invoiceTitle: 'Invoices',
+  subscriptionTitle: 'Subscriptions',
   offers_joined: 'Activities joined',
   pass_owner: 'Pas valid',
   bornIn: 'Birthday ',
@@ -16,6 +18,18 @@ export default {
   showPaymentPack: 'Show pass',
   showInvoices: 'Show invoices',
   showSubscriptions: 'Show subscriptions',
+  note: {
+    addNote: 'Add a note',
+    myNotes: 'My notes',
+    noNoteSaved: 'No note saved',
+  },
+  menu: {
+    info: 'General',
+    bookings: 'Bookings',
+    paymentPack: 'Pass',
+    invoices: 'Invoices & Subscriptions',
+    payment: 'Billing',
+  },
   row: {
     headers: {
       actions: 'Actions',

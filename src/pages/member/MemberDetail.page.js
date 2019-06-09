@@ -1,182 +1,165 @@
 // @flow
+import React from 'react';
 
-import React, { Component } from 'react';
-
-import { Grid, withStyles, Button } from '@material-ui/core';
-import { withNamespaces } from 'react-i18next';
-import { goBack, push as routerPush } from 'react-router-redux';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Fab from '@material-ui/core/Fab';
+import AppBar from '@material-ui/core/AppBar';
+import { Route, Switch } from 'react-router-dom';
+import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
-import { compose } from 'recompose';
-
+import { push as pushRouter } from 'connected-react-router';
+import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
+import PaymentIcon from '@material-ui/icons/Payment';
+import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import MUILinearProgress from '@material-ui/core/LinearProgress';
-import paymentPackSelectors from '../../libs/payment-packs/selectors';
-import {
-  booking as bookingActions,
-  member as memberActions,
-  consumerPaymentPack as consumerPackActions,
-} from '../../actions';
-import type { MemberDetailed, Booking, BookingOption } from '../../api/types';
+import { compose } from 'recompose';
+import memberSelectors from '../../libs/member/selectors';
+import withDrawer from '../../hocs/with-drawer.hoc';
+
+import MemberDetailInfo from './MemberDetailInfo.page';
+import MemberDetailPass from './MemberDetailPass.page';
+import MemberDetailBooking from './MemberDetailBooking.page';
+import MemberDetailPayment from './MemberDetailPayment.page';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-
-import MemberDetail from '../../libs/member/MemberDetail.component';
 
 type Props = {
-  memberLoading: boolean,
-  bookingLoading: boolean,
-  member: MemberDetailed,
-
-  bookings: Array<Booking>,
-  bookingOptions: Array<BookingOption>,
+  t: TFunction,
   classes: Object,
+  tab: string,
   id: number,
-  paymentPacks: Array<PaymentPack>,
-
-  pushToInvoice: (uuid: string) => void,
-  pushToSubscription: (id: number) => void,
-  fetchMember: (id: number) => void,
-  fetchMemberBookings: (id: number) => void,
-  confirmBookingAttendance: (id: number) => void,
-  discardBookingAttendance: (id: number) => void,
-  editMember: (id: number) => void,
+  pushToTab: (memberId: number, tab: string) => void,
   billMember: (id: number) => void,
   subscribeMember: (id: number) => void,
-  incrementCredit: (id: number) => void,
-  decrementCredit: (id: number) => void,
-  createOrUpdateNote: ({ id: ?number, text: string, memberId: number }) => void,
-  deleteNote: ({ memberId: number, noteId: number }) => void,
-
-  goBack: () => void,
-  t: TFunction,
 };
 
-export class Member extends Component<Props> {
-  componentDidMount() {
-    this.props.fetchMember(this.props.id);
-    this.props.fetchMemberBookings(this.props.id);
-  }
+const MemberActions = (props: {
+  t: TFunction,
+  classes: Object,
+  billMember: (id: number) => void,
+  subscribeMember: (id: number) => void,
+}) => (
+  <div className={props.classes.bottomButtonContainer}>
+    <Fab
+      color="primary"
+      variant="extended"
+      className={props.classes.bottomButton}
+      onClick={props.billMember}
+    >
+      <EuroSymbolIcon className={props.classes.leftIcon} />
+      {props.t('payment.toBill')}
+    </Fab>
+    <Fab
+      color="secondary"
+      className={props.classes.bottomButton}
+      variant="extended"
+      onClick={props.subscribeMember}
+    >
+      <PaymentIcon className={props.classes.leftIcon} />
+      {props.t('payment.toSubscribe')}
+    </Fab>
+  </div>
+);
 
-  render() {
-    const { memberLoading, t, classes, member } = this.props;
-    if (!member || (memberLoading && member.id !== this.props.id)) {
-      return <LinearProgress />;
-    }
-    return (
-      <div style={{ height: '100%' }}>
-        <Grid container direction="column" spacing={16}>
-          <Grid item xs={12}>
-            {memberLoading ? <MUILinearProgress /> : null}
-            <MemberDetail
-              memberId={this.props.id}
-              bookingLoading={this.props.bookingLoading}
-              member={this.props.member}
-              bookings={this.props.bookings}
-              bookingOptions={this.props.bookingOptions}
-              paymentPacks={this.props.paymentPacks}
-              confirmBookingAttendance={this.props.confirmBookingAttendance}
-              discardBookingAttendance={this.props.discardBookingAttendance}
-              editMember={this.props.editMember}
-              billMember={this.props.billMember}
-              subscribeMember={this.props.subscribeMember}
-              incrementCredit={this.props.incrementCredit}
-              decrementCredit={this.props.decrementCredit}
-              createOrUpdateNote={this.props.createOrUpdateNote}
-              deleteNote={this.props.deleteNote}
-              onInvoiceClick={this.props.pushToInvoice}
-              onSubscriptionClick={this.props.pushToSubscription}
-              fetchMemberBookings={this.props.fetchMemberBookings}
-              fetchMember={this.props.fetchMember}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Button
-              onClick={this.props.goBack}
-              size="large"
-              color="secondary"
-              variant="outlined"
-              className={classes.backButton}
-            >
-              {t('navigation.goBack')}
-            </Button>
-          </Grid>
-        </Grid>
+export function MemberDetail(props: Props) {
+  const { t, classes, pushToTab, billMember, subscribeMember, tab, id } = props;
+  return (
+    <div className={classes.container}>
+      <AppBar position="static" color="default">
+        <Tabs
+          scrollButtons="off"
+          variant="scrollable"
+          value={tab}
+          onChange={(e, newTab) => {
+            pushToTab(id, newTab);
+          }}
+        >
+          <Tab label={t('member.menu.info')} value="info" />
+          <Tab label={t('member.menu.bookings')} value="bookings" />
+          <Tab label={t('member.menu.paymentPack')} value="pass" />
+          <Tab label={t('member.menu.payment')} value="payment" />
+        </Tabs>
+      </AppBar>
+      <div className={classes.content}>
+        <Switch>
+          <Route
+            exact
+            path="/member/:id/bookings"
+            component={MemberDetailBooking}
+          />
+          <Route exact path="/member/:id/pass" component={MemberDetailPass} />
+          <Route
+            exact
+            path="/member/:id/payment"
+            component={MemberDetailPayment}
+          />
+          <Route exact path="/member/:id/info" component={MemberDetailInfo} />
+        </Switch>
       </div>
-    );
-  }
-}
-
-function mapStateToProps(state, { id }) {
-  return {
-    id,
-    memberLoading: state.member.loading,
-    member: state.member.member,
-    bookingLoading: state.booking.loading,
-    bookings: state.booking.all,
-    bookingOptions: state.booking.options,
-    paymentPacks: paymentPackSelectors.getAll(state),
-  };
-}
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchMember(memberId) {
-      dispatch(memberActions.fetchMember(memberId));
-    },
-    fetchMemberBookings(memberId) {
-      dispatch(bookingActions.fetchBookingsByMember(memberId));
-    },
-    confirmBookingAttendance(bookingId) {
-      dispatch(bookingActions.confirmBookingAttendance(bookingId));
-    },
-    discardBookingAttendance(bookingId) {
-      dispatch(bookingActions.discardBookingAttendance(bookingId));
-    },
-    billMember(id) {
-      dispatch(routerPush(`/invoice/add/member/${id}`));
-    },
-    subscribeMember(id) {
-      dispatch(routerPush(`/subscription/add/${id}`));
-    },
-    editMember(id) {
-      dispatch(routerPush(`/member/edit/${id}`));
-    },
-    goBack() {
-      dispatch(goBack());
-    },
-    pushToInvoice(uuid: string) {
-      dispatch(routerPush(`/invoice/${uuid}`));
-    },
-    pushToSubscription(id: number) {
-      dispatch(routerPush(`/subscription/${id}`));
-    },
-    incrementCredit(consumerPackId) {
-      dispatch(consumerPackActions.updateCredit(consumerPackId, 1));
-    },
-    decrementCredit(consumerPackId) {
-      dispatch(consumerPackActions.updateCredit(consumerPackId, -1));
-    },
-    createOrUpdateNote({ id, text, memberId }) {
-      dispatch(memberActions.createOrUpdateNote(id, text, memberId));
-    },
-    deleteNote({ noteId, memberId }) {
-      dispatch(memberActions.deleteNote({ noteId, memberId }));
-    },
-  };
+      <MemberActions
+        t={t}
+        classes={classes}
+        billMember={() => billMember(id)}
+        subscribeMember={() => subscribeMember(id)}
+      />
+    </div>
+  );
 }
 
 const styles = (theme) => ({
-  backButton: {
-    marginBottom: theme.spacing.unit,
+  container: {
+    marginBottom: theme.spacing.unit * 4,
+    marginTop: -theme.spacing.unit * 3,
+    width: '100vw',
+    [theme.breakpoints.up('md')]: {
+      marginLeft: -theme.spacing.unit * 3,
+      width: 'auto',
+      marginRight: -theme.spacing.unit * 3,
+      marginTop: -theme.spacing.unit * 2,
+    },
+  },
+  content: {
+    marginBottom: theme.spacing.unit * 8,
+    [theme.breakpoints.up('md')]: {
+      margin: theme.spacing.unit * 2,
+      marginBottom: theme.spacing.unit * 8,
+    },
+    marginTop: theme.spacing.unit * 2,
+  },
+  bottomButtonContainer: {
+    position: 'fixed',
+    bottom: theme.spacing.unit * 2,
+    right: theme.spacing.unit * 2,
+  },
+  bottomButton: {
+    marginTop: theme.spacing.unit * 2,
+    marginLeft: theme.spacing.unit * 2,
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
   },
 });
 
 export default compose(
   withStyles(styles),
-  withNamespaces([]),
-  routerParamsToProps({ id: 'id:number' }),
+  withNamespaces(),
+  routerParamsToProps({ tab: 'tab', id: 'id:number' }),
   connect(
-    mapStateToProps,
-    mapDispatchToProps,
+    (state, { id }) => ({
+      member: memberSelectors.get(state, id),
+    }),
+    (dispatch) => ({
+      billMember(id) {
+        dispatch(pushRouter(`/invoice/add/member/${id}`));
+      },
+      subscribeMember(id) {
+        dispatch(pushRouter(`/subscription/add/${id}`));
+      },
+      pushToTab(id, tab) {
+        dispatch(pushRouter(`/member/${id}/${tab}`));
+      },
+    }),
   ),
-)(Member);
+  withDrawer(({ member }) => (member ? member.name : '')),
+)(MemberDetail);

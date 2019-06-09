@@ -6,6 +6,26 @@ import api from '../api';
 import type { Dispatch } from '../state/types';
 import { snackbarSuccess } from './snackbar.actions';
 
+export const byId = {
+  isLoading: createAction('CONSUMER_PACK/BY_ID/IS_LOADING'),
+  error: createAction('CONSUMER_PACK/BY_ID/ERROR'),
+  success: createAction('CONSUMER_PACK/BY_ID/SUCCESS'),
+};
+
+export function fetchById(id: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(byId.isLoading(true));
+    dispatch(byId.error(null));
+    try {
+      const response = await api.consumerPaymentPack.fetchById(id);
+      dispatch(byId.success(response.data));
+    } catch (error) {
+      dispatch(byId.error(error));
+    }
+    dispatch(byId.isLoading(false));
+  };
+}
+
 export const byOfferByMember = {
   isLoading: createAction('CONSUMER_PACK/BY_OFFER_BY_MEMBER/IS_LOADING'),
   error: createAction('CONSUMER_PACK/BY_OFFER_BY_MEMBER/ERROR'),
@@ -100,7 +120,6 @@ export function updateCredit(consumerPackId: number, nbCredit: number) {
   };
 }
 
-/* dead code actually
 export const byMember = {
   isLoading: createAction('CONSUMER_PACK/BY_MEMBER/IS_LOADING'),
   error: createAction('CONSUMER_PACK/BY_MEMBER/ERROR'),
@@ -116,9 +135,9 @@ export function fetchByMember(memberId: number) {
       const response = await api.consumerPaymentPack.fetchByMember(memberId);
       dispatch(byMember.success(response.data));
     } catch (error) {
+      console.error(error);
       dispatch(byMember.error(error));
     }
     dispatch(byMember.isLoading(false));
   };
 }
-*/

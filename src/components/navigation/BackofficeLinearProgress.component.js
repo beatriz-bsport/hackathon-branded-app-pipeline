@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
-import { LinearProgress, withStyles } from '@material-ui/core';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 const styles = (theme) => ({
   linear: {

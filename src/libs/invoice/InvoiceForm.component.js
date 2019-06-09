@@ -12,7 +12,8 @@ import {
   CircularProgress,
   withStyles,
 } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
+import SaveIcon from '@material-ui/icons/Save';
+import CancelIcon from '@material-ui/icons/Cancel';
 import DownloadIcon from '@material-ui/icons/Attachment';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -103,6 +104,7 @@ const RevertButton = (props: {
   reverted: boolean,
   processing: boolean,
   onClick: (*) => void,
+  classes: Object,
   t: TFunction,
 }) => (
   <RedButton
@@ -111,9 +113,12 @@ const RevertButton = (props: {
     onClick={props.onClick}
     disabled={props.processing || props.reverted}
   >
-    {props.reverted
-      ? props.t('invoice.invoiceReverted')
-      : props.t('invoice.revert')}
+    <CancelIcon className={props.classes.leftIcon} />
+    <Hidden xsDown>
+      {props.reverted
+        ? props.t('invoice.invoiceReverted')
+        : props.t('invoice.revert')}
+    </Hidden>
   </RedButton>
 );
 
@@ -136,9 +141,9 @@ const SaveButton = (props: {
         color="inherit"
       />
     ) : (
-      <AddIcon className={props.classes.leftIcon} />
+      <SaveIcon className={props.classes.leftIcon} />
     )}
-    {props.t('common.save')}
+    <Hidden xsDown>{props.t('common.save')}</Hidden>
   </Button>
 );
 
@@ -417,6 +422,7 @@ export class InvoiceForm extends Component<Props, State> {
             onClick={() => this.props.revertInvoice(invoice.uuid)}
             processing={this.props.processing}
             reverted={invoice.reverted}
+            classes={classes}
           />
         ) : null}
         {invoice && invoice.stripe_invoice_pdf ? (

@@ -14,7 +14,7 @@ import type { TFunction } from 'react-i18next';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import { humanizeDuration, formatAsDatetime } from '../../../datetime';
 import type { Booking } from '../../../api/types';
-import { getBookingStatusCode } from '../../../components/booking/Booking.utils';
+import { getBookingStatusCode } from '../../../libs/booking/utils';
 import CoachAvatar from '../../../libs/coach/components/CoachAvatar.component';
 
 type Props = {

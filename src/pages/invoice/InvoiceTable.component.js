@@ -23,7 +23,7 @@ import api from '../../api';
 
 import { formatAsDatetime } from '../../datetime';
 
-import type { Member, Invoice } from '../../api/types';
+import type { Invoice } from '../../api/types';
 
 const INVOICE_PER_PAGE = 50;
 
@@ -79,10 +79,10 @@ const renderActions = (invoice: Invoice, action, processing) => {
   );
 };
 
-const renderRows = (invoices, members, processing, actions, t) => {
+const renderRows = (invoices, processing, actions, t) => {
   return invoices.map((inv) => ({
     uuid: inv.uuid.slice(0, 8).toUpperCase(),
-    name: (members.find((m) => m.id === inv.member) || {}).name,
+    name: inv.memberName,
     date: formatAsDatetime(inv.date),
     price_due: `${inv.price_due} €`,
     status: renderStatus(inv, t),
@@ -90,8 +90,8 @@ const renderRows = (invoices, members, processing, actions, t) => {
   }));
 };
 
-const getColumnData = (t: TFunction) => {
-  return [
+const getColumnData = (t: TFunction, showOnlyCoreColumns: boolean) => {
+  const coreColumns = [
     {
       name: 'uuid',
       label: 'ID',
@@ -99,10 +99,6 @@ const getColumnData = (t: TFunction) => {
         filter: false,
         sort: false,
       },
-    },
-    {
-      name: 'name',
-      label: t('payment.consumer'),
     },
     {
       name: 'date',
@@ -122,6 +118,17 @@ const getColumnData = (t: TFunction) => {
         print: false,
       },
     },
+  ];
+  if (showOnlyCoreColumns) {
+    return coreColumns;
+  }
+
+  return [
+    {
+      name: 'name',
+      label: t('payment.consumer'),
+    },
+    ...coreColumns,
     {
       name: 'actions',
       label: t('payment.actions'),
@@ -136,11 +143,13 @@ const getColumnData = (t: TFunction) => {
 };
 
 type Props = {
-  members: Array<Member>,
   t: TFunction,
   finalizeInvoice: (uuid: string) => void,
   downloadInvoice: (uuid: string) => void,
   onInvoiceClick: (uuid: string) => void,
+  showOnlyCore: ?boolean,
+  queryParams: ?string,
+  title?: string,
 };
 
 type State = {
@@ -169,6 +178,7 @@ export class InvoiceTable extends Component<Props, State> {
       .fetchAll({
         page,
         pageSize: INVOICE_PER_PAGE,
+        queryParams: this.props.queryParams,
       })
       .then((response) => {
         this.setState((prevState) => ({
@@ -232,7 +242,7 @@ export class InvoiceTable extends Component<Props, State> {
   };
 
   render() {
-    const { t, members } = this.props;
+    const { t } = this.props;
     const { invoices, processing, loading } = this.state;
     const options = {
       onRowClick: this.onRowClick,
@@ -270,7 +280,6 @@ export class InvoiceTable extends Component<Props, State> {
         <MUIDataTable
           data={renderRows(
             invoices,
-            members,
             processing,
             {
               finalizeInvoice: this.startFinalizeInvoice,
@@ -278,8 +287,9 @@ export class InvoiceTable extends Component<Props, State> {
             },
             t,
           )}
-          columns={getColumnData(t)}
+          columns={getColumnData(t, !!this.props.showOnlyCore)}
           options={options}
+          title={this.props.title}
         />
         <FinalizeInvoiceDialog
           open={!!this.state.invoiceFinalizing}

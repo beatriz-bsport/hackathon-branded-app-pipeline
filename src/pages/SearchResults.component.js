@@ -16,20 +16,17 @@ import Button from '@material-ui/core/Button';
 import ResultList from '../components/search/ResultList.component';
 import SearchBar from '../components/SearchBar.component';
 
-import {
-  search as searchActions,
-} from '../actions';
+import { search as searchActions } from '../actions';
 
 import withDrawer from '../hocs/with-drawer.hoc';
 
 type Props = {
-  searchText: string,
   members: *[],
   classes: *,
   member: *,
   selected: number,
-  bookings: *[],
   pushToMember: (memberId: number) => void,
+  membersLoading: boolean,
   selectEntity: (*) => void,
   t: TFunction,
 };
@@ -95,11 +92,6 @@ export class SearchResults extends Component<Props, State> {
     return new Fuse(items, options);
   });
 
-  getResults = () =>
-    this.getFuse(this.props.members)
-      .search(this.props.searchText)
-      .slice(0, 30);
-
   selectEntity = (entity) => {
     if (entity.type === 'member') {
       this.props.pushToMember(entity.data.id);
@@ -109,9 +101,8 @@ export class SearchResults extends Component<Props, State> {
   };
 
   render() {
-    const { t, classes, member, bookings, selected } = this.props;
-    const results = this.getResults();
-    const hasLoaded = member && bookings;
+    const { t, classes, member, selected } = this.props;
+    const hasLoaded = member;
     const isLoadingMember = !hasLoaded && selected;
     return (
       <Paper className={classes.root}>
@@ -128,10 +119,12 @@ export class SearchResults extends Component<Props, State> {
           </Button>
         ) : null}
         <div className={classes.content}>
+          {hasLoaded ? null : <LinearProgress />}
           <ResultList
-            items={results}
+            items={this.props.members}
             selected={selected}
             selectEntity={this.selectEntity}
+            loading={this.props.membersLoading}
             className={selected && !isLoadingMember ? classes.hidden : ''}
           />
         </div>
@@ -145,17 +138,17 @@ function mapStateToProps(state) {
   const { selectedId } = state.search;
   return {
     selected: selectedId,
-    members: state.member.all,
+    members: state.member.search.items,
     searchText: state.search.text,
-    bookings: state.booking.all,
     member: member && member.id === selectedId ? member : null,
+    membersLoading: state.member.search.loading,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     pushToMember(memberId: number) {
-      dispatch(push(`/member/${memberId}`));
+      dispatch(push(`/member/${memberId}/`));
     },
     selectEntity(entity) {
       dispatch(searchActions.selectEntity(entity));

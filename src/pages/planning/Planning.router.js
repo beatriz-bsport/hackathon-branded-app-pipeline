@@ -8,10 +8,8 @@ import { push, replace } from 'react-router-redux';
 import Planning from './Planning.component';
 import { Moment } from '../../i18n';
 
-import {
-  offer as offerActions,
-  booking as bookingActions,
-} from '../../actions';
+import { offer as offerActions } from '../../actions';
+import { fetchBookingsByOffer as fetchBookingsByOfferAction } from '../../libs/booking/actions';
 
 const formatDate = (date) => {
   const formatedDate = Moment(date, 'DD-MM-YYYY');
@@ -50,7 +48,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(offerActions.fetchOffersByDay({ year, month, day }));
     },
     fetchBookings(offerId) {
-      dispatch(bookingActions.fetchBookingsByOffer(offerId));
+      dispatch(fetchBookingsByOfferAction(offerId));
     },
     pushRouter(path) {
       dispatch(push(path));

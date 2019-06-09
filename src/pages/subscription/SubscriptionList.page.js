@@ -14,7 +14,6 @@ import SubscriptionTable from '../../libs/subscription/SubscriptionTable.compone
 import type { Subscription } from '../../libs/subscription/types';
 
 type Props = {
-  members: Array<Member>,
   goToSubscription: (id: number) => void,
 };
 type State = {
@@ -40,7 +39,6 @@ export class SubscriptionList extends Component<Props, State> {
   render() {
     return (
       <SubscriptionTable
-        members={this.props.members}
         subscriptions={this.state.subscriptions}
         loading={this.state.loading}
         goToSubscription={this.props.goToSubscription}
@@ -53,7 +51,7 @@ export default compose(
   withNamespaces(['', 'subscription']),
   withDrawer(({ t }: { t: TFunction }) => t('appbar.title.subscriptions')),
   connect(
-    (state) => ({ members: state.member.all }),
+    null,
     (dispatch) => ({
       goToSubscription(id) {
         dispatch(pushRouter(`/subscription/${id}`));

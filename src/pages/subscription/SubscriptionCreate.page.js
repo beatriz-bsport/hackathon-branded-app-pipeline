@@ -11,15 +11,20 @@ import { Elements, StripeProvider } from 'react-stripe-elements';
 import { withNamespaces } from 'react-i18next';
 import withDrawer from '../../hocs/with-drawer.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import withFetchDetail from '../../hocs/with-fetch-details.hoc';
 import Config from '../../config';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import api from '../../libs/subscription/api';
+import { fetchMember } from '../../libs/member/actions';
+import memberSelectors from '../../libs/member/selectors';
 import SubscriptionCreateComponent from '../../libs/subscription/SubscriptionCreate.component';
 import SubscriptionScheduleChecker from '../../libs/subscription/SubscriptionScheduleChecker.component';
 import type { SubscriptionData } from '../../libs/subscription/types';
 import paymentPackSelectors from '../../libs/payment-packs/selectors';
 import type { PaymentPack } from '../../libs/payment-packs/types';
+
+import type { Member } from '../../libs/member/types';
 
 type Props = {
   member: Member,
@@ -116,11 +121,18 @@ export default compose(
   connect(
     (state, { memberId }) => ({
       paymentPacks: paymentPackSelectors.getEnabled(state),
-      member: state.member.all.find((m) => m.id === memberId),
+      memberLoading: state.member.loading,
+      member: memberSelectors.get(state, memberId),
     }),
     {
       onCancel: goBack,
       pushToSubscription: (id) => pushRouter(`/subscription/${id}`),
+      fetchMember,
     },
   ),
+  withFetchDetail((props) => ({
+    id: props.memberId,
+    fetch: props.fetchMember,
+    loading: props.memberLoading,
+  })),
 )(SubscriptionCreate);

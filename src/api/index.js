@@ -9,7 +9,6 @@ import establishment from './establishment';
 import stats from './stat';
 import activity from './activity';
 import coach from './coach';
-import member from './member';
 import paymentPack from './payment-pack';
 import consumerPaymentPack from './consumer-payment-pack';
 import payment from './payment';
@@ -31,7 +30,6 @@ export default {
   stats,
   activity,
   coach,
-  member,
   paymentPack,
   consumerPaymentPack,
   payment,

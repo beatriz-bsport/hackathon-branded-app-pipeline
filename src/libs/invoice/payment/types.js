@@ -20,11 +20,3 @@ export type PaymentItem = {
   reverted: boolean,
   is_method_editable: boolean,
 };
-
-export type InvoiceDataFront = {
-  paymentItems: Array<PaymentItemData>,
-  offerIds: Array<number>,
-  paymentPackIds: Array<number>,
-  voucher: ?number,
-  date: string,
-};

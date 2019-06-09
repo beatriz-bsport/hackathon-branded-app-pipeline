@@ -11,7 +11,9 @@ import settings from './en/settings.translations';
 import paymentRules from './en/payment-rules.translations';
 import reporting from './en/reporting.translations';
 import stripe from './fr/stripe.translations';
-import alerting from './fr/alerting.translations';
+import alerting from './en/alerting.translations';
+import booking from './en/booking.translations';
+import tag from './en/tag.translations';
 
 export default {
   dashboard,
@@ -19,6 +21,10 @@ export default {
   settings,
   paymentRules,
   reporting,
+  paymentPack,
+  booking,
+  member,
+  tag,
   coachPerformance: {
     addBonus: 'Add a rule',
     dateTitle: 'Date range',
@@ -630,6 +636,9 @@ export default {
       toBill: 'Add invoice',
     },
     paymentPack,
+    paginatedList: {
+      isEmpty: 'No data to display',
+    },
     login: {
       welcome: 'Welcome !',
       signUpConsumer: 'Create an account ?',

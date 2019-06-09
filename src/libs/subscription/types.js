@@ -11,7 +11,7 @@ export type PlannedInvoice = {
 export type Subscription = {
   id: number,
   name: string,
-  member: number,
+  memberName: string,
   nb_interval: number,
   trial_nb: number,
   recurrent_price: number,

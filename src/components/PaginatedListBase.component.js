@@ -5,6 +5,8 @@ import List from '@material-ui/core/List';
 import IconButton from '@material-ui/core/IconButton';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import withStyles from '@material-ui/core/styles/withStyles';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
@@ -23,7 +25,9 @@ type Props = {
   page: number,
   loading: ?boolean,
   onPageRequested: (page: number, pageSize: number) => void,
+
   t: TFunction,
+  classes: Object,
 };
 
 type State = {
@@ -65,15 +69,35 @@ export class PaginatedList extends PureComponent<Props, State> {
 
   goLast = () => this.handlePageRequested(this.calcLastPage());
 
+  renderEmpty = () => {
+    if (this.props.renderEmpty) {
+      return this.props.renderEmpty();
+    }
+    return this.defaultRenderEmpty();
+  };
+
+  defaultRenderEmpty = () => {
+    return (
+      <React.Fragment>
+        <Typography
+          className={this.props.classes.emptyContainer}
+          color="textSecondary"
+          variant="caption"
+        >
+          {this.props.t('paginatedList.isEmpty')}
+        </Typography>
+        <Divider />
+      </React.Fragment>
+    );
+  };
+
   render() {
     return (
       <div>
         <List {...this.props.listProps}>
           {this.props.items.map((i) => this.props.renderItem(i))}
-          {!this.props.loading &&
-          this.props.items.length === 0 &&
-          this.props.renderEmpty
-            ? this.props.renderEmpty()
+          {!this.props.loading && this.props.items.length === 0
+            ? this.renderEmpty()
             : null}
         </List>
         {this.props.loading ? <LinearProgress /> : null}
@@ -132,4 +156,10 @@ export class PaginatedList extends PureComponent<Props, State> {
   }
 }
 
-export default withNamespaces()(PaginatedList);
+const styles = (theme) => ({
+  emptyContainer: {
+    padding: theme.spacing.unit * 2,
+  },
+});
+
+export default withStyles(styles)(withNamespaces()(PaginatedList));

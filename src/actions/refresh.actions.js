@@ -3,7 +3,6 @@ import { Moment } from '../i18n';
 
 import { fetchAllActivities as fetchAllMetaActivities } from './meta-activity.actions';
 import { fetchAllOffers } from './offer.actions';
-import { fetchAll as fetchAllMembers } from './member.actions';
 import { fetchActivities as fetchActivitiesMinimal } from './activity.actions';
 import { fetchAssociated as fetchAssociatedCoaches } from './coach.actions';
 import { fetchEstablishments } from './establishment.actions';
@@ -13,7 +12,6 @@ import { fetchDashboard as fetchDashboardStats } from './stats.actions';
 import { fetchAll as fetchShop } from './shop.actions';
 import { fetchPaymentRules } from '../libs/payment-rules/actions';
 import { fetchAll as fetchWorkshopActivities } from './workshop-activity.actions';
-import { reset as resetMemberDetails } from './member-fetcher.actions';
 import { fetch as fetchAllAlertings } from '../libs/alerting/actions';
 
 const THRESHOLD_MINUTES = 60 * 12;
@@ -37,10 +35,8 @@ export function forceRefresh() {
     dispatch(storeIsRefreshing());
     Promise.all([
       dispatch(fetchAllAlertings()),
-      dispatch(resetMemberDetails()),
       dispatch(fetchAllMetaActivities()),
       dispatch(fetchAllOffers()),
-      dispatch(fetchAllMembers()),
       dispatch(fetchActivitiesMinimal()),
       dispatch(fetchAssociatedCoaches()),
       dispatch(fetchEstablishments()),

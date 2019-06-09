@@ -30,6 +30,10 @@ export type ConsumerPaymentPack = {
   id: number,
   bookings_this_week: number,
   ending_date: string,
+  starting_date: string,
+  available_credits: number,
+  date_bought: string,
+  payment_pack_id: string,
 };
 
 export type PaymentPackState = {

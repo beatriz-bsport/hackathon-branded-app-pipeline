@@ -9,9 +9,9 @@ import type { TFunction } from 'react-i18next';
 import { formatAsDate } from '../../datetime';
 import type { Subscription } from './types';
 
-const renderRows = (subscriptions, members) => {
+const renderRows = (subscriptions) => {
   return subscriptions.map((sub) => ({
-    member: (members.find((m) => m.id === sub.member) || {}).name,
+    member: sub.memberName,
     name: sub.name,
     nb_interval: parseInt(sub.nb_interval, 10),
     date_created: formatAsDate(sub.date_created),
@@ -21,12 +21,8 @@ const renderRows = (subscriptions, members) => {
   }));
 };
 
-const getColumnData = (t: TFunction) => {
-  return [
-    {
-      name: 'member',
-      label: t('parameters.member'),
-    },
+const getColumnData = (t: TFunction, showOnlyCoreColumns: boolean) => {
+  const coreColumns = [
     {
       name: 'name',
       label: t('parameters.name'),
@@ -44,12 +40,25 @@ const getColumnData = (t: TFunction) => {
       label: t('parameters.recurrent_price'),
     },
   ];
+
+  if (showOnlyCoreColumns) {
+    return coreColumns;
+  }
+
+  return [
+    {
+      name: 'member',
+      label: t('parameters.member'),
+    },
+    ...coreColumns,
+  ];
 };
 
 type Props = {
   loading: boolean,
+  showOnlyCore: ?boolean,
+  title?: string,
   subscriptions: Array<Subscription>,
-  members: Array<Member>,
   goToSubscription: (id: number) => void,
   t: TFunction,
 };
@@ -81,8 +90,9 @@ export class SubscriptionTable extends Component<Props> {
     };
     return (
       <MUIDataTable
-        data={renderRows(this.props.subscriptions, this.props.members)}
-        columns={getColumnData(this.props.t)}
+        title={this.props.title}
+        data={renderRows(this.props.subscriptions)}
+        columns={getColumnData(this.props.t, !!this.props.showOnlyCore)}
         options={options}
       />
     );

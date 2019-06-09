@@ -13,14 +13,20 @@ import subscription from './fr/subscription.translations';
 import reporting from './fr/reporting.translations';
 import stripe from './fr/stripe.translations';
 import alerting from './fr/alerting.translations';
+import booking from './fr/booking.translations';
+import tag from './fr/tag.translations';
 
 export default {
   dashboard,
+  tag,
   settings,
   paymentRules,
   subscription,
   reporting,
   alerting,
+  paymentPack,
+  member,
+  booking,
   coachPerformance: {
     fields: {
       bonus: 'Bonus',
@@ -683,6 +689,9 @@ export default {
       toSubscribe: 'Souscrire',
     },
     paymentPack,
+    paginatedList: {
+      isEmpty: 'Aucune donnée à afficher',
+    },
     login: {
       welcome: 'Bienvenue !',
       signUpConsumer: 'Pas encore de compte ?',

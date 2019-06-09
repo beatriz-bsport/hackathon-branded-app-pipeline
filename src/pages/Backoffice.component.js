@@ -9,7 +9,7 @@ import Config from '../config';
 
 import ResponsiveDrawer from '../components/navigation/ResponsiveDrawer.component';
 
-import { refresh as refreshActions, member as memberActions } from '../actions';
+import { refresh as refreshActions } from '../actions';
 import asyncComponent from '../AsyncComponent';
 
 import { MarketingDashboard, MarketingRule } from './marketing';
@@ -61,23 +61,11 @@ type Props = {
   classes: Object,
   authenticated: boolean,
   refreshIfNeeded: () => void,
-  refreshMembers: () => void,
 };
 
 export class Backoffice extends Component<Props> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      memberRefresh: setInterval(props.refreshMembers, 60 * 1000),
-    };
-  }
-
   componentWillMount() {
     document.title = 'Backoffice - bsport';
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.state.memberRefresh);
   }
 
   componentDidMount() {
@@ -143,9 +131,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    refreshMembers() {
-      dispatch(memberActions.refresher());
-    },
     refreshIfNeeded() {
       dispatch(refreshActions.refreshIfNeeded());
     },

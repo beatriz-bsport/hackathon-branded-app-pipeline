@@ -3,113 +3,101 @@
 import React, { Component } from 'react';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import i18next from 'i18next';
-import {
-  TableRow,
-  TableCell,
-  Grid,
-  Button,
-  Typography,
-} from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-
-import { member as memberActions } from '../../actions';
-import { formatAsDate } from '../../datetime';
-import { FeatureTable } from '../../components';
-import type { Member } from '../../api/types';
+import { fetchAllMembers } from '../../libs/member/api';
 import withDrawer from '../../hocs/with-drawer.hoc';
-import withBottomButtons from '../../hocs/inject-bottom-buttons';
+import MemberTable from '../../libs/member/MemberTable.component';
+
+import TagChipList from '../../libs/tag/components/TagChipList.component';
+import TagFilterForm from '../../libs/tag/components/TagFilterForm.component';
+import tagSelectors from '../../libs/tag/selectors';
+import type { Tag, TagGroup } from '../../libs/tag/types';
+
+import { fetchTags } from '../../libs/tag/actions';
 
 type Props = {
-  t: TFunction,
-  loading: boolean,
-  members: Array<Member>,
-
-  refresh: () => void,
   goToMemberPage: (memberId: number) => void,
-};
-const getColumnData = (t) => {
-  return [
-    {
-      id: 'name',
-      label: t('common.name'),
-      sortable: true,
-      dataType: 'text',
-    },
-    {
-      id: 'date_joined',
-      label: t('member.date_joined'),
-      sortable: true,
-    },
-    {
-      id: 'credit_account_balance',
-      label: t('member.creditAccountBalance'),
-      sortable: true,
-    },
-    {
-      id: 'actions',
-      label: t('member.row.headers.actions'),
-    },
-  ];
-};
-const renderRow = (t, goToMemberPage) => (
-  member: Member,
-  handleClick: () => void,
-  isSelected: boolean,
-) => {
-  const { credit_account_balance, date_joined, name, id } = member;
-  const credit = credit_account_balance || 0;
-  return (
-    <TableRow
-      hover
-      onClick={() => goToMemberPage(id)}
-      aria-checked={isSelected}
-      tabIndex={-1}
-      key={id}
-      selected={isSelected}
-    >
-      <TableCell component="th" scope="row">
-        {name}
-      </TableCell>
-      <TableCell>{formatAsDate(date_joined)}</TableCell>
-      <TableCell>
-        <Typography color={credit >= 0 ? 'primary' : 'error'}>
-          {credit.toFixed(2)} €
-        </Typography>
-      </TableCell>
-      <TableCell>
-        <Button onClick={() => goToMemberPage(id)} color="primary">
-          {t('common.show')}
-        </Button>
-      </TableCell>
-    </TableRow>
-  );
+  addMember: () => void,
+  tagGroups: Array<TagGroup>,
+    fetchTags: () => void,
+    tags: Array<Tag>,
 };
 
 export class Members extends Component<Props> {
+  state = {
+    tagsIncluded: [],
+    tagsExcluded: [],
+    showFilterForm: false,
+  };
+
   componentDidMount() {
-    this.props.refresh();
+    this.props.fetchTags();
   }
 
-  render() {
-    const { loading, members, t, goToMemberPage } = this.props;
+  createTagFilter = (filter) => {
+    if (filter.include) {
+      this.setState((prevState) => ({
+        tagsIncluded: [...prevState.tagsIncluded, filter.tagId],
+        showFilterForm: false,
+      }));
+    } else {
+      this.setState((prevState) => ({
+        tagsExcluded: [...prevState.tagsExcluded, filter.tagId],
+        showFilterForm: false,
+      }));
+    }
+  };
 
-    const mutableMembers = members.asMutable ? members.asMutable() : members;
+  tagFilterBar = () => (
+    <React.Fragment>
+      <TagChipList
+        tagGroups={this.props.tagGroups}
+        tags={this.props.tags}
+        includes={this.state.tagsIncluded}
+        excludes={this.state.tagsExcluded}
+        handleReinit={() =>
+          this.setState({ tagsIncluded: [], tagsExcluded: [] })
+        }
+        handleDeleteTag={(id, include) => {
+          if (include) {
+            this.setState((prevState) => ({
+              tagsIncluded: prevState.tagsIncluded.filter((id_) => id_ !== id),
+            }));
+          } else {
+            this.setState((prevState) => ({
+              tagsExcluded: prevState.tagsExcluded.filter((id_) => id_ !== id),
+            }));
+          }
+        }}
+        handleAdd={() => this.setState({ showFilterForm: true })}
+      />
+    </React.Fragment>
+  );
+
+  render() {
+    const { addMember, goToMemberPage } = this.props;
 
     return (
       <Grid container direction="row" spacing={32}>
         <Grid item xs={12}>
-          <FeatureTable
-            data={mutableMembers}
-            order="desc"
-            orderBy="date_joined"
-            renderRow={renderRow(t, goToMemberPage)}
-            columnData={getColumnData(t)}
-            loading={loading}
+          <MemberTable
+            tagsExcluded={this.state.tagsExcluded}
+            tagsIncluded={this.state.tagsIncluded}
+            fetch={fetchAllMembers}
+            goToMember={goToMemberPage}
+            addMember={addMember}
+            customToolBar={this.tagFilterBar}
           />
         </Grid>
+        <TagFilterForm
+          open={this.state.showFilterForm}
+          onClose={() => this.setState({ showFilterForm: false })}
+          tagGroups={this.props.tagGroups}
+          createFilter={this.createTagFilter}
+        />
       </Grid>
     );
   }
@@ -121,17 +109,13 @@ export default compose(
   connect(
     (state) => ({
       loading: state.member.loading,
-      members: state.member.all,
+      tagGroups: tagSelectors.getMemberTagGroups(state),
+      tags: tagSelectors.getMemberTags(state),
     }),
     {
-      goToMemberPage: (id: number) => push(`/member/${id}`),
-      refresh: memberActions.refresher,
+      fetchTags,
+      goToMemberPage: (id: number) => push(`/member/${id}/`),
+      addMember: () => push('/member/add'),
     },
   ),
-  withBottomButtons({
-    addButton: {
-      path: '/member/add',
-      text: i18next.t('member.addMember'),
-    },
-  }),
 )(Members);

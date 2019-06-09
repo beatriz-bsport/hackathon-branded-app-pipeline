@@ -1,4 +1,9 @@
 export default {
+  details: {
+    pleaseSelectAPack: 'Sélectionnez un abonnement pour voir le détails',
+    invoiceTitle: 'Facture associée',
+    bookingsTitle: 'Réservations associées',
+  },
   newMemberOnly: 'Disponible uniquement aux nouveaux inscrits',
   publicPacksTitle: 'Abonnements disponibles à la vente',
   privatePacksTitle: 'Abonnements non disponibles à la vente',
@@ -52,4 +57,5 @@ export default {
     updated: 'Crédits mis à jour',
   },
   noConsumerPack: 'Aucun achat enregistré',
+  reverted: 'Facture annulée',
 };

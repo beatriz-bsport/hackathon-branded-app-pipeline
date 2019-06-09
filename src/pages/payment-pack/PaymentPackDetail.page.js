@@ -199,7 +199,9 @@ function mapStateToProps(state, { id }) {
     ],
     establishments: state.establishment.all,
     consumerPacks: {
-      items: state.consumerPaymentPack.byPaymentPack.items,
+      items: state.consumerPaymentPack.byPaymentPack.items.filter(
+        (cpp) => !cpp.reverted,
+      ),
       count: state.consumerPaymentPack.byPaymentPack.count,
       loading: state.consumerPaymentPack.byPaymentPack.loading,
       page: state.consumerPaymentPack.byPaymentPack.page,

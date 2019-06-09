@@ -7,6 +7,7 @@ import type { TFunction } from 'react-i18next';
 
 import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -18,16 +19,30 @@ type Props = {
   selected: number,
   classes: *,
   className: number,
+
+  loading: boolean,
   t: TFunction,
   renderListComponent: (*) => Node,
 };
-type State = {};
 
-export class ResultList extends Component<Props, State> {
-  state = {};
+const EmptyResults = (props: { t: TFunction }) => (
+  <ListItem>
+    <ListItemIcon>
+      <HighlightOffIcon />
+    </ListItemIcon>
+    <ListItemText
+      primaryTypographyProps={{ noWrap: true }}
+      primary={props.t('search.noResult')}
+    />
+  </ListItem>
+);
 
+export class ResultList extends Component<Props> {
   renderResults = () => {
     const { renderListComponent, selected, classes } = this.props;
+    if (this.props.items.length === 0) {
+      return <EmptyResults t={this.props.t} />;
+    }
     if (renderListComponent) {
       return this.props.items.map((item) => renderListComponent(item));
     }
@@ -53,25 +68,18 @@ export class ResultList extends Component<Props, State> {
   };
 
   render() {
-    const { classes, t, className } = this.props;
-    const emptyResults = (
-      <ListItem>
-        <ListItemIcon>
-          <HighlightOffIcon />
-        </ListItemIcon>
-        <ListItemText
-          primaryTypographyProps={{ noWrap: true }}
-          primary={t('search.noResult')}
-        />
-      </ListItem>
-    );
+    const { classes, className } = this.props;
     return (
       <List
         className={`${classes.list} ${className}`}
         elevation={10}
         disablePadding
       >
-        {this.props.items.length ? this.renderResults() : emptyResults}
+        {this.props.loading ? (
+          <LinearProgress style={{ width: '100%' }} />
+        ) : (
+          this.renderResults()
+        )}
       </List>
     );
   }

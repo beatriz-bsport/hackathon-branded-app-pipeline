@@ -70,7 +70,7 @@ export default compose(
       fetch: fetchSubscription,
       stop: stopSubscription,
       goToInvoice: (uuid: string) => pushRouter(`/invoice/${uuid}`),
-      goToMember: (id: number) => pushRouter(`/member/${id}`),
+      goToMember: (id: number) => pushRouter(`/member/${id}/`),
       goToSubscribe: (id: number) => pushRouter(`/subscription/add/${id}`),
     },
   ),

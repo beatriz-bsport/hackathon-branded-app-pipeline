@@ -5,6 +5,7 @@
   "viewportHeight": 800,
   "baseUrl": "http://localhost:3000",
   "env": {
-    "BASE_URI": "http://localhost:8000"
+    "BASE_URI":"http://api.ci.bsport.io",
+    "API_URI":"http://api.ci.bsport.io/api-v0"
   }
 }

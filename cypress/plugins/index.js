@@ -12,11 +12,12 @@
 // the project's config changing)
 
 // const dotenv = require('dotenv-expand');
-const dotenv = require('dotenv').config({ path: '.env' });
+// const dotenv = require('dotenv').config({ path: '.env' });
 
 module.exports = (on, config) => {
+  console.log(config);
   // load cypress config from .env
-  config.env = dotenv.parsed;
+  // config.env = dotenv.parsed;
   // cypress base url
   config.baseUrl = config.env.CYPRESS_BASE_URL;
 

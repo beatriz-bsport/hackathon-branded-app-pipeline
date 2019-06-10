@@ -1,22 +1,26 @@
-image: node:alpine
+image: node:10.16.0-alpine
 
 variables:
   YARN_CACHE_DIR: "$CI_PROJECT_DIR/yarn-cache"
+  CYPRESS_CACHE_FOLDER: "$CI_PROJECT_DIR/cache/Cypress"
 
+#Cache dependencies across all jobs
 cache:
-  paths:
-    #    - "$YARN_CACHE_DIR"
-    - "$CI_PROJECT_DIR/node_modules"
   key: "$CI_COMMIT_REF_SLUG"
+  paths:
+      - "$YARN_CACHE_DIR"
+      - "$CYPRESS_CACHE_FOLDER/node_modules"
+      - node_modules
 
 stages:
   - lint
-  - test
+  - unit_tests
   - build
+  - e2e_tests
 
 before_script:
-  - yarn config set cache-folder $YARN_CACHE_DIR
-  - yarn install
+  - yarn config set cache-folder $YARN_CACHE_DIR 
+  - yarn install --frozen-lockfile
   - du -hs $YARN_CACHE_DIR
   - du -hs "$CI_PROJECT_DIR/node_modules"
 
@@ -25,34 +29,66 @@ lint:
   script:
     - yarn lint --quiet
 
-test:
-  stage: test
-  script:
-    - yarn test
+# we dont have unit tests yet
+# Unit Tests:
+#   stage: unit_tests
+#   script:
+#     - yarn test
 
+
+# run the build after linting 
 build:
   stage: build
   script:
     - yarn build
-#    - yarn global add netlify-cli
+  #  - yarn global add netlify-cli
     - $CI_PROJECT_DIR/scripts/configure_build.sh
-#    - netlify deploy --auth=$NETLIFY_TOKEN --site=3d93de4c-10d3-4b08-a9e1-8355d90b56d7 --dir=build
+  #  - netlify deploy --auth=$NETLIFY_TOKEN --site=3d93de4c-10d3-4b08-a9e1-8355d90b56d7 --dir=build
     - rm build/env.js
   artifacts:
     paths:
       - build
     expire_in: 1 month
 
-release on sentry:
-  stage: build
-  script:
-    - yarn add @sentry/cli --dev
-    - ./scripts/make-release.sh
-  only:
-    refs:
-      - master
-
-# run_e2e_test:
-#   stage: test
+# release on sentry:
+#   stage: build
 #   script:
-#     - cypress run --record --key 29017f03-970c-4c8d-91cf-d62da85f8bef
+#     - yarn add @sentry/cli --dev
+#     - ./scripts/make-release.sh
+#   only:
+#     refs:
+#       - master
+
+# End To End Tests
+# Install Cypress binary and run end to end tests using Cypress
+ui tests:
+  # pick up cypress dockerhub image
+  image: cypress/base:10  
+  # stage decla
+  stage: e2e_tests
+
+  before_script:
+    - yarn config set cache-folder $YARN_CACHE_DIR 
+
+    - yarn install --frozen-lockfile
+    # Confirm Cypress is ready to use
+    - $(npm bin)/cypress verify
+    # add wait-on package
+    - yarn global add wait-on 
+    # add serve package that will serve our static files (build)
+    - yarn global add serve
+
+  script:
+    # server our build through the port 3000 (same as cypress dev conf)
+    - serve -s build --listen 3000 & wait-on http://localhost:3000
+    # Create environment specific test config including auth token
+    # (saved to cypress.env.json) then run E2E Tests through Cypress in load balancing mode
+    - $(npm bin)/cypress run --record -- --parallel
+
+  artifacts:
+    name: $CI_JOB_STAGE-$CI_COMMIT_REF_SLUG
+    expire_in: 1 weeks
+    when: always
+    paths:
+      - cypress/videos
+      - cypress/screenshots

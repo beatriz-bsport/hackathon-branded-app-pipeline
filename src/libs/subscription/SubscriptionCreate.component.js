@@ -14,6 +14,7 @@ import type { TFunction } from 'react-i18next';
 import moment from 'moment';
 
 import PaymentPackInput from '../../components/input/PaymentPackInput.component';
+import PaymentPackSelector from '../payment-packs/PaymentPackSelector.component';
 import NumericInput from '../../components/input/NumericInput.component';
 import PriceInput from '../../components/input/PriceInput.component';
 import DateInput from '../../components/input/DateInput.component';
@@ -113,11 +114,12 @@ export class SubscriptionCreate extends Component<Props, State> {
       <div>
         <Grid container direction="column" alignItems="flex-start">
           <Grid item>
-            <PaymentPackInput
+            <PaymentPackSelector
               paymentPacks={paymentPacks}
               value={this.state.payment_pack}
               onChange={this.updatePaymentPack}
               label={t('parameters.paymentPack')}
+              selectorClass={classes.selector}
             />
           </Grid>
           <Grid item className={classes.field}>
@@ -208,6 +210,9 @@ const styles = (theme) => ({
   inlineField: {
     marginRight: theme.spacing.unit,
     marginTop: theme.spacing.unit,
+  },
+  selector: {
+    width: 260,
   },
 });
 

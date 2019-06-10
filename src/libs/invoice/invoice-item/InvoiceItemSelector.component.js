@@ -18,7 +18,7 @@ import DatePicker from 'material-ui-pickers/DatePicker';
 
 import { Moment } from '../../../i18n';
 
-import PaymentPackInput from '../../../components/input/PaymentPackInput.component';
+import PaymentPackSelector from '../../payment-packs/PaymentPackSelector.component';
 import ShopItemInput from '../../../components/input/ShopItemInput.container';
 import PriceInput from '../../../components/input/PriceInput.component';
 
@@ -94,7 +94,7 @@ export class InvoiceItemSelector extends Component<Props, State> {
   };
 
   renderPaymentPackSelector = () => {
-    const { paymentPacks, t } = this.props;
+    const { paymentPacks, t, classes } = this.props;
     const { paymentPackId } = this.state;
     const selectedPaymentPack = paymentPacks.find(
       (pp) => pp.id === paymentPackId,
@@ -102,11 +102,12 @@ export class InvoiceItemSelector extends Component<Props, State> {
     return (
       <Grid container direction="column" spacing={16} alignItems="flex-start">
         <Grid item>
-          <PaymentPackInput
+          <PaymentPackSelector
             value={paymentPackId}
             paymentPacks={paymentPacks}
             onChange={this.storePaymentPackId}
             helperText={t('form.invoice.paymentPackHelper')}
+            selectorClass={classes.selector}
           />
         </Grid>
         <Grid item>
@@ -128,6 +129,7 @@ export class InvoiceItemSelector extends Component<Props, State> {
     <ShopItemInput
       value={this.state.shopItemId}
       onChange={this.storeShopItemId}
+      selectorClass={this.props.classes.selector}
     />
   );
 
@@ -270,6 +272,10 @@ const styles = (theme) => ({
   tabs: {
     backgroundColor: '#F8F8F8',
     borderRadius: 0,
+  },
+  selector: {
+    width: 340,
+    marginTop: theme.spacing.unit * 2,
   },
 });
 

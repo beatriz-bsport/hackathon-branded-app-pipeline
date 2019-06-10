@@ -2,7 +2,7 @@
 import React from 'react';
 import type { Node } from 'react';
 
-import { ListItem, ListItemText } from '@material-ui/core';
+import { ListItem, ListItemText, List } from '@material-ui/core';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { Moment } from '../../i18n';
@@ -13,10 +13,11 @@ type Props = {
   paymentPack: Object,
   noDivider: boolean,
   buyButton: ?Node,
+  button: boolean,
 };
 
 export function PaymentPackMinimalSummary(props: Props) {
-  const { t, paymentPack, noDivider, buyButton } = props;
+  const { t, paymentPack, noDivider, buyButton, button } = props;
   const {
     name,
     credits,
@@ -47,7 +48,7 @@ export function PaymentPackMinimalSummary(props: Props) {
   }
 
   return (
-    <ListItem divider={!noDivider}>
+    <ListItem divider={!!noDivider} dense button={!!button}>
       <ListItemText primary={name} secondary={creditsFormatted} />
       <ListItemText
         primary={`${price} €`}

@@ -2,14 +2,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import ShopItemInput from './ShopItemInput.component';
+import ShopItemSelector from '../../libs/shop/shop-item/ShopItemSelector.component';
 
 type Props = {
   shopItems: Array<ShopItem>,
 };
 
 export function ShopItemInputContained(props: Props) {
-  return <ShopItemInput shopItems={props.shopItems} {...props} />;
+  return <ShopItemSelector shopItems={props.shopItems} {...props} />;
 }
 
 function mapStateToProps(state) {

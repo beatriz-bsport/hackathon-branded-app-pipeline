@@ -7,11 +7,13 @@ import { withNamespaces } from 'react-i18next';
 type Props = {
   // t: (x: string) => string,
   shopItem: ShopItem,
+  noDivider: boolean,
+  button: boolean,
 };
 
 export class ShopItemSummary extends Component<Props> {
   render() {
-    // const { t } = this.props;
+    const { noDivider, button } = this.props;
     const {
       price,
       name,
@@ -19,9 +21,8 @@ export class ShopItemSummary extends Component<Props> {
       // current_stock,
     } = this.props.shopItem;
     // secondary={`${t('form.shop.item.provisions')} : ${current_stock}`}
-
     return (
-      <ListItem divider>
+      <ListItem divider={!noDivider} button={!!button} dense>
         <ListItemText primary={name} secondary={subtitle || ''} />
         <ListItemText
           primary={`${price} € `}

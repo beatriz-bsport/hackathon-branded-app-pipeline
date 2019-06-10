@@ -9,12 +9,14 @@ import Select from 'react-select';
 import CreatableSelect from 'react-select/lib/Creatable';
 
 import { withStyles } from '@material-ui/core/styles';
+import CancelIcon from '@material-ui/icons/Cancel';
+import SearchIcon from '@material-ui/icons/Search';
+import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import Paper from '@material-ui/core/Paper';
 import Chip from '@material-ui/core/Chip';
 import MenuItem from '@material-ui/core/MenuItem';
-import CancelIcon from '@material-ui/icons/Cancel';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
 
 type SelectProps = {
@@ -26,8 +28,11 @@ type SelectProps = {
     singleValue: string,
     chip: string,
     paper: string,
+    inputIcon: string,
+    inputWrapper: string,
   },
   textFieldProps: *,
+  searchIcon: boolean,
 };
 
 type NoOptionsMessageProps = {
@@ -63,11 +68,18 @@ type ControlProps = {
 };
 
 function Control(props: ControlProps) {
+  console.log(props.selectProps);
+  const adornment = props.selectProps.searchIcon ? (
+    <InputAdornment position="start">
+      <SearchIcon />
+    </InputAdornment>
+  ) : null;
   return (
     <TextField
       fullWidth
       InputProps={{
         inputComponent,
+        startAdornment: adornment,
         inputProps: {
           className: props.selectProps.classes.input,
           inputRef: props.innerRef,
@@ -110,11 +122,7 @@ type PlaceholderProps = {
 };
 function Placeholder(props: PlaceholderProps) {
   return (
-    <Typography
-      color="textSecondary"
-      className={props.selectProps.classes.placeholder}
-      {...props.innerProps}
-    >
+    <Typography color="textSecondary" {...props.innerProps}>
       {props.children}
     </Typography>
   );
@@ -205,6 +213,8 @@ type IntegrationReactSelectProps = {
   onChange: (Suggestion) => void,
   theme: Theme,
   onCreateOption: (label: string) => void,
+  components: Object,
+  searchIcon: boolean,
 };
 
 function IntegrationReactSelect(props: IntegrationReactSelectProps) {
@@ -217,6 +227,7 @@ function IntegrationReactSelect(props: IntegrationReactSelectProps) {
     selected,
     onChange,
     onCreateOption,
+    searchIcon,
   } = props;
 
   const selectStyles = {
@@ -238,11 +249,12 @@ function IntegrationReactSelect(props: IntegrationReactSelectProps) {
         classes={classes}
         styles={selectStyles}
         options={suggestions}
-        components={components}
+        components={{ ...components, ...props.components }}
         value={suggestions.find((s) => s.value === selected)}
         onChange={onChange}
         placeholder={placeholder}
         onCreateOption={onCreateOption}
+        searchIcon={searchIcon}
       />
     </div>
   );
@@ -279,11 +291,6 @@ const styles = (theme) => ({
     padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
   },
   singleValue: {
-    fontSize: 16,
-  },
-  placeholder: {
-    position: 'absolute',
-    left: 2,
     fontSize: 16,
   },
   paper: {

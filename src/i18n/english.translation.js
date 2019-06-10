@@ -210,12 +210,13 @@ export default {
     },
     invoice: {
       reverted: 'Reverted',
+      choseDateTitle: 'Billing date',
       revert: 'Revert',
       invoiceReverted: 'Invoice reverted',
       finalize: 'Finalize the invoice',
       choseDate: 'Invoice date',
       revertExplainPayment:
-        'Credit/debut card payments will be transfered to the credit account of the member. All other payments will be canceled.',
+        'Credit/debit card payments will be transfered to the credit account of the member. All other payments will be canceled.',
       revertExplainCredits:
         'Credit and debit on member account will be reverted.',
       revertExplainPacks:

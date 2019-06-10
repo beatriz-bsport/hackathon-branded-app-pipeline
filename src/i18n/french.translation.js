@@ -594,6 +594,7 @@ export default {
       subscription: 'Souscriptions',
     },
     invoice: {
+      choseDateTitle: 'Date de facturation',
       reverted: 'Annulé',
       revert: 'Annuler la facture',
       choseDate: 'Date de facturation',

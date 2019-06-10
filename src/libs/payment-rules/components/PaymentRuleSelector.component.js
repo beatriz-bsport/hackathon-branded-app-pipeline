@@ -16,10 +16,11 @@ type Props = {
   onChange: (Suggestion) => void,
   classes: { [string]: string },
   paymentRules: PaymentRuleSet[],
+  isOverride?: boolean,
 };
 
 export function PaymentRuleSelector(props: Props) {
-  const { t, paymentRules, selected, onChange, classes } = props;
+  const { t, paymentRules, isOverride, selected, onChange, classes } = props;
   const suggestions = (paymentRules || []).map((s) => ({
     value: s.id,
     label: s.name,
@@ -29,7 +30,9 @@ export function PaymentRuleSelector(props: Props) {
       className={classes.root}
       suggestions={suggestions}
       selected={selected}
-      placeholder={t('select.placeholder')}
+      placeholder={
+        isOverride ? t('select.placeholderOverride') : t('select.placeholder')
+      }
       onChange={onChange}
     />
   );

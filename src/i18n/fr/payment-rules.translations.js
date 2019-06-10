@@ -14,6 +14,7 @@ export default {
   addNew: 'Nouveau paramétrage de rémunération',
   select: {
     placeholder: 'Choississez une règle de calcul',
+    placeholderOverride: 'Règle par défaut',
   },
   common: {
     from: 'Début',
@@ -29,7 +30,7 @@ export default {
   dateTitle: 'Plage de dates',
   coaches: 'Coachs',
   setPaymentRuleSetForCoachFirst:
-    'Attribuez tout d\'abord une régle de rémunération par défaut à ce coach.',
+    "Attribuez tout d'abord une régle de rémunération par défaut à ce coach.",
   modal: {
     delete: {
       title: 'Supprimez un règle',

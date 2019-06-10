@@ -14,6 +14,7 @@ export default {
   addNew: 'New payment configuration',
   select: {
     placeholder: 'Select a payment configuration',
+    placeholderOverride: 'Coach default rule',
   },
   common: {
     from: 'From',

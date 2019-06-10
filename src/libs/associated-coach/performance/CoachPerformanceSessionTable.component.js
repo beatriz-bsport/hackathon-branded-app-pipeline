@@ -51,6 +51,7 @@ export function CoachPerformanceTable(props: Props) {
               <PaymentRuleSelector
                 paymentRules={paymentRules}
                 selected={session.payment_rule_id}
+                isOverride
                 onChange={({ value }) =>
                   setSessionPaymentRule(session.id, value)
                 }

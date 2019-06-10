@@ -23,13 +23,21 @@ type OptionProps = {
   data: Object,
   innerRef: Object,
   innerProps: Object,
+  selected?: boolean,
+  isFocused: boolean,
 };
 
 function paymentPackOption(props: OptionProps) {
-  const { data, innerRef, innerProps } = props;
+  const { data, innerRef, innerProps, isSelected, isFocused } = props;
   return (
     <div ref={innerRef} {...innerProps}>
-      <PaymentPackSummary paymentPack={data.pp} noDivider button />
+      <PaymentPackSummary
+        selected={isSelected}
+        isFocused={isFocused}
+        paymentPack={data.pp}
+        noDivider
+        button
+      />
     </div>
   );
 }

@@ -49,7 +49,13 @@ export function PaymentPackMinimalSummary(props: Props) {
   }
 
   return (
-    <ListItem divider={!!noDivider} dense button={!!button}>
+    <ListItem
+      divider={!!noDivider}
+      dense
+      button={!!button}
+      selected={!!props.selected}
+      style={props.isFocused ? { backgroundColor: '#EFEFEF' } : {}}
+    >
       <ListItemText primary={name} secondary={creditsFormatted} />
       <ListItemText
         primary={`${price} €`}

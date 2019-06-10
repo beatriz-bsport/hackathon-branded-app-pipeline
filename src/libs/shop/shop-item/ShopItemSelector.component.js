@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 import ShopItemSummary from '../../../components/shop/ShopItemSummary.component';
 
 import Selector from '../../../components/Selector.component';
@@ -14,24 +15,32 @@ type Props = {
   helperText: string,
   value: ?number,
   selectorClass: string,
+  t: TFunction,
 };
 
 type OptionProps = {
   data: Object,
   innerRef: Object,
   innerProps: Object,
+  isSelected: boolean,
+  isFocused: boolean,
 };
 function ShopItemOption(props: OptionProps) {
-  const { data, innerRef, innerProps } = props;
+  const { data, innerRef, innerProps, isSelected, isFocused } = props;
   return (
     <div ref={innerRef} {...innerProps}>
-      <ShopItemSummary shopItem={data.si} button />
+      <ShopItemSummary
+        isFocused={isFocused}
+        selected={isSelected}
+        shopItem={data.si}
+        button
+      />
     </div>
   );
 }
 
 function ShopItemSelector(props: Props) {
-  const { value, onChange, shopItems, selectorClass, helperText } = props;
+  const { value, onChange, shopItems, selectorClass, helperText, t } = props;
 
   const suggestions = shopItems.asMutable().map((si) => ({
     value: si.id,
@@ -47,9 +56,9 @@ function ShopItemSelector(props: Props) {
       components={{ Option: ShopItemOption }}
       className={selectorClass}
       onChange={(event) => onChange(event.value)}
-      placeholder={helperText}
+      placeholder={helperText || t('select.placeholder')}
     />
   );
 }
 
-export default withNamespaces()(ShopItemSelector);
+export default withNamespaces(['shop'])(ShopItemSelector);

@@ -14,13 +14,17 @@ import stripe from './fr/stripe.translations';
 import alerting from './en/alerting.translations';
 import booking from './en/booking.translations';
 import tag from './en/tag.translations';
+import subscription from './en/subscription.translations';
+import shop from './en/shop.translations';
 
 export default {
   dashboard,
   alerting,
   settings,
+  shop,
   paymentRules,
   reporting,
+  subscription,
   paymentPack,
   booking,
   member,

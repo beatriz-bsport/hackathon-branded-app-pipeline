@@ -117,7 +117,7 @@ export class SubscriptionCreate extends Component<Props, State> {
               paymentPacks={paymentPacks}
               value={this.state.payment_pack}
               onChange={this.updatePaymentPack}
-              label={t('parameters.paymentPack')}
+              helperText={t('parameters.paymentPack')}
               selectorClass={classes.selector}
             />
           </Grid>

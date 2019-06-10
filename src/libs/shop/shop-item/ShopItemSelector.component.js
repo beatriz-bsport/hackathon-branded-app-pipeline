@@ -1,10 +1,7 @@
 // @flow
 
 import React from 'react';
-import classNames from 'classnames';
 import { withNamespaces } from 'react-i18next';
-import { components } from 'react-select';
-import SearchIcon from '@material-ui/icons/Search';
 import ShopItemSummary from '../../../components/shop/ShopItemSummary.component';
 
 import Selector from '../../../components/Selector.component';
@@ -12,7 +9,6 @@ import Selector from '../../../components/Selector.component';
 import type { ShopItem } from '../../../api/types';
 
 type Props = {
-  classes: Object,
   shopItems: Array<ShopItem>,
   onChange: (?number) => void,
   helperText: string,

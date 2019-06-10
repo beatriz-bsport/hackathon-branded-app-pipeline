@@ -2,7 +2,8 @@
 import React from 'react';
 import type { Node } from 'react';
 
-import { ListItem, ListItemText, List } from '@material-ui/core';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { Moment } from '../../i18n';

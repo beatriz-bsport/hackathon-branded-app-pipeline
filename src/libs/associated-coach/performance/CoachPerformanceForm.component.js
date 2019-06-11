@@ -63,11 +63,14 @@ export default compose(
   withNamespaces(['paymentRules', 'coachPerformance', 'translation']),
   withFormik({
     mapPropsToValues: () => ({
-      dateStart: Moment().subtract(1, 'month'),
-      dateEnd: Moment(),
+      dateStart: Moment()
+        .subtract(1, 'month')
+        .startOf('day'),
+      dateEnd: Moment().startOf('day'),
     }),
     validationSchema: CoachPerformanceSchema,
     handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
+      values.dateEnd.add(1, 'day');
       onSubmit(values, {
         onError: () => setSubmitting(false),
         onSuccess: () => setSubmitting(false),

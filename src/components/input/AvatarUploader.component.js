@@ -48,7 +48,9 @@ export class AvatarUploader extends Component<Props, State> {
     if (files.length) {
       this.setState({
         photo: files[0],
-        previewUrl: URL.createObjectURL(files[0]),
+        previewUrl: (window.URL ? URL : window.webkitURL).createObjectURL(
+          files[0],
+        ),
       });
 
       if (this.props.onChange) {

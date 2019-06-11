@@ -48,7 +48,7 @@ export class ImageUploader extends React.Component<Props, State> {
     if (acceptedFiles.length) {
       const file = acceptedFiles[0];
       this.setState({
-        previewURL: URL.createObjectURL(file),
+        previewUrl: (window.URL ? URL : window.webkitURL).createObjectURL(file),
       });
 
       if (this.props.onChange) {

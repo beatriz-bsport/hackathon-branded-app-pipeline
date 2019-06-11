@@ -45,7 +45,12 @@ export class AvatarField extends Component<Props, State> {
               {...this.inputProps}
               onChange={(e) => {
                 const { files } = e.target;
-                this.setState({ previewUrl: URL.createObjectURL(files[0]) });
+                this.setState({
+                  previewUrl: (window.URL
+                    ? URL
+                    : window.webkitURL
+                  ).createObjectURL(files[0]),
+                });
                 setFieldValue(field.name, files[0]);
               }}
               type="file"

@@ -88,6 +88,7 @@ export default {
       download: 'Download',
       description: 'Description',
       hourSmall: 'h',
+      daySmall: 'd',
       minuteSmall: 'min',
       export: 'Export',
       generate: 'Generate',

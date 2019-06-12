@@ -23,21 +23,48 @@ const getMinutes = (totalMinutes) => {
 };
 
 const getHours = (totalMinutes) => {
+  return (
+    parseInt((parseInt(totalMinutes, 10) - getMinutes(totalMinutes)) / 60, 10) %
+    24
+  );
+};
+
+const getDays = (totalMinutes) => {
   return parseInt(
-    (parseInt(totalMinutes, 10) - getMinutes(totalMinutes)) / 60,
+    (parseInt(totalMinutes, 10) -
+      getHours(totalMinutes) -
+      getMinutes(totalMinutes)) /
+      (24 * 60),
     10,
   );
 };
 
 export class DurationInput extends Component<Props> {
+  onChangeDays = (event: Object) => {
+    const days = parseInt(event.target.value, 10);
+    this.props.onChange(
+      days * 24 * 60 +
+        getHours(this.props.value) * 60 +
+        getMinutes(this.props.value) || 0,
+    );
+  };
+
   onChangeHours = (event: Object) => {
     const hours = parseInt(event.target.value, 10);
-    this.props.onChange(hours * 60 + getMinutes(this.props.value) || 0);
+    this.props.onChange(
+      hours * 60 +
+        getDays(this.props.value) * 24 * 60 +
+        getMinutes(this.props.value) || 0,
+    );
   };
 
   onChangeMinutes = (event: Object) => {
     const minutes = parseInt(event.target.value, 10);
-    this.props.onChange(minutes + getHours(this.props.value) * 60 || 0);
+    this.props.onChange(
+      getDays(this.props.value) * 24 * 60 +
+        minutes +
+        getHours(this.props.value) * 60 || 0,
+    );
   };
 
   render() {
@@ -47,6 +74,28 @@ export class DurationInput extends Component<Props> {
         <Grid item>
           <TextField
             label="Durée"
+            className={classes.inputText}
+            defaultValue={null}
+            value={getDays(this.props.value)}
+            onChange={this.onChangeDays}
+            type="number"
+            InputProps={{
+              inputProps: {
+                min: 0,
+                max: 30,
+                style: { textAlign: 'right' },
+              },
+              endAdornment: (
+                <InputAdornment position="end">
+                  {t('common.daySmall')}
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            label=" "
             className={classes.inputText}
             defaultValue={null}
             value={getHours(this.props.value)}

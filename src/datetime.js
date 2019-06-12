@@ -39,11 +39,6 @@ const MONTHS = [
   'time.month.december',
 ];
 
-export function formatDuration(minutes) {
-  const moduloMinutes = parseInt(minutes / 60, 10) * 60;
-  return `${minutes % 60}h${moduloMinutes ? `${moduloMinutes}min` : ''}`;
-}
-
 export function formatMinutes(minutesNumber, t) {
   const minutesMinusDays = minutesNumber % (60 * 24);
   const minutesMinusHours = minutesNumber % 60;
@@ -56,7 +51,7 @@ export function formatMinutes(minutesNumber, t) {
     readableDuration += `${days}${t('datetime.shortDayIdentifier')} `;
   }
   if (hours) {
-    readableDuration += `${hours}${t('datetime.shortDayIdentifier')} `;
+    readableDuration += `${hours}${t('datetime.shortHourIdentifier')} `;
   }
 
   if (minutesMinusHours || readableDuration === '') {

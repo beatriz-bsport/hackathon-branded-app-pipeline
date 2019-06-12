@@ -12,7 +12,7 @@ import {
 import CancelIcon from '@material-ui/icons/Cancel';
 import type { TFunction } from 'react-i18next';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
-import { humanizeDuration, formatAsDatetime } from '../../../datetime';
+import { formatMinutes, formatAsDatetime } from '../../../datetime';
 import type { Booking } from '../../../api/types';
 import { getBookingStatusCode } from '../../../libs/booking/utils';
 import CoachAvatar from '../../../libs/coach/components/CoachAvatar.component';
@@ -32,7 +32,7 @@ export class BookingListItem extends Component<Props> {
 
     const formattedDate = `${formatAsDatetime(
       offer.date_start,
-    )} - ${humanizeDuration(offer.duration_minute * 60000)}`;
+    )} - ${formatMinutes(offer.duration_minute, t)}`;
     const bookingStatusCode = getBookingStatusCode(t, booking);
     const bookingRefund = booking.was_refunded
       ? `${t('booking.wasRefunded')}: `

@@ -16,11 +16,7 @@ import Tooltip from '../Tooltip.component';
 import EmptyListItem from '../LoadingListItem.component';
 
 import { Level } from '../category';
-import {
-  humanizeDuration,
-  formatAsDatetime,
-  formatAsTime,
-} from '../../datetime';
+import { formatMinutes, formatAsDatetime, formatAsTime } from '../../datetime';
 import type { Offer } from '../../api/types';
 
 const styles = () => ({
@@ -162,8 +158,9 @@ export function OfferMinimalSummary(props: Props) {
             <Grid item>
               <ListItemText
                 primary={formattedName}
-                secondary={`${dateFormatter(date_start)} - ${humanizeDuration(
-                  duration_minute * 60000,
+                secondary={`${dateFormatter(date_start)} - ${formatMinutes(
+                  duration_minute,
+                  t,
                 )}`}
               />
             </Grid>

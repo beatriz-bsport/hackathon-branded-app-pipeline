@@ -14,7 +14,7 @@ import { withNamespaces } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import type { TFunction } from 'react-i18next';
 
-import { humanizeDuration, formatAsTime } from '../../datetime';
+import { formatMinutes, formatAsTime } from '../../datetime';
 // eslint-disable-next-line
 import CoachAvatar from '../../libs/coach/components/CoachAvatar.component';
 
@@ -84,7 +84,7 @@ export class MarketplaceOffer extends Component<Props> {
         <ListItemText
           primary={`${offer.name} - ${formatAsTime(
             offer.date_start,
-          )} - ${humanizeDuration(offer.duration_minute * 60000)}`}
+          )} - ${formatMinutes(offer.duration_minute, t)}`}
           secondary={offer.etablissement.title}
         />
         <div

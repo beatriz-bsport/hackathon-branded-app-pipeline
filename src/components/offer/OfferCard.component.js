@@ -23,7 +23,7 @@ import { Level, Sport } from '../category';
 import Avatar from '../Avatar.component';
 import RedButton from '../button/RedButton.component';
 
-import { formatAsTime, humanizeDuration } from '../../datetime';
+import { formatAsTime, formatMinutes } from '../../datetime';
 import type { Offer } from '../../api/types';
 
 type Props = {
@@ -260,8 +260,9 @@ export class OfferCard extends Component<Props> {
                 </Grid>
                 <Grid item>
                   <Typography variant="h6">
-                    {`${formatAsTime(date_start)} - ${humanizeDuration(
-                      duration_minute * 60000,
+                    {`${formatAsTime(date_start)} - ${formatMinutes(
+                      duration_minute,
+                      t,
                     )}`}
                   </Typography>
                 </Grid>

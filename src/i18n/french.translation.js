@@ -122,6 +122,7 @@ export default {
       download: 'Télécharger',
       description: 'Description',
       hourSmall: 'h',
+      daySmall: 'j',
       minuteSmall: 'min',
       export: 'Exporter',
       generate: 'Générer',

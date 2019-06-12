@@ -63,30 +63,6 @@ export function formatMinutes(minutesNumber, t) {
   return readableDuration;
 }
 
-export function humanizeDuration(milliseconds) {
-  const seconds = milliseconds / 1000;
-  const hours = parseInt(seconds / 3600, 10);
-  const minutesNumber = parseInt((seconds % 3600) / 60, 10);
-
-  // prettier-ignore
-  let minutes = '';
-  if (minutesNumber < 10) {
-    if (minutesNumber === 0) {
-      minutes = '';
-    } else {
-      minutes = `0${minutesNumber}`;
-    }
-  } else {
-    minutes = `${minutesNumber}`;
-  }
-
-  if (hours) {
-    return `${hours}H${minutes}`;
-  }
-
-  return `${minutes} min`;
-}
-
 function getTime(d, fixed = false) {
   const hour = d.getHours();
   const minute = d.getMinutes();

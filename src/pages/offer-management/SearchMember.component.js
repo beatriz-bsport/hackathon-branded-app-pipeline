@@ -12,7 +12,7 @@ type Props = {
   t: TFunction,
   onReset: () => void,
   searchedText: string,
-  onChange: (Object) => void,
+  onChange: (SyntheticEvent<HTMLElement>) => void,
 };
 
 export function SearchMember(props: Props) {
@@ -53,7 +53,7 @@ const styles = () => ({
   },
   field: {
     backgroundColor: '#F8F8F8',
-    maxWidth: 180,
+    width: '100%',
   },
 });
 

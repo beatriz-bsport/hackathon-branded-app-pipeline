@@ -159,6 +159,7 @@ type AddressFieldsProps = {
   t: TFunction,
   autoComplete: boolean,
   required: boolean,
+  disabled?: boolean,
 };
 
 export const AddressFieldsSchema = {
@@ -170,7 +171,7 @@ export const AddressFieldsSchema = {
 };
 
 export const AddressFields = withNamespaces([])((props: AddressFieldsProps) => {
-  const { t, autoComplete, required } = props;
+  const { t, autoComplete, required, disabled } = props;
   return (
     <div>
       <TextField
@@ -178,12 +179,14 @@ export const AddressFields = withNamespaces([])((props: AddressFieldsProps) => {
         name="address_line_1"
         autoComplete={autoComplete ? 'address-line1' : null}
         fullWidth
+        disabled={!!disabled}
         label={t('form.address.addressLine1')}
       />
       <TextField
         name="address_line_2"
         autoComplete={autoComplete ? 'address-line2' : null}
         fullWidth
+        disabled={!!disabled}
         label={t('form.address.addressLine2')}
       />
       <Grid container direction="row" spacing={16}>
@@ -192,6 +195,7 @@ export const AddressFields = withNamespaces([])((props: AddressFieldsProps) => {
             name="zipcode"
             autoComplete={autoComplete ? 'zipcode' : null}
             label={t('form.address.zipcode')}
+            disabled={!!disabled}
             required={required}
           />
         </Grid>
@@ -200,6 +204,7 @@ export const AddressFields = withNamespaces([])((props: AddressFieldsProps) => {
             name="city"
             autoComplete={autoComplete ? 'city' : null}
             label={t('form.address.city')}
+            disabled={!!disabled}
             required={required}
           />
         </Grid>
@@ -208,6 +213,7 @@ export const AddressFields = withNamespaces([])((props: AddressFieldsProps) => {
         name="country"
         autoComplete={autoComplete ? 'country' : null}
         required={required}
+        disabled={!!disabled}
         label={t('form.address.country')}
       />
     </div>
@@ -424,7 +430,7 @@ export const DurationMinuteSelectField = withNamespaces()(
 );
 
 export const MultipleCheckboxField = (props: Props) => {
-  const { choices, label, name, helperText } = props;
+  const { choices, disabled, label, name, helperText } = props;
   return (
     <FormControl component="fieldset">
       <FormLabel component="legend">{label}</FormLabel>
@@ -438,6 +444,7 @@ export const MultipleCheckboxField = (props: Props) => {
                 label={optionLabel}
                 control={
                   <Checkbox
+                    disabled={!!disabled}
                     checked={field.value.some((v) => v === id)}
                     onChange={() => {
                       const newValue = field.value.some((v) => v === id)

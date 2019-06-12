@@ -23,7 +23,7 @@ type OptionProps = {
   data: Object,
   innerRef: Object,
   innerProps: Object,
-  selected?: boolean,
+  isSelected?: boolean,
   isFocused: boolean,
 };
 

@@ -35,7 +35,22 @@ export default {
     },
     update: 'Modifier',
   },
+  merge: 'Fusionner',
   forms: {
+    merge: {
+      success: 'Membres fusionnés',
+      error: 'Impossible de fusionner les membres',
+
+      srcMember: 'Membre à fusionner (supprimé)',
+      dstMember: 'Membre à conserver',
+      title: 'Fusion membre',
+      explainCredit: "L'accompte interne du membre sera transféré",
+      explainBookingsAndPassAndInvoiceAndNotes:
+        'Les abonnements, réservations, factures et notes seront transférés.',
+      explainTags: 'Les tags du membre supprimé ne seront pas transférés',
+      cancel: 'Annuler',
+      submit: 'Fusionner',
+    },
     error: 'Impossible de sauvegarde le membre',
     create: {
       title: 'Nouveau membre',

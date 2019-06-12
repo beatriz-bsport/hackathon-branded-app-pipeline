@@ -16,12 +16,15 @@ import {
   deleteNote,
   fetchMember,
   tag as tagMember,
+  search as searchMembers,
 } from '../../libs/member/actions';
+import memberSelectors from '../../libs/member/selectors';
 import type { Member } from '../../libs/member/types';
 import MemberSummaryCard from '../../libs/member/components/MemberSummaryCard.component';
 import TagDeleteDialog from '../../libs/tag/components/TagDeleteDialog.component';
 import TagGroupDeleteDialog from '../../libs/tag/components/TagGroupDeleteDialog.component';
 import MemberCRM from '../../libs/member/components/MemberCRM.component';
+import MemberSearchModal from '../../libs/member/components/MemberSearchModal.component';
 
 import type { TagGroup } from '../../libs/tag/types';
 import tagSelectors from '../../libs/tag/selectors';
@@ -34,14 +37,20 @@ import {
 } from '../../libs/tag/actions';
 
 type Props = {
-  memberLoading: boolean,
-  tagGroupsLoading: boolean,
-  member: Member,
-  tagGroups: Array<TagGroup>,
-
+  // GENERAL
+  // -------
   id: number,
+  memberLoading: boolean,
+  member: Member,
 
   editMember: (id: number) => void,
+  fetchMember: (id: number) => void,
+  searchMembers: (text: string) => void,
+  searchedMembers: Array<Member>,
+  mergeInto: (src: number, dst: number) => void,
+
+  // NOTES
+  // -----
   createOrUpdateNote: ({
     id: ?number,
     text: string,
@@ -49,9 +58,13 @@ type Props = {
     highlighted: boolean,
   }) => void,
   deleteNote: ({ memberId: number, noteId: number }) => void,
-  fetchMember: (id: number) => void,
-  fetchTags: () => void,
 
+  // TAGS
+  // ----
+  tagGroups: Array<TagGroup>,
+  tagGroupsLoading: boolean,
+
+  fetchTags: () => void,
   createTag: (data: *, memberId?: number) => void,
   updateTag: (data: *) => void,
   updateTagGroup: (data: *) => void,
@@ -94,6 +107,7 @@ export class MemberDetailPage extends Component<Props, State> {
             memberId={this.props.id}
             member={this.props.member}
             editMember={() => this.props.editMember(this.props.id)}
+            mergeMember={() => this.setState({ searchModalOpen: true })}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -151,13 +165,17 @@ export default compose(
     (state) => ({
       memberLoading: state.member.loading,
       member: state.member.member,
+      searchedMembers: memberSelectors.getSearched(state),
       tagGroups: tagSelectors.getMemberTagGroups(state),
       tagGroupsLoading: state.tag.group.loading,
     }),
     {
       fetchMember,
+      searchMembers,
       tagMember,
       fetchTags,
+      mergeInto: (src: number, dst: number) =>
+        routerPush(`/member/merge/${src}/into/${dst}`),
       editMember: (id) => routerPush(`/member/edit/${id}`),
       createOrUpdateNote: ({ id, text, memberId, highlighted }) =>
         createOrUpdateMemberNote(id, text, memberId, highlighted),

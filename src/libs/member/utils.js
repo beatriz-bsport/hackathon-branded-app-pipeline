@@ -1,0 +1,18 @@
+export const MemberMap = {
+  lastname: 'last_name',
+  firstname: 'first_name',
+  email: 'email',
+  address_line_1: 'address.address_line_1',
+  address_line_2: 'address.address_line_2',
+  zipcode: 'address.zipcode',
+  city: 'address.city',
+  country: 'address.country',
+  phone: 'phone.phone_number',
+  gender: 'gender',
+  avatar: 'photo',
+  birthday: 'birthday',
+  membership_ID: 'membership_ID',
+  rgpd: 'rgpd',
+  date_joined: 'date_joined',
+  address: 'address',
+};

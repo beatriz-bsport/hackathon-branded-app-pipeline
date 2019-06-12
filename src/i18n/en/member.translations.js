@@ -36,7 +36,22 @@ export default {
     },
     update: 'Edit',
   },
+  merge: 'Merge',
   forms: {
+    merge: {
+      success: 'Members merged',
+      error: 'Impossible to merge members',
+
+      srcMember: 'Member to merge (deleted)',
+      dstMember: 'Member to keep',
+      title: 'Merge member',
+      explainCredit: 'The internal credit balance will be transfered',
+      explainBookingsAndPassAndInvoiceAndNotes:
+        'Bookings, passes, notes and invoices will be transfered',
+      explainTags: 'Tags from the deleted member will not be transfered',
+      cancel: 'Cancel',
+      submit: 'Merge',
+    },
     error: 'Unable to save member',
     create: {
       success: 'Member added',

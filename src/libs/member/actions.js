@@ -13,6 +13,7 @@ import {
   fetchByOffer as fetchByOfferApi,
   search as searchApi,
   tag as tagApi,
+  merge as mergeApi,
 } from './api';
 
 import type { Member } from './types';
@@ -53,6 +54,10 @@ export const actionTypes = {
   MEMBER_SEARCH_START: 'MEMBER_SEARCH_START',
   MEMBER_SEARCH_ERROR: 'MEMBER_SEARCH_ERROR',
   MEMBER_SEARCH_SUCCESS: 'MEMBER_SEARCH_SUCCESS',
+
+  MEMBER_MERGE_START: 'MEMBER_MERGE_START',
+  MEMBER_MERGE_ERROR: 'MEMBER_MERGE_ERROR',
+  MEMBER_MERGE_SUCCESS: 'MEMBER_MERGE_SUCCESS',
 };
 
 export function startTag(memberId: number, tagId: number) {
@@ -290,4 +295,44 @@ export function actionDeleteNoteSuccess(noteId: number, memberId: number) {
 
 export function actionDeleteNoteStart() {
   return { type: actionTypes.MEMBER_NOTE_DELETE_START };
+}
+
+export function actionMergeSuccess(src: number, dst: number) {
+  return { type: actionTypes.MEMBER_MERGE_SUCCESS, src, dst };
+}
+
+export function actionMergeStart(src: number, dst: number) {
+  return { type: actionTypes.MEMBER_MERGE_START, src, dst };
+}
+
+export function actionMergeError(err) {
+  return { type: actionTypes.MEMBER_MERGE_ERROR, err };
+}
+
+export function mergeMembers(
+  src: number,
+  dst: number,
+  options: ?{ onSuccess?: () => void, onError?: (?Error | {}) => void },
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(actionMergeStart(src, dst));
+
+    try {
+      const response = await mergeApi(src, dst);
+
+      if (response.status !== 200) {
+        throw new Error(response);
+      }
+      dispatch(actionMergeSuccess(src, dst));
+      dispatch(snackbarSuccess('member.forms.merge.success'));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (e) {
+      console.error(e);
+      dispatch(snackbarError('member.forms.merge.error'));
+      dispatch(actionMergeError(e));
+      if (options && options.onError) {
+        options.onError((e || {}).response ? e.response.data : {});
+      }
+    }
+  };
 }

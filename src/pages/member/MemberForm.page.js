@@ -17,11 +17,12 @@ import MemberForm from '../../libs/member/MemberForm.component';
 import { createOrUpdateMember, fetchMember } from '../../libs/member/actions';
 import memberSelectors from '../../libs/member/selectors';
 import { getLatest as getLatestMember } from '../../libs/member/api';
+import { MemberMap } from '../../libs/member/utils';
 
 import { mapFormData, unmap } from '../form.utils';
 
 type Props = {
-  id: ?number,
+  id: number,
   initial: *,
   fetchMemberInitial: () => void,
   goToMember: (id: number) => void,
@@ -29,25 +30,6 @@ type Props = {
   snackbarSuccess: (msg: string) => void,
   onSubmit: (*) => void,
   onCancel: () => void,
-};
-
-const MemberMap = {
-  lastname: 'last_name',
-  firstname: 'first_name',
-  email: 'email',
-  address_line_1: 'address.address_line_1',
-  address_line_2: 'address.address_line_2',
-  zipcode: 'address.zipcode',
-  city: 'address.city',
-  country: 'address.country',
-  phone: 'phone.phone_number',
-  gender: 'gender',
-  avatar: 'photo',
-  birthday: 'birthday',
-  membership_ID: 'membership_ID',
-  rgpd: 'rgpd',
-  date_joined: 'date_joined',
-  address: 'address',
 };
 
 export class MemberFormPage extends Component<Props> {
@@ -143,26 +125,6 @@ export default compose(
   withDrawer(({ t }: { t: TFunction }) => t('appbar.title.memberFormPage')),
   withProps(({ upsertMember, initial, goToMember, goToMemberList }) => ({
     onSubmit: (values, options) => {
-      if (
-        !(
-          values.address_line_1 ||
-          values.address_line_2 ||
-          values.city ||
-          values.zipcode ||
-          values.country
-        )
-      ) {
-        // eslint-disable-next-line
-        delete values.address_line_1;
-        // eslint-disable-next-line
-        delete values.address_line_2;
-        // eslint-disable-next-line
-        delete values.city;
-        // eslint-disable-next-line
-        delete values.zipcode;
-        // eslint-disable-next-line
-        delete values.country;
-      }
       if (!values.birthday) {
         // eslint-disable-next-line
         delete values.birthday;
@@ -179,7 +141,7 @@ export default compose(
           if (formData.has('id')) {
             goToMember(formData.get('id'));
           } else {
-              getLatestMember()
+            getLatestMember()
               .then((res) => goToMember(res.data))
               .catch((err) => {
                 console.error(err);

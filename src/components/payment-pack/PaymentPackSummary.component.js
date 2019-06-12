@@ -15,6 +15,8 @@ type Props = {
   noDivider: boolean,
   buyButton: ?Node,
   button: boolean,
+  selected?: boolean,
+  isFocused?: boolean,
 };
 
 export function PaymentPackMinimalSummary(props: Props) {

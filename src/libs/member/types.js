@@ -29,6 +29,11 @@ export type MemberState = {
   all: Array<Member>,
   quickFetched: Array<Member>,
   member: ?Member,
+  search: {
+    items: Array<Member>,
+    loading: boolean,
+    error: ?Error,
+  },
   byOffer: {
     items: Array<Member>,
     loading: boolean,

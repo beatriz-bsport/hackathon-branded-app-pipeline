@@ -36,6 +36,7 @@ import {
   search as searchMembersAction,
   refreshByOffer as refreshMemberByOffer,
 } from '../../libs/member/actions';
+import memberSelectors from '../../libs/member/selectors';
 
 import withDrawer from '../../hocs/with-drawer.hoc';
 import OfferManagementComponent from './OfferManagement.component';
@@ -66,7 +67,7 @@ function mapStateToProps(state, nextProps) {
     shopItems: state.shop.all,
     members: state.member.byOffer.items,
     memberSearchLoading: state.member.search.loading,
-    searchedMembers: state.member.search.items,
+    searchedMembers: memberSelectors.getSearched(state),
     bookings: bookingSelectors.getBookings(state),
     bookingLoading: state.booking.loading,
     bookingOptions: bookingSelectors.getOptions(state),

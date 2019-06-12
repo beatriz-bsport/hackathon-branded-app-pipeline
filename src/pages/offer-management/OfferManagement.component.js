@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
+import Slide from '@material-ui/core/Slide';
 import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
@@ -325,37 +326,27 @@ export class OfferManagement extends PureComponent<Props, State> {
   renderBookingHeader = () => {
     const { classes, t } = this.props;
     return (
-      <div>
-        <Grid
-          container
-          direction="row"
-          justify="space-between"
-          alignItems="center"
-          className={classes.bookingsHeader}
+      <div className={classes.bookingsHeader}>
+        <Typography variant="h6">{t('offer.myBookings')}</Typography>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            flexDirection: 'row',
+          }}
         >
-          <Grid item>
-            <Typography variant="h6">{t('offer.myBookings')}</Typography>
-          </Grid>
-          <Grid item>
-            <Grid container direction="row" alignItems="center" spacing={16}>
-              <Grid item>
-                <IconButton onClick={this.openAddMemberModal} color="primary">
-                  <PersonAddIcon />
-                </IconButton>
-              </Grid>
-              <Grid item>
-                <SearchMember
-                  onChange={(event) => {
-                    this.setState({ searchedText: event.target.value });
-                    this.props.searchMembers(event.target.value);
-                  }}
-                  value={this.state.searchedText}
-                  onReset={this.clearSearch}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
+          <IconButton onClick={this.openAddMemberModal} color="primary">
+            <PersonAddIcon />
+          </IconButton>
+          <SearchMember
+            onChange={(event) => {
+              this.setState({ searchedText: event.target.value });
+              this.props.searchMembers(event.target.value);
+            }}
+            value={this.state.searchedText}
+            onReset={this.clearSearch}
+          />
+        </div>
       </div>
     );
   };
@@ -381,43 +372,45 @@ export class OfferManagement extends PureComponent<Props, State> {
   };
 
   getNavigationHeader = (loading: boolean) => (
-    <Paper className={this.props.classes.headerContainer}>
-      <Grid
-        container
-        direction="row"
-        justify="space-between"
-        alignItems="center"
-        className={this.props.classes.titleBanner}
-      >
-        <Grid item>
-          <Button
-            onClick={() => this.goToOffer(this.props.offer.previous_offer)}
-            color="secondary"
-            disabled={!this.props.offer}
-          >
-            <ChevronLeftIcon className={this.props.classes.leftIcon} />
-            <Hidden xsDown>{this.props.t('offer.previousOffer')}</Hidden>
-          </Button>
+    <Slide in direction="bottom">
+      <Paper className={this.props.classes.headerContainer}>
+        <Grid
+          container
+          direction="row"
+          justify="space-between"
+          alignItems="center"
+          className={this.props.classes.titleBanner}
+        >
+          <Grid item>
+            <Button
+              onClick={() => this.goToOffer(this.props.offer.previous_offer)}
+              color="secondary"
+              disabled={!this.props.offer}
+            >
+              <ChevronLeftIcon className={this.props.classes.leftIcon} />
+              <Hidden xsDown>{this.props.t('offer.previousOffer')}</Hidden>
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button onClick={this.props.goBack} color="secondary">
+              <TodayIcon className={this.props.classes.leftIcon} />
+              {this.props.t('offer.backToCalendar')}
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button
+              onClick={() => this.goToOffer(this.props.offer.next_offer)}
+              color="secondary"
+              disabled={!this.props.offer}
+            >
+              <Hidden xsDown>{this.props.t('offer.nextOffer')}</Hidden>
+              <ChevronRightIcon className={this.props.classes.rightIcon} />
+            </Button>
+          </Grid>
         </Grid>
-        <Grid item>
-          <Button onClick={this.props.goBack} color="secondary">
-            <TodayIcon className={this.props.classes.leftIcon} />
-            {this.props.t('offer.backToCalendar')}
-          </Button>
-        </Grid>
-        <Grid item>
-          <Button
-            onClick={() => this.goToOffer(this.props.offer.next_offer)}
-            color="secondary"
-            disabled={!this.props.offer}
-          >
-            <Hidden xsDown>{this.props.t('offer.nextOffer')}</Hidden>
-            <ChevronRightIcon className={this.props.classes.rightIcon} />
-          </Button>
-        </Grid>
-      </Grid>
-      {loading ? <LinearProgress /> : null}
-    </Paper>
+        {loading ? <LinearProgress /> : null}
+      </Paper>
+    </Slide>
   );
 
   render() {
@@ -442,93 +435,103 @@ export class OfferManagement extends PureComponent<Props, State> {
           {this.getNavigationHeader(false)}
         </Grid>
         <Grid item xs={12} lg={6}>
-          <Paper className={classes.autoScroll}>
-            <Grid container direction="column">
-              <Grid item xs={12}>
-                {this.renderBookingHeader()}
-              </Grid>
-              <Divider />
-              <Grid item xs={12}>
-                <Collapse in={!!searchedText}>
-                  <div className={classes.resultListContainer}>
-                    <ResultList
-                      items={this.props.searchedMembers}
-                      loading={this.props.memberSearchLoading}
-                      renderListComponent={this.renderSearchedMember}
-                    />
-                  </div>
-                  <Divider />
-                </Collapse>
-              </Grid>
-              <Grid item xs={12}>
-                {bookingLoading || this.props.offerLoading ? null : (
-                  <Grid
-                    container
-                    className={classes.bookingSubHeader}
-                    justify="space-between"
-                  >
-                    <Grid item>
-                      <Typography variant="caption" color="primary">
-                        {this.getNbAttendant()} {t('offer.attendant')}
-                      </Typography>
+          <Slide in direction="right">
+            <Paper className={classes.autoScroll}>
+              <Grid container direction="column">
+                <Grid item xs={12}>
+                  {this.renderBookingHeader()}
+                </Grid>
+                <Divider />
+                <Grid item xs={12}>
+                  <Collapse in={!!searchedText}>
+                    <div className={classes.resultListContainer}>
+                      <ResultList
+                        items={this.props.searchedMembers}
+                        loading={this.props.memberSearchLoading}
+                        renderListComponent={this.renderSearchedMember}
+                      />
+                    </div>
+                    <Divider />
+                  </Collapse>
+                </Grid>
+                <Grid item xs={12}>
+                  {bookingLoading || this.props.offerLoading ? null : (
+                    <Grid
+                      container
+                      className={classes.bookingSubHeader}
+                      justify="space-between"
+                    >
+                      <Grid item>
+                        <Typography variant="caption" color="primary">
+                          {this.getNbAttendant()} {t('offer.attendant')}
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <Typography variant="caption" color="error">
+                          {this.getNbNonAttendant()} {t('offer.nonAttendant')}
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <Typography variant="caption">
+                          {`${this.getNbAttendant() +
+                            this.getNbNonAttendant()}/${this.getMaxBookings()} ${t(
+                            'offer.maxBookingsNb',
+                          )}`}
+                        </Typography>
+                      </Grid>
                     </Grid>
-                    <Grid item>
-                      <Typography variant="caption" color="error">
-                        {this.getNbNonAttendant()} {t('offer.nonAttendant')}
-                      </Typography>
-                    </Grid>
-                    <Grid item>
-                      <Typography variant="caption">
-                        {`${this.getNbAttendant() +
-                          this.getNbNonAttendant()}/${this.getMaxBookings()} ${t(
-                          'offer.maxBookingsNb',
-                        )}`}
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                )}
+                  )}
+                </Grid>
+                <Grid item xs={12}>
+                  <BookingTable
+                    redirectToMember
+                    newTab
+                    members={this.props.members}
+                    paymentPacks={this.props.paymentPacks}
+                    loading={bookingLoading}
+                    bookings={bookings}
+                    bookingOptions={bookingOptions}
+                    discardOption={discardOption}
+                    confirmBookingAttendance={
+                      this.props.confirmBookingAttendance
+                    }
+                    discardBookingAttendance={
+                      this.props.discardBookingAttendance
+                    }
+                    showQuickInvoiceButton
+                    showRevertBookingButton
+                    handleRevert={this.handleBookingRevert}
+                    onQuickInvoiceClick={this.addToQuickInvoicePanel}
+                  />
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <BookingTable
-                  redirectToMember
-                  newTab
-                  members={this.props.members}
-                  paymentPacks={this.props.paymentPacks}
-                  loading={bookingLoading}
-                  bookings={bookings}
-                  bookingOptions={bookingOptions}
-                  discardOption={discardOption}
-                  confirmBookingAttendance={this.props.confirmBookingAttendance}
-                  discardBookingAttendance={this.props.discardBookingAttendance}
-                  showQuickInvoiceButton
-                  showRevertBookingButton
-                  handleRevert={this.handleBookingRevert}
-                  onQuickInvoiceClick={this.addToQuickInvoicePanel}
-                />
-              </Grid>
-            </Grid>
-          </Paper>
+            </Paper>
+          </Slide>
         </Grid>
         <Grid item xs={12} lg={6}>
-          <QuickInvoicePanel
-            members={this.props.members}
-            unevenSavedInvoices={this.props.unevenSavedInvoices}
-            revertQuickInvoice={(uuid) =>
-              this.props.revertQuickInvoiceAndRefreshOffer(
-                uuid,
-                this.props.offerId,
-              )
-            }
-            quickInvoices={this.state.quickInvoices}
-            createInvoice={this.createInvoice}
-            closeQuickInvoice={this.closeQuickInvoice}
-            saveQuickInvoice={this.saveQuickInvoice}
-            paymentPacks={this.props.paymentPacks.filter((pp) => !pp.disabled)}
-            shopItems={this.props.shopItems}
-            offers={this.props.offers}
-            activities={this.props.activities}
-            className={classes.autoScroll}
-          />
+          <Slide in direction="left">
+            <QuickInvoicePanel
+              members={this.props.members}
+              unevenSavedInvoices={this.props.unevenSavedInvoices}
+              revertQuickInvoice={(uuid) =>
+                this.props.revertQuickInvoiceAndRefreshOffer(
+                  uuid,
+                  this.props.offerId,
+                )
+              }
+              quickInvoices={this.state.quickInvoices}
+              createInvoice={this.createInvoice}
+              closeQuickInvoice={this.closeQuickInvoice}
+              saveQuickInvoice={this.saveQuickInvoice}
+              paymentPacks={this.props.paymentPacks.filter(
+                (pp) => !pp.disabled,
+              )}
+              shopItems={this.props.shopItems}
+              offers={this.props.offers}
+              activities={this.props.activities}
+              className={classes.autoScroll}
+            />
+          </Slide>
         </Grid>
         <Dialog
           onClose={() => this.setState({ memberToRegister: null })}
@@ -604,6 +607,10 @@ const styles = (theme) => ({
     paddingTop: theme.spacing.unit,
     paddingBottom: theme.spacing.unit,
     width: '100%',
+    flexDirection: 'row',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   emptyTextContainer: {
     paddingTop: theme.spacing.unit,

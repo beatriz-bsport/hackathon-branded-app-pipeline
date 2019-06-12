@@ -48,6 +48,8 @@ type Props = {
   isSubmitting: boolean,
   onCancel: (*) => void,
   emailExists: *,
+  variant?: 'merge-form' | '',
+  disabled?: boolean,
 
   checkUserExists: ({ email?: string, phonenumber?: string }) => void,
   goToMember: (number) => void,
@@ -106,7 +108,17 @@ const checkIfMemberExists = (
 };
 
 export function MemberForm(props: Props) {
-  const { classes, t, isSubmitting, onCancel, checkUserExists } = props;
+  const {
+    classes,
+    t,
+    disabled,
+    isSubmitting,
+    variant,
+    onCancel,
+    checkUserExists,
+  } = props;
+  const mdSize = variant === 'merge-form' ? 12 : 6;
+
   return (
     <div>
       <MemberExistsBanner
@@ -122,56 +134,62 @@ export function MemberForm(props: Props) {
             }
           />
           <Grid container spacing={16}>
-            <Grid item xs={12} md={12}>
-              <AvatarField name="avatar" />
+            <Grid item xs={12} md={mdSize}>
+              <AvatarField name="avatar" disabled={disabled} />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={mdSize}>
               <TextField
                 name="firstname"
                 label={t('form.firstname')}
                 required
+                disabled={disabled}
                 fullWidth
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={mdSize}>
               <TextField
                 name="lastname"
                 label={t('form.lastname')}
                 required
                 fullWidth
+                disabled={disabled}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={mdSize}>
               <GenderField
                 name="gender"
                 label={t('form.gender')}
                 fullWidth
                 required
+                disabled={disabled}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={mdSize}>
               <TextField
                 name="email"
                 label={t('form.email')}
                 type="email"
                 fullWidth
+                disabled={disabled || variant === 'merge-form'}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={mdSize}>
               <TextField
                 name="membership_ID"
                 label={t('form.member.referenceNumber')}
                 helperText={t('form.member.referenceNumberHelper')}
                 fullWidth
+                disabled={disabled}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={mdSize}>
               <Grid container direction="row" spacing={16}>
                 <Grid item>
                   <DateField
                     format="DD/MM/YYYY"
                     openToYearSelection
                     clearable
+                    disabled={disabled}
                     label={t('form.birthday')}
                     name="birthday"
                     returnMoment={false}
@@ -185,19 +203,29 @@ export function MemberForm(props: Props) {
                   <DateField
                     format="YYYY-MM-DD"
                     name="date_joined"
+                    disabled={disabled}
                     label={t('member.date_joined')}
                     cancelLabel={t('common.cancel')}
                   />
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={12} md={6}>
-              <PhoneField name="phone" label={t('form.phone')} fullWidth />
+            <Grid item xs={12} md={mdSize}>
+              <PhoneField
+                name="phone"
+                label={t('form.phone')}
+                fullWidth
+                disabled={disabled || variant === 'merge-form'}
+              />
             </Grid>
-            <Grid item xs={12} md={6}>
-              <AddressFields name="address" label={t('form.address')} />
+            <Grid item xs={12} md={mdSize}>
+              <AddressFields
+                name="address"
+                label={t('form.address')}
+                disabled={disabled}
+              />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={mdSize}>
               <MultipleCheckboxField
                 choices={[
                   {
@@ -211,25 +239,30 @@ export function MemberForm(props: Props) {
                 ]}
                 label={t('form.member.rgpdTitle')}
                 name="rgpd"
+                disabled={disabled}
               />
             </Grid>
             <Grid item xs={12}>
-              <Actions>
-                <Button
-                  color="secondary"
-                  onClick={onCancel}
-                  disabled={isSubmitting}
-                >
-                  {t('form.discard')}
-                </Button>
-                <Submit disabled={isSubmitting}>{t('form.send')}</Submit>
-              </Actions>
+              {!disabled ? (
+                <Actions>
+                  <Button
+                    color="secondary"
+                    onClick={onCancel}
+                    disabled={isSubmitting}
+                  >
+                    {t('form.discard')}
+                  </Button>
+                  <Submit disabled={isSubmitting}>{t('form.send')}</Submit>
+                </Actions>
+              ) : null}
             </Grid>
           </Grid>
         </Form>
-        <LinearProgress
-          style={{ visibility: isSubmitting ? 'visible' : 'hidden' }}
-        />
+        {variant === 'merge-form' ? null : (
+          <LinearProgress
+            style={{ visibility: isSubmitting ? 'visible' : 'hidden' }}
+          />
+        )}
       </div>
       <MemberExistsBanner
         emailExists={props.emailExists}

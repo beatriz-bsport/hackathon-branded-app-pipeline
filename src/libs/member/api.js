@@ -48,7 +48,7 @@ export async function fetchMember(memberId: number) {
 }
 
 export async function getLatest() {
-return getAuth(`${API_URI}/saas/members/members/latest/`);
+  return getAuth(`${API_URI}/saas/members/members/latest/`);
 }
 
 export async function addMember(data: Object) {
@@ -57,6 +57,10 @@ export async function addMember(data: Object) {
 
 export async function updateMember(data: Object) {
   return putAuth(`${API_URI}/saas/member/${data.get('id')}`, data);
+}
+
+export async function merge(src: number, dst: number) {
+return postAuth(`${API_URI}/saas/members/members/merge/`, { src, dst });
 }
 
 export async function createNote(

@@ -1,10 +1,13 @@
 // @flow
 
 import type { State } from '../../state/types';
+import type { Member } from './types';
 
-const getAll = (state: State) => state.member.all;
+const getAll = (state: State): Array<Member> => state.member.all;
 
-const get = (state: State, id: number) =>
+const get = (state: State, id: number): ?Member =>
   getAll(state).find((member) => member.id === id);
 
-export default { get, getAll };
+const getSearched = (state: State): Array<Member> => state.member.search.items;
+
+export default { get, getAll, getSearched };

@@ -45,6 +45,19 @@ export default function memberReducers(state = initialState, action = {}) {
         .setIn(['search', 'items'], [])
         .setIn(['search', 'loading'], true);
     }
+    case actionTypes.MEMBER_MERGE_SUCCESS: {
+      return state
+        .setIn(
+          ['search', 'items'],
+          state.search.items.filter((m) => m.id !== action.src),
+        )
+        .setIn(
+          ['byOffer', 'items'],
+          state.byOffer.items.filter((m) => m.id !== action.src),
+        )
+        .set('all', state.all.filter((m) => m.id !== action.src))
+        .set('member', state.member.id === action.src ? {} : state.member);
+    }
     case actionTypes.MEMBER_SEARCH_ERROR: {
       return state
         .setIn(['search', 'error'], action.error)

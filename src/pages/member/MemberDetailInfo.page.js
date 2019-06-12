@@ -19,6 +19,8 @@ import {
 } from '../../libs/member/actions';
 import type { Member } from '../../libs/member/types';
 import MemberSummaryCard from '../../libs/member/components/MemberSummaryCard.component';
+import TagDeleteDialog from '../../libs/tag/components/TagDeleteDialog.component';
+import TagGroupDeleteDialog from '../../libs/tag/components/TagGroupDeleteDialog.component';
 import MemberCRM from '../../libs/member/components/MemberCRM.component';
 
 import type { TagGroup } from '../../libs/tag/types';
@@ -59,11 +61,25 @@ type Props = {
   tagMember: (memberId: number, tagId: number) => void,
 };
 
-export class MemberDetailPage extends Component<Props> {
+type State = {
+  searchModalOpen: boolean,
+};
+
+export class MemberDetailPage extends Component<Props, State> {
+  state = {
+    searchModalOpen: false,
+    tagToDelete: null,
+    tagGroupToDelete: null,
+  };
+
   componentDidMount() {
     this.props.fetchMember(this.props.id);
     this.props.fetchTags();
   }
+
+  deleteTag = (id: number) => this.setState({ tagToDelete: id });
+
+  deleteTagGroup = (id: number) => this.setState({ tagGroupToDelete: id });
 
   render() {
     const { memberLoading, member } = this.props;
@@ -98,11 +114,32 @@ export class MemberDetailPage extends Component<Props> {
             updateTag={this.props.updateTag}
             updateTagGroup={this.props.updateTagGroup}
             attributeTag={(tagId) => this.props.tagMember(this.props.id, tagId)}
-            deleteTag={this.props.deleteTag}
-            deleteTagGroup={this.props.deleteTagGroup}
+            deleteTag={this.deleteTag}
+            deleteTagGroup={this.deleteTagGroup}
             tagGroupsLoading={this.props.tagGroupsLoading}
           />
         </Grid>
+        <MemberSearchModal
+          searchMembers={this.props.searchMembers}
+          searchedMembers={this.props.searchedMembers}
+          open={!!this.state.searchModalOpen}
+          onClose={() => this.setState({ searchModalOpen: false })}
+          handlMemberSelected={(id: number) =>
+            this.props.mergeInto(this.props.id, id)
+          }
+        />
+        <TagDeleteDialog
+          open={!!this.state.tagToDelete}
+          onClose={() => this.setState({ tagToDelete: null })}
+          onSubmit={() => this.props.deleteTag(this.state.tagToDelete)}
+        />
+        <TagGroupDeleteDialog
+          open={!!this.state.tagGroupToDelete}
+          onClose={() => this.setState({ tagGroupToDelete: null })}
+          onSubmit={() =>
+            this.props.deleteTagGroup(this.state.tagGroupToDelete)
+          }
+        />
       </Grid>
     );
   }

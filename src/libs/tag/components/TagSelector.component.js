@@ -79,7 +79,7 @@ export function TagSelector(props: Props) {
           <ListItemIcon>
             <DeleteIcon />
           </ListItemIcon>
-          {props.t('form.group.delete')}
+          {props.t('form.group.deleteCategory')}
         </MenuItem>
       </Menu>
     </div>

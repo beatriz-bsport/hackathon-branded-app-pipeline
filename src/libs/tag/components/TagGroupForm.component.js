@@ -115,7 +115,7 @@ export const TagGroupForm = (props: Props) => {
           variant="outlined"
           onClick={() => props.deleteTagGroup(tagGroup)}
         >
-          {t('form.group.delete')}
+          {t('form.group.deleteCategory')}
         </RedButton>
       </div>
     </div>

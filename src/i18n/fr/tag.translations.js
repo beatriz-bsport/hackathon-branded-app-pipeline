@@ -21,13 +21,27 @@ export default {
       addFilter: 'Filtrer',
     },
     group: {
+      delete: {
+        title: 'Suppression',
+        explain:
+          'Attention, la suppression de cette catégorie affectera tous les membres. Cette opération est irréversible',
+        submit: 'Supprimer',
+        cancel: 'Annuler',
+      },
       namePlaceholder: 'Nom de la catégorie',
       addTagGroup: 'Créer une catégorie',
       edit: 'Modifier les tags',
-      delete: 'Supprimer la catégorie',
+      deleteCategory: 'Supprimer la catégorie',
     },
     tag: {
       namePlaceholder: 'Nom du tag',
+      delete: {
+        title: 'Suppression',
+        explain:
+          'Attention, cet tag sera supprimé chez TOUS les membres. Cette opération est irréversible',
+        submit: 'Supprimer',
+        cancel: 'Annuler',
+      },
     },
   },
 };

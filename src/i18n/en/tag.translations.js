@@ -24,10 +24,24 @@ export default {
       namePlaceholder: 'Category name',
       addTagGroup: 'Create a category',
       edit: 'Edit tags',
-      delete: 'Delete category',
+      deleteCategory: 'Delete category',
+      delete: {
+        title: 'Delete category',
+        explain:
+          'Be careful ! This category will be deleted for all members, are you sure you want to do that ? This operation is not reversable.',
+        submit: 'Delete',
+        cancel: 'Cancel',
+      },
     },
     tag: {
       namePlaceholder: 'Name of the tag',
+      delete: {
+        title: 'Delete tag',
+        explain:
+          'Be careful ! This tag will be deleted for all members, are you sure you want to do that ? This operation is not reversable.',
+        submit: 'Delete',
+        cancel: 'Cancel',
+      },
     },
   },
 };

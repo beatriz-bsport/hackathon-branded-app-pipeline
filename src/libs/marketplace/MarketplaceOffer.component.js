@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import ListItem from '@material-ui/core/ListItem';
+import Typography from '@material-ui/core/Typography';
 import ListItemText from '@material-ui/core/ListItemText';
 import Hidden from '@material-ui/core/Hidden';
 import Button from '@material-ui/core/Button';
@@ -13,6 +14,7 @@ import InfoIcon from '@material-ui/icons/InfoOutlined';
 import { withNamespaces } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import type { TFunction } from 'react-i18next';
+import Level from '../../components/category/Level.component';
 
 import { formatMinutes, formatAsTime } from '../../datetime';
 // eslint-disable-next-line
@@ -82,9 +84,16 @@ export class MarketplaceOffer extends Component<Props> {
           coach_override={offer.coach_override}
         />
         <ListItemText
-          primary={`${offer.name} - ${formatAsTime(
-            offer.date_start,
-          )} - ${formatMinutes(offer.duration_minute, t)}`}
+          primary={
+            <div>
+              <Typography inline>
+                {`${offer.name} - ${formatAsTime(
+                  offer.date_start,
+                )} - ${formatMinutes(offer.duration_minute, t)}`}
+              </Typography>
+              <Level noStyle variant="caption" levelId={offer.level_id} />
+            </div>
+          }
           secondary={offer.etablissement.title}
         />
         <div

@@ -135,7 +135,9 @@ export class MemberDetailPage extends Component<Props, State> {
         </Grid>
         <MemberSearchModal
           searchMembers={this.props.searchMembers}
-          searchedMembers={this.props.searchedMembers}
+          searchedMembers={this.props.searchedMembers.filter(
+            (m) => m.id !== this.props.id,
+          )}
           open={!!this.state.searchModalOpen}
           onClose={() => this.setState({ searchModalOpen: false })}
           handlMemberSelected={(id: number) =>

@@ -134,7 +134,7 @@ export function MemberForm(props: Props) {
             }
           />
           <Grid container spacing={16}>
-            <Grid item xs={12} md={mdSize}>
+            <Grid item xs={12}>
               <AvatarField name="avatar" disabled={disabled} />
             </Grid>
             <Grid item xs={12} md={mdSize}>

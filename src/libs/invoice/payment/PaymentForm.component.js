@@ -1,21 +1,17 @@
 // @flow
 import React, { Component } from 'react';
 
-import {
-  Checkbox,
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  Grid,
-  Input,
-  MenuItem,
-  Select,
-  InputLabel,
-  Button,
-  TextField,
-  withStyles,
-  Typography,
-} from '@material-ui/core';
+import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Grid from '@material-ui/core/Grid';
+import Input from '@material-ui/core/Input';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import withStyles from '@material-ui/core/styles/withStyles';
+import Typography from '@material-ui/core/Typography';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { withNamespaces } from 'react-i18next';
 
@@ -211,7 +207,7 @@ export class PaymentForm extends Component<Props, State> {
 
   render() {
     const { t, classes } = this.props;
-    const { payment_method, payment_received, price } = this.state;
+    const { payment_method, price } = this.state;
     return (
       <Grid
         container

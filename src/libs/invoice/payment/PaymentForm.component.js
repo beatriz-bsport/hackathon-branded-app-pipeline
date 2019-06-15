@@ -275,27 +275,6 @@ export class PaymentForm extends Component<Props, State> {
                     />
                   </FormControl>
                 </Grid>
-                <Grid item>
-                  <FormControl>
-                    <FormGroup>
-                      <FormControlLabel
-                        label={t('payment.status')}
-                        control={
-                          <Checkbox
-                            disabled={
-                              payment_method === PAYMENT_METHOD_CB.id ||
-                              payment_method ===
-                                PAYMENT_METHOD_CREDIT_ACCOUNT.id
-                            }
-                            checked={payment_received}
-                            onChange={this.storeStatus}
-                            color="primary"
-                          />
-                        }
-                      />
-                    </FormGroup>
-                  </FormControl>
-                </Grid>
               </Grid>
             </div>
             {this.renderPaymentExtraInfo()}

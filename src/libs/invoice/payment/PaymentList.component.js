@@ -115,6 +115,9 @@ class PaymentListItem extends Component<PaymentItemProps, PaymentItemState> {
     if (paymentItem.payment_received) {
       return <CheckIcon color="secondary" />;
     }
+    if (paymentItem.payment_received === false) {
+      return <CancelIcon color="secondary" />;
+    }
     if (paymentItem.payment_method === PAYMENT_METHOD_SUBSCRIPTION_CB.id) {
       return <HourglassEmpty color="secondary" />;
     }

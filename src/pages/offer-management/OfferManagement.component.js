@@ -46,6 +46,7 @@ import type { Member } from '../../libs/member/types';
 import type { Invoice } from '../../libs/invoice/types';
 
 type Props = {
+fullScreen: boolean,
   offerId: number,
   offer: ?Offer,
   offerLoading: boolean,

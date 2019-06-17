@@ -172,7 +172,8 @@ export class BookingItemForManager extends PureComponent<Props, State> {
   };
 
   renderCompactMenu = () => {
-    const closeAndAction = (actionCallback) => () => {
+    const closeAndAction = (actionCallback) => (e: SyntheticEvent<any>) => {
+      e.stopPropagation();
       actionCallback();
       this.setState({ menuAnchor: null });
     };

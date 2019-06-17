@@ -1,17 +1,16 @@
 // @flow
 import React, { PureComponent } from 'react';
 
-import {
-  CircularProgress,
-  Button,
-  Grid,
-  Typography,
-  List,
-} from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import List from '@material-ui/core/List';
 import WarningIcon from '@material-ui/icons/Warning';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
+import { compose } from 'recompose';
 
 import { consumerPaymentPack as consumerPackActions } from '../../actions';
 import ConsumerPackRowItem from '../../libs/payment-packs/ConsumerPackRowItem.component';
@@ -127,7 +126,8 @@ export class RegisterMemberToOfferForm extends PureComponent<Props> {
   }
 }
 
-export default withNamespaces()(
+export default compose(
+  withNamespaces(),
   connect(
     (state) => ({
       consumerPacksLoading: state.consumerPaymentPack.byOfferByMember.loading,
@@ -140,5 +140,5 @@ export default withNamespaces()(
       fetchConsumerPackByOfferByMember:
         consumerPackActions.fetchByOfferByMember,
     },
-  )(RegisterMemberToOfferForm),
-);
+  ),
+)(RegisterMemberToOfferForm);

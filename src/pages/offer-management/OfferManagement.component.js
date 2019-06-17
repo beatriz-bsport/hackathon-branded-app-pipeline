@@ -1,6 +1,9 @@
 // @flow
 import React, { PureComponent } from 'react';
 
+import { compose } from 'recompose';
+
+import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Collapse from '@material-ui/core/Collapse';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -123,12 +126,14 @@ export class OfferManagement extends PureComponent<Props, State> {
     this.props.fetchOfferData(this.props.offerId);
   }
 
-  closeQuickInvoice = (memberId) => {
-    this.setState((prevState) => ({
-      quickInvoices: prevState.quickInvoices.filter(
-        (qi) => qi.memberId !== memberId,
-      ),
-    }));
+  closeQuickInvoice = (memberId, invoiceData) => {
+    if (invoiceData.invoiceItems.offers.length === 0) {
+      this.setState((prevState) => ({
+        quickInvoices: prevState.quickInvoices.filter(
+          (qi) => qi.memberId !== memberId,
+        ),
+      }));
+    }
   };
 
   registerMemberAndOpenUnevenInvoice = async (
@@ -157,7 +162,7 @@ export class OfferManagement extends PureComponent<Props, State> {
 
   createInvoice = (invoiceData, memberId) => {
     this.props.createInvoice(invoiceData, memberId, null, this.props.offerId);
-    this.closeQuickInvoice(memberId);
+    this.closeQuickInvoice(memberId, invoiceData);
   };
 
   createMember = (data: *, options) => {
@@ -238,28 +243,15 @@ export class OfferManagement extends PureComponent<Props, State> {
 
   renderSearchedMember = (member: Member) => {
     const hasBooked = !!this.props.bookings.find((b) => b.member === member.id);
-    if (hasBooked) {
-      return (
-        <MemberBookingHelper
-          key={member.id}
-          onClick={() => this.addToQuickInvoicePanel(member.id)}
-          onClickListItem={() => this.addToQuickInvoicePanel(member.id)}
-          showMember={() => window.open(`/member/${member.id}/`)}
-          member={member}
-          hasBooked
-        />
-      );
-    }
     return (
       <MemberBookingHelper
         key={member.id}
-        onClick={() => this.setState({ memberToRegister: member.id })}
-        onClickListItem={() => this.setState({ memberToRegister: member.id })}
-        showMember={() => {
-          window.open(`/member/${member.id}/`, '_blank');
-        }}
+        onClickBill={() => this.addToQuickInvoicePanel(member.id)}
+        onClickRegister={() => this.setState({ memberToRegister: member.id })}
+        onClickListItem={() => this.addToQuickInvoicePanel(member.id)}
+        showMember={() => window.open(`/member/${member.id}/`)}
         member={member}
-        hasBooked={false}
+        hasBooked={hasBooked}
       />
     );
   };
@@ -422,6 +414,7 @@ export class OfferManagement extends PureComponent<Props, State> {
       discardOption,
       t,
       classes,
+      fullScreen,
     } = this.props;
 
     const { searchedText, memberToRegister } = this.state;
@@ -534,6 +527,7 @@ export class OfferManagement extends PureComponent<Props, State> {
           </Slide>
         </Grid>
         <Dialog
+          fullScreen={fullScreen}
           onClose={() => this.setState({ memberToRegister: null })}
           open={!!memberToRegister}
         >
@@ -557,6 +551,7 @@ export class OfferManagement extends PureComponent<Props, State> {
           </DialogContent>
         </Dialog>
         <Dialog
+          fullScreen={fullScreen}
           open={!!this.state.addMemberModal}
           onClose={this.closeAddMemberModal}
         >
@@ -647,4 +642,8 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(withNamespaces()(OfferManagement));
+export default compose(
+  withMobileDialog(),
+  withStyles(styles),
+  withNamespaces(),
+)(OfferManagement);

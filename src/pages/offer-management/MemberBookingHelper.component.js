@@ -1,14 +1,12 @@
 // @flow
 import React from 'react';
 
-import {
-  Button,
-  ListItem,
-  ListItemText,
-  ListItemSecondaryAction,
-  IconButton,
-  withStyles,
-} from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import IconButton from '@material-ui/core/IconButton';
+import withStyles from '@material-ui/core/styles/withStyles';
 import AddIcon from '@material-ui/icons/Add';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
@@ -24,8 +22,9 @@ type Props = {
   hasBooked: ?boolean,
 
   showMember: ?() => void,
-  onClick: () => void,
   onClickListItem: ?() => void,
+  onClickBill: () => void,
+  onClickRegister: () => void,
 };
 
 function MemberBookingHelper(props: Props) {
@@ -50,16 +49,14 @@ function MemberBookingHelper(props: Props) {
       />
       <ListItemSecondaryAction>
         {props.hasBooked ? (
-          <Button color="secondary" onClick={props.onClick}>
-            <EuroSymbolIcon className={props.classes.rightIcon} />
-            {props.t('offer.addInvoice')}
-          </Button>
-        ) : (
-          <Button color="primary" onClick={props.onClick}>
-            <AddIcon className={props.classes.rightIcon} />
-            {props.t('offer.createBooking')}
-          </Button>
-        )}
+          <IconButton color="secondary" onClick={props.onClickBill}>
+            <EuroSymbolIcon />
+          </IconButton>
+        ) : null}
+        <Button color="primary" onClick={props.onClickRegister}>
+          <AddIcon className={props.classes.rightIcon} />
+          {props.t('offer.createBooking')}
+        </Button>
         {props.showMember ? (
           <IconButton color="secondary" onClick={props.showMember}>
             <VisibilityIcon />

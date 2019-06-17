@@ -78,7 +78,7 @@ export function QuickInvoicePanel(props: Props) {
               quickInvoiceTitle={qi.memberName}
               key={qi.memberId}
               quickInvoice={qi}
-              onClose={() => closeQuickInvoice(qi.memberId)}
+              onClose={() => closeQuickInvoice(qi.memberId, qi)}
               onSubmit={saveQuickInvoice}
               paymentPacks={paymentPacks}
               shopItems={shopItems}

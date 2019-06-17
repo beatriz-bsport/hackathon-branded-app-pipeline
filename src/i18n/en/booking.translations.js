@@ -7,12 +7,13 @@ export default {
   },
   parameters: {
     registeredOn: 'Booked on',
-    source: "Buying channel",
+    source: 'Buying channel',
   },
   source: {
     web: 'Web',
     app: 'Mobile app',
     saas: 'Backoffice',
     other: 'Other',
+    migration: 'Migration Mindbody',
   },
 };

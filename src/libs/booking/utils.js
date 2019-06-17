@@ -35,7 +35,11 @@ export const getBookingStatusCode = (t: TFunction, booking: Booking) => {
 };
 
 export const getBookingSourceText = (t: TFunction, source: number) => {
-  return t(`source.${BOOKING_SOURCES.find((s) => s.id === source).text}`);
+  return t(
+    `source.${
+      (BOOKING_SOURCES.find((s) => s.id === source) || { text: 'Other' }).text
+    }`,
+  );
 };
 
 export const getBookingSourceIcon = (source: number) => {

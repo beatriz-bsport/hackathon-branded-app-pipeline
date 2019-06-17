@@ -14,5 +14,6 @@ export default {
     app: 'Application mobile',
     saas: 'Backoffice',
     other: 'Autre',
+    migration: 'Migration Mindbody',
   },
 };

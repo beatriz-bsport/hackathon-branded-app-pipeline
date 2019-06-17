@@ -46,7 +46,7 @@ import type { Member } from '../../libs/member/types';
 import type { Invoice } from '../../libs/invoice/types';
 
 type Props = {
-fullScreen: boolean,
+  fullScreen: boolean,
   offerId: number,
   offer: ?Offer,
   offerLoading: boolean,
@@ -128,7 +128,7 @@ export class OfferManagement extends PureComponent<Props, State> {
   }
 
   closeQuickInvoice = (memberId, invoiceData) => {
-    if (invoiceData.invoiceItems.offers.length === 0) {
+    if ((invoiceData.invoiceItems || { offers: [] }).offers.length === 0) {
       this.setState((prevState) => ({
         quickInvoices: prevState.quickInvoices.filter(
           (qi) => qi.memberId !== memberId,

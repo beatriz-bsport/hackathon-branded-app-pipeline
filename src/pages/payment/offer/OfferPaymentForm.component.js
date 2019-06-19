@@ -268,12 +268,12 @@ export class OfferPayment extends Component<Props> {
               variant="outlined"
               onClick={() => this.props.bookAnOption(offer.id)}
             >
-              M'inscrire sur liste d'attente
+              {"M'inscrire sur liste d'attente"}
             </Button>
           </Grid>
           <Grid item>
             <Typography variant="caption">
-              Vous serez prévenu par email lorsqu'une place se libèrera
+              {"Vous serez prévenu par email lorsqu'une place se libèrera"}
             </Typography>
           </Grid>
           <Grid item>

@@ -27,6 +27,7 @@ type Props = {
   loading: boolean,
   compatibleConsumerPacksLoading: boolean,
   compatiblePaymentPacksLoading: boolean,
+  consumer: { consumer: number },
 
   compatibleConsumerPacks: Array<ConsumerPaymentPackManagerView>,
   compatiblePaymentPacks: Array<PaymentPack>,

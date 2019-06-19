@@ -193,7 +193,6 @@ export class MyBookings extends Component<Props, State> {
       optionIdBeingCancelled: optionId,
       modalCancellingBookingOptionOpen: true,
     });
-    this.props.cancelBookingOption(optionId);
   };
 
   confirmBookingOption = (offerId: number, optionId: number) => {

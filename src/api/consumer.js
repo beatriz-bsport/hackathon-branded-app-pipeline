@@ -1,7 +1,7 @@
 import { API_URI, getAuth, deleteAuth } from '../http';
 
 export async function fetchConsumerOptions() {
-  return getAuth(`${API_URI}/booking/options/`);
+  return getAuth(`${API_URI}/waiting-list/booking-option/`);
 }
 
 export async function fetchConsumerPastBookings() {

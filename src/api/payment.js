@@ -1,10 +1,25 @@
 import { PAYMENT_PACK as PAYMENT_METHOD_PAYMENT_PACK } from '@bsport/common/lib/master-data/payment-methods';
-import { API_URI, PAYMENT_URI, getAuth, postBaseAuth } from '../http';
+import {
+  API_URI,
+  BASE_URI,
+  postAuth,
+  PAYMENT_URI,
+  getAuth,
+  postBaseAuth,
+} from '../http';
 
 const BOOKING_SOURCE_WEB = 1;
 
 export async function consumerFetchCompatiblePass(offerId) {
   return getAuth(`${API_URI}/pay/offer/${offerId}/compatible-packs`);
+}
+
+export async function bookAnOption(offer, consumer) {
+  console.log(consumer);
+  return postAuth(`${BASE_URI}/api/v1/waiting-list/booking-option/`, {
+    offer,
+    consumer: parseInt(consumer, 10),
+  });
 }
 
 export async function consumerPayWithConsumerPaymentPack(

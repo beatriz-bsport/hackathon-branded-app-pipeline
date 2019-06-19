@@ -80,6 +80,9 @@ export class BookingTable extends PureComponent<Props> {
       handleRevert,
       onQuickInvoiceClick,
     } = this.props;
+    const nonCancelledBookingOptions = (bookingOptions || []).filter(
+      (bo) => !bo.cancelled,
+    );
 
     if (loading || !bookings) {
       return <CircularProgress className={classes.contentWithMargin} />;
@@ -88,7 +91,7 @@ export class BookingTable extends PureComponent<Props> {
     // prettier-ignore
     if (
       bookings.length === 0
-      && bookingOptions.length === 0
+      && nonCancelledBookingOptions.length === 0
     ) {
       return (
         <Typography variant="caption" className={classes.contentWithMargin}>
@@ -125,7 +128,7 @@ export class BookingTable extends PureComponent<Props> {
               confirmBookingAttendance={() => confirmBookingAttendance(b.id)}
             />
           ))}
-          {bookingOptions.map((bo) => (
+          {nonCancelledBookingOptions.map((bo) => (
             <BookingOptionForManager
               heading={heading}
               option={bo}

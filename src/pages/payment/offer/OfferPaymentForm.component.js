@@ -257,6 +257,37 @@ export class OfferPayment extends Component<Props> {
     const { loading, offer, t } = this.props;
 
     const unlimitedPacks = this.getCompatibleUnlimitedPass();
+
+    if (offer && !loading && offer.is_full) {
+      return (
+        <Grid container spacing={16} direction="column" alignItems="center">
+          <Grid item>{this.getBasket()}</Grid>
+          <Grid item>
+            <Button
+              color="primary"
+              variant="outlined"
+              onClick={() => this.props.bookAnOption(offer.id)}
+            >
+              M'inscrire sur liste d'attente
+            </Button>
+          </Grid>
+          <Grid item>
+            <Typography variant="caption">
+              Vous serez prévenu par email lorsqu'une place se libèrera
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Button
+              color="secondary"
+              variant="contained"
+              onClick={this.props.goToPassMarketplace}
+            >
+              {t('marketplace.backToCalendar')}
+            </Button>
+          </Grid>
+        </Grid>
+      );
+    }
     if (unlimitedPacks.length && !loading && !(offer === null)) {
       return (
         <Grid container spacing={16} direction="column">

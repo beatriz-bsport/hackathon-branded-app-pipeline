@@ -11,6 +11,7 @@ import { push as routerPush } from 'react-router-redux';
 import { compose } from 'recompose';
 
 import withSnackbar from '../../hocs/with-snackbar.hoc';
+import { bookAnOption } from '../../api/payment';
 
 import { payment as paymentActions } from '../../actions';
 import ConsumerModalContainer from '../../components/consumer/ConsumerModalContainer.component';
@@ -40,10 +41,11 @@ type Props = {
 
 type State = {
   completed: boolean,
+  processing: boolean,
 };
 
 export class OfferPaymentPage extends Component<Props, State> {
-  state = { completed: false };
+  state = { completed: false, processing: false };
 
   onCompletePurchase = () => {
     const { snackbar, t } = this.props;
@@ -58,6 +60,20 @@ export class OfferPaymentPage extends Component<Props, State> {
     this.props.fetchCompatiblePass(offerId);
     this.props.fetchCompatiblePaymentPacks(offerId);
   }
+
+  bookAnOption = (offerId: number) => {
+    this.state.setState({ processing: true });
+    bookAnOption(offerId, this.props.consumer.consumer)
+      .then((res) => {
+        if (res.status === 201) {
+          this.props.pushRouter('/customer');
+        }
+      })
+      .catch((err) => {
+        this.setState({ processing: false });
+        console.error(err);
+      });
+  };
 
   goToPassMarketplace = () => {
     const { company_name } = this.props.offer.activity;
@@ -79,7 +95,7 @@ export class OfferPaymentPage extends Component<Props, State> {
       <ConsumerModalContainer>
         <OfferPaymentForm
           offer={this.props.offer}
-          loading={this.props.loading}
+          loading={this.props.loading || this.state.processing}
           compatibleConsumerPacks={this.props.compatibleConsumerPacks}
           compatibleConsumerPacksLoading={
             this.props.compatibleConsumerPacksLoading
@@ -91,6 +107,7 @@ export class OfferPaymentPage extends Component<Props, State> {
           onCompletePurchase={this.onCompletePurchase}
           onBuyPaymentPack={this.buyPaymentPack}
           goToPassMarketplace={this.goToPassMarketplace}
+          bookAnOption={this.bookAnOption}
         />
       </ConsumerModalContainer>
     );
@@ -103,6 +120,7 @@ export default compose(
   connect(
     (state) => ({
       offer: state.payment.wantedOffer,
+      consumer: state.consumer.profile,
       loading: state.payment.loading,
       compatibleConsumerPacks: state.payment.compatibleConsumerPacks,
       compatiblePaymentPacks: state.payment.compatiblePaymentPacks,

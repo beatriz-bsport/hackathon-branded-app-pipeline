@@ -263,6 +263,10 @@ export class OfferManagement extends PureComponent<Props, State> {
     const isOpened = quickInvoices.find((qi) => qi.memberId === memberId);
     const selectedMember = this.props.members.find((m) => m.id === memberId);
 
+    if (!selectedMember) {
+      return;
+    }
+
     const quickInvoiceToAdd = bookings.find((b) => b.member === memberId)
       ? {
           memberName: selectedMember.name,

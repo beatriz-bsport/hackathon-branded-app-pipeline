@@ -63,7 +63,7 @@ export class OfferPaymentPage extends Component<Props, State> {
   }
 
   bookAnOption = (offerId: number) => {
-    this.state.setState({ processing: true });
+    this.setState({ processing: true });
     bookAnOption(offerId, this.props.consumer.consumer)
       .then((res) => {
         if (res.status === 201) {

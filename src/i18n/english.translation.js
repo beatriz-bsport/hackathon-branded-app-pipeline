@@ -729,7 +729,7 @@ export default {
         return `Are you sure you want to delete ${name}'s booking ? This booking will not be refund no more : if you want to refund please select "refund" when you disable the session on the Calendar.`;
       },
       revertBookingWithInvoiceImpossibleExplain:
-        'This booking has already been chased-out and can not be deleted. You can still change its status to "Absent".',
+        'This booking has already been chased-out and can not be deleted. You can still change its attendance status.',
       attend: 'Attend',
       doNotAttend: 'Absent',
       discard: 'Discard',

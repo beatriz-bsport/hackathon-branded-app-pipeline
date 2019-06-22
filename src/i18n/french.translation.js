@@ -803,7 +803,7 @@ export default {
       },
 
       revertBookingWithInvoiceImpossibleExplain:
-        'Cette reservation a déjà été payée par le membre et ne eut être annulée. Toute fois vous pouvez passer la réservation en "Absent"',
+        'Cette réservation a déjà été payée par le membre et ne peut être annulée. Toutefois vous pouvez passer la réservation en "Absent"',
       attend: 'Présent',
       doNotAttend: 'Absent',
       discard: 'Annuler',

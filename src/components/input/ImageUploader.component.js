@@ -47,8 +47,8 @@ export class ImageUploader extends React.Component<Props, State> {
   handleDrop = (acceptedFiles) => {
     if (acceptedFiles.length) {
       const file = acceptedFiles[0];
-      // eslint-disable-next-line
       this.setState({
+        // eslint-disable-next-line
         previewUrl: (window.URL ? URL : window.webkitURL).createObjectURL(file),
       });
 

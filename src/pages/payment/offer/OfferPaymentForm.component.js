@@ -44,6 +44,7 @@ type Props = {
   goToPassMarketplace: () => void,
   onCompletePurchase: () => void,
   onBuyPaymentPack: (packId: number) => void,
+  bookAnOption: (offerId: number) => void,
 };
 
 const OfferSummary = (props: { offer: Offer }) => (

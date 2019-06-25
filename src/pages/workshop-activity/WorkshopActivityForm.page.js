@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import { withProps, compose } from 'recompose';
 
-import { goBack } from 'react-router-redux';
+import { goBack, push as routerPush } from 'react-router-redux';
 import { mapFormData, unmap } from '../form.utils';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import { workshopActivity as workshopActivityActions } from '../../actions';
@@ -30,6 +30,7 @@ type Props = {
   onSubmit: (*) => void,
 
   goToPreviousPage: () => void,
+  goToPaymentPackForm: () => void,
 };
 const WorkshopActivityMap = {
   cover_main: 'cover_main',
@@ -73,6 +74,7 @@ export function WorkshopActivityFormPage(props: Props) {
       SCTs={SCTs}
       onSubmit={props.onSubmit}
       onCancel={props.goToPreviousPage}
+      redirectOnSuccess={props.goToPaymentPackForm}
       metaActivityNames={[]}
       initial={{ ...initialData, images: (initial || {}).images || [] }}
       imageUploader={id ? imageUploader : null}
@@ -102,6 +104,7 @@ export default compose(
     {
       upsertWorkshopActivity: workshopActivityActions.upsert,
       goToPreviousPage: goBack,
+      goToPaymentPackForm: () => routerPush('/payment-pack/add'),
       addImage: workshopActivityActions.addImageToWorkshop,
       removeImage: workshopActivityActions.removeImageFromWorkshop,
     },

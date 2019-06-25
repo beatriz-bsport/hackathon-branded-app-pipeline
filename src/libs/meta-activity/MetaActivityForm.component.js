@@ -118,7 +118,12 @@ export function MetaActivityForm(props: Props) {
               />
             </Grid>
           </Grid>
-          <Grid container direction="row" justify="flex-end">
+          <Grid
+            container
+            direction="row"
+            justify="flex-end"
+            className={classes.topSpacing}
+          >
             <Grid item>
               <Button onClick={props.onCancel}>{t('form.discard')}</Button>
             </Grid>
@@ -140,6 +145,9 @@ const styles = (theme) => ({
   container: {
     padding: theme.spacing.unit * 3,
   },
+  topSpacing: {
+    marginTop: theme.spacing.unit * 2,
+  },
 });
 
 const MetaActivitySchema = Yup.object().shape({
@@ -155,7 +163,7 @@ export default compose(
   withStyles(styles),
   withNamespaces(),
   withFormik({
-    mapPropsToValues: ({ initial }) =>
+    mapPropsToValues: ({ initial, redirectOnSuccess }) =>
       Object.assign(
         {
           cover_main: '',
@@ -165,7 +173,7 @@ export default compose(
           last_booking_minutes: 0,
           last_discard_minutes: 0,
         },
-        initial || {},
+        { ...initial, redirectOnSuccess } || {},
       ),
     validationSchema: MetaActivitySchema,
     handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
@@ -176,13 +184,16 @@ export default compose(
         'last_booking_minutes',
         'last_discard_minutes',
       ];
-      const { cover_main } = values;
+      const { cover_main, redirectOnSuccess } = values;
       const data = {
         ..._.pick(values, keys),
         cover_main: typeof cover_main !== 'string' ? cover_main : undefined,
       };
       onSubmit(data, {
-        onSuccess: () => setSubmitting(false),
+        onSuccess: () => {
+          setSubmitting(false);
+          redirectOnSuccess();
+        },
         onError: () => setSubmitting(false),
       });
     },

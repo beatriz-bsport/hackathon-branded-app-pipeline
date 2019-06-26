@@ -4,6 +4,9 @@ import React, { Component } from 'react';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
+import withStyles from '@material-ui/core/styles/withStyles';
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
@@ -22,8 +25,9 @@ type Props = {
   goToMemberPage: (memberId: number) => void,
   addMember: () => void,
   tagGroups: Array<TagGroup>,
-    fetchTags: () => void,
-    tags: Array<Tag>,
+  fetchTags: () => void,
+  tags: Array<Tag>,
+  classes: Object,
 };
 
 export class Members extends Component<Props> {
@@ -52,7 +56,11 @@ export class Members extends Component<Props> {
   };
 
   tagFilterBar = () => (
-    <React.Fragment>
+    <div className={this.props.classes.actionBar}>
+      <Button onClick={this.props.addMember} color="primary" variant="outlined">
+        <AddIcon />
+        {this.props.t('member.addMember')}
+      </Button>
       <TagChipList
         tagGroups={this.props.tagGroups}
         tags={this.props.tags}
@@ -74,7 +82,7 @@ export class Members extends Component<Props> {
         }}
         handleAdd={() => this.setState({ showFilterForm: true })}
       />
-    </React.Fragment>
+    </div>
   );
 
   render() {
@@ -103,8 +111,20 @@ export class Members extends Component<Props> {
   }
 }
 
+const styles = (theme) => ({
+  actionBar: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    paddingTop: theme.spacing.unit * 2,
+    marginLeft: -theme.spacing.unit,
+  },
+});
+
 export default compose(
   withNamespaces(),
+  withStyles(styles),
   withDrawer(({ t }: { t: TFunction }) => t('appbar.title.members')),
   connect(
     (state) => ({

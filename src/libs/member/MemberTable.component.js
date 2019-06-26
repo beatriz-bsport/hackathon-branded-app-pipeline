@@ -245,7 +245,7 @@ const styles = (theme) => ({
     justifyContent: 'space-between',
     display: 'flex',
     alignItems: 'center',
-    paddingLeft: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit * 2,
   },
 });
 

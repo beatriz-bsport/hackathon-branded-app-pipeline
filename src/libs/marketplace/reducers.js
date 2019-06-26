@@ -4,15 +4,17 @@ import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
 import {
-  fetchCompanyActivities,
-  fetchCompanyCoaches,
-  fetchCompanyEstablishments,
-  fetchCompanyMetaActivities,
-  fetchCompanyOffers,
+  companyActivitiesActions,
+  companyCoachesActions,
+  companyEstablishmentsActions,
+  companyMetaActivitiesActions,
+  companyOffersActions,
 } from './actions';
 
-const initialState: MarketPalceState = {
-  offres: {
+import type { MarketPlaceState } from './types';
+
+const initialState: MarketPlaceState = Immutable({
+  offers: {
     items: [],
     loading: false,
     error: null,
@@ -37,5 +39,29 @@ const initialState: MarketPalceState = {
     loading: false,
     error: null,
   },
-};
-export default handleActions();
+});
+
+const actionsBulk = [
+  { action: companyActivitiesActions, id: 'activities' },
+  { action: companyMetaActivitiesActions, id: 'metaActivities' },
+  { action: companyEstablishmentsActions, id: 'establishments' },
+  { action: companyCoachesActions, id: 'coaches' },
+  { action: companyOffersActions, id: 'offers' },
+];
+
+export default handleActions(
+  actionsBulk.map((elem: any) => {
+    return {
+      [elem.isLoading]: (state, { payload }) => {
+        return state.setIn([elem.id, 'loading'], payload);
+      },
+      [elem.error]: (state, { payload }) => {
+        return state.setIn([elem.id, 'error'], payload);
+      },
+      [elem.success]: (state, { payload }) => {
+        return state.setIn([elem.id, 'success'], payload);
+      },
+    };
+  }),
+  initialState,
+);

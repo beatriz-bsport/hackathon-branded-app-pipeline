@@ -61,32 +61,30 @@ export type MetaActivity = {
   last_discard_minutes: number,
 };
 
-export type MarketPalceState = {
-  maketPlace: {
-    offers: {
-      items: Array<Offer>,
-      loading: boolean,
-      error: ?Error,
-    },
-    metaActivities: {
-      items: Array<MetaActivity>,
-      loading: boolean,
-      error: ?Error,
-    },
-    activities: {
-      items: Array<Activity>,
-      loading: boolean,
-      error: ?Error,
-    },
-    coaches: {
-      items: Array<Coach>,
-      loading: boolean,
-      error: ?Error,
-    },
-    establishment: {
-      items: Array<Establishment>,
-      loading: boolean,
-      error: ?Error,
-    },
+export type MarketPlaceState = {
+  offers: {
+    items: Array<Offer>,
+    loading: boolean,
+    error: ?Error,
+  },
+  metaActivities: {
+    items: Array<MetaActivity>,
+    loading: boolean,
+    error: ?Error,
+  },
+  activities: {
+    items: Array<Activity>,
+    loading: boolean,
+    error: ?Error,
+  },
+  coaches: {
+    items: Array<Coach>,
+    loading: boolean,
+    error: ?Error,
+  },
+  establishments: {
+    items: Array<Establishment>,
+    loading: boolean,
+    error: ?Error,
   },
 };

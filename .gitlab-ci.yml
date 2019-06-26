@@ -14,9 +14,10 @@ cache:
 
 stages:
   - lint
-  - unit_tests
+  # - unit_tests
   - build
   - e2e_tests
+  - deploy
 
 before_script:
   - yarn config set cache-folder $YARN_CACHE_DIR 
@@ -49,6 +50,20 @@ build:
     paths:
       - build
     expire_in: 1 month
+
+deploy:
+  image: python:slim
+  stage: deploy
+  only:
+    refs:
+      - master
+  variables:
+    AWS_ACCESS_KEY_ID: "${AWS_BUCKET_ACCESS_KEY_BACKOFFICE_STAGING}"
+    AWS_SECRET_ACCESS_KEY: "${AWS_BUCKET_SECRET_KEY_BACKOFFICE_STAGING}"
+  before_script:
+    - pip install awscli
+  script:
+    - aws s3 cp build/ s3://bsport-backoffice-asset-staging/ --recursive
 
 # release on sentry:
 #   stage: build

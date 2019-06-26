@@ -337,4 +337,218 @@ context('Manager - Member', () => {
       .location('pathname')
       .should('contains', '/member');
   });
+
+  it('Manager can update member', () => {
+    const memberData = { address: null, phone: null };
+    cy.visit('/member');
+    // click on show button
+    cy.contains('Show').click();
+    // check if we get redirect to info page
+    cy.url()
+      .location('pathname')
+      .should('match', /member.([0-9]+).info/);
+    // click on the edit button
+    cy.contains('Edit').click();
+    // check if we get redirect to edit page with the member id
+    cy.url()
+      .location('pathname')
+      .should('match', /member.edit.([0-9]+)/);
+    // extract the member id from pathname
+    cy.window().then((win) => {
+      const memberId = win.location.pathname.replace(/^\D+/g, '');
+      cy.server();
+      cy.route('PUT', `${REACT_APP_URI}/saas/member/${memberId}`).as(
+        'updateMemberRequest',
+      );
+    });
+    // get the form data, it will be used to compare it with the response data
+    cy.get('[name=firstname]')
+      .invoke('val')
+      .then((value) => {
+        memberData.first_name = value;
+      });
+    cy.get('[name=lastname]')
+      .clear()
+      .type(member.last_name);
+    cy.get('[name=gender]')
+      .closest('div')
+      .click();
+    cy.get(`[data-value="${member.gender}"]`).click();
+    cy.get('[name=email]')
+      .clear()
+      .type(member.email);
+
+    cy.get('[name="birthday"]').click();
+    pickUpDate();
+    cy.get('[name=birthday]')
+      .invoke('val')
+      .then((birthday) => {
+        member.birthday = moment(birthday).format('YYYY-MM-DD', true);
+      });
+
+    cy.get('[name=date_joined]').click();
+    // pick a date
+    pickUpDate();
+    // pick up a phone country code
+    selectCountryPhoneCode(
+      '[name=phone__country]',
+      'Morocco (‫المغرب‬‎)',
+      'MA',
+    );
+    cy.get('[name="phone"]')
+      .clear()
+      .type(member.phone.phone_number)
+      .invoke('val')
+      .then((value) => {
+        const phone = value.replace(/ /g, '');
+        member.phone.phone_number = phone.replace(/^0/g, '+212');
+      });
+    cy.get('[name=address_line_1]')
+      .clear()
+      .type(member.address.address_line_1);
+    cy.get('[name=address_line_2]')
+      .clear()
+      .type(member.address.address_line_2);
+    cy.get('[name=city]')
+      .clear()
+      .type(member.address.city);
+    cy.get('[name=zipcode]')
+      .clear()
+      .type(member.address.zipcode);
+    cy.get('[name=country]')
+      .clear()
+      .type(member.address.country);
+    // click on the submit button
+    cy.get('[type=submit]').click();
+    cy.get('body').contains('Member details updated');
+    // check the server response
+    cy.wait('@updateMemberRequest').then((xhr) => {
+      expect(xhr.status).to.be.equal(200);
+      const updatedMember = Object.assign({}, xhr.response.body);
+      // response body should not be null or undefined
+      expect(updatedMember).to.be.a('Object');
+      Object.keys(updatedMember).forEach((property) => {
+        if (property === 'photo') {
+          expect(updatedMember[property]).to.be.a('string');
+        } else if (property === 'address' || property === 'phone') {
+          expect(updatedMember[property]).to.deep.equal(member[property]);
+        } else expect(updatedMember[property]).to.be.equal(member[property]);
+      });
+      // expect(member.first_name).to.be.equal(memberData.first_name);
+      // expect(member.last_name).to.be.equal(memberData.last_name);
+      // expect(member.email).to.be.equal(memberData.email);
+      // expect(member.gender).to.be.equal(memberData.gender);
+      // expect(member.address).to.deep.equal(memberData.address);
+      // expect(member.phone).to.deep.equal(memberData.phone);
+    });
+    // redirect to member list page
+    cy.url()
+      .location('pathname')
+      .should('contains', '/member');
+  });
+
+  it('Manager can update member', () => {
+    const member = FactoryBot.Member.createOne();
+    cy.visit('/member');
+    // click on show button
+    cy.contains('Show').click();
+    // check if we get redirect to info page
+    cy.url()
+      .location('pathname')
+      .should('match', /member.([0-9]+).info/);
+    // click on the edit button
+    cy.contains('Edit').click();
+    // check if we get redirect to edit page with the member id
+    cy.url()
+      .location('pathname')
+      .should('match', /member.edit.([0-9]+)/);
+    // extract the member id from pathname
+    cy.window().then((win) => {
+      const memberId = win.location.pathname.replace(/^\D+/g, '');
+      cy.server();
+      cy.route('PUT', `${REACT_APP_URI}/saas/member/${memberId}`).as(
+        'updateMemberRequest',
+      );
+    });
+    // get the form data, it will be used to compare it with the response data
+    cy.get('[name=firstname]')
+      .invoke('val')
+      .then((value) => {
+        memberData.first_name = value;
+      });
+    cy.get('[name=lastname]')
+      .invoke('val')
+      .then((value) => {
+        memberData.last_name = value;
+      });
+    cy.get('[name=gender]')
+      .invoke('val')
+      .then((value) => {
+        memberData.gender = value;
+      });
+    cy.get('[name=email]')
+      .invoke('val')
+      .then((value) => {
+        memberData.email = value;
+      });
+    cy.get('[name="birthday"]')
+      .invoke('val')
+      .then((value) => {
+        if (value) {
+          memberData.birthday = moment(value).format('YYYY-MM-DD', true);
+        }
+      });
+
+    cy.get('[name="phone"]')
+      .invoke('val')
+      .then((value) => {
+        if (value) memberData.phone = { phone_number: value.replace(/ /g, '') };
+      });
+    cy.get('[name="address_line_1"]')
+      .invoke('val')
+      .then((value) => {
+        if (value) memberData.address = { address_line_1: value };
+      });
+    cy.get('[name="address_line_2"]')
+      .invoke('val')
+      .then((value) => {
+        if (value) memberData.address.address_line_2 = value;
+      });
+    cy.get('[name="city"]')
+      .invoke('val')
+      .then((value) => {
+        if (value) memberData.address.city = value;
+      });
+    cy.get('[name="zipcode"]')
+      .invoke('val')
+      .then((value) => {
+        if (value) memberData.address.zipcode = value;
+      });
+    cy.get('[name="country"]')
+      .invoke('val')
+      .then((value) => {
+        if (value) memberData.address.country = value;
+      });
+    // click on the submit button
+    cy.get('[type=submit]').click();
+    cy.get('body').contains('Member details updated');
+    // check the server response
+    cy.wait('@updateMemberRequest').then((xhr) => {
+      expect(xhr.status).to.be.equal(200);
+      const member = Object.assign({}, xhr.response.body);
+      // response body should not be null or undefined
+      expect(member).to.not.equal({});
+      assert.isObject(member, 'Member should be a valid object');
+      expect(member.first_name).to.be.equal(memberData.first_name);
+      expect(member.last_name).to.be.equal(memberData.last_name);
+      expect(member.email).to.be.equal(memberData.email);
+      expect(member.gender).to.be.equal(memberData.gender);
+      expect(member.address).to.deep.equal(memberData.address);
+      expect(member.phone).to.deep.equal(memberData.phone);
+    });
+    // redirect to member list page
+    cy.url()
+      .location('pathname')
+      .should('contains', '/member');
+  });
 });

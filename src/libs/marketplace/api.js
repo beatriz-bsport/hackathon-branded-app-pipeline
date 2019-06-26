@@ -1,35 +1,33 @@
 // @flow
 
-import { API_URI, getAuth } from '../../http';
+import { API_V1_URI, getAuth } from '../../http';
 
-const fetchCompanyMetaActivities = async (
-  companyId: number,
-  page: number = 1,
-) => {
-  return getAuth(`${API_URI}/meta-activity/?company=${companyId}&page=${page}`);
+const fetchCompanyMetaActivities = async (companyId: number, page: number) => {
+  return getAuth(
+    `${API_V1_URI}/meta-activity/?company=${companyId}&page=${page}`,
+  );
 };
 
-const fetchCompanyActivities = async (companyId: number, page: number = 1) => {
-  return getAuth(`${API_URI}/activity/?company=${companyId}&page=${page}`);
+const fetchCompanyActivities = async (companyId: number, page: number) => {
+  return getAuth(`${API_V1_URI}/activity/?company=${companyId}&page=${page}`);
 };
 
-const fetchCompanyEstablishments = async (
-  companyId: number,
-  page: number = 1,
-) => {
-  return getAuth(`${API_URI}/establishment/?company=${companyId}&page=${page}`);
+const fetchCompanyEstablishments = async (companyId: number, page: number) => {
+  return getAuth(
+    `${API_V1_URI}/establishment/?company=${companyId}&page=${page}`,
+  );
 };
 
-const fetchCompanyCoaches = async (companyId: number, page: number = 1) => {
-  return getAuth(`${API_URI}/coach/?company=${companyId}&page=${page}`);
+const fetchCompanyCoaches = async (companyId: number, page: number) => {
+  return getAuth(`${API_V1_URI}/coach/?company=${companyId}&page=${page}`);
 };
 const fetchCompanyOffers = async (
   companyId: number,
-  page: number = 1,
+  page: number,
   page_size: number = 300,
 ) => {
   return getAuth(
-    `${API_URI}/offer/?company=${companyId}&page=${page}&page_size=${page_size}`,
+    `${API_V1_URI}/offer/?company=${companyId}&page=${page}&page_size=${page_size}`,
   );
 };
 

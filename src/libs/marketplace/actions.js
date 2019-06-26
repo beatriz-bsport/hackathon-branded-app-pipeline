@@ -33,31 +33,78 @@ export const companyCoachesActions = {
   success: createAction('COMPANY/COACHES/SUCCESS'),
 };
 
-const actionsBulk = [
-  { action: companyOffersActions, fetch: api.fetchCompanyOffers },
-  {
-    action: companyEstablishmentsActions,
-    fetch: api.fetchCompanyEstablishments,
-  },
-  {
-    action: companyMetaActivitiesActions,
-    fetch: api.fetchCompanyMetaActivities,
-  },
-  { action: companyActivitiesActions, fetch: api.fetchCompanyActivities },
-  { action: companyCoachesActions, fetch: api.fetchCompanyCoaches },
-];
-export function fetchCompanyData(companyId: number, page: number) {
-  return actionsBulk.map((elem: any) => {
-    return async (dispatch: Object) => {
-      dispatch(elem.action.isLoading(true));
-      dispatch(elem.error(null));
-      try {
-        const response = await elem.fetch(companyId, page);
-        dispatch(elem.action.success(response.data));
-      } catch (error) {
-        dispach(elem.action.error(error));
-      }
-      dispatch(elem.action.isLoading(false));
-    };
-  });
+export function fetchCompanyOffers(companyId: number, page: number = 1) {
+  return async (dispatch: Object) => {
+    dispatch(companyOffersActions.isLoading(true));
+    dispatch(companyOffersActions.error(null));
+    try {
+      const response = await api.fetchCompanyOffers(companyId, page);
+      dispatch(companyOffersActions.success(response.data));
+    } catch (error) {
+      dispatch(companyOffersActions.error(error));
+    }
+    dispatch(companyOffersActions.isLoading(false));
+  };
+}
+
+export function fetchCompanyCoaches(companyId: number, page: number = 1) {
+  return async (dispatch: Object) => {
+    dispatch(companyCoachesActions.isLoading(true));
+    dispatch(companyCoachesActions.error(null));
+    try {
+      const response = await api.fetchCompanyCoaches(companyId, page);
+      dispatch(companyCoachesActions.success(response.data));
+    } catch (error) {
+      dispatch(companyCoachesActions.error(error));
+    }
+    dispatch(companyCoachesActions.isLoading(false));
+  };
+}
+
+export function fetchCompanyEstablishments(
+  companyId: number,
+  page: number = 1,
+) {
+  return async (dispatch: Object) => {
+    dispatch(companyEstablishmentsActions.isLoading(true));
+    dispatch(companyEstablishmentsActions.error(null));
+    try {
+      const response = await api.fetchCompanyEstablishments(companyId, page);
+      dispatch(companyEstablishmentsActions.success(response.data));
+    } catch (error) {
+      dispatch(companyEstablishmentsActions.error(error));
+    }
+    dispatch(companyEstablishmentsActions.isLoading(false));
+  };
+}
+
+export function fetchCompanyActivities(companyId: number, page: number = 1) {
+  return async (dispatch: Object) => {
+    dispatch(companyActivitiesActions.isLoading(true));
+    dispatch(companyActivitiesActions.error(null));
+    try {
+      const response = await api.fetchCompanyActivities(companyId, page);
+      dispatch(companyActivitiesActions.success(response.data));
+    } catch (error) {
+      dispatch(companyActivitiesActions.error(error));
+    }
+    dispatch(companyActivitiesActions.isLoading(false));
+  };
+}
+
+export function fetchCompanyMetaActivities(
+  companyId: number,
+  page: number = 1,
+) {
+  return async (dispatch: Object) => {
+    dispatch(companyMetaActivitiesActions.isLoading(true));
+    dispatch(companyMetaActivitiesActions.error(null));
+    try {
+      const response = await api.fetchCompanyMetaActivities(companyId, page);
+      dispatch(companyMetaActivitiesActions.success(response.data));
+    } catch (error) {
+      dispatch(companyMetaActivitiesActions.error(error));
+    }
+    dispatch(companyMetaActivitiesActions.isLoading(false));
+  };
 }

@@ -29,6 +29,7 @@ import memberReducer from '../libs/member/reducers';
 import bookingReducers from '../libs/booking/reducers';
 import tagReducers from '../libs/tag/reducers';
 import orderReducers from '../libs/order/reducers';
+import marketplcev2Reducer from '../libs/marketplace/reducers';
 
 import type { State, Action } from '../state/types';
 
@@ -63,6 +64,7 @@ const rootReducer = combineReducers({
   alerting: alertingReducer,
   tag: tagReducers,
   order: orderReducers,
+  marketplacev2: marketplcev2Reducer,
 });
 
 export default (state: State, action: Action) => {

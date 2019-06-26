@@ -35,14 +35,12 @@ context('Booking', () => {
 
     cy.get('[name=login]').type('customer@bsport.io');
     cy.get('[name=password]').type('password');
+
     cy.get('#btn-signin').click();
 
     cy.url()
       .location('pathname')
       .should('eq', path);
-    cy.url()
-      .location('search')
-      .should('eq', search);
   });
 
   it('unauthenticated user is redirected to booking page after sign up', function() {
@@ -61,9 +59,6 @@ context('Booking', () => {
     cy.url()
       .location('pathname')
       .should('eq', path);
-    cy.url()
-      .location('search')
-      .should('eq', search);
   });
 
   it('auth customer can book with an existing pass', function() {

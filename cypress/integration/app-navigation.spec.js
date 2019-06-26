@@ -23,17 +23,20 @@ describe('Testing App Navigation', function() {
     it('Check if the data is correctly loaded after refresh', function() {
       cy.visit('/');
       cy.server();
+      // register alerts request
+
+      cy.route('GET', `${REACT_APP_URI}/alerts/`).as('Alerts');
+
       cy.route('GET', `${REACT_APP_URI}/saas/meta-activities/`).as(
         'MetaActivities',
       );
       cy.route('GET', `${REACT_APP_URI}/saas/offers/minimal`).as(
         'MinimalOffers',
       );
-      cy.route('GET', `${REACT_APP_URI}/saas/members`).as('Members');
       cy.route('GET', `${REACT_APP_URI}/saas/activities/minimal/`).as(
         'MinimalActivities',
       );
-      cy.route('GET', `${REACT_APP_URI}/coach/associated/`).as(
+      cy.route('GET', `${REACT_APP_URI}/saas/associated-coach/`).as(
         'AssociatedCoachs',
       );
       cy.route('GET', `${REACT_APP_URI}/saas/establishments/`).as(
@@ -43,7 +46,6 @@ describe('Testing App Navigation', function() {
       cy.route('GET', `${REACT_APP_URI}/category/easy-accesses`).as(
         'EasyAccesses',
       );
-      cy.route('GET', `${REACT_APP_URI}/payment/invoices`).as('Invoices');
       cy.route('GET', `${REACT_APP_URI}/saas/payment-pack/`).as('PaymentPack');
       cy.route('GET', `${REACT_APP_URI}/statistics/bookings`).as('Bookings');
       cy.route('GET', `${REACT_APP_URI}/statistics/new-members`).as(
@@ -60,13 +62,11 @@ describe('Testing App Navigation', function() {
       cy.wait([
         '@MetaActivities',
         '@MinimalOffers',
-        '@Members',
         '@MinimalActivities',
         '@AssociatedCoachs',
         '@Establishments',
         '@SCT',
         '@EasyAccesses',
-        '@Invoices',
         '@PaymentPack',
         '@Bookings',
         '@NewMembers',
@@ -74,6 +74,7 @@ describe('Testing App Navigation', function() {
         '@ShopItems',
         '@PaymentRules',
         '@WorkshopActivities',
+        '@Alerts',
       ]).then((xhrs) =>
         xhrs.map((xhr) => {
           expect(xhr.status).to.be.equal(200);

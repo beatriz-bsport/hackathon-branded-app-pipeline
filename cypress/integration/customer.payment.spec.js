@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
 
 import moment from 'moment';
-import { REACT_APP_TEST_URI } from './common.utils';
+import { REACT_APP_URI, REACT_APP_TEST_URI } from './common.utils';
 
 context('Payment', () => {
   beforeEach(() => {
@@ -48,10 +48,10 @@ context('Payment', () => {
 
     cy.url()
       .location('pathname')
-      .should('eq', '/pass');
+      .should('eq', `/customer/payment/pass/${offer.payment_pack_id}`);
 
     cy.request({
-      url: 'http://localhost:8000/api-v0/booking/future/',
+      url: `${REACT_APP_URI}/booking/future/`,
       headers: { Authorization: `Token ${this.db.users.customer.token}` },
     }).then((response) => {
       const bookings = response.body.results;

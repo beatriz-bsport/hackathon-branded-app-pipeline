@@ -1,3 +1,4 @@
+import 'cypress-file-upload';
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -24,16 +25,12 @@
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
+// upload file using cypress-file-upload plugin
 Cypress.Commands.add('upload_file', (fileName, fileType = ' ', selector) => {
-  cy.get(selector).then((subject) => {
-    cy.fixture(fileName, 'base64')
-      .then(Cypress.Blob.base64StringToBlob)
-      .then((blob) => {
-        const el = subject[0];
-        const fileToUpload = new File([blob], fileName, { type: fileType });
-        const dataTransfer = new DataTransfer();
-        dataTransfer.items.add(fileToUpload);
-        el.files = dataTransfer.files;
-      });
+  cy.fixture(fileName).then((fileContent) => {
+    cy.get(selector).upload(
+      { fileContent, fileName, mimeType: fileType },
+      { subjectType: 'input' },
+    );
   });
 });

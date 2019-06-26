@@ -8,7 +8,7 @@ context('Consumer', () => {
     cy.request(REACT_APP_TEST_URI)
       .its('body')
       .as('db');
-    cy.visit('http://localhost:3000');
+    cy.visit('/');
   });
 
   it('user can sign up', () => {

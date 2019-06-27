@@ -5,15 +5,11 @@ import React from 'react';
 import { withStyles } from '@material-ui/core';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Grid from '@material-ui/core/Grid';
-import { compose, lifecycle } from 'recompose';
-import { connect } from 'react-redux';
 
 import { Moment } from '../../i18n';
 
 import Calendar from '../../components/offer/Calendar.component';
 import MarketplaceTimetable from './MarketplaceTimetable.component';
-
-import { fetchCompanyOffers } from './actions';
 
 type Props = {
   classes: { [string]: string },
@@ -82,27 +78,5 @@ const styles = (theme) => ({
     height: '100%',
   },
 });
-function mapStateToProps(state) {
-  return { marketplacev2: state.marketplacev2 };
-}
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchOffers() {
-      dispatch(fetchCompanyOffers(86));
-    },
-  };
-}
 
-export default compose(
-  withStyles(styles),
-  connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  ),
-  lifecycle({
-    componentDidMount() {
-      this.props.fetchOffers();
-      console.log(this.props);
-    },
-  }),
-)(MarketplaceCalendar);
+export default withStyles(styles)(MarketplaceCalendar);

@@ -3,6 +3,13 @@
 import { createAction } from 'redux-actions';
 import api from './api';
 
+type ResponsePaginated = {
+  data: {
+    next_page: ?number,
+    results: Array<*>,
+  },
+};
+
 export const companyOffersActions = {
   error: createAction('COMPANY/OFFERS/ERROR'),
   isLoading: createAction('COMPANY/OFFERS/IS_LOADING'),
@@ -33,13 +40,28 @@ export const companyCoachesActions = {
   success: createAction('COMPANY/COACHES/SUCCESS'),
 };
 
-export function fetchCompanyOffers(companyId: number, page: number = 1) {
+export const fetchPaginated = async (
+  fetchFunc: (page: number) => Promise<ResponsePaginated>,
+  page: ?number,
+): Array<*> => {
+  const res = await fetchFunc(page || 1);
+  const { results, next_page } = res.data;
+  if (!next_page) {
+    return results;
+  }
+  const next_results = await fetchPaginated(fetchFunc, next_page);
+  return [...results, ...next_results];
+};
+
+export function fetchCompanyOffers(companyId: number) {
   return async (dispatch: Object) => {
     dispatch(companyOffersActions.isLoading(true));
     dispatch(companyOffersActions.error(null));
     try {
-      const response = await api.fetchCompanyOffers(companyId, page);
-      dispatch(companyOffersActions.success(response.data));
+      const offers = await fetchPaginated((page: number) =>
+        api.fetchCompanyOffers({ companyId, page }),
+      );
+      dispatch(companyOffersActions.success(offers));
     } catch (error) {
       dispatch(companyOffersActions.error(error));
     }
@@ -47,13 +69,15 @@ export function fetchCompanyOffers(companyId: number, page: number = 1) {
   };
 }
 
-export function fetchCompanyCoaches(companyId: number, page: number = 1) {
+export function fetchCompanyCoaches(companyId: number) {
   return async (dispatch: Object) => {
     dispatch(companyCoachesActions.isLoading(true));
     dispatch(companyCoachesActions.error(null));
     try {
-      const response = await api.fetchCompanyCoaches(companyId, page);
-      dispatch(companyCoachesActions.success(response.data));
+      const coaches = await fetchPaginated((page: number) =>
+        api.fetchCompanyCoaches({ companyId, page }),
+      );
+      dispatch(companyCoachesActions.success(coaches));
     } catch (error) {
       dispatch(companyCoachesActions.error(error));
     }
@@ -61,16 +85,15 @@ export function fetchCompanyCoaches(companyId: number, page: number = 1) {
   };
 }
 
-export function fetchCompanyEstablishments(
-  companyId: number,
-  page: number = 1,
-) {
+export function fetchCompanyEstablishments(companyId: number) {
   return async (dispatch: Object) => {
     dispatch(companyEstablishmentsActions.isLoading(true));
     dispatch(companyEstablishmentsActions.error(null));
     try {
-      const response = await api.fetchCompanyEstablishments(companyId, page);
-      dispatch(companyEstablishmentsActions.success(response.data));
+      const establishments = await fetchPaginated((page: number) =>
+        api.fetchCompanyEstablishments({ companyId, page }),
+      );
+      dispatch(companyEstablishmentsActions.success(establishments));
     } catch (error) {
       dispatch(companyEstablishmentsActions.error(error));
     }
@@ -78,13 +101,15 @@ export function fetchCompanyEstablishments(
   };
 }
 
-export function fetchCompanyActivities(companyId: number, page: number = 1) {
+export function fetchCompanyActivities(companyId: number) {
   return async (dispatch: Object) => {
     dispatch(companyActivitiesActions.isLoading(true));
     dispatch(companyActivitiesActions.error(null));
     try {
-      const response = await api.fetchCompanyActivities(companyId, page);
-      dispatch(companyActivitiesActions.success(response.data));
+      const activities = await fetchPaginated((page: number) =>
+        api.fetchCompanyActivities({ companyId, page }),
+      );
+      dispatch(companyActivitiesActions.success(activities));
     } catch (error) {
       dispatch(companyActivitiesActions.error(error));
     }
@@ -92,16 +117,15 @@ export function fetchCompanyActivities(companyId: number, page: number = 1) {
   };
 }
 
-export function fetchCompanyMetaActivities(
-  companyId: number,
-  page: number = 1,
-) {
+export function fetchCompanyMetaActivities(companyId: number) {
   return async (dispatch: Object) => {
     dispatch(companyMetaActivitiesActions.isLoading(true));
     dispatch(companyMetaActivitiesActions.error(null));
     try {
-      const response = await api.fetchCompanyMetaActivities(companyId, page);
-      dispatch(companyMetaActivitiesActions.success(response.data));
+      const metaActivities = await fetchPaginated((page: number) =>
+        api.fetchCompanyMetaActivities({ companyId, page }),
+      );
+      dispatch(companyMetaActivitiesActions.success(metaActivities));
     } catch (error) {
       dispatch(companyMetaActivitiesActions.error(error));
     }

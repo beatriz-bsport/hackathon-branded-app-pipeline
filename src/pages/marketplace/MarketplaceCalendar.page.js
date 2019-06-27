@@ -13,6 +13,14 @@ import MarketplaceActivityDialog from '../../libs/marketplace/MarketplaceActivit
 import { Moment } from '../../i18n';
 import { marketplace as marketplaceActions } from '../../actions';
 
+import {
+  fetchCompanyOffers,
+  fetchCompanyMetaActivities,
+  fetchCompanyActivities,
+  fetchCompanyEstablishments,
+  fetchCompanyCoaches,
+} from '../../libs/marketplace/actions';
+
 type Props = {
   offers: Array<OfferBasic>,
   selectedDayOffers: ?Array<OfferMarketplace>,
@@ -40,6 +48,11 @@ export class MarketPlace extends Component<Props, State> {
     const { fetchCalendar } = this.props;
     fetchCalendar(this.props.companyId);
     this.updateOfferList(this.state.selectedDate);
+    this.props.fetchCompanyOffers(this.props.companyId);
+    this.props.fetchCompanyActivities(this.props.companyId);
+    this.props.fetchCompanyMetaActivities(this.props.companyId);
+    this.props.fetchCompanyCoaches(this.props.companyId);
+    this.props.fetchCompanyEstablishments(this.props.companyId);
   }
 
   handleDateChange = (date) => {
@@ -117,6 +130,7 @@ function mapStateToProps(state) {
     calendarLoading: state.marketplace.loading,
     selectedDayOffers: state.marketplace.detailedOffers,
     selectedDayOffersLoading: state.marketplace.detailedOffersLoading,
+    marketplacev2: state.marketplacev2,
   };
 }
 
@@ -136,6 +150,11 @@ export default compose(
       fetchCompany: marketplaceActions.fetchCompany,
       fetchCalendar: marketplaceActions.fetchCalendar,
       fetchOffersByDay: marketplaceActions.fetchOffersByDay,
+      fetchCompanyOffers,
+      fetchCompanyMetaActivities,
+      fetchCompanyActivities,
+      fetchCompanyEstablishments,
+      fetchCompanyCoaches,
     },
   ),
 )(MarketPlace);

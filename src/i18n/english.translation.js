@@ -407,7 +407,8 @@ export default {
         substituteEstablishmentLabel: 'Establishement (exceptional)',
         warningPackonEdit:
           'These change may need you to check the pass, they may not stay compatible with the new sessions.\nThe following packs were compatible with this offer, after application of the change please review them carefully.',
-        deleteTitle: 'Cancel session',
+        deleteTitle: 'Delete session',
+        cancelTitle: 'Cancel session',
         changeDate: 'Modify date / time',
         changeCoach: 'Change the coach',
         changeEstablishment: 'Change location',
@@ -420,7 +421,7 @@ export default {
         delete: {
           buttonHardDelete: 'Delete',
           explainHardDelete:
-            'Remove offer from list ? You will not be able to access this session anymore, nor any of the booking related to it. Be careful !',
+            'Remove offer from list ? You will not be able to access this session anymore. If the session contains bookings, it will not be deleted. Be careful !',
           explainCreditBack: 'Send back all credits used for booking',
           explainNotify: 'Send an alert to every client with a booking',
           explainModalities:

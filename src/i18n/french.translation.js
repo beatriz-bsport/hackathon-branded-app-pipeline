@@ -387,6 +387,7 @@ export default {
         warningPackonEdit:
           "Les changements sur les séances risquent de les rendre incompatibles avec certains abonnements. Les abonnements actuellement compatibles avec cette séance sont les suivants, après la modification veuillez prendre le temps de vérifier qu'ils resteront compatible avec les éventuels changements de lieu / coach.",
         deleteTitle: 'Supprimer la séance',
+        cancelTitle: 'Annuler la séance',
         changeDate: "Modifier l'horaire / date",
         changeCoach: 'Modifier le coach',
         changeEstablishment: 'Modifier le lieu',
@@ -399,7 +400,7 @@ export default {
         delete: {
           buttonHardDelete: 'Supprimer',
           explainHardDelete:
-            "Supprimer la séance de la liste ? Attention celle-ci deviendra invisible, ainsi que les réservations associées, vous n'aurez plus accès à l'historique !",
+            'Supprimer la séance de la liste ? Attention celle-ci deviendra invisible, cette opération est irréversible ! Si la séance contient des réservations, elle ne sera pas supprimée.',
           explainCreditBack: 'Rembourser les crédits dépensés aux clients',
           explainNotify: 'Envoyer une alerte aux clients ayant réservé',
           explainModalities:

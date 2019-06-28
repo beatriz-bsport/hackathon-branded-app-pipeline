@@ -130,7 +130,7 @@ export class DeleteOfferForm extends Component<Props, State> {
   };
 
   render() {
-    const { t, processing, onCancel } = this.props;
+    const { t, processing, onCancel, offerWasCancelled } = this.props;
     return (
       <Grid
         container
@@ -139,7 +139,11 @@ export class DeleteOfferForm extends Component<Props, State> {
         style={{ height: '100%' }}
       >
         <Grid item>
-          <Typography variant="h6">{t('form.offer.deleteTitle')}</Typography>
+          <Typography variant="h6">
+            {offerWasCancelled
+              ? t('form.offer.deleteTitle')
+              : t('form.offer.cancelTitle')}
+          </Typography>
         </Grid>
         <Grid item>{this.renderInside()}</Grid>
         <Grid item>

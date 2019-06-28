@@ -12,14 +12,10 @@ import MarketplaceActivityDialog from '../../libs/marketplace/MarketplaceActivit
 
 import { Moment } from '../../i18n';
 import { marketplace as marketplaceActions } from '../../actions';
-
 import {
-  fetchCompanyOffers,
-  fetchCompanyMetaActivities,
-  fetchCompanyActivities,
-  fetchCompanyEstablishments,
-  fetchCompanyCoaches,
-} from '../../libs/marketplace/actions';
+  offersSelector,
+  todayOffersSelector,
+} from '../../libs/marketplace/selectors';
 
 type Props = {
   offers: Array<OfferBasic>,
@@ -30,52 +26,53 @@ type Props = {
   fetchOffersByDay: ({ companyId: number, date: Object }) => void,
   classes: Object,
   companyId: number,
+  marketplacev2: Object,
 };
 
 type State = {
   selectedDate: Object,
   offerId: ?number,
+  offer: Object,
+  selectedDayOffers: Array<OfferMarketplace>,
 };
 
 export class MarketPlace extends Component<Props, State> {
   state = {
     selectedDate: Moment(),
+    selectedDayOffers: [],
     offerId: null,
     offer: null,
   };
 
-  async componentDidMount() {
-    const { fetchCalendar } = this.props;
-    fetchCalendar(this.props.companyId);
-    this.updateOfferList(this.state.selectedDate);
-    this.props.fetchCompanyOffers(this.props.companyId);
-    this.props.fetchCompanyActivities(this.props.companyId);
-    this.props.fetchCompanyMetaActivities(this.props.companyId);
-    this.props.fetchCompanyCoaches(this.props.companyId);
-    this.props.fetchCompanyEstablishments(this.props.companyId);
-  }
+  // async componentDidMount() {
+  //   const { fetchCalendar } = this.props;
+  //   fetchCalendar(this.props.companyId);
+  //   this.updateOfferList(this.state.selectedDate);
+  // }
 
-  handleDateChange = (date) => {
+  handleDateChange = (date: Object) => {
     this.setState(() => {
-      this.updateOfferList(date);
-      return { selectedDate: date };
+      return {
+        selectedDate: date,
+        selectedDayOffers: todayOffersSelector(this.props.marketplacev2, date),
+      };
     });
   };
 
-  updateOfferList = (selectedDate) => {
-    const day = selectedDate.date();
-    const year = selectedDate.year();
-    const month = selectedDate.month() + 1;
-    if (!this.props.companyId) {
-      return;
-    }
-    this.props.fetchOffersByDay({
-      companyId: this.props.companyId,
-      year,
-      month,
-      day,
-    });
-  };
+  // updateOfferList = (selectedDate) => {
+  //   const day = selectedDate.date();
+  //   const year = selectedDate.year();
+  //   const month = selectedDate.month() + 1;
+  //   if (!this.props.companyId) {
+  //     return;
+  //   }
+  //   this.props.fetchOffersByDay({
+  //     companyId: this.props.companyId,
+  //     year,
+  //     month,
+  //     day,
+  //   });
+  // };
 
   openOfferDialog = (offerId: number) => {
     this.setState({
@@ -117,7 +114,7 @@ export class MarketPlace extends Component<Props, State> {
           dayOffersLoading={selectedDayOffersLoading}
           onClickOffer={this.openOfferDialog}
           calendarLoading={calendarLoading}
-          onSelectDate={this.handleDateChange}
+          onSelectDate={() => this.handleDateChange}
         />
       </div>
     );
@@ -126,11 +123,11 @@ export class MarketPlace extends Component<Props, State> {
 
 function mapStateToProps(state) {
   return {
-    offers: state.marketplace.offers,
-    calendarLoading: state.marketplace.loading,
-    selectedDayOffers: state.marketplace.detailedOffers,
-    selectedDayOffersLoading: state.marketplace.detailedOffersLoading,
     marketplacev2: state.marketplacev2,
+    offers: offersSelector(state.marketplacev2),
+    // calendarLoading: state.marketplace.loading,
+    // selectedDayOffers: state.marketplace.detailedOffers,
+    // selectedDayOffersLoading: state.marketplace.detailedOffersLoading,
   };
 }
 
@@ -148,13 +145,8 @@ export default compose(
     mapStateToProps,
     {
       fetchCompany: marketplaceActions.fetchCompany,
-      fetchCalendar: marketplaceActions.fetchCalendar,
-      fetchOffersByDay: marketplaceActions.fetchOffersByDay,
-      fetchCompanyOffers,
-      fetchCompanyMetaActivities,
-      fetchCompanyActivities,
-      fetchCompanyEstablishments,
-      fetchCompanyCoaches,
+      // fetchCalendar: marketplaceActions.fetchCalendar,
+      // fetchOffersByDay: marketplaceActions.fetchOffersByDay,
     },
   ),
 )(MarketPlace);

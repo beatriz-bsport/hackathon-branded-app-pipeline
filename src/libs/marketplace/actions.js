@@ -53,13 +53,17 @@ export const fetchPaginated = async (
   return [...results, ...next_results];
 };
 
-export function fetchCompanyOffers(companyId: number) {
+export function fetchCompanyOffersAction(
+  companyId: number,
+  min_date: string,
+  max_date: string,
+) {
   return async (dispatch: Object) => {
     dispatch(companyOffersActions.isLoading(true));
     dispatch(companyOffersActions.error(null));
     try {
       const offers = await fetchPaginated((page: number) =>
-        api.fetchCompanyOffers({ companyId, page }),
+        api.fetchCompanyOffers({ companyId, min_date, max_date, page }),
       );
       dispatch(companyOffersActions.success(offers));
     } catch (error) {
@@ -69,7 +73,7 @@ export function fetchCompanyOffers(companyId: number) {
   };
 }
 
-export function fetchCompanyCoaches(companyId: number) {
+export function fetchCompanyCoachesAction(companyId: number) {
   return async (dispatch: Object) => {
     dispatch(companyCoachesActions.isLoading(true));
     dispatch(companyCoachesActions.error(null));
@@ -85,7 +89,7 @@ export function fetchCompanyCoaches(companyId: number) {
   };
 }
 
-export function fetchCompanyEstablishments(companyId: number) {
+export function fetchCompanyEstablishmentsAction(companyId: number) {
   return async (dispatch: Object) => {
     dispatch(companyEstablishmentsActions.isLoading(true));
     dispatch(companyEstablishmentsActions.error(null));
@@ -101,7 +105,7 @@ export function fetchCompanyEstablishments(companyId: number) {
   };
 }
 
-export function fetchCompanyActivities(companyId: number) {
+export function fetchCompanyActivitiesAction(companyId: number) {
   return async (dispatch: Object) => {
     dispatch(companyActivitiesActions.isLoading(true));
     dispatch(companyActivitiesActions.error(null));
@@ -117,7 +121,7 @@ export function fetchCompanyActivities(companyId: number) {
   };
 }
 
-export function fetchCompanyMetaActivities(companyId: number) {
+export function fetchCompanyMetaActivitiesAction(companyId: number) {
   return async (dispatch: Object) => {
     dispatch(companyMetaActivitiesActions.isLoading(true));
     dispatch(companyMetaActivitiesActions.error(null));

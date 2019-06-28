@@ -1,16 +1,11 @@
 // @flow
-import type { MarketPlaceState, Offer } from './types';
 import _ from 'lodash';
+import { Moment } from '../../i18n';
+import type { MarketPlaceState, Offer } from './types';
 
 const _getOffers = (state: MarketPlaceState) => state.offers.items;
-const _getEstablishments = (state: MarketPlaceState) =>
-  state.establishments.items;
-
-const _getMetaActivities = (state: MarketPlaceState) =>
-  state.metaActivities.items;
 
 const _getActivities = (state: MarketPlaceState) => state.activities.items;
-const _getCoaches = (state: MarketPlaceState) => state.coaches.items;
 
 /**
  * get all offers related to a specific activity
@@ -102,6 +97,19 @@ const getOffersByLevel = (
   });
   return _offers;
 };
+
+export function offersSelector(state: MarketPlaceState) {
+  return _getOffers(state);
+}
+
+export function todayOffersSelector(
+  date: Object,
+  state: MarketPlaceState,
+): Array<Offer> {
+  return _getOffers(state).filter((o) =>
+    Moment(o.date_start).isSame(date, 'day'),
+  );
+}
 
 export default {
   getOffersByCoach,

@@ -63,7 +63,7 @@ deploy:
   before_script:
     - pip install awscli
   script:
-    - rm build/static/js/*.map.js
+    - rm build/static/js/*.js.map
     - aws s3 cp build/ s3://bsport-backoffice-asset-staging/ --recursive  --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
 
 # release on sentry:

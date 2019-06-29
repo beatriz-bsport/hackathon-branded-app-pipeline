@@ -14,19 +14,37 @@ import { Moment } from '../../i18n';
 import { marketplace as marketplaceActions } from '../../actions';
 import {
   offersSelector,
-  todayOffersSelector,
+  offerBuilderSelector,
 } from '../../libs/marketplace/selectors';
+
+import {
+  fetchCompanyMetaActivitiesAction,
+  fetchCompanyActivitiesAction,
+  fetchCompanyEstablishmentsAction,
+  fetchCompanyCoachesAction,
+  fetchCompanyOffersAction,
+} from '../../libs/marketplace/actions';
 
 type Props = {
   offers: Array<OfferBasic>,
   selectedDayOffers: ?Array<OfferMarketplace>,
-  selectedDayOffersLoading: boolean,
+  companyOffersLoading: boolean,
   calendarLoading: boolean,
   fetchCalendar: (companyId: number) => void,
   fetchOffersByDay: ({ companyId: number, date: Object }) => void,
   classes: Object,
   companyId: number,
   marketplacev2: Object,
+  fetchCompany: (companyId: number) => void,
+  fetchCompanyOffers: (
+    companyId: number,
+    min_date: string,
+    max_date: string,
+  ) => void,
+  fetchCompanyActivities: (companyId: number) => void,
+  fetchCompanyMetaActivities: (companyId: number) => void,
+  fetchCompanyEstablishments: (companyId: number) => void,
+  fetchCompanyCoaches: (companyId: number) => void,
 };
 
 type State = {
@@ -44,40 +62,46 @@ export class MarketPlace extends Component<Props, State> {
     offer: null,
   };
 
-  // async componentDidMount() {
-  //   const { fetchCalendar } = this.props;
-  //   fetchCalendar(this.props.companyId);
-  //   this.updateOfferList(this.state.selectedDate);
-  // }
+  componentWillMount() {
+    //   const { fetchCalendar } = this.props;
+    //   fetchCalendar(this.props.companyId);
+    //   this.updateOfferList(this.state.selectedDate);
+    // fetch marketplace data expcept
+    const min_date = Moment()
+      .startOf('month')
+      .format('YYYY-MM-DD');
+    const max_date = Moment()
+      .endOf('month')
+      .format('YYYY-MM-DD');
+    this.props.fetchCompanyOffers(this.props.companyId, min_date, max_date);
+    this.props.fetchCompanyActivities(this.props.companyId);
+    this.props.fetchCompanyMetaActivities(this.props.companyId);
+    this.props.fetchCompanyCoaches(this.props.companyId);
+    this.props.fetchCompanyEstablishments(this.props.companyId);
+  }
 
   handleDateChange = (date: Object) => {
+    const offers = this.props.offers.filter((o) =>
+      Moment(o.date_start).isSame(date, 'day'),
+    );
+
+    const todayOffers = offers.map((o) =>
+      offerBuilderSelector(o, this.props.marketplacev2),
+    );
+    console.log(todayOffers);
+
     this.setState(() => {
       return {
         selectedDate: date,
-        selectedDayOffers: todayOffersSelector(this.props.marketplacev2, date),
+        selectedDayOffers: todayOffers,
       };
     });
   };
 
-  // updateOfferList = (selectedDate) => {
-  //   const day = selectedDate.date();
-  //   const year = selectedDate.year();
-  //   const month = selectedDate.month() + 1;
-  //   if (!this.props.companyId) {
-  //     return;
-  //   }
-  //   this.props.fetchOffersByDay({
-  //     companyId: this.props.companyId,
-  //     year,
-  //     month,
-  //     day,
-  //   });
-  // };
-
   openOfferDialog = (offerId: number) => {
     this.setState({
       offerId,
-      offer: this.props.selectedDayOffers.find((o) => o.id === offerId),
+      offer: this.state.selectedDayOffers.find((o) => o.id === offerId),
     });
   };
 
@@ -90,10 +114,9 @@ export class MarketPlace extends Component<Props, State> {
       calendarLoading,
       classes,
       offers,
-      selectedDayOffers,
-      selectedDayOffersLoading,
+      companyOffersLoading,
     } = this.props;
-    const { selectedDate } = this.state;
+    const { selectedDayOffers, selectedDate } = this.state;
 
     return (
       <div className={classes.container}>
@@ -111,10 +134,10 @@ export class MarketPlace extends Component<Props, State> {
           selectedDate={selectedDate}
           offers={offers}
           dayOffers={selectedDayOffers}
-          dayOffersLoading={selectedDayOffersLoading}
+          dayOffersLoading={companyOffersLoading}
           onClickOffer={this.openOfferDialog}
           calendarLoading={calendarLoading}
-          onSelectDate={() => this.handleDateChange}
+          onSelectDate={this.handleDateChange}
         />
       </div>
     );
@@ -125,9 +148,9 @@ function mapStateToProps(state) {
   return {
     marketplacev2: state.marketplacev2,
     offers: offersSelector(state.marketplacev2),
+    companyOffersLoading: state.marketplacev2.offers.loading,
     // calendarLoading: state.marketplace.loading,
     // selectedDayOffers: state.marketplace.detailedOffers,
-    // selectedDayOffersLoading: state.marketplace.detailedOffersLoading,
   };
 }
 
@@ -145,8 +168,11 @@ export default compose(
     mapStateToProps,
     {
       fetchCompany: marketplaceActions.fetchCompany,
-      // fetchCalendar: marketplaceActions.fetchCalendar,
-      // fetchOffersByDay: marketplaceActions.fetchOffersByDay,
+      fetchCompanyMetaActivities: fetchCompanyMetaActivitiesAction,
+      fetchCompanyActivities: fetchCompanyActivitiesAction,
+      fetchCompanyEstablishments: fetchCompanyEstablishmentsAction,
+      fetchCompanyCoaches: fetchCompanyCoachesAction,
+      fetchCompanyOffers: fetchCompanyOffersAction,
     },
   ),
 )(MarketPlace);

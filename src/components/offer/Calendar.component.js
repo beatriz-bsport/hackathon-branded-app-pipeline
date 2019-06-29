@@ -37,7 +37,7 @@ export class Calendar extends Component<Props, State> {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.onDateClick(this.props.date);
   }
 

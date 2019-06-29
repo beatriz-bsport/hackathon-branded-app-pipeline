@@ -1,11 +1,18 @@
 // @flow
 import _ from 'lodash';
-import { Moment } from '../../i18n';
 import type { MarketPlaceState, Offer } from './types';
 
 const _getOffers = (state: MarketPlaceState) => state.offers.items;
 
 const _getActivities = (state: MarketPlaceState) => state.activities.items;
+
+const _getEstablishments = (state: MarketPlaceState) =>
+  state.establishments.items;
+
+const _getCoaches = (state: MarketPlaceState) => state.coaches.items;
+
+const _getMetaActivities = (state: MarketPlaceState) =>
+  state.metaActivities.items;
 
 /**
  * get all offers related to a specific activity
@@ -101,14 +108,29 @@ const getOffersByLevel = (
 export function offersSelector(state: MarketPlaceState) {
   return _getOffers(state);
 }
-
-export function todayOffersSelector(
-  date: Object,
-  state: MarketPlaceState,
-): Array<Offer> {
-  return _getOffers(state).filter((o) =>
-    Moment(o.date_start).isSame(date, 'day'),
+export function offerBuilderSelector(offer: any, state: MarketPlaceState) {
+  const activity = _getActivities(state).find((a) => a.id === offer.activity);
+  const establishment = _getEstablishments(state).find(
+    (e) => e.id === activity.establishment,
   );
+  const metaActivity = _getMetaActivities(state).find(
+    (ma) => ma.id === activity.meta_activity,
+  );
+  const coach = _getCoaches(state).find((c) => c.id === activity.coach);
+  const coach_override = _getCoaches(state).find(
+    (c) => c.id === offer.coach_override,
+  );
+  const establishment_override = _getCoaches(state).find(
+    (c) => c.id === offer.coach_override,
+  );
+  return Object.assign({}, offer, {
+    activity,
+    establishment,
+    metaActivity,
+    coach,
+    coach_override,
+    establishment_override,
+  });
 }
 
 export default {

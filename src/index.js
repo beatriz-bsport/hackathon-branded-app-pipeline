@@ -14,6 +14,7 @@ import './material-dashboard-react.css';
 if (process.env.NODE_ENV === 'production') {
   Sentry.init({
     dsn: Config.REACT_APP_SENTRY_DSN || null,
+    environment: Config.REACT_APP_SENTRY_ENVIRONMENT || 'production',
   });
 }
 

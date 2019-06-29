@@ -30,5 +30,4 @@ checkConfigValue('REACT_APP_GOOGLE_MAPS_API_KEY');
 
 if (Config.NODE_ENV === 'production') {
   checkConfigValue('REACT_APP_SENTRY_DSN', true);
-  checkConfigValue('REACT_APP_CRISP_WEBSITE_ID');
 }

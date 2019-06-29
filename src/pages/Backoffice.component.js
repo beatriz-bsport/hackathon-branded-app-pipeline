@@ -71,7 +71,7 @@ export class Backoffice extends Component<Props> {
   componentDidMount() {
     this.props.refreshIfNeeded();
     window.$crisp = [];
-    window.CRISP_WEBSITE_ID = Config.REACT_APP_CRISP_WEBSITE_ID;
+    window.CRISP_WEBSITE_ID = Config.REACT_APP_CRISP_WEBSITE_ID || '';
     const d = document;
     const s = d.createElement('script');
     s.src = 'https://client.crisp.chat/l.js';

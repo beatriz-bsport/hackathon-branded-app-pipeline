@@ -12,10 +12,7 @@ import MarketplaceActivityDialog from '../../libs/marketplace/MarketplaceActivit
 
 import { Moment } from '../../i18n';
 import { marketplace as marketplaceActions } from '../../actions';
-import {
-  offersSelector,
-  offerBuilderSelector,
-} from '../../libs/marketplace/selectors';
+import { offerBuilderSelector } from '../../libs/marketplace/selectors';
 
 import {
   fetchCompanyMetaActivitiesAction,
@@ -60,12 +57,10 @@ export class MarketPlace extends Component<Props, State> {
     selectedDayOffers: [],
     offerId: null,
     offer: null,
+    month: null,
   };
 
   componentWillMount() {
-    //   const { fetchCalendar } = this.props;
-    //   fetchCalendar(this.props.companyId);
-    //   this.updateOfferList(this.state.selectedDate);
     // fetch marketplace data expcept
     const min_date = Moment()
       .startOf('month')
@@ -81,21 +76,23 @@ export class MarketPlace extends Component<Props, State> {
   }
 
   handleDateChange = (date: Object) => {
-    const offers = this.props.offers.filter((o) =>
+    const todayOffers = this.props.offers.filter((o) =>
       Moment(o.date_start).isSame(date, 'day'),
     );
 
-    const todayOffers = offers.map((o) =>
-      offerBuilderSelector(o, this.props.marketplacev2),
-    );
-    console.log(todayOffers);
-
     this.setState(() => {
       return {
-        selectedDate: date,
+        month: this.state.selectedDate.get('month'),
         selectedDayOffers: todayOffers,
+        selectedDate: date,
       };
     });
+    // the condition mean simply the month has been changed
+    if (this.state.month && this.state.month !== date.get('month')) {
+      const min_date = date.startOf('month').format('YYYY-MM-DD');
+      const max_date = date.endOf('month').format('YYYY-MM-DD');
+      this.props.fetchCompanyOffers(this.props.companyId, min_date, max_date);
+    }
   };
 
   openOfferDialog = (offerId: number) => {
@@ -134,9 +131,8 @@ export class MarketPlace extends Component<Props, State> {
           selectedDate={selectedDate}
           offers={offers}
           dayOffers={selectedDayOffers}
-          dayOffersLoading={companyOffersLoading}
           onClickOffer={this.openOfferDialog}
-          calendarLoading={calendarLoading}
+          calendarLoading={companyOffersLoading}
           onSelectDate={this.handleDateChange}
         />
       </div>
@@ -147,7 +143,7 @@ export class MarketPlace extends Component<Props, State> {
 function mapStateToProps(state) {
   return {
     marketplacev2: state.marketplacev2,
-    offers: offersSelector(state.marketplacev2),
+    offers: offerBuilderSelector(state.marketplacev2),
     companyOffersLoading: state.marketplacev2.offers.loading,
     // calendarLoading: state.marketplace.loading,
     // selectedDayOffers: state.marketplace.detailedOffers,

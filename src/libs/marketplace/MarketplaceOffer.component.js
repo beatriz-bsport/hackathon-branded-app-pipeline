@@ -80,7 +80,7 @@ export class MarketplaceOffer extends Component<Props> {
       >
         <CoachAvatar
           t={t}
-          coach={offer.coach}
+          coach={offer.activity.coach}
           coach_override={offer.coach_override}
         />
         <ListItemText
@@ -94,7 +94,11 @@ export class MarketplaceOffer extends Component<Props> {
               <Level noStyle variant="caption" levelId={offer.activity.level} />
             </div>
           }
-          secondary={offer.establishment.title}
+          secondary={
+            offer.establishment_override
+              ? offer.establishment_override.title
+              : offer.activity.establishment.title
+          }
         />
         <div
           style={{

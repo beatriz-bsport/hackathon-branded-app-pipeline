@@ -105,31 +105,41 @@ const getOffersByLevel = (
   return _offers;
 };
 
-export function offersSelector(state: MarketPlaceState) {
-  return _getOffers(state);
-}
-export function offerBuilderSelector(offer: any, state: MarketPlaceState) {
-  const activity = _getActivities(state).find((a) => a.id === offer.activity);
-  const establishment = _getEstablishments(state).find(
-    (e) => e.id === activity.establishment,
-  );
-  const metaActivity = _getMetaActivities(state).find(
-    (ma) => ma.id === activity.meta_activity,
-  );
-  const coach = _getCoaches(state).find((c) => c.id === activity.coach);
-  const coach_override = _getCoaches(state).find(
-    (c) => c.id === offer.coach_override,
-  );
-  const establishment_override = _getCoaches(state).find(
-    (c) => c.id === offer.coach_override,
-  );
-  return Object.assign({}, offer, {
-    activity,
-    establishment,
-    metaActivity,
-    coach,
-    coach_override,
-    establishment_override,
+export function offerBuilderSelector(state: MarketPlaceState) {
+  return _getOffers(state).map((offer) => {
+    const offerActivity = _getActivities(state).find(
+      (a) => a.id === offer.activity,
+    );
+    const establishment =
+      _getEstablishments(state).find((e) =>
+        offerActivity ? e.id === offerActivity.establishment : false,
+      ) || null;
+    const metaActivity =
+      _getMetaActivities(state).find((ma) =>
+        offerActivity ? ma.id === offerActivity.meta_activity : false,
+      ) || null;
+    const coach =
+      _getCoaches(state).find((c) =>
+        offerActivity ? c.id === offerActivity.coach : false,
+      ) || null;
+    const coach_override =
+      _getCoaches(state).find((c) =>
+        offerActivity ? c.id === offer.coach_override : false,
+      ) || null;
+    const establishment_override =
+      _getEstablishments(state).find((c) =>
+        c.id === offerActivity ? offer.establishment_override : false,
+      ) || null;
+    const activity = Object.assign({}, offerActivity, {
+      coach,
+      establishment,
+    });
+    return Object.assign({}, offer, {
+      activity,
+      metaActivity,
+      coach_override,
+      establishment_override,
+    });
   });
 }
 

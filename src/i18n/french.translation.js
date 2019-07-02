@@ -924,6 +924,9 @@ export default {
       welcomeTo: 'Bienvenue chez ',
       pass: 'Abonnement',
       buyPack: 'Acheter',
+      select: {
+        placeholderOverride: 'Filter',
+      },
     },
     appbar: {
       title: {

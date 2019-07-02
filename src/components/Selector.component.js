@@ -68,7 +68,6 @@ type ControlProps = {
 };
 
 function Control(props: ControlProps) {
-  console.log(props.selectProps);
   const adornment = props.selectProps.searchIcon ? (
     <InputAdornment position="start">
       <SearchIcon />
@@ -201,7 +200,7 @@ const components = {
   ValueContainer,
 };
 
-type Suggestion = { value: number, name: string };
+export type Suggestion = { value: number, name: string };
 type Theme = { palette: { text: { primary: string } } };
 
 type IntegrationReactSelectProps = {

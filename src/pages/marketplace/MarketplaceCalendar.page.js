@@ -14,6 +14,8 @@ import { Moment } from '../../i18n';
 import { marketplace as marketplaceActions } from '../../actions';
 import { offerBuilderSelector } from '../../libs/marketplace/selectors';
 
+import type { Coach, Establishment } from '../../libs/marketplace/types';
+
 import {
   fetchCompanyMetaActivitiesAction,
   fetchCompanyActivitiesAction,
@@ -24,6 +26,8 @@ import {
 
 type Props = {
   offers: Array<OfferBasic>,
+  coaches: Array<Coach>,
+  establishments: Array<Establishment>,
   selectedDayOffers: ?Array<OfferMarketplace>,
   companyOffersLoading: boolean,
   calendarLoading: boolean,
@@ -61,7 +65,7 @@ export class MarketPlace extends Component<Props, State> {
     month: '',
   };
 
-  async componentWillMount() {
+  componentWillMount() {
     // fetch marketplace data expcept
     const min_date = Moment()
       .startOf('month')
@@ -69,22 +73,22 @@ export class MarketPlace extends Component<Props, State> {
     const max_date = Moment()
       .endOf('month')
       .format('YYYY-MM-DD');
-    this.props.fetchCompanyOffers(this.props.companyId, min_date, max_date);
     this.props.fetchCompanyActivities(this.props.companyId);
     this.props.fetchCompanyMetaActivities(this.props.companyId);
     this.props.fetchCompanyCoaches(this.props.companyId);
     this.props.fetchCompanyEstablishments(this.props.companyId);
+    this.props.fetchCompanyOffers(this.props.companyId, min_date, max_date);
   }
 
   handleDateChange = (date: Object) => {
-    const todayOffers = this.props.offers.filter((o) =>
+    const selectedDayOffers = this.props.offers.filter((o) =>
       Moment(o.date_start).isSame(date, 'day'),
     );
     this.setState(() => {
       return {
         month: this.state.selectedDate.get('month'),
         selectedDate: date,
-        selectedDayOffers: todayOffers,
+        selectedDayOffers,
       };
     });
 
@@ -95,16 +99,6 @@ export class MarketPlace extends Component<Props, State> {
       this.props.fetchCompanyOffers(this.props.companyId, min_date, max_date);
     }
   };
-
-  componentDidMount() {
-    const { selectedDate } = this.state;
-    const todayOffers = this.props.offers.filter((o) =>
-      Moment(o.date_start).isSame(selectedDate, 'day'),
-    );
-    this.setState({
-      selectedDayOffers: todayOffers,
-    });
-  }
 
   openOfferDialog = (offerId: number) => {
     this.setState({
@@ -119,12 +113,13 @@ export class MarketPlace extends Component<Props, State> {
 
   render() {
     const {
-      calendarLoading,
       classes,
       offers,
       companyOffersLoading,
+      establishments,
+      coaches,
     } = this.props;
-    const { selectedDayOffers, selectedDate } = this.state;
+    const { selectedDate, selectedDayOffers } = this.state;
 
     return (
       <div className={classes.container}>
@@ -143,8 +138,10 @@ export class MarketPlace extends Component<Props, State> {
           offers={offers}
           dayOffers={selectedDayOffers}
           onClickOffer={this.openOfferDialog}
-          calendarLoading={companyOffersLoading}
+          dayOffersLoading={companyOffersLoading}
           onSelectDate={this.handleDateChange}
+          coaches={coaches}
+          establishments={establishments}
         />
       </div>
     );
@@ -155,6 +152,8 @@ function mapStateToProps(state) {
   return {
     marketplacev2: state.marketplacev2,
     offers: offerBuilderSelector(state.marketplacev2),
+    coaches: state.marketplacev2.coaches.items,
+    establishments: state.marketplacev2.establishments.items,
     companyOffersLoading: state.marketplacev2.offers.loading,
   };
 }

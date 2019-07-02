@@ -852,6 +852,9 @@ export default {
       },
       pass: 'Pass',
       buyPack: 'Buy',
+      select: {
+        placeholderOverride: 'Filter',
+      },
     },
     appbar: {
       title: {

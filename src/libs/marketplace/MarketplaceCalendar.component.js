@@ -10,6 +10,9 @@ import { Moment } from '../../i18n';
 
 import Calendar from '../../components/offer/Calendar.component';
 import MarketplaceTimetable from './MarketplaceTimetable.component';
+import CoachSelector from './components/CoachSelector.component';
+import EstablishmentSelector from './components/EstablishmentSelector.component';
+import LevelSelector from './components/LevelSelector.component';
 
 type Props = {
   classes: { [string]: string },
@@ -20,6 +23,8 @@ type Props = {
   dayOffers: *[],
   dayOffersLoading: boolean,
   onClickOffer: () => void,
+  coaches: *[],
+  establishments: *[],
 };
 
 export function MarketplaceCalendar(props: Props) {
@@ -31,7 +36,10 @@ export function MarketplaceCalendar(props: Props) {
     offers,
     dayOffers,
     dayOffersLoading,
+    coaches,
+    establishments,
   } = props;
+  console.log(props);
   const events = {};
   offers.forEach((o) => {
     const midnight = Moment(o.date_start).startOf('day');
@@ -41,16 +49,40 @@ export function MarketplaceCalendar(props: Props) {
     events[midnight].push(o);
   });
   return (
-    <Grid container direction="row" alignItems="stretch">
+    <Grid
+      container
+      direction="row"
+      alignItems="stretch"
+      classeName={classes.root}
+    >
       <Grid item xs={12} md={6}>
-        <div className={classes.leftPanel}>
-          <Calendar
-            forceMonthDisplay
-            onDateClick={onSelectDate}
-            date={selectedDate}
-            events={events}
-          />
-        </div>
+        <Grid container spacing={3} className={classes.leftPanel}>
+          <Grid item xs={12}>
+            <Grid container spacing={16}>
+              <Grid item xs={4}>
+                <CoachSelector coaches={coaches} isOverride onChange={null} />
+              </Grid>
+              <Grid item xs={4}>
+                <EstablishmentSelector
+                  establishments={establishments}
+                  isOverride
+                  onChange={null}
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <LevelSelector isOverride onChange={null} />
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item xs={12} className={classes.calendar}>
+            <Calendar
+              forceMonthDisplay
+              onDateClick={onSelectDate}
+              date={selectedDate}
+              events={events}
+            />
+          </Grid>
+        </Grid>
       </Grid>
       <Grid item xs={12} md={6}>
         <div className={classes.rightPanel}>
@@ -70,12 +102,16 @@ export function MarketplaceCalendar(props: Props) {
 }
 
 const styles = (theme) => ({
+  root: {},
   leftPanel: {
     padding: theme.spacing.unit * 2,
   },
   rightPanel: {
     borderLeft: '1px solid #F0F0F0',
     height: '100%',
+  },
+  calendar: {
+    borderTop: '1px solid #F0F0F0',
   },
 });
 

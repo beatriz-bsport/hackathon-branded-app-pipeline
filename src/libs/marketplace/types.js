@@ -43,6 +43,8 @@ export type Activity = {
 };
 export type Coach = {
   id: number,
+  name: string,
+  avatar: string,
   medianRating: string,
   description: string,
   instagram_url: string,
@@ -59,6 +61,11 @@ export type MetaActivity = {
   description: string,
   last_booking_minutes: number,
   last_discard_minutes: number,
+};
+
+export type Level = {
+  id: number,
+  name: string,
 };
 
 export type MarketPlaceState = {

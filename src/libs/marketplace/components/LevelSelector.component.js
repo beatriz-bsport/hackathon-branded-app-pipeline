@@ -31,9 +31,7 @@ export function LevelSelector(props: Props) {
       className={classes.root}
       suggestions={suggestions}
       selected={selected}
-      placeholder={
-        isOverride ? t('select.placeholderOverride') : t('select.placeholder')
-      }
+      placeholder={t('selector.level.placeholder')}
       onChange={onChange}
     />
   );
@@ -43,6 +41,4 @@ const styles = () => ({
   root: {},
 });
 
-export default withStyles(styles)(
-  withNamespaces(['marketplace'])(LevelSelector),
-);
+export default withStyles(styles)(withNamespaces('marketplace')(LevelSelector));

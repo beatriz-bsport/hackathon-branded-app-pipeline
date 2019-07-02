@@ -7,7 +7,6 @@ import type { TFunction } from 'react-i18next';
 
 import Selector from '../../../components/Selector.component';
 import type { Suggestion } from '../../../components/Selector.component';
-import CoachPerformanceSummary from '../../associated-coach/performance/CoachPerformanceSummary.component';
 
 import type { Coach } from '../types';
 
@@ -33,9 +32,7 @@ export function CoachSelector(props: Props) {
       className={classes.root}
       suggestions={suggestions}
       selected={selected}
-      placeholder={
-        isOverride ? t('select.placeholderOverride') : t('select.placeholder')
-      }
+      placeholder={t('selector.coach.placeholder')}
       onChange={onChange}
     />
   );
@@ -45,6 +42,4 @@ const styles = () => ({
   root: {},
 });
 
-export default withStyles(styles)(
-  withNamespaces(['marketplace'])(CoachSelector),
-);
+export default withStyles(styles)(withNamespaces('marketplace')(CoachSelector));

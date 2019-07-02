@@ -924,8 +924,10 @@ export default {
       welcomeTo: 'Bienvenue chez ',
       pass: 'Abonnement',
       buyPack: 'Acheter',
-      select: {
-        placeholderOverride: 'Filter',
+      selector: {
+        coach: { placeholder: 'Filtrer par professeur' },
+        level: { placeholder: 'Filtrer par niveau' },
+        establishment: { placeholder: 'Filtrer par établissement' },
       },
     },
     appbar: {

@@ -31,9 +31,7 @@ export function EstablishmentSelector(props: Props) {
       className={classes.root}
       suggestions={suggestions}
       selected={selected}
-      placeholder={
-        isOverride ? t('select.placeholderOverride') : t('select.placeholder')
-      }
+      placeholder={t('selector.establishment.placeholder')}
       onChange={onChange}
     />
   );
@@ -44,5 +42,5 @@ const styles = () => ({
 });
 
 export default withStyles(styles)(
-  withNamespaces(['marketplace'])(EstablishmentSelector),
+  withNamespaces('marketplace')(EstablishmentSelector),
 );

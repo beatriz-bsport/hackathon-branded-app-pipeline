@@ -60,17 +60,16 @@ export function MarketplaceCalendar(props: Props) {
           <Grid item xs={12}>
             <Grid container spacing={16}>
               <Grid item xs={4}>
-                <CoachSelector coaches={coaches} isOverride onChange={null} />
+                <CoachSelector coaches={coaches} onChange={null} />
               </Grid>
               <Grid item xs={4}>
                 <EstablishmentSelector
                   establishments={establishments}
-                  isOverride
                   onChange={null}
                 />
               </Grid>
               <Grid item xs={4}>
-                <LevelSelector isOverride onChange={null} />
+                <LevelSelector onChange={null} />
               </Grid>
             </Grid>
           </Grid>

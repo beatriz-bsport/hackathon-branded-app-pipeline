@@ -852,8 +852,10 @@ export default {
       },
       pass: 'Pass',
       buyPack: 'Buy',
-      select: {
-        placeholderOverride: 'Filter',
+      selector: {
+        coach: { placeholder: 'Filtre by coach' },
+        level: { placeholder: 'Filter by level' },
+        establishment: { placeholder: 'Filter by establishement' },
       },
     },
     appbar: {

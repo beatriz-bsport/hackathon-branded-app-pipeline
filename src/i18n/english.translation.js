@@ -17,6 +17,7 @@ import tag from './en/tag.translations';
 import subscription from './en/subscription.translations';
 import shop from './en/shop.translations';
 import order from './en/order.translations';
+import marketplace from './fr/marketplace.translations';
 
 export default {
   dashboard,
@@ -31,6 +32,7 @@ export default {
   booking,
   member,
   tag,
+  marketplace,
   coachPerformance: {
     addBonus: 'Add a rule',
     dateTitle: 'Date range',
@@ -852,11 +854,6 @@ export default {
       },
       pass: 'Pass',
       buyPack: 'Buy',
-      selector: {
-        coach: { placeholder: 'Filtre by coach' },
-        level: { placeholder: 'Filter by level' },
-        establishment: { placeholder: 'Filter by establishement' },
-      },
     },
     appbar: {
       title: {

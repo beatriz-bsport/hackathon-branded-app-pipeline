@@ -17,6 +17,7 @@ import booking from './fr/booking.translations';
 import tag from './fr/tag.translations';
 import shop from './fr/shop.translations';
 import order from './fr/order.translations';
+import marketplace from './fr/marketplace.translations';
 
 export default {
   dashboard,
@@ -31,6 +32,7 @@ export default {
   paymentPack,
   member,
   booking,
+  marketplace,
   coachPerformance: {
     fields: {
       bonus: 'Bonus',

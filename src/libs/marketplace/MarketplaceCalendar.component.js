@@ -55,7 +55,7 @@ export function MarketplaceCalendar(props: Props) {
       alignItems="stretch"
       classeName={classes.root}
     >
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={7}>
         <Grid container spacing={3} className={classes.leftPanel}>
           <Grid item xs={12}>
             <Grid container spacing={16}>
@@ -83,7 +83,7 @@ export function MarketplaceCalendar(props: Props) {
           </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={5}>
         <div className={classes.rightPanel}>
           <MarketplaceTimetable
             offers={dayOffers}

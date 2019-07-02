@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-
+import _ from 'lodash';
 import { compose } from 'recompose';
 
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -49,6 +49,7 @@ type State = {
   offerId: ?number,
   offer: Object,
   selectedDayOffers: Array<OfferMarketplace>,
+  month: string,
 };
 
 export class MarketPlace extends Component<Props, State> {
@@ -57,10 +58,10 @@ export class MarketPlace extends Component<Props, State> {
     selectedDayOffers: [],
     offerId: null,
     offer: null,
-    month: null,
+    month: '',
   };
 
-  componentWillMount() {
+  async componentWillMount() {
     // fetch marketplace data expcept
     const min_date = Moment()
       .startOf('month')
@@ -79,14 +80,14 @@ export class MarketPlace extends Component<Props, State> {
     const todayOffers = this.props.offers.filter((o) =>
       Moment(o.date_start).isSame(date, 'day'),
     );
-
     this.setState(() => {
       return {
         month: this.state.selectedDate.get('month'),
-        selectedDayOffers: todayOffers,
         selectedDate: date,
+        selectedDayOffers: todayOffers,
       };
     });
+
     // the condition mean simply the month has been changed
     if (this.state.month && this.state.month !== date.get('month')) {
       const min_date = date.startOf('month').format('YYYY-MM-DD');
@@ -94,6 +95,16 @@ export class MarketPlace extends Component<Props, State> {
       this.props.fetchCompanyOffers(this.props.companyId, min_date, max_date);
     }
   };
+
+  componentDidMount() {
+    const { selectedDate } = this.state;
+    const todayOffers = this.props.offers.filter((o) =>
+      Moment(o.date_start).isSame(selectedDate, 'day'),
+    );
+    this.setState({
+      selectedDayOffers: todayOffers,
+    });
+  }
 
   openOfferDialog = (offerId: number) => {
     this.setState({
@@ -145,8 +156,6 @@ function mapStateToProps(state) {
     marketplacev2: state.marketplacev2,
     offers: offerBuilderSelector(state.marketplacev2),
     companyOffersLoading: state.marketplacev2.offers.loading,
-    // calendarLoading: state.marketplace.loading,
-    // selectedDayOffers: state.marketplace.detailedOffers,
   };
 }
 

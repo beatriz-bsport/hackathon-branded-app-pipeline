@@ -59,17 +59,19 @@ export function MarketplaceCalendar(props: Props) {
         <Grid container spacing={3} className={classes.leftPanel}>
           <Grid item xs={12}>
             <Grid container spacing={16}>
-              <Grid item xs={4}>
+              <Grid item xs={6}>
                 <CoachSelector coaches={coaches} onChange={null} />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={6}>
+                <LevelSelector onChange={null} />
+              </Grid>
+            </Grid>
+            <Grid container spacing={16}>
+              <Grid item xs={12}>
                 <EstablishmentSelector
                   establishments={establishments}
                   onChange={null}
                 />
-              </Grid>
-              <Grid item xs={4}>
-                <LevelSelector onChange={null} />
               </Grid>
             </Grid>
           </Grid>
@@ -110,7 +112,7 @@ const styles = (theme) => ({
     height: '100%',
   },
   calendar: {
-    borderTop: '1px solid #F0F0F0',
+    // borderTop: '1px solid #F0F0F0',
   },
 });
 

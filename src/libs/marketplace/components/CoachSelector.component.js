@@ -29,6 +29,7 @@ export function CoachSelector(props: Props) {
   return (
     <Selector
       searchIcon
+      isMulti
       className={classes.root}
       suggestions={suggestions}
       selected={selected}

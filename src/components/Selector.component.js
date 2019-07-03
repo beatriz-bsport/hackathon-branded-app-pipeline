@@ -214,6 +214,7 @@ type IntegrationReactSelectProps = {
   onCreateOption: (label: string) => void,
   components: Object,
   searchIcon: boolean,
+  isMulti: boolean,
 };
 
 function IntegrationReactSelect(props: IntegrationReactSelectProps) {
@@ -227,6 +228,7 @@ function IntegrationReactSelect(props: IntegrationReactSelectProps) {
     onChange,
     onCreateOption,
     searchIcon,
+    isMulti,
   } = props;
 
   const selectStyles = {
@@ -254,6 +256,7 @@ function IntegrationReactSelect(props: IntegrationReactSelectProps) {
         placeholder={placeholder}
         onCreateOption={onCreateOption}
         searchIcon={searchIcon}
+        isMulti={isMulti}
       />
     </div>
   );

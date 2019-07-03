@@ -1,0 +1,61 @@
+export default {
+  details: {
+    pleaseSelectAPack: 'Sélectionnez un abonnement pour voir le détails',
+    invoiceTitle: 'Facture associée',
+    bookingsTitle: 'Réservations associées',
+  },
+  newMemberOnly: 'Disponible uniquement aux nouveaux inscrits',
+  publicPacksTitle: 'Abonnements disponibles à la vente',
+  privatePacksTitle: 'Abonnements non disponibles à la vente',
+  subscribeToOffer: 'Inscrire',
+  createOrUpdate: {
+    success: 'Abonnement enregistré',
+    fail: "Erreur lors de l'enregistrement de l'abonnement",
+  },
+  disabled: 'Désactivé',
+  disableConsumer: 'Bloquer',
+  enableConsumer: 'Débloquer',
+  maxNBookingsByWeek1: 'Max ',
+  maxNBookingsByWeek2: ' réservations par semaine',
+  validity: 'Valide :',
+  consumer: {
+    expiresOn: 'Expire le ',
+    bookingsThisWeek: 'réservation(s) cette semaine',
+  },
+  validForDuration: (days, months, years) =>
+    `Validité : ${days ? `${days} jours ` : ''}${
+      months ? `${months} mois ` : ''
+    }${years ? `${years} année` : ''}`,
+  validForNdays1: 'Valide ',
+  validForNdays2: ' jours après achat',
+  validFrom: 'Valide du ',
+  validTo: ' au ',
+  bookingsLeftThisWeek: 'Réservation max par semaine',
+  // eslint-disable-next-line
+  addButton: "Créer une offre d'abonnement",
+  noPaymentPackSubscribed: 'Aucun abonnement',
+  // eslint-disable-next-line
+  validUntil: "Valide jusqu'au",
+  expirationDate: 'Expire au',
+  never: 'Jamais',
+  unlimitedCredits: 'Illimité',
+  credits: 'Crédits',
+  specifications: {
+    nbCredits: '{{credits}} crédits',
+    unlimitedCredits: 'Illimité',
+    price: '{{price, price}}',
+  },
+  availableOnFollowingSports: 'Sports éligibles : ',
+  availableOnFollowingEstablishments: 'Lieux éligibles : ',
+  anySport: 'Tout sport',
+  availableOnFollowingActivities: 'Activités éligibles : ',
+  anyActivity: 'Toute activité',
+  boughtConsumerPaymentPacks: 'Abonnés',
+  noRestrictionOnActivityType:
+    'Toutes les activités sont compatibles avec cet abonnement',
+  credit: {
+    updated: 'Crédits mis à jour',
+  },
+  noConsumerPack: 'Aucun achat enregistré',
+  reverted: 'Facture annulée',
+};

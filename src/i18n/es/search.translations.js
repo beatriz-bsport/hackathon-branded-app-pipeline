@@ -1,0 +1,13 @@
+export default {
+  input: 'Rechercher...',
+  go_back: 'Retourner aux résultats',
+  noResult: 'Aucun résultat',
+  member: {
+    sessions: {
+      title: 'Séances',
+    },
+    packs: {
+      title: 'Abonnements',
+    },
+  },
+};

@@ -289,7 +289,7 @@ export default {
             error: "Erreur lors de l'enregistrement",
           },
           delete: {
-            success: 'Element supprimé',
+            success: 'Elément supprimé',
             error: 'Erreur lors de la suppression',
           },
           add: 'Ajouter un élément',
@@ -385,7 +385,7 @@ export default {
         establishmentLabel: 'Etablissement',
         substituteEstablishmentLabel: 'Etablissement (lieu temporaire)',
         warningPackonEdit:
-          "Les changements sur les séances risquent de les rendre incompatibles avec certains abonnements. Les abonnements actuellement compatibles avec cette séance sont les suivants, après la modification veuillez prendre le temps de vérifier qu'ils resteront compatible avec les éventuels changements de lieu / coach.",
+          "Les changements sur les séances risquent de les rendre incompatibles avec certains abonnements. Les abonnements actuellement compatibles avec cette séance sont les suivants, après la modification veuillez prendre le temps de vérifier qu'ils resteront compatibles avec les éventuels changements de lieu / coach.",
         deleteTitle: 'Supprimer la séance',
         cancelTitle: 'Annuler la séance',
         changeDate: "Modifier l'horaire / date",
@@ -422,19 +422,19 @@ export default {
             "Fin de validité du pass, laisser vide pour qu'il reste toujours actif",
           // eslint-disable-next-line
           credits:
-            "Nombre de crédit disponibles au client de l'abonnement, laisser vide pour le rendre illimité",
+            "Nombre de crédits disponibles, laisser vide pour le rendre illimité",
           maxBookingPerWeek: 'Laisser vide pour ne pas imposer de limite',
         },
         timeSettingsTitle: "Validité de l'abonnement",
         generalSettingsTitle: 'Général',
         validByDuration: 'Abonnement valide N jours après achat',
         validByDaterange: 'Abonnement valide sur un créneau de date précis',
-        durationDays: 'Durée de validité (jours)',
+        durationDays: 'Durée de validité (jours) si applicable',
         durationDaysHelperText:
           "Période en jours pour laquelle l'abonnement sera valide après achat ",
-        durationMonths: 'Durée additionnalle (mois)',
+        durationMonths: 'Durée de validité (mois) si applicable',
         durationMonthsHelperText: "S'ajoute au nombre de jours",
-        durationYears: 'Durée de validité (années)',
+        durationYears: 'Durée de validité (années) si applicable',
         durationYearsHelperText: "S'ajoute au nombre de jours et de mois",
         restrictionsTitle: 'Restrictions',
         maxBookingPerWeek: 'Utilisation max par semaine',
@@ -557,7 +557,7 @@ export default {
         discardPossibleExplain:
           'Êtes-vous sûr de vouloir annuler cette réservation ? Votre crédit sera de nouveau utilisable.',
         discardImpossibleExplain:
-          'Êtes-vous sûr de vouloir annuler cette réservation ? Vous annulez trop tard pour le club et votre abonnement ne sera pas recrédité.',
+          'Êtes-vous sûr de vouloir annuler cette réservation ? Vous annulez trop tard et votre abonnement ne sera pas recrédité (conditions générales du club).',
         confirmBooking: 'Confirmer',
         waitingSlot: 'En attente',
         myFutureBookings: 'Prochaines séances',
@@ -608,17 +608,17 @@ export default {
       revertImpossibleExplainSubscription:
         "Cette facture fait partie d'une souscription, vous ne pouvez pas annuler une facture encaissée liée à une souscription, mais vous pouvez arrêter la souscription",
       revertExplainPayment:
-        "Les paiements par carte bleue seront reversés sur l'accompte du membre. Tous es autres modes de paiement seront supprimés.",
+        "Les paiements par carte bleue seront reversés sur l'accompte du membre. Tous les autres modes de paiement seront supprimés.",
       revertExplainCredits:
         'Les débit/crédit sur le compte du membre seront inversés.',
       revertExplainPacks:
         'Les abonnements seront annulés ainsi que TOUTES les réservations associées',
       revertExplainShop:
-        'Les achats du magasin seront annulés et les stocks réinitalisés.',
+        'Les achats du magasin seront annulés et les stocks réinitialisés.',
       invoiceReverted: 'Facture annulée',
       finalize: 'Finaliser la facture',
       explainFinalize:
-        "Attention ! Une facture finalisée n'est plus modifiable, de plus tous les paiement marqués en attente d'encaissement seront considérés comme encaissés. Une fois la facture finalisée vous pourrez l'exporter en tant que PDF",
+        "Attention ! Une facture finalisée n'est plus modifiable, de plus tous les paiements marqués en attente d'encaissement seront considérés comme encaissés. Une fois la facture finalisée vous pourrez l'exporter en tant que PDF",
       forms: {
         update: {
           success: 'Facture mise à jour avec succès',
@@ -668,7 +668,7 @@ export default {
         CB: 'Carte bleue',
         CB_MANUAL: 'Carte bleue (manuel)',
         CHECK: 'Chèque',
-        HOLIDAY_CHECK: 'Chèque vacances',
+        HOLIDAY_CHECK: 'Chèques vacances',
         CASH: 'Espèces',
         EVENT_BRITE: 'EventBrite',
         AMEX: 'AMEX',
@@ -696,7 +696,7 @@ export default {
     },
     paymentPack,
     paginatedList: {
-      isEmpty: 'Aucune donnée à afficher',
+      isEmpty: 'Aucunes données à afficher',
     },
     login: {
       welcome: 'Bienvenue !',
@@ -918,7 +918,7 @@ export default {
         metaActivityList: 'Activités',
         metaActivityFormPage: 'Formulaire Activité',
         offerFormPage: 'Création de séance',
-        coachPerformance: 'Perforamce du coach',
+        coachPerformance: 'Performance du coach',
         coachFormPage: 'Formulaire coach',
         invoiceFormPage: 'Edition Facture',
         invoiceCreatePage: 'Facturer',

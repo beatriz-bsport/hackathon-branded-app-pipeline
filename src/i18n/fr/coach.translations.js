@@ -22,7 +22,7 @@ export default {
     update: 'Modifier',
   },
   forms: {
-    error: 'Impossible de sauvegarde le coach',
+    error: 'Impossible de sauvegarder le coach',
     create: {
       title: 'Nouveau coach',
       success: 'Coach créé avec succès',

@@ -4,7 +4,7 @@ export default {
     invoiceTitle: 'Facture associée',
     bookingsTitle: 'Réservations associées',
   },
-  newMemberOnly: 'Disponible uniquement aux nouveaux inscrits',
+  newMemberOnly: 'Disponible uniquement pour les nouveaux inscrits',
   publicPacksTitle: 'Abonnements disponibles à la vente',
   privatePacksTitle: 'Abonnements non disponibles à la vente',
   subscribeToOffer: 'Inscrire',

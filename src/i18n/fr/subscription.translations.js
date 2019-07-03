@@ -34,13 +34,13 @@ export default {
   action: {
     stop: 'Arrêter',
     stopExplain:
-      'Les prochains paiements seront annulés et les factures correspondantes seront supprimés. Si une réservation a été enregistrée avec un abonnement dont la facture a été annulée, il sera également annulé.',
+      'Les prochains paiements seront annulés et les factures correspondantes seront supprimées. Si une réservation a été enregistrée avec un abonnement dont la facture a été annulée, elle sera également annulée.',
   },
   parameters: {
     parameters: 'Paramètres',
     subscribeAgain: 'Souscrire à nouveau',
     voucher: 'Offre spéciale',
-    trial_nb: 'Nombre de mois offers',
+    trial_nb: 'Nombre de mois offerts',
     recurrent_voucher: 'Réduction sur chaque facture',
     name: 'Nom',
     member: 'Membre',

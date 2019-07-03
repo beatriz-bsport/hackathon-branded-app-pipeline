@@ -37,7 +37,7 @@ export default {
       cancel: 'Annuler',
       confirm: 'Confirmer',
       content:
-        'En supprimant cette règle, celle-ci sera dissociée de tous les coachs et sessions auxquelles elle est actuellement attribuée',
+        'En supprimant cette règle, celle-ci sera dissociée de tous les coachs et sessions à laquelle est actuellement attribuée',
     },
   },
   create: {

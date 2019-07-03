@@ -17,7 +17,7 @@ export default {
       'Une fois votre établissement créé, vous aurez la possibilité d\'ajouter des images supplémentaires.',
   },
   forms: {
-    error: 'Impossible de sauvegarde l\'établissement',
+    error: 'Impossible de sauvegarder l\'établissement',
     create: {
       title: 'Nouvel établissement',
       success: 'Établissement créé avec succès',

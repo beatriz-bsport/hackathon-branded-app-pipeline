@@ -209,6 +209,7 @@ export default {
       hasntBooked: 'Not registered',
       hasBooked: 'Registered',
       createBooking: 'Register',
+      reCreateBooking: 'Register again',
       noQuickInvoiceOpened: 'No invoice open',
       myOpenedInvoices: 'Quick invoices',
       manageOffer: 'Manage my bookings',

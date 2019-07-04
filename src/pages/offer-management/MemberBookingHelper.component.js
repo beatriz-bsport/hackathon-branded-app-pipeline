@@ -3,6 +3,7 @@ import React from 'react';
 
 import Button from '@material-ui/core/Button';
 import ListItem from '@material-ui/core/ListItem';
+import ExposurePlus1Icon from '@material-ui/icons/ExposurePlus1';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
@@ -49,14 +50,21 @@ function MemberBookingHelper(props: Props) {
       />
       <ListItemSecondaryAction>
         {props.hasBooked ? (
-          <IconButton color="secondary" onClick={props.onClickBill}>
-            <EuroSymbolIcon />
-          </IconButton>
-        ) : null}
-        <Button color="primary" onClick={props.onClickRegister}>
-          <AddIcon className={props.classes.rightIcon} />
-          {props.t('offer.createBooking')}
-        </Button>
+          <React.Fragment>
+            <IconButton color="secondary" onClick={props.onClickBill}>
+              <EuroSymbolIcon />
+            </IconButton>
+            <Button color="primary" onClick={props.onClickRegister}>
+              <AddIcon className={props.classes.rightIcon} />
+              {props.t('offer.reCreateBooking')}
+            </Button>
+          </React.Fragment>
+        ) : (
+          <Button color="primary" onClick={props.onClickRegister}>
+            <AddIcon className={props.classes.rightIcon} />
+            {props.t('offer.createBooking')}
+          </Button>
+        )}
         {props.showMember ? (
           <IconButton color="secondary" onClick={props.showMember}>
             <VisibilityIcon />

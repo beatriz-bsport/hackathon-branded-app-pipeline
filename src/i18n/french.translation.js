@@ -226,6 +226,7 @@ export default {
       hasntBooked: 'Non inscrit',
       hasBooked: 'Inscrit',
       createBooking: 'Inscrire',
+      reCreateBooking: 'Réinscrire',
       noQuickInvoiceOpened: 'Aucune facturation ouverte',
       myOpenedInvoices: 'Factures rapides',
       manageOffer: 'Gérer mes réservations',
@@ -427,7 +428,7 @@ export default {
             "Fin de validité du pass, laisser vide pour qu'il reste toujours actif",
           // eslint-disable-next-line
           credits:
-            "Nombre de crédits disponibles, laisser vide pour le rendre illimité",
+            'Nombre de crédits disponibles, laisser vide pour le rendre illimité',
           maxBookingPerWeek: 'Laisser vide pour ne pas imposer de limite',
         },
         timeSettingsTitle: "Validité de l'abonnement",

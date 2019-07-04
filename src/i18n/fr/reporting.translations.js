@@ -1,5 +1,17 @@
 export default {
   columns: {
+    establishment: 'Etablissement',
+    activity: 'Activité',
+    pass: 'Abonnement',
+    remaining_credits: 'Crédits restant',
+    duration: 'Durée (minutes)',
+    date_start: 'Date',
+    duration_minute: 'Durée (minutes)',
+    coach: 'Professeur',
+    effectif: 'Nb de places',
+    nb_attendance: 'Présents',
+    nb_non_attendance: 'Absents',
+    name: 'Nom',
     identifier: 'Identifiant',
     first_name: 'Prénom',
     last_name: 'Nom',

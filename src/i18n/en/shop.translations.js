@@ -6,6 +6,16 @@ export default {
     total_sales: 'Total sales:',
     current_stock: 'Current provisions:',
     noProvisionHistory: 'No sale history',
+    form: {
+      title: 'Update provision',
+      quantityLabel: 'Unit(s)',
+      quantityHelperText: 'Units to add/remove to provision',
+      cancel: 'Cancel',
+      submit: 'Save',
+    },
+    action: {
+      update: 'Actualize provisions',
+    },
   },
   shopitem: {
     detail: {

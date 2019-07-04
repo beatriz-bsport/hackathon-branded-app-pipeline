@@ -18,13 +18,13 @@ export const CATEGORIES: ReportCategory[] = [
     icon: PeopleIcon,
   },
   {
-    id: 'sessions',
-    name: 'Sessions',
+    id: 'offers',
+    name: 'Séances',
     icon: EventIcon,
   },
   {
-    id: 'sessions_detailed',
-    name: 'Bookings',
+    id: 'bookings',
+    name: 'Reservations',
     icon: EventAvailableIcon,
   },
   {

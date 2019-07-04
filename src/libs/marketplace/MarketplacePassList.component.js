@@ -7,6 +7,7 @@ import type { TFunction } from 'react-i18next';
 import { compose, withState } from 'recompose';
 
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import Dialog from '@material-ui/core/Dialog';
 
 import Paper from '@material-ui/core/Paper';
@@ -55,10 +56,22 @@ export function MarketplacePassList(props: Props) {
                   }
                 />
 
+                <IconButton
+                  style={{ marginRight: 16 }}
+                  disableRipple
+                  onClick={() => props.setSelectedPass(pp)}
+                >
+                  <VisibilityIcon />
+                </IconButton>
                 <ListItemSecondaryAction>
-                  <IconButton onClick={() => props.setSelectedPass(pp)}>
-                    <VisibilityIcon />
-                  </IconButton>
+                  <React.Fragment>
+                    <IconButton
+                      color="primary"
+                      onClick={() => pushPackCheckout(pp.id)}
+                    >
+                      <AddShoppingCartIcon />
+                    </IconButton>
+                  </React.Fragment>
                 </ListItemSecondaryAction>
               </ListItem>
             ))}
@@ -68,7 +81,7 @@ export function MarketplacePassList(props: Props) {
           open={!!selectedPass}
           onClose={() => props.setSelectedPass(null)}
         >
-          <div style={{ minWidth: '40vw' }}>
+          <div>
             {selectedPass ? (
               <PaymentPackCard
                 pack={{

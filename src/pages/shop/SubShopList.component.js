@@ -1,59 +1,35 @@
 // @flow
 import React, { Component } from 'react';
 
-import {
-  Divider,
-  Grid,
-  Typography,
-  IconButton,
-  Paper,
-  TextField,
-  Dialog,
-  Button,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  withStyles,
-} from '@material-ui/core';
+import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import Button from '@material-ui/core/Button';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogActions from '@material-ui/core/DialogActions';
+import withStyles from '@material-ui/core/styles/withStyles';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CancelIcon from '@material-ui/icons/Cancel';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import SaveIcon from '@material-ui/icons/Save';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import ShopItemCard from '../../components/shop/ShopItemCard.component';
-import ShopItemForm from '../../components/form/ShopItemForm.component';
 import RedButton from '../../components/button/RedButton.component';
-
-const styles = (theme) => ({
-  addIcon: {
-    margin: theme.spacing.unit * 2,
-    height: 64,
-    width: 64,
-  },
-  title: {
-    marginTop: theme.spacing.unit * 3,
-    marginBottom: theme.spacing.unit,
-  },
-  divider: {
-    marginBottom: theme.spacing.unit * 3,
-  },
-});
 
 type Props = {
   t: TFunction,
   classes: Object,
-  deleteItem: (id: number) => void,
   subShop: SubShop,
-  createOrUpdateShopItem: (data: [*]) => void,
   createOrUpdateSubShop: (data: [*]) => void,
   onDelete: (id: number) => void,
-  shopItems: Array<ShopItem>,
-  updateProvisions: (qty: number, id: number) => void,
-  deleteProvisionUpdate: ({ provisionId: number, shopItemId: number }) => void,
+
+  children: any,
 };
 
 type State = {
@@ -66,47 +42,7 @@ type State = {
 export class SubShopList extends Component<Props, State> {
   state = {
     editMode: false,
-    itemInEditMode: [],
-    newItemFormDisplayed: false,
     newName: null,
-  };
-
-  putOnEditMode = (id: number) => {
-    this.setState((prevState) => ({
-      itemInEditMode: [id, ...prevState.itemInEditMode],
-    }));
-  };
-
-  deleteItem = (id: number) => {
-    this.props.deleteItem(id);
-  };
-
-  displayNewItemForm = () => {
-    this.setState({
-      newItemFormDisplayed: true,
-    });
-  };
-
-  closeNewItemForm = () => {
-    this.setState({ newItemFormDisplayed: false });
-  };
-
-  cancelEdit = (id: number) => {
-    this.setState((prevState) => ({
-      itemInEditMode: prevState.itemInEditMode.filter((id_) => id_ !== id),
-    }));
-  };
-
-  createOrUpdateShopItem = (data: FormData, id: ?number) => {
-    if (id) {
-      this.setState((prevState) => ({
-        itemInEditMode: prevState.itemInEditMode.filter((id_) => id_ !== id),
-      }));
-    } else {
-      this.closeNewItemForm();
-    }
-    data.append('subshop', this.props.subShop.id);
-    this.props.createOrUpdateShopItem(data, id);
   };
 
   handleChangeName = (event) => {
@@ -142,7 +78,11 @@ export class SubShopList extends Component<Props, State> {
       return (
         <Grid container direction="row" spacing={8} alignItems="center">
           <Grid item>
-            <TextField onChange={this.handleChangeName} value={newName} />;
+            <TextField
+              autoFocus
+              onChange={this.handleChangeName}
+              value={newName}
+            />
           </Grid>
           <Grid item>
             <IconButton onClick={this.updateSubShop}>
@@ -224,62 +164,31 @@ export class SubShopList extends Component<Props, State> {
   };
 
   render() {
-    const { shopItems, classes, updateProvisions } = this.props;
-    const { itemInEditMode, newItemFormDisplayed } = this.state;
+    const { classes } = this.props;
     return (
       <div>
         {this.renderTitle()}
         <Divider className={classes.divider} />
-        <Grid container direction="row" spacing={16}>
-          {shopItems.map((shopItem) => (
-            <Grid item xs={12} md={4} key={shopItem.id}>
-              {~itemInEditMode.indexOf(shopItem.id) ? ( //eslint-disable-line
-                <ShopItemForm
-                  initial={shopItem}
-                  createOrUpdate={this.createOrUpdateShopItem}
-                  onCancel={() => this.cancelEdit(shopItem.id)}
-                />
-              ) : (
-                <ShopItemCard
-                  onEdit={() => this.putOnEditMode(shopItem.id)}
-                  item={shopItem}
-                  onDelete={() => this.deleteItem(shopItem.id)}
-                  deleteProvisionUpdate={(provisionId) =>
-                    this.props.deleteProvisionUpdate({
-                      provisionId,
-                      shopItemId: shopItem.id,
-                    })
-                  }
-                  onUpdateProvisions={(qty) =>
-                    updateProvisions(qty, shopItem.id)
-                  }
-                />
-              )}
-            </Grid>
-          ))}
-          {newItemFormDisplayed ? (
-            <Grid item xs={12} md={4}>
-              <ShopItemForm
-                createOrUpdate={this.createOrUpdateShopItem}
-                onCancel={this.closeNewItemForm}
-              />
-            </Grid>
-          ) : (
-            <Grid item xs={12} md={2}>
-              <Paper>
-                <Grid container item alignItems="center" justify="center">
-                  <IconButton onClick={this.displayNewItemForm}>
-                    <AddCircleOutlineIcon className={classes.addIcon} />
-                  </IconButton>
-                </Grid>
-              </Paper>
-            </Grid>
-          )}
-        </Grid>
+        {this.props.children}
         {this.renderSubShopDeleteDialog()}
       </div>
     );
   }
 }
+
+const styles = (theme) => ({
+  addIcon: {
+    margin: theme.spacing.unit * 2,
+    height: 64,
+    width: 64,
+  },
+  title: {
+    marginTop: theme.spacing.unit * 3,
+    marginBottom: theme.spacing.unit,
+  },
+  divider: {
+    marginBottom: theme.spacing.unit * 3,
+  },
+});
 
 export default withStyles(styles)(withNamespaces()(SubShopList));

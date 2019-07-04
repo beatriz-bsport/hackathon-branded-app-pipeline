@@ -9,6 +9,8 @@ import type { MemberState } from '../libs/member/types';
 import type { PaymentPackState } from '../libs/payment-packs/types';
 import type { BookingsState } from '../libs/booking/types';
 import type { TagState } from '../libs/tag/types';
+import type { OrderState } from '../libs/order/types';
+import type { ShopState } from '../libs/shop/types';
 import type { SearchState, SearchAction } from './search/types';
 
 export type State = {
@@ -21,7 +23,9 @@ export type State = {
   paymentPack: PaymentPackState,
   member: MemberState,
   booking: BookingsState,
+  order: OrderState,
   tag: TagState,
+  shop: ShopState,
 };
 export type Action = SearchAction | AuthAction;
 

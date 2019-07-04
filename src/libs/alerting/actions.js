@@ -18,6 +18,29 @@ export const detailActions = {
   success: createAction('ALERTING/DETAIL/SUCCESS'),
 };
 
+export const deleteActions = {
+  error: createAction('ALERTING/DELETE/ERROR'),
+  isLoading: createAction('ALERTING/DELETE/IS_LOADING'),
+  success: createAction('ALERTING/DELETE/SUCCESS'),
+};
+
+export function delete_(id: number): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(deleteActions.isLoading(true));
+    dispatch(deleteActions.error(null));
+
+    try {
+      await api.delete_(id);
+
+      dispatch(deleteActions.success(id));
+    } catch (error) {
+      dispatch(deleteActions.error(error));
+    }
+
+    dispatch(deleteActions.isLoading(false));
+  };
+}
+
 export function fetch(): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(listActions.isLoading(true));

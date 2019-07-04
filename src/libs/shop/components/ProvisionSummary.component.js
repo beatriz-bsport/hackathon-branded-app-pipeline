@@ -1,0 +1,85 @@
+// @flow
+import React from 'react';
+
+import { colors } from '@bsport/common/lib/colors';
+
+import { compose } from 'recompose';
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
+import withStyles from '@material-ui/core/styles/withStyles';
+import Button from '@material-ui/core/Button';
+import StoreIcon from '@material-ui/icons/Store';
+import Typography from '@material-ui/core/Typography';
+
+import type { ShopItem } from '../types';
+
+type Props = {
+  classes: Object,
+  t: TFunction,
+  shopitem: ShopItem,
+  onProvisionUpdate: () => void,
+};
+
+const ProvisionSummary = (props: Props) => (
+  <div className={props.classes.container}>
+    <div className={props.classes.line}>
+      <Typography inline color="secondary" variant="subtitle2" component="h3">
+        {props.t('provision.total_sales')}
+      </Typography>
+      <Typography inline color="primary" variant="h6" component="h3">
+        {props.shopitem.total_sales}
+      </Typography>
+    </div>
+    <div className={props.classes.line}>
+      <Typography inline color="secondary" variant="subtitle2" component="h3">
+        {props.t('provision.current_stock')}
+      </Typography>
+      <Typography
+        inline
+        color={props.shopitem.current_stock > 0 ? 'primary' : 'error'}
+        variant="h6"
+        component="h3"
+      >
+        {props.shopitem.current_stock}
+      </Typography>
+    </div>
+    <div className={props.classes.actionButtonContainer}>
+      <Button
+        variant="contained"
+        color="secondary"
+        onClick={props.onProvisionUpdate}
+      >
+        <StoreIcon className={props.classes.iconLeft} />
+        {props.t('provision.action.update')}
+      </Button>
+    </div>
+  </div>
+);
+
+const styles = (theme) => ({
+  container: {
+    border: `1px solid ${colors.secondary}`,
+    borderRadius: theme.spacing.unit * 2,
+    padding: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 2,
+  },
+  line: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  actionButtonContainer: {
+    display: 'flex',
+    marginTop: theme.spacing.unit * 2,
+    justifyContent: 'flex-end',
+  },
+  iconLeft: {
+    marginRight: theme.spacing.unit,
+  },
+});
+
+export default compose(
+  withNamespaces(['shop']),
+  withStyles(styles),
+)(ProvisionSummary);

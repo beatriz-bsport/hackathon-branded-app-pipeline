@@ -10,6 +10,7 @@ import {
   createNote,
   deleteNote as deleteNoteApi,
   fetchMember as fetchMemberApi,
+  fetchByQueryMember as fetchByQueryMemberApi,
   fetchByOffer as fetchByOfferApi,
   search as searchApi,
   tag as tagApi,
@@ -146,6 +147,20 @@ export function fetchMember(id: number) {
       const response = await fetchMemberApi(id);
       const member = response.data;
       dispatch(hasFetchedMember(member));
+    } catch (err) {
+      dispatch(errorFetchingMember());
+    }
+  };
+}
+
+export function fetchByQueryMember(params: *) {
+  return async (dispatch: Dispatch) => {
+    dispatch(startFetchMember());
+
+    try {
+      const response = await fetchByQueryMemberApi(params);
+      const member = response.data.results;
+      dispatch(hasFetchedMember(member[0]));
     } catch (err) {
       dispatch(errorFetchingMember());
     }

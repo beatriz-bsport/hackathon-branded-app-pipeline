@@ -3,7 +3,7 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
-import { listActions, detailActions } from './actions';
+import { listActions, detailActions, deleteActions } from './actions';
 
 import type { AlertingState } from './types';
 
@@ -25,6 +25,17 @@ export default handleActions(
     [listActions.error]: (state, { payload }) => {
       return state.set('error', payload);
     },
+
+    [deleteActions.success]: (state, { payload }) => {
+      return state.set('items', state.items.filter((al) => al.id !== payload));
+    },
+    [deleteActions.isLoading]: (state, { payload }) => {
+      return state.set('loading', payload);
+    },
+    [deleteActions.error]: (state, { payload }) => {
+      return state.set('error', payload);
+    },
+
     [detailActions.success]: (state, { payload }) => {
       return state.setIn(['items', payload.id], payload);
     },

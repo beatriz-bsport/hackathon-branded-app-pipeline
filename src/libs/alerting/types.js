@@ -18,3 +18,14 @@ export type UnevenInvoiceAlerting = {
     actions: ['equilibrate'],
   },
 };
+
+export type NewOrderAlerting = {
+  ...Alerting,
+  data: {
+    order: string,
+    price: string,
+    member: number,
+    name: string,
+    actions: ['finalize'],
+  },
+};

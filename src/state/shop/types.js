@@ -1,6 +1,7 @@
 // @flow
 
 import type { Immutable } from 'seamless-immutable';
+import type { Provision } from '../../libs/shop/types';
 
 type ShopItem = $ReadOnly<{ id: number }>;
 type SubShop = { id: number };
@@ -9,6 +10,12 @@ export type ShopState = Immutable<{
   loading: boolean,
   all: ShopItem[],
   subShops: SubShop[],
+  provision: {
+    items: Array<Provision>,
+    loading: boolean,
+    count: number,
+    page: number,
+  },
 }>;
 export type ShopAction =
   | { type: 'NULL' }

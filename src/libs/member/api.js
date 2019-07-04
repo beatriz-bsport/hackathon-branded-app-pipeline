@@ -6,6 +6,7 @@ import {
   deleteAuth,
   postAuth,
   putAuth,
+  buildUrlParams,
 } from '../../http';
 
 const PAGE_SIZE = 2000;
@@ -47,6 +48,11 @@ export async function fetchMember(memberId: number) {
   return getAuth(`${API_URI}/saas/members/${memberId}?no-deprecated=true`);
 }
 
+export async function fetchByQueryMember(params: *) {
+  const urlParams = buildUrlParams(params);
+  return getAuth(`${API_URI}/saas/members/members/find/${urlParams}`);
+}
+
 export async function getLatest() {
   return getAuth(`${API_URI}/saas/members/members/latest/`);
 }
@@ -60,7 +66,7 @@ export async function updateMember(data: Object) {
 }
 
 export async function merge(src: number, dst: number) {
-return postAuth(`${API_URI}/saas/members/members/merge/`, { src, dst });
+  return postAuth(`${API_URI}/saas/members/members/merge/`, { src, dst });
 }
 
 export async function createNote(
@@ -92,6 +98,7 @@ export default {
   fetchByOffer,
   updateMember,
   fetchMember,
+  fetchByQueryMember,
   addMember,
   createNote,
   updateNote,

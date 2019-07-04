@@ -5,7 +5,7 @@ export default {
   description: 'Description',
   emptyDescription: 'Aucune description fournie',
   performance: {
-    title: 'Récapitulatif coach',
+    title: 'Récapitulatif professeur',
     nbBookings: 'Réservations',
     nbOffersTotal: 'Séances',
     nbBookingsOverThreshold: 'Réservations bonus',
@@ -14,8 +14,8 @@ export default {
     calculate: 'Calculer',
     payment: 'Rémunération',
   },
-  addCoach: 'Ajouter un coach',
-  noActivity: 'Ce coach ne gère aucune activité.',
+  addCoach: 'Ajouter un professeur',
+  noActivity: 'Ce professeur ne gère aucune activité.',
   // eslint-disable-next-line
   selfNoActivity: "Vous n'êtes en charge d'aucune activité.",
   card: {
@@ -24,12 +24,12 @@ export default {
   forms: {
     error: 'Impossible de sauvegarder le coach',
     create: {
-      title: 'Nouveau coach',
-      success: 'Coach créé avec succès',
+      title: 'Nouveau professeur',
+      success: 'Professeur créé avec succès',
     },
     update: {
       title: 'Edition des informations',
-      success: 'Coach modifié avec succès',
+      success: 'Professeur modifié avec succès',
     },
   },
 };

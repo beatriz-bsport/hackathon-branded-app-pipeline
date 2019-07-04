@@ -21,23 +21,23 @@ export default {
     until: 'Fin',
   },
   calculate: 'Calculer',
-  title: 'Règlement du coach {{name}}',
+  title: 'Règlement du professeur {{name}}',
   label: 'Règle de rémunération',
   update: {
     success: 'Règle par défaut modifiée',
     error: 'Erreur lors de la modification',
   },
   dateTitle: 'Plage de dates',
-  coaches: 'Coachs',
+  coaches: 'Professeurs',
   setPaymentRuleSetForCoachFirst:
-    "Attribuez tout d'abord une régle de rémunération par défaut à ce coach.",
+    "Attribuez tout d'abord une régle de rémunération par défaut à ce professeur.",
   modal: {
     delete: {
       title: 'Supprimez un règle',
       cancel: 'Annuler',
       confirm: 'Confirmer',
       content:
-        'En supprimant cette règle, celle-ci sera dissociée de tous les coachs et sessions à laquelle est actuellement attribuée',
+        'En supprimant cette règle, celle-ci sera dissociée de tous les professeurs et sessions auxquelles elle est actuellement attribuée',
     },
   },
   create: {

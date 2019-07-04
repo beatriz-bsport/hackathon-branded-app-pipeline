@@ -24,6 +24,7 @@ type Props = {
   nbAlerting: number,
   alertings: Array<Alerting>,
   pushRouter: (path: string) => void,
+  deleteAlert: (id: number) => void,
   classes: Object,
 };
 
@@ -76,6 +77,7 @@ export function AlertButtonMenu(props: Props) {
                 <AlertList
                   alertings={alertings}
                   onClose={() => setDialogOpen(null)}
+                  deleteAlert={props.deleteAlert}
                   pushRouter={(path) => {
                     setDialogOpen(null);
                     pushRouter(path);

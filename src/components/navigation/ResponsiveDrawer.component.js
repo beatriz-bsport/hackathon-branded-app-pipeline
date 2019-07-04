@@ -63,6 +63,7 @@ type Props = {
   classes: Object,
   nbAlerting: number,
   alertings: Array<Alerting>,
+  deleteAlert: (id: number) => void,
   t: TFunction,
   location: Object,
 };
@@ -171,6 +172,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
       onRefresh,
       nbAlerting,
       alertings,
+      deleteAlert,
     } = this.props;
     const items = [
       {
@@ -211,7 +213,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
           {
             to: '/coach',
             icon: FitnessCenter,
-            text: t('common.coach'),
+            text: t('common.coaches'),
           },
           'divider',
           {
@@ -252,6 +254,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             to: '/coach/performance',
             icon: PersonIcon,
             text: t('navigation.coachPerformance'),
+          },
+          {
+            to: '/order/',
+            icon: ShoppingCartIcon,
+            text: t('navigation.order'),
           },
         ],
       },
@@ -349,6 +356,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                         <AlertButtonMenu
                           alertings={alertings}
                           nbAlerting={nbAlerting}
+                          deleteAlert={deleteAlert}
                         />
                       </Grid>
                       <Grid item className={classes.searchBar}>

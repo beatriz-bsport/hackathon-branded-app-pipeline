@@ -16,10 +16,12 @@ import alerting from './fr/alerting.translations';
 import booking from './fr/booking.translations';
 import tag from './fr/tag.translations';
 import shop from './fr/shop.translations';
+import order from './fr/order.translations';
 
 export default {
   dashboard,
   tag,
+  order,
   settings,
   shop,
   paymentRules,
@@ -167,8 +169,8 @@ export default {
       status: 'Status',
       ok: 'ok',
       seeMore: 'Afficher',
-      coach: 'Coach',
-      coaches: 'Coachs',
+      coach: 'Professeur',
+      coaches: 'Professeurs',
       company: 'Société',
       sport: 'Sport',
       filterBy: 'Filtrer par : ',
@@ -229,6 +231,7 @@ export default {
       manageOffer: 'Gérer mes réservations',
     },
     shop: {
+      supplier_price: 'Prix fournisseur',
       myShop: 'Mon magasin',
       subShop: {
         delete: {
@@ -272,7 +275,9 @@ export default {
           },
         },
         item: {
+          create: 'Ajouter un article',
           unlimitedProvision: 'Pas de gestion du stock',
+          marketplace_enabled: 'Disponible sur marketplace web',
           deleteTitle: 'Suppression',
           deleteExplain:
             'Attention cette suppression est définitive, aucun client ne pourra plus acheter ce produit, les stocks seront supprimés.',
@@ -336,7 +341,7 @@ export default {
         confirmPasswordLabel: 'Confirmation',
         confirmPassword: 'Mot de passe',
         rgpdTitle:
-          "Comment préférez-vous que les coachs vous contactent pour les annulations/changement d'heure ?",
+          "Comment préférez-vous que les professeurs vous contactent pour les annulations/changement d'heure ?",
         communication: {
           email: 'par email',
           sms: 'par SMS',
@@ -377,19 +382,19 @@ export default {
         levelChangeWarning:
           'Si vous modifiez le niveau du cours, cette modification sera effective pour toutes les séances futures. Toute autre modification enregistrée ici (établissement, prix, jour de la semaine...) sera donc appliquée à toutes les séances.',
         coachChangeWarning:
-          'Si vous modifiez le coach, cette modification sera effective pour toutes les séances futures. Si ce n\'est pas ce que vous souhaitez, utilisez le champ "Remplaçant". Toute autre modification enregistrée ici (établissement, prix, jour de la semaine...) sera donc appliquée à toutes les séances.',
+          'Si vous modifiez le professeur, cette modification sera effective pour toutes les séances futures. Si ce n\'est pas ce que vous souhaitez, utilisez le champ "Remplaçant". Toute autre modification enregistrée ici (établissement, prix, jour de la semaine...) sera donc appliquée à toutes les séances.',
         establishmentChangeWarning:
-          'Si vous modifiez l\'établissement, cette modification sera effective pour toutes les séances futures. Si ce n\'est pas ce que vous souhaites, utilisez le champ "Etablissement temporaire". Toute autre modification enregistrée ici (jour de la semaine, prix, remplaçaant, coach...) sera donc appliquée à toutes les séances.',
+          'Si vous modifiez l\'établissement, cette modification sera effective pour toutes les séances futures. Si ce n\'est pas ce que vous souhaites, utilisez le champ "Etablissement temporaire". Toute autre modification enregistrée ici (jour de la semaine, prix, remplaçaant, professeur...) sera donc appliquée à toutes les séances.',
         substituteCoachLabel: 'Remplaçant',
-        coachLabel: 'Coach',
+        coachLabel: 'Professeur',
         establishmentLabel: 'Etablissement',
         substituteEstablishmentLabel: 'Etablissement (lieu temporaire)',
         warningPackonEdit:
-          "Les changements sur les séances risquent de les rendre incompatibles avec certains abonnements. Les abonnements actuellement compatibles avec cette séance sont les suivants, après la modification veuillez prendre le temps de vérifier qu'ils resteront compatibles avec les éventuels changements de lieu / coach.",
+          "Les changements sur les séances risquent de les rendre incompatibles avec certains abonnements. Après la modification veuillez prendre le temps de vérifier qu'ils resteront compatible avec les éventuels changements de lieu / professeur.",
         deleteTitle: 'Supprimer la séance',
         cancelTitle: 'Annuler la séance',
         changeDate: "Modifier l'horaire / date",
-        changeCoach: 'Modifier le coach',
+        changeCoach: 'Modifier le professeur',
         changeEstablishment: 'Modifier le lieu',
         explainRecursiveOfferDelete:
           'Voulez-vous supprimer TOUTES les séances similaires ?',
@@ -482,9 +487,9 @@ export default {
       level: 'Niveau',
       addingSessionFor: 'Création de séance pour : ',
       establishment: 'Etablissement',
-      coach: 'Coach',
+      coach: 'Professeur',
       newMember: 'Nouveau membre',
-      newCoach: 'Nouveau Coach',
+      newCoach: 'Nouveau Professeur',
       firstname: 'Prénom',
       lastname: 'Nom de famille',
       gender: 'Sexe',
@@ -572,15 +577,17 @@ export default {
       },
     },
     navigation: {
+      order: 'Commandes',
       workshopActivities: 'Ateliers',
       invoice: 'Factures',
       alpha: 'en développement',
-      coachPerformance: 'Coach',
+      coachPerformance: 'Professeurs',
       beta: 'beta',
       consumer: {
         pass: 'Abonnements',
         bookings: 'Mes réservations ',
         profile: 'Mon Profil',
+        order: 'Mes commandes',
       },
       reporting: 'Rapports',
       search: 'Rechercher',
@@ -631,6 +638,7 @@ export default {
     },
     payment: {
       credit: 'Crédit',
+      products: 'articles',
       invoiceRevertedThusNotEditable:
         "La facture a été annulée et n'est plus modifiable",
       topUp: 'Crédit',
@@ -703,8 +711,8 @@ export default {
       signUpConsumer: 'Pas encore de compte ?',
       invalidPhone: 'Numéro de téléphone inconnu',
       choseYourUserspace: 'Je suis',
-      loginAsPro: 'Un manager de club de sport',
-      loginAsConsumer: 'Un sportif',
+      loginAsPro: 'Un gérant',
+      loginAsConsumer: 'Un élève',
       noAccount: 'Pas encore compte ? Créez-en un ici !',
       password: 'Mot de passe',
       authError: 'Email ou mot de passe erroné',
@@ -898,18 +906,32 @@ export default {
       bookOption: "Liste d'attente",
       sessionThisDay: 'Séance ce jour :',
       calendar: 'Calendrier',
+      shop: {
+        tabName: 'Magasin',
+        noDescription: 'Aucune description',
+        addToCard: 'Ajouter au panier',
+        isEmpty: "Aucun produit n'est actuellement disponible sur le magasin.",
+      },
+      checkout: {
+        dialog: {
+          title: 'Mon panier',
+          cancel: 'Retour magasin',
+          goToDelivery: 'Continuer',
+          goToPayment: 'Payer',
+        },
+      },
       welcomeTo: 'Bienvenue chez ',
       pass: 'Abonnement',
-      buyPack: 'Ajouter',
+      buyPack: 'Acheter',
     },
     appbar: {
       title: {
         planning: 'Planning',
-        allCoachPerformance: 'Récapitulatif coaches',
+        allCoachPerformance: 'Récapitulatif professeur',
         mergeMember: 'Fusion membre',
         dashboard: 'Tableau de bord',
         shopManager: 'Mon magasin',
-        coachList: 'Coach',
+        coachList: 'Professeurs',
         offerManagement: 'Réservations',
         metaActivity: 'Activités',
         workshopActivityList: 'Ateliers',
@@ -918,8 +940,8 @@ export default {
         metaActivityList: 'Activités',
         metaActivityFormPage: 'Formulaire Activité',
         offerFormPage: 'Création de séance',
-        coachPerformance: 'Performance du coach',
-        coachFormPage: 'Formulaire coach',
+        coachPerformance: 'Performance du professeur',
+        coachFormPage: 'Formulaire professeur',
         invoiceFormPage: 'Edition Facture',
         invoiceCreatePage: 'Facturer',
         invoiceList: 'Mes transactions',
@@ -936,6 +958,8 @@ export default {
         reportingDashboard: 'Rapports',
         searchResults: 'Recherche',
         settings: 'Paramètres',
+        orderList: 'Commandes',
+        orderDetail: 'Détail commande',
       },
     },
   },

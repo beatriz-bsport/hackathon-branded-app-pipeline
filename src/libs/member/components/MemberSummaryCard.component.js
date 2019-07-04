@@ -9,6 +9,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Button from '@material-ui/core/Button';
 import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Hidden from '@material-ui/core/Hidden';
 import withStyles from '@material-ui/core/styles/withStyles';
 import EmailIcon from '@material-ui/icons/Email';
@@ -32,6 +33,7 @@ import type { Member } from '../../../api/types';
 type Props = {
   editMember: () => void,
   mergeMember: () => void,
+  goToMember: () => void,
   member: Member,
   t: TFunction,
   classes: Object,
@@ -148,14 +150,24 @@ export class MemberSummaryCard extends Component<Props> {
             alignItems: 'flex-end',
           }}
         >
-          <Button onClick={this.props.mergeMember} color="secondary">
-            <Hidden xsDown>{t('common.merge')}</Hidden>
-            <MergeTypeIcon className={this.props.classes.rightIcon} />
-          </Button>
-          <Button onClick={this.props.editMember} color="primary">
-            <Hidden xsDown>{t('common.edit')}</Hidden>
-            <EditIcon className={this.props.classes.rightIcon} />
-          </Button>
+          {this.props.mergeMember ? (
+            <Button onClick={this.props.mergeMember} color="secondary">
+              <Hidden xsDown>{t('common.merge')}</Hidden>
+              <MergeTypeIcon className={this.props.classes.rightIcon} />
+            </Button>
+          ) : null}
+          {this.props.editMember ? (
+            <Button onClick={this.props.editMember} color="primary">
+              <Hidden xsDown>{t('common.edit')}</Hidden>
+              <EditIcon className={this.props.classes.rightIcon} />
+            </Button>
+          ) : null}
+          {this.props.goToMember ? (
+            <Button onClick={this.props.goToMember} color="primary">
+              <Hidden xsDown>{t('common.show')}</Hidden>
+              <ArrowForwardIcon className={this.props.classes.rightIcon} />
+            </Button>
+          ) : null}
         </div>
       </div>
     );

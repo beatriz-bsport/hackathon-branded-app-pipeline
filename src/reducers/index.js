@@ -20,7 +20,7 @@ import refreshReducer from './refresh';
 import searchReducer from './search.reducers';
 import companiesReducers from './companies.reducers';
 import marketplaceReducer from './marketplace';
-import shopReducer from './shop';
+import shopReducer from '../libs/shop/reducers';
 import paymentRulesReducer from '../libs/payment-rules/reducers';
 import workshopActivityReducer from './workshop-activity';
 import subscriptionReducer from '../libs/subscription/reducers';
@@ -28,6 +28,7 @@ import alertingReducer from '../libs/alerting/reducers';
 import memberReducer from '../libs/member/reducers';
 import bookingReducers from '../libs/booking/reducers';
 import tagReducers from '../libs/tag/reducers';
+import orderReducers from '../libs/order/reducers';
 
 import type { State, Action } from '../state/types';
 
@@ -61,6 +62,7 @@ const rootReducer = combineReducers({
   subscription: subscriptionReducer,
   alerting: alertingReducer,
   tag: tagReducers,
+  order: orderReducers,
 });
 
 export default (state: State, action: Action) => {

@@ -9,7 +9,7 @@ import { fetchEstablishments } from './establishment.actions';
 import { fetchSCT } from './category.actions';
 import { fetchAll as fetchAllPaymentPacks } from './paymentPack.actions';
 import { fetchDashboard as fetchDashboardStats } from './stats.actions';
-import { fetchAll as fetchShop } from './shop.actions';
+import { fetchAll as fetchShop } from '../libs/shop/actions/shopitem';
 import { fetchPaymentRules } from '../libs/payment-rules/actions';
 import { fetchAll as fetchWorkshopActivities } from './workshop-activity.actions';
 import { fetch as fetchAllAlertings } from '../libs/alerting/actions';

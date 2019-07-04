@@ -10,9 +10,11 @@ import parse from '../query-string';
 import { consumer as consumerActions } from '../actions';
 import MyBookings from './consumer/my-bookings/MyBookings.page';
 import MyPaymentPacks from './consumer/MyPaymentPacks.component';
+import MyOrders from './consumer/MyOrders.page';
 import MyProfile from './consumer/MyProfile.component';
 import OfferPaymentPage from './payment/OfferPayment.page';
 import PaymentPackPaymentPage from './payment/PaymentPackPayment.page';
+import OrderPaymentPage from './payment/OrderPayment.page';
 
 import ConsumerMenu from '../components/navigation/ConsumerMenu.component';
 
@@ -55,6 +57,7 @@ export class ConsumerHome extends Component<Props> {
     return (
       <ConsumerMenu>
         <Switch>
+          <Route path="/(|customer/)order" component={MyOrders} />
           <Route path="/(|customer/)pass" component={MyPaymentPacks} />
           <Route path="/(|customer/)profile" component={MyProfile} />
           <Route
@@ -64,6 +67,10 @@ export class ConsumerHome extends Component<Props> {
           <Route
             path="/(|customer/)payment/pass/:id"
             component={PaymentPackPaymentPage}
+          />
+          <Route
+            path="/(|customer/)payment/order/:companyId/"
+            component={OrderPaymentPage}
           />
           <Route path="/(|customer)" component={MyBookings} />
         </Switch>

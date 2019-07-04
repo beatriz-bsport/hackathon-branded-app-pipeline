@@ -16,6 +16,7 @@ import booking from './en/booking.translations';
 import tag from './en/tag.translations';
 import subscription from './en/subscription.translations';
 import shop from './en/shop.translations';
+import order from './en/order.translations';
 
 export default {
   dashboard,
@@ -23,6 +24,7 @@ export default {
   settings,
   shop,
   paymentRules,
+  order,
   reporting,
   subscription,
   paymentPack,
@@ -244,6 +246,7 @@ export default {
     },
     shop: {
       myShop: 'My shop',
+      supplier_price: 'Supplier price',
       ht: 'excl tax',
       noProvisionUpdates: 'No provision',
       subShop: {
@@ -286,7 +289,9 @@ export default {
           },
         },
         item: {
+          create: 'Add an item',
           unlimitedProvision: 'No provision management',
+          marketplace_enabled: 'Available on web marketplace',
           updateProvisions: {
             success: 'Provisions updated',
             error: 'Error while updating provisions',
@@ -536,6 +541,7 @@ export default {
     member,
     coach,
     navigation: {
+      order: 'Orders',
       alpha: 'in development',
       coachPerformance: 'Coach',
       beta: 'beta',
@@ -543,6 +549,7 @@ export default {
         pass: 'Pass',
         bookings: 'My bookings',
         profile: 'Profile',
+        order: 'Orders',
       },
       reporting: 'Reporting',
       search: 'Search',
@@ -589,6 +596,7 @@ export default {
       },
     },
     payment: {
+      products: 'item(s)',
       bookWithUnlimitedPack: 'Book',
       noCreditLeft: 'Not enough credit left',
       noBookingsLeftOnPack: 'Pass exhausted for this week',
@@ -826,7 +834,21 @@ export default {
       bookOption: 'Waiting list',
       sessionThisDay: 'Sessions this day: ',
       calendar: 'Planning',
+      shop: {
+        tabName: 'Shop',
+        noDescription: 'No description',
+        addToCard: 'Add to cart',
+        isEmpty: 'There are no product available at this moment.',
+      },
       welcomeTo: 'Welcome to ',
+      checkout: {
+        dialog: {
+          title: 'My Cart',
+          cancel: 'Back to shop',
+          goToDelivery: 'Continue',
+          goToPayment: 'Pay',
+        },
+      },
       pass: 'Pass',
       buyPack: 'Buy',
     },
@@ -862,6 +884,8 @@ export default {
         reportingDashboard: 'Reporting',
         searchResults: 'Search',
         settings: 'Settings',
+        orderList: 'Orders',
+        orderDetail: 'Order',
       },
     },
   },

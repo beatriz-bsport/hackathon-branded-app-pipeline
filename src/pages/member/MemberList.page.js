@@ -27,7 +27,9 @@ type Props = {
   tagGroups: Array<TagGroup>,
   fetchTags: () => void,
   tags: Array<Tag>,
+
   classes: Object,
+  t: TFunction,
 };
 
 export class Members extends Component<Props> {

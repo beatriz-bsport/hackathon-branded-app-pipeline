@@ -1,9 +1,13 @@
 // @flow
 
-import { API_URI, getAuth, postAuth } from '../../http';
+import { API_URI, getAuth, postAuth, deleteAuth } from '../../http';
 
 const fetchAll = async () => {
   return getAuth(`${API_URI}/alerts/`);
+};
+
+const delete_ = async (id: number) => {
+  return deleteAuth(`${API_URI}/alerts/${id}/`);
 };
 
 const performAction = async (id: number, action_name: string) => {
@@ -15,4 +19,5 @@ const performAction = async (id: number, action_name: string) => {
 export default {
   fetchAll,
   performAction,
+  delete_,
 };

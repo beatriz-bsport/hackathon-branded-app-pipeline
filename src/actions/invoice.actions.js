@@ -101,6 +101,20 @@ export function fetchedSpecificInvoice(invoice: Invoice) {
   return { type: types.INVOICE_SPECIFIC_SUCCESS_FETCH, invoice };
 }
 
+export function fetchByQueryInvoice(params: *) {
+  return async (dispatch: Dispatch) => {
+    dispatch(startFetchSpecificInvoice());
+
+    try {
+      const response = await api.invoice.fetchByQuery(params);
+      const invoice = response.data[0];
+      dispatch(fetchedSpecificInvoice(invoice));
+    } catch (err) {
+      dispatch(errorFetchingSpeciicInvoice());
+    }
+  };
+}
+
 export function fetchSpecificInvoice(invoiceId: string) {
   return async (dispatch: Dispatch) => {
     dispatch(startFetchSpecificInvoice());

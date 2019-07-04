@@ -21,10 +21,10 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import type { ShopItem } from '../../api/types';
-import NumericInput from '../input/NumericInput.component';
-import PriceInput from '../input/PriceInput.component';
-import ImageUploader from '../input/ImageUploader.component';
+import type { ShopItem } from '../types';
+import NumericInput from '../../../components/input/NumericInput.component';
+import PriceInput from '../../../components/input/PriceInput.component';
+import ImageUploader from '../../../components/input/ImageUploader.component';
 
 type Props = {
   initial: ?ShopItem,
@@ -38,10 +38,11 @@ type State = {
   subtitle: ?string,
   provisions: number,
   price: ?number,
+  supplier_price: ?number,
   cover: ?string,
   tva: ?number,
   description: ?string,
-  unlimited_provisions: boolean,
+  marketplace_enabled: boolean,
 };
 
 function ShopItemPreview(props: { previewURL: string }) {
@@ -93,9 +94,10 @@ export class ShopItemForm extends Component<Props, State> {
         subtitle: initial.subtitle,
         cover: initial.cover,
         price: initial.price,
+        supplier_price: initial.supplier_price,
         tva: initial.tva,
         description: initial.description,
-        unlimited_provisions: initial.unlimited_provisions,
+        marketplace_enabled: initial.marketplace_enabled,
       };
     } else {
       this.state = {
@@ -103,9 +105,10 @@ export class ShopItemForm extends Component<Props, State> {
         subtitle: null,
         cover: null,
         price: null,
+        supplier_price: null,
         tva: null,
         description: null,
-        unlimited_provisions: false,
+        marketplace_enabled: false,
       };
     }
   }
@@ -134,16 +137,25 @@ export class ShopItemForm extends Component<Props, State> {
     }
     data.append('tva', this.state.tva);
     data.append('price', this.state.price);
+    data.append('supplier_price', this.state.supplier_price);
     if (this.state.cover && typeof this.state.cover !== 'string') {
       data.append('cover', this.state.cover);
     }
-    data.append('unlimited_provisions', this.state.unlimited_provisions);
+    data.append('marketplace_enabled', this.state.marketplace_enabled);
     this.props.createOrUpdate(data, id);
   };
 
   render() {
     const { t, classes } = this.props;
-    const { name, subtitle, description, price, tva, cover } = this.state;
+    const {
+      name,
+      subtitle,
+      description,
+      price,
+      supplier_price,
+      tva,
+      cover,
+    } = this.state;
     return (
       <form className={classes.card} onSubmit={this.onSubmit}>
         <Card style={{ width: '100%' }}>
@@ -197,20 +209,30 @@ export class ShopItemForm extends Component<Props, State> {
                 onChange={this.handleField('tva')}
               />
             </Grid>
+            <Grid item xs={6} className={classes.itemRow}>
+              <PriceInput
+                variant="outlined"
+                label={t('shop.supplier_price')}
+                value={supplier_price}
+                required
+                fullWidth
+                onChange={this.handleField('supplier_price')}
+              />
+            </Grid>
           </Grid>
           <Grid item xs={12} className={classes.itemRow}>
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={this.state.unlimited_provisions}
+                  checked={this.state.marketplace_enabled}
                   onChange={(event) => {
                     this.setState({
-                      unlimited_provisions: event.target.checked,
+                      marketplace_enabled: event.target.checked,
                     });
                   }}
                 />
               }
-              label={t('form.shop.item.unlimitedProvision')}
+              label={t('form.shop.item.marketplace_enabled')}
               fullWidth
             />
           </Grid>

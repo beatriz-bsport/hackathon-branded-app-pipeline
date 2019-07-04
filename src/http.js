@@ -8,7 +8,22 @@ const storage = window.localStorage;
 
 export const BASE_URI: string = Config.REACT_APP_BASE_URI;
 export const API_URI: string = `${BASE_URI}/api-v0`;
+export const API_V1_URI: string = `${BASE_URI}/api/v1`;
 export const PAYMENT_URI: string = `${BASE_URI}/payment`;
+
+export function buildUrlParams(params: *) {
+  if (params) {
+    const conditions = [];
+    for (const k in params) {
+      // eslint-disable-next-line
+      if (params.hasOwnProperty(k)) {
+        conditions.push(`${k}=${params[k]}`);
+      }
+    }
+    return `?${conditions.join('&')}`;
+  }
+  return '';
+}
 
 export function setAuthToken(token: string) {
   storage.setItem('http:token', token);

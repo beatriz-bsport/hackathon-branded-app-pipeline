@@ -12,6 +12,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Hidden from '@material-ui/core/Hidden';
 import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
@@ -67,6 +68,15 @@ class ConsumerMenu extends React.Component<Props, State> {
                 <AssignmentIcon />
               </ListItemIcon>
               <ListItemText primary={t('navigation.consumer.pass')} />
+            </ListItem>
+          </Link>
+          <Divider />
+          <Link to="/order" style={{ textDecoration: 'none' }}>
+            <ListItem button onClick={this.handleDrawerToggle}>
+              <ListItemIcon>
+                <ShoppingCartIcon />
+              </ListItemIcon>
+              <ListItemText primary={t('navigation.consumer.order')} />
             </ListItem>
           </Link>
           <Divider />

@@ -1,4 +1,4 @@
-import { API_URI, getAuth, postAuth, patchAuth } from '../http';
+import { API_URI, getAuth, postAuth, patchAuth, buildUrlParams } from '../http';
 
 export async function fetchAll({ page, pageSize, queryParams }) {
   return getAuth(
@@ -6,6 +6,11 @@ export async function fetchAll({ page, pageSize, queryParams }) {
       queryParams ? `&${queryParams}` : ''
     }`,
   );
+}
+
+export async function fetchByQuery(params) {
+  const urlParams = buildUrlParams(params);
+  return getAuth(`${API_URI}/payment/invoices/${urlParams}`);
 }
 
 export async function fetchSpecific(invoiceId) {
@@ -52,4 +57,5 @@ export default {
   createQuick,
   finalize,
   revert,
+  fetchByQuery,
 };

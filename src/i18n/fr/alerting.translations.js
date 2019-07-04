@@ -9,4 +9,9 @@ export default {
     priceDue: 'Somme dûe : {{ price_due, price }}.',
     pricePayed: 'Somme encaissée : {{price_payed, price}}.',
   },
+  newOrder: {
+    title: 'Nouvelle commande',
+    explain: 'Payé par <1>{{name}}</1> sur le magasin.',
+    price: 'Montant: {{ price, price }}.',
+  },
 };

@@ -5,7 +5,7 @@ import type { Member } from './types';
 
 const getAll = (state: State): Array<Member> => state.member.all;
 
-const get = (state: State, id: number): ?Member =>
+const get = (state: State, id: ?number): ?Member =>
   getAll(state).find((member) => member.id === id);
 
 const getSearched = (state: State): Array<Member> => state.member.search.items;

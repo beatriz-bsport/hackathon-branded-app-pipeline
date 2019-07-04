@@ -1,8 +1,9 @@
 // @flow
 
+import Immutable from 'seamless-immutable';
 import type { State } from '../../state/types';
 
-const getUnsorted = (state: State) => state.alerting.items || [];
+const getUnsorted = (state: State) => state.alerting.items || Immutable([]);
 
 const countAlerting = (state: State) => getUnsorted(state).length;
 

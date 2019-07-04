@@ -19,6 +19,7 @@ import AlertListItem from './AlertListItem.component';
 type Props = {
   alertings: Array<Alerting>,
   pushRouter: (path: string) => void,
+  deleteAlert: (id: number) => void,
   onClose?: () => void,
   t: TFunction,
   classes: Object,
@@ -56,6 +57,7 @@ export function AlertList(props: Props) {
             alerting={al}
             key={al.id}
             pushRouter={props.pushRouter}
+            deleteAlert={props.deleteAlert}
           />
         ))
       )}

@@ -10,6 +10,7 @@ import Config from '../config';
 import ResponsiveDrawer from '../components/navigation/ResponsiveDrawer.component';
 
 import { refresh as refreshActions } from '../actions';
+import { delete_ as deleteAlert } from '../libs/alerting/actions';
 import asyncComponent from '../AsyncComponent';
 
 import { MarketingDashboard, MarketingRule } from './marketing';
@@ -24,9 +25,7 @@ const OfferManagement = asyncComponent(() =>
   import('./offer-management/OfferManagement.page'),
 );
 const SearchResults = asyncComponent(() => import('./SearchResults.component'));
-const ShopManager = asyncComponent(() =>
-  import('./shop/ShopManager.component'),
-);
+const Shop = asyncComponent(() => import('./shop/Shop.router'));
 const Reporting = asyncComponent(() =>
   import('./reporting/Reporting.component'),
 );
@@ -49,6 +48,7 @@ const WorkshopActivity = asyncComponent(() =>
   import('./workshop-activity/WorkshopActivity.router'),
 );
 const Invoice = asyncComponent(() => import('./invoice/Invoice.router'));
+const Order = asyncComponent(() => import('./order/Order.router'));
 const Subscription = asyncComponent(() =>
   import('./subscription/Subscription.router'),
 );
@@ -58,6 +58,7 @@ type Props = {
   alertings: Array<Alerting>,
   nbAlerting: number,
   isRefreshing: boolean,
+  deleteAlert: (id: number) => void,
   classes: Object,
   authenticated: boolean,
   refreshIfNeeded: () => void,
@@ -91,10 +92,11 @@ export class Backoffice extends Component<Props> {
         isRefreshing={this.props.isRefreshing}
         alertings={this.props.alertings}
         nbAlerting={this.props.nbAlerting}
+        deleteAlert={this.props.deleteAlert}
       >
         <main className={classes.content}>
           <Switch>
-            <Route path="/shop" component={ShopManager} />
+            <Route path="/shop" component={Shop} />
             <Route path="/offer/:id" component={OfferManagement} />
             <Route exact path="/calendar" component={PlanningRouter} />
             <Route exact path="/add-offers/:id" component={OfferFormPage} />
@@ -109,6 +111,7 @@ export class Backoffice extends Component<Props> {
             <Route path="/marketing/rule/:id" component={MarketingRule} />
             <Route path="/marketing" component={MarketingDashboard} />
             <Route path="/reporting/" component={Reporting} />
+            <Route path="/order" component={Order} />
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/search/results" component={SearchResults} />
             <Route path="/settings/" component={Settings} />
@@ -118,26 +121,6 @@ export class Backoffice extends Component<Props> {
       </ResponsiveDrawer>
     );
   }
-}
-
-function mapStateToProps(state) {
-  return {
-    alertings: alertingSelectors.get(state),
-    nbAlerting: alertingSelectors.countAlerting(state),
-    authenticated: state.auth.authenticated,
-    isRefreshing: state.refresh.isRefreshing,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    refreshIfNeeded() {
-      dispatch(refreshActions.refreshIfNeeded());
-    },
-    refresh() {
-      dispatch(refreshActions.forceRefresh());
-    },
-  };
 }
 
 const styles = (theme: Object) => ({
@@ -154,6 +137,15 @@ const styles = (theme: Object) => ({
 const themedBackoffice = withStyles(styles)(Backoffice);
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
+  (state) => ({
+    alertings: alertingSelectors.get(state),
+    nbAlerting: alertingSelectors.countAlerting(state),
+    authenticated: state.auth.authenticated,
+    isRefreshing: state.refresh.isRefreshing,
+  }),
+  {
+    deleteAlert,
+    refreshIfNeeded: refreshActions.refreshIfNeeded,
+    refresh: refreshActions.forceRefresh,
+  },
 )(themedBackoffice);

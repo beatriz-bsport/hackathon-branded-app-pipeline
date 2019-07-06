@@ -10,10 +10,8 @@ import Select from 'react-select';
 import type { Establishment } from '../types';
 
 const getEstablishmentOptions = ({
-  t,
   establishments,
 }: {
-  t: TFunction,
   establishments: Array<Establishment>,
 }) =>
   establishments.map((e) => ({
@@ -23,7 +21,7 @@ const getEstablishmentOptions = ({
 
 const establishmentStyles = {
   control: (styles) => ({ ...styles, backgroundColor: 'white' }),
-  option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+  option: (styles, { isDisabled, isFocused, isSelected }) => {
     const color = chroma(colors.secondary);
     /* eslint-disable */
     return {
@@ -53,18 +51,18 @@ const establishmentStyles = {
     };
     /* eslint-enable */
   },
-  multiValue: (styles, { data }) => {
+  multiValue: (styles) => {
     const color = chroma(colors.secondary);
     return {
       ...styles,
       backgroundColor: color.alpha(0.1).css(),
     };
   },
-  multiValueLabel: (styles, { data }) => ({
+  multiValueLabel: (styles) => ({
     ...styles,
     color: colors.secondary,
   }),
-  multiValueRemove: (styles, { data }) => ({
+  multiValueRemove: (styles) => ({
     ...styles,
     color: colors.secondary,
     ':hover': {
@@ -82,7 +80,6 @@ export default withNamespaces(['establishment'])(
       placeholder={t('establishment')}
       options={getEstablishmentOptions({
         establishments: establishments.asMutable(),
-        t,
       })}
       styles={establishmentStyles}
       onChange={selectOption}

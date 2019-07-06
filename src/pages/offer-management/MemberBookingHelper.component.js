@@ -3,7 +3,6 @@ import React from 'react';
 
 import Button from '@material-ui/core/Button';
 import ListItem from '@material-ui/core/ListItem';
-import ExposurePlus1Icon from '@material-ui/icons/ExposurePlus1';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';

@@ -2,7 +2,6 @@
 import React from 'react';
 import chroma from 'chroma-js';
 import { withNamespaces } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
 
 import { colors } from '@bsport/common/lib/colors';
 
@@ -17,7 +16,7 @@ const getCoachOptions = (coaches: Array<Coach>) =>
 
 const coachStyles = {
   control: (styles) => ({ ...styles, backgroundColor: 'white' }),
-  option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+  option: (styles, { isDisabled, isFocused, isSelected }) => {
     const color = chroma(colors.secondary);
     /* eslint-disable */
     return {
@@ -47,18 +46,18 @@ const coachStyles = {
     };
     /* eslint-enable */
   },
-  multiValue: (styles, { data }) => {
+  multiValue: (styles) => {
     const color = chroma(colors.secondary);
     return {
       ...styles,
       backgroundColor: color.alpha(0.1).css(),
     };
   },
-  multiValueLabel: (styles, { data }) => ({
+  multiValueLabel: (styles) => ({
     ...styles,
     color: colors.secondary,
   }),
-  multiValueRemove: (styles, { data }) => ({
+  multiValueRemove: (styles) => ({
     ...styles,
     color: colors.secondary,
     ':hover': {

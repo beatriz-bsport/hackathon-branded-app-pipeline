@@ -27,6 +27,8 @@ type Props = {
   onDateClick: (Object) => void,
   classes: Object,
   events?: { [*]: *[] },
+  searchBar: ?any,
+  loading: ?boolean,
 };
 
 type State = {
@@ -184,6 +186,7 @@ export class Calendar extends Component<Props, State> {
         </IconButton>
       );
     }
+    return null;
   };
 
   renderHeader = () => {

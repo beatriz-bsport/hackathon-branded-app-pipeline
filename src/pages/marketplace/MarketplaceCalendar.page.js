@@ -96,13 +96,7 @@ export class MarketplaceCalendar extends Component<Props, State> {
   };
 
   render() {
-    const {
-      classes,
-      offers,
-      establishments,
-      metaActivities,
-      coaches,
-    } = this.props;
+    const { classes, offers, establishments, coaches } = this.props;
     const { selectedDate, filters } = this.state;
 
     let offersFiltered = offers;
@@ -130,7 +124,6 @@ export class MarketplaceCalendar extends Component<Props, State> {
           .includes(o.activity.meta_activity.id),
       );
     }
-    console.log(this.state.filters);
 
     const selectedDayOffers = offersFiltered.filter((o) =>
       Moment(o.date_start).isSame(this.state.selectedDate, 'day'),
@@ -151,7 +144,7 @@ export class MarketplaceCalendar extends Component<Props, State> {
         <MarketplaceCalendarComponent
           selectedDate={selectedDate}
           offers={offersFiltered}
-          setFilters={(filters) => this.setState({ filters })}
+          setFilters={(f) => this.setState({ filters: f })}
           filters={this.state.filters}
           loading={this.props.loading}
           dayOffers={selectedDayOffers}
@@ -159,7 +152,7 @@ export class MarketplaceCalendar extends Component<Props, State> {
           onSelectDate={this.handleDateChange}
           coaches={coaches}
           establishments={establishments}
-          metaActivities={metaActivities}
+          metaActivities={this.props.metaActivities}
         />
       </div>
     );

@@ -27,6 +27,8 @@ type Props = {
   coaches: *[],
   establishments: *[],
   metaActivities: Array<MetaActivity>,
+  setFilters: (*) => void,
+  filters: *,
 };
 
 export function MarketplaceCalendar(props: Props) {

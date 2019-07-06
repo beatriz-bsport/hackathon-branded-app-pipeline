@@ -9,11 +9,9 @@ import { colors } from '@bsport/common/lib/colors';
 import Select from 'react-select';
 import type { MetaActivity } from '../types';
 
-const getEstablishmentOptions = ({
-  t,
+const getMetaActivityOptions = ({
   metaActivities,
 }: {
-  t: TFunction,
   metaActivities: Array<MetaActivity>,
 }) =>
   metaActivities.map((ma) => ({
@@ -81,9 +79,8 @@ export default withNamespaces(['metaActivity'])(
       isMulti
       placeholder={t('metaActivity')}
       onChange={selectOption}
-      options={getEstablishmentOptions({
+      options={getMetaActivityOptions({
         metaActivities: metaActivities.asMutable(),
-        t,
       })}
       styles={metaActivityStyles}
     />

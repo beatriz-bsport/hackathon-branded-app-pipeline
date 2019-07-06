@@ -60,19 +60,7 @@ type Props = {
 };
 
 export class MarketPlaceActivity extends React.Component<Props> {
-  state = {
-    loading: false,
-    activity: null,
-  };
-
   componentDidMount() {
-    this.setState({ loading: true });
-    get(`${API_URI}/activity/${this.props.offer.activity_id}/detail?noapp=true`)
-      .then((response) => {
-        this.setState({ activity: response.data, loading: false });
-      })
-      .catch(() => this.setState({ loading: false }));
-
     this.props.fetchPass(this.props.offerId);
     this.props.fetchPaymentPacks(this.props.offerId);
   }
@@ -148,85 +136,79 @@ export class MarketPlaceActivity extends React.Component<Props> {
               Réserver
             </Button>
           ) : null}
-          {this.state.loading ? (
-            <LinearProgress />
-          ) : (
-            <div>
-              <Typography variant="body1" className={classes.hashtags}>
-                {activity.hashtags}
-              </Typography>
-              <Typography variant="h6" className={classes.title}>
-                {activity.meta_activity.name}
-              </Typography>
-              <Typography variant="body1">
-                {activity.meta_activity.description}
-              </Typography>
-              {this.renderCoachBanner()}
-              {this.props.displayPacksInformation &&
-              this.props.compatibleConsumerPacks.length ? (
-                <div>
-                  <Typography variant="h6" className={classes.title}>
-                    Mes abonnements compatibles
-                  </Typography>
-                  {this.props.compatibleConsumerPacks.map((p) => (
-                    <ConsumerPackCheckout
-                      creditPrice={offer.credit_price}
-                      key={p.id}
-                      offerId={offer.id}
-                      consumerPack={p}
-                      urlParams={{}}
-                      onCompletePurchase={() => {
-                        this.props.goToHome();
-                        this.props.snackbarSuccess('booking.success');
-                      }}
-                    />
+          <div>
+            <Typography variant="body1" className={classes.hashtags}>
+              {activity.hashtags}
+            </Typography>
+            <Typography variant="h6" className={classes.title}>
+              {activity.meta_activity.name}
+            </Typography>
+            <Typography variant="body1">
+              {activity.meta_activity.description}
+            </Typography>
+            {this.renderCoachBanner()}
+            {this.props.displayPacksInformation &&
+            this.props.compatibleConsumerPacks.length ? (
+              <div>
+                <Typography variant="h6" className={classes.title}>
+                  Mes abonnements compatibles
+                </Typography>
+                {this.props.compatibleConsumerPacks.map((p) => (
+                  <ConsumerPackCheckout
+                    creditPrice={offer.credit_price}
+                    key={p.id}
+                    offerId={offer.id}
+                    consumerPack={p}
+                    urlParams={{}}
+                    onCompletePurchase={() => {
+                      this.props.goToHome();
+                      this.props.snackbarSuccess('booking.success');
+                    }}
+                  />
+                ))}
+              </div>
+            ) : null}
+            {this.props.displayPacksInformation &&
+            this.props.compatiblePaymentPacks.length ? (
+              <div>
+                <Typography variant="h6" className={classes.title}>
+                  Abonnements compatibles
+                </Typography>
+                <div className={classes.listPaymentPacks}>
+                  {this.props.compatiblePaymentPacks.map((p) => (
+                    <div key={p.id}>
+                      <PaymentPackSummary
+                        paymentPack={p}
+                        buyButton={
+                          <Button
+                            variant="outlined"
+                            color="primary"
+                            onClick={() =>
+                              this.props.goToPackPayment(
+                                p.id,
+                                this.props.offerId,
+                                activity.company,
+                              )
+                            }
+                          >
+                            <AddShoppingCartIcon className={classes.leftIcon} />
+                            {`${p.price} €`}
+                          </Button>
+                        }
+                      />
+                    </div>
                   ))}
                 </div>
-              ) : null}
-              {this.props.displayPacksInformation &&
-              this.props.compatiblePaymentPacks.length ? (
-                <div>
-                  <Typography variant="h6" className={classes.title}>
-                    Abonnements compatibles
-                  </Typography>
-                  <div className={classes.listPaymentPacks}>
-                    {this.props.compatiblePaymentPacks.map((p) => (
-                      <div key={p.id}>
-                        <PaymentPackSummary
-                          paymentPack={p}
-                          buyButton={
-                            <Button
-                              variant="outlined"
-                              color="primary"
-                              onClick={() =>
-                                this.props.goToPackPayment(
-                                  p.id,
-                                  this.props.offerId,
-                                  activity.company,
-                                )
-                              }
-                            >
-                              <AddShoppingCartIcon
-                                className={classes.leftIcon}
-                              />
-                              {`${p.price} €`}
-                            </Button>
-                          }
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ) : null}
-              <Typography variant="h6" className={classes.title}>
-                {establishment.title}
-              </Typography>
-              <Typography variant="body1" className={classes.address}>
-                {establishment.location.address}
-              </Typography>
-              <Map center={center} markers={markers} zoom={15} />
-            </div>
-          )}
+              </div>
+            ) : null}
+            <Typography variant="h6" className={classes.title}>
+              {establishment.title}
+            </Typography>
+            <Typography variant="body1" className={classes.address}>
+              {establishment.location.address}
+            </Typography>
+            <Map center={center} markers={markers} zoom={15} />
+          </div>
         </CardContent>
         {this.props.showBookingButton ? (
           <CardActions>

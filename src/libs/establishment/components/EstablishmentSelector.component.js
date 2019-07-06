@@ -75,7 +75,7 @@ const establishmentStyles = {
 export default withNamespaces(['establishment'])(
   ({ t, establishments, selectOption }) => (
     <Select
-      closeMenuOnSelect
+      closeMenuOnSelect={false}
       isMulti
       placeholder={t('establishment')}
       options={getEstablishmentOptions({

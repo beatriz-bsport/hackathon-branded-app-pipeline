@@ -75,7 +75,7 @@ const metaActivityStyles = {
 export default withNamespaces(['metaActivity'])(
   ({ t, metaActivities, selectOption }) => (
     <Select
-      closeMenuOnSelect
+      closeMenuOnSelect={false}
       isMulti
       placeholder={t('metaActivity')}
       onChange={selectOption}

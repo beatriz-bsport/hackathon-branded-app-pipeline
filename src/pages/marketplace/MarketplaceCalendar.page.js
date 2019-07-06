@@ -12,7 +12,12 @@ import MarketplaceActivityDialog from '../../libs/marketplace/MarketplaceActivit
 import { Moment } from '../../i18n';
 import { getOffers, isOfferLoading } from '../../libs/marketplace/selectors';
 
-import type { Coach, Offer, Establishment } from '../../libs/marketplace/types';
+import type {
+  Coach,
+  Offer,
+  Establishment,
+  MetaActivity,
+} from '../../libs/marketplace/types';
 
 import {
   fetchCompanyMetaActivitiesAction,
@@ -26,6 +31,7 @@ type Props = {
   offers: Array<Offer>,
   coaches: Array<Coach>,
   establishments: Array<Establishment>,
+  metaActivities: Array<MetaActivity>,
   loading: boolean,
   classes: Object,
   companyId: number,

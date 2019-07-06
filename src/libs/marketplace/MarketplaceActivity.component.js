@@ -73,7 +73,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
           <Typography variant="h6" className={classes.title}>
             Coach
           </Typography>
-          {offer.coach_override ? (
+          {offer.coach_override && offer.coach_override.user ? (
             <ListItem>
               <Avatar
                 src={offer.coach_override.user.photo}

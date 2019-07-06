@@ -165,16 +165,6 @@ export class MarketplaceCalendar extends Component<Props, State> {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    offers: getOffers(state.marketplacev2),
-    loading: isOfferLoading(state.marketplacev2),
-    coaches: state.marketplacev2.coaches.items,
-    establishments: state.marketplacev2.establishments.items,
-    metaActivities: state.marketplacev2.metaActivities.items,
-  };
-}
-
 const styles = () => ({
   container: {
     flexGrow: 1,
@@ -186,7 +176,13 @@ export default compose(
   withStyles(styles),
   withNamespaces(),
   connect(
-    mapStateToProps,
+    (state) => ({
+      offers: getOffers(state.marketplacev2),
+      loading: isOfferLoading(state.marketplacev2),
+      coaches: state.marketplacev2.coaches.items,
+      establishments: state.marketplacev2.establishments.items,
+      metaActivities: state.marketplacev2.metaActivities.items,
+    }),
     {
       fetchCompanyMetaActivities: fetchCompanyMetaActivitiesAction,
       fetchCompanyActivities: fetchCompanyActivitiesAction,

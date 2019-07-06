@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Collapse from '@material-ui/core/Collapse';
-import SearchIcon from '@material-ui/icons/Search';
+import FilterIcon from '@material-ui/icons/FilterList';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -182,7 +182,7 @@ export class Calendar extends Component<Props, State> {
             }))
           }
         >
-          <SearchIcon />
+          <FilterIcon />
         </IconButton>
       );
     }

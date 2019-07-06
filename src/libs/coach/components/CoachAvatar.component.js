@@ -17,7 +17,7 @@ const styles = () => ({
 });
 
 type Props = {
-  coach: Coach,
+  coach: ?Coach,
   coach_override: ?Coach,
   classes: Object,
   t: TFunction,
@@ -27,13 +27,18 @@ export default withNamespaces([])(
   withStyles(styles)((props: Props) => {
     const { coach, coach_override, classes, t } = props;
     const tooltipText = coach_override
-      ? `${t('marketplace.substitute')} ${coach_override.user.name}`
-      : coach.user.name;
+      ? `${t('marketplace.substitute')} ${
+          coach_override ? coach_override.user.name : ''
+        }`
+      : coach
+      ? coach.user.name
+      : '';
     return (
       <Tooltip title={tooltipText}>
         <Avatar
           src={
-            (coach_override && coach_override.user.photo) || coach.user.photo
+            (coach_override && coach_override.user.photo) ||
+            (coach ? coach.user.photo : null)
           }
           className={coach_override ? classes.avatarSubstitute : classes.avatar}
         />

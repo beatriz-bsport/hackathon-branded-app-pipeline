@@ -68,6 +68,7 @@ export class MarketplaceOffer extends Component<Props> {
 
   render() {
     const { t, offer, selected, onClickOffer } = this.props;
+    const { activity } = offer;
     const available = isOfferAvailable(offer);
     const onClick =
       onClickOffer && available ? () => onClickOffer(offer.id) : null;
@@ -80,24 +81,35 @@ export class MarketplaceOffer extends Component<Props> {
       >
         <CoachAvatar
           t={t}
-          coach={offer.activity.coach}
-          coach_override={offer.coach_override}
+          coach={activity && activity.coach ? activity.coach : null}
+          coach_override={offer.coach_override || null}
         />
         <ListItemText
           primary={
             <div>
               <Typography inline>
-                {`${offer.activity.meta_activity.name} - ${formatAsTime(
-                  offer.date_start,
-                )} - ${formatMinutes(offer.duration_minute, t)}`}
+                {`${
+                  activity && activity.meta_activity
+                    ? activity.meta_activity.name || ''
+                    : ''
+                } - ${formatAsTime(offer.date_start)} - ${formatMinutes(
+                  offer.duration_minute,
+                  t,
+                )}`}
               </Typography>
-              <Level noStyle variant="caption" levelId={offer.activity.level} />
+              <Level
+                noStyle
+                variant="caption"
+                levelId={
+                  activity && activity.level ? activity.level || null : null
+                }
+              />
             </div>
           }
           secondary={
             offer.establishment_override
               ? offer.establishment_override.title
-              : offer.activity.establishment.title
+              : ((activity || {}).establishment || {}).title || ''
           }
         />
         <div

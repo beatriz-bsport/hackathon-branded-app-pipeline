@@ -18,18 +18,22 @@ import tag from './fr/tag.translations';
 import shop from './fr/shop.translations';
 import order from './fr/order.translations';
 import marketplace from './fr/marketplace.translations';
+import metaActivity from './fr/meta-activity.translations';
 
 export default {
   dashboard,
   tag,
+  establishment,
   order,
   settings,
   shop,
   paymentRules,
+  coach,
   subscription,
   reporting,
   alerting,
   paymentPack,
+  metaActivity,
   member,
   booking,
   marketplace,
@@ -121,6 +125,7 @@ export default {
     },
     common: {
       items: 'éléments',
+      level: 'Niveau',
       activePass: 'pass actif',
       invoices: 'Factures',
       download: 'Télécharger',

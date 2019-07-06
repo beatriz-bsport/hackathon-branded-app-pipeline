@@ -43,7 +43,7 @@ import DeleteOfferForm from '../../libs/offer/DeleteOfferForm.component';
 
 const styles = (theme) => ({
   calendarContainer: {
-    padding: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit * 2,
   },
   emptyOffer: {
     margin: theme.spacing.unit * 3,

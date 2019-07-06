@@ -1,7 +1,7 @@
 export default {
   selector: {
-    coach: { placeholder: 'Filtre by coach' },
-    level: { placeholder: 'Filter by level' },
-    establishment: { placeholder: 'Filter by establishement' },
+    coach: { placeholder: 'Coach' },
+    level: { placeholder: 'Level' },
+    establishment: { placeholder: 'Establishement' },
   },
 };

@@ -10,14 +10,15 @@ import dashboard from './en/dashboard.translations';
 import settings from './en/settings.translations';
 import paymentRules from './en/payment-rules.translations';
 import reporting from './en/reporting.translations';
-import stripe from './fr/stripe.translations';
+import stripe from './en/stripe.translations';
 import alerting from './en/alerting.translations';
 import booking from './en/booking.translations';
 import tag from './en/tag.translations';
 import subscription from './en/subscription.translations';
 import shop from './en/shop.translations';
 import order from './en/order.translations';
-import marketplace from './fr/marketplace.translations';
+import marketplace from './en/marketplace.translations';
+import metaActivity from './en/meta-activity.translations';
 
 export default {
   dashboard,
@@ -28,8 +29,11 @@ export default {
   order,
   reporting,
   subscription,
+  metaActivity,
+  establishment,
   paymentPack,
   booking,
+  coach,
   member,
   tag,
   marketplace,
@@ -88,6 +92,7 @@ export default {
     },
     common: {
       items: 'items',
+      level: 'Level',
       activePass: 'active pass',
       invoices: 'Invoices',
       download: 'Download',

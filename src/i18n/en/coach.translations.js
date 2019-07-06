@@ -1,4 +1,5 @@
 export default {
+  coach: 'Coach',
   showPerformance: 'Remunerate',
   showActivities: 'Show activities',
   showDescription: 'Show description',

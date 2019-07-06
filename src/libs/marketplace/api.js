@@ -31,7 +31,7 @@ const fetchCompanyOffers = async ({
   page_size = 300,
 }) => {
   return getAuth(
-    `${API_V1_URI}/offer/?company=${companyId}&min_date=${min_date}&max_date=${max_date}&page=${page}&page_size=${page_size}`,
+    `${API_V1_URI}/offer/?available=true&company=${companyId}&min_date=${min_date}&max_date=${max_date}&page=${page}&page_size=${page_size}`,
   );
 };
 

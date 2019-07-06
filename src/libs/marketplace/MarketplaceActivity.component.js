@@ -79,7 +79,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
 
   renderCoachBanner = () => {
     const { offer, classes, t } = this.props;
-    if (offer && offer.coach) {
+    if (offer && offer.activity.coach) {
       return (
         <div>
           <Typography variant="h6" className={classes.title}>
@@ -88,19 +88,19 @@ export class MarketPlaceActivity extends React.Component<Props> {
           {offer.coach_override ? (
             <ListItem>
               <Avatar
-                src={offer.coach_override.photo}
+                src={offer.coach_override.user.photo}
                 className={classes.avatarSubstitute}
               />
               <ListItemText
-                primary={offer.coach_override.name}
+                primary={offer.coach_override.user.name}
                 secondary={t('marketplace.substitute')}
               />
             </ListItem>
           ) : null}
           <ListItem>
-            <Avatar src={offer.coach.photo} />
+            <Avatar src={offer.activity.coach.user.photo} />
             <ListItemText
-              primary={offer.coach.name}
+              primary={offer.activity.coach.user.name}
               secondary={
                 offer.coach_override ? t('marketplace.substituted') : null
               }
@@ -113,16 +113,10 @@ export class MarketPlaceActivity extends React.Component<Props> {
   };
 
   render() {
-    if (this.state.loading || !this.state.activity) {
-      return (
-        <div className={this.props.classes.loading}>
-          <CircularProgress />
-        </div>
-      );
-    }
     const { offer, classes, onClose, pushRouter } = this.props;
-    const { activity } = this.state;
-    const establishment = offer.establishment_override || offer.etablissement;
+    const { activity } = offer;
+    const establishment =
+      offer.establishment_override || offer.activity.establishment;
     const { location } = establishment || { location: null };
     const center = location ? [location.latitude, location.longitude] : null;
     const markers = location ? [establishment] : [];
@@ -133,7 +127,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
         </IconButton>
         <CardMedia
           className={classes.media}
-          src={offer.cover_main}
+          src={activity.meta_activity.cover_main}
           component="img"
         />
         <CardContent>
@@ -162,9 +156,11 @@ export class MarketPlaceActivity extends React.Component<Props> {
                 {activity.hashtags}
               </Typography>
               <Typography variant="h6" className={classes.title}>
-                {offer.name}
+                {activity.meta_activity.name}
               </Typography>
-              <Typography variant="body1">{activity.description}</Typography>
+              <Typography variant="body1">
+                {activity.meta_activity.description}
+              </Typography>
               {this.renderCoachBanner()}
               {this.props.displayPacksInformation &&
               this.props.compatibleConsumerPacks.length ? (

@@ -1,17 +1,20 @@
 // @flow
+//
+/* eslint-disable */
 import _ from 'lodash';
 import type { MarketPlaceState, Offer } from './types';
+import { createSelector } from 'reselect';
 
 const _getOffers = (state: MarketPlaceState) => state.offers.items;
 
-const _getActivities = (state: MarketPlaceState) => state.activities.items;
+const getActivities = (state: MarketPlaceState) => state.activities.items;
 
-const _getEstablishments = (state: MarketPlaceState) =>
+const getEstablishments = (state: MarketPlaceState) =>
   state.establishments.items;
 
-const _getCoaches = (state: MarketPlaceState) => state.coaches.items;
+const getCoaches = (state: MarketPlaceState) => state.coaches.items;
 
-const _getMetaActivities = (state: MarketPlaceState) =>
+const getMetaActivities = (state: MarketPlaceState) =>
   state.metaActivities.items;
 
 /**
@@ -32,7 +35,7 @@ const getOffersByCoach = (
 ): Array<Offer> => {
   const _offers = [];
   _.forEach(_getOffers(state), (offer: Offer) => {
-    const activity = _.find(_getActivities(state), (a) => a.coach === coachId);
+    const activity = _.find(getActivities(state), (a) => a.coach === coachId);
     // check if the coach overide first
     if (
       offer.coach_override === coachId ||
@@ -54,7 +57,7 @@ const getOffersByEstablishment = (
   const _offers = [];
   _.forEach(_getOffers(state), (offer: Offer) => {
     const activity = _.find(
-      _getActivities(state),
+      getActivities(state),
       (a) => a.establishment === establishmentiId,
     );
     // check if the coach overide first
@@ -79,7 +82,7 @@ const getOffersByMetaActivity = (
   const _offers = [];
   _.forEach(_getOffers(state), (offer: Offer) => {
     const activity = _.find(
-      _getActivities(state),
+      getActivities(state),
       (a) => a.meta_activity === metaActivityId,
     );
     // check if the coach overide first
@@ -96,7 +99,7 @@ const getOffersByLevel = (
 ): Array<Offer> => {
   const _offers = [];
   _.forEach(_getOffers(state), (offer: Offer) => {
-    const activity = _.find(_getActivities(state), (a) => a.level === levelId);
+    const activity = _.find(getActivities(state), (a) => a.level === levelId);
     // check if the coach overide first
     if (offer.activity === activity.id) {
       _offers.push(offer);
@@ -105,45 +108,38 @@ const getOffersByLevel = (
   return _offers;
 };
 
-export function offerBuilderSelector(state: MarketPlaceState) {
-  return _getOffers(state).map((offer) => {
-    const offerActivity = _getActivities(state).find(
-      (a) => a.id === offer.activity,
-    );
-    const establishment =
-      _getEstablishments(state).find((e) =>
-        offerActivity ? e.id === offerActivity.establishment : false,
-      ) || null;
-    const metaActivity =
-      _getMetaActivities(state).find((ma) =>
-        offerActivity ? ma.id === offerActivity.meta_activity : false,
-      ) || null;
-    const coach =
-      _getCoaches(state).find((c) =>
-        offerActivity ? c.id === offerActivity.coach : false,
-      ) || null;
-    const coach_override =
-      _getCoaches(state).find((c) =>
-        offerActivity ? c.id === offer.coach_override : false,
-      ) || null;
-    const establishment_override =
-      _getEstablishments(state).find((c) =>
-        c.id === offerActivity ? offer.establishment_override : false,
-      ) || null;
-    const activity = Object.assign({}, offerActivity, {
-      coach,
-      establishment,
-    });
-    return Object.assign({}, offer, {
-      activity,
-      metaActivity,
-      coach_override,
-      establishment_override,
-    });
-  });
-}
+export const getOffers = createSelector(
+  [_getOffers, getEstablishments, getActivities, getMetaActivities, getCoaches],
+  (_offers, establishments, _activities, metaActivities, coaches) => {
+    const activities = _activities.map((a) => ({
+      ...a,
+      coach: coaches.find((c) => c.id === a.coach),
+      establishment: establishments.find((e) => e.id === a.establishment),
+      meta_activity: metaActivities.find((ma) => ma.id === a.meta_activity),
+    }));
+    return _offers.map((o) => ({
+      ...o,
+      coach_override: o.coach_override
+        ? coaches.find((c) => c.id === o.coach_override)
+        : null,
+      establishment_override: o.establishment_override
+        ? establishments.find((e) => e.id === e.establishment_override)
+        : null,
+      activity: activities.find((a) => a.id === o.activity),
+    }));
+  },
+);
+
+export const isOfferLoading = (state: MarketPlaceState) =>
+  state.offers.loading ||
+  state.metaActivities.loading ||
+  state.establishments.loading ||
+  state.coaches.loading ||
+  state.activities.loading;
 
 export default {
+  getOffers,
+  isOfferLoading,
   getOffersByCoach,
   getOffersByActivity,
   getOffersByEstablishment,

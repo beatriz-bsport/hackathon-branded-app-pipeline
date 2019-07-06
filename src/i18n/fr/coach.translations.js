@@ -1,4 +1,5 @@
 export default {
+  coach: 'Professeur',
   showPerformance: 'Rémunérer',
   showActivities: 'Afficher les activités',
   showDescription: 'Afficher la description',

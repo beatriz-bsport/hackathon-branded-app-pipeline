@@ -87,7 +87,7 @@ export class MarketplaceOffer extends Component<Props> {
           primary={
             <div>
               <Typography inline>
-                {`${offer.metaActivity.name} - ${formatAsTime(
+                {`${offer.activity.meta_activity.name} - ${formatAsTime(
                   offer.date_start,
                 )} - ${formatMinutes(offer.duration_minute, t)}`}
               </Typography>

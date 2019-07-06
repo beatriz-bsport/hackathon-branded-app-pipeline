@@ -1,17 +1,21 @@
 // @flow
 import React, { Component } from 'react';
+import classNames from 'classnames';
 
-import {
-  IconButton,
-  Grid,
-  Typography,
-  Button,
-  withStyles,
-} from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import Grid from '@material-ui/core/Grid';
+import Divider from '@material-ui/core/Divider';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Collapse from '@material-ui/core/Collapse';
+import SearchIcon from '@material-ui/icons/Search';
+import Typography from '@material-ui/core/Typography';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import withStyles from '@material-ui/core/styles/withStyles';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ViewWeek from '@material-ui/icons/ViewWeek';
 import ViewComfy from '@material-ui/icons/ViewComfy';
+import { colors } from '@bsport/common/lib/colors';
 import { Moment } from '../../i18n';
 
 const WEEKMODE: number = 0;
@@ -27,6 +31,7 @@ type Props = {
 
 type State = {
   displayMode: number,
+  searchOn: boolean,
 };
 
 export class Calendar extends Component<Props, State> {
@@ -34,6 +39,7 @@ export class Calendar extends Component<Props, State> {
     super(props);
     this.state = {
       displayMode: props.forceMonthDisplay ? MONTHMODE : WEEKMODE,
+      searchOn: false,
     };
   }
 
@@ -102,15 +108,20 @@ export class Calendar extends Component<Props, State> {
     const { displayMode } = this.state;
     const weekdays = Moment.weekdaysShort(true); // true for starting on local day
     return (
-      <Grid container direction="column" alignItems="center">
-        {displayMode === WEEKMODE ? (
-          <Grid item>{weekdays[day.weekday()]}</Grid>
-        ) : null}
-        <Grid item>{day.date()}</Grid>
-        <Grid item className={classes.dots}>
-          {this.formatDots(day)}
-        </Grid>
-      </Grid>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        {displayMode === WEEKMODE ? weekdays[day.weekday()][0] : null}
+        <Typography color="inherit" variant="subtitle2">
+          {day.date()}
+        </Typography>
+        <div className={classes.dots}>{this.formatDots(day)}</div>
+      </div>
     );
   };
 
@@ -134,29 +145,45 @@ export class Calendar extends Component<Props, State> {
     const { date } = this.props;
     const { classes } = this.props;
     const isSelected = day.isSame(date, 'days');
+    const disabled = !day.isSame(date, 'months') && displayMode === MONTHMODE;
+    let dayButtonClass = null;
+    if (isSelected) {
+      dayButtonClass = classes.dayButtonSelected;
+    }
+    if (disabled) {
+      dayButtonClass = classes.dayButtonDisabled;
+    }
 
     return (
-      <Grid item>
-        <Grid container direction="column" alignItems="center">
-          <Grid item>
-            <Button
-              id={`calendar-day-${day.format('YYYY-MM-DD')}`}
-              variant={isSelected ? 'contained' : null}
-              color="primary"
-              className={classes.dayButton}
-              disabled={
-                !day.isSame(date, 'months') && displayMode === MONTHMODE
-              }
-              onClick={() => {
-                this.selectDate(day);
-              }}
-            >
-              {this.formatDay(day)}
-            </Button>
-          </Grid>
-        </Grid>
-      </Grid>
+      <ButtonBase
+        id={`calendar-day-${day.format('YYYY-MM-DD')}`}
+        variant={isSelected ? 'contained' : null}
+        color="primary"
+        className={classNames(classes.dayButton, dayButtonClass)}
+        disabled={disabled}
+        onClick={() => {
+          this.selectDate(day);
+        }}
+      >
+        {this.formatDay(day)}
+      </ButtonBase>
     );
+  };
+
+  renderSearchButton = () => {
+    if (this.props.searchBar) {
+      return (
+        <IconButton
+          onClick={() =>
+            this.setState((prevState) => ({
+              searchOn: !prevState.searchOn,
+            }))
+          }
+        >
+          <SearchIcon />
+        </IconButton>
+      );
+    }
   };
 
   renderHeader = () => {
@@ -191,7 +218,7 @@ export class Calendar extends Component<Props, State> {
               </IconButton>
             </Grid>
             <Grid item>
-              <Typography variant="h6">
+              <Typography inline component="h3" variant="h6">
                 {month} {year}
               </Typography>
             </Grid>
@@ -202,27 +229,30 @@ export class Calendar extends Component<Props, State> {
             </Grid>
           </Grid>
         </Grid>
-        {forceMonthDisplay ? null : (
-          <Grid item>
+        <Grid item>
+          {this.renderSearchButton()}
+          {forceMonthDisplay ? null : (
             <IconButton
               onClick={this.toogleMonthMode}
               color={displayMode === MONTHMODE ? 'primary' : 'default'}
             >
               <ViewComfy />
             </IconButton>
-          </Grid>
-        )}
+          )}
+        </Grid>
       </Grid>
     );
   };
 
   renderWeekFrom = (firstDayWeek: Object) => (
-    <Grid
-      container
-      direction="row"
-      alignItems="center"
-      justify="space-between"
-      wrap="nowrap"
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        wrap: 'nowrap',
+      }}
     >
       {this.renderDay(Moment(firstDayWeek).add(0, 'days'))}
       {this.renderDay(Moment(firstDayWeek).add(1, 'days'))}
@@ -231,7 +261,7 @@ export class Calendar extends Component<Props, State> {
       {this.renderDay(Moment(firstDayWeek).add(4, 'days'))}
       {this.renderDay(Moment(firstDayWeek).add(5, 'days'))}
       {this.renderDay(Moment(firstDayWeek).add(6, 'days'))}
-    </Grid>
+    </div>
   );
 
   renderMonthFrom = (firstDayMonth: Object) => {
@@ -251,25 +281,43 @@ export class Calendar extends Component<Props, State> {
 
     return (
       <Grid container direction="column" alignItems="stretch">
-        <Grid item>
-          <Grid
-            container
-            direction="row"
-            alignItems="center"
-            justify="space-between"
-            className={classes.weekdayNameRow}
-            wrap="nowrap"
-          >
-            {Moment.weekdaysShort(true).map((wds) => (
-              <Grid item key={wds}>
-                <Typography variant="h6">{wds}</Typography>
-              </Grid>
-            ))}
-          </Grid>
+        <Grid item className={classes.weekdayNameRow}>
+          {Moment.weekdaysShort(true).map((wds) => (
+            <div
+              style={{
+                flex: 1,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              key={wds}
+            >
+              <Typography variant="h6">{wds[0]}</Typography>
+            </div>
+          ))}
         </Grid>
         {weekRows}
       </Grid>
     );
+  };
+
+  renderSearchBar = () => {
+    const { searchBar, classes, loading } = this.props;
+    let DividerComponent = Divider;
+    if (loading) {
+      DividerComponent = LinearProgress;
+    }
+    if (searchBar) {
+      return (
+        <div>
+          <Collapse in={this.state.searchOn}>
+            <div className={classes.searchBarContainer}>{searchBar}</div>
+          </Collapse>
+          <DividerComponent />
+        </div>
+      );
+    }
+    return <div />;
   };
 
   renderBulkDays = () => {
@@ -289,17 +337,13 @@ export class Calendar extends Component<Props, State> {
 
   render() {
     const { classes } = this.props;
-    const { displayMode } = this.state;
     return (
-      <Grid
-        id="calendar"
-        container
-        spacing={16}
-        direction="column"
-        className={displayMode === WEEKMODE ? classes.container : null}
-      >
+      <Grid id="calendar" container direction="column">
         <Grid item xs={12}>
           {this.renderHeader()}
+        </Grid>
+        <Grid item xs={12}>
+          {this.renderSearchBar()}
         </Grid>
         <Grid item xs={12} className={classes.dayRow}>
           {this.renderBulkDays()}
@@ -310,34 +354,45 @@ export class Calendar extends Component<Props, State> {
 }
 
 const styles = (theme) => ({
-  container: {
-    marginRight: theme.spacing.unit * 2,
-  },
-
-  arrowIconLeft: {
-    marginLeft: -theme.spacing.unit * 2,
-  },
-  arrowIconRight: {
-    marginRight: -theme.spacing.unit * 2,
-  },
   dayButton: {
-    marginLeft: -theme.spacing.unit * 2,
-    marginRight: -theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit,
+    padding: theme.spacing.unit,
+    display: 'flex',
+    flexGrow: 1,
+    flexBasis: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: theme.spacing.unit,
+  },
+  dayButtonSelected: {
+    color: colors.primary,
+    border: `1px solid ${colors.primary}`,
+    marginTop: -1,
+    marginLeft: -1,
+    marginRight: -1,
+    marginBottom: -1,
+  },
+  dayButtonDisabled: {
+    color: 'gray',
   },
   dots: {
     height: 5,
     marginBottom: theme.spacing.unit,
   },
   weekdayNameRow: {
-    marginBottom: theme.spacing.unit * 3,
+    display: 'flex',
+    flexDirection: 'row',
+    marginBottom: theme.spacing.unit,
     marginTop: theme.spacing.unit,
   },
   dayRow: {
+    paddingTop: theme.spacing.unit * 2,
     [theme.breakpoints.up('md')]: {
       marginLeft: theme.spacing.unit,
       marginRight: theme.spacing.unit,
     },
+  },
+  searchBarContainer: {
+    marginBottom: theme.spacing.unit,
   },
 });
 

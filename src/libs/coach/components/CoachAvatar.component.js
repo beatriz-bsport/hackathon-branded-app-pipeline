@@ -27,12 +27,14 @@ export default withNamespaces([])(
   withStyles(styles)((props: Props) => {
     const { coach, coach_override, classes, t } = props;
     const tooltipText = coach_override
-      ? `${t('marketplace.substitute')} ${coach_override.name}`
-      : coach.name;
+      ? `${t('marketplace.substitute')} ${coach_override.user.name}`
+      : coach.user.name;
     return (
       <Tooltip title={tooltipText}>
         <Avatar
-          src={(coach_override && coach_override.photo) || coach.photo}
+          src={
+            (coach_override && coach_override.user.photo) || coach.user.photo
+          }
           className={coach_override ? classes.avatarSubstitute : classes.avatar}
         />
       </Tooltip>

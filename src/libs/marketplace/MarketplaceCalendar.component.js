@@ -5,26 +5,28 @@ import React from 'react';
 import { withStyles } from '@material-ui/core';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Grid from '@material-ui/core/Grid';
+import { compose } from 'recompose';
 
 import { Moment } from '../../i18n';
 
 import Calendar from '../../components/offer/Calendar.component';
 import MarketplaceTimetable from './MarketplaceTimetable.component';
-import CoachSelector from './components/CoachSelector.component';
-import EstablishmentSelector from './components/EstablishmentSelector.component';
-import LevelSelector from './components/LevelSelector.component';
+import CoachSelector from '../associated-coach/components/CoachSelector.component';
+import EstablishmentSelector from '../establishment/components/EstablishmentSelector.component';
+import MetaActivitySelector from '../meta-activity/components/MetaActivitySelector.component';
+import LevelSelector from '../meta-activity/components/LevelSelector.component';
 
 type Props = {
   classes: { [string]: string },
   onSelectDate: () => void,
   selectedDate: *,
-  calendarLoading: boolean,
   offers: *[],
+  loading: boolean,
   dayOffers: *[],
-  dayOffersLoading: boolean,
   onClickOffer: () => void,
   coaches: *[],
   establishments: *[],
+  metaActivities: Array<MetaActivity>,
 };
 
 export function MarketplaceCalendar(props: Props) {
@@ -32,14 +34,14 @@ export function MarketplaceCalendar(props: Props) {
     classes,
     onSelectDate,
     selectedDate,
-    calendarLoading,
     offers,
     dayOffers,
-    dayOffersLoading,
     coaches,
     establishments,
+    metaActivities,
+    loading,
+    setFilters,
   } = props;
-  console.log(props);
   const events = {};
   offers.forEach((o) => {
     const midnight = Moment(o.date_start).startOf('day');
@@ -48,72 +50,84 @@ export function MarketplaceCalendar(props: Props) {
     }
     events[midnight].push(o);
   });
+
+  const searchBar = (
+    <Grid container>
+      <Grid item xs={12} md={6} className={classes.selector}>
+        <CoachSelector
+          coaches={coaches}
+          selectOption={(ev) =>
+            props.setFilters({ ...props.filters, coaches: ev })
+          }
+        />
+      </Grid>
+      <Grid item xs={12} md={6} className={classes.selector}>
+        <LevelSelector
+          selectOption={(ev) =>
+            props.setFilters({
+              ...props.filters,
+              levels: ev,
+            })
+          }
+        />
+      </Grid>
+      <Grid item xs={12} md={6} className={classes.selector}>
+        <EstablishmentSelector
+          establishments={establishments}
+          selectOption={(ev) => {
+            props.setFilters({ ...props.filters, establishments: ev });
+          }}
+        />
+      </Grid>
+      <Grid item xs={12} md={6} className={classes.selector}>
+        <MetaActivitySelector
+          metaActivities={metaActivities}
+          selectOption={(ev) =>
+            props.setFilters({ ...props.filters, metaActivities: ev })
+          }
+        />
+      </Grid>
+    </Grid>
+  );
   return (
-    <Grid
-      container
-      direction="row"
-      alignItems="stretch"
-      classeName={classes.root}
-    >
-      <Grid item xs={12} md={7}>
-        <Grid container spacing={3} className={classes.leftPanel}>
-          <Grid item xs={12}>
-            <Grid container spacing={16}>
-              <Grid item xs={6}>
-                <CoachSelector coaches={coaches} onChange={null} />
-              </Grid>
-              <Grid item xs={6}>
-                <LevelSelector onChange={null} />
-              </Grid>
-            </Grid>
-            <Grid container spacing={16}>
-              <Grid item xs={12}>
-                <EstablishmentSelector
-                  establishments={establishments}
-                  onChange={null}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} className={classes.calendar}>
-            <Calendar
-              forceMonthDisplay
-              onDateClick={onSelectDate}
-              date={selectedDate}
-              events={events}
-            />
-          </Grid>
-        </Grid>
+    <Grid container direction="row" alignItems="stretch">
+      <Grid item xs={12} md={6}>
+        <Calendar
+          forceMonthDisplay
+          searchBar={searchBar}
+          onDateClick={onSelectDate}
+          loading={loading}
+          date={selectedDate}
+          events={events}
+        />
       </Grid>
-      <Grid item xs={12} md={5}>
+      <Grid item xs={12} md={6}>
         <div className={classes.rightPanel}>
-          <MarketplaceTimetable
-            offers={dayOffers}
-            date={selectedDate}
-            onClickOffer={props.onClickOffer}
-            loading={dayOffersLoading}
-          />
+          {loading ? (
+            <LinearProgress />
+          ) : (
+            <MarketplaceTimetable
+              offers={dayOffers}
+              date={selectedDate}
+              onClickOffer={props.onClickOffer}
+            />
+          )}
         </div>
-      </Grid>
-      <Grid item xs={12}>
-        {calendarLoading ? <LinearProgress /> : null}
       </Grid>
     </Grid>
   );
 }
 
 const styles = (theme) => ({
-  root: {},
-  leftPanel: {
-    padding: theme.spacing.unit * 2,
-  },
   rightPanel: {
     borderLeft: '1px solid #F0F0F0',
     height: '100%',
   },
-  calendar: {
-    // borderTop: '1px solid #F0F0F0',
+  selector: {
+    paddingLeft: theme.spacing.unit,
+    paddingRight: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit,
   },
 });
 
-export default withStyles(styles)(MarketplaceCalendar);
+export default compose(withStyles(styles))(MarketplaceCalendar);

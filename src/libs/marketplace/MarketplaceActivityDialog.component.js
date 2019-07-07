@@ -9,6 +9,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import MarketPlaceActivity from './MarketplaceActivity.component';
 
 type Props = {
+  open: ?boolean,
   offerId: number,
   classes: { [string]: string },
   onClose: () => void,
@@ -19,7 +20,7 @@ export function MarketplaceActivityDialog(props: Props) {
   const { classes, onClose, fullScreen } = props;
   return (
     <Dialog
-      open
+      open={props.open}
       scroll="paper"
       onClose={onClose}
       classes={{ paper: classes.dialog }}

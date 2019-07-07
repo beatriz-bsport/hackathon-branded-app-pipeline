@@ -10,25 +10,22 @@ import type { TFunction } from 'react-i18next';
 
 import { withStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
-import LinearProgress from '@material-ui/core/LinearProgress';
 
-import CancelIcon from '@material-ui/icons/Cancel';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { colors } from '@bsport/common/lib/colors';
 
 import { snackbarSuccess } from '../../actions/snackbar.actions';
-
-import { get, API_URI } from '../../http';
 
 import Map from '../../components/establishment/Map.component';
 
@@ -47,7 +44,7 @@ type Props = {
   compatiblePaymentPacks: Array<PaymentPack>,
 
   goToHome: () => void,
-  goToPackPayment: (packId: number, offerId: number, companyId) => void,
+  goToPackPayment: (packId: number, offerId: number, companyId: number) => void,
   fetchPass: (id: number) => void,
   fetchPaymentPacks: (id: number) => void,
   onClose: () => void,
@@ -103,6 +100,26 @@ export class MarketPlaceActivity extends React.Component<Props> {
   render() {
     const { offer, classes, onClose, pushRouter } = this.props;
     const { activity } = offer;
+    if (
+      typeof activity === 'number' ||
+      typeof activity.establishment === 'number' ||
+      typeof activity.coach === 'number' ||
+      typeof offer.coach_override === 'number' ||
+      typeof offer.establishment_override === 'number'
+    ) {
+      return (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: 16,
+          }}
+        >
+          <CircularProgress />
+        </div>
+      );
+    }
     const establishment =
       offer.establishment_override || offer.activity.establishment;
     const { location } = establishment || { location: null };
@@ -110,8 +127,12 @@ export class MarketPlaceActivity extends React.Component<Props> {
     const markers = location ? [establishment] : [];
     return (
       <Card className={classes.card}>
-        <IconButton className={classes.cancelButton} onClick={onClose}>
-          <CancelIcon className={classes.cancelIcon} />
+        <IconButton
+          color="secondary"
+          className={classes.cancelButton}
+          onClick={onClose}
+        >
+          <ArrowBackIcon className={classes.cancelIcon} />
         </IconButton>
         <CardMedia
           className={classes.media}
@@ -275,12 +296,13 @@ const styles = (theme) => ({
   cancelButton: {
     position: 'fixed',
     top: 10,
-    right: 10,
+    left: 10,
     zIndex: 1000,
   },
   cancelIcon: {
-    color: 'secondary',
     height: 32,
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    borderRadius: 16,
     width: 32,
   },
   leftIcon: {

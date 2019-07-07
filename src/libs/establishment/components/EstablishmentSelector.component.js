@@ -9,15 +9,18 @@ import { colors } from '@bsport/common/lib/colors';
 import Select from 'react-select';
 import type { Establishment } from '../types';
 
-const getEstablishmentOptions = ({
-  establishments,
-}: {
-  establishments: Array<Establishment>,
-}) =>
-  establishments.map((e) => ({
+const getEstablishmentOptions = (establishments: Array<Establishment>) => {
+  establishments.sort((e, e_) => {
+    if (e.title.toUpperCase() < e_.title.toUpperCase()) {
+      return -1;
+    }
+    return 1;
+  });
+  return establishments.map((e) => ({
     value: e.id,
     label: e.title,
   }));
+};
 
 const establishmentStyles = {
   control: (styles) => ({ ...styles, backgroundColor: 'white' }),
@@ -73,16 +76,23 @@ const establishmentStyles = {
 };
 
 export default withNamespaces(['establishment'])(
-  ({ t, establishments, selectOption }) => (
+  ({ t, establishments, selectOption, selectedEstablishments }) => (
     <Select
       closeMenuOnSelect={false}
       isMulti
       placeholder={t('establishment')}
-      options={getEstablishmentOptions({
-        establishments: establishments.asMutable(),
-      })}
+      options={getEstablishmentOptions(establishments.asMutable())}
       styles={establishmentStyles}
       onChange={selectOption}
+      value={
+        selectedEstablishments
+          ? getEstablishmentOptions(
+              establishments
+                .filter((e) => selectedEstablishments.includes(e.id))
+                .asMutable(),
+            )
+          : undefined
+      }
     />
   ),
 );

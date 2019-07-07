@@ -33,7 +33,6 @@ type Props = {
 
 type State = {
   displayMode: number,
-  searchOn: boolean,
 };
 
 export class Calendar extends Component<Props, State> {
@@ -41,7 +40,6 @@ export class Calendar extends Component<Props, State> {
     super(props);
     this.state = {
       displayMode: props.forceMonthDisplay ? MONTHMODE : WEEKMODE,
-      searchOn: false,
     };
   }
 
@@ -175,13 +173,7 @@ export class Calendar extends Component<Props, State> {
   renderSearchButton = () => {
     if (this.props.searchBar) {
       return (
-        <IconButton
-          onClick={() =>
-            this.setState((prevState) => ({
-              searchOn: !prevState.searchOn,
-            }))
-          }
-        >
+        <IconButton onClick={this.props.toogleSearchBar}>
           <FilterIcon />
         </IconButton>
       );
@@ -313,7 +305,7 @@ export class Calendar extends Component<Props, State> {
     if (searchBar) {
       return (
         <div>
-          <Collapse in={this.state.searchOn}>
+          <Collapse in={this.props.searchBarOpen}>
             <div className={classes.searchBarContainer}>{searchBar}</div>
           </Collapse>
           <DividerComponent />

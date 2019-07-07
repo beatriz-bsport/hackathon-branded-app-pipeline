@@ -17,97 +17,6 @@ const getCoaches = (state: MarketPlaceState) => state.coaches.items;
 const getMetaActivities = (state: MarketPlaceState) =>
   state.metaActivities.items;
 
-/**
- * get all offers related to a specific activity
- */
-const getOffersByActivity = (
-  state: MarketPlaceState,
-  activityId: number,
-): Array<Offer> =>
-  _.filter(_getOffers(state), (offer: Offer) => offer.activity === activityId);
-
-/**
- * get offers of a specific coach
- */
-const getOffersByCoach = (
-  state: MarketPlaceState,
-  coachId: number,
-): Array<Offer> => {
-  const _offers = [];
-  _.forEach(_getOffers(state), (offer: Offer) => {
-    const activity = _.find(getActivities(state), (a) => a.coach === coachId);
-    // check if the coach overide first
-    if (
-      offer.coach_override === coachId ||
-      (activity.coach === coachId && offer.activity === activity.id)
-    ) {
-      _offers.push(offer);
-    }
-  });
-  return _offers;
-};
-
-/**
- * get offers of a specific coach
- */
-const getOffersByEstablishment = (
-  state: MarketPlaceState,
-  establishmentiId: number,
-): Array<Offer> => {
-  const _offers = [];
-  _.forEach(_getOffers(state), (offer: Offer) => {
-    const activity = _.find(
-      getActivities(state),
-      (a) => a.establishment === establishmentiId,
-    );
-    // check if the coach overide first
-    if (
-      offer.establishment_override === establishmentiId ||
-      (activity.establishment === establishmentiId &&
-        activity.id === offer.activity)
-    ) {
-      _offers.push(offer);
-    }
-  });
-  return _offers;
-};
-
-/**
- * get offers of a specific coach
- */
-const getOffersByMetaActivity = (
-  state: MarketPlaceState,
-  metaActivityId: number,
-): Array<Offer> => {
-  const _offers = [];
-  _.forEach(_getOffers(state), (offer: Offer) => {
-    const activity = _.find(
-      getActivities(state),
-      (a) => a.meta_activity === metaActivityId,
-    );
-    // check if the coach overide first
-    if (offer.activity === activity.id) {
-      _offers.push(offer);
-    }
-  });
-  return _offers;
-};
-
-const getOffersByLevel = (
-  state: MarketPlaceState,
-  levelId: number,
-): Array<Offer> => {
-  const _offers = [];
-  _.forEach(_getOffers(state), (offer: Offer) => {
-    const activity = _.find(getActivities(state), (a) => a.level === levelId);
-    // check if the coach overide first
-    if (offer.activity === activity.id) {
-      _offers.push(offer);
-    }
-  });
-  return _offers;
-};
-
 export const getOffers = createSelector(
   [_getOffers, getEstablishments, getActivities, getMetaActivities, getCoaches],
   (_offers, establishments, _activities, metaActivities, coaches) => {
@@ -130,6 +39,37 @@ export const getOffers = createSelector(
   },
 );
 
+export const getOffersFiltered = (state: MarketPlaceState, filters: *) => {
+  let offersFiltered = getOffers(state);
+  if ((filters.establishments || []).length) {
+    offersFiltered = offersFiltered.filter(
+      (o) =>
+        (filters.establishments.includes(o.activity.establishment.id) &&
+          !o.establishment_override) ||
+        (o.establishment_override &&
+          filters.establishments.includes(o.establishment_override.id)),
+    );
+  }
+  if ((filters.coaches || []).length) {
+    offersFiltered = offersFiltered.filter(
+      (o) =>
+        (filters.coaches.includes(o.activity.coach.id) && !o.coach_override) ||
+        (o.coach_override && filters.coaches.includes(o.coach_override.id)),
+    );
+  }
+  if ((filters.levels || []).length) {
+    offersFiltered = offersFiltered.filter((o) =>
+      filters.levels.includes(o.activity.level),
+    );
+  }
+  if ((filters.metaActivities || []).length) {
+    offersFiltered = offersFiltered.filter((o) =>
+      filters.metaActivities.includes(o.activity.meta_activity.id),
+    );
+  }
+  return offersFiltered;
+};
+
 export const isOfferLoading = (state: MarketPlaceState) =>
   state.offers.loading ||
   state.metaActivities.loading ||
@@ -140,9 +80,5 @@ export const isOfferLoading = (state: MarketPlaceState) =>
 export default {
   getOffers,
   isOfferLoading,
-  getOffersByCoach,
-  getOffersByActivity,
-  getOffersByEstablishment,
-  getOffersByMetaActivity,
-  getOffersByLevel,
+  getOffersFiltered,
 };

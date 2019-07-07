@@ -29,6 +29,8 @@ type Props = {
   metaActivities: Array<MetaActivity>,
   setFilters: (*) => void,
   filters: *,
+  toogleFiltersOpen: () => void,
+  filtersOpen: boolean,
 };
 
 export function MarketplaceCalendar(props: Props) {
@@ -43,6 +45,7 @@ export function MarketplaceCalendar(props: Props) {
     metaActivities,
     loading,
     setFilters,
+    filters,
   } = props;
   const events = {};
   offers.forEach((o) => {
@@ -58,17 +61,22 @@ export function MarketplaceCalendar(props: Props) {
       <Grid item xs={12} md={6} className={classes.selector}>
         <CoachSelector
           coaches={coaches}
+          selectedCoaches={filters.coaches}
           selectOption={(ev) =>
-            props.setFilters({ ...props.filters, coaches: ev })
+            setFilters({
+              ...filters,
+              coaches: ev.map((e) => e.value),
+            })
           }
         />
       </Grid>
       <Grid item xs={12} md={6} className={classes.selector}>
         <LevelSelector
+          selectedLevels={filters.levels}
           selectOption={(ev) =>
-            props.setFilters({
-              ...props.filters,
-              levels: ev,
+            setFilters({
+              ...filters,
+              levels: ev.map((e) => e.value),
             })
           }
         />
@@ -76,16 +84,24 @@ export function MarketplaceCalendar(props: Props) {
       <Grid item xs={12} md={6} className={classes.selector}>
         <EstablishmentSelector
           establishments={establishments}
+          selectedEstablishments={filters.establishments}
           selectOption={(ev) => {
-            props.setFilters({ ...props.filters, establishments: ev });
+            setFilters({
+              ...filters,
+              establishments: ev.map((e) => e.value),
+            });
           }}
         />
       </Grid>
       <Grid item xs={12} md={6} className={classes.selector}>
         <MetaActivitySelector
           metaActivities={metaActivities}
+          selectedMetaActivities={filters.metaActivities}
           selectOption={(ev) =>
-            props.setFilters({ ...props.filters, metaActivities: ev })
+            setFilters({
+              ...filters,
+              metaActivities: ev.map((e) => e.value),
+            })
           }
         />
       </Grid>
@@ -97,6 +113,8 @@ export function MarketplaceCalendar(props: Props) {
         <Calendar
           forceMonthDisplay
           searchBar={searchBar}
+          searchBarOpen={props.filtersOpen}
+          toogleSearchBar={props.toogleFiltersOpen}
           onDateClick={onSelectDate}
           loading={loading}
           date={selectedDate}

@@ -9,15 +9,18 @@ import { colors } from '@bsport/common/lib/colors';
 import Select from 'react-select';
 import type { MetaActivity } from '../types';
 
-const getMetaActivityOptions = ({
-  metaActivities,
-}: {
-  metaActivities: Array<MetaActivity>,
-}) =>
-  metaActivities.map((ma) => ({
+const getMetaActivityOptions = (metaActivities: Array<MetaActivity>) => {
+  metaActivities.sort((ma, ma_) => {
+    if (ma.name.toUpperCase() < ma_.name.toUpperCase()) {
+      return -1;
+    }
+    return 1;
+  });
+  return metaActivities.map((ma) => ({
     value: ma.id,
     label: ma.name,
   }));
+};
 
 const metaActivityStyles = {
   control: (styles) => ({ ...styles, backgroundColor: 'white' }),
@@ -73,15 +76,22 @@ const metaActivityStyles = {
 };
 
 export default withNamespaces(['metaActivity'])(
-  ({ t, metaActivities, selectOption }) => (
+  ({ t, metaActivities, selectOption, selectedMetaActivities }) => (
     <Select
       closeMenuOnSelect={false}
       isMulti
       placeholder={t('metaActivity')}
       onChange={selectOption}
-      options={getMetaActivityOptions({
-        metaActivities: metaActivities.asMutable(),
-      })}
+      options={getMetaActivityOptions(metaActivities.asMutable())}
+      value={
+        selectedMetaActivities
+          ? getMetaActivityOptions(
+              metaActivities
+                .filter((ma) => selectedMetaActivities.includes(ma.id))
+                .asMutable(),
+            )
+          : undefined
+      }
       styles={metaActivityStyles}
     />
   ),

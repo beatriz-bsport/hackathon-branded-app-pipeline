@@ -8,8 +8,8 @@ import Select from 'react-select';
 import LEVELS from '@bsport/common/lib/master-data/levels';
 import { getLevelColorById } from '@bsport/common/lib/colors';
 
-const levelOptions = (t: TFunction) =>
-  LEVELS.map((l) => ({
+const levelOptions = (levels, t: TFunction) =>
+  levels.map((l) => ({
     value: l.id,
     color: getLevelColorById(l.id),
     label: t(`level.${l.text}`),
@@ -67,12 +67,17 @@ const levelStyles = {
   }),
 };
 
-export default withNamespaces()(({ t, selectOption }) => (
+export default withNamespaces()(({ t, selectOption, selectedLevels }) => (
   <Select
     closeMenuOnSelect={false}
     isMulti
     placeholder={t('common.level')}
-    options={levelOptions(t)}
+    options={levelOptions(LEVELS, t)}
+    value={
+      selectedLevels
+        ? levelOptions(LEVELS.filter((l) => selectedLevels.includes(l.id)), t)
+        : undefined
+    }
     onChange={selectOption}
     styles={levelStyles}
   />

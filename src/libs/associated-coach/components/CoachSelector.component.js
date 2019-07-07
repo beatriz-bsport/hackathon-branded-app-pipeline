@@ -8,11 +8,18 @@ import { colors } from '@bsport/common/lib/colors';
 import Select from 'react-select';
 import type { Coach } from '../types';
 
-const getCoachOptions = (coaches: Array<Coach>) =>
-  coaches.map((c) => ({
+const getCoachOptions = (coaches: Array<Coach>) => {
+  coaches.sort((c, c_) => {
+    if (c.user.name.toUpperCase() < c_.user.name.toUpperCase()) {
+      return -1;
+    }
+    return 1;
+  });
+  return coaches.map((c) => ({
     value: c.id,
     label: c.user.name,
   }));
+};
 
 const coachStyles = {
   control: (styles) => ({ ...styles, backgroundColor: 'white' }),
@@ -67,13 +74,22 @@ const coachStyles = {
   }),
 };
 
-export default withNamespaces(['coach'])(({ t, coaches, selectOption }) => (
-  <Select
-    closeMenuOnSelect={false}
-    isMulti
-    placeholder={t('coach')}
-    options={getCoachOptions(coaches.asMutable())}
-    onChange={selectOption}
-    styles={coachStyles}
-  />
-));
+export default withNamespaces(['coach'])(
+  ({ t, coaches, selectedCoaches, selectOption }) => (
+    <Select
+      closeMenuOnSelect={false}
+      isMulti
+      placeholder={t('coach')}
+      options={getCoachOptions(coaches.asMutable())}
+      onChange={selectOption}
+      styles={coachStyles}
+      value={
+        selectedCoaches
+          ? getCoachOptions(
+              coaches.filter((c) => selectedCoaches.includes(c.id)).asMutable(),
+            )
+          : undefined
+      }
+    />
+  ),
+);

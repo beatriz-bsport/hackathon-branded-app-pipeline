@@ -1,5 +1,6 @@
 import { configure } from '@storybook/react';
 
+import _ from '../build/env';
 import Config from '../src/config';
 
 // automatically import all files ending in *.stories.js

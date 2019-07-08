@@ -149,6 +149,7 @@
   },
   "devDependencies": {
     "@sentry/cli": "^1.37.4",
+    "@sentry/webpack-plugin": "^1.7.0",
     "@storybook/addon-a11y": "^3.4.8",
     "@storybook/addon-actions": "^3.4.8",
     "@storybook/addon-knobs": "^3.4.8",

@@ -6,7 +6,6 @@ import { withNamespaces } from 'react-i18next';
 import { colors } from '@bsport/common/lib/colors';
 
 import Select from 'react-select';
-import type { Coach } from '../types';
 
 const getCoachOptions = (coaches: Array<Coach>) => {
   coaches.sort((c, c_) => {

@@ -26,6 +26,7 @@ type Props = {
 export default withNamespaces([])(
   withStyles(styles)((props: Props) => {
     const { coach, coach_override, classes, t } = props;
+    // eslint-disable-next-line
     const tooltipText = coach_override
       ? `${t('marketplace.substitute')} ${
           coach_override && coach_override.user ? coach_override.user.name : ''

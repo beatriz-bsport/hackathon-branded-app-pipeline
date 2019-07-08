@@ -51,6 +51,8 @@ type Props = {
     page: number,
     loading: boolean,
   },
+  deleteShopItem: (number, () => void) => void,
+  goToShopList: () => void,
 
   t: TFunction,
   classes: Object,

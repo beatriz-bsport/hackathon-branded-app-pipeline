@@ -2,12 +2,10 @@
 import React from 'react';
 import chroma from 'chroma-js';
 import { withNamespaces } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
 
 import { colors } from '@bsport/common/lib/colors';
 
 import Select from 'react-select';
-import type { Establishment } from '../types';
 
 const getEstablishmentOptions = (establishments: Array<Establishment>) => {
   establishments.sort((e, e_) => {

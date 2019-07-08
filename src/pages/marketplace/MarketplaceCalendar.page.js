@@ -83,6 +83,7 @@ const fromPropsToURL = (filters: *, currentParams: string) => {
   // first we build our parameters based on provided filters
   const urlParamsArray = [];
   for (const filter_name in filters) {
+    // eslint-disable-next-line
     if (filters.hasOwnProperty(filter_name)) {
       const filter_content = filters[filter_name];
       if (filter_content) {

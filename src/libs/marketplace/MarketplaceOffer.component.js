@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 
 import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
-import CalendarIcon from '@material-ui/icons/CalendarToday';
 import ListItemText from '@material-ui/core/ListItemText';
 import Hidden from '@material-ui/core/Hidden';
 import Button from '@material-ui/core/Button';
@@ -45,7 +44,7 @@ export class MarketplaceOffer extends Component<Props> {
           style={{ textDecoration: 'none' }}
         >
           <Button variant="outlined" color="secondary" disabled={disabled}>
-            t('marketplace.bookOption')}
+            {t('marketplace.bookOption')}
           </Button>
         </Link>
       );

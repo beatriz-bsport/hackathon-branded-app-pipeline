@@ -21,6 +21,7 @@ const ShopItemCard = (props: {
   shopitem: ShopItem,
   addToOrder: ?(id: number) => void,
   onEdit: ?(shopitem: ShopItem) => void,
+  onDelete: ?() => void,
   t: TFunction,
 }) => {
   if (!props.shopitem) {
@@ -73,7 +74,7 @@ const ShopItemCard = (props: {
           </Button>
         ) : null}
         {props.onDelete ? (
-          <RedButton onClick={() => props.onDelete(props.shopitem)}>
+          <RedButton onClick={props.onDelete}>
             <DeleteIcon style={{ marginRight: 8 }} />
             {props.t('shopitem.action.delete')}
           </RedButton>

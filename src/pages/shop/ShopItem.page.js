@@ -34,7 +34,11 @@ import type { ShopItem, Provision } from '../../libs/shop/types';
 type Props = {
   id: number,
   fetchShopItem: (id: number) => void,
-  fetchProvisions: (shopitemId: number, page: number, page_size: number) => void,
+  fetchProvisions: (
+    shopitemId: number,
+    page: number,
+    page_size: number,
+  ) => void,
   createOrUpdateShopItem: (data: ShopItemData, id: ?string) => void,
   createOrUpdateProvision: (data: *) => void,
   shopitem: ?ShopItem,
@@ -108,7 +112,7 @@ export class ShopItemDetail extends Component<Props, State> {
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography variant="h5" component="h2">
-            {this.props.t('shopitem.detail.provisionHistory')}
+            {this.props.t('shopitem.detail.parameters')}
           </Typography>
           <Divider className={this.props.classes.sectionDivider} />
           <div>
@@ -119,6 +123,10 @@ export class ShopItemDetail extends Component<Props, State> {
               }
             />
           </div>
+          <Typography variant="h5" component="h2">
+            {this.props.t('shopitem.detail.provisionHistory')}
+          </Typography>
+          <Divider className={this.props.classes.sectionDivider} />
           <Paper>
             <ProvisionTable
               provisions={this.props.provision.items}

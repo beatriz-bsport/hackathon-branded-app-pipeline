@@ -20,7 +20,12 @@ export default {
   shopitem: {
     detail: {
       title: 'Product',
-      provisionHistory: 'Stock management',
+      provisionHistory: 'Stock history',
+      parameters: 'Parameters',
+      supplier_price: 'Supplier price',
+      marketplace_enabled: 'Available on web marketplace',
+      is_marketplace_enabled: 'Yes ',
+      is_marketplace_disabled: 'No',
     },
     action: {
       edit: 'Edit',

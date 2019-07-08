@@ -9,6 +9,8 @@ import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import StoreIcon from '@material-ui/icons/Store';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import LanguageIcon from '@material-ui/icons/Language';
 import Typography from '@material-ui/core/Typography';
 
 import type { ShopItem } from '../types';
@@ -41,6 +43,41 @@ const ProvisionSummary = (props: Props) => (
         component="h3"
       >
         {props.shopitem.current_stock}
+      </Typography>
+    </div>
+    <div className={props.classes.line}>
+      <Typography inline color="secondary" variant="subtitle2" component="h3">
+        {props.t('shopitem.detail.supplier_price')}
+      </Typography>
+      <Typography inline variant="h6" component="h3">
+        {`${props.shopitem.supplier_price} €`}
+      </Typography>
+    </div>
+    <div className={props.classes.line}>
+      <Typography inline color="secondary" variant="subtitle2" component="h3">
+        {props.t('shopitem.detail.marketplace_enabled')}
+      </Typography>
+      <Typography
+        inline
+        variant="h6"
+        component="h3"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        {props.shopitem.marketplace_enabled ? (
+          <React.Fragment>
+            <LanguageIcon className={props.classes.iconLeft} />{' '}
+            {props.t('shopitem.detail.is_marketplace_enabled')}
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            <VisibilityOffIcon className={props.classes.iconLeft} />{' '}
+            {props.t('shopitem.detail.is_marketplace_disabled')}
+          </React.Fragment>
+        )}
       </Typography>
     </div>
     <div className={props.classes.actionButtonContainer}>

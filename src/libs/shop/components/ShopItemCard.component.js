@@ -6,12 +6,14 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
+import DeleteIcon from '@material-ui/icons/Delete';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import EditIcon from '@material-ui/icons/Edit';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import RedButton from '../../../components/button/RedButton.component';
 
 import type { ShopItem } from '../types';
 
@@ -69,6 +71,12 @@ const ShopItemCard = (props: {
             <EditIcon style={{ marginRight: 8 }} />
             {props.t('shopitem.action.edit')}
           </Button>
+        ) : null}
+        {props.onDelete ? (
+          <RedButton onClick={() => props.onDelete(props.shopitem)}>
+            <DeleteIcon style={{ marginRight: 8 }} />
+            {props.t('shopitem.action.delete')}
+          </RedButton>
         ) : null}
       </CardActions>
     </Card>

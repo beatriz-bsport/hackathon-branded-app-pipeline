@@ -2,6 +2,15 @@ export default {
   select: {
     placeholder: 'Shop product',
   },
+  dialog: {
+    delete: {
+      title: 'Deletion: {{shopitem.name}}',
+      cancel: 'Cancel',
+      confirm: 'Delete',
+      explain:
+        'Are sure you want to delete this item from your shop ? There is no rolling back.',
+    },
+  },
   provision: {
     total_sales: 'Total sales:',
     current_stock: 'Current provisions:',
@@ -18,6 +27,7 @@ export default {
     },
   },
   shopitem: {
+    noDescription: 'No description',
     detail: {
       title: 'Product',
       provisionHistory: 'Stock history',
@@ -30,6 +40,7 @@ export default {
     action: {
       edit: 'Edit',
       addToCard: 'Add to cart',
+      delete: 'Delete',
     },
   },
 };

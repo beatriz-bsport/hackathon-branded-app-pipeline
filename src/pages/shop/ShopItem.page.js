@@ -11,18 +11,21 @@ import Divider from '@material-ui/core/Divider';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import { push } from 'react-router-redux';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withDrawer from '../../hocs/with-drawer.hoc';
 
 import ShopItemCard from '../../libs/shop/components/ShopItemCard.component';
 import ShopItemForm from '../../libs/shop/components/ShopItemForm.component';
+import ShopItemDeleteDialog from '../../libs/shop/components/ShopItemDeleteDialog.component';
 import ProvisionTable from '../../libs/shop/components/ProvisionTable.component';
 import ProvisionSummary from '../../libs/shop/components/ProvisionSummary.component';
 import ProvisionForm from '../../libs/shop/components/ProvisionForm.component';
 import {
   fetchShopItem,
   createOrUpdateShopItem,
+  deleteItem as deleteShopItem,
 } from '../../libs/shop/actions/shopitem';
 import {
   fetchProvisions,
@@ -59,6 +62,7 @@ export class ShopItemDetail extends Component<Props, State> {
   state = {
     editOpen: false,
     provisionFormOpen: false,
+    deleteModalOpen: false,
   };
 
   componentDidMount() {
@@ -97,6 +101,21 @@ export class ShopItemDetail extends Component<Props, State> {
     );
   };
 
+  requestDelete = () => {
+    this.setState({ deleteModalOpen: true });
+  };
+
+  closeDeleteModal = () => {
+    this.setState({ deleteModalOpen: false });
+  };
+
+  deleteShopItem = () => {
+    this.props.deleteShopItem(this.props.id, () => {
+      this.closeDeleteModal();
+      this.props.goToShopList();
+    });
+  };
+
   render() {
     return (
       <Grid container spacing={16} className={this.props.classes.container}>
@@ -108,6 +127,7 @@ export class ShopItemDetail extends Component<Props, State> {
           <ShopItemCard
             shopitem={this.props.shopitem}
             onEdit={this.openEditForm}
+            onDelete={this.requestDelete}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -153,6 +173,13 @@ export class ShopItemDetail extends Component<Props, State> {
             onSubmit={this.createProvisionUpdate}
           />
         </Dialog>
+        <Dialog open={this.state.deleteModalOpen}>
+          <ShopItemDeleteDialog
+            shopitem={this.props.shopitem}
+            onCancel={this.closeDeleteModal}
+            onSubmit={this.deleteShopItem}
+          />
+        </Dialog>
       </Grid>
     );
   }
@@ -182,6 +209,8 @@ export default compose(
       fetchProvisions,
       createOrUpdateShopItem,
       createOrUpdateProvision,
+      deleteShopItem,
+      goToShopList: () => push('/shop'),
     },
   ),
   withDrawer(({ shopitem }) => (shopitem ? shopitem.name : '')),

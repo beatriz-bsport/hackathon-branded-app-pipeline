@@ -93,7 +93,7 @@ export function actionCreateOrUpdateShopItemError(error: ?Error) {
   return { type: types.SHOP_ITEM_CREATEOR_UPDATE_ERROR, error };
 }
 
-export function deleteItem(id: number) {
+export function deleteItem(id: number, callback: ?() => void) {
   return async (dispatch: Dispatch) => {
     dispatch(actionDeleteStart(id));
 
@@ -107,6 +107,9 @@ export function deleteItem(id: number) {
       ) {
         dispatch(actionDeleteSuccess(id));
         dispatch(snackbarSuccess('form.shop.item.delete.success'));
+        if (typeof callback === 'function') {
+          callback();
+        }
       } else {
         dispatch(snackbarError('form.shop.item.delete.error'));
         dispatch(actionDeleteError(response.data));

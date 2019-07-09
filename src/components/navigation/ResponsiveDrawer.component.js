@@ -317,41 +317,53 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             <AppBar className={classes.appBar} color="inherit">
               <Toolbar>
                 <Grid
+                  zeroMinWidth
                   container
                   direction="row"
                   alignItems="center"
                   justify="space-between"
+                  wrap="nowrap"
                 >
-                  <div>
-                    <Grid container alignItems="center" direction="row">
-                      <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={this.handleDrawerToggle}
-                        className={classes.navIconHide}
-                      >
-                        <MenuIcon />
-                      </IconButton>
-                      <img
-                        className={`${classes.navIconHide} ${classes.menuIcon}`}
-                        height={40}
-                        src={LOGO_ASSET}
-                        alt="bsport logo"
-                      />
-                      <Typography
-                        id="app-title"
-                        className={classes.title}
-                        variant="h6"
-                        color="inherit"
-                        noWrap
-                      >
-                        {drawerContext.title}
-                      </Typography>
-                    </Grid>
-                  </div>
+                  <Grid
+                    container
+                    alignItems="center"
+                    direction="row"
+                    zeroMinWidth
+                    wrap="nowrap"
+                  >
+                    <IconButton
+                      color="inherit"
+                      aria-label="open drawer"
+                      onClick={this.handleDrawerToggle}
+                      className={classes.navIconHide}
+                    >
+                      <MenuIcon />
+                    </IconButton>
+                    <img
+                      className={`${classes.navIconHide} ${classes.menuIcon}`}
+                      height={40}
+                      src={LOGO_ASSET}
+                      alt="bsport logo"
+                    />
+                    <Typography
+                      id="app-title"
+                      className={classes.title}
+                      variant="h6"
+                      color="inherit"
+                      noWrap
+                    >
+                      {drawerContext.title}
+                    </Typography>
+                  </Grid>
                   <div className={classes.grow} />
                   <Hidden smDown implementation="css">
-                    <Grid container alignItems="center" direction="row">
+                    <Grid
+                      container
+                      alignItems="center"
+                      zeroMinWidth
+                      direction="row"
+                      wrap="nowrap"
+                    >
                       <Grid item>
                         <AlertButtonMenu
                           alertings={alertings}
@@ -486,6 +498,7 @@ const styles = (theme) => ({
   searchBar: {
     marginRight: theme.spacing.unit,
     marginLeft: theme.spacing.unit,
+    width: 200,
   },
   nestedList: {
     backgroundColor: '#F8F8F8',

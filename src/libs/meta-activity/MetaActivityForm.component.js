@@ -163,7 +163,7 @@ export default compose(
   withStyles(styles),
   withNamespaces(),
   withFormik({
-    mapPropsToValues: ({ initial, redirectOnSuccess }) =>
+    mapPropsToValues: ({ initial }) =>
       Object.assign(
         {
           cover_main: '',
@@ -173,7 +173,7 @@ export default compose(
           last_booking_minutes: 0,
           last_discard_minutes: 0,
         },
-        { ...initial, redirectOnSuccess } || {},
+        { ...initial } || {},
       ),
     validationSchema: MetaActivitySchema,
     handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
@@ -184,7 +184,7 @@ export default compose(
         'last_booking_minutes',
         'last_discard_minutes',
       ];
-      const { cover_main, redirectOnSuccess } = values;
+      const { cover_main } = values;
       const data = {
         ..._.pick(values, keys),
         cover_main: typeof cover_main !== 'string' ? cover_main : undefined,
@@ -192,7 +192,6 @@ export default compose(
       onSubmit(data, {
         onSuccess: () => {
           setSubmitting(false);
-          redirectOnSuccess();
         },
         onError: () => setSubmitting(false),
       });

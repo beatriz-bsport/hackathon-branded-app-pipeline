@@ -114,6 +114,7 @@ export function upsert(metaActivityData, options) {
     dispatch(upsertActions.isLoading(true));
     dispatch(upsertActions.error(null));
 
+    const key = metaActivityData.has('id') ? 'update' : 'create';
     const createOrUpdate = metaActivityData.has('id')
       ? api.activity.updateMetaActivity
       : api.activity.addMetaActivity;
@@ -121,13 +122,12 @@ export function upsert(metaActivityData, options) {
       const response = await createOrUpdate(metaActivityData);
 
       dispatch(upsertActions.success(response.data));
-      const key = metaActivityData.has('id') ? 'update' : 'create';
       dispatch(snackbarSuccess(`activity.forms.${key}.success`));
       dispatch(push('/activity'));
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
       console.error(error);
-      dispatch(snackbarError('activity.forms.error'));
+      dispatch(snackbarError(`activity.forms.${key}error`));
       dispatch(upsertActions.error(error));
       if (options && options.onError) options.onError(error);
     }

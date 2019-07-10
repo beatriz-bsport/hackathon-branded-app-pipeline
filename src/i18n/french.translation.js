@@ -526,7 +526,7 @@ export default {
       oneHourAndHalf: '1h30',
       twoHour: '2h',
       sixHour: '6h',
-      eightHours: '8h',
+      eightHour: '8h',
       oneDay: '1 journée',
       twoDays: '2 journées',
       oneWeek: '1 semaine',

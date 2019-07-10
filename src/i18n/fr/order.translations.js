@@ -15,6 +15,12 @@ export default {
     updated_at: 'Mis à jour le',
     qty: 'Quantité',
   },
+  form: {
+    delivery: {
+      first_name: 'Prénom',
+      last_name: 'Nom de famille',
+    },
+  },
   actions: {
     flagAsCancelled: 'Annuler',
     flagAsOnSiteDelivery: 'A récupérer sur place',

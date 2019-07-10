@@ -540,6 +540,7 @@ export default {
       oneHourAndHalf: '1h30',
       twoHour: '2h',
       sixHour: '6h',
+      eightHours: '8h',
       oneDay: '1 day',
       twoDays: '2 days',
       oneWeek: '1 week',
@@ -838,8 +839,12 @@ export default {
       backToCalendar: 'Back to calendar',
       showMarketplace: 'Show calendar of ',
       noSessionToday: 'No session',
-      book: 'Book',
-      bookOption: 'Waiting list',
+      bookButton: {
+        book: 'Book',
+        bookOption: 'Waiting list',
+        notAvailable: 'Canceled',
+        isPast: 'Past',
+      },
       sessionThisDay: 'Sessions this day: ',
       calendar: 'Planning',
       shop: {

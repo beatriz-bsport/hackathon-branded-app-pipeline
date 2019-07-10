@@ -76,7 +76,7 @@ export function createOrUpdateShopItem(shopItemData: *, id: ?number) {
         dispatch(actionCreateOrUpdateShopItemError(response.data));
       }
     } catch (e) {
-      console.log(e);
+      console.error(e);
       dispatch(snackbarError('form.shop.item.createOrUpdate.error'));
       dispatch(actionCreateOrUpdateShopItemError(e));
     }
@@ -115,7 +115,7 @@ export function deleteItem(id: number, callback: ?() => void) {
         dispatch(actionDeleteError(response.data));
       }
     } catch (e) {
-      console.log(e);
+      console.error(e);
       dispatch(snackbarError('form.shop.item.delete.error'));
       dispatch(actionDeleteError(e));
     }

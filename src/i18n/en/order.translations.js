@@ -15,6 +15,12 @@ export default {
     updated_at: 'Update at',
     qty: 'Quantity',
   },
+  form: {
+    delivery: {
+      first_name: 'Firstname',
+      last_name: 'Lastname',
+    },
+  },
   actions: {
     flagAsCancelled: 'Cancel',
     flagAsOnSiteDelivery: 'Deliver on-site',

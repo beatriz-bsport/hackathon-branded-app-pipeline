@@ -1,8 +1,6 @@
 // @flow
 
-import moment from 'moment';
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
 import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
@@ -12,69 +10,61 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
 import { withNamespaces } from 'react-i18next';
-import { Link } from 'react-router-dom';
+
 import type { TFunction } from 'react-i18next';
 import Level from '../../components/category/Level.component';
 
 import { formatMinutes, formatAsTime } from '../../datetime';
-// eslint-disable-next-line
-import CoachAvatar from '../../libs/coach/components/CoachAvatar.component';
+import CoachAvatar from '../coach/components/CoachAvatar.component';
+import { isOfferInThePast } from './utils';
 
 type Props = {
   offer: Offer,
   selected: ?boolean,
   onClickOffer: ?() => void,
-  companyId: number,
+  onClickBook: (offerId: number) => void,
+  onClickBookOption: (offerId: number) => void,
   t: TFunction,
 };
 
-function isOfferAvailable(offer) {
-  return !moment(offer.date_start).isSameOrBefore(moment());
-}
-
 export class MarketplaceOffer extends Component<Props> {
   renderButton = () => {
-    const { t, offer, companyId } = this.props;
-    const disabled = !isOfferAvailable(offer);
-    if (offer.is_full) {
-      return (
-        <Link
-          to={`/customer/payment/offer/${offer.id}?membership=${companyId ||
-            0}`}
-          style={{ textDecoration: 'none' }}
-        >
-          <Button variant="outlined" color="secondary" disabled={disabled}>
-            {t('marketplace.bookOption')}
-          </Button>
-        </Link>
-      );
+    const { t, offer } = this.props;
+    const disabled = !isOfferInThePast(offer) || !offer.available;
+    const onClick = offer.is_full
+      ? this.props.onClickBookOption
+      : this.props.onClickBook;
+    let text = offer.is_full
+      ? t('marketplace.bookButton.bookOption')
+      : t('marketplace.bookButton.book');
+    if (!isOfferInThePast(offer)) {
+      text = t('marketplace.bookButton.isPast');
+    }
+    if (!offer.available) {
+      text = t('marketplace.bookButton.notAvailable');
     }
     return (
-      <Link
-        to={`/customer/payment/offer/${offer.id}?membership=${companyId || 0}`}
-        style={{ textDecoration: 'none' }}
+      <Button
+        variant="outlined"
+        color="primary"
+        id={`offer-book-${offer.id}`}
+        disabled={disabled}
+        onClick={onClick}
       >
-        <Button
-          variant="outlined"
-          color="primary"
-          id={`offer-book-${offer.id}`}
-          disabled={disabled}
-        >
-          {t('marketplace.book')}
-        </Button>
-      </Link>
+        {text}
+      </Button>
     );
   };
 
   render() {
     const { t, offer, selected, onClickOffer } = this.props;
-    const { activity } = offer;
-    const available = isOfferAvailable(offer);
+    const { activity, available } = offer;
+    const isInThePast = isOfferInThePast(offer);
     const onClick =
-      onClickOffer && available ? () => onClickOffer(offer.id) : null;
+      onClickOffer && isInThePast ? () => onClickOffer(offer.id) : null;
     return (
       <ListItem
-        button={available}
+        button={isInThePast && !available}
         selected={selected}
         onClick={onClick}
         divider
@@ -121,7 +111,7 @@ export class MarketplaceOffer extends Component<Props> {
         >
           <Hidden xsDown>
             <IconButton
-              disabled={!available}
+              disabled={!isInThePast}
               onClick={onClick}
               color="secondary"
             >
@@ -135,10 +125,4 @@ export class MarketplaceOffer extends Component<Props> {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    companyId: state.marketplace.company.id,
-  };
-}
-
-export default withNamespaces()(connect(mapStateToProps)(MarketplaceOffer));
+export default withNamespaces()(MarketplaceOffer);

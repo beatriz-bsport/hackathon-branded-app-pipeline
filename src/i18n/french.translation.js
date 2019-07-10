@@ -526,6 +526,7 @@ export default {
       oneHourAndHalf: '1h30',
       twoHour: '2h',
       sixHour: '6h',
+      eightHours: '8h',
       oneDay: '1 journée',
       twoDays: '2 journées',
       oneWeek: '1 semaine',
@@ -910,8 +911,12 @@ export default {
       backToCalendar: 'Retour',
       showMarketplace: 'Voir le calendrier de ',
       noSessionToday: 'Aucune séance',
-      book: 'Réserver',
-      bookOption: "Liste d'attente",
+      bookButton: {
+        book: 'Réserver',
+        bookOption: "Liste d'attente",
+        notAvailable: 'Annulée',
+        isPast: 'Passée',
+      },
       sessionThisDay: 'Séance ce jour :',
       calendar: 'Calendrier',
       shop: {

@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { compose, withProps } from 'recompose';
 import { withRouter } from 'react-router';
-import { replace } from 'react-router-redux';
+import { push, replace } from 'react-router-redux';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
@@ -53,6 +53,8 @@ type Props = {
   fetchCompanyEstablishments: (companyId: number) => void,
   fetchCompanyCoaches: (companyId: number) => void,
   replace: (path: string) => void,
+  goToBook: (offerId: number, comapnyId: number) => void,
+  goToBookOption: (offerId: number, comapnyId: number) => void,
 };
 
 type State = {
@@ -208,6 +210,10 @@ export class MarketplaceCalendar extends Component<Props, State> {
           loading={this.props.loading}
           dayOffers={selectedDayOffers}
           onClickOffer={this.openOfferDialog}
+          onClickBook={(id) => this.props.goToBook(id, this.props.companyId)}
+          onClickBookOption={(id) =>
+            this.props.goToBookOption(id, this.props.companyId)
+          }
           onSelectDate={this.handleDateChange}
           coaches={coaches}
           establishments={establishments}
@@ -249,6 +255,10 @@ export default compose(
       fetchCompanyEstablishments: fetchCompanyEstablishmentsAction,
       fetchCompanyCoaches: fetchCompanyCoachesAction,
       fetchCompanyOffers: fetchCompanyOffersAction,
+      goToBook: (id: number, companyId: number) =>
+        push(`/customer/payment/offer/${id}?membership=${companyId}`),
+      goToBookOption: (id: number, companyId: number) =>
+        push(`/customer/payment/offer/${id}?membership=${companyId}`),
       replace,
     },
   ),

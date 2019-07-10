@@ -31,6 +31,8 @@ type Props = {
   filters: *,
   toogleFiltersOpen: () => void,
   filtersOpen: boolean,
+  onClickBook: (offerId: number) => void,
+  onClickBookOption: (offerId: number) => void,
 };
 
 export function MarketplaceCalendar(props: Props) {
@@ -130,6 +132,8 @@ export function MarketplaceCalendar(props: Props) {
               offers={dayOffers}
               date={selectedDate}
               onClickOffer={props.onClickOffer}
+              onClickBook={props.onClickBook}
+              onClickBookOption={props.onClickBookOption}
             />
           )}
         </div>

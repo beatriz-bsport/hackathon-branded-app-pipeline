@@ -33,6 +33,7 @@ import ConsumerPackCheckout from '../../pages/payment/offer/ConsumerPackCheckout
 import PaymentPackSummary from '../../components/payment-pack/PaymentPackSummary.component';
 
 import * as paymentActions from '../../actions/payment.actions';
+import { isOfferInThePast } from './utils';
 
 type Props = {
   offer: Offer,
@@ -146,6 +147,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
               variant="contained"
               color="primary"
               className={classes.callButton}
+              disabled={!isOfferInThePast(offer) || !offer.available}
               onClick={() => {
                 pushRouter(
                   `/customer/payment/offer/${offer.id}?membership=${
@@ -237,6 +239,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
               fullWidth
               variant="contained"
               color="primary"
+              disabled={!isOfferInThePast(offer) || !offer.available}
               onClick={() =>
                 pushRouter(
                   `/customer/payment/offer/${offer.id}?membership=${

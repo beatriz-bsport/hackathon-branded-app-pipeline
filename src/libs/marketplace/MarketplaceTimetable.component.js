@@ -18,6 +18,8 @@ type Props = {
   onClickOffer: () => void,
   t: TFunction,
   classes: Object,
+  onClickBook: (offerId: number) => void,
+  onClickBookOption: (offerId: number) => void,
 };
 
 export class MarketplaceTimetable extends Component<Props> {
@@ -40,6 +42,8 @@ export class MarketplaceTimetable extends Component<Props> {
             key={o.id}
             offer={o}
             onClickOffer={this.props.onClickOffer}
+            onClickBook={() => this.props.onClickBook(o.id)}
+            onClickBookOption={() => this.props.onClickBookOption(o.id)}
           />
         ))}
       </List>

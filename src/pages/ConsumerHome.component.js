@@ -34,11 +34,23 @@ export class ConsumerHome extends Component<Props> {
     document.title = t('pageTitle.myAccount');
   }
 
-  componentDidMount() {
+  fetchConsumerData = () => {
     this.props.fetchBookings();
     this.props.fetchOptions();
     this.props.fetchConsumerPaymentPacks();
     this.props.fetchProfile();
+  };
+
+  componentDidMount() {
+    if (this.props.authenticated) {
+      this.fetchConsumerData();
+    }
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (!prevProps.authenticated && this.props.authenticated) {
+      this.fetchConsumerData();
+    }
   }
 
   render() {
@@ -79,31 +91,16 @@ export class ConsumerHome extends Component<Props> {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    authenticated: state.auth.authenticated,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchBookings() {
-      dispatch(consumerActions.fetchBookings());
-    },
-    fetchOptions() {
-      dispatch(consumerActions.fetchOptions());
-    },
-    fetchConsumerPaymentPacks() {
-      dispatch(consumerActions.fetchConsumerPaymentPacks());
-    },
-    fetchProfile() {
-      dispatch(consumerActions.fetchProfile());
-    },
-  };
-}
 export default withNamespaces()(
   connect(
-    mapStateToProps,
-    mapDispatchToProps,
+    (state) => ({
+      authenticated: state.auth.authenticated,
+    }),
+    {
+      fetchBookings: consumerActions.fetchBookings,
+      fetchOptions: consumerActions.fetchOptions,
+      fetchConsumerPaymentPacks: consumerActions.fetchConsumerPaymentPacks,
+      fetchProfile: consumerActions.fetchProfile,
+    },
   )(ConsumerHome),
 );

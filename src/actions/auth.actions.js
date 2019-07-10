@@ -1,5 +1,6 @@
 // @flow
 
+import * as Sentry from '@sentry/browser';
 import { push } from 'connected-react-router';
 import { createAction } from 'redux-actions';
 
@@ -62,6 +63,13 @@ export function requestLogin(username, password, options = {}) {
 
       if (!token) {
         throw new Error('No token');
+      }
+      try {
+        Sentry.configureScope((scope) => {
+          scope.setUser({ email: username });
+        });
+      } catch (err) {
+        console.error(err);
       }
 
       dispatch(fetchAccessLevel(token, username, options));

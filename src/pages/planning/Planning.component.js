@@ -8,17 +8,16 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import { isWidthUp, isWidthDown } from '@material-ui/core/withWidth';
-import {
-  Fab,
-  Dialog,
-  DialogContent,
-  withStyles,
-  Button,
-  Paper,
-  Grid,
-  Typography,
-  withWidth,
-} from '@material-ui/core';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
+import Fab from '@material-ui/core/Fab';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import withStyles from '@material-ui/core/styles/withStyles';
+import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import withWidth from '@material-ui/core/withWidth';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import AddIcon from '@material-ui/icons/Add';
 import { push as pushRouter, goBack as goBackRouter } from 'react-router-redux';
@@ -60,6 +59,7 @@ type Props = {
   selectedOffer: Offer,
 
   timetableLoading: boolean,
+  fullScreen: boolean,
   coachesLoading: boolean,
   establishmentsLoading: boolean,
   similarOfferLoading: boolean,
@@ -258,12 +258,12 @@ export class Planning extends PureComponent<Props, State> {
   };
 
   renderCreateModal = () => {
-    const { metaActivities, coaches, establishments } = this.props;
+    const { metaActivities, coaches, fullScreen, establishments } = this.props;
     const { createOfferModalOpened, creatingOffers } = this.state;
 
     return (
-      <Dialog open={createOfferModalOpened}>
-        <DialogContent style={{ minWidth: 350 }}>
+      <Dialog open={createOfferModalOpened} fullScreen={fullScreen}>
+        <DialogContent>
           <OfferFormWithActivity
             metaActivities={metaActivities}
             coaches={coaches}
@@ -518,6 +518,7 @@ export default compose(
   withRouter,
   withStyles(styles),
   withWidth(),
+  withMobileDialog(),
   connect(
     mapStateToProps,
     mapDispatchToProps,

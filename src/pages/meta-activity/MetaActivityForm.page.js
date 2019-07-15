@@ -7,17 +7,23 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withProps, compose } from 'recompose';
 
+import type { TFunction } from 'react-i18next';
 import { mapFormData, unmap } from '../form.utils';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import { metaActivity as metaActivityActions } from '../../actions';
+import {
+  fetchMetaActivityDetails,
+  upsert,
+  addImageToMetaActivity,
+  removeImageFromMetaActivity,
+} from '../../libs/meta-activity/actions/meta-activity.actions';
 
 import withDrawer from '../../hocs/with-drawer.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
-import MetaActivityForm from '../../libs/meta-activity/MetaActivityForm.component';
+import MetaActivityForm from '../../libs/meta-activity/components/MetaActivityForm.component';
 
 type Props = {
-  id: ?number,
+  id: number,
   loading: ?boolean,
   initial: ?MetaActivity,
 
@@ -26,8 +32,8 @@ type Props = {
   SCTs: *[],
 
   fetchMetaActivity: (id: number) => void,
-  removeImage: () => void,
-  addImage: () => void,
+  removeImage: (id: number, imageId: number) => void,
+  addImage: (id: number, File) => void,
   onSubmit: (*) => void,
 
   goToPreviousPage: () => void,
@@ -45,6 +51,12 @@ const MetaActivityMap = {
 export class MetaActivityFormPage extends Component<Props> {
   componentDidMount() {
     if (this.props.id) {
+      this.props.fetchMetaActivity(this.props.id);
+    }
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (this.props.id && this.props.id !== prevProps.id) {
       this.props.fetchMetaActivity(this.props.id);
     }
   }
@@ -90,29 +102,24 @@ export class MetaActivityFormPage extends Component<Props> {
   }
 }
 
-function mapStateToProps(state, { id }) {
-  return {
-    id,
-    initial: id ? state.metaActivity.metaActivity : null,
-    associatedCoaches: state.coach.companyAssociated,
-    establishments: state.establishment.all,
-    SCTs: state.category.SCTs,
-    loading: state.metaActivity.loading,
-    metaActivityNames: state.metaActivity.all.map((ma) => ma.name),
-  };
-}
-
 export default compose(
   withNamespaces([]),
   routerParamsToProps({ id: 'id:number' }),
   connect(
-    mapStateToProps,
+    (state, { id }) => ({
+      initial: id ? state.metaActivity.metaActivity : null,
+      associatedCoaches: state.coach.companyAssociated,
+      establishments: state.establishment.all,
+      SCTs: state.category.SCTs,
+      loading: state.metaActivity.loading,
+      metaActivityNames: state.metaActivity.all.map((ma) => ma.name),
+    }),
     {
-      fetchMetaActivity: metaActivityActions.fetchMetaActivityDetails,
-      upsertMetaActivity: metaActivityActions.upsert,
+      fetchMetaActivity: fetchMetaActivityDetails,
+      upsertMetaActivity: upsert,
       goToPreviousPage: goBack,
-      addImage: metaActivityActions.addImageToMetaActivity,
-      removeImage: metaActivityActions.removeImageFromMetaActivity,
+      addImage: addImageToMetaActivity,
+      removeImage: removeImageFromMetaActivity,
     },
   ),
   withProps(({ upsertMetaActivity, initial }) => ({

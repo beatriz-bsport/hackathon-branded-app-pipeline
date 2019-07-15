@@ -15,7 +15,7 @@ import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status
 import { formatMinutes, formatAsDatetime } from '../../../datetime';
 import type { Booking } from '../../../api/types';
 import { getBookingStatusCode } from '../../../libs/booking/utils';
-import CoachAvatar from '../../../libs/coach/components/CoachAvatar.component';
+import CoachAvatar from '../../../libs/associated-coach/components/CoachAvatar.component';
 
 type Props = {
   booking: Booking,

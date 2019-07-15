@@ -5,54 +5,46 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import { push } from 'react-router-redux';
-import type { Establishment, Activity, Offer } from '../../api/types';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import type { Establishment, Offer } from '../../api/types';
 import withDrawer from '../../hocs/with-drawer.hoc';
 
-import {
-  establishment as establishmentActions,
-  offer as offerActions,
-} from '../../actions';
+import { offer as offerActions } from '../../actions';
 
-import EstablishmentDetail from '../../libs/establishment/EstablishmentDetail.component';
+import EstablishmentDetail from '../../libs/establishment/components/EstablishmentDetail.component';
 
 type Props = {
+  id: number,
   timetableLoading: boolean,
-  activities: Array<Activity>,
   offers: Array<Offer>,
   fetchOffersByDay: ({ year: number, month: number, day: number }) => void,
   goToOffer: (offerId: number) => void,
   establishment: Establishment,
+  startUpdateEstablishment: (*) => void,
 };
 
-export function EstablishmentDetails(props: Props) {
-  return (
-    <EstablishmentDetail
-      timetableLoading={props.timetableLoading}
-      activities={props.activities}
-      offers={props.offers}
-      fetchOffersByDay={props.fetchOffersByDay}
-      goToOffer={props.goToOffer}
-      establishment={props.establishment}
-    />
-  );
-}
-
-function mapStateToProps(state, nextProps) {
-  const { match } = nextProps;
-  const id = (match && match.params && +match.params.id) || null;
-  return {
-    establishment: (state.establishment.all || []).find((e) => e.id === id),
-    offers: state.offer.offers,
-    activities: state.activity.all,
-  };
-}
+export const EstablishmentDetails = (props: Props) => (
+  <EstablishmentDetail
+    timetableLoading={props.timetableLoading}
+    offers={props.offers}
+    fetchOffersByDay={props.fetchOffersByDay}
+    goToOffer={props.goToOffer}
+    establishment={props.establishment}
+    goToEditForm={() => props.startUpdateEstablishment(props.id)}
+  />
+);
 
 export default compose(
   withNamespaces(),
+  routerParamsToProps({ id: 'id:number' }),
   connect(
-    mapStateToProps,
+    (state, { id }) => ({
+      establishment: (state.establishment.all || []).find((e) => e.id === id),
+      offers: state.offer.offers,
+    }),
     {
-      startUpdateEstablishment: establishmentActions.startUpdate,
+      startUpdateEstablishment: (id: number) =>
+        push(`/establishment/edit/${id}`),
       fetchOffersByDay: offerActions.fetchOffersByDay,
       goToOffer: (offerId: number) => push(`/offer/${offerId}`),
     },

@@ -9,12 +9,16 @@ import { withProps, compose } from 'recompose';
 import { goBack, push as routerPush } from 'react-router-redux';
 import { mapFormData, unmap } from '../form.utils';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import { workshopActivity as workshopActivityActions } from '../../actions';
+import {
+  upsert,
+  addImageToWorkshop,
+  removeImageFromWorkshop,
+} from '../../libs/meta-activity/actions/workshop-activity.actions';
 
 import withDrawer from '../../hocs/with-drawer.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
-import MetaActivityForm from '../../libs/meta-activity/MetaActivityForm.component';
+import MetaActivityForm from '../../libs/meta-activity/components/MetaActivityForm.component';
 
 type Props = {
   id: ?number,
@@ -102,11 +106,11 @@ export default compose(
   connect(
     mapStateToProps,
     {
-      upsertWorkshopActivity: workshopActivityActions.upsert,
+      upsertWorkshopActivity: upsert,
       goToPreviousPage: goBack,
       goToPaymentPackForm: () => routerPush('/payment-pack/add'),
-      addImage: workshopActivityActions.addImageToWorkshop,
-      removeImage: workshopActivityActions.removeImageFromWorkshop,
+      addImage: addImageToWorkshop,
+      removeImage: removeImageFromWorkshop,
     },
   ),
   withProps(({ upsertWorkshopActivity, initial }) => ({

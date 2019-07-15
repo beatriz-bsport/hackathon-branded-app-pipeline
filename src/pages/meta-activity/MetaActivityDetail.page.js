@@ -3,25 +3,23 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push as routerPush } from 'react-router-redux';
 import { compose } from 'recompose';
-import {
-  metaActivity as metaActivityActions,
-  offer as offerActions,
-} from '../../actions';
+import { offer as offerActions } from '../../actions';
+import { fetchMetaActivityDetails } from '../../libs/meta-activity/actions/meta-activity.actions';
 import type {
   Activity,
   Offer,
   MetaActivity as MetaActivityType,
-  Stat,
 } from '../../api/types';
 import withDrawer from '../../hocs/with-drawer.hoc';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
-import MetaActivityDetail from '../../libs/meta-activity/MetaActivityDetail.component';
+import MetaActivityDetail from '../../libs/meta-activity/components/MetaActivityDetail.component';
 
 type Props = {
+  id: number,
   metaActivity: MetaActivityType,
   loading: boolean,
-  stats: Stat,
   fetchOffersByDay: (year: number, month: number, day: number) => void,
   push: (path: string) => void,
   events: Array<Event>,
@@ -29,16 +27,18 @@ type Props = {
   timetableLoading: boolean,
   activities: Array<Activity>,
   offers: Array<Offer>,
-  match: Object,
   metaActivityImages: Array<Object>,
 };
 
 export class MetaActivity extends Component<Props> {
-  metaActivityId: number;
-
   componentDidMount() {
-    this.metaActivityId = parseInt(this.props.match.params.id, 10);
-    this.props.fetchMetaActivityDetails(this.metaActivityId);
+    this.props.fetchMetaActivityDetails(this.props.id);
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (this.props.id && this.props.id !== prevProps.id) {
+      this.props.fetchMetaActivityDetails(this.props.id);
+    }
   }
 
   goToOffer = (o: Offer) => {
@@ -57,7 +57,6 @@ export class MetaActivity extends Component<Props> {
       <MetaActivityDetail
         coverImages={this.props.metaActivityImages}
         metaActivity={this.props.metaActivity}
-        stats={this.props.stats}
         fetchOffersByDay={this.props.fetchOffersByDay}
         events={this.props.events}
         timetableLoading={this.props.timetableLoading}
@@ -70,50 +69,34 @@ export class MetaActivity extends Component<Props> {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    loading: state.metaActivity.loading,
-    metaActivity: state.metaActivity.metaActivity,
-    metaActivities: state.metaActivity.all,
-    metaActivityImages:
-      (state.metaActivity.metaActivity &&
-        state.metaActivity.metaActivity.images) ||
-      [],
-    stats: state.stats.activities,
-    events: state.offer.calendar,
-    offers: state.offer.offers,
-    timetableLoading: state.activity.loading,
-    activities: state.activity.all,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchMetaActivityDetails(id) {
-      dispatch(metaActivityActions.fetchMetaActivityDetails(id));
-    },
-    fetchOffersByDay({ year, month, day }) {
-      dispatch(offerActions.fetchOffersByDay({ year, month, day }));
-    },
-    push(path) {
-      dispatch(routerPush(path));
-    },
-  };
-}
-
 export default compose(
+  routerParamsToProps({ id: 'id:number' }),
   connect(
-    mapStateToProps,
-    mapDispatchToProps,
+    (state) => ({
+      loading: state.metaActivity.loading,
+      metaActivity: state.metaActivity.metaActivity,
+      metaActivities: state.metaActivity.all,
+      metaActivityImages:
+        (state.metaActivity.metaActivity &&
+          state.metaActivity.metaActivity.images) ||
+        [],
+      events: state.offer.calendar,
+      offers: state.offer.offers,
+      timetableLoading: state.activity.loading,
+      activities: state.activity.all,
+    }),
+    {
+      fetchMetaActivityDetails,
+      fetchOffersByDay: offerActions.fetchOffersByDay,
+      push: routerPush,
+    },
   ),
-  withDrawer(({ match, metaActivities }) => {
-    if (match && match.params && match.params.id) {
-      const metaActivity = (metaActivities || []).filter(
-        (m) => m.id === parseInt(match.params.id, 10),
-      );
-      if ((metaActivity || []).length === 1) {
-        return metaActivity[0].name;
-      }
+  withDrawer(({ id, metaActivities }) => {
+    const metaActivity = (metaActivities || []).filter(
+      (m) => m.id === parseInt(id, 10),
+    );
+    if ((metaActivity || []).length === 1) {
+      return metaActivity[0].name;
     }
     return '';
   }),

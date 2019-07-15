@@ -1,6 +1,6 @@
 //  @flow
 
-import React, { Component } from 'react';
+import React from 'react';
 
 import { Grid, Button, withStyles } from '@material-ui/core';
 
@@ -12,9 +12,12 @@ import { push as routerPush } from 'react-router-redux';
 import { compose, withProps } from 'recompose';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import { coach as coachActions } from '../../actions';
+import {
+  startUpdate,
+  setCoachPaymentRule,
+} from '../../libs/associated-coach/actions';
 import { paymentRulesSelector } from '../../libs/payment-rules/selectors';
-import CoachDetail from '../../libs/associated-coach/detail/CoachDetail.component';
+import CoachDetail from '../../libs/associated-coach/components/CoachDetail.component';
 import type { CoachDetailed } from '../../api/types';
 import type { PaymentRule } from '../../libs/payment-rules';
 import withDrawer from '../../hocs/with-drawer.hoc';
@@ -31,63 +34,39 @@ type Props = {
   loading: boolean,
 };
 
-export class Coach extends Component<Props> {
-  render() {
-    const { t, classes, loading } = this.props;
-    if (loading) {
-      return <LinearProgress />;
-    }
-    const { paymentRules, coach, setCoachPaymentRule } = this.props;
-    return (
-      <div style={{ height: '100%' }}>
-        <Grid container spacing={16}>
-          <Grid item xs={12}>
-            <CoachDetail
-              coach={coach}
-              paymentRules={paymentRules}
-              setCoachPaymentRule={setCoachPaymentRule}
-              goToCoachPerformance={this.props.goToCoachPerformance}
-              startUpdateCoach={this.props.startUpdateCoach}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Button
-              onClick={this.props.goBack}
-              size="large"
-              color="secondary"
-              variant="outlined"
-              className={classes.backButton}
-            >
-              {t('navigation.goBack')}
-            </Button>
-          </Grid>
-        </Grid>
-      </div>
-    );
+export const Coach = (props: Props) => {
+  const { t, classes, loading } = props;
+  if (loading) {
+    return <LinearProgress />;
   }
-}
-function mapStateToProps(state) {
-  return {
-    loading: state.coach.loading,
-    selfCoach: state.coach.selfCoach,
-    associatedCoaches: state.coach.companyAssociated,
-    isCoach: state.auth.is_coach,
-    isManager: state.auth.is_manager,
-    paymentRules: paymentRulesSelector(state),
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    startUpdateCoach: (...args) => dispatch(coachActions.startUpdate(...args)),
-    setCoachPaymentRule: (...args) =>
-      dispatch(coachActions.setCoachPaymentRule(...args)),
-    goToCreateCoach: () => dispatch(routerPush('/coach/add')),
-    goToCoachPerformance: (coach) =>
-      dispatch(routerPush(`/coach/${coach.associated_coach_id}/performance`)),
-    goBack: () => dispatch(routerPush('/coach')),
-  };
-}
+  const { paymentRules, coach } = props;
+  return (
+    <div style={{ height: '100%' }}>
+      <Grid container spacing={16}>
+        <Grid item xs={12}>
+          <CoachDetail
+            coach={coach}
+            paymentRules={paymentRules}
+            setCoachPaymentRule={props.setCoachPaymentRule}
+            goToCoachPerformance={props.goToCoachPerformance}
+            startUpdateCoach={props.startUpdateCoach}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Button
+            onClick={props.goBack}
+            size="large"
+            color="secondary"
+            variant="outlined"
+            className={classes.backButton}
+          >
+            {t('navigation.goBack')}
+          </Button>
+        </Grid>
+      </Grid>
+    </div>
+  );
+};
 
 const styles = (theme) => ({
   backButton: {
@@ -99,8 +78,22 @@ export default compose(
   withRouter,
   withStyles(styles),
   connect(
-    mapStateToProps,
-    mapDispatchToProps,
+    (state) => ({
+      loading: state.coach.loading,
+      selfCoach: state.coach.selfCoach,
+      associatedCoaches: state.coach.companyAssociated,
+      isCoach: state.auth.is_coach,
+      isManager: state.auth.is_manager,
+      paymentRules: paymentRulesSelector(state),
+    }),
+    {
+      startUpdateCoach: startUpdate,
+      setCoachPaymentRule,
+      goToCreateCoach: () => routerPush('/coach/add'),
+      goToCoachPerformance: (coach) =>
+        routerPush(`/coach/${coach.associated_coach_id}/performance`),
+      goBack: () => routerPush('/coach'),
+    },
   ),
   withNamespaces(),
   withProps(({ associatedCoaches, match }) => ({

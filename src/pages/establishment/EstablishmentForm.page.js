@@ -13,8 +13,12 @@ import type { TFunction } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 
 import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';
-import * as actions from '../../actions/establishment.actions';
-import EstablishmentForm from '../../libs/establishment/EstablishmentForm.component';
+import {
+  createOrUpdateEstablishment,
+  addImageToEstablishment,
+  removeImageFromEstablishment,
+} from '../../libs/establishment/actions';
+import EstablishmentForm from '../../libs/establishment/components/EstablishmentForm.component';
 
 import { mapFormData } from '../form.utils';
 import withDrawer from '../../hocs/with-drawer.hoc';
@@ -98,9 +102,9 @@ export default compose(
   connect(
     mapStateToProps,
     {
-      upsertEstablishment: actions.createOrUpdateEstablishment,
-      addImage: actions.addImageToEstablishment,
-      removeImage: actions.removeImageFromEstablishment,
+      upsertEstablishment: createOrUpdateEstablishment,
+      addImage: addImageToEstablishment,
+      removeImage: removeImageFromEstablishment,
       goToEstablishmentList: () => push('/establishment'),
     },
   ),

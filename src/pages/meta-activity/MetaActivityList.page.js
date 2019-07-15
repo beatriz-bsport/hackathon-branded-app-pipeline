@@ -7,18 +7,15 @@ import type { TFunction } from 'react-i18next';
 import { push } from 'react-router-redux';
 import i18next from 'i18next';
 
-import { stats as statsActions } from '../../actions';
 import withBottomButtons from '../../hocs/inject-bottom-buttons';
 import withDrawer from '../../hocs/with-drawer.hoc';
-import withAsyncData from '../../hocs/with-async-data.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
-import MetaActivityList from '../../libs/meta-activity/MetaActivityList.component';
+import MetaActivityList from '../../libs/meta-activity/components/MetaActivityList.component';
 
-import type { MetaActivity, Stat } from '../../api/types';
+import type { MetaActivity } from '../../api/types';
 
 type Props = {
-  stats: Array<Stat>,
   metaActivities: Array<MetaActivity>,
   isCardView: boolean,
   loading: boolean,
@@ -28,7 +25,7 @@ type Props = {
 };
 
 export function MetaActivityListPage(props: Props) {
-  const { metaActivities, stats, loading, isCardView } = props;
+  const { metaActivities, loading, isCardView } = props;
   if (loading) {
     return <LinearProgress />;
   }
@@ -39,7 +36,6 @@ export function MetaActivityListPage(props: Props) {
 
   return (
     <MetaActivityList
-      stats={stats}
       metaActivities={metaActivities}
       isCardView={isCardView}
       goToDetail={props.goToDetail}
@@ -53,16 +49,13 @@ export default compose(
   connect(
     (state) => ({
       metaActivities: state.metaActivity.all || [],
-      stats: state.stats.activities.items,
       loading: state.stats.activities.loading,
     }),
     {
-      fetchStats: statsActions.fetchStatActivities,
       goToDetail: (metaActivityId) => push(`/activity/${metaActivityId}`),
       goToEdit: (metaActivityId) => push(`/activity/${metaActivityId}/edit`),
     },
   ),
-  withAsyncData('fetchStats', 'loading'),
   withBottomButtons({
     addButton: {
       path: '/activity/add',

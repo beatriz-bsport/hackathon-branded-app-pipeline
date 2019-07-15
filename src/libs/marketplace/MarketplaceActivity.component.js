@@ -27,7 +27,7 @@ import { colors } from '@bsport/common/lib/colors';
 
 import { snackbarSuccess } from '../../actions/snackbar.actions';
 
-import Map from '../../components/establishment/Map.component';
+import Map from '../../components/map/Map.component';
 
 import ConsumerPackCheckout from '../../pages/payment/offer/ConsumerPackCheckout.component';
 import PaymentPackSummary from '../../components/payment-pack/PaymentPackSummary.component';

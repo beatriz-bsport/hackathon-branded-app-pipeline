@@ -12,8 +12,8 @@ import type { TFunction } from 'react-i18next';
 
 import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';
 
-import { createOrUpdateCoach } from '../../actions/coach.actions';
-import CoachForm from '../../libs/associated-coach/CoachForm.component';
+import { createOrUpdateCoach } from '../../libs/associated-coach/actions';
+import CoachForm from '../../libs/associated-coach/components/CoachForm.component';
 
 import { mapFormData, unmap } from '../form.utils';
 

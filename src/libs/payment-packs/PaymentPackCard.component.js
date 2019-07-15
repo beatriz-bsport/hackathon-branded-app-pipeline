@@ -18,7 +18,7 @@ import type { TFunction } from 'react-i18next';
 
 import RedButton from '../../components/button/RedButton.component';
 import MetaActivityMinimalSummary from '../../components/activity/MetaActivityMinimalSummary.component';
-import EstablishmentSummary from '../../components/establishment/EstablishmentSummary.component';
+import EstablishmentSummary from '../establishment/components/EstablishmentSummary.component';
 import { Sport } from '../../components/category';
 import type { MetaActivity } from '../../api/types';
 import { formatAsDate } from '../../datetime';

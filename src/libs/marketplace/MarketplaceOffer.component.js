@@ -15,7 +15,7 @@ import type { TFunction } from 'react-i18next';
 import Level from '../../components/category/Level.component';
 
 import { formatMinutes, formatAsTime } from '../../datetime';
-import CoachAvatar from '../coach/components/CoachAvatar.component';
+import CoachAvatar from '../associated-coach/components/CoachAvatar.component';
 import { isOfferInThePast } from './utils';
 
 type Props = {

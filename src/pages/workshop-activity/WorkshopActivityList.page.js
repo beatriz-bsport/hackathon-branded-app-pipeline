@@ -15,7 +15,7 @@ import LinearProgress from '../../components/navigation/BackofficeLinearProgress
 
 import type { MetaActivity } from '../../api/types';
 
-import MetaActivityList from '../../libs/meta-activity/MetaActivityList.component';
+import MetaActivityList from '../../libs/meta-activity/components/MetaActivityList.component';
 
 type Props = {
   workshopActivities: Array<MetaActivity>,

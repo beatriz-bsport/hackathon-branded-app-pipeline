@@ -33,12 +33,13 @@ import {
   activity as activityActions,
 } from '../../actions';
 import { Moment } from '../../i18n';
-import api from '../../api';
 import type { Offer, Coach, Establishment } from '../../api/types';
+import api from '../../api';
 
 import OfferEditForm from '../../libs/offer/OfferEditForm.component';
 import OfferFormWithActivity from '../../libs/offer/OfferFormWithActivity.component';
 import DeleteOfferForm from '../../libs/offer/DeleteOfferForm.component';
+import { createOffers as createOffersAPI } from '../../libs/meta-activity/api/meta-activity';
 
 const styles = (theme) => ({
   calendarContainer: {
@@ -280,10 +281,7 @@ export class Planning extends PureComponent<Props, State> {
   createOffers = async (metaActivityId: number, data: Object) => {
     this.setState({ creatingOffers: true });
     try {
-      const response = await api.metaActivity.createOffers(
-        metaActivityId,
-        data,
-      );
+      const response = await createOffersAPI(metaActivityId, data);
       if (response.status === 200) {
         this.setState({ creatingOffers: false });
         this.props.fetchAllOffers();

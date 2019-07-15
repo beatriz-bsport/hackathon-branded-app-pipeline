@@ -14,7 +14,7 @@ import MarketplaceTimetable from './MarketplaceTimetable.component';
 import CoachSelector from '../associated-coach/components/CoachSelector.component';
 import EstablishmentSelector from '../establishment/components/EstablishmentSelector.component';
 import MetaActivitySelector from '../meta-activity/components/MetaActivitySelector.component';
-import LevelSelector from '../meta-activity/components/LevelSelector.component';
+import LevelSelector from '../category/components/LevelSelector.component';
 
 type Props = {
   classes: { [string]: string },

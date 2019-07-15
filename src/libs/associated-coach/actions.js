@@ -8,6 +8,7 @@ import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 import {
   updateCoach as updateCoachAPI,
   addCoach as addCoachAPI,
+  linkByEmail as linkByEmailAPI,
   fetchAssociatedCoaches as fetchAssociatedCoachesAPI,
   fetchAssociatedCoachPerformance as fetchAssociatedCoachPerformanceAPI,
 } from './api';
@@ -21,6 +22,27 @@ export const associated = {
   error: createAction('COACH/ASSOCIATED/ERROR'),
   success: createAction('COACH/ASSOCIATED/SUCCESS'),
 };
+
+export function linkByEmail(
+  email: string,
+  options: { onSuccess: () => void, onError: () => void },
+) {
+  return async (dispatch: Dispatch) => {
+    try {
+      const response = await linkByEmailAPI(email);
+      if (response.status === 201) {
+        dispatch(snackbarSuccess(`coach.forms.linkByEmail.success`));
+        dispatch(fetchAssociated());
+        options.onSuccess();
+      } else {
+        options.onError();
+      }
+    } catch (err) {
+      console.error(err);
+      options.onError();
+    }
+  };
+}
 
 export function fetchAssociated() {
   return async (dispatch: Dispatch) => {
@@ -65,8 +87,18 @@ export function createOrUpdateCoach(
       dispatch(push('/coach'));
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
-      console.error(error);
-      dispatch(snackbarError('coach.forms.error'));
+      if (
+        error.response &&
+        error.response.data &&
+        (error.response.data.email || []).length &&
+        error.response.data.email[0] ===
+          'user with this email address already exists.'
+      ) {
+        dispatch(snackbarError('coach.forms.error_email_exists'));
+      } else {
+        dispatch(snackbarError('coach.forms.error'));
+      }
+
       dispatch(upsert.error(error));
       if (options && options.onError) {
         options.onError((error || []).response ? error.response.data : {});

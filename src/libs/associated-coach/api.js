@@ -1,6 +1,13 @@
 // @flow
 
-import { API_URI, getAuth, postBaseAuth, putAuth } from '../../http';
+import {
+  API_URI,
+  API_V1_URI,
+  getAuth,
+  postAuth,
+  postBaseAuth,
+  putAuth,
+} from '../../http';
 
 export async function addCoach(data: *) {
   return postBaseAuth(`${API_URI}/saas/create-coach/`, data);
@@ -24,9 +31,14 @@ export async function fetchAssociatedCoachPerformance(
   );
 }
 
+export async function linkByEmail(email: string) {
+  return postAuth(`${API_V1_URI}/coach/link_by_email/`, { email });
+}
+
 export default {
   fetchAssociated: fetchAssociatedCoaches,
   addCoach,
   updateCoach,
   fetchAssociatedCoachPerformance,
+  linkByEmail,
 };

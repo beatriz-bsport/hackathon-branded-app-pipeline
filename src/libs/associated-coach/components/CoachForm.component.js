@@ -35,6 +35,8 @@ type Props = {
 
 export function CoachForm(props: Props) {
   const { classes, t, isSubmitting, onCancel } = props;
+  console.log('from form');
+  console.log(props.defaultEmail);
   return (
     <Paper className={classes.paperContainer}>
       <Form className={classes.content}>
@@ -61,6 +63,7 @@ export function CoachForm(props: Props) {
           </Grid>
           <Grid item xs={12} md={6}>
             <TextField
+              InputLabelProps={{ shrink: true }}
               name="email"
               label={t('form.email')}
               type="email"
@@ -148,12 +151,13 @@ export default compose(
   withStyles(styles),
   withNamespaces([]),
   withFormik({
-    mapPropsToValues: ({ initial }) =>
+    enableReinitialize: true,
+    mapPropsToValues: ({ initial, defaultEmail }) =>
       initial || {
         avatar: '',
         firstname: '',
         lastname: '',
-        email: '',
+        email: defaultEmail,
         phone: '',
         gender: 'F',
         birthday: null,

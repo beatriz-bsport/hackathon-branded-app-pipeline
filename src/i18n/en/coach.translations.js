@@ -23,6 +23,18 @@ export default {
   },
   forms: {
     error: 'Unable to save coach',
+    error_email_exists:
+      'A coach with this email address already exists, please use the new coach form',
+    linkByEmail: {
+      cancel: 'Cancel',
+      submit: 'Submit',
+      title: 'Teacher email address',
+      success: 'Teacher successfully linked',
+      emailLabel: 'Email',
+      explain:
+        'If the email already exists in our system, we will automatically prepare the teacher informations. If you do not have his/her email address, keep the field empty',
+      emailPlaceHolder: 'teacher@bsport.io',
+    },
     create: {
       success: 'Coach added',
       title: 'New coach',

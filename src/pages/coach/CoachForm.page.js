@@ -29,6 +29,9 @@ type Props = {
   onSubmit: (*) => void,
   onCancel: (*) => void,
 
+  initialEmail: ?string,
+  setInitialEmail: (email: string) => void,
+
   push: (path: string) => void,
   linkCoachViaEmail: (
     email: string,
@@ -59,10 +62,6 @@ export function CoachFormPage(props: Props) {
       }
     : null;
 
-  console.log('initial Email: ');
-  console.log(props.initialEmail);
-  console.log('initial Data');
-  console.log(!!props.initialData);
   return (
     <div>
       <Dialog open={!initial && isEmailChecking}>

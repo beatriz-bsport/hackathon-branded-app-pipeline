@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-import Config from '../config';
+import Intercom from 'react-intercom';
 
 import ResponsiveDrawer from '../components/navigation/ResponsiveDrawer.component';
 
@@ -61,6 +61,7 @@ type Props = {
   deleteAlert: (id: number) => void,
   classes: Object,
   authenticated: boolean,
+  username: string,
   refreshIfNeeded: () => void,
 };
 
@@ -71,13 +72,6 @@ export class Backoffice extends Component<Props> {
 
   componentDidMount() {
     this.props.refreshIfNeeded();
-    window.$crisp = [];
-    window.CRISP_WEBSITE_ID = Config.REACT_APP_CRISP_WEBSITE_ID || '';
-    const d = document;
-    const s = d.createElement('script');
-    s.src = 'https://client.crisp.chat/l.js';
-    s.async = 1;
-    d.getElementsByTagName('head')[0].appendChild(s);
   }
 
   render() {
@@ -86,6 +80,9 @@ export class Backoffice extends Component<Props> {
     if (!this.props.authenticated) {
       return <Redirect to="/login" />;
     }
+    const intercom_user = {
+      email: this.props.username,
+    };
     return (
       <ResponsiveDrawer
         onRefresh={this.props.refresh}
@@ -94,6 +91,8 @@ export class Backoffice extends Component<Props> {
         nbAlerting={this.props.nbAlerting}
         deleteAlert={this.props.deleteAlert}
       >
+        <Intercom appID="q6foivp2" {...intercom_user} />
+
         <main className={classes.content}>
           <Switch>
             <Route path="/shop" component={Shop} />
@@ -141,6 +140,7 @@ export default connect(
     alertings: alertingSelectors.get(state),
     nbAlerting: alertingSelectors.countAlerting(state),
     authenticated: state.auth.authenticated,
+    username: state.auth.username,
     isRefreshing: state.refresh.isRefreshing,
   }),
   {

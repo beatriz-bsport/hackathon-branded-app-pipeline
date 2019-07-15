@@ -59,6 +59,7 @@
     "react-dropzone": "8",
     "react-facebook-login": "^4.0.1",
     "react-i18next": "8",
+    "react-intercom": "^1.0.15",
     "react-leaflet": "^2.0.0",
     "react-number-format": "^3.5.0",
     "react-phone-number-input": "^2.2.2",

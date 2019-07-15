@@ -23,6 +23,7 @@ import withDrawer from '../../hocs/with-drawer.hoc';
 
 import InvoiceForm from '../../libs/invoice/InvoiceForm.component';
 import InvoiceDateDialog from '../../libs/invoice/dialog/InvoiceDateDialog.component';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 type Props = {
   member: ?Member,
@@ -30,7 +31,6 @@ type Props = {
   fetch: (id: number) => void,
 
   paymentPacks: Array<PaymentPack>,
-  activities: Array<Activity>,
   shopItems: Array<ShopItem>,
 
   goToInvoiceList: () => void,
@@ -82,7 +82,6 @@ export class InvoiceCreatePage extends Component<Props, State> {
   render() {
     const {
       member,
-      activities,
       paymentPacks,
       goToInvoiceList,
       shopItems,
@@ -98,7 +97,6 @@ export class InvoiceCreatePage extends Component<Props, State> {
       <div>
         <InvoiceForm
           member={member}
-          activities={activities}
           paymentPacks={paymentPacks}
           shopItems={shopItems}
           createOrUpdate={this.prepareCreate}
@@ -120,40 +118,6 @@ export class InvoiceCreatePage extends Component<Props, State> {
   }
 }
 
-function mapStateToProps(state, nextProps) {
-  const { match } = nextProps;
-  const id = (match && match.params && +match.params.id) || null;
-  return {
-    id,
-    loading: state.member.loading,
-    member: memberSelectors.get(state, id),
-    activities: state.activity.all,
-    paymentPacks: paymentPackSelectors.getEnabled(state),
-    shopItems: state.shop.all,
-    creatingInvoice: state.invoice.createOrUpdatePending,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    goToInvoiceList() {
-      dispatch(pushRouter('/invoice'));
-    },
-    createInvoice(invoiceData: InvoiceData) {
-      dispatch(invoiceActions.createOrUpdateInvoice(invoiceData));
-    },
-    resetCreateOrUpdateStatus() {
-      dispatch(invoiceActions.createOrUpdateReset());
-    },
-    goToMemberPage(id) {
-      dispatch(pushRouter(`/member/${id}/`));
-    },
-    fetch(id) {
-      dispatch(fetchMember(id));
-    },
-  };
-}
-
 const styles = (theme) => ({
   title: {
     paddingBottom: theme.spacing.unit * 4,
@@ -163,9 +127,22 @@ const styles = (theme) => ({
 export default compose(
   withStyles(styles),
   withNamespaces(),
+  routerParamsToProps({ id: 'id:number' }),
   connect(
-    mapStateToProps,
-    mapDispatchToProps,
+    (state, { id }) => ({
+      loading: state.member.loading,
+      member: memberSelectors.get(state, id),
+      paymentPacks: paymentPackSelectors.getEnabled(state),
+      shopItems: state.shop.all,
+      creatingInvoice: state.invoice.createOrUpdatePending,
+    }),
+    {
+      goToInvoiceList: () => pushRouter('/invoice'),
+      createInvoice: invoiceActions.createOrUpdateInvoice,
+      resetCreateOrUpdateStatus: invoiceActions.createOrUpdateReset,
+      goToMemberPage: (id) => pushRouter(`/member/${id}/`),
+      fetch: fetchMember,
+    },
   ),
   withDrawer(
     ({ t, member }: { t: TFunction, member: Member }) =>

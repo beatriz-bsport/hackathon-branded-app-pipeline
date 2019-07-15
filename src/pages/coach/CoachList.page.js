@@ -17,14 +17,17 @@ import {
 } from '@material-ui/core';
 
 import i18next from 'i18next';
-import { coach as coachActions } from '../../actions';
+import {
+  startUpdate,
+  setCoachPaymentRule,
+} from '../../libs/associated-coach/actions';
 import type { Coach } from '../../api/types';
 import { paymentRulesSelector } from '../../libs/payment-rules/selectors';
 import withBottomButtons from '../../hocs/inject-bottom-buttons';
 import withDrawer from '../../hocs/with-drawer.hoc';
 
-import ConnectedCoachCard from '../../libs/associated-coach/list/CoachCard.component';
-import CoachListItem from '../../libs/associated-coach/list/CoachListItem.component';
+import ConnectedCoachCard from '../../libs/associated-coach/components/CoachCard.component';
+import CoachListItem from '../../libs/associated-coach/components/CoachListItem.component';
 
 type Props = {
   loading: boolean,
@@ -47,7 +50,6 @@ export class CoachList extends Component<Props> {
     const {
       associatedCoaches,
       paymentRules,
-      setCoachPaymentRule,
       goToCoachEditForm,
       goToCoachPerformance,
       goToCoachDetail,
@@ -62,7 +64,7 @@ export class CoachList extends Component<Props> {
                 coach={coach}
                 onClickUpdate={() => goToCoachEditForm(coach)}
                 paymentRules={paymentRules}
-                setCoachPaymentRule={setCoachPaymentRule}
+                setCoachPaymentRule={this.props.setCoachPaymentRule}
                 goToCoachPerformance={() => goToCoachPerformance(coach)}
               />
             </Grid>
@@ -107,10 +109,8 @@ export default compose(
     (dispatch) => ({
       goToCoachPerformance: (coach) =>
         dispatch(push(`/coach/${coach.associated_coach_id}/performance`)),
-      goToCoachEditForm: (...args) =>
-        dispatch(coachActions.startUpdate(...args)),
-      setCoachPaymentRule: (...args) =>
-        dispatch(coachActions.setCoachPaymentRule(...args)),
+      goToCoachEditForm: (...args) => dispatch(startUpdate(...args)),
+      setCoachPaymentRule: (...args) => dispatch(setCoachPaymentRule(...args)),
       goToCreateCoach: () => dispatch(push('/coach/add')),
       goToCoachDetail: (coachId) => dispatch(push(`/coach/${coachId}`)),
     }),

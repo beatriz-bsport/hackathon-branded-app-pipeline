@@ -5,12 +5,9 @@ import { combineReducers } from 'redux';
 import authReducers from './auth';
 import offerReducers from './offer';
 import activityReducers from './activity';
-import metaActivityReducers from './meta-activity';
 import statsReducers from './stats';
-import coachReducers from './coach';
 import paymentPackReducers from './paymentPack';
 import consumerPaymentPackReducers from './consumer-payment-pack';
-import establishmentReducers from './establishment';
 import categoryReducers from './category';
 import invoiceReducers from './invoice';
 import paymentReducers from './payment';
@@ -20,16 +17,19 @@ import refreshReducer from './refresh';
 import searchReducer from './search.reducers';
 import companiesReducers from './companies.reducers';
 import marketplaceReducer from './marketplace';
+import establishmentReducers from '../libs/establishment/reducers';
 import shopReducer from '../libs/shop/reducers';
 import paymentRulesReducer from '../libs/payment-rules/reducers';
-import workshopActivityReducer from './workshop-activity';
+import workshopActivityReducer from '../libs/meta-activity/reducers/workshop-activity';
+import metaActivityReducers from '../libs/meta-activity/reducers/meta-activity';
 import subscriptionReducer from '../libs/subscription/reducers';
 import alertingReducer from '../libs/alerting/reducers';
 import memberReducer from '../libs/member/reducers';
 import bookingReducers from '../libs/booking/reducers';
 import tagReducers from '../libs/tag/reducers';
 import orderReducers from '../libs/order/reducers';
-import marketplcev2Reducer from '../libs/marketplace/reducers';
+import marketplacev2Reducer from '../libs/marketplace/reducers';
+import coachReducers from '../libs/associated-coach/reducers';
 
 import type { State, Action } from '../state/types';
 
@@ -64,7 +64,7 @@ const rootReducer = combineReducers({
   alerting: alertingReducer,
   tag: tagReducers,
   order: orderReducers,
-  marketplacev2: marketplcev2Reducer,
+  marketplacev2: marketplacev2Reducer,
 });
 
 export default (state: State, action: Action) => {

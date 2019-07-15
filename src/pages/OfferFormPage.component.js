@@ -8,12 +8,13 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { goBack as goBackAction } from 'react-router-redux';
 
-import api from '../api';
 import { activity as activityActions, offer as offerActions } from '../actions';
 import type { Coach, MetaActivity, Establishment } from '../api/types';
 import withDrawer from '../hocs/with-drawer.hoc';
 
 import OfferForm from '../libs/offer/OfferForm.component';
+import { getAllAssociatedCoach } from '../libs/associated-coach/selectors';
+import { createOffers as createOffersAPI } from '../libs/meta-activity/api/meta-activity';
 
 type Props = {
   match: Object,
@@ -48,10 +49,7 @@ export class OfferFormPage extends Component<Props, State> {
   createOffers = async (data: Object) => {
     this.setState({ error: false, processing: true });
     try {
-      const response = await api.metaActivity.createOffers(
-        this.metaActivityId,
-        data,
-      );
+      const response = await createOffersAPI(this.metaActivityId, data);
       if (response.status === 200) {
         this.setState({ processing: false, created: true });
         this.props.fetchAllOffers();
@@ -106,7 +104,7 @@ export class OfferFormPage extends Component<Props, State> {
 function mapStateToProps(state) {
   return {
     metaActivities: [...state.metaActivity.all, ...state.workshopActivity.all],
-    coaches: state.coach.companyAssociated,
+    coaches: getAllAssociatedCoach(state),
     establishments: state.establishment.all,
     loading: state.metaActivity.loading,
   };

@@ -20,24 +20,30 @@ import mapParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {
   associatedCoachSelector,
   coachPerformanceSelector,
-} from '../../state/coaches/selectors';
+} from '../../libs/associated-coach/selectors';
 import {
   paymentRuleSelector,
   paymentRulesSelector,
 } from '../../libs/payment-rules/selectors';
 
-import { coach as coachActions } from '../../actions';
+import {
+  setSessionPaymentRule,
+  fetchAssociatedCoachPerformance,
+} from '../../libs/associated-coach/actions';
 import withDrawer from '../../hocs/with-drawer.hoc';
-import type { Coach } from '../../api/types';
 
-import CoachPerformanceForm from '../../libs/associated-coach/performance/CoachPerformanceForm.component';
-import CoachPerformanceSummary from '../../libs/associated-coach/performance/CoachPerformanceSummary.component';
-import CoachPerformanceSessionTable from '../../libs/associated-coach/performance/CoachPerformanceSessionTable.component';
+import CoachPerformanceForm from '../../libs/associated-coach/components/performance/CoachPerformanceForm.component';
+import CoachPerformanceSummary from '../../libs/associated-coach/components/performance/CoachPerformanceSummary.component';
+import CoachPerformanceSessionTable from '../../libs/associated-coach/components/performance/CoachPerformanceSessionTable.component';
+import type {
+  Coach,
+  CoachPerformance as CoachPerformanceType,
+} from '../../libs/associated-coach/types';
 
 type Props = {
   coach: Coach,
   loading: boolean,
-  performance: Array<Object>,
+  performance: Array<CoachPerformanceType>,
   t: TFunction,
   classes: Object,
   onSubmit: () => void,
@@ -46,14 +52,7 @@ type Props = {
 };
 
 export function CoachPerformance(props: Props) {
-  const {
-    classes,
-    loading,
-    performance,
-    onSubmit,
-    paymentRules,
-    setSessionPaymentRule,
-  } = props;
+  const { classes, loading, performance, onSubmit, paymentRules } = props;
   console.log(performance);
 
   return (
@@ -67,7 +66,7 @@ export function CoachPerformance(props: Props) {
         <CoachPerformanceSessionTable
           sessions={performance.sessions}
           paymentRules={paymentRules}
-          setSessionPaymentRule={setSessionPaymentRule}
+          setSessionPaymentRule={props.setSessionPaymentRule}
         />
       </Paper>
     </div>
@@ -113,8 +112,8 @@ export default compose(
       };
     },
     {
-      setSessionPaymentRule: coachActions.setSessionPaymentRule,
-      fetchPerformance: coachActions.fetchAssociatedCoachPerformance,
+      setSessionPaymentRule,
+      fetchPerformance: fetchAssociatedCoachPerformance,
     },
   ),
   withProps(({ performance, paymentRule, paymentRules }) => ({

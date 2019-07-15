@@ -110,6 +110,14 @@ export function initiatedLogin(username) {
 }
 
 export function disconnect() {
+  try {
+    Sentry.configureScope((scope) => {
+      scope.setUser({ email: '' });
+    });
+  } catch (err) {
+    console.error(err);
+  }
+
   return { type: types.DISCONNECT };
 }
 

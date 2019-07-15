@@ -1,8 +1,10 @@
 // @flow
 import React, { Component } from 'react';
-import { Grid } from '@material-ui/core';
+
+import Grid from '@material-ui/core/Grid';
+import withStyles from '@material-ui/core/styles/withStyles';
+
 import objectFitImages from 'object-fit-images';
-import { withStyles } from '@material-ui/core/styles';
 import SPORTS from '@bsport/common/lib/master-data/sports';
 import Carousel from '../../../components/Carousel.component';
 import { Level } from '../../../components/category';

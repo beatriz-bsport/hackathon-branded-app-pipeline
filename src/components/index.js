@@ -13,8 +13,6 @@ import Review from './Review.component';
 import ResponsiveDrawer from './navigation/ResponsiveDrawer.component';
 import Calendar from './offer/Calendar.component';
 import TimeTable from './offer/TimeTable.component';
-import Map from './establishment/Map.component';
-import EstablishmentCard from './establishment/EstablishmentCard.component';
 import FormField from './input/FormField.component';
 import AvatarUploader from './input/AvatarUploader.component';
 import SimpleModal from './navigation/SimpleModal.component';
@@ -37,8 +35,6 @@ export {
   ConsumerMenu,
   AvatarUploader,
   FormField,
-  EstablishmentCard,
-  Map,
   TimeTable,
   Calendar,
   ResponsiveDrawer,

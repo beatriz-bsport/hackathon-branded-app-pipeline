@@ -21,7 +21,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 
 import { get, API_URI } from '../../../http';
 
-import Map from '../../../components/establishment/Map.component';
+import Map from '../../../components/map/Map.component';
 
 type Props = {
   classes: Object,

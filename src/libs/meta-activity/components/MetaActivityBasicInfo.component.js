@@ -1,12 +1,10 @@
 // @flow
 import React from 'react';
-import {
-  Grid,
-  Typography,
-  Tooltip,
-  IconButton,
-  withStyles,
-} from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from '@material-ui/core/IconButton';
+import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 
 import Avatar from '../../../components/Avatar.component';

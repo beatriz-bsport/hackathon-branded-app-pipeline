@@ -18,19 +18,25 @@ import type { PaymentRule } from '../../libs/payment-rules/types';
 import {
   associatedCoachSelector,
   coachPerformanceSelector,
-} from '../../state/coaches/selectors';
+} from '../../libs/associated-coach/selectors';
 import {
   paymentRuleSelector,
   paymentRulesSelector,
 } from '../../libs/payment-rules/selectors';
-
-import { coach as coachActions } from '../../actions';
+import {
+  setSessionPaymentRule,
+  fetchAssociatedCoachPerformance,
+  setCoachPaymentRule,
+} from '../../libs/associated-coach/actions';
 import withDrawer from '../../hocs/with-drawer.hoc';
-import type { Coach } from '../../api/types';
+import type {
+  Coach,
+  CoachPerformance as CoachPerformanceType,
+} from '../../libs/associated-coach/types';
 
-import CoachPerformanceForm from '../../libs/associated-coach/performance/CoachPerformanceForm.component';
-import CoachPerformanceSummary from '../../libs/associated-coach/performance/CoachPerformanceSummary.component';
-import CoachPerformanceSessionTable from '../../libs/associated-coach/performance/CoachPerformanceSessionTable.component';
+import CoachPerformanceForm from '../../libs/associated-coach/components/performance/CoachPerformanceForm.component';
+import CoachPerformanceSummary from '../../libs/associated-coach/components/performance/CoachPerformanceSummary.component';
+import CoachPerformanceSessionTable from '../../libs/associated-coach/components/performance/CoachPerformanceSessionTable.component';
 import PaymentRuleSelector from '../../libs/payment-rules/components/PaymentRuleSelector.component';
 
 type CoachPerformanceProps = {
@@ -43,14 +49,7 @@ type CoachPerformanceProps = {
   setCoachPaymentRule: (coachId: number, paymentRuleId: number) => void,
 };
 function CoachPerformance(props: CoachPerformanceProps) {
-  const {
-    classes,
-    loading,
-    performance,
-    paymentRules,
-    setSessionPaymentRule,
-    setCoachPaymentRule,
-  } = props;
+  const { classes, loading, performance, paymentRules } = props;
 
   return (
     <div className={classes.performanceContainer}>
@@ -77,7 +76,7 @@ function CoachPerformance(props: CoachPerformanceProps) {
         <CoachPerformanceSessionTable
           sessions={performance.sessions}
           paymentRules={paymentRules}
-          setSessionPaymentRule={setSessionPaymentRule}
+          setSessionPaymentRule={props.setSessionPaymentRule}
         />
       </Paper>
     </div>
@@ -177,9 +176,9 @@ export default compose(
       ),
     }),
     {
-      setSessionPaymentRule: coachActions.setSessionPaymentRule,
-      fetchPerformance: coachActions.fetchAssociatedCoachPerformance,
-      setCoachPaymentRule: coachActions.setCoachPaymentRule,
+      setSessionPaymentRule,
+      fetchPerformance: fetchAssociatedCoachPerformance,
+      setCoachPaymentRule,
     },
   ),
   withHandlers({

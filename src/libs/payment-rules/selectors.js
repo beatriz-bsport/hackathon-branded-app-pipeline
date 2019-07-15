@@ -4,7 +4,7 @@ import lodash from 'lodash';
 
 import type { State } from '../../state/types';
 
-import { coachSelector } from '../../state/coaches/selectors';
+import { coachSelector } from '../associated-coach/selectors';
 
 import type { PaymentRule } from './types';
 

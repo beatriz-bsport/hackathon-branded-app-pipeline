@@ -3,6 +3,7 @@
 import * as Sentry from '@sentry/browser';
 
 import { createAction } from 'redux-actions';
+import type { Dispatch, ThunkAction } from '../state/types';
 
 import api from '../api';
 
@@ -12,8 +13,8 @@ export const fetchAll = {
   success: createAction('ACTIVITIES/LIST/SUCCESS'),
 };
 
-export function fetchActivities() {
-  return async (dispatch) => {
+export function fetchActivities(): ThunkAction {
+  return async (dispatch: Dispatch) => {
     dispatch(fetchAll.isLoading(true));
     dispatch(fetchAll.error(null));
 

@@ -364,8 +364,15 @@ module.exports = {
     new SentryWebpackPlugin({
       include: '.',
       ignoreFile: '.sentrycliignore',
-      ignore: ['node_modules', 'webpack.config.js'],
-      configFile: 'sentry.properties',
+      ignore: ['node_modules', 'webpack.config.js', '/env.js$/'],
+      // Sentry options are required
+      organization: 'bsport-cg',
+      org: 'bsport-cg',
+      project: 'saas',
+      apiKey: '',
+
+      // Release version name/hash is required
+      release: process.env.GIT_SHA,
     }),
   ],
   // Some libraries import Node modules but don't use them in the browser.

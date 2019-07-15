@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import { withNamespaces } from 'react-i18next';
 
 type Props = {

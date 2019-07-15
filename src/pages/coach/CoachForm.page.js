@@ -97,7 +97,7 @@ export default compose(
   withState('isEmailChecking', 'setIsEmailChecking', true),
   withState('initialEmail', 'setInitialEmail', null),
   connect(
-    (state, { coachId, initialEmail }) => ({
+    (state, { coachId }) => ({
       pending: state.coach.upsert.loading,
       errors: state.coach.upsert.error,
       initial:

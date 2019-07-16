@@ -27,7 +27,6 @@ export const CoachEmailCheckDialog = (props: Props) => (
       <TextField
         type="email"
         style={{ marginTop: 16 }}
-        required
         placeholder={props.t('forms.linkByEmail.emailPlaceHolder')}
         label={props.t('forms.linkByEmail.emailLabel')}
         onChange={(ev) => props.setEmail(ev.target.value)}

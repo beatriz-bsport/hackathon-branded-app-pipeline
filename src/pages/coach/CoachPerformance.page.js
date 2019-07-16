@@ -49,11 +49,11 @@ type Props = {
   onSubmit: () => void,
   paymentRules: PaymentRule[],
   setSessionPaymentRule: (PaymentRule) => void,
+  associatedCoachId: number,
 };
 
 export function CoachPerformance(props: Props) {
   const { classes, loading, performance, onSubmit, paymentRules } = props;
-  console.log(performance);
 
   return (
     <div className={classes.container}>

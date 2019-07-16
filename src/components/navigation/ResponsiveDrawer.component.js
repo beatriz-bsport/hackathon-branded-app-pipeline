@@ -473,7 +473,8 @@ const styles = (theme) => ({
     marginRight: -50,
   },
   drawerPaper: {
-    overflow: 'hidden',
+    overflowX: 'hidden',
+    overflowY: 'auto',
     position: 'relative',
     display: 'inherit',
     width: drawerWidth,

@@ -3,7 +3,7 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
-import type { CoachesState } from './types';
+import type { CoachState } from './types';
 
 import {
   associated,
@@ -13,7 +13,7 @@ import {
   sessionPaymentRule,
 } from './actions';
 
-const initialState: CoachesState = Immutable({
+const initialState: CoachState = Immutable({
   loading: false,
   error: '',
   companyAssociated: [],
@@ -82,12 +82,16 @@ export default handleActions(
       return state.setIn(['upsert', 'error'], payload);
     },
     [sessionPaymentRule.success]: (state, { payload }) => {
-      const index = state.performance.result.findIndex(
-        (s) => s.id === payload.sessionId,
-      );
-      const session = state.performance.result[index];
+      const index = state.performance[
+        payload.associatedCoachId
+      ].result.findIndex((s) => s.id === payload.sessionId);
+      const session =
+        state.performance[payload.associatedCoachId].result[index];
       const updatedSession = { ...session, ...payload.data };
-      return state.setIn(['performance', 'result', index], updatedSession);
+      return state.setIn(
+        ['performance', payload.associatedCoachId, 'result', index],
+        updatedSession,
+      );
     },
   },
   initialState,

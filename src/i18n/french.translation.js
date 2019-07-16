@@ -795,7 +795,7 @@ export default {
         "Avant le début de l'atelier, dernière annulation possible",
       forms: {
         create: {
-          succes: 'Atelier sauvegardé',
+          success: 'Atelier sauvegardé',
           error: "Impossible de sauvegarder l'atelier",
         },
         update: {

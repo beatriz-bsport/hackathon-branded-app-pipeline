@@ -64,9 +64,9 @@ function CoachPerformance(props: CoachPerformanceProps) {
           <PaymentRuleSelector
             selected={props.associatedCoach.default_payment_rule_id}
             paymentRules={props.paymentRules}
-            onChange={({ value }) =>
-              setCoachPaymentRule(props.associatedCoach.id, value)
-            }
+            onChange={({ value }) => {
+              props.setCoachPaymentRule(props.associatedCoach.id, value);
+            }}
           />
         </div>
       </div>
@@ -157,7 +157,9 @@ export function AllCoachPerformance(props: Props) {
           associatedCoach={coach}
           key={coach.id}
           loading={props.loading}
-          setSessionPaymentRule={props.setSessionPaymentRule}
+          setSessionPaymentRule={(...args) =>
+            props.setSessionPaymentRule(coach.associated_coach_id, ...args)
+          }
           paymentRules={props.paymentRules}
           setCoachPaymentRule={props.setCoachPaymentRule}
         />

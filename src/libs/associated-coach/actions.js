@@ -31,7 +31,7 @@ export function linkByEmail(
     try {
       const response = await linkByEmailAPI(email);
       if (response.status === 201) {
-        dispatch(snackbarSuccess(`coach.forms.linkByEmail.success`));
+        dispatch(snackbarSuccess('coach.forms.linkByEmail.success'));
         dispatch(fetchAssociated());
         options.onSuccess();
       } else {
@@ -182,6 +182,7 @@ export const sessionPaymentRule = {
 };
 
 export function setSessionPaymentRule(
+  associatedCoachId: number,
   sessionId: number,
   paymentRuleId: number,
 ): ThunkAction {
@@ -194,7 +195,13 @@ export function setSessionPaymentRule(
         `${API_URI}/bookings/sessions/${sessionId}/set_payment_rule/`,
         { payment_rule_id: paymentRuleId },
       );
-      dispatch(sessionPaymentRule.success({ sessionId, data: response.data }));
+      dispatch(
+        sessionPaymentRule.success({
+          associatedCoachId,
+          sessionId,
+          data: response.data,
+        }),
+      );
       dispatch(snackbarSuccess('paymentRules:update.success'));
     } catch (error) {
       console.log(error);

@@ -66,7 +66,9 @@ export function CoachPerformance(props: Props) {
         <CoachPerformanceSessionTable
           sessions={performance.sessions}
           paymentRules={paymentRules}
-          setSessionPaymentRule={props.setSessionPaymentRule}
+          setSessionPaymentRule={(...args) =>
+            props.setSessionPaymentRule(props.associatedCoachId, ...args)
+          }
         />
       </Paper>
     </div>

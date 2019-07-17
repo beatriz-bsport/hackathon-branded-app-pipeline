@@ -2,16 +2,15 @@
 
 import React, { Component } from 'react';
 
-import {
-  Button,
-  Typography,
-  Hidden,
-  Grid,
-  Paper,
-  Divider,
-  CircularProgress,
-  withStyles,
-} from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import Badge from '@material-ui/core/Badge';
+import Typography from '@material-ui/core/Typography';
+import Hidden from '@material-ui/core/Hidden';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Divider from '@material-ui/core/Divider';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import withStyles from '@material-ui/core/styles/withStyles';
 import SaveIcon from '@material-ui/icons/Save';
 import CancelIcon from '@material-ui/icons/Cancel';
 import DownloadIcon from '@material-ui/icons/Attachment';
@@ -35,6 +34,7 @@ import InvoiceVoucher from './payment/InvoiceVoucher.component';
 import UnevenInvoiceDialog from './dialog/UnevenInvoiceDialog.component';
 import InvoiceItemList from './invoice-item/InvoiceItemList.component';
 import InvoiceItemSelector from './invoice-item/InvoiceItemSelector.component';
+import CreditMemberBadge from '../member/components/CreditMemberBadge.component';
 
 import RedButton from '../../components/button/RedButton.component';
 
@@ -368,19 +368,21 @@ export class InvoiceForm extends Component<Props, State> {
         </Hidden>
       </Button>
       {this.props.goToMemberPage ? (
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={this.props.goToMemberPage}
-          className={this.props.classes.navigationButton}
-        >
-          <PersonIcon />
-          <Hidden xsDown>
-            <span className={this.props.classes.rightText}>
-              {this.props.member.name}
-            </span>
-          </Hidden>
-        </Button>
+        <CreditMemberBadge credit={this.props.member.credit_account_balance}>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={this.props.goToMemberPage}
+            className={this.props.classes.navigationButton}
+          >
+            <PersonIcon />
+            <Hidden xsDown>
+              <span className={this.props.classes.rightText}>
+                {this.props.member.name}
+              </span>
+            </Hidden>
+          </Button>
+        </CreditMemberBadge>
       ) : (
         <div />
       )}

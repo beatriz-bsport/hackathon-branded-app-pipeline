@@ -23,8 +23,8 @@ import NotificationActiveIcon from '@material-ui/icons/NotificationsActive';
 import NotificationOffIcon from '@material-ui/icons/NotificationsOff';
 
 import { compose } from 'recompose';
-
 import type { TFunction } from 'react-i18next';
+import CreditMemberBadge from './CreditMemberBadge.component';
 
 import { formatAsDate } from '../../../datetime';
 import { Avatar } from '../../../components';
@@ -133,7 +133,9 @@ export class MemberSummaryCard extends Component<Props> {
             alignItems: 'center',
           }}
         >
-          <Avatar user={member.consumer} variant="mediumNoname" noname />
+          <CreditMemberBadge credit={member.credit_account_balance}>
+            <Avatar user={member.consumer} variant="mediumNoname" noname />
+          </CreditMemberBadge>
           <div className={this.props.classes.consumerName}>
             <Typography noWrap>
               {member.consumer.first_name} {member.consumer.last_name}

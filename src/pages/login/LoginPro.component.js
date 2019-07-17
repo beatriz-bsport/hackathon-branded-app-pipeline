@@ -2,12 +2,15 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
+import { compose } from 'recompose';
 import { Redirect, Link } from 'react-router-dom';
 import { Typography, Button, TextField, withStyles } from '@material-ui/core';
 import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 
 import { auth as authActions } from '../../actions';
 import LoginBase from '../../components/navigation/LoginBase.component';
+import PasswordInput from '../../components/input/PasswordInput.component';
 
 const styles = (theme) => ({
   container: {
@@ -33,7 +36,7 @@ type Props = {
   authenticated: boolean,
   loading: boolean,
   error: boolean,
-  t: (x: string) => string,
+  t: TFunction,
   classes: Object,
 };
 type State = {
@@ -51,13 +54,13 @@ export class Login extends Component<Props, State> {
     document.title = 'Login - bsport';
   }
 
-  updateEmail = (event: Object) => {
+  updateEmail = (event: SyntheticEvent<HTMLElement>) => {
     this.setState({
       email: event.target.value,
     });
   };
 
-  updatePassword = (event: Object) => {
+  updatePassword = (event: StyntheticEvent<HTMLElement>) => {
     this.setState({
       password: event.target.value,
     });
@@ -71,7 +74,7 @@ export class Login extends Component<Props, State> {
     });
   };
 
-  onSubmit = (event: Object) => {
+  onSubmit = (event: SyntheticEvent<HTMLElement>) => {
     event.preventDefault();
     this.login();
   };
@@ -95,12 +98,10 @@ export class Login extends Component<Props, State> {
             label="Email"
             className={classes.input}
           />
-          <TextField
-            onChange={this.updatePassword}
-            label={t('login.password')}
-            type="password"
+          <PasswordInput
             fullWidth
-            className={classes.input}
+            value={this.state.password}
+            onChange={this.updatePassword}
           />
           <div style={{ paddingTop: 12 }}>
             <Typography color="error">
@@ -130,22 +131,17 @@ export class Login extends Component<Props, State> {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    authenticated: state.auth.authenticated,
-    error: state.auth.error,
-    loading: state.auth.loading,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    login({ email, password }) {
-      dispatch(authActions.requestLogin(email, password));
+export default compose(
+  connect(
+    (state) => ({
+      authenticated: state.auth.authenticated,
+      error: state.auth.error,
+      loading: state.auth.loading,
+    }),
+    {
+      login: ({ email, password }) => authActions.requestLogin(email, password),
     },
-  };
-}
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(withNamespaces()(withStyles(styles)(Login)));
+  ),
+  withNamespaces(),
+  withStyles(styles),
+)(Login);

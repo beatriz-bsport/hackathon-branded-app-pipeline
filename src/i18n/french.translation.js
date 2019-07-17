@@ -19,10 +19,12 @@ import shop from './fr/shop.translations';
 import order from './fr/order.translations';
 import marketplace from './fr/marketplace.translations';
 import metaActivity from './fr/meta-activity.translations';
+import login from './fr/login.translations';
 
 export default {
   dashboard,
   tag,
+  login,
   establishment,
   order,
   settings,

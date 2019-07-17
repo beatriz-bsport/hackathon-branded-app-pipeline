@@ -2,18 +2,18 @@
 
 import React, { Component } from 'react';
 
-import {
-  CircularProgress,
-  Typography,
-  Grid,
-  Button,
-  withStyles,
-} from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import withStyles from '@material-ui/core/styles/withStyles';
 import PersonIcon from '@material-ui/icons/Person';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { Link } from 'react-router-dom';
+
 import RedButton from '../../button/RedButton.component';
+import PasswordInput from '../../input/PasswordInput.component';
 
 import { FormField } from '../../input';
 
@@ -98,33 +98,36 @@ export class ConsumerLogin extends Component<Props, State> {
     return (
       <div className={classes.loginContainer}>
         <PersonIcon className={classes.headIcon} />
-        <FormField
-          id="email"
-          name="login"
-          onChange={this.onFormFieldChange}
-          fullWidth
-        />
-        <FormField
-          id="password"
-          name="password"
-          onChange={this.onFormFieldChange}
-          type="password"
-          fullWidth
-        />
-        {error ? (
-          <Typography color="error" className={classes.errorMessage}>
-            {t('login.authError')}{' '}
-          </Typography>
-        ) : null}
-        <Button
-          className={classes.bottomButton}
-          color="primary"
-          variant="contained"
-          onClick={this.doEmailLogin}
-          id="btn-signin"
-        >
-          LOGIN
-        </Button>
+        <form>
+          <FormField
+            id="email"
+            name="login"
+            onChange={this.onFormFieldChange}
+            fullWidth
+          />
+          <PasswordInput
+            fullWidth
+            value={this.state.password}
+            onChange={(ev) =>
+              this.onFormFieldChange('password')(ev.target.value)
+            }
+          />
+          {error ? (
+            <Typography color="error" className={classes.errorMessage}>
+              {t('login.authError')}{' '}
+            </Typography>
+          ) : null}
+          <Button
+            className={classes.bottomButton}
+            color="primary"
+            variant="contained"
+            onClick={this.doEmailLogin}
+            type="submit"
+            id="btn-signin"
+          >
+            LOGIN
+          </Button>
+        </form>
         <Link to="/login/reset_password" style={{ textDecoration: 'none' }}>
           <Typography color="secondary" variant="caption">
             {t('login.forgottenPassword')}

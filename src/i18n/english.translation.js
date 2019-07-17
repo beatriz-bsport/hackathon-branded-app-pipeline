@@ -19,11 +19,13 @@ import shop from './en/shop.translations';
 import order from './en/order.translations';
 import marketplace from './en/marketplace.translations';
 import metaActivity from './en/meta-activity.translations';
+import login from './en/login.translations';
 
 export default {
   dashboard,
   alerting,
   settings,
+  login,
   shop,
   paymentRules,
   order,

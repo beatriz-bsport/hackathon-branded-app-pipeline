@@ -1,11 +1,11 @@
 // @flow
 
-import React, { Component } from 'react';
+import React from 'react';
 
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { withNamespaces } from 'react-i18next';
-import { compose } from 'recompose';
+import { compose, withState } from 'recompose';
 import { withRouter } from 'react-router';
 import { push } from 'connected-react-router';
 import type { TFunction } from 'react-i18next';
@@ -17,49 +17,48 @@ import AppBar from '@material-ui/core/AppBar';
 
 import PaymentRuleSetsDashboard from './PaymentRuleSetsDashboard.component';
 import CompanyDetailPage from './CompanyDetailPage.component';
+import InvoiceConfigurationPage from './InvoiceConfigurationPage.component';
+
 import withDrawer from '../../hocs/with-drawer.hoc';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 type Props = {
   t: TFunction,
   push: (string) => void,
+  tab: string,
   classes: *,
 };
-type State = {
-  tab: 'payment-rules' | 'settings',
+
+export const Settings = (props: Props) => {
+  const { t, classes } = props;
+  return (
+    <div className={classes.container}>
+      <AppBar position="static" color="default">
+        <Tabs
+          value={props.tab}
+          onChange={(ev, value) => props.push(`/settings/${value}/`)}
+        >
+          <Tab label={t('tab.paymentRules')} value="payment-rules" />
+          <Tab label={t('tab.company')} value="company" />
+          <Tab label={t('tab.invoice')} value="invoice" />
+        </Tabs>
+      </AppBar>
+      <Switch>
+        <Route exact path="/settings/company" component={CompanyDetailPage} />
+        <Route
+          exact
+          path="/settings/invoice"
+          component={InvoiceConfigurationPage}
+        />
+        <Route
+          exact
+          path="/settings/payment-rules"
+          component={PaymentRuleSetsDashboard}
+        />
+      </Switch>
+    </div>
+  );
 };
-
-export class Settings extends Component<Props, State> {
-  state = {
-    tab: 'payment-rules',
-  };
-
-  handleChange = (event, value) => {
-    this.setState({ tab: value });
-    this.props.push(`/settings/${value}`);
-  };
-
-  render() {
-    const { t, classes } = this.props;
-    return (
-      <div className={classes.container}>
-        <AppBar position="static" color="default">
-          <Tabs value={this.state.tab} onChange={this.handleChange}>
-            <Tab label={t('tab.paymentRules')} value="payment-rules" />
-            <Tab label={t('tab.company')} value="company" />
-          </Tabs>
-        </AppBar>
-        <Switch>
-          <Route exact path="/settings/company" component={CompanyDetailPage} />
-          <Route
-            exact
-            path="/settings/payment-rules"
-            component={PaymentRuleSetsDashboard}
-          />
-        </Switch>
-      </div>
-    );
-  }
-}
 
 const styles = (theme) => ({
   container: {
@@ -72,6 +71,7 @@ const styles = (theme) => ({
 export default compose(
   withNamespaces(['settings']),
   withStyles(styles),
+  routerParamsToProps({ tab: 'tab' }),
   withRouter,
   connect(
     null,

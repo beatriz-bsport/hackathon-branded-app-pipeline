@@ -5,5 +5,6 @@ export default {
   tab: {
     paymentRules: 'Rates',
     company: 'Company',
+    invoice: 'Billing',
   },
 };

@@ -12,6 +12,43 @@ import type { Invoice, Payment } from '../api/types';
 
 import { fetch as fetchAlerting } from '../libs/alerting/actions';
 
+export const invoiceConfigurationPatchActions = {
+  isLoading: createAction('INVOICE-CONFIGURATION/PATCH/IS_LOADING'),
+  error: createAction('INVOICE-CONFIGURATION/PATCH/ERROR'),
+};
+
+export function patchInvoiceConfiguration(data: *) {
+  return async (dispatch: Dispatch) => {
+    dispatch(invoiceConfigurationPatchActions.isLoading(true));
+    try {
+      const response = await api.invoice.patchConfiguration(data);
+      dispatch(invoiceConfigurationDetailActions.success(response.data));
+    } catch (err) {
+      dispatch(invoiceConfigurationPatchActions.error(err));
+    }
+    dispatch(invoiceConfigurationPatchActions.isLoading(false));
+  };
+}
+
+export const invoiceConfigurationDetailActions = {
+  isLoading: createAction('INVOICE-CONFIGURATION/DETAIL/IS_LOADING'),
+  error: createAction('INVOICE-CONFIGURATION/DETAIL/ERROR'),
+  success: createAction('INVOICE-CONFIGURATION/DETAIL/SUCCESS'),
+};
+
+export function fetchInvoiceConfiguration() {
+  return async (dispatch: Dispatch) => {
+    dispatch(invoiceConfigurationDetailActions.isLoading(true));
+    try {
+      const response = await api.invoice.fetchConfiguration();
+      dispatch(invoiceConfigurationDetailActions.success(response.data));
+    } catch (err) {
+      dispatch(invoiceConfigurationDetailActions.error(err));
+    }
+    dispatch(invoiceConfigurationDetailActions.isLoading(false));
+  };
+}
+
 export const finalizeInvoiceActions = {
   isLoading: createAction('INVOICE/FINALIZE/IS_LOADING'),
   error: createAction('INVOICE/FINALIZE/ERROR'),

@@ -11,12 +11,32 @@ const initialState = Immutable({
   error: null,
   createOrUpdatePending: false,
 
+  configuration: {
+    result: null,
+    loading: false,
+    error: null,
+    updating: false,
+  },
+
   quickInvoices: [],
   quickInvoiceLoading: false,
 });
 
 export default function invoiceReducers(state = initialState, action = {}) {
   switch (action.type) {
+    case 'INVOICE-CONFIGURATION/DETAIL/IS_LOADING': {
+      return state.setIn(['configuration', 'loading'], action.payload);
+    }
+    case 'INVOICE-CONFIGURATION/DETAIL/ERROR': {
+      return state.setIn(['configuration', 'error'], action.payload);
+    }
+    case 'INVOICE-CONFIGURATION/DETAIL/SUCCESS': {
+      return state.setIn(['configuration', 'result'], action.payload);
+    }
+    case 'INVOICE-CONFIGURATION/PATCH/IS_LOADING': {
+      return state.setIn(['configuration', 'updating'], action.payload);
+    }
+
     case 'INVOICE/FINALIZE/IS_LOADING': {
       const index = state.all.findIndex(
         (inv) => inv.uuid === action.payload.uuid,

@@ -5,5 +5,6 @@ export default {
   tab: {
     paymentRules: 'Règles de rémunération',
     company: 'Entreprise',
+    invoice: 'Facturation',
   },
 };

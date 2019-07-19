@@ -113,7 +113,7 @@ export class Backoffice extends Component<Props> {
             <Route path="/order" component={Order} />
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/search/results" component={SearchResults} />
-            <Route path="/settings/" component={Settings} />
+            <Route path="/settings/:tab/" component={Settings} />
             <Route path="/" component={PlanningRouter} />
           </Switch>
         </main>

@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withStyles, CircularProgress } from '@material-ui/core';
+import { compose } from 'recompose';
 
 import { companies as companiesActions } from '../../actions';
 import CompanyDetail from '../../components/companies/CompanyDetail.component';
@@ -31,27 +32,19 @@ export class CompanyDetailPage extends Component<Props, State> {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    company: state.companies.company,
-  };
-}
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchCompany() {
-      dispatch(companiesActions.fetchCompanies());
-    },
-  };
-}
-
 const styles = (theme) => ({
   container: {
     margin: theme.spacing.unit * 3,
   },
 });
-export default withStyles(styles)(
+export default compose(
+  withStyles(styles),
   connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  )(CompanyDetailPage),
-);
+    (state) => ({
+      company: state.companies.company,
+    }),
+    {
+      fetchCompany: companiesActions.fetchCompanies,
+    },
+  ),
+)(CompanyDetailPage);

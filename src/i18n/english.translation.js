@@ -20,6 +20,7 @@ import order from './en/order.translations';
 import marketplace from './en/marketplace.translations';
 import metaActivity from './en/meta-activity.translations';
 import login from './en/login.translations';
+import invoice from './en/invoice.translations';
 
 export default {
   dashboard,
@@ -29,6 +30,7 @@ export default {
   shop,
   paymentRules,
   order,
+  invoice,
   reporting,
   subscription,
   metaActivity,

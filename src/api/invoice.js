@@ -1,4 +1,11 @@
-import { API_URI, getAuth, postAuth, patchAuth, buildUrlParams } from '../http';
+import {
+  API_URI,
+  API_V1_URI,
+  getAuth,
+  postAuth,
+  patchAuth,
+  buildUrlParams,
+} from '../http';
 
 export async function fetchAll({ page, pageSize, queryParams }) {
   return getAuth(
@@ -33,6 +40,10 @@ export async function finalize(uuid) {
   });
 }
 
+export async function fetchConfiguration() {
+  return getAuth(`${API_V1_URI}/payment/configuration/me/`);
+}
+
 export async function revert(uuid) {
   return postAuth(`${API_URI}/payment/invoices/${uuid}/revert/`, {});
 }
@@ -48,6 +59,10 @@ export async function createQuick(invoiceData) {
   return postAuth(`${API_URI}/payment/invoices/quick_create/`, invoiceData);
 }
 
+export async function patchConfiguration(data: *) {
+  return patchAuth(`${API_V1_URI}/payment/configuration/me/`, data);
+}
+
 export default {
   fetchAll,
   fetchSpecific,
@@ -58,4 +73,6 @@ export default {
   finalize,
   revert,
   fetchByQuery,
+  fetchConfiguration,
+  patchConfiguration,
 };

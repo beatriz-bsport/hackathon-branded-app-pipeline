@@ -129,6 +129,7 @@ export default {
     },
     common: {
       items: 'éléments',
+      skip: 'Passer',
       level: 'Niveau',
       activePass: 'pass actif',
       invoices: 'Factures',
@@ -140,7 +141,6 @@ export default {
       export: 'Exporter',
       generate: 'Générer',
       tax: 'TVA',
-      skip: 'Passer',
       uploadOneImage: {
         new: 'Glisser et déposer ou cliquer ici pour ajouter une image',
         edit: "Glisser et déposer ou cliquer ici pour changer l'image",

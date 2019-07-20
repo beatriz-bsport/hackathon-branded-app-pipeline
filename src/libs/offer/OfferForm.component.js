@@ -47,6 +47,7 @@ type Props = {
   metaActivity: MetaActivity,
   classes: Object,
   t: (x: string) => string,
+  discardButtonText: ?string,
   processing: boolean,
   onCancel: () => void,
   onSubmit: ({
@@ -372,44 +373,33 @@ export class OfferForm extends Component<Props, State> {
     );
   };
 
-  renderBilling = () => {
-    return null;
-    /*
-    const { t } = this.props;
-    return (
-      <Grid container direction="column" spacing={8}>
-        <Grid item>
-          <Typography variant="h6">{t('form.priceCategory')}</Typography>
-        </Grid>
-        <Grid item>
-          <FormField
-            id="credits"
-            required
-            value={this.state.credits}
-            onChange={this.onFormFieldChange}
-          />
-        </Grid>
-      </Grid>
-    );
-    */
-  };
-
   renderFooter = () => {
     const { t, processing, onCancel, classes } = this.props;
     return (
       <Grid
         container
         direction="row"
-        spacing={16}
+        spacing={8}
         justify="flex-end"
         alignItems="center"
       >
         <Grid item>
-          <Button onClick={onCancel}>{t('form.discard')}</Button>
+          <Button
+            disabled={processing}
+            variant="contained"
+            color="secondary"
+            onClick={onCancel}
+          >
+            {this.props.discardButtonText || t('form.discard')}
+          </Button>
         </Grid>
         <Grid item>
           {processing ? (
-            <CircularProgress size={24} className={classes.leftIcon} />
+            <CircularProgress
+              size={24}
+              color="secondary"
+              className={classes.leftIcon}
+            />
           ) : (
             <Button variant="contained" color="primary" type="submit">
               <AddIcon className={classes.leftIcon} />

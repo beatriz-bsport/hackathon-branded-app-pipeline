@@ -2,10 +2,12 @@
 
 import { withNamespaces } from 'react-i18next';
 
-import { goBack } from 'connected-react-router';
+import { goBack, push } from 'connected-react-router';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withProps, compose } from 'recompose';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 
 import type { TFunction } from 'react-i18next';
 import { mapFormData, unmap } from '../form.utils';
@@ -86,18 +88,22 @@ export class MetaActivityFormPage extends Component<Props> {
       onRemoveImage: (imageId: number) => removeImage(id, imageId),
     };
     return (
-      <div>
-        <MetaActivityForm
-          coaches={associatedCoaches}
-          establishments={establishments}
-          SCTs={SCTs}
-          onSubmit={this.props.onSubmit}
-          onCancel={this.props.goToPreviousPage}
-          metaActivityNames={[]}
-          initial={{ ...initialData, images: (initial || {}).images || [] }}
-          imageUploader={id ? imageUploader : null}
-        />
-      </div>
+      <Grid container justify="center" alignItems="center">
+        <Grid item xs={12} lg={9}>
+          <Paper>
+            <MetaActivityForm
+              coaches={associatedCoaches}
+              establishments={establishments}
+              SCTs={SCTs}
+              onSubmit={this.props.onSubmit}
+              onCancel={this.props.goToPreviousPage}
+              metaActivityNames={[]}
+              initial={{ ...initialData, images: (initial || {}).images || [] }}
+              imageUploader={id ? imageUploader : null}
+            />
+          </Paper>
+        </Grid>
+      </Grid>
     );
   }
 }
@@ -120,16 +126,23 @@ export default compose(
       goToPreviousPage: goBack,
       addImage: addImageToMetaActivity,
       removeImage: removeImageFromMetaActivity,
+      goToMetaActivity: (id: number) => push(`/activity/${id}`),
     },
   ),
-  withProps(({ upsertMetaActivity, initial }) => ({
+  withProps(({ upsertMetaActivity, goToMetaActivity, id, initial }) => ({
     onSubmit: (values, options) => {
       const formData = mapFormData(values, MetaActivityMap);
       if (initial) {
         formData.append('id', initial.id);
       }
       formData.append('is_workshop', false);
-      upsertMetaActivity(formData, options);
+      upsertMetaActivity(formData, {
+        ...options,
+        onSuccess: () => {
+          if (options.onSuccess) options.onSuccess();
+          goToMetaActivity(id);
+        },
+      });
     },
   })),
   withDrawer(({ t }: { t: TFunction }) =>

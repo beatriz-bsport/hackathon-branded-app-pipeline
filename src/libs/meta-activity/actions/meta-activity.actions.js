@@ -2,7 +2,6 @@
 
 import * as Sentry from '@sentry/browser';
 import { createAction } from 'redux-actions';
-import { push } from 'react-router-redux';
 import type { Dispatch, ThunkAction } from '../../../state/types';
 import {
   snackbarSuccess,
@@ -135,7 +134,6 @@ export function upsert(metaActivityData: *, options: *): ThunkAction {
 
       dispatch(upsertActions.success(response.data));
       dispatch(snackbarSuccess(`activity.forms.${key}.success`));
-      dispatch(push('/activity'));
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
       console.error(error);

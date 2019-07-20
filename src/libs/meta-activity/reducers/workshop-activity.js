@@ -38,10 +38,12 @@ export default handleActions(
       return state.setIn(['upsert', 'error'], payload);
     },
     [upsertActions.success]: (state, { payload }) => {
-      return state.set('all', [
-        payload,
-        ...state.all.filter((oa) => oa.id !== payload.id),
-      ]);
+      return state
+        .set('all', [
+          payload,
+          ...state.all.filter((oa) => oa.id !== payload.id),
+        ])
+        .setIn(['upsert', 'data'], payload);
     },
     [addImage.success]: (state, { payload }) => {
       const { image, id } = payload;

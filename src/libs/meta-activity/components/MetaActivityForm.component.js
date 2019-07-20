@@ -2,7 +2,6 @@
 import React from 'react';
 
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core';
 import { withNamespaces } from 'react-i18next';
@@ -21,7 +20,6 @@ import {
   TextField,
   DurationMinuteSelectField,
 } from '../../../components/forms';
-
 
 type Props = {
   SCTs: *[],
@@ -42,109 +40,111 @@ export function MetaActivityForm(props: Props) {
   const images = (props.initial || {}).images || [];
   return (
     <Form>
-      <Paper className={classes.paperContainer}>
-        <ImageField name="cover_main" />
-        <div className={classes.container}>
-          <Grid container direction="column" spacing={16}>
-            <Grid item>
-              <TextField
-                label={t('activity.name')}
-                name="name"
-                required
-                fullWidth
+      <ImageField name="cover_main" />
+      <div className={classes.container}>
+        <Grid container direction="column" spacing={16}>
+          <Grid item>
+            <TextField
+              label={t('activity.name')}
+              name="name"
+              required
+              fullWidth
+            />
+          </Grid>
+          {imageUploader ? (
+            <Grid item xs={12} style={{ marginTop: 20 }}>
+              <label>Carousel</label>
+              <MultipleImageUploader
+                initial={images}
+                onAddImage={imageUploader.onAddImage}
+                onRemoveImage={imageUploader.onRemoveImage}
               />
-            </Grid>
-            {imageUploader ? (
-              <Grid item xs={12} style={{ marginTop: 20 }}>
-                <label>Carousel</label>
-                <MultipleImageUploader
-                  initial={images}
-                  onAddImage={imageUploader.onAddImage}
+              {images.length ? (
+                <ImageList
+                  images={images}
                   onRemoveImage={imageUploader.onRemoveImage}
                 />
-                {images.length ? (
-                  <ImageList
-                    images={images}
-                    onRemoveImage={imageUploader.onRemoveImage}
-                  />
-                ) : null}
-              </Grid>
-            ) : (
-              <p>
-                {variant === 'workshop'
-                  ? t('workshopActivity.imageUploaderRequireEditMessage')
-                  : t('metaActivity.update.imageUploaderRequireEditMessage')}
-              </p>
-            )}
-            <Grid item>
-              <SCTSelectField
-                choices={SCTs}
-                label={t('activity.category')}
-                fullWidth
-                name="category"
-                required
-              />
+              ) : null}
             </Grid>
-            <Grid item>
-              <TextField
-                name="description"
-                label={t('activity.description')}
-                required
-                multiline
-                fullWidth
-              />
-            </Grid>
-            <Grid item>
-              <DurationMinuteSelectField
-                label={
-                  variant === 'workshop'
-                    ? t('workshopActivity.lastBookingBeforeMinutes')
-                    : t('activity.lastBookingBeforeMinutes')
-                }
-                name="last_booking_minutes"
-                variant={variant === 'workshop' ? 'long' : null}
-                fullWidth
-                required
-              />
-            </Grid>
-            <Grid item>
-              <DurationMinuteSelectField
-                name="last_discard_minutes"
-                label={
-                  variant === 'workshop'
-                    ? t('workshopActivity.lastDiscardBeforeMinutes')
-                    : t('activity.lastDiscardBeforeMinutes')
-                }
-                variant={variant === 'workshop' ? 'long' : null}
-                fullWidth
-                required
-              />
-            </Grid>
+          ) : (
+            <p>
+              {variant === 'workshop'
+                ? t('workshopActivity.imageUploaderRequireEditMessage')
+                : t('metaActivity.update.imageUploaderRequireEditMessage')}
+            </p>
+          )}
+          <Grid item>
+            <SCTSelectField
+              choices={SCTs}
+              label={t('activity.category')}
+              fullWidth
+              name="category"
+              required
+            />
           </Grid>
-          <Grid
-            container
-            direction="row"
-            justify="flex-end"
-            className={classes.topSpacing}
-          >
-            <Grid item>
-              <Button onClick={props.onCancel}>{t('form.discard')}</Button>
-            </Grid>
-            <Grid item>
-              <Submit disabled={isSubmitting}>{t('form.send')}</Submit>
-            </Grid>
+          <Grid item>
+            <TextField
+              name="description"
+              label={t('activity.description')}
+              required
+              multiline
+              fullWidth
+            />
           </Grid>
-        </div>
-      </Paper>
+          <Grid item>
+            <DurationMinuteSelectField
+              label={
+                variant === 'workshop'
+                  ? t('workshopActivity.lastBookingBeforeMinutes')
+                  : t('activity.lastBookingBeforeMinutes')
+              }
+              name="last_booking_minutes"
+              variant={variant === 'workshop' ? 'long' : null}
+              fullWidth
+              required
+            />
+          </Grid>
+          <Grid item>
+            <DurationMinuteSelectField
+              name="last_discard_minutes"
+              label={
+                variant === 'workshop'
+                  ? t('workshopActivity.lastDiscardBeforeMinutes')
+                  : t('activity.lastDiscardBeforeMinutes')
+              }
+              variant={variant === 'workshop' ? 'long' : null}
+              fullWidth
+              required
+            />
+          </Grid>
+        </Grid>
+        <Grid
+          container
+          direction="row"
+          justify="flex-end"
+          className={classes.topSpacing}
+          spacing={8}
+        >
+          <Grid item>
+            <Button
+              variant="contained"
+              color="secondary"
+	      onClick={props.onCancel}
+	      disabled={isSubmitting}
+            >
+              {t('form.discard')}
+            </Button>
+          </Grid>
+          <Grid item>
+            <Submit disabled={isSubmitting}>{t('form.send')}</Submit>
+          </Grid>
+        </Grid>
+      </div>
     </Form>
   );
 }
 
 const styles = (theme) => ({
-  paperContainer: {
-    maxWidth: 800,
-    margin: '0 auto',
-  },
   container: {
     padding: theme.spacing.unit * 3,
   },
@@ -179,7 +179,10 @@ export default compose(
         { ...initial } || {},
       ),
     validationSchema: MetaActivitySchema,
-    handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
+    handleSubmit: (
+      values,
+      { props: { onSubmit, onSuccess, onError }, setSubmitting },
+    ) => {
       const keys = [
         'name',
         'description',
@@ -196,7 +199,9 @@ export default compose(
         onSuccess: () => {
           setSubmitting(false);
         },
-        onError: () => setSubmitting(false),
+        onError: () => {
+          setSubmitting(false);
+        },
       });
     },
   }),

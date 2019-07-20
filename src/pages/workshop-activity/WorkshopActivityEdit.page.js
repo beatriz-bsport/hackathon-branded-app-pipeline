@@ -7,6 +7,8 @@ import { withNamespaces } from 'react-i18next';
 import { withProps, compose } from 'recompose';
 
 import { goBack, push as routerPush } from 'react-router-redux';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 import { mapFormData, unmap } from '../form.utils';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import {
@@ -34,7 +36,6 @@ type Props = {
   onSubmit: (*) => void,
 
   goToPreviousPage: () => void,
-  goToPaymentPackForm: () => void,
 };
 const WorkshopActivityMap = {
   cover_main: 'cover_main',
@@ -46,7 +47,7 @@ const WorkshopActivityMap = {
   category: 'category',
 };
 
-export function WorkshopActivityFormPage(props: Props) {
+export function WorkshopActivityEditPage(props: Props) {
   const {
     SCTs,
     associatedCoaches,
@@ -71,57 +72,60 @@ export function WorkshopActivityFormPage(props: Props) {
     onRemoveImage: (imageId: number) => removeImage(id, imageId),
   };
   return (
-    <MetaActivityForm
-      coaches={associatedCoaches}
-      variant="workshop"
-      establishments={establishments}
-      SCTs={SCTs}
-      onSubmit={props.onSubmit}
-      onCancel={props.goToPreviousPage}
-      redirectOnSuccess={props.goToPaymentPackForm}
-      metaActivityNames={[]}
-      initial={{ ...initialData, images: (initial || {}).images || [] }}
-      imageUploader={id ? imageUploader : null}
-    />
+    <Grid container justify="center" alignItems="center">
+      <Grid item xs={12} lg={9}>
+        <Paper>
+          <MetaActivityForm
+            coaches={associatedCoaches}
+            variant="workshop"
+            establishments={establishments}
+            SCTs={SCTs}
+            onSubmit={props.onSubmit}
+            onCancel={props.goToPreviousPage}
+            metaActivityNames={[]}
+            initial={{ ...initialData, images: (initial || {}).images || [] }}
+            imageUploader={id ? imageUploader : null}
+          />
+        </Paper>
+      </Grid>
+    </Grid>
   );
-}
-
-function mapStateToProps(state, { id }) {
-  const id_ = id || null;
-  return {
-    id: id_,
-    initial: id_
-      ? state.workshopActivity.all.find((oa) => oa.id === id_)
-      : null,
-    associatedCoaches: state.coach.companyAssociated,
-    establishments: state.establishment.all,
-    SCTs: state.category.SCTs,
-    loading: state.workshopActivity.loading,
-  };
 }
 
 export default compose(
   withNamespaces([]),
   routerParamsToProps({ id: 'id:number' }),
   connect(
-    mapStateToProps,
+    (state, { id }) => ({
+      initial: state.workshopActivity.all.find((oa) => oa.id === id),
+      associatedCoaches: state.coach.companyAssociated,
+      establishments: state.establishment.all,
+      SCTs: state.category.SCTs,
+      loading: state.workshopActivity.loading,
+    }),
     {
       upsertWorkshopActivity: upsert,
       goToPreviousPage: goBack,
-      goToPaymentPackForm: () => routerPush('/payment-pack/add'),
       addImage: addImageToWorkshop,
       removeImage: removeImageFromWorkshop,
+      goToWorkshop: (id: number) => routerPush(`/workshop-activity/${id}`),
     },
   ),
-  withProps(({ upsertWorkshopActivity, initial }) => ({
+  withProps(({ upsertWorkshopActivity, initial, id, goToWorkshop }) => ({
     onSubmit: (values, options) => {
       const formData = mapFormData(values, WorkshopActivityMap);
       if (initial) {
         formData.append('id', initial.id);
       }
       formData.append('is_workshop', true);
-      upsertWorkshopActivity(formData, options);
+      upsertWorkshopActivity(formData, {
+        ...options,
+        onSuccess: () => {
+          if (options.onSuccess) options.onSuccess();
+          goToWorkshop(id);
+        },
+      });
     },
   })),
   withDrawer(({ t }) => t('appbar.title.WorkshopActivityFormPage')),
-)(WorkshopActivityFormPage);
+)(WorkshopActivityEditPage);

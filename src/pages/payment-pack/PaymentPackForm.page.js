@@ -9,6 +9,7 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 
 import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';
 
@@ -44,14 +45,16 @@ export function PaymentPackFormPage(props: Props) {
   return (
     <Grid container>
       <Grid item xs={12} md={8}>
-        <PaymentPackForm
-          onSubmit={onSubmit}
-          categories={filterableCategories || []}
-          metaActivities={metaActivities}
-          establishments={establishments}
-          loading={loading}
-          initial={initial}
-        />
+        <Paper>
+          <PaymentPackForm
+            onSubmit={onSubmit}
+            categories={filterableCategories || []}
+            metaActivities={metaActivities}
+            establishments={establishments}
+            loading={loading}
+            initial={initial}
+          />
+        </Paper>
       </Grid>
     </Grid>
   );

@@ -101,33 +101,22 @@ export class OfferFormPage extends Component<Props, State> {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    metaActivities: [...state.metaActivity.all, ...state.workshopActivity.all],
-    coaches: getAllAssociatedCoach(state),
-    establishments: state.establishment.all,
-    loading: state.metaActivity.loading,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchAllOffers() {
-      dispatch(offerActions.fetchAllOffers());
-    },
-    fetchAllActivities() {
-      dispatch(activityActions.fetchActivities());
-    },
-    goBack() {
-      dispatch(goBackAction());
-    },
-  };
-}
-
 export default withNamespaces()(
   connect(
-    mapStateToProps,
-    mapDispatchToProps,
+    (state) => ({
+      metaActivities: [
+        ...state.metaActivity.all,
+        ...state.workshopActivity.all,
+      ],
+      coaches: getAllAssociatedCoach(state),
+      establishments: state.establishment.all,
+      loading: state.metaActivity.loading,
+    }),
+    {
+      fetchAllOffers: offerActions.fetchAllOffers,
+      fetchAllActivities: activityActions.fetchActivities,
+      goBack: goBackAction,
+    },
   )(
     withDrawer(({ t }: { t: TFunction }) => t('appbar.title.offerFormPage'))(
       OfferFormPage,

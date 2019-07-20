@@ -2,7 +2,6 @@
 
 import { createAction } from 'redux-actions';
 
-import { push } from 'react-router-redux';
 import * as Sentry from '@sentry/browser';
 import {
   snackbarSuccess,
@@ -56,7 +55,6 @@ export function upsert(workshopActivityData: *, options: *) {
       const key = workshopActivityData.has('id') ? 'update' : 'create';
       dispatch(snackbarSuccess(`workshopActivity.forms.${key}.success`));
       dispatch(fetchAll());
-      dispatch(push('/workshop-activity'));
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
       console.error(error);

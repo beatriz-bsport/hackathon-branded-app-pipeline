@@ -12,6 +12,7 @@ import ResponsiveDrawer from '../components/navigation/ResponsiveDrawer.componen
 import { refresh as refreshActions } from '../actions';
 import { delete_ as deleteAlert } from '../libs/alerting/actions';
 import asyncComponent from '../AsyncComponent';
+import Config from '../config';
 
 import { MarketingDashboard, MarketingRule } from './marketing';
 
@@ -91,7 +92,10 @@ export class Backoffice extends Component<Props> {
         nbAlerting={this.props.nbAlerting}
         deleteAlert={this.props.deleteAlert}
       >
-        <Intercom appID="q6foivp2" {...intercom_user} />
+        {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
+        Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ? (
+          <Intercom appID="q6foivp2" {...intercom_user} />
+        ) : null}
 
         <main className={classes.content}>
           <Switch>

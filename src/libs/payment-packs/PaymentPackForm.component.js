@@ -10,14 +10,12 @@ import type { TFunction } from 'react-i18next';
 import * as Yup from 'yup';
 import { withFormik, Form } from 'formik';
 
-import { withStyles } from '@material-ui/core/styles';
-import {
-  InputAdornment,
-  Collapse,
-  Grid,
-  LinearProgress,
-  Paper,
-} from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import Collapse from '@material-ui/core/Collapse';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import { Moment } from '../../i18n';
 
@@ -41,6 +39,8 @@ type Props = {
   values: *,
   initial: *,
   classes: { [string]: string },
+  onCancel: ?() => void,
+  onCancelText: ?string,
 };
 
 /*
@@ -67,7 +67,7 @@ export function PaymentPackForm(props: Props) {
   } = props;
   const { manager_only, timeType } = values;
   return (
-    <Paper>
+    <div>
       <Form className={classes.content}>
         <Grid container spacing={8}>
           <Grid item xs={12}>
@@ -234,15 +234,20 @@ export function PaymentPackForm(props: Props) {
           </Grid>
         </fieldset>
         <Actions>
+          {props.onCancel ? (
+            <Button onClick={props.onCancel}>
+              {props.onCancelText || t('common.skip')}
+            </Button>
+          ) : null}
           <Submit disabled={isSubmitting}>
-            {initial ? t('common.edit') : t('common.create')}
+            {initial && initial.id ? t('common.edit') : t('common.create')}
           </Submit>
         </Actions>
       </Form>
       <LinearProgress
         style={{ visibility: isSubmitting ? 'visible' : 'hidden' }}
       />
-    </Paper>
+    </div>
   );
 }
 
@@ -333,7 +338,7 @@ export default compose(
         },
         (initial && {
           ...initial,
-          categories: initial.categories.map((c) => c.id),
+          categories: (initial.categories || []).map((c) => c.id),
           establishments: initial.establishments || [],
           timeType: initial.validity_daterange
             ? VALID_BY_DATERANGE

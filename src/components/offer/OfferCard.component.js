@@ -27,7 +27,7 @@ import { formatAsTime, formatMinutes } from '../../datetime';
 import type { Offer } from '../../api/types';
 
 type Props = {
-  t: (x: string) => string,
+  t: TFunction,
   classes: Object,
   offer: Offer,
   noHeader: ?boolean,
@@ -56,7 +56,7 @@ export class OfferCard extends Component<Props> {
           <ListItemText primary={name} />
           {available ? null : (
             <Typography variant="h2" color="error">
-              {t('offer.disabled')}
+              {t('offer:disabled')}
             </Typography>
           )}
         </ListItem>
@@ -112,7 +112,7 @@ export class OfferCard extends Component<Props> {
               </Typography>
             </Grid>
             <Grid item>
-              <Typography> {t('booking.confirmed')}</Typography>
+              <Typography> {t('offer:booking.confirmed')}</Typography>
             </Grid>
           </Grid>
         </Grid>
@@ -130,7 +130,7 @@ export class OfferCard extends Component<Props> {
               </Typography>
             </Grid>
             <Grid item>
-              <Typography>{t('booking.fillRate')}</Typography>
+              <Typography>{t('offer:booking.fillRate')}</Typography>
             </Grid>
           </Grid>
         </Grid>
@@ -160,7 +160,7 @@ export class OfferCard extends Component<Props> {
               </Typography>
             </Grid>
             <Grid item>
-              <Typography> {t('booking.waiting')}</Typography>
+              <Typography> {t('offer:booking.waiting')}</Typography>
             </Grid>
           </Grid>
         </Grid>
@@ -181,7 +181,7 @@ export class OfferCard extends Component<Props> {
               </Grid>
               <Grid item>
                 <Typography variant="caption">
-                  {t('offer.extraordinaryEstablishment')}
+                  {t('offer:extraordinaryEstablishment')}
                 </Typography>
               </Grid>
             </Grid>
@@ -238,7 +238,7 @@ export class OfferCard extends Component<Props> {
             <Grid item>
               {coach_override ? (
                 <Typography variant="caption">
-                  {t('offer.substitute')}
+                  {t('offer:substitute')}
                 </Typography>
               ) : null}
             </Grid>
@@ -294,13 +294,13 @@ export class OfferCard extends Component<Props> {
                   <Grid item>
                     <Button color="primary" onClick={onEditButtonClick}>
                       <EditIcon className={classes.iconLeft} />
-                      <Hidden xsDown>{t('calendar.modifyOffer')}</Hidden>
+                      <Hidden xsDown>{t('offer:calendar.modifyOffer')}</Hidden>
                     </Button>
                   </Grid>
                   <Grid item>
                     <RedButton onClick={onDeleteButtonClick}>
                       <DeleteIcon className={classes.iconLeft} />
-                      <Hidden xsDown>{t('calendar.deleteOffer')}</Hidden>
+                      <Hidden xsDown>{t('offer:calendar.deleteOffer')}</Hidden>
                     </RedButton>
                   </Grid>
                 </Grid>
@@ -331,7 +331,7 @@ export class OfferCard extends Component<Props> {
             variant="contained"
             className={classes.manageButton}
           >
-            {t('offer.manageOffer')}
+            {t('offer:manageOffer')}
           </Button>
           {available ? null : (
             <RedButton
@@ -339,7 +339,7 @@ export class OfferCard extends Component<Props> {
               variant="contained"
               className={classes.manageButton}
             >
-              {t('form.offer.delete.buttonHardDelete')}
+              {t('offer:forms.delete.buttonHardDelete')}
             </RedButton>
           )}
         </div>
@@ -385,4 +385,6 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(withNamespaces()(OfferCard));
+export default withStyles(styles)(
+  withNamespaces(['offer', 'datetime'])(OfferCard),
+);

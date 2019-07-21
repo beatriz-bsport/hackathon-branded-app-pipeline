@@ -11,6 +11,7 @@ import type { BookingsState } from '../libs/booking/types';
 import type { TagState } from '../libs/tag/types';
 import type { OrderState } from '../libs/order/types';
 import type { ShopState } from '../libs/shop/types';
+import type { MarketPlaceState } from '../libs/marketplace/types';
 import type { SearchState, SearchAction } from './search/types';
 
 export type State = {
@@ -26,6 +27,7 @@ export type State = {
   order: OrderState,
   tag: TagState,
   shop: ShopState,
+  marketplacev2: MarketPlaceState,
 };
 export type Action = SearchAction | AuthAction;
 

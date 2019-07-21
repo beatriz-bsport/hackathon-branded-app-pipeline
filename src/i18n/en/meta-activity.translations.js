@@ -10,4 +10,16 @@ export default {
       },
     },
   },
+  name: 'Name',
+  category: 'Sport',
+  addOffers: 'Add sessions',
+  offersThisDay: 'Sessions this day:',
+  description: 'Description',
+  settings: {
+    title: 'Settings',
+    lastBookingBeforeMinutes: 'Last booking is possible until',
+    lastDiscardBeforeMinutes: 'Last discard booking is possible until',
+  },
+  packsAvailable: 'Pass available for this activity :',
+  reviews: 'Customer reviews: ',
 };

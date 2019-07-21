@@ -2,6 +2,7 @@
 
 import { createAction } from 'redux-actions';
 import api from './api';
+import type { Dispatch } from '../../state/types';
 
 type ResponsePaginated = {
   data: {
@@ -11,34 +12,71 @@ type ResponsePaginated = {
 };
 
 export const companyOffersActions = {
-  error: createAction('COMPANY/OFFERS/ERROR'),
-  isLoading: createAction('COMPANY/OFFERS/IS_LOADING'),
-  success: createAction('COMPANY/OFFERS/SUCCESS'),
+  error: createAction('MARKETPLACE/OFFERS/ERROR'),
+  isLoading: createAction('MARKETPLACE/OFFERS/IS_LOADING'),
+  success: createAction('MARKETPLACE/OFFERS/SUCCESS'),
 };
 
 export const companyEstablishmentsActions = {
-  error: createAction('COMPANY/ESTABLISHMENTS/ERROR'),
-  isLoading: createAction('COMPANY/ESTABLISHMENTS/IS_LOADING'),
-  success: createAction('COMPANY/ESTABLISHMENTS/SUCCESS'),
+  error: createAction('MARKETPLACE/ESTABLISHMENTS/ERROR'),
+  isLoading: createAction('MARKETPLACE/ESTABLISHMENTS/IS_LOADING'),
+  success: createAction('MARKETPLACE/ESTABLISHMENTS/SUCCESS'),
 };
 
 export const companyMetaActivitiesActions = {
-  error: createAction('COMPANY/META_ACTIVITIES/ERROR'),
-  isLoading: createAction('COMPANY/META_ACTIVITIES/IS_LOADING'),
-  success: createAction('COMPANY/META_ACTIVITIES/SUCCESS'),
+  error: createAction('MARKETPLACE/META_ACTIVITIES/ERROR'),
+  isLoading: createAction('MARKETPLACE/META_ACTIVITIES/IS_LOADING'),
+  success: createAction('MARKETPLACE/META_ACTIVITIES/SUCCESS'),
 };
 
 export const companyActivitiesActions = {
-  error: createAction('COMPANY/ACTIVITIES/ERROR'),
-  isLoading: createAction('COMPANY/ACTIVITIES/IS_LOADING'),
-  success: createAction('COMPANY/ACTIVITIES/SUCCESS'),
+  error: createAction('MARKETPLACE/ACTIVITIES/ERROR'),
+  isLoading: createAction('MARKETPLACE/ACTIVITIES/IS_LOADING'),
+  success: createAction('MARKETPLACE/ACTIVITIES/SUCCESS'),
 };
 
 export const companyCoachesActions = {
-  error: createAction('COMPANY/COACHES/ERROR'),
-  isLoading: createAction('COMPANY/COACHES/IS_LOADING'),
-  success: createAction('COMPANY/COACHES/SUCCESS'),
+  error: createAction('MARKETPLACE/COACHES/ERROR'),
+  isLoading: createAction('MARKETPLACE/COACHES/IS_LOADING'),
+  success: createAction('MARKETPLACE/COACHES/SUCCESS'),
 };
+
+export const paymentPackList = {
+  error: createAction('MARKETPLACE/PAYMENT_PACKS/ERROR'),
+  isLoading: createAction('MARKETPLACE/PAYMENT_PACKS/IS_LOADING'),
+  success: createAction('MARKETPLACE/PAYMENT_PACKS/SUCCESS'),
+};
+
+export const companyDetail = {
+  error: createAction('MARKETPLACE/DETAIL/ERROR'),
+  isLoading: createAction('MARKETPLACE/DETAIL/IS_LOADING'),
+  success: createAction('MARKETPLACE/DETAIL/SUCCESS'),
+};
+
+export function resetOffersAction() {
+  return async (dispatch: Dispatch) => {
+    dispatch(companyOffersActions.isLoading(false));
+    dispatch(companyOffersActions.success([]));
+    dispatch(companyOffersActions.error(null));
+  };
+}
+
+export function fetchCompanyAction(companyId: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(companyDetail.isLoading(true));
+    dispatch(companyDetail.error(null));
+
+    try {
+      const response = await api.fetchCompany(companyId);
+      const company = response.data;
+      dispatch(companyDetail.success(company));
+      dispatch(companyDetail.isLoading(false));
+    } catch (err) {
+      dispatch(companyDetail.error(err));
+      dispatch(companyDetail.isLoading(false));
+    }
+  };
+}
 
 export const fetchPaginated = async (
   fetchFunc: (page: number) => Promise<ResponsePaginated>,
@@ -53,17 +91,68 @@ export const fetchPaginated = async (
   return [...results, ...next_results];
 };
 
+export function fetchPaymentPacksAction(companyId: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(paymentPackList.isLoading(true));
+    dispatch(paymentPackList.error(null));
+    try {
+      const paymentPacks = await fetchPaginated((page: number) =>
+        api.fetchPaymentPacks({
+          companyId,
+          page,
+        }),
+      );
+      dispatch(paymentPackList.success(paymentPacks));
+    } catch (error) {
+      dispatch(paymentPackList.error(error));
+    }
+    dispatch(paymentPackList.isLoading(false));
+  };
+}
+
 export function fetchCompanyOffersAction(
   companyId: number,
   min_date: string,
   max_date: string,
 ) {
-  return async (dispatch: Object) => {
+  return async (dispatch: Dispatch) => {
     dispatch(companyOffersActions.isLoading(true));
     dispatch(companyOffersActions.error(null));
     try {
       const offers = await fetchPaginated((page: number) =>
-        api.fetchCompanyOffers({ companyId, min_date, max_date, page }),
+        api.fetchCompanyOffers({
+          companyId,
+          min_date,
+          max_date,
+          page,
+          is_workshop: false,
+        }),
+      );
+      dispatch(companyOffersActions.success(offers));
+    } catch (error) {
+      dispatch(companyOffersActions.error(error));
+    }
+    dispatch(companyOffersActions.isLoading(false));
+  };
+}
+
+export function fetchCompanyOffersWorkshopAction(
+  companyId: number,
+  min_date: string,
+  max_date: string,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(companyOffersActions.isLoading(true));
+    dispatch(companyOffersActions.error(null));
+    try {
+      const offers = await fetchPaginated((page: number) =>
+        api.fetchCompanyOffers({
+          companyId,
+          min_date,
+          max_date,
+          page,
+          is_workshop: true,
+        }),
       );
       dispatch(companyOffersActions.success(offers));
     } catch (error) {
@@ -74,7 +163,7 @@ export function fetchCompanyOffersAction(
 }
 
 export function fetchCompanyCoachesAction(companyId: number) {
-  return async (dispatch: Object) => {
+  return async (dispatch: Dispatch) => {
     dispatch(companyCoachesActions.isLoading(true));
     dispatch(companyCoachesActions.error(null));
     try {
@@ -90,7 +179,7 @@ export function fetchCompanyCoachesAction(companyId: number) {
 }
 
 export function fetchCompanyEstablishmentsAction(companyId: number) {
-  return async (dispatch: Object) => {
+  return async (dispatch: Dispatch) => {
     dispatch(companyEstablishmentsActions.isLoading(true));
     dispatch(companyEstablishmentsActions.error(null));
     try {
@@ -106,7 +195,7 @@ export function fetchCompanyEstablishmentsAction(companyId: number) {
 }
 
 export function fetchCompanyActivitiesAction(companyId: number) {
-  return async (dispatch: Object) => {
+  return async (dispatch: Dispatch) => {
     dispatch(companyActivitiesActions.isLoading(true));
     dispatch(companyActivitiesActions.error(null));
     try {
@@ -122,7 +211,7 @@ export function fetchCompanyActivitiesAction(companyId: number) {
 }
 
 export function fetchCompanyMetaActivitiesAction(companyId: number) {
-  return async (dispatch: Object) => {
+  return async (dispatch: Dispatch) => {
     dispatch(companyMetaActivitiesActions.isLoading(true));
     dispatch(companyMetaActivitiesActions.error(null));
     try {

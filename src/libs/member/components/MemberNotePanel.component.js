@@ -23,6 +23,7 @@ type Props = {
   memberId: number,
   deleteNote: ({ noteId: number, memberId: number }) => void,
   t: TFunction,
+  healthNotes: ?boolean,
   classes: Object,
 };
 
@@ -68,7 +69,9 @@ export class MemberNotePanel extends Component<Props, State> {
     return (
       <div style={{ width: '100%' }}>
         <Typography component="h2" variant="h6" className={classes.title}>
-          {t('member.note.myNotes')}
+          {this.props.healthNotes
+            ? t('member.note.healthNotes')
+            : t('member.note.myNotes')}
         </Typography>
         <Divider />
         {newNote ? (

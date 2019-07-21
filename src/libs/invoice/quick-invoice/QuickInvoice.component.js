@@ -1,15 +1,12 @@
 // @flow
 import React, { Component } from 'react';
 import sum from 'lodash/sum';
-import {
-  Button,
-  Divider,
-  Grid,
-  Badge,
-  Typography,
-  IconButton,
-  withStyles,
-} from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import withStyles from '@material-ui/core/styles/withStyles';
 import CancelIcon from '@material-ui/icons/Cancel';
 import AddIcon from '@material-ui/icons/Add';
 import PAYMENT_METHODS, {
@@ -20,6 +17,8 @@ import PAYMENT_METHODS, {
 
 import { formatAsDate } from '../../../datetime';
 import { Moment } from '../../../i18n';
+
+import CreditMemberBadge from '../../member/components/CreditMemberBadge.component';
 
 import InvoiceItemList from '../invoice-item/InvoiceItemList.component';
 import UnevenInvoiceDialog from '../dialog/UnevenInvoiceDialog.component';
@@ -265,15 +264,11 @@ export class QuickInvoice extends Component<Props, State> {
           className={classes.header}
         >
           <Grid item>
-            <Badge
-              color="secondary"
-              badgeContent={`${memberCreditAccountBalance.toFixed(1)} €`}
-              className={classes.badge}
-            >
+            <CreditMemberBadge credit={memberCreditAccountBalance}>
               <Typography variant="h6" inline>
                 {quickInvoiceTitle}
               </Typography>
-            </Badge>
+            </CreditMemberBadge>
           </Grid>
           {onClose ? (
             <Grid item>

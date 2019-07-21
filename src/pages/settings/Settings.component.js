@@ -5,7 +5,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { withNamespaces } from 'react-i18next';
-import { compose, withState } from 'recompose';
+import { compose } from 'recompose';
 import { withRouter } from 'react-router';
 import { push } from 'connected-react-router';
 import type { TFunction } from 'react-i18next';

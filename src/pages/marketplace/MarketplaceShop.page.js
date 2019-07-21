@@ -5,7 +5,7 @@ import { compose, lifecycle } from 'recompose';
 import { connect } from 'react-redux';
 
 import { SHOP_ITEM } from '@bsport/common/lib/master-data/buyable-models';
-import MarketplaceShopComponent from '../../libs/marketplace/MarketplaceShop.component';
+import MarketplaceShopComponent from '../../libs/marketplace/components/MarketplaceShop.component';
 
 import { fetchAllSubShop } from '../../libs/shop/actions/subshop';
 import { fetchAll as fetchAllShopItem } from '../../libs/shop/actions/shopitem';

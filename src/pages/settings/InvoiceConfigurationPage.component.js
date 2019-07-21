@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { withNamespaces } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
 import InvoiceConfigurationForm from '../../libs/invoice/components/InvoiceConfigurationForm.component';
@@ -16,11 +14,12 @@ import {
 type Props = {
   fetchInvoiceConfiguration: () => void,
   loading: boolean,
+  processing: boolean,
+  patchInvoiceConfiguration: (*) => void,
   configuration: ?{
     stripe_footer: string,
   },
 
-  t: TFunction,
   classes: *,
 };
 
@@ -31,7 +30,7 @@ export class InvoiceConfigurationPage extends Component<Props> {
 
   render() {
     const { configuration, loading, processing, classes } = this.props;
-    if (loading) {
+    if (loading || !configuration) {
       return <LinearProgress />;
     }
     return (
@@ -59,7 +58,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['invoice']),
   withStyles(styles),
   connect(
     (state) => ({

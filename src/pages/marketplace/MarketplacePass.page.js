@@ -7,13 +7,16 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 
-import MarketplacePassList from '../../libs/marketplace/MarketplacePassList.component';
-
-import { marketplace as marketplaceActions } from '../../actions';
+import MarketplacePassList from '../../libs/marketplace/components/MarketplacePassList.component';
+import {
+  getPaymentPacks,
+  isMarketplaceLoading,
+} from '../../libs/marketplace/selectors';
+import { fetchPaymentPacksAction } from '../../libs/marketplace/actions';
 
 type Props = {
   companyId: number,
-  paymentPacksLoading: boolean,
+  loading: boolean,
   paymentPacks: Array<PaymentPack>,
   fetchPaymentPacks: (companyId: number) => void,
   pushPackCheckout: (packId: number, companyId: number) => void,
@@ -25,7 +28,7 @@ export class MarketPlacePassPage extends Component<Props> {
   }
 
   render() {
-    if (this.props.paymentPacksLoading) {
+    if (this.props.loading) {
       return <LinearProgress />;
     }
     return (
@@ -38,19 +41,16 @@ export class MarketPlacePassPage extends Component<Props> {
     );
   }
 }
-function mapStateToProps(state) {
-  return {
-    paymentPacks: state.marketplace.paymentPacks,
-    paymentPacksLoading: state.marketplace.paymentPacksLoading,
-  };
-}
 
 export default compose(
   connect(
-    mapStateToProps,
+    (state) => ({
+      paymentPacks: getPaymentPacks(state),
+      loading:
+        state.marketplacev2.paymentPack.loading || isMarketplaceLoading(state),
+    }),
     {
-      fetchCompany: marketplaceActions.fetchCompany,
-      fetchPaymentPacks: marketplaceActions.fetchPaymentPacks,
+      fetchPaymentPacks: fetchPaymentPacksAction,
       pushPackCheckout: (packId, companyId) =>
         push(`/customer/payment/pass/${packId}?membership=${companyId}`),
     },

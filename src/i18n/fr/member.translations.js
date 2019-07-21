@@ -17,6 +17,8 @@ export default {
     noNoteSaved: 'Aucune note enregistrée',
     addNote: 'Ajouter une note',
     myNotes: 'Mes notes',
+    healthNotes: 'Informations médicales',
+    is_medical: 'Note médicale',
   },
   creditAccountBalance: 'Accompte crédit restant',
   showPaymentPack: 'Voir les abonnements',

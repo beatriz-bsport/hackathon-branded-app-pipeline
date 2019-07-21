@@ -19,8 +19,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 
-// eslint-disable-next-line
-import PaymentPackCard from '../../libs/payment-packs/PaymentPackCard.component';
+import PaymentPackCard from '../../payment-packs/PaymentPackCard.component';
 
 type Props = {
   t: TFunction,

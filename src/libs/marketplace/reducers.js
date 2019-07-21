@@ -9,6 +9,8 @@ import {
   companyEstablishmentsActions,
   companyMetaActivitiesActions,
   companyOffersActions,
+  paymentPackList,
+  companyDetail,
 } from './actions';
 
 import type { MarketPlaceState } from './types';
@@ -39,18 +41,40 @@ const initialState: MarketPlaceState = Immutable({
     loading: false,
     error: null,
   },
+  paymentPack: {
+    items: [],
+    loading: false,
+    error: null,
+  },
+  company: {
+    data: null,
+    loading: false,
+    error: null,
+  },
 });
-
-// const actionsBulk = [
-//   { action: companyActivitiesActions, id: 'activities' },
-//   { action: companyMetaActivitiesActions, id: 'metaActivities' },
-//   { action: companyEstablishmentsActions, id: 'establishments' },
-//   { action: companyCoachesActions, id: 'coaches' },
-//   { action: , id: 'offers' },
-// ];
 
 export default handleActions(
   {
+    // company
+    [companyDetail.isLoading]: (state, { payload }) => {
+      return state.setIn(['company', 'loading'], payload);
+    },
+    [companyDetail.error]: (state, { payload }) => {
+      return state.setIn(['company', 'error'], payload);
+    },
+    [companyDetail.success]: (state, { payload }) => {
+      return state.setIn(['company', 'data'], payload);
+    },
+    // payment pack
+    [paymentPackList.isLoading]: (state, { payload }) => {
+      return state.setIn(['paymentPack', 'loading'], payload);
+    },
+    [paymentPackList.error]: (state, { payload }) => {
+      return state.setIn(['paymentPack', 'error'], payload);
+    },
+    [paymentPackList.success]: (state, { payload }) => {
+      return state.setIn(['paymentPack', 'items'], payload);
+    },
     // offers
     [companyOffersActions.isLoading]: (state, { payload }) => {
       return state.setIn(['offers', 'loading'], payload);

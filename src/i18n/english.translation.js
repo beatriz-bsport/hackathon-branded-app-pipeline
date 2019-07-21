@@ -21,6 +21,8 @@ import marketplace from './en/marketplace.translations';
 import metaActivity from './en/meta-activity.translations';
 import login from './en/login.translations';
 import invoice from './en/invoice.translations';
+import datetime from './en/datetime.translations';
+import offer from './en/offer.translations';
 
 export default {
   dashboard,
@@ -41,6 +43,8 @@ export default {
   member,
   tag,
   marketplace,
+  datetime,
+  offer,
   coachPerformance: {
     addBonus: 'Add a rule',
     dateTitle: 'Date range',
@@ -88,11 +92,6 @@ export default {
       CREDIT_ACCOUNT: 'Credit account',
       SUBSCRIPTION_CB: 'Automatic credit card debit',
       OTHER: 'Other',
-    },
-    datetime: {
-      shortDayIdentifier: 'd',
-      shortMinuteIdentifier: 'min',
-      shortHourIdentifier: 'h',
     },
     common: {
       items: 'items',
@@ -841,6 +840,7 @@ export default {
       substitute: 'Substitute',
       substituted: 'Can not attend',
       backToCalendar: 'Back to calendar',
+      workshop: 'Workshops',
       showMarketplace: 'Show calendar of ',
       noSessionToday: 'No session',
       bookButton: {

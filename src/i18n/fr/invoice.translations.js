@@ -4,5 +4,8 @@ export default {
     explainStripeFooter:
       'Ce texte apparaitra en bas de vos factures éditées en PDF, ajoutez toute mention légale nécessaire.',
     submit_stripe_footer: 'Mettre à jour',
+    forms: {
+      stripe_footer_placeholder: 'Aucune mention supplémentaire',
+    },
   },
 };

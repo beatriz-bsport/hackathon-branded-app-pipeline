@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 
 import Button from '@material-ui/core/Button';
-import Badge from '@material-ui/core/Badge';
 import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
 import Grid from '@material-ui/core/Grid';

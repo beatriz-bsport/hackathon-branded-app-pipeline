@@ -12,11 +12,11 @@ import InfoIcon from '@material-ui/icons/InfoOutlined';
 import { withNamespaces } from 'react-i18next';
 
 import type { TFunction } from 'react-i18next';
-import Level from '../../components/category/Level.component';
+import Level from '../../../components/category/Level.component';
 
-import { formatMinutes, formatAsTime } from '../../datetime';
-import CoachAvatar from '../associated-coach/components/CoachAvatar.component';
-import { isOfferInThePast } from './utils';
+import { formatMinutes, formatAsTime } from '../../../datetime';
+import CoachAvatar from '../../associated-coach/components/CoachAvatar.component';
+import { isOfferInThePast } from '../utils';
 
 type Props = {
   offer: Offer,

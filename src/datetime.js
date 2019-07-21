@@ -48,15 +48,15 @@ export function formatMinutes(minutesNumber, t) {
 
   let readableDuration = '';
   if (days) {
-    readableDuration += `${days}${t('datetime.shortDayIdentifier')} `;
+    readableDuration += `${days}${t('datetime:shortDayIdentifier')} `;
   }
   if (hours) {
-    readableDuration += `${hours}${t('datetime.shortHourIdentifier')} `;
+    readableDuration += `${hours}${t('datetime:shortHourIdentifier')} `;
   }
 
   if (minutesMinusHours || readableDuration === '') {
     readableDuration += `${minutesMinusHours}${t(
-      'datetime.shortMinuteIdentifier',
+      'datetime:shortMinuteIdentifier',
     )}`;
   }
 

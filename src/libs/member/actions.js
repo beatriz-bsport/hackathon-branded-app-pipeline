@@ -234,13 +234,20 @@ export function createOrUpdateNote(
   text: string,
   memberId: number,
   highlighted: boolean,
+  is_medical: boolean,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(actionCreateOrUpdateNoteStart());
 
     const createOrUpdate = id ? updateNote : createNote;
     try {
-      const response = await createOrUpdate(id, text, memberId, highlighted);
+      const response = await createOrUpdate(
+        id,
+        text,
+        memberId,
+        highlighted,
+        is_medical,
+      );
 
       if (response.status === 201 || response.status === 200) {
         const note = response.data;

@@ -16,4 +16,8 @@ export default {
     other: 'Other',
     migration: 'Migration Mindbody',
   },
+  customerView: {
+    wasRefunded: 'Refunded',
+    cancelled: 'Cancelled',
+  },
 };

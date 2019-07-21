@@ -1,15 +1,13 @@
 // @flow
 import React, { Component } from 'react';
-import {
-  Paper,
-  Grid,
-  Typography,
-  List,
-  ListItem,
-  Button,
-  withStyles,
-  Hidden,
-} from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import Button from '@material-ui/core/Button';
+import withStyles from '@material-ui/core/styles/withStyles';
+import Hidden from '@material-ui/core/Hidden';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
@@ -44,6 +42,9 @@ export class PaymentPackCard extends Component<Props> {
   getSportScope = () => {
     const { pack, t, classes } = this.props;
     const { categories } = pack;
+    if (categories.length === 0) {
+      return null;
+    }
     return (
       <div>
         <Typography variant="subtitle1">
@@ -67,6 +68,9 @@ export class PaymentPackCard extends Component<Props> {
   getActivityScope = () => {
     const { pack, t, classes, metaActivities } = this.props;
     const packMetaActivities = pack.metaActivities;
+    if (packMetaActivities.length === 0) {
+      return null;
+    }
     return (
       <div>
         <Typography variant="subtitle1">
@@ -93,6 +97,9 @@ export class PaymentPackCard extends Component<Props> {
   getEstablishmentScope = () => {
     const { pack, t, classes, establishments } = this.props;
     const packEstablishments = pack.establishments;
+    if (packEstablishments.length === 0) {
+      return null;
+    }
     return (
       <div>
         <Typography variant="subtitle1">
@@ -117,41 +124,47 @@ export class PaymentPackCard extends Component<Props> {
   };
 
   renderMaxWeekBookings = () => {
-    const { t, pack } = this.props;
+    const { t, classes, pack } = this.props;
     const { max_bookings_per_week } = pack;
     if (max_bookings_per_week) {
       return (
-        <Typography>
-          {t('paymentPack.maxNBookingsByWeek1')}
-          <b>{max_bookings_per_week}</b>
-          {t('paymentPack.maxNBookingsByWeek2')}
-        </Typography>
+        <div className={classes.restrictionBlock}>
+          <Typography>
+            {t('paymentPack.maxNBookingsByWeek1')}
+            <b>{max_bookings_per_week}</b>
+            {t('paymentPack.maxNBookingsByWeek2')}
+          </Typography>
+        </div>
       );
     }
     return null;
   };
 
   renderTimeInfo = () => {
-    const { pack, t } = this.props;
+    const { pack, classes, t } = this.props;
     if (!pack.validity_daterange) {
       return (
-        <Typography>
-          {t('paymentPack.validForDuration')(
-            pack.duration_days,
-            pack.duration_months,
-            pack.duration_years,
-          )}
-        </Typography>
+        <div className={classes.restrictionBlock}>
+          <Typography>
+            {t('paymentPack.validForDuration')(
+              pack.duration_days,
+              pack.duration_months,
+              pack.duration_years,
+            )}
+          </Typography>
+        </div>
       );
     }
     return (
-      <Typography>
-        {`${t('paymentPack.validFrom')}${formatAsDate(
-          JSON.parse(pack.validity_daterange).lower,
-        )}${t('paymentPack.validTo')}${formatAsDate(
-          JSON.parse(pack.validity_daterange).upper,
-        )}`}
-      </Typography>
+      <div className={classes.restrictionBlock}>
+        <Typography>
+          {`${t('paymentPack.validFrom')}${formatAsDate(
+            JSON.parse(pack.validity_daterange).lower,
+          )}${t('paymentPack.validTo')}${formatAsDate(
+            JSON.parse(pack.validity_daterange).upper,
+          )}`}
+        </Typography>
+      </div>
     );
   };
 
@@ -167,69 +180,53 @@ export class PaymentPackCard extends Component<Props> {
       );
     }
     return (
-      <Grid
-        container
-        direction="row"
-        justify="space-between"
-        alignItems="flex-start"
-      >
-        <Grid item xs={8}>
-          <Grid container direction="column" spacing={16}>
-            <Grid item>
-              <Typography variant="h6">{name}</Typography>
-            </Grid>
-            {new_member_only && !onlyPublic ? (
-              <Grid item>
-                <Grid
-                  container
-                  direction="row"
-                  alignItems="center"
-                  className={classes.newMemberOnlyContainer}
-                >
-                  <Grid item>
-                    <VisibilityOffIcon className={classes.iconLeft} />
-                  </Grid>
-                  <Grid item>
-                    <Typography>{t('paymentPack.newMemberOnly')}</Typography>
-                  </Grid>
-                </Grid>
-              </Grid>
-            ) : null}
-            <Grid item>
-              <Grid container direction="column" spacing={8}>
-                <Grid item>{this.renderTimeInfo()}</Grid>
-                <Grid item>{this.renderMaxWeekBookings()}</Grid>
-              </Grid>
-            </Grid>
+      <div>
+        {pack.disabled ? (
+          <div className={classes.disabledLabel}>
+            <Typography color="error" variant="h6">
+              {t('paymentPack.disabled')}
+            </Typography>
+          </div>
+        ) : null}
+        <Grid
+          container
+          direction="row"
+          justify="space-between"
+          alignItems="flex-start"
+        >
+          <Grid item xs={8}>
+            <div>
+              <Typography className={classes.title} variant="h6">
+                {name}
+              </Typography>
+              {new_member_only && !onlyPublic ? (
+                <div className={classes.newMemberOnlyContainer}>
+                  <VisibilityOffIcon className={classes.iconLeft} />
+                  <Typography>{t('paymentPack.newMemberOnly')}</Typography>
+                </div>
+              ) : null}
+              <div>
+                {this.renderTimeInfo()}
+                {this.renderMaxWeekBookings()}
+              </div>
+            </div>
           </Grid>
-        </Grid>
-        <Grid item xs={4}>
-          <Grid container direction="column" alignItems="flex-end" spacing={8}>
-            <Grid item>
-              <Grid container direction="column" alignItems="flex-end">
-                <Grid item>
-                  <Typography variant="h4" color="primary">
-                    {base_price} €
-                  </Typography>
-                </Grid>
-                {onlyPublic ? null : (
-                  <Grid item>
-                    <Typography variant="caption">
-                      {(base_price / ((100 + parseInt(tax, 10)) / 100)).toFixed(
-                        2,
-                      )}
-                      € {t('shop.ht')}
-                    </Typography>
-                  </Grid>
-                )}
-              </Grid>
-            </Grid>
-            <Grid item>
+          <Grid item xs={4}>
+            <div className={classes.columnLeft}>
+              <Typography variant="h4" color="primary">
+                {base_price}€
+              </Typography>
+              {onlyPublic ? null : (
+                <Typography variant="caption">
+                  {(base_price / ((100 + parseInt(tax, 10)) / 100)).toFixed(2)}€{' '}
+                  {t('shop.ht')}
+                </Typography>
+              )}
               <Typography variant="subtitle1">{creditsFormatted}</Typography>
-            </Grid>
+            </div>
           </Grid>
         </Grid>
-      </Grid>
+      </div>
     );
   };
 
@@ -242,31 +239,23 @@ export class PaymentPackCard extends Component<Props> {
       establishments.length === 0
     ) {
       return (
-        <div className={classes.noRestriction}>
-          <Typography>
-            {t('paymentPack.noRestrictionOnActivityType')}
-          </Typography>
+        <div className={classes.horizontalBlock}>
+          <div className={classes.noRestriction}>
+            <Typography>
+              {t('paymentPack.noRestrictionOnActivityType')}
+            </Typography>
+          </div>
         </div>
       );
     }
     return (
-      <Grid container direction="row">
-        {categories.length ? (
-          <Grid item className={classes.horizontalBlock} xs={12}>
-            {this.getSportScope()}
-          </Grid>
-        ) : null}
-        {metaActivities.length ? (
-          <Grid item className={classes.horizontalBlock} xs={12}>
-            {this.getActivityScope()}
-          </Grid>
-        ) : null}
-        {establishments.length ? (
-          <Grid item className={classes.horizontalBlock} xs={12}>
-            {this.getEstablishmentScope()}
-          </Grid>
-        ) : null}
-      </Grid>
+      <div>
+        <div className={classes.horizontalBlock}>{this.getSportScope()}</div>
+        <div className={classes.horizontalBlock}>{this.getActivityScope()}</div>
+        <div className={classes.horizontalBlock}>
+          {this.getEstablishmentScope()}
+        </div>
+      </div>
     );
   };
 
@@ -282,26 +271,16 @@ export class PaymentPackCard extends Component<Props> {
       );
     }
     return (
-      <Grid
-        container
-        direction="row"
-        justify="flex-end"
-        spacing={16}
-        wrap="nowrap"
-      >
-        <Grid item>
-          <Button color="primary" onClick={this.props.onEditButtonClick}>
-            <EditIcon className={classes.iconLeft} />
-            <Hidden xsDown>{t('common.edit')}</Hidden>
-          </Button>
-        </Grid>
-        <Grid item>
-          <RedButton onClick={this.props.onDeleteButtonClick}>
-            <DeleteIcon className={classes.iconLeft} />
-            <Hidden xsDown>{t('common.delete')}</Hidden>
-          </RedButton>
-        </Grid>
-      </Grid>
+      <div className={classes.buttonContainer}>
+        <Button color="primary" onClick={this.props.onEditButtonClick}>
+          <EditIcon className={classes.iconLeft} />
+          <Hidden xsDown>{t('common.edit')}</Hidden>
+        </Button>
+        <RedButton onClick={this.props.onDeleteButtonClick}>
+          <DeleteIcon className={classes.iconLeft} />
+          <Hidden xsDown>{t('common.delete')}</Hidden>
+        </RedButton>
+      </div>
     );
   };
 
@@ -332,30 +311,62 @@ const styles = (theme) => ({
   paper: {
     paddingTop: theme.spacing.unit * 3,
   },
+  title: {
+    paddingBottom: theme.spacing.unit * 2,
+  },
   disabled: {
     backgroundColor: '#F8F8F8',
   },
   horizontalBlock: {
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
+    paddingLeft: theme.spacing.unit * 3,
+    paddingRight: theme.spacing.unit * 3,
   },
   tabList: {
-    marginLeft: theme.spacing.unit * 3,
+    paddingLeft: theme.spacing.unit * 3,
   },
   noRestriction: {
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
-    marginBottom: theme.spacing.unit * 3,
+    paddingBottom: theme.spacing.unit * 3,
+    paddingTop: theme.spacing.unit * 3,
   },
   newMemberOnlyContainer: {
     backgroundColor: '#F2F2F2',
     padding: theme.spacing.unit,
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'row',
   },
   iconLeft: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing.unit * 2,
   },
   buttonBlock: {
-    marginBottom: theme.spacing.unit,
+    padding: theme.spacing.unit,
+  },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  buttonContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    flexWrap: 'nowrap',
+  },
+  columnLeft: {
+    paddingLeft: theme.spacing.unit * 2,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+  },
+  restrictionBlock: {
+    paddingTop: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit,
+  },
+  disabledLabel: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: theme.spacing.unit * 2,
   },
 });
 

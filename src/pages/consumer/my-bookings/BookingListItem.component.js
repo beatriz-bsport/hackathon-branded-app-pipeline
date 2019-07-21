@@ -5,7 +5,6 @@ import { withNamespaces } from 'react-i18next';
 import {
   IconButton,
   ListItem,
-  withStyles,
   ListItemText,
   ListItemSecondaryAction,
 } from '@material-ui/core';
@@ -21,7 +20,6 @@ type Props = {
   booking: Booking,
   overrideClickAction: () => void,
   onDiscard: () => void,
-  classes: Object,
   t: TFunction,
 };
 
@@ -35,17 +33,17 @@ export class BookingListItem extends Component<Props> {
     )} - ${formatMinutes(offer.duration_minute, t)}`;
     const bookingStatusCode = getBookingStatusCode(t, booking);
     const bookingRefund = booking.was_refunded
-      ? `${t('booking.wasRefunded')}: `
+      ? `${t('booking:customerView.wasRefunded')}: `
       : '';
     const offerAvailable = booking.offer.available
       ? ''
-      : `${t('booking.cancelled')}: `;
+      : `${t('booking:customerView.cancelled')}: `;
 
     return `${offerAvailable}${formattedDate} ${bookingRefund} ${bookingStatusCode}`;
   };
 
   render() {
-    const { booking, overrideClickAction, onDiscard, classes } = this.props;
+    const { booking, overrideClickAction, onDiscard } = this.props;
     const { offer } = booking;
     const { activity } = offer;
     return (
@@ -55,7 +53,6 @@ export class BookingListItem extends Component<Props> {
         button
         divider
         onClick={overrideClickAction || (() => {})}
-        className={classes.listItem}
         disabled={booking.booking_status_code !== BOOKING_STATUS_OK.id}
       >
         <CoachAvatar
@@ -81,8 +78,4 @@ export class BookingListItem extends Component<Props> {
   }
 }
 
-const styles = () => ({
-  listItem: {},
-});
-
-export default withStyles(styles)(withNamespaces()(BookingListItem));
+export default withNamespaces(['booking', 'datetime'])(BookingListItem);

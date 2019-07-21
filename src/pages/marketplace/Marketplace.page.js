@@ -32,25 +32,41 @@ import {
   getOrCreateCurrentOrder,
   resetOrders as resetOrdersAction,
 } from '../../libs/order/actions';
+import { fetchSCT } from '../../actions/category.actions';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import MarketplacePassPage from './MarketplacePass.page';
 import MarketplaceShopPage from './MarketplaceShop.page';
 import MarketplaceCalendarPage from './MarketplaceCalendar.page';
+import MarketplaceWorkshopPage from './MarketplaceWorkshop.page';
 
 import {
   consumer as consumerActions,
   auth as authActions,
-  marketplace as marketplaceActions,
 } from '../../actions';
+
+import {
+  fetchCompanyAction,
+  fetchCompanyMetaActivitiesAction,
+  fetchCompanyActivitiesAction,
+  fetchCompanyEstablishmentsAction,
+  fetchCompanyCoachesAction,
+} from '../../libs/marketplace/actions';
 
 type Props = {
   companyName: string,
   companyId: number,
   company: MarketPlaceCompany,
   companyLoading: boolean,
+
   fetchCompany: (companyId: number) => void,
+  fetchCompanyActivities: (companyId: number) => void,
+  fetchCompanyMetaActivities: (companyId: number) => void,
+  fetchCompanyEstablishments: (companyId: number) => void,
+  fetchCompanyCoaches: (companyId: number) => void,
+  fetchSCT: () => void,
+
   fetchCurrentOrder: (companyId: number) => void,
   fetchProfile: () => void,
   doEmailLogin: ({ email: string, password: string }, () => void) => void,
@@ -86,6 +102,7 @@ type State = {
 
 const TAB_CALENDAR = 'calendar';
 const TAB_PASS = 'pass';
+const TAB_WORKSHOP = 'workshop';
 const TAB_SHOP = 'shop';
 const DEFAULT_TAB = TAB_CALENDAR;
 
@@ -101,7 +118,12 @@ export class MarketPlace extends Component<Props, State> {
   }
 
   fetchData = () => {
+    this.props.fetchSCT();
     this.props.fetchCompany(this.props.companyId);
+    this.props.fetchCompanyActivities(this.props.companyId);
+    this.props.fetchCompanyMetaActivities(this.props.companyId);
+    this.props.fetchCompanyCoaches(this.props.companyId);
+    this.props.fetchCompanyEstablishments(this.props.companyId);
     if (this.props.auth.authenticated) {
       this.props.fetchCurrentOrder(this.props.companyId);
       this.props.fetchProfile();
@@ -139,6 +161,8 @@ export class MarketPlace extends Component<Props, State> {
             toogleCurrentOrderOpen={this.toogleCurrentOrderOpen}
           />
         );
+      case TAB_WORKSHOP:
+        return <MarketplaceWorkshopPage companyId={this.props.companyId} />;
       case TAB_CALENDAR:
       default: {
         return <MarketplaceCalendarPage companyId={this.props.companyId} />;
@@ -173,10 +197,7 @@ export class MarketPlace extends Component<Props, State> {
 
   render() {
     const { companyLoading, classes, t, company, currentOrder } = this.props;
-    if (!company) {
-      if (!companyLoading) {
-        this.props.fetchCompany(this.props.companyId);
-      }
+    if (companyLoading || !company) {
       return (
         <Grid container item alignItems="center" justify="center">
           <LinearProgress />
@@ -214,6 +235,7 @@ export class MarketPlace extends Component<Props, State> {
             indicatorColor="primary"
           >
             <Tab value={TAB_CALENDAR} label={t('marketplace.calendar')} />
+            <Tab value={TAB_WORKSHOP} label={t('marketplace.workshop')} />
             <Tab value={TAB_PASS} label={t('marketplace.pass')} />
             <Tab value={TAB_SHOP} label={t('marketplace.shop.tabName')} />
           </Tabs>
@@ -306,28 +328,40 @@ export default compose(
   connect(
     (state) => ({
       auth: state.auth,
-      company: state.marketplace.company,
-      companyLoading: state.marketplace.companyLoading,
+      company: state.marketplacev2.company.data,
+      companyLoading: state.marketplacev2.company.loading,
       currentOrder: state.order.order.current.data,
       currentOrderLoading: state.order.order.current.loading,
       consumerProfile: state.consumer.profile,
     }),
     {
-      fetchCompany: marketplaceActions.fetchCompany,
+      // General information
+      fetchSCT,
+      fetchCompany: fetchCompanyAction,
+      fetchCompanyMetaActivities: fetchCompanyMetaActivitiesAction,
+      fetchCompanyActivities: fetchCompanyActivitiesAction,
+      fetchCompanyEstablishments: fetchCompanyEstablishmentsAction,
+      fetchCompanyCoaches: fetchCompanyCoachesAction,
+
+      // For shop pages
+      resetOrders: resetOrdersAction,
+      fetchCurrentOrder: getOrCreateCurrentOrder,
+      removeProduct: removeProductFromOrderAction,
+      updateOrder: updateOrderAction,
+      goToPayment: (companyId) =>
+        pushRouter(`/customer/payment/order/${companyId}/`),
+
+      // for signup/signin/profile
+      fetchProfile: consumerActions.fetchProfile,
+      goToUserSpace: () => pushRouter('/'),
       signup: (data: *, callback: () => void) =>
         authActions.signup(data, { onDone: callback }),
       doEmailLogin: ({ email, password }, callback) =>
         authActions.requestLogin(email, password, { onDone: callback }),
       disconnect: authActions.disconnect,
-      resetOrders: resetOrdersAction,
-      fetchCurrentOrder: getOrCreateCurrentOrder,
-      removeProduct: removeProductFromOrderAction,
-      fetchProfile: consumerActions.fetchProfile,
-      updateOrder: updateOrderAction,
+
+      // navigation
       replace,
-      goToUserSpace: () => pushRouter('/'),
-      goToPayment: (companyId) =>
-        pushRouter(`/customer/payment/order/${companyId}/`),
       goToTab: (companyName: string, companyId: number, tab: string) =>
         pushRouter(`/m/${companyName}/${companyId}/${tab}/`),
     },

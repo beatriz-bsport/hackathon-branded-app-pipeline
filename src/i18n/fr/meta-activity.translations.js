@@ -10,4 +10,18 @@ export default {
       },
     },
   },
+  name: 'Nom',
+  category: 'Sport',
+  addOffers: 'Ajouter des séances',
+  offersThisDay: 'Séances ce jour :',
+  description: 'Description',
+  settings: {
+    title: 'Paramètres',
+    lastBookingBeforeMinutes:
+      "Avant le début de l'activité, dernière réservation possible",
+    lastDiscardBeforeMinutes:
+      "Avant le début de l'activité, dernière annulation possible",
+  },
+  packsAvailable: 'Eligible aux pass :',
+  reviews: 'Avis clients: ',
 };

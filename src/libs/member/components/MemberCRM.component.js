@@ -48,8 +48,20 @@ export const MemberCRM = (props: Props) => (
     />
     <div className={props.classes.separator} />
     <MemberNotePanel
-      notes={props.notes}
-      createOrUpdateNote={props.createOrUpdateNote}
+      notes={props.notes.filter((n) => n.is_medical)}
+      createOrUpdateNote={(data: *) =>
+        props.createOrUpdateNote({ ...data, is_medical: true })
+      }
+      deleteNote={props.deleteNote}
+      memberId={props.memberId}
+      healthNotes
+    />
+    <div className={props.classes.separator} />
+    <MemberNotePanel
+      notes={props.notes.filter((n) => !n.is_medical)}
+      createOrUpdateNote={(data: *) =>
+        props.createOrUpdateNote({ ...data, is_medical: false })
+      }
       deleteNote={props.deleteNote}
       memberId={props.memberId}
     />

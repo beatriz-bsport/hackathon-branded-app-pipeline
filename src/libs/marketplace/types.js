@@ -68,6 +68,29 @@ export type Level = {
   name: string,
 };
 
+export type PaymentPack = {
+  id: number,
+  name: string,
+  price: string,
+  base_price: string,
+  tax: string,
+  credits: number,
+  unlimited: boolean,
+  max_bookings_per_week: number,
+  validity_daterange: *,
+  duration_days: ?number,
+  duration_months: ?number,
+  duration_years: ?number,
+  disabled: boolean,
+  manager_only: boolean,
+  new_member_only: boolean,
+  company: number,
+  SCTs: Array<number>,
+  metaActivities: Array<number>,
+  establishments: Array<number>,
+  categories: Array<number>,
+};
+
 export type MarketPlaceState = {
   offers: {
     items: Array<Offer>,
@@ -91,6 +114,11 @@ export type MarketPlaceState = {
   },
   establishments: {
     items: Array<Establishment>,
+    loading: boolean,
+    error: ?Error,
+  },
+  paymentPack: {
+    items: Array<PaymentPack>,
     loading: boolean,
     error: ?Error,
   },

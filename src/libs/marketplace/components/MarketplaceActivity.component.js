@@ -25,15 +25,15 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { colors } from '@bsport/common/lib/colors';
 
-import { snackbarSuccess } from '../../actions/snackbar.actions';
+import { snackbarSuccess } from '../../../actions/snackbar.actions';
 
-import Map from '../../components/map/Map.component';
+import Map from '../../../components/map/Map.component';
 
-import ConsumerPackCheckout from '../../pages/payment/offer/ConsumerPackCheckout.component';
-import PaymentPackSummary from '../../components/payment-pack/PaymentPackSummary.component';
+import ConsumerPackCheckout from '../../../pages/payment/offer/ConsumerPackCheckout.component';
+import PaymentPackSummary from '../../../components/payment-pack/PaymentPackSummary.component';
 
-import * as paymentActions from '../../actions/payment.actions';
-import { isOfferInThePast } from './utils';
+import * as paymentActions from '../../../actions/payment.actions';
+import { isOfferInThePast } from '../utils';
 
 type Props = {
   offer: Offer,
@@ -267,7 +267,7 @@ const styles = (theme) => ({
     minWidth: 200,
   },
   media: {
-    maxHeight: 200,
+    maxHeight: 400,
     objectFit: 'cover',
   },
   hashtags: {

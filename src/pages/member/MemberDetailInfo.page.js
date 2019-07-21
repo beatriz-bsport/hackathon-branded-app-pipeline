@@ -56,6 +56,7 @@ type Props = {
     text: string,
     memberId: number,
     highlighted: boolean,
+    is_medical: boolean,
   }) => void,
   deleteNote: ({ memberId: number, noteId: number }) => void,
 
@@ -179,8 +180,8 @@ export default compose(
       mergeInto: (src: number, dst: number) =>
         routerPush(`/member/merge/${src}/into/${dst}`),
       editMember: (id) => routerPush(`/member/edit/${id}`),
-      createOrUpdateNote: ({ id, text, memberId, highlighted }) =>
-        createOrUpdateMemberNote(id, text, memberId, highlighted),
+      createOrUpdateNote: ({ id, text, memberId, highlighted, is_medical }) =>
+        createOrUpdateMemberNote(id, text, memberId, highlighted, is_medical),
       deleteNote,
       createTag: createOrUpdateTag,
       createTagGroup: (data) =>

@@ -10,7 +10,7 @@ import MarketPlaceActivity from './MarketplaceActivity.component';
 
 type Props = {
   open: ?boolean,
-  offerId: number,
+  offer: ?Offer,
   classes: { [string]: string },
   onClose: () => void,
   fullScreen: boolean,
@@ -27,7 +27,7 @@ export function MarketplaceActivityDialog(props: Props) {
       fullScreen={fullScreen}
     >
       <DialogContent className={classes.dialogContent}>
-        <MarketPlaceActivity {...props} />
+        {props.open ? <MarketPlaceActivity {...props} /> : null}
       </DialogContent>
     </Dialog>
   );

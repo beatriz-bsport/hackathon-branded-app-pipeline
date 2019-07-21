@@ -24,7 +24,7 @@ export function refreshAllPaymentPack() {
       const paymentPacks = response.data;
       dispatch(fetchedAllPaymentPacks(paymentPacks));
     } catch (err) {
-      dispatch(errorFetchingAllPaymentPacks(JSON.stringify(err)));
+      dispatch(errorFetchingAllPaymentPacks(err));
     }
   };
 }

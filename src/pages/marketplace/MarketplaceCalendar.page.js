@@ -8,8 +8,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 import { connect } from 'react-redux';
 
-import MarketplaceCalendarComponent from '../../libs/marketplace/MarketplaceCalendar.component';
-import MarketplaceActivityDialog from '../../libs/marketplace/MarketplaceActivityDialog.component';
+import MarketplaceCalendarComponent from '../../libs/marketplace/components/MarketplaceCalendar.component';
+import MarketplaceActivityDialog from '../../libs/marketplace/components/MarketplaceActivityDialog.component';
 
 import { Moment } from '../../i18n';
 import {
@@ -25,10 +25,7 @@ import type {
 } from '../../libs/marketplace/types';
 
 import {
-  fetchCompanyMetaActivitiesAction,
-  fetchCompanyActivitiesAction,
-  fetchCompanyEstablishmentsAction,
-  fetchCompanyCoachesAction,
+  resetOffersAction,
   fetchCompanyOffersAction,
 } from '../../libs/marketplace/actions';
 
@@ -43,25 +40,20 @@ type Props = {
   location: Object,
   classes: Object,
   companyId: number,
+  resetOffers: () => void,
   fetchCompanyOffers: (
     companyId: number,
     min_date: string,
     max_date: string,
   ) => void,
-  fetchCompanyActivities: (companyId: number) => void,
-  fetchCompanyMetaActivities: (companyId: number) => void,
-  fetchCompanyEstablishments: (companyId: number) => void,
-  fetchCompanyCoaches: (companyId: number) => void,
   replace: (path: string) => void,
   goToBook: (offerId: number, comapnyId: number) => void,
   goToBookOption: (offerId: number, comapnyId: number) => void,
 };
 
 type State = {
-  selectedDate: Object,
   offerId: ?number,
   offer: Object,
-  month: string,
 };
 
 const readFiltersFromURL = (search) => {
@@ -77,6 +69,28 @@ const readFiltersFromURL = (search) => {
   } catch (err) {
     return {};
   }
+};
+
+const fromURLtoDate = (search: string) => {
+  try {
+    const params = search.slice(1).split('&');
+    const date_string = params.find((p) => p.includes('date='));
+    return Moment(date_string.split('=')[1]);
+  } catch (err) {
+    return Moment();
+  }
+};
+
+const fromPropsToNewDateURL = (date, location) => {
+  const params = location.search.slice(1).split('&');
+  const filtered_params = params.filter((p) => !p.includes('date='));
+  const newDate = Moment(date);
+  return [
+    newDate,
+    `${location.pathname}?${filtered_params.join('&')}&date=${newDate.format(
+      'YYYY-MM-DD',
+    )}`,
+  ];
 };
 
 const fromPropsToURL = (filters: *, currentParams: string) => {
@@ -116,38 +130,38 @@ const fromPropsToURL = (filters: *, currentParams: string) => {
 
 export class MarketplaceCalendar extends Component<Props, State> {
   state = {
-    selectedDate: Moment(),
     offerId: null,
     offer: null,
-    month: '',
   };
 
   componentWillMount() {
-    // fetch marketplace data expcept
-    const min_date = Moment()
+    this.props.resetOffers();
+  }
+
+  componentDidMount() {
+    const min_date = fromURLtoDate(this.props.location.search)
       .startOf('month')
       .format('YYYY-MM-DD');
-    const max_date = Moment()
+    const max_date = fromURLtoDate(this.props.location.search)
       .endOf('month')
       .format('YYYY-MM-DD');
-    this.props.fetchCompanyActivities(this.props.companyId);
-    this.props.fetchCompanyMetaActivities(this.props.companyId);
-    this.props.fetchCompanyCoaches(this.props.companyId);
-    this.props.fetchCompanyEstablishments(this.props.companyId);
     this.props.fetchCompanyOffers(this.props.companyId, min_date, max_date);
   }
 
   handleDateChange = (date: Object) => {
+    const currentDate = fromURLtoDate(this.props.location.search);
+    const [newDate, pathname] = fromPropsToNewDateURL(
+      date,
+      this.props.location,
+    );
+
     // the condition mean simply the month has been changed
-    if (this.state.month && this.state.month !== date.get('month')) {
-      const min_date = date.startOf('month').format('YYYY-MM-DD');
-      const max_date = date.endOf('month').format('YYYY-MM-DD');
+    if (newDate.month() !== currentDate.month()) {
+      const min_date = newDate.startOf('month').format('YYYY-MM-DD');
+      const max_date = newDate.endOf('month').format('YYYY-MM-DD');
       this.props.fetchCompanyOffers(this.props.companyId, min_date, max_date);
     }
-    this.setState((prevState) => ({
-      month: prevState.selectedDate.get('month'),
-      selectedDate: date,
-    }));
+    this.props.replace(pathname);
   };
 
   openOfferDialog = (offerId: number) => {
@@ -186,10 +200,10 @@ export class MarketplaceCalendar extends Component<Props, State> {
 
   render() {
     const { classes, offers, filters, establishments, coaches } = this.props;
-    const { selectedDate } = this.state;
+    const selectedDate = fromURLtoDate(this.props.location.search);
 
     const selectedDayOffers = offers.filter((o) =>
-      Moment(o.date_start).isSame(this.state.selectedDate, 'day'),
+      Moment(o.date_start).isSame(selectedDate, 'day'),
     );
 
     return (
@@ -243,17 +257,14 @@ export default compose(
   withNamespaces(),
   connect(
     (state, { filters }) => ({
-      offers: getOffersFiltered(state.marketplacev2, filters),
-      loading: isOfferLoading(state.marketplacev2),
+      offers: getOffersFiltered(state, filters),
+      loading: isOfferLoading(state),
       coaches: state.marketplacev2.coaches.items,
       establishments: state.marketplacev2.establishments.items,
       metaActivities: state.marketplacev2.metaActivities.items,
     }),
     {
-      fetchCompanyMetaActivities: fetchCompanyMetaActivitiesAction,
-      fetchCompanyActivities: fetchCompanyActivitiesAction,
-      fetchCompanyEstablishments: fetchCompanyEstablishmentsAction,
-      fetchCompanyCoaches: fetchCompanyCoachesAction,
+      resetOffers: resetOffersAction,
       fetchCompanyOffers: fetchCompanyOffersAction,
       goToBook: (id: number, companyId: number) =>
         push(`/customer/payment/offer/${id}?membership=${companyId}`),

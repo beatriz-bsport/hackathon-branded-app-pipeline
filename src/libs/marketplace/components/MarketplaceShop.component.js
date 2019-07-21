@@ -21,9 +21,9 @@ import Typography from '@material-ui/core/Typography';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import type { SubShop, ShopItem } from '../shop/types';
-import ShopItemCard from '../shop/components/ShopItemCard.component';
-import ShopItemListItem from '../shop/components/ShopItemListItem.component';
+import type { SubShop, ShopItem } from '../../shop/types';
+import ShopItemCard from '../../shop/components/ShopItemCard.component';
+import ShopItemListItem from '../../shop/components/ShopItemListItem.component';
 
 const SubShopComponent = (props: {
   subshop: SubShop,

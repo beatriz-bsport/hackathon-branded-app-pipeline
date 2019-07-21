@@ -16,7 +16,6 @@ import snackbarReducer from './snackbar.reducers';
 import refreshReducer from './refresh';
 import searchReducer from './search.reducers';
 import companiesReducers from './companies.reducers';
-import marketplaceReducer from './marketplace';
 import establishmentReducers from '../libs/establishment/reducers';
 import shopReducer from '../libs/shop/reducers';
 import paymentRulesReducer from '../libs/payment-rules/reducers';
@@ -57,7 +56,6 @@ const rootReducer = combineReducers({
   refresh: refreshReducer,
   search: searchReducer,
   companies: companiesReducers,
-  marketplace: marketplaceReducer,
   shop: shopReducer,
   workshopActivity: workshopActivityReducer,
   subscription: subscriptionReducer,

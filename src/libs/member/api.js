@@ -74,11 +74,13 @@ export async function createNote(
   text: string,
   memberId: number,
   highlighted: boolean,
+  is_medical: boolean,
 ) {
   return postAuth(`${API_URI}/saas/member/${memberId}/note`, {
     text,
     member: memberId,
     highlighted,
+    is_medical,
   });
 }
 export async function updateNote(
@@ -86,8 +88,13 @@ export async function updateNote(
   text: string,
   memberId: number,
   highlighted: boolean,
+  is_medical: boolean,
 ) {
-  return patchAuth(`${API_URI}/saas/member/note/${id}`, { text, highlighted });
+  return patchAuth(`${API_URI}/saas/member/note/${id}`, {
+    text,
+    highlighted,
+    is_medical,
+  });
 }
 export async function deleteNote(id: number) {
   return deleteAuth(`${API_URI}/saas/member/note/${id}`);

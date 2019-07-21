@@ -21,7 +21,9 @@ export default {
   note: {
     addNote: 'Add a note',
     myNotes: 'My notes',
+    healthNotes: 'Health information',
     noNoteSaved: 'No note saved',
+    is_medical: 'Health-related note',
   },
   menu: {
     info: 'General',

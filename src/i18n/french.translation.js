@@ -21,6 +21,8 @@ import marketplace from './fr/marketplace.translations';
 import metaActivity from './fr/meta-activity.translations';
 import login from './fr/login.translations';
 import invoice from './fr/invoice.translations';
+import datetime from './fr/datetime.translations';
+import offer from './fr/offer.translations';
 
 export default {
   dashboard,
@@ -29,6 +31,7 @@ export default {
   establishment,
   order,
   settings,
+  datetime,
   shop,
   paymentRules,
   invoice,
@@ -38,6 +41,7 @@ export default {
   alerting,
   paymentPack,
   metaActivity,
+  offer,
   member,
   booking,
   marketplace,
@@ -121,11 +125,6 @@ export default {
       form: {
         title: 'Nouveau membre',
       },
-    },
-    datetime: {
-      shortDayIdentifier: 'j',
-      shortMinuteIdentifier: 'min',
-      shortHourIdentifier: 'h',
     },
     common: {
       items: 'éléments',
@@ -923,6 +922,7 @@ export default {
       },
       sessionThisDay: 'Séance ce jour :',
       calendar: 'Calendrier',
+      workshop: 'Ateliers',
       shop: {
         tabName: 'Magasin',
         noDescription: 'Aucune description',

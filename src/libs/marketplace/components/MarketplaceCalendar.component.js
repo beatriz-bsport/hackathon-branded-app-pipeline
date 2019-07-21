@@ -7,14 +7,14 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Grid from '@material-ui/core/Grid';
 import { compose } from 'recompose';
 
-import { Moment } from '../../i18n';
+import { Moment } from '../../../i18n';
 
-import Calendar from '../../components/offer/Calendar.component';
+import Calendar from '../../../components/offer/Calendar.component';
 import MarketplaceTimetable from './MarketplaceTimetable.component';
-import CoachSelector from '../associated-coach/components/CoachSelector.component';
-import EstablishmentSelector from '../establishment/components/EstablishmentSelector.component';
-import MetaActivitySelector from '../meta-activity/components/MetaActivitySelector.component';
-import LevelSelector from '../category/components/LevelSelector.component';
+import CoachSelector from '../../associated-coach/components/CoachSelector.component';
+import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
+import MetaActivitySelector from '../../meta-activity/components/MetaActivitySelector.component';
+import LevelSelector from '../../category/components/LevelSelector.component';
 
 type Props = {
   classes: { [string]: string },

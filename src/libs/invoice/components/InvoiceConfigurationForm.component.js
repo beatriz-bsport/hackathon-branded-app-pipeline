@@ -4,13 +4,10 @@ import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import Tooltip from '../../../components/Tooltip.component';
 
 type Props = {
   classes: *,

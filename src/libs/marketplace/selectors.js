@@ -2,20 +2,26 @@
 //
 /* eslint-disable */
 import _ from 'lodash';
-import type { MarketPlaceState, Offer } from './types';
+import type { State } from '../../state/types';
 import { createSelector } from 'reselect';
+import moment from 'moment';
 
-const _getOffers = (state: MarketPlaceState) => state.offers.items;
+const _getOffers = (state: State) => state.marketplacev2.offers.items;
 
-const getActivities = (state: MarketPlaceState) => state.activities.items;
+const getActivities = (state: State) => state.marketplacev2.activities.items;
 
-const getEstablishments = (state: MarketPlaceState) =>
-  state.establishments.items;
+const getEstablishments = (state: State) =>
+  state.marketplacev2.establishments.items;
 
-const getCoaches = (state: MarketPlaceState) => state.coaches.items;
+const getCoaches = (state: State) => state.marketplacev2.coaches.items;
 
-const getMetaActivities = (state: MarketPlaceState) =>
-  state.metaActivities.items;
+const getMetaActivities = (state: State) =>
+  state.marketplacev2.metaActivities.items;
+
+export const getWorkshops = (state: State) =>
+  state.marketplacev2.metaActivities.items.filter(
+    (ma) => ma.is_workshop === true,
+  );
 
 export const getOffers = createSelector(
   [_getOffers, getEstablishments, getActivities, getMetaActivities, getCoaches],
@@ -39,7 +45,7 @@ export const getOffers = createSelector(
   },
 );
 
-export const getOffersFiltered = (state: MarketPlaceState, filters: *) => {
+export const getOffersFiltered = (state: State, filters: *) => {
   let offersFiltered = getOffers(state);
   if ((filters.establishments || []).length) {
     offersFiltered = offersFiltered.filter(
@@ -70,15 +76,54 @@ export const getOffersFiltered = (state: MarketPlaceState, filters: *) => {
   return offersFiltered;
 };
 
-export const isOfferLoading = (state: MarketPlaceState) =>
-  state.offers.loading ||
-  state.metaActivities.loading ||
-  state.establishments.loading ||
-  state.coaches.loading ||
-  state.activities.loading;
+export const getOffersWorkshop = (state: State) =>
+  getOffers(state)
+    .filter(
+      (o) =>
+        o.activity &&
+        o.activity.meta_activity &&
+        o.activity.meta_activity.is_workshop,
+    )
+    .filter((o) => moment(o.date_start).isSameOrAfter(moment()));
+
+export const getPaymentPacks = (state: State) =>
+  state.marketplacev2.paymentPack.items
+    .map((pp) => ({
+      ...pp,
+      metaActivities: pp.metaActivities.map((ma) =>
+        state.marketplacev2.metaActivities.items.find((m) => m.id === ma),
+      ),
+      establishments: pp.establishments.map((ma) =>
+        state.marketplacev2.establishments.items.find((m) => m.id === ma),
+      ),
+      categories: pp.categories.map((c) =>
+        state.category.SCTs.find((sct) => sct.id === c),
+      ),
+    }))
+    .filter(
+      (pp) =>
+        !pp.establishments.includes(null) &&
+        !pp.metaActivities.includes(null) &&
+        !pp.categories.includes(null),
+    );
+
+export const isMarketplaceLoading = (state: State) =>
+  state.marketplacev2.metaActivities.loading ||
+  state.marketplacev2.establishments.loading ||
+  state.marketplacev2.coaches.loading ||
+  state.marketplacev2.activities.loading;
+
+export const isOfferLoading = (state: State) =>
+  state.marketplacev2.offers.loading ||
+  state.marketplacev2.metaActivities.loading ||
+  state.marketplacev2.establishments.loading ||
+  state.marketplacev2.coaches.loading ||
+  state.marketplacev2.activities.loading;
 
 export default {
   getOffers,
   isOfferLoading,
   getOffersFiltered,
+  getWorkshops,
+  getOffersWorkshop,
 };

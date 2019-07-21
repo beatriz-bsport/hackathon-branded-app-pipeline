@@ -103,14 +103,16 @@ export class MetaActivityDetail extends Component<Props, State> {
       <div>
         <TextField
           id="name"
-          label={t('activity.name')}
+          label={t('metaActivity:name')}
           className={classes.textField}
           value={name}
           onChange={this.handleChange('name')}
           margin="normal"
         />
         <FormControl noValidate className={classes.formControl}>
-          <InputLabel htmlFor="age-simple">{t('common.sport')}</InputLabel>
+          <InputLabel htmlFor="age-simple">
+            {t('metaActivity:sport')}
+          </InputLabel>
           <Select
             value={categorySelectedName}
             input={<Input id="category" />}
@@ -136,7 +138,7 @@ export class MetaActivityDetail extends Component<Props, State> {
     return (
       <div>
         <Typography variant="h6" className={classes.blockTitle}>
-          {t('activity.description')}
+          {t('metaActivity:description')}
         </Typography>
         <Typography>{description}</Typography>
       </div>
@@ -200,7 +202,7 @@ export class MetaActivityDetail extends Component<Props, State> {
                 variant="h6"
                 className={classes.blockTitleLargeMargin}
               >
-                {t('activity.offersThisDay')}
+                {t('metaActivity:offersThisDay')}
               </Typography>
               <TimeTable
                 date={dateSelected}
@@ -231,7 +233,7 @@ export class MetaActivityDetail extends Component<Props, State> {
                     }
                   >
                     <AddIcon className={classes.extendedIcon} />
-                    {t('activity.addOffers')}
+                    {t('metaActivity:addOffers')}
                   </Button>
                 </Grid>
               </Grid>
@@ -253,12 +255,12 @@ export class MetaActivityDetail extends Component<Props, State> {
       <Grid container direction="row" justify="center">
         <Grid item xs={12} md={6}>
           <Typography className={classes.blockTitleLargeMargin} variant="h6">
-            {t('activity.settings')}
+            {t('metaActivity:settings.title')}
           </Typography>
           <Grid container direction="column" spacing={16}>
             <Grid item>
               <Typography variant="subtitle1">
-                {`${t('activity.lastBookingBeforeMinutes')}`}
+                {`${t('metaActivity:settings.lastBookingBeforeMinutes')}`}
               </Typography>
               <Typography variant="h6">
                 {formatMinutes(last_booking_minutes, t)}
@@ -266,7 +268,7 @@ export class MetaActivityDetail extends Component<Props, State> {
             </Grid>
             <Grid item>
               <Typography variant="subtitle1">
-                {`${t('activity.lastDiscardBeforeMinutes')}`}
+                {`${t('metaActivity:settings.lastDiscardBeforeMinutes')}`}
               </Typography>
               <Typography variant="h6">
                 {formatMinutes(last_discard_minutes, t)}
@@ -276,7 +278,7 @@ export class MetaActivityDetail extends Component<Props, State> {
         </Grid>
         <Grid item xs={12} md={6}>
           <Typography className={classes.blockTitleLargeMargin} variant="h6">
-            {t('activity.packsAvailable')}
+            {t('metaActivity:packsAvailable')}
           </Typography>
           {payment_packs_available && payment_packs_available.length ? (
             <Paper>
@@ -301,7 +303,7 @@ export class MetaActivityDetail extends Component<Props, State> {
       return (
         <Paper className={classes.paddedPaper}>
           <Typography variant="h6" className={classes.blockTitleLargeMargin}>
-            {t('activity.reviews')}
+            {t('metaActivity:reviews')}
           </Typography>
           <Grid
             container
@@ -398,5 +400,5 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(),
+  withNamespaces(['metaActivity', 'datetime']),
 )(MetaActivityDetail);

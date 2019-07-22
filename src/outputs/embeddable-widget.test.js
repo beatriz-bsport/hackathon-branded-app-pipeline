@@ -1,3 +1,5 @@
+// @flow
+
 import EmbeddableWidget from './embeddable-widget';
 import { waitForSelection } from '../test-helpers';
 

@@ -1,13 +1,16 @@
+// @flow
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Transition } from 'react-transition-group';
+import PlanningRouter from 'bsport-saas/src/pages/planning/Planning.router';
 import './widget.scss';
 
 class Widget extends Component {
   state = {
     opened: false,
     showDock: true,
-  }
+  };
 
   handleToggleOpen = () => {
     this.setState((prev) => {
@@ -20,13 +23,13 @@ class Widget extends Component {
         opened: !prev.opened,
       };
     });
-  }
+  };
 
   handleWidgetExit = () => {
     this.setState({
       showDock: true,
     });
-  }
+  };
 
   renderBody = () => {
     const { showDock } = this.state;
@@ -43,7 +46,7 @@ class Widget extends Component {
         ^ OPEN ^
       </button>
     );
-  }
+  };
 
   render() {
     const { opened } = this.state;
@@ -52,13 +55,12 @@ class Widget extends Component {
 
     return (
       <div className="docked-widget">
+        <PlanningRouter />
         <Transition in={opened} timeout={250} onExited={this.handleWidgetExit}>
-          {status => (
+          {(status) => (
             <div className={`widget widget-${status}`}>
               <div className="widget-header">
-                <div className="widget-header-title">
-                  {headerText}
-                </div>
+                <div className="widget-header-title">{headerText}</div>
                 <button
                   type="button"
                   className="widget-header-icon"
@@ -68,12 +70,8 @@ class Widget extends Component {
                   X
                 </button>
               </div>
-              <div className="widget-body">
-                {bodyText}
-              </div>
-              <div className="widget-footer">
-                {footerText}
-              </div>
+              <div className="widget-body">{bodyText}</div>
+              <div className="widget-footer">{footerText}</div>
             </div>
           )}
         </Transition>

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "NODE_ENV=production webpack-cli --mode production && npm run build-storybook",
-    "start": "webpack-dev-server",
+    "start": "NODE_ENV=development webpack-dev-server",
     "test": "jest",
     "test-update-snapshots": "jest --updateSnapshot",
     "deploy": "npm run build && gh-pages -d dist",
@@ -15,7 +15,7 @@
   },
   "babel": {
     "presets": [
-      "airbnb"
+      "react-app"
     ],
     "plugins": [
       "@babel/plugin-syntax-dynamic-import",
@@ -33,6 +33,9 @@
       "@babel/plugin-proposal-numeric-separator",
       "@babel/plugin-proposal-throw-expressions"
     ]
+  },
+  "eslintConfig": {
+    "extends": "react-app"
   },
   "jest": {
     "coverageDirectory": "./coverage/",
@@ -75,6 +78,8 @@
     "@babel/plugin-proposal-throw-expressions": "7.2.0",
     "@babel/plugin-syntax-dynamic-import": "7.2.0",
     "@babel/plugin-syntax-import-meta": "7.2.0",
+    "@babel/preset-flow": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
     "@storybook/addon-actions": "5.1.9",
     "@storybook/addon-links": "5.1.9",
     "@storybook/addons": "5.1.9",
@@ -84,6 +89,8 @@
     "babel-jest": "24.8.0",
     "babel-loader": "8.0.6",
     "babel-preset-airbnb": "4.0.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react-app": "^9.0.0",
     "clean-webpack-plugin": "3.0.0",
     "copy-webpack-plugin": "5.0.3",
     "css-loader": "3.0.0",
@@ -93,10 +100,14 @@
     "enzyme-to-json": "3.3.5",
     "eslint": "5.16.0",
     "eslint-config-airbnb": "17.1.0",
+    "eslint-config-prettier": "^6.0.0",
     "eslint-import-resolver-webpack": "0.11.1",
     "eslint-loader": "2.1.2",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-flowtype": "^3.12.1",
     "eslint-plugin-import": "2.18.0",
     "eslint-plugin-jsx-a11y": "6.2.1",
+    "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "7.14.2",
     "gh-pages": "2.0.1",
     "jest": "24.8.0",
@@ -115,8 +126,8 @@
   },
   "dependencies": {
     "prop-types": "^15.6.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
     "react-transition-group": "^4.0.0"
   }
 }

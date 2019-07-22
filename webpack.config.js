@@ -23,25 +23,14 @@ const defaultConfig = {
       filename: devMode ? '[name].css' : '[name].[hash].css',
       chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
     }),
-    new CopyPlugin([
-      { from: 'public', to: '.' },
-    ]),
+    new CopyPlugin([{ from: 'public', to: '.' }]),
     devMode ? null : new JavaScriptObfuscator(),
-  ].filter(i => i),
+  ].filter((i) => i),
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: ['babel-loader'],
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'eslint-loader',
-        options: {
-          emitWarning: true,
-        },
+        test: /\.(js|jsx|mjs)$/,
+        use: ['eslint-loader', 'babel-loader'],
       },
       {
         test: /\.(scss|css)$/,
@@ -71,26 +60,30 @@ const defaultConfig = {
   },
   resolve: {
     extensions: ['*', '.js', '.jsx'],
+    symlinks: false,
   },
 };
 
-module.exports = [{
-  ...defaultConfig,
-  entry: './src/outputs/embeddable-widget.js',
-  output: {
-    path: distDir,
-    publicPath: '/',
-    filename: 'widget.js',
-    library: 'EmbeddableWidget',
-    libraryExport: 'default',
-    libraryTarget: 'window',
+module.exports = [
+  {
+    ...defaultConfig,
+    entry: './src/outputs/embeddable-widget.js',
+    output: {
+      path: distDir,
+      publicPath: '/',
+      filename: 'widget.js',
+      library: 'EmbeddableWidget',
+      libraryExport: 'default',
+      libraryTarget: 'window',
+    },
   },
-}, {
-  ...defaultConfig,
-  entry: './src/outputs/bookmarklet.js',
-  output: {
-    path: distDir,
-    publicPath: '/',
-    filename: 'bookmarklet.js',
+  {
+    ...defaultConfig,
+    entry: './src/outputs/bookmarklet.js',
+    output: {
+      path: distDir,
+      publicPath: '/',
+      filename: 'bookmarklet.js',
+    },
   },
-}];
+];

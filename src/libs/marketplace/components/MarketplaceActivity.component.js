@@ -126,6 +126,12 @@ export class MarketPlaceActivity extends React.Component<Props> {
     const { location } = establishment || { location: null };
     const center = location ? [location.latitude, location.longitude] : null;
     const markers = location ? [establishment] : [];
+    const unlimitedPass = this.props.compatibleConsumerPacks.filter(
+      (cpp) => cpp.payment_pack.unlimited,
+    );
+    const passToDisplay = unlimitedPass.length
+      ? unlimitedPass
+      : this.props.compatibleConsumerPacks;
     return (
       <Card className={classes.card}>
         <IconButton
@@ -170,13 +176,12 @@ export class MarketPlaceActivity extends React.Component<Props> {
               {activity.meta_activity.description}
             </Typography>
             {this.renderCoachBanner()}
-            {this.props.displayPacksInformation &&
-            this.props.compatibleConsumerPacks.length ? (
+            {this.props.displayPacksInformation && passToDisplay.length ? (
               <div>
                 <Typography variant="h6" className={classes.title}>
                   Mes abonnements compatibles
                 </Typography>
-                {this.props.compatibleConsumerPacks.map((p) => (
+                {passToDisplay.map((p) => (
                   <ConsumerPackCheckout
                     creditPrice={offer.credit_price}
                     key={p.id}

@@ -735,11 +735,6 @@ export default {
       },
     },
     booking: {
-      statusCode: {
-        cancelledByManager: 'Cancelled by manager',
-        cancelledByConsumer: 'Cancelled by customer',
-        cancelledByOffer: 'Session cancelled',
-      },
       wasRefunded: 'Refunded',
       success: 'Booking saved',
       revertBookingTitle: 'Delete boking',

@@ -24,11 +24,11 @@ import type { Booking } from './types';
 export const getBookingStatusCode = (t: TFunction, booking: Booking) => {
   switch (booking.booking_status_code) {
     case BOOKING_STATUS_CANCELLED_BY_MANAGER.id:
-      return ` (${t('booking.statusCode.cancelledByManager')})`;
+      return ` (${t('booking:statusCode.cancelledByManager')})`;
     case BOOKING_STATUS_CANCELLED_BY_CONSUMER.id:
-      return ` (${t('booking.statusCode.cancelledByConsumer')})`;
+      return ` (${t('booking:statusCode.cancelledByConsumer')})`;
     case BOOKING_STATUS_CANCELLED_BY_OFFER.id:
-      return ` (${t('booking.statusCode.cancelledByOffer')})`;
+      return ` (${t('booking:statusCode.cancelledByOffer')})`;
     default:
       return '';
   }

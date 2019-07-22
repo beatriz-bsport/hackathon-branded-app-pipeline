@@ -20,4 +20,13 @@ export default {
     wasRefunded: 'Refunded',
     cancelled: 'Cancelled',
   },
+  attend: 'Attend',
+  doNotAttend: 'Absent',
+  loading: 'Loading',
+  wasRefunded: 'Refunded',
+  statusCode: {
+    cancelledByManager: 'Cancelled by manager',
+    cancelledByConsumer: 'Cancelled by customer',
+    cancelledByOffer: 'Session cancelled',
+  },
 };

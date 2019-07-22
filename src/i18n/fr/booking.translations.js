@@ -20,4 +20,13 @@ export default {
     wasRefunded: 'Remboursé',
     cancelled: 'Annulé',
   },
+  attend: 'Présent',
+  doNotAttend: 'Absent',
+  loading: 'Chargement',
+  wasRefunded: 'Remboursé',
+  statusCode: {
+    cancelledByManager: 'Annulation manager',
+    cancelledByConsumer: 'Annulation client',
+    cancelledByOffer: 'Séance annulée par le club',
+  },
 };

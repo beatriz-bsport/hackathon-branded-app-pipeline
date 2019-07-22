@@ -808,11 +808,6 @@ export default {
       },
     },
     booking: {
-      statusCode: {
-        cancelledByManager: 'Annulation manager',
-        cancelledByConsumer: 'Annulation client',
-        cancelledByOffer: 'Séance annulée par le club',
-      },
       wasRefunded: 'Remboursé',
       success: 'Réservation enregistrée',
       revertBookingTitle: "Annuler l'inscription",

@@ -2,6 +2,8 @@
 
 import React, { PureComponent } from 'react';
 
+import { compose } from 'recompose';
+
 import withStyles from '@material-ui/core/styles/withStyles';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -90,7 +92,7 @@ const AttendanceButton = (props: AttendanceButtonProps) => {
           props.discardBookingAttendance(e);
         }}
       >
-        {props.t('booking.attend')}
+        {props.t('attend')}
         <CachedIcon className={props.classes.iconButton} />
       </Button>
     );
@@ -103,7 +105,7 @@ const AttendanceButton = (props: AttendanceButtonProps) => {
         props.confirmBookingAttendance(e);
       }}
     >
-      {props.t('booking.doNotAttend')}
+      {props.t('doNotAttend')}
       <CachedIcon className={props.classes.iconButton} />
     </RedButton>
   );
@@ -139,10 +141,10 @@ export class BookingItemForManager extends PureComponent<Props, State> {
       console.log(payment_pack);
 
       if (!consumer_payment_pack) {
-        return [[t('common.loading'), 'secondary']];
+        return [[t('loading'), 'secondary']];
       }
       if (!payment_pack) {
-        return [[t('common.loading'), 'secondary']];
+        return [[t('loading'), 'secondary']];
       }
       const [packDates, soonExpired] = getPackDate(consumer_payment_pack);
       if (payment_pack.unlimited) {
@@ -157,7 +159,7 @@ export class BookingItemForManager extends PureComponent<Props, State> {
         [payment_pack.name, 'secondary'],
         [
           ` ${packDates} - ${available_credits}/${credits}${
-            booking.was_refunded ? `, (${t('booking.wasRefunded')})` : ''
+            booking.was_refunded ? `, (${t('wasRefunded')})` : ''
           }`,
           available_credits / credits < 0.1 || soonExpired
             ? 'error'
@@ -187,9 +189,7 @@ export class BookingItemForManager extends PureComponent<Props, State> {
       classes,
       t,
     } = this.props;
-    const attendText = booking.attendance
-      ? t('booking.attend')
-      : t('booking.doNotAttend');
+    const attendText = booking.attendance ? t('attend') : t('doNotAttend');
     const switchAttendance = booking.attendance
       ? discardBookingAttendance
       : confirmBookingAttendance;
@@ -479,19 +479,13 @@ const styles = (theme) => ({
   },
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    push(path) {
-      dispatch(routerPush(path));
+export default compose(
+  withNamespaces(['booking']),
+  withStyles(styles),
+  connect(
+    null,
+    {
+      push: routerPush,
     },
-  };
-}
-
-export default withNamespaces()(
-  withStyles(styles)(
-    connect(
-      null,
-      mapDispatchToProps,
-    )(BookingItemForManager),
   ),
-);
+)(BookingItemForManager);

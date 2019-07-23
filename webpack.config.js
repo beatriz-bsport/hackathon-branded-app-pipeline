@@ -29,31 +29,48 @@ const defaultConfig = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx|mjs)$/,
-        use: ['eslint-loader', 'babel-loader'],
-      },
-      {
-        test: /\.(scss|css)$/,
-        use: [
-          // fallback to style-loader in development
-          // devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
-          'style-loader',
-          'css-loader',
-          'cssimportant-loader',
+        oneOf: [
           {
-            loader: 'postcss-loader',
-            options: {
-              ident: 'postcss',
-              plugins: [
-                increaseSpecificity({
-                  stackableRoot: '.cleanslate',
-                  repeat: 1,
-                }),
-              ],
-              sourceMap: devMode,
+            test: /\.(js|jsx|mjs)$/,
+            use: {
+              loader: 'babel-loader',
+              options: {
+                presets: ['react-app'],
+              },
             },
           },
-          'sass-loader',
+          {
+            test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+            loader: require.resolve('url-loader'),
+            options: {
+              limit: 10000,
+              name: 'static/media/[name].[hash:8].[ext]',
+            },
+          },
+          {
+            test: /\.(scss|css)$/,
+            use: [
+              // fallback to style-loader in development
+              // devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+              'style-loader',
+              'css-loader',
+              'cssimportant-loader',
+              {
+                loader: 'postcss-loader',
+                options: {
+                  ident: 'postcss',
+                  plugins: [
+                    increaseSpecificity({
+                      stackableRoot: '.cleanslate',
+                      repeat: 1,
+                    }),
+                  ],
+                  sourceMap: devMode,
+                },
+              },
+              'sass-loader',
+            ],
+          },
         ],
       },
     ],

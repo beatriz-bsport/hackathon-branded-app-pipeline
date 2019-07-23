@@ -6,7 +6,7 @@ import '../../vendor/cleanslate.css';
 export default class EmbeddableWidget {
   static el;
 
-  static mount({ parentElement = null, ...props } = {}) {
+  static mount({ parentElement, ...props } = {}) {
     const component = <Widget {...props} />;
 
     function doRender() {
@@ -15,16 +15,8 @@ export default class EmbeddableWidget {
       }
       const el = document.createElement('div');
       el.setAttribute('class', 'cleanslate');
-
-      if (parentElement) {
-        document.querySelector(parentElement).appendChild(el);
-      } else {
-        document.body.appendChild(el);
-      }
-      ReactDOM.render(
-        component,
-        el,
-      );
+      document.getElementById(parentElement || 'bsport-widget').appendChild(el);
+      ReactDOM.render(component, el);
       EmbeddableWidget.el = el;
     }
     if (document.readyState === 'complete') {

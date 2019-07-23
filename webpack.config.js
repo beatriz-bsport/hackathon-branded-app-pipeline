@@ -9,6 +9,10 @@ const devMode = process.env.NODE_ENV !== 'production';
 const publicDir = path.join(__dirname, 'public');
 const distDir = path.join(__dirname, 'dist');
 
+process.env.REACT_APP_BASE_URI = 'http://api.ci.bsport.io';
+process.env.REACT_APP_API_URI = 'http://api.ci.bsport.io/api-v0';
+process.env.REACT_APP_STRIPE_PK_KEY = 'pk_test_lFB5CxcyTCaQcS00MiE1ebEO';
+
 const defaultConfig = {
   mode: process.env.NODE_ENV || 'development',
   devServer: {

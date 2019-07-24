@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Moment } from 'bsport-saas/src/i18n';
 import Immutable from 'seamless-immutable';
 import { Provider } from 'react-redux';
-import { MarketPlaceCalendarWidget } from 'bsport-saas/src/pages/marketplace/MarketplaceCalendar.page';
+import { MarketplaceCalendarWidget } from 'bsport-saas/src/pages/marketplace/MarketplaceCalendar.page';
 import initStore from '../store';
 
 const store = initStore();
@@ -18,7 +18,7 @@ class BsportWidget extends Component<Props> {
     const { companyId } = this.props;
     return (
       <Provider store={store}>
-        <MarketPlaceCalendarWidget companyId={companyId} />;
+        <MarketplaceCalendarWidget companyId={companyId} store={store} />;
       </Provider>
     );
   }

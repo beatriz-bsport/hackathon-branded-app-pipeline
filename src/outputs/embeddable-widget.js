@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Widget from '../components/widget';
+import BsportWidget from '../components/widget.core';
 import '../../vendor/cleanslate.css';
 
 export default class EmbeddableWidget {
   static el;
 
   static mount({ parentElement, ...props } = {}) {
-    const component = <Widget {...props} />;
+    const component = <BsportWidget {...props} />;
 
     function doRender() {
       if (EmbeddableWidget.el) {

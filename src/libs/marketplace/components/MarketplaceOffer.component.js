@@ -71,8 +71,14 @@ export class MarketplaceOffer extends Component<Props> {
       >
         <CoachAvatar
           t={t}
-          coach={activity && activity.coach ? activity.coach : null}
-          coach_override={offer.coach_override || null}
+          coach={
+            activity && activity.coach && activity.coach.user
+              ? activity.coach.user
+              : null
+          }
+          coach_override={
+            offer.coach_override ? offer.coach_override.user : null
+          }
         />
         <ListItemText
           primary={

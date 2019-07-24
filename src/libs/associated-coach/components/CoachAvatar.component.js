@@ -28,22 +28,21 @@ type Props = {
 export default withNamespaces([])(
   withStyles(styles)((props: Props) => {
     const { coach, coach_override, classes, t } = props;
+    console.log(props);
     // eslint-disable-next-line
     const tooltipText = coach_override
       ? `${t('marketplace.substitute')} ${
-          coach_override && coach_override.user ? coach_override.user.name : ''
+          coach_override && coach_override ? coach_override.name : ''
         }`
-      : coach && coach.user
-      ? coach.user.name
+      : coach
+      ? coach.name
       : '';
     return (
       <Tooltip title={tooltipText}>
         <Avatar
           src={
-            (coach_override &&
-              coach_override.user &&
-              coach_override.user.photo) ||
-            (coach && coach.user ? coach.user.photo : null)
+            (coach_override && coach_override.photo) ||
+            (coach ? coach.photo : null)
           }
           className={coach_override ? classes.avatarSubstitute : classes.avatar}
         />

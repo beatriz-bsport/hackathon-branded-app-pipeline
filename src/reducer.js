@@ -1,9 +1,9 @@
 // @flow
 import { combineReducers } from 'redux';
-import marketPlaceReducers from './libs/marketplace/reducers';
+import marketPlaceReducers from 'bsport-saas/src/libs/marketplace/reducers';
 
 const rootReducer = combineReducers({
-  marketPlaceReducers,
+  marketplacev2: marketPlaceReducers,
 });
 
 export default (state: any, action: any) => rootReducer(state, action);

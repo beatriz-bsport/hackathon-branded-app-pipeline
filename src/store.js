@@ -1,7 +1,7 @@
 // @flow
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import reducer from './libs/marketplace/reducers';
+import reducer from './reducer';
 
 export default function initStore(initialState: Object = {}) {
   const composeEnhancers =

@@ -1,13 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createBrowserHistory } from 'history';
+import { Provider } from 'react-redux';
+
 import BsportWidget from '../components/widget.core';
 import '../../vendor/cleanslate.css';
+import initStore from '../store';
+
+const store = initStore();
+const history = createBrowserHistory();
 
 export default class EmbeddableWidget {
   static el;
 
   static mount({ parentElement, ...props } = {}) {
-    const component = <BsportWidget {...props} />;
+    const component = (
+      <Provider store={store}>
+        <BsportWidget {...props} store={store} history={history} />
+      </Provider>
+    );
 
     function doRender() {
       if (EmbeddableWidget.el) {

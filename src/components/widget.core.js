@@ -1,9 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { Moment } from 'bsport-saas/src/i18n';
-import Immutable from 'seamless-immutable';
-import { Provider, connect } from 'react-redux';
-import { BrowserRouter, Router, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 import {
   fetchCompanyAction,
   fetchCompanyMetaActivitiesAction,
@@ -13,14 +10,15 @@ import {
 } from 'bsport-saas/src/libs/marketplace/actions';
 import { fetchSCT } from 'bsport-saas/src/actions/category.actions';
 
-import { MarketplaceCalendarWidget } from 'bsport-saas/src/pages/marketplace/MarketplaceCalendar.page';
-
-// import PropTypes from 'prop-types';
+import CalendarWidget from './widget.calendar';
+import PassWidget from './widget.pass';
+import WorkshopWidget from './widget.workshop';
 
 type Props = {
   companyId: number,
   store: any,
   history: Object,
+  widgetType: string,
   fetchSCT: () => void,
   fetchCompany: (companyId: number) => void,
   fetchCompanyActivities: (companyId: number) => void,
@@ -43,14 +41,27 @@ class BsportWidget extends Component<Props> {
   }
 
   render() {
-    const { companyId, store, history } = this.props;
-    return (
-      <MarketplaceCalendarWidget
-        companyId={companyId}
-        location={history.location}
-        store={store}
-      />
-    );
+    const { companyId, store, history, widgetType } = this.props;
+    switch (widgetType) {
+      case 'workshop':
+        return (
+          <WorkshopWidget
+            companyId={companyId}
+            location={history.location}
+            store={store}
+          />
+        );
+      case 'pass':
+        return <PassWidget companyId={companyId} store={store} />;
+      default:
+        return (
+          <CalendarWidget
+            companyId={companyId}
+            location={history.location}
+            store={store}
+          />
+        );
+    }
   }
 }
 

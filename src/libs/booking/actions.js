@@ -13,7 +13,7 @@ export const actionTypes = {
 
   START_UPDATING_BOOKING_OPTION: 'START_UPDATING_BOOKING_OPTION',
   ERROR_UPDATING_BOOKING_OPTION: 'ERROR_UPDATING_BOOKING_OPTION',
-  BOOKING_OPTION_UPDATED: 'BOOKING_OPTION_UPDATED',
+  BOOKING_OPTION_CANCELLED: 'BOOKING_OPTION_CANCELLED',
 
   BOOKING_ADD_START: 'BOOKING_ADD_START',
   BOOKING_ADD_ERROR: 'BOOKING_ADD_ERROR',
@@ -32,8 +32,8 @@ export function errorUpdatingBookingOption(bookingOptionId) {
   return { type: actionTypes.ERROR_UPDATING_BOOKING_OPTION, bookingOptionId };
 }
 
-export function bookingOptionUpdated(bookingOption) {
-  return { type: actionTypes.BOOKING_OPTION_UPDATED, bookingOption };
+export function bookingOptionCancelled(bookingOptionId) {
+  return { type: actionTypes.BOOKING_OPTION_CANCELLED, bookingOptionId };
 }
 export function discardBookingOption(bookingOptionId) {
   return async (dispatch) => {
@@ -41,8 +41,7 @@ export function discardBookingOption(bookingOptionId) {
 
     const response = await api.booking.discardBookingOption(bookingOptionId);
     if (response.status === 200) {
-      const bookingOption = response.data;
-      return dispatch(bookingOptionUpdated(bookingOption));
+      return dispatch(bookingOptionCancelled(bookingOptionId));
     }
     return dispatch(errorUpdatingBookingOption(bookingOptionId));
   };

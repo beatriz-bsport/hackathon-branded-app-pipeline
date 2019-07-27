@@ -11,11 +11,12 @@ import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+
+import { compose } from 'recompose';
 import { withNamespaces } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
 
-import parse from '../../../query-string';
-
+import type { TFunction } from 'react-i18next';
 import ConsumerPackCheckout from './ConsumerPackCheckout.component';
 import PaymentPackSummary from '../../../components/payment-pack/PaymentPackSummary.component';
 import type {
@@ -28,7 +29,6 @@ import ActivityMinimalSummary from '../../../components/activity/ActivityMinimal
 import { humanizeDate, formatAsDatetime } from '../../../datetime';
 
 type Props = {
-  location: Object,
   classes: Object,
 
   offer: Offer,
@@ -39,8 +39,10 @@ type Props = {
   compatiblePaymentPacksLoading: boolean,
 
   loading: boolean,
+  hasOneOrMoreOption: boolean,
 
-  t: (x: string) => string,
+  bookingOption: ?BookingOption,
+  t: TFunction,
   goToPassMarketplace: () => void,
   onCompletePurchase: () => void,
   onBuyPaymentPack: (packId: number) => void,
@@ -56,15 +58,6 @@ const OfferSummary = (props: { offer: Offer }) => (
 );
 
 export class OfferPayment extends Component<Props> {
-  componentWillMount() {
-    const { option_id } = parse(this.props.location.search);
-    if (option_id) {
-      this.urlParams = { option_id };
-    } else {
-      this.urlParams = {};
-    }
-  }
-
   getBasket = () => {
     const { offer, loading, t } = this.props;
     if (offer && !loading) {
@@ -73,7 +66,9 @@ export class OfferPayment extends Component<Props> {
         <Grid container direction="column" spacing={16}>
           <Grid item>
             <Typography variant="h3">
-              {`${humanDate.day} ${t(humanDate.month)} - ${humanDate.time}`}
+              {`${humanDate.day} ${t(`datetime:${humanDate.month}`)} - ${
+                humanDate.time
+              }`}
             </Typography>
           </Grid>
           <Grid item>
@@ -130,7 +125,7 @@ export class OfferPayment extends Component<Props> {
             </Grid>
             <Grid item>
               <Typography variant="h6">
-                {t('payment.availablePaymentPacks')}
+                {t('payment:availablePaymentPacks')}
               </Typography>
             </Grid>
           </Grid>
@@ -143,7 +138,11 @@ export class OfferPayment extends Component<Props> {
               offerId={offer.id}
               creditPrice={offer.credit_price}
               onCompletePurchase={onCompletePurchase}
-              urlParams={this.urlParams}
+              urlParams={
+                this.props.bookingOption
+                  ? { option_id: this.props.bookingOption.id }
+                  : {}
+              }
             />
           </Grid>
         ))}
@@ -166,6 +165,11 @@ export class OfferPayment extends Component<Props> {
         offerId={this.props.offer.id}
         creditPrice={this.props.offer.credit_price}
         onCompletePurchase={this.props.onCompletePurchase}
+        urlParams={
+          this.props.bookingOption
+            ? { option_id: this.props.bookingOption.id }
+            : {}
+        }
       />
     ));
   };
@@ -255,26 +259,39 @@ export class OfferPayment extends Component<Props> {
   };
 
   render() {
-    const { loading, offer, t } = this.props;
+    const { loading, hasOneOrMoreOption, offer, t, bookingOption } = this.props;
 
     const unlimitedPacks = this.getCompatibleUnlimitedPass();
 
-    if (offer && !loading && offer.is_full) {
+    if (
+      offer &&
+      !loading &&
+      (offer.is_full && !(bookingOption && bookingOption.is_convertible))
+    ) {
       return (
         <Grid container spacing={16} direction="column" alignItems="center">
           <Grid item>{this.getBasket()}</Grid>
+          {hasOneOrMoreOption ? (
+            <Grid item>
+              <Typography color="textSecondary" variant="caption">
+                {t('payment:hasOneOrMoreOption')}
+              </Typography>
+            </Grid>
+          ) : null}
           <Grid item>
             <Button
               color="primary"
               variant="outlined"
               onClick={() => this.props.bookAnOption(offer.id)}
             >
-              {"M'inscrire sur liste d'attente"}
+              {hasOneOrMoreOption
+                ? t('payment:bookAnotherOption')
+                : t('payment:bookAnOption')}
             </Button>
           </Grid>
           <Grid item>
             <Typography variant="caption">
-              {"Vous serez prévenu par email lorsqu'une place se libèrera"}
+              {t('payment:explainOption')}
             </Typography>
           </Grid>
           <Grid item>
@@ -283,7 +300,7 @@ export class OfferPayment extends Component<Props> {
               variant="contained"
               onClick={this.props.goToPassMarketplace}
             >
-              {t('marketplace.backToCalendar')}
+              {t('payment:goBack')}
             </Button>
           </Grid>
         </Grid>
@@ -310,7 +327,7 @@ export class OfferPayment extends Component<Props> {
             variant="contained"
             onClick={this.props.goToPassMarketplace}
           >
-            {t('marketplace.backToCalendar')}
+            {t('payment:goBack')}
           </Button>
         </Grid>
       );
@@ -327,7 +344,7 @@ export class OfferPayment extends Component<Props> {
           variant="contained"
           onClick={this.props.goToPassMarketplace}
         >
-          {t('marketplace.backToCalendar')}
+          {t('payment:goBack')}
         </Button>
       </Grid>
     );
@@ -350,4 +367,8 @@ const styles = (theme) => ({
   },
 });
 
-export default withRouter(withNamespaces()(withStyles(styles)(OfferPayment)));
+export default compose(
+  withRouter,
+  withNamespaces(['payment', 'datetime']),
+  withStyles(styles),
+)(OfferPayment);

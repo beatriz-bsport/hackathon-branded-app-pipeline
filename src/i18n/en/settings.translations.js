@@ -6,5 +6,6 @@ export default {
     paymentRules: 'Rates',
     company: 'Company',
     invoice: 'Billing',
+    waitingList: 'Waiting-list',
   },
 };

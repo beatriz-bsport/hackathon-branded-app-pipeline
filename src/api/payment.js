@@ -15,11 +15,14 @@ export async function consumerFetchCompatiblePass(offerId) {
 }
 
 export async function bookAnOption(offer, consumer) {
-  console.log(consumer);
   return postAuth(`${BASE_URI}/api/v1/waiting-list/booking-option/`, {
     offer,
     consumer: parseInt(consumer, 10),
   });
+}
+
+export async function fetchBookingOption(optionId) {
+  return getAuth(`${BASE_URI}/api/v1/waiting-list/booking-option/${optionId}/`);
 }
 
 export async function consumerPayWithConsumerPaymentPack(
@@ -89,4 +92,5 @@ export default {
   fetchPaymentPack: consumerRequestPaymentPack,
   fetchCompatiblePass: consumerFetchCompatiblePass,
   fetchCompatiblePaymentPacks,
+  fetchBookingOption,
 };

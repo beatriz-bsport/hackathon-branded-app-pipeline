@@ -8,6 +8,7 @@ import Collapse from '@material-ui/core/Collapse';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
 import Button from '@material-ui/core/Button';
 import Slide from '@material-ui/core/Slide';
 import Typography from '@material-ui/core/Typography';
@@ -39,6 +40,7 @@ import RegisterMemberToOfferForm from './RegisterMemberToOfferForm.component';
 import MemberForm from '../../libs/member/MemberForm.component';
 import { getLatest as getLatestMember } from '../../libs/member/api';
 import BookingTable from '../../libs/booking/components/BookingTable.component';
+import BookingOptionForManager from '../../libs/waiting-list/components/BookingOptionForManager.component';
 
 import type { PaymentPack } from '../../libs/payment-packs/types';
 import type { Booking, BookingOption } from '../../libs/booking/types';
@@ -488,8 +490,6 @@ export class OfferManagement extends PureComponent<Props, State> {
                     paymentPacks={this.props.paymentPacks}
                     loading={bookingLoading}
                     bookings={bookings}
-                    bookingOptions={bookingOptions}
-                    discardOption={discardOption}
                     confirmBookingAttendance={
                       this.props.confirmBookingAttendance
                     }
@@ -501,6 +501,19 @@ export class OfferManagement extends PureComponent<Props, State> {
                     handleRevert={this.handleBookingRevert}
                     onQuickInvoiceClick={this.addToQuickInvoicePanel}
                   />
+                  <List disablePadding>
+                    {bookingOptions
+                      .filter((bo) => !bo.booking && !bo.cancelled)
+                      .map((bo) => (
+                        <BookingOptionForManager
+                          option={bo}
+                          onDiscard={() => discardOption(bo.id)}
+                          member={this.props.members.find(
+                            (m) => m.id === bo.member,
+                          )}
+                        />
+                      ))}
+                  </List>
                 </Grid>
               </Grid>
             </Paper>

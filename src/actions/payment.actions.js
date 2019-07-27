@@ -1,11 +1,58 @@
 import api from '../api';
 import types from './payment.types';
 
+export function startCheckingOptionExistence() {
+  return { type: types.PAYMENT_START_CHECKING_OPTION_EXISTENCE };
+}
+export function errorCheckingOptionExistence() {
+  return { type: types.PAYMENT_ERROR_CHEKING_OPTION_EXISTENCE };
+}
+export function checkedOptionExistence(exists) {
+  return { type: types.PAYMENT_HAS_CHECKED_OPTION_EXISTENCE, exists };
+}
+export function checkOptionExistence(offerId) {
+  return async (dispatch) => {
+    dispatch(startCheckingOptionExistence());
+
+    try {
+      const response = await api.booking.checkOptionExistence(offerId);
+      const exists = response.data;
+      dispatch(checkedOptionExistence(exists));
+    } catch (err) {
+      dispatch(errorCheckingOptionExistence());
+    }
+  };
+}
+
+export function startFetchBookingOption() {
+  return { type: types.PAYMENT_START_FETCH_OPTION };
+}
+export function errorFetchingBookingOption() {
+  return { type: types.PAYMENT_ERROR_FETCHING_OPTION };
+}
+export function fetchedBookingOption(option) {
+  return { type: types.PAYMENT_HAS_FETCHED_OPTION, option };
+}
+export function fetchBookingOption(id) {
+  return async (dispatch) => {
+    dispatch(startFetchBookingOption());
+
+    try {
+      const response = await api.payment.fetchBookingOption(id);
+      const option = response.data;
+      console.log(option);
+      dispatch(fetchedBookingOption(option));
+    } catch (err) {
+      dispatch(errorFetchingBookingOption());
+    }
+  };
+}
+
 export function startFetchOffer() {
   return { type: types.PAYMENT_START_FETCH_OFFER };
 }
-export function errorFetchingOffer() {
-  return { type: types.PAYMENT_ERROR_FETCHING_OFFER };
+export function errorFetchingOffer(err) {
+  return { type: types.PAYMENT_ERROR_FETCHING_OFFER, err };
 }
 export function fetchedOffer(offer) {
   return { type: types.PAYMENT_HAS_FETCHED_OFFER, offer };
@@ -19,7 +66,7 @@ export function fetchOffer(id) {
       const offer = response.data;
       dispatch(fetchedOffer(offer));
     } catch (err) {
-      dispatch(errorFetchingOffer());
+      dispatch(errorFetchingOffer(err));
     }
   };
 }

@@ -229,20 +229,22 @@ export class MyBookings extends Component<Props, State> {
     }
     return (
       <List>
-        {bookingOptions.map((o) => (
-          <div className={classes.bookingOptionElement} key={o.id}>
-            <BookingOptionListItem
-              confirmBookingOption={
-                // prettier-ignore
-                () => this.confirmBookingOption(o.offer.id, o.id)
-              }
-              bookingOption={o}
-              cancelBookingOption={() => this.cancelBookingOption(o.id)}
-              loading={o.id === optionCurrentlyCancelling}
-            />
-            <Divider />
-          </div>
-        ))}
+        {bookingOptions
+          .filter((bo) => !bo.cancelled)
+          .map((o) => (
+            <div className={classes.bookingOptionElement} key={o.id}>
+              <BookingOptionListItem
+                confirmBookingOption={
+                  // prettier-ignore
+                  () => this.confirmBookingOption(o.offer.id, o.id)
+                }
+                bookingOption={o}
+                cancelBookingOption={() => this.cancelBookingOption(o.id)}
+                loading={o.id === optionCurrentlyCancelling}
+              />
+              <Divider />
+            </div>
+          ))}
       </List>
     );
   };

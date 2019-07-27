@@ -6,5 +6,6 @@ export default {
     paymentRules: 'Règles de rémunération',
     company: 'Entreprise',
     invoice: 'Facturation',
+    waitingList: "Liste d'attente",
   },
 };

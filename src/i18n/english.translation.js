@@ -23,6 +23,8 @@ import login from './en/login.translations';
 import invoice from './en/invoice.translations';
 import datetime from './en/datetime.translations';
 import offer from './en/offer.translations';
+import payment from './en/payment.translations';
+import waitingList from './en/waiting-list.translations';
 
 export default {
   dashboard,
@@ -35,6 +37,7 @@ export default {
   invoice,
   reporting,
   subscription,
+  waitingList,
   metaActivity,
   establishment,
   paymentPack,
@@ -44,6 +47,7 @@ export default {
   tag,
   marketplace,
   datetime,
+  payment,
   offer,
   coachPerformance: {
     addBonus: 'Add a rule',

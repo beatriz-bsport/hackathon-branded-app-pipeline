@@ -133,9 +133,7 @@ export class BookingItemForManager extends PureComponent<Props, State> {
   getStatusText = (booking: Booking) => {
     const { paymentPacks, t } = this.props;
     const { consumer_payment_pack } = booking;
-    console.log(paymentPacks);
-    console.log(consumer_payment_pack);
-    console.log(booking);
+
     if (consumer_payment_pack && booking.payment_pack) {
       const payment_pack = this.getPaymentPack(paymentPacks, booking);
       console.log(payment_pack);
@@ -255,7 +253,6 @@ export class BookingItemForManager extends PureComponent<Props, State> {
           <div
             style={{
               display: 'flex',
-              'flex-wrap': 'nowrap',
               flexDirection: 'row',
             }}
           >

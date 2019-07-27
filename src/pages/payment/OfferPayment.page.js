@@ -12,6 +12,7 @@ import { compose } from 'recompose';
 
 import withSnackbar from '../../hocs/with-snackbar.hoc';
 import { bookAnOption } from '../../api/payment';
+import parse from '../../query-string';
 
 import { payment as paymentActions } from '../../actions';
 import ConsumerModalContainer from '../../components/consumer/ConsumerModalContainer.component';
@@ -24,14 +25,21 @@ type Props = {
 
   t: TFunction,
   offer: ?Offer,
+  location: Object,
+
   loading: boolean,
   compatibleConsumerPacksLoading: boolean,
   compatiblePaymentPacksLoading: boolean,
+  bookingOptionLoading: boolean,
+  bookingOption: ?BookingOption,
+  hasOneOrMoreOption: boolean,
   consumer: { consumer: number },
 
   compatibleConsumerPacks: Array<ConsumerPaymentPackManagerView>,
   compatiblePaymentPacks: Array<PaymentPack>,
 
+  fetchBookingOption: (id: number) => void,
+  checkBookingOptionExistence: (offerId: number) => void,
   pushRouter: (path: string) => void,
   goToPassMarketplace: (companyName: string) => void,
   fetchOffer: (number) => void,
@@ -54,12 +62,20 @@ export class OfferPaymentPage extends Component<Props, State> {
     this.setState({ completed: true });
   };
 
+  componentWillMount() {
+    const { option_id } = parse(this.props.location.search);
+    if (option_id) {
+      this.props.fetchBookingOption(option_id);
+    }
+  }
+
   componentDidMount() {
     const offerId = parseInt(this.props.match.params.id, 10);
     this.offerId = offerId;
     this.props.fetchOffer(offerId);
     this.props.fetchCompatiblePass(offerId);
     this.props.fetchCompatiblePaymentPacks(offerId);
+    this.props.checkBookingOptionExistence(offerId);
   }
 
   bookAnOption = (offerId: number) => {
@@ -96,7 +112,12 @@ export class OfferPaymentPage extends Component<Props, State> {
       <ConsumerModalContainer>
         <OfferPaymentForm
           offer={this.props.offer}
-          loading={this.props.loading || this.state.processing}
+          loading={
+            this.props.loading ||
+            this.state.processing ||
+            this.props.bookingOptionLoading
+          }
+          bookingOption={this.props.bookingOption}
           compatibleConsumerPacks={this.props.compatibleConsumerPacks}
           compatibleConsumerPacksLoading={
             this.props.compatibleConsumerPacksLoading
@@ -109,6 +130,8 @@ export class OfferPaymentPage extends Component<Props, State> {
           onBuyPaymentPack={this.buyPaymentPack}
           goToPassMarketplace={this.goToPassMarketplace}
           bookAnOption={this.bookAnOption}
+          option_id={this.option_id}
+          hasOneOrMoreOption={this.props.hasOneOrMoreOption}
         />
       </ConsumerModalContainer>
     );
@@ -129,9 +152,14 @@ export default compose(
         state.payment.compatibleConsumerPacksLoading,
       compatibleConsumerPacksLoading:
         state.payment.compatibleConsumerPacksLoading,
+      bookingOption: state.payment.bookingOption.data,
+      bookingOptionLoading: state.payment.bookingOption.loading,
+      hasOneOrMoreOption: state.payment.bookingOption.hasOne,
     }),
     {
       fetchOffer: paymentActions.fetchOffer,
+      fetchBookingOption: paymentActions.fetchBookingOption,
+      checkBookingOptionExistence: paymentActions.checkOptionExistence,
       fetchCompatiblePass: paymentActions.fetchCompatiblePass,
       fetchCompatiblePaymentPacks: paymentActions.fetchCompatiblePaymentPacks,
       goToPassMarketplace: (companyName) => routerPush(`/m/${companyName}`),

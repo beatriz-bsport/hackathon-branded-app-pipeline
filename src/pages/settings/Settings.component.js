@@ -18,6 +18,7 @@ import AppBar from '@material-ui/core/AppBar';
 import PaymentRuleSetsDashboard from './PaymentRuleSetsDashboard.component';
 import CompanyDetailPage from './CompanyDetailPage.component';
 import InvoiceConfigurationPage from './InvoiceConfigurationPage.component';
+import WaitingListConfigurationPage from './WaitingListConfigurationPage.component';
 
 import withDrawer from '../../hocs/with-drawer.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -41,6 +42,7 @@ export const Settings = (props: Props) => {
           <Tab label={t('tab.paymentRules')} value="payment-rules" />
           <Tab label={t('tab.company')} value="company" />
           <Tab label={t('tab.invoice')} value="invoice" />
+          <Tab label={t('tab.waitingList')} value="waiting-list" />
         </Tabs>
       </AppBar>
       <Switch>
@@ -54,6 +56,11 @@ export const Settings = (props: Props) => {
           exact
           path="/settings/payment-rules"
           component={PaymentRuleSetsDashboard}
+        />
+        <Route
+          exact
+          path="/settings/waiting-list"
+          component={WaitingListConfigurationPage}
         />
       </Switch>
     </div>

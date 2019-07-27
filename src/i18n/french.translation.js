@@ -9,6 +9,7 @@ import companies from './fr/companies.translations';
 import dashboard from './fr/dashboard.translations';
 import settings from './fr/settings.translations';
 import paymentRules from './fr/payment-rules.translations';
+import payment from './fr/payment.translations';
 import subscription from './fr/subscription.translations';
 import reporting from './fr/reporting.translations';
 import stripe from './fr/stripe.translations';
@@ -23,17 +24,20 @@ import login from './fr/login.translations';
 import invoice from './fr/invoice.translations';
 import datetime from './fr/datetime.translations';
 import offer from './fr/offer.translations';
+import waitingList from './fr/waiting-list.translations';
 
 export default {
   dashboard,
   tag,
   login,
+  waitingList,
   establishment,
   order,
   settings,
   datetime,
   shop,
   paymentRules,
+  payment,
   invoice,
   coach,
   subscription,

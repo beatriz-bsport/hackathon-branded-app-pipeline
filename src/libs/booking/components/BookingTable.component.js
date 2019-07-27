@@ -14,7 +14,6 @@ import type { Booking } from '../types';
 import type { PaymentPack } from '../../../libs/payment-packs/types';
 
 import BookingItemForManager from './BookingItemForManager.component';
-import BookingOptionForManager from './BookingOptionForManager.component';
 
 type Props = {
   classes: Object,
@@ -31,10 +30,8 @@ type Props = {
   sortedBy: ?string,
   bookings: Array<Object>,
   members: Array<Member>,
-  bookingOptions: Array<Object>,
   paymentPacks: Array<PaymentPack>,
 
-  discardOption: (id: number) => void,
   onQuickInvoiceClick: (member: Member) => void,
   handleRevert: (booking: Booking) => void,
   discardBookingAttendance: (id: number) => void,
@@ -42,14 +39,6 @@ type Props = {
 };
 
 export class BookingTable extends PureComponent<Props> {
-  state = { compact: false };
-
-  componentDidMount() {
-    if (this.container) {
-      this.setState({ compact: this.container.clientWidth < 500 });
-    }
-  }
-
   sortBookings = () => {
     const { sortedBy, bookings } = this.props;
 
@@ -67,9 +56,7 @@ export class BookingTable extends PureComponent<Props> {
       classes,
       loading,
       heading,
-      bookingOptions,
       bookings,
-      discardOption,
       confirmBookingAttendance,
       discardBookingAttendance,
       showQuickInvoiceButton,
@@ -80,9 +67,6 @@ export class BookingTable extends PureComponent<Props> {
       handleRevert,
       onQuickInvoiceClick,
     } = this.props;
-    const nonCancelledBookingOptions = (bookingOptions || []).filter(
-      (bo) => !bo.cancelled,
-    );
 
     if (loading || !bookings) {
       return <CircularProgress className={classes.contentWithMargin} />;
@@ -91,7 +75,6 @@ export class BookingTable extends PureComponent<Props> {
     // prettier-ignore
     if (
       bookings.length === 0
-      && nonCancelledBookingOptions.length === 0
     ) {
       return (
         <Typography variant="caption" className={classes.contentWithMargin}>
@@ -103,41 +86,26 @@ export class BookingTable extends PureComponent<Props> {
     const sortedBookings = this.sortBookings();
 
     return (
-      <div
-        ref={(el) => {
-          this.container = el;
-        }}
-      >
-        <List disablePadding dense>
-          {sortedBookings.map((b) => (
-            <BookingItemForManager
-              compact={this.state.compact}
-              member={this.props.members.find((m) => m.id === b.member)}
-              redirectToMember={redirectToMember}
-              redirectToOffer={redirectToOffer}
-              newTab={newTab}
-              showQuickInvoiceButton={showQuickInvoiceButton}
-              onQuickInvoiceClick={() => onQuickInvoiceClick(b.member)}
-              key={b.id}
-              heading={heading}
-              booking={b}
-              paymentPacks={this.props.paymentPacks}
-              showRevertBookingButton={showRevertBookingButton}
-              handleRevert={() => handleRevert(b)}
-              discardBookingAttendance={() => discardBookingAttendance(b.id)}
-              confirmBookingAttendance={() => confirmBookingAttendance(b.id)}
-            />
-          ))}
-          {nonCancelledBookingOptions.map((bo) => (
-            <BookingOptionForManager
-              heading={heading}
-              option={bo}
-              key={bo.id}
-              discardOption={() => discardOption(bo.id)}
-            />
-          ))}
-        </List>
-      </div>
+      <List disablePadding dense>
+        {sortedBookings.map((b) => (
+          <BookingItemForManager
+            member={this.props.members.find((m) => m.id === b.member)}
+            redirectToMember={redirectToMember}
+            redirectToOffer={redirectToOffer}
+            newTab={newTab}
+            showQuickInvoiceButton={showQuickInvoiceButton}
+            onQuickInvoiceClick={() => onQuickInvoiceClick(b.member)}
+            key={b.id}
+            heading={heading}
+            booking={b}
+            paymentPacks={this.props.paymentPacks}
+            showRevertBookingButton={showRevertBookingButton}
+            handleRevert={() => handleRevert(b)}
+            discardBookingAttendance={() => discardBookingAttendance(b.id)}
+            confirmBookingAttendance={() => confirmBookingAttendance(b.id)}
+          />
+        ))}
+      </List>
     );
   }
 }

@@ -3,16 +3,7 @@
 import Immutable from 'seamless-immutable';
 
 import { actionTypes } from './actions';
-import type { BookingsState, BookingsAction, BookingOption } from './types';
-
-function updateOptions(
-  option: BookingOption,
-  oldOptions: Array<BookingOption>,
-): Array<BookingOption> {
-  return [option, ...oldOptions.filter((o) => o.id !== option.id)].filter(
-    (o) => !o.cancelled,
-  );
-}
+import type { BookingsState, BookingsAction } from './types';
 
 const initialState = Immutable({
   loading: false,
@@ -39,10 +30,10 @@ export default function bookingReducers(
         action.bookingOptionId,
         ...state.bookingOptionsUpdating,
       ]);
-    case actionTypes.BOOKING_OPTION_UPDATED: {
-      const { bookingOption, bookingOptionId } = action;
+    case actionTypes.BOOKING_OPTION_CANCELLED: {
+      const { bookingOptionId } = action;
       return state
-        .set('options', updateOptions(bookingOption, state.options))
+        .set('options', state.options.filter((o) => o.id !== bookingOptionId))
         .set(
           'bookingOptionsUpdating',
           state.bookingOptionsUpdating.filter((id) => id !== bookingOptionId),

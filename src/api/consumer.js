@@ -1,7 +1,7 @@
-import { API_URI, getAuth, deleteAuth } from '../http';
+import { API_URI, API_V1_URI, getAuth, postAuth, deleteAuth } from '../http';
 
 export async function fetchConsumerOptions() {
-  return getAuth(`${API_URI}/waiting-list/booking-option/`);
+  return getAuth(`${API_URI}/waiting-list/booking-option/?with_offer=true`);
 }
 
 export async function fetchConsumerPastBookings() {
@@ -21,7 +21,15 @@ export async function consumerFetchProfile() {
 }
 
 export async function discardBookingOption(optionId) {
-  return getAuth(`${API_URI}/saas/booking-option/${optionId}/discard`);
+  return postAuth(
+    `${API_V1_URI}/waiting-list/booking-option/${optionId}/discard/`,
+  );
+}
+
+export async function hasBookingOptionInOffer(offerId) {
+  return postAuth(
+    `${API_V1_URI}/waiting-list/booking-option/exists/?offer=${offerId}`,
+  );
 }
 
 export async function discardBooking(bookingId) {
@@ -34,6 +42,7 @@ export default {
   fetchOptions: fetchConsumerOptions,
   fetchConsumerPaymentPacks,
   discardBookingOption,
+  hasBookingOptionInOffer,
   fetchProfile: consumerFetchProfile,
   discardBooking,
 };

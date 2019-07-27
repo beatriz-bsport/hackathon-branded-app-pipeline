@@ -29,6 +29,7 @@ import tagReducers from '../libs/tag/reducers';
 import orderReducers from '../libs/order/reducers';
 import marketplacev2Reducer from '../libs/marketplace/reducers';
 import coachReducers from '../libs/associated-coach/reducers';
+import waitingListReducers from '../libs/waiting-list/reducers';
 
 import type { State, Action } from '../state/types';
 
@@ -63,6 +64,7 @@ const rootReducer = combineReducers({
   tag: tagReducers,
   order: orderReducers,
   marketplacev2: marketplacev2Reducer,
+  waitingList: waitingListReducers,
 });
 
 export default (state: State, action: Action) => {

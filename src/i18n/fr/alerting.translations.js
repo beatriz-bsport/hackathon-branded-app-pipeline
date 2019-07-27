@@ -3,6 +3,10 @@ export default {
     title: 'Notifications',
     emptyAlerting: 'Aucune nouvelle notification.',
   },
+  alert_kind: {
+    1: 'Facturation',
+  },
+  showMore: 'Voir davantage',
   unevenInvoice: {
     title: 'Facture non-équilibrée',
     explainUneven: "La facture <1>n°{{uuid, uuid}}</1> n'est pas équilibrée.",

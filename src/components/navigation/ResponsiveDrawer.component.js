@@ -64,6 +64,7 @@ type Props = {
   nbAlerting: number,
   alertings: Array<Alerting>,
   deleteAlert: (id: number) => void,
+  fetchMoreAlertingKind: (alert_kind: number) => void,
   t: TFunction,
   location: Object,
 };
@@ -173,6 +174,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
       nbAlerting,
       alertings,
       deleteAlert,
+      fetchMoreAlertingKind,
     } = this.props;
     const items = [
       {
@@ -369,6 +371,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                           alertings={alertings}
                           nbAlerting={nbAlerting}
                           deleteAlert={deleteAlert}
+                          showMore={fetchMoreAlertingKind}
                         />
                       </Grid>
                       <Grid item className={classes.searchBar}>

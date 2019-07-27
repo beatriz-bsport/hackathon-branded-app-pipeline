@@ -3,6 +3,10 @@ export default {
     title: 'Notifications',
     emptyAlerting: 'No new notification to display.',
   },
+  alert_kind: {
+    1: 'Billing',
+  },
+  showMore: 'Show more',
   unevenInvoice: {
     title: 'Uneven invoice',
     explainUneven: 'Invoice n°<1>{{uuid, uuid}}</1> is not even.',

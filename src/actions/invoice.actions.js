@@ -10,7 +10,7 @@ import { fetchMember } from '../libs/member/actions';
 import type { Dispatch } from '../state/types';
 import type { Invoice, Payment } from '../api/types';
 
-import { fetch as fetchAlerting } from '../libs/alerting/actions';
+import { fetchAll as fetchAlerting } from '../libs/alerting/actions';
 
 export const invoiceConfigurationPatchActions = {
   isLoading: createAction('INVOICE-CONFIGURATION/PATCH/IS_LOADING'),

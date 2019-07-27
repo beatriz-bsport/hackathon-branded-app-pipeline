@@ -13,14 +13,15 @@ import CloseIcon from '@material-ui/icons/Close';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
+import AlertListGroup from './AlertListGroup.component';
 import type { Alerting } from '../types';
-import AlertListItem from './AlertListItem.component';
 
 type Props = {
   alertings: Array<Alerting>,
   pushRouter: (path: string) => void,
-  deleteAlert: (id: number) => void,
   onClose?: () => void,
+  totalCount: number,
+  showMore: (alert_kind: number) => void,
   t: TFunction,
   classes: Object,
 };
@@ -45,19 +46,18 @@ export function AlertList(props: Props) {
         </ListSubheader>
       }
     >
-      {props.alertings.length === 0 ? (
+      {props.totalCount === 0 ? (
         <div className={props.classes.emptyText}>
           <Typography color="textSecondary">
             {props.t('list.emptyAlerting')}
           </Typography>
         </div>
       ) : (
-        props.alertings.map((al) => (
-          <AlertListItem
-            alerting={al}
-            key={al.id}
+        props.alertings.map((alert_group) => (
+          <AlertListGroup
             pushRouter={props.pushRouter}
-            deleteAlert={props.deleteAlert}
+            alert_group={alert_group}
+            onShowMore={() => props.showMore(alert_group.alert_kind)}
           />
         ))
       )}

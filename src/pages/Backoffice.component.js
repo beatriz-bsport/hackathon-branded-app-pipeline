@@ -10,7 +10,10 @@ import Intercom from 'react-intercom';
 import ResponsiveDrawer from '../components/navigation/ResponsiveDrawer.component';
 
 import { refresh as refreshActions } from '../actions';
-import { delete_ as deleteAlert } from '../libs/alerting/actions';
+import {
+  delete_ as deleteAlert,
+  fetchMoreAlertingKind,
+} from '../libs/alerting/actions';
 import asyncComponent from '../AsyncComponent';
 import Config from '../config';
 
@@ -64,6 +67,7 @@ type Props = {
   authenticated: boolean,
   username: string,
   refreshIfNeeded: () => void,
+  fetchMoreAlertingKind: (number) => void,
 };
 
 export class Backoffice extends Component<Props> {
@@ -91,6 +95,7 @@ export class Backoffice extends Component<Props> {
         alertings={this.props.alertings}
         nbAlerting={this.props.nbAlerting}
         deleteAlert={this.props.deleteAlert}
+        fetchMoreAlertingKind={this.props.fetchMoreAlertingKind}
       >
         {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
         Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ? (
@@ -141,7 +146,7 @@ const themedBackoffice = withStyles(styles)(Backoffice);
 
 export default connect(
   (state) => ({
-    alertings: alertingSelectors.get(state),
+    alertings: alertingSelectors.getByKind(state),
     nbAlerting: alertingSelectors.countAlerting(state),
     authenticated: state.auth.authenticated,
     username: state.auth.username,
@@ -149,6 +154,7 @@ export default connect(
   }),
   {
     deleteAlert,
+    fetchMoreAlertingKind,
     refreshIfNeeded: refreshActions.refreshIfNeeded,
     refresh: refreshActions.forceRefresh,
   },

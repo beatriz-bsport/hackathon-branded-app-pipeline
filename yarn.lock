@@ -167,10 +167,10 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
-"@bsport/common@^1.11.0":
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/@bsport/common/-/common-1.11.0.tgz#4dd3b16c7d0ae1c7b987d6856859af34e6802b45"
-  integrity sha512-/8dYendnoLdQYAXwgOt3RpbRAlM7389sndvkgRkINOMCJQmI7OJgIaPRTcQnsc7/oRTh1DoINC76ic5iKph3tA==
+"@bsport/common@^1.12.0":
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/@bsport/common/-/common-1.12.0.tgz#3f9699236104d3d60abdeb44c85a1b921835a84d"
+  integrity sha512-cbSvtC1T4qG+Z0edoj8fTVfSioqOqRchE9qkhzPYpKvb8QL3w3yZJjh7OMIj8HgzBXGk4WRg4M4BzWfwY+sOxg==
 
 "@compone/class@^1.1.1":
   version "1.1.1"

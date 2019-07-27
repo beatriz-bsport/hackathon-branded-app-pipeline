@@ -1,5 +1,14 @@
 // @flow
 
+export type AlertGroup = {
+  results: Array<Alerting>,
+  loading: boolean,
+  error: ?Error,
+  next: ?number,
+  count: number,
+  alert_kind: number,
+};
+
 export type Alerting = {
   company: number,
   silenced_at: ?string,

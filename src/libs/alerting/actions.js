@@ -2,9 +2,12 @@
 
 import { createAction } from 'redux-actions';
 
+import { UNEVEN_INVOICE_ALERT } from '@bsport/common/lib/master-data/alerting_kind';
 import api from './api';
 
 import type { Dispatch, ThunkAction } from '../../state/types';
+
+const ALERT_KINDS = [UNEVEN_INVOICE_ALERT.alert_kind];
 
 export const listActions = {
   error: createAction('ALERTING/LIST/ERROR'),
@@ -12,10 +15,10 @@ export const listActions = {
   success: createAction('ALERTING/LIST/SUCCESS'),
 };
 
-export const detailActions = {
-  error: createAction('ALERTING/DETAIL/ERROR'),
-  isLoading: createAction('ALERTING/DETAIL/IS_LOADING'),
-  success: createAction('ALERTING/DETAIL/SUCCESS'),
+export const performActionAction = {
+  error: createAction('ALERTING/ACTION/ERROR'),
+  isLoading: createAction('ALERTING/ACTION/IS_LOADING'),
+  success: createAction('ALERTING/ACTION/SUCCESS'),
 };
 
 export const deleteActions = {
@@ -41,36 +44,48 @@ export function delete_(id: number): ThunkAction {
   };
 }
 
-export function fetch(): ThunkAction {
+export function fetchAll(): ThunkAction {
   return async (dispatch: Dispatch) => {
-    dispatch(listActions.isLoading(true));
+    ALERT_KINDS.map((al) => dispatch(fetch(al, 1)));
+  };
+}
+
+export function fetchMoreAlertingKind(kind: number) {
+  return async (dispatch: Dispatch, getState: () => State) => {
+    dispatch(fetch(kind, getState().alerting.items_by_kind[kind].next));
+  };
+}
+
+export function fetch(alert_kind: number, page: number): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(listActions.isLoading({ isLoading: true, alert_kind }));
     dispatch(listActions.error(null));
 
     try {
-      const response = await api.fetchAll();
+      const response = await api.fetch(alert_kind, page);
 
-      dispatch(listActions.success(response.data));
+      dispatch(listActions.success({ page, alert_kind, ...response.data }));
     } catch (error) {
       dispatch(listActions.error(error));
     }
 
-    dispatch(listActions.isLoading(false));
+    dispatch(listActions.isLoading({ alert_kind, isLoading: false }));
   };
 }
 
 export function performAction(id: number, action_name: string): ThunkAction {
   return async (dispatch: Dispatch) => {
-    dispatch(detailActions.isLoading({ id, isLoading: true }));
-    dispatch(detailActions.error(null));
+    dispatch(performActionAction.isLoading({ id, isLoading: true }));
+    dispatch(performActionAction.error(null));
 
     try {
       const response = await api.performAction(id, action_name);
-      dispatch(detailActions.success(response.data));
+      dispatch(performActionAction.success(response.data));
     } catch (error) {
-      dispatch(detailActions.error(error));
+      dispatch(performActionAction.error(error));
     }
 
-    dispatch(detailActions.error(null));
-    dispatch(detailActions.isLoading({ id, isLoading: false }));
+    dispatch(performActionAction.error(null));
+    dispatch(performActionAction.isLoading({ id, isLoading: false }));
   };
 }

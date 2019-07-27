@@ -15,16 +15,17 @@ import { compose, withState } from 'recompose';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 
-import type { Alerting } from '../types';
+import type { AlertGroup } from '../types';
 import AlertList from './AlertList.component';
 
 type Props = {
   setDialogOpen: (Object) => void,
   dialogOpen: ?Object,
   nbAlerting: number,
-  alertings: Array<Alerting>,
+  alertings: Array<AlertGroup>,
   pushRouter: (path: string) => void,
   deleteAlert: (id: number) => void,
+  showMore: (alert_kind: number) => void,
   classes: Object,
 };
 
@@ -76,7 +77,9 @@ export function AlertButtonMenu(props: Props) {
               >
                 <AlertList
                   alertings={alertings}
+                  totalCount={nbAlerting}
                   onClose={() => setDialogOpen(null)}
+                  showMore={props.showMore}
                   deleteAlert={props.deleteAlert}
                   pushRouter={(path) => {
                     setDialogOpen(null);

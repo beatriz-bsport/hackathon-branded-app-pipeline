@@ -3,12 +3,12 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
-import { listActions, detailActions, deleteActions } from './actions';
+import { listActions, performActionAction, deleteActions } from './actions';
 
 import type { AlertingState } from './types';
 
 const initialState: AlertingState = Immutable({
-  items: [],
+  items_by_kind: {},
   items_processing: [],
   loading: false,
   error: null,
@@ -17,10 +17,31 @@ const initialState: AlertingState = Immutable({
 export default handleActions(
   {
     [listActions.success]: (state, { payload }) => {
-      return state.set('items', payload);
+      let new_results = [];
+      if (payload.page === 1) {
+        new_results = payload.results;
+      } else {
+        new_results = [
+          ...state.items_by_kind[payload.alert_kind].results,
+          ...payload.results,
+        ];
+      }
+      return state
+        .setIn(['items_by_kind', payload.alert_kind, 'results'], new_results)
+        .setIn(['items_by_kind', payload.alert_kind, 'count'], payload.count)
+        .setIn(
+          ['items_by_kind', payload.alert_kind, 'next'],
+          payload.next_page,
+        );
     },
     [listActions.isLoading]: (state, { payload }) => {
-      return state.set('loading', payload);
+      return state.set('loading', payload.isLoading);
+    },
+    [listActions.isLoading]: (state, { payload }) => {
+      return state.setIn(
+        ['items_by_kind', payload.alert_kind, 'loading'],
+        payload.isLoading,
+      );
     },
     [listActions.error]: (state, { payload }) => {
       return state.set('error', payload);
@@ -36,13 +57,13 @@ export default handleActions(
       return state.set('error', payload);
     },
 
-    [detailActions.success]: (state, { payload }) => {
+    [performActionAction.success]: (state, { payload }) => {
       return state.setIn(['items', payload.id], payload);
     },
-    [detailActions.error]: (state, { payload }) => {
+    [performActionAction.error]: (state, { payload }) => {
       return state.set('error', payload);
     },
-    [detailActions.isLoading]: (state, { payload }) => {
+    [performActionAction.isLoading]: (state, { payload }) => {
       if (payload.isLoading) {
         return state.set('items_processing', [
           ...state.items_processing,
@@ -54,7 +75,7 @@ export default handleActions(
         state.items_processing.filter((ip) => ip.id !== payload.id),
       );
     },
-    [detailActions.error]: (state, { payload }) => {
+    [performActionAction.error]: (state, { payload }) => {
       return state.set('error', payload);
     },
   },

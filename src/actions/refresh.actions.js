@@ -12,7 +12,7 @@ import { fetchEstablishments } from '../libs/establishment/actions';
 import { fetchAll as fetchShop } from '../libs/shop/actions/shopitem';
 import { fetchPaymentRules } from '../libs/payment-rules/actions';
 import { fetchAll as fetchWorkshopActivities } from '../libs/meta-activity/actions/workshop-activity.actions';
-import { fetch as fetchAllAlertings } from '../libs/alerting/actions';
+import { fetchAll as fetchAllAlertings } from '../libs/alerting/actions';
 import { fetchAssociated as fetchAssociatedCoaches } from '../libs/associated-coach/actions';
 
 const THRESHOLD_MINUTES = 60 * 12;

@@ -37,6 +37,8 @@ export const Settings = (props: Props) => {
       <AppBar position="static" color="default">
         <Tabs
           value={props.tab}
+          variant="scrollable"
+          scrollButtons="auto"
           onChange={(ev, value) => props.push(`/settings/${value}/`)}
         >
           <Tab label={t('tab.paymentRules')} value="payment-rules" />

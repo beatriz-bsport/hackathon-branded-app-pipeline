@@ -42,6 +42,26 @@ export async function patchOrder(orderId: string, data: *) {
   return patchAuth(`${API_V1_URI}/order/${orderId}/`, data);
 }
 
+export async function patchConfiguration(data: *) {
+  return patchAuth(`${API_V1_URI}/order/configuration/me/`, data);
+}
+
+export async function fetchConfiguration() {
+  return getAuth(`${API_V1_URI}/order/configuration/me/`);
+}
+
+export async function fetchAllDeliveryFee() {
+  return getAuth(`${API_V1_URI}/order/delivery-fee/`);
+}
+
+export async function createDeliveryFee(data: *) {
+  return postAuth(`${API_V1_URI}/order/delivery-fee/`, data);
+}
+
+export async function updateDeliveryFee(data: *) {
+  return patchAuth(`${API_V1_URI}/order/delivery-fee/${data.id}/`, data);
+}
+
 export async function removeProduct(productData: ProductData, orderId: number) {
   return deleteAuth(
     `${API_V1_URI}/order/${orderId}/remove_product/`,

@@ -19,6 +19,7 @@ import PaymentRuleSetsDashboard from './PaymentRuleSetsDashboard.component';
 import CompanyDetailPage from './CompanyDetailPage.component';
 import InvoiceConfigurationPage from './InvoiceConfigurationPage.component';
 import WaitingListConfigurationPage from './WaitingListConfigurationPage.component';
+import ShopConfigurationPage from './ShopConfigurationPage.component';
 
 import withDrawer from '../../hocs/with-drawer.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -45,6 +46,7 @@ export const Settings = (props: Props) => {
           <Tab label={t('tab.company')} value="company" />
           <Tab label={t('tab.invoice')} value="invoice" />
           <Tab label={t('tab.waitingList')} value="waiting-list" />
+          <Tab label={t('tab.shop')} value="shop" />
         </Tabs>
       </AppBar>
       <Switch>
@@ -64,6 +66,7 @@ export const Settings = (props: Props) => {
           path="/settings/waiting-list"
           component={WaitingListConfigurationPage}
         />
+        <Route exact path="/settings/shop" component={ShopConfigurationPage} />
       </Switch>
     </div>
   );

@@ -1,5 +1,12 @@
 // @flow
 
+export type DeliveryFee = {
+  free_threshold: number,
+  name: string,
+  fee: number,
+  id: ?number,
+};
+
 export type Order = {
   id: string,
   member: number,

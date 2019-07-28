@@ -30,6 +30,8 @@ import type { OrderWithProducts } from '../types';
 import type { Member } from '../../member/types';
 import type { Invoice } from '../../invoice/types';
 
+import DeliveryFeeListItem from './DeliveryFeeListItem.component';
+
 type Props = {
   onInvoiceClick: (uuid: string) => void,
   goToMember: (id: number) => void,
@@ -128,9 +130,14 @@ export const OrderDetail = (props: Props) => {
           <Paper>
             <List dense disablePadding>
               {order ? (
-                order.product_lines.map((pl) => (
-                  <ProductLine key={pl.product_id} product={pl} />
-                ))
+                <React.Fragment>
+                  {order.product_lines.map((pl) => (
+                    <ProductLine key={pl.product_id} product={pl} />
+                  ))}
+                  {order.delivery_fee ? (
+                    <DeliveryFeeListItem deliveryFee={order.delivery_fee} />
+                  ) : null}
+                </React.Fragment>
               ) : (
                 <CircularProgress />
               )}

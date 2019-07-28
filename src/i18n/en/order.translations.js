@@ -35,4 +35,38 @@ export default {
       member: 'Buyer',
     },
   },
+  deliveryFee: {
+    name: 'Name',
+    fee: 'Delivery fee',
+    free_threshold: 'Free delivery threshold',
+    offeredAboveAmount: "Offered above {{ free_threshold, price }} order",
+    modal: {
+      delete: {
+        title: 'Delete delivery fee',
+        content:
+          'Be careful this operation is not revertable. Old orders using this fee will not be modifiedj',
+        cancel: 'Cancel',
+        confirm: 'Delete',
+      },
+    },
+    forms: {
+      create: 'Add a delivery fee',
+      title: 'Delivery fee form',
+      feeLabel: 'Delivery fee',
+      nameLabel: 'Name',
+      freeThresholdLabel: 'Free if above',
+      freeThresholdHelper:
+        'If order price is above this threshold, the delivery fee will offered to the customer',
+      onCancel: 'Cancel',
+      onSubmit: 'Save',
+    },
+  },
+  configuration: {
+    deliveryFee: 'Delivery Fee',
+    forms: {
+      onSubmit: 'Save',
+    },
+    noDefaultDeliveryFee: 'No delivery fee',
+    defaultDeliveryFee: 'Default delivery fee',
+  },
 };

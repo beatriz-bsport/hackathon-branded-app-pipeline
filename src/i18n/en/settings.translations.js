@@ -7,5 +7,6 @@ export default {
     company: 'Company',
     invoice: 'Billing',
     waitingList: 'Waiting-list',
+    shop: 'Shop',
   },
 };

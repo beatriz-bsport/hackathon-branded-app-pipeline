@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import withStyles from '@material-ui/core/styles/withStyles';
 
@@ -18,6 +19,7 @@ import type { OrderWithProducts, ProductData } from '../types';
 
 import ProductLine from './ProductLine.component';
 import DeliveryForm from './DeliveryForm.component';
+import DeliveryFeeListItem from './DeliveryFeeListItem.component';
 import type { DeliveryData } from './DeliveryForm.component';
 
 const STEP_CONFIRM_BASKET = 0;
@@ -99,22 +101,29 @@ export const CheckoutDialog = (props: Props) => {
       props.loading || !props.order ? (
         <CircularProgress />
       ) : (
-        <React.Fragment>
+        <div>
           <List dense disablePadding>
-            {(order.product_lines || []).map((pl) => (
-              <ProductLine
-                product={pl}
-                key={pl.id}
-                onRemove={() => props.onRemoveProduct(pl)}
-              />
-            ))}
+            <Paper style={{ marginTop: 12 }}>
+              {(order.product_lines || []).map((pl) => (
+                <ProductLine
+                  product={pl}
+                  key={pl.id}
+                  onRemove={() => props.onRemoveProduct(pl)}
+                />
+              ))}
+              {(order.product_lines || []).length &&
+              order.delivery_fee &&
+              order.delivery_fee.id ? (
+                <DeliveryFeeListItem deliveryFee={order.delivery_fee} />
+              ) : null}
+            </Paper>
           </List>
           <div className={classes.totalPrice}>
             <Typography component="p" variant="h4">
               {`${order.total_price} €`}
             </Typography>
           </div>
-        </React.Fragment>
+        </div>
       );
 
     actionButtons = (

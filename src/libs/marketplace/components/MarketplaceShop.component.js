@@ -72,13 +72,14 @@ const SubShopComponent = (props: {
                 onClick={() => props.selectShopItem(si)}
                 additionalActions={
                   <React.Fragment>
-                    <IconButton style={{ marginRight: 32 }}>
+                    <IconButton disableRipple style={{ marginRight: 32 }}>
                       <VisibilityIcon />
                     </IconButton>
                     <ListItemSecondaryAction>
                       <IconButton
                         color="primary"
-                        onClick={() => {
+                        onClick={(ev) => {
+                          ev.stopPropagation();
                           props.addToOrder(si.id);
                         }}
                       >

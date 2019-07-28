@@ -11,11 +11,33 @@ import {
   productListActions,
   addProductActions,
   removeProductActions,
+  configurationDetail,
+  configurationUpdate,
+  deliverFeesList,
+  deliverFeesCreateOrUpdate,
 } from './actions';
 
 import type { OrderState } from './types';
 
 const initialState: OrderState = Immutable({
+  deliveryFee: {
+    items: [],
+    loading: false,
+    error: null,
+    createOrUpdate: {
+      loading: false,
+      error: null,
+    },
+  },
+  configuration: {
+    data: null,
+    loading: false,
+    error: null,
+    update: {
+      loading: false,
+      error: null,
+    },
+  },
   order: {
     items: [],
     current: {
@@ -44,6 +66,53 @@ const initialState: OrderState = Immutable({
 
 export default handleActions(
   {
+    // DELIVERY FEE
+    // ------------
+    [deliverFeesList.isLoading]: (state, { payload }) => {
+      return state.setIn(['deliveryFee', 'loading'], payload);
+    },
+    [deliverFeesList.error]: (state, { payload }) => {
+      return state.setIn(['deliveryFee', 'error'], payload);
+    },
+    [deliverFeesList.success]: (state, { payload }) => {
+      return state.setIn(['deliveryFee', 'items'], payload);
+    },
+    [deliverFeesCreateOrUpdate.success]: (state, { payload }) => {
+      const idx = state.deliveryFee.items.findIndex(
+        (df) => df.id === payload.id,
+      );
+      return state.setIn(
+        [
+          'deliveryFee',
+          'items',
+          idx === -1 ? state.deliveryFee.items.length : idx,
+        ],
+        payload,
+      );
+    },
+    [deliverFeesCreateOrUpdate.isLoading]: (state, { payload }) => {
+      return state.setIn(['deliveryFee', 'createOrUpdate', 'loading'], payload);
+    },
+    [deliverFeesCreateOrUpdate.error]: (state, { payload }) => {
+      return state.setIn(['deliveryFee', 'error'], payload);
+    },
+    // CONFIGURATION
+    // ----------
+    [configurationDetail.isLoading]: (state, { payload }) => {
+      return state.setIn(['configuration', 'loading'], payload);
+    },
+    [configurationDetail.error]: (state, { payload }) => {
+      return state.setIn(['configuration', 'error'], payload);
+    },
+    [configurationDetail.success]: (state, { payload }) => {
+      return state.setIn(['configuration', 'data'], payload);
+    },
+    [configurationUpdate.isLoading]: (state, { payload }) => {
+      return state.setIn(['configuration', 'loading'], payload);
+    },
+    [configurationUpdate.error]: (state, { payload }) => {
+      return state.setIn(['configuration', 'error'], payload);
+    },
     // ORDER
     // --------
     [orderListActions.isLoading]: (state, { payload }) => {

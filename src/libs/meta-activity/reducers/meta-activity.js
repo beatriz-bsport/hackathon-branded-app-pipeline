@@ -49,7 +49,6 @@ export default handleActions(
       const images = state.metaActivity.images.filter(
         (i) => i.id !== payload.imageId,
       );
-      console.log(images);
       return state.setIn(['metaActivity', 'images'], images);
     },
     [upsertActions.isLoading]: (state, { payload }) => {

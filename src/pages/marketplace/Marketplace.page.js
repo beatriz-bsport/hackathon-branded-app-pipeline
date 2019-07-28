@@ -280,7 +280,7 @@ export class MarketPlace extends Component<Props, State> {
           onClose={this.closeSignup}
         >
           <DialogTitle>{t('form.signUpTitle')}</DialogTitle>
-          <DialogContent>
+          <DialogContent style={{ minWidth: '40vw' }}>
             <SignUpForm
               loading={this.props.auth.loading}
               onComplete={(data: *) =>

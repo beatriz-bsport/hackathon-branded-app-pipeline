@@ -8,6 +8,29 @@ import type { Dispatch, State, ThunkAction } from '../../state/types';
 
 import type { ProductData } from './types';
 
+export const deliverFeesList = {
+  error: createAction('DELIVERY_FEE/LIST/ERROR'),
+  isLoading: createAction('DELIVERY_FEE/LIST/IS_LOADING'),
+  success: createAction('DELIVERY_FEE/LIST/SUCCESS'),
+};
+
+export const deliverFeesCreateOrUpdate = {
+  error: createAction('DELIVERY_FEE/CREATE_OR_UPDATE/ERROR'),
+  isLoading: createAction('DELIVERY_FEE/CREATE_OR_UPDATE/IS_LOADING'),
+  success: createAction('DELIVERY_FEE/CREATE_OR_UPDATE/SUCCESS'),
+};
+
+export const configurationDetail = {
+  error: createAction('ORDER_CONFIGURATION/DETAIL/ERROR'),
+  isLoading: createAction('ORDER_CONFIGURATION/DETAIL/IS_LOADING'),
+  success: createAction('ORDER_CONFIGURATION/DETAIL/SUCCESS'),
+};
+
+export const configurationUpdate = {
+  error: createAction('ORDER_CONFIGURATION/UPDATE/ERROR'),
+  isLoading: createAction('ORDER_CONFIGURATION/UPDATE/IS_LOADING'),
+};
+
 export const orderDetailActions = {
   error: createAction('ORDER/DETAIL/ERROR'),
   isLoading: createAction('ORDER/DETAIL/IS_LOADING'),
@@ -49,6 +72,86 @@ export const removeProductActions = {
   isLoading: createAction('PRODUCT/REMOVE/IS_LOADING'),
   success: createAction('PRODUCT/REMOVE/SUCCESS'),
 };
+
+export function fetchAllDeliveryFee(): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(deliverFeesList.isLoading(true));
+    dispatch(deliverFeesList.error(null));
+
+    try {
+      const response = await api.fetchAllDeliveryFee();
+      dispatch(deliverFeesList.success(response.data));
+    } catch (error) {
+      dispatch(deliverFeesList.error(error));
+    }
+
+    dispatch(deliverFeesList.isLoading(false));
+  };
+}
+export function disableDeliveryFee(data: *): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(deliverFeesCreateOrUpdate.isLoading(true));
+    dispatch(deliverFeesCreateOrUpdate.error(null));
+
+    try {
+      const response = await api.updateDeliveryFee({ ...data, disabled: true });
+      dispatch(deliverFeesCreateOrUpdate.success(response.data));
+    } catch (error) {
+      dispatch(deliverFeesCreateOrUpdate.error(error));
+    }
+
+    dispatch(deliverFeesCreateOrUpdate.isLoading(false));
+  };
+}
+
+export function createOrUpdateDeliveryFee(data: *): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(deliverFeesCreateOrUpdate.isLoading(true));
+    dispatch(deliverFeesCreateOrUpdate.error(null));
+
+    try {
+      const apiCall = data.id ? api.updateDeliveryFee : api.createDeliveryFee;
+      const response = await apiCall(data);
+      dispatch(deliverFeesCreateOrUpdate.success(response.data));
+    } catch (error) {
+      dispatch(deliverFeesCreateOrUpdate.error(error));
+    }
+
+    dispatch(deliverFeesCreateOrUpdate.isLoading(false));
+  };
+}
+
+export function patchConfiguration(data: *): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(configurationUpdate.isLoading(true));
+    dispatch(configurationUpdate.error(null));
+
+    try {
+      const response = await api.patchConfiguration(data);
+      dispatch(configurationDetail.success(response.data));
+    } catch (error) {
+      dispatch(configurationUpdate.error(error));
+    }
+
+    dispatch(configurationUpdate.isLoading(false));
+  };
+}
+
+export function fetchConfiguration(): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(configurationDetail.isLoading(true));
+    dispatch(configurationDetail.error(null));
+
+    try {
+      const { data } = await api.fetchConfiguration();
+      dispatch(configurationDetail.success(data));
+    } catch (error) {
+      dispatch(configurationDetail.error(error));
+    }
+
+    dispatch(configurationDetail.isLoading(false));
+  };
+}
 
 export function patchOrder(id: string, data_: *): ThunkAction {
   return async (dispatch: Dispatch) => {

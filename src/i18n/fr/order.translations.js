@@ -35,4 +35,38 @@ export default {
       member: 'Acheteur',
     },
   },
+  deliveryFee: {
+    name: 'Nom',
+    fee: 'Frais de livraison',
+    free_threshold: 'Offert à partir de',
+    offeredAboveAmount: "Offert après {{ free_threshold, price }} d'achat",
+    modal: {
+      delete: {
+        title: 'Supprimer un frais de livraison',
+        content:
+          'Attention cette opération est définitive, les anciennes commandes utilisant ce frais ne seront pas modifiées.',
+        cancel: 'Annuler',
+        confirm: 'Supprimer',
+      },
+    },
+    forms: {
+      create: 'Ajouter un frais de livraison',
+      title: 'Formulaire frais de livraison',
+      feeLabel: 'Frais de livraison',
+      nameLabel: 'Nom',
+      freeThresholdLabel: 'Offert à partir de',
+      freeThresholdHelper:
+        'Si le montant de la commande de la commande dépasse ce montant, les frais de livraison sont offerts',
+      onCancel: 'Annuler',
+      onSubmit: 'Enregistrer',
+    },
+  },
+  configuration: {
+    deliveryFee: 'Frais de livraison',
+    forms: {
+      onSubmit: 'Enregistrer',
+    },
+    noDefaultDeliveryFee: 'Aucun frais de livraison',
+    defaultDeliveryFee: 'Frais de livraison par défaut',
+  },
 };

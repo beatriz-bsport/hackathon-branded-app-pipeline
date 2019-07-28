@@ -76,7 +76,7 @@ export function cancelBookingOption(optionId) {
         return;
       }
     } catch (err) {
-      console.log(JSON.stringify(err));
+      console.error(err);
     }
     dispatch(errorCancellingOption(optionId));
   };
@@ -149,7 +149,7 @@ export function discardBooking(bookingId) {
         return;
       }
     } catch (err) {
-      console.log(JSON.stringify(err));
+      console.error(err);
     }
     dispatch(discardBookingError(bookingId));
   };

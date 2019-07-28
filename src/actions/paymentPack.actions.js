@@ -86,7 +86,7 @@ export function createOrUpdate(data: PaymentPackFormData, options = {}) {
         if (options.onSuccess) options.onSuccess();
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
       dispatch(createOrUpdateFailed());
       dispatch(snackbarError('paymentPack.createOrUpdate.fail'));
       if (options.onError) options.onError();

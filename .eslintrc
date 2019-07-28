@@ -19,6 +19,7 @@
   ],
   "rules": {
     // DISABLED BY SOFIAN
+    "no-console": ["error", { allow: ["warn", "error"] }],
     "react/require-default-props": 0,
     "react/default-props-match-prop-types": 0,
     "function-paren-newline": 0,
@@ -32,8 +33,8 @@
     "camelcase": "off",
     "import/no-extraneous-dependencies": "off",
     "arrow-body-style": 0,
+    "quotes": 0,
     // END DISABLED BY SOFIAN
-    "quotes": [1, "single"],
     "strict": 0,
     "no-underscore-dangle": 0,
     "no-comma-dangle": 0,
@@ -69,5 +70,14 @@
     "snapshot": false,
     "snapshotComponent": false,
     "snapshotReducer": false
-  }
+  },
+  "overrides": [
+    {
+      "files": [ "*.js" ],
+      "excludedFiles": "**/*.translation*.js",
+      "rules": {
+        "quotes": [ 2, "single" ]
+      }
+    }
+  ]
 }

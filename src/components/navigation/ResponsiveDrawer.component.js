@@ -28,6 +28,7 @@ import Payment from '@material-ui/icons/Payment';
 import TrendingUp from '@material-ui/icons/TrendingUp';
 import Email from '@material-ui/icons/Email';
 import HighlightOff from '@material-ui/icons/HighlightOff';
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import FitnessCenter from '@material-ui/icons/FitnessCenter';
 import VpnKey from '@material-ui/icons/VpnKey';
 import LocationOn from '@material-ui/icons/LocationOn';
@@ -63,6 +64,8 @@ type Props = {
   classes: Object,
   nbAlerting: number,
   alertings: Array<Alerting>,
+  disconnect: () => void,
+  hidden: boolean,
   deleteAlert: (id: number) => void,
   fetchMoreAlertingKind: (alert_kind: number) => void,
   t: TFunction,
@@ -164,11 +167,9 @@ class ResponsiveDrawer extends React.Component<Props, State> {
     );
   };
 
-  render() {
+  renderAppBar = (drawerContext, fullWidth) => {
     const {
       classes,
-      theme,
-      t,
       isRefreshing,
       onRefresh,
       nbAlerting,
@@ -176,6 +177,131 @@ class ResponsiveDrawer extends React.Component<Props, State> {
       deleteAlert,
       fetchMoreAlertingKind,
     } = this.props;
+    return (
+      <AppBar
+        className={fullWidth ? classes.appBarFullWidth : classes.appBar}
+        color="inherit"
+      >
+        <Toolbar>
+          <Grid
+            zeroMinWidth
+            container
+            direction="row"
+            alignItems="center"
+            justify="space-between"
+            wrap="nowrap"
+          >
+            <Grid
+              container
+              alignItems="center"
+              direction="row"
+              zeroMinWidth
+              wrap="nowrap"
+            >
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={this.handleDrawerToggle}
+                className={classes.navIconHide}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Hidden smDown>
+                <img
+                  className={`${classes.navIconHide} ${classes.menuIcon}`}
+                  height={40}
+                  src={LOGO_ASSET}
+                  alt="bsport logo"
+                />
+              </Hidden>
+              <Typography
+                id="app-title"
+                className={classes.title}
+                variant="h6"
+                color="inherit"
+                noWrap
+              >
+                {drawerContext.title}
+              </Typography>
+            </Grid>
+            <div className={classes.grow} />
+            <Hidden mdUp implementation="css">
+              <Grid
+                container
+                alignItems="center"
+                zeroMinWidth
+                direction="row"
+                wrap="nowrap"
+              >
+                <Grid item>
+                  <RefreshButton
+                    isRefreshing={isRefreshing}
+                    onRefresh={onRefresh}
+                  />
+                </Grid>
+                <Grid item>
+                  <LanguageButton />
+                </Grid>
+                <Grid item>
+                  <IconButton onClick={this.props.disconnect}>
+                    <PowerSettingsNewIcon />
+                  </IconButton>
+                </Grid>
+              </Grid>
+            </Hidden>
+            <Hidden smDown implementation="css">
+              <Grid
+                container
+                alignItems="center"
+                zeroMinWidth
+                direction="row"
+                wrap="nowrap"
+              >
+                <Grid item>
+                  <AlertButtonMenu
+                    alertings={alertings}
+                    nbAlerting={nbAlerting}
+                    deleteAlert={deleteAlert}
+                    showMore={fetchMoreAlertingKind}
+                  />
+                </Grid>
+                <Grid item className={classes.searchBar}>
+                  <SearchBar changeLocation />
+                </Grid>
+                <Grid item>
+                  <RefreshButton
+                    isRefreshing={isRefreshing}
+                    onRefresh={onRefresh}
+                  />
+                </Grid>
+                <Grid item>
+                  <LanguageButton />
+                </Grid>
+                <Grid item>
+                  <IconButton onClick={this.props.disconnect}>
+                    <PowerSettingsNewIcon />
+                  </IconButton>
+                </Grid>
+              </Grid>
+            </Hidden>
+          </Grid>
+        </Toolbar>
+      </AppBar>
+    );
+  };
+
+  render() {
+    const { classes, theme, t, hidden } = this.props;
+    if (hidden) {
+      return (
+        <div style={{ width: '100%' }}>
+          <DrawerContext.Consumer>
+            {(drawerContext) => this.renderAppBar(drawerContext, true, true)}
+          </DrawerContext.Consumer>
+          <div className={classes.content}>{this.props.children}</div>;
+        </div>
+      );
+    }
     const items = [
       {
         to: '/search/results',
@@ -306,7 +432,9 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             justify="center"
             alignItems="center"
           >
-            <img height={40} src={LOGO_ASSET} alt="bsport logo" />
+            <Hidden smDown>
+              <img height={40} src={LOGO_ASSET} alt="bsport logo" />
+            </Hidden>
           </Grid>
         </div>
         <List>{items}</List>
@@ -316,81 +444,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
       <DrawerContext.Consumer>
         {(drawerContext) => (
           <div className={classes.root}>
-            <AppBar className={classes.appBar} color="inherit">
-              <Toolbar>
-                <Grid
-                  zeroMinWidth
-                  container
-                  direction="row"
-                  alignItems="center"
-                  justify="space-between"
-                  wrap="nowrap"
-                >
-                  <Grid
-                    container
-                    alignItems="center"
-                    direction="row"
-                    zeroMinWidth
-                    wrap="nowrap"
-                  >
-                    <IconButton
-                      color="inherit"
-                      aria-label="open drawer"
-                      onClick={this.handleDrawerToggle}
-                      className={classes.navIconHide}
-                    >
-                      <MenuIcon />
-                    </IconButton>
-                    <img
-                      className={`${classes.navIconHide} ${classes.menuIcon}`}
-                      height={40}
-                      src={LOGO_ASSET}
-                      alt="bsport logo"
-                    />
-                    <Typography
-                      id="app-title"
-                      className={classes.title}
-                      variant="h6"
-                      color="inherit"
-                      noWrap
-                    >
-                      {drawerContext.title}
-                    </Typography>
-                  </Grid>
-                  <div className={classes.grow} />
-                  <Hidden smDown implementation="css">
-                    <Grid
-                      container
-                      alignItems="center"
-                      zeroMinWidth
-                      direction="row"
-                      wrap="nowrap"
-                    >
-                      <Grid item>
-                        <AlertButtonMenu
-                          alertings={alertings}
-                          nbAlerting={nbAlerting}
-                          deleteAlert={deleteAlert}
-                          showMore={fetchMoreAlertingKind}
-                        />
-                      </Grid>
-                      <Grid item className={classes.searchBar}>
-                        <SearchBar changeLocation />
-                      </Grid>
-                      <Grid item>
-                        <RefreshButton
-                          isRefreshing={isRefreshing}
-                          onRefresh={onRefresh}
-                        />
-                      </Grid>
-                      <Grid item>
-                        <LanguageButton />
-                      </Grid>
-                    </Grid>
-                  </Hidden>
-                </Grid>
-              </Toolbar>
-            </AppBar>
+            {this.renderAppBar(drawerContext)}
             <Hidden mdUp>
               <Drawer
                 variant="temporary"
@@ -446,6 +500,12 @@ const styles = (theme) => ({
   menuMobile: {
     [theme.breakpoints.up('md')]: {
       display: 'none',
+    },
+  },
+  appBarFullWidth: {
+    position: 'fixed',
+    [theme.breakpoints.up('md')]: {
+      width: '100%',
     },
   },
   appBar: {

@@ -204,7 +204,7 @@ export function setSessionPaymentRule(
       );
       dispatch(snackbarSuccess('paymentRules:update.success'));
     } catch (error) {
-      console.log(error);
+      console.error(error);
       dispatch(snackbarError('paymentRules:update.error'));
       dispatch(sessionPaymentRule.error(error));
     }

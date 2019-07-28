@@ -62,7 +62,7 @@ export async function post(uri: string, data: Object, headers: Object) {
 
     return response;
   } catch (e) {
-    console.log(e);
+    console.error(e);
     return null;
   }
 }

@@ -18,7 +18,6 @@ type Props = {
 export class ConsumerActivities extends React.Component<Props> {
   renderActivityRow = (activity: Object) => {
     const { name, date } = activity;
-    console.log(activity);
     return (
       <TableRow>
         <TableCell>{name}</TableCell>

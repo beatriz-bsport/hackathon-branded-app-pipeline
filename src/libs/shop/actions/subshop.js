@@ -67,7 +67,7 @@ export function createOrUpdateSubShop({
           return dispatch(actionCreateOrUpdateSubShopError(response.data));
       }
     } catch (e) {
-      console.log(e);
+      console.error(e);
       dispatch(snackbarError('form.shop.subShop.createOrUpdate.error'));
       return dispatch(actionCreateOrUpdateSubShopError(e));
     }
@@ -102,7 +102,7 @@ export function deleteSubShop(id: number) {
         dispatch(actionDeleteSubShopError(response.data));
       }
     } catch (e) {
-      console.log(e);
+      console.error(e);
       dispatch(snackbarError('form.shop.subShop.delete.error'));
       dispatch(actionDeleteSubShopError(e));
     }

@@ -136,7 +136,6 @@ export class BookingItemForManager extends PureComponent<Props, State> {
 
     if (consumer_payment_pack && booking.payment_pack) {
       const payment_pack = this.getPaymentPack(paymentPacks, booking);
-      console.log(payment_pack);
 
       if (!consumer_payment_pack) {
         return [[t('loading'), 'secondary']];

@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
+import { push } from 'react-router-redux';
 import Intercom from 'react-intercom';
 
 import ResponsiveDrawer from '../components/navigation/ResponsiveDrawer.component';
@@ -62,9 +63,12 @@ type Props = {
   alertings: Array<Alerting>,
   nbAlerting: number,
   isRefreshing: boolean,
+  authenticated: boolean,
+  is_restricted_user: boolean,
+
+  disconnect: () => void,
   deleteAlert: (id: number) => void,
   classes: Object,
-  authenticated: boolean,
   username: string,
   refreshIfNeeded: () => void,
   fetchMoreAlertingKind: (number) => void,
@@ -95,6 +99,8 @@ export class Backoffice extends Component<Props> {
         alertings={this.props.alertings}
         nbAlerting={this.props.nbAlerting}
         deleteAlert={this.props.deleteAlert}
+        hidden={this.props.is_restricted_user}
+        disconnect={this.props.disconnect}
         fetchMoreAlertingKind={this.props.fetchMoreAlertingKind}
       >
         {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
@@ -150,10 +156,12 @@ export default connect(
     nbAlerting: alertingSelectors.countAlerting(state),
     authenticated: state.auth.authenticated,
     username: state.auth.username,
+    is_restricted_user: state.auth.is_restricted,
     isRefreshing: state.refresh.isRefreshing,
   }),
   {
     deleteAlert,
+    disconnect: () => push('/login/signout'),
     fetchMoreAlertingKind,
     refreshIfNeeded: refreshActions.refreshIfNeeded,
     refresh: refreshActions.forceRefresh,

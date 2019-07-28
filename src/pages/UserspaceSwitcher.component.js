@@ -23,7 +23,6 @@ export class UserspaceSwitcher extends Component<Props> {
     const { userspace, authenticated } = this.props;
 
     if (!authenticated) {
-      console.log(authenticated);
       return <Redirect to="/login" />;
     }
 

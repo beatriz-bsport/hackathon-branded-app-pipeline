@@ -40,7 +40,6 @@ export function fetchBookingOption(id) {
     try {
       const response = await api.payment.fetchBookingOption(id);
       const option = response.data;
-      console.log(option);
       dispatch(fetchedBookingOption(option));
     } catch (err) {
       dispatch(errorFetchingBookingOption());

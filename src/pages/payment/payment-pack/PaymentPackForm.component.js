@@ -87,7 +87,9 @@ export class PaymentPackPayment extends Component<Props> {
         <div>
           <Typography className={classes.onlyForNewMember}>
             {
+              /* eslint-disable */
               "Cette offre n'est disponible que pour les membres n'ayant jamais réservé !"
+              /* eslint-enable */
             }
           </Typography>
           <Grid container item justify="center" alignItems="stretch">

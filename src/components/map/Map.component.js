@@ -26,6 +26,7 @@ type MarkerType = {
 type Props = {
   markers: ?Array<MarkerType>,
   center: ?[number, number],
+  zoom: number,
 };
 
 type State = {
@@ -41,7 +42,7 @@ export default class MyMap extends Component<Props, State> {
     markers: [],
   };
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     this.state.zoom = props.zoom || 12;
   }
@@ -77,10 +78,6 @@ export default class MyMap extends Component<Props, State> {
   render() {
     const { markers } = this.props;
     const center = this.props.center || CENTER;
-    const mapOptions = (map) => {
-      map.boxZoom.disable();
-      map.scrollWheelZoom.disable();
-    };
     return (
       <div className="map-container">
         <Map

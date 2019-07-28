@@ -35,8 +35,6 @@ type Props = {
 
 export function CoachForm(props: Props) {
   const { classes, t, isSubmitting, onCancel } = props;
-  console.log('from form');
-  console.log(props.defaultEmail);
   return (
     <Paper className={classes.paperContainer}>
       <Form className={classes.content}>
@@ -166,10 +164,7 @@ export default compose(
         instagram_url: '',
       },
     validationSchema: CoachSchema,
-    handleSubmit: (
-      values,
-      { props: { onSubmit }, setSubmitting, setFieldError },
-    ) => {
+    handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
       const { avatar } = values;
       const data = {
         ...values,
@@ -182,10 +177,9 @@ export default compose(
         phone: values.phone || undefined,
         email: values.email || '',
       };
-      console.log(data);
       onSubmit(data, {
         onSuccess: () => setSubmitting(false),
-        onError: (errors) => {
+        onError: () => {
           setSubmitting(false);
         },
       });

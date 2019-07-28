@@ -12,6 +12,7 @@ const initialState = Immutable({
   is_manager: true,
   is_coach: false,
   is_consumer: true,
+  is_restricted: false,
   initializating: false,
 });
 
@@ -29,7 +30,14 @@ export default function authReducer(state = initialState, action = {}) {
         .set('error', false);
 
     case actionTypes.LOGIN_SUCCESSFUL: {
-      const { username, token, is_manager, is_coach, is_consumer } = action;
+      const {
+        username,
+        token,
+        is_manager,
+        is_coach,
+        is_consumer,
+        is_restricted,
+      } = action;
       setAuthToken(token);
       return state
         .set('username', username)
@@ -37,6 +45,7 @@ export default function authReducer(state = initialState, action = {}) {
         .set('is_manager', is_manager)
         .set('is_coach', is_coach)
         .set('is_consumer', is_consumer)
+        .set('is_restricted', is_restricted)
         .set('authenticated', true)
         .set('error', false)
         .set('loading', false);

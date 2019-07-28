@@ -235,7 +235,6 @@ export class OfferManagement extends PureComponent<Props, State> {
       minMatchCharLength: 2,
       keys: ['name', 'email'],
     };
-    console.log('searching');
     return new Fuse(items, options);
   });
 

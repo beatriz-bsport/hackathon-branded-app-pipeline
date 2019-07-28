@@ -1,5 +1,3 @@
 // @flow
 
-export function initStore() {
-  console.log('hello');
-}
+export function initStore() {}

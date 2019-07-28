@@ -129,8 +129,8 @@ export function MetaActivityForm(props: Props) {
             <Button
               variant="contained"
               color="secondary"
-	      onClick={props.onCancel}
-	      disabled={isSubmitting}
+              onClick={props.onCancel}
+              disabled={isSubmitting}
             >
               {t('form.discard')}
             </Button>
@@ -197,9 +197,11 @@ export default compose(
       };
       onSubmit(data, {
         onSuccess: () => {
+          if (onSuccess && typeof onSuccess === 'function') onSuccess();
           setSubmitting(false);
         },
         onError: () => {
+          if (onError && typeof onError === 'function') onError();
           setSubmitting(false);
         },
       });

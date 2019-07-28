@@ -78,7 +78,6 @@ export default handleActions(
       const images = establishment.images.filter(
         (i) => i.id !== payload.imageId,
       );
-      console.log(images);
       return state.setIn(['all', index, 'images'], images);
     },
   },

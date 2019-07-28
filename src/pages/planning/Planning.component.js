@@ -107,7 +107,6 @@ export class Planning extends PureComponent<Props, State> {
   }
 
   componentDidMount() {
-    console.log('mounting');
     if (this.props.selectedOffer) {
       this.props.loadOfferData(this.props.selectedOffer);
     }
@@ -155,7 +154,7 @@ export class Planning extends PureComponent<Props, State> {
         return;
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
     this.setState({ editOfferProcessing: false });
   };

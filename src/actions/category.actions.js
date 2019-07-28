@@ -12,7 +12,7 @@ export function fetchSCT() {
       const easyAccesses = easyAccessesResponse.data;
       dispatch(fetchedCategories(SCTs, easyAccesses));
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 }

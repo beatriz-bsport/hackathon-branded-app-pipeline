@@ -1,11 +1,11 @@
 export default {
   configuration: {
-    stripe_footer: 'Bas de page facture',
+    stripe_footer: 'Informaciones de su empresa para editar las facturas',
     explainStripeFooter:
-      'Ce texte apparaitra en bas de vos factures éditées en PDF, ajoutez toute mention légale nécessaire.',
-    submit_stripe_footer: 'Mettre à jour',
+      'Este texto aparezcara en las facturas editadas en PDF para sus clientes',
+    submit_stripe_footer: 'Actualizar',
     forms: {
-      stripe_footer_placeholder: 'Aucune mention supplémentaire',
+      stripe_footer_placeholder: 'No hay informaciones adiconal',
     },
   },
 };

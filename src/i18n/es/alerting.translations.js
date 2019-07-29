@@ -1,21 +1,21 @@
 export default {
   list: {
-    title: 'Notifications',
-    emptyAlerting: 'Aucune nouvelle notification.',
+    title: 'Notificación',
+    emptyAlerting: 'No hay nuevas notificaciones.',
   },
   alert_kind: {
-    1: 'Facturation',
+    1: 'Facturación',
   },
-  showMore: 'Voir davantage',
+  showMore: 'Ver más',
   unevenInvoice: {
-    title: 'Facture non-équilibrée',
-    explainUneven: "La facture <1>n°{{uuid, uuid}}</1> n'est pas équilibrée.",
-    priceDue: 'Somme dûe : {{ price_due, price }}.',
-    pricePayed: 'Somme encaissée : {{price_payed, price}}.',
+    title: 'Factura desequilibrada',
+    explainUneven: "La factura <1>n°{{uuid, uuid}}</1> es desequilibrada.",
+    priceDue: 'Importe adeudado : {{ price_due, price }}.',
+    pricePayed: 'Importe pagado : {{price_payed, price}}.',
   },
   newOrder: {
-    title: 'Nouvelle commande',
-    explain: 'Payé par <1>{{name}}</1> sur le magasin.',
-    price: 'Montant: {{ price, price }}.',
+    title: 'Nueva pedida',
+    explain: 'Pagada por <1>{{name}}</1> en la tienda online.',
+    price: 'Importe: {{ price, price }}.',
   },
 };

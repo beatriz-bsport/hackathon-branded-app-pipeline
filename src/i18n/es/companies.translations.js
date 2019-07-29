@@ -1,10 +1,10 @@
 export default {
-  general: 'Général',
-  owner_address: 'Addresse gérant',
-  address: 'Addresse',
-  bank_details: 'Informations bancaires',
+  general: 'General',
+  owner_address: 'Dirección del administrador',
+  address: 'Dirección del club',
+  bank_details: 'Informaciones bancarias',
   fields: {
-    iban: 'IBAN',
-    bank_account_holder: 'Titulaire du compte',
+    iban: 'IBAN bancario',
+    bank_account_holder: 'Titular de la cuenta bancaria',
   },
 };

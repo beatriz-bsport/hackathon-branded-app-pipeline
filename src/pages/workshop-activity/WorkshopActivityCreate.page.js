@@ -204,6 +204,7 @@ export default compose(
         onSuccess: () => {
           if (options.onSuccess) options.onSuccess();
           setStep(STEP_PASS);
+          window.scrollTo(0, 0);
         },
       });
     },
@@ -216,6 +217,7 @@ export default compose(
           fetchPaymentPacks();
           if (options.onSuccess) options.onSuccess();
           setStep(STEP_OFFER);
+          window.scrollTo(0, 0);
         },
       });
     },

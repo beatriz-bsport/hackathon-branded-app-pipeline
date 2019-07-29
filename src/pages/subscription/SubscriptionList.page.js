@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { push as pushRouter } from 'react-router-redux';
@@ -11,41 +11,17 @@ import withDrawer from '../../hocs/with-drawer.hoc';
 import api from '../../libs/subscription/api';
 
 import SubscriptionTable from '../../libs/subscription/SubscriptionTable.component';
-import type { Subscription } from '../../libs/subscription/types';
 
 type Props = {
   goToSubscription: (id: number) => void,
 };
-type State = {
-  subscriptions: Array<Subscription>,
-  loading: boolean,
-};
 
-export class SubscriptionList extends Component<Props, State> {
-  state = {
-    subscriptions: [],
-    loading: true,
-  };
-
-  componentDidMount() {
-    api
-      .fetchAll()
-      .then((response) =>
-        this.setState({ subscriptions: response.data, loading: false }),
-      )
-      .catch((err) => console.error(err));
-  }
-
-  render() {
-    return (
-      <SubscriptionTable
-        subscriptions={this.state.subscriptions}
-        loading={this.state.loading}
-        goToSubscription={this.props.goToSubscription}
-      />
-    );
-  }
-}
+export const SubscriptionList = (props: Props) => (
+  <SubscriptionTable
+    goToSubscription={props.goToSubscription}
+    fetch={api.fetchAll}
+  />
+);
 
 export default compose(
   withNamespaces(['', 'subscription']),

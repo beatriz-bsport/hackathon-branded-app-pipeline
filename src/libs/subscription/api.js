@@ -2,10 +2,14 @@
 
 import { API_URI, deleteAuth, getAuth, postAuth } from '../../http';
 
-const fetchAll = async (queryParams: ?string = '') => {
+const fetchAll = async (
+  page: number,
+  page_size: number,
+  queryParams: ?string = '',
+) => {
   return getAuth(
-    `${API_URI}/subscription/billing-plan/${
-      queryParams ? `?${queryParams}` : ''
+    `${API_URI}/subscription/billing-plan/?page_size=${page_size}&page=${page}${
+      queryParams ? `&${queryParams}` : ''
     }`,
   );
 };

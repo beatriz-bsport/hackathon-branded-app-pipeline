@@ -1,18 +1,18 @@
 export default {
   selector: {
-    coach: { placeholder: 'Professeur' },
-    level: { placeholder: 'Niveau' },
-    establishment: { placeholder: 'Etablissement' },
+    coach: { placeholder: 'Profesor' },
+    level: { placeholder: 'Nivel' },
+    establishment: { placeholder: 'Local' },
   },
   workshop: {
-    noWorkshopAvailable: "Aucun atelier n'est prévu pour le moment",
+    noWorkshopAvailable: "No hay mas eventos previstos",
     card: {
-      showMore: "Plus d'info",
-      book: 'Réserver',
-      bookOption: "Liste d'attente",
-      isPast: 'Passé',
-      notAvailable: 'Annulé',
-      duration: 'Durée: {{duration}}',
+      showMore: "Más informaciones",
+      book: 'Reservar',
+      bookOption: "Lista de espera",
+      isPast: 'Pasada',
+      notAvailable: 'Cancelada',
+      duration: 'Duración: {{duration}}',
     },
   },
 };

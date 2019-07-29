@@ -14,7 +14,7 @@ const renderRows = (subscriptions) => {
     member: sub.memberName,
     name: sub.name,
     nb_interval: parseInt(sub.nb_interval, 10),
-    date_created: formatAsDate(sub.date_created),
+    first_billing_date: formatAsDate(sub.first_billing_date),
     recurrent_price_with_voucher: `${(
       parseFloat(sub.recurrent_price) - parseFloat(sub.recurrent_voucher)
     ).toFixed(2)}  €`,
@@ -28,8 +28,8 @@ const getColumnData = (t: TFunction, showOnlyCoreColumns: boolean) => {
       label: t('parameters.name'),
     },
     {
-      name: 'date_created',
-      label: t('parameters.dateCreated'),
+      name: 'first_billing_date',
+      label: t('parameters.dateStart'),
     },
     {
       name: 'nb_interval',

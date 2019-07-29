@@ -1,20 +1,20 @@
 export default {
-  disabled: 'Annulée',
+  disabled: 'Cancelada',
   booking: {
-    confirmed: 'Confirmé(s)',
-    fillRate: 'Taux de remplissage',
-    waiting: "Liste d'attente",
+    confirmed: 'Confirmada',
+    fillRate: 'Tasa de ocupación',
+    waiting: "Lista de espera",
   },
-  extraordinaryEstablishment: '(lieu temporaire)',
-  substitute: 'Remplaçant',
+  extraordinaryEstablishment: 'local temporario',
+  substitute: 'Sustituto',
   calendar: {
-    modifyOffer: 'Modifier',
-    deleteOffer: 'Annuler',
+    modifyOffer: 'Modificar',
+    deleteOffer: 'Cancelar',
   },
-  manageOffer: 'Gérer mes réservations',
+  manageOffer: 'Manejar las reservas',
   forms: {
     delete: {
-      buttonHardDelete: 'Supprimer',
+      buttonHardDelete: 'Suprimir',
     },
   },
 };

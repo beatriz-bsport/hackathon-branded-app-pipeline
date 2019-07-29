@@ -1,31 +1,31 @@
 export default {
-  establishment: 'Établissement ',
-  addButton: 'Ajouter un établissement',
-  pleaseSelectOne: 'Veuillez sélectionner un club sur la carte',
-  offers: 'Calendrier des séances:',
-  noMoreOffers: 'Plus aucune séance de prévue',
-  goBackToList: 'Retour aux établissements',
+  establishment: 'Local',
+  addButton: 'Añadir un local',
+  pleaseSelectOne: 'Selecionnar su local en el mapa',
+  offers: 'Calendario de las clases',
+  noMoreOffers: 'No hay clases previstas',
+  goBackToList: 'Volver a los locales',
   form: {
     new: {
-      title: 'Titre',
+      title: 'Título',
     },
   },
   card: {
-    update: 'Modifier',
+    update: 'Modificar',
   },
   update: {
     imageUploaderRequireEditMessage:
-      "Une fois votre établissement créé, vous aurez la possibilité d'ajouter des images supplémentaires.",
+      "Una vez el local creado, puede añadir más fotografías.",
   },
   forms: {
-    error: "Impossible de sauvegarder l'établissement",
+    error: "No es posible guardar el local",
     create: {
-      title: 'Nouvel établissement',
-      success: 'Établissement créé avec succès',
+      title: 'Nuevo local',
+      success: 'Local añadido con éxito',
     },
     update: {
-      title: 'Édition des informations',
-      success: 'Établissement modifié avec succès',
+      title: 'Modificar las informaciones',
+      success: 'Local modificado con éxito',
     },
   },
 };

@@ -13,8 +13,8 @@ export default {
     filter: {
       title: 'Filtre',
       includeLabel: 'Type',
-      include: 'Inclu le tag',
-      exclude: "N'inclu pas le tag",
+      include: 'Inclut le tag',
+      exclude: "N'inclut pas le tag",
       tagGroupLabel: 'Tag (catégorie)',
       tagLabel: 'Tag (valeur)',
       cancel: 'Annuler',

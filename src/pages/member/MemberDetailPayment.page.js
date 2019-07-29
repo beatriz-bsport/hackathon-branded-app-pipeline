@@ -29,35 +29,6 @@ type State = {
 };
 
 export class MemberDetailPayment extends Component<Props, State> {
-  state = {
-    subscriptions: [],
-    subscriptionLoading: true,
-  };
-
-  componentDidMount() {
-    this.fetchData();
-  }
-
-  componentDidUpdate(prevProps: Props) {
-    if (prevProps.id !== this.props.id) {
-      this.fetchData();
-    }
-  }
-
-  fetchData = () => {
-    if (this.props.id) {
-      subscriptionApi
-        .fetchAll(`memberId=${this.props.id}`)
-        .then((response) =>
-          this.setState({
-            subscriptions: response.data,
-            subscriptionLoading: false,
-          }),
-        )
-        .catch((err) => console.error(err));
-    }
-  };
-
   render() {
     return (
       <Grid container spacing={16}>
@@ -73,11 +44,10 @@ export class MemberDetailPayment extends Component<Props, State> {
         </Grid>
         <Grid item xs={12} lg={6}>
           <SubscriptionTable
-            subscriptions={this.state.subscriptions}
-            loading={this.state.subscriptionLoading}
             goToSubscription={this.props.goToSubscription}
             title={this.props.t('subscriptionTitle')}
             showOnlyCore
+            fetch={subscriptionApi.fetchAll}
           />
         </Grid>
       </Grid>

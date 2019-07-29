@@ -47,7 +47,13 @@ export class MemberDetailPayment extends Component<Props, State> {
             goToSubscription={this.props.goToSubscription}
             title={this.props.t('subscriptionTitle')}
             showOnlyCore
-            fetch={subscriptionApi.fetchAll}
+            fetch={(page, page_size) =>
+              subscriptionApi.fetchAll(
+                page,
+                page_size,
+                `memberId=${this.props.id}`,
+              )
+            }
           />
         </Grid>
       </Grid>

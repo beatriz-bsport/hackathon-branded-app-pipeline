@@ -17,6 +17,8 @@ export default {
     noNoteSaved: 'Aucune note enregistrée',
     addNote: 'Ajouter une note',
     myNotes: 'Mes notes',
+    healthNotes: 'Informations médicales',
+    is_medical: 'Note médicale',
   },
   creditAccountBalance: 'Accompte crédit restant',
   showPaymentPack: 'Voir les abonnements',
@@ -47,11 +49,11 @@ export default {
       explainCredit: "L'accompte interne du membre sera transféré",
       explainBookingsAndPassAndInvoiceAndNotes:
         'Les abonnements, réservations, factures et notes seront transférés.',
-      explainTags: 'Les tags du membre supprimé ne seront pas transférés',
+      explainTags: 'Les tags du membre supprimés ne seront pas transférés',
       cancel: 'Annuler',
       submit: 'Fusionner',
     },
-    error: 'Impossible de sauvegarde le membre',
+    error: 'Impossible de sauvegarder le membre',
     create: {
       title: 'Nouveau membre',
       success: 'Membre créé avec succès',

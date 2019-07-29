@@ -1,4 +1,5 @@
 export default {
+  establishment: 'Établissement ',
   addButton: 'Ajouter un établissement',
   pleaseSelectOne: 'Veuillez sélectionner un club sur la carte',
   offers: 'Calendrier des séances:',
@@ -14,10 +15,10 @@ export default {
   },
   update: {
     imageUploaderRequireEditMessage:
-      'Une fois votre établissement créé, vous aurez la possibilité d\'ajouter des images supplémentaires.',
+      "Une fois votre établissement créé, vous aurez la possibilité d'ajouter des images supplémentaires.",
   },
   forms: {
-    error: 'Impossible de sauvegarde l\'établissement',
+    error: "Impossible de sauvegarder l'établissement",
     create: {
       title: 'Nouvel établissement',
       success: 'Établissement créé avec succès',

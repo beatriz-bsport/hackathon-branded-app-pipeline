@@ -38,7 +38,7 @@ export default {
       delete: {
         title: 'Suppression',
         explain:
-          'Attention, cet tag sera supprimé chez TOUS les membres. Cette opération est irréversible',
+          'Attention, ce tag sera supprimé chez TOUS les membres. Cette opération est irréversible',
         submit: 'Supprimer',
         cancel: 'Annuler',
       },

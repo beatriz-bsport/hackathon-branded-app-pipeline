@@ -3,7 +3,7 @@ export default {
     // Validation errors
     incomplete_number: 'Le numéro de carte est incomplet.',
     incomplete_expiry: "La date d'expiration de votre carte est incomplète.",
-    invalid_expiry_year_past: "La date d'expiration votre carte est passée.",
+    invalid_expiry_year_past: "La date d'expiration de votre carte est passée.",
     invalid_expiry_year: "La date d'expiration de votre carte est invalide.",
     incomplete_cvc: 'Le code de sécurité de votre carte est incomplet.',
     invalid_number: 'Le numéro de votre carte est invalide.',

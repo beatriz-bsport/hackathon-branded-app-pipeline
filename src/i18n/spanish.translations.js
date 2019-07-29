@@ -9,6 +9,7 @@ import companies from './es/companies.translations';
 import dashboard from './es/dashboard.translations';
 import settings from './es/settings.translations';
 import paymentRules from './es/payment-rules.translations';
+import payment from './es/payment.translations';
 import subscription from './es/subscription.translations';
 import reporting from './es/reporting.translations';
 import stripe from './es/stripe.translations';
@@ -16,39 +17,58 @@ import alerting from './es/alerting.translations';
 import booking from './es/booking.translations';
 import tag from './es/tag.translations';
 import shop from './es/shop.translations';
+import order from './es/order.translations';
+import marketplace from './es/marketplace.translations';
+import metaActivity from './es/meta-activity.translations';
+import login from './es/login.translations';
+import invoice from './es/invoice.translations';
+import datetime from './es/datetime.translations';
+import offer from './es/offer.translations';
+import waitingList from './es/waiting-list.translations';
 
 export default {
   dashboard,
   tag,
+  login,
+  waitingList,
+  establishment,
+  order,
   settings,
+  datetime,
   shop,
   paymentRules,
+  payment,
+  invoice,
+  coach,
   subscription,
   reporting,
   alerting,
   paymentPack,
+  metaActivity,
+  offer,
   member,
   booking,
+  marketplace,
   coachPerformance: {
     fields: {
       bonus: 'Bonus',
       base: 'Base',
-      duration: 'Duración',
-      nb_bookings: 'Reserva',
-      name: 'Nombre',
-      date: 'Fecha',
-      rule: 'Regla',
+      duration: 'Durée',
+      nb_bookings: 'Réservations',
+      name: 'Nom',
+      date: 'Date',
+      rule: 'Régle',
     },
-    addBonus: 'Anñadir una regla',
-    dateTitle: 'Rango de fechas',
-    remuneration: 'Remuneración',
-    pricePerOffer: 'Remuneración para cada clase',
+    addBonus: 'Ajouter une règle',
+    dateTitle: 'Plage de dates',
+    remuneration: 'Rémunération',
+    pricePerOffer: 'Montant par séance',
     bonus: 'Bonus',
-    checkboxIncludeABonus: 'Incluir un bonus en relación con el rendimiento',
-    bookingThresholdLabel: 'Mínimo de numero reservas',
+    checkboxIncludeABonus: 'Inclure un bonus à la performance',
+    bookingThresholdLabel: 'Minimum de réservation',
     bookingThresholdHelper:
-      'Una clase solo seria contabilizadas si tiene este numeor de reservas',
-    pricePerAdditionalBookingLabel: 'Variable para cada reserva',
+      'Une séance ne sera comptabilisée que si elle totalise ce nombre de réservation',
+    pricePerAdditionalBookingLabel: 'Variable par réservation',
     pricePerAdditionalBookingHelper:
       'Montant reversé pour toute réservation au-dessus de la limite',
     fixedPriceForAdditionalBookingLabel: 'Fixe par séance',
@@ -110,13 +130,10 @@ export default {
         title: 'Nouveau membre',
       },
     },
-    datetime: {
-      shortDayIdentifier: 'j',
-      shortMinuteIdentifier: 'min',
-      shortHourIdentifier: 'h',
-    },
     common: {
       items: 'éléments',
+      skip: 'Passer',
+      level: 'Niveau',
       activePass: 'pass actif',
       invoices: 'Factures',
       download: 'Télécharger',
@@ -127,7 +144,6 @@ export default {
       export: 'Exporter',
       generate: 'Générer',
       tax: 'TVA',
-      skip: 'Passer',
       uploadOneImage: {
         new: 'Glisser et déposer ou cliquer ici pour ajouter une image',
         edit: "Glisser et déposer ou cliquer ici pour changer l'image",
@@ -167,8 +183,8 @@ export default {
       status: 'Status',
       ok: 'ok',
       seeMore: 'Afficher',
-      coach: 'Coach',
-      coaches: 'Coachs',
+      coach: 'Professeur',
+      coaches: 'Professeurs',
       company: 'Société',
       sport: 'Sport',
       filterBy: 'Filtrer par : ',
@@ -224,11 +240,13 @@ export default {
       hasntBooked: 'Non inscrit',
       hasBooked: 'Inscrit',
       createBooking: 'Inscrire',
+      reCreateBooking: 'Réinscrire',
       noQuickInvoiceOpened: 'Aucune facturation ouverte',
       myOpenedInvoices: 'Factures rapides',
       manageOffer: 'Gérer mes réservations',
     },
     shop: {
+      supplier_price: 'Prix fournisseur',
       myShop: 'Mon magasin',
       subShop: {
         delete: {
@@ -272,7 +290,9 @@ export default {
           },
         },
         item: {
+          create: 'Ajouter un article',
           unlimitedProvision: 'Pas de gestion du stock',
+          marketplace_enabled: 'Disponible sur marketplace web',
           deleteTitle: 'Suppression',
           deleteExplain:
             'Attention cette suppression est définitive, aucun client ne pourra plus acheter ce produit, les stocks seront supprimés.',
@@ -289,7 +309,7 @@ export default {
             error: "Erreur lors de l'enregistrement",
           },
           delete: {
-            success: 'Element supprimé',
+            success: 'Elément supprimé',
             error: 'Erreur lors de la suppression',
           },
           add: 'Ajouter un élément',
@@ -336,7 +356,7 @@ export default {
         confirmPasswordLabel: 'Confirmation',
         confirmPassword: 'Mot de passe',
         rgpdTitle:
-          "Comment préférez-vous que les coachs vous contactent pour les annulations/changement d'heure ?",
+          "Comment préférez-vous que les professeurs vous contactent pour les annulations/changement d'heure ?",
         communication: {
           email: 'par email',
           sms: 'par SMS',
@@ -377,19 +397,19 @@ export default {
         levelChangeWarning:
           'Si vous modifiez le niveau du cours, cette modification sera effective pour toutes les séances futures. Toute autre modification enregistrée ici (établissement, prix, jour de la semaine...) sera donc appliquée à toutes les séances.',
         coachChangeWarning:
-          'Si vous modifiez le coach, cette modification sera effective pour toutes les séances futures. Si ce n\'est pas ce que vous souhaitez, utilisez le champ "Remplaçant". Toute autre modification enregistrée ici (établissement, prix, jour de la semaine...) sera donc appliquée à toutes les séances.',
+          'Si vous modifiez le professeur, cette modification sera effective pour toutes les séances futures. Si ce n\'est pas ce que vous souhaitez, utilisez le champ "Remplaçant". Toute autre modification enregistrée ici (établissement, prix, jour de la semaine...) sera donc appliquée à toutes les séances.',
         establishmentChangeWarning:
-          'Si vous modifiez l\'établissement, cette modification sera effective pour toutes les séances futures. Si ce n\'est pas ce que vous souhaites, utilisez le champ "Etablissement temporaire". Toute autre modification enregistrée ici (jour de la semaine, prix, remplaçaant, coach...) sera donc appliquée à toutes les séances.',
+          'Si vous modifiez l\'établissement, cette modification sera effective pour toutes les séances futures. Si ce n\'est pas ce que vous souhaites, utilisez le champ "Etablissement temporaire". Toute autre modification enregistrée ici (jour de la semaine, prix, remplaçaant, professeur...) sera donc appliquée à toutes les séances.',
         substituteCoachLabel: 'Remplaçant',
-        coachLabel: 'Coach',
+        coachLabel: 'Professeur',
         establishmentLabel: 'Etablissement',
         substituteEstablishmentLabel: 'Etablissement (lieu temporaire)',
         warningPackonEdit:
-          "Les changements sur les séances risquent de les rendre incompatibles avec certains abonnements. Les abonnements actuellement compatibles avec cette séance sont les suivants, après la modification veuillez prendre le temps de vérifier qu'ils resteront compatible avec les éventuels changements de lieu / coach.",
+          "Les changements sur les séances risquent de les rendre incompatibles avec certains abonnements. Après la modification veuillez prendre le temps de vérifier qu'ils resteront compatible avec les éventuels changements de lieu / professeur.",
         deleteTitle: 'Supprimer la séance',
         cancelTitle: 'Annuler la séance',
         changeDate: "Modifier l'horaire / date",
-        changeCoach: 'Modifier le coach',
+        changeCoach: 'Modifier le professeur',
         changeEstablishment: 'Modifier le lieu',
         explainRecursiveOfferDelete:
           'Voulez-vous supprimer TOUTES les séances similaires ?',
@@ -422,19 +442,19 @@ export default {
             "Fin de validité du pass, laisser vide pour qu'il reste toujours actif",
           // eslint-disable-next-line
           credits:
-            "Nombre de crédit disponibles au client de l'abonnement, laisser vide pour le rendre illimité",
+            'Nombre de crédits disponibles, laisser vide pour le rendre illimité',
           maxBookingPerWeek: 'Laisser vide pour ne pas imposer de limite',
         },
         timeSettingsTitle: "Validité de l'abonnement",
         generalSettingsTitle: 'Général',
         validByDuration: 'Abonnement valide N jours après achat',
         validByDaterange: 'Abonnement valide sur un créneau de date précis',
-        durationDays: 'Durée de validité (jours)',
+        durationDays: 'Durée de validité (jours) si applicable',
         durationDaysHelperText:
           "Période en jours pour laquelle l'abonnement sera valide après achat ",
-        durationMonths: 'Durée additionnalle (mois)',
+        durationMonths: 'Durée de validité (mois) si applicable',
         durationMonthsHelperText: "S'ajoute au nombre de jours",
-        durationYears: 'Durée de validité (années)',
+        durationYears: 'Durée de validité (années) si applicable',
         durationYearsHelperText: "S'ajoute au nombre de jours et de mois",
         restrictionsTitle: 'Restrictions',
         maxBookingPerWeek: 'Utilisation max par semaine',
@@ -482,9 +502,9 @@ export default {
       level: 'Niveau',
       addingSessionFor: 'Création de séance pour : ',
       establishment: 'Etablissement',
-      coach: 'Coach',
+      coach: 'Professeur',
       newMember: 'Nouveau membre',
-      newCoach: 'Nouveau Coach',
+      newCoach: 'Nouveau Professeur',
       firstname: 'Prénom',
       lastname: 'Nom de famille',
       gender: 'Sexe',
@@ -513,6 +533,7 @@ export default {
       oneHourAndHalf: '1h30',
       twoHour: '2h',
       sixHour: '6h',
+      eightHour: '8h',
       oneDay: '1 journée',
       twoDays: '2 journées',
       oneWeek: '1 semaine',
@@ -557,7 +578,7 @@ export default {
         discardPossibleExplain:
           'Êtes-vous sûr de vouloir annuler cette réservation ? Votre crédit sera de nouveau utilisable.',
         discardImpossibleExplain:
-          'Êtes-vous sûr de vouloir annuler cette réservation ? Vous annulez trop tard pour le club et votre abonnement ne sera pas recrédité.',
+          'Êtes-vous sûr de vouloir annuler cette réservation ? Vous annulez trop tard et votre abonnement ne sera pas recrédité (conditions générales du club).',
         confirmBooking: 'Confirmer',
         waitingSlot: 'En attente',
         myFutureBookings: 'Prochaines séances',
@@ -572,15 +593,17 @@ export default {
       },
     },
     navigation: {
+      order: 'Commandes',
       workshopActivities: 'Ateliers',
       invoice: 'Factures',
       alpha: 'en développement',
-      coachPerformance: 'Coach',
+      coachPerformance: 'Professeurs',
       beta: 'beta',
       consumer: {
         pass: 'Abonnements',
         bookings: 'Mes réservations ',
         profile: 'Mon Profil',
+        order: 'Mes commandes',
       },
       reporting: 'Rapports',
       search: 'Rechercher',
@@ -608,17 +631,17 @@ export default {
       revertImpossibleExplainSubscription:
         "Cette facture fait partie d'une souscription, vous ne pouvez pas annuler une facture encaissée liée à une souscription, mais vous pouvez arrêter la souscription",
       revertExplainPayment:
-        "Les paiements par carte bleue seront reversés sur l'accompte du membre. Tous es autres modes de paiement seront supprimés.",
+        "Les paiements par carte bleue seront reversés sur l'accompte du membre. Tous les autres modes de paiement seront supprimés.",
       revertExplainCredits:
         'Les débit/crédit sur le compte du membre seront inversés.',
       revertExplainPacks:
         'Les abonnements seront annulés ainsi que TOUTES les réservations associées',
       revertExplainShop:
-        'Les achats du magasin seront annulés et les stocks réinitalisés.',
+        'Les achats du magasin seront annulés et les stocks réinitialisés.',
       invoiceReverted: 'Facture annulée',
       finalize: 'Finaliser la facture',
       explainFinalize:
-        "Attention ! Une facture finalisée n'est plus modifiable, de plus tous les paiement marqués en attente d'encaissement seront considérés comme encaissés. Une fois la facture finalisée vous pourrez l'exporter en tant que PDF",
+        "Attention ! Une facture finalisée n'est plus modifiable, de plus tous les paiements marqués en attente d'encaissement seront considérés comme encaissés. Une fois la facture finalisée vous pourrez l'exporter en tant que PDF",
       forms: {
         update: {
           success: 'Facture mise à jour avec succès',
@@ -631,6 +654,7 @@ export default {
     },
     payment: {
       credit: 'Crédit',
+      products: 'articles',
       invoiceRevertedThusNotEditable:
         "La facture a été annulée et n'est plus modifiable",
       topUp: 'Crédit',
@@ -668,7 +692,7 @@ export default {
         CB: 'Carte bleue',
         CB_MANUAL: 'Carte bleue (manuel)',
         CHECK: 'Chèque',
-        HOLIDAY_CHECK: 'Chèque vacances',
+        HOLIDAY_CHECK: 'Chèques vacances',
         CASH: 'Espèces',
         EVENT_BRITE: 'EventBrite',
         AMEX: 'AMEX',
@@ -696,15 +720,15 @@ export default {
     },
     paymentPack,
     paginatedList: {
-      isEmpty: 'Aucune donnée à afficher',
+      isEmpty: 'Aucunes données à afficher',
     },
     login: {
       welcome: 'Bienvenue !',
       signUpConsumer: 'Pas encore de compte ?',
       invalidPhone: 'Numéro de téléphone inconnu',
       choseYourUserspace: 'Je suis',
-      loginAsPro: 'Un manager de club de sport',
-      loginAsConsumer: 'Un sportif',
+      loginAsPro: 'Un gérant',
+      loginAsConsumer: 'Un élève',
       noAccount: 'Pas encore compte ? Créez-en un ici !',
       password: 'Mot de passe',
       authError: 'Email ou mot de passe erroné',
@@ -778,7 +802,7 @@ export default {
         "Avant le début de l'atelier, dernière annulation possible",
       forms: {
         create: {
-          succes: 'Atelier sauvegardé',
+          success: 'Atelier sauvegardé',
           error: "Impossible de sauvegarder l'atelier",
         },
         update: {
@@ -788,11 +812,6 @@ export default {
       },
     },
     booking: {
-      statusCode: {
-        cancelledByManager: 'Annulation manager',
-        cancelledByConsumer: 'Annulation client',
-        cancelledByOffer: 'Séance annulée par le club',
-      },
       wasRefunded: 'Remboursé',
       success: 'Réservation enregistrée',
       revertBookingTitle: "Annuler l'inscription",
@@ -894,22 +913,46 @@ export default {
       backToCalendar: 'Retour',
       showMarketplace: 'Voir le calendrier de ',
       noSessionToday: 'Aucune séance',
-      book: 'Réserver',
-      bookOption: "Liste d'attente",
+      bookButton: {
+        book: 'Réserver',
+        bookOption: "Liste d'attente",
+        notAvailable: 'Annulée',
+        isPast: 'Passée',
+      },
       sessionThisDay: 'Séance ce jour :',
       calendar: 'Calendrier',
+      workshop: 'Ateliers',
+      shop: {
+        tabName: 'Magasin',
+        noDescription: 'Aucune description',
+        addToCard: 'Ajouter au panier',
+        isEmpty: "Aucun produit n'est actuellement disponible sur le magasin.",
+      },
+      checkout: {
+        dialog: {
+          title: 'Mon panier',
+          cancel: 'Retour magasin',
+          goToDelivery: 'Continuer',
+          goToPayment: 'Payer',
+        },
+      },
       welcomeTo: 'Bienvenue chez ',
       pass: 'Abonnement',
-      buyPack: 'Ajouter',
+      buyPack: 'Acheter',
+      selector: {
+        coach: { placeholder: 'Filtrer par professeur' },
+        level: { placeholder: 'Filtrer par niveau' },
+        establishment: { placeholder: 'Filtrer par établissement' },
+      },
     },
     appbar: {
       title: {
         planning: 'Planning',
-        allCoachPerformance: 'Récapitulatif coaches',
+        allCoachPerformance: 'Récapitulatif professeur',
         mergeMember: 'Fusion membre',
         dashboard: 'Tableau de bord',
         shopManager: 'Mon magasin',
-        coachList: 'Coach',
+        coachList: 'Professeurs',
         offerManagement: 'Réservations',
         metaActivity: 'Activités',
         workshopActivityList: 'Ateliers',
@@ -918,8 +961,8 @@ export default {
         metaActivityList: 'Activités',
         metaActivityFormPage: 'Formulaire Activité',
         offerFormPage: 'Création de séance',
-        coachPerformance: 'Perforamce du coach',
-        coachFormPage: 'Formulaire coach',
+        coachPerformance: 'Performance du professeur',
+        coachFormPage: 'Formulaire professeur',
         invoiceFormPage: 'Edition Facture',
         invoiceCreatePage: 'Facturer',
         invoiceList: 'Mes transactions',
@@ -936,6 +979,8 @@ export default {
         reportingDashboard: 'Rapports',
         searchResults: 'Recherche',
         settings: 'Paramètres',
+        orderList: 'Commandes',
+        orderDetail: 'Détail commande',
       },
     },
   },

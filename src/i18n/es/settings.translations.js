@@ -3,7 +3,10 @@
 export default {
   pageTitle: 'Paramètres',
   tab: {
-    paymentRules: 'Règles de rémunérations',
+    paymentRules: 'Règles de rémunération',
     company: 'Entreprise',
+    invoice: 'Facturation',
+    waitingList: "Liste d'attente",
+    shop: 'Magasin',
   },
 };

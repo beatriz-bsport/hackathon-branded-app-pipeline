@@ -14,6 +14,7 @@ type Props = {
   isCardView: boolean,
   goToEdit: (metaActivityId: number) => void,
   goToDetail: (metaActivityId: number) => void,
+  deleteMetaActivity: (metaActivityId: number) => void,
 };
 
 export default function MetaActivityList(props: Props) {

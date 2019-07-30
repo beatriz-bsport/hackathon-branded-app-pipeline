@@ -25,6 +25,9 @@ type Props = {
   loading: boolean,
   isCardView: boolean,
 
+  setWorkshopToDelete: (number) => void,
+  workshopToDelete: ?number,
+  deleteWorkshop: (number) => void,
   goToDetail: (metaActivityId: number) => void,
   goToEdit: (metaActivityId: number) => void,
 };

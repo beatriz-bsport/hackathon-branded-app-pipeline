@@ -848,14 +848,14 @@ export default {
         true: 'inscrit',
         false: 'annulé',
       },
-  sources: {
+      sources: {
         MOB: 'Mobíl',
         WEB: 'Web',
         MAN: 'Manual',
       },
       lastBooking: 'Proxima clase',
       // eslint-disable-next-line
-      waiting: "Lista de espera",
+      waiting: 'Lista de espera',
       confirmed: 'Confirmados',
       free: 'huecos disponibles',
       seeCustomers: 'Ver las reservas',
@@ -864,7 +864,7 @@ export default {
       all: 'Todos los niveles',
       beginner: 'Principiente',
       intermediate: 'Intermediaro',
-      intermediary: 'Intermédiaire',//no_translate
+      intermediary: 'Intermédiaire', // no_translate
       advanced: 'Avanzado',
     },
     time: {
@@ -914,7 +914,7 @@ export default {
       noSessionToday: 'No hay clase hoy',
       bookButton: {
         book: 'Reservar',
-        bookOption: "Liste de espera",
+        bookOption: 'Liste de espera',
         notAvailable: 'Cancelada',
         isPast: 'Pasada',
       },
@@ -925,7 +925,7 @@ export default {
         tabName: 'Tienda',
         noDescription: 'No hay descripción',
         addToCard: 'Añadir a la cesta',
-        isEmpty: "No hay productos en la tienda.",
+        isEmpty: 'No hay productos en la tienda.',
       },
       checkout: {
         dialog: {
@@ -960,7 +960,7 @@ export default {
         metaActivityList: 'Actividades',
         metaActivityFormPage: 'Formulario de Actividad',
         offerFormPage: 'Crear una clase',
-        coachPerformance: 'Pago del profesor', //no_translate
+        coachPerformance: 'Pago del profesor', // no_translate
         coachFormPage: 'Formulario del profesor',
         invoiceFormPage: 'Editar factura',
         invoiceCreatePage: 'Facturar',

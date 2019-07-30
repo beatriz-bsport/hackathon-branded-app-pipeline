@@ -26,6 +26,8 @@ type Props = {
   goToDetail: (metaActivityId: number) => void,
   goToEdit: (metaActivityId: number) => void,
   deleteMetaActivity: (metaActivityId: number) => void,
+  setActivityToDelete: (number) => void,
+  activityToDelete: (?number) => void,
 };
 
 export function MetaActivityListPage(props: Props) {

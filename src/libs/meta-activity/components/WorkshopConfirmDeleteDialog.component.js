@@ -13,6 +13,9 @@ import RedButton from '../../../components/button/RedButton.component';
 
 type Props = {
   t: TFunction,
+  open: boolean,
+  onClose: () => void,
+  onSubmit: () => void,
 };
 
 export const WorkshopConfirmDeleteDialog = (props: Props) => {

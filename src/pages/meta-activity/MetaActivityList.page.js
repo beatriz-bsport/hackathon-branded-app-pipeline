@@ -12,6 +12,7 @@ import withDrawer from '../../hocs/with-drawer.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import MetaActivityList from '../../libs/meta-activity/components/MetaActivityList.component';
+import { getEnabledMetaActivities } from '../../libs/meta-activity/selectors';
 
 import type { MetaActivity } from '../../api/types';
 
@@ -48,7 +49,7 @@ export default compose(
   withNamespaces(),
   connect(
     (state) => ({
-      metaActivities: state.metaActivity.all || [],
+      metaActivities: getEnabledMetaActivities(state),
       loading: state.stats.activities.loading,
     }),
     {

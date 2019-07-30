@@ -25,6 +25,10 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import MetaActivityForm from '../../libs/meta-activity/components/MetaActivityForm.component';
 import OfferForm from '../../libs/offer/OfferForm.component';
+import {
+  getEnabledMetaActivities,
+  getEnabledWorkshops,
+} from '../../libs/meta-activity/selectors';
 
 type StepType = {
   id: number,
@@ -142,8 +146,8 @@ export default compose(
       SCTs: state.category.SCTs,
       loading: state.metaActivity.loading,
       metaActivityNames: [
-        ...state.metaActivity.all,
-        ...state.workshopActivity.all,
+        ...getEnabledMetaActivities(state),
+        ...getEnabledWorkshops(state),
       ].map((ma) => ma.name),
       coaches: getAllAssociatedCoach(state),
       upsertedMetaActivity: state.metaActivity.upsert.data,

@@ -15,6 +15,10 @@ import withDrawer from '../hocs/with-drawer.hoc';
 import OfferForm from '../libs/offer/OfferForm.component';
 import { getAllAssociatedCoach } from '../libs/associated-coach/selectors';
 import { createOffers as createOffersAPI } from '../libs/meta-activity/api/meta-activity';
+import {
+  getEnabledMetaActivities,
+  getEnabledWorkshops,
+} from '../libs/meta-activity/selectors';
 
 type Props = {
   match: Object,
@@ -105,8 +109,8 @@ export default withNamespaces()(
   connect(
     (state) => ({
       metaActivities: [
-        ...state.metaActivity.all,
-        ...state.workshopActivity.all,
+        ...getEnabledMetaActivities(state),
+        ...getEnabledWorkshops(state),
       ],
       coaches: getAllAssociatedCoach(state),
       establishments: state.establishment.all,

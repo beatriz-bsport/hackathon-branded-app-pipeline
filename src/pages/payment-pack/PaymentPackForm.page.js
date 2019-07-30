@@ -15,6 +15,10 @@ import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import PaymentPackForm from '../../libs/payment-packs/PaymentPackForm.component';
 import paymentPackSelectors from '../../libs/payment-packs/selectors';
+import {
+  getEnabledMetaActivities,
+  getEnabledWorkshops,
+} from '../../libs/meta-activity/selectors';
 import { paymentPack as paymentPackActions } from '../../actions';
 import withDrawer from '../../hocs/with-drawer.hoc';
 import type { SCT, MetaActivity } from '../../api/types';
@@ -71,8 +75,8 @@ export default compose(
           : null,
       categories: state.category.SCTs,
       metaActivities: [
-        ...(state.metaActivity.all || []),
-        ...(state.workshopActivity.all || []),
+        ...getEnabledMetaActivities(state),
+        ...getEnabledWorkshops(state),
       ],
       establishments: state.establishment.all,
       loading: state.paymentPack.createOrUpdatePending,

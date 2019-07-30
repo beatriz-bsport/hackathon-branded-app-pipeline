@@ -15,6 +15,7 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import MetaActivityDetail from '../../libs/meta-activity/components/MetaActivityDetail.component';
+import { getMetaActivities } from '../../libs/meta-activity/selectors';
 
 type Props = {
   id: number,
@@ -75,7 +76,7 @@ export default compose(
     (state) => ({
       loading: state.metaActivity.loading,
       metaActivity: state.metaActivity.metaActivity,
-      metaActivities: state.metaActivity.all,
+      metaActivities: getMetaActivities(state),
       metaActivityImages:
         (state.metaActivity.metaActivity &&
           state.metaActivity.metaActivity.images) ||

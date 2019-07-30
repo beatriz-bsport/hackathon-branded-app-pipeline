@@ -26,6 +26,7 @@ import withDrawer from '../../hocs/with-drawer.hoc';
 import OfferCard from '../../components/offer/OfferCard.component';
 import TimeTable from '../../components/offer/TimeTable.component';
 import Calendar from '../../components/offer/Calendar.component';
+import { getEnabledMetaActivities } from '../../libs/meta-activity/selectors';
 
 import {
   offer as offerActions,
@@ -479,7 +480,7 @@ function mapStateToProps(state) {
     coachesLoading: state.coach.loading,
     establishments: state.establishment.all,
     establishmentsLoading: state.establishment.loading,
-    metaActivities: state.metaActivity.all,
+    metaActivities: getEnabledMetaActivities(state),
 
     similarOfferLoading: state.offer.similarOffers.loading,
     similarOffers: state.offer.similarOffers.items,

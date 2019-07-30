@@ -1,13 +1,13 @@
 export default {
-  input: 'Rechercher...',
-  go_back: 'Retourner aux résultats',
-  noResult: 'Aucun résultat',
+  input: 'Buscando...',
+  go_back: 'Volver a los resultados',
+  noResult: 'No hay resultado',
   member: {
     sessions: {
-      title: 'Séances',
+      title: 'Clases',
     },
     packs: {
-      title: 'Abonnements',
+      title: 'Abonos',
     },
   },
 };

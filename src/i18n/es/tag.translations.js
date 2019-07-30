@@ -1,18 +1,18 @@
 export default {
   panel: {
-    title: 'Mes tags',
-    noTagAvailable: 'Aucun tag créé',
+    title: 'Mis tags',
+    noTagAvailable: 'No hay tag creado',
   },
   filter: {
-    addATagFilter: 'Filtrer par tag...',
+    addATagFilter: 'Filtrar por tag...',
   },
   tag: {
-    noTagAttributed: 'Sélectionnez un tag',
+    noTagAttributed: 'Seleccionar un tag',
   },
   form: {
     filter: {
-      title: 'Filtre',
-      includeLabel: 'Type',
+      title: 'Filtrar',
+      includeLabel: 'Tipo',
       include: 'Inclu le tag',
       exclude: "N'inclu pas le tag",
       tagGroupLabel: 'Tag (catégorie)',

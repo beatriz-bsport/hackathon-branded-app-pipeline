@@ -43,6 +43,7 @@ export default function MetaActivityList(props: Props) {
             metaActivity={ma}
             goToEdit={goToEdit}
             goToDetail={goToDetail}
+            deleteMetaActivity={() => props.deleteMetaActivity(ma.id)}
           />
         ))}
       </List>

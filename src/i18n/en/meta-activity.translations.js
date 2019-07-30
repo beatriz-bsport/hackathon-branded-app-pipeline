@@ -20,6 +20,15 @@ export default {
     lastBookingBeforeMinutes: 'Last booking is possible until',
     lastDiscardBeforeMinutes: 'Last discard booking is possible until',
   },
+  modal: {
+    delete: {
+      title: 'Delete activity',
+      content:
+        'Are you sure you want to delete this activity ? Booking and sessions will not be altered. This operation is not revertable.',
+      cancel: 'Cancel',
+      confirm: 'Delete',
+    },
+  },
   packsAvailable: 'Pass available for this activity :',
   reviews: 'Customer reviews: ',
 };

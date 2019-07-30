@@ -8,12 +8,17 @@ import {
   upsertActions,
   addImage,
   removeImage,
+  deleteAction,
 } from '../actions/workshop-activity.actions';
 
 const initialState = Immutable({
   loading: false,
   error: null,
   all: [],
+  delete: {
+    loading: false,
+    error: null,
+  },
   upsert: {
     loading: false,
     error: null,
@@ -22,6 +27,12 @@ const initialState = Immutable({
 
 export default handleActions(
   {
+    [deleteAction.isLoading]: (state, { payload }) => {
+      return state.setIn(['delete', 'loading'], payload);
+    },
+    [deleteAction.error]: (state, { payload }) => {
+      return state.setIn(['delete', 'error'], payload);
+    },
     [listingActions.success]: (state, { payload }) => {
       return state.set('all', payload);
     },

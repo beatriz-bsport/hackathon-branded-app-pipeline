@@ -25,9 +25,11 @@ import invoice from './fr/invoice.translations';
 import datetime from './fr/datetime.translations';
 import offer from './fr/offer.translations';
 import waitingList from './fr/waiting-list.translations';
+import workshop from './fr/workshop.translations';
 
 export default {
   dashboard,
+  workshop,
   tag,
   login,
   waitingList,

@@ -9,6 +9,7 @@ import {
   removeImage,
   addImage,
   upsertActions,
+  deleteAction,
 } from '../actions/meta-activity.actions';
 
 const initialState = Immutable({
@@ -17,6 +18,10 @@ const initialState = Immutable({
   error: false,
   errorMsg: '',
   metaActivity: null,
+  delete: {
+    loading: false,
+    error: null,
+  },
   upsert: {
     data: null,
     loading: false,
@@ -26,6 +31,12 @@ const initialState = Immutable({
 
 export default handleActions(
   {
+    [deleteAction.isLoading]: (state, { payload }) => {
+      return state.setIn(['delete', 'loading'], payload);
+    },
+    [deleteAction.error]: (state, { payload }) => {
+      return state.setIn(['delete', 'error'], payload);
+    },
     [fetchAll.isLoading]: (state, { payload }) => {
       return state.setIn(['loading'], payload);
     },

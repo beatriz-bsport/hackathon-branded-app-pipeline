@@ -25,10 +25,12 @@ import datetime from './en/datetime.translations';
 import offer from './en/offer.translations';
 import payment from './en/payment.translations';
 import waitingList from './en/waiting-list.translations';
+import workshop from './en/workshop.translations';
 
 export default {
   dashboard,
   alerting,
+  workshop,
   settings,
   login,
   shop,

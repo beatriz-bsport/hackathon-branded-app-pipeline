@@ -4,7 +4,6 @@ import React, { createContext, Component } from 'react';
 import type { AbstractComponent } from 'react';
 import { Link } from 'react-router-dom';
 
-import Button from '@material-ui/core/Button';
 import Fab from '@material-ui/core/Fab';
 import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -97,30 +96,30 @@ export default function withButton(params: injectButtonProps) {
         renderSwitchButton = () => {
           const { classes } = this.props;
           const { isCardView } = this.context;
-          const cardButtonColor = isCardView ? 'primary' : '#eee';
-          const listButtonColor = isCardView ? '#eee' : 'primary';
+          const cardButtonColor = isCardView ? 'primary' : 'default';
+          const listButtonColor = isCardView ? 'default' : 'primary';
           return (
             <div className={classes.toggleContainer}>
               <Grid container spacing={0} align="right">
                 <Grid item xs={12}>
-                  <Button
+                  <Fab
                     className={classes.cardButton}
-                    variant="extendedFab"
+                    variant="extended"
                     aria-label="Add"
                     onClick={isCardView ? () => {} : this.switchViewType}
                     color={cardButtonColor}
                   >
                     <ViewModuleIcon />
-                  </Button>
-                  <Button
+                  </Fab>
+                  <Fab
                     className={classes.listButton}
-                    variant="extendedFab"
+                    variant="extended"
                     aria-label="Add"
                     color={listButtonColor}
                     onClick={isCardView ? this.switchViewType : () => {}}
                   >
                     <ListIcon />
-                  </Button>
+                  </Fab>
                 </Grid>
               </Grid>
             </div>

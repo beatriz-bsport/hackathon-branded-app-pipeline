@@ -3,10 +3,12 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
+import { compose } from 'recompose';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
@@ -23,6 +25,7 @@ type Props = {
   divider: ?boolean,
   goToEdit: (metaActivityId: number) => void,
   goToDetail: (metaActivityId: number) => void,
+  deleteMetaActivity: () => void,
 };
 
 export function MetaActivityListItem(props: Props) {
@@ -64,6 +67,11 @@ export function MetaActivityListItem(props: Props) {
         >
           <EditIcon />
         </IconButton>
+        {props.deleteMetaActivity ? (
+          <IconButton color="secondary" onClick={props.deleteMetaActivity}>
+            <DeleteIcon />
+          </IconButton>
+        ) : null}
       </ListItemSecondaryAction>
     </ListItem>
   );
@@ -76,4 +84,7 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(withNamespaces([])(MetaActivityListItem));
+export default compose(
+  withStyles(styles),
+  withNamespaces([]),
+)(MetaActivityListItem);

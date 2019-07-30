@@ -15,6 +15,15 @@ export default {
   addOffers: 'Ajouter des séances',
   offersThisDay: 'Séances ce jour :',
   description: 'Description',
+  modal: {
+    delete: {
+      title: "Suppression de l'activité",
+      content:
+        'Êtes-vous sûr de vouloir supprimer cette activité ? Les séances et réservations ne seront pas affectées. Cette opération est définitive.',
+      cancel: 'Annuler',
+      confirm: 'Supprimer',
+    },
+  },
   settings: {
     title: 'Paramètres',
     lastBookingBeforeMinutes:

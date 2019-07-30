@@ -7,7 +7,11 @@ import {
   snackbarSuccess,
   snackbarError,
 } from '../../../actions/snackbar.actions';
-import { updateMetaActivity, addMetaActivity } from '../api/common';
+import {
+  updateMetaActivity,
+  addMetaActivity,
+  deleteMetaActivity as deleteMetaActivityAPI,
+} from '../api/common';
 import { fetchAll as fetchAllAPI } from '../api/workshop-activity';
 
 import type { Dispatch } from '../../../state/types';
@@ -19,6 +23,29 @@ export const listingActions = {
   error: createAction('WORKSHOP/LIST/ERROR'),
   success: createAction('WORKSHOP/LIST/SUCCESS'),
 };
+
+export const deleteAction = {
+  isLoading: createAction('WORKSHOP/DELETE/IS_LOADING'),
+  error: createAction('WORKSHOP/DELETE/ERROR'),
+  success: createAction('WORKSHOP/DELETE/SUCCESS'),
+};
+
+export function deleteWorkshop(id: number): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(deleteAction.isLoading(true));
+    dispatch(deleteAction.error(null));
+
+    try {
+      await deleteMetaActivityAPI(id);
+      dispatch(deleteAction.success(id));
+      dispatch(fetchAll());
+    } catch (err) {
+      dispatch(deleteAction.error(err));
+      Sentry.captureException(err);
+    }
+    dispatch(deleteAction.isLoading(false));
+  };
+}
 
 export function fetchAll() {
   return async (dispatch: Dispatch) => {

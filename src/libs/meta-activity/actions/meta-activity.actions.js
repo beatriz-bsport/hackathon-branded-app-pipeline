@@ -14,6 +14,7 @@ import {
   updateMetaActivity as updateMetaActivityAPI,
   addMetaActivity as addMetaActivityAPI,
   fetchAllActivities as fetchAllActivitiesAPI,
+  deleteMetaActivity as deleteMetaActivityAPI,
 } from '../api/common';
 
 export const fetchOne = {
@@ -21,6 +22,27 @@ export const fetchOne = {
   error: createAction('META_ACTIVITIES/DETAIL/ERROR'),
   success: createAction('META_ACTIVITIES/DETAIL/SUCCESS'),
 };
+export const deleteAction = {
+  isLoading: createAction('META_ACTIVITIES/DELETE/IS_LOADING'),
+  error: createAction('META_ACTIVITIES/DELETE/ERROR'),
+  success: createAction('META_ACTIVITIES/DELETE/SUCCESS'),
+};
+
+export function deleteMetaActivity(id: number): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(deleteAction.isLoading(true));
+    dispatch(deleteAction.error(null));
+
+    try {
+      await deleteMetaActivityAPI(id);
+      dispatch(fetchAllActivities());
+    } catch (err) {
+      dispatch(deleteAction.error(err));
+      Sentry.captureException(err);
+    }
+    dispatch(deleteAction.isLoading(false));
+  };
+}
 
 export function fetchMetaActivityDetails(id: number): ThunkAction {
   return async (dispatch: Dispatch) => {

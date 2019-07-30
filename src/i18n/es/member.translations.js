@@ -4,14 +4,14 @@ export default {
   invoiceTitle: 'Facturas',
   subscriptionTitle: 'Suscripción',
   offers_joined: 'Numeros de reservas',
-  pass_owner: 'Abonnement valide', //no_translate
+  pass_owner: 'Abonnement valide', // no_translate
   bornIn: 'Nacido en ',
   memberSince: 'Registrado desde ',
   showNextBooking: 'Ver las reservas futuras',
   nextBooking: 'próxima : ',
   showPreviousBooking: 'Ver las reservas pasadas',
   pastBooking: 'última : ',
-  engagement: 'Engagement', //no_translate
+  engagement: 'Engagement', // no_translate
   addMember: 'Añadir un nuevo cliente',
   note: {
     noNoteSaved: 'No hay notas registradas',
@@ -33,7 +33,7 @@ export default {
   },
   row: {
     headers: {
-      actions: 'Actions', //no_translate
+      actions: 'Actions', // no_translate
     },
     update: 'Modificar',
   },

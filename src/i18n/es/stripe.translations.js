@@ -1,19 +1,19 @@
 export default {
   errors: {
     // Validation errors
-    incomplete_number: 'Le numéro de carte est incomplet.',
-    incomplete_expiry: "La date d'expiration de votre carte est incomplète.",
-    invalid_expiry_year_past: "La date d'expiration de votre carte est passée.",
-    invalid_expiry_year: "La date d'expiration de votre carte est invalide.",
-    incomplete_cvc: 'Le code de sécurité de votre carte est incomplet.',
-    invalid_number: 'Le numéro de votre carte est invalide.',
+    incomplete_number: 'El numero de la tarjeta bancaria no es completo.',
+    incomplete_expiry: "La fecha de expiración no es completa.",
+    invalid_expiry_year_past: "La fecha de expiración es pasada.",
+    invalid_expiry_year: "La fecha de expiración no es valida.",
+    incomplete_cvc: 'Le codigo de seguridad de su tarjeta no es completo.',
+    invalid_number: 'El numero de la tarjeta bancaria no es valido.',
     // Payment errors
-    card_declined: 'Votre carte a été refusée.',
-    expired_card: 'Votre carte a expirée.',
-    incorrect_cvc: 'Le code de sécurite de votre carte est incorrect.',
+    card_declined: 'Su tarjeta es rechazada.',
+    expired_card: 'Su tarjeta es caducada.',
+    incorrect_cvc: 'El codigo de seguridad de su tarjeta no es valido.',
     processing_error:
-      "Une erreur a eue lieu lors de l'enregistrement de votre paiement. Veuillez réessayer d'ici quelques instants.",
+      "Hay un error, intentalo de nuevo en algunos minutos.",
     // Reason
-    insufficient_funds: 'Votre carte ne dispose pas des fonds suffisants.',
+    insufficient_funds: 'No hay suficiente dinero es su cuenta bancaria.',
   },
 };

@@ -1,12 +1,12 @@
 // @flow
 
 export default {
-  pageTitle: 'Paramètres',
+  pageTitle: 'Parametros',
   tab: {
-    paymentRules: 'Règles de rémunération',
-    company: 'Entreprise',
-    invoice: 'Facturation',
-    waitingList: "Liste d'attente",
-    shop: 'Magasin',
+    paymentRules: 'Reglas de remuneración',
+    company: 'Empresa',
+    invoice: 'Facturación',
+    waitingList: "Lista de espera",
+    shop: 'Tienda',
   },
 };

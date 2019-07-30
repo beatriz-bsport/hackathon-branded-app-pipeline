@@ -47,11 +47,13 @@ export function FinalizeInvoiceDialog(props: Props) {
         <DialogContentText id="alert-dialog-description">
           {t('invoice.explainDateChoser')}
         </DialogContentText>
-        <DateInput
-          required
-          value={moment(props.date)}
-          onChange={props.setDate}
-        />
+        <div style={{ marginTop: 12 }}>
+          <DateInput
+            required
+            value={moment(props.date)}
+            onChange={props.setDate}
+          />
+        </div>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} color="secondary">

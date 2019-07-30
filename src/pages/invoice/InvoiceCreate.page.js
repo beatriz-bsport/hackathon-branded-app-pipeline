@@ -72,11 +72,13 @@ export class InvoiceCreatePage extends Component<Props, State> {
   };
 
   createInvoiceAtDate = (date: string) => {
+    this.setState({ dateDialogOpen: false });
     this.props.createInvoice({
       ...this.state.invoiceData,
       member: this.props.member.id,
       date,
     });
+    this.setState({ invoiceData: null });
   };
 
   render() {

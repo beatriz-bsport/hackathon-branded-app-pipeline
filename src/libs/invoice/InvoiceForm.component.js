@@ -130,6 +130,7 @@ const SaveButton = (props: {
   <Button
     variant="contained"
     color="primary"
+    disabled={props.processing}
     onClick={props.onClick}
     className={props.classes.actionButton}
   >

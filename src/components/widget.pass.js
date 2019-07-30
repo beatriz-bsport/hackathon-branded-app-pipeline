@@ -7,7 +7,7 @@ type Props = {
   store: any,
   location: Object,
 };
-class CalendarWidget extends Component<Props> {
+class PassWidget extends Component<Props> {
   render() {
     const { companyId, store, location } = this.props;
     return (
@@ -20,4 +20,4 @@ class CalendarWidget extends Component<Props> {
   }
 }
 
-export default CalendarWidget;
+export default PassWidget;

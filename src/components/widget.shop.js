@@ -1,23 +1,23 @@
 // @flow
 import React, { Component } from 'react';
-import MarketplaceWorkshopPage from 'bsport-saas/src/pages/marketplace/MarketplaceWorkshop.page';
+import MarketplaceShopPage from 'bsport-saas/src/pages/marketplace/MarketplaceShop.page';
 
 type Props = {
   companyId: number,
   store: any,
   location: Object,
 };
-class ShopWidget extends Component<Props> {
+class PassWidget extends Component<Props> {
   render() {
     const { companyId, store, location } = this.props;
     return (
-      <MarketplaceWorkshopPage
+      <MarketplaceShopPage
         companyId={companyId}
-        location={location}
         store={store}
+        location={location}
       />
     );
   }
 }
 
-export default ShopWidget;
+export default PassWidget;

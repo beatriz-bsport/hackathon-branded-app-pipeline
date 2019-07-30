@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createBrowserHistory } from 'history';
 import { Provider } from 'react-redux';
+import { Router } from 'react-router';
 
 import BsportWidget from '../components/widget.core';
 import '../../vendor/cleanslate.css';
@@ -16,7 +17,9 @@ export default class EmbeddableWidget {
   static mount({ parentElement, ...props } = {}) {
     const component = (
       <Provider store={store}>
-        <BsportWidget {...props} store={store} history={history} />
+        <Router history={history}>
+          <BsportWidget {...props} store={store} history={history} />
+        </Router>
       </Provider>
     );
 

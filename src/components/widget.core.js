@@ -1,6 +1,10 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import { withProps, compose } from 'recompose';
+import { replace, push as pushRouter } from 'react-router-redux';
+
 import {
   fetchCompanyAction,
   fetchCompanyMetaActivitiesAction,
@@ -8,11 +12,25 @@ import {
   fetchCompanyEstablishmentsAction,
   fetchCompanyCoachesAction,
 } from 'bsport-saas/src/libs/marketplace/actions';
+
+import {
+  removeProductFromOrder as removeProductFromOrderAction,
+  updateCurrentOrder as updateOrderAction,
+  getOrCreateCurrentOrder,
+  resetOrders as resetOrdersAction,
+} from 'bsport-saas/src/libs/order/actions';
+
+import {
+  consumer as consumerActions,
+  auth as authActions,
+} from 'bsport-saas/src/actions';
+
 import { fetchSCT } from 'bsport-saas/src/actions/category.actions';
 
 import CalendarWidget from './widget.calendar';
 import PassWidget from './widget.pass';
 import WorkshopWidget from './widget.workshop';
+import ShopWidget from './widget.shop';
 
 type Props = {
   companyId: number,
@@ -25,6 +43,25 @@ type Props = {
   fetchCompanyMetaActivities: (companyId: number) => void,
   fetchCompanyCoaches: (companyId: number) => void,
   fetchCompanyEstablishments: (companyId: number) => void,
+  fetchCurrentOrder: (companyId: number) => void,
+  fetchProfile: () => void,
+  auth: *,
+  consumerProfile: *,
+};
+
+const readFiltersFromURL = (search) => {
+  // URL parameters starting with f_ are considered as ID filters for
+  // offers, we parse ?f_levels=[1,2] to replace with { levels: [1,2] }
+  try {
+    const params = search.slice(1).split('&');
+    const filters = params
+      .map((param) => param.split('='))
+      .filter((param) => param[0].includes('f_'))
+      .map((param) => [param[0].split('f_')[1], JSON.parse(param[1])]);
+    return filters.reduce((a, v) => ({ ...a, [v[0]]: v[1] }), {});
+  } catch (err) {
+    return {};
+  }
 };
 class BsportWidget extends Component<Props> {
   fetchData = () => {
@@ -34,6 +71,10 @@ class BsportWidget extends Component<Props> {
     this.props.fetchCompanyMetaActivities(this.props.companyId);
     this.props.fetchCompanyCoaches(this.props.companyId);
     this.props.fetchCompanyEstablishments(this.props.companyId);
+    if (this.props.auth.authenticated) {
+      this.props.fetchCurrentOrder(this.props.companyId);
+      this.props.fetchProfile();
+    }
   };
 
   componentDidMount() {
@@ -52,7 +93,21 @@ class BsportWidget extends Component<Props> {
           />
         );
       case 'pass':
-        return <PassWidget companyId={companyId} store={store} />;
+        return (
+          <PassWidget
+            companyId={companyId}
+            store={store}
+            location={history.location}
+          />
+        );
+      case 'shop':
+        return (
+          <ShopWidget
+            companyId={companyId}
+            store={store}
+            location={history.location}
+          />
+        );
       default:
         return (
           <CalendarWidget
@@ -69,16 +124,37 @@ BsportWidget.propTypes = {};
 
 // BsportWidget.defaultProps = {};
 
-export default connect(
-  (state) => ({}),
-  {
-    // General information
-    fetchSCT,
-    fetchCompany: fetchCompanyAction,
-    fetchCompanyMetaActivities: fetchCompanyMetaActivitiesAction,
-    fetchCompanyActivities: fetchCompanyActivitiesAction,
-    fetchCompanyEstablishments: fetchCompanyEstablishmentsAction,
-    fetchCompanyCoaches: fetchCompanyCoachesAction,
-    // For shop pages
-  },
+export default compose(
+  // withRouter(),
+  // withProps(({ location }) => ({
+  //   filters: readFiltersFromURL(location.search),
+  //   filtersOpen: location.search.includes('filtersOpen=true'),
+  // })),
+  connect(
+    (state) => ({ auth: state.auth }),
+    {
+      // General information
+      fetchSCT,
+      fetchCompany: fetchCompanyAction,
+      fetchCompanyMetaActivities: fetchCompanyMetaActivitiesAction,
+      fetchCompanyActivities: fetchCompanyActivitiesAction,
+      fetchCompanyEstablishments: fetchCompanyEstablishmentsAction,
+      fetchCompanyCoaches: fetchCompanyCoachesAction,
+      // For shop pages
+      resetOrders: resetOrdersAction,
+      fetchCurrentOrder: getOrCreateCurrentOrder,
+      removeProduct: removeProductFromOrderAction,
+      updateOrder: updateOrderAction,
+      goToPayment: (companyId) =>
+        pushRouter(`/customer/payment/order/${companyId}/`),
+      // for signup/signin/profile
+      fetchProfile: consumerActions.fetchProfile,
+      goToUserSpace: () => pushRouter('/'),
+      signup: (data: *, callback: () => void) =>
+        authActions.signup(data, { onDone: callback }),
+      doEmailLogin: ({ email, password }, callback) =>
+        authActions.requestLogin(email, password, { onDone: callback }),
+      disconnect: authActions.disconnect,
+    },
+  ),
 )(BsportWidget);

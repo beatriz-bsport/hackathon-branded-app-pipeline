@@ -6,6 +6,7 @@ import 'moment/locale/fr';
 
 import ENGLISH_PACK from './english.translation';
 import FRENCH_PACK from './french.translation';
+import SPANISH_PACK from './spanish.translations';
 
 i18n
   .use(LanguageDetector)
@@ -21,6 +22,7 @@ i18n
     resources: {
       'fr-FR': FRENCH_PACK,
       'en-US': ENGLISH_PACK,
+      'es-ES': SPANISH_PACK,
     },
 
     interpolation: {
@@ -52,6 +54,10 @@ const availableLanguages = [
   {
     lang: 'en-US',
     translation: ENGLISH_PACK,
+  },
+  {
+    lang: 'es-ES',
+    translation: SPANISH_PACK,
   },
 ];
 

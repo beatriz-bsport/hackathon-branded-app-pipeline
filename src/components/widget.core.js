@@ -49,20 +49,6 @@ type Props = {
   consumerProfile: *,
 };
 
-const readFiltersFromURL = (search) => {
-  // URL parameters starting with f_ are considered as ID filters for
-  // offers, we parse ?f_levels=[1,2] to replace with { levels: [1,2] }
-  try {
-    const params = search.slice(1).split('&');
-    const filters = params
-      .map((param) => param.split('='))
-      .filter((param) => param[0].includes('f_'))
-      .map((param) => [param[0].split('f_')[1], JSON.parse(param[1])]);
-    return filters.reduce((a, v) => ({ ...a, [v[0]]: v[1] }), {});
-  } catch (err) {
-    return {};
-  }
-};
 class BsportWidget extends Component<Props> {
   fetchData = () => {
     this.props.fetchSCT();
@@ -125,11 +111,6 @@ BsportWidget.propTypes = {};
 // BsportWidget.defaultProps = {};
 
 export default compose(
-  // withRouter(),
-  // withProps(({ location }) => ({
-  //   filters: readFiltersFromURL(location.search),
-  //   filtersOpen: location.search.includes('filtersOpen=true'),
-  // })),
   connect(
     (state) => ({ auth: state.auth }),
     {

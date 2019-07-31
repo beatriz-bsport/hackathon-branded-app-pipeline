@@ -1,0 +1,48 @@
+export default {
+  newMemberOnly: 'Disponible uniquement aux nouveaux membres',
+  publicPacksTitle: 'Pass available for purchase',
+  privatePacksTitle: 'Pass unavailable for purchase',
+  subscribeToOffer: 'Register',
+  createOrUpdate: {
+    success: 'Pass successfully saved',
+    fail: 'Error: pass would not be saved',
+  },
+  disableConsumer: 'Block',
+  enableConsumer: 'Unblock',
+  credit: {
+    updated: 'Credits updated',
+  },
+  consumer: {
+    expiresOn: 'Expires on ',
+    bookingsThisWeek: 'réservations cette semaine',
+  },
+  validForDuration: (days, months, years) =>
+    `${days ? `${days} days ` : ''}${months ? `${months} months ` : ''}${
+      years ? `${years} year` : ''
+    }`,
+  maxNBookingsByWeek1: 'Max ',
+  maxNBookingsByWeek2: ' bookings per week',
+  validity: 'Validity :',
+  validForNdays1: 'Valid for ',
+  validForNdays2: ' days after purchase',
+  validFrom: 'Valid from ',
+  validTo: ' to ',
+  bookingsLeftThisWeek: 'Max bookings per week',
+  addButton: 'Create a new pass',
+  noPaymentPackSubscribed: 'No pass subscribed',
+  validUntil: 'Valid until',
+  expirationDate: 'Expiration date',
+  never: 'Never',
+  unlimitedCredits: 'Unlimited',
+  credits: 'Credits',
+  availableOnFollowingSports: 'Available on following sports: ',
+  availableOnFollowingEstablishments: 'Available on following locations: ',
+  anySport: 'Any sports',
+  availableOnFollowingActivities: 'Available on following activities: ',
+  anyActivity: 'Any activity',
+  boughtConsumerPaymentPacks: 'Subscribers',
+  noRestrictionOnActivityType: 'No restriction on activity',
+  disabled: 'Disabled',
+  noConsumerPack: 'No pass registered yet',
+  reverted: 'Invoice reverted',
+};

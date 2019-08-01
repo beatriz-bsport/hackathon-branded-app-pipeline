@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';

@@ -1,7 +1,11 @@
 // @flow
 
 import React from 'react';
-import { Paper, List, withStyles, Typography } from '@material-ui/core';
+
+import Paper from '@material-ui/core/Paper';
+import List from '@material-ui/core/List';
+import withStyles from '@material-ui/core/styles/withStyles';
+import Typography from '@material-ui/core/Typography';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 

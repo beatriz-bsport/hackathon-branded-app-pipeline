@@ -1,16 +1,14 @@
 // @flow
 import React, { Component } from 'react';
 
-import {
-  FormControl,
-  Select,
-  Typography,
-  Grid,
-  Paper,
-  MenuItem,
-  LinearProgress,
-  withStyles,
-} from '@material-ui/core';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import MenuItem from '@material-ui/core/MenuItem';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Sms from '@material-ui/icons/Sms';

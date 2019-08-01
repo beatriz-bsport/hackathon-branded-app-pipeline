@@ -3,7 +3,8 @@
 import React from 'react';
 import type { Node } from 'react';
 
-import { Dialog, DialogContent } from '@material-ui/core';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 
 import ConsumerMenu from '../navigation/ConsumerMenu.component';

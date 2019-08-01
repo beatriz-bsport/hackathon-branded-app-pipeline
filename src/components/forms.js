@@ -11,7 +11,7 @@ import type { TFunction } from 'react-i18next';
 
 import DatePicker from 'material-ui-pickers/DatePicker';
 
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -28,12 +28,10 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 
 import * as Yup from 'yup';
 
-import {
-  TextField as MuiTextField,
-  Button as MuiButton,
-  FormControl as MuiFormControl,
-  InputAdornment,
-} from '@material-ui/core';
+import MuiTextField from '@material-ui/core/TextField';
+import MuiButton from '@material-ui/core/Button';
+import MuiFormControl from '@material-ui/core/FormControl';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';

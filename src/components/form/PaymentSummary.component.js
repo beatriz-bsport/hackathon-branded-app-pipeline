@@ -1,7 +1,10 @@
 // @flow
 import React from 'react';
 
-import { IconButton, Grid, Typography, withStyles } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import withStyles from '@material-ui/core/styles/withStyles';
 import CheckIcon from '@material-ui/icons/Check';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { withNamespaces } from 'react-i18next';

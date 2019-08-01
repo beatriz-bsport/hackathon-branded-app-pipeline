@@ -1,7 +1,10 @@
 // @flow
 import React, { Component } from 'react';
 
-import { Button, Grid, Typography, List } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import List from '@material-ui/core/List';
 import { withNamespaces } from 'react-i18next';
 
 import type { TFunction } from 'react-i18next';

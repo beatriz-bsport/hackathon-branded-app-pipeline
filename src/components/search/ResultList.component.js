@@ -5,7 +5,7 @@ import type { Node } from 'react';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import List from '@material-ui/core/List';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import ListItem from '@material-ui/core/ListItem';

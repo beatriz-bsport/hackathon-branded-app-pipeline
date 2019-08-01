@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import { getLevelColorById } from '@bsport/common/lib/colors';
 import { withNamespaces } from 'react-i18next';
 

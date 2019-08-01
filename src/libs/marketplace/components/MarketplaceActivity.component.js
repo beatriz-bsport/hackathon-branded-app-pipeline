@@ -8,7 +8,7 @@ import { push } from 'react-router-redux';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import { withStyles } from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';

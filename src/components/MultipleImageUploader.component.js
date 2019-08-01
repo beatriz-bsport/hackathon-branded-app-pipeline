@@ -9,7 +9,7 @@ import classnames from 'classnames';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import { withStyles } from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 
 type ImageFile = {

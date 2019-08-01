@@ -6,7 +6,7 @@ import { compose, withState, withProps } from 'recompose';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 import Fab from '@material-ui/core/Fab';
 import Button from '@material-ui/core/Button';

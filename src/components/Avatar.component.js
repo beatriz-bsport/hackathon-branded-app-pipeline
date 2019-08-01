@@ -1,7 +1,8 @@
 // @flow
 import React from 'react';
 
-import { Grid, Typography } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 // prettier-ignore
 const DEFAULT_PROFIL_PIC = 'https://ssl.gstatic.com/images/branding/product/1x/avatar_circle_blue_512dp.png';
 

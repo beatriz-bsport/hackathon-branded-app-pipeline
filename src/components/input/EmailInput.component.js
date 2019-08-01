@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { TextField } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
 
 // prettier-ignore
 const emailRegexp = new RegExp('[A-z0-9-_]+@[A-z0-9-_]+.[A-z]+$');

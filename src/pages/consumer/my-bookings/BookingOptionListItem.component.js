@@ -1,14 +1,12 @@
 // @flow
 import React, { Component } from 'react';
 
-import {
-  Paper,
-  Divider,
-  Grid,
-  Button,
-  CircularProgress,
-  withStyles,
-} from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
+import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 
 import ActivityMinimalSummary from '../../../components/activity/ActivityMinimalSummary.component';

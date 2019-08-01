@@ -1,7 +1,9 @@
 // @flow
 import React, { Component } from 'react';
 
-import { ListItemText, ListItem, withStyles } from '@material-ui/core';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItem from '@material-ui/core/ListItem';
+import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 
 const styles = () => ({

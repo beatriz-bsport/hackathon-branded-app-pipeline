@@ -1,7 +1,8 @@
 // @flow
 import React, { Component } from 'react';
 
-import { Grid, Typography } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import StarFull from '@material-ui/icons/Star';
 import StarEmpty from '@material-ui/icons/StarBorder';
 

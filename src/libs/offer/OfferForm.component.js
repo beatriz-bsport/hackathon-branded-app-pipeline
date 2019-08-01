@@ -2,13 +2,11 @@
 
 import React, { Component } from 'react';
 
-import {
-  Button,
-  CircularProgress,
-  Grid,
-  Typography,
-  withStyles,
-} from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import withStyles from '@material-ui/core/styles/withStyles';
 import InfoIcon from '@material-ui/icons/Info';
 import CalendarIcon from '@material-ui/icons/Today';
 import AddIcon from '@material-ui/icons/Add';

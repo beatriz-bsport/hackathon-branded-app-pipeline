@@ -2,12 +2,10 @@
 
 import React, { Component } from 'react';
 
-import {
-  CircularProgress,
-  withStyles,
-  Typography,
-  Grid,
-} from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import withStyles from '@material-ui/core/styles/withStyles';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 import { withNamespaces } from 'react-i18next';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';

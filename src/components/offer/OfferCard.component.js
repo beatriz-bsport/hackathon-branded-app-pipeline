@@ -2,17 +2,15 @@
 
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import {
-  Typography,
-  Grid,
-  Paper,
-  Button,
-  withStyles,
-  ListItem,
-  ListItemText,
-  Icon,
-  Hidden,
-} from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import withStyles from '@material-ui/core/styles/withStyles';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Icon from '@material-ui/core/Icon';
+import Hidden from '@material-ui/core/Hidden';
 import EditIcon from '@material-ui/icons/Edit';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import LocationOnIcon from '@material-ui/icons/LocationOn';

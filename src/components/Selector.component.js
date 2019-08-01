@@ -8,7 +8,7 @@ import { compose } from 'recompose';
 import Select from 'react-select';
 import CreatableSelect from 'react-select/lib/Creatable';
 
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import CancelIcon from '@material-ui/icons/Cancel';
 import SearchIcon from '@material-ui/icons/Search';
 import Paper from '@material-ui/core/Paper';

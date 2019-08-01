@@ -1,6 +1,8 @@
 // @flow
 import React from 'react';
-import { withStyles, InputAdornment, IconButton } from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
 import SearchIcon from '@material-ui/icons/Search';
 import { withNamespaces } from 'react-i18next';

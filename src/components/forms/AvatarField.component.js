@@ -8,7 +8,7 @@ import type { TFunction } from 'react-i18next';
 
 import { Field } from 'formik';
 
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Avatar from '../Avatar.component';
 
 const styles = () => ({

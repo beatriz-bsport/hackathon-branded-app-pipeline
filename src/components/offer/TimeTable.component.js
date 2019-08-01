@@ -2,13 +2,11 @@
 
 import React, { Component } from 'react';
 
-import {
-  List,
-  Divider,
-  Typography,
-  withStyles,
-  LinearProgress,
-} from '@material-ui/core';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
+import withStyles from '@material-ui/core/styles/withStyles';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import { withNamespaces } from 'react-i18next';
 import { Moment } from '../../i18n';
 import type { Offer } from '../../api/types';

@@ -1,7 +1,8 @@
 // @flow
 import React, { Component } from 'react';
 
-import { ListItem, ListItemText } from '@material-ui/core';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import { withNamespaces } from 'react-i18next';
 
 type Props = {

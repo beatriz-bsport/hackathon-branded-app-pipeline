@@ -1,7 +1,10 @@
 // @flow
 import React from 'react';
 
-import { Icon, ListItem, ListItemText, withStyles } from '@material-ui/core';
+import Icon from '@material-ui/core/Icon';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 import { withNamespaces } from 'react-i18next';
 

@@ -2,7 +2,8 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withStyles, CircularProgress } from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { compose } from 'recompose';
 
 import { companies as companiesActions } from '../../actions';

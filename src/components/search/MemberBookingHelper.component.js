@@ -1,13 +1,11 @@
 // @flow
 import React from 'react';
 
-import {
-  Button,
-  ListItem,
-  ListItemText,
-  ListItemSecondaryAction,
-  withStyles,
-} from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import withStyles from '@material-ui/core/styles/withStyles';
 import AddIcon from '@material-ui/icons/Add';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import { withNamespaces } from 'react-i18next';

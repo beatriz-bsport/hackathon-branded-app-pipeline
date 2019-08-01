@@ -1,16 +1,14 @@
 // @flow
 import React, { Component } from 'react';
 
-import {
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  ListItemSecondaryAction,
-  IconButton,
-  withStyles,
-  Typography,
-} from '@material-ui/core';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import IconButton from '@material-ui/core/IconButton';
+import withStyles from '@material-ui/core/styles/withStyles';
+import Typography from '@material-ui/core/Typography';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 

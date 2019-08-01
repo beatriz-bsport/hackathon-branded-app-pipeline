@@ -1,15 +1,13 @@
 // @flow
 import React from 'react';
 
-import {
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Chip,
-  Avatar as MUIAvatar,
-  withStyles,
-} from '@material-ui/core';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import Chip from '@material-ui/core/Chip';
+import MUIAvatar from '@material-ui/core/Avatar';
+import withStyles from '@material-ui/core/styles/withStyles';
 import FaceIcon from '@material-ui/icons/Face';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { InputAdornment } from '@material-ui/core';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 import NumericInput from './NumericInput.component';
 

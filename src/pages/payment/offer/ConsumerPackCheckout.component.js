@@ -2,7 +2,8 @@
 
 import React, { Component } from 'react';
 
-import { Button, CircularProgress } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { withNamespaces } from 'react-i18next';
 import api from '../../../api';
 import type { ConsumerPaymentPackConsumerView } from '../../../api/types';

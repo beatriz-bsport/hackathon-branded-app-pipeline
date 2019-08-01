@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 import { withNamespaces } from 'react-i18next';
 import { connect } from 'react-redux';
-import { CircularProgress } from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { goBack } from 'react-router-redux';
 import { payment as paymentActions } from '../../actions';
 import ConsumerModalContainer from '../../components/consumer/ConsumerModalContainer.component';

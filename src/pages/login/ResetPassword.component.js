@@ -3,14 +3,12 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
-import {
-  CircularProgress,
-  Typography,
-  Button,
-  Grid,
-  TextField,
-  withStyles,
-} from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 import { auth as authActions } from '../../actions';
 import LoginBase from '../../components/navigation/LoginBase.component';

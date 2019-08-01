@@ -2,23 +2,21 @@
 
 import React, { Component } from 'react';
 
-import {
-  Modal,
-  Divider,
-  Paper,
-  Button,
-  Grid,
-  List,
-  Typography,
-  CircularProgress,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  withMobileDialog,
-  withStyles,
-} from '@material-ui/core';
+import Modal from '@material-ui/core/Modal';
+import Divider from '@material-ui/core/Divider';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import List from '@material-ui/core/List';
+import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogActions from '@material-ui/core/DialogActions';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
+import withStyles from '@material-ui/core/styles/withStyles';
 import TodayIcon from '@material-ui/icons/Today';
 import { withNamespaces } from 'react-i18next';
 import { connect } from 'react-redux';

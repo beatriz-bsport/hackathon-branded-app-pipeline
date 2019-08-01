@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';

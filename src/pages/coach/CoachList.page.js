@@ -8,13 +8,11 @@ import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import {
-  CircularProgress,
-  Paper,
-  List,
-  withStyles,
-  Grid,
-} from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Paper from '@material-ui/core/Paper';
+import List from '@material-ui/core/List';
+import withStyles from '@material-ui/core/styles/withStyles';
+import Grid from '@material-ui/core/Grid';
 
 import i18next from 'i18next';
 import {

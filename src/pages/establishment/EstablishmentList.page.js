@@ -3,7 +3,11 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { Typography, Grid, Paper, List, withStyles } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import List from '@material-ui/core/List';
+import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import i18next from 'i18next';

@@ -2,12 +2,10 @@
 import React, { Component } from 'react';
 
 import { withNamespaces } from 'react-i18next';
-import {
-  IconButton,
-  ListItem,
-  ListItemText,
-  ListItemSecondaryAction,
-} from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import CancelIcon from '@material-ui/icons/Cancel';
 import type { TFunction } from 'react-i18next';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';

@@ -3,7 +3,7 @@
 import React from 'react';
 import { compose } from 'recompose';
 
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
 

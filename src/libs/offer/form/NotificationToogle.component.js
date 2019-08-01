@@ -1,7 +1,9 @@
 // @flow
 
 import React from 'react';
-import { Grid, Switch, Typography } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import Switch from '@material-ui/core/Switch';
+import Typography from '@material-ui/core/Typography';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 

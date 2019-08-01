@@ -1,14 +1,13 @@
 // @flow
 
 import React, { Component } from 'react';
-import {
-  TableRow,
-  TableCell,
-  Typography,
-  Grid,
-  CircularProgress,
-  IconButton,
-} from '@material-ui/core';
+
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import IconButton from '@material-ui/core/IconButton';
 
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';

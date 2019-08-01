@@ -1,20 +1,18 @@
 // @flow
 import React, { Component } from 'react';
 
-import {
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  FormGroup,
-  Checkbox,
-  TextField,
-  Select,
-  Grid,
-  Button,
-  Typography,
-  InputLabel,
-  withStyles,
-} from '@material-ui/core';
+import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormLabel from '@material-ui/core/FormLabel';
+import FormGroup from '@material-ui/core/FormGroup';
+import Checkbox from '@material-ui/core/Checkbox';
+import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import InputLabel from '@material-ui/core/InputLabel';
+import withStyles from '@material-ui/core/styles/withStyles';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import { withNamespaces } from 'react-i18next';

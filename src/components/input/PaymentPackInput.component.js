@@ -1,15 +1,13 @@
 // @flow
 import React from 'react';
 
-import {
-  withStyles,
-  FormControl,
-  InputLabel,
-  Select,
-  Input,
-  MenuItem,
-  FormHelperText,
-} from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import Input from '@material-ui/core/Input';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import { withNamespaces } from 'react-i18next';
 
 import PaymentPackSummary from '../payment-pack/PaymentPackSummary.component';

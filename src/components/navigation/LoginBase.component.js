@@ -2,7 +2,9 @@
 
 import React from 'react';
 
-import { LinearProgress, Paper, withStyles } from '@material-ui/core';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Paper from '@material-ui/core/Paper';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 import B_ASSET from '../../public/images/b_dark.jpg';
 

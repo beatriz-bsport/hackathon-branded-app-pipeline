@@ -1,13 +1,11 @@
 import React from 'react';
 
-import {
-  Paper,
-  Typography,
-  Grid,
-  withStyles,
-  Divider,
-  Button,
-} from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import withStyles from '@material-ui/core/styles/withStyles';
+import Divider from '@material-ui/core/Divider';
+import Button from '@material-ui/core/Button';
 import RotateLeft from '@material-ui/icons/RotateLeft';
 import Receipt from '@material-ui/icons/Receipt';
 import ShoppingCart from '@material-ui/icons/ShoppingCart';

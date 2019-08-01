@@ -1,7 +1,10 @@
 // @flow
 import React, { Component } from 'react';
 
-import { Grid, InputAdornment, TextField, withStyles } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import TextField from '@material-ui/core/TextField';
+import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 

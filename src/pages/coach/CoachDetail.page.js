@@ -2,7 +2,9 @@
 
 import React from 'react';
 
-import { Grid, Button, withStyles } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';

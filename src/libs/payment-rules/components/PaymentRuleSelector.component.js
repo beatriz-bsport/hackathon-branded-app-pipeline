@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { withNamespaces } from 'react-i18next';
-import { withStyles } from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
 import type { TFunction } from 'react-i18next';
 
 import Selector from '../../../components/Selector.component';

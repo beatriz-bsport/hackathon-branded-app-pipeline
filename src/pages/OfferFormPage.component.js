@@ -1,7 +1,9 @@
 // @flow
 import React, { Component } from 'react';
 
-import { Paper, Grid, CircularProgress } from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { connect } from 'react-redux';

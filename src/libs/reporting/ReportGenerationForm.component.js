@@ -12,7 +12,7 @@ import { withFormik, Form } from 'formik';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';

@@ -3,7 +3,8 @@
 import React from 'react';
 import type { Node } from 'react';
 
-import { Modal, withStyles } from '@material-ui/core';
+import Modal from '@material-ui/core/Modal';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 const styles = (theme) => ({
   paperContainer: {

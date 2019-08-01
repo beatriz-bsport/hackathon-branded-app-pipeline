@@ -1,7 +1,9 @@
 // @flow
 import React, { Component } from 'react';
 
-import { withStyles, Grid, Typography } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 import Avatar from '../Avatar.component';
 import type { Profile } from '../../api/types';

@@ -3,7 +3,7 @@
 import React from 'react';
 
 import Grid from '@material-ui/core/Grid';
-import { withStyles } from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 import { withNamespaces } from 'react-i18next';
 

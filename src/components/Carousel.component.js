@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Slide from '@material-ui/core/Slide';
 import IconButton from '@material-ui/core/IconButton';
 import CardMedia from '@material-ui/core/CardMedia';

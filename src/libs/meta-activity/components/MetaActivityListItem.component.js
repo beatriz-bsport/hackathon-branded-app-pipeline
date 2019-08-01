@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import ListItem from '@material-ui/core/ListItem';
 import { compose } from 'recompose';
 import ListItemText from '@material-ui/core/ListItemText';

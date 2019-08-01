@@ -5,7 +5,7 @@ import { compose, withState } from 'recompose';
 import { withNamespaces } from 'react-i18next';
 import { connect } from 'react-redux';
 
-import { withStyles } from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';

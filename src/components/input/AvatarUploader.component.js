@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 
-import { withStyles, CircularProgress } from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 import Avatar from '../Avatar.component';
 

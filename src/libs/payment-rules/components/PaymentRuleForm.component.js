@@ -11,7 +11,7 @@ import type { TFunction } from 'react-i18next';
 import * as Yup from 'yup';
 import { withFormik, FieldArray } from 'formik';
 
-import { withStyles } from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';

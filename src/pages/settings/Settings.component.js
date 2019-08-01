@@ -10,7 +10,7 @@ import { withRouter } from 'react-router';
 import { push } from 'connected-react-router';
 import type { TFunction } from 'react-i18next';
 
-import { withStyles } from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import AppBar from '@material-ui/core/AppBar';

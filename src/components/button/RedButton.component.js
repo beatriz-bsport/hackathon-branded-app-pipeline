@@ -2,7 +2,9 @@
 import React from 'react';
 import type { Node } from 'react';
 
-import { Button, createMuiTheme, MuiThemeProvider } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 
 import { colors } from '@bsport/common/lib/colors';
 

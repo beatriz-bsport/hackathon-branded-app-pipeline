@@ -4,7 +4,7 @@ import React from 'react';
 
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import { Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 
 import { compose, withProps } from 'recompose';
 

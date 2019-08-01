@@ -2,7 +2,8 @@
 
 import React, { Component } from 'react';
 
-import { withStyles, CircularProgress } from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import { push as pushRouter } from 'react-router-redux';

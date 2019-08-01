@@ -1,16 +1,14 @@
 // @flow
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import {
-  ListItem,
-  ListItemText,
-  ListItemSecondaryAction,
-  ListItemAvatar,
-  IconButton,
-  Avatar,
-  Typography,
-  Chip,
-} from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import IconButton from '@material-ui/core/IconButton';
+import Avatar from '@material-ui/core/Avatar';
+import Typography from '@material-ui/core/Typography';
+import Chip from '@material-ui/core/Chip';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import EditIcon from '@material-ui/icons/Edit';
 import CallIcon from '@material-ui/icons/Call';

@@ -4,12 +4,10 @@ import MUIDataTable from 'mui-datatables';
 import React, { Component } from 'react';
 import { withNamespaces } from 'react-i18next';
 
-import {
-  Typography,
-  Grid,
-  CircularProgress,
-  IconButton,
-} from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import IconButton from '@material-ui/core/IconButton';
 
 import type { TFunction } from 'react-i18next';
 import DoneIcon from '@material-ui/icons/Done';

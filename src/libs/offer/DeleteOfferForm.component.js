@@ -2,14 +2,12 @@
 
 import React, { Component } from 'react';
 
-import {
-  Grid,
-  CircularProgress,
-  Typography,
-  Switch,
-  Button,
-  withStyles,
-} from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Typography from '@material-ui/core/Typography';
+import Switch from '@material-ui/core/Switch';
+import Button from '@material-ui/core/Button';
+import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 
 import RecursiveToogle from './form/RecursionToogle.component';

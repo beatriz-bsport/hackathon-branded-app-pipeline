@@ -5,7 +5,7 @@ import React from 'react';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Chip from '@material-ui/core/Chip';
 
 import type { ReportMetadataColumn } from './types';

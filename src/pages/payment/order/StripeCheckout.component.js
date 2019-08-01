@@ -13,7 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 import { CardElement, injectStripe } from 'react-stripe-elements';
 

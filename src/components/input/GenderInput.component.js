@@ -1,13 +1,11 @@
 // @flow
 import React from 'react';
 
-import {
-  withStyles,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-} from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 

@@ -1,6 +1,10 @@
 // @flow
 import React, { Component } from 'react';
-import { Grid, Button, Paper, Typography, withStyles } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import withStyles from '@material-ui/core/styles/withStyles';
 import EditIcon from '@material-ui/icons/Edit';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 

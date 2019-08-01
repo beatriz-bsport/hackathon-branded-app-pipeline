@@ -54,26 +54,26 @@ export class Calendar extends Component<Props, State> {
   };
 
   selectDate = (date: Object) => {
-    this.props.onDateClick(date);
+    this.props.onDateClick(date.clone());
   };
 
   showNextWeek = () => {
     const { date } = this.props;
-    this.selectDate(Moment(date.add(7, 'days')));
+    this.selectDate(Moment(date.clone().add(7, 'days')));
   };
 
   showPreviousWeek = () => {
     const { date } = this.props;
-    this.selectDate(Moment(date.add(-7, 'days')));
+    this.selectDate(Moment(date.clean().add(-7, 'days')));
   };
 
   showNext = () => {
     const { displayMode } = this.state;
     const { date } = this.props;
     if (WEEKMODE === displayMode) {
-      this.selectDate(Moment(date.add(1, 'weeks')));
+      this.selectDate(Moment(date.clone().add(1, 'weeks')));
     } else {
-      this.selectDate(Moment(date.add(1, 'months')));
+      this.selectDate(Moment(date.clone().add(1, 'months')));
     }
   };
 
@@ -81,9 +81,9 @@ export class Calendar extends Component<Props, State> {
     const { displayMode } = this.state;
     const { date } = this.props;
     if (WEEKMODE === displayMode) {
-      this.selectDate(Moment(date.add(-1, 'weeks')));
+      this.selectDate(Moment(date.clone().add(-1, 'weeks')));
     } else {
-      this.selectDate(Moment(date.add(-1, 'months')));
+      this.selectDate(Moment(date.clone().add(-1, 'months')));
     }
   };
 

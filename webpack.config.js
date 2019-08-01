@@ -38,6 +38,7 @@ const defaultConfig = {
               loader: 'babel-loader',
               options: {
                 presets: ['react-app'],
+                compact: true,
               },
             },
           },

@@ -44,18 +44,9 @@ export class CalendarWidget extends Component<Props, State> {
 
   handleDateChange = (selectedDate) => {
     this.setState({
-      selectedDate,
+      selectedDate: selectedDate.clone(),
     });
   };
-
-  componentDidMount() {
-    const { selectedDate } = this.state;
-    this.props.fetchCompanyOffers(
-      this.props.companyId,
-      selectedDate.format('YYYY-MM-DD'),
-      selectedDate.add('months', 1).format('YYYY-MM-DD'),
-    );
-  }
 
   render() {
     return (
@@ -64,6 +55,7 @@ export class CalendarWidget extends Component<Props, State> {
         filtersOpen={this.state.filtersOpen}
         filters={this.state.filters}
         setFilters={this.setFilters}
+        fetchCompanyOffers={this.props.fetchCompanyOffers}
         handleDateChange={this.handleDateChange}
         selectedDate={this.state.selectedDate}
         offers={this.props.getOffersFromFilter(this.state.filters)}

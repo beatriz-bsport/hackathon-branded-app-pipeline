@@ -10,13 +10,15 @@ import {
   fetchCompanyEstablishmentsAction,
   fetchCompanyCoachesAction,
 } from 'bsport-saas/src/libs/marketplace/actions';
-
 import { fetchSCT } from 'bsport-saas/src/actions/category.actions';
+import theme from 'bsport-saas/src/theme';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import asyncComponent from '../async-component';
 
-import CalendarWidget from './widget.calendar';
-import PassWidget from './widget.pass';
-import WorkshopWidget from './widget.workshop';
-import ShopWidget from './widget.shop';
+const CalendarWidget = asyncComponent(() => import('./widget.calendar'));
+const PassWidget = asyncComponent(() => import('./widget.pass'));
+const ShopWidget = asyncComponent(() => import('./widget.shop'));
+const WorkshopWidget = asyncComponent(() => import('./widget.workshop'));
 
 type Props = {
   companyId: number,
@@ -49,7 +51,7 @@ class BsportWidget extends Component<Props> {
     this.fetchData();
   }
 
-  render() {
+  renderWidget() {
     const { companyId, store, history, widgetType } = this.props;
     switch (widgetType) {
       case 'workshop':
@@ -85,6 +87,12 @@ class BsportWidget extends Component<Props> {
           />
         );
     }
+  }
+
+  render() {
+    return (
+      <MuiThemeProvider theme={theme}>{this.renderWidget()}</MuiThemeProvider>
+    );
   }
 }
 

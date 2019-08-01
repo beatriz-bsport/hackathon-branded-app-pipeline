@@ -3,15 +3,13 @@ const increaseSpecificity = require('postcss-increase-specificity');
 const JavaScriptObfuscator = require('webpack-obfuscator');
 const CopyPlugin = require('copy-webpack-plugin');
 const path = require('path');
+const MinifyPlugin = require('babel-minify-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const devMode = process.env.NODE_ENV !== 'production';
 
 const publicDir = path.join(__dirname, 'public');
 const distDir = path.join(__dirname, 'dist');
-
-process.env.REACT_APP_BASE_URI = 'http://api.ci.bsport.io';
-process.env.REACT_APP_API_URI = 'http://api.ci.bsport.io/api-v0';
-process.env.REACT_APP_STRIPE_PK_KEY = 'pk_test_lFB5CxcyTCaQcS00MiE1ebEO';
 
 const defaultConfig = {
   mode: process.env.NODE_ENV || 'development',
@@ -97,14 +95,6 @@ module.exports = [
       libraryExport: 'default',
       libraryTarget: 'window',
     },
-  },
-  {
-    ...defaultConfig,
-    entry: './src/outputs/bookmarklet.js',
-    output: {
-      path: distDir,
-      publicPath: '/',
-      filename: 'bookmarklet.js',
-    },
+    plugins: [new MinifyPlugin(), new BundleAnalyzerPlugin()],
   },
 ];

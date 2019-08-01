@@ -1,9 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
-import { withProps, compose } from 'recompose';
-import { replace, push as pushRouter } from 'react-router-redux';
+import { compose } from 'recompose';
 
 import {
   fetchCompanyAction,
@@ -12,18 +10,6 @@ import {
   fetchCompanyEstablishmentsAction,
   fetchCompanyCoachesAction,
 } from 'bsport-saas/src/libs/marketplace/actions';
-
-import {
-  removeProductFromOrder as removeProductFromOrderAction,
-  updateCurrentOrder as updateOrderAction,
-  getOrCreateCurrentOrder,
-  resetOrders as resetOrdersAction,
-} from 'bsport-saas/src/libs/order/actions';
-
-import {
-  consumer as consumerActions,
-  auth as authActions,
-} from 'bsport-saas/src/actions';
 
 import { fetchSCT } from 'bsport-saas/src/actions/category.actions';
 
@@ -57,10 +43,6 @@ class BsportWidget extends Component<Props> {
     this.props.fetchCompanyMetaActivities(this.props.companyId);
     this.props.fetchCompanyCoaches(this.props.companyId);
     this.props.fetchCompanyEstablishments(this.props.companyId);
-    if (this.props.auth.authenticated) {
-      this.props.fetchCurrentOrder(this.props.companyId);
-      this.props.fetchProfile();
-    }
   };
 
   componentDidMount() {
@@ -121,21 +103,6 @@ export default compose(
       fetchCompanyActivities: fetchCompanyActivitiesAction,
       fetchCompanyEstablishments: fetchCompanyEstablishmentsAction,
       fetchCompanyCoaches: fetchCompanyCoachesAction,
-      // For shop pages
-      resetOrders: resetOrdersAction,
-      fetchCurrentOrder: getOrCreateCurrentOrder,
-      removeProduct: removeProductFromOrderAction,
-      updateOrder: updateOrderAction,
-      goToPayment: (companyId) =>
-        pushRouter(`/customer/payment/order/${companyId}/`),
-      // for signup/signin/profile
-      fetchProfile: consumerActions.fetchProfile,
-      goToUserSpace: () => pushRouter('/'),
-      signup: (data: *, callback: () => void) =>
-        authActions.signup(data, { onDone: callback }),
-      doEmailLogin: ({ email, password }, callback) =>
-        authActions.requestLogin(email, password, { onDone: callback }),
-      disconnect: authActions.disconnect,
     },
   ),
 )(BsportWidget);

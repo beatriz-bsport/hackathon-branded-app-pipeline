@@ -46,7 +46,7 @@ export class CalendarWidget extends Component<Props, State> {
   componentDidMount() {
     const { selectedDate } = this.state;
     this.props.fetchCompanyOffers(
-      82,
+      this.props.companyId,
       selectedDate.format('YYYY-MM-DD'),
       selectedDate.add('months', 1).format('YYYY-MM-DD'),
     );

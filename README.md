@@ -1,11 +1,7 @@
 <div align="center">
-<h1>Embeddable React Widget</h1>
+<h1>Bsport React Widget</h1>
 
-Easy creation of embeddable widgets - https://seriousben.github.io/embeddable-react-widget
-
-[![CircleCI](https://circleci.com/gh/seriousben/embeddable-react-widget.svg?style=shield)](https://circleci.com/gh/seriousben/embeddable-react-widget)
-[![codecov](https://codecov.io/gh/seriousben/embeddable-react-widget/branch/master/graph/badge.svg)](https://codecov.io/gh/seriousben/embeddable-react-widget)
-[![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
+Based on - https://seriousben.github.io/embeddable-react-widget
 
 </div>
 
@@ -14,68 +10,47 @@ Easy creation of embeddable widgets - https://seriousben.github.io/embeddable-re
 * Full ES6/ES2015 support (with Babel)
 * Package fonts, css, json, javascripts together into one single package (with Webpack)
 * No css styling conflicts between the host page and the widget (with https://github.com/premasagar/cleanslate)
-* Bookmarklet supported for fast testing and demonstration
-* User theming of widget
 * Obfuscating of the widget code
 * Unit Tested with code coverage enabled
 * Continuous Integration ready
 
-## Demo
-
-<img width="600px" src="./bookmarklet-flow.gif" />
-
 ## Running the widget
+
+### Development
+
+#### `src/output/widget.js`
+Load the widget (mount and unmount)
+
+#### `src/App.js`
+Load the right component depending on widget config
+
+#### `src/components/*.js`
+The components used in the widget
 
 ### Install dependencies
 
 ```sh
-$ npm install
+$ yarn install
 ```
 
 ### Start the development server
 
 ```sh
-$ npm start
+$ yarn start
 ... server running at http://localhost:8080/
 ```
 
 ### Run tests
 ```
-$ npm test
+$ yarn test
 ... test output
 ```
 
 ### Production build
 ```
-$ npm run build
+$ yarn run build
 ... create files in /dist
 ```
-
-## Roadmap
-
-- [x] Widget as react app - index.html works (webpack, babel, react)
-- [x] React widget (widget builder)
-- [x] Webpack changed to output a library
-- [x] Add tests
-- [x] Add circleci integration
-- [x] Add codecov integration for codecoverage
-- [x] Production Build
-- [x] Minified
-- [x] Add greenkeeper
-- [x] Bookmarklet
-- [x] Reset / Cleanslate / No-conflicts of styles
-- [x] Obfuscation
-- [ ] Theming support
-- [ ] Storyboard and docs
-- [ ] Integrate eslint with webpack
-
-## Background
-
-### What is an embeddable widget?
-
-* Usable using a simple `<script>` tag
-* Configurable with code
-* Themable
 
 ### Why not in an iframe?
 

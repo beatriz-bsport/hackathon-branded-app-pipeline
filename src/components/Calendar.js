@@ -22,7 +22,6 @@ const BACKOFFICE_URI = 'https://backoffice.bsport.io';
 
 type Props = {
   companyId: number,
-  store: any,
 };
 
 type State = {

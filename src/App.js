@@ -13,12 +13,12 @@ import {
 import { fetchSCT } from 'bsport-saas/src/actions/category.actions';
 import theme from 'bsport-saas/src/theme';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
-import asyncComponent from '../async-component';
+import asyncComponent from './async-component';
 
-const CalendarWidget = asyncComponent(() => import('./widget.calendar'));
-const PassWidget = asyncComponent(() => import('./widget.pass'));
-const ShopWidget = asyncComponent(() => import('./widget.shop'));
-const WorkshopWidget = asyncComponent(() => import('./widget.workshop'));
+const CalendarWidget = asyncComponent(() => import('./components/Calendar'));
+const PassWidget = asyncComponent(() => import('./components/Pass'));
+const ShopWidget = asyncComponent(() => import('./components/Shop'));
+const WorkshopWidget = asyncComponent(() => import('./components/Workshop'));
 
 type Props = {
   companyId: number,
@@ -95,10 +95,6 @@ class BsportWidget extends Component<Props> {
     );
   }
 }
-
-BsportWidget.propTypes = {};
-
-// BsportWidget.defaultProps = {};
 
 export default compose(
   connect(

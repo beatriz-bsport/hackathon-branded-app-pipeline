@@ -87,12 +87,12 @@ const defaultConfig = {
 module.exports = [
   {
     ...defaultConfig,
-    entry: './src/outputs/embeddable-widget.js',
+    entry: './src/outputs/widget.js',
     output: {
       path: distDir,
       publicPath: '/',
       filename: 'widget.js',
-      library: 'EmbeddableWidget',
+      library: 'BsportWidget',
       libraryExport: 'default',
       libraryTarget: 'window',
     },

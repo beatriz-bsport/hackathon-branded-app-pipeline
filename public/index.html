@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Embeddable Widget documentation</title>
+    <title>Embeddable Widget</title>
   </head>
   <body>
-    <h1>Embeddable Widget documentation</h1>
-    <ul>
-      <li><a href="./blank.html">Widget on a blank page</a></li>
-      <li><a href="./widget.js">Latest version of the widget</a></li>
-      <li><a id="bookmarklet">Bookmarklet (Bookmark it for easy use)</a></li>
-      <li><a href="./bookmarklet.js">Bookmarklet Code</a></li>
-      <script>
-       var bookmarklet = "var s= document.createElement('script'); s.setAttribute('src', '"+window.location.href+"bookmarklet.js'); s.setAttribute('crossorigin', 'anonymous'); document.body.appendChild(s);"
-       bookmarklet = '(function(){'+ bookmarklet +'})();'
-       document.querySelector('a#bookmarklet').setAttribute("href", "javascript:" + encodeURIComponent(bookmarklet));
-      </script>
-    </ul>
+      <p>
+          Here is the widget
+        </p>
+          <div id="bsport-widget"></div>
+        <p>
+          Here is some text below the widget
+        </p>
+    <script src="./widget.js"></script>
+    <script>
+      BsportWidget.mount({
+        parentElement: 'bsport-widget',
+        companyId: 83,
+        widgetType: 'calendar' //calendar/workshop/pass/shop
+      });
+    </script>
   </body>
 </html>

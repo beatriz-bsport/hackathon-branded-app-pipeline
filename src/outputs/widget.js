@@ -4,7 +4,7 @@ import { createBrowserHistory } from 'history';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router';
 
-import BsportWidget from '../components/widget.core';
+import BsportWidget from '../App';
 import '../../vendor/cleanslate.css';
 import initStore from '../store';
 

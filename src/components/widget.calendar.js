@@ -88,11 +88,6 @@ const fromURLtoDate = (search: string) => {
 };
 
 const MarketplaceCalendar = compose(
-  withState('filtersOpen', 'setFiltersOpen', false),
-  withHandlers({
-    toggleFiltersOpen: ({ filtersOpen, setFiltersOpen }) =>
-      setFiltersOpen(!filtersOpen),
-  }),
   withProps(() => ({
     location: window.location,
     history: window.history,

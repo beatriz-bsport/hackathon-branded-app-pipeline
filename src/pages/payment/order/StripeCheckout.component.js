@@ -73,6 +73,7 @@ export class StripeCheckout extends Component<Props, State> {
         objectClassName: purchaseType,
         urlParams,
       });
+      this.props.onPaymentSuccess();
 
       this.setState({
         completed: true,

@@ -11,6 +11,7 @@ import ConsumerModalContainer from '../../components/consumer/ConsumerModalConta
 import type { OrderWithProducts } from '../../libs/order/types';
 import { getOrCreateCurrentOrder as getOrCreateCurrentOrderAction } from '../../libs/order/actions';
 
+import { snackbarSuccess } from '../../actions/snackbar.actions';
 import OrderPaymentForm from './order/OrderPaymentForm.component';
 
 type Props = {
@@ -19,6 +20,7 @@ type Props = {
   order: OrderWithProducts,
   goBack: () => void,
   fetchCurrentOrder: (companyId: number) => void,
+  onPaymentSuccess: () => void,
 };
 
 export class OrderPaymentPage extends Component<Props> {
@@ -38,6 +40,7 @@ export class OrderPaymentPage extends Component<Props> {
           loading={loading}
           order={order}
           goBack={this.props.goBack}
+          onPaymentSuccess={this.props.onPaymentSuccess}
         />
       </ConsumerModalContainer>
     );
@@ -54,6 +57,7 @@ export default compose(
     }),
     {
       fetchCurrentOrder: getOrCreateCurrentOrderAction,
+      onPaymentSuccess: () => snackbarSuccess('payment:order.success'),
       goBack,
     },
   ),

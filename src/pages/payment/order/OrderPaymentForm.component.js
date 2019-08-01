@@ -16,6 +16,7 @@ const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
 type Props = {
   loading: boolean,
   order: OrderWithProducts,
+  onPaymentSuccess: () => void,
 };
 
 export default (props: Props) => {
@@ -41,7 +42,8 @@ export default (props: Props) => {
               purchaseType="order"
               purchaseId={order.id}
               price={order.total_price}
-              loading={loading}
+	      loading={loading}
+	      onPaymentSuccess={props.onPaymentSuccess}
             />
           </Elements>
         </StripeProvider>

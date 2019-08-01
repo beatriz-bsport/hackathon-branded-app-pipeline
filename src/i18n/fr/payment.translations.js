@@ -5,4 +5,8 @@ export default {
   availablePaymentPacks: 'Pass compatibles : ',
   goBack: 'Retour',
   hasOneOrMoreOption: "Vous êtes déjà inscrit sur la liste d'attente",
+
+  order: {
+    success: 'Votre paiement a bien été enregistré',
+  },
 };

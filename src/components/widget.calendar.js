@@ -24,17 +24,43 @@ type Props = {
 type State = {
   filtersOpen: boolean,
 };
-export default class CalendarWidget extends Component<Props, State> {
+export class CalendarWidget extends Component<Props, State> {
   state = {
     filtersOpen: false,
+    filters: {},
+    selectedDate: Moment(),
   };
+
+  setFilters = (filters) => {
+    this.setState((prevState) => ({
+      filters: { ...prevState.filters, ...filters },
+    }));
+  };
+
+  handleDateChange = (selectedDate) => {
+    this.setState({
+      selectedDate,
+    });
+  };
+
+  componentDidMount() {
+    const { selectedDate } = this.state;
+    this.props.fetchCompanyOffers(
+      82,
+      selectedDate.format('YYYY-MM-DD'),
+      selectedDate.add('months', 1).format('YYYY-MM-DD'),
+    );
+  }
 
   render() {
     return (
-      <MarketplaceCalendar
+      <MarketplaceCalendarStyled
         filtersOpen={this.state.filtersOpen}
-        filters={this.props.filters}
-        setFilters={this.props.setFilters}
+        filters={this.state.filters}
+        setFilters={this.setFilters}
+        handleDateChange={this.handleDateChange}
+        selectedDate={this.state.selectedDate}
+        offers={this.props.getOffersFromFilter(this.state.filters)}
         toogleFiltersOpen={() =>
           this.setState((prevState) => ({
             filtersOpen: !prevState.filtersOpen,
@@ -46,15 +72,14 @@ export default class CalendarWidget extends Component<Props, State> {
   }
 }
 
-const MarketplaceCalendar = compose(
+export default compose(
   withProps(() => ({
     location: window.location,
     history: window.history,
   })),
-  withState('filters', 'setFilters', {}),
   connect(
-    (state, { filters }) => ({
-      offers: getOffersFiltered(state, filters),
+    (state) => ({
+      getOffersFromFilter: (filters) => getOffersFiltered(state, filters),
       loading: isOfferLoading(state),
       coaches: state.marketplacev2.coaches.items,
       establishments: state.marketplacev2.establishments.items,
@@ -65,14 +90,4 @@ const MarketplaceCalendar = compose(
       fetchCompanyOffers: fetchCompanyOffersAction,
     },
   ),
-  withProps(() => ({
-    handleDateChange: () => {},
-  })),
-  withProps(() => ({
-    selectedDate: Moment(),
-  })),
-  withProps(() => ({
-    setFilters: () => {},
-    onSelectDate: () => {},
-  })),
-)(MarketplaceCalendarStyled);
+)(CalendarWidget);

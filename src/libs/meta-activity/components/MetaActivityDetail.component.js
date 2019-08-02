@@ -43,7 +43,6 @@ type Props = {
   createActivityOffers: (metActivityId: number) => void,
   events: Array<Event>,
   timetableLoading: boolean,
-  activities: Array<Activity>,
   offers: Array<Offer>,
   goToOffer: (offer: Offer) => void,
   classes: Object,
@@ -181,14 +180,7 @@ export class MetaActivityDetail extends Component<Props, State> {
   };
 
   getActivitiesWithCalendar = () => {
-    const {
-      t,
-      metaActivity,
-      classes,
-      timetableLoading,
-      activities,
-      offers,
-    } = this.props;
+    const { t, metaActivity, classes, timetableLoading, offers } = this.props;
     const { dateSelected } = this.state;
     return (
       <Grid container direction="row" alignItems="flex-start">
@@ -211,7 +203,6 @@ export class MetaActivityDetail extends Component<Props, State> {
                   (o) => o.meta_activity_id === metaActivity.id,
                 )}
                 loading={timetableLoading}
-                activities={activities}
                 onOfferSelected={(o) => this.props.goToOffer(o)}
               />
             </Grid>

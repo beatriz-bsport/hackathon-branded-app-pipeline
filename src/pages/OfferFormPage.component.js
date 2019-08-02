@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { goBack as goBackAction } from 'react-router-redux';
 
-import { activity as activityActions, offer as offerActions } from '../actions';
+import { offer as offerActions } from '../actions';
 import type { Coach, MetaActivity, Establishment } from '../api/types';
 import withDrawer from '../hocs/with-drawer.hoc';
 
@@ -29,7 +29,6 @@ type Props = {
   establishments: Array<Establishment>,
   metaActivities: Array<MetaActivity>,
   fetchAllOffers: () => void,
-  fetchAllActivities: () => void,
   goBack: () => void,
 };
 
@@ -80,7 +79,6 @@ export class OfferFormPage extends Component<Props, State> {
 
     if (created) {
       this.props.fetchAllOffers();
-      this.props.fetchAllActivities();
       return <Redirect to={`/activity/${this.metaActivityId}`} />;
     }
 
@@ -120,7 +118,6 @@ export default withNamespaces()(
     }),
     {
       fetchAllOffers: offerActions.fetchAllOffers,
-      fetchAllActivities: activityActions.fetchActivities,
       goBack: goBackAction,
     },
   )(

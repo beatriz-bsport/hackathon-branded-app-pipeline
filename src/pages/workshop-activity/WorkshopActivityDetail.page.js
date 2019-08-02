@@ -7,7 +7,6 @@ import LinearProgress from '../../components/navigation/BackofficeLinearProgress
 import { offer as offerActions } from '../../actions';
 import { fetchMetaActivityDetails } from '../../libs/meta-activity/actions/meta-activity.actions';
 import type {
-  Activity,
   Offer,
   MetaActivity as MetaActivityType,
   Stat,
@@ -26,8 +25,6 @@ type Props = {
   push: (path: string) => void,
   events: Array<Event>,
   fetchMetaActivityDetails: (number) => void,
-  timetableLoading: boolean,
-  activities: Array<Activity>,
   offers: Array<Offer>,
   match: Object,
 };
@@ -61,8 +58,6 @@ export class WorkshopActivity extends Component<Props, State> {
         stats={this.props.stats}
         fetchOffersByDay={this.props.fetchOffersByDay}
         events={this.props.events}
-        timetableLoading={this.props.timetableLoading}
-        activities={this.props.activities}
         offers={this.props.offers}
         goToOffer={(o) => this.props.push(`/offer/${o.id}`)}
         createActivityOffers={this.createActivityOffers}
@@ -82,8 +77,6 @@ export default compose(
       stats: state.stats.activities,
       events: state.offer.calendar,
       offers: state.offer.offers,
-      timetableLoading: state.activity.loading,
-      activities: state.activity.all,
     }),
     {
       fetchMetaActivityDetails,

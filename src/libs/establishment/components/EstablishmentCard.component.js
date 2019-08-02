@@ -21,7 +21,6 @@ const DEFAULT_SPORT = 7;
 type Props = {
   establishment: Establishment,
   classes: Object,
-  allActivities: Array<Activity>,
   onClickUpdate: (*) => void,
   t: (x: string) => string,
 };
@@ -79,25 +78,8 @@ export class EstablishmentCard extends Component<Props> {
   };
 
   render() {
-    const {
-      classes,
-      t,
-      establishment,
-      allActivities,
-      onClickUpdate,
-    } = this.props;
-    const {
-      title,
-      specific_info,
-      activities,
-      location,
-      easy_access,
-    } = establishment;
-    // activities in establishment props are simplified, getting the full object
-    const establishmentActivitiesId = activities.map((a) => a.id);
-    // prettier-ignore
-    const establishmentActivities = allActivities.filter((a) => (
-      establishmentActivitiesId.includes(a.id)));
+    const { classes, t, establishment, onClickUpdate } = this.props;
+    const { title, specific_info, location, easy_access } = establishment;
     return (
       <Paper className={classes.container}>
         {this.getCover()}
@@ -132,29 +114,6 @@ export class EstablishmentCard extends Component<Props> {
           </div>
         ) : null}
         <Divider />
-        {establishmentActivities.length ? (
-          establishmentActivities.map((a) => (
-            <Link
-              to={`/activity/${a.meta_activity_id}`}
-              style={{ textDecoration: 'none' }}
-            >
-              <ActivityMinimalSummary
-                activity={a}
-                key={a.id}
-                showCoach
-                showCoachName
-              />
-            </Link>
-          ))
-        ) : (
-          <Typography
-            variant="caption"
-            color="error"
-            className={classes.noMoreOffersMessage}
-          >
-            {t('establishment.noMoreOffers')}
-          </Typography>
-        )}
       </Paper>
     );
   }

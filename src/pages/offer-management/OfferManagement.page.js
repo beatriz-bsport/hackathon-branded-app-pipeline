@@ -62,7 +62,6 @@ function mapStateToProps(state, nextProps) {
     offer: state.offer.offers.find((o) => o.id === offerId),
     offers: state.offer.calendar,
     offerLoading: state.offer.byDay.loading,
-    activities: state.activity.all,
     paymentPacks: paymentPackSelectors.getAll(state),
     shopItems: state.shop.all,
     members: state.member.byOffer.items,

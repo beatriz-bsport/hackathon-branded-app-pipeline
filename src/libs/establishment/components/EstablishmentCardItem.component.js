@@ -15,7 +15,6 @@ import type { Establishment, Activity, Offer } from '../../../api/types';
 type Props = {
   establishment: Establishment,
   timetableLoading: boolean,
-  activities: Array<Activity>,
   offers: Array<Offer>,
 
   fetchOffersByDay: ({ year: number, month: number, day: number }) => void,
@@ -47,7 +46,7 @@ export class EstablishmentCardItem extends Component<Props, State> {
   };
 
   renderCalendar = (establishment: Establishment) => {
-    const { offers, activities, timetableLoading, classes } = this.props;
+    const { offers, timetableLoading, classes } = this.props;
     const { selectedDay } = this.state;
     const offersInEstablishment = establishment.events;
     const events_ = {};
@@ -70,7 +69,6 @@ export class EstablishmentCardItem extends Component<Props, State> {
         </div>
         <TimeTable
           loading={timetableLoading}
-          activities={activities}
           offers={offers.filter((o) => o.etablissement.id === establishment.id)}
           establishmentId={establishment.id}
           date={selectedDay[establishment.id]}
@@ -87,7 +85,6 @@ export class EstablishmentCardItem extends Component<Props, State> {
         <Grid item xs={12} md={6}>
           <EstablishmentCard
             establishment={establishment}
-            allActivities={this.props.activities}
             onClickUpdate={() => this.props.goToEditForm(establishment)}
           />
         </Grid>

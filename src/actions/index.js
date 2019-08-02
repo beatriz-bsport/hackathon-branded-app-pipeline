@@ -1,6 +1,5 @@
 import * as auth from './auth.actions';
 import * as offer from './offer.actions';
-import * as activity from './activity.actions';
 import * as stats from './stats.actions';
 import * as paymentPack from './paymentPack.actions';
 import * as consumerPaymentPack from './consumer-payment-pack.actions';
@@ -19,7 +18,6 @@ export {
   invoice,
   auth,
   offer,
-  activity,
   stats,
   paymentPack,
   consumerPaymentPack,

@@ -2,7 +2,6 @@ import types from './refresh.types';
 import { Moment } from '../i18n';
 
 import { fetchAllOffers } from './offer.actions';
-import { fetchActivities as fetchActivitiesMinimal } from './activity.actions';
 import { fetchSCT } from './category.actions';
 import { fetchAll as fetchAllPaymentPacks } from './paymentPack.actions';
 import { fetchDashboard as fetchDashboardStats } from './stats.actions';
@@ -38,7 +37,6 @@ export function forceRefresh() {
       dispatch(fetchAllAlertings()),
       dispatch(fetchAllMetaActivities()),
       dispatch(fetchAllOffers()),
-      dispatch(fetchActivitiesMinimal()),
       dispatch(fetchAssociatedCoaches()),
       dispatch(fetchEstablishments()),
       dispatch(fetchSCT()),

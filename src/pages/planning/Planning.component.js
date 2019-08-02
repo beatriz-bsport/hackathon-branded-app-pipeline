@@ -28,10 +28,7 @@ import TimeTable from '../../components/offer/TimeTable.component';
 import Calendar from '../../components/offer/Calendar.component';
 import { getEnabledMetaActivities } from '../../libs/meta-activity/selectors';
 
-import {
-  offer as offerActions,
-  activity as activityActions,
-} from '../../actions';
+import { offer as offerActions } from '../../actions';
 import { Moment } from '../../i18n';
 import type { Offer, Coach, Establishment } from '../../api/types';
 import api from '../../api';
@@ -74,7 +71,6 @@ type Props = {
   establishments: Array<Establishment>,
 
   fetchAllOffers: () => void,
-  fetchAllActivities: () => void,
   goToOfferManagement: () => void,
   goBack: () => void,
   loadDayData: (Object) => void,
@@ -146,7 +142,6 @@ export class Planning extends PureComponent<Props, State> {
       const response = await api.offer.editLiveOffer({ offerId, data });
       if (response.status === 200) {
         this.props.fetchAllOffers();
-        this.props.fetchAllActivities();
         this.setState({
           editOfferProcessing: false,
           editModalOpened: false,
@@ -284,7 +279,6 @@ export class Planning extends PureComponent<Props, State> {
       if (response.status === 200) {
         this.setState({ creatingOffers: false });
         this.props.fetchAllOffers();
-        this.props.fetchAllActivities();
         this.setState({ createOfferModalOpened: false });
         return;
       }
@@ -475,7 +469,7 @@ function mapStateToProps(state) {
   return {
     offers: state.offer.offers,
     events: state.offer.calendar,
-    timetableLoading: state.activity.loading || state.offer.byDay.loading,
+    timetableLoading: state.offer.byDay.loading,
     coaches: state.coach.companyAssociated,
     coachesLoading: state.coach.loading,
     establishments: state.establishment.all,
@@ -497,9 +491,6 @@ function mapDispatchToProps(dispatch) {
     },
     fetchAllOffers() {
       dispatch(offerActions.fetchAllOffers());
-    },
-    fetchAllActivities() {
-      dispatch(activityActions.fetchActivities());
     },
     deleteOffer(offerId: number) {
       dispatch(offerActions.deleteOffer(offerId));

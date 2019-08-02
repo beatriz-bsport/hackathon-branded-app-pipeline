@@ -4,7 +4,6 @@ import { combineReducers } from 'redux';
 
 import authReducers from './auth';
 import offerReducers from './offer';
-import activityReducers from './activity';
 import statsReducers from './stats';
 import paymentPackReducers from './paymentPack';
 import consumerPaymentPackReducers from './consumer-payment-pack';
@@ -44,7 +43,6 @@ const rootReducer = combineReducers({
   establishment: establishmentReducers,
   offer: offerReducers,
   booking: bookingReducers,
-  activity: activityReducers,
   metaActivity: metaActivityReducers,
   stats: statsReducers,
   coach: coachReducers,

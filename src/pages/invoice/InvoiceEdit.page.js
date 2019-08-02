@@ -18,7 +18,7 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import memberSelectors from '../../libs/member/selectors';
 import { fetchMember } from '../../libs/member/actions';
 
-import type { Offer, Activity, Invoice } from '../../api/types';
+import type { Offer, Invoice } from '../../api/types';
 import type { Member } from '../../libs/member/types';
 
 import InvoiceForm from '../../libs/invoice/InvoiceForm.component';
@@ -32,7 +32,6 @@ type Props = {
   member: Member,
 
   offers: Array<Offer>,
-  activities: Array<Activity>,
   paymentPacks: Array<PaymentPack>,
 
   goBack: () => void,
@@ -89,7 +88,6 @@ export class InvoiceFormPage extends Component<Props, State> {
   render() {
     const {
       invoice,
-      activities,
       offers,
       paymentPacks,
       goToMemberPage,
@@ -122,7 +120,6 @@ export class InvoiceFormPage extends Component<Props, State> {
       <div>
         <InvoiceForm
           offers={offers}
-          activities={activities}
           paymentPacks={paymentPacks}
           editMode
           invoice={invoice}
@@ -131,9 +128,7 @@ export class InvoiceFormPage extends Component<Props, State> {
           updatePaymentMethod={this.props.updatePaymentMethod}
           createOrUpdate={this.updateInvoice}
           onCancel={this.props.goBack}
-          goToMemberPage={
-            invoice ? () => goToMemberPage(invoice.member) : null
-          }
+          goToMemberPage={invoice ? () => goToMemberPage(invoice.member) : null}
           processing={updatingInvoice}
           uneditableVoucher={invoice.voucher || 0}
           member={this.props.member}
@@ -162,7 +157,6 @@ export default compose(
       invoiceLoading: state.invoice.loadingSpecific,
       memberLoading: state.member.loading,
       offers: state.offer.calendar,
-      activities: state.activity.all,
       paymentPacks: paymentPackSelectors.getEnabled(state),
       invoice: state.invoice.invoice,
       updatingInvoice: state.invoice.createOrUpdatePending,

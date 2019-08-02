@@ -57,7 +57,6 @@ type Props = {
 
   members: Array<Member>,
   bookingOptions: Array<BookingOption>,
-  activities: Array<Activity>,
   bookings: Array<Booking>,
   paymentPacks: Array<PaymentPack>,
   shopItems: Array<ShopItem>,
@@ -538,7 +537,6 @@ export class OfferManagement extends PureComponent<Props, State> {
               )}
               shopItems={this.props.shopItems}
               offers={this.props.offers}
-              activities={this.props.activities}
               className={classes.autoScroll}
             />
           </Slide>

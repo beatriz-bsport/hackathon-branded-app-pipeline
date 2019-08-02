@@ -14,7 +14,7 @@ import i18next from 'i18next';
 import { push } from 'react-router-redux';
 import { offer as offerActions } from '../../actions';
 import Map from '../../components/map/Map.component';
-import type { Establishment, Activity, Offer } from '../../api/types';
+import type { Establishment, Offer } from '../../api/types';
 
 import withBottomButtons from '../../hocs/inject-bottom-buttons';
 import withDrawer from '../../hocs/with-drawer.hoc';
@@ -25,10 +25,8 @@ import EstablishmentCardItem from '../../libs/establishment/components/Establish
 
 type Props = {
   isCardView: boolean,
-  timetableLoading: boolean,
   loading: boolean,
   establishments: Array<Establishment>,
-  activities: Array<Activity>,
   offers: Array<Offer>,
 
   startUpdateEstablishment: (*) => void,
@@ -68,8 +66,6 @@ export class EstablishmentList extends Component<Props> {
                   fetchOffersByDay={this.props.fetchOffersByDay}
                   establishment={e}
                   offers={this.props.offers}
-                  activities={this.props.activities}
-                  timetableLoading={this.props.timetableLoading}
                   goToEditForm={() => this.props.startUpdateEstablishment(e.id)}
                   goToOffer={this.props.goToOffer}
                 />
@@ -131,8 +127,6 @@ export default compose(
       loading: state.establishment.loading,
       establishments: state.establishment.all,
       offers: state.offer.offers,
-      timetableLoading: state.activity.loading,
-      activities: state.activity.all,
     }),
     {
       startUpdateEstablishment: (id: number) =>

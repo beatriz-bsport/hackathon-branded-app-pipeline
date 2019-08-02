@@ -5,11 +5,7 @@ import { push as routerPush } from 'react-router-redux';
 import { compose } from 'recompose';
 import { offer as offerActions } from '../../actions';
 import { fetchMetaActivityDetails } from '../../libs/meta-activity/actions/meta-activity.actions';
-import type {
-  Activity,
-  Offer,
-  MetaActivity as MetaActivityType,
-} from '../../api/types';
+import type { Offer, MetaActivity as MetaActivityType } from '../../api/types';
 import withDrawer from '../../hocs/with-drawer.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
@@ -25,8 +21,6 @@ type Props = {
   push: (path: string) => void,
   events: Array<Event>,
   fetchMetaActivityDetails: (number) => void,
-  timetableLoading: boolean,
-  activities: Array<Activity>,
   offers: Array<Offer>,
   metaActivityImages: Array<Object>,
 };
@@ -60,8 +54,6 @@ export class MetaActivity extends Component<Props> {
         metaActivity={this.props.metaActivity}
         fetchOffersByDay={this.props.fetchOffersByDay}
         events={this.props.events}
-        timetableLoading={this.props.timetableLoading}
-        activities={this.props.activities}
         offers={this.props.offers}
         goToOffer={this.goToOffer}
         createActivityOffers={this.createActivityOffers}
@@ -83,8 +75,6 @@ export default compose(
         [],
       events: state.offer.calendar,
       offers: state.offer.offers,
-      timetableLoading: state.activity.loading,
-      activities: state.activity.all,
     }),
     {
       fetchMetaActivityDetails,

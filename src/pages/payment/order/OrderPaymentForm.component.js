@@ -42,8 +42,8 @@ export default (props: Props) => {
               purchaseType="order"
               purchaseId={order.id}
               price={order.total_price}
-	      loading={loading}
-	      onPaymentSuccess={props.onPaymentSuccess}
+              loading={loading}
+              onPaymentSuccess={props.onPaymentSuccess}
             />
           </Elements>
         </StripeProvider>

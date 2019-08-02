@@ -10,7 +10,7 @@ import { withNamespaces } from 'react-i18next';
 import { TimeTable, Calendar } from '../../../components';
 import EstablishmentCard from './EstablishmentCard.component';
 import { Moment } from '../../../i18n';
-import type { Establishment, Activity, Offer } from '../../../api/types';
+import type { Establishment, Offer } from '../../../api/types';
 
 type Props = {
   establishment: Establishment,

@@ -26,6 +26,7 @@ type Props = {
   fetchOrder: (id: string) => void,
   fetchByQueryMember: (params: *) => void,
   fetchByQueryInvoice: (params: *) => void,
+  fetchAllAlerting: () => void,
   onInvoiceClick: (uuid: string) => void,
   goToMember: (id: number) => void,
   patchOrder: (id: string, data: *) => void,

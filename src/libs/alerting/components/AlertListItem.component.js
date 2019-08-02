@@ -5,7 +5,6 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
 import withStyles from '@material-ui/core/styles/withStyles';
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
@@ -18,7 +17,6 @@ import type { Alerting, UnevenInvoiceAlerting } from '../types';
 type Props = {
   alerting: Alerting,
   pushRouter: (path: string) => void,
-  deleteAlert: (id: number) => void,
 };
 
 const styles = () => ({
@@ -74,7 +72,6 @@ const UnevenAlertListItem = compose(
 const NewOrderAlertListItemBase = (props: {
   t: TFunction,
   pushRouter: (string) => void,
-  deleteAlert: (id: number) => void,
   alerting: NewOrderAlerting,
   classes: Object,
 }) => {
@@ -111,7 +108,7 @@ const NewOrderAlertListItem = compose(
 )(NewOrderAlertListItemBase);
 
 export default function AlertList(props: Props) {
-  const { alerting, pushRouter, deleteAlert } = props;
+  const { alerting, pushRouter } = props;
   switch (alerting.alert_kind) {
     case 1:
       return (
@@ -119,11 +116,7 @@ export default function AlertList(props: Props) {
       );
     case 2:
       return (
-        <NewOrderAlertListItem
-          alerting={alerting}
-          pushRouter={pushRouter}
-          deleteAlert={deleteAlert}
-        />
+        <NewOrderAlertListItem alerting={alerting} pushRouter={pushRouter} />
       );
     default:
       return null;

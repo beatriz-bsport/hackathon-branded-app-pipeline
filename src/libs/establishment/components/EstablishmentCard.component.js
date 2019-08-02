@@ -9,11 +9,9 @@ import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import { withNamespaces } from 'react-i18next';
-import { Link } from 'react-router-dom';
 
 import SPORTS from '@bsport/common/lib/master-data/sports';
-import ActivityMinimalSummary from '../../../components/activity/ActivityMinimalSummary.component';
-import type { Activity, Establishment } from '../../../api/types';
+import type { Establishment } from '../../../api/types';
 import EasyAccessStack from '../../category/components/EasyAccessStack.component';
 
 const DEFAULT_SPORT = 7;

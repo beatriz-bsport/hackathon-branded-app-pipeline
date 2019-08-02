@@ -31,6 +31,7 @@ type Props = {
   classes: Object,
   t: TFunction,
   i18n: *,
+  onPaymentSuccess: () => void,
 };
 
 type State = {

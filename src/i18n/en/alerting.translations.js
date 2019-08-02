@@ -5,6 +5,7 @@ export default {
   },
   alert_kind: {
     1: 'Billing',
+    2: 'Order',
   },
   showMore: 'Show more',
   unevenInvoice: {
@@ -14,7 +15,7 @@ export default {
     pricePayed: 'Amoount paid: {{price_payed, price}}.',
   },
   newOrder: {
-    title: 'New order',
+    title: 'Pending Order',
     explain: 'Paid by <1>{{name}}</1> on the store.',
     price: 'Amount: {{ price, price }}.',
   },

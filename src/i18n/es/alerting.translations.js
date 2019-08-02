@@ -5,6 +5,7 @@ export default {
   },
   alert_kind: {
     1: 'Facturación',
+    2: 'Pedida',
   },
   showMore: 'Ver más',
   unevenInvoice: {

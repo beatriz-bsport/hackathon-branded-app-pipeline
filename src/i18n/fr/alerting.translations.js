@@ -5,6 +5,7 @@ export default {
   },
   alert_kind: {
     1: 'Facturation',
+    2: 'Commande',
   },
   showMore: 'Voir davantage',
   unevenInvoice: {
@@ -14,7 +15,7 @@ export default {
     pricePayed: 'Somme encaissée : {{price_payed, price}}.',
   },
   newOrder: {
-    title: 'Nouvelle commande',
+    title: 'Commande en attente',
     explain: 'Payé par <1>{{name}}</1> sur le magasin.',
     price: 'Montant: {{ price, price }}.',
   },

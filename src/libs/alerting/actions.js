@@ -7,7 +7,7 @@ import api from './api';
 
 import type { Dispatch, ThunkAction } from '../../state/types';
 
-const ALERT_KINDS = [UNEVEN_INVOICE_ALERT.alert_kind];
+const ALERT_KINDS = [UNEVEN_INVOICE_ALERT.alert_kind, 2];
 
 export const listActions = {
   error: createAction('ALERTING/LIST/ERROR'),

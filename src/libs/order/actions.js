@@ -153,7 +153,11 @@ export function fetchConfiguration(): ThunkAction {
   };
 }
 
-export function patchOrder(id: string, data_: *): ThunkAction {
+export function patchOrder(
+  id: string,
+  data_: *,
+  options: ?{ onError: ?() => void, onSuccess: ?() => void },
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(orderDetailActions.isLoading(true));
     dispatch(orderDetailActions.error(null));
@@ -161,8 +165,10 @@ export function patchOrder(id: string, data_: *): ThunkAction {
     try {
       const { data } = await api.patchOrder(id, data_);
       dispatch(orderDetailActions.success(data));
+      if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
       dispatch(orderDetailActions.error(error));
+      if (options && options.onError) options.onError();
     }
 
     dispatch(orderDetailActions.isLoading(false));

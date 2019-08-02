@@ -53,13 +53,15 @@ export function AlertList(props: Props) {
           </Typography>
         </div>
       ) : (
-        props.alertings.map((alert_group) => (
-          <AlertListGroup
-            pushRouter={props.pushRouter}
-            alert_group={alert_group}
-            onShowMore={() => props.showMore(alert_group.alert_kind)}
-          />
-        ))
+        props.alertings
+          .filter((ag) => (ag.results || []).length)
+          .map((alert_group) => (
+            <AlertListGroup
+              pushRouter={props.pushRouter}
+              alert_group={alert_group}
+              onShowMore={() => props.showMore(alert_group.alert_kind)}
+            />
+          ))
       )}
     </List>
   );

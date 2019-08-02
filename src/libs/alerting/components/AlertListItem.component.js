@@ -88,9 +88,6 @@ const NewOrderAlertListItemBase = (props: {
             {t('newOrder.title')}
           </Typography>
           <div className={classes.titleContainer}>
-            <IconButton onClick={() => props.deleteAlert(alerting.id)}>
-              <VisibilityOffIcon color="secondary" />
-            </IconButton>
             <IconButton onClick={() => props.pushRouter(`/order/${order}`)}>
               <ArrowForwardIcon color="secondary" />
             </IconButton>

@@ -4,34 +4,34 @@ import { createBrowserHistory } from 'history';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router';
 
-import BsportWidget from '../App';
+import BsportWidgetA from '../App';
 import '../../vendor/cleanslate.css';
 import initStore from '../store';
 
 const store = initStore();
 const history = createBrowserHistory();
 
-export default class EmbeddableWidget {
+export default class BsportWidget {
   static el;
 
   static mount({ parentElement, ...props } = {}) {
     const component = (
       <Provider store={store}>
         <Router history={history}>
-          <BsportWidget {...props} store={store} history={history} />
+          <BsportWidgetA {...props} store={store} history={history} />
         </Router>
       </Provider>
     );
 
     function doRender() {
-      if (EmbeddableWidget.el) {
-        throw new Error('EmbeddableWidget is already mounted, unmount first');
+      if (BsportWidget.el) {
+        throw new Error('BsportWidget is already mounted, unmount first');
       }
       const el = document.createElement('div');
       el.setAttribute('class', 'cleanslate');
       document.getElementById(parentElement || 'bsport-widget').appendChild(el);
       ReactDOM.render(component, el);
-      EmbeddableWidget.el = el;
+      BsportWidget.el = el;
     }
     if (document.readyState === 'complete') {
       doRender();
@@ -43,11 +43,11 @@ export default class EmbeddableWidget {
   }
 
   static unmount() {
-    if (!EmbeddableWidget.el) {
-      throw new Error('EmbeddableWidget is not mounted, mount first');
+    if (!BsportWidget.el) {
+      throw new Error('BsportWidget is not mounted, mount first');
     }
-    ReactDOM.unmountComponentAtNode(EmbeddableWidget.el);
-    EmbeddableWidget.el.parentNode.removeChild(EmbeddableWidget.el);
-    EmbeddableWidget.el = null;
+    ReactDOM.unmountComponentAtNode(BsportWidget.el);
+    BsportWidget.el.parentNode.removeChild(BsportWidget.el);
+    BsportWidget.el = null;
   }
 }

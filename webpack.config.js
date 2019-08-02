@@ -4,7 +4,7 @@ const JavaScriptObfuscator = require('webpack-obfuscator');
 const CopyPlugin = require('copy-webpack-plugin');
 const path = require('path');
 const MinifyPlugin = require('babel-minify-webpack-plugin');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const devMode = process.env.NODE_ENV !== 'production';
 
@@ -95,7 +95,8 @@ module.exports = [
       library: 'BsportWidget',
       libraryExport: 'default',
       libraryTarget: 'window',
+      chunkFilename: 'widget.[chunkhash:8].chunk.js',
     },
-    plugins: [new MinifyPlugin(), new BundleAnalyzerPlugin()],
+    plugins: [new MinifyPlugin()],
   },
 ];

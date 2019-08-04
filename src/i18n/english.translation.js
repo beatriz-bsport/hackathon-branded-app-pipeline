@@ -548,6 +548,7 @@ export default {
       oneHour: '1h',
       oneHourAndHalf: '1h30',
       twoHour: '2h',
+      fourHour: '4h',
       sixHour: '6h',
       eightHour: '8h',
       oneDay: '1 day',

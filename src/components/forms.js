@@ -401,6 +401,7 @@ const DURATION_CHOICES_SHORT = [
   { value: 60, label: 'form.oneHour' },
   { value: 90, label: 'form.oneHourAndHalf' },
   { value: 120, label: 'form.twoHour' },
+  { value: 240, label: 'form.fourHour' },
   { value: 360, label: 'form.sixHour' },
   { value: 60 * 8, label: 'form.eightHour' },
   { value: 24 * 60, label: 'form.oneDay' },

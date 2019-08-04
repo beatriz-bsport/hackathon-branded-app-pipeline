@@ -59,13 +59,22 @@ export class StripeCheckout extends Component<Props, State> {
     this.setState({ loading: true, error: null, completed: false });
 
     const { t, i18n } = this.props;
-    const { urlParams, purchaseId, purchaseType, offerToBuy } = this.props;
+    const {
+      urlParams,
+      price,
+      purchaseId,
+      purchaseType,
+      offerToBuy,
+    } = this.props;
     try {
-      const tokenizer = await this.props.stripe.createToken();
-      if (tokenizer.error) {
-        throw new Error(getStripeErrorMessage(t, i18n, tokenizer.error.code));
+      let token = { id: '' };
+      if (price) {
+        const tokenizer = await this.props.stripe.createToken();
+        if (tokenizer.error) {
+          throw new Error(getStripeErrorMessage(t, i18n, tokenizer.error.code));
+        }
+        token = tokenizer.token;
       }
-      const { token } = tokenizer;
 
       await api.payment.consumerBuy({
         token: token.id,
@@ -111,17 +120,19 @@ export class StripeCheckout extends Component<Props, State> {
       >
         <Grid item container justify="center" alignItems="center">
           <Grid item>
-            <Typography variant="h3">{price || ' - '} €</Typography>
+            <Typography variant="h3">{price || ' 0 '} €</Typography>
           </Grid>
         </Grid>
-        <Grid item>
-          <div className={classes.cardContainer}>
-            <CardElement hidePostalCode />
-          </div>
-          {error ? (
-            <Typography className={classes.error}>{error}</Typography>
-          ) : null}
-        </Grid>
+        {price ? (
+          <Grid item>
+            <div className={classes.cardContainer}>
+              <CardElement hidePostalCode />
+            </div>
+            {error ? (
+              <Typography className={classes.error}>{error}</Typography>
+            ) : null}
+          </Grid>
+        ) : null}
         <Grid
           item
           container

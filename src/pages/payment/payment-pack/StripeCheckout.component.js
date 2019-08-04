@@ -73,6 +73,7 @@ export class StripeCheckout extends Component<Props, State> {
         if (tokenizer.error) {
           throw new Error(getStripeErrorMessage(t, i18n, tokenizer.error.code));
         }
+        // eslint-disable-next-line
         token = tokenizer.token;
       }
 

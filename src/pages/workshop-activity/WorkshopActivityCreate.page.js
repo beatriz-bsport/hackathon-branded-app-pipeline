@@ -86,6 +86,7 @@ const StepperForm = withNamespaces(['metaActivity'])(
 export class WorkshopActivityFormPage extends Component<Props> {
   renderActivityStep = () => (
     <MetaActivityForm
+      variant="workshop"
       coaches={this.props.associatedCoaches}
       establishments={this.props.establishments}
       SCTs={this.props.SCTs}

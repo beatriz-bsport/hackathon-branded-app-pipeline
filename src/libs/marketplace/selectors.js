@@ -32,16 +32,24 @@ export const getOffers = createSelector(
       establishment: establishments.find((e) => e.id === a.establishment),
       meta_activity: metaActivities.find((ma) => ma.id === a.meta_activity),
     }));
-    return _offers.map((o) => ({
-      ...o,
-      coach_override: o.coach_override
-        ? coaches.find((c) => c.id === o.coach_override)
-        : null,
-      establishment_override: o.establishment_override
-        ? establishments.find((e) => e.id === e.establishment_override)
-        : null,
-      activity: activities.find((a) => a.id === o.activity),
-    }));
+    return _offers
+      .map((o) => ({
+        ...o,
+        coach_override: o.coach_override
+          ? coaches.find((c) => c.id === o.coach_override)
+          : null,
+        establishment_override: o.establishment_override
+          ? establishments.find((e) => e.id === e.establishment_override)
+          : null,
+        activity: activities.find((a) => a.id === o.activity),
+      }))
+      .filter(
+        (o) =>
+          o.activity &&
+          o.activity.establishment &&
+          o.activity.coach &&
+          o.activity.meta_activity,
+      );
   },
 );
 

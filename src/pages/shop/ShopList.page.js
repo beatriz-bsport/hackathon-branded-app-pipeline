@@ -5,6 +5,8 @@ import React, { Component } from 'react';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
+
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
 import Dialog from '@material-ui/core/Dialog';
@@ -60,6 +62,7 @@ type Props = {
   deleteSubShop: (id: number) => void,
   goToShopItem: (id: number) => void,
   createOrUpdateSubShop: (data: [*]) => void,
+  fullScreen: boolean,
   createOrUpdateShopItem: (shopItemData: [*], id: ?number) => void,
   loading: boolean,
 };
@@ -218,7 +221,10 @@ export class ShopItemList extends Component<Props, State> {
       <div>
         {subShops.map((ss) => this.renderSubShop(ss))}
         {this.renderNewSubShop()}
-        <Dialog open={!!this.state.createItemFromSubShop}>
+        <Dialog
+          open={!!this.state.createItemFromSubShop}
+          fullScreen={this.props.fullScreen}
+        >
           <ShopItemForm
             createOrUpdate={this.createOrUpdateShopItem}
             onCancel={() => this.setState({ createItemFromSubShop: null })}
@@ -259,6 +265,7 @@ export default compose(
       goToShopItem: (id: number) => push(`/shop/${id}`),
     },
   ),
+  withMobileDialog(),
   withStyles(styles),
   withDrawer(({ t }: { t: TFunction }) => t('appbar.title.shopManager')),
 )(ShopItemList);

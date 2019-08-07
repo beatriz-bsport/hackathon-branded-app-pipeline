@@ -430,11 +430,11 @@ export const DurationMinuteSelectField = withNamespaces()(
 );
 
 export const CheckboxField = (props: Props) => {
-  const { disabled, label, name, helperText } = props;
+  const { disabled, label, helperText } = props;
   return (
     <FormControl>
       <Field {...props}>
-        {({ field, form: { setFieldValue } }) => (
+        {({ field }) => (
           <FormControlLabel
             label={label}
             helperText={helperText}

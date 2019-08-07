@@ -393,7 +393,6 @@ export default compose(
         'establishments',
       ];
       const data = _.pick(values, keys);
-      debugger;
 
       if (values.timeType === VALID_BY_DATERANGE) {
         data.duration_days = null;

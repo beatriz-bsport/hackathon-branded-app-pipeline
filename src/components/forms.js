@@ -429,6 +429,31 @@ export const DurationMinuteSelectField = withNamespaces()(
   ),
 );
 
+export const CheckboxField = (props: Props) => {
+  const { disabled, label, name, helperText } = props;
+  return (
+    <FormControl>
+      <Field {...props}>
+        {({ field, form: { setFieldValue } }) => (
+          <FormControlLabel
+            label={label}
+            helperText={helperText}
+            control={
+              <Checkbox
+                disabled={!!disabled}
+                checked={field.value}
+                {...props}
+                {...field}
+              />
+            }
+          />
+        )}
+      </Field>
+      <FormHelperText>{helperText}</FormHelperText>
+    </FormControl>
+  );
+};
+
 export const MultipleCheckboxField = (props: Props) => {
   const { choices, disabled, label, name, helperText } = props;
   return (

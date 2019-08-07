@@ -431,6 +431,14 @@ export default {
       },
       paymentPack: {
         newMemberOnly: 'Uniquement pour les nouveaux clients',
+        startOnFirstUse:
+          'Le décompte de validité débute le jour de la première réservation',
+        startOnFirstUseHelper:
+          'Sinon le décompte début le jour de facturation du pass',
+        expirationDaysBeforeFirstUse:
+          'Expiration si aucune réservation initiale',
+        expirationDaysBeforeFirstUseHelper:
+          "Si le pass n'est pas consommé une première fois pendant ce nb de jour, il est rendu invalide",
         managerOnly: 'Invisible pour les clients',
         helper: {
           // eslint-disable-next-line

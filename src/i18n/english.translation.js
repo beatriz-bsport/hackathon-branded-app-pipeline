@@ -453,6 +453,12 @@ export default {
       paymentPack: {
         newMemberOnly: 'Only available to new customers',
         managerOnly: 'Unavailable for customers',
+        startOnFirstUse: 'Pass validity countdown start after first booking',
+        startOnFirstUseHelper:
+          'Otherwise the countdown immediately starts after billing',
+        expirationDaysBeforeFirstUse: 'Expiration if no booking made',
+        expirationDaysBeforeFirstUseHelper:
+          'If no first booking is made during this number of days, the pass expires and can not be used',
         helper: {
           name: 'Name for the payment pack',
           price: 'Price for user for the whole pack',

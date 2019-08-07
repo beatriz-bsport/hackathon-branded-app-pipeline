@@ -24,6 +24,7 @@ import {
   TextField,
   DateField,
   MultipleCheckboxField,
+  CheckboxField,
   RadioGroupField,
   Actions,
   Submit,
@@ -65,7 +66,7 @@ export function PaymentPackForm(props: Props) {
     initial,
     classes,
   } = props;
-  const { manager_only, timeType } = values;
+  const { manager_only, start_on_first_use, timeType } = values;
   return (
     <div>
       <Form className={classes.content}>
@@ -155,6 +156,24 @@ export function PaymentPackForm(props: Props) {
                   type="number"
                   fullWidth
                 />
+                <div style={{ paddingBottom: 24 }}>
+                  <CheckboxField
+                    name="start_on_first_use"
+                    label={t('form.paymentPack.startOnFirstUse')}
+                    helperText={t('form.paymentPack.startOnFirstUseHelper')}
+                  />
+                </div>
+                <Collapse in={start_on_first_use}>
+                  <TextField
+                    name="expiration_days_before_first_use"
+                    label={t('form.paymentPack.expirationDaysBeforeFirstUse')}
+                    helperText={t(
+                      'form.paymentPack.expirationDaysBeforeFirstUseHelper',
+                    )}
+                    type="number"
+                    fullWidth
+                  />
+                </Collapse>
               </Collapse>
               <Collapse in={timeType === VALID_BY_DATERANGE}>
                 <DateField
@@ -259,6 +278,8 @@ const PackSchema = Yup.object().shape({
     .min(0)
     .nullable(),
   timeType: Yup.string().required(),
+  expiration_days_before_first_use: Yup.number(),
+  start_on_first_use: Yup.boolean().required(),
   duration_days: Yup.number().when('timeType', {
     is: VALID_BY_DURATION,
     then: Yup.number()
@@ -332,6 +353,8 @@ export default compose(
           upper_date: Moment().add('months', 1),
           new_member_only: false,
           manager_only: false,
+          start_on_first_use: false,
+          expiration_days_before_first_use: 60,
           categories: [],
           metaActivities: [],
           establishments: [],
@@ -363,11 +386,14 @@ export default compose(
         'id',
         'new_member_only',
         'manager_only',
+        'expiration_days_before_first_use',
+        'start_on_first_use',
         'categories',
         'metaActivities',
         'establishments',
       ];
       const data = _.pick(values, keys);
+      debugger;
 
       if (values.timeType === VALID_BY_DATERANGE) {
         data.duration_days = null;

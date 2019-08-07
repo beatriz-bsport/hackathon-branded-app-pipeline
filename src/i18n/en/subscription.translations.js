@@ -28,7 +28,7 @@ export default {
   },
   subscriptionStatus: {
     pending: 'Billing pending',
-    canceledOn: 'Discarded by manager on ',
+    canceledOn: 'Discarded on ',
     hasEnded: 'Billing finished',
   },
   action: {

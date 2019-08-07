@@ -28,7 +28,7 @@ export default {
   },
   subscriptionStatus: {
     pending: 'En cours de facturation',
-    canceledOn: 'Annulé par le manager le ',
+    canceledOn: 'Stoppée le ',
     hasEnded: 'Facturation terminée',
   },
   action: {

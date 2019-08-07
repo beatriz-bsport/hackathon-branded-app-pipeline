@@ -28,7 +28,7 @@ export default {
   },
   subscriptionStatus: {
     pending: 'Esperando pago',
-    canceledOn: 'Cancelado por el gerante el ',
+    canceledOn: 'Cancelado el ',
     hasEnded: 'Acabado',
   },
   action: {

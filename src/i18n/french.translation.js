@@ -956,6 +956,14 @@ export default {
         establishment: { placeholder: 'Filtrer par établissement' },
       },
     },
+    offerManagement: {
+      forms: {
+        register: {
+          passOwnedByMember: 'Pass possédé(s) par le membre',
+          passCompatibleNotOwnedByMember: "Facturation d'un nouveau pass",
+        },
+      },
+    },
     appbar: {
       title: {
         planning: 'Planning',

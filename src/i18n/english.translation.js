@@ -877,6 +877,14 @@ export default {
       pass: 'Pass',
       buyPack: 'Buy',
     },
+    offerManagement: {
+      forms: {
+        register: {
+          passOwnedByMember: 'Pass owned by member',
+          passCompatibleNotOwnedByMember: 'Billing a new pass',
+        },
+      },
+    },
     appbar: {
       title: {
         planning: 'Planning',

@@ -110,11 +110,21 @@ export class RegisterMemberToOfferForm extends PureComponent<Props> {
       return <CircularProgress />;
     }
     return (
-      <Grid container spacing={24} direction="column">
+      <Grid container spacing={16} direction="column">
         <Grid item>
           <Typography variant="h3">Inscription à la séance</Typography>
         </Grid>
+        <Grid item>
+          <Typography variant="h6" component="h4">
+            {t('offerManagement.forms.register.passOwnedByMember')}
+          </Typography>
+        </Grid>
         <Grid item>{this.renderConsumerPacks()}</Grid>
+        <Grid item>
+          <Typography variant="h6" component="h4">
+            {t('offerManagement.forms.register.passCompatibleNotOwnedByMember')}
+          </Typography>
+        </Grid>
         <Grid item>{this.renderPaymentPacks()}</Grid>
         <Grid item>
           <Button variant="outlined" onClick={onCancel}>

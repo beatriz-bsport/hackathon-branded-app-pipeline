@@ -107,6 +107,7 @@ type State = {
   quickInvoices: [*], // put here non-saved invoice
   quickInvoiceEdit: [*], // put here invoice to edit
   addMemberModal: boolean,
+  optionToDiscard: ?number,
   memberToRegister: ?number,
   searchedText: string,
 };
@@ -418,7 +419,6 @@ export class OfferManagement extends PureComponent<Props, State> {
       bookings,
       bookingLoading,
       bookingOptions,
-      discardOption,
       t,
       classes,
       fullScreen,

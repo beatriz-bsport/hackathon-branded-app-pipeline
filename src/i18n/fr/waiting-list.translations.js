@@ -17,4 +17,13 @@ export default {
   },
   explainWaitingListConf:
     "ex: Il reste 3h avant la séance, l'élève dispose de {{ nbMinutesBeforeBookingOptionExpire }} minutes pour valider sa réservation avant de laisser sa place.",
+  dialog: {
+    delete: {
+      title: "Suppression de la liste d'attente",
+      content:
+        "Êtes-vous sûr de vouloir supprimer ce membre de la liste d'attente ? Il sera notifié par email.",
+      cancel: 'Annuler',
+      confirm: 'Supprimer',
+    },
+  },
 };

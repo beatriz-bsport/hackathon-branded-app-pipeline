@@ -17,4 +17,13 @@ export default {
   },
   explainWaitingListConf:
     'e.g: There is 3h left before the session, the client has {{ nbMinutesBeforeBookingOptionExpire }} minutes to register his booking before he goes back to the waiting-list.',
+  dialog: {
+    delete: {
+      title: 'Waiting-list removal',
+      content:
+        'Are you sure you want to remove this member from the waiting-list ? He will be notified by email',
+      cancel: 'Cancel',
+      confirm: 'Remove',
+    },
+  },
 };

@@ -41,6 +41,7 @@ import MemberForm from '../../libs/member/MemberForm.component';
 import { getLatest as getLatestMember } from '../../libs/member/api';
 import BookingTable from '../../libs/booking/components/BookingTable.component';
 import BookingOptionForManager from '../../libs/waiting-list/components/BookingOptionForManager.component';
+import DiscardBookingOptionDialog from '../../libs/waiting-list/components/DiscardBookingOptionDialog.component';
 
 import type { PaymentPack } from '../../libs/payment-packs/types';
 import type { Booking, BookingOption } from '../../libs/booking/types';
@@ -115,6 +116,7 @@ export class OfferManagement extends PureComponent<Props, State> {
     quickInvoices: [],
     addMemberModal: false,
     memberToRegister: null,
+    optionToDiscard: null,
     searchedText: '',
   };
 
@@ -505,7 +507,9 @@ export class OfferManagement extends PureComponent<Props, State> {
                       .map((bo) => (
                         <BookingOptionForManager
                           option={bo}
-                          onDiscard={() => discardOption(bo.id)}
+                          onDiscard={() =>
+                            this.setState({ optionToDiscard: bo.id })
+                          }
                           member={this.props.members.find(
                             (m) => m.id === bo.member,
                           )}
@@ -586,6 +590,14 @@ export class OfferManagement extends PureComponent<Props, State> {
           bookingToRevert={this.state.bookingToRevert}
           offerIsAvailable={this.props.offer.available}
           closeRevertBookingDialog={this.closeRevertBookingDialog}
+        />
+        <DiscardBookingOptionDialog
+          open={!!this.state.optionToDiscard}
+          onSubmit={() => {
+            this.props.discardOption(this.state.optionToDiscard);
+            this.setState({ optionToDiscard: null });
+          }}
+          onClose={() => this.setState({ optionToDiscard: null })}
         />
       </Grid>
     );

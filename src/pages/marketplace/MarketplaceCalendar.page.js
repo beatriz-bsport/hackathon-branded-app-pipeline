@@ -233,9 +233,7 @@ export class MarketplaceCalendar extends Component<Props, State> {
             this.props.fetchCompatiblePass(this.state.offerId);
           }}
           goToPackPayment={this.props.goToPackPayment}
-          goToOfferPayment={(id) =>
-            this.props.goToBook(id, this.props.companyId)
-          }
+          goToOfferPayment={(id) => this.props.onBook(id)}
           onCompletePurchase={this.props.onCompletePurchase}
         />
         <MarketplaceCalendarComponent

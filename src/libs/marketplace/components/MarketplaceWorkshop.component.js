@@ -54,10 +54,23 @@ export const MarketplaceWorkshop = (props: Props) => {
         ))}
       </Grid>
       <MarketplaceActivityDialog
-        open={!!props.offerSelected}
-        offerId={props.offerSelected ? props.offerSelected.id : null}
-        onClose={() => props.selectOffer(null)}
         offer={props.offerSelected}
+        showBookingButton
+        displayPacksInformation
+        onClose={() => props.selectOffer(null)}
+        open={!!props.offerSelected}
+        fetchPassData={() => {
+          props.fetchPaymentPacks(props.offerSelected.id);
+          props.fetchCompatiblePass(props.offerSelected.id);
+        }}
+        goToPackPayment={props.goToPackPayment}
+        goToOfferPayment={(id) =>
+          props.onBook(id, props.offerSelected.activity.company)
+        }
+        onCompletePurchase={props.onCompletePurchase}
+        offerId={props.offerSelected ? props.offerSelected.id : null}
+        compatibleConsumerPacks={props.compatibleConsumerPacks}
+        compatiblePaymentPacks={props.compatiblePaymentPacks}
       />
     </div>
   );

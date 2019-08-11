@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import Moment from 'moment';
 
+import * as paymentActions from '../../actions/payment.actions';
 import MarketplaceWorkshop from '../../libs/marketplace/components/MarketplaceWorkshop.component';
 import {
   getOffersWorkshop,
@@ -51,9 +52,13 @@ export class MarketplaceWorkshopPage extends React.Component<Props> {
         <MarketplaceWorkshop
           offers={offers}
           workshops={workshops}
+          fetchPaymentPacks={this.props.fetchPaymentPacks}
+          fetchCompatiblePass={this.props.fetchCompatiblePass}
+          compatibleConsumerPacks={this.props.compatibleConsumerPacks}
+          compatiblePaymentPacks={this.props.compatiblePaymentPacks}
           onBook={(id) => this.props.goToBook(id, this.props.companyId)}
-          onBookOption={(id) =>
-            this.props.goToBookOption(id, this.props.companyId)
+          goToPackPayment={(packId, offerId) =>
+            this.props.goToPackPayment(packId, offerId, this.props.companyId)
           }
         />
       </div>
@@ -67,6 +72,11 @@ const styles = (theme) => ({
     paddingBottom: theme.spacing.unit * 2,
   },
 });
+
+export const MarketplaceWorkshopPageStyled = withStyles(styles)(
+  MarketplaceWorkshopPage,
+);
+
 export default compose(
   withStyles(styles),
   connect(
@@ -74,13 +84,21 @@ export default compose(
       offers: getOffersWorkshop(state),
       workshops: getWorkshops(state),
       loading: isOfferLoading(state),
+      compatibleConsumerPacks: state.payment.compatibleConsumerPacks || [],
+      compatiblePaymentPacks: state.payment.compatiblePaymentPacks || [],
     }),
     {
+      fetchPaymentPacks: paymentActions.fetchCompatiblePaymentPacks,
+      fetchCompatiblePass: paymentActions.fetchCompatiblePass,
       fetchCompanyOffers: fetchCompanyOffersWorkshopAction,
       goToBook: (id: number, companyId: number) =>
         push(`/customer/payment/offer/${id}?membership=${companyId}`),
       goToBookOption: (id: number, companyId: number) =>
         push(`/customer/payment/offer/${id}?membership=${companyId}`),
+      goToPackPayment: (packId, offerId, companyId) =>
+        push(
+          `/customer/payment/pass/${packId}?nextOffer=${offerId}&membership=${companyId}`,
+        ),
     },
   ),
 )(MarketplaceWorkshopPage);

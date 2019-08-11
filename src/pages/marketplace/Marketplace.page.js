@@ -5,6 +5,7 @@ import { compose } from 'recompose';
 
 import Grid from '@material-ui/core/Grid';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
+import Paper from '@material-ui/core/Paper';
 import AppBarMUI from '@material-ui/core/AppBar';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -32,6 +33,7 @@ import {
   getOrCreateCurrentOrder,
   resetOrders as resetOrdersAction,
 } from '../../libs/order/actions';
+
 import { fetchSCT } from '../../actions/category.actions';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -165,7 +167,11 @@ export class MarketPlace extends Component<Props, State> {
         return <MarketplaceWorkshopPage companyId={this.props.companyId} />;
       case TAB_CALENDAR:
       default: {
-        return <MarketplaceCalendarPage companyId={this.props.companyId} />;
+        return (
+          <Paper className={this.props.classes.calendarContainer}>
+            <MarketplaceCalendarPage companyId={this.props.companyId} />
+          </Paper>
+        );
       }
     }
   };
@@ -313,6 +319,14 @@ const styles = (theme) => ({
   },
   title: {
     marginBottom: theme.spacing.unit * 6,
+  },
+  calendarContainer: {
+    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 4,
+    [theme.breakpoints.up('lg')]: {
+      marginLeft: theme.spacing.unit * 4,
+      marginRight: theme.spacing.unit * 4,
+    },
   },
 });
 

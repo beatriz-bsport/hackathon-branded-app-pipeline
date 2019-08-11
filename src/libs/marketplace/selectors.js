@@ -98,13 +98,13 @@ export const getPaymentPacks = (state: State) =>
   state.marketplacev2.paymentPack.items
     .map((pp) => ({
       ...pp,
-      metaActivities: pp.metaActivities.map((ma) =>
+      metaActivities: (pp.metaActivities || []).map((ma) =>
         state.marketplacev2.metaActivities.items.find((m) => m.id === ma),
       ),
-      establishments: pp.establishments.map((ma) =>
+      establishments: (pp.establishments || []).map((ma) =>
         state.marketplacev2.establishments.items.find((m) => m.id === ma),
       ),
-      categories: pp.categories.map((c) =>
+      categories: (pp.categories || []).map((c) =>
         state.category.SCTs.find((sct) => sct.id === c),
       ),
     }))

@@ -1,11 +1,12 @@
 // @flow
 
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import withStyles from '@material-ui/core/styles/withStyles';
-import LinearProgress from '@material-ui/core/LinearProgress';
 import Grid from '@material-ui/core/Grid';
 import { compose } from 'recompose';
+import Hidden from '@material-ui/core/Hidden';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { Moment } from '../../../i18n';
 
@@ -15,6 +16,20 @@ import CoachSelector from '../../associated-coach/components/CoachSelector.compo
 import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
 import MetaActivitySelector from '../../meta-activity/components/MetaActivitySelector.component';
 import LevelSelector from '../../category/components/LevelSelector.component';
+import MarketplaceWeekTimetable from './MarketplaceWeekTimeTable.component';
+
+const LoadingIndicator = () => (
+  <div
+    style={{
+      padding: 36,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }}
+  >
+    <CircularProgress />
+  </div>
+);
 
 type Props = {
   classes: { [string]: string },
@@ -23,6 +38,7 @@ type Props = {
   offers: *[],
   loading: boolean,
   dayOffers: *[],
+  weekOffers: *[],
   onClickOffer: () => void,
   coaches: *[],
   establishments: *[],
@@ -42,6 +58,7 @@ export function MarketplaceCalendar(props: Props) {
     selectedDate,
     offers,
     dayOffers,
+    weekOffers,
     coaches,
     establishments,
     metaActivities,
@@ -110,43 +127,75 @@ export function MarketplaceCalendar(props: Props) {
     </Grid>
   );
   return (
-    <Grid container direction="row" alignItems="stretch">
-      <Grid item xs={12} md={6}>
-        <Calendar
-          forceMonthDisplay
-          searchBar={searchBar}
-          searchBarOpen={props.filtersOpen}
-          toogleSearchBar={props.toogleFiltersOpen}
-          onDateClick={onSelectDate}
-          loading={loading}
-          date={selectedDate}
-          events={events}
-        />
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <div className={classes.rightPanel}>
-          {loading ? (
-            <LinearProgress />
-          ) : (
-            <MarketplaceTimetable
-              offers={dayOffers}
+    <Fragment>
+      <Hidden mdUp>
+        <Grid container direction="row" alignItems="stretch">
+          <Grid item xs={12} md={6}>
+            <Calendar
+              forceMonthDisplay={false}
+              hideSwitchViewButton
+              searchBar={searchBar}
+              searchBarOpen={props.filtersOpen}
+              toogleSearchBar={props.toogleFiltersOpen}
+              onDateClick={onSelectDate}
+              loading={loading}
               date={selectedDate}
-              onClickOffer={props.onClickOffer}
-              onClickBook={props.onClickBook}
-              onClickBookOption={props.onClickBookOption}
+              events={events}
             />
-          )}
-        </div>
-      </Grid>
-    </Grid>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            {loading ? (
+              <LoadingIndicator />
+            ) : (
+              <MarketplaceTimetable
+                offers={dayOffers}
+                date={selectedDate}
+                onClickOffer={props.onClickOffer}
+                onClickBook={props.onClickBook}
+                onClickBookOption={props.onClickBookOption}
+              />
+            )}
+          </Grid>
+        </Grid>
+      </Hidden>
+      <Hidden smDown>
+        <Grid container direction="row" alignItems="stretch">
+          <Grid item xs={12}>
+            <Calendar
+              clickableDate={false}
+              showDayName={false}
+              hideDateBar
+              hideSwitchViewButton
+              searchBar={searchBar}
+              searchBarOpen={props.filtersOpen}
+              toogleSearchBar={props.toogleFiltersOpen}
+              onDateClick={onSelectDate}
+              date={selectedDate}
+              events={events}
+            />
+          </Grid>
+        </Grid>
+        <Grid container direction="column" alignItems="stretch">
+          <Grid item xs={12}>
+            {loading ? (
+              <LoadingIndicator />
+            ) : (
+              <MarketplaceWeekTimetable
+                weekOffers={weekOffers}
+                date={selectedDate}
+                onClickOffer={props.onClickOffer}
+                onClickBook={props.onClickBook}
+                onClickBookOption={props.onClickBookOption}
+              />
+            )}
+          </Grid>
+        </Grid>
+      </Hidden>
+    </Fragment>
   );
 }
 
 const styles = (theme) => ({
-  rightPanel: {
-    borderLeft: '1px solid #F0F0F0',
-    height: '100%',
-  },
   selector: {
     paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,

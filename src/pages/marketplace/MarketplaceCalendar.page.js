@@ -2,12 +2,13 @@
 import React, { Component } from 'react';
 import { compose, withProps } from 'recompose';
 import { withRouter } from 'react-router';
-import { push, replace } from 'react-router-redux';
+import { push, replace as replaceRouter } from 'react-router-redux';
 
 import withStyles from '@material-ui/core/styles/withStyles';
+
 import { withNamespaces } from 'react-i18next';
 import { connect } from 'react-redux';
-
+import * as paymentActions from '../../actions/payment.actions';
 import MarketplaceCalendarComponent from '../../libs/marketplace/components/MarketplaceCalendar.component';
 import MarketplaceActivityDialog from '../../libs/marketplace/components/MarketplaceActivityDialog.component';
 
@@ -16,6 +17,7 @@ import {
   getOffersFiltered,
   isOfferLoading,
 } from '../../libs/marketplace/selectors';
+import { snackbarSuccess } from '../../actions/snackbar.actions';
 
 import type {
   Coach,
@@ -31,24 +33,33 @@ import {
 
 type Props = {
   filtersOpen: boolean,
+  loading: boolean,
+
+  companyId: number,
+  selectedDate: Object,
+
   offers: Array<Offer>,
   coaches: Array<Coach>,
   establishments: Array<Establishment>,
   metaActivities: Array<MetaActivity>,
-  loading: boolean,
+  compatibleConsumerPacks: Array<ConsumerPaymentPack>,
+  compatiblePaymentPacks: Array<PaymentPack>,
+
   filters: *,
-  location: Object,
-  classes: Object,
-  companyId: number,
+
   resetOffers: () => void,
-  fetchCompanyOffers: (
-    companyId: number,
-    min_date: string,
-    max_date: string,
-  ) => void,
-  replace: (path: string) => void,
+  setFilters: (*) => void,
+  toogleFiltersOpen: () => void,
+  handleDateChange: (newDate: Object) => void,
   goToBook: (offerId: number, comapnyId: number) => void,
   goToBookOption: (offerId: number, comapnyId: number) => void,
+  fetchPaymentPacks: (offerId: number) => void,
+  fetchCompatiblePass: (offerId: number) => void,
+  goToPackPayment: (id: number) => void,
+  onCompletePurchase: () => void,
+  fetchCompanyOffers: (*, *, *) => void,
+
+  classes: Object,
 };
 
 type State = {
@@ -75,7 +86,7 @@ const fromURLtoDate = (search: string) => {
   try {
     const params = search.slice(1).split('&');
     const date_string = params.find((p) => p.includes('date='));
-    return Moment(date_string.split('=')[1]);
+    return Moment(date_string.split('=')[1], 'YYYY-MM-DD');
   } catch (err) {
     return Moment();
   }
@@ -85,12 +96,9 @@ const fromPropsToNewDateURL = (date, location) => {
   const params = location.search.slice(1).split('&');
   const filtered_params = params.filter((p) => !p.includes('date='));
   const newDate = Moment(date);
-  return [
-    newDate,
-    `${location.pathname}?${filtered_params.join('&')}&date=${newDate.format(
-      'YYYY-MM-DD',
-    )}`,
-  ];
+  return `${location.pathname}?${filtered_params.join(
+    '&',
+  )}&date=${newDate.format('YYYY-MM-DD')}`;
 };
 
 const fromPropsToURL = (filters: *, currentParams: string) => {
@@ -139,30 +147,40 @@ export class MarketplaceCalendar extends Component<Props, State> {
   }
 
   componentDidMount() {
-    const min_date = fromURLtoDate(this.props.location.search)
+    const min_date = this.props.selectedDate
+      .clone()
       .startOf('month')
       .format('YYYY-MM-DD');
-    const max_date = fromURLtoDate(this.props.location.search)
+    const max_date = this.props.selectedDate
+      .clone()
       .endOf('month')
       .format('YYYY-MM-DD');
     this.props.fetchCompanyOffers(this.props.companyId, min_date, max_date);
   }
 
-  handleDateChange = (date: Object) => {
-    const currentDate = fromURLtoDate(this.props.location.search);
-    const [newDate, pathname] = fromPropsToNewDateURL(
-      date,
-      this.props.location,
-    );
-
-    // the condition mean simply the month has been changed
-    if (newDate.month() !== currentDate.month()) {
-      const min_date = newDate.startOf('month').format('YYYY-MM-DD');
-      const max_date = newDate.endOf('month').format('YYYY-MM-DD');
+  componentDidUpdate(prevProps: Props) {
+    if (
+      (!prevProps.selectedDate && this.props.selectedDate) ||
+      Moment(
+        prevProps.selectedDate.format('YYYY-MM-DD'),
+        'YYYY-MM-DD',
+      ).week() !==
+        Moment(
+          this.props.selectedDate.format('YYYY-MM-DD'),
+          'YYYY-MM-DD',
+        ).week()
+    ) {
+      const min_date = this.props.selectedDate
+        .clone()
+        .startOf('week')
+        .format('YYYY-MM-DD');
+      const max_date = this.props.selectedDate
+        .clone()
+        .endOf('week')
+        .format('YYYY-MM-DD');
       this.props.fetchCompanyOffers(this.props.companyId, min_date, max_date);
     }
-    this.props.replace(pathname);
-  };
+  }
 
   openOfferDialog = (offerId: number) => {
     this.setState({
@@ -175,36 +193,29 @@ export class MarketplaceCalendar extends Component<Props, State> {
     this.setState({ offerId: null });
   };
 
-  replaceFiltersInURL = (filters: *) => {
-    const urlParams = fromPropsToURL(filters, this.props.location.search);
-    this.props.replace(this.props.location.pathname + urlParams);
-  };
-
-  toogleFiltersOpen = () => {
-    if (this.props.location.search.includes('filtersOpen=true')) {
-      this.props.replace(
-        this.props.location.pathname +
-          this.props.location.search
-            .replace('&filtersOpen=true', '')
-            .replace('filtersOpen=true', ''),
+  getWeekOffers = () => {
+    const date_start = this.props.selectedDate
+      .clone()
+      .startOf('week')
+      .format('YYYY-MM-DD');
+    // structure offers par week days
+    return [0, 1, 2, 3, 4, 5, 6].map((i) => {
+      const _date = Moment(date_start, 'YYYY-MM-DD')
+        .add(i, 'days')
+        .format('YYYY-MM-DD');
+      return this.props.offers.filter((o) =>
+        Moment(o.date_start).isSame(Moment(_date), 'day'),
       );
-    } else if (this.props.location.search === '') {
-      this.props.replace(`${this.props.location.pathname}?filtersOpen=true`);
-    } else {
-      this.props.replace(
-        `${this.props.location.pathname +
-          this.props.location.search}&filtersOpen=true`,
-      );
-    }
+    });
   };
 
   render() {
     const { classes, offers, filters, establishments, coaches } = this.props;
-    const selectedDate = fromURLtoDate(this.props.location.search);
 
     const selectedDayOffers = offers.filter((o) =>
-      Moment(o.date_start).isSame(selectedDate, 'day'),
+      Moment(o.date_start).isSame(this.props.selectedDate, 'day'),
     );
+    const weekOffers = this.getWeekOffers();
 
     return (
       <div className={classes.container}>
@@ -215,25 +226,39 @@ export class MarketplaceCalendar extends Component<Props, State> {
           displayPacksInformation
           onClose={this.closeOfferDialog}
           open={!!this.state.offerId}
+          compatibleConsumerPacks={this.props.compatibleConsumerPacks}
+          compatiblePaymentPacks={this.props.compatiblePaymentPacks}
+          fetchPassData={() => {
+            this.props.fetchPaymentPacks(this.state.offerId);
+            this.props.fetchCompatiblePass(this.state.offerId);
+          }}
+          goToPackPayment={this.props.goToPackPayment}
+          goToOfferPayment={(id) =>
+            this.props.goToBook(id, this.props.companyId)
+          }
+          onCompletePurchase={this.props.onCompletePurchase}
         />
         <MarketplaceCalendarComponent
-          selectedDate={selectedDate}
           offers={offers}
-          setFilters={this.replaceFiltersInURL}
+          setFilters={this.props.setFilters}
           filters={filters}
           loading={this.props.loading}
           dayOffers={selectedDayOffers}
+          weekOffers={weekOffers}
           onClickOffer={this.openOfferDialog}
           onClickBook={(id) => this.props.goToBook(id, this.props.companyId)}
           onClickBookOption={(id) =>
             this.props.goToBookOption(id, this.props.companyId)
           }
-          onSelectDate={this.handleDateChange}
+          onSelectDate={(newDate) =>
+            this.props.handleDateChange(newDate.clone())
+          }
+          selectedDate={this.props.selectedDate || Moment()}
           coaches={coaches}
           establishments={establishments}
           metaActivities={this.props.metaActivities}
           filtersOpen={this.props.filtersOpen}
-          toogleFiltersOpen={this.toogleFiltersOpen}
+          toogleFiltersOpen={this.props.toogleFiltersOpen}
         />
       </div>
     );
@@ -247,14 +272,39 @@ const styles = () => ({
   },
 });
 
-export default compose(
-  withRouter,
-  withProps(({ location }) => ({
-    filters: readFiltersFromURL(location.search),
-    filtersOpen: location.search.includes('filtersOpen=true'),
-  })),
+export const MarketplaceCalendarStyled = compose(
   withStyles(styles),
   withNamespaces(),
+)(MarketplaceCalendar);
+
+export default compose(
+  withRouter,
+  connect(
+    null,
+    { replace: replaceRouter },
+  ),
+  withProps(({ location, replace }) => ({
+    filters: readFiltersFromURL(location.search),
+    filtersOpen: location.search.includes('filtersOpen=true'),
+    setFilters: (filters) => {
+      const urlParams = fromPropsToURL(filters, location.search);
+      replace(location.pathname + urlParams);
+    },
+    toogleFiltersOpen: () => {
+      if (location.search.includes('filtersOpen=true')) {
+        replace(
+          location.pathname +
+            location.search
+              .replace('&filtersOpen=true', '')
+              .replace('filtersOpen=true', ''),
+        );
+      } else if (location.search === '') {
+        replace(`${location.pathname}?filtersOpen=true`);
+      } else {
+        replace(`${location.pathname + location.search}&filtersOpen=true`);
+      }
+    },
+  })),
   connect(
     (state, { filters }) => ({
       offers: getOffersFiltered(state, filters),
@@ -270,7 +320,34 @@ export default compose(
         push(`/customer/payment/offer/${id}?membership=${companyId}`),
       goToBookOption: (id: number, companyId: number) =>
         push(`/customer/payment/offer/${id}?membership=${companyId}`),
-      replace,
+      onCompletePurchase: (dispatch) => {
+        dispatch(push('/'));
+        dispatch(snackbarSuccess('booking.success'));
+      },
     },
   ),
-)(MarketplaceCalendar);
+  withProps(({ replace, location }) => ({
+    handleDateChange: (newDate_: Object) => {
+      const pathname = fromPropsToNewDateURL(newDate_, location);
+      replace(pathname);
+    },
+  })),
+  withProps(({ location }) => ({
+    selectedDate: fromURLtoDate(location.search),
+  })),
+  // for MarketplaceActivityDialog
+  connect(
+    (state) => ({
+      compatibleConsumerPacks: state.payment.compatibleConsumerPacks || [],
+      compatiblePaymentPacks: state.payment.compatiblePaymentPacks || [],
+    }),
+    {
+      fetchPaymentPacks: paymentActions.fetchCompatiblePaymentPacks,
+      fetchCompatiblePass: paymentActions.fetchCompatiblePass,
+      goToPackPayment: (packId, offerId, companyId) =>
+        push(
+          `/customer/payment/pass/${packId}?nextOffer=${offerId}&membership=${companyId}`,
+        ),
+    },
+  ),
+)(MarketplaceCalendarStyled);

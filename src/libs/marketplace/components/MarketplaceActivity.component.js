@@ -3,8 +3,6 @@
 import React from 'react';
 
 import { compose } from 'recompose';
-import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
@@ -25,14 +23,11 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { colors } from '@bsport/common/lib/colors';
 
-import { snackbarSuccess } from '../../../actions/snackbar.actions';
-
 import Map from '../../../components/map/Map.component';
 
 import ConsumerPackCheckout from '../../../pages/payment/offer/ConsumerPackCheckout.component';
 import PaymentPackSummary from '../../../components/payment-pack/PaymentPackSummary.component';
 
-import * as paymentActions from '../../../actions/payment.actions';
 import { isOfferInThePast } from '../utils';
 
 type Props = {
@@ -43,15 +38,12 @@ type Props = {
   displayPacksInformation: ?boolean,
   compatibleConsumerPacks: Array<ConsumerPaymentPack>,
   compatiblePaymentPacks: Array<PaymentPack>,
+  goToOfferPayment: (offerId: number) => void,
+  onCompletePurchase: () => void,
 
-  goToHome: () => void,
   goToPackPayment: (packId: number, offerId: number, companyId: number) => void,
-  fetchPass: (id: number) => void,
-  fetchPaymentPacks: (id: number) => void,
+  fetchPassData: (id: number) => void,
   onClose: () => void,
-  pushRouter: (path: string) => void,
-
-  snackbarSuccess: Object,
 
   t: TFunction,
   classes: Object,
@@ -59,8 +51,7 @@ type Props = {
 
 export class MarketPlaceActivity extends React.Component<Props> {
   componentDidMount() {
-    this.props.fetchPass(this.props.offerId);
-    this.props.fetchPaymentPacks(this.props.offerId);
+    this.props.fetchPassData(this.props.offerId);
   }
 
   renderCoachBanner = () => {
@@ -99,7 +90,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
   };
 
   render() {
-    const { offer, classes, onClose, pushRouter } = this.props;
+    const { offer, classes, onClose } = this.props;
     const { activity } = offer;
     if (
       typeof activity === 'number' ||
@@ -154,13 +145,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
               color="primary"
               className={classes.callButton}
               disabled={!isOfferInThePast(offer) || !offer.available}
-              onClick={() => {
-                pushRouter(
-                  `/customer/payment/offer/${offer.id}?membership=${
-                    activity.company
-                  }`,
-                );
-              }}
+              onClick={() => this.props.goToOfferPayment(offer.id)}
             >
               Réserver
             </Button>
@@ -188,10 +173,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
                     offerId={offer.id}
                     consumerPack={p}
                     urlParams={{}}
-                    onCompletePurchase={() => {
-                      this.props.goToHome();
-                      this.props.snackbarSuccess('booking.success');
-                    }}
+                    onCompletePurchase={this.props.onCompletePurchase}
                   />
                 ))}
               </div>
@@ -245,13 +227,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
               variant="contained"
               color="primary"
               disabled={!isOfferInThePast(offer) || !offer.available}
-              onClick={() =>
-                pushRouter(
-                  `/customer/payment/offer/${offer.id}?membership=${
-                    activity.company
-                  }`,
-                )
-              }
+              onClick={() => this.props.goToOfferPayment(offer.id)}
             >
               Réserver
             </Button>
@@ -318,28 +294,7 @@ const styles = (theme) => ({
   },
 });
 
-function mapStateToProps(state) {
-  return {
-    compatibleConsumerPacks: state.payment.compatibleConsumerPacks || [],
-    compatiblePaymentPacks: state.payment.compatiblePaymentPacks || [],
-  };
-}
-
 export default compose(
   withStyles(styles),
   withNamespaces([]),
-  connect(
-    mapStateToProps,
-    {
-      fetchPaymentPacks: paymentActions.fetchCompatiblePaymentPacks,
-      fetchPass: paymentActions.fetchCompatiblePass,
-      pushRouter: push,
-      goToHome: () => push('/'),
-      snackbarSuccess,
-      goToPackPayment: (packId, offerId, companyId) =>
-        push(
-          `/customer/payment/pass/${packId}?nextOffer=${offerId}&membership=${companyId}`,
-        ),
-    },
-  ),
 )(MarketPlaceActivity);

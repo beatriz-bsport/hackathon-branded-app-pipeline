@@ -1,5 +1,5 @@
 // @flow
-
+//
 export const Config = {};
 
 function setConfigFrom(envConfig) {
@@ -22,6 +22,10 @@ function checkConfigValue(name, silent) {
       throw new Error(text);
     } else console.error(text);
   }
+}
+
+export function setConfigValue(name: string, value: string) {
+  Config[name] = value;
 }
 
 checkConfigValue('REACT_APP_BASE_URI');

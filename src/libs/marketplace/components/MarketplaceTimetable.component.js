@@ -1,14 +1,15 @@
 // @flow
 
-import moment from 'moment';
 import React, { Component } from 'react';
 import List from '@material-ui/core/List';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
+import { Divider } from '@material-ui/core';
+
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import MarketplaceOffer from './MarketplaceOffer.component';
+import MarketplaceListItemOffer from './MarketplaceListItemOffer.component';
 
 type Props = {
   offers: ?Array<Offer>,
@@ -36,9 +37,9 @@ export class MarketplaceTimetable extends Component<Props> {
       );
     }
     return (
-      <List>
+      <List disablePadding>
         {offers.map((o) => (
-          <MarketplaceOffer
+          <MarketplaceListItemOffer
             key={o.id}
             offer={o}
             onClickOffer={this.props.onClickOffer}
@@ -55,8 +56,9 @@ export class MarketplaceTimetable extends Component<Props> {
     return (
       <div>
         <Typography variant="h6" className={classes.title}>
-          {moment(date).format('dddd Do MMMM')}
+          {date.format('dddd Do MMMM')}
         </Typography>
+        <Divider />
         {this.renderContent()}
       </div>
     );

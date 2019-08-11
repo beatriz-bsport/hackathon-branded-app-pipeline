@@ -46,7 +46,7 @@ export function PaymentPackMinimalSummary(props: Props) {
   }
   if (validity_daterange) {
     dateInfo = `${t('paymentPack.validity')} ${formatAsDate(
-      Moment(validity_daterange.lower),
+      Moment(JSON.parse(validity_daterange).lower),
     )} - ${formatAsDate(Moment(JSON.parse(validity_daterange).upper))}`;
   }
 

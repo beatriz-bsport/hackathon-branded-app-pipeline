@@ -4,7 +4,7 @@ import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 
 import { colors } from '@bsport/common/lib/colors';
 
-export default createMuiTheme({
+const defaultThemeParams = {
   palette: {
     primary: {
       main: colors.primary,
@@ -23,4 +23,6 @@ export default createMuiTheme({
       initialWidth: 'lg',
     },
   },
-});
+};
+
+export default createMuiTheme(defaultThemeParams);

@@ -31,6 +31,9 @@ type Props = {
   events?: { [*]: *[] },
   searchBar: ?any,
   loading: ?boolean,
+  showDayName: ?boolean,
+  hideDateBar: ?boolean,
+  hideSwitchViewButton: ?boolean,
 };
 
 type State = {
@@ -46,7 +49,7 @@ export class Calendar extends Component<Props, State> {
   }
 
   componentDidMount() {
-    this.props.onDateClick(this.props.date);
+    this.props.onDateClick(this.props.date.clone());
   }
 
   static defaultProps = {
@@ -59,21 +62,21 @@ export class Calendar extends Component<Props, State> {
 
   showNextWeek = () => {
     const { date } = this.props;
-    this.selectDate(Moment(date.clone().add(7, 'days')));
+    this.selectDate(date.clone().add(7, 'days'));
   };
 
   showPreviousWeek = () => {
     const { date } = this.props;
-    this.selectDate(Moment(date.clean().add(-7, 'days')));
+    this.selectDate(date.clean().add(-7, 'days'));
   };
 
   showNext = () => {
     const { displayMode } = this.state;
     const { date } = this.props;
     if (WEEKMODE === displayMode) {
-      this.selectDate(Moment(date.clone().add(1, 'weeks')));
+      this.selectDate(date.clone().add(1, 'weeks'));
     } else {
-      this.selectDate(Moment(date.clone().add(1, 'months')));
+      this.selectDate(date.clone().add(1, 'months'));
     }
   };
 
@@ -81,9 +84,9 @@ export class Calendar extends Component<Props, State> {
     const { displayMode } = this.state;
     const { date } = this.props;
     if (WEEKMODE === displayMode) {
-      this.selectDate(Moment(date.clone().add(-1, 'weeks')));
+      this.selectDate(date.clone().add(-1, 'weeks'));
     } else {
-      this.selectDate(Moment(date.clone().add(-1, 'months')));
+      this.selectDate(date.clone().add(-1, 'months'));
     }
   };
 
@@ -106,8 +109,9 @@ export class Calendar extends Component<Props, State> {
 
   formatDay = (day: Object) => {
     // TODO optimize this
-    const { classes } = this.props;
+    const { classes, showDayName } = this.props;
     const { displayMode } = this.state;
+    const showDayLetter = showDayName !== undefined ? showDayName : true;
     const weekdays = Moment.weekdaysShort(true); // true for starting on local day
     return (
       <div
@@ -118,8 +122,10 @@ export class Calendar extends Component<Props, State> {
           justifyContent: 'center',
         }}
       >
-        {displayMode === WEEKMODE ? weekdays[day.weekday()][0] : null}
-        <Typography color="inherit" variant="subtitle2">
+        {displayMode === WEEKMODE && showDayLetter
+          ? weekdays[day.weekday()][0]
+          : null}
+        <Typography color="inherit" variant="subtitle1">
           {day.date()}
         </Typography>
         <div className={classes.dots}>{this.formatDots(day)}</div>
@@ -142,10 +148,9 @@ export class Calendar extends Component<Props, State> {
     );
   };
 
-  renderDay = (day: Object) => {
+  renderDay(day: Object) {
     const { displayMode } = this.state;
-    const { date } = this.props;
-    const { classes } = this.props;
+    const { date, classes } = this.props;
     const isSelected = day.isSame(date, 'days');
     const disabled = !day.isSame(date, 'months') && displayMode === MONTHMODE;
     let dayButtonClass = null;
@@ -170,7 +175,7 @@ export class Calendar extends Component<Props, State> {
         {this.formatDay(day)}
       </ButtonBase>
     );
-  };
+  }
 
   renderSearchButton = () => {
     if (this.props.searchBar) {
@@ -184,13 +189,17 @@ export class Calendar extends Component<Props, State> {
   };
 
   renderHeader = () => {
-    const { date, forceMonthDisplay } = this.props;
+    const { date, forceMonthDisplay, hideSwitchViewButton } = this.props;
     const { displayMode } = this.state;
     const month = Moment.months()[date.month()];
     const year = date.year();
     return (
       <Grid container justify="space-between" alignItems="center" wrap="nowrap">
-        {forceMonthDisplay ? null : (
+        {forceMonthDisplay || hideSwitchViewButton ? (
+          <Grid item>
+            <div />
+          </Grid>
+        ) : (
           <Grid item>
             <IconButton
               onClick={this.toogleWeekMode}
@@ -228,7 +237,7 @@ export class Calendar extends Component<Props, State> {
         </Grid>
         <Grid item>
           {this.renderSearchButton()}
-          {forceMonthDisplay ? null : (
+          {forceMonthDisplay || hideSwitchViewButton ? null : (
             <IconButton
               onClick={this.toogleMonthMode}
               color={displayMode === MONTHMODE ? 'primary' : 'default'}
@@ -241,32 +250,27 @@ export class Calendar extends Component<Props, State> {
     );
   };
 
-  renderWeekFrom = (firstDayWeek: Object) => (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        wrap: 'nowrap',
-      }}
-    >
-      {this.renderDay(Moment(firstDayWeek).add(0, 'days'))}
-      {this.renderDay(Moment(firstDayWeek).add(1, 'days'))}
-      {this.renderDay(Moment(firstDayWeek).add(2, 'days'))}
-      {this.renderDay(Moment(firstDayWeek).add(3, 'days'))}
-      {this.renderDay(Moment(firstDayWeek).add(4, 'days'))}
-      {this.renderDay(Moment(firstDayWeek).add(5, 'days'))}
-      {this.renderDay(Moment(firstDayWeek).add(6, 'days'))}
-    </div>
-  );
+  renderWeekFrom = (firstDayWeek: Object) => {
+    const { classes } = this.props;
+    return (
+      <div className={classes.weekRowContainer}>
+        {this.renderDay(firstDayWeek.clone().add(0, 'days'))}
+        {this.renderDay(firstDayWeek.clone().add(1, 'days'))}
+        {this.renderDay(firstDayWeek.clone().add(2, 'days'))}
+        {this.renderDay(firstDayWeek.clone().add(3, 'days'))}
+        {this.renderDay(firstDayWeek.clone().add(4, 'days'))}
+        {this.renderDay(firstDayWeek.clone().add(5, 'days'))}
+        {this.renderDay(firstDayWeek.clone().add(6, 'days'))}
+      </div>
+    );
+  };
 
   renderMonthFrom = (firstDayMonth: Object) => {
     const { date, classes } = this.props;
 
     const weekRows = [];
     for (let i = 0; i < 6; i += 1) {
-      const firstDayInRow = Moment(firstDayMonth).add(i * 7, 'days');
+      const firstDayInRow = firstDayMonth.clone().add(i * 7, 'days');
       if (firstDayInRow.isSameOrBefore(date, 'month')) {
         weekRows.push(
           <Grid item key={i}>
@@ -320,9 +324,8 @@ export class Calendar extends Component<Props, State> {
   renderBulkDays = () => {
     const { displayMode } = this.state;
     const { date } = this.props;
-    const firstDayWeek = Moment(date).add(-date.weekday(), 'days');
-    const firstDayMonth = Moment(date).add(-date.date() + 1, 'days');
-    firstDayMonth.add(-firstDayMonth.weekday(), 'days');
+    const firstDayWeek = date.clone().startOf('week');
+    const firstDayMonth = date.clone().startOf('month');
     switch (displayMode) {
       case WEEKMODE:
         return this.renderWeekFrom(firstDayWeek);
@@ -342,9 +345,11 @@ export class Calendar extends Component<Props, State> {
         <Grid item xs={12}>
           {this.renderSearchBar()}
         </Grid>
-        <Grid item xs={12} className={classes.dayRow}>
-          {this.renderBulkDays()}
-        </Grid>
+        {!this.props.hideDateBar ? (
+          <Grid item xs={12} className={classes.dayRow}>
+            {this.renderBulkDays()}
+          </Grid>
+        ) : null}
       </Grid>
     );
   }
@@ -390,6 +395,15 @@ const styles = (theme) => ({
   },
   searchBarContainer: {
     marginBottom: theme.spacing.unit,
+  },
+  weekRowContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    wrap: 'nowrap',
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
   },
 });
 

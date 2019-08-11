@@ -30,8 +30,6 @@ const PassWidget = asyncComponent(() => import('./components/Pass'));
 const ShopWidget = asyncComponent(() => import('./components/Shop'));
 const WorkshopWidget = asyncComponent(() => import('./components/Workshop'));
 
-i18n.changeLanguage('fr-FR');
-
 type Props = {
   companyId: number,
   store: any,
@@ -47,6 +45,7 @@ type Props = {
   fetchProfile: () => void,
   auth: *,
   consumerProfile: *,
+  lang: string,
 };
 
 class BsportWidget extends Component<Props> {
@@ -58,6 +57,10 @@ class BsportWidget extends Component<Props> {
     this.props.fetchCompanyCoaches(this.props.companyId);
     this.props.fetchCompanyEstablishments(this.props.companyId);
   };
+
+  componentWillMount() {
+    i18n.changeLanguage(this.props.lang || 'fr-FR');
+  }
 
   componentDidMount() {
     this.fetchData();

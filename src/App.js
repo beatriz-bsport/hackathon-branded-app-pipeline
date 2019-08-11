@@ -2,6 +2,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
+import './App.scss';
+
+// used to init moment correctly
+// eslint-disable-next-line
+import i18n from 'bsport-saas/src/i18n';
 
 import {
   fetchCompanyAction,
@@ -15,10 +20,17 @@ import theme from 'bsport-saas/src/theme';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import asyncComponent from './async-component';
 
+/* FOR TESTING PURPOSES
+import WorkshopWidget from './components/Workshop';
+import CalendarWidget from './components/Calendar';
+import ShopWidget from './components/Shop';
+*/
 const CalendarWidget = asyncComponent(() => import('./components/Calendar'));
 const PassWidget = asyncComponent(() => import('./components/Pass'));
 const ShopWidget = asyncComponent(() => import('./components/Shop'));
 const WorkshopWidget = asyncComponent(() => import('./components/Workshop'));
+
+i18n.changeLanguage('fr-FR');
 
 type Props = {
   companyId: number,

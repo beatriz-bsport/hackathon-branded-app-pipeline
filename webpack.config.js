@@ -87,10 +87,17 @@ const defaultConfig = {
 module.exports = [
   {
     ...defaultConfig,
-    entry: './src/outputs/widget.js',
+    entry: [
+      devMode
+        ? require.resolve('./config.dev')
+        : require.resolve('./config.prod'),
+      './src/outputs/widget.js',
+    ],
     output: {
       path: distDir,
-      publicPath: '/',
+      publicPath: devMode
+        ? 'http://localhost:9000/'
+        : 'https://cdn.bsport.io/scripts/',
       filename: 'widget.js',
       library: 'BsportWidget',
       libraryExport: 'default',

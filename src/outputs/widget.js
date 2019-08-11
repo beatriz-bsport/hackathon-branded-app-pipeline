@@ -12,42 +12,35 @@ const store = initStore();
 const history = createBrowserHistory();
 
 export default class BsportWidget {
-  static el;
+  constructor(props = {}) {
+    this.props = props;
+  }
 
-  static mount({ parentElement, ...props } = {}) {
-    const component = (
+  mount() {
+    const props = Object.assign({}, this.props);
+    delete props.parentElement;
+    this.component = (
       <Provider store={store}>
         <Router history={history}>
           <BsportWidgetA {...props} store={store} history={history} />
         </Router>
       </Provider>
     );
-
-    function doRender() {
-      if (BsportWidget.el) {
-        throw new Error('BsportWidget is already mounted, unmount first');
-      }
-      const el = document.createElement('div');
-      el.setAttribute('class', 'cleanslate');
-      document.getElementById(parentElement || 'bsport-widget').appendChild(el);
-      ReactDOM.render(component, el);
-      BsportWidget.el = el;
-    }
     if (document.readyState === 'complete') {
-      doRender();
+      this.doRender();
     } else {
       window.addEventListener('load', () => {
-        doRender();
+        this.doRender();
       });
     }
   }
 
-  static unmount() {
-    if (!BsportWidget.el) {
-      throw new Error('BsportWidget is not mounted, mount first');
-    }
-    ReactDOM.unmountComponentAtNode(BsportWidget.el);
-    BsportWidget.el.parentNode.removeChild(BsportWidget.el);
-    BsportWidget.el = null;
+  doRender() {
+    const el = document.createElement('div');
+    el.setAttribute('class', 'cleanslate');
+    document
+      .getElementById(this.props.parentElement || 'bsport-widget')
+      .appendChild(el);
+    ReactDOM.render(this.component, el);
   }
 }

@@ -11,14 +11,23 @@
         <p>
           Here is some text below the widget
         </p>
+        <div id="bsport-widget-workshop"></div>
+
     <script src="./widget.js"></script>
     <script>
-      BsportWidget.mount({
+      new BsportWidget({
         parentElement: 'bsport-widget',
-        companyId: 83,
-        widgetType: 'workshop', //calendar/workshop/pass/shop
+        companyId: 82,
+        widgetType: 'calendar', //calendar/workshop/pass/shop
         lang: 'fr-FR'
-      });
+      }).mount();
+
+      new BsportWidget({
+        parentElement: 'bsport-widget-workshop',
+        companyId: 82,
+        widgetType: 'workshop', //calendar/workshop/pass/shop
+        lang: 'en-US'
+      }).mount();
     </script>
   </body>
 </html>

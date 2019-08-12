@@ -53,9 +53,9 @@ export class App extends Component<{}, {}> {
 
   render() {
     return (
-      <MuiThemeProvider theme={theme}>
-        <CssBaseline>
-          <Provider store={this.store}>
+      <Provider store={this.store}>
+        <MuiThemeProvider theme={theme}>
+          <CssBaseline>
             <ConnectedRouter history={this.history}>
               <DrawerContextProvider>
                 <ListViewContextProvider>
@@ -70,9 +70,9 @@ export class App extends Component<{}, {}> {
                 </ListViewContextProvider>
               </DrawerContextProvider>
             </ConnectedRouter>
-          </Provider>
-        </CssBaseline>
-      </MuiThemeProvider>
+          </CssBaseline>
+        </MuiThemeProvider>
+      </Provider>
     );
   }
 }

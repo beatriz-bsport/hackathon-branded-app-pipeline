@@ -20,6 +20,7 @@ import CompanyDetailPage from './CompanyDetailPage.component';
 import InvoiceConfigurationPage from './InvoiceConfigurationPage.component';
 import WaitingListConfigurationPage from './WaitingListConfigurationPage.component';
 import ShopConfigurationPage from './ShopConfigurationPage.component';
+import ThemeConfigurationPage from './ThemeConfiguration.component';
 
 import withDrawer from '../../hocs/with-drawer.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -67,6 +68,11 @@ export const Settings = (props: Props) => {
           component={WaitingListConfigurationPage}
         />
         <Route exact path="/settings/shop" component={ShopConfigurationPage} />
+        <Route
+          exact
+          path="/settings/theme"
+          component={ThemeConfigurationPage}
+        />
       </Switch>
     </div>
   );

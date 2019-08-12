@@ -18,6 +18,12 @@ type Props = {
   selectOffer: (Offer) => void,
   onBook: (id: number) => void,
   onBookOption: (id: number) => void,
+  fetchPaymentPacks: (offerId: number) => void,
+  fetchCompatiblePass: (offerId: number) => void,
+  goToPackPayment: (offerId: number) => void,
+  onCompletePurchase: () => void,
+  compatibleConsumerPacks: Array<ConsumerPaymentPack>,
+  compatiblePaymentPacks: Array<PaymentPack>,
   t: TFunction,
 };
 

@@ -27,7 +27,12 @@ type Props = {
 
   fetchCompanyOffers: (companyId: number, min_date: string) => void,
   goToBook: (offerId: number, companyId: number) => void,
-  goToBookOption: (offerId: number, companyId: number) => void,
+
+  fetchPaymentPacks: (offerId: number) => void,
+  fetchCompatiblePass: (offerId: number) => void,
+  compatibleConsumerPacks: Array<ConsumerPaymentPack>,
+  compatiblePaymentPacks: Array<PaymentPack>,
+  goToPackPayment: (offerId: number, companyId: number) => void,
 };
 
 export class MarketplaceWorkshopPage extends React.Component<Props> {
@@ -92,8 +97,6 @@ export default compose(
       fetchCompatiblePass: paymentActions.fetchCompatiblePass,
       fetchCompanyOffers: fetchCompanyOffersWorkshopAction,
       goToBook: (id: number, companyId: number) =>
-        push(`/customer/payment/offer/${id}?membership=${companyId}`),
-      goToBookOption: (id: number, companyId: number) =>
         push(`/customer/payment/offer/${id}?membership=${companyId}`),
       goToPackPayment: (packId, offerId, companyId) =>
         push(

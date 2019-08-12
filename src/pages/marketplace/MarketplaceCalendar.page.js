@@ -58,6 +58,7 @@ type Props = {
   goToPackPayment: (id: number) => void,
   onCompletePurchase: () => void,
   fetchCompanyOffers: (*, *, *) => void,
+  onBook: (id: number) => void,
 
   classes: Object,
 };

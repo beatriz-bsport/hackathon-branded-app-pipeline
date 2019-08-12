@@ -2,8 +2,26 @@
 import React from 'react';
 
 import Typography from '@material-ui/core/Typography';
-import { getLevelColorById } from '@bsport/common/lib/colors';
+import withStyles from '@material-ui/core/styles/withStyles';
+import { getLevelColorById as getLevelColorByIdDefault } from '@bsport/common/lib/colors';
+
 import { withNamespaces } from 'react-i18next';
+
+const getLevelColorById = (id: number, theme) => {
+  if (!theme) return getLevelColorByIdDefault(id);
+  switch (id) {
+    case 1:
+      return theme.palette.primary.light;
+    case 2:
+      return theme.palette.primary.light;
+    case 3:
+      return theme.palette.primary;
+    case 4:
+      return theme.palette.primary.dark;
+    default:
+      return theme.palette.primary.main;
+  }
+};
 
 export const LEVELS = [
   'level.all',
@@ -16,7 +34,8 @@ type Props = {
   noStyle: boolean,
   levelId: number,
   variant: ?string,
-  t: (x: string) => string,
+  t: TFunction,
+  theme: ?any,
 };
 
 export function Level(props: Props) {
@@ -28,12 +47,12 @@ export function Level(props: Props) {
     paddingTop: '4px',
     paddingBottom: '4px',
     borderRadius: 5,
-    backgroundColor: getLevelColorById(levelId),
+    backgroundColor: getLevelColorById(levelId, props.theme),
     color: 'white',
   };
   if (noStyle) {
     stylesheet = {
-      color: getLevelColorById(levelId),
+      color: getLevelColorById(levelId, props.theme),
     };
   }
 
@@ -44,4 +63,7 @@ export function Level(props: Props) {
   );
 }
 
-export default withNamespaces()(Level);
+export default withNamespaces()(
+  withStyles(() => {}, { withTheme: true })(Level),
+  // Level,
+);

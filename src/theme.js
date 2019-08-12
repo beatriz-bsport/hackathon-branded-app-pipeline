@@ -25,4 +25,19 @@ const defaultThemeParams = {
   },
 };
 
-export default createMuiTheme(defaultThemeParams);
+export const getTheme = (theme) => {
+  if (theme) {
+    return createMuiTheme({
+      ...defaultThemeParams,
+      palette: {
+        primary: {
+          main: theme.primary_color,
+        },
+        secondary: { main: theme.secondary_color },
+      },
+    });
+  }
+  return createMuiTheme(defaultThemeParams);
+};
+
+export default getTheme();

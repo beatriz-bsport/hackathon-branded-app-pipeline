@@ -13,6 +13,7 @@ import type { OrderState } from '../libs/order/types';
 import type { ShopState } from '../libs/shop/types';
 import type { MarketPlaceState } from '../libs/marketplace/types';
 import type { SearchState, SearchAction } from './search/types';
+import type { ThemeState } from '../libs/theme/types';
 
 export type State = {
   paymentRules: PaymentRulesState,
@@ -28,6 +29,7 @@ export type State = {
   tag: TagState,
   shop: ShopState,
   marketplacev2: MarketPlaceState,
+  theme: ThemeState,
 };
 export type Action = SearchAction | AuthAction;
 

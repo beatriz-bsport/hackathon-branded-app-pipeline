@@ -5,6 +5,7 @@ import { compose } from 'recompose';
 
 import Grid from '@material-ui/core/Grid';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import Paper from '@material-ui/core/Paper';
 import AppBarMUI from '@material-ui/core/AppBar';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -20,6 +21,8 @@ import { replace, push as pushRouter } from 'react-router-redux';
 
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import { getTheme } from '../../theme';
+import { fetchCompanyTheme } from '../../libs/theme/actions';
 
 import CheckoutDialog from '../../libs/order/components/CheckoutDialog.component';
 import ConsumerLogin from '../../components/consumer/login/ConsumerLogin.component';
@@ -94,6 +97,8 @@ type Props = {
   goToPayment: (companyId: number) => void,
   disconnect: () => void,
   signup: (data: *, callback: () => void) => void,
+  fetchCompanyTheme: () => void,
+  theme: any,
 };
 
 type State = {
@@ -120,6 +125,7 @@ export class MarketPlace extends Component<Props, State> {
   }
 
   fetchData = () => {
+    this.props.fetchCompanyTheme(this.props.companyId);
     this.props.fetchSCT();
     this.props.fetchCompany(this.props.companyId);
     this.props.fetchCompanyActivities(this.props.companyId);
@@ -218,88 +224,93 @@ export class MarketPlace extends Component<Props, State> {
       );
     }
     return (
-      <div className={classes.container}>
-        <AppBar
-          title={company.name}
-          auth={this.props.auth}
-          goToUserSpace={this.props.goToUserSpace}
-          currentOrder={currentOrder}
-          company={this.props.company}
-          openCurrentOrder={() => this.toogleCurrentOrderOpen(true)}
-          requestSignUp={() => this.toogleSignUp(true)}
-          requestLogin={() => this.toogleLogin(true)}
-          disconnect={() => {
-            this.props.disconnect();
-            this.props.resetOrders();
-          }}
-        />
-        <AppBarMUI position="relative" color="default">
-          <Tabs
-            value={this.props.tab || DEFAULT_TAB}
-            onChange={this.handleTabChange}
-            textColor="primary"
-            indicatorColor="primary"
-          >
-            <Tab value={TAB_CALENDAR} label={t('marketplace.calendar')} />
-            <Tab value={TAB_WORKSHOP} label={t('marketplace.workshop')} />
-            <Tab value={TAB_PASS} label={t('marketplace.pass')} />
-            <Tab value={TAB_SHOP} label={t('marketplace.shop.tabName')} />
-          </Tabs>
-        </AppBarMUI>
-        <div className={classes.content}>{this.renderContent()}</div>
-        <Dialog
-          open={this.state.currentOrderOpen}
-          fullScreen={this.props.fullScreen}
-        >
-          <CheckoutDialog
-            order={currentOrder}
-            onCancel={() => this.toogleCurrentOrderOpen(false)}
-            loading={this.props.currentOrderLoading}
-            onSubmit={(deliveryData: DeliveryData) => {
-              this.props.updateOrder(this.props.currentOrder.id, deliveryData);
-              this.props.goToPayment(this.props.companyId);
+      <MuiThemeProvider theme={getTheme(this.props.theme)}>
+        <div className={classes.container}>
+          <AppBar
+            title={company.name}
+            auth={this.props.auth}
+            goToUserSpace={this.props.goToUserSpace}
+            currentOrder={currentOrder}
+            company={this.props.company}
+            openCurrentOrder={() => this.toogleCurrentOrderOpen(true)}
+            requestSignUp={() => this.toogleSignUp(true)}
+            requestLogin={() => this.toogleLogin(true)}
+            disconnect={() => {
+              this.props.disconnect();
+              this.props.resetOrders();
             }}
-            onRemoveProduct={(p) =>
-              this.props.removeProduct(
-                { ...p, quantity: 1 },
-                this.props.currentOrder.id,
-              )
-            }
-            consumerProfile={this.props.consumerProfile}
           />
-        </Dialog>
-        <Dialog
-          open={this.state.loginDialogOpen && !this.props.auth.authenticated}
-          onClose={() => this.toogleLogin(false)}
-        >
-          <DialogContent>
-            <ConsumerLogin
-              doEmailLogin={this.doEmailLogin}
-              error={this.props.auth.error}
-              loading={this.props.auth.loading}
-              requestSignUp={() => this.toogleSignUp(true)}
-            />
-          </DialogContent>
-        </Dialog>
-        <Dialog
-          open={this.state.signupDialogOpen && !this.props.auth.authenticated}
-          onClose={this.closeSignup}
-        >
-          <DialogTitle>{t('form.signUpTitle')}</DialogTitle>
-          <DialogContent style={{ minWidth: '40vw' }}>
-            <SignUpForm
-              loading={this.props.auth.loading}
-              onComplete={(data: *) =>
-                this.signup(data, () => {
-                  this.props.fetchProfile();
-                  this.props.fetchCurrentOrder(this.props.companyId);
-                })
+          <AppBarMUI position="relative" color="default">
+            <Tabs
+              value={this.props.tab || DEFAULT_TAB}
+              onChange={this.handleTabChange}
+              textColor="primary"
+              indicatorColor="primary"
+            >
+              <Tab value={TAB_CALENDAR} label={t('marketplace.calendar')} />
+              <Tab value={TAB_WORKSHOP} label={t('marketplace.workshop')} />
+              <Tab value={TAB_PASS} label={t('marketplace.pass')} />
+              <Tab value={TAB_SHOP} label={t('marketplace.shop.tabName')} />
+            </Tabs>
+          </AppBarMUI>
+          <div className={classes.content}>{this.renderContent()}</div>
+          <Dialog
+            open={this.state.currentOrderOpen}
+            fullScreen={this.props.fullScreen}
+          >
+            <CheckoutDialog
+              order={currentOrder}
+              onCancel={() => this.toogleCurrentOrderOpen(false)}
+              loading={this.props.currentOrderLoading}
+              onSubmit={(deliveryData: DeliveryData) => {
+                this.props.updateOrder(
+                  this.props.currentOrder.id,
+                  deliveryData,
+                );
+                this.props.goToPayment(this.props.companyId);
+              }}
+              onRemoveProduct={(p) =>
+                this.props.removeProduct(
+                  { ...p, quantity: 1 },
+                  this.props.currentOrder.id,
+                )
               }
-              onCancel={this.closeSignup}
+              consumerProfile={this.props.consumerProfile}
             />
-          </DialogContent>
-        </Dialog>
-      </div>
+          </Dialog>
+          <Dialog
+            open={this.state.loginDialogOpen && !this.props.auth.authenticated}
+            onClose={() => this.toogleLogin(false)}
+          >
+            <DialogContent>
+              <ConsumerLogin
+                doEmailLogin={this.doEmailLogin}
+                error={this.props.auth.error}
+                loading={this.props.auth.loading}
+                requestSignUp={() => this.toogleSignUp(true)}
+              />
+            </DialogContent>
+          </Dialog>
+          <Dialog
+            open={this.state.signupDialogOpen && !this.props.auth.authenticated}
+            onClose={this.closeSignup}
+          >
+            <DialogTitle>{t('form.signUpTitle')}</DialogTitle>
+            <DialogContent style={{ minWidth: '40vw' }}>
+              <SignUpForm
+                loading={this.props.auth.loading}
+                onComplete={(data: *) =>
+                  this.signup(data, () => {
+                    this.props.fetchProfile();
+                    this.props.fetchCurrentOrder(this.props.companyId);
+                  })
+                }
+                onCancel={this.closeSignup}
+              />
+            </DialogContent>
+          </Dialog>
+        </div>
+      </MuiThemeProvider>
     );
   }
 }
@@ -347,10 +358,12 @@ export default compose(
       currentOrder: state.order.order.current.data,
       currentOrderLoading: state.order.order.current.loading,
       consumerProfile: state.consumer.profile,
+      theme: state.theme.theme,
     }),
     {
       // General information
       fetchSCT,
+      fetchCompanyTheme,
       fetchCompany: fetchCompanyAction,
       fetchCompanyMetaActivities: fetchCompanyMetaActivitiesAction,
       fetchCompanyActivities: fetchCompanyActivitiesAction,

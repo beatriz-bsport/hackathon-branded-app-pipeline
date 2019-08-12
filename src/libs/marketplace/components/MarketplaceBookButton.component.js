@@ -1,6 +1,9 @@
 // @flow
 import React from 'react';
 import Button from '@material-ui/core/Button';
+import Hidden from '@material-ui/core/Hidden';
+import IconButton from '@material-ui/core/IconButton';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -36,7 +39,18 @@ const MarketplaceBookButton = (props: Props) => {
       disabled={disabled}
       onClick={onClick}
     >
-      {text}
+      <Hidden smUp>
+        <IconButton
+          variant="outlined"
+          color="primary"
+          id={`offer-book-${offer.id}`}
+          disabled={disabled}
+          onClick={onClick}
+        >
+          <PersonAddIcon />
+        </IconButton>
+      </Hidden>
+      <Hidden xsDown>{text}</Hidden>
     </Button>
   );
 };

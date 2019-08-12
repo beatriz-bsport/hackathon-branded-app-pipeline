@@ -143,6 +143,7 @@ export function MarketplaceCalendar(props: Props) {
               events={events}
             />
           </Grid>
+          <div className={classes.divider} />
           <Grid item xs={12} md={6}>
             {loading ? (
               <LoadingIndicator />
@@ -200,6 +201,9 @@ const styles = (theme) => ({
     paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
     paddingBottom: theme.spacing.unit,
+  },
+  divider: {
+    marginBottom: theme.spacing.unit,
   },
 });
 

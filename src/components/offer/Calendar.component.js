@@ -15,7 +15,6 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ViewWeek from '@material-ui/icons/ViewWeek';
 import ViewComfy from '@material-ui/icons/ViewComfy';
-import { colors } from '@bsport/common/lib/colors';
 import { Moment } from '../../i18n';
 
 const WEEKMODE: number = 0;
@@ -366,8 +365,8 @@ const styles = (theme) => ({
     borderRadius: theme.spacing.unit,
   },
   dayButtonSelected: {
-    color: colors.primary,
-    border: `1px solid ${colors.primary}`,
+    color: 'primary',
+    border: `1px solid ${theme.palette.primary.main}`,
     marginTop: -1,
     marginLeft: -1,
     marginRight: -1,

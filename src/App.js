@@ -15,8 +15,9 @@ import {
   fetchCompanyEstablishmentsAction,
   fetchCompanyCoachesAction,
 } from 'bsport-saas/src/libs/marketplace/actions';
+import { fetchCompanyTheme } from 'bsport-saas/src/libs/theme/actions';
 import { fetchSCT } from 'bsport-saas/src/actions/category.actions';
-import theme from 'bsport-saas/src/theme';
+import { getTheme } from 'bsport-saas/src/theme';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import asyncComponent from './async-component';
 
@@ -51,6 +52,7 @@ type Props = {
 class BsportWidget extends Component<Props> {
   fetchData = () => {
     this.props.fetchSCT();
+    this.props.fetchCompanyTheme(this.props.companyId);
     this.props.fetchCompany(this.props.companyId);
     this.props.fetchCompanyActivities(this.props.companyId);
     this.props.fetchCompanyMetaActivities(this.props.companyId);
@@ -106,17 +108,20 @@ class BsportWidget extends Component<Props> {
 
   render() {
     return (
-      <MuiThemeProvider theme={theme}>{this.renderWidget()}</MuiThemeProvider>
+      <MuiThemeProvider theme={getTheme(this.props.theme)}>
+        {this.renderWidget()}
+      </MuiThemeProvider>
     );
   }
 }
 
 export default compose(
   connect(
-    (state) => ({ auth: state.auth }),
+    (state) => ({ auth: state.auth, theme: state.theme.theme }),
     {
       // General information
       fetchSCT,
+      fetchCompanyTheme,
       fetchCompany: fetchCompanyAction,
       fetchCompanyMetaActivities: fetchCompanyMetaActivitiesAction,
       fetchCompanyActivities: fetchCompanyActivitiesAction,

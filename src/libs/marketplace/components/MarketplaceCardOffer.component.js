@@ -74,8 +74,14 @@ export const MarketplaceCardOffer = (props: Props) => {
         </Typography>
         <div className={classes.bottomButton}>
           <MarketplaceBookButton
-            onClickBook={props.onClickBook}
-            onClickBookOption={props.onClickBookOption}
+            onClickBook={(ev) => {
+              ev.stopPropagation();
+              props.onClickBook(ev);
+            }}
+            onClickBookOption={(ev) => {
+              ev.stopPropagation();
+              props.onClickBookOption(ev);
+            }}
             offer={props.offer}
             variant="text"
           />

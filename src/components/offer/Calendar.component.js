@@ -324,7 +324,10 @@ export class Calendar extends Component<Props, State> {
     const { displayMode } = this.state;
     const { date } = this.props;
     const firstDayWeek = date.clone().startOf('week');
-    const firstDayMonth = date.clone().startOf('month');
+    const firstDayMonth = date
+      .clone()
+      .startOf('month')
+      .startOf('week');
     switch (displayMode) {
       case WEEKMODE:
         return this.renderWeekFrom(firstDayWeek);

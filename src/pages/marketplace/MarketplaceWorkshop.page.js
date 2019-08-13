@@ -61,6 +61,7 @@ export class MarketplaceWorkshopPage extends React.Component<Props> {
           fetchCompatiblePass={this.props.fetchCompatiblePass}
           compatibleConsumerPacks={this.props.compatibleConsumerPacks}
           compatiblePaymentPacks={this.props.compatiblePaymentPacks}
+          hideMap={!!this.props.hideMap}
           onBook={(id) => this.props.goToBook(id, this.props.companyId)}
           goToPackPayment={(packId, offerId) =>
             this.props.goToPackPayment(packId, offerId, this.props.companyId)

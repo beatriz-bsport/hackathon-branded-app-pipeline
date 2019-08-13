@@ -237,6 +237,7 @@ export class MarketplaceCalendar extends Component<Props, State> {
             this.props.goToBook(id, this.props.companyId)
           }
           onCompletePurchase={this.props.onCompletePurchase}
+          hideMap={!!this.props.hideMap}
         />
         <MarketplaceCalendarComponent
           offers={offers}

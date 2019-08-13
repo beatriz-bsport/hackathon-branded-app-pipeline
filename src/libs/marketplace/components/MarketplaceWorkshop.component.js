@@ -59,6 +59,7 @@ export const MarketplaceWorkshop = (props: Props) => {
       </Grid>
       <MarketplaceActivityDialog
         offer={props.offerSelected}
+        hideMap={props.hideMap}
         showBookingButton
         displayPacksInformation
         onClose={() => props.selectOffer(null)}

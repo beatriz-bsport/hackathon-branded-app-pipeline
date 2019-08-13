@@ -41,6 +41,7 @@ type Props = {
   compatiblePaymentPacks: Array<PaymentPack>,
   goToOfferPayment: (offerId: number) => void,
   onCompletePurchase: () => void,
+  hideMap: ?boolean,
 
   goToPackPayment: (packId: number, offerId: number, companyId: number) => void,
   fetchPassData: (id: number) => void,
@@ -218,7 +219,9 @@ export class MarketPlaceActivity extends React.Component<Props> {
             <Typography variant="body1" className={classes.address}>
               {establishment.location.address}
             </Typography>
-            <Map center={center} markers={markers} zoom={15} />
+            {!this.props.hideMap ? (
+              <Map center={center} markers={markers} zoom={15} />
+            ) : null}
           </div>
         </CardContent>
         {this.props.showBookingButton ? (

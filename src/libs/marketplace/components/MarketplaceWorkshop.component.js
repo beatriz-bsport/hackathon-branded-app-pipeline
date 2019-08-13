@@ -45,8 +45,6 @@ export const MarketplaceWorkshop = (props: Props) => {
           <Grid
             item
             xs={11}
-            md={9}
-            lg={5}
             key={o.id}
             className={classes.workshopCardContainer}
           >

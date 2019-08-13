@@ -3,7 +3,7 @@
 import React from 'react';
 
 import { withNamespaces } from 'react-i18next';
-import { compose, withState } from 'recompose';
+import { compose } from 'recompose';
 
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';

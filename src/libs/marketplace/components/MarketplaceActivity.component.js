@@ -24,6 +24,7 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { colors } from '@bsport/common/lib/colors';
 
 import Map from '../../../components/map/Map.component';
+import TypographyMultiline from '../../../components/TypographyMultiline.component';
 
 import ConsumerPackCheckout from '../../../pages/payment/offer/ConsumerPackCheckout.component';
 import PaymentPackSummary from '../../../components/payment-pack/PaymentPackSummary.component';
@@ -157,9 +158,9 @@ export class MarketPlaceActivity extends React.Component<Props> {
             <Typography variant="h6" className={classes.title}>
               {activity.meta_activity.name}
             </Typography>
-            <Typography variant="body1">
+            <TypographyMultiline color="textSecondary" variant="body1">
               {activity.meta_activity.description}
-            </Typography>
+            </TypographyMultiline>
             {this.renderCoachBanner()}
             {this.props.displayPacksInformation && passToDisplay.length ? (
               <div>

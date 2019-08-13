@@ -26,9 +26,11 @@ import offer from './en/offer.translations';
 import payment from './en/payment.translations';
 import waitingList from './en/waiting-list.translations';
 import workshop from './en/workshop.translations';
+import common from './en/common.translations';
 
 export default {
   dashboard,
+  common,
   alerting,
   workshop,
   settings,

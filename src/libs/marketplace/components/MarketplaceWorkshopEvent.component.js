@@ -3,7 +3,7 @@
 import React from 'react';
 
 import { withNamespaces } from 'react-i18next';
-import { compose } from 'recompose';
+import { compose, withState } from 'recompose';
 
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -14,6 +14,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardMedia from '@material-ui/core/CardMedia';
 
 import type { TFunction } from 'react-i18next';
+import TypographyWithShowMore from '../../../components/TypographyWithShowMore.component';
 
 import { formatAsDatetime, formatMinutes } from '../../../datetime';
 import { isOfferInThePast } from '../utils';
@@ -56,11 +57,12 @@ const BookButton = (props: {
   );
 };
 
-export const MarketplaceOffer = (props: Props) => {
+export const MarketplaceWorkshopEvent = (props: Props) => {
   const { t, offer } = props;
+  const { description } = props.offer.activity.meta_activity;
 
   return (
-    <Card>
+    <Card style={{ width: '100%' }}>
       <CardMedia
         component="img"
         image={props.offer.activity.meta_activity.cover_main}
@@ -89,22 +91,16 @@ export const MarketplaceOffer = (props: Props) => {
             duration: formatMinutes(props.offer.duration_minute, t),
           })}
         </Typography>
-        <Typography
-          component="div"
-          style={{ marginTop: 16 }}
-          variant="body2"
-          color="textSecondary"
-        >
-          {(props.offer.activity.meta_activity.description || '')
-            .split('\n\n')
-            .map((txt) => (
-              <p>
-                {txt.split('\n').map((txt_) => (
-                  <div>{txt_}</div>
-                ))}
-              </p>
-            ))}
-        </Typography>
+        <div style={{ marginTop: 16 }}>
+          <TypographyWithShowMore
+            component="div"
+            multiline
+            variant="body2"
+            color="textSecondary"
+          >
+            {description}
+          </TypographyWithShowMore>
+        </div>
       </CardContent>
       <CardActions>
         <Button color="secondary" onClick={props.onShowMore}>
@@ -128,4 +124,4 @@ const styles = () => ({
 export default compose(
   withStyles(styles),
   withNamespaces(['marketplace', 'datetime']),
-)(MarketplaceOffer);
+)(MarketplaceWorkshopEvent);

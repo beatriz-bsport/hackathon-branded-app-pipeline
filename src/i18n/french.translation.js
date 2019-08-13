@@ -26,9 +26,11 @@ import datetime from './fr/datetime.translations';
 import offer from './fr/offer.translations';
 import waitingList from './fr/waiting-list.translations';
 import workshop from './fr/workshop.translations';
+import common from './fr/common.translations';
 
 export default {
   dashboard,
+  common,
   workshop,
   tag,
   login,

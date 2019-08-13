@@ -90,11 +90,20 @@ export const MarketplaceOffer = (props: Props) => {
           })}
         </Typography>
         <Typography
+          component="div"
+          style={{ marginTop: 16 }}
           variant="body2"
           color="textSecondary"
-          style={{ marginTop: 16 }}
         >
-          {props.offer.activity.meta_activity.description}
+          {(props.offer.activity.meta_activity.description || '')
+            .split('\n\n')
+            .map((txt) => (
+              <p>
+                {txt.split('\n').map((txt_) => (
+                  <div>{txt_}</div>
+                ))}
+              </p>
+            ))}
         </Typography>
       </CardContent>
       <CardActions>

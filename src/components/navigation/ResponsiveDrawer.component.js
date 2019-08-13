@@ -566,7 +566,7 @@ const styles = (theme) => ({
   },
   nestedList: {
     backgroundColor: '#F8F8F8',
-    borderLeft: `4px solid ${colors.primary}`,
+    borderLeft: `4px solid ${theme.palette.primary.main}`,
   },
   nestedItem: {
     width: '100%',

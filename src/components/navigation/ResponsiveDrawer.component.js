@@ -65,6 +65,7 @@ type Props = {
   nbAlerting: number,
   alertings: Array<Alerting>,
   disconnect: () => void,
+  logo: ?string,
   hidden: boolean,
   deleteAlert: (id: number) => void,
   fetchMoreAlertingKind: (alert_kind: number) => void,
@@ -177,6 +178,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
       deleteAlert,
       fetchMoreAlertingKind,
     } = this.props;
+
     return (
       <AppBar
         className={fullWidth ? classes.appBarFullWidth : classes.appBar}
@@ -210,7 +212,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                 <img
                   className={`${classes.navIconHide} ${classes.menuIcon}`}
                   height={40}
-                  src={LOGO_ASSET}
+                  src={this.props.logo || LOGO_ASSET}
                   alt="bsport logo"
                 />
               </Hidden>
@@ -410,7 +412,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
       },
       'divider',
       {
-        to: '/settings/payment-rules',
+        to: '/settings/general',
         icon: SettingsIcon,
         text: t('navigation.settings'),
       },
@@ -433,7 +435,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             alignItems="center"
           >
             <Hidden smDown>
-              <img height={40} src={LOGO_ASSET} alt="bsport logo" />
+              <img
+                height={40}
+                src={this.props.logo || LOGO_ASSET}
+                alt="bsport logo"
+              />
             </Hidden>
           </Grid>
         </div>

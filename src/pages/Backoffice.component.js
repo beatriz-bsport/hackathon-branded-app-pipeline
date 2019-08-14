@@ -103,6 +103,7 @@ export class Backoffice extends Component<Props> {
         <ResponsiveDrawer
           onRefresh={this.props.refresh}
           isRefreshing={this.props.isRefreshing}
+          logo={this.props.theme ? this.props.theme.cover : null}
           alertings={this.props.alertings}
           nbAlerting={this.props.nbAlerting}
           deleteAlert={this.props.deleteAlert}

@@ -6,7 +6,6 @@ import { compose } from 'recompose';
 import Grid from '@material-ui/core/Grid';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
-import Paper from '@material-ui/core/Paper';
 import AppBarMUI from '@material-ui/core/AppBar';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -174,9 +173,9 @@ export class MarketPlace extends Component<Props, State> {
       case TAB_CALENDAR:
       default: {
         return (
-          <Paper className={this.props.classes.calendarContainer}>
+          <div className={this.props.classes.calendarContainer}>
             <MarketplaceCalendarPage companyId={this.props.companyId} />
-          </Paper>
+          </div>
         );
       }
     }
@@ -227,7 +226,8 @@ export class MarketPlace extends Component<Props, State> {
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <div className={classes.container}>
           <AppBar
-            title={company.name}
+            logo={this.props.theme.cover}
+            websiteURL={this.props.theme.websiteURL}
             auth={this.props.auth}
             goToUserSpace={this.props.goToUserSpace}
             currentOrder={currentOrder}

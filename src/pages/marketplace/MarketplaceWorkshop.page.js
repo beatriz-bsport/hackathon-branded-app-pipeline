@@ -21,6 +21,7 @@ type Props = {
   // t: TFunction,
   companyId: number,
   loading: boolean,
+  hideMap: boolean,
   offers: Array<Offer>,
   workshops: Array<MetaActivity>,
   classes: *,

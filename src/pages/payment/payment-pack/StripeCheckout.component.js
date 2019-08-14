@@ -3,11 +3,9 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 
-import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { Redirect } from 'react-router-dom';
-import { goBack as goBackRouter } from 'connected-react-router';
 
 import Grid from '@material-ui/core/Grid';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -181,11 +179,5 @@ const styles = (theme) => ({
 export default compose(
   withNamespaces([]),
   withStyles(styles),
-  connect(
-    null,
-    {
-      goBack: goBackRouter,
-    },
-  ),
   injectStripe,
 )(StripeCheckout);

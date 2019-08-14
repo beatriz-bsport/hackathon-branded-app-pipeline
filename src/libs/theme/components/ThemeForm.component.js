@@ -9,7 +9,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import ImageUploader from '../../../components/input/ImageUploader.component';
+import ImageUploader169 from '../../../components/input/ImageUploader169.component';
 import ColorInput from '../../../components/input/ColorInput.component';
 import type { Theme } from '../types';
 
@@ -72,7 +72,8 @@ export class ThemeForm extends Component<Props, State> {
       this.state.theme.primary_color === this.props.theme.primary_color &&
       this.state.theme.secondary_color === this.props.theme.secondary_color &&
       this.state.theme.cover === this.props.theme.cover &&
-      this.state.theme.website === this.props.theme.website
+      this.state.theme.websiteURL === this.props.theme.websiteURL &&
+      this.state.theme.scheduleURL === this.props.theme.scheduleURL
     );
   };
 
@@ -84,8 +85,8 @@ export class ThemeForm extends Component<Props, State> {
 
   onSubmit = () => {
     const data = new FormData();
-    ['primary_color', 'secondary_color', 'website'].map((key) =>
-      data.append(key, this.state.theme[key]),
+    ['primary_color', 'secondary_color', 'websiteURL', 'scheduleURL'].map(
+      (key) => data.append(key, this.state.theme[key]),
     );
     if (this.state.theme.cover && typeof this.state.theme.cover !== 'string') {
       data.append('cover', this.state.theme.cover);
@@ -98,12 +99,14 @@ export class ThemeForm extends Component<Props, State> {
     return (
       <div>
         <div className={classes.inputContainer}>
-          <ImageUploader
+          <ImageUploader169
+            label={t('forms.cover.label')}
+            helperText={t('forms.cover.helperText')}
             onChange={this.handleCoverChange}
             initial={this.state.theme.cover}
           >
             <CompanyCoverPreview />
-          </ImageUploader>
+          </ImageUploader169>
         </div>
         <div className={classes.inputContainer}>
           <div className={classes.colorPicker}>
@@ -126,11 +129,21 @@ export class ThemeForm extends Component<Props, State> {
         <div className={classes.inputContainer}>
           <TextField
             variant="outlined"
-            placeholder={t('forms.website.placeholder')}
-            helperText={t('forms.website.helperText')}
-            label={t('forms.website.label')}
-            value={this.state.theme.website}
-            onChange={(ev) => this.handleChange('website')(ev.target.value)}
+            placeholder={t('forms.websiteURL.placeholder')}
+            helperText={t('forms.websiteURL.helperText')}
+            label={t('forms.websiteURL.label')}
+            value={this.state.theme.websiteURL}
+            onChange={(ev) => this.handleChange('websiteURL')(ev.target.value)}
+          />
+        </div>
+        <div className={classes.inputContainer}>
+          <TextField
+            variant="outlined"
+            placeholder={t('forms.scheduleURL.placeholder')}
+            helperText={t('forms.scheduleURL.helperText')}
+            label={t('forms.scheduleURL.label')}
+            value={this.state.theme.scheduleURL}
+            onChange={(ev) => this.handleChange('scheduleURL')(ev.target.value)}
           />
         </div>
         <Button

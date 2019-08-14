@@ -34,6 +34,7 @@ import {
 type Props = {
   filtersOpen: boolean,
   loading: boolean,
+  hideMap: ?boolean,
 
   companyId: number,
   selectedDate: Object,

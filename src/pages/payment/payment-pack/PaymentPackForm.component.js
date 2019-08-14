@@ -109,6 +109,7 @@ export class PaymentPackPayment extends Component<Props> {
         <Elements>
           <StripeCheckout
             purchaseType="pass"
+            goBack={this.props.goBack}
             purchaseId={paymentPack.id}
             price={paymentPack === null ? ' - ' : paymentPack.price}
             loading={loading}

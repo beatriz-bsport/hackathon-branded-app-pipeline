@@ -15,6 +15,7 @@ type Props = {
   offers: Array<Offer>,
   classes: *,
   offerSelected: ?Offer,
+  hideMap: boolean,
   selectOffer: (Offer) => void,
   onBook: (id: number) => void,
   onBookOption: (id: number) => void,

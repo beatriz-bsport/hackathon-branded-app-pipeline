@@ -27,9 +27,11 @@ import offer from './fr/offer.translations';
 import waitingList from './fr/waiting-list.translations';
 import workshop from './fr/workshop.translations';
 import common from './fr/common.translations';
+import theme from './fr/theme.translations';
 
 export default {
   dashboard,
+  theme,
   common,
   workshop,
   tag,

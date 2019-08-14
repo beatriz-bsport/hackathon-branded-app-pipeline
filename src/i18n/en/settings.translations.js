@@ -3,6 +3,7 @@
 export default {
   pageTitle: 'Settings',
   tab: {
+    general: 'General',
     paymentRules: 'Rates',
     company: 'Company',
     invoice: 'Billing',

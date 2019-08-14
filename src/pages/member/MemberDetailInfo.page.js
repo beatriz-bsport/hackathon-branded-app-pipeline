@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 
 import { TAG_KIND_MEMBER } from '@bsport/common/lib/master-data/tag';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {

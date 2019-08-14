@@ -3,6 +3,7 @@
 export default {
   pageTitle: 'Paramètres',
   tab: {
+    general: 'Général',
     paymentRules: 'Règles de rémunération',
     company: 'Entreprise',
     invoice: 'Facturation',

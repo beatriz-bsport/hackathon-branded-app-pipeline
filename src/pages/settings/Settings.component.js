@@ -43,6 +43,7 @@ export const Settings = (props: Props) => {
           scrollButtons="auto"
           onChange={(ev, value) => props.push(`/settings/${value}/`)}
         >
+          <Tab label={t('tab.general')} value="general" />
           <Tab label={t('tab.paymentRules')} value="payment-rules" />
           <Tab label={t('tab.company')} value="company" />
           <Tab label={t('tab.invoice')} value="invoice" />
@@ -51,6 +52,7 @@ export const Settings = (props: Props) => {
         </Tabs>
       </AppBar>
       <Switch>
+        <Route exact path="/settings/general" component={ThemeConfigurationPage} />
         <Route exact path="/settings/company" component={CompanyDetailPage} />
         <Route
           exact

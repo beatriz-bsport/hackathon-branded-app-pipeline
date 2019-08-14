@@ -7,12 +7,17 @@ import type { TFunction } from 'react-i18next';
 
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { push as routerPush } from 'react-router-redux';
+import { push as routerPush, goBack } from 'react-router-redux';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { compose } from 'recompose';
 
 import withSnackbar from '../../hocs/with-snackbar.hoc';
+import { fetchCompanyTheme } from '../../libs/theme/actions';
 import { bookAnOption } from '../../api/payment';
 import parse from '../../query-string';
+import themeSelectors from '../../libs/theme/selectors';
+import { getTheme } from '../../theme';
+import type { Theme } from '../../libs/theme/types';
 
 import { payment as paymentActions } from '../../actions';
 import ConsumerModalContainer from '../../components/consumer/ConsumerModalContainer.component';
@@ -34,14 +39,16 @@ type Props = {
   bookingOption: ?BookingOption,
   hasOneOrMoreOption: boolean,
   consumer: { consumer: number },
+  fetchCompanyTheme: (number) => void,
+  theme: Theme,
 
   compatibleConsumerPacks: Array<ConsumerPaymentPackManagerView>,
   compatiblePaymentPacks: Array<PaymentPack>,
 
+  goBack: () => void,
   fetchBookingOption: (id: number) => void,
   checkBookingOptionExistence: (offerId: number) => void,
   pushRouter: (path: string) => void,
-  goToPassMarketplace: (companyName: string) => void,
   fetchOffer: (number) => void,
   fetchCompatiblePass: (number) => void,
   fetchCompatiblePaymentPacks: (number) => void,
@@ -78,6 +85,12 @@ export class OfferPaymentPage extends Component<Props, State> {
     this.props.checkBookingOptionExistence(offerId);
   }
 
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.offer !== this.props.offer && this.props.offer) {
+      this.props.fetchCompanyTheme(this.props.offer.activity.company);
+    }
+  }
+
   bookAnOption = (offerId: number) => {
     this.setState({ processing: true });
     bookAnOption(offerId, this.props.consumer.consumer)
@@ -93,8 +106,11 @@ export class OfferPaymentPage extends Component<Props, State> {
   };
 
   goToPassMarketplace = () => {
-    const { company_name } = this.props.offer.activity;
-    this.props.goToPassMarketplace(company_name);
+    if (this.props.theme && this.props.theme.scheduleURL) {
+      window.location.href = this.props.theme.scheduleURL;
+    } else {
+      this.props.goBack();
+    }
   };
 
   buyPaymentPack = (packId: number) => {
@@ -109,31 +125,33 @@ export class OfferPaymentPage extends Component<Props, State> {
     }
 
     return (
-      <ConsumerModalContainer>
-        <OfferPaymentForm
-          offer={this.props.offer}
-          loading={
-            this.props.loading ||
-            this.state.processing ||
-            this.props.bookingOptionLoading
-          }
-          bookingOption={this.props.bookingOption}
-          compatibleConsumerPacks={this.props.compatibleConsumerPacks}
-          compatibleConsumerPacksLoading={
-            this.props.compatibleConsumerPacksLoading
-          }
-          compatiblePaymentPacksLoading={
-            this.props.compatiblePaymentPacksLoading
-          }
-          compatiblePaymentPacks={this.props.compatiblePaymentPacks}
-          onCompletePurchase={this.onCompletePurchase}
-          onBuyPaymentPack={this.buyPaymentPack}
-          goToPassMarketplace={this.goToPassMarketplace}
-          bookAnOption={this.bookAnOption}
-          option_id={this.option_id}
-          hasOneOrMoreOption={this.props.hasOneOrMoreOption}
-        />
-      </ConsumerModalContainer>
+      <MuiThemeProvider theme={getTheme(this.props.theme)}>
+        <ConsumerModalContainer>
+          <OfferPaymentForm
+            offer={this.props.offer}
+            loading={
+              this.props.loading ||
+              this.state.processing ||
+              this.props.bookingOptionLoading
+            }
+            bookingOption={this.props.bookingOption}
+            compatibleConsumerPacks={this.props.compatibleConsumerPacks}
+            compatibleConsumerPacksLoading={
+              this.props.compatibleConsumerPacksLoading
+            }
+            compatiblePaymentPacksLoading={
+              this.props.compatiblePaymentPacksLoading
+            }
+            compatiblePaymentPacks={this.props.compatiblePaymentPacks}
+            onCompletePurchase={this.onCompletePurchase}
+            onBuyPaymentPack={this.buyPaymentPack}
+            goToPassMarketplace={this.goToPassMarketplace}
+            bookAnOption={this.bookAnOption}
+            option_id={this.option_id}
+            hasOneOrMoreOption={this.props.hasOneOrMoreOption}
+          />
+        </ConsumerModalContainer>
+      </MuiThemeProvider>
     );
   }
 }
@@ -155,15 +173,17 @@ export default compose(
       bookingOption: state.payment.bookingOption.data,
       bookingOptionLoading: state.payment.bookingOption.loading,
       hasOneOrMoreOption: state.payment.bookingOption.hasOne,
+      theme: themeSelectors.getTheme(state),
     }),
     {
       fetchOffer: paymentActions.fetchOffer,
+      fetchCompanyTheme,
       fetchBookingOption: paymentActions.fetchBookingOption,
       checkBookingOptionExistence: paymentActions.checkOptionExistence,
       fetchCompatiblePass: paymentActions.fetchCompatiblePass,
       fetchCompatiblePaymentPacks: paymentActions.fetchCompatiblePaymentPacks,
-      goToPassMarketplace: (companyName) => routerPush(`/m/${companyName}`),
       pushRouter: (path) => routerPush(path),
+      goBack,
     },
   ),
 )(OfferPaymentPage);

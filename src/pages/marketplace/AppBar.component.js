@@ -21,12 +21,15 @@ import type { OrderWithProducts } from '../../libs/order/types';
 type Props = {
   auth: Object,
   title: ?string,
+  logo: ?string,
   currentOrder: ?OrderWithProducts,
 
   disconnect: () => void,
   goToUserSpace: () => void,
   requestLogin: () => void,
   openCurrentOrder: () => void,
+  websiteURL: ?string,
+  logo: ?string,
 
   t: TFunction,
   classes: Object,
@@ -87,16 +90,28 @@ export class ConsumerAppBar extends Component<Props, State> {
     const { isMenuOpen } = this.state;
     return (
       <div className={classes.root}>
-        <AppBar position="static" color="secondary">
+        <AppBar position="static" color="white">
           <Toolbar>
-            <Typography
-              className={classes.title}
-              variant="h6"
-              color="inherit"
-              noWrap
-            >
-              {title}
-            </Typography>
+            {this.props.logo ? (
+              <ButtonBase
+                onClick={() => {
+                  if (this.props.websiteURL) {
+                    window.location.href = this.props.websiteURL;
+                  }
+                }}
+              >
+                <img height={40} src={this.props.logo} alt="bsport logo" />
+              </ButtonBase>
+            ) : (
+              <Typography
+                className={classes.title}
+                variant="h6"
+                color="inherit"
+                noWrap
+              >
+                {title}
+              </Typography>
+            )}
             <div className={classes.grow} />
             {currentOrder ? (
               <ButtonBase

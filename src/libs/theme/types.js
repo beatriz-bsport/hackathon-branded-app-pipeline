@@ -4,7 +4,8 @@ export type Theme = {
   primary_color: string,
   secondary_color: string,
   cover: ?string,
-  website: ?string,
+  websiteURL: ?string,
+  scheduleURL: ?string,
 };
 
 export type ThemeState = {

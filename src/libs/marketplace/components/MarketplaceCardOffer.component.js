@@ -63,7 +63,8 @@ export const MarketplaceCardOffer = (props: Props) => {
           )}`}
         </Typography>
         <Level
-          noStyle
+	  noStyle
+	  align='center'
           variant="caption"
           levelId={activity && activity.level ? activity.level || null : null}
         />

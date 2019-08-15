@@ -77,7 +77,7 @@ const styles = (theme) => ({
     flexWrap: 'noWrap',
   },
   offersColumn: {
-    flex: 1,
+    flex: '1 0 7rem',
     paddingTop: theme.spacing.unit * 2,
   },
   marginBefore: {

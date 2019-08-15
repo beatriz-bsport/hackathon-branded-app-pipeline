@@ -17,6 +17,7 @@ import AppBar from '@material-ui/core/AppBar';
 
 import PaymentRuleSetsDashboard from './PaymentRuleSetsDashboard.component';
 import CompanyDetailPage from './CompanyDetailPage.component';
+import RoleConfigurationPage from './RoleConfiguration.component';
 import InvoiceConfigurationPage from './InvoiceConfigurationPage.component';
 import WaitingListConfigurationPage from './WaitingListConfigurationPage.component';
 import ShopConfigurationPage from './ShopConfigurationPage.component';
@@ -24,6 +25,8 @@ import ThemeConfigurationPage from './ThemeConfiguration.component';
 
 import withDrawer from '../../hocs/with-drawer.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+
+import { drawerWidth } from '../../components/navigation/ResponsiveDrawer.component';
 
 type Props = {
   t: TFunction,
@@ -36,11 +39,10 @@ export const Settings = (props: Props) => {
   const { t, classes } = props;
   return (
     <div className={classes.container}>
-      <AppBar position="static" color="default">
+      <AppBar className={classes.appBar} position="static" color="default">
         <Tabs
           value={props.tab}
           variant="scrollable"
-          scrollButtons="auto"
           onChange={(ev, value) => props.push(`/settings/${value}/`)}
         >
           <Tab label={t('tab.general')} value="general" />
@@ -49,11 +51,17 @@ export const Settings = (props: Props) => {
           <Tab label={t('tab.invoice')} value="invoice" />
           <Tab label={t('tab.waitingList')} value="waiting-list" />
           <Tab label={t('tab.shop')} value="shop" />
+          <Tab label={t('tab.role')} value="role" />
         </Tabs>
       </AppBar>
       <Switch>
-        <Route exact path="/settings/general" component={ThemeConfigurationPage} />
+        <Route
+          exact
+          path="/settings/general"
+          component={ThemeConfigurationPage}
+        />
         <Route exact path="/settings/company" component={CompanyDetailPage} />
+        <Route exact path="/settings/role" component={RoleConfigurationPage} />
         <Route
           exact
           path="/settings/invoice"
@@ -82,9 +90,19 @@ export const Settings = (props: Props) => {
 
 const styles = (theme) => ({
   container: {
+    maxWidth: '100vw',
     marginTop: -theme.spacing.unit * 2,
-    marginLeft: -theme.spacing.unit * 3,
-    marginRight: -theme.spacing.unit * 3,
+    [theme.breakpoints.up('md')]: {
+      marginLeft: -theme.spacing.unit * 3,
+      marginRight: -theme.spacing.unit * 3,
+    },
+  },
+  appBar: {
+    marginTop: -theme.spacing.unit * 2,
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: `calc(100vw - ${drawerWidth}px)`,
+    },
   },
 });
 

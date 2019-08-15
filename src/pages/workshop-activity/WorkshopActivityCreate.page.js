@@ -20,7 +20,7 @@ import {
 } from '../../actions';
 import { mapFormData } from '../form.utils';
 import { upsert } from '../../libs/meta-activity/actions/workshop-activity.actions';
-import { getAllAssociatedCoach } from '../../libs/associated-coach/selectors';
+import { associatedCoachSelector } from '../../libs/associated-coach/selectors';
 import { createOffers as createOffersAPI } from '../../libs/meta-activity/api/meta-activity';
 
 import withDrawer from '../../hocs/with-drawer.hoc';
@@ -87,7 +87,6 @@ export class WorkshopActivityFormPage extends Component<Props> {
   renderActivityStep = () => (
     <MetaActivityForm
       variant="workshop"
-      coaches={this.props.associatedCoaches}
       establishments={this.props.establishments}
       SCTs={this.props.SCTs}
       onSubmit={this.props.onSubmitWorkshopActivity}
@@ -171,7 +170,7 @@ export default compose(
   withState('step', 'setStep', STEP_ACTIVITY),
   connect(
     (state) => ({
-      associatedCoaches: state.coach.companyAssociated,
+      associatedCoaches: associatedCoachSelector.getActive(state),
       establishments: state.establishment.all,
       SCTs: state.category.SCTs,
       loading: state.metaActivity.loading,
@@ -183,7 +182,6 @@ export default compose(
         ...state.metaActivity.all,
         ...state.workshopActivity.all,
       ],
-      coaches: getAllAssociatedCoach(state),
       upsertedWorkshop: state.workshopActivity.upsert.data,
     }),
     {

@@ -6,6 +6,7 @@ import { createAction } from 'redux-actions';
 
 import api from '../api';
 import types from './auth.types';
+import type { Dispatch, ThunkAction } from '../state/types';
 
 export const initiateInterface = createAction('initiate');
 
@@ -13,8 +14,16 @@ export function profileUpdated() {
   // return { email, firstname, lastname, type: types.PROFILE_UPDATED };
   return { type: types.PROFILE_UPDATED };
 }
-export function updateProfile({ email, firstname, lastname }) {
-  return async (dispatch) => {
+export function updateProfile({
+  email,
+  firstname,
+  lastname,
+}: {
+  email: string,
+  firstname: string,
+  lastname: string,
+}) {
+  return async (dispatch: Dispatch) => {
     // TODO update firstname email and lastname in reducer
     await api.auth.updateProfile({
       email,
@@ -25,11 +34,15 @@ export function updateProfile({ email, firstname, lastname }) {
   };
 }
 
-export function fetchAccessLevel(token, username, options = {}) {
-  return async (dispatch) => {
+export function fetchAccessLevel(
+  token: string,
+  username: string,
+  options: ?{ next: ?ThunkAction, onDone: ?() => void },
+) {
+  return async (dispatch: Dispatch) => {
     try {
       const response = await api.auth.accessLevel(token);
-      const { is_manager, is_consumer, is_restricted } = response.data;
+      const { is_manager, is_consumer, role } = response.data;
 
       if (!is_manager && is_consumer) {
         dispatch(errorLogin());
@@ -41,7 +54,7 @@ export function fetchAccessLevel(token, username, options = {}) {
           token,
           is_manager,
           is_consumer,
-          is_restricted,
+          role,
         }),
       );
       const next = options && options.next;
@@ -53,8 +66,12 @@ export function fetchAccessLevel(token, username, options = {}) {
   };
 }
 
-export function requestLogin(username, password, options = {}) {
-  return async (dispatch) => {
+export function requestLogin(
+  username: string,
+  password: string,
+  options: ?{ next: ?ThunkAction, onDone: ?() => void },
+) {
+  return async (dispatch: Dispatch) => {
     dispatch(initiatedLogin(username));
 
     try {
@@ -83,22 +100,27 @@ export function setLogin({
   username,
   token,
   is_manager,
-  is_coach,
   is_consumer,
-  is_restricted,
+  role,
+}: {
+  username: string,
+  token: string,
+  is_manager: boolean,
+  is_consumer: boolean,
+  role: number,
 }) {
   return {
     type: types.LOGIN_SUCCESSFUL,
     username,
     token,
+    role,
     is_manager,
-    is_coach,
+    is_coach: false,
     is_consumer,
-    is_restricted,
   };
 }
 
-export function resetPassword(email) {
+export function resetPassword(email: string) {
   api.auth.resetPassword(email);
   return { type: types.PASSWORD_RESET };
 }
@@ -107,7 +129,7 @@ export function errorLogin() {
   return { type: types.LOGIN_FAILED };
 }
 
-export function initiatedLogin(username) {
+export function initiatedLogin(username: string) {
   return { type: types.LOGIN_INITIATED, username };
 }
 
@@ -123,8 +145,11 @@ export function disconnect() {
   return { type: types.DISCONNECT };
 }
 
-export function signup(data, options = {}) {
-  return async (dispatch) => {
+export function signup(
+  data: any,
+  options: ?{ next: ?ThunkAction, onDone: ?() => void },
+) {
+  return async (dispatch: Dispatch) => {
     try {
       const response = await api.auth.signup(data);
       if (response && response.status === 201) {

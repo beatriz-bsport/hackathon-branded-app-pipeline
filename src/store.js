@@ -42,6 +42,7 @@ const persistConfig = {
     'shop',
     'paymentRules',
     'alerting',
+    'theme',
   ],
   stateReconciler: seamlessImmutableReconciler,
   transforms: [

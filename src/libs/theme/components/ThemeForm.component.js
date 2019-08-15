@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import CardMedia from '@material-ui/core/CardMedia';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
@@ -16,6 +16,7 @@ import type { Theme } from '../types';
 type Props = {
   theme: Theme,
   onSubmit: (id: number, data: *) => void,
+  processing: boolean,
   t: TFunction,
   classes: Object,
 };
@@ -31,19 +32,17 @@ function CompanyCoverPreview(props: { previewURL: string }) {
         style={{
           backgroundColor: '#F2F2F2',
           borderRadius: 35,
-          height: 70,
-          width: 70,
+          height: '100%',
+          width: '100%',
         }}
       />
     );
   }
   return (
-    <CardMedia
-      style={{ height: 70, width: 70, borderRadius: 35 }}
-      image={
-        // prettier-ignore
-        props.previewURL
-      }
+    <img
+      alt="company logo"
+      style={{ height: '100%', width: '100%', borderRadius: 35 }}
+      src={props.previewURL}
     />
   );
 }
@@ -77,7 +76,7 @@ export class ThemeForm extends Component<Props, State> {
     );
   };
 
-  handleCoverChange = (cover) => {
+  handleCoverChange = (cover: ?File) => {
     if (cover && typeof cover !== 'string') {
       this.handleChange('cover')(cover);
     }
@@ -146,14 +145,19 @@ export class ThemeForm extends Component<Props, State> {
             onChange={(ev) => this.handleChange('scheduleURL')(ev.target.value)}
           />
         </div>
-        <Button
-          onClick={() => this.onSubmit(this.state.theme)}
-          disabled={this.checkChange()}
-          variant="contained"
-          color="primary"
-        >
-          {t('forms.submit')}
-        </Button>
+        <div className={classes.buttonContainer}>
+          <Button
+            onClick={() => this.onSubmit(this.state.theme)}
+            disabled={this.checkChange() || this.props.processing}
+            variant="contained"
+            color="primary"
+          >
+            {t('forms.submit')}
+          </Button>
+          {this.props.processing ? (
+            <CircularProgress className={classes.progress} />
+          ) : null}
+        </div>
       </div>
     );
   }
@@ -167,6 +171,14 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'row',
     marginBottom: theme.spacing.unit * 3,
+  },
+  buttonContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  progress: {
+    marginLeft: theme.spacing.unit,
   },
 });
 

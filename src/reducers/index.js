@@ -30,6 +30,7 @@ import marketplacev2Reducer from '../libs/marketplace/reducers';
 import coachReducers from '../libs/associated-coach/reducers';
 import waitingListReducers from '../libs/waiting-list/reducers';
 import themeReducers from '../libs/theme/reducers';
+import roleReducers from '../libs/role/reducers';
 
 import type { State, Action } from '../state/types';
 
@@ -65,6 +66,7 @@ const rootReducer = combineReducers({
   marketplacev2: marketplacev2Reducer,
   waitingList: waitingListReducers,
   theme: themeReducers,
+  role: roleReducers,
 });
 
 export default (state: State, action: Action) => {

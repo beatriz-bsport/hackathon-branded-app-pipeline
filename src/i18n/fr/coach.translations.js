@@ -44,5 +44,14 @@ export default {
       title: 'Edition des informations',
       success: 'Professeur modifié avec succès',
     },
+    delete: {
+      success: 'Professeur supprimé',
+      error: 'Impossible de supprimer le professeur',
+      content:
+        "Êtes-vous sûr de vouloir supprimer ce professeur ? Vous n'aurez plus accès au calcul de ses rémunérations. Vous pourrez le rajouter de nouveau à partir de son email.",
+      title: 'Suppression professeur',
+      cancel: 'Annuler',
+      confirm: 'Supprimer',
+    },
   },
 };

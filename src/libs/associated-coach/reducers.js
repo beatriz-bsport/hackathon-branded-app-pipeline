@@ -11,6 +11,7 @@ import {
   upsert,
   setPaymentRule,
   sessionPaymentRule,
+  deleteActions,
 } from './actions';
 
 const initialState: CoachState = Immutable({
@@ -28,6 +29,15 @@ const initialState: CoachState = Immutable({
 
 export default handleActions(
   {
+    [deleteActions.success]: (state, { payload }) => {
+      const idx = state.companyAssociated.findIndex(
+        (coach) => coach.id === payload,
+      );
+      return state.setIn(['companyAssociated', idx], {
+        ...state.companyAssociated[idx],
+        disabled: true,
+      });
+    },
     [associated.success]: (state, { payload }) => {
       return state.set('companyAssociated', payload);
     },

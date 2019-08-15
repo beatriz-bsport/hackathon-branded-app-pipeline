@@ -26,7 +26,9 @@ import withDrawer from '../../hocs/with-drawer.hoc';
 import OfferCard from '../../components/offer/OfferCard.component';
 import TimeTable from '../../components/offer/TimeTable.component';
 import Calendar from '../../components/offer/Calendar.component';
+import { getPermissions } from '../../libs/role/selectors';
 import { getEnabledMetaActivities } from '../../libs/meta-activity/selectors';
+import { associatedCoachSelector } from '../../libs/associated-coach/selectors';
 
 import { offer as offerActions } from '../../actions';
 import { Moment } from '../../i18n';
@@ -37,6 +39,7 @@ import OfferEditForm from '../../libs/offer/OfferEditForm.component';
 import OfferFormWithActivity from '../../libs/offer/OfferFormWithActivity.component';
 import DeleteOfferForm from '../../libs/offer/DeleteOfferForm.component';
 import { createOffers as createOffersAPI } from '../../libs/meta-activity/api/meta-activity';
+import type { Permission } from '../../libs/role/types';
 
 const styles = (theme) => ({
   calendarContainer: {
@@ -63,6 +66,7 @@ type Props = {
   similarOfferLoading: boolean,
   width: string,
 
+  permission: Permission,
   metaActivities: Array<MetaActivity>,
   offers: Array<Offer>,
   similarOffers: Array<Offer>,
@@ -425,11 +429,13 @@ export class Planning extends PureComponent<Props, State> {
                   </Grid>
                 </Paper>
               </Grid>
-              <Grid item>
-                <Grid container item alignItems="center" justify="center">
-                  {this.renderAddOffersButton()}
+              {this.props.permission.offer.create ? (
+                <Grid item>
+                  <Grid container item alignItems="center" justify="center">
+                    {this.renderAddOffersButton()}
+                  </Grid>
                 </Grid>
-              </Grid>
+              ) : null}
             </Grid>
           </Grid>
         ) : (
@@ -446,6 +452,7 @@ export class Planning extends PureComponent<Props, State> {
               onEditButtonClick={this.openEditModal}
               onDeleteButtonClick={this.openDeleteModal}
               goToOfferManagement={this.props.goToOfferManagement}
+              permission={this.props.permission}
             />
           ) : (
             this.renderNoOfferSelected()
@@ -470,7 +477,7 @@ function mapStateToProps(state) {
     offers: state.offer.offers,
     events: state.offer.calendar,
     timetableLoading: state.offer.byDay.loading,
-    coaches: state.coach.companyAssociated,
+    coaches: associatedCoachSelector.getActive(state),
     coachesLoading: state.coach.loading,
     establishments: state.establishment.all,
     establishmentsLoading: state.establishment.loading,
@@ -478,6 +485,7 @@ function mapStateToProps(state) {
 
     similarOfferLoading: state.offer.similarOffers.loading,
     similarOffers: state.offer.similarOffers.items,
+    permission: getPermissions(state),
   };
 }
 

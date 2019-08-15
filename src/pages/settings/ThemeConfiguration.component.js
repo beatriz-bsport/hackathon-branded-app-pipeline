@@ -19,6 +19,7 @@ import themeSelectors from '../../libs/theme/selectors';
 type Props = {
   theme: Theme,
   loading: boolean,
+  processing: boolean,
   submitTheme: (companyId: number, data: *) => void,
   fetchCompanyTheme: () => void,
   classes: any,
@@ -38,6 +39,7 @@ export class ThemeConfiguration extends Component<Props> {
           <ThemeForm
             theme={this.props.theme}
             onSubmit={this.props.submitTheme}
+            processing={this.props.processing}
           />
         </Paper>
       </div>
@@ -59,6 +61,7 @@ export default compose(
     (state) => ({
       theme: themeSelectors.getTheme(state),
       loading: state.theme.loading,
+      processing: state.theme.createOrUpdate.loading,
     }),
     {
       fetchCompanyTheme,

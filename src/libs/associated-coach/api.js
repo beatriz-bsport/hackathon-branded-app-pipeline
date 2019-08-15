@@ -7,6 +7,7 @@ import {
   postAuth,
   postBaseAuth,
   putAuth,
+  deleteAuth,
 } from '../../http';
 
 export async function addCoach(data: *) {
@@ -33,6 +34,10 @@ export async function fetchAssociatedCoachPerformance(
 
 export async function linkByEmail(email: string) {
   return postAuth(`${API_V1_URI}/coach/link_by_email/`, { email });
+}
+
+export async function deleteCoach(id: number) {
+  return deleteAuth(`${API_V1_URI}/coach/${id}`);
 }
 
 export default {

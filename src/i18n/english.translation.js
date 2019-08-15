@@ -27,9 +27,13 @@ import payment from './en/payment.translations';
 import waitingList from './en/waiting-list.translations';
 import workshop from './en/workshop.translations';
 import common from './en/common.translations';
+import role from './en/role.translations';
+import theme from './en/theme.translations';
 
 export default {
   dashboard,
+  role,
+  theme,
   common,
   alerting,
   workshop,

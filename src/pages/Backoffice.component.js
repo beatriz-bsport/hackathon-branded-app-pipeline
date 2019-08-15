@@ -14,6 +14,7 @@ import ResponsiveDrawer from '../components/navigation/ResponsiveDrawer.componen
 
 import { refresh as refreshActions } from '../actions';
 import { fetchCompanyTheme } from '../libs/theme/actions';
+import { getPermissions } from '../libs/role/selectors';
 import {
   delete_ as deleteAlert,
   fetchMoreAlertingKind,
@@ -67,7 +68,7 @@ type Props = {
   nbAlerting: number,
   isRefreshing: boolean,
   authenticated: boolean,
-  is_restricted_user: boolean,
+  permission: Permission,
 
   disconnect: () => void,
   deleteAlert: (id: number) => void,
@@ -107,9 +108,10 @@ export class Backoffice extends Component<Props> {
           alertings={this.props.alertings}
           nbAlerting={this.props.nbAlerting}
           deleteAlert={this.props.deleteAlert}
-          hidden={this.props.is_restricted_user}
+          hidden={!this.props.permission.navigation}
           disconnect={this.props.disconnect}
           fetchMoreAlertingKind={this.props.fetchMoreAlertingKind}
+          showSearch={this.props.permission.member.search}
         >
           {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
           Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ? (
@@ -165,9 +167,9 @@ export default connect(
     nbAlerting: alertingSelectors.countAlerting(state),
     authenticated: state.auth.authenticated,
     username: state.auth.username,
-    is_restricted_user: state.auth.is_restricted,
     isRefreshing: state.refresh.isRefreshing,
     theme: state.theme.theme,
+    permission: getPermissions(state),
   }),
   {
     deleteAlert,

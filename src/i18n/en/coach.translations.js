@@ -43,5 +43,14 @@ export default {
       success: 'Coach details updated',
       title: 'Update coach',
     },
+    delete: {
+      success: 'Teacher deleted',
+      error: 'Impossible to delete this teacher',
+      content:
+        'Are you sure you want to delete this teacher ? You will not have access to his performance anymore. You can later add him again via his email.',
+      title: 'Teacher deletion',
+      cancel: 'Cancel',
+      confirm: 'Delete',
+    },
   },
 };

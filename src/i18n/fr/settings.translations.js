@@ -9,5 +9,6 @@ export default {
     invoice: 'Facturation',
     waitingList: "Liste d'attente",
     shop: 'Magasin',
+    role: 'Staff',
   },
 };

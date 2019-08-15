@@ -10,6 +10,7 @@ import {
   addCoach as addCoachAPI,
   linkByEmail as linkByEmailAPI,
   fetchAssociatedCoaches as fetchAssociatedCoachesAPI,
+  deleteCoach as deleteCoachAPI,
   fetchAssociatedCoachPerformance as fetchAssociatedCoachPerformanceAPI,
 } from './api';
 
@@ -40,6 +41,30 @@ export function linkByEmail(
     } catch (err) {
       console.error(err);
       options.onError();
+    }
+  };
+}
+
+export const deleteActions = {
+  isLoading: createAction('COACH/DELETE/IS_LOADING'),
+  error: createAction('COACH/DELETE/ERROR'),
+  success: createAction('COACH/DELETE/SUCCESS'),
+};
+
+export function deleteCoach(
+  id: number,
+  options: { onSuccess: () => void, onError: () => void },
+) {
+  return async (dispatch: Dispatch) => {
+    try {
+      await deleteCoachAPI(id);
+      dispatch(snackbarSuccess('coach.forms.delete.success'));
+      dispatch(deleteActions.success(id));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      console.error(err);
+      dispatch(snackbarSuccess('coach.forms.delete.error'));
+      if (options && options.onError) options.onError();
     }
   };
 }

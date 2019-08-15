@@ -6,7 +6,7 @@ export default {
     },
     primary_color: {
       label: 'Couleur principale',
-      helperText: 'Couleur dominante du thème',
+      helperText: 'Priviligéiez une couleur, évitez le monochrome',
     },
     secondary_color: {
       label: 'Couleur secondaire',

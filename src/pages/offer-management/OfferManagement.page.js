@@ -23,6 +23,7 @@ import {
   discardBookingAttendance as discardBookingAttendanceAction,
   discardBookingOption as discardBookingOptionAction,
 } from '../../libs/booking/actions';
+import { getPermissions } from '../../libs/role/selectors';
 import bookingSelectors from '../../libs/booking/selectors';
 
 import { snackbar } from '../../actions/snackbar.actions';
@@ -77,6 +78,7 @@ function mapStateToProps(state, nextProps) {
     ),
     compatiblePacksLoading: state.offer.compatiblePacks.loading,
     unevenSavedInvoices: state.invoice.quickInvoices,
+    permission: getPermissions(state),
   };
 }
 

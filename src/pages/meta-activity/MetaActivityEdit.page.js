@@ -29,7 +29,6 @@ type Props = {
   loading: ?boolean,
   initial: ?MetaActivity,
 
-  associatedCoaches: *[],
   establishments: *[],
   SCTs: *[],
 
@@ -66,7 +65,6 @@ export class MetaActivityFormPage extends Component<Props> {
   render() {
     const {
       SCTs,
-      associatedCoaches,
       establishments,
       loading,
       id,
@@ -92,7 +90,6 @@ export class MetaActivityFormPage extends Component<Props> {
         <Grid item xs={12} lg={9}>
           <Paper>
             <MetaActivityForm
-              coaches={associatedCoaches}
               establishments={establishments}
               SCTs={SCTs}
               onSubmit={this.props.onSubmit}
@@ -114,7 +111,6 @@ export default compose(
   connect(
     (state, { id }) => ({
       initial: id ? state.metaActivity.metaActivity : null,
-      associatedCoaches: state.coach.companyAssociated,
       establishments: state.establishment.all,
       SCTs: state.category.SCTs,
       loading: state.metaActivity.loading,

@@ -28,9 +28,11 @@ import waitingList from './fr/waiting-list.translations';
 import workshop from './fr/workshop.translations';
 import common from './fr/common.translations';
 import theme from './fr/theme.translations';
+import role from './fr/role.translations';
 
 export default {
   dashboard,
+  role,
   theme,
   common,
   workshop,

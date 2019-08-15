@@ -7,7 +7,6 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import withStyles from '@material-ui/core/styles/withStyles';
-import Paper from '@material-ui/core/Paper';
 import Fab from '@material-ui/core/Fab';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -78,7 +77,7 @@ export function ReportDashboard(props: Props) {
   };
   const categories = metadata.map((c) => c.category);
   return (
-    <Paper className={classes.root}>
+    <div className={classes.root}>
       <ReportCategorySelector
         categories={categories}
         onSelect={setSelectedCategory}
@@ -145,13 +144,13 @@ export function ReportDashboard(props: Props) {
           </DialogContent>
         </Dialog>
       ) : null}
-    </Paper>
+    </div>
   );
 }
 
 const styles = (theme) => ({
   root: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing.unit,
   },
   list: {
     marginTop: theme.spacing.unit * 2,

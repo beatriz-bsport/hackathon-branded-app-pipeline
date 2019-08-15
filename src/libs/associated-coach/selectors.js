@@ -17,12 +17,12 @@ export const associatedCoachSelector = {
     state.coach.companyAssociated.find(
       (x) => x.associated_coach_id === coachId,
     ),
+  getActive: (state: State) =>
+    state.coach.companyAssociated.filter((c) => !c.disabled),
   withPaymentRule: (state: State) =>
-    state.coach.companyAssociated.filter((x) => !!x.default_payment_rule_id),
-};
-
-export const getAllAssociatedCoach = (state: State) => {
-  return state.coach.companyAssociated;
+    state.coach.companyAssociated.filter(
+      (x) => !!x.default_payment_rule_id && !x.disabled,
+    ),
 };
 
 export const coachSelector = (state: State, coachId: number) =>

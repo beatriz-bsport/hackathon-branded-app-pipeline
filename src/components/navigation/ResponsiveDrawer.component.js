@@ -54,7 +54,7 @@ import AlertButtonMenu from '../../libs/alerting/components/AlertButtonMenu.comp
 import { DrawerContext } from '../../hocs/with-drawer.hoc';
 import type { Alerting } from '../../libs/alerting/types';
 
-const drawerWidth = 260;
+export const drawerWidth = 260;
 
 type Props = {
   isRefreshing: boolean,
@@ -67,6 +67,7 @@ type Props = {
   disconnect: () => void,
   logo: ?string,
   hidden: boolean,
+  showSearch: boolean,
   deleteAlert: (id: number) => void,
   fetchMoreAlertingKind: (alert_kind: number) => void,
   t: TFunction,
@@ -267,9 +268,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                     showMore={fetchMoreAlertingKind}
                   />
                 </Grid>
-                <Grid item className={classes.searchBar}>
-                  <SearchBar changeLocation />
-                </Grid>
+                {this.props.showSearch ? (
+                  <Grid item className={classes.searchBar}>
+                    <SearchBar changeLocation />
+                  </Grid>
+                ) : null}
                 <Grid item>
                   <RefreshButton
                     isRefreshing={isRefreshing}

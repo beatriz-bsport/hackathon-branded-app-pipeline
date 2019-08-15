@@ -18,9 +18,11 @@ import i18next from 'i18next';
 import {
   startUpdate,
   setCoachPaymentRule,
+  deleteCoach,
 } from '../../libs/associated-coach/actions';
 import type { Coach } from '../../api/types';
 import { paymentRulesSelector } from '../../libs/payment-rules/selectors';
+import { associatedCoachSelector } from '../../libs/associated-coach/selectors';
 import withBottomButtons from '../../hocs/inject-bottom-buttons';
 import withDrawer from '../../hocs/with-drawer.hoc';
 
@@ -33,6 +35,7 @@ type Props = {
   setCoachPaymentRule: (*) => void,
   associatedCoaches: Array<Coach>,
 
+  deleteCoach: (id: number) => void,
   goToCoachPerformance: (coach: Coach) => void,
   goToCoachEditForm: (coach: Coach) => void,
   goToCoachDetail: (coachId: number) => void,
@@ -78,20 +81,13 @@ export class CoachList extends Component<Props> {
               divider
               coach={coach}
               onCoachSelected={() => goToCoachDetail(coach.id)}
+              deleteCoach={() => this.props.deleteCoach(coach.id)}
             />
           ))}
         </List>
       </Paper>
     );
   }
-}
-
-function mapStateToProps(state) {
-  return {
-    loading: state.coach.loading,
-    associatedCoaches: state.coach.companyAssociated,
-    paymentRules: paymentRulesSelector(state),
-  };
 }
 
 const styles = (theme) => ({
@@ -103,15 +99,20 @@ const styles = (theme) => ({
 
 export default compose(
   connect(
-    mapStateToProps,
-    (dispatch) => ({
-      goToCoachPerformance: (coach) =>
-        dispatch(push(`/coach/${coach.associated_coach_id}/performance`)),
-      goToCoachEditForm: (...args) => dispatch(startUpdate(...args)),
-      setCoachPaymentRule: (...args) => dispatch(setCoachPaymentRule(...args)),
-      goToCreateCoach: () => dispatch(push('/coach/add')),
-      goToCoachDetail: (coachId) => dispatch(push(`/coach/${coachId}`)),
+    (state) => ({
+      loading: state.coach.loading,
+      associatedCoaches: associatedCoachSelector.getActive(state),
+      paymentRules: paymentRulesSelector(state),
     }),
+    {
+      deleteCoach,
+      goToCoachPerformance: (coach) =>
+        push(`/coach/${coach.associated_coach_id}/performance`),
+      goToCoachEditForm: startUpdate,
+      setCoachPaymentRule,
+      goToCreateCoach: () => push('/coach/add'),
+      goToCoachDetail: (coachId) => push(`/coach/${coachId}`),
+    },
   ),
   withNamespaces(),
   withStyles(styles),

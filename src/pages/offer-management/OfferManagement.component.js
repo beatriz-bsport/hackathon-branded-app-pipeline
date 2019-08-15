@@ -47,6 +47,7 @@ import type { PaymentPack } from '../../libs/payment-packs/types';
 import type { Booking, BookingOption } from '../../libs/booking/types';
 import type { Member } from '../../libs/member/types';
 import type { Invoice } from '../../libs/invoice/types';
+import type { Permission } from '../../libs/role/types';
 
 type Props = {
   fullScreen: boolean,
@@ -64,6 +65,7 @@ type Props = {
   offers: Array<Event>,
   compatiblePacks: Array<PaymentPack>,
   unevenSavedInvoices: Array<Invoice>,
+  permission: Permission,
 
   fetchMember: (id: number) => void,
   memberSearchLoading: boolean,
@@ -252,8 +254,14 @@ export class OfferManagement extends PureComponent<Props, State> {
         key={member.id}
         onClickBill={() => this.addToQuickInvoicePanel(member.id)}
         onClickRegister={() => this.setState({ memberToRegister: member.id })}
-        onClickListItem={() => this.addToQuickInvoicePanel(member.id)}
-        showMember={() => window.open(`/member/${member.id}/`)}
+        onClickListItem={
+          hasBooked ? () => this.addToQuickInvoicePanel(member.id) : null
+        }
+        showMember={
+          this.props.permission.member.retrieve
+            ? () => window.open(`/member/${member.id}/`)
+            : null
+        }
         member={member}
         hasBooked={hasBooked}
       />
@@ -449,6 +457,7 @@ export class OfferManagement extends PureComponent<Props, State> {
                         items={this.props.searchedMembers}
                         loading={this.props.memberSearchLoading}
                         renderListComponent={this.renderSearchedMember}
+                        redirectToMember={this.props.permission.member.retrieve}
                       />
                     </div>
                     <Divider />
@@ -484,7 +493,7 @@ export class OfferManagement extends PureComponent<Props, State> {
                 </Grid>
                 <Grid item xs={12}>
                   <BookingTable
-                    redirectToMember
+                    redirectToMember={this.props.permission.member.retrieve}
                     newTab
                     members={this.props.members}
                     paymentPacks={this.props.paymentPacks}

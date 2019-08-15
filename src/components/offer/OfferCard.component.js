@@ -17,12 +17,15 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { withNamespaces } from 'react-i18next';
 
+import type { TFunction } from 'react-i18next';
 import { Level, Sport } from '../category';
 import Avatar from '../Avatar.component';
 import RedButton from '../button/RedButton.component';
 
 import { formatAsTime, formatMinutes } from '../../datetime';
 import type { Offer } from '../../api/types';
+
+import type { Permission } from '../../libs/role/types';
 
 type Props = {
   t: TFunction,
@@ -32,6 +35,7 @@ type Props = {
   onEditButtonClick: () => void,
   onDeleteButtonClick: () => void,
   goToOfferManagement: (offerId: number) => void,
+  permission: Permission,
 };
 
 export class OfferCard extends Component<Props> {
@@ -289,18 +293,26 @@ export class OfferCard extends Component<Props> {
                   wrap="nowrap"
                   className={classes.modifierButtonsBlock}
                 >
-                  <Grid item>
-                    <Button color="primary" onClick={onEditButtonClick}>
-                      <EditIcon className={classes.iconLeft} />
-                      <Hidden xsDown>{t('offer:calendar.modifyOffer')}</Hidden>
-                    </Button>
-                  </Grid>
-                  <Grid item>
-                    <RedButton onClick={onDeleteButtonClick}>
-                      <DeleteIcon className={classes.iconLeft} />
-                      <Hidden xsDown>{t('offer:calendar.deleteOffer')}</Hidden>
-                    </RedButton>
-                  </Grid>
+                  {this.props.permission.offer.edit ? (
+                    <Grid item>
+                      <Button color="primary" onClick={onEditButtonClick}>
+                        <EditIcon className={classes.iconLeft} />
+                        <Hidden xsDown>
+                          {t('offer:calendar.modifyOffer')}
+                        </Hidden>
+                      </Button>
+                    </Grid>
+                  ) : null}
+                  {this.props.permission.offer.delete ? (
+                    <Grid item>
+                      <RedButton onClick={onDeleteButtonClick}>
+                        <DeleteIcon className={classes.iconLeft} />
+                        <Hidden xsDown>
+                          {t('offer:calendar.deleteOffer')}
+                        </Hidden>
+                      </RedButton>
+                    </Grid>
+                  ) : null}
                 </Grid>
               ) : null}
             </Grid>

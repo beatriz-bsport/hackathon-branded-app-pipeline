@@ -13,7 +13,7 @@ import './material-dashboard-react.css';
 
 if (process.env.NODE_ENV === 'production') {
   Sentry.init({
-    release: '05206e7495362b90f71766d3660a92d2f747df3c',
+    release: 'fd527d0deba4c74d679eebf631f97341212ae148',
     dsn: Config.REACT_APP_SENTRY_DSN || null,
     environment: Config.REACT_APP_SENTRY_ENVIRONMENT || 'production',
   });

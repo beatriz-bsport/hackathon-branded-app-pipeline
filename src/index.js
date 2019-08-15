@@ -7,13 +7,14 @@ import Config from './config';
 
 import './index.css';
 import App from './App';
+import RELEASE from './release.js';
 import registerServiceWorker from './registerServiceWorker';
 
 import './material-dashboard-react.css';
 
 if (process.env.NODE_ENV === 'production') {
   Sentry.init({
-    release: '4062c87ae0a7913034c8c07a272fd07f62c14187',
+    release: RELEASE,
     dsn: Config.REACT_APP_SENTRY_DSN || null,
     environment: Config.REACT_APP_SENTRY_ENVIRONMENT || 'production',
   });

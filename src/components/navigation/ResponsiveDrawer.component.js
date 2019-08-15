@@ -446,7 +446,12 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             </Hidden>
           </Grid>
         </div>
-        <List>{items}</List>
+        <List>
+          {items}
+          <ListItem />
+          <ListItem />
+          <ListItem />
+        </List>
       </div>
     );
     return (

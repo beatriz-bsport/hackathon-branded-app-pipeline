@@ -113,10 +113,11 @@ export class Backoffice extends Component<Props> {
           fetchMoreAlertingKind={this.props.fetchMoreAlertingKind}
           showSearch={this.props.permission.member.search}
         >
-          {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
-          Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ? (
-            <Intercom appID="q6foivp2" {...intercom_user} />
-          ) : null}
+          <Intercom
+            appID="q6foivp2"
+            {...intercom_user}
+            action_color={this.props.theme.primary_color}
+          />
 
           <main className={classes.content}>
             <Switch>

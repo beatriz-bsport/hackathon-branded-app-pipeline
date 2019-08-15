@@ -43,7 +43,7 @@ export class SnackbarPile extends React.Component<Props> {
         {this.props.messages.map((snack) => (
           <Snackbar
             key={snack.id}
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
             open
           >
             <SnackbarContent

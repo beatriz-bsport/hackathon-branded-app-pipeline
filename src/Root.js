@@ -23,6 +23,10 @@ const ConsumerHome = asyncComponent(() =>
   import('./pages/ConsumerHome.component'),
 );
 
+const SentryTestError = asyncComponent(() =>
+  import('./pages/SentryTestError.component'),
+);
+
 const styles = () => ({
   root: {
     flexGrow: 1,
@@ -50,6 +54,7 @@ export class Root extends Component<Props> {
     return (
       <div className={classes.root}>
         <Switch>
+          <Route path="/sentry" component={SentryTestError} />
           <Route path="/login" component={LoginRouter} />
           <Route path="/customer" component={ConsumerHome} />
           <Route path="/m/" component={MarketPlace} />

@@ -3,6 +3,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push as routerPush } from 'react-router-redux';
 import { compose } from 'recompose';
+import Button from '@material-ui/core/Button';
+import EditIcon from '@material-ui/icons/Edit';
+import withStyles from '@material-ui/core/styles/withStyles';
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 import { offer as offerActions } from '../../actions';
 import { fetchMetaActivityDetails } from '../../libs/meta-activity/actions/meta-activity.actions';
 import type { Offer, MetaActivity as MetaActivityType } from '../../api/types';
@@ -15,6 +20,8 @@ import { getMetaActivities } from '../../libs/meta-activity/selectors';
 
 type Props = {
   id: number,
+  t: TFunction,
+  classes: Object,
   metaActivity: MetaActivityType,
   loading: boolean,
   fetchOffersByDay: (year: number, month: number, day: number) => void,
@@ -49,21 +56,45 @@ export class MetaActivity extends Component<Props> {
       return <LinearProgress />;
     }
     return (
-      <MetaActivityDetail
-        coverImages={this.props.metaActivityImages}
-        metaActivity={this.props.metaActivity}
-        fetchOffersByDay={this.props.fetchOffersByDay}
-        events={this.props.events}
-        offers={this.props.offers}
-        goToOffer={this.goToOffer}
-        createActivityOffers={this.createActivityOffers}
-      />
+      <div>
+        <MetaActivityDetail
+          coverImages={this.props.metaActivityImages}
+          metaActivity={this.props.metaActivity}
+          fetchOffersByDay={this.props.fetchOffersByDay}
+          events={this.props.events}
+          offers={this.props.offers}
+          goToOffer={this.goToOffer}
+          createActivityOffers={this.createActivityOffers}
+        />
+        <Button
+          variant="extendedFab"
+          color="primary"
+          onClick={() => this.props.push(`/activity/${this.props.id}/edit`)}
+          className={this.props.classes.editButton}
+        >
+          <EditIcon className={this.props.classes.leftIcon} />
+          {this.props.t('common.edit')}
+        </Button>
+      </div>
     );
   }
 }
 
+const styles = (theme) => ({
+  leftIcon: {
+    marginRight: theme.spacing.unit,
+  },
+  editButton: {
+    position: 'fixed',
+    right: theme.spacing.unit * 2,
+    bottom: theme.spacing.unit * 2,
+  },
+});
+
 export default compose(
   routerParamsToProps({ id: 'id:number' }),
+  withNamespaces(),
+  withStyles(styles),
   connect(
     (state) => ({
       loading: state.metaActivity.loading,

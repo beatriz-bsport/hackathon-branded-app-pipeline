@@ -26,6 +26,7 @@ import {
   Calendar,
   TimeTable,
 } from '../../../components';
+import TypographyMultiline from '../../../components/TypographyMultiline.component';
 import type {
   Activity,
   Offer,
@@ -139,7 +140,7 @@ export class MetaActivityDetail extends Component<Props, State> {
         <Typography variant="h6" className={classes.blockTitle}>
           {t('metaActivity:description')}
         </Typography>
-        <Typography>{description}</Typography>
+        <TypographyMultiline>{description}</TypographyMultiline>
       </div>
     );
   };

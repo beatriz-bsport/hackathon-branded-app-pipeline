@@ -6,12 +6,14 @@ const fetchCompanyMetaActivities = async ({
   page_size = 300,
 }) => {
   return get(
-    `${API_V1_URI}/meta-activity/?company=${companyId}&page_size=${page_size}&page=${page}`,
+    `${API_V1_URI}/meta-activity/?customer_enabled=true&company=${companyId}&page_size=${page_size}&page=${page}`,
   );
 };
 
 const fetchCompanyActivities = async ({ companyId, page }) => {
-  return get(`${API_V1_URI}/activity/?company=${companyId}&page=${page}`);
+  return get(
+    `${API_V1_URI}/activity/?company=${companyId}&customer_enabled=true&page=${page}`,
+  );
 };
 
 const fetchPaymentPacks = async ({ companyId, page }) => {
@@ -25,7 +27,9 @@ const fetchCompanyEstablishments = async ({ companyId, page }) => {
 };
 
 const fetchCompanyCoaches = async ({ companyId, page }) => {
-  return get(`${API_V1_URI}/coach/?company=${companyId}&page=${page}`);
+  return get(
+    `${API_V1_URI}/coach/?company=${companyId}&page=${page}&disabled=false`,
+  );
 };
 const fetchCompanyOffers = async ({
   companyId,

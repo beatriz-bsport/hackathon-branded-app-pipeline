@@ -367,12 +367,13 @@ export class InvoiceForm extends Component<Props, State> {
           </span>
         </Hidden>
       </Button>
-      {this.props.goToMemberPage ? (
+      {this.props.member ? (
         <CreditMemberBadge credit={this.props.member.credit_account_balance}>
           <Button
             variant="contained"
             color="secondary"
-            onClick={this.props.goToMemberPage}
+            disabled={!this.props.goToMemberPage}
+            onClick={this.props.goToMemberPage || (() => {})}
             className={this.props.classes.navigationButton}
           >
             <PersonIcon />

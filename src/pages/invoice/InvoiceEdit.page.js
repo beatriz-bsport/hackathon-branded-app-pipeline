@@ -17,6 +17,7 @@ import withDrawer from '../../hocs/with-drawer.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import memberSelectors from '../../libs/member/selectors';
 import { fetchMember } from '../../libs/member/actions';
+import { getPermissions } from '../../libs/role/selectors';
 
 import type { Offer, Invoice } from '../../api/types';
 import type { Member } from '../../libs/member/types';
@@ -128,7 +129,11 @@ export class InvoiceFormPage extends Component<Props, State> {
           updatePaymentMethod={this.props.updatePaymentMethod}
           createOrUpdate={this.updateInvoice}
           onCancel={this.props.goBack}
-          goToMemberPage={invoice ? () => goToMemberPage(invoice.member) : null}
+          goToMemberPage={
+            invoice && this.props.permission.member.retrieve
+              ? () => goToMemberPage(invoice.member)
+              : null
+          }
           processing={updatingInvoice}
           uneditableVoucher={invoice.voucher || 0}
           member={this.props.member}
@@ -160,6 +165,7 @@ export default compose(
       paymentPacks: paymentPackSelectors.getEnabled(state),
       invoice: state.invoice.invoice,
       updatingInvoice: state.invoice.createOrUpdatePending,
+      permission: getPermissions(state),
     }),
     {
       fetchMember,

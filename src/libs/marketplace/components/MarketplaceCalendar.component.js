@@ -114,7 +114,9 @@ export function MarketplaceCalendar(props: Props) {
       </Grid>
       <Grid item xs={12} md={6} className={classes.selector}>
         <MetaActivitySelector
-          metaActivities={metaActivities.filter((ma) => ma.customer_enabled)}
+          metaActivities={metaActivities.filter(
+            (ma) => ma.customer_enabled && !ma.is_workshop,
+          )}
           selectedMetaActivities={filters.metaActivities}
           selectOption={(ev) =>
             setFilters({

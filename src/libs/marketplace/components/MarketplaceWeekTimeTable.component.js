@@ -40,6 +40,7 @@ export const MarketplaceWeekTimetable = (props: Props) => {
           >
             {`${weekDays[i]} ${props.date
               .clone()
+              .startOf('week')
               .add(i, 'days')
               .format('Do')}`}
           </Typography>

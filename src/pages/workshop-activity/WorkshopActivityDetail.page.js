@@ -22,6 +22,7 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import MetaActivityDetail from '../../libs/meta-activity/components/MetaActivityDetail.component';
 
 type Props = {
+  id: number,
   workshopActivity: MetaActivityType,
   loading: boolean,
   classes: Object,
@@ -73,7 +74,9 @@ export class WorkshopActivity extends Component<Props, State> {
         <Button
           variant="extendedFab"
           color="primary"
-          onClick={() => this.props.push(`/workshop-activity/${this.props.id}/edit`)}
+          onClick={() =>
+            this.props.push(`/workshop-activity/${this.props.id}/edit`)
+          }
           className={this.props.classes.editButton}
         >
           <EditIcon className={this.props.classes.leftIcon} />

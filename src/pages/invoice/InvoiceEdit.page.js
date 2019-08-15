@@ -21,6 +21,7 @@ import { getPermissions } from '../../libs/role/selectors';
 
 import type { Offer, Invoice } from '../../api/types';
 import type { Member } from '../../libs/member/types';
+import type { Permission } from '../../libs/role/types';
 
 import InvoiceForm from '../../libs/invoice/InvoiceForm.component';
 import RevertInvoiceDialog from '../../libs/invoice/dialog/RevertInvoiceDialog.component';
@@ -31,6 +32,7 @@ type Props = {
 
   invoice: Invoice,
   member: Member,
+  permission: Permission,
 
   offers: Array<Offer>,
   paymentPacks: Array<PaymentPack>,

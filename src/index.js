@@ -7,7 +7,7 @@ import Config from './config';
 
 import './index.css';
 import App from './App';
-import RELEASE from './release.js';
+import RELEASE from './release';
 import registerServiceWorker from './registerServiceWorker';
 
 import './material-dashboard-react.css';

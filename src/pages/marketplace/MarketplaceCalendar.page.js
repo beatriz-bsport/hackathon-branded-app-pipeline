@@ -322,11 +322,16 @@ export default compose(
         push(`/customer/payment/offer/${id}?membership=${companyId}`),
       goToBookOption: (id: number, companyId: number) =>
         push(`/customer/payment/offer/${id}?membership=${companyId}`),
-      onCompletePurchase: (dispatch) => {
+    },
+  ),
+  connect(
+    null,
+    (dispatch) => ({
+      onCompletePurchase() {
         dispatch(push('/'));
         dispatch(snackbarSuccess('booking.success'));
       },
-    },
+    }),
   ),
   withProps(({ replace, location }) => ({
     handleDateChange: (newDate_: Object) => {

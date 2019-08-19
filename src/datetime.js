@@ -40,7 +40,6 @@ const MONTHS = [
 ];
 
 export function formatMinutes(minutesNumber, t) {
-  console.log(minutesNumber);
   if (minutesNumber === 999999) {
     return t('datetime:never');
   }

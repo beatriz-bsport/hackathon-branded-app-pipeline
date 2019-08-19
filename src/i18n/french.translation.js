@@ -63,7 +63,7 @@ export default {
       base: 'Base',
       duration: 'Durée',
       nb_bookings: 'Réservations',
-      name: 'Nom',
+      name: 'Nom de la séance',
       date: 'Date',
       rule: 'Régle',
     },

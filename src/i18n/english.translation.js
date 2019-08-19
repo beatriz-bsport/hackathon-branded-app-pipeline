@@ -58,6 +58,15 @@ export default {
   payment,
   offer,
   coachPerformance: {
+    fields: {
+      bonus: 'Bonus',
+      base: 'Base',
+      duration: 'Duration',
+      nb_bookings: 'Bookings',
+      name: 'Session name',
+      date: 'Date',
+      rule: 'Rule',
+    },
     addBonus: 'Add a rule',
     dateTitle: 'Date range',
     remuneration: 'Remuneration',

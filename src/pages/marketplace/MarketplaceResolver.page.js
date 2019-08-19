@@ -6,7 +6,7 @@ import { compose } from 'recompose';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import { replace } from 'react-router-redux';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
@@ -53,7 +53,7 @@ export default compose(
   connect(
     null,
     {
-      goToMarketplace: (name, id) => push(`/m/${name}/${id}/`),
+      goToMarketplace: (name, id) => replace(`/m/${name}/${id}/`),
     },
   ),
 )(MarketplaceResolver);

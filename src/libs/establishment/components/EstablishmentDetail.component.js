@@ -11,6 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Moment from 'moment';
+import TypographyMultiline from '../../../components/TypographyMultiline.component';
 
 import type { Establishment, Offer } from '../../../api/types';
 
@@ -150,7 +151,9 @@ export class EstablishmentDetail extends Component<Props, State> {
                 <Typography variant="h5" gutterBottom>
                   {t('common.description')}
                 </Typography>
-                <Typography>{establishment.specific_info}</Typography>
+                <TypographyMultiline>
+                  {establishment.specific_info}
+                </TypographyMultiline>
               </div>
             </Grid>
             <Grid item sm={12} md={6} className={classes.calendarBlock}>

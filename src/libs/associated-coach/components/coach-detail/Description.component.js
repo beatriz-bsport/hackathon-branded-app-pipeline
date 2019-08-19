@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -10,6 +9,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import EditIcon from '@material-ui/icons/Edit';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import TypographyMultiline from '../../../../components/TypographyMultiline.component';
 
 type Props = {
   startUpdateCoach: (coach: CoachDetailed) => void,
@@ -23,9 +23,9 @@ export const Description = (props: Props) => {
   return (
     <Paper>
       <div className={classes.paperContent}>
-        <Typography component="p">
+        <TypographyMultiline>
           {coach.description || t('coach.emptyDescription')}
-        </Typography>
+        </TypographyMultiline>
       </div>
       <Divider />
       <Grid container item justify="flex-end" className={classes.paperContent}>

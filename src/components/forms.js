@@ -405,6 +405,7 @@ const DURATION_CHOICES_SHORT = [
   { value: 360, label: 'form.sixHour' },
   { value: 60 * 8, label: 'form.eightHour' },
   { value: 24 * 60, label: 'form.oneDay' },
+  { value: 999999, label: 'form.never' },
 ];
 
 const DURATION_CHOICES_LONG = [
@@ -414,6 +415,8 @@ const DURATION_CHOICES_LONG = [
   { value: 7 * 24 * 60, label: 'form.oneWeek' },
   { value: 10 * 24 * 60, label: 'form.tenDays' },
   { value: 14 * 24 * 60, label: 'form.twoWeeks' },
+  { value: 30 * 24 * 60, label: 'form.oneMonth' },
+  { value: 999999, label: 'form.never' },
 ];
 
 export const DurationMinuteSelectField = withNamespaces()(

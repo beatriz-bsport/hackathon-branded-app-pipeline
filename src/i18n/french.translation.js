@@ -556,6 +556,8 @@ export default {
       oneWeek: '1 semaine',
       tenDays: '10 jours',
       twoWeeks: '2 semaines',
+      oneMonth: '1 mois',
+      never: 'Jamais',
     },
     member,
     coach,

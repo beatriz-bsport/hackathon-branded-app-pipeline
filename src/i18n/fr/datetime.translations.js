@@ -1,5 +1,6 @@
 export default {
   shortDayIdentifier: 'j',
+  never: 'Jamais',
   shortMinuteIdentifier: 'min',
   shortHourIdentifier: 'h',
   time: {

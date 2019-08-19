@@ -40,6 +40,10 @@ const MONTHS = [
 ];
 
 export function formatMinutes(minutesNumber, t) {
+  console.log(minutesNumber);
+  if (minutesNumber === 999999) {
+    return t('datetime:never');
+  }
   const minutesMinusDays = minutesNumber % (60 * 24);
   const minutesMinusHours = minutesNumber % 60;
 

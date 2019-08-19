@@ -577,6 +577,8 @@ export default {
       oneWeek: '1 week',
       tenDays: '10 days',
       twoWeeks: '2 weeks',
+      oneMonth: '1 month',
+      never: 'Never',
     },
     member,
     coach,

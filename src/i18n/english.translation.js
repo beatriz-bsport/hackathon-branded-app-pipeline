@@ -303,7 +303,7 @@ export default {
         changePasswordTitle: 'Change password',
         password: 'Password',
         confirmPassword: 'Confirm',
-        passwordTooEasy: 'Please complexify your password',
+        passwordTooEasy: 'Your password should have at least 6 characters, a letter and a number.',
         passwordChangedSuccess: 'Password reset successfull !',
         passwordMismatch: 'Password confirmation mismatch',
       },

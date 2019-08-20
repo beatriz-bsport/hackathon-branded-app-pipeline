@@ -280,7 +280,8 @@ export default {
         changePasswordTitle: 'Modification du mot de passe',
         password: 'Mot de passe',
         confirmPassword: 'Confirmer',
-        passwordTooEasy: 'Veuillez complexifier votre mot de passe',
+        passwordTooEasy:
+          'Votre mot de passe doit comporter au minimum 6 caractères et inclure un chiffre et des lettres',
         passwordChangedSuccess: 'Mot de passe modifié avec succès !',
         passwordMismatch: 'Les mots de passe ne correspondent pas',
       },

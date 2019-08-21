@@ -131,7 +131,12 @@ export function MarketplaceCalendar(props: Props) {
   return (
     <Fragment>
       <Hidden mdUp>
-        <Grid container direction="row" alignItems="stretch">
+        <Grid
+          container
+          direction="column"
+          alignItems="stretch"
+          justify="flex-start"
+        >
           <Grid item xs={12} md={6}>
             <Calendar
               forceMonthDisplay={false}
@@ -162,7 +167,12 @@ export function MarketplaceCalendar(props: Props) {
         </Grid>
       </Hidden>
       <Hidden smDown>
-        <Grid container direction="row" alignItems="stretch">
+        <Grid
+          container
+          direction="column"
+          alignItems="stretch"
+          justify="flex-start"
+        >
           <Grid item xs={12}>
             <Calendar
               clickableDate={false}

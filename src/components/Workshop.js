@@ -36,6 +36,7 @@ class WorkshopWidget extends Component<Props> {
         loading={loading}
         goToBookOption={goToBookOption}
         goToBook={goToBook}
+        hideMap
         fetchPaymentPacks={this.props.fetchPaymentPacks}
         fetchCompatiblePass={this.props.fetchCompatiblePass}
         compatibleConsumerPacks={this.props.compatibleConsumerPacks}

@@ -11,7 +11,6 @@ import {
   fetchCompanyOffersAction,
 } from 'bsport-saas/src/libs/marketplace/actions';
 import * as paymentActions from 'bsport-saas/src/actions/payment.actions';
-import 'bsport-saas/src/components/map/Map.css';
 
 import {
   getOffersFiltered,
@@ -63,6 +62,7 @@ export class CalendarWidget extends Component<Props, State> {
             filtersOpen: !prevState.filtersOpen,
           }))
         }
+        hideMap
         loading={this.props.loading}
         coaches={this.props.coaches}
         establishments={this.props.establishments}

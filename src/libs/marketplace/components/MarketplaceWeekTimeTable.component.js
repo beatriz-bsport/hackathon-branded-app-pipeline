@@ -72,6 +72,7 @@ const styles = (theme) => ({
   },
   offersContainer: {
     display: 'flex',
+    width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     flexWrap: 'noWrap',

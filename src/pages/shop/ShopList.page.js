@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
+import DialogContent from '@material-ui/core/DialogContent';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 
 import List from '@material-ui/core/List';
@@ -225,10 +226,12 @@ export class ShopItemList extends Component<Props, State> {
           open={!!this.state.createItemFromSubShop}
           fullScreen={this.props.fullScreen}
         >
-          <ShopItemForm
-            createOrUpdate={this.createOrUpdateShopItem}
-            onCancel={() => this.setState({ createItemFromSubShop: null })}
-          />
+          <DialogContent>
+            <ShopItemForm
+              createOrUpdate={this.createOrUpdateShopItem}
+              onCancel={() => this.setState({ createItemFromSubShop: null })}
+            />
+          </DialogContent>
         </Dialog>
       </div>
     );

@@ -1,21 +1,17 @@
 // @flow
 import React, { Component } from 'react';
 
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
 import CardMedia from '@material-ui/core/CardMedia';
-import CardActions from '@material-ui/core/CardActions';
 import TextField from '@material-ui/core/TextField';
 import withStyles from '@material-ui/core/styles/withStyles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import AddIcon from '@material-ui/icons/Add';
 import CancelIcon from '@material-ui/icons/Cancel';
 import LocalDrinkIcon from '@material-ui/icons/LocalDrink';
-import CheckIcon from '@material-ui/icons/Check';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import Button from '@material-ui/core/Button';
+import SaveIcon from '@material-ui/icons/Save';
 
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -156,7 +152,7 @@ export class ShopItemForm extends Component<Props, State> {
     } = this.state;
     return (
       <form className={classes.card} onSubmit={this.onSubmit}>
-        <Card style={{ width: '100%' }}>
+        <div style={{ width: '100%' }}>
           <Grid container spacing={32}>
             <Grid item xs={12}>
               <ImageUploader initial={cover} onChange={this.handleCoverChange}>
@@ -234,44 +230,40 @@ export class ShopItemForm extends Component<Props, State> {
               fullWidth
             />
           </Grid>
-          <CardContent className={classes.content}>
-            <div className={classes.description}>
-              <TextField
-                multiline
-                fullWidth
-                variant="outlined"
-                color="textSecondary"
-                value={description}
-                label={t('form.shop.item.description')}
-                onChange={this.handleField('description')}
-              />
-            </div>
-          </CardContent>
-          <CardActions className={classes.actions} disableActionSpacing>
-            <Grid container justify="flex-end" alignItems="center">
-              <Grid item className={classes.buttons}>
-                {this.props.initial ? (
-                  <IconButton color="primary" type="submit">
-                    <CheckIcon />
-                  </IconButton>
-                ) : (
-                  <IconButton color="primary" type="submit">
-                    <AddIcon />
-                  </IconButton>
-                )}
-                <IconButton onClick={this.props.onCancel}>
-                  <CancelIcon />
-                </IconButton>
-              </Grid>
-            </Grid>
-          </CardActions>
-        </Card>
+          <div className={classes.description}>
+            <TextField
+              multiline
+              fullWidth
+              variant="outlined"
+              color="textSecondary"
+              value={description}
+              label={t('form.shop.item.description')}
+              onChange={this.handleField('description')}
+            />
+          </div>
+          <div className={classes.buttons}>
+            <Button onClick={this.props.onCancel}>
+              <CancelIcon className={classes.leftIcon} />
+              {t('common.cancel')}
+            </Button>
+            <Button color="primary" type="submit">
+              <SaveIcon className={classes.leftIcon} /> {t('common.save')}
+            </Button>
+          </div>
+        </div>
       </form>
     );
   }
 }
 
 const styles = (theme) => ({
+  buttons: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    marginTop: theme.spacing.unit * 2,
+  },
   card: {
     display: 'flex',
     flexDirection: 'column',
@@ -280,9 +272,6 @@ const styles = (theme) => ({
   provisions: {
     marginLeft: theme.spacing.unit * 2,
     marginBottom: theme.spacing.unit * 2,
-  },
-  content: {
-    flex: '1 0 auto',
   },
   cover: {
     height: 70,
@@ -310,6 +299,9 @@ const styles = (theme) => ({
   },
   rightItem: {
     paddingRight: `${theme.spacing.unit * 5}px !important`,
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
   },
 });
 

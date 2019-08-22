@@ -4,8 +4,10 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 
 import Grid from '@material-ui/core/Grid';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Paper from '@material-ui/core/Paper';
 import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -37,6 +39,7 @@ import type { ShopItem, Provision } from '../../libs/shop/types';
 type Props = {
   id: number,
   fetchShopItem: (id: number) => void,
+  fullScreen: boolean,
   fetchProvisions: (
     shopitemId: number,
     page: number,
@@ -162,12 +165,14 @@ export class ShopItemDetail extends Component<Props, State> {
             />
           </Paper>
         </Grid>
-        <Dialog open={this.state.editOpen}>
-          <ShopItemForm
-            initial={this.props.shopitem}
-            onCancel={this.closeEditForm}
-            createOrUpdate={this.createOrUpdateShopItem}
-          />
+        <Dialog open={this.state.editOpen} fullScreen={this.props.fullScreen}>
+          <DialogContent>
+            <ShopItemForm
+              initial={this.props.shopitem}
+              onCancel={this.closeEditForm}
+              createOrUpdate={this.createOrUpdateShopItem}
+            />
+          </DialogContent>
         </Dialog>
         <Dialog open={this.state.provisionFormOpen}>
           <ProvisionForm
@@ -216,4 +221,5 @@ export default compose(
     },
   ),
   withDrawer(({ shopitem }) => (shopitem ? shopitem.name : '')),
+  withMobileDialog(),
 )(ShopItemDetail);

@@ -131,84 +131,71 @@ export function MarketplaceCalendar(props: Props) {
   return (
     <Fragment>
       <Hidden mdUp>
-        <Grid
-          container
-          direction="column"
-          alignItems="stretch"
-          justify="flex-start"
-        >
-          <Grid item xs={12} md={6}>
-            <Calendar
-              forceMonthDisplay={false}
-              hideSwitchViewButton
-              searchBar={searchBar}
-              searchBarOpen={props.filtersOpen}
-              toogleSearchBar={props.toogleFiltersOpen}
-              onDateClick={onSelectDate}
-              loading={loading}
-              date={selectedDate}
-              events={events}
-            />
-          </Grid>
+        <div className={classes.container}>
+          <Calendar
+            forceMonthDisplay={false}
+            hideSwitchViewButton
+            searchBar={searchBar}
+            searchBarOpen={props.filtersOpen}
+            toogleSearchBar={props.toogleFiltersOpen}
+            onDateClick={onSelectDate}
+            loading={loading}
+            date={selectedDate}
+            events={events}
+          />
           <div className={classes.divider} />
-          <Grid item xs={12} md={6}>
-            {loading ? (
-              <LoadingIndicator />
-            ) : (
-              <MarketplaceTimetable
-                offers={dayOffers}
-                date={selectedDate}
-                onClickOffer={props.onClickOffer}
-                onClickBook={props.onClickBook}
-                onClickBookOption={props.onClickBookOption}
-              />
-            )}
-          </Grid>
-        </Grid>
+          {loading ? (
+            <LoadingIndicator />
+          ) : (
+            <MarketplaceTimetable
+              offers={dayOffers}
+              date={selectedDate}
+              onClickOffer={props.onClickOffer}
+              onClickBook={props.onClickBook}
+              onClickBookOption={props.onClickBookOption}
+            />
+          )}
+        </div>
       </Hidden>
       <Hidden smDown>
-        <Grid
-          container
-          direction="column"
-          alignItems="stretch"
-          justify="flex-start"
-        >
-          <Grid item xs={12}>
-            <Calendar
-              clickableDate={false}
-              showDayName={false}
-              hideDateBar
-              hideSwitchViewButton
-              searchBar={searchBar}
-              searchBarOpen={props.filtersOpen}
-              toogleSearchBar={props.toogleFiltersOpen}
-              onDateClick={onSelectDate}
+        <div className={classes.container}>
+          <Calendar
+            clickableDate={false}
+            showDayName={false}
+            hideDateBar
+            hideSwitchViewButton
+            searchBar={searchBar}
+            searchBarOpen={props.filtersOpen}
+            toogleSearchBar={props.toogleFiltersOpen}
+            onDateClick={onSelectDate}
+            date={selectedDate}
+            events={events}
+          />
+          {loading ? (
+            <LoadingIndicator />
+          ) : (
+            <MarketplaceWeekTimetable
+              weekOffers={weekOffers}
               date={selectedDate}
-              events={events}
+              onClickOffer={props.onClickOffer}
+              onClickBook={props.onClickBook}
+              onClickBookOption={props.onClickBookOption}
             />
-          </Grid>
-        </Grid>
-        <Grid container direction="column" alignItems="stretch">
-          <Grid item xs={12}>
-            {loading ? (
-              <LoadingIndicator />
-            ) : (
-              <MarketplaceWeekTimetable
-                weekOffers={weekOffers}
-                date={selectedDate}
-                onClickOffer={props.onClickOffer}
-                onClickBook={props.onClickBook}
-                onClickBookOption={props.onClickBookOption}
-              />
-            )}
-          </Grid>
-        </Grid>
+          )}
+        </div>
       </Hidden>
     </Fragment>
   );
 }
 
 const styles = (theme) => ({
+  container: {
+    display: 'flex',
+    width: '100%',
+    flexDirection: 'column',
+    flex: 1,
+    alignItems: 'center',
+  },
   selector: {
     paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,

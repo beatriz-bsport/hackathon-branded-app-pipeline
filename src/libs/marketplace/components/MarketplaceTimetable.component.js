@@ -54,7 +54,7 @@ export class MarketplaceTimetable extends Component<Props> {
   render() {
     const { date, classes } = this.props;
     return (
-      <div>
+      <div className={classes.container}>
         <Typography variant="h6" className={classes.title}>
           {date.format('dddd Do MMMM')}
         </Typography>
@@ -66,6 +66,9 @@ export class MarketplaceTimetable extends Component<Props> {
 }
 
 const styles = (theme) => ({
+  container: {
+    width: '100%',
+  },
   title: {
     margin: theme.spacing.unit * 2,
   },

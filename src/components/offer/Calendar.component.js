@@ -340,19 +340,13 @@ export class Calendar extends Component<Props, State> {
   render() {
     const { classes } = this.props;
     return (
-      <Grid id="calendar" container direction="column">
-        <Grid item xs={12}>
-          {this.renderHeader()}
-        </Grid>
-        <Grid item xs={12}>
-          {this.renderSearchBar()}
-        </Grid>
+      <div id="calendar" style={{ width: '100%' }}>
+        {this.renderHeader()}
+        {this.renderSearchBar()}
         {!this.props.hideDateBar ? (
-          <Grid item xs={12} className={classes.dayRow}>
-            {this.renderBulkDays()}
-          </Grid>
+          <div className={classes.dayRow}>{this.renderBulkDays()}</div>
         ) : null}
-      </Grid>
+      </div>
     );
   }
 }

@@ -67,7 +67,17 @@ export class MemberSummaryCard extends Component<Props> {
     const { member } = this.props;
     return (
       <List dense>
-        <ListItem>
+        <ListItem
+          button={!!member.consumer.phonenumber}
+          onClick={(e) => {
+            e.stopPropagation();
+            if (member.consumer.phonenumber) {
+              window.location.href = 'tel:'.concat(
+                member.consumer.phonenumber.phone_number,
+              );
+            }
+          }}
+        >
           <CallIcon />
           <ListItemText
             primary={
@@ -83,7 +93,15 @@ export class MemberSummaryCard extends Component<Props> {
             )}
           </ListItemSecondaryAction>
         </ListItem>
-        <ListItem>
+        <ListItem
+          button={!!member.consumer.email}
+          onClick={(e) => {
+            e.stopPropagation();
+            if (member.consumer.email) {
+              window.location.href = 'mailto:'.concat(member.consumer.email);
+            }
+          }}
+        >
           <EmailIcon />
           <ListItemText primary={member.consumer.email || ' - '} />
           <ListItemSecondaryAction>

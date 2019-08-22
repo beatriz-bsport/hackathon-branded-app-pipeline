@@ -104,13 +104,29 @@ class CoachSummaryCard extends React.Component<Props> {
   renderContact = () => {
     return (
       <List dense>
-        <ListItem>
+        <ListItem
+          button={!!this.props.coach.phone}
+          onClick={(e) => {
+            e.stopPropagation();
+            if (this.props.coach.phone) {
+              window.location.href = 'tel:'.concat(this.props.coach.phone);
+            }
+          }}
+        >
           <CallIcon />
           <ListItemText
             primary={this.props.coach.phone ? this.props.coach.phone : ' - '}
           />
         </ListItem>
-        <ListItem>
+        <ListItem
+          button={!!this.props.coach.email}
+          onClick={(e) => {
+            e.stopPropagation();
+            if (this.props.coach.email) {
+              window.location.href = 'mailto:'.concat(this.props.coach.email);
+            }
+          }}
+        >
           <EmailIcon />
           <ListItemText
             primary={this.props.coach.email ? this.props.coach.email : ' - '}

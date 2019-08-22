@@ -3,6 +3,7 @@
 import React, { Component, createContext } from 'react';
 import type { AbstractComponent } from 'react';
 
+// eslint-disable-next-line
 export const DrawerContext = createContext({
   title: '',
 });

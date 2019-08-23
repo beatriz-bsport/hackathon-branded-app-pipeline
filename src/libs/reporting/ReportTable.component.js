@@ -51,9 +51,14 @@ function getConverter(column, classes, t) {
         };
       }
     }
+    if (datatype === 'time') {
+      return {
+        value: moment(value, 'HH[:]mm').format('HH[:]mm'),
+      };
+    }
     if (datatype === 'date') {
       return {
-        value: moment(value).format('DD/MM/YYYY'),
+        value: moment(value, 'DD/MM/YYYY').format('DD/MM/YYYY'),
       };
     }
     if (datatype === 'datetime') {

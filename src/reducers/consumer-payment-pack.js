@@ -63,7 +63,7 @@ export default handleActions(
     },
     [byPaymentPack.success]: (state, { payload }) => {
       return state
-        .setIn(['byPaymentPack', 'items'], payload.results)
+        .setIn(['byPaymentPack', 'items'], payload.results || [])
         .setIn(['byPaymentPack', 'count'], payload.count);
     },
     [byPaymentPack.error]: (state, { payload }) => {

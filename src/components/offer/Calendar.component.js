@@ -400,6 +400,7 @@ const styles = (theme) => ({
     wrap: 'nowrap',
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
+    width: '100%',
   },
 });
 

@@ -269,7 +269,6 @@ export class MarketplaceCalendar extends Component<Props, State> {
 
 const styles = () => ({
   container: {
-    flexGrow: 1,
     width: '100%',
   },
 });

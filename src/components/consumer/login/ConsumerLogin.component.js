@@ -4,10 +4,12 @@ import React, { Component } from 'react';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import PersonIcon from '@material-ui/icons/Person';
+import Button from '@material-ui/core/Button';
+import HelpIcon from '@material-ui/icons/Help';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -16,6 +18,7 @@ import RedButton from '../../button/RedButton.component';
 import PasswordInput from '../../input/PasswordInput.component';
 
 import { FormField } from '../../input';
+import { openIntercomHelp } from '../../../intercom';
 
 const styles = (theme) => ({
   headIcon: {
@@ -165,6 +168,12 @@ export class ConsumerLogin extends Component<Props, State> {
             {t('login.signUpConsumer')}
           </RedButton>
         </Grid>
+        <IconButton
+          style={{ position: 'absolute', top: 12, right: 12 }}
+          onClick={openIntercomHelp}
+        >
+          <HelpIcon />
+        </IconButton>
       </Grid>
     );
   }

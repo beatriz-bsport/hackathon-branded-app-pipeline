@@ -49,6 +49,7 @@ export function MetaActivityForm(props: Props) {
               name="name"
               required
               fullWidth
+              inputProps={{ maxLength: 100 }}
             />
           </Grid>
           {imageUploader ? (

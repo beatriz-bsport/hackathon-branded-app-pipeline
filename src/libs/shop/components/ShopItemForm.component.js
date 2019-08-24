@@ -165,6 +165,7 @@ export class ShopItemForm extends Component<Props, State> {
                 value={name}
                 required
                 onChange={this.handleField('name')}
+                inputProps={{ maxLength: 200 }}
                 fullWidth
               />
             </Grid>

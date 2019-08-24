@@ -67,6 +67,9 @@ export default {
       date: 'Date',
       rule: 'Rule',
     },
+    table: {
+      download: 'Download',
+    },
     addBonus: 'Add a rule',
     dateTitle: 'Date range',
     remuneration: 'Remuneration',
@@ -303,7 +306,8 @@ export default {
         changePasswordTitle: 'Change password',
         password: 'Password',
         confirmPassword: 'Confirm',
-        passwordTooEasy: 'Your password should have at least 6 characters, a letter and a number.',
+        passwordTooEasy:
+          'Your password should have at least 6 characters, a letter and a number.',
         passwordChangedSuccess: 'Password reset successfull !',
         passwordMismatch: 'Password confirmation mismatch',
       },

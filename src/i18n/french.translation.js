@@ -66,6 +66,9 @@ export default {
       name: 'Nom de la séance',
       date: 'Date',
       rule: 'Régle',
+      },
+    table: {
+      download: 'Télécharger',
     },
     addBonus: 'Ajouter une règle',
     dateTitle: 'Plage de dates',

@@ -41,6 +41,7 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DescriptionIcon from '@material-ui/icons/Description';
 import ReceiptIcon from '@material-ui/icons/Receipt';
+import HelpIcon from '@material-ui/icons/Help';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import type { TFunction } from 'react-i18next';
 
@@ -52,6 +53,7 @@ import LOGO_ASSET from '../../public/images/banner_lowres.png';
 import AlertButtonMenu from '../../libs/alerting/components/AlertButtonMenu.component';
 
 import { DrawerContext } from '../../hocs/with-drawer.hoc';
+import { openIntercomHelp } from '../../intercom';
 import type { Alerting } from '../../libs/alerting/types';
 
 export const drawerWidth = 260;
@@ -237,6 +239,21 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                 wrap="nowrap"
               >
                 <Grid item>
+                  <IconButton
+                    onClick={openIntercomHelp}
+                  >
+                    <HelpIcon />
+                  </IconButton>
+                </Grid>
+                <Grid item>
+                  <AlertButtonMenu
+                    alertings={alertings}
+                    nbAlerting={nbAlerting}
+                    deleteAlert={deleteAlert}
+                    showMore={fetchMoreAlertingKind}
+                  />
+                </Grid>
+                <Grid item>
                   <RefreshButton
                     isRefreshing={isRefreshing}
                     onRefresh={onRefresh}
@@ -260,6 +277,13 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                 direction="row"
                 wrap="nowrap"
               >
+                <Grid item>
+                  <IconButton
+                    onClick={openIntercomHelp}
+                  >
+                    <HelpIcon />
+                  </IconButton>
+                </Grid>
                 <Grid item>
                   <AlertButtonMenu
                     alertings={alertings}

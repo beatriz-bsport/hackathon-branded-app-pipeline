@@ -5,6 +5,8 @@ import { compose } from 'recompose';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import HelpIcon from '@material-ui/icons/Help';
 import Typography from '@material-ui/core/Typography';
 import { withRouter } from 'react-router';
 import { Redirect } from 'react-router-dom';
@@ -12,6 +14,7 @@ import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import parse from '../../query-string';
+import { openIntercomHelp } from '../../intercom';
 
 import { auth as authActions } from '../../actions';
 
@@ -109,7 +112,19 @@ export class ConsumerLoginPage extends Component<Props> {
           className={classes.container}
         >
           <Grid item>
-            <Typography variant="h4">{t('form.signUpTitle')}</Typography>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <Typography variant="h4">{t('form.signUpTitle')}</Typography>
+              <IconButton onClick={openIntercomHelp}>
+                <HelpIcon />
+              </IconButton>
+            </div>
           </Grid>
           <Grid item>
             <SignUpForm

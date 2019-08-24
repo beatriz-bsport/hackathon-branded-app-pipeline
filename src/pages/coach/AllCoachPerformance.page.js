@@ -10,8 +10,12 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import AttachFileIcon from '@material-ui/icons/AttachFile';
 import AppBar from '@material-ui/core/AppBar';
+import Button from '@material-ui/core/Button';
+import type { TFunction } from 'react-i18next';
 
+import { downloadAsCsv } from '../../downloader';
 import { computePerformance } from '../../libs/payment-rules/utils';
 import type { PaymentRule } from '../../libs/payment-rules/types';
 
@@ -132,6 +136,8 @@ type Props = {
   paymentRules: PaymentRule[],
   setSessionPaymentRule: (PaymentRule) => void,
   setCoachPaymentRule: (coachId: number, paymentRuleId: number) => void,
+  t: TFunction,
+  allPerformances: () => Array<[Coach, CoachPerformanceType]>,
   onSubmit: {
     associatedCoachesWithDefaultPaymentRule: Array<Coach>,
     fetchPerformance: (
@@ -152,6 +158,31 @@ export function AllCoachPerformance(props: Props) {
           loading={props.loading}
         />
       </AppBar>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => {
+          downloadAsCsv(
+            [
+              props.t('coach.performance.coachName'),
+              props.t('coach.performance.nbOffersTotal'),
+              props.t('coach.performance.nbBookings'),
+              props.t('coach.performance.payment'),
+            ],
+            props
+              .allPerformances()
+              .map((perf) => [
+                perf[0].name,
+                perf[1].nbSessions,
+                perf[1].nbBookings,
+                `${perf[1].total} €`,
+              ]),
+          );
+        }}
+      >
+        <AttachFileIcon />
+        {props.t('common.download')}
+      </Button>
       {props.associatedCoachesWithDefaultPaymentRule.map((coach) => (
         <CoachPerformanceComposed
           associatedCoach={coach}
@@ -182,6 +213,22 @@ export default compose(
       fetchPerformance: fetchAssociatedCoachPerformance,
       setCoachPaymentRule,
     },
+  ),
+  connect(
+    (state, { paymentRules, associatedCoachesWithDefaultPaymentRule }) => ({
+      allPerformances: () =>
+        associatedCoachesWithDefaultPaymentRule.map((coach) => [
+          coach,
+          computePerformance(
+            coachPerformanceSelector.getPerformance(
+              state,
+              coach.associated_coach_id,
+            ),
+            paymentRules,
+            paymentRuleSelector(state, coach.default_payment_rule_id),
+          ),
+        ]),
+    }),
   ),
   withHandlers({
     onSubmit: ({

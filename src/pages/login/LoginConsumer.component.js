@@ -121,7 +121,7 @@ export class ConsumerLoginPage extends Component<Props> {
               }}
             >
               <Typography variant="h4">{t('form.signUpTitle')}</Typography>
-              <IconButton onClick={openIntercomHelp}>
+              <IconButton onClick={() => openIntercomHelp('login')}>
                 <HelpIcon />
               </IconButton>
             </div>

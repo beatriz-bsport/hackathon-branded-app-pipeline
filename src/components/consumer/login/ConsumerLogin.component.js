@@ -116,9 +116,21 @@ export class ConsumerLogin extends Component<Props, State> {
             }
           />
           {error ? (
-            <Typography color="error" className={classes.errorMessage}>
-              {t('login.authError')}{' '}
-            </Typography>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'row',
+              }}
+            >
+              <Typography color="error" className={classes.errorMessage}>
+                {t('login.authError')}{' '}
+              </Typography>
+              <IconButton onClick={() => openIntercomHelp('login')}>
+                <HelpIcon />
+              </IconButton>
+            </div>
           ) : null}
           <Button
             className={classes.bottomButton}
@@ -170,7 +182,7 @@ export class ConsumerLogin extends Component<Props, State> {
         </Grid>
         <IconButton
           style={{ position: 'absolute', top: 12, right: 12 }}
-          onClick={openIntercomHelp}
+          onClick={() => openIntercomHelp('login')}
         >
           <HelpIcon />
         </IconButton>

@@ -18,6 +18,7 @@ import { getPermissions } from '../libs/role/selectors';
 import {
   delete_ as deleteAlert,
   fetchMoreAlertingKind,
+  fetchAll as fetchAllAlertings,
 } from '../libs/alerting/actions';
 import asyncComponent from '../AsyncComponent';
 import Config from '../config';
@@ -77,17 +78,35 @@ type Props = {
   refreshIfNeeded: () => void,
   fetchMoreAlertingKind: (number) => void,
   fetchCompanyTheme: () => void,
+  fetchAllAlertings: () => void,
   theme: any,
 };
 
-export class Backoffice extends Component<Props> {
+type State = {
+  refreshInterval: ?Interval,
+};
+
+export class Backoffice extends Component<Props, State> {
+  state = {
+    refreshInterval: null,
+  };
+
   componentWillMount() {
     document.title = 'Backoffice - bsport';
+    this.setState({
+      refreshInterval: setInterval(this.props.fetchAllAlertings, 60000),
+    });
   }
 
   componentDidMount() {
     this.props.refreshIfNeeded();
     this.props.fetchCompanyTheme();
+  }
+
+  componentWillUnmount() {
+    if (this.state.refreshInterval) {
+      clearInterval(this.state.refreshInterval);
+    }
   }
 
   render() {
@@ -182,5 +201,6 @@ export default connect(
     fetchMoreAlertingKind,
     refreshIfNeeded: refreshActions.refreshIfNeeded,
     refresh: refreshActions.forceRefresh,
+    fetchAllAlertings,
   },
 )(themedBackoffice);

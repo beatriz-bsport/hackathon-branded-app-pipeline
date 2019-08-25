@@ -7,6 +7,7 @@ export default {
   emptyDescription: 'Aucune description fournie',
   performance: {
     title: 'Récapitulatif professeur',
+    coachName: 'Professeur',
     nbBookings: 'Réservations',
     nbOffersTotal: 'Séances',
     nbBookingsOverThreshold: 'Réservations bonus',

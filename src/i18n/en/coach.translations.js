@@ -6,7 +6,8 @@ export default {
   description: 'Description',
   emptyDescription: 'No description provided',
   performance: {
-    title: 'Coach performance',
+    title: 'Teacher performance',
+    coachName: 'Teacher',
     nbBookings: 'Bookings',
     nbOffersTotal: 'Sessions',
     nbBookingsOverThreshold: 'Bookings over threshold',

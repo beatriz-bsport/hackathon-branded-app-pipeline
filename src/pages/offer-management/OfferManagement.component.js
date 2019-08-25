@@ -4,9 +4,11 @@ import React, { PureComponent } from 'react';
 import { compose } from 'recompose';
 
 import withMobileDialog from '@material-ui/core/withMobileDialog';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Collapse from '@material-ui/core/Collapse';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import RefreshIcon from '@material-ui/icons/Refresh';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import Button from '@material-ui/core/Button';
@@ -121,6 +123,7 @@ export class OfferManagement extends PureComponent<Props, State> {
     memberToRegister: null,
     optionToDiscard: null,
     searchedText: '',
+    interval: null,
   };
 
   componentWillMount() {
@@ -131,6 +134,10 @@ export class OfferManagement extends PureComponent<Props, State> {
     this.props.fetchCompatiblePacks(this.props.offerId);
     this.props.fetchOffer(this.props.offerId);
     this.props.fetchOfferData(this.props.offerId);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.interval);
   }
 
   closeQuickInvoice = (memberId, invoiceData) => {
@@ -392,7 +399,6 @@ export class OfferManagement extends PureComponent<Props, State> {
           <Grid item>
             <Button
               onClick={() => this.goToOffer(this.props.offer.previous_offer)}
-              color="secondary"
               disabled={!this.props.offer}
             >
               <ChevronLeftIcon className={this.props.classes.leftIcon} />
@@ -400,15 +406,32 @@ export class OfferManagement extends PureComponent<Props, State> {
             </Button>
           </Grid>
           <Grid item>
-            <Button onClick={this.props.goBack} color="secondary">
-              <TodayIcon className={this.props.classes.leftIcon} />
-              {this.props.t('offer.backToCalendar')}
-            </Button>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                flexDirection: 'row',
+                justifyContent: 'center',
+              }}
+            >
+              <Button onClick={this.props.goBack}>
+                <TodayIcon className={this.props.classes.leftIcon} />
+                {this.props.t('offer.backToCalendar')}
+              </Button>
+              {this.props.bookingLoading ? (
+                <CircularProgress size={16} />
+              ) : (
+                <IconButton
+                  onClick={() => this.props.fetchOfferData(this.props.offerId)}
+                >
+                  <RefreshIcon />
+                </IconButton>
+              )}
+            </div>
           </Grid>
           <Grid item>
             <Button
               onClick={() => this.goToOffer(this.props.offer.next_offer)}
-              color="secondary"
               disabled={!this.props.offer}
             >
               <Hidden xsDown>{this.props.t('offer.nextOffer')}</Hidden>

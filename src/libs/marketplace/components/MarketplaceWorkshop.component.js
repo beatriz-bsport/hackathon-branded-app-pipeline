@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
 
-import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import { compose, withState } from 'recompose';
@@ -41,23 +40,18 @@ export const MarketplaceWorkshop = (props: Props) => {
   }
   return (
     <div>
-      <Grid container direction="column" justify="center" alignItems="center">
+      <div>
         {offers.map((o) => (
-          <Grid
-            item
-            xs={11}
-            key={o.id}
-            className={classes.workshopCardContainer}
-          >
+          <div key={o.id} className={classes.workshopCardContainer}>
             <MarketplaceWorkshopEvent
               offer={o}
               onShowMore={() => props.selectOffer(o)}
               onBook={() => props.onBook(o.id)}
               onBookOption={() => props.onBookOption(o.id)}
             />
-          </Grid>
+          </div>
         ))}
-      </Grid>
+      </div>
       <MarketplaceActivityDialog
         offer={props.offerSelected}
         hideMap={props.hideMap}

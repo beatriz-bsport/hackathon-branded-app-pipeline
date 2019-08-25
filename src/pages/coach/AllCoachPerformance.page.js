@@ -177,6 +177,7 @@ export function AllCoachPerformance(props: Props) {
                 perf[1].nbBookings,
                 `${perf[1].total} €`,
               ]),
+            'payroll.csv',
           );
         }}
       >

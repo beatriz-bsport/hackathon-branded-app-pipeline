@@ -43,9 +43,6 @@ const styles = (theme) => ({
     },
   },
   root: {
-    [theme.breakpoints.down('md')]: {
-      paddingTop: 60,
-    },
     [theme.breakpoints.up('md')]: {
       margin: -theme.spacing.unit * 3,
       width: `calc(100% + ${theme.spacing.unit * 6}px)`,
@@ -107,8 +104,7 @@ export class SearchResults extends Component<Props, State> {
     const isLoadingMember = !hasLoaded && selected;
     return (
       <Paper className={classes.root}>
-        <SearchBar className={classes.mobileOnly} />
-        {isLoadingMember ? <LinearProgress /> : null}
+        <SearchBar changeLocation className={classes.mobileOnly} />
         {hasLoaded ? (
           <Button
             color="secondary"
@@ -120,12 +116,10 @@ export class SearchResults extends Component<Props, State> {
           </Button>
         ) : null}
         <div className={classes.content}>
-          {hasLoaded ? null : <LinearProgress />}
           <ResultList
             items={this.props.members}
             selected={selected}
             selectEntity={this.selectEntity}
-            loading={this.props.membersLoading}
             className={selected && !isLoadingMember ? classes.hidden : ''}
           />
         </div>

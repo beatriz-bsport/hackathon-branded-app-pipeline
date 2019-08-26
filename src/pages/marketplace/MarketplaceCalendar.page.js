@@ -150,11 +150,11 @@ export class MarketplaceCalendar extends Component<Props, State> {
   componentDidMount() {
     const min_date = this.props.selectedDate
       .clone()
-      .startOf('month')
+      .startOf('week')
       .format('YYYY-MM-DD');
     const max_date = this.props.selectedDate
       .clone()
-      .endOf('month')
+      .endOf('week')
       .format('YYYY-MM-DD');
     this.props.fetchCompanyOffers(this.props.companyId, min_date, max_date);
   }

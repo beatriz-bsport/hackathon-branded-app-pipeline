@@ -47,6 +47,7 @@ type Props = {
   filters: *,
   toogleFiltersOpen: () => void,
   filtersOpen: boolean,
+  forceDayDisplayOnly: ?boolean,
   onClickBook: (offerId: number) => void,
   onClickBookOption: (offerId: number) => void,
 };
@@ -65,6 +66,7 @@ export function MarketplaceCalendar(props: Props) {
     loading,
     setFilters,
     filters,
+    forceDayDisplayOnly,
   } = props;
   const events = {};
   offers.forEach((o) => {
@@ -74,6 +76,21 @@ export function MarketplaceCalendar(props: Props) {
     }
     events[midnight].push(o);
   });
+
+  if (forceDayDisplayOnly) {
+    if (loading) {
+      return <LoadingIndicator />;
+    }
+    return (
+      <MarketplaceTimetable
+        offers={dayOffers}
+        date={selectedDate}
+        onClickOffer={props.onClickOffer}
+        onClickBook={props.onClickBook}
+        onClickBookOption={props.onClickBookOption}
+      />
+    );
+  }
 
   const searchBar = (
     <Grid container>

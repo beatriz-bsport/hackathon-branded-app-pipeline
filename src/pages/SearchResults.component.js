@@ -10,7 +10,6 @@ import type { TFunction } from 'react-i18next';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
-import LinearProgress from '@material-ui/core/LinearProgress';
 import Button from '@material-ui/core/Button';
 import memberSelectors from '../libs/member/selectors';
 
@@ -27,7 +26,7 @@ type Props = {
   member: *,
   selected: number,
   pushToMember: (memberId: number) => void,
-  membersLoading: boolean,
+  // membersLoading: boolean, unused
   selectEntity: (*) => void,
   t: TFunction,
 };

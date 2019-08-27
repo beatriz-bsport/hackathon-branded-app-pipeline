@@ -1,7 +1,8 @@
 // @flow
 import React, { Component } from 'react';
 
-import { compose } from 'recompose';
+import { compose, withProps } from 'recompose';
+import { withRouter } from 'react-router';
 
 import Grid from '@material-ui/core/Grid';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
@@ -63,6 +64,7 @@ type Props = {
   companyId: number,
   company: MarketPlaceCompany,
   companyLoading: boolean,
+  hideAppBar: ?boolean,
 
   fetchCompany: (companyId: number) => void,
   fetchCompanyActivities: (companyId: number) => void,
@@ -240,19 +242,21 @@ export class MarketPlace extends Component<Props, State> {
               this.props.resetOrders();
             }}
           />
-          <AppBarMUI position="relative" color="default">
-            <Tabs
-              value={this.props.tab || DEFAULT_TAB}
-              onChange={this.handleTabChange}
-              textColor="primary"
-              indicatorColor="primary"
-            >
-              <Tab value={TAB_CALENDAR} label={t('marketplace.calendar')} />
-              <Tab value={TAB_WORKSHOP} label={t('marketplace.workshop')} />
-              <Tab value={TAB_PASS} label={t('marketplace.pass')} />
-              <Tab value={TAB_SHOP} label={t('marketplace.shop.tabName')} />
-            </Tabs>
-          </AppBarMUI>
+          {!this.props.hideAppBar ? (
+            <AppBarMUI position="relative" color="default">
+              <Tabs
+                value={this.props.tab || DEFAULT_TAB}
+                onChange={this.handleTabChange}
+                textColor="primary"
+                indicatorColor="primary"
+              >
+                <Tab value={TAB_CALENDAR} label={t('marketplace.calendar')} />
+                <Tab value={TAB_WORKSHOP} label={t('marketplace.workshop')} />
+                <Tab value={TAB_PASS} label={t('marketplace.pass')} />
+                <Tab value={TAB_SHOP} label={t('marketplace.shop.tabName')} />
+              </Tabs>
+            </AppBarMUI>
+          ) : null}
           <div className={classes.content}>{this.renderContent()}</div>
           <Dialog
             open={this.state.currentOrderOpen}
@@ -345,11 +349,15 @@ export default compose(
   withStyles(styles),
   withNamespaces(),
   withMobileDialog(),
+  withRouter,
   routerParamsToProps({
     companyId: 'companyId:number',
     companyName: 'companyName',
     tab: 'tab',
   }),
+  withProps(({ location }) => ({
+    hideAppBar: location.search.includes('hideAppBar=true'),
+  })),
   connect(
     (state) => ({
       auth: state.auth,

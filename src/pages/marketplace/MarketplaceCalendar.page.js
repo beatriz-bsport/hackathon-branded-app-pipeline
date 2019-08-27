@@ -35,6 +35,7 @@ type Props = {
   filtersOpen: boolean,
   loading: boolean,
   hideMap: ?boolean,
+  forceDayDisplayOnly: ?boolean,
 
   companyId: number,
   selectedDate: Object,
@@ -246,6 +247,7 @@ export class MarketplaceCalendar extends Component<Props, State> {
           filters={filters}
           loading={this.props.loading}
           dayOffers={selectedDayOffers}
+          forceDayDisplayOnly={!!this.props.forceDayDisplayOnly}
           weekOffers={weekOffers}
           onClickOffer={this.openOfferDialog}
           onClickBook={(id) => this.props.goToBook(id, this.props.companyId)}
@@ -305,6 +307,7 @@ export default compose(
         replace(`${location.pathname + location.search}&filtersOpen=true`);
       }
     },
+    forceDayDisplayOnly: location.search.includes('onlyDay=true'),
   })),
   connect(
     (state, { filters }) => ({

@@ -9,6 +9,7 @@ export default {
     date_start_date: 'Date',
     date_start_time: 'Heure',
     duration_minute: 'Durée (minutes)',
+    attendance: 'Présent',
     coach: 'Professeur',
     effectif: 'Nb de places',
     nb_attendance: 'Présents',

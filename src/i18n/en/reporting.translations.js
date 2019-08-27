@@ -12,6 +12,7 @@ export default {
     coach: 'Coach',
     effectif: 'Nb slots',
     nb_attendance: 'Nb attendant',
+    attendance: 'Attendance',
     nb_non_attendance: 'Nb absent',
     name: 'Name',
     identifier: 'Identifier',

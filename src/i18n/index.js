@@ -9,10 +9,10 @@ import FRENCH_PACK from './french.translation';
 import SPANISH_PACK from './spanish.translations';
 
 i18n
-  .use(LanguageDetector)
   .use(reactI18nextModule)
   .init({
     fallbackLng: 'fr-FR',
+    lng: 'fr-FR',
 
     // have a common namespace used around the full app
     defaultNS: 'translation',
@@ -44,7 +44,8 @@ i18n
       bindStore: 'added removed',
       nsMode: 'default',
     },
-  });
+  })
+  .use(LanguageDetector);
 
 const availableLanguages = [
   {

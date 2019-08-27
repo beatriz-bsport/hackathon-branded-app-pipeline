@@ -14,6 +14,7 @@ import type { ShopState } from '../libs/shop/types';
 import type { MarketPlaceState } from '../libs/marketplace/types';
 import type { SearchState, SearchAction } from './search/types';
 import type { ThemeState } from '../libs/theme/types';
+import type { EstablishmentState } from '../libs/establishment/types';
 
 export type State = {
   paymentRules: PaymentRulesState,
@@ -30,6 +31,7 @@ export type State = {
   shop: ShopState,
   marketplacev2: MarketPlaceState,
   theme: ThemeState,
+  establishment: EstablishmentState,
 };
 export type Action = SearchAction | AuthAction;
 

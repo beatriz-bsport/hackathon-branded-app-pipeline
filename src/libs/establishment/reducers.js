@@ -12,6 +12,7 @@ import {
   actionStartUpdate,
   addImage,
   removeImage,
+  detailActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -21,6 +22,7 @@ const initialState = Immutable({
   detail: {
     loading: false,
     error: null,
+    data: null,
   },
   // Create or Update
   upsert: {
@@ -35,6 +37,15 @@ export default handleActions(
   {
     [listIsLoading]: (state, { payload }) => {
       return state.set('loading', payload);
+    },
+    [detailActions.success]: (state, { payload }) => {
+      return state.setIn(['detail', 'data'], payload);
+    },
+    [detailActions.error]: (state, { payload }) => {
+      return state.setIn(['detail', 'error'], payload);
+    },
+    [detailActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['detail', 'loading'], payload);
     },
     [listLoaded]: (state, { payload }) => {
       return state.set('all', payload);

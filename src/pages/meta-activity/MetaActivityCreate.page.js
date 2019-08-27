@@ -29,6 +29,9 @@ import {
   getEnabledMetaActivities,
   getEnabledWorkshops,
 } from '../../libs/meta-activity/selectors';
+import { fetchEstablishments } from '../../libs/establishment/actions';
+import { getAllEstablishments } from '../../libs/establishment/selectors';
+import type { Establishment } from '../../libs/establishment/types';
 
 type StepType = {
   id: number,
@@ -41,7 +44,8 @@ const STEPS: Array<StepType> = [STEP_ACTIVITY, STEP_OFFER];
 type Props = {
   loading: ?boolean,
 
-  establishments: *[],
+  establishments: Array<Establishment>,
+  fetchEstablishments: () => void,
   SCTs: *[],
 
   onSubmitMetaActivity: (*) => void,
@@ -80,6 +84,10 @@ const StepperForm = withNamespaces(['metaActivity'])(
 );
 
 export class MetaActivityFormPage extends Component<Props> {
+  componentDidMount() {
+    this.props.fetchEstablishments();
+  }
+
   renderActivityStep = () => (
     <MetaActivityForm
       coaches={this.props.coaches}
@@ -142,7 +150,7 @@ export default compose(
   withState('step', 'setStep', STEP_ACTIVITY),
   connect(
     (state) => ({
-      establishments: state.establishment.all,
+      establishments: getAllEstablishments(state),
       SCTs: state.category.SCTs,
       loading: state.metaActivity.loading,
       metaActivityNames: [
@@ -153,6 +161,7 @@ export default compose(
       upsertedMetaActivity: state.metaActivity.upsert.data,
     }),
     {
+      fetchEstablishments,
       upsertMetaActivity: upsert,
       goToMetaActivity: (id: number) => push(`/activity/${id}`),
       fetchAllOffers: offerActions.fetchAllOffers,

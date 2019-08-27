@@ -19,6 +19,9 @@ import {
   getEnabledMetaActivities,
   getEnabledWorkshops,
 } from '../../libs/meta-activity/selectors';
+import { fetchEstablishments } from '../../libs/establishment/actions';
+import { getAllEstablishments } from '../../libs/establishment/selectors';
+import type { Establishment } from '../../libs/establishment/types';
 import { paymentPack as paymentPackActions } from '../../actions';
 import withDrawer from '../../hocs/with-drawer.hoc';
 import type { SCT, MetaActivity } from '../../api/types';
@@ -28,40 +31,47 @@ type Props = {
   categories: Array<SCT>,
   metaActivities: Array<MetaActivity>,
   establishments: Array<Establishment>,
+  fetchEstablishments: () => void,
   onSubmit: () => void,
   initial: ?PaymentPack,
 };
 
-export function PaymentPackFormPage(props: Props) {
-  const {
-    categories,
-    metaActivities,
-    loading,
-    establishments,
-    onSubmit,
-    initial,
-  } = props;
-  const availableCategoriesId = metaActivities.map((a) => a.category_id);
-  const filterableCategories = categories.filter(
-    (c) => availableCategoriesId.indexOf(c.id) !== -1,
-  );
+export class PaymentPackFormPage extends React.Component<Props> {
+  componentDidMount() {
+    this.props.fetchEstablishments();
+  }
 
-  return (
-    <Grid container>
-      <Grid item xs={12} md={8}>
-        <Paper>
-          <PaymentPackForm
-            onSubmit={onSubmit}
-            categories={filterableCategories || []}
-            metaActivities={metaActivities}
-            establishments={establishments}
-            loading={loading}
-            initial={initial}
-          />
-        </Paper>
+  render() {
+    const {
+      categories,
+      metaActivities,
+      loading,
+      establishments,
+      onSubmit,
+      initial,
+    } = this.props;
+    const availableCategoriesId = metaActivities.map((a) => a.category_id);
+    const filterableCategories = categories.filter(
+      (c) => availableCategoriesId.indexOf(c.id) !== -1,
+    );
+
+    return (
+      <Grid container>
+        <Grid item xs={12} md={8}>
+          <Paper>
+            <PaymentPackForm
+              onSubmit={onSubmit}
+              categories={filterableCategories || []}
+              metaActivities={metaActivities}
+              establishments={establishments}
+              loading={loading}
+              initial={initial}
+            />
+          </Paper>
+        </Grid>
       </Grid>
-    </Grid>
-  );
+    );
+  }
 }
 
 export default compose(
@@ -78,11 +88,12 @@ export default compose(
         ...getEnabledMetaActivities(state),
         ...getEnabledWorkshops(state),
       ],
-      establishments: state.establishment.all,
+      establishments: getAllEstablishments(state),
       loading: state.paymentPack.createOrUpdatePending,
     }),
     {
       fetchPaymentPacks: paymentPackActions.fetchAll,
+      fetchEstablishments,
       createOrUpdate: paymentPackActions.createOrUpdate,
       previousPage: goBack,
     },

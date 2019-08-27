@@ -23,15 +23,20 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import MetaActivityForm from '../../libs/meta-activity/components/MetaActivityForm.component';
 
+import { fetchEstablishments } from '../../libs/establishment/actions';
+import { getAllEstablishments } from '../../libs/establishment/selectors';
+import type { Establishment } from '../../libs/establishment/types';
+
 type Props = {
   id: ?number,
   loading: ?boolean,
   initial: ?MetaActivity,
 
   associatedCoaches: *[],
-  establishments: *[],
+  establishments: Array<Establishment>,
   SCTs: *[],
 
+  fetchEstablishments: () => void,
   removeImage: () => void,
   addImage: () => void,
   onSubmit: (*) => void,
@@ -48,49 +53,55 @@ const WorkshopActivityMap = {
   category: 'category',
 };
 
-export function WorkshopActivityEditPage(props: Props) {
-  const {
-    SCTs,
-    associatedCoaches,
-    establishments,
-    loading,
-    id,
-    addImage,
-    removeImage,
-    initial,
-  } = props;
-  const initialData = initial
-    ? {
-        ...unmap(initial, WorkshopActivityMap),
-        category: initial.category_id,
-      }
-    : null;
-  if (loading) {
-    return <LinearProgress />;
+export class WorkshopActivityEditPage extends React.Component<Props> {
+  componentDidMount() {
+    this.props.fetchEstablishments();
   }
-  const imageUploader = {
-    onAddImage: (file: File) => addImage(id, file),
-    onRemoveImage: (imageId: number) => removeImage(id, imageId),
-  };
-  return (
-    <Grid container justify="center" alignItems="center">
-      <Grid item xs={12} lg={9}>
-        <Paper>
-          <MetaActivityForm
-            coaches={associatedCoaches}
-            variant="workshop"
-            establishments={establishments}
-            SCTs={SCTs}
-            onSubmit={props.onSubmit}
-            onCancel={props.goToPreviousPage}
-            metaActivityNames={[]}
-            initial={{ ...initialData, images: (initial || {}).images || [] }}
-            imageUploader={id ? imageUploader : null}
-          />
-        </Paper>
+
+  render() {
+    const {
+      SCTs,
+      associatedCoaches,
+      establishments,
+      loading,
+      id,
+      addImage,
+      removeImage,
+      initial,
+    } = this.props;
+    const initialData = initial
+      ? {
+          ...unmap(initial, WorkshopActivityMap),
+          category: initial.category_id,
+        }
+      : null;
+    if (loading) {
+      return <LinearProgress />;
+    }
+    const imageUploader = {
+      onAddImage: (file: File) => addImage(id, file),
+      onRemoveImage: (imageId: number) => removeImage(id, imageId),
+    };
+    return (
+      <Grid container justify="center" alignItems="center">
+        <Grid item xs={12} lg={9}>
+          <Paper>
+            <MetaActivityForm
+              coaches={associatedCoaches}
+              variant="workshop"
+              establishments={establishments}
+              SCTs={SCTs}
+              onSubmit={this.props.onSubmit}
+              onCancel={this.props.goToPreviousPage}
+              metaActivityNames={[]}
+              initial={{ ...initialData, images: (initial || {}).images || [] }}
+              imageUploader={id ? imageUploader : null}
+            />
+          </Paper>
+        </Grid>
       </Grid>
-    </Grid>
-  );
+    );
+  }
 }
 
 export default compose(
@@ -100,12 +111,13 @@ export default compose(
     (state, { id }) => ({
       initial: state.workshopActivity.all.find((oa) => oa.id === id),
       associatedCoaches: associatedCoachSelector.getActive(state),
-      establishments: state.establishment.all,
+      establishments: getAllEstablishments(state),
       SCTs: state.category.SCTs,
       loading: state.workshopActivity.loading,
     }),
     {
       upsertWorkshopActivity: upsert,
+      fetchEstablishments,
       goToPreviousPage: goBack,
       addImage: addImageToWorkshop,
       removeImage: removeImageFromWorkshop,

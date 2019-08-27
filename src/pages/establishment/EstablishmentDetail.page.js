@@ -8,9 +8,10 @@ import { push } from 'react-router-redux';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import type { Establishment, Offer } from '../../api/types';
 import withDrawer from '../../hocs/with-drawer.hoc';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import { offer as offerActions } from '../../actions';
-
+import { fetchEstablishmentDetail } from '../../libs/establishment/actions';
 import EstablishmentDetail from '../../libs/establishment/components/EstablishmentDetail.component';
 
 type Props = {
@@ -21,28 +22,43 @@ type Props = {
   goToOffer: (offerId: number) => void,
   establishment: Establishment,
   startUpdateEstablishment: (*) => void,
+  fetchEstablishment: (id: number) => void,
+  loading: boolean,
 };
 
-export const EstablishmentDetails = (props: Props) => (
-  <EstablishmentDetail
-    timetableLoading={props.timetableLoading}
-    offers={props.offers}
-    fetchOffersByDay={props.fetchOffersByDay}
-    goToOffer={props.goToOffer}
-    establishment={props.establishment}
-    goToEditForm={() => props.startUpdateEstablishment(props.id)}
-  />
-);
+export class EstablishmentDetails extends React.Component<Props> {
+  componentWillMount() {
+    this.props.fetchEstablishment(this.props.id);
+  }
+
+  render() {
+    if (this.props.loading || !this.props.establishment) {
+      return <LinearProgress />;
+    }
+    return (
+      <EstablishmentDetail
+        timetableLoading={this.props.timetableLoading}
+        offers={this.props.offers}
+        fetchOffersByDay={this.props.fetchOffersByDay}
+        goToOffer={this.props.goToOffer}
+        establishment={this.props.establishment}
+        goToEditForm={() => this.props.startUpdateEstablishment(this.props.id)}
+      />
+    );
+  }
+}
 
 export default compose(
   withNamespaces(),
   routerParamsToProps({ id: 'id:number' }),
   connect(
-    (state, { id }) => ({
-      establishment: (state.establishment.all || []).find((e) => e.id === id),
+    (state) => ({
+      establishment: state.establishment.detail.data,
+      loading: state.establishment.detail.loading,
       offers: state.offer.offers,
     }),
     {
+      fetchEstablishment: fetchEstablishmentDetail,
       startUpdateEstablishment: (id: number) =>
         push(`/establishment/edit/${id}`),
       fetchOffersByDay: offerActions.fetchOffersByDay,

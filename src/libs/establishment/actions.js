@@ -7,6 +7,7 @@ import { createAction } from 'redux-actions';
 
 import {
   fetchAllEstablishments as fetchAllAPI,
+  fetchEstablishment as fetchEstablishmentAPI,
   updateEstablishment as updateEstablishmentAPI,
   addEstablishment as addEstablishmentAPI,
 } from './api';
@@ -26,8 +27,9 @@ export function fetchEstablishments() {
 
     try {
       const response = await fetchAllAPI();
-      dispatch(listLoaded(response.data));
+      dispatch(listLoaded(response.data.results));
     } catch (error) {
+      console.error(error);
       dispatch(listError(error));
     }
 
@@ -124,5 +126,27 @@ export function removeImageFromEstablishment(id: number, imageId: number) {
       Sentry.captureException(error);
     }
     dispatch(removeImage.isLoading({ id, imageId, loading: false }));
+  };
+}
+
+export const detailActions = {
+  isLoading: createAction('ESTABLISHMENT/DETAIL/LOADING'),
+  error: createAction('ESTABLISHMENT/DETAIL/ERROR'),
+  success: createAction('ESTABLISHMENT/DETAIL/SUCCESS'),
+};
+
+export function fetchEstablishmentDetail(id: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(detailActions.isLoading(true));
+    dispatch(detailActions.error(null));
+
+    try {
+      const response = await fetchEstablishmentAPI(id);
+      dispatch(detailActions.success(response.data));
+    } catch (error) {
+      dispatch(detailActions.error(error));
+    }
+
+    dispatch(detailActions.isLoading(false));
   };
 }

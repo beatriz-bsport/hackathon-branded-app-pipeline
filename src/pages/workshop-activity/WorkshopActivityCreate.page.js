@@ -30,6 +30,10 @@ import MetaActivityForm from '../../libs/meta-activity/components/MetaActivityFo
 import PaymentPackForm from '../../libs/payment-packs/PaymentPackForm.component';
 import OfferForm from '../../libs/offer/OfferForm.component';
 
+import { fetchEstablishments } from '../../libs/establishment/actions';
+import { getAllEstablishments } from '../../libs/establishment/selectors';
+import type { Establishment } from '../../libs/establishment/types';
+
 type StepType = {
   id: number,
   label: string,
@@ -44,7 +48,7 @@ type Props = {
   loading: ?boolean,
 
   associatedCoaches: *[],
-  establishments: *[],
+  establishments: Array<Establishment>,
   SCTs: *[],
 
   onSubmitPass: (*) => void,
@@ -58,6 +62,7 @@ type Props = {
   createOffers: (*) => void,
   offerIsProcessing: boolean,
   goToWorkshop: (id: number) => void,
+  fetchEstablishments: () => void,
 
   t: TFunction,
 };
@@ -84,6 +89,10 @@ const StepperForm = withNamespaces(['metaActivity'])(
 );
 
 export class WorkshopActivityFormPage extends Component<Props> {
+  componentWillMount() {
+    this.props.fetchEstablishments();
+  }
+
   renderActivityStep = () => (
     <MetaActivityForm
       variant="workshop"
@@ -171,7 +180,7 @@ export default compose(
   connect(
     (state) => ({
       associatedCoaches: associatedCoachSelector.getActive(state),
-      establishments: state.establishment.all,
+      establishments: getAllEstablishments(state),
       SCTs: state.category.SCTs,
       loading: state.metaActivity.loading,
       metaActivityNames: [
@@ -191,6 +200,7 @@ export default compose(
       fetchPaymentPacks: paymentPackActions.fetchAll,
       createPass: paymentPackActions.createOrUpdate,
       fetchAllOffers: offerActions.fetchAllOffers,
+      fetchEstablishments,
     },
   ),
   //

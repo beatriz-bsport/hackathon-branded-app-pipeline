@@ -17,7 +17,9 @@ import {
   createOrUpdateEstablishment,
   addImageToEstablishment,
   removeImageFromEstablishment,
+  fetchEstablishments,
 } from '../../libs/establishment/actions';
+import { getEstablishment } from '../../libs/establishment/selectors';
 import EstablishmentForm from '../../libs/establishment/components/EstablishmentForm.component';
 
 import { mapFormData } from '../form.utils';
@@ -28,6 +30,7 @@ type Props = {
   goToEstablishmentList: () => void,
   addImage: (number, File) => void,
   removeImage: (number, number) => void,
+  fetchEstablishments: () => void,
   establishmentId: number,
   pending: boolean,
   update: *,
@@ -36,6 +39,12 @@ type Props = {
 };
 
 export class EstablishmentFormPage extends Component<Props> {
+  componentDidMount() {
+    if (!this.props.isNew) {
+      this.props.fetchEstablishments();
+    }
+  }
+
   createEstablishment = async (data: *) => {
     const formData = mapFormData(data, {
       title: 'title',
@@ -85,23 +94,20 @@ export class EstablishmentFormPage extends Component<Props> {
   }
 }
 
-function mapStateToProps(state, { establishmentId }) {
-  const isNew = !establishmentId;
-  const establishments = state.establishment.all;
-  return {
-    isNew,
-    pending: state.establishment.upsert.loading,
-    update: isNew ? null : establishments.find((e) => e.id === establishmentId),
-  };
-}
-
 export default compose(
   withNamespaces([]),
   withRouter,
   mapRouterParamsToProps({ id: 'establishmentId:number' }),
   connect(
-    mapStateToProps,
+    (state, { establishmentId }) => ({
+      isNew: !establishmentId,
+      pending: state.establishment.upsert.loading,
+      update: !establishmentId
+        ? null
+        : getEstablishment(state, establishmentId),
+    }),
     {
+      fetchEstablishments,
       upsertEstablishment: createOrUpdateEstablishment,
       addImage: addImageToEstablishment,
       removeImage: removeImageFromEstablishment,

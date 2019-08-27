@@ -21,6 +21,9 @@ import {
 
 import withDrawer from '../../hocs/with-drawer.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import { fetchEstablishments } from '../../libs/establishment/actions';
+import { getAllEstablishments } from '../../libs/establishment/selectors';
+import type { Establishment } from '../../libs/establishment/types';
 
 import MetaActivityForm from '../../libs/meta-activity/components/MetaActivityForm.component';
 
@@ -29,7 +32,8 @@ type Props = {
   loading: ?boolean,
   initial: ?MetaActivity,
 
-  establishments: *[],
+  establishments: Array<Establishment>,
+  fetchEstablishments: () => void,
   SCTs: *[],
 
   fetchMetaActivity: (id: number) => void,
@@ -54,6 +58,7 @@ export class MetaActivityFormPage extends Component<Props> {
     if (this.props.id) {
       this.props.fetchMetaActivity(this.props.id);
     }
+    this.props.fetchEstablishments();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -111,13 +116,14 @@ export default compose(
   connect(
     (state, { id }) => ({
       initial: id ? state.metaActivity.metaActivity : null,
-      establishments: state.establishment.all,
+      establishments: getAllEstablishments(state),
       SCTs: state.category.SCTs,
       loading: state.metaActivity.loading,
       metaActivityNames: state.metaActivity.all.map((ma) => ma.name),
     }),
     {
       fetchMetaActivity: fetchMetaActivityDetails,
+      fetchEstablishments,
       upsertMetaActivity: upsert,
       goToPreviousPage: goBack,
       addImage: addImageToMetaActivity,

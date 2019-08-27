@@ -80,7 +80,7 @@ export class EstablishmentDetail extends Component<Props, State> {
   renderCalendar = (establishment: Establishment) => {
     const { offers, timetableLoading } = this.props;
     const { selectedDay } = this.state;
-    const offersInEstablishment = establishment.events;
+    const offersInEstablishment = establishment.events || [];
     const events_ = {};
     for (const o of offersInEstablishment) {
       const midnight = Moment(o.date_start).startOf('day');

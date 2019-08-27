@@ -17,6 +17,8 @@ import withDrawer from '../hocs/with-drawer.hoc';
 import OfferForm from '../libs/offer/OfferForm.component';
 import { associatedCoachSelector } from '../libs/associated-coach/selectors';
 import { createOffers as createOffersAPI } from '../libs/meta-activity/api/meta-activity';
+import { getAllEstablishments } from '../libs/establishment/selectors';
+import { fetchEstablishments } from '../libs/establishment/actions';
 import {
   getEnabledMetaActivities,
   getEnabledWorkshops,
@@ -29,6 +31,7 @@ type Props = {
   establishments: Array<Establishment>,
   metaActivities: Array<MetaActivity>,
   fetchAllOffers: () => void,
+  fetchEstablishments: () => void,
   goBack: () => void,
 };
 
@@ -49,6 +52,7 @@ export class OfferFormPage extends Component<Props, State> {
 
   componentWillMount() {
     this.metaActivityId = parseInt(this.props.match.params.id, 10);
+    this.props.fetchEstablishments();
   }
 
   createOffers = async (data: Object) => {
@@ -113,10 +117,11 @@ export default withNamespaces()(
         ...getEnabledWorkshops(state),
       ],
       coaches: associatedCoachSelector.getActive(state),
-      establishments: state.establishment.all,
+      establishments: getAllEstablishments(state),
       loading: state.metaActivity.loading,
     }),
     {
+      fetchEstablishments,
       fetchAllOffers: offerActions.fetchAllOffers,
       goBack: goBackAction,
     },

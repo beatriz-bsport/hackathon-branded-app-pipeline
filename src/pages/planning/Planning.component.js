@@ -29,10 +29,13 @@ import Calendar from '../../components/offer/Calendar.component';
 import { getPermissions } from '../../libs/role/selectors';
 import { getEnabledMetaActivities } from '../../libs/meta-activity/selectors';
 import { associatedCoachSelector } from '../../libs/associated-coach/selectors';
+import { fetchEstablishments } from '../../libs/establishment/actions';
+import { getAllEstablishments } from '../../libs/establishment/selectors';
+import type { Establishment } from '../../libs/establishment/types';
 
 import { offer as offerActions } from '../../actions';
 import { Moment } from '../../i18n';
-import type { Offer, Coach, Establishment } from '../../api/types';
+import type { Offer, Coach } from '../../api/types';
 import api from '../../api';
 
 import OfferEditForm from '../../libs/offer/OfferEditForm.component';
@@ -79,6 +82,7 @@ type Props = {
   goBack: () => void,
   loadDayData: (Object) => void,
   loadOfferData: (Offer) => void,
+  fetchEstablishments: () => void,
 
   deleteOffer: (id: number) => void,
   fetchSimilarOffers: (offerId: number) => void,
@@ -108,6 +112,7 @@ export class Planning extends PureComponent<Props, State> {
   }
 
   componentDidMount() {
+    this.props.fetchEstablishments();
     if (this.props.selectedOffer) {
       this.props.loadOfferData(this.props.selectedOffer);
     }
@@ -472,43 +477,6 @@ export class Planning extends PureComponent<Props, State> {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    offers: state.offer.offers,
-    events: state.offer.calendar,
-    timetableLoading: state.offer.byDay.loading,
-    coaches: associatedCoachSelector.getActive(state),
-    coachesLoading: state.coach.loading,
-    establishments: state.establishment.all,
-    establishmentsLoading: state.establishment.loading,
-    metaActivities: getEnabledMetaActivities(state),
-
-    similarOfferLoading: state.offer.similarOffers.loading,
-    similarOffers: state.offer.similarOffers.items,
-    permission: getPermissions(state),
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    goBack() {
-      dispatch(goBackRouter());
-    },
-    goToOfferManagement(offerId) {
-      dispatch(pushRouter(`/offer/${offerId}`));
-    },
-    fetchAllOffers() {
-      dispatch(offerActions.fetchAllOffers());
-    },
-    deleteOffer(offerId: number) {
-      dispatch(offerActions.deleteOffer(offerId));
-    },
-    fetchSimilarOffers(offerId) {
-      dispatch(offerActions.fetchSimilarOffers(offerId));
-    },
-  };
-}
-
 export default compose(
   withNamespaces(),
   withRouter,
@@ -516,8 +484,31 @@ export default compose(
   withWidth(),
   withMobileDialog(),
   connect(
-    mapStateToProps,
-    mapDispatchToProps,
+    (state) => ({
+      offers: state.offer.offers,
+      events: state.offer.calendar,
+      timetableLoading: state.offer.byDay.loading,
+
+      coaches: associatedCoachSelector.getActive(state),
+      coachesLoading: state.coach.loading,
+
+      establishments: getAllEstablishments(state),
+      establishmentsLoading: state.establishment.loading,
+
+      metaActivities: getEnabledMetaActivities(state),
+
+      similarOfferLoading: state.offer.similarOffers.loading,
+      similarOffers: state.offer.similarOffers.items,
+      permission: getPermissions(state),
+    }),
+    {
+      goBack: goBackRouter,
+      goToOfferManagement: (offerId) => pushRouter(`/offer/${offerId}`),
+      fetchAllOffers: offerActions.fetchAllOffers,
+      deleteOffer: offerActions.deleteOffer,
+      fetchSimilarOffers: offerActions.fetchSimilarOffers,
+      fetchEstablishments,
+    },
   ),
   withDrawer(({ t }: { t: TFunction }) => t('appbar.title.planning')),
 )(Planning);

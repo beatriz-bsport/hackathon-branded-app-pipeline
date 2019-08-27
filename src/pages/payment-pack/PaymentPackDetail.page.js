@@ -21,6 +21,9 @@ import paymentPackSelector from '../../libs/payment-packs/selectors';
 import type { MetaActivity } from '../../api/types';
 import withDrawer from '../../hocs/with-drawer.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import { fetchEstablishments } from '../../libs/establishment/actions';
+import { getAllEstablishments } from '../../libs/establishment/selectors';
+import type { Establishment } from '../../libs/establishment/types';
 
 import type {
   PaymentPack,
@@ -34,6 +37,7 @@ type Props = {
   pack: PaymentPack,
   metaActivities: Array<MetaActivity>,
   establishments: Array<Establishment>,
+  fetchEstablishments: () => void,
   consumerPacks: {
     items: Array<ConsumerPaymentPack>,
     count: number,
@@ -69,6 +73,7 @@ export class PaymentPackDetail extends Component<Props, State> {
 
   componentWillMount() {
     this.props.resetConsumerPacks();
+    this.props.fetchEstablishments();
   }
 
   requestEdit = (p: PaymentPack) => {
@@ -197,7 +202,7 @@ function mapStateToProps(state, { id }) {
       ...(state.metaActivity.all || []),
       ...(state.workshopActivity.all || []),
     ],
-    establishments: state.establishment.all,
+    establishments: getAllEstablishments(state),
     consumerPacks: {
       items: state.consumerPaymentPack.byPaymentPack.items.filter(
         (cpp) => !cpp.reverted,
@@ -210,38 +215,30 @@ function mapStateToProps(state, { id }) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    incrementCredit(consumerPackId) {
-      dispatch(consumerPackActions.updateCredit(consumerPackId, 1));
-    },
-    decrementCredit(consumerPackId) {
-      dispatch(consumerPackActions.updateCredit(consumerPackId, -1));
-    },
-    updatePaymentPack(paymentPackId, data) {
-      dispatch(paymentPackActions.patch(paymentPackId, data, true));
-    },
-    pushToEdit(paymentPackId: number) {
-      dispatch(pushRouter(`/payment-pack/${paymentPackId}/edit`));
-    },
-    resetConsumerPacks() {
-      dispatch(consumerPackActions.resetByPaymentPack());
-    },
-    fetchConsumerPacks(paymentPackId: number, page: number, pageSize: number) {
-      dispatch(
-        consumerPackActions.fetchByPaymentPack(paymentPackId, page, pageSize),
-      );
-    },
-  };
-}
-
 export default compose(
   withNamespaces(),
   withStyles(styles),
   routerParamsToProps({ id: 'id:number' }),
   connect(
     mapStateToProps,
-    mapDispatchToProps,
+    {
+      incrementCredit: (consumerPackId) =>
+        consumerPackActions.updateCredit(consumerPackId, 1),
+      decrementCredit: (consumerPackId) =>
+        consumerPackActions.updateCredit(consumerPackId, -1),
+      updatePaymentPack: (paymentPackId, data) =>
+        paymentPackActions.patch(paymentPackId, data, true),
+      pushToEdit: (paymentPackId: number) =>
+        pushRouter(`/payment-pack/${paymentPackId}/edit`),
+      resetConsumerPacks: consumerPackActions.resetByPaymentPack,
+      fetchEstablishments,
+      fetchConsumerPacks: (
+        paymentPackId: number,
+        page: number,
+        pageSize: number,
+      ) =>
+        consumerPackActions.fetchByPaymentPack(paymentPackId, page, pageSize),
+    },
   ),
   withDrawer(({ t }: { t: TFunction }) => t('appbar.title.paymentPackList')),
 )(PaymentPackDetail);

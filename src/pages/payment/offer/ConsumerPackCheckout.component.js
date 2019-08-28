@@ -5,17 +5,15 @@ import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withNamespaces } from 'react-i18next';
-import api from '../../../api';
+import type { TFunction } from 'react-i18next';
 import type { ConsumerPaymentPackConsumerView } from '../../../api/types';
 import ConsumerPackRowItem from '../../../libs/payment-packs/ConsumerPackRowItem.component';
 
 type Props = {
-  onCompletePurchase: () => void,
-  offerId: number,
+  onBookFromPack: () => void,
   consumerPack: ConsumerPaymentPackConsumerView,
   creditPrice: number,
-  urlParams: ?string,
-  t: (x: string) => string,
+  t: TFunction,
 };
 
 type State = {
@@ -25,21 +23,6 @@ type State = {
 export class ConsumerPackCheckout extends Component<Props, State> {
   state = {
     processing: false,
-  };
-
-  pay = async () => {
-    this.setState({ processing: true });
-    const { urlParams, consumerPack, offerId } = this.props;
-    const response = await api.payment.payWithConsumerPaymentPack(
-      consumerPack.id,
-      offerId,
-      urlParams,
-    );
-    if (response.status === 200) {
-      this.props.onCompletePurchase();
-    }
-
-    this.setState({ processing: false });
   };
 
   getBuyText = () => {
@@ -83,7 +66,7 @@ export class ConsumerPackCheckout extends Component<Props, State> {
       <Button
         variant="contained"
         color="primary"
-        onClick={this.pay}
+        onClick={this.props.onBookFromPack}
         id={`btn-payment-pack-user-${consumerPack.id}`}
       >
         {buyButtonText}

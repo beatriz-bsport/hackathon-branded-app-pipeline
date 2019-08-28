@@ -10,8 +10,12 @@ import {
 
 const BOOKING_SOURCE_WEB = 1;
 
-export async function consumerFetchCompatiblePass(offerId) {
-  return getAuth(`${API_URI}/pay/offer/${offerId}/compatible-packs`);
+export async function consumerFetchCompatiblePass(offerId, memberId) {
+  return getAuth(
+    `${API_URI}/pay/offer/${offerId}/compatible-packs${
+      memberId ? `?consumer__member=${memberId}` : ''
+    }`,
+  );
 }
 
 export async function bookAnOption(offer, consumer) {

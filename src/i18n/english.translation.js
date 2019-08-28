@@ -29,6 +29,7 @@ import workshop from './en/workshop.translations';
 import common from './en/common.translations';
 import role from './en/role.translations';
 import theme from './en/theme.translations';
+import selfCheckIn from './en/selft-check-in.translations';
 
 export default {
   dashboard,
@@ -57,6 +58,7 @@ export default {
   datetime,
   payment,
   offer,
+  selfCheckIn,
   coachPerformance: {
     fields: {
       bonus: 'Bonus',
@@ -942,6 +944,11 @@ export default {
         orderList: 'Orders',
         orderDetail: 'Order',
       },
+    },
+    countdown: {
+      hours: 'Hours',
+      minutes: 'Minutes',
+      seconds: 'Seconds',
     },
   },
 };

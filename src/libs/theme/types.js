@@ -8,6 +8,8 @@ export type Theme = {
   scheduleURL: ?string,
   facebookURL: ?string,
   instagramURL: ?string,
+  company: number,
+  company_name: string,
 };
 
 export type ThemeState = {

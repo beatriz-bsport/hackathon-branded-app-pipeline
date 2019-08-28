@@ -1,12 +1,15 @@
 // @flow
 import React from 'react';
 
-import { compose } from 'recompose';
+import { compose, withProps } from 'recompose';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import Moment from 'moment';
+
+import { snackbarSuccess as snackbarSuccessAction } from '../../actions/snackbar.actions';
+import { consumerPayWithConsumerPaymentPack as payWithConsumerPaymentPackAPI } from '../../api/payment';
 
 import * as paymentActions from '../../actions/payment.actions';
 import MarketplaceWorkshop from '../../libs/marketplace/components/MarketplaceWorkshop.component';
@@ -31,6 +34,7 @@ type Props = {
 
   fetchPaymentPacks: (offerId: number) => void,
   fetchCompatiblePass: (offerId: number) => void,
+  onBookOfferFromPack: (offerId: number, consumerPaymentPack: number) => void,
   compatibleConsumerPacks: Array<ConsumerPaymentPack>,
   compatiblePaymentPacks: Array<PaymentPack>,
   goToPackPayment: (offerId: number, companyId: number) => void,
@@ -64,6 +68,7 @@ export class MarketplaceWorkshopPage extends React.Component<Props> {
           compatiblePaymentPacks={this.props.compatiblePaymentPacks}
           hideMap={!!this.props.hideMap}
           onBook={(id) => this.props.goToBook(id, this.props.companyId)}
+          onBookOfferFromPack={this.props.onBookOfferFromPack}
           goToPackPayment={(packId, offerId) =>
             this.props.goToPackPayment(packId, offerId, this.props.companyId)
           }
@@ -100,10 +105,24 @@ export default compose(
       fetchCompanyOffers: fetchCompanyOffersWorkshopAction,
       goToBook: (id: number, companyId: number) =>
         push(`/customer/payment/offer/${id}?membership=${companyId}`),
+      snackbarSuccess: snackbarSuccessAction,
+      pushRouter: push,
       goToPackPayment: (packId, offerId, companyId) =>
         push(
           `/customer/payment/pass/${packId}?nextOffer=${offerId}&membership=${companyId}`,
         ),
     },
   ),
+  withProps(({ pushRouter, snackbarSuccess }) => ({
+    onBookOfferFromPack: (offerId, packId) => {
+      payWithConsumerPaymentPackAPI(packId, offerId, {})
+        .then(() => {
+          snackbarSuccess('booking.success');
+          pushRouter('/');
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    },
+  })),
 )(MarketplaceWorkshopPage);

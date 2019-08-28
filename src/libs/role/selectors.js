@@ -2,17 +2,29 @@
 
 import type { State } from '../../state/types';
 
-const ADMIN_ROLE = 0;
+const OWNER_ROLE = 0;
 const STAFF_ROLE = 1;
 const RESTRICTED_STAFF_ROLE = 2;
+const CHECKIN_APP_ROLE = 3;
+const ADMIN_ROLE = 4;
 
 const getRoleState = (state: State): UserRoleState => state.role;
 
-const getPermissionsId = () => [ADMIN_ROLE, STAFF_ROLE, RESTRICTED_STAFF_ROLE];
+const getPermissionsId = () => [
+  OWNER_ROLE,
+  ADMIN_ROLE,
+  STAFF_ROLE,
+  RESTRICTED_STAFF_ROLE,
+  CHECKIN_APP_ROLE,
+];
 
 const defaultPermissions: Permissions = {
-  name: 'Admin',
+  name: 'Owner',
   description: 'Accès admin, aucune restriction, peut créer des comptes staff',
+  editable: false,
+  id: 0,
+
+  checkin: false,
   offer: {
     delete: true,
     edit: true,
@@ -37,6 +49,8 @@ const getPermissionById = (id: number): Permissions => {
     case 1:
       return {
         ...defaultPermissions,
+        editable: true,
+        id: 1,
         navigation: false,
         name: 'Professeur',
         description:
@@ -47,6 +61,8 @@ const getPermissionById = (id: number): Permissions => {
       return {
         ...defaultPermissions,
         name: 'Checkin',
+        id: 2,
+        editable: true,
         description: 'Accès seulement au checkin.',
         navigation: false,
         member: {
@@ -62,6 +78,40 @@ const getPermissionById = (id: number): Permissions => {
           edit: false,
           create: false,
         },
+      };
+    case 3:
+      return {
+        ...defaultPermissions,
+        id: 3,
+        name: 'Checkin-App',
+        description:
+          // eslint-disable-next-line
+          "Compte pour application d'auto-checkin (contactez votre chargé de compte bsport)",
+        navigation: false,
+        checkin: true,
+        member: {
+          create: false,
+          retrieve: false,
+          edit: false,
+          delete: false,
+          search: false,
+        },
+        offer: {
+          delete: false,
+          retrieve: false,
+          edit: false,
+          create: false,
+        },
+      };
+    case 4:
+      return {
+        ...defaultPermissions,
+        id: 4,
+        name: 'Admin',
+        description:
+          // eslint-disable-next-line
+          'Admin, même accès que Owner mais peut être supprimé/créé',
+        editable: true,
       };
     default:
       return defaultPermissions;

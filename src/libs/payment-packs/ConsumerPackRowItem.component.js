@@ -17,10 +17,13 @@ import { formatAsDate } from '../../datetime';
 import RedButton from '../../components/button/RedButton.component';
 import type { PaymentPack, ConsumerPaymentPack } from './types';
 
+import CreditStatus from './CreditStatus.component';
+
 type Props = {
   loading: boolean,
   hideConsumer: ?boolean,
   selected?: boolean,
+  noDivider: ?boolean,
 
   consumerPack: ConsumerPaymentPack,
   paymentPack: PaymentPack,
@@ -50,6 +53,10 @@ export class ConsumerPackRowItem extends Component<Props> {
 
     if (reverted) {
       return <Button>{t('paymentPack.reverted')}</Button>;
+    }
+
+    if (!decrementCredit && !incrementCredit) {
+      return null;
     }
 
     if (subscribeToOffer) {
@@ -133,26 +140,10 @@ export class ConsumerPackRowItem extends Component<Props> {
     const { credits, unlimited } = paymentPack;
     const { available_credits } = consumerPack;
 
-    const creditStatus = unlimited ? (
-      <Typography variant="caption" color="primary" component="span">
-        {`${t('paymentPack.unlimitedCredits')}`}
-      </Typography>
-    ) : (
-      <Typography
-        component="span"
-        variant="caption"
-        color={available_credits / credits > 0.2 ? 'primary' : 'error'}
-      >
-        {`${available_credits} / ${credits} ${t(
-          'paymentPack.credits',
-        ).toLowerCase()}`}
-      </Typography>
-    );
-
     return (
       <ListItem
         dense
-        divider
+        divider={!this.props.noDivider}
         selected={!!this.props.selected}
         disabled={!!consumerPack.reverted}
         button={!!onClick}
@@ -170,7 +161,11 @@ export class ConsumerPackRowItem extends Component<Props> {
                   ? paymentPack.name
                   : `${consumer.first_name} ${consumer.last_name}`}
               </Typography>
-              {creditStatus}
+              <CreditStatus
+                unlimited={unlimited}
+                available_credits={available_credits}
+                credits={credits}
+              />
             </span>
           }
           secondary={`${t('paymentPack.consumer.expiresOn')}${formatAsDate(

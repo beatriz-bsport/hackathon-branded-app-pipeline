@@ -42,9 +42,9 @@ type Props = {
   hasOneOrMoreOption: boolean,
 
   bookingOption: ?BookingOption,
+  onBookFromPack: (consumerPackId: number) => void,
   t: TFunction,
   goToPassMarketplace: () => void,
-  onCompletePurchase: () => void,
   onBuyPaymentPack: (packId: number) => void,
   bookAnOption: (offerId: number) => void,
 };
@@ -92,7 +92,6 @@ export class OfferPayment extends Component<Props> {
       offer,
       compatibleConsumerPacks,
       compatibleConsumerPacksLoading,
-      onCompletePurchase,
     } = this.props;
 
     // prettier-ignore
@@ -137,12 +136,7 @@ export class OfferPayment extends Component<Props> {
               consumerPack={ppc}
               offerId={offer.id}
               creditPrice={offer.credit_price}
-              onCompletePurchase={onCompletePurchase}
-              urlParams={
-                this.props.bookingOption
-                  ? { option_id: this.props.bookingOption.id }
-                  : {}
-              }
+              onBookFromPack={() => this.props.onBookFromPack(ppc.id)}
             />
           </Grid>
         ))}
@@ -164,12 +158,7 @@ export class OfferPayment extends Component<Props> {
         consumerPack={pack}
         offerId={this.props.offer.id}
         creditPrice={this.props.offer.credit_price}
-        onCompletePurchase={this.props.onCompletePurchase}
-        urlParams={
-          this.props.bookingOption
-            ? { option_id: this.props.bookingOption.id }
-            : {}
-        }
+        onBookFromPack={() => this.props.onBookFromPack(pack.id)}
       />
     ));
   };

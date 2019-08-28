@@ -10,6 +10,7 @@ export type Permission = {
   id: number,
   name: string,
   description: string,
+  checkin: boolean,
   offer: {
     delete: boolean,
     edit: boolean,

@@ -13,7 +13,10 @@ import { compose } from 'recompose';
 
 import withSnackbar from '../../hocs/with-snackbar.hoc';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
-import { bookAnOption } from '../../api/payment';
+import {
+  bookAnOption,
+  consumerPayWithConsumerPaymentPack as payWithConsumerPaymentPackAPI,
+} from '../../api/payment';
 import parse from '../../query-string';
 import themeSelectors from '../../libs/theme/selectors';
 import { getTheme } from '../../theme';
@@ -63,10 +66,23 @@ type State = {
 export class OfferPaymentPage extends Component<Props, State> {
   state = { completed: false, processing: false };
 
-  onCompletePurchase = () => {
+  onBookFromPack = (consumerPackId: number) => {
     const { snackbar, t } = this.props;
-    snackbar.success(t('bookingConfirmed'));
-    this.setState({ completed: true });
+    this.setState({ processing: true });
+    const urlParams = this.props.bookingOption
+      ? { option_id: this.props.bookingOption.id }
+      : {};
+
+    payWithConsumerPaymentPackAPI(consumerPackId, this.offerId, urlParams)
+      .then(() => {
+        this.setState({ processing: false });
+        snackbar.success(t('bookingConfirmed'));
+        this.setState({ completed: true });
+      })
+      .catch((err) => {
+        console.error(err);
+        this.setState({ processing: false });
+      });
   };
 
   componentWillMount() {
@@ -143,7 +159,7 @@ export class OfferPaymentPage extends Component<Props, State> {
               this.props.compatiblePaymentPacksLoading
             }
             compatiblePaymentPacks={this.props.compatiblePaymentPacks}
-            onCompletePurchase={this.onCompletePurchase}
+            onBookFromPack={this.onBookFromPack}
             onBuyPaymentPack={this.buyPaymentPack}
             goToPassMarketplace={this.goToPassMarketplace}
             bookAnOption={this.bookAnOption}

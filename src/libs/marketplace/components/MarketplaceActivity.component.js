@@ -40,10 +40,10 @@ type Props = {
   compatibleConsumerPacks: Array<ConsumerPaymentPack>,
   compatiblePaymentPacks: Array<PaymentPack>,
   goToOfferPayment: (offerId: number) => void,
-  onCompletePurchase: () => void,
   hideMap: ?boolean,
 
   goToPackPayment: (packId: number, offerId: number, companyId: number) => void,
+  onBookFromPack: (consumerPaymentPack: number) => void,
   fetchPassData: (id: number) => void,
   onClose: () => void,
 
@@ -174,8 +174,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
                     key={p.id}
                     offerId={offer.id}
                     consumerPack={p}
-                    urlParams={{}}
-                    onCompletePurchase={this.props.onCompletePurchase}
+                    onBookFromPack={() => this.props.onBookFromPack(p.id)}
                   />
                 ))}
               </div>

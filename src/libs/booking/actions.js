@@ -166,7 +166,12 @@ export function errorFetchingBookings() {
   return { type: actionTypes.ERROR_FETCHING_BOOKINGS };
 }
 
-export function addBooking({ offerId, consumerPaymentPackId, callback }) {
+export function addBooking({
+  offerId,
+  consumerPaymentPackId,
+  callback,
+  onError,
+}) {
   return async (dispatch) => {
     dispatch(addBookingStart());
 
@@ -182,7 +187,9 @@ export function addBooking({ offerId, consumerPaymentPackId, callback }) {
         callback();
       }
     } catch (err) {
+      console.error(err);
       dispatch(addBookingError());
+      if (typeof onError === 'function') onError();
     }
   };
 }

@@ -8,6 +8,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import { withNamespaces } from 'react-i18next';
 import { connect } from 'react-redux';
+import { consumerPayWithConsumerPaymentPack as payWithConsumerPaymentPackAPI } from '../../api/payment';
 import * as paymentActions from '../../actions/payment.actions';
 import MarketplaceCalendarComponent from '../../libs/marketplace/components/MarketplaceCalendar.component';
 import MarketplaceActivityDialog from '../../libs/marketplace/components/MarketplaceActivityDialog.component';
@@ -54,11 +55,11 @@ type Props = {
   toogleFiltersOpen: () => void,
   handleDateChange: (newDate: Object) => void,
   goToBook: (offerId: number, comapnyId: number) => void,
+  onBookOfferFromPack: (offerId: number, consumerPackId: number) => void,
   goToBookOption: (offerId: number, comapnyId: number) => void,
   fetchPaymentPacks: (offerId: number) => void,
   fetchCompatiblePass: (offerId: number) => void,
   goToPackPayment: (id: number) => void,
-  onCompletePurchase: () => void,
   fetchCompanyOffers: (*, *, *) => void,
 
   classes: Object,
@@ -238,7 +239,9 @@ export class MarketplaceCalendar extends Component<Props, State> {
           goToOfferPayment={(id) =>
             this.props.goToBook(id, this.props.companyId)
           }
-          onCompletePurchase={this.props.onCompletePurchase}
+          onBookFromPack={(packId) =>
+            this.props.onBookOfferFromPack(this.state.offerId, packId)
+          }
           hideMap={!!this.props.hideMap}
         />
         <MarketplaceCalendarComponent
@@ -343,6 +346,17 @@ export default compose(
   })),
   withProps(({ location }) => ({
     selectedDate: fromURLtoDate(location.search),
+  })),
+  withProps(({ onCompletePurchase }) => ({
+    onBookOfferFromPack: (offerId, packId) => {
+      payWithConsumerPaymentPackAPI(packId, offerId, {})
+        .then(() => {
+          onCompletePurchase();
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    },
   })),
   // for MarketplaceActivityDialog
   connect(

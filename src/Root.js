@@ -23,6 +23,8 @@ const ConsumerHome = asyncComponent(() =>
   import('./pages/ConsumerHome.component'),
 );
 
+const CheckIn = asyncComponent(() => import('./pages/check-in/CheckIn.page'));
+
 const SentryTestError = asyncComponent(() =>
   import('./pages/SentryTestError.component'),
 );
@@ -58,6 +60,7 @@ export class Root extends Component<Props> {
           <Route path="/login" component={LoginRouter} />
           <Route path="/customer" component={ConsumerHome} />
           <Route path="/m/" component={MarketPlace} />
+          <Route path="/check-in" component={CheckIn} />
           <Route path="/" component={UserspaceSwitcher} />
         </Switch>
       </div>

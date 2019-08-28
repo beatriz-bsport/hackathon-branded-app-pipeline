@@ -21,9 +21,9 @@ type Props = {
   fetchPaymentPacks: (offerId: number) => void,
   fetchCompatiblePass: (offerId: number) => void,
   goToPackPayment: (offerId: number) => void,
-  onCompletePurchase: () => void,
   compatibleConsumerPacks: Array<ConsumerPaymentPack>,
   compatiblePaymentPacks: Array<PaymentPack>,
+  onBookOfferFromPack: (offerId: number, consumerPackId: number) => void,
   t: TFunction,
 };
 
@@ -67,7 +67,9 @@ export const MarketplaceWorkshop = (props: Props) => {
         goToOfferPayment={(id) =>
           props.onBook(id, props.offerSelected.activity.company)
         }
-        onCompletePurchase={props.onCompletePurchase}
+        onBookFromPack={(packId) =>
+          props.onBookOfferFromPack(props.offerSelected.id, packId)
+        }
         offerId={props.offerSelected ? props.offerSelected.id : null}
         compatibleConsumerPacks={props.compatibleConsumerPacks}
         compatiblePaymentPacks={props.compatiblePaymentPacks}

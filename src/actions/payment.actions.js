@@ -102,12 +102,12 @@ export function errorFetchingCompatiblePass() {
 export function fetchedCompatiblePass(consumerPacks) {
   return { type: types.PAYMENT_HAS_FETCHED_COMPATIBLE_PASS, consumerPacks };
 }
-export function fetchCompatiblePass(offerId) {
+export function fetchCompatiblePass(offerId, memberId) {
   return async (dispatch) => {
     dispatch(startFetchCompatiblePass());
 
     try {
-      const response = await api.payment.fetchCompatiblePass(offerId);
+      const response = await api.payment.fetchCompatiblePass(offerId, memberId);
       const consumerPacks = response.data;
       dispatch(fetchedCompatiblePass(consumerPacks));
     } catch (err) {

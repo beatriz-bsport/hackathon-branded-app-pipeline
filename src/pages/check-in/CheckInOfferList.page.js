@@ -1,0 +1,82 @@
+// @flow
+//
+import React from 'react';
+
+import { compose } from 'recompose';
+import { connect } from 'react-redux';
+import { push as routerPush } from 'react-router-redux';
+import withStyles from '@material-ui/core/styles/withStyles';
+import moment from 'moment';
+
+import { offer as offerActions } from '../../actions';
+import offerSelectors from '../../libs/offer/selectors';
+
+import { getAllEstablishments } from '../../libs/establishment/selectors';
+import { fetchEstablishments } from '../../libs/establishment/actions';
+import type { Establishment } from '../../libs/establishment/types';
+
+import CheckInOfferList from '../../libs/check-in/components/CheckInOfferList.component';
+
+type Props = {
+  offers: Array<Offer>,
+  establishments: Array<Establishment>,
+  fetchOffersByDay: ({ year: number, month: number, day: number }) => void,
+  fetchEstablishments: () => void,
+  onOfferSelected: (*) => void,
+  offersLoading: boolean,
+  classes: Object,
+};
+
+export class CheckInOfferListPage extends React.Component<Props> {
+  componentWillMount() {
+    this.refreshData();
+  }
+
+  refreshData = () => {
+    this.props.fetchEstablishments();
+    const date = moment();
+    this.props.fetchOffersByDay({
+      year: date.year(),
+      month: date.month() + 1,
+      day: date.date(),
+    });
+  };
+
+  render() {
+    return (
+      <div className={this.props.classes.container}>
+        <CheckInOfferList
+          offers={this.props.offers}
+          offersLoading={this.props.offersLoading}
+          establishments={this.props.establishments}
+          refreshData={this.refreshData}
+          onOfferSelected={this.props.onOfferSelected}
+        />
+      </div>
+    );
+  }
+}
+
+const styles = (theme) => ({
+  container: {
+    padding: theme.spacing.unit * 2,
+    width: '100%',
+  },
+});
+
+export default compose(
+  withStyles(styles),
+  connect(
+    (state) => ({
+      offers: offerSelectors.todayOffers(state),
+      offersLoading: state.offer.byDay.loading,
+      establishments: getAllEstablishments(state),
+    }),
+    {
+      fetchEstablishments,
+      fetchOffersByDay: offerActions.fetchOffersByDay,
+      onOfferSelected: (offerId: number) =>
+        routerPush(`/check-in/offer/${offerId}`),
+    },
+  ),
+)(CheckInOfferListPage);

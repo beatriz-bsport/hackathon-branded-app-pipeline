@@ -25,6 +25,7 @@ import invoice from './es/invoice.translations';
 import datetime from './es/datetime.translations';
 import offer from './es/offer.translations';
 import waitingList from './es/waiting-list.translations';
+import selfCheckIn from './es/selft-check-in.translations';
 
 export default {
   dashboard,
@@ -49,6 +50,7 @@ export default {
   member,
   booking,
   marketplace,
+  selfCheckIn,
   coachPerformance: {
     fields: {
       bonus: 'Bonus',
@@ -982,6 +984,11 @@ export default {
         orderList: 'Pedidas',
         orderDetail: 'Detalles de las pedidas',
       },
+    },
+    countdown: {
+      hours: 'Horas',
+      minutes: 'Minutos',
+      seconds: 'Segundos',
     },
   },
 };

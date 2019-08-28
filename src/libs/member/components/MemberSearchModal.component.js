@@ -26,13 +26,12 @@ import type { Member } from '../types';
 type Props = {
   open: boolean,
   loading: boolean,
-  onClose: () => void,
   searchMembers: (text: string) => void,
   searchedMembers: Array<Member>,
   searchedText: string,
   setSearchedText: (string) => void,
   onClose: () => void,
-  handlMemberSelected: (id: number) => void,
+  handlMemberSelected: (id: number, member: Member) => void,
   classes: Object,
   t: TFunction,
 };
@@ -80,7 +79,7 @@ export function MemberSearchModal(props: Props) {
             {props.searchedMembers.map((member: Member) => (
               <MemberListItem
                 member={member}
-                onClick={() => props.handlMemberSelected(member.id)}
+                onClick={() => props.handlMemberSelected(member.id, member)}
               />
             ))}
           </List>

@@ -62,17 +62,19 @@ export default function paymentReducers(state = initialState, action = {}) {
       });
 
     case actionTypes.PAYMENT_HAS_FETCHED_COMPATIBLE_PASS:
-      return Immutable.merge(state, {
-        compatibleConsumerPacks: action.consumerPacks,
-        compatibleConsumerPacksLoading: false,
-      });
+      return state
+        .set('compatibleConsumerPacks', action.consumerPacks)
+        .set('compatibleConsumerPacksLoading', false);
+
     case actionTypes.PAYMENT_ERROR_FETCHING_COMPATIBLE_PASS:
       return Immutable.merge(state, {
         compatibleConsumerPacks: [],
         compatibleConsumerPacksLoading: false,
       });
     case actionTypes.PAYMENT_START_FETCH_COMPATIBLE_PASS:
-      return Immutable.merge(state, { compatibleConsumerPacksLoading: true });
+      return state
+        .set('compatibleConsumerPacksLoading', true)
+        .set('compatiblePaymentPacks', []);
 
     case actionTypes.PAYMENT_HAS_FETCHED_COMPATIBLE_PAYMENT_PACKS:
       return Immutable.merge(state, {

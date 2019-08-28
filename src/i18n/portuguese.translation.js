@@ -1,31 +1,32 @@
 // @flow
 
-import coach from './en/coach.translations';
-import establishment from './en/establishment.translations';
-import member from './en/member.translations';
-import search from './en/search.translations';
-import paymentPack from './en/payment-pack.translations';
-import companies from './en/companies.translations';
-import dashboard from './en/dashboard.translations';
-import settings from './en/settings.translations';
-import paymentRules from './en/payment-rules.translations';
-import reporting from './en/reporting.translations';
-import stripe from './en/stripe.translations';
-import alerting from './en/alerting.translations';
-import booking from './en/booking.translations';
-import tag from './en/tag.translations';
-import subscription from './en/subscription.translations';
-import shop from './en/shop.translations';
-import order from './en/order.translations';
-import marketplace from './en/marketplace.translations';
-import metaActivity from './en/meta-activity.translations';
-import login from './en/login.translations';
-import invoice from './en/invoice.translations';
-import datetime from './en/datetime.translations';
-import offer from './en/offer.translations';
-import payment from './en/payment.translations';
-import waitingList from './en/waiting-list.translations';
-import workshop from './en/workshop.translations';
+import coach from './pt/coach.translations';
+import establishment from './pt/establishment.translations';
+import member from './pt/member.translations';
+import search from './pt/search.translations';
+import paymentPack from './pt/payment-pack.translations';
+import companies from './pt/companies.translations';
+import dashboard from './pt/dashboard.translations';
+import settings from './pt/settings.translations';
+import paymentRules from './pt/payment-rules.translations';
+import reporting from './pt/reporting.translations';
+import stripe from './pt/stripe.translations';
+import alerting from './pt/alerting.translations';
+import booking from './pt/booking.translations';
+import tag from './pt/tag.translations';
+import subscription from './pt/subscription.translations';
+import shop from './pt/shop.translations';
+import order from './pt/order.translations';
+import marketplace from './pt/marketplace.translations';
+import metaActivity from './pt/meta-activity.translations';
+import login from './pt/login.translations';
+import invoice from './pt/invoice.translations';
+import datetime from './pt/datetime.translations';
+import offer from './pt/offer.translations';
+import payment from './pt/payment.translations';
+import waitingList from './pt/waiting-list.translations';
+import workshop from './pt/workshop.translations';
+import selfCheckIn from './pt/selft-check-in.translations';
 
 export default {
   dashboard,
@@ -51,6 +52,7 @@ export default {
   datetime,
   payment,
   offer,
+  selfCheckIn,
   coachPerformance: {
     addBonus: 'Add a rule',
     dateTitle: 'Date range',
@@ -905,6 +907,11 @@ export default {
         orderList: 'Orders',
         orderDetail: 'Order',
       },
+    },
+    countdown: {
+      hours: 'Hours',
+      minutes: 'Minutes',
+      seconds: 'Seconds',
     },
   },
 };

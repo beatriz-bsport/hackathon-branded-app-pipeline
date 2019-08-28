@@ -1,9 +1,12 @@
 // @flow
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
+import React from 'react';
+
+import { connect } from 'react-redux';
 import { Redirect, Route, withRouter } from 'react-router-dom';
 
+import { getPermissions } from '../libs/role/selectors';
+import type { Permission } from '../libs/role/types';
 import asyncComponent from '../AsyncComponent';
 
 const ConsumerHome = asyncComponent(() => import('./ConsumerHome.component'));
@@ -11,6 +14,7 @@ const Backoffice = asyncComponent(() => import('./Backoffice.component'));
 
 type Props = {
   authenticated: boolean,
+  permission: Permission,
   userspace: {
     isCoach: boolean,
     isManager: boolean,
@@ -18,36 +22,34 @@ type Props = {
   },
 };
 
-export class UserspaceSwitcher extends Component<Props> {
-  render() {
-    const { userspace, authenticated } = this.props;
+export const UserspaceSwitcher = (props: Props) => {
+  const { userspace, authenticated } = props;
 
-    if (!authenticated) {
-      return <Redirect to="/login" />;
-    }
-
-    const { isCoach, isManager, isConsumer } = userspace;
-
-    if (isCoach || isManager) {
-      return <Route path="/" component={Backoffice} />;
-    }
-    if (isConsumer) {
-      return <Route path="/" component={ConsumerHome} />;
-    }
-
+  if (!authenticated) {
     return <Redirect to="/login" />;
   }
-}
 
-function mapStateToProps(state) {
-  return {
-    authenticated: state.auth.authenticated,
-    userspace: {
-      isCoach: state.auth.is_coach,
-      isConsumer: state.auth.is_consumer,
-      isManager: state.auth.is_manager,
-    },
-  };
-}
+  if (props.permission.checkin) {
+    return <Redirect to="/check-in" />;
+  }
+  const { isCoach, isManager, isConsumer } = userspace;
 
-export default connect(mapStateToProps)(withRouter(UserspaceSwitcher));
+  if (isCoach || isManager) {
+    return <Route path="/" component={Backoffice} />;
+  }
+  if (isConsumer) {
+    return <Route path="/" component={ConsumerHome} />;
+  }
+
+  return <Redirect to="/login" />;
+};
+
+export default connect((state) => ({
+  authenticated: state.auth.authenticated,
+  permission: getPermissions(state),
+  userspace: {
+    isCoach: state.auth.is_coach,
+    isConsumer: state.auth.is_consumer,
+    isManager: state.auth.is_manager,
+  },
+}))(withRouter(UserspaceSwitcher));

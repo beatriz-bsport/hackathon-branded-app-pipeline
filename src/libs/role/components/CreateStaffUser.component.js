@@ -27,7 +27,7 @@ type Props = {
   classes: Object,
   open: boolean,
   permissions: Array<Permission>,
-    onClose: () => void,
+  onClose: () => void,
 };
 
 type State = {
@@ -73,9 +73,7 @@ export class CreateStaffUser extends React.Component<Props, State> {
                 required
                 type="password"
                 value={this.state.password}
-                onChange={(ev) =>
-                  this.setState({ password: ev.target.value })
-                }
+                onChange={(ev) => this.setState({ password: ev.target.value })}
               />
             </div>
             <FormControl className={classes.field}>
@@ -92,7 +90,7 @@ export class CreateStaffUser extends React.Component<Props, State> {
                 name="role"
               >
                 {this.props.permissions
-                  .filter((perm) => perm.id !== 0)
+                  .filter((perm) => perm.editable)
                   .map((perm) => (
                     <MenuItem key={perm.id} value={perm.id}>
                       {perm.name}

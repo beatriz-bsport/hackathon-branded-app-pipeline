@@ -10,4 +10,6 @@ const get = (state: State, id: ?number): ?Member =>
 
 const getSearched = (state: State): Array<Member> => state.member.search.items;
 
-export default { get, getAll, getSearched };
+const getByOffer = (state: State) => state.member.byOffer.items;
+
+export default { get, getAll, getSearched, getByOffer };

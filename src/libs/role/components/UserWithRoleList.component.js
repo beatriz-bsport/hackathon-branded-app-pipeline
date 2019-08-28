@@ -65,7 +65,9 @@ const UserWithRole = (props: {
     <FormControl>
       <Select
         className={props.classes.roleField}
-        disabled={props.user.role === 0}
+        disabled={
+          !props.permissions.find((p) => p.id === props.user.role).editable
+        }
         value={props.user.role || 0}
         onChange={(ev) => {
           props.handleRoleChange(parseInt(ev.target.value, 10));
@@ -73,13 +75,13 @@ const UserWithRole = (props: {
         name="role"
       >
         {props.permissions.map((perm) => (
-          <MenuItem disabled={perm.id === 0} key={perm.id} value={perm.id}>
+          <MenuItem disabled={!perm.editable} key={perm.id} value={perm.id}>
             {perm.name}
           </MenuItem>
         ))}
       </Select>
     </FormControl>
-    {props.user.role !== 0 ? (
+    {props.permissions.find((p) => p.id === props.user.role).editable ? (
       <DeleteButton t={props.t} deleteUser={props.deleteUser} />
     ) : null}
   </div>

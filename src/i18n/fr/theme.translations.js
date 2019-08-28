@@ -22,6 +22,16 @@ export default {
       helperText: 'Lien par défaut de votre calendrier',
       placeholder: 'https://studio.com/calendar/',
     },
+    facebookURL: {
+      label: 'URL Facebook',
+      helperText: 'Votre page Facebook',
+      placeholder: 'https://facebook.com/mon-studio/',
+    },
+    instagramURL: {
+      label: 'URL Instagram',
+      helperText: 'Votre page Instagram',
+      placeholder: 'https://instagram.com/mon-studio/',
+    },
     submit: 'Sauvegarder',
   },
 };

@@ -72,7 +72,9 @@ export class ThemeForm extends Component<Props, State> {
       this.state.theme.secondary_color === this.props.theme.secondary_color &&
       this.state.theme.cover === this.props.theme.cover &&
       this.state.theme.websiteURL === this.props.theme.websiteURL &&
-      this.state.theme.scheduleURL === this.props.theme.scheduleURL
+      this.state.theme.scheduleURL === this.props.theme.scheduleURL &&
+      this.state.theme.instagramURL === this.props.theme.instagramURL &&
+      this.state.theme.facebookURL === this.props.theme.facebookURL
     );
   };
 
@@ -84,9 +86,14 @@ export class ThemeForm extends Component<Props, State> {
 
   onSubmit = () => {
     const data = new FormData();
-    ['primary_color', 'secondary_color', 'websiteURL', 'scheduleURL'].map(
-      (key) => data.append(key, this.state.theme[key]),
-    );
+    [
+      'primary_color',
+      'secondary_color',
+      'websiteURL',
+      'scheduleURL',
+      'facebookURL',
+      'instagramURL',
+    ].map((key) => data.append(key, this.state.theme[key]));
     if (this.state.theme.cover && typeof this.state.theme.cover !== 'string') {
       data.append('cover', this.state.theme.cover);
     }
@@ -108,7 +115,7 @@ export class ThemeForm extends Component<Props, State> {
           </ImageUploader169>
         </div>
         <div className={classes.inputContainer}>
-          <div className={classes.colorPicker}>
+          <div className={classes.horizontalInput}>
             <ColorInput
               label={t('forms.primary_color.label')}
               helperText={t('forms.primary_color.helperText')}
@@ -116,7 +123,7 @@ export class ThemeForm extends Component<Props, State> {
               color={this.state.theme.primary_color}
             />
           </div>
-          <div className={classes.colorPicker}>
+          <div className={classes.horizontalInput}>
             <ColorInput
               onChange={(color) => this.handleChange('secondary_color')(color)}
               label={t('forms.secondary_color.label')}
@@ -145,6 +152,32 @@ export class ThemeForm extends Component<Props, State> {
             onChange={(ev) => this.handleChange('scheduleURL')(ev.target.value)}
           />
         </div>
+        <div className={classes.inputContainer}>
+          <div className={classes.horizontalInput}>
+            <TextField
+              variant="outlined"
+              placeholder={t('forms.instagramURL.placeholder')}
+              helperText={t('forms.instagramURL.helperText')}
+              label={t('forms.instagramURL.label')}
+              value={this.state.theme.instagramURL}
+              onChange={(ev) =>
+                this.handleChange('instagramURL')(ev.target.value)
+              }
+            />
+          </div>
+          <div className={classes.horizontalInput}>
+            <TextField
+              variant="outlined"
+              placeholder={t('forms.facebookURL.placeholder')}
+              helperText={t('forms.facebookURL.helperText')}
+              label={t('forms.facebookURL.label')}
+              value={this.state.theme.facebookURL}
+              onChange={(ev) =>
+                this.handleChange('facebookURL')(ev.target.value)
+              }
+            />
+          </div>
+        </div>
         <div className={classes.buttonContainer}>
           <Button
             onClick={() => this.onSubmit(this.state.theme)}
@@ -164,7 +197,7 @@ export class ThemeForm extends Component<Props, State> {
 }
 
 const styles = (theme) => ({
-  colorPicker: {
+  horizontalInput: {
     marginRight: theme.spacing.unit * 3,
   },
   inputContainer: {

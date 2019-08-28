@@ -6,6 +6,8 @@ export type Theme = {
   cover: ?string,
   websiteURL: ?string,
   scheduleURL: ?string,
+  facebookURL: ?string,
+  instagramURL: ?string,
 };
 
 export type ThemeState = {

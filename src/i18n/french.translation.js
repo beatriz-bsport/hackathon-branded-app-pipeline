@@ -691,7 +691,7 @@ export default {
       yourBasket: 'Votre achat',
       availablePaymentPacks: ' abonnements compatibles',
       payWithNCredits1: 'Réserver (',
-      payWithNCredits2: 'crédit)',
+      payWithNCredits2: 'crédit',
       pay: 'Payer',
       type: 'Type',
       amount: 'Montant',

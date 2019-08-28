@@ -650,7 +650,7 @@ export default {
       yourBasket: 'Your basket',
       availablePaymentPacks: ' pass compatible',
       payWithNCredits1: 'Book (',
-      payWithNCredits2: 'credit)',
+      payWithNCredits2: 'credit',
       pay: 'Pay',
       type: 'Type',
       amount: 'Amount',

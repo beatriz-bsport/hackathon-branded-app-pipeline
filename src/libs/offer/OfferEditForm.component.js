@@ -325,6 +325,19 @@ export class EditLiveOfferForm extends Component<Props, State> {
               }
             />
           </Grid>
+          <Grid item>
+            <NumericInput
+              required
+              fullWidth
+              label={this.props.t('form.credit_price')}
+              value={this.state.credit_price_override}
+              onChange={(event) =>
+                this.onFormFieldChange('credit_price_override')(
+                  event.target.value,
+                )
+              }
+            />
+          </Grid>
         </Grid>
       </Grid>
       <Grid item>{this.renderBilling()}</Grid>

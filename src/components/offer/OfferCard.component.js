@@ -41,7 +41,13 @@ type Props = {
 export class OfferCard extends Component<Props> {
   getHeader = () => {
     const { classes, t, offer } = this.props;
-    const { available, name, level_id, parent_category } = offer;
+    const {
+      available,
+      name,
+      level_id,
+      parent_category,
+      credit_price_override,
+    } = offer;
 
     return (
       <Grid
@@ -51,17 +57,26 @@ export class OfferCard extends Component<Props> {
         alignItems="flex-start"
         justify="space-between"
       >
-        <ListItem className={classes.paddedBlock}>
-          <Icon>
-            <Sport noname parentCategory={parent_category} />
-          </Icon>
-          <ListItemText primary={name} />
-          {available ? null : (
-            <Typography variant="h2" color="error">
-              {t('offer:disabled')}
-            </Typography>
-          )}
-        </ListItem>
+        <div>
+          <ListItem className={classes.paddedBlock}>
+            <Icon>
+              <Sport noname parentCategory={parent_category} />
+            </Icon>
+            <ListItemText
+              primary={name}
+              secondary={
+                credit_price_override !== 1
+                  ? `${credit_price_override} ${t('offer:credit_price')}`
+                  : null
+              }
+            />
+            {available ? null : (
+              <Typography variant="h2" color="error">
+                {t('offer:disabled')}
+              </Typography>
+            )}
+          </ListItem>
+        </div>
         <Grid item className={classes.paddedBlock}>
           <Grid container direction="column" alignItems="flex-end" spacing={8}>
             <Grid item>

@@ -1,5 +1,6 @@
 export default {
   disabled: 'Cancelled',
+  credit_price: 'Cost (in credit pass nb)',
   booking: {
     confirmed: 'Confirmed',
     fillRate: 'Fillrate',

@@ -66,7 +66,7 @@ export default {
       name: 'Nom de la séance',
       date: 'Date',
       rule: 'Régle',
-      },
+    },
     table: {
       download: 'Télécharger',
     },
@@ -503,6 +503,7 @@ export default {
       // eslint-disable-next-line
       default_waiting_list_max_size: "Taille de la liste d'attente",
       generateOffers: 'Créer les séances',
+      credit_price: "Coût (en nb de crédit d'un abonnement)",
       offersWillBeGenerated: 'séances vont être crées',
       offerWillBeGenerated: 'séance va être créée',
       recurrence: 'Récurrence',

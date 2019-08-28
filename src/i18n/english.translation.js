@@ -524,6 +524,7 @@ export default {
       signUpTitle: 'Sign Up',
       password: 'Password',
       default_waiting_list_max_size: 'Size of the waiting list',
+      credit_price: 'Cost (in pass credit)',
       generateOffers: 'Create sessions',
       offersWillBeGenerated: 'sessions will be generated',
       offerWillBeGenerated: 'session will be generated',

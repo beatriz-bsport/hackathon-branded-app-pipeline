@@ -430,6 +430,14 @@ export class OfferForm extends Component<Props, State> {
           value={this.state.waiting_list_max_size}
         />
       </Grid>
+      <Grid item>
+        <FormField
+          id="credits"
+          required
+          value={this.state.credits}
+          onChange={this.onFormFieldChange}
+        />
+      </Grid>
     </Grid>
   );
 

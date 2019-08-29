@@ -278,7 +278,6 @@ export class BookingItemForManager extends PureComponent<Props, State> {
             ) : null}
             {showRevertBookingButton ? (
               <IconButton
-                color="secondary"
                 onClick={(e) => {
                   e.stopPropagation();
                   handleRevert(e);

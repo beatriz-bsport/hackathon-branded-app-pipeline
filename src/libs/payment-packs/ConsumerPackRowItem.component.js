@@ -55,10 +55,6 @@ export class ConsumerPackRowItem extends Component<Props> {
       return <Button>{t('paymentPack.reverted')}</Button>;
     }
 
-    if (!decrementCredit && !incrementCredit) {
-      return null;
-    }
-
     if (subscribeToOffer) {
       return (
         <Button

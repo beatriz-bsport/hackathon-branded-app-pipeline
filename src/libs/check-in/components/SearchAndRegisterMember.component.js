@@ -13,6 +13,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import ConsumerPackCheckout from '../../../pages/payment/offer/ConsumerPackCheckout.component';
 import MemberSearchModal from '../../member/components/MemberSearchModal.component';
+import { anonymizeEmail } from '../../member/utils';
 
 type RegisterMemberProps = {
   open: boolean,
@@ -133,7 +134,10 @@ export const SearchAndRegister = (props: Props) => {
   return (
     <MemberSearchModal
       open={!props.member}
-      searchedMembers={props.searchedMembers}
+      searchedMembers={props.searchedMembers.map((m) => ({
+        ...m,
+        email: anonymizeEmail(m.email),
+      }))}
       searchMembers={props.searchMembers}
       onClose={props.onClose}
       handlMemberSelected={(memberId, member) => {

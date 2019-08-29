@@ -13,6 +13,7 @@ import DoneIcon from '@material-ui/icons/Done';
 import Avatar from '@material-ui/core/Avatar';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import type { Member } from '../../member/types';
+import { anonymizeEmail } from '../../member/utils';
 
 type Props = {
   t: TFunction,
@@ -31,7 +32,11 @@ export const CheckInBookingItem = (props: Props) => {
       </ListItemAvatar>
       <ListItemText
         primary={member.name}
-        secondary={member && member.consumer ? member.consumer.email : ' - '}
+        secondary={
+          member && member.consumer
+            ? anonymizeEmail(member.consumer.email)
+            : ' - '
+        }
       />
       <ListItemSecondaryAction>
         {checkedIn ? (

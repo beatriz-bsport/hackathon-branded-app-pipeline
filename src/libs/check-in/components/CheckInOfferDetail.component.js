@@ -21,7 +21,7 @@ import type { Member } from '../../member/types';
 import CheckInOfferSummaryPanel from './CheckInOfferSummaryPanel.component';
 import CheckInBookingItem from './CheckInBookingItem.component';
 
-const MEMBER_LIST_REFRESH_DURATION = 1000 * 60 * 5;
+const MEMBER_LIST_REFRESH_DURATION = 1000 * 60 * 2;
 
 type Props = {
   offer: Object,
@@ -177,7 +177,7 @@ const style = (theme) => ({
     marginBottom: theme.spacing.unit / 3,
     paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
-    border: `2px solid ${theme.palette.grey[200]}`,
+    border: `2px solid ${theme.palette.primary.main}`,
     borderRadius: theme.shape.borderRadius,
   },
 });

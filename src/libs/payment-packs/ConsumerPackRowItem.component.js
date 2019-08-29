@@ -67,7 +67,7 @@ export class ConsumerPackRowItem extends Component<Props> {
       );
     }
 
-    if (unlimited) {
+    if (unlimited && incrementCredit && decrementCredit) {
       if (consumerPack.disabled) {
         return (
           <Button

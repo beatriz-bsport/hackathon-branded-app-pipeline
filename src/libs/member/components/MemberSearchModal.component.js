@@ -37,10 +37,16 @@ type Props = {
 };
 
 const MemberListItem = (props: { member: Member, onClick: () => void }) => (
-  <ListItem>
+  <ListItem button={!!props.onClick} onClick={props.onClick}>
     <ListItemText primary={props.member.name} secondary={props.member.email} />
     <ListItemSecondaryAction>
-      <IconButton onClick={props.onClick}>
+      <IconButton
+        onClick={(ev) => {
+          ev.stopPropagation();
+          ev.preventDefault();
+          props.onClick();
+        }}
+      >
         <ArrowForwardIcon />
       </IconButton>
     </ListItemSecondaryAction>

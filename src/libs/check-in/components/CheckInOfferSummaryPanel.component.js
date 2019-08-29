@@ -93,7 +93,7 @@ class CheckInOfferSummary extends Component<Props, State> {
             align="center"
             className={classes.textUppercase}
           >
-            {offer ? (offer.coach || offer.coach_override).name : ''}
+            {coach ? coach.name : ''}
           </Typography>
         </div>
 

@@ -1,3 +1,5 @@
+// @flow
+
 export const MemberMap = {
   lastname: 'last_name',
   firstname: 'first_name',
@@ -23,6 +25,6 @@ export const anonymizeEmail = (email: ?string) => {
   }
   const [base, domain] = email.split('@');
   const anonymizedBase =
-    base.slice(0, 2) + '*'.repeat(Math.max(base.length - 3, 0));
+    base.slice(0, 2) + '*'.repeat(Math.max(base.length - 2, 0));
   return `${anonymizedBase}@${domain}`;
 };

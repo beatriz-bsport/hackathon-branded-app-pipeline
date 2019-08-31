@@ -1,38 +1,51 @@
 // @flow
 import React, { Component } from 'react';
+
 import { connect } from 'react-redux';
 import { push as routerPush } from 'react-router-redux';
 import { compose } from 'recompose';
-import Button from '@material-ui/core/Button';
-import EditIcon from '@material-ui/icons/Edit';
-import withStyles from '@material-ui/core/styles/withStyles';
-import { withNamespaces } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+
+import BottomActionButtons from '../../components/button/BottomActionsButton.component';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import { offer as offerActions } from '../../actions';
-import { fetchMetaActivityDetails } from '../../libs/meta-activity/actions/meta-activity.actions';
 import type { Offer, MetaActivity as MetaActivityType } from '../../api/types';
 import withDrawer from '../../hocs/with-drawer.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import MetaActivityDetail from '../../libs/meta-activity/components/MetaActivityDetail.component';
+import MetaActivityDeleteDialog from '../../libs/meta-activity/components/MetaActivityDeleteDialog.component';
+import {
+  deleteMetaActivity,
+  fetchMetaActivityDetails,
+} from '../../libs/meta-activity/actions/meta-activity.actions';
 import { getMetaActivities } from '../../libs/meta-activity/selectors';
+import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '../../libs/meta-activity/api/common';
 
 type Props = {
   id: number,
-  t: TFunction,
-  classes: Object,
   metaActivity: MetaActivityType,
-  loading: boolean,
-  fetchOffersByDay: (year: number, month: number, day: number) => void,
-  push: (path: string) => void,
-  events: Array<Event>,
-  fetchMetaActivityDetails: (number) => void,
-  offers: Array<Offer>,
   metaActivityImages: Array<Object>,
+  fetchMetaActivityDetails: (number) => void,
+  loading: boolean,
+
+  events: Array<Event>,
+  offers: Array<Offer>,
+  fetchOffersByDay: (year: number, month: number, day: number) => void,
+
+  createActivityOffers: (id: number) => void,
+  goToOffer: (Offer) => void,
+  goToList: () => void,
+  onEdit: (id: number) => void,
+  deleteMetaActivity: (id: number) => void,
 };
 
-export class MetaActivity extends Component<Props> {
+type State = {
+  deleteOpen: boolean,
+};
+
+export class MetaActivity extends Component<Props, State> {
+  state = { deleteOpen: false };
+
   componentDidMount() {
     this.props.fetchMetaActivityDetails(this.props.id);
   }
@@ -42,14 +55,6 @@ export class MetaActivity extends Component<Props> {
       this.props.fetchMetaActivityDetails(this.props.id);
     }
   }
-
-  goToOffer = (o: Offer) => {
-    this.props.push(`/offer/${o.id}`);
-  };
-
-  createActivityOffers = (metaActivityId: number) => {
-    this.props.push(`/add-offers/${metaActivityId}`);
-  };
 
   render() {
     if (this.props.loading || !this.props.metaActivity) {
@@ -63,38 +68,32 @@ export class MetaActivity extends Component<Props> {
           fetchOffersByDay={this.props.fetchOffersByDay}
           events={this.props.events}
           offers={this.props.offers}
-          goToOffer={this.goToOffer}
-          createActivityOffers={this.createActivityOffers}
+          goToOffer={this.props.goToOffer}
+          createActivityOffers={() =>
+            this.props.createActivityOffers(this.props.id)
+          }
         />
-        <Button
-          variant="extendedFab"
-          color="primary"
-          onClick={() => this.props.push(`/activity/${this.props.id}/edit`)}
-          className={this.props.classes.editButton}
-        >
-          <EditIcon className={this.props.classes.leftIcon} />
-          {this.props.t('common.edit')}
-        </Button>
+        <BottomActionButtons
+          onEdit={() => this.props.onEdit(this.props.id)}
+          onDelete={() => this.setState({ deleteOpen: true })}
+        />
+        <MetaActivityDeleteDialog
+          metaActivityId={this.state.deleteOpen ? this.props.id : null}
+          onClose={() => this.setState({ deleteOpen: false })}
+          canDeleteMetaActivityChecker={canDeleteMetaActivityAPI}
+          deleteMetaActivity={() => {
+            this.props.deleteMetaActivity(this.props.id, {
+              onSuccess: this.props.goToList,
+            });
+          }}
+        />
       </div>
     );
   }
 }
 
-const styles = (theme) => ({
-  leftIcon: {
-    marginRight: theme.spacing.unit,
-  },
-  editButton: {
-    position: 'fixed',
-    right: theme.spacing.unit * 2,
-    bottom: theme.spacing.unit * 2,
-  },
-});
-
 export default compose(
   routerParamsToProps({ id: 'id:number' }),
-  withNamespaces(),
-  withStyles(styles),
   connect(
     (state) => ({
       loading: state.metaActivity.loading,
@@ -111,6 +110,11 @@ export default compose(
       fetchMetaActivityDetails,
       fetchOffersByDay: offerActions.fetchOffersByDay,
       push: routerPush,
+      deleteMetaActivity,
+      goToOffer: (o) => routerPush(`/offer/${o.id}`),
+      goToList: () => routerPush('/activity'),
+      onEdit: (id) => routerPush(`/activity/${id}/edit`),
+      createActivityOffers: (id) => routerPush(`/add-offers/${id}`),
     },
   ),
   withDrawer(({ id, metaActivities }) => {

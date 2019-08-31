@@ -22,7 +22,10 @@ export const deleteActions = {
   error: createAction('ESTABLISHMENT/DELETE/ERROR'),
 };
 
-export function deleteEstablishment(id: number) {
+export function deleteEstablishment(
+  id: number,
+  options: ?{ onSuccess: () => void, onError: ?() => void },
+) {
   return async (dispatch: Dispatch) => {
     dispatch(deleteActions.isLoading(true));
     dispatch(deleteActions.error(null));
@@ -30,11 +33,13 @@ export function deleteEstablishment(id: number) {
       await deleteEstablishmentAPI(id);
       dispatch(snackbarSuccess('establishment:forms.delete.message.success'));
       dispatch(fetchEstablishments());
+      if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
       console.error(err);
       dispatch(deleteActions.isLoading(false));
       dispatch(deleteActions.error(err));
       dispatch(snackbarError('establishment:forms.delete.message.error'));
+      if (options && options.onError) options.onError();
     }
   };
 }

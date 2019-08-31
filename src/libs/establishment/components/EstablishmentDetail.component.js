@@ -4,8 +4,6 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import EditIcon from '@material-ui/icons/Edit';
 import SPORTS from '@bsport/common/lib/master-data/sports';
 import Paper from '@material-ui/core/Paper';
 import { withNamespaces } from 'react-i18next';
@@ -26,7 +24,6 @@ type Props = {
   offers: Array<Offer>,
   fetchOffersByDay: ({ year: number, month: number, day: number }) => void,
   goToOffer: (offerId: number) => void,
-  goToEditForm: () => void,
   classes: Object,
   t: TFunction,
   establishment: Establishment,
@@ -126,18 +123,9 @@ export class EstablishmentDetail extends Component<Props, State> {
 
           <Grid container direction="row">
             <Grid item sm={12} md={6} className={classes.generalInfoBlock}>
-              <Grid container direction="row" justify="space-between">
-                <Grid item>
-                  <Typography variant="h4" color="textPrimary" gutterBottom>
-                    {establishment.title}
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <IconButton onClick={this.props.goToEditForm} color="primary">
-                    <EditIcon />
-                  </IconButton>
-                </Grid>
-              </Grid>
+              <Typography variant="h4" color="textPrimary" gutterBottom>
+                {establishment.title}
+              </Typography>
               <EasyAccessStack
                 name={establishment.easy_access.name}
                 lines={establishment.easy_access.lines}

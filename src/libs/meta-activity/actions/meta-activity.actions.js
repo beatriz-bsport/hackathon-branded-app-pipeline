@@ -28,7 +28,10 @@ export const deleteAction = {
   success: createAction('META_ACTIVITIES/DELETE/SUCCESS'),
 };
 
-export function deleteMetaActivity(id: number): ThunkAction {
+export function deleteMetaActivity(
+  id: number,
+  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(deleteAction.isLoading(true));
     dispatch(deleteAction.error(null));
@@ -36,9 +39,11 @@ export function deleteMetaActivity(id: number): ThunkAction {
     try {
       await deleteMetaActivityAPI(id);
       dispatch(fetchAllActivities());
+      if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
       dispatch(deleteAction.error(err));
       Sentry.captureException(err);
+      if (options && options.onError) options.onError();
     }
     dispatch(deleteAction.isLoading(false));
   };

@@ -5,7 +5,6 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import EditIcon from '@material-ui/icons/Edit';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 
 import { withNamespaces } from 'react-i18next';
@@ -43,34 +42,6 @@ export class CoachDetail extends Component<Props, State> {
     }
   };
 
-  renderButtons = () => {
-    const { classes, t, coach } = this.props;
-    return (
-      <Grid container direction="row" justify="flex-start" spacing={16}>
-        <Grid item>
-          <Button
-            color="primary"
-            variant="contained"
-            onClick={this.remunerateCoach}
-          >
-            <EuroSymbolIcon className={classes.leftIcon} />
-            {t('coach.showPerformance')}
-          </Button>
-        </Grid>
-        <Grid item>
-          <Button
-            onClick={() => this.props.startUpdateCoach(coach)}
-            color="secondary"
-            variant="outlined"
-          >
-            <EditIcon className={classes.leftIcon} />
-            {t('common.edit')}
-          </Button>
-        </Grid>
-      </Grid>
-    );
-  };
-
   render() {
     const { coach, classes, paymentRules, setCoachPaymentRule, t } = this.props;
     return (
@@ -84,7 +55,14 @@ export class CoachDetail extends Component<Props, State> {
               paymentRules={paymentRules}
               setCoachPaymentRule={setCoachPaymentRule}
             />
-            {this.renderButtons()}
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={this.remunerateCoach}
+            >
+              <EuroSymbolIcon className={classes.leftIcon} />
+              {t('coach.showPerformance')}
+            </Button>
           </Paper>
         </Grid>
         <Grid item xs={12} md={6}>

@@ -14,7 +14,7 @@ import {
 } from '../api/common';
 import { fetchAll as fetchAllAPI } from '../api/workshop-activity';
 
-import type { Dispatch } from '../../../state/types';
+import type { Dispatch, ThunkAction } from '../../../state/types';
 
 import { postAuth, deleteAuth, API_URI } from '../../../http';
 
@@ -30,7 +30,10 @@ export const deleteAction = {
   success: createAction('WORKSHOP/DELETE/SUCCESS'),
 };
 
-export function deleteWorkshop(id: number): ThunkAction {
+export function deleteWorkshop(
+  id: number,
+  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(deleteAction.isLoading(true));
     dispatch(deleteAction.error(null));
@@ -39,9 +42,11 @@ export function deleteWorkshop(id: number): ThunkAction {
       await deleteMetaActivityAPI(id);
       dispatch(deleteAction.success(id));
       dispatch(fetchAll());
+      if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
       dispatch(deleteAction.error(err));
       Sentry.captureException(err);
+      if (options && options.onError) options.onError();
     }
     dispatch(deleteAction.isLoading(false));
   };

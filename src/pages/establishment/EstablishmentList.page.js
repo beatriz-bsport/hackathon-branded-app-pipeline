@@ -54,7 +54,7 @@ export const EstablishmentList = (props: Props) => {
         <List component="nav" disablePadding>
           {props.establishments.map((e) => (
             <EstablishmentListItem
-              ket={e.id}
+              key={e.id}
               divider
               onClick={() => props.goToEstablishment(e.id)}
               establishment={e}

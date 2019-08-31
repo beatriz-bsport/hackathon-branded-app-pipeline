@@ -5,14 +5,21 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import { push } from 'react-router-redux';
+
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import type { Establishment, Offer } from '../../api/types';
 import withDrawer from '../../hocs/with-drawer.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 
 import { offer as offerActions } from '../../actions';
-import { fetchEstablishmentDetail } from '../../libs/establishment/actions';
 import EstablishmentDetail from '../../libs/establishment/components/EstablishmentDetail.component';
+import EstablishmentDeleteDialog from '../../libs/establishment/components/EstablishmentDeleteDialog.component';
+import {
+  fetchEstablishmentDetail,
+  deleteEstablishment,
+} from '../../libs/establishment/actions';
+import { checkCanDeleteEstablishment as canDeleteEstablishmentAPI } from '../../libs/establishment/api';
 
 type Props = {
   id: number,
@@ -24,9 +31,19 @@ type Props = {
   startUpdateEstablishment: (*) => void,
   fetchEstablishment: (id: number) => void,
   loading: boolean,
+  goToList: () => void,
+  deleteEstablishment: (id: number) => void,
 };
 
-export class EstablishmentDetails extends React.Component<Props> {
+type State = {
+  deleteOpen: boolean,
+};
+
+export class EstablishmentDetails extends React.Component<Props, State> {
+  state = {
+    deleteOpen: false,
+  };
+
   componentWillMount() {
     this.props.fetchEstablishment(this.props.id);
   }
@@ -36,14 +53,29 @@ export class EstablishmentDetails extends React.Component<Props> {
       return <LinearProgress />;
     }
     return (
-      <EstablishmentDetail
-        timetableLoading={this.props.timetableLoading}
-        offers={this.props.offers}
-        fetchOffersByDay={this.props.fetchOffersByDay}
-        goToOffer={this.props.goToOffer}
-        establishment={this.props.establishment}
-        goToEditForm={() => this.props.startUpdateEstablishment(this.props.id)}
-      />
+      <div>
+        <EstablishmentDetail
+          timetableLoading={this.props.timetableLoading}
+          offers={this.props.offers}
+          fetchOffersByDay={this.props.fetchOffersByDay}
+          goToOffer={this.props.goToOffer}
+          establishment={this.props.establishment}
+        />
+        <BottomActionButtons
+          onEdit={() => this.props.startUpdateEstablishment(this.props.id)}
+          onDelete={() => this.setState({ deleteOpen: true })}
+        />
+        <EstablishmentDeleteDialog
+          establishmentId={this.state.deleteOpen ? this.props.id : null}
+          onClose={() => this.setState({ deleteOpen: false })}
+          canDeleteEstablishmentChecker={canDeleteEstablishmentAPI}
+          deleteEstablishment={() => {
+            this.props.deleteEstablishment(this.props.id, {
+              onSuccess: this.props.goToList,
+            });
+          }}
+        />
+      </div>
     );
   }
 }
@@ -63,6 +95,8 @@ export default compose(
         push(`/establishment/edit/${id}`),
       fetchOffersByDay: offerActions.fetchOffersByDay,
       goToOffer: (offerId: number) => push(`/offer/${offerId}`),
+      goToList: () => push('/establishment'),
+      deleteEstablishment,
     },
   ),
   withDrawer(({ establishment }) => {

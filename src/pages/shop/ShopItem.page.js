@@ -17,6 +17,7 @@ import { push } from 'react-router-redux';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withDrawer from '../../hocs/with-drawer.hoc';
+import BottomActionsButton from '../../components/button/BottomActionsButton.component';
 
 import ShopItemCard from '../../libs/shop/components/ShopItemCard.component';
 import ShopItemForm from '../../libs/shop/components/ShopItemForm.component';
@@ -129,11 +130,7 @@ export class ShopItemDetail extends Component<Props, State> {
             {this.props.t('shopitem.detail.title')}
           </Typography>
           <Divider className={this.props.classes.sectionDivider} />
-          <ShopItemCard
-            shopitem={this.props.shopitem}
-            onEdit={this.openEditForm}
-            onDelete={this.requestDelete}
-          />
+          <ShopItemCard shopitem={this.props.shopitem} />
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography variant="h5" component="h2">
@@ -165,6 +162,10 @@ export class ShopItemDetail extends Component<Props, State> {
             />
           </Paper>
         </Grid>
+        <BottomActionsButton
+          onEdit={this.openEditForm}
+          onDelete={this.requestDelete}
+        />
         <Dialog open={this.state.editOpen} fullScreen={this.props.fullScreen}>
           <DialogContent>
             <ShopItemForm

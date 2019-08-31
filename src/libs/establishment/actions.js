@@ -10,11 +10,34 @@ import {
   fetchEstablishment as fetchEstablishmentAPI,
   updateEstablishment as updateEstablishmentAPI,
   addEstablishment as addEstablishmentAPI,
+  deleteEstablishment as deleteEstablishmentAPI,
 } from './api';
 import { API_URI, postAuth, deleteAuth } from '../../http';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
 import type { Dispatch } from '../../state/types';
+
+export const deleteActions = {
+  isLoading: createAction('ESTABLISHMENT/DELETE/IS_LOADING'),
+  error: createAction('ESTABLISHMENT/DELETE/ERROR'),
+};
+
+export function deleteEstablishment(id: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(deleteActions.isLoading(true));
+    dispatch(deleteActions.error(null));
+    try {
+      await deleteEstablishmentAPI(id);
+      dispatch(snackbarSuccess('establishment:forms.delete.message.success'));
+      dispatch(fetchEstablishments());
+    } catch (err) {
+      console.error(err);
+      dispatch(deleteActions.isLoading(false));
+      dispatch(deleteActions.error(err));
+      dispatch(snackbarError('establishment:forms.delete.message.error'));
+    }
+  };
+}
 
 export const listIsLoading = createAction('ESTABLISHMENTS/LIST/IS_LOADING');
 export const listLoaded = createAction('ESTABLISHMENTS/LIST/LOADED');

@@ -11,9 +11,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import EditIcon from '@material-ui/icons/Edit';
-import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
-import ClearIcon from '@material-ui/icons/Clear';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import type { ReportConfiguration } from './types';
 import { getIconFromCategory } from './utils';
@@ -49,14 +48,11 @@ export function ReportListItem({
         <small>{description}</small>
       </ListItemText>
       <ListItemSecondaryAction>
-        <IconButton onClick={onClick}>
-          <SearchIcon />
-        </IconButton>
-        <IconButton onClick={() => onEdit(report)}>
+        <IconButton onClick={() => onEdit(report)} color="primary">
           <EditIcon />
         </IconButton>
         <IconButton onClick={() => onDelete(report)}>
-          <ClearIcon />
+          <DeleteIcon />
         </IconButton>
       </ListItemSecondaryAction>
     </ListItem>

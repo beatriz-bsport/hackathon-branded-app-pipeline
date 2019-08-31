@@ -8,7 +8,7 @@ export default {
       cancel: 'Annuler',
       confirm: 'Supprimer',
       explain:
-        'Êtes-vous sûr de vouloir supprimer cet élément du magasin ? Cette opération est irréversible',
+        "Êtes-vous sûr de vouloir supprimer cet élément du magasin ? Cette opération est irréversible, vous n'aurez plus accès à l'historique des stocks.",
     },
   },
   provision: {

@@ -17,8 +17,9 @@ import type { MetaActivity } from '../../api/types';
 
 import { getEnabledWorkshops } from '../../libs/meta-activity/selectors';
 import MetaActivityList from '../../libs/meta-activity/components/MetaActivityList.component';
-import WorkshopConfirmDeleteDialog from '../../libs/meta-activity/components/WorkshopConfirmDeleteDialog.component';
+import WorkshopDeleteDialog from '../../libs/meta-activity/components/WorkshopDeleteDialog.component';
 import { deleteWorkshop } from '../../libs/meta-activity/actions/workshop-activity.actions';
+import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '../../libs/meta-activity/api/common';
 
 type Props = {
   workshopActivities: Array<MetaActivity>,
@@ -32,29 +33,24 @@ type Props = {
   goToEdit: (metaActivityId: number) => void,
 };
 
-export function WorkshopActivityList(props: Props) {
-  const { loading, isCardView, workshopActivities } = props;
-  return (
-    <div>
-      {loading ? <LinearProgress /> : null}
-      <MetaActivityList
-        metaActivities={workshopActivities}
-        isCardView={isCardView}
-        goToDetail={props.goToDetail}
-        goToEdit={props.goToEdit}
-        deleteMetaActivity={props.setWorkshopToDelete}
-      />
-      <WorkshopConfirmDeleteDialog
-        open={!!props.workshopToDelete}
-        onClose={() => props.setWorkshopToDelete(null)}
-        onSubmit={() => {
-          props.setWorkshopToDelete(null);
-          props.deleteWorkshop(props.workshopToDelete);
-        }}
-      />
-    </div>
-  );
-}
+export const WorkshopActivityList = (props: Props) => (
+  <div>
+    {props.loading ? <LinearProgress /> : null}
+    <MetaActivityList
+      metaActivities={props.workshopActivities}
+      isCardView={props.isCardView}
+      goToDetail={props.goToDetail}
+      goToEdit={props.goToEdit}
+      deleteMetaActivity={props.setWorkshopToDelete}
+    />
+    <WorkshopDeleteDialog
+      workshopId={props.workshopToDelete}
+      onClose={() => props.setWorkshopToDelete(null)}
+      canDeleteWorkshopChecker={canDeleteMetaActivityAPI}
+      deleteWorkshop={props.deleteWorkshop}
+    />
+  </div>
+);
 
 export default compose(
   withNamespaces(),

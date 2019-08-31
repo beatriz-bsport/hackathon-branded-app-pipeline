@@ -24,6 +24,10 @@ export async function deleteMetaActivity(id: number) {
   return deleteAuth(`${API_V1_URI}/meta-activity/${id}/`);
 }
 
+export async function checkCanDeleteMetaActivity(id: number) {
+  return getAuth(`${API_V1_URI}/meta-activity/${id}/can_destroy/`);
+}
+
 export async function updateMetaActivity(data: *, id: number) {
   const aId = data.get('id') || id;
   return patchAuth(`${API_URI}/saas/update-meta-activity/${aId}`, data);

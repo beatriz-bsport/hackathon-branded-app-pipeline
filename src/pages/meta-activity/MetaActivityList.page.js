@@ -12,9 +12,10 @@ import withDrawer from '../../hocs/with-drawer.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import MetaActivityList from '../../libs/meta-activity/components/MetaActivityList.component';
-import MetaActivityConfirmDeleteDialog from '../../libs/meta-activity/components/MetaActivityConfirmDeleteDialog.component';
+import MetaActivityDeleteDialog from '../../libs/meta-activity/components/MetaActivityDeleteDialog.component';
 import { getEnabledMetaActivities } from '../../libs/meta-activity/selectors';
 import { deleteMetaActivity } from '../../libs/meta-activity/actions/meta-activity.actions';
+import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '../../libs/meta-activity/api/common';
 
 import type { MetaActivity } from '../../api/types';
 
@@ -30,29 +31,24 @@ type Props = {
   activityToDelete: (?number) => void,
 };
 
-export function MetaActivityListPage(props: Props) {
-  const { metaActivities, loading, isCardView } = props;
-  return (
-    <div>
-      {loading ? <LinearProgress /> : null}
-      <MetaActivityList
-        metaActivities={metaActivities}
-        isCardView={isCardView}
-        goToDetail={props.goToDetail}
-        goToEdit={props.goToEdit}
-        deleteMetaActivity={props.setActivityToDelete}
-      />
-      <MetaActivityConfirmDeleteDialog
-        open={!!props.activityToDelete}
-        onClose={() => props.setActivityToDelete(null)}
-        onSubmit={() => {
-          props.setActivityToDelete(null);
-          props.deleteMetaActivity(props.activityToDelete);
-        }}
-      />
-    </div>
-  );
-}
+export const MetaActivityListPage = (props: Props) => (
+  <div>
+    {props.loading ? <LinearProgress /> : null}
+    <MetaActivityList
+      metaActivities={props.metaActivities}
+      isCardView={props.isCardView}
+      goToDetail={props.goToDetail}
+      goToEdit={props.goToEdit}
+      deleteMetaActivity={props.setActivityToDelete}
+    />
+    <MetaActivityDeleteDialog
+      metaActivityId={props.activityToDelete}
+      onClose={() => props.setActivityToDelete(null)}
+      canDeleteMetaActivityChecker={canDeleteMetaActivityAPI}
+      deleteMetaActivity={props.deleteMetaActivity}
+    />
+  </div>
+);
 
 export default compose(
   withNamespaces(),

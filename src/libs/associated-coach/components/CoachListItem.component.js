@@ -13,11 +13,9 @@ import Chip from '@material-ui/core/Chip';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import EditIcon from '@material-ui/icons/Edit';
 import CallIcon from '@material-ui/icons/Call';
-import type { TFunction } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import type { CoachDetailed as Coach } from '../../../api/types';
-import withConfirm from '../../../hocs/with-confirm.hoc';
 
 type Props = {
   coach: Coach,
@@ -27,22 +25,6 @@ type Props = {
   classes: Object,
 };
 
-const DeleteButton = withConfirm(
-  (props: { deleteCoach: () => void }) => (
-    <IconButton onClick={props.deleteCoach}>
-      <DeleteIcon />
-    </IconButton>
-  ),
-  'deleteCoach',
-  {
-    title: 'coach:forms.delete.title',
-    cancel: 'coach:forms.delete.cancel',
-    confirm: 'coach:forms.delete.confirm',
-    Content: ({ t }: { t: TFunction }) => (
-      <p>{t('coach:forms.delete.content')}</p>
-    ),
-  },
-);
 const openPhone = (event, phoneNumber: string) => {
   event.stopPropagation();
   window.location.href = 'tel:'.concat(phoneNumber);
@@ -112,7 +94,9 @@ export function CoachListItem(props: Props) {
           </IconButton>
         </Link>
         {props.deleteCoach ? (
-          <DeleteButton deleteCoach={props.deleteCoach} />
+          <IconButton onClick={props.deleteCoach}>
+            <DeleteIcon />
+          </IconButton>
         ) : null}
       </ListItemSecondaryAction>
     </ListItem>

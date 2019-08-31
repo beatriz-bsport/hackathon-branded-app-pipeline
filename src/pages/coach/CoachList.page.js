@@ -1,8 +1,8 @@
 // @flow
 
-import React, { Component } from 'react';
+import React from 'react';
 
-import { compose } from 'recompose';
+import { compose, withState } from 'recompose';
 
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
@@ -28,6 +28,9 @@ import withDrawer from '../../hocs/with-drawer.hoc';
 
 import ConnectedCoachCard from '../../libs/associated-coach/components/CoachCard.component';
 import CoachListItem from '../../libs/associated-coach/components/CoachListItem.component';
+import CoachDeleteModal from '../../libs/associated-coach/components/CoachDeleteModal.component';
+
+import { canDeleteCoach as canDeleteCoachAPI } from '../../libs/associated-coach/api';
 
 type Props = {
   loading: boolean,
@@ -35,7 +38,10 @@ type Props = {
   setCoachPaymentRule: (*) => void,
   associatedCoaches: Array<Coach>,
 
-  deleteCoach: (id: number) => void,
+  deleteCoachId: ?number,
+  deleteCoach: (id: ?number) => void,
+  setDeleteCoachId: (id: ?number) => void,
+
   goToCoachPerformance: (coach: Coach) => void,
   goToCoachEditForm: (coach: Coach) => void,
   goToCoachDetail: (coachId: number) => void,
@@ -43,52 +49,56 @@ type Props = {
   isCardView: boolean,
 };
 
-export class CoachList extends Component<Props> {
-  render() {
-    if (this.props.loading) {
-      return <CircularProgress />;
-    }
-    const {
-      associatedCoaches,
-      paymentRules,
-      goToCoachEditForm,
-      goToCoachPerformance,
-      goToCoachDetail,
-    } = this.props;
+export const CoachList = (props: Props) => {
+  if (props.loading) {
+    return <CircularProgress />;
+  }
+  const {
+    associatedCoaches,
+    paymentRules,
+    goToCoachEditForm,
+    goToCoachPerformance,
+    goToCoachDetail,
+  } = props;
 
-    if (this.props.isCardView) {
-      return (
-        <Grid container direction="row" spacing={16}>
-          {associatedCoaches.map((coach) => (
-            <Grid item xs={12} md={6} key={coach.id}>
-              <ConnectedCoachCard
-                coach={coach}
-                onClickUpdate={() => goToCoachEditForm(coach)}
-                paymentRules={paymentRules}
-                setCoachPaymentRule={this.props.setCoachPaymentRule}
-                goToCoachPerformance={() => goToCoachPerformance(coach)}
-              />
-            </Grid>
-          ))}
-        </Grid>
-      );
-    }
+  if (props.isCardView) {
     return (
-      <Paper>
-        <List component="nav" dense disablePadding>
-          {this.props.associatedCoaches.map((coach) => (
-            <CoachListItem
-              divider
+      <Grid container direction="row" spacing={16}>
+        {associatedCoaches.map((coach) => (
+          <Grid item xs={12} md={6} key={coach.id}>
+            <ConnectedCoachCard
               coach={coach}
-              onCoachSelected={() => goToCoachDetail(coach.id)}
-              deleteCoach={() => this.props.deleteCoach(coach.id)}
+              onClickUpdate={() => goToCoachEditForm(coach)}
+              paymentRules={paymentRules}
+              setCoachPaymentRule={props.setCoachPaymentRule}
+              goToCoachPerformance={() => goToCoachPerformance(coach)}
             />
-          ))}
-        </List>
-      </Paper>
+          </Grid>
+        ))}
+      </Grid>
     );
   }
-}
+  return (
+    <Paper>
+      <List component="nav" dense disablePadding>
+        {props.associatedCoaches.map((coach) => (
+          <CoachListItem
+            divider
+            coach={coach}
+            onCoachSelected={() => goToCoachDetail(coach.id)}
+            deleteCoach={() => props.setDeleteCoachId(coach.id)}
+          />
+        ))}
+      </List>
+      <CoachDeleteModal
+        coachToDeleteId={props.deleteCoachId}
+        onClose={() => props.setDeleteCoachId(null)}
+        checkCanDeleteCoach={canDeleteCoachAPI}
+        deleteCoach={props.deleteCoach}
+      />
+    </Paper>
+  );
+};
 
 const styles = (theme) => ({
   root: {
@@ -116,6 +126,7 @@ export default compose(
   ),
   withNamespaces(),
   withStyles(styles),
+  withState('deleteCoachId', 'setDeleteCoachId', null),
   withBottomButtons({
     addButton: { path: '/coach/add', text: i18next.t('coach.addCoach') },
     switchButton: true,

@@ -18,6 +18,23 @@ export default {
       "Une fois votre établissement créé, vous aurez la possibilité d'ajouter des images supplémentaires.",
   },
   forms: {
+    delete: {
+      title: 'Suppression établissement',
+      actions: {
+        cancel: 'annuler',
+        confirm: 'Supprimer',
+      },
+      content: {
+        canDelete:
+          'Êtes-vous sûr de vouloir supprimer cet établissement ? Cette opération est irréversible. Les séances et réservations passées ne seront pas affectées',
+        cannotDelete:
+          "Impossible de supprimer cet établissement, des séances sont prévues dans le futur. Vérifiez qu'elles ont bien été annulées puis supprimées",
+      },
+      message: {
+        success: 'Etablissement supprimé',
+        error: 'Impossible de supprimer cet établissement',
+      },
+    },
     error: "Impossible de sauvegarder l'établissement",
     create: {
       title: 'Nouvel établissement',

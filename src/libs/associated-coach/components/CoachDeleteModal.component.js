@@ -1,0 +1,27 @@
+// @flow
+import React from 'react';
+
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
+
+import DeleteDialogWithCheck from '../../../components/DeleteDialogWithCheck.component';
+
+type Props = {
+  t: TFunction,
+  coachToDeleteId: ?number,
+  onClose: () => void,
+  checkCanDeleteCoach: (id: number) => Promise<void>,
+  deleteCoach: (id: number) => void,
+};
+
+export const CoachDeleteDialog = (props: Props) => (
+  <DeleteDialogWithCheck
+    idToDelete={props.coachToDeleteId}
+    onClose={props.onClose}
+    checkCanDeleteObjectAPI={props.checkCanDeleteCoach}
+    deleteObject={() => props.deleteCoach(props.coachToDeleteId)}
+    t={props.t}
+  />
+);
+
+export default withNamespaces(['coach'])(CoachDeleteDialog);

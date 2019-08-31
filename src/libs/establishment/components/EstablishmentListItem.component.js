@@ -7,6 +7,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
+import DeleteIcon from '@material-ui/icons/Delete';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
@@ -47,8 +48,8 @@ export default withStyles(styles)((props: Props) => {
         }
         secondary={establishment.location.address}
       />
-      {props.onClickEdit ? (
-        <ListItemSecondaryAction>
+      <ListItemSecondaryAction>
+        {props.onClickEdit ? (
           <IconButton
             onClick={(ev) => {
               ev.stopPropagation();
@@ -59,8 +60,19 @@ export default withStyles(styles)((props: Props) => {
           >
             <EditIcon />
           </IconButton>
-        </ListItemSecondaryAction>
-      ) : null}
+        ) : null}
+        {props.onClickDelete ? (
+          <IconButton
+            onClick={(ev) => {
+              ev.stopPropagation();
+              ev.preventDefault();
+              props.onClickDelete();
+            }}
+          >
+            <DeleteIcon />
+          </IconButton>
+        ) : null}
+      </ListItemSecondaryAction>
     </ListItem>
   );
 });

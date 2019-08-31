@@ -19,6 +19,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
+import DeleteIcon from '@material-ui/icons/Delete';
 import ButtonBase from '@material-ui/core/ButtonBase';
 
 import AddIcon from '@material-ui/icons/Add';
@@ -32,6 +33,7 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
+import ShopItemDeleteDialog from '../../libs/shop/components/ShopItemDeleteDialog.component';
 import {
   fetchAll as fetchAllShopItem,
   createOrUpdateShopItem,
@@ -59,7 +61,7 @@ type Props = {
   subShops: Array<SubShop>,
   fetchSubShop: () => void,
   fetchShopItems: () => void,
-  // deleteItem: (id: number) => void,
+  deleteItem: (id: number) => void,
   deleteSubShop: (id: number) => void,
   goToShopItem: (id: number) => void,
   createOrUpdateSubShop: (data: [*]) => void,
@@ -71,12 +73,14 @@ type Props = {
 type State = {
   newSubShopName: ?string,
   createItemFromSubShop: ?number,
+  shopitemToDelete: ?ShopItem,
 };
 
 export class ShopItemList extends Component<Props, State> {
   state = {
     newSubShopName: null,
     createItemFromSubShop: null,
+    shopitemToDelete: null,
   };
 
   componentDidMount() {
@@ -114,6 +118,11 @@ export class ShopItemList extends Component<Props, State> {
                       ) : (
                         <VisibilityOffIcon />
                       )}
+                    </IconButton>
+                    <IconButton
+                      onClick={() => this.setState({ shopitemToDelete: si })}
+                    >
+                      <DeleteIcon />
                     </IconButton>
                   </ListItemSecondaryAction>
                 }
@@ -232,6 +241,16 @@ export class ShopItemList extends Component<Props, State> {
               onCancel={() => this.setState({ createItemFromSubShop: null })}
             />
           </DialogContent>
+        </Dialog>
+        <Dialog open={!!this.state.shopitemToDelete}>
+          <ShopItemDeleteDialog
+            shopitem={this.state.shopitemToDelete}
+            onCancel={() => this.setState({ shopitemToDelete: null })}
+            onSubmit={() => {
+              this.props.deleteItem(this.state.shopitemToDelete.id);
+              this.setState({ shopitemToDelete: null });
+            }}
+          />
         </Dialog>
       </div>
     );

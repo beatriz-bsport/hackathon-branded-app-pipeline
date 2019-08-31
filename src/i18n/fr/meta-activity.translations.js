@@ -9,6 +9,19 @@ export default {
         workshop_form: "Création de l'atelier",
       },
     },
+    delete: {
+      title: "Suppression de l'activité",
+      content: {
+        canDelete:
+          'Êtes-vous sûr de vouloir supprimer cette activité ? Les séances et réservations passées ne seront pas affectées. Cette opération est définitive.',
+        cannotDelete:
+          "Des séances sont prévues dans le futur, vérifiez qu'elles sont bien supprimées et pas seulement annulées.",
+      },
+      actions: {
+        cancel: 'Annuler',
+        confirm: 'Supprimer',
+      },
+    },
   },
   name: 'Nom',
   category: 'Sport',
@@ -24,6 +37,7 @@ export default {
       confirm: 'Supprimer',
     },
   },
+
   settings: {
     title: 'Paramètres',
     lastBookingBeforeMinutes:

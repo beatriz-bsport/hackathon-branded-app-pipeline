@@ -1,10 +1,9 @@
 // @flow
 
-import React, { Component } from 'react';
-import { compose } from 'recompose';
+import React from 'react';
+import { compose, withState } from 'recompose';
 import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -12,102 +11,73 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import i18next from 'i18next';
 import { push } from 'react-router-redux';
-import { offer as offerActions } from '../../actions';
 import Map from '../../components/map/Map.component';
-import type { Establishment, Offer } from '../../api/types';
 
 import withBottomButtons from '../../hocs/inject-bottom-buttons';
 import withDrawer from '../../hocs/with-drawer.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import EstablishmentListItem from '../../libs/establishment/components/EstablishmentListItem.component';
-import EstablishmentCardItem from '../../libs/establishment/components/EstablishmentCardItem.component';
+import EstablishmentDeleteDialog from '../../libs/establishment/components/EstablishmentDeleteDialog.component';
+import type { Establishment } from '../../libs/establishment/types';
+import { deleteEstablishment } from '../../libs/establishment/actions';
+import { checkCanDeleteEstablishment as canDeleteEstablishmentAPI } from '../../libs/establishment/api';
 
 type Props = {
-  isCardView: boolean,
   loading: boolean,
   establishments: Array<Establishment>,
-  offers: Array<Offer>,
 
   startUpdateEstablishment: (*) => void,
-  fetchOffersByDay: ({ year: number, month: number, day: number }) => void,
-  goToOffer: (offerId: number) => void,
   goToEstablishment: (id: number) => void,
+  establishmentToDelete: ?number,
+  setEstablishmentToDelete: (?number) => void,
+  deleteEstablishment: (number) => void,
 
   classes: Object,
   t: TFunction,
 };
 
-export class EstablishmentList extends Component<Props> {
-  renderNoEstablishment = () => {
-    const { classes, t } = this.props;
+export const EstablishmentList = (props: Props) => {
+  if ((props.establishments || []).length === 0 && !props.loading) {
     return (
-      <div className={classes.emptyEstablishment}>
+      <div className={props.classes.emptyEstablishment}>
         <Typography variant="caption">
-          {t('establishment.pleaseSelectOne')}
+          {props.t('establishment.pleaseSelectOne')}
         </Typography>
       </div>
     );
-  };
-
-  renderMapWithCards = () => {
-    const { classes, establishments } = this.props;
-    return (
-      <div>
-        {this.props.loading ? <LinearProgress /> : null}
-        <div className={classes.root}>
-          <Paper className={classes.map}>
-            <Map markers={establishments} markerClicked={() => {}} />
-          </Paper>
-          <Grid container direction="column" spacing={32}>
-            {establishments.map((e) => (
-              <Grid key={e.id} item>
-                <EstablishmentCardItem
-                  fetchOffersByDay={this.props.fetchOffersByDay}
-                  establishment={e}
-                  offers={this.props.offers}
-                  goToEditForm={() => this.props.startUpdateEstablishment(e.id)}
-                  goToOffer={this.props.goToOffer}
-                />
-              </Grid>
-            ))}
-          </Grid>
-        </div>
-      </div>
-    );
-  };
-
-  renderList = () => (
+  }
+  return (
     <div>
-      {this.props.loading ? <LinearProgress /> : null}
+      {props.loading ? <LinearProgress /> : null}
       <Paper>
         <List component="nav" disablePadding>
-          {this.props.establishments.map((e) => (
+          {props.establishments.map((e) => (
             <EstablishmentListItem
+              ket={e.id}
               divider
-              onClick={() => this.props.goToEstablishment(e.id)}
+              onClick={() => props.goToEstablishment(e.id)}
               establishment={e}
+              onClickDelete={() => props.setEstablishmentToDelete(e.id)}
               onClickEdit={() => {
-                this.props.startUpdateEstablishment(e.id);
+                props.startUpdateEstablishment(e.id);
               }}
             />
           ))}
         </List>
       </Paper>
+      <Paper className={props.classes.map}>
+        <Map markers={props.establishments} markerClicked={() => {}} />
+      </Paper>
+      <EstablishmentDeleteDialog
+        establishmentId={props.establishmentToDelete}
+        onClose={() => props.setEstablishmentToDelete(null)}
+        canDeleteEstablishmentChecker={canDeleteEstablishmentAPI}
+        deleteEstablishment={props.deleteEstablishment}
+      />
     </div>
   );
-
-  render() {
-    const { establishments, loading } = this.props;
-    if ((establishments || []).length === 0 && !loading) {
-      return this.renderNoEstablishment();
-    }
-    if (this.props.isCardView) {
-      return this.renderMapWithCards();
-    }
-    return this.renderList();
-  }
-}
+};
 
 const styles = (theme) => ({
   emptyEstablishment: {
@@ -122,18 +92,17 @@ const styles = (theme) => ({
 export default compose(
   withStyles(styles),
   withNamespaces(),
+  withState('establishmentToDelete', 'setEstablishmentToDelete', null),
   connect(
     (state) => ({
       loading: state.establishment.loading,
       establishments: state.establishment.all,
-      offers: state.offer.offers,
     }),
     {
       startUpdateEstablishment: (id: number) =>
         push(`/establishment/edit/${id}`),
-      fetchOffersByDay: offerActions.fetchOffersByDay,
-      goToOffer: (offerId: number) => push(`/offer/${offerId}`),
       goToEstablishment: (id) => push(`/establishment/details/${id}`),
+      deleteEstablishment,
     },
   ),
   withBottomButtons({
@@ -141,7 +110,6 @@ export default compose(
       path: '/establishment/add',
       text: i18next.t('establishment.addButton'),
     },
-    switchButton: true,
   }),
   withDrawer(({ t }: { t: TFunction }) => t('appbar.title.establishmentList')),
 )(EstablishmentList);

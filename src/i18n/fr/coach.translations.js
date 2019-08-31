@@ -48,9 +48,17 @@ export default {
     delete: {
       success: 'Professeur supprimé',
       error: 'Impossible de supprimer le professeur',
-      content:
-        "Êtes-vous sûr de vouloir supprimer ce professeur ? Vous n'aurez plus accès au calcul de ses rémunérations. Vous pourrez le rajouter de nouveau à partir de son email.",
+      content: {
+        canDelete:
+          "Êtes-vous sûr de vouloir supprimer ce professeur ? Vous n'aurez plus accès au calcul de ses rémunérations. Vous pourrez le rajouter de nouveau à partir de son email.",
+        cannotDelete:
+          'Vous ne pouvez pas supprimer ce professeur car des séances dans le futur sont prévue !',
+      },
       title: 'Suppression professeur',
+      actions: {
+        cancel: 'Annuler',
+        confirm: 'Supprimer',
+      },
       cancel: 'Annuler',
       confirm: 'Supprimer',
     },

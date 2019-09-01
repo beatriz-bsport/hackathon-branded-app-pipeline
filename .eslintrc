@@ -10,12 +10,14 @@
     "browser": true,
     "node": true,
     "jasmine": true,
-    "jest": true
+    "jest": true,
+    "cypress/globals": true
   },
   "plugins": [
     "react",
     "flowtype",
-    "babel"
+    "babel",
+    "cypress"
   ],
   "rules": {
     // DISABLED BY SOFIAN

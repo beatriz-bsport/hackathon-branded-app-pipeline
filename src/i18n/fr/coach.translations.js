@@ -52,7 +52,7 @@ export default {
         canDelete:
           "Êtes-vous sûr de vouloir supprimer ce professeur ? Vous n'aurez plus accès au calcul de ses rémunérations. Vous pourrez le rajouter de nouveau à partir de son email.",
         cannotDelete:
-          'Vous ne pouvez pas supprimer ce professeur car des séances dans le futur sont prévue !',
+          'Vous ne pouvez pas supprimer ce professeur car des séances dans le futur sont prévues !',
       },
       title: 'Suppression professeur',
       actions: {

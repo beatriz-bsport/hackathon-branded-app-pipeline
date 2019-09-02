@@ -236,30 +236,16 @@ export class OfferManagement extends PureComponent<Props, State> {
     this.setState({ addMemberModal: false });
   };
 
-  getFuse = memoize((items) => {
-    const options = {
-      shouldSort: true,
-      threshold: 0.3,
-      location: 0,
-      distance: 100,
-      maxPatternLength: 32,
-      minMatchCharLength: 2,
-      keys: ['name', 'email'],
-    };
-    return new Fuse(items, options);
-  });
-
-  getResults = () =>
-    this.getFuse([])
-      .search(this.state.searchedText)
-      .slice(0, 8);
-
   renderSearchedMember = (member: Member) => {
     const hasBooked = !!this.props.bookings.find((b) => b.member === member.id);
     return (
       <MemberBookingHelper
         key={member.id}
         onClickBill={() => this.addToQuickInvoicePanel(member.id)}
+        onClickOption={() => {
+          this.props.registerToWaitingList(this.props.offer.id, member.id);
+          this.clearSearch();
+        }}
         onClickRegister={() => this.setState({ memberToRegister: member.id })}
         onClickListItem={
           hasBooked ? () => this.addToQuickInvoicePanel(member.id) : null

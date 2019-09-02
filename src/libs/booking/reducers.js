@@ -30,6 +30,11 @@ export default function bookingReducers(
         action.bookingOptionId,
         ...state.bookingOptionsUpdating,
       ]);
+
+    case actionTypes.BOOKING_OPTION_REGISTER_SUCCESS: {
+      const { bookingOption } = action;
+      return state.set('options', [...state.options, bookingOption]);
+    }
     case actionTypes.BOOKING_OPTION_CANCELLED: {
       const { bookingOptionId } = action;
       return state

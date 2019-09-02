@@ -1,5 +1,5 @@
 // @flow
-import { API_V1_URI, getAuth, patchAuth } from '../../http';
+import { API_V1_URI, getAuth, postAuth, patchAuth } from '../../http';
 
 export const fetchConfiguration = async () => {
   return getAuth(`${API_V1_URI}/waiting-list/configuration/me/`);

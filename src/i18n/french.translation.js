@@ -253,6 +253,7 @@ export default {
       hasntBooked: 'Non inscrit',
       hasBooked: 'Inscrit',
       createBooking: 'Inscrire',
+      createBookingOption: 'Ajouter sur liste',
       reCreateBooking: 'Réinscrire',
       noQuickInvoiceOpened: 'Aucune facturation ouverte',
       myOpenedInvoices: 'Factures rapides',

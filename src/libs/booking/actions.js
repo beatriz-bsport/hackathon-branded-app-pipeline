@@ -15,6 +15,8 @@ export const actionTypes = {
   ERROR_UPDATING_BOOKING_OPTION: 'ERROR_UPDATING_BOOKING_OPTION',
   BOOKING_OPTION_CANCELLED: 'BOOKING_OPTION_CANCELLED',
 
+  BOOKING_OPTION_REGISTER_SUCCESS: 'BOOKING_OPTION_REGISTER_SUCCESS',
+
   BOOKING_ADD_START: 'BOOKING_ADD_START',
   BOOKING_ADD_ERROR: 'BOOKING_ADD_ERROR',
   BOOKING_ADD_SUCCESS: 'BOOKING_ADD_SUCCESS',
@@ -35,6 +37,7 @@ export function errorUpdatingBookingOption(bookingOptionId) {
 export function bookingOptionCancelled(bookingOptionId) {
   return { type: actionTypes.BOOKING_OPTION_CANCELLED, bookingOptionId };
 }
+
 export function discardBookingOption(bookingOptionId) {
   return async (dispatch) => {
     dispatch(updatingBookingOption(bookingOptionId));
@@ -44,6 +47,26 @@ export function discardBookingOption(bookingOptionId) {
       return dispatch(bookingOptionCancelled(bookingOptionId));
     }
     return dispatch(errorUpdatingBookingOption(bookingOptionId));
+  };
+}
+
+export function bookingOptionRegistered(bookingOption) {
+  return { type: actionTypes.BOOKING_OPTION_REGISTER_SUCCESS, bookingOption };
+}
+
+export function registerToWaitingList(offerId, memberId, options) {
+  return async (dispatch) => {
+    try {
+      const response = await api.booking.registerToWaitingList(
+        offerId,
+        memberId,
+      );
+      dispatch(bookingOptionRegistered(response.data));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      console.error(err);
+      if (options && options.onError) options.onError();
+    }
   };
 }
 

@@ -22,6 +22,7 @@ import {
   confirmBookingAttendance as confirmBookingAttendanceAction,
   discardBookingAttendance as discardBookingAttendanceAction,
   discardBookingOption as discardBookingOptionAction,
+  registerToWaitingList as registerToWaitingListAction,
 } from '../../libs/booking/actions';
 import { getPermissions } from '../../libs/role/selectors';
 import bookingSelectors from '../../libs/booking/selectors';
@@ -112,6 +113,13 @@ function mapDispatchToProps(dispatch) {
     },
     discardOption(optionId) {
       dispatch(discardBookingOptionAction(optionId));
+    },
+    registerToWaitingList(offerId, memberId) {
+      dispatch(
+        registerToWaitingListAction(offerId, memberId, {
+          onSuccess: () => dispatch(refreshMemberByOffer(offerId)),
+        }),
+      );
     },
     createMember(data, options) {
       dispatch(createOrUpdateMember(data, options));

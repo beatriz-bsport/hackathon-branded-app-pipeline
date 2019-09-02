@@ -5,7 +5,9 @@ import Button from '@material-ui/core/Button';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
+import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import withStyles from '@material-ui/core/styles/withStyles';
 import AddIcon from '@material-ui/icons/Add';
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -23,6 +25,7 @@ type Props = {
 
   showMember: ?() => void,
   onClickListItem: ?() => void,
+  onClickOption: () => void,
   onClickBill: () => void,
   onClickRegister: () => void,
 };
@@ -59,10 +62,20 @@ function MemberBookingHelper(props: Props) {
             </Button>
           </React.Fragment>
         ) : (
-          <Button color="primary" onClick={props.onClickRegister}>
-            <AddIcon className={props.classes.rightIcon} />
-            {props.t('offer.createBooking')}
-          </Button>
+          <React.Fragment>
+            <Button color="primary" onClick={props.onClickOption}>
+              <HourglassEmptyIcon className={props.classes.rightIcon} />
+              <Hidden xsDown>{props.t('offer.createBookingOption')}</Hidden>
+            </Button>
+            <Button
+              color="primary"
+              variant="outlined"
+              onClick={props.onClickRegister}
+            >
+              <AddIcon className={props.classes.rightIcon} />
+              {props.t('offer.createBooking')}
+            </Button>
+          </React.Fragment>
         )}
         {props.showMember ? (
           <IconButton color="secondary" onClick={props.showMember}>

@@ -53,9 +53,14 @@ Packages used
 Code structure
 --------------
 
-* `src/pages` : the pages (screen) only. Theorically only them do api call / dispatch redux actions. When relevant exceptions are accepted.
-* `src/components` individual components. Should be as dumb as possible. Do not hesitate to compose them.
-* `src/api/` all api call are and must be defined here (no exceptions), use `src/http.js` to make them.
+* `src/pages` : the pages (screen) only. Theorically only them do api call / dispatch redux actions. When relevant, some exceptions are accepted. Do not manipulate data outside this directory. Call here and only here the `actions.js|selectors.js|api.js`. Page get and compose the data, provide actions, the components do not need to understand that.
+* `src/components` individual dumb and generic components. Should be as dumb as possible. Do not hesitate to compose them.
+* `src/libs/` are "métier" library, example: invoice
+  * `./components` contains the UI/UX
+  * `./api.js` the api call
+  * `./actions|reducers.js` the redux stuff
+  * `./selectors.js` how to get stuff from the redux store
+  * `./types.js` flow types
 * `src/i18n/` includes all translations
 
 Workflow
@@ -64,6 +69,7 @@ We use git as you can see
 * master branch is protected : you must not push on it
 * one feature = one PR (pull request) derived from master
 * try to push your code once everyday (if relevant). It's easier to help and correct you.
+* all code on master branch is automatically available after some CI steps on https://backoffice.staging.bsport.io
 * Sofian is the default approver for all PR, you can add other approvers but do not merge yourself.
 
 Misc

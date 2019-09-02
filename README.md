@@ -51,12 +51,3 @@ Now you can run
 yarn       // install all deps
 yarn start // start the dev server
 ```
-
-If you need to update the @bsport/common package
-================================================
-```sh
-pushd ../bsport-commons-js
-yarn link
-popd
-yarn link @bsport/common
-```

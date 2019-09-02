@@ -32,7 +32,7 @@ export class BookingOptionForManager extends Component<Props> {
         {this.props.t('booking.onHold')}
       </Button>
       {this.props.onDiscard ? (
-        <IconButton color="secondary" onClick={this.props.onDiscard}>
+        <IconButton onClick={this.props.onDiscard}>
           <CancelIcon />
         </IconButton>
       ) : null}

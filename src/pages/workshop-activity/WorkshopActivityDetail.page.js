@@ -34,6 +34,15 @@ type Props = {
   events: Array<Event>,
   fetchMetaActivityDetails: (number) => void,
   offers: Array<Offer>,
+
+  goToList: () => void,
+  deleteWorkshop: (
+    id: number,
+    options: ?{ onSuccess: ?() => void, onError: ?() => void },
+  ) => void,
+  onEdit: (id: number) => void,
+  createActivityOffers: (id: number) => void,
+  goToOffer: (offer: Offer) => void,
 };
 
 type State = {

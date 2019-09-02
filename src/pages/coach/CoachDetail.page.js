@@ -38,6 +38,14 @@ type Props = {
   startUpdateCoach: (coach: CoachDetailed) => void,
   goToCoachPerformance: (coach: CoachDetailed) => void,
   loading: boolean,
+
+  setDeleteModalOpen: (boolean) => void,
+  deleteOpen: boolean,
+  deleteCoach: (
+    id: number,
+    options: ?{ onSucces: ?() => void, onError: ?() => void },
+  ) => void,
+  goToList: () => void,
 };
 
 export const Coach = (props: Props) => {

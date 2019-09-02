@@ -27,9 +27,6 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import Fuse from 'fuse.js';
-import memoize from 'memoize-one';
-
 import ResultList from '../../components/search/ResultList.component';
 import MemberBookingHelper from './MemberBookingHelper.component';
 import { mapFormData } from '../form.utils';
@@ -70,6 +67,7 @@ type Props = {
   permission: Permission,
 
   fetchMember: (id: number) => void,
+  registerToWaitingList: (offerId: number, memberId) => void,
   memberSearchLoading: boolean,
   searchMembers: (txt: string) => void,
   searchedMembers: Array<Member>,

@@ -1,8 +1,9 @@
 // @flow
 import React, { Component } from 'react';
 
-import Grid from '@material-ui/core/Grid';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
@@ -11,6 +12,7 @@ import PriceInput from '../../../components/input/PriceInput.component';
 type Props = {
   onUpdateVoucher: (price: number) => void,
   t: TFunction,
+  classes: Object,
 };
 
 type State = {
@@ -28,31 +30,38 @@ export class InvoiceVoucher extends Component<Props, State> {
     const { t } = this.props;
     const { voucher } = this.state;
     return (
-      <Grid
-        container
-        direction="row"
-        justify="space-between"
-        alignItems="center"
-      >
-        <Grid item>
-          <Button
-            onClick={() => this.props.onUpdateVoucher(voucher)}
-            color="primary"
-            disabled={voucher === 0}
-          >
-            {t('payment.updateInvoiceVoucher')}
-          </Button>
-        </Grid>
-        <Grid item>
-          <PriceInput
-            onChange={this.onChange}
-            value={this.state.voucher}
-            variant="outlined"
-          />
-        </Grid>
-      </Grid>
+      <div className={this.props.classes.container}>
+        <Button
+          onClick={() => {
+            this.props.onUpdateVoucher(voucher);
+            this.setState({ voucher: 0 });
+          }}
+          color="secondary"
+          variant="contained"
+          disabled={voucher === 0 || voucher === '0'}
+        >
+          <AddIcon className={this.props.classes.leftIcon} />
+          {t('payment.updateInvoiceVoucher')}
+        </Button>
+        <PriceInput
+          onChange={this.onChange}
+          value={this.state.voucher}
+          variant="outlined"
+        />
+      </div>
     );
   }
 }
 
-export default withNamespaces()(InvoiceVoucher);
+const styles = (theme) => ({
+  container: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
+  },
+});
+
+export default withStyles(styles)(withNamespaces()(InvoiceVoucher));

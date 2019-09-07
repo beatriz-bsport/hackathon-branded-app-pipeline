@@ -6,7 +6,28 @@ export default {
   goBack: 'Retour',
   hasOneOrMoreOption: "Vous êtes déjà inscrit sur la liste d'attente",
 
+  method: {
+    CB: 'Carte bleue',
+    CREDIT_ACCOUNT: 'Paiement sur place',
+  },
+
   order: {
     success: 'Votre paiement a bien été enregistré',
+  },
+  forms: {
+  cancelPayment: 'Précédent',
+    credit: {
+      explain:
+        'Votre club sera informé du débit, vous règlerez cette commande sur place',
+      pay: 'Confirmer',
+    },
+    paymentIntent: {
+      pay: 'Payer',
+    },
+  },
+  generalTermsAndConditions: {
+    iAccept: "J'accepte les ",
+    theTermsAndConditions: 'conditions générales de ventes.',
+    close: 'Fermer',
   },
 };

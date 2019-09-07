@@ -14,16 +14,19 @@ type Props = {
 
 export const DeliveryFeeListItem = (props: Props) => {
   const { name, free_threshold, fee } = props.deliveryFee;
-  return (
-    <ListItem divider>
-      <ListItemText
-        primary={`${name} - ${fee} €`}
-        secondary={props.t('deliveryFee.offeredAboveAmount', {
-          free_threshold,
-        })}
-      />
-    </ListItem>
-  );
+  if (name && fee) {
+    return (
+      <ListItem divider>
+        <ListItemText
+          primary={`${name} - ${fee} €`}
+          secondary={props.t('deliveryFee.offeredAboveAmount', {
+            free_threshold,
+          })}
+        />
+      </ListItem>
+    );
+  }
+  return null;
 };
 
 export default withNamespaces(['order'])(DeliveryFeeListItem);

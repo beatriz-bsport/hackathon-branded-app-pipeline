@@ -37,6 +37,10 @@ type Props = {
   setCoachPaymentRule: (any) => void,
   startUpdateCoach: (coach: CoachDetailed) => void,
   goToCoachPerformance: (coach: CoachDetailed) => void,
+  goToList: () => void,
+  setDeleteModalOpen: (boolean) => void,
+  deleteOpen: boolean,
+  deleteCoach: (id: number) => void,
   loading: boolean,
 
   setDeleteModalOpen: (boolean) => void,

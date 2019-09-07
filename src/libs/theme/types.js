@@ -10,6 +10,7 @@ export type Theme = {
   instagramURL: ?string,
   company: number,
   company_name: string,
+  general_terms_and_conditions: string,
 };
 
 export type ThemeState = {

@@ -9,6 +9,7 @@ import { goBack } from 'react-router-redux';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import ConsumerModalContainer from '../../components/consumer/ConsumerModalContainer.component';
 import type { OrderWithProducts } from '../../libs/order/types';
+import ConsumerMenu from '../../components/navigation/ConsumerMenu.component';
 import { getOrCreateCurrentOrder as getOrCreateCurrentOrderAction } from '../../libs/order/actions';
 
 import { snackbarSuccess } from '../../actions/snackbar.actions';
@@ -31,7 +32,11 @@ export class OrderPaymentPage extends Component<Props> {
   render() {
     const { order, loading } = this.props;
     if (!order) {
-      return <CircularProgress />;
+      return (
+        <ConsumerMenu>
+          <CircularProgress />
+        </ConsumerMenu>
+      );
     }
 
     return (

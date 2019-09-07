@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 
 import type { TFunction } from 'react-i18next';
 import ConsumerPacks from '../../components/consumer/ConsumerPacks.component';
+import ConsumerMenu from '../../components/navigation/ConsumerMenu.component';
 import type { ConsumerPaymentPackConsumerView } from '../../api/types';
 
 const styles = (theme) => ({
@@ -30,19 +31,21 @@ export class MyPaymentPacks extends Component<Props> {
   render() {
     const { consumerPaymentPacks, t, classes } = this.props;
     return (
-      <Grid
-        container
-        direction="column"
-        spacing={16}
-        className={classes.container}
-      >
-        <Grid item>
-          <Typography variant="h6">{t('consumer.myPaymentPacks')}</Typography>
+      <ConsumerMenu>
+        <Grid
+          container
+          direction="column"
+          spacing={16}
+          className={classes.container}
+        >
+          <Grid item>
+            <Typography variant="h6">{t('consumer.myPaymentPacks')}</Typography>
+          </Grid>
+          <Grid item xs={12} lg={8}>
+            <ConsumerPacks packs={consumerPaymentPacks} />
+          </Grid>
         </Grid>
-        <Grid item xs={12} lg={8}>
-          <ConsumerPacks packs={consumerPaymentPacks} />
-        </Grid>
-      </Grid>
+      </ConsumerMenu>
     );
   }
 }

@@ -167,10 +167,10 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
-"@bsport/common@^1.13.0":
-  version "1.13.0"
-  resolved "https://registry.yarnpkg.com/@bsport/common/-/common-1.13.0.tgz#d2dccd74a5b228ee8d30101c0b7632e1b56093d6"
-  integrity sha512-EL9unk0V3iL7NaagpsMfRee+W0sK7EhbRRxy+nYMEjsORWCmAomXQbgaWhLY1jsYN5anuuajhb9qQeUffKqL2Q==
+"@bsport/common@^1.14.0":
+  version "1.14.0"
+  resolved "https://registry.yarnpkg.com/@bsport/common/-/common-1.14.0.tgz#7e7df1030b9965904667e46158a0cfd776fd283a"
+  integrity sha512-D/zmOKALfsG2d5Fbdx1krTP7LXgPAoxFA6iFEIo9pe2VWlHEraA7EnlS82l+kLsNZoiygpmoq/BQohM8oDB7cg==
 
 "@compone/class@^1.1.1":
   version "1.1.1"
@@ -11411,10 +11411,10 @@ react-split-pane@^0.1.77:
     react-lifecycles-compat "^3.0.4"
     react-style-proptype "^3.0.0"
 
-react-stripe-elements@^2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/react-stripe-elements/-/react-stripe-elements-2.0.3.tgz#cfd0f68d00ce52a07aab1cb2b59b29dc12309486"
-  integrity sha512-aKLiWyfP0n3Gq42BKykULgoruNVRXEaeYh8NSokdgH3ubGU3nsHFZJg3LgbT/XOquttDGHE7kLhleaX+UnN81A==
+react-stripe-elements@^4:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/react-stripe-elements/-/react-stripe-elements-4.0.1.tgz#89b52c909a80f17afc7907313c3b3c3f21fa125d"
+  integrity sha512-S+O2+hphs6ASz29l85nj6mpS7YWTa3NMwZTonIMt4+8xrfS/jET+0Xd3cNdJoGkHiCtLEId6UimqivONK+liOw==
   dependencies:
     prop-types "^15.5.10"
 

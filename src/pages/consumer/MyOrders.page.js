@@ -10,6 +10,7 @@ import List from '@material-ui/core/List';
 import { connect } from 'react-redux';
 
 import OrderListItem from '../../libs/order/components/OrderListItem.component';
+import ConsumerMenu from '../../components/navigation/ConsumerMenu.component';
 
 import { resetAndFetchOrders } from '../../libs/order/actions';
 
@@ -30,18 +31,20 @@ export class MyOrders extends Component<Props, State> {
   render() {
     const { orders } = this.props;
     return (
-      <Grid container>
-        <Grid item xs={12} md={6}>
-          <Paper>
-            <List dense disablePadding>
-              {orders.map((o) => (
-                <OrderListItem divider key={o.id} order={o} />
-              ))}
-            </List>
-          </Paper>
+      <ConsumerMenu>
+        <Grid container>
+          <Grid item xs={12} md={6}>
+            <Paper>
+              <List dense disablePadding>
+                {orders.map((o) => (
+                  <OrderListItem divider key={o.id} order={o} />
+                ))}
+              </List>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} md={6} />
         </Grid>
-        <Grid item xs={12} md={6} />
-      </Grid>
+      </ConsumerMenu>
     );
   }
 }

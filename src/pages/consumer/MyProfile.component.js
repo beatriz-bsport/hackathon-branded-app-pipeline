@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
+import ConsumerMenu from '../../components/navigation/ConsumerMenu.component';
 
 import ConsumerProfile from '../../components/consumer/Profile.component';
 import type { Profile } from '../../api/types';
@@ -23,17 +24,21 @@ export class MyProfile extends Component<Props> {
     const { profile } = this.props;
     if (profile === null) {
       return (
-        <Grid container item alignItems="center" justify="center">
-          <CircularProgress />
-        </Grid>
+        <ConsumerMenu>
+          <Grid container item alignItems="center" justify="center">
+            <CircularProgress />
+          </Grid>
+        </ConsumerMenu>
       );
     }
     return (
-      <Grid container direction="column" spacing={16}>
-        <Grid item xs={12} lg={6}>
-          <ConsumerProfile profile={profile} />
+      <ConsumerMenu>
+        <Grid container direction="column" spacing={16}>
+          <Grid item xs={12} lg={6}>
+            <ConsumerProfile profile={profile} />
+          </Grid>
         </Grid>
-      </Grid>
+      </ConsumerMenu>
     );
   }
 }

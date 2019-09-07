@@ -27,6 +27,12 @@ export default {
       helperText: 'Votre page Facebook',
       placeholder: 'https://facebook.com/mon-studio/',
     },
+    general_terms_and_conditions: {
+      label: 'Condition générales de ventes',
+      helperText: 'Doivent être acceptées pour tout paiement et inscription',
+      placeholder:
+        "J'atteste posséder un certificat médical et l'apporterai à mon studio",
+    },
     instagramURL: {
       label: 'URL Instagram',
       helperText: 'Votre page Instagram',

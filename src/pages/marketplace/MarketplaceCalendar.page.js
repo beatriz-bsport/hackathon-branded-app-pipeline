@@ -8,10 +8,13 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import { withNamespaces } from 'react-i18next';
 import { connect } from 'react-redux';
+import { BUYABLE_ITEM_PASS } from '@bsport/common/lib/master-data/buyable-items';
 import { consumerPayWithConsumerPaymentPack as payWithConsumerPaymentPackAPI } from '../../api/payment';
+import { addItemToBasket as addItemToBasketAction } from '../../libs/checkout/actions';
 import * as paymentActions from '../../actions/payment.actions';
 import MarketplaceCalendarComponent from '../../libs/marketplace/components/MarketplaceCalendar.component';
 import MarketplaceActivityDialog from '../../libs/marketplace/components/MarketplaceActivityDialog.component';
+import { getCurrentBasket } from '../../libs/checkout/selectors';
 
 import { Moment } from '../../i18n';
 import {
@@ -319,6 +322,7 @@ export default compose(
       coaches: state.marketplacev2.coaches.items,
       establishments: state.marketplacev2.establishments.items,
       metaActivities: state.marketplacev2.metaActivities.items,
+      authenticated: state.auth.authenticated,
     }),
     {
       resetOffers: resetOffersAction,
@@ -363,14 +367,35 @@ export default compose(
     (state) => ({
       compatibleConsumerPacks: state.payment.compatibleConsumerPacks || [],
       compatiblePaymentPacks: state.payment.compatiblePaymentPacks || [],
+      currentBasket: getCurrentBasket(state),
     }),
     {
       fetchPaymentPacks: paymentActions.fetchCompatiblePaymentPacks,
       fetchCompatiblePass: paymentActions.fetchCompatiblePass,
-      goToPackPayment: (packId, offerId, companyId) =>
-        push(
-          `/customer/payment/pass/${packId}?nextOffer=${offerId}&membership=${companyId}`,
-        ),
+      addItemToBasket: addItemToBasketAction,
     },
+  ),
+  withProps(
+    ({
+      authenticated,
+      requestSignUp,
+      toogleCurrentBasketOpen,
+      currentBasket,
+      addItemToBasket,
+    }) => ({
+      goToPackPayment: (packId, offerId) => {
+        if (!authenticated) {
+          requestSignUp();
+        } else {
+          addItemToBasket(currentBasket.id, {
+            buyable_item_identifier: BUYABLE_ITEM_PASS,
+            quantity: 1,
+            buyable_item_id: packId,
+            extra_data: { offer_next: offerId },
+          });
+          toogleCurrentBasketOpen(true);
+        }
+      },
+    }),
   ),
 )(MarketplaceCalendarStyled);

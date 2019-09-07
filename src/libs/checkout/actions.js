@@ -1,0 +1,134 @@
+// @flow
+
+import { createAction } from 'redux-actions';
+
+import {
+  addItemToBasket as addItemToBasketAPI,
+  fetchCurrentBasket as fetchCurrentBasketAPI,
+  removeItemFromBasket as removeItemFromBasketAPI,
+  patchBasket as patchBasketAPI,
+  attachPayment as attachPaymentAPI,
+} from './api';
+import { getCurrentBasket } from './selectors';
+
+import type { Dispatch, State, ThunkAction } from '../../state/types';
+import type { CheckoutItemData } from './types';
+
+export const currentBasket = {
+  error: createAction('CHECKOUT_BASKET/CURRENT/ERROR'),
+  isLoading: createAction('CHECKOUT_BASKET/CURRENT/IS_LOADING'),
+  isUpdating: createAction('CHECKOUT_BASKET/CURRENT/IS_UPDATING'),
+  success: createAction('CHECKOUT_BASKET/CURRENT/SUCCESS'),
+};
+
+export function fetchCurrentBasket(companyId: number): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(currentBasket.isLoading(true));
+    dispatch(currentBasket.error(null));
+
+    try {
+      const response = await fetchCurrentBasketAPI(companyId);
+      dispatch(currentBasket.success(response.data));
+    } catch (error) {
+      dispatch(currentBasket.error(error));
+    }
+
+    dispatch(currentBasket.isLoading(false));
+  };
+}
+
+export function attachPayment(
+  data: *,
+  options: ?{ onSuccess: ?() => void, onError: ?(Error) => void },
+): ThunkAction {
+  return async (dispatch: Dispatch, getState: () => State) => {
+    dispatch(currentBasket.isUpdating(true));
+    dispatch(currentBasket.error(null));
+
+    try {
+      const response = await attachPaymentAPI(
+        getCurrentBasket(getState()).id,
+        data,
+      );
+      if (response.data.is_finalized) {
+        dispatch(currentBasket.success(response.data));
+      }
+      if (options && options.onSuccess) options.onSuccess(response);
+    } catch (error) {
+    dispatch(currentBasket.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+
+    dispatch(currentBasket.isUpdating(false));
+  };
+}
+
+export function addItemToBasket(
+  basketId: string,
+  data: CheckoutItemData,
+  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(currentBasket.isLoading(true));
+    dispatch(currentBasket.error(null));
+
+    try {
+      const response = await addItemToBasketAPI(basketId, data);
+      dispatch(currentBasket.success(response.data));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      dispatch(currentBasket.error(error));
+      if (options && options.onError) options.onError();
+    }
+
+    dispatch(currentBasket.isLoading(false));
+  };
+}
+
+export function removeItemFromBasket(
+  basketId: string,
+  checkoutItemId: string,
+  quantity: number,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(currentBasket.isLoading(true));
+    dispatch(currentBasket.error(null));
+
+    try {
+      const response = await removeItemFromBasketAPI(
+        basketId,
+        checkoutItemId,
+        quantity,
+      );
+      dispatch(currentBasket.success(response.data));
+    } catch (error) {
+      dispatch(currentBasket.error(error));
+    }
+
+    dispatch(currentBasket.isLoading(false));
+  };
+}
+
+export function patchCurrentBasket(
+  data: *,
+  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+): ThunkAction {
+  return async (dispatch: Dispatch, getState: () => State) => {
+    dispatch(currentBasket.isUpdating(true));
+    dispatch(currentBasket.error(null));
+
+    try {
+      const response = await patchBasketAPI(
+        getCurrentBasket(getState()).id,
+        data,
+      );
+      dispatch(currentBasket.success(response.data));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      dispatch(currentBasket.error(error));
+      if (options && options.onError) options.onError();
+    }
+
+    dispatch(currentBasket.isUpdating(false));
+  };
+}

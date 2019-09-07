@@ -74,6 +74,8 @@ export class ThemeForm extends Component<Props, State> {
       this.state.theme.websiteURL === this.props.theme.websiteURL &&
       this.state.theme.scheduleURL === this.props.theme.scheduleURL &&
       this.state.theme.instagramURL === this.props.theme.instagramURL &&
+      this.state.theme.general_terms_and_conditions ===
+        this.props.theme.general_terms_and_conditions &&
       this.state.theme.facebookURL === this.props.theme.facebookURL
     );
   };
@@ -93,6 +95,7 @@ export class ThemeForm extends Component<Props, State> {
       'scheduleURL',
       'facebookURL',
       'instagramURL',
+      'general_terms_and_conditions',
     ].map((key) => data.append(key, this.state.theme[key]));
     if (this.state.theme.cover && typeof this.state.theme.cover !== 'string') {
       data.append('cover', this.state.theme.cover);
@@ -177,6 +180,20 @@ export class ThemeForm extends Component<Props, State> {
               }
             />
           </div>
+        </div>
+        <div className={classes.inputContainer}>
+          <TextField
+            variant="outlined"
+            multiline
+            rows={5}
+            placeholder={t('forms.general_terms_and_conditions.placeholder')}
+            helperText={t('forms.general_terms_and_conditions.helperText')}
+            label={t('forms.general_terms_and_conditions.label')}
+            value={this.state.theme.general_terms_and_conditions}
+            onChange={(ev) =>
+              this.handleChange('general_terms_and_conditions')(ev.target.value)
+            }
+          />
         </div>
         <div className={classes.buttonContainer}>
           <Button

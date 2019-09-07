@@ -6,6 +6,7 @@ import {
   deleteAuth,
   postAuth,
   putAuth,
+  API_V1_URI,
   buildUrlParams,
 } from '../../http';
 
@@ -61,6 +62,10 @@ export async function addMember(data: Object) {
   return postAuth(`${API_URI}/saas/create-member/`, data);
 }
 
+export async function linkMeToCompany(data: *) {
+  return postAuth(`${API_V1_URI}/member/link_to_company/`, data);
+}
+
 export async function updateMember(data: Object) {
   return putAuth(`${API_URI}/saas/member/${data.get('id')}`, data);
 }
@@ -111,4 +116,5 @@ export default {
   updateNote,
   deleteNote,
   getLatest,
+  linkMeToCompany,
 };

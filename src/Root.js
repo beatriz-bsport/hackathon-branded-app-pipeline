@@ -22,6 +22,9 @@ const UserspaceSwitcher = asyncComponent(() =>
 const ConsumerHome = asyncComponent(() =>
   import('./pages/ConsumerHome.component'),
 );
+const CheckoutRouter = asyncComponent(() =>
+  import('./pages/checkout/Checkout.router'),
+);
 
 const CheckIn = asyncComponent(() => import('./pages/check-in/CheckIn.page'));
 
@@ -60,6 +63,7 @@ export class Root extends Component<Props> {
           <Route path="/login" component={LoginRouter} />
           <Route path="/customer" component={ConsumerHome} />
           <Route path="/m/" component={MarketPlace} />
+          <Route path="/checkout" component={CheckoutRouter} />
           <Route path="/check-in" component={CheckIn} />
           <Route path="/" component={UserspaceSwitcher} />
         </Switch>

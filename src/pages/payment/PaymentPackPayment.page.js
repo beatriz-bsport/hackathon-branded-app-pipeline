@@ -3,56 +3,65 @@ import React, { Component } from 'react';
 
 import { withNamespaces } from 'react-i18next';
 import { connect } from 'react-redux';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
-import { goBack } from 'react-router-redux';
+import { replace, goBack } from 'react-router-redux';
+import withStyles from '@material-ui/core/styles/withStyles';
+import { compose } from 'recompose';
+import { BUYABLE_ITEM_PASS } from '@bsport/common/lib/master-data/buyable-items';
+import InfoIcon from '@material-ui/icons/Info';
+import type { TFunction } from 'react-i18next';
 import { payment as paymentActions } from '../../actions';
 import ConsumerModalContainer from '../../components/consumer/ConsumerModalContainer.component';
 import parse from '../../query-string';
 import type { PaymentPack } from '../../api/types';
-import { fetchCompanyTheme } from '../../libs/theme/actions';
 import themeSelectors from '../../libs/theme/selectors';
 import type { Theme } from '../../libs/theme/types';
 import { getTheme } from '../../theme';
-
-import PaymentPackPaymentForm from './payment-pack/PaymentPackForm.component';
+import {
+  addItemToBasket,
+  removeItemFromBasket,
+  fetchCurrentBasket,
+} from '../../libs/checkout/actions';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import { getCurrentBasket } from '../../libs/checkout/selectors';
+import type { Basket } from '../../libs/checkout/types';
 
 type Props = {
   loading: boolean,
-  hasBoughtSomething: boolean,
-  match: Object,
   location: Object,
   paymentPack: ?PaymentPack,
   fetchPaymentPack: (number) => void,
-  fetchOffer: (number) => void,
-  fetchCompanyTheme: (number) => void,
   theme: Theme,
   goBack: () => void,
-  offer: ?Offer,
+  basket: ?Basket,
+  packId: number,
+  fetchCurrentBasket: (companyId: number) => void,
+  addItemToBasket: (basketId: number, data: any, option: *) => void,
+  goToCheckout: (companyId: number) => void,
+  classes: Object,
+  t: TFunction,
 };
 
 export class PaymentPackPaymentPage extends Component<Props> {
+  state = {
+    hasAddedItemToBasket: false,
+    error: null,
+  };
+
   componentDidMount() {
-    const paymentPackId = parseInt(this.props.match.params.id, 10);
-    const { nextOffer } = parse(this.props.location.search);
-    this.nextOffer = nextOffer ? parseInt(nextOffer, 10) : null;
-    this.props.fetchPaymentPack(paymentPackId);
-    if (nextOffer) {
-      this.props.fetchOffer(nextOffer);
-    }
+    this.props.fetchPaymentPack(this.props.packId);
   }
 
   componentDidUpdate(prevProps: Props) {
-    if (
-      prevProps.paymentPack !== this.props.paymentPack &&
-      this.props.paymentPack &&
-      this.props.paymentPack.company_id
-    ) {
-      this.props.fetchCompanyTheme(this.props.paymentPack.company_id);
+    if (prevProps.paymentPack !== this.props.paymentPack) {
+      this.props.fetchCurrentBasket(this.props.paymentPack.company_id);
     }
   }
 
-  goBack = () => {
+  goToPassMarketplace = () => {
     if (this.props.theme && this.props.theme.scheduleURL) {
       window.location.href = this.props.theme.scheduleURL;
     } else {
@@ -61,68 +70,96 @@ export class PaymentPackPaymentPage extends Component<Props> {
   };
 
   render() {
-    const { paymentPack, loading } = this.props;
-    if (!paymentPack) {
-      return <CircularProgress />;
+    const { packId, basket } = this.props;
+    if (
+      !this.state.hasAddedItemToBasket &&
+      this.props.paymentPack &&
+      basket &&
+      !this.props.loading &&
+      !this.state.error
+    ) {
+      if (!this.state.processing) {
+        this.setState({ processing: true });
+        const { nextOffer } = parse(this.props.location.search);
+        this.props.addItemToBasket(
+          basket.id,
+          {
+            buyable_item_identifier: BUYABLE_ITEM_PASS,
+            quantity: 1,
+            buyable_item_id: packId,
+            extra_data: { offer_next: nextOffer },
+          },
+          {
+            onError: () => this.setState({ error: true }),
+            onSuccess: () =>
+              this.props.goToCheckout(this.props.paymentPack.company_id),
+          },
+        );
+      }
     }
-
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <ConsumerModalContainer>
-          <PaymentPackPaymentForm
-            paymentPack={paymentPack}
-            loading={loading}
-            offerToBuy={this.nextOffer ? this.props.offer : null}
-            hasBoughtSomething={this.props.hasBoughtSomething}
-            goBack={this.goBack}
-          />
+          {this.state.error ? (
+            <div className={this.props.classes.errorContainer}>
+              <InfoIcon className={this.props.classes.errorIcon} />
+              <Typography>
+                {this.props.t('checkout:autoAdd.paymentPack.locked')}
+              </Typography>
+              <Button
+                color="secondary"
+                variant="contained"
+                className={this.props.classes.button}
+                onClick={this.goToPassMarketplace}
+              >
+                {this.props.t('payment:goBack')}
+              </Button>
+            </div>
+          ) : (
+            <CircularProgress />
+          )}
         </ConsumerModalContainer>
       </MuiThemeProvider>
     );
   }
 }
 
-function mapStateToProps(state) {
-  const hasBoughtSomething =
-    state.payment.wantedPaymentPack &&
-    !state.consumer.loading &&
-    !!state.consumer &&
-    !!state.consumer.profile
-      ? !!(state.consumer.profile.memberships || []).filter(
-          (m) =>
-            m.company_id === state.payment.wantedPaymentPack.company_id &&
-            m.has_bought_something === true,
-        ).length
-      : false;
-  return {
-    hasBoughtSomething,
-    paymentPack: state.payment.wantedPaymentPack,
-    loading: state.payment.loading,
-    offer: state.payment.wantedOffer,
-    theme: themeSelectors.getTheme(state),
-  };
-}
+const styles = (theme) => ({
+  errorContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+  },
+  errorIcon: {
+    height: 64,
+    width: 64,
+    marginBottom: theme.spacing.unit * 2,
+  },
+  button: {
+    width: '100%',
+    marginTop: theme.spacing.unit * 3,
+  },
+});
 
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchCompanyTheme(id) {
-      dispatch(fetchCompanyTheme(id));
-    },
-    fetchPaymentPack(id) {
-      dispatch(paymentActions.fetchPaymentPack(id));
-    },
-    fetchOffer(id) {
-      dispatch(paymentActions.fetchOffer(id));
-    },
-    goBack() {
-      dispatch(goBack());
-    },
-  };
-}
-
-export default withNamespaces()(
+export default compose(
+  withNamespaces(),
+  withStyles(styles),
+  routerParamsToProps({ id: 'packId:number' }),
   connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  )(PaymentPackPaymentPage),
-);
+    (state) => ({
+      paymentPack: state.payment.wantedPaymentPack,
+      loading: state.payment.loading || state.checkout.basket.current.loading,
+      theme: themeSelectors.getTheme(state),
+      basket: getCurrentBasket(state),
+    }),
+    {
+      addItemToBasket,
+      removeItemFromBasket,
+      fetchCurrentBasket,
+      goToCheckout: (companyId: number) => replace(`/checkout/${companyId}`),
+      fetchPaymentPack: paymentActions.fetchPaymentPack,
+      goBack,
+    },
+  ),
+)(PaymentPackPaymentPage);

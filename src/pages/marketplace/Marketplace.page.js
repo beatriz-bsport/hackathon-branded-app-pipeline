@@ -11,6 +11,8 @@ import AppBarMUI from '@material-ui/core/AppBar';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Tab from '@material-ui/core/Tab';
+import Button from '@material-ui/core/Button';
+import DialogActions from '@material-ui/core/DialogActions';
 import Tabs from '@material-ui/core/Tabs';
 import Dialog from '@material-ui/core/Dialog';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -24,18 +26,18 @@ import type { TFunction } from 'react-i18next';
 import { getTheme } from '../../theme';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 
-import CheckoutDialog from '../../libs/order/components/CheckoutDialog.component';
 import ConsumerLogin from '../../components/consumer/login/ConsumerLogin.component';
-import type { DeliveryData } from '../../libs/order/types';
 import AppBar from './AppBar.component';
 import SignUpForm from '../../components/form/SignUpForm.component';
 
 import {
-  removeProductFromOrder as removeProductFromOrderAction,
-  updateCurrentOrder as updateOrderAction,
-  getOrCreateCurrentOrder,
-  resetOrders as resetOrdersAction,
-} from '../../libs/order/actions';
+  addItemToBasket,
+  removeItemFromBasket,
+  fetchCurrentBasket,
+} from '../../libs/checkout/actions';
+import { getCurrentBasket } from '../../libs/checkout/selectors';
+import BasketConsumer from '../../libs/checkout/components/BasketConsumer.component';
+import type { Basket } from '../../libs/checkout/types';
 
 import { fetchSCT } from '../../actions/category.actions';
 
@@ -73,7 +75,13 @@ type Props = {
   fetchCompanyCoaches: (companyId: number) => void,
   fetchSCT: () => void,
 
-  fetchCurrentOrder: (companyId: number) => void,
+  fetchCurrentBasket: (companyId: number) => void,
+  currentBasket: ?Basket,
+  currentBasketLoading: loading,
+  removeItemFromBasket: (basketId: string, data: any) => void,
+  addItemToBasket: (basketId: string, data: anny) => void,
+  goToCheckout: (companyId: number) => void,
+
   fetchProfile: () => void,
   doEmailLogin: ({ email: string, password: string }, () => void) => void,
   goToTab: (companyName: string, companyId: number, tab: string) => void,
@@ -88,14 +96,6 @@ type Props = {
   classes: Object,
   fullScreen: boolean,
 
-  currentOrder: ?Order,
-  currentOrderLoading: boolean,
-
-  removeProduct: (productId: number) => void,
-
-  updateOrder: (orderId: string, deliveryData: DeliveryData) => void,
-  resetOrders: () => void,
-  goToPayment: (companyId: number) => void,
   disconnect: () => void,
   signup: (data: *, callback: () => void) => void,
   fetchCompanyTheme: () => void,
@@ -104,7 +104,7 @@ type Props = {
 
 type State = {
   signupDialogOpen: boolean,
-  currentOrderOpen: boolean,
+  currentBasketOpen: boolean,
   loginDialogOpen: boolean,
 };
 
@@ -116,14 +116,10 @@ const DEFAULT_TAB = TAB_CALENDAR;
 
 export class MarketPlace extends Component<Props, State> {
   state = {
-    currentOrderOpen: false,
+    currentBasketOpen: false,
     signupDialogOpen: false,
     loginDialogOpen: false,
   };
-
-  componentWillMount() {
-    this.props.resetOrders();
-  }
 
   fetchData = () => {
     this.props.fetchCompanyTheme(this.props.companyId);
@@ -134,7 +130,7 @@ export class MarketPlace extends Component<Props, State> {
     this.props.fetchCompanyCoaches(this.props.companyId);
     this.props.fetchCompanyEstablishments(this.props.companyId);
     if (this.props.auth.authenticated) {
-      this.props.fetchCurrentOrder(this.props.companyId);
+      this.props.fetchCurrentBasket(this.props.companyId);
       this.props.fetchProfile();
     }
   };
@@ -159,15 +155,19 @@ export class MarketPlace extends Component<Props, State> {
     }
     switch (this.props.tab || DEFAULT_TAB) {
       case TAB_PASS:
-        return <MarketplacePassPage companyId={this.props.companyId} />;
+        return (
+          <MarketplacePassPage
+            companyId={this.props.companyId}
+            requestSignUp={() => this.toogleLogin(true)}
+            toogleCurrentBasketOpen={this.toogleCurrentBasketOpen}
+          />
+        );
       case TAB_SHOP:
         return (
           <MarketplaceShopPage
             requestSignUp={() => this.toogleLogin(true)}
+            toogleCurrentBasketOpen={this.toogleCurrentBasketOpen}
             companyId={this.props.companyId}
-            currentOrder={this.props.currentOrder}
-            currentOrderLoading={this.props.currentOrderLoading}
-            toogleCurrentOrderOpen={this.toogleCurrentOrderOpen}
           />
         );
       case TAB_WORKSHOP:
@@ -176,15 +176,19 @@ export class MarketPlace extends Component<Props, State> {
       default: {
         return (
           <div className={this.props.classes.calendarContainer}>
-            <MarketplaceCalendarPage companyId={this.props.companyId} />
+            <MarketplaceCalendarPage
+              companyId={this.props.companyId}
+              requestSignUp={() => this.toogleLogin(true)}
+              toogleCurrentBasketOpen={this.toogleCurrentBasketOpen}
+            />
           </div>
         );
       }
     }
   };
 
-  toogleCurrentOrderOpen = (currentOrderOpen: boolean) =>
-    this.setState({ currentOrderOpen });
+  toogleCurrentBasketOpen = (currentBasketOpen: boolean) =>
+    this.setState({ currentBasketOpen });
 
   signup = (data: *, callback: () => void) => {
     const data_ = { ...data, membership: this.props.company.id };
@@ -204,12 +208,12 @@ export class MarketPlace extends Component<Props, State> {
   doEmailLogin = ({ email, password }) => {
     this.props.doEmailLogin({ email, password }, () => {
       this.props.fetchProfile();
-      this.props.fetchCurrentOrder(this.props.companyId);
+      this.props.fetchCurrentBasket(this.props.companyId);
     });
   };
 
   render() {
-    const { companyLoading, classes, t, company, currentOrder } = this.props;
+    const { companyLoading, classes, t, company } = this.props;
     if (companyLoading || !company) {
       return (
         <Grid container item alignItems="center" justify="center">
@@ -232,14 +236,13 @@ export class MarketPlace extends Component<Props, State> {
             websiteURL={this.props.theme.websiteURL}
             auth={this.props.auth}
             goToUserSpace={this.props.goToUserSpace}
-            currentOrder={currentOrder}
+            currentBasket={this.props.currentBasket}
             company={this.props.company}
-            openCurrentOrder={() => this.toogleCurrentOrderOpen(true)}
+            openCurrentBasket={() => this.toogleCurrentBasketOpen(true)}
             requestSignUp={() => this.toogleSignUp(true)}
             requestLogin={() => this.toogleLogin(true)}
             disconnect={() => {
               this.props.disconnect();
-              this.props.resetOrders();
             }}
           />
           {!this.props.hideAppBar ? (
@@ -259,28 +262,39 @@ export class MarketPlace extends Component<Props, State> {
           ) : null}
           <div className={classes.content}>{this.renderContent()}</div>
           <Dialog
-            open={this.state.currentOrderOpen}
+            open={this.state.currentBasketOpen}
             fullScreen={this.props.fullScreen}
           >
-            <CheckoutDialog
-              order={currentOrder}
-              onCancel={() => this.toogleCurrentOrderOpen(false)}
-              loading={this.props.currentOrderLoading}
-              onSubmit={(deliveryData: DeliveryData) => {
-                this.props.updateOrder(
-                  this.props.currentOrder.id,
-                  deliveryData,
-                );
-                this.props.goToPayment(this.props.companyId);
-              }}
-              onRemoveProduct={(p) =>
-                this.props.removeProduct(
-                  { ...p, quantity: 1 },
-                  this.props.currentOrder.id,
+            <BasketConsumer
+              basket={this.props.currentBasket}
+              onCancel={() => this.toogleCurrentBasketOpen(false)}
+              loading={this.props.currentBasketLoading}
+              onRemoveCheckoutItem={(data) =>
+                this.props.removeItemFromBasket(
+                  this.props.currentBasket.id,
+                  data,
                 )
               }
-              consumerProfile={this.props.consumerProfile}
+              onAddCheckoutItem={(data) =>
+                this.props.addItemToBasket(this.props.currentBasket.id, data)
+              }
             />
+            <DialogActions>
+              <Button
+                color="secondary"
+                onClick={() => this.toogleCurrentBasketOpen(false)}
+              >
+                {this.props.t('checkout:myBasket.actions.closeBasket')}
+              </Button>
+              <Button
+                color="primary"
+                onClick={() =>
+                  this.props.goToCheckout(this.props.currentBasket.company)
+                }
+              >
+                {this.props.t('checkout:myBasket.actions.checkoutBasket')}
+              </Button>
+            </DialogActions>
           </Dialog>
           <Dialog
             open={this.state.loginDialogOpen && !this.props.auth.authenticated}
@@ -306,10 +320,23 @@ export class MarketPlace extends Component<Props, State> {
                 onComplete={(data: *) =>
                   this.signup(data, () => {
                     this.props.fetchProfile();
-                    this.props.fetchCurrentOrder(this.props.companyId);
+                    this.props.fetchCurrentBasket(this.props.companyId);
                   })
                 }
-                onCancel={this.closeSignup}
+                consumerProfile={this.props.consumerProfile}
+              />
+            </DialogContent>
+          </Dialog>
+          <Dialog
+            open={this.state.loginDialogOpen && !this.props.auth.authenticated}
+            onClose={() => this.toogleLogin(false)}
+          >
+            <DialogContent>
+              <ConsumerLogin
+                doEmailLogin={this.doEmailLogin}
+                error={this.props.auth.error}
+                loading={this.props.auth.loading}
+                requestSignUp={() => this.toogleSignUp(true)}
               />
             </DialogContent>
           </Dialog>
@@ -363,8 +390,8 @@ export default compose(
       auth: state.auth,
       company: state.marketplacev2.company.data,
       companyLoading: state.marketplacev2.company.loading,
-      currentOrder: state.order.order.current.data,
-      currentOrderLoading: state.order.order.current.loading,
+      currentBasket: getCurrentBasket(state),
+      currentBasketLoading: state.checkout.basket.current.loading,
       consumerProfile: state.consumer.profile,
       theme: state.theme.theme,
     }),
@@ -379,16 +406,14 @@ export default compose(
       fetchCompanyCoaches: fetchCompanyCoachesAction,
 
       // For shop pages
-      resetOrders: resetOrdersAction,
-      fetchCurrentOrder: getOrCreateCurrentOrder,
-      removeProduct: removeProductFromOrderAction,
-      updateOrder: updateOrderAction,
-      goToPayment: (companyId) =>
-        pushRouter(`/customer/payment/order/${companyId}/`),
+      fetchCurrentBasket,
+      addItemToBasket,
+      removeItemFromBasket,
 
       // for signup/signin/profile
       fetchProfile: consumerActions.fetchProfile,
       goToUserSpace: () => pushRouter('/'),
+      goToCheckout: (companyId) => pushRouter(`/checkout/${companyId}/`),
       signup: (data: *, callback: () => void) =>
         authActions.signup(data, { onDone: callback }),
       doEmailLogin: ({ email, password }, callback) =>

@@ -16,18 +16,19 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import type { OrderWithProducts } from '../../libs/order/types';
+import type { Basket } from '../../libs/checkout/types';
 
 type Props = {
   auth: Object,
   title: ?string,
   logo: ?string,
-  currentOrder: ?OrderWithProducts,
+
+  currentBasket: ?Basket,
+  openCurrentBasket: () => void,
 
   disconnect: () => void,
   goToUserSpace: () => void,
   requestLogin: () => void,
-  openCurrentOrder: () => void,
   websiteURL: ?string,
   logo: ?string,
 
@@ -86,7 +87,7 @@ export class ConsumerAppBar extends Component<Props, State> {
   };
 
   render() {
-    const { currentOrder, classes, title } = this.props;
+    const { classes, title } = this.props;
     const { isMenuOpen } = this.state;
     return (
       <div className={classes.root}>
@@ -113,14 +114,14 @@ export class ConsumerAppBar extends Component<Props, State> {
               </Typography>
             )}
             <div className={classes.grow} />
-            {currentOrder ? (
+            {this.props.currentBasket ? (
               <ButtonBase
-                onClick={this.props.openCurrentOrder}
+                onClick={this.props.openCurrentBasket}
                 className={classes.iconLeft}
               >
                 <Badge
                   color="primary"
-                  badgeContent={currentOrder.product_lines.reduce(
+                  badgeContent={this.props.currentBasket.checkout_items.reduce(
                     (s, a) => s + a.quantity,
                     0,
                   )}

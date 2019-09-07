@@ -10,6 +10,7 @@ import { Redirect } from 'react-router-dom';
 import { push as routerPush, goBack } from 'react-router-redux';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { compose } from 'recompose';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import withSnackbar from '../../hocs/with-snackbar.hoc';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
@@ -23,17 +24,19 @@ import { getTheme } from '../../theme';
 import type { Theme } from '../../libs/theme/types';
 
 import { payment as paymentActions } from '../../actions';
+import { linkMeToCompany } from '../../libs/member/actions';
 import ConsumerModalContainer from '../../components/consumer/ConsumerModalContainer.component';
 import type { Offer, ConsumerPaymentPackManagerView } from '../../api/types';
 
 import OfferPaymentForm from './offer/OfferPaymentForm.component';
 
 type Props = {
-  match: Object,
-
   t: TFunction,
   offer: ?Offer,
   location: Object,
+
+  authenticated: boolean,
+  linkMeToCompany: (data: { offer: number }) => void,
 
   loading: boolean,
   compatibleConsumerPacksLoading: boolean,
@@ -44,6 +47,7 @@ type Props = {
   consumer: { consumer: number },
   fetchCompanyTheme: (number) => void,
   theme: Theme,
+  offerId: number,
 
   compatibleConsumerPacks: Array<ConsumerPaymentPackManagerView>,
   compatiblePaymentPacks: Array<PaymentPack>,
@@ -73,7 +77,7 @@ export class OfferPaymentPage extends Component<Props, State> {
       ? { option_id: this.props.bookingOption.id }
       : {};
 
-    payWithConsumerPaymentPackAPI(consumerPackId, this.offerId, urlParams)
+    payWithConsumerPaymentPackAPI(consumerPackId, this.props.offerId, urlParams)
       .then(() => {
         this.setState({ processing: false });
         snackbar.success(t('bookingConfirmed'));
@@ -93,17 +97,22 @@ export class OfferPaymentPage extends Component<Props, State> {
   }
 
   componentDidMount() {
-    const offerId = parseInt(this.props.match.params.id, 10);
-    this.offerId = offerId;
+    const { offerId } = this.props;
     this.props.fetchOffer(offerId);
     this.props.fetchCompatiblePass(offerId);
     this.props.fetchCompatiblePaymentPacks(offerId);
     this.props.checkBookingOptionExistence(offerId);
+    if (this.props.authenticated) {
+      this.props.linkMeToCompany({ offer: offerId });
+    }
   }
 
   componentDidUpdate(prevProps: Props) {
     if (prevProps.offer !== this.props.offer && this.props.offer) {
       this.props.fetchCompanyTheme(this.props.offer.activity.company);
+    }
+    if (this.props.authenticated && !prevProps.authenticated) {
+      this.props.linkMeToCompany({ offer: this.props.offerId });
     }
   }
 
@@ -131,7 +140,7 @@ export class OfferPaymentPage extends Component<Props, State> {
 
   buyPaymentPack = (packId: number) => {
     this.props.pushRouter(
-      `/customer/payment/pass/${packId}?nextOffer=${this.offerId}`,
+      `/customer/payment/pass/${packId}?nextOffer=${this.props.offerId}`,
     );
   };
 
@@ -174,9 +183,11 @@ export class OfferPaymentPage extends Component<Props, State> {
 
 export default compose(
   withNamespaces(),
+  routerParamsToProps({ offerId: 'offerId:number' }),
   withSnackbar,
   connect(
     (state) => ({
+      authenticated: state.auth.authenticated,
       offer: state.payment.wantedOffer,
       consumer: state.consumer.profile,
       loading: state.payment.loading,
@@ -193,6 +204,7 @@ export default compose(
     }),
     {
       fetchOffer: paymentActions.fetchOffer,
+      linkMeToCompany,
       fetchCompanyTheme,
       fetchBookingOption: paymentActions.fetchBookingOption,
       checkBookingOptionExistence: paymentActions.checkOptionExistence,

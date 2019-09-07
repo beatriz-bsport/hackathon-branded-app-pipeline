@@ -12,6 +12,7 @@ import type { TagState } from '../libs/tag/types';
 import type { OrderState } from '../libs/order/types';
 import type { ShopState } from '../libs/shop/types';
 import type { MarketPlaceState } from '../libs/marketplace/types';
+import type { CheckoutState } from '../libs/checkout/types';
 import type { SearchState, SearchAction } from './search/types';
 import type { ThemeState } from '../libs/theme/types';
 import type { EstablishmentState } from '../libs/establishment/types';
@@ -32,6 +33,7 @@ export type State = {
   marketplacev2: MarketPlaceState,
   theme: ThemeState,
   establishment: EstablishmentState,
+  checkout: CheckoutState,
 };
 export type Action = SearchAction | AuthAction;
 

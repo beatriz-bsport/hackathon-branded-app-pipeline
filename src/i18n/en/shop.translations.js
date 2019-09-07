@@ -29,13 +29,15 @@ export default {
   shopitem: {
     noDescription: 'No description',
     detail: {
+      enabled: 'Yes',
+      disabled: 'No',
       title: 'Product',
       provisionHistory: 'Stock history',
       parameters: 'Parameters',
       supplier_price: 'Supplier price',
       marketplace_enabled: 'Available on web marketplace',
-      is_marketplace_enabled: 'Yes ',
-      is_marketplace_disabled: 'No',
+      is_deliverable: 'Delivery fees',
+      onsite_payment_available: 'On-site payment',
     },
     action: {
       edit: 'Edit',

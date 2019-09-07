@@ -55,16 +55,10 @@ export async function post(uri: string, data: Object, headers: Object) {
     'Content-Type': 'application/json',
   };
 
-  try {
-    const response = await axios.post(uri, data, {
-      headers: Object.assign(baseHeaders, headers),
-    });
-
-    return response;
-  } catch (e) {
-    console.error(e);
-    return null;
-  }
+  const response = await axios.post(uri, data, {
+    headers: Object.assign(baseHeaders, headers),
+  });
+  return response;
 }
 
 export async function put(uri: string, data: Object, headers: Object) {
@@ -118,7 +112,7 @@ export async function getAuth(uri: string, token) {
   return get(uri, { Authorization: `Token ${token_}` });
 }
 
-export async function postAuth(uri: string, data: Object, token) {
+export async function postAuth(uri: string, data: Object, token): Promise<any> {
   const token_ = token || getAuthToken();
   return post(uri, data, { Authorization: `Token ${token_}` });
 }

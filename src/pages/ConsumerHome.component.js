@@ -8,15 +8,34 @@ import { Redirect, Switch, Route } from 'react-router-dom';
 import parse from '../query-string';
 
 import { consumer as consumerActions } from '../actions';
-import MyBookings from './consumer/my-bookings/MyBookings.page';
-import MyPaymentPacks from './consumer/MyPaymentPacks.component';
-import MyOrders from './consumer/MyOrders.page';
-import MyProfile from './consumer/MyProfile.component';
-import OfferPaymentPage from './payment/OfferPayment.page';
-import PaymentPackPaymentPage from './payment/PaymentPackPayment.page';
-import OrderPaymentPage from './payment/OrderPayment.page';
+import asyncComponent from '../AsyncComponent';
 
-import ConsumerMenu from '../components/navigation/ConsumerMenu.component';
+const MyBookings = asyncComponent(() =>
+  import('./consumer/my-bookings/MyBookings.page'),
+);
+const MyPaymentPacks = asyncComponent(() =>
+  import('./consumer/MyPaymentPacks.component'),
+);
+const MyOrders = asyncComponent(() => import('./consumer/MyOrders.page'));
+const MyProfile = asyncComponent(() =>
+  import('./consumer/MyProfile.component'),
+);
+const OfferPaymentPage = asyncComponent(() =>
+  import('./payment/OfferPayment.page'),
+);
+const PaymentPackPaymentPage = asyncComponent(() =>
+  import('./payment/PaymentPackPayment.page'),
+);
+const OrderPaymentPage = asyncComponent(() =>
+  import('./payment/OrderPayment.page'),
+);
+const CheckoutPage = asyncComponent(() =>
+  import('./payment/CheckoutPage.page'),
+);
+
+const CheckoutRouter = asyncComponent(() =>
+  import('./checkout/Checkout.router'),
+);
 
 type Props = {
   t: (x: string) => string,
@@ -67,26 +86,26 @@ export class ConsumerHome extends Component<Props> {
       );
     }
     return (
-      <ConsumerMenu>
-        <Switch>
-          <Route path="/(|customer/)order" component={MyOrders} />
-          <Route path="/(|customer/)pass" component={MyPaymentPacks} />
-          <Route path="/(|customer/)profile" component={MyProfile} />
-          <Route
-            path="/(|customer/)payment/offer/:id"
-            component={OfferPaymentPage}
-          />
-          <Route
-            path="/(|customer/)payment/pass/:id"
-            component={PaymentPackPaymentPage}
-          />
-          <Route
-            path="/(|customer/)payment/order/:companyId/"
-            component={OrderPaymentPage}
-          />
-          <Route path="/(|customer)" component={MyBookings} />
-        </Switch>
-      </ConsumerMenu>
+      <Switch>
+        <Route path="/(|customer/)order" component={MyOrders} />
+        <Route path="/(|customer/)pass" component={MyPaymentPacks} />
+        <Route path="/(|customer/)payment/checkout/" component={CheckoutPage} />
+        <Route path="/(|customer/)profile" component={MyProfile} />
+        <Route
+          path="/(|customer/)payment/offer/:id"
+          component={OfferPaymentPage}
+        />
+        <Route
+          path="/(|customer/)payment/pass/:id"
+          component={PaymentPackPaymentPage}
+        />
+        <Route
+          path="/(|customer/)payment/order/:companyId/"
+          component={OrderPaymentPage}
+        />
+        <Route path="/(|customer/)checkout/" component={CheckoutRouter} />
+        <Route path="/(|customer)" component={MyBookings} />
+      </Switch>
     );
   }
 }

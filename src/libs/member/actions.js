@@ -2,6 +2,7 @@
 
 import { push } from 'react-router-redux';
 
+import * as Sentry from '@sentry/browser';
 import { snackbarError, snackbarSuccess } from '../../actions/snackbar.actions';
 import {
   updateMember,
@@ -15,6 +16,7 @@ import {
   search as searchApi,
   tag as tagApi,
   merge as mergeApi,
+  linkMeToCompany as linkMeToCompanyAPI,
 } from './api';
 
 import type { Member } from './types';
@@ -59,7 +61,29 @@ export const actionTypes = {
   MEMBER_MERGE_START: 'MEMBER_MERGE_START',
   MEMBER_MERGE_ERROR: 'MEMBER_MERGE_ERROR',
   MEMBER_MERGE_SUCCESS: 'MEMBER_MERGE_SUCCESS',
+
+  MEMBER_LINKED_SUCCESS: 'MEMBER_LINKED_SUCCESS',
+  MEMBER_LINKED_ERROR: 'MEMBER_LINKED_ERROR',
 };
+
+export function successLinkConsumer(data) {
+  return { type: actionTypes.MEMBER_LINKED_SUCCESS, data };
+}
+export function errorLinkConsumer(error) {
+  return { type: actionTypes.MEMBER_LINKED_ERROR, error };
+}
+export function linkMeToCompany(data: *) {
+  return async (dispatch: Dispatch) => {
+    try {
+      const response = await linkMeToCompanyAPI(data);
+      dispatch(successLinkConsumer(response.data));
+    } catch (err) {
+      console.error(err);
+      Sentry.captureException(err);
+      dispatch(errorLinkConsumer(err));
+    }
+  };
+}
 
 export function startTag(memberId: number, tagId: number) {
   return { type: actionTypes.MEMBER_TAG_START, memberId, tagId };

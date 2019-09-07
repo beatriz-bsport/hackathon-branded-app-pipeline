@@ -34,4 +34,10 @@ export default {
     },
     submit: 'Save',
   },
+  general_terms_and_conditions: {
+    label: 'General terms and conditions',
+    helperText: 'Must be accepted for all payment and subscription',
+    placeholder:
+      'I certify being allowed by my doctor to practice this activity.',
+  },
 };

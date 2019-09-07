@@ -55,6 +55,28 @@ const ProvisionSummary = (props: Props) => (
     </div>
     <div className={props.classes.line}>
       <Typography inline color="secondary" variant="subtitle2" component="h3">
+        {props.t('shopitem.detail.onsite_payment_available')}
+      </Typography>
+      <Typography inline variant="h6" component="h3">
+        {props.shopitem.onsite_payment_available
+          ? props.t('shopitem.detail.enabled')
+          : props.t('shopitem.detail.disabled')}
+      </Typography>
+    </div>
+    <div className={props.classes.line}>
+      <Typography inline color="secondary" variant="subtitle2" component="h3">
+        {props.t('shopitem.detail.is_deliverable')}
+      </Typography>
+      <Typography inline variant="h6" component="h3">
+        {props.t(
+          props.shopitem.is_deliverable
+            ? 'shopitem.detail.enabled'
+            : 'shopitem.detail.disabled',
+        )}
+      </Typography>
+    </div>
+    <div className={props.classes.line}>
+      <Typography inline color="secondary" variant="subtitle2" component="h3">
         {props.t('shopitem.detail.marketplace_enabled')}
       </Typography>
       <Typography
@@ -70,12 +92,12 @@ const ProvisionSummary = (props: Props) => (
         {props.shopitem.marketplace_enabled ? (
           <React.Fragment>
             <LanguageIcon className={props.classes.iconLeft} />{' '}
-            {props.t('shopitem.detail.is_marketplace_enabled')}
+            {props.t('shopitem.detail.enabled')}
           </React.Fragment>
         ) : (
           <React.Fragment>
             <VisibilityOffIcon className={props.classes.iconLeft} />{' '}
-            {props.t('shopitem.detail.is_marketplace_disabled')}
+            {props.t('shopitem.detail.disabled')}
           </React.Fragment>
         )}
       </Typography>

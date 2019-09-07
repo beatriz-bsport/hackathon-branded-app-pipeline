@@ -22,6 +22,7 @@ import { withNamespaces } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { push as pushRouter } from 'react-router-redux';
+import ConsumerMenu from '../../../components/navigation/ConsumerMenu.component';
 
 import RedButton from '../../../components/button/RedButton.component';
 import { consumer as consumerActions } from '../../../actions';
@@ -362,30 +363,32 @@ export class MyBookings extends Component<Props, State> {
       return <Redirect to={requestRedirect} />;
     }
     return (
-      <div className={classes.container}>
-        <Grid container direction="row" spacing={16}>
-          <Grid item xs={12}>
-            {this.renderMembershipButtons()}
+      <ConsumerMenu>
+        <div className={classes.container}>
+          <Grid container direction="row" spacing={16}>
+            <Grid item xs={12}>
+              {this.renderMembershipButtons()}
+            </Grid>
+            <Grid item xs={12} md={6}>
+              {this.state.offer ? (
+                <ActivityDetailModal
+                  onClose={this.onCloseOfferDialog}
+                  offer={this.state.offer}
+                />
+              ) : null}
+              {this.renderFutureBookingsContainer()}
+            </Grid>
+            <Grid item xs={12} md={6}>
+              {this.renderBookingOptions()}
+            </Grid>
+            <Grid item xs={12} md={6}>
+              {this.renderPastBookingsContainer()}
+            </Grid>
           </Grid>
-          <Grid item xs={12} md={6}>
-            {this.state.offer ? (
-              <ActivityDetailModal
-                onClose={this.onCloseOfferDialog}
-                offer={this.state.offer}
-              />
-            ) : null}
-            {this.renderFutureBookingsContainer()}
-          </Grid>
-          <Grid item xs={12} md={6}>
-            {this.renderBookingOptions()}
-          </Grid>
-          <Grid item xs={12} md={6}>
-            {this.renderPastBookingsContainer()}
-          </Grid>
-        </Grid>
-        {this.getModalConfirmCancellingBookingOption()}
-        {this.getDialogCancelBooking()}
-      </div>
+          {this.getModalConfirmCancellingBookingOption()}
+          {this.getDialogCancelBooking()}
+        </div>
+      </ConsumerMenu>
     );
   }
 }

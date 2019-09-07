@@ -30,9 +30,11 @@ import common from './fr/common.translations';
 import theme from './fr/theme.translations';
 import role from './fr/role.translations';
 import selfCheckIn from './fr/selft-check-in.translations';
+import checkout from './fr/checkout.translations';
 
 export default {
   dashboard,
+  stripe,
   role,
   theme,
   common,
@@ -40,6 +42,7 @@ export default {
   tag,
   login,
   waitingList,
+  checkout,
   establishment,
   order,
   settings,
@@ -305,6 +308,8 @@ export default {
           },
         },
         item: {
+          onsite_payment_available: 'Possibilité de payer sur place',
+          is_deliverable: 'Impose les frais de livraison par défaut',
           create: 'Ajouter un article',
           unlimitedProvision: 'Pas de gestion du stock',
           marketplace_enabled: 'Disponible sur marketplace web',
@@ -444,6 +449,7 @@ export default {
       },
       paymentPack: {
         newMemberOnly: 'Uniquement pour les nouveaux clients',
+        onsitePaymentAvailable: 'Possibilité de payer sur place',
         startOnFirstUse:
           'Le décompte de validité débute le jour de la première réservation',
         startOnFirstUseHelper:

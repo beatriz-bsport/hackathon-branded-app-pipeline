@@ -217,6 +217,13 @@ export function PaymentPackForm(props: Props) {
                 label={t('form.paymentPack.managerOnly')}
               />
             </Grid>
+            <Grid item xs={12}>
+              <SwitchField
+                name="onsite_payment_available"
+                label={t('form.paymentPack.onsitePaymentAvailable')}
+                disabled={manager_only}
+              />
+            </Grid>
             <Grid item xs={12} md={4}>
               <MultipleCheckboxField
                 name="categories"
@@ -322,6 +329,7 @@ const PackSchema = Yup.object().shape({
   }),
   new_member_only: Yup.boolean(),
   manager_only: Yup.boolean(),
+  onsite_payment_available: Yup.boolean(),
   categories: Yup.array().of(Yup.number()),
   establishments: Yup.array().of(Yup.number()),
   metaActivities: Yup.array().of(Yup.number()),
@@ -353,6 +361,7 @@ export default compose(
           upper_date: Moment().add('months', 1),
           new_member_only: false,
           manager_only: false,
+          onsite_payment_available: false,
           start_on_first_use: false,
           expiration_days_before_first_use: 60,
           categories: [],
@@ -386,6 +395,7 @@ export default compose(
         'id',
         'new_member_only',
         'manager_only',
+        'onsite_payment_available',
         'expiration_days_before_first_use',
         'start_on_first_use',
         'categories',

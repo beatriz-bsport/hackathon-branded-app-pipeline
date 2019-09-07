@@ -4,33 +4,26 @@ import React from 'react';
 import { compose, lifecycle } from 'recompose';
 import { connect } from 'react-redux';
 
-import { SHOP_ITEM } from '@bsport/common/lib/master-data/buyable-models';
+import { BUYABLE_ITEM_SHOP_ITEM } from '@bsport/common/lib/master-data/buyable-items';
 import MarketplaceShopComponent from '../../libs/marketplace/components/MarketplaceShop.component';
 
 import { fetchAllSubShop } from '../../libs/shop/actions/subshop';
 import { fetchAll as fetchAllShopItem } from '../../libs/shop/actions/shopitem';
-import { addProductToOrder as addProductToOrderAction } from '../../libs/order/actions';
-import type { Order, ProductData } from '../../libs/order/types';
+import { addItemToBasket } from '../../libs/checkout/actions';
+import { getCurrentBasket } from '../../libs/checkout/selectors';
+import type { Basket } from '../../libs/checkout/types';
 import type { SubShop } from '../../libs/shop/types';
 import shopSelectors from '../../libs/shop/selectors';
 
-const SHOP_ITEM_CONTENTTYPE = SHOP_ITEM.id;
-
 type Props = {
   subShops: Array<SubShop>,
-  currentOrder: ?Order,
+  currentBasket: Basket,
 
-  addToOrder: (ProductData, orderId: number) => void,
-  toogleCurrentOrderOpen: (boolean) => void,
+  toogleCurrentBasketOpen: (boolean) => void,
   authenticated: boolean,
   requestSignUp: () => void,
+  addItemToBasket: (shopItemId: number, basketId: string) => void,
 };
-
-const buildProductData = (shopItemId: number): ProductData => ({
-  quantity: 1,
-  product_type: SHOP_ITEM_CONTENTTYPE,
-  product_id: shopItemId,
-});
 
 export function MarketplaceShop(props: Props) {
   return (
@@ -40,8 +33,8 @@ export function MarketplaceShop(props: Props) {
         if (!props.authenticated) {
           props.requestSignUp();
         } else {
-          props.addToOrder(buildProductData(shopItemId), props.currentOrder.id);
-          props.toogleCurrentOrderOpen(true);
+          props.addItemToBasket(shopItemId, props.currentBasket.id);
+          props.toogleCurrentBasketOpen(true);
         }
       }}
     />
@@ -51,6 +44,7 @@ export function MarketplaceShop(props: Props) {
 export default compose(
   connect(
     (state, { companyId }) => ({
+      currentBasket: getCurrentBasket(state),
       subShops: shopSelectors
         .getSubShopsByCompany(state, companyId, true)
         .filter((sub) => sub.shopItems.length),
@@ -59,7 +53,13 @@ export default compose(
     {
       fetchShopItems: fetchAllShopItem,
       fetchSubShops: fetchAllSubShop,
-      addToOrder: addProductToOrderAction,
+      addItemToBasket: (shopItemId, basketId) =>
+        addItemToBasket(basketId, {
+          buyable_item_identifier: BUYABLE_ITEM_SHOP_ITEM,
+          quantity: 1,
+          buyable_item_id: shopItemId,
+          extra_data: {},
+        }),
     },
   ),
   lifecycle({

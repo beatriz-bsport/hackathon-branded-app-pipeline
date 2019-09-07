@@ -26,6 +26,9 @@ export type ShopItem = {
   company: number,
   unlimited_provisions: boolean,
   subshop: number,
+  marketplace_enabled: boolean,
+  is_deliverable: boolean,
+  onsite_payment_available: boolean,
 };
 
 export type SubShop = {

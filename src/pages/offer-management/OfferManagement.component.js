@@ -67,7 +67,7 @@ type Props = {
   permission: Permission,
 
   fetchMember: (id: number) => void,
-  registerToWaitingList: (offerId: number, memberId) => void,
+  registerToWaitingList: (offerId: number, memberId: number) => void,
   memberSearchLoading: boolean,
   searchMembers: (txt: string) => void,
   searchedMembers: Array<Member>,

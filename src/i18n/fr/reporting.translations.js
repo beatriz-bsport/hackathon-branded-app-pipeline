@@ -23,6 +23,7 @@ export default {
     date_joined: "Date d'inscription",
     gender: 'Sexe',
     payment_pack: 'Abonnement',
+    fee: 'Frais',
     activity_name: 'Activité',
     activity_date: "Date de l'activité",
     activity_duration: 'Durée',
@@ -73,6 +74,7 @@ export default {
     payment_pack: 'Abonnement',
     shop_item: 'Magasin',
     top_up: 'Recharge crédit client',
+    fee: 'Frais',
   },
   report: {
     delete_message: 'Êtes-vous sûr de vouloir supprimer le rapport {{name}} ?',

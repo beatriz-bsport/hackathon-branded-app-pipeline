@@ -1,4 +1,4 @@
-import { API_URI, API_V1_URI, get } from '../../http';
+import { API_URI, API_V1_URI, get, getAuth } from '../../http';
 
 const fetchCompanyMetaActivities = async ({
   companyId,
@@ -17,8 +17,8 @@ const fetchCompanyActivities = async ({ companyId, page }) => {
 };
 
 const fetchPaymentPacks = async ({ companyId, page }) => {
-  return get(
-    `${API_V1_URI}/payment-pack/payment-pack/?company=${companyId}&page=${page}&manager_only=false&disabled=false`,
+  return getAuth(
+    `${API_V1_URI}/payment-pack/payment-pack/?company=${companyId}&page=${page}&manager_only=false&disabled=false&as_consumer=true`,
   );
 };
 

@@ -40,7 +40,7 @@ export const CheckoutFlow = (props: Props) => (
       patchBasket={props.patchBasket}
       processing={props.processing}
       termsAndConditions={props.termsAndConditions}
-      backToCalendar={props.goToCalendar}
+      backToCalendar={props.backToCalendar}
     />
   </div>
 );

@@ -183,7 +183,7 @@ export class OfferPaymentPage extends Component<Props, State> {
 
 export default compose(
   withNamespaces(),
-  routerParamsToProps({ offerId: 'offerId:number' }),
+  routerParamsToProps({ id: 'offerId:number' }),
   withSnackbar,
   connect(
     (state) => ({

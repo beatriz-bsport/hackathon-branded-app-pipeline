@@ -6,7 +6,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect } from 'react-redux';
-import { replace } from 'react-router-redux';
+import { replace, push, goBack } from 'react-router-redux';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { getTheme } from '../../theme';
 import {
@@ -35,6 +35,8 @@ type Props = {
   submitPayment: (data: *) => void,
   fetchCompanyTheme: (companyId: number) => void,
   onBasketFinalized: () => void,
+  push: (string) => void,
+  goBack: () => void,
   theme: ?Theme,
   classes: Object,
   fetchCurrentBasket: (companyId: number) => void,
@@ -76,6 +78,12 @@ export class CheckoutPayment extends React.Component<Props> {
               addItemToBasket={this.props.addItemToBasket}
               removeItemFromBasket={this.props.removeItemFromBasket}
               termsAndConditions={this.props.theme.general_terms_and_conditions}
+              backToCalendar={() => {
+                if (this.props.theme && this.props.theme.scheduleURL) {
+                  return this.props.push(this.props.theme);
+                }
+                return this.props.goBack();
+              }}
               patchBasket={(data, options) =>
                 this.props.patchCurrentBasket(data, options)
               }
@@ -122,6 +130,8 @@ export default compose(
     {
       addItemToBasket,
       removeItemFromBasket,
+      goBack,
+      push,
       fetchCurrentBasket,
       patchCurrentBasket,
       attachPayment: attachPaymentAction,

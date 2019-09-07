@@ -373,56 +373,44 @@ export class OfferManagement extends PureComponent<Props, State> {
   getNavigationHeader = (loading: boolean) => (
     <Slide in direction="bottom">
       <Paper className={this.props.classes.headerContainer}>
-        <Grid
-          container
-          direction="row"
-          justify="space-between"
-          alignItems="center"
-          className={this.props.classes.titleBanner}
-        >
-          <Grid item>
-            <Button
-              onClick={() => this.goToOffer(this.props.offer.previous_offer)}
-              disabled={!this.props.offer}
-            >
-              <ChevronLeftIcon className={this.props.classes.leftIcon} />
-              <Hidden xsDown>{this.props.t('offer.previousOffer')}</Hidden>
+        <div className={this.props.classes.titleBanner}>
+          <Button
+            onClick={() => this.goToOffer(this.props.offer.previous_offer)}
+            disabled={!this.props.offer}
+          >
+            <ChevronLeftIcon className={this.props.classes.leftIcon} />
+            <Hidden xsDown>{this.props.t('offer.previousOffer')}</Hidden>
+          </Button>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              flexDirection: 'row',
+              justifyContent: 'center',
+            }}
+          >
+            <Button onClick={this.props.goBack}>
+              <TodayIcon className={this.props.classes.leftIcon} />
+              {this.props.t('offer.backToCalendar')}
             </Button>
-          </Grid>
-          <Grid item>
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'center',
-              }}
-            >
-              <Button onClick={this.props.goBack}>
-                <TodayIcon className={this.props.classes.leftIcon} />
-                {this.props.t('offer.backToCalendar')}
-              </Button>
-              {this.props.bookingLoading ? (
-                <CircularProgress size={16} />
-              ) : (
-                <IconButton
-                  onClick={() => this.props.fetchOfferData(this.props.offerId)}
-                >
-                  <RefreshIcon />
-                </IconButton>
-              )}
-            </div>
-          </Grid>
-          <Grid item>
-            <Button
-              onClick={() => this.goToOffer(this.props.offer.next_offer)}
-              disabled={!this.props.offer}
-            >
-              <Hidden xsDown>{this.props.t('offer.nextOffer')}</Hidden>
-              <ChevronRightIcon className={this.props.classes.rightIcon} />
-            </Button>
-          </Grid>
-        </Grid>
+            {this.props.bookingLoading ? (
+              <CircularProgress size={16} />
+            ) : (
+              <IconButton
+                onClick={() => this.props.fetchOfferData(this.props.offerId)}
+              >
+                <RefreshIcon />
+              </IconButton>
+            )}
+          </div>
+          <Button
+            onClick={() => this.goToOffer(this.props.offer.next_offer)}
+            disabled={!this.props.offer}
+          >
+            <Hidden xsDown>{this.props.t('offer.nextOffer')}</Hidden>
+            <ChevronRightIcon className={this.props.classes.rightIcon} />
+          </Button>
+        </div>
         {loading ? <LinearProgress /> : null}
       </Paper>
     </Slide>
@@ -452,88 +440,66 @@ export class OfferManagement extends PureComponent<Props, State> {
         <Grid item xs={12} lg={6}>
           <Slide in direction="right">
             <Paper className={classes.autoScroll}>
-              <Grid container direction="column">
-                <Grid item xs={12}>
-                  {this.renderBookingHeader()}
-                </Grid>
+              <div className={classes.fullWidthRow}>
+                {this.renderBookingHeader()}
                 <Divider />
-                <Grid item xs={12}>
-                  <Collapse in={!!searchedText}>
-                    <div className={classes.resultListContainer}>
-                      <ResultList
-                        items={this.props.searchedMembers}
-                        loading={this.props.memberSearchLoading}
-                        renderListComponent={this.renderSearchedMember}
-                        redirectToMember={this.props.permission.member.retrieve}
+                <Collapse in={!!searchedText}>
+                  <div className={classes.resultListContainer}>
+                    <ResultList
+                      items={this.props.searchedMembers}
+                      loading={this.props.memberSearchLoading}
+                      renderListComponent={this.renderSearchedMember}
+                      redirectToMember={this.props.permission.member.retrieve}
+                    />
+                  </div>
+                  <Divider />
+                </Collapse>
+                {bookingLoading || this.props.offerLoading ? null : (
+                  <div className={classes.bookingSubHeader}>
+                    <Typography variant="caption" color="primary">
+                      {this.getNbAttendant()} {t('offer.attendant')}
+                    </Typography>
+                    <Typography variant="caption" color="error">
+                      {this.getNbNonAttendant()} {t('offer.nonAttendant')}
+                    </Typography>
+                    <Typography variant="caption">
+                      {`${this.getNbAttendant() +
+                        this.getNbNonAttendant()}/${this.getMaxBookings()} ${t(
+                        'offer.maxBookingsNb',
+                      )}`}
+                    </Typography>
+                  </div>
+                )}
+                <BookingTable
+                  redirectToMember={this.props.permission.member.retrieve}
+                  newTab
+                  members={this.props.members}
+                  paymentPacks={this.props.paymentPacks}
+                  loading={bookingLoading}
+                  bookings={bookings}
+                  confirmBookingAttendance={this.props.confirmBookingAttendance}
+                  discardBookingAttendance={this.props.discardBookingAttendance}
+                  showQuickInvoiceButton
+                  showRevertBookingButton
+                  handleRevert={this.handleBookingRevert}
+                  onQuickInvoiceClick={this.addToQuickInvoicePanel}
+                />
+                <List disablePadding>
+                  {bookingOptions
+                    .filter((bo) => !bo.booking && !bo.cancelled)
+                    .map((bo) => (
+                      <BookingOptionForManager
+                        option={bo}
+                        onDiscard={() =>
+                          this.setState({ optionToDiscard: bo.id })
+                        }
+                        member={this.props.members.find(
+                          (m) => m.id === bo.member,
+                        )}
                       />
-                    </div>
-                    <Divider />
-                  </Collapse>
-                </Grid>
-                <Grid item xs={12}>
-                  {bookingLoading || this.props.offerLoading ? null : (
-                    <Grid
-                      container
-                      className={classes.bookingSubHeader}
-                      justify="space-between"
-                    >
-                      <Grid item>
-                        <Typography variant="caption" color="primary">
-                          {this.getNbAttendant()} {t('offer.attendant')}
-                        </Typography>
-                      </Grid>
-                      <Grid item>
-                        <Typography variant="caption" color="error">
-                          {this.getNbNonAttendant()} {t('offer.nonAttendant')}
-                        </Typography>
-                      </Grid>
-                      <Grid item>
-                        <Typography variant="caption">
-                          {`${this.getNbAttendant() +
-                            this.getNbNonAttendant()}/${this.getMaxBookings()} ${t(
-                            'offer.maxBookingsNb',
-                          )}`}
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  )}
-                </Grid>
-                <Grid item xs={12}>
-                  <BookingTable
-                    redirectToMember={this.props.permission.member.retrieve}
-                    newTab
-                    members={this.props.members}
-                    paymentPacks={this.props.paymentPacks}
-                    loading={bookingLoading}
-                    bookings={bookings}
-                    confirmBookingAttendance={
-                      this.props.confirmBookingAttendance
-                    }
-                    discardBookingAttendance={
-                      this.props.discardBookingAttendance
-                    }
-                    showQuickInvoiceButton
-                    showRevertBookingButton
-                    handleRevert={this.handleBookingRevert}
-                    onQuickInvoiceClick={this.addToQuickInvoicePanel}
-                  />
-                  <List disablePadding>
-                    {bookingOptions
-                      .filter((bo) => !bo.booking && !bo.cancelled)
-                      .map((bo) => (
-                        <BookingOptionForManager
-                          option={bo}
-                          onDiscard={() =>
-                            this.setState({ optionToDiscard: bo.id })
-                          }
-                          member={this.props.members.find(
-                            (m) => m.id === bo.member,
-                          )}
-                        />
-                      ))}
-                  </List>
-                </Grid>
-              </Grid>
+                    ))}
+                </List>
+              </div>
             </Paper>
           </Slide>
         </Grid>
@@ -674,14 +640,25 @@ const styles = (theme) => ({
     paddingTop: theme.spacing.unit / 2,
     paddingBottom: theme.spacing.unit / 2,
     backgroundColor: theme.palette.background.paper.disabled,
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   bookingSubHeader: {
     width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
     padding: theme.spacing.unit,
     paddingBottom: theme.spacing.unit / 2,
     paddingTop: theme.spacing.unit / 2,
     background: '#F8F8F8',
     borderBottom: 'solid 1px #E4E4E4',
+  },
+  fullWidthRow: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'stretch',
   },
 });
 

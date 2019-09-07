@@ -494,29 +494,19 @@ export class InvoiceForm extends Component<Props, State> {
 
     if (step === STEP_ADD_INVOICE_ITEMS) {
       return (
-        <Grid
-          container
-          direction="column"
-          alignItems="stretch"
-          justify="space-between"
-          style={{ height: '100%' }}
-        >
-          <Grid item style={{ flexGrow: 1 }}>
-            <InvoiceItemSelector
-              creditAccountBalance={this.getUpdatedCreditAccountBalance()}
-              onAddPaymentPack={this.onAddPaymentPack}
-              onAddShopItem={this.onAddShopItem}
-              onTopUp={this.onTopUp}
-              paymentPacks={paymentPacks}
-            />
-          </Grid>
-          <Grid item>
-            <Divider />
-            <div className={classes.voucher}>
-              <InvoiceVoucher onUpdateVoucher={this.onUpdateVoucher} />
-            </div>
-          </Grid>
-        </Grid>
+        <div className={classes.itemSelectorPanel}>
+          <InvoiceItemSelector
+            creditAccountBalance={this.getUpdatedCreditAccountBalance()}
+            onAddPaymentPack={this.onAddPaymentPack}
+            onAddShopItem={this.onAddShopItem}
+            onTopUp={this.onTopUp}
+            paymentPacks={paymentPacks}
+          />
+          <Divider />
+          <div className={classes.voucher}>
+            <InvoiceVoucher onUpdateVoucher={this.onUpdateVoucher} />
+          </div>
+        </div>
       );
     }
     return (
@@ -567,40 +557,34 @@ export class InvoiceForm extends Component<Props, State> {
     } = this.state;
 
     return (
-      <Grid container direction="column" justify="space-between">
-        <Grid item>
-          <InvoiceItemList
-            deletePPackInvoiceItem={this.deletePPackInvoiceItem}
-            deleteShopItemInvoiceItem={this.deleteShopItemInvoiceItem}
-            deleteVoucher={this.deleteVoucher}
-            deleteTopUp={this.deleteTopUp}
-            paymentPackInvoiceItems={paymentPackInvoiceItems}
-            shopItemInvoiceItems={shopItemInvoiceItems}
-            uneditableInvoiceItems={uneditableInvoiceItems || []}
-            uneditableVoucher={parseFloat(this.props.uneditableVoucher)}
-            voucher={voucher}
-            topUp={topUp}
-          />
-        </Grid>
+      <div className={this.props.classes.invoiceItemListPanel}>
+        <InvoiceItemList
+          deletePPackInvoiceItem={this.deletePPackInvoiceItem}
+          deleteShopItemInvoiceItem={this.deleteShopItemInvoiceItem}
+          deleteVoucher={this.deleteVoucher}
+          deleteTopUp={this.deleteTopUp}
+          paymentPackInvoiceItems={paymentPackInvoiceItems}
+          shopItemInvoiceItems={shopItemInvoiceItems}
+          uneditableInvoiceItems={uneditableInvoiceItems || []}
+          uneditableVoucher={parseFloat(this.props.uneditableVoucher)}
+          voucher={voucher}
+          topUp={topUp}
+        />
         <Divider />
-        <Grid item>
-          <div className={this.props.classes.totalLine}>
-            <Typography variant="h6">
-              {this.props.t('payment.total')}
-            </Typography>
-            <Typography
-              className={
-                this.props.invoice && this.props.invoice.reverted
-                  ? this.props.classes.revert
-                  : {}
-              }
-              variant="h6"
-            >
-              {this.getFinalPrice().toFixed(2)} €
-            </Typography>
-          </div>
-        </Grid>
-      </Grid>
+        <div className={this.props.classes.totalLine}>
+          <Typography variant="h6">{this.props.t('payment.total')}</Typography>
+          <Typography
+            className={
+              this.props.invoice && this.props.invoice.reverted
+                ? this.props.classes.revert
+                : {}
+            }
+            variant="h6"
+          >
+            {this.getFinalPrice().toFixed(2)} €
+          </Typography>
+        </div>
+      </div>
     );
   };
 
@@ -633,9 +617,18 @@ export class InvoiceForm extends Component<Props, State> {
 
 const styles = (theme) => ({
   paperContainer: {},
+  itemSelectorPanel: {
+    display: 'flex',
+    width: '100%',
+    height: '100%',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'stretch',
+  },
   voucher: {
     padding: theme.spacing.unit * 2,
     backgroundColor: '#F8F8F8',
+    width: '100%',
   },
   invoiceList: {
     padding: theme.spacing.unit,
@@ -701,6 +694,11 @@ const styles = (theme) => ({
     paddingTop: theme.spacing.unit,
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  invoiceItemListPanel: {
+    display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'space-between',
   },
 });

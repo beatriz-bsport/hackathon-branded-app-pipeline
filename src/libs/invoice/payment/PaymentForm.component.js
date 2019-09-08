@@ -33,6 +33,7 @@ const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
 type Props = {
   t: (x: string) => string,
   classes: Object,
+  amountDue: number,
   creditAccountBalance: number,
   onSubmit: (formData: PaymentFormData) => void,
 };
@@ -54,9 +55,19 @@ const initialState = {
 };
 
 export class PaymentForm extends Component<Props, State> {
-  state = {
-    ...initialState,
-  };
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      ...initialState,
+      price: props.amountDue,
+    };
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (this.props.amountDue !== prevProps.amountDue) {
+      this.setState({ price: this.props.amountDue });
+    }
+  }
 
   onChangePaymentMethod = (event, payment_method) => {
     this.setState({ payment_method });

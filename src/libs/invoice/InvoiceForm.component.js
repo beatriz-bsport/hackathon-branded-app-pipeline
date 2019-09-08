@@ -472,9 +472,12 @@ export class InvoiceForm extends Component<Props, State> {
         </Typography>
       );
     }
+    const finalPrice = this.getFinalPrice();
+    const totalPayment = this.getTotalPayment();
     return (
       <PaymentForm
         onSubmit={this.addPaymentItem}
+        amountDue={finalPrice - totalPayment}
         creditAccountBalance={this.getUpdatedCreditAccountBalance()}
       />
     );

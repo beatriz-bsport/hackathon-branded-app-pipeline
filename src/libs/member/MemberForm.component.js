@@ -187,6 +187,24 @@ export function MemberForm(props: Props) {
                 <Grid item>
                   <DateField
                     format="DD/MM/YYYY"
+                    keyboard
+                    mask={(value) =>
+                      // handle clearing outside if value can be changed outside of the component
+                      value
+                        ? [
+                            /\d/,
+                            /\d/,
+                            '/',
+                            /\d/,
+                            /\d/,
+                            '/',
+                            /\d/,
+                            /\d/,
+                            /\d/,
+                            /\d/,
+                          ]
+                        : []
+                    }
                     openToYearSelection
                     clearable
                     disabled={disabled}
@@ -201,6 +219,24 @@ export function MemberForm(props: Props) {
                 </Grid>
                 <Grid item>
                   <DateField
+                    mask={(value) =>
+                      // handle clearing outside if value can be changed outside of the component
+                      value
+                        ? [
+                            /\d/,
+                            /\d/,
+                            '/',
+                            /\d/,
+                            /\d/,
+                            '/',
+                            /\d/,
+                            /\d/,
+                            /\d/,
+                            /\d/,
+                          ]
+                        : []
+                    }
+                    keyboard
                     format="YYYY-MM-DD"
                     name="date_joined"
                     disabled={disabled}

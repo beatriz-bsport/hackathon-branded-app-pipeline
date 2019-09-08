@@ -15,10 +15,13 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 
 import i18next from 'i18next';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+
 import {
   startUpdate,
   setCoachPaymentRule,
   deleteCoach,
+  fetchAssociated,
 } from '../../libs/associated-coach/actions';
 import type { Coach } from '../../api/types';
 import { paymentRulesSelector } from '../../libs/payment-rules/selectors';
@@ -38,6 +41,8 @@ type Props = {
   setCoachPaymentRule: (*) => void,
   associatedCoaches: Array<Coach>,
 
+  fetchAssociated: () => void,
+
   deleteCoachId: ?number,
   deleteCoach: (id: ?number) => void,
   setDeleteCoachId: (id: ?number) => void,
@@ -49,56 +54,65 @@ type Props = {
   isCardView: boolean,
 };
 
-export const CoachList = (props: Props) => {
-  if (props.loading) {
-    return <CircularProgress />;
+export class CoachList extends React.Component<Props> {
+  componentDidMount() {
+    this.props.fetchAssociated();
   }
-  const {
-    associatedCoaches,
-    paymentRules,
-    goToCoachEditForm,
-    goToCoachPerformance,
-    goToCoachDetail,
-  } = props;
 
-  if (props.isCardView) {
+  render() {
+    const {
+      associatedCoaches,
+      paymentRules,
+      goToCoachEditForm,
+      goToCoachPerformance,
+      goToCoachDetail,
+    } = this.props;
+
+    if (this.props.isCardView) {
+      if (this.props.loading) {
+        return <CircularProgress />;
+      }
+      return (
+        <Grid container direction="row" spacing={16}>
+          {associatedCoaches.map((coach) => (
+            <Grid item xs={12} md={6} key={coach.id}>
+              <ConnectedCoachCard
+                coach={coach}
+                onClickUpdate={() => goToCoachEditForm(coach)}
+                paymentRules={paymentRules}
+                setCoachPaymentRule={this.props.setCoachPaymentRule}
+                goToCoachPerformance={() => goToCoachPerformance(coach)}
+              />
+            </Grid>
+          ))}
+        </Grid>
+      );
+    }
     return (
-      <Grid container direction="row" spacing={16}>
-        {associatedCoaches.map((coach) => (
-          <Grid item xs={12} md={6} key={coach.id}>
-            <ConnectedCoachCard
-              coach={coach}
-              onClickUpdate={() => goToCoachEditForm(coach)}
-              paymentRules={paymentRules}
-              setCoachPaymentRule={props.setCoachPaymentRule}
-              goToCoachPerformance={() => goToCoachPerformance(coach)}
-            />
-          </Grid>
-        ))}
-      </Grid>
+      <div>
+        {this.props.loading ? <LinearProgress /> : null}
+        <Paper>
+          <List component="nav" dense disablePadding>
+            {this.props.associatedCoaches.map((coach) => (
+              <CoachListItem
+                divider
+                coach={coach}
+                onCoachSelected={() => goToCoachDetail(coach.id)}
+                deleteCoach={() => this.props.setDeleteCoachId(coach.id)}
+              />
+            ))}
+          </List>
+          <CoachDeleteModal
+            coachToDeleteId={this.props.deleteCoachId}
+            onClose={() => this.props.setDeleteCoachId(null)}
+            checkCanDeleteCoach={canDeleteCoachAPI}
+            deleteCoach={this.props.deleteCoach}
+          />
+        </Paper>
+      </div>
     );
   }
-  return (
-    <Paper>
-      <List component="nav" dense disablePadding>
-        {props.associatedCoaches.map((coach) => (
-          <CoachListItem
-            divider
-            coach={coach}
-            onCoachSelected={() => goToCoachDetail(coach.id)}
-            deleteCoach={() => props.setDeleteCoachId(coach.id)}
-          />
-        ))}
-      </List>
-      <CoachDeleteModal
-        coachToDeleteId={props.deleteCoachId}
-        onClose={() => props.setDeleteCoachId(null)}
-        checkCanDeleteCoach={canDeleteCoachAPI}
-        deleteCoach={props.deleteCoach}
-      />
-    </Paper>
-  );
-};
+}
 
 const styles = (theme) => ({
   root: {
@@ -115,6 +129,7 @@ export default compose(
       paymentRules: paymentRulesSelector(state),
     }),
     {
+      fetchAssociated,
       deleteCoach,
       goToCoachPerformance: (coach) =>
         push(`/coach/${coach.associated_coach_id}/performance`),

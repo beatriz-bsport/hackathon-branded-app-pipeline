@@ -20,6 +20,10 @@ import {
 } from '../../actions';
 import { mapFormData } from '../form.utils';
 import { upsert } from '../../libs/meta-activity/actions/workshop-activity.actions';
+import {
+  getEnabledMetaActivities,
+  getEnabledWorkshops,
+} from '../../libs/meta-activity/selectors';
 import { associatedCoachSelector } from '../../libs/associated-coach/selectors';
 import { createOffers as createOffersAPI } from '../../libs/meta-activity/api/meta-activity';
 
@@ -184,12 +188,12 @@ export default compose(
       SCTs: state.category.SCTs,
       loading: state.metaActivity.loading,
       metaActivityNames: [
-        ...state.metaActivity.all,
-        ...state.workshopActivity.all,
+        ...getEnabledMetaActivities(state),
+        ...getEnabledWorkshops(state),
       ].map((ma) => ma.name),
       metaActivitiesAndWorkshops: [
-        ...state.metaActivity.all,
-        ...state.workshopActivity.all,
+        ...getEnabledMetaActivities(state),
+        ...getEnabledWorkshops(state),
       ],
       upsertedWorkshop: state.workshopActivity.upsert.data,
     }),

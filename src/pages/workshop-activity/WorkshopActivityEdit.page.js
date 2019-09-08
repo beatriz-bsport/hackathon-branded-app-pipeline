@@ -16,6 +16,7 @@ import {
   addImageToWorkshop,
   removeImageFromWorkshop,
 } from '../../libs/meta-activity/actions/workshop-activity.actions';
+import { getWorkshop } from '../../libs/meta-activity/selectors';
 import { associatedCoachSelector } from '../../libs/associated-coach/selectors';
 
 import withDrawer from '../../hocs/with-drawer.hoc';
@@ -109,7 +110,7 @@ export default compose(
   routerParamsToProps({ id: 'id:number' }),
   connect(
     (state, { id }) => ({
-      initial: state.workshopActivity.all.find((oa) => oa.id === id),
+      initial: getWorkshop(state, id),
       associatedCoaches: associatedCoachSelector.getActive(state),
       establishments: getAllEstablishments(state),
       SCTs: state.category.SCTs,

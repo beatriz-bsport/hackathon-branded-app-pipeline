@@ -41,9 +41,11 @@ type StepType = {
 const STEP_ACTIVITY: StepType = { id: 0, label: 'activity_form' };
 const STEP_OFFER: StepType = { id: 1, label: 'offer_form' };
 const STEPS: Array<StepType> = [STEP_ACTIVITY, STEP_OFFER];
+
 type Props = {
   loading: ?boolean,
 
+  metaActivityNames: Array<string>,
   establishments: Array<Establishment>,
   fetchEstablishments: () => void,
   SCTs: *[],
@@ -94,7 +96,7 @@ export class MetaActivityFormPage extends Component<Props> {
       establishments={this.props.establishments}
       SCTs={this.props.SCTs}
       onSubmit={this.props.onSubmitMetaActivity}
-      metaActivityNames={[]}
+      metaActivityNames={this.props.metaActivityNames}
       initial={{ images: [] }}
     />
   );

@@ -18,6 +18,7 @@ import type { MetaActivity } from '../../api/types';
 import { getEnabledWorkshops } from '../../libs/meta-activity/selectors';
 import MetaActivityList from '../../libs/meta-activity/components/MetaActivityList.component';
 import WorkshopDeleteDialog from '../../libs/meta-activity/components/WorkshopDeleteDialog.component';
+import { fetchAllActivities as fetchAllWorkshops } from '../../libs/meta-activity/actions/meta-activity.actions.js';
 import { deleteWorkshop } from '../../libs/meta-activity/actions/workshop-activity.actions';
 import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '../../libs/meta-activity/api/common';
 
@@ -26,6 +27,7 @@ type Props = {
   loading: boolean,
   isCardView: boolean,
 
+  fetchAllWorkshops: () => void,
   setWorkshopToDelete: (number) => void,
   workshopToDelete: ?number,
   deleteWorkshop: (number) => void,
@@ -33,33 +35,42 @@ type Props = {
   goToEdit: (metaActivityId: number) => void,
 };
 
-export const WorkshopActivityList = (props: Props) => (
-  <div>
-    {props.loading ? <LinearProgress /> : null}
-    <MetaActivityList
-      metaActivities={props.workshopActivities}
-      isCardView={props.isCardView}
-      goToDetail={props.goToDetail}
-      goToEdit={props.goToEdit}
-      deleteMetaActivity={props.setWorkshopToDelete}
-    />
-    <WorkshopDeleteDialog
-      workshopId={props.workshopToDelete}
-      onClose={() => props.setWorkshopToDelete(null)}
-      canDeleteWorkshopChecker={canDeleteMetaActivityAPI}
-      deleteWorkshop={props.deleteWorkshop}
-    />
-  </div>
-);
+export class WorkshopActivityList extends React.Component<Props> {
+  componentDidMount() {
+    this.props.fetchAllWorkshops();
+  }
+
+  render() {
+    return (
+      <div>
+        {this.props.loading ? <LinearProgress /> : null}
+        <MetaActivityList
+          metaActivities={this.props.workshopActivities}
+          isCardView={this.props.isCardView}
+          goToDetail={this.props.goToDetail}
+          goToEdit={this.props.goToEdit}
+          deleteMetaActivity={this.props.setWorkshopToDelete}
+        />
+        <WorkshopDeleteDialog
+          workshopId={this.props.workshopToDelete}
+          onClose={() => this.props.setWorkshopToDelete(null)}
+          canDeleteWorkshopChecker={canDeleteMetaActivityAPI}
+          deleteWorkshop={this.props.deleteWorkshop}
+        />
+      </div>
+    );
+  }
+}
 
 export default compose(
   withNamespaces(),
   connect(
     (state) => ({
       workshopActivities: getEnabledWorkshops(state),
-      loading: state.workshopActivity.loading,
+      loading: state.workshopActivity.loading || state.metaActivity.loading,
     }),
     {
+      fetchAllWorkshops,
       deleteWorkshop,
       goToDetail: (metaActivityId) =>
         push(`/workshop-activity/${metaActivityId}`),

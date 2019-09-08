@@ -21,6 +21,7 @@ import WorkshopDeleteDialog from '../../libs/meta-activity/components/WorkshopDe
 import MetaActivityDetail from '../../libs/meta-activity/components/MetaActivityDetail.component';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 
+import { getWorkshops } from '../../libs/meta-activity/selectors';
 import { fetchMetaActivityDetails } from '../../libs/meta-activity/actions/meta-activity.actions';
 import { deleteWorkshop } from '../../libs/meta-activity/actions/workshop-activity.actions';
 import { checkCanDeleteMetaActivity as canDeleteWorkshopAPI } from '../../libs/meta-activity/api/common';
@@ -61,7 +62,11 @@ export class WorkshopActivity extends Component<Props, State> {
   }
 
   render() {
-    if (this.props.loading || !this.props.workshopActivity) {
+    if (
+      this.props.loading ||
+      !this.props.workshopActivity ||
+      this.props.workshopActivity.id !== this.props.id
+    ) {
       return <LinearProgress />;
     }
     return (
@@ -116,7 +121,7 @@ export default compose(
       id,
       loading: state.metaActivity.loading,
       workshopActivity: state.metaActivity.metaActivity,
-      workshopActivities: state.workshopActivity.all,
+      workshopActivities: getWorkshops(state),
       stats: state.stats.activities,
       events: state.offer.calendar,
       offers: state.offer.offers,

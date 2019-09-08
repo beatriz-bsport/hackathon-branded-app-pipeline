@@ -22,6 +22,11 @@ import type { MetaActivity } from '../../api/types';
 import withDrawer from '../../hocs/with-drawer.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { fetchEstablishments } from '../../libs/establishment/actions';
+import { fetchAllActivities } from '../../libs/meta-activity/actions/meta-activity.actions';
+import {
+  getMetaActivities,
+  getWorkshops,
+} from '../../libs/meta-activity/selectors';
 import { getAllEstablishments } from '../../libs/establishment/selectors';
 import type { Establishment } from '../../libs/establishment/types';
 
@@ -38,6 +43,7 @@ type Props = {
   metaActivities: Array<MetaActivity>,
   establishments: Array<Establishment>,
   fetchEstablishments: () => void,
+  fetchAllActivities: () => void,
   consumerPacks: {
     items: Array<ConsumerPaymentPack>,
     count: number,
@@ -74,6 +80,7 @@ export class PaymentPackDetail extends Component<Props, State> {
   componentWillMount() {
     this.props.resetConsumerPacks();
     this.props.fetchEstablishments();
+    this.props.fetchAllActivities();
   }
 
   requestEdit = (p: PaymentPack) => {
@@ -198,10 +205,7 @@ function mapStateToProps(state, { id }) {
   return {
     loading: state.paymentPack.loading || state.establishment.loading,
     pack: paymentPackSelector.get(state, id),
-    metaActivities: [
-      ...(state.metaActivity.all || []),
-      ...(state.workshopActivity.all || []),
-    ],
+    metaActivities: [...getMetaActivities(state), ...getWorkshops(state)],
     establishments: getAllEstablishments(state),
     consumerPacks: {
       items: state.consumerPaymentPack.byPaymentPack.items.filter(
@@ -222,6 +226,7 @@ export default compose(
   connect(
     mapStateToProps,
     {
+      fetchAllActivities,
       incrementCredit: (consumerPackId) =>
         consumerPackActions.updateCredit(consumerPackId, 1),
       decrementCredit: (consumerPackId) =>

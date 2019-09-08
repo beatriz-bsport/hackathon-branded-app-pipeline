@@ -14,7 +14,10 @@ import LinearProgress from '../../components/navigation/BackofficeLinearProgress
 import MetaActivityList from '../../libs/meta-activity/components/MetaActivityList.component';
 import MetaActivityDeleteDialog from '../../libs/meta-activity/components/MetaActivityDeleteDialog.component';
 import { getEnabledMetaActivities } from '../../libs/meta-activity/selectors';
-import { deleteMetaActivity } from '../../libs/meta-activity/actions/meta-activity.actions';
+import {
+  deleteMetaActivity,
+  fetchAllActivities as fetchAllMetactivities,
+} from '../../libs/meta-activity/actions/meta-activity.actions';
 import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '../../libs/meta-activity/api/common';
 
 import type { MetaActivity } from '../../api/types';
@@ -24,6 +27,7 @@ type Props = {
   isCardView: boolean,
   loading: boolean,
 
+  fetchAllMetactivities: () => void,
   goToDetail: (metaActivityId: number) => void,
   goToEdit: (metaActivityId: number) => void,
   deleteMetaActivity: (metaActivityId: number) => void,
@@ -31,24 +35,32 @@ type Props = {
   activityToDelete: (?number) => void,
 };
 
-export const MetaActivityListPage = (props: Props) => (
-  <div>
-    {props.loading ? <LinearProgress /> : null}
-    <MetaActivityList
-      metaActivities={props.metaActivities}
-      isCardView={props.isCardView}
-      goToDetail={props.goToDetail}
-      goToEdit={props.goToEdit}
-      deleteMetaActivity={props.setActivityToDelete}
-    />
-    <MetaActivityDeleteDialog
-      metaActivityId={props.activityToDelete}
-      onClose={() => props.setActivityToDelete(null)}
-      canDeleteMetaActivityChecker={canDeleteMetaActivityAPI}
-      deleteMetaActivity={props.deleteMetaActivity}
-    />
-  </div>
-);
+export class MetaActivityListPage extends React.Component<Props> {
+  componentDidMount() {
+    this.props.fetchAllMetactivities();
+  }
+
+  render() {
+    return (
+      <div>
+        {this.props.loading ? <LinearProgress /> : null}
+        <MetaActivityList
+          metaActivities={this.props.metaActivities}
+          isCardView={this.props.isCardView}
+          goToDetail={this.props.goToDetail}
+          goToEdit={this.props.goToEdit}
+          deleteMetaActivity={this.props.setActivityToDelete}
+        />
+        <MetaActivityDeleteDialog
+          metaActivityId={this.props.activityToDelete}
+          onClose={() => this.props.setActivityToDelete(null)}
+          canDeleteMetaActivityChecker={canDeleteMetaActivityAPI}
+          deleteMetaActivity={this.props.deleteMetaActivity}
+        />
+      </div>
+    );
+  }
+}
 
 export default compose(
   withNamespaces(),
@@ -61,6 +73,7 @@ export default compose(
         state.metaActivity.delete.loading,
     }),
     {
+      fetchAllMetactivities,
       goToDetail: (metaActivityId) => push(`/activity/${metaActivityId}`),
       goToEdit: (metaActivityId) => push(`/activity/${metaActivityId}/edit`),
       deleteMetaActivity,

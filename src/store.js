@@ -23,8 +23,6 @@ const persistConfig = {
   storage,
   whitelist: [
     'auth',
-    'metaActivity',
-    'workshopActivity',
     'offer',
     'paymentPack',
     'establishment',

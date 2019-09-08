@@ -20,13 +20,18 @@ import LinearProgress from '../../components/navigation/BackofficeLinearProgress
 import EstablishmentListItem from '../../libs/establishment/components/EstablishmentListItem.component';
 import EstablishmentDeleteDialog from '../../libs/establishment/components/EstablishmentDeleteDialog.component';
 import type { Establishment } from '../../libs/establishment/types';
-import { deleteEstablishment } from '../../libs/establishment/actions';
+import { getAllEstablishments } from '../../libs/establishment/selectors';
+import {
+  deleteEstablishment,
+  fetchEstablishments,
+} from '../../libs/establishment/actions';
 import { checkCanDeleteEstablishment as canDeleteEstablishmentAPI } from '../../libs/establishment/api';
 
 type Props = {
   loading: boolean,
   establishments: Array<Establishment>,
 
+  fetchEstablishments: () => void,
   startUpdateEstablishment: (*) => void,
   goToEstablishment: (id: number) => void,
   establishmentToDelete: ?number,
@@ -37,47 +42,53 @@ type Props = {
   t: TFunction,
 };
 
-export const EstablishmentList = (props: Props) => {
-  if ((props.establishments || []).length === 0 && !props.loading) {
+export class EstablishmentList extends React.Component<Props> {
+  componentDidMount() {
+    this.props.fetchEstablishments();
+  }
+
+  render() {
+    if ((this.props.establishments || []).length === 0 && !this.props.loading) {
+      return (
+        <div className={this.props.classes.emptyEstablishment}>
+          <Typography variant="caption">
+            {this.props.t('establishment.pleaseSelectOne')}
+          </Typography>
+        </div>
+      );
+    }
     return (
-      <div className={props.classes.emptyEstablishment}>
-        <Typography variant="caption">
-          {props.t('establishment.pleaseSelectOne')}
-        </Typography>
+      <div>
+        {this.props.loading ? <LinearProgress /> : null}
+        <Paper>
+          <List component="nav" disablePadding>
+            {this.props.establishments.map((e) => (
+              <EstablishmentListItem
+                key={e.id}
+                divider
+                onClick={() => this.props.goToEstablishment(e.id)}
+                establishment={e}
+                onClickDelete={() => this.props.setEstablishmentToDelete(e.id)}
+                onClickEdit={() => {
+                  this.props.startUpdateEstablishment(e.id);
+                }}
+              />
+            ))}
+          </List>
+        </Paper>
+        <Paper className={this.props.classes.map}>
+          <Map markers={this.props.establishments} markerClicked={() => {}} />
+        </Paper>
+        <EstablishmentDeleteDialog
+          establishmentId={this.props.establishmentToDelete}
+          onClose={() => this.props.setEstablishmentToDelete(null)}
+          canDeleteEstablishmentChecker={canDeleteEstablishmentAPI}
+          deleteEstablishment={this.props.deleteEstablishment}
+        />
       </div>
     );
   }
-  return (
-    <div>
-      {props.loading ? <LinearProgress /> : null}
-      <Paper>
-        <List component="nav" disablePadding>
-          {props.establishments.map((e) => (
-            <EstablishmentListItem
-              key={e.id}
-              divider
-              onClick={() => props.goToEstablishment(e.id)}
-              establishment={e}
-              onClickDelete={() => props.setEstablishmentToDelete(e.id)}
-              onClickEdit={() => {
-                props.startUpdateEstablishment(e.id);
-              }}
-            />
-          ))}
-        </List>
-      </Paper>
-      <Paper className={props.classes.map}>
-        <Map markers={props.establishments} markerClicked={() => {}} />
-      </Paper>
-      <EstablishmentDeleteDialog
-        establishmentId={props.establishmentToDelete}
-        onClose={() => props.setEstablishmentToDelete(null)}
-        canDeleteEstablishmentChecker={canDeleteEstablishmentAPI}
-        deleteEstablishment={props.deleteEstablishment}
-      />
-    </div>
-  );
-};
+}
 
 const styles = (theme) => ({
   emptyEstablishment: {
@@ -96,12 +107,13 @@ export default compose(
   connect(
     (state) => ({
       loading: state.establishment.loading,
-      establishments: state.establishment.all,
+      establishments: getAllEstablishments(state),
     }),
     {
       startUpdateEstablishment: (id: number) =>
         push(`/establishment/edit/${id}`),
       goToEstablishment: (id) => push(`/establishment/details/${id}`),
+      fetchEstablishments,
       deleteEstablishment,
     },
   ),

@@ -57,7 +57,11 @@ export class MetaActivity extends Component<Props, State> {
   }
 
   render() {
-    if (this.props.loading || !this.props.metaActivity) {
+    if (
+      this.props.loading ||
+      !this.props.metaActivity ||
+      this.props.metaActivity.id !== this.props.id
+    ) {
       return <LinearProgress />;
     }
     return (

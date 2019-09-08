@@ -6,8 +6,6 @@ import { fetchSCT } from './category.actions';
 import { fetchAll as fetchAllPaymentPacks } from './paymentPack.actions';
 import { fetchDashboard as fetchDashboardStats } from './stats.actions';
 
-import { fetchAllActivities as fetchAllMetaActivities } from '../libs/meta-activity/actions/meta-activity.actions';
-import { fetchEstablishments } from '../libs/establishment/actions';
 import { fetchAll as fetchShop } from '../libs/shop/actions/shopitem';
 import { fetchPaymentRules } from '../libs/payment-rules/actions';
 import { fetchAll as fetchWorkshopActivities } from '../libs/meta-activity/actions/workshop-activity.actions';
@@ -35,10 +33,8 @@ export function forceRefresh() {
     dispatch(storeIsRefreshing());
     Promise.all([
       dispatch(fetchAllAlertings()),
-      dispatch(fetchAllMetaActivities()),
       dispatch(fetchAllOffers()),
       dispatch(fetchAssociatedCoaches()),
-      dispatch(fetchEstablishments()),
       dispatch(fetchSCT()),
       dispatch(fetchAllPaymentPacks()),
       dispatch(fetchDashboardStats()),

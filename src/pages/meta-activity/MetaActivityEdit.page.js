@@ -13,11 +13,14 @@ import type { TFunction } from 'react-i18next';
 import { mapFormData, unmap } from '../form.utils';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import {
-  fetchMetaActivityDetails,
   upsert,
   addImageToMetaActivity,
   removeImageFromMetaActivity,
 } from '../../libs/meta-activity/actions/meta-activity.actions';
+import {
+  getMetaActivity,
+  getEnabledMetaActivities,
+} from '../../libs/meta-activity/selectors';
 
 import withDrawer from '../../hocs/with-drawer.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -32,11 +35,11 @@ type Props = {
   loading: ?boolean,
   initial: ?MetaActivity,
 
+  metaActivityNames: Array<string>,
   establishments: Array<Establishment>,
   fetchEstablishments: () => void,
   SCTs: *[],
 
-  fetchMetaActivity: (id: number) => void,
   removeImage: (id: number, imageId: number) => void,
   addImage: (id: number, File) => void,
   onSubmit: (*) => void,
@@ -55,16 +58,7 @@ const MetaActivityMap = {
 
 export class MetaActivityFormPage extends Component<Props> {
   componentDidMount() {
-    if (this.props.id) {
-      this.props.fetchMetaActivity(this.props.id);
-    }
     this.props.fetchEstablishments();
-  }
-
-  componentDidUpdate(prevProps: Props) {
-    if (this.props.id && this.props.id !== prevProps.id) {
-      this.props.fetchMetaActivity(this.props.id);
-    }
   }
 
   render() {
@@ -99,7 +93,7 @@ export class MetaActivityFormPage extends Component<Props> {
               SCTs={SCTs}
               onSubmit={this.props.onSubmit}
               onCancel={this.props.goToPreviousPage}
-              metaActivityNames={[]}
+              metaActivityNames={this.props.metaActivityNames}
               initial={{ ...initialData, images: (initial || {}).images || [] }}
               imageUploader={id ? imageUploader : null}
             />
@@ -115,14 +109,15 @@ export default compose(
   routerParamsToProps({ id: 'id:number' }),
   connect(
     (state, { id }) => ({
-      initial: id ? state.metaActivity.metaActivity : null,
+      initial: getMetaActivity(state, id),
       establishments: getAllEstablishments(state),
       SCTs: state.category.SCTs,
       loading: state.metaActivity.loading,
-      metaActivityNames: state.metaActivity.all.map((ma) => ma.name),
+      metaActivityNames: getEnabledMetaActivities(state)
+        .filter((ma) => ma.id !== id)
+        .map((ma) => ma.name),
     }),
     {
-      fetchMetaActivity: fetchMetaActivityDetails,
       fetchEstablishments,
       upsertMetaActivity: upsert,
       goToPreviousPage: goBack,

@@ -18,6 +18,8 @@ export default {
     identifier: 'Identifier',
     first_name: 'First name',
     last_name: 'Last name',
+    booking_status_code: 'Status',
+    was_refunded: 'Refunded',
     email: 'Email',
     phonenumber: 'Phone number',
     date_joined: 'Date joined',
@@ -53,6 +55,8 @@ export default {
     payment_note: 'Payment note',
     remaining_days: 'Remaining days',
   },
+  yes: 'Yes',
+  no: 'No',
   payment_method: {
     cash: 'Cash',
     check: 'Check',

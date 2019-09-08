@@ -61,6 +61,12 @@ function getConverter(column, classes, t) {
         value: moment(value, 'DD/MM/YYYY').format('DD/MM/YYYY'),
       };
     }
+    if (datatype === 'boolean') {
+      if (value) {
+        return { value: t('yes') };
+      }
+      return { value: t('no') };
+    }
     if (datatype === 'datetime') {
       return {
         value: moment(value, 'DD/MM/YYYY[,] HH[:]mm').format(

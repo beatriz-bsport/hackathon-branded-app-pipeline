@@ -19,7 +19,7 @@ type Props = {
   submitPayment: (data: *) => void,
   classes: Object,
   patchBasket: (data: *) => void,
-  goToCalendar: () => void,
+  backToCalendar: () => void,
 };
 
 export const CheckoutFlow = (props: Props) => (

@@ -232,7 +232,7 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-end',
   },
   payButton: {
     marginTop: theme.spacing.unit * 2,

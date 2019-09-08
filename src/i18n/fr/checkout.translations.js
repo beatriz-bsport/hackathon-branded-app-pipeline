@@ -8,6 +8,7 @@ export default {
       last_name: 'Nom',
       actions: {
         submit: 'Suivant',
+        cancel: 'Précédent',
       },
     },
   },

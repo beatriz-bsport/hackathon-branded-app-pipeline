@@ -18,10 +18,7 @@ import {
   removeImageFromMetaActivity,
   fetchAllActivities,
 } from '../../libs/meta-activity/actions/meta-activity.actions';
-import {
-  getMetaActivity,
-  getEnabledMetaActivities,
-} from '../../libs/meta-activity/selectors';
+import { getMetaActivity } from '../../libs/meta-activity/selectors';
 
 import withDrawer from '../../hocs/with-drawer.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -36,9 +33,9 @@ type Props = {
   loading: ?boolean,
   initial: ?MetaActivity,
 
-  metaActivityNames: Array<string>,
   establishments: Array<Establishment>,
   fetchEstablishments: () => void,
+  fetchAllActivities: () => void,
   SCTs: *[],
 
   removeImage: (id: number, imageId: number) => void,
@@ -95,7 +92,6 @@ export class MetaActivityFormPage extends Component<Props> {
               SCTs={SCTs}
               onSubmit={this.props.onSubmit}
               onCancel={this.props.goToPreviousPage}
-              metaActivityNames={this.props.metaActivityNames}
               initial={{ ...initialData, images: (initial || {}).images || [] }}
               imageUploader={id ? imageUploader : null}
             />
@@ -115,9 +111,6 @@ export default compose(
       establishments: getAllEstablishments(state),
       SCTs: state.category.SCTs,
       loading: state.metaActivity.loading,
-      metaActivityNames: getEnabledMetaActivities(state)
-        .filter((ma) => ma.id !== id)
-        .map((ma) => ma.name),
     }),
     {
       fetchEstablishments,

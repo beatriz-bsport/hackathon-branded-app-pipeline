@@ -10,7 +10,7 @@ export default {
       helper:
         "Si une place se libère, l'élève dispose d'un temps proportionnel au temps restant avant la séance.",
     },
-    submit: 'Envoyer',
+    submit: 'Enregistrer',
     auto_cancellation_type: {
       title: "Gestion de la liste d'attente",
     },

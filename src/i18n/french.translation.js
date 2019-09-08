@@ -544,7 +544,7 @@ export default {
       phone: 'Numéro de téléphone',
       email: 'Adresse email',
       description: 'Description',
-      send: 'Envoyer',
+      send: 'Enregistrer',
       discard: 'Annuler',
       name: 'Nom',
       SCT: 'Sport',

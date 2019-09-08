@@ -1,1 +1,1 @@
-export default 'fc7a3f9941be1bcaa0f6d301c8eaf4130225344b';
+export default '19783728b514666111b67fd8b6326cff822372c5';

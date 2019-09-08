@@ -122,7 +122,6 @@ export class RecursionToogle extends Component<Props, State> {
 }
 const styles = (theme) => ({
   similarListHeader: {
-    marginTop: theme.spacing.unit * 2,
     width: '100%',
     backgroundColor: theme.palette.background.paper,
   },

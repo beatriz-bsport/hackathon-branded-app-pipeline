@@ -4,7 +4,9 @@ import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import withStyles from '@material-ui/core/styles/withStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { compose } from 'recompose';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { Moment } from '../../i18n';
@@ -26,6 +28,7 @@ type Props = {
   processing: boolean,
   similarOfferLoading: boolean,
   t: TFunction,
+  classes: Object,
 
   offer: Offer,
   similarOffers: Array<Offer>,
@@ -293,124 +296,125 @@ export class EditLiveOfferForm extends Component<Props, State> {
   renderBilling = () => null;
 
   renderChangeForm = () => (
-    <Grid container direction="column" spacing={40}>
-      <Grid item>
-        <Typography variant="h6">
+    <div className={this.props.classes.container}>
+      <div className={this.props.classes.fieldGroup}>
+        <Typography variant="h6" className={this.props.classes.subtitle}>
           {this.props.t('form.caracteristics')}
         </Typography>
-      </Grid>
-      <Grid item>
-        <Grid container direction="column" spacing={16}>
-          <Grid item>
-            <NumericInput
-              required
-              fullWidth
-              label={this.props.t('offer.effectif')}
-              value={this.state.effectif}
-              onChange={(event) =>
-                this.onFormFieldChange('effectif')(event.target.value)
-              }
-            />
-          </Grid>
-          <Grid item>
-            <NumericInput
-              required
-              fullWidth
-              value={this.state.waiting_list_max_size}
-              label={this.props.t('offer.sizeOfWaitingList')}
-              onChange={(event) =>
-                this.onFormFieldChange('waiting_list_max_size')(
-                  event.target.value,
-                )
-              }
-            />
-          </Grid>
-          <Grid item>
-            <NumericInput
-              required
-              fullWidth
-              label={this.props.t('form.credit_price')}
-              value={this.state.credit_price_override}
-              onChange={(event) =>
-                this.onFormFieldChange('credit_price_override')(
-                  event.target.value,
-                )
-              }
-            />
-          </Grid>
-        </Grid>
-      </Grid>
-      <Grid item>{this.renderBilling()}</Grid>
-      <Grid item>
-        <Typography variant="h6">
+
+        <div className={this.props.classes.field}>
+          <NumericInput
+            required
+            fullWidth
+            label={this.props.t('offer.effectif')}
+            value={this.state.effectif}
+            onChange={(event) =>
+              this.onFormFieldChange('effectif')(event.target.value)
+            }
+          />
+        </div>
+        <div className={this.props.classes.field}>
+          <NumericInput
+            required
+            fullWidth
+            value={this.state.waiting_list_max_size}
+            label={this.props.t('offer.sizeOfWaitingList')}
+            onChange={(event) =>
+              this.onFormFieldChange('waiting_list_max_size')(
+                event.target.value,
+              )
+            }
+          />
+        </div>
+        <div className={this.props.classes.field}>
+          <NumericInput
+            required
+            fullWidth
+            label={this.props.t('form.credit_price')}
+            value={this.state.credit_price_override}
+            onChange={(event) =>
+              this.onFormFieldChange('credit_price_override')(
+                event.target.value,
+              )
+            }
+          />
+        </div>
+      </div>
+      <div className={this.props.classes.fieldGroup}>
+        {this.renderBilling()}
+      </div>
+      <div className={this.props.classes.fieldGroup}>
+        <Typography variant="h6" className={this.props.classes.subtitle}>
           {this.props.t('form.timeSettings')}
         </Typography>
-      </Grid>
-      <Grid item>
-        <DateTimeForm
-          date={this.state.date}
-          hour={this.state.hour}
-          onFormFieldChange={this.onFormFieldChange}
-        />
-      </Grid>
-      <Grid item>
-        <DurationInput
-          required
-          value={this.state.duration_minute}
-          onChange={(e) => {
-            this.onFormFieldChange('duration_minute')(e || 0);
-          }}
-        />
-      </Grid>
-      <Grid item>
-        <LevelInput
-          required
-          value={this.state.level}
-          onChange={(e) =>
-            parseInt(this.onFormFieldChange('level')(e.target.value), 10)
-          }
-        />
-        {this.state.level !== this.initialOfferState.level ? (
-          <WarningForceRecursion
-            text={this.props.t('form.offer.levelChangeWarning')}
+      </div>
+      <div className={this.props.classes.fieldGroup}>
+        <div className={this.props.classes.field}>
+          <DateTimeForm
+            date={this.state.date}
+            hour={this.state.hour}
+            onFormFieldChange={this.onFormFieldChange}
           />
-        ) : null}
-      </Grid>
-      <Grid item>
-        <CoachSubForm
-          coaches={this.props.coaches}
-          coach={this.state.coach}
-          coach_override={this.state.coach_override}
-          offer={this.props.offer}
-          hasChangedCoach={this.hasChangedCoach()}
-          onFormFieldChange={this.onFormFieldChange}
-          onDeleteCoachSubstitute={() =>
-            this.setState({ coach_override: null })
-          }
-        />
-      </Grid>
-      <Grid item>
-        <EstablishmentSubForm
-          required
-          onFormFieldChange={this.onFormFieldChange}
-          establishment={this.state.establishment}
-          establishments={this.props.establishments}
-          establishment_override={this.state.establishment_override}
-          offer={this.props.offer}
-          hasChangedEstablishment={this.hasChangedEstablishment()}
-        />
-      </Grid>
-      <Grid item>
-        <Grid container direction="column" spacing={8}>
-          <Grid item>
+        </div>
+        <div className={this.props.classes.field}>
+          <DurationInput
+            required
+            value={this.state.duration_minute}
+            onChange={(e) => {
+              this.onFormFieldChange('duration_minute')(e || 0);
+            }}
+          />
+        </div>
+        <div className={this.props.classes.field}>
+          <LevelInput
+            required
+            value={this.state.level}
+            onChange={(e) =>
+              parseInt(this.onFormFieldChange('level')(e.target.value), 10)
+            }
+          />
+          {this.state.level !== this.initialOfferState.level ? (
+            <div className={this.props.classes.field}>
+              <WarningForceRecursion
+                text={this.props.t('form.offer.levelChangeWarning')}
+              />
+            </div>
+          ) : null}
+          <div className={this.props.classes.field}>
+            <CoachSubForm
+              coaches={this.props.coaches}
+              coach={this.state.coach}
+              coach_override={this.state.coach_override}
+              offer={this.props.offer}
+              hasChangedCoach={this.hasChangedCoach()}
+              onFormFieldChange={this.onFormFieldChange}
+              onDeleteCoachSubstitute={() =>
+                this.setState({ coach_override: null })
+              }
+            />
+          </div>
+          <div className={this.props.classes.field}>
+            <EstablishmentSubForm
+              required
+              onFormFieldChange={this.onFormFieldChange}
+              establishment={this.state.establishment}
+              establishments={this.props.establishments}
+              establishment_override={this.state.establishment_override}
+              offer={this.props.offer}
+              hasChangedEstablishment={this.hasChangedEstablishment()}
+            />
+          </div>
+        </div>
+        <div className={this.props.classes.fieldGroup}>
+          <div className={this.props.classes.field}>
             <NotificationToogle
               notifyConsumers={this.state.notifyConsumers}
               onNotificationChange={(notifyConsumers) =>
                 this.setState({ notifyConsumers })
               }
             />
-          </Grid>
-          <Grid item>
+          </div>
+          <div className={this.props.classes.field}>
             <RecursionToogle
               loading={this.props.similarOfferLoading}
               similarOffers={this.props.similarOffers.filter(
@@ -430,17 +434,18 @@ export class EditLiveOfferForm extends Component<Props, State> {
                 }))
               }
             />
-          </Grid>
-        </Grid>
-      </Grid>
-      <Grid item>{this.renderNextStepButton()}</Grid>
-    </Grid>
+          </div>
+        </div>
+
+        {this.renderNextStepButton()}
+      </div>
+    </div>
   );
 
   renderConfirmChange = () => (
     <Grid container direction="column" spacing={32}>
       <Grid item>
-        <Typography variant="h6">
+        <Typography variant="h6" className={this.props.classes.subtitle}>
           {this.props.t('calendar.modifyOffer')}
         </Typography>
       </Grid>
@@ -461,4 +466,14 @@ export class EditLiveOfferForm extends Component<Props, State> {
   }
 }
 
-export default withNamespaces()(EditLiveOfferForm);
+const styles = (theme) => ({
+  subtitle: { marginBottom: theme.spacing.unit },
+  fieldGroup: { marginBottom: theme.spacing.unit * 4 },
+  field: { marginBottom: theme.spacing.unit * 2 },
+  container: {},
+});
+
+export default compose(
+  withStyles(styles),
+  withNamespaces(),
+)(EditLiveOfferForm);

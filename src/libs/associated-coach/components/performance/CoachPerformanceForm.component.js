@@ -18,6 +18,7 @@ type Props = {
   t: TFunction,
   classes: Object,
   isSubmitting: boolean,
+  disabled: ?boolean,
 };
 
 export function CoachPerformanceForm(props: Props) {
@@ -36,7 +37,11 @@ export function CoachPerformanceForm(props: Props) {
         label={t('common.until')}
         className={classes.dateInput}
       />
-      <Submit variant="outlined" color="secondary" disabled={isSubmitting}>
+      <Submit
+        variant="outlined"
+        color="secondary"
+        disabled={isSubmitting || !!props.disabled}
+      >
         {t('calculate')}
       </Submit>
     </Form>

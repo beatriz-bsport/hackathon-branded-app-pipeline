@@ -31,6 +31,7 @@ import {
   setSessionPaymentRule,
   fetchAssociatedCoachPerformance,
   setCoachPaymentRule,
+  fetchAssociated,
 } from '../../libs/associated-coach/actions';
 import withDrawer from '../../hocs/with-drawer.hoc';
 import type {
@@ -103,6 +104,9 @@ const styles = (theme) => ({
   container: {
     marginBottom: theme.spacing.unit * 32,
   },
+  generalLoader: {
+    marginBottom: theme.spacing.unit,
+  },
 });
 
 const CoachPerformanceComposed = compose(
@@ -131,6 +135,8 @@ const CoachPerformanceComposed = compose(
 
 type Props = {
   associatedCoachesWithDefaultPaymentRule: Array<Coach>,
+  coachLoading: boolean,
+  fetchAssociated: () => void,
   loading: boolean,
   classes: Object,
   paymentRules: PaymentRule[],
@@ -149,55 +155,72 @@ type Props = {
   },
 };
 
-export function AllCoachPerformance(props: Props) {
-  return (
-    <div className={props.classes.container}>
-      <AppBar position="static" color="default" className={props.classes.bar}>
-        <CoachPerformanceForm
-          onSubmit={props.onSubmit}
-          loading={props.loading}
-        />
-      </AppBar>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => {
-          downloadAsCsv(
-            [
-              props.t('coach.performance.coachName'),
-              props.t('coach.performance.nbOffersTotal'),
-              props.t('coach.performance.nbBookings'),
-              props.t('coach.performance.payment'),
-            ],
-            props
-              .allPerformances()
-              .map((perf) => [
-                perf[0].name,
-                perf[1].nbSessions,
-                perf[1].nbBookings,
-                `${perf[1].total} €`,
-              ]),
-            'payroll.csv',
-          );
-        }}
-      >
-        <AttachFileIcon />
-        {props.t('common.download')}
-      </Button>
-      {props.associatedCoachesWithDefaultPaymentRule.map((coach) => (
-        <CoachPerformanceComposed
-          associatedCoach={coach}
-          key={coach.id}
-          loading={props.loading}
-          setSessionPaymentRule={(...args) =>
-            props.setSessionPaymentRule(coach.associated_coach_id, ...args)
-          }
-          paymentRules={props.paymentRules}
-          setCoachPaymentRule={props.setCoachPaymentRule}
-        />
-      ))}
-    </div>
-  );
+export class AllCoachPerformance extends React.Component<Props> {
+  componentDidMount() {
+    this.props.fetchAssociated();
+  }
+
+  render() {
+    return (
+      <div className={this.props.classes.container}>
+        <AppBar
+          position="static"
+          color="default"
+          className={this.props.classes.bar}
+        >
+          <CoachPerformanceForm
+            disabled={this.props.coachLoading}
+            onSubmit={this.props.onSubmit}
+            loading={this.props.loading}
+          />
+        </AppBar>
+        {this.props.coachLoading ? (
+          <LinearProgress className={this.props.classes.generalLoader} />
+        ) : null}
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            downloadAsCsv(
+              [
+                this.props.t('coach.performance.coachName'),
+                this.props.t('coach.performance.nbOffersTotal'),
+                this.props.t('coach.performance.nbBookings'),
+                this.props.t('coach.performance.payment'),
+              ],
+              this.props
+                .allPerformances()
+                .map((perf) => [
+                  perf[0].name,
+                  perf[1].nbSessions,
+                  perf[1].nbBookings,
+                  `${perf[1].total} €`,
+                ]),
+              'payroll.csv',
+            );
+          }}
+        >
+          <AttachFileIcon />
+          {this.props.t('common.download')}
+        </Button>
+        {this.props.associatedCoachesWithDefaultPaymentRule.map((coach) => (
+          <CoachPerformanceComposed
+            associatedCoach={coach}
+            key={coach.id}
+            loading={this.props.loading}
+            setSessionPaymentRule={(...args) =>
+              this.props.setSessionPaymentRule(
+                coach.associated_coach_id,
+                ...args,
+              )
+            }
+            paymentRules={this.props.paymentRules}
+            setCoachPaymentRule={this.props.setCoachPaymentRule}
+          />
+        ))}
+      </div>
+    );
+  }
 }
 
 export default compose(
@@ -205,12 +228,14 @@ export default compose(
   connect(
     (state) => ({
       paymentRules: paymentRulesSelector(state),
+      coachLoading: state.coach.loading,
       associatedCoachesWithDefaultPaymentRule: associatedCoachSelector.withPaymentRule(
         state,
       ),
     }),
     {
       setSessionPaymentRule,
+      fetchAssociated,
       fetchPerformance: fetchAssociatedCoachPerformance,
       setCoachPaymentRule,
     },

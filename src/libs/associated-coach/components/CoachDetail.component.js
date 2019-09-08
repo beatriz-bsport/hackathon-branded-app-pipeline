@@ -10,7 +10,6 @@ import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import CoachSummaryBanner from './coach-detail/CoachSummaryBanner.component';
-import ActivityList from './coach-detail/ActivityList.component';
 import Description from './coach-detail/Description.component';
 
 type State = { paymentRulePopoverOpen: boolean };
@@ -45,8 +44,8 @@ export class CoachDetail extends Component<Props, State> {
   render() {
     const { coach, classes, paymentRules, setCoachPaymentRule, t } = this.props;
     return (
-      <Grid container direction="row" spacing={16}>
-        <Grid item xs={12}>
+      <Grid container direction="column" spacing={16} alignItems="center">
+        <Grid item xs={12} lg={8} className={classes.fullWidth}>
           <Paper className={classes.paperContainer}>
             <CoachSummaryBanner
               coach={coach}
@@ -65,17 +64,7 @@ export class CoachDetail extends Component<Props, State> {
             </Button>
           </Paper>
         </Grid>
-        <Grid item xs={12} md={6}>
-          <Typography
-            variant="title"
-            align="right"
-            className={classes.expansionTitle}
-          >
-            {t('common.activities')}
-          </Typography>
-          <ActivityList activities={coach.activities} />
-        </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} lg={8} className={classes.fullWidth}>
           <Typography
             variant="title"
             align="right"
@@ -93,8 +82,10 @@ export class CoachDetail extends Component<Props, State> {
   }
 }
 const styles = (theme) => ({
+  fullWidth: { width: '100%' },
   paperContainer: {
     padding: theme.spacing.unit * 2,
+    width: '100%',
   },
   expansionTitle: {
     marginBottom: theme.spacing.unit,

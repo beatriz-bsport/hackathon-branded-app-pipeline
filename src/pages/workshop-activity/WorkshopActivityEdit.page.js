@@ -18,27 +18,19 @@ import {
   fetchAll as fetchAllWorkshops,
 } from '../../libs/meta-activity/actions/workshop-activity.actions';
 import { getWorkshop } from '../../libs/meta-activity/selectors';
-import { associatedCoachSelector } from '../../libs/associated-coach/selectors';
 
 import withDrawer from '../../hocs/with-drawer.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import MetaActivityForm from '../../libs/meta-activity/components/MetaActivityForm.component';
 
-import { fetchEstablishments } from '../../libs/establishment/actions';
-import { getAllEstablishments } from '../../libs/establishment/selectors';
-import type { Establishment } from '../../libs/establishment/types';
-
 type Props = {
   id: ?number,
   loading: ?boolean,
   initial: ?MetaActivity,
 
-  associatedCoaches: *[],
-  establishments: Array<Establishment>,
   SCTs: *[],
 
-  fetchEstablishments: () => void,
   fetchAllWorkshops: () => void,
   removeImage: () => void,
   addImage: () => void,
@@ -58,21 +50,11 @@ const WorkshopActivityMap = {
 
 export class WorkshopActivityEditPage extends React.Component<Props> {
   componentDidMount() {
-    this.props.fetchEstablishments();
     this.props.fetchAllWorkshops();
   }
 
   render() {
-    const {
-      SCTs,
-      associatedCoaches,
-      establishments,
-      loading,
-      id,
-      addImage,
-      removeImage,
-      initial,
-    } = this.props;
+    const { SCTs, loading, id, addImage, removeImage, initial } = this.props;
     const initialData = initial
       ? {
           ...unmap(initial, WorkshopActivityMap),
@@ -91,9 +73,7 @@ export class WorkshopActivityEditPage extends React.Component<Props> {
         <Grid item xs={12} lg={9}>
           <Paper>
             <MetaActivityForm
-              coaches={associatedCoaches}
               variant="workshop"
-              establishments={establishments}
               SCTs={SCTs}
               onSubmit={this.props.onSubmit}
               onCancel={this.props.goToPreviousPage}
@@ -114,14 +94,11 @@ export default compose(
   connect(
     (state, { id }) => ({
       initial: getWorkshop(state, id),
-      associatedCoaches: associatedCoachSelector.getActive(state),
-      establishments: getAllEstablishments(state),
       SCTs: state.category.SCTs,
       loading: state.workshopActivity.loading,
     }),
     {
       upsertWorkshopActivity: upsert,
-      fetchEstablishments,
       goToPreviousPage: goBack,
       addImage: addImageToWorkshop,
       removeImage: removeImageFromWorkshop,

@@ -31,6 +31,7 @@ import { getEnabledMetaActivities } from '../../libs/meta-activity/selectors';
 import { associatedCoachSelector } from '../../libs/associated-coach/selectors';
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import { getAllEstablishments } from '../../libs/establishment/selectors';
+import { fetchAssociated } from '../../libs/associated-coach/actions';
 import type { Establishment } from '../../libs/establishment/types';
 
 import { offer as offerActions } from '../../actions';
@@ -57,7 +58,7 @@ const styles = (theme) => ({
 });
 
 type Props = {
-  t: (x: string) => string,
+  t: TFunction,
   classes: Object,
   date: Moment,
   selectedOffer: Offer,
@@ -69,6 +70,7 @@ type Props = {
   similarOfferLoading: boolean,
   width: string,
 
+  fetchAssociated: () => void,
   permission: Permission,
   metaActivities: Array<MetaActivity>,
   offers: Array<Offer>,
@@ -113,6 +115,7 @@ export class Planning extends PureComponent<Props, State> {
 
   componentDidMount() {
     this.props.fetchEstablishments();
+    this.props.fetchAssociated();
     if (this.props.selectedOffer) {
       this.props.loadOfferData(this.props.selectedOffer);
     }
@@ -508,6 +511,7 @@ export default compose(
       deleteOffer: offerActions.deleteOffer,
       fetchSimilarOffers: offerActions.fetchSimilarOffers,
       fetchEstablishments,
+      fetchAssociated,
     },
   ),
   withDrawer(({ t }: { t: TFunction }) => t('appbar.title.planning')),

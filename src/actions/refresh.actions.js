@@ -8,7 +8,6 @@ import { fetchDashboard as fetchDashboardStats } from './stats.actions';
 
 import { fetchAll as fetchShop } from '../libs/shop/actions/shopitem';
 import { fetchPaymentRules } from '../libs/payment-rules/actions';
-import { fetchAll as fetchWorkshopActivities } from '../libs/meta-activity/actions/workshop-activity.actions';
 import { fetchAll as fetchAllAlertings } from '../libs/alerting/actions';
 import { fetchAssociated as fetchAssociatedCoaches } from '../libs/associated-coach/actions';
 
@@ -40,7 +39,6 @@ export function forceRefresh() {
       dispatch(fetchDashboardStats()),
       dispatch(fetchShop()),
       dispatch(fetchPaymentRules()),
-      dispatch(fetchWorkshopActivities()),
     ]).then(() => dispatch(storeHasRefreshed()));
   };
 }

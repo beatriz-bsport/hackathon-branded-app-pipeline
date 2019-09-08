@@ -35,6 +35,7 @@ import PaymentPackForm from '../../libs/payment-packs/PaymentPackForm.component'
 import OfferForm from '../../libs/offer/OfferForm.component';
 
 import { fetchEstablishments } from '../../libs/establishment/actions';
+import { fetchAssociated } from '../../libs/associated-coach/actions';
 import { getAllEstablishments } from '../../libs/establishment/selectors';
 import type { Establishment } from '../../libs/establishment/types';
 
@@ -67,6 +68,7 @@ type Props = {
   offerIsProcessing: boolean,
   goToWorkshop: (id: number) => void,
   fetchEstablishments: () => void,
+  fetchAssociated: () => void,
 
   t: TFunction,
 };
@@ -95,6 +97,7 @@ const StepperForm = withNamespaces(['metaActivity'])(
 export class WorkshopActivityFormPage extends Component<Props> {
   componentWillMount() {
     this.props.fetchEstablishments();
+    this.props.fetchAssociated();
   }
 
   renderActivityStep = () => (
@@ -205,6 +208,7 @@ export default compose(
       createPass: paymentPackActions.createOrUpdate,
       fetchAllOffers: offerActions.fetchAllOffers,
       fetchEstablishments,
+      fetchAssociated,
     },
   ),
   //

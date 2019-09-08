@@ -25,8 +25,6 @@ const persistConfig = {
     'auth',
     'offer',
     'paymentPack',
-    'establishment',
-    'coach',
     'category',
     'refresh',
     'marketplace',

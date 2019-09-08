@@ -56,8 +56,8 @@ export class PaymentPackFormPage extends React.Component<Props> {
     );
 
     return (
-      <Grid container>
-        <Grid item xs={12} md={8}>
+      <Grid container direction="column" alignItems="center">
+        <Grid item xs={12} md={8} style={{ width: '100%' }}>
           <Paper>
             <PaymentPackForm
               onSubmit={onSubmit}

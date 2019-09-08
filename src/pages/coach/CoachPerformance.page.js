@@ -29,6 +29,7 @@ import {
 import {
   setSessionPaymentRule,
   fetchAssociatedCoachPerformance,
+  fetchAssociated,
 } from '../../libs/associated-coach/actions';
 import withDrawer from '../../hocs/with-drawer.hoc';
 
@@ -43,6 +44,7 @@ import type {
 type Props = {
   coach: Coach,
   loading: boolean,
+  fetchAssociated: () => void,
   performance: Array<CoachPerformanceType>,
   t: TFunction,
   classes: Object,
@@ -52,27 +54,42 @@ type Props = {
   associatedCoachId: number,
 };
 
-export function CoachPerformance(props: Props) {
-  const { classes, loading, performance, onSubmit, paymentRules } = props;
+export class CoachPerformance extends React.Component<Props> {
+  componentDidMount() {
+    this.props.fetchAssociated();
+  }
 
-  return (
-    <div className={classes.container}>
-      <AppBar position="static" color="default" className={classes.bar}>
-        <CoachPerformanceForm onSubmit={onSubmit} loading={loading} />
-      </AppBar>
-      <CoachPerformanceSummary {...performance} />
-      <Paper>
-        {loading ? <LinearProgress /> : null}
-        <CoachPerformanceSessionTable
-          sessions={performance.sessions}
-          paymentRules={paymentRules}
-          setSessionPaymentRule={(...args) =>
-            props.setSessionPaymentRule(props.associatedCoachId, ...args)
-          }
-        />
-      </Paper>
-    </div>
-  );
+  render() {
+    const {
+      classes,
+      loading,
+      performance,
+      onSubmit,
+      paymentRules,
+    } = this.props;
+
+    return (
+      <div className={classes.container}>
+        <AppBar position="static" color="default" className={classes.bar}>
+          <CoachPerformanceForm onSubmit={onSubmit} loading={loading} />
+        </AppBar>
+        <CoachPerformanceSummary {...performance} />
+        <Paper>
+          {loading ? <LinearProgress /> : null}
+          <CoachPerformanceSessionTable
+            sessions={performance.sessions}
+            paymentRules={paymentRules}
+            setSessionPaymentRule={(...args) =>
+              this.props.setSessionPaymentRule(
+                this.props.associatedCoachId,
+                ...args,
+              )
+            }
+          />
+        </Paper>
+      </div>
+    );
+  }
 }
 
 const styles = (theme) => ({
@@ -114,6 +131,7 @@ export default compose(
       };
     },
     {
+      fetchAssociated,
       setSessionPaymentRule,
       fetchPerformance: fetchAssociatedCoachPerformance,
     },

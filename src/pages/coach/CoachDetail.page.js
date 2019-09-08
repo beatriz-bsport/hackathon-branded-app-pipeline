@@ -2,12 +2,7 @@
 
 import React from 'react';
 
-import Button from '@material-ui/core/Button';
-import withStyles from '@material-ui/core/styles/withStyles';
-
 import { connect } from 'react-redux';
-import { withNamespaces } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
 import { push as routerPush } from 'react-router-redux';
 import { compose, withState, withProps } from 'recompose';
@@ -23,6 +18,7 @@ import {
   startUpdate,
   setCoachPaymentRule,
   deleteCoach,
+  fetchAssociated,
 } from '../../libs/associated-coach/actions';
 import { canDeleteCoach as canDeleteCoachAPI } from '../../libs/associated-coach/api';
 import CoachDetail from '../../libs/associated-coach/components/CoachDetail.component';
@@ -30,8 +26,6 @@ import CoachDeleteModal from '../../libs/associated-coach/components/CoachDelete
 import type { CoachDetailed } from '../../api/types';
 
 type Props = {
-  t: TFunction,
-  classes: Object,
   coach: CoachDetailed,
   paymentRules: PaymentRule[],
   setCoachPaymentRule: (any) => void,
@@ -43,6 +37,7 @@ type Props = {
   deleteCoach: (id: number) => void,
   loading: boolean,
 
+  fetchAssociated: () => void,
   setDeleteModalOpen: (boolean) => void,
   deleteOpen: boolean,
   deleteCoach: (
@@ -52,55 +47,47 @@ type Props = {
   goToList: () => void,
 };
 
-export const Coach = (props: Props) => {
-  const { t, classes, loading } = props;
-  if (loading) {
-    return <LinearProgress />;
+export class Coach extends React.Component<Props> {
+  componentDidMount() {
+    this.props.fetchAssociated();
   }
-  const { paymentRules, coach } = props;
-  return (
-    <div style={{ height: '100%' }}>
-      <CoachDetail
-        coach={coach}
-        paymentRules={paymentRules}
-        setCoachPaymentRule={props.setCoachPaymentRule}
-        goToCoachPerformance={props.goToCoachPerformance}
-        startUpdateCoach={props.startUpdateCoach}
-      />
-      <Button
-        onClick={props.goToList}
-        size="large"
-        color="secondary"
-        variant="outlined"
-        className={classes.backButton}
-      >
-        {t('navigation.goBack')}
-      </Button>
-      <BottomActionButtons
-        onEdit={() => props.startUpdateCoach(coach)}
-        onDelete={() => props.setDeleteModalOpen(true)}
-      />
-      <CoachDeleteModal
-        coachToDeleteId={props.deleteOpen ? props.coach.id : null}
-        onClose={() => props.setDeleteModalOpen(false)}
-        checkCanDeleteCoach={canDeleteCoachAPI}
-        deleteCoach={() => {
-          props.deleteCoach(coach.id, { onSuccess: props.goToList });
-        }}
-      />
-    </div>
-  );
-};
 
-const styles = (theme) => ({
-  backButton: {
-    marginBottom: theme.spacing.unit,
-  },
-});
+  render() {
+    if (this.props.loading || !this.props.coach) {
+      return <LinearProgress />;
+    }
+    const { paymentRules, coach } = this.props;
+    return (
+      <div style={{ height: '100%' }}>
+        {this.props.loading ? <LinearProgress /> : null}
+        <CoachDetail
+          coach={coach}
+          paymentRules={paymentRules}
+          setCoachPaymentRule={this.props.setCoachPaymentRule}
+          goToCoachPerformance={this.props.goToCoachPerformance}
+          startUpdateCoach={this.props.startUpdateCoach}
+        />
+        <BottomActionButtons
+          onEdit={() => this.props.startUpdateCoach(coach)}
+          onDelete={() => this.props.setDeleteModalOpen(true)}
+        />
+        <CoachDeleteModal
+          coachToDeleteId={this.props.deleteOpen ? this.props.coach.id : null}
+          onClose={() => this.props.setDeleteModalOpen(false)}
+          checkCanDeleteCoach={canDeleteCoachAPI}
+          deleteCoach={() => {
+            this.props.deleteCoach(coach.id, {
+              onSuccess: this.props.goToList,
+            });
+          }}
+        />
+      </div>
+    );
+  }
+}
 
 export default compose(
   withRouter,
-  withStyles(styles),
   withState('deleteOpen', 'setDeleteModalOpen', false),
   connect(
     (state) => ({
@@ -113,6 +100,7 @@ export default compose(
     }),
     {
       deleteCoach,
+      fetchAssociated,
       startUpdateCoach: startUpdate,
       setCoachPaymentRule,
       goToCreateCoach: () => routerPush('/coach/add'),
@@ -121,7 +109,6 @@ export default compose(
       goToList: () => routerPush('/coach'),
     },
   ),
-  withNamespaces(),
   withProps(({ associatedCoaches, match }) => ({
     coach: associatedCoaches.find(
       (coach) => coach.id === parseInt(match.params.coachId, 10),

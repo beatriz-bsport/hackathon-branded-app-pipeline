@@ -7,13 +7,16 @@ import { goBack, push } from 'connected-react-router';
 
 import { connect } from 'react-redux';
 import Dialog from '@material-ui/core/Dialog';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import {
+  fetchAssociated,
   createOrUpdateCoach,
   linkByEmail as linkCoachViaEmail,
 } from '../../libs/associated-coach/actions';
@@ -29,16 +32,19 @@ type Props = {
   onSubmit: (*) => void,
   onCancel: (*) => void,
 
+  coachId: ?number,
   initialEmail: ?string,
   setInitialEmail: (email: string) => void,
 
   push: (path: string) => void,
+  fetchAssociated: () => void,
   linkCoachViaEmail: (
     email: string,
     options: { onSuccess: () => void, onError: () => void },
   ) => void,
   setIsEmailChecking: (boolean) => void,
   isEmailChecking: boolean,
+  classes: Object,
 };
 
 const CoachMap = {
@@ -54,42 +60,59 @@ const CoachMap = {
   instagram_url: 'instagram_url',
 };
 
-export function CoachFormPage(props: Props) {
-  const { initial, isEmailChecking, onSubmit, onCancel } = props;
-  const initialData = initial
-    ? {
-        ...unmap(initial, CoachMap),
-      }
-    : null;
+export class CoachFormPage extends React.Component<Props> {
+  componentDidMount() {
+    this.props.fetchAssociated();
+  }
 
-  return (
-    <div>
-      <Dialog open={!initial && isEmailChecking}>
-        <CoachEmailCheckDialog
-          onCancel={props.onCancel}
-          submit={(email) => {
-            props.linkCoachViaEmail(email, {
-              onSuccess: () => {
-                props.push('/coach');
-                props.setIsEmailChecking(false);
-              },
-              onError: () => {
-                props.setInitialEmail(email);
-                props.setIsEmailChecking(false);
-              },
-            });
-          }}
+  render() {
+    const { initial, isEmailChecking, onSubmit, onCancel } = this.props;
+    if (this.props.coachId && !initial) {
+      return <LinearProgress />;
+    }
+    const initialData = initial
+      ? {
+          ...unmap(initial, CoachMap),
+        }
+      : null;
+
+    return (
+      <div className={this.props.classes.container}>
+        <Dialog open={!initial && isEmailChecking}>
+          <CoachEmailCheckDialog
+            onCancel={this.props.onCancel}
+            submit={(email) => {
+              this.props.linkCoachViaEmail(email, {
+                onSuccess: () => {
+                  this.props.push('/coach');
+                  this.props.setIsEmailChecking(false);
+                },
+                onError: () => {
+                  this.props.setInitialEmail(email);
+                  this.props.setIsEmailChecking(false);
+                },
+              });
+            }}
+          />
+        </Dialog>
+        <CoachForm
+          onSubmit={onSubmit}
+          onCancel={onCancel}
+          initial={initialData}
+          defaultEmail={this.props.initialEmail}
         />
-      </Dialog>
-      <CoachForm
-        onSubmit={onSubmit}
-        onCancel={onCancel}
-        initial={initialData}
-        defaultEmail={props.initialEmail}
-      />
-    </div>
-  );
+      </div>
+    );
+  }
 }
+
+const styles = () => ({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+});
 
 export default compose(
   withNamespaces(),
@@ -106,6 +129,7 @@ export default compose(
           : null,
     }),
     {
+      fetchAssociated,
       onCancel: goBack,
       upsertCoach: createOrUpdateCoach,
       linkCoachViaEmail,
@@ -127,5 +151,6 @@ export default compose(
       upsertCoach(formData, options);
     },
   })),
+  withStyles(styles),
   withDrawer(({ t }: { t: TFunction }) => t('appbar.title.coachFormPage')),
 )(CoachFormPage);

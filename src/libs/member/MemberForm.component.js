@@ -188,23 +188,23 @@ export function MemberForm(props: Props) {
                   <DateField
                     format="DD/MM/YYYY"
                     keyboard
-                    mask={(value) =>
-                      // handle clearing outside if value can be changed outside of the component
-                      value
-                        ? [
-                            /\d/,
-                            /\d/,
-                            '/',
-                            /\d/,
-                            /\d/,
-                            '/',
-                            /\d/,
-                            /\d/,
-                            /\d/,
-                            /\d/,
-                          ]
-                        : []
-                    }
+                    mask={(value) => {
+                      if (value) {
+                        return [
+                          /\d/,
+                          /\d/,
+                          '/',
+                          /\d/,
+                          /\d/,
+                          '/',
+                          /\d/,
+                          /\d/,
+                          /\d/,
+                          /\d/,
+                        ];
+                      }
+                      return [];
+                    }}
                     openToYearSelection
                     clearable
                     disabled={disabled}
@@ -219,23 +219,23 @@ export function MemberForm(props: Props) {
                 </Grid>
                 <Grid item>
                   <DateField
-                    mask={(value) =>
-                      // handle clearing outside if value can be changed outside of the component
-                      value
-                        ? [
-                            /\d/,
-                            /\d/,
-                            '/',
-                            /\d/,
-                            /\d/,
-                            '/',
-                            /\d/,
-                            /\d/,
-                            /\d/,
-                            /\d/,
-                          ]
-                        : []
-                    }
+                    mask={(value) => {
+                      if (value) {
+                        return [
+                          /\d/,
+                          /\d/,
+                          '/',
+                          /\d/,
+                          /\d/,
+                          '/',
+                          /\d/,
+                          /\d/,
+                          /\d/,
+                          /\d/,
+                        ];
+                      }
+                      return [];
+                    }}
                     keyboard
                     format="YYYY-MM-DD"
                     name="date_joined"

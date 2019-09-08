@@ -26,7 +26,7 @@ type Props = {
   noDivider: ?boolean,
 
   consumerPack: ConsumerPaymentPack,
-  paymentPack: PaymentPack,
+  paymentPack: ?PaymentPack,
   button: ?Node,
 
   onClick: ?() => void,
@@ -48,6 +48,9 @@ export class ConsumerPackRowItem extends Component<Props> {
       loading,
       t,
     } = this.props;
+    if (!paymentPack) {
+      return <CircularProgress />;
+    }
     const { credits, unlimited } = paymentPack;
     const { available_credits, reverted } = consumerPack;
 

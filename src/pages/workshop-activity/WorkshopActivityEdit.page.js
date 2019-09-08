@@ -15,6 +15,7 @@ import {
   upsert,
   addImageToWorkshop,
   removeImageFromWorkshop,
+  fetchAll as fetchAllWorkshops,
 } from '../../libs/meta-activity/actions/workshop-activity.actions';
 import { getWorkshop } from '../../libs/meta-activity/selectors';
 import { associatedCoachSelector } from '../../libs/associated-coach/selectors';
@@ -38,6 +39,7 @@ type Props = {
   SCTs: *[],
 
   fetchEstablishments: () => void,
+  fetchAllWorkshops: () => void,
   removeImage: () => void,
   addImage: () => void,
   onSubmit: (*) => void,
@@ -57,6 +59,7 @@ const WorkshopActivityMap = {
 export class WorkshopActivityEditPage extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchEstablishments();
+    this.props.fetchAllWorkshops();
   }
 
   render() {
@@ -76,7 +79,7 @@ export class WorkshopActivityEditPage extends React.Component<Props> {
           category: initial.category_id,
         }
       : null;
-    if (loading) {
+    if (loading || !this.props.initial) {
       return <LinearProgress />;
     }
     const imageUploader = {
@@ -123,6 +126,7 @@ export default compose(
       addImage: addImageToWorkshop,
       removeImage: removeImageFromWorkshop,
       goToWorkshop: (id: number) => routerPush(`/workshop-activity/${id}`),
+      fetchAllWorkshops,
     },
   ),
   withProps(({ upsertWorkshopActivity, initial, id, goToWorkshop }) => ({

@@ -18,8 +18,10 @@ import type { MetaActivity } from '../../api/types';
 import { getEnabledWorkshops } from '../../libs/meta-activity/selectors';
 import MetaActivityList from '../../libs/meta-activity/components/MetaActivityList.component';
 import WorkshopDeleteDialog from '../../libs/meta-activity/components/WorkshopDeleteDialog.component';
-import { fetchAllActivities as fetchAllWorkshops } from '../../libs/meta-activity/actions/meta-activity.actions.js';
-import { deleteWorkshop } from '../../libs/meta-activity/actions/workshop-activity.actions';
+import {
+  deleteWorkshop,
+  fetchAll as fetchAllWorkshops,
+} from '../../libs/meta-activity/actions/workshop-activity.actions';
 import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '../../libs/meta-activity/api/common';
 
 type Props = {

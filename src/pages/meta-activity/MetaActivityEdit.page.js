@@ -16,6 +16,7 @@ import {
   upsert,
   addImageToMetaActivity,
   removeImageFromMetaActivity,
+  fetchAllActivities,
 } from '../../libs/meta-activity/actions/meta-activity.actions';
 import {
   getMetaActivity,
@@ -58,6 +59,7 @@ const MetaActivityMap = {
 
 export class MetaActivityFormPage extends Component<Props> {
   componentDidMount() {
+    this.props.fetchAllActivities();
     this.props.fetchEstablishments();
   }
 
@@ -119,6 +121,7 @@ export default compose(
     }),
     {
       fetchEstablishments,
+      fetchAllActivities,
       upsertMetaActivity: upsert,
       goToPreviousPage: goBack,
       addImage: addImageToMetaActivity,

@@ -23,6 +23,7 @@ import withDrawer from '../../hocs/with-drawer.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import { fetchAllActivities } from '../../libs/meta-activity/actions/meta-activity.actions';
+import { fetchAll as fetchAllWorkshops } from '../../libs/meta-activity/actions/workshop-activity.actions';
 import {
   getMetaActivities,
   getWorkshops,
@@ -44,6 +45,7 @@ type Props = {
   establishments: Array<Establishment>,
   fetchEstablishments: () => void,
   fetchAllActivities: () => void,
+  fetchAllWorkshops: () => void,
   consumerPacks: {
     items: Array<ConsumerPaymentPack>,
     count: number,
@@ -81,6 +83,7 @@ export class PaymentPackDetail extends Component<Props, State> {
     this.props.resetConsumerPacks();
     this.props.fetchEstablishments();
     this.props.fetchAllActivities();
+    this.props.fetchAllWorkshops();
   }
 
   requestEdit = (p: PaymentPack) => {
@@ -227,6 +230,7 @@ export default compose(
     mapStateToProps,
     {
       fetchAllActivities,
+      fetchAllWorkshops,
       incrementCredit: (consumerPackId) =>
         consumerPackActions.updateCredit(consumerPackId, 1),
       decrementCredit: (consumerPackId) =>

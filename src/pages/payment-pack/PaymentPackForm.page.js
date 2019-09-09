@@ -19,6 +19,8 @@ import {
   getEnabledMetaActivities,
   getEnabledWorkshops,
 } from '../../libs/meta-activity/selectors';
+import { fetchAllActivities } from '../../libs/meta-activity/actions/meta-activity.actions';
+import { fetchAll as fetchWorkhops } from '../../libs/meta-activity/actions/workshop-activity.actions';
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import { getAllEstablishments } from '../../libs/establishment/selectors';
 import type { Establishment } from '../../libs/establishment/types';
@@ -32,6 +34,8 @@ type Props = {
   metaActivities: Array<MetaActivity>,
   establishments: Array<Establishment>,
   fetchEstablishments: () => void,
+  fetchAllActivities: () => void,
+  fetchWorkhops: () => void,
   onSubmit: () => void,
   initial: ?PaymentPack,
 };
@@ -39,6 +43,8 @@ type Props = {
 export class PaymentPackFormPage extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchEstablishments();
+    this.props.fetchAllActivities();
+    this.props.fetchWorkhops();
   }
 
   render() {
@@ -94,6 +100,8 @@ export default compose(
     {
       fetchPaymentPacks: paymentPackActions.fetchAll,
       fetchEstablishments,
+      fetchAllActivities,
+      fetchWorkhops,
       createOrUpdate: paymentPackActions.createOrUpdate,
       previousPage: goBack,
     },

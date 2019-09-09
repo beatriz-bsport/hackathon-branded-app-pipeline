@@ -117,7 +117,7 @@ export class BasketDeliveryForm extends React.Component<Props, State> {
           ) : (
             <React.Fragment>
               <Button onClick={this.props.onCancel}>
-                {this.props.t('forms.delivery.action.cancel')}
+                {this.props.t('forms.delivery.actions.cancel')}
               </Button>
               <Button
                 onClick={this.onSubmit}

@@ -28,11 +28,25 @@ const styles = (theme) => ({
   paperContainer: {
     padding: theme.spacing.unit * 3,
   },
+  buttonContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    marginTop: theme.spacing.unit,
+  },
+  buttonLeft: {
+    marginRight: theme.spacing.unit * 2,
+  },
   headlineElt: {
     marginLeft: theme.spacing.unit,
   },
   generationSummary: {
     marginTop: theme.spacing.unit * 4,
+  },
+  fieldGroup: {
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit,
   },
   leftIcon: {
     marginRight: theme.spacing.unit,
@@ -374,38 +388,29 @@ export class OfferForm extends Component<Props, State> {
   renderFooter = () => {
     const { t, processing, onCancel, classes } = this.props;
     return (
-      <Grid
-        container
-        direction="row"
-        spacing={8}
-        justify="flex-end"
-        alignItems="center"
-      >
-        <Grid item>
-          <Button
-            disabled={processing}
-            variant="contained"
+      <div className={classes.buttonContainer}>
+        <Button
+          disabled={processing}
+          variant="contained"
+          color="secondary"
+          onClick={onCancel}
+          className={classes.buttonLeft}
+        >
+          {this.props.discardButtonText || t('form.discard')}
+        </Button>
+        {processing ? (
+          <CircularProgress
+            size={24}
             color="secondary"
-            onClick={onCancel}
-          >
-            {this.props.discardButtonText || t('form.discard')}
+            className={classes.leftIcon}
+          />
+        ) : (
+          <Button variant="contained" color="primary" type="submit">
+            <AddIcon className={classes.leftIcon} />
+            {t('form.generateOffers')}
           </Button>
-        </Grid>
-        <Grid item>
-          {processing ? (
-            <CircularProgress
-              size={24}
-              color="secondary"
-              className={classes.leftIcon}
-            />
-          ) : (
-            <Button variant="contained" color="primary" type="submit">
-              <AddIcon className={classes.leftIcon} />
-              {t('form.generateOffers')}
-            </Button>
-          )}
-        </Grid>
-      </Grid>
+        )}
+      </div>
     );
   };
 
@@ -446,13 +451,13 @@ export class OfferForm extends Component<Props, State> {
     return (
       <div className={classes.paperContainer}>
         <form onSubmit={this.generateOffers}>
-          <Grid container direction="column" spacing={40}>
-            <Grid item>{this.renderTitle()}</Grid>
-            <Grid item>{this.renderCaracteristics()}</Grid>
-            <Grid item>{this.renderTimeSettings()}</Grid>
-            <Grid item>{this.renderSpecificities()}</Grid>
-            <Grid item>{this.renderFooter()}</Grid>
-          </Grid>
+          <div className={classes.fieldGroup}>{this.renderTitle()}</div>
+          <div className={classes.fieldGroup}>
+            {this.renderCaracteristics()}
+          </div>
+          <div className={classes.fieldGroup}>{this.renderTimeSettings()}</div>
+          <div className={classes.fieldGroup}>{this.renderSpecificities()}</div>
+          <div className={classes.fieldGroup}>{this.renderFooter()}</div>
         </form>
       </div>
     );

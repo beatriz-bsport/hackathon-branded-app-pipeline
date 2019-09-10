@@ -29,6 +29,7 @@ import Calendar from '../../components/offer/Calendar.component';
 import { getPermissions } from '../../libs/role/selectors';
 import { getEnabledMetaActivities } from '../../libs/meta-activity/selectors';
 import { associatedCoachSelector } from '../../libs/associated-coach/selectors';
+import { fetchAllActivities } from '../../libs/meta-activity/actions/meta-activity.actions';
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import { getAllEstablishments } from '../../libs/establishment/selectors';
 import { fetchAssociated } from '../../libs/associated-coach/actions';
@@ -49,6 +50,16 @@ const styles = (theme) => ({
   calendarContainer: {
     paddingBottom: theme.spacing.unit * 2,
   },
+  panel: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  button: {
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit,
+  },
+
   emptyOffer: {
     margin: theme.spacing.unit * 3,
   },
@@ -68,9 +79,11 @@ type Props = {
   coachesLoading: boolean,
   establishmentsLoading: boolean,
   similarOfferLoading: boolean,
+  activitiesLoading: boolean,
   width: string,
 
   fetchAssociated: () => void,
+  fetchAllActivities: () => void,
   permission: Permission,
   metaActivities: Array<MetaActivity>,
   offers: Array<Offer>,
@@ -116,6 +129,7 @@ export class Planning extends PureComponent<Props, State> {
   componentDidMount() {
     this.props.fetchEstablishments();
     this.props.fetchAssociated();
+    this.props.fetchAllActivities();
     if (this.props.selectedOffer) {
       this.props.loadOfferData(this.props.selectedOffer);
     }
@@ -273,6 +287,7 @@ export class Planning extends PureComponent<Props, State> {
         <DialogContent>
           <OfferFormWithActivity
             metaActivities={metaActivities}
+            activitiesLoading={this.props.activitiesLoading}
             coaches={coaches}
             establishments={establishments}
             onSubmit={this.createOffers}
@@ -340,16 +355,18 @@ export class Planning extends PureComponent<Props, State> {
   renderAddOffersButton = () => {
     const { classes, t } = this.props;
     return (
-      <Fab
-        variant="extended"
-        aria-label="Add"
-        className={classes.button}
-        color="primary"
-        onClick={this.openCreateOfferModal}
-      >
-        <AddIcon className={classes.leftIcon} />
-        {t('activity.addOffers')}
-      </Fab>
+      <div>
+        <Fab
+          variant="extended"
+          aria-label="Add"
+          className={classes.button}
+          color="primary"
+          onClick={this.openCreateOfferModal}
+        >
+          <AddIcon className={classes.leftIcon} />
+          {t('activity.addOffers')}
+        </Fab>
+      </div>
     );
   };
 
@@ -405,46 +422,27 @@ export class Planning extends PureComponent<Props, State> {
       <Grid container spacing={24}>
         {isWidthUp('lg', width) || !selectedOffer ? (
           <Grid item xs={12} lg={6}>
-            <Grid
-              container
-              direction="column"
-              spacing={32}
-              alignItems="stretch"
-            >
-              <Grid item>
-                <Paper>
-                  <Grid container direction="column" alignItems="stretch">
-                    <Grid item>
-                      <div className={classes.calendarContainer}>
-                        <Calendar
-                          events={events_}
-                          onDateClick={this.props.loadDayData}
-                          date={this.props.date}
-                        />
-                      </div>
-                    </Grid>
-                    <Grid item>
-                      <TimeTable
-                        date={date}
-                        onOfferSelected={this.props.loadOfferData}
-                        offers={offersToday}
-                        loading={
-                          timetableLoading && (offersToday || []).length === 0
-                        }
-                        selected={selectedOffer ? selectedOffer.id : null}
-                      />
-                    </Grid>
-                  </Grid>
-                </Paper>
-              </Grid>
-              {this.props.permission.offer.create ? (
-                <Grid item>
-                  <Grid container item alignItems="center" justify="center">
-                    {this.renderAddOffersButton()}
-                  </Grid>
-                </Grid>
-              ) : null}
-            </Grid>
+            <div className={classes.panel}>
+              <Paper style={{ width: '100%' }}>
+                <div className={classes.calendarContainer}>
+                  <Calendar
+                    events={events_}
+                    onDateClick={this.props.loadDayData}
+                    date={this.props.date}
+                  />
+                </div>
+                <TimeTable
+                  date={date}
+                  onOfferSelected={this.props.loadOfferData}
+                  offers={offersToday}
+                  loading={timetableLoading && (offersToday || []).length === 0}
+                  selected={selectedOffer ? selectedOffer.id : null}
+                />
+              </Paper>
+              {this.props.permission.offer.create
+                ? this.renderAddOffersButton()
+                : null}
+            </div>
           </Grid>
         ) : (
           <Typography />
@@ -499,6 +497,7 @@ export default compose(
       establishmentsLoading: state.establishment.loading,
 
       metaActivities: getEnabledMetaActivities(state),
+      activitiesLoading: state.metaActivity.loading,
 
       similarOfferLoading: state.offer.similarOffers.loading,
       similarOffers: state.offer.similarOffers.items,
@@ -512,6 +511,7 @@ export default compose(
       fetchSimilarOffers: offerActions.fetchSimilarOffers,
       fetchEstablishments,
       fetchAssociated,
+      fetchAllActivities,
     },
   ),
   withDrawer(({ t }: { t: TFunction }) => t('appbar.title.planning')),

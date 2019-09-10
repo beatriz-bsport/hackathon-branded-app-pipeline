@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import List from '@material-ui/core/List';
 import { withNamespaces } from 'react-i18next';
 
@@ -20,6 +21,7 @@ type Props = {
   coaches: Array<Coach>,
   onCancel: () => void,
   processing: boolean,
+  activitiesLoading: boolean,
   onSubmit: (data: [*]) => void,
   t: TFunction,
 };
@@ -55,28 +57,23 @@ export class OfferFormWithActivity extends Component<Props, State> {
     const { step, selectedMetaActivity } = this.state;
     if (step === STEP_META_ACTIVITY_CHOSER || selectedMetaActivity === null) {
       return (
-        <Grid container direction="column" spacing={24}>
-          <Grid item>
-            <Typography variant="h3">{t('common.activity')}</Typography>
+        <div>
+          <Typography variant="h3">{t('common.activity')}</Typography>
+          {this.props.activitiesLoading ? <LinearProgress /> : null}
+          <List>
+            {metaActivities.map((ma) => (
+              <MetaActivityMinimalSummary
+                metaActivity={ma}
+                onClick={() => this.onSelectMetaActivity(ma)}
+              />
+            ))}
+          </List>
+          <Grid container item justify="center">
+            <Button color="secondary" onClick={onCancel}>
+              {t('common.cancel')}
+            </Button>
           </Grid>
-          <Grid item>
-            <List>
-              {metaActivities.map((ma) => (
-                <MetaActivityMinimalSummary
-                  metaActivity={ma}
-                  onClick={() => this.onSelectMetaActivity(ma)}
-                />
-              ))}
-            </List>
-          </Grid>
-          <Grid item>
-            <Grid container item justify="center">
-              <Button color="secondary" onClick={onCancel}>
-                {t('common.cancel')}
-              </Button>
-            </Grid>
-          </Grid>
-        </Grid>
+        </div>
       );
     }
     return (

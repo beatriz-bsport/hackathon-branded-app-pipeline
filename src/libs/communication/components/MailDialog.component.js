@@ -37,28 +37,35 @@ type Props = {
 };
 
 export class SendMailToMembers extends Component<Props> {
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     this.state = {
       displayReceiverList: false,
-      checkedReceivers: this.props.receiverInfo
-        .filter((receiver) => receiver.email !== null)
-        .map((receiver) => receiver.id),
+      checkedReceivers: [
+        ...this.props.receiverInfo
+          .filter((receiver) => receiver.email !== null)
+          .map((receiver) => receiver.id),
+      ],
       mailTitle: this.props.mailDefaultTitle,
       mailContent: '',
     };
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Props) {
     if (prevProps.receiverInfo !== this.props.receiverInfo) {
       this.setState({
-        checkedReceivers: this.props.receiverInfo
-          .filter((receiver) => !!receiver.email)
-          .map((receiver) => receiver.id),
+        checkedReceivers: [
+          ...this.props.receiverInfo
+            .filter((receiver) => !!receiver.email)
+            .map((receiver) => receiver.id),
+        ],
       });
     }
     if (prevProps.mailDefaultTitle !== this.props.mailDefaultTitle) {
-      this.setState({ mailTitle: this.props.mailDefaultTitle });
+      this.setState({
+        mailContent: '',
+        mailTitle: this.props.mailDefaultTitle,
+      });
     }
   }
 
@@ -73,7 +80,7 @@ export class SendMailToMembers extends Component<Props> {
     </Grid>
   );
 
-  handleToggle = (value) => () => {
+  handleToggle = (value: string) => () => {
     this.setState((prevState) => {
       const currentIndex = prevState.checkedReceivers.indexOf(value);
       const newChecked = prevState.checkedReceivers;

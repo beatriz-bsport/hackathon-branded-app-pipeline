@@ -25,9 +25,11 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import PersonIcon from '@material-ui/icons/Person';
 
+import type { MemberMailData } from '../types';
+
 type Props = {
   onCancel: () => void,
-  sendMailAction: () => void,
+  sendMailAction: (data: MemberMailData) => void,
   classes: Object,
   t: TFunction,
   fullScreen: boolean,

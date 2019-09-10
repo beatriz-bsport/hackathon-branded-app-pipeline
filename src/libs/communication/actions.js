@@ -4,6 +4,7 @@ import { createAction } from 'redux-actions';
 import { sendMailToMembers } from './api';
 
 import type { Dispatch, ThunkAction } from '../../state/types';
+import type { MemberMailData } from './types';
 
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
@@ -12,7 +13,7 @@ export const membersMailAction = {
   isloading: createAction('MEMBERS/SEND-MAIL/IS_LOADING'),
 };
 
-export function mailMembers(data: any): ThunkAction {
+export function mailMembers(data: MemberMailData): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(membersMailAction.isloading(true));
     dispatch(membersMailAction.error(null));

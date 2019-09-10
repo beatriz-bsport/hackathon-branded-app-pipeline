@@ -1,5 +1,6 @@
 // @flow
 
+import { createSelector } from 'reselect';
 import createCachedSelector from 're-reselect';
 
 import Immutable from 'seamless-immutable';
@@ -11,6 +12,19 @@ const EMPTY_PERFORMANCE: CoachPerformanceContainer = Immutable({
   result: [],
   error: null,
 });
+
+const getAllCoaches = (state: State): Array<Coach> =>
+  state.coach.companyAssociated;
+
+export const getActiveCoaches = createSelector(
+  getAllCoaches,
+  (coaches) => coaches.filter((c) => !c.disabled),
+);
+
+export const getCoachWithPaymentRule = createSelector(
+  getActiveCoaches,
+  (coaches) => coaches.filter((coach) => !!coach.default_payment_rule_id),
+);
 
 export const associatedCoachSelector = {
   get: (state: State, coachId: number) =>

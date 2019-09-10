@@ -28,7 +28,7 @@ import TimeTable from '../../components/offer/TimeTable.component';
 import Calendar from '../../components/offer/Calendar.component';
 import { getPermissions } from '../../libs/role/selectors';
 import { getEnabledMetaActivities } from '../../libs/meta-activity/selectors';
-import { associatedCoachSelector } from '../../libs/associated-coach/selectors';
+import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import { fetchAllActivities } from '../../libs/meta-activity/actions/meta-activity.actions';
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import { getAllEstablishments } from '../../libs/establishment/selectors';
@@ -490,7 +490,7 @@ export default compose(
       events: state.offer.calendar,
       timetableLoading: state.offer.byDay.loading,
 
-      coaches: associatedCoachSelector.getActive(state),
+      coaches: getActiveCoaches(state),
       coachesLoading: state.coach.loading,
 
       establishments: getAllEstablishments(state),

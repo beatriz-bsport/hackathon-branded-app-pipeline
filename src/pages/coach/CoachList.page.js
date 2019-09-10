@@ -25,7 +25,7 @@ import {
 } from '../../libs/associated-coach/actions';
 import type { Coach } from '../../api/types';
 import { paymentRulesSelector } from '../../libs/payment-rules/selectors';
-import { associatedCoachSelector } from '../../libs/associated-coach/selectors';
+import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import withBottomButtons from '../../hocs/inject-bottom-buttons';
 import withDrawer from '../../hocs/with-drawer.hoc';
 
@@ -125,7 +125,7 @@ export default compose(
   connect(
     (state) => ({
       loading: state.coach.loading,
-      associatedCoaches: associatedCoachSelector.getActive(state),
+      associatedCoaches: getActiveCoaches(state),
       paymentRules: paymentRulesSelector(state),
     }),
     {

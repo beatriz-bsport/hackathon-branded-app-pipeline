@@ -24,7 +24,7 @@ import {
   getEnabledMetaActivities,
   getEnabledWorkshops,
 } from '../../libs/meta-activity/selectors';
-import { associatedCoachSelector } from '../../libs/associated-coach/selectors';
+import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import { createOffers as createOffersAPI } from '../../libs/meta-activity/api/meta-activity';
 
 import withDrawer from '../../hocs/with-drawer.hoc';
@@ -186,7 +186,7 @@ export default compose(
   withState('step', 'setStep', STEP_ACTIVITY),
   connect(
     (state) => ({
-      associatedCoaches: associatedCoachSelector.getActive(state),
+      associatedCoaches: getActiveCoaches(state),
       establishments: getAllEstablishments(state),
       SCTs: state.category.SCTs,
       loading: state.metaActivity.loading,

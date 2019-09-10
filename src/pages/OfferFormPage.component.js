@@ -15,7 +15,7 @@ import type { Coach, MetaActivity, Establishment } from '../api/types';
 import withDrawer from '../hocs/with-drawer.hoc';
 
 import OfferForm from '../libs/offer/OfferForm.component';
-import { associatedCoachSelector } from '../libs/associated-coach/selectors';
+import { getActiveCoaches } from '../libs/associated-coach/selectors';
 import { createOffers as createOffersAPI } from '../libs/meta-activity/api/meta-activity';
 import { getAllEstablishments } from '../libs/establishment/selectors';
 import { fetchEstablishments } from '../libs/establishment/actions';
@@ -119,7 +119,7 @@ export default withNamespaces()(
         ...getEnabledMetaActivities(state),
         ...getEnabledWorkshops(state),
       ],
-      coaches: associatedCoachSelector.getActive(state),
+      coaches: getActiveCoaches(state),
       establishments: getAllEstablishments(state),
       loading: state.metaActivity.loading,
     }),

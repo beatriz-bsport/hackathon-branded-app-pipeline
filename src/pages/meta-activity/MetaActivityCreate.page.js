@@ -17,7 +17,7 @@ import LinearProgress from '../../components/navigation/BackofficeLinearProgress
 import { offer as offerActions } from '../../actions';
 import { mapFormData } from '../form.utils';
 import { upsert } from '../../libs/meta-activity/actions/meta-activity.actions';
-import { associatedCoachSelector } from '../../libs/associated-coach/selectors';
+import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import { createOffers as createOffersAPI } from '../../libs/meta-activity/api/meta-activity';
 
 import withDrawer from '../../hocs/with-drawer.hoc';
@@ -162,7 +162,7 @@ export default compose(
         ...getEnabledMetaActivities(state),
         ...getEnabledWorkshops(state),
       ].map((ma) => ma.name),
-      coaches: associatedCoachSelector.getActive(state),
+      coaches: getActiveCoaches(state),
       upsertedMetaActivity: state.metaActivity.upsert.data,
     }),
     {

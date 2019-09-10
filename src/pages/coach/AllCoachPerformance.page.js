@@ -20,7 +20,7 @@ import { computePerformance } from '../../libs/payment-rules/utils';
 import type { PaymentRule } from '../../libs/payment-rules/types';
 
 import {
-  associatedCoachSelector,
+  getCoachWithPaymentRule,
   coachPerformanceSelector,
 } from '../../libs/associated-coach/selectors';
 import {
@@ -33,6 +33,7 @@ import {
   setCoachPaymentRule,
   fetchAssociated,
 } from '../../libs/associated-coach/actions';
+import { fetchPaymentRules } from '../../libs/payment-rules/actions';
 import withDrawer from '../../hocs/with-drawer.hoc';
 import type {
   Coach,
@@ -137,6 +138,7 @@ type Props = {
   associatedCoachesWithDefaultPaymentRule: Array<Coach>,
   coachLoading: boolean,
   fetchAssociated: () => void,
+  fetchPaymentRules: () => void,
   loading: boolean,
   classes: Object,
   paymentRules: PaymentRule[],
@@ -158,6 +160,7 @@ type Props = {
 export class AllCoachPerformance extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchAssociated();
+    this.props.fetchPaymentRules();
   }
 
   render() {
@@ -229,15 +232,14 @@ export default compose(
     (state) => ({
       paymentRules: paymentRulesSelector(state),
       coachLoading: state.coach.loading,
-      associatedCoachesWithDefaultPaymentRule: associatedCoachSelector.withPaymentRule(
-        state,
-      ),
+      associatedCoachesWithDefaultPaymentRule: getCoachWithPaymentRule(state),
     }),
     {
       setSessionPaymentRule,
       fetchAssociated,
       fetchPerformance: fetchAssociatedCoachPerformance,
       setCoachPaymentRule,
+      fetchPaymentRules,
     },
   ),
   connect(

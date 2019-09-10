@@ -67,10 +67,10 @@ export class CheckInOffer extends Component<Props> {
             this.props.classes.offerSummary,
           ])}
         >
-            <CheckInOfferSummaryPanel
-              offer={this.props.offer}
-              goBack={this.previousPage}
-            />
+          <CheckInOfferSummaryPanel
+            offer={this.props.offer}
+            goBack={this.previousPage}
+          />
         </div>
         <div
           className={classNames([

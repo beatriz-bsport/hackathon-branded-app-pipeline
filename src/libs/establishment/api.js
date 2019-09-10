@@ -1,5 +1,12 @@
 // @flow
-import { API_URI, API_V1_URI, postAuth, getAuth, putAuth, deleteAuth } from '../../http';
+import {
+  API_URI,
+  API_V1_URI,
+  postAuth,
+  getAuth,
+  putAuth,
+  deleteAuth,
+} from '../../http';
 
 export async function addEstablishment(data: *) {
   return postAuth(`${API_URI}/saas/establishments/add`, data);

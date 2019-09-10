@@ -62,7 +62,9 @@ export class ImageUploader extends React.Component<Props, State> {
 
     const newFiles = acceptedFiles.map((file, i) => ({
       id: -lodash.sum(files.map((x) => Math.abs(x.id))) - i - 1,
-      previewUrl: (window.URL ? window.URL : window.webkitURL).createObjectURL(file),
+      previewUrl: (window.URL ? window.URL : window.webkitURL).createObjectURL(
+        file,
+      ),
       file,
     }));
     const allFiles = newFiles.concat(files);

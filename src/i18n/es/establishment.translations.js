@@ -15,10 +15,10 @@ export default {
   },
   update: {
     imageUploaderRequireEditMessage:
-      "Una vez el local creado, puede añadir más fotografías.",
+      'Una vez el local creado, puede añadir más fotografías.',
   },
   forms: {
-    error: "No es posible guardar el local",
+    error: 'No es posible guardar el local',
     create: {
       title: 'Nuevo local',
       success: 'Local añadido con éxito',

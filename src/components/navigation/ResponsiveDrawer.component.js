@@ -239,9 +239,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                 wrap="nowrap"
               >
                 <Grid item>
-                  <IconButton
-                    onClick={openIntercomHelp}
-                  >
+                  <IconButton onClick={openIntercomHelp}>
                     <HelpIcon />
                   </IconButton>
                 </Grid>
@@ -278,9 +276,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                 wrap="nowrap"
               >
                 <Grid item>
-                  <IconButton
-                    onClick={openIntercomHelp}
-                  >
+                  <IconButton onClick={openIntercomHelp}>
                     <HelpIcon />
                   </IconButton>
                 </Grid>

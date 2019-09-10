@@ -7,7 +7,7 @@ export default {
   },
   parameters: {
     registeredOn: 'Réserverdo el',
-    source: "Canal de compra",
+    source: 'Canal de compra',
   },
   source: {
     web: 'En el sitio web',

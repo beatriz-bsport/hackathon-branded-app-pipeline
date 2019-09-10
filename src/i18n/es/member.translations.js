@@ -1,6 +1,6 @@
 export default {
   // eslint-disable-next-line
-  date_joined: "Fecha de registro",
+  date_joined: 'Fecha de registro',
   invoiceTitle: 'Facturas',
   subscriptionTitle: 'Suscripción',
   offers_joined: 'Numeros de reservas',
@@ -46,7 +46,7 @@ export default {
       srcMember: 'Cliente que sera suprimido',
       dstMember: 'Cliente que sera conservado',
       title: 'Fusion de los clientes',
-      explainCredit: "El sueldo sera transfirido",
+      explainCredit: 'El sueldo sera transfirido',
       explainBookingsAndPassAndInvoiceAndNotes:
         'Los abonos, reservas, facturas y notas serian transferidos.',
       explainTags: 'Los tags del cliente suprimido no serian transferidos',
@@ -64,19 +64,16 @@ export default {
     },
   },
   user: {
-    existsWithEmail:
-      "Un cliente con este correo electronico {{email}} existe.",
-    existsWithPhone:
-      'Un cliente con este telefono {{phonenumber}} existe.',
+    existsWithEmail: 'Un cliente con este correo electronico {{email}} existe.',
+    existsWithPhone: 'Un cliente con este telefono {{phonenumber}} existe.',
   },
   member: {
-    existsWithEmail: "Un cliente con este correo electronico {{email}} existe.",
-    existsWithPhone:
-      'Un cliente con este telefono {{phonenumber}} existe.',
+    existsWithEmail: 'Un cliente con este correo electronico {{email}} existe.',
+    existsWithPhone: 'Un cliente con este telefono {{phonenumber}} existe.',
   },
   exists: {
     goTo: 'Ir al cliente',
-    linkUser: "Añadir el cliente",
+    linkUser: 'Añadir el cliente',
   },
   link: {
     success: 'Cliente añadido con éxito',
@@ -84,7 +81,7 @@ export default {
   linkDialog: {
     title: 'Añadir un cliente que existe',
     content:
-      "Añadando un cliente que existe, confirma que este le ha dado el permiso para hacerlo.",
+      'Añadando un cliente que existe, confirma que este le ha dado el permiso para hacerlo.',
     cancel: 'Cancelar',
     confirm: 'Lo confirmo y añado este cliente',
   },

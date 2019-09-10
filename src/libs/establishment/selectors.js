@@ -8,7 +8,5 @@ export const getState = (state: State): EstablishmentState =>
 export const getAllEstablishments = (state: State): Array<Establishment> =>
   getState(state).all;
 
-export const getEstablishment = (
-  state: State,
-  id: number,
-): ?Establishment => getAllEstablishments(state).find((e) => e.id === id);
+export const getEstablishment = (state: State, id: number): ?Establishment =>
+  getAllEstablishments(state).find((e) => e.id === id);

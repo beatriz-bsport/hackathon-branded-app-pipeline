@@ -55,7 +55,7 @@ export function attachPayment(
       }
       if (options && options.onSuccess) options.onSuccess(response);
     } catch (error) {
-    dispatch(currentBasket.error(error));
+      dispatch(currentBasket.error(error));
       if (options && options.onError) options.onError(error);
     }
 

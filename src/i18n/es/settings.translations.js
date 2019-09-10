@@ -6,7 +6,7 @@ export default {
     paymentRules: 'Reglas de remuneración',
     company: 'Empresa',
     invoice: 'Facturación',
-    waitingList: "Lista de espera",
+    waitingList: 'Lista de espera',
     shop: 'Tienda',
   },
 };

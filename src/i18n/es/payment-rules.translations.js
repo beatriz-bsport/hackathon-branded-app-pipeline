@@ -30,7 +30,7 @@ export default {
   dateTitle: 'Rango de fechas',
   coaches: 'Profesores',
   setPaymentRuleSetForCoachFirst:
-    "Attribue una regla de remuneración por defecto a este profesor.",
+    'Attribue una regla de remuneración por defecto a este profesor.',
   modal: {
     delete: {
       title: 'Suprimir una regla de remuneración',

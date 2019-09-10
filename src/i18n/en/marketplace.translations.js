@@ -5,7 +5,7 @@ export default {
     establishment: { placeholder: 'Establishement' },
   },
   workshop: {
-  noWorkshopAvailable: "No workshop planned in the future",
+    noWorkshopAvailable: 'No workshop planned in the future',
     card: {
       showMore: 'Show More',
       book: 'Book',

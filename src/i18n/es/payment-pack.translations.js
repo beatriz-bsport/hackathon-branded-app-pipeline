@@ -10,7 +10,7 @@ export default {
   subscribeToOffer: 'Registrar',
   createOrUpdate: {
     success: 'Abonos registrados',
-    fail: "Error cuando ha intendado grabarlo",
+    fail: 'Error cuando ha intendado grabarlo',
   },
   disabled: 'Desactivado',
   disableConsumer: 'Bloquear',
@@ -23,19 +23,19 @@ export default {
     bookingsThisWeek: 'reservas a la semana',
   },
   validForDuration: (days, months, years) =>
-    `Valido : ${days ? `${days} dias ` : ''}${
-      months ? `${months} mes ` : ''
-    }${years ? `${years} años` : ''}`,
+    `Valido : ${days ? `${days} dias ` : ''}${months ? `${months} mes ` : ''}${
+      years ? `${years} años` : ''
+    }`,
   validForNdays1: 'Valido ',
   validForNdays2: ' dias despues de la compra',
   validFrom: 'Valido desde ',
   validTo: ' hasta',
   bookingsLeftThisWeek: 'Reservas maximales a la semana',
   // eslint-disable-next-line
-  addButton: "Crear un abono",
+  addButton: 'Crear un abono',
   noPaymentPackSubscribed: 'No abono',
   // eslint-disable-next-line
-  validUntil: "Valido hasta",
+  validUntil: 'Valido hasta',
   expirationDate: 'Expiro el',
   never: 'Nunco',
   unlimitedCredits: 'Ilimitado',
@@ -51,8 +51,7 @@ export default {
   availableOnFollowingActivities: 'Actividades compatibles : ',
   anyActivity: 'Todas las actividades',
   boughtConsumerPaymentPacks: 'Registrados',
-  noRestrictionOnActivityType:
-    'Todas las actividades',
+  noRestrictionOnActivityType: 'Todas las actividades',
   credit: {
     updated: 'Creditos actualizados',
   },

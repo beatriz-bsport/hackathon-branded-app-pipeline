@@ -36,20 +36,21 @@ export default {
     payment_intent_payment_attempt_failed:
       'The payment was declined by your bank.',
     processing_error:
-      "An occurred while registering payment, please try again in a fe minutes.",
+      'An occurred while registering payment, please try again in a fe minutes.',
     // Reason
     unknown: 'Network error, please retry in a few minutes',
   },
   decline_code: {
     none: '',
-    card_not_supported: "Your card was not recognized.",
+    card_not_supported: 'Your card was not recognized.',
     incorrect_number: 'Your card number is invalid.',
     incorrect_cvc: 'Your security code is invalid.',
     insufficient_funds: 'Not enough funds availabled.',
     restricted_card: 'Your card was refused by your bank',
     stolen_card: 'Your card has been tagged as stolen by your bank',
     transaction_not_allowed: 'The transaction was refused by your bank',
-    generic_decline: "Your bank has refused the payment",
-    withdrawal_count_limit_exceeded: 'Too much debut on a short period, declined by your bank',
+    generic_decline: 'Your bank has refused the payment',
+    withdrawal_count_limit_exceeded:
+      'Too much debut on a short period, declined by your bank',
   },
 };

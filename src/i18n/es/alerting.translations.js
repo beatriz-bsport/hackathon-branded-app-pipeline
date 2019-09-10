@@ -10,7 +10,7 @@ export default {
   showMore: 'Ver más',
   unevenInvoice: {
     title: 'Factura desequilibrada',
-    explainUneven: "La factura <1>n°{{uuid, uuid}}</1> es desequilibrada.",
+    explainUneven: 'La factura <1>n°{{uuid, uuid}}</1> es desequilibrada.',
     priceDue: 'Importe adeudado : {{ price_due, price }}.',
     pricePayed: 'Importe pagado : {{price_payed, price}}.',
   },

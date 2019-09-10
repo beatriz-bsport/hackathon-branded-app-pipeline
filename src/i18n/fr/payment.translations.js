@@ -15,7 +15,7 @@ export default {
     success: 'Votre paiement a bien été enregistré',
   },
   forms: {
-  cancelPayment: 'Précédent',
+    cancelPayment: 'Précédent',
     credit: {
       explain:
         'Votre club sera informé du débit, vous règlerez cette commande sur place',

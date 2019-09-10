@@ -9,7 +9,7 @@ export default {
     times: ' veces ',
     forObject: ' para ',
     from: 'Desde ',
-    to: " Hasta ",
+    to: ' Hasta ',
     forATotalOf: 'Para un suma de ',
     includingFreeTrialOf1: ' incluido ',
     includingFreeTrialOf2: ' no facturado ',

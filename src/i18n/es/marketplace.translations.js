@@ -5,11 +5,11 @@ export default {
     establishment: { placeholder: 'Local' },
   },
   workshop: {
-    noWorkshopAvailable: "No hay mas eventos previstos",
+    noWorkshopAvailable: 'No hay mas eventos previstos',
     card: {
-      showMore: "Más informaciones",
+      showMore: 'Más informaciones',
       book: 'Reservar',
-      bookOption: "Lista de espera",
+      bookOption: 'Lista de espera',
       isPast: 'Pasada',
       notAvailable: 'Cancelada',
       duration: 'Duración: {{duration}}',

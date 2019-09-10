@@ -9,7 +9,7 @@ export default {
   nbOffers: 'Séances', // no_translate
   pageTitle: 'Marcador',
   // eslint-disable-next-line
-  turnover: "Volumen de negocios (€)",
+  turnover: 'Volumen de negocios (€)',
   bookings: 'Reservas',
   dateRange: {
     start: 'Principio',

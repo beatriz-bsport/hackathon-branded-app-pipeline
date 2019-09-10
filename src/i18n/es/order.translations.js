@@ -39,7 +39,8 @@ export default {
     name: 'Titulo',
     fee: 'Gastos de envío',
     free_threshold: 'Ofrecidos a partir de',
-    offeredAboveAmount: "Ofrecidos los gastos de envío si hay más de {{ free_threshold, price }} de compras",
+    offeredAboveAmount:
+      'Ofrecidos los gastos de envío si hay más de {{ free_threshold, price }} de compras',
     modal: {
       delete: {
         title: 'Suprimir un gastos de envío',

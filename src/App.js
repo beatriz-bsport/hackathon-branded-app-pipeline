@@ -8,7 +8,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import MomentUtils from '@date-io/moment';
 
-
 import withSentryErrorReporting from './hocs/error-boundary.hoc';
 import { Moment } from './i18n';
 

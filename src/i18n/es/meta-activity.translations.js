@@ -3,10 +3,10 @@ export default {
   forms: {
     create: {
       steps: {
-        activity_form: "Crear la actividad",
+        activity_form: 'Crear la actividad',
         pass_form: "Crear el abono d'un abonnement (opcional)",
         offer_form: 'Crear las clases (opcional)',
-        workshop_form: "Crear el evento",
+        workshop_form: 'Crear el evento',
       },
     },
   },
@@ -18,9 +18,9 @@ export default {
   settings: {
     title: 'Configuración',
     lastBookingBeforeMinutes:
-      "Antes del principio de la clase, última reserva possible",
+      'Antes del principio de la clase, última reserva possible',
     lastDiscardBeforeMinutes:
-      "Antes del principio de la clase, última cancelation possible sin perder su clase",
+      'Antes del principio de la clase, última cancelation possible sin perder su clase',
   },
   packsAvailable: 'Incluido en los abonos siguientes :',
   reviews: 'Evaluaciones de los clientes: ',

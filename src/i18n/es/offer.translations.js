@@ -3,7 +3,7 @@ export default {
   booking: {
     confirmed: 'Confirmada',
     fillRate: 'Tasa de ocupación',
-    waiting: "Lista de espera",
+    waiting: 'Lista de espera',
   },
   extraordinaryEstablishment: 'local temporario',
   substitute: 'Sustituto',

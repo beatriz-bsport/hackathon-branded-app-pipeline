@@ -12,7 +12,7 @@ export default {
     },
   },
   provision: {
-    total_sales: "Numero de productos vendidos :",
+    total_sales: 'Numero de productos vendidos :',
     current_stock: 'Existencias :',
     noProvisionHistory: 'No habia ventas',
     form: {

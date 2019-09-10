@@ -39,7 +39,7 @@ export default {
     name: 'Name',
     fee: 'Delivery fee',
     free_threshold: 'Free delivery threshold',
-    offeredAboveAmount: "Offered above {{ free_threshold, price }} order",
+    offeredAboveAmount: 'Offered above {{ free_threshold, price }} order',
     modal: {
       delete: {
         title: 'Delete delivery fee',

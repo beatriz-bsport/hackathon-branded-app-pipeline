@@ -18,7 +18,7 @@ export default {
   addCoach: 'Añadir un profesor',
   noActivity: 'Este profesor no tiene actividades.',
   // eslint-disable-next-line
-  selfNoActivity: "No tiene actividades.",
+  selfNoActivity: 'No tiene actividades.',
   card: {
     update: 'Modificar',
   },
@@ -30,7 +30,7 @@ export default {
       title: 'Dirección de correo electrónico del profesor',
       emailLabel: 'Dirección de correo electrónico',
       explain:
-        "Si este dirección de correo electrónico del profesor existe en nuestro sistema, vamos a añadirle automaticamente. Si no conoce su dirección de correo electrónico dejelo vacio.",
+        'Si este dirección de correo electrónico del profesor existe en nuestro sistema, vamos a añadirle automaticamente. Si no conoce su dirección de correo electrónico dejelo vacio.',
       emailPlaceHolder: 'profesor@bsport.io',
     },
     error: 'No es possible guardar el profesor',

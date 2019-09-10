@@ -22,6 +22,7 @@ type Props = {
   member: Member,
   selected: boolean,
   hasBooked: ?boolean,
+  isFull: ?boolean,
 
   showMember: ?() => void,
   onClickListItem: ?() => void,
@@ -63,7 +64,11 @@ function MemberBookingHelper(props: Props) {
           </React.Fragment>
         ) : (
           <React.Fragment>
-            <Button color="primary" onClick={props.onClickOption}>
+            <Button
+              disabled={!props.isFull}
+              color="primary"
+              onClick={props.onClickOption}
+            >
               <HourglassEmptyIcon className={props.classes.rightIcon} />
               <Hidden xsDown>{props.t('offer.createBookingOption')}</Hidden>
             </Button>
@@ -78,7 +83,11 @@ function MemberBookingHelper(props: Props) {
           </React.Fragment>
         )}
         {props.showMember ? (
-          <IconButton color="secondary" onClick={props.showMember}>
+          <IconButton
+            color="secondary"
+            disabled={!props.showMember}
+            onClick={props.showMember}
+          >
             <VisibilityIcon />
           </IconButton>
         ) : null}

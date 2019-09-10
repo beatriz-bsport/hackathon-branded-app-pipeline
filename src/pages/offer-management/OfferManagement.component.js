@@ -21,6 +21,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import MailIcon from '@material-ui/icons/Mail';
 import TodayIcon from '@material-ui/icons/Today';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -35,6 +36,7 @@ import QuickInvoicePanel from './QuickInvoicePanel.component';
 import SearchMember from './SearchMember.component';
 import RevertBookingDialog from '../../libs/booking/components/RevertBookingDialog.component';
 import RegisterMemberToOfferForm from './RegisterMemberToOfferForm.component';
+import SendMailToMembersDialog from '../../libs/communication/components/MailDialog.component';
 
 import MemberForm from '../../libs/member/MemberForm.component';
 import { getLatest as getLatestMember } from '../../libs/member/api';
@@ -70,6 +72,7 @@ type Props = {
   registerToWaitingList: (offerId: number, memberId: number) => void,
   memberSearchLoading: boolean,
   searchMembers: (txt: string) => void,
+  mailMembers: (data: any) => void,
   searchedMembers: Array<Member>,
   confirmBookingAttendance: (bookingId: number) => void,
   discardBookingAttendance: (bookingId: number) => void,
@@ -109,6 +112,7 @@ type State = {
   quickInvoices: [*], // put here non-saved invoice
   quickInvoiceEdit: [*], // put here invoice to edit
   addMemberModal: boolean,
+  mailClients: boolean,
   optionToDiscard: ?number,
   memberToRegister: ?number,
   searchedText: string,
@@ -118,6 +122,7 @@ export class OfferManagement extends PureComponent<Props, State> {
   state = {
     quickInvoices: [],
     addMemberModal: false,
+    mailClients: false,
     memberToRegister: null,
     optionToDiscard: null,
     searchedText: '',
@@ -239,12 +244,15 @@ export class OfferManagement extends PureComponent<Props, State> {
     return (
       <MemberBookingHelper
         key={member.id}
+        isFull={this.props.offer.is_full}
         onClickBill={() => this.addToQuickInvoicePanel(member.id)}
         onClickOption={() => {
           this.props.registerToWaitingList(this.props.offer.id, member.id);
           this.clearSearch();
         }}
-        onClickRegister={() => this.setState({ memberToRegister: member.id })}
+        onClickRegister={() => {
+          this.setState({ memberToRegister: member.id });
+        }}
         onClickListItem={
           hasBooked ? () => this.addToQuickInvoicePanel(member.id) : null
         }
@@ -257,6 +265,17 @@ export class OfferManagement extends PureComponent<Props, State> {
         hasBooked={hasBooked}
       />
     );
+  };
+
+  getBookingEmail = (bookingMember) => {
+    try {
+      const { email } = this.props.members.find(
+        (member) => member.id === bookingMember.member,
+      );
+      return email;
+    } catch (error) {
+      return null;
+    }
   };
 
   addToQuickInvoicePanel = (memberId: number) => {
@@ -334,6 +353,15 @@ export class OfferManagement extends PureComponent<Props, State> {
             flexDirection: 'row',
           }}
         >
+          <IconButton
+            onClick={(e) => {
+              e.stopPropagation();
+              this.setState({ mailClients: true });
+            }}
+            color="primary"
+          >
+            <MailIcon />
+          </IconButton>
           <IconButton onClick={this.openAddMemberModal} color="primary">
             <PersonAddIcon />
           </IconButton>
@@ -428,7 +456,6 @@ export class OfferManagement extends PureComponent<Props, State> {
     } = this.props;
 
     const { searchedText, memberToRegister } = this.state;
-
     if (!offer) {
       return <React.Fragment>{this.getNavigationHeader(true)}</React.Fragment>;
     }
@@ -490,9 +517,10 @@ export class OfferManagement extends PureComponent<Props, State> {
                     .map((bo) => (
                       <BookingOptionForManager
                         option={bo}
-                        onDiscard={() =>
-                          this.setState({ optionToDiscard: bo.id })
-                        }
+                        onDiscard={(e) => {
+                          e.stopPropagation();
+                          this.setState({ optionToDiscard: bo.id });
+                        }}
                         member={this.props.members.find(
                           (m) => m.id === bo.member,
                         )}
@@ -580,6 +608,18 @@ export class OfferManagement extends PureComponent<Props, State> {
             this.setState({ optionToDiscard: null });
           }}
           onClose={() => this.setState({ optionToDiscard: null })}
+        />
+        <SendMailToMembersDialog
+          fullScreen={fullScreen}
+          open={!!this.state.mailClients}
+          receiverInfo={this.props.bookings.map((booking) => ({
+            id: booking.id,
+            name: booking.user.name,
+            email: this.getBookingEmail(booking),
+          }))}
+          mailDefaultTitle={this.props.offer.name}
+          onCancel={() => this.setState({ mailClients: false })}
+          sendMailAction={this.props.mailMembers}
         />
       </Grid>
     );

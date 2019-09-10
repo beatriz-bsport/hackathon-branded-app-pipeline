@@ -30,9 +30,11 @@ import common from './en/common.translations';
 import role from './en/role.translations';
 import theme from './en/theme.translations';
 import selfCheckIn from './en/selft-check-in.translations';
+import communication from './en/communication.translations';
 import checkout from './en/checkout.translations';
 
 export default {
+  communication,
   dashboard,
   stripe,
   role,

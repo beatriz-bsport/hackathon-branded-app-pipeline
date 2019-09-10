@@ -32,6 +32,7 @@ import waitingListReducers from '../libs/waiting-list/reducers';
 import themeReducers from '../libs/theme/reducers';
 import roleReducers from '../libs/role/reducers';
 import checkoutReducers from '../libs/checkout/reducers';
+import communicationReducers from '../libs/communication/reducers';
 
 import type { State, Action } from '../state/types';
 
@@ -39,6 +40,8 @@ import { reducer } from '../resources';
 
 const rootReducer = combineReducers({
   '@api': reducer,
+  communication: communicationReducers,
+  checkout: checkoutReducers,
   paymentRules: paymentRulesReducer,
   payment: paymentReducers,
   consumer: consumerReducers,
@@ -68,7 +71,6 @@ const rootReducer = combineReducers({
   waitingList: waitingListReducers,
   theme: themeReducers,
   role: roleReducers,
-  checkout: checkoutReducers,
 });
 
 export default (state: State, action: Action) => {

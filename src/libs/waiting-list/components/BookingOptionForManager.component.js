@@ -59,10 +59,23 @@ export class BookingOptionForManager extends Component<Props> {
     }
   };
 
+  handleListItemClick = (event: SyntheticEvent<any>) => {
+    event.preventDefault();
+    const { option } = this.props;
+    const url = `/member/${option.member}/`;
+    const win = window.open(url);
+    win.focus();
+  };
+
   render() {
     const { option, t, classes } = this.props;
     return (
-      <ListItem divider>
+      <ListItem
+        divider
+        button={true}
+        disableRipple
+        onClick={this.handleListItemClick}
+      >
         <div className={classes.outerRow}>
           <div className={classes.innerRow}>
             {this.getAvatar()}

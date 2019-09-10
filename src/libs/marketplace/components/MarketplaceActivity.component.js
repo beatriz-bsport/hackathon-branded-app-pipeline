@@ -15,7 +15,6 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 
@@ -62,29 +61,51 @@ export class MarketPlaceActivity extends React.Component<Props> {
       return (
         <div>
           <Typography variant="h6" className={classes.title}>
-            Coach
+            {t('marketplace.teacher')}
           </Typography>
           {offer.coach_override && offer.coach_override.user ? (
-            <ListItem>
+            <div className={classes.coachBox}>
               <Avatar
                 src={offer.coach_override.user.photo}
                 className={classes.avatarSubstitute}
               />
-              <ListItemText
-                primary={offer.coach_override.user.name}
-                secondary={t('marketplace.substitute')}
-              />
-            </ListItem>
+              <div className={classes.coachInformations}>
+                <ListItemText
+                  primary={offer.coach_override.user.name}
+                  secondary={t('marketplace.substitute')}
+                />
+                {offer.coach_override.description ? (
+                  <TypographyMultiline
+                    color="textSecondary"
+                    variant="body2"
+                    className={classes.coachDescription}
+                  >
+                    {offer.coach_override.description}
+                  </TypographyMultiline>
+                ) : null}
+              </div>
+            </div>
           ) : null}
-          <ListItem>
+          <div className={classes.coachBox}>
             <Avatar src={offer.activity.coach.user.photo} />
-            <ListItemText
-              primary={offer.activity.coach.user.name}
-              secondary={
-                offer.coach_override ? t('marketplace.substituted') : null
-              }
-            />
-          </ListItem>
+            <div className={classes.coachInformations}>
+              <ListItemText
+                primary={offer.activity.coach.user.name}
+                secondary={
+                  offer.coach_override ? t('marketplace.substituted') : null
+                }
+              />
+              {offer.coach_override ? null : (
+                <TypographyMultiline
+                  color="textSecondary"
+                  variant="body2"
+                  className={classes.multiline}
+                >
+                  {offer.activity.coach.description}
+                </TypographyMultiline>
+              )}
+            </div>
+          </div>
         </div>
       );
     }
@@ -245,6 +266,19 @@ const styles = (theme) => ({
   avatarSubstitute: {
     border: '2px solid black',
     borderColor: colors.primary,
+  },
+  coachBox: {
+    paddingLeft: '16px',
+    paddingRight: '16px',
+    display: 'flex',
+    paddingTop: '11px',
+    paddingBottom: '11px',
+  },
+  coachList: {
+    alignItems: 'flex-start',
+  },
+  coachInformations: {
+    paddingLeft: '16px',
   },
   card: {
     margin: '0 auto',

@@ -30,9 +30,11 @@ import common from './fr/common.translations';
 import theme from './fr/theme.translations';
 import role from './fr/role.translations';
 import selfCheckIn from './fr/selft-check-in.translations';
+import communication from './fr/communication.translations';
 import checkout from './fr/checkout.translations';
 
 export default {
+  communication,
   dashboard,
   stripe,
   role,
@@ -196,6 +198,8 @@ export default {
       cancel: 'Annuler',
       confirm: 'Confirmer',
       name: 'Nom',
+      recipient: 'Destinataire',
+      recipients: 'Destinataires',
       status: 'Status',
       ok: 'ok',
       seeMore: 'Afficher',
@@ -943,6 +947,7 @@ export default {
     marketplace: {
       substitute: 'Remplaçant',
       substituted: 'Absent',
+      teacher: 'Professeur',
       backToCalendar: 'Retour',
       showMarketplace: 'Voir le calendrier de ',
       noSessionToday: 'Aucune séance',

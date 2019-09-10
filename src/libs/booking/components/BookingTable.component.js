@@ -67,7 +67,6 @@ export class BookingTable extends PureComponent<Props> {
       handleRevert,
       onQuickInvoiceClick,
     } = this.props;
-
     if (loading || !bookings) {
       return <CircularProgress className={classes.contentWithMargin} />;
     }

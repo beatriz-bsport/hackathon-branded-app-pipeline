@@ -5,7 +5,6 @@ import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import MergeTypeIcon from '@material-ui/icons/MergeType';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Button from '@material-ui/core/Button';
 import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
@@ -17,7 +16,10 @@ import TodayIcon from '@material-ui/icons/Today';
 import EditIcon from '@material-ui/icons/Edit';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import CallIcon from '@material-ui/icons/Call';
+import SMSIcon from '@material-ui/icons/Sms';
 import PlaceIcon from '@material-ui/icons/Place';
+import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
+import PhoneForwardedIcon from '@material-ui/icons/PhoneForwarded';
 import { withNamespaces } from 'react-i18next';
 import NotificationActiveIcon from '@material-ui/icons/NotificationsActive';
 import NotificationOffIcon from '@material-ui/icons/NotificationsOff';
@@ -46,6 +48,7 @@ export class MemberSummaryCard extends Component<Props> {
         <ListItem>
           <TodayIcon />
           <ListItemText
+            className={this.props.classes.listItemText}
             primary={`
               ${t('member.bornIn')} 
               ${
@@ -57,7 +60,10 @@ export class MemberSummaryCard extends Component<Props> {
         </ListItem>
         <ListItem>
           <PersonOutlineIcon />
-          <ListItemText primary={`N°${member.membership_ID}`} />
+          <ListItemText
+            className={this.props.classes.listItemText}
+            primary={`N°${member.membership_ID}`}
+          />
         </ListItem>
       </List>
     );
@@ -67,50 +73,71 @@ export class MemberSummaryCard extends Component<Props> {
     const { member } = this.props;
     return (
       <List dense>
-        <ListItem
-          button={!!member.consumer.phonenumber}
-          onClick={(e) => {
-            e.stopPropagation();
-            if (member.consumer.phonenumber) {
-              window.location.href = 'tel:'.concat(
-                member.consumer.phonenumber.phone_number,
-              );
-            }
-          }}
-        >
+        <ListItem>
           <CallIcon />
           <ListItemText
             primary={
               // prettier-ignore
               (member.consumer.phonenumber || { phone_number: ' - ' }).phone_number
             }
+            className={this.props.classes.listItemText}
           />
-          <ListItemSecondaryAction>
-            {member.accept_sms ? (
-              <NotificationActiveIcon />
-            ) : (
-              <NotificationOffIcon />
-            )}
-          </ListItemSecondaryAction>
+          <Button
+            onClick={(e) => {
+              e.stopPropagation();
+              if (member.consumer.phonenumber) {
+                window.location.href = 'tel:'.concat(
+                  member.consumer.phonenumber.phone_number,
+                );
+              }
+            }}
+            color="primary"
+          >
+            <PhoneForwardedIcon />
+          </Button>
+          {member.consumer.phonenumber ? (
+            <Button
+              onClick={(e) => {
+                e.stopPropagation();
+                if (member.consumer.phonenumber) {
+                  window.location.href = 'sms:'.concat(
+                    member.consumer.phonenumber.phone_number,
+                  );
+                }
+              }}
+              color="primary"
+            >
+              <SMSIcon />
+            </Button>
+          ) : null}
+          {member.accept_sms ? (
+            <NotificationActiveIcon />
+          ) : (
+            <NotificationOffIcon />
+          )}
         </ListItem>
-        <ListItem
-          button={!!member.consumer.email}
-          onClick={(e) => {
-            e.stopPropagation();
-            if (member.consumer.email) {
-              window.location.href = 'mailto:'.concat(member.consumer.email);
-            }
-          }}
-        >
-          <EmailIcon />
-          <ListItemText primary={member.consumer.email || ' - '} />
-          <ListItemSecondaryAction>
-            {member.accept_email ? (
-              <NotificationActiveIcon />
-            ) : (
-              <NotificationOffIcon />
-            )}
-          </ListItemSecondaryAction>
+        <ListItem>
+          <AlternateEmailIcon />
+          <ListItemText
+            primary={member.consumer.email || ' - '}
+            className={this.props.classes.listItemText}
+          />
+          <Button
+            onClick={(e) => {
+              e.stopPropagation();
+              if (member.consumer.email) {
+                window.location.href = 'mailto:'.concat(member.consumer.email);
+              }
+            }}
+            color="primary"
+          >
+            <EmailIcon />
+          </Button>
+          {member.accept_email ? (
+            <NotificationActiveIcon />
+          ) : (
+            <NotificationOffIcon />
+          )}
         </ListItem>
       </List>
     );
@@ -123,6 +150,7 @@ export class MemberSummaryCard extends Component<Props> {
         <ListItem>
           <PlaceIcon />
           <ListItemText
+            className={this.props.classes.listItemText}
             primary={`${(address && address.address_line_1) || ''}`}
             secondary={`${(address && address.city) || ''} - ${(
               (address && address.country) ||
@@ -239,6 +267,13 @@ const styles = (theme) => ({
   rightIcon: {
     marginLeft: theme.spacing.unit,
   },
+  rowInfo: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  listItemText: {
+    marginLeft: theme.spacing.unit * 2,
+  },
   infoContainer: {
     padding: theme.spacing.unit * 2,
   },
@@ -256,6 +291,9 @@ const styles = (theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  emailMargin: {
+    marginLeft: theme.spacing.unit * 9,
   },
 });
 

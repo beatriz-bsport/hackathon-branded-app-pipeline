@@ -183,7 +183,7 @@
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",
     "postcss-modules-values": "^2.0.0",
-    "prettier": "^1.14.2",
+    "prettier": "^1.18.2",
     "react-test-renderer": "^16.8.3",
     "url-loader": "0.6.2",
     "webpack": "3.8.1",

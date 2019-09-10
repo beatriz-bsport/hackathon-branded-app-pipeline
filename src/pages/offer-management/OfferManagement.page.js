@@ -14,6 +14,8 @@ import {
   offer as offerActions,
 } from '../../actions';
 
+import { mailMembers as mailMembersAction } from '../../libs/communication/actions';
+
 import {
   addBooking as addBookingAction,
   refreshByOffer as refreshBookingsByOfferAction,
@@ -66,6 +68,7 @@ function mapStateToProps(state, nextProps) {
     offerLoading: state.offer.byDay.loading,
     paymentPacks: paymentPackSelectors.getAll(state),
     shopItems: state.shop.all,
+    membersloading: state.member.byOffer.loading,
     members: state.member.byOffer.items,
     memberSearchLoading: state.member.search.loading,
     searchedMembers: memberSelectors.getSearched(state),
@@ -166,6 +169,9 @@ function mapDispatchToProps(dispatch) {
     },
     searchMembers(text: string) {
       dispatch(searchMembersAction(text));
+    },
+    mailMembers(data: any) {
+      dispatch(mailMembersAction(data));
     },
     fetchCompatiblePacks(id: number) {
       dispatch(offerActions.fetchCompatiblePacks(id));

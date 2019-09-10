@@ -1,6 +1,9 @@
 export default {
   columns: {
     establishment: 'Etablissement',
+    last_booking: 'Précédente réservation',
+    next_booking: 'Prochaine réservation',
+    concatenated_notes: 'Notes',
     activity: 'Activité',
     pass: 'Abonnement',
     remaining_credits: 'Crédits restant',

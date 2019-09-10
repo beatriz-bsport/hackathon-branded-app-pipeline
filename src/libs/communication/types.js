@@ -8,11 +8,9 @@ export type MemberMailData = {
 };
 
 export type MailState = {
-  members: {
-    createOrUpdate: {
-      success: boolean,
-      isloading: boolean,
-      error: ?Error,
-    },
+  mail: {
+    success: boolean,
+    isloading: boolean,
+    error: ?Error,
   },
 };

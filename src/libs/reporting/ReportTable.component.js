@@ -68,11 +68,14 @@ function getConverter(column, classes, t) {
       return { value: t('no') };
     }
     if (datatype === 'datetime') {
-      return {
-        value: moment(value, 'DD/MM/YYYY[,] HH[:]mm').format(
-          'DD MMM YYYY HH[h]mm',
-        ),
-      };
+      if (value) {
+        return {
+          value: moment(value, 'DD/MM/YYYY[,] HH[:]mm').format(
+            'DD MMM YYYY HH[h]mm',
+          ),
+        };
+      }
+      return '';
     }
     if (datatype === 'product_type') {
       return { value: t(`product_type.${value}`) };

@@ -17,7 +17,7 @@ import { compatiblePacksWithOfferAndEnabled } from '../../libs/offer/selectors';
 import shopSelector from '../../libs/shop/selectors';
 
 import { mailMembers as mailMembersAction } from '../../libs/communication/actions';
-import { fetchAll as fetchShopItems} from '../../libs/shop/actions/shopitem';
+import { fetchAll as fetchShopItems } from '../../libs/shop/actions/shopitem';
 
 import {
   addBooking as addBookingAction,

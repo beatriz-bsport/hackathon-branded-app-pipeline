@@ -4,7 +4,13 @@ import React from 'react';
 
 import moment from 'moment';
 import type { Moment } from 'moment';
-import { compose, withProps, withPropsOnChange, withState } from 'recompose';
+import {
+  compose,
+  withProps,
+  withPropsOnChange,
+  withState,
+  lifecycle,
+} from 'recompose';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -24,7 +30,10 @@ import {
 } from '../state/stats/selectors';
 
 import DateRangeFilter from '../components/DateRangeFilter.component';
-import { dateRangeChange } from '../actions/stats.actions';
+import {
+  dateRangeChange,
+  fetchDashboard as fetchDashboardStats,
+} from '../actions/stats.actions';
 import Figure from '../components/graph/Figure.component';
 import {
   ComposedChart,
@@ -227,10 +236,16 @@ export default compose(
       dateRange: dateRangeSelector(state),
     }),
     {
+      fetchDashboardStats,
       changeDateRange: (start, end, kind = 'custom') =>
         dateRangeChange({ start, end, kind }),
     },
   ),
+  lifecycle({
+    componentDidMount() {
+      this.props.fetchDashboardStats();
+    },
+  }),
   withProps(({ mainChart, miniStats }) => ({
     mainChartOptions: chartConfigs[mainChart],
     mainChartData: miniStats[mainChart] || { table: [] },

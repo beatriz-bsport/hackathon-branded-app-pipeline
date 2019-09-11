@@ -87,7 +87,7 @@ export class Backoffice extends Component<Props> {
 
   componentWillMount() {
     document.title = 'Backoffice - bsport';
-    this.refreshInterval = setInterval(this.props.fetchAllAlertings, 5000);
+    this.refreshInterval = setInterval(this.props.fetchAllAlertings, 120000);
   }
 
   componentDidMount() {

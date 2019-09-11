@@ -612,7 +612,7 @@ export class OfferManagement extends Component<Props, State> {
           receiverInfo={
             this.state.mailClients
               ? this.props.bookings.map((booking) => ({
-                  id: booking.id,
+                  id: booking.member,
                   name: booking.user.name,
                   email: this.getBookingEmail(booking),
                 }))

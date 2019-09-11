@@ -13,8 +13,11 @@ import {
   invoice as invoiceActions,
   offer as offerActions,
 } from '../../actions';
+import { compatiblePacksWithOfferAndEnabled } from '../../libs/offer/selectors';
+import shopSelector from '../../libs/shop/selectors';
 
 import { mailMembers as mailMembersAction } from '../../libs/communication/actions';
+import { fetchAll as fetchShopItems} from '../../libs/shop/actions/shopitem';
 
 import {
   addBooking as addBookingAction,
@@ -67,19 +70,18 @@ function mapStateToProps(state, nextProps) {
     offers: state.offer.calendar,
     offerLoading: state.offer.byDay.loading,
     paymentPacks: paymentPackSelectors.getAll(state),
-    shopItems: state.shop.all,
+    paymentPacksEnabled: paymentPackSelectors.getEnabled(state),
+    shopItemsAvailable: shopSelector.getShopItemsAvailable(state),
     membersloading: state.member.byOffer.loading,
     members: state.member.byOffer.items,
     memberSearchLoading: state.member.search.loading,
     searchedMembers: memberSelectors.getSearched(state),
     bookings: bookingSelectors.getBookings(state),
     bookingLoading: state.booking.loading,
-    bookingOptions: bookingSelectors.getOptions(state),
+    bookingOptionsPending: bookingSelectors.getOptionsPending(state),
     memberCreationPending: state.member.upsert.loading,
     memberCreationErrors: state.member.upsert.error,
-    compatiblePacks: state.offer.compatiblePacks.items.filter(
-      (pp) => !pp.disabled,
-    ),
+    compatiblePacks: compatiblePacksWithOfferAndEnabled(state),
     compatiblePacksLoading: state.offer.compatiblePacks.loading,
     unevenSavedInvoices: state.invoice.quickInvoices,
     permission: getPermissions(state),
@@ -98,6 +100,7 @@ function mapDispatchToProps(dispatch) {
     fetchOffer(id) {
       dispatch(offerActions.fetchOfferById(id));
     },
+    fetchShopItems,
     fetchMember(id) {
       dispatch(fetchMemberAction(id));
     },

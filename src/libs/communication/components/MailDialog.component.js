@@ -114,7 +114,7 @@ export class SendMailToMembers extends Component<Props> {
               onSubmit={(ev) => {
                 ev.preventDefault();
                 sendMailAction({
-                  membersId: this.state.checkedReceivers,
+                  members: this.state.checkedReceivers,
                   subject: this.state.mailTitle,
                   body: this.state.mailContent,
                 });

@@ -64,14 +64,14 @@ export function QuickInvoicePanel(props: Props) {
                 uneditableInvoiceItems={inv.invoice_items}
                 onSubmit={() => {}}
                 editMode
-                shopItems={[]}
+                paymentPacks={paymentPacks}
+                shopItems={shopItems}
                 activities={[]}
                 createInvoice={() => {}}
                 onClose={() => props.revertQuickInvoice(inv.uuid)}
                 updateInvoice={(invoiceData) =>
                   createInvoice({ ...inv, ...invoiceData }, inv.member, true)
                 }
-                paymentPacks={[]}
               />
             );
           })}

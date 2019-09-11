@@ -10,11 +10,13 @@ import { push as pushRouter } from 'react-router-redux';
 import { compose } from 'recompose';
 
 import type { TFunction } from 'react-i18next';
+import shopSelector from '../../libs/shop/selectors';
 import paymentPackSelectors from '../../libs/payment-packs/selectors';
 import type { PaymentPack } from '../../libs/payment-packs/types';
 import { Moment } from '../../i18n';
 import { formatAsDate } from '../../datetime';
 import { invoice as invoiceActions } from '../../actions';
+import { fetchAll as fetchShopItems } from '../../libs/shop/actions/shopitem';
 import { fetchMember } from '../../libs/member/actions';
 
 import type { Member } from '../../libs/member/types';
@@ -38,6 +40,7 @@ type Props = {
   createInvoice: () => void,
   resetCreateOrUpdateStatus: () => void,
   goToMemberPage: (id: number) => void,
+  fetchShopItems: () => void,
 
   creatingInvoice: boolean,
   loading: boolean,
@@ -57,6 +60,7 @@ export class InvoiceCreatePage extends Component<Props, State> {
   componentDidMount() {
     this.props.resetCreateOrUpdateStatus();
     this.props.fetch(this.props.id);
+    this.props.fetchShopItems();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -136,10 +140,11 @@ export default compose(
       loading: state.member.loading,
       member: memberSelectors.get(state, id),
       paymentPacks: paymentPackSelectors.getEnabled(state),
-      shopItems: state.shop.all,
       creatingInvoice: state.invoice.createOrUpdatePending,
+      shopItems: shopSelector.getShopItemsAvailable(state),
     }),
     {
+      fetchShopItems,
       goToInvoiceList: () => pushRouter('/invoice'),
       createInvoice: invoiceActions.createOrUpdateInvoice,
       resetCreateOrUpdateStatus: invoiceActions.createOrUpdateReset,

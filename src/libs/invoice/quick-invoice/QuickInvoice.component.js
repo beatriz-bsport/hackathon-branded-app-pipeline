@@ -22,8 +22,9 @@ import CreditMemberBadge from '../../member/components/CreditMemberBadge.compone
 
 import InvoiceItemList from '../invoice-item/InvoiceItemList.component';
 import UnevenInvoiceDialog from '../dialog/UnevenInvoiceDialog.component';
-import InvoiceItemSelector from '../invoice-item/InvoiceItemSelector.container';
-import { SELECTOR_SHOP as INVOICE_SELECTOR_SHOP_TAB } from '../invoice-item/InvoiceItemSelector.component';
+import InvoiceItemSelector, {
+  SELECTOR_SHOP as INVOICE_SELECTOR_SHOP_TAB,
+} from '../invoice-item/InvoiceItemSelector.component';
 
 import PaymentInfo from './PaymentInfo.component';
 
@@ -283,6 +284,8 @@ export class QuickInvoice extends Component<Props, State> {
           <div>
             <InvoiceItemSelector
               creditAccountBalance={this.props.quickInvoice.creditAccount}
+              shopItems={this.props.shopItems}
+              paymentPacks={this.props.paymentPacks}
               onTopUp={this.onTopUp}
               onAddPaymentPack={this.addPaymentPack}
               onAddShopItem={this.addShopItem}

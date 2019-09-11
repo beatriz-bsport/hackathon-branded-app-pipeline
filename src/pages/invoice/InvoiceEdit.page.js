@@ -11,12 +11,14 @@ import { withRouter } from 'react-router';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import paymentPackSelectors from '../../libs/payment-packs/selectors';
+import shopSelector from '../../libs/shop/selectors';
 import type { PaymentPack } from '../../libs/payment-packs/types';
 import { invoice as invoiceActions } from '../../actions';
 import withDrawer from '../../hocs/with-drawer.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import memberSelectors from '../../libs/member/selectors';
 import { fetchMember } from '../../libs/member/actions';
+import { fetchAll as fetchShopItems } from '../../libs/shop/actions/shopitem';
 import { getPermissions } from '../../libs/role/selectors';
 
 import type { Offer, Invoice } from '../../api/types';
@@ -31,6 +33,7 @@ type Props = {
   uuid: string,
 
   invoice: Invoice,
+  shopItems: Array<ShopItem>,
   member: Member,
   permission: Permission,
 
@@ -39,6 +42,7 @@ type Props = {
 
   goBack: () => void,
   fetchInvoice: (uuid: string) => void,
+  fetchShopItems: () => void,
   goToMemberPage: (id: number) => void,
   fetchMember: (id: number) => void,
   memberLoading: boolean,
@@ -69,6 +73,7 @@ export class InvoiceFormPage extends Component<Props, State> {
   componentDidMount() {
     this.props.resetCreateOrUpdateStatus();
     this.props.fetchInvoice(this.props.uuid);
+    this.props.fetchShopItems();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -93,6 +98,7 @@ export class InvoiceFormPage extends Component<Props, State> {
       invoice,
       offers,
       paymentPacks,
+      shopItems,
       goToMemberPage,
       updatingInvoice,
       memberLoading,
@@ -124,6 +130,7 @@ export class InvoiceFormPage extends Component<Props, State> {
         <InvoiceForm
           offers={offers}
           paymentPacks={paymentPacks}
+          shopItems={shopItems}
           editMode
           invoice={invoice}
           uneditableInvoiceItems={uneditableInvoiceItems || []}
@@ -165,12 +172,14 @@ export default compose(
       memberLoading: state.member.loading,
       offers: state.offer.calendar,
       paymentPacks: paymentPackSelectors.getEnabled(state),
+      shopItems: shopSelector.getShopItemsAvailable(state),
       invoice: state.invoice.invoice,
       updatingInvoice: state.invoice.createOrUpdatePending,
       permission: getPermissions(state),
     }),
     {
       fetchMember,
+      fetchShopItems,
       goBack,
       fetchInvoice: invoiceActions.fetchSpecificInvoice,
       updatePaymentMethod: invoiceActions.updatePaymentMethod,

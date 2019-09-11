@@ -1,7 +1,13 @@
+import { createSelector } from 'reselect';
+
 const getState = (state) => state.consumerPaymentPack;
 
 const getAll = (state) => getState(state).items;
-const getActive = (state) => getAll(state).filter((cpp) => !cpp.reverted);
+
+const getActive = createSelector(
+  getAll,
+  (cpps) => cpps.filter((cpp) => !cpp.reverted),
+);
 
 const get = (state, id) => getAll(state).find((cpp) => cpp.id === id);
 

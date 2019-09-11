@@ -27,7 +27,6 @@ type Props = {
   heading: ?string,
   newTab: ?boolean, // how to open member
 
-  sortedBy: ?string,
   bookings: Array<Object>,
   members: Array<Member>,
   paymentPacks: Array<PaymentPack>,
@@ -39,17 +38,6 @@ type Props = {
 };
 
 export class BookingTable extends PureComponent<Props> {
-  sortBookings = () => {
-    const { sortedBy, bookings } = this.props;
-
-    if (sortedBy === 'name') {
-      // i hate js so much
-      const s = bookings.asMutable();
-      return s.sort((a, b) => (a.user.name > b.user.name ? 1 : -1));
-    }
-    return bookings;
-  };
-
   render() {
     const {
       t,
@@ -81,12 +69,9 @@ export class BookingTable extends PureComponent<Props> {
         </Typography>
       );
       }
-
-    const sortedBookings = this.sortBookings();
-
     return (
       <List disablePadding dense>
-        {sortedBookings.map((b) => (
+        {this.props.bookings.map((b) => (
           <BookingItemForManager
             member={this.props.members.find((m) => m.id === b.member)}
             redirectToMember={redirectToMember}

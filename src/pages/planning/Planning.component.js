@@ -415,9 +415,9 @@ export class Planning extends PureComponent<Props, State> {
     } = this.props;
 
     const events_ = this.getDayOffers(events);
-    const offersToday = offers.filter((o) =>
-      Moment(o.date_start).isSame(Moment(date), 'day'),
-    );
+    const offersToday = memoize((offers_, date_) =>
+      offers_.filter((o) => Moment(o.date_start).isSame(Moment(date_), 'day')),
+    )(offers, date);
     return (
       <Grid container spacing={24}>
         {isWidthUp('lg', width) || !selectedOffer ? (

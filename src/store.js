@@ -16,8 +16,6 @@ import createCompressor from 'redux-persist-transform-compress';
 
 import reducers from './reducers';
 
-const transformerConfig = { whitelist: ['invoice', 'member'] };
-
 const persistConfig = {
   key: 'root',
   storage,
@@ -33,9 +31,7 @@ const persistConfig = {
     'theme',
   ],
   stateReconciler: seamlessImmutableReconciler,
-  transforms: [
-    createCompressor(seamlessImmutableTransformCreator(transformerConfig)),
-  ],
+  transforms: [createCompressor(seamlessImmutableTransformCreator({}))],
 };
 
 export default function initStore(initialState: Object = {}) {

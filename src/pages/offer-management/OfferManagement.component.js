@@ -1,5 +1,5 @@
 // @flow
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 
 import { compose } from 'recompose';
 
@@ -59,10 +59,11 @@ type Props = {
   compatiblePacksLoading: boolean,
 
   members: Array<Member>,
-  bookingOptions: Array<BookingOption>,
+  bookingOptionsPending: Array<BookingOption>,
   bookings: Array<Booking>,
   paymentPacks: Array<PaymentPack>,
-  shopItems: Array<ShopItem>,
+  paymentPacksEnabled: Array<PaymentPack>,
+  shopItemsAvailable: Array<ShopItem>,
   offers: Array<Event>,
   compatiblePacks: Array<PaymentPack>,
   unevenSavedInvoices: Array<Invoice>,
@@ -78,6 +79,7 @@ type Props = {
   discardBookingAttendance: (bookingId: number) => void,
   revertQuickInvoiceAndRefreshOffer: (uuid: string, offerId: number) => void,
   goToMember: (id: number) => void,
+  fetchShopItems: () => void,
   snackbarSuccess: (msg: string) => void,
   goToOffer: (id: number) => void,
   fetchCompatiblePacks: (offerId: number) => void,
@@ -118,7 +120,7 @@ type State = {
   searchedText: string,
 };
 
-export class OfferManagement extends PureComponent<Props, State> {
+export class OfferManagement extends Component<Props, State> {
   state = {
     quickInvoices: [],
     addMemberModal: false,
@@ -137,6 +139,7 @@ export class OfferManagement extends PureComponent<Props, State> {
     this.props.fetchCompatiblePacks(this.props.offerId);
     this.props.fetchOffer(this.props.offerId);
     this.props.fetchOfferData(this.props.offerId);
+    this.props.fetchShopItems();
   }
 
   componentWillUnmount() {
@@ -399,49 +402,47 @@ export class OfferManagement extends PureComponent<Props, State> {
   };
 
   getNavigationHeader = (loading: boolean) => (
-    <Slide in direction="bottom">
-      <Paper className={this.props.classes.headerContainer}>
-        <div className={this.props.classes.titleBanner}>
-          <Button
-            onClick={() => this.goToOffer(this.props.offer.previous_offer)}
-            disabled={!this.props.offer}
-          >
-            <ChevronLeftIcon className={this.props.classes.leftIcon} />
-            <Hidden xsDown>{this.props.t('offer.previousOffer')}</Hidden>
+    <Paper className={this.props.classes.headerContainer}>
+      <div className={this.props.classes.titleBanner}>
+        <Button
+          onClick={() => this.goToOffer(this.props.offer.previous_offer)}
+          disabled={!this.props.offer}
+        >
+          <ChevronLeftIcon className={this.props.classes.leftIcon} />
+          <Hidden xsDown>{this.props.t('offer.previousOffer')}</Hidden>
+        </Button>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            flexDirection: 'row',
+            justifyContent: 'center',
+          }}
+        >
+          <Button onClick={this.props.goBack}>
+            <TodayIcon className={this.props.classes.leftIcon} />
+            {this.props.t('offer.backToCalendar')}
           </Button>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              flexDirection: 'row',
-              justifyContent: 'center',
-            }}
-          >
-            <Button onClick={this.props.goBack}>
-              <TodayIcon className={this.props.classes.leftIcon} />
-              {this.props.t('offer.backToCalendar')}
-            </Button>
-            {this.props.bookingLoading ? (
-              <CircularProgress size={16} />
-            ) : (
-              <IconButton
-                onClick={() => this.props.fetchOfferData(this.props.offerId)}
-              >
-                <RefreshIcon />
-              </IconButton>
-            )}
-          </div>
-          <Button
-            onClick={() => this.goToOffer(this.props.offer.next_offer)}
-            disabled={!this.props.offer}
-          >
-            <Hidden xsDown>{this.props.t('offer.nextOffer')}</Hidden>
-            <ChevronRightIcon className={this.props.classes.rightIcon} />
-          </Button>
+          {this.props.bookingLoading ? (
+            <CircularProgress size={16} />
+          ) : (
+            <IconButton
+              onClick={() => this.props.fetchOfferData(this.props.offerId)}
+            >
+              <RefreshIcon />
+            </IconButton>
+          )}
         </div>
-        {loading ? <LinearProgress /> : null}
-      </Paper>
-    </Slide>
+        <Button
+          onClick={() => this.goToOffer(this.props.offer.next_offer)}
+          disabled={!this.props.offer}
+        >
+          <Hidden xsDown>{this.props.t('offer.nextOffer')}</Hidden>
+          <ChevronRightIcon className={this.props.classes.rightIcon} />
+        </Button>
+      </div>
+      {loading ? <LinearProgress /> : null}
+    </Paper>
   );
 
   render() {
@@ -449,7 +450,7 @@ export class OfferManagement extends PureComponent<Props, State> {
       offer,
       bookings,
       bookingLoading,
-      bookingOptions,
+      bookingOptionsPending,
       t,
       classes,
       fullScreen,
@@ -512,20 +513,18 @@ export class OfferManagement extends PureComponent<Props, State> {
                   onQuickInvoiceClick={this.addToQuickInvoicePanel}
                 />
                 <List disablePadding>
-                  {bookingOptions
-                    .filter((bo) => !bo.booking && !bo.cancelled)
-                    .map((bo) => (
-                      <BookingOptionForManager
-                        option={bo}
-                        onDiscard={(e) => {
-                          e.stopPropagation();
-                          this.setState({ optionToDiscard: bo.id });
-                        }}
-                        member={this.props.members.find(
-                          (m) => m.id === bo.member,
-                        )}
-                      />
-                    ))}
+                  {bookingOptionsPending.map((bo) => (
+                    <BookingOptionForManager
+                      option={bo}
+                      onDiscard={(e) => {
+                        e.stopPropagation();
+                        this.setState({ optionToDiscard: bo.id });
+                      }}
+                      member={this.props.members.find(
+                        (m) => m.id === bo.member,
+                      )}
+                    />
+                  ))}
                 </List>
               </div>
             </Paper>
@@ -546,10 +545,8 @@ export class OfferManagement extends PureComponent<Props, State> {
               createInvoice={this.createInvoice}
               closeQuickInvoice={this.closeQuickInvoice}
               saveQuickInvoice={this.saveQuickInvoice}
-              paymentPacks={this.props.paymentPacks.filter(
-                (pp) => !pp.disabled,
-              )}
-              shopItems={this.props.shopItems}
+              paymentPacks={this.props.paymentPacksEnabled}
+              shopItems={this.props.shopItemsAvailable}
               offers={this.props.offers}
               className={classes.autoScroll}
             />
@@ -612,11 +609,15 @@ export class OfferManagement extends PureComponent<Props, State> {
         <SendMailToMembersDialog
           fullScreen={fullScreen}
           open={!!this.state.mailClients}
-          receiverInfo={this.props.bookings.map((booking) => ({
-            id: booking.id,
-            name: booking.user.name,
-            email: this.getBookingEmail(booking),
-          }))}
+          receiverInfo={
+            this.state.mailClients
+              ? this.props.bookings.map((booking) => ({
+                  id: booking.id,
+                  name: booking.user.name,
+                  email: this.getBookingEmail(booking),
+                }))
+              : []
+          }
           mailDefaultTitle={this.props.offer.name}
           onCancel={() => this.setState({ mailClients: false })}
           sendMailAction={this.props.mailMembers}

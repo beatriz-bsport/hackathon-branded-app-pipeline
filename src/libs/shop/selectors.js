@@ -1,15 +1,28 @@
 // @flow
 
+import { createSelector } from 'reselect';
 import type { State } from '../../state/types';
 
 const _getSubShops = (state: State) => state.shop.subShops;
 const _getProvisions = (state: State) => state.shop.provisions;
+const _getAllShopItems = (state: State) => state.shop.all;
+
+const _getMarketplaceShopItems = createSelector(
+  _getAllShopItems,
+  (shopItems) => shopItems.filter((si) => !!si.marketplace_enabled),
+);
+
 const _getShopItems = (state: State, marketplace_only: ?boolean) => {
   if (marketplace_only) {
-    return state.shop.all.filter((si) => si.marketplace_enabled);
+    return _getMarketplaceShopItems(state);
   }
   return state.shop.all;
 };
+
+const getShopItemsAvailable = createSelector(
+  _getAllShopItems,
+  (shopItems) => shopItems.filter((si) => si.subshop),
+);
 
 const getSubShops = (state: State, marketplace_only: ?boolean) => {
   const shopItems = _getShopItems(state, marketplace_only);
@@ -45,4 +58,5 @@ export default {
   getSubShops,
   getShopitem,
   getProvisionByShopitem,
+  getShopItemsAvailable,
 };

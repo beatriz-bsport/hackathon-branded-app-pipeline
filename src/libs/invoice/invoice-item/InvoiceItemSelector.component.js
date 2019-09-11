@@ -19,7 +19,7 @@ import DatePicker from 'material-ui-pickers/DatePicker';
 import { Moment } from '../../../i18n';
 
 import PaymentPackSelector from '../../payment-packs/PaymentPackSelector.component';
-import ShopItemInput from '../../../components/input/ShopItemInput.container';
+import ShopItemInput from '../../../components/input/ShopItemInput.component';
 import PriceInput from '../../../components/input/PriceInput.component';
 
 // eslint-disable-next-line
@@ -27,6 +27,7 @@ import type { PaymentPack } from '../../../libs/payment-packs/types';
 
 type Props = {
   paymentPacks: Array<PaymentPack>,
+  shopItems: Array<ShopItem>,
   showCancel: ?boolean,
   defaultTab: ?number,
   creditAccountBalance: number,
@@ -130,6 +131,7 @@ export class InvoiceItemSelector extends Component<Props, State> {
       value={this.state.shopItemId}
       onChange={this.storeShopItemId}
       selectorClass={this.props.classes.selector}
+      shopItems={this.props.shopItems}
     />
   );
 

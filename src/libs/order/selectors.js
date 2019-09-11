@@ -1,5 +1,6 @@
 // @flow
 
+import { createSelector } from 'reselect';
 import type { State } from '../../state/types';
 import type { OrderWithProducts } from './types';
 
@@ -12,7 +13,9 @@ const get = (state: State, id: ?string): ?OrderWithProducts =>
 const getDeliveryFees = (state: State): Array<DeliveryFee> =>
   state.order.deliveryFee.items;
 
-export const getDeliveryFeesActive = (state: State): Array<DeliveryFee> =>
-  getDeliveryFees(state).filter((df) => !df.disabled);
+export const getDeliveryFeesActive: (State) => Array<DeliveryFee> = createSelector(
+  getDeliveryFees,
+  (fees) => fees.filter((df) => !df.disabled),
+);
 
 export default { get, getAll };

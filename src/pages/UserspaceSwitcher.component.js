@@ -15,15 +15,13 @@ const Backoffice = asyncComponent(() => import('./Backoffice.component'));
 type Props = {
   authenticated: boolean,
   permission: Permission,
-  userspace: {
-    isCoach: boolean,
-    isManager: boolean,
-    isConsumer: boolean,
-  },
+  isCoach: boolean,
+  isManager: boolean,
+  isConsumer: boolean,
 };
 
 export const UserspaceSwitcher = (props: Props) => {
-  const { userspace, authenticated } = props;
+  const { authenticated } = props;
 
   if (!authenticated) {
     return <Redirect to="/login" />;
@@ -32,7 +30,7 @@ export const UserspaceSwitcher = (props: Props) => {
   if (props.permission.checkin) {
     return <Redirect to="/check-in" />;
   }
-  const { isCoach, isManager, isConsumer } = userspace;
+  const { isCoach, isManager, isConsumer } = props;
 
   if (isCoach || isManager) {
     return <Route path="/" component={Backoffice} />;
@@ -47,9 +45,7 @@ export const UserspaceSwitcher = (props: Props) => {
 export default connect((state) => ({
   authenticated: state.auth.authenticated,
   permission: getPermissions(state),
-  userspace: {
-    isCoach: state.auth.is_coach,
-    isConsumer: state.auth.is_consumer,
-    isManager: state.auth.is_manager,
-  },
+  isCoach: state.auth.is_coach,
+  isConsumer: state.auth.is_consumer,
+  isManager: state.auth.is_manager,
 }))(withRouter(UserspaceSwitcher));

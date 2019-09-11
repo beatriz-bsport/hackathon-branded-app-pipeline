@@ -486,6 +486,7 @@ export class InvoiceForm extends Component<Props, State> {
   renderRightPanel = () => {
     const {
       paymentPacks,
+      shopItems,
       t,
       classes,
       uneditablePayments,
@@ -504,6 +505,7 @@ export class InvoiceForm extends Component<Props, State> {
             onAddShopItem={this.onAddShopItem}
             onTopUp={this.onTopUp}
             paymentPacks={paymentPacks}
+            shopItems={shopItems}
           />
           <Divider />
           <div className={classes.voucher}>

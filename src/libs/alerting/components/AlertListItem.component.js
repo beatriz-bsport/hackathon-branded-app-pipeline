@@ -43,11 +43,10 @@ const UnevenAlertListItemBase = (props: {
           <Typography variant="subtitle1" component="h3">
             {t('unevenInvoice.title')}
           </Typography>
-          <IconButton>
-            <ArrowForwardIcon
-              color="secondary"
-              onClick={() => props.pushRouter(`/invoice/${alerting.data.uuid}`)}
-            />
+          <IconButton
+            onClick={() => props.pushRouter(`/invoice/${alerting.data.uuid}`)}
+          >
+            <ArrowForwardIcon color="secondary" />
           </IconButton>
         </div>
         <Typography variant="caption" component="p">

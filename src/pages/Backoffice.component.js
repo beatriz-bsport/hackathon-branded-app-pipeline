@@ -82,20 +82,12 @@ type Props = {
   theme: any,
 };
 
-type State = {
-  refreshInterval: ?Interval,
-};
-
-export class Backoffice extends Component<Props, State> {
-  state = {
-    refreshInterval: null,
-  };
+export class Backoffice extends Component<Props> {
+  refreshInterval: ?Interval;
 
   componentWillMount() {
     document.title = 'Backoffice - bsport';
-    this.setState({
-      refreshInterval: setInterval(this.props.fetchAllAlertings, 60000),
-    });
+    this.refreshInterval = setInterval(this.props.fetchAllAlertings, 5000);
   }
 
   componentDidMount() {
@@ -104,8 +96,8 @@ export class Backoffice extends Component<Props, State> {
   }
 
   componentWillUnmount() {
-    if (this.state.refreshInterval) {
-      clearInterval(this.state.refreshInterval);
+    if (this.refreshInterval) {
+      clearInterval(this.refreshInterval);
     }
   }
 
@@ -162,6 +154,7 @@ export class Backoffice extends Component<Props, State> {
               <Route exact path="/dashboard" component={Dashboard} />
               <Route exact path="/search/results" component={SearchResults} />
               <Route path="/settings/:tab/" component={Settings} />
+              <Route path="/empty" component={() => <div />} />
               <Route path="/" component={PlanningRouter} />
             </Switch>
           </main>

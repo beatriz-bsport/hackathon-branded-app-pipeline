@@ -11,6 +11,7 @@ export default {
     date_start: 'Date complète',
     date_start_date: 'Date',
     date_start_time: 'Heure',
+    margin_value: 'Apport marginal',
     duration_minute: 'Durée (minutes)',
     attendance: 'Présent',
     coach: 'Professeur',

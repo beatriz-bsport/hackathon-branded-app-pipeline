@@ -13,6 +13,7 @@ export default {
     date_start_time: 'Time',
     duration_minute: 'Duration (minutes)',
     coach: 'Coach',
+    margin_value: 'Added margin value',
     effectif: 'Nb slots',
     nb_attendance: 'Nb attendant',
     attendance: 'Attendance',

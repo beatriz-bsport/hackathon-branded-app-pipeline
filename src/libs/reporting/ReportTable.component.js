@@ -135,7 +135,7 @@ export function ReportTable(props: Props) {
                     return (
                       <TableCell
                         key={columnsConfigs[i].identifier}
-                        {...cellProps || {}}
+                        {...(cellProps || {})}
                         classes={{ paddingDense: classes.paddingDense }}
                       >
                         {value}
@@ -158,7 +158,7 @@ ReportTable.defaultProps = {
 const styles = () => ({
   responsive: {
     overflowX: 'scroll',
-    maxWidth: 'calc(100vw - 280px)',
+    maxWidth: 'calc(100vw - 300px)',
   },
   right: {
     textAlign: 'right',

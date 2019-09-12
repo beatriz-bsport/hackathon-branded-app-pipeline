@@ -16,6 +16,7 @@ import {
 import { compatiblePacksWithOfferAndEnabled } from '../../libs/offer/selectors';
 import shopSelector from '../../libs/shop/selectors';
 
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { mailMembers as mailMembersAction } from '../../libs/communication/actions';
 import { fetchAll as fetchShopItems } from '../../libs/shop/actions/shopitem';
 
@@ -60,13 +61,10 @@ const formatTitle = (offer: Offer) => {
   return '';
 };
 
-function mapStateToProps(state, nextProps) {
-  const { match } = nextProps;
-  const offerId = (match && match.params && +match.params.id) || null;
-
+function mapStateToProps(state, { id }) {
   return {
-    offerId,
-    offer: state.offer.offers.find((o) => o.id === offerId),
+    offerId: id,
+    offer: state.offer.offers.find((o) => o.id === id),
     offers: state.offer.calendar,
     offerLoading: state.offer.byDay.loading,
     paymentPacks: paymentPackSelectors.getAll(state),
@@ -195,6 +193,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default compose(
+  routerParamsToProps({ id: 'id:number' }),
   withNamespaces(),
   connect(
     mapStateToProps,

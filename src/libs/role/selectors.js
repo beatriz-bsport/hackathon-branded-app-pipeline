@@ -140,8 +140,10 @@ export const getPermissionsSet = (): { [id: number]: Permissions } => {
   return getPermissionsId().map((id) => ({ id, ...getPermissionById(id) }));
 };
 
+export const getUsers = (state) => getRoleState(state).users;
+
 export const getUsersWithRole = createSelector(
-  getRoleState,
+  getUsers,
   (users) =>
     users.map((u) => ({
       ...u,

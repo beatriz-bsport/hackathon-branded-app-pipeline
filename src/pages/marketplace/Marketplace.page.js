@@ -180,6 +180,8 @@ export class MarketPlace extends Component<Props, State> {
               companyId={this.props.companyId}
               requestSignUp={() => this.toogleLogin(true)}
               toogleCurrentBasketOpen={this.toogleCurrentBasketOpen}
+              startWeekThisWeekday={false}
+              authenticated={this.props.auth.authenticated}
             />
           </div>
         );

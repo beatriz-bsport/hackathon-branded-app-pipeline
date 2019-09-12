@@ -113,7 +113,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
   };
 
   render() {
-    const { offer, classes, onClose } = this.props;
+    const { offer, classes, onClose, t } = this.props;
     const { activity } = offer;
     if (
       typeof activity === 'number' ||
@@ -187,7 +187,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
             {this.props.displayPacksInformation && passToDisplay.length ? (
               <div>
                 <Typography variant="h6" className={classes.title}>
-                  Mes abonnements compatibles
+                  {t('offer.compatiblePacks')}
                 </Typography>
                 {passToDisplay.map((p) => (
                   <ConsumerPackCheckout
@@ -204,7 +204,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
             this.props.compatiblePaymentPacks.length ? (
               <div>
                 <Typography variant="h6" className={classes.title}>
-                  Abonnements compatibles
+                  {t('offer.compatiblePacks')}
                 </Typography>
                 <div className={classes.listPaymentPacks}>
                   {this.props.compatiblePaymentPacks.map((p) => (

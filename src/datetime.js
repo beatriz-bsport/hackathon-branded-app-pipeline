@@ -116,3 +116,24 @@ export function isSameDay(date, date_) {
 
   return day === day_ && month === month_ && year === year_;
 }
+
+/**
+ * this is just a helper function that return week days staring from today
+ */
+export function getWeekShortDays() {
+  const day = Moment().day();
+  const days = Moment.weekdaysShort();
+  return [...days.slice(day), ...days.slice(0, day)];
+}
+
+/**
+ * format date as {day_name_short} {day/month} e.g : Mon. 10/09
+ */
+export function formatAsTitle(date) {
+  const _date = Moment(date, 'YYYY-MM-DD');
+  const weekDays = Moment.weekdaysShort(true);
+  const dayShort = weekDays[_date.weekday()];
+  const dayDate = `${_date.date()}`.padStart(2, '0');
+  const month = `${_date.month() + 1}`.padStart(2, '0');
+  return `${dayShort} ${dayDate}/${month}`;
+}

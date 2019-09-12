@@ -115,6 +115,31 @@ export const getPaymentPacks = (state: State) =>
         !pp.categories.includes(null),
     );
 
+export const getOffersEstablishments = (state: State) => {
+  const filtredOffers = getOffers(state) || [];
+  return (getEstablishments(state) || []).filter((e) =>
+    filtredOffers.find(
+      (o) => (o.activity.establishment || o.establishment_override).id === e.id,
+    ),
+  );
+};
+
+export const getOffersCoaches = (state: State) => {
+  const filtredOffers = getOffers(state) || [];
+  return (getCoaches(state) || []).filter((c) =>
+    filtredOffers.find(
+      (o) => (o.activity.coach || o.coach_override).id === c.id,
+    ),
+  );
+};
+
+export const getOffersMetaActivities = (state: State) => {
+  const filtredOffers = getOffers(state) || [];
+  return (getMetaActivities(state) || []).filter((ma) =>
+    filtredOffers.find((o) => o.activity.meta_activity.id === ma.id),
+  );
+};
+
 export const isMarketplaceLoading = (state: State) =>
   state.marketplacev2.metaActivities.loading ||
   state.marketplacev2.establishments.loading ||
@@ -134,4 +159,7 @@ export default {
   getOffersFiltered,
   getWorkshops,
   getOffersWorkshop,
+  getOffersEstablishments,
+  getOffersCoaches,
+  getOffersMetaActivities,
 };

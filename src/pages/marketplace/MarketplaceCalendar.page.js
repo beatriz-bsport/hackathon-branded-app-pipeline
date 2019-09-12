@@ -1,4 +1,5 @@
 // @flow
+
 import React, { Component } from 'react';
 import { compose, withProps } from 'recompose';
 import { withRouter } from 'react-router';
@@ -17,9 +18,13 @@ import MarketplaceActivityDialog from '../../libs/marketplace/components/Marketp
 import { getCurrentBasket } from '../../libs/checkout/selectors';
 
 import { Moment } from '../../i18n';
+
 import {
   getOffersFiltered,
   isOfferLoading,
+  getOffersMetaActivities,
+  getOffersCoaches,
+  getOffersEstablishments,
 } from '../../libs/marketplace/selectors';
 import { snackbarSuccess } from '../../actions/snackbar.actions';
 
@@ -40,6 +45,8 @@ type Props = {
   loading: boolean,
   hideMap: ?boolean,
   forceDayDisplayOnly: ?boolean,
+  compactMode: ?boolean,
+  startWeekThisWeekday: ?boolean,
 
   companyId: number,
   selectedDate: Object,
@@ -101,7 +108,7 @@ const fromURLtoDate = (search: string) => {
 const fromPropsToNewDateURL = (date, location) => {
   const params = location.search.slice(1).split('&');
   const filtered_params = params.filter((p) => !p.includes('date='));
-  const newDate = Moment(date);
+  const newDate = Moment(date, 'YYYY-MM-DD');
   return `${location.pathname}?${filtered_params.join(
     '&',
   )}&date=${newDate.format('YYYY-MM-DD')}`;
@@ -153,37 +160,35 @@ export class MarketplaceCalendar extends Component<Props, State> {
   }
 
   componentDidMount() {
+    // always fetch began from week start
     const min_date = this.props.selectedDate
       .clone()
       .startOf('week')
       .format('YYYY-MM-DD');
+    // the max date changes if start from today is enabled
     const max_date = this.props.selectedDate
       .clone()
       .endOf('week')
       .format('YYYY-MM-DD');
+    // fetch offers of the week
     this.props.fetchCompanyOffers(this.props.companyId, min_date, max_date);
   }
 
   componentDidUpdate(prevProps: Props) {
     if (
       (!prevProps.selectedDate && this.props.selectedDate) ||
-      Moment(
-        prevProps.selectedDate.format('YYYY-MM-DD'),
-        'YYYY-MM-DD',
-      ).week() !==
-        Moment(
-          this.props.selectedDate.format('YYYY-MM-DD'),
-          'YYYY-MM-DD',
-        ).week()
+      prevProps.selectedDate.clone().week() !==
+        this.props.selectedDate.clone().week()
     ) {
       const min_date = this.props.selectedDate
         .clone()
         .startOf('week')
         .format('YYYY-MM-DD');
-      const max_date = this.props.selectedDate
-        .clone()
-        .endOf('week')
+
+      const max_date = Moment(min_date, 'YYYY-MM-DD')
+        .add(6, 'days')
         .format('YYYY-MM-DD');
+
       this.props.fetchCompanyOffers(this.props.companyId, min_date, max_date);
     }
   }
@@ -200,23 +205,29 @@ export class MarketplaceCalendar extends Component<Props, State> {
   };
 
   getWeekOffers = () => {
-    const date_start = this.props.selectedDate
-      .clone()
-      .startOf('week')
-      .format('YYYY-MM-DD');
-    // structure offers par week days
-    return [0, 1, 2, 3, 4, 5, 6].map((i) => {
-      const _date = Moment(date_start, 'YYYY-MM-DD')
-        .add(i, 'days')
-        .format('YYYY-MM-DD');
-      return this.props.offers.filter((o) =>
-        Moment(o.date_start).isSame(Moment(_date), 'day'),
+    const { selectedDate, offers } = this.props;
+    const date_start = selectedDate.clone().startOf('week');
+    const weekdays = Moment.weekdays(true);
+    // split offers par week days
+    return weekdays.map((day, i) => {
+      const currentDate = Moment(date_start).add(i, 'days');
+      return offers.filter(
+        (o) =>
+          currentDate.weekday() === i &&
+          Moment(o.date_start).isSame(currentDate, 'day'),
       );
     });
   };
 
   render() {
-    const { classes, offers, filters, establishments, coaches } = this.props;
+    const {
+      classes,
+      offers,
+      filters,
+      establishments,
+      coaches,
+      startWeekThisWeekday,
+    } = this.props;
 
     const selectedDayOffers = offers.filter((o) =>
       Moment(o.date_start).isSame(this.props.selectedDate, 'day'),
@@ -249,12 +260,12 @@ export class MarketplaceCalendar extends Component<Props, State> {
         />
         <MarketplaceCalendarComponent
           offers={offers}
+          weekOffers={weekOffers}
           setFilters={this.props.setFilters}
           filters={filters}
           loading={this.props.loading}
           dayOffers={selectedDayOffers}
           forceDayDisplayOnly={!!this.props.forceDayDisplayOnly}
-          weekOffers={weekOffers}
           onClickOffer={this.openOfferDialog}
           onClickBook={(id) => this.props.goToBook(id, this.props.companyId)}
           onClickBookOption={(id) =>
@@ -269,6 +280,8 @@ export class MarketplaceCalendar extends Component<Props, State> {
           metaActivities={this.props.metaActivities}
           filtersOpen={this.props.filtersOpen}
           toogleFiltersOpen={this.props.toogleFiltersOpen}
+          compactMode={this.props.compactMode}
+          startWeekThisWeekday={startWeekThisWeekday}
         />
       </div>
     );
@@ -319,10 +332,9 @@ export default compose(
     (state, { filters }) => ({
       offers: getOffersFiltered(state, filters),
       loading: isOfferLoading(state),
-      coaches: state.marketplacev2.coaches.items,
-      establishments: state.marketplacev2.establishments.items,
-      metaActivities: state.marketplacev2.metaActivities.items,
-      authenticated: state.auth.authenticated,
+      coaches: getOffersCoaches(state),
+      establishments: getOffersEstablishments(state),
+      metaActivities: getOffersMetaActivities(state),
     }),
     {
       resetOffers: resetOffersAction,

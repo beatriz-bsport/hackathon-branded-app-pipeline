@@ -1036,5 +1036,10 @@ export default {
       minutes: 'Minutes',
       seconds: 'Secondes',
     },
+    dayParts: {
+      morning: 'Matin',
+      afternoon: 'Après midi',
+      evening: 'Soir',
+    },
   },
 };

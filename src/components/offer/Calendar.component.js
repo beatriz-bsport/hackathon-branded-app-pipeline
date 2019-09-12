@@ -16,6 +16,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ViewWeek from '@material-ui/icons/ViewWeek';
 import ViewComfy from '@material-ui/icons/ViewComfy';
 import { Moment } from '../../i18n';
+import { formatAsTitle } from '../../datetime';
 
 const WEEKMODE: number = 0;
 const MONTHMODE: number = 1;
@@ -33,6 +34,7 @@ type Props = {
   showDayName: ?boolean,
   hideDateBar: ?boolean,
   hideSwitchViewButton: ?boolean,
+  startFromToday: ?boolean,
 };
 
 type State = {
@@ -187,11 +189,26 @@ export class Calendar extends Component<Props, State> {
     return null;
   };
 
-  renderHeader = () => {
-    const { date, forceMonthDisplay, hideSwitchViewButton } = this.props;
+  renderCalendarTitle = () => {
+    const { date, startFromToday } = this.props;
     const { displayMode } = this.state;
-    const month = Moment.months()[date.month()];
-    const year = date.year();
+    const date_start = startFromToday
+      ? date.clone()
+      : date.clone().startOf('week');
+    if (displayMode === MONTHMODE) {
+      const dateMonth = Moment.months()[date_start.month()];
+      const dateYear = date_start.year();
+      return `${dateMonth} ${dateYear}`;
+    }
+    const date_end = date_start.clone().add(6, 'days');
+    return `${formatAsTitle(date_start)} - ${formatAsTitle(date_end)}`;
+  };
+
+  renderHeader = () => {
+    const { forceMonthDisplay, hideSwitchViewButton, classes } = this.props;
+
+    const { displayMode } = this.state;
+
     return (
       <Grid container justify="space-between" alignItems="center" wrap="nowrap">
         {forceMonthDisplay || hideSwitchViewButton ? (
@@ -223,8 +240,13 @@ export class Calendar extends Component<Props, State> {
               </IconButton>
             </Grid>
             <Grid item>
-              <Typography inline component="h3" variant="h6">
-                {month} {year}
+              <Typography
+                inline
+                component="h3"
+                variant="h6"
+                className={classes.textCapitalize}
+              >
+                {this.renderCalendarTitle()}
               </Typography>
             </Grid>
             <Grid item>
@@ -266,7 +288,6 @@ export class Calendar extends Component<Props, State> {
 
   renderMonthFrom = (firstDayMonth: Object) => {
     const { date, classes } = this.props;
-
     const weekRows = [];
     for (let i = 0; i < 6; i += 1) {
       const firstDayInRow = firstDayMonth.clone().add(i * 7, 'days');
@@ -324,10 +345,12 @@ export class Calendar extends Component<Props, State> {
     const { displayMode } = this.state;
     const { date } = this.props;
     const firstDayWeek = date.clone().startOf('week');
+
     const firstDayMonth = date
       .clone()
       .startOf('month')
       .startOf('week');
+
     switch (displayMode) {
       case WEEKMODE:
         return this.renderWeekFrom(firstDayWeek);
@@ -397,10 +420,12 @@ const styles = (theme) => ({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    wrap: 'nowrap',
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit,
+    paddingRight: theme.spacing.unit,
     width: '100%',
+  },
+  textCapitalize: {
+    textTransform: 'capitalize',
   },
 });
 

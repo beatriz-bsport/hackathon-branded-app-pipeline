@@ -1,6 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
+import _ from 'lodash';
 import List from '@material-ui/core/List';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
@@ -9,10 +10,12 @@ import { Divider } from '@material-ui/core';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import type { Offer } from '../types';
 import MarketplaceListItemOffer from './MarketplaceListItemOffer.component';
 
 type Props = {
   offers: ?Array<Offer>,
+  weekOffers: Array<Array<Offer>>,
   date: Object,
   loading: boolean,
   classes: Object,
@@ -24,44 +27,54 @@ type Props = {
 };
 
 export class MarketplaceTimetable extends Component<Props> {
-  renderContent = () => {
-    const { loading, offers, t, classes } = this.props;
-    if (!offers || loading) {
-      return <CircularProgress />;
-    }
-    if (!offers.length) {
-      return (
-        <Typography variant="caption" className={classes.emptyContent}>
-          {t('marketplace.noSessionToday')}
+  renderDayOffers(offers: Array<*>, i: number) {
+    const { date, classes } = this.props;
+
+    return offers.length !== 0 ? (
+      <div className={classes.container}>
+        <Typography variant="h6" className={classes.title}>
+          {date
+            .clone()
+            .add(i, 'days')
+            .format('dddd Do MMMM')}
         </Typography>
-      );
-    }
-    return (
-      <List disablePadding>
-        {offers.map((o) => (
-          <MarketplaceListItemOffer
-            key={o.id}
-            offer={o}
-            onClickOffer={this.props.onClickOffer}
-            onClickBook={() => this.props.onClickBook(o.id)}
-            onClickBookOption={() => this.props.onClickBookOption(o.id)}
-          />
-        ))}
-      </List>
+        <Divider />
+        <List disablePadding>
+          {offers.map((o) => (
+            <MarketplaceListItemOffer
+              key={o.id}
+              offer={o}
+              onClickOffer={this.props.onClickOffer}
+              onClickBook={() => this.props.onClickBook(o.id)}
+              onClickBookOption={() => this.props.onClickBookOption(o.id)}
+            />
+          ))}
+        </List>
+      </div>
+    ) : (
+      ''
+    );
+  }
+
+  renderContent = () => {
+    const { weekOffers, date, classes, t } = this.props;
+    const weekday = date.weekday();
+    // split offer for the selected day
+    const nextDaysOffers = weekOffers.slice(weekday);
+
+    return !_.flatten(weekOffers).length ? (
+      <Typography variant="caption" className={classes.emptyContent}>
+        {t('marketplace.noSessionToday')}
+      </Typography>
+    ) : (
+      nextDaysOffers.map((offers, i) => this.renderDayOffers(offers, i))
     );
   };
 
   render() {
-    const { date, classes } = this.props;
-    return (
-      <div className={classes.container}>
-        <Typography variant="h6" className={classes.title}>
-          {date.format('dddd Do MMMM')}
-        </Typography>
-        <Divider />
-        {this.renderContent()}
-      </div>
-    );
+    const { loading, offers } = this.props;
+
+    return !offers || loading ? <CircularProgress /> : this.renderContent();
   }
 }
 

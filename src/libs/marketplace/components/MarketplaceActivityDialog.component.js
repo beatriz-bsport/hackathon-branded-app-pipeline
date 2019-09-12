@@ -15,12 +15,14 @@ type Props = {
   classes: { [string]: string },
   onClose: () => void,
   fullScreen: boolean,
+  offerId: number,
 };
 
 export function MarketplaceActivityDialog(props: Props) {
-  const { classes, onClose, fullScreen } = props;
+  const { classes, onClose, fullScreen, offerId } = props;
   return (
     <Dialog
+      key={offerId}
       open={props.open}
       scroll="paper"
       onClose={onClose}

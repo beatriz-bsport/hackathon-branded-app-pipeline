@@ -21,7 +21,7 @@ import { isOfferInThePast } from '../utils';
 type Props = {
   offer: Offer,
   selected: ?boolean,
-  onClickOffer: ?() => void,
+  onClickOffer: ?(offerId: number) => void,
   onClickBook: (offerId: number) => void,
   onClickBookOption: (offerId: number) => void,
   t: TFunction,

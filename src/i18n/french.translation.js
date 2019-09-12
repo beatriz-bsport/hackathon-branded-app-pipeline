@@ -867,6 +867,7 @@ export default {
       // eslint-disable-next-line
       onWaitingList: "Sur liste d'attente",
       onHold: 'En attente',
+      add: 'Inscrire',
       waitingUserConfirmation: 'En attente de confirmation client',
       confirm: 'Encaisser',
       validated: 'Payé',
@@ -986,6 +987,7 @@ export default {
     offerManagement: {
       forms: {
         register: {
+          registerToOffer: 'Incription à la séance',
           passOwnedByMember: 'Pass possédé(s) par le membre',
           passCompatibleNotOwnedByMember: "Facturation d'un nouveau pass",
         },

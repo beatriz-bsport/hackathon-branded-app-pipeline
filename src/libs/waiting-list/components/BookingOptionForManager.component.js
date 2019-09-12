@@ -6,6 +6,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import CancelIcon from '@material-ui/icons/Cancel';
+import AddIcon from '@material-ui/icons/Add';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -23,6 +24,7 @@ type Props = {
   member: ?Member,
   onDiscard: () => void,
   classes: any,
+  onClickRegister: () => void,
 };
 
 export class BookingOptionForManager extends Component<Props> {
@@ -68,14 +70,9 @@ export class BookingOptionForManager extends Component<Props> {
   };
 
   render() {
-    const { option, t, classes } = this.props;
+    const { option, t, classes, onClickRegister } = this.props;
     return (
-      <ListItem
-        divider
-        button={true}
-        disableRipple
-        onClick={this.handleListItemClick}
-      >
+      <ListItem divider button disableRipple onClick={this.handleListItemClick}>
         <div className={classes.outerRow}>
           <div className={classes.innerRow}>
             {this.getAvatar()}
@@ -89,19 +86,34 @@ export class BookingOptionForManager extends Component<Props> {
             />
           </div>
         </div>
+        <Button
+          color="primary"
+          variant="outlined"
+          onClick={onClickRegister}
+          className={classes.addButton}
+        >
+          <AddIcon />
+          {t('booking.add')}
+        </Button>
         <div className={classes.innerRow}>{this.renderButton()}</div>
       </ListItem>
     );
   }
 }
 
-const styles = () => ({
+const styles = (theme) => ({
   outerRow: {
     display: 'flex',
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  addButton: {
+    marginRight: theme.spacing.unit,
+    padding: theme.spacing.unit * 2,
+    paddingLeft: theme.spacing.unit * 3,
+    paddingRight: theme.spacing.unit * 4,
   },
   innerRow: {
     display: 'flex',

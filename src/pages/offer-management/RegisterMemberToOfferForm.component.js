@@ -11,6 +11,7 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
+import Divider from '@material-ui/core/Divider';
 
 import { consumerPaymentPack as consumerPackActions } from '../../actions';
 import ConsumerPackRowItem from '../../libs/payment-packs/ConsumerPackRowItem.component';
@@ -22,6 +23,7 @@ type Props = {
   consumerPacksLoading: boolean,
 
   memberId: Member,
+  memberName: string,
   offerId: number,
   compatiblePacks: Array<PaymentPack>,
   consumerPacks: Array<ConsumerPaymentPack>,
@@ -105,15 +107,30 @@ export class RegisterMemberToOfferForm extends PureComponent<Props> {
   };
 
   render() {
-    const { t, onCancel, memberId, consumerPacksLoading, loading } = this.props;
+    const {
+      t,
+      onCancel,
+      memberId,
+      consumerPacksLoading,
+      loading,
+      memberName,
+    } = this.props;
     if (!memberId || loading || consumerPacksLoading) {
       return <CircularProgress />;
     }
     return (
       <Grid container spacing={16} direction="column">
         <Grid item>
-          <Typography variant="h3">Inscription à la séance</Typography>
+          <Typography variant="h4" align="center">
+            {memberName}
+          </Typography>
         </Grid>
+        <Grid item>
+          <Typography variant="h6" align="center">
+            {t('offerManagement.forms.register.registerToOffer')}
+          </Typography>
+        </Grid>
+        <Divider />
         <Grid item>
           <Typography variant="h6" component="h4">
             {t('offerManagement.forms.register.passOwnedByMember')}

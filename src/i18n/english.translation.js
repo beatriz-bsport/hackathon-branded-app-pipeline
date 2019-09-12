@@ -797,6 +797,7 @@ export default {
       discard: 'Discard',
       onWaitingList: 'Waiting list',
       onHold: 'On hold',
+      add: 'Register',
       waitingUserConfirmation: 'Waiting user confirmation',
       confirm: 'Checkout payment',
       validated: 'Payment confirmed',
@@ -913,6 +914,7 @@ export default {
     offerManagement: {
       forms: {
         register: {
+          registerToOffer: 'Book a class',
           passOwnedByMember: 'Pass owned by member',
           passCompatibleNotOwnedByMember: 'Billing a new pass',
         },

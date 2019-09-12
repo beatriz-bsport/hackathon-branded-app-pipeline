@@ -120,13 +120,19 @@ type State = {
   searchedText: string,
 };
 
+const getNameFromId = (id, membersList) => {
+  return membersList.find((member) => member.id === id).name;
+};
+
 export class OfferManagement extends Component<Props, State> {
   state = {
     quickInvoices: [],
     addMemberModal: false,
     mailClients: false,
     memberToRegister: null,
+    memberToRegisterName: null,
     optionToDiscard: null,
+    confirmOptionToDiscard: null,
     searchedText: '',
     interval: null,
   };
@@ -166,6 +172,13 @@ export class OfferManagement extends Component<Props, State> {
       offerId,
     );
     this.clearSearch();
+    if (this.state.optionToDiscard) {
+      this.props.discardOption(this.state.optionToDiscard);
+      this.setState({
+        optionToDiscard: null,
+        confirmOptionToDiscard: null,
+      });
+    }
     this.setState({ memberToRegister: null });
   };
 
@@ -177,6 +190,13 @@ export class OfferManagement extends Component<Props, State> {
       memberId: memberToRegister,
     });
     this.clearSearch();
+    if (this.state.optionToDiscard) {
+      this.props.discardOption(this.state.optionToDiscard);
+      this.setState({
+        optionToDiscard: null,
+        confirmOptionToDiscard: null,
+      });
+    }
     this.setState({ memberToRegister: null });
   };
 
@@ -254,7 +274,13 @@ export class OfferManagement extends Component<Props, State> {
           this.clearSearch();
         }}
         onClickRegister={() => {
-          this.setState({ memberToRegister: member.id });
+          this.setState({
+            memberToRegisterName: getNameFromId(
+              member.id,
+              this.props.searchedMembers,
+            ),
+            memberToRegister: member.id,
+          });
         }}
         onClickListItem={
           hasBooked ? () => this.addToQuickInvoicePanel(member.id) : null
@@ -456,7 +482,7 @@ export class OfferManagement extends Component<Props, State> {
       fullScreen,
     } = this.props;
 
-    const { searchedText, memberToRegister } = this.state;
+    const { searchedText, memberToRegister, memberToRegisterName } = this.state;
     if (!offer) {
       return <React.Fragment>{this.getNavigationHeader(true)}</React.Fragment>;
     }
@@ -518,11 +544,25 @@ export class OfferManagement extends Component<Props, State> {
                       option={bo}
                       onDiscard={(e) => {
                         e.stopPropagation();
-                        this.setState({ optionToDiscard: bo.id });
+                        this.setState({
+                          optionToDiscard: bo.id,
+                          confirmOptionToDiscard: true,
+                        });
                       }}
                       member={this.props.members.find(
                         (m) => m.id === bo.member,
                       )}
+                      onClickRegister={(e) => {
+                        e.stopPropagation();
+                        this.setState({
+                          memberToRegisterName: getNameFromId(
+                            bo.member,
+                            this.props.members,
+                          ),
+                          memberToRegister: bo.member,
+                        });
+                        this.setState({ optionToDiscard: bo.id });
+                      }}
                     />
                   ))}
                 </List>
@@ -562,6 +602,7 @@ export class OfferManagement extends Component<Props, State> {
               <RegisterMemberToOfferForm
                 offerId={this.props.offerId}
                 memberId={memberToRegister}
+                memberName={memberToRegisterName}
                 loading={this.props.compatiblePacksLoading}
                 compatiblePacks={this.props.compatiblePacks}
                 onCancel={() => this.setState({ memberToRegister: null })}
@@ -599,12 +640,22 @@ export class OfferManagement extends Component<Props, State> {
           closeRevertBookingDialog={this.closeRevertBookingDialog}
         />
         <DiscardBookingOptionDialog
-          open={!!this.state.optionToDiscard}
+          open={
+            !!this.state.optionToDiscard && !!this.state.confirmOptionToDiscard
+          }
           onSubmit={() => {
             this.props.discardOption(this.state.optionToDiscard);
-            this.setState({ optionToDiscard: null });
+            this.setState({
+              optionToDiscard: null,
+              confirmOptionToDiscard: null,
+            });
           }}
-          onClose={() => this.setState({ optionToDiscard: null })}
+          onClose={() =>
+            this.setState({
+              optionToDiscard: null,
+              confirmOptionToDiscard: null,
+            })
+          }
         />
         <SendMailToMembersDialog
           fullScreen={fullScreen}

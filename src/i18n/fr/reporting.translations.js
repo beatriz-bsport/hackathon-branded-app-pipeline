@@ -18,6 +18,7 @@ export default {
     effectif: 'Nb de places',
     nb_attendance: 'Présents',
     nb_non_attendance: 'Absents',
+    total_payments: 'Total paiements',
     name: 'Nom',
     identifier: 'Identifiant',
     first_name: 'Prénom',

@@ -15,6 +15,7 @@ export default {
     coach: 'Coach',
     margin_value: 'Added margin value',
     effectif: 'Nb slots',
+    total_payments: 'Total payments',
     nb_attendance: 'Nb attendant',
     attendance: 'Attendance',
     nb_non_attendance: 'Nb absent',

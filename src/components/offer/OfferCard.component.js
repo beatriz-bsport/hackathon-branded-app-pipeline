@@ -120,6 +120,7 @@ export class OfferCard extends Component<Props> {
                 {nb_bookings}
                 <Typography
                   variant="h6"
+                  component="div"
                   color="primary"
                   noWrap
                   style={{ position: 'absolute', right: -30, top: 0 }}
@@ -133,7 +134,7 @@ export class OfferCard extends Component<Props> {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={4} className={[classes.rightBorder, classes.stat]}>
+        <Grid item xs={4}>
           <Grid
             container
             justify="center"
@@ -169,7 +170,7 @@ export class OfferCard extends Component<Props> {
                 {nb_option}
                 <Typography
                   variant="h6"
-                  component="h4"
+                  component="div"
                   style={{ position: 'absolute', top: 0, right: -30 }}
                 >
                   {`/${waiting_list_max_size}`}

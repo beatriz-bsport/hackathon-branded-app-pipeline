@@ -133,7 +133,15 @@ export function formatAsTitle(date) {
   const _date = Moment(date, 'YYYY-MM-DD');
   const weekDays = Moment.weekdaysShort(true);
   const dayShort = weekDays[_date.weekday()];
-  const dayDate = `${_date.date()}`.padStart(2, '0');
-  const month = `${_date.month() + 1}`.padStart(2, '0');
+  let dayDate = `${_date.date()}`;
+  if (dayDate.length < 2) {
+    dayDate = `0${dayDate}`;
+  }
+
+  let month = `${_date.month() + 1}`;
+  if (month.length < 2) {
+    month = `0${month}`;
+  }
+
   return `${dayShort} ${dayDate}/${month}`;
 }

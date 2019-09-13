@@ -83,7 +83,7 @@ export class InvoiceItemSelector extends Component<Props, State> {
         return this.props.onAddShopItem(this.state.shopItemId);
       }
       case SELECTOR_CREDIT_ACCOUNT: {
-        return this.props.onTopUp(this.state.creditTopUp);
+        return this.props.onTopUp(parseFloat(this.state.creditTopUp));
       }
       case SELECTOR_PAYMENT_PACK:
       default:
@@ -162,9 +162,7 @@ export class InvoiceItemSelector extends Component<Props, State> {
         <PriceInput
           variant="outlined"
           value={creditTopUp}
-          onChange={(e) =>
-            this.setState({ creditTopUp: parseFloat(e.target.value) })
-          }
+          onChange={(e) => this.setState({ creditTopUp: e.target.value })}
         />
       </div>
     );

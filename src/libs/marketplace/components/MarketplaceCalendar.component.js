@@ -95,6 +95,7 @@ export class MarketplaceCalendar extends Component<Props> {
       }
       events[midnight].push(o);
     });
+    return events;
   });
 
   render() {

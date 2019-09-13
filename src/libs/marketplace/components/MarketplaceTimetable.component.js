@@ -28,9 +28,9 @@ type Props = {
 
 export class MarketplaceTimetable extends Component<Props> {
   renderDayOffers(offers: Array<*>, i: number) {
-    const { date, classes } = this.props;
+    const { date, classes, t } = this.props;
 
-    return offers.length !== 0 ? (
+    return (
       <div className={classes.container}>
         <Typography variant="h6" className={classes.title}>
           {date
@@ -39,20 +39,24 @@ export class MarketplaceTimetable extends Component<Props> {
             .format('dddd Do MMMM')}
         </Typography>
         <Divider />
-        <List disablePadding>
-          {offers.map((o) => (
-            <MarketplaceListItemOffer
-              key={o.id}
-              offer={o}
-              onClickOffer={this.props.onClickOffer}
-              onClickBook={() => this.props.onClickBook(o.id)}
-              onClickBookOption={() => this.props.onClickBookOption(o.id)}
-            />
-          ))}
-        </List>
+        {offers && offers.length ? (
+          <List disablePadding>
+            {offers.map((o) => (
+              <MarketplaceListItemOffer
+                key={o.id}
+                offer={o}
+                onClickOffer={this.props.onClickOffer}
+                onClickBook={() => this.props.onClickBook(o.id)}
+                onClickBookOption={() => this.props.onClickBookOption(o.id)}
+              />
+            ))}
+          </List>
+        ) : (
+          <Typography variant="caption" className={classes.title}>
+            {t('marketplace.noSessionToday')}
+          </Typography>
+        )}
       </div>
-    ) : (
-      ''
     );
   }
 
@@ -63,7 +67,7 @@ export class MarketplaceTimetable extends Component<Props> {
     const nextDaysOffers = weekOffers.slice(weekday);
 
     return !_.flatten(weekOffers).length ? (
-      <Typography variant="caption" className={classes.emptyContent}>
+      <Typography variant="caption" className={classes.title}>
         {t('marketplace.noSessionToday')}
       </Typography>
     ) : (

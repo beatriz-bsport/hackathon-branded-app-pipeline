@@ -5,6 +5,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import ListItemText from '@material-ui/core/ListItemText';
 import type { TFunction } from 'react-i18next';
+import { pure } from 'recompose';
 
 import { formatAsDatetime } from '../../../datetime';
 import CoachAvatar from '../../associated-coach/components/CoachAvatar.component';
@@ -14,7 +15,6 @@ type Props = {
   offer: Object,
   t: TFunction,
   onClick: (offerId: number) => void,
-  rightAction: ?React.Node,
 };
 
 export const OfferListItem = (props: Props) => {
@@ -55,4 +55,4 @@ export const OfferListItem = (props: Props) => {
     </ListItem>
   );
 };
-export default OfferListItem;
+export default pure(OfferListItem);

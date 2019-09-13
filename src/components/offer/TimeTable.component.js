@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -53,7 +53,7 @@ type State = {
   offersToday: Array<Offer>,
 };
 
-export class TimeTable extends Component<Props, State> {
+export class TimeTable extends PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
     const offersTodayUnfiltered = getOffersToday(props.date, props.offers);

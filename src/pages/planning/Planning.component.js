@@ -23,6 +23,7 @@ import { push as pushRouter, goBack as goBackRouter } from 'react-router-redux';
 
 import withDrawer from '../../hocs/with-drawer.hoc';
 
+import { getSimilars as getSimilarsOffers } from '../../libs/offer/selectors';
 import OfferCard from '../../components/offer/OfferCard.component';
 import TimeTable from '../../components/offer/TimeTable.component';
 import Calendar from '../../components/offer/Calendar.component';
@@ -399,6 +400,14 @@ export class Planning extends PureComponent<Props, State> {
     return events_;
   });
 
+  selectOffer = (offer) => {
+    if (this.props.selectedOffer && offer.id === this.props.selectedOffer.id) {
+      this.props.goToOfferManagement(offer.id);
+    } else {
+      this.props.loadOfferData(offer);
+    }
+  };
+
   render() {
     const {
       offers,
@@ -433,7 +442,7 @@ export class Planning extends PureComponent<Props, State> {
                 </div>
                 <TimeTable
                   date={date}
-                  onOfferSelected={this.props.loadOfferData}
+                  onOfferSelected={this.selectOffer}
                   offers={offersToday}
                   loading={timetableLoading && (offersToday || []).length === 0}
                   selected={selectedOffer ? selectedOffer.id : null}
@@ -500,7 +509,7 @@ export default compose(
       activitiesLoading: state.metaActivity.loading,
 
       similarOfferLoading: state.offer.similarOffers.loading,
-      similarOffers: state.offer.similarOffers.items,
+      similarOffers: getSimilarsOffers(state),
       permission: getPermissions(state),
     }),
     {

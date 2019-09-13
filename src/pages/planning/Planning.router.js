@@ -6,10 +6,10 @@ import { compose, withProps } from 'recompose';
 import { connect } from 'react-redux';
 import { push, replace } from 'react-router-redux';
 import Planning from './Planning.component';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { Moment } from '../../i18n';
 
 import { offer as offerActions } from '../../actions';
-import { fetchBookingsByOffer as fetchBookingsByOfferAction } from '../../libs/booking/actions';
 
 const formatDate = (date) => {
   const formatedDate = Moment(date, 'DD-MM-YYYY');
@@ -37,39 +37,26 @@ export default function PlanningRouter() {
   );
 }
 
-function mapStateToProps(state) {
-  return {
-    offers: state.offer.offers,
-  };
-}
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchOffersByDay({ year, month, day }) {
-      dispatch(offerActions.fetchOffersByDay({ year, month, day }));
-    },
-    fetchBookings(offerId) {
-      dispatch(fetchBookingsByOfferAction(offerId));
-    },
-    pushRouter(path) {
-      dispatch(push(path));
-    },
-    replaceRouter(path) {
-      dispatch(replace(path));
-    },
-  };
-}
-
 const PlanningWithDateAndOffer = compose(
   connect(
-    mapStateToProps,
-    mapDispatchToProps,
+    (state) => ({ offers: state.offer.offers }),
+
+    {
+      fetchOffersByDay: offerActions.fetchOffersByDay,
+      pushRouter: push,
+      replaceRouter: replace,
+    },
   ),
-  withProps(({ match, offers }) => {
-    const date = formatDate(
-      `${match.params.date}-${match.params.month}-${match.params.year}`,
-    );
-    const selectedOffer = match.params.offerId
-      ? offers.find((offer) => offer.id === parseInt(match.params.offerId, 10))
+  routerParamsToProps({
+    offerId: 'offerId:number',
+    date: 'day:number',
+    month: 'month:number',
+    year: 'year:number',
+  }),
+  withProps(({ offers, day, month, year, offerId }) => {
+    const date = formatDate(`${day}-${month}-${year}`);
+    const selectedOffer = offerId
+      ? offers.find((offer) => offer.id === offerId)
       : null;
     return {
       date,
@@ -89,24 +76,9 @@ const PlanningWithDateAndOffer = compose(
       });
     },
   })),
-  withProps(
-    ({ date, selectedOffer, fetchBookings, replaceRouter, pushRouter }) => ({
-      loadOfferData: (offer) => {
-        fetchBookings(offer.id);
-        if (selectedOffer) {
-          replaceRouter(
-            `/calendar/${date.year()}/${date.month() + 1}/${date.date()}/${
-              offer.id
-            }`,
-          );
-        } else {
-          pushRouter(
-            `/calendar/${date.year()}/${date.month() + 1}/${date.date()}/${
-              offer.id
-            }`,
-          );
-        }
-      },
-    }),
-  ),
+  withProps(({ day, month, year, pushRouter }) => ({
+    loadOfferData: (offer) => {
+      pushRouter(`/calendar/${year}/${month}/${day}/${offer.id}`);
+    },
+  })),
 )(Planning);

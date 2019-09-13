@@ -13,7 +13,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import ExpandIcon from '@material-ui/icons/ExpandMore';
 import { withNamespaces } from 'react-i18next';
 
-import OfferMinimalSummary from '../../../components/offer/OfferMinimalSummary.component';
+// import OfferMinimalSummary from '../../../components/offer/OfferMinimalSummary.component';
+import OfferListItem from '../components/OfferListItemV2.component';
 
 type Props = {
   loading: boolean,
@@ -77,7 +78,7 @@ export class RecursionToogle extends Component<Props, State> {
           <Collapse in={isSimilarOfferListExpanded}>
             <List component="nav">
               {(similarOffers || []).map((so) => (
-                <OfferMinimalSummary offer={so} />
+                <OfferListItem offer={so} />
               ))}
             </List>
           </Collapse>

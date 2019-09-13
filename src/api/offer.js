@@ -1,4 +1,11 @@
-import { API_URI, getAuth, putAuth, deleteAuth, patchAuth } from '../http';
+import {
+  API_URI,
+  API_V1_URI,
+  getAuth,
+  putAuth,
+  deleteAuth,
+  patchAuth,
+} from '../http';
 
 export async function fetchAllEvents() {
   return getAuth(`${API_URI}/saas/offers/minimal`);
@@ -13,7 +20,7 @@ export async function editLiveOffer({ offerId, data }) {
 }
 
 export async function fetchSimilarOffers(offerId) {
-  return getAuth(`${API_URI}/saas/offer/${offerId}/edit`);
+  return getAuth(`${API_V1_URI}/offer/${offerId}/similars/`);
 }
 
 export async function fetchCompatiblePacks(offerId) {

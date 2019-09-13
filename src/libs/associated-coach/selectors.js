@@ -13,7 +13,7 @@ const EMPTY_PERFORMANCE: CoachPerformanceContainer = Immutable({
   error: null,
 });
 
-const getAllCoaches = (state: State): Array<Coach> =>
+export const getAllCoaches = (state: State): Array<Coach> =>
   state.coach.companyAssociated;
 
 export const getActiveCoaches = createSelector(

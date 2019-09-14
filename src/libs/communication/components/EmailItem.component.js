@@ -54,7 +54,8 @@ export class EmailListItem extends Component<props> {
             <Button
               color="primary"
               onClick={() => {
-                this.setState({ displayMailDialog: true });
+                window.location.href = 'mailto:'.concat(email);
+                // this.setState({ displayMailDialog: true });
               }}
             >
               <EmailIcon />

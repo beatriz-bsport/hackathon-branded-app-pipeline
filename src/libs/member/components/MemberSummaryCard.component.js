@@ -11,18 +11,13 @@ import Paper from '@material-ui/core/Paper';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Hidden from '@material-ui/core/Hidden';
 import withStyles from '@material-ui/core/styles/withStyles';
-import EmailIcon from '@material-ui/icons/Email';
 import TodayIcon from '@material-ui/icons/Today';
 import EditIcon from '@material-ui/icons/Edit';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
-import CallIcon from '@material-ui/icons/Call';
-import SMSIcon from '@material-ui/icons/Sms';
+
 import PlaceIcon from '@material-ui/icons/Place';
-import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
-import PhoneForwardedIcon from '@material-ui/icons/PhoneForwarded';
+
 import { withNamespaces } from 'react-i18next';
-import NotificationActiveIcon from '@material-ui/icons/NotificationsActive';
-import NotificationOffIcon from '@material-ui/icons/NotificationsOff';
 
 import { compose } from 'recompose';
 import type { TFunction } from 'react-i18next';
@@ -31,6 +26,9 @@ import CreditMemberBadge from './CreditMemberBadge.component';
 import { formatAsDate } from '../../../datetime';
 import { Avatar } from '../../../components';
 import type { Member } from '../../../api/types';
+
+import EmailItem from '../../communication/components/EmailItem.component';
+import PhoneItem from '../../communication/components/PhoneItem.component';
 
 type Props = {
   editMember: () => void,
@@ -73,72 +71,21 @@ export class MemberSummaryCard extends Component<Props> {
     const { member } = this.props;
     return (
       <List dense>
-        <ListItem>
-          <CallIcon />
-          <ListItemText
-            primary={
-              // prettier-ignore
-              (member.consumer.phonenumber || { phone_number: ' - ' }).phone_number
-            }
-            className={this.props.classes.listItemText}
-          />
-          <Button
-            onClick={(e) => {
-              e.stopPropagation();
-              if (member.consumer.phonenumber) {
-                window.location.href = 'tel:'.concat(
-                  member.consumer.phonenumber.phone_number,
-                );
-              }
-            }}
-            color="primary"
-          >
-            <PhoneForwardedIcon />
-          </Button>
-          {member.consumer.phonenumber ? (
-            <Button
-              onClick={(e) => {
-                e.stopPropagation();
-                if (member.consumer.phonenumber) {
-                  window.location.href = 'sms:'.concat(
-                    member.consumer.phonenumber.phone_number,
-                  );
-                }
-              }}
-              color="primary"
-            >
-              <SMSIcon />
-            </Button>
-          ) : null}
-          {member.accept_sms ? (
-            <NotificationActiveIcon />
-          ) : (
-            <NotificationOffIcon />
-          )}
-        </ListItem>
-        <ListItem>
-          <AlternateEmailIcon />
-          <ListItemText
-            primary={member.consumer.email || ' - '}
-            className={this.props.classes.listItemText}
-          />
-          <Button
-            onClick={(e) => {
-              e.stopPropagation();
-              if (member.consumer.email) {
-                window.location.href = 'mailto:'.concat(member.consumer.email);
-              }
-            }}
-            color="primary"
-          >
-            <EmailIcon />
-          </Button>
-          {member.accept_email ? (
-            <NotificationActiveIcon />
-          ) : (
-            <NotificationOffIcon />
-          )}
-        </ListItem>
+        <PhoneItem
+          phoneNumber={
+            member.consumer.phonenumber &&
+            member.consumer.phonenumber.phone_number
+          }
+          accept_contact={member.accept_sms}
+          notificationIcon
+        />
+        <EmailItem
+          email={member.consumer.email}
+          receiverId={member.id}
+          name={`${member.consumer.first_name} ${member.consumer.last_name}`}
+          accept_email={member.accept_email}
+          notificationIcon
+        />
       </List>
     );
   };

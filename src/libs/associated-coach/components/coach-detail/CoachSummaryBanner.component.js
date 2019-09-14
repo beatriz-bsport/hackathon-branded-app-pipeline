@@ -11,8 +11,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Avatar from '@material-ui/core/Avatar';
 import Popover from '@material-ui/core/Popover';
 import { compose } from 'recompose';
-import EmailIcon from '@material-ui/icons/Email';
-import CallIcon from '@material-ui/icons/Call';
 import { translate, withNamespaces, TFunction } from 'react-i18next';
 
 import { PaymentRuleSelector } from '../../../payment-rules';
@@ -22,6 +20,9 @@ import FACEBOOK_PNG from '../../../../public/images/facebook.png';
 import INSTAGRAM_PNG from '../../../../public/images/instagram.png';
 
 import type { CoachDetailed } from '../../../../api/types';
+
+import EmailItem from '../../../communication/components/EmailItem.component';
+import PhoneItem from '../../../communication/components/PhoneItem.component';
 
 type Props = {
   coach: CoachDetailed,
@@ -104,34 +105,13 @@ class CoachSummaryCard extends React.Component<Props> {
   renderContact = () => {
     return (
       <List dense>
-        <ListItem
-          button={!!this.props.coach.phone}
-          onClick={(e) => {
-            e.stopPropagation();
-            if (this.props.coach.phone) {
-              window.location.href = 'tel:'.concat(this.props.coach.phone);
-            }
-          }}
-        >
-          <CallIcon />
-          <ListItemText
-            primary={this.props.coach.phone ? this.props.coach.phone : ' - '}
-          />
-        </ListItem>
-        <ListItem
-          button={!!this.props.coach.email}
-          onClick={(e) => {
-            e.stopPropagation();
-            if (this.props.coach.email) {
-              window.location.href = 'mailto:'.concat(this.props.coach.email);
-            }
-          }}
-        >
-          <EmailIcon />
-          <ListItemText
-            primary={this.props.coach.email ? this.props.coach.email : ' - '}
-          />
-        </ListItem>
+        <PhoneItem phoneNumber={this.props.coach.phone} accept_contact />
+        <EmailItem
+          email={this.props.coach.email}
+          receiverId={this.props.coach.id}
+          name={this.props.coach.name}
+          accept_email
+        />
       </List>
     );
   };

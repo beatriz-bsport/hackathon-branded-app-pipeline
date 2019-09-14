@@ -3,9 +3,6 @@ import React, { Component } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import WarningIcon from '@material-ui/icons/Warning';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
@@ -28,6 +25,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import type { MemberMailData } from '../types';
 
 type Props = {
+  receiversNotEditable: boolean,
   onCancel: () => void,
   sendMailAction: (data: MemberMailData) => void,
   classes: Object,
@@ -71,17 +69,6 @@ export class SendMailToMembers extends Component<Props> {
     }
   }
 
-  renderWarning = (text: string) => (
-    <Grid container direction="row" spacing={24}>
-      <Grid item>
-        <WarningIcon color="error" />
-      </Grid>
-      <Grid item>
-        <Typography>{text}</Typography>
-      </Grid>
-    </Grid>
-  );
-
   handleToggle = (value: string) => () => {
     this.setState((prevState) => {
       const currentIndex = prevState.checkedReceivers.indexOf(value);
@@ -104,6 +91,7 @@ export class SendMailToMembers extends Component<Props> {
       receiverInfo,
       fullScreen,
       open,
+      receiversNotEditable,
     } = this.props;
     return (
       <Dialog fullScreen={fullScreen} open={open}>
@@ -162,7 +150,7 @@ export class SendMailToMembers extends Component<Props> {
                     <ListItemSecondaryAction>
                       <Checkbox
                         edge="end"
-                        disabled={!member.email}
+                        disabled={!member.email || receiversNotEditable}
                         onChange={this.handleToggle(member.id)}
                         checked={
                           member.email

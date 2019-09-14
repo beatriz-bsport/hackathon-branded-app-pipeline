@@ -652,6 +652,7 @@ export default {
       establishment: 'Etablissements',
       payment: 'Paiements',
       logoff: 'Déconnexion',
+      refresh: 'Actualiser',
       goBack: 'Retour',
       pass: 'Abonnements',
       settings: 'Paramètres',

@@ -8,7 +8,11 @@ import { withNamespaces } from 'react-i18next';
 
 import i18n, { availableLanguages } from '../../i18n';
 
-export class LanguageButton extends Component {
+type props = {
+  closeMenu: () => void,
+};
+
+export class LanguageButton extends Component<props> {
   handleChange = (event) => {
     i18n.changeLanguage(event.target.value);
   };
@@ -23,7 +27,17 @@ export class LanguageButton extends Component {
     const { language } = i18n;
     return (
       <FormControl>
-        <Select value={language} onChange={this.handleChange} name="Language">
+        <Select
+          value={language}
+          onChange={(e) => {
+            this.handleChange(e);
+            if (this.props.closeMenu) {
+              return this.props.closeMenu();
+            }
+            return null;
+          }}
+          name="Language"
+        >
           {availableLanguages.map((lng) => this.renderMenuItem(lng.lang))}
         </Select>
       </FormControl>

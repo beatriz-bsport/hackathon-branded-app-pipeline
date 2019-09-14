@@ -6,6 +6,8 @@ import { withNamespaces } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 
+import { compose } from 'recompose';
+
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -19,6 +21,12 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Grid from '@material-ui/core/Grid';
 import Collapse from '@material-ui/core/Collapse';
 import Typography from '@material-ui/core/Typography';
+
+import withWidth from '@material-ui/core/withWidth';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
 
 import Today from '@material-ui/icons/Today';
 import Star from '@material-ui/icons/Star';
@@ -74,17 +82,20 @@ type Props = {
   fetchMoreAlertingKind: (alert_kind: number) => void,
   t: TFunction,
   location: Object,
+  width: string,
 };
 
 type State = {
   mobileOpen: boolean,
   open: {},
+  openParameters: boolean,
 };
 
 class ResponsiveDrawer extends React.Component<Props, State> {
   state = {
     mobileOpen: false,
     open: {},
+    anchorEl: null,
   };
 
   handleDrawerToggle = () => {
@@ -182,6 +193,10 @@ class ResponsiveDrawer extends React.Component<Props, State> {
       fetchMoreAlertingKind,
     } = this.props;
 
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+      this.setState({ anchorEl: event.currentTarget });
+    };
+
     return (
       <AppBar
         className={fullWidth ? classes.appBarFullWidth : classes.appBar}
@@ -221,94 +236,131 @@ class ResponsiveDrawer extends React.Component<Props, State> {
               </Hidden>
               <Typography
                 id="app-title"
-                className={classes.title}
-                variant="h6"
                 color="inherit"
                 noWrap
+                variant={this.props.width === 'xs' ? 'subtitle2' : 'h6'}
               >
                 {drawerContext.title}
               </Typography>
             </Grid>
-            <div className={classes.grow} />
-            <Hidden mdUp implementation="css">
-              <Grid
-                container
-                alignItems="center"
-                zeroMinWidth
-                direction="row"
-                wrap="nowrap"
-              >
-                <Grid item>
-                  <IconButton onClick={openIntercomHelp}>
-                    <HelpIcon />
-                  </IconButton>
-                </Grid>
-                <Grid item>
-                  <AlertButtonMenu
-                    alertings={alertings}
-                    nbAlerting={nbAlerting}
-                    deleteAlert={deleteAlert}
-                    showMore={fetchMoreAlertingKind}
-                  />
-                </Grid>
-                <Grid item>
-                  <RefreshButton
-                    isRefreshing={isRefreshing}
-                    onRefresh={onRefresh}
-                  />
-                </Grid>
-                <Grid item>
-                  <LanguageButton />
-                </Grid>
-                <Grid item>
-                  <IconButton onClick={this.props.disconnect}>
-                    <PowerSettingsNewIcon />
-                  </IconButton>
-                </Grid>
-              </Grid>
-            </Hidden>
-            <Hidden smDown implementation="css">
-              <Grid
-                container
-                alignItems="center"
-                zeroMinWidth
-                direction="row"
-                wrap="nowrap"
-              >
-                <Grid item>
-                  <IconButton onClick={openIntercomHelp}>
-                    <HelpIcon />
-                  </IconButton>
-                </Grid>
-                <Grid item>
-                  <AlertButtonMenu
-                    alertings={alertings}
-                    nbAlerting={nbAlerting}
-                    deleteAlert={deleteAlert}
-                    showMore={fetchMoreAlertingKind}
-                  />
-                </Grid>
-                {this.props.showSearch ? (
-                  <Grid item className={classes.searchBar}>
-                    <SearchBar changeLocation />
+            {this.props.width === 'lg' ? (
+              <Hidden implementation="css">
+                <Grid
+                  container
+                  alignItems="center"
+                  zeroMinWidth
+                  direction="row"
+                  wrap="nowrap"
+                  implementation="css"
+                >
+                  <Grid item>
+                    <IconButton onClick={openIntercomHelp}>
+                      <HelpIcon />
+                    </IconButton>
                   </Grid>
-                ) : null}
-                <Grid item>
-                  <RefreshButton
-                    isRefreshing={isRefreshing}
-                    onRefresh={onRefresh}
-                  />
+                  <Grid item>
+                    <AlertButtonMenu
+                      alertings={alertings}
+                      nbAlerting={nbAlerting}
+                      deleteAlert={deleteAlert}
+                      showMore={fetchMoreAlertingKind}
+                    />
+                  </Grid>
+                  {this.props.showSearch ? (
+                    <Grid item className={classes.searchBar}>
+                      <SearchBar changeLocation />
+                    </Grid>
+                  ) : null}
+                  <Grid item>
+                    <RefreshButton
+                      isRefreshing={isRefreshing}
+                      onRefresh={onRefresh}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <LanguageButton />
+                  </Grid>
+                  <Grid item>
+                    <IconButton onClick={this.props.disconnect}>
+                      <PowerSettingsNewIcon />
+                    </IconButton>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <LanguageButton />
+              </Hidden>
+            ) : (
+              <Hidden implementation="css">
+                <Grid
+                  container
+                  alignItems="center"
+                  zeroMinWidth
+                  direction="row"
+                  wrap="nowrap"
+                >
+                  <Grid item>
+                    <IconButton onClick={openIntercomHelp}>
+                      <HelpIcon />
+                    </IconButton>
+                  </Grid>
+                  <Grid item>
+                    <AlertButtonMenu
+                      alertings={alertings}
+                      nbAlerting={nbAlerting}
+                      deleteAlert={deleteAlert}
+                      showMore={fetchMoreAlertingKind}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <Button onClick={handleClick}>
+                      <MoreVertIcon />
+                    </Button>
+                    <Menu
+                      anchorEl={this.state.anchorEl}
+                      keepMounted
+                      open={Boolean(this.state.anchorEl)}
+                      onClose={() => {
+                        this.setState({ anchorEl: null });
+                      }}
+                    >
+                      <MenuItem>
+                        <LanguageButton
+                          closeMenu={() => {
+                            this.setState({ anchorEl: null });
+                          }}
+                        />
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          this.setState({ anchorEl: null });
+                        }}
+                      >
+                        <ListItemIcon>
+                          <RefreshButton
+                            isRefreshing={isRefreshing}
+                            onRefresh={onRefresh}
+                          />
+                        </ListItemIcon>
+                        <Typography variant="inherit">
+                          {this.props.t('navigation.refresh')}
+                        </Typography>
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          this.setState({ anchorEl: null });
+                          this.props.disconnect();
+                        }}
+                      >
+                        <ListItemIcon>
+                          <PowerSettingsNewIcon />
+                        </ListItemIcon>
+                        <Typography variant="inherit">
+                          {this.props.t('navigation.logoff')}
+                        </Typography>
+                      </MenuItem>
+                    </Menu>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <IconButton onClick={this.props.disconnect}>
-                    <PowerSettingsNewIcon />
-                  </IconButton>
-                </Grid>
-              </Grid>
-            </Hidden>
+              </Hidden>
+            )}
           </Grid>
         </Toolbar>
       </AppBar>
@@ -549,12 +601,6 @@ const styles = (theme) => ({
       width: `calc(100% - ${drawerWidth}px)`,
     },
   },
-  title: {
-    display: 'none',
-    [theme.breakpoints.up('md')]: {
-      display: 'block',
-    },
-  },
   navIconHide: {
     [theme.breakpoints.up('md')]: {
       display: 'none',
@@ -610,6 +656,8 @@ const styles = (theme) => ({
   },
 });
 
-export default withNamespaces()(
-  withStyles(styles, { withTheme: true })(withRouter(ResponsiveDrawer)),
-);
+export default compose(
+  withNamespaces(),
+  withWidth(),
+  withStyles(styles, { withTheme: true }),
+)(withRouter(ResponsiveDrawer));

@@ -18,9 +18,12 @@ import Checkbox from '@material-ui/core/Checkbox';
 import ListItem from '@material-ui/core/ListItem';
 import TextField from '@material-ui/core/TextField';
 import ListItemText from '@material-ui/core/ListItemText';
+
+import WarningIcon from '@material-ui/icons/Warning';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import PersonIcon from '@material-ui/icons/Person';
+import EditIcon from '@material-ui/icons/Edit';
 
 import type { MemberMailData } from '../types';
 
@@ -40,6 +43,7 @@ export class SendMailToMembers extends Component<Props> {
   constructor(props: Props) {
     super(props);
     this.state = {
+      openRefreshDialog: false,
       displayReceiverList: false,
       checkedReceivers: [
         ...this.props.receiverInfo
@@ -82,6 +86,14 @@ export class SendMailToMembers extends Component<Props> {
     });
   };
 
+  openMemberPage = (event: SyntheticEvent<any>, memberId) => {
+    event.preventDefault();
+    const url = `/member/edit/${memberId}`;
+    const win = window.open(url);
+    win.focus();
+    this.setState({ openRefreshDialog: true });
+  };
+
   render() {
     const {
       t,
@@ -116,14 +128,19 @@ export class SendMailToMembers extends Component<Props> {
                     displayReceiverList: !previousState.displayReceiverList,
                   }))
                 }
-                className={classes.field}
               >
                 <PersonIcon color="action" />
                 <ListItemText
                   primary={`${t('recipients')} (${Object.keys(
                     this.state.checkedReceivers,
+                  ).length.toString()}/${Object.keys(
+                    this.props.receiverInfo,
                   ).length.toString()})`}
                 />
+                {Object.keys(this.state.checkedReceivers).length ===
+                Object.keys(this.props.receiverInfo).length ? null : (
+                  <WarningIcon className={classes.IconMargin} color="error" />
+                )}
                 {this.state.displayReceiverList ? (
                   <ExpandLessIcon />
                 ) : (
@@ -131,17 +148,27 @@ export class SendMailToMembers extends Component<Props> {
                 )}
               </ListItem>
               <Divider />
-              <Collapse
-                className={classes.field}
-                in={this.state.displayReceiverList}
-              >
+              <Collapse in={this.state.displayReceiverList}>
                 {receiverInfo.map((member) => (
                   <ListItem key={member.id}>
                     <ListItemText
                       id={member.id}
                       primary={member.name}
                       secondary={
-                        member.email ? member.email : t('mail.missing')
+                        member.email ? (
+                          member.email
+                        ) : (
+                          <div>
+                            {t('mail.missing')}
+                            <Button
+                              onClick={(event) =>
+                                this.openMemberPage(event, member.id)
+                              }
+                            >
+                              <EditIcon />
+                            </Button>
+                          </div>
+                        )
                       }
                       secondaryTypographyProps={{
                         color: member.email ? '' : 'error',
@@ -163,12 +190,34 @@ export class SendMailToMembers extends Component<Props> {
                   </ListItem>
                 ))}
               </Collapse>
-
+              <Dialog open={this.state.openRefreshDialog}>
+                <DialogContent>
+                  <p>{t('mail.refreshText')}</p>
+                  <DialogActions>
+                    <Button
+                      color="secondary"
+                      onClick={() =>
+                        this.setState({ openRefreshDialog: false })
+                      }
+                    >
+                      {t('common.cancel')}
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      type="submit"
+                      color="primary"
+                      onClick={() => document.location.reload(true)}
+                    >
+                      {t('common.refresh')}
+                    </Button>
+                  </DialogActions>
+                </DialogContent>
+              </Dialog>
               <TextField
                 name="Mail title"
                 label={t('mail.title')}
                 fullWidth
-                className={(classes.field, classes.mailTitle)}
+                className={classes.mailTitle}
                 value={this.state.mailTitle}
                 onChange={(e) => this.setState({ mailTitle: e.target.value })}
               />
@@ -176,14 +225,13 @@ export class SendMailToMembers extends Component<Props> {
                 name="Mail content"
                 label={t('mail.content')}
                 rows="15"
-                className={classes.field}
                 value={this.state.mailContent}
                 onChange={(e) => this.setState({ mailContent: e.target.value })}
                 fullWidth
                 multiline
                 variant="outlined"
               />
-              <DialogActions className={classes.field}>
+              <DialogActions>
                 <Button color="secondary" onClick={onCancel}>
                   {t('common.cancel')}
                 </Button>
@@ -215,9 +263,8 @@ const styles = (theme) => ({
     marginBottom: theme.spacing.unit * 2,
   },
   formContent: {},
-  field: {
-    paddingBottom: '0px',
-    marginBottom: theme.spacing.unit,
+  IconMargin: {
+    marginRight: theme.spacing.unit * 2,
   },
 });
 

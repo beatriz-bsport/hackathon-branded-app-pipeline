@@ -388,6 +388,7 @@ export class OfferManagement extends Component<Props, State> {
               this.setState({ mailClients: true });
             }}
             color="primary"
+            disabled={this.props.bookingLoading}
           >
             <MailIcon />
           </IconButton>

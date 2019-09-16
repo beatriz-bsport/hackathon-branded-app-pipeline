@@ -24,7 +24,6 @@ import type { MetaActivity } from '../../api/types';
 
 type Props = {
   metaActivities: Array<MetaActivity>,
-  isCardView: boolean,
   loading: boolean,
 
   fetchAllMetactivities: () => void,
@@ -46,7 +45,6 @@ export class MetaActivityListPage extends React.Component<Props> {
         {this.props.loading ? <LinearProgress /> : null}
         <MetaActivityList
           metaActivities={this.props.metaActivities}
-          isCardView={this.props.isCardView}
           goToDetail={this.props.goToDetail}
           goToEdit={this.props.goToEdit}
           deleteMetaActivity={this.props.setActivityToDelete}
@@ -85,7 +83,6 @@ export default compose(
       path: '/activity/add',
       text: i18next.t('activity.addActivity'),
     },
-    switchButton: true,
   }),
   withDrawer(({ t }: { t: TFunction }) => t('appbar.title.metaActivityList')),
 )(MetaActivityListPage);

@@ -27,7 +27,6 @@ import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '../../li
 type Props = {
   workshopActivities: Array<MetaActivity>,
   loading: boolean,
-  isCardView: boolean,
 
   fetchAllWorkshops: () => void,
   setWorkshopToDelete: (number) => void,
@@ -48,7 +47,6 @@ export class WorkshopActivityList extends React.Component<Props> {
         {this.props.loading ? <LinearProgress /> : null}
         <MetaActivityList
           metaActivities={this.props.workshopActivities}
-          isCardView={this.props.isCardView}
           goToDetail={this.props.goToDetail}
           goToEdit={this.props.goToEdit}
           deleteMetaActivity={this.props.setWorkshopToDelete}
@@ -86,7 +84,6 @@ export default compose(
       path: '/workshop-activity/add',
       text: i18next.t('workshopActivity.addWorkshopActivity'),
     },
-    switchButton: true,
   }),
   withDrawer(({ t }) => t('appbar.title.workshopActivityList')),
 )(WorkshopActivityList);

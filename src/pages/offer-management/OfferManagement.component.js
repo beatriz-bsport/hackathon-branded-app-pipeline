@@ -28,6 +28,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
+import moment from 'moment';
 import ResultList from '../../components/search/ResultList.component';
 import MemberBookingHelper from './MemberBookingHelper.component';
 import { mapFormData } from '../form.utils';
@@ -105,7 +106,7 @@ type Props = {
   fetchOffer: (id: number) => void,
   fetchOfferData: (id: number) => void,
 
-  goBack: () => void,
+  goToCalendar: (date: any) => void,
   t: TFunction,
   classes: Object,
 };
@@ -428,6 +429,11 @@ export class OfferManagement extends Component<Props, State> {
     this.props.goToOffer(id);
   };
 
+  getDateDictionnary = () => {
+    const date = moment(this.props.offer.date_start);
+    return { year: date.year(), month: date.month() + 1, day: date.date() };
+  };
+
   getNavigationHeader = (loading: boolean) => (
     <Paper className={this.props.classes.headerContainer}>
       <div className={this.props.classes.titleBanner}>
@@ -446,9 +452,11 @@ export class OfferManagement extends Component<Props, State> {
             justifyContent: 'center',
           }}
         >
-          <Button onClick={this.props.goBack}>
+          <Button
+            onClick={() => this.props.goToCalendar(this.getDateDictionnary())}
+          >
             <TodayIcon className={this.props.classes.leftIcon} />
-            {this.props.t('offer.backToCalendar')}
+            {moment(this.props.offer.date_start).format('LLLL')}
           </Button>
           {this.props.bookingLoading ? (
             <CircularProgress size={16} />

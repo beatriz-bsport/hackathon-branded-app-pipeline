@@ -5,7 +5,6 @@ import { withNamespaces } from 'react-i18next';
 import {
   replace as replaceRouter,
   push as routerPush,
-  goBack,
 } from 'react-router-redux';
 import { compose } from 'recompose';
 
@@ -156,8 +155,10 @@ function mapDispatchToProps(dispatch) {
     resetQuickInvoices() {
       dispatch(invoiceActions.resetQuickInvoices());
     },
-    goBack() {
-      dispatch(goBack());
+    goToCalendar(date) {
+      dispatch(
+        replaceRouter(`/calendar/${date.year}/${date.month}/${date.day}`),
+      );
     },
     goToOffer(id) {
       dispatch(replaceRouter(`/offer/${id}`));

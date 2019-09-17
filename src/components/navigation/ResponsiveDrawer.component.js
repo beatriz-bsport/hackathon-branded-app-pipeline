@@ -234,16 +234,15 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                   alt="bsport logo"
                 />
               </Hidden>
-              <Typography
-                id="app-title"
-                color="inherit"
-                noWrap
-                variant={this.props.width === 'xs' ? 'subtitle2' : 'h6'}
-              >
-                {drawerContext.title}
+              <Typography id="app-title" color="inherit" noWrap variant="h6">
+                {this.props.width === 'xs'
+                  ? drawerContext.title.split('-')[0]
+                  : drawerContext.title}
               </Typography>
             </Grid>
-            {this.props.width === 'lg' ? (
+            {this.props.width === 'xs' ||
+            this.props.width === 'sm' ||
+            this.props.width === 'md' ? (
               <Hidden implementation="css">
                 <Grid
                   container
@@ -251,7 +250,6 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                   zeroMinWidth
                   direction="row"
                   wrap="nowrap"
-                  implementation="css"
                 >
                   <Grid item>
                     <IconButton onClick={openIntercomHelp}>
@@ -267,49 +265,6 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                     />
                   </Grid>
                   {this.props.showSearch ? (
-                    <Grid item className={classes.searchBar}>
-                      <SearchBar changeLocation />
-                    </Grid>
-                  ) : null}
-                  <Grid item>
-                    <RefreshButton
-                      isRefreshing={isRefreshing}
-                      onRefresh={onRefresh}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <LanguageButton />
-                  </Grid>
-                  <Grid item>
-                    <IconButton onClick={this.props.disconnect}>
-                      <PowerSettingsNewIcon />
-                    </IconButton>
-                  </Grid>
-                </Grid>
-              </Hidden>
-            ) : (
-              <Hidden implementation="css">
-                <Grid
-                  container
-                  alignItems="center"
-                  zeroMinWidth
-                  direction="row"
-                  wrap="nowrap"
-                >
-                  <Grid item>
-                    <IconButton onClick={openIntercomHelp}>
-                      <HelpIcon />
-                    </IconButton>
-                  </Grid>
-                  <Grid item>
-                    <AlertButtonMenu
-                      alertings={alertings}
-                      nbAlerting={nbAlerting}
-                      deleteAlert={deleteAlert}
-                      showMore={fetchMoreAlertingKind}
-                    />
-                  </Grid>
-                  {this.props.width === 'md' && this.props.showSearch ? (
                     <Grid item className={classes.searchBar}>
                       <SearchBar changeLocation />
                     </Grid>
@@ -362,6 +317,50 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                         </Typography>
                       </MenuItem>
                     </Menu>
+                  </Grid>
+                </Grid>
+              </Hidden>
+            ) : (
+              <Hidden implementation="css">
+                <Grid
+                  container
+                  alignItems="center"
+                  zeroMinWidth
+                  direction="row"
+                  wrap="nowrap"
+                  implementation="css"
+                >
+                  <Grid item>
+                    <IconButton onClick={openIntercomHelp}>
+                      <HelpIcon />
+                    </IconButton>
+                  </Grid>
+                  <Grid item>
+                    <AlertButtonMenu
+                      alertings={alertings}
+                      nbAlerting={nbAlerting}
+                      deleteAlert={deleteAlert}
+                      showMore={fetchMoreAlertingKind}
+                    />
+                  </Grid>
+                  {this.props.showSearch ? (
+                    <Grid item className={classes.searchBar}>
+                      <SearchBar changeLocation />
+                    </Grid>
+                  ) : null}
+                  <Grid item>
+                    <RefreshButton
+                      isRefreshing={isRefreshing}
+                      onRefresh={onRefresh}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <LanguageButton />
+                  </Grid>
+                  <Grid item>
+                    <IconButton onClick={this.props.disconnect}>
+                      <PowerSettingsNewIcon />
+                    </IconButton>
                   </Grid>
                 </Grid>
               </Hidden>
@@ -593,6 +592,11 @@ const styles = (theme) => ({
       display: 'none',
     },
   },
+  menuNonMobile: {
+    [theme.breakpoints.down('md')]: {
+      display: 'none',
+    },
+  },
   appBarFullWidth: {
     position: 'fixed',
     [theme.breakpoints.up('md')]: {
@@ -648,6 +652,9 @@ const styles = (theme) => ({
     marginRight: theme.spacing.unit,
     marginLeft: theme.spacing.unit,
     width: 200,
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
   },
   nestedList: {
     backgroundColor: '#F8F8F8',

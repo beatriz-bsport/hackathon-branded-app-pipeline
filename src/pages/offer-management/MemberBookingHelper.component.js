@@ -43,13 +43,10 @@ function MemberBookingHelper(props: Props) {
       <ListItemText
         primary={props.member.name}
         secondary={
-          props.hasBooked
-            ? props.t('offer.hasBooked')
-            : props.t('offer.hasntBooked')
+          props.member.email
+            ? props.member.email
+            : props.t('communication:mail.missing')
         }
-        secondaryTypographyProps={{
-          color: props.hasBooked ? 'primary' : 'secondary',
-        }}
       />
       <ListItemSecondaryAction>
         {props.hasBooked ? (

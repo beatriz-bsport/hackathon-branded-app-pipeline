@@ -17,6 +17,7 @@ type Props = {
   addItemToBasket: (basketId: string, data: any) => void,
   onBasketFinalized: () => void,
   submitPayment: (data: *) => void,
+  attachCoupon: (code: string) => void,
   classes: Object,
   patchBasket: (data: *) => void,
   backToCalendar: () => void,
@@ -35,6 +36,7 @@ export const CheckoutFlow = (props: Props) => (
     <BasketFinalizer
       basket={props.basket}
       submitPayment={props.submitPayment}
+      attachCoupon={props.attachCoupon}
       availablePaymentMethods={props.basket.available_payment_methods}
       onBasketFinalized={props.onBasketFinalized}
       patchBasket={props.patchBasket}

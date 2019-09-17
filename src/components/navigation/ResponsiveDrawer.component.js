@@ -28,6 +28,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 
+import RedeemIcon from '@material-ui/icons/Redeem';
 import Today from '@material-ui/icons/Today';
 import Star from '@material-ui/icons/Star';
 import People from '@material-ui/icons/People';
@@ -441,6 +442,12 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             to: '/shop',
             icon: ShoppingCartIcon,
             text: t('shop.myShop'),
+          },
+          'divider',
+          {
+            to: '/coupon/',
+            icon: RedeemIcon,
+            text: t('navigation.coupon'),
           },
         ],
       },

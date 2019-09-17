@@ -8,8 +8,10 @@ import {
   removeItemFromBasket as removeItemFromBasketAPI,
   patchBasket as patchBasketAPI,
   attachPayment as attachPaymentAPI,
+  attachCoupon as attachCouponAPI,
 } from './api';
 import { getCurrentBasket } from './selectors';
+import { snackbarError } from '../../actions/snackbar.actions';
 
 import type { Dispatch, State, ThunkAction } from '../../state/types';
 import type { CheckoutItemData } from './types';
@@ -126,6 +128,31 @@ export function patchCurrentBasket(
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
       dispatch(currentBasket.error(error));
+      if (options && options.onError) options.onError();
+    }
+
+    dispatch(currentBasket.isUpdating(false));
+  };
+}
+
+export function attachCoupon(
+  code: string,
+  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+): ThunkAction {
+  return async (dispatch: Dispatch, getState: () => State) => {
+    dispatch(currentBasket.isUpdating(true));
+    dispatch(currentBasket.error(null));
+
+    try {
+      const response = await attachCouponAPI(
+        getCurrentBasket(getState()).id,
+        code,
+      );
+      dispatch(currentBasket.success(response.data));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      dispatch(currentBasket.error(error));
+      dispatch(snackbarError('coupon:message.attachToBasket.error'));
       if (options && options.onError) options.onError();
     }
 

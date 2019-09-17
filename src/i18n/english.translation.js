@@ -32,8 +32,10 @@ import theme from './en/theme.translations';
 import selfCheckIn from './en/selft-check-in.translations';
 import communication from './en/communication.translations';
 import checkout from './en/checkout.translations';
+import coupon from './en/coupon.translations';
 
 export default {
+  coupon,
   communication,
   dashboard,
   stripe,
@@ -625,6 +627,7 @@ export default {
       settings: 'Settings',
       myClub: 'My Club',
       subscription: 'Subscription',
+      coupon: 'Coupon',
     },
     consumer: {
       myPaymentPacks: 'My pass',

@@ -3,7 +3,9 @@ import React from 'react';
 
 import ListItem from '@material-ui/core/ListItem';
 import IconButton from '@material-ui/core/IconButton';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ExposureNeg1Icon from '@material-ui/icons/ExposureNeg1';
+import DeleteIcon from '@material-ui/icons/Delete';
 import ExposurePlus1Icon from '@material-ui/icons/ExposurePlus1';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
@@ -28,9 +30,7 @@ export const CheckoutItemListItem = (props: {
       </ListItemAvatar>
       <ListItemText
         primary={props.checkout_item.name}
-        secondary={`${props.checkout_item.unit_price} € x ${
-          props.checkout_item.quantity
-        }`}
+        secondary={`${props.checkout_item.unit_price} € x ${props.checkout_item.quantity}`}
       />
       {props.checkout_item.editable && props.onRemoveOne && props.onAddOne ? (
         <div className={props.classes.actionButtons}>
@@ -41,6 +41,15 @@ export const CheckoutItemListItem = (props: {
             <ExposurePlus1Icon />
           </IconButton>
         </div>
+      ) : null}
+      {props.checkout_item.clearable &&
+      !props.checkout_item.editable &&
+      props.onRemoveOne ? (
+        <ListItemSecondaryAction>
+          <IconButton onClick={props.onRemoveOne}>
+            <DeleteIcon />
+          </IconButton>
+        </ListItemSecondaryAction>
       ) : null}
     </ListItem>
     {(props.checkout_item.sub_items || []).map((sub_item, idx) => (

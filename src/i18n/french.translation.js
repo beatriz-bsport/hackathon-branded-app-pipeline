@@ -32,9 +32,11 @@ import role from './fr/role.translations';
 import selfCheckIn from './fr/selft-check-in.translations';
 import communication from './fr/communication.translations';
 import checkout from './fr/checkout.translations';
+import coupon from './fr/coupon.translations';
 
 export default {
   communication,
+  coupon,
   dashboard,
   stripe,
   role,
@@ -658,6 +660,7 @@ export default {
       settings: 'Paramètres',
       myClub: 'Mon Club',
       subscription: 'Souscriptions',
+      coupon: 'Promotions',
     },
     invoice: {
       choseDateTitle: 'Date de facturation',

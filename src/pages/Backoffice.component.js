@@ -58,6 +58,7 @@ const WorkshopActivity = asyncComponent(() =>
   import('./workshop-activity/WorkshopActivity.router'),
 );
 const Invoice = asyncComponent(() => import('./invoice/Invoice.router'));
+const Coupon = asyncComponent(() => import('./coupon/Coupon.router'));
 const Order = asyncComponent(() => import('./order/Order.router'));
 const Subscription = asyncComponent(() =>
   import('./subscription/Subscription.router'),
@@ -154,6 +155,7 @@ export class Backoffice extends Component<Props> {
               <Route exact path="/dashboard" component={Dashboard} />
               <Route exact path="/search/results" component={SearchResults} />
               <Route path="/settings/:tab/" component={Settings} />
+              <Route path="/coupon" component={Coupon} />
               <Route path="/empty" component={() => <div />} />
               <Route path="/" component={PlanningRouter} />
             </Switch>

@@ -33,6 +33,7 @@ import themeReducers from '../libs/theme/reducers';
 import roleReducers from '../libs/role/reducers';
 import checkoutReducers from '../libs/checkout/reducers';
 import communicationReducers from '../libs/communication/reducers';
+import couponReducers from '../libs/coupon/reducers';
 
 import type { State, Action } from '../state/types';
 
@@ -71,6 +72,7 @@ const rootReducer = combineReducers({
   waitingList: waitingListReducers,
   theme: themeReducers,
   role: roleReducers,
+  coupon: couponReducers,
 });
 
 export default (state: State, action: Action) => {

@@ -4,6 +4,8 @@ import React from 'react';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
+import withStyles from '@material-ui/core/styles/withStyles';
+import { compose } from 'recompose';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
@@ -11,6 +13,7 @@ import PaymentForm from './PaymentForm.component';
 import type { Basket } from '../types';
 
 import BasketDeliveryForm from './BasketDeliveryForm.component';
+import CouponCodeForm from '../../coupon/components/CouponCodeForm.component';
 
 export const ADDRESS_STEP = {
   id: 0,
@@ -28,8 +31,11 @@ type Props = {
   onBasketFinalized: () => void,
   patchBasket: (data: any) => void,
   submitPayment: (data: *) => void,
+  attachCoupon: (basketId: string, code: string) => void,
   termsAndConditions: string,
+
   t: TFunction,
+  classes: Object,
 };
 
 type State = {
@@ -101,6 +107,9 @@ export class BasketFinalizer extends React.Component<Props, State> {
     }
     return (
       <div>
+        <div className={this.props.classes.couponCodeContainer}>
+          <CouponCodeForm onSubmit={this.props.attachCoupon} />
+        </div>
         {this.state.steps.length > 1 ? (
           <Stepper activeStep={this.state.currentStep} alternativeLabel>
             {this.state.steps.map((step) => (
@@ -118,4 +127,17 @@ export class BasketFinalizer extends React.Component<Props, State> {
   }
 }
 
-export default withNamespaces(['checkout'])(BasketFinalizer);
+const styles = (theme) => ({
+  couponCodeContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'flex-end',
+    marginBottom: theme.spacing.unit * 2,
+  },
+});
+
+export default compose(
+  withStyles(styles),
+  withNamespaces(['checkout']),
+)(BasketFinalizer);

@@ -11,6 +11,7 @@ import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { getTheme } from '../../theme';
 import {
   addItemToBasket,
+  attachCoupon,
   removeItemFromBasket,
   fetchCurrentBasket,
   patchCurrentBasket,
@@ -41,6 +42,10 @@ type Props = {
   classes: Object,
   fetchCurrentBasket: (companyId: number) => void,
   patchCurrentBasket: (data: any) => void,
+  attachCoupon: (
+    code: string,
+    options?: { onSuccess?: () => void, onError?: () => void },
+  ) => void,
 };
 
 export class CheckoutPayment extends React.Component<Props> {
@@ -78,6 +83,7 @@ export class CheckoutPayment extends React.Component<Props> {
               addItemToBasket={this.props.addItemToBasket}
               removeItemFromBasket={this.props.removeItemFromBasket}
               termsAndConditions={this.props.theme.general_terms_and_conditions}
+              attachCoupon={this.props.attachCoupon}
               backToCalendar={() => {
                 if (this.props.theme && this.props.theme.scheduleURL) {
                   return this.props.push(this.props.theme);
@@ -135,6 +141,7 @@ export default compose(
       fetchCurrentBasket,
       patchCurrentBasket,
       attachPayment: attachPaymentAction,
+      attachCoupon,
       fetchCompanyTheme,
       onBasketFinalized: () => replace('/customer'),
     },

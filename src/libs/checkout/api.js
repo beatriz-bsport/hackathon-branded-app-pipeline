@@ -45,3 +45,9 @@ export const attachPayment = async (basketId: string, data_: *) => {
     data_,
   );
 };
+
+export const attachCoupon = async (basketId: string, code: string) => {
+  return postAuth(`${API_V1_URI}/checkout/basket/${basketId}/attach_coupon/`, {
+    code,
+  });
+};

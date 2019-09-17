@@ -16,6 +16,7 @@ import type { CheckoutState } from '../libs/checkout/types';
 import type { SearchState, SearchAction } from './search/types';
 import type { ThemeState } from '../libs/theme/types';
 import type { EstablishmentState } from '../libs/establishment/types';
+import { CouponState } from '../libs/coupon/types';
 
 export type State = {
   paymentRules: PaymentRulesState,
@@ -34,6 +35,7 @@ export type State = {
   theme: ThemeState,
   establishment: EstablishmentState,
   checkout: CheckoutState,
+  coupon: CouponState,
 };
 export type Action = SearchAction | AuthAction;
 

@@ -855,7 +855,7 @@ export default {
       revertBookingTitle: "Annuler l'inscription",
       revertBookingExplain: (name: string, offerIsAvailable) => {
         if (offerIsAvailable) {
-          return `Êtes-vous sûr de vouloir supprimer la réservation de ${name} ? Les crédits utilisés seront recrédités. Si vous ne souhaitez pas recréditer le membre, passez la réservation en Absent en cliquant sur le bouton "Présent"`;
+          return `Êtes-vous sûr de vouloir supprimer la réservation de ${name} ? Les crédits utilisés seront recrédités.`;
         }
         return `La réservation de ${name} sera supprimé. La séance a déjà été annulée et les crédits ne seront pas remboursés si vous n'avez pas coché "rembourser" lors de l'annulation`;
       },

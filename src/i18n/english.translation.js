@@ -786,9 +786,9 @@ export default {
       revertBookingTitle: 'Delete boking',
       revertBookingExplain: (name: string, offerIsAvailable: boolean) => {
         if (offerIsAvailable) {
-          return `Are you sure you want to delete ${name}'s booking ? Used credits will be given back to your member. If you do not want to increments credits, you can pass the booking status to "Absent" by clicking "Attend" button.`;
+          return `Are you sure you want to delete ${name}'s booking ? Used credits will be given back to your member`;
         }
-        return `Are you sure you want to delete ${name}'s booking ? This booking will not be refund no more : if you want to refund please select "refund" when you disable the session on the Calendar.`;
+        return `Are you sure you want to delete ${name}'s booking ? This booking will not be refund.`;
       },
       revertBookingWithInvoiceImpossibleExplain:
         'This booking has already been chased-out and can not be deleted. You can still change its attendance status.',

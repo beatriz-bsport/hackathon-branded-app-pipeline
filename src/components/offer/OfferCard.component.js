@@ -17,6 +17,8 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { withNamespaces } from 'react-i18next';
 
+import { Link } from 'react-router-dom';
+
 import type { TFunction } from 'react-i18next';
 import { Level, Sport } from '../category';
 import Avatar from '../Avatar.component';
@@ -351,14 +353,15 @@ export class OfferCard extends Component<Props> {
               {this.getPracticalInfo()}
             </div>
           </Paper>
-          <Button
-            onClick={() => this.props.goToOfferManagement(offer.id)}
-            color="primary"
-            variant="contained"
-            className={classes.manageButton}
-          >
-            {t('offer:manageOffer')}
-          </Button>
+          <Link style={{ textDecoration: 'none' }} to={`/offer/${offer.id}`}>
+            <Button
+              color="primary"
+              variant="contained"
+              className={classes.manageButton}
+            >
+              {t('offer:manageOffer')}
+            </Button>
+          </Link>
           {available ? null : (
             <RedButton
               onClick={onDeleteButtonClick}

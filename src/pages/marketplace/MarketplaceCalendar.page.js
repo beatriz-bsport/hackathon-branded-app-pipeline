@@ -39,6 +39,7 @@ import {
   resetOffersAction,
   fetchCompanyOffersAction,
 } from '../../libs/marketplace/actions';
+import { DATE_FORMAT } from '../../datetime';
 
 type Props = {
   filtersOpen: boolean,
@@ -63,7 +64,7 @@ type Props = {
   resetOffers: () => void,
   setFilters: (*) => void,
   toogleFiltersOpen: () => void,
-  handleDateChange: (newDate: Object) => void,
+  handleDateChange: (newDate: string) => void,
   goToBook: (offerId: number, comapnyId: number) => void,
   onBookOfferFromPack: (offerId: number, consumerPackId: number) => void,
   goToBookOption: (offerId: number, comapnyId: number) => void,
@@ -99,19 +100,20 @@ const fromURLtoDate = (search: string) => {
   try {
     const params = search.slice(1).split('&');
     const date_string = params.find((p) => p.includes('date='));
-    return Moment(date_string.split('=')[1], 'YYYY-MM-DD');
+    return Moment(date_string.split('=')[1], DATE_FORMAT);
   } catch (err) {
-    return Moment();
+    return Moment(DATE_FORMAT);
   }
 };
 
 const fromPropsToNewDateURL = (date, location) => {
+  const currentDate =
+    typeof date === 'string' ? Moment(date, DATE_FORMAT) : date;
   const params = location.search.slice(1).split('&');
   const filtered_params = params.filter((p) => !p.includes('date='));
-  const newDate = Moment(date, 'YYYY-MM-DD');
   return `${location.pathname}?${filtered_params.join(
     '&',
-  )}&date=${newDate.format('YYYY-MM-DD')}`;
+  )}&date=${currentDate.format(DATE_FORMAT)}`;
 };
 
 const fromPropsToURL = (filters: *, currentParams: string) => {
@@ -271,9 +273,7 @@ export class MarketplaceCalendar extends Component<Props, State> {
           onClickBookOption={(id) =>
             this.props.goToBookOption(id, this.props.companyId)
           }
-          onSelectDate={(newDate) =>
-            this.props.handleDateChange(newDate.clone())
-          }
+          onSelectDate={(newDate) => this.props.handleDateChange(newDate)}
           selectedDate={this.props.selectedDate || Moment()}
           coaches={coaches}
           establishments={establishments}
@@ -355,7 +355,7 @@ export default compose(
     }),
   ),
   withProps(({ replace, location }) => ({
-    handleDateChange: (newDate_: Object) => {
+    handleDateChange: (newDate_: string) => {
       const pathname = fromPropsToNewDateURL(newDate_, location);
       replace(pathname);
     },

@@ -18,6 +18,7 @@ import Button from '@material-ui/core/Button';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import { Moment } from '../../i18n';
+import { DATE_FORMAT } from '../../datetime';
 
 import {
   PriceField,
@@ -409,8 +410,8 @@ export default compose(
         data.duration_months = null;
         data.duration_years = null;
         data.validity_daterange = {
-          lower: Moment(values.lower_date).format('YYYY-MM-DD'),
-          upper: Moment(values.upper_date).format('YYYY-MM-DD'),
+          lower: Moment(values.lower_date).format(DATE_FORMAT),
+          upper: Moment(values.upper_date).format(DATE_FORMAT),
         };
       } else {
         data.duration_days = values.duration_days;

@@ -8,6 +8,7 @@ import { push, replace } from 'react-router-redux';
 import Planning from './Planning.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { Moment } from '../../i18n';
+import { DATE_FORMAT } from '../../datetime';
 
 import { offer as offerActions } from '../../actions';
 
@@ -65,14 +66,14 @@ const PlanningWithDateAndOffer = compose(
   }),
   withProps(({ replaceRouter, fetchOffersByDay }) => ({
     loadDayData: (dateClicked) => {
+      const date = Moment(dateClicked, DATE_FORMAT);
       replaceRouter(
-        `/calendar/${dateClicked.year()}/${dateClicked.month() +
-          1}/${dateClicked.date()}`,
+        `/calendar/${date.year()}/${date.month() + 1}/${date.date()}`,
       );
       fetchOffersByDay({
-        year: dateClicked.year(),
-        month: dateClicked.month() + 1,
-        day: dateClicked.date(),
+        year: date.year(),
+        month: date.month() + 1,
+        day: date.date(),
       });
     },
   })),

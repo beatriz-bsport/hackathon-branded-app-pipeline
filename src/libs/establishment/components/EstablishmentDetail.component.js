@@ -16,6 +16,7 @@ import type { Establishment, Offer } from '../../../api/types';
 import { TimeTable, Calendar } from '../../../components';
 import Map from '../../../components/map/Map.component';
 import EasyAccessStack from '../../category/components/EasyAccessStack.component';
+import { DATE_FORMAT } from '../../../datetime';
 
 const DEFAULT_SPORT = 7;
 
@@ -38,11 +39,11 @@ export class EstablishmentDetail extends Component<Props, State> {
     selectedDay: {},
   };
 
-  onDateClick = (establishmentId: number) => (date: Object) => {
+  onDateClick = (establishmentId: number) => (date: string) => {
+    const momentDay = Moment(date, DATE_FORMAT);
     const { selectedDay } = this.state;
-    selectedDay[establishmentId] = date.startOf('day');
+    selectedDay[establishmentId] = momentDay.startOf('day');
     this.setState({ selectedDay });
-    const momentDay = Moment(date);
     this.props.fetchOffersByDay({
       year: momentDay.year(),
       month: momentDay.month() + 1,
@@ -92,7 +93,7 @@ export class EstablishmentDetail extends Component<Props, State> {
         <Calendar
           events={events_}
           onDateClick={this.onDateClick(establishment.id)}
-          date={selectedDay[establishment.id] || Moment()}
+          date={(selectedDay[establishment.id] || Moment()).format(DATE_FORMAT)}
         />
         <TimeTable
           loading={timetableLoading}

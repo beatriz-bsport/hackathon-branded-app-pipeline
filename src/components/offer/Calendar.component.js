@@ -16,13 +16,13 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ViewWeek from '@material-ui/icons/ViewWeek';
 import ViewComfy from '@material-ui/icons/ViewComfy';
 import { Moment } from '../../i18n';
-import { formatAsTitle } from '../../datetime';
+import { formatAsTitle, DATE_FORMAT } from '../../datetime';
 
 const WEEKMODE: number = 0;
 const MONTHMODE: number = 1;
 
 type Props = {
-  date: Object,
+  date: string,
   forceMonthDisplay: boolean,
   onDateClick: (Object) => void,
   toogleSearchBar: ?() => void,
@@ -34,7 +34,6 @@ type Props = {
   showDayName: ?boolean,
   hideDateBar: ?boolean,
   hideSwitchViewButton: ?boolean,
-  startFromToday: ?boolean,
 };
 
 type State = {
@@ -50,44 +49,42 @@ export class Calendar extends Component<Props, State> {
   }
 
   componentDidMount() {
-    this.props.onDateClick(this.props.date.clone());
+    this.props.onDateClick(this.props.date);
   }
 
   static defaultProps = {
     events: {},
   };
 
-  selectDate = (date: Object) => {
-    this.props.onDateClick(date.clone());
-  };
+  selectDate = (date: string) => this.props.onDateClick(date);
 
   showNextWeek = () => {
-    const { date } = this.props;
-    this.selectDate(date.clone().add(7, 'days'));
+    const date = Moment(this.props.date, DATE_FORMAT);
+    this.selectDate(date.add(7, 'days').format(DATE_FORMAT));
   };
 
   showPreviousWeek = () => {
-    const { date } = this.props;
-    this.selectDate(date.clean().add(-7, 'days'));
+    const date = Moment(this.props.date, DATE_FORMAT);
+    this.selectDate(date.subtract(7, 'days').format(DATE_FORMAT));
   };
 
   showNext = () => {
     const { displayMode } = this.state;
-    const { date } = this.props;
+    const date = Moment(this.props.date, DATE_FORMAT);
     if (WEEKMODE === displayMode) {
-      this.selectDate(date.clone().add(1, 'weeks'));
+      this.selectDate(date.add(1, 'weeks').format(DATE_FORMAT));
     } else {
-      this.selectDate(date.clone().add(1, 'months'));
+      this.selectDate(date.add(1, 'months').format(DATE_FORMAT));
     }
   };
 
   showPrevious = () => {
     const { displayMode } = this.state;
-    const { date } = this.props;
+    const date = Moment(this.props.date, DATE_FORMAT);
     if (WEEKMODE === displayMode) {
-      this.selectDate(date.clone().add(-1, 'weeks'));
+      this.selectDate(date.add(-1, 'weeks').format(DATE_FORMAT));
     } else {
-      this.selectDate(date.clone().add(-1, 'months'));
+      this.selectDate(date.add(-1, 'months').format(DATE_FORMAT));
     }
   };
 
@@ -164,7 +161,7 @@ export class Calendar extends Component<Props, State> {
 
     return (
       <ButtonBase
-        id={`calendar-day-${day.format('YYYY-MM-DD')}`}
+        id={`calendar-day-${day.format(DATE_FORMAT)}`}
         variant={isSelected ? 'contained' : null}
         color="primary"
         className={classNames(classes.dayButton, dayButtonClass)}
@@ -190,11 +187,8 @@ export class Calendar extends Component<Props, State> {
   };
 
   renderCalendarTitle = () => {
-    const { date, startFromToday } = this.props;
     const { displayMode } = this.state;
-    const date_start = startFromToday
-      ? date.clone()
-      : date.clone().startOf('week');
+    const date_start = Moment(this.props.date, DATE_FORMAT).startOf('week');
     if (displayMode === MONTHMODE) {
       const dateMonth = Moment.months()[date_start.month()];
       const dateYear = date_start.year();
@@ -343,9 +337,8 @@ export class Calendar extends Component<Props, State> {
 
   renderBulkDays = () => {
     const { displayMode } = this.state;
-    const { date } = this.props;
+    const date = Moment(this.props.date, DATE_FORMAT);
     const firstDayWeek = date.clone().startOf('week');
-
     const firstDayMonth = date
       .clone()
       .startOf('month')
@@ -363,7 +356,7 @@ export class Calendar extends Component<Props, State> {
   render() {
     const { classes } = this.props;
     return (
-      <div id="calendar" style={{ width: '100%' }}>
+      <div id="calendar" className={classes.calendarContainer}>
         {this.renderHeader()}
         {this.renderSearchBar()}
         {!this.props.hideDateBar ? (
@@ -375,6 +368,10 @@ export class Calendar extends Component<Props, State> {
 }
 
 const styles = (theme) => ({
+  calendarContainer: {
+    width: '100%',
+    marginBottom: theme.spacing.unit * 2,
+  },
   dayButton: {
     padding: theme.spacing.unit,
     display: 'flex',

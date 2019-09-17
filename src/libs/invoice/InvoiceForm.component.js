@@ -23,7 +23,7 @@ import sum from 'lodash/sum';
 
 import PaymentForm from './payment/PaymentForm.component';
 import PaymentList from './payment/PaymentList.component';
-import { formatAsDate } from '../../datetime';
+import { formatAsDate, DATE_FORMAT } from '../../datetime';
 import { Moment } from '../../i18n';
 
 import type { Invoice, PaymentPack, InvoiceItem } from '../../api/types';
@@ -314,7 +314,7 @@ export class InvoiceForm extends Component<Props, State> {
             price: paymentPack.price,
             id: paymentPack.id,
             subtitle: formatAsDate(date_bought || Moment()),
-            date_bought: date_bought.format('YYYY-MM-DD'),
+            date_bought: date_bought.format(DATE_FORMAT),
           },
         ],
       }));

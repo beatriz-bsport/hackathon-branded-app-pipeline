@@ -16,6 +16,7 @@ import EstablishmentSelector from '../../establishment/components/EstablishmentS
 import MetaActivitySelector from '../../meta-activity/components/MetaActivitySelector.component';
 import LevelSelector from '../../category/components/LevelSelector.component';
 import MarketplaceWeekTimetable from './MarketplaceWeekTimeTable.component';
+import { DATE_FORMAT } from '../../../datetime';
 
 const LoadingIndicator = () => (
   <div
@@ -208,7 +209,7 @@ export class MarketplaceCalendar extends Component<Props> {
           searchBarOpen={this.props.filtersOpen}
           toogleSearchBar={this.props.toogleFiltersOpen}
           onDateClick={onSelectDate}
-          date={selectedDate}
+          date={selectedDate.format(DATE_FORMAT)}
           events={events}
         />
         {loading ? (

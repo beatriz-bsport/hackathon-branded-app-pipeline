@@ -1,5 +1,7 @@
 import { Moment } from './i18n';
 
+export const DATE_FORMAT = 'YYYY-MM-DD';
+
 export function formatAsDate(date) {
   const momentDate = Moment(date);
   return momentDate.format('DD/MM/YYYY');

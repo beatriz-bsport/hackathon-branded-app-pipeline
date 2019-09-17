@@ -46,11 +46,9 @@ import OfferFormWithActivity from '../../libs/offer/OfferFormWithActivity.compon
 import DeleteOfferForm from '../../libs/offer/DeleteOfferForm.component';
 import { createOffers as createOffersAPI } from '../../libs/meta-activity/api/meta-activity';
 import type { Permission } from '../../libs/role/types';
+import { DATE_FORMAT } from '../../datetime';
 
 const styles = (theme) => ({
-  calendarContainer: {
-    paddingBottom: theme.spacing.unit * 2,
-  },
   panel: {
     display: 'flex',
     flexDirection: 'column',
@@ -433,13 +431,11 @@ export class Planning extends PureComponent<Props, State> {
           <Grid item xs={12} lg={6}>
             <div className={classes.panel}>
               <Paper style={{ width: '100%' }}>
-                <div className={classes.calendarContainer}>
-                  <Calendar
-                    events={events_}
-                    onDateClick={this.props.loadDayData}
-                    date={this.props.date}
-                  />
-                </div>
+                <Calendar
+                  events={events_}
+                  onDateClick={this.props.loadDayData}
+                  date={this.props.date.format(DATE_FORMAT)}
+                />
                 <TimeTable
                   date={date}
                   onOfferSelected={this.selectOffer}

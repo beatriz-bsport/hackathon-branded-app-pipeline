@@ -15,7 +15,7 @@ import PAYMENT_METHODS, {
   CREDIT_ACCOUNT as PAYMENT_METHOD_CREDIT_ACCOUNT,
 } from '@bsport/common/lib/master-data/payment-methods';
 
-import { formatAsDate } from '../../../datetime';
+import { formatAsDate, DATE_FORMAT } from '../../../datetime';
 import { Moment } from '../../../i18n';
 
 import CreditMemberBadge from '../../member/components/CreditMemberBadge.component';
@@ -137,7 +137,7 @@ export class QuickInvoice extends Component<Props, State> {
           price: ppToAdd.price,
           id: ppToAdd.id,
           subtitle: formatAsDate(date_bought || Moment()),
-          date_bought: date_bought.format('YYYY-MM-DD'),
+          date_bought: date_bought.format(DATE_FORMAT),
         },
       ],
       showInvoiceItemSelector: false,

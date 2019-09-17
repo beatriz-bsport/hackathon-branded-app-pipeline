@@ -19,6 +19,7 @@ import {
   isOfferLoading,
 } from '../../libs/marketplace/selectors';
 import { fetchCompanyOffersWorkshopAction } from '../../libs/marketplace/actions';
+import { DATE_FORMAT } from '../../datetime';
 
 type Props = {
   // t: TFunction,
@@ -44,11 +45,11 @@ export class MarketplaceWorkshopPage extends React.Component<Props> {
   componentDidMount() {
     const min_date = Moment()
       .startOf('month')
-      .format('YYYY-MM-DD');
+      .format(DATE_FORMAT);
     const max_date = Moment()
       .startOf('month')
       .add('years', 1)
-      .format('YYYY-MM-DD');
+      .format(DATE_FORMAT);
     this.props.fetchCompanyOffers(this.props.companyId, min_date, max_date);
   }
 

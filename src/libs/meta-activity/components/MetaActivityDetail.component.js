@@ -32,7 +32,7 @@ import type {
   Offer,
   MetaActivity as MetaActivityType,
 } from '../../../api/types';
-import { formatMinutes } from '../../../datetime';
+import { formatMinutes, DATE_FORMAT } from '../../../datetime';
 
 import MetaActivityCover from './MetaActivityCover.component';
 import MetaActivityBasicInfo from './MetaActivityBasicInfo.component';
@@ -164,19 +164,20 @@ export class MetaActivityDetail extends Component<Props, State> {
     return (
       <Calendar
         events={events_}
-        date={dateSelected}
+        date={dateSelected.format(DATE_FORMAT)}
         onDateClick={this.handleDayClick}
         forceMonthDisplay
       />
     );
   };
 
-  handleDayClick = (date: Object) => {
-    this.setState({ dateSelected: date });
+  handleDayClick = (date: string) => {
+    const momentDate = Moment(date, DATE_FORMAT);
+    this.setState({ dateSelected: momentDate });
     this.props.fetchOffersByDay({
-      year: date.year(),
-      month: date.month() + 1,
-      day: date.date(),
+      year: momentDate.year(),
+      month: momentDate.month() + 1,
+      day: momentDate.date(),
     });
   };
 

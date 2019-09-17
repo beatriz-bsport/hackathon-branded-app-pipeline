@@ -11,6 +11,7 @@ import { TimeTable, Calendar } from '../../../components';
 import EstablishmentCard from './EstablishmentCard.component';
 import { Moment } from '../../../i18n';
 import type { Establishment, Offer } from '../../../api/types';
+import { DATE_FORMAT } from '../../../datetime';
 
 type Props = {
   establishment: Establishment,
@@ -64,7 +65,9 @@ export class EstablishmentCardItem extends Component<Props, State> {
           <Calendar
             events={events_}
             onDateClick={this.onDateClick(establishment.id)}
-            date={selectedDay[establishment.id] || Moment()}
+            date={(selectedDay[establishment.id] || Moment()).format(
+              DATE_FORMAT,
+            )}
           />
         </div>
         <TimeTable

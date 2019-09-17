@@ -28,6 +28,7 @@ import {
   AddressFields,
 } from '../../components/forms';
 import AlertExistingUser from './AlertExistingUser.component';
+import { DATE_FORMAT } from '../../datetime';
 
 const styles = (theme) => ({
   paperContainer: {
@@ -394,7 +395,7 @@ export default compose(
         gender: 'F',
         birthday: undefined,
         membership_ID: '',
-        date_joined: Moment().format('YYYY-MM-DD'),
+        date_joined: Moment().format(DATE_FORMAT),
         rgpd: {
           accept_sms: true,
           accept_email: true,

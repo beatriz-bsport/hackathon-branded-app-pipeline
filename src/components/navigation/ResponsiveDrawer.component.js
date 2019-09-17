@@ -309,6 +309,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                       showMore={fetchMoreAlertingKind}
                     />
                   </Grid>
+                  {this.props.width === 'md' && this.props.showSearch ? (
+                    <Grid item className={classes.searchBar}>
+                      <SearchBar changeLocation />
+                    </Grid>
+                  ) : null}
                   <Grid item>
                     <Button onClick={handleClick}>
                       <MoreVertIcon />

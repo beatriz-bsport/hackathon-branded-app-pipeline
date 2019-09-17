@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 
 import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
@@ -114,7 +113,7 @@ export class DeleteOfferForm extends Component<Props, State> {
   };
 
   render() {
-    const { t, classes, processing, onCancel, offerWasCancelled } = this.props;
+    const { t, processing, onCancel, offerWasCancelled } = this.props;
     return (
       <React.Fragment>
         <DialogTitle>

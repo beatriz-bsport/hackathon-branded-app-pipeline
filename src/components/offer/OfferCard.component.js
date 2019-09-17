@@ -36,7 +36,6 @@ type Props = {
   noHeader: ?boolean,
   onEditButtonClick: () => void,
   onDeleteButtonClick: () => void,
-  goToOfferManagement: (offerId: number) => void,
   permission: Permission,
 };
 

@@ -8,7 +8,6 @@ import { push, replace } from 'react-router-redux';
 import Planning from './Planning.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { Moment } from '../../i18n';
-import { DATE_FORMAT } from '../../datetime';
 
 import { offer as offerActions } from '../../actions';
 

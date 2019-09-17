@@ -42,7 +42,7 @@ export class CalendarWidget extends Component<Props, State> {
 
   handleDateChange = (selectedDate) => {
     this.setState({
-      selectedDate: selectedDate.clone(),
+      selectedDate: Moment(selectedDate, 'YYYY-MM-DD'),
     });
   };
 
@@ -56,6 +56,7 @@ export class CalendarWidget extends Component<Props, State> {
         fetchCompanyOffers={this.props.fetchCompanyOffers}
         handleDateChange={this.handleDateChange}
         selectedDate={this.state.selectedDate}
+        compactMode={this.props.compactMode}
         offers={this.props.getOffersFromFilter(this.state.filters)}
         toogleFiltersOpen={() =>
           this.setState((prevState) => ({

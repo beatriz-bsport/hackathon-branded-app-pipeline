@@ -69,7 +69,7 @@ class BsportWidget extends Component<Props> {
   }
 
   renderWidget() {
-    const { companyId, store, history, widgetType } = this.props;
+    const { companyId, store, history, compactMode, widgetType } = this.props;
     switch (widgetType) {
       case 'workshop':
         return (
@@ -100,6 +100,7 @@ class BsportWidget extends Component<Props> {
           <CalendarWidget
             companyId={companyId}
             location={history.location}
+            compactMode={compactMode}
             store={store}
           />
         );

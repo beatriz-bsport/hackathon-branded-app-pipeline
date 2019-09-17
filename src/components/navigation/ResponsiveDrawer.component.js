@@ -444,11 +444,6 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             text: t('shop.myShop'),
           },
           'divider',
-          {
-            to: '/coupon/',
-            icon: RedeemIcon,
-            text: t('navigation.coupon'),
-          },
         ],
       },
       {
@@ -470,6 +465,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             to: '/coach/performance',
             icon: PersonIcon,
             text: t('navigation.coachPerformance'),
+          },
+          {
+            to: '/coupon/',
+            icon: RedeemIcon,
+            text: t('navigation.coupon'),
           },
           {
             to: '/order/',

@@ -2,7 +2,9 @@
 
 import React, { Component } from 'react';
 
-import Grid from '@material-ui/core/Grid';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import Switch from '@material-ui/core/Switch';
@@ -82,81 +84,56 @@ export class DeleteOfferForm extends Component<Props, State> {
     }
     const { notify, cashback, deleteAll } = this.state;
     return (
-      <Grid container direction="column">
-        <Grid item>
-          <Typography className={classes.explainText}>
-            {t('form.offer.delete.explainModalities')}
+      <div>
+        <Typography className={classes.explainText}>
+          {t('form.offer.delete.explainModalities')}
+        </Typography>
+        <div className={classes.row}>
+          <Switch checked={cashback} onChange={this.onCreditBackSwitch} />
+          <Typography disabled>
+            {t('form.offer.delete.explainCreditBack')}
           </Typography>
-        </Grid>
-        <Grid item>
-          <Grid container direction="row" spacing={16} alignItems="center">
-            <Grid item>
-              <Switch checked={cashback} onChange={this.onCreditBackSwitch} />
-            </Grid>
-            <Grid item>
-              <Typography disabled>
-                {t('form.offer.delete.explainCreditBack')}
-              </Typography>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item>
-          <Grid container direction="row" spacing={16} alignItems="center">
-            <Grid item>
-              <Switch checked={notify} onChange={this.onNotifySwitch} />
-            </Grid>
-            <Grid item>
-              <Typography>{t('form.offer.delete.explainNotify')}</Typography>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item>
-          <RecursiveToogle
-            color="secondary"
-            shouldModifyAllDates={deleteAll}
-            message={this.props.t('form.offer.explainRecursiveOfferDelete')}
-            listTitle={this.props.t('offer.offersPendingDelete')}
-            loading={this.props.similarOfferLoading}
-            similarOffers={this.props.similarOffers.filter((o) => o.available)}
-            onChangeRecursion={({ modifyRecursively }) =>
-              this.setState({ deleteAll: modifyRecursively })
-            }
-          />
-        </Grid>
-      </Grid>
+        </div>
+        <div className={classes.row}>
+          <Switch checked={notify} onChange={this.onNotifySwitch} />
+          <Typography>{t('form.offer.delete.explainNotify')}</Typography>
+        </div>
+        <RecursiveToogle
+          color="secondary"
+          shouldModifyAllDates={deleteAll}
+          message={this.props.t('form.offer.explainRecursiveOfferDelete')}
+          listTitle={this.props.t('offer.offersPendingDelete')}
+          loading={this.props.similarOfferLoading}
+          similarOffers={this.props.similarOffers.filter((o) => o.available)}
+          onChangeRecursion={({ modifyRecursively }) =>
+            this.setState({ deleteAll: modifyRecursively })
+          }
+        />
+      </div>
     );
   };
 
   render() {
-    const { t, processing, onCancel, offerWasCancelled } = this.props;
+    const { t, classes, processing, onCancel, offerWasCancelled } = this.props;
     return (
-      <Grid
-        container
-        direction="column"
-        spacing={16}
-        style={{ height: '100%' }}
-      >
-        <Grid item>
-          <Typography variant="h6">
-            {offerWasCancelled
-              ? t('form.offer.deleteTitle')
-              : t('form.offer.cancelTitle')}
-          </Typography>
-        </Grid>
-        <Grid item>{this.renderInside()}</Grid>
-        <Grid item>
-          <Grid container item justify="flex-end">
-            <Button onClick={onCancel}>{t('common.cancel')}</Button>
-            {processing ? (
-              <CircularProgress />
-            ) : (
-              <RedButton onClick={this.onConfirm}>
-                {t('common.confirm')}
-              </RedButton>
-            )}
-          </Grid>
-        </Grid>
-      </Grid>
+      <React.Fragment>
+        <DialogTitle>
+          {offerWasCancelled
+            ? t('form.offer.deleteTitle')
+            : t('form.offer.cancelTitle')}
+        </DialogTitle>
+        {this.renderInside()}
+        <DialogActions>
+          <Button onClick={onCancel}>{t('common.cancel')}</Button>
+          {processing ? (
+            <CircularProgress />
+          ) : (
+            <RedButton onClick={this.onConfirm}>
+              {t('common.confirm')}
+            </RedButton>
+          )}
+        </DialogActions>
+      </React.Fragment>
     );
   }
 }
@@ -166,6 +143,11 @@ const styles = (theme) => ({
     marginBottom: theme.spacing.unit * 2,
     padding: theme.spacing.unit * 2,
     backgroundColor: '#F2F2F2',
+  },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });
 

@@ -36,6 +36,8 @@ import {
   deleteTag,
 } from '../../libs/tag/actions';
 
+import { mailMembers } from '../../libs/communication/actions';
+
 type Props = {
   // GENERAL
   // -------
@@ -59,6 +61,9 @@ type Props = {
     is_medical: boolean,
   }) => void,
   deleteNote: ({ memberId: number, noteId: number }) => void,
+
+  // MAIL
+  mailMember: () => void,
 
   // TAGS
   // ----
@@ -109,6 +114,7 @@ export class MemberDetailPage extends Component<Props, State> {
             member={this.props.member}
             editMember={() => this.props.editMember(this.props.id)}
             mergeMember={() => this.setState({ searchModalOpen: true })}
+            mailMember={this.props.mailMember}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -177,6 +183,7 @@ export default compose(
       searchMembers,
       tagMember,
       fetchTags,
+      mailMember: mailMembers,
       mergeInto: (src: number, dst: number) =>
         routerPush(`/member/merge/${src}/into/${dst}`),
       editMember: (id) => routerPush(`/member/edit/${id}`),

@@ -108,9 +108,10 @@ class CoachSummaryCard extends React.Component<Props> {
         <PhoneItem phoneNumber={this.props.coach.phone} accept_contact />
         <EmailItem
           email={this.props.coach.email}
-          receiverId={this.props.coach.id}
-          name={this.props.coach.name}
           accept_email
+          openMailDialog={() => {
+            window.location.href = 'mailto:'.concat(this.props.coach.email);
+          }}
         />
       </List>
     );

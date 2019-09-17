@@ -17,6 +17,7 @@ import { fetchOrder, patchOrder } from '../../libs/order/actions';
 import { fetchByQueryInvoice } from '../../actions/invoice.actions';
 import OrderDetailComponent from '../../libs/order/components/OrderDetail.component';
 import { fetchAll as fetchAllAlerting } from '../../libs/alerting/actions';
+import { mailMembers as mailMemberAction } from '../../libs/communication/actions';
 
 import type { OrderWithProducts } from '../../libs/order/types';
 import type { Member } from '../../libs/member/types';
@@ -31,6 +32,7 @@ type Props = {
   goToMember: (id: number) => void,
   patchOrder: (id: string, data: *) => void,
   orderId: string,
+  mailMemberAction: () => void,
 
   invoice: ?Invoice,
   member: ?Member,
@@ -74,6 +76,7 @@ export class OrderDetail extends Component<Props> {
               { onSuccess: () => this.props.fetchAllAlerting() },
             )
           }
+          mailMember={this.props.mailMemberAction}
         />
       </div>
     );
@@ -94,6 +97,7 @@ export default compose(
       fetchOrder,
       patchOrder,
       fetchAllAlerting,
+      mailMemberAction,
       goToMember: (id: number) => push(`/member/${id}/`),
       onInvoiceClick: (uuid: string) => push(`/invoice/${uuid}`),
     },

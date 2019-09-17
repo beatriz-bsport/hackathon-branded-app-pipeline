@@ -4,9 +4,10 @@ export default {
     content: 'Contenu du mail',
     missing: 'Email absent',
     success: 'Mail Envoyé',
-    error: 'Erreur, mail non envoyé',
+    error: 'Mail non envoyé',
     refreshText:
       "Veuillez recharger la page pour actualiser le changement d'email",
+    noObject: "Pas d'objet",
   },
   recipients: 'Destinataires',
   recipient: 'Destinataire',

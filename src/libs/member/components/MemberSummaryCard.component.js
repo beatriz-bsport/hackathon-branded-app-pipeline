@@ -29,6 +29,7 @@ import type { Member } from '../../../api/types';
 
 import EmailItem from '../../communication/components/EmailItem.component';
 import PhoneItem from '../../communication/components/PhoneItem.component';
+import MailDialog from '../../communication/components/MailDialog.component';
 
 type Props = {
   editMember: () => void,
@@ -37,8 +38,14 @@ type Props = {
   member: Member,
   t: TFunction,
   classes: Object,
+  mailMember: () => void,
 };
+
 export class MemberSummaryCard extends Component<Props> {
+  state = {
+    displayMailDialog: false,
+  };
+
   renderMembershipAndBirthday = () => {
     const { member, t } = this.props;
     return (
@@ -68,7 +75,7 @@ export class MemberSummaryCard extends Component<Props> {
   };
 
   renderNotificationSettings = () => {
-    const { member } = this.props;
+    const { member, mailMember } = this.props;
     return (
       <List dense>
         <PhoneItem
@@ -81,10 +88,23 @@ export class MemberSummaryCard extends Component<Props> {
         />
         <EmailItem
           email={member.consumer.email}
-          receiverId={member.id}
-          name={`${member.consumer.first_name} ${member.consumer.last_name}`}
           accept_email={member.accept_email}
           notificationIcon
+          openMailDialog={() => this.setState({ displayMailDialog: true })}
+        />
+        <MailDialog
+          open={this.state.displayMailDialog}
+          sendMailAction={mailMember}
+          fullscreen
+          receiverInfo={[
+            {
+              id: member.id,
+              name: `${member.consumer.first_name} ${member.consumer.last_name}`,
+              email: member.consumer.email,
+            },
+          ]}
+          onCancel={() => this.setState({ displayMailDialog: false })}
+          receiversNotEditable
         />
       </List>
     );

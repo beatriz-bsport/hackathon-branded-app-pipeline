@@ -36,6 +36,7 @@ type Props = {
   onInvoiceClick: (uuid: string) => void,
   goToMember: (id: number) => void,
   updateOrderState: (id: number) => void,
+  mailMember: () => void,
 
   order: ?OrderWithProducts,
   invoice: ?Invoice,
@@ -55,6 +56,7 @@ export const OrderDetail = (props: Props) => {
     onInvoiceClick,
     updateOrderState,
     goToMember,
+    mailMember,
   } = props;
   return (
     <div>
@@ -177,6 +179,7 @@ export const OrderDetail = (props: Props) => {
               memberId={member.id}
               member={member}
               goToMember={() => goToMember(member.id)}
+              mailMember={mailMember}
             />
           ) : null}
         </Grid>

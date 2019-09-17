@@ -1,7 +1,6 @@
 // @flow
 
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -14,24 +13,15 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
 
-import MailDialog from './MailDialog.component';
-import { mailMembers as mailMembersAction } from '../actions';
-
 type props = {
   email: string,
-  receiverId: number,
-  name: string,
   classes: Object,
   accept_email: boolean,
   notificationIcon: boolean,
-  mailMembers: (data: any) => void,
+  openMailDialog: () => void,
 };
 
 export class EmailListItem extends Component<props> {
-  state = {
-    displayMailDialog: false,
-  };
-
   renderNotificationIcon = () => {
     return this.props.accept_email ? (
       <NotificationActiveIcon className={this.props.classes.notificationIcon} />
@@ -41,7 +31,7 @@ export class EmailListItem extends Component<props> {
   };
 
   render() {
-    const { email, receiverId, name, notificationIcon } = this.props;
+    const { email, notificationIcon } = this.props;
     return (
       <div>
         <ListItem>
@@ -54,8 +44,7 @@ export class EmailListItem extends Component<props> {
             <Button
               color="primary"
               onClick={() => {
-                window.location.href = 'mailto:'.concat(email);
-                // this.setState({ displayMailDialog: true });
+                this.props.openMailDialog();
               }}
             >
               <EmailIcon />
@@ -63,14 +52,6 @@ export class EmailListItem extends Component<props> {
           ) : null}
           {notificationIcon ? this.renderNotificationIcon() : null}
         </ListItem>
-        <MailDialog
-          open={this.state.displayMailDialog}
-          sendMailAction={this.props.mailMembers}
-          fullscreen
-          receiverInfo={[{ receiverId, name, email }]}
-          onCancel={() => this.setState({ displayMailDialog: false })}
-          receiversNotEditable
-        />
       </div>
     );
   }
@@ -85,18 +66,4 @@ const style = (theme) => ({
   },
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    mailMembers(data: any) {
-      dispatch(mailMembersAction(data));
-    },
-  };
-}
-
-export default compose(
-  withStyles(style),
-  connect(
-    null,
-    mapDispatchToProps,
-  ),
-)(EmailListItem);
+export default compose(withStyles(style))(EmailListItem);

@@ -50,7 +50,7 @@ export class SendMailToMembers extends Component<Props> {
           .filter((receiver) => receiver.email !== null)
           .map((receiver) => receiver.id),
       ],
-      mailTitle: this.props.mailDefaultTitle,
+      mailTitle: null,
       mailContent: '',
     };
   }
@@ -217,6 +217,8 @@ export class SendMailToMembers extends Component<Props> {
                 name="Mail title"
                 label={t('mail.title')}
                 fullWidth
+                required
+                placeholder={this.props.t('mail.noObject')}
                 className={classes.mailTitle}
                 value={this.state.mailTitle}
                 onChange={(e) => this.setState({ mailTitle: e.target.value })}

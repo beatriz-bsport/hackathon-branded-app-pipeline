@@ -456,7 +456,9 @@ export class OfferManagement extends Component<Props, State> {
             onClick={() => this.props.goToCalendar(this.getDateDictionnary())}
           >
             <TodayIcon className={this.props.classes.leftIcon} />
-            {moment(this.props.offer.date_start).format('LLLL')}
+            {this.props.offer && this.props.offer.date_start
+              ? moment(this.props.offer.date_start).format('LLLL')
+              : ''}
           </Button>
           {this.props.bookingLoading ? (
             <CircularProgress size={16} />

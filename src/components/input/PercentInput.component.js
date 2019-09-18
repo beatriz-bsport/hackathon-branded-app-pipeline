@@ -8,7 +8,7 @@ export default function PriceInput(props) {
   return (
     <NumericInput
       InputProps={{
-        inputProps: { step: 1 },
+        inputProps: { step: 1, max: 100, min: 0 },
         endAdornment: <InputAdornment position="end">%</InputAdornment>,
       }}
       {...props}

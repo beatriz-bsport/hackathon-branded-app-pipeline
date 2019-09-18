@@ -287,7 +287,7 @@ export class CouponForm extends React.Component<Props, State> {
           className={classes.field}
           helperText={t('form.code.helperText')}
           required
-          inputProps={{ maxLength: 16 }}
+          inputProps={{ maxLength: 32 }}
         />
         <Typography variant="h6" className={classes.sectionTitle}>
           {t('form.section.voucherConfig')}

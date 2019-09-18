@@ -42,11 +42,17 @@ type Props = {
   fetchCompanyMetaActivities: (companyId: number) => void,
   fetchCompanyCoaches: (companyId: number) => void,
   fetchCompanyEstablishments: (companyId: number) => void,
-  fetchCurrentOrder: (companyId: number) => void,
-  fetchProfile: () => void,
+  fetchCompanyTheme: (companyId: number) => void,
   auth: *,
   consumerProfile: *,
   lang: string,
+  compactMode: boolean,
+  defaultFilters: {
+    coaches: [],
+    establishments: [],
+    levels: [],
+    metaActivities: [],
+  },
 };
 
 class BsportWidget extends Component<Props> {
@@ -69,7 +75,14 @@ class BsportWidget extends Component<Props> {
   }
 
   renderWidget() {
-    const { companyId, store, history, compactMode, widgetType } = this.props;
+    const {
+      companyId,
+      store,
+      history,
+      widgetType,
+      defaultFilters,
+      compactMode,
+    } = this.props;
     switch (widgetType) {
       case 'workshop':
         return (
@@ -102,6 +115,7 @@ class BsportWidget extends Component<Props> {
             location={history.location}
             compactMode={compactMode}
             store={store}
+            defaultFilters={defaultFilters}
           />
         );
     }

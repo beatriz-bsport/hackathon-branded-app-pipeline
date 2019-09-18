@@ -5,3 +5,4 @@ coverage
 *.swp
 *~
 config.prod.js
+config.dev.js

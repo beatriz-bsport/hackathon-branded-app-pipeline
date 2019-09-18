@@ -21,10 +21,34 @@ const BACKOFFICE_URI = 'https://backoffice.bsport.io';
 
 type Props = {
   companyId: number,
+  fetchCompanyOffers: () => void,
+  getOffersFromFilter: (*) => void,
+  loading: ?boolean,
+  coaches: [],
+  establishments: [],
+  metaActivities: [],
+  compatibleConsumerPacks: [],
+  compatiblePaymentPacks: [],
+  resetOffers: () => void,
+  goToBook: (bookingId: number, companyId: number) => void,
+  goToBookOption: (bookingId: number, companyId: number) => void,
+  fetchPaymentPacks: () => void,
+  fetchCompatiblePass: () => void,
+  goToPackPayment: (packId: number, offerId: number, companyId: number) => void,
+  onCompletePurchase: () => void,
+  defaultFilters: {
+    coaches: [],
+    establishments: [],
+    levels: [],
+    metaActivities: [],
+  },
+  compactMode: boolean,
 };
 
 type State = {
   filtersOpen: boolean,
+  filters: any,
+  selectedDate: Moment,
 };
 
 export class CalendarWidget extends Component<Props, State> {
@@ -34,13 +58,17 @@ export class CalendarWidget extends Component<Props, State> {
     selectedDate: Moment(),
   };
 
-  setFilters = (filters) => {
+  componentDidMount() {
+    this.setFilters(this.props.defaultFilters);
+  }
+
+  setFilters = (filters: any) => {
     this.setState((prevState) => ({
       filters: { ...prevState.filters, ...filters },
     }));
   };
 
-  handleDateChange = (selectedDate) => {
+  handleDateChange = (selectedDate: Moment) => {
     this.setState({
       selectedDate: Moment(selectedDate, 'YYYY-MM-DD'),
     });

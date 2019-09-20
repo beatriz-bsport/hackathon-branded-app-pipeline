@@ -860,7 +860,7 @@ export default {
         if (offerIsAvailable) {
           return `Êtes-vous sûr de vouloir supprimer la réservation de ${name} ? Les crédits utilisés seront recrédités.`;
         }
-        return `La réservation de ${name} sera supprimé. La séance a déjà été annulée et les crédits ne seront pas remboursés si vous n'avez pas coché "rembourser" lors de l'annulation`;
+        return `La réservation de ${name} sera supprimée. La séance a déjà été annulée et les crédits ne seront pas remboursés si vous n'avez pas coché "rembourser" lors de l'annulation`;
       },
 
       revertBookingWithInvoiceImpossibleExplain:

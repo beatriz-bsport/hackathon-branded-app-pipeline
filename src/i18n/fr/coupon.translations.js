@@ -11,7 +11,7 @@ export default {
     delete: {
       title: 'Suppression',
       content:
-        "Êtes-vous sür de vouloir supprimer ce code promotionnel ? Vous n'aurez plus accès à l'historique d'utilisation. Cette opération est définitive.",
+        "Êtes-vous sûr de vouloir supprimer ce code promotionnel ? Vous n'aurez plus accès à l'historique d'utilisation. Cette opération est définitive.",
       actions: {
         cancel: 'Annuler',
         submit: 'Supprimer',
@@ -77,13 +77,13 @@ export default {
       label: "Limite d'utilisation par client",
     },
     usage_total: {
-      label: "Limite d'utilisation tout membre confondu",
+      label: "Limite d'utilisation tous membres confondus",
     },
     only_on_first_checkout: {
       label: 'Premier achat seulement',
     },
     combinable: {
-      label: "Utilisable avec d'autre code",
+      label: "Utilisable avec d'autres codes",
     },
     minimum_amount: {
       label: "Montant minimum d'achat",

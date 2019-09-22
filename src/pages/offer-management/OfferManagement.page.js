@@ -34,14 +34,16 @@ import bookingSelectors from '../../libs/booking/selectors';
 
 import { snackbar } from '../../actions/snackbar.actions';
 import { formatAsDatetime } from '../../datetime';
-import paymentPackSelectors from '../../libs/payment-packs/selectors';
+import paymentPackSelectors, {
+  getAll as getAllPaymentPacks,
+} from '../../libs/payment-packs/selectors';
 
 import {
-  fetchMemberByOffer,
+  fetchFilteredMembers,
+  refreshFilteredMembers,
   fetchMember as fetchMemberAction,
   createOrUpdateMember,
   search as searchMembersAction,
-  refreshByOffer as refreshMemberByOffer,
 } from '../../libs/member/actions';
 import memberSelectors from '../../libs/member/selectors';
 
@@ -66,11 +68,11 @@ function mapStateToProps(state, { id }) {
     offer: state.offer.offers.find((o) => o.id === id),
     offers: state.offer.calendar,
     offerLoading: state.offer.byDay.loading,
-    paymentPacks: paymentPackSelectors.getAll(state),
+    paymentPacks: getAllPaymentPacks(state),
     paymentPacksEnabled: paymentPackSelectors.getEnabled(state),
     shopItemsAvailable: shopSelector.getShopItemsAvailable(state),
-    membersloading: state.member.byOffer.loading,
-    members: state.member.byOffer.items,
+    membersloading: state.member.loading,
+    members: state.member.all,
     memberSearchLoading: state.member.search.loading,
     searchedMembers: memberSelectors.getSearched(state),
     bookings: bookingSelectors.getBookings(state),
@@ -103,7 +105,7 @@ function mapDispatchToProps(dispatch) {
     },
     fetchOfferData(offerId) {
       dispatch(fetchBookingsByOfferAction(offerId));
-      dispatch(fetchMemberByOffer(offerId));
+      dispatch(fetchFilteredMembers({ offer: offerId }));
     },
     deleteBooking(bookingId) {
       dispatch(deleteBookingAction(bookingId));
@@ -120,7 +122,7 @@ function mapDispatchToProps(dispatch) {
     registerToWaitingList(offerId, memberId) {
       dispatch(
         registerToWaitingListAction(offerId, memberId, {
-          onSuccess: () => dispatch(refreshMemberByOffer(offerId)),
+          onSuccess: () => dispatch(refreshFilteredMembers({ offer: offerId })),
         }),
       );
     },
@@ -138,7 +140,7 @@ function mapDispatchToProps(dispatch) {
           invoiceData,
           true,
           () => {
-            dispatch(refreshMemberByOffer(offerId));
+            dispatch(refreshFilteredMembers({ offer: offerId }));
           },
           isQuickInvoice,
         ),
@@ -148,7 +150,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(
         invoiceActions.createQuickInvoice(data, () => {
           dispatch(refreshBookingsByOfferAction(offerId));
-          dispatch(refreshMemberByOffer(offerId));
+          dispatch(refreshFilteredMembers({ offer: offerId }));
         }),
       );
     },
@@ -186,7 +188,7 @@ function mapDispatchToProps(dispatch) {
         addBookingAction({
           offerId,
           consumerPaymentPackId,
-          callback: () => dispatch(refreshMemberByOffer(offerId)),
+          callback: () => dispatch(refreshFilteredMembers({ offer: offerId })),
         }),
       );
     },

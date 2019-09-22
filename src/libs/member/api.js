@@ -39,12 +39,6 @@ export async function tag(memberId: number, tagId: number) {
   });
 }
 
-export async function fetchByOffer(offerId: number) {
-  return getAuth(
-    `${API_URI}/saas/members/offer/${offerId}/?no-deprecated=true`,
-  );
-}
-
 export async function fetchMember(memberId: number) {
   return getAuth(`${API_URI}/saas/members/${memberId}?no-deprecated=true`);
 }
@@ -72,6 +66,11 @@ export async function updateMember(data: Object) {
 
 export async function merge(src: number, dst: number) {
   return postAuth(`${API_URI}/saas/members/members/merge/`, { src, dst });
+}
+
+export async function fetchFilteredMembers(params: any) {
+  const urlParams = buildUrlParams(params);
+  return getAuth(`${API_V1_URI}/member/${urlParams}&page_size=300`);
 }
 
 export async function createNote(
@@ -107,7 +106,6 @@ export async function deleteNote(id: number) {
 
 export default {
   fetchAll: fetchAllMembers,
-  fetchByOffer,
   updateMember,
   fetchMember,
   fetchByQueryMember,

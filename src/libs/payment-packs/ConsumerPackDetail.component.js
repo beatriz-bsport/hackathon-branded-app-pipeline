@@ -36,15 +36,19 @@ type Props = {
 export function ConsumerPaymentPackDetail(props: Props) {
   return (
     <div>
-      <Typography variant="h5" component="h2">
-        {props.t('details.invoiceTitle')}
-      </Typography>
-      <Paper className={props.classes.paper}>
-        <InvoiceListItem
-          onClick={() => props.onInvoiceClick(props.invoice.uuid)}
-          invoice={props.invoice}
-        />
-      </Paper>
+      {props.invoice ? (
+        <React.Fragment>
+          <Typography variant="h5" component="h2">
+            {props.t('details.invoiceTitle')}
+          </Typography>
+          <Paper className={props.classes.paper}>
+            <InvoiceListItem
+              onClick={() => props.onInvoiceClick(props.invoice.uuid)}
+              invoice={props.invoice}
+            />
+          </Paper>
+        </React.Fragment>
+      ) : null}
       <Typography variant="h5" component="h2">
         {props.t('details.bookingsTitle')}
       </Typography>

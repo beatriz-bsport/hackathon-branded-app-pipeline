@@ -1,6 +1,7 @@
 export default {
   details: {
     pleaseSelectAPack: 'Sélectionnez un abonnement pour voir le détails',
+    shareAPass: 'Partager un abonnement',
     invoiceTitle: 'Facture associée',
     bookingsTitle: 'Réservations associées',
   },
@@ -19,6 +20,9 @@ export default {
   maxNBookingsByWeek2: ' réservations par semaine',
   validity: 'Valide :',
   consumer: {
+    isFromShare: 'Partagé depuis un autre compte',
+    isOwnerOfShares: 'Partagé (abonnement maître)',
+    isFromDisabledShare: 'Partage arrété',
     expiresOn: 'Expire le ',
     bookingsThisWeek: 'réservation(s) cette semaine',
   },

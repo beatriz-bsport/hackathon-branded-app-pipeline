@@ -2,7 +2,7 @@ import Immutable from 'seamless-immutable/seamless-immutable.production.min';
 
 import authActionTypes from '../../actions/auth.types';
 import paymentPackActionTypes from '../../actions/paymentPack.types';
-import { actionTypes } from './actions';
+import { actionTypes, memberListActions } from './actions';
 
 const initialState = Immutable({
   loading: false,
@@ -14,10 +14,6 @@ const initialState = Immutable({
     loading: false,
     error: null,
   },
-  byOffer: {
-    items: [],
-    loading: false,
-  },
   upsert: {
     loading: false,
     error: null,
@@ -28,6 +24,15 @@ export default function memberReducers(state = initialState, action = {}) {
   switch (action.type) {
     case authActionTypes.DISCONNECT:
       return initialState;
+    case memberListActions.success.toString(): {
+      return state.set('all', action.payload);
+    }
+    case memberListActions.error.toString(): {
+      return state.set('error', action.payload);
+    }
+    case memberListActions.isLoading.toString(): {
+      return state.set('loading', action.payload);
+    }
 
     case actionTypes.MEMBER_TAG_SUCCESS: {
       let newState = state;
@@ -51,10 +56,6 @@ export default function memberReducers(state = initialState, action = {}) {
           ['search', 'items'],
           state.search.items.filter((m) => m.id !== action.src),
         )
-        .setIn(
-          ['byOffer', 'items'],
-          state.byOffer.items.filter((m) => m.id !== action.src),
-        )
         .set('all', state.all.filter((m) => m.id !== action.src))
         .set('member', state.member.id === action.src ? {} : state.member);
     }
@@ -69,38 +70,6 @@ export default function memberReducers(state = initialState, action = {}) {
         .setIn(['search', 'loading'], false);
     }
 
-    case actionTypes.HAS_FETCHED_MEMBERS: {
-      const all = action.members;
-      return state.set('all', all).set('loading', false);
-    }
-    case actionTypes.START_FETCH_MEMBER_BY_OFFER: {
-      return state.set('byOffer', { loading: true, items: [] });
-    }
-    case actionTypes.ERROR_FETCH_MEMBER_BY_OFFER: {
-      return state.setIn(['byOffer', 'loading'], false);
-    }
-    case actionTypes.SUCCESS_FETCH_MEMBER_BY_OFFER: {
-      return state
-        .setIn(['byOffer', 'items'], action.members)
-        .setIn(['byOffer', 'loading'], false)
-        .set('loading', false);
-    }
-
-    case actionTypes.SUCCESS_QUICK_FETCH_MEMBER: {
-      const { member } = action;
-      let idx = state.all.findIndex((m) => m.id === member.id);
-      if (idx === -1) {
-        idx = state.all.length;
-      }
-      return state.setIn(['all', idx], member);
-    }
-
-    case actionTypes.START_FETCH_MEMBERS: {
-      return state.set('loading', true);
-    }
-    case actionTypes.ERROR_FETCHING_MEMBERS: {
-      return state.set('loading', false);
-    }
     case actionTypes.START_FETCH_MEMBER:
       return state.set('loading', true);
     case actionTypes.ERROR_FETCHING_MEMBER:

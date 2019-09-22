@@ -16,8 +16,14 @@ export const CreditMemberBadge = (props: Props) => {
   if (credit < 0) {
     badgeColor = 'error';
   }
+  let creditFormatted = '';
+  try {
+    creditFormatted = props.credit.toFixed(1);
+  } catch (err) {
+    creditFormatted = ' -';
+  }
   return (
-    <Badge color={badgeColor} badgeContent={`${props.credit.toFixed(1)} €`}>
+    <Badge color={badgeColor} badgeContent={`${creditFormatted} €`}>
       {props.children}
     </Badge>
   );

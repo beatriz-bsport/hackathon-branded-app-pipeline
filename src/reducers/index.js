@@ -34,6 +34,7 @@ import roleReducers from '../libs/role/reducers';
 import checkoutReducers from '../libs/checkout/reducers';
 import communicationReducers from '../libs/communication/reducers';
 import couponReducers from '../libs/coupon/reducers';
+import relationship from '../libs/relationship/reducers';
 
 import type { State, Action } from '../state/types';
 
@@ -73,6 +74,7 @@ const rootReducer = combineReducers({
   theme: themeReducers,
   role: roleReducers,
   coupon: couponReducers,
+  relationship,
 });
 
 export default (state: State, action: Action) => {

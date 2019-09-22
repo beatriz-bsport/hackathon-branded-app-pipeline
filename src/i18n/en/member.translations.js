@@ -25,9 +25,13 @@ export default {
     noNoteSaved: 'No note saved',
     is_medical: 'Health-related note',
   },
+  relation: {
+    pleaseSelectRelation: 'Select a relationship to see shared pass',
+  },
   menu: {
     info: 'General',
     bookings: 'Bookings',
+    relations: 'Relationships',
     paymentPack: 'Pass',
     invoices: 'Invoices & Subscriptions',
     payment: 'Billing',

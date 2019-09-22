@@ -20,7 +20,7 @@ import {
   consumerPaymentPack as consumerPackActions,
   paymentPack as paymentPackActions,
 } from '../../actions';
-import paymentPackSelectors from '../../libs/payment-packs/selectors';
+import { getAll as getAllPaymentPacks } from '../../libs/payment-packs/selectors';
 import type {
   ConsumerPaymentPack,
   PaymentPack,
@@ -202,7 +202,7 @@ const styles = (theme) => ({
 function mapStateToProps(state) {
   return {
     loading: state.paymentPack.loading,
-    packs: paymentPackSelectors.getAll(state),
+    packs: getAllPaymentPacks(state),
     consumerPacks: {
       items: state.consumerPaymentPack.byPaymentPack.items,
       count: state.consumerPaymentPack.byPaymentPack.count,

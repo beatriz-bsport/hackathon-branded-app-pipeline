@@ -15,7 +15,7 @@ import Divider from '@material-ui/core/Divider';
 
 import { consumerPaymentPack as consumerPackActions } from '../../actions';
 import ConsumerPackRowItem from '../../libs/payment-packs/ConsumerPackRowItem.component';
-import paymentPackSelectors from '../../libs/payment-packs/selectors';
+import { getAll as getAllPaymentPacks } from '../../libs/payment-packs/selectors';
 import PaymentPackSummary from '../../components/payment-pack/PaymentPackSummary.component';
 
 type Props = {
@@ -161,7 +161,7 @@ export default compose(
       consumerPacks: state.consumerPaymentPack.byOfferByMember.items.filter(
         (cpp) => !cpp.reverted,
       ),
-      allPaymentPacks: paymentPackSelectors.getAll(state),
+      allPaymentPacks: getAllPaymentPacks(state),
     }),
     {
       fetchConsumerPackByOfferByMember:

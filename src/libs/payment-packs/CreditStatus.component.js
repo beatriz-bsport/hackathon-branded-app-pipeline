@@ -7,13 +7,23 @@ import type { TFunction } from 'react-i18next';
 
 type Props = {
   t: TFunction,
-  unlimited: boolean,
-  credits: ?number,
-  available_credits: ?number,
+  consumerPack: ?ConsumerPaymentPack,
+  paymentPack: ?PaymentPack,
 };
 
 export const CreditStatus = (props: Props) => {
-  if (props.unlimited) {
+  const { paymentPack, consumerPack } = props;
+  if (!consumerPack || !paymentPack) {
+    return (
+      <Typography variant="caption" component="span" color="textSecondary">
+        {' '}
+        -{' '}
+      </Typography>
+    );
+  }
+  const { credits, unlimited } = paymentPack;
+  const { available_credits } = consumerPack;
+  if (unlimited) {
     return (
       <Typography variant="caption" color="primary" component="span">
         {`${props.t('paymentPack.unlimitedCredits')}`}
@@ -24,11 +34,9 @@ export const CreditStatus = (props: Props) => {
     <Typography
       component="span"
       variant="caption"
-      color={
-        props.available_credits / props.credits > 0.2 ? 'primary' : 'error'
-      }
+      color={available_credits / credits > 0.2 ? 'primary' : 'error'}
     >
-      {`${props.available_credits} / ${props.credits} ${props
+      {`${available_credits} / ${credits} ${props
         .t('paymentPack.credits')
         .toLowerCase()}`}
     </Typography>

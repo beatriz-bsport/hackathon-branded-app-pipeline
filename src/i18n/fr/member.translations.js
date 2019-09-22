@@ -24,8 +24,13 @@ export default {
   showPaymentPack: 'Voir les abonnements',
   showInvoices: 'Voir les factures',
   showSubscriptions: 'Voir les souscriptions',
+  relation: {
+    pleaseSelectRelation:
+      'Sélectionnez une relation pour voir les abonnements partagés',
+  },
   menu: {
     info: 'Général',
+    relation: 'Relations',
     bookings: 'Réservations',
     paymentPack: 'Abonnements',
     invoices: 'Factures et Souscriptions',

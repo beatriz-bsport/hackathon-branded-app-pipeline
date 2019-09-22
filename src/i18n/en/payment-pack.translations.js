@@ -1,4 +1,10 @@
 export default {
+  details: {
+    pleaseSelectAPack: 'Select a pass to see the details',
+    shareAPass: 'Share a pass',
+    invoiceTitle: 'Linked invoice',
+    bookingsTitle: 'Bookings',
+  },
   newMemberOnly: 'Disponible uniquement aux nouveaux membres',
   publicPacksTitle: 'Pass available for purchase',
   privatePacksTitle: 'Pass unavailable for purchase',
@@ -13,6 +19,9 @@ export default {
     updated: 'Credits updated',
   },
   consumer: {
+    isFromShare: 'Shared from another account',
+    isOwnerOfShares: 'Shared (master pass)',
+    isFromDisabledShare: 'Sharing stopped',
     expiresOn: 'Expires on ',
     bookingsThisWeek: 'réservations cette semaine',
   },

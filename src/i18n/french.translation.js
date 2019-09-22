@@ -33,9 +33,11 @@ import selfCheckIn from './fr/selft-check-in.translations';
 import communication from './fr/communication.translations';
 import checkout from './fr/checkout.translations';
 import coupon from './fr/coupon.translations';
+import relationship from './fr/relationship.translations';
 
 export default {
   communication,
+  relationship,
   coupon,
   dashboard,
   stripe,

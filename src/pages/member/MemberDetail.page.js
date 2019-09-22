@@ -19,6 +19,7 @@ import withDrawer from '../../hocs/with-drawer.hoc';
 
 import MemberDetailInfo from './MemberDetailInfo.page';
 import MemberDetailPass from './MemberDetailPass.page';
+import MemberDetailRelation from './MemberDetailRelation.page';
 import MemberDetailBooking from './MemberDetailBooking.page';
 import MemberDetailPayment from './MemberDetailPayment.page';
 
@@ -79,6 +80,7 @@ export function MemberDetail(props: Props) {
           <Tab label={t('member.menu.bookings')} value="bookings" />
           <Tab label={t('member.menu.paymentPack')} value="pass" />
           <Tab label={t('member.menu.payment')} value="payment" />
+          <Tab label={t('member.menu.relation')} value="relation" />
         </Tabs>
       </AppBar>
       <div className={classes.content}>
@@ -89,6 +91,12 @@ export function MemberDetail(props: Props) {
             component={MemberDetailBooking}
           />
           <Route exact path="/member/:id/pass" component={MemberDetailPass} />
+          <Route
+            exact
+            path="/member/:id/relation/:relation"
+            component={MemberDetailRelation}
+          />
+          <Route path="/member/:id/relation" component={MemberDetailRelation} />
           <Route
             exact
             path="/member/:id/payment"

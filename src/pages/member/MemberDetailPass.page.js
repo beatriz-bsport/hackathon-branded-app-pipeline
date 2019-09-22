@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import InfoIcon from '@material-ui/icons/Info';
@@ -28,6 +29,7 @@ import {
   fetchByMember as fetchConsumerPackByMemberAction,
   updateCredit as updateCreditAction,
 } from '../../actions/consumer-payment-pack.actions';
+import { fetchAll as fetchAllPaymentPacks } from '../../actions/paymentPack.actions';
 import { fetchSpecificInvoice } from '../../actions/invoice.actions';
 
 import paymentPackSelectors from '../../libs/payment-packs/selectors';
@@ -51,6 +53,7 @@ type Props = {
   fetchMember: (id: number) => void,
   fetchConsumerPacks: (id: number) => void,
   fetchBookingsByMember: (id: number) => void,
+  fetchAllPaymentPacks: () => void,
   fetchInvoice: (uuid: string) => void,
   consumerPackLoading: boolean,
   consumerPacks: Array<ConsumerPaymentPack>,
@@ -64,7 +67,8 @@ type Props = {
   decrementCredit: (id: number) => void,
   discardBookingAttendance: (id: number) => void,
   confirmBookingAttendance: (id: number) => void,
-
+  goToRelationship: (memberId: number) => void,
+  t: TFunction,
   classes: Object,
 };
 
@@ -111,12 +115,15 @@ export class MemberDetailPass extends Component<Props, State> {
       this.props.fetchMember(this.props.id);
       this.props.fetchConsumerPacks(this.props.id);
       this.props.fetchBookingsByMember(this.props.id);
+      this.props.fetchAllPaymentPacks();
     }
   };
 
   onConsumerPackSelected = (selectedConsumerPack: ConsumerPaymentPack) => {
     this.setState({ selectedConsumerPack });
-    this.props.fetchInvoice(selectedConsumerPack.invoice);
+    if (selectedConsumerPack.invoice) {
+      this.props.fetchInvoice(selectedConsumerPack.invoice);
+    }
   };
 
   render() {
@@ -147,6 +154,17 @@ export class MemberDetailPass extends Component<Props, State> {
               )}
             />
           </Paper>
+          {this.props.consumerPacks.length ? (
+            <div className={this.props.classes.shareButtonContainer}>
+              <Button
+                variant="outlined"
+                onClick={() => this.props.goToRelationship(this.props.id)}
+                color="primary"
+              >
+                {this.props.t('details.shareAPass')}
+              </Button>
+            </div>
+          ) : null}
         </Grid>
         <Grid item xs={12} lg={6}>
           {this.state.selectedConsumerPack ? (
@@ -209,11 +227,14 @@ const styles = (theme) => ({
   emptyMessageText: {
     marginTop: theme.spacing.unit * 2,
   },
+  shareButtonContainer: {
+    paddingTop: theme.spacing.unit * 2,
+  },
 });
 
 export default compose(
   routerParamsToProps({ id: 'id:number' }),
-  withNamespaces([]),
+  withNamespaces(['paymentPack']),
   withStyles(styles),
   connect(
     (state, { id }) => ({
@@ -227,6 +248,7 @@ export default compose(
     }),
     {
       goToInvoice: (uuid) => push(`/invoice/${uuid}`),
+      goToRelationship: (memberId) => push(`/member/${memberId}/relation`),
       goToOffer: (b) => push(`/offer/${b.offer}`),
       fetchBookingsByMember,
       deleteBooking,
@@ -236,6 +258,7 @@ export default compose(
       incrementCredit: (id_: number) => updateCreditAction(id_, 1),
       decrementCredit: (id_: number) => updateCreditAction(id_, -1),
       fetchInvoice: (uuid: string) => fetchSpecificInvoice(uuid),
+      fetchAllPaymentPacks,
       fetchConsumerPacks: (memberId: number) =>
         fetchConsumerPackByMemberAction(memberId),
     },

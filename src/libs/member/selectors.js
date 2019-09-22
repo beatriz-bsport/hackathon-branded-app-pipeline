@@ -3,7 +3,7 @@
 import type { State } from '../../state/types';
 import type { Member } from './types';
 
-const getAll = (state: State): Array<Member> => state.member.all;
+export const getAll = (state: State): Array<Member> => state.member.all;
 
 const get = (state: State, id: ?number): ?Member =>
   getAll(state).find((member) => member.id === id);

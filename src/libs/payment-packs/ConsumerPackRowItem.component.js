@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import type { Node } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import ListItem from '@material-ui/core/ListItem';
+import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
@@ -24,6 +25,7 @@ type Props = {
   hideConsumer: ?boolean,
   selected?: boolean,
   noDivider: ?boolean,
+  disabled: ?boolean,
 
   consumerPack: ConsumerPaymentPack,
   paymentPack: ?PaymentPack,
@@ -48,6 +50,9 @@ export class ConsumerPackRowItem extends Component<Props> {
       loading,
       t,
     } = this.props;
+    if (consumerPack.dst_consumer_payment_pack) {
+      return null;
+    }
     if (!paymentPack) {
       return <CircularProgress />;
     }
@@ -71,7 +76,7 @@ export class ConsumerPackRowItem extends Component<Props> {
     }
 
     if (unlimited && incrementCredit && decrementCredit) {
-      if (consumerPack.disabled) {
+      if (consumerPack.disabled && !consumerPack.dst_consumer_payment_pack) {
         return (
           <Button
             onClick={() => incrementCredit(consumerPack.id)}
@@ -135,48 +140,71 @@ export class ConsumerPackRowItem extends Component<Props> {
     } = this.props;
     const { consumer } = consumerPack;
     const isExpired = moment(consumerPack.ending_date).isBefore(moment());
-
-    const { credits, unlimited } = paymentPack;
-    const { available_credits } = consumerPack;
-
+    const isFromShare = consumerPack && consumerPack.dst_consumer_payment_pack;
+    const isOwnerOfShares =
+      consumerPack &&
+      (consumerPack.src_consumer_payment_pack &&
+        consumerPack.src_consumer_payment_pack.length);
     return (
-      <ListItem
-        dense
-        divider={!this.props.noDivider}
-        selected={!!this.props.selected}
-        disabled={!!consumerPack.reverted}
-        button={!!onClick}
-        onClick={onClick || null}
-        style={
-          consumerPack.disabled ? { backgroundColor: 'rgba(255,0,0,.05)' } : {}
-        }
-      >
-        {hideConsumer ? null : <Avatar src={consumer.photo} />}
-        <ListItemText
-          primary={
-            <span>
-              <Typography>
-                {hideConsumer
-                  ? paymentPack.name
-                  : `${consumer.first_name} ${consumer.last_name}`}
-              </Typography>
-              <CreditStatus
-                unlimited={unlimited}
-                available_credits={available_credits}
-                credits={credits}
-              />
-            </span>
+      <div>
+        <ListItem
+          dense
+          divider={!this.props.noDivider}
+          selected={!!this.props.selected}
+          disabled={!!consumerPack.reverted || !!this.props.disabled}
+          button={!!onClick}
+          onClick={onClick || null}
+          style={
+            consumerPack.disabled
+              ? { backgroundColor: 'rgba(255,0,0,.05)' }
+              : {}
           }
-          secondary={`${t('paymentPack.consumer.expiresOn')}${formatAsDate(
-            consumerPack.ending_date,
-          )}`}
-          secondaryTypographyProps={{
-            variant: 'caption',
-            color: isExpired ? 'error' : 'inherit',
-          }}
-        />
-        {button || this.renderButton()}
-      </ListItem>
+        >
+          {hideConsumer ? null : <Avatar src={consumer.photo} />}
+          <ListItemText
+            primary={
+              <span>
+                <Typography>
+                  {hideConsumer
+                    ? (paymentPack && paymentPack.name) || ' - '
+                    : `${consumer.first_name} ${consumer.last_name}`}
+                </Typography>
+                <CreditStatus
+                  paymentPack={paymentPack}
+                  consumerPack={consumerPack}
+                />
+              </span>
+            }
+            secondary={`${t('paymentPack.consumer.expiresOn')}${formatAsDate(
+              consumerPack.ending_date,
+            )}`}
+            secondaryTypographyProps={{
+              variant: 'caption',
+              color: isExpired ? 'error' : 'inherit',
+            }}
+          />
+          {button || this.renderButton()}
+        </ListItem>
+        {isFromShare || isOwnerOfShares ? (
+          <React.Fragment>
+            <Typography
+              style={{ paddingLeft: 16 }}
+              variant="caption"
+              color="textSecondary"
+            >
+              {' '}
+              {isOwnerOfShares ? t('paymentPack.consumer.isOwnerOfShares') : ''}
+              {isFromShare && consumerPack.disabled
+                ? t('paymentPack.consumer.isFromDisabledShare')
+                : ''}
+              {isFromShare && !consumerPack.disabled
+                ? t('paymentPack.consumer.isFromShare')
+                : ''}
+            </Typography>
+            <Divider />
+          </React.Fragment>
+        ) : null}
+      </div>
     );
   }
 }

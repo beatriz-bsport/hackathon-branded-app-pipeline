@@ -1,6 +1,7 @@
 // @flow weak
 
 import { push } from 'react-router-redux';
+import { createAction } from 'redux-actions';
 
 import * as Sentry from '@sentry/browser';
 import { snackbarError, snackbarSuccess } from '../../actions/snackbar.actions';
@@ -11,8 +12,8 @@ import {
   createNote,
   deleteNote as deleteNoteApi,
   fetchMember as fetchMemberApi,
+  fetchFilteredMembers as fetchFilteredMembersAPI,
   fetchByQueryMember as fetchByQueryMemberApi,
-  fetchByOffer as fetchByOfferApi,
   search as searchApi,
   tag as tagApi,
   merge as mergeApi,
@@ -24,10 +25,6 @@ import type { Member } from './types';
 import type { Dispatch } from '../../state/types';
 
 export const actionTypes = {
-  START_FETCH_MEMBERS: 'START_FETCH_MEMBERS',
-  HAS_FETCHED_MEMBERS: 'HAS_FETCHED_MEMBERS',
-  ERROR_FETCHING_MEMBERS: 'ERROR_FETCHING_MEMBERS',
-  HAS_FETCHED_MEMBER_BOOKINGS: 'HAS_FETCHED_MEMBER_BOOKINGS',
   START_FETCH_MEMBER: 'START_FETCH_MEMBER',
   HAS_FETCHED_MEMBER: 'HAS_FETCHED_MEMBER',
   ERROR_FETCHING_MEMBER: 'ERROR_FETCHING_MEMBER',
@@ -48,12 +45,6 @@ export const actionTypes = {
   MEMBER_NOTE_DELETE_ERROR: 'MEMBER_NOTE_DELETE_ERROR',
   MEMBER_NOTE_DELETE_SUCCESS: 'MEMBER_NOTE_DELETE_SUCCESS',
 
-  SUCCESS_QUICK_FETCH_MEMBER: 'SUCCESS_QUICK_FETCH_MEMBER',
-
-  START_FETCH_MEMBER_BY_OFFER: 'START_FETCH_MEMBER_BY_OFFER',
-  SUCCESS_FETCH_MEMBER_BY_OFFER: 'SUCCESS_FETCH_MEMBER_BY_OFFER',
-  ERROR_FETCH_MEMBER_BY_OFFER: 'ERROR_FETCH_MEMBER_BY_OFFER',
-
   MEMBER_SEARCH_START: 'MEMBER_SEARCH_START',
   MEMBER_SEARCH_ERROR: 'MEMBER_SEARCH_ERROR',
   MEMBER_SEARCH_SUCCESS: 'MEMBER_SEARCH_SUCCESS',
@@ -66,10 +57,35 @@ export const actionTypes = {
   MEMBER_LINKED_ERROR: 'MEMBER_LINKED_ERROR',
 };
 
-export function successLinkConsumer(data) {
+export const memberListActions = {
+  isLoading: createAction('MEMBER/LIST/LOADING'),
+  error: createAction('MEMBER/LIST/ERROR'),
+  success: createAction('MEMBER/LIST/SUCCESS'),
+};
+
+export function refreshFilteredMembers(params: any) {
+  return async (dispatch: Dispatch) => {
+    try {
+      const response = await fetchFilteredMembersAPI(params);
+      dispatch(memberListActions.success(response.data.results));
+    } catch (err) {
+      console.error(err);
+      dispatch(memberListActions.error(err));
+    }
+  };
+}
+export function fetchFilteredMembers(params: any) {
+  return async (dispatch: Dispatch) => {
+    dispatch(memberListActions.isLoading(true));
+    dispatch(refreshFilteredMembers(params));
+    dispatch(memberListActions.isLoading(false));
+  };
+}
+
+export function successLinkConsumer(data: Member) {
   return { type: actionTypes.MEMBER_LINKED_SUCCESS, data };
 }
-export function errorLinkConsumer(error) {
+export function errorLinkConsumer(error: ?Error) {
   return { type: actionTypes.MEMBER_LINKED_ERROR, error };
 }
 export function linkMeToCompany(data: *) {
@@ -130,36 +146,6 @@ export function search(text: string) {
       console.error(err);
       dispatch(errorSearch(err));
     }
-  };
-}
-
-export function startFetchMemberByOffer() {
-  return { type: actionTypes.START_FETCH_MEMBER_BY_OFFER };
-}
-export function hasFetchedMemberByOffer(members) {
-  return { type: actionTypes.SUCCESS_FETCH_MEMBER_BY_OFFER, members };
-}
-export function errorFetchingMemberByOffer() {
-  return { type: actionTypes.ERROR_FETCH_MEMBER_BY_OFFER };
-}
-
-export function refreshByOffer(id: number) {
-  return async (dispatch: Dispatch) => {
-    try {
-      const response = await fetchByOfferApi(id);
-      const members = response.data;
-      dispatch(hasFetchedMemberByOffer(members));
-    } catch (err) {
-      console.error(err);
-      dispatch(errorFetchingMemberByOffer());
-    }
-  };
-}
-
-export function fetchMemberByOffer(id: number) {
-  return async (dispatch: Dispatch) => {
-    dispatch(startFetchMemberByOffer());
-    dispatch(refreshByOffer(id));
   };
 }
 

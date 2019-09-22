@@ -36,7 +36,9 @@ import RevertBookingDialog from '../../libs/booking/components/RevertBookingDial
 
 import bookingSelectors from '../../libs/booking/selectors';
 import memberSelectors from '../../libs/member/selectors';
-import paymentPackSelectors from '../../libs/payment-packs/selectors';
+import paymentPackSelectors, {
+  getAll as getAllPaymentPacks,
+} from '../../libs/payment-packs/selectors';
 import consumerPaymentPackSelectors from '../../libs/consumer-payment-pack/selectors';
 
 type Props = {
@@ -166,7 +168,7 @@ export default compose(
       member: memberSelectors.get(state, id),
       bookings: bookingSelectors.getBookings(state),
       bookingsLoading: state.booking.loading,
-      paymentPacks: paymentPackSelectors.getAll(state),
+      paymentPacks: getAllPaymentPacks(state),
       consumerPackLoading: state.consumerPaymentPack.loading,
       getOffer: (id_: number) => offerSelectors.get(state, id_),
       getPaymentPack: (id_: number) => paymentPackSelectors.get(state, id_),

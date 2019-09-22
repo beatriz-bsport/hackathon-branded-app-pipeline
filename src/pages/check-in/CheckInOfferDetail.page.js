@@ -9,7 +9,7 @@ import { withNamespaces } from 'react-i18next';
 
 import CheckInOfferDetail from '../../libs/check-in/components/CheckInOfferDetail.component';
 import {
-  fetchMemberByOffer,
+  fetchFilteredMembers,
   search as searchMembers,
 } from '../../libs/member/actions';
 import {
@@ -37,7 +37,7 @@ type Props = {
 
   members: Array<Member>,
   searchedMembers: Array<Member>,
-  fetchMemberByOffer: (offerId: number) => void,
+  fetchFilteredMembers: (params: any) => void,
   searchMembers: (text: string) => void,
 
   compatibleConsumerPacks: Array<ConsumerPaymentPack>,
@@ -65,7 +65,7 @@ export class CheckInOfferDetailPage extends React.Component<Props> {
 
   fetchOfferData = () => {
     this.props.fetchBookingsByOfferAction(this.props.offerId);
-    this.props.fetchMemberByOffer(this.props.offerId);
+    this.props.fetchFilteredMembers({ offer: this.props.offerId });
   };
 
   render() {
@@ -128,7 +128,7 @@ export default compose(
   connect(
     (state, { offerId }) => ({
       offer: state.offer.offers.find((o) => o.id === offerId),
-      members: memberSelectors.getByOffer(state),
+      members: state.member.all,
       searchedMembers: memberSelectors.getSearched(state),
       bookings: bookingSelectors.getBookings(state),
       bookingLoading: state.booking.loading,
@@ -138,7 +138,7 @@ export default compose(
     }),
     {
       fetchOfferById,
-      fetchMemberByOffer,
+      fetchFilteredMembers,
       fetchBookingsByOfferAction,
       fetchCompatiblePass,
       confirmBookingAttendance: confirmBookingAttendanceAction,

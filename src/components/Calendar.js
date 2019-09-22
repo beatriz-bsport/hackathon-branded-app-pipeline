@@ -15,9 +15,13 @@ import * as paymentActions from 'bsport-saas/src/actions/payment.actions';
 import {
   getOffersFiltered,
   isOfferLoading,
+  getOffersCoaches,
+  getOffersEstablishments,
+  getOffersMetaActivities,
 } from 'bsport-saas/src/libs/marketplace/selectors';
 
 const BACKOFFICE_URI = 'https://backoffice.bsport.io';
+const DATE_FORMAT = 'YYYY-MM-DD';
 
 type Props = {
   companyId: number,
@@ -68,9 +72,9 @@ export class CalendarWidget extends Component<Props, State> {
     }));
   };
 
-  handleDateChange = (selectedDate: Moment) => {
+  handleDateChange = (selectedDate: string) => {
     this.setState({
-      selectedDate: Moment(selectedDate, 'YYYY-MM-DD'),
+      selectedDate: Moment(selectedDate, DATE_FORMAT),
     });
   };
 
@@ -115,9 +119,9 @@ export default compose(
     (state) => ({
       getOffersFromFilter: (filters) => getOffersFiltered(state, filters),
       loading: isOfferLoading(state),
-      coaches: state.marketplacev2.coaches.items,
-      establishments: state.marketplacev2.establishments.items,
-      metaActivities: state.marketplacev2.metaActivities.items,
+      coaches: getOffersCoaches(state),
+      establishments: getOffersEstablishments(state),
+      metaActivities: getOffersMetaActivities(state),
     }),
     {
       resetOffers: resetOffersAction,

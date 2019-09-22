@@ -88,6 +88,7 @@ export const getOffersWorkshop = (state: State) =>
   getOffers(state)
     .filter(
       (o) =>
+        o.available &&
         o.activity &&
         o.activity.meta_activity &&
         o.activity.meta_activity.is_workshop,

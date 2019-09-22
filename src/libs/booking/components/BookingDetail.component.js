@@ -31,6 +31,7 @@ type Props = {
   decrementCredit: (id: number) => void,
   consumerPack: ConsumerPaymentPack,
   getPaymentPack: (id: number) => PaymentPack,
+  onConsumerPassSelected: (id: number) => void,
 };
 
 export class BookingDetail extends Component<Props> {
@@ -94,6 +95,7 @@ export class BookingDetail extends Component<Props> {
           <ConsumerPackRowItem
             consumerPack={consumerPack}
             paymentPack={paymentPack}
+            onClick={() => this.props.onConsumerPassSelected(consumerPack.id)}
             hideConsumer
             incrementCredit={() => this.props.incrementCredit(consumerPack.id)}
             decrementCredit={() => this.props.decrementCredit(consumerPack.id)}

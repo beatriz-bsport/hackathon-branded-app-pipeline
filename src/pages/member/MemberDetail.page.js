@@ -87,8 +87,18 @@ export function MemberDetail(props: Props) {
         <Switch>
           <Route
             exact
+            path="/member/:id/bookings/:bookingId/"
+            component={MemberDetailBooking}
+          />
+          <Route
+            exact
             path="/member/:id/bookings"
             component={MemberDetailBooking}
+          />
+          <Route
+            exact
+            path="/member/:id/pass/:consumerPassId"
+            component={MemberDetailPass}
           />
           <Route exact path="/member/:id/pass" component={MemberDetailPass} />
           <Route

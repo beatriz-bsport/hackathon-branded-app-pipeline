@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import InfoIcon from '@material-ui/icons/Info';
-import { push } from 'connected-react-router';
+import { push, replace } from 'connected-react-router';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
@@ -57,11 +57,13 @@ type Props = {
   fetchInvoice: (uuid: string) => void,
   consumerPackLoading: boolean,
   consumerPacks: Array<ConsumerPaymentPack>,
+  selectedConsumerPass: ?ConsumerPaymentPack,
+  onSelectConsumerPass: (memberId: number, consumerPassId: number) => void,
   getPaymentPack: (id: number) => PaymentPack,
   getConsumerPackBookings: (id: number) => Array<Booking>,
   consumerPackInvoice: Invoice,
   goToInvoice: (uuid: string) => void,
-  goToOffer: (id: number) => void,
+  goToBooking: (memberId: number, bookingId: number) => void,
   deleteBooking: (id: number) => void,
   incrementCredit: (id: number) => void,
   decrementCredit: (id: number) => void,
@@ -73,7 +75,6 @@ type Props = {
 };
 
 type State = {
-  selectedConsumerPack: ?ConsumerPaymentPack,
   bookingToRevert: ?Booking,
 };
 
@@ -96,7 +97,6 @@ const ClickOnConsumerPack = withNamespaces(['paymentPack'])(
 
 export class MemberDetailPass extends Component<Props, State> {
   state = {
-    selectedConsumerPack: null,
     bookingToRevert: null,
   };
 
@@ -107,6 +107,14 @@ export class MemberDetailPass extends Component<Props, State> {
   componentDidUpdate(prevProps: Props) {
     if (prevProps.id !== this.props.id) {
       this.fetchData();
+    }
+    if (
+      this.props.selectedConsumerPass &&
+      (!prevProps.selectedConsumerPass ||
+        this.props.selectedConsumerPass.id !==
+          prevProps.selectedConsumerPass.id)
+    ) {
+      this.props.fetchInvoice(this.props.selectedConsumerPass.invoice);
     }
   }
 
@@ -119,11 +127,8 @@ export class MemberDetailPass extends Component<Props, State> {
     }
   };
 
-  onConsumerPackSelected = (selectedConsumerPack: ConsumerPaymentPack) => {
-    this.setState({ selectedConsumerPack });
-    if (selectedConsumerPack.invoice) {
-      this.props.fetchInvoice(selectedConsumerPack.invoice);
-    }
+  goToBooking = (booking: Booking) => {
+    this.props.goToBooking(this.props.id, booking.id);
   };
 
   render() {
@@ -139,9 +144,10 @@ export class MemberDetailPass extends Component<Props, State> {
               renderItem={(cpp) => (
                 <ConsumerPackRowItem
                   hideConsumer
+                  key={cpp.id}
                   selected={
-                    this.state.selectedConsumerPack &&
-                    this.state.selectedConsumerPack.id === cpp.id
+                    this.props.selectedConsumerPass &&
+                    this.props.selectedConsumerPass.id === cpp.id
                   }
                   consumerPack={cpp}
                   paymentPack={this.props.getPaymentPack(
@@ -149,7 +155,9 @@ export class MemberDetailPass extends Component<Props, State> {
                   )}
                   incrementCredit={() => this.props.incrementCredit(cpp.id)}
                   decrementCredit={() => this.props.decrementCredit(cpp.id)}
-                  onClick={() => this.onConsumerPackSelected(cpp)}
+                  onClick={() =>
+                    this.props.onSelectConsumerPass(this.props.id, cpp.id)
+                  }
                 />
               )}
             />
@@ -167,26 +175,26 @@ export class MemberDetailPass extends Component<Props, State> {
           ) : null}
         </Grid>
         <Grid item xs={12} lg={6}>
-          {this.state.selectedConsumerPack ? (
+          {this.props.selectedConsumerPass ? (
             <ConsumerPackDetail
               paymentPack={
-                this.state.selectedConsumerPack
+                this.props.selectedConsumerPass
                   ? this.props.getPaymentPack(
                       parseInt(
-                        this.state.selectedConsumerPack.payment_pack_id,
+                        this.props.selectedConsumerPass.payment_pack_id,
                         10,
                       ),
                     )
                   : null
               }
-              consumerPack={this.state.selectedConsumerPack}
+              consumerPack={this.props.selectedConsumerPass}
               bookings={this.props.getConsumerPackBookings(
-                this.state.selectedConsumerPack.id,
+                this.props.selectedConsumerPass.id,
               )}
               invoice={this.props.consumerPackInvoice}
               discardBookingAttendance={this.props.discardBookingAttendance}
               confirmBookingAttendance={this.props.confirmBookingAttendance}
-              onBookingClick={this.props.goToOffer}
+              onBookingClick={this.goToBooking}
               handleRevert={(bookingToRevert) =>
                 this.setState({ bookingToRevert })
               }
@@ -233,13 +241,19 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  routerParamsToProps({ id: 'id:number' }),
+  routerParamsToProps({
+    id: 'id:number',
+    consumerPassId: 'consumerPassId:number',
+  }),
   withNamespaces(['paymentPack']),
   withStyles(styles),
   connect(
-    (state, { id }) => ({
+    (state, { id, consumerPassId }) => ({
       member: memberSelectors.get(state, id),
       consumerPacks: state.consumerPaymentPack.items,
+      selectedConsumerPass: state.consumerPaymentPack.items.find(
+        (cpp) => cpp.id === consumerPassId,
+      ),
       getPaymentPack: (id_) => paymentPackSelectors.get(state, id_),
       consumerPackInvoice: state.invoice.invoice,
       consumerPackLoading: state.consumerPaymentPack.byMember.loading,
@@ -249,8 +263,11 @@ export default compose(
     {
       goToInvoice: (uuid) => push(`/invoice/${uuid}`),
       goToRelationship: (memberId) => push(`/member/${memberId}/relation`),
-      goToOffer: (b) => push(`/offer/${b.offer}`),
+      goToBooking: (memberId, bookingId) =>
+        push(`/member/${memberId}/bookings/${bookingId}/`),
       fetchBookingsByMember,
+      onSelectConsumerPass: (memberId: number, id: number) =>
+        replace(`/member/${memberId}/pass/${id}/`),
       deleteBooking,
       discardBookingAttendance,
       confirmBookingAttendance,

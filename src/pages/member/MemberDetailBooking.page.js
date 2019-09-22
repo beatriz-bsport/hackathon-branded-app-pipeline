@@ -5,7 +5,8 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { connect } from 'react-redux';
-import { compose, withState } from 'recompose';
+import { push } from 'react-router-redux';
+import { compose } from 'recompose';
 import PaginatedListStateful from '../../components/PaginatedListStateful.component';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -45,6 +46,8 @@ type Props = {
   id: number,
   member: Member,
   bookings: Array<Booking>,
+
+  goToConsumerPass: (memberId: number, consumerPassId: number) => void,
   paymentPacks: Array<PaymentPack>,
   bookingsLoading: boolean,
   fetchMemberBookings: (id: number) => void,
@@ -56,7 +59,7 @@ type Props = {
   incrementCredit: (id: number) => void,
   decrementCredit: (id: number) => void,
 
-  selectBooking: (Booking) => void,
+  selectBooking: (memberId: number, bookingId: number) => void,
   fetchOffer: (id: number) => void,
   fetchConsumerPack: (id: number) => void,
   getConsumerPaymentPack: (id: number) => void,
@@ -78,17 +81,39 @@ export class MemberDetailBooking extends Component<Props, State> {
   componentDidMount() {
     this.props.fetchMemberBookings(this.props.id);
     this.props.fetchMember(this.props.id);
+    if (this.props.selectedBooking) {
+      this.fetchBookingDetails();
+    }
   }
 
-  onBookingSelected = (booking: Booking) => {
-    this.props.selectBooking(booking);
-    this.props.fetchOffer(booking.offer);
-    this.props.fetchConsumerPack(booking.consumer_payment_pack_id);
+  componentDidUpdate(prevProps: Props) {
+    if (
+      this.props.selectedBooking &&
+      (!prevProps.selectedBooking ||
+        prevProps.selectedBooking.id !== this.props.selectedBooking.id)
+    ) {
+      this.fetchBookingDetails();
+    }
+  }
+
+  fetchBookingDetails = () => {
+    this.props.fetchOffer(this.props.selectedBooking.offer);
+    this.props.fetchConsumerPack(
+      this.props.selectedBooking.consumer_payment_pack_id,
+    );
   };
 
   handleBookingDeletion = () => {
     this.props.deleteBooking(this.state.bookingToRevert.id);
     this.setState({ bookingToRevert: null });
+  };
+
+  goToConsumerPass = (consumerPassId: number) => {
+    this.props.goToConsumerPass(this.props.id, consumerPassId);
+  };
+
+  selectBooking = (booking: Booking) => {
+    this.props.selectBooking(this.props.id, booking.id);
   };
 
   render() {
@@ -103,8 +128,9 @@ export class MemberDetailBooking extends Component<Props, State> {
               items={this.props.bookings}
               renderItem={(b) => (
                 <BookingItemForManager
-                  onClick={() => this.onBookingSelected(b)}
+                  onClick={() => this.selectBooking(b)}
                   showRevertBookingButton
+                  button
                   selected={
                     this.props.selectedBooking &&
                     this.props.selectedBooking.id === b.id
@@ -142,6 +168,7 @@ export class MemberDetailBooking extends Component<Props, State> {
             incrementCredit={this.props.incrementCredit}
             booking={this.props.selectedBooking}
             member={this.props.member}
+            onConsumerPassSelected={this.goToConsumerPass}
             loading={this.props.consumerPackLoading || this.props.offerLoading}
             offer={this.props.getOffer(
               this.props.selectedBooking && this.props.selectedBooking.offer,
@@ -162,11 +189,14 @@ export class MemberDetailBooking extends Component<Props, State> {
 }
 
 export default compose(
-  routerParamsToProps({ id: 'id:number' }),
+  routerParamsToProps({ id: 'id:number', bookingId: 'bookingId:number' }),
   connect(
-    (state, { id }) => ({
+    (state, { id, bookingId }) => ({
       member: memberSelectors.get(state, id),
       bookings: bookingSelectors.getBookings(state),
+      selectedBooking: bookingSelectors
+        .getBookings(state)
+        .find((b) => b.id === bookingId),
       bookingsLoading: state.booking.loading,
       paymentPacks: getAllPaymentPacks(state),
       consumerPackLoading: state.consumerPaymentPack.loading,
@@ -182,10 +212,13 @@ export default compose(
       deleteBooking: deleteBookingAction,
       discardBookingAttendance: discardBookingAttendanceAction,
       confirmBookingAttendance: confirmBookingAttendanceAction,
+      goToConsumerPass: (memberId, consumerPassId) =>
+        push(`/member/${memberId}/pass/${consumerPassId}/`),
       fetchMember: fetchMemberAction,
       incrementCredit: (id_) => updateCreditAction(id_, 1),
       decrementCredit: (id_) => updateCreditAction(id_, -1),
+      selectBooking: (memberId, bookingId) =>
+        push(`/member/${memberId}/bookings/${bookingId}/`),
     },
   ),
-  withState('selectedBooking', 'selectBooking', null),
 )(MemberDetailBooking);

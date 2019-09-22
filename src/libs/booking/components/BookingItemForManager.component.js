@@ -50,6 +50,7 @@ type Props = {
   member: Member,
   paymentPacks: PaymentPack[],
   showQuickInvoiceButton: ?boolean,
+  button: ?boolean,
   showRevertBookingButton: ?boolean,
   redirectToMember: ?boolean,
   redirectToOffer: ?boolean,
@@ -401,7 +402,7 @@ export class BookingItemForManager extends PureComponent<Props, State> {
       <ListItem
         divider
         selected={!!this.props.selected}
-        button={redirectToMember || redirectToOffer}
+        button={redirectToMember || redirectToOffer || this.props.button}
         disableRipple
         onClick={this.handleListItemClick}
         style={

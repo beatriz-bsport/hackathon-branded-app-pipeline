@@ -62,6 +62,7 @@ export function ConsumerPaymentPackDetail(props: Props) {
             <BookingItemForManager
               onClick={() => props.onBookingClick(b)}
               showRevertBookingButton
+              button
               key={b.id}
               booking={b}
               heading="date_start"

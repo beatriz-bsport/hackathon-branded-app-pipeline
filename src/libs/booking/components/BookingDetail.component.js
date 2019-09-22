@@ -27,6 +27,7 @@ type Props = {
   loading: boolean,
   booking: ?Booking,
   offer: Offer,
+  onOfferClick: (offerId: number) => void,
   incrementCredit: (id: number) => void,
   decrementCredit: (id: number) => void,
   consumerPack: ConsumerPaymentPack,
@@ -86,7 +87,12 @@ export class BookingDetail extends Component<Props> {
           {`${t('details.offerTitle')}`}
         </Typography>
         <Paper className={classes.paperContainer}>
-          <OfferMinimalSummary offer={this.props.offer} />
+          <OfferMinimalSummary
+            overrideClickAction={() =>
+              this.props.onOfferClick(this.props.offer.id)
+            }
+            offer={this.props.offer}
+          />
         </Paper>
         <Typography component="h3" variant="h6">
           {t('details.consumerPaymentPackTitle')}

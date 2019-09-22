@@ -61,6 +61,7 @@ type Props = {
 
   selectBooking: (memberId: number, bookingId: number) => void,
   fetchOffer: (id: number) => void,
+  goToOffer: (id: number) => void,
   fetchConsumerPack: (id: number) => void,
   getConsumerPaymentPack: (id: number) => void,
   selectedBooking: ?Booking,
@@ -170,6 +171,7 @@ export class MemberDetailBooking extends Component<Props, State> {
             member={this.props.member}
             onConsumerPassSelected={this.goToConsumerPass}
             loading={this.props.consumerPackLoading || this.props.offerLoading}
+            onOfferClick={this.props.goToOffer}
             offer={this.props.getOffer(
               this.props.selectedBooking && this.props.selectedBooking.offer,
             )}
@@ -210,6 +212,7 @@ export default compose(
       fetchConsumerPack: fetchConsumerPackById,
       fetchOffer: fetchOfferByIdAction,
       deleteBooking: deleteBookingAction,
+      goToOffer: (offerId: number) => push(`/offer/${offerId}`),
       discardBookingAttendance: discardBookingAttendanceAction,
       confirmBookingAttendance: confirmBookingAttendanceAction,
       goToConsumerPass: (memberId, consumerPassId) =>

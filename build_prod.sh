@@ -1,5 +1,6 @@
 #!/bin/sh
 
+yarn
 yarn build
 cd dist/
 aws s3 cp ./ s3://bsport-cdn/scripts/ --recursive

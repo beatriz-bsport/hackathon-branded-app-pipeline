@@ -18,6 +18,7 @@ import MarketplaceActivityDialog from '../../libs/marketplace/components/Marketp
 import { getCurrentBasket } from '../../libs/checkout/selectors';
 
 import { Moment } from '../../i18n';
+import { DATE_FORMAT } from '../../datetime';
 
 import {
   getOffersFiltered,
@@ -39,7 +40,6 @@ import {
   resetOffersAction,
   fetchCompanyOffersAction,
 } from '../../libs/marketplace/actions';
-import { DATE_FORMAT } from '../../datetime';
 
 type Props = {
   filtersOpen: boolean,
@@ -166,12 +166,12 @@ export class MarketplaceCalendar extends Component<Props, State> {
     const min_date = this.props.selectedDate
       .clone()
       .startOf('week')
-      .format('YYYY-MM-DD');
+      .format(DATE_FORMAT);
     // the max date changes if start from today is enabled
     const max_date = this.props.selectedDate
       .clone()
       .endOf('week')
-      .format('YYYY-MM-DD');
+      .format(DATE_FORMAT);
     // fetch offers of the week
     this.props.fetchCompanyOffers(this.props.companyId, min_date, max_date);
   }
@@ -185,11 +185,11 @@ export class MarketplaceCalendar extends Component<Props, State> {
       const min_date = this.props.selectedDate
         .clone()
         .startOf('week')
-        .format('YYYY-MM-DD');
+        .format(DATE_FORMAT);
 
-      const max_date = Moment(min_date, 'YYYY-MM-DD')
+      const max_date = Moment(min_date, DATE_FORMAT)
         .add(6, 'days')
-        .format('YYYY-MM-DD');
+        .format(DATE_FORMAT);
 
       this.props.fetchCompanyOffers(this.props.companyId, min_date, max_date);
     }

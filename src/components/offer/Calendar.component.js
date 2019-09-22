@@ -188,12 +188,13 @@ export class Calendar extends PureComponent<Props, State> {
 
   renderCalendarTitle = () => {
     const { displayMode } = this.state;
-    const date_start = Moment(this.props.date, DATE_FORMAT).startOf('week');
     if (displayMode === MONTHMODE) {
+      const date_start = Moment(this.props.date, DATE_FORMAT);
       const dateMonth = Moment.months()[date_start.month()];
       const dateYear = date_start.year();
       return `${dateMonth} ${dateYear}`;
     }
+    const date_start = Moment(this.props.date, DATE_FORMAT).startOf('week');
     const date_end = date_start.clone().add(6, 'days');
     return `${formatAsTitle(date_start)} - ${formatAsTitle(date_end)}`;
   };

@@ -4,7 +4,6 @@ import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
 import {
-  companyActivitiesActions,
   companyCoachesActions,
   companyEstablishmentsActions,
   companyMetaActivitiesActions,
@@ -17,11 +16,6 @@ import type { MarketPlaceState } from './types';
 
 const initialState: MarketPlaceState = Immutable({
   offers: {
-    items: [],
-    loading: false,
-    error: null,
-  },
-  activities: {
     items: [],
     loading: false,
     error: null,
@@ -104,16 +98,6 @@ export default handleActions(
     },
     [companyEstablishmentsActions.success]: (state, { payload }) => {
       return state.setIn(['establishments', 'items'], payload);
-    },
-    // Activities
-    [companyActivitiesActions.isLoading]: (state, { payload }) => {
-      return state.setIn(['activities', 'loading'], payload);
-    },
-    [companyActivitiesActions.error]: (state, { payload }) => {
-      return state.setIn(['activities', 'error'], payload);
-    },
-    [companyActivitiesActions.success]: (state, { payload }) => {
-      return state.setIn(['activities', 'items'], payload);
     },
     // MetaActivities
     [companyMetaActivitiesActions.isLoading]: (state, { payload }) => {

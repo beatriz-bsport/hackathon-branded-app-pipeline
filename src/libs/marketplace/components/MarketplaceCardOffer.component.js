@@ -24,7 +24,6 @@ type Props = {
 
 export const MarketplaceCardOffer = (props: Props) => {
   const { offer, onClickOffer, classes } = props;
-  const { activity } = offer;
   const isInThePast = isOfferInThePast(offer);
   const onClick =
     onClickOffer && isInThePast ? () => onClickOffer(offer.id) : null; // this open the offer modal
@@ -33,10 +32,7 @@ export const MarketplaceCardOffer = (props: Props) => {
 
   const coachName = offer.coach_override
     ? offer.coach_override.user.name
-    : (offer.activity &&
-        offer.activity.coach &&
-        offer.activity.coach.user.name) ||
-      ' - ';
+    : (offer.coach && offer.coach.user.name) || ' - ';
 
   const offerEndDate = Moment(offer.date_start).add(
     offer.duration_minute,
@@ -54,8 +50,8 @@ export const MarketplaceCardOffer = (props: Props) => {
         >
           <div className={classes.title}>
             <Typography align="center" variant="subtitle1">
-              {activity && activity.meta_activity
-                ? activity.meta_activity.name || ''
+              {offer && offer.meta_activity
+                ? offer.meta_activity.name || ''
                 : ''}
             </Typography>
             <Typography align="center" variant="caption">
@@ -71,16 +67,12 @@ export const MarketplaceCardOffer = (props: Props) => {
             noStyle
             align="center"
             variant="caption"
-            levelId={activity && activity.level ? activity.level || null : null}
+            levelId={offer && offer.level ? offer.level || null : null}
           />
-          <Typography
-            align="center"
-            variant="caption"
-            className={classes.textEllipsis}
-          >
-            {offer.establishment_override
-              ? offer.establishment_override.title
-              : ((activity || {}).establishment || {}).title || ''}
+          <Typography align="center" variant="caption">
+            {offer
+              ? (offer.establishment_override || offer.establishment).title
+              : ''}
           </Typography>
         </ButtonBase>
         <div className={classes.bottomButton}>

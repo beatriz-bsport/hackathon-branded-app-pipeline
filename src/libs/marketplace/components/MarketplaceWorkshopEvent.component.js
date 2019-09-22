@@ -59,13 +59,13 @@ const BookButton = (props: {
 
 export const MarketplaceWorkshopEvent = (props: Props) => {
   const { t, offer } = props;
-  const { description } = props.offer.activity.meta_activity;
+  const { description } = props.offer.meta_activity;
 
   return (
     <Card style={{ width: '100%' }}>
       <CardMedia
         component="img"
-        image={props.offer.activity.meta_activity.cover_main}
+        image={props.offer.meta_activity.cover_main}
         classes={{
           media: props.classes.media,
         }}
@@ -80,7 +80,7 @@ export const MarketplaceWorkshopEvent = (props: Props) => {
           }}
         >
           <Typography variant="h5" component="h3">
-            {props.offer.activity.meta_activity.name}
+            {props.offer.meta_activity.name}
           </Typography>
         </div>
         <Typography variant="h6" component="h4">

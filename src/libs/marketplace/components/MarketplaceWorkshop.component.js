@@ -66,7 +66,7 @@ export const MarketplaceWorkshop = (props: Props) => {
         }}
         goToPackPayment={props.goToPackPayment}
         goToOfferPayment={(id) =>
-          props.onBook(id, props.offerSelected.activity.company)
+          props.onBook(id, props.offerSelected.meta_activity.company)
         }
         onBookFromPack={(packId) =>
           props.onBookOfferFromPack(props.offerSelected.id, packId)

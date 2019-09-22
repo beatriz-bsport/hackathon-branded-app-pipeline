@@ -57,7 +57,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
 
   renderCoachBanner = () => {
     const { offer, classes, t } = this.props;
-    if (offer && offer.activity.coach) {
+    if (offer && offer.coach) {
       return (
         <div>
           <Typography variant="h6" className={classes.title}>
@@ -87,10 +87,10 @@ export class MarketPlaceActivity extends React.Component<Props> {
             </div>
           ) : null}
           <div className={classes.coachBox}>
-            <Avatar src={offer.activity.coach.user.photo} />
+            <Avatar src={offer.coach.user.photo} />
             <div className={classes.coachInformations}>
               <ListItemText
-                primary={offer.activity.coach.user.name}
+                primary={offer.coach.user.name}
                 secondary={
                   offer.coach_override ? t('marketplace.substituted') : null
                 }
@@ -101,7 +101,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
                   variant="body2"
                   className={classes.multiline}
                 >
-                  {offer.activity.coach.description}
+                  {offer.coach.description}
                 </TypographyMultiline>
               )}
             </div>
@@ -114,11 +114,9 @@ export class MarketPlaceActivity extends React.Component<Props> {
 
   render() {
     const { offer, classes, onClose, t } = this.props;
-    const { activity } = offer;
     if (
-      typeof activity === 'number' ||
-      typeof activity.establishment === 'number' ||
-      typeof activity.coach === 'number' ||
+      typeof offer.establishment === 'number' ||
+      typeof offer.coach === 'number' ||
       typeof offer.coach_override === 'number' ||
       typeof offer.establishment_override === 'number'
     ) {
@@ -135,8 +133,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
         </div>
       );
     }
-    const establishment =
-      offer.establishment_override || offer.activity.establishment;
+    const establishment = offer.establishment_override || offer.establishment;
     const { location } = establishment || { location: null };
     const center = location ? [location.latitude, location.longitude] : null;
     const markers = location ? [establishment] : [];
@@ -157,7 +154,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
         </IconButton>
         <CardMedia
           className={classes.media}
-          src={activity.meta_activity.cover_main}
+          src={offer.meta_activity.cover_main}
           component="img"
         />
         <CardContent>
@@ -175,13 +172,13 @@ export class MarketPlaceActivity extends React.Component<Props> {
           ) : null}
           <div>
             <Typography variant="body1" className={classes.hashtags}>
-              {activity.hashtags}
+              {/* {activity.hashtags} */}
             </Typography>
             <Typography variant="h6" className={classes.title}>
-              {activity.meta_activity.name}
+              {offer.meta_activity.name}
             </Typography>
             <TypographyMultiline color="textSecondary" variant="body1">
-              {activity.meta_activity.description}
+              {offer.meta_activity.description}
             </TypographyMultiline>
             {this.renderCoachBanner()}
             {this.props.displayPacksInformation && passToDisplay.length ? (
@@ -219,7 +216,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
                               this.props.goToPackPayment(
                                 p.id,
                                 this.props.offerId,
-                                activity.company,
+                                offer.meta_activity.company,
                               )
                             }
                           >

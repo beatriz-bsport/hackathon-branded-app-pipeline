@@ -29,7 +29,7 @@ type Props = {
 
 export const MarketplaceOffer = (props: Props) => {
   const { t, offer, selected, onClickOffer } = props;
-  const { activity, available } = offer;
+  const { available } = offer;
   const isInThePast = isOfferInThePast(offer);
   const onClick =
     onClickOffer && isInThePast ? () => onClickOffer(offer.id) : null;
@@ -42,11 +42,7 @@ export const MarketplaceOffer = (props: Props) => {
     >
       <CoachAvatar
         t={t}
-        coach={
-          activity && activity.coach && activity.coach.user
-            ? activity.coach.user
-            : null
-        }
+        coach={offer.coach ? offer.coach.user : null}
         coach_override={offer.coach_override ? offer.coach_override.user : null}
       />
       <ListItemText
@@ -54,9 +50,7 @@ export const MarketplaceOffer = (props: Props) => {
           <div>
             <Typography inline>
               {`${
-                activity && activity.meta_activity
-                  ? activity.meta_activity.name || ''
-                  : ''
+                offer.meta_activity ? offer.meta_activity.name || '' : ''
               } - ${formatAsTime(offer.date_start)} - ${formatMinutes(
                 offer.duration_minute,
                 t,
@@ -65,16 +59,14 @@ export const MarketplaceOffer = (props: Props) => {
             <Level
               noStyle
               variant="caption"
-              levelId={
-                activity && activity.level ? activity.level || null : null
-              }
+              levelId={offer.level ? offer.level : null}
             />
           </div>
         }
         secondary={
-          offer.establishment_override
-            ? offer.establishment_override.title
-            : ((activity || {}).establishment || {}).title || ''
+          offer
+            ? (offer.establishment_override || offer.establishment).title
+            : ''
         }
       />
       <div

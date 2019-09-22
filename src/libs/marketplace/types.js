@@ -102,11 +102,6 @@ export type MarketPlaceState = {
     loading: boolean,
     error: ?Error,
   },
-  activities: {
-    items: Array<Activity>,
-    loading: boolean,
-    error: ?Error,
-  },
   coaches: {
     items: Array<Coach>,
     loading: boolean,

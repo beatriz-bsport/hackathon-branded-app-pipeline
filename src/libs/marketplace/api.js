@@ -10,12 +10,6 @@ const fetchCompanyMetaActivities = async ({
   );
 };
 
-const fetchCompanyActivities = async ({ companyId, page }) => {
-  return get(
-    `${API_V1_URI}/activity/?company=${companyId}&customer_enabled=true&page=${page}`,
-  );
-};
-
 const fetchPaymentPacks = async ({ companyId, page }) => {
   return getAuth(
     `${API_V1_URI}/payment-pack/payment-pack/?company=${companyId}&page=${page}&manager_only=false&disabled=false&as_consumer=true`,
@@ -50,7 +44,6 @@ const fetchCompany = async (companyId) => {
 
 export default {
   fetchCompanyMetaActivities,
-  fetchCompanyActivities,
   fetchCompanyEstablishments,
   fetchCompanyCoaches,
   fetchCompanyOffers,

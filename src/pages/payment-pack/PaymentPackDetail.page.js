@@ -19,7 +19,7 @@ import {
 } from '../../actions';
 import paymentPackSelector from '../../libs/payment-packs/selectors';
 import type { MetaActivity } from '../../api/types';
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import { fetchAllActivities } from '../../libs/meta-activity/actions/meta-activity.actions';
@@ -249,5 +249,7 @@ export default compose(
         consumerPackActions.fetchByPaymentPack(paymentPackId, page, pageSize),
     },
   ),
-  withDrawer(({ t }: { t: TFunction }) => t('appbar.title.paymentPackList')),
+  withTitle(({ t }: { t: TFunction }) =>
+    t('titles:paymentPack.paymentPackList'),
+  ),
 )(PaymentPackDetail);

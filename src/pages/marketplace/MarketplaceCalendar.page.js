@@ -8,6 +8,8 @@ import { push, replace as replaceRouter } from 'react-router-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
+
 import { connect } from 'react-redux';
 import { BUYABLE_ITEM_PASS } from '@bsport/common/lib/master-data/buyable-items';
 import { consumerPayWithConsumerPaymentPack as payWithConsumerPaymentPackAPI } from '../../api/payment';
@@ -40,6 +42,7 @@ import {
   resetOffersAction,
   fetchCompanyOffersAction,
 } from '../../libs/marketplace/actions';
+import withTitle from '../../hocs/with-title.hoc';
 
 type Props = {
   filtersOpen: boolean,
@@ -409,5 +412,9 @@ export default compose(
         }
       },
     }),
+  ),
+  withNamespaces(),
+  withTitle(({ t }: { t: TFunction }) =>
+    t('titles:marketplace.marketplaceCalendar'),
   ),
 )(MarketplaceCalendarStyled);

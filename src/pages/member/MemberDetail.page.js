@@ -5,6 +5,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Fab from '@material-ui/core/Fab';
 import AppBar from '@material-ui/core/AppBar';
+import { Helmet } from 'react-helmet';
 import { Route, Switch } from 'react-router-dom';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
@@ -15,7 +16,7 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import memberSelectors from '../../libs/member/selectors';
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 
 import MemberDetailInfo from './MemberDetailInfo.page';
 import MemberDetailPass from './MemberDetailPass.page';
@@ -30,6 +31,7 @@ type Props = {
   classes: Object,
   tab: string,
   id: number,
+  member: ?Member,
   pushToTab: (memberId: number, tab: string) => void,
   billMember: (id: number) => void,
   subscribeMember: (id: number) => void,
@@ -67,6 +69,9 @@ export function MemberDetail(props: Props) {
   const { t, classes, pushToTab, billMember, subscribeMember, tab, id } = props;
   return (
     <div className={classes.container}>
+      <Helmet>
+        <title>{props.member ? props.member.name : 'Member'}</title>
+      </Helmet>
       <AppBar position="static" color="default">
         <Tabs
           scrollButtons="off"
@@ -179,5 +184,5 @@ export default compose(
       },
     }),
   ),
-  withDrawer(({ member }) => (member ? member.name : '')),
+  withTitle(({ member }) => (member ? member.name : '')),
 )(MemberDetail);

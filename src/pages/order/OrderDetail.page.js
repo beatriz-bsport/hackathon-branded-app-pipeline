@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withNamespaces } from 'react-i18next';
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
@@ -106,5 +106,5 @@ export default compose(
     member: order ? getMember(order.member) : null,
   })),
   withNamespaces(),
-  withDrawer(({ t }) => t('appbar.title.orderDetail')),
+  withTitle(({ t }) => t('titles:order.orderDetail')),
 )(OrderDetail);

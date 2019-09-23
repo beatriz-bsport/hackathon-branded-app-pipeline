@@ -8,7 +8,7 @@ import { push } from 'react-router-redux';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import type { Establishment, Offer } from '../../api/types';
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 
@@ -99,7 +99,7 @@ export default compose(
       deleteEstablishment,
     },
   ),
-  withDrawer(({ establishment }) => {
+  withTitle(({ establishment }) => {
     return establishment ? `${establishment.title}` : '';
   }),
 )(EstablishmentDetails);

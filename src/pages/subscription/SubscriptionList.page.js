@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { push as pushRouter } from 'react-router-redux';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 
 import api from '../../libs/subscription/api';
 
@@ -25,7 +25,9 @@ export const SubscriptionList = (props: Props) => (
 
 export default compose(
   withNamespaces(['', 'subscription']),
-  withDrawer(({ t }: { t: TFunction }) => t('appbar.title.subscriptions')),
+  withTitle(({ t }: { t: TFunction }) =>
+    t('titles:subscription.subscriptions'),
+  ),
   connect(
     null,
     (dispatch) => ({

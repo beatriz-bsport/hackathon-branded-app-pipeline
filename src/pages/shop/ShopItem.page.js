@@ -16,7 +16,7 @@ import type { TFunction } from 'react-i18next';
 import { push } from 'react-router-redux';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
 
 import ShopItemCard from '../../libs/shop/components/ShopItemCard.component';
@@ -221,6 +221,6 @@ export default compose(
       goToShopList: () => push('/shop'),
     },
   ),
-  withDrawer(({ shopitem }) => (shopitem ? shopitem.name : '')),
+  withTitle(({ shopitem }) => (shopitem ? shopitem.name : '')),
   withMobileDialog(),
 )(ShopItemDetail);

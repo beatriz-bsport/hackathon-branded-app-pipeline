@@ -47,7 +47,7 @@ import {
 } from '../../libs/member/actions';
 import memberSelectors from '../../libs/member/selectors';
 
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 import OfferManagementComponent from './OfferManagement.component';
 
 import type { Offer } from '../../api/types';
@@ -206,5 +206,5 @@ export default compose(
     mapStateToProps,
     mapDispatchToProps,
   ),
-  withDrawer(({ offer }: { offer: Offer }) => formatTitle(offer)),
+  withTitle(({ offer }: { offer: Offer }) => formatTitle(offer)),
 )(OfferManagementComponent);

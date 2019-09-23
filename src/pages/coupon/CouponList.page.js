@@ -12,6 +12,7 @@ import type { TFunction } from 'react-i18next';
 import { compose, withState, withProps } from 'recompose';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
+import withTitle from '../../hocs/with-title.hoc';
 import CouponListComponent from '../../libs/coupon/components/CouponList.component';
 import CouponDeleteModal from '../../libs/coupon/components/CouponDeleteModal.component';
 import { fetchCouponPage, deleteCoupon } from '../../libs/coupon/actions';
@@ -121,4 +122,5 @@ export default compose(
       setCouponToDelete(null);
     },
   })),
+  withTitle(({ t }: { t: TFunction }) => t('titles:coupon.couponList')),
 )(CouponList);

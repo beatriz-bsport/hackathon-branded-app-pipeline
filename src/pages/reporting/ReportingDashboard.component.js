@@ -19,7 +19,7 @@ import {
   reportMetadata,
 } from '../../resources/reporting';
 
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 
 type Props = {
   metadata: ReportMetadata,
@@ -77,5 +77,7 @@ export default compose(
     },
   ),
   withNamespaces(),
-  withDrawer(({ t }: { t: TFunction }) => t('appbar.title.reportingDashboard')),
+  withTitle(({ t }: { t: TFunction }) =>
+    t('titles:dashboard.reportingDashboard'),
+  ),
 )(ReportingDashboard);

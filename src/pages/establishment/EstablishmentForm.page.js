@@ -23,7 +23,7 @@ import { getEstablishment } from '../../libs/establishment/selectors';
 import EstablishmentForm from '../../libs/establishment/components/EstablishmentForm.component';
 
 import { mapFormData } from '../form.utils';
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 
 type Props = {
   upsertEstablishment: (*) => void,
@@ -114,7 +114,7 @@ export default compose(
       goToEstablishmentList: () => push('/establishment'),
     },
   ),
-  withDrawer(({ t }: { t: TFunction }) =>
-    t('appbar.title.establishmentFormPage'),
+  withTitle(({ t }: { t: TFunction }) =>
+    t('titles:establishment.establishmentFormPage'),
   ),
 )(EstablishmentFormPage);

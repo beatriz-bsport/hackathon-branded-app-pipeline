@@ -22,7 +22,7 @@ import { fetchMember } from '../../libs/member/actions';
 import type { Member } from '../../libs/member/types';
 import memberSelectors from '../../libs/member/selectors';
 import type { InvoiceDataFront } from '../../components/form/types';
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 
 import InvoiceForm from '../../libs/invoice/InvoiceForm.component';
 import InvoiceDateDialog from '../../libs/invoice/dialog/InvoiceDateDialog.component';
@@ -152,9 +152,9 @@ export default compose(
       fetch: fetchMember,
     },
   ),
-  withDrawer(
+  withTitle(
     ({ t, member }: { t: TFunction, member: Member }) =>
-      `${t('payment.invoice')} - ${formatAsDate(Moment())} - ${
+      `${t('titles:invoice.invoiceCreate')} - ${formatAsDate(Moment())} - ${
         member ? member.name : ' '
       }`,
   ),

@@ -8,16 +8,19 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 
+import withStyles from '@material-ui/core/styles/withStyles';
+
 import { invoice as invoiceActions } from '../../actions';
 
 import type { Invoice } from '../../api/types';
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 
 import InvoiceTable from './InvoiceTable.component';
 
 type Props = {
   push: (path: string) => void,
   finalizeInvoice: (uuid: string) => void,
+  classes: Object,
 };
 
 export class InvoiceList extends Component<Props> {
@@ -31,16 +34,27 @@ export class InvoiceList extends Component<Props> {
 
   render() {
     return (
-      <InvoiceTable
-        onInvoiceClick={this.pushToInvoiceDetail}
-        finalizeInvoice={this.props.finalizeInvoice}
-        downloadInvoice={this.downloadInvoice}
-      />
+      <div className={this.props.classes.container}>
+        <InvoiceTable
+          onInvoiceClick={this.pushToInvoiceDetail}
+          finalizeInvoice={this.props.finalizeInvoice}
+          downloadInvoice={this.downloadInvoice}
+          showOnlyCore
+        />
+      </div>
     );
   }
 }
+
+const styles = () => ({
+  container: {
+    maxWidth: '100vw',
+  },
+});
+
 export default compose(
   withNamespaces(),
+  withStyles(styles),
   connect(
     null,
     {
@@ -48,5 +62,5 @@ export default compose(
       finalizeInvoice: invoiceActions.finalizeInvoice,
     },
   ),
-  withDrawer(({ t }: { t: TFunction }) => t('appbar.title.invoiceList')),
+  withTitle(({ t }: { t: TFunction }) => t('titles:invoice.invoiceList')),
 )(InvoiceList);

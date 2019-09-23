@@ -8,7 +8,6 @@ import { push } from 'react-router-redux';
 import i18next from 'i18next';
 
 import withBottomButtons from '../../hocs/inject-bottom-buttons';
-import withDrawer from '../../hocs/with-drawer.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import MetaActivityList from '../../libs/meta-activity/components/MetaActivityList.component';
@@ -21,6 +20,7 @@ import {
 import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '../../libs/meta-activity/api/common';
 
 import type { MetaActivity } from '../../api/types';
+import withTitle from '../../hocs/with-title.hoc';
 
 type Props = {
   metaActivities: Array<MetaActivity>,
@@ -84,5 +84,7 @@ export default compose(
       text: i18next.t('activity.addActivity'),
     },
   }),
-  withDrawer(({ t }: { t: TFunction }) => t('appbar.title.metaActivityList')),
+  withTitle(({ t }: { t: TFunction }) =>
+    t('titles:metaActivity.metaActivityList'),
+  ),
 )(MetaActivityListPage);

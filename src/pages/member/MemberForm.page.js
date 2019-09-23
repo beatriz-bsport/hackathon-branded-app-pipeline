@@ -12,7 +12,6 @@ import { push as pushRouter, goBack } from 'react-router-redux';
 import { compose, withProps } from 'recompose';
 import moment from 'moment';
 import { snackbar } from '../../actions/snackbar.actions';
-import withDrawer from '../../hocs/with-drawer.hoc';
 import MemberForm from '../../libs/member/MemberForm.component';
 import { createOrUpdateMember, fetchMember } from '../../libs/member/actions';
 import memberSelectors from '../../libs/member/selectors';
@@ -20,6 +19,7 @@ import { getLatest as getLatestMember } from '../../libs/member/api';
 import { MemberMap } from '../../libs/member/utils';
 
 import { mapFormData, unmap } from '../form.utils';
+import withTitle from '../../hocs/with-title.hoc';
 
 type Props = {
   id: number,
@@ -122,7 +122,6 @@ export default compose(
     mapStateToProps,
     mapDispatchToProps,
   ),
-  withDrawer(({ t }: { t: TFunction }) => t('appbar.title.memberFormPage')),
   withProps(({ upsertMember, initial, goToMember, goToMemberList }) => ({
     onSubmit: (values, options) => {
       if (!values.birthday) {
@@ -153,4 +152,5 @@ export default compose(
       });
     },
   })),
+  withTitle(({ t }: { t: TFunction }) => t('titles:member.memberFormPage')),
 )(MemberFormPage);

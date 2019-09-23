@@ -26,7 +26,7 @@ import type {
   PaymentPack,
 } from '../../libs/payment-packs/types';
 import withBottomButtons from '../../hocs/inject-bottom-buttons';
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 
 type Props = {
   loading: boolean,
@@ -255,5 +255,7 @@ export default compose(
     },
     switchButton: false,
   }),
-  withDrawer(({ t }: { t: TFunction }) => t('appbar.title.paymentPackList')),
+  withTitle(({ t }: { t: TFunction }) =>
+    t('titles:paymentPack.paymentPackList'),
+  ),
 )(PaymentPackList);

@@ -53,7 +53,7 @@ import shopSelectors from '../../libs/shop/selectors';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withtitle from '../../hocs/with-title.hoc';
 
 type Props = {
   t: TFunction,
@@ -289,5 +289,5 @@ export default compose(
   ),
   withMobileDialog(),
   withStyles(styles),
-  withDrawer(({ t }: { t: TFunction }) => t('appbar.title.shopManager')),
+  withtitle(({ t }: { t: TFunction }) => t('titles:shop')),
 )(ShopItemList);

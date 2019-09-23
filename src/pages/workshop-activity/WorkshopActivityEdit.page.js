@@ -19,7 +19,7 @@ import {
 } from '../../libs/meta-activity/actions/workshop-activity.actions';
 import { getWorkshop } from '../../libs/meta-activity/selectors';
 
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import MetaActivityForm from '../../libs/meta-activity/components/MetaActivityForm.component';
@@ -122,5 +122,5 @@ export default compose(
       });
     },
   })),
-  withDrawer(({ t }) => t('appbar.title.WorkshopActivityFormPage')),
+  withTitle(({ t }) => t('titles:workshopActivity.WorkshopActivityFormPage')),
 )(WorkshopActivityEditPage);

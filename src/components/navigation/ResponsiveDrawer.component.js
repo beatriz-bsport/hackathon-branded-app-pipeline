@@ -60,8 +60,8 @@ import RefreshButton from '../button/RefreshButton.component';
 import SearchBar from '../SearchBar.component';
 import LOGO_ASSET from '../../public/images/banner_lowres.png';
 import AlertButtonMenu from '../../libs/alerting/components/AlertButtonMenu.component';
-
 import { DrawerContext } from '../../hocs/with-drawer.hoc';
+import { windowTitleToProps } from '../../hocs/with-title.hoc';
 import { openIntercomHelp } from '../../intercom';
 import type { Alerting } from '../../libs/alerting/types';
 
@@ -84,6 +84,7 @@ type Props = {
   t: TFunction,
   location: Object,
   width: string,
+  title: string,
 };
 
 type State = {
@@ -236,9 +237,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                 />
               </Hidden>
               <Typography id="app-title" color="inherit" noWrap variant="h6">
-                {this.props.width === 'xs'
-                  ? drawerContext.title.split('-')[0]
-                  : drawerContext.title}
+                {this.props.title}
               </Typography>
             </Grid>
             {this.props.width === 'xs' ||
@@ -586,7 +585,7 @@ const styles = (theme) => ({
     position: 'relative',
     overflow: 'hidden',
     display: 'flex',
-    width: '100%',
+    width: '100vw',
     [theme.breakpoints.up('md')]: {
       paddingLeft: drawerWidth,
     },
@@ -650,6 +649,7 @@ const styles = (theme) => ({
     },
     paddingBottom: theme.spacing.unit,
     paddingTop: theme.spacing.unit * 10,
+    width: '100%',
   },
   logo: {
     alignItems: 'center',
@@ -679,4 +679,5 @@ export default compose(
   withNamespaces(),
   withWidth(),
   withStyles(styles, { withTheme: true }),
+  windowTitleToProps,
 )(withRouter(ResponsiveDrawer));

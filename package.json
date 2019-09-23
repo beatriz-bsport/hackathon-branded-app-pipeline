@@ -56,6 +56,7 @@
     "react-dom": "^16.4.0",
     "react-dropzone": "8",
     "react-facebook-login": "^4.0.1",
+    "react-helmet": "^5.2.1",
     "react-i18next": "8",
     "react-intercom": "^1.0.15",
     "react-leaflet": "^2.0.0",

@@ -8,7 +8,7 @@ import { compose, withProps, withState } from 'recompose';
 import { connect } from 'react-redux';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 
 import ReportGeneration from '../../libs/reporting/ReportGeneration.component';
 
@@ -104,5 +104,5 @@ export default compose(
       },
     }),
   ),
-  withDrawer(({ report }) => (report && report.name) || ''),
+  withTitle(({ report }) => (report && report.name) || ''),
 )(ReportingGeneration);

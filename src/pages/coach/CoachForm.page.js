@@ -25,7 +25,7 @@ import CoachEmailCheckDialog from '../../libs/associated-coach/components/CoachE
 
 import { mapFormData, unmap } from '../form.utils';
 
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 
 type Props = {
   initial: *,
@@ -152,5 +152,5 @@ export default compose(
     },
   })),
   withStyles(styles),
-  withDrawer(({ t }: { t: TFunction }) => t('appbar.title.coachFormPage')),
+  withTitle(({ t }: { t: TFunction }) => t('titles:coach.coachFormPage')),
 )(CoachFormPage);

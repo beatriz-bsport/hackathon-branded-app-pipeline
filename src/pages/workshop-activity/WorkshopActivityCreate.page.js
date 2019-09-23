@@ -27,7 +27,7 @@ import {
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import { createOffers as createOffersAPI } from '../../libs/meta-activity/api/meta-activity';
 
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import MetaActivityForm from '../../libs/meta-activity/components/MetaActivityForm.component';
@@ -265,7 +265,7 @@ export default compose(
       },
     }),
   ),
-  withDrawer(({ t }: { t: TFunction }) =>
-    t('appbar.title.metaActivityFormPage'),
+  withTitle(({ t }: { t: TFunction }) =>
+    t('titles:workshopActivity.workshopActivityCreate'),
   ),
 )(WorkshopActivityFormPage);

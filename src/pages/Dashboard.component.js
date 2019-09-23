@@ -40,7 +40,7 @@ import {
   SimpleBarChart,
 } from '../components/graph/Charts.component';
 
-import withDrawer from '../hocs/with-drawer.hoc';
+import withTitle from '../hocs/with-title.hoc';
 
 type ChartData = {
   d: number,
@@ -311,5 +311,5 @@ export default compose(
       ],
     }),
   ),
-  withDrawer(({ t }: { t: TFunction }) => t('pageTitle')),
+  withTitle(({ t }: { t: TFunction }) => t('titles:dashboard.dashboard')),
 )(Dashboard);

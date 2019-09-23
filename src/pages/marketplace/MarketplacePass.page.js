@@ -5,6 +5,8 @@ import { compose } from 'recompose';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { connect } from 'react-redux';
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 
 import { BUYABLE_ITEM_PASS } from '@bsport/common/lib/master-data/buyable-items';
 import MarketplacePassList from '../../libs/marketplace/components/MarketplacePassList.component';
@@ -16,6 +18,8 @@ import { addItemToBasket } from '../../libs/checkout/actions';
 import { getCurrentBasket } from '../../libs/checkout/selectors';
 import type { Basket } from '../../libs/checkout/types';
 import { fetchPaymentPacksAction } from '../../libs/marketplace/actions';
+
+import withTitle from '../../hocs/with-title.hoc';
 
 type Props = {
   companyId: number,
@@ -80,5 +84,9 @@ export default compose(
           extra_data: {},
         }),
     },
+  ),
+  withNamespaces(),
+  withTitle(({ t }: { t: TFunction }) =>
+    t('titles:marketplace.marketplacePass'),
   ),
 )(MarketPlacePassPage);

@@ -18,7 +18,7 @@ import SearchBar from '../components/SearchBar.component';
 
 import { search as searchActions } from '../actions';
 
-import withDrawer from '../hocs/with-drawer.hoc';
+import withTitle from '../hocs/with-title.hoc';
 
 type Props = {
   members: *[],
@@ -156,7 +156,7 @@ export default withStyles(styles)(
       mapStateToProps,
       mapDispatchToProps,
     )(
-      withDrawer(({ t }: { t: TFunction }) => t('appbar.title.searchResults'))(
+      withTitle(({ t }: { t: TFunction }) => t('titles:searchResults'))(
         SearchResults,
       ),
     ),

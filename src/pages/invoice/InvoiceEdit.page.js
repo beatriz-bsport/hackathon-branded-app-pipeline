@@ -14,7 +14,7 @@ import paymentPackSelectors from '../../libs/payment-packs/selectors';
 import shopSelector from '../../libs/shop/selectors';
 import type { PaymentPack } from '../../libs/payment-packs/types';
 import { invoice as invoiceActions } from '../../actions';
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import memberSelectors from '../../libs/member/selectors';
 import { fetchMember } from '../../libs/member/actions';
@@ -189,9 +189,11 @@ export default compose(
       revertInvoice: invoiceActions.revertInvoice,
     },
   ),
-  withDrawer(
+  withTitle(
     ({ t, uuid }) =>
-      `${t('payment.invoice')} - ${uuid ? uuid.slice(0, 8).toUpperCase() : ''}`,
+      `${t('titles:invoice.invoiceEdit')} - ${
+        uuid ? uuid.slice(0, 8).toUpperCase() : ''
+      }`,
   ),
   connect((state, { invoice }) => ({
     member: memberSelectors.get(state, invoice ? invoice.member : null),

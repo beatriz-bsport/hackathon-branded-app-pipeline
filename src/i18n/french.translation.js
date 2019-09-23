@@ -34,6 +34,7 @@ import communication from './fr/communication.translations';
 import checkout from './fr/checkout.translations';
 import coupon from './fr/coupon.translations';
 import relationship from './fr/relationship.translations';
+import titles from './fr/titles.translations';
 
 export default {
   communication,
@@ -68,6 +69,7 @@ export default {
   booking,
   marketplace,
   selfCheckIn,
+  titles,
   coachPerformance: {
     fields: {
       bonus: 'Bonus',

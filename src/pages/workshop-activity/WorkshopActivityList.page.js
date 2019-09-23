@@ -9,7 +9,7 @@ import { withNamespaces } from 'react-i18next';
 import { compose, withState } from 'recompose';
 
 import withBottomButtons from '../../hocs/inject-bottom-buttons';
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
@@ -85,5 +85,5 @@ export default compose(
       text: i18next.t('workshopActivity.addWorkshopActivity'),
     },
   }),
-  withDrawer(({ t }) => t('appbar.title.workshopActivityList')),
+  withTitle(({ t }) => t('titles:workshopActivity.workshopActivityList')),
 )(WorkshopActivityList);

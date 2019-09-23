@@ -22,7 +22,7 @@ import {
 import type { Coach } from '../../api/types';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import withBottomButtons from '../../hocs/inject-bottom-buttons';
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 
 import CoachListItem from '../../libs/associated-coach/components/CoachListItem.component';
 import CoachDeleteModal from '../../libs/associated-coach/components/CoachDeleteModal.component';
@@ -100,5 +100,5 @@ export default compose(
   withBottomButtons({
     addButton: { path: '/coach/add', text: i18next.t('coach.addCoach') },
   }),
-  withDrawer(({ t }: { t: TFunction }) => t('appbar.title.coachList')),
+  withTitle(({ t }: { t: TFunction }) => t('titles:coach.coachList')),
 )(CoachList);

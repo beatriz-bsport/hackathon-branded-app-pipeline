@@ -10,7 +10,7 @@ import { Moment } from '../../i18n';
 
 import RuleCard from '../../components/marketing/RuleCard.component';
 
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 
 type Props = {
   t: (x: string) => string,
@@ -109,8 +109,8 @@ const styles = (theme) => ({
 
 export default withStyles(styles)(
   withNamespaces()(
-    withDrawer(({ t }: { t: TFunction }) =>
-      t('appbar.title.marketingDashboard'),
+    withTitle(({ t }: { t: TFunction }) =>
+      t('titles:marketing.marketingDashboard'),
     )(MarketingDashboard),
   ),
 );

@@ -9,7 +9,7 @@ import { compose, withState, withProps } from 'recompose';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 
 import { paymentRulesSelector } from '../../libs/payment-rules/selectors';
 import type { PaymentRule } from '../../libs/payment-rules';
@@ -114,7 +114,7 @@ export default compose(
       (coach) => coach.id === parseInt(match.params.coachId, 10),
     ),
   })),
-  withDrawer(({ coach }) => {
+  withTitle(({ coach }) => {
     return coach ? `${coach.name}` : '';
   }),
 )(Coach);

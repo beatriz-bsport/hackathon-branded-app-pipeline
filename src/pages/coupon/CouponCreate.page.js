@@ -5,9 +5,12 @@ import Paper from '@material-ui/core/Paper';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { withStyles } from '@material-ui/core';
+import type { TFunction } from 'react-i18next';
 import { compose, withProps } from 'recompose';
+import { withNamespaces } from 'react-i18next';
 
 import { createCoupon } from '../../libs/coupon/actions';
+import withTitle from '../../hocs/with-title.hoc';
 import CouponForm from '../../libs/coupon/components/CouponForm.component';
 
 type Props = {
@@ -48,6 +51,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
+  withNamespaces(),
   withStyles(styles),
   connect(
     (state) => ({
@@ -58,6 +62,7 @@ export default compose(
       goToCouponList: () => push('/coupon'),
     },
   ),
+  withTitle(({ t }: { t: TFunction }) => t('titles:coupon.couponCreate')),
   withProps(({ createCouponAction, goToCouponList }) => ({
     createCoupon: (data) =>
       createCouponAction(data, { onSuccess: goToCouponList }),

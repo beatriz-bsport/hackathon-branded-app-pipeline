@@ -9,7 +9,7 @@ import { push as pushRouter, goBack } from 'react-router-redux';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 
 import { withNamespaces } from 'react-i18next';
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withFetchDetail from '../../hocs/with-fetch-details.hoc';
 import Config from '../../config';
@@ -117,7 +117,7 @@ export default compose(
   routerParamsToProps({ memberId: 'memberId:number' }),
   withStyles(styles),
   withNamespaces(['subscription']),
-  withDrawer(({ t }) => t('form.title')),
+  withTitle(({ t }) => t('titles:subscription.subscriptionCreate')),
   connect(
     (state, { memberId }) => ({
       paymentPacks: paymentPackSelectors.getEnabled(state),

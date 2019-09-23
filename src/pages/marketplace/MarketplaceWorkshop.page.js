@@ -7,6 +7,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import Moment from 'moment';
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 
 import { snackbarSuccess as snackbarSuccessAction } from '../../actions/snackbar.actions';
 import { consumerPayWithConsumerPaymentPack as payWithConsumerPaymentPackAPI } from '../../api/payment';
@@ -20,6 +22,7 @@ import {
 } from '../../libs/marketplace/selectors';
 import { fetchCompanyOffersWorkshopAction } from '../../libs/marketplace/actions';
 import { DATE_FORMAT } from '../../datetime';
+import withTitle from '../../hocs/with-title.hoc';
 
 type Props = {
   // t: TFunction,
@@ -126,4 +129,8 @@ export default compose(
         });
     },
   })),
+  withNamespaces(),
+  withTitle(({ t }: { t: TFunction }) =>
+    t('titles:marketplace.marketplaceWorkshop'),
+  ),
 )(MarketplaceWorkshopPage);

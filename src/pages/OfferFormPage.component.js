@@ -12,7 +12,7 @@ import { goBack as goBackAction } from 'react-router-redux';
 
 import { offer as offerActions } from '../actions';
 import type { Coach, MetaActivity, Establishment } from '../api/types';
-import withDrawer from '../hocs/with-drawer.hoc';
+import withTitle from '../hocs/with-title.hoc';
 
 import OfferForm from '../libs/offer/OfferForm.component';
 import { getActiveCoaches } from '../libs/associated-coach/selectors';
@@ -130,7 +130,7 @@ export default withNamespaces()(
       goBack: goBackAction,
     },
   )(
-    withDrawer(({ t }: { t: TFunction }) => t('appbar.title.offerFormPage'))(
+    withTitle(({ t }: { t: TFunction }) => t('titles:offerFormPage'))(
       OfferFormPage,
     ),
   ),

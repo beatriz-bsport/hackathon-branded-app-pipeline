@@ -25,7 +25,7 @@ import { fetchEstablishments } from '../../libs/establishment/actions';
 import { getAllEstablishments } from '../../libs/establishment/selectors';
 import type { Establishment } from '../../libs/establishment/types';
 import { paymentPack as paymentPackActions } from '../../actions';
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 import type { SCT, MetaActivity } from '../../api/types';
 
 type Props = {
@@ -118,7 +118,7 @@ export default compose(
       });
     },
   })),
-  withDrawer(({ t }: { t: TFunction }) =>
-    t('appbar.title.paymentPackFormPage'),
+  withTitle(({ t }: { t: TFunction }) =>
+    t('titles:paymentPack.paymentPackFormPage'),
   ),
 )(PaymentPackFormPage);

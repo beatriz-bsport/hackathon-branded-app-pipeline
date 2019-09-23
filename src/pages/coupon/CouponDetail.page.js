@@ -1,6 +1,8 @@
 // @flow
 import React, { Component } from 'react';
 
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect } from 'react-redux';
 import { push as pushRouter } from 'react-router-redux';
@@ -10,6 +12,7 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 
+import withTitle from '../../hocs/with-title.hoc';
 import { getCouponById, getCouponDiscounts } from '../../libs/coupon/selectors';
 import {
   fetchCouponPage,
@@ -74,6 +77,7 @@ export class CouponCreate extends Component<Props> {
 
 export default compose(
   routerParamsToProps({ id: 'id:number' }),
+  withNamespaces(),
   connect(
     (state, { id }) => ({
       coupon: getCouponById(state, id),
@@ -103,5 +107,8 @@ export default compose(
         });
       },
     }),
+  ),
+  withTitle(({ t, coupon }: { t: TFunction, coupon: Coupon }) =>
+    t('titles:coupon.couponDetail', { name: coupon ? coupon.name : '' }),
   ),
 )(CouponCreate);

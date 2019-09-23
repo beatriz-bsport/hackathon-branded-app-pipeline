@@ -10,7 +10,7 @@ import {
   goBack,
 } from 'react-router-redux';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 import memberSelectors from '../../libs/member/selectors';
 import MemberMergeForm from '../../libs/member/components/MemberMergeForm.component';
 import MemberConfirmMergeDialog from '../../libs/member/components/MemberConfirmMergeDialog.component';
@@ -140,5 +140,5 @@ export default compose(
     onCancel: goBack,
   })),
   withNamespaces(),
-  withDrawer(({ t }) => t('appbar.title.mergeMember')),
+  withTitle(({ t }) => t('titles:member.mergeMember')),
 )(MemberMergeFormPage);

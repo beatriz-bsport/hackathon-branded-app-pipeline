@@ -3,9 +3,12 @@
 import React from 'react';
 import { Route, Switch } from 'react-router';
 import { Redirect } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 
+import { compose } from 'recompose';
 import asyncComponent from '../../AsyncComponent';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 // probably overengineered to implement code splitting here
 // however we want to speed-up the detail page as much as possible:
@@ -16,17 +19,24 @@ const MemberForm = asyncComponent(() => import('./MemberForm.page'));
 const MemberDetail = asyncComponent(() => import('./MemberDetail.page'));
 const MemberMergeForm = asyncComponent(() => import('./MemberMergeForm.page'));
 
-const RedirectToMemberInfo = routerParamsToProps({ id: 'id:number' })(
-  (props: { id: number }) => <Redirect to={`/member/${props.id}/info`} />,
+export const MemberRouter = (props: { t: TFunction }) => (
+  <div>
+    <Helmet>
+      <title>{props.t('member')}</title>
+    </Helmet>
+    <Switch>
+      <Route exact path="/member" component={MemberList} />
+      <Route exact path="/member/edit/:id" component={MemberForm} />
+      <Route path="/member/add" component={MemberForm} />
+      <Route path="/member/merge/:src/into/:dst/" component={MemberMergeForm} />
+      <Route path="/member/:id/:tab" component={MemberDetail} />
+      <Route
+        exact
+        path="/member/:id/"
+        component={() => <Redirect to={`${window.location.pathname}info`} />}
+      />
+    </Switch>
+  </div>
 );
 
-export default () => (
-  <Switch>
-    <Route exact path="/member" component={MemberList} />
-    <Route exact path="/member/edit/:id" component={MemberForm} />
-    <Route path="/member/add" component={MemberForm} />
-    <Route path="/member/merge/:src/into/:dst/" component={MemberMergeForm} />
-    <Route path="/member/:id/:tab" component={MemberDetail} />
-    <Route exact path="/member/:id/" component={RedirectToMemberInfo} />
-  </Switch>
-);
+export default compose(withNamespaces('titles'))(MemberRouter);

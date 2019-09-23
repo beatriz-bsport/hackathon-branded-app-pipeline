@@ -7,7 +7,7 @@ import { push as pushRouter } from 'react-router-redux';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 
 import {
   fetch as fetchSubscription,
@@ -74,5 +74,5 @@ export default compose(
       goToSubscribe: (id: number) => pushRouter(`/subscription/add/${id}`),
     },
   ),
-  withDrawer(({ subscription }) => (subscription ? subscription.name : '')),
+  withTitle(({ subscription }) => (subscription ? subscription.name : '')),
 )(SubscriptionDetail);

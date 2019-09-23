@@ -23,7 +23,7 @@ import WaitingListConfigurationPage from './WaitingListConfigurationPage.compone
 import ShopConfigurationPage from './ShopConfigurationPage.component';
 import ThemeConfigurationPage from './ThemeConfiguration.component';
 
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import { drawerWidth } from '../../components/navigation/ResponsiveDrawer.component';
@@ -115,5 +115,5 @@ export default compose(
     null,
     { push },
   ),
-  withDrawer(({ t }: { t: TFunction }) => t('pageTitle')),
+  withTitle(({ t }: { t: TFunction }) => t('titles:settings')),
 )(Settings);

@@ -34,7 +34,7 @@ import {
   fetchAssociated,
 } from '../../libs/associated-coach/actions';
 import { fetchPaymentRules } from '../../libs/payment-rules/actions';
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 import type {
   Coach,
   CoachPerformance as CoachPerformanceType,
@@ -275,5 +275,5 @@ export default compose(
     },
   }),
   withNamespaces(),
-  withDrawer(({ t }) => t('appbar.title.allCoachPerformance')),
+  withTitle(({ t }) => t('titles:coach.allCoachPerformance')),
 )(AllCoachPerformance);

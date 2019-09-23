@@ -21,7 +21,7 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import AddIcon from '@material-ui/icons/Add';
 import { push as pushRouter, goBack as goBackRouter } from 'react-router-redux';
 
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 
 import { getSimilars as getSimilarsOffers } from '../../libs/offer/selectors';
 import OfferCard from '../../components/offer/OfferCard.component';
@@ -532,5 +532,5 @@ export default compose(
       fetchAllActivities,
     },
   ),
-  withDrawer(({ t }: { t: TFunction }) => t('appbar.title.planning')),
+  withTitle(({ t }: { t: TFunction }) => t('titles:planning')),
 )(Planning);

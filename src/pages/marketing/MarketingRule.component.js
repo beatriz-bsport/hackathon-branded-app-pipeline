@@ -14,7 +14,7 @@ import type { TFunction } from 'react-i18next';
 import Sms from '@material-ui/icons/Sms';
 import Smartphone from '@material-ui/icons/Smartphone';
 import Email from '@material-ui/icons/Email';
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 
 const styles = (theme) => ({
   paperContainer: {
@@ -234,7 +234,7 @@ export class MarketingRule extends Component {
 
 export default withStyles(styles)(
   withNamespaces()(
-    withDrawer(({ t }: { t: TFunction }) => t('appbar.title.marketingRule'))(
+    withTitle(({ t }: { t: TFunction }) => t('titles:marketing.marketingRule'))(
       MarketingRule,
     ),
   ),

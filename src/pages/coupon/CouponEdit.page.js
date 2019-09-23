@@ -1,6 +1,8 @@
 // @flow
 import React, { Component } from 'react';
 
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect } from 'react-redux';
@@ -9,6 +11,7 @@ import { withStyles } from '@material-ui/core';
 import { compose, withProps } from 'recompose';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
+import withTitle from '../../hocs/with-title.hoc';
 import { getCouponById } from '../../libs/coupon/selectors';
 import { fetchCouponPage, updateCoupon } from '../../libs/coupon/actions';
 import type { Coupon } from '../../libs/coupon/types';
@@ -63,6 +66,7 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
+  withNamespaces(),
   routerParamsToProps({ id: 'id:number' }),
   connect(
     (state, { id }) => ({
@@ -79,4 +83,5 @@ export default compose(
     updateCoupon: (data) =>
       updateCouponAction(id, data, { onSuccess: goToCouponList }),
   })),
+  withTitle(({ t }: { t: TFunction }) => t('titles:coupon.couponEdit')),
 )(CouponCreate);

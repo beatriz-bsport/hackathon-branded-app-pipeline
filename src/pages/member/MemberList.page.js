@@ -11,7 +11,7 @@ import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { fetchAllMembers } from '../../libs/member/api';
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 import MemberTable from '../../libs/member/MemberTable.component';
 
 import TagChipList from '../../libs/tag/components/TagChipList.component';
@@ -127,7 +127,7 @@ const styles = (theme) => ({
 export default compose(
   withNamespaces(),
   withStyles(styles),
-  withDrawer(({ t }: { t: TFunction }) => t('appbar.title.members')),
+  withTitle(({ t }: { t: TFunction }) => t('titles:member.members')),
   connect(
     (state) => ({
       loading: state.member.loading,

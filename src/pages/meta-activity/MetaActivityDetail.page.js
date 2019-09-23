@@ -10,7 +10,7 @@ import BottomActionButtons from '../../components/button/BottomActionsButton.com
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import { offer as offerActions } from '../../actions';
 import type { Offer, MetaActivity as MetaActivityType } from '../../api/types';
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import MetaActivityDetail from '../../libs/meta-activity/components/MetaActivityDetail.component';
@@ -138,13 +138,5 @@ export default compose(
       createActivityOffers: (id) => routerPush(`/add-offers/${id}`),
     },
   ),
-  withDrawer(({ id, metaActivities }) => {
-    const metaActivity = (metaActivities || []).filter(
-      (m) => m.id === parseInt(id, 10),
-    );
-    if ((metaActivity || []).length === 1) {
-      return metaActivity[0].name;
-    }
-    return '';
-  }),
+  withTitle(({ metaActivity }) => (metaActivity ? metaActivity.name : '')),
 )(MetaActivity);

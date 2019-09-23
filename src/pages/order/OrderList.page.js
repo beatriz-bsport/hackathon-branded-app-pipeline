@@ -7,7 +7,7 @@ import { push as pushRouter } from 'react-router-redux';
 import { withNamespaces } from 'react-i18next';
 import OrderTable from '../../libs/order/components/OrderTable.component';
 import { fetchOrders } from '../../libs/order/api';
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 
 type Props = {
   goToOrderPage: (page: number) => void,
@@ -29,5 +29,5 @@ export default compose(
     { goToOrderPage: (id: string) => pushRouter(`/order/${id}/`) },
   ),
   withNamespaces(),
-  withDrawer(({ t }) => t('appbar.title.orderList')),
+  withTitle(({ t }) => t('titles:order.orderList')),
 )(OrderList);

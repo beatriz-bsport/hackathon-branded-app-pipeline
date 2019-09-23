@@ -31,7 +31,7 @@ import {
   fetchAssociatedCoachPerformance,
   fetchAssociated,
 } from '../../libs/associated-coach/actions';
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 
 import CoachPerformanceForm from '../../libs/associated-coach/components/performance/CoachPerformanceForm.component';
 import CoachPerformanceSummary from '../../libs/associated-coach/components/performance/CoachPerformanceSummary.component';
@@ -153,7 +153,7 @@ export default compose(
       );
     },
   }),
-  withDrawer(({ t, coach }: { t: TFunction, coach: Coach }) =>
-    t('title', { name: coach.name }),
+  withTitle(({ t, coach }: { t: TFunction, coach: Coach }) =>
+    t('titles:coach.coachPerformance', { name: coach ? coach.name : '' }),
   ),
 )(CoachPerformance);

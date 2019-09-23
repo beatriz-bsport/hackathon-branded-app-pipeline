@@ -4,6 +4,9 @@ import React from 'react';
 import { compose, lifecycle } from 'recompose';
 import { connect } from 'react-redux';
 
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
+
 import { BUYABLE_ITEM_SHOP_ITEM } from '@bsport/common/lib/master-data/buyable-items';
 import MarketplaceShopComponent from '../../libs/marketplace/components/MarketplaceShop.component';
 
@@ -14,6 +17,8 @@ import { getCurrentBasket } from '../../libs/checkout/selectors';
 import type { Basket } from '../../libs/checkout/types';
 import type { SubShop } from '../../libs/shop/types';
 import shopSelectors from '../../libs/shop/selectors';
+
+import withTitle from '../../hocs/with-title.hoc';
 
 type Props = {
   subShops: Array<SubShop>,
@@ -69,4 +74,8 @@ export default compose(
       fetchSubShops(companyId);
     },
   }),
+  withNamespaces(),
+  withTitle(({ t }: { t: TFunction }) =>
+    t('titles:marketplace.marketplaceShop'),
+  ),
 )(MarketplaceShop);

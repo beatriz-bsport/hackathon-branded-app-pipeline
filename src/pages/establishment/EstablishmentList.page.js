@@ -14,7 +14,7 @@ import { push } from 'react-router-redux';
 import Map from '../../components/map/Map.component';
 
 import withBottomButtons from '../../hocs/inject-bottom-buttons';
-import withDrawer from '../../hocs/with-drawer.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import EstablishmentListItem from '../../libs/establishment/components/EstablishmentListItem.component';
@@ -123,5 +123,7 @@ export default compose(
       text: i18next.t('establishment.addButton'),
     },
   }),
-  withDrawer(({ t }: { t: TFunction }) => t('appbar.title.establishmentList')),
+  withTitle(({ t }: { t: TFunction }) =>
+    t('titles:establishment.establishmentList'),
+  ),
 )(EstablishmentList);

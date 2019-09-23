@@ -149,3 +149,29 @@ export function fetchOfferById(id: number) {
     dispatch(offerByDay.isLoading(false));
   };
 }
+
+export const offerWaitingListActions = {
+  success: createAction('OFFER/UPDATE_WAITING_LIST/SUCCESS'),
+  error: createAction('OFFER/UPDATE_WAITING_LIST/ERROR'),
+  isLoading: createAction('OFFER/UPDATE_WAITING_LIST/IS_LOADING'),
+};
+
+export function toogleWaitingListFreeze(
+  offerId: number,
+  newFreezeState: boolean,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(offerWaitingListActions.isLoading(true));
+    dispatch(offerWaitingListActions.error(null));
+    try {
+      const offer = await api.offer.toogleWaitingListFreeze(
+        offerId,
+        newFreezeState,
+      );
+      dispatch(offerWaitingListActions.success(offer));
+    } catch (error) {
+      dispatch(offerWaitingListActions.error(error));
+    }
+    dispatch(offerWaitingListActions.isLoading(false));
+  };
+}

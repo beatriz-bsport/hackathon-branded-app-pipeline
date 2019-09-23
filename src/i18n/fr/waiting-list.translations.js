@@ -1,4 +1,8 @@
 export default {
+  switchToEnable: "Réactiver la liste d'attente",
+  switchToDisable: "Désactiver la liste d'attente",
+  nbPending: '{{ nbPending }} sur liste',
+  nbConvertible: '{{ nbConvertible }} en attente de confirmation',
   form: {
     dumb_delay_minutes: {
       label: 'Gestion simple',

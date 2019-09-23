@@ -1,4 +1,8 @@
 export default {
+  switchToEnable: 'Switch waiting-list on',
+  switchToDisable: 'Disable waiting list',
+  nbPending: '{{ nbPending }} waiting for a slot',
+  nbConvertible: '{{ nbConvertible }} pending booking confirmation',
   form: {
     dumb_delay_minutes: {
       label: 'Simple waiting-list',

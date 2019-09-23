@@ -1,5 +1,7 @@
 import api from '../../api';
 
+import { fetchFilteredBookingOptions as fetchFilteredBookingOptionsAPI } from './api';
+
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
 export const actionTypes = {
@@ -145,7 +147,10 @@ export function refreshByOffer(offerId) {
     try {
       const response = await api.booking.fetchBookingsByOffer(offerId);
       const bookings = response.data;
-      const response_ = await api.booking.fetchOptionsByOffer(offerId);
+      const response_ = await fetchFilteredBookingOptionsAPI({
+        offer: offerId,
+        as_manager: true,
+      });
       const booking_options = response_.data;
 
       dispatch(fetchedBookings({ bookings, booking_options }));

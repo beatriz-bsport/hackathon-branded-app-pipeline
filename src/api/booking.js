@@ -7,10 +7,6 @@ export async function fetchBookingsByOffer(offerId: number) {
   return getAuth(`${API_URI}/saas/offer/${offerId}/bookings`);
 }
 
-export async function fetchOptionsByOffer(offerId: number) {
-  return getAuth(`${API_V1_URI}/waiting-list/booking-option/?offer=${offerId}`);
-}
-
 export async function fetchBookingsByMember(memberId: number) {
   return getAuth(`${API_URI}/saas/members/${memberId}/bookings`);
 }
@@ -69,7 +65,6 @@ export async function addToOffer({
 }
 
 export default {
-  fetchOptionsByOffer,
   fetchBookingsByOffer,
   fetchBookingsByMember,
   fetchOptionsByMember,

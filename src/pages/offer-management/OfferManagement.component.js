@@ -39,6 +39,7 @@ import SearchMember from './SearchMember.component';
 import RevertBookingDialog from '../../libs/booking/components/RevertBookingDialog.component';
 import RegisterMemberToOfferForm from './RegisterMemberToOfferForm.component';
 import SendMailToMembersDialog from '../../libs/communication/components/MailDialog.component';
+import WaitingListControlHeader from './WaitingListControlHeader.component';
 
 import MemberForm from '../../libs/member/MemberForm.component';
 import { getLatest as getLatestMember } from '../../libs/member/api';
@@ -349,31 +350,22 @@ export class OfferManagement extends Component<Props, State> {
     if (this.props.bookingLoading) {
       return '...';
     }
-    return this.props.bookings.reduce(
-      // eslint-disable-next-line
-      (s, booking) =>
-        booking.booking_status_code === BOOKING_STATUS_OK && booking.attendance
-          ? s + 1
-          : s,
-      0,
-    );
+    return this.props.bookings.filter(
+      (booking) =>
+        booking.booking_status_code === BOOKING_STATUS_OK.id &&
+        booking.attendance,
+    ).length;
   };
 
   getNbNonAttendant = () => {
     if (this.props.bookingLoading) {
       return '...';
     }
-    return this.props.bookings.reduce(
-      // eslint-disable-next-line
-      (s, booking) =>
-        !(
-          booking.attendance &&
-          booking.booking_status_code === BOOKING_STATUS_OK
-        )
-          ? s + 1
-          : s,
-      0,
-    );
+    return this.props.bookings.filter(
+      (booking) =>
+        !booking.attendance &&
+        booking.booking_status_code === BOOKING_STATUS_OK.id,
+    ).length;
   };
 
   getMaxBookings = () => {
@@ -561,6 +553,18 @@ export class OfferManagement extends Component<Props, State> {
                   handleRevert={this.handleBookingRevert}
                   onQuickInvoiceClick={this.addToQuickInvoicePanel}
                 />
+                {bookingOptionsPending && bookingOptionsPending.length ? (
+                  <WaitingListControlHeader
+                    switchWaitingListFreeze={() =>
+                      this.props.switchWaitingListFreeze(
+                        this.props.offer.id,
+                        !this.props.offer.waiting_list_disabled,
+                      )
+                    }
+                    bookingOptionsPending={bookingOptionsPending}
+                    isDisabled={this.props.offer.waiting_list_disabled}
+                  />
+                ) : null}
                 <List disablePadding>
                   {bookingOptionsPending.map((bo) => (
                     <BookingOptionForManager

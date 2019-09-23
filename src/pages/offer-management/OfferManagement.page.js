@@ -105,7 +105,7 @@ function mapDispatchToProps(dispatch) {
     },
     fetchOfferData(offerId) {
       dispatch(fetchBookingsByOfferAction(offerId));
-      dispatch(fetchFilteredMembers({ offer: offerId }));
+      dispatch(fetchFilteredMembers({ offer: offerId, withNotes: true }));
     },
     deleteBooking(bookingId) {
       dispatch(deleteBookingAction(bookingId));
@@ -115,6 +115,10 @@ function mapDispatchToProps(dispatch) {
     },
     confirmBookingAttendance(bookingId) {
       dispatch(confirmBookingAttendanceAction(bookingId));
+    },
+    switchWaitingListFreeze(offerId, newFreezeState) {
+      dispatch(offerActions.toogleWaitingListFreeze(offerId, newFreezeState));
+      dispatch(offerActions.fetchOfferById(offerId));
     },
     discardOption(optionId) {
       dispatch(discardBookingOptionAction(optionId));

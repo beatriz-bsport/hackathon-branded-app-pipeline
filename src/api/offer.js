@@ -2,6 +2,7 @@ import {
   API_URI,
   API_V1_URI,
   getAuth,
+  postAuth,
   putAuth,
   deleteAuth,
   patchAuth,
@@ -45,6 +46,15 @@ export async function deleteOffer(offerId, data) {
   return deleteAuth(`${API_URI}/saas/offer/${offerId}/disable/`, data || {});
 }
 
+export async function toogleWaitingListFreeze(offerId, is_freezed) {
+  return postAuth(
+    `${API_V1_URI}/offer/${offerId}/toogle_waiting_list_freeze/`,
+    {
+      is_freezed,
+    },
+  );
+}
+
 export default {
   fetchAllEvents,
   editLiveOffer,
@@ -54,4 +64,5 @@ export default {
   fetchOffersByDay,
   fetchSimilarOffers,
   fetchById,
+  toogleWaitingListFreeze,
 };

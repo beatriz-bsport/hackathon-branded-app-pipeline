@@ -405,9 +405,7 @@ export class BookingItemForManager extends PureComponent<Props, State> {
         button={redirectToMember || redirectToOffer || this.props.button}
         disableRipple
         onClick={this.handleListItemClick}
-        style={
-          booking.attendance ? {} : { backgroundColor: 'rgba(255,0,0,.05)' }
-        }
+        className={booking.attendance ? '' : this.props.classes.disabled}
       >
         <Grid
           container
@@ -472,6 +470,12 @@ const styles = (theme) => ({
   },
   badge: {
     right: '0%',
+  },
+  disabled: {
+    backgroundColor: '#FFDDDD',
+    '&:hover': {
+      backgroundColor: '#FFC1C1',
+    },
   },
 });
 

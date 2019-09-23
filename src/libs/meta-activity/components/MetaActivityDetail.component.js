@@ -1,397 +1,123 @@
 // @flow
-import React, { Component } from 'react';
-import { withNamespaces } from 'react-i18next';
-import { compose } from 'recompose';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import React from 'react';
+
 import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
-import Input from '@material-ui/core/Input';
-import Divider from '@material-ui/core/Divider';
-import List from '@material-ui/core/List';
 import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { compose, withState, withProps } from 'recompose';
+
+import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+
 import type { TFunction } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
+import moment from 'moment';
+import memoize from 'memoize-one';
 
-import Moment from 'moment';
-
-import {
-  Review,
-  PackMinimalSummary,
-  Calendar,
-  TimeTable,
-} from '../../../components';
-import TypographyMultiline from '../../../components/TypographyMultiline.component';
-import type {
-  Activity,
-  Offer,
-  MetaActivity as MetaActivityType,
-} from '../../../api/types';
-import { formatMinutes, DATE_FORMAT } from '../../../datetime';
-
-import MetaActivityCover from './MetaActivityCover.component';
-import MetaActivityBasicInfo from './MetaActivityBasicInfo.component';
+import Calendar from '../../../components/offer/Calendar.component';
+import TimeTable from '../../../components/offer/TimeTable.component';
+import { DATE_FORMAT } from '../../../datetime';
+import MetaActivityCard from './MetaActivityCard.component';
 
 type Props = {
-  metaActivity: MetaActivityType,
-  coverImages: Array<Object>,
-  fetchOffersByDay: (year: number, month: number, day: number) => void,
-  createActivityOffers: (metActivityId: number) => void,
-  events: Array<Event>,
-  timetableLoading: boolean,
+  metaActivity: MetaActivity,
+  dateSelected: Object,
+  handleDayClick: (date: string) => void,
   offers: Array<Offer>,
-  goToOffer: (offer: Offer) => void,
+  events: Array<Event>,
+  openCreateOfferForm: () => void,
+  offersLoading: boolean,
+  goToOffer: (Offer) => void,
+
   classes: Object,
   t: TFunction,
 };
 
-type State = {
-  editable: boolean,
-  data: *,
-  sportCategories: Array<number>,
-  dateSelected: Object,
-};
+const getEvents = memoize((events) => {
+  const events_ = {};
+  for (const o of events) {
+    const midnight = moment(o.date_start).startOf('day');
 
-export class MetaActivityDetail extends Component<Props, State> {
-  state = {
-    editable: false,
-    data: [],
-    sportCategories: [],
-    dateSelected: Moment(),
-  };
-
-  onEditToogle = () => {
-    this.setState((prevState) => ({ editable: !prevState.editable }));
-  };
-
-  onEdit = () => {};
-
-  getById = (array: Array<{ id: number }>, id: number): Array<{ id: number }> =>
-    (array.filter((a) => a.id === id) || [{}])[0];
-
-  handleChange = (fieldName: string) => (event: Object) => {
-    const { data } = this.state;
-    data[fieldName] = event.target.value;
-    this.setState({ data });
-  };
-
-  getHeader = (activity: Activity) => {
-    const { classes, t } = this.props;
-    const { editable, data } = this.state;
-
-    let { name } = activity.name;
-    let category = activity.category_id;
-
-    if (editable) {
-      name = data.name || activity.name;
-      category = data.category || activity.category_id;
+    if (Object.prototype.hasOwnProperty.call(events_, midnight)) {
+      events_[midnight].push(o);
+    } else {
+      events_[midnight] = [o];
     }
-
-    const categorySelectedName =
-      (
-        this.state.sportCategories.filter(
-          (s) => s.id === activity.category_id,
-        )[0] || {}
-      ).name || category;
-
-    return editable ? (
-      <div>
-        <TextField
-          id="name"
-          label={t('metaActivity:name')}
-          className={classes.textField}
-          value={name}
-          onChange={this.handleChange('name')}
-          margin="normal"
-        />
-        <FormControl noValidate className={classes.formControl}>
-          <InputLabel htmlFor="age-simple">
-            {t('metaActivity:sport')}
-          </InputLabel>
-          <Select
-            value={categorySelectedName}
-            input={<Input id="category" />}
-            renderValue={(e) => e}
-            onChange={this.handleChange('category')}
-          >
-            {this.state.sportCategories.map((sport) => (
-              <MenuItem value={sport.id} key={sport.id}>
-                {sport.name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </div>
-    ) : (
-      <Typography variant="h6">{name}</Typography>
-    );
-  };
-
-  getDescription = () => {
-    const { t, metaActivity, classes } = this.props;
-    const { description } = metaActivity;
-    return (
-      <div>
-        <Typography variant="h6" className={classes.blockTitle}>
-          {t('metaActivity:description')}
-        </Typography>
-        <TypographyMultiline>{description}</TypographyMultiline>
-      </div>
-    );
-  };
-
-  getCalendar = () => {
-    const { metaActivity } = this.props;
-    const { dateSelected } = this.state;
-    const events = this.props.events.filter((e) =>
-      metaActivity.activities.find((a) => a.id === e.activity),
-    );
-    const events_ = {};
-    for (const o of events) {
-      const midnight = Moment(o.date_start).startOf('day');
-
-      if (Object.prototype.hasOwnProperty.call(events_, midnight)) {
-        events_[midnight].push(o);
-      } else {
-        events_[midnight] = [o];
-      }
-    }
-    return (
-      <Calendar
-        events={events_}
-        date={dateSelected.format(DATE_FORMAT)}
-        onDateClick={this.handleDayClick}
-        forceMonthDisplay
-      />
-    );
-  };
-
-  handleDayClick = (date: string) => {
-    const momentDate = Moment(date, DATE_FORMAT);
-    this.setState({ dateSelected: momentDate });
-    this.props.fetchOffersByDay({
-      year: momentDate.year(),
-      month: momentDate.month() + 1,
-      day: momentDate.date(),
-    });
-  };
-
-  getActivitiesWithCalendar = () => {
-    const { t, metaActivity, classes, timetableLoading, offers } = this.props;
-    const { dateSelected } = this.state;
-    return (
-      <Grid container direction="row" alignItems="flex-start">
-        <Grid item xs={12} md={6} className={classes.responsiveSubBlock}>
-          <div className={classes.calendarContainer}>{this.getCalendar()}</div>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Grid container direction="column" spacing={32}>
-            <Grid item>
-              <Typography
-                variant="h6"
-                className={classes.blockTitleLargeMargin}
-              >
-                {t('metaActivity:offersThisDay')}
-              </Typography>
-              <TimeTable
-                date={dateSelected}
-                metaActivityId={metaActivity.id}
-                offers={offers.filter(
-                  (o) => o.meta_activity_id === metaActivity.id,
-                )}
-                loading={timetableLoading}
-                onOfferSelected={(o) => this.props.goToOffer(o)}
-              />
-            </Grid>
-            <Grid item>
-              <Grid
-                container
-                direction="column"
-                alignItems="center"
-                spacing={16}
-              >
-                <Grid item>
-                  <Button
-                    variant="extendedFab"
-                    aria-label="Add"
-                    className={classes.button}
-                    color="primary"
-                    onClick={() =>
-                      this.props.createActivityOffers(metaActivity.id)
-                    }
-                  >
-                    <AddIcon className={classes.extendedIcon} />
-                    {t('metaActivity:addOffers')}
-                  </Button>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
-    );
-  };
-
-  getPriceAndPacks = () => {
-    const { metaActivity, classes, t } = this.props;
-    const {
-      payment_packs_available,
-      last_booking_minutes,
-      last_discard_minutes,
-    } = metaActivity;
-    return (
-      <Grid container direction="row" justify="center">
-        <Grid item xs={12} md={6}>
-          <Typography className={classes.blockTitleLargeMargin} variant="h6">
-            {t('metaActivity:settings.title')}
-          </Typography>
-          <Grid container direction="column" spacing={16}>
-            <Grid item>
-              <Typography variant="subtitle1">
-                {`${t('metaActivity:settings.lastBookingBeforeMinutes')}`}
-              </Typography>
-              <Typography variant="h6">
-                {formatMinutes(last_booking_minutes, t)}
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Typography variant="subtitle1">
-                {`${t('metaActivity:settings.lastDiscardBeforeMinutes')}`}
-              </Typography>
-              <Typography variant="h6">
-                {formatMinutes(last_discard_minutes, t)}
-              </Typography>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Typography className={classes.blockTitleLargeMargin} variant="h6">
-            {t('metaActivity:packsAvailable')}
-          </Typography>
-          {payment_packs_available && payment_packs_available.length ? (
-            <Paper>
-              <List>
-                {payment_packs_available
-                  .filter((pp) => !pp.disabled)
-                  .map((p) => (
-                    <PackMinimalSummary key={p.id} pack={p} />
-                  ))}
-              </List>
-            </Paper>
-          ) : null}
-        </Grid>
-      </Grid>
-    );
-  };
-
-  getReviews = () => {
-    const { metaActivity, classes, t } = this.props;
-    const { reviews } = metaActivity;
-    if (reviews.length) {
-      return (
-        <Paper className={classes.paddedPaper}>
-          <Typography variant="h6" className={classes.blockTitleLargeMargin}>
-            {t('metaActivity:reviews')}
-          </Typography>
-          <Grid
-            container
-            justify="center"
-            alignItems="center"
-            direction="row"
-            spacing={32}
-          >
-            {reviews.map((r) => (
-              <Grid item xs={6} md={4} key={r.id}>
-                <Review review={r} />
-              </Grid>
-            ))}
-          </Grid>
-        </Paper>
-      );
-    }
-    return null;
-  };
-
-  render() {
-    const { metaActivity, classes, coverImages } = this.props;
-
-    return (
-      <Grid container direction="row" spacing={32}>
-        <Grid item xs={12} xl={6}>
-          <Paper>
-            <Grid container spacing={16} direction="column">
-              <Grid item>
-                <MetaActivityCover
-                  metaActivity={metaActivity}
-                  coverImages={coverImages}
-                  large
-                />
-              </Grid>
-              <Grid item className={classes.paddedBlock}>
-                <MetaActivityBasicInfo metaActivity={metaActivity} />
-              </Grid>
-              <Divider className={classes.horizontalDivider} />
-              <Grid item className={classes.paddedBlock}>
-                {this.getDescription()}
-              </Grid>
-              <Divider className={classes.horizontalDivider} />
-              <Grid item className={classes.paddedBlock} xs={12}>
-                {this.getActivitiesWithCalendar()}
-              </Grid>
-              <Divider className={classes.horizontalDivider} />
-              <Grid item className={classes.paddedBlock} xs={12}>
-                {this.getPriceAndPacks()}
-              </Grid>
-            </Grid>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} xl={6}>
-          {this.getReviews()}
-        </Grid>
-      </Grid>
-    );
   }
-}
+  return events_;
+});
 
+export const MetaActivityDetail = (props: Props) => {
+  const { metaActivity, classes, t } = props;
+  return (
+    <Grid container direction="row" alignItems="stretch">
+      <Grid item sm={12} md={6} className={classes.panel}>
+        <MetaActivityCard metaActivity={metaActivity} />
+      </Grid>
+      <Grid item sm={12} md={6} className={classes.panel}>
+        <Paper className={classes.fullWidth}>
+          <Calendar
+            date={(props.dateSelected || moment()).format(DATE_FORMAT)}
+            onDateClick={props.handleDayClick}
+            forceMonthDisplay
+            events={getEvents(props.events)}
+          />
+          <TimeTable
+            date={props.dateSelected}
+            offers={props.offers}
+            metaActivityId={props.metaActivity ? props.metaActivity.id : null}
+            loading={props.offersLoading}
+            onOfferSelected={(o) => props.goToOffer(o)}
+          />
+        </Paper>
+        <div className={classes.addOfferButton}>
+          <Fab
+            variant="extended"
+            aria-label="Add"
+            color="primary"
+            onClick={props.openCreateOfferForm}
+          >
+            <AddIcon className={classes.leftIcon} />
+            {t('addOffers')}
+          </Fab>
+        </div>
+      </Grid>
+    </Grid>
+  );
+};
 const styles = (theme) => ({
-  inner: {
-    margin: theme.spacing.unit * 4,
+  addOfferButton: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    width: '100%',
+    marginTop: theme.spacing.unit * 2,
   },
-  textField: {
-    marginLeft: theme.spacing.unit,
+  fullWidth: {
+    width: '100%',
+  },
+  leftIcon: {
     marginRight: theme.spacing.unit,
   },
-  paddedBlock: {
-    margin: theme.spacing.unit * 3,
-  },
-  paddedPaper: {
-    padding: theme.spacing.unit * 3,
-  },
-  blockTitle: {
-    marginBottom: theme.spacing.unit,
-  },
-  blockTitleLargeMargin: {
-    marginBottom: theme.spacing.unit * 2,
-  },
-  horizontalDivider: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-  },
-  responsiveSubBlock: {
-    marginBottom: theme.spacing.unit * 3,
-  },
-  calendarContainer: {
-    paddingLeft: theme.spacing.unit * 2,
-    paddingRight: theme.spacing.unit * 4,
+  panel: {
+    width: '100%',
+    padding: theme.spacing.unit,
   },
 });
 
 export default compose(
+  withNamespaces(['metaActivity']),
   withStyles(styles),
-  withNamespaces(['metaActivity', 'datetime']),
+  withState('dateSelected', 'setDateSelected', null),
+  withProps(({ setDateSelected, fetchOffersByDay }) => ({
+    handleDayClick: (date: string) => {
+      const momentDate = moment(date, DATE_FORMAT);
+      setDateSelected(momentDate);
+      fetchOffersByDay({
+        year: momentDate.year(),
+        month: momentDate.month() + 1,
+        day: momentDate.date(),
+      });
+    },
+  })),
 )(MetaActivityDetail);

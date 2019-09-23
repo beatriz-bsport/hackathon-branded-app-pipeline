@@ -5,10 +5,11 @@ import {
   putAuth,
   deleteAuth,
   patchAuth,
+  buildUrlParams,
 } from '../http';
 
-export async function fetchAllEvents() {
-  return getAuth(`${API_URI}/saas/offers/minimal`);
+export async function fetchAllEvents(params) {
+  return getAuth(`${API_URI}/saas/offers/minimal${buildUrlParams(params)}`);
 }
 
 export async function fetchOffersByDay({ year, month, day }) {

@@ -135,14 +135,11 @@ export class Calendar extends PureComponent<Props, State> {
     // eslint-disable-next-line
     const dots = this.props.events[date.startOf('day')] || [];
     return (
-      <Grid container direction="row">
-        {dots.slice(0, 3).map(() => (
-          <Grid item key={Math.random()}>
-            {' '}
-            •{' '}
-          </Grid>
+      <div className={this.props.classes.row}>
+        {dots.slice(0, 3).map((_, idx) => (
+          <div key={idx}> • </div>
         ))}
-      </Grid>
+      </div>
     );
   };
 
@@ -288,9 +285,9 @@ export class Calendar extends PureComponent<Props, State> {
       const firstDayInRow = firstDayMonth.clone().add(i * 7, 'days');
       if (firstDayInRow.isSameOrBefore(date, 'month')) {
         weekRows.push(
-          <Grid item key={i}>
+          <div key={i} className={classes.weekRow}>
             {this.renderWeekFrom(firstDayInRow)}
-          </Grid>,
+          </div>,
         );
       }
     }
@@ -424,6 +421,13 @@ const styles = (theme) => ({
   },
   textCapitalize: {
     textTransform: 'capitalize',
+  },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  weekRow: {
+    width: '100%',
   },
 });
 

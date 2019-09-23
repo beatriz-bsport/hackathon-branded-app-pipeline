@@ -9,11 +9,7 @@ import { withNamespaces } from 'react-i18next';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import { offer as offerActions } from '../../actions';
-import type {
-  Offer,
-  MetaActivity as MetaActivityType,
-  Stat,
-} from '../../api/types';
+import type { Offer, MetaActivity as MetaActivityType } from '../../api/types';
 import withDrawer from '../../hocs/with-drawer.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
@@ -22,18 +18,24 @@ import MetaActivityDetail from '../../libs/meta-activity/components/MetaActivity
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 
 import { getWorkshops } from '../../libs/meta-activity/selectors';
-import { fetchMetaActivityDetails } from '../../libs/meta-activity/actions/meta-activity.actions';
-import { deleteWorkshop } from '../../libs/meta-activity/actions/workshop-activity.actions';
+import { getEventsByMetaActivity } from '../../libs/offer/selectors';
+import { fetchMetaActivityOffers } from '../../actions/offer.actions';
+import {
+  deleteWorkshop,
+  fetchAll as fetchAllWorkshops,
+} from '../../libs/meta-activity/actions/workshop-activity.actions';
 import { checkCanDeleteMetaActivity as canDeleteWorkshopAPI } from '../../libs/meta-activity/api/common';
 
 type Props = {
   id: number,
   workshopActivity: MetaActivityType,
   loading: boolean,
-  stats: Stat,
+  fetchAllWorkshops: () => void,
+  fetchMetaActivityOffers: (id: number) => void,
   fetchOffersByDay: (year: number, month: number, day: number) => void,
+  offersLoading: boolean,
   events: Array<Event>,
-  fetchMetaActivityDetails: (number) => void,
+  fetchAllWorkshops: () => void,
   offers: Array<Offer>,
 
   goToList: () => void,
@@ -44,6 +46,7 @@ type Props = {
   onEdit: (id: number) => void,
   createActivityOffers: (id: number) => void,
   goToOffer: (offer: Offer) => void,
+  classes: Object,
 };
 
 type State = {
@@ -58,29 +61,38 @@ export class WorkshopActivity extends Component<Props, State> {
   state = { deleteOpen: false };
 
   componentDidMount() {
-    this.props.fetchMetaActivityDetails(this.props.id);
+    this.props.fetchAllWorkshops();
+    if (this.props.id) {
+      this.props.fetchMetaActivityOffers(this.props.id);
+    }
   }
 
+  componentDidUpdate(prevProps: Props) {
+    if (this.props.id && this.props.id !== prevProps.id) {
+      this.props.fetchAllWorkshops();
+      this.props.fetchMetaActivityOffers(this.props.id);
+    }
+  }
+
+  openCreateOfferForm = () => {
+    this.props.createActivityOffers(this.props.id);
+  };
+
   render() {
-    if (
-      this.props.loading ||
-      !this.props.workshopActivity ||
-      this.props.workshopActivity.id !== this.props.id
-    ) {
+    if (!this.props.workshopActivity) {
       return <LinearProgress />;
     }
     return (
-      <div>
+      <div className={this.props.classes.container}>
+        {this.props.loading ? <LinearProgress /> : null}
         <MetaActivityDetail
           metaActivity={this.props.workshopActivity}
-          stats={this.props.stats}
           fetchOffersByDay={this.props.fetchOffersByDay}
           events={this.props.events}
           offers={this.props.offers}
+          offersLoading={this.props.offersLoading}
           goToOffer={this.props.goToOffer}
-          createActivityOffers={() =>
-            this.props.createActivityOffers(this.props.id)
-          }
+          createActivityOffers={this.openCreateOfferForm}
         />
         <BottomActionButtons
           onEdit={() => this.props.onEdit(this.props.id)}
@@ -102,13 +114,8 @@ export class WorkshopActivity extends Component<Props, State> {
 }
 
 const styles = (theme) => ({
-  leftIcon: {
-    marginRight: theme.spacing.unit,
-  },
-  editButton: {
-    position: 'fixed',
-    right: theme.spacing.unit * 2,
-    bottom: theme.spacing.unit * 2,
+  container: {
+    paddingBottom: theme.spacing.unit * 12,
   },
 });
 
@@ -120,15 +127,17 @@ export default compose(
     (state, { id }) => ({
       id,
       loading: state.metaActivity.loading,
-      workshopActivity: state.metaActivity.metaActivity,
       workshopActivities: getWorkshops(state),
       stats: state.stats.activities,
-      events: state.offer.calendar,
+      workshopActivity: getWorkshops(state).find((ma) => ma.id === id),
+      events: getEventsByMetaActivity(state),
       offers: state.offer.offers,
+      offersLoading: state.offer.byDay.loading,
     }),
     {
-      fetchMetaActivityDetails,
+      fetchAllWorkshops,
       fetchOffersByDay: offerActions.fetchOffersByDay,
+      fetchMetaActivityOffers,
       deleteWorkshop,
       goToOffer: (o) => routerPush(`/offer/${o.id}`),
       goToList: () => routerPush('/workshop-activity'),

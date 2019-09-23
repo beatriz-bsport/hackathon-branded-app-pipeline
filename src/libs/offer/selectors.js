@@ -56,4 +56,7 @@ export const getSimilars = createSelector(
   },
 );
 
+export const getEventsByMetaActivity = (state) =>
+  state.offer.calendarByObject.metaActivity;
+
 export default { get, getAll, todayOffers, getSimilars };

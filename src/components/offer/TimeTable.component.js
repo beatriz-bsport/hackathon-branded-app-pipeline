@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withNamespaces } from 'react-i18next';
+import memoize from 'memoize-one';
 import { Moment } from '../../i18n';
 import type { Offer } from '../../api/types';
 
@@ -17,25 +18,29 @@ function getOffersToday(date: Object, offers: Array<Offer>): Array<Offer> {
   return offers.filter((o) => Moment(o.date_start).isSame(date, 'day'));
 }
 
-function filterOffers(
-  offers: Array<Offer>,
-  metaActivityId: ?number,
-  establishmentId: ?number,
-): Array<Offer> {
-  let offersFiltered = offers;
+const filterOffers = memoize(
+  (
+    offers: Array<Offer>,
+    metaActivityId: ?number,
+    establishmentId: ?number,
+  ): Array<Offer> => {
+    let offersFiltered = offers;
 
-  if (metaActivityId) {
-    offersFiltered = offersFiltered.filter(
-      (o) => parseInt(o.meta_activity_id, 10) === parseInt(metaActivityId, 10),
-    );
-  }
-  if (establishmentId) {
-    offersFiltered = offersFiltered.filter(
-      (o) => parseInt(o.etablissement.id, 10) === parseInt(establishmentId, 10),
-    );
-  }
-  return offersFiltered;
-}
+    if (metaActivityId) {
+      offersFiltered = offersFiltered.filter(
+        (o) =>
+          parseInt(o.meta_activity_id, 10) === parseInt(metaActivityId, 10),
+      );
+    }
+    if (establishmentId) {
+      offersFiltered = offersFiltered.filter(
+        (o) =>
+          parseInt(o.etablissement.id, 10) === parseInt(establishmentId, 10),
+      );
+    }
+    return offersFiltered;
+  },
+);
 
 type Props = {
   loading: boolean,
@@ -123,7 +128,7 @@ export class TimeTable extends PureComponent<Props, State> {
 
 const styles = (theme) => ({
   emptyMessage: {
-    margin: theme.spacing.unit * 3,
+    padding: theme.spacing.unit * 3,
   },
   loadingContainer: {
     marginLeft: theme.spacing.unit * 3,

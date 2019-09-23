@@ -40,6 +40,27 @@ export function deleteOffer(id: number) {
   };
 }
 
+export const offersByMetaActivity = {
+  isLoading: createAction('OFFERS/BY_META_ACTIVITY/IS_LOADING'),
+  error: createAction('OFFERS/BY_META_ACTIVITY/ERROR'),
+  success: createAction('OFFERS/BY_META_ACTIVITY/SUCCESS'),
+};
+
+export function fetchMetaActivityOffers(id: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(offersByMetaActivity.isLoading(true));
+    dispatch(offersByMetaActivity.error(null));
+
+    try {
+      const response = await api.offer.fetchAllEvents({ meta_activity: id });
+      dispatch(offersByMetaActivity.success(response.data));
+    } catch (err) {
+      dispatch(offersByMetaActivity.error(err));
+    }
+    dispatch(offersByMetaActivity.isLoading(false));
+  };
+}
+
 export function fetchAllOffers() {
   return async (dispatch: Dispatch) => {
     dispatch(offers.isLoading(true));

@@ -10,11 +10,17 @@ import {
   compatiblePacks,
   similarOffers,
   offerByDay,
+  offersByMetaActivity,
 } from '../actions/offer.actions';
 import authActionTypes from '../actions/auth.types';
 
 const initialState = Immutable({
   calendar: [],
+  calendarByObject: {
+    metaActivity: [],
+    loading: false,
+    error: null,
+  },
   loading: true,
   error: false,
 
@@ -41,6 +47,15 @@ const REFRESHED_INTERVAL = 60 * 60 * 24 * 5;
 export default handleActions(
   {
     [authActionTypes.DISCONNECT]: () => initialState,
+    [offersByMetaActivity.isLoading]: (state, { payload }) => {
+      return state.setIn(['calendarByObject', 'loading'], payload);
+    },
+    [offersByMetaActivity.error]: (state, { payload }) => {
+      return state.setIn(['calendarByObject', 'error'], payload);
+    },
+    [offersByMetaActivity.success]: (state, { payload }) => {
+      return state.setIn(['calendarByObject', 'metaActivity'], payload);
+    },
     [offers.isLoading]: (state, { payload }) => {
       return state.setIn(['loading'], payload);
     },

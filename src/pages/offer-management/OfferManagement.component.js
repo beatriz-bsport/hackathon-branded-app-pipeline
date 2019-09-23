@@ -29,6 +29,7 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import moment from 'moment';
+import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import ResultList from '../../components/search/ResultList.component';
 import MemberBookingHelper from './MemberBookingHelper.component';
 import { mapFormData } from '../form.utils';
@@ -349,7 +350,11 @@ export class OfferManagement extends Component<Props, State> {
       return '...';
     }
     return this.props.bookings.reduce(
-      (s, booking) => (booking.attendance ? s + 1 : s),
+      // eslint-disable-next-line
+      (s, booking) =>
+        booking.booking_status_code === BOOKING_STATUS_OK && booking.attendance
+          ? s + 1
+          : s,
       0,
     );
   };
@@ -359,7 +364,14 @@ export class OfferManagement extends Component<Props, State> {
       return '...';
     }
     return this.props.bookings.reduce(
-      (s, booking) => (!booking.attendance ? s + 1 : s),
+      // eslint-disable-next-line
+      (s, booking) =>
+        !(
+          booking.attendance &&
+          booking.booking_status_code === BOOKING_STATUS_OK
+        )
+          ? s + 1
+          : s,
       0,
     );
   };

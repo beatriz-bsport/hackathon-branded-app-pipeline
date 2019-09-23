@@ -268,8 +268,10 @@ export class OfferPayment extends Component<Props> {
           <Grid item>{this.getBasket()}</Grid>
           <Grid item>
             <Typography align="center">
-              Toutes les places ont été réservées, et la liste d'attente est
-              pleine.
+              {
+                // eslint-disable-next-line
+                "Toutes les places ont été réservées, et la liste d'attente est pleine."
+              }
             </Typography>
           </Grid>
           <Grid item>

@@ -254,6 +254,8 @@ export default {
       hasntBooked: 'Not registered',
       hasBooked: 'Registered',
       createBooking: 'Register',
+      bill: 'Bill',
+      use: 'Use',
       createBookingOption: 'Add on waiting-list',
       reCreateBooking: 'Register again',
       noQuickInvoiceOpened: 'No invoice open',

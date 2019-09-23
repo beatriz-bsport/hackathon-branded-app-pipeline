@@ -68,9 +68,10 @@ export class ConsumerPackRowItem extends Component<Props> {
         <Button
           onClick={() => subscribeToOffer(consumerPack.id)}
           variant="outlined"
+          color="primary"
           id={`btn-payment-pack-${consumerPack.id}`}
         >
-          {t('paymentPack.subscribeToOffer')}
+          {t('paymentPack.use')}
         </Button>
       );
     }

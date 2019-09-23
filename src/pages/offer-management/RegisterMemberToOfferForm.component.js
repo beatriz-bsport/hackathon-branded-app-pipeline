@@ -70,9 +70,10 @@ export class RegisterMemberToOfferForm extends PureComponent<Props> {
               buyButton={
                 <Button
                   variant="outlined"
+                  color="secondary"
                   onClick={() => this.props.subscribeToPackAndOffer(pack.id)}
                 >
-                  {t('offer.createBooking')}
+                  {t('offer.bill')}
                 </Button>
               }
               key={pack.id}

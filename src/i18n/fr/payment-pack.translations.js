@@ -9,6 +9,7 @@ export default {
   publicPacksTitle: 'Abonnements disponibles à la vente',
   privatePacksTitle: 'Abonnements non disponibles à la vente',
   subscribeToOffer: 'Inscrire',
+  use: 'Utiliser',
   createOrUpdate: {
     success: 'Abonnement enregistré',
     fail: "Erreur lors de l'enregistrement de l'abonnement",

@@ -9,6 +9,7 @@ export default {
   publicPacksTitle: 'Pass available for purchase',
   privatePacksTitle: 'Pass unavailable for purchase',
   subscribeToOffer: 'Register',
+  use: 'Use',
   createOrUpdate: {
     success: 'Pass successfully saved',
     fail: 'Error: pass would not be saved',

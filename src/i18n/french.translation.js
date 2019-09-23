@@ -264,6 +264,7 @@ export default {
       hasntBooked: 'Non inscrit',
       hasBooked: 'Inscrit',
       createBooking: 'Inscrire',
+      bill: 'Facturer',
       createBookingOption: 'Ajouter sur liste',
       reCreateBooking: 'Réinscrire',
       noQuickInvoiceOpened: 'Aucune facturation ouverte',

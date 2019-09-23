@@ -252,6 +252,39 @@ export class OfferPayment extends Component<Props> {
 
     const unlimitedPacks = this.getCompatibleUnlimitedPass();
 
+    if (loading) {
+      return (
+        <Grid container spacing={16} direction="column" alignItems="center">
+          <Grid item>
+            <CircularProgress />
+          </Grid>
+        </Grid>
+      );
+    }
+
+    if (offer && offer.is_full && offer.is_waiting_list_full) {
+      return (
+        <Grid container spacing={16} direction="column" alignItems="center">
+          <Grid item>{this.getBasket()}</Grid>
+          <Grid item>
+            <Typography align="center">
+              Toutes les places ont été réservées, et la liste d'attente est
+              pleine.
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Button
+              color="secondary"
+              variant="contained"
+              onClick={this.props.goToPassMarketplace}
+            >
+              {t('payment:goBack')}
+            </Button>
+          </Grid>
+        </Grid>
+      );
+    }
+
     if (
       offer &&
       !loading &&

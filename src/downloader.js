@@ -1,6 +1,6 @@
 export const downloadAsCsv = (headers, data, filename) => {
-  const csvContent = `data:text/csv;charset=utf-8,${[headers, ...data]
-    .map((row) => row.join(','))
+  const csvContent = `data:text/csv;charset=utf-8,\uFEFF${[headers, ...data]
+    .map((row) => row.join(';'))
     .join('\n')}`;
 
   const encodedUri = encodeURI(csvContent);

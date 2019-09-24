@@ -21,6 +21,7 @@ import { getConsumerPacksWithPaymentPack } from '../../libs/consumer-payment-pac
 import ConsumerPackLinkForm from '../../libs/relationship/components/ConsumerPackLinkForm.component';
 import ConsumerPassLinkingDeleteDialog from '../../libs/relationship/components/ConsumerPassLinkingDeleteDialog.component';
 import ConsumerPassRelinkDialog from '../../libs/relationship/components/ConsumerPassRelinkDialog.component';
+import withTitle from '../../hocs/with-title.hoc';
 import {
   getMemberRelations,
   getMemberRelationById,
@@ -340,4 +341,5 @@ export default compose(
       fetchConsumerPacks(memberId);
     },
   })),
+  withTitle(({ member }) => (member && member.name) || ''),
 )(MemberDetailRelation);

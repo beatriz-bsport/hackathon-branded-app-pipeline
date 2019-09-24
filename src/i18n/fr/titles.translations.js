@@ -28,14 +28,14 @@ export default {
     coachPerformance: 'Règlement du professeur {{name}}',
   },
   coupon: {
-    couponCreate: 'Créer un code promotionnel',
-    couponDetail: 'Détail du code promotionnel {{name}}',
-    couponEdit: 'Modification du code promotionnel',
+    couponCreate: 'Formulaire promotion',
+    couponDetail: '{{name}}',
+    couponEdit: 'Formulaire promotion',
     couponList: 'Codes promotionnels',
   },
   establishment: {
     establishmentList: 'Etablissements',
-    establishmentFormPage: 'Formulaire Etablissement',
+    establishmentFormPage: 'Formulaire établissement',
   },
   marketplace: {
     marketplaceShop: 'Magasin',
@@ -49,16 +49,16 @@ export default {
     dashboard: 'dashboard',
   },
   subscription: {
-    subscriptionCreate: 'Créer un abonnement',
-    subscriptions: 'Abonnements',
+    subscriptionCreate: 'Créer une souscription',
+    subscriptions: 'Souscriptions',
   },
   workshopActivity: {
     workshopActivityList: 'Ateliers',
     workshopActivityCreate: 'Créer un atelier',
-    workshopActivityFormPage: 'Formulaire Ateliers',
+    workshopActivityFormPage: 'Formulaire ateliers',
   },
   paymentPack: {
-    paymentPackFormPage: 'Création Abonnement',
+    paymentPackFormPage: 'Formulaire abonnement',
     paymentPackList: 'Abonnements',
   },
   marketing: {

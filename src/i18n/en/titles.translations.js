@@ -13,26 +13,26 @@ export default {
     invoiceList: 'My transactions',
   },
   coach: {
-    coachList: 'Coaches',
-    coachPerformance: 'Coach Performace {{name}}',
-    coachFormPage: 'Coach Form',
-    allCoachPerformance: 'Coaches payment',
+    coachList: 'Teachers',
+    coachPerformance: '{{name}} performance',
+    coachFormPage: 'Coach form',
+    allCoachPerformance: 'Coaches performances',
   },
   order: { orderList: 'Orders', orderDetail: 'Order' },
   metaActivity: {
     metaActivity: 'Activities',
-    metaActivityEditForm: 'Edit Activity',
+    metaActivityEditForm: 'Activity form',
     metaActivityList: 'Activities',
   },
   coupon: {
     couponCreate: 'Create coupon',
-    couponDetail: 'Coupon {{name}} detail',
-    couponEdit: 'Edit coupon',
+    couponDetail: '{{name}}',
+    couponEdit: 'Coupon form',
     couponList: 'Coupons',
   },
   establishment: {
     establishmentList: 'Establishements',
-    establishmentFormPage: 'Establishment Form',
+    establishmentFormPage: 'Establishment form',
   },
   marketplace: {
     marketplaceShop: 'Shop',
@@ -56,7 +56,7 @@ export default {
   },
   paymentPack: {
     paymentPackFormPage: 'Pass Form',
-    paymentPackList: 'Subscriptions',
+    paymentPackList: 'Pass',
   },
   marketing: {
     marketingDashboard: 'Dashboard',
@@ -68,7 +68,7 @@ export default {
   settings: 'Settings',
 
   shop: 'My Shop',
-  coachList: 'Coach',
+  coachList: 'Teachers',
   offerManagement: 'Bookings',
 
   metaActivityFormPage: 'Activity form',

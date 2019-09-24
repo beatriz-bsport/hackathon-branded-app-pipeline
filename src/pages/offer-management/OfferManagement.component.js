@@ -72,6 +72,7 @@ type Props = {
   unevenSavedInvoices: Array<Invoice>,
   permission: Permission,
 
+  switchWaitingListFreeze: (offerId: number, newFreezeState: boolean) => void,
   fetchMember: (id: number) => void,
   registerToWaitingList: (offerId: number, memberId: number) => void,
   memberSearchLoading: boolean,

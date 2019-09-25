@@ -122,5 +122,5 @@ export default compose(
       });
     },
   })),
-  withTitle(({ t }) => t('titles:workshopActivity.WorkshopActivityFormPage')),
+  withTitle(({ t }) => t('titles:workshopActivity.workshopActivityFormPage')),
 )(WorkshopActivityEditPage);

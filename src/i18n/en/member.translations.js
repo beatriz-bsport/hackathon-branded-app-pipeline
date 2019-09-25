@@ -42,6 +42,8 @@ export default {
     },
     update: 'Edit',
   },
+  regularizeBalance: 'Regularize',
+  cashoutBalance: 'Cashout balance',
   merge: 'Merge',
   forms: {
     merge: {

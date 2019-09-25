@@ -20,6 +20,8 @@ export default {
     healthNotes: 'Informations médicales',
     is_medical: 'Note médicale',
   },
+  regularizeBalance: 'Régulariser',
+  cashoutBalance: 'Décaisser',
   creditAccountBalance: 'Accompte crédit restant',
   showPaymentPack: 'Voir les abonnements',
   showInvoices: 'Voir les factures',

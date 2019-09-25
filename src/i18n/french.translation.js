@@ -699,6 +699,7 @@ export default {
       },
     },
     payment: {
+      payment: 'Paiement',
       credit: 'Crédit',
       products: 'articles',
       invoiceRevertedThusNotEditable:
@@ -749,7 +750,7 @@ export default {
       },
       paymentItemsListTitle: 'Paiements enregistrés',
       noPaymentItem: 'Aucun paiement enregistré',
-      addThisPaymentItem: 'Paiement',
+      addThisPaymentItem: 'Ajouter ce paiement',
       status: 'Encaissé',
       stillUnpaid: 'Reste à encaisser : ',
       isRecurring: 'Paiement en plusieurs fois',

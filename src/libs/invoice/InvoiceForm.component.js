@@ -41,6 +41,7 @@ type Props = {
   editMode: ?boolean,
   processing: boolean,
   uneditableVoucher: ?number,
+  withCredit: ?number,
 
   member: Member,
   invoice: ?Invoice,
@@ -155,8 +156,8 @@ export class InvoiceForm extends Component<Props, State> {
       shopItemInvoiceItems: [],
       voucher: 0,
       paymentItems: [],
-      topUp: 0,
-      step: props.editMode ? STEP_ADD_INVOICE_PAYMENTS : STEP_ADD_INVOICE_ITEMS,
+      topUp: props.withCredit ? props.withCredit : 0,
+      step: props.editMode,
       unevenInvoiceAlertOpen: false,
     };
   }
@@ -244,7 +245,6 @@ export class InvoiceForm extends Component<Props, State> {
       getTotal,
       0,
     );
-
     return (
       topUp +
       sumPack -
@@ -412,7 +412,7 @@ export class InvoiceForm extends Component<Props, State> {
             }
           >
             <EuroSymbolIcon className={classes.leftIcon} />
-            {t('payment.addThisPaymentItem')}
+            {t('payment.payment')}
           </Button>
         </div>
       );
@@ -495,7 +495,6 @@ export class InvoiceForm extends Component<Props, State> {
     const { step, paymentItems } = this.state;
     const finalPrice = this.getFinalPrice();
     const totalPayment = this.getTotalPayment();
-
     if (step === STEP_ADD_INVOICE_ITEMS) {
       return (
         <div className={classes.itemSelectorPanel}>

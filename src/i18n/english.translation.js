@@ -439,6 +439,7 @@ export default {
         activityHelper: 'Chose the activity then the session',
       },
       payment: {
+        payment: 'Payment',
         invoiceRevertedThusNotEditable:
           'Invoice was reverted and is not editable',
         credit: 'Credit',
@@ -705,7 +706,7 @@ export default {
       },
       paymentItemsListTitle: 'Registered payments',
       noPaymentItem: 'No payment registered',
-      addThisPaymentItem: 'Payment',
+      addThisPaymentItem: 'Add this payment',
       status: 'Cashed-out',
       isRecurring: 'Divide payment in time',
       intervalMonth: 'Monthly',

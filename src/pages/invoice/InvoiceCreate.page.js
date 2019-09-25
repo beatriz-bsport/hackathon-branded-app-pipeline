@@ -97,6 +97,8 @@ export class InvoiceCreatePage extends Component<Props, State> {
       goToMemberPage,
       id,
     } = this.props;
+    const urlParams = new URLSearchParams(window.location.search.substring(1));
+
     if (!member || loading) {
       return <CircularProgress />;
     }
@@ -112,6 +114,12 @@ export class InvoiceCreatePage extends Component<Props, State> {
           onCancel={goToInvoiceList}
           processing={creatingInvoice}
           goToMemberPage={() => goToMemberPage(id)}
+          editMode={urlParams.get('withCredit') !== null ? 1 : 0}
+          withCredit={
+            urlParams.get('withCredit') !== null
+              ? Number(urlParams.get('withCredit'))
+              : 0
+          }
         />
         <InvoiceDateDialog
           open={this.state.dateDialogOpen}
@@ -134,7 +142,9 @@ const styles = (theme) => ({
 export default compose(
   withStyles(styles),
   withNamespaces(),
-  routerParamsToProps({ id: 'id:number' }),
+  routerParamsToProps({
+    id: 'id:number',
+  }),
   connect(
     (state, { id }) => ({
       loading: state.member.loading,

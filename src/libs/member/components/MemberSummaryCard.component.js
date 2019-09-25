@@ -1,6 +1,5 @@
 // @flow
 import React, { Component } from 'react';
-
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -14,7 +13,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import TodayIcon from '@material-ui/icons/Today';
 import EditIcon from '@material-ui/icons/Edit';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
-
 import PlaceIcon from '@material-ui/icons/Place';
 
 import { withNamespaces } from 'react-i18next';
@@ -39,6 +37,7 @@ type Props = {
   t: TFunction,
   classes: Object,
   mailMember: () => void,
+  goToCreditRegularization: () => void,
 };
 
 export class MemberSummaryCard extends Component<Props> {
@@ -190,21 +189,37 @@ export class MemberSummaryCard extends Component<Props> {
 
   renderAccount = () => {
     let color = 'secondary';
-
-    if (parseFloat(this.props.member.credit_account_balance) > 0) {
+    const { member, t, classes } = this.props;
+    const parsedBalance = parseFloat(member.credit_account_balance);
+    if (parsedBalance > 0) {
       color = 'primary';
     }
-    if (parseFloat(this.props.member.credit_account_balance) < 0) {
+    if (parsedBalance < 0) {
       color = 'error';
     }
+
     return (
-      <div className={this.props.classes.accountBalance}>
-        <Typography variant="subtitle2" inline>
-          {this.props.t('payment.creditAccountBalance')}
-        </Typography>
-        <Typography inline variant="h6" component="span" color={color}>
-          {` ${this.props.member.credit_account_balance} €`}
-        </Typography>
+      <div className={classes.accountBalanceBloc}>
+        <div className={classes.accountBalance}>
+          <Typography variant="subtitle2" inline>
+            {t('payment.creditAccountBalance')}
+          </Typography>
+          <Typography inline variant="h6" component="span" color={color}>
+            {` ${member.credit_account_balance} €`}
+          </Typography>
+        </div>
+        {parsedBalance !== 0 && !!this.props.goToCreditRegularization ? (
+          <Button
+            color="primary"
+            onClick={this.props.goToCreditRegularization}
+            variant="outlined"
+            className={classes.regularize}
+          >
+            {parsedBalance < 0
+              ? t('member.regularizeBalance')
+              : t('member.cashoutBalance')}
+          </Button>
+        ) : null}
       </div>
     );
   };
@@ -215,15 +230,17 @@ export class MemberSummaryCard extends Component<Props> {
     // if member=={}
     if (member.consumer) {
       return (
-        <Paper>
-          <div className={classes.infoContainer}>
-            {this.renderAvatarAndName()}
-            {this.renderMembershipAndBirthday()}
-            {this.renderAddress()}
-            {this.renderNotificationSettings()}
-          </div>
-          {this.renderAccount()}
-        </Paper>
+        <div>
+          <Paper>
+            <div className={classes.infoContainer}>
+              {this.renderAvatarAndName()}
+              {this.renderMembershipAndBirthday()}
+              {this.renderAddress()}
+              {this.renderNotificationSettings()}
+            </div>
+            {this.renderAccount()}
+          </Paper>
+        </div>
       );
     }
     return null;
@@ -252,15 +269,30 @@ const styles = (theme) => ({
     justifyContent: 'center',
   },
   accountBalance: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+  },
+  regularize: {
+    marginTop: theme.spacing.unit,
+  },
+  accountBalanceBloc: {
     backgroundColor: '#F8F8F8',
     padding: theme.spacing.unit * 2,
     border: '2px solid #E8E8E8',
     display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    width: '100%',
   },
   emailMargin: {
     marginLeft: theme.spacing.unit * 9,
+  },
+  balance: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
   },
 });
 

@@ -78,6 +78,8 @@ type Props = {
   deleteTagGroup: (id: number) => void,
   createTagGroup: ({ name: string, group: number }) => void,
   tagMember: (memberId: number, tagId: number) => void,
+
+  goToCreditRegularization: (memberId: number, balance: number) => void,
 };
 
 type State = {
@@ -100,6 +102,12 @@ export class MemberDetailPage extends Component<Props, State> {
 
   deleteTagGroup = (id: number) => this.setState({ tagGroupToDelete: id });
 
+  goToCreditRegularization = () =>
+    this.props.goToCreditRegularization(
+      this.props.id,
+      this.props.member.credit_account_balance,
+    );
+
   render() {
     const { memberLoading, member } = this.props;
     if (!member || (memberLoading && member.id !== this.props.id)) {
@@ -115,6 +123,7 @@ export class MemberDetailPage extends Component<Props, State> {
             editMember={() => this.props.editMember(this.props.id)}
             mergeMember={() => this.setState({ searchModalOpen: true })}
             mailMember={this.props.mailMember}
+            goToCreditRegularization={this.goToCreditRegularization}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -189,6 +198,10 @@ export default compose(
       editMember: (id) => routerPush(`/member/edit/${id}`),
       createOrUpdateNote: ({ id, text, memberId, highlighted, is_medical }) =>
         createOrUpdateMemberNote(id, text, memberId, highlighted, is_medical),
+      goToCreditRegularization: (memberId, credit_account_balance) =>
+        routerPush(
+          `/invoice/add/member/${memberId}?withCredit=${-credit_account_balance}`,
+        ),
       deleteNote,
       createTag: createOrUpdateTag,
       createTagGroup: (data) =>

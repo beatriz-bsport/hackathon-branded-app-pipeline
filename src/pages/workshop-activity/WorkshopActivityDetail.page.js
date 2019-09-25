@@ -92,7 +92,7 @@ export class WorkshopActivity extends Component<Props, State> {
           offers={this.props.offers}
           offersLoading={this.props.offersLoading}
           goToOffer={this.props.goToOffer}
-          createActivityOffers={this.openCreateOfferForm}
+          openCreateOfferForm={this.openCreateOfferForm}
         />
         <BottomActionButtons
           onEdit={() => this.props.onEdit(this.props.id)}

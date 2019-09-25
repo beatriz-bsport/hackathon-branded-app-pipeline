@@ -16,4 +16,9 @@ export default {
     submit: 'Envoyer',
     refresh: 'Actualiser',
   },
+  dialogReceiverChoice: {
+    reservation: 'Envoyer aux réservations',
+    waitingList: "Envoyer à la liste d'attente",
+    title: 'Sélection des destinataires',
+  },
 };

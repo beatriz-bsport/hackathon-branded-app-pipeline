@@ -36,6 +36,7 @@ type Props = {
   fullScreen: boolean,
   open: boolean,
   receiverInfo: Array<{ id: number, name: string, email: string }>,
+  mailDefaultTitle: ?string,
   mailDefaultTitle: string,
 };
 
@@ -50,7 +51,7 @@ export class SendMailToMembers extends Component<Props> {
           .filter((receiver) => receiver.email !== null)
           .map((receiver) => receiver.id),
       ],
-      mailTitle: null,
+      mailTitle: props.mailDefaultTitle || null,
       mailContent: '',
     };
   }
@@ -86,9 +87,9 @@ export class SendMailToMembers extends Component<Props> {
     });
   };
 
-  openMemberPage = (event: SyntheticEvent<any>, memberId) => {
+  openMemberPage = (event: SyntheticEvent<any>, id) => {
     event.preventDefault();
-    const url = `/member/edit/${memberId}`;
+    const url = `/member/edit/${id}`;
     const win = window.open(url);
     win.focus();
     this.setState({ openRefreshDialog: true });

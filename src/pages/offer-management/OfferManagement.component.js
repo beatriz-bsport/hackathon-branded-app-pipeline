@@ -18,6 +18,7 @@ import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Dialog from '@material-ui/core/Dialog';
+
 import DialogContent from '@material-ui/core/DialogContent';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
@@ -38,8 +39,8 @@ import QuickInvoicePanel from './QuickInvoicePanel.component';
 import SearchMember from './SearchMember.component';
 import RevertBookingDialog from '../../libs/booking/components/RevertBookingDialog.component';
 import RegisterMemberToOfferForm from './RegisterMemberToOfferForm.component';
-import SendMailToMembersDialog from '../../libs/communication/components/MailDialog.component';
 import WaitingListControlHeader from './WaitingListControlHeader.component';
+import MailMembers from './MailMembers.component';
 
 import MemberForm from '../../libs/member/MemberForm.component';
 import { getLatest as getLatestMember } from '../../libs/member/api';
@@ -122,6 +123,9 @@ type State = {
   optionToDiscard: ?number,
   memberToRegister: ?number,
   searchedText: string,
+  openMailDialog: boolean,
+  receivers: Object,
+  openMailChoiceDialog: boolean,
 };
 
 const getNameFromId = (id, membersList) => {
@@ -132,13 +136,13 @@ export class OfferManagement extends Component<Props, State> {
   state = {
     quickInvoices: [],
     addMemberModal: false,
-    mailClients: false,
     memberToRegister: null,
     memberToRegisterName: null,
     optionToDiscard: null,
     confirmOptionToDiscard: null,
     searchedText: '',
     interval: null,
+    openMailChoiceDialog: false,
   };
 
   componentWillMount() {
@@ -300,17 +304,6 @@ export class OfferManagement extends Component<Props, State> {
     );
   };
 
-  getBookingEmail = (bookingMember) => {
-    try {
-      const { email } = this.props.members.find(
-        (member) => member.id === bookingMember.member,
-      );
-      return email;
-    } catch (error) {
-      return null;
-    }
-  };
-
   addToQuickInvoicePanel = (memberId: number) => {
     const { bookings, offer } = this.props;
     const { quickInvoices } = this.state;
@@ -391,7 +384,7 @@ export class OfferManagement extends Component<Props, State> {
           <IconButton
             onClick={(e) => {
               e.stopPropagation();
-              this.setState({ mailClients: true });
+              this.setState({ openMailChoiceDialog: true });
             }}
             color="primary"
             disabled={this.props.bookingLoading}
@@ -496,6 +489,7 @@ export class OfferManagement extends Component<Props, State> {
       t,
       classes,
       fullScreen,
+      members,
     } = this.props;
 
     const { searchedText, memberToRegister, memberToRegisterName } = this.state;
@@ -685,22 +679,18 @@ export class OfferManagement extends Component<Props, State> {
             })
           }
         />
-        <SendMailToMembersDialog
-          fullScreen={fullScreen}
-          open={!!this.state.mailClients}
-          receiverInfo={
-            this.state.mailClients
-              ? this.props.bookings.map((booking) => ({
-                  id: booking.member,
-                  name: booking.user.name,
-                  email: this.getBookingEmail(booking),
-                }))
-              : []
-          }
-          mailDefaultTitle={this.props.offer.name}
-          onCancel={() => this.setState({ mailClients: false })}
-          sendMailAction={this.props.mailMembers}
-        />
+        {this.state.openMailChoiceDialog ? (
+          <MailMembers
+            fullscreen={fullScreen}
+            bookingOptionsPending={bookingOptionsPending}
+            bookings={bookings}
+            openMailChoiceDialog={this.state.openMailChoiceDialog}
+            onClose={() => this.setState({ openMailChoiceDialog: false })}
+            members={members}
+            mailMembers={this.props.mailMembers}
+            mailDefaultTitle={this.props.offer ? this.props.offer.name : ''}
+          />
+        ) : null}
       </Grid>
     );
   }

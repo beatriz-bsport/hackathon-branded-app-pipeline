@@ -86,7 +86,7 @@ export class OfferFormPage extends Component<Props, State> {
 
     if (created) {
       this.props.fetchAllOffers();
-      return <Redirect to={`/activity/${this.metaActivityId}`} />;
+      return <Redirect to="/calendar" />;
     }
 
     const metaActivity = metaActivities.filter(

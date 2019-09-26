@@ -7,7 +7,7 @@ export default {
   },
   parameters: {
     registeredOn: 'Réservé le ',
-    source: "Canal d'achat",
+    source: "Canal de réservation",
   },
   source: {
     web: 'Web',

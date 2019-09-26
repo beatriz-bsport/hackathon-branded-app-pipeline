@@ -7,7 +7,7 @@ export default {
   },
   parameters: {
     registeredOn: 'Booked on',
-    source: 'Buying channel',
+    source: 'Booking channel',
   },
   source: {
     web: 'Web',

@@ -11,6 +11,7 @@ import LinearProgress from '../../components/navigation/BackofficeLinearProgress
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import withTitle from '../../hocs/with-title.hoc';
 
+import { fetchPaymentRules } from '../../libs/payment-rules/actions';
 import { paymentRulesSelector } from '../../libs/payment-rules/selectors';
 import type { PaymentRule } from '../../libs/payment-rules';
 
@@ -38,6 +39,7 @@ type Props = {
   loading: boolean,
 
   fetchAssociated: () => void,
+  loadPaymentRules: () => void,
   setDeleteModalOpen: (boolean) => void,
   deleteOpen: boolean,
   deleteCoach: (
@@ -50,6 +52,7 @@ type Props = {
 export class Coach extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchAssociated();
+    this.props.loadPaymentRules();
   }
 
   render() {
@@ -101,6 +104,7 @@ export default compose(
     {
       deleteCoach,
       fetchAssociated,
+      loadPaymentRules: fetchPaymentRules,
       startUpdateCoach: startUpdate,
       setCoachPaymentRule,
       goToCreateCoach: () => routerPush('/coach/add'),

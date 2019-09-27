@@ -32,6 +32,7 @@ import {
   fetchAssociated,
 } from '../../libs/associated-coach/actions';
 import withTitle from '../../hocs/with-title.hoc';
+import { fetchPaymentRules } from '../../libs/payment-rules/actions';
 
 import CoachPerformanceForm from '../../libs/associated-coach/components/performance/CoachPerformanceForm.component';
 import CoachPerformanceSummary from '../../libs/associated-coach/components/performance/CoachPerformanceSummary.component';
@@ -52,11 +53,13 @@ type Props = {
   paymentRules: PaymentRule[],
   setSessionPaymentRule: (PaymentRule) => void,
   associatedCoachId: number,
+  fetchPaymentRules: () => void,
 };
 
 export class CoachPerformance extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchAssociated();
+    this.props.fetchPaymentRules();
   }
 
   render() {
@@ -125,13 +128,16 @@ export default compose(
           state,
           props.associatedCoachId,
         ),
-        paymentRule: paymentRuleSelector(state, coach.default_payment_rule_id),
+        paymentRule: coach
+          ? paymentRuleSelector(state, coach.default_payment_rule_id)
+          : null,
         paymentRules: paymentRulesSelector(state),
         coach,
       };
     },
     {
       fetchAssociated,
+      fetchPaymentRules,
       setSessionPaymentRule,
       fetchPerformance: fetchAssociatedCoachPerformance,
     },

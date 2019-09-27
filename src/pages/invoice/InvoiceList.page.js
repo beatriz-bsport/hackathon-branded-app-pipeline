@@ -39,7 +39,6 @@ export class InvoiceList extends Component<Props> {
           onInvoiceClick={this.pushToInvoiceDetail}
           finalizeInvoice={this.props.finalizeInvoice}
           downloadInvoice={this.downloadInvoice}
-          showOnlyCore
         />
       </div>
     );

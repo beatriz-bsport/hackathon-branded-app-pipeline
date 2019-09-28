@@ -10,6 +10,7 @@ import Intercom from 'react-intercom';
 
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { getTheme } from '../theme';
+import withSentryErrorReporting from '../hocs/error-boundary.hoc';
 import ResponsiveDrawer from '../components/navigation/ResponsiveDrawer.component';
 
 import { refresh as refreshActions } from '../actions';
@@ -83,6 +84,33 @@ type Props = {
   theme: any,
 };
 
+const BackofficeRoute = withSentryErrorReporting(() => (
+  <Switch>
+    <Route path="/shop" component={Shop} />
+    <Route path="/offer/:id" component={OfferManagement} />
+    <Route exact path="/calendar" component={PlanningRouter} />
+    <Route exact path="/add-offers/:id" component={OfferFormPage} />
+    <Route path="/coach" component={Coach} />
+    <Route path="/payment-pack" component={PaymentPack} />
+    <Route path="/invoice" component={Invoice} />
+    <Route path="/subscription" component={Subscription} />
+    <Route path="/member" component={Member} />
+    <Route path="/activity" component={MetaActivity} />
+    <Route path="/workshop-activity" component={WorkshopActivity} />
+    <Route path="/establishment" component={Establishment} />
+    <Route path="/marketing/rule/:id" component={MarketingRule} />
+    <Route path="/marketing" component={MarketingDashboard} />
+    <Route path="/reporting/" component={Reporting} />
+    <Route path="/order" component={Order} />
+    <Route exact path="/dashboard" component={Dashboard} />
+    <Route exact path="/search/results" component={SearchResults} />
+    <Route path="/settings/:tab/" component={Settings} />
+    <Route path="/coupon" component={Coupon} />
+    <Route path="/empty" component={() => <div />} />
+    <Route path="/" component={PlanningRouter} />
+  </Switch>
+));
+
 export class Backoffice extends Component<Props> {
   refreshInterval: ?Interval;
 
@@ -135,30 +163,7 @@ export class Backoffice extends Component<Props> {
           ) : null}
 
           <main className={classes.content}>
-            <Switch>
-              <Route path="/shop" component={Shop} />
-              <Route path="/offer/:id" component={OfferManagement} />
-              <Route exact path="/calendar" component={PlanningRouter} />
-              <Route exact path="/add-offers/:id" component={OfferFormPage} />
-              <Route path="/coach" component={Coach} />
-              <Route path="/payment-pack" component={PaymentPack} />
-              <Route path="/invoice" component={Invoice} />
-              <Route path="/subscription" component={Subscription} />
-              <Route path="/member" component={Member} />
-              <Route path="/activity" component={MetaActivity} />
-              <Route path="/workshop-activity" component={WorkshopActivity} />
-              <Route path="/establishment" component={Establishment} />
-              <Route path="/marketing/rule/:id" component={MarketingRule} />
-              <Route path="/marketing" component={MarketingDashboard} />
-              <Route path="/reporting/" component={Reporting} />
-              <Route path="/order" component={Order} />
-              <Route exact path="/dashboard" component={Dashboard} />
-              <Route exact path="/search/results" component={SearchResults} />
-              <Route path="/settings/:tab/" component={Settings} />
-              <Route path="/coupon" component={Coupon} />
-              <Route path="/empty" component={() => <div />} />
-              <Route path="/" component={PlanningRouter} />
-            </Switch>
+            <BackofficeRoute />
           </main>
         </ResponsiveDrawer>
       </MuiThemeProvider>

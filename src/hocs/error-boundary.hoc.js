@@ -30,33 +30,27 @@ export default function(WrappedComponent) {
               <div className="error-screen-shadow" />
             </div>
             <div className="error-screen">
-              <h1>Woops</h1>
-              <p>Vous venez de rencontrer une erreur.</p>
+              <h1>:(</h1>
+              <p>Quelque chose n'a pas fonctionné correctement</p>
               <p>
                 {
-                  "Nous venons d'en être averti. Nous sommes même sûrement déjà en train de la corriger."
+                  "Nous venons d'en être averti. Nous revenons vers vous très vite."
                 }
               </p>
-              <p>
-                Afin de nous aider, vous pouvez remplir le formulaire de
-                feedback en nous décrivant le problème rencontré et le contexte
-                dans lequel celui-ci s'est produit. Nous reviendrons vers vous
-                rapidement.
-              </p>
               <div className="buttons">
-                <a
-                  onClick={() => Sentry.showReportDialog()}
-                  className="btn btn-error"
-                >
-                  Je donne mon feedback
-                </a>
                 <a
                   onClick={() => {
                     window.location = '/?storeReload';
                   }}
                   className="btn btn-info"
                 >
-                  Je relance l'interface
+                  Recharger
+                </a>
+                <a
+                  onClick={() => Sentry.showReportDialog()}
+                  className="btn btn-error"
+                >
+                  Je donne mon feedback
                 </a>
               </div>
             </div>

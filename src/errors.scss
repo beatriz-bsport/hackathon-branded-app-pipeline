@@ -9,8 +9,6 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  background-image: url("https://images.pexels.com/photos/15812/bull-center-bulls-eye-darts-15812.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
-  background-size: cover;
 
   .error-screen-shadow {
     content: " ";
@@ -29,8 +27,7 @@ body {
   margin: 20px auto;
   padding: 2rem;
   border-radius: 0.5rem;
-  background-color: #F1f1f1;
-  color: black;
+  color: #282828;
 }
 
 .btn {
@@ -40,22 +37,32 @@ body {
 
   &:hover {
     color: white;
-    text-shadow: 0 0 3px black;
+    background-color: rgb(36, 54, 92);
+    background: rgb(36, 54, 92);
   }
 }
 
+.h1 {
+  font-size: 36px;
+  color: black;
+}
+
 .btn-error {
-  background-color: #AE1234;
-  color: white;
+  border: 1px solid #AE1234;
+  border-color: rgb(36, 54, 92);
+  color: rgb(36, 54, 92);
+  text-decoration: 'none';
 }
 
 .btn-info {
-  background-color: #1234AE;
-  color: white;
+  margin-right: 24px;
+  border: 1px solid #AE1234;
+  border-color: rgb(36, 54, 92);
+  color: rgb(36, 54, 92);
+  text-decoration: none;
 }
 
 .buttons {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: space-between;
 }

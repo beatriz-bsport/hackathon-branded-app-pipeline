@@ -2,7 +2,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
-import Fade from '@material-ui/core/Fade';
 import TodayIcon from '@material-ui/icons/Today';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import { compose } from 'recompose';

@@ -14,6 +14,7 @@ import consumerReducers from './consumer';
 import snackbarReducer from './snackbar.reducers';
 import refreshReducer from './refresh';
 import searchReducer from './search.reducers';
+import network from '../libs/network/reducers';
 import companiesReducers from './companies.reducers';
 import establishmentReducers from '../libs/establishment/reducers';
 import shopReducer from '../libs/shop/reducers';
@@ -75,6 +76,7 @@ const rootReducer = combineReducers({
   role: roleReducers,
   coupon: couponReducers,
   relationship,
+  network,
 });
 
 export default (state: State, action: Action) => {

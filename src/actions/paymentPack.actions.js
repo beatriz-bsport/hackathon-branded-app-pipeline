@@ -13,12 +13,13 @@ export function startFetchAllPaymentPacks() {
   return { type: types.START_FETCH_ALL_PAYMENT_PACKS };
 }
 
-export function errorFetchingAllPaymentPacks(err: Error) {
-  return { type: types.ERROR_FETCHING_ALL_PAYMENT_PACKS, err };
+export function errorFetchingAllPaymentPacks(error: ?Error) {
+  return { type: types.ERROR_FETCHING_ALL_PAYMENT_PACKS, error };
 }
 
 export function refreshAllPaymentPack() {
   return async (dispatch: Dispatch) => {
+    dispatch(errorFetchingAllPaymentPacks(null));
     try {
       const response = await api.paymentPack.fetchAll();
       const paymentPacks = response.data;
@@ -70,7 +71,8 @@ export function errorPatchingPack(id: number) {
 
 export function createOrUpdate(data: PaymentPackFormData, options = {}) {
   return async (dispatch: Dispatch) => {
-    dispatch(startCreateOrUpdate());
+    dispatch(startCreateOrUpdate(data.id));
+    dispatch(createOrUpdateFailed(null));
     try {
       let apiCall = null;
       if (data.id) {
@@ -87,7 +89,7 @@ export function createOrUpdate(data: PaymentPackFormData, options = {}) {
       }
     } catch (err) {
       console.error(err);
-      dispatch(createOrUpdateFailed());
+      dispatch(createOrUpdateFailed(err));
       dispatch(snackbarError('paymentPack.createOrUpdate.fail'));
       if (options.onError) options.onError();
     }
@@ -101,6 +103,6 @@ export function createOrUpdateSuccess(paymentPack: PaymentPack) {
   return { type: types.PAYMENT_PACK_CREATEORUPDATE_SUCCESS, paymentPack };
 }
 
-export function createOrUpdateFailed() {
-  return { type: types.PAYMENT_PACK_CREATEORUPDATE_FAIL };
+export function createOrUpdateFailed(error: ?Error) {
+  return { type: types.PAYMENT_PACK_CREATEORUPDATE_FAIL, error };
 }

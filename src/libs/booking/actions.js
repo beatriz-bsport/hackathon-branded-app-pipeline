@@ -1,6 +1,8 @@
+// @flow
 import api from '../../api';
 
 import { fetchFilteredBookingOptions as fetchFilteredBookingOptionsAPI } from './api';
+import type { Dispatch } from '../../state/types';
 
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
@@ -28,36 +30,43 @@ export const actionTypes = {
   BOOKING_DELETE_ERROR: 'BOOKING_DELETE_ERROR',
 };
 
-export function updatingBookingOption(bookingOptionId) {
+export function updatingBookingOption(bookingOptionId: number) {
   return { type: actionTypes.START_UPDATING_BOOKING_OPTION, bookingOptionId };
 }
 
-export function errorUpdatingBookingOption(bookingOptionId) {
+export function errorUpdatingBookingOption(bookingOptionId: number) {
   return { type: actionTypes.ERROR_UPDATING_BOOKING_OPTION, bookingOptionId };
 }
 
-export function bookingOptionCancelled(bookingOptionId) {
+export function bookingOptionCancelled(bookingOptionId: number) {
   return { type: actionTypes.BOOKING_OPTION_CANCELLED, bookingOptionId };
 }
 
-export function discardBookingOption(bookingOptionId) {
-  return async (dispatch) => {
+export function discardBookingOption(bookingOptionId: number) {
+  return async (dispatch: Dispatch) => {
     dispatch(updatingBookingOption(bookingOptionId));
 
-    const response = await api.booking.discardBookingOption(bookingOptionId);
-    if (response.status === 200) {
-      return dispatch(bookingOptionCancelled(bookingOptionId));
+    try {
+      await api.booking.discardBookingOption(bookingOptionId);
+
+      dispatch(bookingOptionCancelled(bookingOptionId));
+    } catch (err) {
+      console.error(err);
+      dispatch(errorUpdatingBookingOption(bookingOptionId));
     }
-    return dispatch(errorUpdatingBookingOption(bookingOptionId));
   };
 }
 
-export function bookingOptionRegistered(bookingOption) {
+export function bookingOptionRegistered(bookingOption: BookingOption) {
   return { type: actionTypes.BOOKING_OPTION_REGISTER_SUCCESS, bookingOption };
 }
 
-export function registerToWaitingList(offerId, memberId, options) {
-  return async (dispatch) => {
+export function registerToWaitingList(
+  offerId: number,
+  memberId: number,
+  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+) {
+  return async (dispatch: Dispatch) => {
     try {
       const response = await api.booking.registerToWaitingList(
         offerId,
@@ -72,68 +81,61 @@ export function registerToWaitingList(offerId, memberId, options) {
   };
 }
 
-export function updatingBookingStatus(bookingId) {
+export function updatingBookingStatus(bookingId: number) {
   return { type: actionTypes.START_UPDATING_BOOKING_STATUS, bookingId };
 }
 
-export function errorUpdatingBookingStatus(bookingId) {
+export function errorUpdatingBookingStatus(bookingId: number) {
   return { type: actionTypes.ERROR_UPDATING_BOOKING_STATUS, bookingId };
 }
 
-export function bookingStatusUpdated(booking) {
+export function bookingStatusUpdated(booking: Booking) {
   return { type: actionTypes.BOOKING_STATUS_UPDATED, booking };
 }
 
 function bookingUpdateWrapper(apiCall, bookingId) {
-  return async (dispatch) => {
+  return async (dispatch: Dispatch) => {
     dispatch(updatingBookingStatus(bookingId));
 
     try {
       const response = await apiCall(bookingId);
-      if (response.status === 200) {
-        const booking = response.data;
-        return dispatch(bookingStatusUpdated(booking));
-      }
+      const booking = response.data;
+      dispatch(bookingStatusUpdated(booking));
     } catch (err) {
       console.error(err);
+      dispatch(errorUpdatingBookingStatus(bookingId));
     }
-    return dispatch(errorUpdatingBookingStatus(bookingId));
   };
 }
-export function confirmBookingAttendance(bookingId) {
+export function confirmBookingAttendance(bookingId: number) {
   return bookingUpdateWrapper(api.booking.confirmAttendance, bookingId);
 }
-export function discardBookingAttendance(bookingId) {
+export function discardBookingAttendance(bookingId: number) {
   return bookingUpdateWrapper(api.booking.discardAttendance, bookingId);
 }
-export function confirmBooking(bookingId) {
+export function confirmBooking(bookingId: number) {
   return bookingUpdateWrapper(api.booking.validate, bookingId);
 }
 
-export function deleteBookingStart(bookingId) {
+export function deleteBookingStart(bookingId: number) {
   return { type: actionTypes.BOOKING_DELETE_START, bookingId };
 }
-export function deleteBookingSuccess(bookingId) {
+export function deleteBookingSuccess(bookingId: number) {
   return { type: actionTypes.BOOKING_DELETE_SUCCESS, bookingId };
 }
-export function deleteBookingError(bookingId) {
+export function deleteBookingError(bookingId: number) {
   return { type: actionTypes.BOOKING_DELETE_ERROR, bookingId };
 }
-export function deleteBooking(bookingId, successCallback) {
+export function deleteBooking(bookingId: number, successCallback: ?() => void) {
   return async (dispatch) => {
     dispatch(deleteBookingStart(bookingId));
 
     try {
-      const response = await api.booking.discard(bookingId);
-      if (response.status === 204) {
-        dispatch(deleteBookingSuccess(bookingId));
-        dispatch(snackbarSuccess('form.booking.delete.success'));
-        if (successCallback) {
-          successCallback();
-        }
-      } else {
-        dispatch(deleteBookingError(bookingId));
-        dispatch(snackbarError('form.booking.delete.error'));
+      await api.booking.discard(bookingId);
+      dispatch(deleteBookingSuccess(bookingId));
+      dispatch(snackbarSuccess('form.booking.delete.success'));
+      if (successCallback) {
+        successCallback();
       }
     } catch (err) {
       dispatch(deleteBookingError(bookingId));
@@ -142,8 +144,9 @@ export function deleteBooking(bookingId, successCallback) {
   };
 }
 
-export function refreshByOffer(offerId) {
-  return async (dispatch) => {
+export function refreshByOffer(offerId: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(errorFetchingBookings(null));
     try {
       const response = await api.booking.fetchBookingsByOffer(offerId);
       const bookings = response.data;
@@ -155,20 +158,20 @@ export function refreshByOffer(offerId) {
 
       dispatch(fetchedBookings({ bookings, booking_options }));
     } catch (err) {
-      dispatch(errorFetchingBookings());
+      dispatch(errorFetchingBookings(err));
     }
   };
 }
 
-export function fetchBookingsByOffer(offerId) {
-  return async (dispatch) => {
+export function fetchBookingsByOffer(offerId: number) {
+  return async (dispatch: Dispatch) => {
     dispatch(startFetchBookings());
     dispatch(refreshByOffer(offerId));
   };
 }
 
-export function fetchBookingsByMember(memberId) {
-  return async (dispatch) => {
+export function fetchBookingsByMember(memberId: number) {
+  return async (dispatch: Dispatch) => {
     dispatch(startFetchBookings());
 
     try {
@@ -179,19 +182,25 @@ export function fetchBookingsByMember(memberId) {
 
       dispatch(fetchedBookings({ bookings, booking_options }));
     } catch (err) {
-      dispatch(errorFetchingBookings());
+      dispatch(errorFetchingBookings(err));
     }
   };
 }
 
-export function fetchedBookings({ bookings, booking_options }) {
+export function fetchedBookings({
+  bookings,
+  booking_options,
+}: {
+  bookings: Array<Booking>,
+  booking_options: Array<BookingOption>,
+}) {
   return { type: actionTypes.HAS_FETCHED_BOOKINGS, bookings, booking_options };
 }
 export function startFetchBookings() {
   return { type: actionTypes.START_FETCH_BOOKINGS };
 }
-export function errorFetchingBookings() {
-  return { type: actionTypes.ERROR_FETCHING_BOOKINGS };
+export function errorFetchingBookings(error: ?Error) {
+  return { type: actionTypes.ERROR_FETCHING_BOOKINGS, error };
 }
 
 export function addBooking({
@@ -199,8 +208,13 @@ export function addBooking({
   consumerPaymentPackId,
   callback,
   onError,
+}: {
+  offerId: number,
+  consumerPaymentPackId: number,
+  callback: ?() => void,
+  onError: ?() => void,
 }) {
-  return async (dispatch) => {
+  return async (dispatch: Dispatch) => {
     dispatch(addBookingStart());
 
     try {
@@ -216,7 +230,7 @@ export function addBooking({
       }
     } catch (err) {
       console.error(err);
-      dispatch(addBookingError());
+      dispatch(addBookingError(err));
       if (typeof onError === 'function') onError();
     }
   };
@@ -226,10 +240,10 @@ export function addBookingStart() {
   return { type: actionTypes.BOOKING_ADD_START };
 }
 
-export function addBookingError() {
-  return { type: actionTypes.BOOKING_ADD_ERROR };
+export function addBookingError(error: ?Error) {
+  return { type: actionTypes.BOOKING_ADD_ERROR, error };
 }
 
-export function addBookingSuccess(booking) {
+export function addBookingSuccess(booking: Booking) {
   return { type: actionTypes.BOOKING_ADD_SUCCESS, booking };
 }

@@ -75,7 +75,7 @@ export const paymentRuleSetDelete = {
 };
 
 export function deletePaymentRule(rule: PaymentRule) {
-  return async (dispatch) => {
+  return async (dispatch: Dispatch) => {
     dispatch(paymentRuleSetDelete.isLoading(rule));
 
     try {

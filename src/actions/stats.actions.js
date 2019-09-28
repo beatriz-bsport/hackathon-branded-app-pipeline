@@ -3,6 +3,8 @@
 import { createAction } from 'redux-actions';
 import moment from 'moment';
 
+import type { State, Dispatch } from '../state/types';
+
 import api from '../api';
 
 export const dateRangeChange = createAction('STATISTICS/DATE_RANGE/CHANGE');
@@ -28,7 +30,7 @@ async function fetchStats(dispatch, identifier, callee) {
 }
 
 export function fetchDashboard() {
-  return async (dispatch) => {
+  return async (dispatch: Dispatch) => {
     fetchStats(dispatch, 'bookings', api.stats.bookings);
     fetchStats(dispatch, 'newMembers', api.stats.newMembers);
     fetchStats(dispatch, 'turnover', api.stats.turnover);
@@ -45,7 +47,7 @@ function canUpdateStatActivities(lastDate) {
   return Date.now() - lastDate < 60 * 5 * 1000;
 }
 export function fetchStatActivities() {
-  return async (dispatch, getState) => {
+  return async (dispatch: Dispatch, getState: () => State) => {
     dispatch(statActivities.isLoading(true));
     dispatch(statActivities.error(null));
 

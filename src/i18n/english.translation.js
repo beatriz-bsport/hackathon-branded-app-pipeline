@@ -326,6 +326,10 @@ export default {
           'Your password should have at least 6 characters, a letter and a number.',
         passwordChangedSuccess: 'Password reset successfull !',
         passwordMismatch: 'Password confirmation mismatch',
+        error: {
+          invalidEmail: 'This email does not exist in our database',
+          invalidPassword: 'Password is invalid',
+        },
       },
       shop: {
         subShop: {

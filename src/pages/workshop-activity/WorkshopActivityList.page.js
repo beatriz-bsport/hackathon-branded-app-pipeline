@@ -2,14 +2,14 @@
 //
 import React from 'react';
 import { connect } from 'react-redux';
-import i18next from 'i18next';
 import { push } from 'react-router-redux';
 
 import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 import { compose, withState } from 'recompose';
 
-import withBottomButtons from '../../hocs/inject-bottom-buttons';
 import withTitle from '../../hocs/with-title.hoc';
+import BottomActionsButton from '../../components/button/BottomActionsButton.component';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
@@ -34,6 +34,9 @@ type Props = {
   deleteWorkshop: (number) => void,
   goToDetail: (metaActivityId: number) => void,
   goToEdit: (metaActivityId: number) => void,
+  onCreate: () => void,
+
+  t: TFunction,
 };
 
 export class WorkshopActivityList extends React.Component<Props> {
@@ -57,6 +60,10 @@ export class WorkshopActivityList extends React.Component<Props> {
           canDeleteWorkshopChecker={canDeleteMetaActivityAPI}
           deleteWorkshop={this.props.deleteWorkshop}
         />
+        <BottomActionsButton
+          onCreateLabel={this.props.t('workshopActivity.addWorkshopActivity')}
+          onCreate={this.props.onCreate}
+        />
       </div>
     );
   }
@@ -64,6 +71,7 @@ export class WorkshopActivityList extends React.Component<Props> {
 
 export default compose(
   withNamespaces(),
+  withTitle(({ t }) => t('titles:workshopActivity.workshopActivityList')),
   connect(
     (state) => ({
       workshopActivities: getEnabledWorkshops(state),
@@ -71,6 +79,7 @@ export default compose(
     }),
     {
       fetchAllWorkshops,
+      onCreate: () => push('/workshop-activity/add'),
       deleteWorkshop,
       goToDetail: (metaActivityId) =>
         push(`/workshop-activity/${metaActivityId}`),
@@ -79,11 +88,4 @@ export default compose(
     },
   ),
   withState('workshopToDelete', 'setWorkshopToDelete', null),
-  withBottomButtons({
-    addButton: {
-      path: '/workshop-activity/add',
-      text: i18next.t('workshopActivity.addWorkshopActivity'),
-    },
-  }),
-  withTitle(({ t }) => t('titles:workshopActivity.workshopActivityList')),
 )(WorkshopActivityList);

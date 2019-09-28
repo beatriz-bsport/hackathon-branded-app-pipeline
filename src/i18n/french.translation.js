@@ -298,6 +298,7 @@ export default {
       },
       login: {
         changePasswordTitle: 'Modification du mot de passe',
+
         password: 'Mot de passe',
         confirmPassword: 'Confirmer',
         passwordTooEasy:
@@ -384,6 +385,8 @@ export default {
       },
       signup: {
         typePhone: 'Tél. portable *',
+        emailExistsInDB1: 'Cet email est déjà enregistré',
+        emailExistsInDB2: 'Me connecter',
         confirmPasswordLabel: 'Confirmation',
         confirmPassword: 'Mot de passe',
         rgpdTitle:
@@ -780,6 +783,10 @@ export default {
       password: 'Mot de passe',
       authError: 'Email ou mot de passe erroné',
       forgottenPassword: 'Mot de passe oublié',
+      error: {
+        invalidEmail: "Cet email n'existe pas dans notre base",
+        invalidPassword: 'Le mot de passe est invalide',
+      },
     },
     calendar: {
       modifyOffer: 'Modifier',

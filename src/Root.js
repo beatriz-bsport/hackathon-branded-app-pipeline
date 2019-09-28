@@ -9,6 +9,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import asyncComponent from './AsyncComponent';
+import Banner from './components/navigation/Banner.component';
+import Config from './config';
 
 const MarketPlace = asyncComponent(() =>
   import('./pages/marketplace/Marketplace.router'),
@@ -46,6 +48,7 @@ type Props = {
   classes: Object,
   rehydrated: boolean,
   initializating: boolean,
+  networkAvailable: boolean,
 };
 
 export class Root extends Component<Props> {
@@ -58,6 +61,10 @@ export class Root extends Component<Props> {
 
     return (
       <div className={classes.root}>
+        <Banner
+          networkAvailable={this.props.networkAvailable}
+          environment={Config.REACT_APP_SENTRY_ENVIRONMENT}
+        />
         <Switch>
           <Route path="/sentry" component={SentryTestError} />
           <Route path="/login" component={LoginRouter} />
@@ -76,6 +83,7 @@ function mapStateToProps(state) {
   return {
     rehydrated: state._persist && state._persist.rehydrated,
     initializating: state.auth.initializating,
+    networkAvailable: state.network.isAvailable,
   };
 }
 export default withRouter(withStyles(styles)(connect(mapStateToProps)(Root)));

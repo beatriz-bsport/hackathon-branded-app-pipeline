@@ -22,11 +22,9 @@ import ConsumerLogin from './consumer/login/ConsumerLogin.component';
 import RedButton from './button/RedButton.component';
 import ConsumerModalContainer from './consumer/ConsumerModalContainer.component';
 import SignUpForm from './form/SignUpForm.component';
-import SMSCodeForm from './form/SMSCodeForm.component';
 
 export {
   SimpleModal,
-  SMSCodeForm,
   SignUpForm,
   ConsumerModalContainer,
   RedButton,

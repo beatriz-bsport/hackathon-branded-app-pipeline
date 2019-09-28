@@ -5,10 +5,9 @@ import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push } from 'react-router-redux';
-import i18next from 'i18next';
 
-import withBottomButtons from '../../hocs/inject-bottom-buttons';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 
 import MetaActivityList from '../../libs/meta-activity/components/MetaActivityList.component';
 import MetaActivityDeleteDialog from '../../libs/meta-activity/components/MetaActivityDeleteDialog.component';
@@ -29,9 +28,12 @@ type Props = {
   fetchAllMetactivities: () => void,
   goToDetail: (metaActivityId: number) => void,
   goToEdit: (metaActivityId: number) => void,
+  onCreate: () => void,
   deleteMetaActivity: (metaActivityId: number) => void,
   setActivityToDelete: (number) => void,
   activityToDelete: (?number) => void,
+
+  t: TFunction,
 };
 
 export class MetaActivityListPage extends React.Component<Props> {
@@ -55,6 +57,10 @@ export class MetaActivityListPage extends React.Component<Props> {
           canDeleteMetaActivityChecker={canDeleteMetaActivityAPI}
           deleteMetaActivity={this.props.deleteMetaActivity}
         />
+        <BottomActionButtons
+          onCreateLabel={this.props.t('activity.addActivity')}
+          onCreate={this.props.onCreate}
+        />
       </div>
     );
   }
@@ -62,6 +68,9 @@ export class MetaActivityListPage extends React.Component<Props> {
 
 export default compose(
   withNamespaces(),
+  withTitle(({ t }: { t: TFunction }) =>
+    t('titles:metaActivity.metaActivityList'),
+  ),
   connect(
     (state) => ({
       metaActivities: getEnabledMetaActivities(state),
@@ -75,16 +84,8 @@ export default compose(
       goToDetail: (metaActivityId) => push(`/activity/${metaActivityId}`),
       goToEdit: (metaActivityId) => push(`/activity/${metaActivityId}/edit`),
       deleteMetaActivity,
+      onCreate: () => push('/activity/add'),
     },
   ),
   withState('activityToDelete', 'setActivityToDelete', null),
-  withBottomButtons({
-    addButton: {
-      path: '/activity/add',
-      text: i18next.t('activity.addActivity'),
-    },
-  }),
-  withTitle(({ t }: { t: TFunction }) =>
-    t('titles:metaActivity.metaActivityList'),
-  ),
 )(MetaActivityListPage);

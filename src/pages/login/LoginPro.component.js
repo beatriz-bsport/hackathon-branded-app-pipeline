@@ -39,6 +39,11 @@ type Props = {
   authenticated: boolean,
   loading: boolean,
   error: boolean,
+  errorFields: ?{
+    email: ?string,
+    password: ?string,
+  },
+
   t: TFunction,
   classes: Object,
 };
@@ -83,13 +88,20 @@ export class Login extends Component<Props, State> {
   };
 
   render() {
-    const { t, classes } = this.props;
+    const { t, classes, errorFields } = this.props;
 
     if (this.props.authenticated) {
       return <Redirect push to="/" />;
     }
 
     const { loading, error } = this.props;
+    let errorMessage = t('login.authError');
+    if (errorFields && errorFields.password) {
+      errorMessage = t('login.error.invalidPassword');
+    }
+    if (errorFields && errorFields.email) {
+      errorMessage = t('login.error.invalidEmail');
+    }
 
     return (
       <LoginBase loading={loading}>
@@ -108,7 +120,7 @@ export class Login extends Component<Props, State> {
           />
           <div style={{ paddingTop: 12 }}>
             <Typography color="error">
-              {error ? t('login.authError') : <br />}
+              {error ? errorMessage : <br />}
             </Typography>
           </div>
 
@@ -140,6 +152,7 @@ export default compose(
       authenticated: state.auth.authenticated,
       error: state.auth.error,
       loading: state.auth.loading,
+      errorFields: state.auth.invalidFields,
     }),
     {
       login: ({ email, password }) => authActions.requestLogin(email, password),

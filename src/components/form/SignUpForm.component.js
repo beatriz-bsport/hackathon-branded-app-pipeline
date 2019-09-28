@@ -3,12 +3,13 @@ import React, { Component } from 'react';
 
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import ButtonBase from '@material-ui/core/ButtonBase';
 import FormLabel from '@material-ui/core/FormLabel';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import FormGroup from '@material-ui/core/FormGroup';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
-import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -18,8 +19,9 @@ import 'react-phone-number-input/style.css';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import { EmailInput, GenderInput } from '../input';
+import { GenderInput } from '../input';
 import AddressForm from './AddressForm.component';
+import DelayedTextField from '../DelayedTextField.component';
 
 import type { ConsumerAddress } from '../../api/types';
 
@@ -31,6 +33,10 @@ type Props = {
   onCancel: () => void,
   t: TFunction,
   classes: Object,
+  backToLogin: () => void,
+  emailExists: boolean,
+  checkEmailExists: (email: string) => void,
+  checkEmailExistsLoading: boolean,
 };
 
 type State = {
@@ -207,6 +213,12 @@ export class SignUpForm extends Component<Props, State> {
     }
   };
 
+  handleEmailChange = (ev: SyntheticEvent<HTMLEvent>) => {
+    const email = ev.target.value;
+    this.props.checkEmailExists(email);
+    this.setState({ email });
+  };
+
   render() {
     const { classes, t } = this.props;
     const { passwordEqual, password, passwordConfirm, step } = this.state;
@@ -223,50 +235,69 @@ export class SignUpForm extends Component<Props, State> {
     }
     return (
       <form onSubmit={this.goToAddressForm} className={classes.container}>
-        <Grid container direction="row" spacing={16}>
-          <Grid item xs={12} md={6}>
-            <TextField
-              required
-              fullWidth
-              name="first_name"
-              autoComplete="first name"
-              value={this.state.first_name}
-              label={t('common.firstname')}
-              onChange={this.onFormFieldChange('first_name')}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <TextField
-              required
-              fullWidth
-              name="last_name"
-              autoComplete="last name"
-              value={this.state.last_name}
-              label={t('common.lastname')}
-              onChange={this.onFormFieldChange('last_name')}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <GenderInput
-              fullWidth
-              value={this.state.gender}
-              onChange={this.handleGender}
-              required
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <EmailInput
-              fullWidth
-              required
-              name="email"
-              type="email"
-              autoComplete="email"
-              value={this.state.email}
-              label={t('common.email')}
-              onChange={this.onFormFieldChange('email')}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
+        <div className={classes.row}>
+          <TextField
+            required
+            fullWidth
+            name="first_name"
+            autoComplete="first name"
+            value={this.state.first_name}
+            label={t('common.firstname')}
+            onChange={this.onFormFieldChange('first_name')}
+            className={classes.field}
+          />
+          <TextField
+            required
+            fullWidth
+            name="last_name"
+            autoComplete="last name"
+            value={this.state.last_name}
+            label={t('common.lastname')}
+            onChange={this.onFormFieldChange('last_name')}
+            className={classes.field}
+          />
+        </div>
+        <div className={classes.row}>
+          <GenderInput
+            fullWidth
+            value={this.state.gender}
+            onChange={this.handleGender}
+            required
+          />
+        </div>
+        <div className={classes.row}>
+          <div className={classes.field}>
+            <div className={classes.emailInput}>
+              <div className={classes.row}>
+                <DelayedTextField
+                  fullWidth
+                  required
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  value={this.state.email}
+                  label={t('common.email')}
+                  onChange={this.handleEmailChange}
+                />
+                {this.props.checkEmailExistsLoading ? (
+                  <CircularProgress size={12} />
+                ) : null}
+              </div>
+              {this.props.emailExists ? (
+                <ButtonBase onClick={this.props.backToLogin}>
+                  <div className={classes.emailExists}>
+                    <Typography color="error" align="center">
+                      {t('form.signup.emailExistsInDB1')}
+                    </Typography>
+                    <Typography color="error" align="center">
+                      {t('form.signup.emailExistsInDB2')}
+                    </Typography>
+                  </div>
+                </ButtonBase>
+              ) : null}
+            </div>
+          </div>
+          <div className={classes.field}>
             <FormControl fullWidth>
               <InputLabel shrink htmlFor="phone-helper">
                 {t('form.signup.typePhone')}
@@ -283,8 +314,10 @@ export class SignUpForm extends Component<Props, State> {
                 onChange={(phone) => this.setState({ phone })}
               />
             </FormControl>
-          </Grid>
-          <Grid item xs={12} md={6}>
+          </div>
+        </div>
+        <div className={classes.row}>
+          <div className={classes.field}>
             <TextField
               type="password"
               fullWidth
@@ -296,8 +329,8 @@ export class SignUpForm extends Component<Props, State> {
               placeholder={t('form.password')}
               label={t('form.password')}
             />
-          </Grid>
-          <Grid item xs={12} md={6}>
+          </div>
+          <div className={classes.field}>
             <TextField
               type="password"
               fullWidth
@@ -309,54 +342,52 @@ export class SignUpForm extends Component<Props, State> {
               placeholder={t('form.signup.confirmPassword')}
               label={t('form.signup.confirmPasswordLabel')}
             />
-          </Grid>
-          <Grid item xs={12}>
-            {this.renderRGPD()}
-          </Grid>
-          <Grid item xs={12}>
-            <FormGroup aria-label="privacy-policy" name="acceptPrivacyPolicy">
-              <FormControlLabel
-                label={
-                  <Typography>
-                    {t('form.signup.iAcceptPrivacyPolicy')}
-                    <a
-                      href="https://bsport.io/blog/privacy_policy"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {t('form.signup.privacyPolicy').toLowerCase()}
-                    </a>
-                    {'.'}
-                  </Typography>
-                }
-                control={
-                  <Checkbox
-                    checked={this.state.acceptPrivacyPolicy}
-                    onChange={(event) =>
-                      this.setState({
-                        acceptPrivacyPolicy: event.target.checked,
-                      })
-                    }
-                  />
-                }
-              />
-            </FormGroup>
-          </Grid>
-          <Grid item xs={12} className={classes.actions}>
-            <Button color="secondary" onClick={this.props.onCancel}>
-              {t('common.cancel')}
-            </Button>
-            <Button
-              id="btn-signup-next"
-              type="submit"
-              color="primary"
-              variant="contained"
-              disabled={!this.state.acceptPrivacyPolicy}
-            >
-              {t('form.signup.signupButton')}
-            </Button>
-          </Grid>
-        </Grid>
+          </div>
+        </div>
+        <div className={classes.row}>{this.renderRGPD()}</div>
+        <div className={classes.row}>
+          <FormGroup aria-label="privacy-policy" name="acceptPrivacyPolicy">
+            <FormControlLabel
+              label={
+                <Typography>
+                  {t('form.signup.iAcceptPrivacyPolicy')}
+                  <a
+                    href="https://bsport.io/blog/privacy_policy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {t('form.signup.privacyPolicy').toLowerCase()}
+                  </a>
+                  {'.'}
+                </Typography>
+              }
+              control={
+                <Checkbox
+                  checked={this.state.acceptPrivacyPolicy}
+                  onChange={(event) =>
+                    this.setState({
+                      acceptPrivacyPolicy: event.target.checked,
+                    })
+                  }
+                />
+              }
+            />
+          </FormGroup>
+        </div>
+        <div className={classes.actions}>
+          <Button color="secondary" onClick={this.props.onCancel}>
+            {t('common.cancel')}
+          </Button>
+          <Button
+            id="btn-signup-next"
+            type="submit"
+            color="primary"
+            variant="contained"
+            disabled={!this.state.acceptPrivacyPolicy || this.props.emailExists}
+          >
+            {t('form.signup.signupButton')}
+          </Button>
+        </div>
       </form>
     );
   }
@@ -371,6 +402,21 @@ const styles = (theme) => ({
     textAlign: 'right',
   },
   phoneInput: { marginTop: 18 },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+  },
+  field: {
+    width: '45%',
+  },
+  emailExists: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+  },
 });
 
 export default withNamespaces()(withStyles(styles)(SignUpForm));

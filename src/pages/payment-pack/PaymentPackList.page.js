@@ -9,13 +9,13 @@ import List from '@material-ui/core/List';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push as pushRouter } from 'react-router-redux';
-import i18next from 'i18next';
 import { compose } from 'recompose';
 import PaginatedConsumerPackList from '../../libs/payment-packs/PaginatedConsumerPackList.component';
 
 import PaymentPackListItem from '../../libs/payment-packs/PaymentPackListItem.component';
 import PaymentPackDeleteDialog from '../../libs/payment-packs/PaymentPackDeleteDialog.component';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import BottomActionsButton from '../../components/button/BottomActionsButton.component';
 import {
   consumerPaymentPack as consumerPackActions,
   paymentPack as paymentPackActions,
@@ -25,7 +25,6 @@ import type {
   ConsumerPaymentPack,
   PaymentPack,
 } from '../../libs/payment-packs/types';
-import withBottomButtons from '../../hocs/inject-bottom-buttons';
 import withTitle from '../../hocs/with-title.hoc';
 
 type Props = {
@@ -47,6 +46,8 @@ type Props = {
   ) => void,
   resetConsumerPacks: () => void,
   goToPack: (id: number) => void,
+  fetchAllPaymentPacks: () => void,
+  onCreate: () => void,
 
   classes: Object,
   t: TFunction,
@@ -62,6 +63,10 @@ export class PaymentPackList extends Component<Props, State> {
   state = {
     paymentPackToDelete: null,
   };
+
+  componentDidMount() {
+    this.props.fetchAllPaymentPacks();
+  }
 
   requestEdit = (p: PaymentPack) => {
     this.props.pushToEdit(p.id);
@@ -119,7 +124,12 @@ export class PaymentPackList extends Component<Props, State> {
     const publicPacks = showablePacks.filter((p) => !p.manager_only);
     const managerPacks = showablePacks.filter((p) => Boolean(p.manager_only));
     return (
-      <Grid container direction="row" spacing={24}>
+      <Grid
+        container
+        direction="row"
+        spacing={24}
+        className={classes.container}
+      >
         {publicPacks.length ? (
           <Grid item xs={12} md={6}>
             <Typography
@@ -174,12 +184,20 @@ export class PaymentPackList extends Component<Props, State> {
             ) : null
           }
         />
+
+        <BottomActionsButton
+          onCreateLabel={this.props.t('paymentPack.addButton')}
+          onCreate={this.props.onCreate}
+        />
       </Grid>
     );
   }
 }
 
 const styles = (theme) => ({
+  container: {
+    paddingBottom: theme.spacing.unit * 16,
+  },
   fabSwitchButton: {
     position: 'fixed',
     right: theme.spacing.unit * 2,
@@ -215,6 +233,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    fetchAllPaymentPacks() {
+      dispatch(paymentPackActions.fetchAll());
+    },
     incrementCredit(consumerPackId) {
       dispatch(consumerPackActions.updateCredit(consumerPackId, 1));
     },
@@ -238,24 +259,20 @@ function mapDispatchToProps(dispatch) {
     resetConsumerPacks() {
       dispatch(consumerPackActions.resetByPaymentPack());
     },
+    onCreate() {
+      dispatch(pushRouter('/payment-pack/add'));
+    },
   };
 }
 
 export default compose(
   withNamespaces(),
+  withTitle(({ t }: { t: TFunction }) =>
+    t('titles:paymentPack.paymentPackList'),
+  ),
   withStyles(styles),
   connect(
     mapStateToProps,
     mapDispatchToProps,
-  ),
-  withBottomButtons({
-    addButton: {
-      path: '/payment-pack/add',
-      text: i18next.t('paymentPack.addButton'),
-    },
-    switchButton: false,
-  }),
-  withTitle(({ t }: { t: TFunction }) =>
-    t('titles:paymentPack.paymentPackList'),
   ),
 )(PaymentPackList);

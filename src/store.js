@@ -13,6 +13,7 @@ import {
   seamlessImmutableTransformCreator,
 } from 'redux-persist-seamless-immutable';
 import createCompressor from 'redux-persist-transform-compress';
+import networkErrorMiddleWare from './libs/network/redux-middleware';
 
 import reducers from './reducers';
 
@@ -43,7 +44,13 @@ export default function initStore(initialState: Object = {}) {
   const store = createStore(
     connectRouter(history)(rootReducer),
     initialState,
-    composeEnhancers(applyMiddleware(thunk, routerMiddlewareWithHistory)),
+    composeEnhancers(
+      applyMiddleware(
+        thunk,
+        routerMiddlewareWithHistory,
+        networkErrorMiddleWare,
+      ),
+    ),
   );
   const persistor = persistStore(store);
 
@@ -54,6 +61,5 @@ export default function initStore(initialState: Object = {}) {
       store.replaceReducer(nextRootReducer);
     });
   }
-
   return { store, persistor, history };
 }

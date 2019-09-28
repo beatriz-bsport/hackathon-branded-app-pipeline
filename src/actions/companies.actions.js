@@ -14,7 +14,7 @@ export function actionCompaniesFetchSuccess(company: {}) {
 }
 
 export function actionCompaniesFetchFailure(error: Error) {
-  return { type: types.COMPANIES_FETCH_FAILURE, error };
+  return { type: types.COMPANIES_FETCH_ERROR, error };
 }
 
 export function fetchCompanies() {

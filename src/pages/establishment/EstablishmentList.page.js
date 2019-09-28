@@ -9,11 +9,10 @@ import List from '@material-ui/core/List';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import i18next from 'i18next';
 import { push } from 'react-router-redux';
 import Map from '../../components/map/Map.component';
 
-import withBottomButtons from '../../hocs/inject-bottom-buttons';
+import BottomActionsButton from '../../components/button/BottomActionsButton.component';
 import withTitle from '../../hocs/with-title.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
@@ -37,6 +36,7 @@ type Props = {
   establishmentToDelete: ?number,
   setEstablishmentToDelete: (?number) => void,
   deleteEstablishment: (number) => void,
+  onCreate: () => void,
 
   classes: Object,
   t: TFunction,
@@ -58,7 +58,7 @@ export class EstablishmentList extends React.Component<Props> {
       );
     }
     return (
-      <div>
+      <div className={this.props.classes.container}>
         {this.props.loading ? <LinearProgress /> : null}
         <Paper>
           <List component="nav" disablePadding>
@@ -85,12 +85,19 @@ export class EstablishmentList extends React.Component<Props> {
           canDeleteEstablishmentChecker={canDeleteEstablishmentAPI}
           deleteEstablishment={this.props.deleteEstablishment}
         />
+        <BottomActionsButton
+          onCreate={this.props.onCreate}
+          onCreateLabel={this.props.t('establishment.addButton')}
+        />
       </div>
     );
   }
 }
 
 const styles = (theme) => ({
+  container: {
+    paddingBottom: theme.spacing.unit * 16,
+  },
   emptyEstablishment: {
     padding: theme.spacing.unit * 3,
   },
@@ -103,6 +110,9 @@ const styles = (theme) => ({
 export default compose(
   withStyles(styles),
   withNamespaces(),
+  withTitle(({ t }: { t: TFunction }) =>
+    t('titles:establishment.establishmentList'),
+  ),
   withState('establishmentToDelete', 'setEstablishmentToDelete', null),
   connect(
     (state) => ({
@@ -115,15 +125,7 @@ export default compose(
       goToEstablishment: (id) => push(`/establishment/details/${id}`),
       fetchEstablishments,
       deleteEstablishment,
+      onCreate: () => push('/establishment/add'),
     },
-  ),
-  withBottomButtons({
-    addButton: {
-      path: '/establishment/add',
-      text: i18next.t('establishment.addButton'),
-    },
-  }),
-  withTitle(({ t }: { t: TFunction }) =>
-    t('titles:establishment.establishmentList'),
   ),
 )(EstablishmentList);

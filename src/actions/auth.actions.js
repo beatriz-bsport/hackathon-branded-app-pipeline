@@ -34,6 +34,10 @@ export function updateProfile({
   };
 }
 
+export function networkError(error: ?Error) {
+  return { type: 'LOGIN/NETWORK_ERROR', error };
+}
+
 export function fetchAccessLevel(
   token: string,
   username: string,
@@ -60,6 +64,9 @@ export function fetchAccessLevel(
       const next = options && options.next;
       if (next) dispatch(push(next));
     } catch (err) {
+      if (!err.status) {
+        dispatch(networkError(err));
+      }
       dispatch(errorLogin());
     }
     if (options && options.onDone) options.onDone();
@@ -91,8 +98,51 @@ export function requestLogin(
 
       dispatch(fetchAccessLevel(token, username, options));
     } catch (err) {
-      dispatch(errorLogin());
+      dispatch(
+        errorLogin({
+          email:
+            err.response &&
+            err.response.data &&
+            err.response.data.errors &&
+            err.response.data.errors.email,
+          password:
+            err.response &&
+            err.response.data &&
+            err.response.data.errors &&
+            err.response.data.errors.password,
+        }),
+      );
+      if (!err.status) {
+        console.error(err);
+        dispatch(networkError(err));
+      }
     }
+  };
+}
+
+export function checkEmailExistsLoading(loading: boolean) {
+  return { type: types.CHECK_EMAIL_EXISTS_LOADING, loading };
+}
+
+export function checkEmailExistsError(error: ?Error) {
+  return { type: types.CHECK_EMAIL_EXISTS_ERROR, error };
+}
+
+export function checkEmailExistsSuccess(exists: boolean) {
+  return { type: types.CHECK_EMAIL_EXISTS_SUCCESS, exists };
+}
+
+export function checkEmailExists(email: string) {
+  return async (dispatch: Dispatch) => {
+    dispatch(checkEmailExistsLoading(true));
+    try {
+      const response = await api.auth.checkEmailExists(email);
+      dispatch(checkEmailExistsSuccess(response.data.exists));
+    } catch (error) {
+      dispatch(checkEmailExistsError(error));
+      dispatch(checkEmailExistsSuccess(false));
+    }
+    dispatch(checkEmailExistsLoading(false));
   };
 }
 
@@ -125,8 +175,10 @@ export function resetPassword(email: string) {
   return { type: types.PASSWORD_RESET };
 }
 
-export function errorLogin() {
-  return { type: types.LOGIN_FAILED };
+export function errorLogin(
+  invalidFields: ?{ email: ?string, password: ?string },
+) {
+  return { type: types.LOGIN_FAILED, invalidFields };
 }
 
 export function initiatedLogin(username: string) {

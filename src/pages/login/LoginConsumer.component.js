@@ -25,6 +25,7 @@ import SignUpForm from '../../components/form/SignUpForm.component';
 type Props = {
   authenticated: boolean,
   errorLogin: boolean,
+  errorFields: ?{ email: ?string, password: ?string },
   loginProcessing: boolean,
   doEmailLogin: ({
     email: string,
@@ -34,6 +35,9 @@ type Props = {
   location: Object,
   t: TFunction,
   classes: Object,
+  emailExists: boolean,
+  checkEmailExistsLoading: boolean,
+  checkEmailExists: (email: string) => void,
 };
 
 const STEPS = {
@@ -72,6 +76,7 @@ export class ConsumerLoginPage extends Component<Props> {
     const {
       authenticated,
       errorLogin,
+      errorFields,
       loginProcessing,
       doEmailLogin,
       classes,
@@ -95,6 +100,7 @@ export class ConsumerLoginPage extends Component<Props> {
             <ConsumerLogin
               doEmailLogin={doEmailLogin}
               error={errorLogin}
+              errorFields={errorFields}
               loading={loginProcessing}
               requestSignUp={this.switchToSignUp}
             />
@@ -131,6 +137,10 @@ export class ConsumerLoginPage extends Component<Props> {
               loading={loginProcessing}
               onComplete={this.signup}
               onCancel={this.cancelSignUp}
+              emailExists={this.props.emailExists}
+              checkEmailExistsLoading={this.props.checkEmailExistsLoading}
+              checkEmailExists={this.props.checkEmailExists}
+              backToLogin={() => this.setState({ step: STEPS.WELCOME })}
             />
           </Grid>
         </Grid>
@@ -148,6 +158,9 @@ function mapDispatchToProps(dispatch, props) {
     },
     signup(data) {
       dispatch(authActions.signup(data, opts));
+    },
+    checkEmailExists(email) {
+      dispatch(authActions.checkEmailExists(email));
     },
   };
 }
@@ -168,6 +181,9 @@ export default compose(
       authenticated: state.auth.authenticated,
       errorLogin: state.auth.error,
       loginProcessing: state.auth.loading,
+      errorFields: state.auth.invalidFields,
+      checkEmailExistsLoading: state.auth.emailExists.loading,
+      emailExists: state.auth.emailExists.exists,
     }),
     mapDispatchToProps,
   ),

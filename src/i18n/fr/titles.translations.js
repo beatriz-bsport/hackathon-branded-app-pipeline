@@ -1,6 +1,10 @@
 // @flow
 
 export default {
+  banner: {
+    isStaging: 'Prendre RDV',
+    networkError: 'Erreur réseau - Veuillez vérifier votre connection internet',
+  },
   member: {
     memberForm: 'Ajouter un membre',
     members: 'Membres',

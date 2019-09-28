@@ -20,6 +20,7 @@ export const invoiceConfigurationPatchActions = {
 export function patchInvoiceConfiguration(data: *) {
   return async (dispatch: Dispatch) => {
     dispatch(invoiceConfigurationPatchActions.isLoading(true));
+    dispatch(invoiceConfigurationPatchActions.error(null));
     try {
       const response = await api.invoice.patchConfiguration(data);
       dispatch(invoiceConfigurationDetailActions.success(response.data));
@@ -39,6 +40,7 @@ export const invoiceConfigurationDetailActions = {
 export function fetchInvoiceConfiguration() {
   return async (dispatch: Dispatch) => {
     dispatch(invoiceConfigurationDetailActions.isLoading(true));
+    dispatch(invoiceConfigurationDetailActions.error(null));
     try {
       const response = await api.invoice.fetchConfiguration();
       dispatch(invoiceConfigurationDetailActions.success(response.data));
@@ -58,6 +60,7 @@ export const finalizeInvoiceActions = {
 export function finalizeInvoice(uuid: string) {
   return async (dispatch: Dispatch) => {
     dispatch(finalizeInvoiceActions.isLoading({ uuid, loading: true }));
+    dispatch(finalizeInvoiceActions.error(null));
     try {
       const response = await api.invoice.finalize(uuid);
       dispatch(finalizeInvoiceActions.success(response.data));
@@ -78,12 +81,13 @@ export function revertQuickInvoice(uuid: string, callback: ?() => void) {
 
 export function revertInvoice(uuid: string, callback: ?() => void) {
   return async (dispatch: Dispatch) => {
+    dispatch(errorFetchingSpeciicInvoice(null));
     try {
       const response = await api.invoice.revert(uuid);
       const invoice = response.data;
       dispatch(fetchedSpecificInvoice(invoice));
     } catch (err) {
-      dispatch(errorFetchingSpeciicInvoice());
+      dispatch(errorFetchingSpeciicInvoice(err));
     }
     if (typeof callback === 'function') {
       callback();
@@ -95,8 +99,8 @@ export function revertInvoice(uuid: string, callback: ?() => void) {
 export function startCreateQuickInvoice() {
   return { type: types.INVOICE_QUICK_CREATE_START };
 }
-export function errorCreatingQuickInvoice() {
-  return { type: types.INVOICE_QUICK_CREATE_ERROR };
+export function errorCreatingQuickInvoice(error: ?Error) {
+  return { type: types.INVOICE_QUICK_CREATE_ERROR, error };
 }
 export function resetQuickInvoices(uuid: ?string) {
   return { type: types.INVOICE_QUICK_RESET, uuid };
@@ -110,10 +114,11 @@ export function createQuickInvoice(
     offerId: number,
     paymentPackId: number,
   },
-  callback,
+  callback: ?() => void,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(startCreateQuickInvoice());
+    dispatch(errorCreatingQuickInvoice(null));
     try {
       const response = await api.invoice.createQuick(data);
       const invoice = response.data;
@@ -122,7 +127,7 @@ export function createQuickInvoice(
         callback();
       }
     } catch (err) {
-      dispatch(errorCreatingQuickInvoice());
+      dispatch(errorCreatingQuickInvoice(err));
     }
     dispatch(fetchAlerting());
   };
@@ -131,8 +136,8 @@ export function createQuickInvoice(
 export function startFetchSpecificInvoice() {
   return { type: types.INVOICE_SPECIFIC_START_FETCH };
 }
-export function errorFetchingSpeciicInvoice() {
-  return { type: types.INVOICE_SPECIFIC_ERROR_FETCHING };
+export function errorFetchingSpeciicInvoice(error: ?Error) {
+  return { type: types.INVOICE_SPECIFIC_ERROR_FETCHING, error };
 }
 export function fetchedSpecificInvoice(invoice: Invoice) {
   return { type: types.INVOICE_SPECIFIC_SUCCESS_FETCH, invoice };
@@ -141,13 +146,14 @@ export function fetchedSpecificInvoice(invoice: Invoice) {
 export function fetchByQueryInvoice(params: *) {
   return async (dispatch: Dispatch) => {
     dispatch(startFetchSpecificInvoice());
+    dispatch(errorFetchingSpeciicInvoice(null));
 
     try {
       const response = await api.invoice.fetchByQuery(params);
       const invoice = response.data[0];
       dispatch(fetchedSpecificInvoice(invoice));
     } catch (err) {
-      dispatch(errorFetchingSpeciicInvoice());
+      dispatch(errorFetchingSpeciicInvoice(err));
     }
   };
 }
@@ -155,13 +161,14 @@ export function fetchByQueryInvoice(params: *) {
 export function fetchSpecificInvoice(invoiceId: string) {
   return async (dispatch: Dispatch) => {
     dispatch(startFetchSpecificInvoice());
+    dispatch(errorFetchingSpeciicInvoice(null));
 
     try {
       const response = await api.invoice.fetchSpecific(invoiceId);
       const invoice = response.data;
       dispatch(fetchedSpecificInvoice(invoice));
     } catch (err) {
-      dispatch(errorFetchingSpeciicInvoice());
+      dispatch(errorFetchingSpeciicInvoice(err));
     }
   };
 }
@@ -169,8 +176,8 @@ export function fetchSpecificInvoice(invoiceId: string) {
 export function startUpdatePaymentStatus() {
   return { type: types.PAYMENT_ITEM_START_UPDATE_STATUS };
 }
-export function errorUpdatingPaymentStatus() {
-  return { type: types.PAYMENT_ITEM_ERROR_PAYMENT_STATUS };
+export function errorUpdatingPaymentStatus(error: ?Error) {
+  return { type: types.PAYMENT_ITEM_ERROR_PAYMENT_STATUS, error };
 }
 export function updatedPaymentStatus(payment: Payment) {
   return { type: types.PAYMENT_ITEM_UPDATED_PAYMENT_STATUS, payment };
@@ -179,13 +186,14 @@ export function updatedPaymentStatus(payment: Payment) {
 export function updatePaymentMethod(uuid: string, newMethod: number) {
   return async (dispatch: Dispatch) => {
     dispatch(startUpdatePaymentStatus());
+    dispatch(errorUpdatingPaymentStatus(null));
 
     try {
       const response = await api.invoice.updatePaymentMethod(uuid, newMethod);
       const payment = response.data;
       dispatch(updatedPaymentStatus(payment));
     } catch (err) {
-      dispatch(errorUpdatingPaymentStatus());
+      dispatch(errorUpdatingPaymentStatus(err));
     }
   };
 }
@@ -197,6 +205,7 @@ export function createOrUpdateInvoice(
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(actionCreateOrUpdateInvoice(invoiceData));
+    dispatch(actionCreateOrUpdateInvoiceError(null));
 
     const createOrUpdate = invoiceData.uuid
       ? api.invoice.update

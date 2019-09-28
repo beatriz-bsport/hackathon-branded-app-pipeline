@@ -10,6 +10,7 @@ import type { TFunction } from 'react-i18next';
 
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';
 
@@ -38,6 +39,7 @@ type Props = {
   fetchWorkhops: () => void,
   onSubmit: () => void,
   initial: ?PaymentPack,
+  classes: Object,
 };
 
 export class PaymentPackFormPage extends React.Component<Props> {
@@ -62,7 +64,12 @@ export class PaymentPackFormPage extends React.Component<Props> {
     );
 
     return (
-      <Grid container direction="column" alignItems="center">
+      <Grid
+        container
+        direction="column"
+        alignItems="center"
+        className={this.props.classes.container}
+      >
         <Grid item xs={12} md={8} style={{ width: '100%' }}>
           <Paper>
             <PaymentPackForm
@@ -80,8 +87,18 @@ export class PaymentPackFormPage extends React.Component<Props> {
   }
 }
 
+const styles = (theme) => ({
+  container: {
+    paddingBottom: theme.spacing.unit * 16,
+  },
+});
+
 export default compose(
   withNamespaces(),
+  withTitle(({ t }: { t: TFunction }) =>
+    t('titles:paymentPack.paymentPackFormPage'),
+  ),
+  withStyles(styles),
   mapRouterParamsToProps({ id: 'paymentPackId:number' }),
   connect(
     (state, { paymentPackId }) => ({
@@ -118,7 +135,4 @@ export default compose(
       });
     },
   })),
-  withTitle(({ t }: { t: TFunction }) =>
-    t('titles:paymentPack.paymentPackFormPage'),
-  ),
 )(PaymentPackFormPage);

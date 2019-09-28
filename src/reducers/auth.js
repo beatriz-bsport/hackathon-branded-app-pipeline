@@ -13,6 +13,12 @@ const initialState = Immutable({
   is_coach: false,
   is_consumer: true,
   initializating: false,
+  invalidFields: null,
+  emailExists: {
+    loading: false,
+    error: null,
+    exists: false,
+  },
 });
 
 export default function authReducer(state = initialState, action = {}) {
@@ -56,8 +62,15 @@ export default function authReducer(state = initialState, action = {}) {
         .set('token', '')
         .set('authenticated', false)
         .set('error', true)
+        .set('invalidFields', action.invalidFields)
         .set('loading', false);
 
+    case actionTypes.CHECK_EMAIL_EXISTS_LOADING:
+      return state.setIn(['emailExists', 'loading'], action.loading);
+    case actionTypes.CHECK_EMAIL_EXISTS_ERROR:
+      return state.setIn(['emailExists', 'error'], action.error);
+    case actionTypes.CHECK_EMAIL_EXISTS_SUCCESS:
+      return state.setIn(['emailExists', 'exists'], action.exists);
     default:
       return state;
   }

@@ -17,8 +17,8 @@ export function subShopFetchStart() {
 export function subShopFetchSuccess(subShops: Array<SubShopAPI>) {
   return { type: types.SUB_SHOP_FETCH_SUCCESS, subShops };
 }
-export function subShopFetchError() {
-  return { type: types.SUB_SHOP_FETCH_ERROR };
+export function subShopFetchError(error: ?Error) {
+  return { type: types.SUB_SHOP_FETCH_ERROR, error };
 }
 
 export function fetchAllSubShop(companyId: ?number) {
@@ -26,13 +26,10 @@ export function fetchAllSubShop(companyId: ?number) {
     dispatch(subShopFetchStart());
     try {
       const response = await api.fetchAllSubShop({ companyId });
-      if (response.status === 200) {
-        const subShops = response.data;
-        return dispatch(subShopFetchSuccess(subShops));
-      }
-      return dispatch(subShopFetchError());
+      const subShops = response.data;
+      dispatch(subShopFetchSuccess(subShops));
     } catch (e) {
-      return dispatch(subShopFetchError());
+      dispatch(subShopFetchError(e));
     }
   };
 }

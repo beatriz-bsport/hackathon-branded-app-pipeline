@@ -5,7 +5,7 @@ import { createAction } from 'redux-actions';
 import { UNEVEN_INVOICE_ALERT } from '@bsport/common/lib/master-data/alerting_kind';
 import api from './api';
 
-import type { Dispatch, ThunkAction } from '../../state/types';
+import type { Dispatch, State, ThunkAction } from '../../state/types';
 
 const ALERT_KINDS = [UNEVEN_INVOICE_ALERT.alert_kind, 2];
 

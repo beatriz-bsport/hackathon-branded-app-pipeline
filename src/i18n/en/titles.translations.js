@@ -1,6 +1,10 @@
 // @flow
 
 export default {
+  banner: {
+    isStaging: 'Schedule a demo',
+    networkError: 'Network error - Please check your internet connection',
+  },
   member: {
     members: 'Members',
     mergeMember: 'Merge member',

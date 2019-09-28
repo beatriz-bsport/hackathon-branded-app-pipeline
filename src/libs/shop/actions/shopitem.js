@@ -15,8 +15,8 @@ export function shopFetchStart() {
 export function shopFetchSuccess(shopItems: Array<ShopItem>) {
   return { type: types.SHOP_FETCH_SUCCESS, shopItems };
 }
-export function shopFetchError() {
-  return { type: types.SHOP_FETCH_ERROR };
+export function shopFetchError(error: ?Error) {
+  return { type: types.SHOP_FETCH_ERROR, error };
 }
 
 export function fetchAll(companyId: ?number) {
@@ -24,13 +24,10 @@ export function fetchAll(companyId: ?number) {
     dispatch(shopFetchStart());
     try {
       const response = await api.fetchAll({ companyId });
-      if (response.status === 200) {
-        const shopItems = response.data;
-        return dispatch(shopFetchSuccess(shopItems));
-      }
-      return dispatch(shopFetchError());
+      const shopItems = response.data;
+      dispatch(shopFetchSuccess(shopItems));
     } catch (e) {
-      return dispatch(shopFetchError());
+      dispatch(shopFetchError(e));
     }
   };
 }
@@ -41,21 +38,19 @@ export function shopItemFetchStart() {
 export function shopItemFetchSuccess(shopitem: ShopItem) {
   return { type: types.SHOP_ITEM_FETCH_SUCCESS, shopitem };
 }
-export function shopItemFetchError() {
-  return { type: types.SHOP_ITEM_FETCH_ERROR };
+export function shopItemFetchError(error: ?Error) {
+  return { type: types.SHOP_ITEM_FETCH_ERROR, error };
 }
 
 export function fetchShopItem(id: number) {
   return async (dispatch: Dispatch) => {
     dispatch(shopItemFetchStart());
+    dispatch(shopItemFetchError());
     try {
-      const { data, status } = await api.fetchShopItem(id);
-      if (status === 200) {
-        return dispatch(shopItemFetchSuccess(data));
-      }
-      return dispatch(shopItemFetchError());
+      const { data } = await api.fetchShopItem(id);
+      dispatch(shopItemFetchSuccess(data));
     } catch (e) {
-      return dispatch(shopItemFetchError());
+      dispatch(shopItemFetchError(e));
     }
   };
 }
@@ -68,13 +63,8 @@ export function createOrUpdateShopItem(shopItemData: *, id: ?number) {
     try {
       const response = await createOrUpdate(shopItemData, id);
 
-      if (response.status === 201 || response.status === 200) {
-        dispatch(actionCreateOrUpdateShopItemSuccess(response.data));
-        dispatch(snackbarSuccess('form.shop.item.createOrUpdate.success'));
-      } else {
-        dispatch(snackbarError('form.shop.item.createOrUpdate.error'));
-        dispatch(actionCreateOrUpdateShopItemError(response.data));
-      }
+      dispatch(actionCreateOrUpdateShopItemSuccess(response.data));
+      dispatch(snackbarSuccess('form.shop.item.createOrUpdate.success'));
     } catch (e) {
       console.error(e);
       dispatch(snackbarError('form.shop.item.createOrUpdate.error'));

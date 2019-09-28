@@ -1,5 +1,8 @@
+// @flow
+
 import api from '../api';
 import types from './consumer.types';
+import type { State, Dispatch } from '../state/types';
 
 export function startFetchBookings() {
   return { type: types.CONSUMER_START_FETCH_BOOKINGS };
@@ -7,7 +10,16 @@ export function startFetchBookings() {
 export function errorFetchingBookings() {
   return { type: types.CONSUMER_ERROR_FETCHING_BOOKINGS };
 }
-export function fetchedBookings({ futureBookings, pastBookings }) {
+export function fetchBookingError(error: ?Error) {
+  return { type: types.CONSUMER_FETCH_BOOKING_ERROR, error };
+}
+export function fetchedBookings({
+  futureBookings,
+  pastBookings,
+}: {
+  futureBookings: Array<Booking>,
+  pastBookings: Array<Booking>,
+}) {
   return {
     type: types.CONSUMER_HAS_FETCHED_BOOKINGS,
     futureBookings,
@@ -15,31 +27,37 @@ export function fetchedBookings({ futureBookings, pastBookings }) {
   };
 }
 export function fetchBookings() {
-  return async (dispatch) => {
+  return async (dispatch: Dispatch) => {
     dispatch(startFetchBookings());
+    dispatch(fetchBookingError(null));
 
-    const response = await api.consumer.fetchFutureBookings();
-    const futureBookings = response.data.results;
+    try {
+      const response = await api.consumer.fetchFutureBookings();
+      const futureBookings = response.data.results;
 
-    const response_ = await api.consumer.fetchPastBookings();
-    const pastBookings = response_.data.results;
-
-    dispatch(fetchedBookings({ futureBookings, pastBookings }));
+      const response_ = await api.consumer.fetchPastBookings();
+      const pastBookings = response_.data.results;
+      dispatch(fetchedBookings({ futureBookings, pastBookings }));
+    } catch (err) {
+      console.error(err);
+      dispatch(fetchBookingError(err));
+    }
   };
 }
 
 export function startFetchOptions() {
   return { type: types.CONSUMER_START_FETCH_OPTIONS };
 }
-export function errorFetchingOptions() {
-  return { type: types.CONSUMER_ERROR_FETCHING_OPTIONS };
+export function errorFetchingOptions(error: ?Error) {
+  return { type: types.CONSUMER_ERROR_FETCHING_OPTIONS, error };
 }
-export function fetchedOptions(bookingOptions) {
+export function fetchedOptions(bookingOptions: Array<BookingOption>) {
   return { type: types.CONSUMER_HAS_FETCHED_OPTIONS, bookingOptions };
 }
 export function fetchOptions() {
-  return async (dispatch) => {
+  return async (dispatch: Dispatch) => {
     dispatch(startFetchOptions());
+    dispatch(errorFetchingOptions(null));
 
     try {
       const response = await api.consumer.fetchOptions();
@@ -47,110 +65,115 @@ export function fetchOptions() {
 
       dispatch(fetchedOptions(bookingOptions));
     } catch (err) {
-      dispatch(errorFetchingOptions());
+      dispatch(errorFetchingOptions(err));
     }
   };
 }
 
-export function startCancellingOption(optionId) {
+export function startCancellingOption(optionId: number) {
   return { type: types.CONSUMER_CANCELLING_BOOKING_OPTION, optionId };
 }
-export function optionCancelled(optionId) {
+export function optionCancelled(optionId: number) {
   return { type: types.CONSUMER_BOOKING_OPTION_CANCELLED, optionId };
 }
-export function errorCancellingOption(optionId) {
-  return { type: types.CONSUMER_ERROR_CANCELLING_BOOKING_OPTION, optionId };
+export function errorCancellingOption(error: ?Error) {
+  return { type: types.CONSUMER_ERROR_CANCELLING_BOOKING_OPTION, error };
 }
-export function cancelBookingOption(optionId) {
-  return async (dispatch, getState) => {
+export function cancelBookingOption(optionId: number) {
+  return async (dispatch: Dispatch, getState: () => State) => {
     if (getState().consumer.optionCurrentlyCancelling !== null) {
       return;
     }
-    dispatch(startCancellingOption());
+    dispatch(startCancellingOption(optionId));
+    dispatch(errorCancellingOption(null));
 
     try {
-      const response = await api.consumer.discardBookingOption(optionId);
-
-      if (response.status === 200) {
-        dispatch(optionCancelled(optionId));
-        return;
-      }
+      await api.consumer.discardBookingOption(optionId);
+      dispatch(optionCancelled(optionId));
     } catch (err) {
       console.error(err);
+      dispatch(errorCancellingOption(err));
     }
-    dispatch(errorCancellingOption(optionId));
   };
 }
 
 export function startFetchConsumerPaymentPacks() {
   return { type: types.CONSUMER_START_FETCH_PAYMENT_PACKS };
 }
-export function errorFetchingConsumerPaymentPacks() {
-  return { type: types.CONSUMER_ERROR_FETCHING_PAYMENT_PACKS };
+export function errorFetchingConsumerPaymentPacks(error: ?Error) {
+  return { type: types.CONSUMER_ERROR_FETCHING_PAYMENT_PACKS, error };
 }
-export function fetchedConsumerPaymentPacks(consumerPaymentPacks) {
+export function fetchedConsumerPaymentPacks(
+  consumerPaymentPacks: Array<ConsumerPaymentPack>,
+) {
   return {
     type: types.CONSUMER_HAS_FETCHED_PAYMENT_PACKS,
     consumerPaymentPacks,
   };
 }
 export function fetchConsumerPaymentPacks() {
-  return async (dispatch) => {
+  return async (dispatch: Dispatch) => {
     dispatch(startFetchConsumerPaymentPacks());
+    dispatch(errorFetchingConsumerPaymentPacks(null));
 
-    const response = await api.consumer.fetchConsumerPaymentPacks();
-    const consumerPaymentPacks = response.data;
+    try {
+      const response = await api.consumer.fetchConsumerPaymentPacks();
+      const consumerPaymentPacks = response.data;
 
-    dispatch(fetchedConsumerPaymentPacks(consumerPaymentPacks));
+      dispatch(fetchedConsumerPaymentPacks(consumerPaymentPacks));
+    } catch (err) {
+      dispatch(errorFetchingConsumerPaymentPacks(err));
+    }
   };
 }
 
 export function startFetchProfile() {
   return { type: types.CONSUMER_START_FETCH_PROFILE };
 }
-export function errorFetchingProfile() {
-  return { type: types.CONSUMER_ERROR_FETCHING_PROFILE };
+export function errorFetchingProfile(error: ?Error) {
+  return { type: types.CONSUMER_ERROR_FETCHING_PROFILE, error };
 }
-export function fetchedProfile(profile) {
+export function fetchedProfile(profile: Profile) {
   return {
     type: types.CONSUMER_HAS_FETCHED_PROFILE,
     profile,
   };
 }
 export function fetchProfile() {
-  return async (dispatch) => {
+  return async (dispatch: Dispatch) => {
     dispatch(startFetchProfile());
+    dispatch(errorFetchingProfile(null));
 
-    const response = await api.consumer.fetchProfile();
-    const profile = response.data;
-
-    dispatch(fetchedProfile(profile));
+    try {
+      const response = await api.consumer.fetchProfile();
+      const profile = response.data;
+      dispatch(fetchedProfile(profile));
+    } catch (err) {
+      dispatch(errorFetchingProfile(err));
+    }
   };
 }
 
-export function discardBookingStart(bookingId) {
+export function discardBookingStart(bookingId: number) {
   return { type: types.CONSUMER_BOOKING_DISCARD_START, bookingId };
 }
-export function discardBookingSuccess(bookingId) {
+export function discardBookingSuccess(bookingId: number) {
   return { type: types.CONSUMER_BOOKING_DISCARD_SUCCESS, bookingId };
 }
-export function discardBookingError(bookingId) {
-  return { type: types.CONSUMER_BOOKING_DISCARD_ERROR, bookingId };
+export function discardBookingError(error: ?Error) {
+  return { type: types.CONSUMER_BOOKING_DISCARD_ERROR, error };
 }
-export function discardBooking(bookingId) {
-  return async (dispatch) => {
+export function discardBooking(bookingId: number) {
+  return async (dispatch: Dispatch) => {
     dispatch(discardBookingStart(bookingId));
+    dispatch(discardBookingError(null));
 
     try {
-      const response = await api.consumer.discardBooking(bookingId);
-
-      if (response.status === 204) {
-        dispatch(discardBookingSuccess(bookingId));
-        return;
-      }
+      await api.consumer.discardBooking(bookingId);
+      dispatch(discardBookingSuccess(bookingId));
     } catch (err) {
       console.error(err);
+      dispatch(discardBookingError(err));
     }
-    dispatch(discardBookingError(bookingId));
   };
 }

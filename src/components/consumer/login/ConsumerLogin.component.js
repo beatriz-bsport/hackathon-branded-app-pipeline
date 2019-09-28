@@ -51,7 +51,11 @@ type Props = {
   loading: boolean,
   classes: Object,
   error: ?boolean,
-  t: (x: string) => string,
+  errorFields: ?{
+    email: ?string,
+    password: ?string,
+  },
+  t: TFunction,
 };
 
 type State = {
@@ -97,7 +101,15 @@ export class ConsumerLogin extends Component<Props, State> {
   };
 
   getEmailLogin = () => {
-    const { classes, error, t } = this.props;
+    const { classes, error, errorFields, t } = this.props;
+    let errorMessage = t('login.authError');
+    if (errorFields && errorFields.password) {
+      errorMessage = t('login.error.invalidPassword');
+    }
+    if (errorFields && errorFields.email) {
+      errorMessage = t('login.error.invalidEmail');
+    }
+
     return (
       <div className={classes.loginContainer}>
         <PersonIcon className={classes.headIcon} />
@@ -125,13 +137,18 @@ export class ConsumerLogin extends Component<Props, State> {
               }}
             >
               <Typography color="error" className={classes.errorMessage}>
-                {t('login.authError')}{' '}
+                {errorMessage}
               </Typography>
               <IconButton onClick={() => openIntercomHelp('login')}>
                 <HelpIcon />
               </IconButton>
             </div>
           ) : null}
+          <Link to="/login/reset_password" style={{ textDecoration: 'none' }}>
+            <Typography color="secondary" variant="caption">
+              {t('login.forgottenPassword')}
+            </Typography>
+          </Link>
           <Button
             className={classes.bottomButton}
             color="primary"
@@ -143,11 +160,6 @@ export class ConsumerLogin extends Component<Props, State> {
             LOGIN
           </Button>
         </form>
-        <Link to="/login/reset_password" style={{ textDecoration: 'none' }}>
-          <Typography color="secondary" variant="caption">
-            {t('login.forgottenPassword')}
-          </Typography>
-        </Link>
       </div>
     );
   };

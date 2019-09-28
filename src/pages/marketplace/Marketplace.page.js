@@ -67,6 +67,7 @@ type Props = {
   company: MarketPlaceCompany,
   companyLoading: boolean,
   hideAppBar: ?boolean,
+  errorFields: ?{ email: ?string, password: ?string },
 
   fetchCompany: (companyId: number) => void,
   fetchCompanyActivities: (companyId: number) => void,

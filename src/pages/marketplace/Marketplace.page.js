@@ -77,11 +77,14 @@ type Props = {
 
   fetchCurrentBasket: (companyId: number) => void,
   currentBasket: ?Basket,
-  currentBasketLoading: loading,
+  currentBasketLoading: boolean,
   removeItemFromBasket: (basketId: string, data: any) => void,
-  addItemToBasket: (basketId: string, data: anny) => void,
+  addItemToBasket: (basketId: string, data: any) => void,
   goToCheckout: (companyId: number) => void,
 
+  emailExists: boolean,
+  checkEmailExistsLoading: boolean,
+  checkEmailExists: (email: string) => void,
   fetchProfile: () => void,
   doEmailLogin: ({ email: string, password: string }, () => void) => void,
   goToTab: (companyName: string, companyId: number, tab: string) => void,
@@ -305,6 +308,7 @@ export class MarketPlace extends Component<Props, State> {
             <DialogContent>
               <ConsumerLogin
                 doEmailLogin={this.doEmailLogin}
+                errorFields={this.props.errorFields}
                 error={this.props.auth.error}
                 loading={this.props.auth.loading}
                 requestSignUp={() => this.toogleSignUp(true)}
@@ -319,6 +323,9 @@ export class MarketPlace extends Component<Props, State> {
             <DialogContent style={{ minWidth: '40vw' }}>
               <SignUpForm
                 loading={this.props.auth.loading}
+                emailExists={this.props.emailExists}
+                checkEmailExistsLoading={this.props.checkEmailExistsLoading}
+                checkEmailExists={this.props.checkEmailExists}
                 onComplete={(data: *) =>
                   this.signup(data, () => {
                     this.props.fetchProfile();
@@ -336,6 +343,7 @@ export class MarketPlace extends Component<Props, State> {
             <DialogContent>
               <ConsumerLogin
                 doEmailLogin={this.doEmailLogin}
+                errorFields={this.props.errorFields}
                 error={this.props.auth.error}
                 loading={this.props.auth.loading}
                 requestSignUp={() => this.toogleSignUp(true)}
@@ -396,6 +404,10 @@ export default compose(
       currentBasketLoading: state.checkout.basket.current.loading,
       consumerProfile: state.consumer.profile,
       theme: state.theme.theme,
+
+      errorFields: state.auth.invalidFields,
+      checkEmailExistsLoading: state.auth.emailExists.loading,
+      emailExists: state.auth.emailExists.exists,
     }),
     {
       // General information
@@ -421,6 +433,7 @@ export default compose(
       doEmailLogin: ({ email, password }, callback) =>
         authActions.requestLogin(email, password, { onDone: callback }),
       disconnect: authActions.disconnect,
+      checkEmailExists: authActions.checkEmailExists,
 
       // navigation
       replace,

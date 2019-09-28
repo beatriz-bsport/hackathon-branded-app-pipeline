@@ -54,7 +54,16 @@ export class PaymentRulesDashboard extends Component<Props, State> {
         {this.props.open ? (
           <PaymentRuleFormDialog
             open={this.props.open}
-            initial={this.props.initial}
+            initial={
+              this.props.initial &&
+              this.props.initial &&
+              this.props.initial.bonuses
+                ? {
+                    ...this.props.initial,
+                    bonuses: [...this.props.initial.bonuses],
+                  }
+                : this.props.initial
+            }
             handleOpen={this.props.handleOpen}
             handleClose={this.props.handleClose}
             onSubmit={this.props.upsertPaymentRule}

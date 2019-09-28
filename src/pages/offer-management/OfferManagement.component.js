@@ -428,7 +428,9 @@ export class OfferManagement extends Component<Props, State> {
   };
 
   getDateDictionnary = () => {
-    const date = moment(this.props.offer.date_start);
+    const date = this.props.offer
+      ? moment(this.props.offer.date_start)
+      : moment();
     return { year: date.year(), month: date.month() + 1, day: date.date() };
   };
 

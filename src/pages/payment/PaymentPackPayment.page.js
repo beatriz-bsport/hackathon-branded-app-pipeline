@@ -56,7 +56,10 @@ export class PaymentPackPaymentPage extends Component<Props> {
   }
 
   componentDidUpdate(prevProps: Props) {
-    if (prevProps.paymentPack !== this.props.paymentPack) {
+    if (
+      prevProps.paymentPack !== this.props.paymentPack &&
+      this.props.paymentPack
+    ) {
       this.props.fetchCurrentBasket(this.props.paymentPack.company_id);
     }
   }

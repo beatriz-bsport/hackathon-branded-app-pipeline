@@ -33,9 +33,9 @@ export const Banner = (props: Props) => {
           </ButtonBase>
         </Slide>
       </div>
-      <div className={props.classes.infoBanner}>
-        <div style={{ visibility: 'visible' }}>
-          <Fade in={props.environment === 'staging'}>
+      {props.environment === 'staging' ? (
+        <div className={props.classes.infoBanner}>
+          <div style={{ visibility: 'visible' }}>
             <a
               href="https://bsport.io/api-v0/redirect?type=demo&site=https://app.hubspot.com/meetings/zmansour"
               style={{ textDecoration: 'none' }}
@@ -45,9 +45,9 @@ export const Banner = (props: Props) => {
                 {props.t('banner.isStaging')}
               </Fab>
             </a>
-          </Fade>
+          </div>
         </div>
-      </div>
+      ) : null}
     </div>
   );
 };

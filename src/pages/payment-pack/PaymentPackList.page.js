@@ -177,8 +177,12 @@ export class PaymentPackList extends Component<Props, State> {
                 page={this.props.consumerPacks.page}
                 itemPerPage={CONSUMER_PACK_PAGINATION_SIZE}
                 consumerPacksUpdating={this.props.consumerPacks.updating}
-                onPageRequested={(id: number, page: number, pageSize: number) =>
-                  this.props.fetchConsumerPacks(id, page, pageSize)
+                onPageRequested={(page: number, pageSize: number) =>
+                  this.props.fetchConsumerPacks(
+                    this.state.paymentPackToDelete.id,
+                    page,
+                    pageSize,
+                  )
                 }
               />
             ) : null

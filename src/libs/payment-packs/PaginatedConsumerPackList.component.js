@@ -10,6 +10,7 @@ import ConsumerPackRowItem from './ConsumerPackRowItem.component';
 
 type Props = {
   paymentPack: PaymentPack,
+  onClick: ?(ConsumerPaymentPack) => void,
   consumerPacksUpdating: Array<number>,
   decrementCredit: (id: number) => void,
   incrementCredit: (id: number) => void,
@@ -51,6 +52,7 @@ export const PaginatedConsumerPackList = (props: Props) => (
         paymentPack={props.paymentPack}
         decrementCredit={props.decrementCredit}
         incrementCredit={props.incrementCredit}
+        onClick={props.onClick ? () => props.onClick(cpp) : null}
         loading={
           (props.consumerPacksUpdating || []).filter((id) => id === cpp.id)
             .length > 0

@@ -44,6 +44,7 @@ type Props = {
   metaActivities: Array<MetaActivity>,
   establishments: Array<Establishment>,
   fetchEstablishments: () => void,
+  goToConsumerPackDetail: (memberId: number, passId: number) => void,
   fetchAllActivities: () => void,
   fetchAllWorkshops: () => void,
   consumerPacks: {
@@ -142,6 +143,9 @@ export class PaymentPackDetail extends Component<Props, State> {
               incrementCredit={this.props.incrementCredit}
               decrementCredit={this.props.decrementCredit}
               items={this.props.consumerPacks.items}
+              onClick={(cpp) => {
+                this.props.goToConsumerPackDetail(cpp.member_id, cpp.id);
+              }}
               nbItems={this.props.consumerPacks.count}
               loading={this.props.consumerPacks.loading}
               page={this.props.consumerPacks.page}
@@ -172,6 +176,9 @@ export class PaymentPackDetail extends Component<Props, State> {
                 items={this.props.consumerPacks.items}
                 consumerPacksUpdating={this.props.consumerPacks.updating}
                 nbItems={this.props.consumerPacks.count}
+                onClick={(cpp) => {
+                  this.props.goToConsumerPackDetail(cpp.member_id, cpp.id);
+                }}
                 loading={this.props.consumerPacks.loading}
                 page={this.props.consumerPacks.page}
                 itemPerPage={CONSUMER_PACK_PAGINATION_SIZE}
@@ -241,6 +248,8 @@ export default compose(
         pushRouter(`/payment-pack/${paymentPackId}/edit`),
       resetConsumerPacks: consumerPackActions.resetByPaymentPack,
       fetchEstablishments,
+      goToConsumerPackDetail: (memberId, passId) =>
+        pushRouter(`/member/${memberId}/pass/${passId}`),
       fetchConsumerPacks: (
         paymentPackId: number,
         page: number,

@@ -82,17 +82,17 @@ export default {
       'A member with phone number {{phonenumber}} already exists.',
   },
   exists: {
-    goTo: 'Go to member details',
+    goTo: 'OK',
     linkUser: 'Link user',
   },
   link: {
     success: 'Member linked',
   },
   linkDialog: {
-    title: 'Linking an existing user',
+    title: 'Linking account',
     content:
-      'By linking an existing user to your company, you confirm that the user has given you his/her consent to do so.',
+      'This account was initially created in another club, linkin will connect it to this club.',
     cancel: 'Cancel',
-    confirm: 'I confirm and link the account',
+    confirm: 'I confirm',
   },
 };

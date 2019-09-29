@@ -82,17 +82,17 @@ export default {
       'Un membre avec le numéro de téléphone {{phonenumber}} existe déjà.',
   },
   exists: {
-    goTo: 'Aller à la fiche membre',
+    goTo: 'OK',
     linkUser: "Lier l'utilisateur",
   },
   link: {
-    success: 'Membre lié avec succès',
+    success: 'Compte lié avec succès',
   },
   linkDialog: {
     title: 'Lier un utilisateur existant',
     content:
-      "En liant l'utilisateur à votre compte entreprise, vous confirmez que celui-ci a expressement donné son consentement à cet effet.",
+      'Ce compte a initialement été utilisé dans un autre club, il sera désormais connecté à un nouveau club.',
     cancel: 'Annuler',
-    confirm: 'Je confirme et lie le compte utilisateur',
+    confirm: 'Je confirme',
   },
 };

@@ -7,7 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { withStyles } from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withProps } from 'recompose';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 

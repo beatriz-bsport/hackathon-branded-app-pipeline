@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import { withStyles } from '@material-ui/core';
 import { withProps, withState, compose } from 'recompose';
 import Dialog from '@material-ui/core/Dialog';
 import Typography from '@material-ui/core/Typography';
@@ -24,7 +23,6 @@ type Props = {
   loading: boolean,
   step: number,
   t: TFunction,
-  classes: Object,
 };
 
 const STEP_EXPLAIN = 0;
@@ -66,14 +64,10 @@ export const TempPasswordDialog = (props: Props) => {
     <Dialog open={props.open}>
       <DialogTitle>{props.t('tempPassword.title')}</DialogTitle>
       <DialogContent>
-        <Typography
-          variant="h6"
-          component="p"
-          className={props.classes.password}
-        >
+        <Typography variant="h6" component="p">
           {props.tempPassword}
         </Typography>
-        <Typography color="textSecondary" className={props.classes.password}>
+        <Typography color="textSecondary">
           {props.t('tempPassword.explain', {
             expirationDate: formatAsTime(props.tempPasswordExpirationDate),
           })}
@@ -88,13 +82,8 @@ export const TempPasswordDialog = (props: Props) => {
   );
 };
 
-const styles = (theme) => ({
-  container: {},
-});
-
 export default compose(
   withNamespaces(['login']),
-  withStyles(styles),
   withState('step', 'setStep', STEP_EXPLAIN),
   withProps(({ setStep, generateTempPassword, onClose }) => ({
     requestPassword: () => {

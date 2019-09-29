@@ -64,6 +64,7 @@ import AlertButtonMenu from '../../libs/alerting/components/AlertButtonMenu.comp
 import { windowTitleToProps } from '../../hocs/with-title.hoc';
 import { openIntercomHelp } from '../../intercom';
 import type { Alerting } from '../../libs/alerting/types';
+import type { TempPasswordState } from '../../libs/login/types';
 
 export const drawerWidth = 260;
 
@@ -84,6 +85,9 @@ type Props = {
   t: TFunction,
   location: Object,
   title: string,
+  tempPasswordState: TempPasswordState,
+  fetchTempPassword: () => void,
+  generateTempPassword: () => void,
 };
 
 type State = {

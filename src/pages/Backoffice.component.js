@@ -31,6 +31,8 @@ import { MarketingDashboard, MarketingRule } from './marketing';
 
 import alertingSelectors from '../libs/alerting/selectors';
 
+import type { TempPasswordState } from '../libs/login/types';
+
 const Dashboard = asyncComponent(() => import('./Dashboard.component'));
 
 const OfferFormPage = asyncComponent(() => import('./OfferFormPage.component'));
@@ -85,6 +87,10 @@ type Props = {
   fetchCompanyTheme: () => void,
   fetchAllAlertings: () => void,
   theme: any,
+
+  tempPasswordState: TempPasswordState,
+  fetchTempPassword: () => void,
+  generateTempPassword: () => void,
 };
 
 const BackofficeRoute = withSentryErrorReporting(() => (

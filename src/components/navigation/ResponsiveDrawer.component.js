@@ -8,6 +8,8 @@ import { withRouter } from 'react-router';
 
 import { compose } from 'recompose';
 
+import CircularProgress from '@material-ui/core/CircularProgress';
+import RefreshIcon from '@material-ui/icons/Refresh';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -22,7 +24,6 @@ import Grid from '@material-ui/core/Grid';
 import Collapse from '@material-ui/core/Collapse';
 import Typography from '@material-ui/core/Typography';
 
-import withWidth from '@material-ui/core/withWidth';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
@@ -56,11 +57,10 @@ import type { TFunction } from 'react-i18next';
 
 import { colors } from '@bsport/common/lib/colors';
 import { LanguageButton } from '../button/LanguageButton.component';
-import RefreshButton from '../button/RefreshButton.component';
+import TempPasswordDialog from '../../libs/login/components/TempPasswordDialog.component';
 import SearchBar from '../SearchBar.component';
 import LOGO_ASSET from '../../public/images/banner_lowres.png';
 import AlertButtonMenu from '../../libs/alerting/components/AlertButtonMenu.component';
-import { DrawerContext } from '../../hocs/with-drawer.hoc';
 import { windowTitleToProps } from '../../hocs/with-title.hoc';
 import { openIntercomHelp } from '../../intercom';
 import type { Alerting } from '../../libs/alerting/types';
@@ -83,7 +83,6 @@ type Props = {
   fetchMoreAlertingKind: (alert_kind: number) => void,
   t: TFunction,
   location: Object,
-  width: string,
   title: string,
 };
 
@@ -98,6 +97,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
     mobileOpen: false,
     open: {},
     anchorEl: null,
+    tempPasswordDialogOpen: false,
   };
 
   handleDrawerToggle = () => {
@@ -184,20 +184,23 @@ class ResponsiveDrawer extends React.Component<Props, State> {
     );
   };
 
-  renderAppBar = (drawerContext, fullWidth) => {
+  openTempPasswordDialog = () => {
+    this.props.fetchTempPassword();
+    this.setState({ tempPasswordDialogOpen: true });
+  };
+
+  closeTempPasswordDialog = () => {
+    this.setState({ tempPasswordDialogOpen: false });
+  };
+
+  renderAppBar = (fullWidth) => {
     const {
       classes,
-      isRefreshing,
-      onRefresh,
       nbAlerting,
       alertings,
       deleteAlert,
       fetchMoreAlertingKind,
     } = this.props;
-
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-      this.setState({ anchorEl: event.currentTarget });
-    };
 
     return (
       <AppBar
@@ -212,162 +215,129 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             alignItems="center"
             justify="space-between"
             wrap="nowrap"
+            style={{ width: '100%' }}
           >
-            <Grid
-              container
-              alignItems="center"
-              direction="row"
-              zeroMinWidth
-              wrap="nowrap"
-            >
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={this.handleDrawerToggle}
-                className={classes.navIconHide}
+            <Grid item zeroMinWidth>
+              <Grid
+                container
+                direction="row"
+                alignItems="center"
+                justify="flex-start"
+                wrap="nowrap"
               >
-                <MenuIcon />
-              </IconButton>
-              <Hidden smDown>
-                <img
-                  className={`${classes.navIconHide} ${classes.menuIcon}`}
-                  height={40}
-                  src={this.props.logo || LOGO_ASSET}
-                  alt="bsport logo"
-                />
-              </Hidden>
-              <Typography id="app-title" color="inherit" noWrap variant="h6">
-                {this.props.title}
-              </Typography>
-            </Grid>
-            {this.props.width === 'xs' ||
-            this.props.width === 'sm' ||
-            this.props.width === 'md' ? (
-              <Hidden implementation="css">
-                <Grid
-                  container
-                  alignItems="center"
-                  zeroMinWidth
-                  direction="row"
-                  wrap="nowrap"
-                >
-                  <Grid item>
-                    <IconButton onClick={openIntercomHelp}>
-                      <HelpIcon />
-                    </IconButton>
-                  </Grid>
-                  <Grid item>
-                    <AlertButtonMenu
-                      alertings={alertings}
-                      nbAlerting={nbAlerting}
-                      deleteAlert={deleteAlert}
-                      showMore={fetchMoreAlertingKind}
-                    />
-                  </Grid>
-                  {this.props.showSearch ? (
-                    <Grid item className={classes.searchBar}>
-                      <SearchBar changeLocation />
-                    </Grid>
-                  ) : null}
-                  <Grid item>
-                    <Button onClick={handleClick}>
-                      <MoreVertIcon />
-                    </Button>
-                    <Menu
-                      anchorEl={this.state.anchorEl}
-                      keepMounted
-                      open={Boolean(this.state.anchorEl)}
-                      onClose={() => {
-                        this.setState({ anchorEl: null });
-                      }}
+                <Grid item zeroMinWidth>
+                  <Hidden mdUp>
+                    <IconButton
+                      color="inherit"
+                      aria-label="open drawer"
+                      onClick={this.handleDrawerToggle}
                     >
-                      <MenuItem>
-                        <LanguageButton
-                          closeMenu={() => {
-                            this.setState({ anchorEl: null });
-                          }}
-                        />
-                      </MenuItem>
-                      <MenuItem
-                        onClick={() => {
-                          this.setState({ anchorEl: null });
-                        }}
-                      >
-                        <ListItemIcon>
-                          <RefreshButton
-                            isRefreshing={isRefreshing}
-                            onRefresh={onRefresh}
-                          />
-                        </ListItemIcon>
-                        <Typography variant="inherit">
-                          {this.props.t('navigation.refresh')}
-                        </Typography>
-                      </MenuItem>
-                      <MenuItem
-                        onClick={() => {
-                          this.setState({ anchorEl: null });
-                          this.props.disconnect();
-                        }}
-                      >
-                        <ListItemIcon>
-                          <PowerSettingsNewIcon />
-                        </ListItemIcon>
-                        <Typography variant="inherit">
-                          {this.props.t('navigation.logoff')}
-                        </Typography>
-                      </MenuItem>
-                    </Menu>
-                  </Grid>
-                </Grid>
-              </Hidden>
-            ) : (
-              <Hidden implementation="css">
-                <Grid
-                  container
-                  alignItems="center"
-                  zeroMinWidth
-                  direction="row"
-                  wrap="nowrap"
-                  implementation="css"
-                >
-                  <Grid item>
-                    <IconButton onClick={openIntercomHelp}>
-                      <HelpIcon />
+                      <MenuIcon />
                     </IconButton>
-                  </Grid>
-                  <Grid item>
-                    <AlertButtonMenu
-                      alertings={alertings}
-                      nbAlerting={nbAlerting}
-                      deleteAlert={deleteAlert}
-                      showMore={fetchMoreAlertingKind}
-                    />
-                  </Grid>
-                  {this.props.showSearch ? (
-                    <Grid item className={classes.searchBar}>
-                      <SearchBar changeLocation />
-                    </Grid>
-                  ) : null}
-                  <Grid item>
-                    <RefreshButton
-                      isRefreshing={isRefreshing}
-                      onRefresh={onRefresh}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <LanguageButton />
-                  </Grid>
-                  <Grid item>
-                    <IconButton onClick={this.props.disconnect}>
-                      <PowerSettingsNewIcon />
-                    </IconButton>
-                  </Grid>
+                  </Hidden>
                 </Grid>
-              </Hidden>
-            )}
+                <Grid item zeroMinWidth>
+                  <Typography
+                    id="app-title"
+                    color="inherit"
+                    noWrap
+                    variant="h6"
+                    className={classes.title}
+                  >
+                    {this.props.title}
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item>
+              <Grid
+                container
+                alignItems="center"
+                direction="row"
+                wrap="nowrap"
+                implementation="css"
+              >
+                <Grid item>
+                  <IconButton onClick={openIntercomHelp}>
+                    <HelpIcon />
+                  </IconButton>
+                </Grid>
+                <Grid item>
+                  <AlertButtonMenu
+                    alertings={alertings}
+                    nbAlerting={nbAlerting}
+                    deleteAlert={deleteAlert}
+                    showMore={fetchMoreAlertingKind}
+                  />
+                </Grid>
+                {this.props.showSearch ? (
+                  <Grid item className={classes.searchBar}>
+                    <SearchBar changeLocation />
+                  </Grid>
+                ) : null}
+                {this.renderAdditionalButtons()}
+              </Grid>
+            </Grid>
           </Grid>
         </Toolbar>
       </AppBar>
+    );
+  };
+
+  renderAdditionalButtons = () => {
+    const { isRefreshing, onRefresh } = this.props;
+
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+      this.setState({ anchorEl: event.currentTarget });
+    };
+
+    return (
+      <Grid item>
+        <Button onClick={handleClick}>
+          <MoreVertIcon />
+        </Button>
+        <Menu
+          anchorEl={this.state.anchorEl}
+          keepMounted
+          open={Boolean(this.state.anchorEl)}
+          onClose={() => {
+            this.setState({ anchorEl: null });
+          }}
+        >
+          <MenuItem>
+            <LanguageButton
+              closeMenu={() => {
+                this.setState({ anchorEl: null });
+              }}
+            />
+          </MenuItem>
+          <MenuItem onClick={this.openTempPasswordDialog}>
+            <ListItemIcon>
+              <VpnKey />
+            </ListItemIcon>
+            <ListItemText
+              primary={this.props.t('navigation.requestTempPassword')}
+            />
+          </MenuItem>
+          <MenuItem onClick={onRefresh}>
+            <ListItemIcon>
+              {isRefreshing ? <CircularProgress /> : <RefreshIcon />}
+            </ListItemIcon>
+            <ListItemText primary={this.props.t('navigation.refresh')} />
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              this.setState({ anchorEl: null });
+              this.props.disconnect();
+            }}
+          >
+            <ListItemIcon>
+              <PowerSettingsNewIcon />
+            </ListItemIcon>
+            <ListItemText primary={this.props.t('navigation.logoff')} />
+          </MenuItem>
+        </Menu>
+      </Grid>
     );
   };
 
@@ -376,9 +346,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
     if (hidden) {
       return (
         <div style={{ width: '100%' }}>
-          <DrawerContext.Consumer>
-            {(drawerContext) => this.renderAppBar(drawerContext, true, true)}
-          </DrawerContext.Consumer>
+          {this.renderAppBar(true, true)}
           <div className={classes.content}>{this.props.children}</div>;
         </div>
       );
@@ -537,43 +505,49 @@ class ResponsiveDrawer extends React.Component<Props, State> {
       </div>
     );
     return (
-      <DrawerContext.Consumer>
-        {(drawerContext) => (
-          <div className={classes.root}>
-            {this.renderAppBar(drawerContext)}
-            <Hidden mdUp>
-              <Drawer
-                variant="temporary"
-                anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-                open={this.state.mobileOpen}
-                onClose={this.handleDrawerToggle}
-                classes={{
-                  paper: classes.drawerPaper,
-                }}
-                ModalProps={{
-                  keepMounted: true, // Better open performance on mobile.
-                }}
-              >
-                {drawer}
-              </Drawer>
-            </Hidden>
-            <Hidden smDown implementation="css">
-              <Drawer
-                variant="permanent"
-                open
-                anchor="left"
-                elevation={20}
-                classes={{
-                  paper: classes.drawerPaper,
-                }}
-              >
-                {drawer}
-              </Drawer>
-            </Hidden>
-            <main className={classes.content}>{this.props.children}</main>
-          </div>
-        )}
-      </DrawerContext.Consumer>
+      <div className={classes.root}>
+        {this.renderAppBar()}
+        <Hidden mdUp>
+          <Drawer
+            variant="temporary"
+            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+            open={this.state.mobileOpen}
+            onClose={this.handleDrawerToggle}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+            ModalProps={{
+              keepMounted: true, // Better open performance on mobile.
+            }}
+          >
+            {drawer}
+          </Drawer>
+        </Hidden>
+        <Hidden smDown implementation="css">
+          <Drawer
+            variant="permanent"
+            open
+            anchor="left"
+            elevation={20}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+          >
+            {drawer}
+          </Drawer>
+        </Hidden>
+        <TempPasswordDialog
+          generateTempPassword={this.props.generateTempPassword}
+          tempPassword={this.props.tempPasswordState.password}
+          loading={this.props.tempPasswordState.loading}
+          tempPasswordExpirationDate={
+            this.props.tempPasswordState.expiration_date
+          }
+          onClose={this.closeTempPasswordDialog}
+          open={this.state.tempPasswordDialogOpen}
+        />
+        <main className={classes.content}>{this.props.children}</main>
+      </div>
     );
   }
 }
@@ -614,11 +588,6 @@ const styles = (theme) => ({
     marginLeft: drawerWidth,
     [theme.breakpoints.up('md')]: {
       width: `calc(100% - ${drawerWidth}px)`,
-    },
-  },
-  navIconHide: {
-    [theme.breakpoints.up('md')]: {
-      display: 'none',
     },
   },
   menuIcon: {
@@ -673,11 +642,15 @@ const styles = (theme) => ({
   nestedIcon: {
     marginLeft: theme.spacing.unit * 2,
   },
+  title: {
+    [theme.breakpoints.down('sm')]: {
+      paddingLeft: theme.spacing.unit * 4,
+    },
+  },
 });
 
 export default compose(
   withNamespaces(),
-  withWidth(),
   withStyles(styles, { withTheme: true }),
   windowTitleToProps,
 )(withRouter(ResponsiveDrawer));

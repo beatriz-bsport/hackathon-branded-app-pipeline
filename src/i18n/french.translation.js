@@ -640,6 +640,7 @@ export default {
       },
     },
     navigation: {
+      requestTempPassword: "Autoriser l'accès",
       order: 'Commandes',
       workshopActivities: 'Ateliers',
       invoice: 'Factures',

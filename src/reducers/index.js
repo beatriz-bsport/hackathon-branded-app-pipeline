@@ -36,6 +36,7 @@ import checkoutReducers from '../libs/checkout/reducers';
 import communicationReducers from '../libs/communication/reducers';
 import couponReducers from '../libs/coupon/reducers';
 import relationship from '../libs/relationship/reducers';
+import login from '../libs/login/reducers';
 
 import type { State, Action } from '../state/types';
 
@@ -77,6 +78,7 @@ const rootReducer = combineReducers({
   coupon: couponReducers,
   relationship,
   network,
+  login,
 });
 
 export default (state: State, action: Action) => {

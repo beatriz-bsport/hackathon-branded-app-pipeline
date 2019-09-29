@@ -612,6 +612,7 @@ export default {
     member,
     coach,
     navigation: {
+      requestTempPassword: 'Authorize remote',
       order: 'Orders',
       alpha: 'in development',
       coachPerformance: 'Coach',

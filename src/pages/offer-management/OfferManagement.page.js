@@ -33,7 +33,6 @@ import { getPermissions } from '../../libs/role/selectors';
 import bookingSelectors from '../../libs/booking/selectors';
 
 import { snackbar } from '../../actions/snackbar.actions';
-import { formatAsDatetime } from '../../datetime';
 import paymentPackSelectors, {
   getAll as getAllPaymentPacks,
 } from '../../libs/payment-packs/selectors';
@@ -55,7 +54,7 @@ import type { Offer } from '../../api/types';
 const formatTitle = (offer: Offer) => {
   if (offer) {
     const { coach, coach_override } = offer;
-    return `${offer.name} - ${formatAsDatetime(offer.date_start)} - ${
+    return `${offer.name} - ${
       coach_override ? coach_override.name : coach.name
     }`;
   }

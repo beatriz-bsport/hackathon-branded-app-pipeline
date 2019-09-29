@@ -16,6 +16,8 @@ import ResponsiveDrawer from '../components/navigation/ResponsiveDrawer.componen
 import { refresh as refreshActions } from '../actions';
 import { fetchCompanyTheme } from '../libs/theme/actions';
 import { getPermissions } from '../libs/role/selectors';
+import { getTempPasswordState } from '../libs/login/selectors';
+import { generateTempPassword, fetchTempPassword } from '../libs/login/actions';
 import {
   delete_ as deleteAlert,
   fetchMoreAlertingKind,
@@ -139,6 +141,7 @@ export class Backoffice extends Component<Props> {
     const intercom_user = {
       email: this.props.username,
     };
+    console.log(this.props.tempPasswordState);
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <ResponsiveDrawer
@@ -152,6 +155,9 @@ export class Backoffice extends Component<Props> {
           disconnect={this.props.disconnect}
           fetchMoreAlertingKind={this.props.fetchMoreAlertingKind}
           showSearch={this.props.permission.member.search}
+          tempPasswordState={this.props.tempPasswordState}
+          generateTempPassword={this.props.generateTempPassword}
+          fetchTempPassword={this.props.fetchTempPassword}
         >
           {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
           Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ? (
@@ -193,14 +199,20 @@ export default connect(
     isRefreshing: state.refresh.isRefreshing,
     theme: state.theme.theme,
     permission: getPermissions(state),
+
+    tempPasswordState: getTempPasswordState(state),
   }),
   {
-    deleteAlert,
     fetchCompanyTheme,
     disconnect: () => push('/login/signout'),
-    fetchMoreAlertingKind,
     refreshIfNeeded: refreshActions.refreshIfNeeded,
     refresh: refreshActions.forceRefresh,
+
     fetchAllAlertings,
+    fetchMoreAlertingKind,
+    deleteAlert,
+
+    generateTempPassword,
+    fetchTempPassword,
   },
 )(themedBackoffice);

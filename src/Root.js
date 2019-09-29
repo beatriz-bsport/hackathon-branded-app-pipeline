@@ -29,6 +29,9 @@ const CheckoutRouter = asyncComponent(() =>
 );
 
 const CheckIn = asyncComponent(() => import('./pages/check-in/CheckIn.page'));
+const CompanyExternalRouter = asyncComponent(() =>
+  import('./pages/company-external/CompanyExternal.router'),
+);
 
 const SentryTestError = asyncComponent(() =>
   import('./pages/SentryTestError.component'),
@@ -66,6 +69,10 @@ export class Root extends Component<Props> {
           environment={Config.REACT_APP_SENTRY_ENVIRONMENT}
         />
         <Switch>
+          <Route
+            path="/external/:companyId/"
+            component={CompanyExternalRouter}
+          />
           <Route path="/sentry" component={SentryTestError} />
           <Route path="/login" component={LoginRouter} />
           <Route path="/customer" component={ConsumerHome} />

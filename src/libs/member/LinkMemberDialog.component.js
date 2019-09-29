@@ -3,13 +3,14 @@
 import React from 'react';
 import type { TFunction } from 'react-i18next';
 import Button from '@material-ui/core/Button';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-type Props = { t: TFunction, onConfirm: () => void };
+type Props = { t: TFunction, onConfirm: () => void, classes: Object };
 
 class MemberLinkDialog extends React.Component<Props> {
   state = {
@@ -33,7 +34,11 @@ class MemberLinkDialog extends React.Component<Props> {
     const { t } = this.props;
     return (
       <div>
-        <Button onClick={this.handleClickOpen}>
+        <Button
+          onClick={this.handleClickOpen}
+          variant="outlined"
+          classes={{ outlined: this.props.classes.buttonOutlined }}
+        >
           {t('member.exists.linkUser')}
         </Button>
         <Dialog
@@ -64,4 +69,11 @@ class MemberLinkDialog extends React.Component<Props> {
   }
 }
 
-export default MemberLinkDialog;
+const styles = () => ({
+  buttonOutlined: {
+    borderColor: 'white',
+    color: 'white',
+  },
+});
+
+export default withStyles(styles)(MemberLinkDialog);

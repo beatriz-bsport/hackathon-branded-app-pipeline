@@ -4,6 +4,9 @@ export default {
     startIn: 'Débute dans ',
     inProgress: 'En cours ',
   },
+  addMember: {
+    button: 'Créer un compte',
+  },
   filter: {
     establishment: 'Filtrer par lieu',
   },

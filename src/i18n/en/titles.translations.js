@@ -3,7 +3,7 @@
 export default {
   banner: {
     isStaging: 'Schedule a demo',
-    networkError: 'Network error - Please check your internet connection',
+    networkError: 'You are not connected to the internet',
   },
   member: {
     members: 'Members',

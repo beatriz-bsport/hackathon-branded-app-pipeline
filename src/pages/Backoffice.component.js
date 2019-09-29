@@ -12,6 +12,7 @@ import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { getTheme } from '../theme';
 import withSentryErrorReporting from '../hocs/error-boundary.hoc';
 import ResponsiveDrawer from '../components/navigation/ResponsiveDrawer.component';
+import LoadingBackoffice from '../components/navigation/LoadingBackoffice.component';
 
 import { refresh as refreshActions } from '../actions';
 import { fetchCompanyTheme } from '../libs/theme/actions';
@@ -141,7 +142,10 @@ export class Backoffice extends Component<Props> {
     const intercom_user = {
       email: this.props.username,
     };
-    console.log(this.props.tempPasswordState);
+
+    if (this.props.isRefreshing) {
+      return <LoadingBackoffice />;
+    }
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <ResponsiveDrawer

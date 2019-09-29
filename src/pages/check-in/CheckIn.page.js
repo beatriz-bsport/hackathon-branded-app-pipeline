@@ -3,12 +3,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Fab from '@material-ui/core/Fab';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { compose, withState } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { push } from 'react-router-redux';
 import { Redirect } from 'react-router-dom';
 
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 import { getPermissions } from '../../libs/role/selectors';
 import type { Permission } from '../../libs/role/types';
 
@@ -43,6 +47,8 @@ type Props = {
   fetchCompanyTheme: () => void,
   classes: Object,
   push: (path: string) => void,
+  goToCreateMember: (companyId: number) => void,
+  t: TFunction,
 };
 
 type State = {
@@ -104,6 +110,19 @@ export class CheckInPage extends React.Component<Props, State> {
         <div className={this.props.classes.content}>
           <CheckInRouter />
         </div>
+        <div className={this.props.classes.bottomButtonContainer}>
+          <Fab
+            onClick={() =>
+              this.props.goToCreateMember(this.props.theme.company)
+            }
+            color="primary"
+            variant="extended"
+            className={this.props.classes.bottomButton}
+          >
+            <PersonAddIcon className={this.props.classes.leftIcon} />
+            {this.props.t('addMember.button')}
+          </Fab>
+        </div>
       </MuiThemeProvider>
     );
   }
@@ -114,10 +133,27 @@ const styles = (theme) => ({
     marginTop: theme.spacing.unit * 8,
     width: '100%',
   },
+  bottomButtonContainer: {
+    visibility: 'hidden',
+    position: 'fixed',
+    bottom: 0,
+    marginBottom: theme.spacing.unit * 2,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100vw',
+  },
+  bottomButton: {
+    visibility: 'visible',
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
+  },
 });
 
 export default compose(
   withStyles(styles),
+  withNamespaces(['selfCheckIn']),
   withState('signoutOpen', 'setSignoutOpen', false),
   connect(
     (state) => ({
@@ -133,6 +169,8 @@ export default compose(
       fetchAllPaymentPacks,
       errorLogin,
       push,
+      goToCreateMember: (companyId) =>
+        push(`/external/${companyId}/add-member/`),
     },
   ),
 )(CheckInPage);

@@ -3,7 +3,7 @@
 export default {
   banner: {
     isStaging: 'Prendre RDV',
-    networkError: 'Erreur réseau - Veuillez vérifier votre connection internet',
+    networkError: "Vous n'êtes pas connecté à internet",
   },
   member: {
     memberForm: 'Ajouter un membre',

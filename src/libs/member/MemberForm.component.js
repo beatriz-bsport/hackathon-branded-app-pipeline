@@ -51,6 +51,7 @@ type Props = {
   emailExists: *,
   variant?: 'merge-form' | '',
   disabled?: boolean,
+  fromConsumerAccess: ?boolean,
 
   checkUserExists: ({ email?: string, phonenumber?: string }) => void,
   goToMember: (number) => void,
@@ -136,7 +137,11 @@ export function MemberForm(props: Props) {
           />
           <Grid container spacing={16}>
             <Grid item xs={12}>
-              <AvatarField name="avatar" disabled={disabled} />
+              <div
+                style={props.fromConsumerAccess ? { visibility: 'hidden' } : {}}
+              >
+                <AvatarField name="avatar" disabled={disabled} />
+              </div>
             </Grid>
             <Grid item xs={12} md={mdSize}>
               <TextField
@@ -171,6 +176,7 @@ export function MemberForm(props: Props) {
                 label={t('form.email')}
                 type="email"
                 fullWidth
+                required={!!props.fromConsumerAccess}
                 disabled={disabled || variant === 'merge-form'}
               />
             </Grid>
@@ -180,7 +186,7 @@ export function MemberForm(props: Props) {
                 label={t('form.member.referenceNumber')}
                 helperText={t('form.member.referenceNumberHelper')}
                 fullWidth
-                disabled={disabled}
+                disabled={disabled || !!props.fromConsumerAccess}
               />
             </Grid>
             <Grid item xs={12} md={mdSize}>
@@ -189,6 +195,7 @@ export function MemberForm(props: Props) {
                   <DateField
                     format="DD/MM/YYYY"
                     keyboard
+                    required={!!props.fromConsumerAccess}
                     mask={(value) => {
                       if (value) {
                         return [
@@ -220,6 +227,7 @@ export function MemberForm(props: Props) {
                 </Grid>
                 <Grid item>
                   <DateField
+                    required={!!props.fromConsumerAccess}
                     mask={(value) => {
                       if (value) {
                         return [
@@ -252,12 +260,14 @@ export function MemberForm(props: Props) {
                 name="phone"
                 label={t('form.phone')}
                 fullWidth
+                required={!!props.fromConsumerAccess}
                 disabled={disabled || variant === 'merge-form'}
               />
             </Grid>
             <Grid item xs={12} md={mdSize}>
               <AddressFields
                 name="address"
+                required={!!props.fromConsumerAccess}
                 label={t('form.address')}
                 disabled={disabled}
               />
@@ -351,19 +361,13 @@ export default compose(
         const { status, data } = error.response || {};
         if (status !== 404) {
           setEmailExists({ email, phonenumber, exists: data || {} });
+          window.scrollTo(0, 0);
         }
       });
     }, 1000),
   })),
   withProps(
-    ({
-      emailExists,
-      goToMemberList,
-      goToMember,
-      refreshListMember,
-      snackbarSuccess,
-      t,
-    }) => ({
+    ({ emailExists, goToMemberList, goToMember, snackbarSuccess, t }) => ({
       linkMember: () => {
         const { email, phonenumber } = emailExists;
         postAuth(`${API_URI}/saas/members/members/link/`, {
@@ -372,7 +376,6 @@ export default compose(
         })
           .then(() => {
             snackbarSuccess(t('member.link.success'));
-            refreshListMember();
             goToMemberList();
           })
           .catch((error) => {

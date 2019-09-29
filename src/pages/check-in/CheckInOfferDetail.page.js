@@ -51,7 +51,7 @@ type Props = {
     callback: () => void,
   }) => void,
   confirmBookingAttendance: (bookingId: number) => void,
-  bookingLoading: boolean,
+  loading: boolean,
 
   goBack: () => void,
   redirectToConfirmPage: (offerId: number, bookingId: number) => void,
@@ -78,7 +78,7 @@ export class CheckInOfferDetailPage extends React.Component<Props> {
             this.props.confirmBookingAttendance(bookingId);
             this.props.redirectToConfirmPage(this.props.offerId, bookingId);
           }}
-          bookingLoading={this.props.bookingLoading}
+          bookingLoading={this.props.loading}
           offer={this.props.offer}
           members={this.props.members}
           onAddMember={() => this.props.setRegisterModalOpen(true)}
@@ -131,7 +131,10 @@ export default compose(
       members: state.member.all,
       searchedMembers: memberSelectors.getSearched(state),
       bookings: bookingSelectors.getBookings(state),
-      bookingLoading: state.booking.loading,
+      loading:
+        state.booking.loading ||
+        state.member.loading ||
+        state.offer.byDay.loading,
       compatibleConsumerPacks: state.payment.compatibleConsumerPacks,
       compatibleConsumerPacksLoading:
         state.payment.compatibleConsumerPacksLoading,

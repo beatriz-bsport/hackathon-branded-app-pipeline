@@ -4,6 +4,9 @@ export default {
     startIn: 'Begins In :',
     inProgress: 'In progress :',
   },
+  addMember: {
+    button: 'Register an account',
+  },
   offerList: {
     refresh: 'Refresh sessions',
     emptyList: 'No session planned',

@@ -8,7 +8,6 @@ import { goBack as goBackAction } from 'react-router-redux';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import CheckInConfirm from '../../libs/check-in/components/CheckInConfirm.component';
-import memberSelectors from '../../libs/member/selectors';
 
 type Props = {
   classes: Object,
@@ -48,7 +47,7 @@ export default compose(
   connect(
     (state, { bookingId, offerId }) => ({
       offer: state.offer.offers.find((o) => o.id === offerId),
-      members: memberSelectors.getByOffer(state),
+      members: state.member.all,
       booking: state.booking.all.find((b) => b.id === bookingId),
       paymentPacks: state.paymentPack.all,
       bookingLoading: state.booking.loading,

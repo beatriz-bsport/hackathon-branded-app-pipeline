@@ -131,6 +131,7 @@ export default {
       OTHER: 'Other',
     },
     common: {
+      isRefreshing: 'Your interface will be ready in an instant',
       items: 'items',
       level: 'Level',
       activePass: 'active pass',

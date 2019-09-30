@@ -12,8 +12,8 @@ import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import i18next from 'i18next';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import BottomActionsButton from '../../components/button/BottomActionsButton.component';
 
 import {
   deleteCoach,
@@ -21,7 +21,6 @@ import {
 } from '../../libs/associated-coach/actions';
 import type { Coach } from '../../api/types';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
-import withBottomButtons from '../../hocs/inject-bottom-buttons';
 import withTitle from '../../hocs/with-title.hoc';
 
 import CoachListItem from '../../libs/associated-coach/components/CoachListItem.component';
@@ -40,6 +39,8 @@ type Props = {
   setDeleteCoachId: (id: ?number) => void,
 
   goToCoachDetail: (coachId: number) => void,
+  onCreate: () => void,
+  t: TFunction,
 };
 
 export class CoachList extends React.Component<Props> {
@@ -69,6 +70,10 @@ export class CoachList extends React.Component<Props> {
             deleteCoach={this.props.deleteCoach}
           />
         </Paper>
+        <BottomActionsButton
+          onCreate={this.props.onCreate}
+          onCreateLabel={this.props.t('coach.addCoach')}
+        />
       </div>
     );
   }
@@ -92,13 +97,11 @@ export default compose(
       deleteCoach,
       goToCreateCoach: () => push('/coach/add'),
       goToCoachDetail: (coachId) => push(`/coach/${coachId}`),
+      onCreate: () => push('/coach/add'),
     },
   ),
   withNamespaces(),
   withStyles(styles),
   withState('deleteCoachId', 'setDeleteCoachId', null),
-  withBottomButtons({
-    addButton: { path: '/coach/add', text: i18next.t('coach.addCoach') },
-  }),
   withTitle(({ t }: { t: TFunction }) => t('titles:coach.coachList')),
 )(CoachList);

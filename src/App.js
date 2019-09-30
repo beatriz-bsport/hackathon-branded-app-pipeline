@@ -22,8 +22,6 @@ import { refresh as refreshActions } from './actions';
 import { initLoginFromCookie } from './auth';
 
 import theme from './theme';
-import { DrawerContextProvider } from './hocs/with-drawer.hoc';
-import { ListViewContextProvider } from './hocs/inject-bottom-buttons';
 
 export class App extends Component<{}, {}> {
   state = {
@@ -57,8 +55,6 @@ export class App extends Component<{}, {}> {
         <MuiThemeProvider theme={theme}>
           <CssBaseline>
             <ConnectedRouter history={this.history}>
-              <DrawerContextProvider>
-                <ListViewContextProvider>
                   <MuiPickersUtilsProvider
                     utils={MomentUtils}
                     moment={Moment}
@@ -67,8 +63,6 @@ export class App extends Component<{}, {}> {
                     <SnackbarPile />
                     <Root />
                   </MuiPickersUtilsProvider>
-                </ListViewContextProvider>
-              </DrawerContextProvider>
             </ConnectedRouter>
           </CssBaseline>
         </MuiThemeProvider>

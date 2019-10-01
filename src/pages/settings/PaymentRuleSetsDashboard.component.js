@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
 import * as actions from '../../libs/payment-rules/actions';
@@ -43,14 +43,13 @@ export class PaymentRulesDashboard extends Component<Props, State> {
     const { classes } = this.props;
     return (
       <div>
-        <Button
+        <Fab
           onClick={this.props.handleOpen}
           className={classes.button}
           color="primary"
-          variant="fab"
         >
           <AddIcon />
-        </Button>
+        </Fab>
         {this.props.open ? (
           <PaymentRuleFormDialog
             open={this.props.open}

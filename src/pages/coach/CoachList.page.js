@@ -40,7 +40,9 @@ type Props = {
 
   goToCoachDetail: (coachId: number) => void,
   onCreate: () => void,
+
   t: TFunction,
+  classes: Object,
 };
 
 export class CoachList extends React.Component<Props> {
@@ -50,7 +52,7 @@ export class CoachList extends React.Component<Props> {
 
   render() {
     return (
-      <div>
+      <div className={this.props.classes.container}>
         {this.props.loading ? <LinearProgress /> : null}
         <Paper>
           <List component="nav" dense disablePadding>
@@ -80,9 +82,8 @@ export class CoachList extends React.Component<Props> {
 }
 
 const styles = (theme) => ({
-  root: {
-    width: '100%',
-    backgroundColor: theme.palette.background.paper,
+  container: {
+    paddingBottom: theme.spacing.unit * 16,
   },
 });
 

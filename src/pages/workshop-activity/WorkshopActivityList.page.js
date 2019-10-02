@@ -7,6 +7,7 @@ import { push } from 'react-router-redux';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose, withState } from 'recompose';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 import withTitle from '../../hocs/with-title.hoc';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
@@ -37,6 +38,7 @@ type Props = {
   onCreate: () => void,
 
   t: TFunction,
+  classes: Object,
 };
 
 export class WorkshopActivityList extends React.Component<Props> {
@@ -46,7 +48,7 @@ export class WorkshopActivityList extends React.Component<Props> {
 
   render() {
     return (
-      <div>
+      <div className={this.props.classes.container}>
         {this.props.loading ? <LinearProgress /> : null}
         <MetaActivityList
           metaActivities={this.props.workshopActivities}
@@ -69,7 +71,14 @@ export class WorkshopActivityList extends React.Component<Props> {
   }
 }
 
+const styles = (theme) => ({
+  container: {
+    paddingBottom: theme.spacing.unit * 16,
+  },
+});
+
 export default compose(
+  withStyles(styles),
   withNamespaces(),
   withTitle(({ t }) => t('titles:workshopActivity.workshopActivityList')),
   connect(

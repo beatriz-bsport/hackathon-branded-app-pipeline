@@ -3,6 +3,7 @@ import React from 'react';
 import { compose, withState } from 'recompose';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
+import withStyles from '@material-ui/core/styles/withStyles';
 import type { TFunction } from 'react-i18next';
 import { push } from 'react-router-redux';
 
@@ -34,6 +35,7 @@ type Props = {
   activityToDelete: (?number) => void,
 
   t: TFunction,
+  classes: Object,
 };
 
 export class MetaActivityListPage extends React.Component<Props> {
@@ -43,7 +45,7 @@ export class MetaActivityListPage extends React.Component<Props> {
 
   render() {
     return (
-      <div>
+      <div className={this.props.classes.container}>
         {this.props.loading ? <LinearProgress /> : null}
         <MetaActivityList
           metaActivities={this.props.metaActivities}
@@ -66,7 +68,14 @@ export class MetaActivityListPage extends React.Component<Props> {
   }
 }
 
+const styles = (theme) => ({
+  container: {
+    paddingBottom: theme.spacing.unit * 16,
+  },
+});
+
 export default compose(
+  withStyles(styles),
   withNamespaces(),
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:metaActivity.metaActivityList'),

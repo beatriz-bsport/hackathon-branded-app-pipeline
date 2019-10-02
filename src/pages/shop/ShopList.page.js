@@ -228,7 +228,7 @@ export class ShopItemList extends Component<Props, State> {
       return <LinearProgress />;
     }
     return (
-      <div>
+      <div className={this.props.classes.container}>
         {subShops.map((ss) => this.renderSubShop(ss))}
         {this.renderNewSubShop()}
         <Dialog
@@ -258,6 +258,9 @@ export class ShopItemList extends Component<Props, State> {
 }
 
 const styles = (theme) => ({
+  container: {
+    paddingBottom: theme.spacing.unit * 16,
+  },
   title: {
     marginTop: theme.spacing.unit * 2,
     marginBottom: theme.spacing.unit * 3,

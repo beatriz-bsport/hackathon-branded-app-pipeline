@@ -2,14 +2,15 @@
 
 import React, { Component } from 'react';
 
-import Grid from '@material-ui/core/Grid';
 import { push } from 'connected-react-router';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
+import withStyles from '@material-ui/core/styles/withStyles';
 import type { TFunction } from 'react-i18next';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
+import { invoice as invoiceActions } from '../../actions';
 import InvoiceTable from '../invoice/InvoiceTable.component';
 
 import subscriptionApi from '../../libs/subscription/api';
@@ -18,9 +19,12 @@ import type { Subscription } from '../../libs/subscription/types';
 
 type Props = {
   id: number,
+  finalizeInvoice: (uuid: string) => void,
   goToInvoice: (uuid: string) => void,
   goToSubscription: (id: number) => void,
+
   t: TFunction,
+  classes: Object,
 };
 
 type State = {
@@ -29,20 +33,23 @@ type State = {
 };
 
 export class MemberDetailPayment extends Component<Props, State> {
+  downloadInvoice = (invoice: Invoice) => {
+    window.location.href = invoice.stripe_invoice_pdf;
+  };
+
   render() {
     return (
-      <Grid container spacing={16}>
-        <Grid item xs={12} lg={6}>
+      <div>
+        <div className={this.props.classes.table}>
           <InvoiceTable
             onInvoiceClick={this.props.goToInvoice}
-            finalizeInvoice={() => {}}
-            downloadInvoice={() => {}}
-            showOnlyCore
+            finalizeInvoice={this.props.finalizeInvoice}
+            downloadInvoice={this.downloadInvoice}
             queryParams={`memberId=${this.props.id}`}
             title={this.props.t('invoiceTitle')}
           />
-        </Grid>
-        <Grid item xs={12} lg={6}>
+        </div>
+        <div className={this.props.classes.table}>
           <SubscriptionTable
             goToSubscription={this.props.goToSubscription}
             title={this.props.t('subscriptionTitle')}
@@ -55,20 +62,28 @@ export class MemberDetailPayment extends Component<Props, State> {
               )
             }
           />
-        </Grid>
-      </Grid>
+        </div>
+      </div>
     );
   }
 }
 
+const styles = (theme) => ({
+  table: {
+    marginBottom: theme.spacing.unit * 2,
+  },
+});
+
 export default compose(
   routerParamsToProps({ id: 'id:number' }),
+  withStyles(styles),
   withNamespaces(['member']),
   connect(
     null,
     {
       goToInvoice: (uuid) => push(`/invoice/${uuid}`),
       goToSubscription: (id: number) => push(`/subscription/${id}`),
+      finalizeInvoice: invoiceActions.finalizeInvoice,
     },
   ),
 )(MemberDetailPayment);

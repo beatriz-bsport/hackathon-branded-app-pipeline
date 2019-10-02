@@ -9,7 +9,7 @@ import { fetchDashboard as fetchDashboardStats } from './stats.actions';
 import { fetchAll as fetchShop } from '../libs/shop/actions/shopitem';
 import { fetchPaymentRules } from '../libs/payment-rules/actions';
 import { fetchAll as fetchAllAlertings } from '../libs/alerting/actions';
-import { fetchAssociated as fetchAssociatedCoaches } from '../libs/associated-coach/actions';
+import { fetchAssociatedCoachesList as fetchAssociatedCoaches } from '../libs/associated-coach/actions';
 
 const THRESHOLD_MINUTES = 60 * 12;
 

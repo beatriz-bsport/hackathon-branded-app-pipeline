@@ -4,8 +4,8 @@ import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
 import {
-  fetchAll,
-  fetchOne,
+  metaActivityListActions,
+  metaActivityDetailActions,
   removeImage,
   addImage,
   upsertActions,
@@ -13,11 +13,11 @@ import {
 } from '../actions/meta-activity.actions';
 
 const initialState = Immutable({
-  all: [],
+  byId: {},
+  allIds: [],
   loading: false,
   error: false,
   errorMsg: '',
-  metaActivity: null,
   delete: {
     loading: false,
     error: null,
@@ -37,30 +37,39 @@ export default handleActions(
     [deleteAction.error]: (state, { payload }) => {
       return state.setIn(['delete', 'error'], payload);
     },
-    [fetchAll.isLoading]: (state, { payload }) => {
-      return state.setIn(['loading'], payload);
+    [metaActivityListActions.isLoading]: (state, { payload }) => {
+      return state.set('loading', payload);
     },
-    [fetchAll.error]: (state, { payload }) => {
-      return state.setIn(['error'], payload);
+    [metaActivityListActions.error]: (state, { payload }) => {
+      return state.set('error', payload);
     },
-    [fetchAll.success]: (state, { payload }) => {
-      return state.setIn(['all'], payload).setIn(['lastFetched'], new Date());
-    },
-    [fetchOne.success]: (state, { payload }) => {
+    [metaActivityListActions.success]: (state, { payload }) => {
       return state
-        .setIn(['metaActivity'], payload)
-        .setIn(['lastFetched'], new Date());
+        .merge({ byId: payload.metaActivitiesDict }, { deep: true })
+        .set('allIds', payload.idList);
+    },
+    [metaActivityDetailActions.isLoading]: (state, { payload }) => {
+      return state.set('loading', payload);
+    },
+    [metaActivityDetailActions.error]: (state, { payload }) => {
+      return state.set('error', payload);
+    },
+    [metaActivityDetailActions.success]: (state, { payload }) => {
+      return state.merge({ byId: payload }, { deep: true });
     },
     [addImage.success]: (state, { payload }) => {
-      const { image } = payload;
-      const { images } = state.metaActivity;
-      return state.setIn(['metaActivity', 'images'], [image].concat(images));
+      const { image } = payload.image;
+      const { images } = state.byId[payload.id];
+      return state.setIn(
+        ['byId', payload.id, 'images'],
+        [image].concat(images),
+      );
     },
     [removeImage.success]: (state, { payload }) => {
-      const images = state.metaActivity.images.filter(
+      const images = state.byId[payload.id].images.filter(
         (i) => i.id !== payload.imageId,
       );
-      return state.setIn(['metaActivity', 'images'], images);
+      return state.setIn(['byId', payload.id, 'images'], images);
     },
     [upsertActions.isLoading]: (state, { payload }) => {
       return state.setIn(['upsert', 'loading'], payload);
@@ -70,11 +79,8 @@ export default handleActions(
     },
     [upsertActions.success]: (state, { payload }) => {
       return state
-        .set('all', [
-          payload,
-          ...state.all.filter((ma) => ma.id !== payload.id),
-        ])
-        .setIn(['upsert', 'data'], payload);
+        .merge({ byId: payload.metaActivity }, { deep: true })
+        .setIn(['upsert', 'data'], Object.values(payload.metaActivity)[0]);
     },
   },
   initialState,

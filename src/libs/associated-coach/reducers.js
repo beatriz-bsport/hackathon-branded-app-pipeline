@@ -6,17 +6,19 @@ import { handleActions } from 'redux-actions';
 import type { CoachState } from './types';
 
 import {
-  associated,
+  coachListAction,
+  coachDetailAction,
   performance,
   upsert,
   setPaymentRule,
   sessionPaymentRule,
-  deleteActions,
 } from './actions';
 
 const initialState: CoachState = Immutable({
   loading: false,
   error: '',
+  byId: {},
+  allIds: [],
   companyAssociated: [],
   // Performance
   performance: {},
@@ -29,22 +31,24 @@ const initialState: CoachState = Immutable({
 
 export default handleActions(
   {
-    [deleteActions.success]: (state, { payload }) => {
-      const idx = state.companyAssociated.findIndex(
-        (coach) => coach.id === payload,
-      );
-      return state.setIn(['companyAssociated', idx], {
-        ...state.companyAssociated[idx],
-        disabled: true,
-      });
+    [coachListAction.success]: (state, { payload }) => {
+      return state
+        .merge({ byId: payload.coachDict }, { deep: true })
+        .setIn(['allIds'], payload.coachIdList);
     },
-    [associated.success]: (state, { payload }) => {
-      return state.set('companyAssociated', payload);
-    },
-    [associated.isLoading]: (state, { payload }) => {
+    [coachListAction.isLoading]: (state, { payload }) => {
       return state.set('loading', payload);
     },
-    [associated.error]: (state, { payload }) => {
+    [coachListAction.error]: (state, { payload }) => {
+      return state.set('error', payload);
+    },
+    [coachDetailAction.success]: (state, { payload }) => {
+      return state.merge({ byId: payload }, { deep: true });
+    },
+    [coachDetailAction.isLoading]: (state, { payload }) => {
+      return state.set('loading', payload);
+    },
+    [coachDetailAction.error]: (state, { payload }) => {
       return state.set('error', payload);
     },
     [performance.isLoading]: (state, { payload }) => {
@@ -72,18 +76,13 @@ export default handleActions(
       return state.setIn(['upsert', 'error'], payload);
     },
     [upsert.success]: (state, { payload }) => {
-      return state.setIn(['upsert', 'result'], payload);
+      return state.merge({ byId: payload }, { deep: true });
     },
     [setPaymentRule.success]: (state, { payload }) => {
-      const coach = state.companyAssociated.find(
-        (c) => c.id === payload.coachId,
+      return state.setIn(
+        ['byId', payload.coachId, 'default_payment_rule_id'],
+        payload.default_payment_rule_id,
       );
-      const updatedCoach = { ...coach, ...payload.data };
-      return state.merge({
-        companyAssociated: [updatedCoach].concat(
-          state.companyAssociated.filter((c) => c.id !== payload.coachId),
-        ),
-      });
     },
     [sessionPaymentRule.isLoading]: (state, { payload }) => {
       return state.setIn(['upsert', 'loading'], payload);

@@ -30,7 +30,7 @@ import {
   getEnabledWorkshops,
 } from '../../libs/meta-activity/selectors';
 import { fetchEstablishments } from '../../libs/establishment/actions';
-import { fetchAssociated } from '../../libs/associated-coach/actions';
+import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
 import { getAllEstablishments } from '../../libs/establishment/selectors';
 import type { Establishment } from '../../libs/establishment/types';
 
@@ -53,7 +53,7 @@ type Props = {
 
   onSubmitMetaActivity: (*) => void,
   coaches: Array<Coach>,
-  fetchAssociated: () => void,
+  fetchAssociatedCoachesList: () => void,
 
   step: StepType,
   upsertedMetaActivity: ?MetaActivity,
@@ -90,7 +90,7 @@ const StepperForm = withNamespaces(['metaActivity'])(
 export class MetaActivityFormPage extends Component<Props> {
   componentDidMount() {
     this.props.fetchEstablishments();
-    this.props.fetchAssociated();
+    this.props.fetchAssociatedCoachesList();
   }
 
   renderActivityStep = () => (
@@ -167,7 +167,7 @@ export default compose(
     }),
     {
       fetchEstablishments,
-      fetchAssociated,
+      fetchAssociatedCoachesList,
       upsertMetaActivity: upsert,
       goToMetaActivity: (id: number) => push(`/activity/${id}`),
       fetchAllOffers: offerActions.fetchAllOffers,

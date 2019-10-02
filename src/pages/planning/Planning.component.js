@@ -33,7 +33,7 @@ import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import { fetchAllActivities } from '../../libs/meta-activity/actions/meta-activity.actions';
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import { getAllEstablishments } from '../../libs/establishment/selectors';
-import { fetchAssociated } from '../../libs/associated-coach/actions';
+import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
 import type { Establishment } from '../../libs/establishment/types';
 
 import { offer as offerActions } from '../../actions';
@@ -81,7 +81,7 @@ type Props = {
   activitiesLoading: boolean,
   width: string,
 
-  fetchAssociated: () => void,
+  fetchAssociatedCoachesList: () => void,
   fetchAllActivities: () => void,
   permission: Permission,
   metaActivities: Array<MetaActivity>,
@@ -150,7 +150,7 @@ export class Planning extends PureComponent<Props, State> {
   openEditModal = () => {
     this.setState({ editModalOpened: true });
     this.props.fetchEstablishments();
-    this.props.fetchAssociated();
+    this.props.fetchAssociatedCoachesList();
     this.props.fetchAllActivities();
   };
 
@@ -169,7 +169,7 @@ export class Planning extends PureComponent<Props, State> {
   openCreateOfferModal = () => {
     this.setState({ createOfferModalOpened: true });
     this.props.fetchEstablishments();
-    this.props.fetchAssociated();
+    this.props.fetchAssociatedCoachesList();
     this.props.fetchAllActivities();
   };
 
@@ -354,7 +354,7 @@ export class Planning extends PureComponent<Props, State> {
               }
               fetchSimilarOffers={() => {
                 this.props.fetchEstablishments();
-                this.props.fetchAssociated();
+                this.props.fetchAssociatedCoachesList();
                 this.props.fetchAllActivities();
                 this.props.fetchSimilarOffers(selectedOffer.id);
               }}
@@ -528,7 +528,7 @@ export default compose(
       deleteOffer: offerActions.deleteOffer,
       fetchSimilarOffers: offerActions.fetchSimilarOffers,
       fetchEstablishments,
-      fetchAssociated,
+      fetchAssociatedCoachesList,
       fetchAllActivities,
     },
   ),

@@ -29,7 +29,7 @@ import {
 import {
   setSessionPaymentRule,
   fetchAssociatedCoachPerformance,
-  fetchAssociated,
+  fetchAssociatedCoachesList,
 } from '../../libs/associated-coach/actions';
 import withTitle from '../../hocs/with-title.hoc';
 import { fetchPaymentRules } from '../../libs/payment-rules/actions';
@@ -45,7 +45,7 @@ import type {
 type Props = {
   coach: Coach,
   loading: boolean,
-  fetchAssociated: () => void,
+  fetchAssociatedCoachesList: () => void,
   performance: Array<CoachPerformanceType>,
   t: TFunction,
   classes: Object,
@@ -58,8 +58,8 @@ type Props = {
 
 export class CoachPerformance extends React.Component<Props> {
   componentDidMount() {
-    this.props.fetchAssociated();
     this.props.fetchPaymentRules();
+    this.props.fetchAssociatedCoachesList();
   }
 
   render() {
@@ -70,7 +70,6 @@ export class CoachPerformance extends React.Component<Props> {
       onSubmit,
       paymentRules,
     } = this.props;
-
     return (
       <div className={classes.container}>
         <AppBar position="static" color="default" className={classes.bar}>
@@ -136,8 +135,8 @@ export default compose(
       };
     },
     {
-      fetchAssociated,
       fetchPaymentRules,
+      fetchAssociatedCoachesList,
       setSessionPaymentRule,
       fetchPerformance: fetchAssociatedCoachPerformance,
     },

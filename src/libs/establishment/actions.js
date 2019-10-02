@@ -17,9 +17,12 @@ import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
 import type { Dispatch } from '../../state/types';
 
+import { createDictionnaryById, createIdList } from '../../actions/utils';
+
 export const deleteActions = {
   isLoading: createAction('ESTABLISHMENT/DELETE/IS_LOADING'),
   error: createAction('ESTABLISHMENT/DELETE/ERROR'),
+  success: createAction('ESTABLISHMENT/DELETE/SUCCESS'),
 };
 
 export function deleteEstablishment(
@@ -32,6 +35,7 @@ export function deleteEstablishment(
     try {
       await deleteEstablishmentAPI(id);
       dispatch(snackbarSuccess('establishment:forms.delete.message.success'));
+      dispatch(resetEstablishments());
       dispatch(fetchEstablishments());
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
@@ -41,6 +45,13 @@ export function deleteEstablishment(
       dispatch(snackbarError('establishment:forms.delete.message.error'));
       if (options && options.onError) options.onError();
     }
+  };
+}
+export const resetAction = createAction('ESTABLISHMENT/RESET/SUCCESS');
+
+export function resetEstablishments() {
+  return async (dispatch: Dispatch) => {
+    dispatch(resetAction(true));
   };
 }
 
@@ -55,7 +66,12 @@ export function fetchEstablishments() {
 
     try {
       const response = await fetchAllAPI();
-      dispatch(listLoaded(response.data.results));
+      dispatch(
+        listLoaded({
+          establishmentDict: createDictionnaryById(response.data.results),
+          establishmentIdList: createIdList(response.data.results),
+        }),
+      );
     } catch (error) {
       console.error(error);
       dispatch(listError(error));
@@ -89,7 +105,6 @@ export function createOrUpdateEstablishment(establishmentData: FormData) {
         : 'establishment.forms.create.success';
       dispatch(snackbarSuccess(message));
       dispatch(push('/establishment'));
-      dispatch(fetchEstablishments());
     } catch (error) {
       dispatch(snackbarError('establishment.forms.error'));
       dispatch(upsertError(error));
@@ -143,17 +158,17 @@ export const removeImage = {
 
 export function removeImageFromEstablishment(id: number, imageId: number) {
   return async (dispatch: Dispatch) => {
-    dispatch(removeImage.isLoading({ id, imageId, loading: true }));
+    dispatch(removeImage.isLoading(true));
     dispatch(removeImage.error(null));
 
     try {
       await deleteAuth(`${API_URI}/establishments/${id}/images/${imageId}/`);
-      dispatch(removeImage.success({ id, imageId }));
+      dispatch(fetchEstablishmentDetail(id));
     } catch (error) {
       dispatch(removeImage.error(error));
       Sentry.captureException(error);
     }
-    dispatch(removeImage.isLoading({ id, imageId, loading: false }));
+    dispatch(removeImage.isLoading(false));
   };
 }
 
@@ -170,7 +185,8 @@ export function fetchEstablishmentDetail(id: number) {
 
     try {
       const response = await fetchEstablishmentAPI(id);
-      dispatch(detailActions.success(response.data));
+      const payload = { [response.data.id]: response.data };
+      dispatch(detailActions.success(payload));
     } catch (error) {
       dispatch(detailActions.error(error));
     }

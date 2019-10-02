@@ -11,7 +11,7 @@ import BottomActionButtons from '../../components/button/BottomActionsButton.com
 
 import MetaActivityList from '../../libs/meta-activity/components/MetaActivityList.component';
 import MetaActivityDeleteDialog from '../../libs/meta-activity/components/MetaActivityDeleteDialog.component';
-import { getEnabledMetaActivities } from '../../libs/meta-activity/selectors';
+import { getPageEnabledMetaActivities } from '../../libs/meta-activity/selectors';
 import {
   deleteMetaActivity,
   fetchAllActivities as fetchAllMetactivities,
@@ -73,7 +73,7 @@ export default compose(
   ),
   connect(
     (state) => ({
-      metaActivities: getEnabledMetaActivities(state),
+      metaActivities: getPageEnabledMetaActivities(state),
       loading:
         state.stats.activities.loading ||
         state.metaActivity.loading ||

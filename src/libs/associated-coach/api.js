@@ -8,6 +8,7 @@ import {
   postBaseAuth,
   putAuth,
   deleteAuth,
+  buildUrlParams,
 } from '../../http';
 
 export async function addCoach(data: *) {
@@ -18,8 +19,13 @@ export async function updateCoach(data: *) {
   return putAuth(`${API_URI}/saas/coach/${data.get('id')}`, data);
 }
 
-export async function fetchAssociatedCoaches() {
-  return getAuth(`${API_URI}/saas/associated-coach/`);
+export async function fetchAssociatedCoaches(params: ?{ [string]: boolean }) {
+  const URLParams = buildUrlParams(params);
+  return getAuth(`${API_URI}/saas/associated-coach/${URLParams}`);
+}
+
+export async function fetchAssociatedCoach(id: number) {
+  return getAuth(`${API_URI}/saas/associated-coach/${id}/`);
 }
 
 export async function fetchAssociatedCoachPerformance(

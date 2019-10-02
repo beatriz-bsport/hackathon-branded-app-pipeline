@@ -13,16 +13,18 @@ import {
   addImage,
   removeImage,
   detailActions,
+  deleteActions,
+  resetAction,
 } from './actions';
 
 const initialState = Immutable({
-  all: [],
+  byId: {},
+  allIds: [],
   loading: false,
   error: null,
   detail: {
     loading: false,
     error: null,
-    data: null,
   },
   // Create or Update
   upsert: {
@@ -35,11 +37,17 @@ const initialState = Immutable({
 
 export default handleActions(
   {
+    [resetAction.success]: (state) => {
+      return state.setIn(['byId'], {}).setIn(['allIds'], []);
+    },
+    [deleteActions.success]: (state, { payload }) => {
+      return state.without(['allIds', payload]).without(['byId', payload]);
+    },
     [listIsLoading]: (state, { payload }) => {
       return state.set('loading', payload);
     },
     [detailActions.success]: (state, { payload }) => {
-      return state.setIn(['detail', 'data'], payload);
+      return state.merge({ byId: payload }, { deep: true });
     },
     [detailActions.error]: (state, { payload }) => {
       return state.setIn(['detail', 'error'], payload);
@@ -48,7 +56,9 @@ export default handleActions(
       return state.setIn(['detail', 'loading'], payload);
     },
     [listLoaded]: (state, { payload }) => {
-      return state.set('all', payload);
+      return state
+        .merge({ byId: payload.establishmentDict }, { deep: true })
+        .set('allIds', payload.establishmentIdList);
     },
     [listError]: (state, { payload }) => {
       return state.set('error', payload);
@@ -63,33 +73,16 @@ export default handleActions(
       return state.set('updated', payload);
     },
     [addImage.isLoading]: (state, { payload }) => {
-      const index = state.all.findIndex((e) => e.id === payload.id);
-      return state.setIn(['all', index, 'loading'], payload.loading);
+      return state.setIn(['byId', payload.id, 'loading'], payload.loading);
     },
     [addImage.success]: (state, { payload }) => {
       const { id, image } = payload;
-      const index = state.all.findIndex((e) => e.id === id);
-      const { images } = state.all[index];
-      return state.setIn(['all', index, 'images'], [image].concat(images));
+      const { images } = state.byId[id];
+      const newImages = images ? [image].concat(images) : [image];
+      return state.setIn(['byId', id, 'images'], newImages);
     },
     [removeImage.isLoading]: (state, { payload }) => {
-      const index = state.all.findIndex((e) => e.id === payload.id);
-      const establishment = state.all[index];
-      const iImage = establishment.images.findIndex(
-        (i) => i.id === payload.imageId,
-      );
-      return state.setIn(
-        ['all', index, 'images', iImage, 'deleting'],
-        payload.loading,
-      );
-    },
-    [removeImage.success]: (state, { payload }) => {
-      const index = state.all.findIndex((e) => e.id === payload.id);
-      const establishment = state.all[index];
-      const images = establishment.images.filter(
-        (i) => i.id !== payload.imageId,
-      );
-      return state.setIn(['all', index, 'images'], images);
+      return state.setIn(['upsert', 'loading'], payload);
     },
   },
   initialState,

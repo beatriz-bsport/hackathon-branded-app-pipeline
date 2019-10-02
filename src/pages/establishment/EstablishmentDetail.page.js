@@ -19,6 +19,8 @@ import {
   fetchEstablishmentDetail,
   deleteEstablishment,
 } from '../../libs/establishment/actions';
+
+import { getEstablishment } from '../../libs/establishment/selectors';
 import { checkCanDeleteEstablishment as canDeleteEstablishmentAPI } from '../../libs/establishment/api';
 
 type Props = {
@@ -44,7 +46,7 @@ export class EstablishmentDetails extends React.Component<Props, State> {
     deleteOpen: false,
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchEstablishment(this.props.id);
   }
 
@@ -84,8 +86,8 @@ export default compose(
   withNamespaces(),
   routerParamsToProps({ id: 'id:number' }),
   connect(
-    (state) => ({
-      establishment: state.establishment.detail.data,
+    (state, { id }) => ({
+      establishment: getEstablishment(state, id),
       loading: state.establishment.detail.loading,
       offers: state.offer.offers,
     }),

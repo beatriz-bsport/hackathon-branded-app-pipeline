@@ -19,7 +19,7 @@ import LinearProgress from '../../components/navigation/BackofficeLinearProgress
 import EstablishmentListItem from '../../libs/establishment/components/EstablishmentListItem.component';
 import EstablishmentDeleteDialog from '../../libs/establishment/components/EstablishmentDeleteDialog.component';
 import type { Establishment } from '../../libs/establishment/types';
-import { getAllEstablishments } from '../../libs/establishment/selectors';
+import { getAllPageEstablishments } from '../../libs/establishment/selectors';
 import {
   deleteEstablishment,
   fetchEstablishments,
@@ -117,7 +117,7 @@ export default compose(
   connect(
     (state) => ({
       loading: state.establishment.loading,
-      establishments: getAllEstablishments(state),
+      establishments: getAllPageEstablishments(state),
     }),
     {
       startUpdateEstablishment: (id: number) =>

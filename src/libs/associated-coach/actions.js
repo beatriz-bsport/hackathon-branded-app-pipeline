@@ -10,11 +10,14 @@ import {
   addCoach as addCoachAPI,
   linkByEmail as linkByEmailAPI,
   fetchAssociatedCoaches as fetchAssociatedCoachesAPI,
+  fetchAssociatedCoach as fetchAssociatedCoachAPI,
   deleteCoach as deleteCoachAPI,
   fetchAssociatedCoachPerformance as fetchAssociatedCoachPerformanceAPI,
 } from './api';
 
 import type { Dispatch, ThunkAction } from '../../state/types';
+
+import { createDictionnaryById, createIdList } from '../../actions/utils';
 
 type CoachPayload = FormData;
 
@@ -33,7 +36,6 @@ export function linkByEmail(
       const response = await linkByEmailAPI(email);
       if (response.status === 201) {
         dispatch(snackbarSuccess('coach.forms.linkByEmail.success'));
-        dispatch(fetchAssociated());
         options.onSuccess();
       } else {
         options.onError();
@@ -59,7 +61,7 @@ export function deleteCoach(
     try {
       await deleteCoachAPI(id);
       dispatch(snackbarSuccess('coach.forms.delete.success'));
-      dispatch(deleteActions.success(id));
+      dispatch(fetchAssociatedCoach(id));
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
       console.error(err);
@@ -69,17 +71,49 @@ export function deleteCoach(
   };
 }
 
-export function fetchAssociated() {
+export const coachListAction = {
+  isLoading: createAction('COACH/LIST/IS_LOADING'),
+  error: createAction('COACH/LIST/ERROR'),
+  success: createAction('COACH/LIST/SUCCESS'),
+};
+
+export function fetchAssociatedCoachesList(params?: { [string]: boolean }) {
   return async (dispatch: Dispatch) => {
-    dispatch(associated.isLoading(true));
-    dispatch(associated.error(null));
+    dispatch(coachListAction.isLoading(true));
+    dispatch(coachListAction.error(null));
     try {
-      const response = await fetchAssociatedCoachesAPI();
-      dispatch(associated.success(response.data));
+      const response = await fetchAssociatedCoachesAPI(params);
+      dispatch(
+        coachListAction.success({
+          coachDict: createDictionnaryById(response.data),
+          coachIdList: createIdList(response.data),
+        }),
+      );
     } catch (error) {
-      dispatch(associated.error(error));
+      dispatch(coachListAction.error(error));
     }
-    dispatch(associated.isLoading(false));
+    dispatch(coachListAction.isLoading(false));
+  };
+}
+
+export const coachDetailAction = {
+  isLoading: createAction('COACH/DETAIL/IS_LOADING'),
+  error: createAction('COACH/DETAIL/ERROR'),
+  success: createAction('COACH/DETAIL/SUCCESS'),
+};
+
+export function fetchAssociatedCoach(id: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(coachDetailAction.isLoading(true));
+    dispatch(coachDetailAction.error(null));
+    try {
+      const response = await fetchAssociatedCoachAPI(id);
+      const payload = { [response.data.id]: response.data };
+      dispatch(coachDetailAction.success(payload));
+    } catch (error) {
+      dispatch(coachDetailAction.error(error));
+    }
+    dispatch(coachDetailAction.isLoading(false));
   };
 }
 
@@ -104,11 +138,8 @@ export function createOrUpdateCoach(
       if (response.status !== 201 && response.status !== 200) {
         throw new Error(response);
       }
-
-      dispatch(upsert.success(response));
       const key = coachData.has('id') ? 'update' : 'create';
       dispatch(snackbarSuccess(`coach.forms.${key}.success`));
-      dispatch(fetchAssociated());
       dispatch(push('/coach'));
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
@@ -186,12 +217,13 @@ export function setCoachPaymentRule(
     dispatch(upsert.error(null));
 
     try {
-      const response = await putAuth(
+      await putAuth(
         `${API_URI}/accounts/coaches/${coachId}/set_payment_rule/`,
         { default_payment_rule_id: paymentRuleId },
       );
       dispatch(snackbarSuccess('paymentRules:update.success'));
-      dispatch(setPaymentRule.success({ coachId, data: response.data }));
+      const payload = { coachId, default_payment_rule_id: paymentRuleId };
+      dispatch(setPaymentRule.success(payload));
     } catch (err) {
       dispatch(snackbarError('paymentRules:update.error'));
       dispatch(upsert.error(err));

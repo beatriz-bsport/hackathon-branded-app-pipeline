@@ -13,7 +13,7 @@ export async function fetchAllActivities() {
 }
 
 export async function fetchMetaActivityDetails(id: number) {
-  return getAuth(`${API_URI}/saas/meta-activities/${id}/`);
+  return getAuth(`${API_V1_URI}/meta-activity/${id}/`);
 }
 
 export async function addMetaActivity(data: *) {

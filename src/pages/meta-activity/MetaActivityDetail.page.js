@@ -17,9 +17,9 @@ import MetaActivityDetail from '../../libs/meta-activity/components/MetaActivity
 import MetaActivityDeleteDialog from '../../libs/meta-activity/components/MetaActivityDeleteDialog.component';
 import {
   deleteMetaActivity,
-  fetchAllActivities as fetchAllMetactivities,
+  fetchMetaActivityDetails,
 } from '../../libs/meta-activity/actions/meta-activity.actions';
-import { getMetaActivities } from '../../libs/meta-activity/selectors';
+import { getMetaActivity } from '../../libs/meta-activity/selectors';
 import { getEventsByMetaActivity } from '../../libs/offer/selectors';
 import { fetchMetaActivityOffers } from '../../actions/offer.actions';
 import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '../../libs/meta-activity/api/common';
@@ -28,7 +28,7 @@ type Props = {
   id: number,
   metaActivity: MetaActivityType,
   metaActivityImages: Array<Object>,
-  fetchAllMetactivities: () => void,
+  fetchMetaActivityDetails: () => void,
 
   loading: boolean,
   offersLoading: boolean,
@@ -55,7 +55,7 @@ export class MetaActivity extends Component<Props, State> {
   state = { deleteOpen: false };
 
   componentDidMount() {
-    this.props.fetchAllMetactivities();
+    this.props.fetchMetaActivityDetails(this.props.id);
     if (this.props.id) {
       this.props.fetchMetaActivityOffers(this.props.id);
     }
@@ -63,7 +63,7 @@ export class MetaActivity extends Component<Props, State> {
 
   componentDidUpdate(prevProps: Props) {
     if (this.props.id && this.props.id !== prevProps.id) {
-      this.props.fetchAllMetactivities();
+      this.props.fetchMetaActivityDetails(this.props.id);
       this.props.fetchMetaActivityOffers(this.props.id);
     }
   }
@@ -120,14 +120,13 @@ export default compose(
   connect(
     (state, { id }) => ({
       loading: state.metaActivity.loading,
-      metaActivities: getMetaActivities(state),
-      metaActivity: getMetaActivities(state).find((ma) => ma.id === id),
+      metaActivity: getMetaActivity(state, id),
       events: getEventsByMetaActivity(state),
       offers: state.offer.offers,
       offersLoading: state.offer.byDay.loading,
     }),
     {
-      fetchAllMetactivities,
+      fetchMetaActivityDetails,
       fetchOffersByDay: offerActions.fetchOffersByDay,
       fetchMetaActivityOffers,
       push: routerPush,

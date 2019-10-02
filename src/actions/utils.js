@@ -89,3 +89,15 @@ export function createListHandler(
 
   return { fetcher, refresher, listActions, listReducers };
 }
+
+export function createDictionnaryById(data: Array<any>) {
+  return data.reduce((map, obj) => {
+    const newMap = map;
+    newMap[obj.id] = obj;
+    return newMap;
+  }, {});
+}
+
+export function createIdList(data: Array<any>) {
+  return data.map((object) => object.id);
+}

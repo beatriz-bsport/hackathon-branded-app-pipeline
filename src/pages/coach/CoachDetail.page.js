@@ -5,21 +5,23 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { push as routerPush } from 'react-router-redux';
-import { compose, withState, withProps } from 'recompose';
+import { compose, withState } from 'recompose';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import withTitle from '../../hocs/with-title.hoc';
 
 import { fetchPaymentRules } from '../../libs/payment-rules/actions';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { paymentRulesSelector } from '../../libs/payment-rules/selectors';
+import { getCoach } from '../../libs/associated-coach/selectors';
 import type { PaymentRule } from '../../libs/payment-rules';
 
 import {
   startUpdate,
   setCoachPaymentRule,
   deleteCoach,
-  fetchAssociated,
+  fetchAssociatedCoach,
 } from '../../libs/associated-coach/actions';
 import { canDeleteCoach as canDeleteCoachAPI } from '../../libs/associated-coach/api';
 import CoachDetail from '../../libs/associated-coach/components/CoachDetail.component';
@@ -38,8 +40,9 @@ type Props = {
   deleteCoach: (id: number) => void,
   loading: boolean,
 
-  fetchAssociated: () => void,
   loadPaymentRules: () => void,
+  id: number,
+  fetchAssociatedCoach: (number) => void,
   setDeleteModalOpen: (boolean) => void,
   deleteOpen: boolean,
   deleteCoach: (
@@ -51,8 +54,8 @@ type Props = {
 
 export class Coach extends React.Component<Props> {
   componentDidMount() {
-    this.props.fetchAssociated();
     this.props.loadPaymentRules();
+    this.props.fetchAssociatedCoach(this.props.id);
   }
 
   render() {
@@ -91,20 +94,20 @@ export class Coach extends React.Component<Props> {
 
 export default compose(
   withRouter,
+  routerParamsToProps({ id: 'id:number' }),
   withState('deleteOpen', 'setDeleteModalOpen', false),
   connect(
-    (state) => ({
+    (state, { id }) => ({
       loading: state.coach.loading,
-      selfCoach: state.coach.selfCoach,
-      associatedCoaches: state.coach.companyAssociated,
       isCoach: state.auth.is_coach,
       isManager: state.auth.is_manager,
       paymentRules: paymentRulesSelector(state),
+      coach: getCoach(state, id),
     }),
     {
       deleteCoach,
-      fetchAssociated,
       loadPaymentRules: fetchPaymentRules,
+      fetchAssociatedCoach,
       startUpdateCoach: startUpdate,
       setCoachPaymentRule,
       goToCreateCoach: () => routerPush('/coach/add'),
@@ -113,11 +116,11 @@ export default compose(
       goToList: () => routerPush('/coach'),
     },
   ),
-  withProps(({ associatedCoaches, match }) => ({
-    coach: associatedCoaches.find(
-      (coach) => coach.id === parseInt(match.params.coachId, 10),
-    ),
-  })),
+  // withProps(({ associatedCoaches, match }) => ({
+  //   coach: associatedCoaches.find(
+  //     (coach) => coach.id === parseInt(match.params.coachId, 10),
+  //   ),
+  // })),
   withTitle(({ coach }) => {
     return coach ? `${coach.name}` : '';
   }),

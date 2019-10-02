@@ -16,10 +16,11 @@ import LinearProgress from '../../components/navigation/BackofficeLinearProgress
 import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import {
-  fetchAssociated,
+  fetchAssociatedCoachesList,
   createOrUpdateCoach,
   linkByEmail as linkCoachViaEmail,
 } from '../../libs/associated-coach/actions';
+import { getCoach } from '../../libs/associated-coach/selectors';
 import CoachForm from '../../libs/associated-coach/components/CoachForm.component';
 import CoachEmailCheckDialog from '../../libs/associated-coach/components/CoachEmailCheckDialog.component';
 
@@ -37,7 +38,7 @@ type Props = {
   setInitialEmail: (email: string) => void,
 
   push: (path: string) => void,
-  fetchAssociated: () => void,
+  fetchAssociatedCoachesList: () => void,
   linkCoachViaEmail: (
     email: string,
     options: { onSuccess: () => void, onError: () => void },
@@ -62,7 +63,7 @@ const CoachMap = {
 
 export class CoachFormPage extends React.Component<Props> {
   componentDidMount() {
-    this.props.fetchAssociated();
+    this.props.fetchAssociatedCoachesList();
   }
 
   render() {
@@ -123,13 +124,10 @@ export default compose(
     (state, { coachId }) => ({
       pending: state.coach.upsert.loading,
       errors: state.coach.upsert.error,
-      initial:
-        coachId !== null
-          ? state.coach.companyAssociated.find((c) => c.id === coachId)
-          : null,
+      initial: coachId !== null ? getCoach(state, coachId) : null,
     }),
     {
-      fetchAssociated,
+      fetchAssociatedCoachesList,
       onCancel: goBack,
       upsertCoach: createOrUpdateCoach,
       linkCoachViaEmail,

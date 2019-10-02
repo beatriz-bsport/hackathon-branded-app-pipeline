@@ -19,7 +19,7 @@ import { getActiveCoaches } from '../libs/associated-coach/selectors';
 import { createOffers as createOffersAPI } from '../libs/meta-activity/api/meta-activity';
 import { getAllEstablishments } from '../libs/establishment/selectors';
 import { fetchEstablishments } from '../libs/establishment/actions';
-import { fetchAssociated } from '../libs/associated-coach/actions';
+import { fetchAssociatedCoachesList } from '../libs/associated-coach/actions';
 import {
   getEnabledMetaActivities,
   getEnabledWorkshops,
@@ -33,7 +33,7 @@ type Props = {
   metaActivities: Array<MetaActivity>,
   fetchAllOffers: () => void,
   fetchEstablishments: () => void,
-  fetchAssociated: () => void,
+  fetchAssociatedCoachesList: () => void,
   goBack: () => void,
 };
 
@@ -55,7 +55,7 @@ export class OfferFormPage extends Component<Props, State> {
   componentWillMount() {
     this.metaActivityId = parseInt(this.props.match.params.id, 10);
     this.props.fetchEstablishments();
-    this.props.fetchAssociated();
+    this.props.fetchAssociatedCoachesList();
   }
 
   createOffers = async (data: Object) => {
@@ -125,7 +125,7 @@ export default withNamespaces()(
     }),
     {
       fetchEstablishments,
-      fetchAssociated,
+      fetchAssociatedCoachesList,
       fetchAllOffers: offerActions.fetchAllOffers,
       goBack: goBackAction,
     },

@@ -31,7 +31,7 @@ import {
   setSessionPaymentRule,
   fetchAssociatedCoachPerformance,
   setCoachPaymentRule,
-  fetchAssociated,
+  fetchAssociatedCoachesList,
 } from '../../libs/associated-coach/actions';
 import { fetchPaymentRules } from '../../libs/payment-rules/actions';
 import withTitle from '../../hocs/with-title.hoc';
@@ -137,7 +137,7 @@ const CoachPerformanceComposed = compose(
 type Props = {
   associatedCoachesWithDefaultPaymentRule: Array<Coach>,
   coachLoading: boolean,
-  fetchAssociated: () => void,
+  fetchAssociatedCoachesList: () => void,
   fetchPaymentRules: () => void,
   loading: boolean,
   classes: Object,
@@ -159,7 +159,7 @@ type Props = {
 
 export class AllCoachPerformance extends React.Component<Props> {
   componentDidMount() {
-    this.props.fetchAssociated();
+    this.props.fetchAssociatedCoachesList();
     this.props.fetchPaymentRules();
   }
 
@@ -236,7 +236,7 @@ export default compose(
     }),
     {
       setSessionPaymentRule,
-      fetchAssociated,
+      fetchAssociatedCoachesList,
       fetchPerformance: fetchAssociatedCoachPerformance,
       setCoachPaymentRule,
       fetchPaymentRules,

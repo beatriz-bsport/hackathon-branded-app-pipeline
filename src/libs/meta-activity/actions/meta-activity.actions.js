@@ -17,7 +17,9 @@ import {
   deleteMetaActivity as deleteMetaActivityAPI,
 } from '../api/common';
 
-export const fetchOne = {
+import { createDictionnaryById, createIdList } from '../../../actions/utils';
+
+export const metaActivityDetailActions = {
   isLoading: createAction('META_ACTIVITIES/DETAIL/IS_LOADING'),
   error: createAction('META_ACTIVITIES/DETAIL/ERROR'),
   success: createAction('META_ACTIVITIES/DETAIL/SUCCESS'),
@@ -51,21 +53,22 @@ export function deleteMetaActivity(
 
 export function fetchMetaActivityDetails(id: number): ThunkAction {
   return async (dispatch: Dispatch) => {
-    dispatch(fetchAll.isLoading(true));
-    dispatch(fetchAll.error(null));
+    dispatch(metaActivityDetailActions.isLoading(true));
+    dispatch(metaActivityDetailActions.error(null));
 
     try {
       const response = await fetchMetaActivityDetailsAPI(id);
-      dispatch(fetchOne.success(response.data));
+      const metaActivityDictObject = { [response.data.id]: response.data };
+      dispatch(metaActivityDetailActions.success(metaActivityDictObject));
     } catch (err) {
-      dispatch(fetchAll.error(err));
+      dispatch(metaActivityDetailActions.error(err));
       Sentry.captureException(err);
     }
-    dispatch(fetchAll.isLoading(false));
+    dispatch(metaActivityDetailActions.isLoading(false));
   };
 }
 
-export const fetchAll = {
+export const metaActivityListActions = {
   isLoading: createAction('META_ACTIVITIES/LIST/IS_LOADING'),
   error: createAction('META_ACTIVITIES/LIST/ERROR'),
   success: createAction('META_ACTIVITIES/LIST/SUCCESS'),
@@ -73,17 +76,22 @@ export const fetchAll = {
 
 export function fetchAllActivities(): ThunkAction {
   return async (dispatch: Dispatch) => {
-    dispatch(fetchAll.isLoading(true));
-    dispatch(fetchAll.error(null));
+    dispatch(metaActivityListActions.isLoading(true));
+    dispatch(metaActivityListActions.error(null));
 
     try {
       const response = await fetchAllActivitiesAPI();
-      dispatch(fetchAll.success(response.data));
+      dispatch(
+        metaActivityListActions.success({
+          metaActivitiesDict: createDictionnaryById(response.data),
+          idList: createIdList(response.data),
+        }),
+      );
     } catch (err) {
-      dispatch(fetchAll.error(err));
+      dispatch(metaActivityListActions.error(err));
       Sentry.captureException(err);
     }
-    dispatch(fetchAll.isLoading(false));
+    dispatch(metaActivityListActions.isLoading(false));
   };
 }
 
@@ -158,8 +166,10 @@ export function upsert(metaActivityData: *, options: *): ThunkAction {
       : addMetaActivityAPI;
     try {
       const response = await createOrUpdate(metaActivityData);
-
-      dispatch(upsertActions.success(response.data));
+      const payload = {
+        metaActivity: { [response.data.id]: response.data },
+      };
+      dispatch(upsertActions.success(payload));
       dispatch(snackbarSuccess(`activity.forms.${key}.success`));
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {

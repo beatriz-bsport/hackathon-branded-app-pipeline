@@ -13,13 +13,29 @@ const EMPTY_PERFORMANCE: CoachPerformanceContainer = Immutable({
   error: null,
 });
 
-export const getAllCoaches = (state: State): Array<Coach> =>
-  state.coach.companyAssociated;
+export const getAllCoachesDict = (state: State): Array<Coach> =>
+  state.coach.byId;
+
+export const getCoachesList = (state: State): Array<Coach> =>
+  state.coach.allIds;
+
+export const getAllCoaches = createSelector(
+  getAllCoachesDict,
+  (coaches) => Immutable(Object.values(coaches)),
+);
 
 export const getActiveCoaches = createSelector(
   getAllCoaches,
-  (coaches) => coaches.filter((c) => !c.disabled),
+  (coaches) => Immutable(Object.values(coaches)).filter((c) => !c.disabled),
 );
+
+export const getPageCoaches = createSelector(
+  [getCoachesList, getAllCoaches],
+  (ListId, coach) => ListId.map((id) => coach[id]),
+);
+
+export const getCoach = (state: State, id: number): Coach =>
+  state.coach.byId[id];
 
 export const getCoachWithPaymentRule = createSelector(
   getActiveCoaches,
@@ -28,19 +44,19 @@ export const getCoachWithPaymentRule = createSelector(
 
 export const associatedCoachSelector = {
   get: (state: State, coachId: number) =>
-    state.coach.companyAssociated.find(
-      (x) => x.associated_coach_id === coachId,
+    Immutable(Object.values(getAllCoaches(state))).find(
+      (co) => co.associated_coach_id === coachId,
     ),
   getActive: (state: State) =>
-    state.coach.companyAssociated.filter((c) => !c.disabled),
+    Object.values(state.coach.byId).filter((c) => !c.disabled),
   withPaymentRule: (state: State) =>
-    state.coach.companyAssociated.filter(
+    Object.values(state.coach.byId).filter(
       (x) => !!x.default_payment_rule_id && !x.disabled,
     ),
 };
 
 export const coachSelector = (state: State, coachId: number) =>
-  state.coach.companyAssociated.find((x) => x.id === coachId);
+  state.coach.byId[coachId];
 
 const getCoachPerformanceState = (state: State) => state.coach.performance;
 

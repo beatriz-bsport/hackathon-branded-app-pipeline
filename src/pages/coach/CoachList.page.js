@@ -17,7 +17,7 @@ import BottomActionsButton from '../../components/button/BottomActionsButton.com
 
 import {
   deleteCoach,
-  fetchAssociated,
+  fetchAssociatedCoachesList,
 } from '../../libs/associated-coach/actions';
 import type { Coach } from '../../api/types';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
@@ -32,7 +32,7 @@ type Props = {
   loading: boolean,
   associatedCoaches: Array<Coach>,
 
-  fetchAssociated: () => void,
+  fetchAssociatedCoachesList: () => void,
 
   deleteCoachId: ?number,
   deleteCoach: (id: ?number) => void,
@@ -45,7 +45,7 @@ type Props = {
 
 export class CoachList extends React.Component<Props> {
   componentDidMount() {
-    this.props.fetchAssociated();
+    this.props.fetchAssociatedCoachesList({ disabled: false });
   }
 
   render() {
@@ -93,7 +93,7 @@ export default compose(
       associatedCoaches: getActiveCoaches(state),
     }),
     {
-      fetchAssociated,
+      fetchAssociatedCoachesList,
       deleteCoach,
       goToCreateCoach: () => push('/coach/add'),
       goToCoachDetail: (coachId) => push(`/coach/${coachId}`),

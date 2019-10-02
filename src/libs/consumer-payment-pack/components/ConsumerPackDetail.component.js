@@ -3,19 +3,24 @@ import React from 'react';
 
 import type { TFunction } from 'react-i18next';
 import { withNamespaces } from 'react-i18next';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
+import List from '@material-ui/core/List';
 import Paper from '@material-ui/core/Paper';
 
 import { compose } from 'recompose';
-import InvoiceListItem from '../invoice/InvoiceListItem.component';
-import BookingItemForManager from '../booking/components/BookingItemForManager.component';
-import PaginatedListStateful from '../../components/PaginatedListStateful.component';
+import InvoiceListItem from '../../invoice/InvoiceListItem.component';
+import BookingItemForManager from '../../booking/components/BookingItemForManager.component';
+import PaginatedListStateful from '../../../components/PaginatedListStateful.component';
+import ConsumerPaymentPackExtensionListItem from './ConsumerPaymentPackExtensionListItem.component';
 
-import type { PaymentPack } from './types';
-import type { Booking } from '../booking/types';
-import type { Invoice } from '../invoice/types';
-import type { Member } from '../member/types';
+import type { ConsumerPaymentPackExtension } from '../types';
+import type { PaymentPack } from '../../payment-packs/types';
+import type { Booking } from '../../booking/types';
+import type { Invoice } from '../../invoice/types';
+import type { Member } from '../../member/types';
 
 type Props = {
   bookings: Array<Booking>,
@@ -27,6 +32,11 @@ type Props = {
   confirmBookingAttendance: (id: number) => void,
   invoice: Invoice,
   member: Member,
+
+  extensions: Array<ConsumerPaymentPackExtension>,
+  onCreateExtension: ({ note: string, nbDays: number }) => void,
+  deleteExtension: (id: number) => void,
+  extensionsLoading: boolean,
 
   onInvoiceClick: (uuid: string) => void,
   t: TFunction,
@@ -79,6 +89,39 @@ export function ConsumerPaymentPackDetail(props: Props) {
           )}
         />
       </Paper>
+      {props.extensionsLoading ? <LinearProgress /> : null}
+      {props.extensions &&
+      props.extensions.length &&
+      !props.extensionsLoading ? (
+        <React.Fragment>
+          <Typography variant="h5" component="h2">
+            {props.t('details.extensionsTitle')}
+          </Typography>
+          <Paper className={props.classes.paper}>
+            <List disablePadding>
+              {props.extensions.map((ex) => (
+                <ConsumerPaymentPackExtensionListItem
+                  key={ex.id}
+                  extension={ex}
+                  divider
+                  onDelete={() => props.deleteExtension(ex.id)}
+                />
+              ))}
+            </List>
+          </Paper>
+        </React.Fragment>
+      ) : null}
+      {props.onCreateExtension ? (
+        <div className={props.classes.addButtonContainer}>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={props.onCreateExtension}
+          >
+            {props.t('consumerPaymentPack.addExtension')}
+          </Button>
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -87,6 +130,14 @@ const styles = (theme) => ({
   paper: {
     marginTop: theme.spacing.unit,
     marginBottom: theme.spacing.unit * 2,
+  },
+  addButtonContainer: {
+    width: '100%',
+    paddingTop: theme.spacing.unit * 2,
+    flexDirection: 'row',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

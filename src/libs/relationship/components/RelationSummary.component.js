@@ -17,7 +17,7 @@ import { compose } from 'recompose';
 
 import type { ConsumerPaymentPackLink } from '../types';
 
-import ConsumerPackRowItem from '../../payment-packs/ConsumerPackRowItem.component';
+import ConsumerPackRowItem from '../../consumer-payment-pack/components/ConsumerPackRowItem.component';
 
 type Props = {
   t: TFunction,

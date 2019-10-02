@@ -6,7 +6,6 @@ import booking from './booking';
 import offer from './offer';
 import auth from './auth';
 import stats from './stat';
-import paymentPack from './payment-pack';
 import consumerPaymentPack from './consumer-payment-pack';
 import payment from './payment';
 import consumer from './consumer';
@@ -20,7 +19,6 @@ export default {
   offer,
   auth,
   stats,
-  paymentPack,
   consumerPaymentPack,
   payment,
   consumer,

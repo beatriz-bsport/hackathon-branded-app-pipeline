@@ -14,7 +14,7 @@ import { compose } from 'recompose';
 import Divider from '@material-ui/core/Divider';
 
 import { consumerPaymentPack as consumerPackActions } from '../../actions';
-import ConsumerPackRowItem from '../../libs/payment-packs/ConsumerPackRowItem.component';
+import ConsumerPackRowItem from '../../libs/consumer-payment-pack/components/ConsumerPackRowItem.component';
 import { getAll as getAllPaymentPacks } from '../../libs/payment-packs/selectors';
 import PaymentPackSummary from '../../components/payment-pack/PaymentPackSummary.component';
 

@@ -10,7 +10,7 @@ import type { TFunction } from 'react-i18next';
 import { compose, withState } from 'recompose';
 import Button from '@material-ui/core/Button';
 
-import ConsumerPackRowItem from '../../payment-packs/ConsumerPackRowItem.component';
+import ConsumerPackRowItem from '../../consumer-payment-pack/components/ConsumerPackRowItem.component';
 
 type Props = {
   consumerPacks: Array<ConsumerPassWithPack>,

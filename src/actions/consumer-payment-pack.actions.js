@@ -3,6 +3,8 @@
 import { createAction } from 'redux-actions';
 
 import api from '../api';
+import paymentPackAPI from '../libs/payment-packs/api';
+import { fetchConsumerPackAsManager as fetchConsumerPackAsManagerAPI } from '../api/consumer-payment-pack';
 import type { Dispatch } from '../state/types';
 import { snackbarSuccess } from './snackbar.actions';
 
@@ -100,8 +102,7 @@ export function updateCredit(consumerPackId: number, nbCredit: number) {
       updateConsumerPack.isLoading({ id: consumerPackId, loading: true }),
     );
     try {
-      const apiCall =
-        api.paymentPack[nbCredit >= 0 ? 'addCredit' : 'subCredit'];
+      const apiCall = paymentPackAPI[nbCredit >= 0 ? 'addCredit' : 'subCredit'];
       const response = await apiCall(
         consumerPackId,
         nbCredit >= 0 ? nbCredit : -nbCredit,
@@ -110,6 +111,25 @@ export function updateCredit(consumerPackId: number, nbCredit: number) {
         dispatch(updateConsumerPack.success(response.data));
         dispatch(snackbarSuccess('paymentPack.credit.updated'));
       }
+    } catch (err) {
+      dispatch(updateConsumerPack.error(err));
+      dispatch(snackbarSuccess('paymentPack.credit.error'));
+    }
+    dispatch(
+      updateConsumerPack.isLoading({ id: consumerPackId, loading: false }),
+    );
+  };
+}
+
+export function fetchConsumerPackAsManager(consumerPackId: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(
+      updateConsumerPack.isLoading({ id: consumerPackId, loading: true }),
+    );
+    try {
+      const response = await fetchConsumerPackAsManagerAPI(consumerPackId);
+      dispatch(updateConsumerPack.success(response.data));
+      dispatch(snackbarSuccess('paymentPack.credit.updated'));
     } catch (err) {
       dispatch(updateConsumerPack.error(err));
       dispatch(snackbarSuccess('paymentPack.credit.error'));
@@ -139,5 +159,80 @@ export function fetchByMember(memberId: number) {
       dispatch(byMember.error(error));
     }
     dispatch(byMember.isLoading(false));
+  };
+}
+
+export const extensionListActions = {
+  isLoading: createAction('CONSUMER_PACK_EXTENSION/LIST/IS_LOADING'),
+  error: createAction('CONSUMER_PACK_EXTENSION/LIST/ERROR'),
+  success: createAction('CONSUMER_PACK_EXTENSION/LIST/SUCCESS'),
+};
+
+export function fetchPackExtensions(consumerPaymentPackId: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(extensionListActions.isLoading(true));
+    dispatch(extensionListActions.error(null));
+    try {
+      const response = await api.consumerPaymentPack.fetchExtensions(
+        consumerPaymentPackId,
+      );
+      dispatch(extensionListActions.success(response.data));
+    } catch (error) {
+      console.error(error);
+      dispatch(extensionListActions.error(error));
+    }
+    dispatch(extensionListActions.isLoading(false));
+  };
+}
+
+export const extensionCreateActions = {
+  isLoading: createAction('CONSUMER_PACK_EXTENSION/CREATE/IS_LOADING'),
+  error: createAction('CONSUMER_PACK_EXTENSION/CREATE/ERROR'),
+  success: createAction('CONSUMER_PACK_EXTENSION/CREATE/SUCCESS'),
+};
+
+export function createPackExtension(
+  data: any,
+  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(extensionCreateActions.isLoading(true));
+    dispatch(extensionCreateActions.error(null));
+    try {
+      const response = await api.consumerPaymentPack.createExtension(data);
+      dispatch(extensionCreateActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      console.error(error);
+      dispatch(extensionCreateActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(extensionCreateActions.isLoading(false));
+  };
+}
+
+export const extensionDeleteActions = {
+  isLoading: createAction('CONSUMER_PACK_EXTENSION/DELETE/IS_LOADING'),
+  error: createAction('CONSUMER_PACK_EXTENSION/DELETE/ERROR'),
+  success: createAction('CONSUMER_PACK_EXTENSION/DELETE/SUCCESS'),
+};
+
+export function deletePackExtension(
+  id: number,
+  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(extensionDeleteActions.isLoading(true));
+    dispatch(extensionDeleteActions.error(null));
+    try {
+      await api.consumerPaymentPack.deleteExtension(id);
+      dispatch(extensionDeleteActions.success(id));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      console.error(error);
+      dispatch(extensionDeleteActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(extensionDeleteActions.isLoading(false));
   };
 }

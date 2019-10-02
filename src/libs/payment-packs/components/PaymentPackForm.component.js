@@ -17,20 +17,25 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-import { Moment } from '../../i18n';
-import { DATE_FORMAT } from '../../datetime';
+import {
+  START_ON_PURCHASE,
+  START_ON_FIRST_BOOKING,
+  START_ON_FIRST_ATTENDANCE,
+} from '@bsport/common/lib/master-data/payment-pack';
+
+import { Moment } from '../../../i18n';
+import { DATE_FORMAT } from '../../../datetime';
 
 import {
   PriceField,
   TextField,
   DateField,
   MultipleCheckboxField,
-  CheckboxField,
   RadioGroupField,
   Actions,
   Submit,
   SwitchField,
-} from '../../components/forms';
+} from '../../../components/forms';
 
 type Props = {
   categories: *[],
@@ -67,7 +72,7 @@ export function PaymentPackForm(props: Props) {
     initial,
     classes,
   } = props;
-  const { manager_only, start_on_first_use, timeType } = values;
+  const { manager_only, start_date_method, timeType } = values;
   return (
     <div>
       <Form className={classes.content}>
@@ -75,25 +80,25 @@ export function PaymentPackForm(props: Props) {
           <Grid item xs={12}>
             <TextField
               name="name"
-              label={t('common.name')}
+              label={t('form.paymentPack.name.label')}
               required
               fullWidth
-              helperText={t('form.paymentPack.helper.name')}
+              helperText={t('form.paymentPack.name.helperText')}
             />
           </Grid>
           <Grid item xs={12} md={6}>
             <PriceField
               name="price"
-              label={t('common.priceIncludingTax')}
+              label={t('form.paymentPack.priceIncludingTax.label')}
               required
               fullWidth
-              helperText={t('form.paymentPack.helper.price')}
+              helperText={t('form.paymentPack.priceIncludingTax.helperText')}
             />
           </Grid>
           <Grid item xs={12} md={6}>
             <TextField
               name="tax"
-              label={t('common.tax')}
+              label={t('form.paymentPack.tax.label')}
               type="number"
               required
               fullWidth
@@ -107,10 +112,10 @@ export function PaymentPackForm(props: Props) {
           <Grid item xs={12}>
             <TextField
               name="credits"
-              label={t('common.credits')}
+              label={t('form.paymentPack.credits.label')}
               type="number"
               fullWidth
-              helperText={t('form.paymentPack.helper.credits')}
+              helperText={t('form.paymentPack.credits.helperText')}
             />
           </Grid>
         </Grid>
@@ -138,38 +143,58 @@ export function PaymentPackForm(props: Props) {
               <Collapse in={timeType === VALID_BY_DURATION}>
                 <TextField
                   name="duration_days"
-                  label={t('form.paymentPack.durationDays')}
-                  helperText={t('form.paymentPack.durationDaysHelperText')}
+                  label={t('form.paymentPack.durationDays.label')}
+                  helperText={t('form.paymentPack.durationDays.helperText')}
                   type="number"
                   fullWidth
                 />
                 <TextField
                   name="duration_months"
-                  label={t('form.paymentPack.durationMonths')}
-                  helperText={t('form.paymentPack.durationMonthsHelperText')}
+                  label={t('form.paymentPack.durationMonths.label')}
+                  helperText={t('form.paymentPack.durationMonths.helperText')}
                   type="number"
                   fullWidth
                 />
                 <TextField
                   name="duration_years"
-                  label={t('form.paymentPack.durationYears')}
-                  helperText={t('form.paymentPack.durationYearsHelperText')}
+                  label={t('form.paymentPack.durationYears.label')}
+                  helperText={t('form.paymentPack.durationYears.helperText')}
                   type="number"
                   fullWidth
                 />
                 <div style={{ paddingBottom: 24 }}>
-                  <CheckboxField
-                    name="start_on_first_use"
-                    label={t('form.paymentPack.startOnFirstUse')}
-                    helperText={t('form.paymentPack.startOnFirstUseHelper')}
+                  <RadioGroupField
+                    name="start_date_method"
+                    choices={[
+                      {
+                        label: t(
+                          'form.paymentPack.start_date_method.on_purchase',
+                        ),
+                        value: START_ON_PURCHASE,
+                      },
+                      {
+                        label: t(
+                          'form.paymentPack.start_date_method.on_booking',
+                        ),
+                        value: START_ON_FIRST_BOOKING,
+                      },
+                      {
+                        label: t(
+                          'form.paymentPack.start_date_method.on_attendance',
+                        ),
+                        value: START_ON_FIRST_ATTENDANCE,
+                      },
+                    ]}
                   />
                 </div>
-                <Collapse in={start_on_first_use}>
+                <Collapse in={start_date_method !== `${START_ON_PURCHASE}`}>
                   <TextField
                     name="expiration_days_before_first_use"
-                    label={t('form.paymentPack.expirationDaysBeforeFirstUse')}
+                    label={t(
+                      'form.paymentPack.expirationDaysBeforeFirstUse.label',
+                    )}
                     helperText={t(
-                      'form.paymentPack.expirationDaysBeforeFirstUseHelper',
+                      'form.paymentPack.expirationDaysBeforeFirstUse.helperText',
                     )}
                     type="number"
                     fullWidth
@@ -178,12 +203,12 @@ export function PaymentPackForm(props: Props) {
               </Collapse>
               <Collapse in={timeType === VALID_BY_DATERANGE}>
                 <DateField
-                  label={t('common.from')}
+                  label={t('form.paymentPack.from')}
                   fullWidth
                   name="lower_date"
                 />
                 <DateField
-                  label={t('common.until')}
+                  label={t('form.paymentPack.until')}
                   fullWidth
                   name="upper_date"
                 />
@@ -198,11 +223,11 @@ export function PaymentPackForm(props: Props) {
           <Grid container>
             <Grid item xs={12}>
               <TextField
-                label={t('form.paymentPack.maxBookingPerWeek')}
+                label={t('form.paymentPack.maxBookingPerWeek.label')}
                 type="number"
                 fullWidth
                 name="max_bookings_per_week"
-                helperText={t('form.paymentPack.helper.maxBookingPerWeek')}
+                helperText={t('form.paymentPack.maxBookingPerWeek.helperText')}
               />
             </Grid>
             <Grid item xs={12}>
@@ -228,7 +253,7 @@ export function PaymentPackForm(props: Props) {
             <Grid item xs={12} md={4}>
               <MultipleCheckboxField
                 name="categories"
-                label={t('common.sports')}
+                label={t('form.paymentPack.sports')}
                 helperText={t('form.paymentPack.noneMeansAll')}
                 choices={categories.map((category) => ({
                   id: category.id,
@@ -239,7 +264,7 @@ export function PaymentPackForm(props: Props) {
             <Grid item xs={12} md={4}>
               <MultipleCheckboxField
                 name="metaActivities"
-                label={t('common.activities')}
+                label={t('form.paymentPack.activities')}
                 helperText={t('form.paymentPack.noneMeansAll')}
                 choices={metaActivities.map((metaActivity) => ({
                   id: metaActivity.id,
@@ -250,7 +275,7 @@ export function PaymentPackForm(props: Props) {
             <Grid item xs={12} md={4}>
               <MultipleCheckboxField
                 name="establishments"
-                label={t('common.establishments')}
+                label={t('form.paymentPack.establishments')}
                 helperText={t('form.paymentPack.noneMeansAll')}
                 choices={establishments.map((establishment) => ({
                   id: establishment.id,
@@ -263,11 +288,13 @@ export function PaymentPackForm(props: Props) {
         <Actions>
           {props.onCancel ? (
             <Button onClick={props.onCancel}>
-              {props.onCancelText || t('common.skip')}
+              {props.onCancelText || t('form.paymentPack.actions.skip')}
             </Button>
           ) : null}
           <Submit disabled={isSubmitting}>
-            {initial && initial.id ? t('common.edit') : t('common.create')}
+            {initial && initial.id
+              ? t('form.paymentPack.actions.edit')
+              : t('form.paymentPack.actions.create')}
           </Submit>
         </Actions>
       </Form>
@@ -287,7 +314,7 @@ const PackSchema = Yup.object().shape({
     .nullable(),
   timeType: Yup.string().required(),
   expiration_days_before_first_use: Yup.number(),
-  start_on_first_use: Yup.boolean().required(),
+  start_date_method: Yup.number().required(),
   duration_days: Yup.number().when('timeType', {
     is: VALID_BY_DURATION,
     then: Yup.number()
@@ -344,7 +371,7 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces([]),
+  withNamespaces(['paymentPack']),
   withFormik({
     mapPropsToValues: ({ initial }) =>
       Object.assign(
@@ -363,14 +390,15 @@ export default compose(
           new_member_only: false,
           manager_only: false,
           onsite_payment_available: false,
-          start_on_first_use: false,
-          expiration_days_before_first_use: 60,
+          start_date_method: `${START_ON_FIRST_BOOKING}`,
+          expiration_days_before_first_use: 365,
           categories: [],
           metaActivities: [],
           establishments: [],
         },
         (initial && {
           ...initial,
+          start_date_method: `${initial.start_date_method}`,
           categories: (initial.categories || []).map((c) => c.id),
           establishments: initial.establishments || [],
           timeType: initial.validity_daterange
@@ -398,7 +426,7 @@ export default compose(
         'manager_only',
         'onsite_payment_available',
         'expiration_days_before_first_use',
-        'start_on_first_use',
+        'start_date_method',
         'categories',
         'metaActivities',
         'establishments',

@@ -493,52 +493,6 @@ export default {
             'This operation is not revertable. This session will be hidden to all new customer. You will still be able to accces the session details and bookings.',
         },
       },
-      paymentPack: {
-        newMemberOnly: 'Only available to new customers',
-        onsitePaymentAvailable: 'On-site payment available',
-        managerOnly: 'Unavailable for customers',
-        startOnFirstUse: 'Pass validity countdown start after first booking',
-        startOnFirstUseHelper:
-          'Otherwise the countdown immediately starts after billing',
-        expirationDaysBeforeFirstUse: 'Expiration if no booking made',
-        expirationDaysBeforeFirstUseHelper:
-          'If no first booking is made during this number of days, the pass expires and can not be used',
-        helper: {
-          name: 'Name for the payment pack',
-          price: 'Price for user for the whole pack',
-          starting_date:
-            'Start date for pack, leave blank for direct availability',
-          ending_date: 'End date for pack, leave blank for no end',
-          credits: 'Credits for the pack, leave blank for unlimited',
-          maxBookingPerWeek: 'Booking quota per week, empty means no limit',
-        },
-        timeSettingsTitle: 'Pass validity',
-        generalSettingsTitle: 'General',
-        validByDuration: 'Pass valid N days after purchase',
-        validByDaterange: 'Pass valid on a specific date range',
-        durationDays: 'Validity period',
-        durationDaysHelperText:
-          'Numbers of days for which the pass will stay active after purchase',
-        durationMonths: 'Additional duration (month)',
-        durationMonthsHelperText: 'Sum itself with the number of days',
-        durationYears: 'Additional duration (years)',
-        durationYearsHelperText:
-          'Sum itself with the number of days and months',
-        restrictionsTitle: 'Restrictions',
-        maxBookingPerWeek: 'Max usage per week',
-        noneMeansAll: 'Keep empty to authorize all',
-        update: {
-          success: 'Pass: operation succeeded',
-          error: 'Pass: operation failed',
-        },
-        delete: {
-          title: 'Deleting pass :',
-          askConfirmation:
-            'Be careful ! This deletion is definitive. The pass will not be visible anymore and will be unavailable for purchase.',
-          thereAreConsumers:
-            'Be careful ! Some members have bought this pass, if you disable it, they can continue to use until they exhaust their credits. If you want to disable it completely, consider reducing their credits here. The pass will not appear in your marketplace anymore.',
-        },
-      },
       title: 'Title',
       specific_info: 'Information',
       pleaseEnterYourSMSCode: 'Please enter the code sent by SMS',

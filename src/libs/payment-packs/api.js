@@ -1,4 +1,4 @@
-import { API_URI, getAuth, postAuth, patchAuth, putAuth } from '../http';
+import { API_URI, getAuth, postAuth, patchAuth, putAuth } from '../../http';
 
 export async function addCreditToConsumerPack(paymentPackId, nbCredit) {
   return getAuth(

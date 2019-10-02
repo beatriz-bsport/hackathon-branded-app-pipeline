@@ -13,6 +13,8 @@ const getActive = createSelector(
 const get = (state, id) => getAll(state).find((cpp) => cpp.id === id);
 
 export const getConsumerPacks = (state) => state.consumerPaymentPack.items;
+export const getConsumerPaymentPackExtensions = (state) =>
+  state.consumerPaymentPack.extension.items;
 
 export const getConsumerPacksWithPaymentPack = createSelector(
   [getConsumerPacks, getPaymentPacks],

@@ -10,7 +10,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { withNamespaces } from 'react-i18next';
 
 import type { TFunction } from 'react-i18next';
-import type { PaymentPack } from './types';
+import type { PaymentPack } from '../types';
 
 type Props = {
   pack: PaymentPack,

@@ -14,10 +14,11 @@ import Paper from '@material-ui/core/Paper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import { offer as offerActions } from '../../actions';
 import {
-  paymentPack as paymentPackActions,
-  offer as offerActions,
-} from '../../actions';
+  fetchAllPaymentPacks as fetchAllPaymentPacksAction,
+  createOrUpdate as createOrUpdatePaymentPack,
+} from '../../libs/payment-packs/actions';
 import { mapFormData } from '../form.utils';
 import { upsert } from '../../libs/meta-activity/actions/workshop-activity.actions';
 import {
@@ -31,7 +32,7 @@ import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import MetaActivityForm from '../../libs/meta-activity/components/MetaActivityForm.component';
-import PaymentPackForm from '../../libs/payment-packs/PaymentPackForm.component';
+import PaymentPackForm from '../../libs/payment-packs/components/PaymentPackForm.component';
 import OfferForm from '../../libs/offer/OfferForm.component';
 
 import { fetchEstablishments } from '../../libs/establishment/actions';
@@ -204,8 +205,8 @@ export default compose(
       upsertWorkshopActivity: upsert,
       goToPreviousPage: goBack,
       goToWorkshop: (id: number) => push(`/workshop-activity/${id}`),
-      fetchPaymentPacks: paymentPackActions.fetchAll,
-      createPass: paymentPackActions.createOrUpdate,
+      fetchPaymentPacks: fetchAllPaymentPacksAction,
+      createPass: createOrUpdatePaymentPack,
       fetchAllOffers: offerActions.fetchAllOffers,
       fetchEstablishments,
       fetchAssociatedCoachesList,
@@ -226,12 +227,12 @@ export default compose(
       });
     },
   })),
-  withProps(({ createPass, fetchPaymentPacks, setStep }) => ({
+  withProps(({ createPass, fetchAllPaymentPacks, setStep }) => ({
     onSubmitPass: (data, options = {}) => {
       createPass(data, {
         ...options,
         onSuccess: () => {
-          fetchPaymentPacks();
+          fetchAllPaymentPacks();
           if (options.onSuccess) options.onSuccess();
           setStep(STEP_OFFER);
           window.scrollTo(0, 0);

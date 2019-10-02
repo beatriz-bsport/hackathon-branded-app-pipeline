@@ -11,7 +11,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Button from '@material-ui/core/Button';
 import type { Member } from '../../member/types';
 
-import ConsumerPackRowItem from '../../payment-packs/ConsumerPackRowItem.component';
+import ConsumerPackRowItem from '../../consumer-payment-pack/components/ConsumerPackRowItem.component';
 
 type Props = {
   t: TFunction,

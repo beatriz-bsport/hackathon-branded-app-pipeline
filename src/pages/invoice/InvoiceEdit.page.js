@@ -19,6 +19,7 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import memberSelectors from '../../libs/member/selectors';
 import { fetchMember } from '../../libs/member/actions';
 import { fetchAll as fetchShopItems } from '../../libs/shop/actions/shopitem';
+import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
 import { getPermissions } from '../../libs/role/selectors';
 
 import type { Offer, Invoice } from '../../api/types';
@@ -43,6 +44,7 @@ type Props = {
   goBack: () => void,
   fetchInvoice: (uuid: string) => void,
   fetchShopItems: () => void,
+  fetchAllPaymentPacks: () => void,
   goToMemberPage: (id: number) => void,
   fetchMember: (id: number) => void,
   memberLoading: boolean,
@@ -74,6 +76,7 @@ export class InvoiceFormPage extends Component<Props, State> {
     this.props.resetCreateOrUpdateStatus();
     this.props.fetchInvoice(this.props.uuid);
     this.props.fetchShopItems();
+    this.props.fetchAllPaymentPacks();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -180,6 +183,7 @@ export default compose(
     {
       fetchMember,
       fetchShopItems,
+      fetchAllPaymentPacks,
       goBack,
       fetchInvoice: invoiceActions.fetchSpecificInvoice,
       updatePaymentMethod: invoiceActions.updatePaymentMethod,

@@ -17,6 +17,7 @@ import { Moment } from '../../i18n';
 import { formatAsDate } from '../../datetime';
 import { invoice as invoiceActions } from '../../actions';
 import { fetchAll as fetchShopItems } from '../../libs/shop/actions/shopitem';
+import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
 import { fetchMember } from '../../libs/member/actions';
 
 import type { Member } from '../../libs/member/types';
@@ -41,6 +42,7 @@ type Props = {
   resetCreateOrUpdateStatus: () => void,
   goToMemberPage: (id: number) => void,
   fetchShopItems: () => void,
+  fetchAllPaymentPacks: () => void,
 
   creatingInvoice: boolean,
   loading: boolean,
@@ -61,6 +63,7 @@ export class InvoiceCreatePage extends Component<Props, State> {
     this.props.resetCreateOrUpdateStatus();
     this.props.fetch(this.props.id);
     this.props.fetchShopItems();
+    this.props.fetchAllPaymentPacks();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -155,6 +158,7 @@ export default compose(
     }),
     {
       fetchShopItems,
+      fetchAllPaymentPacks,
       goToInvoiceList: () => pushRouter('/invoice'),
       createInvoice: invoiceActions.createOrUpdateInvoice,
       resetCreateOrUpdateStatus: invoiceActions.createOrUpdateReset,

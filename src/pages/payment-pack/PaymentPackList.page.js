@@ -10,16 +10,17 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push as pushRouter } from 'react-router-redux';
 import { compose } from 'recompose';
-import PaginatedConsumerPackList from '../../libs/payment-packs/PaginatedConsumerPackList.component';
+import PaginatedConsumerPackList from '../../libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
 
-import PaymentPackListItem from '../../libs/payment-packs/PaymentPackListItem.component';
-import PaymentPackDeleteDialog from '../../libs/payment-packs/PaymentPackDeleteDialog.component';
+import PaymentPackListItem from '../../libs/payment-packs/components/PaymentPackListItem.component';
+import PaymentPackDeleteDialog from '../../libs/payment-packs/components/PaymentPackDeleteDialog.component';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
+import { consumerPaymentPack as consumerPackActions } from '../../actions';
 import {
-  consumerPaymentPack as consumerPackActions,
-  paymentPack as paymentPackActions,
-} from '../../actions';
+  fetchAllPaymentPacks,
+  patch as patchPaymentPack,
+} from '../../libs/payment-packs/actions';
 import { getAll as getAllPaymentPacks } from '../../libs/payment-packs/selectors';
 import type {
   ConsumerPaymentPack,
@@ -238,7 +239,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     fetchAllPaymentPacks() {
-      dispatch(paymentPackActions.fetchAll());
+      dispatch(fetchAllPaymentPacks());
     },
     incrementCredit(consumerPackId) {
       dispatch(consumerPackActions.updateCredit(consumerPackId, 1));
@@ -247,7 +248,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(consumerPackActions.updateCredit(consumerPackId, -1));
     },
     updatePaymentPack(paymentPackId, data) {
-      dispatch(paymentPackActions.patch(paymentPackId, data, true));
+      dispatch(patchPaymentPack(paymentPackId, data, true));
     },
     pushToEdit(paymentPackId: number) {
       dispatch(pushRouter(`/payment-pack/${paymentPackId}/edit`));

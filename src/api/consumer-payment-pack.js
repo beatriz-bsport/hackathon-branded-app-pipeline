@@ -1,5 +1,5 @@
 // @flow
-import { API_URI, getAuth } from '../http';
+import { API_URI, API_V1_URI, postAuth, deleteAuth, getAuth } from '../http';
 
 export async function fetchByOfferByMember(offerId: number, memberId: number) {
   return getAuth(
@@ -17,6 +17,12 @@ export async function fetchByMember(memberId: number) {
   );
 }
 
+export async function fetchExtensions(consumerPassId: number) {
+  return getAuth(
+    `${API_URI}/payment-pack/pack-extension/?consumer_payment_pack=${consumerPassId}`,
+  );
+}
+
 export async function fetchByPaymentPack(
   paymentPackId: number,
   page?: number,
@@ -31,9 +37,26 @@ export async function fetchByPaymentPack(
   );
 }
 
+export async function createExtension(data: any) {
+  return postAuth(`${API_V1_URI}/payment-pack/pack-extension/`, data);
+}
+
+export async function deleteExtension(id: number) {
+  return deleteAuth(`${API_V1_URI}/payment-pack/pack-extension/${id}/`);
+}
+
+export async function fetchConsumerPackAsManager(id: number) {
+  return getAuth(
+`${API_URI}/saas/consumer-payment-pack/${id}/`,
+  );
+}
+
 export default {
   fetchByOfferByMember,
   fetchByPaymentPack,
   fetchById,
   fetchByMember,
+  fetchExtensions,
+  createExtension,
+  deleteExtension,
 };

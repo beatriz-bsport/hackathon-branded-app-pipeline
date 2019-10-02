@@ -1,7 +1,7 @@
 import Immutable from 'seamless-immutable/seamless-immutable.production.min';
 
 import authActionTypes from '../../actions/auth.types';
-import paymentPackActionTypes from '../../actions/paymentPack.types';
+import { actionTypes as paymentPackActionTypes } from '../payment-packs/types';
 import { actionTypes, memberListActions } from './actions';
 
 const initialState = Immutable({

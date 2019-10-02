@@ -57,7 +57,6 @@ export const BottomActionButtons = (props: Props) => (
     ) : null}
     {props.onDelete ? (
       <RedFab
-        variant="fab"
         className={props.classes.actionButton}
         onClick={props.onDelete}
       >

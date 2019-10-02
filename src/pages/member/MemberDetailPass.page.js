@@ -9,7 +9,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import InfoIcon from '@material-ui/icons/Info';
 import { push, replace } from 'connected-react-router';
-import { compose } from 'recompose';
+import { compose, withState } from 'recompose';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -28,15 +28,21 @@ import { fetchMember as fetchMemberAction } from '../../libs/member/actions';
 import {
   fetchByMember as fetchConsumerPackByMemberAction,
   updateCredit as updateCreditAction,
+  fetchConsumerPackAsManager,
+  fetchPackExtensions,
+  deletePackExtension,
+  createPackExtension,
 } from '../../actions/consumer-payment-pack.actions';
-import { fetchAll as fetchAllPaymentPacks } from '../../actions/paymentPack.actions';
+import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
 import { fetchSpecificInvoice } from '../../actions/invoice.actions';
 
 import paymentPackSelectors from '../../libs/payment-packs/selectors';
+import ConsumerPaymentPackExtensionFormDialog from '../../libs/consumer-payment-pack/components/ConsumerPaymentPackExtensionFormDialog.component';
+import { getConsumerPaymentPackExtensions } from '../../libs/consumer-payment-pack/selectors';
 import bookingSelectors from '../../libs/booking/selectors';
 
-import ConsumerPackRowItem from '../../libs/payment-packs/ConsumerPackRowItem.component';
-import ConsumerPackDetail from '../../libs/payment-packs/ConsumerPackDetail.component';
+import ConsumerPackRowItem from '../../libs/consumer-payment-pack/components/ConsumerPackRowItem.component';
+import ConsumerPackDetail from '../../libs/consumer-payment-pack/components/ConsumerPackDetail.component';
 import RevertBookingDialog from '../../libs/booking/components/RevertBookingDialog.component';
 
 import type { Member } from '../../libs/member/types';
@@ -55,6 +61,9 @@ type Props = {
   fetchBookingsByMember: (id: number) => void,
   fetchAllPaymentPacks: () => void,
   fetchInvoice: (uuid: string) => void,
+  fetchExtensions: (consumerPassId: number) => void,
+  refreshConsumerPack: (id: number) => void,
+  passExtensions: Array<ConsumerPaymentPackExtension>,
   consumerPackLoading: boolean,
   consumerPacks: Array<ConsumerPaymentPack>,
   selectedConsumerPass: ?ConsumerPaymentPack,
@@ -70,6 +79,17 @@ type Props = {
   discardBookingAttendance: (id: number) => void,
   confirmBookingAttendance: (id: number) => void,
   goToRelationship: (memberId: number) => void,
+
+  passExtensionsLoading: boolean,
+  setOpenCreateExtension: (boolean) => void,
+  deleteExtension: (
+    id: number,
+    options: ?{ onSuccess: ?() => void, onError: ?() => void },
+  ) => void,
+  openCreateExtension: boolean,
+  setOpenCreateExtension: (boolean) => void,
+  createExtension: (data: any) => void,
+
   t: TFunction,
   classes: Object,
 };
@@ -115,6 +135,7 @@ export class MemberDetailPass extends Component<Props, State> {
           prevProps.selectedConsumerPass.id)
     ) {
       this.props.fetchInvoice(this.props.selectedConsumerPass.invoice);
+      this.props.fetchExtensions(this.props.selectedConsumerPass.id);
     }
   }
 
@@ -195,16 +216,48 @@ export class MemberDetailPass extends Component<Props, State> {
               discardBookingAttendance={this.props.discardBookingAttendance}
               confirmBookingAttendance={this.props.confirmBookingAttendance}
               onBookingClick={this.goToBooking}
+              extensions={this.props.passExtensions}
+              extensionsLoading={this.props.passExtensionsLoading}
               handleRevert={(bookingToRevert) =>
                 this.setState({ bookingToRevert })
               }
               member={this.props.member}
               onInvoiceClick={this.props.goToInvoice}
+              onCreateExtension={() => this.props.setOpenCreateExtension(true)}
+              deleteExtension={(id) => {
+                this.props.deleteExtension(id, {
+                  onSuccess: () =>
+                    this.props.refreshConsumerPack(
+                      this.props.selectedConsumerPass.id,
+                    ),
+                });
+              }}
             />
           ) : (
             <ClickOnConsumerPack classes={this.props.classes} />
           )}
         </Grid>
+        <ConsumerPaymentPackExtensionFormDialog
+          open={this.props.openCreateExtension}
+          onClose={() => this.props.setOpenCreateExtension(false)}
+          consumerPaymentPack={this.props.selectedConsumerPass}
+          onSubmit={(data) => {
+            this.props.createExtension(
+              {
+                ...data,
+                consumer_payment_pack: this.props.selectedConsumerPass.id,
+              },
+              {
+                onSuccess: () => {
+                  this.props.refreshConsumerPack(
+                    this.props.selectedConsumerPass.id,
+                  );
+                  this.props.setOpenCreateExtension(false);
+                },
+              },
+            );
+          }}
+        />
         <RevertBookingDialog
           handleBookingDeletion={() => {
             this.props.deleteBooking(this.state.bookingToRevert.id);
@@ -236,7 +289,12 @@ const styles = (theme) => ({
     marginTop: theme.spacing.unit * 2,
   },
   shareButtonContainer: {
-    paddingTop: theme.spacing.unit * 2,
+    paddingTop: theme.spacing.unit * 3,
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
 });
 
@@ -247,6 +305,7 @@ export default compose(
   }),
   withNamespaces(['paymentPack']),
   withStyles(styles),
+  withState('openCreateExtension', 'setOpenCreateExtension', false),
   connect(
     (state, { id, consumerPassId }) => ({
       member: memberSelectors.get(state, id),
@@ -257,6 +316,8 @@ export default compose(
       getPaymentPack: (id_) => paymentPackSelectors.get(state, id_),
       consumerPackInvoice: state.invoice.invoice,
       consumerPackLoading: state.consumerPaymentPack.byMember.loading,
+      passExtensions: getConsumerPaymentPackExtensions(state),
+      passExtensionsLoading: state.consumerPaymentPack.extension.loading,
       getConsumerPackBookings: (id_) =>
         bookingSelectors.getByConsumerPack(state, id_),
     }),
@@ -269,11 +330,19 @@ export default compose(
       onSelectConsumerPass: (memberId: number, id: number) =>
         replace(`/member/${memberId}/pass/${id}/`),
       deleteBooking,
+
+      fetchExtensions: fetchPackExtensions,
+      createExtension: createPackExtension,
+      deleteExtension: deletePackExtension,
+      refreshConsumerPack: fetchConsumerPackAsManager,
+
       discardBookingAttendance,
       confirmBookingAttendance,
       fetchMember: fetchMemberAction,
+
       incrementCredit: (id_: number) => updateCreditAction(id_, 1),
       decrementCredit: (id_: number) => updateCreditAction(id_, -1),
+
       fetchInvoice: (uuid: string) => fetchSpecificInvoice(uuid),
       fetchAllPaymentPacks,
       fetchConsumerPacks: (memberId: number) =>

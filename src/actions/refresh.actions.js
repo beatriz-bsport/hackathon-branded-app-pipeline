@@ -3,7 +3,7 @@ import { Moment } from '../i18n';
 
 import { fetchAllOffers } from './offer.actions';
 import { fetchSCT } from './category.actions';
-import { fetchAll as fetchAllPaymentPacks } from './paymentPack.actions';
+import { fetchAllPaymentPacks } from '../libs/payment-packs/actions';
 import { fetchDashboard as fetchDashboardStats } from './stats.actions';
 
 import { fetchAll as fetchShop } from '../libs/shop/actions/shopitem';

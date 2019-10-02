@@ -7,7 +7,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import type { ConsumerPaymentPackConsumerView } from '../../../api/types';
-import ConsumerPackRowItem from '../../../libs/payment-packs/ConsumerPackRowItem.component';
+import ConsumerPackRowItem from '../../../libs/consumer-payment-pack/components/ConsumerPackRowItem.component';
 
 type Props = {
   onBookFromPack: () => void,

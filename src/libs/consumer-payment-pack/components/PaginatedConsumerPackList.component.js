@@ -5,8 +5,11 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Divider from '@material-ui/core/Divider';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import PaginatedListBase from '../../components/PaginatedListBase.component';
+import PaginatedListBase from '../../../components/PaginatedListBase.component';
 import ConsumerPackRowItem from './ConsumerPackRowItem.component';
+
+import type { ConsumerPaymentPack } from '../types';
+import type { PaymentPack } from '../../payment-packs/types';
 
 type Props = {
   paymentPack: PaymentPack,

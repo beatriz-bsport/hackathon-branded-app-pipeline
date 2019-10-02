@@ -16,7 +16,7 @@ import MemberRelationList from '../../libs/relationship/components/MemberRelatio
 import RelationSummary from '../../libs/relationship/components/RelationSummary.component';
 import RelationForm from '../../libs/relationship/components/RelationForm.component';
 import { fetchByMember as fetchConsumerPackByMemberAction } from '../../actions/consumer-payment-pack.actions';
-import { fetchAll as fetchAllPaymentPacksAction } from '../../actions/paymentPack.actions';
+import { fetchAllPaymentPacks as fetchAllPaymentPacksAction } from '../../libs/payment-packs/actions';
 import { getConsumerPacksWithPaymentPack } from '../../libs/consumer-payment-pack/selectors';
 import ConsumerPackLinkForm from '../../libs/relationship/components/ConsumerPackLinkForm.component';
 import ConsumerPassLinkingDeleteDialog from '../../libs/relationship/components/ConsumerPassLinkingDeleteDialog.component';

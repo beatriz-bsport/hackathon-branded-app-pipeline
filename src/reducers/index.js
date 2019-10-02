@@ -5,7 +5,6 @@ import { combineReducers } from 'redux';
 import authReducers from './auth';
 import offerReducers from './offer';
 import statsReducers from './stats';
-import paymentPackReducers from './paymentPack';
 import consumerPaymentPackReducers from './consumer-payment-pack';
 import categoryReducers from './category';
 import invoiceReducers from './invoice';
@@ -37,6 +36,7 @@ import communicationReducers from '../libs/communication/reducers';
 import couponReducers from '../libs/coupon/reducers';
 import relationship from '../libs/relationship/reducers';
 import login from '../libs/login/reducers';
+import paymentPack from '../libs/payment-packs/reducers';
 
 import type { State, Action } from '../state/types';
 
@@ -57,7 +57,7 @@ const rootReducer = combineReducers({
   stats: statsReducers,
   coach: coachReducers,
   member: memberReducer,
-  paymentPack: paymentPackReducers,
+  paymentPack,
   consumerPaymentPack: consumerPaymentPackReducers,
   category: categoryReducers,
   invoice: invoiceReducers,

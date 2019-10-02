@@ -14,9 +14,10 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import moment from 'moment';
 
-import { formatAsDate } from '../../datetime';
-import RedButton from '../../components/button/RedButton.component';
-import type { PaymentPack, ConsumerPaymentPack } from './types';
+import { formatAsDate } from '../../../datetime';
+import RedButton from '../../../components/button/RedButton.component';
+import type { ConsumerPaymentPack } from '../types';
+import type { PaymentPack } from '../../payment-packs/types';
 
 import CreditStatus from './CreditStatus.component';
 
@@ -80,7 +81,11 @@ export class ConsumerPackRowItem extends Component<Props> {
       if (consumerPack.disabled && !consumerPack.dst_consumer_payment_pack) {
         return (
           <Button
-            onClick={() => incrementCredit(consumerPack.id)}
+            onClick={(ev) => {
+              ev.preventDefault();
+              ev.stopPropagation();
+              incrementCredit(consumerPack.id);
+            }}
             variant="outlined"
           >
             {t('paymentPack.enableConsumer')}
@@ -89,7 +94,11 @@ export class ConsumerPackRowItem extends Component<Props> {
       }
       return (
         <RedButton
-          onClick={() => decrementCredit(consumerPack.id)}
+          onClick={(ev) => {
+            ev.preventDefault();
+            ev.stopPropagation();
+            decrementCredit(consumerPack.id);
+          }}
           variant="outlined"
         >
           {t('paymentPack.disableConsumer')}
@@ -115,14 +124,22 @@ export class ConsumerPackRowItem extends Component<Props> {
           aria-label="change-credits"
           disabled={available_credits >= credits}
           color="primary"
-          onClick={() => incrementCredit(consumerPack.id)}
+          onClick={(ev) => {
+            ev.preventDefault();
+            ev.stopPropagation();
+            incrementCredit(consumerPack.id);
+          }}
         >
           +1
         </IconButton>
         <IconButton
           aria-label="change-credits"
           color="secondary"
-          onClick={() => decrementCredit(consumerPack.id)}
+          onClick={(ev) => {
+            ev.preventDefault();
+            ev.stopPropagation();
+            decrementCredit(consumerPack.id);
+          }}
         >
           -1
         </IconButton>

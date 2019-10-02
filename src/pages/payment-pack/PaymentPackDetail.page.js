@@ -9,14 +9,12 @@ import type { TFunction } from 'react-i18next';
 import { push as pushRouter } from 'react-router-redux';
 import { compose } from 'recompose';
 
-import PaymentPackCard from '../../libs/payment-packs/PaymentPackCard.component';
-import PaginatedConsumerPackList from '../../libs/payment-packs/PaginatedConsumerPackList.component';
-import PaymentPackDeleteDialog from '../../libs/payment-packs/PaymentPackDeleteDialog.component';
+import PaymentPackCard from '../../libs/payment-packs/components/PaymentPackCard.component';
+import PaginatedConsumerPackList from '../../libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
+import PaymentPackDeleteDialog from '../../libs/payment-packs/components/PaymentPackDeleteDialog.component';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import {
-  consumerPaymentPack as consumerPackActions,
-  paymentPack as paymentPackActions,
-} from '../../actions';
+import { consumerPaymentPack as consumerPackActions } from '../../actions';
+import { patch as patchPaymentPack } from '../../libs/payment-packs/actions';
 import paymentPackSelector from '../../libs/payment-packs/selectors';
 import type { MetaActivity } from '../../api/types';
 import withTitle from '../../hocs/with-title.hoc';
@@ -243,7 +241,7 @@ export default compose(
       decrementCredit: (consumerPackId) =>
         consumerPackActions.updateCredit(consumerPackId, -1),
       updatePaymentPack: (paymentPackId, data) =>
-        paymentPackActions.patch(paymentPackId, data, true),
+        patchPaymentPack(paymentPackId, data, true),
       pushToEdit: (paymentPackId: number) =>
         pushRouter(`/payment-pack/${paymentPackId}/edit`),
       resetConsumerPacks: consumerPackActions.resetByPaymentPack,

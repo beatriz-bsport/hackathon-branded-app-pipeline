@@ -5,6 +5,9 @@ import Typography from '@material-ui/core/Typography';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
+import type { ConsumerPaymentPack } from '../types';
+import type { PaymentPack } from '../../payment-packs/types';
+
 type Props = {
   t: TFunction,
   consumerPack: ?ConsumerPaymentPack,

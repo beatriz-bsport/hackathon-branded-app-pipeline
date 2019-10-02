@@ -19,7 +19,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 
-import PaymentPackCard from '../../payment-packs/PaymentPackCard.component';
+import PaymentPackCard from '../../payment-packs/components/PaymentPackCard.component';
 
 type Props = {
   t: TFunction,

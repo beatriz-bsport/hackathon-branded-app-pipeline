@@ -3,6 +3,9 @@ import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 import {
   byOfferByMember,
+  extensionListActions,
+  extensionCreateActions,
+  extensionDeleteActions,
   byPaymentPack,
   byMember,
   byId,
@@ -28,6 +31,19 @@ const initialState = Immutable({
   loading: false,
   error: null,
   updatingConsumerPacks: [],
+  extension: {
+    items: [],
+    loading: false,
+    error: null,
+    create: {
+      loading: false,
+      error: null,
+    },
+    delete: {
+      loading: false,
+      error: null,
+    },
+  },
   byMember: {
     loading: false,
     error: false,
@@ -36,6 +52,41 @@ const initialState = Immutable({
 
 export default handleActions(
   {
+    [extensionCreateActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['extension', 'create', 'loading'], payload);
+    },
+    [extensionCreateActions.error]: (state, { payload }) => {
+      return state.setIn(['extension', 'create', 'error'], payload);
+    },
+    [extensionCreateActions.success]: (state, { payload }) => {
+      return state.setIn(
+        ['extension', 'items'],
+        [payload, ...state.extension.items],
+      );
+    },
+
+    [extensionDeleteActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['extension', 'delete', 'loading'], payload);
+    },
+    [extensionDeleteActions.error]: (state, { payload }) => {
+      return state.setIn(['extension', 'delete', 'error'], payload);
+    },
+    [extensionDeleteActions.success]: (state, { payload }) => {
+      return state.setIn(
+        ['extension', 'items'],
+        state.extension.items.filter((e) => e.id !== payload),
+      );
+    },
+
+    [extensionListActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['extension', 'loading'], payload);
+    },
+    [extensionListActions.error]: (state, { payload }) => {
+      return state.setIn(['extension', 'error'], payload);
+    },
+    [extensionListActions.success]: (state, { payload }) => {
+      return state.setIn(['extension', 'items'], payload);
+    },
     [byMember.isLoading]: (state, { payload }) => {
       return state.setIn(['byMember', 'loading'], payload);
     },

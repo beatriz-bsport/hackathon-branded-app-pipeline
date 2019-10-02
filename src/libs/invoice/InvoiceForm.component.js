@@ -23,8 +23,6 @@ import sum from 'lodash/sum';
 
 import PaymentForm from './payment/PaymentForm.component';
 import PaymentList from './payment/PaymentList.component';
-import { formatAsDate, DATE_FORMAT } from '../../datetime';
-import { Moment } from '../../i18n';
 
 import type { Invoice, PaymentPack, InvoiceItem } from '../../api/types';
 import type { InvoiceDataFront } from './payment/types';
@@ -182,10 +180,7 @@ export class InvoiceForm extends Component<Props, State> {
       voucher,
       top_up: topUp,
       shop_item_ids: shopItemInvoiceItems.map((siii) => siii.id),
-      payment_pack_ids: paymentPackInvoiceItems.map((ppii) => [
-        ppii.id,
-        ppii.date_bought,
-      ]),
+      payment_pack_ids: paymentPackInvoiceItems.map((ppii) => [ppii.id]),
       payment_items: paymentItems,
     };
     return this.props.createOrUpdate(data);
@@ -301,7 +296,7 @@ export class InvoiceForm extends Component<Props, State> {
     }));
   };
 
-  onAddPaymentPack = (paymentPackId: number, date_bought: Object) => {
+  onAddPaymentPack = (paymentPackId: number) => {
     const paymentPack = this.props.paymentPacks.find(
       (p) => p.id === paymentPackId,
     );
@@ -313,8 +308,6 @@ export class InvoiceForm extends Component<Props, State> {
             name: paymentPack.name,
             price: paymentPack.price,
             id: paymentPack.id,
-            subtitle: formatAsDate(date_bought || Moment()),
-            date_bought: date_bought.format(DATE_FORMAT),
           },
         ],
       }));

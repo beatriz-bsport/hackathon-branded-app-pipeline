@@ -14,11 +14,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import DatePicker from 'material-ui-pickers/DatePicker';
-
-import { Moment } from '../../../i18n';
-
-import PaymentPackSelector from '../../payment-packs/PaymentPackSelector.component';
+import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
 import ShopItemInput from '../../../components/input/ShopItemInput.component';
 import PriceInput from '../../../components/input/PriceInput.component';
 
@@ -34,7 +30,7 @@ type Props = {
 
   onCancel: ?() => void,
   onTopUp: (number) => void,
-  onAddPaymentPack: (paymentPackId: ?number, date_bought: Object) => void,
+  onAddPaymentPack: (paymentPackId: ?number) => void,
   onAddShopItem: (shopItemId: ?number) => void,
 
   t: TFunction,
@@ -45,7 +41,6 @@ type State = {
   expandedSelector: number,
   paymentPackId: ?number,
   shopItemId: ?number,
-  date_bought: Object,
   creditTopUp: number,
 };
 
@@ -60,7 +55,6 @@ export class InvoiceItemSelector extends Component<Props, State> {
       expandedSelector: props.defaultTab || SELECTOR_PAYMENT_PACK,
       paymentPackId: null,
       shopItemId: null,
-      date_bought: Moment(),
       creditTopUp: 0,
     };
   }
@@ -87,42 +81,21 @@ export class InvoiceItemSelector extends Component<Props, State> {
       }
       case SELECTOR_PAYMENT_PACK:
       default:
-        return this.props.onAddPaymentPack(
-          this.state.paymentPackId,
-          this.state.date_bought,
-        );
+        return this.props.onAddPaymentPack(this.state.paymentPackId);
     }
   };
 
   renderPaymentPackSelector = () => {
     const { paymentPacks, t, classes } = this.props;
     const { paymentPackId } = this.state;
-    const selectedPaymentPack = paymentPacks.find(
-      (pp) => pp.id === paymentPackId,
-    );
     return (
-      <Grid container direction="column" spacing={16} alignItems="flex-start">
-        <Grid item>
-          <PaymentPackSelector
-            value={paymentPackId}
-            paymentPacks={paymentPacks}
-            onChange={this.storePaymentPackId}
-            helperText={t('form.invoice.paymentPackHelper')}
-            selectorClass={classes.selector}
-          />
-        </Grid>
-        <Grid item>
-          <DatePicker
-            disabled={(selectedPaymentPack || {}).validity_daterange}
-            value={this.state.date_bought}
-            onChange={(date_bought) =>
-              this.setState({ date_bought: Moment(date_bought) })
-            }
-            format="DD-MM-YYYY"
-            label={t('form.invoice.dateStartPaymentPack')}
-          />
-        </Grid>
-      </Grid>
+      <PaymentPackSelector
+        value={paymentPackId}
+        paymentPacks={paymentPacks}
+        onChange={this.storePaymentPackId}
+        helperText={t('form.invoice.paymentPackHelper')}
+        selectorClass={classes.selector}
+      />
     );
   };
 

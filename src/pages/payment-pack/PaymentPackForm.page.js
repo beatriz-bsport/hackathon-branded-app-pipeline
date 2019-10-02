@@ -14,7 +14,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';
 
-import PaymentPackForm from '../../libs/payment-packs/PaymentPackForm.component';
+import PaymentPackForm from '../../libs/payment-packs/components/PaymentPackForm.component';
 import paymentPackSelectors from '../../libs/payment-packs/selectors';
 import {
   getEnabledMetaActivities,
@@ -25,7 +25,10 @@ import { fetchAll as fetchWorkhops } from '../../libs/meta-activity/actions/work
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import { getAllEstablishments } from '../../libs/establishment/selectors';
 import type { Establishment } from '../../libs/establishment/types';
-import { paymentPack as paymentPackActions } from '../../actions';
+import {
+  createOrUpdate as createOrUpdatePaymentPack,
+  fetchAllPaymentPacks as fetchAllPaymentPacksAction,
+} from '../../libs/payment-packs/actions';
 import withTitle from '../../hocs/with-title.hoc';
 import type { SCT, MetaActivity } from '../../api/types';
 
@@ -115,20 +118,20 @@ export default compose(
       loading: state.paymentPack.createOrUpdatePending,
     }),
     {
-      fetchPaymentPacks: paymentPackActions.fetchAll,
+      fetchAllPaymentPacks: fetchAllPaymentPacksAction,
       fetchEstablishments,
       fetchAllActivities,
       fetchWorkhops,
-      createOrUpdate: paymentPackActions.createOrUpdate,
+      createOrUpdate: createOrUpdatePaymentPack,
       previousPage: goBack,
     },
   ),
-  withProps(({ createOrUpdate, previousPage, fetchPaymentPacks }) => ({
+  withProps(({ createOrUpdate, previousPage, fetchAllPaymentPacks }) => ({
     onSubmit: (data, options = {}) => {
       createOrUpdate(data, {
         ...options,
         onSuccess: () => {
-          fetchPaymentPacks();
+          fetchAllPaymentPacks();
           if (options.onSuccess) options.onSuccess();
           previousPage();
         },

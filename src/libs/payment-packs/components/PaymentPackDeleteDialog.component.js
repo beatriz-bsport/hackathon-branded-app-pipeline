@@ -14,7 +14,7 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import WarningIcon from '@material-ui/icons/Warning';
 
-import RedButton from '../../components/button/RedButton.component';
+import RedButton from '../../../components/button/RedButton.component';
 
 type Props = {
   fullScreen: boolean,
@@ -63,10 +63,10 @@ export function PaymentPackDeleteDialog(props: Props) {
       </DialogContent>
       <DialogActions>
         <Button onClick={props.onCancel} variant="outlined" color="secondary">
-          {t('common.cancel')}
+          {t('form.paymentPack.delete.actions.cancel')}
         </Button>
         <RedButton variant="contained" onClick={props.onDelete}>
-          {t('common.delete')}
+          {t('form.paymentPack.delete.actions.submit')}
         </RedButton>
       </DialogActions>
     </Dialog>
@@ -90,5 +90,5 @@ const styles = (theme) => ({
 });
 
 export default withMobileDialog()(
-  withStyles(styles)(withNamespaces()(PaymentPackDeleteDialog)),
+  withStyles(styles)(withNamespaces(['paymentPack'])(PaymentPackDeleteDialog)),
 );

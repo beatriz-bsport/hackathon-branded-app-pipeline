@@ -13,7 +13,7 @@ import { compose } from 'recompose';
 import type { TFunction } from 'react-i18next';
 import moment from 'moment';
 
-import PaymentPackSelector from '../payment-packs/PaymentPackSelector.component';
+import PaymentPackSelector from '../payment-packs/components/PaymentPackSelector.component';
 import NumericInput from '../../components/input/NumericInput.component';
 import PriceInput from '../../components/input/PriceInput.component';
 import DateInput from '../../components/input/DateInput.component';

@@ -10,7 +10,7 @@ import { withNamespaces } from 'react-i18next';
 import { compose } from 'recompose';
 
 import { formatAsDatetime } from '../../../datetime';
-import ConsumerPackRowItem from '../../payment-packs/ConsumerPackRowItem.component';
+import ConsumerPackRowItem from '../../consumer-payment-pack/components/ConsumerPackRowItem.component';
 import OfferMinimalSummary from '../../../components/offer/OfferMinimalSummary.component';
 
 import type { Booking } from '../types';

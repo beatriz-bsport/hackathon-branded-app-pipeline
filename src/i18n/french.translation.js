@@ -462,59 +462,6 @@ export default {
             'Attention, cette modification est définitive. Votre séance ne sera plus visible par les clients finaux. Vous pourrez toujours y accéder.',
         },
       },
-      paymentPack: {
-        newMemberOnly: 'Uniquement pour les nouveaux clients',
-        onsitePaymentAvailable: 'Possibilité de payer sur place',
-        startOnFirstUse:
-          'Le décompte de validité débute le jour de la première réservation',
-        startOnFirstUseHelper:
-          'Sinon le décompte début le jour de facturation du pass',
-        expirationDaysBeforeFirstUse:
-          'Expiration si aucune réservation initiale',
-        expirationDaysBeforeFirstUseHelper:
-          "Si le pass n'est pas consommé une première fois pendant ce nb de jour, il est rendu invalide",
-        managerOnly: 'Invisible pour les clients',
-        helper: {
-          // eslint-disable-next-line
-          name: "Nom de l'abonnement",
-          // eslint-disable-next-line
-          price: "Prix pour le client pour l'abonnement",
-          starting_date:
-            'Début de validité du pass, laisser vide pour le rendre valable immédiatement',
-          // eslint-disable-next-line
-          ending_date:
-            "Fin de validité du pass, laisser vide pour qu'il reste toujours actif",
-          // eslint-disable-next-line
-          credits:
-            'Nombre de crédits disponibles, laisser vide pour le rendre illimité',
-          maxBookingPerWeek: 'Laisser vide pour ne pas imposer de limite',
-        },
-        timeSettingsTitle: "Validité de l'abonnement",
-        generalSettingsTitle: 'Général',
-        validByDuration: 'Abonnement valide N jours après achat',
-        validByDaterange: 'Abonnement valide sur un créneau de date précis',
-        durationDays: 'Durée de validité (jours) si applicable',
-        durationDaysHelperText:
-          "Période en jours pour laquelle l'abonnement sera valide après achat ",
-        durationMonths: 'Durée de validité (mois) si applicable',
-        durationMonthsHelperText: "S'ajoute au nombre de jours",
-        durationYears: 'Durée de validité (années) si applicable',
-        durationYearsHelperText: "S'ajoute au nombre de jours et de mois",
-        restrictionsTitle: 'Restrictions',
-        maxBookingPerWeek: 'Utilisation max par semaine',
-        noneMeansAll: 'Laisser vide pour tout autoriser',
-        update: {
-          success: 'Abonnement: opération effectuée avec succès',
-          error: "Abonnement : erreur lors de l'opération",
-        },
-        delete: {
-          title: "Suppression de l'abonnement :",
-          askConfirmation:
-            "Attention ! Cette opération est définitive. L'abonnement ne sera plus visible et deviendra indisponible à l'achat.",
-          thereAreConsumers:
-            "Attention ! Des membres ont acheté cet abonnement, si vous le supprimez ces derniers pourront toujours utiliser leurs crédits restants. Vous pouvez les réduire manuellement à zéro ici.\n\nL'abonnement n'apparaitra plus dans votre magasin pour les nouveaux acheteurs.",
-        },
-      },
       title: 'Titre',
       specific_info: 'Description',
       pleaseEnterYourSMSCode: 'Veuillez entrer le code envoyé par SMS',

@@ -4,11 +4,11 @@ import React from 'react';
 import { withNamespaces } from 'react-i18next';
 
 import classNames from 'classnames';
-import PaymentPackSummary from '../../components/payment-pack/PaymentPackSummary.component';
+import PaymentPackSummary from '../../../components/payment-pack/PaymentPackSummary.component';
 
-import Selector from '../../components/Selector.component';
+import Selector from '../../../components/Selector.component';
 
-import type { PaymentPack } from '../../api/types';
+import type { PaymentPack } from '../../../api/types';
 
 type Props = {
   classes: Object,

@@ -14,14 +14,14 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import RedButton from '../../components/button/RedButton.component';
-import MetaActivityMinimalSummary from '../../components/activity/MetaActivityMinimalSummary.component';
-import EstablishmentSummary from '../establishment/components/EstablishmentSummary.component';
-import { Sport } from '../../components/category';
-import type { MetaActivity } from '../../api/types';
-import { formatAsDate } from '../../datetime';
+import RedButton from '../../../components/button/RedButton.component';
+import MetaActivityMinimalSummary from '../../../components/activity/MetaActivityMinimalSummary.component';
+import EstablishmentSummary from '../../establishment/components/EstablishmentSummary.component';
+import { Sport } from '../../../components/category';
+import type { MetaActivity } from '../../../api/types';
+import { formatAsDate } from '../../../datetime';
 
-import type { PaymentPack } from './types';
+import type { PaymentPack } from '../types';
 
 type Props = {
   onlyPublic: ?boolean,

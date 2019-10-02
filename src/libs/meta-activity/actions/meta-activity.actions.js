@@ -80,7 +80,10 @@ export function fetchAllActivities(): ThunkAction {
     dispatch(metaActivityListActions.error(null));
 
     try {
-      const response = await fetchAllActivitiesAPI();
+      const response = await fetchAllActivitiesAPI({
+        page_size: null,
+        is_workshop: false,
+      });
       dispatch(
         metaActivityListActions.success({
           metaActivitiesDict: createDictionnaryById(response.data),
@@ -88,6 +91,7 @@ export function fetchAllActivities(): ThunkAction {
         }),
       );
     } catch (err) {
+      console.error(err);
       dispatch(metaActivityListActions.error(err));
       Sentry.captureException(err);
     }

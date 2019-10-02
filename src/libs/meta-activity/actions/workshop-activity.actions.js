@@ -17,6 +17,7 @@ import { fetchAll as fetchAllAPI } from '../api/workshop-activity';
 import type { Dispatch, ThunkAction } from '../../../state/types';
 
 import { postAuth, deleteAuth, API_URI } from '../../../http';
+import { createDictionnaryById, createIdList } from '../../../actions/utils';
 
 export const listingActions = {
   isLoading: createAction('WORKSHOP/LIST/IS_LOADING'),
@@ -58,7 +59,12 @@ export function fetchAll() {
     dispatch(listingActions.error(null));
     try {
       const response = await fetchAllAPI();
-      dispatch(listingActions.success(response.data));
+      dispatch(
+        listingActions.success({
+          workshopActivitiesDict: createDictionnaryById(response.data),
+          idList: createIdList(response.data),
+        }),
+      );
     } catch (error) {
       console.error(error);
       dispatch(listingActions.error(error));
@@ -83,7 +89,10 @@ export function upsert(workshopActivityData: *, options: *) {
       : addMetaActivity;
     try {
       const response = await createOrUpdate(workshopActivityData);
-      dispatch(upsertActions.success(response.data));
+      const payload = {
+        workshopActivity: { [response.data.id]: response.data },
+      };
+      dispatch(upsertActions.success(payload));
       const key = workshopActivityData.has('id') ? 'update' : 'create';
       dispatch(snackbarSuccess(`workshopActivity.forms.${key}.success`));
       dispatch(fetchAll());

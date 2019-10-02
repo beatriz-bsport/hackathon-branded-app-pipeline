@@ -36,11 +36,23 @@ export const getPageEnabledMetaActivities = createSelector(
   (metactivities) => metactivities.filter((ma) => !!ma.customer_enabled),
 );
 
-export const getWorkshops = (state: State): Array<MetaActivity> =>
-  state.workshopActivity.all;
+// WORKSHOP
+// --------
+
+export const getWorkshopActivitiesDict = (state: State): Array<MetaActivity> =>
+  state.workshopActivity.byId;
+
+export const getWorkshopActivitiesIdList = (
+  state: State,
+): Array<MetaActivity> => state.workshopActivity.allIds;
+
+export const getWorkshops = createSelector(
+  getWorkshopActivitiesDict,
+  (workshopActivities) => Immutable(Object.values(workshopActivities)),
+);
 
 export const getWorkshop = (state: State, id: number): MetaActivity =>
-  getWorkshops(state).find((ma) => ma.id === id);
+  state.workshopActivity.byId[id];
 
 export const getEnabledWorkshops = createSelector(
   getWorkshops,

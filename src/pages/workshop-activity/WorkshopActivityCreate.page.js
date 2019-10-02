@@ -79,7 +79,7 @@ const MetaActivityMap = {
   last_booking_minutes: 'last_booking_minutes',
   last_discard_minutes: 'last_discard_minutes',
   is_workshop: 'is_workshop',
-  category: 'category',
+  SCT: 'SCT',
 };
 
 const StepperForm = withNamespaces(['metaActivity'])(

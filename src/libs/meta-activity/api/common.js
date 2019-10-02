@@ -1,15 +1,15 @@
 // @flow
 import {
-  API_URI,
   API_V1_URI,
   deleteAuth,
   postAuth,
   getAuth,
   patchAuth,
+  buildUrlParams,
 } from '../../../http';
 
-export async function fetchAllActivities() {
-  return getAuth(`${API_URI}/saas/meta-activities/`);
+export async function fetchAllActivities(params: any) {
+  return getAuth(`${API_V1_URI}/meta-activity/${buildUrlParams(params)}`);
 }
 
 export async function fetchMetaActivityDetails(id: number) {

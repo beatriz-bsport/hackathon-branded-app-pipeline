@@ -16,7 +16,7 @@ import {
   upsert,
   addImageToMetaActivity,
   removeImageFromMetaActivity,
-  fetchAllActivities,
+  fetchMetaActivityDetails,
 } from '../../libs/meta-activity/actions/meta-activity.actions';
 import { getMetaActivity } from '../../libs/meta-activity/selectors';
 
@@ -35,7 +35,7 @@ type Props = {
 
   establishments: Array<Establishment>,
   fetchEstablishments: () => void,
-  fetchAllActivities: () => void,
+  fetchMetaActivityDetails: (id: number) => void,
   SCTs: *[],
 
   removeImage: (id: number, imageId: number) => void,
@@ -56,7 +56,7 @@ const MetaActivityMap = {
 
 export class MetaActivityFormPage extends Component<Props> {
   componentDidMount() {
-    this.props.fetchAllActivities();
+    this.props.fetchMetaActivityDetails(this.props.id);
     this.props.fetchEstablishments();
   }
 
@@ -114,7 +114,7 @@ export default compose(
     }),
     {
       fetchEstablishments,
-      fetchAllActivities,
+      fetchMetaActivityDetails,
       upsertMetaActivity: upsert,
       goToPreviousPage: goBack,
       addImage: addImageToMetaActivity,

@@ -45,7 +45,7 @@ const WorkshopActivityMap = {
   last_booking_minutes: 'last_booking_minutes',
   last_discard_minutes: 'last_discard_minutes',
   is_workshop: 'is_workshop',
-  category: 'category',
+  SCT: 'SCT',
 };
 
 export class WorkshopActivityEditPage extends React.Component<Props> {
@@ -58,7 +58,7 @@ export class WorkshopActivityEditPage extends React.Component<Props> {
     const initialData = initial
       ? {
           ...unmap(initial, WorkshopActivityMap),
-          category: initial.category_id,
+          SCT: initial.SCT,
         }
       : null;
     if (loading || !this.props.initial) {

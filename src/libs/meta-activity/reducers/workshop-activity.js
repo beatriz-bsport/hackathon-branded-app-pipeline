@@ -14,7 +14,8 @@ import {
 const initialState = Immutable({
   loading: false,
   error: null,
-  all: [],
+  byId: {},
+  allIds: [],
   delete: {
     loading: false,
     error: null,
@@ -34,7 +35,9 @@ export default handleActions(
       return state.setIn(['delete', 'error'], payload);
     },
     [listingActions.success]: (state, { payload }) => {
-      return state.set('all', payload);
+      return state
+        .merge({ byId: payload.workshopActivitiesDict }, { deep: true })
+        .set('allIds', payload.idList);
     },
     [listingActions.isLoading]: (state, { payload }) => {
       return state.set('loading', payload);
@@ -50,25 +53,22 @@ export default handleActions(
     },
     [upsertActions.success]: (state, { payload }) => {
       return state
-        .set('all', [
-          payload,
-          ...state.all.filter((oa) => oa.id !== payload.id),
-        ])
-        .setIn(['upsert', 'data'], payload);
+        .merge({ byId: payload.workshopActivity }, { deep: true })
+        .setIn(['upsert', 'data'], Object.values(payload.workshopActivity)[0]);
     },
     [addImage.success]: (state, { payload }) => {
-      const { image, id } = payload;
-      const idx = state.all.findIndex((wo) => wo.id === id);
-      const workshop = state.all[idx];
-      const { images } = workshop;
-      return state.setIn(['all', idx, 'images'], [image].concat(images));
+      const { image } = payload.image;
+      const { images } = state.byId[payload.id];
+      return state.setIn(
+        ['byId', payload.id, 'images'],
+        [image].concat(images),
+      );
     },
     [removeImage.success]: (state, { payload }) => {
-      const idx = state.all.findIndex((wo) => wo.id === payload.id);
-      const images = state.all[idx].images.filter(
+      const images = state.byId[payload.id].images.filter(
         (i) => i.id !== payload.imageId,
       );
-      return state.setIn(['all', idx, 'images'], images);
+      return state.setIn(['byId', payload.id, 'images'], images);
     },
   },
   initialState,

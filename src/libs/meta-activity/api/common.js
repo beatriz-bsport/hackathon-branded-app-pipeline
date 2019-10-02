@@ -17,7 +17,7 @@ export async function fetchMetaActivityDetails(id: number) {
 }
 
 export async function addMetaActivity(data: *) {
-  return postAuth(`${API_URI}/saas/create-meta-activity/`, data);
+  return postAuth(`${API_V1_URI}/meta-activity/`, data);
 }
 
 export async function deleteMetaActivity(id: number) {
@@ -30,7 +30,7 @@ export async function checkCanDeleteMetaActivity(id: number) {
 
 export async function updateMetaActivity(data: *, id: number) {
   const aId = data.get('id') || id;
-  return patchAuth(`${API_URI}/saas/update-meta-activity/${aId}`, data);
+  return patchAuth(`${API_V1_URI}/meta-activity/${aId}/`, data);
 }
 
 export default {

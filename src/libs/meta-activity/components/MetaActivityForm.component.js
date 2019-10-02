@@ -75,7 +75,7 @@ export function MetaActivityForm(props: Props) {
             choices={SCTs}
             label={t('activity.category')}
             fullWidth
-            name="category"
+            name="SCT"
             required
           />
         </div>
@@ -165,7 +165,7 @@ export default compose(
           cover_main: '',
           name: '',
           description: '',
-          category: null,
+          SCT: null,
           last_booking_minutes: 0,
           last_discard_minutes: 0,
         },
@@ -179,7 +179,7 @@ export default compose(
       const keys = [
         'name',
         'description',
-        'category',
+        'SCT',
         'last_booking_minutes',
         'last_discard_minutes',
       ];

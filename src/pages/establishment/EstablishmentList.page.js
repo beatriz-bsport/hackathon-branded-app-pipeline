@@ -54,6 +54,10 @@ export class EstablishmentList extends React.Component<Props> {
           <Typography variant="caption">
             {this.props.t('establishment.pleaseSelectOne')}
           </Typography>
+          <BottomActionsButton
+            onCreate={this.props.onCreate}
+            onCreateLabel={this.props.t('establishment.addButton')}
+          />
         </div>
       );
     }

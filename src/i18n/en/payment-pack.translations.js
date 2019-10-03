@@ -31,6 +31,8 @@ export default {
   },
   form: {
     paymentPack: {
+      from: 'From',
+      until: 'Until',
       newMemberOnly: 'Only available to new customers',
       onsitePaymentAvailable: 'On-site payment available',
       managerOnly: 'Unavailable for customers',

@@ -31,6 +31,9 @@ export default {
   },
   form: {
     paymentPack: {
+      from: 'A partir du ',
+      until: "Jusqu'au ",
+
       name: {
         label: 'Nom',
         helperText: "Nom de l'abonnement",

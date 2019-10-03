@@ -6,7 +6,7 @@ const fetchCompanyMetaActivities = async ({
   page_size = 300,
 }) => {
   return get(
-    `${API_V1_URI}/meta-activity/?customer_enabled=true&company=${companyId}&page_size=${page_size}&page=${page}`,
+    `${API_V1_URI}/meta-activity/?company=${companyId}&page_size=${page_size}&page=${page}`,
   );
 };
 

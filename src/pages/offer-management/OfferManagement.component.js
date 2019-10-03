@@ -373,7 +373,7 @@ export class OfferManagement extends Component<Props, State> {
     const { classes, t } = this.props;
     return (
       <div className={classes.bookingsHeader}>
-        <Typography variant="h6">{t('offer.myBookings')}</Typography>
+        <div />
         <div
           style={{
             display: 'flex',
@@ -520,7 +520,9 @@ export class OfferManagement extends Component<Props, State> {
                   </div>
                   <Divider />
                 </Collapse>
-                {bookingLoading || this.props.offerLoading ? null : (
+                {bookingLoading || this.props.offerLoading ? (
+                  <LinearProgress />
+                ) : (
                   <div className={classes.bookingSubHeader}>
                     <Typography variant="caption" color="primary">
                       {this.getNbAttendant()} {t('offer.attendant')}
@@ -541,7 +543,7 @@ export class OfferManagement extends Component<Props, State> {
                   newTab
                   members={this.props.members}
                   paymentPacks={this.props.paymentPacks}
-                  loading={bookingLoading}
+                  loading={bookingLoading || this.props.offerLoading}
                   bookings={bookings}
                   confirmBookingAttendance={this.props.confirmBookingAttendance}
                   discardBookingAttendance={this.props.discardBookingAttendance}

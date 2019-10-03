@@ -61,7 +61,7 @@ export class BookingTable extends PureComponent<Props> {
 
     // prettier-ignore
     if (
-      bookings.length === 0
+      bookings.length === 0 && !loading
     ) {
       return (
         <Typography variant="caption" className={classes.contentWithMargin}>

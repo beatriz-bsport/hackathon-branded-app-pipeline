@@ -61,7 +61,7 @@ export class PaymentPackFormPage extends React.Component<Props> {
       onSubmit,
       initial,
     } = this.props;
-    const availableCategoriesId = metaActivities.map((a) => a.category_id);
+    const availableCategoriesId = metaActivities.map((a) => a.SCT);
     const filterableCategories = categories.filter(
       (c) => availableCategoriesId.indexOf(c.id) !== -1,
     );

@@ -114,7 +114,7 @@ export class WorkshopActivityFormPage extends Component<Props> {
 
   renderPassStep = () => {
     const availableCategoriesId = this.props.metaActivitiesAndWorkshops.map(
-      (a) => a.category_id,
+      (a) => a.SCT,
     );
     return (
       <PaymentPackForm

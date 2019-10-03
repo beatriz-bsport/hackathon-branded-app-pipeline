@@ -125,7 +125,7 @@ export class QuickInvoice extends Component<Props, State> {
     this.setState({ unevenInvoiceAlertOpen: false });
   };
 
-  addPaymentPack = (paymentPackId: number, date_bought: Object) => {
+  addPaymentPack = (paymentPackId: number) => {
     const ppToAdd = this.props.paymentPacks.find(
       (pp) => pp.id === paymentPackId,
     );
@@ -136,8 +136,6 @@ export class QuickInvoice extends Component<Props, State> {
           name: ppToAdd.name,
           price: ppToAdd.price,
           id: ppToAdd.id,
-          subtitle: formatAsDate(date_bought || Moment()),
-          date_bought: date_bought.format(DATE_FORMAT),
         },
       ],
       showInvoiceItemSelector: false,
@@ -193,10 +191,7 @@ export class QuickInvoice extends Component<Props, State> {
     const { quickInvoice, createInvoice } = this.props;
     const invoiceData = {
       shop_item_ids: additionalShopItems.map((siii) => siii.id),
-      payment_pack_ids: additionalPaymentPacks.map((ppii) => [
-        ppii.id,
-        ppii.date_bought,
-      ]),
+      payment_pack_ids: additionalPaymentPacks.map((ppii) => [ppii.id]),
       voucher,
       payment_items: this.generatePaymentItemsObject(),
       top_up: topUp,

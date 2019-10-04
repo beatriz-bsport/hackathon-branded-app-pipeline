@@ -79,32 +79,40 @@ export function ReportGenerationForm(props: Props) {
     <Form>
       <Grid container direction="row" justify="space-between">
         <Grid item>
-          <Grid container spacing={16}>
-            <Grid item xs={6}>
-              <DateField name="dateStart" fullWidth label={t('common.from')} />
-              <AlertError name="dateStart" />
-            </Grid>
-            <Hidden
-              only={
-                reportConfiguration.date_type === 'range'
-                  ? []
-                  : ['xs', 'sm', 'md', 'lg', 'xl']
-              }
-            >
+          {reportConfiguration.date_type === 'none' ? (
+            <div />
+          ) : (
+            <Grid container spacing={16}>
               <Grid item xs={6}>
                 <DateField
-                  name={
-                    reportConfiguration.date_type === 'range'
-                      ? 'dateEnd'
-                      : 'dateStart'
-                  }
+                  name="dateStart"
                   fullWidth
-                  label={t('common.until')}
+                  label={t('common.from')}
                 />
                 <AlertError name="dateStart" />
               </Grid>
-            </Hidden>
-          </Grid>
+              <Hidden
+                only={
+                  reportConfiguration.date_type === 'range'
+                    ? []
+                    : ['xs', 'sm', 'md', 'lg', 'xl']
+                }
+              >
+                <Grid item xs={6}>
+                  <DateField
+                    name={
+                      reportConfiguration.date_type === 'range'
+                        ? 'dateEnd'
+                        : 'dateStart'
+                    }
+                    fullWidth
+                    label={t('common.until')}
+                  />
+                  <AlertError name="dateStart" />
+                </Grid>
+              </Hidden>
+            </Grid>
+          )}
         </Grid>
         <Grid item>
           <Actions>

@@ -18,6 +18,7 @@ export default {
     total_payments: 'Total payments',
     sum_margin_value: 'Margin value',
     nb_attendance: 'Nb attendant',
+    checkout_items: 'Basket items',
     attendance: 'Attendance',
     nb_non_attendance: 'Nb absent',
     name: 'Name',

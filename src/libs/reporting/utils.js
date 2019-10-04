@@ -8,6 +8,8 @@ import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import CategoryIcon from '@material-ui/icons/Category';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import EuroIcon from '@material-ui/icons/EuroSymbol';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 import type { ReportCategoryEnum, ReportCategory } from './types';
 
@@ -46,6 +48,16 @@ export const CATEGORIES: ReportCategory[] = [
     id: 'memberships',
     name: 'Abonnements',
     icon: AccountBoxIcon,
+  },
+  {
+    id: 'basket',
+    name: 'Panier',
+    icon: ShoppingCartIcon,
+  },
+  {
+    id: 'credit',
+    name: 'Crédit',
+    icon: EuroIcon,
   },
 ];
 

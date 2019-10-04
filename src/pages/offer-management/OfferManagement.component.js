@@ -370,7 +370,7 @@ export class OfferManagement extends Component<Props, State> {
   };
 
   renderBookingHeader = () => {
-    const { classes, t } = this.props;
+    const { classes } = this.props;
     return (
       <div className={classes.bookingsHeader}>
         <div />

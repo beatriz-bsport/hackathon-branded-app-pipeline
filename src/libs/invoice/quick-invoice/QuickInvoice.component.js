@@ -15,9 +15,6 @@ import PAYMENT_METHODS, {
   CREDIT_ACCOUNT as PAYMENT_METHOD_CREDIT_ACCOUNT,
 } from '@bsport/common/lib/master-data/payment-methods';
 
-import { formatAsDate, DATE_FORMAT } from '../../../datetime';
-import { Moment } from '../../../i18n';
-
 import CreditMemberBadge from '../../member/components/CreditMemberBadge.component';
 
 import InvoiceItemList from '../invoice-item/InvoiceItemList.component';

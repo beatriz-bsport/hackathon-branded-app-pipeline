@@ -186,8 +186,10 @@ export default compose(
       const { cover_main } = values;
       const data = {
         ..._.pick(values, keys),
-        cover_main: typeof cover_main !== 'string' ? cover_main : undefined,
       };
+      if (typeof cover_main !== 'string' && !!cover_main) {
+        data.cover_main = cover_main;
+      }
       onSubmit(data, {
         onSuccess: () => {
           if (onSuccess && typeof onSuccess === 'function') onSuccess();

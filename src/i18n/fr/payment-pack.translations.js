@@ -38,6 +38,9 @@ export default {
         label: 'Nom',
         helperText: "Nom de l'abonnement",
       },
+      tax: {
+        label: 'TVA',
+      },
       priceIncludingTax: {
         helperText: "Prix pour le client pour l'abonnement",
         label: 'Prix TTC',

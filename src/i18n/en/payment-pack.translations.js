@@ -23,7 +23,7 @@ export default {
         newDate: 'New date: ',
       },
       warning:
-        "Please check that the new date is included in the same fiscal year as the old one. If not, please check with your accounting this operation is correct.",
+        'Please check that the new date is included in the same fiscal year as the old one. If not, please check with your accounting this operation is correct.',
       nbDays: {
         label: 'Nb of additional days',
       },
@@ -36,6 +36,9 @@ export default {
       newMemberOnly: 'Only available to new customers',
       onsitePaymentAvailable: 'On-site payment available',
       managerOnly: 'Unavailable for customers',
+      tax: {
+        label: 'Tax',
+      },
       startOnFirstUse: {
         label: 'Pass validity countdown start after first booking',
         helperText: 'Otherwise the countdown immediately starts after billing',

@@ -1,11 +1,11 @@
 // @flow
 
 import React, { Component } from 'react';
-import _ from 'lodash';
+import flatten from 'lodash/flatten';
 import List from '@material-ui/core/List';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
-import { Divider } from '@material-ui/core';
+import Divider from '@material-ui/core/Divider';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
@@ -66,7 +66,7 @@ export class MarketplaceTimetable extends Component<Props> {
     // split offer for the selected day
     const nextDaysOffers = weekOffers.slice(weekday);
 
-    return !_.flatten(weekOffers).length ? (
+    return !flatten(weekOffers).length ? (
       <Typography variant="caption" className={classes.title}>
         {t('marketplace.noSessionToday')}
       </Typography>

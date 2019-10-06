@@ -10,6 +10,8 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Avatar from '@material-ui/core/Avatar';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Icon from '@material-ui/core/Icon';
 import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import { withNamespaces } from 'react-i18next';
@@ -17,6 +19,7 @@ import type { TFunction } from 'react-i18next';
 
 import type { MetaActivity } from '../../../api/types';
 import { formatAsDatetime } from '../../../datetime';
+import { getSportWithIcon } from '../../../components/category/utils';
 
 type Props = {
   metaActivity: MetaActivity,
@@ -38,13 +41,23 @@ export function MetaActivityListItem(props: Props) {
       alignItems="center"
       onClick={() => goToDetail(metaActivity.id)}
     >
-      <ListItemAvatar>
-        <Avatar
-          className={classes.avatar}
-          alt=""
-          src={metaActivity.cover_main}
-        />
-      </ListItemAvatar>
+      {metaActivity.cover_main ? (
+        <ListItemAvatar>
+          <Avatar
+            className={classes.avatar}
+            alt=""
+            src={metaActivity.cover_main}
+          />
+        </ListItemAvatar>
+      ) : (
+        <ListItemIcon>
+          <img
+            className={classes.avatar}
+            alt=""
+            src={(getSportWithIcon(metaActivity.SCS) || {}).icon}
+          />
+        </ListItemIcon>
+      )}
       <ListItemText
         primary={
           <Typography component="span" variant="subtitle1">

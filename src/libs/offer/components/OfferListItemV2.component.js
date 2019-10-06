@@ -23,7 +23,7 @@ export const OfferListItem = (props: Props) => {
     <ListItem
       button={!!props.onClick}
       divider
-      onClick={() => props.onClick(offer.id)}
+      onClick={props.onClick ? () => props.onClick(offer.id) : null}
     >
       <CoachAvatar
         t={t}

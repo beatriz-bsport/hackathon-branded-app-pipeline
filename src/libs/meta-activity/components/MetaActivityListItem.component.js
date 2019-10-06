@@ -11,7 +11,6 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Avatar from '@material-ui/core/Avatar';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import Icon from '@material-ui/core/Icon';
 import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import { withNamespaces } from 'react-i18next';
@@ -54,7 +53,7 @@ export function MetaActivityListItem(props: Props) {
           <img
             className={classes.avatar}
             alt=""
-            src={(getSportWithIcon(metaActivity.SCS) || {}).icon}
+            src={(getSportWithIcon(metaActivity.parent_category) || {}).icon}
           />
         </ListItemIcon>
       )}

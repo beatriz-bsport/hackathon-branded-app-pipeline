@@ -90,10 +90,7 @@ export default function bookingReducers(
     }
 
     case actionTypes.ERROR_FETCHING_BOOKINGS:
-      return state
-        .set('loading', false)
-        .set('all', [])
-        .set('options', []);
+      return state.set('loading', false);
 
     case actionTypes.BOOKING_ADD_SUCCESS: {
       return state.set('all', [action.booking, ...state.all]);

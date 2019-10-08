@@ -1,4 +1,5 @@
 // @flow
+
 import React from 'react';
 
 import Button from '@material-ui/core/Button';
@@ -18,6 +19,7 @@ import {
   SCTSelectField,
   TextField,
   DurationMinuteSelectField,
+  ColorField,
 } from '../../../components/forms';
 
 type Props = {
@@ -77,6 +79,13 @@ export function MetaActivityForm(props: Props) {
             fullWidth
             name="SCT"
             required
+          />
+        </div>
+        <div className={classes.field}>
+          <ColorField
+            label={t('activity.color')}
+            name="color"
+            transparentColorAvailable
           />
         </div>
         <div className={classes.field}>
@@ -152,6 +161,7 @@ const MetaActivitySchema = Yup.object().shape({
   description: Yup.string().required(),
   last_booking_minutes: Yup.number(),
   last_discard_minutes: Yup.number(),
+  color: Yup.string(),
   SCT: Yup.number(),
 });
 
@@ -168,6 +178,7 @@ export default compose(
           SCT: null,
           last_booking_minutes: 0,
           last_discard_minutes: 0,
+          color: '',
         },
         { ...initial } || {},
       ),
@@ -182,6 +193,7 @@ export default compose(
         'SCT',
         'last_booking_minutes',
         'last_discard_minutes',
+        'color',
       ];
       const { cover_main } = values;
       const data = {

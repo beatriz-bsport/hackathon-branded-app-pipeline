@@ -35,6 +35,7 @@ import checkout from './en/checkout.translations';
 import coupon from './en/coupon.translations';
 import relationship from './en/relationship.translations';
 import titles from './en/titles.translations';
+import formInput from './en/form-input.translations';
 
 export default {
   coupon,
@@ -70,6 +71,7 @@ export default {
   offer,
   selfCheckIn,
   titles,
+  formInput,
   coachPerformance: {
     fields: {
       bonus: 'Bonus',
@@ -725,6 +727,7 @@ export default {
       category: 'Sport',
       addOffers: 'Add sessions',
       name: 'Title',
+      color: 'Color code',
       noNextSlot: 'No more session planned',
       grossVolume: 'Gross volume',
       totalCustomers: 'Total bookings',

@@ -20,7 +20,11 @@ type Props = {
   onClickOffer: ?(offerId: number) => void,
   onClickBook: (offerId: number) => void,
   onClickBookOption: (offerId: number) => void,
+  index: number,
 };
+
+const pairColor = '#FFFFFF';
+const impairColor = '#F8F8F8';
 
 export const MarketplaceCardOffer = (props: Props) => {
   const { offer, onClickOffer, classes } = props;
@@ -40,55 +44,67 @@ export const MarketplaceCardOffer = (props: Props) => {
   );
 
   return (
-    <div className={classes.cardOuter} id={`offer-book-${offer.id}`}>
-      <div className={classes.cardInner}>
-        <ButtonBase
-          onClick={onClick}
-          disableRipple
-          component="div"
-          className={classes.cardContent}
-        >
-          <div className={classes.title}>
-            <Typography align="center" variant="subtitle1">
-              {offer && offer.meta_activity
-                ? offer.meta_activity.name || ''
-                : ''}
-            </Typography>
-            <Typography align="center" variant="caption">
-              {coachName}
-            </Typography>
-          </div>
-          <Typography align="center">
-            {`${formatAsTime(offer.date_start)} - ${formatAsTime(
-              offerEndDate,
-            )}`}
+    <div
+      className={classes.cardOuter}
+      style={{
+        borderRadius: '8px',
+        background:
+          props.index % 2 === 0
+            ? `linear-gradient(180deg, ${
+                offer.meta_activity_color === ''
+                  ? `${pairColor}`
+                  : offer.meta_activity_color
+              } 3%, ${pairColor} 3%)`
+            : `linear-gradient(180deg, ${
+                offer.meta_activity_color === ''
+                  ? `${impairColor}`
+                  : offer.meta_activity_color
+              } 3%, ${impairColor} 3%)`,
+      }}
+      id={`offer-book-${offer.id}`}
+    >
+      <ButtonBase
+        onClick={onClick}
+        disableRipple
+        component="div"
+        className={classes.cardContent}
+      >
+        <div className={classes.title}>
+          <Typography align="center" variant="subtitle1">
+            {offer && offer.meta_activity ? offer.meta_activity.name || '' : ''}
           </Typography>
-          <Level
-            noStyle
-            align="center"
-            variant="caption"
-            levelId={offer && offer.level ? offer.level || null : null}
-          />
           <Typography align="center" variant="caption">
-            {offer
-              ? (offer.establishment_override || offer.establishment).title
-              : ''}
+            {coachName}
           </Typography>
-        </ButtonBase>
-        <div className={classes.bottomButton}>
-          <MarketplaceBookButton
-            onClickBook={(ev) => {
-              ev.stopPropagation();
-              props.onClickBook(ev);
-            }}
-            onClickBookOption={(ev) => {
-              ev.stopPropagation();
-              props.onClickBookOption(ev);
-            }}
-            offer={props.offer}
-            variant="text"
-          />
         </div>
+        <Typography align="center">
+          {`${formatAsTime(offer.date_start)} - ${formatAsTime(offerEndDate)}`}
+        </Typography>
+        <Level
+          noStyle
+          align="center"
+          variant="caption"
+          levelId={offer && offer.level ? offer.level || null : null}
+        />
+        <Typography align="center" variant="caption">
+          {offer
+            ? (offer.establishment_override || offer.establishment).title
+            : ''}
+        </Typography>
+      </ButtonBase>
+      <div className={classes.bottomButton}>
+        <MarketplaceBookButton
+          onClickBook={(ev) => {
+            ev.stopPropagation();
+            props.onClickBook(ev);
+          }}
+          onClickBookOption={(ev) => {
+            ev.stopPropagation();
+            props.onClickBookOption(ev);
+          }}
+          offer={props.offer}
+          variant="contained"
+        />
       </div>
     </div>
   );
@@ -97,20 +113,15 @@ export const MarketplaceCardOffer = (props: Props) => {
 const style = (theme) => {
   return {
     cardOuter: {
-      width: '100%',
-      height: '100%',
       display: 'flex',
+      marginLeft: theme.spacing.unit,
+      marginRight: theme.spacing.unit,
       flexDirection: 'column',
       justifyContent: 'space-between',
-      paddingLeft: theme.spacing.unit / 2,
-      paddingRight: theme.spacing.unit / 2,
-    },
-    cardInner: {
-      backgroundColor: '#F8F8F8',
+      height: '100%',
       borderRadius: theme.shape.borderRadius * 2,
-      border: '2px solid #F4F4F4',
-      '&:hover, button': {
-        backgroundColor: 'white',
+      '&:hover': {
+        boxShadow: theme.shadows[1],
       },
     },
     cardContent: {
@@ -119,15 +130,14 @@ const style = (theme) => {
       flexDirection: 'column',
       alignItems: 'center',
       paddingTop: theme.spacing.unit,
+      paddingBottom: theme.spacing.unit,
     },
     title: {
       paddingBottom: theme.spacing.unit,
     },
     bottomButton: {
       textAlign: 'center',
-      marginTop: theme.spacing.unit,
-      width: '100%',
-      padding: '2px',
+      marginTop: '3px',
     },
     marginIcon: {
       marginRight: theme.spacing.unit,

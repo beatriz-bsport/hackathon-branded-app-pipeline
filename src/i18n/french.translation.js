@@ -35,6 +35,7 @@ import checkout from './fr/checkout.translations';
 import coupon from './fr/coupon.translations';
 import relationship from './fr/relationship.translations';
 import titles from './fr/titles.translations';
+import formInput from './fr/form-input.translations';
 
 export default {
   communication,
@@ -70,6 +71,7 @@ export default {
   marketplace,
   selfCheckIn,
   titles,
+  formInput,
   coachPerformance: {
     fields: {
       bonus: 'Bonus',
@@ -778,6 +780,7 @@ export default {
       addOffers: 'Ajouter des séances',
       addActivity: 'Ajouter une activité',
       name: 'Titre',
+      color: 'Code couleur',
       noNextSlot: 'Plus aucune séance programmée',
       // eslint-disable-next-line
       grossVolume: "Chiffre d'affaire",

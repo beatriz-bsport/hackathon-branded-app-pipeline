@@ -163,7 +163,6 @@ export function upsert(metaActivityData: *, options: *): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(upsertActions.isLoading(true));
     dispatch(upsertActions.error(null));
-
     const key = metaActivityData.has('id') ? 'update' : 'create';
     const createOrUpdate = metaActivityData.has('id')
       ? updateMetaActivityAPI

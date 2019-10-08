@@ -34,6 +34,9 @@ type State = {
   panelsStatus: Array<boolean>,
 };
 
+const impairColor = '#FFFFFF50';
+const pairColor = '#EEEEEE50';
+
 export class MarketplaceWeekTimetable extends Component<Props, State> {
   state = {
     panelsStatus: [true, true, true],
@@ -100,7 +103,7 @@ export class MarketplaceWeekTimetable extends Component<Props, State> {
       <Fragment>
         <div className={classes.periodTitle}>
           <Typography component="h3" variant="h6" align="center">
-            {t(`dayParts.${DAY_PARTS[i]}`)}
+            <p>{t(`dayParts.${DAY_PARTS[i]}`)}</p>
           </Typography>
           <IconButton
             onClick={() => this.handlePanelCollapse(i)}
@@ -117,7 +120,7 @@ export class MarketplaceWeekTimetable extends Component<Props, State> {
         >
           {offersRows.map((row) => (
             <div className={classes.offerRow}>
-              {row.map((o) => (
+              {row.map((o, index) => (
                 <div className={classes.rowItem}>
                   {o === undefined ? (
                     ''
@@ -129,6 +132,7 @@ export class MarketplaceWeekTimetable extends Component<Props, State> {
                       onClickBookOption={() =>
                         this.props.onClickBookOption(o.id)
                       }
+                      index={index}
                     />
                   )}
                 </div>
@@ -150,7 +154,7 @@ export class MarketplaceWeekTimetable extends Component<Props, State> {
     const offers = this.getOffersByPeriod();
 
     const start_date = date.clone().startOf('week');
-
+    const size = 100 / 7;
     // if we start from firday we have to reorder the array of days
     if (!_.flattenDeep(weekOffers).length) {
       return (
@@ -164,7 +168,16 @@ export class MarketplaceWeekTimetable extends Component<Props, State> {
       return <CircularProgress />;
     }
     return (
-      <div>
+      <div
+        style={{
+          background: `linear-gradient(90deg, ${pairColor} ${size}%, ${impairColor} ${size}% ${2 *
+            size}%, ${pairColor} ${2 * size}% ${3 *
+            size}%,  ${impairColor} ${3 * size}% ${4 *
+            size}%, ${pairColor} ${4 * size}% ${5 *
+            size}%,  ${impairColor} ${5 * size}% ${6 *
+            size}%, ${pairColor} ${6 * size}% `,
+        }}
+      >
         <div className={classes.weekHeader}>
           {weekDays.map((day, i) => {
             const currentDate = start_date.clone().add(i, 'days');
@@ -202,22 +215,21 @@ const styles = (theme) => ({
     justifyContent: 'space-between',
     alignItems: 'stretch',
     flexWrap: 'noWrap',
-    marginTop: theme.spacing.unit,
   },
   weekHeader: {
     display: 'flex',
-    width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     flexWrap: 'noWrap',
-    paddingTop: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
     borderBottom: `1px solid ${theme.palette.grey[300]}`,
-    backgroundColor: 'white',
+    width: '100%',
   },
   rowItem: {
     flexGrow: 1,
     flexBasis: 150,
+    paddingTop: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit * 2,
   },
   periodTitle: {
     display: 'flex',

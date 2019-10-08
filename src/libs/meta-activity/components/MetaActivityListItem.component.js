@@ -39,6 +39,10 @@ export function MetaActivityListItem(props: Props) {
       divider={props.divider}
       alignItems="center"
       onClick={() => goToDetail(metaActivity.id)}
+      style={{
+        borderLeft: metaActivity.color !== '' ? '5px solid' : '0px',
+        borderLeftColor: metaActivity.color,
+      }}
     >
       {metaActivity.cover_main ? (
         <ListItemAvatar>

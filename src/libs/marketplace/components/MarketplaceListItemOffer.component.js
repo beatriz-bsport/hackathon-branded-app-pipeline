@@ -39,6 +39,12 @@ export const MarketplaceOffer = (props: Props) => {
       selected={selected}
       onClick={onClick}
       divider
+      style={{
+        borderLeft: '5px solid',
+        borderLeftColor: offer.meta_activity_color
+          ? offer.meta_activity_color
+          : '#FFFFFF00',
+      }}
     >
       <CoachAvatar
         t={t}

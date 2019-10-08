@@ -46,6 +46,7 @@ const WorkshopActivityMap = {
   last_discard_minutes: 'last_discard_minutes',
   is_workshop: 'is_workshop',
   SCT: 'SCT',
+  color: 'color',
 };
 
 export class WorkshopActivityEditPage extends React.Component<Props> {

@@ -38,6 +38,8 @@ import 'react-phone-number-input/style.css';
 
 import { Sport } from './category';
 
+import ColorInput from './input/ColorInput.component';
+
 type AlertErrorProps = {
   t: TFunction,
 };
@@ -147,6 +149,22 @@ export const DateField = (props: DateFieldProps) => {
           }}
           format="DD/MM/YYYY"
           error={!!(touched[field.name] && errors[field.name])}
+        />
+      )}
+    />
+  );
+};
+
+export const ColorField = (props: ColorFieldProps) => {
+  return (
+    <Field
+      {...props}
+      render={({ field, form: { setFieldValue } }) => (
+        <ColorInput
+          {...field}
+          {...props}
+          onChange={(color) => setFieldValue(props.name, color)}
+          color={field.value}
         />
       )}
     />

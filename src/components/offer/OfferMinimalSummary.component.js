@@ -131,6 +131,10 @@ export function OfferMinimalSummary(props: Props) {
         available ? {} : classes.disabled,
       )}
       divider
+      style={{
+        borderLeft: offer.meta_activity_color ? '5px solid' : '0px',
+        borderLeftColor: offer.meta_activity_color,
+      }}
     >
       <Grid container directon="row" alignItems="center">
         <Grid item xs={6}>

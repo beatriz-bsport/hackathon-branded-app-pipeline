@@ -65,6 +65,9 @@ export const MetaActivityCard = (props: Props) => {
           />
         </div>
       ) : null}
+      {metaActivity.color ? (
+        <div style={{ borderTop: `4px solid ${metaActivity.color}` }} />
+      ) : null}
       <CardContent>
         <div className={classes.fullWidth}>
           <Typography variant="h5" component="h3">

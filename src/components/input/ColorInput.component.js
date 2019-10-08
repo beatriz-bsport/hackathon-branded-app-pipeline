@@ -2,11 +2,12 @@
 import React, { Component } from 'react';
 
 import { compose, withState } from 'recompose';
-
+import { withNamespaces } from 'react-i18next';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormLabel from '@material-ui/core/FormLabel';
 import ButtonBase from '@material-ui/core/ButtonBase';
+import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { SketchPicker } from 'react-color';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -19,7 +20,7 @@ export class ColorInput extends Component<Props> {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, t } = this.props;
     return (
       <FormControl>
         <FormLabel>{this.props.label}</FormLabel>
@@ -29,12 +30,16 @@ export class ColorInput extends Component<Props> {
         >
           <div
             ref={this.buttonRef}
-            className={classes.colorBlock}
+            className={
+              this.props.color ? classes.colorBlock : classes.emptyColorBlock
+            }
             style={{
               backgroundColor: this.props.color,
             }}
           />
-          <Typography color="textSecondary">{this.props.color}</Typography>
+          <Typography color="textSecondary">
+            {this.props.color ? this.props.color : t('colorPicker.noColor')}
+          </Typography>
         </ButtonBase>
         <Popover
           open={this.props.pickerOpen}
@@ -56,14 +61,50 @@ export class ColorInput extends Component<Props> {
             }
             color={this.props.color}
           />
+          {this.props.transparentColorAvailable ? (
+            <div className={classes.buttonContainer}>
+              <Button
+                onClick={() => {
+                  this.props.onChange('');
+                  this.props.setPickerOpen(!this.props.pickerOpen);
+                }}
+                className={classes.buttons}
+              >
+                {t('colorPicker.delete')}
+              </Button>
+              <Button
+                onClick={() => {
+                  this.props.setPickerOpen(!this.props.pickerOpen);
+                }}
+                className={classes.buttons}
+              >
+                {t('colorPicker.validate')}
+              </Button>
+            </div>
+          ) : null}
         </Popover>
-        <FormHelperText>{this.props.helperText}</FormHelperText>
+        {this.props.helperText ? (
+          <FormHelperText>{this.props.helperText}</FormHelperText>
+        ) : null}
       </FormControl>
     );
   }
 }
 
 const styles = (theme) => ({
+  buttons: {
+    padding: '3px',
+    marginLeft: '10px',
+    marginRight: '10px',
+    marginTop: '5px',
+    marginBottom: '5px',
+  },
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    background: 'white',
+    marginTop: '-5px',
+  },
   button: {
     borderRadius: theme.spacing.unit,
     border: '1px solid #C1C1C1',
@@ -77,8 +118,13 @@ const styles = (theme) => ({
     marginRight: 12,
     textDecoration: 'none',
   },
+  emptyColorBlock: {
+    height: 0,
+    width: 0,
+  },
 });
 export default compose(
   withStyles(styles),
+  withNamespaces(['formInput']),
   withState('pickerOpen', 'setPickerOpen', false),
 )(ColorInput);

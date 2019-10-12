@@ -3,9 +3,9 @@
 /* eslint-disable no-underscore-dangle */
 
 import thunk from 'redux-thunk';
-import * as Sentry from '@sentry/browser';
+// import * as Sentry from '@sentry/browser';
 import { createStore, applyMiddleware, compose } from 'redux';
-import createSentryMiddleware from 'redux-sentry-middleware';
+// import createSentryMiddleware from 'redux-sentry-middleware';
 
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -49,7 +49,7 @@ export default function initStore(initialState: Object = {}) {
     initialState,
     composeEnhancers(
       applyMiddleware(
-        createSentryMiddleware(Sentry, {}),
+        // createSentryMiddleware(Sentry, {}),
         thunk,
         routerMiddlewareWithHistory,
         networkErrorMiddleWare,

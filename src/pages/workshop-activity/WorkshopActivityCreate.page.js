@@ -228,12 +228,12 @@ export default compose(
       });
     },
   })),
-  withProps(({ createPass, fetchAllPaymentPacks, setStep }) => ({
+  withProps(({ createPass, fetchPaymentPacks, setStep }) => ({
     onSubmitPass: (data, options = {}) => {
       createPass(data, {
         ...options,
         onSuccess: () => {
-          fetchAllPaymentPacks();
+          fetchPaymentPacks();
           if (options.onSuccess) options.onSuccess();
           setStep(STEP_OFFER);
           window.scrollTo(0, 0);

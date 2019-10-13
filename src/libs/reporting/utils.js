@@ -10,6 +10,7 @@ import CategoryIcon from '@material-ui/icons/Category';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import EuroIcon from '@material-ui/icons/EuroSymbol';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import ReceiptIcon from '@material-ui/icons/Receipt';
 
 import type { ReportCategoryEnum, ReportCategory } from './types';
 
@@ -58,6 +59,11 @@ export const CATEGORIES: ReportCategory[] = [
     id: 'credit',
     name: 'Crédit',
     icon: EuroIcon,
+  },
+  {
+    id: 'payment_sumup',
+    name: 'Totaux paiements',
+    icon: ReceiptIcon,
   },
 ];
 

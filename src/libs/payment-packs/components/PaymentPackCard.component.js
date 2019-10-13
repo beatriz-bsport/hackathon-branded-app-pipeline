@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Hidden from '@material-ui/core/Hidden';
@@ -107,12 +108,16 @@ export class PaymentPackCard extends Component<Props> {
         </Typography>
         <List className={classes.tabList}>
           {packEstablishments.length ? (
-            packEstablishments.map((eee) => (
-              <EstablishmentSummary
-                key={eee.id}
-                establishment={establishments.find((e) => e.id === eee)}
-              />
-            ))
+            packEstablishments.map((eee) => {
+              const establishment = establishments.find((e) => e.id === eee);
+              if (!establishment) return <CircularProgress />;
+              return (
+                <EstablishmentSummary
+                  key={eee.id}
+                  establishment={establishment}
+                />
+              );
+            })
           ) : (
             <Typography variant="body1">
               {t('paymentPack.anyEstablishment')}

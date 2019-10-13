@@ -358,7 +358,6 @@ export class SignUpForm extends Component<Props, State> {
                   >
                     {t('form.signup.privacyPolicy').toLowerCase()}
                   </a>
-                  {'.'}
                 </Typography>
               }
               control={

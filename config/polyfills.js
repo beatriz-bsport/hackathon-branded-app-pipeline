@@ -1,3 +1,7 @@
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+
+// prettier-ignore
 'use strict';
 
 if (typeof Promise === 'undefined') {

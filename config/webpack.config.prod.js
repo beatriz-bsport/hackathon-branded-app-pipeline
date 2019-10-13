@@ -4,9 +4,9 @@ const autoprefixer = require('autoprefixer');
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
-const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
+// const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
@@ -38,6 +38,7 @@ if (env.stringified['process.env'].NODE_ENV !== '"production"') {
 // Note: defined here because it will be used more than once.
 const cssFilename = 'static/css/[name].[contenthash:8].css';
 
+/* UPDATE WEBPACK4 -> use MiniCssExtractPlugin
 // ExtractTextPlugin expects the build output to be flat.
 // (See https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/27)
 // However, our output is structured with css, js and media folders.
@@ -46,6 +47,7 @@ const extractTextPluginOptions = shouldUseRelativeAssetPaths
   ? // Making sure that the publicPath goes back to to build folder.
     { publicPath: Array(cssFilename.split('/').length).join('../') }
   : {};
+  */
 
 // This is the production configuration.
 // It compiles slowly and is focused on producing a fast and minimal bundle.
@@ -56,6 +58,20 @@ module.exports = {
   // We generate sourcemaps in production. This is slow but gives good results.
   // You can exclude the *.map files from the build during deployment.
   devtool: shouldUseSourceMap ? 'source-map' : false,
+  mode: 'production',
+
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/](react-i18next|moment|react|react-dom)[\\/]/,
+          name: 'vendor',
+          chunks: 'all',
+        },
+      },
+    },
+  },
+
   // In production, we only want to load the polyfills and the app code.
   entry: [require.resolve('./polyfills'), paths.appIndexJs],
   output: {
@@ -124,6 +140,7 @@ module.exports = {
             options: {
               limit: 10000,
               name: 'static/media/[name].[hash:8].[ext]',
+              context: process.cwd(),
             },
           },
           // Process JS with Babel.
@@ -133,6 +150,26 @@ module.exports = {
             loader: require.resolve('babel-loader'),
             options: {
               compact: true,
+              plugins: [
+                '@babel/plugin-proposal-class-properties',
+                'babel-plugin-lodash',
+              ],
+              presets: [
+                [
+                  '@babel/preset-env',
+                  {
+                    targets: {
+                      // The % refers to the global coverage of users from browserslist
+                      browsers: ['>0.1%', 'iOS >= 9'],
+                    },
+
+                    useBuiltIns: 'entry',
+                    corejs: 3,
+                  },
+                ],
+                '@babel/preset-react',
+                '@babel/preset-flow',
+              ],
             },
           },
           // The notation here is somewhat confusing.
@@ -149,6 +186,7 @@ module.exports = {
           // in the main CSS file.
           {
             test: [/\.scss$/, /\.sass$/],
+            /*
             loader: ExtractTextPlugin.extract(
               Object.assign(
                 {
@@ -195,10 +233,85 @@ module.exports = {
                 extractTextPluginOptions,
               ),
             ),
-            // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
+  // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
+  */
+            use: [
+              {
+                loader: MiniCssExtractPlugin.loader,
+              },
+              {
+                loader: 'css-loader',
+                options: {
+                  sourceMap: shouldUseSourceMap,
+                  importLoaders: 1,
+                  minimize: true,
+                },
+              },
+              {
+                loader: require.resolve('sass-loader'),
+              },
+              {
+                loader: require.resolve('postcss-loader'),
+                options: {
+                  // Necessary for external CSS imports to work
+                  // https://github.com/facebookincubator/create-react-app/issues/2677
+                  ident: 'postcss',
+                  plugins: () => [
+                    require('postcss-flexbugs-fixes'),
+                    autoprefixer({
+                      browsers: [
+                        '>0.25%',
+                        'last 4 versions',
+                        'Firefox ESR',
+                        'not ie < 9', // React doesn't support IE8 anyway
+                      ],
+                      flexbox: 'no-2009',
+                    }),
+                  ],
+                },
+              },
+            ],
           },
           {
             test: /\.css$/,
+            use: [
+              {
+                loader: MiniCssExtractPlugin.loader,
+              },
+
+              {
+                loader: 'css-loader',
+                options: {
+                  importLoaders: 1,
+                  minimize: true,
+                  sourceMap: shouldUseSourceMap,
+                },
+              },
+
+              {
+                loader: 'postcss-loader',
+                options: {
+                  // Necessary for external CSS imports to work
+                  // https://github.com/facebookincubator/create-react-app/issues/2677
+                  ident: 'postcss',
+                  plugins: () => [
+                    require('postcss-flexbugs-fixes'),
+                    autoprefixer({
+                      browsers: [
+                        '>0.25%',
+                        'last 4 versions',
+                        'Firefox ESR',
+                        'not ie < 9', // React doesn't support IE8 anyway
+                      ],
+                      flexbox: 'no-2009',
+                    }),
+                  ],
+                },
+              },
+            ],
+          },
+          /*
+
             loader: ExtractTextPlugin.extract(
               Object.assign(
                 {
@@ -242,8 +355,8 @@ module.exports = {
                 extractTextPluginOptions,
               ),
             ),
-            // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
-          },
+  // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
+  ¨ */
           // "file" loader makes sure assets end up in the `build` folder.
           // When you `import` an asset, you get its filename.
           // This loader doesn't use a "test" so it will catch all modules
@@ -266,16 +379,11 @@ module.exports = {
     ],
   },
   plugins: [
-    // Makes some environment variables available in index.html.
-    // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
-    // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-    // In production, it will be an empty string unless you specify "homepage"
-    // in `package.json`, in which case it will be the pathname of that URL.
-    new InterpolateHtmlPlugin(env.raw),
     // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
+      templateParameters: env.raw,
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -289,12 +397,18 @@ module.exports = {
         minifyURLs: true,
       },
     }),
+    // Makes some environment variables available in index.html.
+    // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
+    // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    // In production, it will be an empty string unless you specify "homepage"
+    // in `package.json`, in which case it will be the pathname of that URL.
+    // new InterpolateHtmlPlugin(env.raw),
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'production') { ... }. See `./env.js`.
     // It is absolutely essential that NODE_ENV was set to production here.
     // Otherwise React will be compiled in the very slow development mode.
+    /* UPDATE TO WEBPACK 4 : not needed in production mode
     new webpack.DefinePlugin(env.stringified),
-    // Minify the code.
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false,
@@ -315,10 +429,15 @@ module.exports = {
       },
       sourceMap: shouldUseSourceMap,
     }),
+    */
     // Note: this won't work without ExtractTextPlugin.extract(..) in `loaders`.
+    /*
     new ExtractTextPlugin({
       filename: cssFilename,
-    }),
+      }),
+      */
+    new MiniCssExtractPlugin({ filename: cssFilename }),
+
     // Generate a manifest file which contains a mapping of all asset filenames
     // to their corresponding output file so that tools can pick it up without
     // having to parse `index.html`.

@@ -89,8 +89,10 @@ export default compose(
     },
   ),
   withState('dateRange', 'setDateRange', {
-    dateStart: moment().subtract(7, 'days'),
-    dateEnd: moment(),
+    dateStart: moment()
+      .subtract(7, 'days')
+      .format('YYYY-MM-DD'),
+    dateEnd: moment().format('YYYY-MM-DD'),
   }),
   withState('exportLink', 'setExportLink', null),
   withProps(

@@ -28,9 +28,18 @@ export const PrivatePassListItem = (props: Props) => {
         })}
       />
       <ListItemSecondaryAction>
-        <IconButton>
-          <ArrowForwardIcon />
-        </IconButton>
+        {props.onClick ? (
+          <IconButton
+            color="primary"
+            onClick={(ev) => {
+              ev.preventDefault();
+              ev.stopPropagation();
+              props.onClick();
+            }}
+          >
+            <ArrowForwardIcon />
+          </IconButton>
+        ) : null}
       </ListItemSecondaryAction>
     </ListItem>
   );

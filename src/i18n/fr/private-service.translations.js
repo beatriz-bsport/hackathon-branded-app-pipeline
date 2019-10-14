@@ -12,9 +12,9 @@ export default {
   },
   privateSlot: {
     delete: {
-      title: 'Suppression du créneau',
+      title: 'Suppression de la séance',
       explain:
-        'Êtes-vous sûr de vouloir supprimer ce créneau ? Les réservations passées ne seront pas affectées. Cette opération est définitive.',
+        'Êtes-vous sûr de vouloir supprimer cette séance ? Les réservations passées ne seront pas affectées. Cette opération est définitive.',
       cancel: 'Annuler',
       confirm: 'Confirmer',
     },
@@ -39,6 +39,7 @@ export default {
         'Êtes-vous sûr de vouloir supprimer ce cours ? Cette modification est définitive. Les réservations déjà enregistrées ne seront pas affectées.',
       cancel: 'Annuler',
       submit: 'Supprimer',
+      confirm: 'Supprimer',
     },
   },
   privateCoach: {
@@ -54,7 +55,7 @@ export default {
     delete: {
       title: 'Désinscription de la salle',
       explain:
-        'Êtes-vous sûr de vouloir modifier le lieu de ce cours ? Sans établissement il sera considéré comme un cours à domicile et les élèves devront rentrer leur adresse pour terminer la réservation. Les réservaiton déjà enregistrées ne seront pas affectées.',
+        'Êtes-vous sûr de vouloir modifier le lieu de ce cours ? Sans établissement il sera considéré comme un cours à domicile et les élèves devront rentrer leur adresse pour terminer la réservation. Les réservations déjà enregistrées ne seront pas affectées.',
       cancel: 'Annuler',
       submit: 'Confirmer',
     },
@@ -89,7 +90,7 @@ export default {
   },
   selector: {
     privateService: 'Sélectionnez votre cours',
-    privateSlot: 'Sélectionnez votre créneau',
+    privateSlot: 'Sélectionnez votre séance',
   },
   slotSearcher: {
     title: 'Inscription cours privé',
@@ -106,9 +107,9 @@ export default {
       credit: '{{ credit }} crédit',
     },
     form: {
-      title: 'Créneau',
+      title: 'Séance',
       name: {
-        label: 'Nom du créneau',
+        label: 'Nom de la séance',
         helperText: 'Ex: 1h intensif',
       },
       credit: {
@@ -133,8 +134,8 @@ export default {
     bookingCapabilities: {
       compatibleConsumerPassTitle: 'Vos cartes valables',
       emptyConsumerPassList:
-        'Vous ne possédez de cartes valable avec suffisamment de crédit',
-      compatiblePassTitle: 'Cartes valables sur ce créneau',
+        'Vous ne possédez pas de cartes valable avec suffisamment de crédit',
+      compatiblePassTitle: 'Cartes valables sur cette séance',
       emptyPassList: 'Aucune carte compatible, veuillez contacter votre club',
     },
     useCredit: 'Réserver',
@@ -147,12 +148,12 @@ export default {
     },
     sections: {
       establishment: 'Lieu',
-      privateSlot: 'Créneau',
+      privateSlot: 'Séances',
       coach: 'Professeur',
     },
     step: {
       privateService: 'Cours',
-      privateSlot: 'Créneau',
+      privateSlot: 'Séance',
       coach: 'Professeur',
       date: 'Date',
     },
@@ -160,7 +161,23 @@ export default {
   consumerPass: {
     current_credits: '{{ current_credits }}/{{credits}} crédits',
   },
+  privateServiceCompatibility: {
+    delete: {
+      title: 'Modificatio cours privés compatibles',
+      explain:
+        "Êtes-vous sûr de vouloir modifier les règles d'utilisation du pass ? Cette modification est rétro-active pour les achats déjà effectués.",
+      cancel: 'Annuler',
+      submit: 'Supprimer',
+    },
+  },
   privatePass: {
+    delete: {
+      title: 'Suppression de la carte',
+      explain:
+        'Êtes-vous sûr de vouloir supprimer cette carte ? Les personnes possédant encore des crédits pourront toujours les utiliser. Cette opération est définitive',
+      cancel: 'Annuler',
+      submit: 'Confirmer',
+    },
     list: {
       createButton: 'Créer une carte',
     },
@@ -170,9 +187,9 @@ export default {
       tax: 'TVA: {{ tax }}%',
     },
     compatibleServices: {
-      title: 'Séances compatibles',
+      title: 'Cours privés compatibles',
       add: 'Ajouter',
-      isEmpty: 'Aucune séance compatible - inutilisable',
+      isEmpty: 'Aucun cours compatible - inutilisable',
     },
     form: {
       title: 'Carte cours privé',
@@ -181,7 +198,7 @@ export default {
       },
       credits: {
         label: 'Nombre de crédit inclu',
-        helperText: 'Chaque créneau coûte un certain nombre de crédit',
+        helperText: 'Chaque séance coûte un certain nombre de crédit',
       },
       price: {
         label: 'Prix',
@@ -201,7 +218,7 @@ export default {
       createButton: 'Ajouter un cours',
       addCoach: 'Ajouter un professeur',
       addEstablishment: 'Ajouter une salle',
-      addSlot: 'Ajouter un créneau',
+      addSlot: 'Ajouter une séance',
 
       name: {
         label: 'Nom',
@@ -230,11 +247,11 @@ export default {
       establishments: {
         title: 'Lieu',
         isEmpty:
-          "Aucun établissement, ce cours sera considéré à domicile et l'addresse sera demandé à l'élève à chaque réservation",
+          "Aucun établissement, ce cours sera considéré à domicile et l'adresse sera demandé à l'élève à chaque réservation",
       },
       slots: {
-        title: 'Créneau',
-        isEmpty: 'Aucun créneau, aucune réservation possible',
+        title: 'Séance',
+        isEmpty: 'Aucune séance, aucune réservation possible',
       },
     },
   },

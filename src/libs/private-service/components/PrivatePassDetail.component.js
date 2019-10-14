@@ -9,7 +9,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
@@ -19,20 +21,27 @@ import type { TFunction } from 'react-i18next';
 
 import PrivateServiceListItem from './PrivateServiceListItem.component';
 import EmptyListWarning from './EmptyListWarning.component';
-import type { PrivatePass } from '../types';
+import type { PrivatePass, PrivateService } from '../types';
 import PrivatePassForm from './PrivatePassForm.component';
 
 type Props = {
   pass: PrivatePass,
   private_services: Array<PrivateService>,
+
+  onDelete: ?() => void,
   setOpenEditForm: (boolean) => void,
   openEditForm: boolean,
   deleteCompatibleServicePass: (
     passId: number,
     privateServiceId: number,
   ) => void,
+
   setOpenCreateCompatibleServiceForm: (boolean) => void,
   openCompatibleServiceForm: boolean,
+
+  setOpenDeleteCompatibility: (id: ?number) => void,
+  openDeleteCompatibilityDialog: ?number,
+
   createCompatibleServicePass: (
     number,
     number,
@@ -47,16 +56,23 @@ type Props = {
   t: TFunction,
 };
 export const PrivatePassDetail = (props: Props) => {
+  if (!props.pass) {
+    return null;
+  }
   return (
     <div>
       <Paper className={props.classes.paperContainer}>
         <Typography variant="h3">{props.pass.name}</Typography>
-        <IconButton
-          onClick={() => props.setOpenEditForm(true)}
-          className={props.classes.editButton}
-        >
-          <EditIcon />
-        </IconButton>
+        <div className={props.classes.editButton}>
+          <IconButton onClick={() => props.setOpenEditForm(true)}>
+            <EditIcon />
+          </IconButton>
+          {props.onDelete ? (
+            <IconButton onClick={props.onDelete}>
+              <DeleteIcon />
+            </IconButton>
+          ) : null}
+        </div>
         <div className={props.classes.priceParameters}>
           <Typography variant="subtitle" color="textSecondary">
             {props.t('privatePass.parameters.nbCredits', {
@@ -90,9 +106,7 @@ export const PrivatePassDetail = (props: Props) => {
                 hideSecondary
                 privateService={ps}
                 key={ps.id}
-                onDelete={() =>
-                  props.deleteCompatibleServicePass(props.pass.id, ps.id)
-                }
+                onDelete={() => props.setOpenDeleteCompatibility(ps.id)}
               />
             ))}
         </List>
@@ -143,6 +157,30 @@ export const PrivatePassDetail = (props: Props) => {
           />
         </DialogContent>
       </Dialog>
+      <Dialog open={props.openDeleteCompatibilityDialog}>
+        <DialogTitle>
+          {props.t('privateServiceCompatibility.delete.title')}
+        </DialogTitle>
+        <DialogContent>
+          {props.t('privateServiceCompatibility.delete.explain')}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => props.setOpenDeleteCompatibility(null)}>
+            {props.t('privateServiceCompatibility.delete.cancel')}
+          </Button>
+          <Button
+            onClick={() => {
+              props.setOpenDeleteCompatibility(null);
+              props.deleteCompatibleServicePass(
+                props.pass.id,
+                props.openDeleteCompatibilityDialog,
+              );
+            }}
+          >
+            {props.t('privateServiceCompatibility.delete.submit')}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
@@ -173,6 +211,11 @@ export default compose(
   withState(
     'openCompatibleServiceForm',
     'setOpenCreateCompatibleServiceForm',
+    false,
+  ),
+  withState(
+    'openDeleteCompatibilityDialog',
+    'setOpenDeleteCompatibility',
     false,
   ),
 )(PrivatePassDetail);

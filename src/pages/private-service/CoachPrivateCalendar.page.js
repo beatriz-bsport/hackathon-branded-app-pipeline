@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 // import type { TFunction } from 'react-i18next';
 
@@ -14,11 +15,14 @@ import './main.scss';
 import type { TFunction } from 'react-i18next';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
-import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
-import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
+import {
+  fetchAssociatedCoachesList,
+  createOrUpdateCoach as updateCoach,
+} from '../../libs/associated-coach/actions';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import CoachInput from '../../components/input/CoachInput.component';
+import CoachColorModifier from '../../libs/associated-coach/components/CoachColorModifier.component';
 
 import { getPrivateBookingList } from '../../libs/private-service/selectors/private-booking';
 import { getCoachAvailabilitySlots } from '../../libs/private-service/selectors/availability-slot';
@@ -69,11 +73,55 @@ type Props = {
 };
 
 export class CoachPrivateCalendar extends React.Component<Props> {
+  state = {
+    date_start: null,
+    date_end: null,
+  };
+
   componentDidMount() {
     this.props.fetchAssociatedCoachesList();
     this.props.fetchAllPrivateServices();
     this.props.fetchAllPrivateSlots();
   }
+
+  fetchWeekData = () => {
+    const { date_start, date_end } = this.state;
+    if (this.props.coachId) {
+      this.props.fetchAvailabilitySlots({
+        coach: this.props.coachId,
+        date_start__gte: date_start,
+        date_start__lte: date_end,
+      });
+      this.props.fetchPrivateBookings({
+        coach: this.props.coachId,
+        date_start__gte: date_start,
+        date_start__lte: date_end,
+      });
+    } else {
+      this.props.fetchAvailabilitySlots({
+        date_start__gte: date_start,
+        date_start__lte: date_end,
+      });
+      this.props.fetchPrivateBookings({
+        date_start__gte: date_start,
+        date_start__lte: date_end,
+      });
+    }
+  };
+
+  componentDidUpdate(prevProps: Props, prevState: State) {
+    if (
+      prevState.date_start !== this.state.date_start ||
+      prevState.date_end !== this.state.date_end ||
+      this.props.coachId !== prevProps.coachId
+    ) {
+      this.fetchWeekData();
+    }
+  }
+
+  handleDateChange = ({ date_start, date_end }) => {
+    this.setState({ date_start, date_end });
+  };
 
   handleCoachChange = (ev: ?SyntheticEvent<HTMLElement>) => {
     if (ev && ev.target && ev.target.value) {
@@ -93,25 +141,49 @@ export class CoachPrivateCalendar extends React.Component<Props> {
     });
   };
 
+  renderHeader = () => {
+    const { classes, coachId, coaches, coachLoading, t } = this.props;
+    return (
+      <div className={classes.header}>
+        <div className={classes.coachSelectorLoading}>
+          <CoachInput
+            required
+            value={coachId}
+            onChange={this.handleCoachChange}
+            label={t('calendar.input.coach.label')}
+            choices={coaches}
+            onDelete={() => this.handleCoachChange(null)}
+          />
+          {coachLoading ? (
+            <CircularProgress className={classes.leftIcon} size="small" />
+          ) : null}
+        </div>
+        <div className={classes.row}>
+          <CoachColorModifier
+            associatedCoachList={
+              coachId ? coaches.filter((c) => c.id === coachId) : coaches
+            }
+            updateCoach={(data) =>
+              this.props.updateCoach(data, {
+                onSuccess: () => {
+                  this.fetchWeekData();
+                },
+              })
+            }
+          />
+        </div>
+      </div>
+    );
+  };
+
   render() {
     const { classes, t } = this.props;
     return (
       <div className={classes.container}>
-        {this.props.loading ? <BackofficeLinearProgress /> : null}
-        <div className={classes.coachSelectorLoading}>
-          <CoachInput
-            required
-            value={this.props.coachId}
-            onChange={this.handleCoachChange}
-            label={t('calendar.input.coach.label')}
-            choices={this.props.coaches}
-            onDelete={() => this.handleCoachChange(null)}
-          />
-          {this.props.coachLoading ? (
-            <CircularProgress className={classes.leftIcon} size="small" />
-          ) : null}
-        </div>
+        {this.renderHeader()}
+        {this.props.loading ? <LinearProgress /> : null}
         <CoachPrivateCalendarComponent
+          ref={this.calendar}
           fetchAvailabilitySlots={this.props.fetchAvailabilitySlots}
           fetchPrivateBookings={this.fetchPrivateBookingsWithData}
           disableCoachAvailabilitySlot={this.props.disableCoachAvailabilitySlot}
@@ -122,6 +194,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
           availabilitySlotUpdating={this.props.availabilitySlotUpdating}
           coachId={this.props.coachId}
           goToMember={this.props.goToMember}
+          onDateChange={this.handleDateChange}
         />
       </div>
     );
@@ -130,14 +203,34 @@ export class CoachPrivateCalendar extends React.Component<Props> {
 
 const styles = (theme) => ({
   container: {
+    marginTop: theme.spacing.unit,
     minWidth: '100%',
     overflowX: 'auto',
+  },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    maxWidth: '80%',
   },
   leftIcon: { marginRight: theme.spacing.unit },
   coachSelectorLoading: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    marginTop: -theme.spacing.unit * 2,
+  },
+  header: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    border: '2px solid #E2E2E2',
+    backgroundColor: theme.palette.common.white,
+    borderRadius: theme.spacing.unit * 2,
+    paddingLeft: theme.spacing.unit * 2,
+    paddingRight: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 2,
   },
 });
 
@@ -167,6 +260,7 @@ export default compose(
       fetchFilteredMembers,
       disableCoachAvailabilitySlot,
       disablePrivateBooking,
+      updateCoach,
       enableCoachAvailabilitySlot,
       resetCoach: () => push('/private-service/calendar/'),
       goToCoachPrivateCalendar: (coachId) =>

@@ -666,6 +666,7 @@ export function deletePrivatePass(id: number) {
     try {
       const response = await deletePrivatePassAPI(id);
       dispatch(privatePassDeleteActions.success(response.data));
+      dispatch(fetchPrivatePassRetrieve(id));
     } catch (err) {
       console.error(err);
       dispatch(privatePassDeleteActions.error(err));

@@ -24,3 +24,9 @@ export const getPrivatePassListWithPrivateService: (State) => Array<PrivatePassW
       private_services: pass.private_services.map((ps) => servicesById[ps]),
     })),
 );
+
+// eslint-disable-next-line
+export const getPrivatePassAvailableListWithPrivateService: (State) => Array<PrivatePassWithService> = createSelector(
+  getPrivatePassListWithPrivateService,
+  (passList) => passList.filter((p) => p.available),
+);

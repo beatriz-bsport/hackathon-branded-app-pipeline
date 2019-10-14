@@ -28,6 +28,7 @@ import './main.scss';
 import RecurrentAvailabilityFormDialog from './RecurrentAvailabilityFormDialog.component';
 import PrivateBookingCard from './PrivateBookingCard.component';
 import PrivateBookingDisableDialog from './PrivateBookingDisableDialog.component';
+import { getTextColorFromRGB } from '../../../color';
 import type { AvailabilitySlot, PrivateBooking } from '../types';
 
 const styles = (theme) => ({
@@ -111,19 +112,14 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
     ) => {
       const themeColor = this.props.theme.palette.primary.main;
       const themeColorRGB = chroma(themeColor).rgb();
-      const textColor =
-        themeColorRGB[0] * 0.299 +
-          themeColorRGB[1] * 0.587 +
-          themeColorRGB[2] * 0.114 >
-        186
-          ? '#000000'
-          : '#ffffff';
+      const textColor = getTextColorFromRGB(themeColorRGB);
 
       return [
         ...availabilitySlots.map((slot) => ({
           start: slot.date_start,
           end: slot.date_end,
           rendering: 'background',
+          ...(slot.color ? { backgroundColor: slot.color } : {}),
         })),
         ...privateBookings.map((pb) => ({
           start: pb.date_start,
@@ -144,37 +140,6 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
       ];
     },
   );
-
-  fetchWeekData = () => {
-    const { date_start, date_end } = this.state;
-    if (this.props.coachId) {
-      this.props.fetchAvailabilitySlots({
-        coach: this.props.coachId,
-        date_start__gte: date_start,
-        date_start__lte: date_end,
-      });
-      this.props.fetchPrivateBookings({
-        coach: this.props.coachId,
-        date_start__gte: date_start,
-        date_start__lte: date_end,
-      });
-    } else {
-      this.props.fetchPrivateBookings({
-        date_start__gte: date_start,
-        date_start__lte: date_end,
-      });
-    }
-  };
-
-  componentDidUpdate(prevProps: Props, prevState: State) {
-    if (
-      prevState.date_start !== this.state.date_start ||
-      prevState.date_end !== this.state.date_end ||
-      this.props.coachId !== prevProps.coachId
-    ) {
-      this.fetchWeekData();
-    }
-  }
 
   onDisableAvailability = () => {
     const { startStr, endStr } = this.state.eventSlotSelected;
@@ -259,7 +224,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
   };
 
   handleIntervalChange = ({ view }) => {
-    this.setState({
+    this.props.onDateChange({
       date_start: moment(view.currentStart).format('YYYY-MM-DD'),
       date_end: moment(view.currentEnd).format('YYYY-MM-DD'),
     });

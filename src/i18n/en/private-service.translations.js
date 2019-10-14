@@ -58,6 +58,15 @@ export default {
       submit: 'Confirm',
     },
   },
+  privateServiceCompatibility: {
+    delete: {
+      title: 'Compatible lesson modification',
+      explain:
+        'Are you sure you want to modify the compatibility rules of the pass ? This modification is retroactive for all bought pass.',
+      cancel: 'Cancel',
+      submit: 'Delete',
+    },
+  },
   calendar: {
     enableAvailability: 'Add an availability this day',
     disableAvailability: 'Cancel availability this day',
@@ -159,6 +168,13 @@ export default {
     current_credits: '{{ current_credits }}/{{credits}} credits',
   },
   privatePass: {
+    delete: {
+      title: 'Pass deletion',
+      explain:
+        'Are you sure you want to delete this pass ? Previously bought pass with remaining credits will still be usable. This deletion is not cancellable.',
+      cancel: 'Cancel',
+      submit: 'Confirm',
+    },
     list: {
       createButton: 'Create a pass',
     },

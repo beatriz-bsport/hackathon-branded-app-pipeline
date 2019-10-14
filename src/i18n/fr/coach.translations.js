@@ -1,5 +1,6 @@
 export default {
   coach: 'Professeur',
+  color: 'Code couleur (cours privé)',
   showPerformance: 'Rémunérer',
   showActivities: 'Afficher les activités',
   showDescription: 'Afficher la description',

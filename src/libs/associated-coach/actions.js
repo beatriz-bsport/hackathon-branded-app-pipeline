@@ -140,7 +140,7 @@ export function createOrUpdateCoach(
       }
       const key = coachData.has('id') ? 'update' : 'create';
       dispatch(snackbarSuccess(`coach.forms.${key}.success`));
-      dispatch(push('/coach'));
+      dispatch(fetchAssociatedCoachesList());
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
       if (

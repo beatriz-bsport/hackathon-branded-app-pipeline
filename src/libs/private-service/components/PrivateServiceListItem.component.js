@@ -16,6 +16,7 @@ type Props = {
   hideSecondary: boolean,
   onDelete: () => void,
 };
+
 export const PrivateServiceListItem = (props: Props) => {
   const { privateService, onClick } = props;
   return (
@@ -35,7 +36,14 @@ export const PrivateServiceListItem = (props: Props) => {
       />
       <ListItemSecondaryAction>
         {props.onClick ? (
-          <IconButton color="primary">
+          <IconButton
+            onClick={(ev) => {
+              ev.preventDefault();
+              ev.stopPropagation();
+              props.onClick(privateService.id);
+            }}
+            color="primary"
+          >
             <ArrowForwardIcon />
           </IconButton>
         ) : null}

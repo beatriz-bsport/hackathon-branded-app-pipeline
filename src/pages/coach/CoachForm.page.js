@@ -59,6 +59,7 @@ const CoachMap = {
   phone: 'phone.phone_number',
   facebook_url: 'facebook_url',
   instagram_url: 'instagram_url',
+  color: 'color',
 };
 
 export class CoachFormPage extends React.Component<Props> {
@@ -132,9 +133,10 @@ export default compose(
       upsertCoach: createOrUpdateCoach,
       linkCoachViaEmail,
       push,
+      goToCoachList: () => push('/coach'),
     },
   ),
-  withProps(({ upsertCoach, initial }) => ({
+  withProps(({ upsertCoach, initial, goToCoachList }) => ({
     onSubmit: (values, options) => {
       if (!values.birthday) {
         // eslint-disable-next-line
@@ -146,7 +148,15 @@ export default compose(
         formData.append('id', initial.id);
       }
 
-      upsertCoach(formData, options);
+      upsertCoach(formData, {
+        onSuccess: () => {
+          if (options && options.onSuccess) options.onSuccess();
+          goToCoachList();
+        },
+        onError: () => {
+          if (options && options.onError) options.onError();
+        },
+      });
     },
   })),
   withStyles(styles),

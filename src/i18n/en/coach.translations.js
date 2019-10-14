@@ -1,5 +1,6 @@
 export default {
   coach: 'Coach',
+  color: 'Color code (private lessons)',
   showPerformance: 'Remunerate',
   showActivities: 'Show activities',
   showDescription: 'Show description',

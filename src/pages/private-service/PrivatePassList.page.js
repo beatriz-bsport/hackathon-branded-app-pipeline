@@ -10,12 +10,14 @@ import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
+import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import withTitle from '../../hocs/with-title.hoc';
-import { getPrivatePassListWithPrivateService } from '../../libs/private-service/selectors/private-pass';
+import { getPrivatePassAvailableListWithPrivateService } from '../../libs/private-service/selectors/private-pass';
 import { getPrivateServices } from '../../libs/private-service/selectors/private-service';
 import {
   fetchPrivatePassList,
@@ -23,6 +25,7 @@ import {
   createOrUpdatePrivatePass,
   deleteCompatibleServicePass,
   createCompatibleServicePass,
+  deletePrivatePass,
 } from '../../libs/private-service/actions';
 import PrivatePassListItem from '../../libs/private-service/components/PrivatePassListItem.component';
 import PrivatePassDetail from '../../libs/private-service/components/PrivatePassDetail.component';
@@ -91,6 +94,9 @@ export class PrivatePassList extends React.Component<Props> {
             <PrivatePassDetail
               private_services={this.props.private_services}
               updatePrivatePass={this.props.createOrUpdatePrivatePass}
+              onDelete={() =>
+                this.props.setOpenDeletePassDialog(this.props.selectedPassId)
+              }
               deleteCompatibleServicePass={
                 this.props.deleteCompatibleServicePass
               }
@@ -111,6 +117,25 @@ export class PrivatePassList extends React.Component<Props> {
               onCancel={() => this.props.setOpenCreateForm(false)}
             />
           </DialogContent>
+        </Dialog>
+        <Dialog open={this.props.openDeletePassDialog}>
+          <DialogTitle>{this.props.t('privatePass.delete.title')}</DialogTitle>
+          <DialogContent>
+            {this.props.t('privatePass.delete.explain')}
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => this.props.setOpenDeletePassDialog(null)}>
+              {this.props.t('privatePass.delete.cancel')}
+            </Button>
+            <Button
+              onClick={() => {
+                this.props.deletePrivatePass(this.props.openDeletePassDialog);
+                this.props.setOpenDeletePassDialog(null);
+              }}
+            >
+              {this.props.t('privatePass.delete.submit')}
+            </Button>
+          </DialogActions>
         </Dialog>
         <Fab
           className={this.props.classes.addButton}
@@ -149,7 +174,7 @@ export default compose(
   withStyles(styles),
   connect(
     (state) => ({
-      privatePassList: getPrivatePassListWithPrivateService(state),
+      privatePassList: getPrivatePassAvailableListWithPrivateService(state),
       private_services: getPrivateServices(state),
     }),
     {
@@ -158,8 +183,10 @@ export default compose(
       createOrUpdatePrivatePass,
       createCompatibleServicePass,
       deleteCompatibleServicePass,
+      deletePrivatePass,
     },
   ),
   withState('openCreateForm', 'setOpenCreateForm', false),
   withState('selectedPassId', 'setSelectedPass', null),
+  withState('openDeletePassDialog', 'setOpenDeletePassDialog', null),
 )(PrivatePassList);

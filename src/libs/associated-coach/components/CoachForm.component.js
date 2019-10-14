@@ -1,5 +1,4 @@
 // @flow
-
 import React from 'react';
 import { compose } from 'recompose';
 
@@ -24,6 +23,7 @@ import {
   GenderField,
   Actions,
   Submit,
+  ColorField,
 } from '../../../components/forms';
 
 type Props = {
@@ -107,6 +107,13 @@ export function CoachForm(props: Props) {
           <Grid item xs={12} md={6}>
             <TextField name="instagram_url" label="Instagram URL" fullWidth />
           </Grid>
+          <Grid item xs={12} md={6}>
+            <ColorField
+              label={t('coach.color')}
+              name="color"
+              transparentColorAvailable
+            />
+          </Grid>
         </Grid>
         <Actions>
           <Button color="secondary" onClick={onCancel} disabled={isSubmitting}>
@@ -158,6 +165,7 @@ export default compose(
         email: defaultEmail,
         phone: '',
         gender: 'F',
+        color: '',
         birthday: null,
         description: '',
         facebook_url: '',

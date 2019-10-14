@@ -564,6 +564,7 @@ const styles = (theme) => ({
     overflow: 'hidden',
     display: 'flex',
     width: '100vw',
+    minHeight: '100vh',
     [theme.breakpoints.up('md')]: {
       paddingLeft: drawerWidth,
     },

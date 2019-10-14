@@ -155,6 +155,7 @@ const styles = (theme) => ({
     position: 'relative',
     display: 'flex',
     width: '100%',
+    minHeight: '100vh',
   },
   appBar: {
     position: 'absolute',

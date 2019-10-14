@@ -79,8 +79,6 @@ type State = {
   selectedPrivateBookingAnchorEl: ?HTMLElement,
   disableWithRecurrence: boolean,
   enableWithRecurrence: boolean,
-  date_start: ?string,
-  date_end: ?string,
 };
 
 export class CoachPrivateCalendar extends React.Component<Props, State> {
@@ -90,8 +88,6 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
     selectedPrivateBookingAnchorEl: null,
     disableWithRecurrence: false,
     enableWithRecurrence: false,
-    date_start: null,
-    date_end: null,
   };
 
   select = (eventSlotSelected) => {

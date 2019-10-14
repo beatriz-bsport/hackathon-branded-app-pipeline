@@ -54,6 +54,10 @@ type Props = {
   coachLoading: boolean,
   coaches: Array<AssociatedCoach>,
   fetchAssociatedCoachesList: () => void,
+  updateCoach: (
+    data: any,
+    options: { onSuccess?: () => void, onError?: () => void },
+  ) => void,
   resetCoach: () => void,
 
   loading: boolean,
@@ -72,7 +76,12 @@ type Props = {
   t: TFunction,
 };
 
-export class CoachPrivateCalendar extends React.Component<Props> {
+type State = {
+  date_start: ?string,
+  date_end: ?string,
+};
+
+export class CoachPrivateCalendar extends React.Component<Props, State> {
   state = {
     date_start: null,
     date_end: null,
@@ -177,13 +186,12 @@ export class CoachPrivateCalendar extends React.Component<Props> {
   };
 
   render() {
-    const { classes, t } = this.props;
+    const { classes } = this.props;
     return (
       <div className={classes.container}>
         {this.renderHeader()}
         {this.props.loading ? <LinearProgress /> : null}
         <CoachPrivateCalendarComponent
-          ref={this.calendar}
           fetchAvailabilitySlots={this.props.fetchAvailabilitySlots}
           fetchPrivateBookings={this.fetchPrivateBookingsWithData}
           disableCoachAvailabilitySlot={this.props.disableCoachAvailabilitySlot}

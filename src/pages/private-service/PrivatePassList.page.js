@@ -54,6 +54,10 @@ type Props = {
 
   classes: Object,
   t: TFunction,
+
+  setOpenDeletePassDialog: (id: number) => void,
+  openDeletePassDialog: number,
+  deletePrivatePass: (id: number) => void,
 };
 
 export class PrivatePassList extends React.Component<Props> {

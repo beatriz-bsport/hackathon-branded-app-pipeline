@@ -1,0 +1,178 @@
+// @flow
+import React from 'react';
+import withStyles from '@material-ui/core/styles/withStyles';
+import Typography from '@material-ui/core/Typography';
+import EditIcon from '@material-ui/icons/Edit';
+import Button from '@material-ui/core/Button';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import IconButton from '@material-ui/core/IconButton';
+import AddIcon from '@material-ui/icons/Add';
+import Paper from '@material-ui/core/Paper';
+import List from '@material-ui/core/List';
+import { compose, withState } from 'recompose';
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
+
+import PrivateServiceListItem from './PrivateServiceListItem.component';
+import EmptyListWarning from './EmptyListWarning.component';
+import type { PrivatePass } from '../types';
+import PrivatePassForm from './PrivatePassForm.component';
+
+type Props = {
+  pass: PrivatePass,
+  private_services: Array<PrivateService>,
+  setOpenEditForm: (boolean) => void,
+  openEditForm: boolean,
+  deleteCompatibleServicePass: (
+    passId: number,
+    privateServiceId: number,
+  ) => void,
+  setOpenCreateCompatibleServiceForm: (boolean) => void,
+  openCompatibleServiceForm: boolean,
+  createCompatibleServicePass: (
+    number,
+    number,
+    options: ?{ onSuccess: ?() => void, onError: ?() => void },
+  ) => void,
+  updatePrivatePass: (
+    data: any,
+    privatePassId: number,
+    options: ?{ onSuccess?: () => void, onError?: () => void },
+  ) => void,
+  classes: Object,
+  t: TFunction,
+};
+export const PrivatePassDetail = (props: Props) => {
+  return (
+    <div>
+      <Paper className={props.classes.paperContainer}>
+        <Typography variant="h3">{props.pass.name}</Typography>
+        <IconButton
+          onClick={() => props.setOpenEditForm(true)}
+          className={props.classes.editButton}
+        >
+          <EditIcon />
+        </IconButton>
+        <div className={props.classes.priceParameters}>
+          <Typography variant="subtitle" color="textSecondary">
+            {props.t('privatePass.parameters.nbCredits', {
+              credits: props.pass.credits,
+            })}
+          </Typography>
+          <Typography variant="subtitle" color="textSecondary">
+            {props.t('privatePass.parameters.price', {
+              price: props.pass.price,
+            })}
+          </Typography>
+          <Typography variant="subtitle" color="textSecondary">
+            {props.t('privatePass.parameters.tax', {
+              tax: props.pass.tax,
+            })}
+          </Typography>
+        </div>
+        <Typography variant="h6" component="h4">
+          {props.t('privatePass.compatibleServices.title')}
+        </Typography>
+        {props.pass.private_services.length === 0 ? (
+          <EmptyListWarning
+            text={props.t('privatePass.compatibleServices.isEmpty')}
+          />
+        ) : null}
+        <List>
+          {props.pass.private_services
+            .filter((ps) => ps.available)
+            .map((ps) => (
+              <PrivateServiceListItem
+                hideSecondary
+                privateService={ps}
+                key={ps.id}
+                onDelete={() =>
+                  props.deleteCompatibleServicePass(props.pass.id, ps.id)
+                }
+              />
+            ))}
+        </List>
+        {props.openCompatibleServiceForm ? (
+          <Select
+            className={props.classes.select}
+            onChange={(ev) =>
+              props.createCompatibleServicePass(
+                props.pass.id,
+                ev.target.value,
+                {
+                  onSuccess: () =>
+                    props.setOpenCreateCompatibleServiceForm(false),
+                  onError: () =>
+                    props.setOpenCreateCompatibleServiceForm(false),
+                },
+              )
+            }
+            choices={props.private_services.map((ps) => ps.id)}
+          >
+            {props.private_services
+              .filter((ps) => ps.available)
+              .map((ps) => (
+                <MenuItem key={ps.id} value={ps.id}>
+                  {ps.name}
+                </MenuItem>
+              ))}
+          </Select>
+        ) : (
+          <Button
+            onClick={() => props.setOpenCreateCompatibleServiceForm(true)}
+          >
+            <AddIcon /> {props.t('privatePass.compatibleServices.add')}
+          </Button>
+        )}
+      </Paper>
+      <Dialog open={props.openEditForm}>
+        <DialogTitle>{props.t('privatePass.form.title')}</DialogTitle>
+        <DialogContent>
+          <PrivatePassForm
+            initial={props.pass}
+            onSubmit={(data) =>
+              props.updatePrivatePass(data, props.pass.id, {
+                onSuccess: () => props.setOpenEditForm(false),
+              })
+            }
+            onCancel={() => props.setOpenEditForm(false)}
+          />
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+};
+
+const styles = (theme) => ({
+  paperContainer: {
+    position: 'relative',
+    padding: theme.spacing.unit * 2,
+  },
+  editButton: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+  },
+  select: {
+    minWidth: 240,
+  },
+  priceParameters: {
+    paddingTop: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit * 2,
+  },
+});
+
+export default compose(
+  withNamespaces(['privateService']),
+  withStyles(styles),
+  withState('openEditForm', 'setOpenEditForm', false),
+  withState(
+    'openCompatibleServiceForm',
+    'setOpenCreateCompatibleServiceForm',
+    false,
+  ),
+)(PrivatePassDetail);

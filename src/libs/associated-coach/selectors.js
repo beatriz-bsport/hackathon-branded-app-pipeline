@@ -29,11 +29,6 @@ export const getActiveCoaches = createSelector(
   (coaches) => Immutable(Object.values(coaches)).filter((c) => !c.disabled),
 );
 
-export const getPageCoaches = createSelector(
-  [getCoachesList, getAllCoaches],
-  (ListId, coach) => ListId.map((id) => coach[id]),
-);
-
 export const getCoach = (state: State, id: number): Coach =>
   state.coach.byId[id];
 

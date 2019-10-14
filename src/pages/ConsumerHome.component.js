@@ -32,6 +32,9 @@ const OrderPaymentPage = asyncComponent(() =>
 const CheckoutPage = asyncComponent(() =>
   import('./payment/CheckoutPage.page'),
 );
+const PrivateSlotPaymentPage = asyncComponent(() =>
+  import('./payment/PrivateSlotPayment.page'),
+);
 
 const CheckoutRouter = asyncComponent(() =>
   import('./checkout/Checkout.router'),
@@ -98,6 +101,10 @@ export class ConsumerHome extends Component<Props> {
         <Route
           path="/(|customer/)payment/pass/:id"
           component={PaymentPackPaymentPage}
+        />
+        <Route
+          path="/(|customer/)payment/private-service/:privateServiceId/private-slot/:privateSlotId/associated-coach/:associatedCoachId/date/:date/"
+          component={PrivateSlotPaymentPage}
         />
         <Route
           path="/(|customer/)payment/order/:companyId/"

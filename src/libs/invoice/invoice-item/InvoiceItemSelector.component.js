@@ -15,6 +15,7 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
+import PrivatePassSelector from '../../private-service/components/PrivatePassSelector.component';
 import ShopItemInput from '../../../components/input/ShopItemInput.component';
 import PriceInput from '../../../components/input/PriceInput.component';
 
@@ -40,6 +41,7 @@ type Props = {
 type State = {
   expandedSelector: number,
   paymentPackId: ?number,
+  privatePassId: ?number,
   shopItemId: ?number,
   creditTopUp: number,
 };
@@ -47,6 +49,7 @@ type State = {
 export const SELECTOR_PAYMENT_PACK = 1;
 export const SELECTOR_SHOP = 2;
 export const SELECTOR_CREDIT_ACCOUNT = 3;
+export const SELECTOR_PRIVATE_PASS = 4;
 
 export class InvoiceItemSelector extends Component<Props, State> {
   constructor(props: Props) {
@@ -54,6 +57,7 @@ export class InvoiceItemSelector extends Component<Props, State> {
     this.state = {
       expandedSelector: props.defaultTab || SELECTOR_PAYMENT_PACK,
       paymentPackId: null,
+      privatePassId: null,
       shopItemId: null,
       creditTopUp: 0,
     };
@@ -65,6 +69,10 @@ export class InvoiceItemSelector extends Component<Props, State> {
 
   storePaymentPackId = (event: Object) => {
     this.setState({ paymentPackId: event });
+  };
+
+  storePrivatePassId = (event: Object) => {
+    this.setState({ privatePassId: event });
   };
 
   storeShopItemId = (shopItemId: number) => {
@@ -79,6 +87,8 @@ export class InvoiceItemSelector extends Component<Props, State> {
       case SELECTOR_CREDIT_ACCOUNT: {
         return this.props.onTopUp(parseFloat(this.state.creditTopUp));
       }
+      case SELECTOR_PRIVATE_PASS:
+        return this.props.onAddPrivatePass(this.state.privatePassId);
       case SELECTOR_PAYMENT_PACK:
       default:
         return this.props.onAddPaymentPack(this.state.paymentPackId);
@@ -94,6 +104,19 @@ export class InvoiceItemSelector extends Component<Props, State> {
         paymentPacks={paymentPacks}
         onChange={this.storePaymentPackId}
         helperText={t('form.invoice.paymentPackHelper')}
+        selectorClass={classes.selector}
+      />
+    );
+  };
+
+  renderPrivatePassSelector = () => {
+    const { privatePassList, classes } = this.props;
+    const { privatePassId } = this.state;
+    return (
+      <PrivatePassSelector
+        value={privatePassId}
+        privatePassList={privatePassList}
+        onChange={this.storePrivatePassId}
         selectorClass={classes.selector}
       />
     );
@@ -143,7 +166,12 @@ export class InvoiceItemSelector extends Component<Props, State> {
 
   render() {
     const { classes, t, onCancel, showCancel } = this.props;
-    const { paymentPackId, shopItemId, creditTopUp } = this.state;
+    const {
+      paymentPackId,
+      privatePassId,
+      shopItemId,
+      creditTopUp,
+    } = this.state;
     const { expandedSelector } = this.state;
     return (
       <div className={classes.container}>
@@ -162,6 +190,10 @@ export class InvoiceItemSelector extends Component<Props, State> {
             />
             <Tab label={t('shop.myShop')} value={SELECTOR_SHOP} />
             <Tab label={t('payment.credit')} value={SELECTOR_CREDIT_ACCOUNT} />
+            <Tab
+              label={t('payment.privatePass')}
+              value={SELECTOR_PRIVATE_PASS}
+            />
           </Tabs>
         </Paper>
         <div className={classes.innerList}>
@@ -175,6 +207,9 @@ export class InvoiceItemSelector extends Component<Props, State> {
               </Collapse>
               <Collapse in={SELECTOR_CREDIT_ACCOUNT === expandedSelector}>
                 {this.renderCreditTopUpSelector()}
+              </Collapse>
+              <Collapse in={SELECTOR_PRIVATE_PASS === expandedSelector}>
+                {this.renderPrivatePassSelector()}
               </Collapse>
             </Grid>
             <Grid item className={classes.addButton}>
@@ -196,6 +231,7 @@ export class InvoiceItemSelector extends Component<Props, State> {
                   // prettier-ignore
                   (expandedSelector === SELECTOR_PAYMENT_PACK && !paymentPackId)
                 || (expandedSelector === SELECTOR_SHOP && !shopItemId)
+                || (expandedSelector === SELECTOR_PRIVATE_PASS && !privatePassId)
                 || (expandedSelector === SELECTOR_CREDIT_ACCOUNT && !creditTopUp)
                 }
               >

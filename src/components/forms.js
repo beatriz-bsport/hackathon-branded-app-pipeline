@@ -411,7 +411,7 @@ export const SCTSelectField = (props: SelectFieldProps) => (
   <SelectField {...props} itemRenderer={SCTMenuItemRenderer} />
 );
 
-const DURATION_CHOICES_SHORT = [
+export const DURATION_CHOICES_SHORT = [
   { value: 0, label: 'form.zeroMinute' },
   { value: 15, label: 'form.quarterHour' },
   { value: 30, label: 'form.halfHour' },

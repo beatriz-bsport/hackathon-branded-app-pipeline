@@ -26,6 +26,10 @@ li {
   list-style-type: none;
 }
 
+span ~ div:nth-of-type(2) {
+z-index: 999 !important;
+} // for react-select
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

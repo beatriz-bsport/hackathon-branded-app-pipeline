@@ -26,11 +26,14 @@ import ConsumerMenu from '../../../components/navigation/ConsumerMenu.component'
 
 import RedButton from '../../../components/button/RedButton.component';
 import { consumer as consumerActions } from '../../../actions';
+import { fetchPrivateBookings } from '../../../libs/private-service/actions';
+import { getPrivateBookingListBase } from '../../../libs/private-service/selectors/private-booking';
 import type { Booking, BookingOption } from '../../../api/types';
 
 import ActivityDetailModal from './ActivityDetailModal.component';
 import BookingListItem from './BookingListItem.component';
 import BookingOptionListItem from './BookingOptionListItem.component';
+import PrivateBookingConsumer from './PrivateBookingConsumer.component';
 
 type Props = {
   classes: Object,
@@ -45,9 +48,13 @@ type Props = {
   bookingOptions: Array<BookingOption>,
   optionCurrentlyCancelling: ?number,
 
+  privateBookings: Array<PrivateBooking>,
+  privateBookingsLoading: boolean,
+
   discardBooking: (id: number) => void,
   cancelBookingOption: (id: number) => void,
   pushToMarketplace: (name: string) => void,
+  fetchPrivateBookings: (params: any) => void,
   t: (x: string) => string,
 };
 
@@ -66,6 +73,10 @@ export class MyBookings extends Component<Props, State> {
     offer: null,
     bookingToDiscard: null,
   };
+
+  componentDidMount() {
+    this.props.fetchPrivateBookings({ only_mine: true });
+  }
 
   renderFutureBookingsContainer = () => {
     const { t, classes } = this.props;
@@ -211,6 +222,22 @@ export class MyBookings extends Component<Props, State> {
           {t('consumer.booking.myOptions')}
         </Typography>
         {this.renderBookingOptionsList()}
+      </div>
+    );
+  };
+
+  renderPrivateBookings = () => {
+    const { t, classes } = this.props;
+    return (
+      <div>
+        <Typography className={classes.title} variant="h6">
+          {t('consumer.booking.myPrivateBooking')}
+        </Typography>
+        <List>
+          {this.props.privateBookings.map((pb) => (
+            <PrivateBookingConsumer private_booking={pb} key={pb.id} />
+          ))}
+        </List>
       </div>
     );
   };
@@ -379,6 +406,10 @@ export class MyBookings extends Component<Props, State> {
               {this.renderFutureBookingsContainer()}
             </Grid>
             <Grid item xs={12} md={6}>
+              {this.props.privateBookings.length === 0 ||
+              this.props.privateBookingsLoading
+                ? null
+                : this.renderPrivateBookings()}
               {this.renderBookingOptions()}
             </Grid>
             <Grid item xs={12} md={6}>
@@ -391,32 +422,6 @@ export class MyBookings extends Component<Props, State> {
       </ConsumerMenu>
     );
   }
-}
-
-function mapStateToProps(state) {
-  return {
-    profile: state.consumer.profile,
-    bookingOptions: state.consumer.bookingOptions,
-    futureBookings: state.consumer.futureBookings,
-    pastBookings: state.consumer.pastBookings,
-    loadingBooking: state.consumer.bookingsLoading,
-    loadingOption: state.consumer.optionsLoading,
-    optionCurrentlyCancelling: state.consumer.optionCurrentlyCancelling,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    cancelBookingOption(optionId) {
-      dispatch(consumerActions.cancelBookingOption(optionId));
-    },
-    pushToMarketplace(name) {
-      dispatch(pushRouter(`/m/${name}`));
-    },
-    discardBooking(bookingId) {
-      dispatch(consumerActions.discardBooking(bookingId));
-    },
-  };
 }
 
 const styles = (theme) => ({
@@ -461,8 +466,23 @@ const styles = (theme) => ({
 export default withMobileDialog()(
   withStyles(styles)(
     connect(
-      mapStateToProps,
-      mapDispatchToProps,
+      (state) => ({
+        profile: state.consumer.profile,
+        bookingOptions: state.consumer.bookingOptions,
+        futureBookings: state.consumer.futureBookings,
+        pastBookings: state.consumer.pastBookings,
+        loadingBooking: state.consumer.bookingsLoading,
+        loadingOption: state.consumer.optionsLoading,
+        optionCurrentlyCancelling: state.consumer.optionCurrentlyCancelling,
+        privateBookings: getPrivateBookingListBase(state),
+        privateBookingsLoading: state.privateService.privateBooking.loading,
+      }),
+      {
+        cancelBookingOption: consumerActions.cancelBookingOption,
+        pushToMarketplace: (name) => pushRouter(`/m/${name}`),
+        discardBooking: consumerActions.discardBooking,
+        fetchPrivateBookings,
+      },
     )(withNamespaces()(MyBookings)),
   ),
 );

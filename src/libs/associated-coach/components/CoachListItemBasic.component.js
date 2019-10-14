@@ -1,0 +1,45 @@
+// @flow
+import React from 'react';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import IconButton from '@material-ui/core/IconButton';
+import Avatar from '@material-ui/core/Avatar';
+import DeleteIcon from '@material-ui/icons/Delete';
+
+import type { CoachDetailed as Coach } from '../../../api/types';
+
+type Props = {
+  coach: Coach,
+  onDelete?: () => void,
+  onClick?: () => void,
+
+  divider?: boolean,
+};
+
+export function CoachListItem(props: Props) {
+  const { coach, onDelete, onClick } = props;
+  return (
+    <ListItem
+      key={coach.id}
+      button={!!onClick}
+      onClick={onClick}
+      divider={props.divider}
+    >
+      <ListItemAvatar>
+        <Avatar src={coach.photo} />
+      </ListItemAvatar>
+      <ListItemText primary={coach.name} />
+      <ListItemSecondaryAction>
+        {props.onDelete ? (
+          <IconButton onClick={onDelete}>
+            <DeleteIcon />
+          </IconButton>
+        ) : null}
+      </ListItemSecondaryAction>
+    </ListItem>
+  );
+}
+
+export default CoachListItem;

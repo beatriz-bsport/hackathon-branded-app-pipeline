@@ -154,6 +154,7 @@ export class OfferManagement extends Component<Props, State> {
     this.props.fetchOffer(this.props.offerId);
     this.props.fetchOfferData(this.props.offerId);
     this.props.fetchShopItems();
+    this.props.fetchPrivatePassList();
   }
 
   componentWillUnmount() {
@@ -620,6 +621,7 @@ export class OfferManagement extends Component<Props, State> {
               createInvoice={this.createInvoice}
               closeQuickInvoice={this.closeQuickInvoice}
               saveQuickInvoice={this.saveQuickInvoice}
+              privatePassList={this.props.privatePassList}
               paymentPacks={this.props.paymentPacksEnabled}
               shopItems={this.props.shopItemsAvailable}
               offers={this.props.offers}

@@ -25,7 +25,6 @@ import withTitle from '../../hocs/with-title.hoc';
 
 import CoachListItem from '../../libs/associated-coach/components/CoachListItem.component';
 import CoachDeleteModal from '../../libs/associated-coach/components/CoachDeleteModal.component';
-
 import { canDeleteCoach as canDeleteCoachAPI } from '../../libs/associated-coach/api';
 
 type Props = {

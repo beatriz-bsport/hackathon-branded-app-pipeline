@@ -78,6 +78,12 @@ export class InvoiceItemList extends Component<Props> {
   renderPPackInvoiceItem = (invoiceItem: InvoiceItem) =>
     this.renderInvoiceItem(invoiceItem, this.props.deletePPackInvoiceItem);
 
+  renderPrivatePassInvoiceItem = (invoiceItem: InvoiceItem) =>
+    this.renderInvoiceItem(
+      invoiceItem,
+      this.props.deletePrivatePassInvoiceItem,
+    );
+
   renderShopItemInvoiceItem = (invoiceItem: InvoiceItem) =>
     this.renderInvoiceItem(invoiceItem, this.props.deleteShopItemInvoiceItem);
 
@@ -113,6 +119,7 @@ export class InvoiceItemList extends Component<Props> {
   render() {
     const {
       paymentPackInvoiceItems,
+      privatePassInvoiceItems,
       shopItemInvoiceItems,
       voucher,
       uneditableInvoiceItems,
@@ -128,6 +135,9 @@ export class InvoiceItemList extends Component<Props> {
             this.renderUneditableItems(ii),
           )}
           {paymentPackInvoiceItems.map((ii) => this.renderPPackInvoiceItem(ii))}
+          {privatePassInvoiceItems.map((ii) =>
+            this.renderPrivatePassInvoiceItem(ii),
+          )}
           {shopItemInvoiceItems.map((ii) => this.renderShopItemInvoiceItem(ii))}
           {voucher ? this.renderVoucherInvoiceItem(voucher, true) : null}
           {topUp ? this.renderTopUpInvoiceItem(topUp, true) : null}

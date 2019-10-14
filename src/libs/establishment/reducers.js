@@ -15,6 +15,7 @@ import {
   detailActions,
   deleteActions,
   resetAction,
+  associatedEstablishmentListActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -22,6 +23,11 @@ const initialState = Immutable({
   allIds: [],
   loading: false,
   error: null,
+  associatedEstablishment: {
+    items: [],
+    loading: false,
+    error: null,
+  },
   detail: {
     loading: false,
     error: null,
@@ -83,6 +89,15 @@ export default handleActions(
     },
     [removeImage.isLoading]: (state, { payload }) => {
       return state.setIn(['upsert', 'loading'], payload);
+    },
+    [associatedEstablishmentListActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['associatedEstablishment', 'loading'], payload);
+    },
+    [associatedEstablishmentListActions.error]: (state, { payload }) => {
+      return state.setIn(['associatedEstablishment', 'error'], payload);
+    },
+    [associatedEstablishmentListActions.success]: (state, { payload }) => {
+      return state.setIn(['associatedEstablishment', 'items'], payload);
     },
   },
   initialState,

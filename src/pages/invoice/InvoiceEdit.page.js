@@ -22,6 +22,9 @@ import { fetchAll as fetchShopItems } from '../../libs/shop/actions/shopitem';
 import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
 import { getPermissions } from '../../libs/role/selectors';
 
+import { fetchPrivatePassList } from '../../libs/private-service/actions';
+import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
+
 import type { Offer, Invoice } from '../../api/types';
 import type { Member } from '../../libs/member/types';
 import type { Permission } from '../../libs/role/types';
@@ -178,12 +181,14 @@ export default compose(
       shopItems: shopSelector.getShopItemsAvailable(state),
       invoice: state.invoice.invoice,
       updatingInvoice: state.invoice.createOrUpdatePending,
+      privatePassList: getPrivatePassAvailable(state),
       permission: getPermissions(state),
     }),
     {
       fetchMember,
       fetchShopItems,
       fetchAllPaymentPacks,
+      fetchPrivatePassList,
       goBack,
       fetchInvoice: invoiceActions.fetchSpecificInvoice,
       updatePaymentMethod: invoiceActions.updatePaymentMethod,

@@ -36,10 +36,12 @@ import coupon from './en/coupon.translations';
 import relationship from './en/relationship.translations';
 import titles from './en/titles.translations';
 import formInput from './en/form-input.translations';
+import privateService from './en/private-service.translations';
 
 export default {
   coupon,
   relationship,
+  privateService,
   communication,
   dashboard,
   stripe,
@@ -104,6 +106,8 @@ export default {
     activityUpdated: 'Activity updated',
     bookingConfirmed: 'Booking confirmed',
     button: { login: 'Log in' },
+    private_service: 'Private lesson',
+
     report: {
       delete: 'Report deletion',
     },
@@ -572,6 +576,13 @@ export default {
       requestTempPassword: 'Authorize remote',
       order: 'Orders',
       alpha: 'in development',
+      privateService: {
+        title: 'Private lesson',
+        calendar: 'Schedule',
+        services: 'Lesson',
+        pass: 'Pass',
+      },
+
       coachPerformance: 'Coach',
       beta: 'beta',
       consumer: {
@@ -608,6 +619,8 @@ export default {
           'After the cancellation, if you take another option for this session, your place on the waiting-list will be reset.',
       },
       booking: {
+        myPrivateBooking: 'Private lessons',
+
         cancelBooking: 'Cancel booking',
         discardBookingTitle: 'Discard booking',
         discardPossibleExplain:
@@ -628,6 +641,7 @@ export default {
     payment: {
       products: 'item(s)',
       bookWithUnlimitedPack: 'Book',
+      privatePass: 'Pass private lesson',
       noCreditLeft: 'Not enough credit left',
       noBookingsLeftOnPack: 'Pass exhausted for this week',
       yourBasket: 'Your basket',
@@ -866,6 +880,7 @@ export default {
       },
       sessionThisDay: 'Sessions this day: ',
       calendar: 'Planning',
+      private_service: 'Private sessions',
       shop: {
         tabName: 'Shop',
         noDescription: 'No description',

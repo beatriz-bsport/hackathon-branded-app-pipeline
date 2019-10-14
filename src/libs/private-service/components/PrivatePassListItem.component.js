@@ -1,0 +1,46 @@
+// @flow
+import React from 'react';
+import withStyles from '@material-ui/core/styles/withStyles';
+import { compose } from 'recompose';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import IconButton from '@material-ui/core/IconButton';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
+
+import type { PrivatePass } from '../types';
+
+type Props = {
+  pass: PrivatePass,
+  t: TFunction,
+  onClick: ?() => void,
+};
+
+export const PrivatePassListItem = (props: Props) => {
+  return (
+    <ListItem button={!!props.onClick} onClick={props.onClick}>
+      <ListItemText
+        primary={props.pass.name}
+        secondary={props.t('privatePass.parameters.nbCredits', {
+          credits: props.pass.credits,
+        })}
+      />
+      <ListItemSecondaryAction>
+        <IconButton>
+          <ArrowForwardIcon />
+        </IconButton>
+      </ListItemSecondaryAction>
+    </ListItem>
+  );
+};
+
+const styles = () => ({
+  container: {},
+});
+
+export default compose(
+  withNamespaces(['privateService']),
+  withStyles(styles),
+)(PrivatePassListItem);

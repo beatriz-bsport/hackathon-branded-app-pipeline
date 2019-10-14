@@ -74,13 +74,14 @@ const coachStyles = {
 };
 
 export default withNamespaces(['coach'])(
-  ({ t, coaches, selectedCoaches, selectOption }) => (
+  ({ t, coaches, selectedCoaches, noMulti, isDisabled, selectOption }) => (
     <Select
       closeMenuOnSelect={false}
-      isMulti
+      isMulti={!noMulti}
       placeholder={t('coach')}
       options={getCoachOptions(coaches.asMutable())}
       onChange={selectOption}
+      isDisabled={isDisabled}
       styles={coachStyles}
       value={
         selectedCoaches

@@ -7,6 +7,7 @@ import CoachPerformance from './CoachPerformance.page';
 import CoachDetail from './CoachDetail.page';
 import CoachList from './CoachList.page';
 import AllCoachPerformance from './AllCoachPerformance.page';
+import CoachPrivateCalendar from './CoachPrivateCalendar.page';
 
 export default () => (
   <Switch>
@@ -18,6 +19,11 @@ export default () => (
     <Route exact path="/coach/add" component={CoachForm} />
     <Route exact path="/coach/edit/:id" component={CoachForm} />
     <Route path="/coach/performance" component={AllCoachPerformance} />
+    <Route
+      exact
+      path="/coach/:coachId/private-calendar"
+      component={CoachPrivateCalendar}
+    />
     <Route exact path="/coach/:id" component={CoachDetail} />
     <Route path="/coach" component={CoachList} />
   </Switch>

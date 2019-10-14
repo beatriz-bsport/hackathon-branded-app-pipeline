@@ -26,3 +26,17 @@ export const getAllPageEstablishments = createSelector(
 
 export const getEstablishment = (state: State, id: number): Establishment =>
   state.establishment.byId[id];
+
+export const getAllAssociatedEstablishment = (state: State) =>
+  state.establishment.associatedEstablishment.items;
+
+export const getAllEstablishmentsWithAssociatedId = createSelector(
+  [getAllEstablishments, getAllAssociatedEstablishment],
+  (establishments, associated_establishments) =>
+    establishments.map((e) => ({
+      ...e,
+      associated_establishment_id: (
+        associated_establishments.find((ae) => ae.establishment === e.id) || {}
+      ).id,
+    })),
+);

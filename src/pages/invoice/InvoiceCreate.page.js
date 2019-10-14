@@ -25,6 +25,9 @@ import memberSelectors from '../../libs/member/selectors';
 import type { InvoiceDataFront } from '../../components/form/types';
 import withTitle from '../../hocs/with-title.hoc';
 
+import { fetchPrivatePassList } from '../../libs/private-service/actions';
+import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
+
 import InvoiceForm from '../../libs/invoice/InvoiceForm.component';
 import InvoiceDateDialog from '../../libs/invoice/dialog/InvoiceDateDialog.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -43,6 +46,7 @@ type Props = {
   goToMemberPage: (id: number) => void,
   fetchShopItems: () => void,
   fetchAllPaymentPacks: () => void,
+  fetchPrivatePassList: () => void,
 
   creatingInvoice: boolean,
   loading: boolean,
@@ -64,6 +68,7 @@ export class InvoiceCreatePage extends Component<Props, State> {
     this.props.fetch(this.props.id);
     this.props.fetchShopItems();
     this.props.fetchAllPaymentPacks();
+    this.props.fetchPrivatePassList();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -110,6 +115,7 @@ export class InvoiceCreatePage extends Component<Props, State> {
         <InvoiceForm
           member={member}
           paymentPacks={paymentPacks}
+          privatePassList={this.props.privatePassList}
           shopItems={shopItems}
           createOrUpdate={this.prepareCreate}
           uneditablePayments={[]}
@@ -153,12 +159,14 @@ export default compose(
       loading: state.member.loading,
       member: memberSelectors.get(state, id),
       paymentPacks: paymentPackSelectors.getEnabled(state),
+      privatePassList: getPrivatePassAvailable(state),
       creatingInvoice: state.invoice.createOrUpdatePending,
       shopItems: shopSelector.getShopItemsAvailable(state),
     }),
     {
       fetchShopItems,
       fetchAllPaymentPacks,
+      fetchPrivatePassList,
       goToInvoiceList: () => pushRouter('/invoice'),
       createInvoice: invoiceActions.createOrUpdateInvoice,
       resetCreateOrUpdateStatus: invoiceActions.createOrUpdateReset,

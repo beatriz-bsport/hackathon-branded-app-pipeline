@@ -36,9 +36,11 @@ import coupon from './fr/coupon.translations';
 import relationship from './fr/relationship.translations';
 import titles from './fr/titles.translations';
 import formInput from './fr/form-input.translations';
+import privateService from './fr/private-service.translations';
 
 export default {
   communication,
+  privateService,
   relationship,
   coupon,
   dashboard,
@@ -107,6 +109,8 @@ export default {
     activityUpdated: 'Activité modifiée',
     bookingConfirmed: 'Réservation confirmée',
     button: { login: 'Connexion' },
+
+    private_service: 'Cours privé',
     report: {
       delete: "Suppression d'un rapport",
     },
@@ -570,6 +574,7 @@ export default {
           "La suppression est définitive, si vous prenez de nouveau une option sur cette séance votre place sur la liste d'attente sera réinitialisée.",
       },
       booking: {
+        myPrivateBooking: 'Séances privées',
         cancelBooking: 'Annuler la réservation',
         discardBookingTitle: 'Annuler la réservation',
         discardPossibleExplain:
@@ -595,6 +600,12 @@ export default {
       workshopActivities: 'Ateliers',
       invoice: 'Factures',
       alpha: 'en développement',
+      privateService: {
+        title: 'Cours privés',
+        calendar: 'Emploi du temps',
+        services: 'Cours',
+        pass: 'Cartes de cours',
+      },
       coachPerformance: 'Professeurs',
       beta: 'beta',
       consumer: {
@@ -655,6 +666,7 @@ export default {
     payment: {
       payment: 'Paiement',
       credit: 'Crédit',
+      privatePass: 'Carte cours privé',
       products: 'articles',
       invoiceRevertedThusNotEditable:
         "La facture a été annulée et n'est plus modifiable",
@@ -946,6 +958,7 @@ export default {
       },
       welcomeTo: 'Bienvenue chez ',
       pass: 'Abonnement',
+      private_service: 'Cours privé',
       buyPack: 'Acheter',
       selector: {
         coach: { placeholder: 'Filtrer par professeur' },

@@ -66,6 +66,7 @@ export function QuickInvoicePanel(props: Props) {
                 editMode
                 paymentPacks={paymentPacks}
                 shopItems={shopItems}
+                privatePassList={props.privatePassList}
                 activities={[]}
                 createInvoice={() => {}}
                 onClose={() => props.revertQuickInvoice(inv.uuid)}
@@ -85,6 +86,7 @@ export function QuickInvoicePanel(props: Props) {
               onSubmit={saveQuickInvoice}
               paymentPacks={paymentPacks}
               shopItems={shopItems}
+              privatePassList={props.privatePassList}
               offers={offers}
               activities={activities}
               createInvoice={(invoiceData) =>

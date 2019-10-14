@@ -35,8 +35,20 @@ export type EstablishmentWithOffers = {
   events: Array<Event_>,
 };
 
+export type AssociatedEstablishment = {
+  id: number,
+  establishment: number,
+  company: number,
+};
+
 export type EstablishmentState = {
-  all: Array<Establishment>,
+  byId: { [number]: Establishment },
+  allIds: Array<number>,
+  associatedEstablishment: {
+    items: Array<AssociatedEstablishment>,
+    loading: boolean,
+    error: ?Error,
+  },
   loading: boolean,
   error: ?Error,
   detail: {

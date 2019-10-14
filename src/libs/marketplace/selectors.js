@@ -8,10 +8,10 @@ import moment from 'moment';
 
 const _getOffers = (state: State) => state.marketplacev2.offers.items;
 
-const getEstablishments = (state: State) =>
+export const getEstablishments = (state: State) =>
   state.marketplacev2.establishments.items;
 
-const getCoaches = (state: State) => state.marketplacev2.coaches.items;
+export const getCoaches = (state: State) => state.marketplacev2.coaches.items;
 
 const getMetaActivities = (state: State) =>
   state.marketplacev2.metaActivities.items;

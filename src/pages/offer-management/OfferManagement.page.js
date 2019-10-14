@@ -31,6 +31,8 @@ import {
 } from '../../libs/booking/actions';
 import { getPermissions } from '../../libs/role/selectors';
 import bookingSelectors from '../../libs/booking/selectors';
+import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
+import { fetchPrivatePassList } from '../../libs/private-service/actions';
 
 import { snackbar } from '../../actions/snackbar.actions';
 import paymentPackSelectors, {
@@ -82,6 +84,7 @@ function mapStateToProps(state, { id }) {
     compatiblePacks: compatiblePacksWithOfferAndEnabled(state),
     compatiblePacksLoading: state.offer.compatiblePacks.loading,
     unevenSavedInvoices: state.invoice.quickInvoices,
+    privatePassList: getPrivatePassAvailable(state),
     permission: getPermissions(state),
   };
 }
@@ -99,6 +102,9 @@ function mapDispatchToProps(dispatch) {
       dispatch(offerActions.fetchOfferById(id));
     },
     fetchShopItems,
+    fetchPrivatePassList() {
+      dispatch(fetchPrivatePassList());
+    },
     fetchMember(id) {
       dispatch(fetchMemberAction(id));
     },

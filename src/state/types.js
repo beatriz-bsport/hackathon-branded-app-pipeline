@@ -18,6 +18,7 @@ import type { ThemeState } from '../libs/theme/types';
 import type { EstablishmentState } from '../libs/establishment/types';
 import type { CouponState } from '../libs/coupon/types';
 import type { LoginState } from '../libs/login/types';
+import type { PrivateServiceState } from '../libs/private-service/types';
 
 export type State = {
   paymentRules: PaymentRulesState,
@@ -38,6 +39,7 @@ export type State = {
   checkout: CheckoutState,
   coupon: CouponState,
   login: LoginState,
+  privateService: PrivateServiceState,
 };
 export type Action = SearchAction | AuthAction;
 

@@ -30,7 +30,9 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 
 import RedeemIcon from '@material-ui/icons/Redeem';
-import Today from '@material-ui/icons/Today';
+import TodayIcon from '@material-ui/icons/Today';
+import ScheduleIcon from '@material-ui/icons/Schedule';
+import DateRangeIcon from '@material-ui/icons/DateRange';
 import Star from '@material-ui/icons/Star';
 import People from '@material-ui/icons/People';
 import PersonIcon from '@material-ui/icons/Person';
@@ -370,10 +372,31 @@ class ResponsiveDrawer extends React.Component<Props, State> {
       },
       {
         to: '/calendar',
-        icon: Today,
+        icon: DateRangeIcon,
         text: t('navigation.calendar'),
       },
-      'divider',
+      {
+        icon: ScheduleIcon,
+        text: t('navigation.privateService.title'),
+        type: 'nested',
+        nestedItems: [
+          {
+            to: '/private-service/calendar/',
+            icon: TodayIcon,
+            text: t('navigation.privateService.calendar'),
+          },
+          {
+            to: '/private-service/service/',
+            icon: Star,
+            text: t('navigation.privateService.services'),
+          },
+          {
+            to: '/private-service/pass/',
+            icon: VpnKey,
+            text: t('navigation.privateService.pass'),
+          },
+        ],
+      },
       {
         icon: BusinessCenterIcon,
         text: t('navigation.myClub'),
@@ -384,19 +407,16 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             icon: Star,
             text: t('navigation.activity'),
           },
-          'divider',
           {
             to: '/workshop-activity',
-            icon: Today,
+            icon: TodayIcon,
             text: t('navigation.workshopActivities'),
           },
-          'divider',
           {
             to: '/coach',
             icon: FitnessCenter,
             text: t('common.coaches'),
           },
-          'divider',
           {
             to: '/establishment',
             icon: LocationOn,
@@ -408,13 +428,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             icon: VpnKey,
             text: t('navigation.pass'),
           },
-          'divider',
           {
             to: '/shop',
             icon: ShoppingCartIcon,
             text: t('shop.myShop'),
           },
-          'divider',
         ],
       },
       {

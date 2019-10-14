@@ -11,6 +11,7 @@ import {
   updateEstablishment as updateEstablishmentAPI,
   addEstablishment as addEstablishmentAPI,
   deleteEstablishment as deleteEstablishmentAPI,
+  fetchAssociatedEstablishments as fetchAssociatedEstablishmentsAPI,
 } from './api';
 import { API_URI, postAuth, deleteAuth } from '../../http';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
@@ -192,5 +193,28 @@ export function fetchEstablishmentDetail(id: number) {
     }
 
     dispatch(detailActions.isLoading(false));
+  };
+}
+
+export const associatedEstablishmentListActions = {
+  isLoading: createAction('ASSOCIATED_ESTABLISHMENT/LIST/LOADING'),
+  error: createAction('ASSOCIATED_ESTABLISHMENT/LIST/ERROR'),
+  success: createAction('ASSOCIATED_ESTABLISHMENT/LIST/SUCCESS'),
+};
+
+export function fetchAssociatedEstablishments() {
+  return async (dispatch: Dispatch) => {
+    dispatch(associatedEstablishmentListActions.isLoading(true));
+    dispatch(associatedEstablishmentListActions.error(null));
+
+    try {
+      const response = await fetchAssociatedEstablishmentsAPI();
+      dispatch(associatedEstablishmentListActions.success(response.data));
+    } catch (error) {
+      console.error(error);
+      dispatch(associatedEstablishmentListActions.error(error));
+    }
+
+    dispatch(associatedEstablishmentListActions.isLoading(false));
   };
 }

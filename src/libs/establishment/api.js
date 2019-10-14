@@ -32,6 +32,10 @@ export async function deleteEstablishment(id: number) {
   return deleteAuth(`${API_V1_URI}/establishment/${id}/`);
 }
 
+export async function fetchAssociatedEstablishments() {
+  return getAuth(`${API_V1_URI}/associated-establishment/`);
+}
+
 export default {
   addEstablishment,
   updateEstablishment,

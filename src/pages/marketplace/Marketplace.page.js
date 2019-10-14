@@ -47,6 +47,7 @@ import MarketplacePassPage from './MarketplacePass.page';
 import MarketplaceShopPage from './MarketplaceShop.page';
 import MarketplaceCalendarPage from './MarketplaceCalendar.page';
 import MarketplaceWorkshopPage from './MarketplaceWorkshop.page';
+import MarketplacePrivateService from './MarketplacePrivateService.page';
 
 import {
   consumer as consumerActions,
@@ -115,6 +116,7 @@ type State = {
 const TAB_CALENDAR = 'calendar';
 const TAB_PASS = 'pass';
 const TAB_WORKSHOP = 'workshop';
+const TAB_PRIVATE_SERVICE = 'private-service';
 const TAB_SHOP = 'shop';
 const DEFAULT_TAB = TAB_CALENDAR;
 
@@ -174,6 +176,8 @@ export class MarketPlace extends Component<Props, State> {
             companyId={this.props.companyId}
           />
         );
+      case TAB_PRIVATE_SERVICE:
+        return <MarketplacePrivateService companyId={this.props.companyId} />;
       case TAB_WORKSHOP:
         return <MarketplaceWorkshopPage companyId={this.props.companyId} />;
       case TAB_CALENDAR:
@@ -261,6 +265,10 @@ export class MarketPlace extends Component<Props, State> {
               >
                 <Tab value={TAB_CALENDAR} label={t('marketplace.calendar')} />
                 <Tab value={TAB_WORKSHOP} label={t('marketplace.workshop')} />
+                <Tab
+                  value={TAB_PRIVATE_SERVICE}
+                  label={t('marketplace.private_service')}
+                />
                 <Tab value={TAB_PASS} label={t('marketplace.pass')} />
                 <Tab value={TAB_SHOP} label={t('marketplace.shop.tabName')} />
               </Tabs>

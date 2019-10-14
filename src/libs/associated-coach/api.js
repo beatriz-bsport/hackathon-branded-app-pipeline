@@ -11,21 +11,15 @@ import {
   buildUrlParams,
 } from '../../http';
 
+// TO UPDATE TO V1 API
+// -----------------------
+//
 export async function addCoach(data: *) {
   return postBaseAuth(`${API_URI}/saas/create-coach/`, data);
 }
 
 export async function updateCoach(data: *) {
   return putAuth(`${API_URI}/saas/coach/${data.get('id')}`, data);
-}
-
-export async function fetchAssociatedCoaches(params: ?{ [string]: boolean }) {
-  const URLParams = buildUrlParams(params);
-  return getAuth(`${API_URI}/saas/associated-coach/${URLParams}`);
-}
-
-export async function fetchAssociatedCoach(id: number) {
-  return getAuth(`${API_URI}/saas/associated-coach/${id}/`);
 }
 
 export async function fetchAssociatedCoachPerformance(
@@ -37,6 +31,18 @@ export async function fetchAssociatedCoachPerformance(
     `${API_URI}/saas/associated-coach/${associatedCoachId}/performance/${start_timestamp}/${end_timestamp}`,
   );
 }
+
+export async function fetchAssociatedCoaches(params: ?{ [string]: boolean }) {
+  const URLParams = buildUrlParams(params);
+  return getAuth(`${API_URI}/saas/associated-coach/${URLParams}`);
+}
+
+export async function fetchAssociatedCoach(id: number) {
+  return getAuth(`${API_URI}/saas/associated-coach/${id}/`);
+}
+
+
+// -----------------------
 
 export async function linkByEmail(email: string) {
   return postAuth(`${API_V1_URI}/coach/link_by_email/`, { email });

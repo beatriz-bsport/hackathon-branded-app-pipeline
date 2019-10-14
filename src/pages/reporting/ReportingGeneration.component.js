@@ -89,18 +89,27 @@ export default compose(
     },
   ),
   withState('dateRange', 'setDateRange', {
-    dateStart: moment()
-      .subtract(7, 'days')
-      .format('YYYY-MM-DD'),
-    dateEnd: moment().format('YYYY-MM-DD'),
+    dateStart: moment().subtract(7, 'days'),
+    dateEnd: moment(),
   }),
   withState('exportLink', 'setExportLink', null),
   withProps(
     ({ id, fetchExtractResult, result, setExportLink, setDateRange }) => ({
       handleGenerate({ dateStart, dateEnd }, options) {
         setDateRange({ dateStart, dateEnd });
-        fetchExtractResult(id, { dateStart, dateEnd }, options);
-        const params = { fileformat: 'xlsx', dateStart, dateEnd };
+        fetchExtractResult(
+          id,
+          {
+            dateStart: dateStart.format('YYYY-MM-DD'),
+            dateEnd: dateEnd.format('YYYY-MM-DD'),
+          },
+          options,
+        );
+        const params = {
+          fileformat: 'xlsx',
+          dateStart: dateStart.format('YYYY-MM-DD'),
+          dateEnd: dateEnd.format('YYYY-MM-DD'),
+        };
         const exportLink = result && urls.export(id, params);
         setExportLink(exportLink);
       },

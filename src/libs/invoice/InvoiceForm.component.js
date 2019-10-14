@@ -32,6 +32,7 @@ import UnevenInvoiceDialog from './dialog/UnevenInvoiceDialog.component';
 import InvoiceItemList from './invoice-item/InvoiceItemList.component';
 import InvoiceItemSelector from './invoice-item/InvoiceItemSelector.component';
 import CreditMemberBadge from '../member/components/CreditMemberBadge.component';
+import type { PrivatePass } from '../private-service/types';
 
 import RedButton from '../../components/button/RedButton.component';
 
@@ -45,6 +46,7 @@ type Props = {
   invoice: ?Invoice,
 
   paymentPacks: Array<PaymentPack>,
+  privatePassList: Array<PrivatePass>,
   shopItems: Array<ShopItem>,
   uneditablePayments: Array<Payment>,
   uneditableInvoiceItems: Array<InvoiceItem>,

@@ -21,10 +21,12 @@ import PriceInput from '../../../components/input/PriceInput.component';
 
 // eslint-disable-next-line
 import type { PaymentPack } from '../../../libs/payment-packs/types';
+import type { PrivatePass } from '../../private-service/types';
 
 type Props = {
   paymentPacks: Array<PaymentPack>,
   shopItems: Array<ShopItem>,
+  privatePassList: Array<PrivatePass>,
   showCancel: ?boolean,
   defaultTab: ?number,
   creditAccountBalance: number,
@@ -32,6 +34,7 @@ type Props = {
   onCancel: ?() => void,
   onTopUp: (number) => void,
   onAddPaymentPack: (paymentPackId: ?number) => void,
+  onAddPrivatePass: (privatePassId: ?number) => void,
   onAddShopItem: (shopItemId: ?number) => void,
 
   t: TFunction,

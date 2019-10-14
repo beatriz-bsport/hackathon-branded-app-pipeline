@@ -24,6 +24,7 @@ import InvoiceItemSelector, {
 } from '../invoice-item/InvoiceItemSelector.component';
 
 import PaymentInfo from './PaymentInfo.component';
+import type { PrivatePass } from '../../private-service/types';
 
 type Props = {
   quickInvoiceTitle: string,
@@ -33,6 +34,7 @@ type Props = {
   onClose: ?() => void,
   classes: Object,
   paymentPacks: Array<PaymentPack>,
+  privatePassList: Array<PrivatePass>,
   shopItems: Array<ShopItem>,
   createInvoice: (data: [*]) => void,
   updateInvoice: (data: [*]) => void,

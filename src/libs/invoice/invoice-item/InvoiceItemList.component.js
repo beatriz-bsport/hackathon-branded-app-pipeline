@@ -23,6 +23,7 @@ type Props = {
   uneditableVoucher: ?number,
 
   paymentPackInvoiceItems: Array<InvoiceItem>,
+  privatePassInvoiceItems: Array<InvoiceItem>,
   shopItemInvoiceItems: Array<InvoiceItem>,
   uneditableInvoiceItems: ?Array<InvoiceItem>,
 
@@ -30,6 +31,7 @@ type Props = {
   deleteVoucher: () => void,
 
   deletePPackInvoiceItem: (id: number) => void,
+  deletePrivatePassInvoiceItem: (id: number) => void,
   deleteShopItemInvoiceItem: (id: number) => void,
 
   classes: Object,

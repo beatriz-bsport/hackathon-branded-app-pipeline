@@ -31,6 +31,7 @@ import { getPrivatePassAvailable } from '../../libs/private-service/selectors/pr
 import InvoiceForm from '../../libs/invoice/InvoiceForm.component';
 import InvoiceDateDialog from '../../libs/invoice/dialog/InvoiceDateDialog.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import type { PrivatePass } from '../../libs/private-service/types';
 
 type Props = {
   member: ?Member,
@@ -39,6 +40,7 @@ type Props = {
 
   paymentPacks: Array<PaymentPack>,
   shopItems: Array<ShopItem>,
+  privatePassList: Array<PrivatePass>,
 
   goToInvoiceList: () => void,
   createInvoice: () => void,

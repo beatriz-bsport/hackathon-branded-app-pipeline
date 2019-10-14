@@ -53,6 +53,7 @@ import type { Booking, BookingOption } from '../../libs/booking/types';
 import type { Member } from '../../libs/member/types';
 import type { Invoice } from '../../libs/invoice/types';
 import type { Permission } from '../../libs/role/types';
+import type { PrivatePass } from '../../libs/private-service/types';
 
 type Props = {
   fullScreen: boolean,
@@ -72,6 +73,9 @@ type Props = {
   compatiblePacks: Array<PaymentPack>,
   unevenSavedInvoices: Array<Invoice>,
   permission: Permission,
+
+  fetchPrivatePassList: () => void,
+  privatePassList: Array<PrivatePass>,
 
   switchWaitingListFreeze: (offerId: number, newFreezeState: boolean) => void,
   fetchMember: (id: number) => void,

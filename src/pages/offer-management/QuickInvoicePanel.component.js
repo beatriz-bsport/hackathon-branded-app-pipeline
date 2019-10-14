@@ -8,6 +8,8 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import QuickInvoice from '../../libs/invoice/quick-invoice/QuickInvoice.component';
 
+import type { PrivateService } from '../../libs/private-service/types';
+
 type Props = {
   classes: Object,
   t: TFunction,
@@ -17,6 +19,7 @@ type Props = {
   closeQuickInvoice: (memberId: number) => void,
   saveQuickInvoice: (InvoiceData) => void,
   paymentPacks: Array<PaymentPack>,
+  privatePassList: Array<PrivateService>,
   shopItems: Array<ShopItem>,
   offers: Array<Offer>,
   activities: Array<Activity>,

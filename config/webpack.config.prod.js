@@ -60,6 +60,12 @@ module.exports = {
   devtool: shouldUseSourceMap ? 'source-map' : false,
   mode: 'production',
 
+  performance: {
+    maxAssetSize: 10000000,
+    maxEntrypointSize: 10000000,
+    hints: 'warning',
+  },
+
   optimization: {
     splitChunks: {
       cacheGroups: {

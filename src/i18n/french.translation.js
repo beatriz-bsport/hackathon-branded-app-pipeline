@@ -603,7 +603,7 @@ export default {
       privateService: {
         title: 'Cours privés',
         calendar: 'Emploi du temps',
-        services: 'Cours',
+        services: 'Cours privés',
         pass: 'Cartes de cours',
       },
       coachPerformance: 'Professeurs',

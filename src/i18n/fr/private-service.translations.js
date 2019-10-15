@@ -41,9 +41,9 @@ export default {
   },
   privateService: {
     delete: {
-      title: 'Suppression du cours',
+      title: 'Suppression du cours privé',
       explain:
-        'Êtes-vous sûr de vouloir supprimer ce cours ? Cette modification est définitive. Les réservations déjà enregistrées ne seront pas affectées.',
+        'Êtes-vous sûr de vouloir supprimer ce cours privé ? Cette modification est définitive. Les réservations déjà enregistrées ne seront pas affectées.',
       cancel: 'Annuler',
       submit: 'Supprimer',
       confirm: 'Supprimer',
@@ -53,7 +53,7 @@ export default {
     delete: {
       title: 'Désinscription du professeur',
       explain:
-        "Êtes-vous sûr de vouloir supprimer l'affectation de ce professeur ? Il ne pourra plus prendre de réservation sur ce cours. Les réservations enregistrées ne seront pas affectées.",
+        "Êtes-vous sûr de vouloir supprimer l'affectation de ce professeur ? Il ne pourra plus prendre de réservation sur ce cours privé. Les réservations enregistrées ne seront pas affectées.",
       cancel: 'Annuler',
       submit: 'Confirmer',
     },
@@ -62,7 +62,7 @@ export default {
     delete: {
       title: 'Désinscription de la salle',
       explain:
-        'Êtes-vous sûr de vouloir modifier le lieu de ce cours ? Sans établissement il sera considéré comme un cours à domicile et les élèves devront rentrer leur adresse pour terminer la réservation. Les réservations déjà enregistrées ne seront pas affectées.',
+        'Êtes-vous sûr de vouloir modifier le lieu de ce cours privé ? Sans établissement il sera considéré comme un cours privé à domicile et les élèves devront rentrer leur adresse pour terminer la réservation. Les réservations déjà enregistrées ne seront pas affectées.',
       cancel: 'Annuler',
       submit: 'Confirmer',
     },
@@ -80,7 +80,7 @@ export default {
       },
       explain: "Modification jusqu'au :",
       interval: {
-        explain1: 'Modification du créneau: ',
+        explain1: 'Modification de la disponibilité : ',
         explain2: '{{ date_start }} - {{ date_end }}, tous les {{ day }}',
       },
       actions: {
@@ -96,13 +96,13 @@ export default {
     },
   },
   selector: {
-    privateService: 'Sélectionnez votre cours',
+    privateService: 'Sélectionnez votre cours privé',
     privateSlot: 'Sélectionnez votre séance',
   },
   slotSearcher: {
     title: 'Inscription cours privé',
     searchSlot: 'Rechercher un créneau',
-    selectPrivateSlot: 'Sélectionner un cours',
+    selectPrivateSlot: 'Sélectionner une séance',
     search: 'Rechercher un créneau',
     bookableSlots: {
       title: 'Créneaux disponibles',
@@ -159,7 +159,7 @@ export default {
       coach: 'Professeur',
     },
     step: {
-      privateService: 'Cours',
+      privateService: 'Cours privé',
       privateSlot: 'Séance',
       coach: 'Professeur',
       date: 'Date',
@@ -186,7 +186,7 @@ export default {
       submit: 'Confirmer',
     },
     list: {
-      createButton: 'Créer une carte',
+      createButton: 'Créer une carte cours privé',
     },
     parameters: {
       nbCredits: '{{ credits }} crédit',
@@ -196,7 +196,7 @@ export default {
     compatibleServices: {
       title: 'Cours privés compatibles',
       add: 'Ajouter',
-      isEmpty: 'Aucun cours compatible - inutilisable',
+      isEmpty: 'Aucun cours privé compatible - inutilisable',
     },
     form: {
       title: 'Carte cours privé',
@@ -221,8 +221,8 @@ export default {
   },
   service: {
     form: {
-      title: 'Séance privée',
-      createButton: 'Ajouter un cours',
+      title: 'Cours privée',
+      createButton: 'Ajouter un cours privé',
       addCoach: 'Ajouter un professeur',
       addEstablishment: 'Ajouter une salle',
       addSlot: 'Ajouter une séance',

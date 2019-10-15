@@ -221,7 +221,7 @@ export default {
   },
   service: {
     form: {
-      title: 'Cours privée',
+      title: 'Cours privé',
       createButton: 'Ajouter un cours privé',
       addCoach: 'Ajouter un professeur',
       addEstablishment: 'Ajouter une salle',

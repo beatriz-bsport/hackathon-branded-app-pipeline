@@ -4,6 +4,13 @@ export default {
     serviceList: 'Cours privés',
     calendar: 'Calendrier',
   },
+  color: {
+    form: {
+      title: 'Code couleur du professeur',
+      cancel: 'Annuler',
+      submit: 'Enregistrer',
+    },
+  },
   payment: {
     address: {
       explain: 'Entrez votre adresse pour le cours à domicile',

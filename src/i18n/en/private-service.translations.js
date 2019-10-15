@@ -10,6 +10,13 @@ export default {
       save: 'Save',
     },
   },
+  color: {
+    form: {
+      title: 'Teacher color code',
+      cancel: 'Cancel',
+      submit: 'Save',
+    },
+  },
   privateSlot: {
     delete: {
       title: 'Delete slot',

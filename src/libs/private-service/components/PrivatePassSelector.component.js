@@ -53,9 +53,11 @@ export function PrivatePassSelector(props: Props) {
     helperText,
   } = props;
   const suggestions = privatePassList
-    .asMutable()
-    .sort((pp, pp_) => pp.name > pp_.name)
-    .map((pp) => ({ value: pp.id, label: pp.name, pp }));
+    ? privatePassList
+        .asMutable()
+        .sort((pp, pp_) => pp.name > pp_.name)
+        .map((pp) => ({ value: pp.id, label: pp.name, pp }))
+    : [];
 
   return (
     <Selector

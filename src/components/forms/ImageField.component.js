@@ -48,7 +48,7 @@ export class ImageField extends Component<Props, State> {
               onChange={(e) => {
                 const { files } = e.target;
                 this.setState({
-                  previewUrl: (window.URL || window.webkitURL).createObjectURL(
+                  previewUrl: (window.URL ? URL : webkitURL).createObjectURL(
                     files[0],
                   ),
                 });

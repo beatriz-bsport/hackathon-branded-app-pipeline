@@ -21,6 +21,7 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import AddIcon from '@material-ui/icons/Add';
 import { push as pushRouter, goBack as goBackRouter } from 'react-router-redux';
 
+import moment from 'moment';
 import withTitle from '../../hocs/with-title.hoc';
 
 import { getSimilars as getSimilarsOffers } from '../../libs/offer/selectors';
@@ -37,7 +38,6 @@ import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions'
 import type { Establishment } from '../../libs/establishment/types';
 
 import { offer as offerActions } from '../../actions';
-import { Moment } from '../../i18n';
 import type { Offer, Coach } from '../../api/types';
 import api from '../../api';
 
@@ -70,7 +70,7 @@ const styles = (theme) => ({
 type Props = {
   t: TFunction,
   classes: Object,
-  date: Moment,
+  date: string,
   selectedOffer: Offer,
 
   timetableLoading: boolean,
@@ -126,7 +126,21 @@ export class Planning extends PureComponent<Props, State> {
     };
   }
 
+  fetchRelevantOffers = () => {
+    this.props.fetchAllOffers({
+      min_date: moment(this.props.date)
+        .startOf('month')
+        .startOf('week')
+        .format('YYYY-MM-DD'),
+      max_date: moment(this.props.date)
+        .endOf('month')
+        .endOf('week')
+        .format('YYYY-MM-DD'),
+    });
+  };
+
   componentDidMount() {
+    this.fetchRelevantOffers();
     if (this.props.selectedOffer) {
       this.props.loadOfferData(this.props.selectedOffer);
     }
@@ -135,8 +149,17 @@ export class Planning extends PureComponent<Props, State> {
     }
   }
 
+  componentDidUpdate(prevProps: Props) {
+    if (
+      prevProps.date !== this.props.date &&
+      !moment(prevProps.date).isSame(moment(this.props.date), 'month')
+    ) {
+      this.fetchRelevantOffers();
+    }
+  }
+
   loadDayData = (dateClicked: Object) => {
-    const date = Moment(dateClicked, DATE_FORMAT);
+    const date = moment(dateClicked, DATE_FORMAT);
     this.props.replaceRouter(
       `/calendar/${date.year()}/${date.month() + 1}/${date.date()}`,
     );
@@ -182,7 +205,7 @@ export class Planning extends PureComponent<Props, State> {
     try {
       const response = await api.offer.editLiveOffer({ offerId, data });
       if (response.status === 200) {
-        this.props.fetchAllOffers();
+        this.fetchRelevantOffers();
         this.setState({
           editOfferProcessing: false,
           editModalOpened: false,
@@ -212,7 +235,7 @@ export class Planning extends PureComponent<Props, State> {
         deleteAll,
       });
       if (response.status === 200) {
-        this.props.fetchAllOffers();
+        this.fetchRelevantOffers();
         this.loadDayData(this.props.date);
         this.setState({
           deletingOffer: false,
@@ -233,7 +256,7 @@ export class Planning extends PureComponent<Props, State> {
     try {
       const response = await api.offer.delete(offerId, data);
       if (response.status === 204) {
-        this.props.fetchAllOffers();
+        this.fetchRelevantOffers();
         this.props.deleteOffer(offerId);
         this.loadDayData(this.props.date);
         this.setState({
@@ -320,7 +343,7 @@ export class Planning extends PureComponent<Props, State> {
       const response = await createOffersAPI(metaActivityId, data);
       if (response.status === 200) {
         this.setState({ creatingOffers: false });
-        this.props.fetchAllOffers();
+        this.fetchRelevantOffers();
         this.setState({ createOfferModalOpened: false });
         return;
       }
@@ -408,7 +431,7 @@ export class Planning extends PureComponent<Props, State> {
   getDayOffers = memoize((events) => {
     const events_ = {};
     events.forEach((o) => {
-      const midnight = Moment(o.date_start).startOf('day');
+      const midnight = moment(o.date_start).startOf('day');
       if (!events_[midnight]) {
         events_[midnight] = [];
       }
@@ -426,6 +449,7 @@ export class Planning extends PureComponent<Props, State> {
   };
 
   render() {
+    console.log('render');
     const {
       offers,
       events,
@@ -438,7 +462,7 @@ export class Planning extends PureComponent<Props, State> {
 
     const events_ = this.getDayOffers(events);
     const offersToday = memoize((offers_, date_) =>
-      offers_.filter((o) => Moment(o.date_start).isSame(Moment(date_), 'day')),
+      offers_.filter((o) => moment(o.date_start).isSame(moment(date_), 'day')),
     )(offers, date);
     return (
       <Grid container spacing={24}>
@@ -449,10 +473,10 @@ export class Planning extends PureComponent<Props, State> {
                 <Calendar
                   events={events_}
                   onDateClick={this.loadDayData}
-                  date={this.props.date.format(DATE_FORMAT)}
+                  date={this.props.date}
                 />
                 <TimeTable
-                  date={date}
+                  date={moment(date)}
                   onOfferSelected={this.selectOffer}
                   offers={offersToday}
                   loading={timetableLoading && (offersToday || []).length === 0}

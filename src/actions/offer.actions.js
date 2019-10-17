@@ -61,13 +61,13 @@ export function fetchMetaActivityOffers(id: number) {
   };
 }
 
-export function fetchAllOffers() {
+export function fetchAllOffers(params: any) {
   return async (dispatch: Dispatch) => {
     dispatch(offers.isLoading(true));
     dispatch(offers.error(null));
 
     try {
-      const response = await api.offer.fetchAllEvents();
+      const response = await api.offer.fetchAllEvents(params);
       dispatch(offers.success(response.data));
       dispatch(offerByDay.reset());
     } catch (err) {

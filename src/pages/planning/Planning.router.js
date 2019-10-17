@@ -59,7 +59,7 @@ const PlanningWithDateAndOffer = compose(
       ? offers.find((offer) => offer.id === offerId)
       : null;
     return {
-      date,
+      date: date.format('YYYY-MM-DD'),
       selectedOffer,
     };
   }),

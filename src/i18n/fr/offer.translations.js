@@ -19,7 +19,7 @@ export default {
     },
   },
   card: {
-    copyLink: 'Copier le lien vers la page de paiement',
+    copyLink: 'Copier le lien vers la page de réservation',
     copied: 'Lien copié',
   },
 };

@@ -84,7 +84,10 @@ export const MarketplaceWorkshopEvent = (props: Props) => {
           </Typography>
         </div>
         <Typography variant="h6" component="h4">
-          {formatAsDatetime(props.offer.date_start)}
+          {formatAsDatetime(
+            props.offer.date_start,
+            props.offer.establishment.tzname,
+          )}
         </Typography>
         <Typography variant="subtitle2" component="h4">
           {t('marketplace:workshop.card.duration', {

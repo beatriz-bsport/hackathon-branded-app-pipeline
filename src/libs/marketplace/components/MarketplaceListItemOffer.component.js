@@ -57,10 +57,10 @@ export const MarketplaceOffer = (props: Props) => {
             <Typography inline>
               {`${
                 offer.meta_activity ? offer.meta_activity.name || '' : ''
-              } - ${formatAsTime(offer.date_start)} - ${formatMinutes(
-                offer.duration_minute,
-                t,
-              )}`}
+              } - ${formatAsTime(
+                offer.date_start,
+                offer.establishment.tzname,
+              )} - ${formatMinutes(offer.duration_minute, t)}`}
             </Typography>
             <Level
               noStyle

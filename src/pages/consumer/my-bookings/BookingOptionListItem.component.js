@@ -104,7 +104,10 @@ export class BookingOptionListItem extends Component<Props> {
             <ActivityMinimalSummary
               noDivider
               activity={activity}
-              date={formatAsDatetime(offer.date_start)}
+              date={formatAsDatetime(
+                offer.date_start,
+                offer.activity.etablissement.tzname,
+              )}
             />
           </Grid>
           <Divider />

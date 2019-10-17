@@ -28,6 +28,7 @@ export class BookingListItem extends Component<Props> {
 
     const formattedDate = `${formatAsDatetime(
       offer.date_start,
+      offer.activity.etablissement.tzname,
     )} - ${formatMinutes(offer.duration_minute, t)}`;
     const bookingStatusCode = getBookingStatusCode(t, booking);
     const bookingRefund = booking.was_refunded

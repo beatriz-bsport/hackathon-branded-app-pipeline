@@ -6,9 +6,9 @@ import Typography from '@material-ui/core/Typography';
 import { withNamespaces } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import ButtonBase from '@material-ui/core/ButtonBase';
+import moment from 'moment-timezone';
 import Level from '../../../components/category/Level.component';
 
-import { Moment } from '../../../i18n';
 import { formatAsTime } from '../../../datetime';
 import { isOfferInThePast } from '../utils';
 
@@ -38,7 +38,7 @@ export const MarketplaceCardOffer = (props: Props) => {
     ? offer.coach_override.user.name
     : (offer.coach && offer.coach.user.name) || ' - ';
 
-  const offerEndDate = Moment(offer.date_start).add(
+  const offerEndDate = moment(offer.date_start).add(
     offer.duration_minute,
     'minutes',
   );
@@ -78,7 +78,10 @@ export const MarketplaceCardOffer = (props: Props) => {
           </Typography>
         </div>
         <Typography align="center">
-          {`${formatAsTime(offer.date_start)} - ${formatAsTime(offerEndDate)}`}
+          {`${formatAsTime(
+            offer.date_start,
+            offer.establishment.tzname,
+          )} - ${formatAsTime(offerEndDate, offer.establishment.tzname)}`}
         </Typography>
         <Level
           noStyle

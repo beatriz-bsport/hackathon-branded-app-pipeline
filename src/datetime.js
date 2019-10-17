@@ -1,19 +1,22 @@
-import { Moment } from './i18n';
+import moment from 'moment-timezone';
 
 export const DATE_FORMAT = 'YYYY-MM-DD';
 
 export function formatAsDate(date) {
-  const momentDate = Moment(date);
+  const momentDate = moment(date);
   return momentDate.format('DD/MM/YYYY');
 }
 
-export function formatAsTime(date) {
-  const momentDate = Moment(date);
+export function formatAsTime(date, tzname) {
+  const momentDate = moment(date);
+  if (tzname) {
+    momentDate.tz(tzname);
+  }
   return momentDate.format('LT');
 }
 
-export function formatAsDatetime(date) {
-  return `${formatAsDate(date)} - ${formatAsTime(date)}`;
+export function formatAsDatetime(date, tzname) {
+  return `${formatAsDate(date)} - ${formatAsTime(date, tzname)}`;
 }
 
 const WEEK_DAYS = [
@@ -123,8 +126,8 @@ export function isSameDay(date, date_) {
  * this is just a helper function that return week days staring from today
  */
 export function getWeekShortDays() {
-  const day = Moment().day();
-  const days = Moment.weekdaysShort();
+  const day = moment().day();
+  const days = moment.weekdaysShort();
   return [...days.slice(day), ...days.slice(0, day)];
 }
 
@@ -132,8 +135,8 @@ export function getWeekShortDays() {
  * format date as {day_name_short} {day/month} e.g : Mon. 10/09
  */
 export function formatAsTitle(date) {
-  const _date = Moment(date, 'YYYY-MM-DD');
-  const weekDays = Moment.weekdaysShort(true);
+  const _date = moment(date, 'YYYY-MM-DD');
+  const weekDays = moment.weekdaysShort(true);
   const dayShort = weekDays[_date.weekday()];
   let dayDate = `${_date.date()}`;
   if (dayDate.length < 2) {

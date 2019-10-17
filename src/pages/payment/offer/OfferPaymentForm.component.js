@@ -17,16 +17,16 @@ import { withNamespaces } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
 
 import type { TFunction } from 'react-i18next';
+import moment from 'moment-timezone';
 import ConsumerPackCheckout from './ConsumerPackCheckout.component';
 import PaymentPackSummary from '../../../components/payment-pack/PaymentPackSummary.component';
 import type {
   ConsumerPaymentPackConsumerView,
   Offer,
 } from '../../../api/types';
-import { Moment } from '../../../i18n';
 
 import ActivityMinimalSummary from '../../../components/activity/ActivityMinimalSummary.component';
-import { humanizeDate, formatAsDatetime } from '../../../datetime';
+import { formatAsDatetime } from '../../../datetime';
 
 type Props = {
   classes: Object,
@@ -51,7 +51,10 @@ type Props = {
 
 const OfferSummary = (props: { offer: Offer }) => (
   <ActivityMinimalSummary
-    date={formatAsDatetime(props.offer.date_start)}
+    date={formatAsDatetime(
+      props.offer.date_start,
+      props.offer.activity.etablissement.tzname,
+    )}
     activity={props.offer.activity}
     noDivider
   />
@@ -59,17 +62,18 @@ const OfferSummary = (props: { offer: Offer }) => (
 
 export class OfferPayment extends Component<Props> {
   getBasket = () => {
-    const { offer, loading, t } = this.props;
+    const { offer, loading } = this.props;
     if (offer && !loading) {
-      const humanDate = humanizeDate(Moment(offer.date_start));
+      const momentDate = moment(offer.date_start).tz(
+        offer.activity.etablissement.tzname,
+      );
+      const localDate = momentDate.format('LLLL');
+      const localDateUpper =
+        localDate[0].toUpperCase() + localDate.slice(1, localDate.length);
       return (
         <Grid container direction="column" spacing={16}>
           <Grid item>
-            <Typography variant="h3">
-              {`${humanDate.day} ${t(`datetime:${humanDate.month}`)} - ${
-                humanDate.time
-              }`}
-            </Typography>
+            <Typography variant="h3">{localDateUpper}</Typography>
           </Grid>
           <Grid item>
             <Paper>
@@ -213,7 +217,7 @@ export class OfferPayment extends Component<Props> {
 
   renderBuyingMethods = () => {
     const { offer, classes } = this.props;
-    if (offer && Moment(offer.date_start).isBefore(Moment())) {
+    if (offer && moment(offer.date_start).isBefore(moment())) {
       return (
         <Grid item>
           <Typography variant="h6" className={classes.doNotBookPast}>

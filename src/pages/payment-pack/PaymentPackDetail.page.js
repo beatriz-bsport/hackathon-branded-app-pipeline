@@ -34,6 +34,8 @@ import type {
   ConsumerPaymentPack,
 } from '../../libs/payment-packs/types';
 
+import { snackbarSuccess } from '../../actions/snackbar.actions';
+
 type Props = {
   loading: boolean,
   id: number,
@@ -63,6 +65,8 @@ type Props = {
     pageSize: number,
   ) => void,
   resetConsumerPacks: () => void,
+
+  snackbarSuccess: (string) => void,
 
   classes: Object,
 };
@@ -131,6 +135,7 @@ export class PaymentPackDetail extends Component<Props, State> {
             establishments={establishments}
             onEditButtonClick={() => this.requestEdit(pack)}
             onDeleteButtonClick={() => this.requestDelete(pack)}
+            snackbarSuccess={this.props.snackbarSuccess}
           />
         </Grid>
 
@@ -235,6 +240,7 @@ export default compose(
     mapStateToProps,
     {
       fetchAllActivities,
+      snackbarSuccess,
       fetchAllWorkshops,
       incrementCredit: (consumerPackId) =>
         consumerPackActions.updateCredit(consumerPackId, 1),

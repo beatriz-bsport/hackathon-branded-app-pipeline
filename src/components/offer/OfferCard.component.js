@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import classNames from 'classnames';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -15,7 +16,9 @@ import EditIcon from '@material-ui/icons/Edit';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import DeleteIcon from '@material-ui/icons/Delete';
+import LinkIcon from '@material-ui/icons/Link';
 import { withNamespaces } from 'react-i18next';
+import ButtonBase from '@material-ui/core/ButtonBase';
 
 import { Link } from 'react-router-dom';
 
@@ -37,6 +40,8 @@ type Props = {
   onEditButtonClick: () => void,
   onDeleteButtonClick: () => void,
   permission: Permission,
+  companyId: number,
+  snackbarSuccess: (string) => void,
 };
 
 export class OfferCard extends Component<Props> {
@@ -272,68 +277,65 @@ export class OfferCard extends Component<Props> {
             direction="column"
             className={classes.info}
           >
-            <Grid item>
-              <Grid container spacing={16} direction="row" alignItems="center">
-                <Grid item>
-                  <AccessTimeIcon />
-                </Grid>
-                <Grid item>
-                  <Typography variant="h6">
-                    {`${formatAsTime(date_start)} - ${formatMinutes(
-                      duration_minute,
-                      t,
-                    )}`}
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item>
-              <Grid
-                container
-                spacing={16}
-                direction="row"
-                alignItems="center"
-                wrap="nowrap"
+            <ListItem>
+              <AccessTimeIcon />
+              <ListItemText variant="h6">
+                {`${formatAsTime(date_start)} - ${formatMinutes(
+                  duration_minute,
+                  t,
+                )}`}
+              </ListItemText>
+            </ListItem>
+
+            <ListItem>
+              <LocationOnIcon />
+              <ListItemText>{this.renderEstablishment()}</ListItemText>
+            </ListItem>
+
+            {offer.id && this.props.companyId ? (
+              <ButtonBase
+                onClick={() =>
+                  this.props.snackbarSuccess(t('offer:card.copied'))
+                }
+                className={classes.link}
               >
-                <Grid item>
-                  <LocationOnIcon />
-                </Grid>
-                <Grid item>{this.renderEstablishment()}</Grid>
-              </Grid>
-            </Grid>
-            <Grid item>
-              {available ? (
-                <Grid
-                  container
-                  direction="row"
-                  spacing={16}
-                  wrap="nowrap"
-                  className={classes.modifierButtonsBlock}
+                <LinkIcon />
+                <CopyToClipboard
+                  text={`${window.location.origin}/customer/payment/offer/${offer.id}?membership=${this.props.companyId}`}
                 >
-                  {this.props.permission.offer.edit ? (
-                    <Grid item>
-                      <Button color="primary" onClick={onEditButtonClick}>
-                        <EditIcon className={classes.iconLeft} />
-                        <Hidden xsDown>
-                          {t('offer:calendar.modifyOffer')}
-                        </Hidden>
-                      </Button>
-                    </Grid>
-                  ) : null}
-                  {this.props.permission.offer.delete ? (
-                    <Grid item>
-                      <RedButton onClick={onDeleteButtonClick}>
-                        <DeleteIcon className={classes.iconLeft} />
-                        <Hidden xsDown>
-                          {t('offer:calendar.deleteOffer')}
-                        </Hidden>
-                      </RedButton>
-                    </Grid>
-                  ) : null}
-                </Grid>
+                  <Typography className={classes.linkTypo}>
+                    {t('offer:card.copyLink')}
+                  </Typography>
+                </CopyToClipboard>
+              </ButtonBase>
+            ) : null}
+          </Grid>
+          {available ? (
+            <Grid
+              container
+              direction="row"
+              spacing={16}
+              wrap="nowrap"
+              className={classes.modifierButtonsBlock}
+            >
+              {this.props.permission.offer.edit ? (
+                <ListItem>
+                  <Button color="primary" onClick={onEditButtonClick}>
+                    <EditIcon className={classes.iconLeft} />
+                    <Hidden xsDown>{t('offer:calendar.modifyOffer')}</Hidden>
+                  </Button>
+                </ListItem>
+              ) : null}
+              {this.props.permission.offer.delete ? (
+                <ListItem>
+                  <RedButton onClick={onDeleteButtonClick}>
+                    <DeleteIcon className={classes.iconLeft} />
+                    <Hidden xsDown>{t('offer:calendar.deleteOffer')}</Hidden>
+                  </RedButton>
+                </ListItem>
               ) : null}
             </Grid>
-          </Grid>
+          ) : null}
         </Grid>
       </Grid>
     );
@@ -386,9 +388,10 @@ const styles = (theme) => ({
     borderBottom: 'solid 1px #EEEEEE',
   },
   info: {
-    paddingLeft: theme.spacing.unit * 3,
+    paddingLeft: theme.spacing.unit,
+    paddingRight: theme.spacing.unit,
     paddingTop: theme.spacing.unit * 3,
-    paddingBottom: theme.spacing.unit * 3,
+    paddingBottom: theme.spacing.unit * 1,
   },
   stat: { paddingBottom: 20 },
   rightBorder: {
@@ -404,12 +407,25 @@ const styles = (theme) => ({
     backgroundColor: '#F6F6F6',
   },
   modifierButtonsBlock: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit,
+    paddingRight: theme.spacing.unit,
   },
   manageButton: {
     width: '100%',
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
+  },
+  link: {
+    marginLeft: theme.spacing.unit,
+    padding: theme.spacing.unit,
+    '&:hover': {
+      backgroundColor: '#EFEFEF',
+      borderRadius: 5,
+    },
+  },
+  linkTypo: {
+    marginLeft: theme.spacing.unit * 2,
   },
 });
 

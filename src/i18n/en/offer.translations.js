@@ -18,4 +18,8 @@ export default {
       buttonHardDelete: 'Delete',
     },
   },
+  card: {
+    copyLink: 'Copy link to payment page',
+    copied: 'Link copied',
+  },
 };

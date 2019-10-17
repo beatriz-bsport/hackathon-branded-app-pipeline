@@ -190,4 +190,8 @@ export default {
   },
   noConsumerPack: 'Aucun achat enregistré',
   reverted: 'Facture annulée',
+  link: {
+    copied: 'Lien copié',
+    copyLink: 'Copier le lien vers la page de paiement',
+  },
 };

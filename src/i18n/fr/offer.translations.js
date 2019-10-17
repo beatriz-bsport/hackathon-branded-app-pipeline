@@ -18,4 +18,8 @@ export default {
       buttonHardDelete: 'Supprimer',
     },
   },
+  card: {
+    copyLink: 'Copier le lien vers la page de paiement',
+    copied: 'Lien copié',
+  },
 };

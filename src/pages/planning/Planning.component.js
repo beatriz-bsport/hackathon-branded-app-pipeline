@@ -41,6 +41,7 @@ import { offer as offerActions } from '../../actions';
 import type { Offer, Coach } from '../../api/types';
 import api from '../../api';
 
+import { snackbarSuccess } from '../../actions/snackbar.actions';
 import OfferEditForm from '../../libs/offer/OfferEditForm.component';
 import OfferFormWithActivity from '../../libs/offer/OfferFormWithActivity.component';
 import DeleteOfferForm from '../../libs/offer/DeleteOfferForm.component';
@@ -90,6 +91,7 @@ type Props = {
   events: Array<Event>,
   coaches: Array<Coach>,
   establishments: Array<Establishment>,
+  companyId: number,
 
   fetchAllOffers: () => void,
   goToOfferManagement: () => void,
@@ -101,6 +103,8 @@ type Props = {
 
   deleteOffer: (id: number) => void,
   fetchSimilarOffers: (offerId: number) => void,
+
+  snackbarSuccess: (string) => void,
 };
 
 type State = {
@@ -493,7 +497,9 @@ export class Planning extends PureComponent<Props, State> {
         <Grid item xs={12} lg={6}>
           {selectedOffer ? (
             <OfferCard
+              snackbarSuccess={this.props.snackbarSuccess}
               offer={selectedOffer}
+              companyId={this.props.companyId}
               onEditButtonClick={this.openEditModal}
               onDeleteButtonClick={this.openDeleteModal}
               goToOfferManagement={this.props.goToOfferManagement}
@@ -533,7 +539,7 @@ export default compose(
       coachesLoading: state.coach.loading,
 
       establishments: getAllEstablishments(state),
-
+      companyId: state.theme.theme.company,
       metaActivities: getEnabledMetaActivities(state),
       activitiesLoading: state.metaActivity.loading,
 
@@ -546,6 +552,7 @@ export default compose(
     }),
     {
       goBack: goBackRouter,
+      snackbarSuccess,
       goToOfferManagement: (offerId) => pushRouter(`/offer/${offerId}`),
       fetchAllOffers: offerActions.fetchAllOffers,
       deleteOffer: offerActions.deleteOffer,

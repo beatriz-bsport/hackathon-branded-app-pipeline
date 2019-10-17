@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react';
+import { compose } from 'recompose';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -10,10 +11,14 @@ import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Hidden from '@material-ui/core/Hidden';
 import DeleteIcon from '@material-ui/icons/Delete';
+import LinkIcon from '@material-ui/icons/Link';
 import EditIcon from '@material-ui/icons/Edit';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import ButtonBase from '@material-ui/core/ButtonBase';
 
 import RedButton from '../../../components/button/RedButton.component';
 import MetaActivityMinimalSummary from '../../../components/activity/MetaActivityMinimalSummary.component';
@@ -34,6 +39,7 @@ type Props = {
 
   onEditButtonClick: () => void,
   onDeleteButtonClick: () => void,
+  snackbarSuccess: (string) => void,
 
   t: TFunction,
   classes: Object,
@@ -264,6 +270,25 @@ export class PaymentPackCard extends Component<Props> {
     );
   };
 
+  renderLinkToPaymentPage = () => {
+    const { pack, t } = this.props;
+    return !this.props.onlyPublic && pack.id ? (
+      <ButtonBase
+        className={this.props.classes.link}
+        onClick={() => this.props.snackbarSuccess('paymentPack:link.copied')}
+      >
+        <LinkIcon />
+        <CopyToClipboard
+          text={`${window.location.origin}/customer/payment/pass/${pack.id}`}
+        >
+          <Typography className={this.props.classes.linkTypo}>
+            {t('paymentPack:link.copyLink')}
+          </Typography>
+        </CopyToClipboard>
+      </ButtonBase>
+    ) : null;
+  };
+
   renderEditDeleteButtons = () => {
     const { pack, classes, t } = this.props;
     if (pack.disabled) {
@@ -302,8 +327,10 @@ export class PaymentPackCard extends Component<Props> {
           {this.getPackHeadingInfo()}
         </div>
         {this.renderScope()}
+
         {onlyPublic ? null : (
           <div className={classes.buttonBlock}>
+            {this.renderLinkToPaymentPage()}
             {this.renderEditDeleteButtons()}
           </div>
         )}
@@ -345,6 +372,9 @@ const styles = (theme) => ({
   },
   buttonBlock: {
     padding: theme.spacing.unit,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
   },
   row: {
     display: 'flex',
@@ -373,6 +403,19 @@ const styles = (theme) => ({
     justifyContent: 'center',
     paddingBottom: theme.spacing.unit * 2,
   },
+  link: {
+    padding: theme.spacing.unit,
+    '&:hover': {
+      backgroundColor: '#EFEFEF',
+      borderRadius: 5,
+    },
+  },
+  linkTypo: {
+    paddingLeft: theme.spacing.unit,
+  },
 });
 
-export default withStyles(styles)(withNamespaces()(PaymentPackCard));
+export default compose(
+  withStyles(styles),
+  withNamespaces(),
+)(PaymentPackCard);

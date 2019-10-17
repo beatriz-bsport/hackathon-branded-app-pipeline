@@ -56,6 +56,7 @@
     "react": "16.10.2",
     "react-addons-css-transition-group": "^15.6.2",
     "react-color": "^2.17.3",
+    "react-copy-to-clipboard": "^5.0.1",
     "react-dev-utils": "^5.0.1",
     "react-dom": "16.10.2",
     "react-dropzone": "8",

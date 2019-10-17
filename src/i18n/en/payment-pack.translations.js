@@ -177,4 +177,8 @@ export default {
   disabled: 'Disabled',
   noConsumerPack: 'No pass registered yet',
   reverted: 'Invoice reverted',
+  link: {
+    copied: 'Link copied',
+    copyLink: 'Copy link to payment page',
+  },
 };

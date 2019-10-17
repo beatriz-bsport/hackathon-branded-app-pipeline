@@ -244,15 +244,15 @@ export class PrivateBookingManagerForm extends React.Component<Props, State> {
     return (
       <div>
         <DialogTitle>{t('privateBooking.managerAdd.title')}</DialogTitle>
-        <InlineDateTimePicker
-          keyboard
-          ampm={false}
-          value={this.state.date}
-          onChange={this.handleDateChange}
-          onError={console.error}
-          format="YYYY/MM/DD HH:mm"
-        />
         <DialogContent>
+          <InlineDateTimePicker
+            keyboard
+            ampm={false}
+            value={this.state.date}
+            onChange={this.handleDateChange}
+            onError={console.error}
+            format="YYYY/MM/DD HH:mm"
+          />
           <MemberMinimalListItem member={this.state.member} />
           <CoachInput
             required

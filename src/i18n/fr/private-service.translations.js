@@ -115,6 +115,7 @@ export default {
     selectPrivateSlot: 'Sélectionner une séance',
     search: 'Rechercher un créneau',
     selectCoach: 'Tous les professeurs',
+    emptyDateList: 'Aucun créneau disponible ce jour',
     bookableSlots: {
       title: 'Créneaux disponibles',
       isEmpty: 'Aucun créneau disponible',

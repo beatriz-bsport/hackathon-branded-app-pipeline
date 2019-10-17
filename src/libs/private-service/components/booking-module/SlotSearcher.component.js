@@ -98,17 +98,17 @@ const DayCoachSlots = (props: {
       if (!byCoach || !byCoach.date_start || byCoach.date_start.length === 0) {
         return null;
       }
+      const coach = props.service_selected.coaches.find(
+        (c) => c.id === byCoach.coach,
+      );
+      const coachName = (coach && coach.user && coach.user.name) || '';
       return (
         <div className={props.classes.coachContainer}>
           <Typography
             variant="subtitle2"
             className={props.classes.coachSectionTitle}
           >
-            {props.service_selected
-              ? props.service_selected.coaches.find(
-                  (c) => c.id === byCoach.coach,
-                ).user.name
-              : ''}
+            {props.service_selected ? coachName : ''}
           </Typography>
           <Divider className={props.classes.coachDivider} />
           <div className={props.classes.bookableSlotsContainer}>
@@ -198,6 +198,14 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
       this.props.bookable_slots,
     );
 
+    if (bookable_slots_by_day_by_coach.length === 0) {
+      return (
+        <Typography align="center" color="textSecondary">
+          {this.props.t('slotSearcher.emptyDateList')}
+        </Typography>
+      );
+    }
+
     return (
       <React.Fragment>
         {bookable_slots_by_day_by_coach.map((byDay) => (
@@ -251,13 +259,16 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
   };
 
   doSearch = (date_selected) => {
-    this.setState({ has_been_searched: true });
-    this.props.searchAvailableSlots(
-      this.state.service_selected.id,
-      this.state.slot_selected.id,
-      this.state.coaches_selected,
-      date_selected || this.state.date_selected,
-    );
+    const { service_selected, slot_selected, coaches_selected } = this.state;
+    if (service_selected && slot_selected) {
+      this.setState({ has_been_searched: true });
+      this.props.searchAvailableSlots(
+        service_selected.id,
+        slot_selected.id,
+        coaches_selected,
+        date_selected || this.state.date_selected,
+      );
+    }
   };
 
   render() {

@@ -1,10 +1,8 @@
 import types from './refresh.types';
 import { Moment } from '../i18n';
 
-import { fetchAllOffers } from './offer.actions';
 import { fetchSCT } from './category.actions';
 import { fetchAllPaymentPacks } from '../libs/payment-packs/actions';
-import { fetchDashboard as fetchDashboardStats } from './stats.actions';
 
 import { fetchAll as fetchShop } from '../libs/shop/actions/shopitem';
 import { fetchPaymentRules } from '../libs/payment-rules/actions';
@@ -32,11 +30,9 @@ export function forceRefresh() {
     dispatch(storeIsRefreshing());
     Promise.all([
       dispatch(fetchAllAlertings()),
-      dispatch(fetchAllOffers()),
       dispatch(fetchAssociatedCoaches()),
       dispatch(fetchSCT()),
       dispatch(fetchAllPaymentPacks()),
-      dispatch(fetchDashboardStats()),
       dispatch(fetchShop()),
       dispatch(fetchPaymentRules()),
     ]).then(() => dispatch(storeHasRefreshed()));

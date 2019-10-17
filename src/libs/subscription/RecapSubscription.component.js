@@ -14,7 +14,6 @@ type RecapProps = {
   periodName: ?string,
   nbPeriod: ?number,
   subscriptionContentName: ?string,
-  trialNb: ?number,
   recurrentVoucher: ?number,
 
   classes: Object,
@@ -74,22 +73,12 @@ const RecapSubscription = (props: RecapProps) => (
               .format('DD/MM/YYYY')
           : '--/--/----'}
       </Typography>
-      <Typography inline>{props.t('recap.includingFreeTrialOf1')}</Typography>
-      <Typography
-        className={props.classes.highlightText}
-        color="primary"
-        inline
-      >
-        {props.trialNb}{' '}
-      </Typography>
-      <Typography inline>{props.t(`recap.${props.periodName}`)}</Typography>
-      <Typography inline>{props.t('recap.includingFreeTrialOf2')}</Typography>
     </div>
     <div className={props.classes.section}>
       <Typography inline>{props.t('recap.forATotalOf')}</Typography>
       <Typography color="error" inline className={props.classes.highlightText}>
         {props.price && props.nbPeriod
-          ? (parseInt(props.nbPeriod, 10) - parseInt(props.trialNb, 10)) *
+          ? parseInt(props.nbPeriod, 10) *
             (parseFloat(props.price) - parseFloat(props.recurrentVoucher))
           : '--'}{' '}
         €

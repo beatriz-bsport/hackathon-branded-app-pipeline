@@ -66,10 +66,6 @@ export function SubscriptionSummary(props: Props) {
           <Typography inline>{subscription.nb_interval}</Typography>
         </div>
         <div className={classes.field}>
-          <Typography inline>{t('parameters.trial_nb')}</Typography>
-          <Typography inline>{subscription.trial_nb}</Typography>
-        </div>
-        <div className={classes.field}>
           <Typography inline>{t('parameters.recurrent_price')}</Typography>
           <Typography inline>{subscription.recurrent_price} €</Typography>
         </div>

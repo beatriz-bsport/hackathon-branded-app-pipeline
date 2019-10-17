@@ -37,7 +37,6 @@ type State = {
   payment_pack: ?number,
   nb_interval: ?number,
   recurrent_voucher: number,
-  trial_nb: number,
   first_billing_timestamp: number,
 };
 
@@ -47,7 +46,6 @@ export class SubscriptionCreate extends Component<Props, State> {
     this.state = {
       payment_pack: null,
       nb_interval: null,
-      trial_nb: 0,
       recurrent_voucher: 0,
       first_billing_timestamp: parseInt((moment() + 0) / 1000, 10),
     };
@@ -56,7 +54,6 @@ export class SubscriptionCreate extends Component<Props, State> {
   onSubmit = () => {
     const { member, paymentPacks } = this.props;
     const {
-      trial_nb,
       recurrent_voucher,
       nb_interval,
       payment_pack,
@@ -71,7 +68,7 @@ export class SubscriptionCreate extends Component<Props, State> {
       member: parseInt(member.id, 10),
       nb_interval: parseInt(nb_interval, 10),
       payment_pack: parseInt(payment_pack, 10),
-      trial_nb,
+      trial_nb: 0, // DEPRECATED
       recurrent_voucher: parseFloat(recurrent_voucher),
       recurrent_price: parseFloat(paymentPackSelected.price),
       interval: 'month',
@@ -92,9 +89,6 @@ export class SubscriptionCreate extends Component<Props, State> {
     this.setState({
       first_billing_timestamp: parseInt((event + 0) / 1000, 10),
     });
-
-  updateTrialPeriod = (event: SyntheticInputEvent<*>) =>
-    this.setState({ trial_nb: parseInt(event.target.value, 10) || 0 });
 
   updateRecurrentVoucher = (event: SyntheticInputEvent<*>) =>
     this.setState({
@@ -142,13 +136,6 @@ export class SubscriptionCreate extends Component<Props, State> {
                 {t('parameters.voucher')}
               </Typography>
               <div className={classes.inlineField}>
-                <NumericInput
-                  value={this.state.trial_nb}
-                  label={t('parameters.trial_nb')}
-                  onChange={this.updateTrialPeriod}
-                />
-              </div>
-              <div className={classes.inlineField}>
                 <PriceInput
                   value={this.state.recurrent_voucher}
                   label={t('parameters.recurrent_voucher')}
@@ -161,7 +148,6 @@ export class SubscriptionCreate extends Component<Props, State> {
             <RecapSubscription
               periodName="month"
               member={member}
-              trialNb={this.state.trial_nb}
               recurrentVoucher={this.state.recurrent_voucher}
               nbPeriod={this.state.nb_interval}
               price={paymentPackSelected && paymentPackSelected.price}

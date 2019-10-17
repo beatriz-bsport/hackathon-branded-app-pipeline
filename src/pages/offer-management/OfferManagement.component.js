@@ -69,7 +69,6 @@ type Props = {
   paymentPacks: Array<PaymentPack>,
   paymentPacksEnabled: Array<PaymentPack>,
   shopItemsAvailable: Array<ShopItem>,
-  offers: Array<Event>,
   compatiblePacks: Array<PaymentPack>,
   unevenSavedInvoices: Array<Invoice>,
   permission: Permission,
@@ -628,7 +627,6 @@ export class OfferManagement extends Component<Props, State> {
               privatePassList={this.props.privatePassList}
               paymentPacks={this.props.paymentPacksEnabled}
               shopItems={this.props.shopItemsAvailable}
-              offers={this.props.offers}
               className={classes.autoScroll}
             />
           </Slide>

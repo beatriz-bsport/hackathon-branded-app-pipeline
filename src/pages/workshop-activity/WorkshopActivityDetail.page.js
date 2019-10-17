@@ -128,7 +128,6 @@ export default compose(
       id,
       loading: state.metaActivity.loading,
       workshopActivities: getWorkshops(state),
-      stats: state.stats.activities,
       workshopActivity: getWorkshops(state).find((ma) => ma.id === id),
       events: getEventsByMetaActivity(state),
       offers: state.offer.offers,

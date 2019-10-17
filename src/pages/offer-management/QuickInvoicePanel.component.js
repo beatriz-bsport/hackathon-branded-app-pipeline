@@ -21,7 +21,6 @@ type Props = {
   paymentPacks: Array<PaymentPack>,
   privatePassList: Array<PrivateService>,
   shopItems: Array<ShopItem>,
-  offers: Array<Offer>,
   activities: Array<Activity>,
   revertQuickInvoice: (uuid: string) => void,
 
@@ -40,7 +39,6 @@ export function QuickInvoicePanel(props: Props) {
     saveQuickInvoice,
     paymentPacks,
     shopItems,
-    offers,
     activities,
     className,
   } = props;
@@ -90,7 +88,6 @@ export function QuickInvoicePanel(props: Props) {
               paymentPacks={paymentPacks}
               shopItems={shopItems}
               privatePassList={props.privatePassList}
-              offers={offers}
               activities={activities}
               createInvoice={(invoiceData) =>
                 createInvoice(invoiceData, qi.memberId)

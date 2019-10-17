@@ -25,7 +25,7 @@ import { getPermissions } from '../../libs/role/selectors';
 import { fetchPrivatePassList } from '../../libs/private-service/actions';
 import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
 
-import type { Offer, Invoice } from '../../api/types';
+import type { Invoice } from '../../api/types';
 import type { Member } from '../../libs/member/types';
 import type { Permission } from '../../libs/role/types';
 
@@ -41,7 +41,6 @@ type Props = {
   member: Member,
   permission: Permission,
 
-  offers: Array<Offer>,
   paymentPacks: Array<PaymentPack>,
 
   goBack: () => void,
@@ -102,7 +101,6 @@ export class InvoiceFormPage extends Component<Props, State> {
   render() {
     const {
       invoice,
-      offers,
       paymentPacks,
       shopItems,
       goToMemberPage,
@@ -134,7 +132,6 @@ export class InvoiceFormPage extends Component<Props, State> {
     return (
       <div>
         <InvoiceForm
-          offers={offers}
           paymentPacks={paymentPacks}
           shopItems={shopItems}
           editMode
@@ -176,7 +173,6 @@ export default compose(
     (state) => ({
       invoiceLoading: state.invoice.loadingSpecific,
       memberLoading: state.member.loading,
-      offers: state.offer.calendar,
       paymentPacks: paymentPackSelectors.getEnabled(state),
       shopItems: shopSelector.getShopItemsAvailable(state),
       invoice: state.invoice.invoice,

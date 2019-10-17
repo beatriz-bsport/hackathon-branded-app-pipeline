@@ -83,10 +83,7 @@ export default compose(
   connect(
     (state) => ({
       metaActivities: getPageEnabledMetaActivities(state),
-      loading:
-        state.stats.activities.loading ||
-        state.metaActivity.loading ||
-        state.metaActivity.delete.loading,
+      loading: state.metaActivity.loading || state.metaActivity.delete.loading,
     }),
     {
       fetchAllMetactivities,

@@ -6,6 +6,11 @@ export default {
   showDescription: 'Show description',
   description: 'Description',
   emptyDescription: 'No description provided',
+  selector: {
+    coach: {
+      label: 'Teacher',
+    },
+  },
   performance: {
     title: 'Teacher performance',
     coachName: 'Teacher',

@@ -95,12 +95,6 @@ export default {
         submit: 'Save',
       },
     },
-
-    input: {
-      coach: {
-        label: 'Teacher',
-      },
-    },
   },
   selector: {
     privateService: 'Select your lessons',

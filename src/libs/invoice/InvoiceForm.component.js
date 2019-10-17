@@ -41,6 +41,7 @@ type Props = {
   processing: boolean,
   uneditableVoucher: ?number,
   withCredit: ?number,
+  withPrivatePass: ?number,
 
   member: Member,
   invoice: ?Invoice,
@@ -154,7 +155,9 @@ export class InvoiceForm extends Component<Props, State> {
     super(props);
     this.state = {
       paymentPackInvoiceItems: [],
-      privatePassInvoiceItems: [],
+      privatePassInvoiceItems: props.withPrivatePass
+        ? props.privatePassList.filter((pp) => pp.id === props.withPrivatePass)
+        : [],
       shopItemInvoiceItems: [],
       voucher: 0,
       paymentItems: [],

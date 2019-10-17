@@ -126,6 +126,7 @@ export class InvoiceCreatePage extends Component<Props, State> {
           processing={creatingInvoice}
           goToMemberPage={() => goToMemberPage(id)}
           editMode={urlParams.get('withCredit') !== null ? 1 : 0}
+          withPrivatePass={parseInt(urlParams.get('withPrivatePass'), 10)}
           withCredit={
             urlParams.get('withCredit') !== null
               ? Number(urlParams.get('withCredit'))

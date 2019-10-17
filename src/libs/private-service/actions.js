@@ -738,7 +738,6 @@ export const privateConsumerPassListActions = {
 };
 
 export function fetchCompatiblePrivateConsumerPass(
-  privateServiceId: number,
   privateSlotId: number,
   params: any,
   options: ?{ onSuccess: () => void, onError: ?() => void },
@@ -748,7 +747,6 @@ export function fetchCompatiblePrivateConsumerPass(
     dispatch(privateConsumerPassListActions.error(null));
     try {
       const response = await fetchCompatiblePrivateConsumerPassAPI(
-        privateServiceId,
         privateSlotId,
         params,
       );
@@ -765,13 +763,17 @@ export function fetchCompatiblePrivateConsumerPass(
 
 export function fetchCompatiblePrivatePass(
   privateSlotId: number,
+  params: any,
   options: ?{ onSuccess: () => void, onError: ?() => void },
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privatePassListActions.isLoading(true));
     dispatch(privatePassListActions.error(null));
     try {
-      const response = await fetchCompatiblePrivatePassAPI(privateSlotId);
+      const response = await fetchCompatiblePrivatePassAPI(
+        privateSlotId,
+        params,
+      );
       dispatch(privatePassListActions.success(response.data));
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
@@ -844,36 +846,30 @@ export function fetchPrivateBookings(
   };
 }
 
-export const privateBookingRegisterActions = {
-  error: createAction('PRIVATE_BOOKING/REGISTER/ERROR'),
-  isLoading: createAction('PRIVATE_BOOKING/REGISTER/IS_LOADING'),
-  success: createAction('PRIVATE_BOOKING/REGISTER/SUCCESS'),
-};
-
 export function registerPrivateBooking(
   params: any,
   options: ?{ onSuccess: () => void, onError: ?() => void },
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
-    dispatch(privateBookingRegisterActions.isLoading(true));
-    dispatch(privateBookingRegisterActions.error(null));
+    dispatch(privateBookingCreateOrUpdateActions.isLoading(true));
+    dispatch(privateBookingCreateOrUpdateActions.error(null));
     try {
       const response = await registerPrivateBookingsAPI(params);
-      dispatch(privateBookingRegisterActions.success(response.data));
+      dispatch(privateBookingCreateOrUpdateActions.success(response.data));
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
       console.error(err);
-      dispatch(privateBookingRegisterActions.error(null));
+      dispatch(privateBookingCreateOrUpdateActions.error(null));
       if (options && options.onError) options.onError();
     }
-    dispatch(privateBookingRegisterActions.isLoading(false));
+    dispatch(privateBookingCreateOrUpdateActions.isLoading(false));
   };
 }
 
-export const privateBookingDisableActions = {
-  error: createAction('PRIVATE_BOOKING/DISABLE/ERROR'),
-  isLoading: createAction('PRIVATE_BOOKING/DISABLE/IS_LOADING'),
-  success: createAction('PRIVATE_BOOKING/DISABLE/SUCCESS'),
+export const privateBookingCreateOrUpdateActions = {
+  error: createAction('PRIVATE_BOOKING/CREATE_OR_UPDATE/ERROR'),
+  isLoading: createAction('PRIVATE_BOOKING/CREATE_OR_UPDATE/IS_LOADING'),
+  success: createAction('PRIVATE_BOOKING/CREATE_OR_UPDATE/SUCCESS'),
 };
 
 export function disablePrivateBooking(
@@ -882,17 +878,17 @@ export function disablePrivateBooking(
   options: ?{ onSuccess: () => void, onError: ?() => void },
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
-    dispatch(privateBookingDisableActions.isLoading(true));
-    dispatch(privateBookingDisableActions.error(null));
+    dispatch(privateBookingCreateOrUpdateActions.isLoading(true));
+    dispatch(privateBookingCreateOrUpdateActions.error(null));
     try {
       const response = await disablePrivateBookingAPI(id, data);
-      dispatch(privateBookingDisableActions.success(response.data));
+      dispatch(privateBookingCreateOrUpdateActions.success(response.data));
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
       console.error(err);
-      dispatch(privateBookingDisableActions.error(null));
+      dispatch(privateBookingCreateOrUpdateActions.error(null));
       if (options && options.onError) options.onError();
     }
-    dispatch(privateBookingDisableActions.isLoading(false));
+    dispatch(privateBookingCreateOrUpdateActions.isLoading(false));
   };
 }

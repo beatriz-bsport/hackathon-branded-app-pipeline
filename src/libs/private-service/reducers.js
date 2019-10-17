@@ -14,7 +14,7 @@ import {
   privateSlotListActions,
   privateBookingPreviewActions,
   privateBookingListActions,
-  privateBookingDisableActions,
+  privateBookingCreateOrUpdateActions,
   privateSlotRetrieveActions,
   privateSlotCreateOrUpdateActions,
   privatePassListActions,
@@ -156,19 +156,19 @@ export default handleActions(
           { deep: true },
         );
     },
-    [privateBookingDisableActions.isLoading]: (state, { payload }) => {
+    [privateBookingCreateOrUpdateActions.isLoading]: (state, { payload }) => {
       return state.setIn(
         ['privateBooking', 'createOrUpdate', 'loading'],
         payload,
       );
     },
-    [privateBookingDisableActions.error]: (state, { payload }) => {
+    [privateBookingCreateOrUpdateActions.error]: (state, { payload }) => {
       return state.setIn(
         ['privateBooking', 'createOrUpdate', 'error'],
         payload,
       );
     },
-    [privateBookingDisableActions.success]: (state, { payload }) => {
+    [privateBookingCreateOrUpdateActions.success]: (state, { payload }) => {
       return state.setIn(['privateBooking', 'byId', payload.id], payload);
     },
 

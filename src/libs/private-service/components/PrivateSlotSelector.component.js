@@ -25,12 +25,16 @@ export const PrivateSlotSelector = (props: Props) => {
   }));
   let privateSlotOptions = [];
   if (props.selectedPrivateService) {
-    privateSlotOptions = props.privateServices
-      .find((ps) => ps.id === props.selectedPrivateService.value)
-      .slots.asMutable()
-      .filter((s) => !!s)
-      .filter((s) => s.available)
-      .map((slot) => ({ value: slot.id, label: slot.name }));
+    const selectedService = props.privateServices.find(
+      (ps) => ps.id === props.selectedPrivateService.value,
+    );
+    privateSlotOptions = selectedService
+      ? selectedService.slots
+          .asMutable()
+          .filter((s) => !!s)
+          .filter((s) => s.available)
+          .map((slot) => ({ value: slot.id, label: slot.name }))
+      : [];
   }
   return (
     <div>

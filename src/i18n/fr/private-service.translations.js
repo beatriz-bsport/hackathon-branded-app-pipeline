@@ -29,6 +29,20 @@ export default {
   privateBooking: {
     cancel: 'Annuler',
     isCancelled: 'Annulé',
+    managerAdd: {
+      title: 'Nouvelle réservation',
+      coachSelector: {
+        label: 'Professeur',
+      },
+      pleaseSelectCoachAndSlot:
+        "Sélectionnez tout d'abord le professeur et la séance",
+      cancel: 'Annuler',
+      compatiblePrivatePass: 'Facturer une carte cours privé',
+      compatiblePrivateConsumerPass: 'Cartes cours privé possédées :',
+      emptyPrivateConsumerPass: 'Aucune carte compatible possédée',
+      emptyPrivatePass: 'Aucune carte cours privé compatible',
+      privateConsumerPassNeedRefresh: 'Rafraichir la liste',
+    },
     delete: {
       title: 'Annulation réservation',
       explain:
@@ -72,6 +86,8 @@ export default {
     disableAvailability: 'Supprimer la disponibilité',
     enableRecurrentAvailability: 'Ajouter une disponibilité récurrente',
     disableRecurrentAvailability: 'Supprimer une disponibilité récurrente',
+    selectCoachToModifyAvailability: 'Sélectionnez un professeur',
+    addBooking: 'Enregistrer une réservation',
 
     form: {
       title: {
@@ -88,12 +104,6 @@ export default {
         submit: 'Enregistrer',
       },
     },
-
-    input: {
-      coach: {
-        label: 'Professeur',
-      },
-    },
   },
   selector: {
     privateService: 'Sélectionnez votre cours privé',
@@ -104,6 +114,7 @@ export default {
     searchSlot: 'Rechercher un créneau',
     selectPrivateSlot: 'Sélectionner une séance',
     search: 'Rechercher un créneau',
+    selectCoach: 'Tous les professeurs',
     bookableSlots: {
       title: 'Créneaux disponibles',
       isEmpty: 'Aucun créneau disponible',

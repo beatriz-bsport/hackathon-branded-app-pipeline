@@ -6,6 +6,7 @@ import Step from '@material-ui/core/Step';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import StepLabel from '@material-ui/core/StepLabel';
+import List from '@material-ui/core/List';
 import { compose } from 'recompose';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -22,7 +23,7 @@ type Props = {
   t: TFunction,
   privateService: ?PrivateService,
   privateSlot: ?PrivateSlot,
-  coach: ?Coach,
+  coaches: Array<Coach>,
   date: ?Object,
 };
 
@@ -37,7 +38,7 @@ export class SlotSearcherHelper extends React.PureComponent<Props> {
   getActiveStep = () => {
     if (this.props.privateService) {
       if (this.props.privateSlot) {
-        if (this.props.coach) {
+        if (this.props.coaches.length > 0) {
           if (this.props.date) {
             return 3;
           }
@@ -119,7 +120,7 @@ export class SlotSearcherHelper extends React.PureComponent<Props> {
   };
 
   renderCoach = () => {
-    if (this.props.coach) {
+    if (this.props.coaches > 0) {
       return (
         <div className={this.props.classes.section}>
           <Typography
@@ -130,7 +131,11 @@ export class SlotSearcherHelper extends React.PureComponent<Props> {
             {this.props.t('bookerModule.sections.coach')}
           </Typography>
           <Paper>
-            <CoachListItemBasic coach={this.props.coach.user} />
+            <List>
+              {this.props.coaches.map((coach) => (
+                <CoachListItemBasic key={coach.id} coach={coach.user} />
+              ))}
+            </List>
           </Paper>
         </div>
       );

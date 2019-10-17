@@ -167,13 +167,13 @@ export const createOrUpdatePrivateSlot = (
 export const searchAvailableSlots = (
   privateServiceId: number,
   privateSlotId: number,
-  associatedCoachId: number,
+  associatedCoachIdList: Array<number>,
   date: string,
 ) => {
   return postAuth(
     `${API_V1_URI}/private_service/private_service/${privateServiceId}/private_slot/${privateSlotId}/search_slots/`,
     {
-      coach: associatedCoachId,
+      coaches: associatedCoachIdList,
       date,
     },
   );
@@ -224,15 +224,25 @@ export const createCompatibleServicePass = (
   );
 };
 
-export const fetchCompatiblePrivateConsumerPass = (private_slot: number) => {
+export const fetchCompatiblePrivateConsumerPass = (
+  private_slot: number,
+  params: any,
+) => {
   return getAuth(
-    `${API_V1_URI}/private_service/private_consumer_pass/compatible_with_slot/?private_slot=${private_slot}`,
+    `${API_V1_URI}/private_service/private_consumer_pass/compatible_with_slot/${buildUrlParams(
+      params,
+    ) || '?'}&private_slot=${private_slot}`,
   );
 };
 
-export const fetchCompatiblePrivatePass = (privateSlotId: number) => {
+export const fetchCompatiblePrivatePass = (
+  privateSlotId: number,
+  params: any,
+) => {
   return getAuth(
-    `${API_V1_URI}/private_service/private_pass/compatible_with_slot/?private_slot=${privateSlotId}&as_consumer=true`,
+    `${API_V1_URI}/private_service/private_pass/compatible_with_slot/${buildUrlParams(
+      params,
+    ) || '?'}&private_slot=${privateSlotId}`,
   );
 };
 

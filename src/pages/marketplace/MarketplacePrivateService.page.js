@@ -31,10 +31,10 @@ type Props = {
   privateServiceLoading: boolean,
   setPrivateService: (?number) => void,
   setPrivateSlot: (?number) => void,
-  setCoach: (?number) => void,
+  setCoaches: (Array<number>) => void,
   privateSlot: ?number,
   privateService: ?number,
-  coach: ?number,
+  coaches: Array<number>,
 
   goToPrivateBookingPage: (
     privateServiceId: number,
@@ -87,7 +87,7 @@ export class MarketplacePrivateService extends React.Component<Props> {
                 searchLoading={this.props.searchLoading}
                 onPrivateServiceChange={this.props.setPrivateService}
                 onPrivateSlotChange={this.props.setPrivateSlot}
-                onCoachChange={this.props.setCoach}
+                onCoachChange={this.props.setCoaches}
                 onDateChange={() => {}}
               />
             </Grid>
@@ -96,7 +96,7 @@ export class MarketplacePrivateService extends React.Component<Props> {
                 <SlotSearcherHelper
                   privateService={this.props.privateService}
                   privateSlot={this.props.privateSlot}
-                  coach={this.props.coach}
+                  coaches={this.props.coaches}
                 />
               </Hidden>
             </Grid>
@@ -149,5 +149,5 @@ export default compose(
   ),
   withState('privateService', 'setPrivateService', null),
   withState('privateSlot', 'setPrivateSlot', null),
-  withState('coach', 'setCoach', null),
+  withState('coaches', 'setCoaches', []),
 )(MarketplacePrivateService);

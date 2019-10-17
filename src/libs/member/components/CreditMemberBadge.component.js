@@ -23,7 +23,7 @@ export const CreditMemberBadge = (props: Props) => {
     creditFormatted = ' -';
   }
   return (
-    <Badge color={badgeColor} badgeContent={`${creditFormatted} €`}>
+    <Badge color={badgeColor} badgeContent={`${creditFormatted}€`}>
       {props.children}
     </Badge>
   );

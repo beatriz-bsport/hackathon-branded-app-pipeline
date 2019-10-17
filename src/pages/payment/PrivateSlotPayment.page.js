@@ -44,10 +44,14 @@ import AddressForm from './AddressForm.component';
 type Props = {
   privateServiceId: number,
   privateSlotId: number,
+
   associatedCoachId: number,
   date: string,
+
   fetchPrivateService: (privateServiceId: number) => void,
   fetchPrivateSlot: (privateServiceId: number, privateSlotId: number) => void,
+  privateSlot: ?PrivateSlot,
+
   fetchCurrentBasket: (company: number) => void,
   fetchPrivateBookingPreview: (
     privateSlotId: number,
@@ -55,16 +59,19 @@ type Props = {
     date: string,
     options: ?{ onSuccess?: () => void, onError?: () => void },
   ) => void,
-  fetchCompatiblePrivatePass: (privateSlotId: number) => void,
+
+  fetchCompatiblePrivatePass: (privateSlotId: number, params: any) => void,
   fetchCompatiblePrivateConsumerPass: (privateSlotId: number) => void,
+
   addItemToBasket: (
     basketId: string,
     data: any,
     options: ?{ onSuccess: ?() => void, onError: ?() => void },
   ) => void,
   goToCheckout: (company: number) => void,
+
   loading: boolean,
-  privateSlot: ?PrivateSlot,
+
   privateBookingPreview: ?PrivateBookingPreview,
   registerPrivateBooking: (
     params: any,
@@ -107,7 +114,9 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
       },
     );
 
-    this.props.fetchCompatiblePrivatePass(this.props.privateSlotId);
+    this.props.fetchCompatiblePrivatePass(this.props.privateSlotId, {
+      as_consumer: true,
+    });
     this.props.fetchCompatiblePrivateConsumerPass(this.props.privateSlotId);
   }
 

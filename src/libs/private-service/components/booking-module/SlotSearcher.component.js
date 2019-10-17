@@ -10,7 +10,10 @@ import Immutable from 'seamless-immutable';
 import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import MomentUtils from '@date-io/moment';
+import Divider from '@material-ui/core/Divider';
 import moment from 'moment';
+import flatten from 'lodash/flatten';
+import uniq from 'lodash/uniq';
 import {
   MuiPickersUtilsProvider,
   Calendar,
@@ -38,28 +41,120 @@ type Props = {
   searchAvailableSlots: (
     service_selected: number,
     slot_selected: number,
-    coach_selected: number,
+    coaches_selected: number,
     date_selected: string,
   ) => void,
 
   onPrivateServiceChange: (?PrivateService) => void,
   onPrivateSlotChange: (?PrivateSlot) => void,
-  onCoachChange: (?Coach) => void,
+  onCoachChange: (Array<Coach>) => void,
   onDateChange: (Object) => void,
 };
 
 type State = {
   service_selected: ?PrivateService,
   slot_selected: ?PrivateSlot,
-  coach_selected: ?AssociatedCoach,
+  coaches_selected: ?AssociatedCoach,
   date_selected: ?string,
 };
+
+const reorderBookableSlots: (
+  Array<{ coach: number, date_start: Array<string> }>,
+) => Array<{
+  day: string,
+  byCoach: Array<{ coach: number, date_start: Array<string> }>,
+}> = (bookableSlotsByCoach) => {
+  const dayList = uniq(
+    flatten(bookableSlotsByCoach.map((data) => data.date_start)).reduce(
+      (acc, value) => {
+        acc.push(moment(value).format('YYYY-MM-DD'));
+        return acc;
+      },
+      [],
+    ),
+  );
+  const coachList = bookableSlotsByCoach.map((data) => data.coach);
+  return dayList.map((day) => ({
+    day,
+    byCoach: coachList.map((coach) => ({
+      coach,
+      date_start: bookableSlotsByCoach
+        .find((data) => data.coach === coach)
+        .date_start.filter((date) => moment(date).isSame(moment(day), 'day')),
+    })),
+  }));
+};
+
+const DayCoachSlots = (props: {
+  date: Object,
+  service_selected: ?PrivateService,
+  slotsByCoach: Array<{ coach: number, date_start: Array<string> }>,
+  classes: Object,
+  onDateClick: (string, number) => void,
+}) => (
+  <div>
+    <Typography variant="h6">{moment(props.date).format('LL')}</Typography>
+    {props.slotsByCoach.byCoach.map((byCoach) => {
+      if (!byCoach || !byCoach.date_start || byCoach.date_start.length === 0) {
+        return null;
+      }
+      return (
+        <div className={props.classes.coachContainer}>
+          <Typography
+            variant="subtitle2"
+            className={props.classes.coachSectionTitle}
+          >
+            {props.service_selected
+              ? props.service_selected.coaches.find(
+                  (c) => c.id === byCoach.coach,
+                ).user.name
+              : ''}
+          </Typography>
+          <Divider className={props.classes.coachDivider} />
+          <div className={props.classes.bookableSlotsContainer}>
+            {[0, 1, 2, 3]
+              .map((columnIdx) => {
+                const columnSize = parseInt(byCoach.date_start.length / 4, 10);
+                return byCoach.date_start.slice(
+                  columnIdx * columnSize,
+                  columnIdx === 3
+                    ? byCoach.date_start.length
+                    : (columnIdx + 1) * columnSize,
+                );
+              })
+              .map((bookable_slot_column, columnIdx) => (
+                <div
+                  key={columnIdx}
+                  className={props.classes.bookableSlotColumn}
+                >
+                  {bookable_slot_column.map((bookable_slot) => (
+                    <Fab
+                      size="small"
+                      variant="extended"
+                      color="primary"
+                      key={bookable_slot}
+                      className={props.classes.bookableSlotFabButton}
+                      onClick={() =>
+                        props.onDateClick(bookable_slot, byCoach.coach)
+                      }
+                    >
+                      {moment(bookable_slot).format('HH:mm')}
+                    </Fab>
+                  ))}
+                </div>
+              ))}
+          </div>
+        </div>
+      );
+    })}
+  </div>
+);
 
 export class PrivateServiceBooker extends React.Component<Props, State> {
   state = {
     slot_selected: null,
     service_selected: null,
-    coach_selected: null,
+    coaches_selected: null,
     date_selected: moment().format('YYYY-MM-DD'),
     has_been_searched: false,
   };
@@ -81,11 +176,11 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
     this.handleSlotChange(slot_selected);
   };
 
-  onDateClick = (date: string) => {
+  onDateClick = (date: string, coach: number) => {
     this.props.onClickBook(
       this.state.service_selected.id,
       this.state.slot_selected.id,
-      this.state.coach_selected,
+      coach,
       date,
     );
   };
@@ -98,52 +193,40 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
         </div>
       );
     }
+
+    const bookable_slots_by_day_by_coach = reorderBookableSlots(
+      this.props.bookable_slots,
+    );
+
     return (
       <React.Fragment>
-        {this.props.bookable_slots.length === 0 ? (
-          <Typography color="textSecondary">
-            {this.props.t('slotSearcher.bookableSlots.isEmpty')}
-          </Typography>
-        ) : null}
-        {[0, 1, 2, 3]
-          .map((columnIdx) => {
-            const columnSize = parseInt(
-              this.props.bookable_slots.length / 4,
-              10,
-            );
-            return this.props.bookable_slots.slice(
-              columnIdx * columnSize,
-              columnIdx === 3
-                ? this.props.bookable_slots.length
-                : (columnIdx + 1) * columnSize,
-            );
-          })
-          .map((bookable_slot_column, columnIdx) => (
-            <div
-              key={columnIdx}
-              className={this.props.classes.bookableSlotColumn}
-            >
-              {bookable_slot_column.map((bookable_slot) => (
-                <Fab
-                  size="small"
-                  variant="extended"
-                  color="primary"
-                  key={bookable_slot}
-                  className={this.props.classes.bookableSlotFabButton}
-                  onClick={() => this.onDateClick(bookable_slot)}
-                >
-                  {moment(bookable_slot).format('HH:mm')}
-                </Fab>
-              ))}
-            </div>
-          ))}
+        {bookable_slots_by_day_by_coach.map((byDay) => (
+          <div key={byDay.day} className={this.props.classes.dayContainer}>
+            <DayCoachSlots
+              slotsByCoach={byDay}
+              date={byDay.day}
+              service_selected={this.state.service_selected}
+              classes={this.props.classes}
+              onDateClick={this.onDateClick}
+            />
+          </div>
+        ))}
       </React.Fragment>
     );
   };
 
-  handleCoachChange = (coach_selected: number, coach: Coach) => {
-    this.setState({ coach_selected });
-    this.props.onCoachChange(coach);
+  handleCoachChange = (coaches_selected: Array<Option>) => {
+    if (coaches_selected && coaches_selected.length > 0) {
+      this.setState({ coaches_selected: coaches_selected.map((o) => o.value) });
+      this.props.onCoachChange(
+        this.state.service_selected.coaches.filter((c) =>
+          coaches_selected.map((o) => o.value).includes(c.id),
+        ),
+      );
+    } else {
+      this.setState({ coaches_selected: [] });
+      this.props.onCoachChange([]);
+    }
   };
 
   handleDateChange = (date_selected: Object) => {
@@ -151,6 +234,7 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
       date_selected: date_selected.format('YYYY-MM-DD'),
     });
     this.props.onDateChange(date_selected);
+    this.doSearch(date_selected);
   };
 
   handleServiceChange = (service_selected_id: ?number) => {
@@ -164,6 +248,16 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
   handleSlotChange = (slot_selected: ?PrivateSlot) => {
     this.setState({ slot_selected });
     this.props.onPrivateSlotChange(slot_selected);
+  };
+
+  doSearch = (date_selected) => {
+    this.setState({ has_been_searched: true });
+    this.props.searchAvailableSlots(
+      this.state.service_selected.id,
+      this.state.slot_selected.id,
+      this.state.coaches_selected,
+      date_selected || this.state.date_selected,
+    );
   };
 
   render() {
@@ -180,9 +274,9 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
           privateServices={this.props.private_services}
         />
         <CoachSelector
-          noMulti
+          placeholder={t('slotSearcher.selectCoach')}
           selectedCoaches={
-            this.state.coach_selected ? [this.state.coach_selected] : []
+            this.state.coaches_selected ? this.state.coaches_selected : []
           }
           isDisabled={
             !(
@@ -190,14 +284,7 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
               this.state.service_selected.coaches.length
             )
           }
-          selectOption={(option) =>
-            this.handleCoachChange(
-              option.value,
-              this.state.service_selected.coaches.find(
-                (c) => c.id === option.value,
-              ),
-            )
-          }
+          selectOption={(option) => this.handleCoachChange(option)}
           coaches={
             this.state.service_selected
               ? this.state.service_selected.coaches.filter((c) => !!c)
@@ -219,11 +306,7 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
                   <Calendar
                     disablePast
                     disableFuture={
-                      !(
-                        this.state.coach_selected &&
-                        this.state.service_selected &&
-                        this.state.slot_selected
-                      )
+                      !(this.state.service_selected && this.state.slot_selected)
                     }
                     date={moment(this.state.date_selected, 'YYYY-MM-DD')}
                     onChange={this.handleDateChange}
@@ -239,32 +322,16 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
             disabled={
               !this.state.service_selected ||
               !this.state.slot_selected ||
-              !this.state.coach_selected ||
               !this.state.date_selected
             }
-            onClick={() => {
-              this.setState({ has_been_searched: true });
-              this.props.searchAvailableSlots(
-                this.state.service_selected.id,
-                this.state.slot_selected.id,
-                this.state.coach_selected,
-                this.state.date_selected,
-              );
-            }}
+            onClick={() => this.doSearch()}
           >
             <SearchIcon className={classes.leftIcon} />
             {t('slotSearcher.search')}
           </Button>
         </div>
         {this.state.has_been_searched ? (
-          <React.Fragment>
-            <Typography variant="h6" className={classes.sectionTitle}>
-              {t('slotSearcher.bookableSlots.title')}
-            </Typography>
-            <div className={classes.bookableSlotsContainer}>
-              {this.renderBookableSlots()}
-            </div>
-          </React.Fragment>
+          <React.Fragment>{this.renderBookableSlots()}</React.Fragment>
         ) : null}
       </div>
     );
@@ -313,6 +380,13 @@ const styles = (theme) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  coachDivider: {
+    marginBottom: theme.spacing.unit,
+    marginTop: theme.spacing.unit,
+  },
+  coachSectionTitle: {
+    marginTop: theme.spacing.unit,
   },
 });
 

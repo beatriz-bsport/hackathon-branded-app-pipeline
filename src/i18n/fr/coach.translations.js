@@ -6,6 +6,9 @@ export default {
   showDescription: 'Afficher la description',
   description: 'Description',
   emptyDescription: 'Aucune description fournie',
+  selector: {
+    label: 'Professeur',
+  },
   performance: {
     title: 'Récapitulatif professeur',
     coachName: 'Professeur',

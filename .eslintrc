@@ -4,7 +4,8 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "airbnb",
-    "plugin:flowtype/recommended"
+    "plugin:flowtype/recommended",
+    "plugin:i18next/recommended"
   ],
   "env": {
     "browser": true,
@@ -17,13 +18,15 @@
     "react",
     "flowtype",
     "babel",
-    "cypress"
+    "cypress",
+"i18next"
   ],
   "rules": {
     // DISABLED BY SOFIAN
     "no-console": ["error", { allow: ["warn", "error"] }],
     "react/require-default-props": 0,
     "react/default-props-match-prop-types": 0,
+    "i18next/no-literal-string": 0,
     "function-paren-newline": 0,
     "no-restricted-syntax": 0,
     "react/no-array-index-key": 0,

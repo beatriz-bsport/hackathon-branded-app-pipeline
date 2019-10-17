@@ -1,0 +1,78 @@
+// @flow
+import React from 'react';
+import withStyles from '@material-ui/core/styles/withStyles';
+import { compose } from 'recompose';
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+import CoachInput from '../../../components/input/CoachInput.component';
+import CoachColorModifier from './CoachColorModifier.component';
+
+type Props = {
+  coachId: number,
+  loading: boolean,
+  associatedCoachList: Array<AssociatedCoach>,
+  onChangeCoach: (?AssociatedCoach) => void,
+  updateCoach: (
+    data: any,
+    options: { onSuccess?: () => void, onError?: () => void },
+  ) => void,
+  classes: Object,
+  t: TFunction,
+};
+export const CoachSelectorWithColorCode = (props: Props) => {
+  return (
+    <div className={props.classes.container}>
+      <div className={props.classes.input}>
+        <CoachInput
+          required
+          value={props.coachId}
+          onChange={props.onChangeCoach}
+          label={props.t('selector.label')}
+          choices={props.associatedCoachList}
+          onDelete={() => props.onChangeCoach(null)}
+        />
+        {props.loading ? (
+          <CircularProgress className={props.classes.leftIcon} size="small" />
+        ) : null}
+      </div>
+      <div className={props.classes.row}>
+        <CoachColorModifier
+          associatedCoachList={
+            props.coachId
+              ? props.associatedCoachList.filter((c) => c.id === props.coachId)
+              : props.associatedCoachList
+          }
+          updateCoach={props.updateCoach}
+        />
+      </div>
+    </div>
+  );
+};
+
+const styles = (theme) => ({
+  container: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    border: '2px solid #E2E2E2',
+    backgroundColor: theme.palette.common.white,
+    borderRadius: theme.spacing.unit * 2,
+    paddingLeft: theme.spacing.unit * 2,
+    paddingRight: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 2,
+  },
+  input: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: -theme.spacing.unit * 2,
+  },
+});
+
+export default compose(
+  withNamespaces(['coach']),
+  withStyles(styles),
+)(CoachSelectorWithColorCode);

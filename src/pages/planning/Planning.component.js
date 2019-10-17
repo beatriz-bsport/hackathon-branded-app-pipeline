@@ -449,7 +449,6 @@ export class Planning extends PureComponent<Props, State> {
   };
 
   render() {
-    console.log('render');
     const {
       offers,
       events,

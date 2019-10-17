@@ -101,14 +101,20 @@ export default compose(
           id,
           {
             dateStart: dateStart.format('YYYY-MM-DD'),
-            dateEnd: dateEnd.format('YYYY-MM-DD'),
+            dateEnd: dateEnd
+              .clone()
+              .add(1, 'days')
+              .format('YYYY-MM-DD'),
           },
           options,
         );
         const params = {
           fileformat: 'xlsx',
           dateStart: dateStart.format('YYYY-MM-DD'),
-          dateEnd: dateEnd.format('YYYY-MM-DD'),
+          dateEnd: dateEnd
+            .clone()
+            .add(1, 'days')
+            .format('YYYY-MM-DD'),
         };
         const exportLink = result && urls.export(id, params);
         setExportLink(exportLink);

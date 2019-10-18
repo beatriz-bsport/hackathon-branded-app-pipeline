@@ -414,6 +414,7 @@ export const SCTSelectField = (props: SelectFieldProps) => (
 export const DURATION_CHOICES_SHORT = [
   { value: 0, label: 'form.zeroMinute' },
   { value: 15, label: 'form.quarterHour' },
+  { value: 20, label: 'form.twentyMinutes' },
   { value: 30, label: 'form.halfHour' },
   { value: 45, label: 'form.halfAndQuarterHour' },
   { value: 60, label: 'form.oneHour' },

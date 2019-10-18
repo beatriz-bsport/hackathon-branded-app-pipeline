@@ -554,6 +554,7 @@ export default {
       newMetaActivity: 'New activity',
       zeroMinute: '0 min',
       quarterHour: '15 min',
+      twentyMinutes: '2O min',
       halfHour: '30 min',
       halfAndQuarterHour: '45 min',
       oneHour: '1h',

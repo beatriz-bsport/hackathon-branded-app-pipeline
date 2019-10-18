@@ -379,7 +379,7 @@ export default compose(
           name: '',
           price: 0,
           tax: 0,
-          credits: '',
+          credits: 1,
           timeType: `${VALID_BY_DURATION}`,
           duration_days: 0,
           duration_months: 1,

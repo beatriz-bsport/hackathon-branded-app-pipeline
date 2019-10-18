@@ -29,6 +29,7 @@ export default {
     actions: {
       closeBasket: 'Continue shopping',
       checkoutBasket: 'Buy',
+      payZero: 'Confirm my basket',
     },
   },
 };

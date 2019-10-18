@@ -39,7 +39,7 @@ const PayButtonBase = (props: {
 }) => (
   <div className={props.classes.payButtonContainer}>
     <Button onClick={props.onClick} color="primary">
-      {props.t('checkout:myBasket.actions.pay')}
+      {props.t('checkout:myBasket.actions.payZero')}
     </Button>
   </div>
 );
@@ -77,7 +77,7 @@ const ChosenPaymentModule = (props: {
 };
 
 export const PaymentForm = (props: Props) => {
-  if (props.total_price_cts === 0) {
+  if (props.price_cts === 0) {
     return <PayButton onClick={() => props.submitPayment()} />;
   }
   const chosenPaymentMethod =

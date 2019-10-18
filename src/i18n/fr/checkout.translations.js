@@ -29,6 +29,7 @@ export default {
     actions: {
       closeBasket: 'Continuer mes achats',
       checkoutBasket: 'Payer',
+      payZero: 'Valider mon panier',
     },
   },
 };

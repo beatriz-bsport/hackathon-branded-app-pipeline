@@ -11,11 +11,14 @@ import Divider from '@material-ui/core/Divider';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+
+import HelpIcon from '@material-ui/icons/Help';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose, withState } from 'recompose';
+import RedIconButton from '../../../components/button/RedIconButton.component';
 
 import type { AlertGroup } from '../types';
 import AlertListItem from './AlertListItem.component';
@@ -37,9 +40,26 @@ export const AlertListGroup = (props: Props) => (
       <ListSubheader disableGutters component="h3" style={{ margin: 0 }}>
         <div className={props.classes.title}>
           <div>
-            {`${props.t(`alert_kind.${props.alert_group.alert_kind}`)} (${
-              props.alert_group.count
-            })`}
+            <span>
+              {`${props.t(`alert_kind.${props.alert_group.alert_kind}`)} (${
+                props.alert_group.count
+              })`}
+            </span>
+            <span>
+              {props.alert_group.count &&
+              props.alert_group.alert_kind === '1' ? (
+                <RedIconButton
+                  color="primary"
+                  onClick={() =>
+                    window.open(
+                      'https://intercom.help/bsport-helpcenter/fr/articles/3421612-alerte-enregistrement-facture-rapide',
+                    )
+                  }
+                >
+                  <HelpIcon />
+                </RedIconButton>
+              ) : null}
+            </span>
           </div>
           <IconButton
             onClick={() => {

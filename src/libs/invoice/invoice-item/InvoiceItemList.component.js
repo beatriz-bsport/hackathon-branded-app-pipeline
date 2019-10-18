@@ -152,10 +152,12 @@ export class InvoiceItemList extends Component<Props> {
   }
 }
 
-const styles = () => ({
+const styles = (theme) => ({
   container: {
     height: '100%',
-    minHeight: 400,
+    [theme.breakpoints.up('md')]: {
+      minHeight: '400px',
+    },
   },
   compactContainer: {
     width: '100%',

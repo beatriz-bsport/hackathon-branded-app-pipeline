@@ -635,13 +635,13 @@ const styles = (theme) => ({
   content: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
+    width: '100%',
     [theme.breakpoints.up('md')]: {
       paddingLeft: theme.spacing.unit * 3,
       paddingRight: theme.spacing.unit * 3,
     },
     paddingBottom: theme.spacing.unit,
     paddingTop: theme.spacing.unit * 10,
-    width: '100%',
   },
   logo: {
     alignItems: 'center',

@@ -678,6 +678,9 @@ const styles = (theme) => ({
     padding: theme.spacing.unit,
     backgroundColor: '#F8F8F8',
     border: '2px solid #E8E8E8',
+    [theme.breakpoints.down('sm')]: {
+      marginBottom: theme.spacing.unit,
+    },
   },
   paymentSelectorButtons: {
     marginTop: theme.spacing.unit * 2,

@@ -20,10 +20,10 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import type { StatusCode } from '@bsport/common/lib/master-data/planned-invoice-status';
 import type { TFunction } from 'react-i18next';
 
-import { formatAsDate } from '../../datetime';
-import PaginatedList from '../../components/PaginatedListStateful.component';
+import { formatAsDate } from '../../../datetime';
+import PaginatedList from '../../../components/PaginatedListStateful.component';
 
-import type { PlannedInvoice } from './types';
+import type { PlannedInvoice } from '../types';
 
 const renderStatus = (t: TFunction, status: StatusCode) => {
   switch (status) {

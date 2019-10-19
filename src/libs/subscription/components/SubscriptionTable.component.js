@@ -6,8 +6,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import { formatAsDate } from '../../datetime';
-import type { Subscription } from './types';
+import { formatAsDate } from '../../../datetime';
+import type { Subscription } from '../types';
 
 const renderRows = (subscriptions) => {
   return subscriptions.map((sub) => ({

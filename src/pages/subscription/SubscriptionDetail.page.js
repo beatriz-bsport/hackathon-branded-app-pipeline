@@ -14,7 +14,7 @@ import {
   stop as stopSubscription,
 } from '../../libs/subscription/actions';
 import subscriptionSelectors from '../../libs/subscription/selectors';
-import SubscriptionComponent from '../../libs/subscription/Subscription.component';
+import SubscriptionComponent from '../../libs/subscription/components/Subscription.component';
 import type { Subscription } from '../../libs/subscription/types';
 
 type Props = {

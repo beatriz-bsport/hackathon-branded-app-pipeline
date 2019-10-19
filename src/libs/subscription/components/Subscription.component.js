@@ -8,7 +8,7 @@ import { compose, withState } from 'recompose';
 import SubscriptionSummary from './SubscriptionSummary.component';
 import SubscriptionSchedule from './SubscriptionSchedule.component';
 import StopConfirmation from './StopDialog.component';
-import type { Subscription } from './types';
+import type { Subscription } from '../types';
 
 type Props = {
   subscription: Subscription,

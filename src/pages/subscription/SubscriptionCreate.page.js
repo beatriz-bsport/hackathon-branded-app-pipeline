@@ -18,8 +18,8 @@ import LinearProgress from '../../components/navigation/BackofficeLinearProgress
 import api from '../../libs/subscription/api';
 import { fetchMember } from '../../libs/member/actions';
 import memberSelectors from '../../libs/member/selectors';
-import SubscriptionCreateComponent from '../../libs/subscription/SubscriptionCreate.component';
-import SubscriptionScheduleChecker from '../../libs/subscription/SubscriptionScheduleChecker.component';
+import SubscriptionCreateComponent from '../../libs/subscription/components/SubscriptionCreate.component';
+import SubscriptionScheduleChecker from '../../libs/subscription/components/SubscriptionScheduleChecker.component';
 import type { SubscriptionData } from '../../libs/subscription/types';
 import paymentPackSelectors from '../../libs/payment-packs/selectors';
 import type { PaymentPack } from '../../libs/payment-packs/types';
@@ -68,19 +68,19 @@ export class SubscriptionCreate extends Component<Props, State> {
     return (
       <div className={this.props.classes.container}>
         {this.state.processing ? <LinearProgress /> : null}
-        <Paper className={this.props.classes.paper}>
-          {this.state.tempSubscription ? (
-            <StripeProvider apiKey={STRIPE_KEY}>
-              <Elements>
-                <SubscriptionScheduleChecker
-                  subscriptionData={this.state.tempSubscription}
-                  onSubmit={this.createSubscription}
-                  onCancel={() => this.storeTempSubscription(null)}
-                  processing={this.state.processing}
-                />
-              </Elements>
-            </StripeProvider>
-          ) : (
+        {this.state.tempSubscription ? (
+          <StripeProvider apiKey={STRIPE_KEY}>
+            <Elements>
+              <SubscriptionScheduleChecker
+                subscriptionData={this.state.tempSubscription}
+                onSubmit={this.createSubscription}
+                onCancel={() => this.storeTempSubscription(null)}
+                processing={this.state.processing}
+              />
+            </Elements>
+          </StripeProvider>
+        ) : (
+          <Paper className={this.props.classes.paper}>
             <div className={this.props.classes.formContainer}>
               <SubscriptionCreateComponent
                 paymentPacks={this.props.paymentPacks.filter(
@@ -91,8 +91,8 @@ export class SubscriptionCreate extends Component<Props, State> {
                 onCancel={this.props.onCancel}
               />
             </div>
-          )}
-        </Paper>
+          </Paper>
+        )}
       </div>
     );
   }

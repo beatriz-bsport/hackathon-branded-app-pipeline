@@ -9,7 +9,7 @@ import { compose } from 'recompose';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import RedButton from '../../components/button/RedButton.component';
+import RedButton from '../../../components/button/RedButton.component';
 
 type Props = {
   t: TFunction,

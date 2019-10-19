@@ -14,7 +14,7 @@ import { invoice as invoiceActions } from '../../actions';
 import InvoiceTable from '../invoice/InvoiceTable.component';
 
 import subscriptionApi from '../../libs/subscription/api';
-import SubscriptionTable from '../../libs/subscription/SubscriptionTable.component';
+import SubscriptionTable from '../../libs/subscription/components/SubscriptionTable.component';
 import type { Subscription } from '../../libs/subscription/types';
 
 type Props = {

@@ -10,10 +10,10 @@ import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import moment from 'moment';
 
-import RedButton from '../../components/button/RedButton.component';
+import RedButton from '../../../components/button/RedButton.component';
 
-import type { Subscription } from './types';
-import type { Member } from '../../api/types';
+import type { Subscription } from '../types';
+import type { Member } from '../../../api/types';
 
 type Props = {
   stopSubscription: () => void,

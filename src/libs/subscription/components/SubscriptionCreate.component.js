@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -13,14 +12,14 @@ import { compose } from 'recompose';
 import type { TFunction } from 'react-i18next';
 import moment from 'moment';
 
-import PaymentPackSelector from '../payment-packs/components/PaymentPackSelector.component';
-import NumericInput from '../../components/input/NumericInput.component';
-import PriceInput from '../../components/input/PriceInput.component';
-import DateInput from '../../components/input/DateInput.component';
+import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
+import NumericInput from '../../../components/input/NumericInput.component';
+import PriceInput from '../../../components/input/PriceInput.component';
+import DateInput from '../../../components/input/DateInput.component';
 
 import RecapSubscription from './RecapSubscription.component';
 
-import type { SubscriptionData } from './types';
+import type { SubscriptionData } from '../types';
 
 type Props = {
   paymentPacks: Array<PaymentPack>,
@@ -105,32 +104,30 @@ export class SubscriptionCreate extends Component<Props, State> {
       paymentPacks.find((pp) => pp.id === this.state.payment_pack);
     return (
       <div>
-        <Grid container direction="column" alignItems="flex-start">
-          <Grid item>
-            <PaymentPackSelector
-              paymentPacks={paymentPacks}
-              value={this.state.payment_pack}
-              onChange={this.updatePaymentPack}
-              helperText={t('parameters.paymentPack')}
-              selectorClass={classes.selector}
-            />
-          </Grid>
-          <Grid item className={classes.field}>
+        <div className={classes.container}>
+          <PaymentPackSelector
+            paymentPacks={paymentPacks}
+            value={this.state.payment_pack}
+            onChange={this.updatePaymentPack}
+            helperText={t('parameters.paymentPack')}
+            selectorClass={classes.selector}
+          />
+          <div className={classes.field}>
             <NumericInput
               value={this.state.nb_interval}
               label={t('parameters.nbMonths')}
               onChange={this.updateNbInterval}
             />
-          </Grid>
-          <Grid item className={classes.field}>
+          </div>
+          <div className={classes.field}>
             <DateInput
               minDate={moment().format('YYYY/MM/DD')}
               value={this.state.first_billing_timestamp * 1000}
               label={t('parameters.firstBilling')}
               onChange={this.updateFirstBillingTimestamp}
             />
-          </Grid>
-          <Grid item className={classes.field}>
+          </div>
+          <div className={classes.field}>
             <div className={classes.voucherFields}>
               <Typography variant="subtitle1" className={classes.voucherTitle}>
                 {t('parameters.voucher')}
@@ -143,8 +140,8 @@ export class SubscriptionCreate extends Component<Props, State> {
                 />
               </div>
             </div>
-          </Grid>
-          <Grid item className={classes.recap}>
+          </div>
+          <div className={classes.recap}>
             <RecapSubscription
               periodName="month"
               member={member}
@@ -155,8 +152,8 @@ export class SubscriptionCreate extends Component<Props, State> {
                 paymentPackSelected && paymentPackSelected.name
               }
             />
-          </Grid>
-          <Grid item>
+          </div>
+          <div>
             <Button color="secondary" onClick={onCancel}>
               {t('form.cancel')}
             </Button>
@@ -167,14 +164,19 @@ export class SubscriptionCreate extends Component<Props, State> {
             >
               {t('form.check')}
             </Button>
-          </Grid>
-        </Grid>
+          </div>
+        </div>
       </div>
     );
   }
 }
 
 const styles = (theme) => ({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+  },
   recap: {
     backgroundColor: '#F8F8F8',
     padding: theme.spacing.unit * 2,

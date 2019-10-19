@@ -10,7 +10,7 @@ import withTitle from '../../hocs/with-title.hoc';
 
 import api from '../../libs/subscription/api';
 
-import SubscriptionTable from '../../libs/subscription/SubscriptionTable.component';
+import SubscriptionTable from '../../libs/subscription/components/SubscriptionTable.component';
 
 type Props = {
   goToSubscription: (id: number) => void,

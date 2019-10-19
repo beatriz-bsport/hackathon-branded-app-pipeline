@@ -21,7 +21,7 @@ import PaymentByCredit from '../../payment/components/PaymentByCredit.component'
 
 type Props = {
   submitPayment: { [id: string]: () => void },
-  total_price_cts: number,
+  price_cts: number,
   paymentMethod: number,
   setPaymentMethod: (number) => void,
   availablePaymentMethods: Array<number>,

@@ -51,6 +51,8 @@ type Props = {
     code: string,
     options?: { onSuccess?: () => void, onError?: () => void },
   ) => void,
+
+  basketError: ?Error,
 };
 
 export class CheckoutPayment extends React.Component<Props> {

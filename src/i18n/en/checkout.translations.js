@@ -26,6 +26,10 @@ export default {
     },
     title: 'My basket',
     isEmpty: 'You basket is empty',
+    error: {
+      invalidBasket:
+        'Your basket contained items which are not available for sell anymore. No payment was registered.',
+    },
     actions: {
       closeBasket: 'Continue shopping',
       checkoutBasket: 'Buy',

@@ -1,19 +1,23 @@
 // @flow
 
 import React from 'react';
-import { compose, withProps } from 'recompose';
+import { compose, withState, withProps } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect } from 'react-redux';
 import { replace, push, goBack } from 'react-router-redux';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import Typography from '@material-ui/core/Typography';
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
+
 import { getTheme } from '../../theme';
 import {
   addItemToBasket,
   attachCoupon,
   removeItemFromBasket,
-  fetchCurrentBasket,
+  fetchCurrentBasket as fetchCurrentBasketAction,
   patchCurrentBasket,
   attachPayment as attachPaymentAction,
 } from '../../libs/checkout/actions';
@@ -38,6 +42,7 @@ type Props = {
   onBasketFinalized: () => void,
   push: (string) => void,
   goBack: () => void,
+  t: TFunction,
   theme: ?Theme,
   classes: Object,
   fetchCurrentBasket: (companyId: number) => void,
@@ -59,6 +64,22 @@ export class CheckoutPayment extends React.Component<Props> {
       this.props.fetchCurrentBasket(this.props.companyId);
     }
   }
+
+  renderError = () => {
+    if (
+      this.props.basketError &&
+      this.props.basketError.response &&
+      this.props.basketError.response.status === 423
+    ) {
+      return (
+        <Typography color="error">
+          {this.props.t('myBasket.error.invalidBasket')}
+        </Typography>
+      );
+    }
+
+    return null;
+  };
 
   render() {
     if (this.props.basket && this.props.basket.is_finalized) {
@@ -94,6 +115,8 @@ export class CheckoutPayment extends React.Component<Props> {
                 this.props.patchCurrentBasket(data, options)
               }
             />
+
+            {this.renderError()}
           </Paper>
         </div>
       </MuiThemeProvider>
@@ -126,6 +149,7 @@ const styles = (theme) => ({
 export default compose(
   withStyles(styles),
   routerParamsToProps({ companyId: 'companyId:number' }),
+  withNamespaces(['checkout']),
   connect(
     (state) => ({
       basket: getCurrentBasket(state),
@@ -138,7 +162,7 @@ export default compose(
       removeItemFromBasket,
       goBack,
       push,
-      fetchCurrentBasket,
+      fetchCurrentBasket: fetchCurrentBasketAction,
       patchCurrentBasket,
       attachPayment: attachPaymentAction,
       attachCoupon,
@@ -146,7 +170,20 @@ export default compose(
       onBasketFinalized: () => replace('/customer'),
     },
   ),
-  withProps(({ attachPayment }) => ({
-    submitPayment: attachPayment,
-  })),
+  withState('basketError', 'setBasketError', null),
+  withProps(
+    ({ attachPayment, fetchCurrentBasket, companyId, setBasketError }) => ({
+      submitPayment: (data, options) =>
+        attachPayment(data, {
+          onSuccess: (response) => {
+            if (options && options.onSuccess) options.onSuccess(response);
+          },
+          onError: (error) => {
+            fetchCurrentBasket(companyId);
+            setBasketError(error);
+            if (options && options.onError) options.onError(error);
+          },
+        }),
+    }),
+  ),
 )(CheckoutPayment);

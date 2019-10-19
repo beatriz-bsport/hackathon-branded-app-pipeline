@@ -26,6 +26,10 @@ export default {
     },
     title: 'Mon panier',
     isEmpty: 'Votre panier est vide',
+    error: {
+      invalidBasket:
+        "Votre panier contenait des éléments qui ne sont plus disponibles à la vente. Aucun paiement n'a été enregistré",
+    },
     actions: {
       closeBasket: 'Continuer mes achats',
       checkoutBasket: 'Payer',

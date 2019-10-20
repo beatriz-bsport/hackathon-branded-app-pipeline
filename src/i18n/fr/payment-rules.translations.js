@@ -6,6 +6,7 @@ export default {
   save: 'Enregistrer',
   name: 'Nom',
   base_price: 'Base',
+  only_attendant: 'Restreindre le décompte de réservation aux élèves présents',
   actions: 'Actions',
   bookingThreshold: 'Seuil de réservations',
   pricePerAdditionalBooking: 'Bonus par réservation',

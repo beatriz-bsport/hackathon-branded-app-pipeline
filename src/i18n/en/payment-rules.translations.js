@@ -6,6 +6,7 @@ export default {
   save: 'Save',
   name: 'Name',
   base_price: 'Base',
+  only_attendant: 'Count only attendants',
   actions: 'Actions',
   bookingThreshold: 'Threshold',
   pricePerAdditionalBooking: 'Bonus per booking',

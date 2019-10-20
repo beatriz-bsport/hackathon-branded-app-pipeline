@@ -24,7 +24,11 @@ import AddIcon from '@material-ui/icons/Add';
 import ClearIcon from '@material-ui/icons/Clear';
 import Typography from '@material-ui/core/Typography';
 
-import { TextField, PriceField } from '../../../components/forms';
+import {
+  TextField,
+  PriceField,
+  CheckboxField,
+} from '../../../components/forms';
 
 import type { PaymentRule } from '../types';
 
@@ -43,6 +47,7 @@ export function PaymentRuleFields(props: Props) {
         required
         fullWidth
       />
+      <CheckboxField name="only_attendant" label={t('only_attendant')} />
       <Typography variant="subtitle2">{t('rules')}</Typography>
       <FieldArray name="bonuses">
         {({
@@ -149,6 +154,7 @@ export const PaymentRuleFieldsSchema = Yup.object().shape({
   base_price: Yup.number()
     .integer()
     .min(0),
+  only_attendant: Yup.boolean(),
   bonuses: Yup.array().of(BonusSchema),
 });
 
@@ -157,6 +163,7 @@ export const PaymentRuleFormHoc = withFormik({
     initial || {
       name: '',
       base_price: 10,
+      only_attendant: false,
       bonuses: [],
     },
   validationSchema: PaymentRuleFieldsSchema,

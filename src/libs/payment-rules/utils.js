@@ -1,7 +1,9 @@
 import lodash from 'lodash';
 
 export function computeBonus(session, rate) {
-  const nbBookings = session.nb_bookings;
+  const nbBookings = rate.only_attendant
+    ? session.nb_attendances
+    : session.nb_bookings;
   const min = rate.bonuses.reduce((m, r) => Math.min(m, r.threshold), 10000000);
   const level = lodash.findLast(rate.bonuses, (r) => r.threshold <= nbBookings);
   const variable = level ? +level.variable_bonus : 0;
@@ -20,6 +22,9 @@ export function computeSessionPayment(session) {
     ...session,
     base: +session.rate.base_price,
     bonus: computeBonus(session, session.rate),
+    nb_accountable_bookings: session.rate.only_attendant
+      ? session.nb_attendances
+      : session.nb_bookins,
   };
 }
 
@@ -37,7 +42,7 @@ export function computePerformance(performance, allRates, defaultRate) {
     .map((s) => setRateForSession(s, rates, defaultRate))
     .map(computeSessionPayment);
 
-  const nbBookings = lodash.sumBy(sessions, 'nb_bookings');
+  const nbBookings = lodash.sumBy(sessions, 'nb_accountable_bookings');
   const base = lodash.sumBy(sessions, 'base');
   const bonus = lodash.sumBy(sessions, 'bonus');
 

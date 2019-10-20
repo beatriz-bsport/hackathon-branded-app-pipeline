@@ -51,7 +51,7 @@ export function CoachPerformanceTable(props: Props) {
                 session.name,
                 moment(session.date_start).format('DD/MM/YYYY HH[:]mm'),
                 session.duration_minute,
-                session.nb_bookings,
+                session.nb_accountable_bookings,
                 `${session.base} €`,
                 `${session.bonus} €`,
                 (

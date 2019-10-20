@@ -24,7 +24,7 @@ export function computeSessionPayment(session) {
     bonus: computeBonus(session, session.rate),
     nb_accountable_bookings: session.rate.only_attendant
       ? session.nb_attendances
-      : session.nb_bookins,
+      : session.nb_bookings,
   };
 }
 

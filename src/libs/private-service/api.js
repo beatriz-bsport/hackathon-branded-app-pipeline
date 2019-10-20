@@ -296,3 +296,7 @@ export const disablePrivateBooking = (
     data,
   );
 };
+
+export const deletePrivateBooking = (id: number) => {
+  return deleteAuth(`${API_V1_URI}/private_service/private_booking/${id}/`);
+};

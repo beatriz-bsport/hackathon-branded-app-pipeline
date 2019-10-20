@@ -53,7 +53,13 @@ export const PrivateBookingCard = (props: Props) => {
             {props.t('privateBooking.cancel')}
           </RedButton>
         </div>
-      ) : null}
+      ) : (
+        <div className={props.classes.buttonContainer}>
+          <RedButton onClick={props.onDelete}>
+            {props.t('privateBooking.hardDelete')}
+          </RedButton>
+        </div>
+      )}
     </div>
   );
 };

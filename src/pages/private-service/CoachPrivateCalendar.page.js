@@ -32,6 +32,7 @@ import {
   fetchAvailabilitySlots,
   fetchPrivateBookings,
   disablePrivateBooking,
+  deletePrivateBooking,
   disableCoachAvailabilitySlot,
   enableCoachAvailabilitySlot,
   fetchAllPrivateServices,
@@ -268,6 +269,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
           availabilitySlots={this.props.availabilitySlots}
           privateBookings={this.props.privateBookings}
           disablePrivateBooking={this.props.disablePrivateBooking}
+          deletePrivateBooking={this.props.deletePrivateBooking}
           availabilitySlotUpdating={this.props.availabilitySlotUpdating}
           coachId={this.props.coachId}
           goToMember={this.props.goToMember}
@@ -362,6 +364,7 @@ export default compose(
       fetchFilteredMembers,
       disableCoachAvailabilitySlot,
       disablePrivateBooking,
+      deletePrivateBooking,
       searchMembers,
       updateCoach,
       pushRouter: push,

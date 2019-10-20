@@ -314,7 +314,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
                 private_booking={this.state.selectedPrivateBooking}
                 onDelete={() =>
                   this.setState((prevState) => ({
-                    bookingToDisable: prevState.selectedPrivateBooking.id,
+                    bookingToDisable: prevState.selectedPrivateBooking,
                   }))
                 }
               />
@@ -379,9 +379,13 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
         />
         <PrivateBookingDisableDialog
           open={!!this.state.bookingToDisable}
+          private_booking={this.state.bookingToDisable}
           onSubmit={(force_refund) =>
-            this.props.disablePrivateBooking(
-              this.state.bookingToDisable,
+            (this.state.bookingToDisable.booking_status_code ===
+              BOOKING_STATUS_OK.id
+              ? this.props.disablePrivateBooking
+              : this.props.deletePrivateBooking)(
+              this.state.bookingToDisable.id,
               { force_refund },
               {
                 onSuccess: () => {

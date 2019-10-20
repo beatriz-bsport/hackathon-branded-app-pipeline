@@ -18,13 +18,35 @@ import { compose } from 'recompose';
 import memberSelectors from '../../libs/member/selectors';
 import withTitle from '../../hocs/with-title.hoc';
 
-import MemberDetailInfo from './MemberDetailInfo.page';
-import MemberDetailPass from './MemberDetailPass.page';
-import MemberDetailRelation from './MemberDetailRelation.page';
-import MemberDetailBooking from './MemberDetailBooking.page';
-import MemberDetailPayment from './MemberDetailPayment.page';
+import asyncComponent from '../../AsyncComponent';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+
+const MemberDetailInfo = asyncComponent(() =>
+  import('./MemberDetailInfo.page'),
+);
+const MemberDetailPass = asyncComponent(() =>
+  import('./MemberDetailPass.page'),
+);
+const MemberDetailRelation = asyncComponent(() =>
+  import('./MemberDetailRelation.page'),
+);
+const MemberDetailBooking = asyncComponent(() =>
+  import('./MemberDetailBooking.page'),
+);
+const MemberDetailPayment = asyncComponent(() =>
+  import('./MemberDetailPayment.page'),
+);
+/*
+const MemberDetailPrivateService = asyncComponent(() =>
+  import('./MemberDetailPrivateService.page'),
+);
+          <Route
+            exact
+            path="/member/:id/private-service"
+            component={MemberDetailPrivateService}
+	  />
+	  */
 
 type Props = {
   t: TFunction,

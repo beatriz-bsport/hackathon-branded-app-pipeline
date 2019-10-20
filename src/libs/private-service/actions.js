@@ -39,6 +39,7 @@ import {
   fetchPrivateBookingPreview as fetchPrivateBookingPreviewAPI,
   registerPrivateBookings as registerPrivateBookingsAPI,
   disablePrivateBooking as disablePrivateBookingAPI,
+  deletePrivateBooking as deletePrivateBookingAPI,
 } from './api';
 
 import type { Dispatch, ThunkAction } from '../../state/types';
@@ -890,5 +891,32 @@ export function disablePrivateBooking(
       if (options && options.onError) options.onError();
     }
     dispatch(privateBookingCreateOrUpdateActions.isLoading(false));
+  };
+}
+
+export const privateBookingDeleteActions = {
+  error: createAction('PRIVATE_BOOKING/DELETE/ERROR'),
+  isLoading: createAction('PRIVATE_BOOKING/DELETE/IS_LOADING'),
+  success: createAction('PRIVATE_BOOKING/DELETE/SUCCESS'),
+};
+
+export function deletePrivateBooking(
+  id: number,
+  data: { force_refund: boolean },
+  options: ?{ onSuccess: () => void, onError: ?() => void },
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(privateBookingDeleteActions.isLoading(true));
+    dispatch(privateBookingDeleteActions.error(null));
+    try {
+      await deletePrivateBookingAPI(id);
+      dispatch(privateBookingDeleteActions.success(id));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      console.error(err);
+      dispatch(privateBookingDeleteActions.error(null));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(privateBookingDeleteActions.isLoading(false));
   };
 }

@@ -15,6 +15,7 @@ import {
   privateBookingPreviewActions,
   privateBookingListActions,
   privateBookingCreateOrUpdateActions,
+  privateBookingDeleteActions,
   privateSlotRetrieveActions,
   privateSlotCreateOrUpdateActions,
   privatePassListActions,
@@ -170,6 +171,14 @@ export default handleActions(
     },
     [privateBookingCreateOrUpdateActions.success]: (state, { payload }) => {
       return state.setIn(['privateBooking', 'byId', payload.id], payload);
+    },
+    [privateBookingDeleteActions.success]: (state, { payload }) => {
+      return state
+        .updateIn(['privateBooking', 'byId'], (x) => x.without(`${payload}`))
+        .setIn(
+          ['privateBooking', 'allIds'],
+          state.privateBooking.allIds.filter((x) => x !== payload),
+        );
     },
 
     [privateServiceListActions.success]: (state, { payload }) => {

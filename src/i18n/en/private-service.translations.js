@@ -28,12 +28,15 @@ export default {
   },
   privateBooking: {
     cancel: 'Cancel',
+    hardDelete: 'Delete',
     isCancelled: 'Cancelled',
     delete: {
       title: 'Booking cancellation',
       explain:
         'Are you sure you want to cancel this booking ? This operation is not cancellable.',
       explainForceRefund: 'Refund pass credit to allow a new booking.',
+      explainHardDelete:
+        'This booking has already been cancelled. If you delete it, it will be definitely deleted form the schedule and you will lose the history of modification. It will refunded if it was not refunded during cancellation. This operation is not revertable.',
       cancel: 'Cancel',
       confirm: 'Confirm',
     },

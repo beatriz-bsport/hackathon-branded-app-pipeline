@@ -45,8 +45,8 @@ const MemberDetailPrivateService = asyncComponent(() =>
             exact
             path="/member/:id/private-service"
             component={MemberDetailPrivateService}
-	  />
-	  */
+  />
+*/
 
 type Props = {
   t: TFunction,

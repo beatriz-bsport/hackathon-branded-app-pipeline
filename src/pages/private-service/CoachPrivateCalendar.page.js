@@ -105,6 +105,7 @@ type Props = {
   fetchPrivateBookings: (params: any) => void,
   privateBookings: Array<PrivateBooking>,
   disablePrivateBooking: (id: number, data: { force_refund: boolean }) => void,
+  deletePrivateBooking: (id: number, data: { force_refund: boolean }) => void,
   availabilitySlotUpdating: boolean,
   goToMember: (id: number) => void,
 

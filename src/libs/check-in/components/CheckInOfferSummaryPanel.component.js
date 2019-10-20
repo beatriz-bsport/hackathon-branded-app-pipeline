@@ -78,7 +78,6 @@ class CheckInOfferSummary extends Component<Props, State> {
             <Typography variant="body1">
               {`${formatAsTime(offer.date_start)} - ${formatAsTime(
                 offer.date_end,
-                t,
               )}`}
             </Typography>
           </div>

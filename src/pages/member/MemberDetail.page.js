@@ -37,16 +37,12 @@ const MemberDetailBooking = asyncComponent(() =>
 const MemberDetailPayment = asyncComponent(() =>
   import('./MemberDetailPayment.page'),
 );
-/*
-const MemberDetailPrivateService = asyncComponent(() =>
-  import('./MemberDetailPrivateService.page'),
+const MemberDetailPrivateBooking = asyncComponent(() =>
+  import('./MemberDetailPrivateBooking.page'),
 );
-          <Route
-            exact
-            path="/member/:id/private-service"
-            component={MemberDetailPrivateService}
-  />
-*/
+const MemberDetailPrivateConsumerPass = asyncComponent(() =>
+  import('./MemberDetailPrivateConsumerPass.page'),
+);
 
 type Props = {
   t: TFunction,
@@ -108,6 +104,14 @@ export function MemberDetail(props: Props) {
           <Tab label={t('member.menu.paymentPack')} value="pass" />
           <Tab label={t('member.menu.payment')} value="payment" />
           <Tab label={t('member.menu.relation')} value="relation" />
+          <Tab
+            label={t('member.menu.privateBooking')}
+            value="private-booking"
+          />
+          <Tab
+            label={t('member.menu.privateConsumerPass')}
+            value="private-consumer-pass"
+          />
         </Tabs>
       </AppBar>
       <div className={classes.content}>
@@ -140,6 +144,26 @@ export function MemberDetail(props: Props) {
             component={MemberDetailPayment}
           />
           <Route exact path="/member/:id/info" component={MemberDetailInfo} />
+          <Route
+            exact
+            path="/member/:id/private-booking/:privateBookingId"
+            component={MemberDetailPrivateBooking}
+          />
+          <Route
+            exact
+            path="/member/:id/private-booking"
+            component={MemberDetailPrivateBooking}
+          />
+          <Route
+            exact
+            path="/member/:id/private-consumer-pass/:privateConsumerPassId"
+            component={MemberDetailPrivateConsumerPass}
+          />
+          <Route
+            exact
+            path="/member/:id/private-consumer-pass"
+            component={MemberDetailPrivateConsumerPass}
+          />
         </Switch>
       </div>
       <MemberActions

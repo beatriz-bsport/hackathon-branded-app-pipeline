@@ -53,7 +53,7 @@ export const BookingCapabilities = (props: Props) => {
             <PrivateConsumerPassBookerListItem
               private_consumer_pass={pcp}
               key={pcp.id}
-              onClick={() => props.onConsumerPassClick(pcp.id)}
+              onBook={() => props.onConsumerPassClick(pcp.id)}
             />
           ))}
         </List>

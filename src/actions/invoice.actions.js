@@ -173,6 +173,27 @@ export function fetchSpecificInvoice(invoiceId: string) {
   };
 }
 
+export function fetchByInvoiceItem(
+  buyable_item_identifier: number,
+  buyable_item_id: number,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(startFetchSpecificInvoice());
+    dispatch(errorFetchingSpeciicInvoice(null));
+
+    try {
+      const response = await api.invoice.fetchByInvoiceItem(
+        buyable_item_identifier,
+        buyable_item_id,
+      );
+      const invoice = response.data;
+      dispatch(fetchedSpecificInvoice(invoice));
+    } catch (err) {
+      dispatch(errorFetchingSpeciicInvoice(err));
+    }
+  };
+}
+
 export function startUpdatePaymentStatus() {
   return { type: types.PAYMENT_ITEM_START_UPDATE_STATUS };
 }

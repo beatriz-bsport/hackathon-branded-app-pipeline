@@ -33,6 +33,18 @@ export async function fetchSpecific(invoiceId: number) {
   return getAuth(`${API_URI}/payment/invoices/${invoiceId}/`);
 }
 
+export async function fetchByInvoiceItem(
+  buyable_item_identifier: number,
+  object_id: number,
+) {
+  return getAuth(
+    `${API_URI}/payment/invoices/by_invoice_item/${buildUrlParams({
+      buyable_item_identifier,
+      object_id,
+    })}`,
+  );
+}
+
 export async function updatePaymentMethod(uuid: string, newMethod: number) {
   return patchAuth(`${API_URI}/payment/payments/${uuid}/`, {
     payment_method: newMethod,
@@ -84,4 +96,5 @@ export default {
   fetchByQuery,
   fetchConfiguration,
   patchConfiguration,
+  fetchByInvoiceItem,
 };

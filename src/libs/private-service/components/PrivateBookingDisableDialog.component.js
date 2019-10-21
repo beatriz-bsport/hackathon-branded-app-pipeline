@@ -15,7 +15,7 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 type Props = {
-  onSubmit: (fiorce_refund: boolean) => void,
+  onSubmit: (force_refund: boolean) => void,
   classes: Object,
   open: boolean,
   private_booking: PrivateBooking,

@@ -7,11 +7,11 @@ import type { PrivateConsumerPass } from '../types';
 const _getPrivateConsumerPassIdList: (State) => Array<number> = (state) =>
   state.privateService.privateConsumerPass.allIds;
 
-const _getPrivateConsumerPassDict: (State) => {
+export const getPrivateConsumerPassDict: (State) => {
   [id: number]: PrivateConsumerPass,
 } = (state) => state.privateService.privateConsumerPass.byId;
 
 export const getPrivateConsumerPassList: (State) => Array<PrivateConsumerPass> = createSelector(
-  [_getPrivateConsumerPassIdList, _getPrivateConsumerPassDict],
+  [_getPrivateConsumerPassIdList, getPrivateConsumerPassDict],
   (ids, data) => ids.map((id) => data[id]),
 );

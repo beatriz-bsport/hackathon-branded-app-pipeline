@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import TextField from '@material-ui/core/TextField';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import InlineDateTimePicker from 'material-ui-pickers/DateTimePicker/DateTimePickerInline';
 import RefreshIcon from '@material-ui/icons/Refresh';
@@ -66,6 +67,7 @@ type State = {
   privateSlotId: ?number,
   date: Object,
   privateConsumerPassNeedRefresh: boolean,
+  address: string,
 };
 
 export class PrivateBookingManagerForm extends React.Component<Props, State> {
@@ -87,6 +89,7 @@ export class PrivateBookingManagerForm extends React.Component<Props, State> {
       date: moment(props.date),
       privateServiceId: null,
       privateSlotId: null,
+      address: '',
       privateConsumerPassNeedRefresh: false,
     };
   }
@@ -146,12 +149,13 @@ export class PrivateBookingManagerForm extends React.Component<Props, State> {
               {this.props.compatiblePrivateConsumerPass.map((pcp) => (
                 <PrivateConsumerPassBookerListItem
                   private_consumer_pass={pcp}
-                  onClick={() => {
+                  onBook={() => {
                     this.props.registerPrivateBooking({
                       private_consumer_pass: pcp.id,
                       private_slot: this.state.privateSlotId,
                       coach: this.state.coachId,
                       date_start: this.state.date.format('YYYY/MM/DD HH:mm'),
+                      address: this.state.address,
                     });
                   }}
                   key={pcp.id}
@@ -221,6 +225,33 @@ export class PrivateBookingManagerForm extends React.Component<Props, State> {
     return [coachPrivateServices, selectableSlots];
   };
 
+  renderAddressForm = (selectableService: Array<PrivateService>) => {
+    if (this.state.privateServiceId) {
+      const privateService = selectableService.find(
+        (ps) => ps.id === this.state.privateServiceId,
+      );
+      if (
+        privateService &&
+        privateService.establishments &&
+        !privateService.establishments.length
+      ) {
+        return (
+          <TextField
+            multiline
+            className={this.props.classes.addressField}
+            rows={5}
+            label={this.props.t('privateBooking.managerAdd.address')}
+            fullWidth
+            value={this.state.address}
+            variant="outlined"
+            onChange={(ev) => this.setState({ address: ev.target.value })}
+          />
+        );
+      }
+    }
+    return null;
+  };
+
   render() {
     if (!this.state.member) {
       return (
@@ -276,6 +307,7 @@ export class PrivateBookingManagerForm extends React.Component<Props, State> {
             onChange={this.handleSlotChange}
             isDisabled={!this.state.privateServiceId}
           />
+          {this.renderAddressForm(selectableService)}
           {this.props.compatiblePassLoading || this.props.processing ? (
             <LinearProgress className={this.props.classes.loadingContainer} />
           ) : (
@@ -319,6 +351,10 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
+  },
+  addressField: {
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit,
   },
 });
 

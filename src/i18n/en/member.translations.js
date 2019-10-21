@@ -35,6 +35,8 @@ export default {
     paymentPack: 'Pass',
     invoices: 'Invoices & Subscriptions',
     payment: 'Billing',
+    privateBooking: 'Private lesson',
+    privateConsumerPass: 'Pass private lesson',
   },
   row: {
     headers: {

@@ -35,6 +35,8 @@ import {
   // private-consumer-pass
   fetchCompatiblePrivateConsumerPass as fetchCompatiblePrivateConsumerPassAPI,
   fetchCompatiblePrivatePass as fetchCompatiblePrivatePassAPI,
+  retrievePrivateConsumerPass as retrievePrivateConsumerPassAPI,
+  fetchPrivateConsumerPassList as fetchPrivateConsumerPassListAPI,
   // private-booking
   fetchPrivateBookingPreview as fetchPrivateBookingPreviewAPI,
   registerPrivateBookings as registerPrivateBookingsAPI,
@@ -738,6 +740,26 @@ export const privateConsumerPassListActions = {
   success: createAction('PRIVATE_CONSUMER_PASS/LIST/SUCCESS'),
 };
 
+export function fetchPrivateConsumerPassList(
+  params: any,
+  options: ?{ onSuccess: () => void, onError: ?() => void },
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(privateConsumerPassListActions.isLoading(true));
+    dispatch(privateConsumerPassListActions.error(null));
+    try {
+      const response = await fetchPrivateConsumerPassListAPI(params);
+      dispatch(privateConsumerPassListActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      console.error(err);
+      dispatch(privateConsumerPassListActions.error(null));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(privateConsumerPassListActions.isLoading(false));
+  };
+}
+
 export function fetchCompatiblePrivateConsumerPass(
   privateSlotId: number,
   params: any,
@@ -759,6 +781,34 @@ export function fetchCompatiblePrivateConsumerPass(
       if (options && options.onError) options.onError();
     }
     dispatch(privateConsumerPassListActions.isLoading(false));
+  };
+}
+
+export const privateConsumerPassRetrieveActions = {
+  error: createAction('PRIVATE_CONSUMER_PASS/RETRIEVE/ERROR'),
+  isLoading: createAction('PRIVATE_CONSUMER_PASS/RETRIEVE/IS_LOADING'),
+  success: createAction('PRIVATE_CONSUMER_PASS/RETRIEVE/SUCCESS'),
+};
+
+export function fetchPrivateConsumerPass(
+  private_consumer_pass: number,
+  options: ?{ onSuccess: () => void, onError: ?() => void },
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(privateConsumerPassRetrieveActions.isLoading(true));
+    dispatch(privateConsumerPassRetrieveActions.error(null));
+    try {
+      const response = await retrievePrivateConsumerPassAPI(
+        private_consumer_pass,
+      );
+      dispatch(privateConsumerPassRetrieveActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      console.error(err);
+      dispatch(privateConsumerPassRetrieveActions.error(null));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(privateConsumerPassRetrieveActions.isLoading(false));
   };
 }
 

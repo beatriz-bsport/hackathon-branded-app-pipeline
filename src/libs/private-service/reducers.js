@@ -22,6 +22,7 @@ import {
   privatePassCreateOrUpdateActions,
   privatePassRetrieveActions,
   privateConsumerPassListActions,
+  privateConsumerPassRetrieveActions,
 } from './actions';
 
 import type { PrivateServiceState } from './types';
@@ -341,6 +342,15 @@ export default handleActions(
           },
           { deep: true },
         );
+    },
+    [privateConsumerPassRetrieveActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['privateConsumerPass', 'loading'], payload);
+    },
+    [privateConsumerPassRetrieveActions.error]: (state, { payload }) => {
+      return state.setIn(['privateConsumerPass', 'error'], payload);
+    },
+    [privateConsumerPassRetrieveActions.success]: (state, { payload }) => {
+      return state.setIn(['privateConsumerPass', 'byId', payload.id], payload);
     },
   },
   initialState,

@@ -235,6 +235,20 @@ export const fetchCompatiblePrivateConsumerPass = (
   );
 };
 
+export const fetchPrivateConsumerPassList = (params: any) => {
+  return getAuth(
+    `${API_V1_URI}/private_service/private_consumer_pass/${buildUrlParams(
+      params,
+    )}`,
+  );
+};
+
+export const retrievePrivateConsumerPass = (private_consumer_pass: number) => {
+  return getAuth(
+    `${API_V1_URI}/private_service/private_consumer_pass/${private_consumer_pass}/`,
+  );
+};
+
 export const fetchCompatiblePrivatePass = (
   privateSlotId: number,
   params: any,

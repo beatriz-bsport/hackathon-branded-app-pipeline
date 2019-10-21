@@ -30,8 +30,20 @@ export default {
     cancel: 'Annuler',
     hardDelete: 'Supprimer',
     isCancelled: 'Annulé',
+    detail: {
+      title: 'Réservation',
+      registeredOn: 'Réservé le ',
+      source: 'Canal de réservation ',
+      slotTitle: 'Séance',
+      passTitle: 'Carte de cours',
+      wasRefunded: 'Crédit carte de cours remboursé',
+      wasRefundedYes: 'Oui',
+      wasRefundedNo: 'Non',
+      address: 'Adresse',
+    },
     managerAdd: {
       title: 'Nouvelle réservation',
+      address: 'Adresse',
       coachSelector: {
         label: 'Professeur',
       },
@@ -182,6 +194,11 @@ export default {
   },
   consumerPass: {
     current_credits: '{{ current_credits }}/{{credits}} crédits',
+    isReverted: 'Facture annulée',
+    detail: {
+      invoice: 'Facture liée',
+      booking: 'Réservations cours privé liées',
+    },
   },
   privateServiceCompatibility: {
     delete: {

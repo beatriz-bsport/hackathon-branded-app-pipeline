@@ -17,6 +17,7 @@ import type { PrivateSlot } from '../types';
 type Props = {
   onDelete: () => void,
   onEdit: () => void,
+  onClick: ?() => void,
   slot: PrivateSlot,
   t: TFunction,
 };
@@ -38,7 +39,7 @@ const DeleteButtonWithConfirm = withConfirm(DeleteButton, 'onClick', {
 
 export const PrivateSlotListItem = (props: Props) => {
   return (
-    <ListItem>
+    <ListItem button={!!props.onClick} onClick={props.onClick}>
       <ListItemText
         primary={props.slot.name}
         secondary={`${formatMinutes(

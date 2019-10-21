@@ -30,6 +30,20 @@ export default {
     cancel: 'Cancel',
     hardDelete: 'Delete',
     isCancelled: 'Cancelled',
+    managerAdd: {
+      title: 'New booking',
+      address: 'Adress',
+      coachSelector: {
+        label: 'Teacher',
+      },
+      pleaseSelectCoachAndSlot: 'First please select teacher and lesson',
+      cancel: 'Cancel',
+      compatiblePrivatePass: 'Bill a new private lesson pass',
+      compatiblePrivateConsumerPass: 'Owned private pass:',
+      emptyPrivateConsumerPass: 'No compatible pass owned',
+      emptyPrivatePass: 'No pass compatible found',
+      privateConsumerPassNeedRefresh: 'Refresh the list',
+    },
     delete: {
       title: 'Booking cancellation',
       explain:
@@ -39,6 +53,17 @@ export default {
         'This booking has already been cancelled. If you delete it, it will be definitely deleted form the schedule and you will lose the history of modification. It will refunded if it was not refunded during cancellation. This operation is not revertable.',
       cancel: 'Cancel',
       confirm: 'Confirm',
+    },
+    detail: {
+      title: 'Booking',
+      registeredOn: 'Booked on ',
+      source: 'Booking channel ',
+      slotTitle: 'Slot ',
+      passTitle: 'Pass ',
+      wasRefunded: 'Credit on pass refunded ',
+      wasRefundedYes: 'Yes',
+      wasRefundedNo: 'No',
+      address: 'Address',
     },
   },
   privateService: {
@@ -146,7 +171,7 @@ export default {
       compatibleConsumerPassTitle: 'Your compatible pass',
       emptyConsumerPassList: 'You do not own a pass with enough credits',
       compatiblePassTitle: 'Pass compatible with this slot',
-      emptyPassList: 'No compatible pass availebl, please contact your club',
+      emptyPassList: 'No compatible pass available,  please contact your club',
     },
     useCredit: 'Book',
     private_pass: {
@@ -170,6 +195,11 @@ export default {
   },
   consumerPass: {
     current_credits: '{{ current_credits }}/{{credits}} credits',
+    isReverted: 'Reverted invoice',
+    detail: {
+      invoice: 'Related invoice',
+      booking: 'Related private bookings',
+    },
   },
   privatePass: {
     delete: {

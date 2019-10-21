@@ -20,7 +20,7 @@ export const getPrivateConsumerPassListWithPass = createSelector(
 );
 */
 
-const _getPrivateBookingDict: (State) => { [id: number]: PrivateBooking } = (
+export const getPrivateBookingDict: (State) => { [id: number]: PrivateBooking } = (
   state,
 ) => state.privateService.privateBooking.byId;
 
@@ -28,7 +28,7 @@ const _getPrivateBookingListId: (State) => Array<number> = (state) =>
   state.privateService.privateBooking.allIds;
 
 export const getPrivateBookingListBase: (State) => Array<PrivateBooking> = createSelector(
-  [_getPrivateBookingListId, _getPrivateBookingDict],
+  [_getPrivateBookingListId, getPrivateBookingDict],
   (ids, data) => ids.map((id) => data[id]),
 );
 

@@ -37,6 +37,8 @@ export default {
     paymentPack: 'Abonnements',
     invoices: 'Factures et Souscriptions',
     payment: 'Facturation',
+    privateBooking: 'Cours privés',
+    privateConsumerPass: 'Cartes cours privés',
   },
   row: {
     headers: {

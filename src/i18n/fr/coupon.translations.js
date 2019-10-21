@@ -94,6 +94,7 @@ export default {
         shop: 'Magasin',
         fee: 'Frais de livraison',
         all: 'Ensemble du panier',
+        private_pass: 'Carte cours privé',
       },
     },
     actions: {

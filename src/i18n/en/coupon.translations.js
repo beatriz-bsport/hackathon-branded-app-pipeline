@@ -66,6 +66,7 @@ export default {
         shop: 'Shop',
         fee: 'Delivery fee',
         all: 'All basket',
+        private_pass: 'Private lesson pass',
       },
     },
     actions: {

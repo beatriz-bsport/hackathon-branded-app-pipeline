@@ -25,6 +25,7 @@ import {
   BUYABLE_ITEM_PASS,
   BUYABLE_ITEM_SHOP_ITEM,
   BUYABLE_ITEM_FEE,
+  BUYABLE_ITEM_PRIVATE_PASS,
 } from '@bsport/common/lib/master-data/buyable-items';
 
 import NumericInput from '../../../components/input/NumericInput.component';
@@ -254,6 +255,15 @@ export class CouponForm extends React.Component<Props, State> {
                 <Radio checked={BUYABLE_ITEM_FEE === this.state.applies_to} />
               }
               label={t('form.applies_to.choices.fee')}
+            />
+            <FormControlLabel
+              value={BUYABLE_ITEM_PRIVATE_PASS}
+              control={
+                <Radio
+                  checked={BUYABLE_ITEM_PRIVATE_PASS === this.state.applies_to}
+                />
+              }
+              label={t('form.applies_to.choices.private_pass')}
             />
             <FormControlLabel
               value={null}

@@ -115,19 +115,21 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
           </Paper>
         </Grid>
         <Grid item xs={12} lg={6}>
-          <PrivateConsumerPassDetail
-            private_booking_list={this.props.private_booking_list}
-            privateBookingsLoading={this.props.privateBookingsLoading}
-            private_consumer_pass={this.props.private_consumer_pass}
-            disablePrivateBooking={this.props.disablePrivateBooking}
-            deletePrivateBooking={this.props.deletePrivateBooking}
-            fetchPrivateConsumerPass={this.props.fetchPrivateConsumerPass}
-            invoice={this.props.privateConsumerPassInvoice}
-            onInvoiceClick={this.props.onInvoiceClick}
-            goToPrivateBooking={(privateBookingId) =>
-              this.props.goToPrivateBooking(this.props.id, privateBookingId)
-            }
-          />
+          {this.props.privateConsumerPassId ? (
+            <PrivateConsumerPassDetail
+              private_booking_list={this.props.private_booking_list}
+              privateBookingsLoading={this.props.privateBookingsLoading}
+              private_consumer_pass={this.props.private_consumer_pass}
+              disablePrivateBooking={this.props.disablePrivateBooking}
+              deletePrivateBooking={this.props.deletePrivateBooking}
+              fetchPrivateConsumerPass={this.props.fetchPrivateConsumerPass}
+              invoice={this.props.privateConsumerPassInvoice}
+              onInvoiceClick={this.props.onInvoiceClick}
+              goToPrivateBooking={(privateBookingId) =>
+                this.props.goToPrivateBooking(this.props.id, privateBookingId)
+              }
+            />
+          ) : null}
         </Grid>
       </Grid>
     );

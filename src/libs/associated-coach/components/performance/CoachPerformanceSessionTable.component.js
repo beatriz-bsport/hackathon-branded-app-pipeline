@@ -52,8 +52,8 @@ export function CoachPerformanceTable(props: Props) {
                 moment(session.date_start).format('DD/MM/YYYY HH[:]mm'),
                 session.duration_minute,
                 session.nb_accountable_bookings,
-                `${session.base} €`,
-                `${session.bonus} €`,
+                `${session.base}`,
+                `${session.bonus}`,
                 (
                   paymentRules.find(
                     (pr) => pr.id === session.payment_rule_id,

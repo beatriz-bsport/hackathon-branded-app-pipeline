@@ -197,7 +197,7 @@ export class AllCoachPerformance extends React.Component<Props> {
                   perf[0].name,
                   perf[1].nbSessions,
                   perf[1].nbBookings,
-                  `${perf[1].total} €`,
+                  `${perf[1].total}`,
                 ]),
               'payroll.csv',
             );

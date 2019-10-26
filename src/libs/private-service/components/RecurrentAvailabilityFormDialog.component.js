@@ -65,10 +65,10 @@ export class RecurrentAvailabilityFormDialog extends React.Component<
               <Typography>
                 {this.props.eventSlot
                   ? this.props.t('calendar.form.interval.explain2', {
-                      date_start: moment(this.props.eventSlot.endStr).format(
+                      date_start: moment(this.props.eventSlot.startStr).format(
                         'HH:mm',
                       ),
-                      date_end: moment(this.props.eventSlot.startStr).format(
+                      date_end: moment(this.props.eventSlot.endStr).format(
                         'HH:mm',
                       ),
                       day: moment(this.props.eventSlot.startStr).format('dddd'),

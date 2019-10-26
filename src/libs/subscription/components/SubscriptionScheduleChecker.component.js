@@ -23,6 +23,7 @@ import { CardElement, IbanElement, injectStripe } from 'react-stripe-elements';
 
 import SubscriptionSchedule from './SubscriptionSchedule.component';
 import type { SubscriptionData } from '../types';
+import Config from '../../../config';
 
 type Props = {
   subscriptionData: ?SubscriptionData,
@@ -38,7 +39,7 @@ type State = {
   loading: boolean,
 };
 
-const SEPA_AVAILABLE = false;
+const SEPA_AVAILABLE = Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging';
 
 const getScheduledInvoicesFromSubscriptionData = (
   subscriptionData: SubscriptionData,

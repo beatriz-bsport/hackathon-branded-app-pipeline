@@ -67,7 +67,7 @@ const PlannedInvoiceItem = (props: {
         secondary={(props.invoice.uuid && props.invoice.uuid.slice(0, 8)) || ''}
       />
       <ListItemText
-        primary={`${props.invoice.price - props.invoice.voucher} €`}
+        primary={`${props.invoice.price} €`}
         secondary={statusText}
         primaryTypographyProps={{ align: 'right' }}
         secondaryTypographyProps={{ align: 'right' }}

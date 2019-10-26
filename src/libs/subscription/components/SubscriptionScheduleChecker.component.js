@@ -52,13 +52,7 @@ const getScheduledInvoicesFromSubscriptionData = (
           .clone()
           .add(s.length, 'month'),
         price:
-          subscriptionData.trial_nb + s.length >= subscriptionData.nb_interval
-            ? 0
-            : subscriptionData.recurrent_price,
-        voucher:
-          subscriptionData.trial_nb + s.length >= subscriptionData.nb_interval
-            ? 0
-            : subscriptionData.recurrent_voucher,
+          subscriptionData.recurrent_price - subscriptionData.recurrent_voucher,
       },
     ],
     [],

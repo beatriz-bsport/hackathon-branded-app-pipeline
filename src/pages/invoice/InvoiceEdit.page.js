@@ -15,6 +15,7 @@ import shopSelector from '../../libs/shop/selectors';
 import type { PaymentPack } from '../../libs/payment-packs/types';
 import { invoice as invoiceActions } from '../../actions';
 import withTitle from '../../hocs/with-title.hoc';
+import { formatAsDate } from '../../datetime';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import memberSelectors from '../../libs/member/selectors';
 import { fetchMember } from '../../libs/member/actions';
@@ -195,10 +196,10 @@ export default compose(
     },
   ),
   withTitle(
-    ({ t, uuid }) =>
+    ({ t, uuid, invoice }) =>
       `${t('titles:invoice.invoiceEdit')} - ${
         uuid ? uuid.slice(0, 8).toUpperCase() : ''
-      }`,
+      } - ${invoice && invoice.date ? formatAsDate(invoice.date) : ''}`,
   ),
   connect((state, { invoice }) => ({
     member: memberSelectors.get(state, invoice ? invoice.member : null),

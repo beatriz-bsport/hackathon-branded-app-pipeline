@@ -83,6 +83,14 @@ export class CheckoutPayment extends React.Component<Props> {
     return null;
   };
 
+  backToCalendar = () => {
+    if (this.props.theme && this.props.theme.scheduleURL) {
+      window.location = this.props.theme.scheduleURL;
+      return;
+    }
+    this.props.goBack();
+  };
+
   render() {
     if (this.props.basket && this.props.basket.is_finalized) {
       this.props.onBasketFinalized();
@@ -107,12 +115,7 @@ export class CheckoutPayment extends React.Component<Props> {
               removeItemFromBasket={this.props.removeItemFromBasket}
               termsAndConditions={this.props.theme.general_terms_and_conditions}
               attachCoupon={this.props.attachCoupon}
-              backToCalendar={() => {
-                if (this.props.theme && this.props.theme.scheduleURL) {
-                  return this.props.push(this.props.theme);
-                }
-                return this.props.goBack();
-              }}
+              backToCalendar={this.backToCalendar}
               patchBasket={(data, options) =>
                 this.props.patchCurrentBasket(data, options)
               }

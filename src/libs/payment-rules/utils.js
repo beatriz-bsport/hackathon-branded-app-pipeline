@@ -1,5 +1,7 @@
 import lodash from 'lodash';
 
+import { PAYMENT_RULE_CALCULATION_BOOKINGS } from '@bsport/common/lib/master-data/payment-rule';
+
 export function computeBonus(session, rate) {
   const nbBookings = rate.only_attendant
     ? session.nb_attendances
@@ -18,9 +20,15 @@ export function setRateForSession(session, rates, defaultRate) {
 }
 
 export function computeSessionPayment(session) {
+  const base =
+    session.calculation_method === PAYMENT_RULE_CALCULATION_BOOKINGS
+      ? +session.rate.base.price
+      : ((session.rate.base_percent * session.sum_margin_value) / 100).toFixed(
+          2,
+        );
   return {
     ...session,
-    base: +session.rate.base_price,
+    base,
     bonus: computeBonus(session, session.rate),
     nb_accountable_bookings: session.rate.only_attendant
       ? session.nb_attendances

@@ -6,6 +6,8 @@ export default {
   save: 'Save',
   name: 'Name',
   base_price: 'Base',
+  base_percent: 'Percentage of value',
+  calculation_method: 'Calculation method',
   only_attendant: 'Count only attendants',
   actions: 'Actions',
   bookingThreshold: 'Threshold',
@@ -40,6 +42,10 @@ export default {
       content:
         'If you remove this rate, this rate will be removed from all related sessions and coaches.',
     },
+  },
+  calculation_methods: {
+    bookings: 'On bookings number',
+    margin_value: 'On the marginal value of each booking',
   },
   create: {
     error: 'Error during creation',

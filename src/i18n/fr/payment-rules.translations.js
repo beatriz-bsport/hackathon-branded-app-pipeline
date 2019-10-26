@@ -6,6 +6,8 @@ export default {
   save: 'Enregistrer',
   name: 'Nom',
   base_price: 'Base',
+  base_percent: 'Pourcentage de la valeur (TTC)',
+  calculation_method: 'Méthode de calcul',
   only_attendant: 'Restreindre le décompte de réservation aux élèves présents',
   actions: 'Actions',
   bookingThreshold: 'Seuil de réservations',
@@ -40,6 +42,10 @@ export default {
       content:
         'En supprimant cette règle, celle-ci sera dissociée de tous les professeurs et sessions auxquelles elle est actuellement attribuée',
     },
+  },
+  calculation_methods: {
+    bookings: 'Sur le nombre de réservations',
+    margin_value: 'Sur la valeur marginale de chaque réservation',
   },
   create: {
     error: 'Erreur lors de la création',

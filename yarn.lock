@@ -887,10 +887,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@bsport/common@^1.16.1":
-  version "1.16.1"
-  resolved "https://registry.yarnpkg.com/@bsport/common/-/common-1.16.1.tgz#b7a7a776f34a938aed53c541ac0acb3afb231e03"
-  integrity sha512-5q8x2FN8eiaHmeyipr5sUY76fjWOx3psFcadV6CVKlvkQO3cRPa8j7k2G1uB7hIjs8kzPIMecnb+ImzwUeSQsQ==
+"@bsport/common@^1.17.0":
+  version "1.17.0"
+  resolved "https://registry.yarnpkg.com/@bsport/common/-/common-1.17.0.tgz#cbc0bc1351e12d9813193b0adc9780f0de8ecc7e"
+  integrity sha512-jde9boYZxZ3cKVibQn9+Jf2F/P27qWmkLoT5w3rK7BzflayWEz8MAh0Mv3JRYLeWMsXl1000FGZdDLTHYrXjPA==
 
 "@compone/class@^1.1.1":
   version "1.1.1"
@@ -4863,7 +4863,7 @@ copy-to-clipboard@^3:
   integrity sha512-eOZERzvCmxS8HWzugj4Uxl8OJxa7T2k1Gi0X5qavwydHIfuSHq2dTD09LOg/XyGq4Zpb5IsR/2OJ5lbOegz78w==
   dependencies:
     toggle-selection "^1.0.6"
-    
+
 core-js-compat@^3.1.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/core-js-compat/-/core-js-compat-3.2.1.tgz#0cbdbc2e386e8e00d3b85dc81c848effec5b8150"

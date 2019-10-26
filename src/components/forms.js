@@ -105,6 +105,19 @@ export function PriceField(props) {
   );
 }
 
+export function PercentField(props) {
+  return (
+    <TextField
+      InputProps={{
+        inputProps: { min: 0, step: 1, max: 100 },
+        endAdornment: <InputAdornment position="end">%</InputAdornment>,
+      }}
+      type="number"
+      {...props}
+    />
+  );
+}
+
 const buttonStyles = (theme) => ({
   button: {
     marginLeft: theme.spacing.unit * 2,
@@ -537,7 +550,7 @@ type RadioFieldProps = {
 };
 
 export const RadioGroupField = (props: RadioFieldProps) => {
-  const { name, choices } = props;
+  const { name, choices, label } = props;
   return (
     <Field name={name}>
       {({ field, form: { setFieldValue } }) => (
@@ -545,11 +558,12 @@ export const RadioGroupField = (props: RadioFieldProps) => {
           name={name}
           onChange={(_, value) => setFieldValue(field.name, value)}
         >
+          <FormLabel>{label}</FormLabel>
           {choices.map(({ label, value }) => (
             <FormControlLabel
               key={value}
               value={value}
-              control={<Radio checked={field.value === `${value}`} />}
+              control={<Radio checked={`${field.value}` === `${value}`} />}
               label={label}
             />
           ))}

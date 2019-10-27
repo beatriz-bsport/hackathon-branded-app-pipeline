@@ -545,6 +545,7 @@ export const SwitchField = (props: SwitchFieldProps) => {
 };
 
 type RadioFieldProps = {
+  label?: string,
   name: string,
   choices: { label: string, value: * }[],
 };

@@ -40,7 +40,6 @@ type Props = {
   submitPayment: (data: *) => void,
   fetchCompanyTheme: (companyId: number) => void,
   onBasketFinalized: () => void,
-  push: (string) => void,
   goBack: () => void,
   t: TFunction,
   theme: ?Theme,

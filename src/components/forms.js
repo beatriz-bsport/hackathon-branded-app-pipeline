@@ -560,12 +560,12 @@ export const RadioGroupField = (props: RadioFieldProps) => {
           onChange={(_, value) => setFieldValue(field.name, value)}
         >
           <FormLabel>{label}</FormLabel>
-          {choices.map(({ label, value }) => (
+          {choices.map((choice) => (
             <FormControlLabel
-              key={value}
-              value={value}
-              control={<Radio checked={`${field.value}` === `${value}`} />}
-              label={label}
+              key={choice.value}
+              value={choice.value}
+              control={<Radio checked={`${field.value}` === `${choice.value}`} />}
+              label={choice.label}
             />
           ))}
         </RadioGroup>

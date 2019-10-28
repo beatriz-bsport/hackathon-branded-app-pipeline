@@ -33,10 +33,13 @@ type Props = {
   companyId: number,
   loading: boolean,
   paymentPacks: Array<PaymentPack>,
+  privatePassList: Array<PrivatePass>,
   authenticated: boolean,
 
   requestSignUp: () => void,
   fetchPaymentPacks: (companyId: number) => void,
+  fetchPrivatePassList: (companyId: number) => void,
+  pushPrivatePassCheckout: (packId: number, basketId: string) => void,
   pushPackCheckout: (packId: number, basketId: string) => void,
   toogleCurrentBasketOpen: (boolean) => void,
   currentBasket: Basket,
@@ -59,8 +62,8 @@ export class MarketPlacePassPage extends Component<Props> {
       return <LinearProgress />;
     }
     return (
-      <Grid container direction="row">
-        <Grid item>
+      <Grid container direction="row" justify="space-evenly">
+        <Grid item xs={11} md={5}>
           <MarketplacePassList
             paymentPacks={this.props.paymentPacks}
             pushPackCheckout={(packId) => {
@@ -76,22 +79,24 @@ export class MarketPlacePassPage extends Component<Props> {
             }}
           />
         </Grid>
-        <Grid item>
-          <MarketplacePrivatePassList
-            privatePassList={this.props.privatePassList}
-            onAddBasket={(packId) => {
-              if (!this.props.authenticated) {
-                this.props.requestSignUp();
-              } else {
-                this.props.pushPrivatePassCheckout(
-                  packId,
-                  this.props.currentBasket.id,
-                );
-                this.props.toogleCurrentBasketOpen(true);
-              }
-            }}
-          />
-        </Grid>
+        {this.props.privatePassList.length ? (
+          <Grid item xs={11} md={5}>
+            <MarketplacePrivatePassList
+              privatePassList={this.props.privatePassList}
+              onAddBasket={(packId) => {
+                if (!this.props.authenticated) {
+                  this.props.requestSignUp();
+                } else {
+                  this.props.pushPrivatePassCheckout(
+                    packId,
+                    this.props.currentBasket.id,
+                  );
+                  this.props.toogleCurrentBasketOpen(true);
+                }
+              }}
+            />
+          </Grid>
+        ) : null}
       </Grid>
     );
   }

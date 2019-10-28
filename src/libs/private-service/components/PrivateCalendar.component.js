@@ -194,7 +194,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
         ...privateBookings.map((pb) => ({
           start: pb.date_start,
           end: pb.date_end,
-          title: pb.name,
+          title: `${pb.member ? pb.member.name : ''}\n${pb.name}`,
           editable: false,
           extendedProps: {
             private_booking: pb,

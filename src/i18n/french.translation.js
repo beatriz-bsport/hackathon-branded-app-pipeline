@@ -935,6 +935,8 @@ export default {
       backToCalendar: 'Retour',
       showMarketplace: 'Voir le calendrier de ',
       noSessionToday: 'Aucune séance',
+      privatePassListTitle: 'Cartes cours privé',
+      passListTitle: 'Cartes cours collectif',
       bookButton: {
         book: 'Réserver',
         bookOption: "Liste d'attente",

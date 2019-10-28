@@ -63,20 +63,22 @@ export class MarketplaceWorkshopPage extends React.Component<Props> {
     }
     return (
       <div className={classes.container}>
-        <MarketplaceWorkshop
-          offers={offers}
-          workshops={workshops}
-          fetchPaymentPacks={this.props.fetchPaymentPacks}
-          fetchCompatiblePass={this.props.fetchCompatiblePass}
-          compatibleConsumerPacks={this.props.compatibleConsumerPacks}
-          compatiblePaymentPacks={this.props.compatiblePaymentPacks}
-          hideMap={!!this.props.hideMap}
-          onBook={(id) => this.props.goToBook(id, this.props.companyId)}
-          onBookOfferFromPack={this.props.onBookOfferFromPack}
-          goToPackPayment={(packId, offerId) =>
-            this.props.goToPackPayment(packId, offerId, this.props.companyId)
-          }
-        />
+        <div className={classes.column}>
+          <MarketplaceWorkshop
+            offers={offers}
+            workshops={workshops}
+            fetchPaymentPacks={this.props.fetchPaymentPacks}
+            fetchCompatiblePass={this.props.fetchCompatiblePass}
+            compatibleConsumerPacks={this.props.compatibleConsumerPacks}
+            compatiblePaymentPacks={this.props.compatiblePaymentPacks}
+            hideMap={!!this.props.hideMap}
+            onBook={(id) => this.props.goToBook(id, this.props.companyId)}
+            onBookOfferFromPack={this.props.onBookOfferFromPack}
+            goToPackPayment={(packId, offerId) =>
+              this.props.goToPackPayment(packId, offerId, this.props.companyId)
+            }
+          />
+        </div>
       </div>
     );
   }
@@ -86,6 +88,12 @@ const styles = (theme) => ({
   container: {
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+  },
+  column: {
+    maxWidth: 800,
   },
 });
 

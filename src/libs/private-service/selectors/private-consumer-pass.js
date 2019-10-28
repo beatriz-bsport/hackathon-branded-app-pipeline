@@ -16,6 +16,7 @@ export const getPrivateConsumerPassList: (State) => Array<PrivateConsumerPass> =
   (ids, data) => ids.map((id) => data[id]),
 );
 
+// eslint-disable-next-line
 export const getPrivateConsumerPassListWithCredit: (State) => Array<PrivateConsumerPass> = createSelector(
   [getPrivateConsumerPassList],
   (privateConsumerPassList) =>

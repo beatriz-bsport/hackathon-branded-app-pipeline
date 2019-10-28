@@ -52,6 +52,7 @@ import PrivateServiceForm from '../../libs/private-service/components/PrivateSer
 import PrivateServiceDetail from '../../libs/private-service/components/PrivateServiceDetail.component';
 
 type Props = {
+  fullScreen: boolean,
   privateServices: Array<PrivateService>,
   fetchAllPrivateServices: () => void,
   createOrUpdatePrivateService: (

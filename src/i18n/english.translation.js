@@ -871,6 +871,8 @@ export default {
       substitute: 'Substitute',
       substituted: 'Can not attend',
       backToCalendar: 'Back to calendar',
+      privatePassListTitle: 'Pass',
+      passListTitle: 'Private lessons pass',
       workshop: 'Workshops',
       showMarketplace: 'Show calendar of ',
       noSessionToday: 'No session',

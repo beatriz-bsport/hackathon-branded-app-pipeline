@@ -29,6 +29,7 @@ const styles = (theme) => ({
 type Props = {
   consumerPaymentPacks: Array<ConsumerPaymentPackConsumerView>,
   privateConsumerPass: Array<PrivateConsumerPass>,
+  fetchPrivateConsumerPassList: () => void,
   t: TFunction,
   classes: Object,
 };

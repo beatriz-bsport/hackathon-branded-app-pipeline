@@ -9,7 +9,7 @@ import { compose, withState } from 'recompose';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import Dialog from '@material-ui/core/Dialog';
-
+import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
@@ -27,14 +27,19 @@ type Props = {
   setSelectedPass: (*) => void,
   paymentPacks: *[],
   pushPackCheckout: (number) => void,
+  classes: Object,
 };
 
 export function MarketplacePassList(props: Props) {
   const { paymentPacks, t, pushPackCheckout, selectedPass } = props;
   return (
     <div>
-      <Typography variant="subtitle">
-        {props.t('marketplace.privatePass')}
+      <Typography
+        component="h3"
+        variant="h6"
+        className={props.classes.sectionTitle}
+      >
+        {props.t('marketplace.passListTitle')}
       </Typography>
       <Paper>
         <List dense disablePadding>
@@ -107,8 +112,15 @@ export function MarketplacePassList(props: Props) {
     </div>
   );
 }
+const styles = (theme) => ({
+  sectionTitle: {
+    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 1,
+  },
+});
 
 export default compose(
+  withStyles(styles),
   withNamespaces(),
   withState('selectedPass', 'setSelectedPass', null),
 )(MarketplacePassList);

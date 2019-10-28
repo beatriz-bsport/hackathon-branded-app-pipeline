@@ -18,6 +18,7 @@ type Props = {
   onSubmit: (force_refund: boolean) => void,
   classes: Object,
   open: boolean,
+  fullScreen?: boolean,
   private_booking: PrivateBooking,
   onClose: () => void,
   t: TFunction,
@@ -44,7 +45,7 @@ export class PrivateBookingDisableDialog extends React.Component<Props, State> {
       this.props.private_booking.booking_status_code &&
       this.props.private_booking.booking_status_code !== BOOKING_STATUS_OK.id;
     return (
-      <Dialog open={this.props.open}>
+      <Dialog fullScreen={!!this.props.fullScreen} open={this.props.open}>
         <form onSubmit={this.onSubmit}>
           <DialogTitle>{t('privateBooking.delete.title')}</DialogTitle>
           <DialogContent>

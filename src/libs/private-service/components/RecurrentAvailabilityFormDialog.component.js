@@ -27,6 +27,7 @@ type Props = {
     endStr: string,
   },
   classes: Object,
+  fullScreen?: boolean,
 };
 
 type State = {
@@ -52,7 +53,7 @@ export class RecurrentAvailabilityFormDialog extends React.Component<
 
   render() {
     return (
-      <Dialog open={!!this.props.open}>
+      <Dialog fullScreen={!!this.props.fullScreen} open={!!this.props.open}>
         <form onSubmit={this.onSubmit}>
           <DialogTitle>
             {this.props.t(`calendar.form.title.${this.props.mode}`)}

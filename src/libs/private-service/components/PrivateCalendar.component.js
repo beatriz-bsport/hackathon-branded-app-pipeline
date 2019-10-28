@@ -9,7 +9,9 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Popover from '@material-ui/core/Popover';
 import CancelIcon from '@material-ui/icons/Cancel';
 import List from '@material-ui/core/List';
+import Fade from '@material-ui/core/Fade';
 import ListItem from '@material-ui/core/ListItem';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import CheckIcon from '@material-ui/icons/Check';
@@ -17,7 +19,7 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import memoize from 'memoize-one';
 
-// import type { TFunction } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction'; // needed for dayClick
@@ -38,87 +40,103 @@ const styles = (theme) => ({
 });
 
 const AvailabilitySlotForm = withNamespaces(['privateService'])(
-  withStyles(styles)((props: { selectInfo: Object }) => {
-    return (
-      <List>
-        <ListItem button onClick={props.onBookRequest}>
-          <ListItemIcon color="primary">
-            <PersonAddIcon className={props.classes.leftIcon} />
-          </ListItemIcon>
-          <ListItemText primary={props.t('calendar.addBooking')} />
-        </ListItem>
-        <ListItem
-          button
-          onClick={props.onEnableAvailability}
-          disabled={!props.onEnableAvailability}
-        >
-          <ListItemIcon color="primary">
-            <CheckIcon className={props.classes.leftIcon} />
-          </ListItemIcon>
-          <ListItemText
-            primary={props.t('calendar.enableAvailability')}
-            secondary={
-              props.onEnableAvailability
-                ? null
-                : props.t('calendar.selectCoachToModifyAvailability')
-            }
-          />
-        </ListItem>
-        <ListItem
-          button
-          onClick={props.onEnableRecurrentAvailability}
-          disabled={!props.onEnableRecurrentAvailability}
-        >
-          <ListItemIcon color="primary">
-            <RefreshIcon className={props.classes.leftIcon} />
-          </ListItemIcon>
-          <ListItemText
-            primary={props.t('calendar.enableRecurrentAvailability')}
-            secondary={
-              props.onEnableRecurrentAvailability
-                ? null
-                : props.t('calendar.selectCoachToModifyAvailability')
-            }
-          />
-        </ListItem>
-        <ListItem
-          button
-          onClick={props.onDisableAvailability}
-          disabled={!props.onDisableAvailability}
-        >
-          <ListItemIcon>
-            <CancelIcon className={props.classes.leftIcon} />
-          </ListItemIcon>
-          <ListItemText
-            primary={props.t('calendar.disableAvailability')}
-            secondary={
-              props.onDisableAvailability
-                ? null
-                : props.t('calendar.selectCoachToModifyAvailability')
-            }
-          />
-        </ListItem>
-        <ListItem
-          button
-          onClick={props.onDisableRecurrentAvailability}
-          disabled={!props.onDisableRecurrentAvailability}
-        >
-          <ListItemIcon color="primary">
-            <RefreshIcon className={props.classes.leftIcon} />
-          </ListItemIcon>
-          <ListItemText
-            primary={props.t('calendar.disableRecurrentAvailability')}
-            secondary={
-              props.onDisableRecurrentAvailability
-                ? null
-                : props.t('calendar.selectCoachToModifyAvailability')
-            }
-          />
-        </ListItem>
-      </List>
-    );
-  }),
+  withStyles(styles)(
+    (props: {
+      classes: Object,
+      t: TFunction,
+      onBookRequest: (any) => void,
+      onEnableAvailability: (any) => void,
+      onEnableRecurrentAvailability: (any) => void,
+      onDisableAvailability: (any) => void,
+      onDisableRecurrentAvailability: (any) => void,
+      selectInfo: Object,
+    }) => {
+      return (
+        <List>
+          <ListItem button onClick={props.onBookRequest}>
+            <ListItemIcon color="primary">
+              <PersonAddIcon className={props.classes.leftIcon} />
+            </ListItemIcon>
+            <ListItemText primary={props.t('calendar.addBooking')} />
+          </ListItem>
+          <ListItem
+            button
+            onClick={props.onEnableAvailability}
+            disabled={!props.onEnableAvailability}
+          >
+            <ListItemIcon color="primary">
+              <CheckIcon className={props.classes.leftIcon} />
+            </ListItemIcon>
+            <ListItemText
+              primary={props.t('calendar.enableAvailability')}
+              secondary={
+                props.onEnableAvailability
+                  ? null
+                  : props.t('calendar.selectCoachToModifyAvailability')
+              }
+            />
+          </ListItem>
+          <ListItem
+            button
+            onClick={props.onEnableRecurrentAvailability}
+            disabled={!props.onEnableRecurrentAvailability}
+          >
+            <ListItemIcon color="primary">
+              <RefreshIcon className={props.classes.leftIcon} />
+            </ListItemIcon>
+            <ListItemText
+              primary={props.t('calendar.enableRecurrentAvailability')}
+              secondary={
+                props.onEnableRecurrentAvailability
+                  ? null
+                  : props.t('calendar.selectCoachToModifyAvailability')
+              }
+            />
+          </ListItem>
+          <ListItem
+            button
+            onClick={props.onDisableAvailability}
+            disabled={!props.onDisableAvailability}
+          >
+            <ListItemIcon>
+              <CancelIcon className={props.classes.leftIcon} />
+            </ListItemIcon>
+            <ListItemText
+              primary={props.t('calendar.disableAvailability')}
+              secondary={
+                props.onDisableAvailability
+                  ? null
+                  : props.t('calendar.selectCoachToModifyAvailability')
+              }
+            />
+          </ListItem>
+          <ListItem
+            button
+            onClick={props.onDisableRecurrentAvailability}
+            disabled={!props.onDisableRecurrentAvailability}
+          >
+            <ListItemIcon color="primary">
+              <RefreshIcon className={props.classes.leftIcon} />
+            </ListItemIcon>
+            <ListItemText
+              primary={props.t('calendar.disableRecurrentAvailability')}
+              secondary={
+                props.onDisableRecurrentAvailability
+                  ? null
+                  : props.t('calendar.selectCoachToModifyAvailability')
+              }
+            />
+          </ListItem>
+        </List>
+      );
+    },
+  ),
 );
+
+type EventSlot = {
+  startStr: string,
+  endStr: string,
+};
 
 type State = {
   selectInfo: Object,
@@ -126,6 +144,7 @@ type State = {
   selectedPrivateBookingAnchorEl: ?HTMLElement,
   disableWithRecurrence: boolean,
   enableWithRecurrence: boolean,
+  eventSlotSelected: ?EventSlot,
 };
 
 export class CoachPrivateCalendar extends React.Component<Props, State> {
@@ -137,13 +156,23 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
     enableWithRecurrence: false,
   };
 
-  select = (eventSlotSelected) => {
+  select = (eventSlotSelected: EventSlot) => {
     const { startStr, endStr } = eventSlotSelected;
     if (moment(startStr).isSame(endStr, 'day')) {
       this.setState({
         eventSlotSelected,
       });
     }
+  };
+
+  dateClick = (eventSlotSelected: EventSlot) => {
+    this.setState({
+      eventSlotSelected: {
+        ...eventSlotSelected,
+        startStr: eventSlotSelected.dateStr,
+        endStr: moment(eventSlotSelected.dateStr).add(30, 'minutes'),
+      },
+    });
   };
 
   getAvailableSlotAsEvents = memoize(
@@ -266,6 +295,17 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
     });
   };
 
+  addEventHoverListener = (info) => {
+    info.el.addEventListener('mouseenter', () => {
+      if (info.event.rendering !== 'background') {
+        this.setState({
+          selectedPrivateBooking: info.event.extendedProps.private_booking,
+          selectedPrivateBookingAnchorEl: info.el,
+        });
+      }
+    });
+  };
+
   render() {
     const { classes } = this.props;
     const events = this.getAvailableSlotAsEvents(
@@ -280,6 +320,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
           editable
           selectable
           select={this.select}
+          dateClick={this.dateClick}
           events={events}
           locale={i18n.lng}
           locales={[frLocale]}
@@ -288,23 +329,25 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
           allDaySlot={false}
           eventClick={this.handleEventClick}
           datesRender={this.handleIntervalChange}
+          eventRender={this.addEventHoverListener}
         />
         <Popover
           open={!!this.state.selectedPrivateBookingAnchorEl}
           anchorEl={this.state.selectedPrivateBookingAnchorEl}
+          TransitionComponent={Fade}
           onClose={() =>
             this.setState({
-              selectedPrivateBooking: null,
+              // selectedPrivateBooking: null,
               selectedPrivateBookingAnchorEl: null,
             })
           }
           anchorOrigin={{
             vertical: 'bottom',
-            horizontal: 'center',
+            horizontal: 'left',
           }}
           transformOrigin={{
-            vertical: 'top',
-            horizontal: 'center',
+            vertical: 'center',
+            horizontal: 'right',
           }}
         >
           {this.state.selectedPrivateBooking ? (
@@ -363,6 +406,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
           />
         </Popover>
         <RecurrentAvailabilityFormDialog
+          fullScreen={this.props.fullScreen}
           open={
             this.state.disableWithRecurrence || this.state.enableWithRecurrence
           }
@@ -378,6 +422,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
           }
         />
         <PrivateBookingDisableDialog
+          fullScreen={this.props.fullScreen}
           open={!!this.state.bookingToDisable}
           private_booking={this.state.bookingToDisable}
           onSubmit={(force_refund) =>
@@ -391,7 +436,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
                 onSuccess: () => {
                   this.setState({
                     selectedPrivateBookingAnchorEl: null,
-                    selectedPrivateBooking: null,
+                    // selectedPrivateBooking: null,
                     bookingToDisable: null,
                   });
                 },
@@ -409,6 +454,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
 }
 
 export default compose(
-  withStyles(styles, { withTheme: true }),
   withNamespaces(['privateService']),
+  withMobileDialog(),
+  withStyles(styles, { withTheme: true }),
 )(CoachPrivateCalendar);

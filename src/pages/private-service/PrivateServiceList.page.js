@@ -8,6 +8,8 @@ import Grid from '@material-ui/core/Grid';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
+
 import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Fab from '@material-ui/core/Fab';
@@ -225,7 +227,10 @@ export class PrivateServiceList extends React.Component<Props> {
               />
             ) : null}
           </Grid>
-          <Dialog open={!!this.props.openCreateForm}>
+          <Dialog
+            fullScreen={this.props.fullScreen}
+            open={!!this.props.openCreateForm}
+          >
             <DialogTitle>{this.props.t('service.form.title')}</DialogTitle>
             <DialogContent>
               <PrivateServiceForm
@@ -236,7 +241,10 @@ export class PrivateServiceList extends React.Component<Props> {
               />
             </DialogContent>
           </Dialog>
-          <Dialog open={!!this.props.openEditForm}>
+          <Dialog
+            fullScreen={this.props.fullScreen}
+            open={!!this.props.openEditForm}
+          >
             <DialogTitle>{this.props.t('service.form.title')}</DialogTitle>
             <DialogContent>
               <PrivateServiceForm
@@ -281,6 +289,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
+  withMobileDialog(),
   withStyles(styles),
   routerParamsToProps({ privateServiceId: 'privateServiceId:number' }),
   withNamespaces(['privateService']),

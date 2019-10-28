@@ -13,8 +13,8 @@ import Dialog from '@material-ui/core/Dialog';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
-import withStyles from '@material-ui/core/styles/withStyles';
 import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -23,7 +23,6 @@ import PaymentPackCard from '../../payment-packs/components/PaymentPackCard.comp
 
 type Props = {
   t: TFunction,
-  classes: Object,
   selectedPass: *,
   setSelectedPass: (*) => void,
   paymentPacks: *[],
@@ -31,51 +30,50 @@ type Props = {
 };
 
 export function MarketplacePassList(props: Props) {
-  const { paymentPacks, t, classes, pushPackCheckout, selectedPass } = props;
+  const { paymentPacks, t, pushPackCheckout, selectedPass } = props;
   return (
-    <div className={classes.container}>
-      <div className={classes.content}>
-        <Paper>
-          <List dense disablePadding>
-            {paymentPacks.map((pp) => (
-              <ListItem
-                key={pp.id}
-                divider
-                button
+    <div>
+      <Typography variant="subtitle">
+        {props.t('marketplace.privatePass')}
+      </Typography>
+      <Paper>
+        <List dense disablePadding>
+          {paymentPacks.map((pp) => (
+            <ListItem
+              key={pp.id}
+              divider
+              button
+              onClick={() => props.setSelectedPass(pp)}
+            >
+              <ListItemText
+                primary={`${pp.name} - ${pp.price}€`}
+                secondary={
+                  pp.unlimited
+                    ? t('paymentPack.unlimitedCredits')
+                    : `${pp.credits} ${t('paymentPack.credits').toLowerCase()}`
+                }
+              />
+
+              <IconButton
+                style={{ marginRight: 16 }}
+                disableRipple
                 onClick={() => props.setSelectedPass(pp)}
               >
-                <ListItemText
-                  primary={`${pp.name} - ${pp.price}€`}
-                  secondary={
-                    pp.unlimited
-                      ? t('paymentPack.unlimitedCredits')
-                      : `${pp.credits} ${t(
-                          'paymentPack.credits',
-                        ).toLowerCase()}`
-                  }
-                />
-
-                <IconButton
-                  style={{ marginRight: 16 }}
-                  disableRipple
-                  onClick={() => props.setSelectedPass(pp)}
-                >
-                  <VisibilityIcon />
-                </IconButton>
-                <ListItemSecondaryAction>
-                  <React.Fragment>
-                    <IconButton
-                      color="primary"
-                      onClick={() => pushPackCheckout(pp.id)}
-                    >
-                      <AddShoppingCartIcon />
-                    </IconButton>
-                  </React.Fragment>
-                </ListItemSecondaryAction>
-              </ListItem>
-            ))}
-          </List>
-        </Paper>
+                <VisibilityIcon />
+              </IconButton>
+              <ListItemSecondaryAction>
+                <React.Fragment>
+                  <IconButton
+                    color="primary"
+                    onClick={() => pushPackCheckout(pp.id)}
+                  >
+                    <AddShoppingCartIcon />
+                  </IconButton>
+                </React.Fragment>
+              </ListItemSecondaryAction>
+            </ListItem>
+          ))}
+        </List>
         <Dialog
           open={!!selectedPass}
           onClose={() => props.setSelectedPass(null)}
@@ -105,29 +103,12 @@ export function MarketplacePassList(props: Props) {
             </Button>
           </div>
         </Dialog>
-      </div>
+      </Paper>
     </div>
   );
 }
 
-const styles = (theme) => ({
-  container: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  content: {
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '50%',
-    },
-    margin: theme.spacing.unit * 2,
-  },
-});
-
 export default compose(
   withNamespaces(),
-  withStyles(styles),
   withState('selectedPass', 'setSelectedPass', null),
 )(MarketplacePassList);

@@ -8,6 +8,7 @@ import { push } from 'react-router-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Dialog from '@material-ui/core/Dialog';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
@@ -51,6 +52,7 @@ import type {
 } from '../../libs/private-service/types';
 
 type Props = {
+  fullScreen?: boolean,
   enableCoachAvailabilitySlot: (
     coachId: number,
     data: { date_start: string, date_end: string },
@@ -278,6 +280,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
           onBookRequest={this.props.setBookRequestDate}
         />
         <Dialog
+          fullScreen={this.props.fullScreen}
           open={this.props.bookRequestDate}
           onClose={() => this.props.setBookRequestDate(null)}
         >
@@ -332,8 +335,10 @@ const styles = (theme) => ({
 
 export default compose(
   routerParamsToProps({ coachId: 'coachId:number' }),
+  withMobileDialog(),
   withStyles(styles),
   withNamespaces(['privateService']),
+
   connect(
     (state, { coachId }) => ({
       availabilitySlots: getCoachAvailabilitySlots(state, coachId),

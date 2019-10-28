@@ -612,6 +612,7 @@ export default {
     },
     consumer: {
       myPaymentPacks: 'My pass',
+      myPrivatePass: 'My private lesson pass',
       company: 'Club',
       help: {
         areYouSureCancelBookingOption:

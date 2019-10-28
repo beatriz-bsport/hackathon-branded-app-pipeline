@@ -15,3 +15,11 @@ export const getPrivateConsumerPassList: (State) => Array<PrivateConsumerPass> =
   [_getPrivateConsumerPassIdList, getPrivateConsumerPassDict],
   (ids, data) => ids.map((id) => data[id]),
 );
+
+export const getPrivateConsumerPassListWithCredit: (State) => Array<PrivateConsumerPass> = createSelector(
+  [getPrivateConsumerPassList],
+  (privateConsumerPassList) =>
+    privateConsumerPassList.filter(
+      (pcp) => pcp.used_credits < pcp.private_pass.credits,
+    ),
+);

@@ -90,7 +90,7 @@ export function CoachPerformanceTable(props: Props) {
               </TableCell>
               <TableCell>{session.duration_minute}</TableCell>
               <TableCell>{session.nb_accountable_bookings}</TableCell>
-              <TableCell>{session.base} €</TableCell>
+              <TableCell>{session.base.toFixed(2)} €</TableCell>
               <TableCell>{session.bonus} €</TableCell>
               <TableCell>
                 <PaymentRuleSelector

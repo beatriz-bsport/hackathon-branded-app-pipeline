@@ -39,7 +39,7 @@ export function CoachPerformanceSummary(props: Props) {
       <Grid item xs={12} md={4}>
         <Figure
           name={t('coach.performance.payment')}
-          count={total ? `${total} €` : '-'}
+          count={total ? `${total.toFixed(2)} €` : '-'}
           color="green"
         />
       </Grid>

@@ -265,7 +265,7 @@ export default compose(
     {
       fetchMember,
       searchMembers,
-      goToMember: (id: number) => push(`/member/${id}`),
+      goToMember: (id: number) => push(`/member/${id}/info/`),
       fetchSharedConsumerPaymentPacks: fetchSharedConsumerPaymentPacksAction,
       fetchMemberRelations,
       fetchFilteredMembers,

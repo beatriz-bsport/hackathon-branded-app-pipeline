@@ -14,6 +14,7 @@ import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 
+import { PAYMENT_RULE_CALCULATION_MARGIN_VALUE } from '@bsport/common/lib/master-data/payment-rule';
 import withConfirm from '../../../hocs/with-confirm.hoc';
 
 import type { PaymentRule } from '../../../api/types';
@@ -50,7 +51,11 @@ export function PaymentRuleTable(props: Props) {
         {props.items.map((rule) => (
           <TableRow key={rule.id}>
             <TableCell>{rule.name}</TableCell>
-            <TableCell>{rule.base_price}</TableCell>
+            <TableCell>
+              {rule.calculation_method === PAYMENT_RULE_CALCULATION_MARGIN_VALUE
+                ? `${rule.base_percent}%`
+                : rule.base_price}
+            </TableCell>
             <TableCell>{rule.coaches.map((c) => c.name).join(', ')}</TableCell>
             <TableCell>
               <Button onClick={() => props.onEditPaymentRule(rule)}>

@@ -10,7 +10,7 @@ export default {
   calculation_method: 'Calculation method',
   only_attendant: 'Count only attendants',
   actions: 'Actions',
-  bookingThreshold: 'Threshold',
+  bookingThreshold: 'Threshold (excluded)',
   pricePerAdditionalBooking: 'Bonus per booking',
   addBonus: 'Add rule',
   cancel: 'Cancel',

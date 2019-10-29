@@ -127,7 +127,7 @@ export function PaymentRuleFields(props: Props) {
                               inputProps: { min: 0 },
                               startAdornment: (
                                 <InputAdornment position="start">
-                                  ⩾
+                                  >
                                 </InputAdornment>
                               ),
                             }}

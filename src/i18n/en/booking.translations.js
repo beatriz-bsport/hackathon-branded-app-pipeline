@@ -14,7 +14,7 @@ export default {
     app: 'Mobile app',
     saas: 'Backoffice',
     other: 'Other',
-    migration: 'Migration Mindbody',
+    migration: 'Migration',
   },
   customerView: {
     wasRefunded: 'Refunded',

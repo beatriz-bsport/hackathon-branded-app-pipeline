@@ -28,7 +28,6 @@ import asyncComponent from '../AsyncComponent';
 import Config from '../config';
 
 import { MarketingDashboard, MarketingRule } from './marketing';
-
 import alertingSelectors from '../libs/alerting/selectors';
 
 import type { TempPasswordState } from '../libs/login/types';
@@ -68,6 +67,12 @@ const Coupon = asyncComponent(() => import('./coupon/Coupon.router'));
 const Order = asyncComponent(() => import('./order/Order.router'));
 const PrivateService = asyncComponent(() =>
   import('./private-service/PrivateService.router'),
+);
+const EmailTemplate = asyncComponent(() =>
+  import('./marketing-automation/email-template/EmailTemplate.router'),
+);
+const SmartList = asyncComponent(() =>
+  import('./marketing-automation/smart-list/SmartList.router'),
 );
 const Subscription = asyncComponent(() =>
   import('./subscription/Subscription.router'),
@@ -111,7 +116,13 @@ const BackofficeRoute = withSentryErrorReporting(() => (
     <Route path="/workshop-activity" component={WorkshopActivity} />
     <Route path="/establishment" component={Establishment} />
     <Route path="/marketing/rule/:id" component={MarketingRule} />
+    {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ? null : (
+      <Route path="/smart-list" component={SmartList} />
+    )}
     <Route path="/marketing" component={MarketingDashboard} />
+    {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ? null : (
+      <Route path="/email" component={EmailTemplate} />
+    )}
     <Route path="/reporting/" component={Reporting} />
     <Route path="/private-service" component={PrivateService} />
     <Route path="/order" component={Order} />
@@ -199,6 +210,7 @@ const styles = (theme: Object) => ({
   toolbar: theme.mixins.toolbar,
   progress: {
     flexGrow: 1,
+    SmartList,
   },
 });
 

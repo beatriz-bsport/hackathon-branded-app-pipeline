@@ -24,6 +24,7 @@ import login from './fr/login.translations';
 import invoice from './fr/invoice.translations';
 import datetime from './fr/datetime.translations';
 import offer from './fr/offer.translations';
+import emailTemplate from './fr/email-template.translations';
 import waitingList from './fr/waiting-list.translations';
 import workshop from './fr/workshop.translations';
 import common from './fr/common.translations';
@@ -37,6 +38,7 @@ import relationship from './fr/relationship.translations';
 import titles from './fr/titles.translations';
 import formInput from './fr/form-input.translations';
 import privateService from './fr/private-service.translations';
+import smartList from './fr/smart-list.translations';
 
 export default {
   communication,
@@ -68,12 +70,14 @@ export default {
   paymentPack,
   metaActivity,
   offer,
+  emailTemplate,
   member,
   booking,
   marketplace,
   selfCheckIn,
   titles,
   formInput,
+  smartList,
   coachPerformance: {
     fields: {
       bonus: 'Bonus',
@@ -597,7 +601,11 @@ export default {
       },
     },
     navigation: {
+      marketing_automation: 'Marketing Auto',
       requestTempPassword: "Autoriser l'accès",
+      sequence: 'Stratégies',
+      smart_list: 'Listes',
+      email_template: 'Emails',
       order: 'Commandes',
       workshopActivities: 'Ateliers',
       invoice: 'Factures',

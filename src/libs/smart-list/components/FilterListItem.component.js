@@ -1,0 +1,192 @@
+// @flow
+
+import React, { Component } from 'react';
+import { compose } from 'recompose';
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
+
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import AddIcon from '@material-ui/icons/Add';
+import Typography from '@material-ui/core/Typography';
+
+import {
+  CREDIT_ACCOUNT_FILTER_IDENTIFIER,
+  LAST_PREVIOUS_BOOKING_FILTER_IDENTIFIER,
+  DATE_JOINED_FILTER_IDENTIFIER,
+  PAYMENT_PACK_FILTER_IDENTIFIER,
+  GENDER_FILTER_IDENTIFIER,
+  PAYMENT_PACK_CREDIT_FILTER_IDENTIFIER,
+  SENIORITY_FILTER_IDENTIFIER,
+} from '@bsport/common/lib/master-data/smart-list';
+
+import CreditAccountFilter from './filters/CreditAccountFilter.component';
+import LastPreviousBookingFilter from './filters/LastPreviousBookingFilter.component';
+import DateJoinedFilter from './filters/DateJoinedFilter.component';
+import GenderFilter from './filters/GenderFilter.component';
+import PaymentPackFilter from './filters/PaymentPackFilter.component';
+import PaymentPackCreditFilter from './filters/PaymentPackCreditFilter.component';
+import SeniorityFilter from './filters/SeniorityFilter.component';
+import type { PaymentPack } from '../../payment-packs/types';
+
+type Props = {
+  payment_packs: Array<PaymentPack>,
+  onClickEdit: (id: number) => void,
+  onClickDelete: (id: number) => void,
+  onClickCreate: (filter_identifier: number, data: any) => void,
+  filter: any,
+  new: boolean,
+  t: TFunction,
+};
+
+export class FilterCard extends Component<Props, state> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      filter_data: props.filter,
+    };
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.filter !== prevProps.filter) {
+      this.setState({
+        filter_data: this.props.filter,
+      });
+    }
+  }
+
+  handleChange = (dict) => {
+    const dataDict = { ...this.state.filter_data, ...dict };
+    this.setState((prevState) => ({
+      filter_data: { ...prevState.filter_data, ...dict },
+    }));
+    if (!this.props.new) {
+      this.props.onClickEdit(
+        this.props.filter.filter_identifier,
+        this.props.filter.id,
+        dataDict,
+      );
+    }
+  };
+
+  filterTypeSelector = () => {
+    switch (this.state.filter_data.filter_identifier) {
+      case CREDIT_ACCOUNT_FILTER_IDENTIFIER:
+        return (
+          <CreditAccountFilter
+            filter_data={this.state.filter_data}
+            onChange={this.handleChange}
+            new={this.props.new}
+          />
+        );
+      case LAST_PREVIOUS_BOOKING_FILTER_IDENTIFIER:
+        return (
+          <LastPreviousBookingFilter
+            filter_data={this.state.filter_data}
+            onChange={this.handleChange}
+            new={this.props.new}
+          />
+        );
+
+      case DATE_JOINED_FILTER_IDENTIFIER:
+        return (
+          <DateJoinedFilter
+            filter_data={this.state.filter_data}
+            onChange={this.handleChange}
+            new={this.props.new}
+          />
+        );
+      case PAYMENT_PACK_FILTER_IDENTIFIER:
+        return (
+          <PaymentPackFilter
+            filter_data={this.state.filter_data}
+            onChange={this.handleChange}
+            payment_packs={this.props.payment_packs}
+            new={this.props.new}
+          />
+        );
+      case GENDER_FILTER_IDENTIFIER:
+        return (
+          <GenderFilter
+            filter_data={this.state.filter_data}
+            onChange={this.handleChange}
+            new={this.props.new}
+          />
+        );
+      case PAYMENT_PACK_CREDIT_FILTER_IDENTIFIER:
+        return (
+          <PaymentPackCreditFilter
+            filter_data={this.state.filter_data}
+            onChange={this.handleChange}
+            payment_packs={this.props.payment_packs}
+            new={this.props.new}
+          />
+        );
+      case SENIORITY_FILTER_IDENTIFIER:
+        return (
+          <SeniorityFilter
+            filter_data={this.state.filter_data}
+            onChange={this.handleChange}
+            new={this.props.new}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
+  render() {
+    const { t, filter } = this.props;
+    return (
+      <div>
+        <ListItem>
+          <ListItemText
+            primary={
+              <Typography component="span" variant="subtitle1">
+                {t(`filters.${filter.filter_identifier}.name`)}
+              </Typography>
+            }
+            secondary={this.filterTypeSelector()}
+          />
+          <ListItemSecondaryAction>
+            {this.props.onClickCreate ? (
+              <IconButton
+                onClick={(ev) => {
+                  ev.stopPropagation();
+                  ev.preventDefault();
+                  this.props.onClickCreate(
+                    filter.filter_identifier,
+                    this.state.filter_data,
+                  );
+                }}
+                color="secondary"
+                disabled={Object.values(this.state.filter_data).includes(null)}
+              >
+                <AddIcon />
+              </IconButton>
+            ) : null}
+            {this.props.onClickDelete ? (
+              <IconButton
+                onClick={(ev) => {
+                  ev.stopPropagation();
+                  ev.preventDefault();
+                  this.props.onClickDelete(filter.filter_identifier, filter.id);
+                }}
+                color="secondary"
+              >
+                <DeleteIcon />
+              </IconButton>
+            ) : null}
+          </ListItemSecondaryAction>
+        </ListItem>
+        <Divider />
+      </div>
+    );
+  }
+}
+
+export default compose(withNamespaces(['smartList']))(FilterCard);

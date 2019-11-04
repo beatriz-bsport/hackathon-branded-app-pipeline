@@ -88,6 +88,8 @@ type Props = {
   tagsExcluded: Array<Tag>,
   tagsIncluded: Array<Tag>,
   customToolBar: () => any,
+  onValueChangeActiveMemberFetch: boolean,
+  hideAddButton: boolean,
 };
 
 type State = {
@@ -139,7 +141,9 @@ export class InvoiceTable extends Component<Props, State> {
   componentDidUpdate(prevProps: Props) {
     if (
       prevProps.tagsIncluded !== this.props.tagsIncluded ||
-      prevProps.tagsExcluded !== this.props.tagsExcluded
+      prevProps.tagsExcluded !== this.props.tagsExcluded ||
+      prevProps.onValueChangeActiveMemberFetch !==
+        this.props.onValueChangeActiveMemberFetch
     ) {
       this.setState({ loading: true });
       this.fetchMemberPage(1);
@@ -203,14 +207,18 @@ export class InvoiceTable extends Component<Props, State> {
         <TableFooter>
           <TableRow>
             <div className={this.props.classes.footerContainer}>
-              <Button
-                onClick={this.props.addMember}
-                color="primary"
-                variant="outlined"
-              >
-                <AddIcon className={this.props.classes.leftIcon} />
-                {t('member.addMember')}
-              </Button>
+              {this.props.hideAddButton ? (
+                <div> </div>
+              ) : (
+                <Button
+                  onClick={this.props.addMember}
+                  color="primary"
+                  variant="outlined"
+                >
+                  <AddIcon className={this.props.classes.leftIcon} />
+                  {t('member.addMember')}
+                </Button>
+              )}
               <TablePagination
                 count={count}
                 rowsPerPage={rowsPerPage}

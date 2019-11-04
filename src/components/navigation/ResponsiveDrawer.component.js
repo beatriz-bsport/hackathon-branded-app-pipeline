@@ -55,6 +55,7 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import HelpIcon from '@material-ui/icons/Help';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
+import StorageIcon from '@material-ui/icons/Storage';
 import type { TFunction } from 'react-i18next';
 
 import { colors } from '@bsport/common/lib/colors';
@@ -67,6 +68,7 @@ import { windowTitleToProps } from '../../hocs/with-title.hoc';
 import { openIntercomHelp } from '../../intercom';
 import type { Alerting } from '../../libs/alerting/types';
 import type { TempPasswordState } from '../../libs/login/types';
+import Config from '../../config';
 
 export const drawerWidth = 260;
 
@@ -467,6 +469,37 @@ class ResponsiveDrawer extends React.Component<Props, State> {
           },
         ],
       },
+      Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'
+        ? {
+            to: '/marketing',
+            icon: Email,
+            text: t('navigation.message'),
+            subtext: t('navigation.alpha'),
+          }
+        : {
+            icon: Email,
+            text: t('navigation.message'),
+            subtext: t('navigation.alpha'),
+            type: 'nested',
+            nestedItems: [
+              {
+                to: '/smart-list/list',
+                icon: People,
+                text: t('navigation.smart_list'),
+              },
+              {
+                to: '/email/list',
+                icon: Email,
+                text: t('navigation.email_template'),
+              },
+              {
+                to: '/marketing',
+                icon: StorageIcon,
+                text: t('navigation.sequence'),
+              },
+            ],
+          },
+      'divider',
       {
         to: '/member',
         icon: People,
@@ -480,18 +513,10 @@ class ResponsiveDrawer extends React.Component<Props, State> {
       },
       'divider',
       {
-        to: '/marketing',
-        icon: Email,
-        text: t('navigation.message'),
-        subtext: t('navigation.alpha'),
-      },
-      'divider',
-      {
         to: '/settings/general',
         icon: SettingsIcon,
         text: t('navigation.settings'),
       },
-      'divider',
       {
         to: '/login/signout',
         icon: HighlightOff,

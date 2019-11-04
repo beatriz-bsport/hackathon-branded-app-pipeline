@@ -564,7 +564,9 @@ export const RadioGroupField = (props: RadioFieldProps) => {
             <FormControlLabel
               key={choice.value}
               value={choice.value}
-              control={<Radio checked={`${field.value}` === `${choice.value}`} />}
+              control={
+                <Radio checked={`${field.value}` === `${choice.value}`} />
+              }
               label={choice.label}
             />
           ))}

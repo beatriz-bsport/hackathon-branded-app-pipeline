@@ -54,7 +54,6 @@ export type EstablishmentState = {
   detail: {
     loading: boolean,
     error: ?Error,
-    data: EstablishmentWithOffers,
   },
   upsert: {
     loading: boolean,

@@ -25,6 +25,7 @@ import datetime from './en/datetime.translations';
 import offer from './en/offer.translations';
 import payment from './en/payment.translations';
 import waitingList from './en/waiting-list.translations';
+import emailTemplate from './en/email-template.translations';
 import workshop from './en/workshop.translations';
 import common from './en/common.translations';
 import role from './en/role.translations';
@@ -37,6 +38,7 @@ import relationship from './en/relationship.translations';
 import titles from './en/titles.translations';
 import formInput from './en/form-input.translations';
 import privateService from './en/private-service.translations';
+import smartList from './fr/smart-list.translations';
 
 export default {
   coupon,
@@ -63,6 +65,7 @@ export default {
   metaActivity,
   establishment,
   paymentPack,
+  emailTemplate,
   booking,
   coach,
   member,
@@ -74,6 +77,7 @@ export default {
   selfCheckIn,
   titles,
   formInput,
+  smartList,
   coachPerformance: {
     fields: {
       bonus: 'Bonus',
@@ -575,6 +579,7 @@ export default {
     coach,
     navigation: {
       requestTempPassword: 'Authorize remote',
+      sequence: 'Strategies',
       order: 'Orders',
       alpha: 'in development',
       privateService: {

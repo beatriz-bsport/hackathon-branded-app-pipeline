@@ -38,6 +38,9 @@ import relationship from '../libs/relationship/reducers';
 import login from '../libs/login/reducers';
 import paymentPack from '../libs/payment-packs/reducers';
 import privateService from '../libs/private-service/reducers';
+import smartListReducer from '../libs/smart-list/reducers';
+import emailTemplateReducer from '../libs/marketing/email-editor/reducers';
+
 
 import type { State, Action } from '../state/types';
 
@@ -77,10 +80,12 @@ const rootReducer = combineReducers({
   theme: themeReducers,
   role: roleReducers,
   coupon: couponReducers,
+  emailTemplate: emailTemplateReducer,
   relationship,
   network,
   login,
   privateService,
+  smartList: smartListReducer,
 });
 
 export default (state: State, action: Action) => {

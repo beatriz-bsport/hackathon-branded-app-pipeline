@@ -11,8 +11,9 @@ import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import moment from 'moment';
 import { EmailTemplate } from '../types';
-import { Moment } from '../../../../i18n';
+import i18n from '../../../../i18n';
 
 type Props = {
   save_email: (number, any) => void,
@@ -48,7 +49,7 @@ export class EmailEditorPanel extends Component<Props, state> {
           html,
           design: JSON.stringify(design),
           company: this.props.company_id,
-          date_created: Moment(),
+          date_created: moment(),
         });
       }
     });
@@ -90,6 +91,7 @@ export class EmailEditorPanel extends Component<Props, state> {
             ref={(editor) => {
               this.editor = editor;
             }}
+            locale={i18n.language}
             onLoad={() => this.onLoad()}
             options={{
               mergeTags: {

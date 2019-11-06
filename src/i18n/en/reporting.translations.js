@@ -2,6 +2,7 @@ export default {
   columns: {
     establishment: 'Establishment',
     activity: 'Activity',
+    date_start_dow: 'Day',
     pass: 'Pass',
     last_booking: 'Previous booking',
     next_booking: 'Next booking',

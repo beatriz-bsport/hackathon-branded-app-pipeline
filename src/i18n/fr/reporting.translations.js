@@ -1,6 +1,7 @@
 export default {
   columns: {
     establishment: 'Etablissement',
+    date_start_dow: 'Jour',
     last_booking: 'Précédente réservation',
     next_booking: 'Prochaine réservation',
     concatenated_notes: 'Notes',

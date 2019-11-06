@@ -61,6 +61,11 @@ function getConverter(column, classes, t) {
         value: moment(value, 'DD/MM/YYYY').format('DD/MM/YYYY'),
       };
     }
+    if (datatype === 'dow') {
+      return {
+        value: moment.weekdays()[(parseInt(value, 10) + 1) % 7],
+      };
+    }
     if (datatype === 'boolean') {
       if (value) {
         return { value: t('yes') };

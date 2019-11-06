@@ -78,10 +78,8 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
     ) {
       return {
         nbMinutesBeforeOffer,
-        nbMinutesBeforeBookingOptionExpire: Math.min(
-          180,
+        nbMinutesBeforeBookingOptionExpire:
           this.state.configuration.dumb_delay_minutes || 180,
-        ),
       };
     }
     if (
@@ -135,7 +133,7 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
           <NumericInput
             helperText={t('form.dumb_delay_minutes.helper')}
             InputProps={{
-              inputProps: { min: 0, step: 1, max: 32000 },
+              inputProps: { min: 60, step: 1, max: 32000 },
               endAdornment: <InputAdornment position="end">min</InputAdornment>,
             }}
             disabled={
@@ -173,7 +171,7 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
             fullWidth={false}
             value={this.state.configuration.smart_delay_percentage}
             InputProps={{
-              inputProps: { min: 0, step: 1, max: 100 },
+              inputProps: { min: 10, step: 1, max: 100 },
               endAdornment: <InputAdornment position="end">%</InputAdornment>,
             }}
             disabled={

@@ -16,7 +16,8 @@ import type { TFunction } from 'react-i18next';
 
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
 import PrivatePassSelector from '../../private-service/components/PrivatePassSelector.component';
-import ShopItemInput from '../../../components/input/ShopItemInput.component';
+import PaymentComboSelector from '../../payment-combo/components/PaymentComboSelector.component';
+import ShopItemSelector from '../../shop/components/ShopItemSelector.component';
 import PriceInput from '../../../components/input/PriceInput.component';
 
 // eslint-disable-next-line
@@ -27,6 +28,7 @@ type Props = {
   paymentPacks: Array<PaymentPack>,
   shopItems: Array<ShopItem>,
   privatePassList: Array<PrivatePass>,
+  paymentComboList: Array<PaymentCombo>,
   showCancel: ?boolean,
   defaultTab: ?number,
   creditAccountBalance: number,
@@ -36,6 +38,7 @@ type Props = {
   onAddPaymentPack: (paymentPackId: ?number) => void,
   onAddPrivatePass: (privatePassId: ?number) => void,
   onAddShopItem: (shopItemId: ?number) => void,
+  onAddPaymentCombo: (paymentComboId: ?number) => void,
 
   t: TFunction,
   classes: Object,
@@ -45,6 +48,7 @@ type State = {
   expandedSelector: number,
   paymentPackId: ?number,
   privatePassId: ?number,
+  paymentComboId: ?number,
   shopItemId: ?number,
   creditTopUp: number,
 };
@@ -53,6 +57,7 @@ export const SELECTOR_PAYMENT_PACK = 1;
 export const SELECTOR_SHOP = 2;
 export const SELECTOR_CREDIT_ACCOUNT = 3;
 export const SELECTOR_PRIVATE_PASS = 4;
+export const SELECTOR_PAYMENT_COMBO = 5;
 
 export class InvoiceItemSelector extends Component<Props, State> {
   constructor(props: Props) {
@@ -61,6 +66,7 @@ export class InvoiceItemSelector extends Component<Props, State> {
       expandedSelector: props.defaultTab || SELECTOR_PAYMENT_PACK,
       paymentPackId: null,
       privatePassId: null,
+      paymentComboId: null,
       shopItemId: null,
       creditTopUp: 0,
     };
@@ -82,6 +88,10 @@ export class InvoiceItemSelector extends Component<Props, State> {
     this.setState({ shopItemId });
   };
 
+  storePaymentComboId = (paymentComboId: number) => {
+    this.setState({ paymentComboId });
+  };
+
   submitInvoiceItems = () => {
     switch (this.state.expandedSelector) {
       case SELECTOR_SHOP: {
@@ -92,6 +102,10 @@ export class InvoiceItemSelector extends Component<Props, State> {
       }
       case SELECTOR_PRIVATE_PASS:
         return this.props.onAddPrivatePass(this.state.privatePassId);
+
+      case SELECTOR_PAYMENT_COMBO:
+        return this.props.onAddPaymentCombo(this.state.paymentComboId);
+
       case SELECTOR_PAYMENT_PACK:
       default:
         return this.props.onAddPaymentPack(this.state.paymentPackId);
@@ -126,11 +140,20 @@ export class InvoiceItemSelector extends Component<Props, State> {
   };
 
   renderShopItemSelector = () => (
-    <ShopItemInput
+    <ShopItemSelector
       value={this.state.shopItemId}
       onChange={this.storeShopItemId}
       selectorClass={this.props.classes.selector}
-      shopItems={this.props.shopItems}
+      shopItemList={this.props.shopItems}
+    />
+  );
+
+  renderPaymentComboSelector = () => (
+    <PaymentComboSelector
+      value={this.state.paymentComboId}
+      onChange={this.storePaymentComboId}
+      selectorClass={this.props.classes.selector}
+      paymentComboList={this.props.paymentComboList}
     />
   );
 
@@ -173,6 +196,7 @@ export class InvoiceItemSelector extends Component<Props, State> {
       paymentPackId,
       privatePassId,
       shopItemId,
+      paymentComboId,
       creditTopUp,
     } = this.state;
     const { expandedSelector } = this.state;
@@ -197,6 +221,10 @@ export class InvoiceItemSelector extends Component<Props, State> {
               label={t('payment.privatePass')}
               value={SELECTOR_PRIVATE_PASS}
             />
+            <Tab
+              label={t('payment.paymentCombo')}
+              value={SELECTOR_PAYMENT_COMBO}
+            />
           </Tabs>
         </Paper>
         <div className={classes.innerList}>
@@ -213,6 +241,9 @@ export class InvoiceItemSelector extends Component<Props, State> {
               </Collapse>
               <Collapse in={SELECTOR_PRIVATE_PASS === expandedSelector}>
                 {this.renderPrivatePassSelector()}
+              </Collapse>
+              <Collapse in={SELECTOR_PAYMENT_COMBO === expandedSelector}>
+                {this.renderPaymentComboSelector()}
               </Collapse>
             </Grid>
             <Grid item className={classes.addButton}>
@@ -234,6 +265,7 @@ export class InvoiceItemSelector extends Component<Props, State> {
                   // prettier-ignore
                   (expandedSelector === SELECTOR_PAYMENT_PACK && !paymentPackId)
                 || (expandedSelector === SELECTOR_SHOP && !shopItemId)
+                || (expandedSelector === SELECTOR_PAYMENT_COMBO && !paymentComboId)
                 || (expandedSelector === SELECTOR_PRIVATE_PASS && !privatePassId)
                 || (expandedSelector === SELECTOR_CREDIT_ACCOUNT && !creditTopUp)
                 }

@@ -4,6 +4,9 @@ export default {
     level: { placeholder: 'Niveau' },
     establishment: { placeholder: 'Etablissement' },
   },
+  paymentCombo: {
+    addToCart: 'Ajouter au panier',
+  },
   workshop: {
     noWorkshopAvailable: "Aucun atelier n'est prévu pour le moment",
     card: {

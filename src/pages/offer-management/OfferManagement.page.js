@@ -13,7 +13,7 @@ import {
   offer as offerActions,
 } from '../../actions';
 import { compatiblePacksWithOfferAndEnabled } from '../../libs/offer/selectors';
-import shopSelector from '../../libs/shop/selectors';
+import { getShopItemsAvailable } from '../../libs/shop/selectors';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { mailMembers as mailMembersAction } from '../../libs/communication/actions';
@@ -31,11 +31,15 @@ import {
 } from '../../libs/booking/actions';
 import { getPermissions } from '../../libs/role/selectors';
 import bookingSelectors from '../../libs/booking/selectors';
+
 import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
 import { fetchPrivatePassList } from '../../libs/private-service/actions';
+import { getPaymentComboList } from '../../libs/payment-combo/selectors';
+import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
 
 import { snackbar } from '../../actions/snackbar.actions';
-import paymentPackSelectors, {
+import {
+  getEnabled as getPaymentPackEnabled,
   getAll as getAllPaymentPacks,
 } from '../../libs/payment-packs/selectors';
 
@@ -69,8 +73,8 @@ function mapStateToProps(state, { id }) {
     offer: state.offer.offers.find((o) => o.id === id),
     offerLoading: state.offer.byDay.loading,
     paymentPacks: getAllPaymentPacks(state),
-    paymentPacksEnabled: paymentPackSelectors.getEnabled(state),
-    shopItemsAvailable: shopSelector.getShopItemsAvailable(state),
+    paymentPacksEnabled: getPaymentPackEnabled(state),
+    shopItemsAvailable: getShopItemsAvailable(state),
     membersloading: state.member.loading,
     members: state.member.all,
     memberSearchLoading: state.member.search.loading,
@@ -85,6 +89,7 @@ function mapStateToProps(state, { id }) {
     unevenSavedInvoices: state.invoice.quickInvoices,
     privatePassList: getPrivatePassAvailable(state),
     permission: getPermissions(state),
+    paymentComboList: getPaymentComboList(state),
   };
 }
 
@@ -103,6 +108,9 @@ function mapDispatchToProps(dispatch) {
     fetchShopItems,
     fetchPrivatePassList() {
       dispatch(fetchPrivatePassList());
+    },
+    fetchPaymentComboList() {
+      dispatch(fetchPaymentComboList());
     },
     fetchMember(id) {
       dispatch(fetchMemberAction(id));

@@ -54,6 +54,7 @@ import type { Member } from '../../libs/member/types';
 import type { Invoice } from '../../libs/invoice/types';
 import type { Permission } from '../../libs/role/types';
 import type { PrivatePass } from '../../libs/private-service/types';
+import type { PaymentCombo } from '../../libs/payment-combo/types';
 
 type Props = {
   fullScreen: boolean,
@@ -74,7 +75,9 @@ type Props = {
   permission: Permission,
 
   fetchPrivatePassList: () => void,
+  fetchPaymentComboList: () => void,
   privatePassList: Array<PrivatePass>,
+  paymentComboList: Array<PaymentCombo>,
 
   switchWaitingListFreeze: (offerId: number, newFreezeState: boolean) => void,
   fetchMember: (id: number) => void,
@@ -158,6 +161,7 @@ export class OfferManagement extends Component<Props, State> {
     this.props.fetchOfferData(this.props.offerId);
     this.props.fetchShopItems();
     this.props.fetchPrivatePassList();
+    this.props.fetchPaymentComboList();
   }
 
   componentWillUnmount() {
@@ -636,6 +640,7 @@ export class OfferManagement extends Component<Props, State> {
               closeQuickInvoice={this.closeQuickInvoice}
               saveQuickInvoice={this.saveQuickInvoice}
               privatePassList={this.props.privatePassList}
+              paymentComboList={this.props.paymentComboList}
               paymentPacks={this.props.paymentPacksEnabled}
               shopItems={this.props.shopItemsAvailable}
               className={classes.autoScroll}

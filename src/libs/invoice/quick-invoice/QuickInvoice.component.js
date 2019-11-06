@@ -35,6 +35,7 @@ type Props = {
   classes: Object,
   paymentPacks: Array<PaymentPack>,
   privatePassList: Array<PrivatePass>,
+  paymentComboList: Array<PaymentCombo>,
   shopItems: Array<ShopItem>,
   createInvoice: (data: [*]) => void,
   updateInvoice: (data: [*]) => void,
@@ -79,6 +80,7 @@ export class QuickInvoice extends Component<Props, State> {
       additionalPaymentPacks: [],
       additionalShopItems: [],
       additionalPrivatePasses: [],
+      additionalPaymentCombos: [],
       topUp: 0,
       unevenInvoiceAlertOpen: false,
     };
@@ -112,6 +114,7 @@ export class QuickInvoice extends Component<Props, State> {
     const { uneditableInvoiceItems } = this.props;
     const {
       additionalShopItems,
+      additionalPaymentCombos,
       additionalPrivatePasses,
       additionalPaymentPacks,
       topUp,
@@ -119,8 +122,16 @@ export class QuickInvoice extends Component<Props, State> {
     const sumPack = additionalPaymentPacks.reduce(getTotal, 0);
     const sumShop = additionalShopItems.reduce(getTotal, 0);
     const sumPrivatePass = additionalPrivatePasses.reduce(getTotal, 0);
+    const sumPaymentCombo = additionalPaymentCombos.reduce(getTotal, 0);
     const sumUneditable = (uneditableInvoiceItems || []).reduce(getTotal, 0);
-    return sumPack + sumShop + sumUneditable + topUp + sumPrivatePass;
+    return (
+      sumPack +
+      sumShop +
+      sumUneditable +
+      sumPaymentCombo +
+      topUp +
+      sumPrivatePass
+    );
   };
 
   choseInvoiceItem = () => {
@@ -138,6 +149,23 @@ export class QuickInvoice extends Component<Props, State> {
     this.setState((prevState) => ({
       additionalPaymentPacks: [
         ...prevState.additionalPaymentPacks,
+        {
+          name: ppToAdd.name,
+          price: ppToAdd.price,
+          id: ppToAdd.id,
+        },
+      ],
+      showInvoiceItemSelector: false,
+    }));
+  };
+
+  addPaymentCombo = (paymentComboId: number) => {
+    const ppToAdd = this.props.paymentComboList.find(
+      (pp) => pp.id === paymentComboId,
+    );
+    this.setState((prevState) => ({
+      additionalPaymentCombos: [
+        ...prevState.additionalPaymentCombos,
         {
           name: ppToAdd.name,
           price: ppToAdd.price,
@@ -210,6 +238,7 @@ export class QuickInvoice extends Component<Props, State> {
       additionalShopItems,
       additionalPaymentPacks,
       additionalPrivatePasses,
+      additionalPaymentCombos,
       voucher,
     } = this.state;
     const { quickInvoice, createInvoice } = this.props;
@@ -217,6 +246,7 @@ export class QuickInvoice extends Component<Props, State> {
       shop_item_ids: additionalShopItems.map((siii) => siii.id),
       payment_pack_ids: additionalPaymentPacks.map((ppii) => [ppii.id]),
       private_pass_ids: additionalPrivatePasses.map((ppii) => ppii.id),
+      payment_combo_ids: additionalPaymentCombos.map((ppii) => ppii.id),
       voucher,
       payment_items: this.generatePaymentItemsObject(),
       top_up: topUp,
@@ -258,6 +288,15 @@ export class QuickInvoice extends Component<Props, State> {
     this.setState({ additionalPrivatePasses });
   };
 
+  deletePaymentCombo = (paymentComboId: number) => {
+    const { additionalPaymentCombos } = this.state;
+    additionalPaymentCombos.splice(
+      additionalPaymentCombos.findIndex((pp) => pp.id === paymentComboId),
+      1,
+    );
+    this.setState({ additionalPaymentCombos });
+  };
+
   deleteShopItem = (shopItemId: number) => {
     const { additionalShopItems } = this.state;
     additionalShopItems.splice(
@@ -278,6 +317,7 @@ export class QuickInvoice extends Component<Props, State> {
     const {
       voucher,
       additionalShopItems,
+      additionalPaymentCombos,
       additionalPaymentPacks,
       unevenInvoiceAlertOpen,
     } = this.state;
@@ -316,13 +356,16 @@ export class QuickInvoice extends Component<Props, State> {
               shopItems={this.props.shopItems}
               paymentPacks={this.props.paymentPacks}
               privatePassList={this.props.privatePassList}
+              paymentComboList={this.props.paymentComboList}
               onTopUp={this.onTopUp}
               onAddPaymentPack={this.addPaymentPack}
               onAddPrivatePass={this.addPrivatePass}
               onAddShopItem={this.addShopItem}
+              onAddPaymentCombo={this.addPaymentCombo}
               showCancel={
                 additionalPaymentPacks.length ||
                 additionalShopItems.length ||
+                additionalPaymentCombos.length ||
                 this.state.additionalPrivatePasses.length
               }
               defaultTab={INVOICE_SELECTOR_SHOP_TAB}
@@ -338,11 +381,13 @@ export class QuickInvoice extends Component<Props, State> {
                   uneditableInvoiceItems={uneditableInvoiceItems}
                   paymentPackInvoiceItems={additionalPaymentPacks}
                   privatePassInvoiceItems={this.state.additionalPrivatePasses}
+                  paymentComboInvoiceItems={this.state.additionalPaymentCombos}
                   shopItemInvoiceItems={additionalShopItems}
                   topUp={this.state.topUp}
                   deletePPackInvoiceItem={this.deletePaymentPack}
                   deletePrivatePassInvoiceItem={this.deletePrivatePass}
                   deleteShopItemInvoiceItem={this.deleteShopItem}
+                  deletePaymentComboInvoiceItem={this.deletePaymentCombo}
                   deleteTopUp={this.deleteTopUp}
                 />
               </Grid>
@@ -374,6 +419,7 @@ export class QuickInvoice extends Component<Props, State> {
                   (this.state.additionalPaymentPacks || []).length ||
                   (this.state.additionalPrivatePasses || []).length ||
                   (this.state.additionalShopItems || []).length ||
+                  (this.state.additionalPaymentCombos || []).length ||
                   (this.props.uneditableInvoiceItems || []).length ||
                   !!this.state.topUp
                 )

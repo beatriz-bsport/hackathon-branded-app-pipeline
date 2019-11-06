@@ -17,6 +17,7 @@ type Props = {
   helperText: string,
   value: ?number,
   selectorClass: string,
+  nullCurrentValue?: boolean,
 };
 
 type OptionProps = {
@@ -50,6 +51,7 @@ export function PaymentPackSelector(props: Props) {
     classes,
     selectorClass,
     helperText,
+    nullCurrentValue,
   } = props;
   const suggestions = paymentPacks
     .asMutable()
@@ -60,6 +62,7 @@ export function PaymentPackSelector(props: Props) {
     <Selector
       searchIcon
       selected={value}
+      nullCurrentValue={nullCurrentValue}
       suggestions={suggestions}
       className={classNames(classes, selectorClass)}
       components={{ Option: paymentPackOption }}

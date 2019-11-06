@@ -48,6 +48,7 @@ type Props = {
 
   paymentPacks: Array<PaymentPack>,
   privatePassList: Array<PrivatePass>,
+  paymentComboList: Array<PaymentCombo>,
   shopItems: Array<ShopItem>,
   uneditablePayments: Array<Payment>,
   uneditableInvoiceItems: Array<InvoiceItem>,
@@ -73,6 +74,7 @@ type State = {
   shopItemInvoiceItems: Array<InvoiceItem>,
   paymentPackInvoiceItems: Array<InvoiceItem>,
   privatePassInvoiceItems: Array<InvoiceItem>,
+  paymentComboInvoiceItems: Array<InvoiceItem>,
 };
 
 const STEP_ADD_INVOICE_ITEMS = 0;
@@ -159,6 +161,7 @@ export class InvoiceForm extends Component<Props, State> {
         ? props.privatePassList.filter((pp) => pp.id === props.withPrivatePass)
         : [],
       shopItemInvoiceItems: [],
+      paymentComboInvoiceItems: [],
       voucher: 0,
       paymentItems: [],
       topUp: props.withCredit ? props.withCredit : 0,
@@ -179,6 +182,7 @@ export class InvoiceForm extends Component<Props, State> {
       voucher,
       paymentPackInvoiceItems,
       privatePassInvoiceItems,
+      paymentComboInvoiceItems,
       shopItemInvoiceItems,
       paymentItems,
       topUp,
@@ -190,6 +194,7 @@ export class InvoiceForm extends Component<Props, State> {
       shop_item_ids: shopItemInvoiceItems.map((siii) => siii.id),
       payment_pack_ids: paymentPackInvoiceItems.map((ppii) => [ppii.id]),
       private_pass_ids: privatePassInvoiceItems.map((ppii) => ppii.id),
+      payment_combo_ids: paymentComboInvoiceItems.map((ppii) => ppii.id),
       payment_items: paymentItems,
     };
     return this.props.createOrUpdate(data);
@@ -240,12 +245,14 @@ export class InvoiceForm extends Component<Props, State> {
       shopItemInvoiceItems,
       paymentPackInvoiceItems,
       privatePassInvoiceItems,
+      paymentComboInvoiceItems,
       voucher,
       topUp,
     } = this.state;
 
     const sumPack = paymentPackInvoiceItems.reduce(getTotal, 0);
     const sumPrivatePass = privatePassInvoiceItems.reduce(getTotal, 0);
+    const sumPaymentCombo = paymentComboInvoiceItems.reduce(getTotal, 0);
     const sumShop = shopItemInvoiceItems.reduce(getTotal, 0);
     const sumUneditableInvoiceItems = (uneditableInvoiceItems || []).reduce(
       getTotal,
@@ -254,6 +261,7 @@ export class InvoiceForm extends Component<Props, State> {
     return (
       topUp +
       sumPrivatePass +
+      sumPaymentCombo +
       sumPack -
       (voucher || 0) +
       sumUneditableInvoiceItems +
@@ -288,6 +296,17 @@ export class InvoiceForm extends Component<Props, State> {
     });
   };
 
+  deletePaymentComboInvoiceItem = (comboId: number) => {
+    const { paymentComboInvoiceItems } = this.state;
+    paymentComboInvoiceItems.splice(
+      paymentComboInvoiceItems.findIndex((pp) => pp.id === comboId),
+      1,
+    );
+    this.setState({
+      paymentComboInvoiceItems,
+    });
+  };
+
   deleteShopItemInvoiceItem = (shopItemIIId: number) => {
     const { shopItemInvoiceItems } = this.state;
     shopItemInvoiceItems.splice(
@@ -317,6 +336,22 @@ export class InvoiceForm extends Component<Props, State> {
     this.setState((prevState) => ({
       paymentItems: [...prevState.paymentItems, paymentItem],
     }));
+  };
+
+  onAddPaymentCombo = (comboId: number) => {
+    const combo = this.props.paymentComboList.find((pp) => pp.id === comboId);
+    if (combo) {
+      this.setState((prevState) => ({
+        paymentComboInvoiceItems: [
+          ...prevState.paymentComboInvoiceItems,
+          {
+            name: combo.name,
+            price: combo.price,
+            id: combo.id,
+          },
+        ],
+      }));
+    }
   };
 
   onAddPrivatePass = (privatePassId: number) => {
@@ -440,6 +475,7 @@ export class InvoiceForm extends Component<Props, State> {
               !(
                 (this.state.paymentPackInvoiceItems || []).length ||
                 (this.state.privatePassInvoiceItems || []).length ||
+                (this.state.paymentComboInvoiceItems || []).length ||
                 (this.state.shopItemInvoiceItems || []).length ||
                 (this.props.uneditableInvoiceItems || []).length ||
                 !!this.state.topUp
@@ -538,9 +574,11 @@ export class InvoiceForm extends Component<Props, State> {
             onAddPaymentPack={this.onAddPaymentPack}
             onAddPrivatePass={this.onAddPrivatePass}
             onAddShopItem={this.onAddShopItem}
+            onAddPaymentCombo={this.onAddPaymentCombo}
             onTopUp={this.onTopUp}
             paymentPacks={paymentPacks}
             privatePassList={this.props.privatePassList}
+            paymentComboList={this.props.paymentComboList}
             shopItems={shopItems}
           />
           <Divider />
@@ -593,6 +631,7 @@ export class InvoiceForm extends Component<Props, State> {
     const {
       paymentPackInvoiceItems,
       privatePassInvoiceItems,
+      paymentComboInvoiceItems,
       shopItemInvoiceItems,
       topUp,
       voucher,
@@ -603,11 +642,13 @@ export class InvoiceForm extends Component<Props, State> {
         <InvoiceItemList
           deletePPackInvoiceItem={this.deletePPackInvoiceItem}
           deletePrivatePassInvoiceItem={this.deletePrivatePassInvoiceItem}
+          deletePaymentComboInvoiceItem={this.deletePaymentComboInvoiceItem}
           deleteShopItemInvoiceItem={this.deleteShopItemInvoiceItem}
           deleteVoucher={this.deleteVoucher}
           deleteTopUp={this.deleteTopUp}
           paymentPackInvoiceItems={paymentPackInvoiceItems}
           privatePassInvoiceItems={privatePassInvoiceItems}
+          paymentComboInvoiceItems={paymentComboInvoiceItems}
           shopItemInvoiceItems={shopItemInvoiceItems}
           uneditableInvoiceItems={uneditableInvoiceItems || []}
           uneditableVoucher={parseFloat(this.props.uneditableVoucher)}

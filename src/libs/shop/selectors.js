@@ -19,7 +19,7 @@ const _getShopItems = (state: State, marketplace_only: ?boolean) => {
   return state.shop.all;
 };
 
-const getShopItemsAvailable = createSelector(
+export const getShopItemsAvailable = createSelector(
   _getAllShopItems,
   (shopItems) => shopItems.filter((si) => si.subshop),
 );

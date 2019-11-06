@@ -24,6 +24,9 @@ import { fetchCompanyOffersWorkshopAction } from '../../libs/marketplace/actions
 import { DATE_FORMAT } from '../../datetime';
 import withTitle from '../../hocs/with-title.hoc';
 
+import { getPaymentComboListAvailableOnline } from '../../libs/payment-combo/selectors';
+import type { PaymentCombo } from '../../libs/payment-combo/types';
+
 type Props = {
   // t: TFunction,
   companyId: number,
@@ -38,6 +41,14 @@ type Props = {
 
   fetchPaymentPacks: (offerId: number) => void,
   fetchCompatiblePass: (offerId: number) => void,
+
+  goToPaymentComboPayment: (
+    comboId: number,
+    offerId: number,
+    companyId: number,
+  ) => void,
+  paymentComboList: Array<PaymentCombo>,
+
   onBookOfferFromPack: (offerId: number, consumerPaymentPack: number) => void,
   compatibleConsumerPacks: Array<ConsumerPaymentPack>,
   compatiblePaymentPacks: Array<PaymentPack>,
@@ -71,11 +82,19 @@ export class MarketplaceWorkshopPage extends React.Component<Props> {
             fetchCompatiblePass={this.props.fetchCompatiblePass}
             compatibleConsumerPacks={this.props.compatibleConsumerPacks}
             compatiblePaymentPacks={this.props.compatiblePaymentPacks}
+            paymentComboList={this.props.paymentComboList}
             hideMap={!!this.props.hideMap}
             onBook={(id) => this.props.goToBook(id, this.props.companyId)}
             onBookOfferFromPack={this.props.onBookOfferFromPack}
             goToPackPayment={(packId, offerId) =>
               this.props.goToPackPayment(packId, offerId, this.props.companyId)
+            }
+            goToPaymentComboPayment={(comboId, offerId) =>
+              this.props.goToPaymentComboPayment(
+                comboId,
+                offerId,
+                this.props.companyId,
+              )
             }
           />
         </div>
@@ -110,6 +129,7 @@ export default compose(
       loading: isOfferLoading(state),
       compatibleConsumerPacks: state.payment.compatibleConsumerPacks || [],
       compatiblePaymentPacks: state.payment.compatiblePaymentPacks || [],
+      paymentComboList: getPaymentComboListAvailableOnline(state),
     }),
     {
       fetchPaymentPacks: paymentActions.fetchCompatiblePaymentPacks,
@@ -122,6 +142,10 @@ export default compose(
       goToPackPayment: (packId, offerId, companyId) =>
         push(
           `/customer/payment/pass/${packId}?nextOffer=${offerId}&membership=${companyId}`,
+        ),
+      goToPaymentComboPayment: (comboId, offerId, companyId) =>
+        push(
+          `/customer/payment/combo/${comboId}?nextOffer=${offerId}&membership=${companyId}`,
         ),
     },
   ),

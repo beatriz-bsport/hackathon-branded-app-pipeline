@@ -21,7 +21,7 @@ import memberSelectors from '../../libs/member/selectors';
 import SubscriptionCreateComponent from '../../libs/subscription/components/SubscriptionCreate.component';
 import SubscriptionScheduleChecker from '../../libs/subscription/components/SubscriptionScheduleChecker.component';
 import type { SubscriptionData } from '../../libs/subscription/types';
-import paymentPackSelectors from '../../libs/payment-packs/selectors';
+import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/selectors';
 import type { PaymentPack } from '../../libs/payment-packs/types';
 
 import type { Member } from '../../libs/member/types';
@@ -120,7 +120,7 @@ export default compose(
   withTitle(({ t }) => t('titles:subscription.subscriptionCreate')),
   connect(
     (state, { memberId }) => ({
-      paymentPacks: paymentPackSelectors.getEnabled(state),
+      paymentPacks: getPaymentPackEnabled(state),
       memberLoading: state.member.loading,
       member: memberSelectors.get(state, memberId),
     }),

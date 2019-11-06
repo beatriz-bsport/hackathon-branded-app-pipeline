@@ -44,6 +44,9 @@ const Shop = asyncComponent(() => import('./shop/Shop.router'));
 const Reporting = asyncComponent(() =>
   import('./reporting/Reporting.component'),
 );
+const PaymentCombo = asyncComponent(() =>
+  import('./payment-combo/PaymentCombo.router'),
+);
 
 const PlanningRouter = asyncComponent(() =>
   import('./planning/Planning.router'),
@@ -124,6 +127,7 @@ const BackofficeRoute = withSentryErrorReporting(() => (
       <Route path="/email" component={EmailTemplate} />
     )}
     <Route path="/reporting/" component={Reporting} />
+    <Route path="/combo/" component={PaymentCombo} />
     <Route path="/private-service" component={PrivateService} />
     <Route path="/order" component={Order} />
     <Route exact path="/dashboard" component={Dashboard} />

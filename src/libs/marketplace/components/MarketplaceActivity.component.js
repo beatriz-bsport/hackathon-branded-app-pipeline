@@ -17,6 +17,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
+import List from '@material-ui/core/List';
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
@@ -26,9 +27,12 @@ import Map from '../../../components/map/Map.component';
 import TypographyMultiline from '../../../components/TypographyMultiline.component';
 
 import ConsumerPackCheckout from '../../../pages/payment/offer/ConsumerPackCheckout.component';
+import PaymentComboBuyableItem from '../../../pages/payment/offer/PaymentComboBuyableItem.component';
 import PaymentPackSummary from '../../../components/payment-pack/PaymentPackSummary.component';
 
 import { isOfferInThePast } from '../utils';
+
+import type { PaymentCombo } from '../../payment-combo/types';
 
 type Props = {
   offer: Offer,
@@ -45,6 +49,9 @@ type Props = {
   onBookFromPack: (consumerPaymentPack: number) => void,
   fetchPassData: (id: number) => void,
   onClose: () => void,
+
+  paymentComboList: Array<PaymentCombo>,
+  goToPaymentComboPayment: (id, offerId) => void,
 
   t: TFunction,
   classes: Object,
@@ -106,6 +113,44 @@ export class MarketPlaceActivity extends React.Component<Props> {
               )}
             </div>
           </div>
+        </div>
+      );
+    }
+    return null;
+  };
+
+  renderPaymentCombo = () => {
+    const { t, compatiblePaymentPacks, paymentComboList } = this.props;
+    if (!paymentComboList) return null;
+    const compatiblePackIds = compatiblePaymentPacks.map((pp) => pp.id);
+
+    const relevantPaymentComboList = paymentComboList.filter((pc) =>
+      pc.payment_packs
+        .map((pp) => pp.id)
+        .some((id) => compatiblePackIds.includes(id)),
+    );
+
+    if (relevantPaymentComboList.length > 0) {
+      return (
+        <div>
+          <Typography
+            variant="h6"
+            component="h2"
+            className={this.props.classes.title}
+          >
+            {t('payment:paymentComboSectionTitle')}
+          </Typography>
+          <List disablePadding className={this.props.classes.listPaymentPacks}>
+            {relevantPaymentComboList.map((pc) => (
+              <PaymentComboBuyableItem
+                key={pc.id}
+                paymentCombo={pc}
+                onClick={() =>
+                  this.props.goToPaymentComboPayment(pc.id, this.props.offer.id)
+                }
+              />
+            ))}
+          </List>
         </div>
       );
     }
@@ -197,6 +242,9 @@ export class MarketPlaceActivity extends React.Component<Props> {
                 ))}
               </div>
             ) : null}
+            {this.props.displayPacksInformation
+              ? this.renderPaymentCombo()
+              : null}
             {this.props.displayPacksInformation &&
             this.props.compatiblePaymentPacks.length ? (
               <div>
@@ -302,7 +350,7 @@ const styles = (theme) => ({
   listPaymentPacks: {
     backgroundColor: '#F8F8F8',
     maxHeight: 320,
-    overflowY: 'scroll',
+    overflowY: 'auto',
   },
   loading: {
     padding: 40,

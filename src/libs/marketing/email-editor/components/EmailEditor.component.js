@@ -26,8 +26,13 @@ type Props = {
   goToList: () => void,
 };
 
-export class EmailEditorPanel extends Component<Props, state> {
-  constructor(props) {
+type State = {
+  subject: string,
+  title: string,
+};
+
+export class EmailEditorPanel extends Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = {
       title: props.emailLoad ? props.emailLoad.title : '',

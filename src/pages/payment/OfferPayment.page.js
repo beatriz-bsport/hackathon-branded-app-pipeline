@@ -28,6 +28,10 @@ import { linkMeToCompany } from '../../libs/member/actions';
 import ConsumerModalContainer from '../../components/consumer/ConsumerModalContainer.component';
 import type { Offer, ConsumerPaymentPackManagerView } from '../../api/types';
 
+import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
+import { getPaymentComboListAvailableOnline } from '../../libs/payment-combo/selectors';
+import type { PaymentCombo } from '../../libs/payment-combo/types';
+
 import OfferPaymentForm from './offer/OfferPaymentForm.component';
 
 type Props = {
@@ -52,6 +56,9 @@ type Props = {
   compatibleConsumerPacks: Array<ConsumerPaymentPackManagerView>,
   compatiblePaymentPacks: Array<PaymentPack>,
 
+  buyPaymentCombo: (comboId: number, offerId: number) => void,
+  paymentComboList: Array<PaymentCombo>,
+
   goBack: () => void,
   fetchBookingOption: (id: number) => void,
   checkBookingOptionExistence: (offerId: number) => void,
@@ -59,6 +66,7 @@ type Props = {
   fetchOffer: (number) => void,
   fetchCompatiblePass: (number) => void,
   fetchCompatiblePaymentPacks: (number) => void,
+  fetchPaymentComboList: ({ company: number }) => void,
   snackbar: { success: (string) => void },
 };
 
@@ -110,6 +118,10 @@ export class OfferPaymentPage extends Component<Props, State> {
   componentDidUpdate(prevProps: Props) {
     if (prevProps.offer !== this.props.offer && this.props.offer) {
       this.props.fetchCompanyTheme(this.props.offer.activity.company);
+      this.props.fetchPaymentComboList({
+        company: this.props.offer.activity.company,
+        manager_only: false,
+      });
     }
     if (this.props.authenticated && !prevProps.authenticated) {
       this.props.linkMeToCompany({ offer: this.props.offerId });
@@ -170,10 +182,12 @@ export class OfferPaymentPage extends Component<Props, State> {
             compatiblePaymentPacks={this.props.compatiblePaymentPacks}
             onBookFromPack={this.onBookFromPack}
             onBuyPaymentPack={this.buyPaymentPack}
+            onBuyPaymentCombo={this.props.buyPaymentCombo}
             goToPassMarketplace={this.goToPassMarketplace}
             bookAnOption={this.bookAnOption}
             option_id={this.option_id}
             hasOneOrMoreOption={this.props.hasOneOrMoreOption}
+            paymentComboList={this.props.paymentComboList}
           />
         </ConsumerModalContainer>
       </MuiThemeProvider>
@@ -194,13 +208,14 @@ export default compose(
       compatibleConsumerPacks: state.payment.compatibleConsumerPacks,
       compatiblePaymentPacks: state.payment.compatiblePaymentPacks,
       compatiblePaymentPacksLoading:
-        state.payment.compatibleConsumerPacksLoading,
+        state.payment.compatiblePaymentPacksLoading,
       compatibleConsumerPacksLoading:
         state.payment.compatibleConsumerPacksLoading,
       bookingOption: state.payment.bookingOption.data,
       bookingOptionLoading: state.payment.bookingOption.loading,
       hasOneOrMoreOption: state.payment.bookingOption.hasOne,
       theme: themeSelectors.getTheme(state),
+      paymentComboList: getPaymentComboListAvailableOnline(state),
     }),
     {
       fetchOffer: paymentActions.fetchOffer,
@@ -210,8 +225,13 @@ export default compose(
       checkBookingOptionExistence: paymentActions.checkOptionExistence,
       fetchCompatiblePass: paymentActions.fetchCompatiblePass,
       fetchCompatiblePaymentPacks: paymentActions.fetchCompatiblePaymentPacks,
+      fetchPaymentComboList,
       pushRouter: (path) => routerPush(path),
       goBack,
+      buyPaymentCombo: (paymentComboId: number, offerId: number) =>
+        routerPush(
+          `/customer/payment/combo/${paymentComboId}?nextOffer=${offerId}`,
+        ),
     },
   ),
 )(OfferPaymentPage);

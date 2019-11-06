@@ -15,6 +15,7 @@ type Props = {
   classes: Object,
   privatePassList: Array<PrivatePass>,
   onChange: (?number) => void,
+  nullCurrentValue?: boolean,
   helperText: string,
   value: ?number,
   selectorClass: string,
@@ -63,6 +64,7 @@ export function PrivatePassSelector(props: Props) {
     <Selector
       searchIcon
       selected={value}
+      nullCurrentValue={props.nullCurrentValue}
       suggestions={suggestions}
       className={classNames(classes, selectorClass)}
       components={{ Option: privatePassOption }}

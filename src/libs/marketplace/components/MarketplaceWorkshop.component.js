@@ -5,8 +5,10 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import { compose, withState } from 'recompose';
 import { withNamespaces } from 'react-i18next';
+
 import type { TFunction } from 'react-i18next';
 import type { Offer } from '../types';
+import type { PaymentCombo } from '../../payment-combo/types';
 
 import MarketplaceWorkshopEvent from './MarketplaceWorkshopEvent.component';
 import MarketplaceActivityDialog from './MarketplaceActivityDialog.component';
@@ -24,6 +26,10 @@ type Props = {
   goToPackPayment: (offerId: number) => void,
   compatibleConsumerPacks: Array<ConsumerPaymentPack>,
   compatiblePaymentPacks: Array<PaymentPack>,
+
+  paymentComboList: Array<PaymentCombo>,
+  goToPaymentComboPayment: (offerId: number) => void,
+
   onBookOfferFromPack: (offerId: number, consumerPackId: number) => void,
   t: TFunction,
 };
@@ -65,6 +71,7 @@ export const MarketplaceWorkshop = (props: Props) => {
           props.fetchCompatiblePass(props.offerSelected.id);
         }}
         goToPackPayment={props.goToPackPayment}
+        goToPaymentComboPayment={props.goToPaymentComboPayment}
         goToOfferPayment={(id) =>
           props.onBook(id, props.offerSelected.meta_activity.company)
         }
@@ -74,6 +81,7 @@ export const MarketplaceWorkshop = (props: Props) => {
         offerId={props.offerSelected ? props.offerSelected.id : null}
         compatibleConsumerPacks={props.compatibleConsumerPacks}
         compatiblePaymentPacks={props.compatiblePaymentPacks}
+        paymentComboList={props.paymentComboList}
       />
     </div>
   );

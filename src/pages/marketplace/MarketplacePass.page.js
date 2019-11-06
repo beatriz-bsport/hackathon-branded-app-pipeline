@@ -13,47 +13,72 @@ import type { TFunction } from 'react-i18next';
 import {
   BUYABLE_ITEM_PASS,
   BUYABLE_ITEM_PRIVATE_PASS,
+  BUYABLE_ITEM_COMBO_ITEM,
 } from '@bsport/common/lib/master-data/buyable-items';
+
+// marketplace
+// -----------------------------
 import MarketplacePassList from '../../libs/marketplace/components/MarketplacePassList.component';
 import MarketplacePrivatePassList from '../../libs/marketplace/components/MarketplacePrivatePassList.component';
+import MarketplacePaymentComboList from '../../libs/marketplace/components/MarketplacePaymentComboList.component';
 import {
   getPaymentPacks,
   isMarketplaceLoading,
 } from '../../libs/marketplace/selectors';
+import { fetchPaymentPacksAction } from '../../libs/marketplace/actions';
+
+// checkout
+// -----------------------------
 import { addItemToBasket } from '../../libs/checkout/actions';
 import { getCurrentBasket } from '../../libs/checkout/selectors';
 import type { Basket } from '../../libs/checkout/types';
+
+// private-service
+// -----------------------------
 import { fetchPrivatePassList } from '../../libs/private-service/actions';
 import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
-import { fetchPaymentPacksAction } from '../../libs/marketplace/actions';
+
+// payment-combo
+// -----------------------------
+import { getPaymentComboListAvailableOnline } from '../../libs/payment-combo/selectors';
+import type { PaymentCombo } from '../../libs/payment-combo/types';
 
 import withTitle from '../../hocs/with-title.hoc';
 
 type Props = {
   companyId: number,
   loading: boolean,
-  paymentPacks: Array<PaymentPack>,
-  privatePassList: Array<PrivatePass>,
   authenticated: boolean,
 
-  requestSignUp: () => void,
+  paymentPacks: Array<PaymentPack>,
+  privatePassList: Array<PrivatePass>,
+  paymentComboList: Array<PaymentCombo>,
+
   fetchPaymentPacks: (companyId: number) => void,
   fetchPrivatePassList: (companyId: number) => void,
-  pushPrivatePassCheckout: (packId: number, basketId: string) => void,
-  pushPackCheckout: (packId: number, basketId: string) => void,
+
+  requestSignUp: () => void,
   toogleCurrentBasketOpen: (boolean) => void,
   currentBasket: Basket,
+
+  pushPrivatePassCheckout: (packId: number, basketId: string) => void,
+  pushPackCheckout: (packId: number, basketId: string) => void,
+  pushComboCheckout: (comboId: number, basketId: string) => void,
 };
 
 export class MarketPlacePassPage extends Component<Props> {
-  async componentDidMount() {
+  componentDidMount() {
+    this.fetchData();
+  }
+
+  fetchData = () => {
     this.props.fetchPaymentPacks(this.props.companyId);
     this.props.fetchPrivatePassList(this.props.companyId);
-  }
+  };
 
   componentDidUpdate(prevProps: Props) {
     if (prevProps.authenticated !== this.props.authenticated) {
-      this.props.fetchPaymentPacks(this.props.companyId);
+      this.fetchData();
     }
   }
 
@@ -63,6 +88,24 @@ export class MarketPlacePassPage extends Component<Props> {
     }
     return (
       <Grid container direction="row" justify="space-evenly">
+        {this.props.paymentComboList.length ? (
+          <Grid item xs={12}>
+            <MarketplacePaymentComboList
+              paymentComboList={this.props.paymentComboList}
+              onAddBasket={(comboId) => {
+                if (!this.props.authenticated) {
+                  this.props.requestSignUp();
+                } else {
+                  this.props.pushComboCheckout(
+                    comboId,
+                    this.props.currentBasket.id,
+                  );
+                  this.props.toogleCurrentBasketOpen(true);
+                }
+              }}
+            />
+          </Grid>
+        ) : null}
         <Grid item xs={11} md={5}>
           <MarketplacePassList
             paymentPacks={this.props.paymentPacks}
@@ -126,6 +169,7 @@ export default compose(
       currentBasket: getCurrentBasket(state),
       authenticated: state.auth.authenticated,
       privatePassList: getPrivatePassAvailable(state),
+      paymentComboList: getPaymentComboListAvailableOnline(state),
       loading:
         state.marketplacev2.paymentPack.loading || isMarketplaceLoading(state),
     }),
@@ -144,6 +188,13 @@ export default compose(
           buyable_item_identifier: BUYABLE_ITEM_PASS,
           quantity: 1,
           buyable_item_id: packId,
+          extra_data: {},
+        }),
+      pushComboCheckout: (comboId, basketId) =>
+        addItemToBasket(basketId, {
+          buyable_item_identifier: BUYABLE_ITEM_COMBO_ITEM,
+          quantity: 1,
+          buyable_item_id: comboId,
           extra_data: {},
         }),
     },

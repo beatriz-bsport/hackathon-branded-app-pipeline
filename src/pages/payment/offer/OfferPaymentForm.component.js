@@ -6,8 +6,8 @@ import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
@@ -18,7 +18,6 @@ import { withRouter } from 'react-router-dom';
 
 import type { TFunction } from 'react-i18next';
 import moment from 'moment-timezone';
-import ConsumerPackCheckout from './ConsumerPackCheckout.component';
 import PaymentPackSummary from '../../../components/payment-pack/PaymentPackSummary.component';
 import type {
   ConsumerPaymentPackConsumerView,
@@ -27,6 +26,10 @@ import type {
 
 import ActivityMinimalSummary from '../../../components/activity/ActivityMinimalSummary.component';
 import { formatAsDatetime } from '../../../datetime';
+
+import ConsumerPackCheckout from './ConsumerPackCheckout.component';
+import PaymentComboBuyableItem from './PaymentComboBuyableItem.component';
+import type { PaymentCombo } from '../../../libs/payment-combo/types';
 
 type Props = {
   classes: Object,
@@ -37,6 +40,9 @@ type Props = {
 
   compatibleConsumerPacksLoading: boolean,
   compatiblePaymentPacksLoading: boolean,
+
+  onBuyPaymentCombo: (comboId: number, offerId: number) => void,
+  paymentComboList: Array<PaymentCombo>,
 
   loading: boolean,
   hasOneOrMoreOption: boolean,
@@ -98,19 +104,14 @@ export class OfferPayment extends Component<Props> {
       compatibleConsumerPacksLoading,
     } = this.props;
 
-    // prettier-ignore
-
-    if (
-      compatibleConsumerPacksLoading
-      || offer === null
-    ) {
-    return null;
+    if (compatibleConsumerPacksLoading || offer === null) {
+      return <LinearProgress />;
     }
     if (compatibleConsumerPacks.length === 0) {
       return (
         <Grid container direction="column" spacing={16} alignItems="flex-start">
           <Grid item>
-            <Typography>
+            <Typography className={this.props.classes.sectionTitle}>
               Vous ne disposez pas de pass compatible avec cette séance !
             </Typography>
           </Grid>
@@ -144,7 +145,6 @@ export class OfferPayment extends Component<Props> {
             />
           </Grid>
         ))}
-        <Divider />
       </Grid>
     );
   };
@@ -155,6 +155,9 @@ export class OfferPayment extends Component<Props> {
   };
 
   renderBookingWithUnlimitedPass = (unlimitedPacks: Array<Object>) => {
+    if (this.props.compatibleConsumerPacksLoading) {
+      return <LinearProgress />;
+    }
     return unlimitedPacks.map((pack) => (
       <ConsumerPackCheckout
         noDivider
@@ -167,26 +170,62 @@ export class OfferPayment extends Component<Props> {
     ));
   };
 
+  renderPaymentCombo = () => {
+    const { t, compatiblePaymentPacks, paymentComboList } = this.props;
+    const compatiblePackIds = compatiblePaymentPacks.map((pp) => pp.id);
+
+    const relevantPaymentComboList = paymentComboList.filter((pc) =>
+      pc.payment_packs
+        .map((pp) => pp.id)
+        .some((id) => compatiblePackIds.includes(id)),
+    );
+
+    if (relevantPaymentComboList.length > 0) {
+      return (
+        <div>
+          <Typography
+            variant="h6"
+            component="h2"
+            className={this.props.classes.sectionTitle}
+          >
+            {t('payment:paymentComboSectionTitle')}
+          </Typography>
+          <List disablePadding className={this.props.classes.passList}>
+            {relevantPaymentComboList.map((pc) => (
+              <PaymentComboBuyableItem
+                key={pc.id}
+                paymentCombo={pc}
+                onClick={() =>
+                  this.props.onBuyPaymentCombo(pc.id, this.props.offer.id)
+                }
+              />
+            ))}
+          </List>
+        </div>
+      );
+    }
+    return null;
+  };
+
   renderBuyCompatiblePaymentPack = () => {
     const {
       compatiblePaymentPacksLoading,
       compatiblePaymentPacks,
       compatibleConsumerPacksLoading,
     } = this.props;
-    if (compatibleConsumerPacksLoading) {
-      return null; // avoid double loader indicator
-    }
-    if (compatiblePaymentPacksLoading) {
-      return (
-        <Grid container item justify="center" alignItems="center">
-          <CircularProgress />
-        </Grid>
-      );
+
+    if (compatiblePaymentPacksLoading && !compatibleConsumerPacksLoading) {
+      return <LinearProgress />;
     }
     return (
       <div>
+        {this.renderPaymentCombo()}
         {(compatiblePaymentPacks || []).length ? (
-          <Typography variant="h6" component="h2">
+          <Typography
+            variant="h6"
+            component="h2"
+            className={this.props.classes.sectionTitle}
+          >
             Pass compatible avec cette séance
           </Typography>
         ) : null}
@@ -243,7 +282,7 @@ export class OfferPayment extends Component<Props> {
             color="secondary"
             className={this.props.classes.noOfferTypography}
           >
-            Cette séance a été annulée par le coach
+            Cette séance a été annulée
           </Typography>
         </Grid>
       );
@@ -279,13 +318,14 @@ export class OfferPayment extends Component<Props> {
             </Typography>
           </Grid>
           <Grid item>
-            <Button
-              color="secondary"
-              variant="contained"
-              onClick={this.props.goToPassMarketplace}
-            >
-              {t('payment:goBack')}
-            </Button>
+            <div className={this.props.classes.bottomButtonContainer}>
+              <Button
+                color="secondary"
+                onClick={this.props.goToPassMarketplace}
+              >
+                {t('payment:goBack')}
+              </Button>
+            </div>
           </Grid>
         </Grid>
       );
@@ -323,13 +363,14 @@ export class OfferPayment extends Component<Props> {
             </Typography>
           </Grid>
           <Grid item>
-            <Button
-              color="secondary"
-              variant="contained"
-              onClick={this.props.goToPassMarketplace}
-            >
-              {t('payment:goBack')}
-            </Button>
+            <div className={this.props.classes.bottomButtonContainer}>
+              <Button
+                color="secondary"
+                onClick={this.props.goToPassMarketplace}
+              >
+                {t('payment:goBack')}
+              </Button>
+            </div>
           </Grid>
         </Grid>
       );
@@ -350,13 +391,11 @@ export class OfferPayment extends Component<Props> {
           ) : (
             this.renderOfferNotAvailable()
           )}
-          <Button
-            color="secondary"
-            variant="contained"
-            onClick={this.props.goToPassMarketplace}
-          >
-            {t('payment:goBack')}
-          </Button>
+          <div className={this.props.classes.bottomButtonContainer}>
+            <Button color="secondary" onClick={this.props.goToPassMarketplace}>
+              {t('payment:goBack')}
+            </Button>
+          </div>
         </Grid>
       );
     }
@@ -367,13 +406,11 @@ export class OfferPayment extends Component<Props> {
         {offer && offer.available
           ? this.renderBuyingMethods()
           : this.renderOfferNotAvailable()}
-        <Button
-          color="secondary"
-          variant="contained"
-          onClick={this.props.goToPassMarketplace}
-        >
-          {t('payment:goBack')}
-        </Button>
+        <div className={this.props.classes.bottomButtonContainer}>
+          <Button color="secondary" onClick={this.props.goToPassMarketplace}>
+            {t('payment:goBack')}
+          </Button>
+        </div>
       </Grid>
     );
   }
@@ -392,6 +429,15 @@ const styles = (theme) => ({
   passList: {
     border: '1px solid #E8E8E8',
     borderRadius: 8,
+    marginBottom: theme.spacing.unit * 2,
+  },
+  bottomButtonContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+  },
+  sectionTitle: {
+    paddingBottom: theme.spacing.unit,
   },
 });
 

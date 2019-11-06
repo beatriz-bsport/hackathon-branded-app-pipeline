@@ -99,6 +99,7 @@ export default {
     shop_item: 'Magasin',
     top_up: 'Recharge crédit client',
     fee: 'Frais',
+    payment_combo: 'Pack',
   },
   report: {
     delete_message: 'Êtes-vous sûr de vouloir supprimer le rapport {{name}} ?',

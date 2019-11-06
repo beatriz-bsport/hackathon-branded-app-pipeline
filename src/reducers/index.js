@@ -40,7 +40,7 @@ import paymentPack from '../libs/payment-packs/reducers';
 import privateService from '../libs/private-service/reducers';
 import smartListReducer from '../libs/smart-list/reducers';
 import emailTemplateReducer from '../libs/marketing/email-editor/reducers';
-
+import paymentCombo from '../libs/payment-combo/reducers';
 
 import type { State, Action } from '../state/types';
 
@@ -86,6 +86,7 @@ const rootReducer = combineReducers({
   login,
   privateService,
   smartList: smartListReducer,
+  paymentCombo,
 });
 
 export default (state: State, action: Action) => {

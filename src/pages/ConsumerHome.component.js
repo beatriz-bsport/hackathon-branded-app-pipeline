@@ -23,8 +23,8 @@ const MyProfile = asyncComponent(() =>
 const OfferPaymentPage = asyncComponent(() =>
   import('./payment/OfferPayment.page'),
 );
-const PaymentPackPaymentPage = asyncComponent(() =>
-  import('./payment/PaymentPackPayment.page'),
+const PaymentPackPreCheckout = asyncComponent(() =>
+  import('./checkout/pre-checkout/PaymentPackPreCheckout.page'),
 );
 const OrderPaymentPage = asyncComponent(() =>
   import('./payment/OrderPayment.page'),
@@ -38,6 +38,10 @@ const PrivateSlotPaymentPage = asyncComponent(() =>
 
 const CheckoutRouter = asyncComponent(() =>
   import('./checkout/Checkout.router'),
+);
+
+const PaymentComboPreCheckoutPage = asyncComponent(() =>
+  import('./checkout/pre-checkout/PaymentComboPreCheckout.page'),
 );
 
 type Props = {
@@ -100,7 +104,11 @@ export class ConsumerHome extends Component<Props> {
         />
         <Route
           path="/(|customer/)payment/pass/:id"
-          component={PaymentPackPaymentPage}
+          component={PaymentPackPreCheckout}
+        />
+        <Route
+          path="/(|customer/)payment/combo/:id"
+          component={PaymentComboPreCheckoutPage}
         />
         <Route
           path="/(|customer/)payment/private-service/:privateServiceId/private-slot/:privateSlotId/associated-coach/:associatedCoachId/date/:date/"

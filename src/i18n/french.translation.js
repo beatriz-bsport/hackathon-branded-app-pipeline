@@ -39,8 +39,10 @@ import titles from './fr/titles.translations';
 import formInput from './fr/form-input.translations';
 import privateService from './fr/private-service.translations';
 import smartList from './fr/smart-list.translations';
+import paymentCombo from './fr/payment-combo.translations';
 
 export default {
+  paymentCombo,
   communication,
   privateService,
   relationship,
@@ -602,6 +604,7 @@ export default {
     },
     navigation: {
       marketing_automation: 'Marketing Auto',
+      combo: 'Packs',
       requestTempPassword: "Autoriser l'accès",
       sequence: 'Stratégies',
       smart_list: 'Listes',
@@ -677,6 +680,7 @@ export default {
       payment: 'Paiement',
       credit: 'Crédit',
       privatePass: 'Carte cours privé',
+      paymentCombo: 'Pack',
       products: 'articles',
       invoiceRevertedThusNotEditable:
         "La facture a été annulée et n'est plus modifiable",
@@ -940,7 +944,7 @@ export default {
       substitute: 'Remplaçant',
       substituted: 'Absent',
       teacher: 'Professeur',
-      backToCalendar: 'Retour',
+      backToCalendar: 'Précédent',
       showMarketplace: 'Voir le calendrier de ',
       noSessionToday: 'Aucune séance',
       privatePassListTitle: 'Cartes cours privé',

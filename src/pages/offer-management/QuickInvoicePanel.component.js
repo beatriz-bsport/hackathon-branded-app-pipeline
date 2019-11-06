@@ -9,6 +9,7 @@ import type { TFunction } from 'react-i18next';
 import QuickInvoice from '../../libs/invoice/quick-invoice/QuickInvoice.component';
 
 import type { PrivateService } from '../../libs/private-service/types';
+import type { PaymentCombo } from '../../libs/payment-combo/types';
 
 type Props = {
   classes: Object,
@@ -20,6 +21,7 @@ type Props = {
   saveQuickInvoice: (InvoiceData) => void,
   paymentPacks: Array<PaymentPack>,
   privatePassList: Array<PrivateService>,
+  paymentComboList: Array<PaymentCombo>,
   shopItems: Array<ShopItem>,
   activities: Array<Activity>,
   revertQuickInvoice: (uuid: string) => void,
@@ -68,6 +70,7 @@ export function QuickInvoicePanel(props: Props) {
                 paymentPacks={paymentPacks}
                 shopItems={shopItems}
                 privatePassList={props.privatePassList}
+                paymentComboList={props.paymentComboList}
                 activities={[]}
                 createInvoice={() => {}}
                 onClose={() => props.revertQuickInvoice(inv.uuid)}
@@ -88,6 +91,7 @@ export function QuickInvoicePanel(props: Props) {
               paymentPacks={paymentPacks}
               shopItems={shopItems}
               privatePassList={props.privatePassList}
+              paymentComboList={props.paymentComboList}
               activities={activities}
               createInvoice={(invoiceData) =>
                 createInvoice(invoiceData, qi.memberId)

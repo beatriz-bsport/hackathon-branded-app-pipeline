@@ -1,0 +1,229 @@
+// @flow
+import React from 'react';
+import withStyles from '@material-ui/core/styles/withStyles';
+import { compose } from 'recompose';
+
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
+import omit from 'lodash/omit';
+
+import * as Yup from 'yup';
+import { withFormik, FieldArray } from 'formik';
+
+import {
+  TextField,
+  PriceField,
+  PercentField,
+  CheckboxField,
+} from '../../../components/forms';
+
+import PaymentPackListItem from '../../payment-packs/components/PaymentPackListItem.component';
+import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
+import ShopItemListItem from '../../shop/components/ShopItemListItem.component';
+import ShopItemSelector from '../../shop/components/ShopItemSelector.component';
+import PrivatePassSelector from '../../private-service/components/PrivatePassSelector.component';
+import PrivatePassListItem from '../../private-service/components/PrivatePassListItem.component';
+
+import type { PaymentPack } from '../../payment-packs/types';
+import type { ShopItem } from '../../shop/types';
+import type { PrivatePass } from '../../private-service/types';
+
+type Props = {
+  t: TFunction,
+  classes: Object,
+  paymentPackList: Array<PaymentPack>,
+  shopItemList: Array<ShopItem>,
+  privatePassList: Array<PrivatePass>,
+};
+
+function repeat(arr, n) {
+  const a = [];
+  // eslint-disable-next-line
+  for (let i = 0; i < n; [i++].push.apply(a, arr));
+  return a;
+}
+
+const repeatQuantity = (combo_items) => [
+  ...combo_items.reduce(
+    (acc, pp) => [...acc, ...repeat([pp.id], pp.quantity)],
+    [],
+  ),
+];
+
+export const PaymentComboForm = (props: Props) => (
+  <div>
+    <TextField
+      name="name"
+      label={props.t('form.name.label')}
+      required
+      fullWidth
+    />
+    <PriceField
+      name="price"
+      fullWidth
+      required
+      label={props.t('form.price.label')}
+    />
+    <PercentField
+      name="tax"
+      fullWidth
+      required
+      label={props.t('form.tax.label')}
+    />
+    <CheckboxField
+      label={props.t('form.manager_only.label')}
+      name="manager_only"
+    />
+    <fieldset>
+      <legend>{props.t('form.content')}</legend>
+      <FieldArray name="payment_pack_ids">
+        {({
+          push,
+          remove,
+          form: {
+            values: { payment_pack_ids },
+          },
+        }) => (
+          <div>
+            <PaymentPackSelector
+              paymentPacks={props.paymentPackList}
+              nullCurrentValue
+              helperText={props.t('form.selectorPlaceholder.paymentPack')}
+              onChange={(id) => {
+                if (id) push(id);
+              }}
+            />
+            {payment_pack_ids.map((id, i) => (
+              <PaymentPackListItem
+                key={`${id}-${i}`}
+                pack={props.paymentPackList.find((pp) => pp.id === id)}
+                onDelete={() => remove(i)}
+              />
+            ))}
+          </div>
+        )}
+      </FieldArray>
+      <FieldArray name="shop_item_ids">
+        {({
+          push,
+          remove,
+          form: {
+            values: { shop_item_ids },
+          },
+        }) => (
+          <div>
+            <ShopItemSelector
+              shopItemList={props.shopItemList}
+              nullCurrentValue
+              helperText={props.t('form.selectorPlaceholder.shopitem')}
+              onChange={(id) => {
+                if (id) push(id);
+              }}
+            />
+            {shop_item_ids.map((id, i) => (
+              <ShopItemListItem
+                key={`${id}-${i}`}
+                dense
+                shopitem={props.shopItemList.find((si) => si.id === id)}
+                onDelete={() => remove(i)}
+              />
+            ))}
+          </div>
+        )}
+      </FieldArray>
+      <FieldArray name="private_pass_ids">
+        {({
+          push,
+          remove,
+          form: {
+            values: { private_pass_ids },
+          },
+        }) => (
+          <div>
+            <PrivatePassSelector
+              privatePassList={props.privatePassList}
+              helperText={props.t('form.selectorPlaceholder.privatePass')}
+              nullCurrentValue
+              onChange={(id) => {
+                if (id) push(id);
+              }}
+            />
+            {private_pass_ids.map((id, i) => (
+              <PrivatePassListItem
+                key={`${id}-${i}`}
+                dense
+                pass={props.privatePassList.find((pp) => pp.id === id)}
+                onDelete={() => remove(i)}
+              />
+            ))}
+          </div>
+        )}
+      </FieldArray>
+    </fieldset>
+    <div className={props.classes.description}>
+      <TextField
+        name="description"
+        label={props.t('form.description.label')}
+        multiline
+        variant="outlined"
+        rows={10}
+        fullWidth
+        required
+      />
+    </div>
+  </div>
+);
+
+const styles = (theme) => ({
+  description: {
+    marginTop: theme.spacing.unit * 4,
+  },
+});
+
+export const PaymentComboFieldsSchema = Yup.object().shape({
+  name: Yup.string().required(),
+  description: Yup.string().required(),
+  price: Yup.number()
+    .integer()
+    .min(0),
+  tax: Yup.number()
+    .integer()
+    .min(0)
+    .max(100),
+  manager_only: Yup.boolean(),
+});
+
+export const PaymentComboFormHoc = withFormik({
+  mapPropsToValues: ({ initial }) => {
+    if (initial) {
+      return {
+        ...initial,
+        payment_pack_ids: repeatQuantity(initial.payment_packs),
+        shop_item_ids: repeatQuantity(initial.shop_items),
+        private_pass_ids: repeatQuantity(initial.private_passes),
+      };
+    }
+    return {
+      name: '',
+      description: '',
+      price: 10,
+      tax: 20,
+      manager_only: false,
+      shop_item_ids: [],
+      payment_pack_ids: [],
+      private_pass_ids: [],
+    };
+  },
+  validationSchema: PaymentComboFieldsSchema,
+  handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
+    onSubmit(omit(values, ['payment_packs', 'private_passes', 'shop_items']), {
+      onSuccess: () => setSubmitting(false),
+      onError: () => setSubmitting(false),
+    });
+  },
+});
+
+export default compose(
+  withNamespaces(['paymentCombo']),
+  withStyles(styles),
+)(PaymentComboForm);

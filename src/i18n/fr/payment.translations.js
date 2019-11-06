@@ -3,8 +3,10 @@ export default {
   bookAnotherOption: "Me réinscrire sur liste d'attente",
   bookAnOption: "M'inscrire sur liste d'attente",
   availablePaymentPacks: 'Pass compatibles : ',
-  goBack: 'Retour',
+  goBack: 'Précédent',
   hasOneOrMoreOption: "Vous êtes déjà inscrit sur la liste d'attente",
+
+  paymentComboSectionTitle: 'Pack',
 
   method: {
     CB: 'Carte bleue',

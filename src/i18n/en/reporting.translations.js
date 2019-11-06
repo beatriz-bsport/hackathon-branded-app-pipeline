@@ -83,6 +83,7 @@ export default {
     payment_pack: 'Pass',
     shop_item: 'Shop',
     top_up: 'Top-up',
+    payment_combo: 'Pack',
   },
   report: {
     delete_message: 'Are you sure you want to remove the report {{name}} ?',

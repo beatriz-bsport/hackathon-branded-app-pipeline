@@ -4,6 +4,9 @@ export default {
     level: { placeholder: 'Level' },
     establishment: { placeholder: 'Establishement' },
   },
+  paymentCombo: {
+    addToCart: 'Add to cart',
+  },
   workshop: {
     noWorkshopAvailable: 'No workshop planned in the future',
     card: {

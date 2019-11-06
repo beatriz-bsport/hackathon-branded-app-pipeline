@@ -11,13 +11,17 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { connect } from 'react-redux';
-import { BUYABLE_ITEM_PASS } from '@bsport/common/lib/master-data/buyable-items';
+import {
+  BUYABLE_ITEM_PASS,
+  BUYABLE_ITEM_COMBO_ITEM,
+} from '@bsport/common/lib/master-data/buyable-items';
 import { consumerPayWithConsumerPaymentPack as payWithConsumerPaymentPackAPI } from '../../api/payment';
 import { addItemToBasket as addItemToBasketAction } from '../../libs/checkout/actions';
 import * as paymentActions from '../../actions/payment.actions';
 import MarketplaceCalendarComponent from '../../libs/marketplace/components/MarketplaceCalendar.component';
 import MarketplaceActivityDialog from '../../libs/marketplace/components/MarketplaceActivityDialog.component';
 import { getCurrentBasket } from '../../libs/checkout/selectors';
+import { getPaymentComboListAvailableOnline } from '../../libs/payment-combo/selectors';
 
 import { Moment } from '../../i18n';
 import { DATE_FORMAT } from '../../datetime';
@@ -43,6 +47,8 @@ import {
   fetchCompanyOffersAction,
 } from '../../libs/marketplace/actions';
 import withTitle from '../../hocs/with-title.hoc';
+
+import type { PaymentCombo } from '../../libs/payment-combo/types';
 
 type Props = {
   filtersOpen: boolean,
@@ -71,9 +77,14 @@ type Props = {
   goToBook: (offerId: number, comapnyId: number) => void,
   onBookOfferFromPack: (offerId: number, consumerPackId: number) => void,
   goToBookOption: (offerId: number, comapnyId: number) => void,
+
   fetchPaymentPacks: (offerId: number) => void,
   fetchCompatiblePass: (offerId: number) => void,
   goToPackPayment: (id: number) => void,
+
+  goToPaymentComboPayment: (comboId: number, offerId: number) => void,
+  paymentComboList: Array<PaymentCombo>,
+
   fetchCompanyOffers: (*, *, *) => void,
 
   classes: Object,
@@ -255,6 +266,8 @@ export class MarketplaceCalendar extends Component<Props, State> {
             this.props.fetchCompatiblePass(this.state.offerId);
           }}
           goToPackPayment={this.props.goToPackPayment}
+          goToPaymentComboPayment={this.props.goToPaymentComboPayment}
+          paymentComboList={this.props.paymentComboList}
           goToOfferPayment={(id) =>
             this.props.goToBook(id, this.props.companyId)
           }
@@ -382,6 +395,7 @@ export default compose(
     (state) => ({
       compatibleConsumerPacks: state.payment.compatibleConsumerPacks || [],
       compatiblePaymentPacks: state.payment.compatiblePaymentPacks || [],
+      paymentComboList: getPaymentComboListAvailableOnline(state),
       currentBasket: getCurrentBasket(state),
     }),
     {
@@ -406,6 +420,19 @@ export default compose(
             buyable_item_identifier: BUYABLE_ITEM_PASS,
             quantity: 1,
             buyable_item_id: packId,
+            extra_data: { offer_next: offerId },
+          });
+          toogleCurrentBasketOpen(true);
+        }
+      },
+      goToPaymentComboPayment: (comboId, offerId) => {
+        if (!authenticated) {
+          requestSignUp();
+        } else {
+          addItemToBasket(currentBasket.id, {
+            buyable_item_identifier: BUYABLE_ITEM_COMBO_ITEM,
+            quantity: 1,
+            buyable_item_id: comboId,
             extra_data: { offer_next: offerId },
           });
           toogleCurrentBasketOpen(true);

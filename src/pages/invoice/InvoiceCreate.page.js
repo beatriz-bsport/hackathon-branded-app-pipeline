@@ -10,8 +10,8 @@ import { push as pushRouter } from 'react-router-redux';
 import { compose } from 'recompose';
 
 import type { TFunction } from 'react-i18next';
-import shopSelector from '../../libs/shop/selectors';
-import paymentPackSelectors from '../../libs/payment-packs/selectors';
+import { getShopItemsAvailable } from '../../libs/shop/selectors';
+import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/selectors';
 import type { PaymentPack } from '../../libs/payment-packs/types';
 import { Moment } from '../../i18n';
 import { formatAsDate } from '../../datetime';
@@ -28,10 +28,14 @@ import withTitle from '../../hocs/with-title.hoc';
 import { fetchPrivatePassList } from '../../libs/private-service/actions';
 import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
 
+import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
+import { getPaymentComboList } from '../../libs/payment-combo/selectors';
+
 import InvoiceForm from '../../libs/invoice/InvoiceForm.component';
 import InvoiceDateDialog from '../../libs/invoice/dialog/InvoiceDateDialog.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import type { PrivatePass } from '../../libs/private-service/types';
+import type { PaymentCombo } from '../../libs/payment-combo/types';
 
 type Props = {
   member: ?Member,
@@ -41,14 +45,17 @@ type Props = {
   paymentPacks: Array<PaymentPack>,
   shopItems: Array<ShopItem>,
   privatePassList: Array<PrivatePass>,
+  paymentComboList: Array<PaymentCombo>,
 
   goToInvoiceList: () => void,
   createInvoice: () => void,
   resetCreateOrUpdateStatus: () => void,
   goToMemberPage: (id: number) => void,
+
   fetchShopItems: () => void,
   fetchAllPaymentPacks: () => void,
   fetchPrivatePassList: () => void,
+  fetchPaymentComboList: () => void,
 
   creatingInvoice: boolean,
   loading: boolean,
@@ -71,6 +78,7 @@ export class InvoiceCreatePage extends Component<Props, State> {
     this.props.fetchShopItems();
     this.props.fetchAllPaymentPacks();
     this.props.fetchPrivatePassList();
+    this.props.fetchPaymentComboList();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -119,6 +127,7 @@ export class InvoiceCreatePage extends Component<Props, State> {
           paymentPacks={paymentPacks}
           privatePassList={this.props.privatePassList}
           shopItems={shopItems}
+          paymentComboList={this.props.paymentComboList}
           createOrUpdate={this.prepareCreate}
           uneditablePayments={[]}
           uneditableInvoiceItems={[]}
@@ -161,15 +170,17 @@ export default compose(
     (state, { id }) => ({
       loading: state.member.loading,
       member: memberSelectors.get(state, id),
-      paymentPacks: paymentPackSelectors.getEnabled(state),
+      paymentPacks: getPaymentPackEnabled(state),
       privatePassList: getPrivatePassAvailable(state),
       creatingInvoice: state.invoice.createOrUpdatePending,
-      shopItems: shopSelector.getShopItemsAvailable(state),
+      shopItems: getShopItemsAvailable(state),
+      paymentComboList: getPaymentComboList(state),
     }),
     {
       fetchShopItems,
       fetchAllPaymentPacks,
       fetchPrivatePassList,
+      fetchPaymentComboList,
       goToInvoiceList: () => pushRouter('/invoice'),
       createInvoice: invoiceActions.createOrUpdateInvoice,
       resetCreateOrUpdateStatus: invoiceActions.createOrUpdateReset,

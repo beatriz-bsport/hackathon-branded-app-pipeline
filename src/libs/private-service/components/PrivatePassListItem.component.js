@@ -6,6 +6,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -16,6 +17,7 @@ type Props = {
   pass: PrivatePass,
   t: TFunction,
   onClick: ?() => void,
+  onDelete: ?() => void,
 };
 
 export const PrivatePassListItem = (props: Props) => {
@@ -38,6 +40,11 @@ export const PrivatePassListItem = (props: Props) => {
             }}
           >
             <ArrowForwardIcon />
+          </IconButton>
+        ) : null}
+        {props.onDelete ? (
+          <IconButton onClick={props.onDelete}>
+            <DeleteIcon />
           </IconButton>
         ) : null}
       </ListItemSecondaryAction>

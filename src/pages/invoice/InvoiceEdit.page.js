@@ -10,8 +10,8 @@ import { compose } from 'recompose';
 import { withRouter } from 'react-router';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import paymentPackSelectors from '../../libs/payment-packs/selectors';
-import shopSelector from '../../libs/shop/selectors';
+import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/selectors';
+import { getShopItemsAvailable } from '../../libs/shop/selectors';
 import type { PaymentPack } from '../../libs/payment-packs/types';
 import { invoice as invoiceActions } from '../../actions';
 import withTitle from '../../hocs/with-title.hoc';
@@ -174,8 +174,8 @@ export default compose(
     (state) => ({
       invoiceLoading: state.invoice.loadingSpecific,
       memberLoading: state.member.loading,
-      paymentPacks: paymentPackSelectors.getEnabled(state),
-      shopItems: shopSelector.getShopItemsAvailable(state),
+      paymentPacks: getPaymentPackEnabled(state),
+      shopItems: getShopItemsAvailable(state),
       invoice: state.invoice.invoice,
       updatingInvoice: state.invoice.createOrUpdatePending,
       privatePassList: getPrivatePassAvailable(state),

@@ -19,6 +19,7 @@ import type { EstablishmentState } from '../libs/establishment/types';
 import type { CouponState } from '../libs/coupon/types';
 import type { LoginState } from '../libs/login/types';
 import type { PrivateServiceState } from '../libs/private-service/types';
+import type { PaymentComboState } from '../libs/payment-combo/types';
 
 export type State = {
   paymentRules: PaymentRulesState,
@@ -40,6 +41,7 @@ export type State = {
   coupon: CouponState,
   login: LoginState,
   privateService: PrivateServiceState,
+  paymentCombo: PaymentComboState,
 };
 export type Action = SearchAction | AuthAction;
 
@@ -47,3 +49,8 @@ export type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
 export type GetState = () => State;
 export type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 export type PromiseAction = Promise<Action>;
+
+export type OptionCallback = {
+  onSuccess?: (any) => void,
+  onError?: (?Error) => void,
+};

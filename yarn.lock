@@ -887,10 +887,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@bsport/common@^1.19.0":
-  version "1.19.0"
-  resolved "https://registry.yarnpkg.com/@bsport/common/-/common-1.19.0.tgz#939425dc23d656859e9c70abf1bafaed35496168"
-  integrity sha512-GtodO1Y0WfziRNOgeOKvnU+x2QwiUHNuc/ZNY0Z0YAsc1n+F4rudr2SmuMg/K41rwro6aIwdAdOhhzTsKCAp0Q==
+"@bsport/common@^1.19.1":
+  version "1.19.1"
+  resolved "https://registry.yarnpkg.com/@bsport/common/-/common-1.19.1.tgz#8c65aa82b43c61ef464dea494cb2c0d2dda659f9"
+  integrity sha512-gePegaaMWrOjTOi7Brby5xEn4b40HCrzBjXihuw1jIQEI9DuQENhSwmehB+GyFkTQBr5CHEsLMX1O9q24GYCZg==
 
 "@compone/class@^1.1.1":
   version "1.1.1"

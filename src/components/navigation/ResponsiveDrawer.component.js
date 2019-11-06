@@ -48,6 +48,7 @@ import Search from '@material-ui/icons/Search';
 import SettingsIcon from '@material-ui/icons/Settings';
 import MenuIcon from '@material-ui/icons/Menu';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import GroupWorkIcon from '@material-ui/icons/GroupWork';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -434,6 +435,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             to: '/shop',
             icon: ShoppingCartIcon,
             text: t('shop.myShop'),
+          },
+          {
+            to: '/combo',
+            icon: GroupWorkIcon,
+            text: t('navigation.combo'),
           },
         ],
       },

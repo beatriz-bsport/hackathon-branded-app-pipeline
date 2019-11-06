@@ -30,6 +30,41 @@ type Props = {
   classes: Object,
 };
 
+const PaymentPackMarketplaceListItem = (props: {
+  paymentPack: PaymentPack,
+  onSelect: () => void,
+  onCartAdd: () => void,
+  t: TFunction,
+}) => (
+  <ListItem divider button onClick={props.onSelect}>
+    <ListItemText
+      primary={`${props.paymentPack.name} - ${props.paymentPack.price}€`}
+      secondary={
+        props.paymentPack.unlimited
+          ? props.t('paymentPack.unlimitedCredits')
+          : `${props.paymentPack.credits} ${props
+              .t('paymentPack.credits')
+              .toLowerCase()}`
+      }
+    />
+
+    <IconButton
+      style={{ marginRight: 16 }}
+      disableRipple
+      onClick={props.onSelect}
+    >
+      <VisibilityIcon />
+    </IconButton>
+    <ListItemSecondaryAction>
+      <React.Fragment>
+        <IconButton color="primary" onClick={props.onCartAdd}>
+          <AddShoppingCartIcon />
+        </IconButton>
+      </React.Fragment>
+    </ListItemSecondaryAction>
+  </ListItem>
+);
+
 export function MarketplacePassList(props: Props) {
   const { paymentPacks, t, pushPackCheckout, selectedPass } = props;
   return (
@@ -44,39 +79,13 @@ export function MarketplacePassList(props: Props) {
       <Paper>
         <List dense disablePadding>
           {paymentPacks.map((pp) => (
-            <ListItem
+            <PaymentPackMarketplaceListItem
+              onSelect={() => props.setSelectedPass(pp)}
+              onCartAdd={() => pushPackCheckout(pp.id)}
               key={pp.id}
-              divider
-              button
-              onClick={() => props.setSelectedPass(pp)}
-            >
-              <ListItemText
-                primary={`${pp.name} - ${pp.price}€`}
-                secondary={
-                  pp.unlimited
-                    ? t('paymentPack.unlimitedCredits')
-                    : `${pp.credits} ${t('paymentPack.credits').toLowerCase()}`
-                }
-              />
-
-              <IconButton
-                style={{ marginRight: 16 }}
-                disableRipple
-                onClick={() => props.setSelectedPass(pp)}
-              >
-                <VisibilityIcon />
-              </IconButton>
-              <ListItemSecondaryAction>
-                <React.Fragment>
-                  <IconButton
-                    color="primary"
-                    onClick={() => pushPackCheckout(pp.id)}
-                  >
-                    <AddShoppingCartIcon />
-                  </IconButton>
-                </React.Fragment>
-              </ListItemSecondaryAction>
-            </ListItem>
+              paymentPack={pp}
+              t={props.t}
+            />
           ))}
         </List>
         <Dialog

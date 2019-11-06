@@ -215,6 +215,7 @@ type IntegrationReactSelectProps = {
   components: Object,
   searchIcon: boolean,
   isMulti: boolean,
+  nullCurrentValue?: boolean,
 };
 
 function IntegrationReactSelect(props: IntegrationReactSelectProps) {
@@ -229,6 +230,7 @@ function IntegrationReactSelect(props: IntegrationReactSelectProps) {
     onCreateOption,
     searchIcon,
     isMulti,
+    nullCurrentValue,
   } = props;
 
   const selectStyles = {
@@ -251,7 +253,11 @@ function IntegrationReactSelect(props: IntegrationReactSelectProps) {
         styles={selectStyles}
         options={suggestions}
         components={{ ...components, ...props.components }}
-        value={suggestions.find((s) => s.value === selected)}
+        value={
+          nullCurrentValue
+            ? null
+            : suggestions.find((s) => s.value === selected)
+        }
         onChange={onChange}
         placeholder={placeholder}
         onCreateOption={onCreateOption}

@@ -32,12 +32,18 @@ export default function paymentReducers(state = initialState, action = {}) {
         error: null,
         data: null,
       });
-    case actionTypes.PAYMENT_ERROR_FETCHING_OPTION:
+    case actionTypes.PAYMENT_ERROR_FETCHING_OPTION: {
+      if (action.err) {
+        return state.set('bookingOption', {
+          loading: false,
+          error: action.err,
+          data: null,
+        });
+      }
       return state.set('bookingOption', {
-        loading: false,
-        error: action.err,
-        data: null,
+        error: null,
       });
+    }
     case actionTypes.PAYMENT_HAS_FETCHED_OFFER:
       return Immutable.merge(state, {
         wantedOffer: action.offer,
@@ -66,11 +72,17 @@ export default function paymentReducers(state = initialState, action = {}) {
         .set('compatibleConsumerPacks', action.consumerPacks)
         .set('compatibleConsumerPacksLoading', false);
 
-    case actionTypes.PAYMENT_ERROR_FETCHING_COMPATIBLE_PASS:
+    case actionTypes.PAYMENT_ERROR_FETCHING_COMPATIBLE_PASS: {
+      if (action.error) {
+        return Immutable.merge(state, {
+          compatibleConsumerPacks: [],
+          compatibleConsumerPacksLoading: false,
+        });
+      }
       return Immutable.merge(state, {
         compatibleConsumerPacks: [],
-        compatibleConsumerPacksLoading: false,
       });
+    }
     case actionTypes.PAYMENT_START_FETCH_COMPATIBLE_PASS:
       return state
         .set('compatibleConsumerPacksLoading', true)
@@ -81,11 +93,17 @@ export default function paymentReducers(state = initialState, action = {}) {
         compatiblePaymentPacks: action.paymentPacks,
         compatiblePaymentPacksLoading: false,
       });
-    case actionTypes.PAYMENT_ERROR_FETCHING_COMPATIBLE_PAYMENT_PACKS:
+    case actionTypes.PAYMENT_ERROR_FETCHING_COMPATIBLE_PAYMENT_PACKS: {
+      if (action.error) {
+        return Immutable.merge(state, {
+          compatiblePaymentPacks: [],
+          compatiblePaymentPacksLoading: false,
+        });
+      }
       return Immutable.merge(state, {
         compatiblePaymentPacks: [],
-        compatiblePaymentPacksLoading: false,
       });
+    }
     case actionTypes.PAYMENT_START_FETCH_COMPATIBLE_PAYMENT_PACKS:
       return Immutable.merge(state, { compatiblePaymentPacksLoading: true });
 

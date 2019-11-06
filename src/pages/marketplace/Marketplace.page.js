@@ -49,6 +49,8 @@ import MarketplaceCalendarPage from './MarketplaceCalendar.page';
 import MarketplaceWorkshopPage from './MarketplaceWorkshop.page';
 import MarketplacePrivateService from './MarketplacePrivateService.page';
 
+import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
+
 import {
   consumer as consumerActions,
   auth as authActions,
@@ -76,6 +78,8 @@ type Props = {
   fetchCompanyEstablishments: (companyId: number) => void,
   fetchCompanyCoaches: (companyId: number) => void,
   fetchSCT: () => void,
+
+  fetchPaymentComboList: (params: any) => void,
 
   fetchCurrentBasket: (companyId: number) => void,
   currentBasket: ?Basket,
@@ -139,6 +143,10 @@ export class MarketPlace extends Component<Props, State> {
       this.props.fetchCurrentBasket(this.props.companyId);
       this.props.fetchProfile();
     }
+    this.props.fetchPaymentComboList({
+      company: this.props.companyId,
+      manager_only: false,
+    });
   };
 
   componentDidMount() {
@@ -432,6 +440,8 @@ export default compose(
       fetchCurrentBasket,
       addItemToBasket,
       removeItemFromBasket,
+
+      fetchPaymentComboList,
 
       // for signup/signin/profile
       fetchProfile: consumerActions.fetchProfile,

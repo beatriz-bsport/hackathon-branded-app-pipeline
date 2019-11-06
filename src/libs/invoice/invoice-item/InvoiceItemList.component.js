@@ -24,6 +24,7 @@ type Props = {
 
   paymentPackInvoiceItems: Array<InvoiceItem>,
   privatePassInvoiceItems: Array<InvoiceItem>,
+  paymentComboInvoiceItems: Array<InvoiceItem>,
   shopItemInvoiceItems: Array<InvoiceItem>,
   uneditableInvoiceItems: ?Array<InvoiceItem>,
 
@@ -33,6 +34,7 @@ type Props = {
   deletePPackInvoiceItem: (id: number) => void,
   deletePrivatePassInvoiceItem: (id: number) => void,
   deleteShopItemInvoiceItem: (id: number) => void,
+  deletePaymentComboInvoiceItem: (id: number) => void,
 
   classes: Object,
   t: TFunction,
@@ -86,6 +88,12 @@ export class InvoiceItemList extends Component<Props> {
       this.props.deletePrivatePassInvoiceItem,
     );
 
+  renderPaymentComboInvoiceItem = (invoiceItem: InvoiceItem) =>
+    this.renderInvoiceItem(
+      invoiceItem,
+      this.props.deletePaymentComboInvoiceItem,
+    );
+
   renderShopItemInvoiceItem = (invoiceItem: InvoiceItem) =>
     this.renderInvoiceItem(invoiceItem, this.props.deleteShopItemInvoiceItem);
 
@@ -122,6 +130,7 @@ export class InvoiceItemList extends Component<Props> {
     const {
       paymentPackInvoiceItems,
       privatePassInvoiceItems,
+      paymentComboInvoiceItems,
       shopItemInvoiceItems,
       voucher,
       uneditableInvoiceItems,
@@ -139,6 +148,9 @@ export class InvoiceItemList extends Component<Props> {
           {paymentPackInvoiceItems.map((ii) => this.renderPPackInvoiceItem(ii))}
           {privatePassInvoiceItems.map((ii) =>
             this.renderPrivatePassInvoiceItem(ii),
+          )}
+          {paymentComboInvoiceItems.map((ii) =>
+            this.renderPaymentComboInvoiceItem(ii),
           )}
           {shopItemInvoiceItems.map((ii) => this.renderShopItemInvoiceItem(ii))}
           {voucher ? this.renderVoucherInvoiceItem(voucher, true) : null}

@@ -38,10 +38,12 @@ import relationship from './en/relationship.translations';
 import titles from './en/titles.translations';
 import formInput from './en/form-input.translations';
 import privateService from './en/private-service.translations';
-import smartList from './fr/smart-list.translations';
+import smartList from './en/smart-list.translations';
+import paymentCombo from './en/payment-combo.translations';
 
 export default {
   coupon,
+  paymentCombo,
   relationship,
   privateService,
   communication,
@@ -578,6 +580,7 @@ export default {
     member,
     coach,
     navigation: {
+      combo: 'Packs',
       requestTempPassword: 'Authorize remote',
       sequence: 'Strategies',
       order: 'Orders',
@@ -649,6 +652,7 @@ export default {
       products: 'item(s)',
       bookWithUnlimitedPack: 'Book',
       privatePass: 'Pass private lesson',
+      paymentCombo: 'Pack',
       noCreditLeft: 'Not enough credit left',
       noBookingsLeftOnPack: 'Pass exhausted for this week',
       yourBasket: 'Your basket',

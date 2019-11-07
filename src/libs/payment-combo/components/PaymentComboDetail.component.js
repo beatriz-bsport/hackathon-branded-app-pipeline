@@ -63,7 +63,7 @@ export const PaymentComboDetail = (props: Props) => (
               onClick={() => props.goToInvoice(item.invoice)}
             />
           )}
-          itemPerPage={10}
+          itemPerPage={15}
           nbItems={props.paymentComboPurchaseCount}
           loading={props.paymentComboPurchaseLoading}
           page={props.page}

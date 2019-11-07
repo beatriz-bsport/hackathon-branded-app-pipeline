@@ -92,7 +92,7 @@ export class PaymentComboDetail extends React.Component<Props> {
 
   render() {
     return (
-      <div>
+      <div className={this.props.classes.container}>
         {this.props.loading || !this.props.paymentCombo ? (
           <LinearProgress />
         ) : null}
@@ -151,8 +151,10 @@ export class PaymentComboDetail extends React.Component<Props> {
   }
 }
 
-const styles = () => ({
-  container: {},
+const styles = (theme) => ({
+  container: {
+    paddingBottom: theme.spacing.unit * 12,
+  },
 });
 
 export default compose(

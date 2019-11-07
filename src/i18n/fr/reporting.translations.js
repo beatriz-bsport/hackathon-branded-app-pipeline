@@ -18,6 +18,7 @@ export default {
     coach: 'Professeur',
     effectif: 'Nb de places',
     nb_attendance: 'Présents',
+    disabled: 'Annulé',
     nb_non_attendance: 'Absents',
     sum_margin_value: 'Apport marginal',
     checkout_items: 'Contenu du panier',

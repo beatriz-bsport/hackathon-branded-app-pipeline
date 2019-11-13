@@ -144,7 +144,6 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             <ListItemText inset primary={item.text} />
             {this.state.open[i] ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </ListItem>
-          <Divider key={`${i}-first-nestedDivider`} />
           <Collapse
             in={this.state.open[i]}
             key={`${i}-collapse`}
@@ -373,6 +372,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         text: t('navigation.dashboard'),
         icon: TrendingUp,
       },
+      'divider',
       {
         to: '/calendar',
         icon: DateRangeIcon,
@@ -505,13 +505,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
               },
             ],
           },
-      'divider',
       {
         to: '/member',
         icon: People,
         text: t('navigation.member'),
       },
-      'divider',
       {
         to: '/reporting',
         icon: DescriptionIcon,

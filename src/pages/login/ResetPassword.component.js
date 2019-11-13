@@ -6,15 +6,14 @@ import { Redirect, Link } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { auth as authActions } from '../../actions';
+import { resetPassword } from '../../actions/auth.actions';
 import LoginBase from '../../components/navigation/LoginBase.component';
 
 type Props = {
-  resetPassword: (string) => void,
+  resetPassword: (email: string, options: any) => void,
   loading: boolean,
   classes: Object,
 };
@@ -47,24 +46,34 @@ export class ResetPassword extends Component<Props, State> {
   };
 
   resetPassword = () => {
-    this.props.resetPassword(this.state.email);
-    this.setState({ hasSent: true });
+    this.props.resetPassword(this.state.email, {
+      onSuccess: () => this.setState({ hasSent: true }),
+    });
   };
 
   getSendingButton = () => (
-    <div>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+      }}
+    >
       <Link style={{ textDecoration: 'none' }} to="/login">
         <Button>ANNULER</Button>
       </Link>
-      <Button
-        type="submit"
-        color="primary"
-        variant="contained"
-        id="btn-reset-password"
-      >
-        OK
-      </Button>
-      {this.props.loading ? <CircularProgress /> : <div />}
+      {this.props.loading ? (
+        <CircularProgress />
+      ) : (
+        <Button
+          type="submit"
+          color="primary"
+          variant="contained"
+          id="btn-reset-password"
+        >
+          OK
+        </Button>
+      )}
     </div>
   );
 
@@ -79,12 +88,12 @@ export class ResetPassword extends Component<Props, State> {
   };
 
   getSuccessMsg = () => (
-    <Grid direction="column" container>
+    <div>
       <Typography>
         Un email a été envoyé à {this.state.email} pour récupérer votre mot de
         passe
       </Typography>
-      <Grid direction="row" style={{ paddingTop: 20 }} container>
+      <div style={{ paddingTop: 20 }}>
         <Button
           color="primary"
           onClick={this.redirectLogin}
@@ -92,8 +101,8 @@ export class ResetPassword extends Component<Props, State> {
         >
           OK
         </Button>
-      </Grid>
-    </Grid>
+      </div>
+    </div>
   );
 
   render() {
@@ -108,32 +117,44 @@ export class ResetPassword extends Component<Props, State> {
           {hasSent ? (
             <div />
           ) : (
-            <Grid style={{ marginTop: 20 }}>
-              <Typography variant="h6" style={{ marginBottom: 20 }}>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                flexDirection: 'column',
+                marginTop: 20,
+              }}
+            >
+              <Typography
+                variant="h6"
+                align="left"
+                style={{ marginBottom: 20 }}
+              >
                 Récupération de mot de passe
               </Typography>
-              <Typography>Quel était l email du compte ?</Typography>
-              <Typography>
+              <Typography align="left" className={this.props.classes.textBlock}>
+                {"Quel était l'email du compte ?"}
+              </Typography>
+              <Typography align="left" className={this.props.classes.textBlock}>
                 Nous vous enverrons des instructions de récupération
               </Typography>
               <TextField
                 type="email"
-                style={{ alignSelf: 'center' }}
+                className={this.props.classes.textBlock}
                 onChange={this.updateEmail}
                 name="email"
+                fullWidth
                 label="Email"
               />
-            </Grid>
+            </div>
           )}
+          {this.props.resetError ? (
+            <Typography color="error" align="left" variant="caption">
+              Cet email n'est pas enregistré
+            </Typography>
+          ) : null}
           <div style={{ paddingTop: 16 }}>
-            <Grid
-              container
-              direction="column"
-              alignItems="center"
-              justify="center"
-            >
-              {!hasSent ? this.getSendingButton() : this.getSuccessMsg()}
-            </Grid>
+            {!hasSent ? this.getSendingButton() : this.getSuccessMsg()}
           </div>
         </form>
       </LoginBase>
@@ -141,21 +162,17 @@ export class ResetPassword extends Component<Props, State> {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    resetPassword(email) {
-      dispatch(authActions.resetPassword(email));
-    },
-  };
-}
-
 const styles = (theme) => ({
   container: {
     margin: theme.spacing.unit * 4,
   },
+  textBlock: { marginBottom: theme.spacing.unit },
 });
 
 export default connect(
-  null,
-  mapDispatchToProps,
+  (state) => ({
+    resetError: state.auth.resetPassword.error,
+    loading: state.auth.resetPassword.loading,
+  }),
+  { resetPassword },
 )(withStyles(styles)(ResetPassword));

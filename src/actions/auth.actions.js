@@ -170,9 +170,27 @@ export function setLogin({
   };
 }
 
-export function resetPassword(email: string) {
-  api.auth.resetPassword(email);
-  return { type: types.PASSWORD_RESET };
+function isLoadingResetLogin(payload) {
+  return { type: types.PASSWORD_RESET_LOADING, payload };
+}
+
+function errorResetLogin(payload) {
+  return { type: types.PASSWORD_RESET_ERROR, payload };
+}
+
+export function resetPassword(email: string, options: any) {
+  return async (dispatch: Dispatch) => {
+    dispatch(errorResetLogin(null));
+    dispatch(isLoadingResetLogin(true));
+    try {
+      const response = await api.auth.resetPassword(email);
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      dispatch(errorResetLogin(err));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(isLoadingResetLogin(false));
+  };
 }
 
 export function errorLogin(

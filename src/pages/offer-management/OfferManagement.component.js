@@ -256,7 +256,10 @@ export class OfferManagement extends Component<Props, State> {
           getLatestMember()
             .then((res) => {
               this.props.fetchMember(res.data);
-              this.setState({ memberToRegister: res.data });
+              this.setState({
+                memberToRegister: res.data,
+                memberToRegisterName: `${data.firstname} ${data.lastname}`,
+              });
             })
             .catch((err) => {
               console.error(err);

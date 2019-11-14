@@ -15,7 +15,7 @@ export const getAvailableCoupons: (State) => Array<Coupon> = createSelector(
 export const getCouponById: (State, number) => ?Coupon = (state, id) =>
   getAllCoupons(state).find((coupon) => coupon.id === id);
 
-export const getCouponDiscounts: (State, number) => Array<Discount> = (
+export const getCouponDiscounts: (State, number) => Array<?Discount> = (
   state,
   id,
 ) => getAllDiscounts(state).filter((discount) => discount.coupon === id);

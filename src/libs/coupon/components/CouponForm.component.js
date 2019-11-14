@@ -48,6 +48,12 @@ type State = {
   with_expiration_date: boolean,
 };
 
+const buyables = [
+  BUYABLE_ITEM_PASS,
+  BUYABLE_ITEM_SHOP_ITEM,
+  BUYABLE_ITEM_FEE,
+  BUYABLE_ITEM_PRIVATE_PASS,
+];
 export class CouponForm extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -233,38 +239,13 @@ export class CouponForm extends React.Component<Props, State> {
               );
             }}
           >
-            <FormControlLabel
-              value={BUYABLE_ITEM_PASS}
-              control={
-                <Radio checked={BUYABLE_ITEM_PASS === this.state.applies_to} />
-              }
-              label={t('form.applies_to.choices.pass')}
-            />
-            <FormControlLabel
-              value={BUYABLE_ITEM_SHOP_ITEM}
-              control={
-                <Radio
-                  checked={BUYABLE_ITEM_SHOP_ITEM === this.state.applies_to}
-                />
-              }
-              label={t('form.applies_to.choices.shop')}
-            />
-            <FormControlLabel
-              value={BUYABLE_ITEM_FEE}
-              control={
-                <Radio checked={BUYABLE_ITEM_FEE === this.state.applies_to} />
-              }
-              label={t('form.applies_to.choices.fee')}
-            />
-            <FormControlLabel
-              value={BUYABLE_ITEM_PRIVATE_PASS}
-              control={
-                <Radio
-                  checked={BUYABLE_ITEM_PRIVATE_PASS === this.state.applies_to}
-                />
-              }
-              label={t('form.applies_to.choices.private_pass')}
-            />
+            {buyables.map((item) => (
+              <FormControlLabel
+                value={item}
+                control={<Radio checked={item === this.state.applies_to} />}
+                label={t(`form.applies_to.choices.${item}`)}
+              />
+            ))}
             <FormControlLabel
               value={null}
               control={<Radio checked={!this.state.applies_to} />}

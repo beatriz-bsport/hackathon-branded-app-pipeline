@@ -18,6 +18,7 @@ import {
   fetchCouponPage,
   fetchCouponDiscounts,
   deleteCoupon,
+  resetDiscounts,
 } from '../../libs/coupon/actions';
 import type { Coupon, Discount } from '../../libs/coupon/types';
 import CouponDetail from '../../libs/coupon/components/CouponDetail.component';
@@ -35,12 +36,22 @@ type Props = {
   discounts: Array<Discount>,
   deleteCoupon: () => void,
   goToEdit: () => void,
+  resetDiscounts: () => void,
 };
 
+const PAGE_SIZE = 5;
+
 export class CouponCreate extends Component<Props> {
+  componentWillMount() {
+    this.props.resetDiscounts();
+    this.props.fetchCouponDiscounts(this.props.id, {
+      page: 1,
+      page_size: PAGE_SIZE,
+    });
+  }
+
   componentDidMount() {
     this.props.fetchCouponPage(1);
-    this.props.fetchCouponDiscounts(this.props.id);
   }
 
   openDeleteModal = () => this.props.setDeleteModalOpen(true);
@@ -60,6 +71,8 @@ export class CouponCreate extends Component<Props> {
           goToInvoice={this.props.goToInvoice}
           discountLoading={this.props.discountLoading}
           goToEdit={this.props.goToEdit}
+          itemPerPage={PAGE_SIZE}
+          fetchCouponDiscounts={this.props.fetchCouponDiscounts}
         />
         <BottomActionButtons
           onEdit={this.props.goToEdit}
@@ -81,7 +94,11 @@ export default compose(
   connect(
     (state, { id }) => ({
       coupon: getCouponById(state, id),
-      discounts: getCouponDiscounts(state, id),
+      discounts: {
+        items: getCouponDiscounts(state, id),
+        page: state.coupon.discount.page,
+        count: state.coupon.discount.count,
+      },
       loading: state.coupon.coupon.loading,
       discountLoading: state.coupon.discount.loading,
     }),
@@ -92,6 +109,7 @@ export default compose(
       fetchCouponDiscounts,
       deleteCouponAction: deleteCoupon,
       push: pushRouter,
+      resetDiscounts,
     },
   ),
   withProps(({ push, id }) => ({

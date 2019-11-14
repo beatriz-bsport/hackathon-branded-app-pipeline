@@ -127,13 +127,19 @@ export const discountList = {
   success: createAction('DISCOUNT/LIST/SUCCESS'),
 };
 
-export function fetchCouponDiscounts(couponId: number): ThunkAction {
+export function fetchCouponDiscounts(
+  couponId: number,
+  params: any,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(discountList.isLoading(true));
     dispatch(discountList.error(null));
 
     try {
-      const response = await fetchCouponDiscountsAPI(couponId);
+      const response = await fetchCouponDiscountsAPI(couponId, params);
+      if (params.page) {
+        response.data.page = params.page;
+      }
       dispatch(discountList.success(response.data));
       dispatch(discountList.error(null));
     } catch (error) {
@@ -141,5 +147,11 @@ export function fetchCouponDiscounts(couponId: number): ThunkAction {
     }
 
     dispatch(discountList.isLoading(false));
+  };
+}
+
+export function resetDiscounts() {
+  return async (dispatch: Dispatch) => {
+    dispatch(discountList.success({ results: [], count: 0, page: 1 }));
   };
 }

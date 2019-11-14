@@ -1,3 +1,10 @@
+import {
+  BUYABLE_ITEM_PASS,
+  BUYABLE_ITEM_SHOP_ITEM,
+  BUYABLE_ITEM_FEE,
+  BUYABLE_ITEM_PRIVATE_PASS,
+} from '@bsport/common/lib/master-data/buyable-items';
+
 export default {
   list: {
     isEmpty: 'No coupon registered yet',
@@ -6,6 +13,18 @@ export default {
   },
   detail: {
     seeParameters: 'See parameters',
+  },
+  card: {
+    first_buy: 'Use on first buy only',
+    expiration: 'Expiry date',
+    no_expiration: 'No expiry date',
+    validity: 'Validity:',
+    cumulable: 'Cumulable',
+    no_cumulable: 'Not cumulable',
+    uses: 'uses',
+    member_uses: 'uses per member',
+    member_use: 'use per member',
+    limitation: 'Restricted to',
   },
   form: {
     section: {
@@ -62,11 +81,12 @@ export default {
     },
     applies_to: {
       choices: {
-        pass: 'Pass',
-        shop: 'Shop',
-        fee: 'Delivery fee',
+        [BUYABLE_ITEM_PASS]: 'Pass',
+        [BUYABLE_ITEM_SHOP_ITEM]: 'Shop',
+        [BUYABLE_ITEM_FEE]: 'Delivery fee',
         all: 'All basket',
-        private_pass: 'Private lesson pass',
+        [null]: 'All basket',
+        [BUYABLE_ITEM_PRIVATE_PASS]: 'Private lesson pass',
       },
     },
     actions: {
@@ -74,6 +94,7 @@ export default {
       submit: 'Submit',
     },
   },
+  noDiscount: 'No use of the coupon',
   createCoupon: 'Add a code',
   code: {
     addCoupon: {

@@ -4,10 +4,15 @@ import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import { withNamespaces } from 'react-i18next';
+import { compose } from 'recompose';
+import type { TFunction } from 'react-i18next';
 
 import DiscountListItem from './DiscountListItem.component';
 import CouponCard from './CouponCard.component';
-import PaginatedListStateful from '../../../components/PaginatedListStateful.component';
+import PaginatedListBase from '../../../components/PaginatedListBase.component';
 
 import type { Discount, Coupon } from '../types';
 
@@ -18,6 +23,9 @@ type Props = {
   goToInvoice: (uuid: string) => void,
   classes: Object,
   goToEdit: () => void,
+  t: TFunction,
+  itemPerPage: number,
+  fetchCouponDiscounts: (id: number, params: any) => void,
 };
 
 export class CouponDetail extends React.PureComponent<Props> {
@@ -30,7 +38,7 @@ export class CouponDetail extends React.PureComponent<Props> {
   );
 
   render() {
-    const { classes, coupon, discounts, discountLoading } = this.props;
+    const { classes, coupon, discounts, discountLoading, t } = this.props;
     return (
       <div>
         <Grid container>
@@ -41,12 +49,32 @@ export class CouponDetail extends React.PureComponent<Props> {
           </Grid>
           <Grid item xs={12} md={6} className={classes.paperContainer}>
             <Paper className={classes.paper}>
-              <PaginatedListStateful
-                items={discounts}
+              <PaginatedListBase
+                page={discounts.page}
+                nbItems={discounts.count}
+                itemPerPage={this.props.itemPerPage}
+                onPageRequested={(page: number, pageSize: number) =>
+                  this.props.fetchCouponDiscounts(coupon.id, {
+                    page,
+                    page_size: pageSize,
+                  })
+                }
+                items={discounts.items}
                 renderItem={this.renderDiscountListItem}
                 loading={discountLoading}
-                itemPerPage={8}
                 listProps={{ dense: true }}
+                renderEmpty={() => (
+                  <div>
+                    <Typography
+                      className={classes.emptyContainer}
+                      variant="caption"
+                      color="textSecondary"
+                    >
+                      {t('noDiscount')}
+                    </Typography>
+                    <Divider />
+                  </div>
+                )}
               />
             </Paper>
           </Grid>
@@ -60,6 +88,13 @@ const styles = (theme) => ({
   paperContainer: {
     padding: theme.spacing.unit,
   },
+  emptyContainer: {
+    padding: theme.spacing.unit * 2,
+    backgroundColor: 'F8F8F8',
+  },
 });
 
-export default withStyles(styles)(CouponDetail);
+export default compose(
+  withStyles(styles),
+  withNamespaces(['coupon']),
+)(CouponDetail);

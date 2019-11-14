@@ -1,3 +1,10 @@
+import {
+  BUYABLE_ITEM_PASS,
+  BUYABLE_ITEM_SHOP_ITEM,
+  BUYABLE_ITEM_FEE,
+  BUYABLE_ITEM_PRIVATE_PASS,
+} from '@bsport/common/lib/master-data/buyable-items';
+
 export default {
   list: {
     isEmpty: 'Aucun code promotionnel enregistré',
@@ -7,6 +14,19 @@ export default {
   detail: {
     seeParameters: 'Voir les paramètres',
   },
+  card: {
+    first_buy: 'Utilisable sur le premier achat seulement',
+    expiration: "Date d'expiration",
+    no_expiration: "Pas de date d'expiration",
+    validity: 'Validité:',
+    cumulable: 'Cumulable',
+    no_cumulable: 'Non cumulable',
+    uses: 'Utilisations',
+    member_uses: 'utilisations par membre',
+    member_use: 'utilisation par membre',
+    limitation: 'Limité à',
+  },
+  noDiscount: 'Aucun achat effectué avec le code',
   modal: {
     delete: {
       title: 'Suppression',
@@ -90,11 +110,12 @@ export default {
     },
     applies_to: {
       choices: {
-        pass: 'Abonnement',
-        shop: 'Magasin',
-        fee: 'Frais de livraison',
+        [BUYABLE_ITEM_PASS]: 'Abonnement',
+        [BUYABLE_ITEM_SHOP_ITEM]: 'Magasin',
+        [BUYABLE_ITEM_FEE]: 'Frais de livraison',
         all: 'Ensemble du panier',
-        private_pass: 'Carte cours privé',
+        [BUYABLE_ITEM_PRIVATE_PASS]: 'Carte cours privé',
+        [null]: 'Ensemble du panier',
       },
     },
     actions: {

@@ -10,6 +10,8 @@ import type { CouponState } from './types';
 const initialState: CouponState = Immutable({
   discount: {
     items: [],
+    page: null,
+    count: null,
     loading: false,
     error: null,
   },
@@ -31,7 +33,11 @@ export default handleActions(
       return state.setIn(['discount', 'loading'], payload);
     },
     [discountList.success]: (state, { payload }) => {
-      return state.setIn(['discount', 'items'], payload);
+      return state
+        .setIn(['discount', 'items'], payload.results)
+        .setIn(['discount', 'page'], payload.page)
+        .setIn(['discount', 'count'], payload.count)
+        .setIn(['discount', 'loading'], false);
     },
     [discountList.error]: (state, { payload }) => {
       return state.setIn(['discount', 'error'], payload);

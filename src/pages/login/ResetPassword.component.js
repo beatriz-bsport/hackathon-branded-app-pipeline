@@ -2,12 +2,16 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
+import { compose } from 'recompose';
 import { Redirect, Link } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import withStyles from '@material-ui/core/styles/withStyles';
+
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 
 import { resetPassword } from '../../actions/auth.actions';
 import LoginBase from '../../components/navigation/LoginBase.component';
@@ -16,6 +20,8 @@ type Props = {
   resetPassword: (email: string, options: any) => void,
   loading: boolean,
   classes: Object,
+  resetError: ?Error,
+  t: TFunction,
 };
 
 type State = {
@@ -60,7 +66,7 @@ export class ResetPassword extends Component<Props, State> {
       }}
     >
       <Link style={{ textDecoration: 'none' }} to="/login">
-        <Button>ANNULER</Button>
+        <Button>{this.props.t('resetPassword.actions.cancel')}</Button>
       </Link>
       {this.props.loading ? (
         <CircularProgress />
@@ -71,7 +77,7 @@ export class ResetPassword extends Component<Props, State> {
           variant="contained"
           id="btn-reset-password"
         >
-          OK
+          {this.props.t('resetPassword.actions.reset')}
         </Button>
       )}
     </div>
@@ -90,8 +96,9 @@ export class ResetPassword extends Component<Props, State> {
   getSuccessMsg = () => (
     <div>
       <Typography>
-        Un email a été envoyé à {this.state.email} pour récupérer votre mot de
-        passe
+        {this.props.t('resetPassword.emailHasBeenSent', {
+          email: this.state.email,
+        })}
       </Typography>
       <div style={{ paddingTop: 20 }}>
         <Button
@@ -99,7 +106,7 @@ export class ResetPassword extends Component<Props, State> {
           onClick={this.redirectLogin}
           variant="contained"
         >
-          OK
+          {this.props.t('resetPassword.actions.backToLogin')}
         </Button>
       </div>
     </div>
@@ -130,13 +137,13 @@ export class ResetPassword extends Component<Props, State> {
                 align="left"
                 style={{ marginBottom: 20 }}
               >
-                Récupération de mot de passe
+                {this.props.t('resetPassword.title')}
               </Typography>
               <Typography align="left" className={this.props.classes.textBlock}>
-                {"Quel était l'email du compte ?"}
+                {this.props.t('resetPassword.explain1')}
               </Typography>
               <Typography align="left" className={this.props.classes.textBlock}>
-                Nous vous enverrons des instructions de récupération
+                {this.props.t('resetPassword.explain2')}
               </Typography>
               <TextField
                 type="email"
@@ -150,7 +157,7 @@ export class ResetPassword extends Component<Props, State> {
           )}
           {this.props.resetError ? (
             <Typography color="error" align="left" variant="caption">
-              Cet email n'est pas enregistré
+              {this.props.t('resetPassword.noEmail')}
             </Typography>
           ) : null}
           <div style={{ paddingTop: 16 }}>
@@ -169,10 +176,14 @@ const styles = (theme) => ({
   textBlock: { marginBottom: theme.spacing.unit },
 });
 
-export default connect(
-  (state) => ({
-    resetError: state.auth.resetPassword.error,
-    loading: state.auth.resetPassword.loading,
-  }),
-  { resetPassword },
-)(withStyles(styles)(ResetPassword));
+export default compose(
+  withNamespaces(['authentication']),
+  connect(
+    (state) => ({
+      resetError: state.auth.resetPassword.error,
+      loading: state.auth.resetPassword.loading,
+    }),
+    { resetPassword },
+  ),
+  withStyles(styles),
+)(ResetPassword);

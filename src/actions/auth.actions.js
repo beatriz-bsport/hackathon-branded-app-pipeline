@@ -183,7 +183,7 @@ export function resetPassword(email: string, options: any) {
     dispatch(errorResetLogin(null));
     dispatch(isLoadingResetLogin(true));
     try {
-      const response = await api.auth.resetPassword(email);
+      await api.auth.resetPassword(email);
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
       dispatch(errorResetLogin(err));

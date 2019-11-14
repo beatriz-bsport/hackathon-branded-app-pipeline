@@ -40,8 +40,10 @@ import formInput from './fr/form-input.translations';
 import privateService from './fr/private-service.translations';
 import smartList from './fr/smart-list.translations';
 import paymentCombo from './fr/payment-combo.translations';
+import authentication from './fr/authentication.translations';
 
 export default {
+  authentication,
   paymentCombo,
   communication,
   privateService,

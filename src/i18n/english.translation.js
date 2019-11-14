@@ -40,8 +40,10 @@ import formInput from './en/form-input.translations';
 import privateService from './en/private-service.translations';
 import smartList from './en/smart-list.translations';
 import paymentCombo from './en/payment-combo.translations';
+import authentication from './en/authentication.translations';
 
 export default {
+  authentication,
   coupon,
   paymentCombo,
   relationship,

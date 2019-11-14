@@ -31,6 +31,7 @@ type OptionsCallback = { onSuccess?: () => void, onError?: () => void };
 type Props = {
   id: number,
   loading: boolean,
+  classes: Object,
 
   paymentCombo: ?PaymentCombo,
   paymentComboPurchaseList: Array<PaymentComboPurchase>,

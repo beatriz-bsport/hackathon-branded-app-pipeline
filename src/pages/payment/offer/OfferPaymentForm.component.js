@@ -305,7 +305,12 @@ export class OfferPayment extends Component<Props> {
       );
     }
 
-    if (offer && offer.is_full && offer.is_waiting_list_full) {
+    if (
+      offer &&
+      offer.is_full &&
+      offer.is_waiting_list_full &&
+      !(bookingOption && bookingOption.is_convertible)
+    ) {
       return (
         <Grid container spacing={16} direction="column" alignItems="center">
           <Grid item>{this.getBasket()}</Grid>

@@ -270,6 +270,7 @@ export class MarketPlace extends Component<Props, State> {
                 onChange={this.handleTabChange}
                 textColor="primary"
                 indicatorColor="primary"
+                variant="scrollable"
               >
                 <Tab value={TAB_CALENDAR} label={t('marketplace.calendar')} />
                 <Tab value={TAB_WORKSHOP} label={t('marketplace.workshop')} />

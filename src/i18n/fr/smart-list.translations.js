@@ -14,6 +14,12 @@ import {
 } from '@bsport/common/lib/master-data/smart-list';
 
 export default {
+  detail: {
+    tab: {
+      member: 'Général',
+      email: 'Emails',
+    },
+  },
   smart_list: {
     list: { title: 'Listes intelligentes', detailTitle: 'Détail de la liste' },
     name: 'Nom',

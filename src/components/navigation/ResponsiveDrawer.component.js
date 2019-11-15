@@ -141,7 +141,14 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             <ListItemIcon>
               <item.icon />
             </ListItemIcon>
-            <ListItemText inset primary={item.text} />
+            <ListItemText
+              inset
+              primary={item.text}
+              secondary={item.subtext}
+              secondaryTypographyProps={{
+                style: { color: colors.primaryDark },
+              }}
+            />
             {this.state.open[i] ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </ListItem>
           <Collapse
@@ -475,36 +482,36 @@ class ResponsiveDrawer extends React.Component<Props, State> {
           },
         ],
       },
-      Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'
-        ? {
-            to: '/marketing',
-            icon: Email,
-            text: t('navigation.message'),
-            subtext: t('navigation.alpha'),
-          }
-        : {
-            icon: Email,
-            text: t('navigation.message'),
-            subtext: t('navigation.alpha'),
-            type: 'nested',
-            nestedItems: [
-              {
-                to: '/smart-list/list',
-                icon: People,
-                text: t('navigation.smart_list'),
-              },
-              {
-                to: '/email/list',
-                icon: Email,
-                text: t('navigation.email_template'),
-              },
-              {
-                to: '/marketing',
-                icon: StorageIcon,
-                text: t('navigation.sequence'),
-              },
-            ],
+      {
+        icon: Email,
+        text: t('navigation.message'),
+        subtext:
+          Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'
+            ? t('navigation.beta')
+            : null,
+        type: 'nested',
+        nestedItems: [
+          {
+            to: '/smart-list/list',
+            icon: People,
+            text: t('navigation.smart_list'),
           },
+          {
+            to: '/email/list',
+            icon: Email,
+            text: t('navigation.email_template'),
+          },
+          {
+            to: '/marketing',
+            icon: StorageIcon,
+            subtext:
+              Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'
+                ? t('navigation.alpha')
+                : null,
+            text: t('navigation.sequence'),
+          },
+        ],
+      },
       {
         to: '/member',
         icon: People,

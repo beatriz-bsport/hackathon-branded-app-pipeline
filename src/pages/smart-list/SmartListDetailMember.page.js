@@ -6,34 +6,28 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { push } from 'react-router-redux';
 
-import MemberTable from '../../../libs/member/MemberTable.component';
-import { getEnabled as getPaymentPackEnabled } from '../../../libs/payment-packs/selectors';
-import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
-import { fetchAllPaymentPacks } from '../../../libs/payment-packs/actions';
-import {
-  getSmartList,
-  getSmartListFilters,
-} from '../../../libs/smart-list/selectors';
-import LinearProgress from '../../../components/navigation/BackofficeLinearProgress.component';
+import MemberTable from '../../libs/member/MemberTable.component';
+import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/selectors';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
+import { getSmartListFilters } from '../../libs/smart-list/selectors';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import {
   smartListCreate,
   smartListUpdate,
-  fetchSmartListDetail,
   fetchSmartListFilters,
   updateFilter,
   deleteFilter,
   createFilter,
-} from '../../../libs/smart-list/actions';
-import { fetchSmartListMembers as fetchSmartListMembersAPI } from '../../../libs/smart-list/api';
-import withTitle from '../../../hocs/with-title.hoc';
-import { fetchPrivatePassList } from '../../../libs/private-service/actions';
-import { getPrivatePassAvailable } from '../../../libs/private-service/selectors/private-pass';
+} from '../../libs/smart-list/actions';
+import { fetchSmartListMembers as fetchSmartListMembersAPI } from '../../libs/smart-list/api';
+import { fetchPrivatePassList } from '../../libs/private-service/actions';
+import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
 
-import FiltersPanel from '../../../libs/smart-list/components/FiltersPanel.component';
+import FiltersPanel from '../../libs/smart-list/components/FiltersPanel.component';
 
 type Props = {
   id: number,
-  fetchSmartListDetail: (id: number) => void,
   fetchSmartListFilters: (id: number) => void,
   fetchAllPaymentPacks: () => void,
   fetchPrivatePassList: () => void,
@@ -57,17 +51,19 @@ type Props = {
     callback: (id: number) => void,
   ) => void,
   goToMember: (id: number) => void,
-  smartlist: SmartList,
   smartlist_filters: Array<Filter>,
   payment_packs: Array<PaymentPack>,
   // privatePassList: Array<PrivatePass>,
 };
 
-export class SmartListEdit extends Component<Props, state> {
+type State = {
+  onValueChangeActiveMemberFetch: boolean,
+};
+
+export class SmartListDetailMember extends Component<Props, State> {
   state = { onValueChangeActiveMemberFetch: false };
 
   componentDidMount() {
-    this.props.fetchSmartListDetail(this.props.id);
     this.props.fetchSmartListFilters(this.props.id);
     this.props.fetchAllPaymentPacks();
     this.props.fetchPrivatePassList();
@@ -100,7 +96,7 @@ export class SmartListEdit extends Component<Props, state> {
   };
 
   render() {
-    if (!this.props.smartlist || !this.props.smartlist_filters) {
+    if (!this.props.smartlist_filters) {
       return <LinearProgress />;
     }
     return (
@@ -131,14 +127,12 @@ export default compose(
   routerParamsToProps({ id: 'id:number', create: 'create:number' }),
   connect(
     (state, { id }) => ({
-      smartlist: getSmartList(state, id),
       smartlist_filters: getSmartListFilters(state, id),
       loading: state.smartList.loading || state.smartList.filter.loading,
       payment_packs: getPaymentPackEnabled(state),
       privatePassList: getPrivatePassAvailable(state),
     }),
     {
-      fetchSmartListDetail,
       fetchSmartListFilters,
       fetchAllPaymentPacks,
       fetchPrivatePassList,
@@ -151,5 +145,4 @@ export default compose(
       goToMember: (id) => push(`/member/${id}/`),
     },
   ),
-  withTitle(({ smartlist }) => (smartlist ? smartlist.name : '')),
-)(SmartListEdit);
+)(SmartListDetailMember);

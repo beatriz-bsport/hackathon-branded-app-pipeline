@@ -18,22 +18,22 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { PieChart, Pie, Cell } from 'recharts';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import { getAllSmartList } from '../../../libs/smart-list/selectors';
-import BottomActionButtons from '../../../components/button/BottomActionsButton.component';
-import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
-import withTitle from '../../../hocs/with-title.hoc';
+import { getAllSmartList } from '../../libs/smart-list/selectors';
+import BottomActionButtons from '../../components/button/BottomActionsButton.component';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 
 import {
   smartListDelete,
   fetchAllSmartLists,
   smartListCreate,
   smartListUpdate,
-} from '../../../libs/smart-list/actions';
+} from '../../libs/smart-list/actions';
 
-import type SmartList from '../../../libs/smart-list/types';
-import SmartListCard from '../../../libs/smart-list/components/SmartListListItem.component';
-import { fetchDetails } from '../../../libs/smart-list/api';
-import SmartListEditDialog from '../../../libs/smart-list/components/SmartListFormDialog.component';
+import type SmartList from '../../libs/smart-list/types';
+import SmartListCard from '../../libs/smart-list/components/SmartListListItem.component';
+import { fetchDetails } from '../../libs/smart-list/api';
+import SmartListEditDialog from '../../libs/smart-list/components/SmartListFormDialog.component';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
@@ -306,7 +306,7 @@ export default compose(
       smartListUpdate,
       smartListDelete,
       smartListCreate,
-      goToEdit: (id) => push(`/smart-list/${id}/detail`),
+      goToEdit: (id) => push(`/smart-list/${id}/member`),
       goToSelected: (id) => push(`/smart-list/${id}`),
     },
   ),

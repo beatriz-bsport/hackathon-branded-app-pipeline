@@ -43,6 +43,9 @@ const MemberDetailPrivateBooking = asyncComponent(() =>
 const MemberDetailPrivateConsumerPass = asyncComponent(() =>
   import('./MemberDetailPrivateConsumerPass.page'),
 );
+const MemberDetailContact = asyncComponent(() =>
+  import('./MemberDetailContact.page'),
+);
 
 type Props = {
   t: TFunction,
@@ -163,6 +166,11 @@ export function MemberDetail(props: Props) {
             exact
             path="/member/:id/private-consumer-pass"
             component={MemberDetailPrivateConsumerPass}
+          />
+          <Route
+            exact
+            path="/member/:id/contact"
+            component={MemberDetailContact}
           />
         </Switch>
       </div>

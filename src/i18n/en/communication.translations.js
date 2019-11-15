@@ -1,4 +1,12 @@
 export default {
+  table: {
+    columns: {
+      member: 'Member',
+      title: 'Preview',
+      date_created: 'Date',
+      status: 'Status',
+    },
+  },
   mail: {
     title: 'Mail object',
     content: 'Mail content',

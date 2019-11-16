@@ -20,7 +20,7 @@ import {
   updateFilter as updateFilterAPI,
 } from './api';
 
-import type { Dispatch, ThunkAction } from '../../state/types';
+import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 
@@ -79,7 +79,10 @@ export const createSmartListAction = {
   success: createAction('SMART-LIST/CREATE/SUCCESS'),
 };
 
-export function smartListCreate(data: any): ThunkAction {
+export function smartListCreate(
+  data: any,
+  options: OptionCallback,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(createSmartListAction.isLoading(true));
     dispatch(createSmartListAction.error(null));
@@ -89,9 +92,11 @@ export function smartListCreate(data: any): ThunkAction {
       dispatch(createSmartListAction.success(response.data));
       dispatch(createSmartListAction.error(null));
       dispatch(snackbarSuccess('Liste créée'));
+      if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(createSmartListAction.error(error));
       dispatch(snackbarError('Liste non créée'));
+      if (options && options.onError) options.onError(error);
     }
     dispatch(createSmartListAction.isLoading(false));
   };

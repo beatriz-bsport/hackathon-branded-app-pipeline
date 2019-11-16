@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import { compose } from 'recompose';
+import { compose, withState } from 'recompose';
 import { push } from 'react-router-redux';
 
 import MemberTable from '../../libs/member/MemberTable.component';
@@ -23,14 +23,18 @@ import {
 import { fetchSmartListMembers as fetchSmartListMembersAPI } from '../../libs/smart-list/api';
 import { fetchPrivatePassList } from '../../libs/private-service/actions';
 import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
+import { getMetaActivities } from '../../libs/meta-activity/selectors';
+import { fetchAllActivities as fetchAllActivitiesAction } from '../../libs/meta-activity/actions/meta-activity.actions';
 
 import FiltersPanel from '../../libs/smart-list/components/FiltersPanel.component';
+import SendEmailDialog from '../../libs/smart-list/components/SendEmailDialog.component';
 
 type Props = {
   id: number,
   fetchSmartListFilters: (id: number) => void,
   fetchAllPaymentPacks: () => void,
   fetchPrivatePassList: () => void,
+  fetchAllActivities: () => void,
   createFilter: (
     filterNameId: number,
     filter: any,
@@ -54,6 +58,9 @@ type Props = {
   smartlist_filters: Array<Filter>,
   payment_packs: Array<PaymentPack>,
   // privatePassList: Array<PrivatePass>,
+  meta_activities: Array<MetaActivity>,
+  setOpenSendEmail: (boolean) => void,
+  openSendEmail: boolean,
 };
 
 type State = {
@@ -67,6 +74,7 @@ export class SmartListDetailMember extends Component<Props, State> {
     this.props.fetchSmartListFilters(this.props.id);
     this.props.fetchAllPaymentPacks();
     this.props.fetchPrivatePassList();
+    this.props.fetchAllActivities();
   }
 
   createFilter = (filter_identifier, filterData) => {
@@ -107,6 +115,8 @@ export class SmartListDetailMember extends Component<Props, State> {
           deleteFilter={this.deleteFilter}
           payment_packs={this.props.payment_packs}
           createFilter={this.createFilter}
+          meta_activities={this.props.meta_activities}
+          onRequestEmail={() => this.props.setOpenSendEmail(true)}
         />
         <MemberTable
           fetch={({ page, page_size }) =>
@@ -118,6 +128,11 @@ export class SmartListDetailMember extends Component<Props, State> {
           }
           hideAddButton
         />
+        <SendEmailDialog
+          open={this.props.openSendEmail}
+          onClose={() => this.props.setOpenSendEmail(false)}
+          onSubmit={() => {}}
+        />
       </div>
     );
   }
@@ -125,12 +140,14 @@ export class SmartListDetailMember extends Component<Props, State> {
 
 export default compose(
   routerParamsToProps({ id: 'id:number', create: 'create:number' }),
+  withState('openSendEmail', 'setOpenSendEmail', false),
   connect(
     (state, { id }) => ({
       smartlist_filters: getSmartListFilters(state, id),
       loading: state.smartList.loading || state.smartList.filter.loading,
       payment_packs: getPaymentPackEnabled(state),
       privatePassList: getPrivatePassAvailable(state),
+      meta_activities: getMetaActivities(state),
     }),
     {
       fetchSmartListFilters,
@@ -141,6 +158,7 @@ export default compose(
       smartListCreate,
       smartListUpdate,
       createFilter,
+      fetchAllActivities: fetchAllActivitiesAction,
       goToList: () => push('/smart-list/'),
       goToMember: (id) => push(`/member/${id}/`),
     },

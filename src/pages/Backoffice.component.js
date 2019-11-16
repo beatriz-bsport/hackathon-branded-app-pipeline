@@ -75,7 +75,7 @@ const EmailTemplate = asyncComponent(() =>
   import('./marketing-automation/email-template/EmailTemplate.router'),
 );
 const SmartList = asyncComponent(() =>
-  import('./marketing-automation/smart-list/SmartList.router'),
+  import('./smart-list/SmartList.router'),
 );
 const Subscription = asyncComponent(() =>
   import('./subscription/Subscription.router'),

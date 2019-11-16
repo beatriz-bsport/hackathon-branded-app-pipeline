@@ -6,7 +6,10 @@ import {
   GENDER_FILTER_IDENTIFIER,
   PAYMENT_PACK_CREDIT_FILTER_IDENTIFIER,
   SENIORITY_FILTER_IDENTIFIER,
+  HAS_BOOKED_META_ACTIVITY_FILTER_IDENTIFIER,
+  HAS_VALID_CONSUMER_PACK_FILTER_IDENTIFIER,
   LTE_COMPARATOR,
+  BOOKING_ATTENDANCE_FILTER_IDENTIFIER,
   GTE_COMPARATOR,
   LT_COMPARATOR,
   GT_COMPARATOR,
@@ -21,6 +24,12 @@ export default {
     },
   },
   smart_list: {
+    actions: {
+      configure: 'Configurer',
+    },
+    card: {
+      description: 'Description',
+    },
     list: { title: 'Listes intelligentes', detailTitle: 'Détail de la liste' },
     name: 'Nom',
     description: 'Description',
@@ -28,6 +37,7 @@ export default {
     cancel: 'Annuler',
     add: 'Ajouter une liste',
     detail: 'Détail de la liste',
+    createTitle: 'Liste intelligente',
   },
   filters: {
     active_filters: 'Filtre(s) actif(s) sur la liste',
@@ -41,9 +51,14 @@ export default {
       [LT_COMPARATOR]: 'strictement inférieur',
       [GT_COMPARATOR]: 'strictement supérieur',
     },
-    durations_comparators: {
+    durations_comparators_inverted: {
       [GTE_COMPARATOR]: 'moins de',
       [LTE_COMPARATOR]: 'plus de',
+      [E_COMPARATOR]: 'excatement',
+    },
+    durations_comparators: {
+      [LTE_COMPARATOR]: 'moins de',
+      [GTE_COMPARATOR]: 'plus de',
       [E_COMPARATOR]: 'excatement',
     },
     [CREDIT_ACCOUNT_FILTER_IDENTIFIER]: {
@@ -78,6 +93,23 @@ export default {
       first: "Membres dont les crédits de l'abonnement",
       second: 'sont',
       third: 'à',
+    },
+    [HAS_VALID_CONSUMER_PACK_FILTER_IDENTIFIER]: {
+      name: "Validité de l'abonnement",
+      first: 'Membres possèdant un abonnement',
+      second: 'utilisable',
+    },
+    [HAS_BOOKED_META_ACTIVITY_FILTER_IDENTIFIER]: {
+      name: 'Activité réservée',
+      first: 'Membres ayant réservé une séance de',
+      second: 'au cours des',
+      third: 'derniers jours',
+    },
+    [BOOKING_ATTENDANCE_FILTER_IDENTIFIER]: {
+      name: 'Nombre de cours suivis',
+      first: 'A participé à ',
+      second: 'cours',
+      third: 'derniers jours',
     },
     [SENIORITY_FILTER_IDENTIFIER]: {
       name: 'Ancienneté',

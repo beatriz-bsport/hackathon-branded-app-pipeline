@@ -9,8 +9,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import { DURATION_COMPARATORS_DICT_INVERTED } from '@bsport/common/lib/master-data/smart-list';
-
+import { DURATION_COMPARATORS_DICT } from '@bsport/common/lib/master-data/smart-list';
 import NumericInput from '../../../../components/input/NumericInput.component';
 
 type Props = {
@@ -21,27 +20,30 @@ type Props = {
   new: boolean,
 };
 
-export class SeniorityFilter extends Component<Props, state> {
+export class BookinAttendanceFilter extends Component<Props, state> {
   componentDidMount() {
     if (this.props.new) {
-      this.props.onChange({ comparator: null, value: null });
+      this.props.onChange({
+        comparator: null,
+        date: null,
+        value: null,
+      });
     }
   }
 
   render() {
     const { filter_data, t, classes, onChange } = this.props;
     return (
-      <div>
+      <div className={classes.wrapper}>
         {t(`filters.${filter_data.filter_identifier}.first`)}
         <Select
-          required
           className={classes.input}
           value={filter_data.comparator}
           onChange={(ev) => onChange({ comparator: ev.target.value })}
         >
-          {DURATION_COMPARATORS_DICT_INVERTED.map((item) => (
+          {DURATION_COMPARATORS_DICT.map((item) => (
             <MenuItem key={item.key} value={item.value}>
-              {t(`filters.durations_comparators_inverted.${item.value}`)}
+              {t(`filters.durations_comparators.${item.value}`)}
             </MenuItem>
           ))}
         </Select>
@@ -52,6 +54,13 @@ export class SeniorityFilter extends Component<Props, state> {
           required
         />
         {t(`filters.${filter_data.filter_identifier}.second`)}
+        <NumericInput
+          classes={classes}
+          value={filter_data.date}
+          onChange={(ev) => onChange({ date: ev.target.value })}
+          required
+        />
+        {this.props.t(`filters.${filter_data.filter_identifier}.third`)}
       </div>
     );
   }
@@ -63,7 +72,16 @@ const styles = (theme) => ({
     marginRight: theme.spacing.unit,
   },
   textInput: {
-    width: '70px',
+    width: '50px',
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+  },
+  wrapper: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  selector: {
+    maxWidth: '350px',
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
   },
@@ -72,4 +90,4 @@ const styles = (theme) => ({
 export default compose(
   withNamespaces(['smartList']),
   withStyles(styles),
-)(SeniorityFilter);
+)(BookinAttendanceFilter);

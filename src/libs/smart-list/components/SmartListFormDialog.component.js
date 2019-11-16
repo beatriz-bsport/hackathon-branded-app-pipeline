@@ -13,6 +13,7 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 type Props = {
   t: TFunction,
@@ -66,6 +67,9 @@ export class SmartListFormDialog extends Component<Props, state> {
     const { t, open } = this.props;
     return (
       <Dialog fullScreen={false} open={open}>
+        <DialogTitle id="dialog-title">
+          {t('smart_list.createTitle')}
+        </DialogTitle>
         <DialogContent>
           <div>
             <form
@@ -80,8 +84,8 @@ export class SmartListFormDialog extends Component<Props, state> {
             >
               <TextField
                 value={this.state.name}
+                fullWidth
                 label={t('smart_list.name')}
-                variant="outlined"
                 onChange={(ev) => this.setState({ name: ev.target.value })}
                 className={this.props.classes.textField}
               />
@@ -89,7 +93,7 @@ export class SmartListFormDialog extends Component<Props, state> {
                 value={this.state.description}
                 multiline
                 fullWidth
-                rows="2"
+                rows={5}
                 className={this.props.classes.textField}
                 variant="outlined"
                 label={t('smart_list.description')}
@@ -102,7 +106,6 @@ export class SmartListFormDialog extends Component<Props, state> {
                   {t('smart_list.cancel')}
                 </Button>
                 <Button
-                  variant="outlined"
                   disabled={this.state.mailContent === ''}
                   type="submit"
                   color="primary"

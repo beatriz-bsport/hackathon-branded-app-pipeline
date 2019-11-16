@@ -17,7 +17,7 @@ type Props = {
   selected: boolean,
 };
 
-export default class SmartListItem extends Component<Props, state> {
+export default class SmartListItem extends Component<Props> {
   render() {
     return (
       <ListItem

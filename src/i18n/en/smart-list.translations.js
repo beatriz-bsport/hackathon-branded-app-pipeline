@@ -6,6 +6,9 @@ import {
   GENDER_FILTER_IDENTIFIER,
   PAYMENT_PACK_CREDIT_FILTER_IDENTIFIER,
   SENIORITY_FILTER_IDENTIFIER,
+  HAS_VALID_CONSUMER_PACK_FILTER_IDENTIFIER,
+  // BOOKING_ATTENDANCE_FILTER_IDENTIFIER,
+  HAS_BOOKED_META_ACTIVITY_FILTER_IDENTIFIER,
   LTE_COMPARATOR,
   GTE_COMPARATOR,
   LT_COMPARATOR,
@@ -21,6 +24,12 @@ export default {
     },
   },
   smart_list: {
+    card: {
+      description: 'Description',
+    },
+    actions: {
+      configure: 'Configure',
+    },
     list: { title: 'Smart lists', detailTitle: 'Details of the list' },
     name: 'Name',
     description: 'Description',
@@ -28,6 +37,7 @@ export default {
     cancel: 'Cancel',
     add: 'Add a list',
     detail: 'Details of the list',
+    createTitle: 'Smart-list form',
   },
   filters: {
     active_filters: 'Active filters on the list',
@@ -78,6 +88,17 @@ export default {
       first: 'Members whose payment pack',
       second: 'credits are',
       third: 'than',
+    },
+    [HAS_VALID_CONSUMER_PACK_FILTER_IDENTIFIER]: {
+      name: 'Payment pack validity',
+      first: 'Members whose payment pack',
+      second: 'is usable',
+    },
+    [HAS_BOOKED_META_ACTIVITY_FILTER_IDENTIFIER]: {
+      name: 'Activity booked',
+      first: 'Members has booked activity',
+      second: 'in the past',
+      third: 'days',
     },
     [SENIORITY_FILTER_IDENTIFIER]: {
       name: 'Seniority',

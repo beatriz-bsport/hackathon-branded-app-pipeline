@@ -76,7 +76,7 @@ export class EmailEditorPanel extends Component<Props, State> {
     const { t, classes } = this.props;
     return (
       <div>
-        <Paper className={classes.paper}>
+        <div className={classes.paper}>
           <TextField
             onChange={(event) => this.handleTitleChange(event.target.value)}
             label={t('editor.title')}
@@ -90,23 +90,24 @@ export class EmailEditorPanel extends Component<Props, State> {
             value={this.state.subject}
             className={classes.field}
           />
-        </Paper>
+        </div>
         <Paper>
           <EmailEditor
             ref={(editor) => {
               this.editor = editor;
             }}
+            minHeight="80vh"
             locale={i18n.language}
             onLoad={() => this.onLoad()}
             options={{
               mergeTags: {
                 first_name: {
                   name: 'First Name',
-                  value: '{{first_name}}',
+                  value: '{{firstname}}',
                 },
                 last_name: {
                   name: 'Last Name',
-                  value: '{{last_name}}',
+                  value: '{{lastname}}',
                 },
               },
               designTags: {

@@ -10,8 +10,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
-import AddIcon from '@material-ui/icons/Add';
+import SaveIcon from '@material-ui/icons/Save';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 
 import {
@@ -22,6 +24,9 @@ import {
   GENDER_FILTER_IDENTIFIER,
   PAYMENT_PACK_CREDIT_FILTER_IDENTIFIER,
   SENIORITY_FILTER_IDENTIFIER,
+  HAS_VALID_CONSUMER_PACK_FILTER_IDENTIFIER,
+  BOOKING_ATTENDANCE_FILTER_IDENTIFIER,
+  HAS_BOOKED_META_ACTIVITY_FILTER_IDENTIFIER,
 } from '@bsport/common/lib/master-data/smart-list';
 
 import CreditAccountFilter from './filters/CreditAccountFilter.component';
@@ -31,10 +36,16 @@ import GenderFilter from './filters/GenderFilter.component';
 import PaymentPackFilter from './filters/PaymentPackFilter.component';
 import PaymentPackCreditFilter from './filters/PaymentPackCreditFilter.component';
 import SeniorityFilter from './filters/SeniorityFilter.component';
+import MetaActivityFilter from './filters/MetaActivityFilter.component';
+import BookingAttendanceFilter from './filters/BookingAttendanceFilter.component';
+
 import type { PaymentPack } from '../../payment-packs/types';
 
 type Props = {
   payment_packs: Array<PaymentPack>,
+  meta_activities: Array<any>,
+  classes: Object,
+
   onClickEdit: (id: number) => void,
   onClickDelete: (id: number) => void,
   onClickCreate: (filter_identifier: number, data: any) => void,
@@ -43,7 +54,7 @@ type Props = {
   t: TFunction,
 };
 
-export class FilterCard extends Component<Props, state> {
+export class FilterCard extends Component<Props> {
   constructor(props) {
     super(props);
     this.state = {
@@ -134,6 +145,32 @@ export class FilterCard extends Component<Props, state> {
             new={this.props.new}
           />
         );
+      case HAS_VALID_CONSUMER_PACK_FILTER_IDENTIFIER:
+        return (
+          <PaymentPackFilter
+            filter_data={this.state.filter_data}
+            onChange={this.handleChange}
+            payment_packs={this.props.payment_packs}
+            new={this.props.new}
+          />
+        );
+      case HAS_BOOKED_META_ACTIVITY_FILTER_IDENTIFIER:
+        return (
+          <MetaActivityFilter
+            filter_data={this.state.filter_data}
+            onChange={this.handleChange}
+            meta_activities={this.props.meta_activities}
+            new={this.props.new}
+          />
+        );
+      case BOOKING_ATTENDANCE_FILTER_IDENTIFIER:
+        return (
+          <BookingAttendanceFilter
+            filter_data={this.state.filter_data}
+            onChange={this.handleChange}
+            new={this.props.new}
+          />
+        );
       default:
         return null;
     }
@@ -154,7 +191,7 @@ export class FilterCard extends Component<Props, state> {
           />
           <ListItemSecondaryAction>
             {this.props.onClickCreate ? (
-              <IconButton
+              <Button
                 onClick={(ev) => {
                   ev.stopPropagation();
                   ev.preventDefault();
@@ -164,10 +201,12 @@ export class FilterCard extends Component<Props, state> {
                   );
                 }}
                 color="secondary"
+                variant="outlined"
                 disabled={Object.values(this.state.filter_data).includes(null)}
               >
-                <AddIcon />
-              </IconButton>
+                <SaveIcon className={this.props.classes.leftIcon} />
+                Ajouter
+              </Button>
             ) : null}
             {this.props.onClickDelete ? (
               <IconButton
@@ -189,4 +228,13 @@ export class FilterCard extends Component<Props, state> {
   }
 }
 
-export default compose(withNamespaces(['smartList']))(FilterCard);
+const styles = (theme) => ({
+  leftIcon: {
+    marginRight: theme.spacing.unit,
+  },
+});
+
+export default compose(
+  withStyles(styles),
+  withNamespaces(['smartList']),
+)(FilterCard);

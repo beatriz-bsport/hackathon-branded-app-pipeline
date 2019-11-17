@@ -72,11 +72,9 @@ const PrivateService = asyncComponent(() =>
   import('./private-service/PrivateService.router'),
 );
 const EmailTemplate = asyncComponent(() =>
-  import('./marketing-automation/email-template/EmailTemplate.router'),
+  import('./email-template/EmailTemplate.router'),
 );
-const SmartList = asyncComponent(() =>
-  import('./smart-list/SmartList.router'),
-);
+const SmartList = asyncComponent(() => import('./smart-list/SmartList.router'));
 const Subscription = asyncComponent(() =>
   import('./subscription/Subscription.router'),
 );

@@ -13,23 +13,23 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import InfoIcon from '@material-ui/icons/Info';
 import Typography from '@material-ui/core/Typography';
-import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
-import BottomActionsButton from '../../../components/button/BottomActionsButton.component';
+import BottomActionsButton from '../../components/button/BottomActionsButton.component';
 import {
   getAllEmailTemplatesDict,
   getEmailTemplatesDetail,
   getAllEmailTemplatesId,
-} from '../../../libs/email-editor/selectors';
+} from '../../libs/email-editor/selectors';
 
-import withTitle from '../../../hocs/with-title.hoc';
+import withTitle from '../../hocs/with-title.hoc';
 
 import {
   emailTemplatesSummaries,
   emailTemplateDetail,
   emailTemplateDelete,
-} from '../../../libs/email-editor/actions';
-import EmailCard from '../../../libs/email-editor/components/EmailTemplateListItem.component';
+} from '../../libs/email-editor/actions';
+import EmailCard from '../../libs/email-editor/components/EmailTemplateListItem.component';
 
 type Props = {
   goToEdit: (id: number) => void,
@@ -47,7 +47,7 @@ type Props = {
   selectTemplate: (id: number) => void,
 };
 
-export class MarketingEmail extends Component<Props, state> {
+export class MarketingEmail extends Component<Props> {
   constructor(props) {
     super(props);
     this.state = {

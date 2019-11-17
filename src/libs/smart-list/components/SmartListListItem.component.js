@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Typography from '@material-ui/core/Typography';
 import SettingsIcon from '@material-ui/icons/Settings';
+import withConfirm from '../../../hocs/with-confirm.hoc';
 
 type Props = {
   smartlist: SmartList,
@@ -16,6 +17,15 @@ type Props = {
   onClickDelete: (id: number) => void,
   selected: boolean,
 };
+
+const ButtonWithConfirm = withConfirm(IconButton, 'onClick', {
+  title: 'smartList:modal.delete.title',
+  cancel: 'smartList:modal.delete.cancel',
+  confirm: 'smartList:modal.delete.confirm',
+  Content: ({ t }: { t: TFunction }) => (
+    <p>{t('smartList:modal.delete.content')}</p>
+  ),
+});
 
 export default class SmartListItem extends Component<Props> {
   render() {
@@ -47,7 +57,7 @@ export default class SmartListItem extends Component<Props> {
             </IconButton>
           ) : null}
           {this.props.onClickDelete ? (
-            <IconButton
+            <ButtonWithConfirm
               onClick={(ev) => {
                 ev.stopPropagation();
                 ev.preventDefault();
@@ -56,7 +66,7 @@ export default class SmartListItem extends Component<Props> {
               color="secondary"
             >
               <DeleteIcon />
-            </IconButton>
+            </ButtonWithConfirm>
           ) : null}
         </ListItemSecondaryAction>
       </ListItem>

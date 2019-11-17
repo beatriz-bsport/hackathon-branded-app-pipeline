@@ -17,6 +17,15 @@ import {
 } from '@bsport/common/lib/master-data/smart-list';
 
 export default {
+  modal: {
+    delete: {
+      title: 'Suppression liste',
+      content:
+        'Êtes-vous sûr de vouloir supprimer cette liste ? Cette opération est définitive',
+      cancel: 'Annuler',
+      confirm: 'Supprimer',
+    },
+  },
   detail: {
     tab: {
       member: 'Général',

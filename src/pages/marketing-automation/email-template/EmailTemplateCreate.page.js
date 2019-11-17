@@ -6,9 +6,9 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { withNamespaces } from 'react-i18next';
 import { push } from 'react-router-redux';
-import { emailDesignCreate } from '../../../libs/marketing/email-editor/actions';
+import { emailDesignCreate } from '../../../libs/email-editor/actions';
 
-import EmailEditorPanel from '../../../libs/marketing/email-editor/components/EmailEditor.component';
+import EmailEditorPanel from '../../../libs/email-editor/components/EmailEditor.component';
 import withTitle from '../../../hocs/with-title.hoc';
 import { snackbarError } from '../../../actions/snackbar.actions';
 

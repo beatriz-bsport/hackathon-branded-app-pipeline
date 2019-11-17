@@ -11,6 +11,7 @@ import List from '@material-ui/core/List';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import InfoIcon from '@material-ui/icons/Info';
 import Typography from '@material-ui/core/Typography';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 
@@ -19,7 +20,7 @@ import {
   getAllEmailTemplatesDict,
   getEmailTemplatesDetail,
   getAllEmailTemplatesId,
-} from '../../../libs/marketing/email-editor/selectors';
+} from '../../../libs/email-editor/selectors';
 
 import withTitle from '../../../hocs/with-title.hoc';
 
@@ -27,8 +28,8 @@ import {
   emailTemplatesSummaries,
   emailTemplateDetail,
   emailTemplateDelete,
-} from '../../../libs/marketing/email-editor/actions';
-import EmailCard from '../../../libs/marketing/email-editor/components/EmailTemplateListItem.component';
+} from '../../../libs/email-editor/actions';
+import EmailCard from '../../../libs/email-editor/components/EmailTemplateListItem.component';
 
 type Props = {
   goToEdit: (id: number) => void,
@@ -104,16 +105,16 @@ export class MarketingEmail extends Component<Props, state> {
             </List>
           </Paper>
         </Grid>
-        {this.state.selected_id &&
-        !!this.props.email_templates_details[this.state.selected_id] ? (
-          <Grid item xs={12} md={6}>
-            <Typography
-              variant="h5"
-              component="h2"
-              className={this.props.classes.previewTitle}
-            >
-              {t('preview')}
-            </Typography>
+        <Grid item xs={12} md={6}>
+          <Typography
+            variant="h5"
+            component="h2"
+            className={this.props.classes.previewTitle}
+          >
+            {t('preview')}
+          </Typography>
+          {this.state.selected_id &&
+          !!this.props.email_templates_details[this.state.selected_id] ? (
             <Paper>
               <div
                 dangerouslySetInnerHTML={{
@@ -124,8 +125,18 @@ export class MarketingEmail extends Component<Props, state> {
                 }}
               />
             </Paper>
-          </Grid>
-        ) : null}
+          ) : (
+            <div className={this.props.classes.previewEmpty}>
+              <InfoIcon fontSize="large" color="disabled" />
+              <Typography
+                className={this.props.classes.emptyMessageText}
+                color="textSecondary"
+              >
+                {t('selectToShowPreview')}
+              </Typography>
+            </div>
+          )}
+        </Grid>
         <BottomActionsButton
           onCreateLabel={t('create')}
           onCreate={this.props.goToCreate}
@@ -145,6 +156,18 @@ const styles = (theme) => ({
   },
   previewTitle: {
     marginBottom: theme.spacing.unit,
+  },
+  previewEmpty: {
+    borderRadius: theme.spacing.unit * 3,
+    border: '1px solid grey',
+    minHeight: '60vh',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    paddingTop: theme.spacing.unit * 6,
+  },
+  emptyMessageText: {
+    marginTop: theme.spacing.unit * 2,
   },
 });
 

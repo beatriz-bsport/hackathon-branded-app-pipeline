@@ -119,13 +119,9 @@ const BackofficeRoute = withSentryErrorReporting(() => (
     <Route path="/workshop-activity" component={WorkshopActivity} />
     <Route path="/establishment" component={Establishment} />
     <Route path="/marketing/rule/:id" component={MarketingRule} />
-    {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ? null : (
-      <Route path="/smart-list" component={SmartList} />
-    )}
+    <Route path="/smart-list" component={SmartList} />
     <Route path="/marketing" component={MarketingDashboard} />
-    {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ? null : (
-      <Route path="/email" component={EmailTemplate} />
-    )}
+    <Route path="/email" component={EmailTemplate} />
     <Route path="/reporting/" component={Reporting} />
     <Route path="/combo/" component={PaymentCombo} />
     <Route path="/private-service" component={PrivateService} />

@@ -4,7 +4,7 @@ import { createAction } from 'redux-actions';
 import {
   snackbarSuccess,
   snackbarError,
-} from '../../../actions/snackbar.actions';
+} from '../../actions/snackbar.actions';
 
 import {
   createEmailTemplate as createEmailTemplateAPI,
@@ -15,9 +15,9 @@ import {
   deleteEmailTemplate as deleteEmailTemplateAPI,
 } from './api';
 
-import type { Dispatch, ThunkAction } from '../../../state/types';
+import type { Dispatch, ThunkAction } from '../../state/types';
 
-import { createDictionnaryById, createIdList } from '../../../actions/utils';
+import { createDictionnaryById, createIdList } from '../../actions/utils';
 
 export const emailTemplatesSummariesAction = {
   error: createAction('EMAIL/SUMMARIES/ERROR'),

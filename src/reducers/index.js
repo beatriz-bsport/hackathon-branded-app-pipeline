@@ -39,7 +39,7 @@ import login from '../libs/login/reducers';
 import paymentPack from '../libs/payment-packs/reducers';
 import privateService from '../libs/private-service/reducers';
 import smartListReducer from '../libs/smart-list/reducers';
-import emailTemplateReducer from '../libs/marketing/email-editor/reducers';
+import emailTemplateReducer from '../libs/email-editor/reducers';
 import paymentCombo from '../libs/payment-combo/reducers';
 
 import type { State, Action } from '../state/types';

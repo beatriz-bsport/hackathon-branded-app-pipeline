@@ -10,7 +10,7 @@ import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import {
   getEmailTemplatesDetail,
   getAllEmailTemplatesDict,
-} from '../../../libs/marketing/email-editor/selectors';
+} from '../../../libs/email-editor/selectors';
 import LinearProgress from '../../../components/navigation/BackofficeLinearProgress.component';
 import withTitle from '../../../hocs/with-title.hoc';
 import { snackbarError } from '../../../actions/snackbar.actions';
@@ -19,9 +19,9 @@ import {
   emailTemplateComplete,
   emailTemplateUpdate,
   emailDesignCreate,
-} from '../../../libs/marketing/email-editor/actions';
+} from '../../../libs/email-editor/actions';
 
-import EmailEditorPanel from '../../../libs/marketing/email-editor/components/EmailEditor.component';
+import EmailEditorPanel from '../../../libs/email-editor/components/EmailEditor.component';
 
 type Props = {
   id: number,

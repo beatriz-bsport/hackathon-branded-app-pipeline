@@ -1,8 +1,18 @@
 export default {
+  modal: {
+    delete: {
+      title: 'Suppression modèle email',
+      content:
+        "Êtes-vous sûr de vouloir supprimer ce modèle d'email ? Cette opération est définitive",
+      cancel: 'Annuler',
+      confirm: 'Supprimer',
+    },
+  },
   listTitle: 'Mes modèles emails',
   editTitle: 'édition du modèle',
   createTitle: 'Création du modèle',
   detail: 'Informations détaillées',
+  selectToShowPreview: 'Sélectionnez un template',
   create: 'Créer un modèle',
   modification_date: 'Dernière modification le',
   subject: 'Objet du mail:',

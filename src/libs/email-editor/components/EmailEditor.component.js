@@ -12,8 +12,8 @@ import Paper from '@material-ui/core/Paper';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import moment from 'moment';
-import { EmailTemplate } from '../types';
-import i18n from '../../../../i18n';
+import type { EmailTemplate } from '../types';
+import i18n from '../../../i18n';
 
 type Props = {
   save_email: (number, any) => void,

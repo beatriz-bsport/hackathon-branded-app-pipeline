@@ -13,7 +13,8 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
-import AddIcon from '@material-ui/icons/Add';
+
+import withConfirm from '../../../hocs/with-confirm.hoc';
 
 type Props = {
   email_template: EmailTemplate,
@@ -21,9 +22,18 @@ type Props = {
   onClickEdit: (id: number) => void,
   onClickDelete: (id: number) => void,
   selected: boolean,
-  onClickAdd: (id: number) => void,
+  // onClickAdd: (id: number) => void,
   t: TFunction,
 };
+
+const ButtonWithConfirm = withConfirm(IconButton, 'onClick', {
+  title: 'emailTemplate:modal.delete.title',
+  cancel: 'emailTemplate:modal.delete.cancel',
+  confirm: 'emailTemplate:modal.delete.confirm',
+  Content: ({ t }: { t: TFunction }) => (
+    <p>{t('emailTemplate:modal.delete.content')}</p>
+  ),
+});
 
 export class EmailCard extends Component<Props, state> {
   render() {
@@ -45,18 +55,6 @@ export class EmailCard extends Component<Props, state> {
           }
         />
         <ListItemSecondaryAction>
-          {this.props.onClickAdd ? (
-            <IconButton
-              onClick={(ev) => {
-                ev.stopPropagation();
-                ev.preventDefault();
-                this.props.onClickAdd(this.props.email_template.id);
-              }}
-              color="primary"
-            >
-              <AddIcon />
-            </IconButton>
-          ) : null}
           {this.props.onClickEdit ? (
             <IconButton
               onClick={(ev) => {
@@ -70,7 +68,7 @@ export class EmailCard extends Component<Props, state> {
             </IconButton>
           ) : null}
           {this.props.onClickDelete ? (
-            <IconButton
+            <ButtonWithConfirm
               onClick={(ev) => {
                 ev.stopPropagation();
                 ev.preventDefault();
@@ -79,7 +77,7 @@ export class EmailCard extends Component<Props, state> {
               color="secondary"
             >
               <DeleteIcon />
-            </IconButton>
+            </ButtonWithConfirm>
           ) : null}
         </ListItemSecondaryAction>
       </ListItem>

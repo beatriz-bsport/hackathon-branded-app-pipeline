@@ -14,7 +14,7 @@ import {
   resetAction,
 } from './actions';
 
-import { email_template_state } from './types';
+import type { email_template_state } from './types';
 
 const initialState: email_template_state = Immutable({
   isLoading: false,

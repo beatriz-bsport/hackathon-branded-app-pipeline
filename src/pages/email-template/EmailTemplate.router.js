@@ -9,11 +9,14 @@ import EmailTemplateCreate from './EmailTemplateCreate.page';
 export default () => {
   return (
     <Switch>
-      <Route path="/email/list/:id" component={EmailTemplateList} />
-      <Route path="/email/list" component={EmailTemplateList} />
-      <Route exact path="/email/edit/:id/:create" component={EmailEditor} />
-      <Route exact path="/email/edit/:id" component={EmailEditor} />
-      <Route exact path="/email/create/" component={EmailTemplateCreate} />
+      <Route
+        exact
+        path="/email-template/create"
+        component={EmailTemplateCreate}
+      />
+      <Route exact path="/email-template/:id/edit" component={EmailEditor} />
+      <Route exact path="/email-template/:id" component={EmailTemplateList} />
+      <Route path="/email-template" component={EmailTemplateList} />
     </Switch>
   );
 };

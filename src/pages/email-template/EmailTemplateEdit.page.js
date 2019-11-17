@@ -91,8 +91,8 @@ export default compose(
       emailTemplateComplete,
       emailDesignCreate,
       emailTemplateUpdate,
-      goToDetailList: (id) => push(`/email/list/${id}`),
-      goToList: () => push('/email/list/'),
+      goToDetailList: (id) => push(`/email-template/${id}`),
+      goToList: () => push('/email-template'),
     },
   ),
 )(MarketingEmail);

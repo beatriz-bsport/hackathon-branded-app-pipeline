@@ -14,6 +14,7 @@ import type { TFunction } from 'react-i18next';
 import InfoIcon from '@material-ui/icons/Info';
 import Typography from '@material-ui/core/Typography';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
 import {
@@ -34,7 +35,6 @@ import EmailCard from '../../libs/email-editor/components/EmailTemplateListItem.
 type Props = {
   goToEdit: (id: number) => void,
   emailTemplateDelete: (id: number) => void,
-  goToCreateFromExisting: (id: number) => void,
   emailTemplateDetail: (id: number) => void,
   emailTemplatesSummaries: () => void,
   email_templates_details: any,
@@ -77,11 +77,25 @@ export class MarketingEmail extends Component<Props> {
   }
 
   render() {
-    const { email_templates_summaries, t } = this.props;
+    const { email_templates_summaries, loading, t, classes } = this.props;
+    if (!loading && this.props.email_templates_list.length === 0) {
+      return (
+        <div className={classes.emptyTextContainer}>
+          <Typography align="center" color="textSecondary">
+            {t('templateListEmpty')}
+          </Typography>
+          <BottomActionsButton
+            onCreateLabel={t('create')}
+            onCreate={this.props.goToCreate}
+          />
+        </div>
+      );
+    }
     return (
       <Grid container direction="row" spacing={24}>
+        {loading ? <LinearProgress /> : null}
         <Grid item xs={12} md={6}>
-          <Paper className={this.props.classes.panel}>
+          <Paper className={classes.panel}>
             <List
               component="nav"
               disablePadding
@@ -98,7 +112,6 @@ export class MarketingEmail extends Component<Props> {
                   email_template={email_templates_summaries[emailId]}
                   onClickEdit={this.props.goToEdit}
                   onClickDelete={this.props.emailTemplateDelete}
-                  onClickAdd={this.props.goToCreateFromExisting}
                   selected={emailId === this.state.selected_id}
                 />
               ))}
@@ -109,7 +122,7 @@ export class MarketingEmail extends Component<Props> {
           <Typography
             variant="h5"
             component="h2"
-            className={this.props.classes.previewTitle}
+            className={classes.previewTitle}
           >
             {t('preview')}
           </Typography>
@@ -126,10 +139,10 @@ export class MarketingEmail extends Component<Props> {
               />
             </Paper>
           ) : (
-            <div className={this.props.classes.previewEmpty}>
+            <div className={classes.previewEmpty}>
               <InfoIcon fontSize="large" color="disabled" />
               <Typography
-                className={this.props.classes.emptyMessageText}
+                className={classes.emptyMessageText}
                 color="textSecondary"
               >
                 {t('selectToShowPreview')}
@@ -169,6 +182,11 @@ const styles = (theme) => ({
   emptyMessageText: {
     marginTop: theme.spacing.unit * 2,
   },
+  emptyTextContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: theme.spacing.unit * 2,
+  },
 });
 
 export default compose(
@@ -189,10 +207,9 @@ export default compose(
       emailTemplatesSummaries,
       emailTemplateDetail,
       emailTemplateDelete,
-      goToEdit: (id) => push(`/email/edit/${id}`),
-      goToCreate: () => push('/email/create'),
-      goToCreateFromExisting: (id) => push(`/email/edit/${id}/1`),
-      selectTemplate: (id) => push(`/email/list/${id}`),
+      goToEdit: (id) => push(`/email-template/${id}/edit`),
+      goToCreate: () => push('/email-template/create'),
+      selectTemplate: (id) => push(`/email-template/${id}`),
     },
   ),
 )(MarketingEmail);

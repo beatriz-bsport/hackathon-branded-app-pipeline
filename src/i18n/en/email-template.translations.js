@@ -15,6 +15,7 @@ export default {
   create: 'Create a template',
   modification_date: 'Last modified the',
   selectToShowPreview: 'Please select a templat',
+templateListEmpty: 'No template, create your first template here.',
   subject: 'Mail object:',
   preview: 'Mail preview',
   no_subject: 'No object',

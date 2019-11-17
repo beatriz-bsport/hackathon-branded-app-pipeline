@@ -22,7 +22,6 @@ type Props = {
   onClickEdit: (id: number) => void,
   onClickDelete: (id: number) => void,
   selected: boolean,
-  // onClickAdd: (id: number) => void,
   t: TFunction,
 };
 

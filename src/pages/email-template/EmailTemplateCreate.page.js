@@ -48,7 +48,7 @@ export default compose(
     {
       snackbarError,
       emailDesignCreate,
-      goToList: () => push('/email/list'),
+      goToList: () => push('/email-template'),
     },
   ),
 )(EmailTemplateCreate);

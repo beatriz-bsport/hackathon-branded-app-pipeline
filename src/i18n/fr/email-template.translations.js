@@ -14,6 +14,7 @@ export default {
   detail: 'Informations détaillées',
   selectToShowPreview: 'Sélectionnez un template',
   create: 'Créer un modèle',
+  templateListEmpty: 'Aucun modèle, créez votre premier modèle ici.',
   modification_date: 'Dernière modification le',
   subject: 'Objet du mail:',
   preview: 'Aperçu du mail',

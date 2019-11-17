@@ -492,12 +492,12 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         type: 'nested',
         nestedItems: [
           {
-            to: '/smart-list/list',
+            to: '/smart-list',
             icon: People,
             text: t('navigation.smart_list'),
           },
           {
-            to: '/email/list',
+            to: '/email-template',
             icon: Email,
             text: t('navigation.email_template'),
           },

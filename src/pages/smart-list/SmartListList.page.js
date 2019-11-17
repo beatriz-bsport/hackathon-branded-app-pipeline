@@ -69,7 +69,7 @@ export class SmartListList extends Component<Props, State> {
     const smartlist = data;
     smartlist.company = this.props.company_id;
     this.props.smartListCreate(data, {
-      onSuccess: (data_) => this.props.goToSelected(data_.id),
+      onSuccess: (data_) => this.props.goToEdit(data_.id),
     });
     this.setState({ openCreateDialog: false });
   };

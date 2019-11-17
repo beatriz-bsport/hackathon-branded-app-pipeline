@@ -119,7 +119,7 @@ const BackofficeRoute = withSentryErrorReporting(() => (
     <Route path="/marketing/rule/:id" component={MarketingRule} />
     <Route path="/smart-list" component={SmartList} />
     <Route path="/marketing" component={MarketingDashboard} />
-    <Route path="/email" component={EmailTemplate} />
+    <Route path="/email-template" component={EmailTemplate} />
     <Route path="/reporting/" component={Reporting} />
     <Route path="/combo/" component={PaymentCombo} />
     <Route path="/private-service" component={PrivateService} />

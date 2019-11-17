@@ -44,6 +44,7 @@ type Props = {
   t: TFunction,
   classes: Object,
   id: number,
+  loading: boolean,
   selectTemplate: (id: number) => void,
 };
 

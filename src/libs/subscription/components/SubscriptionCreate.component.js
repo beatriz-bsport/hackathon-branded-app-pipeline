@@ -6,6 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
 import { withNamespaces } from 'react-i18next';
 import { compose } from 'recompose';
@@ -16,6 +18,7 @@ import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelec
 import NumericInput from '../../../components/input/NumericInput.component';
 import PriceInput from '../../../components/input/PriceInput.component';
 import DateInput from '../../../components/input/DateInput.component';
+import Config from '../../../config';
 
 import RecapSubscription from './RecapSubscription.component';
 
@@ -126,6 +129,14 @@ export class SubscriptionCreate extends Component<Props, State> {
               label={t('parameters.firstBilling')}
               onChange={this.updateFirstBillingTimestamp}
             />
+          </div>
+          <div className={classes.field}>
+            {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ? null : (
+              <FormControlLabel
+                control={<Checkbox value="autoRenew" />}
+                label={this.props.t('parameters.autoRenew')}
+              />
+            )}
           </div>
           <div className={classes.field}>
             <div className={classes.voucherFields}>

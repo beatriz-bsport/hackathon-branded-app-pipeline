@@ -327,7 +327,7 @@ const MemberSchema = Yup.object().shape({
   phone: Yup.string()
     .nullable()
     .notRequired(),
-  gender: Yup.string().matches(/(F|M)/),
+  gender: Yup.string().matches(/(F|M|X)/),
   birthday: Yup.string()
     .nullable()
     .notRequired(),

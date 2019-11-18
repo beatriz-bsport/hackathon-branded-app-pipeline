@@ -348,6 +348,9 @@ export const GenderField = withStyles(styles)(
               <MenuItem key="M" value="M">
                 {t('common.male')}
               </MenuItem>
+              <MenuItem key="X" value="X">
+                {t('common.otherGender')}
+              </MenuItem>
             </Select>
             <ErrorMessage {...props}>
               {(message) => (

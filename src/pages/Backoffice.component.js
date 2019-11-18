@@ -100,6 +100,9 @@ type Props = {
   tempPasswordState: TempPasswordState,
   fetchTempPassword: () => void,
   generateTempPassword: () => void,
+
+  openCalendar: () => void,
+  openCreateMember: () => void,
 };
 
 const BackofficeRoute = withSentryErrorReporting(() => (
@@ -181,6 +184,8 @@ export class Backoffice extends Component<Props> {
           tempPasswordState={this.props.tempPasswordState}
           generateTempPassword={this.props.generateTempPassword}
           fetchTempPassword={this.props.fetchTempPassword}
+          openCreateMember={this.props.openCreateMember}
+          openCalendar={this.props.openCalendar}
         >
           {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
           Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ? (
@@ -238,5 +243,8 @@ export default connect(
 
     generateTempPassword,
     fetchTempPassword,
+
+    openCalendar: () => push('/calendar'),
+    openCreateMember: () => push('/member/add'),
   },
 )(themedBackoffice);

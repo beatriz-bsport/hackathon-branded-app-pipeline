@@ -46,7 +46,6 @@ type State = {
   phone: string,
   password: string,
   passwordConfirm: string,
-  gender: string,
   passwordIsConform: boolean,
   passwordEqual: boolean,
   accept_sms: boolean,

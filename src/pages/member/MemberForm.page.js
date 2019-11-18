@@ -52,6 +52,7 @@ export class MemberFormPage extends Component<Props> {
         }
       : {
           birthday: null,
+          gender: 'F',
         };
 
     if (initialData && initial) {

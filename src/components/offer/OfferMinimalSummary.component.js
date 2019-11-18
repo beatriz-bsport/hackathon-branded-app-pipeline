@@ -16,7 +16,6 @@ import type { TFunction } from 'react-i18next';
 import Tooltip from '../Tooltip.component';
 import EmptyListItem from '../LoadingListItem.component';
 
-import { Level } from '../category';
 import { formatMinutes, formatAsDatetime, formatAsTime } from '../../datetime';
 import type { Offer } from '../../api/types';
 
@@ -92,7 +91,6 @@ export function OfferMinimalSummary(props: Props) {
   const {
     name,
     id,
-    level_id,
     etablissement,
     establishment_override,
     duration_minute,
@@ -181,7 +179,7 @@ export function OfferMinimalSummary(props: Props) {
         <Grid item xs={3}>
           <ListItemText
             primary={showCoachName ? coach.name : currentEstablishment.title}
-            secondary={<Level noStyle levelId={level_id} variant="caption" />}
+            secondary={coach_override ? coach_override.name : coach.name}
           />
         </Grid>
       </Grid>

@@ -37,6 +37,9 @@ export function GenderInput(props: Props) {
         <MenuItem key="M" value="M">
           {t('common.male')}
         </MenuItem>
+        <MenuItem key="X" value="X">
+          {t('common.otherGender')}
+        </MenuItem>
       </Select>
     </FormControl>
   );

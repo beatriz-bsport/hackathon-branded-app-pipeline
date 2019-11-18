@@ -224,6 +224,7 @@ export default {
       places: 'Places',
       male: 'male',
       female: 'female',
+      otherGender: 'Other',
     },
     marketing: {
       dashboard: 'Dashboard',

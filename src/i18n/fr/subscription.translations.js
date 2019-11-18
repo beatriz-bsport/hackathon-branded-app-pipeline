@@ -37,6 +37,7 @@ export default {
       'Les prochains paiements seront annulés et les factures correspondantes seront supprimées. Si une réservation a été enregistrée avec un abonnement dont la facture a été annulée, elle sera également annulée.',
   },
   parameters: {
+    autoRenew: 'Renouvellement automatique',
     parameters: 'Paramètres',
     subscribeAgain: 'Souscrire à nouveau',
     voucher: 'Offre spéciale',

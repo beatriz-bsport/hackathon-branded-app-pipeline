@@ -251,6 +251,7 @@ export default {
       places: 'Lieux',
       male: 'Homme',
       female: 'Femme',
+      otherGender: 'Autre',
     },
     pagination: {
       rowPerPage: 'Eléments par page',

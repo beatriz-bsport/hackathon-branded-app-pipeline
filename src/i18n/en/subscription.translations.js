@@ -38,6 +38,7 @@ export default {
   },
   parameters: {
     parameters: 'Parameters',
+    autoRenew: 'Automatic renewal',
     subscribeAgain: 'Subscribe again',
     voucher: 'Promotion',
     trial_nb: 'Free months (at the end)',

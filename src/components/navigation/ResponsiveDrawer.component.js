@@ -29,6 +29,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import RedeemIcon from '@material-ui/icons/Redeem';
 import TodayIcon from '@material-ui/icons/Today';
 import ScheduleIcon from '@material-ui/icons/Schedule';
@@ -93,6 +94,9 @@ type Props = {
   tempPasswordState: TempPasswordState,
   fetchTempPassword: () => void,
   generateTempPassword: () => void,
+
+  openCreateMember: () => void,
+  openCalendar: () => void,
 };
 
 type State = {
@@ -208,7 +212,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
     this.setState({ tempPasswordDialogOpen: false });
   };
 
-  renderAppBar = (fullWidth) => {
+  renderAppBar = (fullWidth, forced_hide) => {
     const {
       classes,
       nbAlerting,
@@ -272,11 +276,20 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                 wrap="nowrap"
                 implementation="css"
               >
-                <Grid item>
-                  <IconButton onClick={openIntercomHelp}>
-                    <HelpIcon />
-                  </IconButton>
-                </Grid>
+                {forced_hide ? (
+                  <React.Fragment>
+                    <Grid item>
+                      <IconButton onClick={this.props.openCreateMember}>
+                        <PersonAddIcon />
+                      </IconButton>
+                    </Grid>
+                    <Grid item>
+                      <IconButton onClick={this.props.openCalendar}>
+                        <TodayIcon />
+                      </IconButton>
+                    </Grid>
+                  </React.Fragment>
+                ) : null}
                 <Grid item>
                   <AlertButtonMenu
                     alertings={alertings}
@@ -284,6 +297,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                     deleteAlert={deleteAlert}
                     showMore={fetchMoreAlertingKind}
                   />
+                </Grid>
+                <Grid item>
+                  <IconButton onClick={openIntercomHelp}>
+                    <HelpIcon />
+                  </IconButton>
                 </Grid>
                 {this.props.showSearch ? (
                   <Grid item className={classes.searchBar}>
@@ -361,7 +379,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
     if (hidden) {
       return (
         <div style={{ width: '100%' }}>
-          {this.renderAppBar(true, true)}
+          {this.renderAppBar(true, hidden)}
           <div className={classes.content}>{this.props.children}</div>;
         </div>
       );

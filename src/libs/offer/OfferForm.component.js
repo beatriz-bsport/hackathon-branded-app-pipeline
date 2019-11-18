@@ -12,6 +12,7 @@ import CalendarIcon from '@material-ui/icons/Today';
 import AddIcon from '@material-ui/icons/Add';
 import { withNamespaces } from 'react-i18next';
 
+import DatePicker from 'material-ui-pickers/DatePicker';
 import CoachInput from '../../components/input/CoachInput.component';
 import EstablishmentInput from '../../components/input/EstablishmentInput.component';
 import { Moment } from '../../i18n';
@@ -21,7 +22,6 @@ import FormField, {
   MONTHLY,
 } from '../../components/input/FormField.component';
 import DurationInput from '../../components/input/DurationInput.component';
-import DateInput from '../../components/input/DateInput.component';
 import type { Coach, MetaActivity, Establishment } from '../../api/types';
 
 const styles = (theme) => ({
@@ -327,13 +327,32 @@ export class OfferForm extends Component<Props, State> {
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <DateInput
+                  <DatePicker
                     format="DD/MM/YYYY"
-                    value={this.state.date_interval_start}
+                    keyboard
                     required
+                    returnMoment={false}
+                    value={this.state.date_interval_start}
                     onChange={(e) =>
                       this.onFormFieldChange('date_interval_start')(e)
                     }
+                    mask={(value) => {
+                      if (value) {
+                        return [
+                          /\d/,
+                          /\d/,
+                          '/',
+                          /\d/,
+                          /\d/,
+                          '/',
+                          /\d/,
+                          /\d/,
+                          /\d/,
+                          /\d/,
+                        ];
+                      }
+                      return [];
+                    }}
                   />
                 </Grid>
               </Grid>
@@ -362,16 +381,35 @@ export class OfferForm extends Component<Props, State> {
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <DateInput
+                  <DatePicker
                     format="DD/MM/YYYY"
-                    value={this.state.date_interval_end}
-                    minDate={this.state.date_interval_start}
+                    keyboard
                     required
+                    returnMoment={false}
                     disabled={this.state.recurrence === NOT_RECURRENT}
                     error={this.endDateIsInvalid()}
+                    value={this.state.date_interval_end}
+                    minDate={this.state.date_interval_start}
                     onChange={(e) =>
                       this.onFormFieldChange('date_interval_end')(e)
                     }
+                    mask={(value) => {
+                      if (value) {
+                        return [
+                          /\d/,
+                          /\d/,
+                          '/',
+                          /\d/,
+                          /\d/,
+                          '/',
+                          /\d/,
+                          /\d/,
+                          /\d/,
+                          /\d/,
+                        ];
+                      }
+                      return [];
+                    }}
                   />
                 </Grid>
               </Grid>

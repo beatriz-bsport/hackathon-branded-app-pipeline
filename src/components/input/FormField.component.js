@@ -237,9 +237,27 @@ export class FormField extends Component<Props, State> {
         return (
           <DatePicker
             format="DD/MM/YYYY"
-            value={selectedDate}
+            keyboard
             disabled={disabled}
+            value={selectedDate}
             onChange={this.handleDateChange}
+            mask={(value) => {
+              if (value) {
+                return [
+                  /\d/,
+                  /\d/,
+                  '/',
+                  /\d/,
+                  /\d/,
+                  '/',
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                ];
+              }
+              return [];
+            }}
           />
         );
       case 'hour':

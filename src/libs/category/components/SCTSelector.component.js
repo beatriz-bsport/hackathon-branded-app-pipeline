@@ -4,7 +4,7 @@ import { withNamespaces } from 'react-i18next';
 import Immutable from 'seamless-immutable';
 
 import Selector from '../../../components/Selector.component';
-import Sport from '../../../components/category/Sport.component';
+import Sport from './SCT.component';
 
 const asMutable = (stuff) => {
   if (Immutable.isImmutable(stuff)) {
@@ -39,6 +39,7 @@ function sctOption(props: OptionProps) {
         noDivider
         button
         dense
+        paddingLeft
       />
     </div>
   );
@@ -53,13 +54,11 @@ function SingleValue(props: OptionProps) {
         SCTName={data.data.name}
         noDivider
         dense
+        paddingLeft
       />
     </div>
   );
 }
-
-const getSelectedSCTOption = (value, scts) =>
-  getSCTOptions(asMutable(scts)).find((c) => c.value === value);
 
 export default withNamespaces(['category'])(
   ({ t, scts, value, placeholder, isDisabled, selectOption }) => {

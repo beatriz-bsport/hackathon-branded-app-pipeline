@@ -12,7 +12,8 @@ import { withNamespaces } from 'react-i18next';
 
 import Avatar from '../Avatar.component';
 import { formatAsDatetime } from '../../datetime';
-import { Level, Sport } from '../category';
+import { Level } from '../category';
+import Sport from '../../libs/category/components/SCT.component';
 import type { ActivitySimplified } from '../../api/types';
 
 const styles = () => ({

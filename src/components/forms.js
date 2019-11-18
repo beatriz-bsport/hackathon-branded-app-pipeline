@@ -36,8 +36,6 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 
-import { Sport } from './category';
-
 import ColorInput from './input/ColorInput.component';
 
 type AlertErrorProps = {

@@ -33,7 +33,7 @@ type Props = {
   emailDesignCreate: (data: any) => void,
   emailTemplateUpdate: (id: number, data: any) => void,
   goToList: () => void,
-  goToDetailList: () => void,
+  goToDetailList: (id: number) => void,
   email_templates_details: any,
   email_templates_summaries: any,
   snackbarError: (msg: string) => void,

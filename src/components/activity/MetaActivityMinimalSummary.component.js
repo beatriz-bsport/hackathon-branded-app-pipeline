@@ -10,7 +10,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import { Sport } from '../category';
+import Sport from '../../libs/category/components/SCT.component';
 import type { MetaActivity } from '../../api/types';
 
 const styles = () => ({

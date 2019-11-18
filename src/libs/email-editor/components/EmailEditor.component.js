@@ -60,11 +60,11 @@ export class EmailEditorPanel extends Component<Props, State> {
     });
   };
 
-  handleTitleChange(title) {
+  handleTitleChange(title: string) {
     this.setState({ title });
   }
 
-  handleObjectChange(subject) {
+  handleObjectChange(subject: string) {
     this.setState({ subject });
   }
 

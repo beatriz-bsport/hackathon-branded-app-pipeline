@@ -1,5 +1,4 @@
 // @flow
-
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -23,7 +22,8 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import { Link } from 'react-router-dom';
 
 import type { TFunction } from 'react-i18next';
-import { Level, Sport } from '../category';
+import { Level } from '../category';
+import Sport from '../../libs/category/components/SCT.component';
 import Avatar from '../Avatar.component';
 import RedButton from '../button/RedButton.component';
 

@@ -18,7 +18,8 @@ import DatePicker from 'material-ui-pickers/DatePicker';
 
 import LEVELS from '@bsport/common/lib/master-data/levels';
 
-import { Level, Sport } from '../category';
+import { Level } from '../category';
+import Sport from '../../libs/category/components/SCT.component';
 import { Moment } from '../../i18n';
 
 // dont change to number unless good testing

@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
 import SPORTS from '@bsport/common/lib/master-data/sports';
+import classnames from 'classnames';
 
 type Props = {
   parentCategory: number,
@@ -14,6 +15,7 @@ type Props = {
   classes: Object,
   isFocused?: boolean,
   isSelected?: boolean,
+  paddingLeft?: boolean,
 };
 
 export function Sport(props: Props) {
@@ -24,6 +26,7 @@ export function Sport(props: Props) {
     isFocused,
     SCTName,
     noname,
+    paddingLeft,
   } = props;
   const variant = props.variant || 'body2';
 
@@ -36,9 +39,11 @@ export function Sport(props: Props) {
       spacing={8}
       justify="flex-start"
       alignItems="center"
-      className={
-        isSelected ? classes.selected : isFocused ? classes.focused : null
-      }
+      className={classnames(
+        isSelected ? classes.selected : null,
+        isFocused ? classes.focused : null,
+        paddingLeft ? classes.paddingLeft : null,
+      )}
     >
       <Grid item>
         <img src={sport.icon} height={26} width={26} alt="coach profile" />
@@ -52,9 +57,10 @@ export function Sport(props: Props) {
   );
 }
 
-const styles = () => ({
+const styles = (theme) => ({
   focused: { backgroundColor: '#efefef' },
   selected: { backgroundColor: '#e0e0e0' },
+  paddingLeft: { paddingLeft: theme.spacing.unit },
 });
 
 export default withStyles(styles)(Sport);

@@ -23,7 +23,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import RedButton from '../../../components/button/RedButton.component';
 import MetaActivityMinimalSummary from '../../../components/activity/MetaActivityMinimalSummary.component';
 import EstablishmentSummary from '../../establishment/components/EstablishmentSummary.component';
-import { Sport } from '../../../components/category';
+import Sport from '../../category/components/SCT.component';
 import type { MetaActivity } from '../../../api/types';
 import { formatAsDate } from '../../../datetime';
 

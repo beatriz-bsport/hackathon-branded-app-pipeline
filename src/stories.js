@@ -5,13 +5,11 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 
 import { MemoryRouter } from 'react-router';
 import { storiesOf as stories } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
-import { linkTo } from '@storybook/addon-links';
 import { checkA11y } from '@storybook/addon-a11y';
 import { withKnobs } from '@storybook/addon-knobs';
-
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
-import MomentUtils from 'material-ui-pickers/utils/moment-utils';
+
+import MomentUtils from '@date-io/moment';
 
 import { Moment } from './i18n';
 import theme from './theme';

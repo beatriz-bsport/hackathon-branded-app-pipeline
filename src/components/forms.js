@@ -417,16 +417,6 @@ export const SelectField = withStyles(styles)(
   }),
 );
 
-const SCTMenuItemRenderer = (elt) => (
-  <MenuItem key={elt.id} value={elt.id}>
-    <Sport parentCategory={elt.SCS.id} SCTName={elt.name} />
-  </MenuItem>
-);
-
-export const SCTSelectField = (props: SelectFieldProps) => (
-  <SelectField {...props} itemRenderer={SCTMenuItemRenderer} />
-);
-
 export const DURATION_CHOICES_SHORT = [
   { value: 0, label: 'form.zeroMinute' },
   { value: 15, label: 'form.quarterHour' },

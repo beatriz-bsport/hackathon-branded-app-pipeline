@@ -41,8 +41,10 @@ import privateService from './en/private-service.translations';
 import smartList from './en/smart-list.translations';
 import paymentCombo from './en/payment-combo.translations';
 import authentication from './en/authentication.translations';
+import category from './en/category.translations';
 
 export default {
+  category,
   authentication,
   coupon,
   paymentCombo,

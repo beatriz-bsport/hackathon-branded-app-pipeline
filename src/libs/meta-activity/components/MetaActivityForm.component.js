@@ -16,11 +16,11 @@ import ImageList from '../../../components/ImageList.component';
 import ImageField from '../../../components/forms/ImageField.component';
 import {
   Submit,
-  SCTSelectField,
   TextField,
   DurationMinuteSelectField,
   ColorField,
 } from '../../../components/forms';
+import SCTSelectField from '../../category/components/SCTSelectorField.component';
 
 type Props = {
   SCTs: *[],
@@ -74,7 +74,7 @@ export function MetaActivityForm(props: Props) {
         )}
         <div className={classes.field}>
           <SCTSelectField
-            choices={SCTs}
+            scts={SCTs}
             label={t('activity.category')}
             fullWidth
             name="SCT"

@@ -44,7 +44,7 @@ import authentication from './fr/authentication.translations';
 import category from './fr/category.translations';
 
 export default {
-category,
+  category,
   authentication,
   paymentCombo,
   communication,
@@ -344,6 +344,7 @@ category,
           unlimitedProvision: 'Pas de gestion du stock',
           marketplace_enabled: 'Disponible sur marketplace web',
           deleteTitle: 'Suppression',
+          barcode: 'Code barre',
           deleteExplain:
             'Attention cette suppression est définitive, aucun client ne pourra plus acheter ce produit, les stocks seront supprimés.',
           updateProvisions: {

@@ -28,6 +28,9 @@ export default {
   },
   shopitem: {
     noDescription: 'Aucune description',
+    selector: {
+      placeholder: 'Rechercher par nom ou code-barre',
+    },
     detail: {
       enabled: 'Oui',
       disabled: 'Non',

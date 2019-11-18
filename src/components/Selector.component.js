@@ -263,6 +263,7 @@ function IntegrationReactSelect(props: IntegrationReactSelectProps) {
         onCreateOption={onCreateOption}
         searchIcon={searchIcon}
         isMulti={isMulti}
+        filterOption={props.filterOption}
       />
     </div>
   );

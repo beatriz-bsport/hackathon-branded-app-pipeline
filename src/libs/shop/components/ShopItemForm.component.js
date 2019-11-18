@@ -36,6 +36,7 @@ type State = {
   cover: ?string,
   tva: ?number,
   description: ?string,
+  barcode: string,
   marketplace_enabled: boolean,
   onsite_payment_available: boolean,
   is_deliverable: boolean,
@@ -93,6 +94,7 @@ export class ShopItemForm extends Component<Props, State> {
         supplier_price: initial.supplier_price,
         tva: initial.tva,
         description: initial.description,
+        barcode: initial.barcode,
         marketplace_enabled: initial.marketplace_enabled,
         onsite_payment_available: initial.onsite_payment_available,
         is_deliverable: initial.is_deliverable,
@@ -106,6 +108,7 @@ export class ShopItemForm extends Component<Props, State> {
         supplier_price: null,
         tva: null,
         description: null,
+        barcode: '',
         marketplace_enabled: false,
         onsite_payment_available: false,
         is_deliverable: true,
@@ -137,6 +140,7 @@ export class ShopItemForm extends Component<Props, State> {
     }
     data.append('tva', this.state.tva);
     data.append('price', this.state.price);
+    data.append('barcode', this.state.barcode);
     data.append('supplier_price', this.state.supplier_price);
     if (this.state.cover && typeof this.state.cover !== 'string') {
       data.append('cover', this.state.cover);
@@ -156,6 +160,7 @@ export class ShopItemForm extends Component<Props, State> {
       name,
       subtitle,
       description,
+      barcode,
       price,
       supplier_price,
       tva,
@@ -281,10 +286,21 @@ export class ShopItemForm extends Component<Props, State> {
               multiline
               fullWidth
               variant="outlined"
+              rows={3}
               color="textSecondary"
               value={description}
               label={t('form.shop.item.description')}
               onChange={this.handleField('description')}
+            />
+          </div>
+          <div className={classes.description}>
+            <TextField
+              fullWidth
+              variant="outlined"
+              color="textSecondary"
+              value={barcode}
+              label={t('form.shop.item.barcode')}
+              onChange={this.handleField('barcode')}
             />
           </div>
           <div className={classes.buttons}>
@@ -326,7 +342,7 @@ const styles = (theme) => ({
   description: {
     display: 'flex',
     alignItems: 'center',
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing.unit * 2,
   },
   header: {
     paddingLeft: theme.spacing.unit * 3,

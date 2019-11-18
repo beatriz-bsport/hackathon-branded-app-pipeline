@@ -28,6 +28,9 @@ export default {
   },
   shopitem: {
     noDescription: 'No description',
+    selector: {
+      placeholder: 'Search by name or barcode',
+    },
     detail: {
       enabled: 'Yes',
       disabled: 'No',

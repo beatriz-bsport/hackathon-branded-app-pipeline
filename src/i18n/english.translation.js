@@ -368,6 +368,7 @@ export default {
           create: 'Add an item',
           unlimitedProvision: 'No provision management',
           marketplace_enabled: 'Available on web marketplace',
+          barcode: 'Barcode',
           updateProvisions: {
             success: 'Provisions updated',
             error: 'Error while updating provisions',

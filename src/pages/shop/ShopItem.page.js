@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 
+import BarCode from 'react-barcode';
 import Grid from '@material-ui/core/Grid';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Paper from '@material-ui/core/Paper';
@@ -131,6 +132,16 @@ export class ShopItemDetail extends Component<Props, State> {
           </Typography>
           <Divider className={this.props.classes.sectionDivider} />
           <ShopItemCard shopitem={this.props.shopitem} />
+          {this.props.shopitem.barcode ? (
+            <div>
+              <div className={this.props.classes.barcode}>
+                <BarCode
+                  value={this.props.shopitem.barcode}
+                  background="#fafafa"
+                />
+              </div>
+            </div>
+          ) : null}
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography variant="h5" component="h2">
@@ -200,6 +211,13 @@ const styles = (theme) => ({
   sectionDivider: {
     marginBottom: theme.spacing.unit * 2,
     marginTop: theme.spacing.unit,
+  },
+  barcode: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: theme.spacing.unit * 2,
   },
 });
 

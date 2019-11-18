@@ -18,6 +18,7 @@ type Props = {
   nullCurrentValue?: boolean,
   value: ?number,
   selectorClass: string,
+  t: TFunction,
 };
 
 type OptionProps = {
@@ -44,6 +45,17 @@ function shopItemOption(props: OptionProps) {
   );
 }
 
+const filterShopItem = (option, text) => {
+  const searchtextLower = text.toLowerCase();
+  if (
+    option.label.toLowerCase().includes(searchtextLower) ||
+    option.data.pp.barcode.toLowerCase().includes(searchtextLower)
+  ) {
+    return true;
+  }
+  return false;
+};
+
 export function ShopItemSelector(props: Props) {
   const {
     value,
@@ -67,10 +79,11 @@ export function ShopItemSelector(props: Props) {
       suggestions={suggestions}
       className={classNames(classes, selectorClass)}
       components={{ Option: shopItemOption }}
-      placeholder={helperText}
+      filterOption={filterShopItem}
+      placeholder={helperText || props.t('shopitem.selector.placeholder')}
       onChange={(event) => onChange(event.value)}
     />
   );
 }
 
-export default withNamespaces()(ShopItemSelector);
+export default withNamespaces(['shop'])(ShopItemSelector);

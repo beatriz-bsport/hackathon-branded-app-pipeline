@@ -22,6 +22,7 @@ import { fetchMember } from '../../libs/member/actions';
 import { fetchAll as fetchShopItems } from '../../libs/shop/actions/shopitem';
 import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
 import { getPermissions } from '../../libs/role/selectors';
+import { getPaymentComboList } from '../../libs/payment-combo/selectors';
 
 import { fetchPrivatePassList } from '../../libs/private-service/actions';
 import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
@@ -29,6 +30,7 @@ import { getPrivatePassAvailable } from '../../libs/private-service/selectors/pr
 import type { Invoice } from '../../api/types';
 import type { Member } from '../../libs/member/types';
 import type { Permission } from '../../libs/role/types';
+import type { PaymentCombo } from '../../libs/payment-combo/types';
 
 import InvoiceForm from '../../libs/invoice/InvoiceForm.component';
 import RevertInvoiceDialog from '../../libs/invoice/dialog/RevertInvoiceDialog.component';
@@ -43,6 +45,7 @@ type Props = {
   permission: Permission,
 
   paymentPacks: Array<PaymentPack>,
+  paymentComboList: Array<PaymentCombo>,
 
   goBack: () => void,
   fetchInvoice: (uuid: string) => void,
@@ -151,6 +154,7 @@ export class InvoiceFormPage extends Component<Props, State> {
           uneditableVoucher={invoice.voucher || 0}
           member={this.props.member}
           revertInvoice={() => this.setState({ revertDialogOpen: true })}
+          paymentComboList={this.props.paymentComboList}
         />
         <RevertInvoiceDialog
           open={this.state.revertDialogOpen}
@@ -180,6 +184,7 @@ export default compose(
       updatingInvoice: state.invoice.createOrUpdatePending,
       privatePassList: getPrivatePassAvailable(state),
       permission: getPermissions(state),
+      paymentComboList: getPaymentComboList(state),
     }),
     {
       fetchMember,

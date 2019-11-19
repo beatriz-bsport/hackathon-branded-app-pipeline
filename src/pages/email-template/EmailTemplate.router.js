@@ -2,9 +2,15 @@
 import React from 'react';
 
 import { Route, Switch } from 'react-router';
-import EmailTemplateList from './EmailTemplateList.page';
-import EmailEditor from './EmailTemplateEdit.page';
-import EmailTemplateCreate from './EmailTemplateCreate.page';
+import asyncComponent from '../../AsyncComponent';
+
+const EmailTemplateList = asyncComponent(() =>
+  import('./EmailTemplateList.page'),
+);
+const EmailEditor = asyncComponent(() => import('./EmailTemplateEdit.page'));
+const EmailTemplateCreate = asyncComponent(() =>
+  import('./EmailTemplateCreate.page'),
+);
 
 export default () => {
   return (

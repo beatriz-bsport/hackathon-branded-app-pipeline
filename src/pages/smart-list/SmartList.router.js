@@ -2,8 +2,10 @@
 import React from 'react';
 
 import { Route, Switch } from 'react-router';
-import SmartListList from './SmartListList.page';
-import SmartListDetail from './SmartListDetail.page';
+import asyncComponent from '../../AsyncComponent';
+
+const SmartListDetail = asyncComponent(() => import('./SmartListDetail.page'));
+const SmartListList = asyncComponent(() => import('./SmartListList.page'));
 
 export default () => {
   return (

@@ -27,7 +27,7 @@ export const CATEGORIES: ReportCategory[] = [
   },
   {
     id: 'bookings',
-    name: 'Reservations',
+    name: 'Reservations (cours collectif)',
     icon: EventAvailableIcon,
   },
   {
@@ -64,6 +64,16 @@ export const CATEGORIES: ReportCategory[] = [
     id: 'payment_sumup',
     name: 'Totaux paiements',
     icon: ReceiptIcon,
+  },
+  {
+    id: 'private_cpasses',
+    name: 'Carte cours privé',
+    icon: AccountBoxIcon,
+  },
+  {
+    id: 'private_bookings',
+    name: 'Reservations (cours privé)',
+    icon: EventAvailableIcon,
   },
 ];
 

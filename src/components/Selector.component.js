@@ -216,6 +216,7 @@ type IntegrationReactSelectProps = {
   searchIcon: boolean,
   isMulti: boolean,
   nullCurrentValue?: boolean,
+  filterOption: (option: Suggestion, text: string) => void,
 };
 
 function IntegrationReactSelect(props: IntegrationReactSelectProps) {

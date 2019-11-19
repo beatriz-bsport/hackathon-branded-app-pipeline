@@ -6,6 +6,8 @@ import Grid from '@material-ui/core/Grid';
 import { push as routerPush } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 
 import { TAG_KIND_MEMBER } from '@bsport/common/lib/master-data/tag';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
@@ -17,6 +19,8 @@ import {
   fetchMember,
   tag as tagMember,
   search as searchMembers,
+  addFileToMember,
+  removeFileFromMember,
 } from '../../libs/member/actions';
 import memberSelectors from '../../libs/member/selectors';
 import type { Member } from '../../libs/member/types';
@@ -24,8 +28,9 @@ import MemberSummaryCard from '../../libs/member/components/MemberSummaryCard.co
 import TagDeleteDialog from '../../libs/tag/components/TagDeleteDialog.component';
 import TagGroupDeleteDialog from '../../libs/tag/components/TagGroupDeleteDialog.component';
 import MemberCRM from '../../libs/member/components/MemberCRM.component';
+import ModalDeleteFile from '../../components/ModalConfirm.component';
 import MemberSearchModal from '../../libs/member/components/MemberSearchModal.component';
-
+import FileUploadDialog from '../../components/FileUploadDialog';
 import type { TagGroup } from '../../libs/tag/types';
 import tagSelectors from '../../libs/tag/selectors';
 import {
@@ -44,12 +49,16 @@ type Props = {
   id: number,
   memberLoading: boolean,
   member: Member,
-
+  t: TFunction,
   editMember: (id: number) => void,
   fetchMember: (id: number) => void,
   searchMembers: (text: string) => void,
   searchedMembers: Array<Member>,
   mergeInto: (src: number, dst: number) => void,
+
+  // FILES
+  addFile: (file: any) => void,
+  removeFile: (id: number) => void,
 
   // NOTES
   // -----
@@ -91,6 +100,8 @@ export class MemberDetailPage extends Component<Props, State> {
     searchModalOpen: false,
     tagToDelete: null,
     tagGroupToDelete: null,
+    fileToUpload: null,
+    fileToDelete: null,
   };
 
   componentDidMount() {
@@ -109,7 +120,13 @@ export class MemberDetailPage extends Component<Props, State> {
     );
 
   render() {
-    const { memberLoading, member } = this.props;
+    const { memberLoading, member, t } = this.props;
+    const fileUploader = {
+      onAddFile: (file: File) => this.props.addFile(this.props.id, file),
+      onRemoveFile: (fileId: number) =>
+        this.props.removeFile(this.props.id, fileId),
+    };
+
     if (!member || (memberLoading && member.id !== this.props.id)) {
       return <LinearProgress />;
     }
@@ -147,6 +164,9 @@ export class MemberDetailPage extends Component<Props, State> {
             deleteTag={this.deleteTag}
             deleteTagGroup={this.deleteTagGroup}
             tagGroupsLoading={this.props.tagGroupsLoading}
+            openFileUploadDialog={() => this.setState({ fileToUpload: true })}
+            uploadedFiles={member.files || []}
+            deleteFile={(fileId) => this.setState({ fileToDelete: fileId })}
           />
         </Grid>
         <MemberSearchModal
@@ -165,6 +185,28 @@ export class MemberDetailPage extends Component<Props, State> {
           onClose={() => this.setState({ tagToDelete: null })}
           onSubmit={() => this.props.deleteTag(this.state.tagToDelete)}
         />
+        <FileUploadDialog
+          open={!!this.state.fileToUpload}
+          onCancel={() => this.setState({ fileToUpload: null })}
+          onSubmit={(data: any, name: string) => {
+            this.props.addFile({ data, member_id: this.props.id, name });
+          }}
+          fileUploader={fileUploader}
+        />
+        <ModalDeleteFile
+          open={this.state.fileToDelete}
+          options={{
+            title: 'member.file.deletion',
+            Content: () => t('member.file.deleteFileMessage'),
+            cancel: 'member.file.cancel',
+            confirm: 'member.file.confirm',
+          }}
+          handleCancel={() => this.setState({ fileToDelete: null })}
+          handleConfirm={() => {
+            this.props.removeFile(this.props.id, this.state.fileToDelete);
+            this.setState({ fileToDelete: null });
+          }}
+        />
         <TagGroupDeleteDialog
           open={!!this.state.tagGroupToDelete}
           onClose={() => this.setState({ tagGroupToDelete: null })}
@@ -179,6 +221,7 @@ export class MemberDetailPage extends Component<Props, State> {
 
 export default compose(
   routerParamsToProps({ id: 'id:number' }),
+  withNamespaces(),
   connect(
     (state) => ({
       memberLoading: state.member.loading,
@@ -210,6 +253,8 @@ export default compose(
       updateTagGroup: createOrUpdateTagGroup,
       deleteTagGroup,
       deleteTag,
+      addFile: (data) => addFileToMember(data),
+      removeFile: removeFileFromMember,
     },
   ),
 )(MemberDetailPage);

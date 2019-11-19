@@ -120,6 +120,7 @@ export default function memberReducers(state = initialState, action = {}) {
 
     case actionTypes.MEMBER_NOTE_CREATEORUPDATE_ERROR:
       return state.set('error', action.error);
+
     case actionTypes.MEMBER_NOTE_CREATEORUPDATE_START:
       return state;
 
@@ -140,6 +141,38 @@ export default function memberReducers(state = initialState, action = {}) {
         return state.setIn(
           ['member', 'notes'],
           state.member.notes.filter((n) => n.id !== action.noteId),
+        );
+      }
+      return state;
+    }
+
+    case actionTypes.MEMBER_ADD_FILE_LOADING:
+      return state.setIn(['upsert', ' loading'], action.loading);
+
+    case actionTypes.MEMBER_ADD_FILE_ERROR:
+      return state.setIn(['upsert', ' error'], action.error);
+
+    case actionTypes.MEMBER_ADD_FILE_SUCCESS: {
+      if (state.member.id === action.response.member) {
+        return state.set('member', {
+          ...state.member,
+          files: [action.response, ...state.member.files],
+        });
+      }
+      return state;
+    }
+
+    case actionTypes.MEMBER_REMOVE_FILE_LOADING:
+      return state.setIn(['upsert', ' loading'], action.loading);
+
+    case actionTypes.MEMBER_REMOVE_FILE_ERROR:
+      return state.setIn(['upsert', ' error'], action.error);
+
+    case actionTypes.MEMBER_REMOVE_FILE_SUCCESS: {
+      if (state.member.id === action.response.memberId) {
+        return state.setIn(
+          ['member', 'files'],
+          state.member.files.filter((n) => n.id !== action.response.fileId),
         );
       }
       return state;

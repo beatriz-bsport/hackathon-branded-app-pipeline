@@ -113,6 +113,7 @@ export function addImageToMetaActivity(id: number, image: File): ThunkAction {
     try {
       const data = new FormData();
       data.append('image', image);
+
       const response = await postAuth(
         `${API_URI}/meta-activities/${id}/images/`,
         data,

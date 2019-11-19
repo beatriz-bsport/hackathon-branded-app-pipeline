@@ -104,6 +104,14 @@ export async function deleteNote(id: number) {
   return deleteAuth(`${API_URI}/saas/member/note/${id}`);
 }
 
+export async function addFile(fileData: any) {
+  return postAuth(`${API_V1_URI}/member_file_upload/`, fileData);
+}
+
+export async function removeFile(fileId: number) {
+  return deleteAuth(`${API_V1_URI}/member_file_upload/${fileId}`);
+}
+
 export default {
   fetchAll: fetchAllMembers,
   updateMember,
@@ -115,4 +123,6 @@ export default {
   deleteNote,
   getLatest,
   linkMeToCompany,
+  addFile,
+  removeFile,
 };

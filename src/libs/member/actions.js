@@ -17,6 +17,8 @@ import {
   search as searchApi,
   tag as tagApi,
   merge as mergeApi,
+  addFile as addFileAPI,
+  removeFile as removeFileAPI,
   linkMeToCompany as linkMeToCompanyAPI,
 } from './api';
 
@@ -55,6 +57,14 @@ export const actionTypes = {
 
   MEMBER_LINKED_SUCCESS: 'MEMBER_LINKED_SUCCESS',
   MEMBER_LINKED_ERROR: 'MEMBER_LINKED_ERROR',
+
+  MEMBER_ADD_FILE_LOADING: 'MEMBER_ADD_FILE_LOADING',
+  MEMBER_ADD_FILE_SUCCESS: 'MEMBER_ADD_FILE_SUCCESS',
+  MEMBER_ADD_FILE_ERROR: 'MEMBER_ADD_FILE_ERROR',
+
+  MEMBER_REMOVE_FILE_LOADING: 'MEMBER_REMOVE_FILE_LOADING',
+  MEMBER_REMOVE_FILE_SUCCESS: 'MEMBER_REMOVE_FILE_SUCCESS',
+  MEMBER_REMOVE_FILE_ERROR: 'MEMBER_REMOVE_FILE_ERROR',
 };
 
 export const memberListActions = {
@@ -366,5 +376,71 @@ export function mergeMembers(
         options.onError((e || {}).response ? e.response.data : {});
       }
     }
+  };
+}
+
+export function actionAddFileSuccess(response: *) {
+  return { type: actionTypes.MEMBER_ADD_FILE_SUCCESS, response };
+}
+export function actionAddFileError(error: ?Error) {
+  return { type: actionTypes.MEMBER_ADD_FILE_ERROR, error };
+}
+export function actionAddFileLoading(loading: boolean) {
+  return { type: actionTypes.MEMBER_ADD_FILE_LOADING, loading };
+}
+
+export function addFileToMember({
+  data,
+  member_id,
+  name,
+}: {
+  data: File,
+  member_id: number,
+  name: string,
+}): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(actionAddFileLoading(true));
+    dispatch(actionAddFileError(null));
+
+    try {
+      const fileData = new FormData();
+      fileData.append('file', data);
+      fileData.append('member', member_id);
+      fileData.append('name', name);
+      const response = await addFileAPI(fileData);
+      dispatch(actionAddFileSuccess(response.data));
+    } catch (error) {
+      console.error(error);
+      dispatch(actionAddFileError(error));
+    }
+    dispatch(actionAddFileLoading(false));
+  };
+}
+export function actionRemoveFileSuccess(response: *) {
+  return { type: actionTypes.MEMBER_REMOVE_FILE_SUCCESS, response };
+}
+export function actionRemoveFileError(error: ?Error) {
+  return { type: actionTypes.MEMBER_REMOVE_FILE_ERROR, error };
+}
+export function actionRemoveFileLoading(loading: boolean) {
+  return { type: actionTypes.MEMBER_REMOVE_FILE_LOADING, loading };
+}
+
+export function removeFileFromMember(
+  memberId: number,
+  fileId: number,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(actionRemoveFileLoading(true));
+    dispatch(actionRemoveFileError(null));
+
+    try {
+      await removeFileAPI(fileId);
+      dispatch(actionRemoveFileSuccess({ memberId, fileId }));
+    } catch (error) {
+      console.error(error);
+      dispatch(actionRemoveFileError(error));
+    }
+    dispatch(actionRemoveFileLoading(false));
   };
 }

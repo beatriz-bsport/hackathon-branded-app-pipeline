@@ -8,9 +8,9 @@ import { withNamespaces } from 'react-i18next';
 import { compose } from 'recompose';
 import MemberNotePanel from './MemberNotePanel.component';
 import TagPanel from '../../tag/components/TagPanel.component';
-
 import type { MemberNote } from '../types';
 import type { Tag, TagGroup } from '../../tag/types';
+import MemberFilesPanel from './MemberFilesPanel.component';
 
 type Props = {
   notes: Array<MemberNote>,
@@ -28,8 +28,10 @@ type Props = {
   deleteTag: (id: number) => void,
   updateTag: (Tag) => void,
   updateTagGroup: ({ name: string, id: number }) => void,
-
+  openFileUploadDialog: boolean,
   tagGroupsLoading: boolean,
+  deleteFile: (id: number) => void,
+  uploadedFiles: any,
 };
 
 export const MemberCRM = (props: Props) => (
@@ -64,6 +66,12 @@ export const MemberCRM = (props: Props) => (
       }
       deleteNote={props.deleteNote}
       memberId={props.memberId}
+    />
+    <div className={props.classes.separator} />
+    <MemberFilesPanel
+      openFileUploadDialog={props.openFileUploadDialog}
+      uploadedFiles={props.uploadedFiles}
+      onDelete={props.deleteFile}
     />
   </Paper>
 );

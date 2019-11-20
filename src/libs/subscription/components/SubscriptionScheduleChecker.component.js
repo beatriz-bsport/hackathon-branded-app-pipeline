@@ -39,7 +39,9 @@ type State = {
   loading: boolean,
 };
 
-const SEPA_AVAILABLE = Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging';
+const SEPA_AVAILABLE =
+  Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
+  window.location.href.includes('beta=true');
 
 const getScheduledInvoicesFromSubscriptionData = (
   subscriptionData: SubscriptionData,

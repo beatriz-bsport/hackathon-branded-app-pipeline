@@ -3,7 +3,7 @@
 import { createAction } from 'redux-actions';
 
 import api from '../api';
-import type { Dispatch } from '../state/types';
+import type { Dispatch, OptionCallback } from '../state/types';
 
 export const similarOffers = {
   isLoading: createAction('OFFERS/SIMILAR/IS_LOADING'),
@@ -159,6 +159,7 @@ export const offerWaitingListActions = {
 export function toogleWaitingListFreeze(
   offerId: number,
   newFreezeState: boolean,
+  options: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(offerWaitingListActions.isLoading(true));
@@ -169,8 +170,10 @@ export function toogleWaitingListFreeze(
         newFreezeState,
       );
       dispatch(offerWaitingListActions.success(offer));
+      if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
       dispatch(offerWaitingListActions.error(error));
+      if (options && options.onError) options.onError(error);
     }
     dispatch(offerWaitingListActions.isLoading(false));
   };

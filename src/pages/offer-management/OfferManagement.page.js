@@ -129,8 +129,11 @@ function mapDispatchToProps(dispatch) {
       dispatch(confirmBookingAttendanceAction(bookingId));
     },
     switchWaitingListFreeze(offerId, newFreezeState) {
-      dispatch(offerActions.toogleWaitingListFreeze(offerId, newFreezeState));
-      dispatch(offerActions.fetchOfferById(offerId));
+      dispatch(
+        offerActions.toogleWaitingListFreeze(offerId, newFreezeState, {
+          onSuccess: () => dispatch(offerActions.fetchOfferById(offerId)),
+        }),
+      );
     },
     discardOption(optionId) {
       dispatch(discardBookingOptionAction(optionId));

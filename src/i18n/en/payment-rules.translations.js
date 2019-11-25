@@ -7,6 +7,7 @@ export default {
   name: 'Name',
   base_price: 'Base',
   base_percent: 'Percentage of value',
+  include_tax: 'Include tax',
   calculation_method: 'Calculation method',
   only_attendant: 'Count only attendants',
   actions: 'Actions',

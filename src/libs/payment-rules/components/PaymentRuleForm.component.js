@@ -67,12 +67,15 @@ export function PaymentRuleFields(props: Props) {
       {// eslint-disable-next-line
       props.values.calculation_method ==
       PAYMENT_RULE_CALCULATION_MARGIN_VALUE ? (
-        <PercentField
-          name="base_percent"
-          label={t('base_percent')}
-          required
-          fullWidth
-        />
+        <React.Fragment>
+          <PercentField
+            name="base_percent"
+            label={t('base_percent')}
+            required
+            fullWidth
+          />
+          <CheckboxField label={t('include_tax')} name="include_tax" />
+        </React.Fragment>
       ) : null}
       {// eslint-disable-next-line
       props.values.calculation_method == PAYMENT_RULE_CALCULATION_BOOKINGS ? (
@@ -210,6 +213,7 @@ export const PaymentRuleFieldsSchema = Yup.object().shape({
     .min(0)
     .max(100),
   only_attendant: Yup.boolean(),
+  include_tax: Yup.boolean(),
   bonuses: Yup.array().of(BonusSchema),
 });
 
@@ -220,6 +224,7 @@ export const PaymentRuleFormHoc = withFormik({
       base_price: 10,
       base_percent: 20,
       only_attendant: false,
+      include_tax: false,
       bonuses: [],
       calculation_method: PAYMENT_RULE_CALCULATION_BOOKINGS,
     },

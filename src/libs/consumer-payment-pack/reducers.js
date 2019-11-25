@@ -2,32 +2,23 @@ import Immutable from 'seamless-immutable';
 
 import { handleActions } from 'redux-actions';
 import {
-  byOfferByMember,
   extensionListActions,
   extensionCreateActions,
   extensionDeleteActions,
   byPaymentPack,
   byMember,
-  byId,
+  retrieveBulk,
   updateConsumerPack,
-} from '../actions/consumer-payment-pack.actions';
+  byOfferByMember,
+} from './actions';
 
 const initialState = Immutable({
-  byPaymentPack: {
-    error: null,
-    loading: false,
-    paymentPackId: null,
-    items: [],
-    page: null,
-    count: null,
-  },
   byOfferByMember: {
     loading: false,
     error: false,
     items: [],
   },
   // TODO move every items in this one:
-  items: [],
   loading: false,
   error: null,
   updatingConsumerPacks: [],
@@ -44,10 +35,22 @@ const initialState = Immutable({
       error: null,
     },
   },
+  byPaymentPack: {
+    error: null,
+    loading: false,
+    paymentPackId: null,
+    allIds: [],
+    page: null,
+    count: null,
+  },
   byMember: {
     loading: false,
-    error: false,
+    error: null,
+    allIds: [],
+    page: 1,
+    count: 0,
   },
+  byId: {},
 });
 
 export default handleActions(
@@ -94,28 +97,40 @@ export default handleActions(
       return state.setIn(['byMember', 'error'], payload);
     },
     [byMember.success]: (state, { payload }) => {
-      return state.set('items', payload);
-    },
-    [byId.isLoading]: (state, { payload }) => {
-      return state.set('loading', payload);
-    },
-    [byId.error]: (state, { payload }) => {
-      return state.set('error', payload);
-    },
-    [byId.success]: (state, { payload }) => {
-      const items = state.items.filter((cpp) => cpp.id !== payload.id);
-      return state.set('items', [...items, payload]);
+      return state
+        .setIn(['byMember', 'page'], payload.page)
+        .setIn(['byMember', 'count'], payload.count)
+        .setIn(['byMember', 'allIds'], payload.results.map((cpp) => cpp.id))
+        .merge(
+          {
+            byId: payload.results.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+          { deep: true },
+        );
     },
     [byPaymentPack.isLoading]: (state, { payload }) => {
       return state.setIn(['byPaymentPack', 'loading'], payload);
     },
-    [byPaymentPack.setPage]: (state, { payload }) => {
-      return state.setIn(['byPaymentPack', 'page'], payload);
-    },
     [byPaymentPack.success]: (state, { payload }) => {
       return state
-        .setIn(['byPaymentPack', 'items'], payload.results || [])
-        .setIn(['byPaymentPack', 'count'], payload.count);
+        .setIn(
+          ['byPaymentPack', 'allIds'],
+          payload.results.map((cpp) => cpp.id),
+        )
+        .merge(
+          {
+            byId: payload.results.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+          { deep: true },
+        )
+        .setIn(['byPaymentPack', 'count'], payload.count)
+        .setIn(['byPaymentPack', 'page'], payload.page);
     },
     [byPaymentPack.error]: (state, { payload }) => {
       return state.setIn(['byPaymentPack', 'error'], payload);
@@ -134,26 +149,13 @@ export default handleActions(
       const indexByMember = state.byOfferByMember.items.findIndex(
         (cpp) => cpp.id === payload.id,
       );
-      const indexByPaymentPack = state.byPaymentPack.items.findIndex(
-        (cpp) => cpp.id === payload.id,
-      );
-      const index = state.items.findIndex((cpp) => cpp.id === payload.id);
       if (indexByMember >= 0) {
         newState = newState.setIn(
           ['byOfferByMember', 'items', indexByMember],
           payload,
         );
       }
-      if (index >= 0) {
-        newState = newState.setIn(['items', index], payload);
-      }
-      if (indexByPaymentPack >= 0) {
-        newState = newState.setIn(
-          ['byPaymentPack', 'items', indexByPaymentPack],
-          payload,
-        );
-      }
-      return newState;
+      return newState.setIn(['byId', payload.id], payload);
     },
     [updateConsumerPack.isLoading]: (state, { payload }) => {
       if (!payload.loading) {
@@ -165,6 +167,17 @@ export default handleActions(
       return state.setIn(
         ['updatingConsumerPacks'],
         [...state.updatingConsumerPacks, payload.id],
+      );
+    },
+    [retrieveBulk.success]: (state, { payload }) => {
+      return state.merge(
+        {
+          byId: payload.reduce((acc, ps) => {
+            acc[ps.id] = ps;
+            return acc;
+          }, {}),
+        },
+        { deep: true },
       );
     },
   },

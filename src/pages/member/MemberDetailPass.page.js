@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import PaginatedListStateful from '../../components/PaginatedListStateful.component';
+import PaginatedListBase from '../../components/PaginatedListBase.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import memberSelectors from '../../libs/member/selectors';
@@ -26,19 +26,24 @@ import {
 } from '../../libs/booking/actions';
 import { fetchMember as fetchMemberAction } from '../../libs/member/actions';
 import {
+  resetConsumerPackByMember as resetConsumerPackByMemberAction,
   fetchByMember as fetchConsumerPackByMemberAction,
+  retrieveConsumerPackBulk,
   updateCredit as updateCreditAction,
-  fetchConsumerPackAsManager,
   fetchPackExtensions,
   deletePackExtension,
   createPackExtension,
-} from '../../actions/consumer-payment-pack.actions';
+} from '../../libs/consumer-payment-pack/actions';
 import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
 import { fetchSpecificInvoice } from '../../actions/invoice.actions';
 
 import paymentPackSelectors from '../../libs/payment-packs/selectors';
 import ConsumerPaymentPackExtensionFormDialog from '../../libs/consumer-payment-pack/components/ConsumerPaymentPackExtensionFormDialog.component';
-import { getConsumerPaymentPackExtensions } from '../../libs/consumer-payment-pack/selectors';
+import {
+  getConsumerPaymentPackExtensions,
+  getConsumerPack,
+  getConsumerPaymentPackByMember,
+} from '../../libs/consumer-payment-pack/selectors';
 import bookingSelectors from '../../libs/booking/selectors';
 
 import ConsumerPackRowItem from '../../libs/consumer-payment-pack/components/ConsumerPackRowItem.component';
@@ -57,7 +62,7 @@ type Props = {
   member: ?Member,
   id: number,
   fetchMember: (id: number) => void,
-  fetchConsumerPacks: (id: number) => void,
+  fetchConsumerPacks: (id: number, page: number, page_size: number) => void,
   fetchBookingsByMember: (id: number) => void,
   fetchAllPaymentPacks: () => void,
   fetchInvoice: (uuid: string) => void,
@@ -80,6 +85,13 @@ type Props = {
   confirmBookingAttendance: (id: number) => void,
   goToRelationship: (memberId: number) => void,
 
+  consumerPackCount: number,
+  consumerPackCurrentPage: number,
+
+  consumerPassId: ?number,
+  retrieveConsumerPackBulk: (Array<number>) => void,
+  resetConsumerPackByMemberAction: () => void,
+
   passExtensionsLoading: boolean,
   setOpenCreateExtension: (boolean) => void,
   deleteExtension: (
@@ -97,6 +109,8 @@ type Props = {
 type State = {
   bookingToRevert: ?Booking,
 };
+
+const CONSUMER_PAYMENT_PACK_PAGE_SIZE = 6;
 
 const ClickOnConsumerPack = withNamespaces(['paymentPack'])(
   (props: { classes: Object, t: TFunction }) => (
@@ -122,11 +136,20 @@ export class MemberDetailPass extends Component<Props, State> {
 
   componentDidMount() {
     this.fetchData();
+    if (this.props.consumerPassId) {
+      this.props.retrieveConsumerPackBulk([this.props.consumerPassId]);
+    }
   }
 
   componentDidUpdate(prevProps: Props) {
     if (prevProps.id !== this.props.id) {
       this.fetchData();
+    }
+    if (
+      prevProps.consumerPassId !== this.props.consumerPassId &&
+      this.props.consumerPassId
+    ) {
+      this.props.retrieveConsumerPackBulk([this.props.consumerPassId]);
     }
     if (
       this.props.selectedConsumerPass &&
@@ -142,7 +165,7 @@ export class MemberDetailPass extends Component<Props, State> {
   fetchData = () => {
     if (this.props.id) {
       this.props.fetchMember(this.props.id);
-      this.props.fetchConsumerPacks(this.props.id);
+      this.props.resetConsumerPackByMemberAction();
       this.props.fetchBookingsByMember(this.props.id);
       this.props.fetchAllPaymentPacks();
     }
@@ -157,11 +180,16 @@ export class MemberDetailPass extends Component<Props, State> {
       <Grid container direction="row" spacing={16}>
         <Grid item xs={12} lg={6}>
           <Paper>
-            <PaginatedListStateful
-              itemPerPage={10}
+            <PaginatedListBase
+              itemPerPage={CONSUMER_PAYMENT_PACK_PAGE_SIZE}
               loading={this.props.consumerPackLoading}
               listProps={{ disablePadding: true }}
               items={this.props.consumerPacks}
+              nbItems={this.props.consumerPackCount}
+              page={this.props.consumerPackCurrentPage}
+              onPageRequested={(page, pageSize) =>
+                this.props.fetchConsumerPacks(this.props.id, page, pageSize)
+              }
               renderItem={(cpp) => (
                 <ConsumerPackRowItem
                   hideConsumer
@@ -309,10 +337,10 @@ export default compose(
   connect(
     (state, { id, consumerPassId }) => ({
       member: memberSelectors.get(state, id),
-      consumerPacks: state.consumerPaymentPack.items,
-      selectedConsumerPass: state.consumerPaymentPack.items.find(
-        (cpp) => cpp.id === consumerPassId,
-      ),
+      consumerPacks: getConsumerPaymentPackByMember(state, id),
+      consumerPackCount: state.consumerPaymentPack.byMember.count,
+      consumerPackCurrentPage: state.consumerPaymentPack.byMember.page,
+      selectedConsumerPass: getConsumerPack(state, consumerPassId),
       getPaymentPack: (id_) => paymentPackSelectors.get(state, id_),
       consumerPackInvoice: state.invoice.invoice,
       consumerPackLoading: state.consumerPaymentPack.byMember.loading,
@@ -334,7 +362,7 @@ export default compose(
       fetchExtensions: fetchPackExtensions,
       createExtension: createPackExtension,
       deleteExtension: deletePackExtension,
-      refreshConsumerPack: fetchConsumerPackAsManager,
+      refreshConsumerPack: (id) => retrieveConsumerPackBulk([id]),
 
       discardBookingAttendance,
       confirmBookingAttendance,
@@ -345,8 +373,11 @@ export default compose(
 
       fetchInvoice: (uuid: string) => fetchSpecificInvoice(uuid),
       fetchAllPaymentPacks,
-      fetchConsumerPacks: (memberId: number) =>
-        fetchConsumerPackByMemberAction(memberId),
+
+      retrieveConsumerPackBulk,
+      fetchConsumerPacks: (memberId: number, page: number, page_size: number) =>
+        fetchConsumerPackByMemberAction(memberId, page, page_size),
+      resetConsumerPackByMemberAction,
     },
   ),
 )(MemberDetailPass);

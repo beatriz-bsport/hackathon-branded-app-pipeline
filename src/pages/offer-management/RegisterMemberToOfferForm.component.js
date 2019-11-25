@@ -13,8 +13,8 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import Divider from '@material-ui/core/Divider';
 
-import { consumerPaymentPack as consumerPackActions } from '../../actions';
 import ConsumerPackRowItem from '../../libs/consumer-payment-pack/components/ConsumerPackRowItem.component';
+import { fetchByOfferByMember } from '../../libs/consumer-payment-pack/actions';
 import { getAll as getAllPaymentPacks } from '../../libs/payment-packs/selectors';
 import PaymentPackSummary from '../../components/payment-pack/PaymentPackSummary.component';
 
@@ -165,8 +165,7 @@ export default compose(
       allPaymentPacks: getAllPaymentPacks(state),
     }),
     {
-      fetchConsumerPackByOfferByMember:
-        consumerPackActions.fetchByOfferByMember,
+      fetchConsumerPackByOfferByMember: fetchByOfferByMember,
     },
   ),
 )(RegisterMemberToOfferForm);

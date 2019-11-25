@@ -15,9 +15,12 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import MemberRelationList from '../../libs/relationship/components/MemberRelationList.component';
 import RelationSummary from '../../libs/relationship/components/RelationSummary.component';
 import RelationForm from '../../libs/relationship/components/RelationForm.component';
-import { fetchByMember as fetchConsumerPackByMemberAction } from '../../actions/consumer-payment-pack.actions';
+import {
+  fetchByMember as fetchConsumerPackByMemberAction,
+  retrieveConsumerPackBulk as retrieveConsumerPackBulkAction,
+} from '../../libs/consumer-payment-pack/actions';
 import { fetchAllPaymentPacks as fetchAllPaymentPacksAction } from '../../libs/payment-packs/actions';
-import { getConsumerPacksWithPaymentPack } from '../../libs/consumer-payment-pack/selectors';
+import { getConsumerPacksByMemberWithPaymentPack } from '../../libs/consumer-payment-pack/selectors';
 import ConsumerPackLinkForm from '../../libs/relationship/components/ConsumerPackLinkForm.component';
 import ConsumerPassLinkingDeleteDialog from '../../libs/relationship/components/ConsumerPassLinkingDeleteDialog.component';
 import ConsumerPassRelinkDialog from '../../libs/relationship/components/ConsumerPassRelinkDialog.component';
@@ -58,8 +61,15 @@ type Props = {
   fetchMember: (id: number) => void,
   openRelationFormDialog: (data: *) => void,
 
+  consumerPackCurrentPage: number,
+  consumerPackCount: number,
+
   fetchAllPaymentPacks: () => void,
-  fetchConsumerPacks: (memberId: number) => void,
+  fetchConsumerPacks: (
+    memberId: number,
+    page: number,
+    page_size: number,
+  ) => void,
   fetchSharedConsumerPaymentPacks: (relationId: number) => void,
   fetchFilteredMembers: (queryParams: *) => void,
   createOrUpdateRelation: (data: *) => void,
@@ -75,7 +85,7 @@ type Props = {
 
   setOpenRelationFormDialog: (data: *) => void,
   setOpenConsumerPackLinking: (boolean) => void,
-  consumerPacks: Array<ConsumerPack>,
+  memberConsumerPacks: Array<ConsumerPack>,
   member: Member,
   selectedRelation: ?MemberRelation,
   sharedConsumerPaymentPackLinks: Array<ConsumerPackLink>,
@@ -92,7 +102,6 @@ export class MemberDetailRelation extends React.Component<Props> {
 
     this.props.fetchAllPaymentPacks();
 
-    this.props.fetchConsumerPacks(this.props.memberId);
     if (this.props.selectedRelationId) {
       this.props.fetchSharedConsumerPaymentPacks(this.props.selectedRelationId);
     }
@@ -204,11 +213,23 @@ export class MemberDetailRelation extends React.Component<Props> {
         <Dialog open={this.props.openConsumerPackLinking}>
           <DialogContent>
             <ConsumerPackLinkForm
-              consumerPacks={this.props.consumerPacks.filter(
-                (cpp) =>
-                  !cpp.dst_consumer_payment_pack &&
-                  !linkedPassIds.includes(cpp.id),
-              )}
+              page={this.props.consumerPackCurrentPage}
+              count={this.props.consumerPackCount}
+              fetchConsumerPacks={(page, page_size) =>
+                this.props.fetchConsumerPacks(
+                  this.props.memberId,
+                  page,
+                  page_size,
+                )
+              }
+              consumerPacks={this.props.memberConsumerPacks}
+              disabledStuff={this.props.memberConsumerPacks
+                .filter(
+                  (cpp) =>
+                    cpp.dst_consumer_payment_pack ||
+                    linkedPassIds.includes(cpp.id),
+                )
+                .map((cpp) => cpp.id)}
               loading={this.props.passLoading}
               onCancel={() => this.props.setOpenConsumerPackLinking(false)}
               onSubmit={this.props.createPassLinking}
@@ -249,10 +270,15 @@ export default compose(
   withState('consumerPassLinkToDelete', 'setConsumerPassLinkToDelete', null),
   withState('consumerPassLinkToRelink', 'setConsumerPassLinkToRelink', null),
   connect(
-    (state, { selectedRelationId }) => ({
+    (state, { selectedRelationId, memberId }) => ({
       relationList: getMemberRelations(state),
       relation: getMemberRelationById(state, selectedRelationId),
-      consumerPacks: getConsumerPacksWithPaymentPack(state),
+      memberConsumerPacks: getConsumerPacksByMemberWithPaymentPack(
+        state,
+        memberId,
+      ),
+      consumerPackCount: state.consumerPaymentPack.byMember.count,
+      consumerPackCurrentPage: state.consumerPaymentPack.byMember.page,
       sharedConsumerPaymentPackLinks: getSharedConsumerPacksByRelation(
         state,
         selectedRelationId,
@@ -267,6 +293,7 @@ export default compose(
       searchMembers,
       goToMember: (id: number) => push(`/member/${id}/info/`),
       fetchSharedConsumerPaymentPacks: fetchSharedConsumerPaymentPacksAction,
+      retrieveConsumerPackBulk: retrieveConsumerPackBulkAction,
       fetchMemberRelations,
       fetchFilteredMembers,
       linkConsumerPackToMemberRelation: linkConsumerPackToMemberRelationAction,
@@ -274,8 +301,8 @@ export default compose(
       createOrUpdateRelation,
       unlinkConsumerPaymentPackLink: unlinkConsumerPaymentPackLinkAction,
       relinkConsumerPaymentPackLink: relinkConsumerPaymentPackLinkAction,
-      fetchConsumerPacks: (memberId: number) =>
-        fetchConsumerPackByMemberAction(memberId),
+      fetchConsumerPacks: (memberId: number, page: number, page_size: number) =>
+        fetchConsumerPackByMemberAction(memberId, page, page_size),
       goToRelationDetail: (memberId, relationId) =>
         push(`/member/${memberId}/relation/${relationId}`),
     },
@@ -284,14 +311,26 @@ export default compose(
     selectedRelation: relationList.find((r) => r.id === selectedRelationId),
   })),
   withProps(
+    ({ fetchSharedConsumerPaymentPacks, retrieveConsumerPackBulk }) => ({
+      fetchSharedConsumerPaymentPacks: (relationId) =>
+        fetchSharedConsumerPaymentPacks(relationId, {
+          onSuccess: (data) => {
+            if (data.length > 0) {
+              retrieveConsumerPackBulk(
+                data.reduce((acc, s) => [...acc, s.src, s.dst], []),
+              );
+            }
+          },
+        }),
+    }),
+  ),
+  withProps(
     ({
       setOpenConsumerPackLinking,
       setConsumerPassLinkToDelete,
       setConsumerPassLinkToRelink,
       fetchSharedConsumerPaymentPacks,
       selectedRelationId,
-      fetchConsumerPacks,
-      memberId,
       linkConsumerPackToMemberRelation,
       unlinkConsumerPaymentPackLink,
       relinkConsumerPaymentPackLink,
@@ -306,7 +345,6 @@ export default compose(
         relinkConsumerPaymentPackLink(consumerPackLinkId, {
           onSuccess: () => {
             fetchSharedConsumerPaymentPacks(selectedRelationId);
-            fetchConsumerPacks(memberId);
             setConsumerPassLinkToRelink(null);
           },
         });
@@ -321,7 +359,6 @@ export default compose(
         unlinkConsumerPaymentPackLink(consumerPackLinkId, {
           onSuccess: () => {
             fetchSharedConsumerPaymentPacks(selectedRelationId);
-            fetchConsumerPacks(memberId);
             setConsumerPassLinkToDelete(null);
           },
         });
@@ -335,10 +372,9 @@ export default compose(
         }),
     }),
   ),
-  withProps(({ setOpenConsumerPackLinking, fetchConsumerPacks, memberId }) => ({
+  withProps(({ setOpenConsumerPackLinking }) => ({
     openConsumerPaymentPackForm: () => {
       setOpenConsumerPackLinking(true);
-      fetchConsumerPacks(memberId);
     },
   })),
   withTitle(({ member }) => (member && member.name) || ''),

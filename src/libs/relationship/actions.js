@@ -13,7 +13,7 @@ import {
   relinkConsumerPassLink as relinkConsumerPassLinkAPI,
 } from './api';
 
-import type { Dispatch } from '../../state/types';
+import type { Dispatch, OptionCallback } from '../../state/types';
 
 export const memberRelationCreateOrUpdateActions = {
   isLoading: createAction('MEMBER_RELATION/CREATE_OR_UPDATE/LOADING'),
@@ -58,16 +58,21 @@ export const sharedConsumerPackListActions = {
   success: createAction('RELATIONSHIP/SHARED_PASS/SUCCESS'),
 };
 
-export function fetchSharedConsumerPaymentPacks(member_relation: number) {
+export function fetchSharedConsumerPaymentPacks(
+  member_relation: number,
+  options: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(sharedConsumerPackListActions.isLoading(true));
     dispatch(sharedConsumerPackListActions.error(null));
     try {
       const response = await fetchSharedConsumerPacksAPI({ member_relation });
       dispatch(sharedConsumerPackListActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
       dispatch(sharedConsumerPackListActions.error(err));
+      if (options && options.onError) options.onError(err);
     }
     dispatch(sharedConsumerPackListActions.isLoading(false));
   };

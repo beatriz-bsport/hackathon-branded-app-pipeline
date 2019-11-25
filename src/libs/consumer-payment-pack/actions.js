@@ -2,31 +2,17 @@
 
 import { createAction } from 'redux-actions';
 
-import api from '../api';
-import paymentPackAPI from '../libs/payment-packs/api';
-import { fetchConsumerPackAsManager as fetchConsumerPackAsManagerAPI } from '../api/consumer-payment-pack';
-import type { Dispatch } from '../state/types';
-import { snackbarSuccess } from './snackbar.actions';
+import paymentPackAPI from '../payment-packs/api';
+import type { Dispatch, OptionCallback } from '../../state/types';
+import { snackbarSuccess } from '../../actions/snackbar.actions';
 
-export const byId = {
-  isLoading: createAction('CONSUMER_PACK/BY_ID/IS_LOADING'),
-  error: createAction('CONSUMER_PACK/BY_ID/ERROR'),
-  success: createAction('CONSUMER_PACK/BY_ID/SUCCESS'),
-};
-
-export function fetchById(id: number) {
-  return async (dispatch: Dispatch) => {
-    dispatch(byId.isLoading(true));
-    dispatch(byId.error(null));
-    try {
-      const response = await api.consumerPaymentPack.fetchById(id);
-      dispatch(byId.success(response.data));
-    } catch (error) {
-      dispatch(byId.error(error));
-    }
-    dispatch(byId.isLoading(false));
-  };
-}
+import {
+  fetchByOfferByMember as fetchByOfferByMemberAPI,
+  fetchConsumerPackList as fetchConsumerPaymentPackListAPI,
+  fetchExtensions as fetchExtensionListAPI,
+  createExtension as createExtensionAPI,
+  deleteExtension as deleteExtensionAPI,
+} from './api';
 
 export const byOfferByMember = {
   isLoading: createAction('CONSUMER_PACK/BY_OFFER_BY_MEMBER/IS_LOADING'),
@@ -40,10 +26,7 @@ export function fetchByOfferByMember(offerId: number, memberId: number) {
     dispatch(byOfferByMember.error(null));
     dispatch(byOfferByMember.success([]));
     try {
-      const response = await api.consumerPaymentPack.fetchByOfferByMember(
-        offerId,
-        memberId,
-      );
+      const response = await fetchByOfferByMemberAPI(offerId, memberId);
       dispatch(byOfferByMember.success(response.data));
     } catch (error) {
       dispatch(byOfferByMember.error(error));
@@ -56,13 +39,11 @@ export const byPaymentPack = {
   isLoading: createAction('CONSUMER_PACK/BY_PAYMENT_PACK/IS_LOADING'),
   error: createAction('CONSUMER_PACK/BY_PAYMENT_PACK/ERROR'),
   success: createAction('CONSUMER_PACK/BY_PAYMENT_PACK/SUCCESS'),
-  setPage: createAction('CONSUMER_PACK/BY_PAYMENT_PACK/SET_PAGE'),
 };
 
 export function resetByPaymentPack() {
   return async (dispatch: Dispatch) => {
-    dispatch(byPaymentPack.success({ results: [], count: 0 }));
-    dispatch(byPaymentPack.setPage(1));
+    dispatch(byPaymentPack.success({ results: [], count: 0, page: 1 }));
     dispatch(byPaymentPack.isLoading(false));
   };
 }
@@ -70,21 +51,29 @@ export function resetByPaymentPack() {
 export function fetchByPaymentPack(
   paymentPackId: number,
   page?: number,
-  pageSize?: number,
+  page_size?: number,
+  options: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(byPaymentPack.isLoading(true));
     dispatch(byPaymentPack.error(null));
-    dispatch(byPaymentPack.setPage(page));
     try {
-      const response = await api.consumerPaymentPack.fetchByPaymentPack(
-        paymentPackId,
+      const response = await fetchConsumerPaymentPackListAPI({
+        payment_pack: paymentPackId,
         page,
-        pageSize,
-      );
-      dispatch(byPaymentPack.success(response.data));
+        page_size,
+      });
+      dispatch(byPaymentPack.success({ ...response.data, page: page || 1 }));
+      if (options && options.onSuccess) {
+        if (response.data.results) {
+          options.onSuccess(response.data.results);
+        } else {
+          options.onSuccess(response.data);
+        }
+      }
     } catch (error) {
       dispatch(byPaymentPack.error(error));
+      if (options && options.onError) options.onError(error);
     }
     dispatch(byPaymentPack.isLoading(false));
   };
@@ -121,39 +110,30 @@ export function updateCredit(consumerPackId: number, nbCredit: number) {
   };
 }
 
-export function fetchConsumerPackAsManager(consumerPackId: number) {
-  return async (dispatch: Dispatch) => {
-    dispatch(
-      updateConsumerPack.isLoading({ id: consumerPackId, loading: true }),
-    );
-    try {
-      const response = await fetchConsumerPackAsManagerAPI(consumerPackId);
-      dispatch(updateConsumerPack.success(response.data));
-      dispatch(snackbarSuccess('paymentPack.credit.updated'));
-    } catch (err) {
-      dispatch(updateConsumerPack.error(err));
-      dispatch(snackbarSuccess('paymentPack.credit.error'));
-    }
-    dispatch(
-      updateConsumerPack.isLoading({ id: consumerPackId, loading: false }),
-    );
-  };
-}
-
 export const byMember = {
   isLoading: createAction('CONSUMER_PACK/BY_MEMBER/IS_LOADING'),
   error: createAction('CONSUMER_PACK/BY_MEMBER/ERROR'),
   success: createAction('CONSUMER_PACK/BY_MEMBER/SUCCESS'),
+  reset: createAction('CONSUMER_PACK/BY_MEMBER/RESET'),
 };
 
-export function fetchByMember(memberId: number) {
+export function resetConsumerPackByMember() {
+  return async (dispatch: Dispatch) => {
+    dispatch(byMember.success({ page: 1, count: 0, results: [] }));
+  };
+}
+
+export function fetchByMember(member: number, page: number, page_size: number) {
   return async (dispatch: Dispatch) => {
     dispatch(byMember.isLoading(true));
     dispatch(byMember.error(null));
-    dispatch(byMember.success([]));
     try {
-      const response = await api.consumerPaymentPack.fetchByMember(memberId);
-      dispatch(byMember.success(response.data));
+      const response = await fetchConsumerPaymentPackListAPI({
+        member,
+        page,
+        page_size,
+      });
+      dispatch(byMember.success({ ...response.data, page }));
     } catch (error) {
       console.error(error);
       dispatch(byMember.error(error));
@@ -173,9 +153,7 @@ export function fetchPackExtensions(consumerPaymentPackId: number) {
     dispatch(extensionListActions.isLoading(true));
     dispatch(extensionListActions.error(null));
     try {
-      const response = await api.consumerPaymentPack.fetchExtensions(
-        consumerPaymentPackId,
-      );
+      const response = await fetchExtensionListAPI(consumerPaymentPackId);
       dispatch(extensionListActions.success(response.data));
     } catch (error) {
       console.error(error);
@@ -199,7 +177,7 @@ export function createPackExtension(
     dispatch(extensionCreateActions.isLoading(true));
     dispatch(extensionCreateActions.error(null));
     try {
-      const response = await api.consumerPaymentPack.createExtension(data);
+      const response = await createExtensionAPI(data);
       dispatch(extensionCreateActions.success(response.data));
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
@@ -225,7 +203,7 @@ export function deletePackExtension(
     dispatch(extensionDeleteActions.isLoading(true));
     dispatch(extensionDeleteActions.error(null));
     try {
-      await api.consumerPaymentPack.deleteExtension(id);
+      await deleteExtensionAPI(id);
       dispatch(extensionDeleteActions.success(id));
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
@@ -234,5 +212,29 @@ export function deletePackExtension(
       if (options && options.onError) options.onError();
     }
     dispatch(extensionDeleteActions.isLoading(false));
+  };
+}
+
+export const retrieveBulk = {
+  isLoading: createAction('CONSUMER_PACK/RETRIEVE_BULK/IS_LOADING'),
+  error: createAction('CONSUMER_PACK/RETRIEVE_BULK/ERROR'),
+  success: createAction('CONSUMER_PACK/RETRIEVE_BULK/SUCCESS'),
+};
+
+export function retrieveConsumerPackBulk(ids: Array<number>) {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrieveBulk.isLoading(true));
+    dispatch(retrieveBulk.error(null));
+    try {
+      const response = await fetchConsumerPaymentPackListAPI({
+        id__in: ids,
+        page_size: null,
+      });
+      dispatch(retrieveBulk.success(response.data));
+    } catch (error) {
+      console.error(error);
+      dispatch(retrieveBulk.error(error));
+    }
+    dispatch(retrieveBulk.isLoading(false));
   };
 }

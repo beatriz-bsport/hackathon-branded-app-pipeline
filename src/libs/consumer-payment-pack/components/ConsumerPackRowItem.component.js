@@ -178,14 +178,25 @@ export class ConsumerPackRowItem extends Component<Props> {
               : {}
           }
         >
-          {hideConsumer ? null : <Avatar src={consumer.photo} />}
+          {hideConsumer ? null : (
+            <Avatar src={consumer ? consumer.photo : null} />
+          )}
           <ListItemText
             primary={
               <span>
                 <Typography>
                   {hideConsumer
                     ? (paymentPack && paymentPack.name) || ' - '
-                    : `${consumer.first_name} ${consumer.last_name}`}
+                    : `${
+                        // eslint-disable-next-line
+                        consumer && consumer.name
+                          ? consumer.name
+                          : consumer && consumer.first_name
+                          ? consumer.first_name
+                          : ' - '
+                      } ${
+                        consumer && consumer.last_name ? consumer.last_name : ''
+                      }`}
                 </Typography>
                 <CreditStatus
                   paymentPack={paymentPack}

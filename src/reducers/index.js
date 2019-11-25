@@ -5,7 +5,6 @@ import { combineReducers } from 'redux';
 import authReducers from './auth';
 import offerReducers from './offer';
 import statsReducers from './stats';
-import consumerPaymentPackReducers from './consumer-payment-pack';
 import categoryReducers from './category';
 import invoiceReducers from './invoice';
 import paymentReducers from './payment';
@@ -41,6 +40,7 @@ import privateService from '../libs/private-service/reducers';
 import smartListReducer from '../libs/smart-list/reducers';
 import emailTemplateReducer from '../libs/email-editor/reducers';
 import paymentCombo from '../libs/payment-combo/reducers';
+import consumerPaymentPackReducers from '../libs/consumer-payment-pack/reducers';
 
 import type { State, Action } from '../state/types';
 

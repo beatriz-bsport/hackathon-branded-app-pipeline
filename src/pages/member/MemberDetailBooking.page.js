@@ -23,9 +23,9 @@ import offerSelectors from '../../libs/offer/selectors';
 
 import { fetchMember as fetchMemberAction } from '../../libs/member/actions';
 import {
-  fetchById as fetchConsumerPackById,
+  retrieveConsumerPackBulk,
   updateCredit as updateCreditAction,
-} from '../../actions/consumer-payment-pack.actions';
+} from '../../libs/consumer-payment-pack/actions';
 
 import type { Member } from '../../libs/member/types';
 import type { PaymentPack } from '../../libs/payment-packs/types';
@@ -40,7 +40,7 @@ import memberSelectors from '../../libs/member/selectors';
 import paymentPackSelectors, {
   getAll as getAllPaymentPacks,
 } from '../../libs/payment-packs/selectors';
-import consumerPaymentPackSelectors from '../../libs/consumer-payment-pack/selectors';
+import { getConsumerPack } from '../../libs/consumer-payment-pack/selectors';
 
 type Props = {
   id: number,
@@ -63,7 +63,7 @@ type Props = {
   fetchOffer: (id: number) => void,
   goToOffer: (id: number) => void,
   fetchConsumerPack: (id: number) => void,
-  getConsumerPaymentPack: (id: number) => void,
+  getPass: (id: number) => void,
   selectedBooking: ?Booking,
   getPaymentPack: (id: number) => PaymentPack,
   offerLoading: boolean,
@@ -157,7 +157,7 @@ export class MemberDetailBooking extends Component<Props, State> {
           <BookingDetail
             consumerPack={
               this.props.selectedBooking &&
-              this.props.getConsumerPaymentPack(
+              this.props.getPass(
                 parseInt(
                   this.props.selectedBooking.consumer_payment_pack_id,
                   10,
@@ -204,12 +204,11 @@ export default compose(
       consumerPackLoading: state.consumerPaymentPack.loading,
       getOffer: (id_: number) => offerSelectors.get(state, id_),
       getPaymentPack: (id_: number) => paymentPackSelectors.get(state, id_),
-      getConsumerPaymentPack: (id_: number) =>
-        consumerPaymentPackSelectors.get(state, id_),
+      getPass: (id_: number) => getConsumerPack(state, id_),
     }),
     {
       fetchMemberBookings: fetchBookingsByMemberAction,
-      fetchConsumerPack: fetchConsumerPackById,
+      fetchConsumerPack: (id) => retrieveConsumerPackBulk([id]),
       fetchOffer: fetchOfferByIdAction,
       deleteBooking: deleteBookingAction,
       goToOffer: (offerId: number) => push(`/offer/${offerId}`),

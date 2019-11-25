@@ -16,7 +16,11 @@ import PaymentPackListItem from '../../libs/payment-packs/components/PaymentPack
 import PaymentPackDeleteDialog from '../../libs/payment-packs/components/PaymentPackDeleteDialog.component';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
-import { consumerPaymentPack as consumerPackActions } from '../../actions';
+import {
+  updateCredit as updateCreditAction,
+  resetByPaymentPack as resetByPaymentPackAction,
+  fetchByPaymentPack as fetchByPaymentPackAction,
+} from '../../libs/consumer-payment-pack/actions';
 import {
   fetchAllPaymentPacks,
   patch as patchPaymentPack,
@@ -242,10 +246,10 @@ function mapDispatchToProps(dispatch) {
       dispatch(fetchAllPaymentPacks());
     },
     incrementCredit(consumerPackId) {
-      dispatch(consumerPackActions.updateCredit(consumerPackId, 1));
+      dispatch(updateCreditAction(consumerPackId, 1));
     },
     decrementCredit(consumerPackId) {
-      dispatch(consumerPackActions.updateCredit(consumerPackId, -1));
+      dispatch(updateCreditAction(consumerPackId, -1));
     },
     updatePaymentPack(paymentPackId, data) {
       dispatch(patchPaymentPack(paymentPackId, data, true));
@@ -254,15 +258,13 @@ function mapDispatchToProps(dispatch) {
       dispatch(pushRouter(`/payment-pack/${paymentPackId}/edit`));
     },
     fetchConsumerPacks(paymentPackId: number, page: number, pageSize: number) {
-      dispatch(
-        consumerPackActions.fetchByPaymentPack(paymentPackId, page, pageSize),
-      );
+      dispatch(fetchByPaymentPackAction(paymentPackId, page, pageSize));
     },
     goToPack(id: number) {
       dispatch(pushRouter(`/payment-pack/${id}`));
     },
     resetConsumerPacks() {
-      dispatch(consumerPackActions.resetByPaymentPack());
+      dispatch(resetByPaymentPackAction());
     },
     onCreate() {
       dispatch(pushRouter('/payment-pack/add'));

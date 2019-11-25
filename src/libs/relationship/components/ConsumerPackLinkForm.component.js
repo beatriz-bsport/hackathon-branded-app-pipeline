@@ -1,9 +1,7 @@
 // @flow
 import React from 'react';
 
-import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import LinearProgress from '@material-ui/core/LinearProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -11,6 +9,9 @@ import { compose, withState } from 'recompose';
 import Button from '@material-ui/core/Button';
 
 import ConsumerPackRowItem from '../../consumer-payment-pack/components/ConsumerPackRowItem.component';
+import PaginatedListBase from '../../../components/PaginatedListBase.component';
+
+const CONSUMER_PAYMENT_PACK_PAGE_SIZE = 6;
 
 type Props = {
   consumerPacks: Array<ConsumerPassWithPack>,
@@ -21,6 +22,14 @@ type Props = {
   classes: Object,
   setSelectedConsumerPass: (id: number) => void,
   t: TFunction,
+  page: number,
+  count: number,
+  fetchConsumerPacks: (
+    memberId: number,
+    page: number,
+    page_size: number,
+  ) => void,
+  disabledStuff: Array<number>,
 };
 
 export const ConsumerPackLinkForm = (props: Props) => {
@@ -30,35 +39,36 @@ export const ConsumerPackLinkForm = (props: Props) => {
         <Typography className={props.classes.title} variant="h4">
           {props.t('consumer_payment_pack_links.form.create.title')}
         </Typography>
-        {props.loading ? (
-          <LinearProgress />
-        ) : (
-          <List>
-            {props.consumerPacks.length
-              ? props.consumerPacks.map((cpp) => (
-                  <ConsumerPackRowItem
-                    consumerPack={cpp}
-                    paymentPack={cpp.payment_pack}
-                    hideConsumer
-                    key={cpp.id}
-                    button={
-                      <Button
-                        onClick={() => props.setSelectedConsumerPass(cpp)}
-                        color="primary"
-                        variant="outlined"
-                      >
-                        {props.t(
-                          'consumer_payment_pack_links.form.create.linkButton',
-                        )}
-                      </Button>
-                    }
-                  />
-                ))
-              : props.t(
-                  'consumer_payment_pack_links.form.create.noConsumerPackToLink',
-                )}
-          </List>
-        )}
+        <PaginatedListBase
+          itemPerPage={CONSUMER_PAYMENT_PACK_PAGE_SIZE}
+          loading={props.loading}
+          listProps={{ disablePadding: true }}
+          items={props.consumerPacks}
+          nbItems={props.count}
+          page={props.page}
+          onPageRequested={props.fetchConsumerPacks}
+          renderItem={(cpp) => (
+            <ConsumerPackRowItem
+              consumerPack={cpp}
+              paymentPack={cpp.payment_pack}
+              hideConsumer
+              key={cpp.id}
+              button={
+                <Button
+                  onClick={() => props.setSelectedConsumerPass(cpp)}
+                  color="primary"
+                  variant="outlined"
+                  disabled={props.disabledStuff.includes(cpp.id)}
+                >
+                  {props.t(
+                    'consumer_payment_pack_links.form.create.linkButton',
+                  )}
+                </Button>
+              }
+            />
+          )}
+        />
+
         <div className={props.classes.buttonContainer}>
           <Button onClick={props.onCancel}>
             {props.t('consumer_payment_pack_links.form.create.cancel')}

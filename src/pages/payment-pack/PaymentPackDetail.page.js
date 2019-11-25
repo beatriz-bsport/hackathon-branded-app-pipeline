@@ -13,7 +13,14 @@ import PaymentPackCard from '../../libs/payment-packs/components/PaymentPackCard
 import PaginatedConsumerPackList from '../../libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
 import PaymentPackDeleteDialog from '../../libs/payment-packs/components/PaymentPackDeleteDialog.component';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import { consumerPaymentPack as consumerPackActions } from '../../actions';
+
+import {
+  updateCredit as updateCreditAction,
+  resetByPaymentPack as resetByPaymentPackAction,
+  fetchByPaymentPack as fetchByPaymentPackAction,
+} from '../../libs/consumer-payment-pack/actions';
+import { getConsumerPacksByPackWithMember } from '../../libs/consumer-payment-pack/selectors';
+
 import { patch as patchPaymentPack } from '../../libs/payment-packs/actions';
 import paymentPackSelector from '../../libs/payment-packs/selectors';
 import type { MetaActivity } from '../../api/types';
@@ -33,12 +40,16 @@ import type {
   PaymentPack,
   ConsumerPaymentPack,
 } from '../../libs/payment-packs/types';
+import { fetchFilteredMembers } from '../../libs/member/actions';
+import type { OptionCallback } from '../../state/types';
 
 import { snackbarSuccess } from '../../actions/snackbar.actions';
 
 type Props = {
   loading: boolean,
   id: number,
+
+  fetchFilteredMembers: (params: any) => void,
 
   pack: PaymentPack,
   metaActivities: Array<MetaActivity>,
@@ -63,6 +74,7 @@ type Props = {
     paymentPackId: number,
     page: number,
     pageSize: number,
+    options: OptionCallback,
   ) => void,
   resetConsumerPacks: () => void,
 
@@ -159,6 +171,13 @@ export class PaymentPackDetail extends Component<Props, State> {
                   this.props.pack.id,
                   page,
                   pageSize,
+                  {
+                    onSuccess: (cpps) => {
+                      this.props.fetchFilteredMembers({
+                        id__in: cpps.map((b) => b.member_id),
+                      });
+                    },
+                  },
                 )
               }
             />
@@ -190,6 +209,13 @@ export class PaymentPackDetail extends Component<Props, State> {
                     this.props.pack.id,
                     page,
                     pageSize,
+                    {
+                      onSuccess: (cpps) => {
+                        this.props.fetchFilteredMembers({
+                          id__in: cpps.map((b) => b.member_id),
+                        });
+                      },
+                    },
                   )
                 }
               />
@@ -221,9 +247,7 @@ function mapStateToProps(state, { id }) {
     metaActivities: [...getMetaActivities(state), ...getWorkshops(state)],
     establishments: getAllEstablishments(state),
     consumerPacks: {
-      items: state.consumerPaymentPack.byPaymentPack.items.filter(
-        (cpp) => !cpp.reverted,
-      ),
+      items: getConsumerPacksByPackWithMember(state),
       count: state.consumerPaymentPack.byPaymentPack.count,
       loading: state.consumerPaymentPack.byPaymentPack.loading,
       page: state.consumerPaymentPack.byPaymentPack.page,
@@ -243,14 +267,14 @@ export default compose(
       snackbarSuccess,
       fetchAllWorkshops,
       incrementCredit: (consumerPackId) =>
-        consumerPackActions.updateCredit(consumerPackId, 1),
+        updateCreditAction(consumerPackId, 1),
       decrementCredit: (consumerPackId) =>
-        consumerPackActions.updateCredit(consumerPackId, -1),
+        updateCreditAction(consumerPackId, -1),
       updatePaymentPack: (paymentPackId, data) =>
         patchPaymentPack(paymentPackId, data, true),
       pushToEdit: (paymentPackId: number) =>
         pushRouter(`/payment-pack/${paymentPackId}/edit`),
-      resetConsumerPacks: consumerPackActions.resetByPaymentPack,
+      resetConsumerPacks: resetByPaymentPackAction,
       fetchEstablishments,
       goToConsumerPackDetail: (memberId, passId) =>
         pushRouter(`/member/${memberId}/pass/${passId}`),
@@ -258,8 +282,9 @@ export default compose(
         paymentPackId: number,
         page: number,
         pageSize: number,
-      ) =>
-        consumerPackActions.fetchByPaymentPack(paymentPackId, page, pageSize),
+        options: OptionCallback,
+      ) => fetchByPaymentPackAction(paymentPackId, page, pageSize, options),
+      fetchFilteredMembers,
     },
   ),
   withTitle(({ t }: { t: TFunction }) =>

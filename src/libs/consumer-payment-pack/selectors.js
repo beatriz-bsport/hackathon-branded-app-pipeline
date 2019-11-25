@@ -1,25 +1,26 @@
 import { createSelector } from 'reselect';
 import { getAll as getPaymentPacks } from '../payment-packs/selectors';
+import { getAll as getAllMembers } from '../member/selectors';
 
 const getState = (state) => state.consumerPaymentPack;
 
-const getAll = (state) => getState(state).items;
+const getAllData = (state) => getState(state).byId;
 
-const getActive = createSelector(
-  getAll,
-  (cpps) => cpps.filter((cpp) => !cpp.reverted),
+const getByPaymentPack = createSelector(
+  getState,
+  ({ byId, byPaymentPack }) => byPaymentPack.allIds.map((id) => byId[id]),
 );
 
-const get = (state, id) => getAll(state).find((cpp) => cpp.id === id);
+export const getConsumerPack = (state, id) =>
+  state.consumerPaymentPack.byId[id];
 
-export const getConsumerPacks = (state) => state.consumerPaymentPack.items;
 export const getConsumerPaymentPackExtensions = (state) =>
   state.consumerPaymentPack.extension.items;
 
 export const getConsumerPacksWithPaymentPack = createSelector(
-  [getConsumerPacks, getPaymentPacks],
+  [getAllData, getPaymentPacks],
   (consumerPacks, paymentPacks) =>
-    consumerPacks.map((cpp) => ({
+    Object.values(consumerPacks).map((cpp) => ({
       ...cpp,
       payment_pack: paymentPacks.find(
         (pp) => pp.id === parseInt(cpp.payment_pack_id, 10),
@@ -27,4 +28,31 @@ export const getConsumerPacksWithPaymentPack = createSelector(
     })),
 );
 
-export default { get, getAll, getActive };
+export const getConsumerPacksByPackWithMember = createSelector(
+  [getByPaymentPack, getAllMembers],
+  (cpps, members) =>
+    cpps
+      .map((cpp) => ({
+        ...cpp,
+        consumer: members.find((m) => m.id === cpp.member_id),
+      }))
+      .map((cpp) => ({ ...cpp, member: cpp.consumer })),
+);
+
+const _getIdsByMember = (state) => getState(state).byMember.allIds;
+
+export const getConsumerPaymentPackByMember = createSelector(
+  [getAllData, _getIdsByMember],
+  (data, ids) => ids.map((id) => data[id]),
+);
+
+export const getConsumerPacksByMemberWithPaymentPack = createSelector(
+  [getConsumerPaymentPackByMember, getPaymentPacks],
+  (consumerPacks, paymentPacks) =>
+    Object.values(consumerPacks).map((cpp) => ({
+      ...cpp,
+      payment_pack: paymentPacks.find(
+        (pp) => pp.id === parseInt(cpp.payment_pack_id, 10),
+      ),
+    })),
+);

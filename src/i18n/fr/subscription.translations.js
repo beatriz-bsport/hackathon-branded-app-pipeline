@@ -2,6 +2,31 @@ export default {
   table: {
     noContent: 'Aucune souscription enregistrée',
   },
+  subscription: {
+    list: {
+      title: 'Souscription en cours',
+    },
+  },
+  contract: {
+    duration: '{{month}} mois',
+    list: {
+      title: 'Contrat disponible à la vente',
+      isEmpty: 'Aucun contrat disponible',
+      addButton: 'Définir un contrat',
+    },
+    form: {
+      title: 'Formulaire contrat',
+      name: {
+        label: 'Nom du contrat',
+      },
+      nb_interval: {
+        label: 'Nombre de mois',
+      },
+      recurrent_price: {
+        label: 'Paiement mensuel',
+      },
+    },
+  },
   recap: {
     willBecharged: ' sera facturé ',
     every: ' chaque ',

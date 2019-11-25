@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import TextField from '@material-ui/core/TextField';
 
 import { withNamespaces } from 'react-i18next';
 import { compose } from 'recompose';
@@ -27,6 +28,7 @@ import type { SubscriptionData } from '../types';
 type Props = {
   paymentPacks: Array<PaymentPack>,
   member: ?Member,
+  withName: boolean,
 
   onSubmit: (data: SubscriptionData) => void,
   onCancel: () => void,
@@ -49,6 +51,7 @@ export class SubscriptionCreate extends Component<Props, State> {
       payment_pack: null,
       nb_interval: null,
       recurrent_voucher: 0,
+      name: '',
       first_billing_timestamp: parseInt((moment() + 0) / 1000, 10),
     };
   }
@@ -76,11 +79,16 @@ export class SubscriptionCreate extends Component<Props, State> {
       interval: 'month',
       first_billing_timestamp,
     };
-    this.props.onSubmit(data);
+    this.props.onSubmit(
+      this.props.withName ? { ...data, name: this.state.name } : data,
+    );
   };
 
   formIsFilled = () =>
-    this.state.payment_pack && this.state.nb_interval && this.props.member;
+    this.state.payment_pack &&
+    this.state.nb_interval &&
+    this.props.member &&
+    (this.props.withName ? !!this.state.name : true);
 
   updatePaymentPack = (id: number) => this.setState({ payment_pack: id });
 
@@ -97,6 +105,11 @@ export class SubscriptionCreate extends Component<Props, State> {
       recurrent_voucher: event.target.value || 0,
     });
 
+  updateName = (event: SyntheticInputEvent<*>) =>
+    this.setState({
+      name: event.target.value,
+    });
+
   render() {
     const { t, member, paymentPacks, classes, onCancel } = this.props;
     if (!member) {
@@ -108,6 +121,16 @@ export class SubscriptionCreate extends Component<Props, State> {
     return (
       <div>
         <div className={classes.container}>
+          {this.props.withName ? (
+            <TextField
+              label={this.props.t('contract.form.name.label')}
+              placeholder={this.props.t('contract.form.name.placeholder')}
+              value={this.state.name}
+              onChange={this.updateName}
+              className={this.props.classes.field}
+              fullWidth
+            />
+          ) : null}
           <PaymentPackSelector
             paymentPacks={paymentPacks}
             value={this.state.payment_pack}

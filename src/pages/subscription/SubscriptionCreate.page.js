@@ -83,9 +83,7 @@ export class SubscriptionCreate extends Component<Props, State> {
           <Paper className={this.props.classes.paper}>
             <div className={this.props.classes.formContainer}>
               <SubscriptionCreateComponent
-                paymentPacks={this.props.paymentPacks.filter(
-                  (pp) => !pp.disabled,
-                )}
+                paymentPacks={this.props.paymentPacks}
                 member={this.props.member}
                 onSubmit={this.storeTempSubscription}
                 onCancel={this.props.onCancel}

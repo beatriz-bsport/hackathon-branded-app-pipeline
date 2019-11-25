@@ -2,6 +2,31 @@ export default {
   table: {
     noContent: 'No subscription registered yet',
   },
+  subscription: {
+    list: {
+      title: 'Ongoing-subscription',
+    },
+  },
+  contract: {
+    duration: '{{month}} months',
+    list: {
+      title: 'Contracts available to customer',
+      isEmpty: 'No contract',
+      addButton: 'Create a contract',
+    },
+    form: {
+      title: 'Contract form',
+      name: {
+        label: 'Contract name',
+      },
+      nb_interval: {
+        label: 'Number of months',
+      },
+      recurrent_price: {
+        label: 'Monthly payment',
+      },
+    },
+  },
   recap: {
     willBecharged: ' will be charged ',
     every: ' every ',

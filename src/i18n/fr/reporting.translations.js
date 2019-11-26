@@ -104,6 +104,7 @@ export default {
     top_up: 'Recharge crédit client',
     fee: 'Frais',
     payment_combo: 'Pack',
+    private_pass: 'Carte cours privé',
   },
   report: {
     delete_message: 'Êtes-vous sûr de vouloir supprimer le rapport {{name}} ?',

@@ -88,6 +88,7 @@ export default {
     shop_item: 'Shop',
     top_up: 'Top-up',
     payment_combo: 'Pack',
+    private_pass: 'Private lesson pass',
   },
   report: {
     delete_message: 'Are you sure you want to remove the report {{name}} ?',

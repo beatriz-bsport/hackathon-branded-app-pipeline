@@ -853,11 +853,11 @@ export default {
       wasRefunded: 'Remboursé',
       success: 'Réservation enregistrée',
       revertBookingTitle: "Annuler l'inscription",
-      revertBookingExplain: (name: string, offerIsAvailable) => {
+      revertBookingExplain: (offerIsAvailable) => {
         if (offerIsAvailable) {
-          return `Êtes-vous sûr de vouloir supprimer la réservation de ${name} ? Les crédits utilisés seront recrédités.`;
+          return `Êtes-vous sûr de vouloir supprimer cette réservation ? Les crédits utilisés seront recrédités.`;
         }
-        return `La réservation de ${name} sera supprimée. La séance a déjà été annulée et les crédits ne seront pas remboursés si vous n'avez pas coché "rembourser" lors de l'annulation`;
+        return `La réservation sera supprimée. La séance a déjà été annulée et les crédits ne seront pas remboursés si vous n'avez pas coché "rembourser" lors de l'annulation`;
       },
 
       revertBookingWithInvoiceImpossibleExplain:

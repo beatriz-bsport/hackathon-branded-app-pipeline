@@ -788,11 +788,11 @@ export default {
       wasRefunded: 'Refunded',
       success: 'Booking saved',
       revertBookingTitle: 'Delete boking',
-      revertBookingExplain: (name: string, offerIsAvailable: boolean) => {
+      revertBookingExplain: (offerIsAvailable: boolean) => {
         if (offerIsAvailable) {
-          return `Are you sure you want to delete ${name}'s booking ? Used credits will be given back to your member`;
+          return `Are you sure you want to delete this booking ? Used credits will be given back to your member`;
         }
-        return `Are you sure you want to delete ${name}'s booking ? This booking will not be refund.`;
+        return `Are you sure you want to delete this booking ? This booking will not be refund.`;
       },
       revertBookingWithInvoiceImpossibleExplain:
         'This booking has already been chased-out and can not be deleted. You can still change its attendance status.',

@@ -22,6 +22,7 @@ const BOOKING = 3;
 const BUY = 4;
 
 export default {
+  selectToShowPreview: 'Please select a template',
   modal: {
     delete: {
       title: 'Smart list deletion',

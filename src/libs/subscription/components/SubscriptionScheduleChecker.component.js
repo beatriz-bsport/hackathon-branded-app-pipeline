@@ -23,7 +23,6 @@ import { CardElement, IbanElement, injectStripe } from 'react-stripe-elements';
 
 import SubscriptionSchedule from './SubscriptionSchedule.component';
 import type { SubscriptionData } from '../types';
-import Config from '../../../config';
 
 type Props = {
   subscriptionData: ?SubscriptionData,
@@ -33,15 +32,12 @@ type Props = {
   t: TFunction,
   classes: Object,
   stripe: Object,
+  member: Member,
 };
 
 type State = {
   loading: boolean,
 };
-
-const SEPA_AVAILABLE =
-  Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
-  window.location.href.includes('beta=true');
 
 const getScheduledInvoicesFromSubscriptionData = (
   subscriptionData: SubscriptionData,
@@ -89,12 +85,15 @@ const PaymentMethodSwitcher = (props: {
 );
 
 export class SubscriptionScheduleChecker extends Component<Props, State> {
-  state = {
-    loading: false,
-    payment_method: 'card',
-    name: '',
-    email: '',
-  };
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      loading: false,
+      payment_method: 'card',
+      name: (props.member && props.member.name) || '',
+      email: (props.member && props.member.email) || '',
+    };
+  }
 
   getSourceData = () => {
     if (this.state.payment_method === 'sepa_debit') {
@@ -108,7 +107,7 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
         mandate: {
           // Automatically send a mandate notification email to your customer
           // once the source is charged.
-          notification_method: 'email',
+          notification_method: 'manual',
         },
       };
     }
@@ -158,14 +157,12 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
             {t('subscription:schedule.paymentMethodTitle')}
           </Typography>
           <Paper>
-            {SEPA_AVAILABLE ? (
-              <PaymentMethodSwitcher
-                classes={classes}
-                t={t}
-                payment_method={this.state.payment_method}
-                onChange={(payment_method) => this.setState({ payment_method })}
-              />
-            ) : null}
+            <PaymentMethodSwitcher
+              classes={classes}
+              t={t}
+              payment_method={this.state.payment_method}
+              onChange={(payment_method) => this.setState({ payment_method })}
+            />
             <Divider />
             <div className={classes.cardContainer}>
               {this.state.payment_method === 'sepa_debit' ? (

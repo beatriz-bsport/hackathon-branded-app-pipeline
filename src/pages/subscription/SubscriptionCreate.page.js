@@ -76,6 +76,7 @@ export class SubscriptionCreate extends Component<Props, State> {
                 onSubmit={this.createSubscription}
                 onCancel={() => this.storeTempSubscription(null)}
                 processing={this.state.processing}
+                member={this.props.member}
               />
             </Elements>
           </StripeProvider>

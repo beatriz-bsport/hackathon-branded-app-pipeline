@@ -2,18 +2,53 @@
 
 import Immutable from 'seamless-immutable';
 
-import { actionTypes } from './actions';
+import { handleActions } from 'redux-actions';
+import {
+  actionTypes,
+  byOfferActions,
+  byMemberActions,
+  byConsumerPackActions,
+  retrieveActions,
+  updateActions,
+} from './actions';
 import type { BookingsState, BookingsAction } from './types';
 
 const initialState = Immutable({
+  // OLD STUFF
   loading: false,
   all: [],
   options: [],
   bookingsUpdating: [],
   bookingOptionsUpdating: [],
+
+  // NEW STUFF
+  byId: {},
+  byMember: {
+    loading: false,
+    error: null,
+    allIds: [],
+    count: 0,
+    page: 1,
+  },
+  byConsumerPack: {
+    loading: false,
+    error: null,
+    allIds: [],
+    count: 0,
+    page: 1,
+  },
+  byOffer: {
+    loading: false,
+    error: null,
+    allIds: [],
+  },
+  createOrUpdate: {
+    error: null,
+    loading: false,
+  },
 });
 
-export default function bookingReducers(
+function bookingReducers(
   state: BookingsState = initialState,
   action: BookingsAction = { type: null },
 ): BookingsState {
@@ -108,3 +143,87 @@ export default function bookingReducers(
       return state;
   }
 }
+
+const newReducer = handleActions(
+  {
+    [updateActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['createOrUpdate', 'loading'], payload);
+    },
+    [updateActions.error]: (state, { payload }) => {
+      return state.setIn(['createOrUpdate', 'error'], payload);
+    },
+    [updateActions.success]: (state, { payload }) => {
+      return state.setIn(['byId', payload.id], payload);
+    },
+    [byMemberActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['byMember', 'loading'], payload);
+    },
+    [byMemberActions.error]: (state, { payload }) => {
+      return state.setIn(['byMember', 'error'], payload);
+    },
+    [byMemberActions.success]: (state, { payload }) => {
+      return state
+        .setIn(['byMember', 'page'], payload.page)
+        .setIn(['byMember', 'count'], payload.count)
+        .setIn(['byMember', 'allIds'], payload.results.map((b) => b.id))
+        .merge(
+          {
+            byId: payload.results.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+          { deep: true },
+        );
+    },
+    [byConsumerPackActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['byMember', 'isLoading'], payload);
+    },
+    [byConsumerPackActions.error]: (state, { payload }) => {
+      return state.setIn(['byMember', 'error'], payload);
+    },
+    [byConsumerPackActions.success]: (state, { payload }) => {
+      return state
+        .setIn(['byConsumerPack', 'page'], payload.page)
+        .setIn(['byConsumerPack', 'count'], payload.count)
+        .setIn(['byConsumerPack', 'allIds'], payload.results.map((b) => b.id))
+        .merge(
+          {
+            byId: payload.results.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+          { deep: true },
+        );
+    },
+    [retrieveActions.success]: (state, { payload }) => {
+      return state.setIn(['byId', payload.id], payload);
+    },
+    [byOfferActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['byOffer', 'loading'], payload);
+    },
+    [byOfferActions.error]: (state, { payload }) => {
+      return state.setIn(['byOffer', 'error'], payload);
+    },
+    [byOfferActions.success]: (state, { payload }) => {
+      return state
+        .setIn(['byOffer', 'page'], payload.page)
+        .setIn(['byOffer', 'count'], payload.count)
+        .setIn(['byOffer', 'allIds'], payload.results.map((b) => b.id))
+        .merge(
+          {
+            byId: payload.results.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+          { deep: true },
+        );
+    },
+  },
+  initialState,
+);
+
+export default (state = initialState, action = { type: null }) =>
+  newReducer(bookingReducers(state, action), action);

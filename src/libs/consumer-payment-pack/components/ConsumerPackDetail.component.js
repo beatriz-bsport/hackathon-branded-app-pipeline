@@ -12,8 +12,8 @@ import Paper from '@material-ui/core/Paper';
 
 import { compose } from 'recompose';
 import InvoiceListItem from '../../invoice/InvoiceListItem.component';
-import BookingItemForManager from '../../booking/components/BookingItemForManager.component';
-import PaginatedListStateful from '../../../components/PaginatedListStateful.component';
+import BookingItemForManagerV2 from '../../booking/components/BookingItemForManagerV2.component';
+import PaginatedListBase from '../../../components/PaginatedListBase.component';
 import ConsumerPaymentPackExtensionListItem from './ConsumerPaymentPackExtensionListItem.component';
 
 import type { ConsumerPaymentPackExtension } from '../types';
@@ -37,6 +37,11 @@ type Props = {
   onCreateExtension: ({ note: string, nbDays: number }) => void,
   deleteExtension: (id: number) => void,
   extensionsLoading: boolean,
+
+  currentBookingPage: number,
+  bookingCount: number,
+  bookings: Array<Booking>,
+  onBookingRequested: (page: number, page_size: number) => void,
 
   onInvoiceClick: (uuid: string) => void,
   t: TFunction,
@@ -63,13 +68,16 @@ export function ConsumerPaymentPackDetail(props: Props) {
         {props.t('details.bookingsTitle')}
       </Typography>
       <Paper className={props.classes.paper}>
-        <PaginatedListStateful
+        <PaginatedListBase
           itemPerPage={5}
           loading={props.bookingLoading || !props.member}
           listProps={{ disablePadding: true }}
           items={props.bookings}
+          page={props.currentBookingPage}
+          nbItems={props.bookingCount}
+          onPageRequested={props.onBookingRequested}
           renderItem={(b) => (
-            <BookingItemForManager
+            <BookingItemForManagerV2
               onClick={() => props.onBookingClick(b)}
               showRevertBookingButton
               button

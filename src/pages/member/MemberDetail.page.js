@@ -21,6 +21,7 @@ import withTitle from '../../hocs/with-title.hoc';
 import asyncComponent from '../../AsyncComponent';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
 
 const MemberDetailInfo = asyncComponent(() =>
   import('./MemberDetailInfo.page'),
@@ -56,6 +57,7 @@ type Props = {
   pushToTab: (memberId: number, tab: string) => void,
   billMember: (id: number) => void,
   subscribeMember: (id: number) => void,
+  fetchAllPaymentPacks: () => void,
 };
 
 const MemberActions = (props: {
@@ -86,102 +88,120 @@ const MemberActions = (props: {
   </div>
 );
 
-export function MemberDetail(props: Props) {
-  const { t, classes, pushToTab, billMember, subscribeMember, tab, id } = props;
-  return (
-    <div className={classes.container}>
-      <Helmet>
-        <title>{props.member ? props.member.name : 'Member'}</title>
-      </Helmet>
-      <AppBar position="static" color="default">
-        <Tabs
-          scrollButtons="off"
-          variant="scrollable"
-          value={tab}
-          onChange={(e, newTab) => {
-            pushToTab(id, newTab);
-          }}
-        >
-          <Tab label={t('member.menu.info')} value="info" />
-          <Tab label={t('member.menu.bookings')} value="bookings" />
-          <Tab label={t('member.menu.paymentPack')} value="pass" />
-          <Tab label={t('member.menu.payment')} value="payment" />
-          <Tab label={t('member.menu.relation')} value="relation" />
-          <Tab
-            label={t('member.menu.privateBooking')}
-            value="private-booking"
-          />
-          <Tab
-            label={t('member.menu.privateConsumerPass')}
-            value="private-consumer-pass"
-          />
-        </Tabs>
-      </AppBar>
-      <div className={classes.content}>
-        <Switch>
-          <Route
-            exact
-            path="/member/:id/bookings/:bookingId/"
-            component={MemberDetailBooking}
-          />
-          <Route
-            exact
-            path="/member/:id/bookings"
-            component={MemberDetailBooking}
-          />
-          <Route
-            exact
-            path="/member/:id/pass/:consumerPassId"
-            component={MemberDetailPass}
-          />
-          <Route exact path="/member/:id/pass" component={MemberDetailPass} />
-          <Route
-            exact
-            path="/member/:id/relation/:relation"
-            component={MemberDetailRelation}
-          />
-          <Route path="/member/:id/relation" component={MemberDetailRelation} />
-          <Route
-            exact
-            path="/member/:id/payment"
-            component={MemberDetailPayment}
-          />
-          <Route exact path="/member/:id/info" component={MemberDetailInfo} />
-          <Route
-            exact
-            path="/member/:id/private-booking/:privateBookingId"
-            component={MemberDetailPrivateBooking}
-          />
-          <Route
-            exact
-            path="/member/:id/private-booking"
-            component={MemberDetailPrivateBooking}
-          />
-          <Route
-            exact
-            path="/member/:id/private-consumer-pass/:privateConsumerPassId"
-            component={MemberDetailPrivateConsumerPass}
-          />
-          <Route
-            exact
-            path="/member/:id/private-consumer-pass"
-            component={MemberDetailPrivateConsumerPass}
-          />
-          <Route
-            exact
-            path="/member/:id/contact"
-            component={MemberDetailContact}
-          />
-        </Switch>
+export class MemberDetail extends React.Component<Props> {
+  componentDidMount() {
+    this.props.fetchAllPaymentPacks();
+  }
+
+  render() {
+    const {
+      t,
+      classes,
+      pushToTab,
+      billMember,
+      subscribeMember,
+      tab,
+      id,
+      member,
+    } = this.props;
+    return (
+      <div className={classes.container}>
+        <Helmet>
+          <title>{member ? member.name : ''}</title>
+        </Helmet>
+        <AppBar position="static" color="default">
+          <Tabs
+            scrollButtons="off"
+            variant="scrollable"
+            value={tab}
+            onChange={(e, newTab) => {
+              pushToTab(id, newTab);
+            }}
+          >
+            <Tab label={t('member.menu.info')} value="info" />
+            <Tab label={t('member.menu.bookings')} value="bookings" />
+            <Tab label={t('member.menu.paymentPack')} value="pass" />
+            <Tab label={t('member.menu.payment')} value="payment" />
+            <Tab label={t('member.menu.relation')} value="relation" />
+            <Tab
+              label={t('member.menu.privateBooking')}
+              value="private-booking"
+            />
+            <Tab
+              label={t('member.menu.privateConsumerPass')}
+              value="private-consumer-pass"
+            />
+          </Tabs>
+        </AppBar>
+        <div className={classes.content}>
+          <Switch>
+            <Route
+              exact
+              path="/member/:id/bookings/:bookingId/"
+              component={MemberDetailBooking}
+            />
+            <Route
+              exact
+              path="/member/:id/bookings"
+              component={MemberDetailBooking}
+            />
+            <Route
+              exact
+              path="/member/:id/pass/:consumerPassId"
+              component={MemberDetailPass}
+            />
+            <Route exact path="/member/:id/pass" component={MemberDetailPass} />
+            <Route
+              exact
+              path="/member/:id/relation/:relation"
+              component={MemberDetailRelation}
+            />
+            <Route
+              path="/member/:id/relation"
+              component={MemberDetailRelation}
+            />
+            <Route
+              exact
+              path="/member/:id/payment"
+              component={MemberDetailPayment}
+            />
+            <Route exact path="/member/:id/info" component={MemberDetailInfo} />
+            <Route
+              exact
+              path="/member/:id/private-booking/:privateBookingId"
+              component={MemberDetailPrivateBooking}
+            />
+            <Route
+              exact
+              path="/member/:id/private-booking"
+              component={MemberDetailPrivateBooking}
+            />
+            <Route
+              exact
+              path="/member/:id/private-consumer-pass/:privateConsumerPassId"
+              component={MemberDetailPrivateConsumerPass}
+            />
+            <Route
+              exact
+              path="/member/:id/private-consumer-pass"
+              component={MemberDetailPrivateConsumerPass}
+            />
+            <Route
+              exact
+              path="/member/:id/contact"
+              component={MemberDetailContact}
+            />
+          </Switch>
+        </div>
+        <MemberActions
+          t={t}
+          classes={classes}
+          billMember={() => billMember(id)}
+          subscribeMember={() => subscribeMember(id)}
+        />
       </div>
-      <MemberActions
-        t={t}
-        classes={classes}
-        billMember={() => billMember(id)}
-        subscribeMember={() => subscribeMember(id)}
-      />
-    </div>
-  );
+    );
+  }
 }
 
 const styles = (theme) => ({
@@ -226,17 +246,12 @@ export default compose(
     (state, { id }) => ({
       member: memberSelectors.get(state, id),
     }),
-    (dispatch) => ({
-      billMember(id) {
-        dispatch(pushRouter(`/invoice/add/member/${id}`));
-      },
-      subscribeMember(id) {
-        dispatch(pushRouter(`/subscription/add/${id}`));
-      },
-      pushToTab(id, tab) {
-        dispatch(pushRouter(`/member/${id}/${tab}`));
-      },
-    }),
+    {
+      fetchAllPaymentPacks,
+      billMember: (id) => pushRouter(`/invoice/add/member/${id}`),
+      subscribeMember: (id) => pushRouter(`/subscription/add/${id}`),
+      pushToTab: (id, tab) => pushRouter(`/member/${id}/${tab}`),
+    },
   ),
   withTitle(({ member }) => (member ? member.name : '')),
 )(MemberDetail);

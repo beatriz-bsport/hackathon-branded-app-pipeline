@@ -1,249 +1,253 @@
 // @flow
-import api from '../../api';
+import { createAction } from 'redux-actions';
 
-import { fetchFilteredBookingOptions as fetchFilteredBookingOptionsAPI } from './api';
+import {
+  fetchBookingList as fetchBookingListAPI,
+  retrieveBooking as retrieveBookingAPI,
+  confirmAttendance as confirmAttendanceAPI,
+  discardAttendance as discardAttendanceAPI,
+  cancelBooking as cancelBookingAPI,
+  registerBooking as registerBookingAPI,
+} from './api';
 import type { Dispatch } from '../../state/types';
 
-import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
+import {
+  actionTypes,
+  updatingBookingStatus,
+  errorUpdatingBookingStatus,
+  bookingStatusUpdated,
+  confirmBookingAttendance,
+  discardBookingAttendance,
+  confirmBooking,
+  deleteBookingStart,
+  deleteBookingSuccess,
+  deleteBookingError,
+  deleteBooking,
+  refreshByOffer,
+  fetchedBookings,
+  startFetchBookings,
+  errorFetchingBookings,
+  addBooking,
+  addBookingStart,
+  addBookingError,
+  addBookingSuccess,
+} from './actions-old';
 
-export const actionTypes = {
-  HAS_FETCHED_BOOKINGS: 'HAS_FETCHED_BOOKINGS',
-  START_FETCH_BOOKINGS: 'START_FETCH_BOOKINGS',
-  ERROR_FETCHING_BOOKINGS: 'ERROR_FETCHING_BOOKINGS',
-
-  START_UPDATING_BOOKING_STATUS: 'START_UPDATING_BOOKING_STATUS',
-  ERROR_UPDATING_BOOKING_STATUS: 'ERROR_UPDATING_BOOKING_STATUS',
-  BOOKING_STATUS_UPDATED: 'BOOKING_STATUS_UPDATED',
-
-  START_UPDATING_BOOKING_OPTION: 'START_UPDATING_BOOKING_OPTION',
-  ERROR_UPDATING_BOOKING_OPTION: 'ERROR_UPDATING_BOOKING_OPTION',
-  BOOKING_OPTION_CANCELLED: 'BOOKING_OPTION_CANCELLED',
-
-  BOOKING_OPTION_REGISTER_SUCCESS: 'BOOKING_OPTION_REGISTER_SUCCESS',
-
-  BOOKING_ADD_START: 'BOOKING_ADD_START',
-  BOOKING_ADD_ERROR: 'BOOKING_ADD_ERROR',
-  BOOKING_ADD_SUCCESS: 'BOOKING_ADD_SUCCESS',
-
-  BOOKING_DELETE_START: 'BOOKING_DELETE_START',
-  BOOKING_DELETE_SUCCESS: 'BOOKING_DELETE_SUCCESS',
-  BOOKING_DELETE_ERROR: 'BOOKING_DELETE_ERROR',
+export {
+  actionTypes,
+  updatingBookingStatus,
+  errorUpdatingBookingStatus,
+  bookingStatusUpdated,
+  confirmBookingAttendance,
+  discardBookingAttendance,
+  confirmBooking,
+  deleteBookingStart,
+  deleteBookingSuccess,
+  deleteBookingError,
+  deleteBooking,
+  refreshByOffer,
+  fetchedBookings,
+  startFetchBookings,
+  errorFetchingBookings,
+  addBooking,
+  addBookingStart,
+  addBookingError,
+  addBookingSuccess,
 };
 
-export function updatingBookingOption(bookingOptionId: number) {
-  return { type: actionTypes.START_UPDATING_BOOKING_OPTION, bookingOptionId };
-}
+export const retrieveActions = {
+  success: createAction('BOOKING/RETRIEVE/SUCCESS'),
+  isLoading: createAction('BOOKING/RETRIEVE/IS_LOADING'),
+  error: createAction('BOOKING/RETRIEVE/ERROR'),
+};
 
-export function errorUpdatingBookingOption(bookingOptionId: number) {
-  return { type: actionTypes.ERROR_UPDATING_BOOKING_OPTION, bookingOptionId };
-}
-
-export function bookingOptionCancelled(bookingOptionId: number) {
-  return { type: actionTypes.BOOKING_OPTION_CANCELLED, bookingOptionId };
-}
-
-export function discardBookingOption(bookingOptionId: number) {
+export function retrieveBooking(id: number, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
-    dispatch(updatingBookingOption(bookingOptionId));
+    dispatch(retrieveActions.isLoading(true));
+    dispatch(retrieveActions.error(null));
 
     try {
-      await api.booking.discardBookingOption(bookingOptionId);
-
-      dispatch(bookingOptionCancelled(bookingOptionId));
+      const response = await retrieveBookingAPI(id);
+      dispatch(retrieveActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
     } catch (err) {
-      console.error(err);
-      dispatch(errorUpdatingBookingOption(bookingOptionId));
+      dispatch(retrieveActions.error(err));
+      if (options && options.onError) options.onError(err);
     }
+    dispatch(retrieveActions.isLoading(false));
   };
 }
 
-export function bookingOptionRegistered(bookingOption: BookingOption) {
-  return { type: actionTypes.BOOKING_OPTION_REGISTER_SUCCESS, bookingOption };
-}
+export const updateActions = {
+  success: createAction('BOOKING/UPDATE/SUCCESS'),
+  isLoading: createAction('BOOKING/UPDATE/IS_LOADING'),
+  error: createAction('BOOKING/UDPATE/ERROR'),
+};
 
-export function registerToWaitingList(
-  offerId: number,
-  memberId: number,
-  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+function updateBooking(
+  id: number,
+  data: any,
+  options: OptionCallback,
+  apiCall: any,
 ) {
   return async (dispatch: Dispatch) => {
-    try {
-      const response = await api.booking.registerToWaitingList(
-        offerId,
-        memberId,
-      );
-      dispatch(bookingOptionRegistered(response.data));
-      if (options && options.onSuccess) options.onSuccess();
-    } catch (err) {
-      console.error(err);
-      if (options && options.onError) options.onError();
-    }
-  };
-}
-
-export function updatingBookingStatus(bookingId: number) {
-  return { type: actionTypes.START_UPDATING_BOOKING_STATUS, bookingId };
-}
-
-export function errorUpdatingBookingStatus(bookingId: number) {
-  return { type: actionTypes.ERROR_UPDATING_BOOKING_STATUS, bookingId };
-}
-
-export function bookingStatusUpdated(booking: Booking) {
-  return { type: actionTypes.BOOKING_STATUS_UPDATED, booking };
-}
-
-function bookingUpdateWrapper(apiCall, bookingId) {
-  return async (dispatch: Dispatch) => {
-    dispatch(updatingBookingStatus(bookingId));
+    dispatch(updateActions.isLoading(true));
+    dispatch(updateActions.error(null));
 
     try {
-      const response = await apiCall(bookingId);
-      const booking = response.data;
-      dispatch(bookingStatusUpdated(booking));
-    } catch (err) {
-      console.error(err);
-      dispatch(errorUpdatingBookingStatus(bookingId));
-    }
-  };
-}
-export function confirmBookingAttendance(bookingId: number) {
-  return bookingUpdateWrapper(api.booking.confirmAttendance, bookingId);
-}
-export function discardBookingAttendance(bookingId: number) {
-  return bookingUpdateWrapper(api.booking.discardAttendance, bookingId);
-}
-export function confirmBooking(bookingId: number) {
-  return bookingUpdateWrapper(api.booking.validate, bookingId);
-}
-
-export function deleteBookingStart(bookingId: number) {
-  return { type: actionTypes.BOOKING_DELETE_START, bookingId };
-}
-export function deleteBookingSuccess(bookingId: number) {
-  return { type: actionTypes.BOOKING_DELETE_SUCCESS, bookingId };
-}
-export function deleteBookingError(bookingId: number) {
-  return { type: actionTypes.BOOKING_DELETE_ERROR, bookingId };
-}
-export function deleteBooking(bookingId: number, successCallback: ?() => void) {
-  return async (dispatch) => {
-    dispatch(deleteBookingStart(bookingId));
-
-    try {
-      await api.booking.discard(bookingId);
-      dispatch(deleteBookingSuccess(bookingId));
-      dispatch(snackbarSuccess('form.booking.delete.success'));
-      if (successCallback) {
-        successCallback();
+      const response = await apiCall(id, data);
+      dispatch(updateActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
       }
     } catch (err) {
-      dispatch(deleteBookingError(bookingId));
-      dispatch(snackbarError('form.booking.delete.error'));
+      dispatch(updateActions.error(err));
+      if (options && options.onError) options.onError(err);
     }
+    dispatch(updateActions.isLoading(false));
   };
 }
 
-export function refreshByOffer(offerId: number) {
+export const discardAttendance = (id, options) =>
+  updateBooking(id, {}, options, discardAttendanceAPI);
+export const confirmAttendance = (id, options) =>
+  updateBooking(id, {}, options, confirmAttendanceAPI);
+export const cancelBooking = (id, data, options) =>
+  updateBooking(id, data, options, cancelBookingAPI);
+
+export const byMemberActions = {
+  success: createAction('BOOKING/BY_MEMBER/SUCCESS'),
+  isLoading: createAction('BOOKING/BY_MEMBER/IS_LOADING'),
+  error: createAction('BOOKING/BY_MEMBER/ERROR'),
+};
+
+export function fetchBookingsByMember(
+  member: number,
+  page: number,
+  page_size: number,
+  options: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
-    dispatch(errorFetchingBookings(null));
+    dispatch(byMemberActions.isLoading(true));
+    dispatch(byMemberActions.error(null));
+
     try {
-      const response = await api.booking.fetchBookingsByOffer(offerId);
-      const bookings = response.data;
-      const response_ = await fetchFilteredBookingOptionsAPI({
-        offer: offerId,
-        as_manager: true,
+      const response = await fetchBookingListAPI({
+        member,
+        page,
+        page_size,
       });
-      const booking_options = response_.data;
-
-      dispatch(fetchedBookings({ bookings, booking_options }));
+      dispatch(byMemberActions.success({ ...response.data, page }));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
     } catch (err) {
-      dispatch(errorFetchingBookings(err));
+      dispatch(byMemberActions.error(err));
+      if (options && options.onError) options.onError(err);
     }
+    dispatch(byMemberActions.isLoading(false));
   };
 }
 
-export function fetchBookingsByOffer(offerId: number) {
-  return async (dispatch: Dispatch) => {
-    dispatch(startFetchBookings());
-    dispatch(refreshByOffer(offerId));
-  };
-}
+export const byConsumerPackActions = {
+  success: createAction('BOOKING/BY_CONSUMER_PACK/SUCCESS'),
+  isLoading: createAction('BOOKING/BY_CONSUMER_PACK/IS_LOADING'),
+  error: createAction('BOOKING/BY_CONSUMER_PACK/ERROR'),
+};
 
-export function fetchBookingsByMember(memberId: number) {
+export function fetchBookingsByConsumerPack(
+  consumer_payment_pack: number,
+  page: number,
+  page_size: number,
+  options: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
-    dispatch(startFetchBookings());
+    dispatch(byConsumerPackActions.isLoading(true));
+    dispatch(byConsumerPackActions.error(null));
 
     try {
-      const response = await api.booking.fetchBookingsByMember(memberId);
-      const bookings = response.data;
-      const response_ = await api.booking.fetchOptionsByMember(memberId);
-      const booking_options = response_.data;
-
-      dispatch(fetchedBookings({ bookings, booking_options }));
+      const response = await fetchBookingListAPI({
+        consumer_payment_pack,
+        page,
+        page_size,
+      });
+      dispatch(byConsumerPackActions.success({ ...response.data, page }));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
     } catch (err) {
-      dispatch(errorFetchingBookings(err));
+      dispatch(byConsumerPackActions.error(err));
+      if (options && options.onError) options.onError(err);
     }
+    dispatch(byConsumerPackActions.isLoading(false));
   };
 }
 
-export function fetchedBookings({
-  bookings,
-  booking_options,
-}: {
-  bookings: Array<Booking>,
-  booking_options: Array<BookingOption>,
-}) {
-  return { type: actionTypes.HAS_FETCHED_BOOKINGS, bookings, booking_options };
-}
-export function startFetchBookings() {
-  return { type: actionTypes.START_FETCH_BOOKINGS };
-}
-export function errorFetchingBookings(error: ?Error) {
-  return { type: actionTypes.ERROR_FETCHING_BOOKINGS, error };
+export const byOfferActions = {
+  success: createAction('BOOKING/BY_OFFER/SUCCESS'),
+  isLoading: createAction('BOOKING/BY_OFFER/IS_LOADING'),
+  error: createAction('BOOKING/BY_OFFER/ERROR'),
+};
+
+export function fetchBookingsByOffer(offer: number, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(byOfferActions.isLoading(true));
+    dispatch(refreshBookingsByOffer(offer, options));
+  };
 }
 
-export function addBooking({
-  offerId,
-  consumerPaymentPackId,
-  callback,
-  onError,
-}: {
+export function refreshBookingsByOffer(offer: number, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(byOfferActions.error(null));
+
+    try {
+      const response = await fetchBookingListAPI({
+        in_offer: offer,
+        page_size: 300,
+      });
+      dispatch(byOfferActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (err) {
+      dispatch(byOfferActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(byOfferActions.isLoading(false));
+  };
+}
+
+export const registerActions = {
+  success: createAction('BOOKING/REGISTER/SUCCESS'),
+  isLoading: createAction('BOOKING/REGISTER/IS_LOADING'),
+  error: createAction('BOOKING/REGISTER/ERROR'),
+};
+
+export function registerBooking(
   offerId: number,
-  consumerPaymentPackId: number,
-  callback: ?() => void,
-  onError: ?() => void,
-}) {
+  consumer_payment_pack: number,
+  options: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
-    dispatch(addBookingStart());
+    dispatch(registerActions.isLoading(true));
+    dispatch(registerActions.error(null));
 
     try {
-      const response = await api.booking.addToOffer({
-        consumerPaymentPackId,
-        offerId,
-      });
+      const response = await registerBookingAPI(consumer_payment_pack, offerId);
       const booking = response.data;
+      dispatch(registerActions.success(booking));
 
-      dispatch(addBookingSuccess(booking));
-      if (callback) {
-        callback();
+      if (options && options.onSuccess) {
+        options.onSuccess(booking);
       }
     } catch (err) {
       console.error(err);
-      dispatch(addBookingError(err));
-      if (typeof onError === 'function') onError();
+      dispatch(registerActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
     }
   };
-}
-
-export function addBookingStart() {
-  return { type: actionTypes.BOOKING_ADD_START };
-}
-
-export function addBookingError(error: ?Error) {
-  return { type: actionTypes.BOOKING_ADD_ERROR, error };
-}
-
-export function addBookingSuccess(booking: Booking) {
-  return { type: actionTypes.BOOKING_ADD_SUCCESS, booking };
 }

@@ -7,21 +7,21 @@ import Paper from '@material-ui/core/Paper';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { compose } from 'recompose';
-import PaginatedListStateful from '../../components/PaginatedListStateful.component';
+import PaginatedListBase from '../../components/PaginatedListBase.component';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import {
-  deleteBooking as deleteBookingAction,
-  discardBookingAttendance as discardBookingAttendanceAction,
-  confirmBookingAttendance as confirmBookingAttendanceAction,
+  cancelBooking as cancelBookingAction,
+  discardAttendance as discardBookingAttendanceAction,
+  confirmAttendance as confirmBookingAttendanceAction,
   fetchBookingsByMember as fetchBookingsByMemberAction,
+  retrieveBooking,
 } from '../../libs/booking/actions';
 import { fetchOfferById as fetchOfferByIdAction } from '../../actions/offer.actions';
 
 import offerSelectors from '../../libs/offer/selectors';
 
-import { fetchMember as fetchMemberAction } from '../../libs/member/actions';
 import {
   retrieveConsumerPackBulk,
   updateCredit as updateCreditAction,
@@ -31,11 +31,14 @@ import type { Member } from '../../libs/member/types';
 import type { PaymentPack } from '../../libs/payment-packs/types';
 import type { Booking } from '../../libs/booking/types';
 
-import BookingItemForManager from '../../libs/booking/components/BookingItemForManager.component';
+import BookingItemForManagerV2 from '../../libs/booking/components/BookingItemForManagerV2.component';
 import BookingDetail from '../../libs/booking/components/BookingDetail.component';
 import RevertBookingDialog from '../../libs/booking/components/RevertBookingDialog.component';
 
-import bookingSelectors from '../../libs/booking/selectors';
+import {
+  getMemberBookingListWithConsumerPack,
+  getMemberBookingWithConsumerPack,
+} from '../../libs/booking/selectors';
 import memberSelectors from '../../libs/member/selectors';
 import paymentPackSelectors, {
   getAll as getAllPaymentPacks,
@@ -44,14 +47,18 @@ import { getConsumerPack } from '../../libs/consumer-payment-pack/selectors';
 
 type Props = {
   id: number,
+  bookingId: ?number,
+  retrieveBooking: (number, OptionCallback) => void,
+  retrieveConsumerPackBulk: (Array<number>) => void,
   member: Member,
+
   bookings: Array<Booking>,
+  bookingCount: number,
+  bookingCurrentPage: number,
 
   goToConsumerPass: (memberId: number, consumerPassId: number) => void,
-  paymentPacks: Array<PaymentPack>,
   bookingsLoading: boolean,
   fetchMemberBookings: (id: number) => void,
-  fetchMember: (id: number) => void,
   deleteBooking: (id: number) => void,
   discardBookingAttendance: (id: number) => void,
   confirmBookingAttendance: (id: number) => void,
@@ -62,7 +69,6 @@ type Props = {
   selectBooking: (memberId: number, bookingId: number) => void,
   fetchOffer: (id: number) => void,
   goToOffer: (id: number) => void,
-  fetchConsumerPack: (id: number) => void,
   getPass: (id: number) => void,
   selectedBooking: ?Booking,
   getPaymentPack: (id: number) => PaymentPack,
@@ -76,32 +82,33 @@ type State = {
   bookingToRevert: ?Booking,
 };
 
+const BOOKING_PAGE_SIZE = 5;
+
 export class MemberDetailBooking extends Component<Props, State> {
   state = { bookingToRevert: null };
 
   componentDidMount() {
-    this.props.fetchMemberBookings(this.props.id);
-    this.props.fetchMember(this.props.id);
-    if (this.props.selectedBooking) {
+    if (this.props.bookingId) {
       this.fetchBookingDetails();
     }
   }
 
   componentDidUpdate(prevProps: Props) {
     if (
-      this.props.selectedBooking &&
-      (!prevProps.selectedBooking ||
-        prevProps.selectedBooking.id !== this.props.selectedBooking.id)
+      this.props.bookingId &&
+      (!prevProps.bookingId || prevProps.bookingId !== this.props.bookingId)
     ) {
       this.fetchBookingDetails();
     }
   }
 
   fetchBookingDetails = () => {
-    this.props.fetchOffer(this.props.selectedBooking.offer);
-    this.props.fetchConsumerPack(
-      this.props.selectedBooking.consumer_payment_pack_id,
-    );
+    this.props.retrieveBooking(this.props.bookingId, {
+      onSuccess: (booking) => {
+        this.props.fetchOffer(booking.offer);
+        this.props.retrieveConsumerPackBulk([booking.consumer_payment_pack]);
+      },
+    });
   };
 
   handleBookingDeletion = () => {
@@ -122,13 +129,23 @@ export class MemberDetailBooking extends Component<Props, State> {
       <Grid container direction="row" spacing={24}>
         <Grid item xs={12} lg={6}>
           <Paper>
-            <PaginatedListStateful
-              itemPerPage={5}
+            <PaginatedListBase
+              itemPerPage={BOOKING_PAGE_SIZE}
               loading={this.props.bookingsLoading}
               listProps={{ disablePadding: true }}
               items={this.props.bookings}
+              nbItems={this.props.bookingCount}
+              page={this.props.bookingCurrentPage}
+              onPageRequested={(page, page_size) =>
+                this.props.fetchMemberBookings(this.props.id, page, page_size, {
+                  onSuccess: (bookings) =>
+                    this.props.retrieveConsumerPackBulk(
+                      bookings.map((b) => b.consumer_payment_pack),
+                    ),
+                })
+              }
               renderItem={(b) => (
-                <BookingItemForManager
+                <BookingItemForManagerV2
                   onClick={() => this.selectBooking(b)}
                   showRevertBookingButton
                   button
@@ -140,7 +157,6 @@ export class MemberDetailBooking extends Component<Props, State> {
                   booking={b}
                   heading="date_start"
                   member={this.props.member}
-                  paymentPacks={this.props.paymentPacks}
                   handleRevert={() => this.setState({ bookingToRevert: b })}
                   discardBookingAttendance={() =>
                     this.props.discardBookingAttendance(b.id)
@@ -195,11 +211,13 @@ export default compose(
   connect(
     (state, { id, bookingId }) => ({
       member: memberSelectors.get(state, id),
-      bookings: bookingSelectors.getBookings(state),
-      selectedBooking: bookingSelectors
-        .getBookings(state)
-        .find((b) => b.id === bookingId),
-      bookingsLoading: state.booking.loading,
+      bookings: getMemberBookingListWithConsumerPack(state),
+      selectedBooking: bookingId
+        ? getMemberBookingWithConsumerPack(state, bookingId)
+        : null,
+      bookingCurrentPage: state.booking.byMember.page,
+      bookingsLoading: state.booking.byMember.loading,
+      bookingCount: state.booking.byMember.count,
       paymentPacks: getAllPaymentPacks(state),
       consumerPackLoading: state.consumerPaymentPack.loading,
       getOffer: (id_: number) => offerSelectors.get(state, id_),
@@ -208,17 +226,20 @@ export default compose(
     }),
     {
       fetchMemberBookings: fetchBookingsByMemberAction,
-      fetchConsumerPack: (id) => retrieveConsumerPackBulk([id]),
+      retrieveConsumerPackBulk,
+      retrieveBooking,
       fetchOffer: fetchOfferByIdAction,
-      deleteBooking: deleteBookingAction,
-      goToOffer: (offerId: number) => push(`/offer/${offerId}`),
+
+      deleteBooking: cancelBookingAction,
       discardBookingAttendance: discardBookingAttendanceAction,
       confirmBookingAttendance: confirmBookingAttendanceAction,
-      goToConsumerPass: (memberId, consumerPassId) =>
-        push(`/member/${memberId}/pass/${consumerPassId}/`),
-      fetchMember: fetchMemberAction,
+
       incrementCredit: (id_) => updateCreditAction(id_, 1),
       decrementCredit: (id_) => updateCreditAction(id_, -1),
+
+      goToOffer: (offerId: number) => push(`/offer/${offerId}`),
+      goToConsumerPass: (memberId, consumerPassId) =>
+        push(`/member/${memberId}/pass/${consumerPassId}/`),
       selectBooking: (memberId, bookingId) =>
         push(`/member/${memberId}/bookings/${bookingId}/`),
     },

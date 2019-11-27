@@ -16,10 +16,6 @@ import OfferMinimalSummary from '../../../components/offer/OfferMinimalSummary.c
 import type { Booking } from '../types';
 import { BookingSource } from '../utils';
 // import type { Offer } from '../../libs/offer/types';
-import type {
-  ConsumerPaymentPack,
-  PaymentPack,
-} from '../../payment-packs/types';
 
 type Props = {
   classes: Object,
@@ -30,14 +26,12 @@ type Props = {
   onOfferClick: (offerId: number) => void,
   incrementCredit: (id: number) => void,
   decrementCredit: (id: number) => void,
-  consumerPack: ConsumerPaymentPack,
-  getPaymentPack: (id: number) => PaymentPack,
   onConsumerPassSelected: (id: number) => void,
 };
 
 export class BookingDetail extends Component<Props> {
   render() {
-    const { classes, t, booking, consumerPack } = this.props;
+    const { classes, t, booking } = this.props;
     if (!this.props.booking) {
       return (
         <div className={classes.container}>
@@ -59,14 +53,7 @@ export class BookingDetail extends Component<Props> {
       return <LinearProgress />;
     }
 
-    let paymentPack = null;
-    if (consumerPack) {
-      paymentPack = this.props.getPaymentPack(
-        parseInt(consumerPack.payment_pack_id, 10),
-      );
-    }
-
-    return paymentPack && consumerPack ? (
+    return (
       <div>
         <Typography component="h2" variant="h5">
           {t('details.title')}
@@ -97,18 +84,32 @@ export class BookingDetail extends Component<Props> {
         <Typography component="h3" variant="h6">
           {t('details.consumerPaymentPackTitle')}
         </Typography>
-        <Paper className={classes.paperContainer}>
-          <ConsumerPackRowItem
-            consumerPack={consumerPack}
-            paymentPack={paymentPack}
-            onClick={() => this.props.onConsumerPassSelected(consumerPack.id)}
-            hideConsumer
-            incrementCredit={() => this.props.incrementCredit(consumerPack.id)}
-            decrementCredit={() => this.props.decrementCredit(consumerPack.id)}
-          />
-        </Paper>
+        {booking.consumer_payment_pack ? (
+          <Paper className={classes.paperContainer}>
+            <ConsumerPackRowItem
+              consumerPack={booking.consumer_payment_pack}
+              paymentPack={
+                booking.consumer_payment_pack
+                  ? booking.consumer_payment_pack.payment_pack
+                  : null
+              }
+              onClick={() =>
+                this.props.onConsumerPassSelected(
+                  booking.consumer_payment_pack.id,
+                )
+              }
+              hideConsumer
+              incrementCredit={() =>
+                this.props.incrementCredit(booking.consumer_payment_pack.id)
+              }
+              decrementCredit={() =>
+                this.props.decrementCredit(booking.consumer_payment_pack.id)
+              }
+            />
+          </Paper>
+        ) : null}
       </div>
-    ) : null;
+    );
   }
 }
 

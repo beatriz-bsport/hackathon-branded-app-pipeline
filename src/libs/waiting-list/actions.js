@@ -1,13 +1,17 @@
 // @flow
+// options: OptionCallBack,
 
 import { createAction } from 'redux-actions';
 
 import {
   fetchConfiguration as fetchConfigurationAPI,
   patchConfiguration as patchConfigurationAPI,
+  fetchFilteredBookingOptions as fetchFilteredBookingOptionsAPI,
+  discardBookingOption as discardBookingOptionAPI,
+  registerOptionToWaitingList as registerOptionToWaitingListAPI,
 } from './api';
 
-import type { Dispatch, ThunkAction } from '../../state/types';
+import type { Dispatch, ThunkAction, OptionCallBack } from '../../state/types';
 
 export const configurationDetail = {
   error: createAction('WAITING_LIST_CONFIGURATION/DETAIL/ERROR'),
@@ -51,5 +55,85 @@ export function fetchConfiguration(): ThunkAction {
     }
 
     dispatch(configurationDetail.isLoading(false));
+  };
+}
+
+export const byOfferActions = {
+  error: createAction('WAITING_LIST/OPTION//BY_OFFER/ERROR'),
+  isLoading: createAction('WAITING_LIST/OPTION/BY_OFFER/IS_LOADING'),
+  success: createAction('WAITING_LIST/OPTION/BY_OFFER/SUCCESS'),
+};
+
+export function fetchByOffer(offer: number, options: OptionCallBack) {
+  return async (dispatch: Dispatch) => {
+    dispatch(byOfferActions.error(null));
+    dispatch(byOfferActions.isLoading(true));
+    try {
+      const response = await fetchFilteredBookingOptionsAPI({
+        offer,
+        as_manager: true,
+      });
+      dispatch(byOfferActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(byOfferActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(byOfferActions.isLoading(false));
+  };
+}
+
+export const discardOptionActions = {
+  error: createAction('WAITING_LIST/OPTION/DISCARD/ERROR'),
+  isLoading: createAction('WAITING_LIST/OPTION/DISCARD/IS_LOADING'),
+  success: createAction('WAITING_LIST/OPTION/DISCARD/SUCCESS'),
+};
+
+export function discardBookingOption(
+  bookingOptionId: number,
+  options: OptionCallBack,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(discardOptionActions.isLoading(true));
+    dispatch(discardOptionActions.error(null));
+
+    try {
+      await discardBookingOptionAPI(bookingOptionId);
+
+      dispatch(discardOptionActions.success(bookingOptionId));
+      if (options && options.onSuccess) options.onSuccess(bookingOptionId);
+    } catch (err) {
+      console.error(err);
+      dispatch(discardOptionActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(discardOptionActions.isLoading(false));
+  };
+}
+export const registerOptionActions = {
+  error: createAction('WAITING_LIST/OPTION/REGISTER/ERROR'),
+  isLoading: createAction('WAITING_LIST/OPTION/REGISTER/IS_LOADING'),
+  success: createAction('WAITING_LIST/OPTION/REGISTER/SUCCESS'),
+};
+
+export function registerToWaitingList(
+  offerId: number,
+  memberId: number,
+  options: OptionCallBack,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(registerOptionActions.isLoading(true));
+    dispatch(registerOptionActions.error(null));
+    try {
+      const response = await registerOptionToWaitingListAPI(offerId, memberId);
+      dispatch(registerOptionActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(registerOptionActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(registerOptionActions.isLoading(false));
   };
 }

@@ -32,7 +32,7 @@ export function RevertBookingDialog(props: Props) {
   if (!bookingToRevert) {
     return null;
   }
-  if (bookingToRevert.payment_pack) {
+  if (bookingToRevert.consumer_payment_pack) {
     return (
       <Dialog
         open={!!bookingToRevert}
@@ -45,10 +45,7 @@ export function RevertBookingDialog(props: Props) {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            {t('booking.revertBookingExplain')(
-              bookingToRevert.user.name,
-              props.offerIsAvailable,
-            )}
+            {t('booking.revertBookingExplain')(props.offerIsAvailable)}
           </DialogContentText>
         </DialogContent>
         <DialogActions>

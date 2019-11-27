@@ -13,7 +13,7 @@ import type { Booking } from '../types';
 // eslint-disable-next-line
 import type { PaymentPack } from '../../../libs/payment-packs/types';
 
-import BookingItemForManager from './BookingItemForManager.component';
+import BookingItemForManagerV2 from './BookingItemForManagerV2.component';
 
 type Props = {
   classes: Object,
@@ -29,7 +29,6 @@ type Props = {
 
   bookings: Array<Object>,
   members: Array<Member>,
-  paymentPacks: Array<PaymentPack>,
 
   onQuickInvoiceClick: (member: Member) => void,
   handleRevert: (booking: Booking) => void,
@@ -72,7 +71,7 @@ export class BookingTable extends PureComponent<Props> {
     return (
       <List disablePadding dense>
         {this.props.bookings.map((b) => (
-          <BookingItemForManager
+          <BookingItemForManagerV2
             member={this.props.members.find((m) => m.id === b.member)}
             redirectToMember={redirectToMember}
             redirectToOffer={redirectToOffer}
@@ -82,7 +81,6 @@ export class BookingTable extends PureComponent<Props> {
             key={b.id}
             heading={heading}
             booking={b}
-            paymentPacks={this.props.paymentPacks}
             showRevertBookingButton={showRevertBookingButton}
             handleRevert={() => handleRevert(b)}
             discardBookingAttendance={() => discardBookingAttendance(b.id)}

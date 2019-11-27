@@ -22,7 +22,7 @@ import {
   deleteBooking,
   discardBookingAttendance,
   confirmBookingAttendance,
-  fetchBookingsByMember,
+  fetchBookingsByConsumerPack,
 } from '../../libs/booking/actions';
 import { fetchMember as fetchMemberAction } from '../../libs/member/actions';
 import {
@@ -34,7 +34,6 @@ import {
   deletePackExtension,
   createPackExtension,
 } from '../../libs/consumer-payment-pack/actions';
-import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
 import { fetchSpecificInvoice } from '../../actions/invoice.actions';
 
 import paymentPackSelectors from '../../libs/payment-packs/selectors';
@@ -44,7 +43,7 @@ import {
   getConsumerPack,
   getConsumerPaymentPackByMember,
 } from '../../libs/consumer-payment-pack/selectors';
-import bookingSelectors from '../../libs/booking/selectors';
+import { getConsumerPackBookingListWithConsumerPack } from '../../libs/booking/selectors';
 
 import ConsumerPackRowItem from '../../libs/consumer-payment-pack/components/ConsumerPackRowItem.component';
 import ConsumerPackDetail from '../../libs/consumer-payment-pack/components/ConsumerPackDetail.component';
@@ -63,8 +62,7 @@ type Props = {
   id: number,
   fetchMember: (id: number) => void,
   fetchConsumerPacks: (id: number, page: number, page_size: number) => void,
-  fetchBookingsByMember: (id: number) => void,
-  fetchAllPaymentPacks: () => void,
+  fetchBookingsByConsumerPack: (id: number) => void,
   fetchInvoice: (uuid: string) => void,
   fetchExtensions: (consumerPassId: number) => void,
   refreshConsumerPack: (id: number) => void,
@@ -74,7 +72,6 @@ type Props = {
   selectedConsumerPass: ?ConsumerPaymentPack,
   onSelectConsumerPass: (memberId: number, consumerPassId: number) => void,
   getPaymentPack: (id: number) => PaymentPack,
-  getConsumerPackBookings: (id: number) => Array<Booking>,
   consumerPackInvoice: Invoice,
   goToInvoice: (uuid: string) => void,
   goToBooking: (memberId: number, bookingId: number) => void,
@@ -87,6 +84,11 @@ type Props = {
 
   consumerPackCount: number,
   consumerPackCurrentPage: number,
+
+  bookings: Array<Booking>,
+  bookingCurrentPage: number,
+  bookingLoading: boolean,
+  bookingCount: number,
 
   consumerPassId: ?number,
   retrieveConsumerPackBulk: (Array<number>) => void,
@@ -159,6 +161,7 @@ export class MemberDetailPass extends Component<Props, State> {
     ) {
       this.props.fetchInvoice(this.props.selectedConsumerPass.invoice);
       this.props.fetchExtensions(this.props.selectedConsumerPass.id);
+      this.fetchBookings(1, 5);
     }
   }
 
@@ -166,13 +169,19 @@ export class MemberDetailPass extends Component<Props, State> {
     if (this.props.id) {
       this.props.fetchMember(this.props.id);
       this.props.resetConsumerPackByMemberAction();
-      this.props.fetchBookingsByMember(this.props.id);
-      this.props.fetchAllPaymentPacks();
     }
   };
 
   goToBooking = (booking: Booking) => {
     this.props.goToBooking(this.props.id, booking.id);
+  };
+
+  fetchBookings = (page, page_size) => {
+    this.props.fetchBookingsByConsumerPack(
+      this.props.selectedConsumerPass.id,
+      page,
+      page_size,
+    );
   };
 
   render() {
@@ -237,9 +246,13 @@ export class MemberDetailPass extends Component<Props, State> {
                   : null
               }
               consumerPack={this.props.selectedConsumerPass}
-              bookings={this.props.getConsumerPackBookings(
-                this.props.selectedConsumerPass.id,
-              )}
+              bookings={this.props.bookings}
+              onBookingRequested={(page, page_size) =>
+                this.fetchBookings(page, page_size)
+              }
+              currentBookingPage={this.props.bookingCurrentPage}
+              bookingLoading={this.props.bookingLoading}
+              bookingCount={this.props.bookingCount}
               invoice={this.props.consumerPackInvoice}
               discardBookingAttendance={this.props.discardBookingAttendance}
               confirmBookingAttendance={this.props.confirmBookingAttendance}
@@ -346,15 +359,17 @@ export default compose(
       consumerPackLoading: state.consumerPaymentPack.byMember.loading,
       passExtensions: getConsumerPaymentPackExtensions(state),
       passExtensionsLoading: state.consumerPaymentPack.extension.loading,
-      getConsumerPackBookings: (id_) =>
-        bookingSelectors.getByConsumerPack(state, id_),
+      bookings: getConsumerPackBookingListWithConsumerPack(state),
+      bookingCurrentPage: state.booking.byConsumerPack.page,
+      bookingLoading: state.booking.byConsumerPack.loading,
+      bookingCount: state.booking.byConsumerPack.count,
     }),
     {
       goToInvoice: (uuid) => push(`/invoice/${uuid}`),
       goToRelationship: (memberId) => push(`/member/${memberId}/relation`),
       goToBooking: (memberId, bookingId) =>
         push(`/member/${memberId}/bookings/${bookingId}/`),
-      fetchBookingsByMember,
+      fetchBookingsByConsumerPack,
       onSelectConsumerPass: (memberId: number, id: number) =>
         replace(`/member/${memberId}/pass/${id}/`),
       deleteBooking,
@@ -372,7 +387,6 @@ export default compose(
       decrementCredit: (id_: number) => updateCreditAction(id_, -1),
 
       fetchInvoice: (uuid: string) => fetchSpecificInvoice(uuid),
-      fetchAllPaymentPacks,
 
       retrieveConsumerPackBulk,
       fetchConsumerPacks: (memberId: number, page: number, page_size: number) =>

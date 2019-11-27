@@ -6,7 +6,7 @@ import {
   replace as replaceRouter,
   push as routerPush,
 } from 'react-router-redux';
-import { compose } from 'recompose';
+import { compose, withProps } from 'recompose';
 
 import {
   invoice as invoiceActions,
@@ -20,17 +20,21 @@ import { mailMembers as mailMembersAction } from '../../libs/communication/actio
 import { fetchAll as fetchShopItems } from '../../libs/shop/actions/shopitem';
 
 import {
-  addBooking as addBookingAction,
-  refreshByOffer as refreshBookingsByOfferAction,
+  registerBooking as registerBookingAction,
   fetchBookingsByOffer as fetchBookingsByOfferAction,
-  deleteBooking as deleteBookingAction,
-  confirmBookingAttendance as confirmBookingAttendanceAction,
-  discardBookingAttendance as discardBookingAttendanceAction,
+  refreshBookingsByOffer as refreshBookingsByOfferAction,
+  cancelBooking as cancelBookingAction,
+  confirmAttendance as confirmBookingAttendanceAction,
+  discardAttendance as discardBookingAttendanceAction,
+} from '../../libs/booking/actions';
+import {
   discardBookingOption as discardBookingOptionAction,
   registerToWaitingList as registerToWaitingListAction,
-} from '../../libs/booking/actions';
+  fetchByOffer as fetchBookingOptionByOfferAction,
+} from '../../libs/waiting-list/actions';
 import { getPermissions } from '../../libs/role/selectors';
-import bookingSelectors from '../../libs/booking/selectors';
+import { getOfferBookingListWithConsumerPack } from '../../libs/booking/selectors';
+import { retrieveConsumerPackBulk as retrieveConsumerPackBulkAction } from '../../libs/consumer-payment-pack/actions';
 
 import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
 import { fetchPrivatePassList } from '../../libs/private-service/actions';
@@ -44,7 +48,7 @@ import {
 } from '../../libs/payment-packs/selectors';
 
 import {
-  fetchFilteredMembers,
+  fetchFilteredMembers as fetchFilteredMembersAction,
   refreshFilteredMembers,
   fetchMember as fetchMemberAction,
   createOrUpdateMember,
@@ -79,9 +83,9 @@ function mapStateToProps(state, { id }) {
     members: state.member.all,
     memberSearchLoading: state.member.search.loading,
     searchedMembers: memberSelectors.getSearched(state),
-    bookings: bookingSelectors.getBookings(state),
+    bookings: getOfferBookingListWithConsumerPack(state),
     bookingLoading: state.booking.loading,
-    bookingOptionsPending: bookingSelectors.getOptionsPending(state),
+    bookingOptionsPending: state.waitingList.option.items,
     memberCreationPending: state.member.upsert.loading,
     memberCreationErrors: state.member.upsert.error,
     compatiblePacks: compatiblePacksWithOfferAndEnabled(state),
@@ -95,6 +99,9 @@ function mapStateToProps(state, { id }) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    refreshBookingsByOffer(offerId, options) {
+      dispatch(refreshBookingsByOfferAction(offerId, options));
+    },
     revertQuickInvoiceAndRefreshOffer(uuid, offerId) {
       dispatch(
         invoiceActions.revertQuickInvoice(uuid, () =>
@@ -105,22 +112,23 @@ function mapDispatchToProps(dispatch) {
     fetchOffer(id) {
       dispatch(offerActions.fetchOfferById(id));
     },
-    fetchShopItems,
+    fetchShopItems() {
+      dispatch(fetchShopItems());
+    },
     fetchPrivatePassList() {
       dispatch(fetchPrivatePassList());
     },
     fetchPaymentComboList() {
       dispatch(fetchPaymentComboList());
     },
+    retrieveConsumerPackBulk(ids) {
+      dispatch(retrieveConsumerPackBulkAction(ids));
+    },
     fetchMember(id) {
       dispatch(fetchMemberAction(id));
     },
-    fetchOfferData(offerId) {
-      dispatch(fetchBookingsByOfferAction(offerId));
-      dispatch(fetchFilteredMembers({ offer: offerId, withNotes: true }));
-    },
-    deleteBooking(bookingId) {
-      dispatch(deleteBookingAction(bookingId));
+    cancelBooking(bookingId, data, options) {
+      dispatch(cancelBookingAction(bookingId, data, options));
     },
     discardBookingAttendance(bookingId) {
       dispatch(discardBookingAttendanceAction(bookingId));
@@ -148,6 +156,12 @@ function mapDispatchToProps(dispatch) {
     createMember(data, options) {
       dispatch(createOrUpdateMember(data, options));
     },
+    fetchBookingsByOffer(id, options) {
+      dispatch(fetchBookingsByOfferAction(id, options));
+    },
+    fetchFilteredMembers(data) {
+      dispatch(fetchFilteredMembersAction(data));
+    },
     createInvoice(
       invoiceData: InvoiceData,
       memberId: number,
@@ -163,14 +177,6 @@ function mapDispatchToProps(dispatch) {
           },
           isQuickInvoice,
         ),
-      );
-    },
-    createQuickUnevenInvoice(data, offerId) {
-      dispatch(
-        invoiceActions.createQuickInvoice(data, () => {
-          dispatch(refreshBookingsByOfferAction(offerId));
-          dispatch(refreshFilteredMembers({ offer: offerId }));
-        }),
       );
     },
     resetQuickInvoices() {
@@ -202,14 +208,14 @@ function mapDispatchToProps(dispatch) {
     snackbarSuccess(msg) {
       dispatch(snackbar.success(msg));
     },
-    addToOffer({ offerId, consumerPaymentPackId }) {
-      dispatch(
-        addBookingAction({
-          offerId,
-          consumerPaymentPackId,
-          callback: () => dispatch(refreshFilteredMembers({ offer: offerId })),
-        }),
-      );
+    registerBooking(offerId, consumerPaymentPackId, options) {
+      dispatch(registerBookingAction(offerId, consumerPaymentPackId, options));
+    },
+    createQuickInvoice(data, callback) {
+      dispatch(invoiceActions.createQuickInvoice(data, callback));
+    },
+    fetchBookingOptionByOffer(offerId) {
+      dispatch(fetchBookingOptionByOfferAction(offerId));
     },
   };
 }
@@ -221,5 +227,69 @@ export default compose(
     mapStateToProps,
     mapDispatchToProps,
   ),
+  withProps(
+    ({
+      refreshBookingsByOffer,
+      fetchFilteredMembers,
+      retrieveConsumerPackBulk,
+      id,
+    }) => ({
+      refresh: () => {
+        refreshBookingsByOffer(id, {
+          onSuccess: (bookings) => {
+            retrieveConsumerPackBulk(
+              bookings.map((b) => b.consumer_payment_pack),
+            );
+          },
+        });
+        fetchFilteredMembers({ offer: id, withNotes: true });
+      },
+    }),
+  ),
+  withProps(
+    ({
+      fetchBookingsByOffer,
+      fetchBookingOptionByOffer,
+      refresh,
+      retrieveConsumerPackBulk,
+      fetchFilteredMembers,
+      cancelBooking,
+      registerBooking,
+    }) => ({
+      addBooking: (offerId, consumerPaymentPackId) => {
+        registerBooking(offerId, consumerPaymentPackId, {
+          onSuccess: refresh,
+        });
+      },
+      deleteBooking: (bookingId) => {
+        cancelBooking(
+          bookingId,
+          {},
+          {
+            onSuccess: refresh,
+          },
+        );
+      },
+      fetchOfferData: (offerId) => {
+        fetchBookingsByOffer(offerId, {
+          onSuccess: (bookings) => {
+            retrieveConsumerPackBulk(
+              bookings.map((b) => b.consumer_payment_pack),
+            );
+          },
+        });
+        fetchFilteredMembers({ offer: offerId, withNotes: true });
+        fetchBookingOptionByOffer(offerId);
+      },
+    }),
+  ),
+  withProps(({ createQuickInvoice, refresh, id, fetchFilteredMembers }) => ({
+    createQuickUnevenInvoice: (data) => {
+      createQuickInvoice(data, () => {
+        refresh();
+        fetchFilteredMembers({ offer: id, withNotes: true });
+      });
+    },
+  })),
   withTitle(({ offer }: { offer: Offer }) => formatTitle(offer)),
 )(OfferManagementComponent);

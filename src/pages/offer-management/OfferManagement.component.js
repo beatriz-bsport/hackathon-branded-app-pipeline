@@ -105,11 +105,7 @@ type Props = {
     },
     offerId: number,
   ) => void,
-  addToOffer: ({
-    offerId: number,
-    consumerPaymentPackId: number,
-    memberId: number,
-  }) => void,
+  addBooking: (offerId: number, consumerPaymentPackId: number) => void,
   discardOption: (id: number) => void,
   deleteBooking: (bookingId: number) => void,
 
@@ -199,12 +195,7 @@ export class OfferManagement extends Component<Props, State> {
   };
 
   registerMember = async (consumerPaymentPackId: number) => {
-    const { memberToRegister } = this.state;
-    this.props.addToOffer({
-      offerId: this.props.offerId,
-      consumerPaymentPackId,
-      memberId: memberToRegister,
-    });
+    this.props.addBooking(this.props.offerId, consumerPaymentPackId);
     this.clearSearch();
     if (this.state.optionToDiscard) {
       this.props.discardOption(this.state.optionToDiscard);

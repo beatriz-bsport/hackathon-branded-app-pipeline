@@ -237,15 +237,28 @@ function IntegrationReactSelect(props: IntegrationReactSelectProps) {
   const selectStyles = {
     input: (base) => ({
       ...base,
+      flex: 1,
       color: theme.palette.text.primary,
       '& input': {
         font: 'inherit',
       },
     }),
   };
-
   const SelectComponent =
     typeof onCreateOption === 'function' ? CreatableSelect : Select;
+
+  const valueSelector = (
+    multi: boolean,
+    suggestionValues: Array<any>,
+    selectedValues: any,
+  ) => {
+    if (multi) {
+      return selectedValues
+        ? suggestionValues.filter((s) => selectedValues.includes(s.value))
+        : null;
+    }
+    return suggestionValues.find((s) => s.value === selectedValues);
+  };
 
   return (
     <div className={`${className || ''} ${classes.root}`}>
@@ -257,7 +270,7 @@ function IntegrationReactSelect(props: IntegrationReactSelectProps) {
         value={
           nullCurrentValue
             ? null
-            : suggestions.find((s) => s.value === selected)
+            : valueSelector(isMulti, suggestions, selected)
         }
         onChange={onChange}
         placeholder={placeholder}

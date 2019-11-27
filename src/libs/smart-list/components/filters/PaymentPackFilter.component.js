@@ -4,6 +4,9 @@ import React, { Component } from 'react';
 import { withNamespaces } from 'react-i18next';
 import { compose } from 'recompose';
 import type { TFunction } from 'react-i18next';
+import Button from '@material-ui/core/Button';
+
+import Checkbox from '@material-ui/core/Checkbox';
 import withStyles from '@material-ui/core/styles/withStyles';
 import PaymentPackSelector from '../../../payment-packs/components/PaymentPackSelector.component';
 import type { PaymentPack } from '../../../payment-packs/types';
@@ -29,21 +32,52 @@ export class PaymentPackFilter extends Component<Props, state> {
     return (
       <div className={classes.wrapper}>
         {t(`filters.${filter_data.filter_identifier}.first`)}
-        <PaymentPackSelector
-          value={filter_data.payment_pack}
-          paymentPacks={payment_packs}
-          onChange={(ev) => onChange({ payment_pack: ev })}
-          helperText="choix abonnement"
-          selectorClass={classes.selector}
-        />
+        <div className={classes.selectorGrow}>
+          <PaymentPackSelector
+            value={filter_data.payment_pack}
+            paymentPacks={payment_packs}
+            onChange={(ev) => {
+              onChange({ payment_pack: ev.map((pp) => pp.value) });
+            }}
+            helperText="choix abonnement"
+            selectorClass={classes.selector}
+            isMulti
+          />
+        </div>
+        <Button
+          onClick={() => {
+            if (
+              filter_data.payment_pack &&
+              payment_packs.length === filter_data.payment_pack.length
+            ) {
+              onChange({ payment_pack: [] });
+            } else {
+              onChange({ payment_pack: payment_packs.map((pp) => pp.id) });
+            }
+          }}
+        >
+          <Checkbox
+            checked={
+              filter_data.payment_pack
+                ? payment_packs.length === filter_data.payment_pack.length
+                : false
+            }
+            tabIndex={-1}
+            disableRipple
+          />
+          Tous
+        </Button>
       </div>
     );
   }
 }
 
 const styles = (theme) => ({
+  selectorGrow: {
+    flexGrow: 0,
+  },
   selector: {
-    maxWidth: '350px',
+    minWidth: '300px',
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
   },

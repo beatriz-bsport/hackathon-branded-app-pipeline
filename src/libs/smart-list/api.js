@@ -33,6 +33,12 @@ export const deleteSmartList = (id: string) => {
   return deleteAuth(`${SMART_LIST_URI}${id}/`);
 };
 
+export const sendMail = async (id: number, email_template: number) => {
+  return postAuth(`${SMART_LIST_URI}${id}/contact_with_template/`, {
+    email_template,
+  });
+};
+
 export const fetchSmartListMembers = async (
   id: number,
   { page, page_size },

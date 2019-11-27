@@ -4,20 +4,19 @@ import React from 'react';
 import { withNamespaces } from 'react-i18next';
 
 import classNames from 'classnames';
-import PaymentPackSummary from '../../../components/payment-pack/PaymentPackSummary.component';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Typography from '@material-ui/core/Typography';
 
 import Selector from '../../../components/Selector.component';
 
-import type { PaymentPack } from '../../../api/types';
-
 type Props = {
   classes: Object,
-  paymentPacks: Array<PaymentPack>,
+  emails: Array<EmailTemplate>,
   onChange: (?number) => void,
   helperText: string,
   value: ?number,
   selectorClass: string,
-  isMulti: boolean,
   nullCurrentValue?: boolean,
 };
 
@@ -29,35 +28,39 @@ type OptionProps = {
   isFocused: boolean,
 };
 
-function paymentPackOption(props: OptionProps) {
+function emailOption(props: OptionProps) {
   const { data, innerRef, innerProps, isSelected, isFocused } = props;
   return (
     <div ref={innerRef} {...innerProps}>
-      <PaymentPackSummary
-        selected={isSelected}
-        isFocused={isFocused}
-        paymentPack={data.pp}
-        noDivider
-        button
-      />
+      <ListItem button divider selected={isFocused || isSelected}>
+        <ListItemText
+          dense
+          primary={
+            <Typography component="span" variant="subtitle1">
+              {data.pp.title}
+            </Typography>
+          }
+          secondary={data.pp.subject}
+        />
+      </ListItem>
     </div>
   );
 }
 
-export function PaymentPackSelector(props: Props) {
+export function EmailSelector(props: Props) {
   const {
     value,
     onChange,
-    paymentPacks,
+    emails,
     classes,
     selectorClass,
     helperText,
     nullCurrentValue,
   } = props;
-  const suggestions = paymentPacks
+  const suggestions = emails
     .asMutable()
-    .sort((pp, pp_) => pp.name > pp_.name)
-    .map((pp) => ({ value: pp.id, label: pp.name, pp }));
+    .sort((pp, pp_) => pp.title > pp_.title)
+    .map((pp) => ({ value: pp.id, label: pp.title, pp }));
   return (
     <Selector
       searchIcon
@@ -65,18 +68,11 @@ export function PaymentPackSelector(props: Props) {
       nullCurrentValue={nullCurrentValue}
       suggestions={suggestions}
       className={classNames(classes, selectorClass)}
-      components={{ Option: paymentPackOption }}
+      components={{ Option: emailOption }}
       placeholder={helperText}
-      onChange={(event) => {
-        if (props.isMulti) {
-          onChange(event);
-        } else {
-          onChange(event.value);
-        }
-      }}
-      isMulti={props.isMulti}
+      onChange={onChange}
     />
   );
 }
 
-export default withNamespaces()(PaymentPackSelector);
+export default withNamespaces()(EmailSelector);

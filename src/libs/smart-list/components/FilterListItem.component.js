@@ -14,7 +14,6 @@ import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Typography from '@material-ui/core/Typography';
 
 import {
   CREDIT_ACCOUNT_FILTER_IDENTIFIER,
@@ -26,8 +25,12 @@ import {
   SENIORITY_FILTER_IDENTIFIER,
   HAS_VALID_CONSUMER_PACK_FILTER_IDENTIFIER,
   BOOKING_ATTENDANCE_FILTER_IDENTIFIER,
-  HAS_BOOKED_META_ACTIVITY_FILTER_IDENTIFIER,
+  WENT_TO_ACTIVITY_FILTER_IDENTIFIER,
+  TAG_FILTER_IDENTIFIER,
+  CREDIT_FILTER_IDENTIFIER,
 } from '@bsport/common/lib/master-data/smart-list';
+
+import CreditFilter from './filters/CreditFilter.component';
 
 import CreditAccountFilter from './filters/CreditAccountFilter.component';
 import LastPreviousBookingFilter from './filters/LastPreviousBookingFilter.component';
@@ -38,6 +41,7 @@ import PaymentPackCreditFilter from './filters/PaymentPackCreditFilter.component
 import SeniorityFilter from './filters/SeniorityFilter.component';
 import MetaActivityFilter from './filters/MetaActivityFilter.component';
 import BookingAttendanceFilter from './filters/BookingAttendanceFilter.component';
+import TagFilter from './filters/TagFilter.component';
 
 import type { PaymentPack } from '../../payment-packs/types';
 
@@ -45,7 +49,8 @@ type Props = {
   payment_packs: Array<PaymentPack>,
   meta_activities: Array<any>,
   classes: Object,
-
+  tag_groups: Array<any>,
+  tags: Array<any>,
   onClickEdit: (id: number) => void,
   onClickDelete: (id: number) => void,
   onClickCreate: (filter_identifier: number, data: any) => void,
@@ -154,7 +159,7 @@ export class FilterCard extends Component<Props> {
             new={this.props.new}
           />
         );
-      case HAS_BOOKED_META_ACTIVITY_FILTER_IDENTIFIER:
+      case WENT_TO_ACTIVITY_FILTER_IDENTIFIER:
         return (
           <MetaActivityFilter
             filter_data={this.state.filter_data}
@@ -171,6 +176,24 @@ export class FilterCard extends Component<Props> {
             new={this.props.new}
           />
         );
+      case TAG_FILTER_IDENTIFIER:
+        return (
+          <TagFilter
+            filter_data={this.state.filter_data}
+            tag_groups={this.props.tag_groups}
+            tags={this.props.tags}
+            onChange={this.handleChange}
+            new={this.props.new}
+          />
+        );
+      case CREDIT_FILTER_IDENTIFIER:
+        return (
+          <CreditFilter
+            filter_data={this.state.filter_data}
+            onChange={this.handleChange}
+            new={this.props.new}
+          />
+        );
       default:
         return null;
     }
@@ -181,14 +204,7 @@ export class FilterCard extends Component<Props> {
     return (
       <div>
         <ListItem>
-          <ListItemText
-            primary={
-              <Typography component="span" variant="subtitle1">
-                {t(`filters.${filter.filter_identifier}.name`)}
-              </Typography>
-            }
-            secondary={this.filterTypeSelector()}
-          />
+          <ListItemText primary={this.filterTypeSelector()} />
           <ListItemSecondaryAction>
             {this.props.onClickCreate ? (
               <Button
@@ -205,7 +221,7 @@ export class FilterCard extends Component<Props> {
                 disabled={Object.values(this.state.filter_data).includes(null)}
               >
                 <SaveIcon className={this.props.classes.leftIcon} />
-                Ajouter
+                {t('filters.add')}
               </Button>
             ) : null}
             {this.props.onClickDelete ? (

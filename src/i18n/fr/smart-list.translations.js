@@ -6,15 +6,22 @@ import {
   GENDER_FILTER_IDENTIFIER,
   PAYMENT_PACK_CREDIT_FILTER_IDENTIFIER,
   SENIORITY_FILTER_IDENTIFIER,
-  HAS_BOOKED_META_ACTIVITY_FILTER_IDENTIFIER,
+  WENT_TO_ACTIVITY_FILTER_IDENTIFIER,
   HAS_VALID_CONSUMER_PACK_FILTER_IDENTIFIER,
   LTE_COMPARATOR,
   BOOKING_ATTENDANCE_FILTER_IDENTIFIER,
   GTE_COMPARATOR,
   LT_COMPARATOR,
   GT_COMPARATOR,
+  CREDIT_FILTER_IDENTIFIER,
+  TAG_FILTER_IDENTIFIER,
   E_COMPARATOR,
 } from '@bsport/common/lib/master-data/smart-list';
+
+const MEMBER_INFO = 1;
+const PAYMENT_PACK = 2;
+const BOOKING = 3;
+const BUY = 4;
 
 export default {
   modal: {
@@ -25,6 +32,9 @@ export default {
       cancel: 'Annuler',
       confirm: 'Supprimer',
     },
+  },
+  mail: {
+    send: 'Envoyer un email',
   },
   detail: {
     tab: {
@@ -48,36 +58,38 @@ export default {
     detail: 'Détail de la liste',
     createTitle: 'Liste intelligente',
   },
+  filterCategory: {
+    [MEMBER_INFO]: 'Informations membre',
+    [PAYMENT_PACK]: 'Abonnements',
+    [BOOKING]: 'Réservations',
+    [BUY]: 'Achats',
+  },
   filters: {
     active_filters: 'Filtre(s) actif(s) sur la liste',
-    add: 'Ajouter un nouveau filtre',
+    add_filter: 'Ajouter un filtre',
+    add: 'Ajouter',
     before: 'avant',
     after: 'après',
     classic_comparators: {
-      [GTE_COMPARATOR]: 'supérieur',
-      [LTE_COMPARATOR]: 'inférieur',
+      [GTE_COMPARATOR]: 'supérieur (⩾)',
+      [LTE_COMPARATOR]: 'inférieur (⩽)',
       [E_COMPARATOR]: 'égal',
       [LT_COMPARATOR]: 'strictement inférieur',
       [GT_COMPARATOR]: 'strictement supérieur',
     },
-    durations_comparators_inverted: {
-      [GTE_COMPARATOR]: 'moins de',
-      [LTE_COMPARATOR]: 'plus de',
-      [E_COMPARATOR]: 'excatement',
-    },
     durations_comparators: {
-      [LTE_COMPARATOR]: 'moins de',
-      [GTE_COMPARATOR]: 'plus de',
-      [E_COMPARATOR]: 'excatement',
+      [LTE_COMPARATOR]: 'moins de (⩽)',
+      [GTE_COMPARATOR]: 'plus de (⩾)',
+      [E_COMPARATOR]: 'exactement',
     },
     [CREDIT_ACCOUNT_FILTER_IDENTIFIER]: {
       name: 'Credit',
-      first: 'Membres dont le crédit est   ',
+      first: 'Le crédit est   ',
       second: ' à   ',
     },
     [LAST_PREVIOUS_BOOKING_FILTER_IDENTIFIER]: {
-      name: 'Dernière réservation',
-      first: 'La dernière réservation a eu lieu il y a plus de',
+      name: 'Date dernière séance réservée',
+      first: 'La dernière séance réservée a eu lieu il y a plus de',
       second: 'jours',
     },
     [DATE_JOINED_FILTER_IDENTIFIER]: {
@@ -88,7 +100,7 @@ export default {
       after: 'après',
     },
     [PAYMENT_PACK_FILTER_IDENTIFIER]: {
-      name: 'Abonnement',
+      name: 'Abonnement acheté',
       first: "Membres ayant déjà acheté l'abonnement ",
     },
     [GENDER_FILTER_IDENTIFIER]: {
@@ -99,18 +111,18 @@ export default {
     },
     [PAYMENT_PACK_CREDIT_FILTER_IDENTIFIER]: {
       name: 'Crédits par abonnement',
-      first: "Membres dont les crédits de l'abonnement",
+      first: "Les crédits de l'abonnement",
       second: 'sont',
       third: 'à',
     },
     [HAS_VALID_CONSUMER_PACK_FILTER_IDENTIFIER]: {
       name: "Validité de l'abonnement",
-      first: 'Membres possèdant un abonnement',
+      first: 'Possède un abonnement',
       second: 'utilisable',
     },
-    [HAS_BOOKED_META_ACTIVITY_FILTER_IDENTIFIER]: {
-      name: 'Activité réservée',
-      first: 'Membres ayant réservé une séance de',
+    [WENT_TO_ACTIVITY_FILTER_IDENTIFIER]: {
+      name: 'Par activité',
+      first: 'A participé à une séance de',
       second: 'au cours des',
       third: 'derniers jours',
     },
@@ -122,8 +134,17 @@ export default {
     },
     [SENIORITY_FILTER_IDENTIFIER]: {
       name: 'Ancienneté',
-      first: 'Membres depuis',
+      first: 'Membre depuis',
       second: 'jours',
+    },
+    [CREDIT_FILTER_IDENTIFIER]: {
+      name: 'Maximum de crédits disponibles',
+      first: 'Le nombre de crédits disponibles sur chacun des abonnements est',
+      second: 'à',
+    },
+    [TAG_FILTER_IDENTIFIER]: {
+      name: 'Tags',
+      first: 'Filtrer sur les tags suivants',
     },
   },
 };

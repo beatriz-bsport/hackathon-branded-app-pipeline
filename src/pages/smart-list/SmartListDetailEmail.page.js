@@ -1,16 +1,19 @@
 // @flow
-import React from 'react';
+import React, { Component } from 'react';
 // import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 import { withNamespaces } from 'react-i18next';
 // import type { TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import Button from '@material-ui/core/Button';
 
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
 import { fetchContactList } from '../../libs/communication/actions';
 import { getEmailContact } from '../../libs/communication/selectors';
 import EmailTable from '../../libs/communication/components/EmailTable.component';
 import type { EmailContact } from '../../libs/communication/types';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 type Props = {
   id: number,
@@ -21,21 +24,54 @@ type Props = {
   fetchContactList: (params: any) => void,
 };
 
-export const SmartListDetailEmail = (props: Props) => {
-  return (
-    <div>
-      <EmailTable
-        fetch={(params) =>
-          props.fetchContactList({ ...params, smartlist: props.id })
-        }
-        contacts={props.contactList}
-        count={props.count}
-        page={props.page}
-        loading={props.loading}
-      />
-    </div>
-  );
-};
+export class SmartListDetailEmail extends Component<Props, state> {
+  state = {
+    selectedPreview: false,
+  };
+
+  render() {
+    const { contactList, count, page, loading } = this.props;
+    return (
+      <div>
+        <EmailTable
+          fetch={(params) =>
+            this.props.fetchContactList({ ...params, smartlist: this.props.id })
+          }
+          contacts={contactList}
+          count={count}
+          page={page}
+          loading={loading}
+          displayMailPreview={(id) => this.setState({ selectedPreview: id })}
+        />
+        <Dialog open={this.state.selectedPreview}>
+          <div>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: contactList.find(
+                  (contact) => contact.member.id === this.state.selectedPreview,
+                )
+                  ? contactList.find(
+                      (contact) =>
+                        contact.member.id === this.state.selectedPreview,
+                    ).data.body
+                  : null,
+              }}
+            />
+          </div>
+          <DialogActions>
+            <Button
+              onClick={() => {
+                this.setState({ selectedPreview: null });
+              }}
+            >
+              {'Annuler'}
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+    );
+  }
+}
 
 // const styles = (theme) => ({});
 

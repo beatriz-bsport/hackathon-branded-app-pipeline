@@ -39,13 +39,18 @@ export class PaymentPackCreditFilter extends Component<Props, state> {
     return (
       <div className={classes.wrapper}>
         {t(`filters.${filter_data.filter_identifier}.first`)}
-        <PaymentPackSelector
-          value={filter_data.payment_pack}
-          paymentPacks={payment_packs}
-          onChange={(ev) => onChange({ payment_pack: ev })}
-          helperText="choix abonnement"
-          selectorClass={classes.selector}
-        />
+        <div className={classes.selectorGrow}>
+          <PaymentPackSelector
+            value={filter_data.payment_pack}
+            paymentPacks={payment_packs}
+            onChange={(ev) => {
+              onChange({ payment_pack: ev.map((pp) => pp.value) });
+            }}
+            helperText="choix abonnement"
+            selectorClass={classes.selector}
+            isMulti
+          />
+        </div>
         {t(`filters.${filter_data.filter_identifier}.second`)}
         <Select
           className={classes.input}
@@ -72,6 +77,9 @@ export class PaymentPackCreditFilter extends Component<Props, state> {
 }
 
 const styles = (theme) => ({
+  selectorGrow: {
+    flexGrow: 0,
+  },
   input: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
@@ -86,7 +94,7 @@ const styles = (theme) => ({
     alignItems: 'center',
   },
   selector: {
-    maxWidth: '350px',
+    minWidth: '300px',
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
   },

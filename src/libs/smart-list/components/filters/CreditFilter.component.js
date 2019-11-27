@@ -9,8 +9,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import { DURATION_COMPARATORS_DICT } from '@bsport/common/lib/master-data/smart-list';
-
 import NumericInput from '../../../../components/input/NumericInput.component';
 
 type Props = {
@@ -21,7 +19,7 @@ type Props = {
   new: boolean,
 };
 
-export class SeniorityFilter extends Component<Props, state> {
+export class CreditFilter extends Component<Props, state> {
   componentDidMount() {
     if (this.props.new) {
       this.props.onChange({ comparator: null, value: null });
@@ -34,24 +32,25 @@ export class SeniorityFilter extends Component<Props, state> {
       <div>
         {t(`filters.${filter_data.filter_identifier}.first`)}
         <Select
-          required
           className={classes.input}
           value={filter_data.comparator}
           onChange={(ev) => onChange({ comparator: ev.target.value })}
         >
-          {DURATION_COMPARATORS_DICT.map((item) => (
-            <MenuItem key={item.key} value={item.value}>
-              {t(`filters.durations_comparators.${item.value}`)}
-            </MenuItem>
-          ))}
+          <MenuItem key="lt" value={3}>
+            {t(`filters.classic_comparators.${3}`)}
+          </MenuItem>
+          <MenuItem key="lte" value={1}>
+            {t(`filters.classic_comparators.${1}`)}
+          </MenuItem>
+          )
         </Select>
+        {t(`filters.${filter_data.filter_identifier}.second`)}
         <NumericInput
           classes={classes}
           value={filter_data.value}
           onChange={(ev) => onChange({ value: ev.target.value })}
           required
         />
-        {t(`filters.${filter_data.filter_identifier}.second`)}
       </div>
     );
   }
@@ -72,4 +71,4 @@ const styles = (theme) => ({
 export default compose(
   withNamespaces(['smartList']),
   withStyles(styles),
-)(SeniorityFilter);
+)(CreditFilter);

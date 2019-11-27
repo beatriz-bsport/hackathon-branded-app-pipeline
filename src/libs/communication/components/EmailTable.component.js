@@ -7,6 +7,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 import Typography from '@material-ui/core/Typography';
+import CheckIcon from '@material-ui/icons/Check';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 import type { TFunction } from 'react-i18next';
 import { formatAsDatetime } from '../../../datetime';
@@ -56,9 +58,10 @@ const getColumnData = (t) => {
 };
 
 // TODO
-const renderStatus = (status) => (
-  <Typography>{JSON.stringify(status)}</Typography>
-);
+const renderStatus = (status) => {
+  if (status === 0) return <CheckIcon />;
+  return <CancelIcon />;
+};
 
 const renderRow = (
   contact,
@@ -69,7 +72,7 @@ const renderRow = (
   return {
     name: member.name,
     date_created: formatAsDatetime(date_created),
-    title: `${(data.body || '').slice(0, 20)}...`,
+    title: `${(data.subject || '').slice(0, 20)}...`,
     status: renderStatus(data.status),
   };
 };
@@ -77,11 +80,12 @@ const renderRow = (
 type Props = {
   t: TFunction,
   fetch: ({ page: number, page_size: number }) => void,
-  goToContact: (id: number) => void,
+  //  goToContact: (id: number) => void,
   loading: boolean,
   page: number,
   count: number,
   contacts: Array<EmailContact>,
+  displayMailPreview: (id: number) => void,
 };
 
 export class InvoiceTable extends Component<Props> {
@@ -97,7 +101,8 @@ export class InvoiceTable extends Component<Props> {
   }
 
   onRowClick = (rowData: any, { rowIndex }: { rowIndex: number }) => {
-    this.props.goToContact(this.props.contacts[rowIndex].member.id);
+    // this.props.goToContact(this.props.contacts[rowIndex].member.id);
+    this.props.displayMailPreview(this.props.contacts[rowIndex].member.id);
   };
 
   render() {

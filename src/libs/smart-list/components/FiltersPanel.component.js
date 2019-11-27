@@ -6,12 +6,12 @@ import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Menu from '@material-ui/core/Menu';
 import { compose } from 'recompose';
-import MenuItem from '@material-ui/core/MenuItem';
 import List from '@material-ui/core/List';
 import Collapse from '@material-ui/core/Collapse';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import ListItem from '@material-ui/core/ListItem';
 import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
 import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
@@ -19,6 +19,7 @@ import SendIcon from '@material-ui/icons/Send';
 
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import {
   CREDIT_ACCOUNT_FILTER_IDENTIFIER,
@@ -29,31 +30,52 @@ import {
   PAYMENT_PACK_CREDIT_FILTER_IDENTIFIER,
   SENIORITY_FILTER_IDENTIFIER,
   // HAS_VALID_CONSUMER_PACK_FILTER_IDENTIFIER,
-  HAS_BOOKED_META_ACTIVITY_FILTER_IDENTIFIER,
+  WENT_TO_ACTIVITY_FILTER_IDENTIFIER,
   BOOKING_ATTENDANCE_FILTER_IDENTIFIER,
+  TAG_FILTER_IDENTIFIER,
+  CREDIT_FILTER_IDENTIFIER,
 } from '@bsport/common/lib/master-data/smart-list';
 
 import FilterCard from './FilterListItem.component';
 
-const filtersList = [
-  CREDIT_ACCOUNT_FILTER_IDENTIFIER,
-  LAST_PREVIOUS_BOOKING_FILTER_IDENTIFIER,
-  DATE_JOINED_FILTER_IDENTIFIER,
-  PAYMENT_PACK_FILTER_IDENTIFIER,
-  GENDER_FILTER_IDENTIFIER,
-  PAYMENT_PACK_CREDIT_FILTER_IDENTIFIER,
-  SENIORITY_FILTER_IDENTIFIER,
-  // HAS_VALID_CONSUMER_PACK_FILTER_IDENTIFIER,
-  HAS_BOOKED_META_ACTIVITY_FILTER_IDENTIFIER,
-  BOOKING_ATTENDANCE_FILTER_IDENTIFIER,
-];
+const MEMBER_INFO = 1;
+const PAYMENT_PACK = 2;
+const BOOKING = 3;
+// const BUY = 4;
+
+const filtersList = {
+  [MEMBER_INFO]: [
+    CREDIT_ACCOUNT_FILTER_IDENTIFIER,
+    DATE_JOINED_FILTER_IDENTIFIER,
+    SENIORITY_FILTER_IDENTIFIER,
+    GENDER_FILTER_IDENTIFIER,
+    TAG_FILTER_IDENTIFIER,
+  ],
+  [BOOKING]: [
+    LAST_PREVIOUS_BOOKING_FILTER_IDENTIFIER,
+    BOOKING_ATTENDANCE_FILTER_IDENTIFIER,
+    WENT_TO_ACTIVITY_FILTER_IDENTIFIER,
+  ],
+  [PAYMENT_PACK]: [
+    PAYMENT_PACK_FILTER_IDENTIFIER,
+    PAYMENT_PACK_CREDIT_FILTER_IDENTIFIER,
+    // HAS_VALID_CONSUMER_PACK_FILTER_IDENTIFIER,
+    CREDIT_FILTER_IDENTIFIER,
+  ],
+  // [BUY]: [],
+};
+
+const filtersCategory = [MEMBER_INFO, PAYMENT_PACK, BOOKING];
 
 type Props = {
   classes: any,
+  loading: boolean,
   t: TFunction,
   filters: Array<Filter>,
   payment_packs: Array<PaymentPack>,
   meta_activities: Array<any>,
+  tags: Array<any>,
+  tag_groups: Array<any>,
   updateFilter: (
     smartListId: number,
     filterNameId: number,
@@ -81,12 +103,13 @@ export class FiltersPanel extends Component<Props> {
     new_filter: null,
     displayFilters: true,
     displayAddFilter: false,
+    displayCategoryFilters: null,
   };
 
   handleFilterChange = (filter) => {
     this.setState({
       new_filter: {
-        filter_identifier: filter.target.value,
+        filter_identifier: filter,
       },
     });
     this.setState((previousState) => ({
@@ -109,7 +132,6 @@ export class FiltersPanel extends Component<Props> {
       <div>
         <div style={{ display: 'flex' }}>
           <ListItem
-            className={classes.menu}
             button
             divider
             onClick={() =>
@@ -119,8 +141,22 @@ export class FiltersPanel extends Component<Props> {
             }
           >
             <ListItemText
-              primary={`${t('filters.active_filters')} (${filters.length})`}
+              primary={
+                this.props.loading ? (
+                  <div style={{ display: 'flex' }}>
+                    <Typography variant="body1" style={{ marginRight: '10px' }}>
+                      {`${t('filters.active_filters')}`}
+                    </Typography>
+                    <CircularProgress size="1.5rem" />
+                  </div>
+                ) : (
+                  <Typography variant="body1">
+                    {`${t('filters.active_filters')} (${filters.length})`}
+                  </Typography>
+                )
+              }
             />
+
             {this.state.displayFilters ? (
               <ExpandLessIcon />
             ) : (
@@ -137,12 +173,14 @@ export class FiltersPanel extends Component<Props> {
             >
               {filters.map((filter) => (
                 <FilterCard
-                  key={filter.id}
+                  key={`${filter.id}-${filter.filter_identifier}`}
                   filter={filter}
                   onClickEdit={this.props.updateFilter}
                   onClickDelete={this.props.deleteFilter}
                   payment_packs={this.props.payment_packs}
                   meta_activities={this.props.meta_activities}
+                  tag_groups={this.props.tag_groups}
+                  tags={this.props.tags}
                 />
               ))}
               {this.state.new_filter ? (
@@ -153,6 +191,8 @@ export class FiltersPanel extends Component<Props> {
                   meta_activities={this.props.meta_activities}
                   new
                   onClickCreate={this.createFilter}
+                  tag_groups={this.props.tag_groups}
+                  tags={this.props.tags}
                 />
               ) : null}
             </List>
@@ -173,7 +213,7 @@ export class FiltersPanel extends Component<Props> {
             disabled={this.state.new_filter}
           >
             <FilterListIcon className={this.props.classes.leftIcon} />
-            Ajouter un filtre
+            {t('filters.add_filter')}
           </Button>
           <Button
             onClick={this.props.onRequestEmail}
@@ -182,7 +222,7 @@ export class FiltersPanel extends Component<Props> {
             className={classes.actionButton}
           >
             <SendIcon className={this.props.classes.leftIcon} />
-            Envoyer un email
+            {t('mail.send')}
           </Button>
           <Menu
             anchorEl={this.state.anchorEl}
@@ -193,14 +233,60 @@ export class FiltersPanel extends Component<Props> {
               }))
             }
           >
-            {filtersList.map((key) => (
-              <MenuItem
-                onClick={(ev) => this.handleFilterChange(ev)}
-                key={key}
-                value={key}
-              >
-                {t(`filters.${key}.name`)}
-              </MenuItem>
+            {filtersCategory.map((key) => (
+              <div>
+                <ListItem
+                  className={this.props.classes.menu}
+                  onClick={() => {
+                    if (this.state.displayCategoryFilters === key) {
+                      this.setState({
+                        displayCategoryFilters: null,
+                      });
+                    } else {
+                      this.setState({
+                        displayCategoryFilters: key,
+                      });
+                    }
+                  }}
+                  button
+                  key={key}
+                  value={key}
+                >
+                  <ListItemText
+                    primary={`${t(`filterCategory.${key}`)} (${
+                      filtersList[key].length
+                    })`}
+                  />
+                  {this.state.displayCategoryFilters === key ? (
+                    <ExpandLessIcon />
+                  ) : (
+                    <ExpandMoreIcon />
+                  )}
+                </ListItem>
+                <Collapse
+                  in={this.state.displayCategoryFilters === key}
+                  key={`${key}-collapse`}
+                  timeout="auto"
+                  unmountOnExit
+                >
+                  <List
+                    disablePadding
+                    className={this.props.classes.nestedList}
+                  >
+                    {filtersList[key].map((filter) => (
+                      <ListItem
+                        className={this.props.classes.menu}
+                        onClick={() => this.handleFilterChange(filter)}
+                        key={filter}
+                        value={filter}
+                        button
+                      >
+                        <ListItemText primary={t(`filters.${filter}.name`)} />
+                      </ListItem>
+                    ))}
+                  </List>
+                </Collapse>
+              </div>
             ))}
           </Menu>
         </div>
@@ -210,6 +296,9 @@ export class FiltersPanel extends Component<Props> {
 }
 
 const styles = (theme) => ({
+  menu: {
+    width: '300px',
+  },
   textField: {
     marginTop: theme.spacing.unit * 2,
   },
@@ -234,6 +323,10 @@ const styles = (theme) => ({
   },
   leftIcon: {
     marginRight: theme.spacing.unit,
+  },
+  nestedList: {
+    backgroundColor: '#F8F8F8',
+    borderLeft: `4px solid ${theme.palette.primary.main}`,
   },
 });
 

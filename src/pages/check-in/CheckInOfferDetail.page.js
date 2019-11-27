@@ -9,21 +9,23 @@ import { withNamespaces } from 'react-i18next';
 
 import CheckInOfferDetail from '../../libs/check-in/components/CheckInOfferDetail.component';
 import {
-  fetchFilteredMembers,
+  fetchFilteredMembers as fetchFilteredMembersAction,
   search as searchMembers,
 } from '../../libs/member/actions';
 import {
-  confirmBookingAttendance as confirmBookingAttendanceAction,
+  confirmAttendance as confirmBookingAttendanceAction,
   fetchBookingsByOffer as fetchBookingsByOfferAction,
-  addBooking,
+  registerBooking,
 } from '../../libs/booking/actions';
 import { fetchOfferById } from '../../actions/offer.actions';
 import memberSelectors from '../../libs/member/selectors';
-import bookingSelectors from '../../libs/booking/selectors';
+import { getOfferBookingListWithConsumerPack } from '../../libs/booking/selectors';
 import { fetchCompatiblePass } from '../../actions/payment.actions';
 import SearchAndRegisterMember from '../../libs/check-in/components/SearchAndRegisterMember.component';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import { retrieveConsumerPackBulk as retrieveConsumerPackBulkAction } from '../../libs/consumer-payment-pack/actions';
+import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
 
 type Props = {
   classes: Object,
@@ -37,19 +39,19 @@ type Props = {
 
   members: Array<Member>,
   searchedMembers: Array<Member>,
-  fetchFilteredMembers: (params: any) => void,
   searchMembers: (text: string) => void,
+
+  fetchOfferData: () => void,
 
   compatibleConsumerPacks: Array<ConsumerPaymentPack>,
   compatibleConsumerPacksLoading: boolean,
   fetchCompatiblePass: (offerId: number, memberId: number) => void,
 
-  fetchBookingsByOfferAction: (offerId: number) => void,
-  addBooking: ({
+  registerBooking: (
     offerId: number,
     consumerPaymentPackId: number,
-    callback: () => void,
-  }) => void,
+    options: OptionCallback,
+  ) => void,
   confirmBookingAttendance: (bookingId: number) => void,
   loading: boolean,
 
@@ -60,20 +62,16 @@ type Props = {
 export class CheckInOfferDetailPage extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchOfferById(this.props.offerId);
-    this.fetchOfferData();
+    this.props.fetchOfferData();
+    this.props.fetchAllPaymentPacks();
   }
-
-  fetchOfferData = () => {
-    this.props.fetchBookingsByOfferAction(this.props.offerId);
-    this.props.fetchFilteredMembers({ offer: this.props.offerId });
-  };
 
   render() {
     return (
       <div className={this.props.classes.container}>
         <CheckInOfferDetail
           goBack={this.props.goBack}
-          refreshData={this.fetchOfferData}
+          refreshData={this.props.fetchOfferData}
           confirmBookingAttendance={(bookingId) => {
             this.props.confirmBookingAttendance(bookingId);
             this.props.redirectToConfirmPage(this.props.offerId, bookingId);
@@ -94,18 +92,18 @@ export class CheckInOfferDetailPage extends React.Component<Props> {
           fetchCompatiblePass={(memberId) =>
             this.props.fetchCompatiblePass(this.props.offerId, memberId)
           }
-          registerWithPass={(consumerPaymentPackId, { onSuccess, onError }) => {
-            this.props.addBooking({
-              offerId: this.props.offerId,
+          registerWithPass={(consumerPaymentPackId, { onSuccess }) => {
+            this.props.registerBooking(
+              this.props.offerId,
               consumerPaymentPackId,
-
-              callback: () => {
-                if (typeof onSuccess === 'function') onSuccess();
-                this.props.setRegisterModalOpen(false);
-                this.fetchOfferData();
+              {
+                onSuccess: () => {
+                  if (typeof onSuccess === 'function') onSuccess();
+                  this.props.setRegisterModalOpen(false);
+                  this.props.fetchOfferData();
+                },
               },
-              onError,
-            });
+            );
           }}
         />
       </div>
@@ -130,7 +128,7 @@ export default compose(
       offer: state.offer.offers.find((o) => o.id === offerId),
       members: state.member.all,
       searchedMembers: memberSelectors.getSearched(state),
-      bookings: bookingSelectors.getBookings(state),
+      bookings: getOfferBookingListWithConsumerPack(state),
       loading:
         state.booking.loading ||
         state.member.loading ||
@@ -141,23 +139,44 @@ export default compose(
     }),
     {
       fetchOfferById,
-      fetchFilteredMembers,
+      fetchFilteredMembers: fetchFilteredMembersAction,
       fetchBookingsByOfferAction,
+      fetchBookingsByOffer: fetchBookingsByOfferAction,
       fetchCompatiblePass,
       confirmBookingAttendance: confirmBookingAttendanceAction,
+      retrieveConsumerPackBulk: retrieveConsumerPackBulkAction,
+
+      fetchAllPaymentPacks,
 
       searchMembers,
-      addBooking,
+      registerBooking,
 
       goBack: () => pushRouter('/check-in'),
       redirectToConfirmPage: (offerId, bookingId) =>
         pushRouter(`/check-in/offer/${offerId}/booking/${bookingId}`),
     },
   ),
-  withProps(({ bookings, members }) => ({
-    members: bookings.map((booking) => ({
-      ...members.find((member) => member.id === booking.member),
-      booking,
-    })),
-  })),
+  withProps(
+    ({
+      bookings,
+      members,
+      offerId,
+      fetchFilteredMembers,
+      fetchBookingsByOffer,
+      retrieveConsumerPackBulk,
+    }) => ({
+      fetchOfferData: () => {
+        fetchBookingsByOffer(offerId, {
+          onSuccess: (bs) => {
+            retrieveConsumerPackBulk(bs.map((b) => b.consumer_payment_pack));
+          },
+        });
+        fetchFilteredMembers({ offer: offerId });
+      },
+      members: bookings.map((booking) => ({
+        ...members.find((member) => member.id === booking.member),
+        booking,
+      })),
+    }),
+  ),
 )(CheckInOfferDetailPage);

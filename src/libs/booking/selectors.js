@@ -14,6 +14,8 @@ const getByConsumerPack = (state: State, id: number) =>
 
 const _getData = (state: State) => state.booking.byId;
 
+export const getBookingById = (state: State, id: number) => getState(state).byId[id];
+
 const _getMemberBookingId = (state: State) => state.booking.byMember.allIds;
 const _getOfferBookingId = (state: State) => state.booking.byOffer.allIds;
 const _getConsumerPackBookingId = (state: State) =>

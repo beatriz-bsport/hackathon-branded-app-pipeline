@@ -8,27 +8,47 @@ import { goBack as goBackAction } from 'react-router-redux';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import CheckInConfirm from '../../libs/check-in/components/CheckInConfirm.component';
+import type { OptionCallback } from '../../state/types';
+
+import { getMemberBookingWithConsumerPack } from '../../libs/booking/selectors';
+import { retrieveBooking } from '../../libs/booking/actions';
+import { retrieveConsumerPackBulk } from '../../libs/consumer-payment-pack/actions';
 
 type Props = {
   classes: Object,
   member: Member,
-  paymentPack: any,
   booking: any,
   offer: any,
   goBack: () => void,
+
+  bookingId: number,
+
+  retrieveBooking: (id: number, options: OptionCallback) => void,
+  retrieveConsumerPackBulk: (Array<number>) => void,
 };
 
-export const CheckInConfirmPage = (props: Props) => (
-  <div className={props.classes.container}>
-    <CheckInConfirm
-      offer={props.offer}
-      booking={props.booking}
-      paymentPack={props.paymentPack}
-      member={props.member}
-      goBack={props.goBack}
-    />
-  </div>
-);
+export class CheckInConfirmPage extends React.Component<Props> {
+  componentDidMount() {
+    this.props.retrieveBooking(this.props.bookingId, {
+      onSuccess: (booking) =>
+        this.props.retrieveConsumerPackBulk([booking.consumer_payment_pack]),
+    });
+  }
+
+  render() {
+    return (
+      <div className={this.props.classes.container}>
+        <CheckInConfirm
+          offer={this.props.offer}
+          booking={this.props.booking}
+          paymentPack={this.props.booking.consumer_payment_pack.paymentPack}
+          member={this.props.member}
+          goBack={this.props.goBack}
+        />
+      </div>
+    );
+  }
+}
 
 const styles = (theme) => ({
   container: {
@@ -48,16 +68,16 @@ export default compose(
     (state, { bookingId, offerId }) => ({
       offer: state.offer.offers.find((o) => o.id === offerId),
       members: state.member.all,
-      booking: state.booking.all.find((b) => b.id === bookingId),
-      paymentPacks: state.paymentPack.all,
+      booking: getMemberBookingWithConsumerPack(state, bookingId),
       bookingLoading: state.booking.loading,
     }),
     {
       goBack: goBackAction,
+      retrieveBooking,
+      retrieveConsumerPackBulk,
     },
   ),
-  withProps(({ members, paymentPacks, booking }) => ({
-    paymentPack: paymentPacks.find((pp) => pp.id === booking.payment_pack),
+  withProps(({ members, booking }) => ({
     member: members.find((m) => m.id === booking.member),
   })),
 )(CheckInConfirmPage);

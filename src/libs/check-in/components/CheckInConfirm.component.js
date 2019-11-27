@@ -17,7 +17,6 @@ type Props = {
   t: TFunction,
   classes: Object,
   member: Member,
-  paymentPack: any,
   booking: any,
   offer: any,
   goBack: () => void,
@@ -42,7 +41,7 @@ class CheckInConfirm extends Component<Props> {
   }
 
   renderLeftPanel = () => {
-    const { classes, member, paymentPack, booking } = this.props;
+    const { classes, member, booking } = this.props;
 
     return (
       <React.Fragment>
@@ -60,7 +59,7 @@ class CheckInConfirm extends Component<Props> {
               hideConsumer
               noDivider
               consumerPack={booking.consumer_payment_pack}
-              paymentPack={paymentPack}
+              paymentPack={booking.consumer_payment_pack.payment_pack}
             />
           </Paper>
         </div>

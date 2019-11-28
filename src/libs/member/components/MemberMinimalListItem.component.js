@@ -16,6 +16,16 @@ type Props = {
   onClick?: () => void,
 };
 export const MemberMinimalListItem = (props: Props) => {
+  if (!props.member) {
+    return (
+      <ListItem>
+        <ListItemAvatar>
+          <Avatar />
+        </ListItemAvatar>
+        <ListItemText primary=" - " />
+      </ListItem>
+    );
+  }
   return (
     <ListItem
       button={!!props.onClick}

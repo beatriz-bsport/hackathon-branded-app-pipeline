@@ -3,18 +3,7 @@ import { createSelector } from 'reselect';
 import type { State } from '../../state/types';
 import { getConsumerPacksWithPaymentPack } from '../consumer-payment-pack/selectors';
 
-const getState = (state: State) => state.booking;
-
-const getBookings = (state: State) => getState(state).all;
-
-const getByConsumerPack = (state: State, id: number) =>
-  getBookings(state).filter(
-    (booking) => parseInt(booking.consumer_payment_pack_id, 10) === id,
-  );
-
 const _getData = (state: State) => state.booking.byId;
-
-export const getBookingById = (state: State, id: number) => getState(state).byId[id];
 
 const _getMemberBookingId = (state: State) => state.booking.byMember.allIds;
 const _getOfferBookingId = (state: State) => state.booking.byOffer.allIds;
@@ -74,9 +63,3 @@ export const getOfferBookingListWithConsumerPack = createSelector(
       ),
     })),
 );
-
-export default {
-  getState,
-  getBookings,
-  getByConsumerPack,
-};

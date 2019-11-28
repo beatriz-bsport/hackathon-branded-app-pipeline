@@ -19,9 +19,9 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import memberSelectors from '../../libs/member/selectors';
 import {
-  deleteBooking,
-  discardBookingAttendance,
-  confirmBookingAttendance,
+  cancelBooking as deleteBooking,
+  discardAttendance as discardBookingAttendance,
+  confirmAttendance as confirmBookingAttendance,
   fetchBookingsByConsumerPack,
 } from '../../libs/booking/actions';
 import { fetchMember as fetchMemberAction } from '../../libs/member/actions';

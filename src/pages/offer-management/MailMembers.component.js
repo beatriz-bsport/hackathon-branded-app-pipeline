@@ -46,12 +46,12 @@ export class MailDialog extends Component<Props, State> {
     openMailChoiceDialog: true,
   };
 
-  getBookingEmail = (bookingMember) => {
+  getBookingMember = (bookingMember) => {
     try {
-      const { email } = this.props.members.find(
-        (member) => member.id === bookingMember.member,
+      const member = this.props.members.find(
+        (m) => m.id === bookingMember.member,
       );
-      return email;
+      return member;
     } catch (error) {
       return null;
     }
@@ -178,8 +178,8 @@ export class MailDialog extends Component<Props, State> {
                     receiversList: (prevState.mailToBookings
                       ? bookings.map((booking) => ({
                           id: booking.member,
-                          name: booking.user.name,
-                          email: this.getBookingEmail(booking),
+                          name: this.getBookingMember(booking).name,
+                          email: this.getBookingMember(booking).email,
                         }))
                       : []
                     )
@@ -187,8 +187,8 @@ export class MailDialog extends Component<Props, State> {
                         prevState.mailToWaitingList
                           ? bookingOptionsPending.map((booking) => ({
                               id: booking.member,
-                              name: this.getBookingOptionName(booking),
-                              email: this.getBookingEmail(booking),
+                              name: this.getBookingMember(booking).name,
+                              email: this.getBookingMember(booking).email,
                             }))
                           : [],
                       )

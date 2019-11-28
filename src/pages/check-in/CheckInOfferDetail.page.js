@@ -42,6 +42,7 @@ type Props = {
   searchMembers: (text: string) => void,
 
   fetchOfferData: () => void,
+  fetchAllPaymentPacks: () => void,
 
   compatibleConsumerPacks: Array<ConsumerPaymentPack>,
   compatibleConsumerPacksLoading: boolean,

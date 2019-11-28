@@ -15,18 +15,20 @@ const EMPTY_PERFORMANCE: CoachPerformanceContainer = Immutable({
 
 export const getAllCoachesDict = (state: State): Array<Coach> =>
   state.coach.byId;
+export const getAllCoachesId = (state: State): Array<Coach> =>
+  state.coach.allIds;
 
 export const getCoachesList = (state: State): Array<Coach> =>
   state.coach.allIds;
 
 export const getAllCoaches = createSelector(
-  getAllCoachesDict,
-  (coaches) => Immutable(Object.values(coaches)),
+  [getAllCoachesId, getAllCoachesDict],
+  (ids, data) => ids.map((id) => data[id]),
 );
 
 export const getActiveCoaches = createSelector(
   getAllCoaches,
-  (coaches) => Immutable(Object.values(coaches)).filter((c) => !c.disabled),
+  (coaches) => coaches.filter((c) => !c.disabled),
 );
 
 export const getCoach = (state: State, id: number): Coach =>

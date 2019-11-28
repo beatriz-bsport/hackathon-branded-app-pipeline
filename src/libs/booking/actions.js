@@ -11,49 +11,6 @@ import {
 } from './api';
 import type { Dispatch } from '../../state/types';
 
-import {
-  actionTypes,
-  updatingBookingStatus,
-  errorUpdatingBookingStatus,
-  bookingStatusUpdated,
-  confirmBookingAttendance,
-  discardBookingAttendance,
-  confirmBooking,
-  deleteBookingStart,
-  deleteBookingSuccess,
-  deleteBookingError,
-  deleteBooking,
-  refreshByOffer,
-  fetchedBookings,
-  startFetchBookings,
-  errorFetchingBookings,
-  addBooking,
-  addBookingStart,
-  addBookingError,
-  addBookingSuccess,
-} from './actions-old';
-
-export {
-  actionTypes,
-  updatingBookingStatus,
-  errorUpdatingBookingStatus,
-  bookingStatusUpdated,
-  confirmBookingAttendance,
-  discardBookingAttendance,
-  confirmBooking,
-  deleteBookingStart,
-  deleteBookingSuccess,
-  deleteBookingError,
-  deleteBooking,
-  refreshByOffer,
-  fetchedBookings,
-  startFetchBookings,
-  errorFetchingBookings,
-  addBooking,
-  addBookingStart,
-  addBookingError,
-  addBookingSuccess,
-};
 
 export const retrieveActions = {
   success: createAction('BOOKING/RETRIEVE/SUCCESS'),

@@ -29,7 +29,7 @@ import {
 } from '../../libs/booking/actions';
 import {
   discardBookingOption as discardBookingOptionAction,
-  registerToWaitingList as registerToWaitingListAction,
+  registerToWaitingList as registerToWaitingListAction_,
   fetchByOffer as fetchBookingOptionByOfferAction,
 } from '../../libs/waiting-list/actions';
 import { getPermissions } from '../../libs/role/selectors';
@@ -49,7 +49,7 @@ import {
 
 import {
   fetchFilteredMembers as fetchFilteredMembersAction,
-  refreshFilteredMembers,
+  refreshFilteredMembers as refreshFilteredMembersAction,
   fetchMember as fetchMemberAction,
   createOrUpdateMember,
   search as searchMembersAction,
@@ -73,152 +73,83 @@ const formatTitle = (offer: Offer) => {
 
 function mapStateToProps(state, { id }) {
   return {
+    // offer
     offerId: id,
     offer: state.offer.offers.find((o) => o.id === id),
     offerLoading: state.offer.byDay.loading,
+    // payment pack
     paymentPacks: getAllPaymentPacks(state),
     paymentPacksEnabled: getPaymentPackEnabled(state),
-    shopItemsAvailable: getShopItemsAvailable(state),
+    compatiblePacks: compatiblePacksWithOfferAndEnabled(state),
+    compatiblePacksLoading: state.offer.compatiblePacks.loading,
+    // member
     membersloading: state.member.loading,
     members: state.member.all,
     memberSearchLoading: state.member.search.loading,
     searchedMembers: memberSelectors.getSearched(state),
+    memberCreationPending: state.member.upsert.loading,
+    memberCreationErrors: state.member.upsert.error,
+    // booking
     bookings: getOfferBookingListWithConsumerPack(state),
     bookingLoading: state.booking.loading,
     bookingOptionsPending: state.waitingList.option.items,
-    memberCreationPending: state.member.upsert.loading,
-    memberCreationErrors: state.member.upsert.error,
-    compatiblePacks: compatiblePacksWithOfferAndEnabled(state),
-    compatiblePacksLoading: state.offer.compatiblePacks.loading,
+    // invoice
     unevenSavedInvoices: state.invoice.quickInvoices,
+    // buyable stuff
     privatePassList: getPrivatePassAvailable(state),
     permission: getPermissions(state),
     paymentComboList: getPaymentComboList(state),
+    shopItemsAvailable: getShopItemsAvailable(state),
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    refreshBookingsByOffer(offerId, options) {
-      dispatch(refreshBookingsByOfferAction(offerId, options));
-    },
-    revertQuickInvoiceAndRefreshOffer(uuid, offerId) {
-      dispatch(
-        invoiceActions.revertQuickInvoice(uuid, () =>
-          dispatch(refreshBookingsByOfferAction(offerId)),
-        ),
-      );
-    },
-    fetchOffer(id) {
-      dispatch(offerActions.fetchOfferById(id));
-    },
-    fetchShopItems() {
-      dispatch(fetchShopItems());
-    },
-    fetchPrivatePassList() {
-      dispatch(fetchPrivatePassList());
-    },
-    fetchPaymentComboList() {
-      dispatch(fetchPaymentComboList());
-    },
-    retrieveConsumerPackBulk(ids) {
-      dispatch(retrieveConsumerPackBulkAction(ids));
-    },
-    fetchMember(id) {
-      dispatch(fetchMemberAction(id));
-    },
-    cancelBooking(bookingId, data, options) {
-      dispatch(cancelBookingAction(bookingId, data, options));
-    },
-    discardBookingAttendance(bookingId) {
-      dispatch(discardBookingAttendanceAction(bookingId));
-    },
-    confirmBookingAttendance(bookingId) {
-      dispatch(confirmBookingAttendanceAction(bookingId));
-    },
-    switchWaitingListFreeze(offerId, newFreezeState) {
-      dispatch(
-        offerActions.toogleWaitingListFreeze(offerId, newFreezeState, {
-          onSuccess: () => dispatch(offerActions.fetchOfferById(offerId)),
-        }),
-      );
-    },
-    discardOption(optionId) {
-      dispatch(discardBookingOptionAction(optionId));
-    },
-    registerToWaitingList(offerId, memberId) {
-      dispatch(
-        registerToWaitingListAction(offerId, memberId, {
-          onSuccess: () => dispatch(refreshFilteredMembers({ offer: offerId })),
-        }),
-      );
-    },
-    createMember(data, options) {
-      dispatch(createOrUpdateMember(data, options));
-    },
-    fetchBookingsByOffer(id, options) {
-      dispatch(fetchBookingsByOfferAction(id, options));
-    },
-    fetchFilteredMembers(data) {
-      dispatch(fetchFilteredMembersAction(data));
-    },
-    createInvoice(
-      invoiceData: InvoiceData,
-      memberId: number,
-      isQuickInvoice,
-      offerId,
-    ) {
-      dispatch(
-        invoiceActions.createOrUpdateInvoice(
-          invoiceData,
-          true,
-          () => {
-            dispatch(refreshFilteredMembers({ offer: offerId }));
-          },
-          isQuickInvoice,
-        ),
-      );
-    },
-    resetQuickInvoices() {
-      dispatch(invoiceActions.resetQuickInvoices());
-    },
-    goToCalendar(date) {
-      dispatch(
-        replaceRouter(`/calendar/${date.year}/${date.month}/${date.day}`),
-      );
-    },
-    goToOffer(id) {
-      dispatch(replaceRouter(`/offer/${id}`));
-    },
-    push(path) {
-      dispatch(routerPush(path));
-    },
-    goToMember(pk) {
-      dispatch(routerPush(`/member/${pk}/`));
-    },
-    searchMembers(text: string) {
-      dispatch(searchMembersAction(text));
-    },
-    mailMembers(data: any) {
-      dispatch(mailMembersAction(data));
-    },
-    fetchCompatiblePacks(id: number) {
-      dispatch(offerActions.fetchCompatiblePacks(id));
-    },
-    snackbarSuccess(msg) {
-      dispatch(snackbar.success(msg));
-    },
-    registerBooking(offerId, consumerPaymentPackId, options) {
-      dispatch(registerBookingAction(offerId, consumerPaymentPackId, options));
-    },
-    createQuickInvoice(data, callback) {
-      dispatch(invoiceActions.createQuickInvoice(data, callback));
-    },
-    fetchBookingOptionByOffer(offerId) {
-      dispatch(fetchBookingOptionByOfferAction(offerId));
-    },
-  };
-}
+const mapDispatchToProps = {
+  fetchOffer: offerActions.fetchOfferById,
+  snackbarSuccess: snackbar.success,
+
+  toogleWaitingListFreeze: offerActions.toogleWaitingListFreeze,
+  registerToWaitingListAction: registerToWaitingListAction_,
+  discardOption: discardBookingOptionAction,
+  fetchBookingOptionByOffer: fetchBookingOptionByOfferAction,
+
+  // buyyable stuff
+  fetchShopItems,
+  fetchPrivatePassList,
+  fetchPaymentComboList,
+
+  // fetch booking member and consumerpack
+  fetchBookingsByOffer: fetchBookingsByOfferAction,
+  refreshBookingsByOffer: refreshBookingsByOfferAction,
+  retrieveConsumerPackBulk: retrieveConsumerPackBulkAction,
+  fetchCompatiblePacks: offerActions.fetchCompatiblePacks,
+
+  // modify booking
+  registerBooking: registerBookingAction,
+  cancelBooking: cancelBookingAction,
+  discardBookingAttendance: discardBookingAttendanceAction,
+  confirmBookingAttendance: confirmBookingAttendanceAction,
+
+  // member
+  createMember: createOrUpdateMember,
+  fetchMember: fetchMemberAction,
+  refreshFilteredMembers: refreshFilteredMembersAction,
+  fetchFilteredMembers: fetchFilteredMembersAction,
+  searchMembers: (txt) => searchMembersAction(txt),
+  mailMembers: mailMembersAction,
+
+  // invoice actions
+  revertQuickInvoice: invoiceActions.revertQuickInvoice,
+  createQuickInvoice: invoiceActions.createQuickInvoice,
+  createOrUpdateInvoice: invoiceActions.createOrUpdateInvoice,
+  resetQuickInvoices: invoiceActions.resetQuickInvoices,
+
+  // move
+  goToCalendar: (date) =>
+    replaceRouter(`/calendar/${date.year}/${date.month}/${date.day}`),
+  goToOffer: (id) => replaceRouter(`/offer/${id}`),
+  push: routerPush,
+  goToMember: (id) => routerPush(`/member/${id}/`),
+};
 
 export default compose(
   routerParamsToProps({ id: 'id:number' }),
@@ -283,13 +214,63 @@ export default compose(
       },
     }),
   ),
-  withProps(({ createQuickInvoice, refresh, id, fetchFilteredMembers }) => ({
-    createQuickUnevenInvoice: (data) => {
-      createQuickInvoice(data, () => {
-        refresh();
-        fetchFilteredMembers({ offer: id, withNotes: true });
-      });
-    },
-  })),
+  // Waiting list
+  withProps(
+    ({
+      toogleWaitingListFreeze,
+      fetchOffer,
+      registerToWaitingListAction,
+      refreshFilteredMembers,
+    }) => ({
+      switchWaitingListFreeze: (offerId, newFreezeState) => {
+        toogleWaitingListFreeze(offerId, newFreezeState, {
+          onSuccess: () => fetchOffer(offerId),
+        });
+      },
+      registerToWaitingList: (offerId, memberId) => {
+        registerToWaitingListAction(offerId, memberId, {
+          onSuccess: () => refreshFilteredMembers({ offer: offerId }),
+        });
+      },
+    }),
+  ),
+  // Invoice
+  withProps(
+    ({
+      createOrUpdateInvoice,
+      refreshFilteredMembers,
+      createQuickInvoice,
+      refresh,
+      id,
+      fetchFilteredMembers,
+      revertQuickInvoice,
+      refreshBookingsByOffer,
+    }) => ({
+      createQuickUnevenInvoice: (data) => {
+        createQuickInvoice(data, () => {
+          refresh();
+          fetchFilteredMembers({ offer: id, withNotes: true });
+        });
+      },
+      revertQuickInvoiceAndRefreshOffer: (uuid, offerId) => {
+        revertQuickInvoice(uuid, () => refreshBookingsByOffer(offerId));
+      },
+      createInvoice: (
+        invoiceData: InvoiceData,
+        memberId: number,
+        isQuickInvoice,
+        offer,
+      ) => {
+        createOrUpdateInvoice(
+          invoiceData,
+          true,
+          () => {
+            refreshFilteredMembers({ offer });
+          },
+          isQuickInvoice,
+        );
+      },
+    }),
+  ),
   withTitle(({ offer }: { offer: Offer }) => formatTitle(offer)),
 )(OfferManagementComponent);

@@ -56,10 +56,12 @@ export const getMemberBookingWithConsumerPack = (state, id) => ({
 export const getOfferBookingListWithConsumerPack = createSelector(
   [getOfferBookingList, getConsumerPacksWithPaymentPack],
   (bookings, consumerPackList) =>
-    bookings.map((b) => ({
-      ...b,
-      consumer_payment_pack: consumerPackList.find(
-        (cpp) => cpp.id === b.consumer_payment_pack,
-      ),
-    })),
+    bookings
+      .filter((b) => !b.was_refunded)
+      .map((b) => ({
+        ...b,
+        consumer_payment_pack: consumerPackList.find(
+          (cpp) => cpp.id === b.consumer_payment_pack,
+        ),
+      })),
 );

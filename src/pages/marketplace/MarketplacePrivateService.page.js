@@ -41,6 +41,7 @@ type Props = {
     privateSlotId: number,
     associatedCoachId: number,
     date: string,
+    membership: number,
   ) => void,
   classes: Object,
 
@@ -83,7 +84,12 @@ export class MarketplacePrivateService extends React.Component<Props> {
                 bookable_slots={this.props.bookable_slots}
                 private_services={this.props.private_services}
                 searchAvailableSlots={this.props.searchAvailableSlots}
-                onClickBook={this.props.goToPrivateBookingPage}
+                onClickBook={(...args) =>
+                  this.props.goToPrivateBookingPage(
+                    ...args,
+                    this.props.companyId,
+                  )
+                }
                 searchLoading={this.props.searchLoading}
                 onPrivateServiceChange={this.props.setPrivateService}
                 onPrivateSlotChange={this.props.setPrivateSlot}
@@ -141,9 +147,10 @@ export default compose(
         privateSlotId: number,
         associatedCoachId: number,
         date: string,
+        membership: number,
       ) =>
         push(
-          `/customer/payment/private-service/${privateServiceId}/private-slot/${privateSlotId}/associated-coach/${associatedCoachId}/date/${date}/`,
+          `/customer/payment/private-service/${privateServiceId}/private-slot/${privateSlotId}/associated-coach/${associatedCoachId}/date/${date}/?membership=${membership}`,
         ),
     },
   ),

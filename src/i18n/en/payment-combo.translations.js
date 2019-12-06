@@ -2,6 +2,10 @@ export default {
   pageTitle: {
     list: 'Packs',
   },
+  link: {
+    copied: 'Copied',
+    copyLink: 'Copy link to payment page',
+  },
   list: {
     section: {
       unavailableOnline: 'Unavailable for client purchase',

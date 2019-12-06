@@ -31,6 +31,7 @@ type Props = {
   setPage: (page: number) => void,
 
   goToInvoice: (uuid: string) => void,
+  snackbarSuccess: (string) => void,
 
   classes: Object,
   t: TFunction,
@@ -43,6 +44,7 @@ export const PaymentComboDetail = (props: Props) => (
         onPaymentPackClick={props.onPaymentPackClick}
         onPrivatePassClick={props.onPrivatePassClick}
         onShopItemClick={props.onShopItemClick}
+        snackbarSuccess={props.snackbarSuccess}
       />
     </Grid>
     <Grid item xs={12} md={6}>

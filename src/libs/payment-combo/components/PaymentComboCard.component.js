@@ -15,6 +15,9 @@ import IconButton from '@material-ui/core/IconButton';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import AlertIcon from '@material-ui/icons/Warning';
+import LinkIcon from '@material-ui/icons/Link';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import ButtonBase from '@material-ui/core/ButtonBase';
 
 import TypographyMultiline from '../../../components/TypographyMultiline.component';
 import type { PaymentCombo } from '../types';
@@ -24,13 +27,33 @@ type Props = {
   onShopItemClick: (id: number) => void,
   onPaymentPackClick: (id: number) => void,
   onPrivatePassClick: (id: number) => void,
+  snackbarSuccess: (string) => void,
 
   t: TFunction,
   classes: Object,
 };
 
 export const PaymentComboCard = (props: Props) => {
-  const { t, paymentCombo, classes } = props;
+  const { t, paymentCombo, classes, snackbarSuccess } = props;
+
+  const renderLinkToPaymentPage = () => {
+    return paymentCombo.id ? (
+      <ButtonBase
+        className={props.classes.link}
+        onClick={() => snackbarSuccess('paymentCombo:link.copied')}
+      >
+        <LinkIcon />
+        <CopyToClipboard
+          text={`${window.location.origin}/customer/payment/combo/${paymentCombo.id}`}
+        >
+          <Typography className={props.classes.linkTypo}>
+            {t('paymentCombo:link.copyLink')}
+          </Typography>
+        </CopyToClipboard>
+      </ButtonBase>
+    ) : null;
+  };
+
   if (!paymentCombo) {
     return <LinearProgress />;
   }
@@ -54,7 +77,8 @@ export const PaymentComboCard = (props: Props) => {
           {t('detail.description')}
         </Typography>
         <Paper className={classes.general}>
-          <TypographyMultiline>{paymentCombo.description}</TypographyMultiline>
+          <TypographyMultiline>{paymentCombo.description}</TypographyMultiline>{' '}
+          {renderLinkToPaymentPage()}
         </Paper>
       </div>
       <div className={classes.comboContentContainer}>
@@ -180,6 +204,16 @@ const styles = (theme) => ({
   quantity: {
     color: theme.palette.primary.main,
     backgroundColor: 'transparent',
+  },
+  link: {
+    padding: theme.spacing.unit,
+    '&:hover': {
+      backgroundColor: '#EFEFEF',
+      borderRadius: 5,
+    },
+  },
+  linkTypo: {
+    paddingLeft: theme.spacing.unit,
   },
 });
 

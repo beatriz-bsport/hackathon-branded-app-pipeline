@@ -2,6 +2,10 @@ export default {
   pageTitle: {
     list: 'Packs',
   },
+  link: {
+    copied: 'Lien copié',
+    copyLink: 'Copier le lien vers la page de paiement',
+  },
   list: {
     section: {
       unavailableOnline: 'Non disponible à la vente',

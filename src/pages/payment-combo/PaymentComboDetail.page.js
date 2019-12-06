@@ -23,6 +23,7 @@ import {
 import PaymentComboDetailComponent from '../../libs/payment-combo/components/PaymentComboDetail.component';
 import PaymentComboDeleteDialog from '../../libs/payment-combo/components/PaymentComboDeleteDialog.component';
 import PaymentComboFormDialogContainer from './PaymentComboFormDialog.container';
+import { snackbarSuccess } from '../../actions/snackbar.actions';
 
 import type { PaymentCombo } from '../../libs/payment-combo/types';
 
@@ -60,6 +61,7 @@ type Props = {
 
   goToInvoice: (uuid: string) => void,
   goToPaymentComboList: () => void,
+  snackbarSuccess: (string) => void,
 };
 
 export class PaymentComboDetail extends React.Component<Props> {
@@ -105,6 +107,7 @@ export class PaymentComboDetail extends React.Component<Props> {
           onPrivatePassClick={this.props.onPrivatePassClick}
           onShopItemClick={this.props.onShopItemClick}
           goToInvoice={this.props.goToInvoice}
+          snackbarSuccess={this.props.snackbarSuccess}
           fetchPaymentComboPurchaseList={(page, options) =>
             this.props.fetchPaymentComboPurchaseList(
               {
@@ -173,6 +176,7 @@ export default compose(
       fetchPaymentCombo,
       fetchPaymentComboPurchaseList,
       deletePaymentCombo,
+      snackbarSuccess,
       updatePaymentCombo: createOrUpdatePaymentCombo,
       onShopItemClick: (id) => push(`/shop/${id}`),
       onPrivatePassClick: () => push('/private-service/pass'),

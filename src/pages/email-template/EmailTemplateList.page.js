@@ -52,27 +52,16 @@ type Props = {
 };
 
 export class MarketingEmail extends Component<Props> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selected_id: null,
-    };
-  }
-
   componentDidMount() {
     this.props.emailTemplatesSummaries();
     if (this.props.id) {
       this.props.emailTemplateDetail(this.props.id);
-      this.setState({
-        selected_id: this.props.id,
-      });
     }
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.id !== prevProps.id) {
       this.props.emailTemplateDetail(this.props.id);
-      this.setState({ selected_id: this.props.id });
     }
   }
 
@@ -94,17 +83,13 @@ export class MarketingEmail extends Component<Props> {
   };
 
   renderEmptyOrPreview() {
-    if (
-      this.state.selected_id &&
-      !!this.props.email_templates_details[this.state.selected_id]
-    ) {
+    if (this.props.id && !!this.props.email_templates_details[this.props.id]) {
       return (
         <Paper>
           <div
             dangerouslySetInnerHTML={{
               __html: this.props.email_templates_details
-                ? this.props.email_templates_details[this.state.selected_id]
-                    .html
+                ? this.props.email_templates_details[this.props.id].html
                 : null,
             }}
           />
@@ -165,7 +150,7 @@ export class MarketingEmail extends Component<Props> {
                     email_template={email_templates_summaries[emailId]}
                     onClickDuplicate={this.onDuplicate}
                     onClickDelete={this.props.emailTemplateDelete}
-                    selected={emailId === this.state.selected_id}
+                    selected={emailId === this.props.id}
                   />
                 ))}
               </List>

@@ -66,7 +66,7 @@ function dateFormatter(kind) {
     return (d) => moment(d).format('MMM YYYY');
   }
   if (kind === 'week') {
-    return (d) => `Semaine ${moment(d).format('W')}`;
+    return (d) => `Semaine du ${moment(d).format('DD MMM YYYY')}`;
   }
   return (d) => moment(d).format('ddd DD MMM');
 }
@@ -76,19 +76,19 @@ const chartConfigs = {
     color: 'green',
     xFormat: dateFormatter,
     yFormat: (v) => Math.ceil(v),
-    label: 'Nombre',
+    yLabel: 'Nouveaux membres',
   },
   turnover: {
     color: 'blue',
     xFormat: dateFormatter,
-    yFormat: (v) => `${v.toFixed(2)} €`,
-    label: 'CA',
+    yFormat: (v) => `${Math.ceil(v)} €`,
+    yLabel: 'CA',
   },
   bookings: {
     color: 'red',
     xFormat: dateFormatter,
     yFormat: (v) => Math.ceil(v),
-    label: 'Nombre',
+    yLabel: 'Réservations',
   },
 };
 
@@ -182,7 +182,7 @@ export function Dashboard(props: Props) {
             domain={domain}
             xKey="d"
             yKey="v"
-            label={mainChartOptions.label}
+            yLabel={mainChartOptions.yLabel}
             yFormatter={mainChartOptions.yFormat}
             xFormatter={mainChartOptions.xFormat(props.mainChartData.formatter)}
             color={mainChartOptions.color}

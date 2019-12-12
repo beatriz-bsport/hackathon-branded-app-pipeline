@@ -42,17 +42,35 @@ function discretizeDataBy(table, dateRange) {
   const duration = moment.duration(dateRange.end.diff(dateRange.start));
   if (duration.asDays() > 60) {
     return {
-      table: discretizeBy(table, 'month', (u, v) => u + v.v),
+      table: discretizeByAndFillMissing(
+        dateRange,
+        table,
+        'month',
+        (u, v) => u + v.v,
+      ),
       formatter: 'month',
     };
   }
   if (duration.asDays() > 15) {
     return {
-      table: discretizeBy(table, 'week', (u, v) => u + v.v),
+      table: discretizeByAndFillMissing(
+        dateRange,
+        table,
+        'week',
+        (u, v) => u + v.v,
+      ),
       formatter: 'week',
     };
   }
-  return { table, formatter: 'day' };
+  return {
+    table: discretizeByAndFillMissing(
+      dateRange,
+      table,
+      'day',
+      (u, v) => u + v.v,
+    ),
+    formatter: 'day',
+  };
 }
 
 function statSelector(identifier) {
@@ -69,7 +87,6 @@ function statSelector(identifier) {
       );
       // const aumentedData = addFakeData(table, dateRange);
       const discretizedData = discretizeDataBy(table, dateRange);
-
       const total = discretizedData.table.reduce((sum, x) => sum + x.v, 0);
       return { ...discretizedData, total };
     },
@@ -79,27 +96,78 @@ function statSelector(identifier) {
   });
 }
 
-function discretizeBy(table, duration, reducer) {
-  const newTable = table.map((row) => {
-    const d = moment(row.d);
-    return { ...row, year: d.year(), [duration]: d[duration]() };
-  });
+function discretizeByAndFillMissing(dateRange, table, duration, reducer) {
+  let grouped = {};
+  if (duration === 'month') {
+    grouped = lodash.groupBy(table, (u) => moment(u.d).format('YYYY-MM'));
 
-  const grouped = lodash.groupBy(newTable, (u) => `${u.year}-${u[duration]}`);
+    for (
+      let m = moment(dateRange.start);
+      m.isBefore(dateRange.end);
+      m.add(1, 'month')
+    ) {
+      if (!grouped[m.format('YYYY-MM')]) {
+        grouped[m.format('YYYY-MM')] = [
+          {
+            v: 0,
+          },
+        ];
+      }
+    }
+  }
+
+  if (duration === 'week') {
+    grouped = lodash.groupBy(table, (u) =>
+      moment(u.d)
+        .startOf('week')
+        .format('YYYY-MM-DD'),
+    );
+    for (
+      let m = moment(dateRange.start).startOf('week');
+      m.isBefore(dateRange.end);
+      m.add(7, 'day')
+    ) {
+      if (!grouped[m.format('YYYY-MM-DD')]) {
+        grouped[m.format('YYYY-MM-DD')] = [
+          {
+            v: 0,
+          },
+        ];
+      }
+    }
+  }
+
+  if (duration === 'day') {
+    grouped = lodash.groupBy(table, (u) => moment(u.d).format('YYYY-MM-DD'));
+    for (
+      let m = moment(dateRange.start);
+      m.isBefore(dateRange.end) || m.isSame(dateRange.end);
+      m.add(1, 'day')
+    ) {
+      if (!grouped[m.format('YYYY-MM-DD')]) {
+        grouped[m.format('YYYY-MM-DD')] = [
+          {
+            v: 0,
+          },
+        ];
+      }
+    }
+  }
 
   const finalTable = Object.keys(grouped)
     .map((k) => {
       const group = grouped[k];
       return {
-        d: group[0].d,
+        d: k,
         v: group.reduce(reducer, 0),
-        year: group[0].year,
-        [duration]: group[0][duration],
-        groupId: k,
       };
     })
-    .sort((u, v) => u.d - v.d);
-
+    .sort((a, b) => {
+      if (moment(a.d).isBefore(moment(b.d))) {
+        return -1;
+      }
+      return 1;
+    });
   return finalTable;
 }
 

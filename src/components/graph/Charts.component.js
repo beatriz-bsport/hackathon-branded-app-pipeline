@@ -109,30 +109,37 @@ export function BarChart(props: BarChartProps) {
   );
 }
 
-export function ComposedChart(props: BarChartProps) {
+export const ComposedChart = React.memo((props: BarChartProps) => {
   const {
     height,
     data,
     xKey,
     yKey,
     color,
-    domain,
     xFormatter,
     yFormatter,
+    yLabel,
   } = props;
   return (
-    <ResponsiveContainer width="100%" height={height}>
+    <ResponsiveContainer key={Math.random()} width="100%" height={height}>
       <ComposedChartBase
         data={data}
         margin={{ top: 40, right: 20, bottom: 20, left: 20 }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey={xKey} domain={domain} tickFormatter={xFormatter} />
-        <YAxis dataKey={yKey} />
+        <XAxis dataKey={xKey} tickFormatter={xFormatter} />
+        <YAxis
+          dataKey={yKey}
+          label={{
+            value: yLabel,
+            position: 'insideLeft',
+            angle: -90,
+          }}
+        />
         <Bar
           dataKey={yKey}
           fill={getStyle(color).fill}
-          barSize={60}
+          barSize={40}
           name={props.label}
           label={{ position: 'top', formatter: yFormatter }}
         />
@@ -140,4 +147,4 @@ export function ComposedChart(props: BarChartProps) {
       </ComposedChartBase>
     </ResponsiveContainer>
   );
-}
+});

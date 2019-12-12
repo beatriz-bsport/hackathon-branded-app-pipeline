@@ -11,19 +11,24 @@ import MemberTable from '../../libs/member/MemberTable.component';
 import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/selectors';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
-import { getSmartListFilters } from '../../libs/smart-list/selectors';
+import {
+  getSmartListFilters,
+  getSmartList,
+} from '../../libs/smart-list/selectors';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import {
   smartListCreate,
   smartListUpdate,
   fetchSmartListFilters,
   updateFilter,
+  fetchSmartListDetail,
   deleteFilter,
   createFilter,
 } from '../../libs/smart-list/actions';
 import {
   fetchSmartListMembers as fetchSmartListMembersAPI,
   sendMail,
+  getMemberTable,
 } from '../../libs/smart-list/api';
 import { fetchPrivatePassList } from '../../libs/private-service/actions';
 import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
@@ -49,6 +54,7 @@ import {
 type Props = {
   id: number,
   t: TFunction,
+  smart_list: any,
   fetchSmartListFilters: (id: number) => void,
   fetchAllPaymentPacks: () => void,
   fetchPrivatePassList: () => void,
@@ -92,6 +98,7 @@ type Props = {
   goToEmailCreate: () => void,
   snackbarSuccess: (string) => void,
   snackbarError: (string) => void,
+  fetchSmartListDetail: (id) => void,
 };
 
 type State = {
@@ -103,6 +110,7 @@ export class SmartListDetailMember extends Component<Props, State> {
 
   componentDidMount() {
     this.props.fetchSmartListFilters(this.props.id);
+    this.props.fetchSmartListDetail(this.props.id);
     this.props.fetchAllPaymentPacks();
     this.props.fetchPrivatePassList();
     this.props.fetchAllActivities();
@@ -142,6 +150,8 @@ export class SmartListDetailMember extends Component<Props, State> {
     return (
       <div>
         <FiltersPanel
+          exportMemberTable={() => getMemberTable(this.props.id)}
+          smartList={this.props.smart_list}
           filters={this.props.smartlist_filters}
           updateFilter={this.updateFilter}
           deleteFilter={this.deleteFilter}
@@ -209,6 +219,7 @@ export default compose(
       email_templates_details: getEmailTemplatesDetail(state),
       emailListLoading: state.emailTemplate.isLoading,
       emailDetailLoading: state.emailTemplate.detail.isLoading,
+      smart_list: getSmartList(state, id),
     }),
     {
       fetchSmartListFilters,
@@ -223,6 +234,7 @@ export default compose(
       smartListUpdate,
       createFilter,
       snackbarError,
+      fetchSmartListDetail,
       fetchEmailTemplatesSummaries: () => emailTemplatesSummaries(),
       fetchEmailTemplateDetail: (id) => emailTemplateDetail(id),
       fetchAllActivities: fetchAllActivitiesAction,

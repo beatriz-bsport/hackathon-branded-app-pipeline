@@ -23,6 +23,7 @@ const BUY = 4;
 
 export default {
   selectToShowPreview: 'Please select a template',
+  exportList: 'Export list',
   modal: {
     delete: {
       title: 'Smart list deletion',

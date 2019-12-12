@@ -6,13 +6,14 @@ import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Menu from '@material-ui/core/Menu';
 import { compose } from 'recompose';
+import moment from 'moment';
 import List from '@material-ui/core/List';
 import Collapse from '@material-ui/core/Collapse';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import ListItem from '@material-ui/core/ListItem';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
 import SendIcon from '@material-ui/icons/Send';
@@ -70,6 +71,7 @@ const filtersCategory = [MEMBER_INFO, PAYMENT_PACK, BOOKING];
 type Props = {
   classes: any,
   loading: boolean,
+  smartList: any,
   t: TFunction,
   filters: Array<Filter>,
   payment_packs: Array<PaymentPack>,
@@ -96,6 +98,7 @@ type Props = {
     callback: (id: number) => void,
   ) => void,
   onRequestEmail: () => void,
+  exportMemberTable: () => void,
 };
 
 export class FiltersPanel extends Component<Props> {
@@ -200,30 +203,55 @@ export class FiltersPanel extends Component<Props> {
         </Collapse>
         <div className={classes.buttonsRow}>
           <Button
-            onClick={(event: React.MouseEvent<HTMLElement>) => {
-              event.stopPropagation();
-              this.setState({ anchorEl: event.currentTarget });
-              this.setState((previousState) => ({
-                displayAddFilter: !previousState.displayAddFilter,
-              }));
+            onClick={async () => {
+              const response = await this.props.exportMemberTable();
+              const blob = new Blob([response.data], { type: 'xlsx' });
+              const url = window.URL.createObjectURL(blob);
+              const link = document.createElement('a');
+              link.setAttribute('type', 'hidden');
+              link.href = url;
+              link.download = `${this.props.smartList.name}_${moment().format(
+                'YYYY-MM-DD',
+              )}.csv`;
+              document.body.appendChild(link);
+              link.click();
+              link.remove();
             }}
             color="secondary"
             variant="contained"
             className={classes.actionButton}
-            disabled={this.state.new_filter}
           >
-            <FilterListIcon className={this.props.classes.leftIcon} />
-            {t('filters.add_filter')}
+            <CloudDownloadIcon className={this.props.classes.leftIcon} />
+            {t('exportList')}
           </Button>
-          <Button
-            onClick={this.props.onRequestEmail}
-            color="primary"
-            variant="contained"
-            className={classes.actionButton}
-          >
-            <SendIcon className={this.props.classes.leftIcon} />
-            {t('mail.sendMail')}
-          </Button>
+          <div>
+            <Button
+              onClick={(event: React.MouseEvent<HTMLElement>) => {
+                event.stopPropagation();
+                this.setState({ anchorEl: event.currentTarget });
+                this.setState((previousState) => ({
+                  displayAddFilter: !previousState.displayAddFilter,
+                }));
+              }}
+              color="primary"
+              variant="contained"
+              className={classes.actionButton}
+              disabled={this.state.new_filter}
+            >
+              <FilterListIcon className={this.props.classes.leftIcon} />
+              {t('filters.add_filter')}
+            </Button>
+            <Button
+              onClick={this.props.onRequestEmail}
+              color="secondary"
+              variant="contained"
+              className={classes.actionButton}
+            >
+              <SendIcon className={this.props.classes.leftIcon} />
+              {t('mail.send')}
+            </Button>
+          </div>
+
           <Menu
             anchorEl={this.state.anchorEl}
             open={this.state.displayAddFilter}
@@ -317,7 +345,7 @@ const styles = (theme) => ({
   },
   buttonsRow: {
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     marginTop: theme.spacing.unit,
     marginBottom: theme.spacing.unit,
   },

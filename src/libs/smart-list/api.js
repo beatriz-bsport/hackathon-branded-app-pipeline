@@ -39,6 +39,10 @@ export const sendMail = async (id: number, email_template: number) => {
   });
 };
 
+export const getMemberTable = async (id: number) => {
+  return getAuth(`${SMART_LIST_URI}${id}/export_members/`);
+};
+
 export const fetchSmartListMembers = async (
   id: number,
   { page, page_size },

@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-
+import Typography from '@material-ui/core/Typography';
 import * as Yup from 'yup';
 import { withFormik, Form, connect as formikConnect } from 'formik';
 
@@ -20,6 +20,7 @@ import AvatarField from '../../components/forms/AvatarField.component';
 import {
   MultipleCheckboxField,
   TextField,
+  DelayTextField,
   PhoneField,
   GenderField,
   Actions,
@@ -31,6 +32,10 @@ import AlertExistingUser from './AlertExistingUser.component';
 import { DATE_FORMAT } from '../../datetime';
 
 const styles = (theme) => ({
+  redPaperContainer: {
+    padding: theme.spacing.unit * 3,
+    background: 'rgba(206, 17, 38, 0.05)',
+  },
   paperContainer: {
     padding: theme.spacing.unit * 3,
   },
@@ -41,20 +46,27 @@ const styles = (theme) => ({
     minWidth: 130,
     marginRight: theme.spacing.unit,
   },
+  mergeTitle: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginBottom: theme.spacing.unit * 2,
+  },
 });
 
 type Props = {
   classes: Object,
   t: TFunction,
   isSubmitting: boolean,
-  onCancel: (*) => void,
   emailExists: *,
   variant?: 'merge-form' | '',
   disabled?: boolean,
   fromConsumerAccess: ?boolean,
-
+  memberId: number,
+  emailExistsError: boolean,
   checkUserExists: ({ email?: string, phonenumber?: string }) => void,
   goToMember: (number) => void,
+  goToMerge: (number, number) => void,
+
   linkMember: (number) => void,
 };
 
@@ -76,8 +88,18 @@ const MemberExistsBanner = (props: {
   emailExists: { email: string, exists: boolean },
   goToMember: () => void,
   linkMember: () => void,
+  goToMerge: () => void,
+  memberId: number,
+  emailExistsError: boolean,
 }) => {
-  const { emailExists, goToMember, linkMember } = props;
+  const {
+    emailExists,
+    goToMember,
+    goToMerge,
+    linkMember,
+    memberId,
+    emailExistsError,
+  } = props;
   if (!emailExists) {
     return null;
   }
@@ -86,12 +108,18 @@ const MemberExistsBanner = (props: {
     return null;
   }
 
+  if ((exists, emailExistsError)) {
+    return null;
+  }
+
   return (
     <AlertExistingUser
       email={email}
+      memberId={memberId}
       phonenumber={phonenumber}
-      memberId={exists.member_pk}
+      existingMemberId={exists.member_pk}
       goToMember={goToMember}
+      goToMerge={goToMerge}
       linkMember={linkMember}
     />
   );
@@ -116,19 +144,37 @@ export function MemberForm(props: Props) {
     disabled,
     isSubmitting,
     variant,
-    onCancel,
     checkUserExists,
   } = props;
   const mdSize = variant === 'merge-form' ? 12 : 6;
-
   return (
     <div>
-      <MemberExistsBanner
-        emailExists={props.emailExists}
-        linkMember={props.linkMember}
-        goToMember={props.goToMember}
-      />
-      <div className={classes.paperContainer}>
+      {variant === 'merge-form' ? null : (
+        <MemberExistsBanner
+          emailExists={props.emailExists}
+          emailExistsError={props.emailExistsError}
+          linkMember={props.linkMember}
+          goToMember={props.goToMember}
+          goToMerge={props.goToMerge}
+          memberId={props.memberId}
+        />
+      )}
+      <div
+        className={
+          variant === 'merge-form' && disabled
+            ? classes.redPaperContainer
+            : classes.paperContainer
+        }
+      >
+        {variant === 'merge-form' ? (
+          <div className={classes.mergeTitle}>
+            <Typography variant="h6" component="h2">
+              {disabled
+                ? t('member:forms.merge.srcMember')
+                : t('member:forms.merge.dstMember')}
+            </Typography>
+          </div>
+        ) : null}
         <Form>
           <Effect
             onChange={(prev, nxt) =>
@@ -171,14 +217,25 @@ export function MemberForm(props: Props) {
               />
             </Grid>
             <Grid item xs={12} md={mdSize}>
-              <TextField
-                name="email"
-                label={t('form.email')}
-                type="email"
-                fullWidth
-                required={!!props.fromConsumerAccess}
-                disabled={disabled || variant === 'merge-form'}
-              />
+              {variant === 'merge-form' ? (
+                <TextField
+                  name="email"
+                  label={t('form.email')}
+                  type="email"
+                  fullWidth
+                  required={!!props.fromConsumerAccess}
+                  disabled={disabled || variant === 'merge-form'}
+                />
+              ) : (
+                <DelayTextField
+                  name="email"
+                  label={t('form.email')}
+                  type="email"
+                  fullWidth
+                  required={!!props.fromConsumerAccess}
+                  disabled={disabled || variant === 'merge-form'}
+                />
+              )}
             </Grid>
             <Grid item xs={12} md={mdSize}>
               <TextField
@@ -294,10 +351,11 @@ export function MemberForm(props: Props) {
                 <Actions>
                   <Button
                     color="secondary"
-                    onClick={onCancel}
+                    onClick={props.goToMember}
                     disabled={isSubmitting}
+                    variant="contained"
                   >
-                    {t('form.discard')}
+                    {t('member:forms.merge.seeMemberPage')}
                   </Button>
                   <Submit disabled={isSubmitting}>{t('form.send')}</Submit>
                 </Actions>
@@ -311,11 +369,16 @@ export function MemberForm(props: Props) {
           />
         )}
       </div>
-      <MemberExistsBanner
-        emailExists={props.emailExists}
-        linkMember={props.linkMember}
-        goToMember={props.goToMember}
-      />
+      {variant === 'merge-form' ? null : (
+        <MemberExistsBanner
+          emailExists={props.emailExists}
+          emailExistsError={props.emailExistsError}
+          linkMember={props.linkMember}
+          goToMember={props.goToMember}
+          goToMerge={props.goToMerge}
+          memberId={props.memberId}
+        />
+      )}
     </div>
   );
 }
@@ -352,20 +415,32 @@ export default compose(
   withStyles(styles),
   withNamespaces([]),
   withState('emailExists', 'setEmailExists', false),
-  withPropsOnChange(['setEmailExists'], ({ setEmailExists }) => ({
-    checkUserExists: lodash.debounce(({ email, phonenumber }) => {
-      const q = email
-        ? `email=${email}`
-        : `phonenumber=${encodeURIComponent(phonenumber)}`;
-      getAuth(`${API_URI}/saas/members/members/exists/?${q}`).catch((error) => {
-        const { status, data } = error.response || {};
-        if (status !== 404) {
-          setEmailExists({ email, phonenumber, exists: data || {} });
-          window.scrollTo(0, 0);
-        }
-      });
-    }, 1000),
-  })),
+  withState('emailExistsError', 'setemailExistsError', false),
+
+  withPropsOnChange(
+    ['setEmailExists', 'setCurrentEmailExist'],
+    ({ setEmailExists, setemailExistsError }) => ({
+      checkUserExists: lodash.debounce(({ email, phonenumber }) => {
+        const q = email
+          ? `email=${email}`
+          : `phonenumber=${encodeURIComponent(phonenumber)}`;
+        getAuth(`${API_URI}/saas/members/members/exists/?${q}`).catch(
+          (error) => {
+            const { status, data } = error.response || {};
+            if (status !== 404) {
+              setEmailExists({ email, phonenumber, exists: data || {} });
+              setemailExistsError(false);
+
+              window.scrollTo(0, 0);
+            }
+            if (status === 404) {
+              setemailExistsError(true);
+            }
+          },
+        );
+      }, 1000),
+    }),
+  ),
   withProps(
     ({ emailExists, goToMemberList, goToMember, snackbarSuccess, t }) => ({
       linkMember: () => {
@@ -411,6 +486,8 @@ export default compose(
           zipcode: '',
         },
       },
+    enableReinitialize: true,
+
     validationSchema: MemberSchema,
     handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
       const { avatar } = values;

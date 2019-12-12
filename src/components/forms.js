@@ -35,7 +35,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
-
+import DelayedTextField from './DelayedTextField.component';
 import ColorInput from './input/ColorInput.component';
 
 type AlertErrorProps = {
@@ -79,6 +79,24 @@ export const TextField = withStyles(textFieldStyles)((props: Props) => {
       {({ field, form: { touched, errors } }) => (
         <div>
           <MuiTextField
+            className={classes.field}
+            {...field}
+            {...props}
+            error={!!(touched[field.name] && errors[field.name])}
+          />
+        </div>
+      )}
+    </Field>
+  );
+});
+
+export const DelayTextField = withStyles(textFieldStyles)((props: Props) => {
+  const { classes } = props;
+  return (
+    <Field {...props}>
+      {({ field, form: { touched, errors } }) => (
+        <div>
+          <DelayedTextField
             className={classes.field}
             {...field}
             {...props}

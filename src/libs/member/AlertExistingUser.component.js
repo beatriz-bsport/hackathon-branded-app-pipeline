@@ -14,27 +14,51 @@ type Props = {
   classes: { [string]: string },
   t: TFunction,
   memberId: number,
+  existingMemberId: number,
+
   linkMember: (number) => void,
   goToMember: (number) => void,
+  goToMerge: (number, number) => void,
+
   email?: string,
   phonenumber?: string,
 };
 
 export function AlertExistingUser(props: Props) {
   const { t, classes } = props;
-  const { memberId, goToMember, linkMember, email, phonenumber } = props;
-  const userKey = memberId ? 'member' : 'user';
+  const {
+    existingMemberId,
+    memberId,
+    goToMember,
+    linkMember,
+    email,
+    phonenumber,
+    goToMerge,
+  } = props;
+  const userKey = existingMemberId ? 'member' : 'user';
   const textKey = email
     ? `member.${userKey}.existsWithEmail`
     : `member.${userKey}.existsWithPhone`;
-  const button = memberId ? (
-    <Button
-      onClick={() => goToMember(memberId)}
-      variant="outlined"
-      classes={{ outlined: classes.buttonOutlined }}
-    >
-      {t('member.exists.goTo')}
-    </Button>
+  const button = existingMemberId ? (
+    <div>
+      <Button
+        onClick={() => goToMember(existingMemberId)}
+        variant="outlined"
+        classes={{ outlined: classes.buttonOutlined }}
+      >
+        {t('member.exists.goTo')}
+      </Button>
+      {memberId && existingMemberId ? (
+        <Button
+          onClick={() => goToMerge(memberId, existingMemberId)}
+          variant="outlined"
+          classes={{ outlined: classes.buttonOutlined }}
+          className={classes.mergButton}
+        >
+          {t('member.exists.merge')}
+        </Button>
+      ) : null}
+    </div>
   ) : (
     <LinkMemberDialog onConfirm={linkMember} t={t} />
   );
@@ -58,6 +82,9 @@ const styles = (theme) => ({
     backgroundColor: '#03A33B',
     padding: theme.spacing.unit * 2,
     color: 'white',
+  },
+  mergButton: {
+    marginLeft: theme.spacing.unit,
   },
   buttonOutlined: {
     borderColor: 'white',

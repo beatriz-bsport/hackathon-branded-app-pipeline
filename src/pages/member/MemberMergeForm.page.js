@@ -7,7 +7,6 @@ import { withNamespaces } from 'react-i18next';
 import {
   replace as replaceRouter,
   push as pushRouter,
-  goBack,
 } from 'react-router-redux';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
@@ -28,8 +27,8 @@ type Props = {
   dst: number,
   srcMember: ?Member,
   dstMember: ?Member,
+  goToMember: (id: number) => void,
   fetchMember: (id: number) => void,
-  onCancel: () => void,
   onSubmit: (data: *, options: any) => void,
   replace: (path: string) => void,
 };
@@ -87,7 +86,7 @@ export class MemberMergeFormPage extends Component<Props, State> {
           srcMember={this.props.srcMember}
           dstMember={this.props.dstMember}
           switchSrcDst={this.switchSrcDst}
-          onCancel={this.props.onCancel}
+          goToMember={this.props.goToMember}
           onSubmit={this.preSubmit}
         />
         <MemberConfirmMergeDialog
@@ -111,6 +110,8 @@ export default compose(
       fetchMember,
       replace: replaceRouter,
       goToMember: (id: number) => pushRouter(`/member/${id}/`),
+      switchMerge: (src: number, dst: number) =>
+        pushRouter(`/member/merge/${dst}/into/${src}`),
       mergeMembers: mergeMembersAction,
       upsertMember: createOrUpdateMember,
     },
@@ -137,7 +138,6 @@ export default compose(
         },
       });
     },
-    onCancel: goBack,
   })),
   withNamespaces(),
   withTitle(({ t }) => t('titles:member.mergeMember')),

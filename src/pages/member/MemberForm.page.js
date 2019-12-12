@@ -26,6 +26,7 @@ type Props = {
   initial: *,
   fetchMemberInitial: () => void,
   goToMember: (id: number) => void,
+  goToMerge: (id: number, existingId: number) => void,
   goToMemberList: () => void,
   snackbarSuccess: (msg: string) => void,
   onSubmit: (*) => void,
@@ -73,9 +74,11 @@ export class MemberFormPage extends Component<Props> {
       <Paper>
         <MemberForm
           onCancel={onCancel}
+          memberId={id}
           onSubmit={onSubmit}
           initial={initialData}
           goToMember={this.props.goToMember}
+          goToMerge={this.props.goToMerge}
           goToMemberList={this.props.goToMemberList}
           snackbarSuccess={this.props.snackbarSuccess}
         />
@@ -106,6 +109,11 @@ function mapDispatchToProps(dispatch) {
     },
     goToMember(pk) {
       dispatch(pushRouter(`/member/${pk}/`));
+    },
+    goToMerge(memberPk, existingMemberPk) {
+      dispatch(
+        pushRouter(`/member/merge/${memberPk}/into/${existingMemberPk}`),
+      );
     },
     goToMemberList() {
       dispatch(pushRouter('/member'));

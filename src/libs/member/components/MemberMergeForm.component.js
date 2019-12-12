@@ -1,25 +1,24 @@
 // @flow
 import React, { Component } from 'react';
-import Typography from '@material-ui/core/Typography';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 import moment from 'moment';
-import { withNamespaces } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
-import MemberForm from '../MemberForm.component';
-
+import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
+import Button from '@material-ui/core/Button';
 import { unmap } from '../../../pages/form.utils';
 import { MemberMap } from '../utils';
 import type { Member } from '../types';
+import MemberForm from '../MemberForm.component';
 
 type Props = {
   dstMember: ?Member,
-  t: TFunction,
   srcMember: ?Member,
   classes: Object,
-  onCancel: () => void,
+  goToMember: () => void,
+
   onSubmit: (data: *, options: any) => void,
+  switchSrcDst: (src: number, dst: number) => void,
 };
 
 const prepareData = (initial) => {
@@ -44,31 +43,29 @@ const prepareData = (initial) => {
 
 export class MemberMergeForm extends Component<Props> {
   render() {
-    const { classes, srcMember, dstMember, t } = this.props;
+    const { classes, srcMember, dstMember } = this.props;
     if (!srcMember || !dstMember) {
       return <LinearProgress />;
     }
     return (
       <div className={classes.container}>
         <div className={classes.field}>
-          <Typography variant="h6" component="h2">
-            {t('forms.merge.srcMember')}
-          </Typography>
-          <Typography variant="h6" component="h2">
-            {t('forms.merge.dstMember')}
-          </Typography>
-        </div>
-        <div className={classes.field}>
+          <MemberForm
+            variant="merge-form"
+            goToMember={() => this.props.goToMember(this.props.dstMember.id)}
+            initial={prepareData(this.props.dstMember)}
+            onSubmit={(data, options) => this.props.onSubmit(data, options)}
+          />
+          <div className={classes.buttonContainer}>
+            <Button size="large" onClick={() => this.props.switchSrcDst()}>
+              <SwapHorizIcon fontSize="large" />
+            </Button>
+          </div>
+
           <MemberForm
             variant="merge-form"
             disabled
-            initial={prepareData(srcMember)}
-          />
-          <MemberForm
-            variant="merge-form"
-            initial={prepareData(dstMember)}
-            onCancel={this.props.onCancel}
-            onSubmit={(data, options) => this.props.onSubmit(data, options)}
+            initial={prepareData(this.props.srcMember)}
           />
         </div>
       </div>
@@ -76,7 +73,10 @@ export class MemberMergeForm extends Component<Props> {
   }
 }
 
-const styles = () => ({
+const styles = (theme) => ({
+  buttonContainer: {
+    marginTop: theme.spacing.unit * 15,
+  },
   container: {},
   field: {
     display: 'flex',
@@ -86,7 +86,4 @@ const styles = () => ({
   },
 });
 
-export default compose(
-  withStyles(styles),
-  withNamespaces(['member']),
-)(MemberMergeForm);
+export default compose(withStyles(styles))(MemberMergeForm);

@@ -64,6 +64,8 @@ export default {
   merge: 'Merge',
   forms: {
     merge: {
+      seeMemberPage: ' See member page',
+
       success: 'Members merged',
       error: 'Impossible to merge members',
 
@@ -99,8 +101,9 @@ export default {
       'A member with phone number {{phonenumber}} already exists.',
   },
   exists: {
-    goTo: 'OK',
+    goTo: 'See member',
     linkUser: 'Link user',
+    merge: 'Merge',
   },
   link: {
     success: 'Member linked',

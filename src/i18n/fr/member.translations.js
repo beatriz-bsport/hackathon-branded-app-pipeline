@@ -65,6 +65,8 @@ export default {
   forms: {
     merge: {
       success: 'Membres fusionnés',
+      seeMemberPage: ' Voir la page du membre',
+
       error: 'Impossible de fusionner les membres',
 
       srcMember: 'Membre à fusionner (supprimé)',
@@ -99,8 +101,9 @@ export default {
       'Un membre avec le numéro de téléphone {{phonenumber}} existe déjà.',
   },
   exists: {
-    goTo: 'OK',
+    goTo: 'Voir le membre',
     linkUser: "Lier l'utilisateur",
+    merge: 'Fusionner',
   },
   link: {
     success: 'Compte lié avec succès',

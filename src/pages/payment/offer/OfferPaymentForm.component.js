@@ -149,27 +149,6 @@ export class OfferPayment extends Component<Props> {
     );
   };
 
-  getCompatibleUnlimitedPass = () => {
-    const { compatibleConsumerPacks } = this.props;
-    return compatibleConsumerPacks.filter((cpp) => cpp.payment_pack.unlimited);
-  };
-
-  renderBookingWithUnlimitedPass = (unlimitedPacks: Array<Object>) => {
-    if (this.props.compatibleConsumerPacksLoading) {
-      return <LinearProgress />;
-    }
-    return unlimitedPacks.map((pack) => (
-      <ConsumerPackCheckout
-        noDivider
-        key={pack.id}
-        consumerPack={pack}
-        offerId={this.props.offer.id}
-        creditPrice={this.props.offer.credit_price}
-        onBookFromPack={() => this.props.onBookFromPack(pack.id)}
-      />
-    ));
-  };
-
   renderPaymentCombo = () => {
     const { t, compatiblePaymentPacks, paymentComboList } = this.props;
     const compatiblePackIds = compatiblePaymentPacks.map((pp) => pp.id);
@@ -293,8 +272,6 @@ export class OfferPayment extends Component<Props> {
   render() {
     const { loading, hasOneOrMoreOption, offer, t, bookingOption } = this.props;
 
-    const unlimitedPacks = this.getCompatibleUnlimitedPass();
-
     if (loading) {
       return (
         <Grid container spacing={16} direction="column" alignItems="center">
@@ -377,30 +354,6 @@ export class OfferPayment extends Component<Props> {
               </Button>
             </div>
           </Grid>
-        </Grid>
-      );
-    }
-    if (unlimitedPacks.length && !loading && !(offer === null)) {
-      return (
-        <Grid container spacing={16} direction="column">
-          <Grid item>{this.getBasket()}</Grid>
-          {offer && offer.available ? (
-            <React.Fragment>
-              <Grid item>
-                <div className={this.props.classes.passList}>
-                  {this.renderBookingWithUnlimitedPass(unlimitedPacks)}
-                </div>
-              </Grid>
-              <Grid item>{this.renderBuyCompatiblePaymentPack()}</Grid>
-            </React.Fragment>
-          ) : (
-            this.renderOfferNotAvailable()
-          )}
-          <div className={this.props.classes.bottomButtonContainer}>
-            <Button color="secondary" onClick={this.props.goToPassMarketplace}>
-              {t('payment:goBack')}
-            </Button>
-          </div>
         </Grid>
       );
     }

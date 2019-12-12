@@ -17,8 +17,8 @@ export default {
     noNoteSaved: 'Aucune note enregistrée',
     addNote: 'Ajouter une note',
     myNotes: 'Mes notes',
-    healthNotes: 'Informations médicales',
-    is_medical: 'Note médicale',
+    healthNotes: 'Informations essentielles',
+    is_medical: 'Note essentielle',
   },
   file: {
     addButtonBlocked: 'Supprimez des documents pour en ajouter de nouveaux',

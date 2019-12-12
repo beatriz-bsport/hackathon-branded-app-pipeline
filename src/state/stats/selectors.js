@@ -52,7 +52,7 @@ function discretizeDataBy(table, dateRange) {
       formatter: 'week',
     };
   }
-  return { table };
+  return { table, formatter: 'day' };
 }
 
 function statSelector(identifier) {

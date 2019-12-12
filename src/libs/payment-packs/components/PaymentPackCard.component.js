@@ -326,11 +326,15 @@ export class PaymentPackCard extends Component<Props> {
         <div className={classes.horizontalBlock}>
           {this.getPackHeadingInfo()}
         </div>
+        {onlyPublic ? null : (
+          <div className={classes.buttonBlock}>
+            {this.renderLinkToPaymentPage()}
+          </div>
+        )}
         {this.renderScope()}
 
         {onlyPublic ? null : (
           <div className={classes.buttonBlock}>
-            {this.renderLinkToPaymentPage()}
             {this.renderEditDeleteButtons()}
           </div>
         )}

@@ -21,9 +21,9 @@ export default {
   note: {
     addNote: 'Add a note',
     myNotes: 'My notes',
-    healthNotes: 'Health information',
+    healthNotes: 'Essential informations',
     noNoteSaved: 'No note saved',
-    is_medical: 'Health-related note',
+    is_medical: 'Essential note',
   },
   file: {
     addButtonBlocked: 'Delete files to add new ones',

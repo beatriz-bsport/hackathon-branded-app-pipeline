@@ -110,7 +110,10 @@ export function ReportDashboard(props: Props) {
           <Button
             variant="outlined"
             color="primary"
-            onClick={() => setShowModalAdd(true)}
+            onClick={() => {
+              setReportConfigurationToEdit(null);
+              setShowModalAdd(true);
+            }}
             className={classes.buttonNew}
           >
             {t('list.button_new')}
@@ -120,7 +123,10 @@ export function ReportDashboard(props: Props) {
       <Fab
         color="primary"
         className={classes.fabAdd}
-        onClick={() => setShowModalAdd(true)}
+        onClick={() => {
+          setReportConfigurationToEdit(null);
+          setShowModalAdd(true);
+        }}
       >
         <AddIcon />
       </Fab>

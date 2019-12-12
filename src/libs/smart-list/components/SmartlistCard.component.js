@@ -55,7 +55,6 @@ const styles = (theme) => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: theme.spacing.unit * 2,
   },
   paper: {
     padding: theme.spacing.unit * 2,

@@ -5,11 +5,10 @@ import { withNamespaces } from 'react-i18next';
 import { compose } from 'recompose';
 import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Popper from '@material-ui/core/Popper';
+import Popover from '@material-ui/core/Popover';
 import Paper from '@material-ui/core/Paper';
-import Fade from '@material-ui/core/Fade';
 import { Tag, TagGroup } from '../../../tag/types';
-import TagChipList from '../../../tag/components/TagChipListNew.component';
+import TagChipList from '../../../tag/components/TagChipList.component';
 import TagFilterForm from '../../../tag/components/TagRowSelector.component';
 
 type Props = {
@@ -26,7 +25,6 @@ export class TagFilter extends Component<Props, state> {
   state = {
     anchorEl: null,
     open: false,
-    placement: null,
   };
 
   componentDidMount() {
@@ -38,17 +36,16 @@ export class TagFilter extends Component<Props, state> {
     }
   }
 
-  handleClick = (placement) => (event) => {
+  handleClick = (event) => {
     const { currentTarget } = event;
     this.setState((state) => ({
       anchorEl: currentTarget,
       open: !state.open,
-      placement,
     }));
   };
 
   render() {
-    const { anchorEl, open, placement } = this.state;
+    const { anchorEl, open } = this.state;
     const { filter_data, t, classes, onChange } = this.props;
     return (
       <div className={classes.container}>
@@ -78,40 +75,42 @@ export class TagFilter extends Component<Props, state> {
               });
             }
           }}
-          handleAdd={this.handleClick('bottom-start')}
+          handleAdd={this.handleClick}
         />
-        <Popper
-          style={{ zIndex: '1000' }}
+        <Popover
           open={open}
+          onClose={() => this.setState({ open: false })}
           anchorEl={anchorEl}
-          transition
-          placement={placement}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+          }}
         >
-          {({ TransitionProps }) => (
-            <Fade {...TransitionProps} timeout={350}>
-              <Paper>
-                <TagFilterForm
-                  tagGroups={this.props.tag_groups}
-                  createFilter={(ev) => {
-                    let new_tags = [];
-                    if (ev.include) {
-                      new_tags = [...filter_data.tags_included, ev.tagId];
-                      onChange({
-                        tags_included: new_tags,
-                      });
-                    } else {
-                      new_tags = [...filter_data.tags_excluded, ev.tagId];
-                      onChange({
-                        tags_excluded: new_tags,
-                      });
-                    }
-                    this.setState({ open: false });
-                  }}
-                />
-              </Paper>
-            </Fade>
-          )}
-        </Popper>
+          <Paper>
+            <TagFilterForm
+              tagGroups={this.props.tag_groups}
+              createFilter={(ev) => {
+                let new_tags = [];
+                if (ev.include) {
+                  new_tags = [...filter_data.tags_included, ev.tagId];
+                  onChange({
+                    tags_included: new_tags,
+                  });
+                } else {
+                  new_tags = [...filter_data.tags_excluded, ev.tagId];
+                  onChange({
+                    tags_excluded: new_tags,
+                  });
+                }
+                this.setState({ open: false });
+              }}
+            />
+          </Paper>
+        </Popover>
       </div>
     );
   }

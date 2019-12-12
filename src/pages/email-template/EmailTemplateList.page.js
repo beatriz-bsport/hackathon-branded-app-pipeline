@@ -13,8 +13,9 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import InfoIcon from '@material-ui/icons/Info';
 import Typography from '@material-ui/core/Typography';
+import LinearProgress from '@material-ui/core/LinearProgress';
+
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
 import {
@@ -29,6 +30,7 @@ import {
   emailTemplatesSummaries,
   emailTemplateDetail,
   emailTemplateDelete,
+  emailDesignCreate,
 } from '../../libs/email-editor/actions';
 import EmailCard from '../../libs/email-editor/components/EmailTemplateListItem.component';
 
@@ -38,6 +40,7 @@ type Props = {
   emailTemplateDetail: (id: number) => void,
   emailTemplatesSummaries: () => void,
   email_templates_details: any,
+  emailDesignCreate: (any) => void,
   goToCreate: () => void,
   email_templates_summaries: any,
   email_templates_list: any,
@@ -73,8 +76,57 @@ export class MarketingEmail extends Component<Props> {
     }
   }
 
+  onDuplicate = async (id) => {
+    await this.props.emailTemplateDetail(id);
+    const data = {
+      design: this.props.email_templates_details[id].design,
+      html: this.props.email_templates_details[id].html,
+      title: `${this.props.email_templates_summaries[id].title} (${this.props.t(
+        'copy',
+      )})`,
+      subject: this.props.email_templates_summaries[id].subject,
+    };
+    this.props.emailDesignCreate(data, {
+      onSuccess: (templateId) => {
+        this.props.selectTemplate(templateId);
+      },
+    });
+  };
+
+  renderEmptyOrPreview() {
+    if (
+      this.state.selected_id &&
+      !!this.props.email_templates_details[this.state.selected_id]
+    ) {
+      return (
+        <Paper>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: this.props.email_templates_details
+                ? this.props.email_templates_details[this.state.selected_id]
+                    .html
+                : null,
+            }}
+          />
+        </Paper>
+      );
+    }
+    return (
+      <div className={this.props.classes.previewEmpty}>
+        <InfoIcon fontSize="large" color="disabled" />
+        <Typography
+          className={this.props.classes.emptyMessageText}
+          color="textSecondary"
+        >
+          {this.props.t('selectToShowPreview')}
+        </Typography>
+      </div>
+    );
+  }
+
   selected(id) {
-    this.props.selectTemplate(id);
+    if (this.props.id === id) this.props.goToEdit(id);
+    else this.props.selectTemplate(id);
   }
 
   render() {
@@ -93,69 +145,52 @@ export class MarketingEmail extends Component<Props> {
       );
     }
     return (
-      <Grid container direction="row" spacing={24}>
-        {loading ? <LinearProgress /> : null}
-        <Grid item xs={12} md={6}>
-          <Paper className={classes.panel}>
-            <List
-              component="nav"
-              disablePadding
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-              }}
-            >
-              {this.props.email_templates_list.map((emailId) => (
-                <EmailCard
-                  onClick={(id) => {
-                    this.selected(id);
-                  }}
-                  email_template={email_templates_summaries[emailId]}
-                  onClickEdit={this.props.goToEdit}
-                  onClickDelete={this.props.emailTemplateDelete}
-                  selected={emailId === this.state.selected_id}
-                />
-              ))}
-            </List>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Typography
-            variant="h5"
-            component="h2"
-            className={classes.previewTitle}
-          >
-            {t('preview')}
-          </Typography>
-          {this.state.selected_id &&
-          !!this.props.email_templates_details[this.state.selected_id] ? (
-            <Paper>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: this.props.email_templates_details
-                    ? this.props.email_templates_details[this.state.selected_id]
-                        .html
-                    : null,
+      <div>
+        <Grid container direction="row" spacing={24}>
+          <Grid item xs={12} md={6}>
+            <Paper className={classes.panel}>
+              <List
+                component="nav"
+                disablePadding
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
                 }}
-              />
-            </Paper>
-          ) : (
-            <div className={classes.previewEmpty}>
-              <InfoIcon fontSize="large" color="disabled" />
-              <Typography
-                className={classes.emptyMessageText}
-                color="textSecondary"
               >
-                {t('selectToShowPreview')}
-              </Typography>
-            </div>
-          )}
+                {this.props.email_templates_list.map((emailId) => (
+                  <EmailCard
+                    onClick={(id) => {
+                      this.selected(id);
+                    }}
+                    email_template={email_templates_summaries[emailId]}
+                    onClickDuplicate={this.onDuplicate}
+                    onClickDelete={this.props.emailTemplateDelete}
+                    selected={emailId === this.state.selected_id}
+                  />
+                ))}
+              </List>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Typography
+              variant="h5"
+              component="h2"
+              className={classes.previewTitle}
+            >
+              {t('preview')}
+            </Typography>
+            {this.props.loading ? (
+              <LinearProgress />
+            ) : (
+              this.renderEmptyOrPreview()
+            )}
+          </Grid>
         </Grid>
         <BottomActionsButton
           onCreateLabel={t('create')}
           onCreate={this.props.goToCreate}
         />
-      </Grid>
+      </div>
     );
   }
 }
@@ -207,6 +242,8 @@ export default compose(
     {
       emailTemplatesSummaries,
       emailTemplateDetail,
+      emailDesignCreate,
+
       emailTemplateDelete,
       goToEdit: (id) => push(`/email-template/${id}/edit`),
       goToCreate: () => push('/email-template/create'),

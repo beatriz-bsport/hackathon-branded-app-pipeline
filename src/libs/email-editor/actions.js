@@ -1,10 +1,7 @@
 // @flow
 
 import { createAction } from 'redux-actions';
-import {
-  snackbarSuccess,
-  snackbarError,
-} from '../../actions/snackbar.actions';
+import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
 import {
   createEmailTemplate as createEmailTemplateAPI,
@@ -15,7 +12,7 @@ import {
   deleteEmailTemplate as deleteEmailTemplateAPI,
 } from './api';
 
-import type { Dispatch, ThunkAction } from '../../state/types';
+import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 
@@ -62,7 +59,8 @@ export function emailTemplateComplete(id: number): ThunkAction {
         emailTemplateCompleteAction.success({
           summary: {
             [response.data.id]: {
-              name: response.data.name,
+              title: response.data.title,
+              subject: response.data.subject,
               date_created: response.data.date_created,
               id: response.data.id,
             },
@@ -118,7 +116,10 @@ export const createEmailDesignAction = {
   success: createAction('EMAIL/CREATE/SUCCESS'),
 };
 
-export function emailDesignCreate(data: any): ThunkAction {
+export function emailDesignCreate(
+  data: any,
+  options: OptionCallback,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(createEmailDesignAction.isLoading(true));
     dispatch(createEmailDesignAction.error(null));
@@ -130,7 +131,8 @@ export function emailDesignCreate(data: any): ThunkAction {
           id: response.data.id,
           summary: {
             [response.data.id]: {
-              name: response.data.name,
+              title: response.data.title,
+              subject: response.data.subject,
               date_created: response.data.date_created,
               id: response.data.id,
             },
@@ -148,6 +150,7 @@ export function emailDesignCreate(data: any): ThunkAction {
       );
       dispatch(createEmailDesignAction.error(null));
       dispatch(snackbarSuccess('Mail créé'));
+      if (options && options.onSuccess) options.onSuccess(response.data.id);
     } catch (error) {
       dispatch(createEmailDesignAction.error(error));
       dispatch(snackbarError('Mail non créé'));

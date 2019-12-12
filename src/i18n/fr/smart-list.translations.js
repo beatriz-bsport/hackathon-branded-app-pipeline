@@ -35,7 +35,13 @@ export default {
     },
   },
   mail: {
-    send: 'Envoyer un email',
+    send: 'Envoyer',
+    sendMailTitle: 'Envoyer un email',
+    cancel: 'Annuler',
+    sendMail: 'Envoyer un email',
+    noMailAvailable: 'Pas de mail disponbile, pensez à en créer un',
+    sendSuccess: "Mail en cours d'envoi",
+    sendError: "Problème lors de l'envoi du mail",
   },
   detail: {
     tab: {

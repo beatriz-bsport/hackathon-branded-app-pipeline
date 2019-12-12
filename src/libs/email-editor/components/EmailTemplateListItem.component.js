@@ -12,14 +12,14 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Typography from '@material-ui/core/Typography';
-import EditIcon from '@material-ui/icons/Edit';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 
 import withConfirm from '../../../hocs/with-confirm.hoc';
 
 type Props = {
   email_template: EmailTemplate,
   onClick: (any) => void,
-  onClickEdit: (id: number) => void,
+  onClickDuplicate: (id: number) => void,
   onClickDelete: (id: number) => void,
   selected: boolean,
   t: TFunction,
@@ -54,16 +54,16 @@ export class EmailCard extends Component<Props, state> {
           }
         />
         <ListItemSecondaryAction>
-          {this.props.onClickEdit ? (
+          {this.props.onClickDuplicate ? (
             <IconButton
               onClick={(ev) => {
                 ev.stopPropagation();
                 ev.preventDefault();
-                this.props.onClickEdit(this.props.email_template.id);
+                this.props.onClickDuplicate(this.props.email_template.id);
               }}
               color="primary"
             >
-              <EditIcon />
+              <FileCopyIcon />
             </IconButton>
           ) : null}
           {this.props.onClickDelete ? (

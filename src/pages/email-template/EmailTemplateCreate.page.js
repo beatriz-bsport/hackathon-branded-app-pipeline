@@ -16,13 +16,17 @@ type Props = {
   company_id: number,
   emailDesignCreate: (data: any) => void,
   goToList: () => void,
+  goToListDetail: (id) => void,
   snackbarError: (msg: string) => void,
 };
 
 export class EmailTemplateCreate extends Component<Props> {
   onSave = (id: number, data: *) => {
-    this.props.emailDesignCreate(data);
-    this.props.goToList();
+    this.props.emailDesignCreate(data, {
+      onSuccess: (templateId) => {
+        this.props.goToListDetail(templateId);
+      },
+    });
   };
 
   render() {
@@ -49,6 +53,7 @@ export default compose(
       snackbarError,
       emailDesignCreate,
       goToList: () => push('/email-template'),
+      goToListDetail: (id) => push(`/email-template/${id}`),
     },
   ),
 )(EmailTemplateCreate);

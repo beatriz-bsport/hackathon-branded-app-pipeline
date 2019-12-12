@@ -8,6 +8,8 @@ export default {
       confirm: 'Delete',
     },
   },
+  copy: 'copy',
+
   listTitle: 'My templates',
   editTitle: 'Template edition',
   createTitle: 'Mail creation',

@@ -91,31 +91,6 @@ export class EmailEditorPanel extends Component<Props, State> {
             className={classes.field}
           />
         </div>
-        <Paper>
-          <EmailEditor
-            ref={(editor) => {
-              this.editor = editor;
-            }}
-            minHeight="80vh"
-            locale={i18n.language}
-            onLoad={() => this.onLoad()}
-            options={{
-              mergeTags: {
-                first_name: {
-                  name: 'First Name',
-                  value: '{{firstname}}',
-                },
-                last_name: {
-                  name: 'Last Name',
-                  value: '{{lastname}}',
-                },
-              },
-              designTags: {
-                business_name: this.props.company_name,
-              },
-            }}
-          />
-        </Paper>
         <div className={classes.buttonsContainer}>
           <Button
             color="secondary"
@@ -134,6 +109,31 @@ export class EmailEditorPanel extends Component<Props, State> {
             {t('editor.save')}
           </Button>
         </div>
+        <Paper>
+          <EmailEditor
+            ref={(editor) => {
+              this.editor = editor;
+            }}
+            minHeight="80vh"
+            locale={i18n.language}
+            onLoad={() => this.onLoad()}
+            options={{
+              mergeTags: {
+                first_name: {
+                  name: 'First Name',
+                  value: '{firstname}',
+                },
+                last_name: {
+                  name: 'Last Name',
+                  value: '{lastname}',
+                },
+              },
+              designTags: {
+                business_name: this.props.company_name,
+              },
+            }}
+          />
+        </Paper>
       </div>
     );
   }
@@ -154,7 +154,8 @@ const styles = (theme) => ({
   },
   buttonsContainer: {
     display: 'flex',
-    justifyContent: 'flex-start',
+    justifyContent: 'flex-end',
+    marginBottom: theme.spacing.unit,
   },
 });
 

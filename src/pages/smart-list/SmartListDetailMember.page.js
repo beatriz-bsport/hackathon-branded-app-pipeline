@@ -5,7 +5,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose, withState } from 'recompose';
 import { push } from 'react-router-redux';
-
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 import MemberTable from '../../libs/member/MemberTable.component';
 import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/selectors';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -34,6 +35,7 @@ import tagSelectors from '../../libs/tag/selectors';
 import FiltersPanel from '../../libs/smart-list/components/FiltersPanel.component';
 import SendEmailDialog from '../../libs/smart-list/components/SendEmailDialog.component';
 import ConfigureDnsDialog from '../../libs/smart-list/components/ConfigureDnsDialog.component';
+import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
 import {
   getAllEmailTemplatesSummaries,
@@ -46,6 +48,7 @@ import {
 
 type Props = {
   id: number,
+  t: TFunction,
   fetchSmartListFilters: (id: number) => void,
   fetchAllPaymentPacks: () => void,
   fetchPrivatePassList: () => void,
@@ -86,6 +89,9 @@ type Props = {
   tag_groups: any,
   setOpenSendEmail: (boolean) => void,
   openSendEmail: boolean,
+  goToEmailCreate: () => void,
+  snackbarSuccess: (string) => void,
+  snackbarError: (string) => void,
 };
 
 type State = {
@@ -101,7 +107,6 @@ export class SmartListDetailMember extends Component<Props, State> {
     this.props.fetchPrivatePassList();
     this.props.fetchAllActivities();
     this.props.fetchTags();
-    this.props.fetchEmailTemplatesSummaries();
   }
 
   createFilter = (filter_identifier, filterData) => {
@@ -161,14 +166,21 @@ export class SmartListDetailMember extends Component<Props, State> {
         <SendEmailDialog
           open={this.props.openSendEmail}
           onClose={() => this.props.setOpenSendEmail(false)}
-          onSubmit={(email_template_id) =>
-            sendMail(this.props.id, email_template_id)
-          }
+          onSubmit={async (email_template_id) => {
+            const response = await sendMail(this.props.id, email_template_id);
+            if (response.status === 200) {
+              this.props.snackbarSuccess(this.props.t('mail.sendSuccess'));
+            } else {
+              this.props.snackbarError(this.props.t('mail.sendError'));
+            }
+          }}
+          getEmails={this.props.fetchEmailTemplatesSummaries}
           emails={this.props.email_templates_list}
           getEmailDetail={this.props.fetchEmailTemplateDetail}
           emailDetails={this.props.email_templates_details}
           emailListLoading={this.props.emailListLoading}
           emailDetailLoading={this.props.emailDetailLoading}
+          goToEmailCreate={this.props.goToEmailCreate}
         />
         <ConfigureDnsDialog
           open={false}
@@ -182,6 +194,8 @@ export class SmartListDetailMember extends Component<Props, State> {
 export default compose(
   routerParamsToProps({ id: 'id:number', create: 'create:number' }),
   withState('openSendEmail', 'setOpenSendEmail', false),
+  withNamespaces(['smartList']),
+
   connect(
     (state, { id }) => ({
       smartlist_filters: getSmartListFilters(state, id),
@@ -203,15 +217,18 @@ export default compose(
       fetchTags,
       updateFilter,
       sendMail,
+      snackbarSuccess,
       deleteFilter,
       smartListCreate,
       smartListUpdate,
       createFilter,
+      snackbarError,
       fetchEmailTemplatesSummaries: () => emailTemplatesSummaries(),
       fetchEmailTemplateDetail: (id) => emailTemplateDetail(id),
       fetchAllActivities: fetchAllActivitiesAction,
       goToList: () => push('/smart-list/'),
       goToMember: (id) => push(`/member/${id}/`),
+      goToEmailCreate: () => push('/email-template/create'),
     },
   ),
 )(SmartListDetailMember);

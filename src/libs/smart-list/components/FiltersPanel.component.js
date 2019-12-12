@@ -207,7 +207,7 @@ export class FiltersPanel extends Component<Props> {
                 displayAddFilter: !previousState.displayAddFilter,
               }));
             }}
-            color="primary"
+            color="secondary"
             variant="contained"
             className={classes.actionButton}
             disabled={this.state.new_filter}
@@ -217,12 +217,12 @@ export class FiltersPanel extends Component<Props> {
           </Button>
           <Button
             onClick={this.props.onRequestEmail}
-            color="secondary"
+            color="primary"
             variant="contained"
             className={classes.actionButton}
           >
             <SendIcon className={this.props.classes.leftIcon} />
-            {t('mail.send')}
+            {t('mail.sendMail')}
           </Button>
           <Menu
             anchorEl={this.state.anchorEl}

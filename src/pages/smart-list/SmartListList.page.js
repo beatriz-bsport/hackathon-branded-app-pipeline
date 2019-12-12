@@ -79,9 +79,10 @@ export class SmartListList extends Component<Props, State> {
     this.props.smartListUpdate(this.props.selectedId, smartlist);
   };
 
-  selected = async (id) => {
-    this.props.goToSelected(id);
-  };
+  selected(id) {
+    if (this.props.selectedId === id) this.props.goToEdit(id);
+    else this.props.goToSelected(id);
+  }
 
   render() {
     const { smartlists, classes } = this.props;

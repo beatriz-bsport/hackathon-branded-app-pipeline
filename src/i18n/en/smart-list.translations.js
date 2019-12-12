@@ -39,7 +39,13 @@ export default {
     },
   },
   mail: {
-    send: 'Send email',
+    sendMail: 'Send email',
+    sendMailTitle: 'Send mail to the list',
+    cancel: 'Cancel',
+    send: 'Send',
+    noMailAvailable: 'No mail available, think about creating one',
+    sendSuccess: 'Mail sending',
+    sendError: 'Error while sending mail',
   },
   smart_list: {
     card: {

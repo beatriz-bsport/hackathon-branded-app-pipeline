@@ -87,7 +87,8 @@ export default compose(
     }),
     {
       fetchAllMetactivities,
-      goToDetail: (metaActivityId) => push(`/activity/${metaActivityId}`),
+      goToDetail: (metaActivityId) =>
+        push(`/activity/${metaActivityId}/general`),
       goToEdit: (metaActivityId) => push(`/activity/${metaActivityId}/edit`),
       deleteMetaActivity,
       onCreate: () => push('/activity/add'),

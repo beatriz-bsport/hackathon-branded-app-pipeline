@@ -21,6 +21,8 @@ type Props = {
   onEdit?: () => void,
   onDelete?: () => void,
   t: TFunction,
+  hidePacksNumber: boolean,
+  selected: boolean,
 };
 
 export default withNamespaces([])((props: Props) => {
@@ -36,6 +38,7 @@ export default withNamespaces([])((props: Props) => {
       button={!!props.onClick}
       onClick={props.onClick}
       divider={props.divider}
+      selected={props.selected}
     >
       <ListItemText
         primary={
@@ -43,14 +46,16 @@ export default withNamespaces([])((props: Props) => {
             <Typography inline component="span">
               {props.pack.name}
             </Typography>
-            <Typography
-              inline
-              variant="caption"
-              component="span"
-              color="primary"
-            >
-              {` (${props.pack.nb_consumer_payment_packs})`}
-            </Typography>
+            {props.hidePacksNumber ? null : (
+              <Typography
+                inline
+                variant="caption"
+                component="span"
+                color="primary"
+              >
+                {` (${props.pack.nb_consumer_payment_packs})`}
+              </Typography>
+            )}
           </span>
         }
         secondary={`${

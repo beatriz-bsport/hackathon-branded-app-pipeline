@@ -13,4 +13,16 @@ export const getEnabled = createSelector(
   (pps) => pps.filter((pp) => !pp.disabled),
 );
 
-export default { get, getAll, getEnabled };
+export const getPaymentPackById = (state: State): Array<PaymentPack> =>
+  state.paymentPack.byId;
+
+export const getActivityCompatiblePaymentPackAllIds = (
+  state: State,
+): Array<number> => state.paymentPack.byActivity.allIds;
+
+export const getActivityCompatiblePaymentPacks = createSelector(
+  [getActivityCompatiblePaymentPackAllIds, getPaymentPackById],
+  (idList, paymentPacks) => idList.map((id) => paymentPacks[id]),
+);
+
+export default { get, getAll, getEnabled, getActivityCompatiblePaymentPacks };

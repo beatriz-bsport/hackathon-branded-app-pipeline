@@ -6,7 +6,7 @@ const getState = (state) => state.consumerPaymentPack;
 
 const getAllData = (state) => getState(state).byId;
 
-const getByPaymentPack = createSelector(
+export const getByPaymentPack = createSelector(
   getState,
   ({ byId, byPaymentPack }) => byPaymentPack.allIds.map((id) => byId[id]),
 );

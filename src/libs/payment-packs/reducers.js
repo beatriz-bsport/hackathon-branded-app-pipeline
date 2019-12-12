@@ -1,6 +1,8 @@
 import Immutable from 'seamless-immutable';
+import { handleActions } from 'redux-actions';
 
 import { actionTypes } from './types';
+import { fetchActivityCompatibleAction, fetchOneAction } from './actions';
 
 const initialState = Immutable({
   all: [],
@@ -10,9 +12,17 @@ const initialState = Immutable({
   loading: true,
   error: false,
   errorMsg: '',
+  byActivity: {
+    loading: false,
+    error: null,
+    allIds: [],
+    page: 1,
+    count: 0,
+  },
+  byId: {},
 });
 
-export default function activityReducers(state = initialState, action = {}) {
+export function paymentPackReducer(state = initialState, action = {}) {
   switch (action.type) {
     case actionTypes.HAS_FETCHED_ALL_PAYMENT_PACKS:
       return Immutable.merge(state, {
@@ -64,15 +74,19 @@ export default function activityReducers(state = initialState, action = {}) {
 
     case actionTypes.PAYMENT_PACK_PATCH_SUCCESS: {
       const { paymentPack } = action;
-      return Immutable.merge(state, {
-        updatingPaymentPacks: [
-          ...state.updatingPaymentPacks.filter((id) => id !== action.id),
-        ],
-        all: [
-          paymentPack,
-          ...state.all.filter((pp) => pp.id !== paymentPack.id),
-        ],
-      });
+      return state.merge(
+        {
+          updatingPaymentPacks: [
+            ...state.updatingPaymentPacks.filter((id) => id !== action.id),
+          ],
+          all: [
+            paymentPack,
+            ...state.all.filter((pp) => pp.id !== paymentPack.id),
+          ],
+          byId: { [paymentPack.id]: paymentPack },
+        },
+        { deep: true },
+      );
     }
 
     case actionTypes.PAYMENT_PACK_CREATEORUPDATE_START: {
@@ -92,7 +106,61 @@ export default function activityReducers(state = initialState, action = {}) {
       });
     }
 
+    case actionTypes.RESET_ACTIVITY_COMPATIBLE_PAYMENT_PACKS:
+      return state
+        .setIn(['byActivity', 'allIds'], [])
+        .setIn(['byActivity', 'page'], 1)
+        .setIn(['byActivity', 'count'], 0);
+
     default:
       return state;
   }
 }
+
+export const newPaymentPackReducer = handleActions(
+  {
+    [fetchActivityCompatibleAction.reset]: (state) => {
+      return state
+        .setIn(['byActivity', 'allIds'], [])
+        .setIn(['byActivity', 'page'], 1)
+        .setIn(['byActivity', 'count'], 0);
+    },
+    [fetchActivityCompatibleAction.isLoading]: (state, { payload }) => {
+      return state.setIn(['byActivity', 'loading'], payload);
+    },
+    [fetchActivityCompatibleAction.error]: (state, { payload }) => {
+      return state.setIn(['byActivity', 'error'], payload);
+    },
+    [fetchActivityCompatibleAction.success]: (state, { payload }) => {
+      return state.merge(
+        {
+          byActivity: {
+            allIds: payload.paymentPacksAllIds,
+            count: payload.count,
+            page: payload.page,
+          },
+          byId: payload.paymentPacksById,
+        },
+        { deep: true },
+      );
+    },
+    [fetchOneAction.isLoading]: (state, { payload }) => {
+      return state.set('loading', payload);
+    },
+    [fetchOneAction.error]: (state, { payload }) => {
+      return state.setIn(['byActivity', 'error'], payload);
+    },
+    [fetchOneAction.success]: (state, { payload }) => {
+      return state.merge(
+        {
+          byId: { [payload.id]: payload },
+        },
+        { deep: true },
+      );
+    },
+  },
+  initialState,
+);
+
+export default (state = initialState, action = { type: null }) =>
+  newPaymentPackReducer(paymentPackReducer(state, action), action);

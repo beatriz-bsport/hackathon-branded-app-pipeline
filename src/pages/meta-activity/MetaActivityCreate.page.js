@@ -19,20 +19,26 @@ import { mapFormData } from '../form.utils';
 import { upsert } from '../../libs/meta-activity/actions/meta-activity.actions';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import { createOffers as createOffersAPI } from '../../libs/meta-activity/api/meta-activity';
+import {
+  fetchActivityCompatiblePaymentPacks as fetchActivityCompatiblePaymentPacksAction,
+  resetCompatiblePaymentPacks as resetCompatiblePaymentPacksAction,
+} from '../../libs/payment-packs/actions';
 
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-
+import { getActivityCompatiblePaymentPacks } from '../../libs/payment-packs/selectors';
 import MetaActivityForm from '../../libs/meta-activity/components/MetaActivityForm.component';
 import OfferForm from '../../libs/offer/OfferForm.component';
 import {
   getEnabledMetaActivities,
   getEnabledWorkshops,
 } from '../../libs/meta-activity/selectors';
+import CompatiblePaymentPacks from '../../libs/meta-activity/components/MetaActivityCompatiblePacks.component';
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
 import { getAllEstablishments } from '../../libs/establishment/selectors';
 import type { Establishment } from '../../libs/establishment/types';
+import type { PaymentPack } from '../../libs/payment-packs/types';
 
 type StepType = {
   id: number,
@@ -41,12 +47,14 @@ type StepType = {
 
 const STEP_ACTIVITY: StepType = { id: 0, label: 'activity_form' };
 const STEP_OFFER: StepType = { id: 1, label: 'offer_form' };
-const STEPS: Array<StepType> = [STEP_ACTIVITY, STEP_OFFER];
+const STEP_PASS: StepType = { id: 2, label: 'pass_list' };
+const STEPS: Array<StepType> = [STEP_ACTIVITY, STEP_OFFER, STEP_PASS];
 
 type Props = {
   loading: ?boolean,
-
+  compatiblePacksLoading: boolean,
   metaActivityNames: Array<string>,
+  compatiblePaymentPacks: Array<PaymentPack>,
   establishments: Array<Establishment>,
   fetchEstablishments: () => void,
   SCTs: *[],
@@ -54,15 +62,17 @@ type Props = {
   onSubmitMetaActivity: (*) => void,
   coaches: Array<Coach>,
   fetchAssociatedCoachesList: () => void,
-
+  setStep: (step: StepType) => void,
   step: StepType,
   upsertedMetaActivity: ?MetaActivity,
-
+  fetchPaymentPacks: (id: number) => void,
   offerHadError: ?Error,
   createOffers: (*) => void,
   offerIsProcessing: boolean,
   goToMetaActivity: (id: number) => void,
   t: TFunction,
+  goToPaymentPackCreate: () => void,
+  resetPaymentPacks: () => void,
 };
 
 const MetaActivityMap = {
@@ -73,7 +83,7 @@ const MetaActivityMap = {
   last_discard_minutes: 'last_discard_minutes',
   is_workshop: 'is_workshop',
   SCT: 'SCT',
-   color: 'color',
+  color: 'color',
 };
 
 const StepperForm = withNamespaces(['metaActivity'])(
@@ -92,6 +102,7 @@ export class MetaActivityFormPage extends Component<Props> {
   componentDidMount() {
     this.props.fetchEstablishments();
     this.props.fetchAssociatedCoachesList();
+    this.props.resetPaymentPacks();
   }
 
   renderActivityStep = () => (
@@ -114,9 +125,18 @@ export class MetaActivityFormPage extends Component<Props> {
       error={this.props.offerHadError}
       processing={this.props.offerIsProcessing}
       discardButtonText={this.props.t('common.skip')}
-      onCancel={() =>
-        this.props.goToMetaActivity(this.props.upsertedMetaActivity.id)
-      }
+      onCancel={() => this.props.setStep(STEP_PASS)}
+    />
+  );
+
+  renderPaymentPackStep = () => (
+    <CompatiblePaymentPacks
+      loading={this.props.compatiblePacksLoading}
+      paymentPacks={this.props.compatiblePaymentPacks}
+      metaActivity={this.props.upsertedMetaActivity}
+      fetchPaymentPacks={this.props.fetchPaymentPacks}
+      goToMetaActivity={this.props.goToMetaActivity}
+      goToPaymentPackCreate={this.props.goToPaymentPackCreate}
     />
   );
 
@@ -133,6 +153,9 @@ export class MetaActivityFormPage extends Component<Props> {
       case STEP_OFFER.id:
         content = this.renderOfferStep();
         break;
+      case STEP_PASS.id:
+        content = this.renderPaymentPackStep();
+        break;
       default:
         break;
     }
@@ -142,7 +165,9 @@ export class MetaActivityFormPage extends Component<Props> {
           <Paper>
             <StepperForm activeStep={this.props.step} />
             {content}
-            <StepperForm activeStep={this.props.step} />
+            {this.props.step === STEP_PASS ? null : (
+              <StepperForm activeStep={this.props.step} />
+            )}
           </Paper>
         </Grid>
       </Grid>
@@ -165,12 +190,21 @@ export default compose(
       ].map((ma) => ma.name),
       coaches: getActiveCoaches(state),
       upsertedMetaActivity: state.metaActivity.upsert.data,
+      compatiblePaymentPacks: {
+        items: getActivityCompatiblePaymentPacks(state),
+        count: state.paymentPack.byActivity.count,
+        page: state.paymentPack.byActivity.page,
+        loading: state.paymentPack.byActivity.loading,
+      },
     }),
     {
       fetchEstablishments,
       fetchAssociatedCoachesList,
+      fetchPaymentPacks: fetchActivityCompatiblePaymentPacksAction,
       upsertMetaActivity: upsert,
-      goToMetaActivity: (id: number) => push(`/activity/${id}`),
+      resetPaymentPacks: resetCompatiblePaymentPacksAction,
+      goToMetaActivity: (id: number) => push(`/activity/${id}/general`),
+      goToPaymentPackCreate: () => push('/payment-pack/add'),
       fetchAllOffers: offerActions.fetchAllOffers,
     },
   ),
@@ -195,9 +229,9 @@ export default compose(
     ({
       upsertedMetaActivity,
       fetchAllOffers,
-      goToMetaActivity,
       setOfferIsProcessing,
       setOfferHadError,
+      setStep,
     }) => ({
       createOffers: async (data: *) => {
         setOfferIsProcessing(true);
@@ -205,7 +239,8 @@ export default compose(
         createOffersAPI(upsertedMetaActivity.id, data)
           .then(() => {
             fetchAllOffers();
-            goToMetaActivity(upsertedMetaActivity.id);
+            setStep(STEP_PASS);
+            window.scrollTo(0, 0);
           })
           .catch((err) => {
             console.error(err);

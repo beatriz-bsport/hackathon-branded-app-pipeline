@@ -24,6 +24,7 @@ type Props = {
   activitiesLoading: boolean,
   onSubmit: (data: [*]) => void,
   t: TFunction,
+  selectedDate: Object,
 };
 
 type State = {
@@ -78,6 +79,7 @@ export class OfferFormWithActivity extends Component<Props, State> {
     }
     return (
       <OfferForm
+        selectedDate={this.props.selectedDate}
         coaches={coaches}
         establishments={establishments}
         metaActivity={selectedMetaActivity}

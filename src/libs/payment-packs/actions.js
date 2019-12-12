@@ -1,13 +1,18 @@
 // @flow
 
+import { createAction } from 'redux-actions';
+
 import {
   edit as editAPI,
   create as createAPI,
   fetchAllPaymentPacks as fetchAllPaymentPacksAPI,
   patch as patchAPI,
+  fetchOne as fetchOneAPI,
+  fetchPaymentPackList as fetchPaymentPackListAPI,
 } from './api';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 import { actionTypes as types } from './types';
+import { createDictionnaryById, createIdList } from '../../actions/utils';
 
 import type { Dispatch } from '../../state/types';
 
@@ -76,6 +81,27 @@ export function errorPatchingPack(id: number) {
   return { type: types.PAYMENT_PACK_PATCH_ERROR, id };
 }
 
+export const fetchOneAction = {
+  isLoading: createAction('PAYMENT_PACK/DETAIL/IS_LOADING'),
+  error: createAction('PAYMENT_PACK/DETAIL/ERROR'),
+  success: createAction('PAYMENT_PACK/DETAIL/SUCCESS'),
+};
+
+export function fetchOne(id: number): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchOneAction.isLoading(true));
+    dispatch(fetchOneAction.error(null));
+    try {
+      const response = await fetchOneAPI(id);
+      dispatch(fetchOneAction.success(response.data));
+    } catch (err) {
+      console.error(err);
+      dispatch(fetchOneAction.error(id));
+    }
+    dispatch(fetchOneAction.isLoading(false));
+  };
+}
+
 export function createOrUpdate(data: PaymentPackFormData, options = {}) {
   return async (dispatch: Dispatch) => {
     dispatch(startCreateOrUpdate(data.id));
@@ -112,4 +138,52 @@ export function createOrUpdateSuccess(paymentPack: PaymentPack) {
 
 export function createOrUpdateFailed(error: ?Error) {
   return { type: types.PAYMENT_PACK_CREATEORUPDATE_FAIL, error };
+}
+
+export function resetCompatiblePaymentPacks() {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchActivityCompatibleAction.reset());
+  };
+}
+
+export const fetchActivityCompatibleAction = {
+  reset: createAction('PAYMENT_PACK/BY_ACTIVITY/RESET'),
+  isLoading: createAction('PAYMENT_PACK/BY_ACTIVITY/IS_LOADING'),
+  error: createAction('PAYMENT_PACK/BY_ACTIVITY/ERROR'),
+  success: createAction('PAYMENT_PACK/BY_ACTIVITY/SUCCESS'),
+};
+
+export function fetchActivityCompatiblePaymentPacks(
+  meta_activity: number,
+  page: number,
+  page_size: number,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchActivityCompatibleAction.isLoading(true));
+    dispatch(fetchActivityCompatibleAction.error(null));
+
+    try {
+      const response = await fetchPaymentPackListAPI({
+        meta_activity,
+        page,
+        page_size,
+        disabled: false,
+      });
+      const paymentPacksAllIds = createIdList(response.data.results);
+      const paymentPacksById = createDictionnaryById(response.data.results);
+      const { count } = response.data;
+
+      dispatch(
+        fetchActivityCompatibleAction.success({
+          paymentPacksAllIds,
+          paymentPacksById,
+          count,
+          page,
+        }),
+      );
+    } catch (err) {
+      dispatch(fetchActivityCompatibleAction.error(err));
+    }
+    dispatch(fetchActivityCompatibleAction.isLoading(false));
+  };
 }

@@ -58,6 +58,7 @@ type Props = {
   establishments: Array<Establishment>,
   metaActivity: MetaActivity,
   classes: Object,
+  selectedDate: Object,
   t: (x: string) => string,
   discardButtonText: ?string,
   processing: boolean,
@@ -88,19 +89,22 @@ type State = {
 };
 
 export class OfferForm extends Component<Props, State> {
-  state = {
-    recurrence: NOT_RECURRENT,
-    date_interval_start: Moment(),
-    date_interval_end: Moment(),
-    hour: null,
-    effectif: null,
-    waiting_list_max_size: 0,
-    coach: null,
-    establishment: null,
-    credits: '1',
-    level: 1,
-    duration_minute: 30,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      recurrence: NOT_RECURRENT,
+      date_interval_start: props.selectedDate ? props.selectedDate : Moment(),
+      date_interval_end: props.selectedDate ? props.selectedDate : Moment(),
+      hour: null,
+      effectif: null,
+      waiting_list_max_size: 0,
+      coach: null,
+      establishment: null,
+      credits: '1',
+      level: 1,
+      duration_minute: 30,
+    };
+  }
 
   onFormFieldChange = (id: string) => (value) => {
     this.setState({ [id]: value });
@@ -443,7 +447,12 @@ export class OfferForm extends Component<Props, State> {
             className={classes.leftIcon}
           />
         ) : (
-          <Button variant="contained" color="primary" type="submit">
+          <Button
+            disabled={!this.state.establishment || !this.state.coach}
+            variant="contained"
+            color="primary"
+            type="submit"
+          >
             <AddIcon className={classes.leftIcon} />
             {t('form.generateOffers')}
           </Button>

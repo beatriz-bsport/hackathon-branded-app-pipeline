@@ -7,6 +7,7 @@ const initialState = Immutable({
   wantedOffer: null,
   wantedPaymentPack: null,
   compatibleConsumerPacks: [],
+  compatiblePaymentPacks: [],
   compatibleConsumerPacksLoading: false,
   compatiblePaymentPacksLoading: false,
   bookings: [],
@@ -105,7 +106,7 @@ export default function paymentReducers(state = initialState, action = {}) {
       });
     }
     case actionTypes.PAYMENT_START_FETCH_COMPATIBLE_PAYMENT_PACKS:
-      return Immutable.merge(state, { compatiblePaymentPacksLoading: true });
+      return state.set('compatiblePaymentPacksLoading', true);
 
     default:
       return state;

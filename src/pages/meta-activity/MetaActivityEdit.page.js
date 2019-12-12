@@ -120,7 +120,7 @@ export default compose(
       goToPreviousPage: goBack,
       addImage: addImageToMetaActivity,
       removeImage: removeImageFromMetaActivity,
-      goToMetaActivity: (id: number) => push(`/activity/${id}`),
+      goToMetaActivity: (id: number) => push(`/activity/${id}/offer`),
     },
   ),
   withProps(({ upsertMetaActivity, goToMetaActivity, id, initial }) => ({

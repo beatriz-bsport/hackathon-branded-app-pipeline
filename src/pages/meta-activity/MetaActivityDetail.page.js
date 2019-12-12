@@ -1,108 +1,80 @@
 // @flow
-import React, { Component } from 'react';
-
-import { connect } from 'react-redux';
-import { push as routerPush } from 'react-router-redux';
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
+import AppBar from '@material-ui/core/AppBar';
 import { compose } from 'recompose';
+import Tab from '@material-ui/core/Tab';
+import { connect } from 'react-redux';
+import Tabs from '@material-ui/core/Tabs';
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
+import { push } from 'react-router-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import BottomActionButtons from '../../components/button/BottomActionsButton.component';
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import { offer as offerActions } from '../../actions';
-import type { Offer, MetaActivity as MetaActivityType } from '../../api/types';
-import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import withTitle from '../../hocs/with-title.hoc';
+import MetaActivityDetailPack from './MetaActivityDetailPack.page';
+import MetaActivityDetailGeneral from './MetaActivityDetailGeneral.page';
 
-import MetaActivityDetail from '../../libs/meta-activity/components/MetaActivityDetail.component';
-import MetaActivityDeleteDialog from '../../libs/meta-activity/components/MetaActivityDeleteDialog.component';
-import {
-  deleteMetaActivity,
-  fetchMetaActivityDetails,
-} from '../../libs/meta-activity/actions/meta-activity.actions';
 import { getMetaActivity } from '../../libs/meta-activity/selectors';
-import { getEventsByMetaActivity } from '../../libs/offer/selectors';
-import { fetchMetaActivityOffers } from '../../actions/offer.actions';
-import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '../../libs/meta-activity/api/common';
+import { fetchMetaActivityDetails } from '../../libs/meta-activity/actions/meta-activity.actions';
 
 type Props = {
+  t: TFunction,
+  pushToTab: (id: number, tab: string) => void,
+  tab: string,
   id: number,
-  metaActivity: MetaActivityType,
-  metaActivityImages: Array<Object>,
-  fetchMetaActivityDetails: () => void,
-
-  loading: boolean,
-  offersLoading: boolean,
-
-  events: Array<Event>,
-  offers: Array<Offer>,
-  fetchOffersByDay: (year: number, month: number, day: number) => void,
-  fetchMetaActivityOffers: (id: number) => void,
-
-  createActivityOffers: (id: number) => void,
-  goToOffer: (Offer) => void,
-  goToList: () => void,
-  onEdit: (id: number) => void,
-  deleteMetaActivity: (id: number) => void,
-
   classes: Object,
+  fetchMetaActivityDetails: (id: number) => void,
 };
 
-type State = {
-  deleteOpen: boolean,
-};
-
-export class MetaActivity extends Component<Props, State> {
-  state = { deleteOpen: false };
-
+export class MetaActivityDetail extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchMetaActivityDetails(this.props.id);
-    if (this.props.id) {
-      this.props.fetchMetaActivityOffers(this.props.id);
-    }
   }
 
   componentDidUpdate(prevProps: Props) {
     if (this.props.id && this.props.id !== prevProps.id) {
       this.props.fetchMetaActivityDetails(this.props.id);
-      this.props.fetchMetaActivityOffers(this.props.id);
     }
   }
 
-  openCreateOfferForm = () => {
-    this.props.createActivityOffers(this.props.id);
-  };
-
   render() {
-    if (!this.props.metaActivity) {
-      return <LinearProgress />;
-    }
+    const { t, pushToTab, tab, id, classes } = this.props;
     return (
-      <div className={this.props.classes.container}>
-        {this.props.loading ? <LinearProgress /> : null}
-        <MetaActivityDetail
-          coverImages={this.props.metaActivityImages}
-          metaActivity={this.props.metaActivity}
-          fetchOffersByDay={this.props.fetchOffersByDay}
-          events={this.props.events}
-          offers={this.props.offers}
-          goToOffer={this.props.goToOffer}
-          offersLoading={this.props.offersLoading}
-          openCreateOfferForm={this.openCreateOfferForm}
-        />
-        <BottomActionButtons
-          onEdit={() => this.props.onEdit(this.props.id)}
-          onDelete={() => this.setState({ deleteOpen: true })}
-        />
-        <MetaActivityDeleteDialog
-          metaActivityId={this.state.deleteOpen ? this.props.id : null}
-          onClose={() => this.setState({ deleteOpen: false })}
-          canDeleteMetaActivityChecker={canDeleteMetaActivityAPI}
-          deleteMetaActivity={() => {
-            this.props.deleteMetaActivity(this.props.id, {
-              onSuccess: this.props.goToList,
-            });
-          }}
-        />
+      <div className={classes.container}>
+        <AppBar position="static" color="default">
+          <Tabs
+            scrollButtons="off"
+            variant="scrollable"
+            value={tab}
+            onChange={(e, newTab) => {
+              pushToTab(id, newTab);
+            }}
+          >
+            <Tab label={t('detail.tab.general')} value="general" />
+            <Tab label={t('detail.tab.pack')} value="pack" />
+          </Tabs>
+        </AppBar>
+        <div className={classes.content}>
+          <Switch>
+            <Route
+              exact
+              path="/activity/:id/pack/:packId"
+              component={MetaActivityDetailPack}
+            />
+            <Route
+              exact
+              path="/activity/:id/pack"
+              component={MetaActivityDetailPack}
+            />
+            <Route
+              exact
+              path="/activity/:id/general"
+              component={MetaActivityDetailGeneral}
+            />
+          </Switch>
+        </div>
       </div>
     );
   }
@@ -110,32 +82,38 @@ export class MetaActivity extends Component<Props, State> {
 
 const styles = (theme) => ({
   container: {
-    paddingBottom: theme.spacing.unit * 12,
+    marginBottom: theme.spacing.unit * 4,
+    marginTop: -theme.spacing.unit * 3,
+    width: '100vw',
+    [theme.breakpoints.up('md')]: {
+      marginLeft: -theme.spacing.unit * 3,
+      width: 'auto',
+      marginRight: -theme.spacing.unit * 3,
+      marginTop: -theme.spacing.unit * 2,
+    },
+  },
+  content: {
+    marginBottom: theme.spacing.unit * 8,
+    [theme.breakpoints.up('md')]: {
+      margin: theme.spacing.unit * 2,
+      marginBottom: theme.spacing.unit * 8,
+    },
+    marginTop: theme.spacing.unit * 2,
   },
 });
 
 export default compose(
-  routerParamsToProps({ id: 'id:number' }),
+  withNamespaces(['metaActivity']),
+  routerParamsToProps({ tab: 'tab', id: 'id:number' }),
   withStyles(styles),
   connect(
     (state, { id }) => ({
-      loading: state.metaActivity.loading,
       metaActivity: getMetaActivity(state, id),
-      events: getEventsByMetaActivity(state),
-      offers: state.offer.offers,
-      offersLoading: state.offer.byDay.loading,
     }),
     {
+      pushToTab: (id, tab) => push(`/activity/${id}/${tab}`),
       fetchMetaActivityDetails,
-      fetchOffersByDay: offerActions.fetchOffersByDay,
-      fetchMetaActivityOffers,
-      push: routerPush,
-      deleteMetaActivity,
-      goToOffer: (o) => routerPush(`/offer/${o.id}`),
-      goToList: () => routerPush('/activity'),
-      onEdit: (id) => routerPush(`/activity/${id}/edit`),
-      createActivityOffers: (id) => routerPush(`/add-offers/${id}`),
     },
   ),
   withTitle(({ metaActivity }) => (metaActivity ? metaActivity.name : '')),
-)(MetaActivity);
+)(MetaActivityDetail);

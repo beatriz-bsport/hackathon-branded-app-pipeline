@@ -11,11 +11,11 @@ const getLevelColorById = (id: number, theme) => {
   if (!theme) return getLevelColorByIdDefault(id);
   switch (id) {
     case 1:
-      return theme.palette.primary.light;
+      return theme.palette.secondary.main;
     case 2:
       return theme.palette.primary.light;
     case 3:
-      return theme.palette.primary;
+      return theme.palette.primary.main;
     case 4:
       return theme.palette.primary.dark;
     default:
@@ -36,7 +36,6 @@ type Props = {
   variant: ?string,
   t: TFunction,
   theme: ?any,
-  align: ?string,
 };
 
 export function Level(props: Props) {
@@ -50,6 +49,7 @@ export function Level(props: Props) {
     borderRadius: 5,
     backgroundColor: getLevelColorById(levelId, props.theme),
     color: 'white',
+    width: '80%',
   };
   if (noStyle) {
     stylesheet = {
@@ -58,11 +58,7 @@ export function Level(props: Props) {
   }
 
   return (
-    <Typography
-      align={props.align || 'left'}
-      variant={variant}
-      style={stylesheet}
-    >
+    <Typography align="center" variant={variant} style={stylesheet}>
       {t(LEVELS[levelId - 1])}
     </Typography>
   );

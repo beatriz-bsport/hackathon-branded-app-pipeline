@@ -12,7 +12,13 @@ export default () => (
   <Switch>
     <Route exact path="/activity/add" component={MetaActivityCreate} />
     <Route exact path="/activity/:id/edit" component={MetaActivityForm} />
-    <Route exact path="/activity/:id" component={MetaActivityDetail} />
+    <Route
+      exact
+      path="/activity/:id/:tab/:packId"
+      component={MetaActivityDetail}
+    />
+
+    <Route exact path="/activity/:id/:tab" component={MetaActivityDetail} />
     <Route exact path="/activity" component={MetaActivityList} />
   </Switch>
 );

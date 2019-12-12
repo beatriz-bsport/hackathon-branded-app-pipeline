@@ -2,12 +2,33 @@ export default {
   metaActivity: 'Activity',
   forms: {
     create: {
+      compatible_packs: {
+        seeMore: 'See more',
+        createPass: 'Create a pass',
+        goToActivity: 'Go to activity',
+        passHelperText: 'These passes are available for the created activity:',
+        noCompatiblePass:
+          'No pass available for this activity, remind to create one',
+      },
       steps: {
         activity_form: 'Activity creation',
         pass_form: 'Pass creation (optionnal)',
+        pass_list: 'Finalization',
+
         offer_form: 'Session creation (optionnal)',
         workshop_form: 'Workshop creation',
       },
+    },
+  },
+  detail: {
+    pack: {
+      noCompatiblePass: 'No Compatible pass',
+      consumerPacks: 'Members passes',
+      paymentPacks: 'Compatible passes',
+    },
+    tab: {
+      general: 'General',
+      pack: 'Passes',
     },
   },
   name: 'Name',

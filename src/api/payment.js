@@ -41,9 +41,7 @@ export async function consumerPayWithConsumerPaymentPack(
       .join(',');
   }
   return postBaseAuth(
-    `${PAYMENT_URI}/buy/${
-      PAYMENT_METHOD_PAYMENT_PACK.id
-    }/offer/${offerId}?${formatParams}`,
+    `${PAYMENT_URI}/buy/${PAYMENT_METHOD_PAYMENT_PACK.id}/offer/${offerId}?${formatParams}`,
     {
       token: consumerPaymentPackId,
       source: BOOKING_SOURCE_WEB,

@@ -2,9 +2,19 @@ export default {
   metaActivity: 'Activité',
   forms: {
     create: {
+      compatible_packs: {
+        seeMore: 'Voir plus',
+        createPass: 'Créer un abonnement',
+        goToActivity: "Aller à l'activité",
+        passHelperText:
+          "Les abonnements suivants sont compatibles avec l'activité créée:",
+        noCompatiblePass:
+          'Aucun abonnement compatible avec cette activité, pensez à en créer un',
+      },
       steps: {
         activity_form: "Création de l'activité",
         pass_form: "Création d'un abonnement (optionnel)",
+        pass_list: 'Finalisation',
         offer_form: 'Création des séances (optionnel)',
         workshop_form: "Création de l'atelier",
       },
@@ -23,6 +33,18 @@ export default {
       },
     },
   },
+  detail: {
+    pack: {
+      noCompatiblePass: "Pas d'abonnement compatible",
+      consumerPacks: 'Abonnements possédés par les membres',
+      paymentPacks: 'Abonnements compatibles',
+    },
+    tab: {
+      general: 'Général',
+      pack: 'Abonnements',
+    },
+  },
+
   name: 'Nom',
   category: 'Sport',
   addOffers: 'Ajouter des séances',
@@ -46,5 +68,6 @@ export default {
       "Avant le début de l'activité, dernière annulation possible",
   },
   packsAvailable: 'Eligible aux pass :',
+
   reviews: 'Avis clients: ',
 };

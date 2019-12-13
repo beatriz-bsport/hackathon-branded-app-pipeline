@@ -51,19 +51,6 @@ export class ConsumerPackRowItem extends Component<Props> {
       loading,
       t,
     } = this.props;
-    if (consumerPack.dst_consumer_payment_pack) {
-      return null;
-    }
-    if (!paymentPack) {
-      return <CircularProgress />;
-    }
-    const { credits, unlimited } = paymentPack;
-    const { available_credits, reverted } = consumerPack;
-
-    if (reverted) {
-      return <Button>{t('paymentPack.reverted')}</Button>;
-    }
-
     if (subscribeToOffer) {
       return (
         <Button
@@ -75,6 +62,19 @@ export class ConsumerPackRowItem extends Component<Props> {
           {t('paymentPack.use')}
         </Button>
       );
+    }
+
+    if (consumerPack.dst_consumer_payment_pack) {
+      return null;
+    }
+    if (!paymentPack) {
+      return <CircularProgress />;
+    }
+    const { credits, unlimited } = paymentPack;
+    const { available_credits, reverted } = consumerPack;
+
+    if (reverted) {
+      return <Button>{t('paymentPack.reverted')}</Button>;
     }
 
     if (unlimited && incrementCredit && decrementCredit) {

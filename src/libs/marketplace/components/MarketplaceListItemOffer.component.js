@@ -9,6 +9,8 @@ import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
 import { withNamespaces } from 'react-i18next';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 
 import type { TFunction } from 'react-i18next';
 import MarketplaceBookButton from './MarketplaceBookButton.component';
@@ -46,14 +48,18 @@ export const MarketplaceOffer = (props: Props) => {
           : '#FFFFFF00',
       }}
     >
-      <CoachAvatar
-        t={t}
-        coach={offer.coach ? offer.coach.user : null}
-        coach_override={offer.coach_override ? offer.coach_override.user : null}
-      />
+      <ListItemAvatar>
+        <CoachAvatar
+          t={t}
+          coach={offer.coach ? offer.coach.user : null}
+          coach_override={
+            offer.coach_override ? offer.coach_override.user : null
+          }
+        />
+      </ListItemAvatar>
       <ListItemText
         primary={
-          <div>
+          <div style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
             <Typography inline>
               {`${
                 offer.meta_activity ? offer.meta_activity.name || '' : ''
@@ -62,11 +68,24 @@ export const MarketplaceOffer = (props: Props) => {
                 offer.establishment.tzname,
               )} - ${formatMinutes(offer.duration_minute, t)}`}
             </Typography>
-            <Level
-              noStyle
-              variant="caption"
-              levelId={offer.level ? offer.level : null}
-            />
+            <div
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'flex-start',
+                alignItems: 'center',
+                display: 'flex',
+              }}
+            >
+              <Level
+                noStyle
+                variant="caption"
+                align="left"
+                levelId={offer.level ? offer.level : null}
+              />
+              <Typography inline variant="caption">
+                {offer.coach ? `  -  ${offer.coach.user.name}` : ''}
+              </Typography>
+            </div>
           </div>
         }
         secondary={
@@ -75,28 +94,30 @@ export const MarketplaceOffer = (props: Props) => {
             : ''
         }
       />
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}
-      >
-        <Hidden xsDown>
-          <IconButton
-            disabled={!isInThePast}
-            onClick={onClick}
-            color="secondary"
-          >
-            <InfoIcon />
-          </IconButton>
-        </Hidden>
-        <MarketplaceBookButton
-          onClickBook={props.onClickBook}
-          onClickBookOption={props.onClickBookOption}
-          offer={props.offer}
-        />
-      </div>
+      <ListItemSecondaryAction>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}
+        >
+          <Hidden xsDown>
+            <IconButton
+              disabled={!isInThePast}
+              onClick={onClick}
+              color="secondary"
+            >
+              <InfoIcon />
+            </IconButton>
+          </Hidden>
+          <MarketplaceBookButton
+            onClickBook={props.onClickBook}
+            onClickBookOption={props.onClickBookOption}
+            offer={props.offer}
+          />
+        </div>
+      </ListItemSecondaryAction>
     </ListItem>
   );
 };

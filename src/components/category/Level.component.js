@@ -58,7 +58,7 @@ export function Level(props: Props) {
   }
 
   return (
-    <Typography align="center" variant={variant} style={stylesheet}>
+    <Typography align={props.align || "center"} variant={variant} style={stylesheet}>
       {t(LEVELS[levelId - 1])}
     </Typography>
   );

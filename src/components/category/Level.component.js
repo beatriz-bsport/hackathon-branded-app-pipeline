@@ -36,6 +36,7 @@ type Props = {
   variant: ?string,
   t: TFunction,
   theme: ?any,
+  align: ?string,
 };
 
 export function Level(props: Props) {
@@ -58,7 +59,11 @@ export function Level(props: Props) {
   }
 
   return (
-    <Typography align={props.align || "center"} variant={variant} style={stylesheet}>
+    <Typography
+      align={props.align || 'center'}
+      variant={variant}
+      style={stylesheet}
+    >
       {t(LEVELS[levelId - 1])}
     </Typography>
   );

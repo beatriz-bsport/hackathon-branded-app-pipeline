@@ -13,8 +13,10 @@ export async function fetchAllEvents(params) {
   return getAuth(`${API_V1_URI}/offer/minimal${buildUrlParams(params)}`);
 }
 
-export async function fetchOffersByDay({ year, month, day }) {
-  return getAuth(`${API_URI}/saas/offers/${year}/${month}/${day}`);
+export async function fetchOffersByDay(params) {
+  return getAuth(
+    `${API_V1_URI}/offer/complete_by_day/${buildUrlParams(params)}`,
+  );
 }
 
 export async function editLiveOffer({ offerId, data }) {

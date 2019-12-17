@@ -1,7 +1,7 @@
 // @flow
 
 import { createAction } from 'redux-actions';
-
+import moment from 'moment';
 import api from '../api';
 import type { Dispatch, OptionCallback } from '../state/types';
 
@@ -115,7 +115,10 @@ export function refreshOffersByDay(day: {
   return async (dispatch: Dispatch) => {
     dispatch(offerByDay.error(null));
     try {
-      const response = await api.offer.fetchOffersByDay(day);
+      const date = moment(`${day.year}-${day.month}-${day.day}`).format(
+        'YYYY-MM-DD',
+      );
+      const response = await api.offer.fetchOffersByDay({ date });
       dispatch(offerByDay.success(response.data));
     } catch (error) {
       dispatch(offerByDay.error(error));

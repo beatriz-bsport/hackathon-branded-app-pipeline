@@ -1,6 +1,6 @@
 // @flow
 
-import { API_V1_URI, postAuth, putAuth, patchAuth } from '../../http';
+import { API_V1_URI, post, postAuth, putAuth, patchAuth } from '../../http';
 
 import type { CheckoutItemData, Basket } from './types';
 
@@ -41,6 +41,16 @@ export const removeItemFromBasket = async (
 
 export const attachPayment = async (basketId: string, data_: *) => {
   return postAuth(
+    `${API_V1_URI}/checkout/basket/${basketId}/attach_payment/`,
+    data_,
+  );
+};
+
+export const attachPaymentUnauthenticated = async (
+  basketId: string,
+  data_: *,
+) => {
+  return post(
     `${API_V1_URI}/checkout/basket/${basketId}/attach_payment/`,
     data_,
   );

@@ -28,6 +28,10 @@ const CheckoutRouter = asyncComponent(() =>
   import('./pages/checkout/Checkout.router'),
 );
 
+const RNWebView = asyncComponent(() =>
+  import('./pages/rn-webview/RNWebView.router'),
+);
+
 const CheckIn = asyncComponent(() => import('./pages/check-in/CheckIn.page'));
 const CompanyExternalRouter = asyncComponent(() =>
   import('./pages/company-external/CompanyExternal.router'),
@@ -79,6 +83,7 @@ export class Root extends Component<Props> {
           <Route path="/m/" component={MarketPlace} />
           <Route path="/checkout" component={CheckoutRouter} />
           <Route path="/check-in" component={CheckIn} />
+          <Route path="/rn-webview" component={RNWebView} />
           <Route path="/" component={UserspaceSwitcher} />
         </Switch>
       </div>

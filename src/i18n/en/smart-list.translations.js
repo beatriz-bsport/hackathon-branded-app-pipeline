@@ -28,6 +28,7 @@ const BUY = 4;
 export default {
   selectToShowPreview: 'Please select a template',
   exportList: 'Export list',
+  membersInList: 'Members in the list:',
   modal: {
     delete: {
       title: 'Smart list deletion',
@@ -35,6 +36,26 @@ export default {
         'Are you sure you want to delete this smart list ? This operation is not revertable.',
       cancel: 'Cancel',
       confirm: 'Delete',
+    },
+  },
+  graphs: {
+    bookings: 'Bookings',
+    expensesSegments: {
+      title: { first: 'Expenses between', second: 'and' },
+      label: {
+        0: 'No expenses',
+        1: 'First quartile',
+        2: 'Moyen',
+        3: 'Last quartile',
+      },
+    },
+    bookingsSegments: {
+      title: 'Last booking',
+      label: {
+        0: 'Last month',
+        1: 'Between 1 and 12 months',
+        2: 'More than 1 year',
+      },
     },
   },
   detail: {

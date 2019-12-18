@@ -117,7 +117,6 @@ export function Dashboard(props: Props) {
   const { t, classes, dateRange, miniStats, tab, setTab } = props;
   const { mainChartOptions } = props;
   const { newMembers, turnover, bookings } = miniStats;
-
   const domain = [
     moment(dateRange.start)
       .subtract(0.5, 'day')

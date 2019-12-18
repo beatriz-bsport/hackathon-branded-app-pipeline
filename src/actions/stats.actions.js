@@ -3,7 +3,7 @@
 import { createAction } from 'redux-actions';
 import moment from 'moment';
 
-import type { State, Dispatch } from '../state/types';
+import type { Dispatch, ThunkAction } from '../state/types';
 
 import api from '../api';
 
@@ -61,5 +61,53 @@ export function fetchStatActivities() {
       }
     }
     dispatch(statActivities.isLoading(false));
+  };
+}
+
+export const smartListStats = {
+  isLoading: createAction('STATISTICS/SMARTLIST/IS_LOADING'),
+  error: createAction('STATISTICS/SMARTTLIST/ERROR'),
+  resetData: createAction('STATISTICS/SMARTTLIST/RESET'),
+  success: createAction('STATISTICS/SMARTLIST/SUCCESS'),
+};
+
+export function fetchSmartListStats(params: any): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    const { smartlist, statistic_identifier } = params;
+    dispatch(
+      smartListStats.isLoading({
+        smartlist,
+        statistic_identifier,
+        isLoading: true,
+      }),
+    );
+    dispatch(
+      smartListStats.resetData({
+        smartlist,
+        statistic_identifier,
+      }),
+    );
+    dispatch(smartListStats.error(null));
+
+    try {
+      const response = await api.stats.fetchSmartListStatsAPI(params);
+      dispatch(
+        smartListStats.success({
+          smartlist,
+          statistic_identifier,
+          data: response.data.data,
+          data_type: response.data.data_type,
+        }),
+      );
+    } catch (error) {
+      dispatch(smartListStats.error(error));
+    }
+    dispatch(
+      smartListStats.isLoading({
+        smartlist,
+        statistic_identifier,
+        isLoading: false,
+      }),
+    );
   };
 }

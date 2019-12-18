@@ -150,7 +150,10 @@ export class PaymentIntentGathering extends Component<Props, State> {
     return (
       <form
         onSubmit={this.handleSubmit}
-        className={this.props.classes.container}
+        style={this.props.customContainerStyle}
+        className={
+          this.props.customContainerStyle ? null : this.props.classes.container
+        }
       >
         {this.props.loading || this.state.processing
           ? this.renderProcessing()
@@ -183,9 +186,11 @@ export class PaymentIntentGathering extends Component<Props, State> {
           />
         ) : null}
         <div className={this.props.classes.buttonContainer}>
-          <Button onClick={this.props.onCancel}>
-            {this.props.t('payment:forms.cancelPayment')}
-          </Button>
+          {!this.props.hideCancelButton && (
+            <Button onClick={this.props.onCancel}>
+              {this.props.t('payment:forms.cancelPayment')}
+            </Button>
+          )}
           <Button
             variant="contained"
             type="submit"
@@ -196,7 +201,10 @@ export class PaymentIntentGathering extends Component<Props, State> {
               this.state.processing ||
               (this.props.termsAndConditions && !this.state.termsAccepted)
             }
-            className={this.props.classes.payButton}
+            style={this.props.customPayStyle || {}}
+            className={
+              this.props.customPayStyle ? null : this.props.classes.payButton
+            }
           >
             {this.props.t('payment:forms.paymentIntent.pay')}
           </Button>

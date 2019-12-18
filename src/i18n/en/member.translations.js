@@ -18,6 +18,7 @@ export default {
   showPaymentPack: 'Show pass',
   showInvoices: 'Show invoices',
   showSubscriptions: 'Show subscriptions',
+  memberList: 'Members list',
   note: {
     addNote: 'Add a note',
     myNotes: 'My notes',

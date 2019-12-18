@@ -13,6 +13,7 @@ export default {
   pastBooking: 'dernière : ',
   engagement: 'Engagement',
   addMember: 'Ajouter une fiche de membre',
+  memberList: 'Liste des membres',
   note: {
     noNoteSaved: 'Aucune note enregistrée',
     addNote: 'Ajouter une note',

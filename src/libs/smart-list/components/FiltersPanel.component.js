@@ -136,74 +136,6 @@ export class FiltersPanel extends Component<Props> {
     const { classes, t, filters } = this.props;
     return (
       <div>
-        <div style={{ display: 'flex' }}>
-          <ListItem
-            button
-            divider
-            onClick={() =>
-              this.setState((previousState) => ({
-                displayFilters: !previousState.displayFilters,
-              }))
-            }
-          >
-            <ListItemText
-              primary={
-                this.props.loading ? (
-                  <div style={{ display: 'flex' }}>
-                    <Typography variant="body1" style={{ marginRight: '10px' }}>
-                      {`${t('filters.active_filters')}`}
-                    </Typography>
-                    <CircularProgress size="1.5rem" />
-                  </div>
-                ) : (
-                  <Typography variant="body1">
-                    {`${t('filters.active_filters')} (${filters.length})`}
-                  </Typography>
-                )
-              }
-            />
-
-            {this.state.displayFilters ? (
-              <ExpandLessIcon />
-            ) : (
-              <ExpandMoreIcon />
-            )}
-          </ListItem>
-        </div>
-        <Collapse in={this.state.displayFilters}>
-          <Paper>
-            <List
-              component="nav"
-              disablePadding
-              className={classes.filterPanel}
-            >
-              {filters.map((filter) => (
-                <FilterCard
-                  key={`${filter.id}-${filter.filter_identifier}`}
-                  filter={filter}
-                  onClickEdit={this.props.updateFilter}
-                  onClickDelete={this.props.deleteFilter}
-                  payment_packs={this.props.payment_packs}
-                  meta_activities={this.props.meta_activities}
-                  tag_groups={this.props.tag_groups}
-                  tags={this.props.tags}
-                />
-              ))}
-              {this.state.new_filter ? (
-                <FilterCard
-                  filter={this.state.new_filter}
-                  onClickDelete={this.cancelFilter}
-                  payment_packs={this.props.payment_packs}
-                  meta_activities={this.props.meta_activities}
-                  new
-                  onClickCreate={this.createFilter}
-                  tag_groups={this.props.tag_groups}
-                  tags={this.props.tags}
-                />
-              ) : null}
-            </List>
-          </Paper>
-        </Collapse>
         <div className={classes.buttonsRow}>
           <Button
             onClick={async () => {
@@ -321,6 +253,74 @@ export class FiltersPanel extends Component<Props> {
             ))}
           </Menu>
         </div>
+        <div style={{ display: 'flex' }}>
+          <ListItem
+            button
+            divider
+            onClick={() =>
+              this.setState((previousState) => ({
+                displayFilters: !previousState.displayFilters,
+              }))
+            }
+          >
+            <ListItemText
+              primary={
+                this.props.loading ? (
+                  <div style={{ display: 'flex' }}>
+                    <Typography variant="body1" style={{ marginRight: '10px' }}>
+                      {`${t('filters.active_filters')}`}
+                    </Typography>
+                    <CircularProgress size="1.5rem" />
+                  </div>
+                ) : (
+                  <Typography variant="body1">
+                    {`${t('filters.active_filters')} (${filters.length})`}
+                  </Typography>
+                )
+              }
+            />
+
+            {this.state.displayFilters ? (
+              <ExpandLessIcon />
+            ) : (
+              <ExpandMoreIcon />
+            )}
+          </ListItem>
+        </div>
+        <Collapse in={this.state.displayFilters}>
+          <Paper>
+            <List
+              component="nav"
+              disablePadding
+              className={classes.filterPanel}
+            >
+              {filters.map((filter) => (
+                <FilterCard
+                  key={`${filter.id}-${filter.filter_identifier}`}
+                  filter={filter}
+                  onClickEdit={this.props.updateFilter}
+                  onClickDelete={this.props.deleteFilter}
+                  payment_packs={this.props.payment_packs}
+                  meta_activities={this.props.meta_activities}
+                  tag_groups={this.props.tag_groups}
+                  tags={this.props.tags}
+                />
+              ))}
+              {this.state.new_filter ? (
+                <FilterCard
+                  filter={this.state.new_filter}
+                  onClickDelete={this.cancelFilter}
+                  payment_packs={this.props.payment_packs}
+                  meta_activities={this.props.meta_activities}
+                  new
+                  onClickCreate={this.createFilter}
+                  tag_groups={this.props.tag_groups}
+                  tags={this.props.tags}
+                />
+              ) : null}
+            </List>
+          </Paper>
+        </Collapse>
       </div>
     );
   }
@@ -334,7 +334,6 @@ const styles = (theme) => ({
     marginTop: theme.spacing.unit * 2,
   },
   filterPanel: {
-    marginTop: theme.spacing.unit,
     display: 'flex',
     flexDirection: 'column',
   },

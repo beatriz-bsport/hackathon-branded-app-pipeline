@@ -8,6 +8,7 @@ import {
   removeItemFromBasket as removeItemFromBasketAPI,
   patchBasket as patchBasketAPI,
   attachPayment as attachPaymentAPI,
+  attachPaymentUnauthenticated as attachPaymentUnauthenticatedAPI,
   attachCoupon as attachCouponAPI,
 } from './api';
 import { getCurrentBasket } from './selectors';
@@ -52,6 +53,30 @@ export function attachPayment(
         getCurrentBasket(getState()).id,
         data,
       );
+      if (response.data.is_finalized) {
+        dispatch(currentBasket.success(response.data));
+      }
+      if (options && options.onSuccess) options.onSuccess(response);
+    } catch (error) {
+      dispatch(currentBasket.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+
+    dispatch(currentBasket.isUpdating(false));
+  };
+}
+
+export function attachPaymentToBasketId(
+  data: *,
+  basketId: string,
+  options: ?{ onSuccess: ?() => void, onError: ?(Error) => void },
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(currentBasket.isUpdating(true));
+    dispatch(currentBasket.error(null));
+
+    try {
+      const response = await attachPaymentUnauthenticatedAPI(basketId, data);
       if (response.data.is_finalized) {
         dispatch(currentBasket.success(response.data));
       }

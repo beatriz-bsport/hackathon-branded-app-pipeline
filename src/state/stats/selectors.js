@@ -174,3 +174,51 @@ function discretizeByAndFillMissing(dateRange, table, duration, reducer) {
 export const bookingStatSelector = statSelector('bookings');
 export const newMembersStatSelector = statSelector('newMembers');
 export const turnoverStatSelector = statSelector('turnover');
+
+export const getSmartListStatistic = (state, smartList, statistic) => {
+  if (
+    state.stats.bySmartListId[smartList] &&
+    state.stats.bySmartListId[smartList][statistic] &&
+    state.stats.bySmartListId[smartList][statistic].data
+  ) {
+    const { data, data_type } = state.stats.bySmartListId[smartList][statistic];
+    const { dateRange } = state.stats;
+
+    if (data_type === 'temporal') {
+      const filteredData = data
+        .filter((item) => moment(item.d).isBefore(moment(dateRange.end)))
+        .filter((item) => moment(item.d).isAfter(moment(dateRange.start)));
+      const discretizedData = discretizeDataBy(filteredData, {
+        start: moment(dateRange.start),
+        end: moment(dateRange.end),
+      });
+      const total = discretizedData.table.reduce((sum, x) => sum + x.v, 0);
+      return { ...discretizedData, total };
+    }
+    if (data_type === 'segments' || data_type === 'general') {
+      return state.stats.bySmartListId[smartList][statistic].data;
+    }
+  }
+  return [];
+};
+
+export const getSmartListPieStat = (state, smartList, statistic) => {
+  if (
+    state.stats.bySmartListId[smartList] &&
+    state.stats.bySmartListId[smartList][statistic] &&
+    state.stats.bySmartListId[smartList][statistic].data
+  ) {
+    return state.stats.bySmartListId[smartList][statistic].data;
+  }
+  return [];
+};
+
+export const getStatisticLoading = (state, smartList, statistic) => {
+  if (
+    state.stats.bySmartListId[smartList] &&
+    state.stats.bySmartListId[smartList][statistic]
+  ) {
+    return state.stats.bySmartListId[smartList][statistic].loading;
+  }
+  return true;
+};

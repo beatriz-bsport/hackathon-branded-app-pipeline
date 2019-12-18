@@ -10,6 +10,7 @@ import {
   ComposedChart as ComposedChartBase,
   YAxis,
   XAxis,
+  Area,
   CartesianGrid,
 } from 'recharts';
 
@@ -119,6 +120,7 @@ export const ComposedChart = React.memo((props: BarChartProps) => {
     xFormatter,
     yFormatter,
     yLabel,
+    continuous,
   } = props;
   return (
     <ResponsiveContainer key={Math.random()} width="100%" height={height}>
@@ -136,14 +138,26 @@ export const ComposedChart = React.memo((props: BarChartProps) => {
             angle: -90,
           }}
         />
-        <Bar
-          dataKey={yKey}
-          fill={getStyle(color).fill}
-          barSize={40}
-          name={props.label}
-          label={{ position: 'top', formatter: yFormatter }}
-        />
-        <Line type="monotone" dataKey={yKey} stroke={getStyle(color).fill} />
+        {continuous ? (
+          <Area
+            type="monotone"
+            dataKey={yKey}
+            fill={color}
+            fillOpacity={0.7}
+            stroke={false}
+          />
+        ) : (
+          <Bar
+            dataKey={yKey}
+            fill={getStyle(color).fill}
+            barSize={40}
+            name={props.label}
+            label={{ position: 'top', formatter: yFormatter }}
+          />
+        )}
+        {continuous ? null : (
+          <Line type="monotone" dataKey={yKey} stroke={getStyle(color).fill} />
+        )}
       </ComposedChartBase>
     </ResponsiveContainer>
   );

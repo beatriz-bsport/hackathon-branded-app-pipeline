@@ -90,6 +90,8 @@ type Props = {
   customToolBar: () => any,
   onValueChangeActiveMemberFetch: boolean,
   hideAddButton: boolean,
+  onClickDisplay: () => void,
+  hideTable: boolean,
 };
 
 type State = {
@@ -208,7 +210,7 @@ export class InvoiceTable extends Component<Props, State> {
           <TableRow>
             <div className={this.props.classes.footerContainer}>
               {this.props.hideAddButton ? (
-                <div> </div>
+                <div />
               ) : (
                 <Button
                   onClick={this.props.addMember}

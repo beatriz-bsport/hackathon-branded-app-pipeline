@@ -29,6 +29,7 @@ const BUY = 4;
 export default {
   selectToShowPreview: 'Sélectionnez un template',
   exportList: 'Exporter la liste',
+  membersInList: 'Membres dans la liste:',
   modal: {
     delete: {
       title: 'Suppression liste',
@@ -38,6 +39,27 @@ export default {
       confirm: 'Supprimer',
     },
   },
+  graphs: {
+    bookings: 'Réservations',
+    expensesSegments: {
+      title: { first: 'Dépenses entre le', second: 'et le' },
+      label: {
+        0: 'Aucune dépense',
+        1: 'Premier quartile',
+        2: 'Moyenne',
+        3: 'Dernier quartile',
+      },
+    },
+    bookingsSegments: {
+      title: 'Dernière réservation',
+      label: {
+        0: 'Dernier mois',
+        1: 'Entre 1 et 12 mois',
+        2: "Plus d'un an",
+      },
+    },
+  },
+
   mail: {
     send: 'Envoyer',
     sendMailTitle: 'Envoyer un email',
@@ -52,6 +74,7 @@ export default {
       member: 'Général',
       email: 'Emails',
     },
+    statTitle: 'Statistiques',
   },
   smart_list: {
     actions: {

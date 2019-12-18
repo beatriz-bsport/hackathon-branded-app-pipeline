@@ -10,6 +10,7 @@ import {
   statLoaded,
   statError,
   statActivities,
+  smartListStats,
 } from '../actions/stats.actions';
 
 import authActionTypes from '../actions/auth.types';
@@ -17,7 +18,7 @@ import authActionTypes from '../actions/auth.types';
 const initialState = Immutable({
   dateRange: {
     start: moment()
-      .subtract(7, 'days')
+      .subtract(365, 'days')
       .valueOf(),
     end: moment().valueOf(),
     kind: 'custom',
@@ -29,6 +30,7 @@ const initialState = Immutable({
     error: null,
     items: [],
   },
+  bySmartListId: {},
 });
 
 export default handleActions(
@@ -53,7 +55,7 @@ export default handleActions(
       return state.setIn(['stats', identifier, 'error'], error);
     },
     [statActivities.isLoading]: (state, { payload }) => {
-      return state.setIn(['activities', 'loading'], payload);
+      return state.setIn(['bySmartListId', 'loading'], payload);
     },
     [statActivities.error]: (state, { payload }) => {
       return state.setIn(['activities', 'error'], payload);
@@ -62,6 +64,43 @@ export default handleActions(
       return state
         .setIn(['activities', 'items'], payload)
         .setIn(['activities', 'lastUpdate'], new Date());
+    },
+    [smartListStats.isLoading]: (state, { payload }) => {
+      return state.setIn(
+        [
+          'bySmartListId',
+          payload.smartlist,
+          payload.statistic_identifier,
+          'loading',
+        ],
+        payload.isLoading,
+      );
+    },
+    [smartListStats.resetData]: (state, { payload }) => {
+      return state.setIn(
+        [
+          'bySmartListId',
+          payload.smartlist,
+          payload.statistic_identifier,
+          'data',
+        ],
+        [],
+      );
+    },
+    [smartListStats.success]: (state, { payload }) => {
+      return state.merge(
+        {
+          bySmartListId: {
+            [payload.smartlist]: {
+              [payload.statistic_identifier]: {
+                data: payload.data,
+                data_type: payload.data_type,
+              },
+            },
+          },
+        },
+        { deep: true },
+      );
     },
   },
   initialState,

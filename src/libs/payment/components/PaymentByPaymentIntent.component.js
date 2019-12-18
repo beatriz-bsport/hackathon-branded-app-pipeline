@@ -31,6 +31,9 @@ type Props = {
   loading: boolean,
   termsAndConditions: string,
   onCancel: () => void,
+  customPayStyle: any,
+  customContainerStyle: any,
+  hideCancelButton?: boolean,
 };
 
 type State = {

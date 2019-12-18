@@ -128,6 +128,9 @@ type Props = {
   fetchSmartListStats: () => void,
   dateRangeChange: () => void,
   dateRange: Object,
+
+  classes: Object,
+  memberTitle: string,
 };
 
 type State = {

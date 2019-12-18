@@ -90,8 +90,6 @@ type Props = {
   customToolBar: () => any,
   onValueChangeActiveMemberFetch: boolean,
   hideAddButton: boolean,
-  onClickDisplay: () => void,
-  hideTable: boolean,
 };
 
 type State = {

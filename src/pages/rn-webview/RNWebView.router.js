@@ -3,7 +3,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import BasketPaymentIntent from './BasketPaymentIntent.component';
 
-export const RNWebView = (props: Props) => (
+export const RNWebView = () => (
   <Switch>
     <Route
       exact

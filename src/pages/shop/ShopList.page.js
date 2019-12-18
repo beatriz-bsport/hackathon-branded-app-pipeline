@@ -251,8 +251,9 @@ export class ShopItemList extends Component<Props, State> {
           changeSearch={this.changeSearch}
           items={subShops
             .map((subShop) => subShop.shopItems)
-            .reduce((shopItemList, shopItems) =>
-              shopItemList.concat(shopItems),
+            .reduce(
+              (shopItemList, shopItems) => shopItemList.concat(shopItems),
+              [],
             )}
           placeHolder={this.props.t('shop:search')}
           searchFields={['name', 'description']}

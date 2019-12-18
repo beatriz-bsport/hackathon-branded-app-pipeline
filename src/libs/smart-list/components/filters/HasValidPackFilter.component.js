@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { withNamespaces } from 'react-i18next';
 import { compose } from 'recompose';
 import type { TFunction } from 'react-i18next';
-import Button from '@material-ui/core/Button';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import Checkbox from '@material-ui/core/Checkbox';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -20,7 +20,7 @@ type Props = {
   new: boolean,
 };
 
-export class PaymentPackFilter extends Component<Props, state> {
+export class HasValidPackFilter extends Component<Props, state> {
   componentDidMount() {
     if (this.props.new) {
       this.props.onChange({ payment_pack: null });
@@ -32,6 +32,7 @@ export class PaymentPackFilter extends Component<Props, state> {
     return (
       <div className={classes.wrapper}>
         {t(`filters.${filter_data.filter_identifier}.first`)}
+
         <div className={classes.selectorGrow}>
           <PaymentPackSelector
             value={filter_data.payment_pack}
@@ -44,29 +45,30 @@ export class PaymentPackFilter extends Component<Props, state> {
             isMulti
           />
         </div>
-        <Button
-          onClick={() => {
-            if (
-              filter_data.payment_pack &&
-              payment_packs.length === filter_data.payment_pack.length
-            ) {
-              onChange({ payment_pack: [] });
-            } else {
-              onChange({ payment_pack: payment_packs.map((pp) => pp.id) });
-            }
-          }}
-        >
-          <Checkbox
-            checked={
-              filter_data.payment_pack
-                ? payment_packs.length === filter_data.payment_pack.length
-                : false
-            }
-            tabIndex={-1}
-            disableRipple
-          />
-          Tous
-        </Button>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={
+                filter_data.payment_pack
+                  ? payment_packs.length === filter_data.payment_pack.length
+                  : false
+              }
+              onChange={() => {
+                if (
+                  filter_data.payment_pack &&
+                  payment_packs.length === filter_data.payment_pack.length
+                ) {
+                  onChange({ payment_pack: [] });
+                } else {
+                  onChange({ payment_pack: payment_packs.map((pp) => pp.id) });
+                }
+              }}
+              value="checkedG"
+            />
+          }
+          label="All"
+        />
+        {t(`filters.${filter_data.filter_identifier}.second`)}
       </div>
     );
   }
@@ -90,4 +92,4 @@ const styles = (theme) => ({
 export default compose(
   withNamespaces(['smartList']),
   withStyles(styles),
-)(PaymentPackFilter);
+)(HasValidPackFilter);

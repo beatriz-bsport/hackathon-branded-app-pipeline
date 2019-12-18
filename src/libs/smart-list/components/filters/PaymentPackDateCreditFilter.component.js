@@ -9,11 +9,12 @@ import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InlineDatePicker from 'material-ui-pickers/DatePicker/DatePickerInline';
 import { COMPARATORS_DICT } from '@bsport/common/lib/master-data/smart-list';
 import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
 import PaymentPackSelector from '../../../payment-packs/components/PaymentPackSelector.component';
@@ -28,13 +29,15 @@ type Props = {
   new: boolean,
 };
 
-export class PaymentPackCreditFilter extends Component<Props, state> {
+export class PaymentPackDateCreditFilter extends Component<Props, state> {
   componentDidMount() {
     if (this.props.new) {
       this.props.onChange({
         payment_pack: null,
         comparator: null,
         value: null,
+        date_start: null,
+        date_end: null,
       });
     }
   }
@@ -82,6 +85,30 @@ export class PaymentPackCreditFilter extends Component<Props, state> {
           label="All"
         />
         {t(`filters.${filter_data.filter_identifier}.second`)}
+        <div className={classes.datePicker}>
+          <InlineDatePicker
+            className={classes.input}
+            keyboard
+            ampm={false}
+            value={filter_data.date_start}
+            onChange={(ev) => onChange({ date_start: ev.format('YYYY-MM-DD') })}
+            onError={console.error}
+            format="YYYY/MM/DD"
+          />
+        </div>
+        {t(`filters.${filter_data.filter_identifier}.third`)}
+        <div className={classes.datePicker}>
+          <InlineDatePicker
+            className={classes.input}
+            keyboard
+            ampm={false}
+            value={filter_data.date_end}
+            onChange={(ev) => onChange({ date_end: ev.format('YYYY-MM-DD') })}
+            onError={console.error}
+            format="YYYY/MM/DD"
+          />
+        </div>
+        {t(`filters.${filter_data.filter_identifier}.fourth`)}
         <Select
           className={classes.input}
           required
@@ -94,12 +121,13 @@ export class PaymentPackCreditFilter extends Component<Props, state> {
             </MenuItem>
           ))}
         </Select>
-        {this.props.t(`filters.${filter_data.filter_identifier}.third`)}
         <DelayedNumericInput
           classes={classes}
           value={filter_data.value}
           onChange={(ev) => onChange({ value: ev.target.value })}
         />
+        {this.props.t(`filters.${filter_data.filter_identifier}.fifth`)}
+
         <Tooltip
           classes={classes}
           title={
@@ -138,9 +166,13 @@ const styles = (theme) => ({
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
   },
+  datePicker: {
+    width: '160px',
+  },
   wrapper: {
     display: 'flex',
     alignItems: 'center',
+    flexWrap: 'wrap',
   },
   selector: {
     minWidth: '300px',
@@ -152,4 +184,4 @@ const styles = (theme) => ({
 export default compose(
   withNamespaces(['smartList']),
   withStyles(styles),
-)(PaymentPackCreditFilter);
+)(PaymentPackDateCreditFilter);

@@ -62,7 +62,7 @@ export const fetchDetails = async (id: number) => {
 
 // Filters API
 
-const FILTER_URI = `${API_V1_URI}/smartlist/filter`;
+const FILTER_URI = `${API_V1_URI}/smartlist`;
 
 export const fetchFilters = async (
   filter_identifier: number,

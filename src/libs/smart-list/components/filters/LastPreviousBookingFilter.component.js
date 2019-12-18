@@ -6,7 +6,7 @@ import { compose } from 'recompose';
 import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import NumericInput from '../../../../components/input/NumericInput.component';
+import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
 
 type Props = {
   filter_data: any,
@@ -28,11 +28,10 @@ export class LastPreviousBookingFilter extends Component<Props, state> {
     return (
       <div className={classes.wrapper}>
         {t(`filters.${filter_data.filter_identifier}.first`)}
-        <NumericInput
+        <DelayedNumericInput
           classes={classes}
           value={filter_data.value}
           onChange={(ev) => onChange({ value: ev.target.value })}
-          required
         />
         {t(`filters.${filter_data.filter_identifier}.second`)}
       </div>

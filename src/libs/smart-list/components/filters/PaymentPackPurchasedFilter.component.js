@@ -4,18 +4,12 @@ import React, { Component } from 'react';
 import { withNamespaces } from 'react-i18next';
 import { compose } from 'recompose';
 import type { TFunction } from 'react-i18next';
-import withStyles from '@material-ui/core/styles/withStyles';
-import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
-import Tooltip from '@material-ui/core/Tooltip';
-import Typography from '@material-ui/core/Typography';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-
-import { COMPARATORS_DICT } from '@bsport/common/lib/master-data/smart-list';
-import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
+import withStyles from '@material-ui/core/styles/withStyles';
 import PaymentPackSelector from '../../../payment-packs/components/PaymentPackSelector.component';
 import type { PaymentPack } from '../../../payment-packs/types';
 
@@ -28,14 +22,10 @@ type Props = {
   new: boolean,
 };
 
-export class PaymentPackCreditFilter extends Component<Props, state> {
+export class PaymentPackPurchasedFilter extends Component<Props, state> {
   componentDidMount() {
     if (this.props.new) {
-      this.props.onChange({
-        payment_pack: null,
-        comparator: null,
-        value: null,
-      });
+      this.props.onChange({ payment_pack: null, has_bought: null });
     }
   }
 
@@ -44,6 +34,20 @@ export class PaymentPackCreditFilter extends Component<Props, state> {
     return (
       <div className={classes.wrapper}>
         {t(`filters.${filter_data.filter_identifier}.first`)}
+        <Select
+          className={classes.input}
+          value={filter_data.has_bought}
+          onChange={(ev) => onChange({ has_bought: ev.target.value })}
+        >
+          <MenuItem key={true} value={true}>
+            {t(`filters.${filter_data.filter_identifier}.has_bought`)}
+          </MenuItem>
+          <MenuItem key={false} value={false}>
+            {t(`filters.${filter_data.filter_identifier}.hasnt_bought`)}
+          </MenuItem>
+        </Select>
+        {t(`filters.${filter_data.filter_identifier}.second`)}
+
         <div className={classes.selectorGrow}>
           <PaymentPackSelector
             value={filter_data.payment_pack}
@@ -71,9 +75,7 @@ export class PaymentPackCreditFilter extends Component<Props, state> {
                 ) {
                   onChange({ payment_pack: [] });
                 } else {
-                  onChange({
-                    payment_pack: payment_packs.map((pp) => pp.id),
-                  });
+                  onChange({ payment_pack: payment_packs.map((pp) => pp.id) });
                 }
               }}
               value="checkedG"
@@ -81,60 +83,17 @@ export class PaymentPackCreditFilter extends Component<Props, state> {
           }
           label="All"
         />
-        {t(`filters.${filter_data.filter_identifier}.second`)}
-        <Select
-          className={classes.input}
-          required
-          value={filter_data.comparator}
-          onChange={(ev) => onChange({ comparator: ev.target.value })}
-        >
-          {COMPARATORS_DICT.map((item) => (
-            <MenuItem key={item.key} value={item.value}>
-              {t(`filters.classic_comparators.${item.value}`)}
-            </MenuItem>
-          ))}
-        </Select>
-        {this.props.t(`filters.${filter_data.filter_identifier}.third`)}
-        <DelayedNumericInput
-          classes={classes}
-          value={filter_data.value}
-          onChange={(ev) => onChange({ value: ev.target.value })}
-        />
-        <Tooltip
-          classes={classes}
-          title={
-            <Typography variant="subtitle2">
-              {this.props.t(
-                `filters.${filter_data.filter_identifier}.infoIcon`,
-              )}
-            </Typography>
-          }
-          aria-label="info"
-        >
-          <IconButton>
-            <InfoIcon />
-          </IconButton>
-        </Tooltip>
       </div>
     );
   }
 }
 
 const styles = (theme) => ({
-  tooltip: {
-    backgroundColor: theme.palette.common.white,
-
-    fontSize: 11,
-  },
   selectorGrow: {
     flexGrow: 0,
   },
-  input: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-  },
-  textInput: {
-    width: '50px',
+  selector: {
+    minWidth: '300px',
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
   },
@@ -142,8 +101,7 @@ const styles = (theme) => ({
     display: 'flex',
     alignItems: 'center',
   },
-  selector: {
-    minWidth: '300px',
+  input: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
   },
@@ -152,4 +110,4 @@ const styles = (theme) => ({
 export default compose(
   withNamespaces(['smartList']),
   withStyles(styles),
-)(PaymentPackCreditFilter);
+)(PaymentPackPurchasedFilter);

@@ -11,7 +11,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 import { COMPARATORS_DICT } from '@bsport/common/lib/master-data/smart-list';
 
-import NumericInput from '../../../../components/input/NumericInput.component';
+import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
 
 type Props = {
   filter_data: any,
@@ -45,11 +45,10 @@ export class CreditAccountFilter extends Component<Props, state> {
           ))}
         </Select>
         {t(`filters.${filter_data.filter_identifier}.second`)}
-        <NumericInput
+        <DelayedNumericInput
           classes={classes}
           value={filter_data.value}
           onChange={(ev) => onChange({ value: ev.target.value })}
-          required
         />
       </div>
     );

@@ -5,14 +5,11 @@ import { withNamespaces } from 'react-i18next';
 import { compose } from 'recompose';
 import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
-import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
-import Tooltip from '@material-ui/core/Tooltip';
-import Typography from '@material-ui/core/Typography';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import { COMPARATORS_DICT } from '@bsport/common/lib/master-data/smart-list';
 import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
@@ -28,7 +25,7 @@ type Props = {
   new: boolean,
 };
 
-export class PaymentPackCreditFilter extends Component<Props, state> {
+export class PaymentPackExpirationFilter extends Component<Props, state> {
   componentDidMount() {
     if (this.props.new) {
       this.props.onChange({
@@ -71,9 +68,7 @@ export class PaymentPackCreditFilter extends Component<Props, state> {
                 ) {
                   onChange({ payment_pack: [] });
                 } else {
-                  onChange({
-                    payment_pack: payment_packs.map((pp) => pp.id),
-                  });
+                  onChange({ payment_pack: payment_packs.map((pp) => pp.id) });
                 }
               }}
               value="checkedG"
@@ -94,38 +89,18 @@ export class PaymentPackCreditFilter extends Component<Props, state> {
             </MenuItem>
           ))}
         </Select>
-        {this.props.t(`filters.${filter_data.filter_identifier}.third`)}
         <DelayedNumericInput
           classes={classes}
           value={filter_data.value}
           onChange={(ev) => onChange({ value: ev.target.value })}
         />
-        <Tooltip
-          classes={classes}
-          title={
-            <Typography variant="subtitle2">
-              {this.props.t(
-                `filters.${filter_data.filter_identifier}.infoIcon`,
-              )}
-            </Typography>
-          }
-          aria-label="info"
-        >
-          <IconButton>
-            <InfoIcon />
-          </IconButton>
-        </Tooltip>
+        {this.props.t(`filters.${filter_data.filter_identifier}.third`)}
       </div>
     );
   }
 }
 
 const styles = (theme) => ({
-  tooltip: {
-    backgroundColor: theme.palette.common.white,
-
-    fontSize: 11,
-  },
   selectorGrow: {
     flexGrow: 0,
   },
@@ -152,4 +127,4 @@ const styles = (theme) => ({
 export default compose(
   withNamespaces(['smartList']),
   withStyles(styles),
-)(PaymentPackCreditFilter);
+)(PaymentPackExpirationFilter);

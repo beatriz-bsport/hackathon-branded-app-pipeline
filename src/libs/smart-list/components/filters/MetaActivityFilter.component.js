@@ -8,7 +8,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 
 import Checkbox from '@material-ui/core/Checkbox';
-import NumericInput from '../../../../components/input/NumericInput.component';
+import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
 import MetaActivitySelector from '../../../meta-activity/components/MetaActivitySelector.component';
 
 type Props = {
@@ -68,11 +68,10 @@ export class MetaActivityFilter extends Component<Props, state> {
           Tous
         </Button>
         {t(`filters.${filter_data.filter_identifier}.second`)}
-        <NumericInput
+        <DelayedNumericInput
           classes={classes}
           value={filter_data.value}
           onChange={(ev) => onChange({ value: ev.target.value })}
-          required
         />
         {t(`filters.${filter_data.filter_identifier}.third`)}
       </div>

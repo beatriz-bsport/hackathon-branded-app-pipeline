@@ -9,7 +9,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import NumericInput from '../../../../components/input/NumericInput.component';
+import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
 
 type Props = {
   filter_data: any,
@@ -45,11 +45,10 @@ export class CreditFilter extends Component<Props, state> {
           )
         </Select>
         {t(`filters.${filter_data.filter_identifier}.second`)}
-        <NumericInput
+        <DelayedNumericInput
           classes={classes}
           value={filter_data.value}
           onChange={(ev) => onChange({ value: ev.target.value })}
-          required
         />
       </div>
     );

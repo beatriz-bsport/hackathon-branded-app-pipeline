@@ -2,7 +2,6 @@ import {
   CREDIT_ACCOUNT_FILTER_IDENTIFIER,
   LAST_PREVIOUS_BOOKING_FILTER_IDENTIFIER,
   DATE_JOINED_FILTER_IDENTIFIER,
-  PAYMENT_PACK_FILTER_IDENTIFIER,
   GENDER_FILTER_IDENTIFIER,
   PAYMENT_PACK_CREDIT_FILTER_IDENTIFIER,
   SENIORITY_FILTER_IDENTIFIER,
@@ -10,10 +9,14 @@ import {
   HAS_VALID_CONSUMER_PACK_FILTER_IDENTIFIER,
   LTE_COMPARATOR,
   BOOKING_ATTENDANCE_FILTER_IDENTIFIER,
+  PAYMENT_PACK_DATE_CREDIT_FILTER_IDENTIFIER,
+  EXPENSES_FILTER_IDENTIFIER,
+  PAYMENT_PACK_NOT_BOUGHT_FILTER_IDENTIFIER,
+  PAYMENT_PACK_PURCHASED_FILTER_IDENTIFIER,
+  PAYMENT_PACK_EXPIRATION_IDENTIFIER,
   GTE_COMPARATOR,
   LT_COMPARATOR,
   GT_COMPARATOR,
-  CREDIT_FILTER_IDENTIFIER,
   TAG_FILTER_IDENTIFIER,
   E_COMPARATOR,
 } from '@bsport/common/lib/master-data/smart-list';
@@ -73,6 +76,7 @@ export default {
     [BUY]: 'Achats',
   },
   filters: {
+    all: 'Tous',
     active_filters: 'Filtre(s) actif(s) sur la liste',
     add_filter: 'Ajouter un filtre',
     add: 'Ajouter',
@@ -107,9 +111,16 @@ export default {
       before: 'avant',
       after: 'après',
     },
-    [PAYMENT_PACK_FILTER_IDENTIFIER]: {
+    [PAYMENT_PACK_PURCHASED_FILTER_IDENTIFIER]: {
       name: 'Abonnement acheté',
-      first: "Membres ayant déjà acheté l'abonnement ",
+      first: 'Membres',
+      second: 'acheté un des abonnements',
+      has_bought: 'ayant déjà',
+      hasnt_bought: "n'ayant jamais",
+    },
+    [PAYMENT_PACK_NOT_BOUGHT_FILTER_IDENTIFIER]: {
+      name: 'Abonnement non acheté',
+      first: "Membres n'ayant jamais acheté l'abonnement ",
     },
     [GENDER_FILTER_IDENTIFIER]: {
       name: 'Sexe',
@@ -117,16 +128,33 @@ export default {
       men: 'hommes',
       women: 'femmes',
     },
+    [PAYMENT_PACK_DATE_CREDIT_FILTER_IDENTIFIER]: {
+      name: "Date d'achat et crédits par abonnement",
+      infoIcon: 'Les abonnements illimités ne sont pas filtrés sur le crédit',
+      first: "A acheté l'abonnement",
+      second: 'entre le',
+      third: 'et le',
+      fourth: 'et possède',
+      fifth: 'crédits dessus',
+    },
     [PAYMENT_PACK_CREDIT_FILTER_IDENTIFIER]: {
       name: 'Crédits par abonnement',
       first: "Les crédits de l'abonnement",
       second: 'sont',
       third: 'à',
+      infoIcon:
+        'Ne concerne que les abonnements en cours de validité et non illimités',
+    },
+    [PAYMENT_PACK_EXPIRATION_IDENTIFIER]: {
+      name: 'Expiration',
+      first: "L' un des abonnements",
+      second: 'expire dans',
+      third: 'jours',
     },
     [HAS_VALID_CONSUMER_PACK_FILTER_IDENTIFIER]: {
       name: "Validité de l'abonnement",
       first: 'Possède un abonnement',
-      second: 'utilisable',
+      second: 'utilisable (avec des crédits ou illimité et non expiré)',
     },
     [WENT_TO_ACTIVITY_FILTER_IDENTIFIER]: {
       name: 'Par activité',
@@ -137,7 +165,7 @@ export default {
     [BOOKING_ATTENDANCE_FILTER_IDENTIFIER]: {
       name: 'Nombre de cours suivis',
       first: 'A participé à ',
-      second: 'cours',
+      second: 'cours ces',
       third: 'derniers jours',
     },
     [SENIORITY_FILTER_IDENTIFIER]: {
@@ -145,14 +173,22 @@ export default {
       first: 'Membre depuis',
       second: 'jours',
     },
-    [CREDIT_FILTER_IDENTIFIER]: {
-      name: 'Maximum de crédits disponibles',
-      first: 'Le nombre de crédits disponibles sur chacun des abonnements est',
-      second: 'à',
-    },
     [TAG_FILTER_IDENTIFIER]: {
       name: 'Tags',
       first: 'Filtrer sur les tags suivants',
+    },
+    [EXPENSES_FILTER_IDENTIFIER]: {
+      shop: 'Magasin',
+      pack: 'Abonnement',
+      combo: 'Pack',
+      private_pass: 'Cours particulier',
+      workshop: 'Abonnement spécial atelier',
+      name: 'Dépenses',
+      first: 'A dépensé',
+      second: '€ entre le',
+      third: 'et le',
+      fourth: 'pour les produits',
+      selector: 'Choisir les produits',
     },
   },
 };

@@ -1,5 +1,6 @@
 export default {
   metaActivity: 'Activity',
+  search: 'Search an activity',
   forms: {
     create: {
       compatible_packs: {

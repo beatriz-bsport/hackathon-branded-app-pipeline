@@ -1,5 +1,6 @@
 export default {
   establishment: 'Établissement ',
+  search: 'Chercher un établissement',
   addButton: 'Ajouter un établissement',
   pleaseSelectOne: 'Veuillez sélectionner un club sur la carte',
   offers: 'Calendrier des séances:',

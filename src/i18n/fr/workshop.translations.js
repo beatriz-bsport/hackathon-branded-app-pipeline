@@ -1,4 +1,5 @@
 export default {
+  search: 'Chercher un atelier',
   modal: {
     delete: {
       title: "Suppression de l'atelier",

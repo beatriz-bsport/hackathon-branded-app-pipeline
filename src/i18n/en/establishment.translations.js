@@ -1,5 +1,6 @@
 export default {
   establishment: 'Establishment',
+  search: 'Search an establishment',
   pleaseSelectOne: 'Please select a club in the map to show its details',
   offers: 'Sessions calendar:',
   noMoreOffers: 'No more sessions planned',

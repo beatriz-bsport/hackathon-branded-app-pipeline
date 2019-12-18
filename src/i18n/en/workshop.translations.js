@@ -1,4 +1,5 @@
 export default {
+  search: 'Search a workshop',
   modal: {
     delete: {
       title: 'Delete workshop',

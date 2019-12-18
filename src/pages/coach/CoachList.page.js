@@ -3,7 +3,7 @@
 import React from 'react';
 
 import { compose, withState } from 'recompose';
-
+import Collapse from '@material-ui/core/Collapse';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
@@ -22,6 +22,7 @@ import {
 import type { Coach } from '../../api/types';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import withTitle from '../../hocs/with-title.hoc';
+import FuzeSearch from '../../components/FuzeSearch.component';
 
 import CoachListItem from '../../libs/associated-coach/components/CoachListItem.component';
 import CoachDeleteModal from '../../libs/associated-coach/components/CoachDeleteModal.component';
@@ -44,15 +45,74 @@ type Props = {
   classes: Object,
 };
 
-export class CoachList extends React.Component<Props> {
+export class CoachList extends React.Component<Props, State> {
+  state = {
+    searchText: '',
+    searchResult: [],
+  };
+
   componentDidMount() {
     this.props.fetchAssociatedCoachesList({ disabled: false });
   }
 
+  changeSearch = (fuse) => (ev) => {
+    this.setState({
+      searchText: ev.target.value,
+      searchResult: fuse.search(ev.target.value),
+    });
+  };
+
+  clearSearch = () => {
+    this.setState({ searchText: '', searchResult: [] });
+  };
+
   render() {
+    const { t } = this.props;
+
     return (
       <div className={this.props.classes.container}>
         {this.props.loading ? <LinearProgress /> : null}
+        {this.props.associatedCoaches.length > 0 ? (
+          <div className={this.props.classes.search}>
+            <FuzeSearch
+              searchText={this.state.searchText}
+              clearSearch={this.clearSearch}
+              changeSearch={this.changeSearch}
+              items={this.props.associatedCoaches}
+              placeHolder={t('coach:search')}
+              searchFields={['name', 'email']}
+              searchResult={this.state.searchResult}
+            />
+            <Paper
+              className={
+                this.state.searchResult.length > 0 &&
+                this.state.searchText !== ''
+                  ? this.props.classes.searchPaperDisplayed
+                  : this.props.classes.searchPaperHiden
+              }
+            >
+              <Collapse
+                in={
+                  this.state.searchResult.length > 0 &&
+                  this.state.searchText !== ''
+                }
+              >
+                <List component="nav" dense disablePadding>
+                  {this.state.searchResult.map((coach) => (
+                    <CoachListItem
+                      divider
+                      coach={coach}
+                      onCoachSelected={() =>
+                        this.props.goToCoachDetail(coach.id)
+                      }
+                      deleteCoach={() => this.props.setDeleteCoachId(coach.id)}
+                    />
+                  ))}
+                </List>
+              </Collapse>
+            </Paper>
+          </div>
+        ) : null}
         <Paper>
           <List component="nav" dense disablePadding>
             {this.props.associatedCoaches.map((coach) => (
@@ -84,6 +144,18 @@ const styles = (theme) => ({
   container: {
     paddingBottom: theme.spacing.unit * 16,
   },
+  searchPaperDisplayed: {
+    border: '1px solid',
+    borderColor: theme.primary_color,
+    borderTop: '0px',
+  },
+  searchPaperHidden: {
+    border: '1px solid',
+    borderColor: theme.primary_color,
+    borderTop: '0px',
+    boderBottom: '0px',
+  },
+  search: { marginBottom: theme.spacing.unit * 2 },
 });
 
 export default compose(

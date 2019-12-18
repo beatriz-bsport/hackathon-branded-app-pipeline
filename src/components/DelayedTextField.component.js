@@ -8,6 +8,7 @@ const DELAY = 350;
 type Props = {
   value: ?string,
   onChange: (*) => void,
+  delay?: number,
 };
 
 type State = {
@@ -24,19 +25,23 @@ export default class DelayedTextField extends Component<Props, State> {
     };
   }
 
+  getDelay = () => {
+    return this.props.delay || DELAY;
+  };
+
   handleChange = (e: *) => {
     e.persist();
     this.setState({
       writingSince: Date.now(),
       value: e.target.value,
     });
-    setTimeout(this.sendChange(e), DELAY + 10);
+    setTimeout(this.sendChange(e), this.getDelay() + 10);
   };
 
   sendChange = (e: *) => () => {
     const { writingSince } = this.state;
     if (
-      (!writingSince || Date.now() - writingSince > DELAY) &&
+      (!writingSince || Date.now() - writingSince > this.getDelay()) &&
       e.target.value !== this.props.value
     ) {
       this.props.onChange(e);

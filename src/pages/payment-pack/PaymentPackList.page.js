@@ -5,12 +5,15 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import Collapse from '@material-ui/core/Collapse';
+
 import List from '@material-ui/core/List';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push as pushRouter } from 'react-router-redux';
 import { compose } from 'recompose';
 import PaginatedConsumerPackList from '../../libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
+import FuzeSearch from '../../components/FuzeSearch.component';
 
 import PaymentPackListItem from '../../libs/payment-packs/components/PaymentPackListItem.component';
 import PaymentPackDeleteDialog from '../../libs/payment-packs/components/PaymentPackDeleteDialog.component';
@@ -67,6 +70,8 @@ const CONSUMER_PACK_PAGINATION_SIZE = 10;
 export class PaymentPackList extends Component<Props, State> {
   state = {
     paymentPackToDelete: null,
+    searchText: '',
+    searchResult: [],
   };
 
   componentDidMount() {
@@ -91,6 +96,17 @@ export class PaymentPackList extends Component<Props, State> {
   deletePaymentPack = async (id: number) => {
     this.props.updatePaymentPack(id, { disabled: true });
     this.setState({ paymentPackToDelete: null });
+  };
+
+  changeSearch = (fuse) => (ev) => {
+    this.setState({
+      searchText: ev.target.value,
+      searchResult: fuse.search(ev.target.value),
+    });
+  };
+
+  clearSearch = () => {
+    this.setState({ searchText: '', searchResult: [] });
   };
 
   renderPackList = (packs: Array<PaymentPack>) => (
@@ -135,6 +151,37 @@ export class PaymentPackList extends Component<Props, State> {
         spacing={24}
         className={classes.container}
       >
+        {publicPacks.length || managerPacks.length ? (
+          <Grid item xs={12} md={12}>
+            <FuzeSearch
+              searchText={this.state.searchText}
+              clearSearch={this.clearSearch}
+              changeSearch={this.changeSearch}
+              items={[...publicPacks, ...managerPacks]}
+              placeHolder={t('paymentPack:search')}
+              searchFields={['name']}
+              searchResult={this.state.searchResult}
+            />
+
+            <Paper
+              className={
+                this.state.searchResult.length > 0 &&
+                this.state.searchText !== ''
+                  ? this.props.classes.searchPaperDisplayed
+                  : this.props.classes.searchPaperHiden
+              }
+            >
+              <Collapse
+                in={
+                  this.state.searchResult.length > 0 &&
+                  this.state.searchText !== ''
+                }
+              >
+                {this.renderPackList(this.state.searchResult)}
+              </Collapse>
+            </Paper>
+          </Grid>
+        ) : null}
         {publicPacks.length ? (
           <Grid item xs={12} md={6}>
             <Typography
@@ -147,6 +194,7 @@ export class PaymentPackList extends Component<Props, State> {
             {this.renderPackList(publicPacks)}
           </Grid>
         ) : null}
+
         {managerPacks.length ? (
           <Grid item xs={12} md={6}>
             <Typography
@@ -221,8 +269,18 @@ const styles = (theme) => ({
     marginRight: theme.spacing.unit,
   },
   titleContainer: {
-    marginTop: theme.spacing.unit * 2,
     marginBottom: theme.spacing.unit,
+  },
+  searchPaperDisplayed: {
+    border: '1px solid',
+    borderColor: theme.primary_color,
+    borderTop: '0px',
+  },
+  searchPaperHidden: {
+    border: '1px solid',
+    borderColor: theme.primary_color,
+    borderTop: '0px',
+    boderBottom: '0px',
   },
 });
 

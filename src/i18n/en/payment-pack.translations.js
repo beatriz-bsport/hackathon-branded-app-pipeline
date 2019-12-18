@@ -2,6 +2,7 @@ export default {
   consumerPaymentPack: {
     addExtension: 'Extend validity',
   },
+  search: 'Search a pass',
   extension: {
     nbDaysAdded: '+{{nb_days}}d',
     addedOn: 'Added on ',

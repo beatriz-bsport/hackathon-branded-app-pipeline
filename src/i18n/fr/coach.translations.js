@@ -9,6 +9,7 @@ export default {
   selector: {
     label: 'Professeur',
   },
+  search: 'Chercher un professeur',
   performance: {
     title: 'Récapitulatif professeur',
     coachName: 'Professeur',

@@ -2,6 +2,7 @@ export default {
   select: {
     placeholder: 'Shop product',
   },
+  search: 'Search a product',
   dialog: {
     delete: {
       title: 'Deletion: {{shopitem.name}}',

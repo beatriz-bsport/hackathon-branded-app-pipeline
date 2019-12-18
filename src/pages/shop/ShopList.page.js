@@ -18,6 +18,8 @@ import IconButton from '@material-ui/core/IconButton';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import Collapse from '@material-ui/core/Collapse';
+
 import withStyles from '@material-ui/core/styles/withStyles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ButtonBase from '@material-ui/core/ButtonBase';
@@ -50,6 +52,7 @@ import type { SubShop } from '../../libs/shop/types';
 import SubShopList from './SubShopList.component';
 import ShopItemListItem from '../../libs/shop/components/ShopItemListItem.component';
 import shopSelectors from '../../libs/shop/selectors';
+import FuzeSearch from '../../components/FuzeSearch.component';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
@@ -81,6 +84,8 @@ export class ShopItemList extends Component<Props, State> {
     newSubShopName: null,
     createItemFromSubShop: null,
     shopitemToDelete: null,
+    searchText: '',
+    searchResult: [],
   };
 
   componentDidMount() {
@@ -94,6 +99,17 @@ export class ShopItemList extends Component<Props, State> {
     this.setState({
       createItemFromSubShop: null,
     });
+  };
+
+  changeSearch = (fuse) => (ev) => {
+    this.setState({
+      searchText: ev.target.value,
+      searchResult: fuse.search(ev.target.value),
+    });
+  };
+
+  clearSearch = () => {
+    this.setState({ searchText: '', searchResult: [] });
   };
 
   renderSubShop = (subShop: SubShop) => {
@@ -229,6 +245,55 @@ export class ShopItemList extends Component<Props, State> {
     }
     return (
       <div className={this.props.classes.container}>
+        <FuzeSearch
+          searchText={this.state.searchText}
+          clearSearch={this.clearSearch}
+          changeSearch={this.changeSearch}
+          items={subShops
+            .map((subShop) => subShop.shopItems)
+            .reduce((shopItemList, shopItems) =>
+              shopItemList.concat(shopItems),
+            )}
+          placeHolder={this.props.t('shop:search')}
+          searchFields={['name', 'description']}
+          searchResult={this.state.searchResult}
+        />
+        <Paper
+          className={
+            this.state.searchResult.length > 0 && this.state.searchText !== ''
+              ? this.props.classes.searchPaperDisplayed
+              : this.props.classes.searchPaperHiden
+          }
+        >
+          <Collapse
+            in={
+              this.state.searchResult.length > 0 && this.state.searchText !== ''
+            }
+          >
+            {this.state.searchResult.map((si) => (
+              <ShopItemListItem
+                shopitem={si}
+                onClick={() => this.props.goToShopItem(si.id)}
+                additionalActions={
+                  <ListItemSecondaryAction>
+                    <IconButton disableRipple>
+                      {si.marketplace_enabled ? (
+                        <LanguageIcon color="secondary" />
+                      ) : (
+                        <VisibilityOffIcon />
+                      )}
+                    </IconButton>
+                    <IconButton
+                      onClick={() => this.setState({ shopitemToDelete: si })}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                }
+              />
+            ))}
+          </Collapse>
+        </Paper>
         {subShops.map((ss) => this.renderSubShop(ss))}
         {this.renderNewSubShop()}
         <Dialog
@@ -267,6 +332,17 @@ const styles = (theme) => ({
   },
   leftIcon: {
     marginRight: theme.spacing.unit,
+  },
+  searchPaperDisplayed: {
+    border: '1px solid',
+    borderColor: theme.primary_color,
+    borderTop: '0px',
+  },
+  searchPaperHidden: {
+    border: '1px solid',
+    borderColor: theme.primary_color,
+    borderTop: '0px',
+    boderBottom: '0px',
   },
   button: {
     marginTop: theme.spacing.unit * 2,

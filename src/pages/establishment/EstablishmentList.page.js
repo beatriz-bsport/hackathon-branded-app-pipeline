@@ -5,12 +5,15 @@ import { compose, withState } from 'recompose';
 import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+import Collapse from '@material-ui/core/Collapse';
+
 import List from '@material-ui/core/List';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push } from 'react-router-redux';
 import Map from '../../components/map/Map.component';
+import FuzeSearch from '../../components/FuzeSearch.component';
 
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
 import withTitle from '../../hocs/with-title.hoc';
@@ -42,10 +45,26 @@ type Props = {
   t: TFunction,
 };
 
-export class EstablishmentList extends React.Component<Props> {
+export class EstablishmentList extends React.Component<Props, State> {
+  state = {
+    searchText: '',
+    searchResult: [],
+  };
+
   componentDidMount() {
     this.props.fetchEstablishments();
   }
+
+  changeSearch = (fuse) => (ev) => {
+    this.setState({
+      searchText: ev.target.value,
+      searchResult: fuse.search(ev.target.value),
+    });
+  };
+
+  clearSearch = () => {
+    this.setState({ searchText: '', searchResult: [] });
+  };
 
   render() {
     if ((this.props.establishments || []).length === 0 && !this.props.loading) {
@@ -64,6 +83,51 @@ export class EstablishmentList extends React.Component<Props> {
     return (
       <div className={this.props.classes.container}>
         {this.props.loading ? <LinearProgress /> : null}
+        {this.props.establishments.length > 0 ? (
+          <div className={this.props.classes.search}>
+            <FuzeSearch
+              searchText={this.state.searchText}
+              clearSearch={this.clearSearch}
+              changeSearch={this.changeSearch}
+              searchFields={['title', 'location.adress']}
+              items={this.props.establishments}
+              placeHolder={this.props.t('establishment:search')}
+              searchResult={this.state.searchResult}
+            />
+            <Paper
+              className={
+                this.state.searchResult.length > 0 &&
+                this.state.searchText !== ''
+                  ? this.props.classes.searchPaperDisplayed
+                  : this.props.classes.searchPaperHiden
+              }
+            >
+              <Collapse
+                in={
+                  this.state.searchResult.length > 0 &&
+                  this.state.searchText !== ''
+                }
+              >
+                <List component="nav" disablePadding>
+                  {this.state.searchResult.map((e) => (
+                    <EstablishmentListItem
+                      key={e.id}
+                      divider
+                      onClick={() => this.props.goToEstablishment(e.id)}
+                      establishment={e}
+                      onClickDelete={() =>
+                        this.props.setEstablishmentToDelete(e.id)
+                      }
+                      onClickEdit={() => {
+                        this.props.startUpdateEstablishment(e.id);
+                      }}
+                    />
+                  ))}
+                </List>
+              </Collapse>
+            </Paper>
+          </div>
+        ) : null}
         <Paper>
           <List component="nav" disablePadding>
             {this.props.establishments.map((e) => (
@@ -102,12 +166,25 @@ const styles = (theme) => ({
   container: {
     paddingBottom: theme.spacing.unit * 16,
   },
+  search: { marginBottom: theme.spacing.unit * 2 },
+
   emptyEstablishment: {
     padding: theme.spacing.unit * 3,
   },
   map: {
     marginTop: theme.spacing.unit * 2,
     marginBottom: theme.spacing.unit * 2,
+  },
+  searchPaperDisplayed: {
+    border: '1px solid',
+    borderColor: theme.primary_color,
+    borderTop: '0px',
+  },
+  searchPaperHidden: {
+    border: '1px solid',
+    borderColor: theme.primary_color,
+    borderTop: '0px',
+    boderBottom: '0px',
   },
 });
 

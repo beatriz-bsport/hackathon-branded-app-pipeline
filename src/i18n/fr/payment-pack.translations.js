@@ -2,6 +2,7 @@ export default {
   consumerPaymentPack: {
     addExtension: 'Ajouter une extension',
   },
+  search: 'Chercher un abonnement',
   extension: {
     nbDaysAdded: '+{{nb_days}}j',
     addedOn: 'Ajouté le ',

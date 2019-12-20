@@ -18,6 +18,7 @@ type Props = {
   offer: Offer,
   t: TFunction,
   classes: any,
+  showOfferFilling: boolean,
 };
 
 const MarketplaceBookButton = (props: Props) => {
@@ -60,7 +61,12 @@ const MarketplaceBookButton = (props: Props) => {
           )}
         </IconButton>
       </Hidden>
-      <Hidden xsDown>{text}</Hidden>
+      <Hidden xsDown>
+        {text +
+          (props.showOfferFilling
+            ? `  (${offer.tot_slots}/${offer.effectif})`
+            : '')}
+      </Hidden>
     </Button>
   );
 };

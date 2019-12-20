@@ -24,6 +24,7 @@ type Props = {
   classes: Object,
   onClickBook: (offerId: number) => void,
   onClickBookOption: (offerId: number) => void,
+  showOfferFilling: boolean,
 };
 
 export class MarketplaceTimetable extends Component<Props> {
@@ -43,6 +44,7 @@ export class MarketplaceTimetable extends Component<Props> {
           <List disablePadding>
             {offers.map((o) => (
               <MarketplaceListItemOffer
+                showOfferFilling={this.props.showOfferFilling}
                 key={o.id}
                 offer={o}
                 onClickOffer={this.props.onClickOffer}

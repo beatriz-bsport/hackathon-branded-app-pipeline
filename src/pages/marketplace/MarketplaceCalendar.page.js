@@ -25,6 +25,7 @@ import { getPaymentComboListAvailableOnline } from '../../libs/payment-combo/sel
 
 import { Moment } from '../../i18n';
 import { DATE_FORMAT } from '../../datetime';
+import themeSelectors from '../../libs/theme/selectors';
 
 import {
   getOffersFiltered,
@@ -86,7 +87,7 @@ type Props = {
   paymentComboList: Array<PaymentCombo>,
 
   fetchCompanyOffers: (*, *, *) => void,
-
+  theme: Object,
   classes: Object,
 };
 
@@ -278,6 +279,7 @@ export class MarketplaceCalendar extends Component<Props, State> {
         />
         <MarketplaceCalendarComponent
           offers={offers}
+          showOfferFilling={this.props.theme.show_offers_filling}
           weekOffers={weekOffers}
           setFilters={this.props.setFilters}
           filters={filters}
@@ -351,6 +353,7 @@ export default compose(
       coaches: getOffersCoaches(state),
       establishments: getOffersEstablishments(state),
       metaActivities: getOffersMetaActivities(state),
+      theme: themeSelectors.getTheme(state),
     }),
     {
       resetOffers: resetOffersAction,

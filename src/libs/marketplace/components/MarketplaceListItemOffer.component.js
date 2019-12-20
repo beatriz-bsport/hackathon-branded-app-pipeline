@@ -27,6 +27,7 @@ type Props = {
   onClickBook: (offerId: number) => void,
   onClickBookOption: (offerId: number) => void,
   t: TFunction,
+  showOfferFilling: boolean,
 };
 
 export const MarketplaceOffer = (props: Props) => {
@@ -66,7 +67,12 @@ export const MarketplaceOffer = (props: Props) => {
               } - ${formatAsTime(
                 offer.date_start,
                 offer.establishment.tzname,
-              )} - ${formatMinutes(offer.duration_minute, t)}`}
+              )} - ${formatMinutes(offer.duration_minute, t)} `}
+              {props.showOfferFilling
+                ? `(${offer.bookings.length + offer.booking_options.length}/${
+                    offer.effectif
+                  })`
+                : null}
             </Typography>
             <div
               style={{

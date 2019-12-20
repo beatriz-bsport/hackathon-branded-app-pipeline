@@ -34,7 +34,7 @@ export class SmartListDetail extends React.Component<Props> {
   }
 
   render() {
-    const { t, pushToTab, tab, id, classes } = this.props;
+    const { t, pushToTab, tab, id, classes, smartlist } = this.props;
     return (
       <div className={classes.container}>
         <AppBar position="static" color="default">
@@ -56,11 +56,13 @@ export class SmartListDetail extends React.Component<Props> {
               exact
               path="/smart-list/:id/member/"
               component={SmartListDetailMember}
+              smartlist={smartlist}
             />
             <Route
               exact
               path="/smart-list/:id/email/"
               component={SmartListDetailEmail}
+              smartlist={smartlist}
             />
           </Switch>
         </div>

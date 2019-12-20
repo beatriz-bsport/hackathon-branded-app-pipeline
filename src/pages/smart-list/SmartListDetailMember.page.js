@@ -28,7 +28,6 @@ import {
   smartListUpdate,
   fetchSmartListFilters,
   updateFilter,
-  fetchSmartListDetail,
   deleteFilter,
   createFilter,
 } from '../../libs/smart-list/actions';
@@ -75,7 +74,7 @@ const GENERAL_STATISTIC_IDENTIFIER = 5;
 type Props = {
   id: number,
   t: TFunction,
-  smart_list: any,
+  smartlist: any,
   fetchSmartListFilters: (id: number) => void,
   fetchAllPaymentPacks: () => void,
   fetchPrivatePassList: () => void,
@@ -119,7 +118,6 @@ type Props = {
   goToEmailCreate: () => void,
   snackbarSuccess: (string) => void,
   snackbarError: (string) => void,
-  fetchSmartListDetail: (id) => void,
 
   // statistics
   setCloseMemberTable: () => void,
@@ -171,7 +169,6 @@ export class SmartListDetailMember extends Component<Props, State> {
 
   componentDidMount() {
     this.props.fetchSmartListFilters(this.props.id);
-    this.props.fetchSmartListDetail(this.props.id);
     this.props.fetchAllPaymentPacks();
     this.props.fetchPrivatePassList();
     this.props.fetchAllActivities();
@@ -241,7 +238,7 @@ export class SmartListDetailMember extends Component<Props, State> {
       <div>
         <FiltersPanel
           exportMemberTable={() => getMemberTable(this.props.id)}
-          smartList={this.props.smart_list}
+          smartList={this.props.smartlist}
           filters={this.props.smartlist_filters}
           updateFilter={this.updateFilter}
           deleteFilter={this.deleteFilter}
@@ -425,7 +422,6 @@ export default compose(
       smartListUpdate,
       createFilter,
       snackbarError,
-      fetchSmartListDetail,
       fetchEmailTemplatesSummaries: () => emailTemplatesSummaries(),
       fetchEmailTemplateDetail: (id) => emailTemplateDetail(id),
       fetchAllActivities: fetchAllActivitiesAction,

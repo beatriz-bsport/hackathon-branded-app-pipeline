@@ -35,6 +35,7 @@ type Props = {
   classes: Object,
   backToLogin: () => void,
   emailExists: boolean,
+  theme: Object,
   checkEmailExists: (email: string) => void,
   checkEmailExistsLoading: boolean,
 };
@@ -241,7 +242,11 @@ export class SignUpForm extends Component<Props, State> {
             name="first_name"
             autoComplete="first name"
             value={this.state.first_name}
-            label={t('common.firstname')}
+            label={
+              this.props.theme && this.props.theme.first_name_label
+                ? this.props.theme.first_name_label
+                : t('common.firstname')
+            }
             onChange={this.onFormFieldChange('first_name')}
             className={classes.field}
           />
@@ -251,7 +256,11 @@ export class SignUpForm extends Component<Props, State> {
             name="last_name"
             autoComplete="last name"
             value={this.state.last_name}
-            label={t('common.lastname')}
+            label={
+              this.props.theme && this.props.theme.last_name_label
+                ? this.props.theme.last_name_label
+                : t('common.lastname')
+            }
             onChange={this.onFormFieldChange('last_name')}
             className={classes.field}
           />

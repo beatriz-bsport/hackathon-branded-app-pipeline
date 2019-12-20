@@ -1,5 +1,21 @@
 export default {
   forms: {
+    themePersonalization: {
+      names_label_info:
+        'Change label of first name and last name fields in subsription forms',
+
+      first_name_label: {
+        placeholder: 'First name label',
+        label: 'First name label',
+        helperText: 'Fill in the first name label',
+      },
+      last_name_label: {
+        placeholder: 'Last name label',
+        label: 'Last name label',
+        helperText: 'Fill in the first name label',
+      },
+      offersFilling: 'Display offers filling on marketplace calendar',
+    },
     cover: {
       label: 'Logo',
       helperText: 'Favorize png files with transparent background',

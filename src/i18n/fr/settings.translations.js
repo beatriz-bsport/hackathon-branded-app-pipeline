@@ -10,5 +10,6 @@ export default {
     waitingList: "Liste d'attente",
     shop: 'Magasin',
     role: 'Staff',
+    personalization: 'Personnalisation',
   },
 };

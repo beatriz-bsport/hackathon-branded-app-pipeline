@@ -52,6 +52,7 @@ type Props = {
   width: string,
   onClickBook: (offerId: number) => void,
   onClickBookOption: (offerId: number) => void,
+  showOfferFilling: boolean,
 };
 
 export class MarketplaceCalendar extends Component<Props> {
@@ -64,10 +65,12 @@ export class MarketplaceCalendar extends Component<Props> {
       onClickBookOption,
       weekOffers,
       onSelectDate,
+      showOfferFilling,
     } = this.props;
 
     return isCompact && !isLarge ? (
       <MarketplaceTimetable
+        showOfferFilling={showOfferFilling}
         offers={dayOffers}
         weekOffers={weekOffers}
         date={selectedDate}
@@ -78,6 +81,7 @@ export class MarketplaceCalendar extends Component<Props> {
       />
     ) : (
       <MarketplaceWeekTimetable
+        showOfferFilling={showOfferFilling}
         weekOffers={weekOffers}
         date={selectedDate}
         onClickOffer={onClickOffer}

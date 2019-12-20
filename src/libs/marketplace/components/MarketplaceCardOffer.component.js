@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import { compose } from 'recompose';
 
 import Typography from '@material-ui/core/Typography';
 import { withNamespaces } from 'react-i18next';
@@ -21,6 +22,7 @@ type Props = {
   onClickBook: (offerId: number) => void,
   onClickBookOption: (offerId: number) => void,
   index: number,
+  showOfferFilling: boolean,
 };
 
 const pairColor = '#FFFFFF';
@@ -107,6 +109,7 @@ export const MarketplaceCardOffer = (props: Props) => {
           }}
           offer={props.offer}
           variant="contained"
+          showOfferFilling={props.showOfferFilling}
         />
       </div>
     </div>
@@ -127,16 +130,25 @@ const style = (theme) => {
         boxShadow: theme.shadows[1],
       },
     },
+    fillingNumberContainer: {
+      display: 'flex',
+      justifyContent: 'flex-end',
+      width: '100%',
+      height: '100%',
+      alignItems: 'flex-end',
+      paddingRight: theme.spacing.unit,
+    },
     cardContent: {
       display: 'flex',
       width: '100%',
+      height: '100%',
       flexDirection: 'column',
       alignItems: 'center',
       paddingTop: theme.spacing.unit,
-      paddingBottom: theme.spacing.unit,
     },
     title: {
       paddingBottom: theme.spacing.unit,
+      maxWidth: '60%',
     },
     bottomButton: {
       textAlign: 'center',
@@ -148,4 +160,7 @@ const style = (theme) => {
   };
 };
 
-export default withStyles(style)(withNamespaces()(MarketplaceCardOffer));
+export default compose(
+  withStyles(style),
+  withNamespaces(),
+)(MarketplaceCardOffer);

@@ -28,6 +28,7 @@ type Props = {
   onClickBookOption: (offerId: number) => void,
   date: Object,
   t: TFunction,
+  showOfferFilling: boolean,
 };
 
 type State = {
@@ -126,6 +127,7 @@ export class MarketplaceWeekTimetable extends Component<Props, State> {
                     ''
                   ) : (
                     <MarketplaceCardOffer
+                      showOfferFilling={this.props.showOfferFilling}
                       offer={o}
                       onClickOffer={this.props.onClickOffer}
                       onClickBook={() => this.props.onClickBook(o.id)}

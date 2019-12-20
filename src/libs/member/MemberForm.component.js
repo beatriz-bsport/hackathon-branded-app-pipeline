@@ -57,6 +57,7 @@ type Props = {
   classes: Object,
   t: TFunction,
   isSubmitting: boolean,
+  theme: Object,
   emailExists: *,
   variant?: 'merge-form' | '',
   disabled?: boolean,
@@ -192,7 +193,11 @@ export function MemberForm(props: Props) {
             <Grid item xs={12} md={mdSize}>
               <TextField
                 name="firstname"
-                label={t('form.firstname')}
+                label={
+                  props.theme && props.theme.first_name_label
+                    ? props.theme.first_name_label
+                    : t('form.firstname')
+                }
                 required
                 disabled={disabled}
                 fullWidth
@@ -201,7 +206,11 @@ export function MemberForm(props: Props) {
             <Grid item xs={12} md={mdSize}>
               <TextField
                 name="lastname"
-                label={t('form.lastname')}
+                label={
+                  props.theme && props.theme.last_name_label
+                    ? props.theme.last_name_label
+                    : t('form.lastname')
+                }
                 required
                 fullWidth
                 disabled={disabled}

@@ -17,6 +17,7 @@ import parse from '../../query-string';
 import { openIntercomHelp } from '../../intercom';
 
 import { auth as authActions } from '../../actions';
+import { fetchCompanyTheme } from '../../libs/theme/actions';
 
 import ConsumerModalContainer from '../../components/consumer/ConsumerModalContainer.component';
 import ConsumerLogin from '../../components/consumer/login/ConsumerLogin.component';
@@ -38,6 +39,9 @@ type Props = {
   emailExists: boolean,
   checkEmailExistsLoading: boolean,
   checkEmailExists: (email: string) => void,
+
+  fetchCompanyTheme: (companyId: number) => void,
+  theme: Theme,
 };
 
 const STEPS = {
@@ -50,6 +54,13 @@ export class ConsumerLoginPage extends Component<Props> {
   state = {
     step: STEPS.WELCOME,
   };
+
+  componentDidMount() {
+    const { membership } = parse(this.props.location.search);
+    if (membership) {
+      this.props.fetchCompanyTheme(membership);
+    }
+  }
 
   switchToSignUp = () => {
     this.setState({
@@ -137,6 +148,7 @@ export class ConsumerLoginPage extends Component<Props> {
               loading={loginProcessing}
               onComplete={this.signup}
               onCancel={this.cancelSignUp}
+              theme={this.props.theme}
               emailExists={this.props.emailExists}
               checkEmailExistsLoading={this.props.checkEmailExistsLoading}
               checkEmailExists={this.props.checkEmailExists}
@@ -153,6 +165,7 @@ function mapDispatchToProps(dispatch, props) {
   const search = ((props && props.location) || {}).search || '';
   const opts = { next: parse(search).next };
   return {
+    fetchCompanyTheme,
     doEmailLogin({ email, password }) {
       dispatch(authActions.requestLogin(email, password, opts));
     },
@@ -184,6 +197,7 @@ export default compose(
       errorFields: state.auth.invalidFields,
       checkEmailExistsLoading: state.auth.emailExists.loading,
       emailExists: state.auth.emailExists.exists,
+      theme: state.theme.theme,
     }),
     mapDispatchToProps,
   ),

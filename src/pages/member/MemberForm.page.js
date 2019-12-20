@@ -17,12 +17,14 @@ import { createOrUpdateMember, fetchMember } from '../../libs/member/actions';
 import memberSelectors from '../../libs/member/selectors';
 import { getLatest as getLatestMember } from '../../libs/member/api';
 import { MemberMap } from '../../libs/member/utils';
+import themeSelectors from '../../libs/theme/selectors';
 
 import { mapFormData, unmap } from '../form.utils';
 import withTitle from '../../hocs/with-title.hoc';
 
 type Props = {
   id: number,
+  theme: Object,
   initial: *,
   fetchMemberInitial: () => void,
   goToMember: (id: number) => void,
@@ -75,6 +77,7 @@ export class MemberFormPage extends Component<Props> {
         <MemberForm
           onCancel={onCancel}
           memberId={id}
+          theme={this.props.theme}
           onSubmit={onSubmit}
           initial={initialData}
           goToMember={this.props.goToMember}
@@ -128,8 +131,11 @@ export default compose(
   withNamespaces(),
   withRouter,
   connect(
-    mapStateToProps,
-    mapDispatchToProps,
+    (state) => ({ theme: themeSelectors.getTheme(state) }),
+    {
+      mapStateToProps,
+      mapDispatchToProps,
+    },
   ),
   withProps(({ upsertMember, initial, goToMember, goToMemberList }) => ({
     onSubmit: (values, options) => {

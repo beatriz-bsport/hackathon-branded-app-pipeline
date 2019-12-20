@@ -341,6 +341,7 @@ export class MarketPlace extends Component<Props, State> {
             <DialogContent style={{ minWidth: '40vw' }}>
               <SignUpForm
                 loading={this.props.auth.loading}
+                theme={this.props.theme}
                 emailExists={this.props.emailExists}
                 checkEmailExistsLoading={this.props.checkEmailExistsLoading}
                 checkEmailExists={this.props.checkEmailExists}
@@ -350,6 +351,7 @@ export class MarketPlace extends Component<Props, State> {
                     this.props.fetchCurrentBasket(this.props.companyId);
                   })
                 }
+                onCancel={() => this.setState({ signupDialogOpen: false })}
                 consumerProfile={this.props.consumerProfile}
               />
             </DialogContent>

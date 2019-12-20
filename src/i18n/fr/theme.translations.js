@@ -1,5 +1,47 @@
 export default {
   forms: {
+    themePersonalization: {
+      calendar: {
+        title:
+          'Introduisez votre propre code CSS pour personnaliser votre calendrier',
+        bookButton: {
+          placeholder: 'Entrer le code CSS',
+          label: 'Bouton "réserver"',
+          helperText: 'Changer le style du bouton "réserver"',
+        },
+        columns: {
+          placeholder: 'Entrer le code CSS',
+          label: 'Colonnes',
+          helperText: 'Changer le style des colonnes',
+        },
+        offerCard: {
+          placeholder: 'Entrer le code CSS',
+
+          label: 'Cartes de cours',
+          helperText: 'Changer le style des cartes de cours',
+        },
+        police: {
+          placeholder: 'Entrer le code CSS',
+
+          label: 'Police',
+          helperText: 'Changer le style de la police',
+        },
+      },
+      names_label_info:
+        "Modifier le label des champs Nom et Prénom dans les formulaires d'inscription",
+      first_name_label: {
+        placeholder: 'Label pour le prénom',
+        label: 'Label pour le prénom',
+        helperText: 'Entrez le label pour le prénom',
+      },
+      last_name_label: {
+        placeholder: 'Label pour le nom',
+        label: 'Label pour le nom',
+        helperText: 'Entrez le label pour le nom',
+      },
+      offersFilling:
+        'Afficher le remplissage des cours sur le calendrier client',
+    },
     cover: {
       label: 'Logo',
       helperText: 'Privilégiez les png avec fond transparent',

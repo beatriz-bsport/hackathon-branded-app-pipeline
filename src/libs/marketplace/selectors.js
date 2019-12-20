@@ -43,10 +43,7 @@ export const getOffers = createSelector(
         meta_activity: metaActivities.find((ma) => ma.id === o.meta_activity),
       }))
       .filter(
-        (o) =>
-          (o.establishment_override || o.establishment) &&
-          (o.coach_override || o.coach) &&
-          o.meta_activity,
+        (o) => (o.establishment_override || o.establishment) && o.meta_activity,
       );
   },
 );
@@ -82,8 +79,13 @@ export const getOffersFiltered = (state: State, filters: *) => {
   return offersFiltered;
 };
 
-export const getOffersWorkshop = createSelector(
+export const getOffersComplete = createSelector(
   getOffers,
+  (offers) => offers.filter((o) => o.coach_override || o.coach),
+);
+
+export const getOffersWorkshop = createSelector(
+  getOffersComplete,
   (offers) =>
     offers
       .filter(
@@ -117,7 +119,7 @@ export const getPaymentPacks = createSelector(
 );
 
 export const getOffersEstablishments = createSelector(
-  [getOffers, getEstablishments],
+  [getOffersComplete, getEstablishments],
   (filtredOffers, establishments) => {
     return (establishments || []).filter((e) =>
       filtredOffers.find(
@@ -128,7 +130,7 @@ export const getOffersEstablishments = createSelector(
 );
 
 export const getOffersCoaches = createSelector(
-  [getOffers, getCoaches],
+  [getOffersComplete, getCoaches],
   (filtredOffers, coaches) => {
     return (coaches || []).filter((c) =>
       filtredOffers.find((o) => (o.coach || o.coach_override).id === c.id),
@@ -137,7 +139,7 @@ export const getOffersCoaches = createSelector(
 );
 
 export const getOffersMetaActivities = createSelector(
-  [getOffers, getMetaActivities],
+  [getOffersComplete, getMetaActivities],
   (filtredOffers, metaActivities) => {
     return (metaActivities || []).filter((ma) =>
       filtredOffers.find((o) => o.meta_activity.id === ma.id),

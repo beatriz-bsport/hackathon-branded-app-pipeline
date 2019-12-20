@@ -11,6 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Avatar from '@material-ui/core/Avatar';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ClearIcon from '@material-ui/icons/Clear';
 import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import { withNamespaces } from 'react-i18next';
@@ -25,20 +26,22 @@ type Props = {
   classes: Object,
   t: TFunction,
   divider: ?boolean,
+  clearIcon?: boolean,
   goToEdit: (metaActivityId: number) => void,
-  goToDetail: (metaActivityId: number) => void,
+  onClick: (MetaActivity) => void,
+
   deleteMetaActivity: () => void,
 };
 
 export function MetaActivityListItem(props: Props) {
-  const { classes, metaActivity, goToDetail, goToEdit, t } = props;
+  const { classes, metaActivity, onClick, goToEdit, t } = props;
   const { next_slot } = metaActivity;
   return (
     <ListItem
-      button
+      button={onClick}
       divider={props.divider}
       alignItems="center"
-      onClick={() => goToDetail(metaActivity.id)}
+      onClick={onClick ? () => onClick(metaActivity) : null}
       style={{
         borderLeft: metaActivity.color !== '' ? '5px solid' : '0px',
         borderLeftColor: metaActivity.color,
@@ -76,16 +79,18 @@ export function MetaActivityListItem(props: Props) {
         }
       />
       <ListItemSecondaryAction>
-        <IconButton
-          aria-label={t('common.edit')}
-          color="primary"
-          onClick={() => goToEdit(metaActivity.id)}
-        >
-          <EditIcon />
-        </IconButton>
+        {props.goToEdit ? (
+          <IconButton
+            aria-label={t('common.edit')}
+            color="primary"
+            onClick={() => goToEdit(metaActivity.id)}
+          >
+            <EditIcon />
+          </IconButton>
+        ) : null}
         {props.deleteMetaActivity ? (
           <IconButton color="secondary" onClick={props.deleteMetaActivity}>
-            <DeleteIcon />
+            {props.clearIcon ? <ClearIcon /> : <DeleteIcon />}
           </IconButton>
         ) : null}
       </ListItemSecondaryAction>

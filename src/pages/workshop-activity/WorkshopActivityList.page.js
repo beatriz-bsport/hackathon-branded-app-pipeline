@@ -76,7 +76,7 @@ export class WorkshopActivityList extends React.Component<Props> {
               clearSearch={this.clearSearch}
               changeSearch={this.changeSearch}
               items={this.props.workshopActivities}
-              placeHolder={t('workshop:search')}
+              placeholder={t('workshop:search')}
               searchFields={['name', 'description']}
               searchResult={this.state.searchResult}
             />

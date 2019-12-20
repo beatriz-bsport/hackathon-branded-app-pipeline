@@ -1,64 +1,97 @@
 // @flow
 
 import React, { Component } from 'react';
-import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import WarningIcon from '@material-ui/icons/Warning';
 
-import EstablishmentInput from '../../../components/input/EstablishmentInput.component';
-
+import withStyles from '@material-ui/core/styles/withStyles';
+import { compose } from 'recompose';
+import EstablishmentSelector from '../../establishment/components/EstablishmentSelectorWithCard.component';
 import WarningForceRecursion from './WarningForceRecursion.component';
 
 type Props = {
   t: TFunction,
-  onFormFieldChange: (id: string) => (Object) => void,
   establishment: Establishment,
   establishments: Array<Establishment>,
   establishment_override: Establishment,
-  offer: Offer,
+  classes: Object,
   hasChangedEstablishment: boolean,
+  establishments_override: Array,
+  onChangeEstablishmentOverride: (Establishment) => void,
+  onChangeEstablishment: (Establishment) => void,
 };
 
 export class EstablishmentSubForm extends Component<Props> {
   renderModifyEstablishment = () => (
-    <EstablishmentInput
-      noBlank
-      label={this.props.t('form.offer.establishmentLabel')}
-      onChange={this.props.onFormFieldChange('establishment')}
-      establishments={this.props.establishments}
-      value={this.props.establishment}
-    />
+    <div className={this.props.classes.selector}>
+      <Typography variant="caption" className={this.props.classes.caption}>
+        {this.props.t('establishment:baseEstablishment')}
+      </Typography>
+
+      <EstablishmentSelector
+        id="establishment"
+        placeholder={this.props.t('establishment:establishment')}
+        establishments={this.props.establishments}
+        value={this.props.establishment}
+        onChange={this.props.onChangeEstablishment}
+      />
+    </div>
   );
 
   renderModifySubstituteEstablishment = () => (
-    <EstablishmentInput
-      label={this.props.t('form.offer.substituteEstablishmentLabel')}
-      onChange={this.props.onFormFieldChange('establishment_override')}
-      establishments={this.props.establishments.filter(
-        (e) =>
-          e.id !==
-          (this.props.establishment || this.props.offer.etablissement.id),
-      )}
-      value={this.props.establishment_override}
-    />
+    <div className={this.props.classes.selector}>
+      <Typography variant="caption" className={this.props.classes.caption}>
+        {this.props.t('establishment:overrider')}
+      </Typography>
+      <EstablishmentSelector
+        id="establishment_override"
+        placeholder={this.props.t('establishment:establishment_override')}
+        establishments={this.props.establishments_override}
+        value={this.props.establishment_override}
+        onChange={this.props.onChangeEstablishmentOverride}
+      />
+    </div>
   );
 
   render() {
     return (
-      <div>
-        <Grid container direction="row" spacing={16}>
-          <Grid item>{this.renderModifyEstablishment()}</Grid>
-          <Grid item>{this.renderModifySubstituteEstablishment()}</Grid>
-        </Grid>
-        {this.props.hasChangedEstablishment ? (
+      <div className={this.props.classes.selector}>
+        {this.renderModifyEstablishment()}
+        {this.props.establishment && this.props.hasChangedEstablishment ? (
           <WarningForceRecursion
             text={this.props.t('form.offer.establishmentChangeWarning')}
           />
         ) : null}
+        {this.props.establishment ? null : (
+          <div style={{ display: 'flex' }}>
+            <WarningIcon size={20} />
+            <Typography
+              variant="caption"
+              className={this.props.classes.caption}
+            >
+              {this.props.t('establishment:pleaseFill')}
+            </Typography>
+          </div>
+        )}
+        {this.renderModifySubstituteEstablishment()}
       </div>
     );
   }
 }
 
-export default withNamespaces()(EstablishmentSubForm);
+const styles = (theme) => ({
+  caption: {
+    paddingLeft: theme.spacing.unit,
+    paddingTop: theme.spacing.unit * 2,
+  },
+  selector: {
+    width: '100%',
+  },
+});
+export default compose(
+  withStyles(styles),
+  withNamespaces(),
+)(EstablishmentSubForm);

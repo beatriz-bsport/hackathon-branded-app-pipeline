@@ -9,12 +9,13 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import InfoIcon from '@material-ui/icons/Info';
 import CalendarIcon from '@material-ui/icons/Today';
+import DatePicker from 'material-ui-pickers/DatePicker';
+
 import AddIcon from '@material-ui/icons/Add';
 import { withNamespaces } from 'react-i18next';
+import EstablishmentSelector from '../establishment/components/EstablishmentSelectorWithCard.component';
+import CoachSelector from '../associated-coach/components/CoachSelectorWithCard.component';
 
-import DatePicker from 'material-ui-pickers/DatePicker';
-import CoachInput from '../../components/input/CoachInput.component';
-import EstablishmentInput from '../../components/input/EstablishmentInput.component';
 import { Moment } from '../../i18n';
 import FormField, {
   NOT_RECURRENT,
@@ -245,7 +246,7 @@ export class OfferForm extends Component<Props, State> {
   };
 
   renderSpecificities = () => {
-    const { establishments, coaches } = this.props;
+    const { establishments, coaches, t } = this.props;
     return (
       <Grid container direction="column" spacing={8}>
         <Grid item>
@@ -257,26 +258,29 @@ export class OfferForm extends Component<Props, State> {
           />
         </Grid>
         <Grid item>
-          <EstablishmentInput
-            noBlank
+          <EstablishmentSelector
             id="establishment"
-            label={this.props.t('form.offer.establishmentLabel')}
-            onChange={this.onFormFieldChange('establishment')}
             establishments={establishments}
-            value={this.state.establishment}
-            required
+            value={this.props.establishments.find(
+              (es) => es.id === this.state.establishment,
+            )}
+            onChange={(establishment) => {
+              this.onFormFieldChange('establishment')(
+                establishment ? establishment.id : null,
+              );
+            }}
+            placeholder={t('establishment:search')}
           />
         </Grid>
         <Grid item>
-          <CoachInput
+          <CoachSelector
             id="coach"
-            label={this.props.t('form.offer.coachLabel')}
-            required
-            value={this.state.coach}
-            onChange={(event) =>
-              this.onFormFieldChange('coach')(event.target.value)
+            coaches={coaches}
+            value={this.props.coaches.find((c) => c.id === this.state.coach)}
+            onChange={(coach) =>
+              this.onFormFieldChange('coach')(coach ? coach.id : null)
             }
-            choices={coaches}
+            placeholder={t('coach:search')}
           />
         </Grid>
       </Grid>

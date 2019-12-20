@@ -1,5 +1,8 @@
 export default {
   establishment: 'Établissement ',
+  baseEstablishment: 'Habituel',
+  overrider: 'Remplacement',
+  establishment_override: 'Établissement de remplacement',
   search: 'Chercher un établissement',
   addButton: 'Ajouter un établissement',
   pleaseSelectOne: 'Veuillez sélectionner un club sur la carte',

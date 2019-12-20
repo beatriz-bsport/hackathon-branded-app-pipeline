@@ -4,6 +4,7 @@ import React from 'react';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 import Fuse from 'fuse.js';
 import ClearIcon from '@material-ui/icons/Clear';
@@ -22,12 +23,14 @@ import DelayedTextField from './DelayedTextField.component';
 type Props = {
   items: Array,
   searchFields: Array,
-  placeHolder: string,
+  placeholder: string,
   searchText: string,
   clearSearch: () => void,
   changeSearch: (any) => void,
   searchResult: Array,
   t: TFunction,
+  classes: Object,
+  variant?: string,
 };
 
 export class FuzeSearch extends React.Component<Props> {
@@ -45,11 +48,11 @@ export class FuzeSearch extends React.Component<Props> {
 
   render() {
     const fuse = this.getFuse(this.props.items);
-
     return (
-      <div>
+      <div className={this.props.classes.container}>
         <DelayedTextField
-          placeholder={this.props.placeHolder}
+          variant={this.props.variant || 'standard'}
+          placeholder={this.props.placeholder}
           value={this.props.searchText || ''}
           fullWidth
           onChange={this.props.changeSearch(fuse)}
@@ -85,4 +88,11 @@ export class FuzeSearch extends React.Component<Props> {
   }
 }
 
-export default compose(withNamespaces())(FuzeSearch);
+const styles = () => ({
+  container: { width: '100%' },
+});
+
+export default compose(
+  withStyles(styles),
+  withNamespaces(),
+)(FuzeSearch);

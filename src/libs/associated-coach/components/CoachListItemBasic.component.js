@@ -7,6 +7,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
 import DeleteIcon from '@material-ui/icons/Delete';
+import ClearIcon from '@material-ui/icons/Clear';
 
 import type { CoachDetailed as Coach } from '../../../api/types';
 
@@ -14,7 +15,7 @@ type Props = {
   coach: Coach,
   onDelete?: () => void,
   onClick?: () => void,
-
+  clearIcon: boolean,
   divider?: boolean,
 };
 
@@ -34,7 +35,7 @@ export function CoachListItem(props: Props) {
       <ListItemSecondaryAction>
         {props.onDelete ? (
           <IconButton onClick={onDelete}>
-            <DeleteIcon />
+            {props.clearIcon ? <ClearIcon /> : <DeleteIcon />}
           </IconButton>
         ) : null}
       </ListItemSecondaryAction>

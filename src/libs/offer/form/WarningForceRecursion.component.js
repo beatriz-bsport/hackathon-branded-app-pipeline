@@ -3,7 +3,6 @@
 import React from 'react';
 
 import withStyles from '@material-ui/core/styles/withStyles';
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import AlertIcon from '@material-ui/icons/Warning';
 
@@ -14,27 +13,22 @@ type Props = {
 
 export function WarningForceRecursion(props: Props) {
   return (
-    <Grid
-      container
-      direction="row"
-      spacing={16}
-      alignItems="center"
-      className={props.classes.warningContainer}
-      wrap="nowrap"
-    >
-      <Grid item>
-        <AlertIcon color="error" className={props.classes.leftIcon} />{' '}
-      </Grid>
-      <Grid item>
-        <Typography>{props.text}</Typography>
-      </Grid>
-    </Grid>
+    <div className={props.classes.warningContainer}>
+      <AlertIcon color="error" className={props.classes.leftIcon} />
+      <Typography className={props.classes.typo}>{props.text}</Typography>
+    </div>
   );
 }
 const styles = (theme) => ({
   warningContainer: {
     backgroundColor: '#F2F2F2',
     padding: theme.spacing.unit,
+    display: 'flex',
+    alignItems: 'center',
+  },
+  typo: {
+    paddingRight: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit * 2,
   },
 });
 

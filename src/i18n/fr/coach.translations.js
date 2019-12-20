@@ -1,10 +1,16 @@
 export default {
   coach: 'Professeur',
+  baseCoach: 'Habituel',
+  overrider: 'Remplaçant',
+  overrideSelectorTitle: 'Professeur',
+  coach_override: 'Professeur de remplacement',
   color: 'Code couleur (cours privé)',
   showPerformance: 'Rémunérer',
   showActivities: 'Afficher les activités',
   showDescription: 'Afficher la description',
   description: 'Description',
+  pleaseFill: 'Veuillez renseigner un professeur',
+
   emptyDescription: 'Aucune description fournie',
   selector: {
     label: 'Professeur',

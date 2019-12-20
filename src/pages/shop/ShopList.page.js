@@ -255,10 +255,11 @@ export class ShopItemList extends Component<Props, State> {
               (shopItemList, shopItems) => shopItemList.concat(shopItems),
               [],
             )}
-          placeHolder={this.props.t('shop:search')}
+          placeholder={this.props.t('shop:search')}
           searchFields={['name', 'description']}
           searchResult={this.state.searchResult}
         />
+
         <Paper
           className={
             this.state.searchResult.length > 0 && this.state.searchText !== ''

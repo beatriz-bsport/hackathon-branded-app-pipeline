@@ -25,7 +25,7 @@ export default function MetaActivityList(props: Props) {
             key={ma.id}
             metaActivity={ma}
             goToEdit={goToEdit}
-            goToDetail={goToDetail}
+            onClick={(metaActivity) => goToDetail(metaActivity.id)}
             deleteMetaActivity={() => props.deleteMetaActivity(ma.id)}
           />
         ))}

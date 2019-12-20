@@ -25,6 +25,12 @@ export default class DelayedTextField extends Component<Props, State> {
     };
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.value !== prevProps.value) {
+      this.setState({ value: this.props.value });
+    }
+  }
+
   getDelay = () => {
     return this.props.delay || DELAY;
   };

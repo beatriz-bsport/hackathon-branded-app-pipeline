@@ -26,6 +26,7 @@ type Props = {
   id: number,
   classes: Object,
   fetchSmartListDetail: (id: number) => void,
+  smartlist: ?Smartlist,
 };
 
 export class SmartListDetail extends React.Component<Props> {

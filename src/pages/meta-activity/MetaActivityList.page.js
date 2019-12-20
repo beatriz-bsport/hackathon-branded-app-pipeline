@@ -76,7 +76,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
               clearSearch={this.clearSearch}
               changeSearch={this.changeSearch}
               items={this.props.metaActivities}
-              placeHolder={t('metaActivity:search')}
+              placeholder={t('metaActivity:search')}
               searchFields={['name', 'description']}
               searchResult={this.state.searchResult}
             />

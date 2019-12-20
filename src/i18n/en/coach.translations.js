@@ -2,10 +2,15 @@ export default {
   coach: 'Coach',
   color: 'Color code (private lessons)',
   search: 'Search a coach',
+  coach_override: 'Override coach',
+  baseCoach: 'Usual',
+  overrider: 'Override',
+  overrideSelectorTitle: 'Coach',
   showPerformance: 'Remunerate',
   showActivities: 'Show activities',
   showDescription: 'Show description',
   description: 'Description',
+  pleaseFill: 'Please enter a coach',
   emptyDescription: 'No description provided',
   selector: {
     coach: {

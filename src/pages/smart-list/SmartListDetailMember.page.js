@@ -81,6 +81,8 @@ type Props = {
   fetchAllActivities: () => void,
   fetchEmailTemplateDetail: (id: number) => void,
   fetchEmailTemplatesSummaries: () => void,
+  classes: Object,
+  memberTitle: string,
   fetchTags: () => void,
   createFilter: (
     filterNameId: number,

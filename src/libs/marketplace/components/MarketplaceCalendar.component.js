@@ -175,6 +175,7 @@ export class MarketplaceCalendar extends Component<Props> {
         </Grid>
         <Grid item xs={12} md={6} className={classes.selector}>
           <EstablishmentSelector
+            isMulti
             establishments={establishments}
             selectedEstablishments={filters.establishments}
             selectOption={(ev) => {

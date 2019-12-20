@@ -11,6 +11,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
+import ClearIcon from '@material-ui/icons/Clear';
+
 import type { Establishment } from '../../../api/types';
 
 type Props = {
@@ -18,6 +20,8 @@ type Props = {
   onClickEdit: ?() => void,
   onClick: ?() => void,
   divider: ?boolean,
+  clearIcon: boolean,
+
   classes: Object,
 };
 
@@ -36,6 +40,7 @@ export default withStyles(styles)((props: Props) => {
       button={!!onClick}
       onClick={onClick}
       alignItems="center"
+      selected={props.selected}
     >
       <ListItemAvatar>
         <Avatar className={classes.avatar} alt="" src={establishment.cover} />
@@ -69,7 +74,7 @@ export default withStyles(styles)((props: Props) => {
               props.onClickDelete();
             }}
           >
-            <DeleteIcon />
+            {props.clearIcon ? <ClearIcon /> : <DeleteIcon />}
           </IconButton>
         ) : null}
       </ListItemSecondaryAction>

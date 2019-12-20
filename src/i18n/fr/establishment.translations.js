@@ -1,11 +1,15 @@
 export default {
   establishment: 'Établissement ',
+  baseEstablishment: 'Habituel',
+  overrider: 'Remplacement',
+  establishment_override: 'Établissement de remplacement',
   search: 'Chercher un établissement',
   addButton: 'Ajouter un établissement',
   pleaseSelectOne: 'Veuillez sélectionner un club sur la carte',
   offers: 'Calendrier des séances:',
   noMoreOffers: 'Plus aucune séance de prévue',
   goBackToList: 'Retour aux établissements',
+  pleaseFill: 'Veuillez renseigner un établisssement',
   form: {
     new: {
       title: 'Titre',

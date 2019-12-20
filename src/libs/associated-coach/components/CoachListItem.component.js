@@ -13,6 +13,7 @@ import Chip from '@material-ui/core/Chip';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import EditIcon from '@material-ui/icons/Edit';
 import CallIcon from '@material-ui/icons/Call';
+
 import { Link } from 'react-router-dom';
 
 import type { CoachDetailed as Coach } from '../../../api/types';

@@ -158,7 +158,7 @@ export class PaymentPackList extends Component<Props, State> {
               clearSearch={this.clearSearch}
               changeSearch={this.changeSearch}
               items={[...publicPacks, ...managerPacks]}
-              placeHolder={t('paymentPack:search')}
+              placeholder={t('paymentPack:search')}
               searchFields={['name']}
               searchResult={this.state.searchResult}
             />

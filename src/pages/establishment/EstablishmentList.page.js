@@ -91,7 +91,7 @@ export class EstablishmentList extends React.Component<Props, State> {
               changeSearch={this.changeSearch}
               searchFields={['title', 'location.adress']}
               items={this.props.establishments}
-              placeHolder={this.props.t('establishment:search')}
+              placeholder={this.props.t('establishment:search')}
               searchResult={this.state.searchResult}
             />
             <Paper

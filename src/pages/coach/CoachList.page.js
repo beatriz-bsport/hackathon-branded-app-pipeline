@@ -79,7 +79,7 @@ export class CoachList extends React.Component<Props, State> {
               clearSearch={this.clearSearch}
               changeSearch={this.changeSearch}
               items={this.props.associatedCoaches}
-              placeHolder={t('coach:search')}
+              placeholder={t('coach:search')}
               searchFields={['name', 'email']}
               searchResult={this.state.searchResult}
             />

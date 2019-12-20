@@ -1,9 +1,13 @@
 // @flow
 import React, { Component } from 'react';
-import Grid from '@material-ui/core/Grid';
+import withStyles from '@material-ui/core/styles/withStyles';
+import { compose } from 'recompose';
+import Typography from '@material-ui/core/Typography';
+import WarningIcon from '@material-ui/icons/Warning';
+
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import CoachInput from '../../../components/input/CoachInput.component';
+import CoachSelector from '../../associated-coach/components/CoachSelectorWithCard.component';
 
 import WarningForceRecursion from './WarningForceRecursion.component';
 
@@ -11,38 +15,41 @@ type Props = {
   coach: Coach,
   coaches: Array<Coach>,
   coach_override: ?Coach,
-  offer: Offer,
-  onDeleteCoachSubstitute: () => void,
-  onFormFieldChange: (id: string) => (Object) => void,
   t: TFunction,
   hasChangedCoach: boolean,
+  classes: Object,
+  coachs_override: Array,
+  onChangeCoachOverride: (Coach) => void,
+  onChangeCoach: (Coach) => void,
 };
 
 export class CoachSubForm extends Component<Props> {
   renderModifyCoach = () => (
-    <CoachInput
-      label={this.props.t('form.offer.coachLabel')}
-      required
-      value={this.props.coach}
-      onChange={(event) =>
-        this.props.onFormFieldChange('coach')(event.target.value)
-      }
-      choices={this.props.coaches}
-    />
+    <div className={this.props.classes.selector}>
+      <Typography className={this.props.classes.caption} variant="caption">
+        {this.props.t('coach:baseCoach')}
+      </Typography>
+      <CoachSelector
+        coaches={this.props.coaches}
+        value={this.props.coach}
+        onChange={this.props.onChangeCoach}
+        placeholder={this.props.t('coach:coach')}
+      />
+    </div>
   );
 
   renderModifySubstituteCoach = () => (
-    <CoachInput
-      label={this.props.t('form.offer.substituteCoachLabel')}
-      onChange={(event) =>
-        this.props.onFormFieldChange('coach_override')(event.target.value)
-      }
-      choices={this.props.coaches.filter(
-        (c) => c.id !== (this.props.coach || this.props.offer.coach),
-      )}
-      value={this.props.coach_override}
-      onDelete={this.props.onDeleteCoachSubstitute}
-    />
+    <div className={this.props.classes.selector}>
+      <Typography className={this.props.classes.caption} variant="caption">
+        {this.props.t('coach:overrider')}
+      </Typography>
+      <CoachSelector
+        coaches={this.props.coachs_override}
+        value={this.props.coach_override}
+        onChange={this.props.onChangeCoachOverride}
+        placeholder={this.props.t('coach:coach_override')}
+      />
+    </div>
   );
 
   showCoachChangeWarning = () => {
@@ -58,15 +65,36 @@ export class CoachSubForm extends Component<Props> {
 
   render() {
     return (
-      <div>
-        <Grid container direction="row" spacing={16}>
-          <Grid item>{this.renderModifyCoach()}</Grid>
-          <Grid item>{this.renderModifySubstituteCoach()}</Grid>
-        </Grid>
-        {this.showCoachChangeWarning()}
+      <div className={this.props.classes.selector}>
+        {this.renderModifyCoach()}
+        {this.props.coach ? null : (
+          <div style={{ display: 'flex' }}>
+            <WarningIcon size={20} />
+            <Typography
+              variant="caption"
+              className={this.props.classes.caption}
+            >
+              {this.props.t('coach:pleaseFill')}
+            </Typography>
+          </div>
+        )}
+        {this.props.coach ? this.showCoachChangeWarning() : null}
+        {this.renderModifySubstituteCoach()}
       </div>
     );
   }
 }
 
-export default withNamespaces()(CoachSubForm);
+const styles = (theme) => ({
+  caption: {
+    paddingLeft: theme.spacing.unit,
+    paddingTop: theme.spacing.unit * 2,
+  },
+  selector: {
+    width: '100%',
+  },
+});
+export default compose(
+  withStyles(styles),
+  withNamespaces(),
+)(CoachSubForm);

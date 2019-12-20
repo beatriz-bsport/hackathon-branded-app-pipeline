@@ -10,6 +10,11 @@ export default {
     imageUploaderRequireEditMessage:
       'Once you have created your establishment you will be able to add additional images.',
   },
+  practical_info: {
+    label: "Access information",
+    placeholder: 'Code 1234 first door on the left',
+    helperText: "This information will be displayed after the booking",
+  },
   form: {
     new: {
       title: 'Title',

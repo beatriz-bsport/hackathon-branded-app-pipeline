@@ -49,6 +49,7 @@ export class EstablishmentFormPage extends Component<Props> {
     const formData = mapFormData(data, {
       title: 'title',
       specific_info: 'specific_info',
+      practical_info: 'practical_info',
       x: 'location.geometry.x',
       y: 'location.geometry.y',
       address: 'location.address',

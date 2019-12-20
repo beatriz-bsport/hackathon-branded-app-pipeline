@@ -199,7 +199,6 @@ export class FormField extends Component<Props, State> {
       case 'default_price':
       case 'default_credits':
       case 'price':
-      case 'specific_info':
       case 'title':
       case 'credits':
       case 'effectif':
@@ -220,6 +219,25 @@ export class FormField extends Component<Props, State> {
             fullWidth={fullWidth}
             InputProps={InputProps}
             type={type}
+          />
+        );
+      case 'specific_info':
+        return (
+          <TextField
+            className={classes.textInput}
+            required={required}
+            value={value}
+            id={id}
+            name={name}
+            label={t(`form.${id}`)}
+            onChange={this.handleChange}
+            error={error}
+            multiline
+            rows={3}
+            fullWidth={fullWidth}
+            InputProps={InputProps}
+            type={type}
+            variant="outlined"
           />
         );
       case 'date_time':

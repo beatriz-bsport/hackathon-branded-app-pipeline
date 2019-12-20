@@ -6,6 +6,12 @@ export default {
   offers: 'Calendrier des séances:',
   noMoreOffers: 'Plus aucune séance de prévue',
   goBackToList: 'Retour aux établissements',
+  pleaseFill: 'Veuillez renseigner un établisssement',
+  practical_info: {
+    label: "Information d'accès",
+    placeholder: 'Code 1234 porte de droite',
+    helperText: "Cette information ne sera affichée qu'à la réservation",
+  },
   form: {
     new: {
       title: 'Titre',

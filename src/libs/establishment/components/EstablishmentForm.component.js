@@ -10,6 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 import {
   FormField,
@@ -36,6 +37,7 @@ type Props = {
 type State = {
   title: ?string,
   specific_info: ?string,
+  practical_info: ?string,
   location: ?{ x: number, y: number },
   address: ?string,
   cover: ?string,
@@ -50,6 +52,7 @@ export class EstablishmentForm extends Component<Props, State> {
     if (props.initial) {
       this.state.title = props.initial.title;
       this.state.specific_info = props.initial.specific_info;
+      this.state.practical_info = props.initial.practical_info;
       this.state.address = props.initial.location.address;
       this.state.location = {
         x: props.initial.location.longitude,
@@ -62,10 +65,18 @@ export class EstablishmentForm extends Component<Props, State> {
   onSubmit = (e: SyntheticEvent<HTMLElement>) => {
     e.preventDefault();
 
-    const { title, specific_info, location, address, cover } = this.state;
+    const {
+      title,
+      specific_info,
+      practical_info,
+      location,
+      address,
+      cover,
+    } = this.state;
     const data = {
       title,
       specific_info,
+      practical_info,
       x: location && location.x,
       y: location && location.y,
       address,
@@ -145,6 +156,22 @@ export class EstablishmentForm extends Component<Props, State> {
                   required
                   value={this.state.specific_info}
                   onChange={this.onFormFieldChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  multiline
+                  rows={3}
+                  required
+                  value={this.state.practical_info}
+                  onChange={(ev) =>
+                    this.onFormFieldChange('practical_info')(ev.target.value)
+                  }
+                  label={t('establishment.practical_info.label')}
+                  placeholder={t('establishment.practical_info.placeholder')}
+                  helperText={t('establishment.practical_info.helperText')}
+                  variant="outlined"
+                  fullWidth
                 />
               </Grid>
               <Grid item xs={12}>

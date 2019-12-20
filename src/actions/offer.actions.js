@@ -181,3 +181,20 @@ export function toogleWaitingListFreeze(
     dispatch(offerWaitingListActions.isLoading(false));
   };
 }
+
+export const offersFilterActions = {
+  toogleOpen: createAction('OFFER/FILTER/TOOGLE_OPEN'),
+  setFilters: createAction('OFFER/FILTER/SET_FILTER'),
+};
+
+export function toogleFilter() {
+  return async (dispatch: Dispatch) => {
+    dispatch(offersFilterActions.toogleOpen());
+  };
+}
+
+export function setFilters(filters) {
+  return async (dispatch: Dispatch) => {
+    dispatch(offersFilterActions.setFilters(filters));
+  };
+}

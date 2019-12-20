@@ -59,4 +59,44 @@ export const getSimilars = createSelector(
 export const getEventsByMetaActivity = (state) =>
   state.offer.calendarByObject.metaActivity;
 
+const getManagerOffers = (state) => state.offer.offers;
+
+export const getManagerFilters = (state) => state.offer.managerFilter.filters;
+export const getManagerFiltersOpen = (state) => state.offer.managerFilter.open;
+
+export const getManagerOffersFiltered = createSelector(
+  [getManagerOffers, getManagerFilters, getManagerFiltersOpen],
+  (offers, filters, open) => {
+    if (!open) return offers;
+    let offersFiltered = offers;
+    if ((filters.establishments || []).length) {
+      offersFiltered = offersFiltered.filter(
+        (o) =>
+          (filters.establishments.includes(o.etablissement.id) &&
+            !o.establishment_override) ||
+          (o.establishment_override &&
+            filters.establishments.includes(o.establishment_override.id)),
+      );
+    }
+    if ((filters.coaches || []).length) {
+      offersFiltered = offersFiltered.filter(
+        (o) =>
+          (filters.coaches.includes(o.coach.id) && !o.coach_override) ||
+          (o.coach_override && filters.coaches.includes(o.coach_override.id)),
+      );
+    }
+    if ((filters.levels || []).length) {
+      offersFiltered = offersFiltered.filter((o) =>
+        filters.levels.includes(o.level_id),
+      );
+    }
+    if ((filters.metaActivities || []).length) {
+      offersFiltered = offersFiltered.filter((o) =>
+        filters.metaActivities.includes(o.meta_activity_id),
+      );
+    }
+    return offersFiltered;
+  },
+);
+
 export default { get, getAll, todayOffers, getSimilars };

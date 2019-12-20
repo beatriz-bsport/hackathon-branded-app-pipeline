@@ -60,6 +60,7 @@ export default {
     product_names: 'Products',
     payment_price: 'price',
     payment_method_readable_identifier: 'Payment method',
+    address: 'Address',
     tax: 'Tax',
     voucher: 'Voucher',
     total_price: 'Billed price, tax inc.',

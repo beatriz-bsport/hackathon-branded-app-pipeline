@@ -11,6 +11,7 @@ import {
   similarOffers,
   offerByDay,
   offersByMetaActivity,
+  offersFilterActions,
 } from '../actions/offer.actions';
 import authActionTypes from '../actions/auth.types';
 
@@ -40,6 +41,10 @@ const initialState = Immutable({
     loading: false,
     error: null,
   },
+  managerFilter: {
+    open: false,
+    filters: {},
+  },
 });
 
 const REFRESHED_INTERVAL = 60 * 60 * 24 * 5;
@@ -49,6 +54,12 @@ export default handleActions(
     [authActionTypes.DISCONNECT]: () => initialState,
     [offersByMetaActivity.isLoading]: (state, { payload }) => {
       return state.setIn(['calendarByObject', 'loading'], payload);
+    },
+    [offersFilterActions.toogleOpen]: (state) => {
+      return state.setIn(['managerFilter', 'open'], !state.managerFilter.open);
+    },
+    [offersFilterActions.setFilters]: (state, { payload }) => {
+      return state.setIn(['managerFilter', 'filters'], payload);
     },
     [offersByMetaActivity.error]: (state, { payload }) => {
       return state.setIn(['calendarByObject', 'error'], payload);

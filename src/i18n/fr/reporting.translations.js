@@ -62,6 +62,7 @@ export default {
     credits: 'Crédits totaux',
     available_credits: 'Crédits disponibles',
     payment_method_readable_identifier: 'Méthode de paiement',
+    address: 'Adresse',
     tax: 'TVA',
     voucher: 'Réduction',
     product_price: 'Prix produit',

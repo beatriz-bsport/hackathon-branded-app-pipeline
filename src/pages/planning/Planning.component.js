@@ -19,9 +19,12 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import AddIcon from '@material-ui/icons/Add';
+import Immutable from 'seamless-immutable';
 import { push as pushRouter, goBack as goBackRouter } from 'react-router-redux';
 
 import moment from 'moment';
+import uniq from 'lodash/uniq';
+
 import withTitle from '../../hocs/with-title.hoc';
 
 import { getSimilars as getSimilarsOffers } from '../../libs/offer/selectors';
@@ -49,11 +52,21 @@ import { createOffers as createOffersAPI } from '../../libs/meta-activity/api/me
 import type { Permission } from '../../libs/role/types';
 import { DATE_FORMAT } from '../../datetime';
 
+import CoachSelector from '../../libs/associated-coach/components/CoachSelector.component';
+import EstablishmentSelector from '../../libs/establishment/components/EstablishmentSelector.component';
+import MetaActivitySelector from '../../libs/meta-activity/components/MetaActivitySelector.component';
+import LevelSelector from '../../libs/category/components/LevelSelector.component';
+
 const styles = (theme) => ({
   panel: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+  },
+  selector: {
+    paddingLeft: theme.spacing.unit,
+    paddingRight: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit,
   },
   button: {
     marginTop: theme.spacing.unit,
@@ -151,6 +164,11 @@ export class Planning extends PureComponent<Props, State> {
     if (this.props.date) {
       this.loadDayData(this.props.date);
     }
+    if (this.props.offerFilterOpen) {
+      this.props.fetchAssociatedCoachesList();
+      this.props.fetchEstablishments();
+      this.props.fetchAllActivities();
+    }
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -159,6 +177,11 @@ export class Planning extends PureComponent<Props, State> {
       !moment(prevProps.date).isSame(moment(this.props.date), 'month')
     ) {
       this.fetchRelevantOffers();
+    }
+    if (this.props.offerFilterOpen && !prevProps.offerFilterOpen) {
+      this.props.fetchAssociatedCoachesList();
+      this.props.fetchEstablishments();
+      this.props.fetchAllActivities();
     }
   }
 
@@ -453,6 +476,67 @@ export class Planning extends PureComponent<Props, State> {
     }
   };
 
+  searchBar = () => {
+    const coachList = this.props.coaches.map((e) => ({
+      ...e,
+      user: { name: e.name },
+    }));
+    const establishmentList = this.props.establishments;
+    return (
+      <Grid container>
+        <Grid item xs={12} md={6} className={this.props.classes.selector}>
+          <CoachSelector
+            coaches={Immutable(coachList)}
+            selectedCoaches={this.props.offerFilters.coaches}
+            selectOption={(ev) =>
+              this.props.setFilters({
+                ...this.props.offerFilters,
+                coaches: ev.map((e) => e.value),
+              })
+            }
+          />
+        </Grid>
+        <Grid item xs={12} md={6} className={this.props.classes.selector}>
+          <LevelSelector
+            selectedLevels={this.props.offerFilters.levels}
+            selectOption={(ev) =>
+              this.props.setFilters({
+                ...this.props.offerFilters,
+                levels: ev.map((e) => e.value),
+              })
+            }
+          />
+        </Grid>
+        <Grid item xs={12} md={6} className={this.props.classes.selector}>
+          <EstablishmentSelector
+            establishments={Immutable(establishmentList)}
+            selectedEstablishments={this.props.offerFilters.establishments}
+            selectOption={(ev) => {
+              this.props.setFilters({
+                ...this.props.offerFilters,
+                establishments: ev.map((e) => e.value),
+              });
+            }}
+          />
+        </Grid>
+        <Grid item xs={12} md={6} className={this.props.classes.selector}>
+          <MetaActivitySelector
+            metaActivities={this.props.metaActivities.filter(
+              (ma) => ma.customer_enabled && !ma.is_workshop,
+            )}
+            selectedMetaActivities={this.props.offerFilters.metaActivities}
+            selectOption={(ev) =>
+              this.props.setFilters({
+                ...this.props.offerFilters,
+                metaActivities: ev.map((e) => e.value),
+              })
+            }
+          />
+        </Grid>
+      </Grid>
+    );
+  };
+
   render() {
     const {
       offers,
@@ -478,6 +562,9 @@ export class Planning extends PureComponent<Props, State> {
                   events={events_}
                   onDateClick={this.loadDayData}
                   date={this.props.date}
+                  searchBar={this.searchBar()}
+                  searchBarOpen={this.props.offerFilterOpen}
+                  toogleSearchBar={this.props.toogleFilter}
                 />
                 <TimeTable
                   date={moment(date)}
@@ -532,7 +619,6 @@ export default compose(
   withMobileDialog(),
   connect(
     (state) => ({
-      offers: state.offer.offers,
       events: state.offer.calendar,
       timetableLoading: state.offer.byDay.loading,
 
@@ -550,6 +636,8 @@ export default compose(
         state.establishment.loading,
       similarOffers: getSimilarsOffers(state),
       permission: getPermissions(state),
+      offerFilterOpen: state.offer.managerFilter.open,
+      offerFilters: state.offer.managerFilter.filters,
     }),
     {
       goBack: goBackRouter,
@@ -561,6 +649,8 @@ export default compose(
       fetchEstablishments,
       fetchAssociatedCoachesList,
       fetchAllActivities,
+      setFilters: offerActions.setFilters,
+      toogleFilter: offerActions.toogleFilter,
     },
   ),
   withTitle(({ t }: { t: TFunction }) => t('titles:planning')),

@@ -10,6 +10,7 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { Moment } from '../../i18n';
 
 import { offer as offerActions } from '../../actions';
+import { getManagerOffersFiltered } from '../../libs/offer/selectors';
 
 const formatDate = (date) => {
   const formatedDate = Moment(date, 'DD-MM-YYYY');
@@ -39,7 +40,7 @@ export default function PlanningRouter() {
 
 const PlanningWithDateAndOffer = compose(
   connect(
-    (state) => ({ offers: state.offer.offers }),
+    (state) => ({ offers: getManagerOffersFiltered(state) }),
 
     {
       fetchOffersByDay: offerActions.fetchOffersByDay,

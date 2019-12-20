@@ -23,7 +23,6 @@ import Immutable from 'seamless-immutable';
 import { push as pushRouter, goBack as goBackRouter } from 'react-router-redux';
 
 import moment from 'moment';
-import uniq from 'lodash/uniq';
 
 import withTitle from '../../hocs/with-title.hoc';
 
@@ -43,6 +42,7 @@ import type { Establishment } from '../../libs/establishment/types';
 import { offer as offerActions } from '../../actions';
 import type { Offer, Coach } from '../../api/types';
 import api from '../../api';
+import type { OfferFilter } from '../../libs/offer/types';
 
 import { snackbarSuccess } from '../../actions/snackbar.actions';
 import OfferEditForm from '../../libs/offer/OfferEditForm.component';
@@ -118,6 +118,11 @@ type Props = {
   fetchSimilarOffers: (offerId: number) => void,
 
   snackbarSuccess: (string) => void,
+
+  offerFilterOpen: boolean,
+  offerFilters: OfferFilter,
+  setFilters: (OfferFilter) => null,
+  toogleFilter: () => void,
 };
 
 type State = {

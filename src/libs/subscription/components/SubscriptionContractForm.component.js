@@ -24,18 +24,18 @@ export function SubscriptionContractFields(props: Props) {
   const { t, classes } = props;
   return (
     <div>
-      <PaymentPackSelectorField
-        choices={props.paymentPacks}
-        name="payment_pack"
-        fullWidth
-        className={classes.fieldMain}
-      />
       <TextField
         name="name"
         label={t('contract.form.name.label')}
         required
         fullWidth
         className={classes.field}
+      />
+      <PaymentPackSelectorField
+        choices={props.paymentPacks}
+        name="payment_pack"
+        fullWidth
+        className={classes.fieldMain}
       />
       <TextField
         name="nb_interval"
@@ -50,6 +50,28 @@ export function SubscriptionContractFields(props: Props) {
         required
         fullWidth
         className={classes.field}
+      />
+      <TextField
+        name="description"
+        label={t('contract.form.description.label')}
+        placeholder={t('contract.form.description.placeholder')}
+        className={classes.field}
+        required
+        fullWidth
+        multiline
+        variant="outlined"
+        rows={5}
+      />
+      <TextField
+        name="contract"
+        label={t('contract.form.contract.label')}
+        placeholder={t('contract.form.contract.placeholder')}
+        className={classes.field}
+        required
+        fullWidth
+        multiline
+        rows={5}
+        variant="outlined"
       />
     </div>
   );
@@ -69,6 +91,8 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
   payment_pack: Yup.number()
     .integer()
     .required(),
+  description: Yup.string().required(),
+  contract: Yup.string().required(),
 });
 
 export const SubscriptionContractFormHoc = withFormik({
@@ -78,6 +102,8 @@ export const SubscriptionContractFormHoc = withFormik({
       recurrent_price: 0,
       nb_interval: 12,
       payment_pack: null,
+      description: '',
+      contract: '',
     },
   validationSchema: SubscriptionContractFieldsSchema,
   handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {

@@ -48,6 +48,7 @@ import MarketplaceShopPage from './MarketplaceShop.page';
 import MarketplaceCalendarPage from './MarketplaceCalendar.page';
 import MarketplaceWorkshopPage from './MarketplaceWorkshop.page';
 import MarketplacePrivateService from './MarketplacePrivateService.page';
+import MarketplaceContractPage from './MarketplaceContract.page';
 
 import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
 
@@ -119,6 +120,7 @@ type State = {
 
 const TAB_CALENDAR = 'calendar';
 const TAB_PASS = 'pass';
+const TAB_CONTRACT = 'subscription';
 const TAB_WORKSHOP = 'workshop';
 const TAB_PRIVATE_SERVICE = 'private-service';
 const TAB_SHOP = 'shop';
@@ -174,6 +176,13 @@ export class MarketPlace extends Component<Props, State> {
             companyId={this.props.companyId}
             requestSignUp={() => this.toogleLogin(true)}
             toogleCurrentBasketOpen={this.toogleCurrentBasketOpen}
+          />
+        );
+      case TAB_CONTRACT:
+        return (
+          <MarketplaceContractPage
+            companyId={this.props.companyId}
+            requestSignUp={() => this.toogleLogin(true)}
           />
         );
       case TAB_SHOP:
@@ -279,6 +288,10 @@ export class MarketPlace extends Component<Props, State> {
                   label={t('marketplace.private_service')}
                 />
                 <Tab value={TAB_PASS} label={t('marketplace.pass')} />
+                <Tab
+                  value={TAB_CONTRACT}
+                  label={t('marketplace.contract.tabName')}
+                />
                 <Tab value={TAB_SHOP} label={t('marketplace.shop.tabName')} />
               </Tabs>
             </AppBarMUI>

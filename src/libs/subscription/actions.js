@@ -118,3 +118,35 @@ export function deleteContract(id: number, options: OptionCallback) {
     dispatch(contractDeleteActions.isLoading(false));
   };
 }
+
+export const contractMarketplaceListActions = {
+  error: createAction('SUBSCRIPTION_CONTRACT/MARKETPLACE_LIST/ERROR'),
+  isLoading: createAction('SUBSCRIPTION_CONTRACT/MARKETPLACE_LIST/IS_LOADING'),
+  success: createAction('SUBSCRIPTION_CONTRACT/MARKETPLACE_LIOST/SUCCESS'),
+};
+
+export function fetchMarketplaceContractList(
+  company: number,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(contractMarketplaceListActions.error(null));
+    dispatch(contractMarketplaceListActions.isLoading(true));
+    try {
+      const response = await api.fetchContractList({
+        company,
+        manager_only: false,
+        page_size: 300,
+      });
+      dispatch(contractMarketplaceListActions.success(response.data.results));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(contractMarketplaceListActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(contractMarketplaceListActions.isLoading(false));
+  };
+}

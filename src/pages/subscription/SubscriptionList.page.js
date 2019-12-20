@@ -40,28 +40,26 @@ export class SubscriptionList extends React.Component<Props> {
   render() {
     return (
       <div>
-        {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ? null : (
-          <SubscriptionContractList
-            contractList={this.props.contractList}
-            loading={this.props.contractLoading}
-            createOrUpdate={(data, options) => {
-              this.props.createOrUpdateContract(data, {
-                onSuccess: () => {
-                  this.props.fetchContractList();
-                  if (options && options.onSuccess) {
-                    options.onSuccess();
-                  }
-                },
-              });
-            }}
-            onDelete={(id) =>
-              this.props.deleteContract(id, {
-                onSuccess: this.props.fetchContractList,
-              })
-            }
-            paymentPacks={this.props.paymentPacks}
-          />
-        )}
+        <SubscriptionContractList
+          contractList={this.props.contractList}
+          loading={this.props.contractLoading}
+          createOrUpdate={(data, options) => {
+            this.props.createOrUpdateContract(data, {
+              onSuccess: () => {
+                this.props.fetchContractList();
+                if (options && options.onSuccess) {
+                  options.onSuccess();
+                }
+              },
+            });
+          }}
+          onDelete={(id) =>
+            this.props.deleteContract(id, {
+              onSuccess: this.props.fetchContractList,
+            })
+          }
+          paymentPacks={this.props.paymentPacks}
+        />
         <SubscriptionTable
           goToSubscription={this.props.goToSubscription}
           fetch={api.fetchAll}

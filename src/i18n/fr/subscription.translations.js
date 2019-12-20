@@ -25,6 +25,15 @@ export default {
       recurrent_price: {
         label: 'Paiement mensuel',
       },
+      description: {
+        placeholder: 'Nouvelle offre exclusive limitée',
+        label: 'Description',
+      },
+      contract: {
+        placeholder:
+          'Entrez ici toutes les mentions légales nécessaires notamment concernant les procédures de remboursement.',
+        label: 'Mentions légales',
+      },
     },
   },
   recap: {

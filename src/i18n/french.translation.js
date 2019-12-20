@@ -964,6 +964,9 @@ export default {
       sessionThisDay: 'Séance ce jour :',
       calendar: 'Calendrier',
       workshop: 'Ateliers',
+      contract: {
+        tabName: 'Abonnement',
+      },
       shop: {
         tabName: 'Magasin',
         noDescription: 'Aucune description',
@@ -979,7 +982,7 @@ export default {
         },
       },
       welcomeTo: 'Bienvenue chez ',
-      pass: 'Abonnement',
+      pass: 'Carte de cours',
       private_service: 'Cours privé',
       buyPack: 'Acheter',
       selector: {

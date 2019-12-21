@@ -97,6 +97,7 @@ function mapStateToProps(state, nextProps) {
     id,
     errors: state.member.upsert.error,
     initial: id !== null ? memberSelectors.get(state, id) : null,
+    theme: themeSelectors.getTheme(state),
   };
 }
 function mapDispatchToProps(dispatch) {
@@ -131,11 +132,8 @@ export default compose(
   withNamespaces(),
   withRouter,
   connect(
-    (state) => ({ theme: themeSelectors.getTheme(state) }),
-    {
-      mapStateToProps,
-      mapDispatchToProps,
-    },
+    mapStateToProps,
+    mapDispatchToProps,
   ),
   withProps(({ upsertMember, initial, goToMember, goToMemberList }) => ({
     onSubmit: (values, options) => {

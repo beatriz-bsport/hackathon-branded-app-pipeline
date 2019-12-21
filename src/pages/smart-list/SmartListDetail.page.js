@@ -57,13 +57,11 @@ export class SmartListDetail extends React.Component<Props> {
               exact
               path="/smart-list/:id/member/"
               component={SmartListDetailMember}
-              smartlist={smartlist}
             />
             <Route
               exact
               path="/smart-list/:id/email/"
               component={SmartListDetailEmail}
-              smartlist={smartlist}
             />
           </Switch>
         </div>

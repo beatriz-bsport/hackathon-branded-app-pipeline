@@ -138,26 +138,13 @@ export class FiltersPanel extends Component<Props> {
       <div>
         <div className={classes.buttonsRow}>
           <Button
-            onClick={async () => {
-              const response = await this.props.exportMemberTable();
-              const blob = new Blob([response.data], { type: 'xlsx' });
-              const url = window.URL.createObjectURL(blob);
-              const link = document.createElement('a');
-              link.setAttribute('type', 'hidden');
-              link.href = url;
-              link.download = `${this.props.smartList.name}_${moment().format(
-                'YYYY-MM-DD',
-              )}.csv`;
-              document.body.appendChild(link);
-              link.click();
-              link.remove();
-            }}
+            onClick={this.props.onRequestEmail}
             color="secondary"
             variant="contained"
             className={classes.actionButton}
           >
-            <CloudDownloadIcon className={this.props.classes.leftIcon} />
-            {t('exportList')}
+            <SendIcon className={this.props.classes.leftIcon} />
+            {t('mail.sendMail')}
           </Button>
           <div>
             <Button
@@ -177,13 +164,26 @@ export class FiltersPanel extends Component<Props> {
               {t('filters.add_filter')}
             </Button>
             <Button
-              onClick={this.props.onRequestEmail}
+              onClick={async () => {
+                const response = await this.props.exportMemberTable();
+                const blob = new Blob([response.data], { type: 'xlsx' });
+                const url = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.setAttribute('type', 'hidden');
+                link.href = url;
+                link.download = `${this.props.smartList.name}_${moment().format(
+                  'YYYY-MM-DD',
+                )}.csv`;
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+              }}
               color="secondary"
               variant="contained"
               className={classes.actionButton}
             >
-              <SendIcon className={this.props.classes.leftIcon} />
-              {t('mail.send')}
+              <CloudDownloadIcon className={this.props.classes.leftIcon} />
+              {t('exportList')}
             </Button>
           </div>
 

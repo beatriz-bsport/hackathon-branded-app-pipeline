@@ -21,7 +21,10 @@ import MemberTable from '../../libs/member/MemberTable.component';
 import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/selectors';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
-import { getSmartListFilters } from '../../libs/smart-list/selectors';
+import {
+  getSmartListFilters,
+  getSmartList,
+} from '../../libs/smart-list/selectors';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import {
   smartListCreate,
@@ -366,6 +369,7 @@ export default compose(
   withStyles(styles),
   connect(
     (state, { id }) => ({
+      smartlist: getSmartList(state, id),
       smartlist_filters: getSmartListFilters(state, id),
       loading: state.smartList.loading || state.smartList.filter.loading,
       payment_packs: getPaymentPackEnabled(state),

@@ -75,7 +75,7 @@ export class EstablishmentDetail extends Component<Props, State> {
     const { offers, timetableLoading, events } = this.props;
     const { selectedDay } = this.state;
     const events_ = {};
-    for (const o of events) {
+    for (const o of events || []) {
       const midnight = Moment(o.date_start).startOf('day');
       if (Object.hasOwnProperty.call(events_, midnight)) {
         events_[midnight].push(o);

@@ -5,6 +5,7 @@ import { compose, withProps } from 'recompose';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import { push } from 'react-router-redux';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import type { Establishment, Offer } from '../../api/types';
@@ -42,6 +43,7 @@ type Props = {
   deleteEstablishment: (id: number) => void,
   fetchEstablishmentBulk: ([number]) => void,
   events: Array<Event>,
+  classes: Object,
 };
 
 type State = {
@@ -62,7 +64,7 @@ export class EstablishmentDetails extends React.Component<Props, State> {
       return <LinearProgress />;
     }
     return (
-      <div>
+      <div className={this.props.classes.container}>
         <EstablishmentDetail
           timetableLoading={this.props.timetableLoading}
           offers={this.props.offers.filter(
@@ -92,7 +94,14 @@ export class EstablishmentDetails extends React.Component<Props, State> {
   }
 }
 
+const styles = (theme) => ({
+  container: {
+    paddingBottom: theme.spacing.unit * 12,
+  },
+});
+
 export default compose(
+  withStyles(styles),
   withNamespaces(),
   routerParamsToProps({ id: 'id:number' }),
   connect(

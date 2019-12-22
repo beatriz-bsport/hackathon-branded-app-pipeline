@@ -87,6 +87,7 @@ export class EstablishmentDetail extends Component<Props, State> {
       <div>
         <Calendar
           events={events_}
+          forceMonthDisplay
           onDateClick={this.onDateClick(establishment.id)}
           date={(selectedDay[establishment.id] || Moment()).format(DATE_FORMAT)}
         />

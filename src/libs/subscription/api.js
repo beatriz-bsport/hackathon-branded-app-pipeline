@@ -9,15 +9,9 @@ import {
   patchAuth,
 } from '../../http';
 
-const fetchAll = async (
-  page: number,
-  page_size: number,
-  queryParams: ?string = '',
-) => {
+const fetchAll = async (params) => {
   return getAuth(
-    `${API_URI}/subscription/billing-plan/?page_size=${page_size}&page=${page}${
-      queryParams ? `&${queryParams}` : ''
-    }`,
+    `${API_URI}/subscription/billing-plan/${buildUrlParams(params)}`,
   );
 };
 
@@ -52,7 +46,7 @@ const deleteContract = async (id: number) => {
 };
 
 export default {
-  fetchAll,
+  fetchSubscriptionList: fetchAll,
   fetchDetail,
   createFromPack,
   stop,

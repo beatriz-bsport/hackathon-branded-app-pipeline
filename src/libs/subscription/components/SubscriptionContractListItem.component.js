@@ -16,11 +16,17 @@ type Props = {
   contract: SubscriptionContract,
   onDelete: () => void,
   onEdit: () => void,
+  onClick?: () => void,
+  selected?: boolean,
 };
 
 export const SubscriptionContractListItem = (props: Props) => {
   return (
-    <ListItem>
+    <ListItem
+      onClick={props.onClick}
+      button={!!props.onClick}
+      selected={props.selected}
+    >
       <ListItemText
         primary={`${props.contract.name} - ${props.contract.recurrent_price}€`}
         secondary={`${props.contract.payment_pack &&

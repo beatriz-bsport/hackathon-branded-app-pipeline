@@ -9,12 +9,24 @@ import {
   contractCreateOrUpdateActions,
   contractMarketplaceListActions,
   stopActions,
+  listSubscriptionActions,
+  byMemberSubscriptionActions,
 } from './actions';
 
 import type { SubscriptionState } from './types';
 
 const initialState: SubscriptionState = Immutable({
-  items: {},
+  byId: {},
+  list: {
+    loading: false,
+    error: null,
+    allIds: [],
+  },
+  byMember: {
+    loading: false,
+    error: null,
+    allIds: [],
+  },
   detail: {
     loading: false,
     error: null,
@@ -23,6 +35,7 @@ const initialState: SubscriptionState = Immutable({
     loading: false,
     error: null,
   },
+
   contract: {
     loading: false,
     error: null,
@@ -42,6 +55,47 @@ const initialState: SubscriptionState = Immutable({
 
 export default handleActions(
   {
+    [listSubscriptionActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['list', 'loading'], payload);
+    },
+    [listSubscriptionActions.error]: (state, { payload }) => {
+      return state.setIn(['list', 'error'], payload);
+    },
+    [listSubscriptionActions.success]: (state, { payload }) => {
+      return state
+        .setIn(['list', 'allIds'], payload.results.map((c) => c.id))
+        .setIn(['list', 'count'], payload.count)
+        .merge(
+          {
+            byId: payload.results.reduce(
+              (acc, v) => ({ ...acc, [v.id]: v }),
+              {},
+            ),
+          },
+          { deep: true },
+        );
+    },
+    [byMemberSubscriptionActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['list', 'loading'], payload);
+    },
+    [byMemberSubscriptionActions.error]: (state, { payload }) => {
+      return state.setIn(['list', 'error'], payload);
+    },
+    [byMemberSubscriptionActions.success]: (state, { payload }) => {
+      return state
+        .setIn(['byMember', 'allIds'], payload.results.map((c) => c.id))
+        .setIn(['byMember', 'count'], payload.count)
+        .merge(
+          {
+            byId: payload.results.reduce(
+              (acc, v) => ({ ...acc, [v.id]: v }),
+              {},
+            ),
+          },
+          { deep: true },
+        );
+    },
+
     [contractListActions.isLoading]: (state, { payload }) => {
       return state.setIn(['contract', 'loading'], payload);
     },
@@ -96,20 +150,14 @@ export default handleActions(
     [detailActions.isLoading]: (state, { payload }) => {
       return state.setIn(['detail', 'loading'], payload);
     },
-    [detailActions.error]: (state, { payload }) => {
-      return state.setIn(['detail', 'error'], payload);
+    [detailActions.success]: (state, { payload }) => {
+      return state.setIn(['byId', payload.id], payload);
     },
     [stopActions.isLoading]: (state, { payload }) => {
       return state.setIn(['stop', 'loading'], payload);
     },
     [stopActions.error]: (state, { payload }) => {
       return state.setIn(['stop', 'error'], payload);
-    },
-    [detailActions.success]: (state, { payload }) => {
-      const { id } = payload;
-      return state.merge({
-        items: { [id]: payload },
-      });
     },
   },
   initialState,

@@ -4,10 +4,12 @@ import { createSelector } from 'reselect';
 import type { State } from '../../state/types';
 import { getAll as getPaymentPackList } from '../payment-packs/selectors';
 
-const get = (state: State, id: number) => state.subscription.items[id];
+const get = (state: State, id: number) => state.subscription.byId[id];
 
 const _getContractIds = (state: State) => state.subscription.contract.allIds;
 const _getContractData = (state: State) => state.subscription.contract.byId;
+
+export const getContract = (state, id) => state.subscription.contract.byId[id];
 
 const _getContractMarketplaceIds = (state: State) =>
   state.subscription.contract.byMarketplace.allIds;
@@ -35,6 +37,22 @@ export const getMarketplaceContractList = createSelector(
         ...c,
         payment_pack: packList.find((pp) => pp.id === c.payment_pack),
       })),
+);
+
+const _getSubscriptionIds = (state) => state.subscription.list.allIds;
+const _getSubscriptionData = (state) => state.subscription.byId;
+
+export const getSubscriptionList = createSelector(
+  [_getSubscriptionIds, _getSubscriptionData],
+  (ids, data) => ids.map((id) => data[id]),
+);
+
+const _getSubscriptionIdsByMember = (state) =>
+  state.subscription.byMember.allIds;
+
+export const getSubscriptionListByMember = createSelector(
+  [_getSubscriptionIdsByMember, _getSubscriptionData],
+  (ids, data) => ids.map((id) => data[id]),
 );
 
 export default { get };

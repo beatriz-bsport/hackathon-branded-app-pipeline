@@ -6,6 +6,66 @@ import api from './api';
 
 import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 
+export const listSubscriptionActions = {
+  error: createAction('SUBSCRIPTION/LIST/ERROR'),
+  isLoading: createAction('SUBSCRIPTION/LIST/IS_LOADING'),
+  success: createAction('SUBSCRIPTION/LIST/SUCCESS'),
+};
+
+export function fetchSubscriptionList(params: any, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listSubscriptionActions.isLoading(true));
+    dispatch(listSubscriptionActions.error(null));
+
+    try {
+      const response = await api.fetchSubscriptionList(params);
+      dispatch(listSubscriptionActions.success(response.data));
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (error) {
+      dispatch(listSubscriptionActions.error(error));
+      console.error(error);
+      if (options && options.onError) options.onError(error);
+    }
+
+    dispatch(listSubscriptionActions.isLoading(false));
+  };
+}
+
+export const byMemberSubscriptionActions = {
+  error: createAction('SUBSCRIPTION/BY_MEMBER/ERROR'),
+  isLoading: createAction('SUBSCRIPTION/BY_MEMBER/IS_LOADING'),
+  success: createAction('SUBSCRIPTION/BY_MEMBER/SUCCESS'),
+};
+
+export function fetchSubscriptionListByMember(
+  member: number,
+  params: any = {},
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(byMemberSubscriptionActions.isLoading(true));
+    dispatch(byMemberSubscriptionActions.error(null));
+
+    try {
+      const response = await api.fetchSubscriptionList({ ...params, member });
+      dispatch(byMemberSubscriptionActions.success(response.data));
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (error) {
+      dispatch(byMemberSubscriptionActions.error(error));
+      console.error(error);
+      if (options && options.onError) options.onError(error);
+    }
+
+    dispatch(byMemberSubscriptionActions.isLoading(false));
+  };
+}
+
 export const detailActions = {
   error: createAction('SUBSCRIPTION/LOAD/ERROR'),
   isLoading: createAction('SUBSCRIPTION/LOAD/IS_LOADING'),

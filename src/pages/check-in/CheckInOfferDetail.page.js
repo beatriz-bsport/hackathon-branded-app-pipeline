@@ -125,8 +125,8 @@ export default compose(
   withNamespaces(['selfCheckIn']),
   withStyles(styles),
   connect(
-    (state, { offerId }) => ({
-      offer: state.offer.offers.find((o) => o.id === offerId),
+    (state) => ({
+      offer: state.offer.retrieve.data,
       members: state.member.all,
       searchedMembers: memberSelectors.getSearched(state),
       bookings: getOfferBookingListWithConsumerPack(state),

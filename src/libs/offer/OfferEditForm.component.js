@@ -108,7 +108,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
       step: STEPS.GATHER_INFO,
       modifyRecursively: false,
       notifyConsumers: false,
-      establishment: props.offer.etablissement.id,
+      establishment: props.offer.establishment.id,
       establishment_override: props.offer.establishment_override
         ? props.offer.establishment_override.id
         : null,
@@ -133,7 +133,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
         ? props.offer.establishment_override.id
         : null,
       coach: props.offer.coach.id,
-      establishment: props.offer.etablissement.id,
+      establishment: props.offer.establishment.id,
       duration_minute: props.offer.duration_minute,
       effectif: props.offer.effectif,
       credit_price_override: props.offer.credit_price_override,
@@ -451,7 +451,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
             establishments_override={this.props.establishments.filter(
               (e) =>
                 e.id !==
-                (this.state.establishment || this.props.offer.etablissement.id),
+                (this.state.establishment || this.props.offer.establishment.id),
             )}
             establishment_override={this.props.establishments.find(
               (es) => es.id === this.state.establishment_override,

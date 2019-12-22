@@ -17,8 +17,6 @@ import { Moment } from '../../../i18n';
 
 import Countdown from '../../../components/Countdown.component';
 import OfferItemBase from '../../offer/components/OfferListItem.component';
-import type { Establishment } from '../../../api/types';
-import EstablishmentInput from '../../../components/input/EstablishmentInput.component';
 
 const OFFERS_REFRESH_DURATION = 1000 * 60 * 10;
 const COUNTDOWN_REFRECH_DURATION = 1000;
@@ -26,7 +24,6 @@ const COUNTDOWN_REFRECH_DURATION = 1000;
 type Props = {
   classes: any,
   offers: *[],
-  establishments: Array<Establishment>,
   t: TFunction,
   offersLoading: boolean,
   onOfferSelected: (offerId: number) => void,
@@ -34,7 +31,6 @@ type Props = {
 };
 
 type State = {
-  establishment: ?number,
   currentTime: Moment,
 };
 
@@ -97,7 +93,6 @@ export class CheckInOfferList extends Component<Props, State> {
 
   state = {
     currentTime: Moment(),
-    establishment: null,
   };
 
   componentDidMount() {
@@ -115,33 +110,18 @@ export class CheckInOfferList extends Component<Props, State> {
     clearInterval(this.countdownInterval);
   }
 
-  onEstablishmentChange = (id: number) => {
-    this.setState({ establishment: id });
-  };
-
   render() {
-    const { classes, offersLoading, establishments, t } = this.props;
+    const { classes, offersLoading, offers, t } = this.props;
 
     if (offersLoading && !(this.props.offers || []).length) {
       return <LinearProgress />;
     }
 
-    const { currentTime, establishment } = this.state;
-    const offers = this.props.offers.filter(
-      (o) =>
-        !establishment ||
-        (o.establishment_override || o.etablissement).id === establishment,
-    );
+    const { currentTime } = this.state;
     return (
       <div className={classes.rootContainer}>
         <div className={classes.header}>
-          <EstablishmentInput
-            label={t('filter.establishment')}
-            onChange={this.onEstablishmentChange}
-            establishments={establishments}
-            variant="outlined"
-            value={this.state.establishment}
-          />
+          <div />
           <Fab
             aria-label="refresh"
             color="primary"

@@ -113,11 +113,7 @@ export default compose(
     handleDayClick: (date: string) => {
       const momentDate = moment(date, DATE_FORMAT);
       setDateSelected(momentDate);
-      fetchOffersByDay({
-        year: momentDate.year(),
-        month: momentDate.month() + 1,
-        day: momentDate.date(),
-      });
+      fetchOffersByDay(momentDate);
     },
   })),
 )(MetaActivityDetail);

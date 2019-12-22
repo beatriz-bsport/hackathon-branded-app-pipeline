@@ -20,7 +20,7 @@ import {
 } from '../../libs/booking/actions';
 import { fetchOfferById as fetchOfferByIdAction } from '../../actions/offer.actions';
 
-import offerSelectors from '../../libs/offer/selectors';
+import { getDetailedOffer } from '../../libs/offer/selectors';
 
 import {
   retrieveConsumerPackBulk,
@@ -73,9 +73,9 @@ type Props = {
   selectedBooking: ?Booking,
   getPaymentPack: (id: number) => PaymentPack,
   offerLoading: boolean,
-  getOffer: (id: number) => Offer,
   member: Member,
   consumerPackLoading: boolean,
+  offer: ?Offer,
 };
 
 type State = {
@@ -188,9 +188,11 @@ export class MemberDetailBooking extends Component<Props, State> {
             onConsumerPassSelected={this.goToConsumerPass}
             loading={this.props.consumerPackLoading || this.props.offerLoading}
             onOfferClick={this.props.goToOffer}
-            offer={this.props.getOffer(
-              this.props.selectedBooking && this.props.selectedBooking.offer,
-            )}
+            offer={this.props.offer}
+            offerLoading={
+              !this.props.selectedBooking ||
+              this.props.selectedBooking.offer !== this.props.offer.id
+            }
           />
         </Grid>
         <RevertBookingDialog
@@ -220,7 +222,7 @@ export default compose(
       bookingCount: state.booking.byMember.count,
       paymentPacks: getAllPaymentPacks(state),
       consumerPackLoading: state.consumerPaymentPack.loading,
-      getOffer: (id_: number) => offerSelectors.get(state, id_),
+      offer: getDetailedOffer(state),
       getPaymentPack: (id_: number) => paymentPackSelectors.get(state, id_),
       getPass: (id_: number) => getConsumerPack(state, id_),
     }),

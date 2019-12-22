@@ -50,9 +50,9 @@ export class OfferCard extends Component<Props> {
     const {
       available,
       name,
-      level_id,
       parent_category,
       credit_price_override,
+      level,
     } = offer;
 
     return (
@@ -86,7 +86,7 @@ export class OfferCard extends Component<Props> {
         <Grid item className={classes.paddedBlock}>
           <Grid container direction="column" alignItems="flex-end" spacing={8}>
             <Grid item>
-              <Level levelId={level_id} />
+              <Level levelId={level} />
             </Grid>
           </Grid>
         </Grid>
@@ -194,7 +194,7 @@ export class OfferCard extends Component<Props> {
 
   renderEstablishment = () => {
     const { offer, t } = this.props;
-    const { etablissement, establishment_override } = offer;
+    const { establishment, establishment_override } = offer;
     if (establishment_override) {
       return (
         <Grid container direction="column">
@@ -221,11 +221,13 @@ export class OfferCard extends Component<Props> {
     return (
       <Grid container direction="column">
         <Grid item>
-          <Typography>{etablissement.title}</Typography>
+          <Typography>
+            {establishment ? establishment.title : '  -  '}
+          </Typography>
         </Grid>
         <Grid item>
           <Typography variant="caption">
-            {etablissement.location.address}
+            {establishment ? establishment.location.address : '  -  '}
           </Typography>
         </Grid>
       </Grid>

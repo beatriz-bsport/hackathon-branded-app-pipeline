@@ -38,7 +38,7 @@ export default function (props: Props) {
       <Grid item>
         <img
           alt="user"
-          src={user.photo || DEFAULT_PROFIL_PIC}
+          src={user ? user.photo || DEFAULT_PROFIL_PIC : DEFAULT_PROFIL_PIC}
           height={HEIGHT}
           width={WIDTH}
           style={{
@@ -50,7 +50,7 @@ export default function (props: Props) {
       </Grid>
       {noname ? null : (
         <Grid item>
-          <Typography noWrap variant="body2">{user.name || '-'}</Typography>
+          <Typography noWrap variant="body2">{user ? user.name : '-'}</Typography>
         </Grid>
       )}
     </Grid>

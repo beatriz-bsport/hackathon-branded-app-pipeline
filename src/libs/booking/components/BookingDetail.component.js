@@ -27,6 +27,7 @@ type Props = {
   incrementCredit: (id: number) => void,
   decrementCredit: (id: number) => void,
   onConsumerPassSelected: (id: number) => void,
+  offerLoading: boolean,
 };
 
 export class BookingDetail extends Component<Props> {
@@ -75,6 +76,7 @@ export class BookingDetail extends Component<Props> {
         </Typography>
         <Paper className={classes.paperContainer}>
           <OfferMinimalSummary
+            loading={this.props.offerLoading}
             overrideClickAction={() =>
               this.props.onOfferClick(this.props.offer.id)
             }

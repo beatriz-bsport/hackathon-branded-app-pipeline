@@ -33,14 +33,12 @@ export async function fetchAssociatedCoachPerformance(
 }
 
 export async function fetchAssociatedCoaches(params: ?{ [string]: boolean }) {
-  const URLParams = buildUrlParams(params);
-  return getAuth(`${API_URI}/saas/associated-coach/${URLParams}`);
+  return getAuth(`${API_URI}/saas/associated-coach/${buildUrlParams(params)}`);
 }
 
 export async function fetchAssociatedCoach(id: number) {
   return getAuth(`${API_URI}/saas/associated-coach/${id}/`);
 }
-
 
 // -----------------------
 

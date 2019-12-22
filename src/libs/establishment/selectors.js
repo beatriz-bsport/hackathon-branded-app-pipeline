@@ -40,3 +40,8 @@ export const getAllEstablishmentsWithAssociatedId = createSelector(
       ).id,
     })),
 );
+
+export const getFreshEstablishmentIds = createSelector(
+  getAllEstablishments,
+  (es) => es.map((e) => e.id),
+);

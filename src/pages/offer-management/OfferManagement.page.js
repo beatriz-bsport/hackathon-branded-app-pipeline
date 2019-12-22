@@ -12,7 +12,10 @@ import {
   invoice as invoiceActions,
   offer as offerActions,
 } from '../../actions';
-import { compatiblePacksWithOfferAndEnabled } from '../../libs/offer/selectors';
+import {
+  compatiblePacksWithOfferAndEnabled,
+  getDetailedOffer,
+} from '../../libs/offer/selectors';
 import { getShopItemsAvailable } from '../../libs/shop/selectors';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -61,22 +64,25 @@ import OfferManagementComponent from './OfferManagement.component';
 
 import type { Offer } from '../../api/types';
 
-const formatTitle = (offer: Offer) => {
-  if (offer) {
+const formatTitle = (offer: Offer, offerLoading: boolean) => {
+  if (!offer || offerLoading) {
+    return ' - ';
+  }
+  if (offer && offer.name) {
     const { coach, coach_override } = offer;
     return `${offer.name} - ${
       coach_override ? coach_override.name : coach.name
     }`;
   }
-  return '';
+  return ' - ';
 };
 
 function mapStateToProps(state, { id }) {
   return {
     // offer
     offerId: id,
-    offer: state.offer.offers.find((o) => o.id === id),
-    offerLoading: state.offer.byDay.loading,
+    offer: getDetailedOffer(state),
+    offerLoading: state.offer.retrieve.loading,
     // payment pack
     paymentPacks: getAllPaymentPacks(state),
     paymentPacksEnabled: getPaymentPackEnabled(state),
@@ -272,5 +278,8 @@ export default compose(
       },
     }),
   ),
-  withTitle(({ offer }: { offer: Offer }) => formatTitle(offer)),
+  withTitle(
+    ({ offer, offerLoading }: { offer: Offer, offerLoading: boolean }) =>
+      formatTitle(offer, offerLoading),
+  ),
 )(OfferManagementComponent);

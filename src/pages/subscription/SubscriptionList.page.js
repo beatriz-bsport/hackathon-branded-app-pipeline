@@ -9,7 +9,6 @@ import type { TFunction } from 'react-i18next';
 import withTitle from '../../hocs/with-title.hoc';
 
 import api from '../../libs/subscription/api';
-import Config from '../../config';
 
 import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/selectors';
 import SubscriptionTable from '../../libs/subscription/components/SubscriptionTable.component';

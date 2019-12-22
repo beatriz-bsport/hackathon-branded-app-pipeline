@@ -1,7 +1,5 @@
 // @flow
 
-import lodash from 'lodash';
-
 import { handleActions } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
@@ -11,29 +9,35 @@ import {
   similarOffers,
   offerByDay,
   offersByMetaActivity,
+  offersByEstablishment,
   offersFilterActions,
+  retrieveActions,
 } from '../actions/offer.actions';
 import authActionTypes from '../actions/auth.types';
 
 const initialState = Immutable({
+  // event stuff (simplified offer objects)
   calendar: [],
   calendarByObject: {
     metaActivity: [],
+    establishment: [],
     loading: false,
     error: null,
   },
   loading: true,
   error: false,
 
-  // By Day
-  offers: [],
+  // final version theorically
+  byId: {},
+  byDay: { loading: false, error: null, allIds: [] },
+  retrieve: { loading: false, error: null, data: null },
 
+  // for forms
   similarOffers: {
     items: [],
     loading: false,
     error: null,
   },
-  byDay: { loading: false, error: null },
 
   // Compatible Packs
   compatiblePacks: {
@@ -41,13 +45,12 @@ const initialState = Immutable({
     loading: false,
     error: null,
   },
+
   managerFilter: {
     open: false,
     filters: {},
   },
 });
-
-const REFRESHED_INTERVAL = 60 * 60 * 24 * 5;
 
 export default handleActions(
   {
@@ -66,6 +69,9 @@ export default handleActions(
     },
     [offersByMetaActivity.success]: (state, { payload }) => {
       return state.setIn(['calendarByObject', 'metaActivity'], payload);
+    },
+    [offersByEstablishment.success]: (state, { payload }) => {
+      return state.setIn(['calendarByObject', 'establishment'], payload);
     },
     [offers.isLoading]: (state, { payload }) => {
       return state.setIn(['loading'], payload);
@@ -100,42 +106,37 @@ export default handleActions(
         .setIn(['compatiblePacks', 'items'], payload)
         .setIn(['compatiblePacks', 'lastFetched'], new Date());
     },
-    [offerByDay.reset]: (state) => {
-      return state.set('offers', []);
-    },
-    [offerByDay.delete]: (state, { payload }) => {
-      const items = state.offers.filter((o) => o.id !== payload);
-      return state.set('offers', items);
-    },
     [offers.delete]: (state, { payload }) => {
       const items = state.calendar.filter((o) => o.id !== payload);
       return state.set('calendar', items);
     },
     [offerByDay.isLoading]: (state, { payload }) => {
-      const items = state.offers.filter(
-        (o) => o.lastRefresh - new Date() / 1000 < REFRESHED_INTERVAL,
-      );
-      return state.setIn(['byDay', 'loading'], payload).set('offers', items);
+      return state.setIn(['byDay', 'loading'], payload);
     },
     [offerByDay.error]: (state, { payload }) => {
       return state.setIn(['byDay', 'error'], payload);
     },
+    [retrieveActions.success]: (state, { payload }) => {
+      return state.setIn(['retrieve', 'data'], payload);
+    },
+    [retrieveActions.error]: (state, { payload }) => {
+      return state.setIn(['retrieve', 'error'], payload);
+    },
+    [retrieveActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['retrieve', 'loading'], payload);
+    },
     [offerByDay.success]: (state, { payload }) => {
-      const oldItems = state.offers;
-      const newItems = payload.map((o) => ({
-        ...o,
-        lastRefresh: new Date() / 1000,
-      }));
-      const newIds = newItems.map((o) => o.id);
-      const allItems = lodash.uniqBy(
-        [].concat(
-          newItems,
-          oldItems.filter(
-            (old) => newIds.findIndex((idx) => old.id === idx) < 0,
-          ),
-        ),
-      );
-      return state.set('offers', allItems);
+      return state
+        .merge(
+          {
+            byId: payload.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+          { deep: true },
+        )
+        .setIn(['byDay', 'allIds'], payload.map((o) => o.id));
     },
   },
   initialState,

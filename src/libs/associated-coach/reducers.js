@@ -12,6 +12,7 @@ import {
   upsert,
   setPaymentRule,
   sessionPaymentRule,
+  bulkRetrieveActions,
 } from './actions';
 
 const initialState: CoachState = Immutable({
@@ -31,6 +32,23 @@ const initialState: CoachState = Immutable({
 
 export default handleActions(
   {
+    [bulkRetrieveActions.success]: (state, { payload }) => {
+      return state.merge(
+        {
+          byId: payload.reduce((acc, ps) => {
+            acc[ps.id] = ps;
+            return acc;
+          }, {}),
+        },
+        { deep: true },
+      );
+    },
+    [bulkRetrieveActions.isLoading]: (state, { payload }) => {
+      return state.set('loading', payload);
+    },
+    [bulkRetrieveActions.error]: (state, { payload }) => {
+      return state.set('error', payload);
+    },
     [coachListAction.success]: (state, { payload }) => {
       return state
         .merge({ byId: payload.coachDict }, { deep: true })

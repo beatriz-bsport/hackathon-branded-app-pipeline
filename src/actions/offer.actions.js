@@ -46,18 +46,45 @@ export const offersByMetaActivity = {
   success: createAction('OFFERS/BY_META_ACTIVITY/SUCCESS'),
 };
 
-export function fetchMetaActivityOffers(id: number) {
+export function fetchMetaActivityOffers(id: number, params: any = {}) {
   return async (dispatch: Dispatch) => {
     dispatch(offersByMetaActivity.isLoading(true));
     dispatch(offersByMetaActivity.error(null));
 
     try {
-      const response = await api.offer.fetchAllEvents({ meta_activity: id });
+      const response = await api.offer.fetchAllEvents({
+        meta_activity: id,
+        ...params,
+      });
       dispatch(offersByMetaActivity.success(response.data));
     } catch (err) {
       dispatch(offersByMetaActivity.error(err));
     }
     dispatch(offersByMetaActivity.isLoading(false));
+  };
+}
+
+export const offersByEstablishment = {
+  isLoading: createAction('OFFERS/BY_ESTABLISHMENT/IS_LOADING'),
+  error: createAction('OFFERS/BY_ESTABLISHMENT/ERROR'),
+  success: createAction('OFFERS/BY_ESTABLISHMENT/SUCCESS'),
+};
+
+export function fetchEstablishmentEvents(id: number, params: any = {}) {
+  return async (dispatch: Dispatch) => {
+    dispatch(offersByEstablishment.isLoading(true));
+    dispatch(offersByEstablishment.error(null));
+
+    try {
+      const response = await api.offer.fetchAllEvents({
+        establishment: id,
+        ...params,
+      });
+      dispatch(offersByEstablishment.success(response.data));
+    } catch (err) {
+      dispatch(offersByEstablishment.error(err));
+    }
+    dispatch(offersByEstablishment.isLoading(false));
   };
 }
 
@@ -69,7 +96,6 @@ export function fetchAllOffers(params: any) {
     try {
       const response = await api.offer.fetchAllEvents(params);
       dispatch(offers.success(response.data));
-      dispatch(offerByDay.reset());
     } catch (err) {
       dispatch(offers.error(err));
     }
@@ -107,11 +133,14 @@ export const offerByDay = {
   reset: createAction('OFFER/DAY/RESET'),
 };
 
-export function refreshOffersByDay(day: {
-  year: number,
-  month: number,
-  day: number,
-}) {
+export function refreshOffersByDay(
+  day: {
+    year: number,
+    month: number,
+    day: number,
+  },
+  options,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(offerByDay.error(null));
     try {
@@ -120,36 +149,47 @@ export function refreshOffersByDay(day: {
       );
       const response = await api.offer.fetchOffersByDay({ date });
       dispatch(offerByDay.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(offerByDay.error(error));
+      if (options && options.onError) options.onError(error);
     }
     dispatch(offerByDay.isLoading(false));
   };
 }
 
-export function fetchOffersByDay(day: {
-  year: number,
-  month: number,
-  day: number,
-}) {
+export function fetchOffersByDay(
+  day: {
+    year: number,
+    month: number,
+    day: number,
+  },
+  options,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(offerByDay.isLoading(true));
-    dispatch(refreshOffersByDay(day));
+    dispatch(refreshOffersByDay(day, options));
   };
 }
+
+export const retrieveActions = {
+  success: createAction('OFFER/RETRIEVE/SUCCESS'),
+  error: createAction('OFFER/RETRIEVE/ERROR'),
+  isLoading: createAction('OFFER/RETRIEVE/IS_LOADING'),
+};
 
 export function fetchOfferById(id: number) {
   return async (dispatch: Dispatch) => {
-    dispatch(offerByDay.isLoading(true));
-    dispatch(offerByDay.error(null));
+    dispatch(retrieveActions.isLoading(true));
+    dispatch(retrieveActions.error(null));
 
     try {
       const response = await api.offer.fetchById(id);
-      dispatch(offerByDay.success([response.data]));
+      dispatch(retrieveActions.success(response.data));
     } catch (error) {
-      dispatch(offerByDay.error(error));
+      dispatch(retrieveActions.error(error));
     }
-    dispatch(offerByDay.isLoading(false));
+    dispatch(retrieveActions.isLoading(false));
   };
 }
 

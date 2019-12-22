@@ -1,6 +1,6 @@
 // @flow
 
-import React, { PureComponent } from 'react';
+import React from 'react';
 
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -8,123 +8,45 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withNamespaces } from 'react-i18next';
-import memoize from 'memoize-one';
-import { Moment } from '../../i18n';
 import type { Offer } from '../../api/types';
 
 import OfferMinimalSummary from './OfferMinimalSummary.component';
 
-function getOffersToday(date: Object, offers: Array<Offer>): Array<Offer> {
-  return offers.filter((o) => Moment(o.date_start).isSame(date, 'day'));
-}
-
-const filterOffers = memoize(
-  (
-    offers: Array<Offer>,
-    metaActivityId: ?number,
-    establishmentId: ?number,
-  ): Array<Offer> => {
-    let offersFiltered = offers;
-
-    if (metaActivityId) {
-      offersFiltered = offersFiltered.filter(
-        (o) =>
-          parseInt(o.meta_activity_id, 10) === parseInt(metaActivityId, 10),
-      );
-    }
-    if (establishmentId) {
-      offersFiltered = offersFiltered.filter(
-        (o) =>
-          parseInt(o.etablissement.id, 10) === parseInt(establishmentId, 10),
-      );
-    }
-    return offersFiltered;
-  },
-);
-
 type Props = {
   loading: boolean,
-  date?: Object,
   offers: Array<Offer>,
   onOfferSelected: (offer: Offer) => void,
   selected: number,
-  metaActivityId: ?number,
-  establishmentId: number,
   classes: Object,
-  t: (x: string) => string,
+  t: TFunction,
 };
 
-type State = {
-  offersToday: Array<Offer>,
-};
-
-export class TimeTable extends PureComponent<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    const offersTodayUnfiltered = getOffersToday(props.date, props.offers);
-    const offersToday = filterOffers(
-      offersTodayUnfiltered,
-      props.metaActivityId,
-      props.establishmentId,
-    );
-
-    this.state = {
-      offersToday,
-    };
-  }
-
-  static defaultProps = {
-    date: Moment().startOf('day'),
-  };
-
-  componentWillReceiveProps(nextProps: Props) {
-    const offersToday = filterOffers(
-      getOffersToday(
-        nextProps.date || this.props.date,
-        nextProps.offers || this.props.offers,
-      ),
-      nextProps.metaActivityId,
-      nextProps.establishmentId,
-    );
-
-    this.setState({
-      offersToday,
-    });
-  }
-
-  renderOffer = (offer: Offer) => (
-    <OfferMinimalSummary
-      key={offer.id}
-      offer={offer}
-      showCoach
-      noDate
-      selected={this.props.selected === offer.id}
-      overrideClickAction={() => {
-        this.props.onOfferSelected(offer);
-      }}
-    />
-  );
-
-  render() {
-    const { offersToday } = this.state;
-    const { loading, t, classes } = this.props;
-    if (loading) {
-      return <LinearProgress />;
-    }
-    return offersToday.length ? (
-      <List disablePadding>
-        <Divider />
-        {offersToday.map((o) => this.renderOffer(o))}
-      </List>
-    ) : (
-      <div className={classes.emptyMessage}>
-        <Typography variant="caption">
+export const TimeTable = (props: Props) => {
+  const { loading, offers, t, classes } = props;
+  return (
+    <List disablePadding>
+      {loading ? <LinearProgress /> : null}
+      {offers.length === 0 && !loading ? (
+        <Typography variant="caption" className={classes.emptyMessage}>
           {t('activity.noOfferThisDay')}
         </Typography>
-      </div>
-    );
-  }
-}
+      ) : null}
+      <Divider />
+      {offers.map((offer) => (
+        <OfferMinimalSummary
+          key={offer.id}
+          offer={offer}
+          showCoach
+          noDate
+          selected={props.selected === offer.id}
+          overrideClickAction={() => {
+            props.onOfferSelected(offer);
+          }}
+        />
+      ))}
+    </List>
+  );
+};
 
 const styles = (theme) => ({
   emptyMessage: {

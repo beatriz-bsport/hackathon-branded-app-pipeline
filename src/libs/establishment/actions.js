@@ -4,9 +4,10 @@ import * as Sentry from '@sentry/browser';
 
 import { push } from 'react-router-redux';
 import { createAction } from 'redux-actions';
+import uniq from 'lodash/uniq';
 
 import {
-  fetchAllEstablishments as fetchAllAPI,
+  fetchAllEstablishments as fetchEstablishmentListAPI,
   fetchEstablishment as fetchEstablishmentAPI,
   updateEstablishment as updateEstablishmentAPI,
   addEstablishment as addEstablishmentAPI,
@@ -19,6 +20,7 @@ import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 import type { Dispatch } from '../../state/types';
 
 import { createDictionnaryById, createIdList } from '../../actions/utils';
+import { getFreshEstablishmentIds } from './selectors';
 
 export const deleteActions = {
   isLoading: createAction('ESTABLISHMENT/DELETE/IS_LOADING'),
@@ -66,7 +68,7 @@ export function fetchEstablishments() {
     dispatch(listError(null));
 
     try {
-      const response = await fetchAllAPI();
+      const response = await fetchEstablishmentListAPI({ page_size: 100 });
       dispatch(
         listLoaded({
           establishmentDict: createDictionnaryById(response.data.results),
@@ -216,5 +218,41 @@ export function fetchAssociatedEstablishments() {
     }
 
     dispatch(associatedEstablishmentListActions.isLoading(false));
+  };
+}
+
+export const establishmentBulkRetrieveActions = {
+  isLoading: createAction('ESTABLISHMENT/BULK_RETRIEVE/IS_LOADING'),
+  error: createAction('ESTABLISHMENT/BULK_RETRIEVE/ERROR'),
+  success: createAction('ESTABLISHMENT/BULK_RETRIEVE/SUCCESS'),
+};
+
+export function fetchEstablishmentBulk(
+  ids: Array<number>,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch, getState: () => State) => {
+    const freshEstablishmentList = getFreshEstablishmentIds(getState());
+    const ids_uniq = uniq(ids.filter((id) => !!id)).filter(
+      (id) => !freshEstablishmentList.includes(id),
+    );
+    if (ids_uniq.length === 0) {
+      return;
+    }
+
+    dispatch(establishmentBulkRetrieveActions.isLoading(true));
+    dispatch(establishmentBulkRetrieveActions.error(null));
+    try {
+      const response = await fetchEstablishmentListAPI({
+        page_size: 300,
+        id__in: ids_uniq,
+      });
+      dispatch(establishmentBulkRetrieveActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(establishmentBulkRetrieveActions.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(establishmentBulkRetrieveActions.isLoading(false));
   };
 }

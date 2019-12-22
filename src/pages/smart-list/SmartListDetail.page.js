@@ -26,7 +26,6 @@ type Props = {
   id: number,
   classes: Object,
   fetchSmartListDetail: (id: number) => void,
-  smartlist: ?Smartlist,
 };
 
 export class SmartListDetail extends React.Component<Props> {
@@ -35,7 +34,7 @@ export class SmartListDetail extends React.Component<Props> {
   }
 
   render() {
-    const { t, pushToTab, tab, id, classes, smartlist } = this.props;
+    const { t, pushToTab, tab, id, classes } = this.props;
     return (
       <div className={classes.container}>
         <AppBar position="static" color="default">

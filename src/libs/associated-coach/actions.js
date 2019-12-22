@@ -3,6 +3,7 @@
 import { push } from 'react-router-redux';
 import { createAction } from 'redux-actions';
 
+import uniq from 'lodash/uniq';
 import { putAuth, API_URI } from '../../http';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 import {
@@ -14,6 +15,7 @@ import {
   deleteCoach as deleteCoachAPI,
   fetchAssociatedCoachPerformance as fetchAssociatedCoachPerformanceAPI,
 } from './api';
+import { getFreshCoachIds } from './selectors';
 
 import type { Dispatch, ThunkAction } from '../../state/types';
 
@@ -266,5 +268,40 @@ export function setSessionPaymentRule(
       dispatch(sessionPaymentRule.error(error));
     }
     dispatch(sessionPaymentRule.isLoading(false));
+  };
+}
+
+export const bulkRetrieveActions = {
+  isLoading: createAction('COACH/BULK_RETRIEVE/IS_LOADING'),
+  error: createAction('COACH/BULK_RETRIEVE/ERROR'),
+  success: createAction('COACH/BULK_RETRIEVE/SUCCESS'),
+};
+
+export function fetchCoachBulk(ids: Array<number>, options: OptionCallback) {
+  return async (dispatch: Dispatch, getState: () => State) => {
+    const freshCoachList = getFreshCoachIds(getState());
+    const ids_uniq = uniq(ids.filter((id) => !!id)).filter(
+      (id) => !freshCoachList.includes(id),
+    );
+    if (ids_uniq.length === 0) {
+      return;
+    }
+
+    dispatch(bulkRetrieveActions.isLoading(true));
+    dispatch(bulkRetrieveActions.error(null));
+
+    try {
+      const response = await fetchAssociatedCoachesAPI({
+        id__in: ids_uniq,
+        page_size: null,
+      });
+      dispatch(bulkRetrieveActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      console.error(error);
+      dispatch(bulkRetrieveActions.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(bulkRetrieveActions.isLoading(false));
   };
 }

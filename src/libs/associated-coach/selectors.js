@@ -84,3 +84,8 @@ export const coachPerformanceSelector = {
   getPerformance: getCoachPerformance,
   isLoading: isLoadingCoachPerformance,
 };
+
+export const getFreshCoachIds = createSelector(
+  getAllCoachesDict,
+  (coachDict) => Object.keys(coachDict).map((k) => parseInt(k, 10)),
+);

@@ -38,6 +38,7 @@ type Props = {
   selected: boolean,
   overrideClickAction: () => void,
   t: TFunction,
+  loading: boolean,
   classes: Object,
 };
 
@@ -83,15 +84,16 @@ export function OfferMinimalSummary(props: Props) {
     selected,
     t,
     classes,
+    loading,
   } = props;
-  if (!offer) {
+  if (!offer || loading) {
     return <EmptyListItem key="" divider dense />;
   }
 
   const {
     name,
     id,
-    etablissement,
+    establishment,
     establishment_override,
     duration_minute,
     coach,
@@ -111,11 +113,19 @@ export function OfferMinimalSummary(props: Props) {
   if (!available) {
     formattedName += ` - ${t('offer:disabled')}`;
   }
-  const currentEstablishment = establishment_override || etablissement;
+  const currentEstablishment = establishment_override || establishment;
   const dateFormatter = noDate ? formatAsTime : formatAsDatetime;
   const [fillingInfo, fillingInfoProps, formattedFillingRate] = getFillingInfo(
     offer,
   );
+
+  let actualCoachName = '  -  ';
+  if (coach && !coach_override) {
+    actualCoachName = coach.name;
+  }
+  if (coach_override) {
+    actualCoachName = coach_override.name;
+  }
 
   return (
     <ListItem
@@ -138,11 +148,11 @@ export function OfferMinimalSummary(props: Props) {
         <Grid item xs={6}>
           <Grid container direction="row" alignItems="center">
             <Grid item>
-              <Tooltip title={coach.name}>
+              <Tooltip title={coach ? coach.name : ''}>
                 <div>
                   <IconButton disableRipple disabled={!!coach_override}>
                     <Avatar
-                      src={coach.photo}
+                      src={coach ? coach.photo : ''}
                       imgProps={coach_override ? disabledAvatarProps : {}}
                     />
                   </IconButton>
@@ -151,9 +161,9 @@ export function OfferMinimalSummary(props: Props) {
             </Grid>
             <Grid item style={coach_override ? { marginLeft: -30 } : {}}>
               {coach_override ? (
-                <Tooltip title={coach_override.name}>
+                <Tooltip title={coach_override ? coach_override.name : ''}>
                   <IconButton disableRipple>
-                    <Avatar src={coach_override.photo} />
+                    <Avatar src={coach_override ? coach_override.photo : ''} />
                   </IconButton>
                 </Tooltip>
               ) : null}
@@ -178,8 +188,12 @@ export function OfferMinimalSummary(props: Props) {
         </Grid>
         <Grid item xs={3}>
           <ListItemText
-            primary={showCoachName ? coach.name : currentEstablishment.title}
-            secondary={coach_override ? coach_override.name : coach.name}
+            primary={
+              showCoachName
+                ? actualCoachName
+                : (currentEstablishment || {}).title
+            }
+            secondary={actualCoachName}
           />
         </Grid>
       </Grid>

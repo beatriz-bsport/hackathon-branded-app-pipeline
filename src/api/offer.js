@@ -14,9 +14,7 @@ export async function fetchAllEvents(params) {
 }
 
 export async function fetchOffersByDay(params) {
-  return getAuth(
-    `${API_V1_URI}/offer/complete_by_day/${buildUrlParams(params)}`,
-  );
+  return getAuth(`${API_V1_URI}/offer/as_manager/${buildUrlParams(params)}`);
 }
 
 export async function editLiveOffer({ offerId, data }) {

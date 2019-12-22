@@ -16,6 +16,7 @@ import {
   deleteActions,
   resetAction,
   associatedEstablishmentListActions,
+  establishmentBulkRetrieveActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -37,12 +38,33 @@ const initialState = Immutable({
     loading: false,
     error: null,
   },
+  bulkRetrieve: {
+    loading: true,
+    error: null,
+  },
   // Update
   updated: null,
 });
 
 export default handleActions(
   {
+    [establishmentBulkRetrieveActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['bulkRetrieve', 'loading'], payload);
+    },
+    [establishmentBulkRetrieveActions.error]: (state, { payload }) => {
+      return state.setIn(['bulkRetrieve', 'error'], payload);
+    },
+    [establishmentBulkRetrieveActions.success]: (state, { payload }) => {
+      return state.merge(
+        {
+          byId: payload.results.reduce((acc, ps) => {
+            acc[ps.id] = ps;
+            return acc;
+          }, {}),
+        },
+        { deep: true },
+      );
+    },
     [resetAction.success]: (state) => {
       return state.setIn(['byId'], {}).setIn(['allIds'], []);
     },

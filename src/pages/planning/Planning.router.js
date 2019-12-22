@@ -10,7 +10,14 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { Moment } from '../../i18n';
 
 import { offer as offerActions } from '../../actions';
-import { getManagerOffersFiltered } from '../../libs/offer/selectors';
+import {
+  getManagerOffersFiltered,
+  withMetaActivity,
+  withCoach,
+  withEstablishment,
+} from '../../libs/offer/selectors';
+import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
+import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
 
 const formatDate = (date) => {
   const formatedDate = Moment(date, 'DD-MM-YYYY');
@@ -40,14 +47,35 @@ export default function PlanningRouter() {
 
 const PlanningWithDateAndOffer = compose(
   connect(
-    (state) => ({ offers: getManagerOffersFiltered(state) }),
+    (state) => ({
+      offers: withMetaActivity(
+        withEstablishment(withCoach(getManagerOffersFiltered)),
+      )(state),
+    }),
 
     {
       fetchOffersByDay: offerActions.fetchOffersByDay,
       pushRouter: push,
       replaceRouter: replace,
+      fetchCoachBulk: fetchCoachBulkAction,
+      fetchEstablishmentBulk: fetchEstablishmentBulkAction,
     },
   ),
+  withProps(({ fetchCoachBulk, fetchEstablishmentBulk, fetchOffersByDay }) => ({
+    fetchOffersByDay: (...params) =>
+      fetchOffersByDay(...params, {
+        onSuccess: (offers) => {
+          fetchCoachBulk([
+            ...offers.map((o) => o.coach),
+            ...offers.map((o) => o.coach_override),
+          ]);
+          fetchEstablishmentBulk([
+            ...offers.map((o) => o.establishment),
+            ...offers.map((o) => o.establishment_override),
+          ]);
+        },
+      }),
+  })),
   routerParamsToProps({
     offerId: 'offerId:number',
     date: 'day:number',

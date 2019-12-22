@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push as routerPush } from 'react-router-redux';
-import { compose } from 'recompose';
+import { compose, withProps } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import { withNamespaces } from 'react-i18next';
@@ -18,8 +18,13 @@ import MetaActivityDetail from '../../libs/meta-activity/components/MetaActivity
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 
 import { getWorkshops } from '../../libs/meta-activity/selectors';
-import { getEventsByMetaActivity } from '../../libs/offer/selectors';
-import { fetchMetaActivityOffers } from '../../actions/offer.actions';
+import {
+  getEventsByMetaActivity,
+  withEstablishment,
+  withCoach,
+  getOffersByDay,
+} from '../../libs/offer/selectors';
+import { fetchMetaActivityOffers as fetchMetaActivityOffersAction } from '../../actions/offer.actions';
 import {
   deleteWorkshop,
   fetchAll as fetchAllWorkshops,
@@ -89,7 +94,9 @@ export class WorkshopActivity extends Component<Props, State> {
           metaActivity={this.props.workshopActivity}
           fetchOffersByDay={this.props.fetchOffersByDay}
           events={this.props.events}
-          offers={this.props.offers}
+          offers={this.props.offers.filter(
+            (o) => o.meta_activity === this.props.id,
+          )}
           offersLoading={this.props.offersLoading}
           goToOffer={this.props.goToOffer}
           openCreateOfferForm={this.openCreateOfferForm}
@@ -130,13 +137,13 @@ export default compose(
       workshopActivities: getWorkshops(state),
       workshopActivity: getWorkshops(state).find((ma) => ma.id === id),
       events: getEventsByMetaActivity(state),
-      offers: state.offer.offers,
+      offers: withEstablishment(withCoach(getOffersByDay))(state),
       offersLoading: state.offer.byDay.loading,
     }),
     {
       fetchAllWorkshops,
       fetchOffersByDay: offerActions.fetchOffersByDay,
-      fetchMetaActivityOffers,
+      fetchMetaActivityOffers: fetchMetaActivityOffersAction,
       deleteWorkshop,
       goToOffer: (o) => routerPush(`/offer/${o.id}`),
       goToList: () => routerPush('/workshop-activity'),
@@ -144,6 +151,25 @@ export default compose(
       createActivityOffers: (id) => routerPush(`/add-offers/${id}`),
     },
   ),
+  withProps(({ fetchOffersByDay, fetchMetaActivityOffers, id }) => ({
+    fetchOffersByDay: (momentDate) => {
+      fetchMetaActivityOffers(id, {
+        min_date: momentDate
+          .clone()
+          .startOf('month')
+          .format('YYYY-MM-DD'),
+        max_date: momentDate
+          .clone()
+          .endOf('month')
+          .format('YYYY-MM-DD'),
+      });
+      fetchOffersByDay({
+        year: momentDate.year(),
+        month: momentDate.month() + 1,
+        day: momentDate.date(),
+      });
+    },
+  })),
   withTitle(({ id, workshopActivities }) => {
     if (id) {
       const workshopActivity = (workshopActivities || []).filter(

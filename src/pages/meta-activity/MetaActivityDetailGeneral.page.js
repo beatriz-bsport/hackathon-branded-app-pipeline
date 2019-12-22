@@ -1,9 +1,9 @@
 // @flow
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import { connect } from 'react-redux';
 import { push as routerPush } from 'react-router-redux';
-import { compose } from 'recompose';
+import { compose, withProps } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
@@ -15,12 +15,15 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import MetaActivityDetail from '../../libs/meta-activity/components/MetaActivityDetail.component';
 import MetaActivityDeleteDialog from '../../libs/meta-activity/components/MetaActivityDeleteDialog.component';
-import {
-  deleteMetaActivity,
-} from '../../libs/meta-activity/actions/meta-activity.actions';
+import { deleteMetaActivity } from '../../libs/meta-activity/actions/meta-activity.actions';
 import { getMetaActivity } from '../../libs/meta-activity/selectors';
-import { getEventsByMetaActivity } from '../../libs/offer/selectors';
-import { fetchMetaActivityOffers } from '../../actions/offer.actions';
+import {
+  getEventsByMetaActivity,
+  withEstablishment,
+  withCoach,
+  getOffersByDay,
+} from '../../libs/offer/selectors';
+import { fetchMetaActivityOffers as fetchMetaActivityOffersAction } from '../../actions/offer.actions';
 import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '../../libs/meta-activity/api/common';
 
 type Props = {
@@ -49,7 +52,7 @@ type State = {
   deleteOpen: boolean,
 };
 
-export class MetaActivityDetailGeneral extends Component<Props, State> {
+export class MetaActivityDetailGeneral extends PureComponent<Props, State> {
   state = { deleteOpen: false };
 
   componentDidMount() {
@@ -80,7 +83,9 @@ export class MetaActivityDetailGeneral extends Component<Props, State> {
           metaActivity={this.props.metaActivity}
           fetchOffersByDay={this.props.fetchOffersByDay}
           events={this.props.events}
-          offers={this.props.offers}
+          offers={this.props.offers.filter(
+            (o) => o.meta_activity === this.props.id,
+          )}
           goToOffer={this.props.goToOffer}
           offersLoading={this.props.offersLoading}
           openCreateOfferForm={this.openCreateOfferForm}
@@ -118,12 +123,12 @@ export default compose(
       loading: state.metaActivity.loading,
       metaActivity: getMetaActivity(state, id),
       events: getEventsByMetaActivity(state),
-      offers: state.offer.offers,
+      offers: withEstablishment(withCoach(getOffersByDay))(state),
       offersLoading: state.offer.byDay.loading,
     }),
     {
       fetchOffersByDay: offerActions.fetchOffersByDay,
-      fetchMetaActivityOffers,
+      fetchMetaActivityOffers: fetchMetaActivityOffersAction,
       push: routerPush,
       deleteMetaActivity,
       goToOffer: (o) => routerPush(`/offer/${o.id}`),
@@ -132,5 +137,24 @@ export default compose(
       createActivityOffers: (id) => routerPush(`/add-offers/${id}`),
     },
   ),
+  withProps(({ fetchOffersByDay, fetchMetaActivityOffers, id }) => ({
+    fetchOffersByDay: (momentDate) => {
+      fetchMetaActivityOffers(id, {
+        min_date: momentDate
+          .clone()
+          .startOf('month')
+          .format('YYYY-MM-DD'),
+        max_date: momentDate
+          .clone()
+          .endOf('month')
+          .format('YYYY-MM-DD'),
+      });
+      fetchOffersByDay({
+        year: momentDate.year(),
+        month: momentDate.month() + 1,
+        day: momentDate.date(),
+      });
+    },
+  })),
   withTitle(({ metaActivity }) => (metaActivity ? metaActivity.name : '')),
 )(MetaActivityDetailGeneral);

@@ -65,8 +65,8 @@ export default compose(
     offerId: 'offerId:number',
   }),
   connect(
-    (state, { bookingId, offerId }) => ({
-      offer: state.offer.offers.find((o) => o.id === offerId),
+    (state, { bookingId }) => ({
+      offer: state.offer.retrieve.data,
       members: state.member.all,
       booking: getMemberBookingWithConsumerPack(state, bookingId),
       bookingLoading: state.booking.loading,

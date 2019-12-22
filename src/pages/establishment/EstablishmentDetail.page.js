@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { compose } from 'recompose';
+import { compose, withProps } from 'recompose';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import { push } from 'react-router-redux';
@@ -16,9 +16,15 @@ import { offer as offerActions } from '../../actions';
 import EstablishmentDetail from '../../libs/establishment/components/EstablishmentDetail.component';
 import EstablishmentDeleteDialog from '../../libs/establishment/components/EstablishmentDeleteDialog.component';
 import {
-  fetchEstablishmentDetail,
+  fetchEstablishmentBulk,
   deleteEstablishment,
 } from '../../libs/establishment/actions';
+import {
+  withEstablishment,
+  withCoach,
+  getOffersByDay,
+  getEventsByEstablishment,
+} from '../../libs/offer/selectors';
 
 import { getEstablishment } from '../../libs/establishment/selectors';
 import { checkCanDeleteEstablishment as canDeleteEstablishmentAPI } from '../../libs/establishment/api';
@@ -31,10 +37,11 @@ type Props = {
   goToOffer: (offerId: number) => void,
   establishment: Establishment,
   startUpdateEstablishment: (*) => void,
-  fetchEstablishment: (id: number) => void,
   loading: boolean,
   goToList: () => void,
   deleteEstablishment: (id: number) => void,
+  fetchEstablishmentBulk: ([number]) => void,
+  events: Array<Event>,
 };
 
 type State = {
@@ -47,7 +54,7 @@ export class EstablishmentDetails extends React.Component<Props, State> {
   };
 
   componentDidMount() {
-    this.props.fetchEstablishment(this.props.id);
+    this.props.fetchEstablishmentBulk([this.props.id]);
   }
 
   render() {
@@ -58,10 +65,13 @@ export class EstablishmentDetails extends React.Component<Props, State> {
       <div>
         <EstablishmentDetail
           timetableLoading={this.props.timetableLoading}
-          offers={this.props.offers}
+          offers={this.props.offers.filter(
+            (o) => o.establishment && o.establishment.id === this.props.id,
+          )}
           fetchOffersByDay={this.props.fetchOffersByDay}
           goToOffer={this.props.goToOffer}
           establishment={this.props.establishment}
+          events={this.props.events}
         />
         <BottomActionButtons
           onEdit={() => this.props.startUpdateEstablishment(this.props.id)}
@@ -89,18 +99,39 @@ export default compose(
     (state, { id }) => ({
       establishment: getEstablishment(state, id),
       loading: state.establishment.detail.loading,
-      offers: state.offer.offers,
+      offers: withEstablishment(withCoach(getOffersByDay))(state),
+      events: getEventsByEstablishment(state),
     }),
     {
-      fetchEstablishment: fetchEstablishmentDetail,
+      fetchEstablishmentBulk,
       startUpdateEstablishment: (id: number) =>
         push(`/establishment/edit/${id}`),
       fetchOffersByDay: offerActions.fetchOffersByDay,
       goToOffer: (offerId: number) => push(`/offer/${offerId}`),
       goToList: () => push('/establishment'),
       deleteEstablishment,
+      fetchEstablishmentEvents: offerActions.fetchEstablishmentEvents,
     },
   ),
+  withProps(({ fetchOffersByDay, fetchEstablishmentEvents, id }) => ({
+    fetchOffersByDay: (momentDate) => {
+      fetchEstablishmentEvents(id, {
+        min_date: momentDate
+          .clone()
+          .startOf('month')
+          .format('YYYY-MM-DD'),
+        max_date: momentDate
+          .clone()
+          .endOf('month')
+          .format('YYYY-MM-DD'),
+      });
+      fetchOffersByDay({
+        year: momentDate.year(),
+        month: momentDate.month() + 1,
+        day: momentDate.date(),
+      });
+    },
+  })),
   withTitle(({ establishment }) => {
     return establishment ? `${establishment.title}` : '';
   }),

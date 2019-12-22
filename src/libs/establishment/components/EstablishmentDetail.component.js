@@ -1,5 +1,4 @@
 // @flow
-
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -25,6 +24,7 @@ type Props = {
   offers: Array<Offer>,
   fetchOffersByDay: ({ year: number, month: number, day: number }) => void,
   goToOffer: (offerId: number) => void,
+  events: Array<Event>,
   classes: Object,
   t: TFunction,
   establishment: Establishment,
@@ -44,11 +44,7 @@ export class EstablishmentDetail extends Component<Props, State> {
     const { selectedDay } = this.state;
     selectedDay[establishmentId] = momentDay.startOf('day');
     this.setState({ selectedDay });
-    this.props.fetchOffersByDay({
-      year: momentDay.year(),
-      month: momentDay.month() + 1,
-      day: momentDay.date(),
-    });
+    this.props.fetchOffersByDay(momentDay);
   };
 
   getCover = (establishment: Establishment) => {
@@ -76,11 +72,10 @@ export class EstablishmentDetail extends Component<Props, State> {
   };
 
   renderCalendar = (establishment: Establishment) => {
-    const { offers, timetableLoading } = this.props;
+    const { offers, timetableLoading, events } = this.props;
     const { selectedDay } = this.state;
-    const offersInEstablishment = establishment.events || [];
     const events_ = {};
-    for (const o of offersInEstablishment) {
+    for (const o of events) {
       const midnight = Moment(o.date_start).startOf('day');
       if (Object.hasOwnProperty.call(events_, midnight)) {
         events_[midnight].push(o);
@@ -97,9 +92,7 @@ export class EstablishmentDetail extends Component<Props, State> {
         />
         <TimeTable
           loading={timetableLoading}
-          offers={offers.filter((o) => o.etablissement.id === establishment.id)}
-          establishmentId={establishment.id}
-          date={selectedDay[establishment.id]}
+          offers={offers}
           onOfferSelected={(o) => this.props.goToOffer(o.id)}
         />
       </div>

@@ -6,6 +6,7 @@ import {
   getAuth,
   putAuth,
   deleteAuth,
+  buildUrlParams,
 } from '../../http';
 
 export async function addEstablishment(data: *) {
@@ -20,8 +21,8 @@ export async function fetchEstablishment(id: number) {
   return getAuth(`${API_URI}/saas/establishment/${id}/`);
 }
 
-export async function fetchAllEstablishments() {
-  return getAuth(`${API_V1_URI}/establishment/?page_size=100`);
+export async function fetchAllEstablishments(params: any) {
+  return getAuth(`${API_V1_URI}/establishment/${buildUrlParams(params)}`);
 }
 
 export async function checkCanDeleteEstablishment(id: number) {
@@ -40,5 +41,5 @@ export default {
   addEstablishment,
   updateEstablishment,
   fetchEstablishment,
-  fetchAll: fetchAllEstablishments,
+  fetchEstablishmentList: fetchAllEstablishments,
 };

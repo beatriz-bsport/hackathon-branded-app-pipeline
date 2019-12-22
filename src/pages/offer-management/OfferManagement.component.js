@@ -452,7 +452,9 @@ export class OfferManagement extends Component<Props, State> {
       <div className={this.props.classes.titleBanner}>
         <Button
           onClick={() => this.goToOffer(this.props.offer.previous_offer)}
-          disabled={!this.props.offer}
+          disabled={
+            !this.props.offer || this.props.offer.id !== this.props.offerId
+          }
         >
           <ChevronLeftIcon className={this.props.classes.leftIcon} />
           <Hidden xsDown>{this.props.t('offer.previousOffer')}</Hidden>
@@ -469,7 +471,9 @@ export class OfferManagement extends Component<Props, State> {
             onClick={() => this.props.goToCalendar(this.getDateDictionnary())}
           >
             <TodayIcon className={this.props.classes.leftIcon} />
-            {this.props.offer && this.props.offer.date_start
+            {this.props.offer &&
+            !this.props.offerLoading &&
+            this.props.offer.date_start
               ? moment(this.props.offer.date_start).format('LLLL')
               : ''}
           </Button>
@@ -485,7 +489,9 @@ export class OfferManagement extends Component<Props, State> {
         </div>
         <Button
           onClick={() => this.goToOffer(this.props.offer.next_offer)}
-          disabled={!this.props.offer}
+          disabled={
+            !this.props.offer || this.props.offer.id !== this.props.offerId
+          }
         >
           <Hidden xsDown>{this.props.t('offer.nextOffer')}</Hidden>
           <ChevronRightIcon className={this.props.classes.rightIcon} />

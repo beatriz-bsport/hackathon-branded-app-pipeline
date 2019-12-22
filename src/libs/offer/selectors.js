@@ -1,18 +1,18 @@
 import { createSelector } from 'reselect';
 import { Moment } from '../../i18n';
 
-import { getAllCoaches } from '../associated-coach/selectors';
-import { getMetaActivities } from '../meta-activity/selectors';
-import { getAllEstablishments } from '../establishment/selectors';
+import { getAllCoachesDict } from '../associated-coach/selectors';
+import { getMetaActivitiesDict } from '../meta-activity/selectors';
+import { getAllEstablishmentsDict } from '../establishment/selectors';
 
 const getState = (state) => state.offer;
 
 const getAll = (state) => getState(state).offers;
 
-const get = (state, id) => getState(state).offers.find((o) => o.id === id);
+export const getDetailedOffer = (state) => getState(state).retrieve.data;
 
 // this will remove the offers already ended simply
-const todayOffers = createSelector(
+export const todayOffers = createSelector(
   getAll,
   (offers) =>
     offers.filter((offer) => {
@@ -34,21 +34,58 @@ export const compatiblePacksWithOfferAndEnabled = createSelector(
 
 export const _getSimilars = (state) => state.offer.similarOffers.items;
 
+export const withMetaActivity = (selector) =>
+  createSelector(
+    [selector, getMetaActivitiesDict],
+    (offers, metaActivityData) =>
+      offers.map((o) => ({
+        ...o,
+        meta_activity: metaActivityData[o.meta_activity],
+      })),
+  );
+
+export const withEstablishment = (selector) =>
+  createSelector(
+    [selector, getAllEstablishmentsDict],
+    (offers, establishmentData) =>
+      offers.map((o) => ({
+        ...o,
+        establishment_override: o.establishment_override
+          ? establishmentData[o.establishment]
+          : null,
+        establishment: establishmentData[o.establishment],
+      })),
+  );
+
+export const withCoach = (selector) =>
+  createSelector(
+    [selector, getAllCoachesDict],
+    (offers, coachData) =>
+      offers.map((o) => ({
+        ...o,
+        coach: coachData[o.coach],
+        coach_override: o.coach_override ? coachData[o.coach_override] : null,
+      })),
+  );
+
 export const getSimilars = createSelector(
-  [_getSimilars, getAllCoaches, getMetaActivities, getAllEstablishments],
-  (offers, coaches, metaActivities, establishments) => {
+  [
+    _getSimilars,
+    getAllCoachesDict,
+    getMetaActivitiesDict,
+    getAllEstablishmentsDict,
+  ],
+  (offers, coachData, metaActivityData, establishmentData) => {
     return offers
       .map((o) => ({
         ...o,
-        coach_override: o.coach_override
-          ? coaches.find((c) => c.id === o.coach_override)
-          : null,
         establishment_override: o.establishment_override
-          ? establishments.find((e) => e.id === e.establishment_override)
+          ? establishmentData[o.establishment]
           : null,
-        meta_activity: metaActivities.find((ma) => ma.id === o.meta_activity),
-        establishment: establishments.find((e) => e.id === o.establishment),
-        coach: coaches.find((c) => c.id === o.coach),
+        establishment: establishmentData[o.establishment],
+        coach: coachData[o.coach],
+        coach_override: o.coach_override ? coachData[o.coach_override] : null,
+        meta_activity: metaActivityData[o.meta_activity],
       }))
       .filter(
         (o) => o.activity && o.establishment && o.coach && o.meta_activity,
@@ -59,44 +96,53 @@ export const getSimilars = createSelector(
 export const getEventsByMetaActivity = (state) =>
   state.offer.calendarByObject.metaActivity;
 
-const getManagerOffers = (state) => state.offer.offers;
+export const getEventsByEstablishment = (state) =>
+  state.offer.calendarByObject.establishment;
 
 export const getManagerFilters = (state) => state.offer.managerFilter.filters;
 export const getManagerFiltersOpen = (state) => state.offer.managerFilter.open;
 
+const _getOfferByDayIds = (state) => state.offer.byDay.allIds;
+const _getOfferData = (state) => state.offer.byId;
+
+export const getOffersByDay = createSelector(
+  [_getOfferByDayIds, _getOfferData],
+  (ids, data) => (ids || []).map((id) => data[id]),
+);
+
 export const getManagerOffersFiltered = createSelector(
-  [getManagerOffers, getManagerFilters, getManagerFiltersOpen],
+  [getOffersByDay, getManagerFilters, getManagerFiltersOpen],
   (offers, filters, open) => {
     if (!open) return offers;
     let offersFiltered = offers;
     if ((filters.establishments || []).length) {
       offersFiltered = offersFiltered.filter(
         (o) =>
-          (filters.establishments.includes(o.etablissement.id) &&
+          (filters.establishments.includes(o.establishment) &&
             !o.establishment_override) ||
           (o.establishment_override &&
-            filters.establishments.includes(o.establishment_override.id)),
+            filters.establishments.includes(o.establishment_override)),
       );
     }
     if ((filters.coaches || []).length) {
       offersFiltered = offersFiltered.filter(
         (o) =>
-          (filters.coaches.includes(o.coach.id) && !o.coach_override) ||
-          (o.coach_override && filters.coaches.includes(o.coach_override.id)),
+          (filters.coaches.includes(o.coach) && !o.coach_override) ||
+          (o.coach_override && filters.coaches.includes(o.coach_override)),
       );
     }
     if ((filters.levels || []).length) {
       offersFiltered = offersFiltered.filter((o) =>
-        filters.levels.includes(o.level_id),
+        filters.levels.includes(o.level),
       );
     }
     if ((filters.metaActivities || []).length) {
       offersFiltered = offersFiltered.filter((o) =>
-        filters.metaActivities.includes(o.meta_activity_id),
+        filters.metaActivities.includes(o.meta_activity),
       );
     }
     return offersFiltered;
   },
 );
 
-export default { get, getAll, todayOffers, getSimilars };
+export default { getAll, todayOffers, getSimilars };

@@ -8,13 +8,15 @@ import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import { withNamespaces } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
 import { getMarketplaceContractList as getContractList } from '../../libs/subscription/selectors';
 import { fetchMarketplaceContractList } from '../../libs/subscription/actions';
 import SubscriptionContractListItem from '../../libs/subscription/components/SubscriptionContractListItem.component';
 
 type Props = {
-  t: TFunction,
+  fetchMarketplaceContractList: () => void,
+  contractLoading: boolean,
+  classes: Object,
+  contractList: Array<Contract>,
 };
 
 export class MarketplaceContract extends React.Component<Props> {

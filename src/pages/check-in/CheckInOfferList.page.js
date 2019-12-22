@@ -2,17 +2,25 @@
 //
 import React from 'react';
 
-import { compose } from 'recompose';
+import { compose, withProps } from 'recompose';
 import { connect } from 'react-redux';
 import { push as routerPush } from 'react-router-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 import moment from 'moment';
 
 import { offer as offerActions } from '../../actions';
-import offerSelectors from '../../libs/offer/selectors';
+import {
+  todayOffers,
+  withCoach,
+  withEstablishment,
+} from '../../libs/offer/selectors';
 
 import { getAllEstablishments } from '../../libs/establishment/selectors';
-import { fetchEstablishments } from '../../libs/establishment/actions';
+import {
+  fetchEstablishments,
+  fetchEstablishmentBulk as fetchEstablishmentBulkAction,
+} from '../../libs/establishment/actions';
+import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
 import type { Establishment } from '../../libs/establishment/types';
 
 import CheckInOfferList from '../../libs/check-in/components/CheckInOfferList.component';
@@ -68,7 +76,7 @@ export default compose(
   withStyles(styles),
   connect(
     (state) => ({
-      offers: offerSelectors.todayOffers(state),
+      offers: withCoach(withEstablishment(todayOffers))(state),
       offersLoading: state.offer.byDay.loading,
       establishments: getAllEstablishments(state),
     }),
@@ -77,6 +85,23 @@ export default compose(
       fetchOffersByDay: offerActions.fetchOffersByDay,
       onOfferSelected: (offerId: number) =>
         routerPush(`/check-in/offer/${offerId}`),
+      fetchCoachBulk: fetchCoachBulkAction,
+      fetchEstablishmentBulk: fetchEstablishmentBulkAction,
     },
   ),
+  withProps(({ fetchCoachBulk, fetchEstablishmentBulk, fetchOffersByDay }) => ({
+    fetchOffersByDay: (...params) =>
+      fetchOffersByDay(...params, {
+        onSuccess: (offers) => {
+          fetchCoachBulk([
+            ...offers.map((o) => o.coach),
+            ...offers.map((o) => o.coach_override),
+          ]);
+          fetchEstablishmentBulk([
+            ...offers.map((o) => o.establishment),
+            ...offers.map((o) => o.establishment_override),
+          ]);
+        },
+      }),
+  })),
 )(CheckInOfferListPage);

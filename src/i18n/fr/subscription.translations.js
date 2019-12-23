@@ -9,6 +9,13 @@ export default {
   },
   contract: {
     duration: '{{month}} mois',
+    description: 'Description',
+    legal: 'Mentions légales',
+    actions: {
+      iAcceptCondition: "J'accepte les conditions ci-dessus",
+      iwanttostarton: 'Je souhaite débuter la facturation le : ',
+      subscribe: "M'abonner",
+    },
     list: {
       title: 'Contrat disponible à la vente',
       isEmpty: 'Aucun contrat disponible',

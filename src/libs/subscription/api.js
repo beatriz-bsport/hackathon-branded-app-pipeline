@@ -45,6 +45,10 @@ const deleteContract = async (id: number) => {
   return deleteAuth(`${API_URI}/subscription/contract/${id}/`);
 };
 
+export const postContractSubscription = async (id: number, data: any) => {
+  return postAuth(`${API_URI}/subscription/contract/${id}/register/`, data);
+};
+
 export default {
   fetchSubscriptionList: fetchAll,
   fetchDetail,

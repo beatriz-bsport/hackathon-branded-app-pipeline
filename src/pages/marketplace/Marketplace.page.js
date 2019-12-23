@@ -183,6 +183,8 @@ export class MarketPlace extends Component<Props, State> {
           <MarketplaceContractPage
             companyId={this.props.companyId}
             requestSignUp={() => this.toogleLogin(true)}
+            authenticated={this.props.auth.authenticated}
+            goToUserSpace={this.props.goToUserSpace}
           />
         );
       case TAB_SHOP:

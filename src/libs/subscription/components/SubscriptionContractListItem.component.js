@@ -17,7 +17,8 @@ type Props = {
   onDelete: () => void,
   onEdit: () => void,
   onClick?: () => void,
-  selected?: boolean,
+selected?: boolean,
+divider?: boolean,
 };
 
 export const SubscriptionContractListItem = (props: Props) => {
@@ -26,6 +27,7 @@ export const SubscriptionContractListItem = (props: Props) => {
       onClick={props.onClick}
       button={!!props.onClick}
       selected={props.selected}
+      divider={props.divider}
     >
       <ListItemText
         primary={`${props.contract.name} - ${props.contract.recurrent_price}€`}

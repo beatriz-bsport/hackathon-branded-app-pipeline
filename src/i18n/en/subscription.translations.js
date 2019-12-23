@@ -8,6 +8,13 @@ export default {
     },
   },
   contract: {
+    description: 'Description',
+    legal: 'Legal agreement',
+    actions: {
+      iAcceptCondition: "I accept the legal aggreement",
+      iwanttostarton: 'I want to start my subscription on : ',
+      subscribe: "Subscribe",
+    },
     duration: '{{month}} months',
     list: {
       title: 'Contracts available to customer',

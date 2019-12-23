@@ -1,41 +1,131 @@
 // @flow
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { compose } from 'recompose';
+import { compose, withState } from 'recompose';
 import { connect } from 'react-redux';
 import List from '@material-ui/core/List';
 import Paper from '@material-ui/core/Paper';
+import { Elements, StripeProvider } from 'react-stripe-elements';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import Collapse from '@material-ui/core/Collapse';
+import Dialog from '@material-ui/core/Dialog';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
+import moment from 'moment';
 
 import { withNamespaces } from 'react-i18next';
+import Config from '../../config';
+
 import { getMarketplaceContractList as getContractList } from '../../libs/subscription/selectors';
 import { fetchMarketplaceContractList } from '../../libs/subscription/actions';
+import { postContractSubscription as postContractSubscriptionAPI } from '../../libs/subscription/api';
 import SubscriptionContractListItem from '../../libs/subscription/components/SubscriptionContractListItem.component';
+import SubscriptionContractCard from '../../libs/subscription/components/SubscriptionContractCard.component';
+import SubscriptionPayment from '../../libs/subscription/components/SubscriptionPayment.component';
 
 type Props = {
   fetchMarketplaceContractList: () => void,
   contractLoading: boolean,
   classes: Object,
   contractList: Array<Contract>,
+
+  goToUserSpace: () => void,
+
+  selected: number,
+  setSelected: (number) => void,
+
+  authenticated: boolean,
+  requestSignUp: () => void,
+
+  fullScreen: boolean,
+
+  paymentDialogOpen: boolean,
+  setPaymentDialogOpen: (boolean) => void,
 };
 
+const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
+
 export class MarketplaceContract extends React.Component<Props> {
+  state = {
+    first_billing_timestamp: moment().format('YYYY-MM-DD'),
+  };
+
   componentWillMount() {
     this.props.fetchMarketplaceContractList();
   }
 
+  onSubmit = async (token: string) => {
+    this.setState({ processing: true });
+    try {
+      await postContractSubscriptionAPI(this.props.selected, {
+        stripe_source: token,
+        first_billing_timestamp: moment(
+          this.state.first_billing_timestamp,
+        ).unix(),
+      });
+    } catch (err) {
+      console.error(err);
+    }
+    this.setState({ processing: false });
+    this.props.goToUserSpace();
+  };
+
   render() {
+    const { classes } = this.props;
     if (this.props.contractLoading) {
       return <LinearProgress />;
     }
     return (
-      <Paper className={this.props.classes.container}>
-        <List>
-          {this.props.contractList.map((c) => (
-            <SubscriptionContractListItem contract={c} key={c.id} />
-          ))}
+      <div className={classes.container}>
+        <List className={classes.list}>
+          <Paper>
+            {this.props.contractList.map((c) => (
+              <div key={c.id}>
+                <SubscriptionContractListItem
+                  contract={c}
+                  divider
+                  selected={this.props.selected === c.id}
+                  onClick={() => {
+                    if (this.props.selected === c.id) {
+                      this.props.setSelected(null);
+                    } else {
+                      this.props.setSelected(c.id);
+                    }
+                  }}
+                />
+                <Collapse
+                  in={this.props.selected && this.props.selected === c.id}
+                >
+                  <SubscriptionContractCard
+                    contract={c}
+                    onPayRequest={(first_billing_timestamp) => {
+                      this.setState({ first_billing_timestamp });
+                      if (!this.props.authenticated) {
+                        this.props.requestSignUp();
+                      } else {
+                        this.props.setPaymentDialogOpen(true);
+                      }
+                    }}
+                  />
+                </Collapse>
+              </div>
+            ))}
+          </Paper>
         </List>
-      </Paper>
+        <Dialog
+          fullScreen={this.props.fullScreen}
+          open={this.props.selected && this.props.paymentDialogOpen}
+        >
+          <StripeProvider apiKey={STRIPE_KEY}>
+            <Elements>
+              <SubscriptionPayment
+                onCancel={() => this.props.setPaymentDialogOpen(false)}
+                onSubmit={this.onSubmit}
+                processing={this.state.processing}
+              />
+            </Elements>
+          </StripeProvider>
+        </Dialog>
+      </div>
     );
   }
 }
@@ -43,12 +133,21 @@ export class MarketplaceContract extends React.Component<Props> {
 const styles = (theme) => ({
   container: {
     margin: theme.spacing.unit * 2,
+    alignItems: 'center',
+    flexDirection: 'column',
+    display: 'flex',
+  },
+  list: {
+    maxWidth: 800,
+    width: '100%',
   },
 });
 
 export default compose(
   withNamespaces(),
   withStyles(styles),
+  withState('selected', 'setSelected', null),
+  withState('paymentDialogOpen', 'setPaymentDialogOpen', false),
   connect(
     (state) => ({
       contractList: getContractList(state),
@@ -58,4 +157,5 @@ export default compose(
       fetchMarketplaceContractList,
     },
   ),
+  withMobileDialog(),
 )(MarketplaceContract);

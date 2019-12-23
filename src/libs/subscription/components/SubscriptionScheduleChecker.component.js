@@ -6,20 +6,13 @@ import moment from 'moment';
 
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper';
-import Divider from '@material-ui/core/Divider';
 import withStyles from '@material-ui/core/styles/withStyles';
-import TextField from '@material-ui/core/TextField';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { PENDING as PLANNED_INVOICE_PENDING } from '@bsport/common/lib/master-data/planned-invoice-status';
-import { CardElement, IbanElement, injectStripe } from 'react-stripe-elements';
+import SubscriptionPayment from './SubscriptionPayment.component';
 
 import SubscriptionSchedule from './SubscriptionSchedule.component';
 import type { SubscriptionData } from '../types';
@@ -27,11 +20,9 @@ import type { SubscriptionData } from '../types';
 type Props = {
   subscriptionData: ?SubscriptionData,
   processing: boolean,
-  onCancel: () => void,
   onSubmit: (token: string) => void,
   t: TFunction,
   classes: Object,
-  stripe: Object,
   member: Member,
 };
 
@@ -57,84 +48,9 @@ const getScheduledInvoicesFromSubscriptionData = (
     [],
   );
 
-const PaymentMethodSwitcher = (props: {
-  classes: Object,
-  t: TFunction,
-  onChange: (string) => void,
-  payment_method: string,
-}) => (
-  <RadioGroup
-    aria-label="payment-method"
-    className={props.classes.paymentMethodSelectorContainer}
-    value={props.payment_method}
-    onChange={(ev) => props.onChange(ev.target.value)}
-  >
-    <FormControlLabel
-      value="sepa_debit"
-      control={<Radio color="primary" />}
-      label={props.t('subscription:paymentMethod.sepa')}
-      labelPlacement="bottom"
-    />
-    <FormControlLabel
-      value="card"
-      control={<Radio color="primary" />}
-      label={props.t('subscription:paymentMethod.card')}
-      labelPlacement="bottom"
-    />
-  </RadioGroup>
-);
-
 export class SubscriptionScheduleChecker extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      loading: false,
-      payment_method: 'card',
-      name: (props.member && props.member.name) || '',
-      email: (props.member && props.member.email) || '',
-    };
-  }
-
-  getSourceData = () => {
-    if (this.state.payment_method === 'sepa_debit') {
-      return {
-        type: 'sepa_debit',
-        currency: 'eur',
-        owner: {
-          name: this.state.name,
-          email: this.state.email,
-        },
-        mandate: {
-          // Automatically send a mandate notification email to your customer
-          // once the source is charged.
-          notification_method: 'manual',
-        },
-      };
-    }
-    return {
-      type: 'card',
-      currency: 'eur',
-    };
-  };
-
-  submit = async () => {
-    this.setState({ loading: true });
-    try {
-      const tokenizer = await this.props.stripe.createSource(
-        this.getSourceData(),
-      );
-      const { source } = tokenizer;
-      this.props.onSubmit(source.id);
-    } catch (error) {
-      console.error(error);
-    }
-    this.setState({
-      loading: false,
-    });
-  };
-
   render() {
-    const { subscriptionData, classes, t, onCancel } = this.props;
+    const { subscriptionData, classes, t } = this.props;
     if (!subscriptionData) {
       return null;
     }
@@ -153,82 +69,11 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
           </Paper>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Typography variant="h5" className={classes.title}>
-            {t('subscription:schedule.paymentMethodTitle')}
-          </Typography>
-          <Paper>
-            <PaymentMethodSwitcher
-              classes={classes}
-              t={t}
-              payment_method={this.state.payment_method}
-              onChange={(payment_method) => this.setState({ payment_method })}
-            />
-            <Divider />
-            <div className={classes.cardContainer}>
-              {this.state.payment_method === 'sepa_debit' ? (
-                <div>
-                  <div className={classes.nameAndEmailContainer}>
-                    <TextField
-                      inline
-                      required
-                      value={this.state.name}
-                      variant="outlined"
-                      placeholder={t('subscription:mandate.name')}
-                      onChange={(ev) =>
-                        this.setState({ name: ev.target.value })
-                      }
-                    />
-                    <TextField
-                      inline
-                      type="email"
-                      required
-                      variant="outlined"
-                      value={this.state.email}
-                      placeholder={t('subscription:mandate.email')}
-                      onChange={(ev) =>
-                        this.setState({ email: ev.target.value })
-                      }
-                    />
-                  </div>
-                  <div className={classes.sensitiveData}>
-                    <IbanElement supportedCountries={['SEPA']} />
-                  </div>
-                  <Typography
-                    color="textSecondary"
-                    variant="caption"
-                    className={classes.mandate}
-                  >
-                    {t('subscription:mandate.content')}
-                  </Typography>
-                </div>
-              ) : null}
-              {this.state.payment_method === 'card' ? (
-                <div className={classes.sensitiveData}>
-                  <CardElement />
-                </div>
-              ) : null}
-            </div>
-            <div className={classes.buttonContainer}>
-              <Button onClick={onCancel} color="secondary">
-                {t('subscription:form.cancel')}
-              </Button>
-              <Button
-                onClick={this.submit}
-                id="stripe-pay"
-                color="primary"
-                disabled={
-                  (!this.state.name || !this.state.email) &&
-                  this.state.payment_method === 'sepa_debit'
-                }
-              >
-                {this.state.loading || this.props.processing ? (
-                  <CircularProgress />
-                ) : (
-                  t('subscription:form.submit')
-                )}
-              </Button>
-            </div>
-          </Paper>
+          <SubscriptionPayment
+            onSubmit={this.props.onSubmit}
+            processing={this.props.processing}
+            member={this.props.member}
+          />
         </Grid>
       </Grid>
     );
@@ -267,5 +112,4 @@ const styles = (theme) => ({
 export default compose(
   withNamespaces(['stripe', 'subscription']),
   withStyles(styles),
-  injectStripe,
 )(SubscriptionScheduleChecker);

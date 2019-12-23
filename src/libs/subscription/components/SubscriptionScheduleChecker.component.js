@@ -69,11 +69,16 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
           </Paper>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <SubscriptionPayment
-            onSubmit={this.props.onSubmit}
-            processing={this.props.processing}
-            member={this.props.member}
-          />
+          <Typography variant="h5" className={classes.title}>
+            {t('subscription:schedule.paymentMethodTitle')}
+          </Typography>
+          <Paper>
+            <SubscriptionPayment
+              onSubmit={this.props.onSubmit}
+              processing={this.props.processing}
+              member={this.props.member}
+            />
+          </Paper>
         </Grid>
       </Grid>
     );

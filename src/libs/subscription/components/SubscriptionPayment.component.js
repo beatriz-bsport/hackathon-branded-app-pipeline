@@ -99,81 +99,74 @@ export class SubscriptionPayment extends React.Component<Props> {
     const { name, email } = this.state;
     return (
       <div>
-        <Typography variant="h5" className={classes.title}>
-          {t('subscription:schedule.paymentMethodTitle')}
-        </Typography>
-        <Paper>
-          <PaymentMethodSwitcher
-            classes={classes}
-            t={t}
-            payment_method={props.paymentMethod}
-            onChange={props.setPaymentMethod}
-          />
-          <Divider />
-          <div className={classes.cardContainer}>
-            {props.paymentMethod === 'sepa_debit' ? (
-              <div>
-                <div className={classes.nameAndEmailContainer}>
-                  <TextField
-                    inline
-                    required
-                    value={name}
-                    variant="outlined"
-                    placeholder={t('subscription:mandate.name')}
-                    onChange={(ev) => this.setState({ name: ev.target.value })}
-                  />
-                  <TextField
-                    inline
-                    type="email"
-                    required
-                    variant="outlined"
-                    value={email}
-                    placeholder={t('subscription:mandate.email')}
-                    onChange={(ev) => this.setState({ email: ev.target.value })}
-                  />
-                </div>
-                <div className={classes.sensitiveData}>
-                  <IbanElement supportedCountries={['SEPA']} />
-                </div>
-                <Typography
-                  color="textSecondary"
-                  variant="caption"
-                  className={classes.mandate}
-                >
-                  {t('subscription:mandate.content')}
-                </Typography>
+        <PaymentMethodSwitcher
+          classes={classes}
+          t={t}
+          payment_method={props.paymentMethod}
+          onChange={props.setPaymentMethod}
+        />
+        <Divider />
+        <div className={classes.cardContainer}>
+          {props.paymentMethod === 'sepa_debit' ? (
+            <div>
+              <div className={classes.nameAndEmailContainer}>
+                <TextField
+                  inline
+                  required
+                  value={name}
+                  variant="outlined"
+                  placeholder={t('subscription:mandate.name')}
+                  onChange={(ev) => this.setState({ name: ev.target.value })}
+                />
+                <TextField
+                  inline
+                  type="email"
+                  required
+                  variant="outlined"
+                  value={email}
+                  placeholder={t('subscription:mandate.email')}
+                  onChange={(ev) => this.setState({ email: ev.target.value })}
+                />
               </div>
-            ) : null}
-            {props.paymentMethod === 'card' ? (
               <div className={classes.sensitiveData}>
-                <CardElement />
+                <IbanElement supportedCountries={['SEPA']} />
               </div>
-            ) : null}
-          </div>
-          <div className={classes.buttonContainer}>
-            <Button
-              onClick={props.onCancel}
-              color="secondary"
-              disabled={props.processing || this.state.loading}
-            >
-              {t('subscription:form.cancel')}
-            </Button>
-            <Button
-              onClick={this.submit}
-              id="stripe-pay"
-              color="primary"
-              disabled={
-                (!name || !email) && props.paymentMethod === 'sepa_debit'
-              }
-            >
-              {this.state.loading || props.processing ? (
-                <CircularProgress />
-              ) : (
-                t('subscription:form.submit')
-              )}
-            </Button>
-          </div>
-        </Paper>
+              <Typography
+                color="textSecondary"
+                variant="caption"
+                className={classes.mandate}
+              >
+                {t('subscription:mandate.content')}
+              </Typography>
+            </div>
+          ) : null}
+          {props.paymentMethod === 'card' ? (
+            <div className={classes.sensitiveData}>
+              <CardElement />
+            </div>
+          ) : null}
+        </div>
+        <div className={classes.buttonContainer}>
+          <Button
+            onClick={props.onCancel}
+            color="secondary"
+            disabled={props.processing || this.state.loading}
+          >
+            {t('subscription:form.cancel')}
+          </Button>
+          <Button
+            onClick={this.submit}
+            id="stripe-pay"
+            color="primary"
+            disabled={(!name || !email) && props.paymentMethod === 'sepa_debit'}
+          >
+            {this.state.loading || props.processing ? (
+              <CircularProgress />
+            ) : (
+              t('subscription:form.submit')
+            )}
+          </Button>
+        </div>
       </div>
     );
   }
@@ -188,7 +181,7 @@ const styles = (theme) => ({
   sensitiveData: {
     backgroundColor: '#EFEFEF',
     padding: theme.spacing.unit * 2,
-    minWidth: '40vw',
+    minWidth: '30vw',
   },
   paymentMethodSelectorContainer: {
     display: 'flex',

@@ -9,11 +9,18 @@ import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import moment from 'moment';
+
 import withTitle from '../../hocs/with-title.hoc';
 
+import { postContractSubscription as postContractSubscriptionAPI } from '../../libs/subscription/api';
 import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/selectors';
 import SubscriptionTable from '../../libs/subscription/components/SubscriptionTable.component';
 import SubscriptionContractList from '../../libs/subscription/components/SubscriptionContractList.component';
+import SubscriptionContractRegistrationManagerDialog from '../../libs/subscription/components/SubscriptionContractRegistrationManagerDialog.component';
+import { search as searchMembers } from '../../libs/member/actions';
+import { getSearchedMembers } from '../../libs/member/selectors';
+
 import {
   getSubscriptionList,
   getAvailableContractListWithPaymentPack,
@@ -49,6 +56,8 @@ type Props = {
 };
 
 export class SubscriptionList extends React.Component<Props> {
+  state = { processing: false };
+
   componentDidMount() {
     this.props.fetchContractList();
   }
@@ -77,6 +86,21 @@ export class SubscriptionList extends React.Component<Props> {
     });
   };
 
+  onSubmit = async (token: string, first_billing_timestamp: string) => {
+    this.setState({ processing: true });
+    try {
+      await postContractSubscriptionAPI(this.props.registeringContract.id, {
+        stripe_source: token,
+        first_billing_timestamp: moment(first_billing_timestamp).unix(),
+      });
+    } catch (err) {
+      console.error(err);
+    }
+    this.onClickContract(this.props.registeringContract.id);
+    this.setState({ processing: false });
+    this.props.setRegisteringContract(null);
+  };
+
   render() {
     return (
       <div>
@@ -89,6 +113,7 @@ export class SubscriptionList extends React.Component<Props> {
           loading={this.props.contractLoading}
           onClick={this.onClickContract}
           selectedContract={this.props.selectedContract}
+          onRegister={this.props.setRegisteringContract}
           createOrUpdate={(data, options) => {
             this.props.createOrUpdateContract(data, {
               onSuccess: () => {
@@ -119,6 +144,18 @@ export class SubscriptionList extends React.Component<Props> {
           count={this.props.subscriptionCount}
           onPageChange={this.fetchSubscriptionList}
         />
+        {this.props.registeringContract ? (
+          <SubscriptionContractRegistrationManagerDialog
+            open={!!this.props.registeringContract}
+            onClose={() => this.props.setRegisteringContract(null)}
+            contract={this.props.registeringContract}
+            searchMembers={this.props.searchMembers}
+            searchedMembers={this.props.searchedMembers}
+            searchLoading={this.props.searchMemberLoading}
+            processing={this.state.processing}
+            onSubmit={this.onSubmit}
+          />
+        ) : null}
       </div>
     );
   }
@@ -148,16 +185,19 @@ export default compose(
       subscriptionList: getSubscriptionList(state),
       subscriptionCount: state.subscription.list.count,
       subscriptionLoading: state.subscription.list.loading,
+      searchedMembers: getSearchedMembers(state),
     }),
     {
       fetchContractList,
       fetchSubscriptionList,
       createOrUpdateContract,
+      searchMembers,
       deleteContract,
       goToSubscription: (id) => pushRouter(`/subscription/${id}`),
     },
   ),
   withState('selectedContract', 'setSelectedContract', null),
+  withState('registeringContract', 'setRegisteringContract', null),
   connect((state, { selectedContract }) => ({
     selectedContractData: getContract(state, selectedContract),
   })),

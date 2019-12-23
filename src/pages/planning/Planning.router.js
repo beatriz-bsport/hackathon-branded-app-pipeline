@@ -20,7 +20,7 @@ import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-co
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
 
 const formatDate = (date) => {
-  const formatedDate = Moment(date, 'DD-MM-YYYY');
+  const formatedDate = Moment(date);
   return formatedDate.isValid() ? formatedDate : Moment();
 };
 
@@ -83,7 +83,11 @@ const PlanningWithDateAndOffer = compose(
     year: 'year:number',
   }),
   withProps(({ offers, day, month, year, offerId }) => {
-    const date = formatDate(`${day}-${month}-${year}`);
+    const date = formatDate(
+      `${year}-${month < 10 ? `0${month}` : month}-${
+        day < 10 ? `0${day}` : day
+      }`,
+    );
     const selectedOffer = offerId
       ? offers.find((offer) => offer.id === offerId)
       : null;

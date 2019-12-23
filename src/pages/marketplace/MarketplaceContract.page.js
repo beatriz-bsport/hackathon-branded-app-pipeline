@@ -23,6 +23,7 @@ import SubscriptionContractCard from '../../libs/subscription/components/Subscri
 import SubscriptionPayment from '../../libs/subscription/components/SubscriptionPayment.component';
 
 type Props = {
+  companyId: number,
   fetchMarketplaceContractList: () => void,
   contractLoading: boolean,
   classes: Object,
@@ -50,7 +51,7 @@ export class MarketplaceContract extends React.Component<Props> {
   };
 
   componentWillMount() {
-    this.props.fetchMarketplaceContractList();
+    this.props.fetchMarketplaceContractList(this.props.companyId);
   }
 
   onSubmit = async (token: string) => {

@@ -20,6 +20,7 @@ export default {
       title: 'Contrat disponible à la vente',
       isEmpty: 'Aucun contrat disponible',
       addButton: 'Définir un contrat',
+      register: 'Abonner',
     },
     form: {
       title: 'Formulaire contrat',

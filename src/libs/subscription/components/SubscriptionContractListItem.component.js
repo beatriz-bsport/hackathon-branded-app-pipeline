@@ -5,6 +5,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import AddPersonIcon from '@material-ui/icons/PersonAdd';
 import EditIcon from '@material-ui/icons/Edit';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -17,8 +18,9 @@ type Props = {
   onDelete: () => void,
   onEdit: () => void,
   onClick?: () => void,
-selected?: boolean,
-divider?: boolean,
+  onRegister?: () => void,
+  selected?: boolean,
+  divider?: boolean,
 };
 
 export const SubscriptionContractListItem = (props: Props) => {
@@ -36,6 +38,17 @@ export const SubscriptionContractListItem = (props: Props) => {
           month: props.contract.nb_interval,
         })}`}
       />
+      {props.onRegister ? (
+        <IconButton
+          color="primary"
+          onClick={(ev) => {
+            ev.stopPropagation();
+            props.onRegister();
+          }}
+        >
+          <AddPersonIcon />
+        </IconButton>
+      ) : null}
       {props.onEdit ? (
         <IconButton
           color="primary"

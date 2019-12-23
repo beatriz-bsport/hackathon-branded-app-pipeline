@@ -9,6 +9,7 @@ import AddIcon from '@material-ui/icons/Add';
 import List from '@material-ui/core/List';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Paper from '@material-ui/core/Paper';
+import ReceiptIcon from '@material-ui/icons/Receipt';
 
 import SubscriptionContractListItem from './SubscriptionContractListItem.component';
 import SubscriptionContractFormDialog from './SubscriptionContractFormDialog.component';
@@ -45,6 +46,7 @@ export const SubscriptionContractList = (props: Props) => {
               contract={c}
               selected={c.id === props.selectedContract}
               onClick={props.onClick ? () => props.onClick(c.id) : null}
+              onRegister={() => props.onRegister(c)}
               onEdit={() => {
                 props.setContractToEdit(c);
               }}
@@ -55,15 +57,32 @@ export const SubscriptionContractList = (props: Props) => {
           ))}
         </List>
       </Paper>
-      <Button
-        color="primary"
-        variant="outlined"
-        className={props.classes.addButton}
-        onClick={() => props.setCreateOpen(true)}
-      >
-        <AddIcon className={props.classes.leftIcon} />
-        {props.t('contract.list.addButton')}
-      </Button>
+      <div className={props.classes.buttonRow}>
+        <Button
+          color="primary"
+          variant="outlined"
+          onClick={() => props.setCreateOpen(true)}
+        >
+          <AddIcon className={props.classes.leftIcon} />
+          {props.t('contract.list.addButton')}
+        </Button>
+        {props.selectedContract ? (
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={() =>
+              props.onRegister(
+                props.contractList.find((c) => c.id === props.selectedContract),
+              )
+            }
+          >
+            <ReceiptIcon className={props.classes.leftIcon} />
+            {props.t('contract.list.register')}
+          </Button>
+        ) : (
+          <div />
+        )}
+      </div>
       <SubscriptionContractFormDialog
         onClose={() => props.setCreateOpen(false)}
         open={props.createOpen}
@@ -87,6 +106,7 @@ export const SubscriptionContractList = (props: Props) => {
           initial={props.contractToEdit}
           open={!!props.contractToEdit}
           paymentPacks={props.paymentPacks}
+          processing={props.processing}
           onSubmit={(data, options) => {
             props.createOrUpdate(data, {
               onSuccess: () => {
@@ -109,9 +129,13 @@ const styles = (theme) => ({
     marginTop: theme.spacing.unit * 2,
     marginBottom: theme.spacing.unit,
   },
-  addButton: {
+  buttonRow: {
     marginTop: theme.spacing.unit * 2,
     marginBottom: theme.spacing.unit * 2,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   leftIcon: {
     marginRight: theme.spacing.unit,

@@ -30,6 +30,9 @@ export default {
       nb_interval: {
         label: 'Number of months',
       },
+      managerOnly: {
+        label: 'Unavailable for customers',
+      },
       recurrent_price: {
         label: 'Monthly payment',
       },

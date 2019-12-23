@@ -37,6 +37,9 @@ export default {
         placeholder: 'Nouvelle offre exclusive limitée',
         label: 'Description',
       },
+      managerOnly: {
+        label: 'Invisible pour les clients',
+      },
       contract: {
         placeholder:
           'Entrez ici toutes les mentions légales nécessaires notamment concernant les procédures de remboursement.',

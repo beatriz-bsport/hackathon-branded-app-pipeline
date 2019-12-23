@@ -11,7 +11,7 @@ import { withFormik } from 'formik';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { TextField, PriceField } from '../../../components/forms';
+import { TextField, PriceField, SwitchField } from '../../../components/forms';
 import PaymentPackSelectorField from '../../payment-packs/components/PaymentPackSelectorField.component';
 
 import type { SubscriptionContract } from '../types';
@@ -73,6 +73,10 @@ export function SubscriptionContractFields(props: Props) {
         rows={5}
         variant="outlined"
       />
+      <SwitchField
+        name="manager_only"
+        label={t('contract.form.managerOnly.label')}
+      />
     </div>
   );
 }
@@ -93,18 +97,22 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
     .required(),
   description: Yup.string().required(),
   contract: Yup.string().required(),
+  manager_only: Yup.boolean(),
 });
 
 export const SubscriptionContractFormHoc = withFormik({
   mapPropsToValues: ({ initial }) =>
-    initial || {
-      name: '',
-      recurrent_price: 0,
-      nb_interval: 12,
-      payment_pack: null,
-      description: '',
-      contract: '',
-    },
+    initial
+      ? { ...initial, payment_pack: initial.payment_pack.id }
+      : {
+          name: '',
+          recurrent_price: 0,
+          nb_interval: 12,
+          payment_pack: null,
+          description: '',
+          contract: '',
+          manager_only: false,
+        },
   validationSchema: SubscriptionContractFieldsSchema,
   handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
     onSubmit(values, {

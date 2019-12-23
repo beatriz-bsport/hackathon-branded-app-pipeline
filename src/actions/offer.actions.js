@@ -144,10 +144,11 @@ export function refreshOffersByDay(
   return async (dispatch: Dispatch) => {
     dispatch(offerByDay.error(null));
     try {
-      const date = moment(`${day.year}-${day.month}-${day.day}`).format(
-        'YYYY-MM-DD',
-      );
-      const response = await api.offer.fetchOffersByDay({ date });
+      const response = await api.offer.fetchOffersByDay({
+        date: `${day.year}-${day.month < 10 ? `0${day.month}` : day.month}-${
+          day.day < 10 ? `0${day.day}` : day.day
+        }`,
+      });
       dispatch(offerByDay.success(response.data));
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {

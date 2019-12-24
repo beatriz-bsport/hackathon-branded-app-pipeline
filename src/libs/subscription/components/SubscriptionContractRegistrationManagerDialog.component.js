@@ -22,6 +22,19 @@ const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
 
 type Props = {
   t: TFunction,
+  selectedMember: ?Member,
+  open: boolean,
+  searchLoading: boolean,
+  searchedMembers: Array<Member>,
+  searchMembers: (txt: string) => void,
+  onClose: () => void,
+  setSelectedMember: (?Member) => void,
+  classes: Object,
+  contract: ?Contract,
+  date: string,
+  setDate: (string) => void,
+  onSubmit: (any) => void,
+  processing: boolean,
 };
 export const SubscriptionContractRegistrationManagerDialog = (props: Props) => {
   if (!props.selectedMember) {

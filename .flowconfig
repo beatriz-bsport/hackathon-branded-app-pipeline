@@ -11,5 +11,7 @@ all=warn
 
 [options]
 module.name_mapper='.*\.scss$' -> '<PROJECT_ROOT>/flow/CSSFlowStub.flow.js'
+sharedmemory.hash_table_pow=21
+
 
 [strict]

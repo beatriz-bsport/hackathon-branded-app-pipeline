@@ -1,7 +1,6 @@
 // @flow
 
 import { createAction } from 'redux-actions';
-import moment from 'moment';
 import api from '../api';
 import type { Dispatch, OptionCallback } from '../state/types';
 

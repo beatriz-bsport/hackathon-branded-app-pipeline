@@ -101,6 +101,7 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
 });
 
 export const SubscriptionContractFormHoc = withFormik({
+  // eslint-disable-next-line
   mapPropsToValues: ({ initial }) =>
     initial
       ? { ...initial, payment_pack: initial.payment_pack.id }

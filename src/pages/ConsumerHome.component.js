@@ -2,10 +2,13 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import { compose } from 'recompose';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { withNamespaces } from 'react-i18next';
 import { Redirect, Switch, Route } from 'react-router-dom';
 import parse from '../query-string';
+import { fetchOne as fetchPaymentPack } from '../libs/payment-packs/actions';
+import { getPaymentPackById } from '../libs/payment-packs/selectors';
 
 import { consumer as consumerActions } from '../actions';
 import asyncComponent from '../AsyncComponent';
@@ -52,9 +55,15 @@ type Props = {
   fetchOptions: () => void,
   fetchConsumerPaymentPacks: () => void,
   fetchProfile: () => void,
+  fetchPaymentPack: (id: number) => void,
+  paymentPacks: Array<any>,
 };
 
 export class ConsumerHome extends Component<Props> {
+  state = {
+    paymentPacks: null,
+  };
+
   componentWillMount() {
     const { t } = this.props;
     document.title = t('pageTitle.myAccount');
@@ -77,13 +86,44 @@ export class ConsumerHome extends Component<Props> {
     if (!prevProps.authenticated && this.props.authenticated) {
       this.fetchConsumerData();
     }
+    if (prevProps.paymentPacks !== this.props.paymentPacks) {
+      this.setState({ paymentPacks: this.props.paymentPacks });
+    }
   }
 
   render() {
     const { authenticated } = this.props;
     if (!authenticated) {
       const { pathname } = this.props.location;
-      const { membership } = parse(this.props.location.search);
+      let { membership } = parse(this.props.location.search);
+      if (!membership && pathname.includes('customer/payment/pass')) {
+        const ppId = pathname.split('/')[4];
+
+        this.props.fetchPaymentPack(ppId);
+        if (
+          !membership &&
+          this.state.paymentPacks &&
+          this.state.paymentPacks[ppId]
+        ) {
+          membership = this.state.paymentPacks[ppId].company_id;
+        }
+        if (!membership) {
+          return (
+            <div
+              style={{
+                width: '100vw',
+                height: '100vh',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <CircularProgress />
+            </div>
+          );
+        }
+      }
+
       return (
         <Redirect
           to={`/login/customer?next=${encodeURIComponent(
@@ -125,16 +165,19 @@ export class ConsumerHome extends Component<Props> {
   }
 }
 
-export default withNamespaces()(
+export default compose(
+  withNamespaces(),
   connect(
     (state) => ({
       authenticated: state.auth.authenticated,
+      paymentPacks: getPaymentPackById(state),
     }),
     {
       fetchBookings: consumerActions.fetchBookings,
       fetchOptions: consumerActions.fetchOptions,
       fetchConsumerPaymentPacks: consumerActions.fetchConsumerPaymentPacks,
       fetchProfile: consumerActions.fetchProfile,
+      fetchPaymentPack,
     },
-  )(ConsumerHome),
-);
+  ),
+)(ConsumerHome);

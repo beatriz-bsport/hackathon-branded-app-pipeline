@@ -27,6 +27,9 @@ type Props = {
   selectedContract: ?number,
   onClick: (id: number) => void,
 
+  onRegister: (Contract) => void,
+  processing: boolean,
+
   onDelete: (id: number, options: OptionCallback) => void,
   paymentPacks: Array<PaymentPack>,
   createOrUpdate: (data: *, options: OptionCallback) => void,

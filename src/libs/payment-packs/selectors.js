@@ -8,6 +8,8 @@ export const getAll = (state: State) => state.paymentPack.all;
 const get = (state: State, id: number) =>
   getAll(state).find((pack) => pack.id === id);
 
+export const getOne = (state: State, id: number) => state.paymentPack.byId[id];
+
 export const getEnabled = createSelector(
   getAll,
   (pps) => pps.filter((pp) => !pp.disabled),

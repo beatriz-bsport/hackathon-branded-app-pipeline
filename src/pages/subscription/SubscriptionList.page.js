@@ -47,6 +47,13 @@ type Props = {
   paymentPacks: Array<PaymentPack>,
   contractList: Array<SubscriptionContract>,
 
+  registeringContract: ?Contract,
+  setRegisteringContract: (?Contract) => void,
+
+  searchMembers: (text: string) => void,
+  searchedMembers: Array<Member>,
+  searchMemberLoading: boolean,
+
   selectedContract: ?number,
   setSelectedContract: (?number) => void,
   selectedContractData: ?Contract,

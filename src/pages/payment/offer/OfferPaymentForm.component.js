@@ -191,15 +191,37 @@ export class OfferPayment extends Component<Props> {
       compatiblePaymentPacksLoading,
       compatiblePaymentPacks,
       compatibleConsumerPacksLoading,
+      theme,
     } = this.props;
 
     if (compatiblePaymentPacksLoading && !compatibleConsumerPacksLoading) {
       return <LinearProgress />;
     }
+
+    let compatiblePaymentPacksFiltered = compatiblePaymentPacks;
+
+    if (
+      compatiblePaymentPacks &&
+      compatiblePaymentPacks.length &&
+      theme &&
+      theme.hide_least_specific_payment_pack
+    ) {
+      const leastSpecific =
+        Math.min(
+          ...compatiblePaymentPacks
+            .map((pp) => pp.establishments.length)
+            .filter((c) => c > 0),
+        ) || 1000;
+
+      compatiblePaymentPacksFiltered = compatiblePaymentPacks.filter(
+        (pp) => pp.establishments.length <= leastSpecific,
+      );
+    }
+
     return (
       <div>
         {this.renderPaymentCombo()}
-        {(compatiblePaymentPacks || []).length ? (
+        {(compatiblePaymentPacksFiltered || []).length ? (
           <Typography
             variant="h6"
             component="h2"
@@ -209,7 +231,7 @@ export class OfferPayment extends Component<Props> {
           </Typography>
         ) : null}
         <List className={this.props.classes.passList} disablePadding>
-          {(compatiblePaymentPacks || []).map((pp) => (
+          {(compatiblePaymentPacksFiltered || []).map((pp) => (
             <PaymentPackSummary
               key={pp.id}
               paymentPack={pp}

@@ -179,6 +179,7 @@ export class OfferPaymentPage extends Component<Props, State> {
             compatiblePaymentPacksLoading={
               this.props.compatiblePaymentPacksLoading
             }
+            theme={this.props.theme}
             compatiblePaymentPacks={this.props.compatiblePaymentPacks}
             onBookFromPack={this.onBookFromPack}
             onBuyPaymentPack={this.buyPaymentPack}

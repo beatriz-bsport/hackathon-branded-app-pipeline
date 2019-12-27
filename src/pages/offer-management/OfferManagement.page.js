@@ -193,10 +193,15 @@ export default compose(
       cancelBooking,
       registerBooking,
     }) => ({
-      addBooking: (offerId, consumerPaymentPackId) => {
-        registerBooking(offerId, consumerPaymentPackId, {
-          onSuccess: refresh,
-        });
+      addBooking: (offerId, consumerPaymentPackId, keep_credits) => {
+        registerBooking(
+          offerId,
+          consumerPaymentPackId,
+          {
+            onSuccess: refresh,
+          },
+          keep_credits,
+        );
       },
       deleteBooking: (bookingId) => {
         cancelBooking(

@@ -113,6 +113,7 @@ export function createQuickInvoice(
     memberId: number,
     offerId: number,
     paymentPackId: number,
+    keep_credits?: boolean,
   },
   callback: ?() => void,
 ) {

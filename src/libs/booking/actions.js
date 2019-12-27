@@ -11,7 +11,6 @@ import {
 } from './api';
 import type { Dispatch } from '../../state/types';
 
-
 export const retrieveActions = {
   success: createAction('BOOKING/RETRIEVE/SUCCESS'),
   isLoading: createAction('BOOKING/RETRIEVE/IS_LOADING'),
@@ -186,13 +185,18 @@ export function registerBooking(
   offerId: number,
   consumer_payment_pack: number,
   options: OptionCallback,
+  keep_credits: boolean,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(registerActions.isLoading(true));
     dispatch(registerActions.error(null));
 
     try {
-      const response = await registerBookingAPI(consumer_payment_pack, offerId);
+      const response = await registerBookingAPI(
+        consumer_payment_pack,
+        offerId,
+        keep_credits,
+      );
       const booking = response.data;
       dispatch(registerActions.success(booking));
 

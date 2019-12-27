@@ -12,7 +12,8 @@ import type { TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import Divider from '@material-ui/core/Divider';
-
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import ConsumerPackRowItem from '../../libs/consumer-payment-pack/components/ConsumerPackRowItem.component';
 import { fetchByOfferByMember } from '../../libs/consumer-payment-pack/actions';
 import { getAll as getAllPaymentPacks } from '../../libs/payment-packs/selectors';
@@ -28,7 +29,8 @@ type Props = {
   compatiblePacks: Array<PaymentPack>,
   consumerPacks: Array<ConsumerPaymentPack>,
   allPaymentPacks: Array<PaymentPack>,
-
+  keep_credits: boolean,
+  changeKeepCreditsOption: () => void,
   onCancel: () => void,
   fetchConsumerPackByOfferByMember: (offerId: number, memberId: number) => void,
   subscribeToPackAndOffer: (paymentPackId: number) => void,
@@ -107,6 +109,21 @@ export class RegisterMemberToOfferForm extends PureComponent<Props> {
     );
   };
 
+  renderKeepCredit = () => {
+    return (
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={this.props.keep_credits}
+            onChange={this.props.changeKeepCreditsOption}
+            value="checkedG"
+          />
+        }
+        label={"Ne pas décompter de crédits aux membres pour l'inscription"}
+      />
+    );
+  };
+
   render() {
     const {
       t,
@@ -132,6 +149,8 @@ export class RegisterMemberToOfferForm extends PureComponent<Props> {
           </Typography>
         </Grid>
         <Divider />
+        <Grid item>{this.renderKeepCredit()}</Grid>
+
         <Grid item>
           <Typography variant="h6" component="h4">
             {t('offerManagement.forms.register.passOwnedByMember')}

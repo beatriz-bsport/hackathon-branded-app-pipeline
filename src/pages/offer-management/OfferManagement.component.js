@@ -145,6 +145,7 @@ export class OfferManagement extends Component<Props, State> {
     searchedText: '',
     interval: null,
     openMailChoiceDialog: false,
+    keep_credits: false,
   };
 
   componentWillMount() {
@@ -177,10 +178,11 @@ export class OfferManagement extends Component<Props, State> {
   registerMemberAndOpenUnevenInvoice = async (
     memberId: number,
     paymentPackId: number,
+    keep_credits: boolean,
   ) => {
     const { offerId } = this.props;
     this.props.createQuickUnevenInvoice(
-      { memberId, paymentPackId, offerId },
+      { memberId, paymentPackId, offerId, keep_credits },
       offerId,
     );
     this.clearSearch();
@@ -195,7 +197,11 @@ export class OfferManagement extends Component<Props, State> {
   };
 
   registerMember = async (consumerPaymentPackId: number) => {
-    this.props.addBooking(this.props.offerId, consumerPaymentPackId);
+    this.props.addBooking(
+      this.props.offerId,
+      consumerPaymentPackId,
+      this.state.keep_credits,
+    );
     this.clearSearch();
     if (this.state.optionToDiscard) {
       this.props.discardOption(this.state.optionToDiscard);
@@ -660,12 +666,19 @@ export class OfferManagement extends Component<Props, State> {
                 memberName={memberToRegisterName}
                 loading={this.props.compatiblePacksLoading}
                 compatiblePacks={this.props.compatiblePacks}
+                keep_credits={this.state.keep_credits}
+                changeKeepCreditsOption={() =>
+                  this.setState((prevState) => ({
+                    keep_credits: !prevState.keep_credits,
+                  }))
+                }
                 onCancel={() => this.setState({ memberToRegister: null })}
                 subscribeToOffer={this.registerMember}
                 subscribeToPackAndOffer={(paymentPackId) =>
                   this.registerMemberAndOpenUnevenInvoice(
                     memberToRegister,
                     paymentPackId,
+                    this.state.keep_credits,
                   )
                 }
               />

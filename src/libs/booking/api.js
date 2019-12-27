@@ -40,8 +40,10 @@ export const cancelBooking = async (id: number, data: any = {}) => {
 export const registerBooking = async (
   consumer_payment_pack: number,
   offerId: number,
+  keep_credits: boolean,
 ) => {
   return postAuth(`${API_URI}/payment/register/booking/${offerId}`, {
     consumer_payment_pack,
+    keep_credits,
   });
 };

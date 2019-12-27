@@ -47,6 +47,7 @@ type Props = {
   loading: boolean,
   hasOneOrMoreOption: boolean,
 
+  theme: CompanyTheme,
   bookingOption: ?BookingOption,
   onBookFromPack: (consumerPackId: number) => void,
   t: TFunction,

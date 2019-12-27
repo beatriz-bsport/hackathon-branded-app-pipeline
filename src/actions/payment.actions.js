@@ -18,7 +18,7 @@ export function checkOptionExistence(offerId: number) {
     dispatch(errorCheckingOptionExistence(null));
 
     try {
-      const response = await api.booking.checkOptionExistence(offerId);
+      const response = await api.consumer.hasBookingOptionInOffer(offerId);
       const exists = response.data;
       dispatch(checkedOptionExistence(exists));
     } catch (err) {

@@ -27,7 +27,7 @@ export async function discardBookingOption(optionId) {
 }
 
 export async function hasBookingOptionInOffer(offerId) {
-  return postAuth(
+  return getAuth(
     `${API_V1_URI}/waiting-list/booking-option/exists/?offer=${offerId}`,
   );
 }

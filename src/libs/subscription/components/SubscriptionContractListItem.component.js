@@ -34,9 +34,13 @@ export const SubscriptionContractListItem = (props: Props) => {
       <ListItemText
         primary={`${props.contract.name} - ${props.contract.recurrent_price}€`}
         secondary={`${props.contract.payment_pack &&
-          props.contract.payment_pack.name} - ${props.t('contract.duration', {
-          month: props.contract.nb_interval,
-        })}`}
+          props.contract.payment_pack.name}${
+          props.contract.auto_renewal
+            ? ''
+            : `- ${props.t('contract.duration', {
+                month: props.contract.nb_interval,
+              })}`
+        }`}
       />
       {props.onRegister ? (
         <IconButton

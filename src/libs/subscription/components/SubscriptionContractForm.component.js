@@ -77,6 +77,10 @@ export function SubscriptionContractFields(props: Props) {
         name="manager_only"
         label={t('contract.form.managerOnly.label')}
       />
+      <SwitchField
+        name="auto_renewal"
+        label={t('contract.form.autoRenewal.label')}
+      />
     </div>
   );
 }
@@ -98,6 +102,7 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
   description: Yup.string().required(),
   contract: Yup.string().required(),
   manager_only: Yup.boolean(),
+  auto_renewal: Yup.boolean(),
 });
 
 export const SubscriptionContractFormHoc = withFormik({
@@ -113,6 +118,7 @@ export const SubscriptionContractFormHoc = withFormik({
           description: '',
           contract: '',
           manager_only: false,
+          auto_renewal: false,
         },
   validationSchema: SubscriptionContractFieldsSchema,
   handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {

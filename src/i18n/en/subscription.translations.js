@@ -33,6 +33,9 @@ export default {
       managerOnly: {
         label: 'Unavailable for customers',
       },
+      autoRenewal: {
+        label: 'Auto renewal',
+      },
       recurrent_price: {
         label: 'Monthly payment',
       },

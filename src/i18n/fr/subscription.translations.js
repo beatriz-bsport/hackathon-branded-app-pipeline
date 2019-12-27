@@ -40,6 +40,9 @@ export default {
       managerOnly: {
         label: 'Invisible pour les clients',
       },
+      autoRenewal: {
+        label: 'Renouvellement tacite',
+      },
       contract: {
         placeholder:
           'Entrez ici toutes les mentions légales nécessaires notamment concernant les procédures de remboursement.',

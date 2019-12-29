@@ -19,6 +19,8 @@ type Props = {
   divider?: boolean,
 };
 
+import { DEFAULT_AVATAR } from '../utils';
+
 export function CoachListItem(props: Props) {
   const { coach, onDelete, onClick } = props;
   return (
@@ -29,7 +31,7 @@ export function CoachListItem(props: Props) {
       divider={props.divider}
     >
       <ListItemAvatar>
-        <Avatar src={coach.photo} />
+        <Avatar src={coach.photo_thumbnail || DEFAULT_AVATAR} />
       </ListItemAvatar>
       <ListItemText primary={coach.name} />
       <ListItemSecondaryAction>

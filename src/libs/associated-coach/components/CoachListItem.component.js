@@ -18,6 +18,8 @@ import { Link } from 'react-router-dom';
 
 import type { CoachDetailed as Coach } from '../../../api/types';
 
+import { DEFAULT_AVATAR } from '../utils';
+
 type Props = {
   coach: Coach,
   onCoachSelected: () => void,
@@ -44,7 +46,10 @@ export function CoachListItem(props: Props) {
       onClick={onCoachSelected}
     >
       <ListItemAvatar>
-        <Avatar className={classes.avatar} src={coach.photo} />
+        <Avatar
+          className={classes.avatar}
+          src={coach.photo_thumbnail || DEFAULT_AVATAR}
+        />
       </ListItemAvatar>
       <ListItemText
         primary={

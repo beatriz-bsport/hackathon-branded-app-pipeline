@@ -19,6 +19,8 @@ import EmptyListItem from '../LoadingListItem.component';
 import { formatMinutes, formatAsDatetime, formatAsTime } from '../../datetime';
 import type { Offer } from '../../api/types';
 
+import { DEFAULT_AVATAR } from '../../libs/associated-coach/utils';
+
 const styles = () => ({
   listItem: {
     width: '100%',
@@ -152,7 +154,7 @@ export function OfferMinimalSummary(props: Props) {
                 <div>
                   <IconButton disableRipple disabled={!!coach_override}>
                     <Avatar
-                      src={coach ? coach.photo : ''}
+                      src={coach ? coach.photo_thumbnail || DEFAULT_AVATAR : ''}
                       imgProps={coach_override ? disabledAvatarProps : {}}
                     />
                   </IconButton>
@@ -163,7 +165,13 @@ export function OfferMinimalSummary(props: Props) {
               {coach_override ? (
                 <Tooltip title={coach_override ? coach_override.name : ''}>
                   <IconButton disableRipple>
-                    <Avatar src={coach_override ? coach_override.photo : ''} />
+                    <Avatar
+                      src={
+                        coach_override
+                          ? coach_override.photo_thumbnail || DEFAULT_AVATAR
+                          : ''
+                      }
+                    />
                   </IconButton>
                 </Tooltip>
               ) : null}

@@ -47,12 +47,12 @@ export function MetaActivityListItem(props: Props) {
         borderLeftColor: metaActivity.color,
       }}
     >
-      {metaActivity.cover_main ? (
+      {metaActivity.cover_thumbnail ? (
         <ListItemAvatar>
           <Avatar
             className={classes.avatar}
             alt=""
-            src={metaActivity.cover_main}
+            src={metaActivity.cover_thumbnail}
           />
         </ListItemAvatar>
       ) : (

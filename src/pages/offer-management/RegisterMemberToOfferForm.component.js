@@ -119,7 +119,10 @@ export class RegisterMemberToOfferForm extends PureComponent<Props> {
             value="checkedG"
           />
         }
-        label={"Ne pas décompter de crédits aux membres pour l'inscription"}
+        label={
+          // eslint-disable-next-line
+          "Ne pas décompter de crédits aux membres pour l'inscription"
+        }
       />
     );
   };

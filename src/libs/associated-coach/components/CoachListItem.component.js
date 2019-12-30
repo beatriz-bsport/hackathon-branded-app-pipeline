@@ -48,7 +48,7 @@ export function CoachListItem(props: Props) {
       <ListItemAvatar>
         <Avatar
           className={classes.avatar}
-          src={coach.photo_thumbnail || DEFAULT_AVATAR}
+          src={coach.photo || DEFAULT_AVATAR}
         />
       </ListItemAvatar>
       <ListItemText

@@ -11,6 +11,8 @@ import ClearIcon from '@material-ui/icons/Clear';
 
 import type { CoachDetailed as Coach } from '../../../api/types';
 
+import { DEFAULT_AVATAR } from '../utils';
+
 type Props = {
   coach: Coach,
   onDelete?: () => void,
@@ -18,8 +20,6 @@ type Props = {
   clearIcon: boolean,
   divider?: boolean,
 };
-
-import { DEFAULT_AVATAR } from '../utils';
 
 export function CoachListItem(props: Props) {
   const { coach, onDelete, onClick } = props;
@@ -31,7 +31,7 @@ export function CoachListItem(props: Props) {
       divider={props.divider}
     >
       <ListItemAvatar>
-        <Avatar src={coach.photo_thumbnail || DEFAULT_AVATAR} />
+        <Avatar src={coach.photo || DEFAULT_AVATAR} />
       </ListItemAvatar>
       <ListItemText primary={coach.name} />
       <ListItemSecondaryAction>

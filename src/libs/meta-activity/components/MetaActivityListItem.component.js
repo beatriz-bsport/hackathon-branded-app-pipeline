@@ -47,13 +47,9 @@ export function MetaActivityListItem(props: Props) {
         borderLeftColor: metaActivity.color,
       }}
     >
-      {metaActivity.cover_thumbnail ? (
+      {metaActivity.cover ? (
         <ListItemAvatar>
-          <Avatar
-            className={classes.avatar}
-            alt=""
-            src={metaActivity.cover_thumbnail}
-          />
+          <Avatar className={classes.avatar} alt="" src={metaActivity.cover} />
         </ListItemAvatar>
       ) : (
         <ListItemIcon>

@@ -71,6 +71,8 @@ export class EstablishmentDetail extends Component<Props, State> {
     );
   };
 
+  goToOffer = (o: Offer) => this.props.goToOffer(o.id);
+
   renderCalendar = (establishment: Establishment) => {
     const { offers, timetableLoading, events } = this.props;
     const { selectedDay } = this.state;
@@ -94,7 +96,7 @@ export class EstablishmentDetail extends Component<Props, State> {
         <TimeTable
           loading={timetableLoading}
           offers={offers}
-          onOfferSelected={(o) => this.props.goToOffer(o.id)}
+          onOfferSelected={this.goToOffer}
         />
       </div>
     );

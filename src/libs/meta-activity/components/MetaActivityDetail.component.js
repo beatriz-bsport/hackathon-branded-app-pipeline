@@ -63,11 +63,10 @@ export const MetaActivityDetail = (props: Props) => {
             events={getEvents(props.events)}
           />
           <TimeTable
-            date={props.dateSelected}
             offers={props.offers}
             metaActivityId={props.metaActivity ? props.metaActivity.id : null}
             loading={props.offersLoading}
-            onOfferSelected={(o) => props.goToOffer(o)}
+            onOfferSelected={props.goToOffer}
           />
         </Paper>
         <div className={classes.addOfferButton}>

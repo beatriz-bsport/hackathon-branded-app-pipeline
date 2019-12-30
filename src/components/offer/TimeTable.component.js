@@ -1,13 +1,13 @@
 // @flow
 
 import React from 'react';
-
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 import type { Offer } from '../../api/types';
 
 import OfferMinimalSummary from './OfferMinimalSummary.component';
@@ -21,32 +21,34 @@ type Props = {
   t: TFunction,
 };
 
-export const TimeTable = (props: Props) => {
-  const { loading, offers, t, classes } = props;
-  return (
-    <List disablePadding>
-      {loading ? <LinearProgress /> : null}
-      {offers.length === 0 && !loading ? (
-        <Typography variant="caption" className={classes.emptyMessage}>
-          {t('activity.noOfferThisDay')}
-        </Typography>
-      ) : null}
-      <Divider />
-      {offers.map((offer) => (
-        <OfferMinimalSummary
-          key={offer.id}
-          offer={offer}
-          showCoach
-          noDate
-          selected={props.selected === offer.id}
-          overrideClickAction={() => {
-            props.onOfferSelected(offer);
-          }}
-        />
-      ))}
-    </List>
-  );
-};
+export class TimeTable extends React.PureComponent<Props> {
+  render() {
+    const { loading, offers, t, classes } = this.props;
+    return (
+      <List disablePadding>
+        {loading ? <LinearProgress /> : null}
+        {offers.length === 0 && !loading ? (
+          <Typography variant="caption" className={classes.emptyMessage}>
+            {t('activity.noOfferThisDay')}
+          </Typography>
+        ) : null}
+        <Divider />
+        {offers.map((offer) => (
+          <OfferMinimalSummary
+            key={offer.id}
+            offer={offer}
+            showCoach
+            noDate
+            selected={this.props.selected === offer.id}
+            overrideClickAction={() => {
+              this.props.onOfferSelected(offer);
+            }}
+          />
+        ))}
+      </List>
+    );
+  }
+}
 
 const styles = (theme) => ({
   emptyMessage: {

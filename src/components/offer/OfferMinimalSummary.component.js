@@ -10,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { pure } from 'recompose';
 
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -154,7 +155,7 @@ export function OfferMinimalSummary(props: Props) {
                 <div>
                   <IconButton disableRipple disabled={!!coach_override}>
                     <Avatar
-                      src={coach ? coach.photo_thumbnail || DEFAULT_AVATAR : ''}
+                      src={coach ? coach.photo || DEFAULT_AVATAR : ''}
                       imgProps={coach_override ? disabledAvatarProps : {}}
                     />
                   </IconButton>
@@ -168,7 +169,7 @@ export function OfferMinimalSummary(props: Props) {
                     <Avatar
                       src={
                         coach_override
-                          ? coach_override.photo_thumbnail || DEFAULT_AVATAR
+                          ? coach_override.photo || DEFAULT_AVATAR
                           : ''
                       }
                     />
@@ -210,5 +211,5 @@ export function OfferMinimalSummary(props: Props) {
 }
 
 export default withNamespaces(['offer', 'datetime'])(
-  withStyles(styles)(OfferMinimalSummary),
+  withStyles(styles)(pure(OfferMinimalSummary)),
 );

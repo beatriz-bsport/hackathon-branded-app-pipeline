@@ -549,14 +549,10 @@ export class Planning extends PureComponent<Props, State> {
       classes,
       timetableLoading,
       width,
-      date,
       selectedOffer,
     } = this.props;
 
     const events_ = this.getDayOffers(events);
-    const offersToday = memoize((offers_, date_) =>
-      offers_.filter((o) => moment(o.date_start).isSame(moment(date_), 'day')),
-    )(offers, date);
     return (
       <Grid container spacing={24}>
         {isWidthUp('lg', width) || !selectedOffer ? (
@@ -572,10 +568,9 @@ export class Planning extends PureComponent<Props, State> {
                   toogleSearchBar={this.props.toogleFilter}
                 />
                 <TimeTable
-                  date={moment(date)}
                   onOfferSelected={this.selectOffer}
-                  offers={offersToday}
-                  loading={timetableLoading && (offersToday || []).length === 0}
+                  offers={offers}
+                  loading={timetableLoading && (offers || []).length === 0}
                   selected={selectedOffer ? selectedOffer.id : null}
                 />
               </Paper>

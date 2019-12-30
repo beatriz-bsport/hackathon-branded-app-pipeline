@@ -191,6 +191,7 @@ export class MemberDetailBooking extends Component<Props, State> {
             offer={this.props.offer}
             offerLoading={
               !this.props.selectedBooking ||
+              !this.props.offer ||
               this.props.selectedBooking.offer !== this.props.offer.id
             }
           />

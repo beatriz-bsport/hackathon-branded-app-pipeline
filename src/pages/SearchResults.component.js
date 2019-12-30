@@ -29,6 +29,7 @@ type Props = {
   // membersLoading: boolean, unused
   selectEntity: (*) => void,
   t: TFunction,
+  loading: boolean,
 };
 type State = {};
 
@@ -117,6 +118,7 @@ export class SearchResults extends Component<Props, State> {
         <div className={classes.content}>
           <ResultList
             items={this.props.members}
+            loading={this.props.loading}
             selected={selected}
             selectEntity={this.selectEntity}
             className={selected && !isLoadingMember ? classes.hidden : ''}
@@ -133,6 +135,7 @@ function mapStateToProps(state) {
   return {
     selected: selectedId,
     members: memberSelectors.getSearched(state),
+    loading: state.member.search.loading,
     searchText: state.search.text,
     member: member && member.id === selectedId ? member : null,
     membersLoading: state.member.search.loading,

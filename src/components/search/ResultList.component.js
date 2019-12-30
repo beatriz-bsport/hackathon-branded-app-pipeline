@@ -7,7 +7,7 @@ import type { TFunction } from 'react-i18next';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import List from '@material-ui/core/List';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -76,7 +76,17 @@ export class ResultList extends Component<Props> {
         disablePadding
       >
         {this.props.loading ? (
-          <LinearProgress style={{ width: '100%' }} />
+          <div
+            style={{
+              display: 'flex',
+              minWidth: 300,
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: 16,
+            }}
+          >
+            <CircularProgress />
+          </div>
         ) : (
           this.renderResults()
         )}

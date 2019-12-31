@@ -29,7 +29,6 @@ type Props = {
   fetchOptions: () => void,
   fetchConsumerPaymentPacks: () => void,
   fetchProfile: () => void,
-  paymentPacks: Array<any>,
 };
 
 export class ConsumerHome extends Component<Props> {

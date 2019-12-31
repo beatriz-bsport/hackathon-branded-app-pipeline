@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { compose, withState } from 'recompose';
+import { compose, withProps, withState } from 'recompose';
 import { connect } from 'react-redux';
 import List from '@material-ui/core/List';
 import Paper from '@material-ui/core/Paper';
@@ -11,6 +11,8 @@ import Collapse from '@material-ui/core/Collapse';
 import Dialog from '@material-ui/core/Dialog';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import moment from 'moment';
+import { withRouter } from 'react-router-dom';
+import { replace as replaceAction } from 'react-router-redux';
 
 import { withNamespaces } from 'react-i18next';
 import Config from '../../config';
@@ -146,8 +148,8 @@ const styles = (theme) => ({
 
 export default compose(
   withNamespaces(),
+  withRouter,
   withStyles(styles),
-  withState('selected', 'setSelected', null),
   withState('paymentDialogOpen', 'setPaymentDialogOpen', false),
   connect(
     (state) => ({
@@ -156,7 +158,33 @@ export default compose(
     }),
     {
       fetchMarketplaceContractList,
+      replace: replaceAction,
     },
   ),
   withMobileDialog(),
+  withProps(({ location, replace }) => ({
+    selected: (() => {
+      try {
+        const params = location.search.slice(1).split('&');
+        const selected = parseInt(
+          params.find((p) => p.includes('selected=')).split('=')[1],
+          10,
+        );
+        if (selected) {
+          return selected;
+        }
+        return null;
+      } catch (err) {
+        return null;
+      }
+    })(),
+    setSelected: (id) => {
+      const params = location.search.slice(1).split('&');
+      const filtered_params = params.filter((p) => !p.includes('selected='));
+      const pathname = `${location.pathname}?${filtered_params.join(
+        '&',
+      )}&selected=${id}`;
+      replace(pathname);
+    },
+  })),
 )(MarketplaceContract);

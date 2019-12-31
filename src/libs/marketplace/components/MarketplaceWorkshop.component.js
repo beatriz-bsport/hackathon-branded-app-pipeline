@@ -26,7 +26,8 @@ type Props = {
   goToPackPayment: (offerId: number) => void,
   compatibleConsumerPacks: Array<ConsumerPaymentPack>,
   compatiblePaymentPacks: Array<PaymentPack>,
-
+  activityLoading: boolean,
+  establishmentLoading: boolean,
   paymentComboList: Array<PaymentCombo>,
   goToPaymentComboPayment: (offerId: number) => void,
 
@@ -55,6 +56,8 @@ export const MarketplaceWorkshop = (props: Props) => {
               onShowMore={() => props.selectOffer(o)}
               onBook={() => props.onBook(o.id)}
               onBookOption={() => props.onBookOption(o.id)}
+              activityLoading={props.activityLoading}
+              establishmentLoading={props.establishmentLoading}
             />
           </div>
         ))}

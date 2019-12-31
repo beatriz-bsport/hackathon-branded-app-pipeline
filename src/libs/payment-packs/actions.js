@@ -1,6 +1,7 @@
 // @flow
 
 import { createAction } from 'redux-actions';
+import uniq from 'lodash/uniq';
 
 import {
   edit as editAPI,
@@ -185,5 +186,77 @@ export function fetchActivityCompatiblePaymentPacks(
       dispatch(fetchActivityCompatibleAction.error(err));
     }
     dispatch(fetchActivityCompatibleAction.isLoading(false));
+  };
+}
+
+export const fetchMarketplacePacksAction = {
+  isLoading: createAction('PAYMENT_PACK/MARKETPLACE/IS_LOADING'),
+  error: createAction('PAYMENT_PACK/MARKETPLACE/ERROR'),
+  success: createAction('PAYMENT_PACK/MARKETPLACE/SUCCESS'),
+};
+
+export function fetchMarketplacePacks(params: any, options): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchMarketplacePacksAction.isLoading(true));
+    dispatch(fetchMarketplacePacksAction.error(null));
+
+    try {
+      const response = await fetchPaymentPackListAPI(params);
+      const paymentPacksAllIds = createIdList(response.data.results);
+      const paymentPacksById = createDictionnaryById(response.data.results);
+
+      dispatch(
+        fetchMarketplacePacksAction.success({
+          paymentPacksAllIds,
+          paymentPacksById,
+        }),
+      );
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (err) {
+      dispatch(fetchMarketplacePacksAction.error(err));
+    }
+    dispatch(fetchMarketplacePacksAction.isLoading(false));
+  };
+}
+
+export const paymentPackBulkActions = {
+  isLoading: createAction('PAYMENT_PACK/BULK/IS_LOADING'),
+  error: createAction('PAYMENT_PACK/BULK/ERROR'),
+  success: createAction('PAYMENT_PACK/BULK/SUCCESS'),
+};
+
+export function fetchPaymentPackBulk(
+  ids: Array<number>,
+  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    const ids_uniq = uniq(ids);
+    if (ids_uniq.length === 0) {
+      return;
+    }
+    dispatch(paymentPackBulkActions.isLoading(true));
+    dispatch(paymentPackBulkActions.error(null));
+
+    try {
+      const response = await fetchPaymentPackListAPI({
+        id__in: ids_uniq,
+        page_size: null,
+      });
+      const paymentPacksAllIds = createIdList(response.data.results);
+      const paymentPacksById = createDictionnaryById(response.data.results);
+      dispatch(
+        paymentPackBulkActions.success({
+          paymentPacksAllIds,
+          paymentPacksById,
+        }),
+      );
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      dispatch(paymentPackBulkActions.error(err));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(paymentPackBulkActions.isLoading(false));
   };
 }

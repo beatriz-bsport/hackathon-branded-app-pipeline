@@ -70,15 +70,15 @@ export class MarketPlaceActivity extends React.Component<Props> {
           <Typography variant="h6" className={classes.title}>
             {t('marketplace.teacher')}
           </Typography>
-          {offer.coach_override && offer.coach_override.user ? (
+          {offer.coach_override ? (
             <div className={classes.coachBox}>
               <Avatar
-                src={offer.coach_override.user.photo}
+                src={offer.coach_override.photo}
                 className={classes.avatarSubstitute}
               />
               <div className={classes.coachInformations}>
                 <ListItemText
-                  primary={offer.coach_override.user.name}
+                  primary={offer.coach_override.name}
                   secondary={t('marketplace.substitute')}
                 />
                 {offer.coach_override.description ? (
@@ -94,10 +94,10 @@ export class MarketPlaceActivity extends React.Component<Props> {
             </div>
           ) : null}
           <div className={classes.coachBox}>
-            <Avatar src={offer.coach.user.photo} />
+            <Avatar src={offer.coach.photo} />
             <div className={classes.coachInformations}>
               <ListItemText
-                primary={offer.coach.user.name}
+                primary={offer.coach.name}
                 secondary={
                   offer.coach_override ? t('marketplace.substituted') : null
                 }

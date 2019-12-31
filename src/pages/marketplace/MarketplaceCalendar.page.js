@@ -26,14 +26,11 @@ import { getPaymentComboListAvailableOnline } from '../../libs/payment-combo/sel
 import { Moment } from '../../i18n';
 import { DATE_FORMAT } from '../../datetime';
 import themeSelectors from '../../libs/theme/selectors';
+import { getCoaches } from '../../libs/associated-coach/selectors';
+import { getMetaActivities } from '../../libs/meta-activity/selectors';
 
-import {
-  getOffersFiltered,
-  isOfferLoading,
-  getOffersMetaActivities,
-  getOffersCoaches,
-  getOffersEstablishments,
-} from '../../libs/marketplace/selectors';
+import { getAllEstablishments } from '../../libs/establishment/selectors';
+
 import { snackbarSuccess } from '../../actions/snackbar.actions';
 
 import type {
@@ -43,10 +40,17 @@ import type {
   MetaActivity,
 } from '../../libs/marketplace/types';
 
+import { fetchMarketplaceOfferList as fetchOfferListAction } from '../../actions/offer.actions';
 import {
-  resetOffersAction,
-  fetchCompanyOffersAction,
-} from '../../libs/marketplace/actions';
+  getMarketplaceOfferList,
+  withMetaActivity,
+  withCoach,
+  withEstablishment,
+} from '../../libs/offer/selectors';
+import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
+import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions/common';
+
 import withTitle from '../../hocs/with-title.hoc';
 
 import type { PaymentCombo } from '../../libs/payment-combo/types';
@@ -71,7 +75,6 @@ type Props = {
 
   filters: *,
 
-  resetOffers: () => void,
   setFilters: (*) => void,
   toogleFiltersOpen: () => void,
   handleDateChange: (newDate: string) => void,
@@ -86,9 +89,17 @@ type Props = {
   goToPaymentComboPayment: (comboId: number, offerId: number) => void,
   paymentComboList: Array<PaymentCombo>,
 
-  fetchCompanyOffers: (*, *, *) => void,
   theme: Object,
   classes: Object,
+
+  coachLoading: boolean,
+  establishmentLoading: boolean,
+  activityLoading: boolean,
+
+  fetchEstablishmentBulk: (Array) => void,
+  fetchMetaActivityBulk: (Array) => void,
+  fetchCoachBulk: (Array) => void,
+  fetchOfferList: () => void,
 };
 
 type State = {
@@ -172,11 +183,7 @@ export class MarketplaceCalendar extends Component<Props, State> {
     offer: null,
   };
 
-  componentWillMount() {
-    this.props.resetOffers();
-  }
-
-  componentDidMount() {
+  fetchData = () => {
     // always fetch began from week start
     const min_date = this.props.selectedDate
       .clone()
@@ -188,27 +195,114 @@ export class MarketplaceCalendar extends Component<Props, State> {
       .endOf('week')
       .format(DATE_FORMAT);
     // fetch offers of the week
-    this.props.fetchCompanyOffers(this.props.companyId, min_date, max_date);
+    this.props.fetchEstablishmentBulk(this.props.filters.establishments || []);
+    this.props.fetchCoachBulk(this.props.filters.coaches || []);
+    this.props.fetchMetaActivityBulk(this.props.filters.metaActivities || []);
+    this.props.fetchOfferList({
+      company: this.props.companyId,
+      min_date,
+      max_date,
+      filters: this.props.filters,
+      is_workshop: false,
+    });
+  };
+
+  componentDidMount() {
+    this.fetchData();
   }
 
   componentDidUpdate(prevProps: Props) {
+    const filtersPropsChanged = !this.checkFiltersChange(
+      prevProps.filters,
+      this.props.filters,
+    );
     if (
+      filtersPropsChanged ||
       (!prevProps.selectedDate && this.props.selectedDate) ||
       prevProps.selectedDate.clone().week() !==
         this.props.selectedDate.clone().week()
     ) {
-      const min_date = this.props.selectedDate
-        .clone()
-        .startOf('week')
-        .format(DATE_FORMAT);
-
-      const max_date = Moment(min_date, DATE_FORMAT)
-        .add(6, 'days')
-        .format(DATE_FORMAT);
-
-      this.props.fetchCompanyOffers(this.props.companyId, min_date, max_date);
+      this.fetchData();
     }
   }
+
+  checkFiltersChange = (filters, prevFilters) => {
+    if (
+      (!!filters.coaches && !prevFilters.coaches) ||
+      (!filters.coaches && !!prevFilters.coaches)
+    ) {
+      return false;
+    }
+
+    if (!!filters.coaches && !!prevFilters.coaches) {
+      if (
+        !(
+          filters.coaches.length === prevFilters.coaches.length &&
+          filters.coaches.every((value, index) => {
+            return value === prevFilters.coaches.sort()[index];
+          })
+        )
+      ) {
+        return false;
+      }
+    }
+    if (
+      (!!filters.establishments && !prevFilters.establishments) ||
+      (!filters.establishments && !!prevFilters.establishments)
+    ) {
+      return false;
+    }
+
+    if (!!filters.establishments && !!prevFilters.establishments) {
+      if (
+        !(
+          filters.establishments.length === prevFilters.establishments.length &&
+          filters.establishments.every((value, index) => {
+            return value === prevFilters.establishments.sort()[index];
+          })
+        )
+      ) {
+        return false;
+      }
+    }
+    if (
+      (!!filters.metaActivities && !prevFilters.metaActivities) ||
+      (!filters.metaActivities && !!prevFilters.metaActivities)
+    ) {
+      return false;
+    }
+    if (!!filters.metaActivities && !!prevFilters.metaActivities) {
+      if (
+        !(
+          filters.metaActivities.length === prevFilters.metaActivities.length &&
+          filters.metaActivities.every((value, index) => {
+            return value === prevFilters.metaActivities.sort()[index];
+          })
+        )
+      ) {
+        return false;
+      }
+    }
+    if (
+      (!!filters.levels && !prevFilters.levels) ||
+      (!filters.levels && !!prevFilters.levels)
+    ) {
+      return false;
+    }
+    if (!!filters.levels && !!prevFilters.levels) {
+      if (
+        !(
+          filters.levels.length === prevFilters.levels.length &&
+          filters.levels.every((value, index) => {
+            return value === prevFilters.levels.sort()[index];
+          })
+        )
+      ) {
+        return false;
+      }
+    }
+    return true;
+  };
 
   openOfferDialog = (offerId: number) => {
     this.setState({
@@ -250,7 +344,6 @@ export class MarketplaceCalendar extends Component<Props, State> {
       Moment(o.date_start).isSame(this.props.selectedDate, 'day'),
     );
     const weekOffers = this.getWeekOffers();
-
     return (
       <div className={classes.container}>
         <MarketplaceActivityDialog
@@ -284,6 +377,10 @@ export class MarketplaceCalendar extends Component<Props, State> {
           setFilters={this.props.setFilters}
           filters={filters}
           loading={this.props.loading}
+          coachLoading={this.props.coachLoading}
+          establishmentLoading={this.props.establishmentLoading}
+          activityLoading={this.props.activityLoading}
+          offersLoading={this.props.loading}
           dayOffers={selectedDayOffers}
           forceDayDisplayOnly={!!this.props.forceDayDisplayOnly}
           onClickOffer={this.openOfferDialog}
@@ -347,22 +444,53 @@ export default compose(
     forceDayDisplayOnly: location.search.includes('onlyDay=true'),
   })),
   connect(
-    (state, { filters }) => ({
-      offers: getOffersFiltered(state, filters),
-      loading: isOfferLoading(state),
-      coaches: getOffersCoaches(state),
-      establishments: getOffersEstablishments(state),
-      metaActivities: getOffersMetaActivities(state),
+    (state) => ({
+      offers: withMetaActivity(
+        withCoach(withEstablishment(getMarketplaceOfferList)),
+      )(state),
+      loading: state.offer.marketplace.loading,
+      coachLoading: state.coach.loading,
+      establishmentLoading: state.establishment.bulkRetrieve.loading,
+      activityLoading: state.metaActivity.loading,
+      coaches: getCoaches(state),
+      establishments: getAllEstablishments(state),
+      metaActivities: getMetaActivities(state),
+
       theme: themeSelectors.getTheme(state),
     }),
     {
-      resetOffers: resetOffersAction,
-      fetchCompanyOffers: fetchCompanyOffersAction,
+      fetchOfferList: fetchOfferListAction,
+      fetchEstablishmentBulk: fetchEstablishmentBulkAction,
+      fetchCoachBulk: fetchCoachBulkAction,
+      fetchMetaActivityBulk: fetchMetaActivityBulkAction,
       goToBook: (id: number, companyId: number) =>
         push(`/customer/payment/offer/${id}?membership=${companyId}`),
       goToBookOption: (id: number, companyId: number) =>
         push(`/customer/payment/offer/${id}?membership=${companyId}`),
     },
+  ),
+  withProps(
+    ({
+      fetchOfferList,
+      fetchEstablishmentBulk,
+      fetchCoachBulk,
+      fetchMetaActivityBulk,
+    }) => ({
+      fetchOfferList: (params) =>
+        fetchOfferList(params, {
+          onSuccess: (offerList) => {
+            fetchEstablishmentBulk([
+              ...offerList.map((o) => o.establishment),
+              ...offerList.map((o) => o.establishment_override),
+            ]);
+            fetchCoachBulk([
+              ...offerList.map((o) => o.coach),
+              ...offerList.map((o) => o.coach_override),
+            ]);
+            fetchMetaActivityBulk([...offerList.map((o) => o.meta_activity)]);
+          },
+        }),
+    }),
   ),
   connect(
     null,

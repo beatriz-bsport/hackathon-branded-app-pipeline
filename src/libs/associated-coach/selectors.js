@@ -17,6 +17,10 @@ export const getAllCoachesDict = (state: State): Array<Coach> =>
   state.coach.byId;
 export const getAllCoachesId = (state: State): Array<Coach> =>
   state.coach.allIds;
+export const getCoaches = createSelector(
+  getAllCoachesDict,
+  (coach) => Immutable(Object.values(coach)),
+);
 
 export const getCoachesList = (state: State): Array<Coach> =>
   state.coach.allIds;

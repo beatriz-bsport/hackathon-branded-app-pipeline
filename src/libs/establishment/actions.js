@@ -62,13 +62,16 @@ export const listIsLoading = createAction('ESTABLISHMENTS/LIST/IS_LOADING');
 export const listLoaded = createAction('ESTABLISHMENTS/LIST/LOADED');
 export const listError = createAction('ESTABLISHMENTS/LIST/ERROR');
 
-export function fetchEstablishments() {
+export function fetchEstablishments(params: any) {
   return async (dispatch: Dispatch) => {
     dispatch(listIsLoading(true));
     dispatch(listError(null));
 
     try {
-      const response = await fetchEstablishmentListAPI({ page_size: 100 });
+      const response = await fetchEstablishmentListAPI({
+        page_size: 100,
+        ...(params || {}),
+      });
       dispatch(
         listLoaded({
           establishmentDict: createDictionnaryById(response.data.results),

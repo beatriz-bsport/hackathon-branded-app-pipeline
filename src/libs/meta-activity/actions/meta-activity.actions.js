@@ -99,6 +99,31 @@ export function fetchAllActivities(): ThunkAction {
   };
 }
 
+export function fetchCompanyActivities(id: number): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(metaActivityListActions.isLoading(true));
+    dispatch(metaActivityListActions.error(null));
+
+    try {
+      const response = await fetchAllActivitiesAPI({
+        page_size: null,
+        company: id,
+      });
+      dispatch(
+        metaActivityListActions.success({
+          metaActivitiesDict: createDictionnaryById(response.data),
+          idList: createIdList(response.data),
+        }),
+      );
+    } catch (err) {
+      console.error(err);
+      dispatch(metaActivityListActions.error(err));
+      Sentry.captureException(err);
+    }
+    dispatch(metaActivityListActions.isLoading(false));
+  };
+}
+
 export const addImage = {
   isLoading: createAction('META_ACTIVITIES/ADD_IMAGE/IS_LOADING'),
   error: createAction('META_ACTIVITIES/ADD_IMAGE/ERROR'),

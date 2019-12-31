@@ -12,6 +12,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import CardMedia from '@material-ui/core/CardMedia';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import type { TFunction } from 'react-i18next';
 import TypographyWithShowMore from '../../../components/TypographyWithShowMore.component';
@@ -26,6 +27,8 @@ type Props = {
   onBookOption: () => void,
   t: TFunction,
   classes: *,
+  activityLoading: boolean,
+  establishmentLoading: boolean,
 };
 
 const BookButton = (props: {
@@ -59,50 +62,74 @@ const BookButton = (props: {
 
 export const MarketplaceWorkshopEvent = (props: Props) => {
   const { t, offer } = props;
-  const { description } = props.offer.meta_activity;
 
   return (
-    <Card style={{ width: '100%' }}>
-      <CardMedia
-        component="img"
-        image={props.offer.meta_activity.cover_main}
-        classes={{
-          media: props.classes.media,
-        }}
-      />
-      <CardContent>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexDirection: 'row',
-          }}
-        >
-          <Typography variant="h5" component="h3">
-            {props.offer.meta_activity.name}
-          </Typography>
+    <Card style={{ width: '100%', minWidth: '40vw' }}>
+      {props.activityLoading ? (
+        <div className={props.classes.centerDiv}>
+          <CircularProgress size={20} />
         </div>
-        <Typography variant="h6" component="h4">
-          {formatAsDatetime(
-            props.offer.date_start,
-            props.offer.establishment.tzname,
-          )}
-        </Typography>
+      ) : (
+        <CardMedia
+          component="img"
+          image={props.offer.meta_activity.cover_main}
+          classes={{
+            media: props.classes.media,
+          }}
+        />
+      )}
+      <CardContent>
+        {props.activityLoading ? (
+          <div className={props.classes.centerDiv}>
+            <CircularProgress size={20} />
+          </div>
+        ) : (
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexDirection: 'row',
+            }}
+          >
+            <Typography variant="h5" component="h3">
+              {props.offer.meta_activity.name}
+            </Typography>
+          </div>
+        )}
+
+        {props.establishmentLoading ? (
+          <div className={props.classes.centerDiv}>
+            <CircularProgress size={20} />
+          </div>
+        ) : (
+          <Typography variant="h6" component="h4">
+            {formatAsDatetime(
+              props.offer.date_start,
+              props.offer.establishment.tzname,
+            )}
+          </Typography>
+        )}
         <Typography variant="subtitle2" component="h4">
           {t('marketplace:workshop.card.duration', {
             duration: formatMinutes(props.offer.duration_minute, t),
           })}
         </Typography>
         <div style={{ marginTop: 16 }}>
-          <TypographyWithShowMore
-            component="div"
-            multiline
-            variant="body2"
-            color="textSecondary"
-          >
-            {description}
-          </TypographyWithShowMore>
+          {props.activityLoading ? (
+            <div className={props.classes.centerDiv}>
+              <CircularProgress size={20} />
+            </div>
+          ) : (
+            <TypographyWithShowMore
+              component="div"
+              multiline
+              variant="body2"
+              color="textSecondary"
+            >
+              {props.offer.meta_activity.description}
+            </TypographyWithShowMore>
+          )}
         </div>
       </CardContent>
       <CardActions>
@@ -122,6 +149,7 @@ export const MarketplaceWorkshopEvent = (props: Props) => {
 
 const styles = () => ({
   media: { objectFit: 'cover', maxHeight: '60vh' },
+  centerDiv: { width: '100%', display: 'flex', justifyContent: 'center' },
 });
 
 export default compose(

@@ -12,6 +12,8 @@ import {
   deleteAction,
 } from '../actions/meta-activity.actions';
 
+import { metaActivityBulkActions } from '../actions/common';
+
 const initialState = Immutable({
   byId: {},
   allIds: [],
@@ -56,6 +58,20 @@ export default handleActions(
     },
     [metaActivityDetailActions.success]: (state, { payload }) => {
       return state.merge({ byId: payload }, { deep: true });
+    },
+    [metaActivityBulkActions.success]: (state, { payload }) => {
+      return state.merge(
+        {
+          byId: payload.reduce((acc, ps) => {
+            acc[ps.id] = ps;
+            return acc;
+          }, {}),
+        },
+        { deep: true },
+      );
+    },
+    [metaActivityBulkActions.isLoading]: (state, { payload }) => {
+      return state.set('loading', payload);
     },
     [addImage.success]: (state, { payload }) => {
       const { image } = payload.image;

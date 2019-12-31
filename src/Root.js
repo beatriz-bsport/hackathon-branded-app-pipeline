@@ -27,6 +27,7 @@ const ConsumerHome = asyncComponent(() =>
 const CheckoutRouter = asyncComponent(() =>
   import('./pages/checkout/Checkout.router'),
 );
+const PaymentRouter = asyncComponent(() => import('./pages/Payment.router'));
 
 const RNWebView = asyncComponent(() =>
   import('./pages/rn-webview/RNWebView.router'),
@@ -79,6 +80,7 @@ export class Root extends Component<Props> {
           />
           <Route path="/sentry" component={SentryTestError} />
           <Route path="/login" component={LoginRouter} />
+          <Route path="/(|customer/)payment" component={PaymentRouter} />
           <Route path="/customer" component={ConsumerHome} />
           <Route path="/m/" component={MarketPlace} />
           <Route path="/checkout" component={CheckoutRouter} />

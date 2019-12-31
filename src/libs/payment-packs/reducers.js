@@ -2,7 +2,12 @@ import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
 import { actionTypes } from './types';
-import { fetchActivityCompatibleAction, fetchOneAction } from './actions';
+import {
+  fetchActivityCompatibleAction,
+  fetchOneAction,
+  fetchMarketplacePacksAction,
+  paymentPackBulkActions,
+} from './actions';
 
 const initialState = Immutable({
   all: [],
@@ -20,6 +25,7 @@ const initialState = Immutable({
     count: 0,
   },
   byId: {},
+  allIds: [],
 });
 
 export function paymentPackReducer(state = initialState, action = {}) {
@@ -141,6 +147,30 @@ export const newPaymentPackReducer = handleActions(
           },
           byId: payload.paymentPacksById,
         },
+        { deep: true },
+      );
+    },
+    [fetchMarketplacePacksAction.isLoading]: (state, { payload }) => {
+      return state.set('loading', payload);
+    },
+    [fetchMarketplacePacksAction.error]: (state, { payload }) => {
+      return state.set('error', payload);
+    },
+    [fetchMarketplacePacksAction.success]: (state, { payload }) => {
+      return state.merge(
+        { allIds: payload.paymentPacksAllIds, byId: payload.paymentPacksById },
+        { deep: true },
+      );
+    },
+    [paymentPackBulkActions.isLoading]: (state, { payload }) => {
+      return state.set('loading', payload);
+    },
+    [paymentPackBulkActions.error]: (state, { payload }) => {
+      return state.set('error', payload);
+    },
+    [paymentPackBulkActions.success]: (state, { payload }) => {
+      return state.merge(
+        { allIds: payload.paymentPacksAllIds, byId: payload.paymentPacksById },
         { deep: true },
       );
     },

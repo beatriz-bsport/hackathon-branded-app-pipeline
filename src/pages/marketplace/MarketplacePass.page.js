@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 
-import { compose } from 'recompose';
+import { compose, withProps } from 'recompose';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -18,15 +18,16 @@ import {
 
 // marketplace
 // -----------------------------
+import { getAllEstablishments } from '../../libs/establishment/selectors';
+
+import { getMetaActivities } from '../../libs/meta-activity/selectors';
+import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions/common';
 import MarketplacePassList from '../../libs/marketplace/components/MarketplacePassList.component';
 import MarketplacePrivatePassList from '../../libs/marketplace/components/MarketplacePrivatePassList.component';
 import MarketplacePaymentComboList from '../../libs/marketplace/components/MarketplacePaymentComboList.component';
-import {
-  getPaymentPacks,
-  isMarketplaceLoading,
-} from '../../libs/marketplace/selectors';
-import { fetchPaymentPacksAction } from '../../libs/marketplace/actions';
 
+import { getMarketplacePaymentPacks } from '../../libs/payment-packs/selectors';
 // checkout
 // -----------------------------
 import { addItemToBasket } from '../../libs/checkout/actions';
@@ -42,7 +43,7 @@ import { getPrivatePassAvailable } from '../../libs/private-service/selectors/pr
 // -----------------------------
 import { getPaymentComboListAvailableOnline } from '../../libs/payment-combo/selectors';
 import type { PaymentCombo } from '../../libs/payment-combo/types';
-
+import { fetchMarketplacePacks } from '../../libs/payment-packs/actions';
 import withTitle from '../../hocs/with-title.hoc';
 
 type Props = {
@@ -54,7 +55,7 @@ type Props = {
   privatePassList: Array<PrivatePass>,
   paymentComboList: Array<PaymentCombo>,
 
-  fetchPaymentPacks: (companyId: number) => void,
+  fetchPaymentPacks: (params: any) => void,
   fetchPrivatePassList: (companyId: number) => void,
 
   requestSignUp: () => void,
@@ -64,6 +65,9 @@ type Props = {
   pushPrivatePassCheckout: (packId: number, basketId: string) => void,
   pushPackCheckout: (packId: number, basketId: string) => void,
   pushComboCheckout: (comboId: number, basketId: string) => void,
+
+  metaActivities: Array<any>,
+  establishments: Array<any>,
 };
 
 export class MarketPlacePassPage extends Component<Props> {
@@ -72,7 +76,13 @@ export class MarketPlacePassPage extends Component<Props> {
   }
 
   fetchData = () => {
-    this.props.fetchPaymentPacks(this.props.companyId);
+    this.props.fetchPaymentPacks({
+      company: this.props.companyId,
+      manager_only: false,
+      disabled: false,
+      as_consumer: true,
+      page_size: 300,
+    });
     this.props.fetchPrivatePassList(this.props.companyId);
   };
 
@@ -120,6 +130,8 @@ export class MarketPlacePassPage extends Component<Props> {
                 this.props.toogleCurrentBasketOpen(true);
               }
             }}
+            metaActivities={this.props.metaActivities}
+            establishments={this.props.establishments}
           />
         </Grid>
         {this.props.privatePassList.length ? (
@@ -165,16 +177,21 @@ export default compose(
   withStyles(styles),
   connect(
     (state) => ({
-      paymentPacks: getPaymentPacks(state),
+      paymentPacks: getMarketplacePaymentPacks(state),
       currentBasket: getCurrentBasket(state),
       authenticated: state.auth.authenticated,
+      metaActivities: getMetaActivities(state),
+      establishments: getAllEstablishments(state),
       privatePassList: getPrivatePassAvailable(state),
       paymentComboList: getPaymentComboListAvailableOnline(state),
-      loading:
-        state.marketplacev2.paymentPack.loading || isMarketplaceLoading(state),
+      loading: state.paymentPack.loading,
+      establishmentLoading: state.establishment.bulkRetrieve.loading,
+      activityLoading: state.metaActivity.loading,
     }),
     {
-      fetchPaymentPacks: fetchPaymentPacksAction,
+      fetchEstablishmentBulk: fetchEstablishmentBulkAction,
+      fetchMetaActivityBulk: fetchMetaActivityBulkAction,
+      fetchPaymentPacks: fetchMarketplacePacks,
       fetchPrivatePassList,
       pushPrivatePassCheckout: (packId, basketId) =>
         addItemToBasket(basketId, {
@@ -198,6 +215,21 @@ export default compose(
           extra_data: {},
         }),
     },
+  ),
+  withProps(
+    ({ fetchPaymentPacks, fetchEstablishmentBulk, fetchMetaActivityBulk }) => ({
+      fetchPaymentPacks: (params) =>
+        fetchPaymentPacks(params, {
+          onSuccess: (packList) => {
+            fetchEstablishmentBulk(
+              [...packList.map((pp) => pp.establishments)].flat(2),
+            );
+            fetchMetaActivityBulk(
+              [...packList.map((pp) => pp.metaActivities)].flat(2),
+            );
+          },
+        }),
+    }),
   ),
   withNamespaces(),
   withTitle(({ t }: { t: TFunction }) =>

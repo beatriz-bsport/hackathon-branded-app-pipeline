@@ -11,6 +11,7 @@ import {
   offersByMetaActivity,
   offersByEstablishment,
   offersFilterActions,
+  offerMarketplaceListActions,
   retrieveActions,
 } from '../actions/offer.actions';
 import authActionTypes from '../actions/auth.types';
@@ -49,6 +50,11 @@ const initialState = Immutable({
   managerFilter: {
     open: false,
     filters: {},
+  },
+  marketplace: {
+    loading: false,
+    error: null,
+    allIds: [],
   },
 });
 
@@ -137,6 +143,25 @@ export default handleActions(
           { deep: true },
         )
         .setIn(['byDay', 'allIds'], payload.map((o) => o.id));
+    },
+    [offerMarketplaceListActions.success]: (state, { payload }) => {
+      return state
+        .merge(
+          {
+            byId: payload.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+          { deep: true },
+        )
+        .setIn(['marketplace', 'allIds'], payload.map((o) => o.id));
+    },
+    [offerMarketplaceListActions.error]: (state, { payload }) => {
+      return state.setIn(['marketplace', 'error'], payload);
+    },
+    [offerMarketplaceListActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['marketplace', 'loading'], payload);
     },
   },
   initialState,

@@ -17,6 +17,7 @@ import { replace as replaceAction } from 'react-router-redux';
 import { withNamespaces } from 'react-i18next';
 import Config from '../../config';
 
+import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
 import { getMarketplaceContractList as getContractList } from '../../libs/subscription/selectors';
 import { fetchMarketplaceContractList } from '../../libs/subscription/actions';
 import { postContractSubscription as postContractSubscriptionAPI } from '../../libs/subscription/api';
@@ -26,7 +27,7 @@ import SubscriptionPayment from '../../libs/subscription/components/Subscription
 
 type Props = {
   companyId: number,
-  fetchMarketplaceContractList: () => void,
+  fetchContracts: () => void,
   contractLoading: boolean,
   classes: Object,
   contractList: Array<Contract>,
@@ -53,7 +54,7 @@ export class MarketplaceContract extends React.Component<Props> {
   };
 
   componentWillMount() {
-    this.props.fetchMarketplaceContractList(this.props.companyId);
+    this.props.fetchContracts(this.props.companyId);
   }
 
   onSubmit = async (token: string) => {
@@ -159,8 +160,20 @@ export default compose(
     {
       fetchMarketplaceContractList,
       replace: replaceAction,
+      fetchContracts: fetchMarketplaceContractList,
+      fetchPaymentPackBulk: fetchPaymentPackBulkAction,
     },
   ),
+  withProps(({ fetchContracts, fetchPaymentPackBulk }) => ({
+    fetchContracts: (params) =>
+      fetchContracts(params, {
+        onSuccess: (contractList) => {
+          fetchPaymentPackBulk([
+            ...contractList.map((contract) => contract.payment_pack),
+          ]);
+        },
+      }),
+  })),
   withMobileDialog(),
   withProps(({ location, replace }) => ({
     selected: (() => {

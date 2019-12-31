@@ -9,14 +9,20 @@ import Select from 'react-select';
 
 const getCoachOptions = (coaches: Array<Coach>) => {
   coaches.sort((c, c_) => {
-    if (c.user.name.toUpperCase() < c_.user.name.toUpperCase()) {
+    if (c.user && c_.user) {
+      if (c.user.name.toUpperCase() < c_.user.name.toUpperCase()) {
+        return -1;
+      }
+      return 1;
+    }
+    if (c.name.toUpperCase() < c_.name.toUpperCase()) {
       return -1;
     }
     return 1;
   });
   return coaches.map((c) => ({
     value: c.id,
-    label: c.user.name,
+    label: c.user ? c.user.name : c.name,
   }));
 };
 

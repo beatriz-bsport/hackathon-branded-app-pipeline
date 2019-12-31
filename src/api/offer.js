@@ -17,6 +17,10 @@ export async function fetchOffersByDay(params) {
   return getAuth(`${API_V1_URI}/offer/as_manager/${buildUrlParams(params)}`);
 }
 
+export async function fetchOffersList(params) {
+  return getAuth(`${API_V1_URI}/offer/${buildUrlParams(params)}`);
+}
+
 export async function editLiveOffer({ offerId, data }) {
   return putAuth(`${API_URI}/saas/offer/${offerId}/edit`, data);
 }
@@ -65,4 +69,5 @@ export default {
   fetchSimilarOffers,
   fetchById,
   toogleWaitingListFreeze,
+  fetchOffersList,
 };

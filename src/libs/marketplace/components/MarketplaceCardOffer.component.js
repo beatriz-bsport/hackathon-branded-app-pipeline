@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { compose } from 'recompose';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 import Typography from '@material-ui/core/Typography';
 import { withNamespaces } from 'react-i18next';
@@ -9,7 +9,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import moment from 'moment-timezone';
 import Level from '../../../components/category/Level.component';
-
 import { formatAsTime } from '../../../datetime';
 import { isOfferInThePast } from '../utils';
 
@@ -22,7 +21,9 @@ type Props = {
   onClickBook: (offerId: number) => void,
   onClickBookOption: (offerId: number) => void,
   index: number,
-  showOfferFilling: boolean,
+  activityLoading: boolean,
+  coachLoading: boolean,
+  establishmentLoading: boolean,
 };
 
 const pairColor = '#FFFFFF';
@@ -36,9 +37,24 @@ export const MarketplaceCardOffer = (props: Props) => {
 
   // const onClickCard = offer.is_full ? onClickBookOption : onClickBook;
 
-  const coachName = offer.coach_override
-    ? offer.coach_override.user.name
-    : (offer.coach && offer.coach.user.name) || ' - ';
+  /* eslint-disable */
+
+  const coachName =
+    offer.coach_override && offer.coach_override.name
+      ? offer.coach_override.name
+      : offer.coach && offer.coach && offer.coach.name
+      ? offer.coach.name
+      : ' - ';
+
+  const metaActivityName = offer.meta_activity.name || ' - ';
+
+  const establishmentName =
+    offer.establishment_override && offer.establishment_override.title
+      ? offer.establishment_override.title
+      : offer.establishment && offer.establishment.title
+      ? offer.establishment.title
+      : ' - ';
+  /* eslint-enable */
 
   const offerEndDate = moment(offer.date_start).add(
     offer.duration_minute,
@@ -72,18 +88,32 @@ export const MarketplaceCardOffer = (props: Props) => {
         className={classes.cardContent}
       >
         <div className={classes.title}>
-          <Typography align="center" variant="subtitle1">
-            {offer && offer.meta_activity ? offer.meta_activity.name || '' : ''}
-          </Typography>
-          <Typography align="center" variant="caption">
-            {coachName}
-          </Typography>
+          {props.activityLoading && metaActivityName === ' - ' ? (
+            <MoreHorizIcon fontSize="small" />
+          ) : (
+            <Typography align="center" variant="subtitle1">
+              {metaActivityName}
+            </Typography>
+          )}
+        </div>
+        <div className={classes.title}>
+          {props.coachLoading && coachName === ' - ' ? (
+            <MoreHorizIcon fontSize="small" />
+          ) : (
+            <Typography align="center" variant="caption">
+              {coachName}
+            </Typography>
+          )}
         </div>
         <Typography align="center">
-          {`${formatAsTime(
-            offer.date_start,
-            offer.establishment.tzname,
-          )} - ${formatAsTime(offerEndDate, offer.establishment.tzname)}`}
+          {!offer.establishment.tzname ? (
+            <MoreHorizIcon fontSize="small" />
+          ) : (
+            `${formatAsTime(
+              offer.date_start,
+              offer.establishment.tzname,
+            )} - ${formatAsTime(offerEndDate, offer.establishment.tzname)}`
+          )}
         </Typography>
         <Level
           noStyle
@@ -91,11 +121,13 @@ export const MarketplaceCardOffer = (props: Props) => {
           variant="caption"
           levelId={offer && offer.level ? offer.level || null : null}
         />
-        <Typography align="center" variant="caption">
-          {offer
-            ? (offer.establishment_override || offer.establishment).title
-            : ''}
-        </Typography>
+        {props.establishmentLoading && establishmentName === ' - ' ? (
+          <MoreHorizIcon fontSize="small" />
+        ) : (
+          <Typography align="center" variant="caption">
+            {establishmentName}
+          </Typography>
+        )}
       </ButtonBase>
       <div className={classes.bottomButton}>
         <MarketplaceBookButton
@@ -109,7 +141,6 @@ export const MarketplaceCardOffer = (props: Props) => {
           }}
           offer={props.offer}
           variant="contained"
-          showOfferFilling={props.showOfferFilling}
         />
       </div>
     </div>
@@ -130,25 +161,16 @@ const style = (theme) => {
         boxShadow: theme.shadows[1],
       },
     },
-    fillingNumberContainer: {
-      display: 'flex',
-      justifyContent: 'flex-end',
-      width: '100%',
-      height: '100%',
-      alignItems: 'flex-end',
-      paddingRight: theme.spacing.unit,
-    },
     cardContent: {
       display: 'flex',
       width: '100%',
-      height: '100%',
       flexDirection: 'column',
       alignItems: 'center',
       paddingTop: theme.spacing.unit,
+      paddingBottom: theme.spacing.unit,
     },
     title: {
       paddingBottom: theme.spacing.unit,
-      maxWidth: '60%',
     },
     bottomButton: {
       textAlign: 'center',
@@ -160,7 +182,4 @@ const style = (theme) => {
   };
 };
 
-export default compose(
-  withStyles(style),
-  withNamespaces(),
-)(MarketplaceCardOffer);
+export default withStyles(style)(withNamespaces()(MarketplaceCardOffer));

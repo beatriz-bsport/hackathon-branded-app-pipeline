@@ -7,6 +7,12 @@ export default {
   paymentCombo: {
     addToCart: 'Ajouter au panier',
   },
+  warning: {
+    isManager:
+      'Vous êtes connecté en tant que manager, pour accéder à la vue client veuillez vous déconnecter',
+    disconnect: 'Me déconnecter',
+    backToBackoffice: 'Interface manager',
+  },
   workshop: {
     noWorkshopAvailable: "Aucun atelier n'est prévu pour le moment",
     card: {

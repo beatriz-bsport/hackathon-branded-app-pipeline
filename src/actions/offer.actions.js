@@ -238,3 +238,52 @@ export function setFilters(filters) {
     dispatch(offersFilterActions.setFilters(filters));
   };
 }
+
+export const offerMarketplaceListActions = {
+  isLoading: createAction('OFFER/MARKETPLACE/IS_LOADING'),
+  error: createAction('OFFER/MARKETPLACE/ERROR'),
+  success: createAction('OFFER/MARKETPLACE/SUCCESS'),
+};
+
+export function fetchMarketplaceOfferList(params, options) {
+  return async (dispatch: Dispatch) => {
+    dispatch(offerMarketplaceListActions.error(null));
+    dispatch(offerMarketplaceListActions.isLoading(true));
+
+    try {
+      const filterData = {};
+      const { filters } = params;
+      if (filters) {
+        if (filters.establishments && filters.establishments.length > 0) {
+          filterData.establishment__in = filters.establishments;
+        }
+        if (filters.coaches && filters.coaches.length > 0) {
+          filterData.coach__in = filters.coaches;
+        }
+        if (filters.metaActivities && filters.metaActivities.length > 0) {
+          filterData.activity__in = filters.metaActivities;
+        }
+        if (filters.levels && filters.levels.length > 0) {
+          filterData.level__in = filters.levels;
+        }
+      }
+      // eslint-disable-next-line
+      delete params.filters;
+      const response = await api.offer.fetchOffersList({
+        ...params,
+        ...filterData,
+      });
+      dispatch(offerMarketplaceListActions.success(response.data.results));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(offerMarketplaceListActions.error(error));
+      dispatch(offerMarketplaceListActions.error(null));
+      if (options && options.onError) options.onError(error);
+    }
+
+    dispatch(offerMarketplaceListActions.isLoading(false));
+  };
+}

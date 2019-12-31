@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import moment from 'moment';
 import { Moment } from '../../i18n';
 
 import { getAllCoachesDict } from '../associated-coach/selectors';
@@ -40,7 +41,7 @@ export const withMetaActivity = (selector) =>
     (offers, metaActivityData) =>
       offers.map((o) => ({
         ...o,
-        meta_activity: metaActivityData[o.meta_activity],
+        meta_activity: metaActivityData[o.meta_activity] || o.meta_activity,
       })),
   );
 
@@ -51,9 +52,10 @@ export const withEstablishment = (selector) =>
       offers.map((o) => ({
         ...o,
         establishment_override: o.establishment_override
-          ? establishmentData[o.establishment]
+          ? establishmentData[o.establishment_override] ||
+            o.establishment_override
           : null,
-        establishment: establishmentData[o.establishment],
+        establishment: establishmentData[o.establishment] || o.establishment,
       })),
   );
 
@@ -63,8 +65,10 @@ export const withCoach = (selector) =>
     (offers, coachData) =>
       offers.map((o) => ({
         ...o,
-        coach: coachData[o.coach],
-        coach_override: o.coach_override ? coachData[o.coach_override] : null,
+        coach: coachData[o.coach] || o.coach,
+        coach_override: o.coach_override
+          ? coachData[o.coach_override] || o.coach_override
+          : null,
       })),
   );
 
@@ -143,6 +147,21 @@ export const getManagerOffersFiltered = createSelector(
     }
     return offersFiltered;
   },
+);
+
+const _getMarketplaceIds = (state) => state.offer.marketplace.allIds;
+
+export const getMarketplaceOfferList = createSelector(
+  [_getOfferData, _getMarketplaceIds],
+  (data, ids) => ids.map((id) => data[id]),
+);
+
+export const getListCalendarOfferFromNow = createSelector(
+  [_getOfferData, _getMarketplaceIds],
+  (data, ids) =>
+    ids
+      .map((id) => data[id])
+      .filter((o) => moment(o.date_start).isSameOrAfter(moment())),
 );
 
 export default { getAll, todayOffers, getSimilars };

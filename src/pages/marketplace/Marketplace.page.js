@@ -57,13 +57,7 @@ import {
   auth as authActions,
 } from '../../actions';
 
-import {
-  fetchCompanyAction,
-  fetchCompanyMetaActivitiesAction,
-  fetchCompanyActivitiesAction,
-  fetchCompanyEstablishmentsAction,
-  fetchCompanyCoachesAction,
-} from '../../libs/marketplace/actions';
+import { fetchCompanyAction } from '../../libs/marketplace/actions';
 
 type Props = {
   companyName: string,
@@ -74,10 +68,6 @@ type Props = {
   errorFields: ?{ email: ?string, password: ?string },
 
   fetchCompany: (companyId: number) => void,
-  fetchCompanyActivities: (companyId: number) => void,
-  fetchCompanyMetaActivities: (companyId: number) => void,
-  fetchCompanyEstablishments: (companyId: number) => void,
-  fetchCompanyCoaches: (companyId: number) => void,
   fetchSCT: () => void,
 
   fetchPaymentComboList: (params: any) => void,
@@ -137,10 +127,6 @@ export class MarketPlace extends Component<Props, State> {
     this.props.fetchCompanyTheme(this.props.companyId);
     this.props.fetchSCT();
     this.props.fetchCompany(this.props.companyId);
-    this.props.fetchCompanyActivities(this.props.companyId);
-    this.props.fetchCompanyMetaActivities(this.props.companyId);
-    this.props.fetchCompanyCoaches(this.props.companyId);
-    this.props.fetchCompanyEstablishments(this.props.companyId);
     if (this.props.auth.authenticated) {
       this.props.fetchCurrentBasket(this.props.companyId);
       this.props.fetchProfile();
@@ -196,7 +182,13 @@ export class MarketPlace extends Component<Props, State> {
           />
         );
       case TAB_PRIVATE_SERVICE:
-        return <MarketplacePrivateService companyId={this.props.companyId} />;
+        return (
+          <MarketplacePrivateService
+            companyId={this.props.companyId}
+            authenticated={this.props.auth.authenticated}
+            requestLogin={() => this.toogleLogin(true)}
+          />
+        );
       case TAB_WORKSHOP:
         return <MarketplaceWorkshopPage companyId={this.props.companyId} />;
       case TAB_CALENDAR:
@@ -352,24 +344,43 @@ export class MarketPlace extends Component<Props, State> {
             open={this.state.signupDialogOpen && !this.props.auth.authenticated}
             onClose={this.closeSignup}
           >
-            <DialogTitle>{t('form.signUpTitle')}</DialogTitle>
-            <DialogContent style={{ minWidth: '40vw' }}>
-              <SignUpForm
-                loading={this.props.auth.loading}
-                theme={this.props.theme}
-                emailExists={this.props.emailExists}
-                checkEmailExistsLoading={this.props.checkEmailExistsLoading}
-                checkEmailExists={this.props.checkEmailExists}
-                onComplete={(data: *) =>
-                  this.signup(data, () => {
-                    this.props.fetchProfile();
-                    this.props.fetchCurrentBasket(this.props.companyId);
-                  })
-                }
-                onCancel={() => this.setState({ signupDialogOpen: false })}
-                consumerProfile={this.props.consumerProfile}
-              />
-            </DialogContent>
+            <Grid
+              container
+              direction="column"
+              spacing={16}
+              className={classes.signupContainer}
+            >
+              <Grid item>
+                <DialogTitle>{t('form.signUpTitle')}</DialogTitle>
+              </Grid>
+              <Grid item>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}
+                />
+              </Grid>
+              <Grid item>
+                <SignUpForm
+                  loading={this.props.auth.loading}
+                  theme={this.props.theme}
+                  emailExists={this.props.emailExists}
+                  checkEmailExistsLoading={this.props.checkEmailExistsLoading}
+                  checkEmailExists={this.props.checkEmailExists}
+                  onComplete={(data: *) =>
+                    this.signup(data, () => {
+                      this.props.fetchProfile();
+                      this.props.fetchCurrentBasket(this.props.companyId);
+                    })
+                  }
+                  onCancel={() => this.setState({ signupDialogOpen: false })}
+                  consumerProfile={this.props.consumerProfile}
+                />
+              </Grid>
+            </Grid>
           </Dialog>
           <Dialog
             open={this.state.loginDialogOpen && !this.props.auth.authenticated}
@@ -398,6 +409,10 @@ const styles = (theme) => ({
     flexDirection: 'column',
     flex: 1,
     width: '100%',
+  },
+  signupContainer: {
+    padding: theme.spacing.unit * 2,
+    paddingTop: 0,
   },
   content: {
     overflowY: 'auto',
@@ -449,10 +464,6 @@ export default compose(
       fetchSCT,
       fetchCompanyTheme,
       fetchCompany: fetchCompanyAction,
-      fetchCompanyMetaActivities: fetchCompanyMetaActivitiesAction,
-      fetchCompanyActivities: fetchCompanyActivitiesAction,
-      fetchCompanyEstablishments: fetchCompanyEstablishmentsAction,
-      fetchCompanyCoaches: fetchCompanyCoachesAction,
 
       // For shop pages
       fetchCurrentBasket,

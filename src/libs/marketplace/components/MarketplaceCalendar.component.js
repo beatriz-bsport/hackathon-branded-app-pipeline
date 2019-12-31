@@ -53,6 +53,9 @@ type Props = {
   onClickBook: (offerId: number) => void,
   onClickBookOption: (offerId: number) => void,
   showOfferFilling: boolean,
+  activityLoading: boolean,
+  coachLoading: boolean,
+  establishmentLoading: boolean,
 };
 
 export class MarketplaceCalendar extends Component<Props> {
@@ -78,6 +81,9 @@ export class MarketplaceCalendar extends Component<Props> {
         onClickBook={onClickBook}
         onClickBookOption={onClickBookOption}
         onSelectDate={onSelectDate}
+        coachLoading={this.props.coachLoading}
+        establishmentLoading={this.props.establishmentLoading}
+        activityLoading={this.props.activityLoading}
       />
     ) : (
       <MarketplaceWeekTimetable
@@ -87,6 +93,9 @@ export class MarketplaceCalendar extends Component<Props> {
         onClickOffer={onClickOffer}
         onClickBook={onClickBook}
         onClickBookOption={onClickBookOption}
+        coachLoading={this.props.coachLoading}
+        establishmentLoading={this.props.establishmentLoading}
+        activityLoading={this.props.activityLoading}
       />
     );
   }

@@ -12,17 +12,21 @@ import type { TFunction } from 'react-i18next';
 
 import { snackbarSuccess as snackbarSuccessAction } from '../../actions/snackbar.actions';
 import { consumerPayWithConsumerPaymentPack as payWithConsumerPaymentPackAPI } from '../../api/payment';
-
+import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
+import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions/common';
 import * as paymentActions from '../../actions/payment.actions';
 import MarketplaceWorkshop from '../../libs/marketplace/components/MarketplaceWorkshop.component';
+
 import {
-  getOffersWorkshop,
-  getWorkshops,
-  isOfferLoading,
-} from '../../libs/marketplace/selectors';
-import { fetchCompanyOffersWorkshopAction } from '../../libs/marketplace/actions';
+  getListCalendarOfferFromNow,
+  withMetaActivity,
+  withCoach,
+  withEstablishment,
+} from '../../libs/offer/selectors';
 import { DATE_FORMAT } from '../../datetime';
 import withTitle from '../../hocs/with-title.hoc';
+import { fetchMarketplaceOfferList as fetchOfferListAction } from '../../actions/offer.actions';
 
 import { getPaymentComboListAvailableOnline } from '../../libs/payment-combo/selectors';
 import type { PaymentCombo } from '../../libs/payment-combo/types';
@@ -33,10 +37,9 @@ type Props = {
   loading: boolean,
   hideMap: boolean,
   offers: Array<Offer>,
-  workshops: Array<MetaActivity>,
   classes: *,
-
-  fetchCompanyOffers: (companyId: number, min_date: string) => void,
+  activityLoading: boolean,
+  establishmentLoading: boolean,
   goToBook: (offerId: number, companyId: number) => void,
 
   fetchPaymentPacks: (offerId: number) => void,
@@ -53,6 +56,8 @@ type Props = {
   compatibleConsumerPacks: Array<ConsumerPaymentPack>,
   compatiblePaymentPacks: Array<PaymentPack>,
   goToPackPayment: (offerId: number, companyId: number) => void,
+
+  fetchOfferList: () => void,
 };
 
 export class MarketplaceWorkshopPage extends React.Component<Props> {
@@ -64,11 +69,16 @@ export class MarketplaceWorkshopPage extends React.Component<Props> {
       .startOf('month')
       .add('years', 1)
       .format(DATE_FORMAT);
-    this.props.fetchCompanyOffers(this.props.companyId, min_date, max_date);
+    this.props.fetchOfferList({
+      company: this.props.companyId,
+      min_date,
+      max_date,
+      is_workshop: true,
+    });
   }
 
   render() {
-    const { classes, offers, workshops, loading } = this.props;
+    const { classes, offers, loading } = this.props;
     if (loading) {
       return <LinearProgress />;
     }
@@ -77,7 +87,8 @@ export class MarketplaceWorkshopPage extends React.Component<Props> {
         <div className={classes.column}>
           <MarketplaceWorkshop
             offers={offers}
-            workshops={workshops}
+            activityLoading={this.props.activityLoading}
+            establishmentLoading={this.props.establishmentLoading}
             fetchPaymentPacks={this.props.fetchPaymentPacks}
             fetchCompatiblePass={this.props.fetchCompatiblePass}
             compatibleConsumerPacks={this.props.compatibleConsumerPacks}
@@ -124,17 +135,24 @@ export default compose(
   withStyles(styles),
   connect(
     (state) => ({
-      offers: getOffersWorkshop(state),
-      workshops: getWorkshops(state),
-      loading: isOfferLoading(state),
+      offers: withMetaActivity(
+        withCoach(withEstablishment(getListCalendarOfferFromNow)),
+      )(state),
+      loading: state.offer.marketplace.loading,
       compatibleConsumerPacks: state.payment.compatibleConsumerPacks || [],
       compatiblePaymentPacks: state.payment.compatiblePaymentPacks || [],
       paymentComboList: getPaymentComboListAvailableOnline(state),
+      coachLoading: state.coach.loading,
+      establishmentLoading: state.establishment.bulkRetrieve.loading,
+      activityLoading: state.metaActivity.loading,
     }),
     {
+      fetchOfferList: fetchOfferListAction,
+      fetchEstablishmentBulk: fetchEstablishmentBulkAction,
+      fetchCoachBulk: fetchCoachBulkAction,
+      fetchMetaActivityBulk: fetchMetaActivityBulkAction,
       fetchPaymentPacks: paymentActions.fetchCompatiblePaymentPacks,
       fetchCompatiblePass: paymentActions.fetchCompatiblePass,
-      fetchCompanyOffers: fetchCompanyOffersWorkshopAction,
       goToBook: (id: number, companyId: number) =>
         push(`/customer/payment/offer/${id}?membership=${companyId}`),
       snackbarSuccess: snackbarSuccessAction,
@@ -148,6 +166,23 @@ export default compose(
           `/customer/payment/combo/${comboId}?nextOffer=${offerId}&membership=${companyId}`,
         ),
     },
+  ),
+  withProps(
+    ({
+      fetchOfferList,
+      fetchEstablishmentBulk,
+      fetchCoachBulk,
+      fetchMetaActivityBulk,
+    }) => ({
+      fetchOfferList: (params) =>
+        fetchOfferList(params, {
+          onSuccess: (offerList) => {
+            fetchEstablishmentBulk([...offerList.map((o) => o.establishment)]);
+            fetchCoachBulk([...offerList.map((o) => o.coach)]);
+            fetchMetaActivityBulk([...offerList.map((o) => o.meta_activity)]);
+          },
+        }),
+    }),
   ),
   withProps(({ pushRouter, snackbarSuccess }) => ({
     onBookOfferFromPack: (offerId, packId) => {

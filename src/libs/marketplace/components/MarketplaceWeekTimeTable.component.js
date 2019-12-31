@@ -29,6 +29,9 @@ type Props = {
   date: Object,
   t: TFunction,
   showOfferFilling: boolean,
+  activityLoading: boolean,
+  coachLoading: boolean,
+  establishmentLoading: boolean,
 };
 
 type State = {
@@ -135,6 +138,9 @@ export class MarketplaceWeekTimetable extends Component<Props, State> {
                         this.props.onClickBookOption(o.id)
                       }
                       index={index}
+                      coachLoading={this.props.coachLoading}
+                      establishmentLoading={this.props.establishmentLoading}
+                      activityLoading={this.props.activityLoading}
                     />
                   )}
                 </div>

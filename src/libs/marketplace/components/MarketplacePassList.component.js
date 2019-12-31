@@ -28,6 +28,8 @@ type Props = {
   paymentPacks: *[],
   pushPackCheckout: (number) => void,
   classes: Object,
+  metaActivities: Array<any>,
+  establishments: Array<any>,
 };
 
 const PaymentPackMarketplaceListItem = (props: {
@@ -66,7 +68,14 @@ const PaymentPackMarketplaceListItem = (props: {
 );
 
 export function MarketplacePassList(props: Props) {
-  const { paymentPacks, t, pushPackCheckout, selectedPass } = props;
+  const {
+    paymentPacks,
+    t,
+    pushPackCheckout,
+    selectedPass,
+    metaActivities,
+    establishments,
+  } = props;
   return (
     <div>
       <Typography
@@ -95,15 +104,9 @@ export function MarketplacePassList(props: Props) {
           <div>
             {selectedPass ? (
               <PaymentPackCard
-                pack={{
-                  ...selectedPass,
-                  metaActivities: selectedPass.metaActivities.map(
-                    (ma) => ma.id,
-                  ),
-                  establishments: selectedPass.establishments.map((e) => e.id),
-                }}
-                metaActivities={selectedPass.metaActivities}
-                establishments={selectedPass.establishments}
+                pack={selectedPass}
+                metaActivities={metaActivities}
+                establishments={establishments}
                 onlyPublic
               />
             ) : null}

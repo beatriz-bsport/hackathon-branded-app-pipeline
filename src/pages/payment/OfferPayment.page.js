@@ -25,7 +25,7 @@ import type { Theme } from '../../libs/theme/types';
 
 import { payment as paymentActions } from '../../actions';
 import { linkMeToCompany } from '../../libs/member/actions';
-import ConsumerModalContainer from '../../components/consumer/ConsumerModalContainer.component';
+import PaymentContainer from './PaymentContainer.component';
 import type { Offer, ConsumerPaymentPackManagerView } from '../../api/types';
 
 import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
@@ -163,14 +163,21 @@ export class OfferPaymentPage extends Component<Props, State> {
 
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
-        <ConsumerModalContainer>
+        <PaymentContainer
+          loading={
+            this.props.loading ||
+            this.state.processing ||
+            this.props.bookingOptionLoading ||
+            !this.props.offer
+          }
+        >
           <OfferPaymentForm
-            offer={this.props.offer}
             loading={
               this.props.loading ||
               this.state.processing ||
               this.props.bookingOptionLoading
             }
+            offer={this.props.offer}
             bookingOption={this.props.bookingOption}
             compatibleConsumerPacks={this.props.compatibleConsumerPacks}
             compatibleConsumerPacksLoading={
@@ -190,7 +197,7 @@ export class OfferPaymentPage extends Component<Props, State> {
             hasOneOrMoreOption={this.props.hasOneOrMoreOption}
             paymentComboList={this.props.paymentComboList}
           />
-        </ConsumerModalContainer>
+        </PaymentContainer>
       </MuiThemeProvider>
     );
   }

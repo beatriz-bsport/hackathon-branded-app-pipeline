@@ -11,6 +11,7 @@ import InfoIcon from '@material-ui/icons/InfoOutlined';
 import { withNamespaces } from 'react-i18next';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 import type { TFunction } from 'react-i18next';
 import MarketplaceBookButton from './MarketplaceBookButton.component';
@@ -28,12 +29,34 @@ type Props = {
   onClickBookOption: (offerId: number) => void,
   t: TFunction,
   showOfferFilling: boolean,
+  establishmentLoading: boolean,
+  activityLoading: boolean,
 };
 
 export const MarketplaceOffer = (props: Props) => {
   const { t, offer, selected, onClickOffer } = props;
   const { available } = offer;
   const isInThePast = isOfferInThePast(offer);
+
+  /* eslint-disable */
+
+  const coachName =
+    offer.coach_override && offer.coach_override.name
+      ? offer.coach_override.name
+      : offer.coach && offer.coach && offer.coach.name
+      ? offer.coach.name
+      : ' - ';
+
+  const metaActivityName = offer.meta_activity.name || ' - ';
+
+  const establishmentName =
+    offer.establishment_override && offer.establishment_override.title
+      ? offer.establishment_override.title
+      : offer.establishment && offer.establishment.title
+      ? offer.establishment.title
+      : ' - ';
+  /* eslint-enable */
+
   const onClick =
     onClickOffer && isInThePast ? () => onClickOffer(offer.id) : null;
   return (
@@ -52,28 +75,38 @@ export const MarketplaceOffer = (props: Props) => {
       <ListItemAvatar>
         <CoachAvatar
           t={t}
-          coach={offer.coach ? offer.coach.user : null}
-          coach_override={
-            offer.coach_override ? offer.coach_override.user : null
-          }
+          coach={offer.coach}
+          coach_override={offer.coach_override}
         />
       </ListItemAvatar>
       <ListItemText
         primary={
           <div style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
-            <Typography inline>
-              {`${
-                offer.meta_activity ? offer.meta_activity.name || '' : ''
-              } - ${formatAsTime(
-                offer.date_start,
-                offer.establishment.tzname,
-              )} - ${formatMinutes(offer.duration_minute, t)} `}
-              {props.showOfferFilling
-                ? `(${offer.bookings.length + offer.booking_options.length}/${
-                    offer.effectif
-                  })`
-                : null}
-            </Typography>
+            <div style={{ alignItems: 'center', display: 'flex' }}>
+              {(props.activityLoading && metaActivityName === ' - ') ||
+              !offer.establishment.tzname ? (
+                <MoreHorizIcon
+                  fontSize="small"
+                  style={{ marginRight: '15px' }}
+                />
+              ) : (
+                <Typography inline>
+                  {`${metaActivityName} ${formatAsTime(
+                    offer.date_start,
+                    offer.establishment.tzname,
+                  )} -
+                  `}
+                </Typography>
+              )}
+              <Typography inline style={{ marginLeft: '4px' }}>
+                {formatMinutes(offer.duration_minute, t)}
+                {props.showOfferFilling
+                  ? `(${offer.bookings.length + offer.booking_options.length}/${
+                      offer.effectif
+                    })`
+                  : null}
+              </Typography>
+            </div>
             <div
               style={{
                 flexDirection: 'row',
@@ -89,15 +122,17 @@ export const MarketplaceOffer = (props: Props) => {
                 levelId={offer.level ? offer.level : null}
               />
               <Typography inline variant="caption">
-                {offer.coach ? `  -  ${offer.coach.user.name}` : ''}
+                {`  ${coachName}`}
               </Typography>
             </div>
           </div>
         }
         secondary={
-          offer
-            ? (offer.establishment_override || offer.establishment).title
-            : ''
+          props.establishmentLoading && establishmentName === ' - ' ? (
+            <MoreHorizIcon fontSize="small" />
+          ) : (
+            establishmentName
+          )
         }
       />
       <ListItemSecondaryAction>

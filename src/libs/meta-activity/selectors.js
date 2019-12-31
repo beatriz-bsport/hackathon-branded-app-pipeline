@@ -58,3 +58,8 @@ export const getEnabledWorkshops = createSelector(
   getWorkshops,
   (workshops) => workshops.filter((ma) => !!ma.customer_enabled),
 );
+
+export const getFreshMetaActivityList = createSelector(
+  getMetaActivitiesDict,
+  (m) => Object.keys(m).map((id) => parseInt(id, 10)),
+);

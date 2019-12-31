@@ -39,7 +39,7 @@ const initialState = Immutable({
     error: null,
   },
   bulkRetrieve: {
-    loading: true,
+    loading: false,
     error: null,
   },
   // Update

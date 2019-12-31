@@ -2,7 +2,7 @@
 
 import { createSelector } from 'reselect';
 import type { State } from '../../state/types';
-import { getAll as getPaymentPackList } from '../payment-packs/selectors';
+import { getAllPaymentPacks as getPaymentPackList } from '../payment-packs/selectors';
 
 const get = (state: State, id: number) => state.subscription.byId[id];
 

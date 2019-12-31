@@ -4,13 +4,15 @@ import { createSelector } from 'reselect';
 import type { State } from '../../../state/types';
 
 import type { PrivateService, PrivateServiceWithRelatedFields } from '../types';
-import { getAllCoaches } from '../../associated-coach/selectors';
-import { getAllEstablishmentsWithAssociatedId } from '../../establishment/selectors';
-import { getAllPrivateSlotsDict } from './private-slot';
 import {
-  getEstablishments as getMarketplaceEstablishments,
-  getCoaches as getMarketplaceCoaches,
-} from '../../marketplace/selectors';
+  getAllCoaches,
+  getAllCoachesDict,
+} from '../../associated-coach/selectors';
+import {
+  getAllEstablishmentsWithAssociatedId,
+  getAllEstablishmentsDict,
+} from '../../establishment/selectors';
+import { getAllPrivateSlotsDict } from './private-slot';
 
 export const _getPrivateServicesById: (State) => {
   [id: number]: PrivateService,
@@ -71,20 +73,20 @@ export const getPrivateServicesForMarketplace: (
 ) => Array<PrivateServiceWithRelatedFields> = createSelector(
   [
     _getPrivateServices,
-    getMarketplaceCoaches,
-    getMarketplaceEstablishments,
+    getAllCoachesDict,
+    getAllEstablishmentsDict,
     getAllPrivateSlotsDict,
   ],
   (privateServices, allCoaches, allEstablishments, allSlotsDict) =>
     privateServices.map((ps) => ({
       ...ps,
       coaches: ps.coaches.map((associated_coach) =>
-        allCoaches.find((c) =>
+        Object.values(allCoaches).find((c) =>
           c.associatedcoach_set.includes(associated_coach),
         ),
       ),
       establishments: ps.establishments.map((e) =>
-        allEstablishments.find((ae) =>
+        Object.values(allEstablishments).find((ae) =>
           ae.associatedestablishment_set.includes(e),
         ),
       ),

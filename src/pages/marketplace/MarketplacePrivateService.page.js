@@ -19,12 +19,17 @@ import { getPrivateServicesForMarketplace } from '../../libs/private-service/sel
 import SlotSearcher from '../../libs/private-service/components/booking-module/SlotSearcher.component';
 import SlotSearcherHelper from '../../libs/private-service/components/booking-module/SlotSearcherHelper.component';
 import type { PrivateService } from '../../libs/private-service/types';
+import { fetchCompanyActivities } from '../../libs/meta-activity/actions/meta-activity.actions';
+import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
+import { fetchEstablishments } from '../../libs/establishment/actions';
 
 type Props = {
   companyId: number,
   searchLoading: boolean,
   bookable_slots: Array<string>,
   searchAvailableSlots: (any) => void,
+  authenticated: boolean,
+  requestLogin: () => void,
 
   private_services: Array<PrivateService>,
   fetchPrivateServiceWithSlotList: (company: number, params: any) => void,
@@ -35,6 +40,10 @@ type Props = {
   privateSlot: ?number,
   privateService: ?number,
   coaches: Array<number>,
+
+  fetchCompanyActivities: (companyId: number) => void,
+  fetchAssociatedCoachesList: (params: any) => void,
+  fetchEstablishments: (params: any) => void,
 
   goToPrivateBookingPage: (
     privateServiceId: number,
@@ -50,10 +59,20 @@ type Props = {
 
 export class MarketplacePrivateService extends React.Component<Props> {
   componentWillMount() {
+    this.props.fetchCompanyActivities(this.props.companyId);
+    this.props.fetchAssociatedCoachesList({ company: this.props.companyId });
+    this.props.fetchEstablishments({ company: this.props.companyId });
     this.props.fetchPrivateServiceWithSlotList(this.props.companyId, {
       available: true,
     });
   }
+
+  searchAvailableSlots = (...params) => {
+    if (!this.props.authenticated) {
+      this.props.requestLogin();
+    }
+    this.props.searchAvailableSlots(...params);
+  };
 
   render() {
     return (
@@ -83,7 +102,7 @@ export class MarketplacePrivateService extends React.Component<Props> {
               <SlotSearcher
                 bookable_slots={this.props.bookable_slots}
                 private_services={this.props.private_services}
-                searchAvailableSlots={this.props.searchAvailableSlots}
+                searchAvailableSlots={this.searchAvailableSlots}
                 onClickBook={(...args) =>
                   this.props.goToPrivateBookingPage(
                     ...args,
@@ -140,6 +159,9 @@ export default compose(
       privateServiceLoading: state.privateService.privateService.loading,
     }),
     {
+      fetchCompanyActivities,
+      fetchEstablishments,
+      fetchAssociatedCoachesList,
       fetchPrivateServiceWithSlotList,
       searchAvailableSlots,
       goToPrivateBookingPage: (

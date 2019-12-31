@@ -47,6 +47,10 @@ type Props = {
   location: Object,
 };
 export class PaymentRouter extends React.Component<Props> {
+  state = {
+    paymentPacks: null,
+  };
+
   componentDidMount() {
     if (this.props.authenticated) {
       this.props.fetchProfile();

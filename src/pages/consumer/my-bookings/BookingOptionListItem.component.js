@@ -92,6 +92,8 @@ export class BookingOptionListItem extends Component<Props> {
     const { bookingOption, classes } = this.props;
     const { offer, is_convertible } = bookingOption;
     const { activity } = offer;
+    console.log('option:');
+    console.log(bookingOption);
     return (
       <Paper>
         <Grid
@@ -101,14 +103,20 @@ export class BookingOptionListItem extends Component<Props> {
           className={is_convertible ? null : classes.disabled}
         >
           <Grid item xs={12}>
-            <ActivityMinimalSummary
-              noDivider
-              activity={activity}
-              date={formatAsDatetime(
-                offer.date_start,
-                offer.activity.etablissement.tzname,
-              )}
-            />
+            {activity ? (
+              <ActivityMinimalSummary
+                noDivider
+                activity={activity}
+                date={formatAsDatetime(
+                  offer.date_start,
+                  offer && offer.activity && offer.activity.establishment
+                    ? offer.activity.establishment.tzname
+                    : 'Europe/Paris',
+                )}
+              />
+            ) : (
+              <CircularProgress />
+            )}
           </Grid>
           <Divider />
           <Grid item xs={12}>

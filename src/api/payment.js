@@ -19,7 +19,7 @@ export async function consumerFetchCompatiblePass(offerId, memberId) {
 }
 
 export async function bookAnOption(offer, consumer) {
-  return postAuth(`${BASE_URI}/api/v1/waiting-list/booking-option/`, {
+  return postAuth(`${BASE_URI}/api/v1/waiting-list/booking-option/register/`, {
     offer,
     consumer: parseInt(consumer, 10),
   });

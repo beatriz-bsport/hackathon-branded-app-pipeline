@@ -78,23 +78,17 @@ export class OfferPayment extends Component<Props> {
       const localDateUpper =
         localDate[0].toUpperCase() + localDate.slice(1, localDate.length);
       return (
-        <Grid container direction="column" spacing={16}>
-          <Grid item>
-            <Typography variant="h3">{localDateUpper}</Typography>
-          </Grid>
-          <Grid item>
-            <Paper>
-              <OfferSummary offer={offer} />
-            </Paper>
-          </Grid>
-        </Grid>
+        <div className={this.props.classes.column}>
+          <Typography className={this.props.classes.title} variant="h3">
+            {localDateUpper}
+          </Typography>
+          <Paper>
+            <OfferSummary offer={offer} />
+          </Paper>
+        </div>
       );
     }
-    return (
-      <Grid container item justify="center" alignItems="center">
-        <CircularProgress />
-      </Grid>
-    );
+    return <CircularProgress className={this.props.classes.centeredLoading} />;
   };
 
   getPaymentPacksCheckout = () => {
@@ -110,43 +104,30 @@ export class OfferPayment extends Component<Props> {
     }
     if (compatibleConsumerPacks.length === 0) {
       return (
-        <Grid container direction="column" spacing={16} alignItems="flex-start">
-          <Grid item>
-            <Typography className={this.props.classes.sectionTitle}>
-              Vous ne disposez pas de pass compatible avec cette séance !
-            </Typography>
-          </Grid>
-        </Grid>
+        <Typography className={this.props.classes.sectionTitle}>
+          Vous ne disposez pas de pass compatible avec cette séance !
+        </Typography>
       );
     }
     return (
-      <Grid container direction="column" alignItems="stretch" spacing={32}>
-        <Grid item>
-          <Grid container spacing={8}>
-            <Grid item>
-              <Typography variant="h6" color="primary">
-                {compatibleConsumerPacks.length}
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Typography variant="h6">
-                {t('payment:availablePaymentPacks')}
-              </Typography>
-            </Grid>
-          </Grid>
-        </Grid>
+      <div className={this.props.classes.column}>
+        <Typography variant="h6" color="primary">
+          {compatibleConsumerPacks.length}
+        </Typography>
+        <Typography variant="h6">
+          {t('payment:availablePaymentPacks')}
+        </Typography>
         {compatibleConsumerPacks.map((ppc) => (
-          <Grid item key={ppc.id}>
-            <ConsumerPackCheckout
-              noDivider
-              consumerPack={ppc}
-              offerId={offer.id}
-              creditPrice={offer.credit_price}
-              onBookFromPack={() => this.props.onBookFromPack(ppc.id)}
-            />
-          </Grid>
+          <ConsumerPackCheckout
+            key={ppc.id}
+            noDivider
+            consumerPack={ppc}
+            offerId={offer.id}
+            creditPrice={offer.credit_price}
+            onBookFromPack={() => this.props.onBookFromPack(ppc.id)}
+          />
         ))}
-      </Grid>
+      </div>
     );
   };
 
@@ -260,33 +241,29 @@ export class OfferPayment extends Component<Props> {
     const { offer, classes } = this.props;
     if (offer && moment(offer.date_start).isBefore(moment())) {
       return (
-        <Grid item>
-          <Typography variant="h6" className={classes.doNotBookPast}>
-            Impossible de réserver une séance dans le passé !
-          </Typography>
-        </Grid>
+        <Typography variant="h6" className={classes.doNotBookPast}>
+          Impossible de réserver une séance dans le passé !
+        </Typography>
       );
     }
     return (
-      <React.Fragment>
-        <Grid item>{this.getPaymentPacksCheckout()}</Grid>
-        <Grid item>{this.renderBuyCompatiblePaymentPack()}</Grid>
-      </React.Fragment>
+      <div className={this.props.classes.paddedRow}>
+        {this.getPaymentPacksCheckout()}
+        {this.renderBuyCompatiblePaymentPack()}
+      </div>
     );
   };
 
   renderOfferNotAvailable = () => {
     if (this.props.offer && !this.props.offer.available) {
       return (
-        <Grid item>
-          <Typography
-            variant="h6"
-            color="secondary"
-            className={this.props.classes.noOfferTypography}
-          >
-            Cette séance a été annulée
-          </Typography>
-        </Grid>
+        <Typography
+          variant="h6"
+          color="secondary"
+          className={this.props.classes.noOfferTypography}
+        >
+          Cette séance a été annulée
+        </Typography>
       );
     }
     return null;
@@ -297,11 +274,9 @@ export class OfferPayment extends Component<Props> {
 
     if (loading) {
       return (
-        <Grid container spacing={16} direction="column" alignItems="center">
-          <Grid item>
-            <CircularProgress />
-          </Grid>
-        </Grid>
+        <div className={this.props.classes.centeredLoading}>
+          <CircularProgress />
+        </div>
       );
     }
 
@@ -312,27 +287,20 @@ export class OfferPayment extends Component<Props> {
       !(bookingOption && bookingOption.is_convertible)
     ) {
       return (
-        <Grid container spacing={16} direction="column" alignItems="center">
-          <Grid item>{this.getBasket()}</Grid>
-          <Grid item>
-            <Typography align="center">
-              {
-                // eslint-disable-next-line
-                "Toutes les places ont été réservées, et la liste d'attente est pleine."
-              }
-            </Typography>
-          </Grid>
-          <Grid item>
-            <div className={this.props.classes.bottomButtonContainer}>
-              <Button
-                color="secondary"
-                onClick={this.props.goToPassMarketplace}
-              >
-                {t('payment:goBack')}
-              </Button>
-            </div>
-          </Grid>
-        </Grid>
+        <div className={this.props.classes.container}>
+          {this.getBasket()}
+          <Typography align="center">
+            {
+              // eslint-disable-next-line
+              "Toutes les places ont été réservées, et la liste d'attente est pleine."
+            }
+          </Typography>
+          <div className={this.props.classes.bottomButtonContainer}>
+            <Button color="secondary" onClick={this.props.goToPassMarketplace}>
+              {t('payment:goBack')}
+            </Button>
+          </div>
+        </div>
       );
     }
 
@@ -342,48 +310,44 @@ export class OfferPayment extends Component<Props> {
       (offer.is_full && !(bookingOption && bookingOption.is_convertible))
     ) {
       return (
-        <Grid container spacing={16} direction="column" alignItems="center">
-          <Grid item>{this.getBasket()}</Grid>
+        <div className={this.props.classes.column}>
+          {this.getBasket()}
           {hasOneOrMoreOption ? (
-            <Grid item>
-              <Typography color="textSecondary" variant="caption">
-                {t('payment:hasOneOrMoreOption')}
-              </Typography>
-            </Grid>
-          ) : null}
-          <Grid item>
-            <Button
-              color="primary"
-              variant="outlined"
-              onClick={() => this.props.bookAnOption(offer.id)}
+            <Typography
+              className={this.props.classes.paddedRow}
+              color="textSecondary"
+              variant="caption"
             >
-              {hasOneOrMoreOption
-                ? t('payment:bookAnotherOption')
-                : t('payment:bookAnOption')}
-            </Button>
-          </Grid>
-          <Grid item>
-            <Typography variant="caption">
-              {t('payment:explainOption')}
+              {t('payment:hasOneOrMoreOption')}
             </Typography>
-          </Grid>
-          <Grid item>
-            <div className={this.props.classes.bottomButtonContainer}>
-              <Button
-                color="secondary"
-                onClick={this.props.goToPassMarketplace}
-              >
-                {t('payment:goBack')}
-              </Button>
-            </div>
-          </Grid>
-        </Grid>
+          ) : null}
+          <Button
+            color="primary"
+            variant="outlined"
+            onClick={() => this.props.bookAnOption(offer.id)}
+          >
+            {hasOneOrMoreOption
+              ? t('payment:bookAnotherOption')
+              : t('payment:bookAnOption')}
+          </Button>
+          <Typography
+            variant="caption"
+            className={this.props.classes.paddedRow}
+          >
+            {t('payment:explainOption')}
+          </Typography>
+          <div className={this.props.classes.bottomButtonContainer}>
+            <Button color="secondary" onClick={this.props.goToPassMarketplace}>
+              {t('payment:goBack')}
+            </Button>
+          </div>
+        </div>
       );
     }
 
     return (
-      <Grid container spacing={16} direction="column">
-        <Grid item>{this.getBasket()}</Grid>
+      <div className={this.props.classes.column}>
+        {this.getBasket()}
         {offer && offer.available
           ? this.renderBuyingMethods()
           : this.renderOfferNotAvailable()}
@@ -392,20 +356,38 @@ export class OfferPayment extends Component<Props> {
             {t('payment:goBack')}
           </Button>
         </div>
-      </Grid>
+      </div>
     );
   }
 }
 
 const styles = (theme) => ({
+  column: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    justifyContent: 'flex-start',
+  },
+  title: {
+    paddingBottom: theme.spacing.unit * 2,
+  },
   leftIcon: {
     marginRight: theme.spacing.unit,
   },
   noOfferTypography: {
     margin: theme.spacing.unit * 2,
   },
+  centeredLoading: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   doNotBookPast: {
     margin: theme.spacing.unit * 2,
+  },
+  paddedRow: {
+    paddingTop: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit,
   },
   passList: {
     border: '1px solid #E8E8E8',

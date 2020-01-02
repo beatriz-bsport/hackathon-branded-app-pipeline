@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import flatten from 'lodash/flatten';
 import List from '@material-ui/core/List';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -10,6 +10,11 @@ import Divider from '@material-ui/core/Divider';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import moment from 'moment';
+import memoize from 'memoize-one';
+
+import { DATE_FORMAT } from '../../../datetime';
+
 import type { Offer } from '../types';
 import MarketplaceListItemOffer from './MarketplaceListItemOffer.component';
 
@@ -30,14 +35,30 @@ type Props = {
   establishmentLoading: boolean,
 };
 
-export class MarketplaceTimetable extends Component<Props> {
+const getWeekOffers = memoize((selectedDate, offers) => {
+  const date_start = moment(selectedDate, DATE_FORMAT)
+    .clone()
+    .startOf('week');
+  const weekdays = moment.weekdays(true);
+  // split offers par week days
+  return weekdays.map((day, i) => {
+    const currentDate = moment(date_start).add(i, 'days');
+    return offers.filter(
+      (o) =>
+        currentDate.weekday() === i &&
+        moment(o.date_start).isSame(currentDate, 'day'),
+    );
+  });
+});
+
+export class MarketplaceTimetable extends PureComponent<Props> {
   renderDayOffers(offers: Array<*>, i: number) {
     const { date, classes, t } = this.props;
 
     return (
       <div className={classes.container}>
         <Typography variant="h6" className={classes.title}>
-          {date
+          {moment(date, DATE_FORMAT)
             .clone()
             .add(i, 'days')
             .format('dddd Do MMMM')}
@@ -69,9 +90,10 @@ export class MarketplaceTimetable extends Component<Props> {
   }
 
   renderContent = () => {
-    const { weekOffers, date, classes, t } = this.props;
-    const weekday = date.weekday();
+    const { date, classes, t } = this.props;
+    const weekday = moment(date, DATE_FORMAT).weekday();
     // split offer for the selected day
+    const weekOffers = getWeekOffers(date, this.props.offers);
     const nextDaysOffers = weekOffers.slice(weekday);
 
     return !flatten(weekOffers).length ? (
@@ -85,7 +107,6 @@ export class MarketplaceTimetable extends Component<Props> {
 
   render() {
     const { loading, offers } = this.props;
-
     return !offers || loading ? <CircularProgress /> : this.renderContent();
   }
 }

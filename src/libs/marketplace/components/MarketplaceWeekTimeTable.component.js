@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component, Fragment } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -9,9 +9,12 @@ import type { TFunction } from 'react-i18next';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import _ from 'lodash';
+import moment from 'moment';
+import memoize from 'memoize-one';
 
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import { DATE_FORMAT } from '../../../datetime';
 import { Moment } from '../../../i18n';
 import MarketplaceCardOffer from './MarketplaceCardOffer.component';
 
@@ -41,7 +44,23 @@ type State = {
 const impairColor = '#FFFFFF50';
 const pairColor = '#EEEEEE50';
 
-export class MarketplaceWeekTimetable extends Component<Props, State> {
+const getWeekOffers = (selectedDate, offers) => {
+  const date_start = Moment(selectedDate, DATE_FORMAT)
+    .clone()
+    .startOf('week');
+  const weekdays = Moment.weekdays(true);
+  // split offers par week days
+  return weekdays.map((day, i) => {
+    const currentDate = Moment(date_start).add(i, 'days');
+    return offers.filter(
+      (o) =>
+        currentDate.weekday() === i &&
+        Moment(o.date_start).isSame(currentDate, 'day'),
+    );
+  });
+};
+
+export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
   state = {
     panelsStatus: [true, true, true],
   };
@@ -57,11 +76,10 @@ export class MarketplaceWeekTimetable extends Component<Props, State> {
    */
 
   getOffersByPeriod = () => {
-    const { weekOffers } = this.props;
     const morning = [];
     const afternoon = [];
     const evening = [];
-    // orrange offers by day period
+    const weekOffers = getWeekOffers(this.props.date, this.props.offers);
     (weekOffers || []).map((dayOffers, i) => {
       morning[i] = dayOffers.filter(
         (offer) => Moment(offer.date_start).format('HH') < SPLIT_AFTERNOON,
@@ -155,15 +173,18 @@ export class MarketplaceWeekTimetable extends Component<Props, State> {
   };
 
   render() {
-    const { loading, classes, weekOffers, t, date } = this.props;
+    const { loading, classes, t, date } = this.props;
 
     const weekDays = Moment.weekdaysShort(true);
 
     const offers = this.getOffersByPeriod();
 
-    const start_date = date.clone().startOf('week');
+    const start_date = moment(date, DATE_FORMAT)
+      .clone()
+      .startOf('week');
     const size = 100 / 7;
     // if we start from firday we have to reorder the array of days
+    const weekOffers = getWeekOffers(this.props.date, this.props.offers);
     if (!_.flattenDeep(weekOffers).length) {
       return (
         <Typography variant="caption" className={classes.emptyContent}>

@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import moment from 'moment';
+import memoize from 'memoize-one';
 import { Moment } from '../../i18n';
 
 import { getAllCoachesDict } from '../associated-coach/selectors';
@@ -35,7 +36,7 @@ export const compatiblePacksWithOfferAndEnabled = createSelector(
 
 export const _getSimilars = (state) => state.offer.similarOffers.items;
 
-export const withMetaActivity = (selector) =>
+export const withMetaActivity = memoize((selector) =>
   createSelector(
     [selector, getMetaActivitiesDict],
     (offers, metaActivityData) =>
@@ -43,9 +44,10 @@ export const withMetaActivity = (selector) =>
         ...o,
         meta_activity: metaActivityData[o.meta_activity] || o.meta_activity,
       })),
-  );
+  ),
+);
 
-export const withEstablishment = (selector) =>
+export const withEstablishment = memoize((selector) =>
   createSelector(
     [selector, getAllEstablishmentsDict],
     (offers, establishmentData) =>
@@ -57,9 +59,10 @@ export const withEstablishment = (selector) =>
           : null,
         establishment: establishmentData[o.establishment] || o.establishment,
       })),
-  );
+  ),
+);
 
-export const withCoach = (selector) =>
+export const withCoach = memoize((selector) =>
   createSelector(
     [selector, getAllCoachesDict],
     (offers, coachData) =>
@@ -70,7 +73,8 @@ export const withCoach = (selector) =>
           ? coachData[o.coach_override] || o.coach_override
           : null,
       })),
-  );
+  ),
+);
 
 export const getSimilars = createSelector(
   [

@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { compose, withProps } from 'recompose';
+import { compose, withHandlers, withProps } from 'recompose';
 import { withRouter } from 'react-router';
 import { push, replace as replaceRouter } from 'react-router-redux';
 
@@ -126,15 +126,15 @@ const fromURLtoDate = (search: string) => {
   try {
     const params = search.slice(1).split('&');
     const date_string = params.find((p) => p.includes('date='));
-    return Moment(date_string.split('=')[1], DATE_FORMAT);
+    return date_string.split('=')[1];
   } catch (err) {
-    return Moment();
+    return '';
   }
 };
 
 const fromPropsToNewDateURL = (date, location) => {
   const currentDate =
-    typeof date === 'string' ? Moment(date, DATE_FORMAT) : date;
+    typeof date === 'string' ? Moment(date, DATE_FORMAT) : Moment(date);
   const params = location.search.slice(1).split('&');
   const filtered_params = params.filter((p) => !p.includes('date='));
   return `${location.pathname}?${filtered_params.join(
@@ -185,12 +185,12 @@ export class MarketplaceCalendar extends Component<Props, State> {
 
   fetchData = () => {
     // always fetch began from week start
-    const min_date = this.props.selectedDate
+    const min_date = Moment(this.props.selectedDate, DATE_FORMAT)
       .clone()
       .startOf('week')
       .format(DATE_FORMAT);
     // the max date changes if start from today is enabled
-    const max_date = this.props.selectedDate
+    const max_date = Moment(this.props.selectedDate, DATE_FORMAT)
       .clone()
       .endOf('week')
       .format(DATE_FORMAT);
@@ -219,8 +219,12 @@ export class MarketplaceCalendar extends Component<Props, State> {
     if (
       filtersPropsChanged ||
       (!prevProps.selectedDate && this.props.selectedDate) ||
-      prevProps.selectedDate.clone().week() !==
-        this.props.selectedDate.clone().week()
+      Moment(prevProps.selectedDate, DATE_FORMAT)
+        .clone()
+        .week() !==
+        Moment(this.props.selectedDate, DATE_FORMAT)
+          .clone()
+          .week()
     ) {
       this.fetchData();
     }
@@ -315,19 +319,12 @@ export class MarketplaceCalendar extends Component<Props, State> {
     this.setState({ offerId: null });
   };
 
-  getWeekOffers = () => {
-    const { selectedDate, offers } = this.props;
-    const date_start = selectedDate.clone().startOf('week');
-    const weekdays = Moment.weekdays(true);
-    // split offers par week days
-    return weekdays.map((day, i) => {
-      const currentDate = Moment(date_start).add(i, 'days');
-      return offers.filter(
-        (o) =>
-          currentDate.weekday() === i &&
-          Moment(o.date_start).isSame(currentDate, 'day'),
-      );
-    });
+  goToBook = (id: number) => {
+    this.props.goToBook(id, this.props.companyId);
+  };
+
+  goToBookOption = (id: number) => {
+    this.props.goToBookOption(id, this.props.companyId);
   };
 
   render() {
@@ -340,10 +337,6 @@ export class MarketplaceCalendar extends Component<Props, State> {
       startWeekThisWeekday,
     } = this.props;
 
-    const selectedDayOffers = offers.filter((o) =>
-      Moment(o.date_start).isSame(this.props.selectedDate, 'day'),
-    );
-    const weekOffers = this.getWeekOffers();
     return (
       <div className={classes.container}>
         <MarketplaceActivityDialog
@@ -362,9 +355,7 @@ export class MarketplaceCalendar extends Component<Props, State> {
           goToPackPayment={this.props.goToPackPayment}
           goToPaymentComboPayment={this.props.goToPaymentComboPayment}
           paymentComboList={this.props.paymentComboList}
-          goToOfferPayment={(id) =>
-            this.props.goToBook(id, this.props.companyId)
-          }
+          goToOfferPayment={this.goToBook}
           onBookFromPack={(packId) =>
             this.props.onBookOfferFromPack(this.state.offerId, packId)
           }
@@ -373,23 +364,16 @@ export class MarketplaceCalendar extends Component<Props, State> {
         <MarketplaceCalendarComponent
           offers={offers}
           showOfferFilling={this.props.theme.show_offers_filling}
-          weekOffers={weekOffers}
           setFilters={this.props.setFilters}
           filters={filters}
           loading={this.props.loading}
-          coachLoading={this.props.coachLoading}
-          establishmentLoading={this.props.establishmentLoading}
-          activityLoading={this.props.activityLoading}
           offersLoading={this.props.loading}
-          dayOffers={selectedDayOffers}
           forceDayDisplayOnly={!!this.props.forceDayDisplayOnly}
           onClickOffer={this.openOfferDialog}
-          onClickBook={(id) => this.props.goToBook(id, this.props.companyId)}
-          onClickBookOption={(id) =>
-            this.props.goToBookOption(id, this.props.companyId)
-          }
-          onSelectDate={(newDate) => this.props.handleDateChange(newDate)}
-          selectedDate={this.props.selectedDate || Moment()}
+          onClickBook={this.goToBook}
+          onClickBookOption={this.props.goToBookOption}
+          onSelectDate={this.props.handleDateChange}
+          selectedDate={this.props.selectedDate}
           coaches={coaches}
           establishments={establishments}
           metaActivities={this.props.metaActivities}
@@ -445,8 +429,8 @@ export default compose(
   })),
   connect(
     (state) => ({
-      offers: withMetaActivity(
-        withCoach(withEstablishment(getMarketplaceOfferList)),
+      offers: withCoach(
+        withMetaActivity(withEstablishment(getMarketplaceOfferList)),
       )(state),
       loading: state.offer.marketplace.loading,
       coachLoading: state.coach.loading,
@@ -501,12 +485,12 @@ export default compose(
       },
     }),
   ),
-  withProps(({ replace, location }) => ({
-    handleDateChange: (newDate_: string) => {
-      const pathname = fromPropsToNewDateURL(newDate_, location);
-      replace(pathname);
+  withHandlers({
+    handleDateChange: (props) => (newDate_: string) => {
+      const pathname = fromPropsToNewDateURL(newDate_, props.location);
+      props.replace(pathname);
     },
-  })),
+  }),
   withProps(({ location }) => ({
     selectedDate: fromURLtoDate(location.search),
   })),

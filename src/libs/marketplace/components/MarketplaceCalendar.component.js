@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import memoize from 'memoize-one';
 import withWidth from '@material-ui/core/withWidth';
@@ -58,47 +58,8 @@ type Props = {
   establishmentLoading: boolean,
 };
 
-export class MarketplaceCalendar extends Component<Props> {
-  renderTimetable(isCompact: boolean, isLarge: boolean) {
-    const {
-      dayOffers,
-      selectedDate,
-      onClickOffer,
-      onClickBook,
-      onClickBookOption,
-      weekOffers,
-      onSelectDate,
-      showOfferFilling,
-    } = this.props;
-
-    return isCompact && !isLarge ? (
-      <MarketplaceTimetable
-        showOfferFilling={showOfferFilling}
-        offers={dayOffers}
-        weekOffers={weekOffers}
-        date={selectedDate}
-        onClickOffer={onClickOffer}
-        onClickBook={onClickBook}
-        onClickBookOption={onClickBookOption}
-        onSelectDate={onSelectDate}
-        coachLoading={this.props.coachLoading}
-        establishmentLoading={this.props.establishmentLoading}
-        activityLoading={this.props.activityLoading}
-      />
-    ) : (
-      <MarketplaceWeekTimetable
-        showOfferFilling={showOfferFilling}
-        weekOffers={weekOffers}
-        date={selectedDate}
-        onClickOffer={onClickOffer}
-        onClickBook={onClickBook}
-        onClickBookOption={onClickBookOption}
-        coachLoading={this.props.coachLoading}
-        establishmentLoading={this.props.establishmentLoading}
-        activityLoading={this.props.activityLoading}
-      />
-    );
-  }
+export class MarketplaceCalendar extends PureComponent<Props> {
+  renderTimetable(isCompact: boolean, isLarge: boolean) {}
 
   getEventsFrom = memoize((offers) => {
     const events = {};
@@ -223,13 +184,37 @@ export class MarketplaceCalendar extends Component<Props> {
           searchBarOpen={this.props.filtersOpen}
           toogleSearchBar={this.props.toogleFiltersOpen}
           onDateClick={onSelectDate}
-          date={selectedDate.format(DATE_FORMAT)}
+          date={selectedDate}
           events={events}
         />
-        {loading ? (
+        {// eslint-disable-next-line
+        loading ? (
           <LoadingIndicator />
+        ) : isCompact && !isLarge ? (
+          <MarketplaceTimetable
+            showOfferFilling={this.props.showOfferFilling}
+            offers={this.props.offers}
+            date={selectedDate}
+            onClickOffer={this.props.onClickOffer}
+            onClickBook={this.props.onClickBook}
+            onClickBookOption={this.props.onClickBookOption}
+            onSelectDate={onSelectDate}
+            coachLoading={this.props.coachLoading}
+            establishmentLoading={this.props.establishmentLoading}
+            activityLoading={this.props.activityLoading}
+          />
         ) : (
-          this.renderTimetable(isCompact, isLarge)
+          <MarketplaceWeekTimetable
+            offers={this.props.offers}
+            showOfferFilling={this.props.showOfferFilling}
+            date={selectedDate}
+            onClickOffer={this.props.onClickOffer}
+            onClickBook={this.props.onClickBook}
+            onClickBookOption={this.props.onClickBookOption}
+            coachLoading={this.props.coachLoading}
+            establishmentLoading={this.props.establishmentLoading}
+            activityLoading={this.props.activityLoading}
+          />
         )}
       </div>
     );

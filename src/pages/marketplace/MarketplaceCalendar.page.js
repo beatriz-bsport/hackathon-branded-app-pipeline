@@ -122,9 +122,9 @@ const fromURLtoDate = (search: string) => {
   try {
     const params = search.slice(1).split('&');
     const date_string = params.find((p) => p.includes('date='));
-    return date_string.split('=')[1];
+    return Moment(date_string.split('=')[1], DATE_FORMAT).format(DATE_FORMAT);
   } catch (err) {
-    return '';
+    return Moment().format(DATE_FORMAT);
   }
 };
 

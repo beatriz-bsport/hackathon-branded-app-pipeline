@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
-import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';

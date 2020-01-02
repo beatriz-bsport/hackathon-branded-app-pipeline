@@ -24,6 +24,7 @@ type Props = {
   activityLoading: boolean,
   coachLoading: boolean,
   establishmentLoading: boolean,
+  showOfferFilling: boolean,
 };
 
 const pairColor = '#FFFFFF';
@@ -131,6 +132,7 @@ export const MarketplaceCardOffer = (props: Props) => {
       </ButtonBase>
       <div className={classes.bottomButton}>
         <MarketplaceBookButton
+          showOfferFilling={props.showOfferFilling}
           onClickBook={(ev) => {
             ev.stopPropagation();
             props.onClickBook(ev);

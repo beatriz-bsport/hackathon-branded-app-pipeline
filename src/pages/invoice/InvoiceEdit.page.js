@@ -99,7 +99,11 @@ export class InvoiceFormPage extends Component<Props, State> {
   }
 
   updateInvoice = (invoiceData: InvoiceData) => {
-    this.props.updateInvoice({ uuid: this.props.uuid, ...invoiceData });
+    this.props.updateInvoice(
+      { uuid: this.props.uuid, ...invoiceData },
+      true,
+      this.props.goToMemberPage(invoiceData.member),
+    );
   };
 
   render() {

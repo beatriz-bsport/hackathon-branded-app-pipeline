@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { compose } from 'recompose';
+import { compose, withProps } from 'recompose';
 import PaginatedListBase from '../../components/PaginatedListBase.component';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';

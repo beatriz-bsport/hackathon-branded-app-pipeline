@@ -178,7 +178,7 @@ export const retrieveActions = {
   isLoading: createAction('OFFER/RETRIEVE/IS_LOADING'),
 };
 
-export function fetchOfferById(id: number) {
+export function fetchOfferById(id: number, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveActions.isLoading(true));
     dispatch(retrieveActions.error(null));
@@ -186,8 +186,10 @@ export function fetchOfferById(id: number) {
     try {
       const response = await api.offer.fetchById(id);
       dispatch(retrieveActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(retrieveActions.error(error));
+      if (options && options.onError) options.onError(error);
     }
     dispatch(retrieveActions.isLoading(false));
   };

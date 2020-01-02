@@ -116,7 +116,8 @@ export function OfferMinimalSummary(props: Props) {
   if (!available) {
     formattedName += ` - ${t('offer:disabled')}`;
   }
-  const currentEstablishment = establishment_override || establishment;
+  const currentEstablishment =
+    establishment_override || establishment || offer.etablissement;
   const dateFormatter = noDate ? formatAsTime : formatAsDatetime;
   const [fillingInfo, fillingInfoProps, formattedFillingRate] = getFillingInfo(
     offer,

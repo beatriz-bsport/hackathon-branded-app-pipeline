@@ -20,7 +20,6 @@ import MarketplaceListItemOffer from './MarketplaceListItemOffer.component';
 
 type Props = {
   offers: ?Array<Offer>,
-  weekOffers: Array<Array<Offer>>,
   date: Object,
   loading: boolean,
   classes: Object,

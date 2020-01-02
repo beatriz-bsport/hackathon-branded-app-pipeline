@@ -16,7 +16,6 @@ import EstablishmentSelector from '../../establishment/components/EstablishmentS
 import MetaActivitySelector from '../../meta-activity/components/MetaActivitySelector.component';
 import LevelSelector from '../../category/components/LevelSelector.component';
 import MarketplaceWeekTimetable from './MarketplaceWeekTimeTable.component';
-import { DATE_FORMAT } from '../../../datetime';
 
 const LoadingIndicator = () => (
   <div
@@ -38,7 +37,6 @@ type Props = {
   offers: *[],
   loading: boolean,
   dayOffers: *[],
-  weekOffers: *[],
   onClickOffer: () => void,
   coaches: *[],
   establishments: *[],
@@ -57,22 +55,19 @@ type Props = {
   coachLoading: boolean,
   establishmentLoading: boolean,
 };
+const getEventsFrom = memoize((offers) => {
+  const events = {};
+  offers.forEach((o) => {
+    const midnight = Moment(o.date_start).startOf('day');
+    if (!events[midnight]) {
+      events[midnight] = [];
+    }
+    events[midnight].push(o);
+  });
+  return events;
+});
 
 export class MarketplaceCalendar extends PureComponent<Props> {
-  renderTimetable(isCompact: boolean, isLarge: boolean) {}
-
-  getEventsFrom = memoize((offers) => {
-    const events = {};
-    offers.forEach((o) => {
-      const midnight = Moment(o.date_start).startOf('day');
-      if (!events[midnight]) {
-        events[midnight] = [];
-      }
-      events[midnight].push(o);
-    });
-    return events;
-  });
-
   render() {
     const {
       classes,
@@ -101,7 +96,7 @@ export class MarketplaceCalendar extends PureComponent<Props> {
       (compactMode != null && compactMode === false) ||
       (compactMode == null && !['xs', 'sm'].includes(width));
 
-    const events = this.getEventsFrom(offers);
+    const events = getEventsFrom(offers);
 
     if (forceDayDisplayOnly) {
       if (loading) {

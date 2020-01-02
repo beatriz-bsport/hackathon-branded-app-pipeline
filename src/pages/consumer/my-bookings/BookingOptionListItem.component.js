@@ -92,8 +92,6 @@ export class BookingOptionListItem extends Component<Props> {
     const { bookingOption, classes } = this.props;
     const { offer, is_convertible } = bookingOption;
     const { activity } = offer;
-    console.log('option:');
-    console.log(bookingOption);
     return (
       <Paper>
         <Grid

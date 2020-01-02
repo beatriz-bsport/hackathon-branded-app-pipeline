@@ -92,10 +92,6 @@ type Props = {
   theme: Object,
   classes: Object,
 
-  coachLoading: boolean,
-  establishmentLoading: boolean,
-  activityLoading: boolean,
-
   fetchEstablishmentBulk: (Array) => void,
   fetchMetaActivityBulk: (Array) => void,
   fetchCoachBulk: (Array) => void,

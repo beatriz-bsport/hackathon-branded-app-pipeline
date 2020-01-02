@@ -130,16 +130,18 @@ export const contractDeleteActions = {
   success: createAction('SUBSCRIPTION_CONTRACT/DELETE/SUCCESS'),
 };
 
-export function fetchContractList(params: any) {
+export function fetchContractList(params: any, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(contractListActions.error(null));
     dispatch(contractListActions.isLoading(true));
     try {
       const response = await api.fetchContractList(params);
       dispatch(contractListActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
       dispatch(contractListActions.error(err));
+      if (options && options.onError) options.onError(err);
     }
     dispatch(contractListActions.isLoading(false));
   };

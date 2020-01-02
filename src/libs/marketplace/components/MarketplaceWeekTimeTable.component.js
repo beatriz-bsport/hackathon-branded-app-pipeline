@@ -10,7 +10,6 @@ import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import _ from 'lodash';
 import moment from 'moment';
-import memoize from 'memoize-one';
 
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
@@ -22,7 +21,6 @@ const SPLIT_AFTERNOON = 12;
 const SPLIT_EVENNING = 18;
 const DAY_PARTS = ['morning', 'afternoon', 'evening'];
 type Props = {
-  weekOffers: Array<[]>,
   loading: boolean,
   classes: Object,
   onClickOffer: () => void,
@@ -35,6 +33,7 @@ type Props = {
   activityLoading: boolean,
   coachLoading: boolean,
   establishmentLoading: boolean,
+  offers: Array<Offer>,
 };
 
 type State = {

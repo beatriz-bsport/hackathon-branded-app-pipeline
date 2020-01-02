@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { compose, withState } from 'recompose';
+import { compose, withState, withProps } from 'recompose';
 import { connect } from 'react-redux';
 import { push as pushRouter } from 'react-router-redux';
 import { withNamespaces } from 'react-i18next';
@@ -20,6 +20,7 @@ import SubscriptionContractList from '../../libs/subscription/components/Subscri
 import SubscriptionContractRegistrationManagerDialog from '../../libs/subscription/components/SubscriptionContractRegistrationManagerDialog.component';
 import { search as searchMembers } from '../../libs/member/actions';
 import { getSearchedMembers } from '../../libs/member/selectors';
+import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
 
 import {
   getSubscriptionList,
@@ -28,7 +29,7 @@ import {
 } from '../../libs/subscription/selectors';
 import {
   createOrUpdateContract,
-  fetchContractList,
+  fetchContractList as fetchContractListAction,
   deleteContract,
   fetchSubscriptionList,
 } from '../../libs/subscription/actions';
@@ -195,11 +196,12 @@ export default compose(
       searchedMembers: getSearchedMembers(state),
     }),
     {
-      fetchContractList,
+      fetchContractList: fetchContractListAction,
       fetchSubscriptionList,
       createOrUpdateContract,
       searchMembers,
       deleteContract,
+      fetchPaymentPackBulk: fetchPaymentPackBulkAction,
       goToSubscription: (id) => pushRouter(`/subscription/${id}`),
     },
   ),
@@ -207,5 +209,12 @@ export default compose(
   withState('registeringContract', 'setRegisteringContract', null),
   connect((state, { selectedContract }) => ({
     selectedContractData: getContract(state, selectedContract),
+  })),
+  withProps(({ fetchContractList, fetchPaymentPackBulk }) => ({
+    fetchContractList: (params) =>
+      fetchContractList(params, {
+        onSuccess: (contractList) =>
+          fetchPaymentPackBulk(contractList.map((c) => c.payment_pack)),
+      }),
   })),
 )(SubscriptionList);

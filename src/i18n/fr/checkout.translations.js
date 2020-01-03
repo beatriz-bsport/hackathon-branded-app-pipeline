@@ -14,7 +14,7 @@ export default {
   },
   autoAdd: {
     paymentPack: {
-      locked: 'Vous ne pouvez pas acheter ce pass !',
+      locked: "Ce produit n'est pas disponible.",
     },
   },
   myBasket: {

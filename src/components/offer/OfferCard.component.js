@@ -212,7 +212,9 @@ export class OfferCard extends Component<Props> {
           </Grid>
           <Grid item>
             <Typography variant="caption">
-              {establishment_override.location.address}
+              {establishment_override && establishment_override.location
+                ? establishment_override.location.address
+                : ' - '}
             </Typography>
           </Grid>
         </Grid>
@@ -227,7 +229,9 @@ export class OfferCard extends Component<Props> {
         </Grid>
         <Grid item>
           <Typography variant="caption">
-            {establishment ? establishment.location.address : '  -  '}
+            {establishment && establishment.location
+              ? establishment.location.address
+              : '  -  '}
           </Typography>
         </Grid>
       </Grid>

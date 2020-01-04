@@ -60,17 +60,18 @@ export class MarketplaceContract extends React.Component<Props> {
   onSubmit = async (token: string) => {
     this.setState({ processing: true });
     try {
+      const first_billing_timestamp = moment(
+        this.state.first_billing_timestamp,
+      ).unix();
       await postContractSubscriptionAPI(this.props.selected, {
         stripe_source: token,
-        first_billing_timestamp: moment(
-          this.state.first_billing_timestamp,
-        ).unix(),
+        first_billing_timestamp,
       });
+      this.props.goToUserSpace();
     } catch (err) {
       console.error(err);
     }
     this.setState({ processing: false });
-    this.props.goToUserSpace();
   };
 
   render() {

@@ -94,11 +94,16 @@ export class SubscriptionList extends React.Component<Props> {
     });
   };
 
-  onSubmit = async (token: string, first_billing_timestamp: string) => {
+  onSubmit = async (
+    token: string,
+    first_billing_timestamp: string,
+    member: number,
+  ) => {
     this.setState({ processing: true });
     try {
       await postContractSubscriptionAPI(this.props.registeringContract.id, {
         stripe_source: token,
+        member,
         first_billing_timestamp: moment(first_billing_timestamp).unix(),
       });
     } catch (err) {

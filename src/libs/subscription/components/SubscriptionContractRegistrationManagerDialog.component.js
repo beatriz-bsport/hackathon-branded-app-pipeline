@@ -92,7 +92,14 @@ export const SubscriptionContractRegistrationManagerDialog = (props: Props) => {
               contract={props.contract}
               onCancel={props.onClose}
               member={props.selectedMember}
-              onSubmit={props.onSubmit}
+              onSubmit={(token) => {
+                console.log(props.date);
+                props.onSubmit(
+                  token,
+                  moment(props.date, 'YYYY-MM-DD').unix(),
+                  props.selectedMember.id,
+                );
+              }}
               processing={props.processing}
             />
           </Elements>

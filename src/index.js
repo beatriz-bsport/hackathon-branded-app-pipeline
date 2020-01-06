@@ -17,9 +17,20 @@ if (process.env.NODE_ENV === 'production') {
     release: RELEASE,
     dsn: Config.REACT_APP_SENTRY_DSN || null,
     environment: Config.REACT_APP_SENTRY_ENVIRONMENT || 'production',
+    beforeSend(event, hint) {
+      const error = hint.originalException;
+      if (
+        error &&
+        error.message &&
+        (error.message.match(/Loading chunk /i) ||
+          error.message.match(/Loading CSS chunk /i))
+      ) {
+        return null;
+      }
+      return event;
+    },
   });
 }
-
 
 ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();

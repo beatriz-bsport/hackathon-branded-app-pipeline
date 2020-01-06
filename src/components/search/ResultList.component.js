@@ -60,7 +60,11 @@ export class ResultList extends Component<Props> {
         <ListItemText
           primary={item.name}
           primaryTypographyProps={{ noWrap: true }}
-          secondary={item.email}
+          secondary={
+            item.email || item.phone
+              ? `${item.email} ${item.phone ? item.phone : ''}`
+              : null
+          }
           classes={{ secondary: classes.email }}
         />
       </ListItem>

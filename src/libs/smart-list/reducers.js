@@ -14,6 +14,7 @@ import {
   filterUpdateAction,
   filterCreateAction,
   filterDeleteAction,
+  smartListBulkAction,
 } from './actions';
 
 const initialState: smart_list_state = Immutable({
@@ -35,7 +36,6 @@ const initialState: smart_list_state = Immutable({
 
 export default handleActions(
   {
-    // get name, id, and date of all templates for listing them
     [smartListListAction.success]: (state, { payload }) => {
       return state
         .merge(
@@ -50,6 +50,22 @@ export default handleActions(
       return state.set('error', payload);
     },
     [smartListListAction.isLoading]: (state, { payload }) => {
+      return state.set('loading', payload);
+    },
+    [smartListBulkAction.success]: (state, { payload }) => {
+      return state
+        .merge(
+          {
+            byId: payload.smartListDict,
+          },
+          { deep: true },
+        )
+        .set('allIds', payload.smartListIdList);
+    },
+    [smartListBulkAction.error]: (state, { payload }) => {
+      return state.set('error', payload);
+    },
+    [smartListBulkAction.isLoading]: (state, { payload }) => {
       return state.set('loading', payload);
     },
     [smartListDetailAction.success]: (state, { payload }) => {

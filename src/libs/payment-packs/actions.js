@@ -10,6 +10,10 @@ import {
   patch as patchAPI,
   fetchOne as fetchOneAPI,
   fetchPaymentPackList as fetchPaymentPackListAPI,
+  updatePaymentPackNotifications as updateNotificationAPI,
+  createPaymentPackNotifications as createNotificationAPI,
+  fetchPaymentPackNotifications as fetchNotificationsAPI,
+  deletePaymentPackNotifications as deleteNotificationAPI,
 } from './api';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 import { actionTypes as types } from './types';
@@ -258,5 +262,108 @@ export function fetchPaymentPackBulk(
       if (options && options.onError) options.onError();
     }
     dispatch(paymentPackBulkActions.isLoading(false));
+  };
+}
+export const notificationListActions = {
+  isLoading: createAction('PAYMENT_PACK_NOTIFICATION/LIST/IS_LOADING'),
+  error: createAction('PAYMENT_PACK_NOTIFICATION/LIST/ERROR'),
+  success: createAction('PAYMENT_PACK_NOTIFICATION/LIST/SUCCESS'),
+};
+
+export function fetchPackNotifications(paymentPackId: number, options: any) {
+  return async (dispatch: Dispatch) => {
+    dispatch(notificationListActions.isLoading(true));
+    dispatch(notificationListActions.error(null));
+    try {
+      const response = await fetchNotificationsAPI(paymentPackId);
+      const notificationById = createDictionnaryById(response.data);
+
+      dispatch(notificationListActions.success(notificationById));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      console.error(error);
+      dispatch(notificationListActions.error(error));
+    }
+    dispatch(notificationListActions.isLoading(false));
+  };
+}
+
+export const notificationCreateActions = {
+  isLoading: createAction('PAYMENT_PACK_NOTIFICATION/CREATE/IS_LOADING'),
+  error: createAction('PAYMENT_PACK_NOTIFICATION/CREATE/ERROR'),
+  success: createAction('PAYMENT_PACK_NOTIFICATION/CREATE/SUCCESS'),
+};
+
+export function createPackNotification(
+  data: any,
+  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(notificationCreateActions.isLoading(true));
+    dispatch(notificationCreateActions.error(null));
+    try {
+      const response = await createNotificationAPI(data);
+      dispatch(notificationCreateActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      console.error(error);
+      dispatch(notificationCreateActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(notificationCreateActions.isLoading(false));
+  };
+}
+
+export const notificationDeleteActions = {
+  isLoading: createAction('PAYMENT_PACK_NOTIFICATION/DELETE/IS_LOADING'),
+  error: createAction('PAYMENT_PACK_NOTIFICATION/DELETE/ERROR'),
+  success: createAction('PAYMENT_PACK_NOTIFICATION/DELETE/SUCCESS'),
+};
+
+export function deletePackNotification(
+  notificationData: any,
+  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(notificationDeleteActions.isLoading(true));
+    dispatch(notificationDeleteActions.error(null));
+    try {
+      const response = await deleteNotificationAPI(notificationData.id);
+      if (response.status >= 200 && response.status < 300) {
+        dispatch(notificationDeleteActions.success(notificationData.id));
+      }
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      console.error(error);
+      dispatch(notificationDeleteActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(notificationDeleteActions.isLoading(false));
+  };
+}
+
+export const notificationUpdateActions = {
+  isLoading: createAction('PAYMENT_PACK_NOTIFICATION/PATCH/IS_LOADING'),
+  error: createAction('PAYMENT_PACK_NOTIFICATION/PATCH/ERROR'),
+  success: createAction('PAYMENT_PACK_NOTIFICATION/PATCH/SUCCESS'),
+};
+
+export function updatePackNotification(
+  data: any,
+  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(notificationUpdateActions.isLoading(data.id));
+    dispatch(notificationUpdateActions.error(null));
+    try {
+      const response = await updateNotificationAPI(data);
+      dispatch(notificationUpdateActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      console.error(error);
+      dispatch(notificationUpdateActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(notificationUpdateActions.isLoading(null));
   };
 }

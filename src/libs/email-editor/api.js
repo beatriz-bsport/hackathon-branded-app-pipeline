@@ -6,6 +6,7 @@ import {
   postAuth,
   patchAuth,
   deleteAuth,
+  buildUrlParams,
 } from '../../http';
 
 const MARKETING_EMAIL_URI = `${API_V1_URI}/email_design/`;
@@ -14,8 +15,8 @@ export const fetchEmailTemplateDetail = async (id: number) => {
   return getAuth(`${MARKETING_EMAIL_URI}${id}/get_detail/`);
 };
 
-export const fetchEmailTemplatesSummaries = async () => {
-  return getAuth(`${MARKETING_EMAIL_URI}summary/`);
+export const fetchEmailTemplatesSummaries = async (params: any) => {
+  return getAuth(`${MARKETING_EMAIL_URI}summary/${buildUrlParams(params)}`);
 };
 
 export const fetchEmailTemplate = async (id: number) => {

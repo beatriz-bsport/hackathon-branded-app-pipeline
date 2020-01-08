@@ -23,3 +23,8 @@ export const getAllEmailTemplatesSummaries = createSelector(
   [getAllEmailTemplatesSummariesDict, getAllEmailTemplatesId],
   (summaryDict, IdList) => Immutable(IdList.map((id) => summaryDict[id])),
 );
+
+export const getFreshEmailTemplateSummariesIds = createSelector(
+  getAllEmailTemplatesSummaries,
+  (sl) => sl.map((list) => list.id),
+);

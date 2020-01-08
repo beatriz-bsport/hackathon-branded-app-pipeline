@@ -1,6 +1,57 @@
+const PAYMENT_PACK_NOTIFICATION_DAY_LEFT = 0;
+const PAYMENT_PACK_NOTIFICATION_CREDIT_LEFT = 1;
+const PAYMENT_PACK_NOTIFICATION_DAY_PAST = 2;
+
 export default {
   consumerPaymentPack: {
     addExtension: 'Extend validity',
+  },
+  notification: {
+    listItem: {
+      mail: 'Mail ',
+      deleteModal: {
+        title: 'Delete notification',
+        cancel: 'Cancel',
+        confirm: 'Delete',
+        content:
+          'Are you sure you want to delete this notification ? This choice is definitive',
+      },
+      smartList: 'Excluded lists',
+      smartListInclude: 'Included lists',
+    },
+    addButton: 'Add a notification',
+    form: {
+      noMailAvailable: 'No mail available, think about creating one',
+      selectToShowPreview: 'Select a mail to show preview',
+      mailTitle: 'Mail to send',
+      typeTitle: 'Notification type',
+      creditType: 'Remaining credits',
+      daysType: 'Period of validity',
+      daysPastType: 'Days since expiry',
+      mailSelection: 'Select mail',
+      smartListSelection: 'Select lists (optionnal)',
+      showMail: 'See mail',
+      settingTitle: 'Settings',
+      hideMail: 'Hide mail preview',
+      submit: 'Confirm',
+      cancel: 'Cancel',
+      smartListHelper:
+        "Don't send the email if the member is in one of the following lists",
+      smartListHelperInclude:
+        'Only send the email if the member is in one of the folllowing lists',
+    },
+    [PAYMENT_PACK_NOTIFICATION_DAY_LEFT]: {
+      first: 'Send an email if there is ',
+      second: 'days of validity remaining on the pass',
+    },
+    [PAYMENT_PACK_NOTIFICATION_DAY_PAST]: {
+      first: 'Send an email when the pass has expired since',
+      second: 'days',
+    },
+    [PAYMENT_PACK_NOTIFICATION_CREDIT_LEFT]: {
+      first: 'Send an email when there is ',
+      second: 'credits remaining on the pass',
+    },
   },
   search: 'Search a pass',
   extension: {

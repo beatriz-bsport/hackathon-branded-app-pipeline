@@ -10,6 +10,7 @@ import {
   emailTemplateDetailAction,
   updateEmailTemplateAction,
   emailTemplateCompleteAction,
+  emailTemplateBulkAction,
   deleteEmailTemplateAction,
   resetAction,
 } from './actions';
@@ -46,6 +47,23 @@ export default handleActions(
       return state.set('error', payload);
     },
     [emailTemplatesSummariesAction.isLoading]: (state, { payload }) => {
+      return state.set('isLoading', payload);
+    },
+
+    [emailTemplateBulkAction.success]: (state, { payload }) => {
+      return state
+        .merge(
+          {
+            byId: payload.emailTemplatesDict,
+          },
+          { deep: true },
+        )
+        .set('allIds', payload.emailTemplatesIdList);
+    },
+    [emailTemplateBulkAction.error]: (state, { payload }) => {
+      return state.set('error', payload);
+    },
+    [emailTemplateBulkAction.isLoading]: (state, { payload }) => {
       return state.set('isLoading', payload);
     },
 

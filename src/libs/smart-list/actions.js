@@ -6,8 +6,11 @@
 
 // liste deroulante a afficher quand ajout filter
 import { createAction } from 'redux-actions';
+import uniq from 'lodash/uniq';
+
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
+import { getFreshSmartListIds } from './selectors';
 import {
   fetchSmartListList as fetchSmartListListAPI,
   fetchSmartListDetail as fetchSmartListDetailAPI,
@@ -48,6 +51,40 @@ export function fetchAllSmartLists(): ThunkAction {
       dispatch(smartListListAction.error(error));
     }
     dispatch(smartListListAction.isLoading(false));
+  };
+}
+
+export const smartListBulkAction = {
+  error: createAction('SMART-LIST/BULK_RETRIEVE/ERROR'),
+  isLoading: createAction('SMART-LIST/BULK_RETRIEVE/IS_LOADING'),
+  success: createAction('SMART-LIST/BULK_RETRIEVE/SUCCESS'),
+};
+
+export function fetchSmartListBulk(ids: Array<number>): ThunkAction {
+  return async (dispatch: Dispatch, getState: () => State) => {
+    const freshSmartlistList = getFreshSmartListIds(getState());
+    const ids_uniq = uniq(ids.filter((id) => !!id)).filter(
+      (id) => !freshSmartlistList.includes(id),
+    );
+    if (ids_uniq.length === 0) {
+      return;
+    }
+    dispatch(smartListBulkAction.isLoading(true));
+    dispatch(smartListBulkAction.error(null));
+
+    try {
+      const response = await fetchSmartListListAPI({ id__in: ids_uniq });
+      dispatch(
+        smartListBulkAction.success({
+          smartListDict: createDictionnaryById(response.data),
+          smartListIdList: createIdList(response.data),
+        }),
+      );
+      dispatch(smartListBulkAction.error(null));
+    } catch (error) {
+      dispatch(smartListBulkAction.error(error));
+    }
+    dispatch(smartListBulkAction.isLoading(false));
   };
 }
 

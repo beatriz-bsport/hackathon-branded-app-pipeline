@@ -1,6 +1,57 @@
+const PAYMENT_PACK_NOTIFICATION_DAY_LEFT = 0;
+const PAYMENT_PACK_NOTIFICATION_CREDIT_LEFT = 1;
+const PAYMENT_PACK_NOTIFICATION_DAY_PAST = 2;
+
 export default {
   consumerPaymentPack: {
     addExtension: 'Ajouter une extension',
+  },
+  notification: {
+    listItem: {
+      mail: 'Mail ',
+      deleteModal: {
+        title: 'Supression notification',
+        cancel: 'annuler',
+        confirm: 'Supprimer',
+        content:
+          'Etes vous sûr de vouloir supprimer cette notification ? Cette opération est définitive',
+      },
+      smartList: 'Listes exclues',
+      smartListInclude: 'Listes incluses',
+    },
+    addButton: 'Ajouter une notification',
+    form: {
+      noMailAvailable: 'Aucun mail disponible, pensez à en créer un',
+      selectToShowPreview: 'Sélectionnez un mail pour avoir son apperçu',
+      mailTitle: 'Mail à envoyer',
+      typeTitle: 'Type de notification',
+      creditType: 'Crédits restants',
+      daysType: 'Jours de validité restants',
+      daysPastType: 'Jours de péremption',
+      mailSelection: 'Choisir un mail',
+      smartListSelection: 'Choisir des listes (optionnel)',
+      showMail: 'Voir le mail',
+      settingTitle: 'Paramètres',
+      hideMail: 'Cacher le mail',
+      submit: 'Valider',
+      cancel: 'Annuler',
+      smartListHelper:
+        "Ne pas envoyer de mail si le membre appartient à l'une des listes suivantes",
+      smartListHelperInclude:
+        "Envoyer un mail uniquement si le membre appartient à l'une des listes suivantes",
+    },
+    [PAYMENT_PACK_NOTIFICATION_DAY_LEFT]: {
+      first: "Notifier lorsqu'il reste ",
+      second: 'jours de validité sur la carte',
+    },
+    [PAYMENT_PACK_NOTIFICATION_DAY_PAST]: {
+      first: 'Notifier lorsque la carte est expirée depuis ',
+      second: 'jours',
+    },
+    [PAYMENT_PACK_NOTIFICATION_CREDIT_LEFT]: {
+      first: "Notifier lorsqu'il reste",
+      second: 'crédits',
+    },
   },
   search: 'Chercher un abonnement',
   extension: {

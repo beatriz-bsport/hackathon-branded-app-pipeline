@@ -5,7 +5,11 @@ import { actionTypes } from './types';
 import {
   fetchActivityCompatibleAction,
   fetchOneAction,
-  fetchMarketplacePacksAction,
+  notificationCreateActions,
+  notificationListActions,
+  notificationUpdateActions,
+  notificationDeleteActions,
+    fetchMarketplacePacksAction,
   paymentPackBulkActions,
 } from './actions';
 
@@ -25,7 +29,24 @@ const initialState = Immutable({
     count: 0,
   },
   byId: {},
-  allIds: [],
+    allIds: [],
+  notification: {
+    itemsById: {},
+    loading: false,
+    error: null,
+    create: {
+      loading: false,
+      error: null,
+    },
+    delete: {
+      loading: false,
+      error: null,
+    },
+    update: {
+      id: null,
+      error: null,
+    },
+  },
 });
 
 export function paymentPackReducer(state = initialState, action = {}) {
@@ -187,6 +208,51 @@ export const newPaymentPackReducer = handleActions(
         },
         { deep: true },
       );
+    },
+
+    [notificationCreateActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['notification', 'create', 'loading'], payload);
+    },
+    [notificationCreateActions.error]: (state, { payload }) => {
+      return state.setIn(['notification', 'create', 'error'], payload);
+    },
+    [notificationCreateActions.success]: (state, { payload }) => {
+      return state.merge(
+        { notification: { itemsById: { [payload.id]: payload } } },
+        { deep: true },
+      );
+    },
+    [notificationListActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['notification', 'loading'], payload);
+    },
+    [notificationListActions.error]: (state, { payload }) => {
+      return state.setIn(['notification', 'error'], payload);
+    },
+    [notificationListActions.success]: (state, { payload }) => {
+      return state.setIn(['notification', 'itemsById'], payload);
+    },
+    [notificationUpdateActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['notification', 'update', 'id'], payload);
+    },
+    [notificationUpdateActions.error]: (state, { payload }) => {
+      return state.setIn(['notification', 'update', 'error'], payload);
+    },
+    [notificationUpdateActions.success]: (state, { payload }) => {
+      return state.merge(
+        { notification: { itemsById: { [payload.id]: payload } } },
+        { deep: true },
+      );
+    },
+    [notificationDeleteActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['notification', 'delete', 'loading'], payload);
+    },
+    [notificationDeleteActions.error]: (state, { payload }) => {
+      return state.setIn(['notification', 'delete', 'error'], payload);
+    },
+    [notificationDeleteActions.success]: (state, { payload }) => {
+      const items = { ...state.notification.itemsById };
+      delete items[payload];
+      return state.setIn(['notification', 'itemsById'], items);
     },
   },
   initialState,

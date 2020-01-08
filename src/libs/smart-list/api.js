@@ -13,8 +13,8 @@ import {
 
 const SMART_LIST_URI = `${API_V1_URI}/smartlist/group/`;
 
-export const fetchSmartListList = async () => {
-  return getAuth(SMART_LIST_URI);
+export const fetchSmartListList = async (params: any) => {
+  return getAuth(`${SMART_LIST_URI}${buildUrlParams(params)}`);
 };
 
 export const fetchSmartListDetail = async (id: number) => {

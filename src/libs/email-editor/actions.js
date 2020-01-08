@@ -1,6 +1,8 @@
 // @flow
 
 import { createAction } from 'redux-actions';
+import uniq from 'lodash/uniq';
+
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
 import {
@@ -11,6 +13,8 @@ import {
   fetchEmailTemplateDetail as fetchEmailTemplateDetailAPI,
   deleteEmailTemplate as deleteEmailTemplateAPI,
 } from './api';
+
+import { getFreshEmailTemplateSummariesIds } from './selectors';
 
 import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 
@@ -40,6 +44,46 @@ export function emailTemplatesSummaries(): ThunkAction {
       dispatch(emailTemplatesSummariesAction.error(error));
     }
     dispatch(emailTemplatesSummariesAction.isLoading(false));
+  };
+}
+
+export const emailTemplateBulkAction = {
+  error: createAction('EMAIL_SUMMARY/BULK_RETRIEVE/ERROR'),
+  isLoading: createAction('EMAIL_SUMMARY/BULK_RETRIEVE/IS_LOADING'),
+  success: createAction('EMAIL_SUMMARY/BULK_RETRIEVE/SUCCESS'),
+};
+
+export function fetchEmailTemplateSummariesBulk(
+  ids: Array<number>,
+): ThunkAction {
+  return async (dispatch: Dispatch, getState: () => State) => {
+    const freshEmailTemplateList = getFreshEmailTemplateSummariesIds(
+      getState(),
+    );
+    const ids_uniq = uniq(ids.filter((id) => !!id)).filter(
+      (id) => !freshEmailTemplateList.includes(id),
+    );
+    if (ids_uniq.length === 0) {
+      return;
+    }
+    dispatch(emailTemplateBulkAction.isLoading(true));
+    dispatch(emailTemplateBulkAction.error(null));
+
+    try {
+      const response = await fetchEmailTemplatesSummariesAPI({
+        id__in: ids_uniq,
+      });
+      dispatch(
+        emailTemplateBulkAction.success({
+          emailTemplatesDict: createDictionnaryById(response.data),
+          emailTemplatesIdList: createIdList(response.data),
+        }),
+      );
+      dispatch(emailTemplateBulkAction.error(null));
+    } catch (error) {
+      dispatch(emailTemplateBulkAction.error(error));
+    }
+    dispatch(emailTemplateBulkAction.isLoading(false));
   };
 }
 

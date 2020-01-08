@@ -12,6 +12,13 @@ const get = (state: State, id: number) =>
 
 export const getOne = (state: State, id: number) => state.paymentPack.byId[id];
 
+const getPaymentPackNotifications = (state, id) =>
+  Immutable(
+    Object.values(state.paymentPack.notification.itemsById).filter(
+      (notification) => notification.payment_pack === id,
+    ),
+  );
+
 export const getEnabled = createSelector(
   getAll,
   (pps) => pps.filter((pp) => !pp.disabled),
@@ -53,4 +60,10 @@ export const getActivityCompatiblePaymentPacks = createSelector(
   (idList, paymentPacks) => idList.map((id) => paymentPacks[id]),
 );
 
-export default { get, getAll, getEnabled, getActivityCompatiblePaymentPacks };
+export default {
+  get,
+  getAll,
+  getEnabled,
+  getActivityCompatiblePaymentPacks,
+  getPaymentPackNotifications,
+};

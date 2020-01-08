@@ -7,8 +7,9 @@ import Paper from '@material-ui/core/Paper';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push as pushRouter } from 'react-router-redux';
-import { compose } from 'recompose';
+import { compose, withProps } from 'recompose';
 
+import PaymentPackNotification from '../../libs/payment-packs/components/PaymentPackNotification.component';
 import PaymentPackCard from '../../libs/payment-packs/components/PaymentPackCard.component';
 import PaginatedConsumerPackList from '../../libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
 import PaymentPackDeleteDialog from '../../libs/payment-packs/components/PaymentPackDeleteDialog.component';
@@ -21,7 +22,24 @@ import {
 } from '../../libs/consumer-payment-pack/actions';
 import { getConsumerPacksByPackWithMember } from '../../libs/consumer-payment-pack/selectors';
 
-import { patch as patchPaymentPack } from '../../libs/payment-packs/actions';
+import {
+  fetchEmailTemplateSummariesBulk as fetchEmailTemplateSummariesBulkAction,
+  emailTemplateDetail,
+  emailTemplatesSummaries as fetchEmailTemplatesSummaries,
+} from '../../libs/email-editor/actions';
+
+import {
+  getAllEmailTemplatesSummaries,
+  getEmailTemplatesDetail,
+} from '../../libs/email-editor/selectors';
+
+import {
+  patch as patchPaymentPack,
+  createPackNotification as createNotification,
+  deletePackNotification as deleteNotification,
+  updatePackNotification as updateNotification,
+  fetchPackNotifications as fetchNotificationsAction,
+} from '../../libs/payment-packs/actions';
 import paymentPackSelector from '../../libs/payment-packs/selectors';
 import type { MetaActivity } from '../../api/types';
 import withTitle from '../../hocs/with-title.hoc';
@@ -44,6 +62,13 @@ import { fetchFilteredMembers } from '../../libs/member/actions';
 import type { OptionCallback } from '../../state/types';
 
 import { snackbarSuccess } from '../../actions/snackbar.actions';
+
+import { getAllSmartList } from '../../libs/smart-list/selectors';
+
+import {
+  fetchSmartListBulk as fetchSmartListBulkAction,
+  fetchAllSmartLists,
+} from '../../libs/smart-list/actions';
 
 type Props = {
   loading: boolean,
@@ -81,6 +106,24 @@ type Props = {
   snackbarSuccess: (string) => void,
 
   classes: Object,
+
+  // notification
+  fetchNotifications: (id: number) => void,
+  fetchEmailTemplatesSummaries: () => void,
+  fetchEmailTemplateDetail: (id: number) => void,
+  getSmartLists: () => void,
+  createNotification: () => void,
+  updateNotification: (data: any) => void,
+  deleteNotification: (id: number) => void,
+
+  emailListLoading: boolean,
+  emailDetailLoading: boolean,
+  smartListLoading: boolean,
+
+  email_templates_list: Array<any>,
+  email_templates_details: Array<any>,
+  smartLists: Array<any>,
+  notifications: Array<any>,
 };
 
 type State = {
@@ -99,6 +142,7 @@ export class PaymentPackDetail extends Component<Props, State> {
     this.props.fetchEstablishments();
     this.props.fetchAllActivities();
     this.props.fetchAllWorkshops();
+    this.props.fetchNotifications(this.props.id);
   }
 
   requestEdit = (p: PaymentPack) => {
@@ -132,6 +176,7 @@ export class PaymentPackDetail extends Component<Props, State> {
       classes,
       metaActivities,
       establishments,
+      notifications,
     } = this.props;
 
     if (loading) {
@@ -148,6 +193,25 @@ export class PaymentPackDetail extends Component<Props, State> {
             onEditButtonClick={() => this.requestEdit(pack)}
             onDeleteButtonClick={() => this.requestDelete(pack)}
             snackbarSuccess={this.props.snackbarSuccess}
+          />
+          <PaymentPackNotification
+            pack={pack}
+            notifications={notifications}
+            getEmails={this.props.fetchEmailTemplatesSummaries}
+            emails={this.props.email_templates_list}
+            getEmailDetail={this.props.fetchEmailTemplateDetail}
+            emailDetails={this.props.email_templates_details}
+            emailListLoading={this.props.emailListLoading}
+            emailDetailLoading={this.props.emailDetailLoading}
+            createNotification={this.props.createNotification}
+            deleteNotification={this.props.deleteNotification}
+            updateNotification={this.props.updateNotification}
+            onEditButtonClick={(notifId) => this.editNotification(notifId)}
+            onDeleteButtonClick={(notifId) => this.deleteNotification(notifId)}
+            onCreateButtonClick={() => this.createNotification(pack.id)}
+            smartLists={this.props.smartLists}
+            smartListLoading={this.props.smartListLoading}
+            getSmartLists={this.props.getSmartLists}
           />
         </Grid>
 
@@ -244,6 +308,11 @@ function mapStateToProps(state, { id }) {
   return {
     loading: state.paymentPack.loading || state.establishment.loading,
     pack: paymentPackSelector.get(state, id),
+    notifications: {
+      items: paymentPackSelector.getPaymentPackNotifications(state, id),
+      loading: state.paymentPack.notification.loading,
+      updating: state.paymentPack.notification.update.id,
+    },
     metaActivities: [...getMetaActivities(state), ...getWorkshops(state)],
     establishments: getAllEstablishments(state),
     consumerPacks: {
@@ -253,6 +322,13 @@ function mapStateToProps(state, { id }) {
       page: state.consumerPaymentPack.byPaymentPack.page,
       updating: state.consumerPaymentPack.updatingConsumerPacks,
     },
+    email_templates_list: getAllEmailTemplatesSummaries(state),
+    email_templates_details: getEmailTemplatesDetail(state),
+    emailListLoading: state.emailTemplate.isLoading,
+    emailDetailLoading: state.emailTemplate.detail.isLoading,
+    smartLists: getAllSmartList(state),
+
+    smartListLoading: state.smartList.isLoading,
   };
 }
 
@@ -266,6 +342,12 @@ export default compose(
       fetchAllActivities,
       snackbarSuccess,
       fetchAllWorkshops,
+      createNotification,
+      deleteNotification,
+      updateNotification,
+      fetchEmailTemplateDetail: (id) => emailTemplateDetail(id),
+      goToEmailCreate: () => pushRouter('/email-template/create'),
+
       incrementCredit: (consumerPackId) =>
         updateCreditAction(consumerPackId, 1),
       decrementCredit: (consumerPackId) =>
@@ -285,7 +367,38 @@ export default compose(
         options: OptionCallback,
       ) => fetchByPaymentPackAction(paymentPackId, page, pageSize, options),
       fetchFilteredMembers,
+      fetchEmailTemplateSummariesBulk: fetchEmailTemplateSummariesBulkAction,
+      fetchSmartListBulk: fetchSmartListBulkAction,
+      fetchNotifications: fetchNotificationsAction,
+      fetchEmailTemplatesSummaries,
+      getSmartLists: fetchAllSmartLists,
     },
+  ),
+  withProps(
+    ({
+      fetchNotifications,
+      fetchEmailTemplateSummariesBulk,
+      fetchSmartListBulk,
+    }) => ({
+      fetchNotifications: (params) =>
+        fetchNotifications(params, {
+          onSuccess: (notificationList) => {
+            fetchEmailTemplateSummariesBulk(
+              notificationList.map((notification) => notification.email_design),
+            );
+            fetchSmartListBulk(
+              [
+                ...notificationList.map(
+                  (notification) => notification.smartlist_include,
+                ),
+                ...notificationList.map(
+                  (notification) => notification.smartlist_exclude,
+                ),
+              ].flat(),
+            );
+          },
+        }),
+    }),
   ),
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:paymentPack.paymentPackList'),

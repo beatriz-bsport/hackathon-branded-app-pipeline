@@ -1,9 +1,12 @@
+// @flow
+
 import {
   API_URI,
   getAuth,
   postAuth,
   patchAuth,
   putAuth,
+  deleteAuth,
   API_V1_URI,
   buildUrlParams,
 } from '../../http';
@@ -54,6 +57,24 @@ export async function fetchCompanyPaymentPacks(companyId) {
   return getAuth(
     `${API_V1_URI}/payment-pack/payment-pack/?company=${companyId}`,
   );
+}
+
+export async function fetchPaymentPackNotifications(paymentPackId: number) {
+  return getAuth(
+    `${API_V1_URI}/payment-pack/notification/?payment_pack=${paymentPackId}`,
+  );
+}
+
+export async function createPaymentPackNotifications(data: any) {
+  return postAuth(`${API_V1_URI}/payment-pack/notification/`, data);
+}
+
+export async function deletePaymentPackNotifications(id: number) {
+  return deleteAuth(`${API_V1_URI}/payment-pack/notification/${id}/`);
+}
+
+export async function updatePaymentPackNotifications(data: any) {
+  return patchAuth(`${API_V1_URI}/payment-pack/notification/${data.id}/`, data);
 }
 
 export default {

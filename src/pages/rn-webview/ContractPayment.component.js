@@ -1,12 +1,10 @@
 // @flow
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { compose, withState, withProps } from 'recompose';
+import { compose, withProps } from 'recompose';
 import { connect } from 'react-redux';
 
-import { withNamespaces } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
-import type { TFunction } from 'react-i18next';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 import moment from 'moment';
 
@@ -18,13 +16,20 @@ import SubscriptionPayment from '../../libs/subscription/components/Subscription
 import { postContractSubscriptionUnauthenticated as postContractSubscriptionUnauthenticatedAPI } from '../../libs/subscription/api';
 
 type Props = {
-  t: TFunction,
   classes: Object,
-  submitPaymentIntent: (data: any, option: OptionCallback) => void,
+  onSuccess: () => void,
+  onCancel: () => void,
+  date: string,
+  memberId: number,
+  contractId: number,
+};
+
+type State = {
+  processing: boolean,
 };
 const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
 
-export class ContractPayment extends React.Component<Props> {
+export class ContractPayment extends React.Component<Props, State> {
   state = { processing: false };
 
   onSubmit = async (token: string) => {
@@ -78,7 +83,6 @@ export default compose(
     memberId: parseInt(parse(location.search).member, 10),
   })),
   withStyles(styles),
-  withNamespaces(['checkout']),
   routerParamsToProps({ contractId: 'contractId' }),
   connect(
     null,

@@ -11,6 +11,7 @@ import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import EuroIcon from '@material-ui/icons/EuroSymbol';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import ReceiptIcon from '@material-ui/icons/Receipt';
+import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
 
 import type { ReportCategoryEnum, ReportCategory } from './types';
 
@@ -74,6 +75,11 @@ export const CATEGORIES: ReportCategory[] = [
     id: 'private_bookings',
     name: 'Reservations (cours privé)',
     icon: EventAvailableIcon,
+  },
+  {
+    id: 'discount',
+    name: 'Promotions',
+    icon: CardGiftcardIcon,
   },
 ];
 

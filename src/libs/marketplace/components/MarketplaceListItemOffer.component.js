@@ -101,9 +101,7 @@ export const MarketplaceOffer = (props: Props) => {
               <Typography inline style={{ marginLeft: '4px' }}>
                 {formatMinutes(offer.duration_minute, t)}
                 {props.showOfferFilling
-                  ? `(${offer.bookings.length + offer.booking_options.length}/${
-                      offer.effectif
-                    })`
+                  ? `(${offer.tot_slots}/${offer.effectif})`
                   : null}
               </Typography>
             </div>

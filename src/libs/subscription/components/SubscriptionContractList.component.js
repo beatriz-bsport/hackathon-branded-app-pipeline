@@ -23,6 +23,8 @@ type Props = {
   setContractToEdit: (?Contract) => void,
   createOpen: boolean,
   setCreateOpen: (boolean) => void,
+  dense?: boolean,
+  divider?: boolean,
 
   selectedContract: ?number,
   onClick: (id: number) => void,
@@ -47,6 +49,8 @@ export const SubscriptionContractList = (props: Props) => {
             <SubscriptionContractListItem
               key={c.id}
               contract={c}
+              divider={props.divider}
+              dense={props.dense}
               selected={c.id === props.selectedContract}
               onClick={props.onClick ? () => props.onClick(c.id) : null}
               onRegister={() => props.onRegister(c)}

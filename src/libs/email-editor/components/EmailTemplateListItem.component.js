@@ -46,6 +46,7 @@ export class EmailCard extends Component<Props, state> {
       <ListItem
         divider
         button
+        dense
         selected={this.props.selected}
         onClick={() => this.props.onClick(this.props.email_template.id)}
       >

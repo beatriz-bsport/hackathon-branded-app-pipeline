@@ -20,6 +20,7 @@ type Props = {
   onClick?: () => void,
   onRegister?: () => void,
   selected?: boolean,
+  dense?: boolean,
   divider?: boolean,
 };
 
@@ -30,6 +31,7 @@ export const SubscriptionContractListItem = (props: Props) => {
       button={!!props.onClick}
       selected={props.selected}
       divider={props.divider}
+      dense={props.dense}
     >
       <ListItemText
         primary={`${props.contract.name} - ${props.contract.recurrent_price}€`}

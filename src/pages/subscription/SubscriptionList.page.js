@@ -123,6 +123,8 @@ export class SubscriptionList extends React.Component<Props> {
         <Divider className={this.props.classes.divider} />
         <SubscriptionContractList
           contractList={this.props.contractList}
+          dense
+          divider
           loading={this.props.contractLoading}
           onClick={this.onClickContract}
           selectedContract={this.props.selectedContract}

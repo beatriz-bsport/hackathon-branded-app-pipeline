@@ -35,7 +35,11 @@ export class CoachSelector extends Component<Props, State> {
   };
 
   clearSearch = () => {
-    this.setState({ searchText: '', searchResult: this.props.coaches });
+    this.setState({
+      searchText: '',
+      displayList: true,
+      searchResult: this.props.coaches,
+    });
   };
 
   render() {
@@ -47,7 +51,13 @@ export class CoachSelector extends Component<Props, State> {
               coach={this.props.value}
               noDivider
               button
-              onDelete={() => this.props.onChange()}
+              onDelete={() => {
+                this.props.onChange();
+                this.setState({
+                  displayList: true,
+                  searchResult: this.props.coaches,
+                });
+              }}
               clearIcon
             />
           </div>

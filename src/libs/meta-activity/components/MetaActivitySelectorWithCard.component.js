@@ -21,8 +21,8 @@ type Props = {
 export class MetaActivity extends Component<Props, State> {
   state = {
     searchText: '',
-    searchResult: [],
-    displayList: false,
+    searchResult: this.props.metaActivities,
+    displayList: true,
   };
 
   changeSearch = (fuse) => (ev) => {
@@ -54,8 +54,7 @@ export class MetaActivity extends Component<Props, State> {
             <Button
               onClick={() => {
                 if (this.state.searchText === '') {
-                  this.setState((prevstate) => ({
-                    displayList: !prevstate.displayList,
+                  this.setState(() => ({
                     searchResult: this.props.metaActivities || [],
                   }));
                 }

@@ -34,7 +34,11 @@ export class EstablishmentSelector extends Component<Props, State> {
   };
 
   clearSearch = () => {
-    this.setState({ searchText: '', searchResult: this.props.establishments });
+    this.setState({
+      searchText: '',
+      displayList: true,
+      searchResult: this.props.establishments,
+    });
   };
 
   render() {
@@ -47,7 +51,13 @@ export class EstablishmentSelector extends Component<Props, State> {
               noDivider
               button
               clearIcon
-              onClickDelete={() => this.props.onChange()}
+              onClickDelete={() => {
+                this.props.onChange();
+                this.setState({
+                  displayList: true,
+                  searchResult: this.props.establishments,
+                });
+              }}
             />
           </div>
         ) : (

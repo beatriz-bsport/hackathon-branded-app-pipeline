@@ -9,6 +9,7 @@ export default {
     },
   },
   copy: 'copy',
+  duplicate: 'Duplicate',
 
   listTitle: 'My templates',
   editTitle: 'Template edition',

@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { withNamespaces } from 'react-i18next';
-
+import moment from 'moment';
 import classNames from 'classnames';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -57,10 +57,18 @@ export function EmailSelector(props: Props) {
     helperText,
     nullCurrentValue,
   } = props;
+
   const suggestions = emails
     .asMutable()
-    .sort((pp, pp_) => pp.title > pp_.title)
-    .map((pp) => ({ value: pp.id, label: pp.title, pp }));
+    .sort((pp, pp_) => {
+      if (moment(pp.date_modifed) > moment(pp_.date_modifed)) return 1;
+      return -1;
+    })
+    .map((pp) => ({
+      value: pp.id,
+      label: pp.title,
+      pp,
+    }));
   return (
     <Selector
       searchIcon

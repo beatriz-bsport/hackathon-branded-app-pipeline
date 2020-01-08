@@ -8,6 +8,7 @@ export default {
       confirm: 'Supprimer',
     },
   },
+  duplicate: 'Dupliquer',
   copy: 'copie',
   listTitle: 'Mes modèles emails',
   editTitle: 'édition du modèle',

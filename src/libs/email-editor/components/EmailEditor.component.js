@@ -54,7 +54,7 @@ export class EmailEditorPanel extends Component<Props, State> {
           html,
           design: JSON.stringify(design),
           company: this.props.company_id,
-          date_created: moment(),
+          date_modified: moment(),
         });
       }
     });

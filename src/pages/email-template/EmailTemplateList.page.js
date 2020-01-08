@@ -149,6 +149,7 @@ export class MarketingEmail extends Component<Props> {
                     }}
                     email_template={email_templates_summaries[emailId]}
                     onClickDuplicate={this.onDuplicate}
+                    onClickEdit={(id) => this.props.goToEdit(id)}
                     onClickDelete={this.props.emailTemplateDelete}
                     selected={emailId === this.props.id}
                   />

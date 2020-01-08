@@ -560,12 +560,14 @@ export class Planning extends PureComponent<Props, State> {
             <div className={classes.panel}>
               <Paper style={{ width: '100%' }}>
                 <Calendar
+                  showDownloader
                   events={events_}
                   onDateClick={this.loadDayData}
                   date={this.props.date}
                   searchBar={this.searchBar()}
                   searchBarOpen={this.props.offerFilterOpen}
                   toogleSearchBar={this.props.toogleFilter}
+                  filters={this.props.offerFilters}
                 />
                 <TimeTable
                   onOfferSelected={this.selectOffer}

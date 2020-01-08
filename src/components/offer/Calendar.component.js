@@ -4,8 +4,12 @@ import classNames from 'classnames';
 
 import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
+
+import Button from '@material-ui/core/Button';
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import Divider from '@material-ui/core/Divider';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Collapse from '@material-ui/core/Collapse';
 import FilterIcon from '@material-ui/icons/FilterList';
 import Typography from '@material-ui/core/Typography';
@@ -17,6 +21,7 @@ import ViewWeek from '@material-ui/icons/ViewWeek';
 import ViewComfy from '@material-ui/icons/ViewComfy';
 import { Moment } from '../../i18n';
 import { formatAsTitle, DATE_FORMAT } from '../../datetime';
+import { API_URI, getAuth, buildUrlParams } from '../../http';
 
 const WEEKMODE: number = 0;
 const MONTHMODE: number = 1;
@@ -34,10 +39,13 @@ type Props = {
   showDayName: ?boolean,
   hideDateBar: ?boolean,
   hideSwitchViewButton: ?boolean,
+  filters: any,
+  showDownloader?: boolean,
 };
 
 type State = {
   displayMode: number,
+  isDownloading: boolean,
 };
 
 export class Calendar extends PureComponent<Props, State> {
@@ -45,6 +53,7 @@ export class Calendar extends PureComponent<Props, State> {
     super(props);
     this.state = {
       displayMode: props.forceMonthDisplay ? MONTHMODE : WEEKMODE,
+      isDownloading: false,
     };
   }
 
@@ -249,6 +258,36 @@ export class Calendar extends PureComponent<Props, State> {
           </Grid>
         </Grid>
         <Grid item>
+          {this.props.showDownloader ? (
+            <Button
+              onClick={async () => {
+                this.setState({ isDownloading: true });
+                try {
+                  const response = await getAuth(
+                    `${API_URI}/reporting/reports/offer_management/${buildUrlParams(
+                      this.buildFilters(this.props.filters),
+                    )}`,
+                  );
+                  const link = document.createElement('a');
+                  link.setAttribute('type', 'hidden');
+                  link.href = response.data;
+                  document.body.appendChild(link);
+                  link.click();
+                  link.remove();
+                } catch (err) {
+                  console.error(err);
+                }
+                this.setState({ isDownloading: false });
+              }}
+              className={classes.actionButton}
+            >
+              {this.state.isDownloading ? (
+                <CircularProgress />
+              ) : (
+                <CloudDownloadIcon />
+              )}
+            </Button>
+          ) : null}
           {this.renderSearchButton()}
           {forceMonthDisplay || hideSwitchViewButton ? null : (
             <IconButton
@@ -312,6 +351,23 @@ export class Calendar extends PureComponent<Props, State> {
         {weekRows}
       </Grid>
     );
+  };
+
+  buildFilters = (filters) => {
+    const params = {};
+    if (filters.coaches && filters.coaches.length > 0) {
+      params.coach_in = filters.coaches;
+    }
+    if (filters.establishments && filters.establishments.length > 0) {
+      params.establishment_in = filters.establishments;
+    }
+    if (filters.levels && filters.levels.length > 0) {
+      params.level_in = filters.levels;
+    }
+    if (filters.metaActivities && filters.metaActivities.length > 0) {
+      params.activity_in = filters.metaActivities;
+    }
+    return params;
   };
 
   renderSearchBar = () => {
@@ -406,6 +462,9 @@ const styles = (theme) => ({
       marginLeft: theme.spacing.unit,
       marginRight: theme.spacing.unit,
     },
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
   },
   searchBarContainer: {
     marginBottom: theme.spacing.unit,

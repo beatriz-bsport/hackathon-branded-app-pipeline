@@ -110,25 +110,27 @@ export class SubscriptionPayment extends React.Component<Props> {
             <div>
               <div className={classes.nameAndEmailContainer}>
                 <TextField
-                  inline
                   required
+                  fullWidth
                   value={name}
                   variant="outlined"
                   placeholder={t('subscription:mandate.name')}
                   onChange={(ev) => this.setState({ name: ev.target.value })}
                 />
                 <TextField
-                  inline
                   type="email"
                   required
+                  fullWidth
                   variant="outlined"
                   value={email}
                   placeholder={t('subscription:mandate.email')}
                   onChange={(ev) => this.setState({ email: ev.target.value })}
                 />
               </div>
-              <div className={classes.sensitiveData}>
-                <IbanElement supportedCountries={['SEPA']} />
+              <div className={classes.sensitiveDataContainer}>
+                <div className={classes.sensitiveData}>
+                  <IbanElement supportedCountries={['SEPA']} />
+                </div>
               </div>
               <Typography
                 color="textSecondary"
@@ -140,8 +142,10 @@ export class SubscriptionPayment extends React.Component<Props> {
             </div>
           ) : null}
           {props.paymentMethod === 'card' ? (
-            <div className={classes.sensitiveData}>
-              <CardElement />
+            <div className={classes.sensitiveDataContainer}>
+              <div className={classes.sensitiveData}>
+                <CardElement />
+              </div>
             </div>
           ) : null}
         </div>
@@ -177,10 +181,17 @@ const styles = (theme) => ({
   buttonContainer: {
     padding: theme.spacing.unit * 2,
   },
+  sensitiveDataContainer: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+  },
   sensitiveData: {
     backgroundColor: '#EFEFEF',
     padding: theme.spacing.unit * 2,
     minWidth: '30vw',
+    maxWidth: '80vw',
+    width: '100%',
   },
   paymentMethodSelectorContainer: {
     display: 'flex',
@@ -190,6 +201,7 @@ const styles = (theme) => ({
     marginBottom: theme.spacing.unit * 2,
   },
   nameAndEmailContainer: {
+    flexDirection: 'column',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',

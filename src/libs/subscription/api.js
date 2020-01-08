@@ -6,10 +6,11 @@ import {
   deleteAuth,
   getAuth,
   postAuth,
+  post,
   patchAuth,
 } from '../../http';
 
-const fetchAll = async (params) => {
+const fetchAll = async (params: any) => {
   return getAuth(
     `${API_URI}/subscription/billing-plan/${buildUrlParams(params)}`,
   );
@@ -47,6 +48,13 @@ const deleteContract = async (id: number) => {
 
 export const postContractSubscription = async (id: number, data: any) => {
   return postAuth(`${API_URI}/subscription/contract/${id}/register/`, data);
+};
+
+export const postContractSubscriptionUnauthenticated = async (
+  id: number,
+  data: any,
+) => {
+  return post(`${API_URI}/subscription/contract/${id}/register/`, data);
 };
 
 export default {

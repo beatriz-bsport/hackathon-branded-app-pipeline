@@ -374,7 +374,9 @@ export class FormField extends Component<Props, State> {
               <MenuItem value={60}>{t('form.oneHour')}</MenuItem>
               <MenuItem value={90}>{t('form.oneHourAndHalf')}</MenuItem>
               <MenuItem value={120}>{t('form.twoHour')}</MenuItem>
+              <MenuItem value={180}>{t('form.threeHour')}</MenuItem>
               <MenuItem value={360}>{t('form.sixHour')}</MenuItem>
+              <MenuItem value={720}>{t('form.twelveHour')}</MenuItem>
               <MenuItem value={24 * 60}>{t('form.oneDay')}</MenuItem>
             </Select>
           </FormControl>

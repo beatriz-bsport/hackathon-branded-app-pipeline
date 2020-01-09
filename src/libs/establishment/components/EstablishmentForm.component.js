@@ -162,7 +162,6 @@ export class EstablishmentForm extends Component<Props, State> {
                 <TextField
                   multiline
                   rows={3}
-                  required
                   value={this.state.practical_info}
                   onChange={(ev) =>
                     this.onFormFieldChange('practical_info')(ev.target.value)

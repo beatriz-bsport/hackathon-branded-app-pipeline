@@ -103,7 +103,7 @@ export class InvoiceCreatePage extends Component<Props, State> {
         date,
       },
       true,
-      this.props.goToMemberPage(this.props.member.id),
+      () => this.props.goToMemberPage(this.props.member.id),
     );
     this.setState({ invoiceData: null });
   };

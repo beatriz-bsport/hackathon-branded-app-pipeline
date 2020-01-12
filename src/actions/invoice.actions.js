@@ -277,6 +277,6 @@ export function actionUpdateInvoiceSuccess(invoice: Invoice) {
 export function actionCreateOrUpdateInvoiceError(error: ?Object) {
   return {
     type: types.INVOICE_CREATE_OR_UPDATE_ERROR,
-    error: JSON.stringify(error),
+    error,
   };
 }

@@ -136,9 +136,14 @@ export default function invoiceReducers(state = initialState, action = {}) {
       });
 
     case actionTypes.INVOICE_CREATE_OR_UPDATE_ERROR:
+      if (action.error) {
+        return state.merge({
+          createOrUpdateError: action.error,
+          createOrUpdatePending: false,
+        });
+      }
       return state.merge({
-        createOrUpdateError: action.error,
-        createOrUpdatePending: false,
+        createOrUpdateError: null,
       });
 
     case actionTypes.INVOICE_UPDATE_SUCCESS:

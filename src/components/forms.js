@@ -442,15 +442,18 @@ export const DURATION_CHOICES_SHORT = [
   { value: 60, label: 'form.oneHour' },
   { value: 90, label: 'form.oneHourAndHalf' },
   { value: 120, label: 'form.twoHour' },
+  { value: 180, label: 'form.threeHour' },
   { value: 240, label: 'form.fourHour' },
   { value: 360, label: 'form.sixHour' },
   { value: 60 * 8, label: 'form.eightHour' },
+  { value: 60 * 12, label: 'form.twelveHour' },
   { value: 24 * 60, label: 'form.oneDay' },
   { value: 999999, label: 'form.never' },
 ];
 
 const DURATION_CHOICES_LONG = [
   { value: 0, label: 'form.zeroMinute' },
+  { value: 60 * 12, label: 'form.twelveHour' },
   { value: 24 * 60, label: 'form.oneDay' },
   { value: 2 * 24 * 60, label: 'form.twoDays' },
   { value: 7 * 24 * 60, label: 'form.oneWeek' },

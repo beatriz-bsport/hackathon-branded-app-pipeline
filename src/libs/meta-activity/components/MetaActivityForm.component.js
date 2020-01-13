@@ -3,6 +3,7 @@
 import React from 'react';
 
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 
@@ -42,6 +43,13 @@ export function MetaActivityForm(props: Props) {
   return (
     <Form>
       <ImageField name="cover_main" />
+      <Typography
+        style={{ margin: 12 }}
+        variant="caption"
+        color="textSecondary"
+      >
+        {props.t('activity.explainImage')}
+      </Typography>
       <div className={classes.container}>
         <TextField
           label={t('activity.name')}

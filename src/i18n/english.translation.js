@@ -750,6 +750,7 @@ export default {
     },
     activity: {
       nextSlotAt: 'Next session: ',
+      explainImage: 'Recommanded: 1920x1080 jpeg (fullHD)',
       settings: 'Parameters',
       sizeOfWaitingList: 'Size of waiting list',
       lastBookingBeforeMinutes: 'Last booking is possible until',

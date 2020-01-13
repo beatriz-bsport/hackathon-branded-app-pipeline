@@ -803,6 +803,7 @@ export default {
           error: "Impossible de mettre à jour l'activité",
         },
       },
+      explainImage: 'Recommandé: 1920x1080 jpeg (fullHD)',
       nextSlotAt: 'Prochaine séance le ',
       settings: 'Paramètres',
       lastBookingBeforeMinutes:

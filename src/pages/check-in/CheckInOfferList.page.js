@@ -10,7 +10,7 @@ import moment from 'moment';
 
 import { offer as offerActions } from '../../actions';
 import {
-  todayOffers,
+  getOffersByDay,
   withCoach,
   withEstablishment,
 } from '../../libs/offer/selectors';
@@ -76,7 +76,7 @@ export default compose(
   withStyles(styles),
   connect(
     (state) => ({
-      offers: withCoach(withEstablishment(todayOffers))(state),
+      offers: withCoach(withEstablishment(getOffersByDay))(state),
       offersLoading: state.offer.byDay.loading,
       establishments: getAllEstablishments(state),
     }),

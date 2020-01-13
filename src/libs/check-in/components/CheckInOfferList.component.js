@@ -13,7 +13,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import Fab from '@material-ui/core/Fab';
 import RefreshIcon from '@material-ui/icons/Refresh';
 
-import { Moment } from '../../../i18n';
+import Moment from 'moment-timezone';
 
 import Countdown from '../../../components/Countdown.component';
 import OfferItemBase from '../../offer/components/OfferListItem.component';
@@ -52,12 +52,17 @@ const OfferListItem = withNamespaces(['selfCheckIn'])(
     const momentDate = Moment();
     const inProgress = !!momentDate.isBetween(
       Moment(props.offer.date_start),
-      Moment(props.offer.date_end),
+      Moment(props.offer.date_start).add(
+        props.offer.duration_minute,
+        'minutes',
+      ),
     );
     const timeTillDate = inProgress
-      ? props.offer.date_end
-      : props.offer.date_start;
-    const color = inProgress ? 'primary' : 'initial';
+      ? Moment(props.offer.date_start)
+          .add(props.offer.duration_minute, 'minutes')
+          .format()
+      : Moment(props.offer.date_start).format();
+    const color = inProgress ? 'primary' : 'secondary';
     return (
       <OfferItemBase
         offer={props.offer}
@@ -73,7 +78,6 @@ const OfferListItem = withNamespaces(['selfCheckIn'])(
             </div>
             <div className={props.classes.CountdownWrapper}>
               <Countdown
-                timeFormat="YYYY-MM-DDTHH:mm:ssZ"
                 timeTillDate={timeTillDate}
                 currentTime={props.currentTime}
                 color={color}
@@ -92,7 +96,7 @@ export class CheckInOfferList extends Component<Props, State> {
   countdownInterval: any;
 
   state = {
-    currentTime: Moment(),
+    currentTime: Moment().format(),
   };
 
   componentDidMount() {
@@ -101,7 +105,7 @@ export class CheckInOfferList extends Component<Props, State> {
     }, OFFERS_REFRESH_DURATION);
 
     this.countdownInterval = setInterval(() => {
-      this.setState({ currentTime: Moment() });
+      this.setState({ currentTime: Moment().format() });
     }, COUNTDOWN_REFRECH_DURATION);
   }
 
@@ -136,15 +140,21 @@ export class CheckInOfferList extends Component<Props, State> {
         {offers && offers.length ? (
           <Paper>
             <List disablePadding>
-              {offers.map((offer) => (
-                <OfferListItem
-                  offer={offer}
-                  key={offer.id}
-                  classes={this.props.classes}
-                  onClick={this.props.onOfferSelected}
-                  currentTime={currentTime}
-                />
-              ))}
+              {offers
+                .filter((o) =>
+                  Moment(o.date_start)
+                    .add('minutes', o.duration_minute)
+                    .isAfter(Moment()),
+                )
+                .map((offer) => (
+                  <OfferListItem
+                    offer={offer}
+                    key={offer.id}
+                    classes={this.props.classes}
+                    onClick={this.props.onOfferSelected}
+                    currentTime={currentTime}
+                  />
+                ))}
             </List>
           </Paper>
         ) : (

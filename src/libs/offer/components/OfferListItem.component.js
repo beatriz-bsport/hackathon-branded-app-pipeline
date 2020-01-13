@@ -8,6 +8,7 @@ import type { TFunction } from 'react-i18next';
 
 import CoachAvatar from '../../associated-coach/components/CoachAvatar.component';
 import Level from '../../../components/category/Level.component';
+import { formatAsTime } from '../../../datetime';
 
 type Props = {
   offer: Object,
@@ -34,6 +35,14 @@ export const OfferListItem = (props: Props) => {
           <div>
             <Typography inline>
               {offer && offer.name ? offer.name : ''}
+            </Typography>
+            <Typography inline>
+              {offer && offer.date_start
+                ? ` - ${formatAsTime(
+                    offer.date_start,
+                    offer.establishment ? offer.establishment.tzname : null,
+                  )}`
+                : ''}
             </Typography>
             <Level
               noStyle

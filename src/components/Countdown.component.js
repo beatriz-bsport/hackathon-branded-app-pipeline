@@ -17,12 +17,12 @@ type Props = {
 };
 
 function Countdown(props: Props) {
-  const { classes, t, timeTillDate, currentTime, timeFormat, color } = props;
+  const { classes, t, timeTillDate, currentTime, color } = props;
   let duration: string;
-  const then = Moment(timeTillDate, timeFormat);
-  const now = Moment(currentTime, timeFormat);
-  if (then > now) duration = Moment(then.diff(now)).format('HH:mm:ss');
-  else duration = Moment(currentTime.diff(then)).format('HH:mm:ss');
+  const then = Moment(timeTillDate);
+  const now = Moment(currentTime);
+  if (then.isAfter(now)) duration = Moment(then.diff(now)).format('HH:mm:ss');
+  else duration = Moment(now.diff(then)).format('HH:mm:ss');
   const timeParts = duration.split(':');
   const hours = timeParts[0];
   const minutes = timeParts[1];
@@ -48,16 +48,6 @@ function Countdown(props: Props) {
           </Typography>
           <Typography variant="body2" color="textSecondary">
             {t('countdown.minutes')}
-          </Typography>
-        </div>
-      )}
-      {seconds && (
-        <div className={classes.countdownItem}>
-          <Typography variant="h5" color={color}>
-            {seconds}
-          </Typography>
-          <Typography variant="body2" color="textSecondary">
-            {t('countdown.seconds')}
           </Typography>
         </div>
       )}

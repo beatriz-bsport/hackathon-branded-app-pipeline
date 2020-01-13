@@ -18,7 +18,7 @@ import { Moment } from '../../../i18n';
 import MarketplaceCardOffer from './MarketplaceCardOffer.component';
 
 const SPLIT_AFTERNOON = 12;
-const SPLIT_EVENNING = 18;
+const SPLIT_EVENNING = 17;
 const DAY_PARTS = ['morning', 'afternoon', 'evening'];
 type Props = {
   loading: boolean,

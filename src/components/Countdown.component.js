@@ -9,7 +9,6 @@ import { Moment } from '../i18n';
 
 type Props = {
   timeTillDate: string,
-  timeFormat: string,
   classes: any,
   t: TFunction,
   currentTime: Moment,

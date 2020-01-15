@@ -21,8 +21,10 @@ import EstablishmentSubForm from './form/EstablishmentSubForm.component';
 import CoachSubForm from './form/CoachSubForm.component';
 import NotificationToogle from './form/NotificationToogle.component';
 import WarningForceRecursion from './form/WarningForceRecursion.component';
+import { Config } from '../../config';
 
 import LevelInput from '../../components/input/LevelInput.component';
+import Checkbox from '../../components/input/Checkbox.component';
 
 type Props = {
   processing: boolean,
@@ -349,6 +351,11 @@ export class EditLiveOfferForm extends Component<Props, State> {
                 }
               />
             </div>
+            {Config.SENTRY_ENVIRONMENT === 'staging' ? (
+              <div className={this.props.classes.fieldLeft}>
+                <Checkbox label="Bloquer la réservation aux cartes de cours nouveaux clients" />
+              </div>
+            ) : null}
             <div className={this.props.classes.fieldLeft}>
               <LevelInput
                 required

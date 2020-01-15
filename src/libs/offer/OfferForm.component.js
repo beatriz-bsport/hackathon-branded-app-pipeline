@@ -15,6 +15,8 @@ import AddIcon from '@material-ui/icons/Add';
 import { withNamespaces } from 'react-i18next';
 import EstablishmentSelector from '../establishment/components/EstablishmentSelectorWithCard.component';
 import CoachSelector from '../associated-coach/components/CoachSelectorWithCard.component';
+import { Config } from '../../config';
+import Checkbox from '../../components/input/Checkbox.component';
 
 import { Moment } from '../../i18n';
 import FormField, {
@@ -494,6 +496,11 @@ export class OfferForm extends Component<Props, State> {
           onChange={this.onFormFieldChange}
         />
       </Grid>
+      {Config.SENTRY_ENVIRONMENT === 'staging' ? (
+        <Grid item>
+          <Checkbox label="Bloquer la réservation aux cartes de cours nouveaux clients" />
+        </Grid>
+      ) : null}
     </Grid>
   );
 

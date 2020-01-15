@@ -27,6 +27,20 @@ const BOOKING = 3;
 const BUY = 4;
 
 export default {
+  mails: 'Mails',
+  multiSelector: {
+    selectAll: 'Tout sélectionner',
+    paymentPacks: {
+      helperText: 'selectionner des cartes de cours',
+      helperSelectedText: 'cartes de cours sélectionnées',
+      textFieldPlaceholder: 'Rechercher une carte de cours',
+    },
+    metaActivities: {
+      helperText: 'selectionner des activités',
+      helperSelectedText: 'activités sélectionnées',
+      textFieldPlaceholder: 'Rechercher une activité',
+    },
+  },
   selectToShowPreview: 'Sélectionnez un template',
   exportList: 'Exporter la liste',
   membersInList: 'Membres dans la liste:',
@@ -118,8 +132,8 @@ export default {
       [E_COMPARATOR]: 'exactement',
     },
     [CREDIT_ACCOUNT_FILTER_IDENTIFIER]: {
-      name: 'Credit',
-      first: 'Le crédit est   ',
+      name: 'Accompte',
+      first: "L'accompte du client est",
       second: ' à   ',
     },
     [LAST_PREVIOUS_BOOKING_FILTER_IDENTIFIER]: {
@@ -137,13 +151,13 @@ export default {
     [PAYMENT_PACK_PURCHASED_FILTER_IDENTIFIER]: {
       name: 'Abonnement acheté',
       first: 'Membres',
-      second: 'acheté un des abonnements',
+      second: 'acheté un des cartes de cours',
       has_bought: 'ayant déjà',
       hasnt_bought: "n'ayant jamais",
     },
     [PAYMENT_PACK_NOT_BOUGHT_FILTER_IDENTIFIER]: {
-      name: 'Abonnement non acheté',
-      first: "Membres n'ayant jamais acheté l'abonnement ",
+      name: 'Carte de cours non achetée',
+      first: "Membres n'ayant jamais acheté la carte de cours ",
     },
     [GENDER_FILTER_IDENTIFIER]: {
       name: 'Sexe',
@@ -152,9 +166,10 @@ export default {
       women: 'femmes',
     },
     [PAYMENT_PACK_DATE_CREDIT_FILTER_IDENTIFIER]: {
-      name: "Date d'achat et crédits par abonnement",
-      infoIcon: 'Les abonnements illimités ne sont pas filtrés sur le crédit',
-      first: "A acheté l'abonnement",
+      name: "Date d'achat et crédits par carte de cours",
+      infoIcon:
+        'Les cartes de cours illimités ne sont pas filtrées sur le crédit',
+      first: 'A acheté la carte de cours',
       second: 'entre le',
       third: 'et le',
       fourth: 'et possède',
@@ -162,21 +177,21 @@ export default {
     },
     [PAYMENT_PACK_CREDIT_FILTER_IDENTIFIER]: {
       name: 'Crédits par abonnement',
-      first: "Les crédits de l'abonnement",
+      first: 'Les crédits des cartes de cours',
       second: 'sont',
       third: 'à',
       infoIcon:
-        'Ne concerne que les abonnements en cours de validité et non illimités',
+        'Ne concerne que les cartes de cours en cours de validité et non illimités',
     },
     [PAYMENT_PACK_EXPIRATION_IDENTIFIER]: {
       name: 'Expiration',
-      first: "L' un des abonnements",
+      first: "L' une des cartes de cours",
       second: 'expire dans',
       third: 'jours',
     },
     [HAS_VALID_CONSUMER_PACK_FILTER_IDENTIFIER]: {
-      name: "Validité de l'abonnement",
-      first: 'Possède un abonnement',
+      name: 'Validité de la carte de cours',
+      first: 'Possède une carte de cours',
       second: 'utilisable (avec des crédits ou illimité et non expiré)',
     },
     [WENT_TO_ACTIVITY_FILTER_IDENTIFIER]: {
@@ -202,7 +217,7 @@ export default {
     },
     [EXPENSES_FILTER_IDENTIFIER]: {
       shop: 'Magasin',
-      pack: 'Abonnement',
+      pack: 'Carte de cours',
       combo: 'Pack',
       private_pass: 'Cours particulier',
       workshop: 'Abonnement spécial atelier',

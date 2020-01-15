@@ -120,6 +120,8 @@ type Props = {
   tag_groups: any,
   setOpenSendEmail: (boolean) => void,
   openSendEmail: boolean,
+  setCloseStatsPanel: (boolean) => void,
+  closeStatsPanel: boolean,
   goToEmailCreate: () => void,
   snackbarSuccess: (string) => void,
   snackbarError: (string) => void,
@@ -178,14 +180,24 @@ export class SmartListDetailMember extends Component<Props, State> {
     this.props.fetchPrivatePassList();
     this.props.fetchAllActivities();
     this.props.fetchTags();
-    this.fetchStats(this.props.id);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      !this.props.closeStatsPanel &&
+      this.props.closeStatsPanel !== prevProps.closeStatsPanel
+    ) {
+      this.fetchStats(this.props.id);
+    }
   }
 
   createFilter = (filter_identifier, filterData) => {
     const filter = filterData;
     filter.smartlist = this.props.id;
     this.props.createFilter(filter_identifier, filter, this.props.id, () => {
-      this.fetchStats(this.props.id);
+      if (!this.props.closeStatsPanel) {
+        this.fetchStats(this.props.id);
+      }
       this.setState((prevState) => ({
         onValueChangeActiveMemberFetch: !prevState.onValueChangeActiveMemberFetch,
       }));
@@ -194,7 +206,9 @@ export class SmartListDetailMember extends Component<Props, State> {
 
   updateFilter = (filterNameId, data, filterId) => {
     this.props.updateFilter(this.props.id, filterNameId, data, filterId, () => {
-      this.fetchStats(this.props.id);
+      if (!this.props.closeStatsPanel) {
+        this.fetchStats(this.props.id);
+      }
       this.setState((prevState) => ({
         onValueChangeActiveMemberFetch: !prevState.onValueChangeActiveMemberFetch,
       }));
@@ -203,7 +217,9 @@ export class SmartListDetailMember extends Component<Props, State> {
 
   deleteFilter = (filterNameId, filterId) => {
     this.props.deleteFilter(filterNameId, filterId, this.props.id, () => {
-      this.fetchStats(this.props.id);
+      if (!this.props.closeStatsPanel) {
+        this.fetchStats(this.props.id);
+      }
       this.setState((prevState) => ({
         onValueChangeActiveMemberFetch: !prevState.onValueChangeActiveMemberFetch,
       }));
@@ -286,33 +302,51 @@ export class SmartListDetailMember extends Component<Props, State> {
             />
           </Collapse>
         </div>
-        <Typography variant="h6" className={this.props.classes.statTitle}>
-          {this.props.t('detail.statTitle')}
-        </Typography>
-        <Divider />
-        <StatsPanel
-          statistics={this.formatExpensesSegmentsStatistic()}
-          changeDateRange={(start, end, kind = 'custom') => {
-            this.props.dateRangeChange({ start, end, kind });
-            this.props.fetchSmartListStats({
-              smartlist: this.props.id,
-              statistic_identifier: 1,
-              graph_params: {
-                start: moment(start).valueOf(),
-                end: moment(end).valueOf(),
-              },
-            });
-            this.props.fetchSmartListStats({
-              smartlist: this.props.id,
-              statistic_identifier: EXPENSES_STATISTIC_IDENTIFIER,
-              graph_params: {
-                start: moment(start).valueOf(),
-                end: moment(end).valueOf(),
-              },
-            });
-          }}
-          dateRange={this.props.dateRange}
-        />
+        <div className={this.props.classes.memberWrapper}>
+          <ButtonBase
+            className={this.props.classes.buttonTitle}
+            onClick={() =>
+              this.props.setCloseStatsPanel(!this.props.closeStatsPanel)
+            }
+          >
+            <Typography variant="h6" className={this.props.classes.memberTitle}>
+              {this.props.t('detail.statTitle')}
+            </Typography>
+
+            {this.props.closeStatsPanel ? (
+              <ExpandMoreIcon />
+            ) : (
+              <ExpandLessIcon />
+            )}
+          </ButtonBase>
+          <Divider />
+          <Collapse in={!this.props.closeStatsPanel}>
+            <StatsPanel
+              fetchStats={() => this.fetchStats(this.props.id)}
+              statistics={this.formatExpensesSegmentsStatistic()}
+              changeDateRange={(start, end, kind = 'custom') => {
+                this.props.dateRangeChange({ start, end, kind });
+                this.props.fetchSmartListStats({
+                  smartlist: this.props.id,
+                  statistic_identifier: 1,
+                  graph_params: {
+                    start: moment(start).valueOf(),
+                    end: moment(end).valueOf(),
+                  },
+                });
+                this.props.fetchSmartListStats({
+                  smartlist: this.props.id,
+                  statistic_identifier: EXPENSES_STATISTIC_IDENTIFIER,
+                  graph_params: {
+                    start: moment(start).valueOf(),
+                    end: moment(end).valueOf(),
+                  },
+                });
+              }}
+              dateRange={this.props.dateRange}
+            />
+          </Collapse>
+        </div>
         <SendEmailDialog
           open={this.props.openSendEmail}
           onClose={() => this.props.setOpenSendEmail(false)}
@@ -365,6 +399,7 @@ export default compose(
   routerParamsToProps({ id: 'id:number', create: 'create:number' }),
   withState('openSendEmail', 'setOpenSendEmail', false),
   withState('closeMemberTable', 'setCloseMemberTable', true),
+  withState('closeStatsPanel', 'setCloseStatsPanel', true),
   withNamespaces(['smartList']),
   withStyles(styles),
   connect(

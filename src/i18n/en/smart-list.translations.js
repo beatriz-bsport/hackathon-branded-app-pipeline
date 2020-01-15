@@ -26,6 +26,20 @@ const BOOKING = 3;
 const BUY = 4;
 
 export default {
+  mails: 'Mails',
+  multiSelector: {
+    selectAll: 'Select all',
+    paymentPacks: {
+      helperText: 'select passes',
+      helperSelectedText: 'selected passes',
+      textFieldPlaceholder: 'Search a pass',
+    },
+    metaActivities: {
+      helperText: 'select activities',
+      helperSelectedText: 'selected activities',
+      textFieldPlaceholder: 'Search an activity',
+    },
+  },
   selectToShowPreview: 'Please select a template',
   exportList: 'Export list',
   membersInList: 'Members in the list:',

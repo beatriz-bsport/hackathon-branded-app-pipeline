@@ -5,11 +5,9 @@ import { withNamespaces } from 'react-i18next';
 import { compose } from 'recompose';
 import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Button from '@material-ui/core/Button';
 
-import Checkbox from '@material-ui/core/Checkbox';
 import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
-import MetaActivitySelector from '../../../meta-activity/components/MetaActivitySelector.component';
+import Selector from '../MultiSelector.component';
 
 type Props = {
   filter_data: any,
@@ -35,38 +33,34 @@ export class MetaActivityFilter extends Component<Props, state> {
     return (
       <div className={classes.wrapper}>
         {t(`filters.${filter_data.filter_identifier}.first`)}
-        <div className={classes.selector}>
-          <MetaActivitySelector
-            metaActivities={meta_activities}
-            selectedMetaActivities={filter_data.meta_activity}
-            selectOption={(ev) => {
-              onChange({ meta_activity: ev.map((pp) => pp.value) });
-            }}
-          />
-        </div>
-        <Button
-          onClick={() => {
+        <Selector
+          helperText={t('multiSelector.metaActivities.helperText')}
+          helperSelectedText={t(
+            'multiSelector.metaActivities.helperSelectedText',
+          )}
+          primaryTextIdentifier="name"
+          textFieldPlaceholder={t(
+            'multiSelector.metaActivities.textFieldPlaceholder',
+          )}
+          items={meta_activities}
+          selectedItems={filter_data.meta_activity}
+          onChange={(items) => {
             if (
               filter_data.meta_activity &&
-              meta_activities.length === filter_data.meta_activity.length
+              !(
+                items.length === filter_data.meta_activity.length &&
+                [...items].sort().every((value, index) => {
+                  return value === [...filter_data.meta_activity].sort()[index];
+                })
+              )
             ) {
-              onChange({ meta_activity: [] });
-            } else {
-              onChange({ meta_activity: meta_activities.map((pp) => pp.id) });
+              onChange({ meta_activity: items });
+            }
+            if (!filter_data.meta_activity && items.length > 0) {
+              onChange({ meta_activity: items });
             }
           }}
-        >
-          <Checkbox
-            checked={
-              filter_data.meta_activity && meta_activities.length > 0
-                ? meta_activities.length === filter_data.meta_activity.length
-                : false
-            }
-            tabIndex={-1}
-            disableRipple
-          />
-          Tous
-        </Button>
+        />
         {t(`filters.${filter_data.filter_identifier}.second`)}
         <DelayedNumericInput
           classes={classes}

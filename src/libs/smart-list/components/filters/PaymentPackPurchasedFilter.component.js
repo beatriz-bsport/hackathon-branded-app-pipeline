@@ -4,14 +4,12 @@ import React, { Component } from 'react';
 import { withNamespaces } from 'react-i18next';
 import { compose } from 'recompose';
 import type { TFunction } from 'react-i18next';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import Checkbox from '@material-ui/core/Checkbox';
 import withStyles from '@material-ui/core/styles/withStyles';
-import PaymentPackSelector from '../../../payment-packs/components/PaymentPackSelector.component';
 import type { PaymentPack } from '../../../payment-packs/types';
+import Selector from '../MultiSelector.component';
 
 type Props = {
   filter_data: any,
@@ -47,41 +45,33 @@ export class PaymentPackPurchasedFilter extends Component<Props, state> {
           </MenuItem>
         </Select>
         {t(`filters.${filter_data.filter_identifier}.second`)}
-
-        <div className={classes.selectorGrow}>
-          <PaymentPackSelector
-            value={filter_data.payment_pack}
-            paymentPacks={payment_packs}
-            onChange={(ev) => {
-              onChange({ payment_pack: ev.map((pp) => pp.value) });
-            }}
-            helperText="choix abonnement"
-            selectorClass={classes.selector}
-            isMulti
-          />
-        </div>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={
-                filter_data.payment_pack
-                  ? payment_packs.length === filter_data.payment_pack.length
-                  : false
-              }
-              onChange={() => {
-                if (
-                  filter_data.payment_pack &&
-                  payment_packs.length === filter_data.payment_pack.length
-                ) {
-                  onChange({ payment_pack: [] });
-                } else {
-                  onChange({ payment_pack: payment_packs.map((pp) => pp.id) });
-                }
-              }}
-              value="checkedG"
-            />
-          }
-          label="All"
+        <Selector
+          helperText={t('multiSelector.paymentPacks.helperText')}
+          helperSelectedText={t(
+            'multiSelector.paymentPacks.helperSelectedText',
+          )}
+          textFieldPlaceholder={t(
+            'multiSelector.paymentPacks.textFieldPlaceholder',
+          )}
+          primaryTextIdentifier="name"
+          items={payment_packs}
+          selectedItems={filter_data.payment_pack}
+          onChange={(items) => {
+            if (
+              filter_data.payment_pack &&
+              !(
+                items.length === filter_data.payment_pack.length &&
+                [...items].sort().every((value, index) => {
+                  return value === [...filter_data.payment_pack].sort()[index];
+                })
+              )
+            ) {
+              onChange({ payment_pack: items });
+            }
+            if (!filter_data.payment_pack && items.length > 0) {
+              onChange({ payment_pack: items });
+            }
+          }}
         />
       </div>
     );
@@ -89,9 +79,6 @@ export class PaymentPackPurchasedFilter extends Component<Props, state> {
 }
 
 const styles = (theme) => ({
-  selectorGrow: {
-    flexGrow: 0,
-  },
   selector: {
     minWidth: '300px',
     marginLeft: theme.spacing.unit,

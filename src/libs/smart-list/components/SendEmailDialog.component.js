@@ -126,7 +126,7 @@ export class SendEmailDialog extends Component<Props> {
                     this.setState({ selectedMail: ev.value });
                     this.props.getEmailDetail(ev.value);
                   }}
-                  helperText={t('Mails')}
+                  helperText={t('mails')}
                 />
                 <Fab
                   onClick={() => {

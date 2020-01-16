@@ -42,13 +42,13 @@ export default {
     },
   },
   selectToShowPreview: 'Sélectionnez un template',
-  exportList: 'Exporter la liste',
-  membersInList: 'Membres dans la liste:',
+  exportList: 'Exporter la smartlist',
+  membersInList: 'Membres dans la smartlist:',
   modal: {
     delete: {
-      title: 'Suppression liste',
+      title: 'Suppression smartlist',
       content:
-        'Êtes-vous sûr de vouloir supprimer cette liste ? Cette opération est définitive',
+        'Êtes-vous sûr de vouloir supprimer cette smartlist ? Cette opération est définitive',
       cancel: 'Annuler',
       confirm: 'Supprimer',
     },
@@ -97,14 +97,17 @@ export default {
     card: {
       description: 'Description',
     },
-    list: { title: 'Listes intelligentes', detailTitle: 'Détail de la liste' },
+    list: {
+      title: 'Smartlists',
+      detailTitle: 'Détail de la smartlist',
+    },
     name: 'Nom',
     description: 'Description',
     submit: 'Enregistrer',
     cancel: 'Annuler',
-    add: 'Ajouter une liste',
-    detail: 'Détail de la liste',
-    createTitle: 'Liste intelligente',
+    add: 'Ajouter une smartlist',
+    detail: 'Détail de la smartlist',
+    createTitle: 'Smartlist',
   },
   filterCategory: {
     [MEMBER_INFO]: 'Informations membre',
@@ -114,7 +117,7 @@ export default {
   },
   filters: {
     all: 'Tous',
-    active_filters: 'Filtre(s) actif(s) sur la liste',
+    active_filters: 'Filtre(s) actif(s) sur la smartlist',
     add_filter: 'Ajouter un filtre',
     add: 'Ajouter',
     before: 'avant',

@@ -615,7 +615,7 @@ export default {
       combo: 'Packs',
       requestTempPassword: "Autoriser l'accès",
       sequence: 'Stratégies',
-      smart_list: 'Listes',
+      smart_list: 'Smartlists',
       email_template: 'Emails',
       order: 'Commandes',
       workshopActivities: 'Ateliers',

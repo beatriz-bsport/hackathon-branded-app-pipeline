@@ -90,23 +90,29 @@ export const SubscriptionContractList = (props: Props) => {
           <div />
         )}
       </div>
-      <SubscriptionContractFormDialog
-        onClose={() => props.setCreateOpen(false)}
-        open={props.createOpen}
-        paymentPacks={props.paymentPacks}
-        onSubmit={(data, options) => {
-          props.createOrUpdate(data, {
-            onSuccess: () => {
-              props.setCreateOpen(false);
-              if (options && options.onSuccess) options.onSuccess();
-            },
-            onError: (err) => {
-              props.setCreateOpen(false);
-              if (options && options.onError) options.onError(err);
-            },
-          });
-        }}
-      />
+      {props.createOpen ? (
+        <SubscriptionContractFormDialog
+          onClose={() => {
+            props.setCreateOpen(false);
+            props.setContractToEdit(null);
+          }}
+          open={props.createOpen}
+          initial={props.contractToEdit}
+          paymentPacks={props.paymentPacks}
+          onSubmit={(data, options) => {
+            props.createOrUpdate(data, {
+              onSuccess: () => {
+                props.setCreateOpen(false);
+                if (options && options.onSuccess) options.onSuccess();
+              },
+              onError: (err) => {
+                props.setCreateOpen(false);
+                if (options && options.onError) options.onError(err);
+              },
+            });
+          }}
+        />
+      ) : null}
       {props.contractToEdit ? (
         <SubscriptionContractFormDialog
           onClose={() => props.setContractToEdit(null)}

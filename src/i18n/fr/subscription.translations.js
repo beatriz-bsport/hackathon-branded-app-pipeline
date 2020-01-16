@@ -1,4 +1,6 @@
 export default {
+  cancel: 'annuler',
+  save: 'valider',
   table: {
     noContent: 'Aucune souscription enregistrée',
   },

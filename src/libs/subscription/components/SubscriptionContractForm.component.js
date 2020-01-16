@@ -107,19 +107,21 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
 
 export const SubscriptionContractFormHoc = withFormik({
   // eslint-disable-next-line
-  mapPropsToValues: ({ initial }) =>
-    initial
-      ? { ...initial, payment_pack: initial.payment_pack.id }
-      : {
-          name: '',
-          recurrent_price: 0,
-          nb_interval: 12,
-          payment_pack: null,
-          description: '',
-          contract: '',
-          manager_only: false,
-          auto_renewal: false,
-        },
+  mapPropsToValues: ({ initial }) => {
+    if (initial) {
+      return { ...initial, payment_pack: initial.payment_pack.id };
+    }
+    return {
+      name: '',
+      recurrent_price: 0,
+      nb_interval: 12,
+      payment_pack: null,
+      description: '',
+      contract: '',
+      manager_only: false,
+      auto_renewal: false,
+    };
+  },
   validationSchema: SubscriptionContractFieldsSchema,
   handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
     onSubmit(values, {

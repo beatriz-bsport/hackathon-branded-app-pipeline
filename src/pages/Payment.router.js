@@ -10,6 +10,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import asyncComponent from '../AsyncComponent';
 import { fetchProfile } from '../actions/consumer.actions';
 
+import { getPaymenComboDataDict as getPaymentComboById } from '../libs/payment-combo/selectors';
+import { fetchPaymentCombo } from '../libs/payment-combo/actions';
+
 import { getPaymentPackById } from '../libs/payment-packs/selectors';
 import { fetchOne as fetchPaymentPack } from '../libs/payment-packs/actions';
 import parse from '../query-string';
@@ -43,12 +46,15 @@ type Props = {
   fetchProfile: () => void,
   fetchPaymentPack: (id: number) => void,
   paymentPacks: Array<any>,
+  fetchPaymentCombo: (id: number) => void,
+  paymentCombos: Array<any>,
   authenticated: boolean,
   location: Object,
 };
 export class PaymentRouter extends React.Component<Props> {
   state = {
     paymentPacks: null,
+    paymentCombos: null,
   };
 
   componentDidMount() {
@@ -63,6 +69,9 @@ export class PaymentRouter extends React.Component<Props> {
     }
     if (prevProps.paymentPacks !== this.props.paymentPacks) {
       this.setState({ paymentPacks: this.props.paymentPacks });
+    }
+    if (prevProps.paymentCombos !== this.props.paymentCombos) {
+      this.setState({ paymentCombos: this.props.paymentCombos });
     }
   }
 
@@ -81,6 +90,25 @@ export class PaymentRouter extends React.Component<Props> {
           this.state.paymentPacks[ppId]
         ) {
           membership = this.state.paymentPacks[ppId].company_id;
+        }
+        if (!membership) {
+          return (
+            <div className={this.props.classes.loading}>
+              <CircularProgress />
+            </div>
+          );
+        }
+      }
+      if (!membership && pathname.includes('customer/payment/combo')) {
+        const ppId = pathname.split('/')[4];
+
+        this.props.fetchPaymentCombo(ppId);
+        if (
+          !membership &&
+          this.state.paymentCombos &&
+          this.state.paymentCombos[ppId]
+        ) {
+          membership = this.state.paymentCombos[ppId].company;
         }
         if (!membership) {
           return (
@@ -142,12 +170,10 @@ export default compose(
   withStyles(styles),
   connect(
     (state) => ({
+      paymentCombos: getPaymentComboById(state),
       paymentPacks: getPaymentPackById(state),
       authenticated: state.auth.authenticated,
     }),
-    {
-      fetchPaymentPack,
-      fetchProfile,
-    },
+    { fetchPaymentCombo, fetchPaymentPack, fetchProfile },
   ),
 )(PaymentRouter);

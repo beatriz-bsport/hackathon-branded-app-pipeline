@@ -44,7 +44,7 @@ export const PaymentComboCard = (props: Props) => {
       >
         <LinkIcon />
         <CopyToClipboard
-          text={`${window.location.origin}/customer/payment/combo/${paymentCombo.id}`}
+          text={`${window.location.origin}/customer/payment/combo/${paymentCombo.id}/?membership=${paymentCombo.company}`}
         >
           <Typography className={props.classes.linkTypo}>
             {t('paymentCombo:link.copyLink')}

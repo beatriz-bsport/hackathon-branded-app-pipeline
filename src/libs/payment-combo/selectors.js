@@ -6,15 +6,15 @@ import type { PaymentCombo } from './types';
 
 const _getPaymenComboIdList: (State) => Array<number> = (state) =>
   state.paymentCombo.allIds;
-const _getPaymenComboDataDict: (State) => { [id: number]: PaymentCombo } = (
-  state,
-) => state.paymentCombo.byId;
+export const getPaymenComboDataDict: (State) => {
+  [id: number]: PaymentCombo,
+} = (state) => state.paymentCombo.byId;
 
 export const getPaymentCombo: (State, number) => ?PaymentCombo = (state, id) =>
   state.paymentCombo.byId[id];
 
 export const getPaymentComboList: (State) => Array<PaymentCombo> = createSelector(
-  [_getPaymenComboIdList, _getPaymenComboDataDict],
+  [_getPaymenComboIdList, getPaymenComboDataDict],
   (ids, data) => ids.map((id) => data[id]).filter((pc) => pc.available),
 );
 
@@ -32,7 +32,7 @@ const _getPaymentComboPurchaseList = (state: State) =>
   state.paymentCombo.purchase.items;
 
 const getPaymentComboPurchaseList = createSelector(
-  [_getPaymentComboPurchaseList, _getPaymenComboDataDict],
+  [_getPaymentComboPurchaseList, getPaymenComboDataDict],
   (purchases, combos) =>
     purchases.map((p) => ({
       ...p,

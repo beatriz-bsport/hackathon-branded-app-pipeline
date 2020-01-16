@@ -12,6 +12,7 @@ import { withNamespaces } from 'react-i18next';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 import type { TFunction } from 'react-i18next';
 import MarketplaceBookButton from './MarketplaceBookButton.component';
@@ -31,10 +32,11 @@ type Props = {
   showOfferFilling: boolean,
   establishmentLoading: boolean,
   activityLoading: boolean,
+  classes: Object,
 };
 
 export const MarketplaceOffer = (props: Props) => {
-  const { t, offer, selected, onClickOffer } = props;
+  const { t, offer, selected, onClickOffer, classes } = props;
   const { available } = offer;
   const isInThePast = isOfferInThePast(offer);
 
@@ -81,14 +83,11 @@ export const MarketplaceOffer = (props: Props) => {
       </ListItemAvatar>
       <ListItemText
         primary={
-          <div style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
-            <div style={{ alignItems: 'center', display: 'flex' }}>
+          <div className={classes.primaryTextContainer}>
+            <div className={classes.inlineContainer}>
               {(props.activityLoading && metaActivityName === ' - ') ||
               !offer.establishment.tzname ? (
-                <MoreHorizIcon
-                  fontSize="small"
-                  style={{ marginRight: '15px' }}
-                />
+                <MoreHorizIcon fontSize="small" className={classes.icon} />
               ) : (
                 <Typography inline>
                   {`${metaActivityName} ${formatAsTime(
@@ -105,21 +104,18 @@ export const MarketplaceOffer = (props: Props) => {
                   : null}
               </Typography>
             </div>
-            <div
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'flex-start',
-                alignItems: 'center',
-                display: 'flex',
-              }}
-            >
+            <div className={classes.levelCoachContainer}>
               <Level
                 noStyle
                 variant="caption"
                 align="left"
                 levelId={offer.level ? offer.level : null}
               />
-              <Typography inline variant="caption">
+              <Typography
+                className={classes.coachName}
+                inline
+                variant="caption"
+              >
                 {`  ${coachName}`}
               </Typography>
             </div>
@@ -134,13 +130,7 @@ export const MarketplaceOffer = (props: Props) => {
         }
       />
       <ListItemSecondaryAction>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}
-        >
+        <div className={classes.inlineContainer}>
           <Hidden xsDown>
             <IconButton
               disabled={!isInThePast}
@@ -161,4 +151,18 @@ export const MarketplaceOffer = (props: Props) => {
   );
 };
 
-export default withNamespaces()(MarketplaceOffer);
+const styles = (theme) => {
+  return {
+    primaryTextContainer: { flexDirection: 'column', alignItems: 'flex-start' },
+    inlineContainer: { alignItems: 'center', display: 'flex' },
+    icon: { marginRight: theme.spacing.unit * 2 },
+    levelCoachContainer: {
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      display: 'flex',
+    },
+    coachName: { marginLeft: theme.spacing.unit * 2 },
+  };
+};
+export default withStyles(styles)(withNamespaces()(MarketplaceOffer));

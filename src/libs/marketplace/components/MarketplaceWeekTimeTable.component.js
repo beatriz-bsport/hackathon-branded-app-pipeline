@@ -62,12 +62,16 @@ const getWeekOffers = (selectedDate, offers) => {
 export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
   state = {
     panelsStatus: [true, true, true],
+    changeStatus: false,
   };
 
   handlePanelCollapse = (i: number) => {
     const { panelsStatus } = this.state;
     panelsStatus[i] = !panelsStatus[i];
-    this.setState({ panelsStatus });
+    this.setState((prevState) => ({
+      panelsStatus,
+      changeStatus: !prevState.changeStatus,
+    }));
   };
 
   /**
@@ -117,7 +121,6 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
   renderPeriodOffers = (period: Array<*>, i: number) => {
     const { classes, t } = this.props;
     const { panelsStatus } = this.state;
-
     const offersRows = this.periodByRow(period);
 
     return _.flattenDeep(period).length ? (

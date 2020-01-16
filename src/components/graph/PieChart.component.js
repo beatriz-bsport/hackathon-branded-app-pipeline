@@ -69,7 +69,7 @@ type Props = {
 export function PieChartComposed(props: Props) {
   return (
     <div className={props.classes.container} style={{ width: '100%' }}>
-      {props.loading ? (
+      {props.loading && props.data.length === 0 ? (
         <div
           style={{
             width: '100%',

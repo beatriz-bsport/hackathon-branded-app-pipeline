@@ -145,6 +145,7 @@ export const ComposedChart = React.memo((props: BarChartProps) => {
             fill={color}
             fillOpacity={0.7}
             stroke={false}
+            isAnimationActive={false}
           />
         ) : (
           <Bar

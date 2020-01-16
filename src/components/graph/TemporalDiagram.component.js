@@ -44,7 +44,7 @@ function dateFormatter(kind) {
 export const TemporalStatistic = React.memo((props: Props) => {
   return (
     <div className={props.classes.block}>
-      {props.loading ? (
+      {props.loading && !props.data ? (
         <div
           style={{
             height: props.height,

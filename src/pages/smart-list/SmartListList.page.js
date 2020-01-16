@@ -26,7 +26,7 @@ import {
 } from '../../libs/smart-list/actions';
 
 import {
-  getSmartListStatistic,
+  smartlistStatSelector,
   dateRangeSelector,
   getStatisticLoading,
 } from '../../state/stats/selectors';
@@ -273,7 +273,7 @@ export default compose(
       company_id: state.theme.theme.company,
       statistics: {
         bookings: {
-          data: getSmartListStatistic(
+          data: smartlistStatSelector(
             state,
             selectedId,
             BOOKING_STATISTIC_IDENTIFIER,
@@ -285,7 +285,7 @@ export default compose(
           ),
         },
         bookingsSegments: {
-          data: getSmartListStatistic(
+          data: smartlistStatSelector(
             state,
             selectedId,
             BOOKING_SEGMENTS_STATISTIC_IDENTIFIER,
@@ -297,7 +297,7 @@ export default compose(
           ),
         },
         expensesSegments: {
-          data: getSmartListStatistic(
+          data: smartlistStatSelector(
             state,
             selectedId,
             EXPENSES_STATISTIC_IDENTIFIER,
@@ -309,7 +309,7 @@ export default compose(
           ),
         },
         general: {
-          data: getSmartListStatistic(
+          data: smartlistStatSelector(
             state,
             selectedId,
             GENERAL_STATISTIC_IDENTIFIER,

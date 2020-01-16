@@ -117,7 +117,7 @@ export default {
   },
   filters: {
     all: 'Tous',
-    active_filters: 'Filtre(s) actif(s) sur la smartlist',
+    active_filters: 'Filtres actifs sur la smartlist',
     add_filter: 'Ajouter un filtre',
     add: 'Ajouter',
     before: 'avant',

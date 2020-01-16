@@ -17,6 +17,7 @@ import Divider from '@material-ui/core/Divider';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
+import LinearProgressMUI from '@material-ui/core/LinearProgress';
 import MemberTable from '../../libs/member/MemberTable.component';
 import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/selectors';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -53,7 +54,7 @@ import ConfigureDnsDialog from '../../libs/smart-list/components/ConfigureDnsDia
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 import {
   dateRangeSelector,
-  getSmartListStatistic,
+  smartlistStatSelector as getSmartListStatistic,
   getStatisticLoading,
 } from '../../state/stats/selectors';
 import {
@@ -145,7 +146,8 @@ type State = {
 export class SmartListDetailMember extends Component<Props, State> {
   state = { onValueChangeActiveMemberFetch: false };
 
-  fetchStats = (id) => {
+  fetchStats = () => {
+    const { id } = this.props;
     this.props.fetchSmartListStats({
       smartlist: id,
       statistic_identifier: BOOKING_STATISTIC_IDENTIFIER,
@@ -187,7 +189,7 @@ export class SmartListDetailMember extends Component<Props, State> {
       !this.props.closeStatsPanel &&
       this.props.closeStatsPanel !== prevProps.closeStatsPanel
     ) {
-      this.fetchStats(this.props.id);
+      this.fetchStats();
     }
   }
 
@@ -196,7 +198,7 @@ export class SmartListDetailMember extends Component<Props, State> {
     filter.smartlist = this.props.id;
     this.props.createFilter(filter_identifier, filter, this.props.id, () => {
       if (!this.props.closeStatsPanel) {
-        this.fetchStats(this.props.id);
+        this.fetchStats();
       }
       this.setState((prevState) => ({
         onValueChangeActiveMemberFetch: !prevState.onValueChangeActiveMemberFetch,
@@ -207,7 +209,7 @@ export class SmartListDetailMember extends Component<Props, State> {
   updateFilter = (filterNameId, data, filterId) => {
     this.props.updateFilter(this.props.id, filterNameId, data, filterId, () => {
       if (!this.props.closeStatsPanel) {
-        this.fetchStats(this.props.id);
+        this.fetchStats();
       }
       this.setState((prevState) => ({
         onValueChangeActiveMemberFetch: !prevState.onValueChangeActiveMemberFetch,
@@ -218,7 +220,7 @@ export class SmartListDetailMember extends Component<Props, State> {
   deleteFilter = (filterNameId, filterId) => {
     this.props.deleteFilter(filterNameId, filterId, this.props.id, () => {
       if (!this.props.closeStatsPanel) {
-        this.fetchStats(this.props.id);
+        this.fetchStats();
       }
       this.setState((prevState) => ({
         onValueChangeActiveMemberFetch: !prevState.onValueChangeActiveMemberFetch,
@@ -278,7 +280,11 @@ export class SmartListDetailMember extends Component<Props, State> {
               this.props.setCloseMemberTable(!this.props.closeMemberTable)
             }
           >
-            <Typography variant="h6" className={this.props.memberTitle}>
+            <Typography
+              variant="h6"
+              color={this.props.closeMemberTable ? 'textSecondary' : 'default'}
+              className={this.props.memberTitle}
+            >
               {this.props.t('member:memberList')}
             </Typography>
 
@@ -309,7 +315,11 @@ export class SmartListDetailMember extends Component<Props, State> {
               this.props.setCloseStatsPanel(!this.props.closeStatsPanel)
             }
           >
-            <Typography variant="h6" className={this.props.classes.memberTitle}>
+            <Typography
+              variant="h6"
+              className={this.props.classes.memberTitle}
+              color={this.props.closeStatsPanel ? 'textSecondary' : 'default'}
+            >
               {this.props.t('detail.statTitle')}
             </Typography>
 
@@ -321,8 +331,13 @@ export class SmartListDetailMember extends Component<Props, State> {
           </ButtonBase>
           <Divider />
           <Collapse in={!this.props.closeStatsPanel}>
+            {this.props.statistics.bookings.loading ||
+            this.props.statistics.expensesSegments.loading ||
+            this.props.statistics.bookingsSegments.loading ||
+            this.props.statistics.general.loading ? (
+              <LinearProgressMUI />
+            ) : null}
             <StatsPanel
-              fetchStats={() => this.fetchStats(this.props.id)}
               statistics={this.formatExpensesSegmentsStatistic()}
               changeDateRange={(start, end, kind = 'custom') => {
                 this.props.dateRangeChange({ start, end, kind });
@@ -380,10 +395,17 @@ const styles = (theme) => ({
     marginTop: theme.spacing.unit * 4,
     marginBottom: theme.spacing.unit * 2,
   },
+  statsTitle: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+
+    alignItems: 'center',
+    marginTop: theme.spacing.unit * 2,
+  },
   statTitle: {
     margin: theme.spacing.unit,
     marginLeft: 0,
-    marginTop: theme.spacing.unit * 3,
     paddingLeft: theme.spacing * 2,
   },
   buttonTitle: {
@@ -392,6 +414,12 @@ const styles = (theme) => ({
     justifyContent: 'space-between',
     width: '100%',
     paddingBottom: theme.spacing.unit,
+  },
+  alignLeft: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
 });
 

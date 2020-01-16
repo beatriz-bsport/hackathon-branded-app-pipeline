@@ -20,7 +20,7 @@ type Props = {
   changeDateRange: () => void,
 };
 
-export const SmartlistCard = (props: Props) => {
+export const StatsPanel = (props: Props) => {
   const { statistics, t } = props;
   return (
     <div className={props.classes.paper}>
@@ -137,4 +137,4 @@ const styles = (theme) => ({
 export default compose(
   withNamespaces(['smartList']),
   withStyles(styles),
-)(SmartlistCard);
+)(StatsPanel);

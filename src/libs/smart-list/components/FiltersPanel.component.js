@@ -9,6 +9,8 @@ import { compose } from 'recompose';
 import moment from 'moment';
 import List from '@material-ui/core/List';
 import Collapse from '@material-ui/core/Collapse';
+import Divider from '@material-ui/core/Divider';
+import ButtonBase from '@material-ui/core/ButtonBase';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import ListItem from '@material-ui/core/ListItem';
 import Paper from '@material-ui/core/Paper';
@@ -253,40 +255,36 @@ export class FiltersPanel extends Component<Props> {
             ))}
           </Menu>
         </div>
-        <div style={{ display: 'flex' }}>
-          <ListItem
-            button
-            divider
-            onClick={() =>
-              this.setState((previousState) => ({
-                displayFilters: !previousState.displayFilters,
-              }))
-            }
-          >
-            <ListItemText
-              primary={
-                this.props.loading ? (
-                  <div style={{ display: 'flex' }}>
-                    <Typography variant="body1" style={{ marginRight: '10px' }}>
-                      {`${t('filters.active_filters')}`}
-                    </Typography>
-                    <CircularProgress size="1.5rem" />
-                  </div>
-                ) : (
-                  <Typography variant="body1">
-                    {`${t('filters.active_filters')} (${filters.length})`}
-                  </Typography>
-                )
-              }
-            />
-
-            {this.state.displayFilters ? (
-              <ExpandLessIcon />
-            ) : (
-              <ExpandMoreIcon />
-            )}
-          </ListItem>
-        </div>
+        <ButtonBase
+          onClick={() =>
+            this.setState((previousState) => ({
+              displayFilters: !previousState.displayFilters,
+            }))
+          }
+          className={this.props.classes.header}
+        >
+          {this.props.loading ? (
+            <div style={{ display: 'flex' }}>
+              <Typography
+                variant="h6"
+                style={{ marginRight: '10px' }}
+                color={this.state.displayFilters ? 'default' : 'textSecondary'}
+              >
+                {`${t('filters.active_filters')}`}
+              </Typography>
+              <CircularProgress size="1.5rem" />
+            </div>
+          ) : (
+            <Typography
+              variant="h6"
+              color={this.state.displayFilters ? 'default' : 'textSecondary'}
+            >
+              {`${t('filters.active_filters')} (${filters.length})`}
+            </Typography>
+          )}
+          {this.state.displayFilters ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+        </ButtonBase>
+        <Divider className={this.props.classes.divider} />
         <Collapse in={this.state.displayFilters}>
           <Paper>
             <List
@@ -329,6 +327,17 @@ export class FiltersPanel extends Component<Props> {
 const styles = (theme) => ({
   menu: {
     width: '300px',
+  },
+  header: {
+    display: 'flex',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    marginTop: theme.spacing.unit * 4,
+  },
+  divider: {
+    marginTop: theme.spacing.unit,
   },
   textField: {
     marginTop: theme.spacing.unit * 2,

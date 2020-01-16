@@ -81,12 +81,6 @@ export function fetchSmartListStats(params: any): ThunkAction {
         isLoading: true,
       }),
     );
-    dispatch(
-      smartListStats.resetData({
-        smartlist,
-        statistic_identifier,
-      }),
-    );
     dispatch(smartListStats.error(null));
 
     try {

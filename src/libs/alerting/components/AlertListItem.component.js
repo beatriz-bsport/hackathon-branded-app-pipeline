@@ -11,6 +11,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { Trans, withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
+import moment from 'moment';
 
 import type { Alerting, UnevenInvoiceAlerting } from '../types';
 
@@ -106,6 +107,48 @@ const NewOrderAlertListItem = compose(
   withNamespaces(['alerting']),
 )(NewOrderAlertListItemBase);
 
+const TaskAlertListItemBase = (props: {
+  pushRouter: (string) => void,
+  alerting: TaskAlerting,
+  classes: Object,
+}) => {
+  const { alerting, classes } = props;
+  const { name, description, date_due, member } = alerting.data;
+  return (
+    <ListItem divider style={{ paddingTop: 0 }}>
+      <div style={{ width: '100%' }}>
+        <div className={classes.titleContainer}>
+          <div>
+            <Typography variant="subtitle1" component="h3">
+              {name}
+            </Typography>
+            <Typography variant="caption" color="textSecondary">
+              {moment(date_due).format('LL')}
+            </Typography>
+          </div>
+          <div className={classes.titleContainer}>
+            <IconButton
+              onClick={() => props.pushRouter(`/member/${member.id}/`)}
+            >
+              <ArrowForwardIcon color="secondary" />
+            </IconButton>
+          </div>
+        </div>
+        <Typography variant="caption" component="p">
+          {member ? member.name : null}
+          <br />
+          {description}
+        </Typography>
+      </div>
+    </ListItem>
+  );
+};
+
+const TaskAlertListItem = compose(
+  withStyles(styles),
+  withNamespaces(['alerting']),
+)(TaskAlertListItemBase);
+
 export default function AlertList(props: Props) {
   const { alerting, pushRouter } = props;
   switch (alerting.alert_kind) {
@@ -117,6 +160,8 @@ export default function AlertList(props: Props) {
       return (
         <NewOrderAlertListItem alerting={alerting} pushRouter={pushRouter} />
       );
+    case 3:
+      return <TaskAlertListItem alerting={alerting} pushRouter={pushRouter} />;
     default:
       return null;
   }

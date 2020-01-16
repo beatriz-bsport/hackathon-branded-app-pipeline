@@ -5,12 +5,15 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { push as routerPush } from 'react-router-redux';
 import { connect } from 'react-redux';
-import { compose } from 'recompose';
+import { compose, withProps } from 'recompose';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { TAG_KIND_MEMBER } from '@bsport/common/lib/master-data/tag';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+
+import TaskList from '../../libs/reminder/components/TaskList.component';
+import { getUsersWithRole } from '../../libs/role/selectors';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {
@@ -40,6 +43,15 @@ import {
   deleteTagGroup,
   deleteTag,
 } from '../../libs/tag/actions';
+import {
+  fetchTaskListByMember as fetchTaskListByMemberAction,
+  createOrUpdateTask as createOrUpdateTaskAction,
+  updateTaskStatus,
+} from '../../libs/reminder/actions';
+import type { Task } from '../../libs/reminder/types';
+import type { OptionCallback } from '../../state/types';
+import { memberTaskListSelector } from '../../libs/reminder/selectors';
+import { fetchCompanyRoles } from '../../libs/role/actions';
 
 import { mailMembers } from '../../libs/communication/actions';
 
@@ -74,6 +86,19 @@ type Props = {
   // MAIL
   mailMember: () => void,
 
+  // TASK
+  taskList: Array<Task>,
+  taskLoading: ?boolean,
+  fetchRoles: () => void,
+  staffList: Array<User>,
+  createOrUpdateTask: (data: any, options: OptionCallback) => void,
+  updateTaskStatus: (
+    id: number,
+    status: number,
+    options: OptionCallback,
+  ) => void,
+  fetchTaskListByMember: () => void,
+
   // TAGS
   // ----
   tagGroups: Array<TagGroup>,
@@ -107,6 +132,7 @@ export class MemberDetailPage extends Component<Props, State> {
   componentDidMount() {
     this.props.fetchMember(this.props.id);
     this.props.fetchTags();
+    this.props.fetchTaskListByMember();
   }
 
   componentDidUpdate(prevProps) {
@@ -147,6 +173,14 @@ export class MemberDetailPage extends Component<Props, State> {
             mergeMember={() => this.setState({ searchModalOpen: true })}
             mailMember={this.props.mailMember}
             goToCreditRegularization={this.goToCreditRegularization}
+          />
+          <TaskList
+            taskList={this.props.taskList}
+            updateTaskStatus={this.props.updateTaskStatus}
+            createOrUpdateTask={this.props.createOrUpdateTask}
+            fetchRoles={this.props.fetchRoles}
+            staffList={this.props.staffList}
+            loading={this.props.taskLoading}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -235,8 +269,11 @@ export default compose(
       searchedMembers: memberSelectors.getSearched(state),
       tagGroups: tagSelectors.getMemberTagGroups(state),
       tagGroupsLoading: state.tag.group.loading,
+      taskList: memberTaskListSelector(state),
+      staffList: getUsersWithRole(state),
     }),
     {
+      fetchRoles: fetchCompanyRoles,
       fetchMember,
       searchMembers,
       tagMember,
@@ -261,6 +298,26 @@ export default compose(
       deleteTag,
       addFile: (data) => addFileToMember(data),
       removeFile: removeFileFromMember,
+      fetchTaskListByMember: fetchTaskListByMemberAction,
+      createOrUpdateTask: createOrUpdateTaskAction,
+      updateTaskStatus,
     },
   ),
+  withProps(({ fetchTaskListByMember, id }) => ({
+    fetchTaskListByMember: () => fetchTaskListByMember(id),
+  })),
+  withProps(({ fetchTaskListByMember, createOrUpdateTask, id }) => ({
+    createOrUpdateTask: (data, options) => {
+      createOrUpdateTask(
+        { ...data, member_id: id },
+        {
+          onSuccess: (...args) => {
+            options.onSuccess(...args);
+            fetchTaskListByMember();
+          },
+          onError: options.onError,
+        },
+      );
+    },
+  })),
 )(MemberDetailPage);

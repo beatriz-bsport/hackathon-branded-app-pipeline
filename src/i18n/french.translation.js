@@ -42,8 +42,10 @@ import smartList from './fr/smart-list.translations';
 import paymentCombo from './fr/payment-combo.translations';
 import authentication from './fr/authentication.translations';
 import category from './fr/category.translations';
+import reminder from './fr/reminder.translations';
 
 export default {
+  reminder,
   category,
   authentication,
   paymentCombo,

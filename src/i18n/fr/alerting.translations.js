@@ -5,7 +5,8 @@ export default {
   },
   alert_kind: {
     1: 'Facturation',
-    2: 'Commande',
+2: 'Commande',
+3: 'Tâche',
   },
   showMore: 'Voir davantage',
   unevenInvoice: {
@@ -18,5 +19,9 @@ export default {
     title: 'Commande en attente',
     explain: 'Payé par <1>{{name}}</1> sur le magasin.',
     price: 'Montant: {{ price, price }}.',
-  },
+      },
+      task: {
+      name: '{{ name }}',
+
+      },
 };

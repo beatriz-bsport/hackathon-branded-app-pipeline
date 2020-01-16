@@ -59,6 +59,7 @@ export function AlertList(props: Props) {
             <AlertListGroup
               pushRouter={props.pushRouter}
               alert_group={alert_group}
+              key={alert_group.alert_kind}
               onShowMore={() => props.showMore(alert_group.alert_kind)}
             />
           ))

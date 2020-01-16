@@ -138,6 +138,7 @@ export class MemberDetailPage extends Component<Props, State> {
   componentDidUpdate(prevProps) {
     if (prevProps.id !== this.props.id) {
       this.props.fetchMember(this.props.id);
+      this.props.fetchTaskListByMember();
     }
   }
 

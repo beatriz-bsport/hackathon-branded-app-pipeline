@@ -109,6 +109,12 @@ export class MemberDetailPage extends Component<Props, State> {
     this.props.fetchTags();
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.id !== this.props.id) {
+      this.props.fetchMember(this.props.id);
+    }
+  }
+
   deleteTag = (id: number) => this.setState({ tagToDelete: id });
 
   deleteTagGroup = (id: number) => this.setState({ tagGroupToDelete: id });

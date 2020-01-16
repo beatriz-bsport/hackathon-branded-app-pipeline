@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { compose } from 'recompose';
+import { compose, withState } from 'recompose';
 
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -9,10 +9,14 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import withStyles from '@material-ui/core/styles/withStyles';
+import { push } from 'react-router-redux';
 import ClearIcon from '@material-ui/icons/Clear';
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
+import Popover from '@material-ui/core/Popover';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
 import parse from '../query-string';
 import DelayedTextField from './DelayedTextField.component';
@@ -28,11 +32,16 @@ type Props = {
   classes: *,
   className: string,
   changeLocation: boolean,
+  push: (string) => void,
+  memberHistory: Array<Member>,
+  setMemberHistoryAnchor: (HTMLElement) => void,
+  memberHistoryAnchor: ?HTMLElement,
 };
 
 export class SearchBar extends Component<Props> {
   handleChange = (e: Object) => {
     const { value } = e.target;
+    this.props.setMemberHistoryAnchor(null);
 
     if (!value) {
       this.clearSearch();
@@ -53,6 +62,33 @@ export class SearchBar extends Component<Props> {
     const { t, classes, className, searchText } = this.props;
     return (
       <div className={`${classes.bar} ${className}`}>
+        <Popover
+          disableAutoFocus
+          disableRestoreFocus
+          anchorEl={this.props.memberHistoryAnchor}
+          open={Boolean(this.props.memberHistoryAnchor)}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+          }}
+        >
+          {this.props.memberHistory.map((m) => (
+            <ListItem
+              key={m.id}
+              divider
+              button
+              onClick={() => {
+                this.props.push(`/member/${m.id}/info`);
+              }}
+            >
+              <ListItemText primary={m.name} secondary={m.email} />
+            </ListItem>
+          ))}
+        </Popover>
         <DelayedTextField
           variant="outlined"
           className={classes.field}
@@ -60,6 +96,10 @@ export class SearchBar extends Component<Props> {
           value={searchText || ''}
           fullWidth
           onChange={this.handleChange}
+          onBlur={() => this.props.setMemberHistoryAnchor(null)}
+          onFocus={(ev) => {
+            this.props.setMemberHistoryAnchor(ev.currentTarget);
+          }}
           InputProps={{
             className: classes.input,
             startAdornment: (
@@ -92,6 +132,9 @@ function mapDisPatchToProps(dispatch) {
     clearSearch(changeLocation: boolean) {
       dispatch(searchActions.clearSearch(changeLocation));
     },
+    push(path) {
+      dispatch(push(path));
+    },
   };
 }
 
@@ -119,9 +162,11 @@ export default compose(
   withStyles(styles),
   withNamespaces(),
   withRouter,
+  withState('memberHistoryAnchor', 'setMemberHistoryAnchor', null),
   connect(
     (state, { location }) => ({
       searchText: getSearchText(state, location),
+      memberHistory: state.member.history,
     }),
     mapDisPatchToProps,
   ),

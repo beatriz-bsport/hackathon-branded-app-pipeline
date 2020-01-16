@@ -18,6 +18,7 @@ const initialState = Immutable({
     loading: false,
     error: null,
   },
+  history: [],
 });
 
 export default function memberReducers(state = initialState, action = {}) {
@@ -83,7 +84,11 @@ export default function memberReducers(state = initialState, action = {}) {
       return state
         .set('member', member)
         .set('loading', false)
-        .setIn(['all', idx], member);
+        .setIn(['all', idx], member)
+        .set('history', [
+          member,
+          ...state.history.filter((m) => m.id !== member.id).slice(0, 10),
+        ]);
     }
 
     case actionTypes.MEMBER_UPSERT_LOADING:

@@ -6,6 +6,7 @@ export default {
   consumerPaymentPack: {
     addExtension: 'Ajouter une extension',
   },
+  notificationToolTip: 'Des notifications sont définies pour cette carte',
   notification: {
     listItem: {
       mail: 'Mail ',

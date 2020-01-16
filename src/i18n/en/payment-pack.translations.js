@@ -6,6 +6,8 @@ export default {
   consumerPaymentPack: {
     addExtension: 'Extend validity',
   },
+  notificationToolTip: 'Notifications are definied for this pass',
+
   notification: {
     listItem: {
       mail: 'Mail ',

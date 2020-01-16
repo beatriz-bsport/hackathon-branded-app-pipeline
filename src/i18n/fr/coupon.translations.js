@@ -56,6 +56,14 @@ export default {
     },
   },
   form: {
+    selectorPlaceholder: {
+      privatePass:
+        "Sélectionner des cartes de cours privés (valables sur toutes les cartes si aucune n'est sélectionnée)",
+      paymentPack:
+        "Sélectionner des abonnements (valable sur tous les abonnements si aucun n'est sélectionné)",
+      shopitem:
+        "Sélectionner des produits du magasin (valable sur tous les produits si aucun n'est sélectionné)",
+    },
     section: {
       general: 'Général',
       availability: 'Disponibilité',

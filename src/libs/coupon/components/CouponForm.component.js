@@ -28,11 +28,24 @@ import {
   BUYABLE_ITEM_PRIVATE_PASS,
 } from '@bsport/common/lib/master-data/buyable-items';
 
+import PaymentPackListItem from '../../payment-packs/components/PaymentPackListItem.component';
+import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
+import ShopItemListItem from '../../shop/components/ShopItemListItem.component';
+import ShopItemSelector from '../../shop/components/ShopItemSelector.component';
+import PrivatePassSelector from '../../private-service/components/PrivatePassSelector.component';
+import PrivatePassListItem from '../../private-service/components/PrivatePassListItem.component';
+
 import NumericInput from '../../../components/input/NumericInput.component';
 import PriceInput from '../../../components/input/PriceInput.component';
 import PercentInput from '../../../components/input/PercentInput.component';
 import Checkbox from '../../../components/input/Checkbox.component';
 import type { Coupon } from '../types';
+
+import { PaymentPack } from '../../payment-packs/types';
+import { ShopItem } from '../../shop/types';
+import { PrivatePass } from '../../private-service/types';
+
+const ALL_BUYABLES = 100;
 
 type Props = {
   initial: ?Coupon,
@@ -42,18 +55,16 @@ type Props = {
 
   t: TFunction,
   classes: Object,
+
+  paymentPacks: Array<PaymentPack>,
+  shopItems: Array<ShopItem>,
+  privatePasses: Array<PrivatePass>,
 };
 type State = {
   ...Coupon,
   with_expiration_date: boolean,
 };
 
-const buyables = [
-  BUYABLE_ITEM_PASS,
-  BUYABLE_ITEM_SHOP_ITEM,
-  BUYABLE_ITEM_FEE,
-  BUYABLE_ITEM_PRIVATE_PASS,
-];
 export class CouponForm extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -69,7 +80,8 @@ export class CouponForm extends React.Component<Props, State> {
         usage_per_member: props.initial.usage_per_member,
         combinable: props.initial.combinable,
         minimum_amount: props.initial.minimum_amount,
-        applies_to: props.initial.applies_to,
+        applies_to: props.initial.applies_to || ALL_BUYABLES,
+        only_on_objects: props.initial.only_on_objects,
         voucher_type: props.initial.voucher_type,
         with_expiration_date: !!props.initial.expiration_date,
         expiration_date: props.initial.expiration_date
@@ -88,7 +100,8 @@ export class CouponForm extends React.Component<Props, State> {
         usage_per_member: 1,
         combinable: false,
         minimum_amount: 0,
-        applies_to: null,
+        applies_to: ALL_BUYABLES,
+        only_on_objects: [],
         voucher_type: VOUCHER_TYPE_PERCENT,
         with_expiration_date: false,
         expiration_date: moment(),
@@ -119,6 +132,7 @@ export class CouponForm extends React.Component<Props, State> {
       minimum_amount: this.state.minimum_amount,
       applies_to: this.state.applies_to,
       voucher_type: this.state.voucher_type,
+      only_on_objects: this.state.only_on_objects,
     };
     if (this.state.with_expiration_date && this.state.is_active) {
       data.expiration_date = moment(
@@ -224,35 +238,178 @@ export class CouponForm extends React.Component<Props, State> {
     );
   };
 
-  renderAppliesTo = () => {
-    const { t, classes } = this.props;
+  renderApply = () => {
+    const { paymentPacks, privatePasses, shopItems, t, classes } = this.props;
     return (
-      <div>
-        <FormControl component="fieldset" className={classes.radioGroup}>
-          <RadioGroup
-            aria-label="Applies to "
-            name="applies_to"
-            value={this.state.applies_to}
-            onChange={(ev) => {
+      <div className={classes.fullWidth}>
+        <RadioGroup
+          aria-label="Applies to "
+          name="applies_to"
+          value={this.state.applies_to}
+          onChange={(ev) => {
+            if (
+              [
+                BUYABLE_ITEM_PASS,
+                BUYABLE_ITEM_SHOP_ITEM,
+                BUYABLE_ITEM_FEE,
+                BUYABLE_ITEM_PRIVATE_PASS,
+                ALL_BUYABLES,
+              ].includes(parseInt(ev.target.value, 10))
+            ) {
+              this.handleChange('only_on_objects')([]);
               this.handleChange('applies_to', false)(
                 parseInt(ev.target.value, 10),
               );
-            }}
-          >
-            {buyables.map((item) => (
-              <FormControlLabel
-                value={item}
-                control={<Radio checked={item === this.state.applies_to} />}
-                label={t(`form.applies_to.choices.${item}`)}
-              />
-            ))}
-            <FormControlLabel
-              value={null}
-              control={<Radio checked={!this.state.applies_to} />}
-              label={t('form.applies_to.choices.all')}
+            }
+          }}
+        >
+          <FormControlLabel
+            value={BUYABLE_ITEM_PASS}
+            control={
+              <Radio checked={BUYABLE_ITEM_PASS === this.state.applies_to} />
+            }
+            label={t(`form.applies_to.choices.${BUYABLE_ITEM_PASS}`)}
+          />
+          <div className={classes.fullWidth}>
+            <PaymentPackSelector
+              paymentPacks={paymentPacks
+                .filter((pp) => !pp.disabled)
+                .filter((pp) => !this.state.only_on_objects.includes(pp.id))}
+              nullCurrentValue
+              helperText={t('form.selectorPlaceholder.paymentPack')}
+              onChange={(id) => {
+                let newObjects = [...this.state.only_on_objects];
+
+                if (this.state.applies_to !== BUYABLE_ITEM_PASS) {
+                  this.handleChange('applies_to', false)(BUYABLE_ITEM_PASS);
+                  newObjects = [];
+                }
+                newObjects.push(id);
+                this.handleChange('only_on_objects')(newObjects);
+              }}
             />
-          </RadioGroup>
-        </FormControl>
+            {this.state.applies_to === BUYABLE_ITEM_PASS
+              ? this.state.only_on_objects.map((id, i) => (
+                  <PaymentPackListItem
+                    key={`${id}-${i}`}
+                    pack={paymentPacks.find((pp) => pp.id === id)}
+                    onDelete={() => {
+                      const newObjects = this.state.only_on_objects.filter(
+                        (ido) => ido !== id,
+                      );
+                      this.handleChange('only_on_objects')(newObjects);
+                    }}
+                  />
+                ))
+              : null}
+          </div>
+          <FormControlLabel
+            value={BUYABLE_ITEM_SHOP_ITEM}
+            control={
+              <Radio
+                checked={BUYABLE_ITEM_SHOP_ITEM === this.state.applies_to}
+              />
+            }
+            label={t(`form.applies_to.choices.${BUYABLE_ITEM_SHOP_ITEM}`)}
+          />
+          <div className={classes.fullWidth}>
+            <ShopItemSelector
+              shopItemList={shopItems
+                .filter((item) => item.subshop && !item.disabled)
+                .filter(
+                  (item) => !this.state.only_on_objects.includes(item.id),
+                )}
+              nullCurrentValue
+              helperText={t('form.selectorPlaceholder.shopitem')}
+              onChange={(id) => {
+                let newObjects = [...this.state.only_on_objects];
+                if (this.state.applies_to !== BUYABLE_ITEM_SHOP_ITEM) {
+                  this.handleChange('applies_to', false)(
+                    BUYABLE_ITEM_SHOP_ITEM,
+                  );
+                  newObjects = [];
+                }
+                newObjects.push(id);
+                this.handleChange('only_on_objects')(newObjects);
+              }}
+            />
+            {this.state.applies_to === BUYABLE_ITEM_SHOP_ITEM
+              ? this.state.only_on_objects.map((id, i) => (
+                  <ShopItemListItem
+                    key={`${id}-${i}`}
+                    dense
+                    shopitem={shopItems.find((si) => si.id === id)}
+                    onDelete={() => {
+                      const newObjects = this.state.only_on_objects.filter(
+                        (ido) => ido !== id,
+                      );
+                      this.handleChange('only_on_objects')(newObjects);
+                    }}
+                  />
+                ))
+              : null}
+          </div>
+          <FormControlLabel
+            value={BUYABLE_ITEM_PRIVATE_PASS}
+            control={
+              <Radio
+                checked={BUYABLE_ITEM_PRIVATE_PASS === this.state.applies_to}
+              />
+            }
+            label={t(`form.applies_to.choices.${BUYABLE_ITEM_PRIVATE_PASS}`)}
+          />
+          <div className={classes.fullWidth}>
+            <PrivatePassSelector
+              privatePassList={privatePasses
+                .filter((pp) => pp.available)
+                .filter(
+                  (pass) => !this.state.only_on_objects.includes(pass.id),
+                )}
+              helperText={t('form.selectorPlaceholder.privatePass')}
+              nullCurrentValue
+              onChange={(id) => {
+                let newObjects = [...this.state.only_on_objects];
+
+                if (this.state.applies_to !== BUYABLE_ITEM_PRIVATE_PASS) {
+                  this.handleChange('applies_to', false)(
+                    BUYABLE_ITEM_PRIVATE_PASS,
+                  );
+                  newObjects = [];
+                }
+                newObjects.push(id);
+                this.handleChange('only_on_objects')(newObjects);
+              }}
+            />
+            {this.state.applies_to === BUYABLE_ITEM_PRIVATE_PASS &&
+            privatePasses.length
+              ? this.state.only_on_objects.map((id, i) => (
+                  <PrivatePassListItem
+                    key={`${id}-${i}`}
+                    dense
+                    pass={privatePasses.find((pp) => pp.id === id)}
+                    onDelete={() => {
+                      const newObjects = this.state.only_on_objects.filter(
+                        (ido) => ido !== id,
+                      );
+                      this.handleChange('only_on_objects')(newObjects);
+                    }}
+                  />
+                ))
+              : null}
+          </div>
+          <FormControlLabel
+            value={BUYABLE_ITEM_FEE}
+            control={
+              <Radio checked={BUYABLE_ITEM_FEE === this.state.applies_to} />
+            }
+            label={t(`form.applies_to.choices.${BUYABLE_ITEM_FEE}`)}
+          />
+          <FormControlLabel
+            value={ALL_BUYABLES}
+            control={<Radio checked={ALL_BUYABLES === this.state.applies_to} />}
+            label={t('form.applies_to.choices.all')}
+          />
+        </RadioGroup>
       </div>
     );
   };
@@ -287,7 +444,7 @@ export class CouponForm extends React.Component<Props, State> {
         <Typography variant="h6" className={classes.sectionTitle}>
           {t('form.section.applies_to')}
         </Typography>
-        {this.renderAppliesTo()}
+        {this.renderApply()}
         <Typography variant="h6" className={classes.sectionTitle}>
           {t('form.section.availability')}
         </Typography>
@@ -395,6 +552,7 @@ const styles = (theme) => ({
   actionButton: {
     marginLeft: theme.spacing.unit,
   },
+  fullWidth: { width: '100%' },
 });
 
 export default compose(

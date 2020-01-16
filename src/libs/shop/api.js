@@ -5,6 +5,7 @@ import {
   getAuth,
   putAuth,
   patchAuth,
+  buildUrlParams,
   deleteAuth,
 } from '../../http';
 
@@ -14,6 +15,10 @@ export async function fetchAll({ companyId }: { companyId?: number }) {
     queryParams += `?company=${companyId}`;
   }
   return getAuth(`${API_V1_URI}/shop/item/${queryParams}`);
+}
+
+export async function fetchOld(params: any) {
+  return getAuth(`${API_V1_URI}/shop/item/get_all/${buildUrlParams(params)}`);
 }
 
 export async function fetchShopItem(id: number) {

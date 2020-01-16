@@ -5,7 +5,7 @@ import type { State } from '../../state/types';
 
 const _getSubShops = (state: State) => state.shop.subShops;
 const _getProvisions = (state: State) => state.shop.provisions;
-const _getAllShopItems = (state: State) => state.shop.all;
+export const _getAllShopItems = (state: State) => state.shop.all;
 
 const _getMarketplaceShopItems = createSelector(
   _getAllShopItems,
@@ -52,6 +52,11 @@ const getShopitem = (state: State, id: number) => {
 
 const getProvisionByShopitem = (state: State, id: number) =>
   _getProvisions(state).filter((p) => p.shop_item === id);
+
+export const getFreshShopIds = createSelector(
+  _getAllShopItems,
+  (es) => es.map((e) => e.id),
+);
 
 export default {
   getSubShopsByCompany,

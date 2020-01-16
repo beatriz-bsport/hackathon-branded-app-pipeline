@@ -1,5 +1,7 @@
 // @flow
 
+import uniq from 'lodash/uniq';
+
 import * as api from '../api';
 import types from '../action.types';
 
@@ -8,6 +10,7 @@ import {
   snackbarError,
 } from '../../../actions/snackbar.actions';
 import type { Dispatch } from '../../../state/types';
+import { getFreshShopIds } from '../selectors';
 
 export function shopFetchStart() {
   return { type: types.SHOP_FETCH_START };
@@ -24,6 +27,28 @@ export function fetchAll(companyId: ?number) {
     dispatch(shopFetchStart());
     try {
       const response = await api.fetchAll({ companyId });
+      const shopItems = response.data;
+      dispatch(shopFetchSuccess(shopItems));
+    } catch (e) {
+      dispatch(shopFetchError(e));
+    }
+  };
+}
+
+export function fetchBulk(companyId: ?number, ids = Array) {
+  return async (dispatch: Dispatch, getState: () => State) => {
+    const freshShopList = getFreshShopIds(getState());
+    const ids_uniq = uniq(ids.filter((id) => !!id)).filter(
+      (id) => !freshShopList.includes(id),
+    );
+    if (ids_uniq.length === 0) {
+      return;
+    }
+    try {
+      const response = await api.fetchOld({
+        company: companyId,
+        id__in: ids_uniq,
+      });
       const shopItems = response.data;
       dispatch(shopFetchSuccess(shopItems));
     } catch (e) {

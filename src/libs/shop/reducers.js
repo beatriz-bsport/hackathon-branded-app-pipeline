@@ -76,7 +76,9 @@ export default function shopReducers(
     case actionTypes.SHOP_FETCH_ERROR:
       return state.set('loading', false);
     case actionTypes.SHOP_FETCH_SUCCESS:
-      return state.set('loading', false).set('all', action.shopItems);
+      return state
+        .set('loading', false)
+        .set('all', [...state.all, ...action.shopItems]);
 
     case actionTypes.SHOP_ITEM_CREATEOR_UPDATE_SUCCESS: {
       const { shopItem } = action;

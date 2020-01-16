@@ -27,6 +27,13 @@ export default {
     limitation: 'Restricted to',
   },
   form: {
+    selectorPlaceholder: {
+      privatePass:
+        'Select private lesson passes (valid on all passes if none selected)',
+      paymentPack:
+        'Select collective lesson passes (valid on all passes if none selected)',
+      shopitem: 'Select shop items (valid on all items if none selected)',
+    },
     section: {
       general: 'General',
       availability: 'Availability',

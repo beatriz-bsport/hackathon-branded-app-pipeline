@@ -20,7 +20,7 @@ export const couponList = {
   delete: createAction('COUPON/LIST/DELETE'),
 };
 
-export function fetchCouponPage(page: number): ThunkAction {
+export function fetchCouponPage(page: number, options?: any): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(couponList.isLoading(true));
     dispatch(couponList.error(null));
@@ -33,6 +33,9 @@ export function fetchCouponPage(page: number): ThunkAction {
           // page: response.data.next_page,
         }),
       );
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
       dispatch(couponList.error(null));
     } catch (error) {
       dispatch(couponList.error(error));

@@ -15,7 +15,12 @@ export const fetchCouponPage = async (page: number) => {
 };
 
 export const fetchCouponDiscounts = async (couponId: number, params: any) => {
-  return getAuth(`${COUPON_URI}${couponId}/discount/${buildUrlParams(params)}`);
+  return getAuth(
+    `${COUPON_URI}${couponId}/discount/${buildUrlParams({
+      coupon: couponId,
+      ...(params || {}),
+    })}`,
+  );
 };
 
 export const createCoupon = async (data: *) => {

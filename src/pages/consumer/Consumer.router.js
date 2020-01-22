@@ -27,8 +27,9 @@ export const ConsumerRouter = () => (
       path="/c/membership-validator/:companyId/"
       component={ConsumerMembershipValidator}
     />
-    <Route exact path="/(|customer)" component={ConsumerSpacePreSelector} />
     <Route path="/c/:companyId/" component={ConsumerHome} />
+    <Route exact path="/(|customer)" component={ConsumerSpacePreSelector} />
+    <Route path="/" component={ConsumerSpacePreSelector} />
   </Switch>
 );
 

@@ -9,6 +9,8 @@ import { push } from 'react-router-redux';
 import Intercom from 'react-intercom';
 
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+
+import { getAuthToken } from '../http';
 import { getTheme } from '../theme';
 import withSentryErrorReporting from '../hocs/error-boundary.hoc';
 import ResponsiveDrawer from '../components/navigation/ResponsiveDrawer.component';
@@ -29,6 +31,7 @@ import Config from '../config';
 
 import { MarketingDashboard, MarketingRule } from './marketing';
 import alertingSelectors from '../libs/alerting/selectors';
+import { fetchAccessLevel } from '../actions/auth.actions';
 
 import type { TempPasswordState } from '../libs/login/types';
 
@@ -87,6 +90,7 @@ type Props = {
   authenticated: boolean,
   permission: Permission,
 
+  fetchAccessLevel: (token: string, username: string) => void,
   disconnect: () => void,
   deleteAlert: (id: number) => void,
   classes: Object,
@@ -142,6 +146,7 @@ export class Backoffice extends Component<Props> {
   componentWillMount() {
     document.title = 'Backoffice - bsport';
     this.refreshInterval = setInterval(this.props.fetchAllAlertings, 120000);
+    this.props.fetchAccessLevel(getAuthToken(), this.props.username);
   }
 
   componentDidMount() {
@@ -229,10 +234,13 @@ export default connect(
     theme: state.theme.theme,
     permission: getPermissions(state),
 
+    is_consumer: state.auth.is_consumer && !state.auth.is_manager,
+
     tempPasswordState: getTempPasswordState(state),
   }),
   {
     fetchCompanyTheme,
+    fetchAccessLevel,
     disconnect: () => push('/login/signout'),
     refreshIfNeeded: refreshActions.refreshIfNeeded,
     refresh: refreshActions.forceRefresh,

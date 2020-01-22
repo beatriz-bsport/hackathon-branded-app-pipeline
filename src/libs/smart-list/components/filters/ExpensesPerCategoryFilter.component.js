@@ -24,6 +24,7 @@ type Props = {
   onChange: (any) => void,
   buyable_identifiers: any,
   new: boolean,
+  setNotNullableData: (Array<string>) => void,
 };
 
 function renderOption(props: OptionProps) {
@@ -45,6 +46,13 @@ function renderOption(props: OptionProps) {
 
 export class ExpensesPerCategoryFilter extends Component<Props, state> {
   componentDidMount() {
+    this.props.setNotNullableData([
+      'comparator',
+      'value',
+      'date_end',
+      'date_start',
+    ]);
+
     if (this.props.new) {
       this.props.onChange({
         buyable_identifiers: [],
@@ -82,7 +90,9 @@ export class ExpensesPerCategoryFilter extends Component<Props, state> {
         <DelayedNumericInput
           value={filter_data.value}
           classes={classes}
-          onChange={(ev) => onChange({ value: ev.target.value })}
+          onChange={(ev) =>
+            onChange({ value: ev.target.value === '' ? null : ev.target.value })
+          }
         />
         {t(`filters.${filter_data.filter_identifier}.second`)}
         <div className={classes.datePicker}>

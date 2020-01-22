@@ -12,45 +12,47 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
+import WarningIcon from '@material-ui/icons/Warning';
 
 import {
   CREDIT_ACCOUNT_FILTER_IDENTIFIER,
   LAST_PREVIOUS_BOOKING_FILTER_IDENTIFIER,
-  DATE_JOINED_FILTER_IDENTIFIER,
-  PAYMENT_PACK_PURCHASED_FILTER_IDENTIFIER,
   GENDER_FILTER_IDENTIFIER,
-  PAYMENT_PACK_CREDIT_FILTER_IDENTIFIER,
-  SENIORITY_FILTER_IDENTIFIER,
   HAS_VALID_CONSUMER_PACK_FILTER_IDENTIFIER,
-  BOOKING_ATTENDANCE_FILTER_IDENTIFIER,
-  WENT_TO_ACTIVITY_FILTER_IDENTIFIER,
   TAG_FILTER_IDENTIFIER,
   PAYMENT_PACK_DATE_CREDIT_FILTER_IDENTIFIER,
   EXPENSES_FILTER_IDENTIFIER,
-  PAYMENT_PACK_EXPIRATION_IDENTIFIER,
+  MEMBER_DATE_JOINED_FILTER_IDENTIFIER,
+  PAYMENT_PACK_FILTER_IDENTIFIER,
+  BASKET_ABANDONMENT_FILTER_IDENTIFIER,
+  BOOKINGS_NUMBER_FILTER_IDENTIFIER,
+  BOOKINGS_FILTER_IDENTIFIER,
+  FIRST_BOOKING_FILTER_IDENTIFIER,
 } from '@bsport/common/lib/master-data/smart-list';
 
 import CreditAccountFilter from './filters/CreditAccountFilter.component';
 import LastPreviousBookingFilter from './filters/LastPreviousBookingFilter.component';
-import DateJoinedFilter from './filters/DateJoinedFilter.component';
 import GenderFilter from './filters/GenderFilter.component';
-import PaymentPackPurchasedFilter from './filters/PaymentPackPurchasedFilter.component';
-import PaymentPackCreditFilter from './filters/PaymentPackCreditFilter.component';
 import HasValidPackFilter from './filters/HasValidPackFilter.component';
-import PaymentPackExpirationFilter from './filters/PaymentPackExpirationFilter.component';
-
-import SeniorityFilter from './filters/SeniorityFilter.component';
-import MetaActivityFilter from './filters/MetaActivityFilter.component';
-import BookingAttendanceFilter from './filters/BookingAttendanceFilter.component';
+import BookingsNumberFilter from './filters/BookingsNumberFilter.component';
 import TagFilter from './filters/TagFilter.component';
 import PaymentPackDateCreditFilter from './filters/PaymentPackDateCreditFilter.component';
 import ExpensesPerCategoryFilter from './filters/ExpensesPerCategoryFilter.component';
+import MemberDateJoinedFilter from './filters/MemberDateJoinedFilter.component';
+import PaymentPackFilter from './filters/PaymentPackFilter.component';
+import BasketAbandonmentFilter from './filters/BasketAbandonmentFilter.component';
+import BookingsFilter from './filters/BookingsFilter.component';
+import FirstBookingFilter from './filters/FirstBookingFilter.component';
 
 import type { PaymentPack } from '../../payment-packs/types';
+import type { Establishment } from '../../establishment/types';
+import type { Coach } from '../../associated-coach/types';
 
 type Props = {
   payment_packs: Array<PaymentPack>,
   meta_activities: Array<any>,
+  coaches: Array<Coach>,
+  establishments: Array<Establishment>,
   classes: Object,
   tag_groups: Array<any>,
   tags: Array<any>,
@@ -58,6 +60,10 @@ type Props = {
   onClickDelete: (id: number) => void,
   onClickCreate: (filter_identifier: number, data: any) => void,
   filter: any,
+  fetchItems: any,
+
+  fetchBulkItems: any,
+
   new: boolean,
   t: TFunction,
 };
@@ -73,6 +79,7 @@ export class FilterCard extends Component<Props> {
     super(props);
     this.state = {
       filter_data: props.filter,
+      not_nullable_data: [],
     };
   }
 
@@ -89,13 +96,45 @@ export class FilterCard extends Component<Props> {
     this.setState((prevState) => ({
       filter_data: { ...prevState.filter_data, ...dict },
     }));
-    if (!this.props.new) {
+    if (
+      !this.props.new &&
+      this.state.not_nullable_data
+        .map((item) => dataDict[item])
+        .every((item) => item !== null)
+    ) {
       this.props.onClickEdit(
         this.props.filter.filter_identifier,
         this.props.filter.id,
-        dataDict,
+        {
+          ...this.state.not_nullable_data.reduce((map, obj) => {
+            const newMap = map;
+            newMap[obj] = dataDict[obj];
+            return newMap;
+          }, {}),
+          ...dict,
+        },
       );
     }
+  };
+
+  setNotNullableData = (data) => {
+    this.setState({ not_nullable_data: data });
+  };
+
+  renderSelectorWarning = (text, active, items) => {
+    if (active && (!items || items.length === 0)) {
+      return (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <WarningIcon
+            color="error"
+            size={15}
+            className={this.props.classes.warningIcon}
+          />
+          <Typography variant="body2">{text}</Typography>
+        </div>
+      );
+    }
+    return null;
   };
 
   filterTypeSelector = () => {
@@ -106,6 +145,7 @@ export class FilterCard extends Component<Props> {
             filter_data={this.state.filter_data}
             onChange={this.handleChange}
             new={this.props.new}
+            setNotNullableData={this.setNotNullableData}
           />
         );
       case LAST_PREVIOUS_BOOKING_FILTER_IDENTIFIER:
@@ -114,24 +154,16 @@ export class FilterCard extends Component<Props> {
             filter_data={this.state.filter_data}
             onChange={this.handleChange}
             new={this.props.new}
+            setNotNullableData={this.setNotNullableData}
           />
         );
-
-      case DATE_JOINED_FILTER_IDENTIFIER:
+      case MEMBER_DATE_JOINED_FILTER_IDENTIFIER:
         return (
-          <DateJoinedFilter
+          <MemberDateJoinedFilter
             filter_data={this.state.filter_data}
             onChange={this.handleChange}
             new={this.props.new}
-          />
-        );
-      case PAYMENT_PACK_PURCHASED_FILTER_IDENTIFIER:
-        return (
-          <PaymentPackPurchasedFilter
-            filter_data={this.state.filter_data}
-            onChange={this.handleChange}
-            payment_packs={this.props.payment_packs}
-            new={this.props.new}
+            setNotNullableData={this.setNotNullableData}
           />
         );
       case GENDER_FILTER_IDENTIFIER:
@@ -140,24 +172,7 @@ export class FilterCard extends Component<Props> {
             filter_data={this.state.filter_data}
             onChange={this.handleChange}
             new={this.props.new}
-          />
-        );
-      case PAYMENT_PACK_CREDIT_FILTER_IDENTIFIER:
-        return (
-          <PaymentPackCreditFilter
-            filter_data={this.state.filter_data}
-            onChange={this.handleChange}
-            payment_packs={this.props.payment_packs}
-            new={this.props.new}
-          />
-        );
-      case PAYMENT_PACK_EXPIRATION_IDENTIFIER:
-        return (
-          <PaymentPackExpirationFilter
-            filter_data={this.state.filter_data}
-            onChange={this.handleChange}
-            payment_packs={this.props.payment_packs}
-            new={this.props.new}
+            setNotNullableData={this.setNotNullableData}
           />
         );
       case PAYMENT_PACK_DATE_CREDIT_FILTER_IDENTIFIER:
@@ -167,14 +182,32 @@ export class FilterCard extends Component<Props> {
             onChange={this.handleChange}
             payment_packs={this.props.payment_packs}
             new={this.props.new}
+            fetchItems={this.props.fetchItems}
+            fetchBulkItems={this.props.fetchBulkItems}
+            setNotNullableData={this.setNotNullableData}
+            renderSelectorWarning={this.renderSelectorWarning}
           />
         );
-      case SENIORITY_FILTER_IDENTIFIER:
+      case BASKET_ABANDONMENT_FILTER_IDENTIFIER:
         return (
-          <SeniorityFilter
+          <BasketAbandonmentFilter
             filter_data={this.state.filter_data}
             onChange={this.handleChange}
             new={this.props.new}
+            setNotNullableData={this.setNotNullableData}
+          />
+        );
+      case PAYMENT_PACK_FILTER_IDENTIFIER:
+        return (
+          <PaymentPackFilter
+            filter_data={this.state.filter_data}
+            onChange={this.handleChange}
+            payment_packs={this.props.payment_packs}
+            fetchItems={this.props.fetchItems}
+            fetchBulkItems={this.props.fetchBulkItems}
+            new={this.props.new}
+            setNotNullableData={this.setNotNullableData}
+            renderSelectorWarning={this.renderSelectorWarning}
           />
         );
       case HAS_VALID_CONSUMER_PACK_FILTER_IDENTIFIER:
@@ -184,23 +217,10 @@ export class FilterCard extends Component<Props> {
             onChange={this.handleChange}
             payment_packs={this.props.payment_packs}
             new={this.props.new}
-          />
-        );
-      case WENT_TO_ACTIVITY_FILTER_IDENTIFIER:
-        return (
-          <MetaActivityFilter
-            filter_data={this.state.filter_data}
-            onChange={this.handleChange}
-            meta_activities={this.props.meta_activities}
-            new={this.props.new}
-          />
-        );
-      case BOOKING_ATTENDANCE_FILTER_IDENTIFIER:
-        return (
-          <BookingAttendanceFilter
-            filter_data={this.state.filter_data}
-            onChange={this.handleChange}
-            new={this.props.new}
+            fetchItems={this.props.fetchItems}
+            fetchBulkItems={this.props.fetchBulkItems}
+            setNotNullableData={this.setNotNullableData}
+            renderSelectorWarning={this.renderSelectorWarning}
           />
         );
       case TAG_FILTER_IDENTIFIER:
@@ -211,6 +231,54 @@ export class FilterCard extends Component<Props> {
             tags={this.props.tags}
             onChange={this.handleChange}
             new={this.props.new}
+            setNotNullableData={this.setNotNullableData}
+          />
+        );
+      case BOOKINGS_NUMBER_FILTER_IDENTIFIER:
+        return (
+          <BookingsNumberFilter
+            filter_data={this.state.filter_data}
+            establishments={this.props.establishments}
+            onChange={this.handleChange}
+            meta_activities={this.props.meta_activities}
+            new={this.props.new}
+            fetchItems={this.props.fetchItems}
+            fetchBulkItems={this.props.fetchBulkItems}
+            setNotNullableData={this.setNotNullableData}
+            renderSelectorWarning={this.renderSelectorWarning}
+          />
+        );
+      case FIRST_BOOKING_FILTER_IDENTIFIER:
+        return (
+          <FirstBookingFilter
+            filter_data={{
+              ...this.state.filter_data,
+              filter_identifier: BOOKINGS_NUMBER_FILTER_IDENTIFIER,
+            }}
+            establishments={this.props.establishments}
+            onChange={this.handleChange}
+            meta_activities={this.props.meta_activities}
+            new={this.props.new}
+            fetchItems={this.props.fetchItems}
+            fetchBulkItems={this.props.fetchBulkItems}
+            setNotNullableData={this.setNotNullableData}
+            renderSelectorWarning={this.renderSelectorWarning}
+          />
+        );
+      case BOOKINGS_FILTER_IDENTIFIER:
+        return (
+          <BookingsFilter
+            filter_data={this.state.filter_data}
+            establishments={this.props.establishments}
+            onChange={this.handleChange}
+            payment_packs={this.props.payment_packs}
+            meta_activities={this.props.meta_activities}
+            new={this.props.new}
+            coaches={this.props.coaches}
+            fetchItems={this.props.fetchItems}
+            fetchBulkItems={this.props.fetchBulkItems}
+            setNotNullableData={this.setNotNullableData}
+            renderSelectorWarning={this.renderSelectorWarning}
           />
         );
       case EXPENSES_FILTER_IDENTIFIER:
@@ -219,6 +287,7 @@ export class FilterCard extends Component<Props> {
             filter_data={this.state.filter_data}
             onChange={this.handleChange}
             new={this.props.new}
+            setNotNullableData={this.setNotNullableData}
             buyable_identifiers={[
               {
                 label: this.props.t(
@@ -275,13 +344,19 @@ export class FilterCard extends Component<Props> {
                 onClick={(ev) => {
                   ev.stopPropagation();
                   ev.preventDefault();
+                  let { filter_identifier } = filter;
+                  if (filter_identifier === FIRST_BOOKING_FILTER_IDENTIFIER) {
+                    filter_identifier = BOOKINGS_NUMBER_FILTER_IDENTIFIER;
+                  }
                   this.props.onClickCreate(
-                    filter.filter_identifier,
+                    filter_identifier,
                     this.state.filter_data,
                   );
                 }}
                 color="secondary"
-                disabled={Object.values(this.state.filter_data).includes(null)}
+                disabled={this.state.not_nullable_data
+                  .map((item) => this.state.filter_data[item] || null)
+                  .includes(null)}
               >
                 <SaveIcon className={this.props.classes.leftIcon} />
                 {t('filters.add')}
@@ -309,6 +384,10 @@ export class FilterCard extends Component<Props> {
 }
 
 const styles = (theme) => ({
+  warningIcon: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+  },
   rowContainer: {
     display: 'flex',
     justifyContent: 'space-between',

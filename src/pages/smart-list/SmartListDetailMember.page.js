@@ -21,7 +21,10 @@ import LinearProgressMUI from '@material-ui/core/LinearProgress';
 import MemberTable from '../../libs/member/MemberTable.component';
 import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/selectors';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
+import {
+  fetchAllPaymentPacks,
+  fetchPaymentPackBulk,
+} from '../../libs/payment-packs/actions';
 import {
   getSmartListFilters,
   getSmartList,
@@ -44,6 +47,7 @@ import { fetchPrivatePassList } from '../../libs/private-service/actions';
 import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
 import { getMetaActivities } from '../../libs/meta-activity/selectors';
 import { fetchAllActivities as fetchAllActivitiesAction } from '../../libs/meta-activity/actions/meta-activity.actions';
+import { fetchMetaActivityBulk } from '../../libs/meta-activity/actions/common';
 import { fetchTags } from '../../libs/tag/actions';
 import tagSelectors from '../../libs/tag/selectors';
 
@@ -70,6 +74,21 @@ import {
   dateRangeChange,
 } from '../../actions/stats.actions';
 
+import type { Establishment } from '../../libs/establishment/types';
+import { getAllEstablishments } from '../../libs/establishment/selectors';
+import {
+  fetchEstablishments,
+  fetchEstablishmentBulk,
+} from '../../libs/establishment/actions';
+
+import {
+  fetchAssociatedCoachesList as fetchCoaches,
+  fetchCoachBulk,
+} from '../../libs/associated-coach/actions';
+import type { Coach } from '../../libs/associated-coach/types';
+
+import { getCoaches } from '../../libs/associated-coach/selectors';
+
 const BOOKING_STATISTIC_IDENTIFIER = 1;
 const EXPENSES_STATISTIC_IDENTIFIER = 3;
 const BOOKING_SEGMENTS_STATISTIC_IDENTIFIER = 4;
@@ -81,10 +100,10 @@ type Props = {
   smartlist: any,
   fetchSmartListFilters: (id: number) => void,
   fetchAllPaymentPacks: () => void,
-  fetchPrivatePassList: () => void,
   fetchAllActivities: () => void,
   fetchEmailTemplateDetail: (id: number) => void,
   fetchEmailTemplatesSummaries: () => void,
+  fetchEstablishments: () => void,
   classes: Object,
   memberTitle: string,
   fetchTags: () => void,
@@ -110,6 +129,7 @@ type Props = {
   goToMember: (id: number) => void,
   smartlist_filters: Array<Filter>,
   payment_packs: Array<PaymentPack>,
+  establishments: Array<Establishment>,
   // privatePassList: Array<PrivatePass>,
   meta_activities: Array<MetaActivity>,
   email_templates_details: any,
@@ -126,6 +146,16 @@ type Props = {
   goToEmailCreate: () => void,
   snackbarSuccess: (string) => void,
   snackbarError: (string) => void,
+  establishmentLoading: boolean,
+  metaActivityLoading: boolean,
+  coachLoading: boolean,
+  paymentPackLoading: boolean,
+  fetchEstablishmentBulk: () => void,
+  fetchMetaActivityBulk: () => void,
+  fetchCoachBulk: () => void,
+  fetchPaymentPackBulk: () => void,
+  fetchCoaches: () => void,
+  coaches: Array<Coach>,
 
   // statistics
   setCloseMemberTable: () => void,
@@ -178,9 +208,10 @@ export class SmartListDetailMember extends Component<Props, State> {
 
   componentDidMount() {
     this.props.fetchSmartListFilters(this.props.id);
-    this.props.fetchAllPaymentPacks();
-    this.props.fetchPrivatePassList();
-    this.props.fetchAllActivities();
+    // this.props.fetchAllPaymentPacks();
+    // this.props.fetchPrivatePassList();
+    // this.props.fetchAllActivities();
+    // this.props.fetchEstablishments();
     this.props.fetchTags();
   }
 
@@ -257,6 +288,32 @@ export class SmartListDetailMember extends Component<Props, State> {
     if (!this.props.smartlist_filters) {
       return <LinearProgress />;
     }
+    const fetchItems = {
+      meta_activities: {
+        fetchAction: this.props.fetchAllActivities,
+        loading: this.props.metaActivityLoading,
+      },
+      coaches: {
+        fetchAction: this.props.fetchCoaches,
+        loading: this.props.coachLoading,
+      },
+      payment_packs: {
+        fetchAction: this.props.fetchAllPaymentPacks,
+        loading: this.props.paymentPackLoading,
+      },
+      establishments: {
+        fetchAction: this.props.fetchEstablishments,
+        loading: this.props.establishmentLoading,
+      },
+    };
+
+    const fetchBulkItems = {
+      meta_activities: this.props.fetchMetaActivityBulk,
+      coaches: this.props.fetchCoachBulk,
+      payment_packs: this.props.fetchPaymentPackBulk,
+      establishments: this.props.fetchEstablishmentBulk,
+    };
+
     return (
       <div>
         <FiltersPanel
@@ -267,10 +324,14 @@ export class SmartListDetailMember extends Component<Props, State> {
           deleteFilter={this.deleteFilter}
           payment_packs={this.props.payment_packs}
           createFilter={this.createFilter}
+          coaches={this.props.coaches}
           meta_activities={this.props.meta_activities}
+          establishments={this.props.establishments}
           tags={this.props.tags}
           tag_groups={this.props.tag_groups}
           loading={this.props.loading}
+          fetchItems={fetchItems}
+          fetchBulkItems={fetchBulkItems}
           onRequestEmail={() => this.props.setOpenSendEmail(true)}
         />
         <div className={this.props.classes.memberWrapper}>
@@ -438,6 +499,12 @@ export default compose(
       payment_packs: getPaymentPackEnabled(state),
       privatePassList: getPrivatePassAvailable(state),
       meta_activities: getMetaActivities(state),
+      metaActivityLoading: state.metaActivity.loading,
+      establishmentLoading: state.establishment.loading,
+      coachLoading: state.coach.loading,
+      paymentPackLoading: state.paymentPack.loading,
+      establishments: getAllEstablishments(state),
+      coaches: getCoaches(state),
       tag_groups: tagSelectors.getMemberTagGroups(state),
       tags: tagSelectors.getMemberTags(state),
       email_templates_list: getAllEmailTemplatesSummaries(state),
@@ -480,12 +547,18 @@ export default compose(
       dateRangeChange,
       fetchSmartListStats,
       fetchSmartListFilters,
+      fetchCoachBulk,
+      fetchCoaches,
       fetchAllPaymentPacks,
+      fetchPaymentPackBulk,
+      fetchEstablishmentBulk,
       fetchPrivatePassList,
       fetchTags,
       updateFilter,
       sendMail,
       snackbarSuccess,
+      fetchEstablishments,
+      fetchMetaActivityBulk,
       deleteFilter,
       smartListCreate,
       smartListUpdate,

@@ -27,19 +27,19 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import {
   CREDIT_ACCOUNT_FILTER_IDENTIFIER,
   LAST_PREVIOUS_BOOKING_FILTER_IDENTIFIER,
-  DATE_JOINED_FILTER_IDENTIFIER,
-  PAYMENT_PACK_PURCHASED_FILTER_IDENTIFIER,
   GENDER_FILTER_IDENTIFIER,
-  PAYMENT_PACK_CREDIT_FILTER_IDENTIFIER,
-  SENIORITY_FILTER_IDENTIFIER,
   HAS_VALID_CONSUMER_PACK_FILTER_IDENTIFIER,
-  WENT_TO_ACTIVITY_FILTER_IDENTIFIER,
-  BOOKING_ATTENDANCE_FILTER_IDENTIFIER,
   TAG_FILTER_IDENTIFIER,
-  PAYMENT_PACK_DATE_CREDIT_FILTER_IDENTIFIER,
   EXPENSES_FILTER_IDENTIFIER,
-  PAYMENT_PACK_EXPIRATION_IDENTIFIER,
+  MEMBER_DATE_JOINED_FILTER_IDENTIFIER,
+  PAYMENT_PACK_FILTER_IDENTIFIER,
+  BOOKINGS_NUMBER_FILTER_IDENTIFIER,
+  BASKET_ABANDONMENT_FILTER_IDENTIFIER,
+  BOOKINGS_FILTER_IDENTIFIER,
+  FIRST_BOOKING_FILTER_IDENTIFIER,
 } from '@bsport/common/lib/master-data/smart-list';
+
+import type { Establishment } from '../../establishment/types';
 
 import FilterCard from './FilterListItem.component';
 
@@ -51,24 +51,21 @@ const BUY = 4;
 const filtersList = {
   [MEMBER_INFO]: [
     CREDIT_ACCOUNT_FILTER_IDENTIFIER,
-    DATE_JOINED_FILTER_IDENTIFIER,
-    SENIORITY_FILTER_IDENTIFIER,
+    MEMBER_DATE_JOINED_FILTER_IDENTIFIER,
     GENDER_FILTER_IDENTIFIER,
     TAG_FILTER_IDENTIFIER,
   ],
   [BOOKING]: [
+    FIRST_BOOKING_FILTER_IDENTIFIER,
     LAST_PREVIOUS_BOOKING_FILTER_IDENTIFIER,
-    BOOKING_ATTENDANCE_FILTER_IDENTIFIER,
-    WENT_TO_ACTIVITY_FILTER_IDENTIFIER,
+    BOOKINGS_NUMBER_FILTER_IDENTIFIER,
+    BOOKINGS_FILTER_IDENTIFIER,
   ],
   [PAYMENT_PACK]: [
-    PAYMENT_PACK_PURCHASED_FILTER_IDENTIFIER,
-    PAYMENT_PACK_CREDIT_FILTER_IDENTIFIER,
     HAS_VALID_CONSUMER_PACK_FILTER_IDENTIFIER,
-    PAYMENT_PACK_DATE_CREDIT_FILTER_IDENTIFIER,
-    PAYMENT_PACK_EXPIRATION_IDENTIFIER,
+    PAYMENT_PACK_FILTER_IDENTIFIER,
   ],
-  [BUY]: [EXPENSES_FILTER_IDENTIFIER],
+  [BUY]: [EXPENSES_FILTER_IDENTIFIER, BASKET_ABANDONMENT_FILTER_IDENTIFIER],
 };
 
 const filtersCategory = [MEMBER_INFO, PAYMENT_PACK, BOOKING, BUY];
@@ -80,6 +77,7 @@ type Props = {
   t: TFunction,
   filters: Array<Filter>,
   payment_packs: Array<PaymentPack>,
+  establishments: Array<Establishment>,
   meta_activities: Array<any>,
   tags: Array<any>,
   tag_groups: Array<any>,
@@ -104,6 +102,9 @@ type Props = {
   ) => void,
   onRequestEmail: () => void,
   exportMemberTable: () => void,
+  fetchItems: any,
+  fetchBulkItems: any,
+  coaches: Array<any>,
 };
 
 export class FiltersPanel extends Component<Props> {
@@ -246,7 +247,10 @@ export class FiltersPanel extends Component<Props> {
                         value={filter}
                         button
                       >
-                        <ListItemText primary={t(`filters.${filter}.name`)} />
+                        <ListItemText
+                          primary={t(`filters.${filter}.name`)}
+                          secondary={t(`filters.${filter}.explanation`)}
+                        />
                       </ListItem>
                     ))}
                   </List>
@@ -264,7 +268,7 @@ export class FiltersPanel extends Component<Props> {
           className={this.props.classes.header}
         >
           {this.props.loading ? (
-            <div style={{ display: 'flex' }}>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
               <Typography
                 variant="h6"
                 style={{ marginRight: '10px' }}
@@ -300,8 +304,12 @@ export class FiltersPanel extends Component<Props> {
                   onClickDelete={this.props.deleteFilter}
                   payment_packs={this.props.payment_packs}
                   meta_activities={this.props.meta_activities}
+                  establishments={this.props.establishments}
                   tag_groups={this.props.tag_groups}
                   tags={this.props.tags}
+                  coaches={this.props.coaches}
+                  fetchItems={this.props.fetchItems}
+                  fetchBulkItems={this.props.fetchBulkItems}
                 />
               ))}
               {this.state.new_filter ? (
@@ -310,10 +318,14 @@ export class FiltersPanel extends Component<Props> {
                   onClickDelete={this.cancelFilter}
                   payment_packs={this.props.payment_packs}
                   meta_activities={this.props.meta_activities}
+                  establishments={this.props.establishments}
                   new
                   onClickCreate={this.createFilter}
                   tag_groups={this.props.tag_groups}
                   tags={this.props.tags}
+                  coaches={this.props.coaches}
+                  fetchItems={this.props.fetchItems}
+                  fetchBulkItems={this.props.fetchBulkItems}
                 />
               ) : null}
             </List>

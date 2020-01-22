@@ -17,18 +17,42 @@ import { COMPARATORS_DICT } from '@bsport/common/lib/master-data/smart-list';
 import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
 import type { PaymentPack } from '../../../payment-packs/types';
 import Selector from '../MultiSelector.component';
+import PaymentPackListItem from '../../../payment-packs/components/PaymentPackListItem.component';
 
 type Props = {
   filter_data: any,
   t: TFunction,
-  payment_packs: Array<PaymentPack>,
+  payment_pack: Array<PaymentPack>,
   classes: Object,
   onChange: (any) => void,
   new: boolean,
+  fetchItems: any,
+  fetchBulkItems: any,
+  setNotNullableData: (Array<string>) => void,
 };
 
 export class PaymentPackDateCreditFilter extends Component<Props, state> {
   componentDidMount() {
+    this.props.setNotNullableData([
+      'comparator',
+      'value',
+      'payment_pack',
+      'date_end',
+      'date_start',
+    ]);
+
+    const { payment_pack } = this.props.filter_data;
+    if (payment_pack && payment_pack.length === 1) {
+      this.props.fetchBulkItems.payment_packs(payment_pack);
+    }
+    this.props.setNotNullableData([
+      'payment_pack',
+      'comparator',
+      'value',
+      'date_end',
+      'date_start',
+    ]);
+
     if (this.props.new) {
       this.props.onChange({
         payment_pack: null,
@@ -41,7 +65,7 @@ export class PaymentPackDateCreditFilter extends Component<Props, state> {
   }
 
   render() {
-    const { filter_data, t, classes, onChange, payment_packs } = this.props;
+    const { filter_data, t, classes, onChange, payment_pack } = this.props;
     return (
       <div className={classes.wrapper}>
         {t(`filters.${filter_data.filter_identifier}.first`)}
@@ -53,10 +77,18 @@ export class PaymentPackDateCreditFilter extends Component<Props, state> {
           textFieldPlaceholder={t(
             'multiSelector.paymentPacks.textFieldPlaceholder',
           )}
-          primaryTextIdentifier="name"
-          items={payment_packs}
+          renderItem={(item) => {
+            return <PaymentPackListItem pack={item} />;
+          }}
+          helperAllSelectedText={t(
+            'multiSelector.paymentPacks.helperAllSelectedText',
+          )}
+          fetchItems={this.props.fetchItems.payment_packs}
+          nameIdentifier="name"
+          selectAll={this.props.filter_data.select_all_payment_pack}
+          items={payment_pack}
           selectedItems={filter_data.payment_pack}
-          onChange={(items) => {
+          onChange={(items, selectAll) => {
             if (
               filter_data.payment_pack &&
               !(
@@ -66,10 +98,16 @@ export class PaymentPackDateCreditFilter extends Component<Props, state> {
                 })
               )
             ) {
-              onChange({ payment_pack: items });
+              onChange({
+                payment_pack: items,
+                select_all_payment_packs: selectAll,
+              });
             }
             if (!filter_data.payment_pack && items.length > 0) {
-              onChange({ payment_pack: items });
+              onChange({
+                payment_pack: items,
+                select_all_payment_packs: selectAll,
+              });
             }
           }}
         />
@@ -113,7 +151,9 @@ export class PaymentPackDateCreditFilter extends Component<Props, state> {
         <DelayedNumericInput
           classes={classes}
           value={filter_data.value}
-          onChange={(ev) => onChange({ value: ev.target.value })}
+          onChange={(ev) =>
+            onChange({ value: ev.target.value === '' ? null : ev.target.value })
+          }
         />
         {this.props.t(`filters.${filter_data.filter_identifier}.fifth`)}
 

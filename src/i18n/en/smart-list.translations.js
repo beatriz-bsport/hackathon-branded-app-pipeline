@@ -1,29 +1,43 @@
 import {
   CREDIT_ACCOUNT_FILTER_IDENTIFIER,
   LAST_PREVIOUS_BOOKING_FILTER_IDENTIFIER,
-  DATE_JOINED_FILTER_IDENTIFIER,
-  PAYMENT_PACK_PURCHASED_FILTER_IDENTIFIER,
   GENDER_FILTER_IDENTIFIER,
-  PAYMENT_PACK_CREDIT_FILTER_IDENTIFIER,
-  SENIORITY_FILTER_IDENTIFIER,
   HAS_VALID_CONSUMER_PACK_FILTER_IDENTIFIER,
-  BOOKING_ATTENDANCE_FILTER_IDENTIFIER,
-  WENT_TO_ACTIVITY_FILTER_IDENTIFIER,
-  EXPENSES_FILTER_IDENTIFIER,
-  TAG_FILTER_IDENTIFIER,
-  PAYMENT_PACK_EXPIRATION_IDENTIFIER,
-  PAYMENT_PACK_DATE_CREDIT_FILTER_IDENTIFIER,
   LTE_COMPARATOR,
+  PAYMENT_PACK_DATE_CREDIT_FILTER_IDENTIFIER,
+  EXPENSES_FILTER_IDENTIFIER,
+  MEMBER_DATE_JOINED_FILTER_IDENTIFIER,
+  PAYMENT_PACK_FILTER_IDENTIFIER,
+  BASKET_ABANDONMENT_FILTER_IDENTIFIER,
+  BOOKINGS_NUMBER_FILTER_IDENTIFIER,
+  BOOKINGS_FILTER_IDENTIFIER,
   GTE_COMPARATOR,
   LT_COMPARATOR,
+  FIRST_BOOKING_FILTER_IDENTIFIER,
   GT_COMPARATOR,
+  TAG_FILTER_IDENTIFIER,
   E_COMPARATOR,
+  BETWEEN_COMPARATOR,
 } from '@bsport/common/lib/master-data/smart-list';
 
 const MEMBER_INFO = 1;
 const PAYMENT_PACK = 2;
 const BOOKING = 3;
 const BUY = 4;
+
+const DATE_AFTER = 0;
+const DATE_BEFORE = 1;
+const DATE_BETWEEN = 2;
+const DATE_EXACT = 3;
+
+const DURATION_AFTER = 4;
+const DURATION_BEFORE = 5;
+const DURATION_EXACT = 6;
+const DURATION_BETWEEN = 7;
+const DURATION_AFTER_PAST = 8;
+const DURATION_BEFORE_PAST = 9;
+const DURATION_EXACT_PAST = 10;
+const DURATION_BETWEEN_PAST = 11;
 
 export default {
   mails: 'Mails',
@@ -33,11 +47,27 @@ export default {
       helperText: 'select passes',
       helperSelectedText: 'selected passes',
       textFieldPlaceholder: 'Search a pass',
+      helperAllSelectedText: 'all passes',
     },
     metaActivities: {
       helperText: 'select activities',
       helperSelectedText: 'selected activities',
       textFieldPlaceholder: 'Search an activity',
+      helperAllSelectedText: 'all activities',
+    },
+    selectNothing: 'Unselect all',
+
+    establishments: {
+      helperText: 'select establishments',
+      helperSelectedText: 'selected establishments',
+      textFieldPlaceholder: 'Search an establishment',
+      helperAllSelectedText: 'all establishments',
+    },
+    coaches: {
+      helperText: 'select coaches',
+      helperSelectedText: 'selected coaches',
+      textFieldPlaceholder: 'Search a coach',
+      helperAllSelectedText: 'all coaches',
     },
   },
   selectToShowPreview: 'Please select a template',
@@ -110,6 +140,77 @@ export default {
     [BUY]: 'Buys',
   },
   filters: {
+    calendarPicker: {
+      text: {
+        [DATE_BEFORE]: { first: 'the or before the' },
+        [DATE_AFTER]: { first: 'the or after the' },
+        [DATE_EXACT]: { first: 'the' },
+        [DATE_BETWEEN]: { first: 'between', second: 'and' },
+        [DURATION_BEFORE_PAST]: {
+          first: 'before those',
+          second: 'last days',
+        },
+        [DURATION_AFTER_PAST]: {
+          first: 'in those',
+          second: 'last days',
+        },
+        [DURATION_EXACT_PAST]: { first: '', second: 'days ago' },
+        [DURATION_EXACT]: { first: 'in ', second: 'days' },
+        [DURATION_AFTER]: { first: 'in more than', second: 'days' },
+        [DURATION_BEFORE]: { first: 'in less than', second: 'days' },
+
+        [DURATION_BETWEEN_PAST]: {
+          first: 'from',
+          second: 'to',
+          third: 'days ago',
+        },
+        [DURATION_BETWEEN]: {
+          first: 'in ',
+          second: 'to',
+          third: 'days',
+        },
+      },
+      select: {
+        [DATE_BEFORE]: 'The or before the',
+        [DATE_AFTER]: 'The or after the',
+        [DATE_EXACT]: 'The',
+        [DATE_BETWEEN]: 'Between two dates',
+      },
+      selectduration: {
+        [DURATION_BEFORE_PAST]: { first: '', second: 'days ago or more' },
+        [DURATION_AFTER_PAST]: {
+          first: '',
+          second: 'days ago or less',
+        },
+        [DURATION_EXACT_PAST]: { first: ' ', second: 'days ago' },
+        [DURATION_BEFORE]: {
+          first: 'In less than',
+          second: 'days',
+        },
+        [DURATION_AFTER]: {
+          first: 'In more than',
+          second: 'days',
+        },
+        [DURATION_EXACT]: { first: 'In', second: 'days' },
+        [DURATION_BETWEEN]: {
+          first: 'In a future period',
+          second: 'days',
+          third: 'and',
+        },
+        [DURATION_BETWEEN_PAST]: {
+          first: 'In a past period',
+          second: 'days',
+          third: 'and',
+        },
+      },
+      duration: 'days',
+      durationTitle: 'Duration',
+      dateTitle: 'Date',
+    },
+    booking_status: {
+      canceled: 'canceled',
+      booked: 'booked',
+    },
     active_filters: 'Active filters on the list',
     add_filter: 'Add new filter',
     add: 'Add',
@@ -126,30 +227,18 @@ export default {
       [GTE_COMPARATOR]: 'less than (⩽)',
       [LTE_COMPARATOR]: 'more than (⩾)',
       [E_COMPARATOR]: 'exactly',
+      [BETWEEN_COMPARATOR]: 'between two',
     },
     [CREDIT_ACCOUNT_FILTER_IDENTIFIER]: {
       name: 'Credit',
       first: 'Credit is',
       second: ' than',
+      third: 'euros',
     },
     [LAST_PREVIOUS_BOOKING_FILTER_IDENTIFIER]: {
       name: 'Last booking',
       first: 'Last booking was before',
       second: 'days',
-    },
-    [DATE_JOINED_FILTER_IDENTIFIER]: {
-      name: 'Subscription date',
-      first: 'Member subscribed',
-      second: ' the   ',
-      before: 'before',
-      after: 'after',
-    },
-    [PAYMENT_PACK_PURCHASED_FILTER_IDENTIFIER]: {
-      name: 'Pass (not) bought',
-      first: 'Member',
-      second: 'bought one of the following passes',
-      has_bought: 'has',
-      hasnt_bought: 'has never',
     },
     [GENDER_FILTER_IDENTIFIER]: {
       name: 'Sex',
@@ -157,29 +246,10 @@ export default {
       men: 'males',
       women: 'females',
     },
-    [PAYMENT_PACK_EXPIRATION_IDENTIFIER]: {
-      name: 'Expiration',
-      first: "One of the following passes'",
-      second: 'expires in',
-      third: 'days',
-    },
-    [PAYMENT_PACK_CREDIT_FILTER_IDENTIFIER]: {
-      name: 'Passes available credits',
-      first: 'Passes',
-      second: 'credits are',
-      third: 'than',
-      infoIcon: 'Only concerns passes in validity',
-    },
     [HAS_VALID_CONSUMER_PACK_FILTER_IDENTIFIER]: {
       name: 'Passes validity',
       first: 'Passes',
       second: 'are usable',
-    },
-    [WENT_TO_ACTIVITY_FILTER_IDENTIFIER]: {
-      name: 'Activity attendance',
-      first: 'Went to activity',
-      second: 'in the past',
-      third: 'days',
     },
     [PAYMENT_PACK_DATE_CREDIT_FILTER_IDENTIFIER]: {
       name: 'Purchase date and credits per pass',
@@ -190,20 +260,12 @@ export default {
       fourth: 'and has',
       fifth: 'credits on it',
     },
-    [BOOKING_ATTENDANCE_FILTER_IDENTIFIER]: {
-      name: 'Number of lessons attendance',
-      first: 'Attended to ',
-      second: 'lessons those',
-      third: 'last days',
-    },
-    [SENIORITY_FILTER_IDENTIFIER]: {
-      name: 'Seniority',
-      first: 'Member since',
-      second: 'days',
-    },
     [TAG_FILTER_IDENTIFIER]: {
       name: 'Tags',
       first: 'Filter on tags',
+    },
+    [FIRST_BOOKING_FILTER_IDENTIFIER]: {
+      name: 'First booking',
     },
     [EXPENSES_FILTER_IDENTIFIER]: {
       shop: 'Shop',
@@ -217,6 +279,62 @@ export default {
       third: 'and the',
       fourth: 'for the products',
       selector: 'Select products',
+    },
+    [MEMBER_DATE_JOINED_FILTER_IDENTIFIER]: {
+      name: 'Date of registration',
+      first: 'Has register to the club  ',
+    },
+    [BOOKINGS_NUMBER_FILTER_IDENTIFIER]: {
+      name: 'Booking number',
+      first: 'Has booked his ',
+      second_singular: 'st lesson',
+      second_plural: 'th lesson',
+      activity: {
+        first: 'of',
+      },
+      establishment: {
+        first: 'in',
+      },
+      date: { first: 'Filter by date' },
+    },
+    [BOOKINGS_FILTER_IDENTIFIER]: {
+      name: 'booking number',
+      first: 'Has booked',
+      second: 'lessons',
+      activity: {
+        first: 'of activities',
+      },
+      establishment: {
+        first: 'in establishments',
+      },
+      payment_pack: {
+        first: 'with passes',
+      },
+      coach: {
+        first: 'with coaches',
+      },
+    },
+    [PAYMENT_PACK_FILTER_IDENTIFIER]: {
+      name: 'Passes',
+      first: 'one of passes',
+      has: 'Has',
+      has_not: "Doesn't have",
+      second: 'and',
+      third: 'à',
+      credits: { first: 'Credits:' },
+      date_bought: { first: 'Purchase date' },
+      expiration: {
+        first_will_expire: 'Expires',
+        first_has_expire: 'Has expired',
+      },
+      infoIcon: "Filter on credit doesn't apply to unlimited passes",
+    },
+    [BASKET_ABANDONMENT_FILTER_IDENTIFIER]: {
+      name: 'Abandoned baskets',
+      first: 'Has abandoned a basket worth',
+      second: 'to',
+      third: 'euros',
+      date: { first: 'Abandoned basket', second: 'days' },
     },
   },
 };

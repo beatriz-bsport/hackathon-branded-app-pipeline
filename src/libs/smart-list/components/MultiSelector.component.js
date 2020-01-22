@@ -18,8 +18,10 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Popover from '@material-ui/core/Popover';
 import ClearIcon from '@material-ui/icons/Clear';
 import SearchIcon from '@material-ui/icons/Search';
+
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import DelayedTextField from '../../../components/DelayedTextField.component';
 
@@ -32,8 +34,11 @@ type Props = {
   helperSelectedText: string,
   selectedItems: Array<number>,
   onChange: () => void,
-  primaryTextIdentifier: string,
-  secondaryTextIdentifier: string,
+  renderItem: () => void,
+  nameIdentifier: string,
+  helperAllSelectedText: string,
+  selectAll: boolean,
+  fetchItems: () => void,
 };
 
 type State = {
@@ -45,13 +50,18 @@ type State = {
 };
 
 export class MultipleSelect extends Component<Props, State> {
-  state = {
-    selectedItems: this.props.selectedItems || [],
-    open: false,
-    anchorEl: null,
-    searchedItems: this.props.items || [],
-    searchText: null,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedItems: props.selectedItems || [],
+      open: false,
+      anchorEl: null,
+      searchedItems: props.items || [],
+      searchText: null,
+      itemsFetched: false,
+      selectAll: props.selectAll || false,
+    };
+  }
 
   componentDidUpdate(prevProps) {
     if (this.props.selectedItems !== prevProps.selectedItems) {
@@ -64,9 +74,15 @@ export class MultipleSelect extends Component<Props, State> {
         searchedItems: this.props.items || [],
       });
     }
+    if (this.props.selectAll !== prevProps.selectAll) {
+      this.setState({
+        selectAll: this.props.selectAll,
+      });
+    }
   }
 
   handleChange = (id) => {
+    this.setState({ selectAll: false });
     if (this.state.selectedItems.includes(id)) {
       this.setState((prevState) => ({
         selectedItems: prevState.selectedItems.filter((item) => item !== id),
@@ -80,6 +96,10 @@ export class MultipleSelect extends Component<Props, State> {
 
   handleClick = (event) => {
     const { currentTarget } = event;
+    if (!this.state.open && !this.state.itemsFetched && this.props.fetchItems) {
+      this.props.fetchItems.fetchAction();
+      this.setState({ itemsFetched: true });
+    }
     this.setState((state) => ({
       anchorEl: currentTarget,
       open: !state.open,
@@ -90,7 +110,7 @@ export class MultipleSelect extends Component<Props, State> {
     this.setState({
       searchText: ev.target.value.toLowerCase(),
       searchedItems: this.props.items.filter((item) =>
-        item[this.props.primaryTextIdentifier]
+        item[this.props.nameIdentifier]
           .toLowerCase()
           .includes(ev.target.value.toLowerCase()),
       ),
@@ -104,23 +124,19 @@ export class MultipleSelect extends Component<Props, State> {
     });
   };
 
-  selectAll = () => {
-    if (this.state.selectedItems.length === this.props.items.length) {
-      this.setState({ selectedItems: [] });
-    } else {
-      this.setState({ selectedItems: this.props.items.map((item) => item.id) });
-    }
-  };
-
   renderValue() {
+    if (this.state.selectAll) {
+      return `${this.props.helperAllSelectedText}`;
+    }
     if (this.state.selectedItems.length === 0) {
       return this.props.helperText;
     }
     if (this.state.selectedItems.length === 1) {
       const itemSelected = [...this.state.selectedItems].pop();
-      return this.props.items.find((item) => item.id === itemSelected)
+      return this.props.items &&
+        this.props.items.find((item) => item.id === itemSelected)
         ? this.props.items.find((item) => item.id === itemSelected)[
-            this.props.primaryTextIdentifier
+            this.props.nameIdentifier
           ]
         : ' - ';
     }
@@ -156,8 +172,12 @@ export class MultipleSelect extends Component<Props, State> {
         <Popover
           open={this.state.open}
           onClose={() => {
-            this.props.onChange(selectedItems);
-            this.setState({ open: false });
+            this.props.onChange(selectedItems, this.state.selectAll);
+            this.setState({
+              open: false,
+              searchText: null,
+              searchedItems: this.props.items,
+            });
           }}
           anchorEl={this.state.anchorEl}
           anchorOrigin={{
@@ -168,80 +188,110 @@ export class MultipleSelect extends Component<Props, State> {
             vertical: 'top',
             horizontal: 'left',
           }}
-          style={{ maxHeight: '300px' }}
+          style={{ maxHeight: '400px' }}
         >
-          <DelayedTextField
-            placeholder={this.props.textFieldPlaceholder}
-            value={this.state.searchText || ''}
-            fullWidth
-            variant="outlined"
-            onChange={this.changeSearch}
-            delay={170}
-            autoFocus
-            className={classes.textField}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-              endAdornment: this.state.searchText ? (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label={
-                      this.state.searchText ? 'Clear search' : 'Search'
-                    }
-                    onClick={this.clearSearch}
-                  >
-                    <ClearIcon />
-                  </IconButton>
-                </InputAdornment>
-              ) : null,
-            }}
-          />
-          <MenuItem key="all" value="all" onClick={() => this.selectAll()}>
-            <Checkbox
-              checked={
-                this.state.selectedItems.length === this.props.items.length
-              }
+          <div style={{ position: 'sticky', top: '0px' }}>
+            <DelayedTextField
+              placeholder={this.props.textFieldPlaceholder}
+              value={this.state.searchText || ''}
+              fullWidth
+              variant="outlined"
+              onChange={this.changeSearch}
+              delay={170}
+              autoFocus
+              className={classes.textField}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+                endAdornment: this.state.searchText ? (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label={
+                        this.state.searchText ? 'Clear search' : 'Search'
+                      }
+                      onClick={this.clearSearch}
+                    >
+                      <ClearIcon />
+                    </IconButton>
+                  </InputAdornment>
+                ) : null,
+              }}
             />
-            <ListItemText primary={t('multiSelector.selectAll')} />
-          </MenuItem>
-          {[...this.state.searchedItems]
-            .sort((item, _item) => {
-              if (
-                selectedItems.includes(item.id) &&
-                selectedItems.includes(_item.id)
-              ) {
-                return 0;
-              }
-              if (
-                selectedItems.includes(item.id) &&
-                !selectedItems.includes(_item.id)
-              ) {
-                return -1;
-              }
-              return 1;
-            })
-            .map((item) => (
+          </div>
+          {this.props.fetchItems.loading ? (
+            <div className={classes.loadingContainer}>
+              <CircularProgress size={30} />
+            </div>
+          ) : (
+            <div style={{ maxHeight: '300px', overflow: 'auto' }}>
               <MenuItem
-                key={item.id}
-                value={item.id}
-                onClick={() => this.handleChange(item.id)}
+                className={classes.menuItem}
+                key="all"
+                value="all"
+                onClick={() =>
+                  this.setState((prevState) => ({
+                    selectAll: !prevState.selectAll,
+                    selectedItems: this.props.items.map((item) => item.id),
+                  }))
+                }
               >
-                <Checkbox
-                  checked={this.state.selectedItems.includes(item.id)}
-                />
-                <ListItemText
-                  primary={item[this.props.primaryTextIdentifier]}
-                  secondary={
-                    this.props.secondaryTextIdentifier
-                      ? item[this.props.secondaryTextIdentifier]
-                      : null
-                  }
-                />
+                <Typography variant="subtitle2">
+                  {t('multiSelector.selectAll')}
+                </Typography>
+                <Checkbox checked={this.state.selectAll} />
               </MenuItem>
-            ))}
+              <MenuItem
+                className={classes.menuItem}
+                key="nothing"
+                value="nothing"
+                onClick={() =>
+                  this.setState(() => ({
+                    selectAll: false,
+                    selectedItems: [],
+                  }))
+                }
+              >
+                <Typography variant="subtitle2">
+                  {t('multiSelector.selectNothing')}
+                </Typography>
+              </MenuItem>
+              {[...this.state.searchedItems]
+                .sort((item, _item) => {
+                  if (
+                    selectedItems.includes(item.id) &&
+                    selectedItems.includes(_item.id)
+                  ) {
+                    return 0;
+                  }
+                  if (
+                    selectedItems.includes(item.id) &&
+                    !selectedItems.includes(_item.id)
+                  ) {
+                    return -1;
+                  }
+                  return 1;
+                })
+                .map((item) => (
+                  <MenuItem
+                    className={classes.menuItem}
+                    key={item.id}
+                    value={item.id}
+                    onClick={() => this.handleChange(item.id)}
+                  >
+                    {this.props.renderItem ? this.props.renderItem(item) : null}
+                    <Checkbox
+                      checked={
+                        this.state.selectedItems.includes(item.id) ||
+                        this.state.selectAll
+                      }
+                    />
+                  </MenuItem>
+                ))}
+            </div>
+          )}
         </Popover>
       </div>
     );
@@ -249,6 +299,18 @@ export class MultipleSelect extends Component<Props, State> {
 }
 
 const styles = (theme) => ({
+  menuItem: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit,
+  },
+  loadingContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: theme.spacing.unit,
+  },
   listItemTextRoot: {
     paddingRight: '0px',
   },
@@ -256,7 +318,7 @@ const styles = (theme) => ({
     paddingRight: theme.spacing.unit * 2,
   },
   textField: {
-    padding: '1px',
+    padding: theme.spacing.unit / 8,
   },
   gutters: { paddingLeft: '0px' },
   searchBar: {
@@ -264,8 +326,8 @@ const styles = (theme) => ({
   },
   root: {
     paddingRight: '0px',
-    paddingBottom: '2px',
-    paddingTop: '3px',
+    paddingBottom: theme.spacing.unit / 4,
+    paddingTop: (theme.spacing.unit * 3) / 8,
     marginLeft: theme.spacing.unit,
   },
   divider: { borderBottom: '1px solid #909090' },

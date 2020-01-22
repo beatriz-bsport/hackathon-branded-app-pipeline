@@ -14,10 +14,13 @@ type Props = {
   classes: Object,
   onChange: (any) => void,
   new: boolean,
+  setNotNullableData: (Array<string>) => void,
 };
 
 export class LastPreviousBookingFilter extends Component<Props, state> {
   componentDidMount() {
+    this.props.setNotNullableData(['value']);
+
     if (this.props.new) {
       this.props.onChange({ value: null });
     }
@@ -31,7 +34,9 @@ export class LastPreviousBookingFilter extends Component<Props, state> {
         <DelayedNumericInput
           classes={classes}
           value={filter_data.value}
-          onChange={(ev) => onChange({ value: ev.target.value })}
+          onChange={(ev) =>
+            onChange({ value: ev.target.value === '' ? null : ev.target.value })
+          }
         />
         {t(`filters.${filter_data.filter_identifier}.second`)}
       </div>

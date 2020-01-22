@@ -15,10 +15,13 @@ type Props = {
   classes: Object,
   onChange: (any) => void,
   new: boolean,
+  setNotNullableData: (Array<string>) => void,
 };
 
 export class GenderFilter extends Component<Props, state> {
   componentDidMount() {
+    this.props.setNotNullableData(['value']);
+
     if (this.props.new) {
       this.props.onChange({ value: null });
     }

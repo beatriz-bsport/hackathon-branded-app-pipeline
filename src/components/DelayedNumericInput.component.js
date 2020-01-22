@@ -24,6 +24,12 @@ export default class DelayedNumericInput extends Component<Props, State> {
     };
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.value !== prevProps.value) {
+      this.setState({ value: this.props.value });
+    }
+  }
+
   handleChange = (e: *) => {
     e.persist();
     this.setState({

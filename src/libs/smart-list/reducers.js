@@ -147,7 +147,7 @@ export default handleActions(
       return state.set('error', payload);
     },
     [fetchSmartListFiltersAction.isLoading]: (state, { payload }) => {
-      return state.set('loading', payload);
+      return state.setIn(['filter', 'loading'], payload);
     },
     // Filters actions
 

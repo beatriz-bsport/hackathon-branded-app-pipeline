@@ -17,10 +17,13 @@ type Props = {
   classes: Object,
   onChange: (any) => void,
   new: boolean,
+  setNotNullableData: (Array<string>) => void,
 };
 
 export class CreditFilter extends Component<Props, state> {
   componentDidMount() {
+    this.props.setNotNullableData(['comparator', 'value']);
+
     if (this.props.new) {
       this.props.onChange({ comparator: null, value: null });
     }
@@ -48,7 +51,9 @@ export class CreditFilter extends Component<Props, state> {
         <DelayedNumericInput
           classes={classes}
           value={filter_data.value}
-          onChange={(ev) => onChange({ value: ev.target.value })}
+          onChange={(ev) =>
+            onChange({ value: ev.target.value === '' ? null : ev.target.value })
+          }
         />
       </div>
     );

@@ -115,7 +115,7 @@ type Props = {
   createNotification: () => void,
   updateNotification: (data: any) => void,
   deleteNotification: (id: number) => void,
-
+  goToSmartlist: () => void,
   emailListLoading: boolean,
   emailDetailLoading: boolean,
   smartListLoading: boolean,
@@ -212,6 +212,7 @@ export class PaymentPackDetail extends Component<Props, State> {
             smartLists={this.props.smartLists}
             smartListLoading={this.props.smartListLoading}
             getSmartLists={this.props.getSmartLists}
+            goToSmartlist={this.props.goToSmartlist}
           />
         </Grid>
 
@@ -358,6 +359,8 @@ export default compose(
         pushRouter(`/payment-pack/${paymentPackId}/edit`),
       resetConsumerPacks: resetByPaymentPackAction,
       fetchEstablishments,
+      goToSmartlist: () => pushRouter('/smart-list'),
+
       goToConsumerPackDetail: (memberId, passId) =>
         pushRouter(`/member/${memberId}/pass/${passId}`),
       fetchConsumerPacks: (

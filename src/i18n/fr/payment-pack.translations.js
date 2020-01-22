@@ -36,6 +36,9 @@ export default {
       hideMail: 'Cacher le mail',
       submit: 'Valider',
       cancel: 'Annuler',
+      createSmartList: 'Créer une smartlist',
+      warning:
+        'En ne sélectionnant aucune smartlist vous risquez de notifier des membres qui ont déjà acheté une autre carte de cours',
       smartListHelper:
         "Ne pas envoyer de mail si le membre appartient à l'une des listes suivantes",
       smartListHelperInclude:

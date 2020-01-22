@@ -23,6 +23,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
+import WarningIcon from '@material-ui/icons/Warning';
 
 import SmartListSelector from '../../smart-list/components/SmartListSelector.component';
 import EmailSelector from '../../email-editor/components/EmailSelector.component';
@@ -47,6 +48,7 @@ type Props = {
   emailDetails: Array<any>,
   onCancel: () => void,
   onSubmit: (data: any) => void,
+  goToSmartlist: () => void,
 };
 
 export class notificationRuleForm extends Component<Props, state> {
@@ -167,6 +169,20 @@ export class notificationRuleForm extends Component<Props, state> {
             )}
           </Typography>
         </div>
+      </div>
+    );
+  };
+
+  renderWarning = () => {
+    return (
+      <div className={this.props.classes.warningContainer}>
+        <WarningIcon />
+        <Typography style={{ marginRight: '8px', marginLeft: '16px' }}>
+          {this.props.t('notification.form.warning')}
+        </Typography>
+        <Button variant="outlined" onClick={this.props.goToSmartlist}>
+          {this.props.t('notification.form.createSmartList')}
+        </Button>
       </div>
     );
   };
@@ -397,6 +413,12 @@ export class notificationRuleForm extends Component<Props, state> {
               ? null
               : this.renderSmartListChoice()}
           </div>
+          {(this.state.kind === PAYMENT_PACK_NOTIFICATION_DAY_LEFT ||
+            this.state.kind === PAYMENT_PACK_NOTIFICATION_DAY_PAST) &&
+          this.state.smartlist_exclude.length === 0 &&
+          this.state.smartlist_include.length === 0
+            ? this.renderWarning()
+            : null}
           <div className={classes.fieldContainer}>
             <Typography variant="subtitle2">
               {t('notification.form.mailTitle')}
@@ -438,6 +460,13 @@ export class notificationRuleForm extends Component<Props, state> {
 }
 
 const styles = (theme) => ({
+  warningContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: theme.spacing.unit * 4,
+    marginLeft: theme.spacing.unit * 2,
+    marginRight: theme.spacing.unit,
+  },
   bottomButtons: {
     display: 'flex',
     justifyContent: 'space-between',

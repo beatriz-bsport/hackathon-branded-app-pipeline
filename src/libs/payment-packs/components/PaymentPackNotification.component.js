@@ -33,6 +33,7 @@ type Props = {
   createNotification: () => void,
   updateNotification: (data: any) => void,
   deleteNotification: (id: number) => void,
+  goToSmartlist: () => void,
   classes: Object,
   t: TFunction,
   emailListLoading: boolean,
@@ -234,6 +235,7 @@ export class notificationRule extends Component<Props, state> {
         </div>
         <PaymentPackNotificationForm
           open={this.state.openForm}
+          goToSmartlist={this.props.goToSmartlist}
           notification={this.state.selectedNotification}
           onCancel={() =>
             this.setState({ selectedNotification: null, openForm: false })

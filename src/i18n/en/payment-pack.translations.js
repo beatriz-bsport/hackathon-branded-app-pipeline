@@ -37,6 +37,9 @@ export default {
       hideMail: 'Hide mail preview',
       submit: 'Confirm',
       cancel: 'Cancel',
+      createSmartList: 'Create a smartlist',
+      warning:
+        'By selecting no smarlist you might notify members who already have bought another pass',
       smartListHelper:
         "Don't send the email if the member is in one of the following lists",
       smartListHelperInclude:

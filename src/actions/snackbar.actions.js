@@ -23,6 +23,12 @@ export function displaySnackbar(kind: SnackKind) {
   };
 }
 
+export function deleteSnackbar(snackbarId: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(snackbarDestroy(snackbarId));
+  };
+}
+
 export const snackbarSuccess = displaySnackbar('success');
 export const snackbarError = displaySnackbar('error');
 export const snackbarInfo = displaySnackbar('info');

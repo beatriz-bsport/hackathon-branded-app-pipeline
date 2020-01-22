@@ -53,14 +53,16 @@ export const withEstablishment = memoize((selector: (State) => any) =>
   createSelector(
     [selector, getAllEstablishmentsDict],
     (offers, establishmentData) =>
-      offers.map((o) => ({
-        ...o,
-        establishment_override: o.establishment_override
-          ? establishmentData[o.establishment_override] ||
-            o.establishment_override
-          : null,
-        establishment: establishmentData[o.establishment] || o.establishment,
-      })),
+      offers
+        .filter((o) => !!o)
+        .map((o) => ({
+          ...o,
+          establishment_override: o.establishment_override
+            ? establishmentData[o.establishment_override] ||
+              o.establishment_override
+            : null,
+          establishment: establishmentData[o.establishment] || o.establishment,
+        })),
   ),
 );
 

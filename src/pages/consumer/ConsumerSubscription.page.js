@@ -94,7 +94,7 @@ export default compose(
     }),
     {
       fetchSubscriptionListByMember,
-      goToSubscription: (name, id) => push(`/m/${name}/${id}subscription`),
+      goToSubscription: (name, id) => push(`/m/${name}/${id}/subscription`),
     },
   ),
 )(ConsumerSubscription);

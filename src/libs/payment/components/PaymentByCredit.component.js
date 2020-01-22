@@ -47,7 +47,9 @@ export const PaymentByCredit = (props: Props) => (
         }
         color="primary"
         variant="contained"
-        disabled={!props.termsAccepted && props.termsAndConditions}
+        disabled={
+          (!props.termsAccepted && props.termsAndConditions) || props.loading
+        }
       >
         {props.t('forms.credit.pay')}
       </Button>

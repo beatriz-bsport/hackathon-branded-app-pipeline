@@ -28,6 +28,7 @@ type Props = {
   t: TFunction,
   classes: Object,
   loading: boolean,
+  processing: boolean,
   termsAndConditions: string,
   onCancel: () => void,
 };
@@ -36,9 +37,10 @@ const PayButtonBase = (props: {
   onClick: () => void,
   t: TFunction,
   classes: any,
+  loading: boolean,
 }) => (
   <div className={props.classes.payButtonContainer}>
-    <Button onClick={props.onClick} color="primary">
+    <Button disabled={props.loading} onClick={props.onClick} color="primary">
       {props.t('checkout:myBasket.actions.payZero')}
     </Button>
   </div>
@@ -51,12 +53,15 @@ const PayButton = withStyles(styles)(
 const ChosenPaymentModule = (props: {
   paymentMethod: number,
   submitPayment: (*) => void,
+  loading: boolean,
+  processing: boolean,
 }) => {
   switch (props.paymentMethod) {
     case PAYMENT_METHOD_CREDIT_ACCOUNT.id:
       return (
         <PaymentByCredit
           loading={props.loading}
+          processing={props.processing}
           accountBalance={0}
           submitPayment={props.submitPayment}
           termsAndConditions={props.termsAndConditions}
@@ -67,6 +72,7 @@ const ChosenPaymentModule = (props: {
     default:
       return (
         <PaymentByPaymentIntent
+          processing={props.processing}
           loading={props.loading}
           submitPaymentIntent={props.submitPayment}
           termsAndConditions={props.termsAndConditions}
@@ -78,7 +84,12 @@ const ChosenPaymentModule = (props: {
 
 export const PaymentForm = (props: Props) => {
   if (props.price_cts === 0) {
-    return <PayButton onClick={() => props.submitPayment()} />;
+    return (
+      <PayButton
+        loading={props.loading}
+        onClick={() => props.submitPayment()}
+      />
+    );
   }
   const chosenPaymentMethod =
     props.paymentMethod || props.availablePaymentMethods[0];
@@ -112,6 +123,7 @@ export const PaymentForm = (props: Props) => {
         paymentMethod={chosenPaymentMethod}
         submitPayment={props.submitPayment}
         loading={props.loading}
+        processing={props.processing}
         termsAndConditions={props.termsAndConditions}
         onCancel={props.onCancel}
       />

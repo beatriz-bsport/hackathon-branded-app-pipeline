@@ -158,15 +158,9 @@ export class PaymentIntentGathering extends Component<Props, State> {
           this.props.customContainerStyle ? null : this.props.classes.container
         }
       >
-        {this.props.loading || this.state.processing
-          ? this.renderProcessing()
-          : null}
+        {this.state.processing ? this.renderProcessing() : null}
         <div
-          style={
-            this.state.processing || this.props.loading
-              ? { display: 'none' }
-              : {}
-          }
+          style={this.state.processing ? { display: 'none' } : {}}
           className={this.props.classes.cardElementContainer}
         >
           <CardElement

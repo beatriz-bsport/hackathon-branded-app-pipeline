@@ -97,7 +97,7 @@ export class CheckoutPayment extends React.Component<Props> {
         this.props.basket.id,
       );
     }
-    if (this.props.loading || !this.props.basket) {
+    if (!this.props.basket) {
       return (
         <div className={this.props.classes.container}>
           <CircularProgress />

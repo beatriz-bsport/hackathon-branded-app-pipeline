@@ -82,7 +82,8 @@ export class BasketFinalizer extends React.Component<Props, State> {
             availablePaymentMethods={
               this.props.basket.available_payment_methods
             }
-            loading={this.props.processing}
+            loading={this.props.loading}
+            processing={this.props.processing}
             onSuccess={this.props.onBasketFinalized}
             submitPayment={this.props.submitPayment}
             termsAndConditions={this.props.termsAndConditions}

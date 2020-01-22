@@ -41,6 +41,7 @@ export const CheckoutFlow = (props: Props) => (
       onBasketFinalized={props.onBasketFinalized}
       patchBasket={props.patchBasket}
       processing={props.processing}
+      loading={props.loading}
       termsAndConditions={props.termsAndConditions}
       backToCalendar={props.backToCalendar}
     />

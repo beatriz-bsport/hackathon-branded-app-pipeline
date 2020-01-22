@@ -6,8 +6,8 @@ import { connect } from 'react-redux';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { compose } from 'recompose';
 import { goBack } from 'react-router-redux';
+import withStyles from '@material-ui/core/styles/withStyles';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import ConsumerModalContainer from '../../components/consumer/ConsumerModalContainer.component';
 import type { OrderWithProducts } from '../../libs/order/types';
 import ConsumerMenu from '../../components/navigation/ConsumerMenu.component';
 import { getOrCreateCurrentOrder as getOrCreateCurrentOrderAction } from '../../libs/order/actions';
@@ -22,6 +22,7 @@ type Props = {
   goBack: () => void,
   fetchCurrentOrder: (companyId: number) => void,
   onPaymentSuccess: () => void,
+  classes: Object,
 };
 
 export class OrderPaymentPage extends Component<Props> {
@@ -40,19 +41,30 @@ export class OrderPaymentPage extends Component<Props> {
     }
 
     return (
-      <ConsumerModalContainer>
+      <div className={this.props.classes.container}>
         <OrderPaymentForm
           loading={loading}
           order={order}
           goBack={this.props.goBack}
           onPaymentSuccess={this.props.onPaymentSuccess}
         />
-      </ConsumerModalContainer>
+      </div>
     );
   }
 }
+const styles = (theme) => ({
+  container: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    paddingTop: theme.spacing.unit * 4,
+    width: '100vw',
+  },
+});
 
 export default compose(
+  withStyles(styles),
   withNamespaces(),
   routerParamsToProps({ companyId: 'companyId:number' }),
   connect(

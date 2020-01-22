@@ -14,7 +14,6 @@ import { BUYABLE_ITEM_COMBO_ITEM } from '@bsport/common/lib/master-data/buyable-
 import InfoIcon from '@material-ui/icons/Info';
 import type { TFunction } from 'react-i18next';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
-import ConsumerModalContainer from '../../../components/consumer/ConsumerModalContainer.component';
 import parse from '../../../query-string';
 import type { PaymentCombo } from '../../../libs/payment-combo/types';
 import themeSelectors from '../../../libs/theme/selectors';
@@ -116,7 +115,7 @@ export class PaymentComboPreCheckout extends React.Component<Props, State> {
     this.addToBasketThenRedirect();
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
-        <ConsumerModalContainer>
+        <div className={this.props.classes.container}>
           {this.state.error ? (
             <div className={this.props.classes.errorContainer}>
               <InfoIcon className={this.props.classes.errorIcon} />
@@ -135,13 +134,21 @@ export class PaymentComboPreCheckout extends React.Component<Props, State> {
           ) : (
             <CircularProgress />
           )}
-        </ConsumerModalContainer>
+        </div>
       </MuiThemeProvider>
     );
   }
 }
 
 const styles = (theme) => ({
+  container: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    paddingTop: theme.spacing.unit * 4,
+    width: '100vw',
+  },
   errorContainer: {
     display: 'flex',
     alignItems: 'center',

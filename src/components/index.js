@@ -20,13 +20,11 @@ import ConsumerMenu from './navigation/ConsumerMenu.component';
 import ConsumerProfile from './consumer/Profile.component';
 import ConsumerLogin from './consumer/login/ConsumerLogin.component';
 import RedButton from './button/RedButton.component';
-import ConsumerModalContainer from './consumer/ConsumerModalContainer.component';
 import SignUpForm from './form/SignUpForm.component';
 
 export {
   SimpleModal,
   SignUpForm,
-  ConsumerModalContainer,
   RedButton,
   ConsumerLogin,
   ConsumerProfile,

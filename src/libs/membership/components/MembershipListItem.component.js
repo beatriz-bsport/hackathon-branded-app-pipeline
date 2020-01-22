@@ -14,7 +14,7 @@ export const MemnbershipListItem = (props: {
     <ListItemAvatar>
       <Avatar
         alt={props.membership.company_name}
-        src={props.membership.company_logo}
+        src={props.membership.company_cover}
       />
     </ListItemAvatar>
     <ListItemText

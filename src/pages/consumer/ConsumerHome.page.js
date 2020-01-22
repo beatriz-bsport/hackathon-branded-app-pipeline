@@ -69,6 +69,7 @@ type Props = {
   membershipList: Array<Membership>,
   setActiveActions: (company: number) => void,
   classes: Object,
+  disconnect: () => void,
 
   from_basket: ?string,
   fetchBasketGeneratedObjects: (basketId: string) => void,
@@ -112,6 +113,7 @@ export class ConsumerHome extends React.Component<Props> {
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <ConsumerDrawer
+          disconnect={this.props.disconnect}
           buildUrl={this.props.buildUrl}
           logo={this.props.theme ? this.props.theme.cover : null}
           membership={this.props.membership}
@@ -205,6 +207,7 @@ export default compose(
       fetchMetaActivityBulk: fetchMetaActivityBulkAction,
       fetchCoachBulk: fetchCoachBulkAction,
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
+      disconnect: () => pushRouter('/login/signout'),
     },
   ),
   withHandlers({

@@ -78,7 +78,7 @@ export const stopActions = {
   success: createAction('SUBSCRIPTION/STOP/SUCCESS'),
 };
 
-export function fetch(id: number): ThunkAction {
+export function fetch(id: number, options: OptionCallback): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(detailActions.isLoading(true));
     dispatch(detailActions.error(null));
@@ -87,8 +87,14 @@ export function fetch(id: number): ThunkAction {
       const response = await api.fetchDetail(id);
 
       dispatch(detailActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
     } catch (error) {
       dispatch(detailActions.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
     }
 
     dispatch(detailActions.isLoading(false));

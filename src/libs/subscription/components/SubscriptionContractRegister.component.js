@@ -3,11 +3,14 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import { withState, compose } from 'recompose';
+import { withState, withHandlers, compose } from 'recompose';
 import moment from 'moment';
 import Typography from '@material-ui/core/Typography';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Divider from '@material-ui/core/Divider';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import DialogActions from '@material-ui/core/DialogActions';
+import Button from '@material-ui/core/Button';
 
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -18,35 +21,83 @@ import SubscriptionPayment from './SubscriptionPayment.component';
 import MemberSearchModal from '../../member/components/MemberSearchModal.component';
 import Config from '../../../config';
 
+import { postContractSubscription as postContractSubscriptionAPI } from '../api';
+
+import SubscriptionContractListItem from './SubscriptionContractListItem.component';
+
+
 const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
 
 type Props = {
   t: TFunction,
-  selectedMember: ?Member,
-  open: boolean,
+  classes: Object,
+
+  member: ?Member,
   searchLoading: boolean,
   searchedMembers: Array<Member>,
   searchMembers: (txt: string) => void,
-  onClose: () => void,
-  setSelectedMember: (?Member) => void,
-  classes: Object,
-  contract: ?Contract,
+  onChangeMember: (Member) => void,
+
+  open: boolean,
   date: string,
   setDate: (string) => void,
-  onSubmit: (any) => void,
   processing: boolean,
+
+  contractList: ?Array<Contract>,
+  contract: ?Contract,
+  contractLoading: boolean,
+  onChangeContract: (Contract) => void,
+
+  onSubmit: (token: string) => void,
+  onClose: () => void,
 };
 export const SubscriptionContractRegistrationManagerDialog = (props: Props) => {
-  if (!props.selectedMember) {
+  if (!props.member) {
     return (
       <MemberSearchModal
         open={props.open}
         loading={props.searchLoading}
-        searchedMembers={props.searchedMembers}
+        searchedMembers={props.searchedMembers || []}
         searchMembers={props.searchMembers}
         onClose={props.onClose}
-        handlMemberSelected={(id, member) => props.setSelectedMember(member)}
+        handlMemberSelected={(id, member_) => props.onChangeMember(member_)}
       />
+    );
+  }
+  if (!props.contract) {
+    return (
+      <Dialog open={props.open}>
+        <DialogTitle>{props.t('contract.registerManager.title')}</DialogTitle>
+        <DialogContent>
+          <Typography className={props.classes.contentText}>
+            {props.t('contract.registerManager.explainChoseContract')}
+          </Typography>
+          {props.contractLoading ? <LinearProgress /> : null}
+          {!props.contractLoading &&
+          props.contractList &&
+          props.contractList.length === 0 ? (
+            <Typography variant="caption">
+              {props.t('contract.list.isEmpty')}
+            </Typography>
+          ) : null}
+          {!props.contractLoading &&
+            props.contractList &&
+            props.contractList.map((c) => (
+              <SubscriptionContractListItem
+                key={c.id}
+                contract={c}
+                divider
+                dense
+                onClick={() => props.onChangeContract(c)}
+              />
+            ))}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={props.onClose}>
+            {props.t('contract.registerManager.actions.cancel')}
+          </Button>
+        </DialogActions>
+      </Dialog>
     );
   }
   return (
@@ -91,14 +142,8 @@ export const SubscriptionContractRegistrationManagerDialog = (props: Props) => {
             <SubscriptionPayment
               contract={props.contract}
               onCancel={props.onClose}
-              member={props.selectedMember}
-              onSubmit={(token) => {
-                props.onSubmit(
-                  token,
-                  moment(props.date, 'YYYY-MM-DD').unix(),
-                  props.selectedMember.id,
-                );
-              }}
+              member={props.member}
+              onSubmit={props.onSubmit}
               processing={props.processing}
             />
           </Elements>
@@ -119,11 +164,33 @@ const styles = (theme) => ({
   buttonLeftText: {
     marginRight: theme.spacing.unit,
   },
+  contentText: {
+    paddingBottom: theme.spacing.unit * 2,
+  },
 });
 
 export default compose(
   withNamespaces(['subscription']),
   withStyles(styles),
-  withState('selectedMember', 'setSelectedMember', null),
   withState('date', 'setDate', moment().format('YYYY-MM-DD')),
+  withState('processing', 'setProcessing', false),
+  withHandlers({
+    onSubmit: ({ date, setProcessing, member, contract, onSuccess }) => async (
+      token: string,
+    ) => {
+      const first_billing_timestamp = moment(date, 'YYYY-MM-DD').unix();
+      setProcessing(true);
+      try {
+        await postContractSubscriptionAPI(contract.id, {
+          stripe_source: token,
+          member: member.id,
+          first_billing_timestamp: moment(first_billing_timestamp).unix(),
+        });
+      } catch (err) {
+        console.error(err);
+      }
+      setProcessing(false);
+      onSuccess();
+    },
+  }),
 )(SubscriptionContractRegistrationManagerDialog);

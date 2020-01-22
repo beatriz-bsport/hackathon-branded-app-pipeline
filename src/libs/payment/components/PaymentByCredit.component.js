@@ -15,6 +15,7 @@ type Props = {
   termsAndConditions: string,
   setTermsAccepted: (boolean) => void,
   termsAccepted: boolean,
+  loading: boolean,
   onCancel: () => void,
   submitPayment: (data: *) => void,
   t: TFunction,

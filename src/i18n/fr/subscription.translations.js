@@ -10,6 +10,14 @@ export default {
     },
   },
   contract: {
+    registerManager: {
+      title: 'Paiement récurrent',
+      explainChoseContract:
+        'Sélectionnez un contrat, ce-dernier sera facturé mensuellement au membre',
+      actions: {
+        cancel: 'Annuler',
+      },
+    },
     duration: '{{month}} mois',
     description: 'Description',
     legal: 'Mentions légales',
@@ -22,7 +30,7 @@ export default {
       title: 'Contrat disponible à la vente',
       isEmpty: 'Aucun contrat disponible',
       addButton: 'Définir un contrat',
-      register: 'Abonner',
+      register: 'Abonner un membre',
     },
     form: {
       title: 'Formulaire contrat',

@@ -14,14 +14,21 @@ import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import PaymentIcon from '@material-ui/icons/Payment';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import { compose } from 'recompose';
+import { compose, withHandlers, withState } from 'recompose';
 import memberSelectors from '../../libs/member/selectors';
 import withTitle from '../../hocs/with-title.hoc';
+
+import { getAvailableContractListWithPaymentPack } from '../../libs/subscription/selectors';
+import SubscriptionContractRegister from '../../libs/subscription/components/SubscriptionContractRegister.component';
 
 import asyncComponent from '../../AsyncComponent';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
+import {
+  fetchAllPaymentPacks,
+  fetchPaymentPackBulk as fetchPaymentPackBulkAction,
+} from '../../libs/payment-packs/actions';
+import { fetchContractList as fetchContractListAction } from '../../libs/subscription/actions';
 
 const MemberDetailInfo = asyncComponent(() =>
   import('./MemberDetailInfo.page'),
@@ -56,8 +63,15 @@ type Props = {
   member: ?Member,
   pushToTab: (memberId: number, tab: string) => void,
   billMember: (id: number) => void,
-  subscribeMember: (id: number) => void,
   fetchAllPaymentPacks: () => void,
+
+  openContractDialog: () => void,
+  contractList: Array<Contract>,
+  contractLoading: boolean,
+  contractToBill: ?Contract,
+  contractDialogOpen: boolean,
+  closeContractDialog: () => void,
+  setContractToBill: (Contract) => void,
 };
 
 const MemberActions = (props: {
@@ -94,16 +108,7 @@ export class MemberDetail extends React.Component<Props> {
   }
 
   render() {
-    const {
-      t,
-      classes,
-      pushToTab,
-      billMember,
-      subscribeMember,
-      tab,
-      id,
-      member,
-    } = this.props;
+    const { t, classes, pushToTab, billMember, tab, id, member } = this.props;
     return (
       <div className={classes.container}>
         <Helmet>
@@ -197,7 +202,21 @@ export class MemberDetail extends React.Component<Props> {
           t={t}
           classes={classes}
           billMember={() => billMember(id)}
-          subscribeMember={() => subscribeMember(id)}
+          subscribeMember={this.props.openContractDialog}
+        />
+        <SubscriptionContractRegister
+          initialMember={this.props.member}
+          contract={this.props.contractToBill}
+          contractList={this.props.contractList}
+          contractLoading={this.props.contractLoading}
+          onChangeContract={this.props.setContractToBill}
+          member={this.props.member}
+          open={this.props.contractDialogOpen}
+          onClose={this.props.closeContractDialog}
+          onSuccess={() => {
+            this.props.closeContractDialog();
+            this.props.pushToTab(id, 'payment');
+          }}
         />
       </div>
     );
@@ -245,13 +264,47 @@ export default compose(
   connect(
     (state, { id }) => ({
       member: memberSelectors.get(state, id),
+      contractLoading: state.subscription.contract.loading,
+      contractList: getAvailableContractListWithPaymentPack(state),
     }),
     {
       fetchAllPaymentPacks,
       billMember: (id) => pushRouter(`/invoice/add/member/${id}`),
-      subscribeMember: (id) => pushRouter(`/subscription/add/${id}`),
       pushToTab: (id, tab) => pushRouter(`/member/${id}/${tab}`),
+      fetchContractList: fetchContractListAction,
+      fetchPaymentPackBulk: fetchPaymentPackBulkAction,
     },
   ),
+  withHandlers({
+    fetchContractList: (props) => () => {
+      props.fetchContractList(
+        {},
+        {
+          onSuccess: (contractList) =>
+            props.fetchPaymentPackBulk(contractList.map((c) => c.payment_pack)),
+        },
+      );
+    },
+  }),
+  withState('contractDialogOpen', 'setContractDialogOpen', false),
+  withState('contractToBill', 'setContractToBill', null),
+  withHandlers({
+    closeContractDialog: ({
+      setContractDialogOpen,
+      setContractToBill,
+    }) => () => {
+      setContractDialogOpen(false);
+      setContractToBill(null);
+    },
+    openContractDialog: ({
+      setContractDialogOpen,
+      fetchContractList,
+      setContractToBill,
+    }) => () => {
+      fetchContractList();
+      setContractDialogOpen(true);
+      setContractToBill(null);
+    },
+  }),
   withTitle(({ member }) => (member ? member.name : '')),
 )(MemberDetail);

@@ -27,6 +27,7 @@ export const PAYMENT_STEP = {
 type Props = {
   basket: Basket,
   processing: boolean,
+  loading: boolean,
   backToCalendar: () => void,
   onBasketFinalized: () => void,
   patchBasket: (data: any) => void,

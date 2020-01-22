@@ -8,6 +8,14 @@ export default {
     },
   },
   contract: {
+    registerManager: {
+      title: 'Recurring payment',
+      explainChoseContract:
+        'Please select a contract, it will be billed monthly.',
+      actions: {
+        cancel: 'Cancel',
+      },
+    },
     description: 'Description',
     legal: 'Legal agreement',
     actions: {
@@ -20,7 +28,7 @@ export default {
       title: 'Contracts available to customer',
       isEmpty: 'No contract',
       addButton: 'Create a contract',
-      register: 'Register',
+      register: 'Subscribe a member',
     },
     form: {
       title: 'Contract form',

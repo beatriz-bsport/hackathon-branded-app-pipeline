@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { compose, withState, withProps } from 'recompose';
+import { compose, withState, withProps, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import { push as pushRouter } from 'react-router-redux';
 import { withNamespaces } from 'react-i18next';
@@ -9,15 +9,14 @@ import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import moment from 'moment';
 
 import withTitle from '../../hocs/with-title.hoc';
 
-import { postContractSubscription as postContractSubscriptionAPI } from '../../libs/subscription/api';
 import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/selectors';
 import SubscriptionTable from '../../libs/subscription/components/SubscriptionTable.component';
 import SubscriptionContractList from '../../libs/subscription/components/SubscriptionContractList.component';
-import SubscriptionContractRegistrationManagerDialog from '../../libs/subscription/components/SubscriptionContractRegistrationManagerDialog.component';
+import SubscriptionContractRegister from '../../libs/subscription/components/SubscriptionContractRegister.component';
+
 import { search as searchMembers } from '../../libs/member/actions';
 import { getSearchedMembers } from '../../libs/member/selectors';
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
@@ -31,12 +30,12 @@ import {
   createOrUpdateContract,
   fetchContractList as fetchContractListAction,
   deleteContract,
-  fetchSubscriptionList,
+  fetchSubscriptionList as fetchSubscriptionListAction,
 } from '../../libs/subscription/actions';
 
 type Props = {
   goToSubscription: (id: number) => void,
-  fetchSubscriptionList: (params: any) => void,
+  fetchSubscriptionList: (page: number) => void,
   subscriptionList: Array<Subscription>,
   subscriptionLoading: boolean,
   subscriptionCount: number,
@@ -48,8 +47,12 @@ type Props = {
   paymentPacks: Array<PaymentPack>,
   contractList: Array<SubscriptionContract>,
 
-  registeringContract: ?Contract,
-  setRegisteringContract: (?Contract) => void,
+  openContractRegister: (?Contract) => void,
+  contractRegisterOpen: boolean,
+
+  setMemberToBill: (?Member) => void,
+  memberToBill: ?Member,
+  closeContractRegister: () => void,
 
   searchMembers: (text: string) => void,
   searchedMembers: Array<Member>,
@@ -64,15 +67,13 @@ type Props = {
 };
 
 export class SubscriptionList extends React.Component<Props> {
-  state = { processing: false };
-
   componentDidMount() {
     this.props.fetchContractList();
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Props) {
     if (prevProps.selectedContract !== this.props.selectedContract) {
-      this.fetchSubscriptionList(1);
+      this.props.fetchSubscriptionList(1);
     }
   }
 
@@ -82,36 +83,6 @@ export class SubscriptionList extends React.Component<Props> {
     } else {
       this.props.setSelectedContract(id);
     }
-  };
-
-  fetchSubscriptionList = (page) => {
-    this.props.fetchSubscriptionList({
-      page,
-      page_size: 10,
-      ...(this.props.selectedContract
-        ? { contract: this.props.selectedContract }
-        : {}),
-    });
-  };
-
-  onSubmit = async (
-    token: string,
-    first_billing_timestamp: string,
-    member: number,
-  ) => {
-    this.setState({ processing: true });
-    try {
-      await postContractSubscriptionAPI(this.props.registeringContract.id, {
-        stripe_source: token,
-        member,
-        first_billing_timestamp: moment(first_billing_timestamp).unix(),
-      });
-    } catch (err) {
-      console.error(err);
-    }
-    this.onClickContract(this.props.registeringContract.id);
-    this.setState({ processing: false });
-    this.props.setRegisteringContract(null);
   };
 
   render() {
@@ -128,7 +99,7 @@ export class SubscriptionList extends React.Component<Props> {
           loading={this.props.contractLoading}
           onClick={this.onClickContract}
           selectedContract={this.props.selectedContract}
-          onRegister={this.props.setRegisteringContract}
+          onRegister={this.props.openContractRegister}
           createOrUpdate={(data, options) => {
             this.props.createOrUpdateContract(data, {
               onSuccess: () => {
@@ -157,18 +128,19 @@ export class SubscriptionList extends React.Component<Props> {
           subscriptionList={this.props.subscriptionList}
           loading={this.props.subscriptionLoading}
           count={this.props.subscriptionCount}
-          onPageChange={this.fetchSubscriptionList}
+          onPageChange={this.props.fetchSubscriptionList}
         />
-        {this.props.registeringContract ? (
-          <SubscriptionContractRegistrationManagerDialog
-            open={!!this.props.registeringContract}
-            onClose={() => this.props.setRegisteringContract(null)}
-            contract={this.props.registeringContract}
+        {this.props.contractRegisterOpen && this.props.selectedContract ? (
+          <SubscriptionContractRegister
+            open={this.props.contractRegisterOpen}
+            contract={this.props.selectedContractData}
             searchMembers={this.props.searchMembers}
             searchedMembers={this.props.searchedMembers}
             searchLoading={this.props.searchMemberLoading}
-            processing={this.state.processing}
-            onSubmit={this.onSubmit}
+            onChangeMember={this.props.setMemberToBill}
+            member={this.props.memberToBill}
+            onSuccess={this.props.closeContractRegister}
+            onClose={this.props.closeContractRegister}
           />
         ) : null}
       </div>
@@ -204,7 +176,7 @@ export default compose(
     }),
     {
       fetchContractList: fetchContractListAction,
-      fetchSubscriptionList,
+      fetchSubscriptionList: fetchSubscriptionListAction,
       createOrUpdateContract,
       searchMembers,
       deleteContract,
@@ -213,10 +185,42 @@ export default compose(
     },
   ),
   withState('selectedContract', 'setSelectedContract', null),
-  withState('registeringContract', 'setRegisteringContract', null),
+  withHandlers({
+    fetchSubscriptionList: ({ fetchSubscriptionList, selectedContract }) => (
+      page: number,
+    ) => {
+      fetchSubscriptionList({
+        page,
+        page_size: 10,
+        ...(selectedContract ? { contract: selectedContract } : {}),
+      });
+    },
+  }),
+  withState('contractRegisterOpen', 'setContractRegisterOpen', false),
+  withState('memberToBill', 'setMemberToBill', null),
   connect((state, { selectedContract }) => ({
     selectedContractData: getContract(state, selectedContract),
   })),
+  withHandlers({
+    openContractRegister: ({
+      setContractRegisterOpen,
+      setSelectedContract,
+      setMemberToBill,
+    }) => (contract) => {
+      setSelectedContract(contract.id);
+      setContractRegisterOpen(true);
+      setMemberToBill(null);
+    },
+    closeContractRegister: ({
+      setMemberToBill,
+      setContractRegisterOpen,
+      fetchSubscriptionList,
+    }) => () => {
+      setContractRegisterOpen(false);
+      setMemberToBill(null);
+      fetchSubscriptionList(1);
+    },
+  }),
   withProps(({ fetchContractList, fetchPaymentPackBulk }) => ({
     fetchContractList: (params) =>
       fetchContractList(params, {

@@ -23,7 +23,7 @@ type Props = {
 
   subscription: Subscription,
 
-  fetch: (id: number) => void,
+  fetchSubscription: (id: number) => void,
   stop: (id: number) => void,
   goToInvoice: (uuid: string) => void,
   goToMember: (id: number) => void,
@@ -32,7 +32,7 @@ type Props = {
 
 export class SubscriptionDetail extends Component<Props> {
   componentWillMount() {
-    this.props.fetch(this.props.id);
+    this.props.fetchSubscription(this.props.id);
   }
 
   render() {
@@ -67,7 +67,7 @@ export default compose(
       loading: state.subscription.loading,
     }),
     {
-      fetch: fetchSubscription,
+      fetchSubscription,
       stop: stopSubscription,
       goToInvoice: (uuid: string) => pushRouter(`/invoice/${uuid}`),
       goToMember: (id: number) => pushRouter(`/member/${id}/`),

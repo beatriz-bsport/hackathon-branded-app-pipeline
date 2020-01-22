@@ -134,7 +134,7 @@ export function fetchConsumerDashboardBookingList(
     try {
       const response = await fetchBookingListAPI({
         member,
-        pageToFetch,
+        page: pageToFetch,
         page_size: 5,
         mine: true,
         min_date: moment().format('YYYY-MM-DD'),

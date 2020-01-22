@@ -54,7 +54,7 @@ const BookingFooter = (props: {
   if (nb) {
     return (
       <div className={props.classes.footerButton}>
-        <Button onClick={props.onShowMore} variant="outlined">
+        <Button onClick={() => props.onShowMore()} variant="outlined">
           {props.t('dashboard.showMore', { nb })}
         </Button>
       </div>

@@ -94,6 +94,7 @@ type Props = {
   similarOfferLoading: boolean,
   activitiesLoading: boolean,
   width: string,
+  offerByDayLoading: boolean,
 
   fetchAssociatedCoachesList: () => void,
   fetchAllActivities: () => void,
@@ -167,7 +168,7 @@ export class Planning extends PureComponent<Props, State> {
       this.props.loadOfferData(this.props.selectedOffer);
     }
     if (this.props.date) {
-      this.loadDayData(this.props.date);
+      this.loadDayData();
     }
     if (this.props.offerFilterOpen) {
       this.props.fetchAssociatedCoachesList();
@@ -190,8 +191,8 @@ export class Planning extends PureComponent<Props, State> {
     }
   }
 
-  loadDayData = (dateClicked: Object) => {
-    const date = moment(dateClicked, DATE_FORMAT);
+  loadDayData = (day: ?string) => {
+    const date = moment(day || this.props.date, DATE_FORMAT);
     this.props.replaceRouter(
       `/calendar/${date.year()}/${date.month() + 1}/${date.date()}`,
     );
@@ -242,7 +243,7 @@ export class Planning extends PureComponent<Props, State> {
           editOfferProcessing: false,
           editModalOpened: false,
         });
-        this.loadDayData(this.props.date);
+        this.loadDayData();
         return;
       }
     } catch (err) {
@@ -268,12 +269,11 @@ export class Planning extends PureComponent<Props, State> {
       });
       if (response.status === 200) {
         this.fetchRelevantOffers();
-        this.loadDayData(this.props.date);
         this.setState({
           deletingOffer: false,
           deleteModalOpened: false,
         });
-        this.loadDayData(this.props.date);
+        this.loadDayData();
         return;
       }
     } catch (err) {
@@ -290,7 +290,7 @@ export class Planning extends PureComponent<Props, State> {
       if (response.status === 204) {
         this.fetchRelevantOffers();
         this.props.deleteOffer(offerId);
-        this.loadDayData(this.props.date);
+        this.loadDayData();
         this.setState({
           deletingOffer: false,
           deleteModalOpened: false,
@@ -377,6 +377,7 @@ export class Planning extends PureComponent<Props, State> {
       if (response.status === 200) {
         this.setState({ creatingOffers: false });
         this.fetchRelevantOffers();
+        this.loadDayData(this.props.date);
         this.setState({ createOfferModalOpened: false });
         return;
       }
@@ -548,6 +549,7 @@ export class Planning extends PureComponent<Props, State> {
       events,
       classes,
       timetableLoading,
+      offerByDayLoading,
       width,
       selectedOffer,
     } = this.props;
@@ -572,7 +574,10 @@ export class Planning extends PureComponent<Props, State> {
                 <TimeTable
                   onOfferSelected={this.selectOffer}
                   offers={offers}
-                  loading={timetableLoading && (offers || []).length === 0}
+                  loading={
+                    offerByDayLoading ||
+                    (timetableLoading && (offers || []).length === 0)
+                  }
                   selected={selectedOffer ? selectedOffer.id : null}
                 />
               </Paper>
@@ -640,6 +645,7 @@ export default compose(
       permission: getPermissions(state),
       offerFilterOpen: state.offer.managerFilter.open,
       offerFilters: state.offer.managerFilter.filters,
+      offerByDayLoading: state.offer.byDay.loading,
     }),
     {
       goBack: goBackRouter,

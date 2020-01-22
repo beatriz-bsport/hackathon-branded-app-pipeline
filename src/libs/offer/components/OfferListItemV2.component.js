@@ -5,8 +5,10 @@ import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import ListItemText from '@material-ui/core/ListItemText';
 import type { TFunction } from 'react-i18next';
-import { pure } from 'recompose';
+import withStyles from '@material-ui/core/styles/withStyles';
 
+import { pure } from 'recompose';
+import { withNamespaces } from 'react-i18next';
 import { formatAsDatetime } from '../../../datetime';
 import CoachAvatar from '../../associated-coach/components/CoachAvatar.component';
 import Level from '../../../components/category/Level.component';
@@ -15,6 +17,7 @@ type Props = {
   offer: Object,
   t: TFunction,
   onClick: (offerId: number) => void,
+  classes: Object,
 };
 
 export const OfferListItem = (props: Props) => {
@@ -36,7 +39,12 @@ export const OfferListItem = (props: Props) => {
             <Typography inline>
               {offer && offer.meta_activity ? offer.meta_activity.name : ''}
             </Typography>
-            <Level noStyle variant="caption" levelId={offer && offer.level} />
+            <Level
+              noStyle
+              align="left"
+              variant="caption"
+              levelId={offer && offer.level}
+            />
           </div>
         }
         secondary={
@@ -49,10 +57,32 @@ export const OfferListItem = (props: Props) => {
             : ''
         }
       />
-      <Typography variant="caption" color="textSecondary">
-        {formatAsDatetime(offer.date_start)}
-      </Typography>
+      <div>
+        <Typography
+          variant="caption"
+          color="textSecondary"
+          className={props.classes.inline}
+        >
+          <div className={props.classes.text}>{props.t('forms.old_date')}</div>
+          {formatAsDatetime(offer.date_start)}
+        </Typography>
+        <Typography
+          variant="caption"
+          color="textSecondary"
+          className={props.classes.inline}
+        >
+          <div className={props.classes.text}>{props.t('forms.new_date')}</div>
+          {formatAsDatetime(offer.new_date_start)}
+        </Typography>
+      </div>
     </ListItem>
   );
 };
-export default pure(OfferListItem);
+const styles = (theme) => ({
+  text: { marginRight: theme.spacing.unit },
+  inline: { display: 'flex' },
+});
+
+export default pure(
+  withNamespaces(['offer'])(withStyles(styles)(OfferListItem)),
+);

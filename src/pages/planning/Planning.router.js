@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router';
-import { compose, withProps } from 'recompose';
+import { compose, withProps, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import { push, replace } from 'react-router-redux';
 import Planning from './Planning.component';
@@ -46,6 +46,12 @@ export default function PlanningRouter() {
 }
 
 const PlanningWithDateAndOffer = compose(
+  routerParamsToProps({
+    offerId: 'offerId:number',
+    date: 'day:number',
+    month: 'month:number',
+    year: 'year:number',
+  }),
   connect(
     (state) => ({
       offers: withMetaActivity(
@@ -61,8 +67,14 @@ const PlanningWithDateAndOffer = compose(
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
     },
   ),
-  withProps(({ fetchCoachBulk, fetchEstablishmentBulk, fetchOffersByDay }) => ({
-    fetchOffersByDay: (...params) =>
+  withHandlers({
+    loadOfferData: ({ day, month, year, pushRouter }) => (offer) =>
+      pushRouter(`/calendar/${year}/${month}/${day}/${offer.id}`),
+    fetchOffersByDay: ({
+      fetchCoachBulk,
+      fetchEstablishmentBulk,
+      fetchOffersByDay,
+    }) => (...params) => {
       fetchOffersByDay(...params, {
         onSuccess: (offers) => {
           fetchCoachBulk([
@@ -74,13 +86,8 @@ const PlanningWithDateAndOffer = compose(
             ...offers.map((o) => o.establishment_override),
           ]);
         },
-      }),
-  })),
-  routerParamsToProps({
-    offerId: 'offerId:number',
-    date: 'day:number',
-    month: 'month:number',
-    year: 'year:number',
+      });
+    },
   }),
   withProps(({ offers, day, month, year, offerId }) => {
     const date = formatDate(
@@ -96,9 +103,4 @@ const PlanningWithDateAndOffer = compose(
       selectedOffer,
     };
   }),
-  withProps(({ day, month, year, pushRouter }) => ({
-    loadOfferData: (offer) => {
-      pushRouter(`/calendar/${year}/${month}/${day}/${offer.id}`);
-    },
-  })),
 )(Planning);

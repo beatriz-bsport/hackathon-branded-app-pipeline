@@ -14,6 +14,8 @@ export default {
   },
   manageOffer: 'Gérer mes réservations',
   forms: {
+    old_date: 'Ancien horaire :',
+    new_date: 'Nouvel horaire :',
     delete: {
       buttonHardDelete: 'Supprimer',
     },

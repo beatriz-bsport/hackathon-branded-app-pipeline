@@ -66,7 +66,7 @@ export class EstablishmentSubForm extends Component<Props> {
           />
         ) : null}
         {this.props.establishment ? null : (
-          <div style={{ display: 'flex' }}>
+          <div className={this.props.classes.warningContainer}>
             <WarningIcon size={20} />
             <Typography
               variant="caption"
@@ -83,9 +83,15 @@ export class EstablishmentSubForm extends Component<Props> {
 }
 
 const styles = (theme) => ({
+  warningContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    paddingTop: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit * 2,
+    paddingLeft: theme.spacing.unit,
+  },
   caption: {
     paddingLeft: theme.spacing.unit,
-    paddingTop: theme.spacing.unit * 2,
   },
   selector: {
     width: '100%',

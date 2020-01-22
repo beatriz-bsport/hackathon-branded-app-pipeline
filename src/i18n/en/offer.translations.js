@@ -14,6 +14,8 @@ export default {
   },
   manageOffer: 'Manage my bookings',
   forms: {
+    old_date: 'Old date:',
+    new_date: 'New date:',
     delete: {
       buttonHardDelete: 'Delete',
     },

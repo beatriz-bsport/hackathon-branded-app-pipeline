@@ -187,9 +187,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
         'DD/MM/YYYY hh:mm',
       );
     }
-
     appendModifiedData(this.initialOfferState, this.state, data);
-
     this.props.onConfirm({ offerId: offer.id, data });
   };
 
@@ -484,6 +482,14 @@ export class EditLiveOfferForm extends Component<Props, State> {
             message={this.props.t('form.offer.explainRecursiveOfferEdit')}
             listTitle={this.props.t('offer.offersPendingChange')}
             shouldModifyAllDates={this.shouldModifyAllDates()}
+            dateTimeDiff={Moment(
+              `${pad(this.state.date.date())}/${pad(
+                this.state.date.month() + 1,
+              )}/${pad(this.state.date.year())} ${pad(
+                Moment(this.state.hour, 'HH:mm').hour(),
+              )}:${pad(Moment(this.state.hour, 'HH:mm').minute())}`,
+              'DD/MM/YYYY hh:mm',
+            ).diff(this.initialOfferState.date_start)}
             disabled={
               this.hasChangedCoach() ||
               this.hasChangedEstablishment() ||

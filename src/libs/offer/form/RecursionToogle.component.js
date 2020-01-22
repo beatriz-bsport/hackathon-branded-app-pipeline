@@ -12,7 +12,7 @@ import Divider from '@material-ui/core/Divider';
 import withStyles from '@material-ui/core/styles/withStyles';
 import ExpandIcon from '@material-ui/icons/ExpandMore';
 import { withNamespaces } from 'react-i18next';
-
+import moment from 'moment';
 // import OfferMinimalSummary from '../../../components/offer/OfferMinimalSummary.component';
 import OfferListItem from '../components/OfferListItemV2.component';
 
@@ -28,7 +28,7 @@ type Props = {
   similarOffers: Array<Offer>,
 
   onChangeRecursion: ({ modifyRecursively: boolean }) => void,
-
+  dateTimeDiff: number,
   classes: Object,
 };
 
@@ -78,7 +78,15 @@ export class RecursionToogle extends Component<Props, State> {
           <Collapse in={isSimilarOfferListExpanded}>
             <List component="nav">
               {(similarOffers || []).map((so) => (
-                <OfferListItem offer={so} />
+                <OfferListItem
+                  offer={{
+                    ...so,
+                    new_date_start: moment(so.date_start).add(
+                      this.props.dateTimeDiff,
+                      'milliseconds',
+                    ),
+                  }}
+                />
               ))}
             </List>
           </Collapse>

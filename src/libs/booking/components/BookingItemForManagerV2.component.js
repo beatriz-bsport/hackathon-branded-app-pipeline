@@ -48,6 +48,7 @@ type Props = {
   booking: Object,
   member: Member,
 
+  disabled?: boolean,
   showQuickInvoiceButton: ?boolean,
   button: ?boolean,
   showRevertBookingButton: ?boolean,
@@ -242,14 +243,16 @@ export class BookingItemForManager extends PureComponent<Props, State> {
               flexDirection: 'row',
             }}
           >
-            <AttendanceButton
-              attendance={booking.attendance}
-              variant="outlined"
-              t={t}
-              classes={classes}
-              discardBookingAttendance={discardBookingAttendance}
-              confirmBookingAttendance={confirmBookingAttendance}
-            />
+            {discardBookingAttendance && confirmBookingAttendance ? (
+              <AttendanceButton
+                attendance={booking.attendance}
+                variant="outlined"
+                t={t}
+                classes={classes}
+                discardBookingAttendance={discardBookingAttendance}
+                confirmBookingAttendance={confirmBookingAttendance}
+              />
+            ) : null}
             {showQuickInvoiceButton ? (
               <Button
                 variant="outlined"
@@ -385,7 +388,13 @@ export class BookingItemForManager extends PureComponent<Props, State> {
   };
 
   render() {
-    const { t, booking, redirectToMember, redirectToOffer } = this.props;
+    const {
+      t,
+      booking,
+      redirectToMember,
+      disabled,
+      redirectToOffer,
+    } = this.props;
     // <TableCell>{t(`booking.sources.${b.source}`)}</TableCell>
     const bookingStatus = this.getStatusText();
 
@@ -395,8 +404,13 @@ export class BookingItemForManager extends PureComponent<Props, State> {
         selected={!!this.props.selected}
         button={redirectToMember || redirectToOffer || this.props.button}
         disableRipple
+        disabled={disabled}
         onClick={this.handleListItemClick}
-        className={booking.attendance ? '' : this.props.classes.disabled}
+        className={
+          booking.attendance || !this.props.confirmBookingAttendance
+            ? ''
+            : this.props.classes.disabled
+        }
       >
         <Grid
           container

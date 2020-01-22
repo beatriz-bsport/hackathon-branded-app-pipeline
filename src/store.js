@@ -34,6 +34,7 @@ const persistConfig = {
     'alerting',
     'theme',
     'member',
+    'membership',
   ],
   stateReconciler: seamlessImmutableReconciler,
   transforms: [createCompressor(seamlessImmutableTransformCreator({}))],

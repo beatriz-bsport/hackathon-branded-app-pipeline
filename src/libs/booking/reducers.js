@@ -6,6 +6,9 @@ import { handleActions } from 'redux-actions';
 import {
   byOfferActions,
   byMemberActions,
+  asConsumerActions,
+  bulkActions,
+  consumerDashboardActions,
   byConsumerPackActions,
   retrieveActions,
   updateActions,
@@ -15,6 +18,20 @@ import type { BookingsState } from './types';
 const initialState: BookingsState = Immutable({
   byId: {},
   byMember: {
+    loading: false,
+    error: null,
+    allIds: [],
+    count: 0,
+    page: 1,
+  },
+  asConsumer: {
+    loading: false,
+    error: null,
+    allIds: [],
+    count: 0,
+    page: 1,
+  },
+  consumerDashboard: {
     loading: false,
     error: null,
     allIds: [],
@@ -37,6 +54,10 @@ const initialState: BookingsState = Immutable({
     error: null,
     loading: false,
   },
+  bulkRetrieve: {
+    loading: false,
+    error: null,
+  },
 });
 
 export default handleActions(
@@ -49,6 +70,27 @@ export default handleActions(
     },
     [updateActions.success]: (state, { payload }) => {
       return state.setIn(['byId', payload.id], payload);
+    },
+    [asConsumerActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['asConsumer', 'loading'], payload);
+    },
+    [asConsumerActions.error]: (state, { payload }) => {
+      return state.setIn(['asConsumer', 'error'], payload);
+    },
+    [asConsumerActions.success]: (state, { payload }) => {
+      return state
+        .setIn(['asConsumer', 'page'], payload.page)
+        .setIn(['asConsumer', 'count'], payload.count)
+        .setIn(['asConsumer', 'allIds'], payload.results.map((b) => b.id))
+        .merge(
+          {
+            byId: payload.results.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+          { deep: true },
+        );
     },
     [byMemberActions.isLoading]: (state, { payload }) => {
       return state.setIn(['byMember', 'loading'], payload);
@@ -115,6 +157,51 @@ export default handleActions(
           },
           { deep: true },
         );
+    },
+    [consumerDashboardActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['consumerDashboard', 'loading'], payload);
+    },
+    [consumerDashboardActions.error]: (state, { payload }) => {
+      return state.setIn(['consumerDashboard', 'error'], payload);
+    },
+    [consumerDashboardActions.success]: (state, { payload }) => {
+      const newIds = payload.results.map((b) => b.id);
+      return state
+        .setIn(['consumerDashboard', 'page'], payload.page)
+        .setIn(['consumerDashboard', 'next_page'], payload.next_page)
+        .setIn(['consumerDashboard', 'count'], payload.count)
+        .setIn(
+          ['consumerDashboard', 'allIds'],
+          payload.page === 1
+            ? newIds
+            : [...state.consumerDashboard.allIds, ...newIds],
+        )
+        .merge(
+          {
+            byId: payload.results.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+          { deep: true },
+        );
+    },
+    [bulkActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['bulkRetrieve', 'loading'], payload);
+    },
+    [bulkActions.error]: (state, { payload }) => {
+      return state.setIn(['bulkRetrieve', 'error'], payload);
+    },
+    [bulkActions.success]: (state, { payload }) => {
+      return state.merge(
+        {
+          byId: payload.reduce((acc, ps) => {
+            acc[ps.id] = ps;
+            return acc;
+          }, {}),
+        },
+        { deep: true },
+      );
     },
   },
   initialState,

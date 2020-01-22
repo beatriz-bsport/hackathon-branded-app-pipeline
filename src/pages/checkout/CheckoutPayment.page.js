@@ -92,7 +92,10 @@ export class CheckoutPayment extends React.Component<Props> {
 
   render() {
     if (this.props.basket && this.props.basket.is_finalized) {
-      this.props.onBasketFinalized();
+      this.props.onBasketFinalized(
+        this.props.basket.company,
+        this.props.basket.id,
+      );
     }
     if (this.props.loading || !this.props.basket) {
       return (
@@ -171,7 +174,8 @@ export default compose(
       attachPayment: attachPaymentAction,
       attachCoupon,
       fetchCompanyTheme,
-      onBasketFinalized: () => replace('/customer'),
+      onBasketFinalized: (company, basket) =>
+        replace(`/c/${company}/?from_basket=${basket}`),
     },
   ),
   withState('basketError', 'setBasketError', null),

@@ -123,7 +123,13 @@ export function resetConsumerPackByMember() {
   };
 }
 
-export function fetchByMember(member: number, page: number, page_size: number) {
+export function fetchByMember(
+  member: number,
+  page: number,
+  page_size: number,
+  params: any = {},
+  options: ?OptionCallback = null,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(byMember.isLoading(true));
     dispatch(byMember.error(null));
@@ -132,11 +138,18 @@ export function fetchByMember(member: number, page: number, page_size: number) {
         member,
         page,
         page_size,
+        ...params,
       });
       dispatch(byMember.success({ ...response.data, page }));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
     } catch (error) {
       console.error(error);
       dispatch(byMember.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
     }
     dispatch(byMember.isLoading(false));
   };
@@ -221,7 +234,10 @@ export const retrieveBulk = {
   success: createAction('CONSUMER_PACK/RETRIEVE_BULK/SUCCESS'),
 };
 
-export function retrieveConsumerPackBulk(ids: Array<number>) {
+export function retrieveConsumerPackBulk(
+  ids: Array<number>,
+  options: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
     if (!ids || ids.length === 0) return;
     dispatch(retrieveBulk.isLoading(true));
@@ -232,9 +248,15 @@ export function retrieveConsumerPackBulk(ids: Array<number>) {
         page_size: null,
       });
       dispatch(retrieveBulk.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
     } catch (error) {
       console.error(error);
       dispatch(retrieveBulk.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
     }
     dispatch(retrieveBulk.isLoading(false));
   };

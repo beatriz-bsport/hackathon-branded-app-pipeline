@@ -9,6 +9,7 @@ import uniq from 'lodash/uniq';
 import {
   fetchAllEstablishments as fetchEstablishmentListAPI,
   fetchEstablishment as fetchEstablishmentAPI,
+  fetchEstablishmentFavorite as fetchEstablishmentFavoriteAPI,
   updateEstablishment as updateEstablishmentAPI,
   addEstablishment as addEstablishmentAPI,
   deleteEstablishment as deleteEstablishmentAPI,
@@ -257,5 +258,34 @@ export function fetchEstablishmentBulk(
       if (options && options.onError) options.onError(error);
     }
     dispatch(establishmentBulkRetrieveActions.isLoading(false));
+  };
+}
+
+export const favoriteActions = {
+  isLoading: createAction('ESTABLISHMENT/FAVORITE/IS_LOADING'),
+  error: createAction('ESTABLISHMENT/FAVORITE/ERROR'),
+  success: createAction('ESTABLISHMENT/FAVORITE/SUCCESS'),
+};
+
+export function fetchEstablishmentFavorite(
+  company: number,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(favoriteActions.isLoading(true));
+    dispatch(favoriteActions.error(null));
+    try {
+      const response = await fetchEstablishmentFavoriteAPI(company);
+      dispatch(favoriteActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        dispatch(favoriteActions.success(null));
+      } else {
+        dispatch(favoriteActions.error(error));
+        if (options && options.onError) options.onError(error);
+      }
+    }
+    dispatch(favoriteActions.isLoading(false));
   };
 }

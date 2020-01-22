@@ -267,7 +267,6 @@ export class SignUpForm extends Component<Props, State> {
         </div>
         <div className={classes.row}>
           <GenderInput
-            fullWidth
             value={this.state.gender}
             onChange={this.handleGender}
             required
@@ -415,6 +414,7 @@ const styles = (theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
+    marginTop: theme.spacing.unit,
   },
   field: {
     width: '45%',

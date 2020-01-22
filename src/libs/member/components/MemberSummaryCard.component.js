@@ -38,6 +38,7 @@ type Props = {
   classes: Object,
   mailMember: () => void,
   goToCreditRegularization: () => void,
+  hideContactButton: ?boolean,
 };
 
 export class MemberSummaryCard extends Component<Props> {
@@ -84,12 +85,14 @@ export class MemberSummaryCard extends Component<Props> {
           }
           accept_contact={member.accept_sms}
           notificationIcon
+          hideContactButton={this.props.hideContactButton}
         />
         <EmailItem
           email={member.consumer.email}
           accept_email={member.accept_email}
           notificationIcon
           openMailDialog={() => this.setState({ displayMailDialog: true })}
+          hideContactButton={this.props.hideContactButton}
         />
         <MailDialog
           open={this.state.displayMailDialog}

@@ -57,15 +57,21 @@ export const finalizeInvoiceActions = {
   success: createAction('INVOICE/FINALIZE/SUCCESS'),
 };
 
-export function finalizeInvoice(uuid: string) {
+export function finalizeInvoice(uuid: string, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(finalizeInvoiceActions.isLoading({ uuid, loading: true }));
     dispatch(finalizeInvoiceActions.error(null));
     try {
       const response = await api.invoice.finalize(uuid);
       dispatch(finalizeInvoiceActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
     } catch (err) {
       dispatch(finalizeInvoiceActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
     }
     dispatch(finalizeInvoiceActions.isLoading({ uuid, loading: false }));
   };

@@ -45,3 +45,5 @@ export const getFreshEstablishmentIds = createSelector(
   getAllEstablishments,
   (es) => es.map((e) => e.id),
 );
+export const getFavoriteEstablishment = (state) =>
+  state.establishment.byId[state.establishment.favorite.id];

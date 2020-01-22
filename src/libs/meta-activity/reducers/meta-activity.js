@@ -12,13 +12,18 @@ import {
   deleteAction,
 } from '../actions/meta-activity.actions';
 
-import { metaActivityBulkActions } from '../actions/common';
+import { metaActivityBulkActions, favoriteActions } from '../actions/common';
 
 const initialState = Immutable({
   byId: {},
   allIds: [],
   loading: false,
   error: false,
+  favorite: {
+    id: null,
+    loading: false,
+    error: null,
+  },
   errorMsg: '',
   delete: {
     loading: false,
@@ -33,6 +38,20 @@ const initialState = Immutable({
 
 export default handleActions(
   {
+    [favoriteActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['favorite', 'loading'], payload);
+    },
+    [favoriteActions.error]: (state, { payload }) => {
+      return state.setIn(['favorite', 'error'], payload);
+    },
+    [favoriteActions.success]: (state, { payload }) => {
+      if (payload) {
+        return state
+          .setIn(['favorite', 'id'], payload.id)
+          .setIn(['byId', payload.id], payload);
+      }
+      return state.setIn(['favorite', 'id'], null);
+    },
     [deleteAction.isLoading]: (state, { payload }) => {
       return state.setIn(['delete', 'loading'], payload);
     },

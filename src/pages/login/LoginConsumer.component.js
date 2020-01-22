@@ -4,9 +4,9 @@ import React, { Component } from 'react';
 import { compose } from 'recompose';
 
 import withStyles from '@material-ui/core/styles/withStyles';
-import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import HelpIcon from '@material-ui/icons/Help';
+import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { withRouter } from 'react-router';
 import { Redirect } from 'react-router-dom';
@@ -19,7 +19,6 @@ import { openIntercomHelp } from '../../intercom';
 import { auth as authActions } from '../../actions';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 
-import ConsumerModalContainer from '../../components/consumer/ConsumerModalContainer.component';
 import ConsumerLogin from '../../components/consumer/login/ConsumerLogin.component';
 import SignUpForm from '../../components/form/SignUpForm.component';
 
@@ -106,57 +105,44 @@ export class ConsumerLoginPage extends Component<Props> {
 
     if (step === STEPS.WELCOME) {
       return (
-        <ConsumerModalContainer>
-          <div className={classes.container}>
-            <ConsumerLogin
-              doEmailLogin={doEmailLogin}
-              error={errorLogin}
-              errorFields={errorFields}
-              loading={loginProcessing}
-              requestSignUp={this.switchToSignUp}
-            />
-          </div>
-        </ConsumerModalContainer>
+        <Paper className={classes.container}>
+          <ConsumerLogin
+            doEmailLogin={doEmailLogin}
+            error={errorLogin}
+            errorFields={errorFields}
+            loading={loginProcessing}
+            requestSignUp={this.switchToSignUp}
+          />
+        </Paper>
       );
     }
 
     return (
-      <ConsumerModalContainer>
-        <Grid
-          container
-          direction="column"
-          spacing={16}
-          className={classes.container}
+      <Paper className={classes.container}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
         >
-          <Grid item>
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
-              <Typography variant="h4">{t('form.signUpTitle')}</Typography>
-              <IconButton onClick={() => openIntercomHelp('login')}>
-                <HelpIcon />
-              </IconButton>
-            </div>
-          </Grid>
-          <Grid item>
-            <SignUpForm
-              loading={loginProcessing}
-              onComplete={this.signup}
-              onCancel={this.cancelSignUp}
-              theme={this.props.theme}
-              emailExists={this.props.emailExists}
-              checkEmailExistsLoading={this.props.checkEmailExistsLoading}
-              checkEmailExists={this.props.checkEmailExists}
-              backToLogin={() => this.setState({ step: STEPS.WELCOME })}
-            />
-          </Grid>
-        </Grid>
-      </ConsumerModalContainer>
+          <Typography variant="h4">{t('form.signUpTitle')}</Typography>
+          <IconButton onClick={() => openIntercomHelp('login')}>
+            <HelpIcon />
+          </IconButton>
+        </div>
+        <SignUpForm
+          loading={loginProcessing}
+          onComplete={this.signup}
+          onCancel={this.cancelSignUp}
+          theme={this.props.theme}
+          emailExists={this.props.emailExists}
+          checkEmailExistsLoading={this.props.checkEmailExistsLoading}
+          checkEmailExists={this.props.checkEmailExists}
+          backToLogin={() => this.setState({ step: STEPS.WELCOME })}
+        />
+      </Paper>
     );
   }
 }
@@ -180,8 +166,9 @@ function mapDispatchToProps(dispatch, props) {
 
 const styles = (theme) => ({
   container: {
+    margin: '50px auto',
+    textAlign: 'center',
     padding: theme.spacing.unit * 2,
-    paddingTop: 0,
   },
 });
 

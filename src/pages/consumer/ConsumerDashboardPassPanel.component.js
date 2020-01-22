@@ -1,0 +1,81 @@
+// @flow
+import React from 'react';
+import withStyles from '@material-ui/core/styles/withStyles';
+import { compose } from 'recompose';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
+import ConsumerPackRowItem from '../../libs/consumer-payment-pack/components/ConsumerPackRowItem.component';
+import PrivateConsumerPassBookerListItem from '../../libs/private-service/components/booking-module/PrivateConsumerPassBookerListItem.component';
+
+type Props = {
+  t: TFunction,
+  classes: Object,
+  consumerPackList: Array<ConsumerPaymentPack>,
+  consumerPackLoading: boolean,
+  privateConsumerPassList: Array<PrivateConsumerPass>,
+  privateConsumerPassLoading: boolean,
+};
+
+export class ConsumerDashboardPassPanel extends React.PureComponent<Props> {
+  render() {
+    return (
+      <div>
+        <Typography
+          variant="h4"
+          component="h3"
+          className={this.props.classes.sectionTitle}
+          color="textSecondary"
+        >
+          {this.props.t('dashboard.currentPassTitle')}
+        </Typography>
+        {this.props.consumerPackList.length === 0 &&
+        this.props.privateConsumerPassList &&
+        (this.props.consumerPackLoading ||
+          this.props.privateConsumerPassLoading) ? (
+          <CircularProgress />
+        ) : null}
+        {this.props.consumerPackList.length === 0 &&
+        this.props.privateConsumerPassList.length === 0 &&
+        !this.props.consumerPackLoading &&
+        !this.props.privateConsumerPassLoading ? (
+          <Typography variant="caption" color="textSecondary">
+            {this.props.t('dashboard.noPackCurrentlyActive')}
+          </Typography>
+        ) : (
+          <Paper>
+            {this.props.consumerPackList.map((cpp) => (
+              <ConsumerPackRowItem
+                hideConsumer
+                key={cpp.id}
+                consumerPack={cpp}
+                paymentPack={cpp.payment_pack}
+              />
+            ))}
+            {this.props.privateConsumerPassList.map((pcp) => (
+              <PrivateConsumerPassBookerListItem
+                divider
+                key={pcp.id}
+                private_consumer_pass={pcp}
+              />
+            ))}
+          </Paper>
+        )}
+      </div>
+    );
+  }
+}
+
+const styles = (theme) => ({
+  sectionTitle: {
+    marginBottom: theme.spacing.unit * 3,
+  },
+});
+
+export default compose(
+  withNamespaces(['consumerSpace']),
+  withStyles(styles),
+)(ConsumerDashboardPassPanel);

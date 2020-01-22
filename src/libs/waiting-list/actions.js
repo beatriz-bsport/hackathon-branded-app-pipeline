@@ -137,3 +137,31 @@ export function registerToWaitingList(
     dispatch(registerOptionActions.isLoading(false));
   };
 }
+
+export const asConsumerActions = {
+  error: createAction('WAITING_LIST/OPTION/AS_CONSUMER/ERROR'),
+  isLoading: createAction('WAITING_LIST/OPTION/AS_CONSUMER/IS_LOADING'),
+  success: createAction('WAITING_LIST/OPTION/AS_CONSUMER/SUCCESS'),
+};
+
+export function fetchBookingOptionAsConsumer(
+  company: number,
+  options: OptionCallBack,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(asConsumerActions.error(null));
+    dispatch(asConsumerActions.isLoading(true));
+    try {
+      const response = await fetchFilteredBookingOptionsAPI({
+        company,
+      });
+      dispatch(asConsumerActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(asConsumerActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(asConsumerActions.isLoading(false));
+  };
+}

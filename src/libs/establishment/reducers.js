@@ -9,6 +9,7 @@ import {
   listError,
   upsertIsLoading,
   upsertError,
+  favoriteActions,
   actionStartUpdate,
   addImage,
   removeImage,
@@ -38,6 +39,11 @@ const initialState = Immutable({
     loading: false,
     error: null,
   },
+  favorite: {
+    loading: false,
+    error: null,
+    id: null,
+  },
   bulkRetrieve: {
     loading: false,
     error: null,
@@ -48,6 +54,20 @@ const initialState = Immutable({
 
 export default handleActions(
   {
+    [favoriteActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['favorite', 'loading'], payload);
+    },
+    [favoriteActions.error]: (state, { payload }) => {
+      return state.setIn(['favorite', 'error'], payload);
+    },
+    [favoriteActions.success]: (state, { payload }) => {
+      if (payload) {
+        return state
+          .setIn(['favorite', 'id'], payload.id)
+          .setIn(['byId', payload.id], payload);
+      }
+      return state.setIn(['favorite', 'id'], null);
+    },
     [establishmentBulkRetrieveActions.isLoading]: (state, { payload }) => {
       return state.setIn(['bulkRetrieve', 'loading'], payload);
     },

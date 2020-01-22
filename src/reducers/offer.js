@@ -12,6 +12,7 @@ import {
   offersByEstablishment,
   offersFilterActions,
   offerMarketplaceListActions,
+  offerBulkActions,
   retrieveActions,
 } from '../actions/offer.actions';
 import authActionTypes from '../actions/auth.types';
@@ -32,6 +33,7 @@ const initialState = Immutable({
   byId: {},
   byDay: { loading: false, error: null, allIds: [] },
   retrieve: { loading: false, error: null, data: null },
+  bulk: { loading: false, error: null },
 
   // for forms
   similarOffers: {
@@ -162,6 +164,23 @@ export default handleActions(
     },
     [offerMarketplaceListActions.isLoading]: (state, { payload }) => {
       return state.setIn(['marketplace', 'loading'], payload);
+    },
+    [offerBulkActions.error]: (state, { payload }) => {
+      return state.setIn(['bulk', 'error'], payload);
+    },
+    [offerBulkActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['bulk', 'loading'], payload);
+    },
+    [offerBulkActions.success]: (state, { payload }) => {
+      return state.merge(
+        {
+          byId: payload.reduce((acc, ps) => {
+            acc[ps.id] = ps;
+            return acc;
+          }, {}),
+        },
+        { deep: true },
+      );
     },
   },
   initialState,

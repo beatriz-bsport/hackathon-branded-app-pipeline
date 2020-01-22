@@ -6,20 +6,18 @@ import { compose } from 'recompose';
 import { withNamespaces } from 'react-i18next';
 import { Switch, Route } from 'react-router-dom';
 
-import { consumer as consumerActions } from '../actions';
-import asyncComponent from '../AsyncComponent';
+import { consumer as consumerActions } from '../../actions';
+import asyncComponent from '../../AsyncComponent';
 
-const MyProfile = asyncComponent(() =>
-  import('./consumer/MyProfile.component'),
-);
+const MyProfile = asyncComponent(() => import('./MyProfile.component'));
 
-const MyBookings = asyncComponent(() =>
-  import('./consumer/my-bookings/MyBookings.page'),
+const ConsumerHome = asyncComponent(() =>
+  import('./my-bookings/MyBookings.page'),
 );
 const MyPaymentPacks = asyncComponent(() =>
-  import('./consumer/MyPaymentPacks.component'),
+  import('./MyPaymentPacks.component'),
 );
-const MyOrders = asyncComponent(() => import('./consumer/MyOrders.page'));
+const MyOrders = asyncComponent(() => import('./MyOrders.page'));
 
 type Props = {
   t: (x: string) => string,
@@ -31,7 +29,7 @@ type Props = {
   fetchProfile: () => void,
 };
 
-export class ConsumerHome extends Component<Props> {
+export class ConsumerRouter extends Component<Props> {
   componentWillMount() {
     const { t } = this.props;
     document.title = t('pageTitle.myAccount');
@@ -62,7 +60,7 @@ export class ConsumerHome extends Component<Props> {
         <Route path="/(|customer/)order" component={MyOrders} />
         <Route path="/(|customer/)pass" component={MyPaymentPacks} />
         <Route path="/(|customer/)profile" component={MyProfile} />
-        <Route path="/(|customer)" component={MyBookings} />
+        <Route path="/(|customer)" component={ConsumerHome} />
       </Switch>
     );
   }
@@ -81,4 +79,4 @@ export default compose(
       fetchProfile: consumerActions.fetchProfile,
     },
   ),
-)(ConsumerHome);
+)(ConsumerRouter);

@@ -1,5 +1,8 @@
 import { createSelector } from 'reselect';
-import { getAll as getPaymentPacks } from '../payment-packs/selectors';
+import {
+  getAll as getPaymentPacks,
+  getPaymentPackById,
+} from '../payment-packs/selectors';
 import { getAll as getAllMembers } from '../member/selectors';
 
 const getState = (state) => state.consumerPaymentPack;
@@ -18,13 +21,14 @@ export const getConsumerPaymentPackExtensions = (state) =>
   state.consumerPaymentPack.extension.items;
 
 export const getConsumerPacksWithPaymentPack = createSelector(
-  [getAllData, getPaymentPacks],
-  (consumerPacks, paymentPacks) =>
+  [getAllData, getPaymentPacks, getPaymentPackById],
+  (consumerPacks, paymentPacks, paymentPackData) =>
     Object.values(consumerPacks).map((cpp) => ({
       ...cpp,
-      payment_pack: paymentPacks.find(
-        (pp) => pp.id === parseInt(cpp.payment_pack_id, 10),
-      ),
+      payment_pack:
+        paymentPacks.find(
+          (pp) => pp.id === parseInt(cpp.payment_pack_id, 10),
+        ) || paymentPackData[cpp.payment_pack],
     })),
 );
 
@@ -47,12 +51,13 @@ export const getConsumerPaymentPackByMember = createSelector(
 );
 
 export const getConsumerPacksByMemberWithPaymentPack = createSelector(
-  [getConsumerPaymentPackByMember, getPaymentPacks],
-  (consumerPacks, paymentPacks) =>
-    Object.values(consumerPacks).map((cpp) => ({
+  [getConsumerPaymentPackByMember, getPaymentPacks, getPaymentPackById],
+  (consumerPacks, paymentPacks, paymentPackData) =>
+    consumerPacks.map((cpp) => ({
       ...cpp,
-      payment_pack: paymentPacks.find(
-        (pp) => pp.id === parseInt(cpp.payment_pack_id, 10),
-      ),
+      payment_pack:
+        paymentPacks.find(
+          (pp) => pp.id === parseInt(cpp.payment_pack_id, 10),
+        ) || paymentPackData[parseInt(cpp.payment_pack_id, 10)],
     })),
 );

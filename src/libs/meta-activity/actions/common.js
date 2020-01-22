@@ -5,7 +5,10 @@ import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 import type { Dispatch, ThunkAction } from '../../../state/types';
 
-import { fetchAllActivities as fetchMetaActivityListAPI } from '../api/common';
+import {
+  fetchAllActivities as fetchMetaActivityListAPI,
+  fetchMetaActivityFavorite as fetchMetaActivityFavoriteAPI,
+} from '../api/common';
 import { getFreshMetaActivityList } from '../selectors';
 
 export const metaActivityBulkActions = {
@@ -41,5 +44,35 @@ export function fetchMetaActivityBulk(
       if (options && options.onError) options.onError();
     }
     dispatch(metaActivityBulkActions.isLoading(false));
+  };
+}
+
+export const favoriteActions = {
+  isLoading: createAction('META_ACTIVITIES/FAVORITE/IS_LOADING'),
+  error: createAction('META_ACTIVITIES/FAVORITE/ERROR'),
+  success: createAction('META_ACTIVITIES/FAVORITE/SUCCESS'),
+};
+
+export function fetchMetaActivityFavorite(
+  company: number,
+  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(favoriteActions.isLoading(true));
+    dispatch(favoriteActions.error(null));
+
+    try {
+      const response = await fetchMetaActivityFavoriteAPI(company);
+      dispatch(favoriteActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        dispatch(favoriteActions.success(null));
+      } else {
+        dispatch(favoriteActions.error(err));
+        if (options && options.onError) options.onError();
+      }
+    }
+    dispatch(favoriteActions.isLoading(false));
   };
 }

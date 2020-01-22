@@ -88,7 +88,11 @@ const renderRows = (invoices, processing, actions, t) => {
   }));
 };
 
-const getColumnData = (t: TFunction, showOnlyCoreColumns: boolean) => {
+const getColumnData = (
+  t: TFunction,
+  showOnlyCoreColumns: boolean,
+  showOnlyCoreColumnsAndFinalize: boolean,
+) => {
   const coreColumns = [
     {
       name: 'uuid',
@@ -120,6 +124,21 @@ const getColumnData = (t: TFunction, showOnlyCoreColumns: boolean) => {
   if (showOnlyCoreColumns) {
     return coreColumns;
   }
+  if (showOnlyCoreColumnsAndFinalize) {
+    return [
+      ...coreColumns,
+      {
+        name: 'actions',
+        label: t('payment.actions'),
+        options: {
+          download: false,
+          filter: false,
+          sort: false,
+          print: false,
+        },
+      },
+    ];
+  }
 
   return [
     {
@@ -148,6 +167,8 @@ type Props = {
   showOnlyCore: ?boolean,
   queryParams: ?string,
   title?: string,
+  autoFinalize?: boolean,
+  showOnlyCoreColumnsAndFinalize?: boolean,
 };
 
 type State = {
@@ -213,7 +234,14 @@ export class InvoiceTable extends Component<Props, State> {
 
   startFinalizeInvoice = (event: SyntheticEvent, uuid: string) => {
     event.stopPropagation();
-    this.openFinalizingDialog(uuid);
+    if (this.props.autoFinalize) {
+      this.props.finalizeInvoice(uuid, {
+        onSuccess: () => this.refreshPage(uuid),
+      });
+    } else {
+      event.stopPropagation();
+      this.openFinalizingDialog(uuid);
+    }
   };
 
   downloadInvoice = (event: SyntheticEvent, invoice: Invoice) => {
@@ -222,7 +250,10 @@ export class InvoiceTable extends Component<Props, State> {
   };
 
   onRowClick = (rowData, { rowIndex }) => {
-    this.props.onInvoiceClick(this.state.invoices[rowIndex].uuid);
+    if (this.props.onInvoiceClick) {
+      return this.props.onInvoiceClick(this.state.invoices[rowIndex].uuid);
+    }
+    return null;
   };
 
   finalizeInvoice = () => {
@@ -285,7 +316,11 @@ export class InvoiceTable extends Component<Props, State> {
             },
             t,
           )}
-          columns={getColumnData(t, !!this.props.showOnlyCore)}
+          columns={getColumnData(
+            t,
+            !!this.props.showOnlyCore,
+            !!this.props.showOnlyCoreColumnsAndFinalize,
+          )}
           options={options}
           title={this.props.title}
         />

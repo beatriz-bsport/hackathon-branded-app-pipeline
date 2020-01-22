@@ -37,6 +37,11 @@ export type CheckoutState = {
     items: Array<Basket>,
     loading: boolean,
     error: ?Error,
+    generatedObjects: {
+      data: Array<[number, number]>,
+      loading: boolean,
+      error: ?Error,
+    },
   },
 };
 

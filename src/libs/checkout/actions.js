@@ -10,6 +10,7 @@ import {
   attachPayment as attachPaymentAPI,
   attachPaymentUnauthenticated as attachPaymentUnauthenticatedAPI,
   attachCoupon as attachCouponAPI,
+  fetchBasketGeneratedObjects as fetchBasketGeneratedObjectsAPI,
 } from './api';
 import { getCurrentBasket } from './selectors';
 import { snackbarError } from '../../actions/snackbar.actions';
@@ -182,5 +183,32 @@ export function attachCoupon(
     }
 
     dispatch(currentBasket.isUpdating(false));
+  };
+}
+
+export const generatedObjectsActions = {
+  error: createAction('CHECKOUT_BASKET/GENERATED_OBJECTS/ERROR'),
+  isLoading: createAction('CHECKOUT_BASKET/GENERATED_OBJECTS/IS_LOADING'),
+  success: createAction('CHECKOUT_BASKET/GENERATED_OBJECTS/SUCCESS'),
+};
+
+export function fetchBasketGeneratedObjects(
+  id: string,
+  options: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(generatedObjectsActions.isLoading(true));
+    dispatch(generatedObjectsActions.error(null));
+
+    try {
+      const response = await fetchBasketGeneratedObjectsAPI(id);
+      dispatch(generatedObjectsActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(generatedObjectsActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+
+    dispatch(generatedObjectsActions.isLoading(false));
   };
 }

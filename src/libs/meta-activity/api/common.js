@@ -33,6 +33,12 @@ export async function updateMetaActivity(data: *, id: number) {
   return patchAuth(`${API_V1_URI}/meta-activity/${aId}/`, data);
 }
 
+export async function fetchMetaActivityFavorite(company: number) {
+  return getAuth(
+    `${API_V1_URI}/meta-activity/favorite/${buildUrlParams({ company })}`,
+  );
+}
+
 export default {
   fetchAllActivities,
   fetchMetaActivityDetails,

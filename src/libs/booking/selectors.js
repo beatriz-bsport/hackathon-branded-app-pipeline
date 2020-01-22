@@ -1,17 +1,33 @@
 // @flow
 import { createSelector } from 'reselect';
+import memoize from 'memoize-one';
+import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import type { State } from '../../state/types';
 import { getConsumerPacksWithPaymentPack } from '../consumer-payment-pack/selectors';
+import {
+  getOfferDataList,
+  withMetaActivity,
+  withCoach,
+  withEstablishment,
+} from '../offer/selectors';
 
 const _getData = (state: State) => state.booking.byId;
 
 const _getMemberBookingId = (state: State) => state.booking.byMember.allIds;
+const _getConsumerBookingIds = (state: State) =>
+  state.booking.asConsumer.allIds;
 const _getOfferBookingId = (state: State) => state.booking.byOffer.allIds;
 const _getConsumerPackBookingId = (state: State) =>
   state.booking.byConsumerPack.allIds;
+const _getConsumerDashboardId = (state: State) =>
+  state.booking.consumerDashboard.allIds;
 
 export const getMemberBookingList = createSelector(
   [_getData, _getMemberBookingId],
+  (data, ids) => ids.map((id) => data[id]),
+);
+export const getConsumerBookingList = createSelector(
+  [_getData, _getConsumerBookingIds],
   (data, ids) => ids.map((id) => data[id]),
 );
 export const getConsumerPackBookingList = createSelector(
@@ -26,6 +42,17 @@ export const getOfferBookingList = createSelector(
 
 export const getMemberBookingListWithConsumerPack = createSelector(
   [getMemberBookingList, getConsumerPacksWithPaymentPack],
+  (bookings, consumerPackList) =>
+    bookings.map((b) => ({
+      ...b,
+      consumer_payment_pack: consumerPackList.find(
+        (cpp) => cpp.id === b.consumer_payment_pack,
+      ),
+    })),
+);
+
+export const getConsumerBookingListWithConsumerPack = createSelector(
+  [getConsumerBookingList, getConsumerPacksWithPaymentPack],
   (bookings, consumerPackList) =>
     bookings.map((b) => ({
       ...b,
@@ -64,4 +91,26 @@ export const getOfferBookingListWithConsumerPack = createSelector(
           (cpp) => cpp.id === b.consumer_payment_pack,
         ),
       })),
+);
+
+export const getConsumerDasboardBookingList = createSelector(
+  [_getData, _getConsumerDashboardId],
+  (data, ids) =>
+    ids
+      .map((id) => data[id])
+      .filter((b) => b.booking_status_code === BOOKING_STATUS_OK.id),
+);
+
+export const withOfferFull = memoize((selector) =>
+  createSelector(
+    [
+      selector,
+      withEstablishment(withMetaActivity(withCoach(getOfferDataList))),
+    ],
+    (bookingList, offerData) =>
+      bookingList.map((b) => ({
+        ...b,
+        offer: offerData.find((o) => o.id === b.offer),
+      })),
+  ),
 );

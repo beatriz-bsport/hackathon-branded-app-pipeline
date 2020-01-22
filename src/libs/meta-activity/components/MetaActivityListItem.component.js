@@ -10,7 +10,6 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Avatar from '@material-ui/core/Avatar';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ClearIcon from '@material-ui/icons/Clear';
 import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
@@ -25,7 +24,9 @@ type Props = {
   metaActivity: MetaActivity,
   classes: Object,
   t: TFunction,
+  classes: Object,
   divider: ?boolean,
+  dense?: boolean,
   clearIcon?: boolean,
   goToEdit: (metaActivityId: number) => void,
   onClick: (MetaActivity) => void,
@@ -34,32 +35,31 @@ type Props = {
 };
 
 export function MetaActivityListItem(props: Props) {
-  const { classes, metaActivity, onClick, goToEdit, t } = props;
+  const { metaActivity, onClick, goToEdit, t } = props;
   const { next_slot } = metaActivity;
   return (
     <ListItem
-      button={onClick}
+      button={!!onClick}
       divider={props.divider}
       alignItems="center"
+      dense={props.dense}
       onClick={onClick ? () => onClick(metaActivity) : null}
       style={{
         borderLeft: metaActivity.color !== '' ? '5px solid' : '0px',
         borderLeftColor: metaActivity.color,
       }}
     >
-      {metaActivity.cover ? (
-        <ListItemAvatar>
-          <Avatar className={classes.avatar} alt="" src={metaActivity.cover} />
-        </ListItemAvatar>
-      ) : (
-        <ListItemIcon>
-          <img
-            className={classes.avatar}
-            alt=""
-            src={(getSportWithIcon(metaActivity.parent_category) || {}).icon}
-          />
-        </ListItemIcon>
-      )}
+      <ListItemAvatar>
+        <Avatar
+          alt=""
+          className={props.classes.avatar}
+          src={
+            metaActivity.cover_main
+              ? metaActivity.cover_main
+              : (getSportWithIcon(metaActivity.parent_category) || {}).icon
+          }
+        />
+      </ListItemAvatar>
       <ListItemText
         primary={
           <Typography component="span" variant="subtitle1">

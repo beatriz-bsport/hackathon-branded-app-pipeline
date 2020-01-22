@@ -42,6 +42,8 @@ import emailTemplateReducer from '../libs/email-editor/reducers';
 import paymentCombo from '../libs/payment-combo/reducers';
 import consumerPaymentPackReducers from '../libs/consumer-payment-pack/reducers';
 import reminder from '../libs/reminder/reducers';
+import membership from '../libs/membership/reducers';
+import company from '../libs/company/reducers';
 
 import type { State, Action } from '../state/types';
 
@@ -89,6 +91,8 @@ const rootReducer = combineReducers({
   smartList: smartListReducer,
   paymentCombo,
   reminder,
+  membership,
+  company,
 });
 
 export default (state: State, action: Action) => {

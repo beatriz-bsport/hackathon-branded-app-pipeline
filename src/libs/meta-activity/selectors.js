@@ -63,3 +63,6 @@ export const getFreshMetaActivityList = createSelector(
   getMetaActivitiesDict,
   (m) => Object.keys(m).map((id) => parseInt(id, 10)),
 );
+
+export const getFavoriteMetaActivity = (state) =>
+  state.metaActivity.byId[state.metaActivity.favorite.id];

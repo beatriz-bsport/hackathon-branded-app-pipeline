@@ -1,3 +1,5 @@
+// @flow
+
 import { createSelector } from 'reselect';
 import moment from 'moment';
 import memoize from 'memoize-one';
@@ -7,11 +9,11 @@ import { getAllCoachesDict } from '../associated-coach/selectors';
 import { getMetaActivitiesDict } from '../meta-activity/selectors';
 import { getAllEstablishmentsDict } from '../establishment/selectors';
 
-const getState = (state) => state.offer;
+const getState = (state: State) => state.offer;
 
-const getAll = (state) => getState(state).offers;
+const getAll = (state: State) => getState(state).offers;
 
-export const getDetailedOffer = (state) => getState(state).retrieve.data;
+export const getDetailedOffer = (state: State) => getState(state).retrieve.data;
 
 // this will remove the offers already ended simply
 export const todayOffers = createSelector(
@@ -26,7 +28,7 @@ export const todayOffers = createSelector(
     }),
 );
 
-export const compatiblePacksWithOffer = (state) =>
+export const compatiblePacksWithOffer = (state: State) =>
   state.offer.compatiblePacks.items;
 
 export const compatiblePacksWithOfferAndEnabled = createSelector(
@@ -34,9 +36,9 @@ export const compatiblePacksWithOfferAndEnabled = createSelector(
   (items) => items.filter((pp) => !pp.disabled),
 );
 
-export const _getSimilars = (state) => state.offer.similarOffers.items;
+export const _getSimilars = (state: State) => state.offer.similarOffers.items;
 
-export const withMetaActivity = memoize((selector) =>
+export const withMetaActivity = memoize((selector: (State) => any) =>
   createSelector(
     [selector, getMetaActivitiesDict],
     (offers, metaActivityData) =>
@@ -47,7 +49,7 @@ export const withMetaActivity = memoize((selector) =>
   ),
 );
 
-export const withEstablishment = memoize((selector) =>
+export const withEstablishment = memoize((selector: (State) => any) =>
   createSelector(
     [selector, getAllEstablishmentsDict],
     (offers, establishmentData) =>
@@ -62,7 +64,7 @@ export const withEstablishment = memoize((selector) =>
   ),
 );
 
-export const withCoach = memoize((selector) =>
+export const withCoach = memoize((selector: (State) => any) =>
   createSelector(
     [selector, getAllCoachesDict],
     (offers, coachData) =>
@@ -101,17 +103,24 @@ export const getSimilars = createSelector(
   },
 );
 
-export const getEventsByMetaActivity = (state) =>
+export const getEventsByMetaActivity = (state: State) =>
   state.offer.calendarByObject.metaActivity;
 
-export const getEventsByEstablishment = (state) =>
+export const getEventsByEstablishment = (state: State) =>
   state.offer.calendarByObject.establishment;
 
-export const getManagerFilters = (state) => state.offer.managerFilter.filters;
-export const getManagerFiltersOpen = (state) => state.offer.managerFilter.open;
+export const getManagerFilters = (state: State) =>
+  state.offer.managerFilter.filters;
+export const getManagerFiltersOpen = (state: State) =>
+  state.offer.managerFilter.open;
 
-const _getOfferByDayIds = (state) => state.offer.byDay.allIds;
-const _getOfferData = (state) => state.offer.byId;
+const _getOfferByDayIds = (state: State) => state.offer.byDay.allIds;
+export const _getOfferData = (state: State) => state.offer.byId;
+
+export const getOfferDataList = createSelector(
+  _getOfferData,
+  (offerData) => Object.values(offerData),
+);
 
 export const getOffersByDay = createSelector(
   [_getOfferByDayIds, _getOfferData],
@@ -153,7 +162,7 @@ export const getManagerOffersFiltered = createSelector(
   },
 );
 
-const _getMarketplaceIds = (state) => state.offer.marketplace.allIds;
+const _getMarketplaceIds = (state: State) => state.offer.marketplace.allIds;
 
 export const getMarketplaceOfferList = createSelector(
   [_getOfferData, _getMarketplaceIds],
@@ -167,5 +176,17 @@ export const getListCalendarOfferFromNow = createSelector(
       .map((id) => data[id])
       .filter((o) => moment(o.date_start).isSameOrAfter(moment())),
 );
+
+export const getOfferWithRelated = (state: State, id: number) => {
+  return withMetaActivity(
+    withCoach(
+      withEstablishment((state_) => {
+        const offer = _getOfferData(state_)[id];
+        if (offer) return [offer];
+        return [];
+      }),
+    ),
+  )(state);
+};
 
 export default { getAll, todayOffers, getSimilars };

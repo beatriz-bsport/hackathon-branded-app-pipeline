@@ -178,7 +178,13 @@ export class ConsumerLogin extends Component<Props, State> {
 
     const { requestSignUp } = this.props;
     return (
-      <Grid container direction="column" alignItems="center" spacing={16}>
+      <Grid
+        container
+        direction="column"
+        alignItems="center"
+        style={{ position: 'relative' }}
+        spacing={16}
+      >
         <Grid item>{this.getEmailLogin()}</Grid>
         <Grid item>
           <Divider t={t} />
@@ -193,7 +199,7 @@ export class ConsumerLogin extends Component<Props, State> {
           </RedButton>
         </Grid>
         <IconButton
-          style={{ position: 'absolute', top: 12, right: 12 }}
+          style={{ position: 'absolute', top: 0, right: 0 }}
           onClick={() => openIntercomHelp('login')}
         >
           <HelpIcon />

@@ -37,6 +37,14 @@ export async function fetchAssociatedEstablishments() {
   return getAuth(`${API_V1_URI}/associated-establishment/`);
 }
 
+export async function fetchEstablishmentFavorite(company: number) {
+  return getAuth(
+    `${API_V1_URI}/establishment/favorite/${buildUrlParams({
+      company,
+    })}`,
+  );
+}
+
 export default {
   addEstablishment,
   updateEstablishment,

@@ -9,7 +9,7 @@ import { getPermissions } from '../libs/role/selectors';
 import type { Permission } from '../libs/role/types';
 import asyncComponent from '../AsyncComponent';
 
-const ConsumerHome = asyncComponent(() => import('./ConsumerHome.component'));
+const ConsumerHome = asyncComponent(() => import('./consumer/Consumer.router'));
 const Backoffice = asyncComponent(() => import('./Backoffice.component'));
 
 type Props = {

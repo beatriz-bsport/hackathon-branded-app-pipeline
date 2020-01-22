@@ -61,3 +61,7 @@ export const attachCoupon = async (basketId: string, code: string) => {
     code,
   });
 };
+
+export const fetchBasketGeneratedObjects = async (id: string) => {
+  return postAuth(`${API_V1_URI}/checkout/basket/generated_objects/`, { id });
+};

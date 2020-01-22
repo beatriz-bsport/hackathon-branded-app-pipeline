@@ -40,7 +40,7 @@ export async function tag(memberId: number, tagId: number) {
 }
 
 export async function fetchMember(memberId: number) {
-  return getAuth(`${API_URI}/saas/members/${memberId}?no-deprecated=true`);
+  return getAuth(`${API_V1_URI}/member/${memberId}/`);
 }
 
 export async function fetchByQueryMember(params: *) {
@@ -61,7 +61,7 @@ export async function linkMeToCompany(data: *) {
 }
 
 export async function updateMember(data: Object) {
-  return putAuth(`${API_URI}/saas/member/${data.get('id')}`, data);
+  return putAuth(`${API_V1_URI}/member/${data.get('id')}/`, data);
 }
 
 export async function merge(src: number, dst: number) {

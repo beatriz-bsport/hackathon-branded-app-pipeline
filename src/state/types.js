@@ -21,6 +21,8 @@ import type { LoginState } from '../libs/login/types';
 import type { PrivateServiceState } from '../libs/private-service/types';
 import type { PaymentComboState } from '../libs/payment-combo/types';
 import type { ReminderState } from '../libs/reminder/types';
+import type { MembershipState } from '../libs/membership/types';
+import type { CompanyState } from '../libs/company/types';
 
 export type State = {
   paymentRules: PaymentRulesState,
@@ -44,6 +46,8 @@ export type State = {
   privateService: PrivateServiceState,
   paymentCombo: PaymentComboState,
   reminder: ReminderState,
+  membership: MembershipState,
+  company: CompanyState,
 };
 export type Action = SearchAction | AuthAction;
 

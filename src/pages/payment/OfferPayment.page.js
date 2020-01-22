@@ -158,7 +158,11 @@ export class OfferPaymentPage extends Component<Props, State> {
 
   render() {
     if (this.state.completed) {
-      return <Redirect to="/" />;
+      return (
+        <Redirect
+          to={`/c/${this.props.theme.company}/?from_direct_booking=${this.props.offerId}`}
+        />
+      );
     }
 
     return (

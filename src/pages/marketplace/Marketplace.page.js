@@ -170,7 +170,9 @@ export class MarketPlace extends Component<Props, State> {
             companyId={this.props.companyId}
             requestSignUp={() => this.toogleLogin(true)}
             authenticated={this.props.auth.authenticated}
-            goToUserSpace={this.props.goToUserSpace}
+            goToUserSpace={() =>
+              this.props.goToUserSpace(this.props.company.id)
+            }
           />
         );
       case TAB_SHOP:
@@ -256,7 +258,9 @@ export class MarketPlace extends Component<Props, State> {
             logo={this.props.theme.cover}
             websiteURL={this.props.theme.websiteURL}
             auth={this.props.auth}
-            goToUserSpace={this.props.goToUserSpace}
+            goToUserSpace={() =>
+              this.props.goToUserSpace(this.props.company.id)
+            }
             currentBasket={this.props.currentBasket}
             company={this.props.company}
             openCurrentBasket={() => this.toogleCurrentBasketOpen(true)}
@@ -474,7 +478,7 @@ export default compose(
 
       // for signup/signin/profile
       fetchProfile: consumerActions.fetchProfile,
-      goToUserSpace: () => pushRouter('/'),
+      goToUserSpace: (id) => pushRouter(`/c/${id}/`),
       goToCheckout: (companyId) => pushRouter(`/checkout/${companyId}/`),
       signup: (data: *, callback: () => void) =>
         authActions.signup(data, { onDone: callback }),

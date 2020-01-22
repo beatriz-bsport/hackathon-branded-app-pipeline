@@ -1,8 +1,6 @@
 // @flow
 //
 import React from 'react';
-import { withNamespaces } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 
@@ -11,10 +9,6 @@ import ClearIcon from '@material-ui/icons/Clear';
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
-
-import ListItemText from '@material-ui/core/ListItemText';
-import Paper from '@material-ui/core/Paper';
-import ListItem from '@material-ui/core/ListItem';
 
 import memoize from 'memoize-one';
 
@@ -27,8 +21,6 @@ type Props = {
   searchText: string,
   clearSearch: () => void,
   changeSearch: (any) => void,
-  searchResult: Array,
-  t: TFunction,
   classes: Object,
   variant?: string,
 };
@@ -75,14 +67,6 @@ export class FuzeSearch extends React.Component<Props> {
             ) : null,
           }}
         />
-        {this.props.searchText !== '' &&
-        this.props.searchResult.length === 0 ? (
-          <Paper>
-            <ListItem disabled>
-              <ListItemText primary={this.props.t('search.noResult')} />
-            </ListItem>
-          </Paper>
-        ) : null}
       </div>
     );
   }
@@ -92,7 +76,4 @@ const styles = () => ({
   container: { width: '100%' },
 });
 
-export default compose(
-  withStyles(styles),
-  withNamespaces(),
-)(FuzeSearch);
+export default compose(withStyles(styles))(FuzeSearch);

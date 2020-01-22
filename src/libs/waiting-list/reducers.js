@@ -9,6 +9,7 @@ import {
   registerOptionActions,
   configurationDetail,
   configurationUpdate,
+  asConsumerActions,
 } from './actions';
 
 import type { WaitingListState } from './types';
@@ -63,6 +64,15 @@ export default handleActions(
       return state.setIn(['option', 'error'], payload);
     },
     [byOfferActions.success]: (state, { payload }) => {
+      return state.setIn(['option', 'items'], payload);
+    },
+    [asConsumerActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['option', 'loading'], payload);
+    },
+    [asConsumerActions.error]: (state, { payload }) => {
+      return state.setIn(['option', 'error'], payload);
+    },
+    [asConsumerActions.success]: (state, { payload }) => {
       return state.setIn(['option', 'items'], payload);
     },
 

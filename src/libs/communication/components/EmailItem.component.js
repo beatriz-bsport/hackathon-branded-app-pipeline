@@ -13,15 +13,16 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
 
-type props = {
+type Props = {
   email: string,
   classes: Object,
   accept_email: boolean,
   notificationIcon: boolean,
   openMailDialog: () => void,
+  hideContactButton?: boolean,
 };
 
-export class EmailListItem extends Component<props> {
+export class EmailListItem extends Component<Props> {
   renderNotificationIcon = () => {
     return this.props.accept_email ? (
       <NotificationActiveIcon className={this.props.classes.notificationIcon} />
@@ -40,7 +41,9 @@ export class EmailListItem extends Component<props> {
             primary={email || ' - '}
             className={this.props.classes.listItemText}
           />
-          {email ? (
+          {email &&
+          this.props.openMailDialog &&
+          !this.props.hideContactButton ? (
             <Button
               color="primary"
               onClick={() => {

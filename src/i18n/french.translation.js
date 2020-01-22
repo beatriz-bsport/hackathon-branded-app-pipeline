@@ -43,8 +43,12 @@ import paymentCombo from './fr/payment-combo.translations';
 import authentication from './fr/authentication.translations';
 import category from './fr/category.translations';
 import reminder from './fr/reminder.translations';
+import membership from './fr/membership.translations';
+import consumerSpace from './fr/consumer-space.translations';
 
 export default {
+  membership,
+  consumerSpace,
   reminder,
   category,
   authentication,
@@ -287,7 +291,7 @@ export default {
       hasBooked: 'Inscrit',
       createBooking: 'Inscrire',
       bill: 'Facturer',
-      createBookingOption: 'Ajouter sur liste',
+      createBookingOption: "Liste d'attente",
       reCreateBooking: 'Réinscrire',
       noQuickInvoiceOpened: 'Aucune facturation ouverte',
       myOpenedInvoices: 'Factures rapides',

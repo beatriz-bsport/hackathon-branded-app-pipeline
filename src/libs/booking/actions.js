@@ -1,5 +1,8 @@
 // @flow
 import { createAction } from 'redux-actions';
+import moment from 'moment';
+
+import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 
 import {
   fetchBookingList as fetchBookingListAPI,
@@ -72,6 +75,83 @@ export const confirmAttendance = (id, options) =>
   updateBooking(id, {}, options, confirmAttendanceAPI);
 export const cancelBooking = (id, data, options) =>
   updateBooking(id, data, options, cancelBookingAPI);
+
+export const asConsumerActions = {
+  success: createAction('BOOKING/AS_CONSUMER/SUCCESS'),
+  isLoading: createAction('BOOKING/AS_CONSUMER/IS_LOADING'),
+  error: createAction('BOOKING/AS_CONSUMER/ERROR'),
+};
+
+export function fetchBookingsAsConsumer(
+  member: number,
+  page: number,
+  page_size: number,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(asConsumerActions.isLoading(true));
+    dispatch(asConsumerActions.error(null));
+
+    try {
+      const response = await fetchBookingListAPI({
+        member,
+        page,
+        page_size,
+        mine: true,
+      });
+      dispatch(asConsumerActions.success({ ...response.data, page }));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (err) {
+      dispatch(asConsumerActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(asConsumerActions.isLoading(false));
+  };
+}
+
+export const consumerDashboardActions = {
+  success: createAction('BOOKING/CONSUMER_DASHBOARD/SUCCESS'),
+  isLoading: createAction('BOOKING/CONSUMER_DASHBOARD/IS_LOADING'),
+  error: createAction('BOOKING/CONSUMER_DASHBOARD/ERROR'),
+};
+
+export function fetchConsumerDashboardBookingList(
+  member: number,
+  page: ?number,
+  page_size: number,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch, getState: () => void) => {
+    dispatch(consumerDashboardActions.isLoading(true));
+    dispatch(consumerDashboardActions.error(null));
+    let pageToFetch = page;
+    if (!pageToFetch) {
+      pageToFetch = getState().booking.consumerDashboard.next_page;
+    }
+
+    try {
+      const response = await fetchBookingListAPI({
+        member,
+        pageToFetch,
+        page_size: 5,
+        mine: true,
+        min_date: moment().format('YYYY-MM-DD'),
+        booking_status_code: BOOKING_STATUS_OK.id,
+        ordering: 'offer__date_start',
+      });
+      dispatch(consumerDashboardActions.success({ ...response.data, page }));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (err) {
+      dispatch(consumerDashboardActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(consumerDashboardActions.isLoading(false));
+  };
+}
 
 export const byMemberActions = {
   success: createAction('BOOKING/BY_MEMBER/SUCCESS'),
@@ -210,5 +290,33 @@ export function registerBooking(
         options.onError(err);
       }
     }
+  };
+}
+
+export const bulkActions = {
+  success: createAction('BOOKING/BULK/SUCCESS'),
+  isLoading: createAction('BOOKING/BULK/IS_LOADING'),
+  error: createAction('BOOKING/BULK/ERROR'),
+};
+
+export function fetchBookingBulk(ids: Array<number>, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(bulkActions.isLoading(true));
+    dispatch(bulkActions.error(null));
+
+    try {
+      const response = await fetchBookingListAPI({
+        ids_in: ids,
+        page_size: ids.length,
+      });
+      dispatch(bulkActions.success(response.data.results));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (err) {
+      dispatch(bulkActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(bulkActions.isLoading(false));
   };
 }

@@ -127,15 +127,17 @@ export class AddressForm extends Component<Props, State> {
               />
             </Grid>
           </Grid>
-          <TextField
-            name="country"
-            value={this.state.country || this.props.country}
-            shrink={Boolean(this.state.country || this.props.country)}
-            autoComplete={autoComplete ? 'country' : null}
-            required
-            label={t('form.address.country')}
-            onChange={this.handleChange('country')}
-          />
+          <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
+            <TextField
+              name="country"
+              value={this.state.country || this.props.country}
+              shrink={Boolean(this.state.country || this.props.country)}
+              autoComplete={autoComplete ? 'country' : null}
+              required
+              label={t('form.address.country')}
+              onChange={this.handleChange('country')}
+            />
+          </div>
         </div>
         {this.props.onChange ? null : (
           <Grid

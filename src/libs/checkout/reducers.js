@@ -3,7 +3,7 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
-import { currentBasket } from './actions';
+import { currentBasket, generatedObjectsActions } from './actions';
 
 import type { CheckoutState } from './types';
 
@@ -18,6 +18,11 @@ const initialState: CheckoutState = Immutable({
     },
     loading: false,
     error: null,
+    generatedObjects: {
+      loading: false,
+      error: null,
+      data: null,
+    },
   },
 });
 
@@ -34,6 +39,15 @@ export default handleActions(
     },
     [currentBasket.success]: (state, { payload }) => {
       return state.setIn(['basket', 'current', 'data'], payload);
+    },
+    [generatedObjectsActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['basket', 'generatedObjects', 'loading'], payload);
+    },
+    [generatedObjectsActions.error]: (state, { payload }) => {
+      return state.setIn(['basket', 'generatedObjects', 'error'], payload);
+    },
+    [generatedObjectsActions.success]: (state, { payload }) => {
+      return state.setIn(['basket', 'generatedObjects', 'data'], payload);
     },
   },
   initialState,

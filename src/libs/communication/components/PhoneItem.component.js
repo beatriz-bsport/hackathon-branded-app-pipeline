@@ -14,14 +14,15 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
 
-type props = {
+type Props = {
   phoneNumber: string,
   accept_contact: boolean,
   classes: Object,
   notificationIcon: boolean,
+  hideContactButton?: boolean,
 };
 
-export class PhoneItem extends Component<props> {
+export class PhoneItem extends Component<Props> {
   renderNotificationIcon = () => {
     return this.props.accept_contact ? (
       <NotificationActiveIcon className={this.props.classes.notificationIcon} />
@@ -39,7 +40,7 @@ export class PhoneItem extends Component<props> {
           primary={phoneNumber || ' - '}
           className={this.props.classes.listItemText}
         />
-        {phoneNumber ? (
+        {phoneNumber && !this.props.hideContactButton ? (
           <Button
             onClick={(e) => {
               e.stopPropagation();
@@ -50,7 +51,7 @@ export class PhoneItem extends Component<props> {
             <PhoneForwardedIcon />
           </Button>
         ) : null}
-        {phoneNumber ? (
+        {phoneNumber && !this.props.hideContactButton ? (
           <Button
             onClick={(e) => {
               e.stopPropagation();

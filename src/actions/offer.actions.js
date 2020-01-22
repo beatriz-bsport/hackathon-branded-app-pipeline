@@ -289,3 +289,32 @@ export function fetchMarketplaceOfferList(params, options) {
     dispatch(offerMarketplaceListActions.isLoading(false));
   };
 }
+
+export const offerBulkActions = {
+  isLoading: createAction('OFFER/BULK/IS_LOADING'),
+  error: createAction('OFFER/BULK/ERROR'),
+  success: createAction('OFFER/BULK/SUCCESS'),
+};
+
+export function fetchOfferBulk(ids: Array<number>, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(offerBulkActions.error(null));
+    dispatch(offerBulkActions.isLoading(true));
+
+    try {
+      const response = await api.offer.fetchOffersList({
+        id__in: ids,
+      });
+      dispatch(offerBulkActions.success(response.data.results));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(offerBulkActions.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+
+    dispatch(offerBulkActions.isLoading(false));
+  };
+}

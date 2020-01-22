@@ -22,7 +22,7 @@ const UserspaceSwitcher = asyncComponent(() =>
   import('./pages/UserspaceSwitcher.component'),
 );
 const ConsumerHome = asyncComponent(() =>
-  import('./pages/ConsumerHome.component'),
+  import('./pages/consumer/Consumer.router'),
 );
 const CheckoutRouter = asyncComponent(() =>
   import('./pages/checkout/Checkout.router'),

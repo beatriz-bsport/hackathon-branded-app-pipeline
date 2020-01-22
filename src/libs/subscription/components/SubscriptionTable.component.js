@@ -74,7 +74,12 @@ type State = {
 
 export class SubscriptionTable extends Component<Props, State> {
   onRowClick = (rowData: Array<*>, { rowIndex }: { rowIndex: number }) => {
-    this.props.goToSubscription(this.props.subscriptionList[rowIndex].id);
+    if (this.props.goToSubscription) {
+      return this.props.goToSubscription(
+        this.props.subscriptionList[rowIndex].id,
+      );
+    }
+    return null;
   };
 
   state = {

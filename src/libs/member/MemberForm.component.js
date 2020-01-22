@@ -64,6 +64,8 @@ type Props = {
   fromConsumerAccess: ?boolean,
   memberId: number,
   emailExistsError: boolean,
+  hideManagerStuff: boolean,
+  onCancel?: () => void,
   checkUserExists: ({ email?: string, phonenumber?: string }) => void,
   goToMember: (number) => void,
   goToMerge: (number, number) => void,
@@ -146,11 +148,12 @@ export function MemberForm(props: Props) {
     isSubmitting,
     variant,
     checkUserExists,
+    hideManagerStuff,
   } = props;
   const mdSize = variant === 'merge-form' ? 12 : 6;
   return (
     <div>
-      {variant === 'merge-form' ? null : (
+      {variant === 'merge-form' || hideManagerStuff ? null : (
         <MemberExistsBanner
           emailExists={props.emailExists}
           emailExistsError={props.emailExistsError}
@@ -246,15 +249,17 @@ export function MemberForm(props: Props) {
                 />
               )}
             </Grid>
-            <Grid item xs={12} md={mdSize}>
-              <TextField
-                name="membership_ID"
-                label={t('form.member.referenceNumber')}
-                helperText={t('form.member.referenceNumberHelper')}
-                fullWidth
-                disabled={disabled || !!props.fromConsumerAccess}
-              />
-            </Grid>
+            {hideManagerStuff ? null : (
+              <Grid item xs={12} md={mdSize}>
+                <TextField
+                  name="membership_ID"
+                  label={t('form.member.referenceNumber')}
+                  helperText={t('form.member.referenceNumberHelper')}
+                  fullWidth
+                  disabled={disabled || !!props.fromConsumerAccess}
+                />
+              </Grid>
+            )}
             <Grid item xs={12} md={mdSize}>
               <Grid container direction="row" spacing={16}>
                 <Grid item>
@@ -291,34 +296,36 @@ export function MemberForm(props: Props) {
                     initialFocusedDate="1990/01/01"
                   />
                 </Grid>
-                <Grid item>
-                  <DateField
-                    required={!!props.fromConsumerAccess}
-                    mask={(value) => {
-                      if (value) {
-                        return [
-                          /\d/,
-                          /\d/,
-                          '/',
-                          /\d/,
-                          /\d/,
-                          '/',
-                          /\d/,
-                          /\d/,
-                          /\d/,
-                          /\d/,
-                        ];
-                      }
-                      return [];
-                    }}
-                    keyboard
-                    format="YYYY-MM-DD"
-                    name="date_joined"
-                    disabled={disabled}
-                    label={t('member.date_joined')}
-                    cancelLabel={t('common.cancel')}
-                  />
-                </Grid>
+                {hideManagerStuff ? null : (
+                  <Grid item>
+                    <DateField
+                      required={!!props.fromConsumerAccess}
+                      mask={(value) => {
+                        if (value) {
+                          return [
+                            /\d/,
+                            /\d/,
+                            '/',
+                            /\d/,
+                            /\d/,
+                            '/',
+                            /\d/,
+                            /\d/,
+                            /\d/,
+                            /\d/,
+                          ];
+                        }
+                        return [];
+                      }}
+                      keyboard
+                      format="YYYY-MM-DD"
+                      name="date_joined"
+                      disabled={disabled}
+                      label={t('member.date_joined')}
+                      cancelLabel={t('common.cancel')}
+                    />
+                  </Grid>
+                )}
               </Grid>
             </Grid>
             <Grid item xs={12} md={mdSize}>
@@ -358,14 +365,26 @@ export function MemberForm(props: Props) {
             <Grid item xs={12}>
               {!disabled ? (
                 <Actions>
-                  <Button
-                    color="secondary"
-                    onClick={props.goToMember}
-                    disabled={isSubmitting}
-                    variant="contained"
-                  >
-                    {t('member:forms.merge.seeMemberPage')}
-                  </Button>
+                  {props.goToMember ? (
+                    <Button
+                      color="secondary"
+                      onClick={props.goToMember}
+                      disabled={isSubmitting}
+                      variant="contained"
+                    >
+                      {t('member:forms.merge.seeMemberPage')}
+                    </Button>
+                  ) : null}
+                  {props.onCancel ? (
+                    <Button
+                      color="secondary"
+                      onClick={props.onCancel}
+                      disabled={isSubmitting}
+                      variant="contained"
+                    >
+                      {t('common.cancel')}
+                    </Button>
+                  ) : null}
                   <Submit disabled={isSubmitting}>{t('form.send')}</Submit>
                 </Actions>
               ) : null}
@@ -378,7 +397,7 @@ export function MemberForm(props: Props) {
           />
         )}
       </div>
-      {variant === 'merge-form' ? null : (
+      {variant === 'merge-form' || hideManagerStuff ? null : (
         <MemberExistsBanner
           emailExists={props.emailExists}
           emailExistsError={props.emailExistsError}

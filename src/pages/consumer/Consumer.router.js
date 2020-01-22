@@ -2,10 +2,18 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import ConsumerHome from './ConsumerHome.page';
-import ConsumerSpacePreSelector from './ConsumerSpacePreSelector.router';
-import ConsumerMembershipSelector from './ConsumerMembershipSelector.page';
-import ConsumerMembershipValidator from './ConsumerMembershipValidator.page';
+import asyncComponent from '../../AsyncComponent';
+
+const ConsumerHome = asyncComponent(() => import('./ConsumerHome.page'));
+const ConsumerSpacePreSelector = asyncComponent(() =>
+  import('./ConsumerSpacePreSelector.router'),
+);
+const ConsumerMembershipSelector = asyncComponent(() =>
+  import('./ConsumerMembershipSelector.page'),
+);
+const ConsumerMembershipValidator = asyncComponent(() =>
+  import('./ConsumerMembershipValidator.page'),
+);
 
 export const ConsumerRouter = () => (
   <Switch>

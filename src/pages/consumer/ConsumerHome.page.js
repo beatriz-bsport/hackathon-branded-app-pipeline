@@ -14,6 +14,7 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
 import parse from '../../query-string';
 import { buildUrlParams } from '../../http';
+import asyncComponent from '../../AsyncComponent';
 
 import {
   getConsumerMembershipList,
@@ -38,18 +39,22 @@ import { fetchCompanyTheme } from '../../libs/theme/actions';
 
 import type { Membership } from '../../libs/membership/types';
 
-import ConsumerDashboard from './ConsumerDashboard.page';
-import ConsumerBooking from './ConsumerBooking.page';
-import ConsumerPack from './ConsumerPack.page';
-import ConsumerInvoice from './ConsumerInvoice.page';
-import ConsumerSubscription from './ConsumerSubscription.page';
-import ConsumerProfile from './ConsumerProfile.page';
-
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
 import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions/common';
 
 import CongratulationDialog from './CongratulationDialog.component';
+
+const ConsumerDashboard = asyncComponent(() =>
+  import('./ConsumerDashboard.page'),
+);
+const ConsumerBooking = asyncComponent(() => import('./ConsumerBooking.page'));
+const ConsumerPack = asyncComponent(() => import('./ConsumerPack.page'));
+const ConsumerInvoice = asyncComponent(() => import('./ConsumerInvoice.page'));
+const ConsumerSubscription = asyncComponent(() =>
+  import('./ConsumerSubscription.page'),
+);
+const ConsumerProfile = asyncComponent(() => import('./ConsumerProfile.page'));
 
 type Props = {
   membership: ?Membership,

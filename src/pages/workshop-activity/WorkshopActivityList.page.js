@@ -157,7 +157,7 @@ export default compose(
       onCreate: () => push('/workshop-activity/add'),
       deleteWorkshop,
       goToDetail: (metaActivityId) =>
-        push(`/workshop-activity/${metaActivityId}`),
+        push(`/workshop-activity/${metaActivityId}/general`),
       goToEdit: (metaActivityId) =>
         push(`/workshop-activity/${metaActivityId}/edit`),
     },

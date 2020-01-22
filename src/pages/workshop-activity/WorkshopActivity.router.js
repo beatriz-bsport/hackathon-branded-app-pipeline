@@ -15,7 +15,16 @@ export default () => (
       path="/workshop-activity/:id/edit"
       component={WorkshopActivityEdit}
     />
-    <Route path="/workshop-activity/:id" component={WorkshopActivityDetail} />
+    <Route
+      exact
+      path="/workshop-activity/:id/:tab/:packId"
+      component={WorkshopActivityDetail}
+    />
+    <Route
+      exact
+      path="/workshop-activity/:id/:tab"
+      component={WorkshopActivityDetail}
+    />
     <Route path="/workshop-activity" component={WorkshopActivityList} />
   </Switch>
 );

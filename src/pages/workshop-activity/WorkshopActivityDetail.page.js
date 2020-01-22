@@ -1,120 +1,74 @@
 // @flow
-import React, { Component } from 'react';
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
+import AppBar from '@material-ui/core/AppBar';
+import { compose } from 'recompose';
+import Tab from '@material-ui/core/Tab';
 import { connect } from 'react-redux';
-import { push as routerPush } from 'react-router-redux';
-import { compose, withProps } from 'recompose';
+import Tabs from '@material-ui/core/Tabs';
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
+import { push } from 'react-router-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { withNamespaces } from 'react-i18next';
-
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import { offer as offerActions } from '../../actions';
-import type { Offer, MetaActivity as MetaActivityType } from '../../api/types';
-import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-
-import WorkshopDeleteDialog from '../../libs/meta-activity/components/WorkshopDeleteDialog.component';
-import MetaActivityDetail from '../../libs/meta-activity/components/MetaActivityDetail.component';
-import BottomActionButtons from '../../components/button/BottomActionsButton.component';
+import withTitle from '../../hocs/with-title.hoc';
+import WorkshopActivityDetailPack from './WorkshopActivityDetailPack.page';
+import WorkshopActivityDetailGeneral from './WorkshopActivityDetailGeneral.page';
 
 import { getWorkshops } from '../../libs/meta-activity/selectors';
-import {
-  getEventsByMetaActivity,
-  withEstablishment,
-  withCoach,
-  getOffersByDay,
-} from '../../libs/offer/selectors';
-import { fetchMetaActivityOffers as fetchMetaActivityOffersAction } from '../../actions/offer.actions';
-import {
-  deleteWorkshop,
-  fetchAll as fetchAllWorkshops,
-} from '../../libs/meta-activity/actions/workshop-activity.actions';
-import { checkCanDeleteMetaActivity as canDeleteWorkshopAPI } from '../../libs/meta-activity/api/common';
+import { fetchAll as fetchAllWorkshops } from '../../libs/meta-activity/actions/workshop-activity.actions';
 
 type Props = {
+  t: TFunction,
+  pushToTab: (id: number, tab: string) => void,
+  tab: string,
   id: number,
-  workshopActivity: MetaActivityType,
-  loading: boolean,
-  fetchAllWorkshops: () => void,
-  fetchMetaActivityOffers: (id: number) => void,
-  fetchOffersByDay: (year: number, month: number, day: number) => void,
-  offersLoading: boolean,
-  events: Array<Event>,
-  fetchAllWorkshops: () => void,
-  offers: Array<Offer>,
-
-  goToList: () => void,
-  deleteWorkshop: (
-    id: number,
-    options: ?{ onSuccess: ?() => void, onError: ?() => void },
-  ) => void,
-  onEdit: (id: number) => void,
-  createActivityOffers: (id: number) => void,
-  goToOffer: (offer: Offer) => void,
   classes: Object,
+  fetchAllWorkshops: () => void,
 };
 
-type State = {
-  editable: boolean,
-  data: *,
-  sportCategories: Array<number>,
-  dateSelected: Object,
-  deleteOpen: boolean,
-};
-
-export class WorkshopActivity extends Component<Props, State> {
-  state = { deleteOpen: false };
-
+export class WorkshopActivityDetail extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchAllWorkshops();
-    if (this.props.id) {
-      this.props.fetchMetaActivityOffers(this.props.id);
-    }
   }
-
-  componentDidUpdate(prevProps: Props) {
-    if (this.props.id && this.props.id !== prevProps.id) {
-      this.props.fetchAllWorkshops();
-      this.props.fetchMetaActivityOffers(this.props.id);
-    }
-  }
-
-  openCreateOfferForm = () => {
-    this.props.createActivityOffers(this.props.id);
-  };
 
   render() {
-    if (!this.props.workshopActivity) {
-      return <LinearProgress />;
-    }
+    const { t, pushToTab, tab, id, classes } = this.props;
     return (
-      <div className={this.props.classes.container}>
-        {this.props.loading ? <LinearProgress /> : null}
-        <MetaActivityDetail
-          metaActivity={this.props.workshopActivity}
-          fetchOffersByDay={this.props.fetchOffersByDay}
-          events={this.props.events}
-          offers={this.props.offers.filter(
-            (o) => o.meta_activity === this.props.id,
-          )}
-          offersLoading={this.props.offersLoading}
-          goToOffer={this.props.goToOffer}
-          openCreateOfferForm={this.openCreateOfferForm}
-        />
-        <BottomActionButtons
-          onEdit={() => this.props.onEdit(this.props.id)}
-          onDelete={() => this.setState({ deleteOpen: true })}
-        />
-        <WorkshopDeleteDialog
-          workshopId={this.state.deleteOpen ? this.props.id : null}
-          onClose={() => this.setState({ deleteOpen: false })}
-          canDeleteWorkshopChecker={canDeleteWorkshopAPI}
-          deleteWorkshop={() => {
-            this.props.deleteWorkshop(this.props.id, {
-              onSuccess: this.props.goToList,
-            });
-          }}
-        />
+      <div className={classes.container}>
+        <AppBar position="static" color="default">
+          <Tabs
+            scrollButtons="off"
+            variant="scrollable"
+            value={tab}
+            onChange={(e, newTab) => {
+              pushToTab(id, newTab);
+            }}
+          >
+            <Tab label={t('detail.tab.general')} value="general" />
+            <Tab label={t('detail.tab.pack')} value="pack" />
+          </Tabs>
+        </AppBar>
+        <div className={classes.content}>
+          <Switch>
+            <Route
+              exact
+              path="/workshop-activity/:id/pack/:packId"
+              component={WorkshopActivityDetailPack}
+            />
+            <Route
+              exact
+              path="/workshop-activity/:id/pack"
+              component={WorkshopActivityDetailPack}
+            />
+            <Route
+              exact
+              path="/workshop-activity/:id/general"
+              component={WorkshopActivityDetailGeneral}
+            />
+          </Switch>
+        </div>
       </div>
     );
   }
@@ -122,63 +76,43 @@ export class WorkshopActivity extends Component<Props, State> {
 
 const styles = (theme) => ({
   container: {
-    paddingBottom: theme.spacing.unit * 12,
+    marginBottom: theme.spacing.unit * 4,
+    marginTop: -theme.spacing.unit * 3,
+    width: '100vw',
+    [theme.breakpoints.up('md')]: {
+      marginLeft: -theme.spacing.unit * 3,
+      width: 'auto',
+      marginRight: -theme.spacing.unit * 3,
+      marginTop: -theme.spacing.unit * 2,
+    },
+  },
+  content: {
+    marginBottom: theme.spacing.unit * 8,
+    [theme.breakpoints.up('md')]: {
+      margin: theme.spacing.unit * 2,
+      marginBottom: theme.spacing.unit * 8,
+    },
+    marginTop: theme.spacing.unit * 2,
   },
 });
 
 export default compose(
-  routerParamsToProps({ id: 'id:number' }),
-  withNamespaces(),
+  withNamespaces(['metaActivity']),
+  routerParamsToProps({ tab: 'tab', id: 'id:number' }),
   withStyles(styles),
   connect(
     (state, { id }) => ({
-      id,
-      loading: state.metaActivity.loading,
-      workshopActivities: getWorkshops(state),
       workshopActivity: getWorkshops(state).find((ma) => ma.id === id),
-      events: getEventsByMetaActivity(state),
-      offers: withEstablishment(withCoach(getOffersByDay))(state),
-      offersLoading: state.offer.byDay.loading,
     }),
     {
+      pushToTab: (id, tab) => push(`/workshop-activity/${id}/${tab}`),
       fetchAllWorkshops,
-      fetchOffersByDay: offerActions.fetchOffersByDay,
-      fetchMetaActivityOffers: fetchMetaActivityOffersAction,
-      deleteWorkshop,
-      goToOffer: (o) => routerPush(`/offer/${o.id}`),
-      goToList: () => routerPush('/workshop-activity'),
-      onEdit: (id) => routerPush(`/workshop-activity/${id}/edit`),
-      createActivityOffers: (id) => routerPush(`/add-offers/${id}`),
     },
   ),
-  withProps(({ fetchOffersByDay, fetchMetaActivityOffers, id }) => ({
-    fetchOffersByDay: (momentDate) => {
-      fetchMetaActivityOffers(id, {
-        min_date: momentDate
-          .clone()
-          .startOf('month')
-          .format('YYYY-MM-DD'),
-        max_date: momentDate
-          .clone()
-          .endOf('month')
-          .format('YYYY-MM-DD'),
-      });
-      fetchOffersByDay({
-        year: momentDate.year(),
-        month: momentDate.month() + 1,
-        day: momentDate.date(),
-      });
-    },
-  })),
-  withTitle(({ id, workshopActivities }) => {
-    if (id) {
-      const workshopActivity = (workshopActivities || []).filter(
-        (m) => m.id === id,
-      );
-      if ((workshopActivity || []).length === 1) {
-        return workshopActivity[0].name;
-      }
+  withTitle(({ workshopActivity }) => {
+    if (workshopActivity) {
+      return workshopActivity.name;
     }
     return '';
   }),
-)(WorkshopActivity);
+)(WorkshopActivityDetail);

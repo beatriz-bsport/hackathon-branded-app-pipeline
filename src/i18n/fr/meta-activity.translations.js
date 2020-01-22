@@ -37,12 +37,12 @@ export default {
   detail: {
     pack: {
       noCompatiblePass: "Pas d'abonnement compatible",
-      consumerPacks: 'Abonnements possédés par les membres',
-      paymentPacks: 'Abonnements compatibles',
+      consumerPacks: 'Carte de cours possédées par les membres',
+      paymentPacks: 'Carte compatibles',
     },
     tab: {
       general: 'Général',
-      pack: 'Abonnements',
+      pack: 'Cartes compatibles',
     },
   },
 

@@ -56,7 +56,22 @@ export class MultipleSelect extends Component<Props, State> {
       selectedItems: props.selectedItems || [],
       open: false,
       anchorEl: null,
-      searchedItems: props.items || [],
+      searchedItems:
+        [...props.items].sort((item, _item) => {
+          if (
+            props.selectedItems.includes(item.id) &&
+            props.selectedItems.includes(_item.id)
+          ) {
+            return 0;
+          }
+          if (
+            props.selectedItems.includes(item.id) &&
+            !props.selectedItems.includes(_item.id)
+          ) {
+            return -1;
+          }
+          return 1;
+        }) || [],
       searchText: null,
       itemsFetched: false,
       selectAll: props.selectAll || false,
@@ -67,12 +82,43 @@ export class MultipleSelect extends Component<Props, State> {
     if (this.props.selectedItems !== prevProps.selectedItems) {
       this.setState({
         selectedItems: this.props.selectedItems || [],
+        searchedItems:
+          [...this.props.items].sort((item, _item) => {
+            if (
+              this.props.selectedItems.includes(item.id) &&
+              this.props.selectedItems.includes(_item.id)
+            ) {
+              return 0;
+            }
+            if (
+              this.props.selectedItems.includes(item.id) &&
+              !this.props.selectedItems.includes(_item.id)
+            ) {
+              return -1;
+            }
+            return 1;
+          }) || [],
       });
     }
     if (this.props.items !== prevProps.items) {
-      this.setState({
-        searchedItems: this.props.items || [],
-      });
+      this.setState((prevState) => ({
+        searchedItems:
+          [...this.props.items].sort((item, _item) => {
+            if (
+              prevState.selectedItems.includes(item.id) &&
+              prevState.selectedItems.includes(_item.id)
+            ) {
+              return 0;
+            }
+            if (
+              prevState.selectedItems.includes(item.id) &&
+              !prevState.selectedItems.includes(_item.id)
+            ) {
+              return -1;
+            }
+            return 1;
+          }) || [],
+      }));
     }
     if (this.props.selectAll !== prevProps.selectAll) {
       this.setState({
@@ -258,38 +304,22 @@ export class MultipleSelect extends Component<Props, State> {
                   {t('multiSelector.selectNothing')}
                 </Typography>
               </MenuItem>
-              {[...this.state.searchedItems]
-                .sort((item, _item) => {
-                  if (
-                    selectedItems.includes(item.id) &&
-                    selectedItems.includes(_item.id)
-                  ) {
-                    return 0;
-                  }
-                  if (
-                    selectedItems.includes(item.id) &&
-                    !selectedItems.includes(_item.id)
-                  ) {
-                    return -1;
-                  }
-                  return 1;
-                })
-                .map((item) => (
-                  <MenuItem
-                    className={classes.menuItem}
-                    key={item.id}
-                    value={item.id}
-                    onClick={() => this.handleChange(item.id)}
-                  >
-                    {this.props.renderItem ? this.props.renderItem(item) : null}
-                    <Checkbox
-                      checked={
-                        this.state.selectedItems.includes(item.id) ||
-                        this.state.selectAll
-                      }
-                    />
-                  </MenuItem>
-                ))}
+              {[...this.state.searchedItems].map((item) => (
+                <MenuItem
+                  className={classes.menuItem}
+                  key={item.id}
+                  value={item.id}
+                  onClick={() => this.handleChange(item.id)}
+                >
+                  {this.props.renderItem ? this.props.renderItem(item) : null}
+                  <Checkbox
+                    checked={
+                      this.state.selectedItems.includes(item.id) ||
+                      this.state.selectAll
+                    }
+                  />
+                </MenuItem>
+              ))}
             </div>
           )}
         </Popover>

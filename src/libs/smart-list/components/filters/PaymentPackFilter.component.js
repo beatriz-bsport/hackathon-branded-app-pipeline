@@ -25,7 +25,7 @@ import PaymentPackListItem from '../../../payment-packs/components/PaymentPackLi
 import CalendarPicker from '../CalendarPicker.component';
 
 const DATE_BETWEEN = 2;
-const DURATION_BEFORE = 5;
+const DURATION_AFTER = 4;
 
 type Props = {
   filter_data: any,
@@ -59,11 +59,12 @@ export class PaymentPackFilter extends Component<Props, state> {
         has_pack: true,
         credit_comparator: 2,
         credit_value: 1,
+        credit_value_second: 4,
         expiration_date: moment().format('YYYY-MM-DD'),
         expiration_date_second: moment().format('YYYY-MM-DD'),
-        expiration_duration: 5,
+        expiration_duration: 0,
         expiration_duration_second: 6,
-        expiration_date_filter_type: DURATION_BEFORE,
+        expiration_date_filter_type: DURATION_AFTER,
         date_bought: moment().format('YYYY-MM-DD'),
         date_bought_second: moment().format('YYYY-MM-DD'),
         duration_bought: 0,
@@ -263,7 +264,7 @@ export class PaymentPackFilter extends Component<Props, state> {
             >
               {DURATION_COMPARATORS_DICT_BETWEEN.map((item) => (
                 <MenuItem key={item.key} value={item.value}>
-                  {t(`filters.classic_comparators.${item.value}`)}
+                  {t(`filters.durations_comparators.${item.value}`)}
                 </MenuItem>
               ))}
             </Select>
@@ -276,6 +277,12 @@ export class PaymentPackFilter extends Component<Props, state> {
                 })
               }
             />
+            {filter_data.credit_comparator === BETWEEN_COMPARATOR
+              ? this.props.t(
+                  `filters.${filter_data.filter_identifier}.credits.second`,
+                )
+              : null}
+
             {filter_data.credit_comparator === BETWEEN_COMPARATOR ? (
               <DelayedNumericInput
                 classes={classes}

@@ -8,6 +8,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import Switch from '@material-ui/core/Switch';
 import moment from 'moment';
+import TextField from '@material-ui/core/TextField';
 
 import MetaActivityListItem from '../../../meta-activity/components/MetaActivityListItem.component';
 import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
@@ -46,7 +47,7 @@ export class BookingsNumberFilter extends Component<Props, state> {
       this.props.onChange({
         establishments: [],
         meta_activities: [],
-        value: null,
+        value: 1,
         value_second: 2,
         date: moment().format('YYYY-MM-DD'),
         date_second: moment().format('YYYY-MM-DD'),
@@ -56,6 +57,9 @@ export class BookingsNumberFilter extends Component<Props, state> {
         date_filter_active: false,
         establishment_filter_active: false,
         activity_filter_active: false,
+        hour: '08:00',
+        hour_second: '18:00',
+        hour_filter_active: false,
       });
     }
   }
@@ -256,12 +260,69 @@ export class BookingsNumberFilter extends Component<Props, state> {
             <CalendarPicker filter_data={filter_data} onChange={onChange} />
           </div>
         </div>
+        <div className={classes.inlineContainer}>
+          <Switch
+            checked={filter_data.hour_filter_active}
+            onChange={() =>
+              onChange({
+                hour_filter_active: !filter_data.hour_filter_active,
+              })
+            }
+            value="checkedA"
+            inputProps={{ 'aria-label': 'secondary checkbox' }}
+          />
+          <div
+            className={
+              filter_data.hour_filter_active
+                ? classes.inlineContainer
+                : classes.disabled
+            }
+          >
+            {this.props.t(
+              `filters.${filter_data.filter_identifier}.hour.first`,
+            )}
+            <TextField
+              style={{ minWidth: 60 }}
+              type="time"
+              value={filter_data.hour}
+              onChange={(ev) =>
+                onChange({
+                  hour: ev.target.value,
+                })
+              }
+              required
+              className={classes.hourPicker}
+            />
+            {this.props.t(
+              `filters.${filter_data.filter_identifier}.hour.second`,
+            )}
+            <TextField
+              style={{ minWidth: 60 }}
+              type="time"
+              value={filter_data.hour_second}
+              onChange={(ev) =>
+                onChange({
+                  hour_second: ev.target.value,
+                })
+              }
+              required
+              className={classes.hourPicker}
+            />
+            {this.props.t(
+              `filters.${filter_data.filter_identifier}.hour.third`,
+            )}
+          </div>
+        </div>
       </div>
     );
   }
 }
 
 const styles = (theme) => ({
+  hourPicker: {
+    marginRight: theme.spacing.unit,
+    marginLeft: theme.spacing.unit,
+  },
   calendarAntiMargin: {
     marginLeft: -theme.spacing.unit,
   },

@@ -313,6 +313,11 @@ export default {
         first: 'dans',
       },
       date: { first: 'la date de la séance est' },
+      hour: {
+        first: "l'heure de la séance est comprise entre",
+        second: 'heures et',
+        third: 'heures',
+      },
     },
     [BOOKINGS_FILTER_IDENTIFIER]: {
       name: 'Nombre de réservations',
@@ -333,6 +338,11 @@ export default {
         first: 'avec les professeurs',
       },
       date: { first: 'ayant lieu' },
+      hour: {
+        first: 'entre',
+        second: 'heures et',
+        third: 'heures',
+      },
     },
     [PAYMENT_PACK_FILTER_IDENTIFIER]: {
       explanation: 'A acheté la carte de cours A à Y date, avec X credits',
@@ -342,7 +352,7 @@ export default {
       has_not: 'Ne possède pas',
       second: 'et',
       third: 'à',
-      credits: { first: 'Crédits:' },
+      credits: { first: 'Crédits:', second: 'et' },
       date_bought: { first: "Date d'achat" },
       expiration: { first_will_expire: 'Expire', first_has_expire: 'A expiré' },
       infoIcon: 'Les cartes de cours illimitées seront toujours incluses',

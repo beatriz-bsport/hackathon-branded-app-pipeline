@@ -975,7 +975,7 @@ export default {
       calendar: 'Calendrier',
       workshop: 'Ateliers',
       contract: {
-        tabName: 'Carte de cours',
+        tabName: 'Abonnement',
       },
       shop: {
         tabName: 'Magasin',

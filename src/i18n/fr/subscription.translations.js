@@ -14,6 +14,8 @@ export default {
       title: 'Paiement récurrent',
       explainChoseContract:
         'Sélectionnez un contrat, ce-dernier sera facturé mensuellement au membre',
+      explainCustomSubscriptionForm:
+        'Non je souhaite définir un souscription personnalisée',
       actions: {
         cancel: 'Annuler',
       },

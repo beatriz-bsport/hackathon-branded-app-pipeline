@@ -25,7 +25,6 @@ import { postContractSubscription as postContractSubscriptionAPI } from '../api'
 
 import SubscriptionContractListItem from './SubscriptionContractListItem.component';
 
-
 const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
 
 type Props = {
@@ -47,10 +46,65 @@ type Props = {
   contract: ?Contract,
   contractLoading: boolean,
   onChangeContract: (Contract) => void,
+  goToCustomSubscriptionForm: () => void,
 
   onSubmit: (token: string) => void,
   onClose: () => void,
 };
+
+const ContractPickerDialog = (props: {
+  t: TFunction,
+  classes: Object,
+  open: boolean,
+  contractList: ?Array<Contract>,
+  contractLoading: boolean,
+  onChangeContract: (Contract) => void,
+  onClose: () => void,
+  goToCustomSubscriptionForm: () => void,
+}) => (
+  <Dialog open={props.open}>
+    <DialogTitle>{props.t('contract.registerManager.title')}</DialogTitle>
+    <DialogContent>
+      <Typography className={props.classes.contentText}>
+        {props.t('contract.registerManager.explainChoseContract')}
+      </Typography>
+      {props.contractLoading ? <LinearProgress /> : null}
+      {!props.contractLoading &&
+      props.contractList &&
+      props.contractList.length === 0 ? (
+        <Typography variant="caption">
+          {props.t('contract.list.isEmpty')}
+        </Typography>
+      ) : null}
+      {!props.contractLoading &&
+        props.contractList &&
+        props.contractList.map((c) => (
+          <SubscriptionContractListItem
+            key={c.id}
+            contract={c}
+            divider
+            dense
+            onClick={() => props.onChangeContract(c)}
+          />
+        ))}
+      {props.goToCustomSubscriptionForm ? (
+        <Button
+          variant="outlined"
+          className={props.classes.button}
+          onClick={props.goToCustomSubscriptionForm}
+        >
+          {props.t('contract.registerManager.explainCustomSubscriptionForm')}
+        </Button>
+      ) : null}
+    </DialogContent>
+    <DialogActions>
+      <Button onClick={props.onClose}>
+        {props.t('contract.registerManager.actions.cancel')}
+      </Button>
+    </DialogActions>
+  </Dialog>
+);
+
 export const SubscriptionContractRegistrationManagerDialog = (props: Props) => {
   if (!props.member) {
     return (
@@ -66,38 +120,16 @@ export const SubscriptionContractRegistrationManagerDialog = (props: Props) => {
   }
   if (!props.contract) {
     return (
-      <Dialog open={props.open}>
-        <DialogTitle>{props.t('contract.registerManager.title')}</DialogTitle>
-        <DialogContent>
-          <Typography className={props.classes.contentText}>
-            {props.t('contract.registerManager.explainChoseContract')}
-          </Typography>
-          {props.contractLoading ? <LinearProgress /> : null}
-          {!props.contractLoading &&
-          props.contractList &&
-          props.contractList.length === 0 ? (
-            <Typography variant="caption">
-              {props.t('contract.list.isEmpty')}
-            </Typography>
-          ) : null}
-          {!props.contractLoading &&
-            props.contractList &&
-            props.contractList.map((c) => (
-              <SubscriptionContractListItem
-                key={c.id}
-                contract={c}
-                divider
-                dense
-                onClick={() => props.onChangeContract(c)}
-              />
-            ))}
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={props.onClose}>
-            {props.t('contract.registerManager.actions.cancel')}
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <ContractPickerDialog
+        t={props.t}
+        classes={props.classes}
+        open={props.open}
+        contractList={props.contractList}
+        contractLoading={props.contractLoading}
+        onChangeContract={props.onChangeContract}
+        onClose={props.onClose}
+        goToCustomSubscriptionForm={props.goToCustomSubscriptionForm}
+      />
     );
   }
   return (
@@ -166,6 +198,9 @@ const styles = (theme) => ({
   },
   contentText: {
     paddingBottom: theme.spacing.unit * 2,
+  },
+  button: {
+    margin: theme.spacing.unit * 4,
   },
 });
 

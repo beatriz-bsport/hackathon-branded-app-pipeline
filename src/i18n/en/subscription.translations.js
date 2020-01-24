@@ -15,6 +15,8 @@ export default {
       actions: {
         cancel: 'Cancel',
       },
+      explainCustomSubscriptionForm:
+        'No i want to define a custom contract in this case',
     },
     description: 'Description',
     legal: 'Legal agreement',

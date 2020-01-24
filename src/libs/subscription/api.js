@@ -31,7 +31,7 @@ const stop = async (id: number) => {
   return deleteAuth(`${API_URI}/subscription/billing-plan/${id}/stop/`);
 };
 
-const fetchContractList = async (params = {}) => {
+const fetchContractList = async (params: any = {}) => {
   return getAuth(`${API_URI}/subscription/contract/${buildUrlParams(params)}`);
 };
 

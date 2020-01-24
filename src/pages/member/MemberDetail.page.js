@@ -30,6 +30,9 @@ import {
 } from '../../libs/payment-packs/actions';
 import { fetchContractList as fetchContractListAction } from '../../libs/subscription/actions';
 
+import type { Contract } from '../../libs/subscription/types';
+import type { Member } from '../../libs/member/types';
+
 const MemberDetailInfo = asyncComponent(() =>
   import('./MemberDetailInfo.page'),
 );
@@ -72,6 +75,7 @@ type Props = {
   contractDialogOpen: boolean,
   closeContractDialog: () => void,
   setContractToBill: (Contract) => void,
+  subscribeMember: (id: number) => void,
 };
 
 const MemberActions = (props: {
@@ -210,6 +214,9 @@ export class MemberDetail extends React.Component<Props> {
           contractList={this.props.contractList}
           contractLoading={this.props.contractLoading}
           onChangeContract={this.props.setContractToBill}
+          goToCustomSubscriptionForm={() =>
+            this.props.subscribeMember(this.props.id)
+          }
           member={this.props.member}
           open={this.props.contractDialogOpen}
           onClose={this.props.closeContractDialog}
@@ -273,6 +280,7 @@ export default compose(
       pushToTab: (id, tab) => pushRouter(`/member/${id}/${tab}`),
       fetchContractList: fetchContractListAction,
       fetchPaymentPackBulk: fetchPaymentPackBulkAction,
+      subscribeMember: (id) => pushRouter(`/subscription/add/${id}`),
     },
   ),
   withHandlers({

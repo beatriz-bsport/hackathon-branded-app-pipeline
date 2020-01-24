@@ -8,7 +8,7 @@ export default {
       title: 'Relations',
       isEmpty: "Aucune relation n'a encore été créée",
       pleaseSelectOne:
-        'Sélectionnez une relation pour voir les abonnements partagés',
+        'Sélectionnez une relation pour voir les cartes de cours partagées',
       actions: {
         create: 'Ajouter une relation',
       },
@@ -39,24 +39,24 @@ export default {
   },
   consumer_payment_pack_links: {
     list: {
-      title: 'Abonnements partagés',
-      create: 'Partager un abonnement',
-      isEmpty: "Aucun partage d'abonnement",
+      title: 'Cartes partagées',
+      create: 'Partager une carte de cours',
+      isEmpty: "Aucun partage de carte",
     },
     form: {
       create: {
-        title: "Partage d'abonnement",
+        title: "Partage de carte",
         explain:
-          "Cet abonnement sera partagé entre les deux membres, les crédits sont utilisables par l'un ou par l'autre.",
+          "Cette carte de cours sera partagée entre les deux membres, les crédits sont utilisables par l'un ou par l'autre.",
         cancel: 'Annuler',
         previous: 'Précédent',
         submit: 'Partager',
         linkButton: 'Partager',
-        noConsumerPackToLink: 'Aucun abonnement partageable',
+        noConsumerPackToLink: 'Aucune carte partageable',
       },
       unlink: {
         title: 'Arrêt du partage',
-        explain: "Le partage sera arrété. L'abonnement maître reste valable",
+        explain: "Le partage sera arrété. La carte maître reste valable",
         submit: 'Arrêter',
         cancel: 'Annuler',
       },
@@ -69,8 +69,8 @@ export default {
     },
     messages: {
       create: {
-        success: 'Abonnement partagé',
-        error: 'Impossible de partager cet abonnement',
+        success: 'Carte partagée',
+        error: 'Impossible de partager cette carte',
       },
       unlink: {
         success: 'Partage supprimé',
@@ -78,7 +78,7 @@ export default {
       },
       relink: {
         success: 'Partage enregistré',
-        error: 'Impossible de partager cet abonnement',
+        error: 'Impossible de partager cette carte',
       },
     },
   },

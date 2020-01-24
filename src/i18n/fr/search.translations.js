@@ -7,7 +7,7 @@ export default {
       title: 'Séances',
     },
     packs: {
-      title: 'Abonnements',
+      title: 'Cartes de cours',
     },
   },
 };

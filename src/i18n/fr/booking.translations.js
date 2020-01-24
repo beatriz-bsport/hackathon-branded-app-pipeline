@@ -3,11 +3,11 @@ export default {
     pleaseSelectABooking: 'Sélectionnez une réservation pour voir le détails',
     title: 'Détails réservation',
     offerTitle: 'Séance liée',
-    consumerPaymentPackTitle: 'Abonnement utilisé',
+    consumerPaymentPackTitle: 'Carte de cours utilisée',
   },
   parameters: {
     registeredOn: 'Réservé le ',
-    source: "Canal de réservation",
+    source: 'Canal de réservation',
   },
   source: {
     web: 'Web',

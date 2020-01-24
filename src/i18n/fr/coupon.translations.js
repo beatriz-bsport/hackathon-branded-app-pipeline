@@ -60,7 +60,7 @@ export default {
       privatePass:
         "Sélectionner des cartes de cours privés (valables sur toutes les cartes si aucune n'est sélectionnée)",
       paymentPack:
-        "Sélectionner des abonnements (valable sur tous les abonnements si aucun n'est sélectionné)",
+        "Sélectionner des cartes de cours (valable sur toutes les cartes de cours si aucune n'est sélectionnée)",
       shopitem:
         "Sélectionner des produits du magasin (valable sur tous les produits si aucun n'est sélectionné)",
     },
@@ -118,7 +118,7 @@ export default {
     },
     applies_to: {
       choices: {
-        [BUYABLE_ITEM_PASS]: 'Abonnement',
+        [BUYABLE_ITEM_PASS]: 'Carte de cours',
         [BUYABLE_ITEM_SHOP_ITEM]: 'Magasin',
         [BUYABLE_ITEM_FEE]: 'Frais de livraison',
         all: 'Ensemble du panier',

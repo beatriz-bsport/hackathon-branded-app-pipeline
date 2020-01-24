@@ -28,7 +28,7 @@ export default {
   },
   offerDetail: {
     emptyList: 'Aucun élève inscrit à ce cours',
-    noConsumerPaymentPack: 'Aucun abonnement valide !',
+    noConsumerPaymentPack: 'Aucune carte de cours valide !',
     backToOfferList: 'Retour aux séances',
     cancelRegistration: 'Annuler',
     isFull: 'Complet',

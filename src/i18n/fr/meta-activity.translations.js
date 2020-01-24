@@ -5,16 +5,16 @@ export default {
     create: {
       compatible_packs: {
         seeMore: 'Voir plus',
-        createPass: 'Créer un abonnement',
+        createPass: 'Créer une carte de cours',
         goToActivity: "Aller à l'activité",
         passHelperText:
-          "Les abonnements suivants sont compatibles avec l'activité créée:",
+          "Les cartes de cours suivantes sont compatibles avec l'activité créée:",
         noCompatiblePass:
-          'Aucun abonnement compatible avec cette activité, pensez à en créer un',
+          'Aucune carte de cours compatible avec cette activité, pensez à en créer un',
       },
       steps: {
         activity_form: "Création de l'activité",
-        pass_form: "Création d'un abonnement (optionnel)",
+        pass_form: "Création d'une carte de cours (optionnel)",
         pass_list: 'Finalisation',
         offer_form: 'Création des séances (optionnel)',
         workshop_form: "Création de l'atelier",
@@ -36,7 +36,7 @@ export default {
   },
   detail: {
     pack: {
-      noCompatiblePass: "Pas d'abonnement compatible",
+      noCompatiblePass: "Aucune carte de cours compatible",
       consumerPacks: 'Carte de cours possédées par les membres',
       paymentPacks: 'Carte compatibles',
     },

@@ -213,7 +213,7 @@ export default {
       paymentMethod: 'Méthode de paiement',
       activity: 'Activité',
       datetime: 'Séance',
-      paymentPack: 'Abonnement',
+      paymentPack: 'Carte de cours',
       amount: 'Montant',
       continue: 'Continuer',
       credit_s: 'Crédit(s)',
@@ -274,16 +274,17 @@ export default {
       offersPendingChange: 'Séances qui seront modifiées :',
       offersPendingDelete: 'Séances qui seront suprimées :',
       noPackAvailableForOfferPurchase:
-        'Aucun abonnement compatible avec cette séance !',
+        'Aucune carte de cours compatible avec cette séance !',
       noConsumerPackAvailableForPurchase:
-        'Aucun abonnement compatible possédé par ce membre !',
+        'Aucune carte de cours compatible possédée par ce membre !',
       backToCalendar: 'Calendrier',
       previousOffer: 'Séance précédente',
       nextOffer: 'Séance suivante',
       disabled: 'annulé',
       substitute: 'Remplaçant',
-      compatiblePacks: 'Abonnements compatibles',
-      noCompatiblePacks: "Aucun abonnement n'est compatible avec cette séance",
+      compatiblePacks: 'Cartes compatibles',
+      noCompatiblePacks:
+        "Aucune carte de cours n'est compatible avec cette séance",
       extraordinaryEstablishment: '(lieu temporaire)',
       addInvoice: 'Facturer',
       myBookings: 'Réservations',
@@ -430,12 +431,12 @@ export default {
         paymentDue: 'Paiement dû',
       },
       invoice: {
-        dateStartPaymentPack: "Début de l'abonnement le",
+        dateStartPaymentPack: 'Début de la carte de cours le',
         backToInvoiceItemList: 'Retour à la liste',
         title: 'Enregistrer un paiement',
         paymentLabel: 'Ajouter une transaction',
         offerHelper: 'Cette séance sera crédité au membre',
-        paymentPackHelper: 'Cet abonnement sera crédité au membre',
+        paymentPackHelper: 'Cette carte sera crédité au membre',
         noPayedObject: 'Aucun',
         objectTypeLabel: 'Objet à créditer',
         activityHelper: "Choisissez l'activité puis la séance",
@@ -464,7 +465,7 @@ export default {
         establishmentLabel: 'Etablissement',
         substituteEstablishmentLabel: 'Etablissement (lieu temporaire)',
         warningPackonEdit:
-          "Les changements sur les séances risquent de les rendre incompatibles avec certains abonnements. Après la modification veuillez prendre le temps de vérifier qu'ils resteront compatible avec les éventuels changements de lieu / professeur.",
+          "Les changements sur les séances risquent de les rendre incompatibles avec certaines cartes de cours. Après la modification veuillez prendre le temps de vérifier qu'ils resteront compatible avec les éventuels changements de lieu / professeur.",
         deleteTitle: 'Supprimer la séance',
         cancelTitle: 'Annuler la séance',
         changeDate: "Modifier l'horaire / date",
@@ -498,7 +499,7 @@ export default {
       // eslint-disable-next-line
       default_waiting_list_max_size: "Taille de la liste d'attente",
       generateOffers: 'Créer les séances',
-      credit_price: "Coût (en nb de crédit d'un abonnement)",
+      credit_price: "Coût (en nb de crédit d'une carte de cours)",
       offersWillBeGenerated: 'séances vont être crées',
       offerWillBeGenerated: 'séance va être créée',
       recurrence: 'Récurrence',
@@ -586,7 +587,7 @@ export default {
       noPromo: 'Aucun',
     },
     consumer: {
-      myPaymentPacks: 'Mes abonnements',
+      myPaymentPacks: 'Mes cartes de cours',
       myPrivatePass: 'Mes cartes cours privé',
       company: 'Club',
       help: {
@@ -602,7 +603,7 @@ export default {
         discardPossibleExplain:
           'Êtes-vous sûr de vouloir annuler cette réservation ? Votre crédit sera de nouveau utilisable.',
         discardImpossibleExplain:
-          'Êtes-vous sûr de vouloir annuler cette réservation ? Vous annulez trop tard et votre abonnement ne sera pas recrédité (conditions générales du club).',
+          'Êtes-vous sûr de vouloir annuler cette réservation ? Vous annulez trop tard et votre carte de cours ne sera pas recréditée (conditions générales du club).',
         confirmBooking: 'Confirmer',
         waitingSlot: 'En attente',
         myFutureBookings: 'Prochaines séances',
@@ -636,7 +637,7 @@ export default {
       coachPerformance: 'Professeurs',
       beta: 'beta',
       consumer: {
-        pass: 'Abonnements',
+        pass: 'Cartes de cours',
         bookings: 'Mes réservations ',
         profile: 'Mon Profil',
         order: 'Mes commandes',
@@ -653,7 +654,7 @@ export default {
       logoff: 'Déconnexion',
       refresh: 'Actualiser',
       goBack: 'Retour',
-      pass: 'Abonnements',
+      pass: 'Carte de cours',
       settings: 'Paramètres',
       myClub: 'Mon Club',
       subscription: 'Souscriptions',
@@ -673,7 +674,7 @@ export default {
       revertExplainCredits:
         'Les débit/crédit sur le compte du membre seront inversés.',
       revertExplainPacks:
-        'Les abonnements seront annulés ainsi que TOUTES les réservations associées',
+        'Les cartes de cours seront annulés ainsi que TOUTES les réservations associées',
       revertExplainShop:
         'Les achats du magasin seront annulés et les stocks réinitialisés.',
       invoiceReverted: 'Facture annulée',
@@ -704,9 +705,9 @@ export default {
       actions: 'Actions',
       bookWithUnlimitedPack: 'Réserver',
       noCreditLeft: 'Pas assez de crédit',
-      noBookingsLeftOnPack: 'Abonnement épuisé pour cette semaine',
+      noBookingsLeftOnPack: 'Carte épuisée pour cette semaine',
       yourBasket: 'Votre achat',
-      availablePaymentPacks: ' abonnements compatibles',
+      availablePaymentPacks: ' carte de cours compatibles',
       payWithNCredits1: 'Réserver (',
       payWithNCredits2: 'crédit',
       pay: 'Payer',
@@ -719,7 +720,7 @@ export default {
       object: 'Description',
       addInvoiceItem: 'Ajouter à la facture',
       addOffer: 'Séance',
-      addPaymentPack: 'Abonnement',
+      addPaymentPack: 'Carte de cours',
       updateInvoiceVoucher: 'Ajouter une réduction',
       voucher: 'Réduction',
       total: 'TOTAL',
@@ -974,7 +975,7 @@ export default {
       calendar: 'Calendrier',
       workshop: 'Ateliers',
       contract: {
-        tabName: 'Abonnement',
+        tabName: 'Carte de cours',
       },
       shop: {
         tabName: 'Magasin',
@@ -1030,8 +1031,8 @@ export default {
         invoiceFormPage: 'Edition Facture',
         invoiceCreatePage: 'Facturer',
         invoiceList: 'Mes transactions',
-        paymentPackFormPage: 'Création Abonnement',
-        paymentPackList: 'Abonnements',
+        paymentPackFormPage: 'Création carte de cours',
+        paymentPackList: 'Cartes de cours',
         members: 'Membres',
         member: 'Membre',
         memberFormPage: 'Formulaire Membre',

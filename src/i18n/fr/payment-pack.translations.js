@@ -57,7 +57,7 @@ export default {
       second: 'crédits',
     },
   },
-  search: 'Chercher un abonnement',
+  search: 'Chercher une carte',
   extension: {
     nbDaysAdded: '+{{nb_days}}j',
     addedOn: 'Ajouté le ',
@@ -68,7 +68,7 @@ export default {
       confirm: 'Confirmer',
     },
     create: {
-      title: "Extension d'abonnement",
+      title: "Extension d'une carte",
       cancel: 'Annuler',
       submit: 'Créer',
       explain: {
@@ -92,13 +92,13 @@ export default {
 
       name: {
         label: 'Nom',
-        helperText: "Nom de l'abonnement",
+        helperText: "Nom de la carte de cours",
       },
       tax: {
         label: 'TVA',
       },
       priceIncludingTax: {
-        helperText: "Prix pour le client pour l'abonnement",
+        helperText: "Prix pour le client pour la carte",
         label: 'Prix TTC',
       },
       credits: {
@@ -137,14 +137,14 @@ export default {
         on_booking: 'Débute à la 1ère réservation',
         on_attendance: 'Débute à la 1ère présence',
       },
-      timeSettingsTitle: "Validité de l'abonnement",
+      timeSettingsTitle: "Validité de la carte",
       generalSettingsTitle: 'Général',
-      validByDuration: 'Abonnement valide N jours après achat',
-      validByDaterange: 'Abonnement valide sur un créneau de date précis',
+      validByDuration: 'Carte valide N jours après achat',
+      validByDaterange: 'Carte valide sur un créneau de date précis',
       durationDays: {
         label: 'Durée de validité (jours) si applicable',
         helperText:
-          "Période en jours pour laquelle l'abonnement sera valide après achat ",
+          "Période en jours pour laquelle la carte sera valide après achat ",
       },
       durationMonths: {
         label: 'Durée de validité (mois) si applicable',
@@ -165,15 +165,15 @@ export default {
       restrictionsTitle: 'Restrictions',
       noneMeansAll: 'Laisser vide pour tout autoriser',
       update: {
-        success: 'Abonnement: opération effectuée avec succès',
-        error: "Abonnement : erreur lors de l'opération",
+        success: 'Carte de cours: opération effectuée avec succès',
+        error: "Carte de cours: erreur lors de l'opération",
       },
       delete: {
-        title: "Suppression de l'abonnement :",
+        title: "Suppression de la carte:",
         askConfirmation:
-          "Attention ! Cette opération est définitive. L'abonnement ne sera plus visible et deviendra indisponible à l'achat.",
+          "Attention ! Cette opération est définitive. La carte ne sera plus visible et deviendra indisponible à l'achat.",
         thereAreConsumers:
-          "Attention ! Des membres ont acheté cet abonnement, si vous le supprimez ces derniers pourront toujours utiliser leurs crédits restants. Vous pouvez les réduire manuellement à zéro ici.\n\nL'abonnement n'apparaitra plus dans votre magasin pour les nouveaux acheteurs.",
+          "Attention ! Des membres ont acheté cette carte de cours, si vous le supprimez ces derniers pourront toujours utiliser leurs crédits restants. Vous pouvez les réduire manuellement à zéro ici.\n\nLa carte n'apparaitra plus dans votre magasin pour les nouveaux acheteurs.",
         actions: {
           cancel: 'Annuler',
           submit: 'Supprimer',
@@ -182,20 +182,20 @@ export default {
     },
   },
   details: {
-    pleaseSelectAPack: 'Sélectionnez un abonnement pour voir le détails',
-    shareAPass: 'Partager un abonnement',
+    pleaseSelectAPack: 'Sélectionnez une carte pour voir le détails',
+    shareAPass: 'Partager une carte de cours',
     invoiceTitle: 'Facture associée',
     bookingsTitle: 'Réservations associées',
     extensionsTitle: 'Extensions de validité',
   },
   newMemberOnly: 'Disponible uniquement pour les nouveaux inscrits',
-  publicPacksTitle: 'Abonnements disponibles à la vente',
-  privatePacksTitle: 'Abonnements non disponibles à la vente',
+  publicPacksTitle: 'Cartes disponibles à la vente',
+  privatePacksTitle: 'Cartes non disponibles à la vente',
   subscribeToOffer: 'Inscrire',
   use: 'Utiliser',
   createOrUpdate: {
-    success: 'Abonnement enregistré',
-    fail: "Erreur lors de l'enregistrement de l'abonnement",
+    success: 'enregistré',
+    fail: "Erreur lors de l'enregistrement de la carte",
   },
   disabled: 'Désactivé',
   disableConsumer: 'Bloquer',
@@ -205,7 +205,7 @@ export default {
   validity: 'Valide :',
   consumer: {
     isFromShare: 'Partagé depuis un autre compte',
-    isOwnerOfShares: 'Partagé (abonnement maître)',
+    isOwnerOfShares: 'Partagé (carte de cours maître)',
     isFromDisabledShare: 'Partage arrété',
     expiresOn: 'Expire le ',
     bookingsThisWeek: 'réservation(s) cette semaine',
@@ -220,7 +220,7 @@ export default {
   validTo: ' au ',
   bookingsLeftThisWeek: 'Réservation max par semaine',
   // eslint-disable-next-line
-  addButton: "Créer une offre d'abonnement",
+  addButton: "Créer une carte",
   noPaymentPackSubscribed: 'Aucun abonnement',
   // eslint-disable-next-line
   validUntil: "Valide jusqu'au",
@@ -240,7 +240,7 @@ export default {
   anyActivity: 'Toute activité',
   boughtConsumerPaymentPacks: 'Abonnés',
   noRestrictionOnActivityType:
-    'Toutes les activités sont compatibles avec cet abonnement',
+    'Toutes les activités sont compatibles avec cette carte',
   credit: {
     updated: 'Crédits mis à jour',
   },

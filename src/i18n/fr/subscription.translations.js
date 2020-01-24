@@ -108,7 +108,7 @@ export default {
     dateCreated: 'Date de création',
     nbInterval: 'Nombre de mois',
     recurrent_price: 'Paiement récurrent',
-    paymentPack: 'Abonnement',
+    paymentPack: 'Carte de cours',
     nbMonths: 'Nombre de mois',
     dateStart: 'Première facturation',
     firstBilling: 'Premier encaissement',

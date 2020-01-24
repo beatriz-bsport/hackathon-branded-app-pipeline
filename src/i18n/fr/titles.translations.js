@@ -45,7 +45,7 @@ export default {
     marketplaceShop: 'Magasin',
     marketplaceWorkshop: 'Ateliers',
     marketplaceCalendar: 'Calendrier',
-    marketplacePass: 'Abonnements',
+    marketplacePass: 'Cartes de cours',
   },
   dashboard: {
     marketingDashboard: 'Marketing',
@@ -62,8 +62,8 @@ export default {
     workshopActivityFormPage: 'Formulaire ateliers',
   },
   paymentPack: {
-    paymentPackFormPage: 'Formulaire abonnement',
-    paymentPackList: 'Abonnements',
+    paymentPackFormPage: 'Formulaire carte de cours',
+    paymentPackList: 'Cartes de cours',
   },
   marketing: {
     marketingDashboard: 'Dashboard',

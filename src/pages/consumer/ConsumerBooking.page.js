@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import TodayIcon from '@material-ui/icons/Today';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
+import moment from 'moment';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 
@@ -117,7 +118,8 @@ export class ConsumerBooking extends React.Component<Props> {
                 renderItem={(b) => (
                   <BookingItemForManagerV2
                     showRevertBookingButton={
-                      b.booking_status_code === BOOKING_STATUS_OK.id
+                      b.booking_status_code === BOOKING_STATUS_OK.id &&
+                      moment(b.offer_date_start).isAfter(moment())
                     }
                     disabled={b.booking_status_code !== BOOKING_STATUS_OK.id}
                     key={b.id}

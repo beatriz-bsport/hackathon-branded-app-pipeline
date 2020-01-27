@@ -93,7 +93,7 @@ export class SubscriptionList extends React.Component<Props> {
 
   render() {
     return (
-      <div>
+      <div className={this.props.classes.container}>
         <Typography className={this.props.classes.sectionTitle} variant="h4">
           {this.props.t('contract.list.title')}
         </Typography>
@@ -160,6 +160,9 @@ export class SubscriptionList extends React.Component<Props> {
 }
 
 const styles = (theme) => ({
+  container: {
+    paddingBottom: '20vh',
+  },
   sectionTitle: {
     marginTop: theme.spacing.unit * 2,
     marginBottom: theme.spacing.unit,

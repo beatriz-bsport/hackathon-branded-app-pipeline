@@ -22,6 +22,7 @@ import TagGroupCreator from './TagGroupCreator.component';
 type Props = {
   tagGroups: Array<TagGroup>,
   attributedTags: Array<number>,
+  untag: (number) => void,
   tagGroupsLoading: boolean,
   attributeTag: (tagId: number) => void,
   createTag: (data: { name: string, group: number }) => void,
@@ -56,6 +57,7 @@ export function MemberTagPanel(props: Props) {
     tagGroups,
     attributedTags,
     attributeTag,
+    untag,
     tagGroupsLoading,
   } = props;
   return (
@@ -100,6 +102,7 @@ export function MemberTagPanel(props: Props) {
                 tagGroup={tG}
                 tag={tG.tags.find((tag) => attributedTags.includes(tag.id))}
                 selectTag={attributeTag}
+                untag={untag}
                 onCreate={(data) => props.createTag({ ...data, group: tG.id })}
                 deleteTagGroup={(tagGroup: TagGroup) =>
                   props.deleteTagGroup(tagGroup.id)

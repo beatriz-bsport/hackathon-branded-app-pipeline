@@ -21,6 +21,7 @@ import {
   deleteNote,
   fetchMember,
   tag as tagMember,
+  untag as untagMember,
   search as searchMembers,
   addFileToMember,
   removeFileFromMember,
@@ -112,6 +113,7 @@ type Props = {
   deleteTagGroup: (id: number) => void,
   createTagGroup: ({ name: string, group: number }) => void,
   tagMember: (memberId: number, tagId: number) => void,
+  untagMember: (memberId: number, tagId: number) => void,
 
   goToCreditRegularization: (memberId: number, balance: number) => void,
 };
@@ -202,6 +204,7 @@ export class MemberDetailPage extends Component<Props, State> {
             updateTag={this.props.updateTag}
             updateTagGroup={this.props.updateTagGroup}
             attributeTag={(tagId) => this.props.tagMember(this.props.id, tagId)}
+            untag={(tagId) => this.props.untagMember(this.props.id, tagId)}
             deleteTag={this.deleteTag}
             deleteTagGroup={this.deleteTagGroup}
             tagGroupsLoading={this.props.tagGroupsLoading}
@@ -278,6 +281,7 @@ export default compose(
       fetchMember,
       searchMembers,
       tagMember,
+      untagMember,
       fetchTags,
       mailMember: mailMembers,
       mergeInto: (src: number, dst: number) =>

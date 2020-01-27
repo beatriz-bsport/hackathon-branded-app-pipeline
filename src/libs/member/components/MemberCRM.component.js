@@ -24,6 +24,7 @@ type Props = {
   createTagGroup: ({ name: string }) => void,
   createTag: ({ name: string, group: number }) => void,
   attributeTag: (tagId: number) => void,
+  untag: (tagId: number) => void,
   deleteTagGroup: (tagGroupId: number) => void,
   deleteTag: (id: number) => void,
   updateTag: (Tag) => void,
@@ -42,6 +43,7 @@ export const MemberCRM = (props: Props) => (
       createTagGroup={props.createTagGroup}
       createTag={props.createTag}
       attributeTag={props.attributeTag}
+      untag={props.untag}
       deleteTagGroup={props.deleteTagGroup}
       tagGroupsLoading={props.tagGroupsLoading}
       deleteTag={props.deleteTag}

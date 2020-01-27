@@ -76,6 +76,7 @@ export function TagEditor(props: Props) {
             tagGroup={tagGroup}
             onToogleCreate={() => props.setCreateMode(true)}
             selectTag={props.selectTag}
+            untag={props.untag}
             deleteTagGroup={props.deleteTagGroup}
             editTagGroup={() => props.setEditMode(true)}
             onCreate={props.onCreate}

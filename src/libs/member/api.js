@@ -39,6 +39,12 @@ export async function tag(memberId: number, tagId: number) {
   });
 }
 
+export async function untag(memberId: number, tagId: number) {
+  return deleteAuth(`${API_URI}/saas/members/members/${memberId}/tag/`, {
+    tag: tagId,
+  });
+}
+
 export async function fetchMember(memberId: number) {
   return getAuth(`${API_V1_URI}/member/${memberId}/`);
 }

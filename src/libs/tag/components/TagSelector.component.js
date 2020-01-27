@@ -44,7 +44,14 @@ export function TagSelector(props: Props) {
       </IconButton>
       <div className={props.classes.userInput}>
         <Selector
-          onChange={(suggestion) => props.selectTag(suggestion.value)}
+          isClearable
+          onChange={(suggestion) => {
+            if (!suggestion && tag && tag.id) {
+              props.untag(tag.id);
+            } else {
+              props.selectTag(suggestion.value);
+            }
+          }}
           onCreateOption={(name) => {
             props.onCreate({ name });
           }}

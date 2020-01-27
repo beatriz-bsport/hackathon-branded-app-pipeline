@@ -16,6 +16,7 @@ import {
   fetchByQueryMember as fetchByQueryMemberApi,
   search as searchApi,
   tag as tagApi,
+  untag as untagApi,
   merge as mergeApi,
   addFile as addFileAPI,
   removeFile as removeFileAPI,
@@ -126,6 +127,20 @@ export function tag(memberId: number, tagId: number) {
     dispatch(startTag(memberId, tagId));
     try {
       const response = await tagApi(memberId, tagId);
+      const member = response.data;
+      dispatch(successTag(member));
+    } catch (err) {
+      console.error(err);
+      dispatch(errorSearch(err));
+    }
+  };
+}
+
+export function untag(memberId: number, tagId: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(startTag(memberId, tagId));
+    try {
+      const response = await untagApi(memberId, tagId);
       const member = response.data;
       dispatch(successTag(member));
     } catch (err) {

@@ -11,12 +11,20 @@ import {
   stopActions,
   listSubscriptionActions,
   byMemberSubscriptionActions,
+  updateSubscriptionActions,
+  freezeSubscriptionActions,
+  switchPaymentPackActions,
+  switchPaymentMethodActions,
 } from './actions';
 
 import type { SubscriptionState } from './types';
 
 const initialState: SubscriptionState = Immutable({
   byId: {},
+  createOrUpdate: {
+    loading: false,
+    error: null,
+  },
   list: {
     loading: false,
     error: null,
@@ -32,6 +40,18 @@ const initialState: SubscriptionState = Immutable({
     error: null,
   },
   stop: {
+    loading: false,
+    error: null,
+  },
+  freeze: {
+    loading: false,
+    error: null,
+  },
+  switchPaymentPack: {
+    loading: false,
+    error: null,
+  },
+  switchPaymentMethod: {
     loading: false,
     error: null,
   },
@@ -55,6 +75,42 @@ const initialState: SubscriptionState = Immutable({
 
 export default handleActions(
   {
+    [switchPaymentMethodActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['switchPaymentMethod', 'loading'], payload);
+    },
+    [switchPaymentMethodActions.error]: (state, { payload }) => {
+      return state.setIn(['switchPaymentMethod', 'error'], payload);
+    },
+    [switchPaymentMethodActions.success]: (state, { payload }) => {
+      return state.setIn(['byId', payload.id], payload);
+    },
+    [switchPaymentPackActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['switchPaymentPack', 'loading'], payload);
+    },
+    [switchPaymentPackActions.error]: (state, { payload }) => {
+      return state.setIn(['switchPaymentPack', 'error'], payload);
+    },
+    [switchPaymentPackActions.success]: (state, { payload }) => {
+      return state.setIn(['byId', payload.id], payload);
+    },
+    [freezeSubscriptionActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['freeze', 'loading'], payload);
+    },
+    [freezeSubscriptionActions.error]: (state, { payload }) => {
+      return state.setIn(['freeze', 'error'], payload);
+    },
+    [freezeSubscriptionActions.success]: (state, { payload }) => {
+      return state.setIn(['byId', payload.id], payload);
+    },
+    [updateSubscriptionActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['createOrUpdate', 'loading'], payload);
+    },
+    [updateSubscriptionActions.error]: (state, { payload }) => {
+      return state.setIn(['createOrUpdate', 'error'], payload);
+    },
+    [updateSubscriptionActions.success]: (state, { payload }) => {
+      return state.setIn(['byId', payload.id], payload);
+    },
     [listSubscriptionActions.isLoading]: (state, { payload }) => {
       return state.setIn(['list', 'loading'], payload);
     },
@@ -158,6 +214,9 @@ export default handleActions(
     },
     [stopActions.error]: (state, { payload }) => {
       return state.setIn(['stop', 'error'], payload);
+    },
+    [stopActions.success]: (state, { payload }) => {
+      return state.setIn(['byId', payload.id], payload);
     },
   },
   initialState,

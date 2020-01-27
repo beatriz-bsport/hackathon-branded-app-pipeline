@@ -1,32 +1,48 @@
 // @flow
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import PersonIcon from '@material-ui/icons/Person';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import moment from 'moment';
-
-import RedButton from '../../../components/button/RedButton.component';
+import Checkbox from '@material-ui/core/Checkbox';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
 
 import type { Subscription } from '../types';
 
 type Props = {
-  stopSubscription: () => void,
   subscription: Subscription,
-  goToMember: (id: number) => void,
   t: TFunction,
   classes: Object,
-  goToMember: () => void,
+  updateRenewal: ({ auto_renewal: boolean }) => void,
+  requestPaymentPackSwitch: () => void,
+  loading: boolean,
 };
 
 const renderStatus = (
   t: TFunction,
   canceled_at: string,
   has_ended: boolean,
+  pauses: Array<SubscriptionPause>,
 ) => {
+  const is_paused = pauses.reduce(
+    (acc, p) =>
+      acc ||
+      moment().isBetween(
+        moment(p.date_created),
+        moment(p.date_created).add(p.days, 'days'),
+      ),
+    false,
+  );
+  if (is_paused) {
+    return (
+      <Typography color="secondary">
+        {t('subscriptionStatus.isPaused')}
+      </Typography>
+    );
+  }
   if (has_ended) {
     return (
       <Typography color="primary">
@@ -48,7 +64,7 @@ const renderStatus = (
 };
 
 export function SubscriptionSummary(props: Props) {
-  const { subscription, t, classes, stopSubscription } = props;
+  const { subscription, t, classes } = props;
   if (!subscription) {
     return null;
   }
@@ -65,31 +81,54 @@ export function SubscriptionSummary(props: Props) {
           <Typography inline>{subscription.recurrent_price} €</Typography>
         </div>
         <div className={classes.field}>
-          <Typography inline>{t('parameters.recurrent_voucher')}</Typography>
-          <Typography inline>{subscription.recurrent_voucher} €</Typography>
+          <Typography inline>{t('parameters.flat_fee')}</Typography>
+          <Typography inline>{subscription.flat_fee} €</Typography>
+        </div>
+        <div className={classes.field}>
+          <Typography inline>{t('parameters.payment_method.label')}</Typography>
+          <Typography inline>
+            {t(`parameters.payment_method.${subscription.payment_method}`)}
+          </Typography>
+        </div>
+        <div className={classes.fieldNotPadded}>
+          <Typography inline>{props.t('parameters.autoRenew')}</Typography>
+          <Checkbox
+            checked={props.subscription.auto_renewal}
+            disabled={props.loading}
+            onChange={(ev) =>
+              props.updateRenewal({
+                auto_renewal: ev.target.checked,
+              })
+            }
+          />
+        </div>
+        <div className={classes.fieldNotPadded}>
+          <Typography inline>{t('parameters.payment_pack')}</Typography>
+          <div className={classes.rowRight}>
+            <IconButton
+              color="primary"
+              onClick={props.requestPaymentPackSwitch}
+            >
+              <EditIcon />
+            </IconButton>
+            <Typography inline>
+              {subscription.payment_pack
+                ? subscription.payment_pack.name
+                : ' - '}
+            </Typography>
+          </div>
+        </div>
+
+        <div className={classes.field}>
+          <Typography inline>{props.t('parameters.status')}</Typography>
+          {renderStatus(
+            t,
+            subscription.canceled_at,
+            subscription.has_ended,
+            subscription.pauses,
+          )}
         </div>
       </fieldset>
-      <div className={classes.statusContainer}>
-        {renderStatus(t, subscription.canceled_at, subscription.has_ended)}
-        <RedButton
-          disabled={subscription.has_ended || subscription.canceled_at}
-          onClick={stopSubscription}
-        >
-          {t('action.stop')}
-        </RedButton>
-      </div>
-      <div className={classes.bottomButtonsContainer}>
-        {props.goToMember ? (
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={() => props.goToMember(props.subscription.member)}
-          >
-            <PersonIcon className={props.classes.leftIcon} />
-            {props.subscription ? props.subscription.memberName : ' - '}
-          </Button>
-        ) : null}
-      </div>
     </div>
   );
 }
@@ -101,7 +140,15 @@ const styles = (theme) => ({
   field: {
     display: 'flex',
     justifyContent: 'space-between',
+    alignItems: 'center',
     padding: theme.spacing.unit,
+  },
+  fieldNotPadded: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingLeft: theme.spacing.unit,
+    paddingRight: theme.spacing.unit,
   },
   parameters: {},
   statusContainer: {
@@ -113,6 +160,12 @@ const styles = (theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     borderRadius: 6,
+  },
+  rowRight: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
   leftIcon: {
     marginRight: theme.spacing.unit,

@@ -166,7 +166,7 @@ module.exports = {
                   {
                     targets: {
                       // The % refers to the global coverage of users from browserslist
-                      browsers: ['>0.1%', 'iOS >= 9'],
+                      browsers: ['>0.1%', 'iOS >= 9', 'Safari >= 6'],
                     },
 
                     useBuiltIns: 'entry',

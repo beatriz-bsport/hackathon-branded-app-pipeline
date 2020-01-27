@@ -34,7 +34,11 @@ export const SubscriptionContractListItem = (props: Props) => {
       dense={props.dense}
     >
       <ListItemText
-        primary={`${props.contract.name} - ${props.contract.recurrent_price}€`}
+        primary={`${props.contract.name} - ${props.contract.recurrent_price}€ ${
+          parseFloat(props.contract.flat_fee)
+            ? ` (+${props.contract.flat_fee}€)`
+            : ''
+        }`}
         secondary={`${props.contract.payment_pack &&
           props.contract.payment_pack.name}${
           props.contract.auto_renewal

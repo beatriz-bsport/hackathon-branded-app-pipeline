@@ -2,6 +2,7 @@
 import React from 'react';
 
 import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 
@@ -13,12 +14,13 @@ import RedButton from '../../../components/button/RedButton.component';
 
 type Props = {
   t: TFunction,
+  open: boolean,
   onCancel: () => void,
   onSubmit: () => void,
 };
 
 export const StopDialog = (props: Props) => (
-  <div>
+  <Dialog open={props.open}>
     <DialogContent>{props.t('action.stopExplain')}</DialogContent>
     <DialogActions>
       <Button color="secondary" onClick={props.onCancel}>
@@ -26,7 +28,7 @@ export const StopDialog = (props: Props) => (
       </Button>
       <RedButton onClick={props.onSubmit}>{props.t('action.stop')}</RedButton>
     </DialogActions>
-  </div>
+  </Dialog>
 );
 
 export default compose(withNamespaces(['subscription']))(StopDialog);

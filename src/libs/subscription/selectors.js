@@ -1,10 +1,12 @@
 // @flow
 
 import { createSelector } from 'reselect';
-import type { State } from '../../state/types';
-import { getAllPaymentPacks as getPaymentPackList } from '../payment-packs/selectors';
 
-const get = (state: State, id: number) => state.subscription.byId[id];
+import type { State } from '../../state/types';
+import {
+  getPaymentPackById,
+  getAllPaymentPacks as getPaymentPackList,
+} from '../payment-packs/selectors';
 
 const _getContractIds = (state: State) => state.subscription.contract.allIds;
 const _getContractData = (state: State) => state.subscription.contract.byId;
@@ -53,6 +55,18 @@ const _getSubscriptionIdsByMember = (state) =>
 export const getSubscriptionListByMember = createSelector(
   [_getSubscriptionIdsByMember, _getSubscriptionData],
   (ids, data) => ids.map((id) => data[id]),
+);
+
+export const get = createSelector(
+  [_getSubscriptionData, (state, id) => id, getPaymentPackById],
+  (subscriptionData, id, packData) => {
+    const subscription = subscriptionData[id];
+    if (!subscription) return null;
+    return {
+      ...subscription,
+      payment_pack: packData[subscription.payment_pack],
+    };
+  },
 );
 
 export default { get };

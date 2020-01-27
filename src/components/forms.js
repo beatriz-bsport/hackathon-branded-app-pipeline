@@ -121,6 +121,18 @@ export function PriceField(props) {
   );
 }
 
+export function IntegerField(props) {
+  return (
+    <TextField
+      InputProps={{
+        inputProps: { min: 0, step: 1 },
+      }}
+      type="number"
+      {...props}
+    />
+  );
+}
+
 export function PercentField(props) {
   return (
     <TextField

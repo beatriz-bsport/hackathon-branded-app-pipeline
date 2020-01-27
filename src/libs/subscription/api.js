@@ -57,6 +57,50 @@ export const postContractSubscriptionUnauthenticated = async (
   return post(`${API_URI}/subscription/contract/${id}/register/`, data);
 };
 
+export const updatePlannedInvoicePrice = async (
+  id: number,
+  data: {
+    planned_invoice: number,
+    price: string,
+  },
+) => {
+  return postAuth(
+    `${API_URI}/subscription/billing-plan/${id}/update_price/`,
+    data,
+  );
+};
+
+export const updateSubscriptionRenewal = async (id: number, data: any) => {
+  return postAuth(
+    `${API_URI}/subscription/billing-plan/${id}/update_renewal/`,
+    data,
+  );
+};
+
+export const freezeSubscription = async (id: number, data: any) => {
+  return postAuth(`${API_URI}/subscription/billing-plan/${id}/pause/`, data);
+};
+
+export const switchSubscriptionPaymentPack = async (
+  id: number,
+  data: { payment_pack: number },
+) => {
+  return postAuth(
+    `${API_URI}/subscription/billing-plan/${id}/switch_payment_pack/`,
+    data,
+  );
+};
+
+export const switchSubscriptionPaymentMethod = async (
+  id: number,
+  data: { payment_method_identifier: number, source: string },
+) => {
+  return postAuth(
+    `${API_URI}/subscription/billing-plan/${id}/switch_payment_provider/`,
+    data,
+  );
+};
+
 export default {
   fetchSubscriptionList: fetchAll,
   fetchDetail,

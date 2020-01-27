@@ -11,6 +11,12 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
+import {
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+  BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
+} from '@bsport/common/lib/master-data/subscription-payment-methods';
+
 import { PENDING as PLANNED_INVOICE_PENDING } from '@bsport/common/lib/master-data/planned-invoice-status';
 import SubscriptionPayment from './SubscriptionPayment.component';
 
@@ -77,6 +83,11 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
               onSubmit={this.props.onSubmit}
               processing={this.props.processing}
               member={this.props.member}
+              enabledPaymentMethods={[
+                BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+                BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+                BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
+              ]}
             />
           </Paper>
         </Grid>

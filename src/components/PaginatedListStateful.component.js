@@ -5,7 +5,7 @@ import PaginatedListBase from './PaginatedListBase.component';
 
 type Props = {
   items: Array<*>,
-  renderItem: (*) => *,
+  renderItem: (*, number, number) => *,
   listProps: {},
   loading: ?boolean,
   itemPerPage: number,

@@ -17,7 +17,7 @@ import type { TFunction } from 'react-i18next';
 
 type Props = {
   items: Array<*>,
-  renderItem: (*) => *,
+  renderItem: (*, number, number) => *,
   renderEmpty?: () => void,
   listProps: {},
   itemPerPage: number,
@@ -95,7 +95,9 @@ export class PaginatedList extends PureComponent<Props, State> {
     return (
       <div>
         <List {...this.props.listProps}>
-          {this.props.items.map((i) => this.props.renderItem(i))}
+          {this.props.items.map((i, idx) =>
+            this.props.renderItem(i, idx, this.props.page),
+          )}
           {!this.props.loading && this.props.items.length === 0
             ? this.renderEmpty()
             : null}

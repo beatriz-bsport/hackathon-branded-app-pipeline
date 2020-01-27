@@ -2,9 +2,16 @@
 
 import { createAction } from 'redux-actions';
 
-import api from './api';
+import api, {
+  updatePlannedInvoicePrice as updatePlannedInvoicePriceAPI,
+  updateSubscriptionRenewal as updateSubscriptionRenewalAPI,
+  freezeSubscription as freezeSubscriptionAPI,
+  switchSubscriptionPaymentPack as switchSubscriptionPaymentPackAPI,
+  switchSubscriptionPaymentMethod as switchSubscriptionPaymentMethodAPI,
+} from './api';
 
 import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
+import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
 export const listSubscriptionActions = {
   error: createAction('SUBSCRIPTION/LIST/ERROR'),
@@ -216,5 +223,179 @@ export function fetchMarketplaceContractList(
       if (options && options.onError) options.onError(err);
     }
     dispatch(contractMarketplaceListActions.isLoading(false));
+  };
+}
+
+export const updatePlannedInvoiceActions = {
+  error: createAction('PLANNED_INVOICE/UPDATE/ERROR'),
+  isLoading: createAction('PLANNED_INVOICE/UPDATE/IS_LOADING'),
+  success: createAction('PLANNED_INVOICE/UPDATE/SUCCESS'),
+};
+
+export function updatePlannedInvoicePrice(
+  id: number,
+  data: {
+    planned_invoice: number,
+    price: string,
+  },
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(updatePlannedInvoiceActions.error(null));
+    dispatch(
+      updatePlannedInvoiceActions.isLoading({
+        loading: true,
+        planned_invoice: data.planned_invoice,
+      }),
+    );
+    try {
+      const response = await updatePlannedInvoicePriceAPI(id, data);
+      dispatch(updatePlannedInvoiceActions.success(response.data));
+      dispatch(snackbarSuccess('subscription:messages.updatePrice.success'));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(updatePlannedInvoiceActions.error(err));
+      dispatch(snackbarError('subscription:messages.updatePrice.error'));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(
+      updatePlannedInvoiceActions.isLoading({
+        loading: false,
+        planned_invoice: data.planned_invoice,
+      }),
+    );
+  };
+}
+
+export const updateSubscriptionActions = {
+  error: createAction('SUBSCRIPTION/UPDATE/ERROR'),
+  isLoading: createAction('SUBSCRIPTION/UPDATE/IS_LOADING'),
+  success: createAction('SUBSCRIPTION/UPDATE/SUCCESS'),
+};
+
+export function updateSubscriptionRenewal(
+  id: number,
+  data: any,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(updateSubscriptionActions.error(null));
+    dispatch(updateSubscriptionActions.isLoading(true));
+    try {
+      const response = await updateSubscriptionRenewalAPI(id, data);
+      dispatch(updateSubscriptionActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(updateSubscriptionActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(updateSubscriptionActions.isLoading(false));
+  };
+}
+
+export const freezeSubscriptionActions = {
+  error: createAction('SUBSCRIPTION/FREEZE/ERROR'),
+  isLoading: createAction('SUBSCRIPTION/FREEZE/IS_LOADING'),
+  success: createAction('SUBSCRIPTION/FREEZE/SUCCESS'),
+};
+
+export function freezeSubscription(
+  id: number,
+  data: any,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(freezeSubscriptionActions.error(null));
+    dispatch(freezeSubscriptionActions.isLoading(true));
+    try {
+      const response = await freezeSubscriptionAPI(id, data);
+      dispatch(freezeSubscriptionActions.success(response.data));
+      dispatch(snackbarSuccess('subscription:messages.freeze.success'));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(freezeSubscriptionActions.error(err));
+      if (err && err.response && err.response.status === 423) {
+        dispatch(snackbarError('subscription:messages.freeze.alreadyPaused'));
+      } else {
+        dispatch(snackbarError('subscription:messages.freeze.error'));
+      }
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(freezeSubscriptionActions.isLoading(false));
+  };
+}
+
+export const switchPaymentPackActions = {
+  error: createAction('SUBSCRIPTION/SWITCH_PAYUMENT_PACK/ERROR'),
+  isLoading: createAction('SUBSCRIPTION/SWITCH_PAYMENT_PACK/IS_LOADING'),
+  success: createAction('SUBSCRIPTION/SWITC_PAYMENT_PACK/SUCCESS'),
+};
+
+export function switchSubscriptionPaymentPack(
+  id: number,
+  data: { payment_pack: number },
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(switchPaymentPackActions.error(null));
+    dispatch(switchPaymentPackActions.isLoading(true));
+    try {
+      const response = await switchSubscriptionPaymentPackAPI(id, data);
+      dispatch(switchPaymentPackActions.success(response.data));
+      dispatch(snackbarSuccess('subscription:messages.switchPack.success'));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(switchPaymentPackActions.error(err));
+      dispatch(snackbarError('subscription:messages.switchPack.error'));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(switchPaymentPackActions.isLoading(false));
+  };
+}
+
+export const switchPaymentMethodActions = {
+  error: createAction('SUBSCRIPTION/SWITCH_PAYMENT_METHOD/ERROR'),
+  isLoading: createAction('SUBSCRIPTION/SWITCH_PAYMENT_METHOD/IS_LOADING'),
+  success: createAction('SUBSCRIPTION/SWITCH_PAYMENT_METHOD/SUCCESS'),
+};
+
+export function switchSubscriptionPaymentMethod(
+  id: number,
+  data: { payment_method_identifier: number, source: string },
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(switchPaymentMethodActions.error(null));
+    dispatch(switchPaymentMethodActions.isLoading(true));
+    try {
+      const response = await switchSubscriptionPaymentMethodAPI(id, data);
+      dispatch(switchPaymentMethodActions.success(response.data));
+      dispatch(
+        snackbarSuccess('subscription:messages.switchPaymentMethod.success'),
+      );
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(switchPaymentMethodActions.error(err));
+      dispatch(
+        snackbarError('subscription:messages.switchPaymentMethod.error'),
+      );
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(switchPaymentMethodActions.isLoading(false));
   };
 }

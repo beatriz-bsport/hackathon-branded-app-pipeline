@@ -88,14 +88,6 @@ export function requestLogin(
       if (!token) {
         throw new Error('No token');
       }
-      try {
-        Sentry.configureScope((scope) => {
-          scope.setUser({ email: username });
-        });
-      } catch (err) {
-        console.error(err);
-      }
-
       dispatch(fetchAccessLevel(token, username, options));
     } catch (err) {
       dispatch(
@@ -159,6 +151,13 @@ export function setLogin({
   is_consumer: boolean,
   role: number,
 }) {
+  try {
+    Sentry.configureScope((scope) => {
+      scope.setUser({ email: username });
+    });
+  } catch (err) {
+    console.error(err);
+  }
   return {
     type: types.LOGIN_SUCCESSFUL,
     username,

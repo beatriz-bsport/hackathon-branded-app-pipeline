@@ -1,4 +1,6 @@
 import i18n from 'i18next';
+import backend from 'i18next-xhr-backend';
+
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { reactI18nextModule } from 'react-i18next';
 import Moment from 'moment';
@@ -10,6 +12,7 @@ import SPANISH_PACK from './spanish.translations';
 
 i18n
   .use(reactI18nextModule)
+  .use(backend)
   .init({
     fallbackLng: 'fr-FR',
     lng: 'fr-FR',

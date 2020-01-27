@@ -10,6 +10,12 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 
+import {
+  BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+} from '@bsport/common/lib/master-data/subscription-payment-methods';
+
 import withTitle from '../../hocs/with-title.hoc';
 
 import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/selectors';
@@ -141,6 +147,11 @@ export class SubscriptionList extends React.Component<Props> {
             member={this.props.memberToBill}
             onSuccess={this.props.closeContractRegister}
             onClose={this.props.closeContractRegister}
+            enabledPaymentMethods={[
+              BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
+              BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+              BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+            ]}
           />
         ) : null}
       </div>

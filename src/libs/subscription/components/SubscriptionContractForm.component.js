@@ -51,6 +51,14 @@ export function SubscriptionContractFields(props: Props) {
         fullWidth
         className={classes.field}
       />
+      <PriceField
+        name="flat_fee"
+        label={t('contract.form.flat_fee.label')}
+        helperText={t('contract.form.flat_fee.helperText')}
+        required
+        fullWidth
+        className={classes.field}
+      />
       <TextField
         name="description"
         label={t('contract.form.description.label')}
@@ -96,6 +104,7 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
     .min(2)
     .required(),
   recurrent_price: Yup.number().min(1),
+  flat_fee: Yup.number(),
   payment_pack: Yup.number()
     .integer()
     .required(),
@@ -114,6 +123,7 @@ export const SubscriptionContractFormHoc = withFormik({
     return {
       name: '',
       recurrent_price: 0,
+      flat_fee: 0,
       nb_interval: 12,
       payment_pack: null,
       description: '',

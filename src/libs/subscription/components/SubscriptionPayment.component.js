@@ -17,11 +17,18 @@ import type { TFunction } from 'react-i18next';
 
 import { CardElement, IbanElement, injectStripe } from 'react-stripe-elements';
 
+import {
+  BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+} from '@bsport/common/lib/master-data/subscription-payment-methods';
+
 const PaymentMethodSwitcher = (props: {
   classes: Object,
   t: TFunction,
   onChange: (string) => void,
   payment_method: string,
+  enabledPaymentMethods: Array<number>,
 }) => (
   <RadioGroup
     aria-label="payment-method"
@@ -29,23 +36,62 @@ const PaymentMethodSwitcher = (props: {
     value={props.payment_method}
     onChange={(ev) => props.onChange(ev.target.value)}
   >
-    <FormControlLabel
-      value="sepa_debit"
-      control={<Radio color="primary" />}
-      label={props.t('subscription:paymentMethod.sepa')}
-      labelPlacement="bottom"
-    />
-    <FormControlLabel
-      value="card"
-      control={<Radio color="primary" />}
-      label={props.t('subscription:paymentMethod.card')}
-      labelPlacement="bottom"
-    />
+    {props.enabledPaymentMethods.includes(
+      BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+    ) ? (
+      <FormControlLabel
+        value="sepa_debit"
+        control={<Radio color="primary" />}
+        label={props.t('subscription:paymentMethod.sepa')}
+        labelPlacement="bottom"
+      />
+    ) : null}
+    {props.enabledPaymentMethods.includes(
+      BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+    ) ? (
+      <FormControlLabel
+        value="card"
+        control={<Radio color="primary" />}
+        label={props.t('subscription:paymentMethod.card')}
+        labelPlacement="bottom"
+      />
+    ) : null}
+    {props.enabledPaymentMethods.includes(
+      BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
+    ) ? (
+      <FormControlLabel
+        value="bsport:credit"
+        control={<Radio color="primary" />}
+        label={props.t('subscription:paymentMethod.bsportCredit')}
+        labelPlacement="bottom"
+      />
+    ) : null}
   </RadioGroup>
 );
 
-export class SubscriptionPayment extends React.Component<Props> {
-  constructor(props) {
+type Props = {
+  member: ?Member,
+  onCancel: () => void,
+  processing: boolean,
+  setPaymentMethod: (string) => void,
+  paymentMethod: string,
+  enabledPaymentMethods: Array<number>,
+
+  stripe: Stripe,
+  onSubmit: (source: string) => void,
+
+  classes: Object,
+  t: TFunction,
+};
+
+type State = {
+  name: string,
+  email: string,
+  loading: boolean,
+};
+
+export class SubscriptionPayment extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = {
       loading: false,
@@ -77,36 +123,53 @@ export class SubscriptionPayment extends React.Component<Props> {
   };
 
   submit = async () => {
-    this.setState({ loading: true });
-    try {
-      const tokenizer = await this.props.stripe.createSource(
-        this.getSourceData(),
-      );
-      const { source } = tokenizer;
-      this.props.onSubmit(source.id);
-    } catch (error) {
-      console.error(error);
+    if (this.props.paymentMethod === 'bsport:credit') {
+      this.props.onSubmit('bsport:credit');
+    } else {
+      this.setState({ loading: true });
+      try {
+        const tokenizer = await this.props.stripe.createSource(
+          this.getSourceData(),
+        );
+        const { source } = tokenizer;
+        this.props.onSubmit(source.id);
+      } catch (error) {
+        console.error(error);
+      }
+      this.setState({
+        loading: false,
+      });
     }
-    this.setState({
-      loading: false,
-    });
   };
 
   render() {
-    const { props } = this;
-    const { classes, t } = props;
+    const {
+      paymentMethod,
+      t,
+      enabledPaymentMethods,
+      onCancel,
+      processing,
+      setPaymentMethod,
+      classes,
+    } = this.props;
     const { name, email } = this.state;
     return (
       <div>
         <PaymentMethodSwitcher
           classes={classes}
           t={t}
-          payment_method={props.paymentMethod}
-          onChange={props.setPaymentMethod}
+          payment_method={paymentMethod}
+          onChange={setPaymentMethod}
+          enabledPaymentMethods={enabledPaymentMethods}
         />
         <Divider />
         <div className={classes.cardContainer}>
-          {props.paymentMethod === 'sepa_debit' ? (
+          {paymentMethod === 'bsport:credit' ? (
+            <Typography className={classes.explainCredit}>
+              {t('subscription:paymentMethod.credit.explain')}
+            </Typography>
+          ) : null}
+          {paymentMethod === 'sepa_debit' ? (
             <div>
               <div className={classes.nameAndEmailContainer}>
                 <TextField
@@ -141,7 +204,7 @@ export class SubscriptionPayment extends React.Component<Props> {
               </Typography>
             </div>
           ) : null}
-          {props.paymentMethod === 'card' ? (
+          {paymentMethod === 'card' ? (
             <div className={classes.sensitiveDataContainer}>
               <div className={classes.sensitiveData}>
                 <CardElement />
@@ -151,9 +214,9 @@ export class SubscriptionPayment extends React.Component<Props> {
         </div>
         <div className={classes.buttonContainer}>
           <Button
-            onClick={props.onCancel}
+            onClick={onCancel}
             color="secondary"
-            disabled={props.processing || this.state.loading}
+            disabled={processing || this.state.loading}
           >
             {t('subscription:form.cancel')}
           </Button>
@@ -161,9 +224,9 @@ export class SubscriptionPayment extends React.Component<Props> {
             onClick={this.submit}
             id="stripe-pay"
             color="primary"
-            disabled={(!name || !email) && props.paymentMethod === 'sepa_debit'}
+            disabled={(!name || !email) && paymentMethod === 'sepa_debit'}
           >
-            {this.state.loading || props.processing ? (
+            {this.state.loading || processing ? (
               <CircularProgress />
             ) : (
               t('subscription:form.submit')
@@ -208,6 +271,9 @@ const styles = (theme) => ({
     margin: theme.spacing.unit * 2,
   },
   mandate: {
+    padding: theme.spacing.unit * 2,
+  },
+  explainCredit: {
     padding: theme.spacing.unit * 2,
   },
 });

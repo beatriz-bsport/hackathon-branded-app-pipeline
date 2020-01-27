@@ -11,12 +11,11 @@ import Divider from '@material-ui/core/Divider';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
-
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { Elements, StripeProvider } from 'react-stripe-elements';
-
 import DatePicker from 'material-ui-pickers/DatePicker';
+
 import SubscriptionPayment from './SubscriptionPayment.component';
 import MemberSearchModal from '../../member/components/MemberSearchModal.component';
 import Config from '../../../config';
@@ -47,6 +46,7 @@ type Props = {
   contractLoading: boolean,
   onChangeContract: (Contract) => void,
   goToCustomSubscriptionForm: () => void,
+  enabledPaymentMethods: Array<number>,
 
   onSubmit: (token: string) => void,
   onClose: () => void,
@@ -177,6 +177,7 @@ export const SubscriptionContractRegistrationManagerDialog = (props: Props) => {
               member={props.member}
               onSubmit={props.onSubmit}
               processing={props.processing}
+              enabledPaymentMethods={props.enabledPaymentMethods}
             />
           </Elements>
         </StripeProvider>

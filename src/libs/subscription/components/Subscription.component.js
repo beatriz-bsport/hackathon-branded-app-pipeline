@@ -2,22 +2,36 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Dialog from '@material-ui/core/Dialog';
-import { compose, withState } from 'recompose';
+import { compose } from 'recompose';
+import withStyles from '@material-ui/core/styles/withStyles';
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 
 import SubscriptionSummary from './SubscriptionSummary.component';
 import SubscriptionSchedule from './SubscriptionSchedule.component';
-import StopConfirmation from './StopDialog.component';
-import type { Subscription } from '../types';
+import SubscriptionPauseListItem from './SubscriptionPauseListItem.component';
+import SubscriptionActions from './SubscriptionActions.component';
+import type { Subscription, PlannedInvoice } from '../types';
 
 type Props = {
   subscription: Subscription,
-  stopSubscription: (id: number) => void,
-  setShowDialogStop: (boolean) => void,
+  loading: boolean,
+
+  requestUpdatePrice: (PlannedInvoice) => void,
+  updateSubscriptionRenewal: ({ auto_renewal: boolean }) => void,
+  requestFreeze: () => void,
+  requestPaymentPackSwitch: () => void,
+  requestPaymentMethodSwitch: () => void,
+  requestStop: () => void,
+
   goToInvoice: (uuid: string) => void,
   goToSubscribe: (id: number) => void,
   goToMember: (id: number) => void,
-  showDialogStop: boolean,
+
+  classes: Object,
+  t: TFunction,
 };
 
 export function SubscriptionComponent(props: Props) {
@@ -28,37 +42,65 @@ export function SubscriptionComponent(props: Props) {
     <div>
       <Grid container direction="row" spacing={24}>
         <Grid item xs={12} md={6}>
-          <Paper>
-            <SubscriptionSummary
-              subscription={props.subscription}
-              stopSubscription={() => props.setShowDialogStop(true)}
-              goToSubscribe={props.goToSubscribe}
-              goToMember={props.goToMember}
-            />
-          </Paper>
-        </Grid>
-        <Grid item xs={12} md={6}>
+          <Typography variant="h5" component="h3">
+            {props.t('subscription.invoicesSection')}
+          </Typography>
+          <Divider className={props.classes.divider} />
           <Paper>
             <SubscriptionSchedule
               scheduledInvoices={props.subscription.planned_invoices}
               onPlannedInvoiceClick={props.goToInvoice}
+              requestUpdatePrice={props.requestUpdatePrice}
             />
           </Paper>
         </Grid>
+        <Grid item xs={12} md={6}>
+          <div className={props.classes.block}>
+            <SubscriptionSummary
+              subscription={props.subscription}
+              goToSubscribe={props.goToSubscribe}
+              goToMember={props.goToMember}
+              updateRenewal={props.updateSubscriptionRenewal}
+              loading={props.loading}
+              requestPaymentPackSwitch={props.requestPaymentPackSwitch}
+              requestPaymentMethodSwitch={props.requestPaymentMethodSwitch}
+            />
+          </div>
+          <SubscriptionActions
+            subscription={props.subscription}
+            requestFreeze={props.requestFreeze}
+            requestPaymentMethodSwitch={props.requestPaymentMethodSwitch}
+            requestPaymentPackSwitch={props.requestPaymentPackSwitch}
+            requestStop={props.requestStop}
+          />
+
+          {props.subscription.pauses.length ? (
+            <Typography variant="h6">
+              {props.t('subscription.pauseSection')}
+            </Typography>
+          ) : null}
+          <Paper className={props.classes.block}>
+            {props.subscription.pauses.map((p) => (
+              <SubscriptionPauseListItem pause={p} key={p.id} />
+            ))}
+          </Paper>
+        </Grid>
       </Grid>
-      <Dialog open={props.showDialogStop}>
-        <StopConfirmation
-          onSubmit={() => {
-            props.stopSubscription(props.subscription.id);
-            props.setShowDialogStop(false);
-          }}
-          onCancel={() => props.setShowDialogStop(false)}
-        />
-      </Dialog>
     </div>
   );
 }
 
-export default compose(withState('showDialogStop', 'setShowDialogStop', false))(
-  SubscriptionComponent,
-);
+const styles = (theme) => ({
+  block: {
+    marginBottom: theme.spacing.unit * 3,
+  },
+  divider: {
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit * 2,
+  },
+});
+
+export default compose(
+  withStyles(styles),
+  withNamespaces(['subscription']),
+)(SubscriptionComponent);

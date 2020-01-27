@@ -52,7 +52,8 @@ const getWeekOffers = memoize((selectedDate, offers) => {
 
 export class MarketplaceTimetable extends PureComponent<Props> {
   renderDayOffers(offers: Array<*>, i: number) {
-    const { date, classes, t } = this.props;
+    const { date, classes } = this.props;
+    if (!offers || offers.length === 0) return null;
 
     return (
       <div className={classes.container}>
@@ -63,27 +64,21 @@ export class MarketplaceTimetable extends PureComponent<Props> {
             .format('dddd Do MMMM')}
         </Typography>
         <Divider />
-        {offers && offers.length ? (
-          <List disablePadding>
-            {offers.map((o) => (
-              <MarketplaceListItemOffer
-                coachLoading={this.props.coachLoading}
-                establishmentLoading={this.props.establishmentLoading}
-                activityLoading={this.props.activityLoading}
-                showOfferFilling={this.props.showOfferFilling}
-                key={o.id}
-                offer={o}
-                onClickOffer={this.props.onClickOffer}
-                onClickBook={() => this.props.onClickBook(o.id)}
-                onClickBookOption={() => this.props.onClickBookOption(o.id)}
-              />
-            ))}
-          </List>
-        ) : (
-          <Typography variant="caption" className={classes.title}>
-            {t('marketplace.noSessionToday')}
-          </Typography>
-        )}
+        <List disablePadding>
+          {offers.map((o) => (
+            <MarketplaceListItemOffer
+              coachLoading={this.props.coachLoading}
+              establishmentLoading={this.props.establishmentLoading}
+              activityLoading={this.props.activityLoading}
+              showOfferFilling={this.props.showOfferFilling}
+              key={o.id}
+              offer={o}
+              onClickOffer={this.props.onClickOffer}
+              onClickBook={() => this.props.onClickBook(o.id)}
+              onClickBookOption={() => this.props.onClickBookOption(o.id)}
+            />
+          ))}
+        </List>
       </div>
     );
   }

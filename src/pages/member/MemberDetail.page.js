@@ -15,6 +15,13 @@ import PaymentIcon from '@material-ui/icons/Payment';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose, withHandlers, withState } from 'recompose';
+
+import {
+  BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+} from '@bsport/common/lib/master-data/subscription-payment-methods';
+
 import memberSelectors from '../../libs/member/selectors';
 import withTitle from '../../hocs/with-title.hoc';
 
@@ -224,6 +231,11 @@ export class MemberDetail extends React.Component<Props> {
             this.props.closeContractDialog();
             this.props.pushToTab(id, 'payment');
           }}
+          enabledPaymentMethods={[
+            BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
+            BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+            BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+          ]}
         />
       </div>
     );

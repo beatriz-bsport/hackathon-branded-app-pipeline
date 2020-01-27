@@ -164,7 +164,7 @@ export default {
       AMEX: 'AMEX',
       BANK_TRANSFER: 'Virement',
       CREDIT_ACCOUNT: 'Compte interne (crédit)',
-      SUBSCRIPTION_CB: 'Paiement automatique CB',
+      SUBSCRIPTION_CB: 'Paiement automatique',
       OTHER: 'Divers',
     },
     errors: {

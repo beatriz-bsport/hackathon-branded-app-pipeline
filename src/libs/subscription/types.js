@@ -21,6 +21,8 @@ export type Subscription = {
   interval: 'month' | 'week',
   date_created: string,
   planned_invoices: Array<PlannedInvoice>,
+  payment_method: number,
+  pauses: Array<SubscriptionPause>,
 };
 
 export type SubscriptionData = {
@@ -35,8 +37,16 @@ export type SubscriptionData = {
   first_billing_timestamp: number,
 };
 
+export type SubscriptionPause = {
+  days: number,
+  date_created: string,
+  billing_plan: number,
+  name: string,
+};
+
 export type SubscriptionState = {
-  items: { [number]: Subscription },
+  byId: { [number]: Subscription },
+  createOrUpdate: { loading: boolean, error: ?Error },
   stop: {
     loading: boolean,
     error: ?Error,
@@ -44,5 +54,30 @@ export type SubscriptionState = {
   detail: {
     loading: boolean,
     error: ?Error,
+  },
+  list: {
+    loading: boolean,
+    error: ?Error,
+    allIds: Array<number>,
+  },
+  byMember: {
+    loading: boolean,
+    error: ?Error,
+    allIds: Array<number>,
+  },
+  contract: {
+    loading: boolean,
+    error: ?Error,
+    byId: { [number]: Contract },
+    allIds: Array<number>,
+    createOrUpdate: {
+      loading: boolean,
+      error: ?Error,
+    },
+    byMarketplace: {
+      loading: boolean,
+      error: ?Error,
+      allIds: Array<number>,
+    },
   },
 };

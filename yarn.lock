@@ -1446,10 +1446,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@bsport/common@^1.21.0":
-  version "1.21.0"
-  resolved "https://registry.yarnpkg.com/@bsport/common/-/common-1.21.0.tgz#81df7c0125d016fd6d119fc28889d5252fa29168"
-  integrity sha512-lj65w9GkROeAU2Ku0BvlI2ldmaxi2qJAITBiAg6ibTdKy2aHSLhWrmLwoHfEpkX6KqAjtKZbWnB696gYkkKuEQ==
+"@bsport/common@^1.22.0":
+  version "1.22.0"
+  resolved "https://registry.yarnpkg.com/@bsport/common/-/common-1.22.0.tgz#be5b977aa4a0566d60d0a529089484952a8bb2fd"
+  integrity sha512-sVfMSfXuC9K5EIo9eqDGiVmEAPf1BweVvJizmRkXx+DrX+lzckOmUJL4plj1XJARYvVC2sHhTSd4poJwHxa61Q==
 
 "@compone/class@^1.1.1":
   version "1.1.1"
@@ -9581,6 +9581,11 @@ interpret@1.2.0, interpret@^1.0.0, interpret@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.2.0.tgz#d5061a6224be58e8083985f5014d844359576296"
   integrity sha512-mT34yGKMNceBQUoVn7iCDKDntA7SC6gycMAWzGx1z/CMCTV7b2AAtXlo3nRyHZ1FelRkQbQjprHSYGwzLtkVbw==
+
+intl@^1.2.5:
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/intl/-/intl-1.2.5.tgz#82244a2190c4e419f8371f5aa34daa3420e2abde"
+  integrity sha1-giRKIZDE5Bn4Nx9ao02qNCDiq94=
 
 invariant@^2.1.0, invariant@^2.2.0, invariant@^2.2.1, invariant@^2.2.2, invariant@^2.2.3, invariant@^2.2.4:
   version "2.2.4"

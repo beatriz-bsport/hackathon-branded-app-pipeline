@@ -1,12 +1,78 @@
+import {
+  BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+} from '@bsport/common/lib/master-data/subscription-payment-methods';
+
 export default {
   cancel: 'annuler',
   save: 'valider',
+  messages: {
+    freeze: {
+      success: 'Souscirption mise en pause',
+      alreadyPaused:
+        'Impossible de mettre en pause une souscription déjà pausée',
+      error: 'Impossible de mettre en pause cette souscription',
+    },
+    updatePrice: {
+      success: 'Montant mis à jour',
+      error: 'Impossible de modifier ce montant',
+    },
+  },
   table: {
     noContent: 'Aucune souscription enregistrée',
   },
   subscription: {
     list: {
       title: 'Souscription en cours',
+    },
+    actionSection: 'Gérer',
+    invoicesSection: 'Factures',
+    pauseSection: 'Pauses',
+    switchPack: {
+      form: {
+        title: 'Changement de carte de cours',
+        explain:
+          "Cette carte de cours sera facturée à la place de l'ancienne sur toutes les prochaines factures. Les cours réservées avec l'ancienne carte seront transférés sur la nouvelle même si celle-ci n'est pas sensée être compatible.",
+        warning:
+          'La facturation restera la même, si vous souhaitez augmenter/diminuer le montant mensuel, modifiez chaque mensualité séparément.',
+        cancel: 'Annuler',
+        submit: 'Enregistrer',
+      },
+    },
+    freeze: {
+      form: {
+        title: 'Mise en pause',
+        name: {
+          label: 'Raison',
+          placeholder: 'Vacances de toussaint',
+        },
+        days: {
+          label: 'Nombre de jours',
+        },
+        explain:
+          "Le prochain paiement sera retardé d'autant de jours, de même pour les cartes de cours futures",
+        explainWarning: "Attention cette opération n'est pas reversible !",
+        cancel: 'Annuler',
+        submit: 'Enregistrer',
+      },
+    },
+    actions: {
+      freeze: 'Mettre en pause',
+      switchPack: 'Modifier la carte de cours',
+      switchPaymentMethod: 'Ajouter une méthode paiement',
+    },
+  },
+  pause: {
+    pausedInterval: '{{start}} → {{ end }} : {{ days }} jours',
+  },
+  plannedInvoice: {
+    priceUpdater: {
+      title: 'Modification montant futur',
+      price: 'Nouveau montant',
+      explain: 'Seule cette future facture sera modifiée',
+      cancel: 'Annuler',
+      submit: 'Enregistrer',
     },
   },
   contract: {
@@ -55,6 +121,10 @@ export default {
       autoRenewal: {
         label: 'Renouvellement tacite',
       },
+      flat_fee: {
+        label: "Frais d'engagement/dossier",
+        helperText: 'Ce frais sera ajoutée à la première facture',
+      },
       contract: {
         placeholder:
           'Entrez ici toutes les mentions légales nécessaires notamment concernant les procédures de remboursement.',
@@ -99,6 +169,13 @@ export default {
   parameters: {
     autoRenew: 'Renouvellement automatique',
     parameters: 'Paramètres',
+    payment_method: {
+      label: 'Méthode de paiement',
+      [BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT]: 'A crédit',
+      [BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB]: 'Carte bleue',
+      [BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA]: 'Virement SEPA',
+    },
+    status: 'Statut',
     subscribeAgain: 'Souscrire à nouveau',
     voucher: 'Offre spéciale',
     trial_nb: 'Nombre de mois offerts',
@@ -108,10 +185,12 @@ export default {
     dateCreated: 'Date de création',
     nbInterval: 'Nombre de mois',
     recurrent_price: 'Paiement récurrent',
+    flat_fee: "Frais d'engagement/dossier",
     paymentPack: 'Carte de cours',
     nbMonths: 'Nombre de mois',
     dateStart: 'Première facturation',
     firstBilling: 'Premier encaissement',
+    payment_pack: 'Carte de cours',
   },
   schedule: {
     provisionalTitle: 'Echéancier prévisionnel',
@@ -120,6 +199,11 @@ export default {
   paymentMethod: {
     sepa: 'Prélèvement SEPA',
     card: 'Carte bleue',
+    bsportCredit: 'Accompte client',
+    credit: {
+      explain:
+        "Le membre sera facturée sur son accompte interne chaque mois. Utilisez cette méthode de paiement si vous n'avez pas (encore) accès à une méthode facturation telle que la carte bleue ou le virement IBAN. Vous pourrez mettre à jour le paiement à posteriori.",
+    },
   },
   mandate: {
     name: 'Nom et prénom du titulaire',

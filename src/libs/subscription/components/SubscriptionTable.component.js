@@ -15,9 +15,9 @@ const renderRows = (subscriptions) => {
     name: sub.name,
     nb_interval: parseInt(sub.nb_interval, 10),
     first_billing_date: formatAsDate(sub.first_billing_date),
-    recurrent_price_with_voucher: `${(
-      parseFloat(sub.recurrent_price) - parseFloat(sub.recurrent_voucher)
-    ).toFixed(2)}  €`,
+    recurrent_price_with_voucher: `${parseFloat(sub.recurrent_price).toFixed(
+      2,
+    )}  €`,
   }));
 };
 

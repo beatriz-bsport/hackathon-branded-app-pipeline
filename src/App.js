@@ -1,6 +1,9 @@
 // @flow
 
 import React, { Component } from 'react';
+import 'intl';
+import 'intl/locale-data/jsonp/en';
+import 'intl/locale-data/jsonp/fr';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
@@ -55,14 +58,14 @@ export class App extends Component<{}, {}> {
         <MuiThemeProvider theme={theme}>
           <CssBaseline>
             <ConnectedRouter history={this.history}>
-                  <MuiPickersUtilsProvider
-                    utils={MomentUtils}
-                    moment={Moment}
-                    locale={Moment.locale()}
-                  >
-                    <SnackbarPile />
-                    <Root />
-                  </MuiPickersUtilsProvider>
+              <MuiPickersUtilsProvider
+                utils={MomentUtils}
+                moment={Moment}
+                locale={Moment.locale()}
+              >
+                <SnackbarPile />
+                <Root />
+              </MuiPickersUtilsProvider>
             </ConnectedRouter>
           </CssBaseline>
         </MuiThemeProvider>

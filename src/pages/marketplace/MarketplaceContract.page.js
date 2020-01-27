@@ -13,8 +13,13 @@ import withMobileDialog from '@material-ui/core/withMobileDialog';
 import moment from 'moment';
 import { withRouter } from 'react-router-dom';
 import { replace as replaceAction } from 'react-router-redux';
-
 import { withNamespaces } from 'react-i18next';
+
+import {
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+} from '@bsport/common/lib/master-data/subscription-payment-methods';
+
 import Config from '../../config';
 
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
@@ -126,6 +131,10 @@ export class MarketplaceContract extends React.Component<Props> {
                 onCancel={() => this.props.setPaymentDialogOpen(false)}
                 onSubmit={this.onSubmit}
                 processing={this.state.processing}
+                enabledPaymentMethods={[
+                  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+                  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+                ]}
               />
             </Elements>
           </StripeProvider>

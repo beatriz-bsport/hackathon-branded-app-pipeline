@@ -33,7 +33,7 @@ export default {
       form: {
         title: 'Changement de carte de cours',
         explain:
-          "Cette carte de cours sera facturée à la place de l'ancienne sur toutes les prochaines factures. Les cours réservées avec l'ancienne carte seront transférés sur la nouvelle même si celle-ci n'est pas sensée être compatible.",
+          "Cette carte de cours sera facturée à la place de l'ancienne sur toutes les prochaines factures. Les séances réservées avec l'ancienne carte seront transférés sur la nouvelle même si celle-ci n'est pas censée être compatible.",
         warning:
           'La facturation restera la même, si vous souhaitez augmenter/diminuer le montant mensuel, modifiez chaque mensualité séparément.',
         cancel: 'Annuler',
@@ -123,7 +123,7 @@ export default {
       },
       flat_fee: {
         label: "Frais d'engagement/dossier",
-        helperText: 'Ce frais sera ajoutée à la première facture',
+        helperText: 'Ce frais sera ajouté à la première facture',
       },
       contract: {
         placeholder:
@@ -202,7 +202,7 @@ export default {
     bsportCredit: 'Accompte client',
     credit: {
       explain:
-        "Le membre sera facturée sur son accompte interne chaque mois. Utilisez cette méthode de paiement si vous n'avez pas (encore) accès à une méthode facturation telle que la carte bleue ou le virement IBAN. Vous pourrez mettre à jour le paiement à posteriori.",
+        "Le membre sera facturé sur son accompte interne chaque mois. Utilisez cette méthode de paiement si vous n'avez pas (encore) accès à une méthode facturation telle que la carte bleue ou le virement IBAN. Vous pourrez mettre à jour le paiement à posteriori.",
     },
   },
   mandate: {

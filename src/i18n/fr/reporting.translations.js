@@ -107,7 +107,7 @@ export default {
     bank_transfer: 'Virement',
     event_brite: 'EventBrite',
     none: 'Aucun',
-    subscription_cb: 'Paiement automatique CB',
+    subscription_cb: 'Paiement planifié (abonnement)',
     credit_account: 'Crédit client',
     other: 'Divers',
   },

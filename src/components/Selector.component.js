@@ -208,6 +208,7 @@ type IntegrationReactSelectProps = {
   classes: { [string]: string },
   suggestions: Suggestion[],
   selected: number,
+  isClearable?: boolean,
   placeholder: string,
   onChange: (Suggestion) => void,
   theme: Theme,
@@ -277,8 +278,8 @@ function IntegrationReactSelect(props: IntegrationReactSelectProps) {
         onCreateOption={onCreateOption}
         searchIcon={searchIcon}
         isMulti={isMulti}
-	filterOption={props.filterOption}
-	isClearable={props.isClearable}
+        filterOption={props.filterOption}
+        isClearable={props.isClearable}
       />
     </div>
   );

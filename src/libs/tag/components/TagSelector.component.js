@@ -23,6 +23,7 @@ type Props = {
   tag: Tag,
 
   selectTag: (id: number) => void,
+  untag: (id: number) => void,
   deleteTagGroup: (TagGroup) => void,
   editTagGroup: (TagGroup) => void,
   onCreate: ({ name: string }) => void,

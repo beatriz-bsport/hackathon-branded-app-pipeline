@@ -16,6 +16,7 @@ type Props = {
   tag: Tag,
 
   selectTag: (id: number) => void,
+  untag: (id: number) => void,
   deleteTagGroup: (TagGroup) => void,
   onCreate: (data: { name: string }) => void,
   updateTag: (Tag) => void,

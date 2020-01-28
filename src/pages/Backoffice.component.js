@@ -9,6 +9,7 @@ import { push } from 'react-router-redux';
 import Intercom from 'react-intercom';
 
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import { Context } from '../context';
 
 import { getAuthToken } from '../http';
 import { getTheme } from '../theme';
@@ -140,8 +141,12 @@ const BackofficeRoute = withSentryErrorReporting(() => (
   </Switch>
 ));
 
-export class Backoffice extends Component<Props> {
+export class Backoffice extends Component<Props, State> {
   refreshInterval: ?Interval;
+
+  state = {
+    displayLeftMenu: true,
+  };
 
   componentWillMount() {
     document.title = 'Backoffice - bsport';
@@ -160,6 +165,14 @@ export class Backoffice extends Component<Props> {
     }
   }
 
+  hideLeftMenuAction() {
+    this.setState({ displayLeftMenu: false });
+  }
+
+  showLeftMenuAction() {
+    this.setState({ displayLeftMenu: true });
+  }
+
   render() {
     const { classes } = this.props;
 
@@ -175,36 +188,45 @@ export class Backoffice extends Component<Props> {
     }
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
-        <ResponsiveDrawer
-          onRefresh={this.props.refresh}
-          isRefreshing={this.props.isRefreshing}
-          logo={this.props.theme ? this.props.theme.cover : null}
-          alertings={this.props.alertings}
-          nbAlerting={this.props.nbAlerting}
-          deleteAlert={this.props.deleteAlert}
-          hidden={!this.props.permission.navigation}
-          disconnect={this.props.disconnect}
-          fetchMoreAlertingKind={this.props.fetchMoreAlertingKind}
-          showSearch={this.props.permission.member.search}
-          tempPasswordState={this.props.tempPasswordState}
-          generateTempPassword={this.props.generateTempPassword}
-          fetchTempPassword={this.props.fetchTempPassword}
-          openCreateMember={this.props.openCreateMember}
-          openCalendar={this.props.openCalendar}
+        <Context.Provider
+          value={{
+            ...this.state,
+            hideLeftMenuAction: this.hideLeftMenuAction.bind(this),
+            showLeftMenuAction: this.showLeftMenuAction.bind(this),
+          }}
         >
-          {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
-          Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ? (
-            <Intercom
-              appID="q6foivp2"
-              {...intercom_user}
-              action_color={this.props.theme.primary_color}
-            />
-          ) : null}
+          <ResponsiveDrawer
+            onRefresh={this.props.refresh}
+            isRefreshing={this.props.isRefreshing}
+            logo={this.props.theme ? this.props.theme.cover : null}
+            alertings={this.props.alertings}
+            nbAlerting={this.props.nbAlerting}
+            deleteAlert={this.props.deleteAlert}
+            hidden={!this.props.permission.navigation}
+            disconnect={this.props.disconnect}
+            displayLeftMenu={this.state.displayLeftMenu}
+            fetchMoreAlertingKind={this.props.fetchMoreAlertingKind}
+            showSearch={this.props.permission.member.search}
+            tempPasswordState={this.props.tempPasswordState}
+            generateTempPassword={this.props.generateTempPassword}
+            fetchTempPassword={this.props.fetchTempPassword}
+            openCreateMember={this.props.openCreateMember}
+            openCalendar={this.props.openCalendar}
+          >
+            {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
+            Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ? (
+              <Intercom
+                appID="q6foivp2"
+                {...intercom_user}
+                action_color={this.props.theme.primary_color}
+              />
+            ) : null}
 
-          <main className={classes.content}>
-            <BackofficeRoute />
-          </main>
-        </ResponsiveDrawer>
+            <main className={classes.content}>
+              <BackofficeRoute />
+            </main>
+          </ResponsiveDrawer>
+        </Context.Provider>
       </MuiThemeProvider>
     );
   }

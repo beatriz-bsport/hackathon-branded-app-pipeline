@@ -57,6 +57,7 @@ export default {
     payment_price: 'Prix',
     membership_duration: 'Durée de validité',
     membership_name: 'Abonnement',
+    membership_ID: 'ID',
     amortized_price: 'Restant dû',
     end_date: 'Fin de validité',
     credits: 'Crédits totaux',

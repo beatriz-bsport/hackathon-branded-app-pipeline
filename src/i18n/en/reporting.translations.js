@@ -53,6 +53,7 @@ export default {
     price: 'Price',
     membership_duration: 'Duration',
     membership_name: 'Payment pack name',
+    membership_ID: 'ID',
     amortized_price: 'Deffered amount',
     end_date: 'End of validity',
     credits: 'Total credits',

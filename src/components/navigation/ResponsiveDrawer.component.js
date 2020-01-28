@@ -94,7 +94,7 @@ type Props = {
   tempPasswordState: TempPasswordState,
   fetchTempPassword: () => void,
   generateTempPassword: () => void,
-
+  displayLeftMenu: boolean,
   openCreateMember: () => void,
   openCalendar: () => void,
 };
@@ -114,6 +114,14 @@ class ResponsiveDrawer extends React.Component<Props, State> {
   };
 
   handleDrawerToggle = () => {
+    if (this.state.mobileOpen) {
+      this.setState({
+        mobileOpen: false,
+      });
+    }
+  };
+
+  handleDrawerToggleButton = () => {
     this.setState((prevState) => ({
       mobileOpen: !prevState.mobileOpen,
     }));
@@ -186,7 +194,9 @@ class ResponsiveDrawer extends React.Component<Props, State> {
       >
         <ListItem
           button
-          onClick={() => this.handleDrawerToggle()}
+          onClick={() => {
+            this.handleDrawerToggle();
+          }}
           selected={isActive}
           className={isNested ? classes.nestedItem : null}
         >
@@ -212,7 +222,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
     this.setState({ tempPasswordDialogOpen: false });
   };
 
-  renderAppBar = (fullWidth, forced_hide) => {
+  renderAppBar = (fullWidth, forced_hide, displayMenuIcon) => {
     const {
       classes,
       nbAlerting,
@@ -245,11 +255,22 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                 wrap="nowrap"
               >
                 <Grid item zeroMinWidth>
+                  {displayMenuIcon ? (
+                    <Hidden smDown>
+                      <IconButton
+                        color="inherit"
+                        aria-label="open drawer"
+                        onClick={this.handleDrawerToggleButton}
+                      >
+                        <MenuIcon />
+                      </IconButton>
+                    </Hidden>
+                  ) : null}
                   <Hidden mdUp>
                     <IconButton
                       color="inherit"
                       aria-label="open drawer"
-                      onClick={this.handleDrawerToggle}
+                      onClick={this.handleDrawerToggleButton}
                     >
                       <MenuIcon />
                     </IconButton>
@@ -552,8 +573,9 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         text: t('navigation.logoff'),
       },
     ].map((item, i) => {
-      return this.renderMenuItem(item, i);
+      return this.renderMenuItem(item, i, false);
     });
+
     const drawer = (
       <div className={classes.scrollable}>
         <div className={classes.toolbar}>
@@ -580,10 +602,49 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         </List>
       </div>
     );
+
     return (
-      <div className={classes.root}>
-        {this.renderAppBar()}
-        <Hidden mdUp>
+      <div
+        className={
+          this.props.displayLeftMenu ? classes.root : classes.rootFullWidth
+        }
+      >
+        {this.props.displayLeftMenu
+          ? this.renderAppBar()
+          : this.renderAppBar(true, false, true)}
+        {this.props.displayLeftMenu ? (
+          <div>
+            <Hidden mdUp>
+              <Drawer
+                variant="temporary"
+                anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+                open={this.state.mobileOpen}
+                onClose={this.handleDrawerToggle}
+                classes={{
+                  paper: classes.drawerPaper,
+                }}
+                ModalProps={{
+                  keepMounted: true, // Better open performance on mobile.
+                }}
+              >
+                {drawer}
+              </Drawer>
+            </Hidden>
+            <Hidden smDown implementation="css">
+              <Drawer
+                variant="permanent"
+                open
+                anchor="left"
+                elevation={20}
+                classes={{
+                  paper: classes.drawerPaper,
+                }}
+              >
+                {drawer}
+              </Drawer>
+            </Hidden>
+          </div>
+        ) : (
           <Drawer
             variant="temporary"
             anchor={theme.direction === 'rtl' ? 'right' : 'left'}
@@ -598,20 +659,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
           >
             {drawer}
           </Drawer>
-        </Hidden>
-        <Hidden smDown implementation="css">
-          <Drawer
-            variant="permanent"
-            open
-            anchor="left"
-            elevation={20}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
+        )}
         <TempPasswordDialog
           generateTempPassword={this.props.generateTempPassword}
           tempPassword={this.props.tempPasswordState.password}
@@ -640,6 +688,15 @@ const styles = (theme) => ({
     [theme.breakpoints.up('md')]: {
       paddingLeft: drawerWidth,
     },
+  },
+  rootFullWidth: {
+    flexGrow: 1,
+    zIndex: 1,
+    position: 'relative',
+    overflow: 'hidden',
+    display: 'flex',
+    width: '100vw',
+    minHeight: '100vh',
   },
   grow: {
     flex: 1,

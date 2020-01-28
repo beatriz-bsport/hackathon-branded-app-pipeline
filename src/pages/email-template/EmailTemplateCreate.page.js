@@ -7,6 +7,7 @@ import { compose } from 'recompose';
 import { withNamespaces } from 'react-i18next';
 import { push } from 'react-router-redux';
 import { emailDesignCreate } from '../../libs/email-editor/actions';
+import { Context } from '../../context';
 
 import EmailEditorPanel from '../../libs/email-editor/components/EmailEditor.component';
 import withTitle from '../../hocs/with-title.hoc';
@@ -31,13 +32,19 @@ export class EmailTemplateCreate extends Component<Props> {
 
   render() {
     return (
-      <EmailEditorPanel
-        company_id={this.props.company_id}
-        save_email={this.onSave}
-        emailLoad=""
-        goToList={this.props.goToList}
-        displayEmptyError={this.props.snackbarError}
-      />
+      <Context.Consumer>
+        {(context) => (
+          <EmailEditorPanel
+            company_id={this.props.company_id}
+            save_email={this.onSave}
+            hideLeftMenuAction={context.hideLeftMenuAction}
+            showLeftMenuAction={context.showLeftMenuAction}
+            emailLoad=""
+            goToList={this.props.goToList}
+            displayEmptyError={this.props.snackbarError}
+          />
+        )}
+      </Context.Consumer>
     );
   }
 }

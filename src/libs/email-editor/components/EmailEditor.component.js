@@ -24,6 +24,8 @@ type Props = {
   classes: Object,
   displayEmptyError: (msg: string) => void,
   goToList: () => void,
+  hideLeftMenuAction: () => void,
+  showLeftMenuAction: () => void,
 };
 
 type State = {
@@ -38,6 +40,14 @@ export class EmailEditorPanel extends Component<Props, State> {
       title: props.emailLoad ? props.emailLoad.title : '',
       subject: props.emailLoad ? props.emailLoad.subject : '',
     };
+  }
+
+  componentWillMount() {
+    this.props.hideLeftMenuAction();
+  }
+
+  componentWillUnmount() {
+    this.props.showLeftMenuAction();
   }
 
   exportHtml = () => {

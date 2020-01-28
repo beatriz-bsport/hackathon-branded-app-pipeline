@@ -20,6 +20,7 @@ import {
   emailTemplateUpdate,
   emailDesignCreate,
 } from '../../libs/email-editor/actions';
+import { Context } from '../../context';
 
 import EmailEditorPanel from '../../libs/email-editor/components/EmailEditor.component';
 
@@ -59,17 +60,23 @@ export class MarketingEmail extends Component<Props, state> {
       return <LinearProgress />;
     }
     return (
-      <EmailEditorPanel
-        company_id={this.props.company_id}
-        save_email={this.onSave}
-        emailLoad={{
-          ...this.props.email_templates_summaries[this.props.id],
-          ...this.props.email_templates_details[this.props.id],
-        }}
-        company_name={this.props.company_name}
-        goToList={this.props.goToList}
-        displayEmptyError={this.props.snackbarError}
-      />
+      <Context.Consumer>
+        {(context) => (
+          <EmailEditorPanel
+            company_id={this.props.company_id}
+            save_email={this.onSave}
+            hideLeftMenuAction={context.hideLeftMenuAction}
+            showLeftMenuAction={context.showLeftMenuAction}
+            emailLoad={{
+              ...this.props.email_templates_summaries[this.props.id],
+              ...this.props.email_templates_details[this.props.id],
+            }}
+            company_name={this.props.company_name}
+            goToList={this.props.goToList}
+            displayEmptyError={this.props.snackbarError}
+          />
+        )}
+      </Context.Consumer>
     );
   }
 }

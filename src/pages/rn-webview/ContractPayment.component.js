@@ -8,6 +8,11 @@ import { withRouter } from 'react-router-dom';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 import moment from 'moment';
 
+import {
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+} from '@bsport/common/lib/master-data/subscription-payment-methods';
+
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import Config from '../../config';
 import parse from '../../query-string';
@@ -60,6 +65,10 @@ export class ContractPayment extends React.Component<Props, State> {
               onCancel={this.props.onCancel}
               onSubmit={this.onSubmit}
               processing={this.state.processing}
+              enabledPaymentMethods={[
+                BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+                BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+              ]}
             />
           </Elements>
         </StripeProvider>

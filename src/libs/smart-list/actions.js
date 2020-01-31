@@ -21,6 +21,7 @@ import {
   createFilter as createFilterAPI,
   deleteFilter as deleteFilterAPI,
   updateFilter as updateFilterAPI,
+  copySmartList as copySmartListAPI,
 } from './api';
 
 import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
@@ -107,6 +108,34 @@ export function fetchSmartListDetail(id: number): ThunkAction {
       dispatch(smartListDetailAction.error(error));
     }
     dispatch(smartListDetailAction.isLoading(false));
+  };
+}
+
+export const smartListCopyAction = {
+  error: createAction('SMART-LIST/COPY/ERROR'),
+  isLoading: createAction('SMART-LIST/COPY/IS_LOADING'),
+  success: createAction('SMART-LIST/COPY/SUCCESS'),
+};
+
+export function copySmartList(
+  id: number,
+  options: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(createSmartListAction.isLoading(true));
+    dispatch(createSmartListAction.error(null));
+
+    try {
+      const response = await copySmartListAPI(id);
+      dispatch(createSmartListAction.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.id);
+      }
+      dispatch(createSmartListAction.error(null));
+    } catch (error) {
+      dispatch(createSmartListAction.error(error));
+    }
+    dispatch(createSmartListAction.isLoading(false));
   };
 }
 

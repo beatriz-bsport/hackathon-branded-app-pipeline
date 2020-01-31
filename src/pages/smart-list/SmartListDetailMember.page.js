@@ -13,9 +13,13 @@ import Collapse from '@material-ui/core/Collapse';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import Paper from '@material-ui/core/Paper';
 
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import IconButton from '@material-ui/core/IconButton';
+
+import EditIcon from '@material-ui/icons/Edit';
 
 import LinearProgressMUI from '@material-ui/core/LinearProgress';
 import MemberTable from '../../libs/member/MemberTable.component';
@@ -56,6 +60,8 @@ import FiltersPanel from '../../libs/smart-list/components/FiltersPanel.componen
 import SendEmailDialog from '../../libs/smart-list/components/SendEmailDialog.component';
 import ConfigureDnsDialog from '../../libs/smart-list/components/ConfigureDnsDialog.component';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
+import SmartListEditDialog from '../../libs/smart-list/components/SmartListFormDialog.component';
+
 import {
   dateRangeSelector,
   smartlistStatSelector as getSmartListStatistic,
@@ -156,6 +162,7 @@ type Props = {
   fetchPaymentPackBulk: () => void,
   fetchCoaches: () => void,
   coaches: Array<Coach>,
+  smartListUpdate: () => void,
 
   // statistics
   setCloseMemberTable: () => void,
@@ -174,7 +181,7 @@ type State = {
 };
 
 export class SmartListDetailMember extends Component<Props, State> {
-  state = { onValueChangeActiveMemberFetch: false };
+  state = { onValueChangeActiveMemberFetch: false, openEditDialog: false };
 
   fetchStats = () => {
     const { id } = this.props;
@@ -208,10 +215,6 @@ export class SmartListDetailMember extends Component<Props, State> {
 
   componentDidMount() {
     this.props.fetchSmartListFilters(this.props.id);
-    // this.props.fetchAllPaymentPacks();
-    // this.props.fetchPrivatePassList();
-    // this.props.fetchAllActivities();
-    // this.props.fetchEstablishments();
     this.props.fetchTags();
   }
 
@@ -284,6 +287,11 @@ export class SmartListDetailMember extends Component<Props, State> {
     };
   };
 
+  updateSmartList = (smartlist) => {
+    this.setState({ openEditDialog: false });
+    this.props.smartListUpdate(this.props.smartlist.id, smartlist);
+  };
+
   render() {
     if (!this.props.smartlist_filters) {
       return <LinearProgress />;
@@ -316,6 +324,31 @@ export class SmartListDetailMember extends Component<Props, State> {
 
     return (
       <div>
+        <Paper className={this.props.classes.listInfo}>
+          <div>
+            <Typography variant="body1">
+              {`${this.props.t('name')}: ${
+                this.props.smartlist ? this.props.smartlist.name : '-'
+              }`}
+            </Typography>
+            <Typography
+              variant="body1"
+              className={this.props.classes.description}
+            >
+              {`${this.props.t('description')}: ${
+                this.props.smartlist ? this.props.smartlist.description : '-'
+              }`}{' '}
+            </Typography>
+          </div>
+          <IconButton
+            onClick={() => {
+              this.setState({ openEditDialog: true });
+            }}
+            color="primary"
+          >
+            <EditIcon />
+          </IconButton>
+        </Paper>
         <FiltersPanel
           exportMemberTable={() => getMemberTable(this.props.id)}
           smartList={this.props.smartlist}
@@ -446,12 +479,28 @@ export class SmartListDetailMember extends Component<Props, State> {
           open={false}
           onClose={() => this.props.setOpenSendEmail(false)}
         />
+        <SmartListEditDialog
+          open={this.state.openEditDialog}
+          smartlist={this.state.openEditDialog ? this.props.smartlist : null}
+          updateSmartList={this.updateSmartList}
+          onCancel={() => this.setState({ openEditDialog: false })}
+          fullScreen
+        />
       </div>
     );
   }
 }
 
 const styles = (theme) => ({
+  description: {
+    marginTop: theme.spacing.unit,
+  },
+  listInfo: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: theme.spacing.unit * 2,
+    paddingLeft: theme.spacing.unit * 3,
+  },
   memberWrapper: {
     marginTop: theme.spacing.unit * 4,
     marginBottom: theme.spacing.unit * 2,

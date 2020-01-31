@@ -40,7 +40,10 @@ const DURATION_EXACT_PAST = 10;
 const DURATION_BETWEEN_PAST = 11;
 
 export default {
+  duplicate: 'Dupliquer',
   mails: 'Mails',
+  name: 'Nom de la liste',
+  description: 'Description',
   multiSelector: {
     selectAll: 'Tout sélectionner',
     selectNothing: 'Tout désélectionner',

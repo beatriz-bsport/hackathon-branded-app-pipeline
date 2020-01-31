@@ -5,12 +5,11 @@ import { compose } from 'recompose';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Paper from '@material-ui/core/Paper';
 import SettingsIcon from '@material-ui/icons/Settings';
-import EditIcon from '@material-ui/icons/Edit';
+import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
 
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
 import StatsPanel from './StatsPanel.component';
 
 import TypographyMultiline from '../../../components/TypographyMultiline.component';
@@ -19,7 +18,6 @@ type Props = {
   t: TFunction,
   smartlist: ?SmartList,
   classes: Object,
-  onEdit: () => void,
   onConfigure: () => void,
   statistics: any,
   changeDateRange: () => void,
@@ -33,15 +31,11 @@ export const SmartlistCard = (props: Props) => {
   return (
     <div>
       <div className={props.classes.paper}>
-        <Paper className={props.classes.header}>
-          <TypographyMultiline>
-            {props.smartlist.description}
-          </TypographyMultiline>
-
-          <IconButton color="primary" onClick={props.onEdit}>
-            <EditIcon />
-          </IconButton>
-        </Paper>
+        <Typography variant="h4" className={props.classes.title}>
+          {props.smartlist.name}
+        </Typography>
+        <Divider />
+        <TypographyMultiline>{props.smartlist.description}</TypographyMultiline>
 
         <StatsPanel
           statistics={props.statistics}
@@ -60,6 +54,7 @@ export const SmartlistCard = (props: Props) => {
 };
 
 const styles = (theme) => ({
+  title: { marginBottom: theme.spacing.unit },
   header: {
     display: 'flex',
     flexDirection: 'row',

@@ -144,7 +144,7 @@ export class FiltersPanel extends Component<Props> {
             onClick={this.props.onRequestEmail}
             color="secondary"
             variant="contained"
-            className={classes.actionButton}
+            className={classes.sendEmailButton}
           >
             <SendIcon className={this.props.classes.leftIcon} />
             {t('mail.sendMail')}
@@ -365,6 +365,10 @@ const styles = (theme) => ({
     marginBottom: theme.spacing.unit,
     marginTop: theme.spacing.unit,
     marginLeft: theme.spacing.unit,
+  },
+  sendEmailButton: {
+    marginBottom: theme.spacing.unit,
+    marginTop: theme.spacing.unit,
   },
   buttonsRow: {
     display: 'flex',

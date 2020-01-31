@@ -60,6 +60,10 @@ export const fetchDetails = async (id: number) => {
   return getAuth(`${SMART_LIST_URI}${id}/stats/`);
 };
 
+export const copySmartList = async (id: number) => {
+  return postAuth(`${SMART_LIST_URI}${id}/create_copy/`);
+};
+
 // Filters API
 
 const FILTER_URI = `${API_V1_URI}/smartlist`;

@@ -23,6 +23,8 @@ import {
   fetchAllSmartLists,
   smartListCreate,
   smartListUpdate,
+  fetchSmartListDetail,
+  copySmartList as copySmartListAction,
 } from '../../libs/smart-list/actions';
 
 import {
@@ -53,7 +55,7 @@ type Props = {
   selectedId: number,
   goToSelected: (id: number) => void,
   smartListUpdate: (id: number) => void,
-
+  onClickDuplicate: (id: number, options: any) => void,
   goToSmartlistList: () => void,
   smartlistSelected: ?Smartlist,
 
@@ -192,6 +194,11 @@ export class SmartListList extends Component<Props, State> {
                       smartlist.id === this.props.smartlistSelected.id
                     }
                     smartlist={smartlist}
+                    onClickDuplicate={(id) =>
+                      this.props.onClickDuplicate(id, {
+                        onSuccess: (newId) => this.props.goToSelected(newId),
+                      })
+                    }
                   />
                 ))}
               </List>
@@ -327,6 +334,8 @@ export default compose(
       fetchAllSmartLists,
       smartListUpdate,
       dateRangeChange,
+      fetchSmartListDetail,
+      onClickDuplicate: copySmartListAction,
       smartListDelete,
       smartListCreate,
       fetchSmartListStats,

@@ -105,7 +105,6 @@ export const StatsPanel = (props: Props) => {
 
 const styles = (theme) => ({
   paper: {
-    padding: theme.spacing.unit * 2,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',

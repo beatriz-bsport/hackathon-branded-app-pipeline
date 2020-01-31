@@ -19,7 +19,7 @@ export default class DelayedNumericInput extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      value: props.value || '',
+      value: props.value || props.value === 0 ? props.value : '',
       writingSince: null,
     };
   }

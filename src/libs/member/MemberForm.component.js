@@ -334,7 +334,7 @@ export function MemberForm(props: Props) {
                 label={t('form.phone')}
                 fullWidth
                 required={!!props.fromConsumerAccess}
-                disabled={disabled || variant === 'merge-form'}
+                disabled={disabled}
               />
             </Grid>
             <Grid item xs={12} md={mdSize}>

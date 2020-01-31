@@ -136,6 +136,8 @@ export class OfferBooking extends React.PureComponent<Props> {
       loading,
       bookingOptionListConvertible,
       bookingOptionListUnconvertible,
+      theme,
+      paymentPackList,
     } = this.props;
     const momentDate = moment(offer.date_start).tz(offer.establishment.tzname);
     const localDate = momentDate.format('LLLL');
@@ -155,6 +157,25 @@ export class OfferBooking extends React.PureComponent<Props> {
     const isWaitingListFull =
       (offer.waiting_list_disabled || offer.is_waiting_list_full) &&
       (!hasBookingOptionUnConvertible && !hasBookingOptionConvertible);
+
+    let paymentPackListFiltered = paymentPackList;
+    if (
+      this.props.paymentPackList &&
+      this.props.paymentPackList.length &&
+      theme &&
+      theme.hide_least_specific_payment_pack
+    ) {
+      const leastSpecific =
+        Math.min(
+          ...paymentPackList
+            .map((pp) => pp.establishments.length)
+            .filter((c) => c > 0),
+        ) || 1000;
+
+      paymentPackListFiltered = paymentPackList.filter(
+        (pp) => pp.establishments.length <= leastSpecific,
+      );
+    }
 
     return (
       <div>
@@ -185,26 +206,28 @@ export class OfferBooking extends React.PureComponent<Props> {
         ) : null}
         {isBookable && !isFull && !loading ? (
           <div>
-            <div className={classes.section}>
-              <Typography className={classes.sectionTitle} variant="h5">
-                {t('bookingModule.section.consumerPacks')}
-              </Typography>
-              <Paper>
-                {this.props.consumerPaymentPackList.map((cpp) => (
-                  <ConsumerPaymentPackListItemCheckout
-                    key={cpp.id}
-                    noDivider
-                    consumerPack={cpp}
-                    offerId={offer.id}
-                    creditPrice={offer.credit_price}
-                    divider
-                    onBookFromPack={(options) =>
-                      this.props.bookWithConsumerPaymentPack(cpp.id, options)
-                    }
-                  />
-                ))}
-              </Paper>
-            </div>
+            {this.props.consumerPaymentPackList.length ? (
+              <div className={classes.section}>
+                <Typography className={classes.sectionTitle} variant="h5">
+                  {t('bookingModule.section.consumerPacks')}
+                </Typography>
+                <Paper>
+                  {this.props.consumerPaymentPackList.map((cpp) => (
+                    <ConsumerPaymentPackListItemCheckout
+                      key={cpp.id}
+                      noDivider
+                      consumerPack={cpp}
+                      offerId={offer.id}
+                      creditPrice={offer.credit_price}
+                      divider
+                      onBookFromPack={(options) =>
+                        this.props.bookWithConsumerPaymentPack(cpp.id, options)
+                      }
+                    />
+                  ))}
+                </Paper>
+              </div>
+            ) : null}
             {this.props.contractList.length ? (
               <div className={classes.section}>
                 <Typography className={classes.sectionTitle} variant="h5">
@@ -240,13 +263,13 @@ export class OfferBooking extends React.PureComponent<Props> {
                 </Paper>
               </div>
             ) : null}
-            {this.props.paymentPackList.length ? (
+            {paymentPackListFiltered.length ? (
               <div className={classes.section}>
                 <Typography className={classes.sectionTitle} variant="h5">
                   {t('bookingModule.section.paymentPacks')}
                 </Typography>
                 <Paper>
-                  {this.props.paymentPackList.map((pp) => (
+                  {paymentPackListFiltered.map((pp) => (
                     <PaymentPackListItem
                       hidePacksNumber
                       showDuration

@@ -171,6 +171,7 @@ export class OfferPaymentPage extends Component<Props, State> {
         >
           <BookingModule
             offer={this.props.offer}
+            theme={this.props.theme}
             loading={this.props.consumerPaymentPackLoading}
             buyableItemsLoading={this.props.buyableItemsLoading}
             bookingOptionListConvertible={

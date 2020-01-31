@@ -130,7 +130,8 @@ export class CouponForm extends React.Component<Props, State> {
       usage_per_member: this.state.usage_per_member,
       combinable: this.state.combinable,
       minimum_amount: this.state.minimum_amount,
-      applies_to: this.state.applies_to,
+      applies_to:
+        this.state.applies_to === ALL_BUYABLES ? null : this.state.applies_to,
       voucher_type: this.state.voucher_type,
       only_on_objects: this.state.only_on_objects,
     };

@@ -139,7 +139,9 @@ export class MemberDetailPass extends Component<Props, State> {
   componentDidMount() {
     this.fetchData();
     if (this.props.consumerPassId) {
-      this.props.retrieveConsumerPackBulk([this.props.consumerPassId]);
+      this.props.retrieveConsumerPackBulk([this.props.consumerPassId], {
+        onSuccess: ([pass]) => this.props.fetchInvoice(pass.invoice),
+      });
     }
   }
 

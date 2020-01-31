@@ -185,6 +185,7 @@ export const DateField = (props: DateFieldProps) => {
         <DatePicker
           {...field}
           {...props}
+          style={{ minWidth: 120 }}
           onChange={(date) => {
             setFieldValue(props.name, date);
           }}

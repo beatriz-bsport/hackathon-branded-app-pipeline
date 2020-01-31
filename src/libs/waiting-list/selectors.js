@@ -9,7 +9,7 @@ const _getData = (state) => state.waitingList.option.byId;
 
 export const getBookingOptionListForBooking = createSelector(
   [_getData, _getForBookingIds],
-  (data, ids) => ids.map((id) => data[id]),
+  (data, ids) => ids.map((id) => data[id]).filter((bp) => !bp.booking),
 );
 
 export const getBookingOptionListForBookingNotConvertible = createSelector(

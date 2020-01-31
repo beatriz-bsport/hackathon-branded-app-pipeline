@@ -20,13 +20,13 @@ export const byOfferByMember = {
   success: createAction('CONSUMER_PACK/BY_OFFER_BY_MEMBER/SUCCESS'),
 };
 
-export function fetchByOfferByMember(offerId: number, memberId: number) {
+export function fetchByOfferByMember(offer: number, member: number) {
   return async (dispatch: Dispatch) => {
     dispatch(byOfferByMember.isLoading(true));
     dispatch(byOfferByMember.error(null));
     dispatch(byOfferByMember.success([]));
     try {
-      const response = await fetchByOfferByMemberAPI(offerId, memberId);
+      const response = await fetchByOfferByMemberAPI(offer, { member });
       dispatch(byOfferByMember.success(response.data));
     } catch (error) {
       dispatch(byOfferByMember.error(error));
@@ -155,6 +155,77 @@ export function fetchByMember(
   };
 }
 
+export const retrieveBulk = {
+  isLoading: createAction('CONSUMER_PACK/RETRIEVE_BULK/IS_LOADING'),
+  error: createAction('CONSUMER_PACK/RETRIEVE_BULK/ERROR'),
+  success: createAction('CONSUMER_PACK/RETRIEVE_BULK/SUCCESS'),
+};
+
+export function retrieveConsumerPackBulk(
+  ids: Array<number>,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    if (!ids || ids.length === 0) return;
+    dispatch(retrieveBulk.isLoading(true));
+    dispatch(retrieveBulk.error(null));
+    try {
+      const response = await fetchConsumerPaymentPackListAPI({
+        id__in: ids,
+        page_size: null,
+      });
+      dispatch(retrieveBulk.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(retrieveBulk.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
+    }
+    dispatch(retrieveBulk.isLoading(false));
+  };
+}
+
+export const forBookingActions = {
+  isLoading: createAction('CONSUMER_PACK/FOR_BOOKING/IS_LOADING'),
+  error: createAction('CONSUMER_PACK/FOR_BOOKING/ERROR'),
+  success: createAction('CONSUMER_PACK/FOR_BOOKING/SUCCESS'),
+  reset: createAction('CONSUMER_PACK/FOR_BOOKING/RESET'),
+};
+
+export const resetConsumerPackForBooking = forBookingActions.reset;
+
+export function fetchConsumerPaymentPackForBooking(
+  offer: number,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(forBookingActions.isLoading(true));
+    dispatch(forBookingActions.error(null));
+    dispatch(forBookingActions.success([]));
+    try {
+      const response = await fetchByOfferByMemberAPI(offer, { mine: true });
+      dispatch(forBookingActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      dispatch(forBookingActions.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
+    }
+    dispatch(forBookingActions.isLoading(false));
+  };
+}
+
+// BEGIN Extension
+//
+// ----------------------------
+//
 export const extensionListActions = {
   isLoading: createAction('CONSUMER_PACK_EXTENSION/LIST/IS_LOADING'),
   error: createAction('CONSUMER_PACK_EXTENSION/LIST/ERROR'),
@@ -228,36 +299,7 @@ export function deletePackExtension(
   };
 }
 
-export const retrieveBulk = {
-  isLoading: createAction('CONSUMER_PACK/RETRIEVE_BULK/IS_LOADING'),
-  error: createAction('CONSUMER_PACK/RETRIEVE_BULK/ERROR'),
-  success: createAction('CONSUMER_PACK/RETRIEVE_BULK/SUCCESS'),
-};
-
-export function retrieveConsumerPackBulk(
-  ids: Array<number>,
-  options: OptionCallback,
-) {
-  return async (dispatch: Dispatch) => {
-    if (!ids || ids.length === 0) return;
-    dispatch(retrieveBulk.isLoading(true));
-    dispatch(retrieveBulk.error(null));
-    try {
-      const response = await fetchConsumerPaymentPackListAPI({
-        id__in: ids,
-        page_size: null,
-      });
-      dispatch(retrieveBulk.success(response.data));
-      if (options && options.onSuccess) {
-        options.onSuccess(response.data);
-      }
-    } catch (error) {
-      console.error(error);
-      dispatch(retrieveBulk.error(error));
-      if (options && options.onError) {
-        options.onError(error);
-      }
-    }
-    dispatch(retrieveBulk.isLoading(false));
-  };
-}
+//
+// ----------------------------
+//
+// END Extension

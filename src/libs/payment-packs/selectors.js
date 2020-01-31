@@ -60,6 +60,14 @@ export const getActivityCompatiblePaymentPacks = createSelector(
   (idList, paymentPacks) => idList.map((id) => paymentPacks[id]),
 );
 
+const _getPaymentPackForBookingIds = (state: State) =>
+  state.paymentPack.forBooking.allIds;
+
+export const getPaymentPackForBooking = createSelector(
+  [_getPaymentPackForBookingIds, getPaymentPackById],
+  (ids, data) => ids.map((id) => data[id]),
+);
+
 export default {
   get,
   getAll,

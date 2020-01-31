@@ -2,7 +2,6 @@
 
 import category from './category';
 import invoice from './invoice';
-import offer from './offer';
 import auth from './auth';
 import stats from './stat';
 import payment from './payment';
@@ -13,7 +12,6 @@ import marketplace from './marketplace';
 export default {
   category,
   invoice,
-  offer,
   auth,
   stats,
   payment,

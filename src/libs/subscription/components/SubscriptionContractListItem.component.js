@@ -9,6 +9,8 @@ import AddPersonIcon from '@material-ui/icons/PersonAdd';
 import EditIcon from '@material-ui/icons/Edit';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import Button from '@material-ui/core/Button';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
 import type { SubscriptionContract } from '../types';
 
@@ -19,6 +21,7 @@ type Props = {
   onEdit: () => void,
   onClick?: () => void,
   onRegister?: () => void,
+  onBook?: () => void,
   selected?: boolean,
   dense?: boolean,
   divider?: boolean,
@@ -48,6 +51,18 @@ export const SubscriptionContractListItem = (props: Props) => {
               })}`
         }`}
       />
+      {props.onBook ? (
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={(ev) => {
+            ev.stopPropagation();
+            props.onBook();
+          }}
+        >
+          <AddShoppingCartIcon />
+        </Button>
+      ) : null}
       {props.onRegister ? (
         <IconButton
           color="primary"

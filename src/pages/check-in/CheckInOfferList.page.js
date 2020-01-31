@@ -8,7 +8,7 @@ import { push as routerPush } from 'react-router-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 import moment from 'moment';
 
-import { offer as offerActions } from '../../actions';
+import { fetchOffersByDay as fetchOffersByDayAction } from '../../libs/offer/actions';
 import {
   getOffersByDay,
   withCoach,
@@ -82,7 +82,7 @@ export default compose(
     }),
     {
       fetchEstablishments,
-      fetchOffersByDay: offerActions.fetchOffersByDay,
+      fetchOffersByDay: fetchOffersByDayAction,
       onOfferSelected: (offerId: number) =>
         routerPush(`/check-in/offer/${offerId}`),
       fetchCoachBulk: fetchCoachBulkAction,

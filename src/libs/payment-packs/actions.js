@@ -4,22 +4,28 @@ import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 
 import {
+  // Payment-Pack
+  // -----------------
   edit as editAPI,
   create as createAPI,
   fetchAllPaymentPacks as fetchAllPaymentPacksAPI,
   patch as patchAPI,
   fetchOne as fetchOneAPI,
   fetchPaymentPackList as fetchPaymentPackListAPI,
+
+  // Notifications
+  // -----------------
   updatePaymentPackNotifications as updateNotificationAPI,
   createPaymentPackNotifications as createNotificationAPI,
   fetchPaymentPackNotifications as fetchNotificationsAPI,
   deletePaymentPackNotifications as deleteNotificationAPI,
 } from './api';
+
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 import { actionTypes as types } from './types';
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 
-import type { Dispatch } from '../../state/types';
+import type { Dispatch, OptionCallback } from '../../state/types';
 
 export function fetchedAllPaymentPacks(paymentPacks: Array<PaymentPack>) {
   return { type: types.HAS_FETCHED_ALL_PAYMENT_PACKS, paymentPacks };
@@ -365,5 +371,43 @@ export function updatePackNotification(
       if (options && options.onError) options.onError();
     }
     dispatch(notificationUpdateActions.isLoading(null));
+  };
+}
+
+export const paymentPackForBookingActions = {
+  isLoading: createAction('PAYMENT_PACK/FOR_BOOKIN/IS_LOADING'),
+  error: createAction('PAYMENT_PACK/FOR_BOOKING/ERROR'),
+  success: createAction('PAYMENT_PACK/FOR_BOOKING/SUCCESS'),
+  reset: createAction('PAYMENT_PACK/FOR_BOOKING/RESET'),
+};
+
+export const resetPaymentPackForBooking = paymentPackForBookingActions.reset;
+
+export function fetchPaymentPackForBooking(
+  offer: number,
+  company: number,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(paymentPackForBookingActions.isLoading(true));
+    dispatch(paymentPackForBookingActions.error(null));
+    try {
+      const response = await fetchPaymentPackListAPI({
+        offer,
+        company,
+        manager_only: false,
+        disabled: false,
+        as_consumer: true,
+      });
+      dispatch(paymentPackForBookingActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(paymentPackForBookingActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(paymentPackForBookingActions.isLoading(null));
   };
 }

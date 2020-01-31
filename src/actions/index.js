@@ -1,5 +1,4 @@
 import * as auth from './auth.actions';
-import * as offer from './offer.actions';
 import * as stats from './stats.actions';
 import * as category from './category.actions';
 import * as invoice from './invoice.actions';
@@ -15,7 +14,6 @@ export {
   payment,
   invoice,
   auth,
-  offer,
   stats,
   category,
   search,

@@ -1,6 +1,7 @@
 // @flow
 
 import { createSelector } from 'reselect';
+import memoize from 'memoize-one';
 
 import type { State } from '../../state/types';
 import {
@@ -67,6 +68,33 @@ export const get = createSelector(
       payment_pack: packData[subscription.payment_pack],
     };
   },
+);
+
+export const withPaymentPack = memoize((selector: (State) => any) =>
+  createSelector(
+    [selector, getPaymentPackById],
+    (contracts, paymentPackData) => {
+      if (!contracts) return null;
+      if (!Array.isArray(contracts)) {
+        return {
+          ...contracts,
+          payment_pack: paymentPackData[contracts.payment_pack],
+        };
+      }
+      return contracts.map((c) => ({
+        ...c,
+        payment_pack: paymentPackData[c.payment_pack],
+      }));
+    },
+  ),
+);
+
+const _getContractForBookingIds = (state: State) =>
+  state.subscription.contract.forBooking.allIds;
+
+export const getContractForBooking = createSelector(
+  [_getContractForBookingIds, _getContractData],
+  (ids, data) => ids.map((id) => data[id]),
 );
 
 export default { get };

@@ -9,14 +9,19 @@ type Props = {
   loading: boolean,
   classes: Object,
   children: any,
+  hidePaper?: boolean,
 };
 export const PaymentContainer = (props: Props) => {
+  const Wrapper = props.hidePaper
+    ? (props_: any) => <div {...props_} />
+    : (props_: any) => <Paper className={props.classes.paper} {...props_} />;
+
   return (
     <div className={props.classes.container}>
       {props.loading ? (
         <CircularProgress className={props.classes.loading} />
       ) : (
-        <Paper className={props.classes.paper}>{props.children}</Paper>
+        <Wrapper>{props.children}</Wrapper>
       )}
     </div>
   );
@@ -33,7 +38,7 @@ const styles = (theme) => ({
     backgroundColor: '#efefef',
     overflow: 'auto',
     paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 4,
+    paddingBottom: '20vh',
   },
   paper: {
     display: 'flex',

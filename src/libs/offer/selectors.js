@@ -15,6 +15,8 @@ const getAll = (state: State) => getState(state).offers;
 
 export const getDetailedOffer = (state: State) => getState(state).retrieve.data;
 
+export const getOfferById = (state, id) => getState(state).byId[id];
+
 // this will remove the offers already ended simply
 export const todayOffers = createSelector(
   getAll,
@@ -41,19 +43,39 @@ export const _getSimilars = (state: State) => state.offer.similarOffers.items;
 export const withMetaActivity = memoize((selector: (State) => any) =>
   createSelector(
     [selector, getMetaActivitiesDict],
-    (offers, metaActivityData) =>
-      offers.map((o) => ({
+    (offers, metaActivityData) => {
+      if (!offers) return null;
+      if (!Array.isArray(offers)) {
+        return {
+          ...offers,
+          meta_activity: metaActivityData[offers.meta_activity],
+        };
+      }
+      return offers.map((o) => ({
         ...o,
         meta_activity: metaActivityData[o.meta_activity] || o.meta_activity,
-      })),
+      }));
+    },
   ),
 );
 
 export const withEstablishment = memoize((selector: (State) => any) =>
   createSelector(
     [selector, getAllEstablishmentsDict],
-    (offers, establishmentData) =>
-      offers
+    (offers, establishmentData) => {
+      if (!offers) return null;
+      if (!Array.isArray(offers)) {
+        return {
+          ...offers,
+          establishment_override: offers.establishment_override
+            ? establishmentData[offers.establishment_override] ||
+              offers.establishment_override
+            : null,
+          establishment: establishmentData[offers.establishment],
+        };
+      }
+
+      return offers
         .filter((o) => !!o)
         .map((o) => ({
           ...o,
@@ -62,21 +84,33 @@ export const withEstablishment = memoize((selector: (State) => any) =>
               o.establishment_override
             : null,
           establishment: establishmentData[o.establishment] || o.establishment,
-        })),
+        }));
+    },
   ),
 );
 
 export const withCoach = memoize((selector: (State) => any) =>
   createSelector(
     [selector, getAllCoachesDict],
-    (offers, coachData) =>
-      offers.map((o) => ({
+    (offers, coachData) => {
+      if (!offers) return null;
+      if (!Array.isArray(offers)) {
+        return {
+          ...offers,
+          coach: coachData[offers.coach] || offers.coach,
+          coach_override: offers.coach_override
+            ? coachData[offers.coach_override]
+            : null,
+        };
+      }
+      return offers.map((o) => ({
         ...o,
         coach: coachData[o.coach] || o.coach,
         coach_override: o.coach_override
           ? coachData[o.coach_override] || o.coach_override
           : null,
-      })),
+      }));
+    },
   ),
 );
 

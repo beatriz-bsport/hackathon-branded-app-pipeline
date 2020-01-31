@@ -79,8 +79,8 @@ export class RecursionToogle extends Component<Props, State> {
             <List component="nav">
               {(similarOffers || []).map((so) => (
                 <OfferListItem
-                  offer={{
-                    ...so,
+                  offer={so}
+                  editing_parameters={{
                     new_date_start: moment(so.date_start).add(
                       this.props.dateTimeDiff,
                       'milliseconds',

@@ -26,7 +26,7 @@ import {
 } from '../../libs/offer/selectors';
 import { DATE_FORMAT } from '../../datetime';
 import withTitle from '../../hocs/with-title.hoc';
-import { fetchMarketplaceOfferList as fetchOfferListAction } from '../../actions/offer.actions';
+import { fetchMarketplaceOfferList as fetchOfferListAction } from '../../libs/offer/actions';
 
 import { getPaymentComboListAvailableOnline } from '../../libs/payment-combo/selectors';
 import type { PaymentCombo } from '../../libs/payment-combo/types';

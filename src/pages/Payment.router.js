@@ -18,7 +18,10 @@ import { fetchOne as fetchPaymentPack } from '../libs/payment-packs/actions';
 import parse from '../query-string';
 
 const OfferPaymentPage = asyncComponent(() =>
-  import('./payment/OfferPayment.page'),
+  import('./payment/OfferBooking.page'),
+);
+const OfferBookingPage = asyncComponent(() =>
+  import('./payment/OfferBooking.page'),
 );
 const PaymentPackPreCheckout = asyncComponent(() =>
   import('./checkout/pre-checkout/PaymentPackPreCheckout.page'),
@@ -133,6 +136,10 @@ export class PaymentRouter extends React.Component<Props> {
         <Route
           path="/(|customer/)payment/offer/:id"
           component={OfferPaymentPage}
+        />
+        <Route
+          path="/(|customer/)payment/offer_/:id"
+          component={OfferBookingPage}
         />
         <Route
           path="/(|customer/)payment/pass/:id"

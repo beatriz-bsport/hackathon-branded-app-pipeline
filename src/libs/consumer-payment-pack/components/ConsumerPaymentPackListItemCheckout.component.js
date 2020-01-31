@@ -1,30 +1,25 @@
 // @flow
 
 import React, { Component } from 'react';
-
+import { compose, withState } from 'recompose';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import type { ConsumerPaymentPackConsumerView } from '../../../api/types';
-import ConsumerPackRowItem from '../../../libs/consumer-payment-pack/components/ConsumerPackRowItem.component';
+import ConsumerPackRowItem from './ConsumerPackRowItem.component';
 
 type Props = {
   onBookFromPack: () => void,
   consumerPack: ConsumerPaymentPackConsumerView,
   creditPrice: number,
   t: TFunction,
-};
-
-type State = {
   processing: boolean,
+  setProcessing: (boolean) => void,
+  divider?: boolean,
 };
 
-export class ConsumerPackCheckout extends Component<Props, State> {
-  state = {
-    processing: false,
-  };
-
+export class ConsumerPaymentPackListItemCheckout extends Component<Props> {
   getBuyText = () => {
     const { consumerPack, t, creditPrice } = this.props;
     if (consumerPack.payment_pack.unlimited) {
@@ -35,12 +30,11 @@ export class ConsumerPackCheckout extends Component<Props, State> {
   };
 
   renderButton = () => {
-    const { processing } = this.state;
-    if (processing) {
+    const { t, processing, consumerPack, creditPrice } = this.props;
+    if (processing || !consumerPack.payment_pack) {
       return <CircularProgress />;
     }
 
-    const { t, consumerPack, creditPrice } = this.props;
     const {
       payment_pack,
       available_credits,
@@ -66,7 +60,14 @@ export class ConsumerPackCheckout extends Component<Props, State> {
       <Button
         variant="contained"
         color="primary"
-        onClick={this.props.onBookFromPack}
+        onClick={() => {
+          this.props.setProcessing(true);
+          this.props.onBookFromPack({
+            onSuccess: () => this.props.setProcessing(false),
+            onError: () => this.props.setProcessing(false),
+          });
+        }}
+        disabled={processing}
         id={`btn-payment-pack-user-${consumerPack.id}`}
       >
         {buyButtonText}
@@ -78,7 +79,7 @@ export class ConsumerPackCheckout extends Component<Props, State> {
     return (
       <ConsumerPackRowItem
         hideConsumer
-        noDivider
+        noDivider={!this.props.divider}
         consumerPack={this.props.consumerPack}
         paymentPack={this.props.consumerPack.payment_pack}
         button={this.renderButton()}
@@ -87,4 +88,7 @@ export class ConsumerPackCheckout extends Component<Props, State> {
   }
 }
 
-export default withNamespaces()(ConsumerPackCheckout);
+export default compose(
+  withNamespaces(),
+  withState('processing', 'setProcessing', false),
+)(ConsumerPaymentPackListItemCheckout);

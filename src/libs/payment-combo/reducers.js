@@ -9,6 +9,7 @@ import {
   paymentComboCreateOrUpdateActions,
   paymentComboRetrieveActions,
   paymentComboPurchaseListActions,
+  paymentComboForBookingActions,
 } from './actions';
 
 import type { PaymentComboState } from './types';
@@ -28,10 +29,36 @@ const initialState: PaymentComboState = Immutable({
     error: null,
     count: 0,
   },
+  forBooking: {
+    loading: false,
+    error: null,
+    allIds: [],
+  },
 });
 
 export default handleActions(
   {
+    [paymentComboForBookingActions.success]: (state, { payload }) => {
+      return state
+        .set(
+          'byId',
+          payload.reduce((acc, ps) => {
+            acc[ps.id] = ps;
+            return acc;
+          }, {}),
+        )
+        .setIn(['forBooking', 'allIds'], payload.map((pc) => pc.id));
+    },
+
+    [paymentComboForBookingActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['forBooking', 'loading'], payload);
+    },
+    [paymentComboForBookingActions.reset]: (state) => {
+      return state.setIn(['forBooking', 'allIds'], []);
+    },
+    [paymentComboForBookingActions.error]: (state, { payload }) => {
+      return state.setIn(['forBooking', 'error'], payload);
+    },
     [paymentComboListActions.isLoading]: (state, { payload }) => {
       return state.set('loading', payload);
     },

@@ -7,10 +7,12 @@ import {
   buildUrlParams,
 } from '../../http';
 
-export async function fetchByOfferByMember(offerId: number, memberId: number) {
+export async function fetchByOfferByMember(offer, data: any = {}) {
   return postAuth(
-    `${API_V1_URI}/payment-pack/consumer-payment-pack/compatible_with_offer/?member=${memberId}`,
-    { offer: offerId },
+    `${API_V1_URI}/payment-pack/consumer-payment-pack/compatible_with_offer/${buildUrlParams(
+      data,
+    )}`,
+    { offer },
   );
 }
 

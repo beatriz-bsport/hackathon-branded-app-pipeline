@@ -18,6 +18,7 @@ type Props = {
   t: TFunction,
   onClick: (offerId: number) => void,
   classes: Object,
+  editing_parameters?: any,
 };
 
 export const OfferListItem = (props: Props) => {
@@ -37,7 +38,9 @@ export const OfferListItem = (props: Props) => {
         primary={
           <div>
             <Typography inline>
-              {offer && offer.meta_activity ? offer.meta_activity.name : ''}
+              {offer && offer.meta_activity
+                ? offer.meta_activity.name
+                : offer.name}
             </Typography>
             <Level
               noStyle
@@ -57,24 +60,30 @@ export const OfferListItem = (props: Props) => {
             : ''
         }
       />
-      <div>
-        <Typography
-          variant="caption"
-          color="textSecondary"
-          className={props.classes.inline}
-        >
-          <div className={props.classes.text}>{props.t('forms.old_date')}</div>
-          {formatAsDatetime(offer.date_start)}
-        </Typography>
-        <Typography
-          variant="caption"
-          color="textSecondary"
-          className={props.classes.inline}
-        >
-          <div className={props.classes.text}>{props.t('forms.new_date')}</div>
-          {formatAsDatetime(offer.new_date_start)}
-        </Typography>
-      </div>
+      {props.editing_parameters ? (
+        <div>
+          <Typography
+            variant="caption"
+            color="textSecondary"
+            className={props.classes.inline}
+          >
+            <div className={props.classes.text}>
+              {props.t('forms.old_date')}
+            </div>
+            {formatAsDatetime(offer.date_start)}
+          </Typography>
+          <Typography
+            variant="caption"
+            color="textSecondary"
+            className={props.classes.inline}
+          >
+            <div className={props.classes.text}>
+              {props.t('forms.new_date')}
+            </div>
+            {formatAsDatetime(props.editing_parameters.new_date_start)}
+          </Typography>
+        </div>
+      ) : null}
     </ListItem>
   );
 };

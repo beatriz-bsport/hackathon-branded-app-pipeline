@@ -10,6 +10,7 @@ import {
   configurationDetail,
   configurationUpdate,
   asConsumerActions,
+  forBookingActions,
 } from './actions';
 
 import type { WaitingListState } from './types';
@@ -17,11 +18,17 @@ import type { WaitingListState } from './types';
 const initialState: WaitingListState = Immutable({
   option: {
     items: [],
+    byId: {},
     loading: false,
     error: null,
     register: {
       loading: false,
       error: null,
+    },
+    forBooking: {
+      loading: false,
+      error: null,
+      allIds: [],
     },
     discard: {
       loading: false,
@@ -74,6 +81,27 @@ export default handleActions(
     },
     [asConsumerActions.success]: (state, { payload }) => {
       return state.setIn(['option', 'items'], payload);
+    },
+    [forBookingActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['option', 'forBooking', 'loading'], payload);
+    },
+    [forBookingActions.reset]: (state) => {
+      return state.setIn(['option', 'forBooking', 'allIds'], []);
+    },
+    [forBookingActions.error]: (state, { payload }) => {
+      return state.setIn(['option', 'forBooking', 'error'], payload);
+    },
+    [forBookingActions.success]: (state, { payload }) => {
+      return state
+        .setIn(['option', 'forBooking', 'allIds'], payload.map((bo) => bo.id))
+        .merge(
+          {
+            option: {
+              byId: payload.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
+            },
+          },
+          { deep: true },
+        );
     },
 
     [byOfferActions.isLoading]: (state, { payload }) => {

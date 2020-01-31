@@ -13,7 +13,10 @@ import withTitle from '../../hocs/with-title.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 
-import { offer as offerActions } from '../../actions';
+import {
+  fetchOffersByDay as fetchOffersByDayAction,
+  fetchEstablishmentEvents as fetchEstablishmentEventsAction,
+} from '../../libs/offer/actions';
 import EstablishmentDetail from '../../libs/establishment/components/EstablishmentDetail.component';
 import EstablishmentDeleteDialog from '../../libs/establishment/components/EstablishmentDeleteDialog.component';
 import {
@@ -115,11 +118,11 @@ export default compose(
       fetchEstablishmentBulk,
       startUpdateEstablishment: (id: number) =>
         push(`/establishment/edit/${id}`),
-      fetchOffersByDay: offerActions.fetchOffersByDay,
+      fetchOffersByDay: fetchOffersByDayAction,
       goToOffer: (offerId: number) => push(`/offer/${offerId}`),
       goToList: () => push('/establishment'),
       deleteEstablishment,
-      fetchEstablishmentEvents: offerActions.fetchEstablishmentEvents,
+      fetchEstablishmentEvents: fetchEstablishmentEventsAction,
     },
   ),
   withProps(({ fetchOffersByDay, fetchEstablishmentEvents, id }) => ({

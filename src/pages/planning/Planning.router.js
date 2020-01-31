@@ -9,7 +9,7 @@ import Planning from './Planning.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { Moment } from '../../i18n';
 
-import { offer as offerActions } from '../../actions';
+import { fetchOffersByDay as fetchOffersByDayAction } from '../../libs/offer/actions';
 import {
   getManagerOffersFiltered,
   withMetaActivity,
@@ -60,7 +60,7 @@ const PlanningWithDateAndOffer = compose(
     }),
 
     {
-      fetchOffersByDay: offerActions.fetchOffersByDay,
+      fetchOffersByDay: fetchOffersByDayAction,
       pushRouter: push,
       replaceRouter: replace,
       fetchCoachBulk: fetchCoachBulkAction,

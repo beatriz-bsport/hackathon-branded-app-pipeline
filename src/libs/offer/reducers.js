@@ -14,8 +14,8 @@ import {
   offerMarketplaceListActions,
   offerBulkActions,
   retrieveActions,
-} from '../actions/offer.actions';
-import authActionTypes from '../actions/auth.types';
+  retrieveByIdActions,
+} from './actions';
 
 const initialState = Immutable({
   // event stuff (simplified offer objects)
@@ -53,6 +53,7 @@ const initialState = Immutable({
     open: false,
     filters: {},
   },
+
   marketplace: {
     loading: false,
     error: null,
@@ -62,7 +63,6 @@ const initialState = Immutable({
 
 export default handleActions(
   {
-    [authActionTypes.DISCONNECT]: () => initialState,
     [offersByMetaActivity.isLoading]: (state, { payload }) => {
       return state.setIn(['calendarByObject', 'loading'], payload);
     },
@@ -181,6 +181,15 @@ export default handleActions(
         },
         { deep: true },
       );
+    },
+    [retrieveByIdActions.error]: (state, { payload }) => {
+      return state.setIn(['retrieve', 'error'], payload);
+    },
+    [retrieveByIdActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['retrieve', 'loading'], payload);
+    },
+    [retrieveByIdActions.success]: (state, { payload }) => {
+      return state.setIn(['byId', payload.id], payload);
     },
   },
   initialState,

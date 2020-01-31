@@ -80,8 +80,11 @@ export const BookingConsumerItem = (props: Props) => {
         {props.goToCalendar ? (
           <Button
             onClick={props.goToCalendar}
-            variant="outlined"
+            variant={
+              props.variant === 'after_checkout' ? 'contained' : 'outlined'
+            }
             color="primary"
+            style={props.variant === 'after_checkout' ? { width: '100%' } : {}}
           >
             <TodayIcon className={classes.leftIcon} />
             {props.variant === 'after_checkout'

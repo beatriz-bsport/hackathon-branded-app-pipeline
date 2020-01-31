@@ -74,6 +74,11 @@ export type SubscriptionState = {
       loading: boolean,
       error: ?Error,
     },
+    forBooking: {
+      loading: boolean,
+      error: null,
+      allIds: Array<number>,
+    },
     byMarketplace: {
       loading: boolean,
       error: ?Error,

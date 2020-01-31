@@ -17,7 +17,7 @@ import {
   fetchBookingsByOffer as fetchBookingsByOfferAction,
   registerBooking,
 } from '../../libs/booking/actions';
-import { fetchOfferById } from '../../actions/offer.actions';
+import { fetchOfferById as fetchOfferByIdAction } from '../../libs/offer/actions';
 import memberSelectors from '../../libs/member/selectors';
 import { getOfferBookingListWithConsumerPack } from '../../libs/booking/selectors';
 import { fetchCompatiblePass } from '../../actions/payment.actions';
@@ -139,7 +139,7 @@ export default compose(
         state.payment.compatibleConsumerPacksLoading,
     }),
     {
-      fetchOfferById,
+      fetchOfferById: fetchOfferByIdAction,
       fetchFilteredMembers: fetchFilteredMembersAction,
       fetchBookingsByOfferAction,
       fetchBookingsByOffer: fetchBookingsByOfferAction,

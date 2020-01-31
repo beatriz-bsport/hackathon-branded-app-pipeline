@@ -9,8 +9,9 @@ import {
   notificationListActions,
   notificationUpdateActions,
   notificationDeleteActions,
-    fetchMarketplacePacksAction,
+  fetchMarketplacePacksAction,
   paymentPackBulkActions,
+  paymentPackForBookingActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -28,8 +29,13 @@ const initialState = Immutable({
     page: 1,
     count: 0,
   },
-  byId: {},
+  forBooking: {
     allIds: [],
+    loading: false,
+    error: null,
+  },
+  byId: {},
+  allIds: [],
   notification: {
     itemsById: {},
     loading: false,
@@ -151,6 +157,28 @@ export const newPaymentPackReducer = handleActions(
         .setIn(['byActivity', 'allIds'], [])
         .setIn(['byActivity', 'page'], 1)
         .setIn(['byActivity', 'count'], 0);
+    },
+    [paymentPackForBookingActions.reset]: (state) => {
+      return state.setIn(['forBooking', 'allIds'], []);
+    },
+    [paymentPackForBookingActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['forBooking', 'loading'], payload);
+    },
+    [paymentPackForBookingActions.error]: (state, { payload }) => {
+      return state.setIn(['forBooking', 'error'], payload);
+    },
+    [paymentPackForBookingActions.success]: (state, { payload }) => {
+      return state.merge(
+        {
+          forBooking: {
+            allIds: payload.results.map((pp) => pp.id),
+            count: payload.count,
+            page: payload.page,
+          },
+          byId: payload.results.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
+        },
+        { deep: true },
+      );
     },
     [fetchActivityCompatibleAction.isLoading]: (state, { payload }) => {
       return state.setIn(['byActivity', 'loading'], payload);

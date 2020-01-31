@@ -10,6 +10,7 @@ import {
   retrieveBulk,
   updateConsumerPack,
   byOfferByMember,
+  forBookingActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -50,6 +51,11 @@ const initialState = Immutable({
     allIds: [],
     page: 1,
     count: 0,
+  },
+  forBooking: {
+    loading: false,
+    error: null,
+    allIds: [],
   },
   byId: {},
 });
@@ -135,6 +141,28 @@ export default handleActions(
     },
     [byPaymentPack.error]: (state, { payload }) => {
       return state.setIn(['byPaymentPack', 'error'], payload);
+    },
+    [forBookingActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['forBooking', 'loading'], payload);
+    },
+    [forBookingActions.reset]: (state) => {
+      return state.setIn(['forBooking', 'allIds'], []);
+    },
+    [forBookingActions.error]: (state, { payload }) => {
+      return state.setIn(['forBooking', 'error'], payload);
+    },
+    [forBookingActions.success]: (state, { payload }) => {
+      return state
+        .setIn(['forBooking', 'allIds'], payload.map((cpp) => cpp.id))
+        .merge(
+          {
+            byId: payload.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+          { deep: true },
+        );
     },
     [byOfferByMember.isLoading]: (state, { payload }) => {
       return state.setIn(['byOfferByMember', 'loading'], payload);

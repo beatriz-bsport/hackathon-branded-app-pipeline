@@ -14,7 +14,7 @@ import Paper from '@material-ui/core/Paper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import { offer as offerActions } from '../../actions';
+import { fetchAllOffers as fetchAllOffersActions } from '../../libs/offer/actions';
 import {
   fetchAllPaymentPacks as fetchAllPaymentPacksAction,
   createOrUpdate as createOrUpdatePaymentPack,
@@ -208,7 +208,7 @@ export default compose(
       goToWorkshop: (id: number) => push(`/workshop-activity/${id}`),
       fetchPaymentPacks: fetchAllPaymentPacksAction,
       createPass: createOrUpdatePaymentPack,
-      fetchAllOffers: offerActions.fetchAllOffers,
+      fetchAllOffers: fetchAllOffersActions,
       fetchEstablishments,
       fetchAssociatedCoachesList,
     },

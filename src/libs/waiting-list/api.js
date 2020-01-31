@@ -27,7 +27,10 @@ export async function discardBookingOption(optionId: number) {
   );
 }
 
-export async function registerOptionToWaitingList(offer: number, member: number) {
+export async function registerOptionToWaitingList(
+  offer: number,
+  member: ?number,
+) {
   return postAuth(`${API_V1_URI}/waiting-list/booking-option/register/`, {
     offer,
     member,

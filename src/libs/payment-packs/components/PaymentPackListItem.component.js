@@ -13,8 +13,13 @@ import { withNamespaces } from 'react-i18next';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Tooltip from '@material-ui/core/Tooltip';
 import withStyles from '@material-ui/core/styles/withStyles';
-
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import Button from '@material-ui/core/Button';
+import moment from 'moment';
 import type { TFunction } from 'react-i18next';
+
+import { formatAsDate } from '../../../datetime';
+
 import type { PaymentPack } from '../types';
 
 type Props = {
@@ -33,6 +38,9 @@ const styles = (theme) => ({
     backgroundColor: theme.palette.common.white,
     fontSize: 11,
   },
+  bookButton: {
+    marginRight: theme.spacing.unit,
+  },
 });
 
 export default withStyles(styles)(
@@ -43,6 +51,25 @@ export default withStyles(styles)(
           <CircularProgress />
         </ListItem>
       );
+    }
+    let dateInfo = '';
+    const {
+      validity_daterange,
+      duration_days,
+      duration_months,
+      duration_years,
+    } = props.pack;
+    if (duration_days || duration_months || duration_years) {
+      dateInfo = props.t('paymentPack.validForDuration')(
+        duration_days,
+        duration_months,
+        duration_years,
+      );
+    }
+    if (validity_daterange) {
+      dateInfo = `${props.t('paymentPack.validity')} ${formatAsDate(
+        moment(JSON.parse(validity_daterange).lower),
+      )} - ${formatAsDate(moment(JSON.parse(validity_daterange).upper))}`;
     }
     return (
       <ListItem
@@ -77,7 +104,7 @@ export default withStyles(styles)(
               : props.t('paymentPack.specifications.unlimitedCredits')
           } - ${props.t('paymentPack.specifications.price', {
             price: props.pack.price,
-          })}`}
+          })}${props.showDuration ? ` - ${dateInfo}` : ''}`}
         />
         {props.onEdit && props.onDelete ? (
           <div style={{ display: 'flex', flexDirection: 'row' }}>
@@ -130,6 +157,18 @@ export default withStyles(styles)(
             <IconButton onClick={props.onEdit}>
               <EditIcon />
             </IconButton>
+          </ListItemSecondaryAction>
+        ) : null}
+        {props.onBook ? (
+          <ListItemSecondaryAction>
+            <Button
+              className={props.classes.bookButton}
+              variant="contained"
+              color="primary"
+              onClick={props.onBook}
+            >
+              <AddShoppingCartIcon />
+            </Button>
           </ListItemSecondaryAction>
         ) : null}
       </ListItem>

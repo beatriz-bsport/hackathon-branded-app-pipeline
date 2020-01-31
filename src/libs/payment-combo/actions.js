@@ -10,7 +10,7 @@ import {
   deletePaymentCombo as deletePaymentComboAPI,
 } from './api';
 
-import type { Dispatch, ThunkAction } from '../../state/types';
+import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 import type { PaymentComboPayload } from './types';
 
 export const paymentComboListActions = {
@@ -139,5 +139,43 @@ export function fetchPaymentComboPurchaseList(
     }
 
     dispatch(paymentComboPurchaseListActions.isLoading(false));
+  };
+}
+
+export const paymentComboForBookingActions = {
+  error: createAction('PAYMENT_COMBO_PURCHASE/FOR_BOOKING/ERROR'),
+  isLoading: createAction('PAYMENT_COMBO_PURCHASE/FOR_BOOKING/IS_LOADING'),
+  success: createAction('PAYMENT_COMBO_PURCHASE/FOR_BOOKING/SUCCESS'),
+  reset: createAction('PAYMENT_COMBO_PURCHASE/FOR_BOOKING/RESET'),
+};
+
+export const resetPaymentComboForBooking = paymentComboForBookingActions.reset;
+
+export function fetchPaymentComboForBooking(
+  company: number,
+  offer: number,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(paymentComboForBookingActions.isLoading(true));
+    dispatch(paymentComboForBookingActions.error(null));
+
+    try {
+      const response = await fetchPaymentComboListAPI({
+        manager_only: false,
+        available: true,
+        company,
+        offer,
+      });
+      dispatch(paymentComboForBookingActions.success(response.data));
+      dispatch(paymentComboForBookingActions.error(null));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      console.error(error);
+      dispatch(paymentComboForBookingActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+
+    dispatch(paymentComboForBookingActions.isLoading(false));
   };
 }

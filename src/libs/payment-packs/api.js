@@ -59,6 +59,10 @@ export async function fetchCompanyPaymentPacks(companyId) {
   );
 }
 
+// BEGIN Notification
+//
+//  --------------------
+
 export async function fetchPaymentPackNotifications(paymentPackId: number) {
   return getAuth(
     `${API_V1_URI}/payment-pack/notification/?payment_pack=${paymentPackId}`,
@@ -76,6 +80,10 @@ export async function deletePaymentPackNotifications(id: number) {
 export async function updatePaymentPackNotifications(data: any) {
   return patchAuth(`${API_V1_URI}/payment-pack/notification/${data.id}/`, data);
 }
+
+//  --------------------
+//
+// END Notification
 
 export default {
   fetchAll: fetchAllPaymentPacks,

@@ -3,7 +3,6 @@
 import { combineReducers } from 'redux';
 
 import authReducers from './auth';
-import offerReducers from './offer';
 import statsReducers from './stats';
 import categoryReducers from './category';
 import invoiceReducers from './invoice';
@@ -44,6 +43,7 @@ import consumerPaymentPackReducers from '../libs/consumer-payment-pack/reducers'
 import reminder from '../libs/reminder/reducers';
 import membership from '../libs/membership/reducers';
 import company from '../libs/company/reducers';
+import offer from '../libs/offer/reducers';
 
 import type { State, Action } from '../state/types';
 
@@ -58,7 +58,6 @@ const rootReducer = combineReducers({
   consumer: consumerReducers,
   auth: authReducers,
   establishment: establishmentReducers,
-  offer: offerReducers,
   booking: bookingReducers,
   metaActivity: metaActivityReducers,
   stats: statsReducers,
@@ -93,6 +92,7 @@ const rootReducer = combineReducers({
   reminder,
   membership,
   company,
+  offer,
 });
 
 export default (state: State, action: Action) => {

@@ -8,7 +8,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import { offer as offerActions } from '../../actions';
 import type { Offer, MetaActivity as MetaActivityType } from '../../api/types';
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -23,7 +22,11 @@ import {
   withCoach,
   getOffersByDay,
 } from '../../libs/offer/selectors';
-import { fetchMetaActivityOffers as fetchMetaActivityOffersAction } from '../../actions/offer.actions';
+
+import {
+  fetchOffersByDay as fetchOffersByDayActions,
+  fetchMetaActivityOffers as fetchMetaActivityOffersAction,
+} from '../../libs/offer/actions';
 import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '../../libs/meta-activity/api/common';
 
 type Props = {
@@ -127,7 +130,7 @@ export default compose(
       offersLoading: state.offer.byDay.loading,
     }),
     {
-      fetchOffersByDay: offerActions.fetchOffersByDay,
+      fetchOffersByDay: fetchOffersByDayActions,
       fetchMetaActivityOffers: fetchMetaActivityOffersAction,
       push: routerPush,
       deleteMetaActivity,

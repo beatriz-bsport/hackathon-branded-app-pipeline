@@ -18,6 +18,10 @@ export default {
       success: 'Montant mis à jour',
       error: 'Impossible de modifier ce montant',
     },
+    youSubscribed: {
+      error: "Erreur lors de l'abonnement",
+      success: 'Vous êtes désormais abonné',
+    },
   },
   table: {
     noContent: 'Aucune souscription enregistrée',

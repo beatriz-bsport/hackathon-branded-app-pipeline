@@ -6,6 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
+import Fab from '@material-ui/core/Fab';
 import type { TFunction } from 'react-i18next';
 
 import { compose, pure, withState, withProps } from 'recompose';
@@ -18,20 +19,33 @@ type Props = {
   code: string,
 };
 
-export const CouponCodeForm = (props: Props) => (
-  <div className={props.classes.container}>
+export const CouponCodeForm = (props: Props) => {
+  const AddButton = props.code ? (
+    <Fab
+      className={props.classes.iconButton}
+      color="primary"
+      onClick={props.submitCode}
+    >
+      <AddIcon />
+    </Fab>
+  ) : (
     <IconButton className={props.classes.iconButton} onClick={props.submitCode}>
       <AddIcon />
     </IconButton>
-    <TextField
-      onChange={props.handleChange}
-      value={props.code}
-      variant="outlined"
-      placeholder={props.t('code.addCoupon.placeholder')}
-      label={props.t('code.addCoupon.label')}
-    />
-  </div>
-);
+  );
+  return (
+    <div className={props.classes.container}>
+      {AddButton}
+      <TextField
+        onChange={props.handleChange}
+        value={props.code}
+        variant="outlined"
+        placeholder={props.t('code.addCoupon.placeholder')}
+        label={props.t('code.addCoupon.label')}
+      />
+    </div>
+  );
+};
 
 const styles = (theme) => ({
   container: {

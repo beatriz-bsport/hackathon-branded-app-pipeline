@@ -26,8 +26,8 @@ import { colors } from '@bsport/common/lib/colors';
 import Map from '../../../components/map/Map.component';
 import TypographyMultiline from '../../../components/TypographyMultiline.component';
 
-import ConsumerPackCheckout from '../../../pages/payment/offer/ConsumerPackCheckout.component';
-import PaymentComboBuyableItem from '../../../pages/payment/offer/PaymentComboBuyableItem.component';
+import ConsumerPackCheckout from '../../consumer-payment-pack/components/ConsumerPaymentPackListItemCheckout.component';
+import PaymentComboBuyableItem from '../../payment-combo/components/PaymentComboBuyableItem.component';
 import PaymentPackSummary from '../../../components/payment-pack/PaymentPackSummary.component';
 
 import { isOfferInThePast } from '../utils';
@@ -237,6 +237,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
                     key={p.id}
                     offerId={offer.id}
                     consumerPack={p}
+                    divider
                     onBookFromPack={() => this.props.onBookFromPack(p.id)}
                   />
                 ))}

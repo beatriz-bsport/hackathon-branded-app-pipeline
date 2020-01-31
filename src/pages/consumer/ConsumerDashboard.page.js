@@ -30,7 +30,7 @@ import {
   fetchConsumerDashboardBookingList as fetchConsumerDashboardBookingListAction,
   cancelBooking as cancelBookingAction,
 } from '../../libs/booking/actions';
-import { fetchOfferBulk as fetchOfferBulkAction } from '../../actions/offer.actions';
+import { fetchOfferBulk as fetchOfferBulkAction } from '../../libs/offer/actions';
 import {
   fetchEstablishmentFavorite,
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,

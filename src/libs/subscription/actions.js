@@ -399,3 +399,42 @@ export function switchSubscriptionPaymentMethod(
     dispatch(switchPaymentMethodActions.isLoading(false));
   };
 }
+
+export const subscriptionForBookingActions = {
+  error: createAction('SUBSCRIPTION/FOR_BOOKING/ERROR'),
+  isLoading: createAction('SUBSCRIPTION/FOR_BOOKING/IS_LOADING'),
+  success: createAction('SUBSCRIPTION/FOR_BOOKING/SUCCESS'),
+  reset: createAction('SUBSCRIPTION/FOR_BOOKING/RESET'),
+};
+
+export const resetContractForBooking = subscriptionForBookingActions.reset;
+
+export function fetchContractForBooking(
+  offer: number,
+  company: number,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(subscriptionForBookingActions.isLoading(true));
+    dispatch(subscriptionForBookingActions.error(null));
+
+    try {
+      const response = await api.fetchContractList({
+        offer,
+        company,
+        manager_only: false,
+      });
+      dispatch(subscriptionForBookingActions.success(response.data));
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      dispatch(subscriptionForBookingActions.error(error));
+      console.error(error);
+      if (options && options.onError) options.onError(error);
+    }
+
+    dispatch(subscriptionForBookingActions.isLoading(false));
+  };
+}

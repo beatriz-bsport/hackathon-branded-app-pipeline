@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { goBack as goBackAction } from 'react-router-redux';
 
-import { offer as offerActions } from '../actions';
+import { fetchAllOffers as fetchAllOffersAction } from '../libs/offer/actions';
 import type { Coach, MetaActivity, Establishment } from '../api/types';
 import withTitle from '../hocs/with-title.hoc';
 
@@ -126,7 +126,7 @@ export default withNamespaces()(
     {
       fetchEstablishments,
       fetchAssociatedCoachesList,
-      fetchAllOffers: offerActions.fetchAllOffers,
+      fetchAllOffers: fetchAllOffersAction,
       goBack: goBackAction,
     },
   )(

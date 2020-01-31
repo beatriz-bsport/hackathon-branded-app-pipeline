@@ -1,8 +1,17 @@
 // @flow
 
 import { createAction } from 'redux-actions';
-import api from '../api';
-import type { Dispatch, OptionCallback } from '../state/types';
+import {
+  retrieveOffer as retrieveOfferAPI,
+  fetchSimilarOffers as fetchSimilarOffersAPI,
+  fetchAllEvents as fetchAllEventsAPI,
+  fetchCompatiblePacks as fetchCompatiblePacksAPI,
+  fetchOffersByDay as fetchOffersByDayAPI,
+  fetchById as fetchByIdAPI,
+  toogleWaitingListFreeze as toogleWaitingListFreezeAPI,
+  fetchOffersList as fetchOffersListAPI,
+} from './api';
+import type { Dispatch, OptionCallback } from '../../state/types';
 
 export const similarOffers = {
   isLoading: createAction('OFFERS/SIMILAR/IS_LOADING'),
@@ -16,7 +25,7 @@ export function fetchSimilarOffers(offerId: number) {
     dispatch(similarOffers.error(null));
     dispatch(similarOffers.success([]));
     try {
-      const response = await api.offer.fetchSimilarOffers(offerId);
+      const response = await fetchSimilarOffersAPI(offerId);
       dispatch(similarOffers.success(response.data));
     } catch (error) {
       dispatch(similarOffers.error(error));
@@ -51,7 +60,7 @@ export function fetchMetaActivityOffers(id: number, params: any = {}) {
     dispatch(offersByMetaActivity.error(null));
 
     try {
-      const response = await api.offer.fetchAllEvents({
+      const response = await fetchAllEventsAPI({
         meta_activity: id,
         ...params,
       });
@@ -75,7 +84,7 @@ export function fetchEstablishmentEvents(id: number, params: any = {}) {
     dispatch(offersByEstablishment.error(null));
 
     try {
-      const response = await api.offer.fetchAllEvents({
+      const response = await fetchAllEventsAPI({
         establishment: id,
         ...params,
       });
@@ -93,7 +102,7 @@ export function fetchAllOffers(params: any) {
     dispatch(offers.error(null));
 
     try {
-      const response = await api.offer.fetchAllEvents(params);
+      const response = await fetchAllEventsAPI(params);
       dispatch(offers.success(response.data));
     } catch (err) {
       dispatch(offers.error(err));
@@ -115,7 +124,7 @@ export function fetchCompatiblePacks(offerId: number) {
     dispatch(compatiblePacks.success([]));
 
     try {
-      const response = await api.offer.fetchCompatiblePacks(offerId);
+      const response = await fetchCompatiblePacksAPI(offerId);
       dispatch(compatiblePacks.success(response.data));
     } catch (error) {
       dispatch(compatiblePacks.error(error));
@@ -138,12 +147,12 @@ export function refreshOffersByDay(
     month: number,
     day: number,
   },
-  options,
+  options: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(offerByDay.error(null));
     try {
-      const response = await api.offer.fetchOffersByDay({
+      const response = await fetchOffersByDayAPI({
         date: `${day.year}-${day.month < 10 ? `0${day.month}` : day.month}-${
           day.day < 10 ? `0${day.day}` : day.day
         }`,
@@ -164,7 +173,7 @@ export function fetchOffersByDay(
     month: number,
     day: number,
   },
-  options,
+  options: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(offerByDay.isLoading(true));
@@ -184,7 +193,7 @@ export function fetchOfferById(id: number, options: OptionCallback) {
     dispatch(retrieveActions.error(null));
 
     try {
-      const response = await api.offer.fetchById(id);
+      const response = await fetchByIdAPI(id);
       dispatch(retrieveActions.success(response.data));
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
@@ -210,10 +219,7 @@ export function toogleWaitingListFreeze(
     dispatch(offerWaitingListActions.isLoading(true));
     dispatch(offerWaitingListActions.error(null));
     try {
-      const offer = await api.offer.toogleWaitingListFreeze(
-        offerId,
-        newFreezeState,
-      );
+      const offer = await toogleWaitingListFreezeAPI(offerId, newFreezeState);
       dispatch(offerWaitingListActions.success(offer));
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
@@ -235,7 +241,7 @@ export function toogleFilter() {
   };
 }
 
-export function setFilters(filters) {
+export function setFilters(filters: any) {
   return async (dispatch: Dispatch) => {
     dispatch(offersFilterActions.setFilters(filters));
   };
@@ -247,7 +253,10 @@ export const offerMarketplaceListActions = {
   success: createAction('OFFER/MARKETPLACE/SUCCESS'),
 };
 
-export function fetchMarketplaceOfferList(params, options) {
+export function fetchMarketplaceOfferList(
+  params: any,
+  options: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(offerMarketplaceListActions.error(null));
     dispatch(offerMarketplaceListActions.isLoading(true));
@@ -271,7 +280,7 @@ export function fetchMarketplaceOfferList(params, options) {
       }
       // eslint-disable-next-line
       delete params.filters;
-      const response = await api.offer.fetchOffersList({
+      const response = await fetchOffersListAPI({
         ...params,
         ...filterData,
       });
@@ -302,7 +311,7 @@ export function fetchOfferBulk(ids: Array<number>, options: OptionCallback) {
     dispatch(offerBulkActions.isLoading(true));
 
     try {
-      const response = await api.offer.fetchOffersList({
+      const response = await fetchOffersListAPI({
         id__in: ids,
       });
       dispatch(offerBulkActions.success(response.data.results));
@@ -316,5 +325,29 @@ export function fetchOfferBulk(ids: Array<number>, options: OptionCallback) {
     }
 
     dispatch(offerBulkActions.isLoading(false));
+  };
+}
+
+export const retrieveByIdActions = {
+  success: createAction('OFFER/RETRIEVE_BY_ID/SUCCESS'),
+  error: createAction('OFFER/RETRIEVE_BY_ID/ERROR'),
+  isLoading: createAction('OFFER/RETRIEVE_BY_ID/IS_LOADING'),
+};
+
+export function retrieveOffer(id: number, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrieveByIdActions.isLoading(true));
+    dispatch(retrieveByIdActions.error(null));
+
+    try {
+      const response = await retrieveOfferAPI(id);
+      dispatch(retrieveByIdActions.success(response.data));
+
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(retrieveByIdActions.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(retrieveByIdActions.isLoading(false));
   };
 }

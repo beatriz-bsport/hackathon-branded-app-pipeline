@@ -18,7 +18,7 @@ import {
   fetchBookingsByMember as fetchBookingsByMemberAction,
   retrieveBooking,
 } from '../../libs/booking/actions';
-import { fetchOfferById as fetchOfferByIdAction } from '../../actions/offer.actions';
+import { fetchOfferById as fetchOfferByIdAction } from '../../libs/offer/actions';
 
 import { getDetailedOffer } from '../../libs/offer/selectors';
 

@@ -40,7 +40,7 @@ import type {
   MetaActivity,
 } from '../../libs/marketplace/types';
 
-import { fetchMarketplaceOfferList as fetchOfferListAction } from '../../actions/offer.actions';
+import { fetchMarketplaceOfferList as fetchOfferListAction } from '../../libs/offer/actions';
 import {
   getMarketplaceOfferList,
   withMetaActivity,

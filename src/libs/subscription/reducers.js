@@ -6,6 +6,7 @@ import { handleActions } from 'redux-actions';
 import {
   detailActions,
   contractListActions,
+  subscriptionForBookingActions,
   contractCreateOrUpdateActions,
   contractMarketplaceListActions,
   stopActions,
@@ -70,11 +71,37 @@ const initialState: SubscriptionState = Immutable({
       error: null,
       allIds: [],
     },
+    forBooking: {
+      loading: false,
+      error: null,
+      allIds: [],
+    },
   },
 });
 
 export default handleActions(
   {
+    [subscriptionForBookingActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['contract', 'forBooking', 'loading'], payload);
+    },
+    [subscriptionForBookingActions.error]: (state, { payload }) => {
+      return state.setIn(['contract', 'forBooking', 'error'], payload);
+    },
+    [subscriptionForBookingActions.reset]: (state) => {
+      return state.setIn(['contract', 'forBooking', 'allIds'], []);
+    },
+    [subscriptionForBookingActions.success]: (state, { payload }) => {
+      return state
+        .merge(
+          {
+            contract: {
+              byId: payload.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
+            },
+          },
+          { deep: true },
+        )
+        .setIn(['contract', 'forBooking', 'allIds'], payload.map((c) => c.id));
+    },
     [switchPaymentMethodActions.isLoading]: (state, { payload }) => {
       return state.setIn(['switchPaymentMethod', 'loading'], payload);
     },

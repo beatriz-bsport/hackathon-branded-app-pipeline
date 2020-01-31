@@ -48,3 +48,11 @@ export const getPaymentComboPurchaseListByCombo: (
     (purchase) =>
       purchase.payment_combo && purchase.payment_combo.id === paymentComboId,
   );
+
+const _getForBookingIds = (state: State) =>
+  state.paymentCombo.forBooking.allIds;
+
+export const getPaymentComboForBooking = createSelector(
+  [_getForBookingIds, getPaymenComboDataDict],
+  (ids, data) => ids.map((id) => data[id]),
+);

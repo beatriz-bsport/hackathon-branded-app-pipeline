@@ -11,7 +11,7 @@ import { compose, withState } from 'recompose';
 import Button from '@material-ui/core/Button';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
-import ConsumerPackCheckout from '../../../pages/payment/offer/ConsumerPackCheckout.component';
+import ConsumerPackCheckout from '../../consumer-payment-pack/components/ConsumerPaymentPackListItemCheckout.component';
 import MemberSearchModal from '../../member/components/MemberSearchModal.component';
 import { anonymizeEmail } from '../../member/utils';
 

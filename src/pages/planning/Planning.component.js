@@ -39,9 +39,20 @@ import { getAllEstablishments } from '../../libs/establishment/selectors';
 import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
 import type { Establishment } from '../../libs/establishment/types';
 
-import { offer as offerActions } from '../../actions';
+import {
+  fetchAllOffers as fetchAllOffersAction,
+  deleteOffer as deleteOfferAction,
+  fetchSimilarOffers as fetchSimilarOffersAction,
+  setFilters as setFiltersAction,
+  toogleFilter as toogleFilterAction,
+} from '../../libs/offer/actions';
+import {
+  editLiveOffer as editLiveOfferAPI,
+  disableOffer as disableOfferAPI,
+  deleteOffer as deleteOfferAPI,
+} from '../../libs/offer/api';
+
 import type { Offer, Coach } from '../../api/types';
-import api from '../../api';
 import type { OfferFilter } from '../../libs/offer/types';
 
 import { snackbarSuccess } from '../../actions/snackbar.actions';
@@ -236,7 +247,7 @@ export class Planning extends PureComponent<Props, State> {
   onConfirmModal = async ({ offerId, data }) => {
     this.setState({ editOfferProcessing: true });
     try {
-      const response = await api.offer.editLiveOffer({ offerId, data });
+      const response = await editLiveOfferAPI({ offerId, data });
       if (response.status === 200) {
         this.fetchRelevantOffers();
         this.setState({
@@ -261,7 +272,7 @@ export class Planning extends PureComponent<Props, State> {
     this.setState({ deletingOffer: true });
     try {
       const { notify, cashback, deleteAll, offerId } = data;
-      const response = await api.offer.disableOffer({
+      const response = await disableOfferAPI({
         offerId,
         cashback,
         notify,
@@ -283,10 +294,10 @@ export class Planning extends PureComponent<Props, State> {
     this.setState({ deletingOffer: false });
   };
 
-  onHardDeleteOffer = async (offerId: number, data) => {
+  onHardDeleteOffer = async (offerId: number, data: any) => {
     this.setState({ deletingOffer: true });
     try {
-      const response = await api.offer.delete(offerId, data);
+      const response = await deleteOfferAPI(offerId, data);
       if (response.status === 204) {
         this.fetchRelevantOffers();
         this.props.deleteOffer(offerId);
@@ -651,14 +662,14 @@ export default compose(
       goBack: goBackRouter,
       snackbarSuccess,
       goToOfferManagement: (offerId) => pushRouter(`/offer/${offerId}`),
-      fetchAllOffers: offerActions.fetchAllOffers,
-      deleteOffer: offerActions.deleteOffer,
-      fetchSimilarOffers: offerActions.fetchSimilarOffers,
+      fetchAllOffers: fetchAllOffersAction,
+      deleteOffer: deleteOfferAction,
+      fetchSimilarOffers: fetchSimilarOffersAction,
+      setFilters: setFiltersAction,
+      toogleFilter: toogleFilterAction,
       fetchEstablishments,
       fetchAssociatedCoachesList,
       fetchAllActivities,
-      setFilters: offerActions.setFilters,
-      toogleFilter: offerActions.toogleFilter,
     },
   ),
   withTitle(({ t }: { t: TFunction }) => t('titles:planning')),

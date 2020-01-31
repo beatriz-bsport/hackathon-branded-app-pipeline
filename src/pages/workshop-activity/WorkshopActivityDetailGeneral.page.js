@@ -8,7 +8,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import { offer as offerActions } from '../../actions';
 import type { Offer, MetaActivity as MetaActivityType } from '../../api/types';
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -24,7 +23,10 @@ import {
   withCoach,
   getOffersByDay,
 } from '../../libs/offer/selectors';
-import { fetchMetaActivityOffers as fetchMetaActivityOffersAction } from '../../actions/offer.actions';
+import {
+  fetchOffersByDay as fetchOffersByDayAction,
+  fetchMetaActivityOffers as fetchMetaActivityOffersAction,
+} from '../../libs/offer/actions';
 import { deleteWorkshop } from '../../libs/meta-activity/actions/workshop-activity.actions';
 import { checkCanDeleteMetaActivity as canDeleteWorkshopAPI } from '../../libs/meta-activity/api/common';
 
@@ -134,7 +136,7 @@ export default compose(
       offersLoading: state.offer.byDay.loading,
     }),
     {
-      fetchOffersByDay: offerActions.fetchOffersByDay,
+      fetchOffersByDay: fetchOffersByDayAction,
       fetchMetaActivityOffers: fetchMetaActivityOffersAction,
       deleteWorkshop,
       goToOffer: (o) => routerPush(`/offer/${o.id}`),

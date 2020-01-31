@@ -28,7 +28,7 @@ import {
 import { getOfferWithRelated } from '../../libs/offer/selectors';
 
 import { fetchBasketGeneratedObjects as fetchBasketGeneratedObjectsAction } from '../../libs/checkout/actions';
-import { fetchOfferBulk as fetchOfferBulkAction } from '../../actions/offer.actions';
+import { fetchOfferBulk as fetchOfferBulkAction } from '../../libs/offer/actions';
 import { getBasketGeneratedObjects } from '../../libs/checkout/selectors';
 
 import { getTheme } from '../../theme';

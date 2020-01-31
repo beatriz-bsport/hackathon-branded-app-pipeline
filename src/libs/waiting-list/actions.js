@@ -119,7 +119,7 @@ export const registerOptionActions = {
 
 export function registerToWaitingList(
   offerId: number,
-  memberId: number,
+  memberId: ?number,
   options: OptionCallBack,
 ) {
   return async (dispatch: Dispatch) => {
@@ -163,5 +163,38 @@ export function fetchBookingOptionAsConsumer(
       if (options && options.onError) options.onError(err);
     }
     dispatch(asConsumerActions.isLoading(false));
+  };
+}
+
+export const forBookingActions = {
+  error: createAction('WAITING_LIST/OPTION/FOR_BOOKING/ERROR'),
+  isLoading: createAction('WAITING_LIST/OPTION/FOR_BOOKING/IS_LOADING'),
+  success: createAction('WAITING_LIST/OPTION/FOR_BOOKING/SUCCESS'),
+  reset: createAction('WAITING_LIST/OPTION/FOR_BOOKING/RESET'),
+};
+
+export const resetBookingOptionForBooking = forBookingActions.reset;
+
+export function fetchBookingOptionForBooking(
+  offer: number,
+  options: OptionCallBack,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(forBookingActions.error(null));
+    dispatch(forBookingActions.isLoading(true));
+    try {
+      const response = await fetchFilteredBookingOptionsAPI({
+        offer,
+        mine: true,
+        no_related_field: true,
+      });
+      dispatch(forBookingActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(forBookingActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(forBookingActions.isLoading(false));
   };
 }

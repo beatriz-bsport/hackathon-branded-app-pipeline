@@ -6,10 +6,16 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Button from '@material-ui/core/Button';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { compose, withState } from 'recompose';
+
+import type { PaymentCombo } from '../types';
 
 type Props = {
   onClick: () => void,
   paymentCombo: PaymentCombo,
+  processing: boolean,
+  setProcessing: (boolean) => void,
   classes: Object,
 };
 export const PaymentComboBuyableItem = (props: Props) => {
@@ -27,17 +33,29 @@ export const PaymentComboBuyableItem = (props: Props) => {
   ].join(' + ');
   return (
     <ListItem>
-      <ListItemText primary={paymentCombo.name} secondary={subtitle} />
+      <ListItemText
+        primary={`${paymentCombo.name} - ${paymentCombo.price}€`}
+        secondary={subtitle}
+      />
       <ListItemSecondaryAction>
-        <Button
-          onClick={props.onClick}
-          color="primary"
-          variant="outlined"
-          className={props.classes.button}
-        >
-          <AddShoppingCartIcon className={props.classes.leftIcon} />
-          {`${paymentCombo.price}€`}
-        </Button>
+        {props.processing ? (
+          <CircularProgress />
+        ) : (
+          <Button
+            onClick={() => {
+              props.setProcessing(true);
+              props.onClick({
+                onSuccess: () => props.setProcessing(false),
+                onError: () => props.setProcessing(false),
+              });
+            }}
+            color="primary"
+            variant="contained"
+            className={props.classes.button}
+          >
+            <AddShoppingCartIcon />
+          </Button>
+        )}
       </ListItemSecondaryAction>
     </ListItem>
   );
@@ -48,8 +66,11 @@ const styles = (theme) => ({
     marginRight: theme.spacing.unit,
   },
   button: {
-    marginRIght: theme.spacing.unit * 2,
+    marginRight: theme.spacing.unit,
   },
 });
 
-export default withStyles(styles)(PaymentComboBuyableItem);
+export default compose(
+  withStyles(styles),
+  withState('processing', 'setProcessing', false),
+)(PaymentComboBuyableItem);

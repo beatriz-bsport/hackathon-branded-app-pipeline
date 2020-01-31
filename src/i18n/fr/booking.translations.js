@@ -1,4 +1,24 @@
 export default {
+  bookingModule: {
+    section: {
+      consumerPacks: 'Mes cartes de cours',
+      contracts: 'Abonnements',
+      paymentPacks: 'Cartes de cours',
+      paymentCombos: 'Offres promotionnelles',
+    },
+    option: {
+      isAlreadyOnWaitingList: "Vous êtes inscrit en liste d'attente",
+      isFull:
+        "La séance est complète, vous pouvez vous inscrire en liste d'attente, vous serez prévenu par email lorsqu'une place se libèrera.",
+      registerOption: "M'inscrire en liste d'attente",
+    },
+    offer: {
+      isDisabled: 'La séance a été malheureusement été annulée.',
+      isTooLate: 'Les inscriptions sont fermées.',
+      isWaitingListFull:
+        "La séance est complète la liste d'attente est pleine.",
+    },
+  },
   details: {
     pleaseSelectABooking: 'Sélectionnez une réservation pour voir le détails',
     title: 'Détails réservation',

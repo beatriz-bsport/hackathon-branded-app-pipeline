@@ -6,6 +6,9 @@ import List from '@material-ui/core/List';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import Hidden from '@material-ui/core/Hidden';
+import IconButton from '@material-ui/core/IconButton';
+import InfoIcon from '@material-ui/icons/Info';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
@@ -16,7 +19,9 @@ import memoize from 'memoize-one';
 import { DATE_FORMAT } from '../../../datetime';
 
 import type { Offer } from '../types';
-import MarketplaceListItemOffer from './MarketplaceListItemOffer.component';
+import OfferListItemConsumer from '../../offer/components/OfferListItemConsumer.component';
+import MarketplaceBookButton from './MarketplaceBookButton.component';
+import { isOfferInThePast } from '../../offer/utils';
 
 type Props = {
   offers: ?Array<Offer>,
@@ -65,19 +70,44 @@ export class MarketplaceTimetable extends PureComponent<Props> {
         </Typography>
         <Divider />
         <List disablePadding>
-          {offers.map((o) => (
-            <MarketplaceListItemOffer
-              coachLoading={this.props.coachLoading}
-              establishmentLoading={this.props.establishmentLoading}
-              activityLoading={this.props.activityLoading}
-              showOfferFilling={this.props.showOfferFilling}
-              key={o.id}
-              offer={o}
-              onClickOffer={this.props.onClickOffer}
-              onClickBook={() => this.props.onClickBook(o.id)}
-              onClickBookOption={() => this.props.onClickBookOption(o.id)}
-            />
-          ))}
+          {offers.map((o) => {
+            const isInThePast = isOfferInThePast(o);
+            const onClick =
+              this.props.onClickOffer && isInThePast
+                ? () => this.props.onClickOffer(o.id)
+                : null;
+            return (
+              <OfferListItemConsumer
+                coachLoading={this.props.coachLoading}
+                establishmentLoading={this.props.establishmentLoading}
+                activityLoading={this.props.activityLoading}
+                showOfferFilling={this.props.showOfferFilling}
+                key={o.id}
+                offer={o}
+                onClickOffer={this.props.onClickOffer}
+                actions={
+                  <div className={classes.inlineContainer}>
+                    <Hidden xsDown>
+                      <IconButton
+                        disabled={!isInThePast}
+                        onClick={onClick}
+                        color="secondary"
+                      >
+                        <InfoIcon />
+                      </IconButton>
+                    </Hidden>
+                    <MarketplaceBookButton
+                      onClickBook={() => this.props.onClickBook(o.id)}
+                      onClickBookOption={() =>
+                        this.props.onClickBookOption(o.id)
+                      }
+                      offer={o}
+                    />
+                  </div>
+                }
+              />
+            );
+          })}
         </List>
       </div>
     );
@@ -115,6 +145,7 @@ const styles = (theme) => ({
   emptyContent: {
     margin: theme.spacing.unit * 2,
   },
+  inlineContainer: { alignItems: 'center', display: 'flex' },
 });
 
 export default withNamespaces()(withStyles(styles)(MarketplaceTimetable));

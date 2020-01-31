@@ -8,10 +8,12 @@ import {
 } from 'react-router-redux';
 import { compose, withProps } from 'recompose';
 
+import { invoice as invoiceActions } from '../../actions';
 import {
-  invoice as invoiceActions,
-  offer as offerActions,
-} from '../../actions';
+  fetchOfferById as fetchOfferByIdAction,
+  toogleWaitingListFreeze as toogleWaitingListFreezeAction,
+  fetchCompatiblePacks as fetchCompatiblePacksAction,
+} from '../../libs/offer/actions';
 import {
   compatiblePacksWithOfferAndEnabled,
   getDetailedOffer,
@@ -110,10 +112,10 @@ function mapStateToProps(state, { id }) {
 }
 
 const mapDispatchToProps = {
-  fetchOffer: offerActions.fetchOfferById,
+  fetchOffer: fetchOfferByIdAction,
   snackbarSuccess: snackbar.success,
 
-  toogleWaitingListFreeze: offerActions.toogleWaitingListFreeze,
+  toogleWaitingListFreeze: toogleWaitingListFreezeAction,
   registerToWaitingListAction: registerToWaitingListAction_,
   discardOption: discardBookingOptionAction,
   fetchBookingOptionByOffer: fetchBookingOptionByOfferAction,
@@ -127,7 +129,7 @@ const mapDispatchToProps = {
   fetchBookingsByOffer: fetchBookingsByOfferAction,
   refreshBookingsByOffer: refreshBookingsByOfferAction,
   retrieveConsumerPackBulk: retrieveConsumerPackBulkAction,
-  fetchCompatiblePacks: offerActions.fetchCompatiblePacks,
+  fetchCompatiblePacks: fetchCompatiblePacksAction,
 
   // modify booking
   registerBooking: registerBookingAction,

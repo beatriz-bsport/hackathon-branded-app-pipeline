@@ -31,11 +31,12 @@ export const SmartlistCard = (props: Props) => {
   return (
     <div>
       <div className={props.classes.paper}>
-        <Typography variant="h4" className={props.classes.title}>
+        <Typography variant="h5" className={props.classes.title}>
           {props.smartlist.name}
         </Typography>
-        <Divider />
+        <Divider className={props.classes.divider} />
         <TypographyMultiline>{props.smartlist.description}</TypographyMultiline>
+        <Divider className={props.classes.divider} />
 
         <StatsPanel
           statistics={props.statistics}
@@ -54,7 +55,10 @@ export const SmartlistCard = (props: Props) => {
 };
 
 const styles = (theme) => ({
-  title: { marginBottom: theme.spacing.unit },
+  divider: {
+    marginBottom: theme.spacing.unit,
+    marginTop: theme.spacing.unit,
+  },
   header: {
     display: 'flex',
     flexDirection: 'row',

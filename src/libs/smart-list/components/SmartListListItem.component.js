@@ -48,11 +48,8 @@ export class SmartListItem extends Component<Props> {
         onClick={() => this.props.onClick(this.props.smartlist.id)}
       >
         <ListItemText
-          primary={
-            <Typography component="span" variant="subtitle1">
-              {this.props.smartlist.name}
-            </Typography>
-          }
+          primary={this.props.smartlist.name}
+          secondary={this.props.smartlist.description}
         />
         <ListItemSecondaryAction>
           {this.props.onClickDuplicate ? (

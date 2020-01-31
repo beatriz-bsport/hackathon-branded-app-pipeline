@@ -324,31 +324,6 @@ export class SmartListDetailMember extends Component<Props, State> {
 
     return (
       <div>
-        <Paper className={this.props.classes.listInfo}>
-          <div>
-            <Typography variant="body1">
-              {`${this.props.t('name')}: ${
-                this.props.smartlist ? this.props.smartlist.name : '-'
-              }`}
-            </Typography>
-            <Typography
-              variant="body1"
-              className={this.props.classes.description}
-            >
-              {`${this.props.t('description')}: ${
-                this.props.smartlist ? this.props.smartlist.description : '-'
-              }`}{' '}
-            </Typography>
-          </div>
-          <IconButton
-            onClick={() => {
-              this.setState({ openEditDialog: true });
-            }}
-            color="primary"
-          >
-            <EditIcon />
-          </IconButton>
-        </Paper>
         <FiltersPanel
           exportMemberTable={() => getMemberTable(this.props.id)}
           smartList={this.props.smartlist}

@@ -116,6 +116,15 @@ export const SearchAndRegister = (props: Props) => {
   if (!props.open) {
     return null;
   }
+  if (props.loading) {
+    return (
+      <Dialog open>
+        <DialogContent>
+          <CircularProgress />
+        </DialogContent>
+      </Dialog>
+    );
+  }
   if (props.member) {
     return (
       <RegisterMember

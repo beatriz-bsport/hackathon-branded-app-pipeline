@@ -70,7 +70,7 @@ module.exports = {
     splitChunks: {
       cacheGroups: {
         vendor: {
-          test: /[\\/]node_modules[\\/](react-i18next|moment|react|react-dom)[\\/]/,
+          test: /[\\/]node_modules[\\/](react-i18next|moment|react|react-dom|recompose|react-router|react-router-dom|seamless-immutable|intl|axios|react-redux)[\\/]/,
           name: 'vendor',
           chunks: 'all',
         },

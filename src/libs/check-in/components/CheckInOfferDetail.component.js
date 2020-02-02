@@ -11,8 +11,9 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import AddIcon from '@material-ui/icons/Add';
+import Switch from '@material-ui/core/Switch';
 import ListItemText from '@material-ui/core/ListItemText';
-import { compose } from 'recompose';
+import { compose, withState } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -20,6 +21,7 @@ import type { Member } from '../../member/types';
 
 import CheckInOfferSummaryPanel from './CheckInOfferSummaryPanel.component';
 import CheckInBookingItem from './CheckInBookingItem.component';
+import BarcodeLiveReader from '../../../components/BarcodeLiveReader.component';
 
 const MEMBER_LIST_REFRESH_DURATION = 1000 * 60 * 2;
 
@@ -78,43 +80,62 @@ export class CheckInOffer extends Component<Props> {
             this.props.classes.memberList,
           ])}
         >
-          <List disablePadding>
-            {this.props.bookingLoading ? (
-              <LinearProgress />
-            ) : (
-              <ListItem
-                button
-                disabled={this.props.offer.is_full}
-                onClick={this.props.onAddMember}
-                className={this.props.classes.registerListItem}
-              >
-                <ListItemAvatar>
-                  <AddIcon />
-                </ListItemAvatar>
-                <ListItemText
-                  primary={
-                    this.props.offer.is_full
-                      ? t('offerDetail.isFull')
-                      : t('offerDetail.register')
-                  }
-                />
-              </ListItem>
-            )}
-            {(members || []).map((member) => (
-              <CheckInBookingItem
-                member={member}
-                key={member.booking.id}
-                confirmAttendance={() =>
-                  this.props.confirmBookingAttendance(member.booking.id)
-                }
-              />
-            ))}
-          </List>
-          {(members || []).length === 0 && !this.props.bookingLoading ? (
-            <Typography variant="body1" color="textSecondary">
-              {t('offerDetail.emptyList')}
+          <div className={this.props.classes.row}>
+            <Switch
+              checked={this.props.barcodeMode}
+              onChange={(ev) => this.props.setBarcodeMode(ev.target.checked)}
+            />
+            <Typography>
+              {this.props.t('offerDetail.activateBarcode')}
             </Typography>
-          ) : null}
+          </div>
+          {this.props.barcodeMode ? (
+            <div>
+              {this.props.showLiveStream ? (
+                <BarcodeLiveReader onDetected={this.props.onBarcodeDetected} />
+              ) : null}
+            </div>
+          ) : (
+            <div>
+              <List disablePadding>
+                {this.props.bookingLoading ? (
+                  <LinearProgress />
+                ) : (
+                  <ListItem
+                    button
+                    disabled={this.props.offer.is_full}
+                    onClick={this.props.onAddMember}
+                    className={this.props.classes.registerListItem}
+                  >
+                    <ListItemAvatar>
+                      <AddIcon />
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={
+                        this.props.offer.is_full
+                          ? t('offerDetail.isFull')
+                          : t('offerDetail.register')
+                      }
+                    />
+                  </ListItem>
+                )}
+                {(members || []).map((member) => (
+                  <CheckInBookingItem
+                    member={member}
+                    key={member.booking.id}
+                    confirmAttendance={() =>
+                      this.props.confirmBookingAttendance(member.booking.id)
+                    }
+                  />
+                ))}
+              </List>
+              {(members || []).length === 0 && !this.props.bookingLoading ? (
+                <Typography variant="body1" color="textSecondary">
+                  {t('offerDetail.emptyList')}
+                </Typography>
+              ) : null}
+            </div>
+          )}
         </div>
         <Button
           variant="extendedFab"
@@ -180,8 +201,14 @@ const style = (theme) => ({
     border: `2px solid ${theme.palette.primary.main}`,
     borderRadius: theme.shape.borderRadius,
   },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
 });
 export default compose(
   withNamespaces(['selfCheckIn']),
   withStyles(style),
+  withState('barcodeMode', 'setBarcodeMode', false),
 )(CheckInOffer);

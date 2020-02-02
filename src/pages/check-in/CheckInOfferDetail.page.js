@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { compose, withProps, withState } from 'recompose';
+import { compose, withProps, withHandlers, withState } from 'recompose';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { push as pushRouter } from 'react-router-redux';
@@ -11,6 +11,8 @@ import CheckInOfferDetail from '../../libs/check-in/components/CheckInOfferDetai
 import {
   fetchFilteredMembers as fetchFilteredMembersAction,
   search as searchMembers,
+  fetchMemberByBarcode,
+  resetMemberByBarcode,
 } from '../../libs/member/actions';
 import {
   confirmAttendance as confirmBookingAttendanceAction,
@@ -21,7 +23,9 @@ import { fetchOfferById as fetchOfferByIdAction } from '../../libs/offer/actions
 import memberSelectors from '../../libs/member/selectors';
 import { getOfferBookingListWithConsumerPack } from '../../libs/booking/selectors';
 import { fetchCompatiblePass } from '../../actions/payment.actions';
-import SearchAndRegisterMember from '../../libs/check-in/components/SearchAndRegisterMember.component';
+import SearchAndRegisterMember, {
+  SearchAndRegister,
+} from '../../libs/check-in/components/SearchAndRegisterMember.component';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { retrieveConsumerPackBulk as retrieveConsumerPackBulkAction } from '../../libs/consumer-payment-pack/actions';
@@ -61,6 +65,10 @@ type Props = {
 };
 
 export class CheckInOfferDetailPage extends React.Component<Props> {
+  componentWillMount() {
+    this.props.resetMemberByBarcode();
+  }
+
   componentDidMount() {
     this.props.fetchOfferById(this.props.offerId);
     this.props.fetchOfferData();
@@ -81,7 +89,45 @@ export class CheckInOfferDetailPage extends React.Component<Props> {
           offer={this.props.offer}
           members={this.props.members}
           onAddMember={() => this.props.setRegisterModalOpen(true)}
+          barcodeMode
+          showLiveStream={
+            !this.props.memberBarcodeLoading && !this.props.memberBarcode
+          }
+          onBarcodeDetected={(data) => {
+            this.props.fetchMemberByBarcode(data.codeResult.code, {
+              onSuccess: (member) => {
+                this.props.fetchBarcodeMemberPass(member.id);
+              },
+            });
+          }}
         />
+        {this.props.memberBarcodeLoading || !!this.props.memberBarcode ? (
+          <SearchAndRegister
+            onClose={() => {
+              this.props.resetMemberByBarcode();
+            }}
+            member={this.props.memberBarcode}
+            loading={this.props.memberBarcodeLoading}
+            open
+            setMember={() => {}}
+            consumerPacksLoading={this.props.compatibleConsumerPacksLoading}
+            offer={this.props.offer}
+            consumerPaymentPacks={this.props.compatibleConsumerPacks}
+            registerWithPass={(consumerPaymentPackId, { onSuccess }) => {
+              this.props.registerBooking(
+                this.props.offerId,
+                consumerPaymentPackId,
+                {
+                  onSuccess: () => {
+                    if (typeof onSuccess === 'function') onSuccess();
+                    this.props.fetchOfferData();
+                    this.props.resetMemberByBarcode();
+                  },
+                },
+              );
+            }}
+          />
+        ) : null}
         <SearchAndRegisterMember
           onClose={() => this.props.setRegisterModalOpen(false)}
           searchMembers={this.props.searchMembers}
@@ -129,6 +175,10 @@ export default compose(
       offer: state.offer.retrieve.data,
       members: state.member.all,
       searchedMembers: memberSelectors.getSearched(state),
+
+      memberBarcode: state.member.barcode.data,
+      memberBarcodeLoading: state.member.barcode.loading,
+
       bookings: getOfferBookingListWithConsumerPack(state),
       loading:
         state.booking.loading ||
@@ -150,6 +200,9 @@ export default compose(
       fetchAllPaymentPacks,
 
       searchMembers,
+      fetchMemberByBarcode,
+      resetMemberByBarcode,
+
       registerBooking,
 
       goBack: () => pushRouter('/check-in'),
@@ -157,6 +210,15 @@ export default compose(
         pushRouter(`/check-in/offer/${offerId}/booking/${bookingId}`),
     },
   ),
+  withHandlers({
+    fetchBarcodeMemberPass: ({
+      fetchCompatiblePass,
+      offerId,
+      memberBarcode,
+    }) => () => {
+      fetchCompatiblePass(offerId, memberBarcode.id);
+    },
+  }),
   withProps(
     ({
       bookings,

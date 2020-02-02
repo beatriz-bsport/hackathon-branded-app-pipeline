@@ -2,13 +2,22 @@ import Immutable from 'seamless-immutable/seamless-immutable.production.min';
 
 import authActionTypes from '../../actions/auth.types';
 import { actionTypes as paymentPackActionTypes } from '../payment-packs/types';
-import { actionTypes, memberListActions } from './actions';
+import {
+  actionTypes,
+  memberListActions,
+  barcodeRetrieveAction,
+} from './actions';
 
 const initialState = Immutable({
   loading: false,
   all: [], // all the members
   member: {}, // currently shown member
   error: null,
+  barcode: {
+    data: null,
+    loading: false,
+    error: null,
+  },
   search: {
     items: [],
     loading: false,
@@ -33,6 +42,21 @@ export default function memberReducers(state = initialState, action = {}) {
     }
     case memberListActions.isLoading.toString(): {
       return state.set('loading', action.payload);
+    }
+
+    case barcodeRetrieveAction.success.toString(): {
+      return state.setIn(['barcode', 'data'], action.payload);
+    }
+    case barcodeRetrieveAction.reset.toString(): {
+      return state
+        .setIn(['barcode', 'data'], null)
+        .setIn(['barcode', 'loading'], false);
+    }
+    case barcodeRetrieveAction.error.toString(): {
+      return state.setIn(['barcode', 'error'], action.payload);
+    }
+    case barcodeRetrieveAction.isLoading.toString(): {
+      return state.setIn(['barcode', 'loading'], action.payload);
     }
 
     case actionTypes.MEMBER_TAG_SUCCESS: {

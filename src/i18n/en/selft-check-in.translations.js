@@ -33,6 +33,7 @@ export default {
     cancelRegistration: 'Cancel',
     isFull: 'Session full',
     register: 'Register myself to the class',
+    activateBarcode: 'Barcode detector',
   },
   memberList: {
     checkIn: 'Check in',

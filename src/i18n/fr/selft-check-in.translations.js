@@ -33,6 +33,7 @@ export default {
     cancelRegistration: 'Annuler',
     isFull: 'Complet',
     register: "M'inscrire à ce cours",
+    activateBarcode: 'Détecteur de carte',
   },
   memberList: {
     checkIn: 'Check-in',

@@ -68,6 +68,44 @@ export const actionTypes = {
   MEMBER_REMOVE_FILE_ERROR: 'MEMBER_REMOVE_FILE_ERROR',
 };
 
+export const barcodeRetrieveAction = {
+  isLoading: createAction('MEMBER/BY_BARCODE/LOADING'),
+  error: createAction('MEMBER/BY_BARCODE/ERROR'),
+  success: createAction('MEMBER/BY_BARCODE/SUCCESS'),
+  reset: createAction('MEMBER/BY_BARCODE/RESET'),
+};
+
+export const resetMemberByBarcode = barcodeRetrieveAction.reset;
+
+class NoMemberWithBarcode extends Error {
+  constructor(message) {
+    super(message); // (1)
+    this.name = 'NoMemberWithBarcode';
+  }
+}
+
+export function fetchMemberByBarcode(barcode: string, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(barcodeRetrieveAction.isLoading(true));
+    try {
+      const response = await fetchFilteredMembersAPI({ barcode });
+      if (response.data.results.length) {
+        dispatch(barcodeRetrieveAction.success(response.data.results[0]));
+        if (options && options.onSuccess) {
+          options.onSuccess(response.data.results[0]);
+        }
+      } else {
+        throw NoMemberWithBarcode;
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(barcodeRetrieveAction.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(barcodeRetrieveAction.isLoading(false));
+  };
+}
+
 export const memberListActions = {
   isLoading: createAction('MEMBER/LIST/LOADING'),
   error: createAction('MEMBER/LIST/ERROR'),

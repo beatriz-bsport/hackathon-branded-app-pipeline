@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import { compose } from 'recompose';
@@ -46,12 +45,13 @@ export class SmartListItem extends Component<Props> {
         button
         selected={this.props.selected}
         onClick={() => this.props.onClick(this.props.smartlist.id)}
+        className={this.props.classes.listitem}
       >
         <ListItemText
           primary={this.props.smartlist.name}
           secondary={this.props.smartlist.description}
         />
-        <ListItemSecondaryAction>
+        <div className={this.props.classes.actions}>
           {this.props.onClickDuplicate ? (
             <Tooltip
               title={
@@ -98,7 +98,7 @@ export class SmartListItem extends Component<Props> {
               <DeleteIcon />
             </ButtonWithConfirm>
           ) : null}
-        </ListItemSecondaryAction>
+        </div>
       </ListItem>
     );
   }
@@ -110,6 +110,11 @@ const styles = (theme) => ({
     boxShadow: theme.shadows[2],
     fontSize: 11,
   },
+  listitem: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  actions: { display: 'flex' },
 });
 
 export default compose(

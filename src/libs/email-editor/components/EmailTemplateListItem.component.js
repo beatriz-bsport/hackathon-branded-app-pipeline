@@ -12,7 +12,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
@@ -47,6 +46,7 @@ export class EmailCard extends Component<Props, state> {
         divider
         button
         dense
+        className={this.props.classes.listitem}
         selected={this.props.selected}
         onClick={() => this.props.onClick(this.props.email_template.id)}
       >
@@ -60,7 +60,7 @@ export class EmailCard extends Component<Props, state> {
             this.props.email_template.subject || this.props.t('no_subject')
           }
         />
-        <ListItemSecondaryAction>
+        <div className={this.props.classes.actions}>
           {this.props.onClickEdit ? (
             <IconButton
               onClick={(ev) => {
@@ -107,7 +107,7 @@ export class EmailCard extends Component<Props, state> {
               <DeleteIcon />
             </ButtonWithConfirm>
           ) : null}
-        </ListItemSecondaryAction>
+        </div>
       </ListItem>
     );
   }
@@ -119,6 +119,11 @@ const styles = (theme) => ({
     boxShadow: theme.shadows[2],
     fontSize: 11,
   },
+  listitem: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  actions: { display: 'flex' },
 });
 export default compose(
   withStyles(styles),

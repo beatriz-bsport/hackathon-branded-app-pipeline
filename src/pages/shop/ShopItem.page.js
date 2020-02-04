@@ -31,6 +31,8 @@ import {
   createOrUpdateShopItem,
   deleteItem as deleteShopItem,
 } from '../../libs/shop/actions/shopitem';
+import { snackbarSuccess } from '../../actions/snackbar.actions';
+
 import {
   fetchProvisions,
   createOrUpdateProvision,
@@ -131,7 +133,10 @@ export class ShopItemDetail extends Component<Props, State> {
             {this.props.t('shopitem.detail.title')}
           </Typography>
           <Divider className={this.props.classes.sectionDivider} />
-          <ShopItemCard shopitem={this.props.shopitem} />
+          <ShopItemCard
+            shopitem={this.props.shopitem}
+            snackbarSuccess={this.props.snackbarSuccess}
+          />
           {this.props.shopitem.barcode ? (
             <div>
               <div className={this.props.classes.barcode}>
@@ -232,6 +237,7 @@ export default compose(
     }),
     {
       fetchShopItem,
+      snackbarSuccess,
       fetchProvisions,
       createOrUpdateShopItem,
       createOrUpdateProvision,

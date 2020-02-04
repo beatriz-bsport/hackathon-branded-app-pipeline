@@ -26,6 +26,9 @@ const OfferBookingPage = asyncComponent(() =>
 const PaymentPackPreCheckout = asyncComponent(() =>
   import('./checkout/pre-checkout/PaymentPackPreCheckout.page'),
 );
+const ShopItemPreCheckoutPage = asyncComponent(() =>
+  import('./checkout/pre-checkout/ShopItemPreCheckout.page'),
+);
 const OrderPaymentPage = asyncComponent(() =>
   import('./payment/OrderPayment.page'),
 );
@@ -152,6 +155,10 @@ export class PaymentRouter extends React.Component<Props> {
         <Route
           path="/(|customer/)payment/private-service/:privateServiceId/private-slot/:privateSlotId/"
           component={PrivateSlotPaymentPage}
+        />
+        <Route
+          path="/(|customer/)payment/shop-item/:id"
+          component={ShopItemPreCheckoutPage}
         />
         <Route
           path="/(|customer/)payment/order/:companyId/"

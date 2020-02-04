@@ -99,6 +99,30 @@ export function fetchPaymentPack(id: number) {
   };
 }
 
+export function startFetchShopItem() {
+  return { type: types.PAYMENT_START_FETCH_SHOP_ITEM };
+}
+export function errorFetchingShopItem(error: ?Error) {
+  return { type: types.PAYMENT_ERROR_FETCHING_SHOP_ITEM, error };
+}
+export function fetchedShopItem(shopItem: any) {
+  return { type: types.PAYMENT_HAS_FETCHED_SHOP_ITEM, shopItem };
+}
+export function fetchShopItem(id: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(startFetchShopItem());
+    dispatch(errorFetchingShopItem(null));
+
+    try {
+      const response = await api.payment.fetchShopItem(id);
+      const paymentPack = response.data;
+      dispatch(fetchedShopItem(paymentPack));
+    } catch (err) {
+      dispatch(errorFetchingShopItem(err));
+    }
+  };
+}
+
 export function startFetchCompatiblePass() {
   return { type: types.PAYMENT_START_FETCH_COMPATIBLE_PASS };
 }

@@ -2,6 +2,10 @@ export default {
   select: {
     placeholder: 'Article magasin',
   },
+  link: {
+    copyLink: 'Copier le lien vers la page de paiement',
+    copied: 'Lien copié',
+  },
   search: 'Chercher un produit',
   dialog: {
     delete: {

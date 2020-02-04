@@ -1,6 +1,7 @@
 import { PAYMENT_PACK as PAYMENT_METHOD_PAYMENT_PACK } from '@bsport/common/lib/master-data/payment-methods';
 import {
   API_URI,
+  API_V1_URI,
   BASE_URI,
   postAuth,
   PAYMENT_URI,
@@ -81,6 +82,10 @@ export async function consumerRequestPaymentPack(paymentPackId) {
   return getAuth(`${API_URI}/saas/payment-pack/${paymentPackId}`);
 }
 
+export async function consumerRequestShopItem(shopItemId) {
+  return getAuth(`${API_V1_URI}/shop/item/${shopItemId}`);
+}
+
 export async function fetchCompatiblePaymentPacks(offerId) {
   return getAuth(
     `${API_URI}/consumer/offer/${offerId}/compatible-payment-packs`,
@@ -92,6 +97,7 @@ export default {
   payWithConsumerPaymentPack: consumerPayWithConsumerPaymentPack,
   fetchOffer: consumerRequestOffer,
   fetchPaymentPack: consumerRequestPaymentPack,
+  fetchShopItem: consumerRequestShopItem,
   fetchCompatiblePass: consumerFetchCompatiblePass,
   fetchCompatiblePaymentPacks,
   fetchBookingOption,

@@ -13,6 +13,12 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import EditIcon from '@material-ui/icons/Edit';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import LinkIcon from '@material-ui/icons/Link';
+import withStyles from '@material-ui/core/styles/withStyles';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import ButtonBase from '@material-ui/core/ButtonBase';
 import RedButton from '../../../components/button/RedButton.component';
 
 import type { ShopItem } from '../types';
@@ -23,7 +29,31 @@ const ShopItemCard = (props: {
   onEdit: ?(shopitem: ShopItem) => void,
   onDelete: ?() => void,
   t: TFunction,
+  classes: Object,
+  snackbarSuccess: (string) => void,
 }) => {
+  const { shopitem, t, snackbarSuccess, classes } = props;
+
+  const renderLinkToPaymentPage = () => {
+    return shopitem.id && shopitem.company ? (
+      <ButtonBase
+        className={classes.link}
+        onClick={() => snackbarSuccess('shop:link.copied')}
+      >
+        <LinkIcon />
+        <CopyToClipboard
+          text={`${window.location.origin}/customer/payment/shop-item/${shopitem.id}/?membership=${shopitem.company}`}
+        >
+          <Typography className={classes.linkTypo}>
+            {t('shop:link.copyLink')}
+          </Typography>
+        </CopyToClipboard>
+      </ButtonBase>
+    ) : (
+      <CircularProgress />
+    );
+  };
+
   if (!props.shopitem) {
     return <div />;
   }
@@ -59,6 +89,7 @@ const ShopItemCard = (props: {
           {props.shopitem.description || props.t('shopitem.noDescription')}
         </Typography>
       </CardContent>
+      {renderLinkToPaymentPage()}
       <CardActions>
         {props.addToOrder ? (
           <Button
@@ -86,4 +117,21 @@ const ShopItemCard = (props: {
   );
 };
 
-export default compose(withNamespaces(['shop']))(ShopItemCard);
+const styles = (theme) => ({
+  link: {
+    padding: theme.spacing.unit,
+    marginLeft: theme.spacing.unit,
+    '&:hover': {
+      backgroundColor: '#EFEFEF',
+      borderRadius: 5,
+    },
+  },
+  linkTypo: {
+    paddingLeft: theme.spacing.unit,
+  },
+});
+
+export default compose(
+  withNamespaces(['shop']),
+  withStyles(styles),
+)(ShopItemCard);

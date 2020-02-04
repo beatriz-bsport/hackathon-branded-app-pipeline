@@ -6,8 +6,11 @@ const initialState = Immutable({
   loading: false,
   wantedOffer: null,
   wantedPaymentPack: null,
+  wantedShopItem: null,
+
   compatibleConsumerPacks: [],
   compatiblePaymentPacks: [],
+
   compatibleConsumerPacksLoading: false,
   compatiblePaymentPacksLoading: false,
   bookings: [],
@@ -65,6 +68,19 @@ export default function paymentReducers(state = initialState, action = {}) {
     case actionTypes.PAYMENT_HAS_FETCHED_PAYMENT_PACK:
       return Immutable.merge(state, {
         wantedPaymentPack: action.paymentPack,
+        loading: false,
+      });
+
+    case actionTypes.PAYMENT_ERROR_FETCHING_SHOP_ITEM:
+      return Immutable.merge(state, {
+        wantedShopItem: null,
+        loading: false,
+      });
+    case actionTypes.PAYMENT_START_FETCH_SHOP_ITEM:
+      return Immutable.merge(state, { loading: true });
+    case actionTypes.PAYMENT_HAS_FETCHED_SHOP_ITEM:
+      return Immutable.merge(state, {
+        wantedShopItem: action.shopItem,
         loading: false,
       });
 

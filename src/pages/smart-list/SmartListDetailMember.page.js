@@ -49,8 +49,8 @@ import { fetchPrivatePassList } from '../../libs/private-service/actions';
 import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
 import { getMetaActivities } from '../../libs/meta-activity/selectors';
 import {
-  fetchAllActivities as fetchAllActivitiesAction,
   fetchMetaActivityBulk,
+  fetchCompanyActivities as fetchAllActivitiesAction,
 } from '../../libs/meta-activity/actions';
 import { fetchTags } from '../../libs/tag/actions';
 import tagSelectors from '../../libs/tag/selectors';
@@ -203,7 +203,8 @@ export class SmartListDetailMember extends Component<Props, State> {
     }
     const fetchItems = {
       meta_activities: {
-        fetchAction: this.props.fetchAllActivities,
+        fetchAction: () =>
+          this.props.fetchAllActivities(this.props.smartlist.company),
         loading: this.props.metaActivityLoading,
       },
       coaches: {

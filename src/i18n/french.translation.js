@@ -472,7 +472,7 @@ export default {
         changeCoach: 'Modifier le professeur',
         changeEstablishment: 'Modifier le lieu',
         explainRecursiveOfferDelete:
-          'Voulez-vous supprimer TOUTES les séances similaires ?',
+          'Voulez-vous annuler TOUTES les séances similaires ?',
         explainRecursiveOfferEdit:
           'Voulez-vous modifier TOUTES les séances similaires selon ces nouvelles conditions ?',
         explainNotificationOnEdit:

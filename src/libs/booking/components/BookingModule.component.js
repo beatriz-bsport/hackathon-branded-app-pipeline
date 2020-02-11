@@ -158,25 +158,6 @@ export class OfferBooking extends React.PureComponent<Props> {
       (offer.waiting_list_disabled || offer.is_waiting_list_full) &&
       (!hasBookingOptionUnConvertible && !hasBookingOptionConvertible);
 
-    let paymentPackListFiltered = paymentPackList;
-    if (
-      this.props.paymentPackList &&
-      this.props.paymentPackList.length &&
-      theme &&
-      theme.hide_least_specific_payment_pack
-    ) {
-      const leastSpecific =
-        Math.min(
-          ...paymentPackList
-            .map((pp) => pp.establishments.length)
-            .filter((c) => c > 0),
-        ) || 1000;
-
-      paymentPackListFiltered = paymentPackList.filter(
-        (pp) => pp.establishments.length <= leastSpecific,
-      );
-    }
-
     return (
       <div>
         <Typography className={classes.title} variant="h4">
@@ -263,13 +244,13 @@ export class OfferBooking extends React.PureComponent<Props> {
                 </Paper>
               </div>
             ) : null}
-            {paymentPackListFiltered.length ? (
+            {this.props.paymentPackList.length ? (
               <div className={classes.section}>
                 <Typography className={classes.sectionTitle} variant="h5">
                   {t('bookingModule.section.paymentPacks')}
                 </Typography>
                 <Paper>
-                  {paymentPackListFiltered.map((pp) => (
+                  {this.props.paymentPackList.map((pp) => (
                     <PaymentPackListItem
                       hidePacksNumber
                       showDuration

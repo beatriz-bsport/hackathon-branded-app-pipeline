@@ -68,9 +68,8 @@ const renderRow = (
   // t: TFunction,
   // goToContact: (id: number) => void,
 ) => {
-  const { member, date_created, data } = contact;
+  const { date_created, data } = contact;
   return {
-    name: member.name,
     date_created: formatAsDatetime(date_created),
     title: `${(data.subject || '').slice(0, 20)}...`,
     status: renderStatus(data.status),
@@ -102,7 +101,7 @@ export class InvoiceTable extends Component<Props> {
 
   onRowClick = (rowData: any, { rowIndex }: { rowIndex: number }) => {
     // this.props.goToContact(this.props.contacts[rowIndex].member.id);
-    this.props.displayMailPreview(this.props.contacts[rowIndex].member.id);
+    this.props.displayMailPreview(this.props.contacts[rowIndex].id);
   };
 
   render() {

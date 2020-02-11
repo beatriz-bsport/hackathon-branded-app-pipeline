@@ -48,11 +48,10 @@ export class SmartListDetailEmail extends Component<Props, state> {
             <div
               dangerouslySetInnerHTML={{
                 __html: contactList.find(
-                  (contact) => contact.member.id === this.state.selectedPreview,
+                  (contact) => contact.id === this.state.selectedPreview,
                 )
                   ? contactList.find(
-                      (contact) =>
-                        contact.member.id === this.state.selectedPreview,
+                      (contact) => contact.id === this.state.selectedPreview,
                     ).data.body
                   : null,
               }}

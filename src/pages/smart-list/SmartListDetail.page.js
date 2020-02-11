@@ -1,11 +1,11 @@
 // @flow
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import AppBar from '@material-ui/core/AppBar';
+// import AppBar from '@material-ui/core/AppBar';
 import { compose } from 'recompose';
-import Tab from '@material-ui/core/Tab';
+// import Tab from '@material-ui/core/Tab';
 import { connect } from 'react-redux';
-import Tabs from '@material-ui/core/Tabs';
+// import Tabs from '@material-ui/core/Tabs';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push } from 'react-router-redux';
@@ -14,7 +14,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
 import SmartListDetailMember from './SmartListDetailMember.page';
-import SmartListDetailEmail from './SmartListDetailEmail.page';
+// import SmartListDetailEmail from './SmartListDetailEmail.page';
 
 import { getSmartList } from '../../libs/smart-list/selectors';
 import { fetchSmartListDetail } from '../../libs/smart-list/actions';
@@ -34,7 +34,21 @@ export class SmartListDetail extends React.Component<Props> {
   }
 
   render() {
-    const { t, pushToTab, tab, id, classes } = this.props;
+    // const { t, pushToTab, tab, id, classes } = this.props;
+    return (
+      <div className={this.props.classes.container}>
+        <div className={this.props.classes.content}>
+          <Switch>
+            <Route
+              exact
+              path="/smart-list/:id/member/"
+              component={SmartListDetailMember}
+            />
+          </Switch>
+        </div>
+      </div>
+    );
+    /*
     return (
       <div className={classes.container}>
         <AppBar position="static" color="default">
@@ -66,6 +80,7 @@ export class SmartListDetail extends React.Component<Props> {
         </div>
       </div>
     );
+    */
   }
 }
 

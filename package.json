@@ -52,6 +52,7 @@
     "popper": "^1.0.1",
     "promise": "8.0.1",
     "prop-types": "^15.6.2",
+    "quagga": "^0.12.1",
     "raf": "3.4.0",
     "re-reselect": "^2.2.0",
     "react": "16.10.2",

@@ -31,10 +31,8 @@ const DATE_BEFORE = 1;
 const DATE_BETWEEN = 2;
 const DATE_EXACT = 3;
 const DURATION_AFTER = 4;
-const DURATION_BEFORE = 5;
 const DURATION_EXACT = 6;
 const DURATION_BETWEEN = 7;
-const DURATION_AFTER_PAST = 8;
 const DURATION_BEFORE_PAST = 9;
 const DURATION_EXACT_PAST = 10;
 const DURATION_BETWEEN_PAST = 11;
@@ -59,12 +57,6 @@ type Props = {
 };
 
 const renderDurationTypeEnter = (value, duration_type, value_second) => {
-  if (duration_type === DURATION_BEFORE && value < 0) {
-    return DURATION_BEFORE_PAST;
-  }
-  if (duration_type === DURATION_AFTER && value < 0) {
-    return DURATION_AFTER_PAST;
-  }
   if (duration_type === DURATION_EXACT && value < 0) {
     return DURATION_EXACT_PAST;
   }
@@ -88,7 +80,6 @@ export class CalendarPicker extends Component<Props, state> {
     date: this.props.filter_data.date,
     mode:
       this.props.filter_data.date_filter_type === DURATION_AFTER ||
-      this.props.filter_data.date_filter_type === DURATION_BEFORE ||
       this.props.filter_data.date_filter_type === DURATION_EXACT ||
       this.props.filter_data.date_filter_type === DURATION_BETWEEN ||
       this.props.filter_data.date_filter_type === DURATION_BEFORE_PAST
@@ -110,7 +101,6 @@ export class CalendarPicker extends Component<Props, state> {
         date_second: this.props.filter_data.date_second,
         mode:
           this.props.filter_data.date_filter_type === DURATION_AFTER ||
-          this.props.filter_data.date_filter_type === DURATION_BEFORE ||
           this.props.filter_data.date_filter_type === DURATION_EXACT ||
           this.props.filter_data.date_filter_type === DURATION_BETWEEN ||
           this.props.filter_data.date_filter_type === DURATION_BEFORE_PAST
@@ -286,16 +276,19 @@ export class CalendarPicker extends Component<Props, state> {
 
   changeDurationTime = (duration_type) => {
     if (duration_type === DURATION_BEFORE_PAST) {
-      return DURATION_BEFORE;
-    }
-    if (duration_type === DURATION_BEFORE) {
-      return DURATION_BEFORE_PAST;
+      this.setState((prevState) => ({
+        duration: 0,
+        duration_second: prevState.duration,
+      }));
+      return DURATION_BETWEEN;
     }
     if (duration_type === DURATION_AFTER) {
-      return DURATION_AFTER_PAST;
-    }
-    if (duration_type === DURATION_AFTER_PAST) {
-      return DURATION_AFTER;
+      this.setState((prevState) => ({
+        duration: 0,
+        duration_second: prevState.duration,
+      }));
+
+      return DURATION_BETWEEN_PAST;
     }
     if (duration_type === DURATION_EXACT) {
       return DURATION_EXACT_PAST;
@@ -315,9 +308,6 @@ export class CalendarPicker extends Component<Props, state> {
   renderDurationValuesExit = (value, duration_type) => {
     if (duration_type === DURATION_BEFORE_PAST) {
       return { value: -value, type: DURATION_BEFORE_PAST };
-    }
-    if (duration_type === DURATION_AFTER_PAST) {
-      return { value: -value, type: DURATION_AFTER };
     }
     if (duration_type === DURATION_EXACT_PAST) {
       return { value: -value, type: DURATION_EXACT };

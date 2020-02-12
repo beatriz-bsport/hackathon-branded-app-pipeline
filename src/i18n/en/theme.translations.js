@@ -28,6 +28,17 @@ export default {
       label: 'Secondary color',
       helperText: 'Complentary theme color',
     },
+    default_booking_ordering: {
+      date: 'Sort by most recent booking date',
+      firstname: 'Sort by first name',
+      lastname: 'Sort by last name',
+      title: 'Select bookings sort on offer page',
+    },
+    default_attendance: {
+      present: 'Member present',
+      missing: 'Member missing',
+      title: 'Default status for a booking made by a member',
+    },
     websiteURL: {
       label: 'URL website',
       helperText: 'You main website',

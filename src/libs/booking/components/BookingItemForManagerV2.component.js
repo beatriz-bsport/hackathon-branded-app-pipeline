@@ -1,6 +1,6 @@
 // @flow
 
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 
 import { compose } from 'recompose';
 
@@ -116,7 +116,7 @@ type State = {
   menuAnchor: ?any,
 };
 
-export class BookingItemForManager extends PureComponent<Props, State> {
+export class BookingItemForManager extends Component<Props, State> {
   state = { menuAnchor: null };
 
   getStatusStyleProps = (status: ?boolean) => {

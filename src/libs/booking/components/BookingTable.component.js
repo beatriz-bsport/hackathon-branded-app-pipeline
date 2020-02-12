@@ -1,7 +1,6 @@
 // @flow
 
 import React, { PureComponent } from 'react';
-
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import List from '@material-ui/core/List';
@@ -43,7 +42,6 @@ export class BookingTable extends PureComponent<Props> {
       classes,
       loading,
       heading,
-      bookings,
       confirmBookingAttendance,
       discardBookingAttendance,
       showQuickInvoiceButton,
@@ -53,7 +51,9 @@ export class BookingTable extends PureComponent<Props> {
       showRevertBookingButton,
       handleRevert,
       onQuickInvoiceClick,
+      bookings,
     } = this.props;
+
     if (loading || !bookings) {
       return <CircularProgress className={classes.contentWithMargin} />;
     }
@@ -70,7 +70,7 @@ export class BookingTable extends PureComponent<Props> {
       }
     return (
       <List disablePadding dense>
-        {this.props.bookings.map((b) => (
+        {bookings.map((b) => (
           <BookingItemForManagerV2
             member={this.props.members.find((m) => m.id === b.member)}
             redirectToMember={redirectToMember}

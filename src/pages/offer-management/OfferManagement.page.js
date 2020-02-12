@@ -23,6 +23,7 @@ import { getShopItemsAvailable } from '../../libs/shop/selectors';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { mailMembers as mailMembersAction } from '../../libs/communication/actions';
 import { fetchAll as fetchShopItems } from '../../libs/shop/actions/shopitem';
+import themeSelectors from '../../libs/theme/selectors';
 
 import {
   registerBooking as registerBookingAction,
@@ -108,6 +109,8 @@ function mapStateToProps(state, { id }) {
     permission: getPermissions(state),
     paymentComboList: getPaymentComboList(state),
     shopItemsAvailable: getShopItemsAvailable(state),
+    // theme
+    company_theme: themeSelectors.getTheme(state),
   };
 }
 
@@ -173,14 +176,18 @@ export default compose(
       retrieveConsumerPackBulk,
       id,
     }) => ({
-      refresh: () => {
-        refreshBookingsByOffer(id, {
-          onSuccess: (bookings) => {
-            retrieveConsumerPackBulk(
-              bookings.map((b) => b.consumer_payment_pack),
-            );
+      refresh: (ordering_field) => {
+        refreshBookingsByOffer(
+          id,
+          {
+            onSuccess: (bookings) => {
+              retrieveConsumerPackBulk(
+                bookings.map((b) => b.consumer_payment_pack),
+              );
+            },
           },
-        });
+          ordering_field,
+        );
         fetchFilteredMembers({ offer: id, withNotes: true });
       },
     }),
@@ -195,33 +202,42 @@ export default compose(
       cancelBooking,
       registerBooking,
     }) => ({
-      addBooking: (offerId, consumerPaymentPackId, keep_credits) => {
+      addBooking: (
+        offerId,
+        consumerPaymentPackId,
+        keep_credits,
+        ordering_field,
+      ) => {
         registerBooking(
           offerId,
           consumerPaymentPackId,
           {
-            onSuccess: refresh,
+            onSuccess: () => refresh(ordering_field),
           },
           keep_credits,
         );
       },
-      deleteBooking: (bookingId) => {
+      deleteBooking: (bookingId, ordering_field) => {
         cancelBooking(
           bookingId,
           {},
           {
-            onSuccess: refresh,
+            onSuccess: () => refresh(ordering_field),
           },
         );
       },
-      fetchOfferData: (offerId) => {
-        fetchBookingsByOffer(offerId, {
-          onSuccess: (bookings) => {
-            retrieveConsumerPackBulk(
-              bookings.map((b) => b.consumer_payment_pack),
-            );
+      fetchOfferData: (offerId, ordering_field) => {
+        fetchBookingsByOffer(
+          offerId,
+          {
+            onSuccess: (bookings) => {
+              retrieveConsumerPackBulk(
+                bookings.map((b) => b.consumer_payment_pack),
+              );
+            },
           },
-        });
+          ordering_field,
+        );
         fetchFilteredMembers({ offer: offerId, withNotes: true });
         fetchBookingOptionByOffer(offerId);
       },
@@ -265,8 +281,10 @@ export default compose(
           fetchFilteredMembers({ offer: id, withNotes: true });
         });
       },
-      revertQuickInvoiceAndRefreshOffer: (uuid, offerId) => {
-        revertQuickInvoice(uuid, () => refreshBookingsByOffer(offerId));
+      revertQuickInvoiceAndRefreshOffer: (uuid, offerId, ordering_field) => {
+        revertQuickInvoice(uuid, () =>
+          refreshBookingsByOffer(offerId, ordering_field),
+        );
       },
       createInvoice: (
         invoiceData: InvoiceData,

@@ -24,4 +24,11 @@ export default {
     copyLink: 'Copier le lien vers la page de réservation',
     copied: 'Lien copié',
   },
+  offerManagement: {
+    bookingOrder: {
+      date: 'Trier par date',
+      lastname: 'Trier par nom',
+      firstname: 'Trier par prénom',
+    },
+  },
 };

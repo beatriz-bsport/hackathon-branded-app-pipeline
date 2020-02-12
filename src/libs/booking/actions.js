@@ -227,19 +227,24 @@ export const byOfferActions = {
   error: createAction('BOOKING/BY_OFFER/ERROR'),
 };
 
-export function fetchBookingsByOffer(offer: number, options: OptionCallback) {
+export function fetchBookingsByOffer(offer, options, ordering_field = null) {
   return async (dispatch: Dispatch) => {
     dispatch(byOfferActions.isLoading(true));
-    dispatch(refreshBookingsByOffer(offer, options));
+    dispatch(refreshBookingsByOffer(offer, options, ordering_field));
   };
 }
 
-export function refreshBookingsByOffer(offer: number, options: OptionCallback) {
+export function refreshBookingsByOffer(offer, options, ordering_field = null) {
   return async (dispatch: Dispatch) => {
     dispatch(byOfferActions.error(null));
 
     try {
+      const order_filter = {};
+      if (ordering_field) {
+        order_filter.ordering = ordering_field;
+      }
       const response = await fetchBookingListAPI({
+        ...order_filter,
         in_offer: offer,
         page_size: 300,
       });

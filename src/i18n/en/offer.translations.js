@@ -24,4 +24,11 @@ export default {
     copyLink: 'Copy link to payment page',
     copied: 'Link copied',
   },
+  offerManagement: {
+    bookingOrder: {
+      date: 'Sort by date',
+      lastname: 'Sort by last name',
+      firstname: 'Sort by first name',
+    },
+  },
 };

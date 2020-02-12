@@ -27,6 +27,18 @@ export default {
           helperText: 'Changer le style de la police',
         },
       },
+      default_attendance: {
+        present: 'Membre présent',
+        missing: 'Membre absent',
+        title: "Statut par défaut d'une réservation faite par le client",
+      },
+      default_booking_ordering: {
+        date: 'Trier par date de réservation la plus récente',
+        firstname: 'Trier par ordre alphabétique des prénoms',
+        lastname: 'Trier par ordre alphabétique des noms',
+        title:
+          "Choisir l'ordre de tri par défaut des réservations sur la page d'une activité",
+      },
       names_label_info:
         "Modifier le label des champs Nom et Prénom dans les formulaires d'inscription",
       first_name_label: {

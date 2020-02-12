@@ -18,6 +18,8 @@ import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Dialog from '@material-ui/core/Dialog';
+import Radio from '@material-ui/core/Radio';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import DialogContent from '@material-ui/core/DialogContent';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -31,6 +33,11 @@ import type { TFunction } from 'react-i18next';
 
 import moment from 'moment';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
+import {
+  BOOKING_DATE_ORDER,
+  BOOKING_FIRSTNAME_ORDER,
+  BOOKING_LASTNAME_ORDER,
+} from '@bsport/common/lib/master-data/settings';
 import ResultList from '../../components/search/ResultList.component';
 import MemberBookingHelper from './MemberBookingHelper.component';
 import { mapFormData } from '../form.utils';
@@ -115,6 +122,7 @@ type Props = {
   goToCalendar: (date: any) => void,
   t: TFunction,
   classes: Object,
+  company_theme: Object,
 };
 
 type State = {
@@ -128,6 +136,7 @@ type State = {
   openMailDialog: boolean,
   receivers: Object,
   openMailChoiceDialog: boolean,
+  booking_ordering: number,
 };
 
 const getNameFromId = (id, membersList) => {
@@ -146,6 +155,8 @@ export class OfferManagement extends Component<Props, State> {
     interval: null,
     openMailChoiceDialog: false,
     keep_credits: false,
+    booking_ordering:
+      this.props.company_theme.default_booking_ordering || BOOKING_DATE_ORDER,
   };
 
   componentWillMount() {
@@ -155,10 +166,22 @@ export class OfferManagement extends Component<Props, State> {
   componentDidMount() {
     this.props.fetchCompatiblePacks(this.props.offerId);
     this.props.fetchOffer(this.props.offerId);
-    this.props.fetchOfferData(this.props.offerId);
+    this.props.fetchOfferData(this.props.offerId, this.state.booking_ordering);
     this.props.fetchShopItems();
     this.props.fetchPrivatePassList();
     this.props.fetchPaymentComboList();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      this.props.company_theme.default_booking_ordering !==
+      prevProps.company_theme.default_booking_ordering
+    ) {
+      this.setState({
+        booking_ordering: this.props.company_theme.default_booking_ordering,
+      });
+      this.refresh(this.props.company_theme.default_booking_ordering);
+    }
   }
 
   componentWillUnmount() {
@@ -201,6 +224,7 @@ export class OfferManagement extends Component<Props, State> {
       this.props.offerId,
       consumerPaymentPackId,
       this.state.keep_credits,
+      this.state.booking_ordering,
     );
     this.clearSearch();
     if (this.state.optionToDiscard) {
@@ -378,37 +402,82 @@ export class OfferManagement extends Component<Props, State> {
   };
 
   renderBookingHeader = () => {
-    const { classes } = this.props;
+    const { classes, t } = this.props;
     return (
-      <div className={classes.bookingsHeader}>
-        <div />
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            flexDirection: 'row',
-          }}
-        >
-          <IconButton
-            onClick={(e) => {
-              e.stopPropagation();
-              this.setState({ openMailChoiceDialog: true });
+      <div>
+        <div className={classes.bookingsHeader}>
+          <div />
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              flexDirection: 'row',
             }}
-            color="primary"
-            disabled={this.props.bookingLoading}
           >
-            <MailIcon />
-          </IconButton>
-          <IconButton onClick={this.openAddMemberModal} color="primary">
-            <PersonAddIcon />
-          </IconButton>
-          <SearchMember
-            onChange={(event) => {
-              this.setState({ searchedText: event.target.value });
-              this.props.searchMembers(event.target.value);
-            }}
-            value={this.state.searchedText}
-            onReset={this.clearSearch}
+            <IconButton
+              onClick={(e) => {
+                e.stopPropagation();
+                this.setState({ openMailChoiceDialog: true });
+              }}
+              color="primary"
+              disabled={this.props.bookingLoading}
+            >
+              <MailIcon />
+            </IconButton>
+            <IconButton onClick={this.openAddMemberModal} color="primary">
+              <PersonAddIcon />
+            </IconButton>
+            <SearchMember
+              onChange={(event) => {
+                this.setState({ searchedText: event.target.value });
+                this.props.searchMembers(event.target.value);
+              }}
+              value={this.state.searchedText}
+              onReset={this.clearSearch}
+            />
+          </div>
+        </div>
+        <div className={classes.bookingOrderingContainer}>
+          <FormControlLabel
+            value={BOOKING_DATE_ORDER}
+            control={
+              <Radio
+                checked={BOOKING_DATE_ORDER === this.state.booking_ordering}
+                onChange={() => {
+                  this.setState({ booking_ordering: BOOKING_DATE_ORDER });
+                  this.props.refresh(BOOKING_DATE_ORDER);
+                }}
+              />
+            }
+            label={t('offer:offerManagement.bookingOrder.date')}
+          />
+          <FormControlLabel
+            value={BOOKING_FIRSTNAME_ORDER}
+            control={
+              <Radio
+                checked={
+                  BOOKING_FIRSTNAME_ORDER === this.state.booking_ordering
+                }
+                onChange={() => {
+                  this.setState({ booking_ordering: BOOKING_FIRSTNAME_ORDER });
+                  this.props.refresh(BOOKING_FIRSTNAME_ORDER);
+                }}
+              />
+            }
+            label={t('offer:offerManagement.bookingOrder.firstname')}
+          />
+          <FormControlLabel
+            value={BOOKING_LASTNAME_ORDER}
+            control={
+              <Radio
+                checked={BOOKING_LASTNAME_ORDER === this.state.booking_ordering}
+                onChange={() => {
+                  this.setState({ booking_ordering: BOOKING_LASTNAME_ORDER });
+                  this.props.refresh(BOOKING_LASTNAME_ORDER);
+                }}
+              />
+            }
+            label={t('offer:offerManagement.bookingOrder.lastname')}
           />
         </div>
       </div>
@@ -426,6 +495,7 @@ export class OfferManagement extends Component<Props, State> {
           this.props.revertQuickInvoiceAndRefreshOffer(
             inv.uuid,
             this.props.offerId,
+            this.state.booking_ordering,
           );
           return;
         }
@@ -435,14 +505,17 @@ export class OfferManagement extends Component<Props, State> {
   };
 
   handleBookingDeletion = () => {
-    this.props.deleteBooking(this.state.bookingToRevert.id);
+    this.props.deleteBooking(
+      this.state.bookingToRevert.id,
+      this.state.booking_ordering,
+    );
     this.closeRevertBookingDialog();
   };
 
   goToOffer = (id) => {
     this.props.fetchCompatiblePacks(id);
     this.props.fetchOffer(id);
-    this.props.fetchOfferData(id);
+    this.props.fetchOfferData(id, this.state.booking_ordering);
     this.props.goToOffer(id);
   };
 
@@ -487,7 +560,12 @@ export class OfferManagement extends Component<Props, State> {
             <CircularProgress size={16} />
           ) : (
             <IconButton
-              onClick={() => this.props.fetchOfferData(this.props.offerId)}
+              onClick={() =>
+                this.props.fetchOfferData(
+                  this.props.offerId,
+                  this.state.booking_ordering,
+                )
+              }
             >
               <RefreshIcon />
             </IconButton>
@@ -510,15 +588,14 @@ export class OfferManagement extends Component<Props, State> {
   render() {
     const {
       offer,
-      bookings,
       bookingLoading,
       bookingOptionsPending,
       t,
       classes,
+      bookings,
       fullScreen,
       members,
     } = this.props;
-
     const { searchedText, memberToRegister, memberToRegisterName } = this.state;
     if (!offer) {
       return <React.Fragment>{this.getNavigationHeader(true)}</React.Fragment>;
@@ -639,6 +716,7 @@ export class OfferManagement extends Component<Props, State> {
                 this.props.revertQuickInvoiceAndRefreshOffer(
                   uuid,
                   this.props.offerId,
+                  this.state.booking_ordering,
                 )
               }
               quickInvoices={this.state.quickInvoices}
@@ -785,6 +863,11 @@ const styles = (theme) => ({
   },
   headerContainer: {
     marginTop: -theme.spacing.unit * 2,
+  },
+  bookingOrderingContainer: {
+    marginRight: theme.spacing.unit,
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
   autoScroll: {
     overflowY: 'auto',

@@ -83,9 +83,9 @@ export default {
     registerManager: {
       title: 'Paiement récurrent',
       explainChoseContract:
-        'Sélectionnez un contrat, ce-dernier sera facturé mensuellement au membre',
+        'Sélectionnez un contrat, ce dernier sera facturé mensuellement au membre',
       explainCustomSubscriptionForm:
-        'Non je souhaite définir un souscription personnalisée',
+        'Non je souhaite définir une souscription personnalisée',
       actions: {
         cancel: 'Annuler',
       },

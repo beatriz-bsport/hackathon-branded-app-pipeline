@@ -46,7 +46,17 @@ export const MarketplacePrivatePassList = (props: Props) => {
               <ListItemSecondaryAction>
                 <IconButton
                   color="primary"
-                  onClick={() => props.onAddBasket(pp.id)}
+                  onClick={() => {
+                    props.onAddBasket(pp.id);
+                    (window.dataLayer || []).push({
+                      event: 'bsport:basket:add-to-cart:private-pass',
+                      data: {
+                        id: pp.id,
+                        name: pp.name,
+                        price: pp.price,
+                      },
+                    });
+                  }}
                 >
                   <AddShoppingCartIcon />
                 </IconButton>

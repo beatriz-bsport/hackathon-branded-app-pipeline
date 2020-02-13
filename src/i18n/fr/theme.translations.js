@@ -87,6 +87,10 @@ export default {
       placeholder:
         "J'atteste posséder un certificat médical et l'apporterai à mon studio",
     },
+    gtmId: {
+      placeholder: 'GTM-XXXXXX',
+      label: 'Google Tag ID',
+    },
     instagramURL: {
       label: 'URL Instagram',
       helperText: 'Votre page Instagram',

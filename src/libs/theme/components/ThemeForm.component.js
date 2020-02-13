@@ -73,6 +73,7 @@ export class ThemeForm extends Component<Props, State> {
       this.state.theme.cover === this.props.theme.cover &&
       this.state.theme.websiteURL === this.props.theme.websiteURL &&
       this.state.theme.scheduleURL === this.props.theme.scheduleURL &&
+      this.state.theme.gtmId === this.props.theme.gtmId &&
       this.state.theme.instagramURL === this.props.theme.instagramURL &&
       this.state.theme.general_terms_and_conditions ===
         this.props.theme.general_terms_and_conditions &&
@@ -94,6 +95,7 @@ export class ThemeForm extends Component<Props, State> {
       'websiteURL',
       'scheduleURL',
       'facebookURL',
+      'gtmId',
       'instagramURL',
       'general_terms_and_conditions',
     ].map((key) => data.append(key, this.state.theme[key]));
@@ -193,6 +195,15 @@ export class ThemeForm extends Component<Props, State> {
             onChange={(ev) =>
               this.handleChange('general_terms_and_conditions')(ev.target.value)
             }
+          />
+        </div>
+        <div className={classes.inputContainer}>
+          <TextField
+            variant="outlined"
+            placeholder={t('forms.gtmId.placeholder')}
+            label={t('forms.gtmId.label')}
+            value={this.state.theme.gtmId}
+            onChange={(ev) => this.handleChange('gtmId')(ev.target.value)}
           />
         </div>
         <div className={classes.buttonContainer}>

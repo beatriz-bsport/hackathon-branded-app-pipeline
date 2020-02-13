@@ -54,7 +54,7 @@ export const MarketplaceWorkshop = (props: Props) => {
             <MarketplaceWorkshopEvent
               offer={o}
               onShowMore={() => props.selectOffer(o)}
-              onBook={() => props.onBook(o.id)}
+              onBook={() => props.onBook(o)}
               onBookOption={() => props.onBookOption(o.id)}
               activityLoading={props.activityLoading}
               establishmentLoading={props.establishmentLoading}
@@ -76,7 +76,10 @@ export const MarketplaceWorkshop = (props: Props) => {
         goToPackPayment={props.goToPackPayment}
         goToPaymentComboPayment={props.goToPaymentComboPayment}
         goToOfferPayment={(id) =>
-          props.onBook(id, props.offerSelected.meta_activity.company)
+          props.onBook(
+            props.offerSelected,
+            props.offerSelected.meta_activity.company,
+          )
         }
         onBookFromPack={(packId) =>
           props.onBookOfferFromPack(props.offerSelected.id, packId)

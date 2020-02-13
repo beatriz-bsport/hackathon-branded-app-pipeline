@@ -21,7 +21,7 @@ export default {
     bookAgain: 'Réserver de nouveau',
   },
   dashboard: {
-    favoriteTitle: 'Mes raccourcis',
+    favoriteTitle: 'Dernière activité',
     optionTitle: "Sur liste d'attente",
     nextBookingTitle: 'Mes prochaines séances',
     currentPassTitle: 'Carte de cours actives',

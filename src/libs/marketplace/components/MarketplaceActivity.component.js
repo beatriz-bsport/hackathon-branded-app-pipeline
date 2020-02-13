@@ -42,7 +42,7 @@ type Props = {
   displayPacksInformation: ?boolean,
   compatibleConsumerPacks: Array<ConsumerPaymentPack>,
   compatiblePaymentPacks: Array<PaymentPack>,
-  goToOfferPayment: (offerId: number) => void,
+  goToOfferPayment: (offer: Offer) => void,
   hideMap: ?boolean,
 
   goToPackPayment: (packId: number, offerId: number, companyId: number) => void,
@@ -210,7 +210,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
               color="primary"
               className={classes.callButton}
               disabled={!isOfferInThePast(offer) || !offer.available}
-              onClick={() => this.props.goToOfferPayment(offer.id)}
+              onClick={() => this.props.goToOfferPayment(offer)}
             >
               Réserver
             </Button>
@@ -297,7 +297,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
               variant="contained"
               color="primary"
               disabled={!isOfferInThePast(offer) || !offer.available}
-              onClick={() => this.props.goToOfferPayment(offer.id)}
+              onClick={() => this.props.goToOfferPayment(offer)}
             >
               Réserver
             </Button>

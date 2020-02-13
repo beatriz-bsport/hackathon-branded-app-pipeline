@@ -23,12 +23,14 @@ import { replace, push as pushRouter } from 'react-router-redux';
 
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+
 import { getTheme } from '../../theme';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 
 import ConsumerLogin from '../../components/consumer/login/ConsumerLogin.component';
 import AppBar from './AppBar.component';
 import SignUpForm from '../../components/form/SignUpForm.component';
+import GoogleTagManager from '../../components/GoogleTagManager.component';
 
 import {
   addItemToBasket,
@@ -219,10 +221,20 @@ export class MarketPlace extends Component<Props, State> {
   };
 
   toogleSignUp = (value: boolean) => {
+    if (value) {
+      (window.dataLayer || []).push({
+        event: 'bsport:signup:show',
+      });
+    }
     this.setState({ signupDialogOpen: value });
   };
 
   toogleLogin = (value: boolean) => {
+    if (value) {
+      (window.dataLayer || []).push({
+        event: 'bsport:signin:show',
+      });
+    }
     this.setState({ loginDialogOpen: value });
   };
 
@@ -230,7 +242,16 @@ export class MarketPlace extends Component<Props, State> {
 
   doEmailLogin = ({ email, password }) => {
     this.props.doEmailLogin({ email, password }, () => {
-      this.props.fetchProfile();
+      this.props.fetchProfile({
+        onSuccess: (profile) => {
+          (window.dataLayer || []).push({
+            event: 'bsport:signin:success',
+            data: {
+              email: profile.email,
+            },
+          });
+        },
+      });
       this.props.fetchCurrentBasket(this.props.companyId);
     });
   };
@@ -253,6 +274,7 @@ export class MarketPlace extends Component<Props, State> {
     }
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
+        <GoogleTagManager theme={this.props.theme} />
         <div className={classes.container}>
           <AppBar
             logo={this.props.theme.cover}
@@ -376,7 +398,16 @@ export class MarketPlace extends Component<Props, State> {
                   checkEmailExists={this.props.checkEmailExists}
                   onComplete={(data: *) =>
                     this.signup(data, () => {
-                      this.props.fetchProfile();
+                      this.props.fetchProfile({
+                        onSuccess: (profile) => {
+                          (window.dataLayer || []).push({
+                            event: 'bsport:signup:success',
+                            data: {
+                              email: profile.email,
+                            },
+                          });
+                        },
+                      });
                       this.props.fetchCurrentBasket(this.props.companyId);
                     })
                   }

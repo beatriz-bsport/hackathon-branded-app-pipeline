@@ -9,6 +9,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import memoize from 'memoize-one';
 
 import { connect } from 'react-redux';
 import {
@@ -78,7 +79,7 @@ type Props = {
   setFilters: (*) => void,
   toogleFiltersOpen: () => void,
   handleDateChange: (newDate: string) => void,
-  goToBook: (offerId: number, comapnyId: number) => void,
+  goToBook: (offer: Offer, comapnyId: number) => void,
   onBookOfferFromPack: (offerId: number, consumerPackId: number) => void,
   goToBookOption: (offerId: number, comapnyId: number) => void,
 
@@ -103,7 +104,7 @@ type State = {
   offer: Object,
 };
 
-const readFiltersFromURL = (search) => {
+const readFiltersFromURL = memoize((search) => {
   // URL parameters starting with f_ are considered as ID filters for
   // offers, we parse ?f_levels=[1,2] to replace with { levels: [1,2] }
   try {
@@ -116,7 +117,7 @@ const readFiltersFromURL = (search) => {
   } catch (err) {
     return {};
   }
-};
+});
 
 const fromURLtoDate = (search: string) => {
   try {
@@ -315,8 +316,26 @@ export class MarketplaceCalendar extends Component<Props, State> {
     this.setState({ offerId: null });
   };
 
-  goToBook = (id: number) => {
-    this.props.goToBook(id, this.props.companyId);
+  goToBook = (offer: Offer) => {
+    try {
+      (window.dataLayer || []).push({
+        event: 'bsport:calendar:session-show',
+        data: {
+          name: offer.meta_activity.name,
+          date: offer.date_start,
+          coach: offer.coach_override
+            ? offer.coach_override.name
+            : offer.coach.name,
+          establishment: offer.establishment_override
+            ? offer.establishment_override.title
+            : offer.establishment.name,
+          activity: offer.meta_activity.id,
+        },
+      });
+    } catch (err) {
+      console.error(err);
+    }
+    this.props.goToBook(offer.id, this.props.companyId);
   };
 
   goToBookOption = (id: number) => {
@@ -400,14 +419,17 @@ export default compose(
     null,
     { replace: replaceRouter },
   ),
-  withProps(({ location, replace }) => ({
+  withProps(({ location }) => ({
     filters: readFiltersFromURL(location.search),
     filtersOpen: location.search.includes('filtersOpen=true'),
-    setFilters: (filters) => {
+    forceDayDisplayOnly: location.search.includes('onlyDay=true'),
+  })),
+  withHandlers({
+    setFilters: ({ replace, location }) => (filters) => {
       const urlParams = fromPropsToURL(filters, location.search);
       replace(location.pathname + urlParams);
     },
-    toogleFiltersOpen: () => {
+    toogleFiltersOpen: ({ replace, location }) => () => {
       if (location.search.includes('filtersOpen=true')) {
         replace(
           location.pathname +
@@ -421,8 +443,7 @@ export default compose(
         replace(`${location.pathname + location.search}&filtersOpen=true`);
       }
     },
-    forceDayDisplayOnly: location.search.includes('onlyDay=true'),
-  })),
+  }),
   connect(
     (state) => ({
       offers: withCoach(
@@ -449,29 +470,28 @@ export default compose(
         push(`/customer/payment/offer/${id}?membership=${companyId}`),
     },
   ),
-  withProps(
-    ({
+  withHandlers({
+    fetchOfferList: ({
       fetchOfferList,
       fetchEstablishmentBulk,
       fetchCoachBulk,
       fetchMetaActivityBulk,
-    }) => ({
-      fetchOfferList: (params) =>
-        fetchOfferList(params, {
-          onSuccess: (offerList) => {
-            fetchEstablishmentBulk([
-              ...offerList.map((o) => o.establishment),
-              ...offerList.map((o) => o.establishment_override),
-            ]);
-            fetchCoachBulk([
-              ...offerList.map((o) => o.coach),
-              ...offerList.map((o) => o.coach_override),
-            ]);
-            fetchMetaActivityBulk([...offerList.map((o) => o.meta_activity)]);
-          },
-        }),
-    }),
-  ),
+    }) => (params) => {
+      fetchOfferList(params, {
+        onSuccess: (offerList) => {
+          fetchEstablishmentBulk([
+            ...offerList.map((o) => o.establishment),
+            ...offerList.map((o) => o.establishment_override),
+          ]);
+          fetchCoachBulk([
+            ...offerList.map((o) => o.coach),
+            ...offerList.map((o) => o.coach_override),
+          ]);
+          fetchMetaActivityBulk([...offerList.map((o) => o.meta_activity)]);
+        },
+      });
+    },
+  }),
   connect(
     null,
     (dispatch) => ({
@@ -482,16 +502,16 @@ export default compose(
     }),
   ),
   withHandlers({
-    handleDateChange: (props) => (newDate_: string) => {
-      const pathname = fromPropsToNewDateURL(newDate_, props.location);
-      props.replace(pathname);
+    handleDateChange: ({ location, replace }) => (newDate_: string) => {
+      const pathname = fromPropsToNewDateURL(newDate_, location);
+      replace(pathname);
     },
   }),
   withProps(({ location }) => ({
     selectedDate: fromURLtoDate(location.search),
   })),
-  withProps(({ onCompletePurchase }) => ({
-    onBookOfferFromPack: (offerId, packId) => {
+  withHandlers({
+    onBookOfferFromPack: ({ onCompletePurchase }) => (offerId, packId) => {
       payWithConsumerPaymentPackAPI(packId, offerId, {})
         .then(() => {
           onCompletePurchase();
@@ -500,7 +520,7 @@ export default compose(
           console.error(err);
         });
     },
-  })),
+  }),
   // for MarketplaceActivityDialog
   connect(
     (state) => ({
@@ -515,42 +535,46 @@ export default compose(
       addItemToBasket: addItemToBasketAction,
     },
   ),
-  withProps(
-    ({
+  withHandlers({
+    goToPackPayment: ({
       authenticated,
       requestSignUp,
       toogleCurrentBasketOpen,
       currentBasket,
       addItemToBasket,
-    }) => ({
-      goToPackPayment: (packId, offerId) => {
-        if (!authenticated) {
-          requestSignUp();
-        } else {
-          addItemToBasket(currentBasket.id, {
-            buyable_item_identifier: BUYABLE_ITEM_PASS,
-            quantity: 1,
-            buyable_item_id: packId,
-            extra_data: { offer_next: offerId },
-          });
-          toogleCurrentBasketOpen(true);
-        }
-      },
-      goToPaymentComboPayment: (comboId, offerId) => {
-        if (!authenticated) {
-          requestSignUp();
-        } else {
-          addItemToBasket(currentBasket.id, {
-            buyable_item_identifier: BUYABLE_ITEM_COMBO_ITEM,
-            quantity: 1,
-            buyable_item_id: comboId,
-            extra_data: { offer_next: offerId },
-          });
-          toogleCurrentBasketOpen(true);
-        }
-      },
-    }),
-  ),
+    }) => (packId, offerId) => {
+      if (!authenticated) {
+        requestSignUp();
+      } else {
+        addItemToBasket(currentBasket.id, {
+          buyable_item_identifier: BUYABLE_ITEM_PASS,
+          quantity: 1,
+          buyable_item_id: packId,
+          extra_data: { offer_next: offerId },
+        });
+        toogleCurrentBasketOpen(true);
+      }
+    },
+    goToPaymentComboPayment: ({
+      authenticated,
+      requestSignUp,
+      toogleCurrentBasketOpen,
+      currentBasket,
+      addItemToBasket,
+    }) => (comboId, offerId) => {
+      if (!authenticated) {
+        requestSignUp();
+      } else {
+        addItemToBasket(currentBasket.id, {
+          buyable_item_identifier: BUYABLE_ITEM_COMBO_ITEM,
+          quantity: 1,
+          buyable_item_id: comboId,
+          extra_data: { offer_next: offerId },
+        });
+        toogleCurrentBasketOpen(true);
+      }
+    },
+  }),
   withNamespaces(),
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:marketplace.marketplaceCalendar'),

@@ -81,6 +81,14 @@ const SubShopComponent = (props: {
                         onClick={(ev) => {
                           ev.stopPropagation();
                           props.addToOrder(si.id);
+                          (window.dataLayer || []).push({
+                            event: 'bsport:basket:add-to-cart:shop-item',
+                            data: {
+                              id: si.id,
+                              name: si.name,
+                              price: si.price,
+                            },
+                          });
                         }}
                       >
                         <AddShoppingCartIcon />

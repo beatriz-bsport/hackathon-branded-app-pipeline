@@ -25,7 +25,7 @@ type Props = {
   classes: Object,
   onClickOffer: () => void,
   classes: Object,
-  onClickBook: (offerId: number) => void,
+  onClickBook: (offer: Offer) => void,
   onClickBookOption: (offerId: number) => void,
   date: Object,
   t: TFunction,
@@ -153,7 +153,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                       showOfferFilling={this.props.showOfferFilling}
                       offer={o}
                       onClickOffer={this.props.onClickOffer}
-                      onClickBook={() => this.props.onClickBook(o.id)}
+                      onClickBook={() => this.props.onClickBook(o)}
                       onClickBookOption={() =>
                         this.props.onClickBookOption(o.id)
                       }

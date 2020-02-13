@@ -1,12 +1,12 @@
 // @flow
 
 import React from 'react';
-import { compose, withState, withProps } from 'recompose';
+import { compose, withState, withProps, withHandlers } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect } from 'react-redux';
-import { replace, push, goBack } from 'react-router-redux';
+import { replace as replaceRouter, push, goBack } from 'react-router-redux';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import Typography from '@material-ui/core/Typography';
 import { withNamespaces } from 'react-i18next';
@@ -21,6 +21,7 @@ import {
   patchCurrentBasket,
   attachPayment as attachPaymentAction,
 } from '../../libs/checkout/actions';
+import GoogleTagManager from '../../components/GoogleTagManager.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import CheckoutFlow from '../../libs/checkout/components/CheckoutFlow.component';
 import { getCurrentBasket } from '../../libs/checkout/selectors';
@@ -39,7 +40,7 @@ type Props = {
   addItemToBasket: (basketId: string, data: any) => void,
   submitPayment: (data: *) => void,
   fetchCompanyTheme: (companyId: number) => void,
-  onBasketFinalized: () => void,
+  onBasketFinalized: (basket: Basket) => void,
   goBack: () => void,
   t: TFunction,
   theme: ?Theme,
@@ -63,6 +64,27 @@ export class CheckoutPayment extends React.Component<Props> {
   componentDidUpdate(prevProps: Props) {
     if (prevProps.companyId !== this.props.companyId && this.props.companyId) {
       this.props.fetchCurrentBasket(this.props.companyId);
+    }
+    if (this.props.basket && !prevProps.basket) {
+      (window.dataLayer || []).push({
+        event: 'bsport:basket:show',
+        data: {
+          totalPrice: this.props.basket.total_price,
+          memberId: this.props.basket.member,
+        },
+      });
+    }
+  }
+
+  componentDidMount() {
+    if (this.props.basket) {
+      (window.dataLayer || []).push({
+        event: 'bsport:basket:show',
+        data: {
+          totalPrice: this.props.basket.total_price,
+          memberId: this.props.basket.member,
+        },
+      });
     }
   }
 
@@ -92,10 +114,7 @@ export class CheckoutPayment extends React.Component<Props> {
 
   render() {
     if (this.props.basket && this.props.basket.is_finalized) {
-      this.props.onBasketFinalized(
-        this.props.basket.company,
-        this.props.basket.id,
-      );
+      this.props.onBasketFinalized(this.props.basket);
     }
     if (!this.props.basket) {
       return (
@@ -106,6 +125,7 @@ export class CheckoutPayment extends React.Component<Props> {
     }
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
+        <GoogleTagManager theme={this.props.theme} />
         <div className={this.props.classes.container}>
           <Paper className={this.props.classes.paper}>
             <CheckoutFlow
@@ -169,15 +189,26 @@ export default compose(
       removeItemFromBasket,
       goBack,
       push,
+      replace: replaceRouter,
       fetchCurrentBasket: fetchCurrentBasketAction,
       patchCurrentBasket,
       attachPayment: attachPaymentAction,
       attachCoupon,
       fetchCompanyTheme,
-      onBasketFinalized: (company, basket) =>
-        replace(`/c/${company}/?from_basket=${basket}`),
     },
   ),
+  withHandlers({
+    onBasketFinalized: ({ replace }) => (basket) => {
+      (window.dataLayer || []).push({
+        event: 'bsport:basket:payment-success',
+        data: {
+          totalPrice: basket.total_price,
+          memberId: basket.member,
+        },
+      });
+      replace(`/c/${basket.company}/?from_basket=${basket.id}`);
+    },
+  }),
   withState('basketError', 'setBasketError', null),
   withProps(
     ({ attachPayment, fetchCurrentBasket, companyId, setBasketError }) => ({

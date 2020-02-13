@@ -65,6 +65,7 @@
     "react-dropzone": "8",
     "react-email-editor": "^1.0.0",
     "react-facebook-login": "^4.0.1",
+    "react-gtm-module": "^2.0.8",
     "react-helmet": "^5.2.1",
     "react-i18next": "8",
     "react-intercom": "^1.0.15",

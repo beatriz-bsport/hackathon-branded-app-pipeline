@@ -2,7 +2,7 @@
 
 import api from '../api';
 import types from './consumer.types';
-import type { State, Dispatch } from '../state/types';
+import type { State, Dispatch, OptionCallback } from '../state/types';
 
 export function startFetchBookings() {
   return { type: types.CONSUMER_START_FETCH_BOOKINGS };
@@ -139,7 +139,7 @@ export function fetchedProfile(profile: Profile) {
     profile,
   };
 }
-export function fetchProfile() {
+export function fetchProfile(options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(startFetchProfile());
     dispatch(errorFetchingProfile(null));
@@ -148,8 +148,10 @@ export function fetchProfile() {
       const response = await api.consumer.fetchProfile();
       const profile = response.data;
       dispatch(fetchedProfile(profile));
+      if (options && options.onSuccess) options.onSuccess(profile);
     } catch (err) {
       dispatch(errorFetchingProfile(err));
+      if (options && options.onError) options.onError(err);
     }
   };
 }

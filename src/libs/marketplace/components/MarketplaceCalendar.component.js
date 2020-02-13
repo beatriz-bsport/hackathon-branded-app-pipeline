@@ -48,7 +48,7 @@ type Props = {
   forceDayDisplayOnly: ?boolean,
   compactMode: ?boolean,
   width: string,
-  onClickBook: (offerId: number) => void,
+  onClickBook: (offer: Offer) => void,
   onClickBookOption: (offerId: number) => void,
   showOfferFilling: boolean,
   activityLoading: boolean,

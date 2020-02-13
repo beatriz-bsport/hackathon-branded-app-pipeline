@@ -54,6 +54,10 @@ export default {
       helperText: 'Your Instagram page',
       placeholder: 'https://instagram.com/my-studio/',
     },
+    gtmId: {
+      placeholder: 'GTM-XXXXXX',
+      label: 'Google Tag ID',
+    },
     facebookURL: {
       label: 'URL Facebook',
       helperText: 'Your facebook page',

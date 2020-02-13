@@ -77,6 +77,28 @@ export class MarketplaceWorkshopPage extends React.Component<Props> {
     });
   }
 
+  goToBook = (offer: Offer) => {
+    try {
+      (window.dataLayer || []).push({
+        event: 'bsport:workshop-click',
+        data: {
+          name: offer.meta_activity.name,
+          date: offer.date_start,
+          coach: offer.coach_override
+            ? offer.coach_override.name
+            : offer.coach.name,
+          establishment: offer.establishment_override
+            ? offer.establishment_override.title
+            : offer.establishment.name,
+          activity: offer.meta_activity.id,
+        },
+      });
+    } catch (err) {
+      console.error(err);
+    }
+    this.props.goToBook(offer.id, this.props.companyId);
+  };
+
   render() {
     const { classes, offers, loading } = this.props;
     if (loading) {
@@ -95,7 +117,7 @@ export class MarketplaceWorkshopPage extends React.Component<Props> {
             compatiblePaymentPacks={this.props.compatiblePaymentPacks}
             paymentComboList={this.props.paymentComboList}
             hideMap={!!this.props.hideMap}
-            onBook={(id) => this.props.goToBook(id, this.props.companyId)}
+            onBook={this.goToBook}
             onBookOfferFromPack={this.props.onBookOfferFromPack}
             goToPackPayment={(packId, offerId) =>
               this.props.goToPackPayment(packId, offerId, this.props.companyId)

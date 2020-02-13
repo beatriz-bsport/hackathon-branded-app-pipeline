@@ -89,8 +89,28 @@ export function MarketplacePassList(props: Props) {
         <List dense disablePadding>
           {paymentPacks.map((pp) => (
             <PaymentPackMarketplaceListItem
-              onSelect={() => props.setSelectedPass(pp)}
-              onCartAdd={() => pushPackCheckout(pp.id)}
+              onSelect={() => {
+                props.setSelectedPass(pp);
+                (window.dataLayer || []).push({
+                  event: 'bsport:pass:show',
+                  data: {
+                    id: pp.id,
+                    name: pp.name,
+                    price: pp.price,
+                  },
+                });
+              }}
+              onCartAdd={() => {
+                pushPackCheckout(pp.id);
+                (window.dataLayer || []).push({
+                  event: 'bsport:basket:add-to-cart:pass',
+                  data: {
+                    id: pp.id,
+                    name: pp.name,
+                    price: pp.price,
+                  },
+                });
+              }}
               key={pp.id}
               paymentPack={pp}
               t={props.t}
@@ -112,7 +132,17 @@ export function MarketplacePassList(props: Props) {
             ) : null}
             <Button
               style={{ width: '100%' }}
-              onClick={() => pushPackCheckout(selectedPass.id)}
+              onClick={() => {
+                pushPackCheckout(selectedPass.id);
+                (window.dataLayer || []).push({
+                  event: 'bsport:basket:add-to-cart:pass',
+                  data: {
+                    id: selectedPass.id,
+                    name: selectedPass.name,
+                    price: selectedPass.price,
+                  },
+                });
+              }}
               color="primary"
               variant="contained"
             >

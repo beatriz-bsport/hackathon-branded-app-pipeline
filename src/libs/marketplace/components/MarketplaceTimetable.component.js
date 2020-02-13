@@ -97,7 +97,7 @@ export class MarketplaceTimetable extends PureComponent<Props> {
                       </IconButton>
                     </Hidden>
                     <MarketplaceBookButton
-                      onClickBook={() => this.props.onClickBook(o.id)}
+                      onClickBook={() => this.props.onClickBook(o)}
                       onClickBookOption={() =>
                         this.props.onClickBookOption(o.id)
                       }

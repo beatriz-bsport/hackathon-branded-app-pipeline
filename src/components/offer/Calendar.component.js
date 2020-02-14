@@ -265,7 +265,10 @@ export class Calendar extends PureComponent<Props, State> {
                 try {
                   const response = await getAuth(
                     `${API_URI}/reporting/reports/offer_management/${buildUrlParams(
-                      this.buildFilters(this.props.filters),
+                      {
+                        ...this.buildFilters(this.props.filters),
+                        date: this.props.date,
+                      },
                     )}`,
                   );
                   const link = document.createElement('a');

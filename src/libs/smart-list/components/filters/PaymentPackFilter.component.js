@@ -52,7 +52,7 @@ export class PaymentPackFilter extends Component<Props, state> {
           this.props.filter_data.payment_packs,
         );
       }
-      this.props.setNotNullableData(['has_pack', 'payment_packs']);
+      this.props.setNotNullableData(['payment_packs']);
 
       this.props.onChange({
         payment_packs: null,
@@ -205,7 +205,8 @@ export class PaymentPackFilter extends Component<Props, state> {
                 : classes.disabled
             }
           >
-            {filter_data.expiration_duration < 0
+            {filter_data.expiration_duration < 0 ||
+            filter_data.expiration_duration_second < 0
               ? this.props.t(
                   `filters.${filter_data.filter_identifier}.expiration.first_has_expire`,
                 )

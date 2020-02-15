@@ -66,25 +66,33 @@ export class CheckoutPayment extends React.Component<Props> {
       this.props.fetchCurrentBasket(this.props.companyId);
     }
     if (this.props.basket && !prevProps.basket) {
-      (window.dataLayer || []).push({
-        event: 'bsport:basket:show',
-        data: {
-          totalPrice: this.props.basket.total_price,
-          memberId: this.props.basket.member,
-        },
-      });
+      try {
+        (window.dataLayer || []).push({
+          event: 'bsport:basket:show',
+          data: {
+            totalPrice: this.props.basket.total_price,
+            memberId: this.props.basket.member,
+          },
+        });
+      } catch (err) {
+        console.error(err);
+      }
     }
   }
 
   componentDidMount() {
     if (this.props.basket) {
-      (window.dataLayer || []).push({
-        event: 'bsport:basket:show',
-        data: {
-          totalPrice: this.props.basket.total_price,
-          memberId: this.props.basket.member,
-        },
-      });
+      try {
+        (window.dataLayer || []).push({
+          event: 'bsport:basket:show',
+          data: {
+            totalPrice: this.props.basket.total_price,
+            memberId: this.props.basket.member,
+          },
+        });
+      } catch (err) {
+        console.error(err);
+      }
     }
   }
 
@@ -199,13 +207,17 @@ export default compose(
   ),
   withHandlers({
     onBasketFinalized: ({ replace }) => (basket) => {
-      (window.dataLayer || []).push({
-        event: 'bsport:basket:payment-success',
-        data: {
-          totalPrice: basket.total_price,
-          memberId: basket.member,
-        },
-      });
+      try {
+        (window.dataLayer || []).push({
+          event: 'bsport:basket:payment-success',
+          data: {
+            totalPrice: basket.total_price,
+            memberId: basket.member,
+          },
+        });
+      } catch (err) {
+        console.error(err);
+      }
       replace(`/c/${basket.company}/?from_basket=${basket.id}`);
     },
   }),

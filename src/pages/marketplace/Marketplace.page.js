@@ -244,12 +244,16 @@ export class MarketPlace extends Component<Props, State> {
     this.props.doEmailLogin({ email, password }, () => {
       this.props.fetchProfile({
         onSuccess: (profile) => {
-          (window.dataLayer || []).push({
-            event: 'bsport:signin:success',
-            data: {
-              email: profile.email,
-            },
-          });
+          try {
+            (window.dataLayer || []).push({
+              event: 'bsport:signin:success',
+              data: {
+                email: profile.email,
+              },
+            });
+          } catch (err) {
+            console.error(err);
+          }
         },
       });
       this.props.fetchCurrentBasket(this.props.companyId);
@@ -400,12 +404,16 @@ export class MarketPlace extends Component<Props, State> {
                     this.signup(data, () => {
                       this.props.fetchProfile({
                         onSuccess: (profile) => {
-                          (window.dataLayer || []).push({
-                            event: 'bsport:signup:success',
-                            data: {
-                              email: profile.email,
-                            },
-                          });
+                          try {
+                            (window.dataLayer || []).push({
+                              event: 'bsport:signup:success',
+                              data: {
+                                email: profile.email,
+                              },
+                            });
+                          } catch (err) {
+                            console.error(err);
+                          }
                         },
                       });
                       this.props.fetchCurrentBasket(this.props.companyId);

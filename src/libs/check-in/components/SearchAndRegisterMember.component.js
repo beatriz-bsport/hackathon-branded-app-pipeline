@@ -93,6 +93,7 @@ const RegisterMember = compose(
 
 type Props = {
   open: boolean,
+  loading: boolean,
 
   consumerPacksLoading: boolean,
   consumerPaymentPacks: Array<ConsumerPaymentPack>,

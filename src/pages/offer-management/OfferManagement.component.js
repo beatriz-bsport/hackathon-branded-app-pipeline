@@ -123,6 +123,7 @@ type Props = {
   t: TFunction,
   classes: Object,
   company_theme: Object,
+  refresh: (oredering: string) => void,
 };
 
 type State = {
@@ -180,7 +181,7 @@ export class OfferManagement extends Component<Props, State> {
       this.setState({
         booking_ordering: this.props.company_theme.default_booking_ordering,
       });
-      this.refresh(this.props.company_theme.default_booking_ordering);
+      this.props.refresh(this.props.company_theme.default_booking_ordering);
     }
   }
 

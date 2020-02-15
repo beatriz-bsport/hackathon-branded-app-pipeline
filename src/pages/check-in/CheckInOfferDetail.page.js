@@ -22,7 +22,7 @@ import {
 import { fetchOfferById as fetchOfferByIdAction } from '../../libs/offer/actions';
 import memberSelectors from '../../libs/member/selectors';
 import { getOfferBookingListWithConsumerPack } from '../../libs/booking/selectors';
-import { fetchCompatiblePass } from '../../actions/payment.actions';
+import { fetchCompatiblePass as fetchCompatiblePassAction } from '../../actions/payment.actions';
 import SearchAndRegisterMember, {
   SearchAndRegister,
 } from '../../libs/check-in/components/SearchAndRegisterMember.component';
@@ -62,6 +62,14 @@ type Props = {
 
   goBack: () => void,
   redirectToConfirmPage: (offerId: number, bookingId: number) => void,
+
+  resetMemberByBarcode: () => void,
+  memberBarcodeLoading: boolean,
+  memberBarcode: string,
+  fetchBarcodeMemberPass: (string) => void,
+  resetMemberByBarcode: () => void,
+  fetchCompatiblePass: (offerId: number, memberId: number) => void,
+  fetchMemberByBarcode: (string, OptionCallback) => void,
 };
 
 export class CheckInOfferDetailPage extends React.Component<Props> {
@@ -193,7 +201,7 @@ export default compose(
       fetchFilteredMembers: fetchFilteredMembersAction,
       fetchBookingsByOfferAction,
       fetchBookingsByOffer: fetchBookingsByOfferAction,
-      fetchCompatiblePass,
+      fetchCompatiblePass: fetchCompatiblePassAction,
       confirmBookingAttendance: confirmBookingAttendanceAction,
       retrieveConsumerPackBulk: retrieveConsumerPackBulkAction,
 

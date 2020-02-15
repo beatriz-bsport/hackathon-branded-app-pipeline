@@ -107,17 +107,21 @@ export class MarketplaceContract extends React.Component<Props> {
                       this.props.setSelected(null);
                     } else {
                       this.props.setSelected(c.id);
-                      (window.dataLayer || []).push({
-                        event: 'bsport:contract:show',
-                        data: {
-                          name: c.name,
-                          id: c.id,
-                          price: c.recurrent_price,
-                          flatFee: c.flat_fee,
-                          autoRenewal: c.auto_renewal,
-                          duration: c.nb_interval,
-                        },
-                      });
+                      try {
+                        (window.dataLayer || []).push({
+                          event: 'bsport:contract:show',
+                          data: {
+                            name: c.name,
+                            id: c.id,
+                            price: c.recurrent_price,
+                            flatFee: c.flat_fee,
+                            autoRenewal: c.auto_renewal,
+                            duration: c.nb_interval,
+                          },
+                        });
+                      } catch (err) {
+                        console.error(err);
+                      }
                     }
                   }}
                 />
@@ -132,17 +136,21 @@ export class MarketplaceContract extends React.Component<Props> {
                         this.props.requestSignUp();
                       } else {
                         this.props.setPaymentDialogOpen(true);
-                        (window.dataLayer || []).push({
-                          event: 'bsport:contract:show-payment',
-                          data: {
-                            name: c.name,
-                            id: c.id,
-                            price: c.recurrent_price,
-                            flatFee: c.flat_fee,
-                            autoRenewal: c.auto_renewal,
-                            duration: c.nb_interval,
-                          },
-                        });
+                        try {
+                          (window.dataLayer || []).push({
+                            event: 'bsport:contract:show-payment',
+                            data: {
+                              name: c.name,
+                              id: c.id,
+                              price: c.recurrent_price,
+                              flatFee: c.flat_fee,
+                              autoRenewal: c.auto_renewal,
+                              duration: c.nb_interval,
+                            },
+                          });
+                        } catch (err) {
+                          console.error(err);
+                        }
                       }
                     }}
                   />

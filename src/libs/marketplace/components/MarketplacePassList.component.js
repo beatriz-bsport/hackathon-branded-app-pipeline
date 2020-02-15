@@ -91,25 +91,33 @@ export function MarketplacePassList(props: Props) {
             <PaymentPackMarketplaceListItem
               onSelect={() => {
                 props.setSelectedPass(pp);
-                (window.dataLayer || []).push({
-                  event: 'bsport:pass:show',
-                  data: {
-                    id: pp.id,
-                    name: pp.name,
-                    price: pp.price,
-                  },
-                });
+                try {
+                  (window.dataLayer || []).push({
+                    event: 'bsport:pass:show',
+                    data: {
+                      id: pp.id,
+                      name: pp.name,
+                      price: pp.price,
+                    },
+                  });
+                } catch (err) {
+                  console.error(err);
+                }
               }}
               onCartAdd={() => {
                 pushPackCheckout(pp.id);
-                (window.dataLayer || []).push({
-                  event: 'bsport:basket:add-to-cart:pass',
-                  data: {
-                    id: pp.id,
-                    name: pp.name,
-                    price: pp.price,
-                  },
-                });
+                try {
+                  (window.dataLayer || []).push({
+                    event: 'bsport:basket:add-to-cart:pass',
+                    data: {
+                      id: pp.id,
+                      name: pp.name,
+                      price: pp.price,
+                    },
+                  });
+                } catch (err) {
+                  console.error(err);
+                }
               }}
               key={pp.id}
               paymentPack={pp}
@@ -134,14 +142,18 @@ export function MarketplacePassList(props: Props) {
               style={{ width: '100%' }}
               onClick={() => {
                 pushPackCheckout(selectedPass.id);
-                (window.dataLayer || []).push({
-                  event: 'bsport:basket:add-to-cart:pass',
-                  data: {
-                    id: selectedPass.id,
-                    name: selectedPass.name,
-                    price: selectedPass.price,
-                  },
-                });
+                try {
+                  (window.dataLayer || []).push({
+                    event: 'bsport:basket:add-to-cart:pass',
+                    data: {
+                      id: selectedPass.id,
+                      name: selectedPass.name,
+                      price: selectedPass.price,
+                    },
+                  });
+                } catch (err) {
+                  console.error(err);
+                }
               }}
               color="primary"
               variant="contained"

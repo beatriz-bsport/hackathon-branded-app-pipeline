@@ -7,7 +7,7 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 // import Tabs from '@material-ui/core/Tabs';
 import { withNamespaces } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+// import type { TFunction } from 'react-i18next';
 import { push } from 'react-router-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 
@@ -20,9 +20,9 @@ import { getSmartList } from '../../libs/smart-list/selectors';
 import { fetchSmartListDetail } from '../../libs/smart-list/actions';
 
 type Props = {
-  t: TFunction,
-  pushToTab: (id: number, tab: string) => void,
-  tab: string,
+  // t: TFunction,
+  // pushToTab: (id: number, tab: string) => void,
+  // tab: string,
   id: number,
   classes: Object,
   fetchSmartListDetail: (id: number) => void,

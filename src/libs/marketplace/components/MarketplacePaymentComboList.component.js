@@ -97,14 +97,18 @@ export const MarketplacePaymentComboList = (props: Props) => {
               paymentCombo={pc}
               onAddBasket={() => {
                 props.onAddBasket(pc.id);
-                (window.dataLayer || []).push({
-                  event: 'bsport:basket:add-to-cart:pack',
-                  data: {
-                    id: pc.id,
-                    name: pc.name,
-                    price: pc.price,
-                  },
-                });
+                try {
+                  (window.dataLayer || []).push({
+                    event: 'bsport:basket:add-to-cart:pack',
+                    data: {
+                      id: pc.id,
+                      name: pc.name,
+                      price: pc.price,
+                    },
+                  });
+                } catch (err) {
+                  console.error(err);
+                }
               }}
             />
           </div>

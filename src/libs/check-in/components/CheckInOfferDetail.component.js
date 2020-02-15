@@ -35,6 +35,10 @@ type Props = {
   onAddMember: () => void,
   bookingLoading: boolean,
   refreshData: () => void,
+  barcodeMode: boolean,
+  setBarcodeMode: (boolean) => void,
+  showLiveStream: boolean,
+  onBarcodeDetected: (string) => void,
 };
 
 export class CheckInOffer extends Component<Props> {

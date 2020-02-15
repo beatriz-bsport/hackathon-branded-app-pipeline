@@ -136,8 +136,6 @@ export class OfferBooking extends React.PureComponent<Props> {
       loading,
       bookingOptionListConvertible,
       bookingOptionListUnconvertible,
-      theme,
-      paymentPackList,
     } = this.props;
     const momentDate = moment(offer.date_start).tz(offer.establishment.tzname);
     const localDate = momentDate.format('LLLL');

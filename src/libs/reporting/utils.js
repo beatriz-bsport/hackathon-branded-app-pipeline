@@ -91,7 +91,7 @@ export const CATEGORIES: ReportCategory[] = [
   },
   {
     id: 'subscription',
-    name: 'Abonnements récurrents',
+    name: 'Souscription',
     icon: UpdateIcon,
   },
   {

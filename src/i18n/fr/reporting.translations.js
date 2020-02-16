@@ -91,6 +91,7 @@ export default {
     amount_off: 'Réduction fixe',
     member: 'Membre',
     date: 'Date',
+    date_offer: 'Date et horaire de la séance',
     couponName: 'Promotion',
     total_basket: 'Total panier',
     products: 'Contenu panier',

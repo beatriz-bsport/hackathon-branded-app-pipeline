@@ -9,6 +9,7 @@ import CreditCardIcon from '@material-ui/icons/CreditCard';
 import CategoryIcon from '@material-ui/icons/Category';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import EuroIcon from '@material-ui/icons/EuroSymbol';
+import PlusOneIcon from '@material-ui/icons/PlusOne';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
@@ -92,6 +93,11 @@ export const CATEGORIES: ReportCategory[] = [
     id: 'subscription',
     name: 'Abonnements récurrents',
     icon: UpdateIcon,
+  },
+  {
+    id: 'first_booking',
+    name: 'Première séance',
+    icon: PlusOneIcon,
   },
 ];
 

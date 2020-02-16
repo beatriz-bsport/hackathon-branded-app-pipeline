@@ -95,6 +95,7 @@ export default {
     supplier_price: 'Supplier price',
     marketplace_enabled: 'Marketplace enabled',
     description: 'Description',
+    date_offer: 'Date and time of session',
   },
   yes: 'Yes',
   no: 'No',

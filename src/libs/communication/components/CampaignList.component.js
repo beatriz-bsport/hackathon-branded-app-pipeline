@@ -9,6 +9,8 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import InfoIcon from '@material-ui/icons/Info';
 
 import CampaignListItem from './CampaignListItem.component';
 import type { Campaign } from '../types';
@@ -44,6 +46,14 @@ export const CampaignList = (props: Props) => {
           </Button>
         ) : null}
         {props.loading ? <CircularProgress /> : null}
+        {props.campaignList.length === 0 && !props.loading ? (
+          <div className={props.classes.column}>
+            <InfoIcon className={props.classes.infoIcon} />
+            <Typography align="center" color="textSecondary">
+              {props.t('campaign.list.isEmpty')}
+            </Typography>
+          </div>
+        ) : null}
       </div>
       <Dialog open={!!props.showEmail}>
         <DialogContent>
@@ -63,6 +73,11 @@ const styles = (theme) => ({
   container: {
     width: '100%',
   },
+  infoIcon: {
+    height: 120,
+    width: 120,
+    marginBottom: theme.spacing.unit * 2,
+  },
   buttonContainer: {
     width: '100%',
     flexDirection: 'row',
@@ -71,6 +86,12 @@ const styles = (theme) => ({
     justifyContent: 'center',
     marginBottom: theme.spacing.unit * 3,
     marginTop: theme.spacing.unit * 2,
+  },
+  column: {
+    flexDirection: 'column',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

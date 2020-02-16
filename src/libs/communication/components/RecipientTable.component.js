@@ -96,6 +96,10 @@ export class RecipientTable extends React.Component<Props> {
     this.props.fetchRecipientList(1);
   }
 
+  onRowClick = (rowData, { rowIndex }) => {
+    this.props.goToMember(this.props.recipientList[rowIndex].member);
+  };
+
   render() {
     const { t, recipientState } = this.props;
     const { loading, count, page } = recipientState;

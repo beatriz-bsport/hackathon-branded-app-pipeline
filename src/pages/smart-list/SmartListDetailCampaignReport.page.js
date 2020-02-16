@@ -2,7 +2,7 @@
 import React from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { goBack } from 'react-router-redux';
+import { goBack, push } from 'react-router-redux';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
@@ -33,6 +33,7 @@ type Props = {
   campaignReport: CampaignReportType,
   reportLoading: boolean,
   recipientList: Array<Recipient>,
+  goToMember: (id: number) => void,
 };
 
 export class SmartListDetailCampaignReport extends React.Component<Props> {
@@ -54,6 +55,7 @@ export class SmartListDetailCampaignReport extends React.Component<Props> {
         recipientList={this.props.recipientList}
         report={this.props.campaignReport}
         reportLoading={this.props.reportLoading}
+        goToMember={this.props.goToMember}
       />
     );
   }
@@ -71,6 +73,7 @@ export default compose(
     }),
     (dispatch, { campaignId }) => ({
       goBack: () => dispatch(goBack()),
+      goToMember: (memberId) => dispatch(push(`/member/${memberId}/info`)),
       fetchCampaign: () => dispatch(fetchCampaign(campaignId)),
       fetchCampaignReport: () => dispatch(fetchCampaignReport(campaignId)),
       fetchRecipientList: (page, params) =>

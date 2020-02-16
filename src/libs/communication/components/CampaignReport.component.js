@@ -10,6 +10,11 @@ import Divider from '@material-ui/core/Divider';
 import moment from 'moment';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
 
 import RecipientTable from './RecipientTable.component';
 
@@ -24,6 +29,9 @@ type Props = {
   recipientList: Array<Recipient>,
   recipientState: Object,
   goBack: () => void,
+  goToMember: (id: number) => void,
+  showMail: ?string,
+  setShowMail: (?string) => void,
 };
 
 const styles = (theme) => ({
@@ -38,6 +46,9 @@ const styles = (theme) => ({
     marginBottom: theme.spacing.unit * 2,
     backgroundColor: 'white',
     borderRadius: theme.spacing.unit * 4,
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
   },
   titleRow: {
     display: 'flex',
@@ -83,7 +94,7 @@ const styles = (theme) => ({
 });
 
 const CampaignStatistics = withStyles(styles)(
-  ({ t, classes, campaign, report }) => (
+  ({ t, classes, campaign, report, onShowMail }) => (
     <div>
       <div className={classes.statBanner}>
         <div className={classes.numberCard}>
@@ -116,25 +127,35 @@ const CampaignStatistics = withStyles(styles)(
         </div>
       </div>
 
-      <div className={classes.numberStat}>
-        <Typography>{t('campaign.report.lastOpen')}</Typography>
-        <Typography
-          color="secondary"
-          variant="subtitle2"
-          className={classes.inlineStat}
-        >
-          {report.last_open ? moment(report.last_open).format('LLLL') : ' - '}
-        </Typography>
-      </div>
-      <div className={classes.numberStat}>
-        <Typography>{t('campaign.report.dateCreated')}</Typography>
-        <Typography
-          className={classes.inlineStat}
-          color="secondary"
-          variant="subtitle2"
-        >
-          {moment(campaign.date_created).format('LLLL')}
-        </Typography>
+      <div className={classes.row}>
+        <div>
+          <div className={classes.numberStat}>
+            <Typography>{t('campaign.report.lastOpen')}</Typography>
+            <Typography
+              color="secondary"
+              variant="subtitle2"
+              className={classes.inlineStat}
+            >
+              {report.last_open
+                ? moment(report.last_open).format('LLLL')
+                : ' - '}
+            </Typography>
+          </div>
+          <div className={classes.numberStat}>
+            <Typography>{t('campaign.report.dateCreated')}</Typography>
+            <Typography
+              className={classes.inlineStat}
+              color="secondary"
+              variant="subtitle2"
+            >
+              {moment(campaign.date_created).format('LLLL')}
+            </Typography>
+          </div>
+        </div>
+        <Button color="primary" variant="contained" onClick={onShowMail}>
+          <VisibilityIcon className={classes.leftIcon} />
+          {t('campaign.showMail')}
+        </Button>
       </div>
     </div>
   ),
@@ -186,6 +207,7 @@ export const CampaignReport = (props: Props) => (
           campaign={props.campaign}
           report={props.report}
           t={props.t}
+          onShowMail={() => props.setShowMail(props.campaign.data.body)}
         />
         <CampaignClick report={props.report} />
       </div>
@@ -200,11 +222,23 @@ export const CampaignReport = (props: Props) => (
       fetchRecipientList={props.fetchRecipientList}
       recipientList={props.recipientList}
       recipientState={props.recipientState}
+      goToMember={props.goToMember}
     />
+    <Dialog open={!!props.showMail}>
+      <DialogContent>
+        <div dangerouslySetInnerHTML={{ __html: props.showMail }} />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={() => props.setShowMail(null)}>
+          {props.t('common:close')}
+        </Button>
+      </DialogActions>
+    </Dialog>
   </div>
 );
 
 export default compose(
   withNamespaces(['communication']),
   withStyles(styles),
+  withState('showMail', 'setShowMail', null),
 )(CampaignReport);

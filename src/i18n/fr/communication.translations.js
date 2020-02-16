@@ -39,12 +39,14 @@ export default {
   },
   campaign: {
     recipientCount: 'Destinataire: {{ total_recipients }}',
+    showMail: "Voir l'email",
     sentAt: 'Envoyé le {{ date_created }}',
     readCount: 'Ouvertures',
     clickCount: 'Clics',
     showReport: 'Rapport',
     list: {
       showMore: 'Voir plus',
+      isEmpty: 'Aucun email envoyé pour le moment',
     },
     report: {
       totalRead: 'Ouvertures',

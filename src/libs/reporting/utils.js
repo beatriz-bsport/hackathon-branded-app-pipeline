@@ -12,7 +12,7 @@ import EuroIcon from '@material-ui/icons/EuroSymbol';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
-
+import UpdateIcon from '@material-ui/icons/Update';
 import type { ReportCategoryEnum, ReportCategory } from './types';
 
 export const CATEGORIES: ReportCategory[] = [
@@ -48,7 +48,7 @@ export const CATEGORIES: ReportCategory[] = [
   },
   {
     id: 'memberships',
-    name: 'Abonnements',
+    name: 'Cartes de cours',
     icon: AccountBoxIcon,
   },
   {
@@ -80,6 +80,11 @@ export const CATEGORIES: ReportCategory[] = [
     id: 'discount',
     name: 'Promotions',
     icon: CardGiftcardIcon,
+  },
+  {
+    id: 'subscription',
+    name: 'Abonnements récurrents',
+    icon: UpdateIcon,
   },
 ];
 

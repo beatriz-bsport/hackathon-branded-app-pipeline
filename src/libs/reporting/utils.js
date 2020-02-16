@@ -13,6 +13,8 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
 import UpdateIcon from '@material-ui/icons/Update';
+import StoreIcon from '@material-ui/icons/Store';
+
 import type { ReportCategoryEnum, ReportCategory } from './types';
 
 export const CATEGORIES: ReportCategory[] = [
@@ -70,6 +72,11 @@ export const CATEGORIES: ReportCategory[] = [
     id: 'private_cpasses',
     name: 'Carte cours privé',
     icon: AccountBoxIcon,
+  },
+  {
+    id: 'shop',
+    name: 'Magasin',
+    icon: StoreIcon,
   },
   {
     id: 'private_bookings',

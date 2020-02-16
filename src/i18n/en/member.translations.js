@@ -51,6 +51,7 @@ export default {
     paymentPack: 'Pass',
     invoices: 'Invoices & Subscriptions',
     payment: 'Billing',
+    contact: 'Contact',
     privateBooking: 'Private lesson',
     privateConsumerPass: 'Pass private lesson',
   },

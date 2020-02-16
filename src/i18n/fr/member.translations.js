@@ -52,6 +52,7 @@ export default {
     bookings: 'Réservations',
     paymentPack: 'Cartes de cours',
     invoices: 'Factures et Souscriptions',
+    contact: 'Contact',
     payment: 'Facturation',
     privateBooking: 'Cours privés',
     privateConsumerPass: 'Cartes cours privés',

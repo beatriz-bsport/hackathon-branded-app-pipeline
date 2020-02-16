@@ -108,7 +108,7 @@ export default {
   detail: {
     tab: {
       member: 'General',
-      email: 'Emails',
+      campaign: 'Campaign',
     },
   },
   mail: {

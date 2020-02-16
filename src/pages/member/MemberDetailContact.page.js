@@ -1,52 +1,74 @@
 // @flow
 import React from 'react';
-import { compose } from 'recompose';
+import { compose, withHandlers } from 'recompose';
 import { withNamespaces } from 'react-i18next';
 import { connect } from 'react-redux';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
-import { fetchContactList } from '../../libs/communication/actions';
-import { getEmailContact } from '../../libs/communication/selectors';
-import EmailTable from '../../libs/communication/components/EmailTable.component';
-import type { EmailContact } from '../../libs/communication/types';
+import {
+  fetchRecipientBulk as fetchRecipientBulkAction,
+  fetchCampaignByMember as fetchCampaignByMemberAction,
+} from '../../libs/communication/actions';
+import CampaignList from '../../libs/communication/components/CampaignList.component';
+import { getCampaignAndRecipientByMember } from '../../libs/communication/selectors';
+
+import type { Campaign, Recipient } from '../../libs/communication/types';
 
 type Props = {
-  id: number,
-  fetchContactList: (params: any) => void,
   loading: boolean,
-  count: number,
-  page: number,
-  contactList: Array<EmailContact>,
+  nextPage: number,
+  fetchCampaignList: (page: number) => void,
+  campaignRecipientList: Array<Recipient>,
+  campaignRecipientList: Array<[Campaign, Recipient]>,
 };
-export const MemberDetailContact = (props: Props) => {
-  return (
-    <div>
-      <EmailTable
-        fetch={(params) =>
-          props.fetchContactList({ ...params, member: props.id })
+export class MemberDetailContact extends React.Component<Props> {
+  componentDidMount() {
+    this.props.fetchCampaignList(1);
+  }
+
+  render() {
+    return (
+      <CampaignList
+        campaignList={
+          // eslint-disable-next-line
+          this.props.campaignRecipientList.filter(([_, b]) => !!b)
         }
-        contacts={props.contactList}
-        count={props.count}
-        page={props.page}
-        loading={props.loading}
+        loading={this.props.loading}
+        fetchMore={
+          this.props.nextPage && this.props.nextPage > 1
+            ? () => this.props.fetchCampaignList(this.props.nextPage)
+            : null
+        }
       />
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default compose(
   routerParamsToProps({ id: 'id:number' }),
   withNamespaces(),
   connect(
-    (state) => ({
-      contactList: getEmailContact(state),
-      loading: state.communication.emailContact.loading,
-      error: state.communication.emailContact.error,
-      page: state.communication.emailContact.page,
-      count: state.communication.emailContact.count,
+    (state, { id }) => ({
+      campaignRecipientList: getCampaignAndRecipientByMember(state, id),
+      nextPage: state.communication.campaign.byMember.next_page,
+      loading:
+        state.communication.campaign.byMember.loading ||
+        state.communication.recipient.bulk.loading,
     }),
     {
-      fetchContactList,
+      fetchRecipientBulk: fetchRecipientBulkAction,
+      fetchCampaignByMember: fetchCampaignByMemberAction,
     },
   ),
+  withHandlers({
+    fetchCampaignList: ({ id, fetchCampaignByMember, fetchRecipientBulk }) => (
+      page,
+    ) => {
+      fetchCampaignByMember(id, page, {
+        onSuccess: (campaignList) => {
+          fetchRecipientBulk(id, campaignList.map((c) => c.uuid));
+        },
+      });
+    },
+  }),
 )(MemberDetailContact);

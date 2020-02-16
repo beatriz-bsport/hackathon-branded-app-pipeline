@@ -41,6 +41,7 @@ export class SendEmailDialog extends Component<Props> {
     super(props);
     this.state = {
       selectedMail: null,
+      processing: false,
     };
   }
 
@@ -89,21 +90,32 @@ export class SendEmailDialog extends Component<Props> {
       >
         {this.props.t('mail.cancel')}
       </Button>
-      <Button
-        color="primary"
-        onClick={() => {
-          if (this.state.selectedMail !== null) {
-            this.props.onSubmit(this.state.selectedMail);
-            this.props.onClose();
-
-            this.setState({ selectedMail: null });
-          }
-        }}
-        disabled={this.state.selectedMail === null}
-        variant="outlined"
-      >
-        {this.props.t('mail.send')}
-      </Button>
+      {this.state.processing ? (
+        <CircularProgress />
+      ) : (
+        <Button
+          color="primary"
+          onClick={() => {
+            if (this.state.selectedMail !== null) {
+              this.setState({ processing: true });
+              this.props.onSubmit(this.state.selectedMail, {
+                onSuccess: () => {
+                  this.setState({ processing: false });
+                  this.props.onClose();
+                  this.setState({ selectedMail: null });
+                },
+                onError: () => {
+                  this.setState({ processing: false });
+                },
+              });
+            }
+          }}
+          disabled={this.state.selectedMail === null}
+          variant="outlined"
+        >
+          {this.props.t('mail.send')}
+        </Button>
+      )}
     </div>
   );
 

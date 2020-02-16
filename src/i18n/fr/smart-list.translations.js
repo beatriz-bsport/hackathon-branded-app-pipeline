@@ -122,7 +122,7 @@ export default {
   detail: {
     tab: {
       member: 'Général',
-      email: 'Emails',
+      campaign: 'Campagnes',
     },
     statTitle: 'Statistiques',
   },

@@ -58,7 +58,6 @@ import tagSelectors from '../../libs/tag/selectors';
 import StatsPanel from '../../libs/smart-list/components/StatsPanel.component';
 import FiltersPanel from '../../libs/smart-list/components/FiltersPanel.component';
 import SendEmailDialog from '../../libs/smart-list/components/SendEmailDialog.component';
-import ConfigureDnsDialog from '../../libs/smart-list/components/ConfigureDnsDialog.component';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 import SmartListEditDialog from '../../libs/smart-list/components/SmartListFormDialog.component';
 
@@ -434,13 +433,18 @@ export class SmartListDetailMember extends Component<Props, State> {
         <SendEmailDialog
           open={this.props.openSendEmail}
           onClose={() => this.props.setOpenSendEmail(false)}
-          onSubmit={async (email_template_id) => {
+          onSubmit={async (email_template_id, options) => {
             const response = await sendMail(this.props.id, email_template_id);
-            if (response.status === 200) {
-              this.props.snackbarSuccess(this.props.t('mail.sendSuccess'));
-            } else {
-              this.props.snackbarError(this.props.t('mail.sendError'));
-            }
+            setTimeout(() => {
+              if (response.status === 200) {
+                if (options && options.onSuccess) options.onSuccess();
+                this.props.snackbarSuccess(this.props.t('mail.sendSuccess'));
+                // this.props.goToCampaignList(this.props.id);
+              } else {
+                if (options && options.onError) options.onError();
+                this.props.snackbarError(this.props.t('mail.sendError'));
+              }
+            }, 3000);
           }}
           getEmails={this.props.fetchEmailTemplatesSummaries}
           emails={this.props.email_templates_list}
@@ -449,10 +453,6 @@ export class SmartListDetailMember extends Component<Props, State> {
           emailListLoading={this.props.emailListLoading}
           emailDetailLoading={this.props.emailDetailLoading}
           goToEmailCreate={this.props.goToEmailCreate}
-        />
-        <ConfigureDnsDialog
-          open={false}
-          onClose={() => this.props.setOpenSendEmail(false)}
         />
         <SmartListEditDialog
           open={this.state.openEditDialog}
@@ -592,6 +592,7 @@ export default compose(
       fetchEmailTemplateDetail: (id) => emailTemplateDetail(id),
       fetchAllActivities: fetchAllActivitiesAction,
       goToList: () => push('/smart-list/'),
+      goToCampaignList: (id) => push(`/smart-list/${id}/campaign/`),
       goToMember: (id) => push(`/member/${id}/`),
       goToEmailCreate: () => push('/email-template/create'),
     },

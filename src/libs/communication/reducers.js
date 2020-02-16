@@ -4,22 +4,58 @@ import Immutable from 'seamless-immutable';
 
 import { handleActions } from 'redux-actions';
 
-import { membersMailAction, contactListActions } from './actions';
+import {
+  membersMailAction,
+  campaignBySmartlistActions,
+  campaignDetailActions,
+  campaignReportActions,
+  recipientListActions,
+  recipientBulkActions,
+  campaignByMemberActions,
+} from './actions';
 
 import type { MailState } from './types';
 
 const initialState: MailState = Immutable({
-  mail: {
+  recipient: {
     isloading: false,
     error: null,
-  },
-  emailContact: {
-    loading: false,
-    error: null,
-    allIds: [],
     byId: {},
-    page: null,
-    count: 0,
+    bulk: {
+      loading: false,
+      error: null,
+    },
+    byCampaign: {
+      allIds: [],
+      loading: false,
+      error: null,
+      page: null,
+      count: 0,
+    },
+  },
+  campaign: {
+    byId: {},
+    report: {
+      data: null,
+      loading: false,
+      error: null,
+    },
+    bySmartlist: {
+      allIds: [],
+      loading: false,
+      error: null,
+      page: null,
+      next_page: null,
+      count: 0,
+    },
+    byMember: {
+      allIds: [],
+      loading: false,
+      error: null,
+      page: null,
+      next_page: null,
+      count: 0,
+    },
   },
 });
 
@@ -31,20 +67,80 @@ export default handleActions(
     [membersMailAction.error]: (state, { payload }) => {
       return state.setIn(['mail', 'error'], payload);
     },
-    [contactListActions.error]: (state, { payload }) => {
-      return state.setIn(['emailContact', 'error'], payload);
+    [campaignDetailActions.success]: (state, { payload }) => {
+      return state.setIn(['campaign', 'byId', payload.uuid], payload);
     },
-    [contactListActions.success]: (state, { payload }) => {
+    [campaignReportActions.success]: (state, { payload }) => {
+      return state.setIn(['campaign', 'report', 'data'], payload);
+    },
+    [campaignReportActions.error]: (state, { payload }) => {
+      return state.setIn(['campaign', 'report', 'error'], payload);
+    },
+    [campaignReportActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['campaign', 'report', 'loading'], payload);
+    },
+    [recipientListActions.error]: (state, { payload }) => {
+      return state.setIn(['recipient', 'byCampaign', 'error'], payload);
+    },
+    [recipientListActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['recipient', 'byCampaign', 'loading'], payload);
+    },
+    [recipientListActions.success]: (state, { payload }) => {
       return state
         .setIn(
-          ['emailContact', 'allIds'],
-          payload.results.map((foo) => foo.uuid),
+          ['recipient', 'byCampaign', 'allIds'],
+          payload.results.map((r) => r.id),
         )
-        .setIn(['emailContact', 'page'], payload.page)
-        .setIn(['emailContact', 'count'], payload.count)
+        .setIn(['recipient', 'byCampaign', 'count'], payload.count)
+        .setIn(['recipient', 'byCampaign', 'page'], payload.page)
         .merge(
           {
-            emailContact: {
+            recipient: {
+              byId: payload.results.reduce((acc, ps) => {
+                acc[ps.id] = ps;
+                return acc;
+              }, {}),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [recipientBulkActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['recipient', 'bulk', 'loading'], payload);
+    },
+    [recipientBulkActions.error]: (state, { payload }) => {
+      return state.setIn(['recipient', 'bulk', 'error'], payload);
+    },
+    [recipientBulkActions.success]: (state, { payload }) => {
+      return state.merge(
+        {
+          recipient: {
+            byId: payload.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+        },
+        { deep: true },
+      );
+    },
+    [campaignBySmartlistActions.success]: (state, { payload }) => {
+      return state
+        .setIn(
+          ['campaign', 'bySmartlist', 'allIds'],
+          payload.page > 1
+            ? [
+                ...state.campaign.bySmartlist.allIds,
+                ...payload.results.map((foo) => foo.uuid),
+              ]
+            : payload.results.map((foo) => foo.uuid),
+        )
+        .setIn(['campaign', 'bySmartlist', 'page'], payload.page)
+        .setIn(['campaign', 'bySmartlist', 'next_page'], payload.next_page)
+        .setIn(['campaign', 'bySmartlist', 'count'], payload.count)
+        .merge(
+          {
+            campaign: {
               byId: payload.results.reduce((acc, ps) => {
                 acc[ps.uuid] = ps;
                 return acc;
@@ -54,8 +150,40 @@ export default handleActions(
           { deep: true },
         );
     },
-    [contactListActions.isLoading]: (state, { payload }) => {
-      return state.setIn(['emailContact', 'loading'], payload);
+    [campaignBySmartlistActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['campaign', 'bySmartlist', 'loading'], payload);
+    },
+    [campaignByMemberActions.success]: (state, { payload }) => {
+      return state
+        .setIn(
+          ['campaign', 'byMember', 'allIds'],
+          payload.page > 1
+            ? [
+                ...state.campaign.byMember.allIds,
+                ...payload.results.map((foo) => foo.uuid),
+              ]
+            : payload.results.map((foo) => foo.uuid),
+        )
+        .setIn(['campaign', 'byMember', 'page'], payload.page)
+        .setIn(['campaign', 'byMember', 'next_page'], payload.next_page)
+        .setIn(['campaign', 'byMember', 'count'], payload.count)
+        .merge(
+          {
+            campaign: {
+              byId: payload.results.reduce((acc, ps) => {
+                acc[ps.uuid] = ps;
+                return acc;
+              }, {}),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [campaignByMemberActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['campaign', 'byMember', 'loading'], payload);
+    },
+    [campaignByMemberActions.error]: (state, { payload }) => {
+      return state.setIn(['campaign', 'byMember', 'error'], payload);
     },
   },
   initialState,

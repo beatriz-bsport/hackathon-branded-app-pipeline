@@ -241,6 +241,13 @@ export class MemberDetail extends React.Component<Props> {
     );
   }
 }
+/*
+            <Route
+              exact
+              path="/member/:id/contact"
+              component={MemberDetailContact}
+  />
+*/
 
 const styles = (theme) => ({
   container: {

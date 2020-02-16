@@ -138,6 +138,7 @@ export class MemberDetail extends React.Component<Props> {
             <Tab label={t('member.menu.bookings')} value="bookings" />
             <Tab label={t('member.menu.paymentPack')} value="pass" />
             <Tab label={t('member.menu.payment')} value="payment" />
+            <Tab label={t('member.menu.contact')} value="contact" />
             <Tab label={t('member.menu.relation')} value="relation" />
             <Tab
               label={t('member.menu.privateBooking')}

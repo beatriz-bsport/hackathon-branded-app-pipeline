@@ -16,7 +16,7 @@ import type { PaymentPack } from '../../libs/payment-packs/types';
 import { Moment } from '../../i18n';
 import { formatAsDate } from '../../datetime';
 import { invoice as invoiceActions } from '../../actions';
-import { fetchAll as fetchShopItems } from '../../libs/shop/actions/shopitem';
+import { fetchShopItemAsManager as fetchShopItems } from '../../libs/shop/actions/shopitem';
 import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
 import { fetchMember } from '../../libs/member/actions';
 

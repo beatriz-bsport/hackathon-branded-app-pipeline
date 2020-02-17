@@ -19,7 +19,7 @@ import { formatAsDate } from '../../datetime';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import memberSelectors from '../../libs/member/selectors';
 import { fetchMember } from '../../libs/member/actions';
-import { fetchAll as fetchShopItems } from '../../libs/shop/actions/shopitem';
+import { fetchShopItemAsManager as fetchShopItems } from '../../libs/shop/actions/shopitem';
 import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
 import { getPermissions } from '../../libs/role/selectors';
 import { getPaymentComboList } from '../../libs/payment-combo/selectors';

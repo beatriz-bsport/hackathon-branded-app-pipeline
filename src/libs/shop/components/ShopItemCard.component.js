@@ -29,7 +29,9 @@ const ShopItemCard = (props: {
   }
   return (
     <Card>
-      <CardMedia component="img" image={props.shopitem.cover} />
+      {props.shopitem.cover ? (
+        <CardMedia component="img" image={props.shopitem.cover} />
+      ) : null}
       <CardContent>
         <div
           style={{

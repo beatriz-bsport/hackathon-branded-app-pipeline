@@ -33,6 +33,23 @@ type Props = {
   onCancel: () => void,
 };
 
+const styles = (theme) => ({
+  paymentMethodSelectorContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'flex-start',
+    marginBottom: theme.spacing.unit * 2,
+  },
+  payButtonContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    width: '100%',
+    marginTop: theme.spacing.unit,
+  },
+});
+
 const PayButtonBase = (props: {
   onClick: () => void,
   t: TFunction,
@@ -107,7 +124,8 @@ export const PaymentForm = (props: Props) => {
         >
           {props.availablePaymentMethods.map((id) => (
             <FormControlLabel
-              value={id}
+              value={`${id}`}
+              key={`${id}`}
               control={<Radio color="primary" />}
               label={props.t(
                 `payment:method.${
@@ -130,23 +148,6 @@ export const PaymentForm = (props: Props) => {
     </div>
   );
 };
-
-const styles = (theme) => ({
-  paymentMethodSelectorContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'flex-start',
-    marginBottom: theme.spacing.unit * 2,
-  },
-  payButtonContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    width: '100%',
-    marginTop: theme.spacing.unit,
-  },
-});
 
 export default compose(
   withStyles(styles),

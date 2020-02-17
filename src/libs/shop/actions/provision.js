@@ -1,19 +1,15 @@
 // @flow
 
+import { createAction } from 'redux-actions';
 import * as api from '../api';
-import types from '../action.types';
 
 import type { Dispatch } from '../../../state/types';
 
-export function provisionFetchStart(page: number) {
-  return { type: types.PROVISION_FETCH_START, page };
-}
-export function provisionFetchSuccess(data: *) {
-  return { type: types.PROVISION_FETCH_SUCCESS, data };
-}
-export function provisionFetchError(error: ?Error) {
-  return { type: types.PROVISION_FETCH_ERROR, error };
-}
+export const provisionByShopItemActions = {
+  isLoading: createAction('PROVISION/BY_SHOPITEM/LOADING'),
+  error: createAction('PROVISION/BY_SHOPITEM/ERROR'),
+  success: createAction('PROVISION/BY_SHOPITEM/SUCCESS'),
+};
 
 export function fetchProvisions(
   shopitemId: number,
@@ -21,46 +17,41 @@ export function fetchProvisions(
   page_size: ?number,
 ) {
   return async (dispatch: Dispatch) => {
-    dispatch(provisionFetchStart(page));
+    dispatch(provisionByShopItemActions.isLoading(true));
+    dispatch(provisionByShopItemActions.error(null));
     try {
       const response = await api.fetchProvisions(shopitemId, page, page_size);
-      if (response.status === 200) {
-        const { data } = response;
-        return dispatch(provisionFetchSuccess(data));
-      }
-      return dispatch(provisionFetchError(Error(response.status)));
+      dispatch(provisionByShopItemActions.success({ ...response.data, page }));
     } catch (e) {
       console.error(e);
-      return dispatch(provisionFetchError(e));
+      dispatch(provisionByShopItemActions.error(e));
     }
+    dispatch(provisionByShopItemActions.isLoading(false));
   };
 }
 
-export function provisionCreateOrUpdateStart(id: ?number) {
-  return { type: types.PROVISION_CREATEORUPDATE_START, id };
-}
-export function provisionCreateOrUpdateSuccess(data: *) {
-  return { type: types.PROVISION_CREATEORUPDATE_SUCCESS, data };
-}
-export function provisionCreateOrUpdateError(error: ?Error) {
-  return { type: types.PROVISION_CREATEORUPDATE_ERROR, error };
-}
+export const provisionCreateOrUpdateActions = {
+  isLoading: createAction('PROVISION/CREATE_OR_UPDATE/LOADING'),
+  error: createAction('PROVISION/CREATE_OR_UPDATE/ERROR'),
+  success: createAction('PROVISION/CREATE_OR_UPDATE/SUCCESS'),
+};
 
 export function createOrUpdateProvision(data_: *, callback: ?() => void) {
   return async (dispatch: Dispatch) => {
-    dispatch(provisionCreateOrUpdateStart());
+    dispatch(provisionCreateOrUpdateActions.isLoading(true));
+    dispatch(provisionCreateOrUpdateActions.error(null));
     try {
       const response = await api.createProvision(data_);
-      const { data } = response;
-      dispatch(provisionCreateOrUpdateSuccess(data));
+      dispatch(provisionCreateOrUpdateActions.success(response.data));
       if (typeof callback === 'function') {
         callback();
       }
       return;
     } catch (e) {
       console.error(e);
-      dispatch(provisionCreateOrUpdateError(e));
+      dispatch(provisionCreateOrUpdateActions.error(e));
     }
+    dispatch(provisionCreateOrUpdateActions.isLoading(false));
   };
 }
 

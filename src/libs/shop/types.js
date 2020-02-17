@@ -40,6 +40,27 @@ export type SubShop = {
 
 export type ShopState = {
   subShops: Array<SubShopAPI>,
-  all: Array<ShopItem>,
-  loading: boolean,
+  shopItem: {
+    byId: { [number]: ShopItem },
+    asManager: {
+      loading: boolean,
+      error: ?Error,
+      allIds: Array<number>,
+    },
+    asConsumer: {
+      loading: boolean,
+      error: ?Error,
+      allIds: Array<number>,
+    },
+    bulk: {
+      loading: boolean,
+      error: ?Error,
+    },
+  },
+  provision: {
+    items: Array<Provision>,
+    loading: boolean,
+    count: number,
+    page: number,
+  },
 };

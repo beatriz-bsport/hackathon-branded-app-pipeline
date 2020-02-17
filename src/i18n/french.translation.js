@@ -346,6 +346,9 @@ export default {
         },
         item: {
           onsite_payment_available: 'Possibilité de payer sur place',
+          sell_only_on_provision:
+            'Proposer à la vente UNIQUEMENT si du stock est disponible',
+          featured: 'Mettre en avant lors de la validation du panier',
           is_deliverable: 'Impose les frais de livraison par défaut',
           create: 'Ajouter un article',
           unlimitedProvision: 'Pas de gestion du stock',

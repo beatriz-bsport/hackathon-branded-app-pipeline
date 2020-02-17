@@ -39,6 +39,8 @@ type State = {
   barcode: string,
   marketplace_enabled: boolean,
   onsite_payment_available: boolean,
+  featured: boolean,
+  sell_only_on_provision: boolean,
   is_deliverable: boolean,
 };
 
@@ -97,6 +99,8 @@ export class ShopItemForm extends Component<Props, State> {
         barcode: initial.barcode,
         marketplace_enabled: initial.marketplace_enabled,
         onsite_payment_available: initial.onsite_payment_available,
+        featured: initial.featured,
+        sell_only_on_provision: initial.sell_only_on_provision,
         is_deliverable: initial.is_deliverable,
       };
     } else {
@@ -111,6 +115,8 @@ export class ShopItemForm extends Component<Props, State> {
         barcode: '',
         marketplace_enabled: false,
         onsite_payment_available: false,
+        featured: false,
+        sell_only_on_provision: false,
         is_deliverable: true,
       };
     }
@@ -150,6 +156,8 @@ export class ShopItemForm extends Component<Props, State> {
       'onsite_payment_available',
       this.state.onsite_payment_available,
     );
+    data.append('featured', this.state.featured);
+    data.append('sell_only_on_provision', this.state.sell_only_on_provision);
     data.append('is_deliverable', this.state.is_deliverable);
     this.props.createOrUpdate(data, id);
   };
@@ -244,7 +252,38 @@ export class ShopItemForm extends Component<Props, State> {
                 />
               }
               label={t('form.shop.item.marketplace_enabled')}
-              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} className={classes.itemRow}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={this.state.featured}
+                  disabled={!this.state.marketplace_enabled}
+                  onChange={(event) => {
+                    this.setState({
+                      featured: event.target.checked,
+                    });
+                  }}
+                />
+              }
+              label={t('form.shop.item.featured')}
+            />
+          </Grid>
+          <Grid item xs={12} className={classes.itemRow}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={this.state.sell_only_on_provision}
+                  disabled={!this.state.marketplace_enabled}
+                  onChange={(event) => {
+                    this.setState({
+                      sell_only_on_provision: event.target.checked,
+                    });
+                  }}
+                />
+              }
+              label={t('form.shop.item.sell_only_on_provision')}
             />
           </Grid>
           <Grid item xs={12} className={classes.itemRow}>
@@ -261,7 +300,6 @@ export class ShopItemForm extends Component<Props, State> {
                 />
               }
               label={t('form.shop.item.onsite_payment_available')}
-              fullWidth
             />
           </Grid>
           <Grid item xs={12} className={classes.itemRow}>
@@ -278,7 +316,6 @@ export class ShopItemForm extends Component<Props, State> {
                 />
               }
               label={t('form.shop.item.is_deliverable')}
-              fullWidth
             />
           </Grid>
           <div className={classes.description}>

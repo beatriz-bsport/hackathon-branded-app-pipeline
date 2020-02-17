@@ -193,10 +193,12 @@ export class PaymentIntentGathering extends Component<Props, State> {
             type="submit"
             color="primary"
             disabled={
-              !this.state.cardReady ||
-              this.props.loading ||
-              this.state.processing ||
-              (this.props.termsAndConditions && !this.state.termsAccepted)
+              !!(
+                !this.state.cardReady ||
+                this.props.loading ||
+                this.state.processing ||
+                (this.props.termsAndConditions && !this.state.termsAccepted)
+              )
             }
             style={this.props.customPayStyle || {}}
             className={

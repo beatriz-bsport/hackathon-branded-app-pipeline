@@ -37,7 +37,7 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import ShopItemDeleteDialog from '../../libs/shop/components/ShopItemDeleteDialog.component';
 import {
-  fetchAll as fetchAllShopItem,
+  fetchShopItemAsManager as fetchAllShopItem,
   createOrUpdateShopItem,
   deleteItem as deleteShopItem,
 } from '../../libs/shop/actions/shopitem';
@@ -69,7 +69,11 @@ type Props = {
   goToShopItem: (id: number) => void,
   createOrUpdateSubShop: (data: [*]) => void,
   fullScreen: boolean,
-  createOrUpdateShopItem: (shopItemData: [*], id: ?number) => void,
+  createOrUpdateShopItem: (
+    shopItemData: [*],
+    id: ?number,
+    options: OptionCallback,
+  ) => void,
   loading: boolean,
 };
 
@@ -95,9 +99,13 @@ export class ShopItemList extends Component<Props, State> {
 
   createOrUpdateShopItem = (shopItemData: [*], id: ?number) => {
     shopItemData.append('subshop', this.state.createItemFromSubShop);
-    this.props.createOrUpdateShopItem(shopItemData, id);
-    this.setState({
-      createItemFromSubShop: null,
+    this.props.createOrUpdateShopItem(shopItemData, id, {
+      onSuccess: () => {
+        this.setState({
+          createItemFromSubShop: null,
+        });
+        this.props.fetchShopItems();
+      },
     });
   };
 
@@ -125,6 +133,7 @@ export class ShopItemList extends Component<Props, State> {
             {subShop.shopItems.map((si) => (
               <ShopItemListItem
                 shopitem={si}
+                key={si.id}
                 onClick={() => this.props.goToShopItem(si.id)}
                 additionalActions={
                   <ListItemSecondaryAction>
@@ -222,12 +231,10 @@ export class ShopItemList extends Component<Props, State> {
         <ButtonBase onClick={this.activateNewSubShopForm}>
           <Grid container direction="row" alignItems="center">
             <Grid item>
-              <IconButton>
-                <AddIcon size={60} />
-              </IconButton>
+              <AddIcon size={60} />
             </Grid>
             <Grid item>
-              <Typography variant="h4" color="disabled">
+              <Typography variant="h4">
                 {t('form.shop.subShop.nameTitle')}
               </Typography>
             </Grid>
@@ -275,6 +282,7 @@ export class ShopItemList extends Component<Props, State> {
             {this.state.searchResult.map((si) => (
               <ShopItemListItem
                 shopitem={si}
+                key={si.id}
                 onClick={() => this.props.goToShopItem(si.id)}
                 additionalActions={
                   <ListItemSecondaryAction>

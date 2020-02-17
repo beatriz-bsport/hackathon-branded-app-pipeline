@@ -11,7 +11,7 @@ import { BUYABLE_ITEM_SHOP_ITEM } from '@bsport/common/lib/master-data/buyable-i
 import MarketplaceShopComponent from '../../libs/marketplace/components/MarketplaceShop.component';
 
 import { fetchAllSubShop } from '../../libs/shop/actions/subshop';
-import { fetchAll as fetchAllShopItem } from '../../libs/shop/actions/shopitem';
+import { fetchShopItemAsConsumer } from '../../libs/shop/actions/shopitem';
 import { addItemToBasket } from '../../libs/checkout/actions';
 import { getCurrentBasket } from '../../libs/checkout/selectors';
 import type { Basket } from '../../libs/checkout/types';
@@ -56,7 +56,7 @@ export default compose(
       authenticated: state.auth.authenticated,
     }),
     {
-      fetchShopItems: fetchAllShopItem,
+      fetchShopItems: fetchShopItemAsConsumer,
       fetchSubShops: fetchAllSubShop,
       addItemToBasket: (shopItemId, basketId) =>
         addItemToBasket(basketId, {

@@ -1,7 +1,7 @@
 // @flow
+import { createAction } from 'redux-actions';
 
 import * as api from '../api';
-import types from '../action.types';
 
 import {
   snackbarSuccess,
@@ -9,30 +9,32 @@ import {
 } from '../../../actions/snackbar.actions';
 import type { Dispatch } from '../../../state/types';
 
-import type { SubShopAPI } from '../types';
-
-export function subShopFetchStart() {
-  return { type: types.SUB_SHOP_FETCH_START };
-}
-export function subShopFetchSuccess(subShops: Array<SubShopAPI>) {
-  return { type: types.SUB_SHOP_FETCH_SUCCESS, subShops };
-}
-export function subShopFetchError(error: ?Error) {
-  return { type: types.SUB_SHOP_FETCH_ERROR, error };
-}
+export const subshopListActions = {
+  isLoading: createAction('SUBSHOP/LIST/LOADING'),
+  error: createAction('SUBSHOP/LIST/ERROR'),
+  success: createAction('SUBSHOP/LIST/SUCCESS'),
+};
 
 export function fetchAllSubShop(companyId: ?number) {
   return async (dispatch: Dispatch) => {
-    dispatch(subShopFetchStart());
+    dispatch(subshopListActions.error(null));
+    dispatch(subshopListActions.isLoading(true));
+
     try {
       const response = await api.fetchAllSubShop({ companyId });
-      const subShops = response.data;
-      dispatch(subShopFetchSuccess(subShops));
+      dispatch(subshopListActions.success(response.data));
     } catch (e) {
-      dispatch(subShopFetchError(e));
+      dispatch(subshopListActions.error(e));
     }
+    dispatch(subshopListActions.isLoading(false));
   };
 }
+
+export const subShopCreateOrUpdateActions = {
+  isLoading: createAction('SUBSHOP/CREATE_OR_UPDATE/LOADING'),
+  error: createAction('SUBSHOP/CREATE_OR_UPDATE/ERROR'),
+  success: createAction('SUBSHOP/CREATE_OR_UPDATE/SUCCESS'),
+};
 
 export function createOrUpdateSubShop({
   name,
@@ -42,78 +44,47 @@ export function createOrUpdateSubShop({
   id: ?number,
 }) {
   return async (dispatch: Dispatch) => {
-    dispatch(actionCreateOrUpdateSubShopStart());
+    dispatch(subShopCreateOrUpdateActions.isLoading(true));
+    dispatch(subShopCreateOrUpdateActions.error(null));
 
     const createOrUpdate = id ? api.updateSubShop : api.createSubShop;
     try {
       const response = await createOrUpdate({ name, id });
 
-      switch (response.status) {
-        case 201:
-          dispatch(actionCreateSubShopSuccess(response.data));
-          return dispatch(
-            snackbarSuccess('form.shop.subShop.createOrUpdate.success'),
-          );
-        case 200:
-          dispatch(actionUpdateSubShopSuccess(response.data));
-          return dispatch(
-            snackbarSuccess('form.shop.subShop.createOrUpdate.success'),
-          );
-        default:
-          dispatch(snackbarError('form.shop.subShop.createOrUpdate.error'));
-          return dispatch(actionCreateOrUpdateSubShopError(response.data));
-      }
+      dispatch(subShopCreateOrUpdateActions.success(response.data));
+      dispatch(snackbarSuccess('form.shop.subShop.createOrUpdate.success'));
     } catch (e) {
       console.error(e);
       dispatch(snackbarError('form.shop.subShop.createOrUpdate.error'));
-      return dispatch(actionCreateOrUpdateSubShopError(e));
+      dispatch(subShopCreateOrUpdateActions.error(e));
     }
+    dispatch(subShopCreateOrUpdateActions.isLoading(false));
   };
 }
 
-export function actionCreateOrUpdateSubShopStart() {
-  return { type: types.SUB_SHOP_ITEM_CREATEORUPDATE_START };
-}
-export function actionCreateSubShopSuccess(subShop: SubShop) {
-  return { type: types.SUB_SHOP_CREATE_SUCCESS, subShop };
-}
-export function actionUpdateSubShopSuccess(subShop: SubShop) {
-  return { type: types.SUB_SHOP_UPDATE_SUCCESS, subShop };
-}
-export function actionCreateOrUpdateSubShopError(error: ?Error) {
-  return { type: types.SUB_SHOP_CREATEORUPDATE_ERROR, error };
-}
+export const subshopDeleteActions = {
+  isLoading: createAction('SUBSHOP/DELETE/LOADING'),
+  error: createAction('SUBSHOP/DELETE/ERROR'),
+  success: createAction('SUBSHOP/DELETE/SUCCESS'),
+};
 
 export function deleteSubShop(id: number) {
   return async (dispatch: Dispatch) => {
-    dispatch(actionDeleteSubShopStart(id));
+    dispatch(subshopDeleteActions.isLoading(true));
+    dispatch(subshopDeleteActions.error(null));
 
     try {
-      const response = await api.deleteSubShop(id);
-
-      if (response.status === 204) {
-        dispatch(actionDeleteSubShopSuccess(id));
-        dispatch(snackbarSuccess('form.shop.subShop.delete.success'));
-      } else {
-        dispatch(snackbarError('form.shop.subShop.delete.error'));
-        dispatch(actionDeleteSubShopError(response.data));
-      }
+      await api.deleteSubShop(id);
+      dispatch(subshopDeleteActions.success(id));
+      dispatch(snackbarSuccess('form.shop.subShop.delete.success'));
     } catch (e) {
       console.error(e);
       dispatch(snackbarError('form.shop.subShop.delete.error'));
-      dispatch(actionDeleteSubShopError(e));
+      dispatch(subshopDeleteActions.isLoading(true));
+      dispatch(subshopDeleteActions.error(e));
     }
+    dispatch(subshopDeleteActions.isLoading(false));
   };
-}
-
-export function actionDeleteSubShopStart(id: number) {
-  return { type: types.SUB_SHOP_DELETE_START, id };
-}
-export function actionDeleteSubShopSuccess(id: number) {
-  return { type: types.SUB_SHOP_DELETE_SUCCESS, id };
-}
-export function actionDeleteSubShopError(error: ?Error) {
-  return { type: types.SUB_SHOP_DELETE_ERROR, error };
 }
 
 export default {

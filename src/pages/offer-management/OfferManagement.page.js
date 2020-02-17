@@ -22,7 +22,7 @@ import { getShopItemsAvailable } from '../../libs/shop/selectors';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { mailMembers as mailMembersAction } from '../../libs/communication/actions';
-import { fetchAll as fetchShopItems } from '../../libs/shop/actions/shopitem';
+import { fetchShopItemAsManager as fetchShopItems } from '../../libs/shop/actions/shopitem';
 import themeSelectors from '../../libs/theme/selectors';
 
 import {

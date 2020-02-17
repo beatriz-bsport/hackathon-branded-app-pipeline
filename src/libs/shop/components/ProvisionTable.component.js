@@ -27,7 +27,7 @@ type Props = {
 
 export const ProvisionGraph = (props: Props) => (
   <PaginatedListBase
-    listProps={{ disablePadding: 'true', dense: 'true' }}
+    listProps={{ disablePadding: true, dense: true }}
     items={props.provisions}
     nbItems={props.nbItems}
     loading={props.loading}
@@ -46,7 +46,7 @@ export const ProvisionGraph = (props: Props) => (
         <Divider />
       </div>
     )}
-    renderItem={(p) => <ProvisionListItem provision={p} />}
+    renderItem={(p) => <ProvisionListItem key={p.id} provision={p} />}
   />
 );
 

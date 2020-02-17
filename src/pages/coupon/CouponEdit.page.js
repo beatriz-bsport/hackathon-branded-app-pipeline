@@ -28,7 +28,7 @@ import { PaymentPack } from '../../libs/payment-packs/types';
 
 import {
   fetchBulk as fetchShopBulkAction,
-  fetchAll as fetchAllShop,
+  fetchShopItemAsManager as fetchAllShop,
 } from '../../libs/shop/actions/shopitem';
 import { ShopItem } from '../../libs/shop/types';
 import { _getAllShopItems as getShopItems } from '../../libs/shop/selectors';

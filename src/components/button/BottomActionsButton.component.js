@@ -1,11 +1,11 @@
 // @flow
 import React from 'react';
 
-import Button from '@material-ui/core/Button';
 import Hidden from '@material-ui/core/Hidden';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
+import Fab from '@material-ui/core/Fab';
 import { compose } from 'recompose';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -26,8 +26,8 @@ type Props = {
 export const BottomActionButtons = (props: Props) => (
   <div className={props.classes.buttonContainer}>
     {props.onCreate ? (
-      <Button
-        variant="extendedFab"
+      <Fab
+        variant="extended"
         color="primary"
         className={props.classes.actionButton}
         onClick={props.onCreate}
@@ -38,11 +38,11 @@ export const BottomActionButtons = (props: Props) => (
             {props.onCreateLabel || props.t('common.add')}
           </div>
         </Hidden>
-      </Button>
+      </Fab>
     ) : null}
     {props.onEdit ? (
-      <Button
-        variant="extendedFab"
+      <Fab
+        variant="extended"
         color="primary"
         className={props.classes.actionButton}
         onClick={props.onEdit}
@@ -53,13 +53,10 @@ export const BottomActionButtons = (props: Props) => (
             {props.t('common.edit')}
           </div>
         </Hidden>
-      </Button>
+      </Fab>
     ) : null}
     {props.onDelete ? (
-      <RedFab
-        className={props.classes.actionButton}
-        onClick={props.onDelete}
-      >
+      <RedFab className={props.classes.actionButton} onClick={props.onDelete}>
         <DeleteIcon />
       </RedFab>
     ) : null}

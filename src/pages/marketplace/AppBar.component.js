@@ -58,6 +58,22 @@ export class ConsumerAppBar extends Component<Props, State> {
   renderProfileMenu = () => {
     const { anchorEl, isMenuOpen } = this.state;
     const { disconnect, t, auth } = this.props;
+    if (auth.authenticated) {
+      return (
+        <Menu
+          anchorEl={anchorEl}
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+          open={isMenuOpen}
+          onClose={() => this.setState({ isMenuOpen: false })}
+        >
+          <MenuItem onClick={this.props.goToUserSpace}>
+            {t('navigation.consumer.profile')}
+          </MenuItem>
+          <MenuItem onClick={disconnect}>{t('navigation.logoff')}</MenuItem>
+        </Menu>
+      );
+    }
     return (
       <Menu
         anchorEl={anchorEl}
@@ -65,16 +81,7 @@ export class ConsumerAppBar extends Component<Props, State> {
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         open={isMenuOpen}
         onClose={() => this.setState({ isMenuOpen: false })}
-      >
-        {auth.authenticated ? (
-          <React.Fragment>
-            <MenuItem onClick={this.props.goToUserSpace}>
-              {t('navigation.consumer.profile')}
-            </MenuItem>
-            <MenuItem onClick={disconnect}>{t('navigation.logoff')}</MenuItem>
-          </React.Fragment>
-        ) : null}
-      </Menu>
+      />
     );
   };
 

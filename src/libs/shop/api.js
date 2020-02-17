@@ -9,12 +9,8 @@ import {
   deleteAuth,
 } from '../../http';
 
-export async function fetchAll({ companyId }: { companyId?: number }) {
-  let queryParams = '';
-  if (companyId) {
-    queryParams += `?company=${companyId}`;
-  }
-  return getAuth(`${API_V1_URI}/shop/item/${queryParams}`);
+export async function fetchAll(params: any) {
+  return getAuth(`${API_V1_URI}/shop/item/${buildUrlParams(params)}`);
 }
 
 export async function fetchOld(params: any) {

@@ -1,115 +1,195 @@
 // @flow
 
 import Immutable from 'seamless-immutable';
+import { handleActions } from 'redux-actions';
 
-import type { ShopState, ShopAction } from '../../state/shop/types';
-import actionTypes from './action.types';
+import type { ShopState } from '../../state/shop/types';
+import {
+  shopItemAsManagerActions,
+  shopItemBulkActions,
+  shopItemAsConsumerActions,
+  shopItemRetrieveActions,
+  shopItemCreateOrUpdateActions,
+  shopItemDeleteActions,
+} from './actions/shopitem';
+import {
+  provisionByShopItemActions,
+  provisionCreateOrUpdateActions,
+} from './actions/provision';
+import {
+  subshopDeleteActions,
+  subshopListActions,
+  subShopCreateOrUpdateActions,
+} from './actions/subshop';
 
 const initialState: ShopState = Immutable({
-  loading: false,
-  all: [],
+  shopItem: {
+    byId: {},
+    asConsumer: {
+      loading: false,
+      error: null,
+      allIds: [],
+    },
+    createOrUpdate: {
+      loading: false,
+      error: null,
+    },
+    delete_: {
+      isLoading: false,
+      error: null,
+    },
+    asManager: {
+      loading: false,
+      error: null,
+      allIds: [],
+    },
+    bulk: {
+      loading: false,
+      error: null,
+    },
+  },
   subShops: [],
   provision: {
     items: [],
     loading: false,
     count: 0,
     page: 1,
+    createOrUpdate: {
+      loading: false,
+      error: null,
+    },
   },
 });
 
-export default function shopReducers(
-  state: ShopState = initialState,
-  action: ShopAction,
-): ShopState {
-  switch (action.type) {
-    case actionTypes.SHOP_ITEM_FETCH_START:
-      return state.merge({
-        loading: true,
-      });
-    case actionTypes.SHOP_ITEM_FETCH_ERROR:
-      return state.set('loading', false);
-    case actionTypes.SHOP_ITEM_FETCH_SUCCESS: {
-      let idx = state.all.findIndex((si) => si.id === action.shopitem.id);
-      if (idx === -1) {
-        idx = state.all.length;
-      }
-      return state.setIn(['all', idx], action.shopitem).set('loading', false);
-    }
-
-    case actionTypes.PROVISION_FETCH_START:
-      return state
-        .setIn(['provision', 'loading'], true)
-        .setIn(['provision', 'items'], [])
-        .setIn(['provision', 'page'], action.page);
-    case actionTypes.PROVISION_FETCH_ERROR:
-      return state.set('loading', false);
-    case actionTypes.PROVISION_FETCH_SUCCESS: {
-      return state
-        .setIn(['provision', 'loading'], false)
-        .setIn(['provision', 'items'], action.data.results)
-        .setIn(['provision', 'count'], action.data.count);
-    }
-
-    case actionTypes.PROVISION_CREATEORUPDATE_SUCCESS: {
-      const { items } = state.provision;
-      const idx = state.provision.items.findIndex(
-        (p) => p.id === action.data.id,
+export default handleActions(
+  {
+    [shopItemBulkActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['shopItem', 'bulk', 'loading'], payload);
+    },
+    [shopItemBulkActions.error]: (state, { payload }) => {
+      return state.setIn(['shopItem', 'bulk', 'error'], payload);
+    },
+    [shopItemBulkActions.success]: (state, { payload }) => {
+      return state.merge(
+        {
+          shopItem: {
+            byId: payload.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
+          },
+        },
+        { deep: true },
       );
+    },
+    [shopItemAsManagerActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['shopItem', 'asManager', 'loading'], payload);
+    },
+    [shopItemAsManagerActions.error]: (state, { payload }) => {
+      return state.setIn(['shopItem', 'asManager', 'error'], payload);
+    },
+    [shopItemAsManagerActions.success]: (state, { payload }) => {
+      return state
+        .setIn(['shopItem', 'asManager', 'allIds'], payload.map((si) => si.id))
+        .merge(
+          {
+            shopItem: {
+              byId: payload.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [shopItemAsConsumerActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['shopItem', 'asConsumer', 'loading'], payload);
+    },
+    [shopItemAsConsumerActions.error]: (state, { payload }) => {
+      return state.setIn(['shopItem', 'asConsumer', 'error'], payload);
+    },
+    [shopItemAsConsumerActions.success]: (state, { payload }) => {
+      return state
+        .setIn(['shopItem', 'asConsumer', 'allIds'], payload.map((si) => si.id))
+        .merge(
+          {
+            shopItem: {
+              byId: payload.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [shopItemRetrieveActions.success]: (state, { payload }) => {
+      return state.setIn(['shopItem', 'byId', payload.id], payload);
+    },
+
+    [provisionByShopItemActions.success]: (state, { payload }) => {
+      return state
+        .setIn(['provision', 'items'], payload.results)
+        .setIn(['provision', 'count'], payload.count);
+    },
+    [provisionByShopItemActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['provision', 'loading'], payload);
+    },
+    [provisionByShopItemActions.error]: (state, { payload }) => {
+      return state.setIn(['provision', 'error'], payload);
+    },
+
+    [provisionCreateOrUpdateActions.error]: (state, { payload }) => {
+      return state.setIn(['provision', 'createOrUpdate', 'error'], payload);
+    },
+    [provisionCreateOrUpdateActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['provision', 'createOrUpdate', 'loading'], payload);
+    },
+    [provisionCreateOrUpdateActions.success]: (state, { payload }) => {
+      const { items } = state.provision;
+      const idx = state.provision.items.findIndex((p) => p.id === payload.id);
       if (idx === -1 && state.provision.page === 1) {
         return state
           .setIn(['provision', 'loading'], false)
-          .setIn(['provision', 'items'], [action.data, ...items]);
+          .setIn(['provision', 'items'], [payload, ...items]);
       }
       if (idx > 0) {
         return state
           .setIn(['provision', 'loading'], false)
-          .setIn(['provision', 'items', idx], action.data);
+          .setIn(['provision', 'items', idx], payload);
       }
       return state.setIn(['provision', 'loading'], false);
-    }
+    },
 
-    case actionTypes.SHOP_FETCH_START:
-      return state.merge({
-        loading: true,
-        all: [],
-      });
-    case actionTypes.SHOP_FETCH_ERROR:
-      return state.set('loading', false);
-    case actionTypes.SHOP_FETCH_SUCCESS:
-      return state
-        .set('loading', false)
-        .set('all', [...state.all, ...action.shopItems]);
-
-    case actionTypes.SHOP_ITEM_CREATEOR_UPDATE_SUCCESS: {
-      const { shopItem } = action;
-      if (state.all.find((si) => si.id === shopItem.id)) {
-        const index = state.all.findIndex((s) => s.id === shopItem.id);
-        return state.setIn(['all', index], shopItem);
+    [shopItemCreateOrUpdateActions.success]: (state, { payload }) => {
+      return state.setIn(['shopItem', 'byId', payload.id], payload);
+    },
+    [shopItemCreateOrUpdateActions.error]: (state, { payload }) => {
+      return state.setIn(['shopItem', 'createOrUpdate', 'error'], payload);
+    },
+    [shopItemCreateOrUpdateActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['shopItem', 'createOrUpdate', 'loading'], payload);
+    },
+    [shopItemDeleteActions.error]: (state, { payload }) => {
+      return state.setIn(['shopItem', 'delete_', 'error'], payload);
+    },
+    [shopItemDeleteActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['shopItem', 'delete_', 'isLoading'], payload);
+    },
+    [shopItemDeleteActions.success]: (state, { payload }) => {
+      return state.setIn(
+        ['shopItem', 'asManager', 'allIds'],
+        state.shopItem.asManager.allIds.filter((id_) => id_ !== payload),
+      );
+    },
+    [subshopDeleteActions.success]: (state, { payload }) => {
+      return state.set(
+        'subShops',
+        state.subShops.filter((ss) => ss.id !== payload),
+      );
+    },
+    [subshopListActions.success]: (state, { payload }) => {
+      return state.set('subShops', payload);
+    },
+    [subShopCreateOrUpdateActions.success]: (state, { payload }) => {
+      if (state.subShops.find((ss) => ss.id === payload.id)) {
+        const idx = state.subShops.findIndex((ss) => ss.id === payload.id);
+        return state.setIn(['subShops', idx], payload);
       }
-      return state.set('all', [...state.all, shopItem]);
-    }
-    case actionTypes.SHOP_ITEM_DELETE_SUCCESS: {
-      const { id } = action;
-      return state.set('all', state.all.filter((item) => item.id !== id));
-    }
-    case actionTypes.SUB_SHOP_DELETE_SUCCESS: {
-      const { id } = action;
-      return state.set('subShops', state.subShops.filter((ss) => ss.id !== id));
-    }
-    case actionTypes.SUB_SHOP_FETCH_SUCCESS: {
-      return state.set('subShops', action.subShops);
-    }
-    case actionTypes.SUB_SHOP_CREATE_SUCCESS: {
-      return state.set('subShops', [...state.subShops, action.subShop]);
-    }
-    case actionTypes.SUB_SHOP_UPDATE_SUCCESS: {
-      const { subShop } = action;
-      return state.set('subShops', [
-        subShop,
-        ...state.subShops.filter((ss) => ss.id !== subShop.id),
-      ]);
-    }
-    default:
-      return state;
-  }
-}
+      return state.set('subShops', [...state.subShops, payload]);
+    },
+  },
+  initialState,
+);

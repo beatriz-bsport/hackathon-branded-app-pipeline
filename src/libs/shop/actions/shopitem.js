@@ -1,39 +1,88 @@
 // @flow
 
 import uniq from 'lodash/uniq';
+import { createAction } from 'redux-actions';
 
 import * as api from '../api';
-import types from '../action.types';
 
 import {
   snackbarSuccess,
   snackbarError,
 } from '../../../actions/snackbar.actions';
-import type { Dispatch } from '../../../state/types';
+import type { Dispatch, OptionCallback } from '../../../state/types';
 import { getFreshShopIds } from '../selectors';
 
-export function shopFetchStart() {
-  return { type: types.SHOP_FETCH_START };
-}
-export function shopFetchSuccess(shopItems: Array<ShopItem>) {
-  return { type: types.SHOP_FETCH_SUCCESS, shopItems };
-}
-export function shopFetchError(error: ?Error) {
-  return { type: types.SHOP_FETCH_ERROR, error };
-}
+export const shopItemAsConsumerActions = {
+  isLoading: createAction('SHOPITEM/AS_CONSUMER/LOADING'),
+  error: createAction('SHOPITEM/AS_CONSUMER/ERROR'),
+  success: createAction('SHOPITEM/AS_CONSUMER/SUCCESS'),
+};
 
-export function fetchAll(companyId: ?number) {
+export function fetchShopItemAsConsumer(
+  company: ?number,
+  options: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
-    dispatch(shopFetchStart());
+    dispatch(shopItemAsConsumerActions.isLoading(true));
+    dispatch(shopItemAsConsumerActions.error(null));
     try {
-      const response = await api.fetchAll({ companyId });
-      const shopItems = response.data;
-      dispatch(shopFetchSuccess(shopItems));
+      const response = await api.fetchAll({
+        marketplace_enabled: true,
+        disabled: false,
+        company,
+        as_consumer: true,
+      });
+      dispatch(shopItemAsConsumerActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
     } catch (e) {
-      dispatch(shopFetchError(e));
+      console.error(e);
+      dispatch(shopItemAsConsumerActions.error(e));
+      if (options && options.onError) {
+        options.onError(e);
+      }
     }
   };
 }
+
+export const shopItemAsManagerActions = {
+  isLoading: createAction('SHOPITEM/AS_MANAGER/LOADING'),
+  error: createAction('SHOPITEM/AS_MANAGER/ERROR'),
+  success: createAction('SHOPITEM/AS_MANAGER/SUCCESS'),
+};
+
+export function fetchShopItemAsManager(
+  company: ?number,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(shopItemAsManagerActions.isLoading(true));
+    dispatch(shopItemAsManagerActions.error(null));
+
+    try {
+      const response = await api.fetchAll(company ? { company } : {});
+      dispatch(shopItemAsManagerActions.success(response.data));
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (e) {
+      dispatch(shopItemAsManagerActions.error(e));
+      console.error(e);
+      if (options && options.onError) {
+        options.onError(e);
+      }
+    }
+    dispatch(shopItemAsManagerActions.isLoading(false));
+  };
+}
+
+export const shopItemBulkActions = {
+  isLoading: createAction('SHOPITEM/BULK/LOADING'),
+  error: createAction('SHOPITEM/BULK/ERROR'),
+  success: createAction('SHOPITEM/BULK/SUCCESS'),
+};
 
 export function fetchBulk(companyId: ?number, ids = Array) {
   return async (dispatch: Dispatch, getState: () => State) => {
@@ -44,73 +93,88 @@ export function fetchBulk(companyId: ?number, ids = Array) {
     if (ids_uniq.length === 0) {
       return;
     }
+    dispatch(shopItemBulkActions.isLoading(true));
+    dispatch(shopItemBulkActions.error(null));
     try {
       const response = await api.fetchOld({
         company: companyId,
         id__in: ids_uniq,
       });
-      const shopItems = response.data;
-      dispatch(shopFetchSuccess(shopItems));
+      dispatch(shopItemBulkActions.success(response.data));
     } catch (e) {
-      dispatch(shopFetchError(e));
+      dispatch(shopItemBulkActions.error(e));
     }
+    dispatch(shopItemBulkActions.isLoading(false));
   };
 }
 
-export function shopItemFetchStart() {
-  return { type: types.SHOP_ITEM_FETCH_START };
-}
-export function shopItemFetchSuccess(shopitem: ShopItem) {
-  return { type: types.SHOP_ITEM_FETCH_SUCCESS, shopitem };
-}
-export function shopItemFetchError(error: ?Error) {
-  return { type: types.SHOP_ITEM_FETCH_ERROR, error };
-}
+export const shopItemRetrieveActions = {
+  isLoading: createAction('SHOPITEM/RETRIEVE/LOADING'),
+  error: createAction('SHOPITEM/RETRIEVE/ERROR'),
+  success: createAction('SHOPITEM/RETRIEVE/SUCCESS'),
+};
 
 export function fetchShopItem(id: number) {
   return async (dispatch: Dispatch) => {
-    dispatch(shopItemFetchStart());
-    dispatch(shopItemFetchError());
+    dispatch(shopItemRetrieveActions.isLoading(true));
+    dispatch(shopItemRetrieveActions.error(null));
     try {
-      const { data } = await api.fetchShopItem(id);
-      dispatch(shopItemFetchSuccess(data));
+      const response = await api.fetchShopItem(id);
+      dispatch(shopItemRetrieveActions.success(response.data));
     } catch (e) {
-      dispatch(shopItemFetchError(e));
+      dispatch(shopItemRetrieveActions.error(e));
+      console.error(e);
     }
+    dispatch(shopItemRetrieveActions.isLoading(true));
   };
 }
 
-export function createOrUpdateShopItem(shopItemData: *, id: ?number) {
+export const shopItemCreateOrUpdateActions = {
+  isLoading: createAction('SHOPITEM/CREATE_OR_UPDATE/LOADING'),
+  error: createAction('SHOPITEM/CREATE_OR_UPDATE/ERROR'),
+  success: createAction('SHOPITEM/CREATE_OR_UPDATE/SUCCESS'),
+};
+
+export function createOrUpdateShopItem(
+  shopItemData: *,
+  id: ?number,
+  options: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
-    dispatch(actionCreateOrUpdateShopItemStart(shopItemData));
+    dispatch(shopItemCreateOrUpdateActions.isLoading(true));
+    dispatch(shopItemCreateOrUpdateActions.error(null));
 
     const createOrUpdate = id ? api.updateItem : api.createItem;
     try {
       const response = await createOrUpdate(shopItemData, id);
 
-      dispatch(actionCreateOrUpdateShopItemSuccess(response.data));
+      dispatch(shopItemCreateOrUpdateActions.success(response.data));
       dispatch(snackbarSuccess('form.shop.item.createOrUpdate.success'));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
     } catch (e) {
       console.error(e);
       dispatch(snackbarError('form.shop.item.createOrUpdate.error'));
-      dispatch(actionCreateOrUpdateShopItemError(e));
+      dispatch(shopItemCreateOrUpdateActions.error(e));
+      if (options && options.onError) {
+        options.onError(e);
+      }
     }
+    dispatch(shopItemCreateOrUpdateActions.isLoading(false));
   };
 }
 
-export function actionCreateOrUpdateShopItemStart(shopItemData: *) {
-  return { type: types.SHOP_ITEM_CREATEOR_UPDATE_START, shopItemData };
-}
-export function actionCreateOrUpdateShopItemSuccess(shopItem: ShopItem) {
-  return { type: types.SHOP_ITEM_CREATEOR_UPDATE_SUCCESS, shopItem };
-}
-export function actionCreateOrUpdateShopItemError(error: ?Error) {
-  return { type: types.SHOP_ITEM_CREATEOR_UPDATE_ERROR, error };
-}
+export const shopItemDeleteActions = {
+  isLoading: createAction('SHOPITEM/DELETE/LOADING'),
+  error: createAction('SHOPITEM/DELETE/ERROR'),
+  success: createAction('SHOPITEM/DELETE/SUCCESS'),
+};
 
 export function deleteItem(id: number, callback: ?() => void) {
   return async (dispatch: Dispatch) => {
-    dispatch(actionDeleteStart(id));
+    dispatch(shopItemDeleteActions.isLoading(true));
+    dispatch(shopItemDeleteActions.error(null));
 
     try {
       const response = await api.deleteItem(id);
@@ -120,36 +184,27 @@ export function deleteItem(id: number, callback: ?() => void) {
         response.status === 200 ||
         response.status === 204
       ) {
-        dispatch(actionDeleteSuccess(id));
+        dispatch(shopItemDeleteActions.success(id));
         dispatch(snackbarSuccess('form.shop.item.delete.success'));
         if (typeof callback === 'function') {
           callback();
         }
       } else {
         dispatch(snackbarError('form.shop.item.delete.error'));
-        dispatch(actionDeleteError(response.data));
+        dispatch(shopItemDeleteActions.error(response));
       }
     } catch (e) {
       console.error(e);
+      dispatch(shopItemDeleteActions.error(e));
       dispatch(snackbarError('form.shop.item.delete.error'));
-      dispatch(actionDeleteError(e));
     }
+    dispatch(shopItemDeleteActions.isLoading(false));
   };
-}
-
-export function actionDeleteStart(id: number) {
-  return { type: types.SHOP_ITEM_DELETE_START, id };
-}
-export function actionDeleteSuccess(id: number) {
-  return { type: types.SHOP_ITEM_DELETE_SUCCESS, id };
-}
-export function actionDeleteError(error: ?Error) {
-  return { type: types.SHOP_ITEM_DELETE_ERROR, error };
 }
 
 export default {
   deleteItem,
   createOrUpdateShopItem,
   fetchShopItem,
-  fetchAll,
+  fetchShopItemAsManager,
 };

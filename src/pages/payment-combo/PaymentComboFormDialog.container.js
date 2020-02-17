@@ -10,7 +10,7 @@ import { getEnabled as getPaymentPackAvailable } from '../../libs/payment-packs/
 import { getShopItemsAvailable } from '../../libs/shop/selectors';
 import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
 import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
-import { fetchAll as fetchAllShopItem } from '../../libs/shop/actions/shopitem';
+import { fetchShopItemAsManager as fetchAllShopItem } from '../../libs/shop/actions/shopitem';
 import { fetchPrivatePassList } from '../../libs/private-service/actions';
 
 type Props = any;

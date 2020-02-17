@@ -17,7 +17,7 @@ import { getEnabled as getPaymentPacks } from '../../libs/payment-packs/selector
 import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
 import { PaymentPack } from '../../libs/payment-packs/types';
 
-import { fetchAll as fetchAllShop } from '../../libs/shop/actions/shopitem';
+import { fetchShopItemAsManager as fetchAllShop } from '../../libs/shop/actions/shopitem';
 import { ShopItem } from '../../libs/shop/types';
 import { getShopItemsAvailable as getShopItems } from '../../libs/shop/selectors';
 

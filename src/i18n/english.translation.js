@@ -366,6 +366,8 @@ export default {
         },
         item: {
           onsite_payment_available: 'On-site payment available',
+          sell_only_on_provision: 'Sell only if there are some provision',
+          featured: 'Feature the product on the checkout screen',
           is_deliverable: 'Include delivery fees',
           create: 'Add an item',
           unlimitedProvision: 'No provision management',

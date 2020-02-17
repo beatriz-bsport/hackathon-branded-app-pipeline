@@ -96,6 +96,6 @@ const rootReducer = combineReducers({
 });
 
 export default (state: State, action: Action) => {
-  const newState = action.type === 'DISCONNECT' ? { nav: state.nav } : state;
+  const newState = action.type === 'DISCONNECT' ? {} : state;
   return rootReducer(newState, action);
 };

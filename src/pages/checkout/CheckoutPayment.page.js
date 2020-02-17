@@ -31,6 +31,9 @@ import type { Theme } from '../../libs/theme/types';
 import themeSelectors from '../../libs/theme/selectors';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 
+// import { getShopItemFeaturedList } from '../../libs/shop/selectors';
+import { fetchShopItemAsConsumer } from '../../libs/shop/actions/shopitem';
+
 type Props = {
   basket: ?Basket,
   loading: boolean,
@@ -53,12 +56,15 @@ type Props = {
   ) => void,
 
   basketError: ?Error,
+  // shopItemList: Array<ShopItem>,
+  // fetchShopItemFeatured: (companyId: number) => void,
 };
 
 export class CheckoutPayment extends React.Component<Props> {
   componentWillMount() {
     this.props.fetchCurrentBasket(this.props.companyId);
     this.props.fetchCompanyTheme(this.props.companyId);
+    this.props.fetchShopItemAsConsumer(this.props.companyId);
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -191,6 +197,7 @@ export default compose(
       loading: state.checkout.basket.current.loading,
       processing: state.checkout.basket.current.updating,
       theme: themeSelectors.getTheme(state),
+      // shopItemList: getShopItemFeaturedList(state),
     }),
     {
       addItemToBasket,
@@ -203,6 +210,7 @@ export default compose(
       attachPayment: attachPaymentAction,
       attachCoupon,
       fetchCompanyTheme,
+      fetchShopItemAsConsumer,
     },
   ),
   withHandlers({

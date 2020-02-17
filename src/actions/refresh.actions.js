@@ -4,7 +4,7 @@ import { Moment } from '../i18n';
 import { fetchSCT } from './category.actions';
 import { fetchAllPaymentPacks } from '../libs/payment-packs/actions';
 
-import { fetchAll as fetchShop } from '../libs/shop/actions/shopitem';
+import { fetchShopItemAsManager as fetchShop } from '../libs/shop/actions/shopitem';
 import { fetchPaymentRules } from '../libs/payment-rules/actions';
 import { fetchAll as fetchAllAlertings } from '../libs/alerting/actions';
 import { fetchAssociatedCoachesList as fetchAssociatedCoaches } from '../libs/associated-coach/actions';

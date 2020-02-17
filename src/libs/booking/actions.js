@@ -271,6 +271,7 @@ export function registerBooking(
   consumer_payment_pack: number,
   options: OptionCallback,
   keep_credits: boolean,
+  notify_member: boolean,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(registerActions.isLoading(true));
@@ -281,6 +282,7 @@ export function registerBooking(
         consumer_payment_pack,
         offerId,
         keep_credits,
+        notify_member,
       );
       const booking = response.data;
       dispatch(registerActions.success(booking));

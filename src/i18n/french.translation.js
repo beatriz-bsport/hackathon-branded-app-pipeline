@@ -1010,6 +1010,7 @@ export default {
           registerToOffer: 'Incription à la séance',
           passOwnedByMember: 'Pass possédé(s) par le membre',
           passCompatibleNotOwnedByMember: "Facturation d'un nouveau pass",
+          forceNotify: 'Envoyer un email de confirmation',
         },
       },
     },

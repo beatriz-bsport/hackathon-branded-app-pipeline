@@ -931,6 +931,7 @@ export default {
           registerToOffer: 'Book a class',
           passOwnedByMember: 'Pass owned by member',
           passCompatibleNotOwnedByMember: 'Billing a new pass',
+          forceNotify: 'Send a confirmation email',
         },
       },
     },

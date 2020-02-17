@@ -207,6 +207,7 @@ export default compose(
         consumerPaymentPackId,
         keep_credits,
         ordering_field,
+        notify_member,
       ) => {
         registerBooking(
           offerId,
@@ -215,6 +216,7 @@ export default compose(
             onSuccess: () => refresh(ordering_field),
           },
           keep_credits,
+          notify_member,
         );
       },
       deleteBooking: (bookingId, ordering_field) => {

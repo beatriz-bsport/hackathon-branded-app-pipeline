@@ -30,6 +30,8 @@ type Props = {
   consumerPacks: Array<ConsumerPaymentPack>,
   allPaymentPacks: Array<PaymentPack>,
   keep_credits: boolean,
+  notify_member: boolean,
+  changeNotifyMemberOption: () => void,
   changeKeepCreditsOption: () => void,
   onCancel: () => void,
   fetchConsumerPackByOfferByMember: (offerId: number, memberId: number) => void,
@@ -127,6 +129,21 @@ export class RegisterMemberToOfferForm extends PureComponent<Props> {
     );
   };
 
+  renderNotify = () => {
+    return (
+      <FormControlLabel
+        label={this.props.t('offerManagement.forms.register.forceNotify')}
+        control={
+          <Checkbox
+            checked={this.props.notify_member}
+            onChange={this.props.changeNotifyMemberOption}
+            value="checkedG"
+          />
+        }
+      />
+    );
+  };
+
   render() {
     const {
       t,
@@ -152,7 +169,12 @@ export class RegisterMemberToOfferForm extends PureComponent<Props> {
           </Typography>
         </Grid>
         <Divider />
-        <Grid item>{this.renderKeepCredit()}</Grid>
+        <Grid item>
+          <div>
+            {this.renderKeepCredit()}
+            {this.renderNotify()}
+          </div>
+        </Grid>
 
         <Grid item>
           <Typography variant="h6" component="h4">

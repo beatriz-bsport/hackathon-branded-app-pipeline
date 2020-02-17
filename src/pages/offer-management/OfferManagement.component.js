@@ -158,6 +158,7 @@ export class OfferManagement extends Component<Props, State> {
     keep_credits: false,
     booking_ordering:
       this.props.company_theme.default_booking_ordering || BOOKING_DATE_ORDER,
+    notify_member: false,
   };
 
   componentWillMount() {
@@ -203,10 +204,11 @@ export class OfferManagement extends Component<Props, State> {
     memberId: number,
     paymentPackId: number,
     keep_credits: boolean,
+    notify_member: boolean,
   ) => {
     const { offerId } = this.props;
     this.props.createQuickUnevenInvoice(
-      { memberId, paymentPackId, offerId, keep_credits },
+      { memberId, paymentPackId, offerId, keep_credits, notify_member },
       offerId,
     );
     this.clearSearch();
@@ -226,6 +228,7 @@ export class OfferManagement extends Component<Props, State> {
       consumerPaymentPackId,
       this.state.keep_credits,
       this.state.booking_ordering,
+      this.state.notify_member,
     );
     this.clearSearch();
     if (this.state.optionToDiscard) {
@@ -746,9 +749,15 @@ export class OfferManagement extends Component<Props, State> {
                 loading={this.props.compatiblePacksLoading}
                 compatiblePacks={this.props.compatiblePacks}
                 keep_credits={this.state.keep_credits}
+                notify_member={this.state.notify_member}
                 changeKeepCreditsOption={() =>
                   this.setState((prevState) => ({
                     keep_credits: !prevState.keep_credits,
+                  }))
+                }
+                changeNotifyMemberOption={() =>
+                  this.setState((prevState) => ({
+                    notify_member: !prevState.notify_member,
                   }))
                 }
                 onCancel={() => this.setState({ memberToRegister: null })}
@@ -758,6 +767,7 @@ export class OfferManagement extends Component<Props, State> {
                     memberToRegister,
                     paymentPackId,
                     this.state.keep_credits,
+                    this.state.notify_member,
                   )
                 }
               />

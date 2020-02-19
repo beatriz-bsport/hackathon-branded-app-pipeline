@@ -43,6 +43,7 @@ import paymentCombo from './en/payment-combo.translations';
 import authentication from './en/authentication.translations';
 import category from './en/category.translations';
 import reminder from './en/reminder.translations';
+import event from './en/event.translations';
 
 export default {
   category,
@@ -85,6 +86,7 @@ export default {
   selfCheckIn,
   titles,
   formInput,
+  event,
   smartList,
   coachPerformance: {
     fields: {

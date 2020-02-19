@@ -32,7 +32,7 @@ import themeSelectors from '../../libs/theme/selectors';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 
 // import { getShopItemFeaturedList } from '../../libs/shop/selectors';
-import { fetchShopItemAsConsumer } from '../../libs/shop/actions/shopitem';
+// import { fetchShopItemAsConsumer } from '../../libs/shop/actions/shopitem';
 
 type Props = {
   basket: ?Basket,
@@ -64,7 +64,7 @@ export class CheckoutPayment extends React.Component<Props> {
   componentWillMount() {
     this.props.fetchCurrentBasket(this.props.companyId);
     this.props.fetchCompanyTheme(this.props.companyId);
-    this.props.fetchShopItemAsConsumer(this.props.companyId);
+    // this.props.fetchShopItemAsConsumer(this.props.companyId);
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -210,7 +210,7 @@ export default compose(
       attachPayment: attachPaymentAction,
       attachCoupon,
       fetchCompanyTheme,
-      fetchShopItemAsConsumer,
+      // fetchShopItemAsConsumer,
     },
   ),
   withHandlers({

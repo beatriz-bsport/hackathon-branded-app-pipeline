@@ -23,6 +23,7 @@ import WaitingListConfigurationPage from './WaitingListConfigurationPage.compone
 import ShopConfigurationPage from './ShopConfigurationPage.component';
 import ThemeConfigurationPage from './ThemeConfiguration.component';
 import SettingsPersonalizePage from './SettingsPersonalizePage.component';
+import WebhookConfigurationPage from './WebhookConfigurationPage.component';
 
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -54,6 +55,7 @@ export const Settings = (props: Props) => {
           <Tab label={t('tab.shop')} value="shop" />
           <Tab label={t('tab.role')} value="role" />
           <Tab label={t('tab.personalization')} value="personalization" />
+          <Tab label={t('tab.webhook')} value="webhook" />
         </Tabs>
       </AppBar>
       <Switch>
@@ -89,6 +91,11 @@ export const Settings = (props: Props) => {
           exact
           path="/settings/personalization"
           component={SettingsPersonalizePage}
+        />
+        <Route
+          exact
+          path="/settings/webhook"
+          component={WebhookConfigurationPage}
         />
       </Switch>
     </div>

@@ -45,6 +45,7 @@ import category from './fr/category.translations';
 import reminder from './fr/reminder.translations';
 import membership from './fr/membership.translations';
 import consumerSpace from './fr/consumer-space.translations';
+import event from './fr/event.translations';
 
 export default {
   membership,
@@ -88,6 +89,7 @@ export default {
   marketplace,
   selfCheckIn,
   titles,
+  event,
   formInput,
   smartList,
   coachPerformance: {

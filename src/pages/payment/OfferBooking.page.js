@@ -332,20 +332,17 @@ export default compose(
     buyPaymentCombo: ({ offerId, push }) => (paymentComboId: number) =>
       push(`/customer/payment/combo/${paymentComboId}?nextOffer=${offerId}`),
 
-    bookWithConsumerPaymentPack: ({ offer, setProcessing, push }) => (
+    bookWithConsumerPaymentPack: ({ offer, push }) => (
       consumerPaymentPackId,
       options,
     ) => {
-      setProcessing(true);
       payWithConsumerPaymentPackAPI(consumerPaymentPackId, offer.id)
         .then(() => {
-          setProcessing(false);
           push(`/c/${offer.company}/?from_direct_booking=${offer.id}`);
           if (options && options.onSuccess) options.onSuccess();
         })
         .catch((err) => {
           console.error(err);
-          setProcessing(false);
           if (options && options.onError) options.onError(err);
         });
     },

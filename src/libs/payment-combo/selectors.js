@@ -15,7 +15,11 @@ export const getPaymentCombo: (State, number) => ?PaymentCombo = (state, id) =>
 
 export const getPaymentComboList: (State) => Array<PaymentCombo> = createSelector(
   [_getPaymenComboIdList, getPaymenComboDataDict],
-  (ids, data) => ids.map((id) => data[id]).filter((pc) => pc.available),
+  (ids, data) =>
+    ids
+      .map((id) => data[id])
+      .filter((pc) => !!pc)
+      .filter((pc) => pc.available),
 );
 
 export const getPaymentComboListAvailableOnline: (State) => Array<PaymentCombo> = createSelector(

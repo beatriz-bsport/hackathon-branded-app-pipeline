@@ -14,12 +14,20 @@ type Props = {
   consumerPack: ConsumerPaymentPackConsumerView,
   creditPrice: number,
   t: TFunction,
-  processing: boolean,
-  setProcessing: (boolean) => void,
   divider?: boolean,
 };
+type State = {
+  processing: boolean,
+};
 
-export class ConsumerPaymentPackListItemCheckout extends Component<Props> {
+export class ConsumerPaymentPackListItemCheckout extends Component<
+  Props,
+  State,
+> {
+  state = {
+    processing: false,
+  };
+
   getBuyText = () => {
     const { consumerPack, t, creditPrice } = this.props;
     if (consumerPack.payment_pack.unlimited) {
@@ -30,8 +38,8 @@ export class ConsumerPaymentPackListItemCheckout extends Component<Props> {
   };
 
   renderButton = () => {
-    const { t, processing, consumerPack, creditPrice } = this.props;
-    if (processing || !consumerPack.payment_pack) {
+    const { t, consumerPack, creditPrice } = this.props;
+    if (this.state.processing || !consumerPack.payment_pack) {
       return <CircularProgress />;
     }
 
@@ -61,13 +69,13 @@ export class ConsumerPaymentPackListItemCheckout extends Component<Props> {
         variant="contained"
         color="primary"
         onClick={() => {
-          this.props.setProcessing(true);
+          this.setState({ processing: true });
           this.props.onBookFromPack({
-            onSuccess: () => this.props.setProcessing(false),
-            onError: () => this.props.setProcessing(false),
+            onSuccess: () => this.setState({ processing: false }),
+            onError: () => this.setState({ processing: false }),
           });
         }}
-        disabled={processing}
+        disabled={this.state.processing}
         id={`btn-payment-pack-user-${consumerPack.id}`}
       >
         {buyButtonText}
@@ -88,7 +96,4 @@ export class ConsumerPaymentPackListItemCheckout extends Component<Props> {
   }
 }
 
-export default compose(
-  withNamespaces(),
-  withState('processing', 'setProcessing', false),
-)(ConsumerPaymentPackListItemCheckout);
+export default compose(withNamespaces())(ConsumerPaymentPackListItemCheckout);

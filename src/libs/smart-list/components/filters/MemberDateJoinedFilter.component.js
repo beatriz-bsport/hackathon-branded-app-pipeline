@@ -15,21 +15,12 @@ type Props = {
   classes: Object,
   onChange: (any) => void,
   new: boolean,
-  setNotNullableData: (Array<string>) => void,
 };
 
 const DATE_EXACT = 3;
 
 export class MemberDateJoinedFilter extends Component<Props, state> {
   componentDidMount() {
-    this.props.setNotNullableData([
-      'date',
-      'date_second',
-      'duration',
-      'duration_second',
-      'date_filter_type',
-    ]);
-
     if (this.props.new) {
       this.props.onChange({
         date: moment().format('YYYY-MM-DD'),

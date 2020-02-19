@@ -216,6 +216,7 @@ export default {
       nbCredits: '{{ credits }} credit',
       price: '{{ price}} €',
       tax: 'Tax: {{ tax }}%',
+      managerOnly: 'Invisible for the customers',
     },
     compatibleServices: {
       title: 'Compatible lesson',
@@ -226,6 +227,9 @@ export default {
       title: 'Private lesson pass',
       name: {
         label: 'Name',
+      },
+      managerOnly: {
+        label: 'Invisible for the customers',
       },
       credits: {
         label: 'Included credits',

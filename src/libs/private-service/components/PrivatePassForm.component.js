@@ -7,6 +7,8 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import { compose } from 'recompose';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import NumericInput from '../../../components/input/NumericInput.component';
 import PriceInput from '../../../components/input/PriceInput.component';
@@ -19,6 +21,7 @@ type Props = {
     tax: string,
     credits: number,
     price: string,
+    manager_only: boolean,
   }) => void,
   classes: Object,
   onCancel: () => void,
@@ -29,6 +32,7 @@ type State = {
   tax: ?string,
   credits: number,
   price: ?string,
+  manager_only: boolean,
 };
 
 export class PrivatePassForm extends React.Component<Props, State> {
@@ -40,6 +44,7 @@ export class PrivatePassForm extends React.Component<Props, State> {
         tax: props.initial.tax,
         credits: props.initial.credits,
         price: props.initial.price,
+        manager_only: props.initial.manager_only,
       };
     } else {
       this.state = {
@@ -47,6 +52,7 @@ export class PrivatePassForm extends React.Component<Props, State> {
         tax: 0,
         credits: 1,
         price: null,
+        manager_only: false,
       };
     }
   }
@@ -58,6 +64,7 @@ export class PrivatePassForm extends React.Component<Props, State> {
       tax: this.state.tax,
       credits: this.state.credits,
       price: this.state.price,
+      manager_only: this.state.manager_only,
     });
   };
 
@@ -103,6 +110,19 @@ export class PrivatePassForm extends React.Component<Props, State> {
               inputProps: { min: 0, max: 100, step: 0.01 },
               endAdornment: <InputAdornment position="end">%</InputAdornment>,
             }}
+          />
+        </div>
+        <div className={classes.field}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={this.state.manager_only}
+                onChange={(ev) =>
+                  this.setState({ manager_only: ev.target.checked })
+                }
+              />
+            }
+            label={t('privatePass.form.managerOnly.label')}
           />
         </div>
         <div className={classes.buttonContainer}>

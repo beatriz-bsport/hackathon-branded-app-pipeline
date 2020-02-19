@@ -590,18 +590,42 @@ export const privatePassListActions = {
   success: createAction('PRIVATE_PASS/LIST/SUCCESS'),
 };
 
-export function fetchPrivatePassList(companyId?: number) {
+export function fetchPrivatePassList() {
   return async (dispatch: Dispatch) => {
     dispatch(privatePassListActions.isLoading(true));
     dispatch(privatePassListActions.error(null));
     try {
-      const response = await fetchPrivatePassListAPI(companyId);
+      const response = await fetchPrivatePassListAPI();
       dispatch(privatePassListActions.success(response.data));
     } catch (err) {
       console.error(err);
       dispatch(privatePassListActions.error(err));
     }
     dispatch(privatePassListActions.isLoading(false));
+  };
+}
+
+export const privatePassAsConsumerListActions = {
+  error: createAction('PRIVATE_PASS/AS_CONSUMER/ERROR'),
+  isLoading: createAction('PRIVATE_PASS/AS_CONSUMER/IS_LOADING'),
+  success: createAction('PRIVATE_PASS/AS_CONSUMER/SUCCESS'),
+};
+
+export function fetchPrivatePassAsConsumerList(company?: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(privatePassAsConsumerListActions.isLoading(true));
+    dispatch(privatePassAsConsumerListActions.error(null));
+    try {
+      const response = await fetchPrivatePassListAPI({
+        company,
+        manager_only: false,
+      });
+      dispatch(privatePassAsConsumerListActions.success(response.data));
+    } catch (err) {
+      console.error(err);
+      dispatch(privatePassAsConsumerListActions.error(err));
+    }
+    dispatch(privatePassAsConsumerListActions.isLoading(false));
   };
 }
 

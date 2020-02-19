@@ -95,6 +95,11 @@ export type PrivateServiceState = {
   },
   privatePass: {
     allIds: Array<number>,
+    asConsumer: {
+      allIds: Array<number>,
+      loading: boolean,
+      error: ?Error,
+    },
     byId: { [id: number]: PrivatePass },
     loading: boolean,
     error: ?Error,

@@ -19,6 +19,7 @@ import {
   privateSlotRetrieveActions,
   privateSlotCreateOrUpdateActions,
   privatePassListActions,
+  privatePassAsConsumerListActions,
   privatePassCreateOrUpdateActions,
   privatePassRetrieveActions,
   privateConsumerPassListActions,
@@ -71,6 +72,11 @@ const initialState: PrivateServiceState = Immutable({
   privatePass: {
     byId: {},
     allIds: [],
+    asConsumer: {
+      allIds: [],
+      loading: false,
+      error: null,
+    },
     loading: false,
     error: null,
     createOrUpdate: {
@@ -285,6 +291,30 @@ export default handleActions(
     [privatePassListActions.success]: (state, { payload }) => {
       return state
         .setIn(['privatePass', 'allIds'], payload.map((pp) => pp.id))
+        .merge(
+          {
+            privatePass: {
+              byId: payload.reduce((acc, ps) => {
+                acc[ps.id] = ps;
+                return acc;
+              }, {}),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [privatePassAsConsumerListActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['privatePass', 'asConsumer', 'loading'], payload);
+    },
+    [privatePassAsConsumerListActions.error]: (state, { payload }) => {
+      return state.setIn(['privatePass', 'asConsumer', 'error'], payload);
+    },
+    [privatePassAsConsumerListActions.success]: (state, { payload }) => {
+      return state
+        .setIn(
+          ['privatePass', 'asConsumer', 'allIds'],
+          payload.map((pp) => pp.id),
+        )
         .merge(
           {
             privatePass: {

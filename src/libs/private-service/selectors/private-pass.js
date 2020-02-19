@@ -5,14 +5,26 @@ import type { State } from '../../../state/types';
 import type { PrivatePass, PrivatePassWithService } from '../types';
 import { _getPrivateServiceDict } from './private-service';
 
-export const getPrivatePassListBase: (State) => Array<PrivatePass> = (state) =>
-  state.privateService.privatePass.allIds.map(
-    (id) => state.privateService.privatePass.byId[id],
-  );
+const _getPrivatePassData = (state) => state.privateService.privatePass.byId;
+const _getPrivatePassAsConsumerIds = (state) =>
+  state.privateService.privatePass.asConsumer.allIds;
+
+const _getPrivatePassListIds = (state) =>
+  state.privateService.privatePass.allIds;
+
+export const getPrivatePassListBase: (State) => Array<PrivatePass> = createSelector(
+  [_getPrivatePassData, _getPrivatePassListIds],
+  (data, ids) => ids.map((id) => data[id]),
+);
 
 export const getPrivatePassAvailable = createSelector(
   getPrivatePassListBase,
   (pp) => pp.filter((p) => p.available),
+);
+
+export const getPrivatePassAsConsumer = createSelector(
+  [_getPrivatePassData, _getPrivatePassAsConsumerIds],
+  (data, ids) => ids.map((id) => data[id]).filter((p) => p.available),
 );
 
 // eslint-disable-next-line

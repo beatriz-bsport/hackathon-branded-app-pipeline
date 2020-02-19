@@ -15,6 +15,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import { compose, withState } from 'recompose';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -89,6 +90,14 @@ export const PrivatePassDetail = (props: Props) => {
               tax: props.pass.tax,
             })}
           </Typography>
+          {props.pass.manager_only ? (
+            <div className={props.classes.row}>
+              <VisibilityOffIcon className={props.classes.leftIcon} />
+              <Typography variant="subtitle" color="textSecondary">
+                {props.t('privatePass.parameters.managerOnly')}
+              </Typography>
+            </div>
+          ) : null}
         </div>
         <Typography variant="h6" component="h4">
           {props.t('privatePass.compatibleServices.title')}
@@ -201,6 +210,15 @@ const styles = (theme) => ({
   priceParameters: {
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
+  },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
   },
 });
 

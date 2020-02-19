@@ -86,6 +86,7 @@ export class PrivatePassList extends React.Component<Props> {
                   <PrivatePassListItem
                     pass={pass}
                     key={pass.id}
+                    divider
                     onClick={() => this.props.setSelectedPass(pass.id)}
                   />
                 ))}

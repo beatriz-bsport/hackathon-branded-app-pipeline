@@ -18,11 +18,16 @@ type Props = {
   t: TFunction,
   onClick: ?() => void,
   onDelete: ?() => void,
+  divider?: boolean,
 };
 
 export const PrivatePassListItem = (props: Props) => {
   return (
-    <ListItem button={!!props.onClick} onClick={props.onClick}>
+    <ListItem
+      divider={props.divider}
+      button={!!props.onClick}
+      onClick={props.onClick}
+    >
       <ListItemText
         primary={props.pass.name}
         secondary={props.t('privatePass.parameters.nbCredits', {

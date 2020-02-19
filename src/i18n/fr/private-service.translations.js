@@ -224,6 +224,7 @@ export default {
       nbCredits: '{{ credits }} crédit',
       price: '{{ price}} €',
       tax: 'TVA: {{ tax }}%',
+      managerOnly: 'Invisible pour les clients',
     },
     compatibleServices: {
       title: 'Cours privés compatibles',
@@ -232,6 +233,9 @@ export default {
     },
     form: {
       title: 'Carte cours privé',
+      managerOnly: {
+        label: 'Invisible pour les clients',
+      },
       name: {
         label: 'Nom',
       },

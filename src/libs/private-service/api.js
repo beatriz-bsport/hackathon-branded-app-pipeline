@@ -179,11 +179,9 @@ export const searchAvailableSlots = (
   );
 };
 
-export const fetchPrivatePassList = (companyId?: number) => {
+export const fetchPrivatePassList = (params: any) => {
   return getAuth(
-    `${API_V1_URI}/private_service/private_pass/${
-      companyId ? `?company=${companyId}` : ''
-    }`,
+    `${API_V1_URI}/private_service/private_pass/${buildUrlParams(params)}`,
   );
 };
 

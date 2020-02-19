@@ -36,8 +36,8 @@ import type { Basket } from '../../libs/checkout/types';
 
 // private-service
 // -----------------------------
-import { fetchPrivatePassList } from '../../libs/private-service/actions';
-import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
+import { fetchPrivatePassAsConsumerList } from '../../libs/private-service/actions';
+import { getPrivatePassAsConsumer } from '../../libs/private-service/selectors/private-pass';
 
 // payment-combo
 // -----------------------------
@@ -56,7 +56,7 @@ type Props = {
   paymentComboList: Array<PaymentCombo>,
 
   fetchPaymentPacks: (params: any) => void,
-  fetchPrivatePassList: (companyId: number) => void,
+  fetchPrivatePassAsConsumerList: (companyId: number) => void,
 
   requestSignUp: () => void,
   toogleCurrentBasketOpen: (boolean) => void,
@@ -83,7 +83,7 @@ export class MarketPlacePassPage extends Component<Props> {
       as_consumer: true,
       page_size: 300,
     });
-    this.props.fetchPrivatePassList(this.props.companyId);
+    this.props.fetchPrivatePassAsConsumerList(this.props.companyId);
   };
 
   componentDidUpdate(prevProps: Props) {
@@ -182,7 +182,7 @@ export default compose(
       authenticated: state.auth.authenticated,
       metaActivities: getMetaActivities(state),
       establishments: getAllEstablishments(state),
-      privatePassList: getPrivatePassAvailable(state),
+      privatePassList: getPrivatePassAsConsumer(state),
       paymentComboList: getPaymentComboListAvailableOnline(state),
       loading: state.paymentPack.loading,
       establishmentLoading: state.establishment.bulkRetrieve.loading,
@@ -192,7 +192,7 @@ export default compose(
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
       fetchMetaActivityBulk: fetchMetaActivityBulkAction,
       fetchPaymentPacks: fetchMarketplacePacks,
-      fetchPrivatePassList,
+      fetchPrivatePassAsConsumerList,
       pushPrivatePassCheckout: (packId, basketId) =>
         addItemToBasket(basketId, {
           buyable_item_identifier: BUYABLE_ITEM_PRIVATE_PASS,

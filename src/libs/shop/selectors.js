@@ -57,7 +57,7 @@ const getShopitem = (state: State, id: number) => {
 };
 
 const _getShopItemFeaturedIds = (state: State) =>
-  state.shop.shopItem.featured.allIds;
+  (state.shop.shopItem.featured || {}).allIds || [];
 
 export const getShopItemFeaturedList = createSelector(
   [_getAllShopItemData, _getShopItemFeaturedIds],

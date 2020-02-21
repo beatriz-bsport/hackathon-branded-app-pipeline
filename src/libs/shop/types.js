@@ -47,6 +47,11 @@ export type ShopState = {
       error: ?Error,
       allIds: Array<number>,
     },
+    featured: {
+      loading: boolean,
+      error: ?Error,
+      allIds: Array<number>,
+    },
     asConsumer: {
       loading: boolean,
       error: ?Error,

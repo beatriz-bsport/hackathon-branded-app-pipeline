@@ -11,6 +11,7 @@ import {
   shopItemRetrieveActions,
   shopItemCreateOrUpdateActions,
   shopItemDeleteActions,
+  shopItemFeaturedActions,
 } from './actions/shopitem';
 import {
   provisionByShopItemActions,
@@ -25,6 +26,11 @@ import {
 const initialState: ShopState = Immutable({
   shopItem: {
     byId: {},
+    featured: {
+      loading: false,
+      error: null,
+      allIds: [],
+    },
     asConsumer: {
       loading: false,
       error: null,
@@ -63,6 +69,24 @@ const initialState: ShopState = Immutable({
 
 export default handleActions(
   {
+    [shopItemFeaturedActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['shopItem', 'featured', 'loading'], payload);
+    },
+    [shopItemFeaturedActions.error]: (state, { payload }) => {
+      return state.setIn(['shopItem', 'featured', 'error'], payload);
+    },
+    [shopItemFeaturedActions.success]: (state, { payload }) => {
+      return state
+        .setIn(['shopItem', 'featured', 'allIds'], payload.map((si) => si.id))
+        .merge(
+          {
+            shopItem: {
+              byId: payload.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
+            },
+          },
+          { deep: true },
+        );
+    },
     [shopItemBulkActions.isLoading]: (state, { payload }) => {
       return state.setIn(['shopItem', 'bulk', 'loading'], payload);
     },

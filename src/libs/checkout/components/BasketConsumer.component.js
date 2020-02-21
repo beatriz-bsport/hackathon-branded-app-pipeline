@@ -18,6 +18,7 @@ type Props = {
   onRemoveCheckoutItem: ({ checkout_item: string, quantity: number }) => void,
   onAddCheckoutItem: (CheckoutItemData) => void,
   classes: Object,
+  withPrice?: boolean,
   t: TFunction,
   loading: ?boolean,
 };
@@ -32,9 +33,6 @@ export const BasketConsumer = (props: Props) => {
   }
   return (
     <div>
-      <Typography variant="h4" className={props.classes.title}>
-        {props.t('myBasket.title')}
-      </Typography>
       {props.loading ? <LinearProgress /> : null}
       <List dense disablePadding>
         {props.basket.checkout_items.length ? (
@@ -59,26 +57,18 @@ export const BasketConsumer = (props: Props) => {
           </div>
         )}
       </List>
-      <div className={props.classes.totalPrice}>
-        <Typography component="p" variant="h4">
-          {`${props.basket.total_price} €`}
-        </Typography>
-      </div>
+      {props.withPrice ? (
+        <div className={props.classes.totalPrice}>
+          <Typography component="p" variant="h4">
+            {`${props.basket.total_price} €`}
+          </Typography>
+        </div>
+      ) : null}
     </div>
   );
 };
 
 const styles = (theme) => ({
-  totalPrice: {
-    padding: theme.spacing.unit * 4,
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
-    backgroundColor: '#eee',
-    borderRadius: theme.spacing.unit * 2,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   centeredAndPadded: {
     display: 'flex',
     alignItems: 'center',
@@ -88,8 +78,15 @@ const styles = (theme) => ({
     paddingTop: theme.spacing.unit,
     paddingBottom: theme.spacing.unit,
   },
-  title: {
-    padding: theme.spacing.unit * 2,
+  totalPrice: {
+    padding: theme.spacing.unit * 4,
+    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 2,
+    backgroundColor: '#eee',
+    borderRadius: theme.spacing.unit * 2,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

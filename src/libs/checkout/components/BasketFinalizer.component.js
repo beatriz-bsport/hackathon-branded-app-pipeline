@@ -3,6 +3,7 @@ import React from 'react';
 
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
+import Typography from '@material-ui/core/Typography';
 import StepLabel from '@material-ui/core/StepLabel';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
@@ -109,6 +110,11 @@ export class BasketFinalizer extends React.Component<Props, State> {
     }
     return (
       <div>
+        <div className={this.props.classes.totalPrice}>
+          <Typography component="p" variant="h4">
+            {`${this.props.basket.total_price} €`}
+          </Typography>
+        </div>
         <div className={this.props.classes.couponCodeContainer}>
           <CouponCodeForm onSubmit={this.props.attachCoupon} />
         </div>
@@ -136,6 +142,15 @@ const styles = (theme) => ({
     width: '100%',
     justifyContent: 'flex-end',
     marginBottom: theme.spacing.unit * 2,
+  },
+  totalPrice: {
+    padding: theme.spacing.unit * 4,
+    marginBottom: theme.spacing.unit * 2,
+    backgroundColor: '#eee',
+    borderRadius: theme.spacing.unit * 2,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

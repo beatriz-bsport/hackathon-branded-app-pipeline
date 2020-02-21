@@ -1,11 +1,17 @@
 // @flow
 
 import React from 'react';
+import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
-import BasketConsumer from './BasketConsumer.component';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 import type { Basket } from '../types';
+import BasketConsumer from './BasketConsumer.component';
 
 import BasketFinalizer from './BasketFinalizer.component';
+import ShopItemFeaturedBanner from './ShopItemFeaturedBanner.component';
 
 type Props = {
   basket: Basket,
@@ -13,48 +19,88 @@ type Props = {
   processing: boolean,
   termsAndConditions: string,
 
+  shopItemList: Array<ShopItem>,
+  addShopItemToBasket: (id: number) => void,
+
   removeItemFromBasket: (basketId: string, data: any) => void,
   addItemToBasket: (basketId: string, data: any) => void,
+
   onBasketFinalized: () => void,
   submitPayment: (data: *) => void,
   attachCoupon: (code: string) => void,
-  classes: Object,
   patchBasket: (data: *) => void,
+
   backToCalendar: () => void,
+
+  classes: Object,
+  t: TFunction,
 };
 
 export const CheckoutFlow = (props: Props) => (
   <div className={props.classes.container}>
-    <BasketConsumer
-      basket={props.basket}
-      loading={props.loading}
-      onRemoveCheckoutItem={(data) =>
-        props.removeItemFromBasket(props.basket.id, data)
-      }
-      onAddCheckoutItem={(data) => props.addItemToBasket(props.basket.id, data)}
-    />
-    <BasketFinalizer
-      basket={props.basket}
-      submitPayment={props.submitPayment}
-      attachCoupon={props.attachCoupon}
-      availablePaymentMethods={props.basket.available_payment_methods}
-      onBasketFinalized={props.onBasketFinalized}
-      patchBasket={props.patchBasket}
-      processing={props.processing}
-      loading={props.loading}
-      termsAndConditions={props.termsAndConditions}
-      backToCalendar={props.backToCalendar}
-    />
+    <Typography variant="h4" className={props.classes.title}>
+      {props.t('myBasket.title')}
+    </Typography>
+    <Paper square>
+      <BasketConsumer
+        basket={props.basket}
+        loading={props.loading}
+        onRemoveCheckoutItem={(data) =>
+          props.removeItemFromBasket(props.basket.id, data)
+        }
+        onAddCheckoutItem={(data) =>
+          props.addItemToBasket(props.basket.id, data)
+        }
+      />
+    </Paper>
+    {props.shopItemList.length ? (
+      <div className={props.classes.featureBanner}>
+        <ShopItemFeaturedBanner
+          onAddShopItem={props.addShopItemToBasket}
+          shopItemList={props.shopItemList}
+        />
+      </div>
+    ) : null}
+    <Paper square className={props.classes.paper}>
+      <BasketFinalizer
+        withPrice
+        basket={props.basket}
+        submitPayment={props.submitPayment}
+        attachCoupon={props.attachCoupon}
+        availablePaymentMethods={props.basket.available_payment_methods}
+        onBasketFinalized={props.onBasketFinalized}
+        patchBasket={props.patchBasket}
+        processing={props.processing}
+        loading={props.loading}
+        termsAndConditions={props.termsAndConditions}
+        backToCalendar={props.backToCalendar}
+      />
+    </Paper>
   </div>
 );
 
-const styles = () => ({
+const styles = (theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'stretch',
     minWidth: '400px',
+    maxWidth: '700px',
+  },
+  title: {
+    padding: theme.spacing.unit * 2,
+    paddingLeft: 0,
+  },
+  featureBanner: {
+    marginBottom: theme.spacing.unit,
+    marginTop: theme.spacing.unit,
+  },
+  paper: {
+    padding: theme.spacing.unit * 2,
   },
 });
-export default withStyles(styles)(CheckoutFlow);
+export default compose(
+  withNamespaces(['checkout']),
+  withStyles(styles),
+)(CheckoutFlow);

@@ -46,6 +46,41 @@ export function fetchShopItemAsConsumer(
   };
 }
 
+export const shopItemFeaturedActions = {
+  isLoading: createAction('SHOPITEM/FEATURED/LOADING'),
+  error: createAction('SHOPITEM/FEATURED/ERROR'),
+  success: createAction('SHOPITEM/FEATURED/SUCCESS'),
+};
+
+export function fetchShopItemFeatured(
+  company: ?number,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(shopItemFeaturedActions.isLoading(true));
+    dispatch(shopItemFeaturedActions.error(null));
+    try {
+      const response = await api.fetchAll({
+        marketplace_enabled: true,
+        featured: true,
+        disabled: false,
+        company,
+        as_consumer: true,
+      });
+      dispatch(shopItemFeaturedActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (e) {
+      console.error(e);
+      dispatch(shopItemFeaturedActions.error(e));
+      if (options && options.onError) {
+        options.onError(e);
+      }
+    }
+  };
+}
+
 export const shopItemAsManagerActions = {
   isLoading: createAction('SHOPITEM/AS_MANAGER/LOADING'),
   error: createAction('SHOPITEM/AS_MANAGER/ERROR'),

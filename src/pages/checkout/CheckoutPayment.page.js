@@ -3,18 +3,18 @@
 import React from 'react';
 import { compose, withState, withProps, withHandlers } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect } from 'react-redux';
 import { replace as replaceRouter, push, goBack } from 'react-router-redux';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import Typography from '@material-ui/core/Typography';
+import { BUYABLE_ITEM_SHOP_ITEM } from '@bsport/common/lib/master-data/buyable-items';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { getTheme } from '../../theme';
 import {
-  addItemToBasket,
+  addItemToBasket as addItemToBasketAction,
   attachCoupon,
   removeItemFromBasket,
   fetchCurrentBasket as fetchCurrentBasketAction,
@@ -31,8 +31,8 @@ import type { Theme } from '../../libs/theme/types';
 import themeSelectors from '../../libs/theme/selectors';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 
-// import { getShopItemFeaturedList } from '../../libs/shop/selectors';
-// import { fetchShopItemAsConsumer } from '../../libs/shop/actions/shopitem';
+import { getShopItemFeaturedList } from '../../libs/shop/selectors';
+import { fetchShopItemFeatured } from '../../libs/shop/actions/shopitem';
 
 type Props = {
   basket: ?Basket,
@@ -56,15 +56,15 @@ type Props = {
   ) => void,
 
   basketError: ?Error,
-  // shopItemList: Array<ShopItem>,
-  // fetchShopItemFeatured: (companyId: number) => void,
+  shopItemList: Array<ShopItem>,
+  fetchShopItemFeatured: (companyId: number) => void,
 };
 
 export class CheckoutPayment extends React.Component<Props> {
   componentWillMount() {
     this.props.fetchCurrentBasket(this.props.companyId);
     this.props.fetchCompanyTheme(this.props.companyId);
-    // this.props.fetchShopItemAsConsumer(this.props.companyId);
+    this.props.fetchShopItemFeatured(this.props.companyId);
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -141,24 +141,24 @@ export class CheckoutPayment extends React.Component<Props> {
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <GoogleTagManager theme={this.props.theme} />
         <div className={this.props.classes.container}>
-          <Paper className={this.props.classes.paper}>
+          <div className={this.props.classes.checkoutFlow}>
             <CheckoutFlow
               basket={this.props.basket}
               loading={this.props.loading}
               processing={this.props.processing}
               submitPayment={this.props.submitPayment}
               addItemToBasket={this.props.addItemToBasket}
+              addShopItemToBasket={this.props.addShopItemToBasket}
               removeItemFromBasket={this.props.removeItemFromBasket}
               termsAndConditions={this.props.theme.general_terms_and_conditions}
               attachCoupon={this.props.attachCoupon}
               backToCalendar={this.backToCalendar}
-              patchBasket={(data, options) =>
-                this.props.patchCurrentBasket(data, options)
-              }
+              shopItemList={this.props.shopItemList}
+              patchBasket={this.props.patchCurrentBasket}
             />
 
             {this.renderError()}
-          </Paper>
+          </div>
         </div>
       </MuiThemeProvider>
     );
@@ -178,12 +178,11 @@ const styles = (theme) => ({
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 4,
   },
-  paper: {
+  checkoutFlow: {
     display: 'flex',
     justifyContent: 'flex-start',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: theme.spacing.unit * 2,
   },
 });
 
@@ -197,10 +196,10 @@ export default compose(
       loading: state.checkout.basket.current.loading,
       processing: state.checkout.basket.current.updating,
       theme: themeSelectors.getTheme(state),
-      // shopItemList: getShopItemFeaturedList(state),
+      shopItemList: getShopItemFeaturedList(state),
     }),
     {
-      addItemToBasket,
+      addItemToBasket: addItemToBasketAction,
       removeItemFromBasket,
       goBack,
       push,
@@ -210,10 +209,17 @@ export default compose(
       attachPayment: attachPaymentAction,
       attachCoupon,
       fetchCompanyTheme,
-      // fetchShopItemAsConsumer,
+      fetchShopItemFeatured,
     },
   ),
   withHandlers({
+    addShopItemToBasket: ({ addItemToBasket, basket }) => (shopItemId) =>
+      addItemToBasket(basket.id, {
+        buyable_item_identifier: BUYABLE_ITEM_SHOP_ITEM,
+        quantity: 1,
+        buyable_item_id: shopItemId,
+        extra_data: {},
+      }),
     onBasketFinalized: ({ replace }) => (basket) => {
       try {
         (window.dataLayer || []).push({

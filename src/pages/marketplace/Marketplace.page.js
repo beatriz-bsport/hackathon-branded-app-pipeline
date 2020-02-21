@@ -12,7 +12,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
-import DialogActions from '@material-ui/core/DialogActions';
 import Tabs from '@material-ui/core/Tabs';
 import Dialog from '@material-ui/core/Dialog';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -38,7 +37,6 @@ import {
   fetchCurrentBasket,
 } from '../../libs/checkout/actions';
 import { getCurrentBasket } from '../../libs/checkout/selectors';
-import BasketConsumer from '../../libs/checkout/components/BasketConsumer.component';
 import type { Basket } from '../../libs/checkout/types';
 
 import { fetchSCT } from '../../actions/category.actions';
@@ -51,6 +49,7 @@ import MarketplaceCalendarPage from './MarketplaceCalendar.page';
 import MarketplaceWorkshopPage from './MarketplaceWorkshop.page';
 import MarketplacePrivateService from './MarketplacePrivateService.page';
 import MarketplaceContractPage from './MarketplaceContract.page';
+import MarketplaceBasketDialog from './MarketplaceBasketDialog.component.js';
 
 import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
 
@@ -321,41 +320,22 @@ export class MarketPlace extends Component<Props, State> {
             </AppBarMUI>
           ) : null}
           <div className={classes.content}>{this.renderContent()}</div>
-          <Dialog
+          <MarketplaceBasketDialog
             open={this.state.currentBasketOpen}
-            fullScreen={this.props.fullScreen}
-          >
-            <BasketConsumer
-              basket={this.props.currentBasket}
-              onCancel={() => this.toogleCurrentBasketOpen(false)}
-              loading={this.props.currentBasketLoading}
-              onRemoveCheckoutItem={(data) =>
-                this.props.removeItemFromBasket(
-                  this.props.currentBasket.id,
-                  data,
-                )
-              }
-              onAddCheckoutItem={(data) =>
-                this.props.addItemToBasket(this.props.currentBasket.id, data)
-              }
-            />
-            <DialogActions>
-              <Button
-                color="secondary"
-                onClick={() => this.toogleCurrentBasketOpen(false)}
-              >
-                {this.props.t('checkout:myBasket.actions.closeBasket')}
-              </Button>
-              <Button
-                color="primary"
-                onClick={() =>
-                  this.props.goToCheckout(this.props.currentBasket.company)
-                }
-              >
-                {this.props.t('checkout:myBasket.actions.checkoutBasket')}
-              </Button>
-            </DialogActions>
-          </Dialog>
+            basket={this.props.currentBasket}
+            open={this.state.currentBasketOpen}
+            onCancel={() => this.toogleCurrentBasketOpen(false)}
+            loading={this.props.currentBasketLoading}
+            onRemoveCheckoutItem={(data) =>
+              this.props.removeItemFromBasket(this.props.currentBasket.id, data)
+            }
+            onAddCheckoutItem={(data) =>
+              this.props.addItemToBasket(this.props.currentBasket.id, data)
+            }
+            goToCheckout={() =>
+              this.props.goToCheckout(this.props.currentBasket.company)
+            }
+          />
           <Dialog
             open={this.state.loginDialogOpen && !this.props.auth.authenticated}
             onClose={() => this.toogleLogin(false)}

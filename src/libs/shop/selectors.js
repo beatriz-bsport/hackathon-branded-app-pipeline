@@ -56,6 +56,14 @@ const getShopitem = (state: State, id: number) => {
   };
 };
 
+const _getShopItemFeaturedIds = (state: State) =>
+  state.shop.shopItem.featured.allIds;
+
+export const getShopItemFeaturedList = createSelector(
+  [_getAllShopItemData, _getShopItemFeaturedIds],
+  (data, ids) => ids.map((id) => data[id]),
+);
+
 const getProvisionByShopitem = (state: State, id: number) =>
   _getProvisions(state).filter((p) => p.shop_item === id);
 

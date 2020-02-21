@@ -61,21 +61,23 @@ export const CheckoutFlow = (props: Props) => (
         />
       </div>
     ) : null}
-    <Paper square className={props.classes.paper}>
-      <BasketFinalizer
-        withPrice
-        basket={props.basket}
-        submitPayment={props.submitPayment}
-        attachCoupon={props.attachCoupon}
-        availablePaymentMethods={props.basket.available_payment_methods}
-        onBasketFinalized={props.onBasketFinalized}
-        patchBasket={props.patchBasket}
-        processing={props.processing}
-        loading={props.loading}
-        termsAndConditions={props.termsAndConditions}
-        backToCalendar={props.backToCalendar}
-      />
-    </Paper>
+    {props.basket.checkout_items.length ? (
+      <Paper square className={props.classes.paper}>
+        <BasketFinalizer
+          withPrice
+          basket={props.basket}
+          submitPayment={props.submitPayment}
+          attachCoupon={props.attachCoupon}
+          availablePaymentMethods={props.basket.available_payment_methods}
+          onBasketFinalized={props.onBasketFinalized}
+          patchBasket={props.patchBasket}
+          processing={props.processing}
+          loading={props.loading}
+          termsAndConditions={props.termsAndConditions}
+          backToCalendar={props.backToCalendar}
+        />
+      </Paper>
+    ) : null}
   </div>
 );
 

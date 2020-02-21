@@ -43,7 +43,11 @@ export const MarketplaceBasketDialog = (props: Props) => (
       <Button color="secondary" onClick={props.onCancel}>
         {props.t('checkout:myBasket.actions.closeBasket')}
       </Button>
-      <Button color="primary" onClick={props.goToCheckout}>
+      <Button
+        color="primary"
+        disabled={props.basket && props.basket.checkout_items.length === 0}
+        onClick={props.goToCheckout}
+      >
         {props.t('checkout:myBasket.actions.checkoutBasket')}
       </Button>
     </DialogActions>

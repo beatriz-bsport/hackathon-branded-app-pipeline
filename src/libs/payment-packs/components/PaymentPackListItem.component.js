@@ -97,7 +97,7 @@ export default withStyles(styles)(
             </span>
           }
           secondary={`${
-            props.pack.credits
+            !props.pack.unlimited
               ? props.t('paymentPack.specifications.nbCredits', {
                   credits: props.pack.credits,
                 })

@@ -321,9 +321,8 @@ export class MarketPlace extends Component<Props, State> {
           ) : null}
           <div className={classes.content}>{this.renderContent()}</div>
           <MarketplaceBasketDialog
-            open={this.state.currentBasketOpen}
+            open={!!this.state.currentBasketOpen}
             basket={this.props.currentBasket}
-            open={this.state.currentBasketOpen}
             onCancel={() => this.toogleCurrentBasketOpen(false)}
             loading={this.props.currentBasketLoading}
             onRemoveCheckoutItem={(data) =>

@@ -20,7 +20,7 @@ type Props = {
   open: boolean,
   fullScreen: boolean,
   onCancel: () => void,
-  addItemToBasket: (data: any) => void,
+  onAddCheckoutItem: (data: any) => void,
   goToCheckout: () => void,
   onRemoveCheckoutItem: (data: any) => void,
   classes: Object,
@@ -37,7 +37,7 @@ export const MarketplaceBasketDialog = (props: Props) => (
       onCancel={props.onCancel}
       loading={props.loading}
       onRemoveCheckoutItem={props.onRemoveCheckoutItem}
-      onAddCheckoutItem={props.addItemToBasket}
+      onAddCheckoutItem={props.onAddCheckoutItem}
     />
     <DialogActions>
       <Button color="secondary" onClick={props.onCancel}>

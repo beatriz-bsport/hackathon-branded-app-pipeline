@@ -2,6 +2,7 @@ export default {
   columns: {
     private_service_name: 'Private class',
     private_slot_name: 'Slot',
+    nb_bookings: 'Bookings',
     slot_date_end: 'Slot end',
     establishment: 'Establishment',
     activity: 'Activity',

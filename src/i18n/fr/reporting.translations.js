@@ -1,6 +1,7 @@
 export default {
   columns: {
     private_service_name: 'Cours privé',
+    nb_bookings: 'Nombre de réservation',
     private_slot_name: 'Séance',
     slot_date_end: 'Fin de la séance',
     establishment: 'Etablissement',

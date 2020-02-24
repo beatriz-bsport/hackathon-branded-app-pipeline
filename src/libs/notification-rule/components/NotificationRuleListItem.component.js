@@ -15,11 +15,15 @@ import EmailSelector from '../../email-editor/components/EmailSelector.component
 type Props = {
   t: TFunction,
   classes: Object,
+
   emailDesignList: Array<EmailDesign>,
+
   showEmailPreviewHTML: (string) => void,
   showEmailPreview: (id: number) => void,
+
   onChangeEmailDesign: (NotificationRule) => void,
   onDeleteNotificationRule: (id: number) => void,
+
   event: number,
   rule: ?NotificationRule,
 };
@@ -31,6 +35,21 @@ export const NotificationRuleListItem = (props: Props) => {
         primary={props.t(`eventType.${props.event}`)}
       />
       <div className={props.classes.selector}>
+        <IconButton
+          disabled={!props.rule}
+          className={props.classes.showEmail}
+          color="primary"
+          onClick={() => {
+            if (props.rule && !props.rule.email_design) {
+              props.showEmailPreviewHTML(props.rule.email_template);
+            } else {
+              props.showEmailPreview(props.rule.email_design);
+            }
+          }}
+          variant="outlined"
+        >
+          <VisibilityIcon />
+        </IconButton>
         <EmailSelector
           emails={props.emailDesignList}
           value={(props.rule || {}).email_design}
@@ -51,19 +70,6 @@ export const NotificationRuleListItem = (props: Props) => {
             });
           }}
         />
-        <IconButton
-          disabled={!props.rule}
-          onClick={() => {
-            if (props.rule && !props.rule.email_design) {
-              props.showEmailPreviewHTML(props.rule.email_template);
-            } else {
-              props.showEmailPreview(props.rule.email_design);
-            }
-          }}
-          variant="outlined"
-        >
-          <VisibilityIcon />
-        </IconButton>
       </div>
     </Paper>
   );
@@ -81,6 +87,9 @@ const styles = (theme) => ({
   text: {
     maxWidth: '55%',
     marginLeft: theme.spacing.unit,
+  },
+  showEmail: {
+    marginRight: theme.spacing.unit,
   },
   selector: {
     width: '45%',

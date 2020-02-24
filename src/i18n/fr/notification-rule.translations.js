@@ -75,13 +75,13 @@ export default {
     },
   },
   eventType: {
-    [NOTIFICATION_BOOKING_CANCELLED_BY_MANAGER]:
-      'Annulation réservation (manager)',
+    [NOTIFICATION_BOOKING_CANCELLED_BY_MANAGER]: 'Annulation séance',
     [NOTIFICATION_MEMBERSHIP_CREATION_WEB]: 'Inscription membre (élève)',
     [NOTIFICATION_BOOKING_PASS_CHECKOUT]: 'Réservation via carte de cours',
     [NOTIFICATION_BOOKING_PLUS_PASS_STRIPE_CHECKOUT]:
       'Réservation + achat carte de cours simultané',
-    [NOTIFICATION_BOOKING_OPTION_CONVERTIBLE]: "Liste d'attente libre",
+    [NOTIFICATION_BOOKING_OPTION_CONVERTIBLE]:
+      "Sortie de la liste d'attente : réservation possible",
     [NOTIFICATION_BOOKING_OPTION_NOT_CONVERTIBLE_ANYMORE]:
       "Liste d'attente pleine de nouveau",
     [NOTIFICATION_BOOKING_OPTION_CREATED]: "Inscription à la liste d'attente",

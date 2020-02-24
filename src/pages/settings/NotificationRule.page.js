@@ -61,7 +61,7 @@ export class NotificationRule extends React.Component<Props> {
 
   render() {
     return (
-      <div>
+      <div className={this.props.classes.container}>
         {this.props.loading ? (
           <LinearProgress className={this.props.classes.loading} />
         ) : null}
@@ -112,6 +112,9 @@ export class NotificationRule extends React.Component<Props> {
 }
 
 const styles = (theme) => ({
+  container: {
+    marginBottom: '30vh',
+  },
   loading: {
     marginTop: theme.spacing.unit,
     marginBottom: theme.spacing.unit,

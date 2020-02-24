@@ -5,6 +5,7 @@ export default {
   tab: {
     general: 'General',
     paymentRules: 'Rates',
+    notificationRule: 'Transactional emails',
     company: 'Company',
     invoice: 'Billing',
     waitingList: 'Waiting-list',

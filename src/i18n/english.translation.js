@@ -44,8 +44,10 @@ import authentication from './en/authentication.translations';
 import category from './en/category.translations';
 import reminder from './en/reminder.translations';
 import event from './en/event.translations';
+import notificationRule from './en/notification-rule.translations';
 
 export default {
+  notificationRule,
   category,
   reminder,
   authentication,

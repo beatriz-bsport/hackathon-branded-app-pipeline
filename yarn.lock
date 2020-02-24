@@ -1446,10 +1446,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@bsport/common@^1.25.0":
-  version "1.25.0"
-  resolved "https://registry.yarnpkg.com/@bsport/common/-/common-1.25.0.tgz#940d71f2cf99aae8294291b07f1b6d93bdfb0aa5"
-  integrity sha512-yYgYkMEYNKzGY4ILQUOdLsTo961NMTx5q9L8vKPQ8zlUC2y8NZBrJOzqcdYplafhiAF8HSudlZ+0eURiS3GtXg==
+"@bsport/common@^1.26.1":
+  version "1.26.1"
+  resolved "https://registry.yarnpkg.com/@bsport/common/-/common-1.26.1.tgz#e57c193169b6cd6be7d92610303ab42650e81a99"
+  integrity sha512-h8mh6WhOJJ0WR66jRoxvbwkizOmSPwCv1o0VsWhyPMpziwbyRcXY/FANRzs+g6sBJPKee6/TF3Ups9De7W89Dg==
 
 "@compone/class@^1.1.1":
   version "1.1.1"

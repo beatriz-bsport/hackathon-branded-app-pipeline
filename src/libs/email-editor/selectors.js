@@ -2,7 +2,6 @@
 
 import { createSelector } from 'reselect';
 
-import Immutable from 'seamless-immutable';
 import type { State } from '../../state/types';
 import type { email_template_state } from './types';
 
@@ -21,7 +20,7 @@ export const getAllEmailTemplatesId = (state: State): email_template_state =>
 
 export const getAllEmailTemplatesSummaries = createSelector(
   [getAllEmailTemplatesSummariesDict, getAllEmailTemplatesId],
-  (summaryDict, IdList) => Immutable(IdList.map((id) => summaryDict[id])),
+  (summaryDict, IdList) => IdList.map((id) => summaryDict[id]),
 );
 
 export const getFreshEmailTemplateSummariesIds = createSelector(

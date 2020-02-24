@@ -11,7 +11,6 @@ import AppBarMUI from '@material-ui/core/AppBar';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Tab from '@material-ui/core/Tab';
-import Button from '@material-ui/core/Button';
 import Tabs from '@material-ui/core/Tabs';
 import Dialog from '@material-ui/core/Dialog';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -49,7 +48,7 @@ import MarketplaceCalendarPage from './MarketplaceCalendar.page';
 import MarketplaceWorkshopPage from './MarketplaceWorkshop.page';
 import MarketplacePrivateService from './MarketplacePrivateService.page';
 import MarketplaceContractPage from './MarketplaceContract.page';
-import MarketplaceBasketDialog from './MarketplaceBasketDialog.component.js';
+import MarketplaceBasketDialog from './MarketplaceBasketDialog.component';
 
 import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
 
@@ -95,7 +94,6 @@ type Props = {
 
   t: TFunction,
   classes: Object,
-  fullScreen: boolean,
 
   disconnect: () => void,
   signup: (data: *, callback: () => void) => void,

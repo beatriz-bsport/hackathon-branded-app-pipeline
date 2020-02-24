@@ -23,6 +23,7 @@ import type { PaymentComboState } from '../libs/payment-combo/types';
 import type { ReminderState } from '../libs/reminder/types';
 import type { MembershipState } from '../libs/membership/types';
 import type { CompanyState } from '../libs/company/types';
+import type { NotificationRuleState } from '../libs/notification-rule/types';
 
 export type State = {
   paymentRules: PaymentRulesState,
@@ -48,6 +49,7 @@ export type State = {
   reminder: ReminderState,
   membership: MembershipState,
   company: CompanyState,
+  notificationRule: NotificationRuleState,
 };
 export type Action = SearchAction | AuthAction;
 

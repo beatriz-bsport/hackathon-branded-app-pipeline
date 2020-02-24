@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { compose, withState } from 'recompose';
+import { compose } from 'recompose';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withNamespaces } from 'react-i18next';

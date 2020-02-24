@@ -3,4 +3,5 @@ export default {
     showLessText: 'Voir moins',
     showMoreText: 'Voir plus',
   },
+  close: 'Fermer',
 };

@@ -4,6 +4,7 @@ export default {
   pageTitle: 'Paramètres',
   tab: {
     general: 'Général',
+    notificationRule: 'Emails transactionnels',
     paymentRules: 'Règles de rémunération',
     company: 'Entreprise',
     invoice: 'Facturation',

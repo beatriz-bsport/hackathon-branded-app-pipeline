@@ -46,9 +46,11 @@ import reminder from './fr/reminder.translations';
 import membership from './fr/membership.translations';
 import consumerSpace from './fr/consumer-space.translations';
 import event from './fr/event.translations';
+import notificationRule from './fr/notification-rule.translations';
 
 export default {
   membership,
+  notificationRule,
   consumerSpace,
   reminder,
   category,

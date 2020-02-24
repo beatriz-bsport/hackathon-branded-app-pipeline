@@ -79,6 +79,7 @@ export function EmailSelector(props: Props) {
       components={{ Option: emailOption }}
       placeholder={helperText}
       onChange={onChange}
+      isClearable
     />
   );
 }

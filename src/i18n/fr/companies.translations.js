@@ -1,7 +1,7 @@
 export default {
   general: 'Général',
-  owner_address: 'Addresse gérant',
-  address: 'Addresse',
+  owner_address: 'Adresse gérant',
+  address: 'Adresse',
   bank_details: 'Informations bancaires',
   fields: {
     iban: 'IBAN',

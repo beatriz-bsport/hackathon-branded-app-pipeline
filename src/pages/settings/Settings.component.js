@@ -24,6 +24,7 @@ import ShopConfigurationPage from './ShopConfigurationPage.component';
 import ThemeConfigurationPage from './ThemeConfiguration.component';
 import SettingsPersonalizePage from './SettingsPersonalizePage.component';
 import WebhookConfigurationPage from './WebhookConfigurationPage.component';
+import NotificationRulePage from './NotificationRule.page';
 
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -48,13 +49,14 @@ export const Settings = (props: Props) => {
           onChange={(ev, value) => props.push(`/settings/${value}/`)}
         >
           <Tab label={t('tab.general')} value="general" />
+          <Tab label={t('tab.role')} value="role" />
+          <Tab label={t('tab.personalization')} value="personalization" />
+          <Tab label={t('tab.notificationRule')} value="notification-rule" />
           <Tab label={t('tab.paymentRules')} value="payment-rules" />
           <Tab label={t('tab.company')} value="company" />
           <Tab label={t('tab.invoice')} value="invoice" />
           <Tab label={t('tab.waitingList')} value="waiting-list" />
           <Tab label={t('tab.shop')} value="shop" />
-          <Tab label={t('tab.role')} value="role" />
-          <Tab label={t('tab.personalization')} value="personalization" />
           <Tab label={t('tab.webhook')} value="webhook" />
         </Tabs>
       </AppBar>
@@ -63,6 +65,11 @@ export const Settings = (props: Props) => {
           exact
           path="/settings/general"
           component={ThemeConfigurationPage}
+        />
+        <Route
+          exact
+          path="/settings/notification-rule"
+          component={NotificationRulePage}
         />
         <Route exact path="/settings/company" component={CompanyDetailPage} />
         <Route exact path="/settings/role" component={RoleConfigurationPage} />

@@ -27,7 +27,7 @@ export const ShopItemFeaturedBanner = (props: Props) => {
           <div
             className={classname([
               props.classes.shopItemContainer,
-              props.shopItemList.filter((si) => si.cover).length
+              props.shopItemList.filter((si_) => si_.cover).length
                 ? props.classes.shopItemContainerWithImage
                 : null,
             ])}

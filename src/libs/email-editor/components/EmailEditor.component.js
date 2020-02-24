@@ -26,6 +26,7 @@ type Props = {
   goToList: () => void,
   hideLeftMenuAction: () => void,
   showLeftMenuAction: () => void,
+  tags: ?Object,
 };
 
 type State = {
@@ -126,18 +127,39 @@ export class EmailEditorPanel extends Component<Props, State> {
             }}
             minHeight="80vh"
             locale={i18n.language}
+            translations={{
+              'fr-FR': {
+                'labels.merge_tags': 'Ajouter une variable',
+              },
+              'en-US': {
+                'labels.merge_tags': 'Add a variable',
+              },
+            }}
             onLoad={() => this.onLoad()}
             options={{
-              mergeTags: {
-                first_name: {
-                  name: 'First Name',
-                  value: '{firstname}',
-                },
-                last_name: {
-                  name: 'Last Name',
-                  value: '{lastname}',
-                },
-              },
+              mergeTags: Object.entries(this.props.tags).reduce(
+                (acc, [tagCategory, tagList]) => ({
+                  ...acc,
+                  [tagCategory]: {
+                    name: this.props.t(
+                      `notificationRule:tag.${tagCategory}.name`,
+                    ),
+                    mergeTags: tagList.reduce(
+                      (tagListAcc, tag) => ({
+                        ...tagListAcc,
+                        [tag]: {
+                          name: this.props.t(
+                            `notificationRule:tag.${tagCategory}.tags.${tag}`,
+                          ),
+                          value: `{${tag}}`,
+                        },
+                      }),
+                      {},
+                    ),
+                  },
+                }),
+                {},
+              ),
               designTags: {
                 business_name: this.props.company_name,
               },

@@ -58,6 +58,8 @@ type Props = {
   basketError: ?Error,
   shopItemList: Array<ShopItem>,
   fetchShopItemFeatured: (companyId: number) => void,
+
+  addShopItemToBasket: (shopitemId: number) => void,
 };
 
 export class CheckoutPayment extends React.Component<Props> {

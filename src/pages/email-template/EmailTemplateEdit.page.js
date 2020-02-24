@@ -23,6 +23,8 @@ import {
 import { Context } from '../../context';
 
 import EmailEditorPanel from '../../libs/email-editor/components/EmailEditor.component';
+import { fetchTagList } from '../../libs/notification-rule/actions';
+import { getTagCategories } from '../../libs/notification-rule/selectors';
 
 type Props = {
   id: number,
@@ -38,11 +40,15 @@ type Props = {
   email_templates_details: any,
   email_templates_summaries: any,
   snackbarError: (msg: string) => void,
+
+  fetchTagList: () => void,
+  tagCategories: { [string]: Array<string> },
 };
 
 export class MarketingEmail extends Component<Props, state> {
   componentDidMount() {
     this.props.emailTemplateComplete(this.props.id);
+    this.props.fetchTagList();
   }
 
   onSave = (id, data) => {
@@ -71,6 +77,7 @@ export class MarketingEmail extends Component<Props, state> {
               ...this.props.email_templates_summaries[this.props.id],
               ...this.props.email_templates_details[this.props.id],
             }}
+            tags={this.props.tagCategories}
             company_name={this.props.company_name}
             goToList={this.props.goToList}
             displayEmptyError={this.props.snackbarError}
@@ -92,8 +99,10 @@ export default compose(
       loading: state.emailTemplate.detail.isLoading,
       company_id: state.theme.theme.company,
       company_name: state.theme.theme.company_name,
+      tagCategories: getTagCategories(state),
     }),
     {
+      fetchTagList,
       snackbarError,
       emailTemplateComplete,
       emailDesignCreate,

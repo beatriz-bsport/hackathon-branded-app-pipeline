@@ -45,6 +45,7 @@ import membership from '../libs/membership/reducers';
 import company from '../libs/company/reducers';
 import offer from '../libs/offer/reducers';
 import webhook from '../libs/webhook/reducers';
+import notificationRule from '../libs/notification-rule/reducers';
 
 import type { State, Action } from '../state/types';
 
@@ -95,6 +96,7 @@ const rootReducer = combineReducers({
   company,
   offer,
   webhook,
+  notificationRule,
 });
 
 export default (state: State, action: Action) => {

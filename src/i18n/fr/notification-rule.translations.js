@@ -69,6 +69,12 @@ export default {
     BookingOption: {
       name: "Liste d'attente",
       tags: {
+        activity: 'Activité',
+        coach: 'Professeur',
+        date: 'Heure/Date séance',
+        establishment: 'Lieu',
+        establishment_practical_info: 'Accès à la salle',
+        address: 'Adresse',
         option_payment_url: 'Lien de réservation',
         option_expiration_date: "Date d'expiration place sur liste d'attente",
       },

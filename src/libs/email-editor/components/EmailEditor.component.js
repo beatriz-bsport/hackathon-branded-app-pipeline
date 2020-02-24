@@ -79,9 +79,42 @@ export class EmailEditorPanel extends Component<Props, State> {
     this.setState({ subject });
   }
 
+  componentDidUpdate(prevProps: Props) {
+    if (this.props.tags && !prevProps.tags) {
+      window.unlayer.setMergeTags(this.getMergeTags);
+    }
+  }
+
   onLoad() {
     window.unlayer.loadDesign(this.props.emailLoad.design);
   }
+
+  getMergeTags = () => {
+    if (this.props.tags) {
+      return Object.entries(this.props.tags).reduce(
+        (acc, [tagCategory, tagList]) => ({
+          ...acc,
+          [tagCategory]: {
+            name: this.props.t(`notificationRule:tag.${tagCategory}.name`),
+            mergeTags: tagList.reduce(
+              (tagListAcc, tag) => ({
+                ...tagListAcc,
+                [tag]: {
+                  name: this.props.t(
+                    `notificationRule:tag.${tagCategory}.tags.${tag}`,
+                  ),
+                  value: `{${tag}}`,
+                },
+              }),
+              {},
+            ),
+          },
+        }),
+        {},
+      );
+    }
+    return null;
+  };
 
   render() {
     const { t, classes } = this.props;
@@ -137,29 +170,7 @@ export class EmailEditorPanel extends Component<Props, State> {
             }}
             onLoad={() => this.onLoad()}
             options={{
-              mergeTags: Object.entries(this.props.tags).reduce(
-                (acc, [tagCategory, tagList]) => ({
-                  ...acc,
-                  [tagCategory]: {
-                    name: this.props.t(
-                      `notificationRule:tag.${tagCategory}.name`,
-                    ),
-                    mergeTags: tagList.reduce(
-                      (tagListAcc, tag) => ({
-                        ...tagListAcc,
-                        [tag]: {
-                          name: this.props.t(
-                            `notificationRule:tag.${tagCategory}.tags.${tag}`,
-                          ),
-                          value: `{${tag}}`,
-                        },
-                      }),
-                      {},
-                    ),
-                  },
-                }),
-                {},
-              ),
+              mergeTags: this.getMergeTags(),
               designTags: {
                 business_name: this.props.company_name,
               },

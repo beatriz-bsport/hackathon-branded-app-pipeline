@@ -13,6 +13,7 @@ export default {
     role: 'Staff',
     personalization: 'Personalization',
     webhook: 'Webhook',
+    partnership: 'Partnership',
   },
   webhook: {
     messages: {

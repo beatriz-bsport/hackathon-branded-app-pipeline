@@ -13,6 +13,7 @@ export default {
     role: 'Staff',
     personalization: 'Personnalisation',
     webhook: 'Webhook',
+    partnership: 'Partenariat',
   },
   webhook: {
     cancel: 'annuler',

@@ -490,25 +490,29 @@ export const DurationMinuteSelectField = withNamespaces()(
 );
 
 export const CheckboxField = (props: Props) => {
-  const { disabled, label, helperText } = props;
+  const { reverted, disabled, label, helperText } = props;
   return (
     <FormControl>
-      <Field {...props}>
-        {({ field }) => (
+      <Field
+        {...props}
+        render={({ field, form: { setFieldValue } }) => (
           <FormControlLabel
             label={label}
             helperText={helperText}
             control={
               <Checkbox
                 disabled={!!disabled}
-                checked={field.value}
+                checked={reverted ? !field.value : field.value}
                 {...props}
                 {...field}
+                onChange={() => {
+                  setFieldValue(field.name, !field.value);
+                }}
               />
             }
           />
         )}
-      </Field>
+      />
       <FormHelperText>{helperText}</FormHelperText>
     </FormControl>
   );

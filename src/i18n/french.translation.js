@@ -47,8 +47,10 @@ import membership from './fr/membership.translations';
 import consumerSpace from './fr/consumer-space.translations';
 import event from './fr/event.translations';
 import notificationRule from './fr/notification-rule.translations';
+import partnership from './fr/partnership.translations';
 
 export default {
+  partnership,
   membership,
   notificationRule,
   consumerSpace,

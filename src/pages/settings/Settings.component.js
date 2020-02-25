@@ -25,6 +25,7 @@ import ThemeConfigurationPage from './ThemeConfiguration.component';
 import SettingsPersonalizePage from './SettingsPersonalizePage.component';
 import WebhookConfigurationPage from './WebhookConfigurationPage.component';
 import NotificationRulePage from './NotificationRule.page';
+import PartnershipPage from './Partnership.page';
 
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -58,6 +59,7 @@ export const Settings = (props: Props) => {
           <Tab label={t('tab.waitingList')} value="waiting-list" />
           <Tab label={t('tab.shop')} value="shop" />
           <Tab label={t('tab.webhook')} value="webhook" />
+          <Tab label={t('tab.partnership')} value="partnership" />
         </Tabs>
       </AppBar>
       <Switch>
@@ -104,6 +106,7 @@ export const Settings = (props: Props) => {
           path="/settings/webhook"
           component={WebhookConfigurationPage}
         />
+        <Route exact path="/settings/partnership" component={PartnershipPage} />
       </Switch>
     </div>
   );

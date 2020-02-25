@@ -24,6 +24,7 @@ import type { ReminderState } from '../libs/reminder/types';
 import type { MembershipState } from '../libs/membership/types';
 import type { CompanyState } from '../libs/company/types';
 import type { NotificationRuleState } from '../libs/notification-rule/types';
+import type { PartnershipState } from '../libs/partnership/types';
 
 export type State = {
   paymentRules: PaymentRulesState,
@@ -50,6 +51,7 @@ export type State = {
   membership: MembershipState,
   company: CompanyState,
   notificationRule: NotificationRuleState,
+  partnership: PartnershipState,
 };
 export type Action = SearchAction | AuthAction;
 

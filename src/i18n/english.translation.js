@@ -45,8 +45,10 @@ import category from './en/category.translations';
 import reminder from './en/reminder.translations';
 import event from './en/event.translations';
 import notificationRule from './en/notification-rule.translations';
+import partnership from './en/partnership.translations';
 
 export default {
+  partnership,
   notificationRule,
   category,
   reminder,

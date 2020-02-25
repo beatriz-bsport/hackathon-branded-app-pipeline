@@ -38,9 +38,8 @@ export default (props: Props) => {
       style={props.isFocused ? { backgroundColor: '#EFEFEF' } : {}}
     >
       <ListItemAvatar>
-        <Avatar src={props.shopitem.cover} />
+        <Avatar style={{ height: 60, width: 60 }} src={props.shopitem.cover} />
       </ListItemAvatar>
-
       <ListItemText
         primary={`${props.shopitem.name} - ${props.shopitem.price}€`}
         secondary={props.shopitem.subtitle || props.shopitem.name}

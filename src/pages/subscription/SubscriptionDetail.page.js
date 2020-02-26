@@ -105,7 +105,7 @@ export class SubscriptionDetail extends Component<Props> {
       goToSubscribe,
     } = this.props;
     return (
-      <div>
+      <div className={this.props.classes.container}>
         {loading ? <LinearProgress /> : null}
         <SubscriptionComponent
           subscription={subscription}
@@ -185,6 +185,9 @@ export class SubscriptionDetail extends Component<Props> {
 }
 
 const styles = (theme) => ({
+  container: {
+    paddingBottom: '30vh',
+  },
   bottomButtonContainer: {
     position: 'fixed',
     bottom: theme.spacing.unit * 2,

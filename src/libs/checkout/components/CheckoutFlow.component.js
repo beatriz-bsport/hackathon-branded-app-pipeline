@@ -97,6 +97,7 @@ const styles = (theme) => ({
   featureBanner: {
     marginBottom: theme.spacing.unit,
     marginTop: theme.spacing.unit,
+    maxWidth: '90vw',
   },
   paper: {
     padding: theme.spacing.unit * 2,

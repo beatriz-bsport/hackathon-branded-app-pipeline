@@ -7,7 +7,7 @@ import type { TFunction } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import classname from 'classnames';
 
-import ShopItemCard from '../../shop/components/ShopItemBuyableItemCard.component';
+import ShopItemBuyableItemCard from '../../shop/components/ShopItemBuyableItemCard.component';
 
 type Props = {
   t: TFunction,
@@ -33,9 +33,7 @@ export const ShopItemFeaturedBanner = (props: Props) => {
             ])}
             key={si.id}
           >
-            <ShopItemCard
-              fullHeight
-              hideDescription
+            <ShopItemBuyableItemCard
               addToOrder={() => props.onAddShopItem(si.id)}
               shopitem={si}
             />

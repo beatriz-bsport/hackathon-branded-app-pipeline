@@ -13,6 +13,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
+import flatten from 'lodash/flatten';
+
 import themeSelector from '../../libs/theme/selectors';
 import { getPartnershipByIdentifier } from '../../libs/partnership/selectors';
 import {
@@ -61,7 +63,9 @@ export class Partnership extends React.Component<Props> {
       if (classpass && classpass.associated_establishment_ids.length) {
         establishmentIdList = classpass.associated_establishment_ids;
       } else {
-        establishmentIdList = establishmentList.map((e) => e.id);
+        establishmentIdList = flatten(
+          establishmentList.map((e) => e.associatedestablishment_set),
+        );
       }
     }
     return (

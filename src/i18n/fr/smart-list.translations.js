@@ -43,6 +43,7 @@ export default {
   duplicate: 'Dupliquer',
   mails: 'Mails',
   name: 'Nom de la liste',
+  search: 'Chercher une smartlist',
   description: 'Description',
   multiSelector: {
     selectAll: 'Tout sélectionner',

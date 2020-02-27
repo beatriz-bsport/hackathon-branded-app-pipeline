@@ -42,6 +42,7 @@ const DURATION_BETWEEN_PAST = 11;
 export default {
   duplicate: 'Duplicate',
   name: 'Name of the list',
+  search: 'Search a smartlist',
   description: 'Description',
   mails: 'Mails',
   multiSelector: {

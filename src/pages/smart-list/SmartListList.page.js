@@ -13,6 +13,9 @@ import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import Collapse from '@material-ui/core/Collapse';
+
+import FuzeSearch from '../../components/FuzeSearch.component';
 import { getAllSmartList, getSmartList } from '../../libs/smart-list/selectors';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -82,6 +85,8 @@ export class SmartListList extends Component<Props, State> {
     this.state = {
       openCreateDialog: false,
       openEditDialog: false,
+      searchText: '',
+      searchResult: [],
     };
   }
 
@@ -169,12 +174,83 @@ export class SmartListList extends Component<Props, State> {
     };
   };
 
+  changeSearch = (fuse) => (ev) => {
+    this.setState({
+      searchText: ev.target.value,
+      searchResult: fuse.search(ev.target.value),
+    });
+  };
+
+  clearSearch = () => {
+    this.setState({ searchText: '', searchResult: [] });
+  };
+
   render() {
     const { smartlists, classes } = this.props;
     return (
       <div>
         <Grid container direction="row" spacing={24}>
           <Grid item xs={12} md={6}>
+            {smartlists.length > 0 ? (
+              <div className={this.props.classes.search}>
+                <FuzeSearch
+                  searchText={this.state.searchText}
+                  clearSearch={this.clearSearch}
+                  changeSearch={this.changeSearch}
+                  items={smartlists}
+                  placeholder={this.props.t('search')}
+                  searchFields={['name', 'description']}
+                  searchResult={this.state.searchResult}
+                />
+                <Paper
+                  className={
+                    this.state.searchResult.length > 0 &&
+                    this.state.searchText !== ''
+                      ? this.props.classes.searchPaperDisplayed
+                      : this.props.classes.searchPaperHiden
+                  }
+                >
+                  <Collapse
+                    in={
+                      this.state.searchResult.length > 0 &&
+                      this.state.searchText !== ''
+                    }
+                  >
+                    <List
+                      component="nav"
+                      disablePadding
+                      className={classes.list}
+                    >
+                      {this.state.searchResult.map((smartlist) => (
+                        <SmartListListItem
+                          key={smartlist.id}
+                          onClick={(id) => {
+                            this.selected(id);
+                          }}
+                          onClickEdit={this.props.goToEdit}
+                          onClickDelete={(id) =>
+                            this.props.smartListDelete(id, {
+                              onSuccess: this.props.goToSmartlistList,
+                            })
+                          }
+                          selected={
+                            this.props.smartlistSelected &&
+                            smartlist.id === this.props.smartlistSelected.id
+                          }
+                          smartlist={smartlist}
+                          onClickDuplicate={(id) =>
+                            this.props.onClickDuplicate(id, {
+                              onSuccess: (newId) =>
+                                this.props.goToSelected(newId),
+                            })
+                          }
+                        />
+                      ))}
+                    </List>
+                  </Collapse>
+                </Paper>
+              </div>
+            ) : null}
             <Paper>
               <List component="nav" disablePadding className={classes.list}>
                 {smartlists.map((smartlist) => (
@@ -259,10 +335,22 @@ export class SmartListList extends Component<Props, State> {
   }
 }
 
-const styles = () => ({
+const styles = (theme) => ({
   list: {
     display: 'flex',
     flexDirection: 'column',
+  },
+  search: { marginBottom: theme.spacing.unit * 2 },
+  searchPaperDisplayed: {
+    border: '1px solid',
+    borderColor: theme.primary_color,
+    borderTop: '0px',
+  },
+  searchPaperHidden: {
+    border: '1px solid',
+    borderColor: theme.primary_color,
+    borderTop: '0px',
+    boderBottom: '0px',
   },
 });
 

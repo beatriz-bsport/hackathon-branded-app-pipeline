@@ -10,6 +10,7 @@ export default {
   },
   duplicate: 'Dupliquer',
   copy: 'copie',
+  search: 'Chercher un template',
   listTitle: 'Mes modèles emails',
   editTitle: 'édition du modèle',
   createTitle: 'Création du modèle',

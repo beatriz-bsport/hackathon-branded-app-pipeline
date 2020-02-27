@@ -10,7 +10,7 @@ export default {
   },
   copy: 'copy',
   duplicate: 'Duplicate',
-
+  search: 'Search a template',
   listTitle: 'My templates',
   editTitle: 'Template edition',
   createTitle: 'Mail creation',

@@ -14,14 +14,16 @@ import type { TFunction } from 'react-i18next';
 import InfoIcon from '@material-ui/icons/Info';
 import Typography from '@material-ui/core/Typography';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import Collapse from '@material-ui/core/Collapse';
+
+import FuzeSearch from '../../components/FuzeSearch.component';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
 import {
-  getAllEmailTemplatesDict,
   getEmailTemplatesDetail,
-  getAllEmailTemplatesId,
+  getAllEmailTemplatesSummaries,
 } from '../../libs/email-editor/selectors';
 
 import withTitle from '../../hocs/with-title.hoc';
@@ -42,8 +44,7 @@ type Props = {
   email_templates_details: any,
   emailDesignCreate: (any) => void,
   goToCreate: () => void,
-  email_templates_summaries: any,
-  email_templates_list: any,
+  email_templates: any,
   t: TFunction,
   classes: Object,
   id: number,
@@ -52,6 +53,11 @@ type Props = {
 };
 
 export class MarketingEmail extends Component<Props> {
+  state = {
+    searchText: '',
+    searchResult: [],
+  };
+
   componentDidMount() {
     this.props.emailTemplatesSummaries();
     if (this.props.id) {
@@ -65,15 +71,27 @@ export class MarketingEmail extends Component<Props> {
     }
   }
 
-  onDuplicate = async (id) => {
-    await this.props.emailTemplateDetail(id);
+  changeSearch = (fuse) => (ev) => {
+    this.setState({
+      searchText: ev.target.value,
+      searchResult: fuse.search(ev.target.value),
+    });
+  };
+
+  clearSearch = () => {
+    this.setState({ searchText: '', searchResult: [] });
+  };
+
+  onDuplicate = async (idEmail) => {
+    await this.props.emailTemplateDetail(idEmail);
     const data = {
-      design: this.props.email_templates_details[id].design,
-      html: this.props.email_templates_details[id].html,
-      title: `${this.props.email_templates_summaries[id].title} (${this.props.t(
-        'copy',
-      )})`,
-      subject: this.props.email_templates_summaries[id].subject,
+      design: this.props.email_templates_details[idEmail].design,
+      html: this.props.email_templates_details[idEmail].html,
+      title: `${
+        this.props.email_templates.find((email) => email.id === idEmail).title
+      } (${this.props.t('copy')})`,
+      subject: this.props.email_templates.find((email) => email.id === idEmail)
+        .subject,
     };
     this.props.emailDesignCreate(data, {
       onSuccess: (templateId) => {
@@ -115,8 +133,8 @@ export class MarketingEmail extends Component<Props> {
   }
 
   render() {
-    const { email_templates_summaries, loading, t, classes } = this.props;
-    if (!loading && this.props.email_templates_list.length === 0) {
+    const { loading, t, classes } = this.props;
+    if (!loading && this.props.email_templates.length === 0) {
       return (
         <div className={classes.emptyTextContainer}>
           <Typography align="center" color="textSecondary">
@@ -133,6 +151,56 @@ export class MarketingEmail extends Component<Props> {
       <div>
         <Grid container direction="row" spacing={24}>
           <Grid item xs={12} md={6}>
+            {this.props.email_templates.length > 0 ? (
+              <div className={this.props.classes.search}>
+                <FuzeSearch
+                  searchText={this.state.searchText}
+                  clearSearch={this.clearSearch}
+                  changeSearch={this.changeSearch}
+                  items={this.props.email_templates}
+                  placeholder={t('search')}
+                  searchFields={['title', 'subject']}
+                  searchResult={this.state.searchResult}
+                />
+                <Paper
+                  className={
+                    this.state.searchResult.length > 0 &&
+                    this.state.searchText !== ''
+                      ? this.props.classes.searchPaperDisplayed
+                      : this.props.classes.searchPaperHiden
+                  }
+                >
+                  <Collapse
+                    in={
+                      this.state.searchResult.length > 0 &&
+                      this.state.searchText !== ''
+                    }
+                  >
+                    <List
+                      component="nav"
+                      disablePadding
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                      }}
+                    >
+                      {this.state.searchResult.map((email) => (
+                        <EmailCard
+                          onClick={(id) => {
+                            this.selected(id);
+                          }}
+                          email_template={email}
+                          onClickDuplicate={this.onDuplicate}
+                          onClickEdit={(id) => this.props.goToEdit(id)}
+                          onClickDelete={this.props.emailTemplateDelete}
+                          selected={email.id === this.props.id}
+                        />
+                      ))}
+                    </List>
+                  </Collapse>
+                </Paper>
+              </div>
+            ) : null}
             <Paper className={classes.panel}>
               <List
                 component="nav"
@@ -142,16 +210,16 @@ export class MarketingEmail extends Component<Props> {
                   flexDirection: 'column',
                 }}
               >
-                {this.props.email_templates_list.map((emailId) => (
+                {this.props.email_templates.map((email) => (
                   <EmailCard
                     onClick={(id) => {
                       this.selected(id);
                     }}
-                    email_template={email_templates_summaries[emailId]}
+                    email_template={email}
                     onClickDuplicate={this.onDuplicate}
                     onClickEdit={(id) => this.props.goToEdit(id)}
                     onClickDelete={this.props.emailTemplateDelete}
-                    selected={emailId === this.props.id}
+                    selected={email.id === this.props.id}
                   />
                 ))}
               </List>
@@ -209,6 +277,18 @@ const styles = (theme) => ({
     justifyContent: 'center',
     marginTop: theme.spacing.unit * 2,
   },
+  search: { marginBottom: theme.spacing.unit * 2 },
+  searchPaperDisplayed: {
+    border: '1px solid',
+    borderColor: theme.primary_color,
+    borderTop: '0px',
+  },
+  searchPaperHidden: {
+    border: '1px solid',
+    borderColor: theme.primary_color,
+    borderTop: '0px',
+    boderBottom: '0px',
+  },
 });
 
 export default compose(
@@ -218,8 +298,8 @@ export default compose(
   withTitle(({ t }) => t('listTitle')),
   connect(
     (state) => ({
-      email_templates_summaries: getAllEmailTemplatesDict(state),
-      email_templates_list: getAllEmailTemplatesId(state),
+      email_templates: getAllEmailTemplatesSummaries(state),
+
       email_templates_details: getEmailTemplatesDetail(state),
       loading:
         state.emailTemplate.isLoading || state.emailTemplate.detail.isLoading,

@@ -12,6 +12,12 @@ import {
   NOTIFICATION_BOOKING_NOT_REFUNDED,
   NOTIFICATION_BOOKING_REFUNDED,
   NOTIFICATION_MEMBERSHIP_CREATION_SAAS,
+  NOTIFICATION_SUBSCRIPTION_CREATE,
+  NOTIFICATION_BOOKING_CREATED,
+  NOTIFICATION_SUBSCRIPTION_UPDATE_PAYMENT_METHOD,
+  NOTIFICATION_SUBSCRIPTION_PAUSE,
+  NOTIFICATION_SUBSCRIPTION_STOP,
+  NOTIFICATION_SUBSCRIPTION_PAYMENT_RECEIVED,
 } from '@bsport/common/lib/master-data/notification-rule-events';
 
 export default {
@@ -66,6 +72,17 @@ export default {
         pass_credit_left: 'Available credits on pass',
       },
     },
+    BillingPlan: {
+      name: 'Subscription',
+      tags: {
+        subscription_name: 'Subscription name',
+        subscription_recurrent_price: 'Recurrent price',
+        subscription_nb_months: 'Number of months',
+        subscription_flat_fee: 'Flat fee',
+        subscription_payment_method: 'Payment method',
+        subscription_nb_days_pause: 'Paused : nb of days',
+      },
+    },
     BookingOption: {
       name: 'Waiting-list',
       tags: {
@@ -99,6 +116,13 @@ export default {
       'Booking cancelled : credit not-refunded',
     [NOTIFICATION_BOOKING_REFUNDED]: 'Booking cancelled : credit refunded',
     [NOTIFICATION_MEMBERSHIP_CREATION_SAAS]: 'Member signup (manager)',
+    [NOTIFICATION_SUBSCRIPTION_CREATE]: 'Subscription created',
+    [NOTIFICATION_SUBSCRIPTION_UPDATE_PAYMENT_METHOD]:
+      'Payment method modified',
+    [NOTIFICATION_SUBSCRIPTION_PAUSE]: 'Subscription paused',
+    [NOTIFICATION_SUBSCRIPTION_STOP]: 'Subscription ended or terminated',
+    [NOTIFICATION_SUBSCRIPTION_PAYMENT_RECEIVED]: 'Payment received',
+    [NOTIFICATION_BOOKING_CREATED]: 'New booking',
   },
   messages: {
     createOrUpdate: {

@@ -23,7 +23,7 @@ export const deleteNotificationRule = (id: number) => {
 };
 
 export const fetchEventTypeList = async () => {
-  return getAuth(`${NOTIFICATION_RULE_ENDPOINT}/rule/event_type/`);
+  return getAuth(`${NOTIFICATION_RULE_ENDPOINT}/rule/events/`);
 };
 
 export const fetchTagList = async () => {

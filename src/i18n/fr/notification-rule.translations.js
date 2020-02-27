@@ -2,6 +2,7 @@ import {
   NOTIFICATION_BOOKING_CANCELLED_BY_MANAGER,
   NOTIFICATION_MEMBERSHIP_CREATION_WEB,
   NOTIFICATION_BOOKING_PASS_CHECKOUT,
+  NOTIFICATION_BOOKING_CREATED,
   NOTIFICATION_BOOKING_PLUS_PASS_STRIPE_CHECKOUT,
   NOTIFICATION_BOOKING_OPTION_CONVERTIBLE,
   NOTIFICATION_BOOKING_OPTION_NOT_CONVERTIBLE_ANYMORE,
@@ -12,6 +13,11 @@ import {
   NOTIFICATION_BOOKING_NOT_REFUNDED,
   NOTIFICATION_BOOKING_REFUNDED,
   NOTIFICATION_MEMBERSHIP_CREATION_SAAS,
+  NOTIFICATION_SUBSCRIPTION_CREATE,
+  NOTIFICATION_SUBSCRIPTION_UPDATE_PAYMENT_METHOD,
+  NOTIFICATION_SUBSCRIPTION_PAUSE,
+  NOTIFICATION_SUBSCRIPTION_STOP,
+  NOTIFICATION_SUBSCRIPTION_PAYMENT_RECEIVED,
 } from '@bsport/common/lib/master-data/notification-rule-events';
 
 export default {
@@ -19,7 +25,8 @@ export default {
     member: 'Création de compte élève',
     offer: 'Séance',
     booking: 'Réservation',
-    waitingList: "Liste d'attente",
+    'waiting-list': "Liste d'attente",
+    subscription: 'Abonnement',
   },
   emailDesign: {
     placeholder: 'Généré par bsport',
@@ -35,6 +42,17 @@ export default {
         establishment: 'Lieu',
         establishment_practical_info: 'Accès à la salle',
         address: 'Adresse',
+      },
+    },
+    BillingPlan: {
+      name: 'Abonnement',
+      tags: {
+        subscription_name: "Nom de l'abonnement",
+        subscription_recurrent_price: 'Montant mensuel prélevé',
+        subscription_nb_months: 'Nombre de mois',
+        subscription_flat_fee: 'Frais de dossier',
+        subscription_payment_method: 'Méthode de paiement',
+        subscription_nb_days_pause: 'Mise en Pause : nb de jours',
       },
     },
     User: {
@@ -84,6 +102,7 @@ export default {
     [NOTIFICATION_BOOKING_CANCELLED_BY_MANAGER]: 'Annulation séance',
     [NOTIFICATION_MEMBERSHIP_CREATION_WEB]: 'Inscription membre (élève)',
     [NOTIFICATION_BOOKING_PASS_CHECKOUT]: 'Réservation via carte de cours',
+    [NOTIFICATION_BOOKING_CREATED]: 'Nouvelle réservation',
     [NOTIFICATION_BOOKING_PLUS_PASS_STRIPE_CHECKOUT]:
       'Réservation + achat carte de cours simultané',
     [NOTIFICATION_BOOKING_OPTION_CONVERTIBLE]:
@@ -100,6 +119,12 @@ export default {
       'Réservation annulée : crédit non-remboursée',
     [NOTIFICATION_BOOKING_REFUNDED]: 'Réservation annulée : crédit remboursé',
     [NOTIFICATION_MEMBERSHIP_CREATION_SAAS]: 'Inscription membre (manager)',
+    [NOTIFICATION_SUBSCRIPTION_CREATE]: 'Abonnement créé',
+    [NOTIFICATION_SUBSCRIPTION_UPDATE_PAYMENT_METHOD]:
+      'Changement de méthode de paiement',
+    [NOTIFICATION_SUBSCRIPTION_PAUSE]: 'Abonnement mise en pause',
+    [NOTIFICATION_SUBSCRIPTION_STOP]: 'Abonnement stoppé ou terminé',
+    [NOTIFICATION_SUBSCRIPTION_PAYMENT_RECEIVED]: 'Paiement reçu',
   },
   messages: {
     createOrUpdate: {

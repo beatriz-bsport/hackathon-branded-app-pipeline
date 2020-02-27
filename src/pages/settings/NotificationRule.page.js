@@ -10,7 +10,6 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';
-import { NOTIFICATION_EVENT_GROUPS } from '@bsport/common/lib/master-data/notification-rule-events';
 
 import {
   fetchEventTypeList,
@@ -18,7 +17,7 @@ import {
   createOrUpdateNotificationRule,
   deleteNotificationRule,
 } from '../../libs/notification-rule/actions';
-import { getEventListWithRule } from '../../libs/notification-rule/selectors';
+import { getEventByGroup } from '../../libs/notification-rule/selectors';
 import NotificationRuleListItem from '../../libs/notification-rule/components/NotificationRuleListItem.component';
 
 import {
@@ -65,28 +64,26 @@ export class NotificationRule extends React.Component<Props> {
         {this.props.loading ? (
           <LinearProgress className={this.props.classes.loading} />
         ) : null}
-        {Object.entries(NOTIFICATION_EVENT_GROUPS).map(
-          ([name, eventTypeList]) => (
-            <div className={this.props.classes.group} key={name}>
+        {Object.entries(this.props.eventListWithRule).map(
+          ([event_group_name, eventTypeList]) => (
+            <div className={this.props.classes.group} key={event_group_name}>
               <Typography variant="h6">
-                {this.props.t(`ruleGroup.${name}`)}
+                {this.props.t(`ruleGroup.${event_group_name}`)}
               </Typography>
-              {this.props.eventListWithRule
-                .filter((e) => eventTypeList.includes(e.notification_event))
-                .map((e) => (
-                  <NotificationRuleListItem
-                    event={e.notification_event}
-                    rule={e.rule}
-                    key={e.event_type}
-                    emailDesignList={this.props.emailDesignList}
-                    onChangeEmailDesign={
-                      this.props.createOrUpdateNotificationRule
-                    }
-                    showEmailPreview={this.props.showEmailPreview}
-                    showEmailPreviewHTML={this.props.setPreviewEmailHTML}
-                    onDeleteNotificationRule={this.props.deleteNotificationRule}
-                  />
-                ))}
+              {eventTypeList.map((e) => (
+                <NotificationRuleListItem
+                  event={e.notification_event}
+                  rule={e.rule}
+                  key={e.event_type}
+                  emailDesignList={this.props.emailDesignList}
+                  onChangeEmailDesign={
+                    this.props.createOrUpdateNotificationRule
+                  }
+                  showEmailPreview={this.props.showEmailPreview}
+                  showEmailPreviewHTML={this.props.setPreviewEmailHTML}
+                  onDeleteNotificationRule={this.props.deleteNotificationRule}
+                />
+              ))}
             </div>
           ),
         )}
@@ -131,7 +128,7 @@ export default compose(
   withState('previewEmailHtml', 'setPreviewEmailHTML', null),
   connect(
     (state, { previewEmailId }) => ({
-      eventListWithRule: getEventListWithRule(state),
+      eventListWithRule: getEventByGroup.onlyGeneric(state),
       emailDesignList: getAllEmailTemplatesSummaries(state),
       previewEmail: getEmailTemplatesDetail(state)[previewEmailId],
       loading:

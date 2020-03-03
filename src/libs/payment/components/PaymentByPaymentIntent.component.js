@@ -184,7 +184,10 @@ export class PaymentIntentGathering extends Component<Props, State> {
         ) : null}
         <div className={this.props.classes.buttonContainer}>
           {!this.props.hideCancelButton && (
-            <Button onClick={this.props.onCancel}>
+            <Button
+              onClick={this.props.onCancel}
+              disabled={!!(this.props.loading || this.state.processing)}
+            >
               {this.props.t('payment:forms.cancelPayment')}
             </Button>
           )}

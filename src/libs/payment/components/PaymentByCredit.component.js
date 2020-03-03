@@ -3,6 +3,7 @@ import React from 'react';
 
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withState } from 'recompose';
 import { CREDIT_ACCOUNT as PAYMENT_METHOD_CREDIT_ACCOUNT } from '@bsport/common/lib/master-data/payment-methods';
@@ -17,46 +18,85 @@ type Props = {
   termsAccepted: boolean,
   loading: boolean,
   onCancel: () => void,
-  submitPayment: (data: *) => void,
+  submitPayment: (data: *, options: OptionCallback) => void,
   t: TFunction,
   classes: Object,
 };
 
-export const PaymentByCredit = (props: Props) => (
-  <div>
-    <Typography
-      align="center"
-      color="textSecondary"
-      className={props.classes.explainText}
-    >
-      {props.t('forms.credit.explain')}
-    </Typography>
-    {props.termsAndConditions ? (
-      <AcceptTermsAndConditions
-        accepted={props.termsAccepted}
-        onChecked={(termsAccepted) => props.setTermsAccepted(termsAccepted)}
-        termsAndConditions={props.termsAndConditions}
-      />
-    ) : null}
-    <div className={props.classes.buttonContainer}>
-      <Button onClick={props.onCancel}>{props.t('forms.cancelPayment')}</Button>
-      <Button
-        onClick={() =>
-          props.submitPayment({
-            payment_method: PAYMENT_METHOD_CREDIT_ACCOUNT.id,
-          })
-        }
-        color="primary"
-        variant="contained"
-        disabled={
-          (!props.termsAccepted && props.termsAndConditions) || props.loading
-        }
-      >
-        {props.t('forms.credit.pay')}
-      </Button>
-    </div>
-  </div>
-);
+type State = {
+  processing: boolean,
+};
+
+export class PaymentByCredit extends React.Component<Props, State> {
+  state = {
+    processing: false,
+  };
+
+  render() {
+    return (
+      <div>
+        {this.state.processing ? (
+          <div className={this.props.classes.loading}>
+            <CircularProgress />
+          </div>
+        ) : (
+          <Typography
+            align="center"
+            color="textSecondary"
+            className={this.props.classes.explainText}
+          >
+            {this.props.t('forms.credit.explain')}
+          </Typography>
+        )}
+        {this.props.termsAndConditions ? (
+          <AcceptTermsAndConditions
+            accepted={this.props.termsAccepted}
+            onChecked={(termsAccepted) =>
+              this.props.setTermsAccepted(termsAccepted)
+            }
+            termsAndConditions={this.props.termsAndConditions}
+          />
+        ) : null}
+        <div className={this.props.classes.buttonContainer}>
+          <Button
+            onClick={this.props.onCancel}
+            disabled={this.props.loading || this.state.processing}
+          >
+            {this.props.t('forms.cancelPayment')}
+          </Button>
+          <Button
+            onClick={() => {
+              this.setState({ processing: true });
+              this.props.submitPayment(
+                {
+                  payment_method: PAYMENT_METHOD_CREDIT_ACCOUNT.id,
+                },
+                {
+                  onSuccess: () => this.setState({ processing: false }),
+                  onError: (err) => {
+                    console.error(err);
+                    this.setState({
+                      processing: false,
+                    });
+                  },
+                },
+              );
+            }}
+            color="primary"
+            variant="contained"
+            disabled={
+              (!this.props.termsAccepted && this.props.termsAndConditions) ||
+              this.props.loading ||
+              this.state.processing
+            }
+          >
+            {this.props.t('forms.credit.pay')}
+          </Button>
+        </div>
+      </div>
+    );
+  }
+}
 
 const styles = (theme) => ({
   explainText: {
@@ -65,6 +105,15 @@ const styles = (theme) => ({
     borderRadius: theme.spacing.unit,
     padding: theme.spacing.unit * 2,
     marginBottom: theme.spacing.unit * 2,
+  },
+  loading: {
+    marginTop: theme.spacing.unit * 2,
+    padding: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 2,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    display: 'flex',
   },
   buttonContainer: {
     paddingTop: theme.spacing.unit * 2,

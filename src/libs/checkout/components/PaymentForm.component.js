@@ -55,9 +55,14 @@ const PayButtonBase = (props: {
   t: TFunction,
   classes: any,
   loading: boolean,
+  processing: boolean,
 }) => (
   <div className={props.classes.payButtonContainer}>
-    <Button disabled={props.loading} onClick={props.onClick} color="primary">
+    <Button
+      disabled={props.loading || props.processing}
+      onClick={props.onClick}
+      color="primary"
+    >
       {props.t('checkout:myBasket.actions.payZero')}
     </Button>
   </div>
@@ -104,6 +109,7 @@ export const PaymentForm = (props: Props) => {
     return (
       <PayButton
         loading={props.loading}
+        processing={props.processing}
         onClick={() => props.submitPayment()}
       />
     );
@@ -118,13 +124,14 @@ export const PaymentForm = (props: Props) => {
           aria-label="payment-method"
           className={props.classes.paymentMethodSelectorContainer}
           value={chosenPaymentMethod}
+          disabled={props.loading || props.processing}
           onChange={(ev) =>
             props.setPaymentMethod(parseInt(ev.target.value, 10))
           }
         >
           {props.availablePaymentMethods.map((id) => (
             <FormControlLabel
-              value={`${id}`}
+              value={id}
               key={`${id}`}
               control={<Radio color="primary" />}
               label={props.t(

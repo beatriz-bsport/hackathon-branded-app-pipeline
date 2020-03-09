@@ -87,7 +87,7 @@ const styles = (theme) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'stretch',
-    minWidth: '400px',
+    minWidth: '40vw',
     maxWidth: '700px',
   },
   title: {

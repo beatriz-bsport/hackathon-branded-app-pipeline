@@ -169,7 +169,7 @@ export class CheckoutPayment extends React.Component<Props> {
 
 const styles = (theme) => ({
   container: {
-    width: '100%',
+    width: '100vw',
     height: '100vh',
     display: 'flex',
     alignItems: 'center',

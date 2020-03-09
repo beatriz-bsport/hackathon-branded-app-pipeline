@@ -59,6 +59,7 @@ const styles = (theme) => ({
   },
   shopItemContainer: {
     minWidth: 260,
+    maxWidth: '30vw',
     margin: theme.spacing.unit,
     marginLeft: 2,
   },

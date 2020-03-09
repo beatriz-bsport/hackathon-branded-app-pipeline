@@ -109,7 +109,7 @@ export class ShopItemForm extends Component<Props, State> {
         subtitle: null,
         cover: null,
         price: null,
-        supplier_price: null,
+        supplier_price: 0,
         tva: null,
         description: null,
         barcode: '',

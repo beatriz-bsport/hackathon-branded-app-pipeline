@@ -101,6 +101,7 @@ export default {
   yes: 'Yes',
   no: 'No',
   payment_method: {
+    dispute: 'Dispute',
     cash: 'Cash',
     check: 'Check',
     stripe: 'Credit card',

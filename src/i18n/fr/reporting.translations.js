@@ -118,6 +118,7 @@ export default {
   payment_method: {
     cash: 'Espèces',
     check: 'Chèque',
+    dispute: 'Litige',
     stripe: 'CB',
     manual_credit_card: 'CB (manuel)',
     holiday_check: 'Chèque vacance',

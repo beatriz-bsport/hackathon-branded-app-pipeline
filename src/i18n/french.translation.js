@@ -751,6 +751,7 @@ export default {
         CREDIT_ACCOUNT: 'Compte interne (crédit)',
         SUBSCRIPTION_CB: 'Paiement planifié',
         OTHER: 'Divers',
+        DISPUTE: 'Litige',
       },
       paymentItemsListTitle: 'Paiements enregistrés',
       noPaymentItem: 'Aucun paiement enregistré',

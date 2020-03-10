@@ -28,6 +28,7 @@ import PAYMENT_METHODS, {
   SUBSCRIPTION_CB as PAYMENT_METHOD_SUBSCRIPTION_CB,
   DISPUTE as PAYMENT_METHOD_DISPUTE,
 } from '@bsport/common/lib/master-data/payment-methods';
+import withConfirm from '../../../hocs/with-confirm.hoc';
 
 import type { PaymentItemData, PaymentItem } from './types';
 
@@ -68,6 +69,13 @@ const styles = (theme) => ({
   },
 });
 
+const ButtonReturnPayment = withConfirm(Button, 'onClick', {
+  title: 'invoice:returnPayment.modal.title',
+  cancel: 'invoice:returnPayment.modal.cancel',
+  confirm: 'invoice:returnPayment.modal.confirm',
+  Content: ({ t }) => <p>{t('invoice:returnPayment.modal.content')}</p>,
+});
+
 class PaymentListItem extends Component<PaymentItemProps, PaymentItemState> {
   state = {
     changeMethodAnchorEl: null,
@@ -86,13 +94,13 @@ class PaymentListItem extends Component<PaymentItemProps, PaymentItemState> {
     if (paymentItem.is_returnable && this.props.returnPayment) {
       if (!this.props.isReturningPayment) {
         return (
-          <Button
+          <ButtonReturnPayment
             onClick={() => this.props.returnPayment(paymentItem.uuid)}
             variant="outlined"
           >
             <UndoIcon className={this.props.classes.leftIcon} />
             {this.props.t('payment.return')}
-          </Button>
+          </ButtonReturnPayment>
         );
       }
       return <CircularProgress />;

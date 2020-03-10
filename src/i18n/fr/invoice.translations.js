@@ -1,4 +1,13 @@
 export default {
+  returnPayment: {
+    modal: {
+      title: 'Remboursement client',
+      content:
+        'Le paiement sera reversé sur le compte BANCAIRE du client, un acompte du même montant sera ajoutée à la facture pour symboliser le paiement. Ni la facture ni les achats ne seront annulés.',
+      cancel: 'Annuler',
+      confirm: 'Rembourser',
+    },
+  },
   configuration: {
     stripe_footer: 'Bas de page facture',
     explainStripeFooter:

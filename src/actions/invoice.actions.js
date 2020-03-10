@@ -77,6 +77,37 @@ export function finalizeInvoice(uuid: string, options: OptionCallback) {
   };
 }
 
+export const returnPaymentActions = {
+  isLoading: createAction('INVOICE/RETURN_PAYMENT/IS_LOADING'),
+  error: createAction('INVOICE/RETURN_PAYMENT/ERROR'),
+  success: createAction('INVOICE/RETURN_PAYMENT/SUCCESS'),
+};
+
+export function returnPayment(
+  payment: string,
+  invoice: string,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(returnPaymentActions.isLoading(true));
+    dispatch(returnPaymentActions.error(null));
+    try {
+      const response = await api.invoice.returnPayment(payment);
+      dispatch(returnPaymentActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      dispatch(returnPaymentActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(fetchSpecificInvoice(invoice));
+    dispatch(returnPaymentActions.isLoading(false));
+  };
+}
+
 export function revertQuickInvoice(uuid: string, callback: ?() => void) {
   return async (dispatch: Dispatch) => {
     dispatch(revertInvoice(uuid, callback));

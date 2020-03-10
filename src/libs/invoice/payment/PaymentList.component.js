@@ -5,9 +5,12 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
+import UndoIcon from '@material-ui/icons/Undo';
 import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -23,12 +26,15 @@ import HourglassEmpty from '@material-ui/icons/HourglassEmpty';
 
 import PAYMENT_METHODS, {
   SUBSCRIPTION_CB as PAYMENT_METHOD_SUBSCRIPTION_CB,
+  DISPUTE as PAYMENT_METHOD_DISPUTE,
 } from '@bsport/common/lib/master-data/payment-methods';
 
 import type { PaymentItemData, PaymentItem } from './types';
 
 type Props = {
   paymentItems: Array<PaymentItemData>,
+  isReturningPayment: boolean,
+  returnPayment: (paymentId: string) => void,
   uneditablePayments: Array<PaymentItem>,
   classes: Object,
   onDelete: (paymentId: number) => void,
@@ -37,6 +43,8 @@ type Props = {
 };
 
 type PaymentItemProps = {
+  isReturningPayment: boolean,
+  returnPayment: (paymentId: string) => void,
   paymentItem: PaymentItem | PaymentItemData,
   classes: Object,
   onDelete: (paymentId: number) => void,
@@ -51,6 +59,9 @@ type PaymentItemState = {
 const styles = (theme) => ({
   emptyPaymentExplainer: {
     padding: theme.spacing.unit * 2,
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
   },
   revert: {
     textDecoration: 'line-through',
@@ -72,6 +83,20 @@ class PaymentListItem extends Component<PaymentItemProps, PaymentItemState> {
     uneditable: boolean,
   ) => {
     const { onDelete } = this.props;
+    if (paymentItem.is_returnable && this.props.returnPayment) {
+      if (!this.props.isReturningPayment) {
+        return (
+          <Button
+            onClick={() => this.props.returnPayment(paymentItem.uuid)}
+            variant="outlined"
+          >
+            <UndoIcon className={this.props.classes.leftIcon} />
+            {this.props.t('payment.return')}
+          </Button>
+        );
+      }
+      return <CircularProgress />;
+    }
     if (uneditable) {
       return (
         <div>
@@ -118,7 +143,10 @@ class PaymentListItem extends Component<PaymentItemProps, PaymentItemState> {
     if (paymentItem.payment_received === false) {
       return <CancelIcon color="secondary" />;
     }
-    if (paymentItem.payment_method === PAYMENT_METHOD_SUBSCRIPTION_CB.id) {
+    if (
+      paymentItem.payment_method === PAYMENT_METHOD_DISPUTE.id ||
+      paymentItem.payment_method === PAYMENT_METHOD_SUBSCRIPTION_CB.id
+    ) {
       return <HourglassEmpty color="secondary" />;
     }
     return <CancelIcon color="secondary" />;
@@ -190,6 +218,8 @@ export function PaymentList(props: Props) {
       {uneditablePayments.map((pi) => (
         <PaymentListItemComposed
           paymentItem={pi}
+          returnPayment={props.returnPayment}
+          isReturningPayment={props.isReturningPayment}
           key={pi.uuid}
           uneditable
           updatePaymentMethod={props.updatePaymentMethod}

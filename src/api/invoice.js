@@ -69,6 +69,10 @@ export async function revert(uuid: string) {
   return postAuth(`${API_URI}/payment/invoices/${uuid}/revert/`, {});
 }
 
+export async function returnPayment(uuid: string) {
+  return postAuth(`${API_URI}/payment/payments/${uuid}/return_payment/`, {});
+}
+
 export async function update(invoiceData: *) {
   return patchAuth(
     `${API_URI}/payment/invoices/${invoiceData.uuid}/`,
@@ -97,4 +101,5 @@ export default {
   fetchConfiguration,
   patchConfiguration,
   fetchByInvoiceItem,
+  returnPayment,
 };

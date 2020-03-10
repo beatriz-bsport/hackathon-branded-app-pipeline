@@ -1,6 +1,7 @@
 import Immutable from 'seamless-immutable';
 
 import actionTypes from '../actions/invoice.types';
+import { returnPaymentActions } from '../actions/invoice.actions';
 
 const initialState = Immutable({
   all: [],
@@ -10,6 +11,11 @@ const initialState = Immutable({
   invoice: null,
   error: null,
   createOrUpdatePending: false,
+
+  returnPayment: {
+    loading: false,
+    error: null,
+  },
 
   configuration: {
     result: null,
@@ -24,6 +30,12 @@ const initialState = Immutable({
 
 export default function invoiceReducers(state = initialState, action = {}) {
   switch (action.type) {
+    case returnPaymentActions.isLoading.toString(): {
+      return state.setIn(['returnPayment', 'loading'], action.payload);
+    }
+    case returnPaymentActions.error.toString(): {
+      return state.setIn(['returnPayment', 'error'], action.payload);
+    }
     case 'INVOICE-CONFIGURATION/DETAIL/IS_LOADING': {
       return state.setIn(['configuration', 'loading'], action.payload);
     }

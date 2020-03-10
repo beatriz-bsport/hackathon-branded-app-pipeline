@@ -674,6 +674,7 @@ export default {
       noCreditLeft: 'Not enough credit left',
       noBookingsLeftOnPack: 'Pass exhausted for this week',
       yourBasket: 'Your basket',
+      return: 'Refund',
       availablePaymentPacks: ' pass compatible',
       payWithNCredits1: 'Book (',
       payWithNCredits2: 'credit',

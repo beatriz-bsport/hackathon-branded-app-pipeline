@@ -39,6 +39,9 @@ type Props = {
   updatingInvoice: boolean,
   uuid: string,
 
+  isReturningPayment: boolean,
+  returnPayment: (paymentId: string, invoiceId: string) => void,
+
   invoice: Invoice,
   shopItems: Array<ShopItem>,
   member: Member,
@@ -149,6 +152,10 @@ export class InvoiceFormPage extends Component<Props, State> {
           updatePaymentMethod={this.props.updatePaymentMethod}
           createOrUpdate={this.updateInvoice}
           onCancel={this.props.goBack}
+          isReturningPayment={this.props.isReturningPayment}
+          returnPayment={(payment) =>
+            this.props.returnPayment(payment, this.props.uuid)
+          }
           goToMemberPage={
             invoice && this.props.permission.member.retrieve
               ? () => goToMemberPage(invoice.member)
@@ -189,6 +196,7 @@ export default compose(
       privatePassList: getPrivatePassAvailable(state),
       permission: getPermissions(state),
       paymentComboList: getPaymentComboList(state),
+      isReturningPayment: state.invoice.returnPayment.loading,
     }),
     {
       fetchMember,
@@ -197,6 +205,7 @@ export default compose(
       fetchPrivatePassList,
       goBack,
       fetchInvoice: invoiceActions.fetchSpecificInvoice,
+      returnPayment: invoiceActions.returnPayment,
       updatePaymentMethod: invoiceActions.updatePaymentMethod,
       goToMemberPage: (id) => pushRouter(`/member/${id}/`),
       updateInvoice: invoiceActions.createOrUpdateInvoice,

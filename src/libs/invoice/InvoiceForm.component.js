@@ -43,6 +43,9 @@ type Props = {
   withCredit: ?number,
   withPrivatePass: ?number,
 
+  returnPayment: (paymentId: string) => void,
+  isReturningPayment: boolean,
+
   member: Member,
   invoice: ?Invoice,
 
@@ -600,6 +603,8 @@ export class InvoiceForm extends Component<Props, State> {
           <div className={classes.paymentItemsListContainer}>
             <PaymentList
               paymentItems={paymentItems}
+              returnPayment={this.props.returnPayment}
+              isReturningPayment={this.props.isReturningPayment}
               onDelete={this.deletePaymentItem}
               uneditablePayments={uneditablePayments}
               updatePaymentMethod={updatePaymentMethod}

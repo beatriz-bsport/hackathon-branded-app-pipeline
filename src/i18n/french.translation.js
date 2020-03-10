@@ -704,6 +704,8 @@ export default {
       payment: 'Paiement',
       credit: 'Crédit',
       privatePass: 'Carte cours privé',
+      return: 'Rembourser',
+
       paymentCombo: 'Pack',
       products: 'articles',
       invoiceRevertedThusNotEditable:

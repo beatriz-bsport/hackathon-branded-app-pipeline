@@ -22,6 +22,7 @@ type Props = {
   listProps: {},
   itemPerPage: number,
   nbItems: number,
+  unknownNbItems?: boolean,
   page: number,
   loading: ?boolean,
   onPageRequested: (page: number, pageSize: number) => void,
@@ -48,7 +49,12 @@ export class PaginatedList extends PureComponent<Props, State> {
     this.handlePageRequested(1);
   }
 
-  hasNext = () => this.props.page * this.props.itemPerPage < this.props.nbItems;
+  hasNext = () => {
+    if (this.props.unknownNbItems) {
+      return this.props.itemPerPage === this.props.items.length;
+    }
+    return this.props.page * this.props.itemPerPage < this.props.nbItems;
+  };
 
   hasPrevious = () => this.props.page > 1;
 
@@ -127,7 +133,9 @@ export class PaginatedList extends PureComponent<Props, State> {
               <ChevronLeftIcon />
             </IconButton>
             <Typography inline variant="caption">
-              {`${this.props.page} / ${this.calcLastPage()}`}
+              {this.props.unknownNbItems
+                ? this.props.page
+                : `${this.props.page} / ${this.calcLastPage()}`}
             </Typography>
             <IconButton
               color="secondary"
@@ -136,22 +144,28 @@ export class PaginatedList extends PureComponent<Props, State> {
             >
               <ChevronRightIcon />
             </IconButton>
-            <IconButton
-              color="secondary"
-              disabled={this.props.page >= this.calcLastPage()}
-              onClick={this.goLast}
-            >
-              <LastPageIcon />
-            </IconButton>
+            {this.props.unknownNbItems ? null : (
+              <IconButton
+                color="secondary"
+                disabled={this.props.page >= this.calcLastPage()}
+                onClick={this.goLast}
+              >
+                <LastPageIcon />
+              </IconButton>
+            )}
           </div>
-          <Typography
-            inline
-            variant="caption"
-            color="textSecondary"
-            style={{ paddingRight: 16 }}
-          >
-            {`${this.props.nbItems || 0} ${this.props.t('common.items')}`}
-          </Typography>
+          {this.props.unknownNbItems ? (
+            <div />
+          ) : (
+            <Typography
+              inline
+              variant="caption"
+              color="textSecondary"
+              style={{ paddingRight: 16 }}
+            >
+              {`${this.props.nbItems || 0} ${this.props.t('common.items')}`}
+            </Typography>
+          )}
         </div>
       </div>
     );

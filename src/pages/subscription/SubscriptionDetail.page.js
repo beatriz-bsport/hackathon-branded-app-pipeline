@@ -30,8 +30,12 @@ import {
   freezeSubscription as freezeSubscriptionAction,
   switchSubscriptionPaymentPack as switchSubscriptionPaymentPackAction,
   switchSubscriptionPaymentMethod as switchSubscriptionPaymentMethodAction,
+  fetchSubscriptionEventList as fetchSubscriptionEventListAction,
 } from '../../libs/subscription/actions';
-import { get as getSubscriptionById } from '../../libs/subscription/selectors';
+import {
+  get as getSubscriptionById,
+  getSubscriptionEventList,
+} from '../../libs/subscription/selectors';
 import SubscriptionComponent from '../../libs/subscription/components/Subscription.component';
 import SubscriptionFreezerDialog from '../../libs/subscription/components/SubscriptionFreezerDialog.component';
 import PlannedInvoicePriceUpdater from '../../libs/subscription/components/PlannedInvoicePriceUpdater.component';
@@ -49,7 +53,8 @@ type Props = {
   classes: Object,
   loading: boolean,
 
-  subscription: Subscription,
+  id: number,
+  subscription: ?Subscription,
 
   fetchSubscription: () => void,
   goToInvoice: (uuid: string) => void,
@@ -77,6 +82,15 @@ type Props = {
   setStopDialogOpen: (boolean) => void,
   stopDialogOpen: boolean,
 
+  eventList: Array<SubscriptionEvent>,
+  eventPage: number,
+  eventLoading: boolean,
+  fetchSubscriptionEventList: ({
+    page: number,
+    page_size: number,
+    billing_plan: number,
+  }) => void,
+
   openPackSwitcherDialog: () => void,
 
   updateSubscriptionRenewal: ({ auto_renewal: boolean }) => void,
@@ -93,6 +107,11 @@ type Props = {
 export class SubscriptionDetail extends Component<Props> {
   componentWillMount() {
     this.props.fetchSubscription();
+    this.props.fetchSubscriptionEventList({
+      page: 1,
+      page_size: 10,
+      billing_plan: this.props.id,
+    });
   }
 
   render() {
@@ -115,6 +134,10 @@ export class SubscriptionDetail extends Component<Props> {
           goToSubscribe={goToSubscribe}
           updateSubscriptionRenewal={this.props.updateSubscriptionRenewal}
           loading={this.props.loading}
+          eventList={this.props.eventList}
+          eventPage={this.props.eventPage}
+          eventLoading={this.props.eventLoading}
+          fetchSubscriptionEventList={this.props.fetchSubscriptionEventList}
           requestPaymentMethodSwitch={this.props.openPaymentMethodSwitch}
           requestUpdatePrice={this.props.setPlannedInvoiceToUpdate}
           requestPaymentPackSwitch={this.props.openPackSwitcherDialog}
@@ -170,12 +193,16 @@ export class SubscriptionDetail extends Component<Props> {
               color="primary"
               variant="extended"
               className={this.props.classes.bottomButton}
-              onClick={() =>
-                this.props.goToMember(this.props.subscription.member)
-              }
+              onClick={() => {
+                if (this.props.subscription) {
+                  this.props.goToMember(this.props.subscription.member);
+                }
+              }}
             >
               <PersonIcon className={this.props.classes.leftIcon} />
-              {this.props.subscription.memberName}
+              {this.props.subscription
+                ? this.props.subscription.memberName
+                : ' - '}
             </Fab>
           </div>
         ) : null}
@@ -221,9 +248,13 @@ export default compose(
         state.subscription.detail.loading ||
         state.subscription.createOrUpdate.loading,
       availablePaymentPackList: getEnabledPaymentPackList(state),
+      eventList: getSubscriptionEventList(state),
+      eventPage: state.subscription.events.page,
+      eventLoading: state.subscription.events.loading,
     }),
     {
       fetchSubscription: fetchSubscriptionAction,
+      fetchSubscriptionEventList: fetchSubscriptionEventListAction,
       stop: stopSubscription,
       goToInvoice: (uuid: string) => pushRouter(`/invoice/${uuid}`),
       goToMember: (id: number) => pushRouter(`/member/${id}/`),

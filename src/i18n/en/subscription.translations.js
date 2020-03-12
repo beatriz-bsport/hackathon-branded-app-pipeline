@@ -1,4 +1,20 @@
+import { BILLING_PLAN_EVENTS } from '@bsport/common/lib/master-data/events';
+
 export default {
+  events: {
+    list: {
+      title: 'Last events',
+    },
+    [BILLING_PLAN_EVENTS.pause]: 'Pause',
+    [BILLING_PLAN_EVENTS.create]: 'Create',
+    [BILLING_PLAN_EVENTS.stop]: 'End',
+    [BILLING_PLAN_EVENTS.renew]: 'Auto-renew',
+    [BILLING_PLAN_EVENTS.payment_dispute]: 'Payment dispute',
+    [BILLING_PLAN_EVENTS.payment_success]: 'Payment successfull',
+    [BILLING_PLAN_EVENTS.payment_failure]: 'Payment refused',
+    [BILLING_PLAN_EVENTS.update_payment_method]: 'Payment method updated',
+    [BILLING_PLAN_EVENTS.update_payment_pack]: 'Pass updated',
+  },
   table: {
     noContent: 'No subscription registered yet',
   },

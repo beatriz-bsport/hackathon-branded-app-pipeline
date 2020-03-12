@@ -12,6 +12,8 @@ import Divider from '@material-ui/core/Divider';
 import SubscriptionSummary from './SubscriptionSummary.component';
 import SubscriptionSchedule from './SubscriptionSchedule.component';
 import SubscriptionPauseListItem from './SubscriptionPauseListItem.component';
+import SubscriptionEventListItem from './SubscriptionEventListItem.component';
+import PaginatedListBase from '../../../components/PaginatedListBase.component';
 import SubscriptionActions from './SubscriptionActions.component';
 import type { Subscription, PlannedInvoice } from '../types';
 
@@ -29,6 +31,15 @@ type Props = {
   goToInvoice: (uuid: string) => void,
   goToSubscribe: (id: number) => void,
   goToMember: (id: number) => void,
+
+  eventPage: number,
+  eventList: Array<EventSubscription>,
+  eventLoading: boolean,
+  fetchSubscriptionEventList: ({
+    page: number,
+    page_size: number,
+    billing_plan: number,
+  }) => void,
 
   classes: Object,
   t: TFunction,
@@ -51,6 +62,39 @@ export function SubscriptionComponent(props: Props) {
               scheduledInvoices={props.subscription.planned_invoices}
               onPlannedInvoiceClick={props.goToInvoice}
               requestUpdatePrice={props.requestUpdatePrice}
+            />
+          </Paper>
+          <Typography
+            className={props.classes.eventListTitle}
+            variant="h5"
+            component="h3"
+          >
+            {props.t('events.list.title')}
+          </Typography>
+          <Divider className={props.classes.divider} />
+          <Paper>
+            <PaginatedListBase
+              itemPerPage={10}
+              nbItems={0}
+              unknownNbItems
+              loading={props.eventLoading}
+              listProps={{ dense: true, disablePadding: true }}
+              items={props.eventList}
+              page={props.eventPage}
+              onPageRequested={(page) =>
+                props.fetchSubscriptionEventList({
+                  page,
+                  page_size: 10,
+                  billing_plan: props.subscription.id,
+                })
+              }
+              renderItem={(event) => (
+                <SubscriptionEventListItem
+                  event={event}
+                  key={event.identifier}
+                  withoutSubscriptionName
+                />
+              )}
             />
           </Paper>
         </Grid>
@@ -93,6 +137,9 @@ export function SubscriptionComponent(props: Props) {
 const styles = (theme) => ({
   block: {
     marginBottom: theme.spacing.unit * 3,
+  },
+  eventListTitle: {
+    marginTop: theme.spacing.unit * 2,
   },
   divider: {
     marginTop: theme.spacing.unit,

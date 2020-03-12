@@ -67,7 +67,7 @@ export const SubscriptionContractList = (props: Props) => {
       <div className={props.classes.buttonRow}>
         <Button
           color="primary"
-          variant="outlined"
+          variant="contained"
           onClick={() => props.setCreateOpen(true)}
         >
           <AddIcon className={props.classes.leftIcon} />

@@ -16,6 +16,8 @@ import {
   freezeSubscriptionActions,
   switchPaymentPackActions,
   switchPaymentMethodActions,
+  subscriptionBulkActions,
+  subscriptionEventListActions,
 } from './actions';
 
 import type { SubscriptionState } from './types';
@@ -23,6 +25,10 @@ import type { SubscriptionState } from './types';
 const initialState: SubscriptionState = Immutable({
   byId: {},
   createOrUpdate: {
+    loading: false,
+    error: null,
+  },
+  bulk: {
     loading: false,
     error: null,
   },
@@ -57,6 +63,13 @@ const initialState: SubscriptionState = Immutable({
     error: null,
   },
 
+  events: {
+    items: [],
+    loading: false,
+    error: null,
+    page: 1,
+  },
+
   contract: {
     loading: false,
     error: null,
@@ -81,6 +94,34 @@ const initialState: SubscriptionState = Immutable({
 
 export default handleActions(
   {
+    [subscriptionEventListActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['events', 'loading'], payload);
+    },
+    [subscriptionEventListActions.setPage]: (state, { payload }) => {
+      return state.setIn(['events', 'page'], payload);
+    },
+    [subscriptionEventListActions.error]: (state, { payload }) => {
+      return state.setIn(['events', 'error'], payload);
+    },
+    [subscriptionEventListActions.success]: (state, { payload }) => {
+      return state.setIn(['events', 'items'], payload);
+    },
+    [subscriptionBulkActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['bulk', 'loading'], payload);
+    },
+    [subscriptionBulkActions.error]: (state, { payload }) => {
+      return state.setIn(['bulk', 'error'], payload);
+    },
+    [subscriptionBulkActions.success]: (state, { payload }) => {
+      return state.merge(
+        {
+          byId: payload.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
+        },
+        {
+          deep: true,
+        },
+      );
+    },
     [subscriptionForBookingActions.isLoading]: (state, { payload }) => {
       return state.setIn(['contract', 'forBooking', 'loading'], payload);
     },

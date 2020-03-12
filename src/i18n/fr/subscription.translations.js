@@ -3,8 +3,23 @@ import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
+import { BILLING_PLAN_EVENTS } from '@bsport/common/lib/master-data/events';
 
 export default {
+  events: {
+    list: {
+      title: 'Derniers évènements',
+    },
+    [BILLING_PLAN_EVENTS.pause]: 'Pause',
+    [BILLING_PLAN_EVENTS.create]: 'Création',
+    [BILLING_PLAN_EVENTS.stop]: 'Arrêt',
+    [BILLING_PLAN_EVENTS.renew]: 'Renouvellement',
+    [BILLING_PLAN_EVENTS.payment_dispute]: 'Litige',
+    [BILLING_PLAN_EVENTS.payment_success]: 'Paiement réussi',
+    [BILLING_PLAN_EVENTS.payment_failure]: 'Paiement refusé',
+    [BILLING_PLAN_EVENTS.update_payment_method]: 'Méthode de paiement modifiée',
+    [BILLING_PLAN_EVENTS.update_payment_pack]: 'Carte de cours modifiée',
+  },
   cancel: 'annuler',
   save: 'valider',
   messages: {
@@ -164,6 +179,7 @@ export default {
     pending: 'En cours de facturation',
     canceledOn: 'Stoppée le ',
     hasEnded: 'Facturation terminée',
+    isPaused: 'En pause',
   },
   action: {
     stop: 'Arrêter',

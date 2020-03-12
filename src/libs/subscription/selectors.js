@@ -97,4 +97,16 @@ export const getContractForBooking = createSelector(
   (ids, data) => ids.map((id) => data[id]),
 );
 
+const _getSubscriptionEventList = (state: State) =>
+  state.subscription.events.items;
+
+export const getSubscriptionEventList = createSelector(
+  [_getSubscriptionEventList, _getSubscriptionData],
+  (eventList, subscriptionData) =>
+    eventList.map((e) => ({
+      ...e,
+      subscription: subscriptionData[e.data.billing_plan],
+    })),
+);
+
 export default { get };

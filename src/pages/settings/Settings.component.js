@@ -61,8 +61,7 @@ export const Settings = (props: Props) => {
           <Tab label={t('tab.shop')} value="shop" />
           <Tab label={t('tab.webhook')} value="webhook" />
           <Tab label={t('tab.partnership')} value="partnership" />
-          <Tab label={t('tab.active-campaign')} value="active-campaign" />
-          <Tab label={t('tab.personalization')} value="personalization" />
+          <Tab label={t('tab.active_campaign')} value="active-campaign" />
         </Tabs>
       </AppBar>
       <Switch>

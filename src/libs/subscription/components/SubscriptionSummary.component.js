@@ -27,6 +27,21 @@ const renderStatus = (
   has_ended: boolean,
   pauses: Array<SubscriptionPause>,
 ) => {
+  if (has_ended) {
+    return (
+      <Typography color="primary">
+        {t('subscriptionStatus.hasEnded')}
+      </Typography>
+    );
+  }
+  if (canceled_at) {
+    return (
+      <Typography color="error">
+        {t('subscriptionStatus.canceledOn') +
+          moment(canceled_at).format('DD/MM/YYYY')}
+      </Typography>
+    );
+  }
   const is_paused = pauses.reduce(
     (acc, p) =>
       acc ||
@@ -40,21 +55,6 @@ const renderStatus = (
     return (
       <Typography color="secondary">
         {t('subscriptionStatus.isPaused')}
-      </Typography>
-    );
-  }
-  if (has_ended) {
-    return (
-      <Typography color="primary">
-        {t('subscriptionStatus.hasEnded')}
-      </Typography>
-    );
-  }
-  if (canceled_at) {
-    return (
-      <Typography color="error">
-        {t('subscriptionStatus.canceledOn') +
-          moment(canceled_at).format('DD/MM/YYYY')}
       </Typography>
     );
   }

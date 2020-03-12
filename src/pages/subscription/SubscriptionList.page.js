@@ -8,7 +8,9 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
+import Paper from '@material-ui/core/Paper';
 
 import {
   BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
@@ -16,10 +18,12 @@ import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
 
+import PaginatedListBase from '../../components/PaginatedListBase.component';
 import withTitle from '../../hocs/with-title.hoc';
 
 import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/selectors';
 import SubscriptionTable from '../../libs/subscription/components/SubscriptionTable.component';
+import SubscriptionEventListItem from '../../libs/subscription/components/SubscriptionEventListItem.component';
 import SubscriptionContractList from '../../libs/subscription/components/SubscriptionContractList.component';
 import SubscriptionContractRegister from '../../libs/subscription/components/SubscriptionContractRegister.component';
 
@@ -31,12 +35,15 @@ import {
   getSubscriptionList,
   getAvailableContractListWithPaymentPack,
   getContract,
+  getSubscriptionEventList,
 } from '../../libs/subscription/selectors';
 import {
   createOrUpdateContract,
   fetchContractList as fetchContractListAction,
   deleteContract,
   fetchSubscriptionList as fetchSubscriptionListAction,
+  fetchSubscriptionBulk as fetchSubscriptionBulkAction,
+  fetchSubscriptionEventList as fetchSubscriptionEventListAction,
 } from '../../libs/subscription/actions';
 
 type Props = {
@@ -45,6 +52,11 @@ type Props = {
   subscriptionList: Array<Subscription>,
   subscriptionLoading: boolean,
   subscriptionCount: number,
+
+  eventLoading: boolean,
+  eventPage: number,
+  eventList: Array<EventSubscription>,
+  fetchSubscriptionEventList: ({ page: number, page_size: number }) => void,
 
   fetchContractList: () => void,
   contractLoading: boolean,
@@ -75,6 +87,7 @@ type Props = {
 export class SubscriptionList extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchContractList();
+    this.props.fetchSubscriptionEventList({ page: 1, page_size: 10 });
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -94,35 +107,72 @@ export class SubscriptionList extends React.Component<Props> {
   render() {
     return (
       <div className={this.props.classes.container}>
-        <Typography className={this.props.classes.sectionTitle} variant="h4">
-          {this.props.t('contract.list.title')}
-        </Typography>
-        <Divider className={this.props.classes.divider} />
-        <SubscriptionContractList
-          contractList={this.props.contractList}
-          dense
-          divider
-          loading={this.props.contractLoading}
-          onClick={this.onClickContract}
-          selectedContract={this.props.selectedContract}
-          onRegister={this.props.openContractRegister}
-          createOrUpdate={(data, options) => {
-            this.props.createOrUpdateContract(data, {
-              onSuccess: () => {
-                this.props.fetchContractList();
-                if (options && options.onSuccess) {
-                  options.onSuccess();
+        <Grid container spacing={8}>
+          <Grid item xs={12} lg={6}>
+            <Typography
+              className={this.props.classes.sectionTitle}
+              variant="h4"
+            >
+              {this.props.t('contract.list.title')}
+            </Typography>
+            <Divider className={this.props.classes.divider} />
+            <SubscriptionContractList
+              contractList={this.props.contractList}
+              dense
+              divider
+              loading={this.props.contractLoading}
+              onClick={this.onClickContract}
+              selectedContract={this.props.selectedContract}
+              onRegister={this.props.openContractRegister}
+              createOrUpdate={(data, options) => {
+                this.props.createOrUpdateContract(data, {
+                  onSuccess: () => {
+                    this.props.fetchContractList();
+                    if (options && options.onSuccess) {
+                      options.onSuccess();
+                    }
+                  },
+                });
+              }}
+              onDelete={(id) =>
+                this.props.deleteContract(id, {
+                  onSuccess: this.props.fetchContractList,
+                })
+              }
+              paymentPacks={this.props.paymentPacks}
+            />
+          </Grid>
+          <Grid item xs={12} lg={6}>
+            <Typography
+              className={this.props.classes.sectionTitle}
+              variant="h4"
+            >
+              {this.props.t('events.list.title')}
+            </Typography>
+            <Divider className={this.props.classes.divider} />
+            <Paper>
+              <PaginatedListBase
+                itemPerPage={10}
+                loading={this.props.eventLoading}
+                listProps={{ dense: true, disablePadding: true }}
+                items={this.props.eventList}
+                nbItems={0}
+                unknownNbItems
+                page={this.props.eventPage}
+                onPageRequested={(page) =>
+                  this.props.fetchSubscriptionEventList({ page, page_size: 10 })
                 }
-              },
-            });
-          }}
-          onDelete={(id) =>
-            this.props.deleteContract(id, {
-              onSuccess: this.props.fetchContractList,
-            })
-          }
-          paymentPacks={this.props.paymentPacks}
-        />
+                renderItem={(event) => (
+                  <SubscriptionEventListItem
+                    event={event}
+                    onEventClick={this.props.goToSubscription}
+                    key={event.identifier}
+                  />
+                )}
+              />
+            </Paper>
+          </Grid>
+        </Grid>
         <Typography className={this.props.classes.sectionTitle} variant="h4">
           {this.props.selectedContract
             ? this.props.selectedContractData.name || '  - '
@@ -187,10 +237,15 @@ export default compose(
       subscriptionCount: state.subscription.list.count,
       subscriptionLoading: state.subscription.list.loading,
       searchedMembers: getSearchedMembers(state),
+      eventList: getSubscriptionEventList(state),
+      eventPage: state.subscription.events.page,
+      eventLoading: state.subscription.events.loading,
     }),
     {
       fetchContractList: fetchContractListAction,
       fetchSubscriptionList: fetchSubscriptionListAction,
+      fetchSubscriptionBulk: fetchSubscriptionBulkAction,
+      fetchSubscriptionEventList: fetchSubscriptionEventListAction,
       createOrUpdateContract,
       searchMembers,
       deleteContract,
@@ -216,6 +271,15 @@ export default compose(
     selectedContractData: getContract(state, selectedContract),
   })),
   withHandlers({
+    fetchSubscriptionEventList: ({
+      fetchSubscriptionEventList,
+      fetchSubscriptionBulk,
+    }) => (params) => {
+      fetchSubscriptionEventList(params, {
+        onSuccess: (eventList) =>
+          fetchSubscriptionBulk(eventList.map((e) => e.data.billing_plan)),
+      });
+    },
     openContractRegister: ({
       setContractRegisterOpen,
       setSelectedContract,

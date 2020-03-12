@@ -47,6 +47,7 @@ import offer from '../libs/offer/reducers';
 import webhook from '../libs/webhook/reducers';
 import notificationRule from '../libs/notification-rule/reducers';
 import partnership from '../libs/partnership/reducers';
+import activeCampaign from '../libs/active-campaign/reducers';
 
 import type { State, Action } from '../state/types';
 
@@ -99,6 +100,7 @@ const rootReducer = combineReducers({
   webhook,
   notificationRule,
   partnership,
+  activeCampaign,
 });
 
 export default (state: State, action: Action) => {

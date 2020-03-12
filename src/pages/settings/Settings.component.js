@@ -26,6 +26,7 @@ import SettingsPersonalizePage from './SettingsPersonalizePage.component';
 import WebhookConfigurationPage from './WebhookConfigurationPage.component';
 import NotificationRulePage from './NotificationRule.page';
 import PartnershipPage from './Partnership.page';
+import ActiveCampaignPage from './ActiveCampaignPage.component';
 
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -60,6 +61,8 @@ export const Settings = (props: Props) => {
           <Tab label={t('tab.shop')} value="shop" />
           <Tab label={t('tab.webhook')} value="webhook" />
           <Tab label={t('tab.partnership')} value="partnership" />
+          <Tab label={t('tab.active-campaign')} value="active-campaign" />
+          <Tab label={t('tab.personalization')} value="personalization" />
         </Tabs>
       </AppBar>
       <Switch>
@@ -107,6 +110,11 @@ export const Settings = (props: Props) => {
           component={WebhookConfigurationPage}
         />
         <Route exact path="/settings/partnership" component={PartnershipPage} />
+        <Route
+          exact
+          path="/settings/active-campaign"
+          component={ActiveCampaignPage}
+        />
       </Switch>
     </div>
   );

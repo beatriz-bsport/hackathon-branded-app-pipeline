@@ -73,7 +73,7 @@ const ButtonReturnPayment = withConfirm(Button, 'onClick', {
   title: 'invoice:returnPayment.modal.title',
   cancel: 'invoice:returnPayment.modal.cancel',
   confirm: 'invoice:returnPayment.modal.confirm',
-  Content: ({ t }) => <p>{t('invoice:returnPayment.modal.content')}</p>,
+  Content: ({ t }: {t: TFunction }) => <p>{t('invoice:returnPayment.modal.content')}</p>,
 });
 
 class PaymentListItem extends Component<PaymentItemProps, PaymentItemState> {

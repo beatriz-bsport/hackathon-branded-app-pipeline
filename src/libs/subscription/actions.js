@@ -2,17 +2,32 @@
 
 import { createAction } from 'redux-actions';
 
+import { COMPANY_EVENTS } from './components/event.utils';
 import api, {
   updatePlannedInvoicePrice as updatePlannedInvoicePriceAPI,
   updateSubscriptionRenewal as updateSubscriptionRenewalAPI,
   freezeSubscription as freezeSubscriptionAPI,
   switchSubscriptionPaymentPack as switchSubscriptionPaymentPackAPI,
   switchSubscriptionPaymentMethod as switchSubscriptionPaymentMethodAPI,
-  fetchSubscriptionEventList as fetchSubscriptionEventListAPI,
 } from './api';
 
 import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
+
+import { fetchEventList } from '../event/actions';
+
+export const fetchSubscriptionEventList = (params = {}, options) =>
+  fetchEventList(
+    'subscription',
+    {
+      ...params,
+      event_types:
+        params.event_types && params.event_types.length
+          ? params.event_types
+          : Object.keys(COMPANY_EVENTS),
+    },
+    options,
+  );
 
 export const listSubscriptionActions = {
   error: createAction('SUBSCRIPTION/LIST/ERROR'),
@@ -39,49 +54,6 @@ export function fetchSubscriptionList(params: any, options: OptionCallback) {
     }
 
     dispatch(listSubscriptionActions.isLoading(false));
-  };
-}
-
-export const subscriptionEventListActions = {
-  error: createAction('SUBSCRIPTION/EVENT_LIST/ERROR'),
-  isLoading: createAction('SUBSCRIPTION/EVENT_LIST/IS_LOADING'),
-  success: createAction('SUBSCRIPTION/EVENT_LIST/SUCCESS'),
-  setPage: createAction('SUBSCRIPTION/EVENT_LIST/SET_PAGE'),
-};
-
-export function fetchSubscriptionEventList(
-  {
-    page,
-    page_size,
-    billing_plan,
-  }: { page: number, page_size: number, billing_plan?: number },
-  options: OptionCallback,
-) {
-  return async (dispatch: Dispatch) => {
-    dispatch(subscriptionEventListActions.isLoading(true));
-    dispatch(subscriptionEventListActions.error(null));
-    dispatch(subscriptionEventListActions.setPage(page));
-
-    try {
-      const response = await fetchSubscriptionEventListAPI({
-        ...{
-          page,
-          page_size,
-        },
-        ...(billing_plan ? { billing_plan } : {}),
-      });
-      dispatch(subscriptionEventListActions.success(response.data));
-
-      if (options && options.onSuccess) {
-        options.onSuccess(response.data);
-      }
-    } catch (error) {
-      dispatch(subscriptionEventListActions.error(error));
-      console.error(error);
-      if (options && options.onError) options.onError(error);
-    }
-
-    dispatch(subscriptionEventListActions.isLoading(false));
   };
 }
 

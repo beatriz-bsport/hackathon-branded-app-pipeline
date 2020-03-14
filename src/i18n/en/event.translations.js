@@ -1,4 +1,9 @@
 export default {
+  list: {
+    title: {
+      latestEvents: 'Latest events',
+    },
+  },
   member: {
     register: {
       name: 'New member',

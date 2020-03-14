@@ -9,13 +9,14 @@ import type { TFunction } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 
+import EventPanel from '../../event/components/EventPanel.component';
 import SubscriptionSummary from './SubscriptionSummary.component';
 import SubscriptionSchedule from './SubscriptionSchedule.component';
 import SubscriptionPauseListItem from './SubscriptionPauseListItem.component';
-import SubscriptionEventListItem from './SubscriptionEventListItem.component';
-import PaginatedListBase from '../../../components/PaginatedListBase.component';
 import SubscriptionActions from './SubscriptionActions.component';
 import type { Subscription, PlannedInvoice } from '../types';
+
+import { COMPANY_EVENTS } from './event.utils';
 
 type Props = {
   subscription: Subscription,
@@ -64,37 +65,15 @@ export function SubscriptionComponent(props: Props) {
               requestUpdatePrice={props.requestUpdatePrice}
             />
           </Paper>
-          <Typography
-            className={props.classes.eventListTitle}
-            variant="h5"
-            component="h3"
-          >
-            {props.t('events.list.title')}
-          </Typography>
-          <Divider className={props.classes.divider} />
+          <div className={props.classes.divider} />
           <Paper>
-            <PaginatedListBase
-              itemPerPage={10}
-              nbItems={0}
-              unknownNbItems
+            <EventPanel
               loading={props.eventLoading}
-              listProps={{ dense: true, disablePadding: true }}
-              items={props.eventList}
+              eventList={props.eventList}
               page={props.eventPage}
-              onPageRequested={(page) =>
-                props.fetchSubscriptionEventList({
-                  page,
-                  page_size: 10,
-                  billing_plan: props.subscription.id,
-                })
-              }
-              renderItem={(event) => (
-                <SubscriptionEventListItem
-                  event={event}
-                  key={event.identifier}
-                  withoutSubscriptionName
-                />
-              )}
+              fetchEventList={props.fetchSubscriptionEventList}
+              extraFetchParams={{ billing_plan: props.subscription.id }}
+              eventSpec={COMPANY_EVENTS}
             />
           </Paper>
         </Grid>

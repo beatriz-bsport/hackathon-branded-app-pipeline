@@ -35,6 +35,7 @@ import {
 import {
   get as getSubscriptionById,
   getSubscriptionEventList,
+  getSubscriptionEventState,
 } from '../../libs/subscription/selectors';
 import SubscriptionComponent from '../../libs/subscription/components/Subscription.component';
 import SubscriptionFreezerDialog from '../../libs/subscription/components/SubscriptionFreezerDialog.component';
@@ -53,7 +54,6 @@ type Props = {
   classes: Object,
   loading: boolean,
 
-  id: number,
   subscription: ?Subscription,
 
   fetchSubscription: () => void,
@@ -110,7 +110,6 @@ export class SubscriptionDetail extends Component<Props> {
     this.props.fetchSubscriptionEventList({
       page: 1,
       page_size: 10,
-      billing_plan: this.props.id,
     });
   }
 
@@ -249,8 +248,8 @@ export default compose(
         state.subscription.createOrUpdate.loading,
       availablePaymentPackList: getEnabledPaymentPackList(state),
       eventList: getSubscriptionEventList(state),
-      eventPage: state.subscription.events.page,
-      eventLoading: state.subscription.events.loading,
+      eventPage: getSubscriptionEventState(state).page,
+      eventLoading: getSubscriptionEventState(state).loading,
     }),
     {
       fetchSubscription: fetchSubscriptionAction,
@@ -269,6 +268,9 @@ export default compose(
     },
   ),
   withHandlers({
+    fetchSubscriptionEventList: ({ fetchSubscriptionEventList, id }) => (
+      params = {},
+    ) => fetchSubscriptionEventList({ ...params, object_id: id }),
     stop: ({ stop, setStopDialogOpen, id }) => () => {
       stop(id);
       setStopDialogOpen(false);

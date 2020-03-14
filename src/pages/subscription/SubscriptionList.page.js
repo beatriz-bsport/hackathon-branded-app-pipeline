@@ -18,14 +18,14 @@ import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
 
-import PaginatedListBase from '../../components/PaginatedListBase.component';
 import withTitle from '../../hocs/with-title.hoc';
 
 import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/selectors';
 import SubscriptionTable from '../../libs/subscription/components/SubscriptionTable.component';
-import SubscriptionEventListItem from '../../libs/subscription/components/SubscriptionEventListItem.component';
+import EventPanel from '../../libs/event/components/EventPanel.component';
 import SubscriptionContractList from '../../libs/subscription/components/SubscriptionContractList.component';
 import SubscriptionContractRegister from '../../libs/subscription/components/SubscriptionContractRegister.component';
+import { COMPANY_EVENTS } from '../../libs/subscription/components/event.utils';
 
 import { search as searchMembers } from '../../libs/member/actions';
 import { getSearchedMembers } from '../../libs/member/selectors';
@@ -36,6 +36,7 @@ import {
   getAvailableContractListWithPaymentPack,
   getContract,
   getSubscriptionEventList,
+  getSubscriptionEventState,
 } from '../../libs/subscription/selectors';
 import {
   createOrUpdateContract,
@@ -87,7 +88,6 @@ type Props = {
 export class SubscriptionList extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchContractList();
-    this.props.fetchSubscriptionEventList({ page: 1, page_size: 10 });
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -143,32 +143,15 @@ export class SubscriptionList extends React.Component<Props> {
             />
           </Grid>
           <Grid item xs={12} lg={6}>
-            <Typography
-              className={this.props.classes.sectionTitle}
-              variant="h4"
-            >
-              {this.props.t('events.list.title')}
-            </Typography>
-            <Divider className={this.props.classes.divider} />
+            <div className={this.props.classes.divider} />
             <Paper>
-              <PaginatedListBase
-                itemPerPage={10}
+              <EventPanel
                 loading={this.props.eventLoading}
-                listProps={{ dense: true, disablePadding: true }}
-                items={this.props.eventList}
-                nbItems={0}
-                unknownNbItems
+                eventList={this.props.eventList}
                 page={this.props.eventPage}
-                onPageRequested={(page) =>
-                  this.props.fetchSubscriptionEventList({ page, page_size: 10 })
-                }
-                renderItem={(event) => (
-                  <SubscriptionEventListItem
-                    event={event}
-                    onEventClick={this.props.goToSubscription}
-                    key={event.identifier}
-                  />
-                )}
+                eventSpec={COMPANY_EVENTS}
+                fetchEventList={this.props.fetchSubscriptionEventList}
+                onEventClick={this.props.goToSubscription}
               />
             </Paper>
           </Grid>
@@ -238,8 +221,8 @@ export default compose(
       subscriptionLoading: state.subscription.list.loading,
       searchedMembers: getSearchedMembers(state),
       eventList: getSubscriptionEventList(state),
-      eventPage: state.subscription.events.page,
-      eventLoading: state.subscription.events.loading,
+      eventPage: getSubscriptionEventState(state).page,
+      eventLoading: getSubscriptionEventState(state).loading,
     }),
     {
       fetchContractList: fetchContractListAction,

@@ -4,6 +4,7 @@ import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 
 import type { State } from '../../state/types';
+import { getEventState } from '../event/selectors';
 import {
   getPaymentPackById,
   getAllPaymentPacks as getPaymentPackList,
@@ -97,16 +98,17 @@ export const getContractForBooking = createSelector(
   (ids, data) => ids.map((id) => data[id]),
 );
 
-const _getSubscriptionEventList = (state: State) =>
-  state.subscription.events.items;
+export const getSubscriptionEventState = (state: State) =>
+  getEventState(state.event, 'subscription');
 
 export const getSubscriptionEventList = createSelector(
-  [_getSubscriptionEventList, _getSubscriptionData],
-  (eventList, subscriptionData) =>
-    eventList.map((e) => ({
+  [getSubscriptionEventState, _getSubscriptionData],
+  (eventState, subscriptionData) => {
+    return eventState.items.map((e) => ({
       ...e,
       subscription: subscriptionData[e.data.billing_plan],
-    })),
+    }));
+  },
 );
 
 export default { get };

@@ -17,7 +17,6 @@ import {
   switchPaymentPackActions,
   switchPaymentMethodActions,
   subscriptionBulkActions,
-  subscriptionEventListActions,
 } from './actions';
 
 import type { SubscriptionState } from './types';
@@ -94,18 +93,6 @@ const initialState: SubscriptionState = Immutable({
 
 export default handleActions(
   {
-    [subscriptionEventListActions.isLoading]: (state, { payload }) => {
-      return state.setIn(['events', 'loading'], payload);
-    },
-    [subscriptionEventListActions.setPage]: (state, { payload }) => {
-      return state.setIn(['events', 'page'], payload);
-    },
-    [subscriptionEventListActions.error]: (state, { payload }) => {
-      return state.setIn(['events', 'error'], payload);
-    },
-    [subscriptionEventListActions.success]: (state, { payload }) => {
-      return state.setIn(['events', 'items'], payload);
-    },
     [subscriptionBulkActions.isLoading]: (state, { payload }) => {
       return state.setIn(['bulk', 'loading'], payload);
     },

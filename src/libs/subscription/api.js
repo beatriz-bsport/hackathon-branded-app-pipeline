@@ -101,12 +101,6 @@ export const switchSubscriptionPaymentMethod = async (
   );
 };
 
-export const fetchSubscriptionEventList = async (params: any) => {
-  return getAuth(
-    `${API_URI}/subscription/billing-plan/events/${buildUrlParams(params)}`,
-  );
-};
-
 export default {
   fetchSubscriptionList: fetchAll,
   fetchDetail,

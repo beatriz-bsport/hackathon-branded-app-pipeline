@@ -490,7 +490,8 @@ export default {
           buttonHardDelete: 'Supprimer',
           explainHardDelete:
             'Supprimer la séance de la liste ? Attention celle-ci deviendra invisible, cette opération est irréversible ! Si la séance contient des réservations, elle ne sera pas supprimée.',
-          explainCreditBack: 'Rembourser les crédits dépensés aux clients',
+          explainCreditBack:
+            'Retourner les crédits dépensés aux clients sur leur carte de cours',
           explainNotify: 'Envoyer une alerte aux clients ayant réservé',
           explainModalities:
             'Attention, cette modification est définitive. Votre séance ne sera plus visible par les clients finaux. Vous pourrez toujours y accéder.',

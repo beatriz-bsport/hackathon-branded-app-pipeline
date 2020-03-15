@@ -3,7 +3,7 @@ export default {
     modal: {
       title: 'Remboursement client',
       content:
-        'Le paiement sera reversé sur le compte BANCAIRE du client, un acompte du même montant sera ajoutée à la facture pour symboliser le paiement. Ni la facture ni les achats ne seront annulés.',
+        'Le paiement sera reversé sur le compte BANCAIRE du client, un acompte du même montant sera ajoutée à la facture pour symboliser le paiement.',
       cancel: 'Annuler',
       confirm: 'Rembourser',
     },

@@ -19,15 +19,33 @@ const getPrimaryText = (event, t) =>
   }`}`;
 
 export const COMPANY_EVENTS = {
-  [BILLING_PLAN_EVENTS.pause]: {
-    icon: <PauseIcon />,
-    getPrimaryText,
-    i18nText: `subscription:events.${BILLING_PLAN_EVENTS.pause}`,
-  },
   [BILLING_PLAN_EVENTS.create]: {
     icon: <AddIcon />,
     getPrimaryText,
     i18nText: `subscription:events.${BILLING_PLAN_EVENTS.create}`,
+  },
+  [BILLING_PLAN_EVENTS.payment_success]: {
+    icon: <CheckIcon color="primary" />,
+    titleSuffix: (event) => `${event.data.amount}€ - `,
+    getPrimaryText,
+    i18nText: `subscription:events.${BILLING_PLAN_EVENTS.payment_success}`,
+  },
+  [BILLING_PLAN_EVENTS.payment_failure]: {
+    icon: <CancelIcon color="error" />,
+    titleSuffix: (event) => `${event.data.amount}€ - `,
+    getPrimaryText,
+    i18nText: `subscription:events.${BILLING_PLAN_EVENTS.payment_failure}`,
+  },
+  [BILLING_PLAN_EVENTS.payment_dispute]: {
+    icon: <WarningIcon color="error" />,
+    titleSuffix: (event) => `${event.data.amount}€ - `,
+    getPrimaryText,
+    i18nText: `subscription:events.${BILLING_PLAN_EVENTS.payment_dispute}`,
+  },
+  [BILLING_PLAN_EVENTS.pause]: {
+    icon: <PauseIcon />,
+    getPrimaryText,
+    i18nText: `subscription:events.${BILLING_PLAN_EVENTS.pause}`,
   },
   [BILLING_PLAN_EVENTS.stop]: {
     icon: <StopIcon />,
@@ -39,29 +57,11 @@ export const COMPANY_EVENTS = {
     getPrimaryText,
     i18nText: `subscription:events.${BILLING_PLAN_EVENTS.renew}`,
   },
-  [BILLING_PLAN_EVENTS.payment_dispute]: {
-    icon: <WarningIcon color="error" />,
-    titleSuffix: (event) => `${event.data.amount}€ - `,
-    getPrimaryText,
-    i18nText: `subscription:events.${BILLING_PLAN_EVENTS.payment_dispute}`,
-  },
-  [BILLING_PLAN_EVENTS.payment_success]: {
-    icon: <CheckIcon color="primary" />,
-    titleSuffix: (event) => `${event.data.amount}€ - `,
-    getPrimaryText,
-    i18nText: `subscription:events.${BILLING_PLAN_EVENTS.payment_success}`,
-  },
   [BILLING_PLAN_EVENTS.update_payment_pack]: {
     icon: <EditIcon />,
     titleSuffix: (event) => `(${event.data.payment_pack}) `,
     getPrimaryText,
     i18nText: `subscription:events.${BILLING_PLAN_EVENTS.update_payment_pack}`,
-  },
-  [BILLING_PLAN_EVENTS.payment_failure]: {
-    icon: <CancelIcon color="error" />,
-    titleSuffix: (event) => `${event.data.amount}€ - `,
-    getPrimaryText,
-    i18nText: `subscription:events.${BILLING_PLAN_EVENTS.payment_failure}`,
   },
   [BILLING_PLAN_EVENTS.update_payment_method]: {
     icon: <EditIcon />,

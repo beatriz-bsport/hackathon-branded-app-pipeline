@@ -713,37 +713,38 @@ export class OfferManagement extends Component<Props, State> {
             </Paper>
           </Slide>
         </Grid>
-        <Grid item xs={12} lg={6}>
-          {this.props.offer.is_broadcast && this.props.offer.broadcast_info ? (
+        {this.props.offer.is_broadcast && this.props.offer.broadcast_info ? (
+          <Grid item xs={12} lg={6}>
             <BroadcastRoom
               userType="coach"
-              offer={this.props.offer}
+              date_start={this.props.offer.date_start}
               broadcast_info={this.props.offer.broadcast_info}
             />
-          ) : (
-            <Slide in direction="left">
-              <QuickInvoicePanel
-                members={this.props.members}
-                unevenSavedInvoices={this.props.unevenSavedInvoices}
-                revertQuickInvoice={(uuid) =>
-                  this.props.revertQuickInvoiceAndRefreshOffer(
-                    uuid,
-                    this.props.offerId,
-                    this.state.booking_ordering,
-                  )
-                }
-                quickInvoices={this.state.quickInvoices}
-                createInvoice={this.createInvoice}
-                closeQuickInvoice={this.closeQuickInvoice}
-                saveQuickInvoice={this.saveQuickInvoice}
-                privatePassList={this.props.privatePassList}
-                paymentComboList={this.props.paymentComboList}
-                paymentPacks={this.props.paymentPacksEnabled}
-                shopItems={this.props.shopItemsAvailable}
-                className={classes.autoScroll}
-              />
-            </Slide>
-          )}
+          </Grid>
+        ) : null}
+        <Grid item xs={12} lg={6}>
+          <Slide in direction="left">
+            <QuickInvoicePanel
+              members={this.props.members}
+              unevenSavedInvoices={this.props.unevenSavedInvoices}
+              revertQuickInvoice={(uuid) =>
+                this.props.revertQuickInvoiceAndRefreshOffer(
+                  uuid,
+                  this.props.offerId,
+                  this.state.booking_ordering,
+                )
+              }
+              quickInvoices={this.state.quickInvoices}
+              createInvoice={this.createInvoice}
+              closeQuickInvoice={this.closeQuickInvoice}
+              saveQuickInvoice={this.saveQuickInvoice}
+              privatePassList={this.props.privatePassList}
+              paymentComboList={this.props.paymentComboList}
+              paymentPacks={this.props.paymentPacksEnabled}
+              shopItems={this.props.shopItemsAvailable}
+              className={classes.autoScroll}
+            />
+          </Slide>
         </Grid>
         <Dialog
           fullScreen={fullScreen}

@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { Helmet } from 'react-helmet';
 import { compose } from 'recompose';
 import moment from 'moment';
@@ -17,9 +18,9 @@ type Props = {
     domain: string,
     provider: string,
   },
+  classes: Object,
+  date_start: string,
 };
-
-const RANDOM_BEFORE_START_CONNECT = Math.random() * 30;
 
 export class BroadcastRoom extends React.Component<Props> {
   state = { hasStarted: false };
@@ -29,29 +30,24 @@ export class BroadcastRoom extends React.Component<Props> {
   }
 
   initializeJitsi = () => {
-    if (
-      !window.JitsiMeetExternalAPI ||
-      (this.props.userType !== 'coach' &&
-        moment(this.props.date_start).isAfter(
-          moment().add(-RANDOM_BEFORE_START_CONNECT, 'seconds'), // avoid all connection at same second
-        ))
-    ) {
+    if (!window.JitsiMeetExternalAPI) {
       setTimeout(this.initializeJitsi, 1000);
     } else {
       const { domain } = this.props.broadcast_info;
       const { room } = this.props.broadcast_info;
+
+      const isCoach = this.props.userType !== 'consumer';
 
       const options = {
         roomName: room,
         parentNode: document.querySelector('#broadcast'),
         configOverwrite: {
           useNicks: true,
-          startWithAudioMuted: this.props.userType === 'consumer',
+          startWithAudioMuted: false, // this.props.userType === 'consumer',
           // startVideoMuted: 10,
         },
         interfaceConfigOverwrite: {
-          DEFAULT_REMOTE_DISPLAY_NAME:
-            this.props.userType === 'consumer' ? 'Student' : 'Teacher',
+          DEFAULT_REMOTE_DISPLAY_NAME: !isCoach ? 'Student' : 'User',
 
           SHOW_JITSI_WATERMARK: false,
           SHOW_WATERMARK_FOR_GUESTS: false,
@@ -60,7 +56,12 @@ export class BroadcastRoom extends React.Component<Props> {
           MOBILE_APP_PROMO: false,
           RECENT_LIST_ENABLED: false,
 
-          SETTINGS_SECTIONS: ['devices', 'language', 'profile'],
+          SETTINGS_SECTIONS: [
+            'devices',
+            'language',
+            'profile',
+            ...(isCoach ? ['moderator'] : []),
+          ],
           TOOLBAR_BUTTONS: [
             'microphone',
             'camera',
@@ -74,7 +75,10 @@ export class BroadcastRoom extends React.Component<Props> {
       this.setState({ hasStarted: true });
       this.jitsiAPI = new window.JitsiMeetExternalAPI(domain, options);
       window.jistsiAPI = this.jitsiAPI;
-      this.jitsiAPI.executeCommand('subject', 'bsport');
+      setTimeout(() => {
+        this.jitsiAPI.executeCommand('subject', 'bsport');
+        this.jitsiAPI.executeCommand('toggleChat');
+      }, 2000);
     }
   };
 
@@ -98,9 +102,11 @@ export class BroadcastRoom extends React.Component<Props> {
               <div>
                 <Typography variant="subtitle">
                   {this.props.t('video.startingSoon', {
-                    minutesLeft: moment.duration(
-                      moment(this.props.date_start).diff(moment(), 'minutes'),
-                    ),
+                    minutesLeft:
+                      1 +
+                      moment.duration(
+                        moment(this.props.date_start).diff(moment(), 'minutes'),
+                      ),
                   })}
                 </Typography>
                 <Typography

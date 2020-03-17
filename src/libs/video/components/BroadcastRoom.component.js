@@ -136,11 +136,14 @@ export class BroadcastRoom extends React.Component<Props> {
           <WarningIcon style={{ height: '10vh', width: '10vh' }} />
           <div>
             <Typography color="error" variant="subtitle">
-              Le cours vidéo n'est compatible qu'avec Google Chrome
+              Le cours vidéo n'est compatible qu'avec Google Chrome sur PC/MAC.
             </Typography>
             <Typography>
               Disponible{' '}
               <a href="https://www.google.com/intl/fr_fr/chrome/">ici</a>
+            </Typography>
+            <Typography color="error" variant="subtitle">
+              Les tablettes et téléphones ne sont pas encore pris en charge.
             </Typography>
           </div>
         </div>

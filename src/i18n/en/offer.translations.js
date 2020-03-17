@@ -1,4 +1,7 @@
 export default {
+  video: {
+    startingSoon: 'Your session is starting in {{ minutesLeft }} minutes',
+  },
   disabled: 'Cancelled',
   credit_price: ' Credit',
   booking: {

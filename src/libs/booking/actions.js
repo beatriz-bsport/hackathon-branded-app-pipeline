@@ -11,6 +11,7 @@ import {
   discardAttendance as discardAttendanceAPI,
   cancelBooking as cancelBookingAPI,
   registerBooking as registerBookingAPI,
+  fetchBookingBroadcastRoom as fetchBookingBroadcastRoomAPI,
 } from './api';
 import type { Dispatch } from '../../state/types';
 
@@ -150,6 +151,31 @@ export function fetchConsumerDashboardBookingList(
       if (options && options.onError) options.onError(err);
     }
     dispatch(consumerDashboardActions.isLoading(false));
+  };
+}
+
+export const retrieveBookingBroadcastRoom = {
+  success: createAction('BOOKING/BROADCAST/SUCCESS'),
+  error: createAction('BOOKING/BROADCAST/ERROR'),
+  isLoading: createAction('BOOKING/BROADCAST/IS_LOADING'),
+};
+
+export function fetchBookingBroadcastRoom(id: number, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrieveBookingBroadcastRoom.isLoading(true));
+    dispatch(retrieveBookingBroadcastRoom.error(null));
+
+    try {
+      const response = await fetchBookingBroadcastRoomAPI(id);
+      dispatch(retrieveBookingBroadcastRoom.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      dispatch(retrieveBookingBroadcastRoom.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(retrieveBookingBroadcastRoom.isLoading(false));
   };
 }
 

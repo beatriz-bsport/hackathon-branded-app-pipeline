@@ -84,6 +84,7 @@ const MetaActivityMap = {
   is_workshop: 'is_workshop',
   SCT: 'SCT',
   color: 'color',
+  is_broadcast: 'is_broadcast',
 };
 
 const StepperForm = withNamespaces(['metaActivity'])(

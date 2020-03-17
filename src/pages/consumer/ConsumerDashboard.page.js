@@ -101,7 +101,7 @@ type Props = {
 
 const BOOKING_PAGE_SIZE = 5;
 
-export class ConsumerDashboard extends React.Component<Props> {
+export class ConsumerDashboard extends React.PureComponent<Props> {
   componentDidMount() {
     this.props.fetchConsumerDashboardBookingList(1);
     this.props.fetchPrivateBookings({
@@ -140,6 +140,7 @@ export class ConsumerDashboard extends React.Component<Props> {
           <Grid item xs={12} md={6}>
             <ConsumerDashboardBookingPanel
               goToCalendar={this.props.goToCalendar}
+              goToBroadcast={this.props.goToBroadcast}
               bookingList={this.props.bookingList}
               bookingCount={this.props.bookingCount}
               bookingLoading={this.props.bookingLoading}
@@ -279,6 +280,8 @@ export default compose(
     cancelBooking: ({ cancelBooking, setBookingToCancel }) => (id, data) => {
       cancelBooking(id, data, { onSuccess: () => setBookingToCancel(null) });
     },
+    goToBroadcast: ({ membership, push }) => (bookingId) =>
+      push(`/c/${membership.company}/broadcast/${bookingId}/`),
     goToCalendar: ({ membership, push }) => (params) =>
       push(
         `/m/${membership.company_name}/${

@@ -828,6 +828,7 @@ export default {
       explainImage: 'Recommandé: 1920x1080 jpeg (fullHD)',
       nextSlotAt: 'Prochaine séance le ',
       settings: 'Paramètres',
+      is_broadcast: 'Cours live streaming',
       lastBookingBeforeMinutes:
         'Avant le début du cours, dernière réservation possible',
       lastDiscardBeforeMinutes:

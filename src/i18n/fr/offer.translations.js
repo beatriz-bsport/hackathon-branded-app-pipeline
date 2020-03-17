@@ -1,4 +1,8 @@
 export default {
+  video: {
+    startingSoon: 'Votre séance démarre dans {{ minutesLeft }} minutes',
+    isAutoRefresh: 'Cette page est mise à jour automatiquement',
+  },
   disabled: 'Annulée',
   credit_price: ' Crédit',
   booking: {

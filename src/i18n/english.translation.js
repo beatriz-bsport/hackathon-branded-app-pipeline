@@ -769,6 +769,7 @@ export default {
       lastBookingBeforeMinutes: 'Last booking is possible until',
       lastDiscardBeforeMinutes: 'Last discard booking is possible until',
       addActivity: 'Add an activity',
+      is_broadcast: 'Live streaming session',
       category: 'Sport',
       addOffers: 'Add sessions',
       name: 'Title',

@@ -1,7 +1,7 @@
 export function mapFormData(base, map) {
   const formData = new FormData();
   for (const [key, value] of Object.entries(base)) {
-    if (!map[key]) {
+    if (!(typeof map[key] === 'boolean') && !map[key]) {
       throw new Error(`Mapping for key ${key} does not exist.`);
     }
     if (value !== undefined) {
@@ -18,7 +18,7 @@ function resolve(ob, path) {
 export function unmap(ob, map) {
   const newOb = {};
   Object.keys(map).forEach((k) => {
-    const path = map[k].split('.');
+    const path = `${map[k]}`.split('.');
     newOb[k] = resolve(ob, path) || (ob && ob[k]);
   });
   return newOb;

@@ -11,6 +11,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Avatar from '@material-ui/core/Avatar';
+import VideoCamIcon from '@material-ui/icons/Videocam';
 import Divider from '@material-ui/core/Divider';
 
 import NearMeIcon from '@material-ui/icons/NearMe';
@@ -25,6 +26,7 @@ type Props = {
   booking: Booking,
   classes: Object,
   goToCalendar: () => void,
+  goToBroadcast: () => void,
   onDiscard: () => void,
   variant?: string,
 };
@@ -77,6 +79,19 @@ export const BookingConsumerItem = (props: Props) => {
 
       <Divider />
       <div className={classes.footer}>
+        {props.variant !== 'after_checkout' &&
+        props.goToBroadcast &&
+        meta_activity &&
+        meta_activity.is_broadcast ? (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={props.goToBroadcast}
+          >
+            <VideoCamIcon className={classes.leftIcon} />
+            ACCEDER AU LIVE
+          </Button>
+        ) : null}
         {props.goToCalendar ? (
           <Button
             onClick={props.goToCalendar}

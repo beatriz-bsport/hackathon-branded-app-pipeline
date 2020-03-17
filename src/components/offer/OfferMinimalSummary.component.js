@@ -9,6 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
+import VideocamIcon from '@material-ui/icons/Videocam';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { pure } from 'recompose';
 
@@ -22,7 +23,15 @@ import type { Offer } from '../../api/types';
 
 import { DEFAULT_AVATAR } from '../../libs/associated-coach/utils';
 
-const styles = () => ({
+const styles = (theme) => ({
+  offerTitleText: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  videocamIcon: {
+    marginRight: theme.spacing.unit / 2,
+  },
   listItem: {
     width: '100%',
   },
@@ -180,7 +189,14 @@ export function OfferMinimalSummary(props: Props) {
             </Grid>
             <Grid item>
               <ListItemText
-                primary={formattedName}
+                primary={
+                  <div className={classes.offerTitleText}>
+                    {offer.is_broadcast ? (
+                      <VideocamIcon className={classes.videocamIcon} />
+                    ) : null}
+                    <Typography variant="inherit">{formattedName}</Typography>
+                  </div>
+                }
                 secondary={`${dateFormatter(date_start)} - ${formatMinutes(
                   duration_minute,
                   t,

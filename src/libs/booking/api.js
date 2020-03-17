@@ -21,6 +21,10 @@ export const retrieveBooking = async (id: number) => {
   return getAuth(`${API_V1_URI}/booking/${id}/`);
 };
 
+export const fetchBookingBroadcastRoom = async (id: number) => {
+  return getAuth(`${API_V1_URI}/booking/${id}/broadcast_room/`);
+};
+
 export const discardAttendance = async (id: number) => {
   return postAuth(`${API_V1_URI}/booking/${id}/attendance/`, {
     attendance: false,

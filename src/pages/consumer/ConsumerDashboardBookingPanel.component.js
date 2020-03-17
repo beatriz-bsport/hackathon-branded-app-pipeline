@@ -99,6 +99,7 @@ export class ConsumerDashboardBookingPanel extends React.PureComponent<Props> {
           <BookingConsumerItem
             booking={b}
             key={b.id}
+            goToBroadcast={() => this.props.goToBroadcast(b.id)}
             onDiscard={() => this.props.onDiscardBooking(b)}
             goToCalendar={() =>
               this.props.goToCalendar({

@@ -10,6 +10,7 @@ import {
   bulkActions,
   consumerDashboardActions,
   byConsumerPackActions,
+  retrieveBookingBroadcastRoom,
   retrieveActions,
   updateActions,
 } from './actions';
@@ -17,6 +18,11 @@ import type { BookingsState } from './types';
 
 const initialState: BookingsState = Immutable({
   byId: {},
+  broadcast: {
+    byId: {},
+    loading: false,
+    error: null,
+  },
   byMember: {
     loading: false,
     error: null,
@@ -62,6 +68,18 @@ const initialState: BookingsState = Immutable({
 
 export default handleActions(
   {
+    [retrieveBookingBroadcastRoom.isLoading]: (state, { payload }) => {
+      return state.setIn(['broadcast', 'loading'], payload);
+    },
+    [retrieveBookingBroadcastRoom.error]: (state, { payload }) => {
+      return state.setIn(['broadcast', 'error'], payload);
+    },
+    [retrieveBookingBroadcastRoom.success]: (state, { payload }) => {
+      return state.setIn(
+        ['broadcast', 'byId', payload.id],
+        payload,
+      );
+    },
     [updateActions.isLoading]: (state, { payload }) => {
       return state.setIn(['createOrUpdate', 'loading'], payload);
     },

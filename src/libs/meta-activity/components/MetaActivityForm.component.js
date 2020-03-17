@@ -20,6 +20,7 @@ import {
   TextField,
   DurationMinuteSelectField,
   ColorField,
+  CheckboxField,
 } from '../../../components/forms';
 import SCTSelectField from '../../category/components/SCTSelectorField.component';
 
@@ -87,6 +88,12 @@ export function MetaActivityForm(props: Props) {
             fullWidth
             name="SCT"
             required
+          />
+        </div>
+        <div className={classes.field}>
+          <CheckboxField
+            name="is_broadcast"
+            label={t('activity.is_broadcast')}
           />
         </div>
         <div className={classes.field}>
@@ -169,6 +176,7 @@ const MetaActivitySchema = Yup.object().shape({
   description: Yup.string().required(),
   last_booking_minutes: Yup.number(),
   last_discard_minutes: Yup.number(),
+  is_broadcast: Yup.boolean(),
   color: Yup.string(),
   SCT: Yup.number(),
 });
@@ -186,6 +194,7 @@ export default compose(
           SCT: null,
           last_booking_minutes: 0,
           last_discard_minutes: 0,
+          is_broadcast: false,
           color: '',
         },
         { ...initial } || {},
@@ -202,6 +211,7 @@ export default compose(
         'last_booking_minutes',
         'last_discard_minutes',
         'color',
+        'is_broadcast',
       ];
       const { cover_main } = values;
       const data = {

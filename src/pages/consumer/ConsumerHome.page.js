@@ -49,6 +49,9 @@ const ConsumerDashboard = asyncComponent(() =>
   import('./ConsumerDashboard.page'),
 );
 const ConsumerBooking = asyncComponent(() => import('./ConsumerBooking.page'));
+const ConsumerBookingBroadcast = asyncComponent(() =>
+  import('./ConsumerBookingBroadcast.page'),
+);
 const ConsumerPack = asyncComponent(() => import('./ConsumerPack.page'));
 const ConsumerInvoice = asyncComponent(() => import('./ConsumerInvoice.page'));
 const ConsumerSubscription = asyncComponent(() =>
@@ -98,11 +101,13 @@ export class ConsumerHome extends React.Component<Props> {
     this.props.setActiveActions(this.props.companyId);
   }
 
+  buildPath = (path) => this.props.push(this.props.buildUrl(path));
+
   attachConsumerProps = (MyComponent: React.Component<*>) => (props: any) => (
     <MyComponent
       {...props}
       membership={this.props.membership}
-      push={(path) => this.props.push(this.props.buildUrl(path))}
+      push={this.buildPath}
     />
   );
 
@@ -137,6 +142,10 @@ export class ConsumerHome extends React.Component<Props> {
               <Route
                 path="/c/:companyId/booking/"
                 render={this.attachConsumerProps(ConsumerBooking)}
+              />
+              <Route
+                path="/c/:companyId/broadcast/:bookingId/"
+                render={this.attachConsumerProps(ConsumerBookingBroadcast)}
               />
               <Route
                 path="/c/:companyId/pack/"

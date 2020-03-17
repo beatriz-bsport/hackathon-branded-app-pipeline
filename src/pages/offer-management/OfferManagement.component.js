@@ -9,6 +9,7 @@ import Collapse from '@material-ui/core/Collapse';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import RefreshIcon from '@material-ui/icons/Refresh';
+import ButtonBase from '@material-ui/core/ButtonBase';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import Button from '@material-ui/core/Button';
@@ -19,6 +20,7 @@ import IconButton from '@material-ui/core/IconButton';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Dialog from '@material-ui/core/Dialog';
 import Radio from '@material-ui/core/Radio';
+import VideocamIcon from '@material-ui/icons/Videocam';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import DialogContent from '@material-ui/core/DialogContent';
@@ -591,6 +593,37 @@ export class OfferManagement extends Component<Props, State> {
     </Paper>
   );
 
+  renderBroadcastPanel = () => {
+    if (this.state.broadcastActivated) {
+      return (
+        <BroadcastRoom
+          userType="coach"
+          date_start={this.props.offer.date_start}
+          broadcast_info={this.props.offer.broadcast_info}
+        />
+      );
+    }
+    return (
+      <ButtonBase
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          borderRadius: 16,
+          justifyContent: 'center',
+          minHeight: 300,
+          width: '100%',
+          flexDirection: 'column',
+        }}
+        onClick={() => this.setState({ broadcastActivated: true })}
+      >
+        <VideocamIcon style={{ height: '30vh', width: '30vh' }} />
+        <Button variant="outlined" color="primary" style={{ marginBottom: 30 }}>
+          {this.props.t('offer:video.activateVideo')}
+        </Button>
+      </ButtonBase>
+    );
+  };
+
   render() {
     const {
       offer,
@@ -713,16 +746,10 @@ export class OfferManagement extends Component<Props, State> {
             </Paper>
           </Slide>
         </Grid>
-        {this.props.offer.is_broadcast && this.props.offer.broadcast_info ? (
-          <Grid item xs={12} lg={6}>
-            <BroadcastRoom
-              userType="coach"
-              date_start={this.props.offer.date_start}
-              broadcast_info={this.props.offer.broadcast_info}
-            />
-          </Grid>
-        ) : null}
         <Grid item xs={12} lg={6}>
+          {this.props.offer.is_broadcast && this.props.offer.broadcast_info
+            ? this.renderBroadcastPanel()
+            : null}
           <Slide in direction="left">
             <QuickInvoicePanel
               members={this.props.members}

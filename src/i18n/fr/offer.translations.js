@@ -2,6 +2,8 @@ export default {
   video: {
     startingSoon: 'Votre séance démarre dans {{ minutesLeft }} minutes',
     isAutoRefresh: 'Cette page est mise à jour automatiquement',
+    loadingSoon: 'En cours de chargement...',
+    activateVideo: 'Lancer la diffusion',
   },
   disabled: 'Annulée',
   credit_price: ' Crédit',

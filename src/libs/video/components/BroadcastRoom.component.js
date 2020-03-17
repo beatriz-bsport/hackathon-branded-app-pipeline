@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import WarningIcon from '@material-ui/icons/Warning';
 import { Helmet } from 'react-helmet';
 import { compose } from 'recompose';
 import moment from 'moment';
@@ -30,7 +30,12 @@ export class BroadcastRoom extends React.Component<Props> {
   }
 
   initializeJitsi = () => {
-    if (!window.JitsiMeetExternalAPI) {
+    if (
+      !window.JitsiMeetExternalAPI ||
+      (this.props.date_start &&
+        (this.props.userType !== 'coach' &&
+          moment(this.props.date_start).isAfter(moment())))
+    ) {
       setTimeout(this.initializeJitsi, 1000);
     } else {
       const { domain } = this.props.broadcast_info;
@@ -89,7 +94,58 @@ export class BroadcastRoom extends React.Component<Props> {
     }
   }
 
+  isChrome = () => {
+    try {
+      if (
+        (navigator.userAgent.includes('Chrome') ||
+          navigator.userAgent.includes('Chromium') ||
+          navigator.userAgent.includes('chrome') ||
+          navigator.userAgent.includes('chromium')) &&
+        !(
+          navigator.userAgent.includes('android') ||
+          navigator.userAgent.includes('Android') ||
+          navigator.userAgent.includes('ios') ||
+          navigator.userAgent.includes('iOS')
+        )
+      ) {
+        return true;
+      }
+      return false;
+    } catch (err) {
+      console.error(err);
+      return false;
+    }
+  };
+
   render() {
+    const minutesLeft =
+      1 +
+      moment.duration(moment(this.props.date_start).diff(moment(), 'minutes'));
+
+    const isChrome = this.isChrome();
+    if (!isChrome) {
+      return (
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <WarningIcon style={{ height: '10vh', width: '10vh' }} />
+          <div>
+            <Typography color="error" variant="subtitle">
+              Le cours vidéo n'est compatible qu'avec Google Chrome
+            </Typography>
+            <Typography>
+              Disponible{' '}
+              <a href="https://www.google.com/intl/fr_fr/chrome/">ici</a>
+            </Typography>
+          </div>
+        </div>
+      );
+    }
     return (
       <div>
         <Helmet>
@@ -101,13 +157,11 @@ export class BroadcastRoom extends React.Component<Props> {
               <HourglassEmptyIcon style={{ height: '30vh', width: '30vh' }} />
               <div>
                 <Typography variant="subtitle">
-                  {this.props.t('video.startingSoon', {
-                    minutesLeft:
-                      1 +
-                      moment.duration(
-                        moment(this.props.date_start).diff(moment(), 'minutes'),
-                      ),
-                  })}
+                  {minutesLeft < 0
+                    ? this.props.t('video.loadingSoon')
+                    : this.props.t('video.startingSoon', {
+                        minutesLeft,
+                      })}
                 </Typography>
                 <Typography
                   className={this.props.classes.caption}

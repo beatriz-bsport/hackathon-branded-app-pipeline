@@ -9,7 +9,10 @@ type Props = {
   },
 };
 export const BroadcastRoomWhereby = (props: Props) => {
-  window.location = `https://${props.broadcast_info.domain}/${props.broadcast_info.room}`;
+  window.open(
+    `https://${props.broadcast_info.domain}/${props.broadcast_info.room}`,
+    '_blank',
+  );
   return <div />;
 };
 

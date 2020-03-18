@@ -82,6 +82,8 @@ export const BookingConsumerItem = (props: Props) => {
         {props.variant !== 'after_checkout' &&
         props.goToBroadcast &&
         meta_activity &&
+        moment(offer.date_start).isAfter(moment().add(-30, 'minutes')) &&
+        moment(offer.date_start).isBefore(moment().add(30, 'minutes')) &&
         meta_activity.is_broadcast ? (
           <Button
             variant="contained"

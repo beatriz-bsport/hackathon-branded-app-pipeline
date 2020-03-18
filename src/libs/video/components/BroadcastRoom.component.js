@@ -54,7 +54,11 @@ export class BroadcastRoom extends React.Component<Props> {
     if (this.state.hasStarted) {
       const BroadcastProvider =
         BRODCAST_PROVIDERS[this.props.broadcast_info.provider];
-      return <BroadcastProvider {...this.props} />;
+      return (
+        <div className={this.props.classes.container}>
+          <BroadcastProvider {...this.props} />
+        </div>
+      );
     }
 
     return (

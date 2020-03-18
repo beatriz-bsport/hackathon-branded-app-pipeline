@@ -11,6 +11,7 @@ import type { Subscription } from '../types';
 
 const renderRows = (subscriptions) => {
   return subscriptions.map((sub) => ({
+    key: sub.id,
     member: sub.memberName,
     name: sub.name,
     nb_interval: parseInt(sub.nb_interval, 10),

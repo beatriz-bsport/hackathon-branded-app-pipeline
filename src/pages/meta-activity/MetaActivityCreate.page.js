@@ -25,6 +25,7 @@ import {
 } from '../../libs/payment-packs/actions';
 
 import withTitle from '../../hocs/with-title.hoc';
+import themeSelectors from '../../libs/theme/selectors';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { getActivityCompatiblePaymentPacks } from '../../libs/payment-packs/selectors';
 import MetaActivityForm from '../../libs/meta-activity/components/MetaActivityForm.component';
@@ -112,6 +113,7 @@ export class MetaActivityFormPage extends Component<Props> {
       establishments={this.props.establishments}
       SCTs={this.props.SCTs}
       onSubmit={this.props.onSubmitMetaActivity}
+      is_broadcast_enabled={this.props.companyTheme.is_broadcast_enabled}
       metaActivityNames={this.props.metaActivityNames}
       initial={{ images: [] }}
     />
@@ -191,6 +193,7 @@ export default compose(
       ].map((ma) => ma.name),
       coaches: getActiveCoaches(state),
       upsertedMetaActivity: state.metaActivity.upsert.data,
+      companyTheme: themeSelectors.getTheme(state),
       compatiblePaymentPacks: {
         items: getActivityCompatiblePaymentPacks(state),
         count: state.paymentPack.byActivity.count,

@@ -93,6 +93,7 @@ export function MetaActivityForm(props: Props) {
         <div className={classes.field}>
           <CheckboxField
             name="is_broadcast"
+            disabled={!props.is_broadcast_enabled}
             label={t('activity.is_broadcast')}
           />
         </div>

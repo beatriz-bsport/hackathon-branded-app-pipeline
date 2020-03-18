@@ -23,6 +23,7 @@ import { getMetaActivity } from '../../libs/meta-activity/selectors';
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { fetchEstablishments } from '../../libs/establishment/actions';
+import themeSelectors from '../../libs/theme/selectors';
 import { getAllEstablishments } from '../../libs/establishment/selectors';
 import type { Establishment } from '../../libs/establishment/types';
 
@@ -93,6 +94,9 @@ export class MetaActivityFormPage extends Component<Props> {
               establishments={establishments}
               SCTs={SCTs}
               onSubmit={this.props.onSubmit}
+              is_broadcast_enabled={
+                this.props.companyTheme.is_broadcast_enabled
+              }
               onCancel={this.props.goToPreviousPage}
               initial={{ ...initialData, images: (initial || {}).images || [] }}
               imageUploader={id ? imageUploader : null}
@@ -113,6 +117,7 @@ export default compose(
       establishments: getAllEstablishments(state),
       SCTs: state.category.SCTs,
       loading: state.metaActivity.loading,
+      companyTheme: themeSelectors.getTheme(state),
     }),
     {
       fetchEstablishments,

@@ -10,6 +10,7 @@ import { goBack, push as routerPush } from 'react-router-redux';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { mapFormData, unmap } from '../form.utils';
+import themeSelectors from '../../libs/theme/selectors';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import {
   upsert,
@@ -76,6 +77,9 @@ export class WorkshopActivityEditPage extends React.Component<Props> {
             <MetaActivityForm
               variant="workshop"
               SCTs={SCTs}
+              is_broadcast_enabled={
+                this.props.companyTheme.is_broadcast_enabled
+              }
               onSubmit={this.props.onSubmit}
               onCancel={this.props.goToPreviousPage}
               metaActivityNames={[]}
@@ -95,6 +99,7 @@ export default compose(
   connect(
     (state, { id }) => ({
       initial: getWorkshop(state, id),
+      companyTheme: themeSelectors.getTheme(state),
       SCTs: state.category.SCTs,
       loading: state.workshopActivity.loading,
     }),

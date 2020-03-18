@@ -1,11 +1,17 @@
 // @flow
 import React from 'react';
-import { compose } from 'recompose';
+import { compose, withState } from 'recompose';
 
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import ReceiptIcon from '@material-ui/icons/Receipt';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogActions from '@material-ui/core/DialogActions';
+import Typography from '@material-ui/core/Typography';
+
 import { push } from 'react-router-redux';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -39,6 +45,12 @@ export class ConsumerSubscription extends React.Component<Props> {
     });
   };
 
+  selectSubscription = (id) => {
+    this.props.selectSubscription(
+      this.props.subscriptionList.find((sub) => sub.id === id),
+    );
+  };
+
   render() {
     return (
       <div className={this.props.classes.table}>
@@ -61,9 +73,34 @@ export class ConsumerSubscription extends React.Component<Props> {
           showOnlyCore
           subscriptionList={this.props.subscriptionList}
           loading={this.props.subscriptionLoading}
+          goToSubscription={this.selectSubscription}
           count={this.props.subscriptionCount}
           onPageChange={this.fetchSubscriptionList}
         />
+        <Dialog open={!!this.props.subscriptionSelected}>
+          {this.props.subscriptionSelected ? (
+            <DialogTitle>{this.props.subscriptionSelected.name}</DialogTitle>
+          ) : null}
+          <DialogContent>
+            {this.props.subscriptionSelected &&
+            this.props.subscriptionSelected.description ? (
+              <Typography>
+                {this.props.subscriptionSelected.description}
+              </Typography>
+            ) : null}
+            {this.props.subscriptionSelected &&
+            this.props.subscriptionSelected.legal_contract ? (
+              <Typography>
+                {this.props.subscriptionSelected.legal_contract}
+              </Typography>
+            ) : null}
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => this.props.selectSubscription(null)}>
+              {this.props.t('close')}
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }
@@ -86,6 +123,7 @@ const styles = (theme) => ({
 export default compose(
   withNamespaces(['consumerSpace']),
   withStyles(styles),
+  withState('subscriptionSelected', 'selectSubscription', null),
   connect(
     (state) => ({
       subscriptionList: getSubscriptionListByMember(state),

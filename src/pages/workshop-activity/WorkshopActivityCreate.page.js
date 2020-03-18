@@ -27,6 +27,7 @@ import {
 } from '../../libs/meta-activity/selectors';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import { createOffers as createOffersAPI } from '../../libs/meta-activity/api/meta-activity';
+import themeSelectors from '../../libs/theme/selectors';
 
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -105,6 +106,7 @@ export class WorkshopActivityFormPage extends Component<Props> {
   renderActivityStep = () => (
     <MetaActivityForm
       variant="workshop"
+      is_broadcast_enabled={this.props.companyTheme.is_broadcast_enabled}
       establishments={this.props.establishments}
       SCTs={this.props.SCTs}
       onSubmit={this.props.onSubmitWorkshopActivity}
@@ -191,6 +193,7 @@ export default compose(
       associatedCoaches: getActiveCoaches(state),
       establishments: getAllEstablishments(state),
       SCTs: state.category.SCTs,
+      companyTheme: themeSelectors.getTheme(state),
       loading: state.metaActivity.loading,
       metaActivityNames: [
         ...getEnabledMetaActivities(state),

@@ -53,7 +53,7 @@ export default compose(
       }
       const formData = mapFormData(values, MemberMap);
 
-      upsertMember(formData, {
+      upsertMember(values.id, formData, {
         ...options,
         onSuccess: () => {
           options.onSuccess();

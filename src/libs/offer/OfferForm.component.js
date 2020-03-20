@@ -238,7 +238,7 @@ export class OfferForm extends Component<Props, State> {
             </Grid>
             <Grid item className={classes.headlineElt}>
               <Typography variant="h5" color="primary">
-                {metaActivity.name}
+                {metaActivity ? metaActivity.name : ' - '}
               </Typography>
             </Grid>
           </Grid>

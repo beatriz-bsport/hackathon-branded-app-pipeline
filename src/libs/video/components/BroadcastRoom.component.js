@@ -21,6 +21,7 @@ type Props = {
   },
   classes: Object,
   date_start: string,
+  duration_minute: number,
 };
 
 const BRODCAST_PROVIDERS = {
@@ -28,29 +29,46 @@ const BRODCAST_PROVIDERS = {
   whereby: BroadcastRoomWhereby,
 };
 
+const MINUTES_BEFORE_START_ACTIVATED = 10;
+const MINUTES_AFTER_END_DEACTIVATED = 10;
+
 export class BroadcastRoom extends React.Component<Props> {
-  state = { hasStarted: false };
+  state = { hasStarted: false, minutesLeft: 0 };
 
   componentDidMount() {
     this.checkCountDown();
+    this.checker = setInterval(this.checkCountDown, 1000);
   }
 
   checkCountDown = () => {
+    if (!this.props.date_start) {
+      return;
+    }
+    this.setState({
+      minutesLeft:
+        1 +
+        moment.duration(
+          moment(this.props.date_start).diff(moment(), 'minutes'),
+        ),
+    });
+
     if (
-      this.props.date_start &&
-      (this.props.userType !== 'coach' &&
-        moment(this.props.date_start).isAfter(moment()))
+      moment(this.props.date_start)
+        .add(-MINUTES_BEFORE_START_ACTIVATED, 'minutes')
+        .isBefore(moment()) &&
+      moment(this.props.date_start)
+        .add(
+          this.props.duration_minute + MINUTES_AFTER_END_DEACTIVATED,
+          'minutes',
+        )
+        .isAfter(moment())
     ) {
-      setTimeout(this.checkCountDown, 1000);
-    } else {
       this.setState({ hasStarted: true });
     }
   };
 
   render() {
-    const minutesLeft =
-      1 +
-      moment.duration(moment(this.props.date_start).diff(moment(), 'minutes'));
+    const { minutesLeft } = this.state;
     if (this.state.hasStarted) {
       const BroadcastProvider =
         BRODCAST_PROVIDERS[this.props.broadcast_info.provider];
@@ -69,11 +87,20 @@ export class BroadcastRoom extends React.Component<Props> {
               <HourglassEmptyIcon style={{ height: '30vh', width: '30vh' }} />
               <div>
                 <Typography variant="subtitle">
-                  {minutesLeft < 0
-                    ? this.props.t('video.loadingSoon')
-                    : this.props.t('video.startingSoon', {
+                  {minutesLeft === 0 ? this.props.t('video.loadingSoon') : null}
+                  {minutesLeft +
+                    this.props.duration_minute +
+                    MINUTES_AFTER_END_DEACTIVATED <=
+                  0
+                    ? this.props.t('video.hasEnded', {
                         minutesLeft,
-                      })}
+                      })
+                    : null}
+                  {minutesLeft > 0
+                    ? this.props.t('video.startingSoon', {
+                        minutesLeft,
+                      })
+                    : null}
                 </Typography>
                 <Typography
                   className={this.props.classes.caption}

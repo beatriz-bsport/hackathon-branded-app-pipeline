@@ -4,7 +4,7 @@ import * as Sentry from '@sentry/browser';
 class SentryTestError extends Error {
   constructor(message) {
     super(message);
-    this.value = 'CustomSentryError';
+    this.value = 'CustomTestSentryError';
   }
 }
 

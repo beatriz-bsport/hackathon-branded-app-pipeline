@@ -1,6 +1,9 @@
 export default {
   video: {
+    redirectLink:
+      "Si vous n'êtes pas automatiquement redirigé, cliquez sur ce lien",
     startingSoon: 'Votre séance démarre dans {{ minutesLeft }} minutes',
+    hasEnded: 'Cette séance est terminée',
     isAutoRefresh: 'Cette page est mise à jour automatiquement',
     loadingSoon: 'En cours de chargement...',
     activateVideo: 'Lancer la diffusion',

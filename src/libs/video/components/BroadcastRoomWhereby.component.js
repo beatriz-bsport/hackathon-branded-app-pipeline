@@ -1,21 +1,36 @@
 // @flow
 import React from 'react';
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 
 type Props = {
+  t: TFunction,
   broadcast_info: {
     room: string,
     domain: string,
     provider: string,
   },
 };
-export const BroadcastRoomWhereby = (props: Props) => {
-  const url = `https://${props.broadcast_info.domain}/${props.broadcast_info.room}`;
-  window.open(url, '_blank');
-  return (
-    <a href={url}>
-      Si vous n'êtes pas automatiquement redirigé, cliquez sur ce lien
-    </a>
-  );
-};
+export class BroadcastRoomWhereby extends React.Component<Props> {
+  openLink = () => {
+    window.open(this.getRoomLink(), '_blank');
+  };
 
-export default BroadcastRoomWhereby;
+  getRoomLink = () => {
+    return `https://${this.props.broadcast_info.domain}/${this.props.broadcast_info.room}`;
+  };
+
+  componentDidMount() {
+    this.openLink();
+  }
+
+  render() {
+    return (
+      <a target="_blank" rel="noopener noreferrer" href={this.getRoomLink()}>
+        {this.props.t('video.redirectLink')}
+      </a>
+    );
+  }
+}
+
+export default withNamespaces(['offer'])(BroadcastRoomWhereby);

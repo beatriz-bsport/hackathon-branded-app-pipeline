@@ -126,7 +126,7 @@ export default compose(
 
       formData.append('id', dst);
 
-      upsertMember(formData, {
+      upsertMember(dst, formData, {
         ...options,
         onSuccess: () => {
           mergeMembers(src, dst, {

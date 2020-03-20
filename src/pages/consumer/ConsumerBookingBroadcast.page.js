@@ -1,10 +1,7 @@
 // @flow
 import React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { withNamespaces } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -16,7 +13,12 @@ import {
 import BroadcastRoom from '../../libs/video/components/BroadcastRoom.component';
 
 type Props = {
-  t: TFunction,
+  fetchBookingBroadcastRoom: (bookingId: number) => void,
+  fetchBookingBulk: (bookingId: number) => void,
+  membership: Membership,
+  broadcast_info: BroadcastInfo,
+  booking: Booking,
+  bookingId: number,
 };
 
 export class ConsumerBookingBroadcast extends React.Component<Props> {
@@ -40,6 +42,7 @@ export class ConsumerBookingBroadcast extends React.Component<Props> {
             offer={this.props.booking.offer}
             broadcast_info={this.props.broadcast_info}
             date_start={this.props.booking.offer_date_start}
+            duration_minute={this.props.booking.offer_duration_minute}
           />
         ) : (
           <LinearProgress />
@@ -49,13 +52,7 @@ export class ConsumerBookingBroadcast extends React.Component<Props> {
   }
 }
 
-const styles = (theme) => ({
-  container: {},
-});
-
 export default compose(
-  withNamespaces(),
-  withStyles(styles),
   routerParamsToProps({
     companyId: 'companyId:number',
     bookingId: 'bookingId:number',

@@ -105,8 +105,8 @@ function mapDispatchToProps(dispatch) {
     fetchMemberInitial(id) {
       dispatch(fetchMember(id));
     },
-    upsertMember(data, options) {
-      dispatch(createOrUpdateMember(data, options));
+    upsertMember(id, data, options) {
+      dispatch(createOrUpdateMember(id, data, options));
     },
     onCancel() {
       dispatch(goBack());
@@ -147,11 +147,11 @@ export default compose(
         formData.append('id', initial.id);
       }
 
-      upsertMember(formData, {
+      upsertMember(initial ? initial.id : null, formData, {
         ...options,
         onSuccess: () => {
-          if (formData.has('id')) {
-            goToMember(formData.get('id'));
+          if (initial && initial.id) {
+            goToMember(initial.id);
           } else {
             getLatestMember()
               .then((res) => goToMember(res.data))

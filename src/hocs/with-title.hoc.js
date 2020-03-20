@@ -20,10 +20,15 @@ export function windowTitleToProps(WrappedComponent) {
     };
 
     componentWillMount() {
-      const observer = new MutationObserver(this.changeTitle);
-      observer.observe(document.querySelector('title'), {
-        childList: true,
-      });
+      try {
+        const observer = new MutationObserver(this.changeTitle);
+        observer.observe(document.querySelector('title'), {
+          childList: true,
+        });
+      } catch (err) {
+        // because mutation observer are not really well implemented on all brosers
+        console.error(err);
+      }
     }
 
     render() {

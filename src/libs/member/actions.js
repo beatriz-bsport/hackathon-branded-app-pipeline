@@ -252,11 +252,15 @@ export function errorFetchingMember() {
   return { type: actionTypes.ERROR_FETCHING_MEMBER };
 }
 
-export function createOrUpdateMember(memberData: FormData, options) {
+export function createOrUpdateMember(
+  id: ?number,
+  memberData: FormData,
+  options,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(actionCreateOrUpdateMember(memberData));
 
-    const createOrUpdate = memberData.has('id') ? updateMember : addMember;
+    const createOrUpdate = id ? updateMember : addMember;
     try {
       const response = await createOrUpdate(memberData);
 
@@ -266,9 +270,7 @@ export function createOrUpdateMember(memberData: FormData, options) {
       dispatch(actionCreateOrUpdateMemberSuccess(response));
       dispatch(
         snackbarSuccess(
-          memberData.has('id')
-            ? 'member.forms.update.success'
-            : 'member.forms.create.success',
+          id ? 'member.forms.update.success' : 'member.forms.create.success',
         ),
       );
       if (options && options.onSuccess) options.onSuccess();

@@ -97,7 +97,8 @@ export default compose(
     }),
     {
       fetchMember: fetchMemberAction,
-      upsertMember: (data, options) => createOrUpdateMember(data, options),
+      upsertMember: (id, data, options) =>
+        createOrUpdateMember(id, data, options),
     },
   ),
   withState('editMember', 'setEditMember', false),
@@ -111,7 +112,7 @@ export default compose(
 
       formData.append('id', membership.id);
 
-      upsertMember(formData, {
+      upsertMember(membership.id, formData, {
         ...options,
         onSuccess: () => {
           fetchMember(membership.id);

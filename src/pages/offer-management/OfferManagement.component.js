@@ -105,7 +105,7 @@ type Props = {
   snackbarSuccess: (msg: string) => void,
   goToOffer: (id: number) => void,
   fetchCompatiblePacks: (offerId: number) => void,
-  createMember: (data: [*], options: *, offerId: number) => void,
+  createMember: (id: ?number, data: [*], options: *, offerId: number) => void,
   createInvoice: ([*], number, number) => void,
   resetQuickInvoices: () => void,
   createQuickUnevenInvoice: (
@@ -278,6 +278,7 @@ export class OfferManagement extends Component<Props, State> {
 
     const formData = mapFormData(data, MemberMap);
     this.props.createMember(
+      data.id,
       formData,
       {
         ...options,
@@ -599,6 +600,7 @@ export class OfferManagement extends Component<Props, State> {
         <BroadcastRoom
           userType="coach"
           date_start={this.props.offer.date_start}
+          duration_minute={this.props.offer.duration_minute}
           broadcast_info={this.props.offer.broadcast_info}
         />
       );

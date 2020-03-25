@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import HelpIcon from '@material-ui/icons/Help';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -88,6 +90,16 @@ export class BroadcastConfigurationForm extends Component<Props, State> {
         </div>
         <div className={classes.inputContainer}>
           <Typography>{this.props.t('broadcast.explainDisabled')}</Typography>
+          <IconButton
+            color="primary"
+            onClick={() => {
+              window.open(
+                'https://intercom.help/bsport-helpcenter/fr/articles/3830979',
+              );
+            }}
+          >
+            <HelpIcon />
+          </IconButton>
         </div>
         <div className={classes.buttonContainer}>
           <Button

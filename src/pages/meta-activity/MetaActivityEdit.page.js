@@ -94,9 +94,7 @@ export class MetaActivityFormPage extends Component<Props> {
               establishments={establishments}
               SCTs={SCTs}
               onSubmit={this.props.onSubmit}
-              is_broadcast_enabled={
-                this.props.companyTheme.is_broadcast_enabled
-              }
+              is_broadcast_enabled
               onCancel={this.props.goToPreviousPage}
               initial={{ ...initialData, images: (initial || {}).images || [] }}
               imageUploader={id ? imageUploader : null}

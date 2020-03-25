@@ -107,7 +107,7 @@ export class WorkshopActivityFormPage extends Component<Props> {
   renderActivityStep = () => (
     <MetaActivityForm
       variant="workshop"
-      is_broadcast_enabled={this.props.companyTheme.is_broadcast_enabled}
+      is_broadcast_enabled
       establishments={this.props.establishments}
       SCTs={this.props.SCTs}
       onSubmit={this.props.onSubmitWorkshopActivity}

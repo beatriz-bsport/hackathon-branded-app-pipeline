@@ -78,9 +78,7 @@ export class WorkshopActivityEditPage extends React.Component<Props> {
             <MetaActivityForm
               variant="workshop"
               SCTs={SCTs}
-              is_broadcast_enabled={
-                this.props.companyTheme.is_broadcast_enabled
-              }
+              is_broadcast_enabled
               onSubmit={this.props.onSubmit}
               onCancel={this.props.goToPreviousPage}
               metaActivityNames={[]}

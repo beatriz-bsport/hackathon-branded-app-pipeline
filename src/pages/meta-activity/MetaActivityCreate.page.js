@@ -113,7 +113,7 @@ export class MetaActivityFormPage extends Component<Props> {
       establishments={this.props.establishments}
       SCTs={this.props.SCTs}
       onSubmit={this.props.onSubmitMetaActivity}
-      is_broadcast_enabled={this.props.companyTheme.is_broadcast_enabled}
+      is_broadcast_enabled
       metaActivityNames={this.props.metaActivityNames}
       initial={{ images: [] }}
     />

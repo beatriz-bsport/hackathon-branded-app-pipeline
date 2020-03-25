@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import InfoIcon from '@material-ui/icons/Info';
 import CalendarIcon from '@material-ui/icons/Today';
+import TextField from '@material-ui/core/TextField';
 import DatePicker from 'material-ui-pickers/DatePicker';
 
 import AddIcon from '@material-ui/icons/Add';
@@ -98,6 +99,7 @@ export class OfferForm extends Component<Props, State> {
       recurrence: NOT_RECURRENT,
       date_interval_start: props.selectedDate ? props.selectedDate : Moment(),
       date_interval_end: props.selectedDate ? props.selectedDate : Moment(),
+      broadcast_link: '',
       hour: null,
       effectif: null,
       waiting_list_max_size: 0,
@@ -127,6 +129,7 @@ export class OfferForm extends Component<Props, State> {
       coach,
       credits,
       duration_minute,
+      broadcast_link,
     } = this.state;
 
     this.props.onSubmit({
@@ -138,6 +141,7 @@ export class OfferForm extends Component<Props, State> {
       level,
       credits,
       duration_minute,
+      broadcast_link,
     });
   };
 
@@ -285,6 +289,21 @@ export class OfferForm extends Component<Props, State> {
             placeholder={t('coach:search')}
           />
         </Grid>
+        {this.props.metaActivity &&
+        this.props.metaActivity.is_broadcast &&
+        !this.props.is_whereby_integration_enabled ? (
+          <Grid item>
+            <TextField
+              variant="outlined"
+              value={this.state.broadcast_link}
+              label={this.props.t('offer.broadcast_link')}
+              onChange={(event) =>
+                this.onFormFieldChange('broadcast_link')(event.target.value)
+              }
+              fullWidth
+            />
+          </Grid>
+        ) : null}
       </Grid>
     );
   };

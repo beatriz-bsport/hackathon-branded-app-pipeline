@@ -101,6 +101,10 @@ export class OfferFormPage extends Component<Props, State> {
               metaActivity={metaActivity}
               coaches={this.props.coaches}
               establishments={this.props.establishments}
+              is_whereby_integration_enabled={
+                this.props.theme &&
+                this.props.theme.is_whereby_integration_enabled
+              }
               processing={processing}
               error={error}
               onCancel={goBack}
@@ -120,6 +124,7 @@ export default withNamespaces()(
         ...getEnabledWorkshops(state),
       ],
       coaches: getActiveCoaches(state),
+      theme: state.theme.theme,
       establishments: getAllEstablishments(state),
       loading: state.metaActivity.loading,
     }),

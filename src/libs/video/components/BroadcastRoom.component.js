@@ -11,6 +11,7 @@ import type { TFunction } from 'react-i18next';
 
 import BroadcastRoomJitsi from './BroadcastJitsi.component';
 import BroadcastRoomWhereby from './BroadcastRoomWhereby.component';
+import BroadcastRoomCustom from './BroadcastRoomCustom.component';
 
 type Props = {
   t: TFunction,
@@ -27,9 +28,10 @@ type Props = {
 const BRODCAST_PROVIDERS = {
   jitsi: BroadcastRoomJitsi,
   whereby: BroadcastRoomWhereby,
+  custom: BroadcastRoomCustom,
 };
 
-const MINUTES_BEFORE_START_ACTIVATED = 10;
+const MINUTES_BEFORE_START_ACTIVATED = 15;
 const MINUTES_AFTER_END_DEACTIVATED = 10;
 
 export class BroadcastRoom extends React.Component<Props> {

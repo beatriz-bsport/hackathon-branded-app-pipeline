@@ -344,6 +344,10 @@ export class Planning extends PureComponent<Props, State> {
               offer={selectedOffer}
               coaches={coaches}
               establishments={establishments}
+              is_whereby_integration_enabled={
+                this.props.theme &&
+                this.props.theme.is_whereby_integration_enabled
+              }
               loading={coachesLoading || establishmentsLoading}
               onConfirm={this.onConfirmModal}
               onCancel={this.onCancelModal}
@@ -645,6 +649,7 @@ export default compose(
 
       establishments: getAllEstablishments(state),
       companyId: state.theme.theme.company,
+      theme: state.theme.theme,
       metaActivities: getEnabledMetaActivities(state),
       activitiesLoading: state.metaActivity.loading,
 

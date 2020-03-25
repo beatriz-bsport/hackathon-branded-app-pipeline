@@ -7,6 +7,7 @@ export default {
     paymentRules: 'Rates',
     notificationRule: 'Transactional emails',
     company: 'Company',
+    broadcast: 'Streaming',
     invoice: 'Billing',
     waitingList: 'Waiting-list',
     shop: 'Shop',
@@ -44,6 +45,16 @@ export default {
           'Are you sure you want to delete this webhook ? This is definitive',
       },
     },
+  },
+  broadcast: {
+    is_whereby_integration_enabled: {
+      label: 'Enable bsport X whereby intergration',
+    },
+    explainDisabled:
+      'Disabled: you manage the conference link (URL) yourself, and specify it for EACH class (via zoom, etc...).',
+    explainEnabled:
+      'Enabled : bsport manage your conference room, IMPOSSIBLE to have two class at the same time.',
+    submit: 'Save',
   },
   active_campaign: {
     submit: 'Submit',

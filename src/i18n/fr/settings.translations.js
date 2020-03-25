@@ -4,6 +4,7 @@ export default {
   pageTitle: 'Paramètres',
   tab: {
     general: 'Général',
+    broadcast: 'Visioconférence',
     notificationRule: 'Emails transactionnels',
     paymentRules: 'Règles de rémunération',
     company: 'Entreprise',
@@ -45,6 +46,16 @@ export default {
           'Etes vous sûr de vouloir supprimer ce webhook, cette opération est définitive',
       },
     },
+  },
+  broadcast: {
+    is_whereby_integration_enabled: {
+      label: "Activer l'intégration whereby X bsport",
+    },
+    explainDisabled:
+      'Désactivé : vous gérez vous-mêmes vos liens de visioconférence à configurer pour chaque séance (via zoom, etc...).',
+    explainEnabled:
+      "Activé : bsport gère vos salles de visioconférence, IMPOSSIBLE d'en réaliser deux en même temps.",
+    submit: 'Enregistrer',
   },
   active_campaign: {
     submit: 'Confirmer',

@@ -20,6 +20,7 @@ import CompanyDetailPage from './CompanyDetailPage.component';
 import RoleConfigurationPage from './RoleConfiguration.component';
 import InvoiceConfigurationPage from './InvoiceConfigurationPage.component';
 import WaitingListConfigurationPage from './WaitingListConfigurationPage.component';
+import BroadcastConfiguration from './BroadcastConfiguration.page';
 import ShopConfigurationPage from './ShopConfigurationPage.component';
 import ThemeConfigurationPage from './ThemeConfiguration.component';
 import SettingsPersonalizePage from './SettingsPersonalizePage.component';
@@ -53,6 +54,7 @@ export const Settings = (props: Props) => {
           <Tab label={t('tab.general')} value="general" />
           <Tab label={t('tab.role')} value="role" />
           <Tab label={t('tab.personalization')} value="personalization" />
+          <Tab label={t('tab.broadcast')} value="broadcast" />
           <Tab label={t('tab.notificationRule')} value="notification-rule" />
           <Tab label={t('tab.paymentRules')} value="payment-rules" />
           <Tab label={t('tab.company')} value="company" />
@@ -86,6 +88,11 @@ export const Settings = (props: Props) => {
           exact
           path="/settings/payment-rules"
           component={PaymentRuleSetsDashboard}
+        />
+        <Route
+          exact
+          path="/settings/broadcast"
+          component={BroadcastConfiguration}
         />
         <Route
           exact

@@ -17,7 +17,11 @@ export class BroadcastRoomWhereby extends React.Component<Props> {
   };
 
   getRoomLink = () => {
-    return `https://${this.props.broadcast_info.domain}/${this.props.broadcast_info.room}`;
+    if (!this.props.broadcast_info.room.toLowerCase().includes('http')) {
+      return `http://${this.props.broadcast_info.room}`;
+    }
+    return this.props.broadcast_info.room;
+    // return `https://${this.props.broadcast_info.domain}/${this.props.broadcast_info.room}`;
   };
 
   componentDidMount() {

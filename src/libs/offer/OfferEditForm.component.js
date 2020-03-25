@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 
+import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -69,6 +70,7 @@ const STEPS = {
 };
 
 const FIELDS = [
+  'broadcast_link',
   'establishment',
   'establishment_override',
   'coach',
@@ -110,6 +112,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
       step: STEPS.GATHER_INFO,
       modifyRecursively: false,
       notifyConsumers: false,
+      broadcast_link: props.offer.broadcast_link || '',
       establishment: props.offer.establishment.id,
       establishment_override: props.offer.establishment_override
         ? props.offer.establishment_override.id
@@ -466,6 +469,22 @@ export class EditLiveOfferForm extends Component<Props, State> {
           />
         </div>
       </div>
+      {this.props.offer &&
+      this.props.offer.meta_activity &&
+      this.props.offer.meta_activity.is_broadcast &&
+      !this.props.is_whereby_integration_enabled ? (
+        <div className={this.props.classes.fieldGroup}>
+          <TextField
+            variant="outlined"
+            value={this.state.broadcast_link}
+            label={this.props.t('offer.broadcast_link')}
+            onChange={(event) =>
+              this.onFormFieldChange('broadcast_link')(event.target.value)
+            }
+            fullWidth
+          />
+        </div>
+      ) : null}
       <div className={this.props.classes.fieldGroup}>
         <div className={this.props.classes.field}>
           <NotificationToogle

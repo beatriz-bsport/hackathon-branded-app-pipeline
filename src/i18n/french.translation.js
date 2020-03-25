@@ -276,6 +276,7 @@ export default {
       nonAttendant: 'absent(s)',
       maxBookingsNb: 'places',
       effectif: 'Effectif',
+      broadcast_link: 'Lien de la visioconférence',
       sizeOfWaitingList: "Taille de la liste d'attente",
       offersPendingChange: 'Séances qui seront modifiées :',
       offersPendingDelete: 'Séances qui seront suprimées :',

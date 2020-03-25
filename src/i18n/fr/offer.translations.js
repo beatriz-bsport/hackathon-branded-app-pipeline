@@ -1,10 +1,11 @@
 export default {
   video: {
     redirectLink:
-      "Si vous n'êtes pas automatiquement redirigé, cliquez sur ce lien",
+      "Si vous n'êtes pas automatiquement redirigé, utiliser ce lien :",
     startingSoon: 'Votre séance démarre dans {{ minutesLeft }} minutes',
     hasEnded: 'Cette séance est terminée',
-    isAutoRefresh: 'Cette page est mise à jour automatiquement',
+    isAutoRefresh:
+      'Vous serez redirigé automatiquement sur la visioconférence 15 minutes avant le début du cours',
     loadingSoon: 'En cours de chargement...',
     activateVideo: 'Lancer la diffusion',
   },

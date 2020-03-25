@@ -1,6 +1,13 @@
 export default {
   video: {
     startingSoon: 'Your session is starting in {{ minutesLeft }} minutes',
+    redirectLink:
+      'If you are not automatically redirected, please use this link',
+    hasEnded: 'This session has ended',
+    isAutoRefresh:
+      'You will be redirected to the video 10 min before the start of the class',
+    loadingSoon: 'Loading...',
+    activateVideo: 'Start broadcast',
   },
   disabled: 'Cancelled',
   credit_price: ' Credit',

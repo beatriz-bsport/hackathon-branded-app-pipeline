@@ -346,7 +346,8 @@ export class Planning extends PureComponent<Props, State> {
               establishments={establishments}
               is_whereby_integration_enabled={
                 this.props.theme &&
-                this.props.theme.is_whereby_integration_enabled
+                this.props.theme.is_whereby_integration_enabled &&
+                this.props.theme.is_whereby_integration_allowed
               }
               loading={coachesLoading || establishmentsLoading}
               onConfirm={this.onConfirmModal}

@@ -103,7 +103,8 @@ export class OfferFormPage extends Component<Props, State> {
               establishments={this.props.establishments}
               is_whereby_integration_enabled={
                 this.props.theme &&
-                this.props.theme.is_whereby_integration_enabled
+                this.props.theme.is_whereby_integration_enabled &&
+                this.props.theme.is_whereby_integration_allowed
               }
               processing={processing}
               error={error}

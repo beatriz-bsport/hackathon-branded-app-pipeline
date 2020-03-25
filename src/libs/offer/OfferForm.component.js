@@ -297,9 +297,14 @@ export class OfferForm extends Component<Props, State> {
               variant="outlined"
               value={this.state.broadcast_link}
               label={this.props.t('offer.broadcast_link')}
-              onChange={(event) =>
-                this.onFormFieldChange('broadcast_link')(event.target.value)
-              }
+              placeholder="https://zoom.us/123456789"
+              onChange={(event) => {
+                let r = event.target.value.match(
+                  /^(https?:\/\/)?(www\.)?(.*)$/,
+                );
+                r = (r[1] ? r[1] : 'http://') + (r[2] ? r[2] : '') + r[3];
+                this.onFormFieldChange('broadcast_link')(r);
+              }}
               fullWidth
             />
           </Grid>

@@ -351,7 +351,6 @@ export class SignUpForm extends Component<Props, State> {
             />
           </div>
         </div>
-        <div className={classes.row}>{this.renderRGPD()}</div>
         <div className={classes.row}>
           <FormGroup aria-label="privacy-policy" name="acceptPrivacyPolicy">
             <FormControlLabel

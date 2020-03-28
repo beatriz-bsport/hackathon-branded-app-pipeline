@@ -6,7 +6,10 @@ import memoize from 'memoize-one';
 import { Moment } from '../../i18n';
 
 import { getAllCoachesDict } from '../associated-coach/selectors';
-import { getMetaActivitiesDict } from '../meta-activity/selectors';
+import {
+  getMetaActivitiesDict,
+  getWorkshopActivitiesDict,
+} from '../meta-activity/selectors';
 import { getAllEstablishmentsDict } from '../establishment/selectors';
 
 const getState = (state: State) => state.offer;
@@ -42,18 +45,23 @@ export const _getSimilars = (state: State) => state.offer.similarOffers.items;
 
 export const withMetaActivity = memoize((selector: (State) => any) =>
   createSelector(
-    [selector, getMetaActivitiesDict],
-    (offers, metaActivityData) => {
+    [selector, getMetaActivitiesDict, getWorkshopActivitiesDict],
+    (offers, metaActivityData, workshopData) => {
       if (!offers) return null;
       if (!Array.isArray(offers)) {
         return {
           ...offers,
-          meta_activity: metaActivityData[offers.meta_activity],
+          meta_activity:
+            metaActivityData[offers.meta_activity] ||
+            workshopData[offers.meta_activity],
         };
       }
       return offers.map((o) => ({
         ...o,
-        meta_activity: metaActivityData[o.meta_activity] || o.meta_activity,
+        meta_activity:
+          metaActivityData[o.meta_activity] ||
+          workshopData[o.meta_activity] ||
+          o.meta_activity,
       }));
     },
   ),

@@ -380,6 +380,11 @@ export class Planning extends PureComponent<Props, State> {
             onSubmit={this.createOffers}
             onCancel={this.closeCreateOffersModal}
             processing={creatingOffers}
+            is_whereby_integration_enabled={
+              this.props.theme &&
+              this.props.theme.is_whereby_integration_enabled &&
+              this.props.theme.is_whereby_integration_allowed
+            }
           />
         </DialogContent>
       </Dialog>

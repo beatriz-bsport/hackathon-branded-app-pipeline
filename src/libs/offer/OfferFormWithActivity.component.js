@@ -102,6 +102,9 @@ export class OfferFormWithActivity extends Component<Props, State> {
         onSubmit={this.onSubmit}
         onCancel={onCancel}
         processing={processing}
+        is_whereby_integration_enabled={
+          this.props.is_whereby_integration_enabled
+        }
       />
     );
   }

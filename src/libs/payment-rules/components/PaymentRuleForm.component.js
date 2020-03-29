@@ -48,6 +48,7 @@ export function PaymentRuleFields(props: Props) {
   return (
     <div>
       <TextField name="name" label={t('name')} required fullWidth />
+      <CheckboxField name="only_attendant" label={t('only_attendant')} />
       <div className={classes.calculation_method}>
         <RadioGroupField
           name="calculation_method"
@@ -86,7 +87,6 @@ export function PaymentRuleFields(props: Props) {
             required
             fullWidth
           />
-          <CheckboxField name="only_attendant" label={t('only_attendant')} />
 
           <Typography variant="subtitle2">{t('rules')}</Typography>
           <FieldArray name="bonuses">

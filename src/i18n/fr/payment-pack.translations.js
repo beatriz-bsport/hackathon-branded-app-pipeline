@@ -92,19 +92,24 @@ export default {
 
       name: {
         label: 'Nom',
-        helperText: "Nom de la carte de cours",
+        helperText: 'Nom de la carte de cours',
       },
       tax: {
         label: 'TVA',
       },
       priceIncludingTax: {
-        helperText: "Prix pour le client pour la carte",
+        helperText: 'Prix pour le client pour la carte',
         label: 'Prix TTC',
+      },
+      unlimited: 'Crédits illimités',
+      theoricalMarginValue: {
+        label: 'Apport marginal théorique (carte illimité seulement)',
+        helperText:
+          "Utilisée pour calculer la rémunération des professeurs, 10€ signifie qu'une réservation faite avec cette carte est rémunérée 10€. Si vide l'apport d'une carte sera PRIX/NB_RESERVATION",
       },
       credits: {
         label: 'Crédit',
-        helperText:
-          'Nombre de crédits disponibles, laisser vide pour le rendre illimité',
+        helperText: 'Nombre de crédits disponibles',
       },
       maxBookingPerWeek: {
         label: 'Utilisation max par semaine',
@@ -137,14 +142,14 @@ export default {
         on_booking: 'Débute à la 1ère réservation',
         on_attendance: 'Débute à la 1ère présence',
       },
-      timeSettingsTitle: "Validité de la carte",
+      timeSettingsTitle: 'Validité de la carte',
       generalSettingsTitle: 'Général',
       validByDuration: 'Carte valide N jours après achat',
       validByDaterange: 'Carte valide sur un créneau de date précis',
       durationDays: {
         label: 'Durée de validité (jours) si applicable',
         helperText:
-          "Période en jours pour laquelle la carte sera valide après achat ",
+          'Période en jours pour laquelle la carte sera valide après achat ',
       },
       durationMonths: {
         label: 'Durée de validité (mois) si applicable',
@@ -169,7 +174,7 @@ export default {
         error: "Carte de cours: erreur lors de l'opération",
       },
       delete: {
-        title: "Suppression de la carte:",
+        title: 'Suppression de la carte:',
         askConfirmation:
           "Attention ! Cette opération est définitive. La carte ne sera plus visible et deviendra indisponible à l'achat.",
         thereAreConsumers:
@@ -194,9 +199,14 @@ export default {
   subscribeToOffer: 'Inscrire',
   use: 'Utiliser',
   createOrUpdate: {
-    success: 'enregistré',
+    success: 'Carte de cours enregistrée',
     fail: "Erreur lors de l'enregistrement de la carte",
   },
+  paymentPackDisabled: {
+    success: 'Carte de cours supprimée',
+    error: 'Impossible de supprimer',
+  },
+
   disabled: 'Désactivé',
   disableConsumer: 'Bloquer',
   enableConsumer: 'Débloquer',
@@ -220,7 +230,7 @@ export default {
   validTo: ' au ',
   bookingsLeftThisWeek: 'Réservation max par semaine',
   // eslint-disable-next-line
-  addButton: "Créer une carte",
+  addButton: 'Créer une carte',
   noPaymentPackSubscribed: 'Aucun abonnement',
   // eslint-disable-next-line
   validUntil: "Valide jusqu'au",

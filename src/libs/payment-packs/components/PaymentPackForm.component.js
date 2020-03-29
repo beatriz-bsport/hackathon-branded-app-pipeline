@@ -35,6 +35,7 @@ import {
   Actions,
   Submit,
   SwitchField,
+  CheckboxField,
 } from '../../../components/forms';
 
 type Props = {
@@ -72,7 +73,7 @@ export function PaymentPackForm(props: Props) {
     initial,
     classes,
   } = props;
-  const { manager_only, start_date_method, timeType } = values;
+  const { manager_only, unlimited, start_date_method, timeType } = values;
   return (
     <div>
       <Form className={classes.content}>
@@ -109,13 +110,30 @@ export function PaymentPackForm(props: Props) {
               }}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={6}>
             <TextField
               name="credits"
               label={t('form.paymentPack.credits.label')}
               type="number"
               fullWidth
+              disabled={unlimited}
               helperText={t('form.paymentPack.credits.helperText')}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <CheckboxField
+              name="unlimited"
+              label={t('form.paymentPack.unlimited')}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <PriceField
+              name="theorical_margin_value"
+              label={t('form.paymentPack.theoricalMarginValue.label')}
+              type="number"
+              fullWidth
+              disabled={!unlimited}
+              helperText={t('form.paymentPack.theoricalMarginValue.helperText')}
             />
           </Grid>
         </Grid>
@@ -314,6 +332,8 @@ const PackSchema = Yup.object().shape({
     .nullable(),
   timeType: Yup.string().required(),
   expiration_days_before_first_use: Yup.number(),
+  unlimited: Yup.boolean(),
+  theorical_margin_value: Yup.number(),
   start_date_method: Yup.number().required(),
   duration_days: Yup.number().when('timeType', {
     is: VALID_BY_DURATION,
@@ -366,7 +386,10 @@ const PackSchema = Yup.object().shape({
 const styles = (theme) => ({
   content: { padding: theme.spacing.unit * 2, paddingBottom: 0 },
   legend: { margin: 0 },
-  fieldset: { marginBottom: theme.spacing.unit * 2 },
+  fieldset: {
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit,
+  },
 });
 
 export default compose(
@@ -392,6 +415,8 @@ export default compose(
           onsite_payment_available: false,
           start_date_method: `${START_ON_FIRST_BOOKING}`,
           expiration_days_before_first_use: 365,
+          unlimited: true,
+          theorical_margin_value: 0,
           categories: [],
           metaActivities: [],
           establishments: [],
@@ -419,6 +444,8 @@ export default compose(
         'name',
         'price',
         'tax',
+        'theorical_margin_value',
+        'unlimited',
         'credits',
         'max_bookings_per_week',
         'id',

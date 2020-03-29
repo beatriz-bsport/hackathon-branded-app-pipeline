@@ -117,6 +117,12 @@ export default {
         helperText: 'Booking quota per week, empty means no limit',
         label: 'Max usage per week',
       },
+      unlimited: 'Unlimited credits',
+      theoricalMarginValue: {
+        label: 'Theorical margin value (only unlimited pass)',
+        helperText:
+"Used to compute the payroll of teachers. 10€ means 1 booking made via this pass is payed 10€ to the teacher. If empty the margin value will be PRICE/NB_BOOKING",
+      },
 
       expirationDaysBeforeFirstUse: {
         label: 'Expiration if no booking made',

@@ -65,17 +65,12 @@ export function patch(id: number, data: [*]) {
 
     try {
       const response = await patchAPI(id, data);
-      if (response.status === 200) {
-        dispatch(patchedPack(response.data));
-        dispatch(snackbarSuccess('form.paymentPack.update.success'));
-      } else {
-        dispatch(errorPatchingPack(id));
-        dispatch(snackbarError('form.paymentPack.update.error'));
-      }
+      dispatch(patchedPack(response.data));
+      dispatch(snackbarSuccess('paymentPack.paymentPackDisabled.success'));
     } catch (err) {
       console.error(err);
       dispatch(errorPatchingPack(id));
-      dispatch(snackbarError('form.paymentPack.update.error'));
+      dispatch(snackbarError('paymentPack.paymentPackDisabled.error'));
     }
   };
 }

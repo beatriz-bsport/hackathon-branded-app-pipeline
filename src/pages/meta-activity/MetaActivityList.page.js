@@ -20,7 +20,7 @@ import { getPageEnabledMetaActivities } from '../../libs/meta-activity/selectors
 import {
   deleteMetaActivity,
   fetchAllActivities as fetchAllMetactivities,
-} from '../../libs/meta-activity/actions/meta-activity.actions';
+} from '../../libs/meta-activity/actions';
 import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '../../libs/meta-activity/api/common';
 
 import type { MetaActivity } from '../../api/types';

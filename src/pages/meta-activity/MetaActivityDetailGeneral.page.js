@@ -14,7 +14,7 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import MetaActivityDetail from '../../libs/meta-activity/components/MetaActivityDetail.component';
 import MetaActivityDeleteDialog from '../../libs/meta-activity/components/MetaActivityDeleteDialog.component';
-import { deleteMetaActivity } from '../../libs/meta-activity/actions/meta-activity.actions';
+import { deleteMetaActivity } from '../../libs/meta-activity/actions';
 import { getMetaActivity } from '../../libs/meta-activity/selectors';
 import {
   getEventsByMetaActivity,

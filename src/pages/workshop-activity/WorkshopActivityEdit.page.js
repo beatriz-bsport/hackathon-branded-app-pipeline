@@ -14,10 +14,10 @@ import themeSelectors from '../../libs/theme/selectors';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import {
   upsert,
-  addImageToWorkshop,
+  addImageToMetaActivity as addImageToWorkshop,
   removeImageFromWorkshop,
   fetchAll as fetchAllWorkshops,
-} from '../../libs/meta-activity/actions/workshop-activity.actions';
+} from '../../libs/meta-activity/actions';
 import { getWorkshop } from '../../libs/meta-activity/selectors';
 
 import withTitle from '../../hocs/with-title.hoc';
@@ -100,7 +100,7 @@ export default compose(
       initial: getWorkshop(state, id),
       companyTheme: themeSelectors.getTheme(state),
       SCTs: state.category.SCTs,
-      loading: state.workshopActivity.loading,
+      loading: state.metaActivity.loading,
     }),
     {
       upsertWorkshopActivity: upsert,

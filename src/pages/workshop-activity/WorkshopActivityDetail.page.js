@@ -17,7 +17,7 @@ import WorkshopActivityDetailPack from './WorkshopActivityDetailPack.page';
 import WorkshopActivityDetailGeneral from './WorkshopActivityDetailGeneral.page';
 
 import { getWorkshops } from '../../libs/meta-activity/selectors';
-import { fetchAll as fetchAllWorkshops } from '../../libs/meta-activity/actions/workshop-activity.actions';
+import { fetchAll as fetchAllWorkshops } from '../../libs/meta-activity/actions';
 
 type Props = {
   t: TFunction,

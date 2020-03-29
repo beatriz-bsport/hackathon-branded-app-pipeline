@@ -41,7 +41,7 @@ import type { Membership } from '../../libs/membership/types';
 
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
 import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
-import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions/common';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
 
 import CongratulationDialog from './CongratulationDialog.component';
 

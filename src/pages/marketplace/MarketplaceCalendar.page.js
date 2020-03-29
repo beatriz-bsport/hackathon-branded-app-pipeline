@@ -50,7 +50,7 @@ import {
 } from '../../libs/offer/selectors';
 import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
-import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions/common';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
 
 import withTitle from '../../hocs/with-title.hoc';
 

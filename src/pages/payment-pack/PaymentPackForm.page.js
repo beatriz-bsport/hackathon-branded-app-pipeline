@@ -20,8 +20,10 @@ import {
   getEnabledMetaActivities,
   getEnabledWorkshops,
 } from '../../libs/meta-activity/selectors';
-import { fetchAllActivities } from '../../libs/meta-activity/actions/meta-activity.actions';
-import { fetchAll as fetchWorkhops } from '../../libs/meta-activity/actions/workshop-activity.actions';
+import {
+  fetchAllActivities,
+  fetchAll as fetchWorkhops,
+} from '../../libs/meta-activity/actions';
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import { getAllEstablishments } from '../../libs/establishment/selectors';
 import type { Establishment } from '../../libs/establishment/types';

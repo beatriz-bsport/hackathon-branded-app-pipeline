@@ -14,7 +14,7 @@ import { snackbarSuccess as snackbarSuccessAction } from '../../actions/snackbar
 import { consumerPayWithConsumerPaymentPack as payWithConsumerPaymentPackAPI } from '../../api/payment';
 import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
-import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions/common';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
 import * as paymentActions from '../../actions/payment.actions';
 import MarketplaceWorkshop from '../../libs/marketplace/components/MarketplaceWorkshop.component';
 

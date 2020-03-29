@@ -23,7 +23,7 @@ import WorkshopDeleteDialog from '../../libs/meta-activity/components/WorkshopDe
 import {
   deleteWorkshop,
   fetchAll as fetchAllWorkshops,
-} from '../../libs/meta-activity/actions/workshop-activity.actions';
+} from '../../libs/meta-activity/actions';
 import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '../../libs/meta-activity/api/common';
 
 type Props = {
@@ -150,7 +150,7 @@ export default compose(
   connect(
     (state) => ({
       workshopActivities: getEnabledWorkshops(state),
-      loading: state.workshopActivity.loading || state.metaActivity.loading,
+      loading: state.metaActivity.loading,
     }),
     {
       fetchAllWorkshops,

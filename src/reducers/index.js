@@ -16,8 +16,7 @@ import companiesReducers from './companies.reducers';
 import establishmentReducers from '../libs/establishment/reducers';
 import shopReducer from '../libs/shop/reducers';
 import paymentRulesReducer from '../libs/payment-rules/reducers';
-import workshopActivityReducer from '../libs/meta-activity/reducers/workshop-activity';
-import metaActivityReducers from '../libs/meta-activity/reducers/meta-activity';
+import metaActivityReducers from '../libs/meta-activity/reducers';
 import subscriptionReducer from '../libs/subscription/reducers';
 import alertingReducer from '../libs/alerting/reducers';
 import memberReducer from '../libs/member/reducers';
@@ -77,7 +76,6 @@ const rootReducer = combineReducers({
   search: searchReducer,
   companies: companiesReducers,
   shop: shopReducer,
-  workshopActivity: workshopActivityReducer,
   subscription: subscriptionReducer,
   alerting: alertingReducer,
   tag: tagReducers,

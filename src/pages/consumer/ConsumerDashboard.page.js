@@ -39,7 +39,7 @@ import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-co
 import {
   fetchMetaActivityFavorite,
   fetchMetaActivityBulk as fetchMetaActivityBulkAction,
-} from '../../libs/meta-activity/actions/common';
+} from '../../libs/meta-activity/actions';
 import {
   getConsumerDasboardBookingList,
   withOfferFull,

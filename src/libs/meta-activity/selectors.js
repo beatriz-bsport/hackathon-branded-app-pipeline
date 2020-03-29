@@ -1,11 +1,17 @@
 // @flow
 import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
+import pickBy from 'lodash/pickBy';
 import type { State } from '../../state/types';
 import type { MetaActivity } from './types';
 
-export const getMetaActivitiesDict = (state: State): Array<MetaActivity> =>
+const getMetaActivityAbstractDict = (state: State): Array<MetaActivity> =>
   state.metaActivity.byId;
+
+export const getMetaActivitiesDict = createSelector(
+  getMetaActivityAbstractDict,
+  (data) => pickBy(data, (v, id) => !v.is_workshop),
+);
 
 export const getMetaActivitiesIdList = (state: State): Array<MetaActivity> =>
   state.metaActivity.allIds;
@@ -28,23 +34,28 @@ export const getEnabledMetaActivities = createSelector(
 
 export const getPageMetaActivities = createSelector(
   [getMetaActivitiesIdList, getMetaActivitiesDict],
-  (idList, metaActivities) => idList.map((id) => metaActivities[id]),
+  (idList, metaActivities) =>
+    idList.map((id) => metaActivities[id]).filter((ma) => !!ma),
 );
 
 export const getPageEnabledMetaActivities = createSelector(
   getPageMetaActivities,
-  (metactivities) => metactivities.filter((ma) => !!ma.customer_enabled),
+  (metactivities) => {
+    return metactivities.filter((ma) => !!ma.customer_enabled);
+  },
 );
 
 // WORKSHOP
 // --------
 
-export const getWorkshopActivitiesDict = (state: State): Array<MetaActivity> =>
-  state.workshopActivity.byId;
+export const getWorkshopActivitiesDict = createSelector(
+  getMetaActivityAbstractDict,
+  (data) => pickBy(data, (v, id) => v.is_workshop),
+);
 
 export const getWorkshopActivitiesIdList = (
   state: State,
-): Array<MetaActivity> => state.workshopActivity.allIds;
+): Array<MetaActivity> => state.metaActivity.allIds;
 
 export const getWorkshops = createSelector(
   getWorkshopActivitiesDict,
@@ -52,7 +63,7 @@ export const getWorkshops = createSelector(
 );
 
 export const getWorkshop = (state: State, id: number): MetaActivity =>
-  state.workshopActivity.byId[id];
+  state.metaActivity.byId[id];
 
 export const getEnabledWorkshops = createSelector(
   getWorkshops,

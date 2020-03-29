@@ -22,7 +22,7 @@ import { getAllEstablishments } from '../../libs/establishment/selectors';
 
 import { getMetaActivities } from '../../libs/meta-activity/selectors';
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
-import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions/common';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
 import MarketplacePassList from '../../libs/marketplace/components/MarketplacePassList.component';
 import MarketplacePrivatePassList from '../../libs/marketplace/components/MarketplacePrivatePassList.component';
 import MarketplacePaymentComboList from '../../libs/marketplace/components/MarketplacePaymentComboList.component';

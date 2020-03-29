@@ -45,8 +45,10 @@ import type { MetaActivity } from '../../api/types';
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { fetchEstablishments } from '../../libs/establishment/actions';
-import { fetchAllActivities } from '../../libs/meta-activity/actions/meta-activity.actions';
-import { fetchAll as fetchAllWorkshops } from '../../libs/meta-activity/actions/workshop-activity.actions';
+import {
+  fetchAllActivities,
+  fetchAll as fetchAllWorkshops,
+} from '../../libs/meta-activity/actions';
 import {
   getMetaActivities,
   getWorkshops,

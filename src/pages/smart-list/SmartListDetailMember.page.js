@@ -50,8 +50,10 @@ import {
 import { fetchPrivatePassList } from '../../libs/private-service/actions';
 import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
 import { getMetaActivities } from '../../libs/meta-activity/selectors';
-import { fetchAllActivities as fetchAllActivitiesAction } from '../../libs/meta-activity/actions/meta-activity.actions';
-import { fetchMetaActivityBulk } from '../../libs/meta-activity/actions/common';
+import {
+  fetchAllActivities as fetchAllActivitiesAction,
+  fetchMetaActivityBulk,
+} from '../../libs/meta-activity/actions';
 import { fetchTags } from '../../libs/tag/actions';
 import tagSelectors from '../../libs/tag/selectors';
 

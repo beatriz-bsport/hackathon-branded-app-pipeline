@@ -20,7 +20,7 @@ import {
   createOrUpdate as createOrUpdatePaymentPack,
 } from '../../libs/payment-packs/actions';
 import { mapFormData } from '../form.utils';
-import { upsert } from '../../libs/meta-activity/actions/workshop-activity.actions';
+import { upsert } from '../../libs/meta-activity/actions';
 import {
   getEnabledMetaActivities,
   getEnabledWorkshops,
@@ -204,7 +204,7 @@ export default compose(
         ...getEnabledMetaActivities(state),
         ...getEnabledWorkshops(state),
       ],
-      upsertedWorkshop: state.workshopActivity.upsert.data,
+      upsertedWorkshop: state.metaActivity.upsert.data,
     }),
     {
       upsertWorkshopActivity: upsert,

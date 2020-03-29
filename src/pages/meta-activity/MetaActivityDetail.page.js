@@ -17,7 +17,7 @@ import MetaActivityDetailPack from './MetaActivityDetailPack.page';
 import MetaActivityDetailGeneral from './MetaActivityDetailGeneral.page';
 
 import { getMetaActivity } from '../../libs/meta-activity/selectors';
-import { fetchMetaActivityDetails } from '../../libs/meta-activity/actions/meta-activity.actions';
+import { fetchMetaActivityDetails } from '../../libs/meta-activity/actions';
 
 type Props = {
   t: TFunction,

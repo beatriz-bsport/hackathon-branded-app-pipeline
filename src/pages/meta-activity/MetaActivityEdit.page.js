@@ -17,7 +17,7 @@ import {
   addImageToMetaActivity,
   removeImageFromMetaActivity,
   fetchMetaActivityDetails,
-} from '../../libs/meta-activity/actions/meta-activity.actions';
+} from '../../libs/meta-activity/actions';
 import { getMetaActivity } from '../../libs/meta-activity/selectors';
 
 import withTitle from '../../hocs/with-title.hoc';

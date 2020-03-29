@@ -16,7 +16,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import { fetchAllOffers as fetchAllOffersAction } from '../../libs/offer/actions';
 import { mapFormData } from '../form.utils';
-import { upsert } from '../../libs/meta-activity/actions/meta-activity.actions';
+import { upsert } from '../../libs/meta-activity/actions';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import { createOffers as createOffersAPI } from '../../libs/meta-activity/api/meta-activity';
 import {

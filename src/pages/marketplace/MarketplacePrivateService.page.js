@@ -19,7 +19,7 @@ import { getPrivateServicesForMarketplace } from '../../libs/private-service/sel
 import SlotSearcher from '../../libs/private-service/components/booking-module/SlotSearcher.component';
 import SlotSearcherHelper from '../../libs/private-service/components/booking-module/SlotSearcherHelper.component';
 import type { PrivateService } from '../../libs/private-service/types';
-import { fetchCompanyActivities } from '../../libs/meta-activity/actions/meta-activity.actions';
+import { fetchCompanyActivities } from '../../libs/meta-activity/actions';
 import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
 import { fetchEstablishments } from '../../libs/establishment/actions';
 

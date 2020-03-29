@@ -33,7 +33,7 @@ import Calendar from '../../components/offer/Calendar.component';
 import { getPermissions } from '../../libs/role/selectors';
 import { getEnabledMetaActivities } from '../../libs/meta-activity/selectors';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
-import { fetchAllActivities } from '../../libs/meta-activity/actions/meta-activity.actions';
+import { fetchAllActivities } from '../../libs/meta-activity/actions';
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import { getAllEstablishments } from '../../libs/establishment/selectors';
 import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';

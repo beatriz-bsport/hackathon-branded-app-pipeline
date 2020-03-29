@@ -27,7 +27,7 @@ import {
   fetchOffersByDay as fetchOffersByDayAction,
   fetchMetaActivityOffers as fetchMetaActivityOffersAction,
 } from '../../libs/offer/actions';
-import { deleteWorkshop } from '../../libs/meta-activity/actions/workshop-activity.actions';
+import { deleteWorkshop } from '../../libs/meta-activity/actions';
 import { checkCanDeleteMetaActivity as canDeleteWorkshopAPI } from '../../libs/meta-activity/api/common';
 
 type Props = {

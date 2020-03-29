@@ -8,7 +8,7 @@ import Paper from '@material-ui/core/Paper';
 
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import { compose, withState } from 'recompose';
+import { compose, withHandlers, withState } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import withTitle from '../../hocs/with-title.hoc';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
@@ -22,7 +22,8 @@ import MetaActivityList from '../../libs/meta-activity/components/MetaActivityLi
 import WorkshopDeleteDialog from '../../libs/meta-activity/components/WorkshopDeleteDialog.component';
 import {
   deleteWorkshop,
-  fetchAll as fetchAllWorkshops,
+  fetchAll as fetchAllWorkshopsAction,
+  makeActivityCopy as makeActivityCopyAction,
 } from '../../libs/meta-activity/actions';
 import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '../../libs/meta-activity/api/common';
 
@@ -109,6 +110,7 @@ export class WorkshopActivityList extends React.Component<Props> {
           goToDetail={this.props.goToDetail}
           goToEdit={this.props.goToEdit}
           deleteMetaActivity={this.props.setWorkshopToDelete}
+          makeActivityCopy={this.props.makeActivityCopy}
         />
         <WorkshopDeleteDialog
           workshopId={this.props.workshopToDelete}
@@ -153,7 +155,8 @@ export default compose(
       loading: state.metaActivity.loading,
     }),
     {
-      fetchAllWorkshops,
+      fetchAllWorkshops: fetchAllWorkshopsAction,
+      makeActivityCopy: makeActivityCopyAction,
       onCreate: () => push('/workshop-activity/add'),
       deleteWorkshop,
       goToDetail: (metaActivityId) =>
@@ -162,5 +165,13 @@ export default compose(
         push(`/workshop-activity/${metaActivityId}/edit`),
     },
   ),
+  withHandlers({
+    makeActivityCopy: ({ makeActivityCopy, fetchAllWorkshops }) => (
+      id,
+      suffix,
+    ) => {
+      makeActivityCopy(id, suffix, { onSuccess: fetchAllWorkshops });
+    },
+  }),
   withState('workshopToDelete', 'setWorkshopToDelete', null),
 )(WorkshopActivityList);

@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { compose, withState } from 'recompose';
+import { compose, withHandlers, withState } from 'recompose';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -20,6 +20,7 @@ import { getPageEnabledMetaActivities } from '../../libs/meta-activity/selectors
 import {
   deleteMetaActivity,
   fetchAllActivities as fetchAllMetactivities,
+  makeActivityCopy as makeActivityCopyAction,
 } from '../../libs/meta-activity/actions';
 import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '../../libs/meta-activity/api/common';
 
@@ -109,6 +110,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
           goToDetail={this.props.goToDetail}
           goToEdit={this.props.goToEdit}
           deleteMetaActivity={this.props.setActivityToDelete}
+          makeActivityCopy={this.props.makeActivityCopy}
         />
         <MetaActivityDeleteDialog
           metaActivityId={this.props.activityToDelete}
@@ -155,6 +157,7 @@ export default compose(
       loading: state.metaActivity.loading || state.metaActivity.delete.loading,
     }),
     {
+      makeActivityCopy: makeActivityCopyAction,
       fetchAllMetactivities,
       goToDetail: (metaActivityId) =>
         push(`/activity/${metaActivityId}/general`),
@@ -163,5 +166,13 @@ export default compose(
       onCreate: () => push('/activity/add'),
     },
   ),
+  withHandlers({
+    makeActivityCopy: ({ makeActivityCopy, fetchAllMetactivities }) => (
+      id,
+      suffix,
+    ) => {
+      makeActivityCopy(id, suffix, { onSuccess: fetchAllMetactivities });
+    },
+  }),
   withState('activityToDelete', 'setActivityToDelete', null),
 )(MetaActivityListPage);

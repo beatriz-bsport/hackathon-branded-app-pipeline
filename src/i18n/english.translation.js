@@ -156,6 +156,7 @@ export default {
     },
     common: {
       isRefreshing: 'Your interface will be ready in an instant',
+      copySuffix: ' (Copy)',
       items: 'items',
       level: 'Level',
       activePass: 'active pass',

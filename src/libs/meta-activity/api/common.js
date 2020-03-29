@@ -39,6 +39,10 @@ export async function fetchMetaActivityFavorite(company: number) {
   );
 }
 
+export async function makeActivityCopy(id: number, suffix: string) {
+  return postAuth(`${API_V1_URI}/meta-activity/${id}/copy/`, { suffix });
+}
+
 export default {
   fetchAllActivities,
   fetchMetaActivityDetails,

@@ -11,6 +11,11 @@ type Props = {
   metaActivities: Array<MetaActivity>,
   goToEdit: (metaActivityId: number) => void,
   goToDetail: (metaActivityId: number) => void,
+  makeActivityCopy: (
+    id: number,
+    suffix: string,
+    options: OptionCallback,
+  ) => void,
   deleteMetaActivity: (metaActivityId: number) => void,
 };
 
@@ -26,6 +31,7 @@ export default function MetaActivityList(props: Props) {
             metaActivity={ma}
             goToEdit={goToEdit}
             onClick={(metaActivity) => goToDetail(metaActivity.id)}
+            onClickCopy={props.makeActivityCopy}
             deleteMetaActivity={() => props.deleteMetaActivity(ma.id)}
           />
         ))}

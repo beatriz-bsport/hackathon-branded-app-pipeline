@@ -9,6 +9,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 import Avatar from '@material-ui/core/Avatar';
 import ClearIcon from '@material-ui/icons/Clear';
 import Typography from '@material-ui/core/Typography';
@@ -75,6 +76,16 @@ export function MetaActivityListItem(props: Props) {
         }
       />
       <ListItemSecondaryAction>
+        {props.onClickCopy ? (
+          <IconButton
+            color="primary"
+            onClick={() =>
+              props.onClickCopy(metaActivity.id, t('common.copySuffix'))
+            }
+          >
+            <FileCopyIcon />
+          </IconButton>
+        ) : null}
         {props.goToEdit ? (
           <IconButton
             aria-label={t('common.edit')}

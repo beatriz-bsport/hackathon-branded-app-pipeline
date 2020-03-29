@@ -184,6 +184,7 @@ export default {
     },
     common: {
       isRefreshing: "Votre interface sera prête d'ici un petit instant",
+      copySuffix: ' (Copie)',
       items: 'éléments',
       skip: 'Passer',
       level: 'Niveau',

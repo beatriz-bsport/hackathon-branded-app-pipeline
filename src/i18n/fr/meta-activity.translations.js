@@ -47,7 +47,7 @@ export default {
   },
 
   name: 'Nom',
-  category: 'Sport',
+  category: 'Catégorie',
   addOffers: 'Ajouter des séances',
   offersThisDay: 'Séances ce jour :',
   description: 'Description',

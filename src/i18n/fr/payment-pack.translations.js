@@ -103,9 +103,9 @@ export default {
       },
       unlimited: 'Crédits illimités',
       theoricalMarginValue: {
-        label: 'Apport marginal théorique (carte illimité seulement)',
+        label: 'Apport marginal théorique TTC (carte illimité seulement)',
         helperText:
-          "Utilisée pour calculer la rémunération des professeurs, 10€ signifie qu'une réservation faite avec cette carte est rémunérée 10€. Si vide l'apport d'une carte sera PRIX/NB_RESERVATION",
+          "Utilisée pour calculer la rémunération des professeurs, 10€ signifie qu'une réservation faite avec cette carte est rémunérée 10€. Si vide ou 0€ l'apport d'une carte sera PRIX/NB_RESERVATION",
       },
       credits: {
         label: 'Crédit',

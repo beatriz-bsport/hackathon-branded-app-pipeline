@@ -6,6 +6,7 @@
 
 **/RuleCard.component.js
 **/AvatarUploader.component.js
+**./jitsi_external_api.js
 
 
 // packages not compiling to ES5 thus placed in src/

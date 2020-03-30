@@ -415,7 +415,7 @@ export default compose(
           onsite_payment_available: false,
           start_date_method: `${START_ON_FIRST_BOOKING}`,
           expiration_days_before_first_use: 365,
-          unlimited: true,
+          unlimited: false,
           theorical_margin_value: 0,
           categories: [],
           metaActivities: [],

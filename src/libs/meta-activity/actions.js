@@ -186,7 +186,6 @@ export function fetchAllActivities(): ThunkAction {
     try {
       const response = await fetchAllActivitiesAPI({
         page_size: null,
-        is_workshop: false,
       });
       dispatch(metaActivityListActions.success(response.data));
     } catch (err) {

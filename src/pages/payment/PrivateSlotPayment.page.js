@@ -99,7 +99,7 @@ type State = {
 
 export class PrivateSlotPayment extends React.Component<Props, State> {
   state = {
-    address: null,
+    address: '',
   };
 
   componentDidMount() {
@@ -118,13 +118,20 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
 
   handleConsumerPassClick = (consumerPassId: number) => {
     this.setState({ processing: true });
+    const {
+      associated_establishment,
+      associated_coach,
+      date,
+    } = this.props.data;
     this.props.registerPrivateBooking(
       {
         private_slot: this.props.privateSlotId,
         private_consumer_pass: consumerPassId,
-        date_start: this.props.date,
-        coach: this.props.associatedCoachId,
         address: this.state.address,
+        date,
+        date_start: date,
+        associated_coach: associated_coach || null,
+        associated_establishment: associated_establishment || null,
       },
       {
         onSuccess: () => {
@@ -202,23 +209,13 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
           <PrivateServiceListItem privateService={this.props.privateService} />
           <PrivateSlotListItem slot={this.props.privateSlot} />
           <div className={this.props.classes.bookingCapabilities}>
-            {!this.state.address &&
-            this.props.privateService.establishments.length === 0 ? (
-              <AddressForm
-                address={this.state.address}
-                onSubmit={(address) => this.setState({ address })}
-              />
-            ) : (
-              <BookingCapabilities
-                loading={this.state.processing}
-                privateConsumerPassList={
-                  this.props.compatiblePrivateConsumerPass
-                }
-                privatePassList={this.props.compatiblePrivatePass}
-                onConsumerPassClick={this.handleConsumerPassClick}
-                onPrivatePassClick={this.handlePrivatePassClick}
-              />
-            )}
+            <BookingCapabilities
+              loading={this.state.processing}
+              privateConsumerPassList={this.props.compatiblePrivateConsumerPass}
+              privatePassList={this.props.compatiblePrivatePass}
+              onConsumerPassClick={this.handleConsumerPassClick}
+              onPrivatePassClick={this.handlePrivatePassClick}
+            />
           </div>
         </Paper>
       </div>

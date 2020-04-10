@@ -51,7 +51,6 @@ export default withStyles(styles)((props: Props) => {
             {establishment.title}
           </Typography>
         }
-        secondary={establishment.location.address}
       />
       <ListItemSecondaryAction>
         {props.onClickEdit ? (

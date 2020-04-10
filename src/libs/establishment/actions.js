@@ -63,7 +63,7 @@ export const listIsLoading = createAction('ESTABLISHMENTS/LIST/IS_LOADING');
 export const listLoaded = createAction('ESTABLISHMENTS/LIST/LOADED');
 export const listError = createAction('ESTABLISHMENTS/LIST/ERROR');
 
-export function fetchEstablishments(params: any) {
+export function fetchEstablishments(params: any, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(listIsLoading(true));
     dispatch(listError(null));
@@ -79,9 +79,13 @@ export function fetchEstablishments(params: any) {
           establishmentIdList: createIdList(response.data.results),
         }),
       );
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
     } catch (error) {
       console.error(error);
       dispatch(listError(error));
+      if (options && options.onError) options.onError(error);
     }
 
     dispatch(listIsLoading(false));
@@ -231,25 +235,14 @@ export const establishmentBulkRetrieveActions = {
   success: createAction('ESTABLISHMENT/BULK_RETRIEVE/SUCCESS'),
 };
 
-export function fetchEstablishmentBulk(
-  ids: Array<number>,
-  options: OptionCallback,
-) {
-  return async (dispatch: Dispatch, getState: () => State) => {
-    const freshEstablishmentList = getFreshEstablishmentIds(getState());
-    const ids_uniq = uniq(ids.filter((id) => !!id)).filter(
-      (id) => !freshEstablishmentList.includes(id),
-    );
-    if (ids_uniq.length === 0) {
-      return;
-    }
-
+function fetchEstablishmentBulkBase(params: any = {}, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
     dispatch(establishmentBulkRetrieveActions.isLoading(true));
     dispatch(establishmentBulkRetrieveActions.error(null));
     try {
       const response = await fetchEstablishmentListAPI({
         page_size: 300,
-        id__in: ids_uniq,
+        ...params,
       });
       dispatch(establishmentBulkRetrieveActions.success(response.data));
       if (options && options.onSuccess) options.onSuccess(response.data);
@@ -260,6 +253,40 @@ export function fetchEstablishmentBulk(
     dispatch(establishmentBulkRetrieveActions.isLoading(false));
   };
 }
+
+export const fetchEstablishmentBulk = (
+  ids: Array<number>,
+  options: OptionCallback,
+) => {
+  return async (dispatch: Dispatch, getState: () => State) => {
+    const freshEstablishmentList = getFreshEstablishmentIds(getState());
+    const ids_uniq = uniq(ids.filter((id) => !!id)).filter(
+      (id) => !freshEstablishmentList.includes(id),
+    );
+    if (ids_uniq.length === 0) {
+      return;
+    }
+    dispatch(fetchEstablishmentBulkBase({ id__in: ids_uniq }, options));
+  };
+};
+
+export const fetchAssociatedEstablishmentBulk = (
+  ids: Array<number>,
+  options: OptionCallback,
+) => {
+  return async (dispatch: Dispatch) => {
+    const ids_uniq = uniq(ids.filter((id) => !!id));
+    if (ids_uniq.length === 0) {
+      return;
+    }
+    dispatch(
+      fetchEstablishmentBulkBase(
+        { associated_establishment__in: ids_uniq },
+        options,
+      ),
+    );
+  };
+};
 
 export const favoriteActions = {
   isLoading: createAction('ESTABLISHMENT/FAVORITE/IS_LOADING'),

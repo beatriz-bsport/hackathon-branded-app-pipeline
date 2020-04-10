@@ -1,13 +1,18 @@
 // @flow
 import React from 'react';
+import moment from 'moment';
+import ScheduleIcon from '@material-ui/icons/Schedule';
+import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { compose } from 'recompose';
+import { compose, withProps } from 'recompose';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { replace } from 'react-router-redux';
 
 import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyable-items';
+import parse from '../../query-string';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {
@@ -19,7 +24,8 @@ import { getCurrentBasket } from '../../libs/checkout/selectors';
 import { snackbarError } from '../../actions/snackbar.actions';
 
 import BookingCapabilities from '../../libs/private-service/components/booking-module/BookingCapabilitiesList.component';
-import PrivateBookingPreviewListItem from '../../libs/private-service/components/booking-module/PrivateBookingPreviewListItem.component';
+import PrivateServiceListItem from '../../libs/private-service/components/PrivateServiceListItem.component';
+import PrivateSlotListItem from '../../libs/private-service/components/PrivateSlotListItem.component';
 import { getPrivateSlot } from '../../libs/private-service/selectors/private-slot';
 import { getPrivateService } from '../../libs/private-service/selectors/private-service';
 import { getPrivateConsumerPassList } from '../../libs/private-service/selectors/private-consumer-pass';
@@ -34,7 +40,6 @@ import {
 } from '../../libs/private-service/actions';
 import type {
   PrivateSlot,
-  PrivateBookingPreview,
   PrivateConsumerPass,
   PrivatePass,
 } from '../../libs/private-service/types';
@@ -72,7 +77,6 @@ type Props = {
 
   loading: boolean,
 
-  privateBookingPreview: ?PrivateBookingPreview,
   registerPrivateBooking: (
     params: any,
     options: ?{ onSuccess: ?() => void, onError: ?() => void },
@@ -104,15 +108,7 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
       this.props.privateServiceId,
       this.props.privateSlotId,
     );
-    this.props.fetchPrivateBookingPreview(
-      this.props.privateSlotId,
-      this.props.associatedCoachId,
-      this.props.date,
-      {
-        onSuccess: (privateBookingPreview) =>
-          this.props.fetchCurrentBasket(privateBookingPreview.company),
-      },
-    );
+    this.props.fetchCurrentBasket(this.props.company);
 
     this.props.fetchCompatiblePrivatePass(this.props.privateSlotId, {
       as_consumer: true,
@@ -145,6 +141,11 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
 
   handlePrivatePassClick = (privatePassId: number) => {
     this.setState({ processing: true });
+    const {
+      associated_establishment,
+      associated_coach,
+      date,
+    } = this.props.data;
     this.props.addItemToBasket(
       this.props.basket.id,
       {
@@ -154,8 +155,9 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
         extra_data: {
           next_private_booking: {
             private_slot: this.props.privateSlotId,
-            date: this.props.date,
-            coach: this.props.associatedCoachId,
+            date,
+            associated_coach: associated_coach || null,
+            associated_establishment: associated_establishment || null,
             address: this.state.address,
           },
         },
@@ -166,7 +168,7 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
           this.setState({ processing: false });
         },
         onSuccess: () => {
-          this.props.goToCheckout(this.props.privateBookingPreview.company);
+          this.props.goToCheckout(this.props.company);
           this.setState({ processing: false });
         },
       },
@@ -177,8 +179,7 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
     if (
       this.props.loading ||
       !this.props.privateSlot ||
-      !this.props.privateService ||
-      !this.props.privateBookingPreview
+      !this.props.privateService
     ) {
       return (
         <div className={this.props.classes.container}>
@@ -188,17 +189,18 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
     }
     return (
       <div className={this.props.classes.container}>
-        <Paper className={this.props.classes.paper}>
-          <PrivateBookingPreviewListItem
-            preview={this.props.privateBookingPreview}
-            credit_cost={this.props.privateSlot.credit}
-            address={this.state.address}
-            onAddressEdit={
-              this.props.privateService.establishments.length === 0
-                ? () => this.setState({ address: null })
-                : null
-            }
+        <div className={this.props.classes.titleContainer}>
+          <ScheduleIcon
+            fontSize="large"
+            className={this.props.classes.leftIcon}
           />
+          <Typography variant="h4">
+            {moment(this.props.data.date).format('LLLL')}
+          </Typography>
+        </div>
+        <Paper className={this.props.classes.paper}>
+          <PrivateServiceListItem privateService={this.props.privateService} />
+          <PrivateSlotListItem slot={this.props.privateSlot} />
           <div className={this.props.classes.bookingCapabilities}>
             {!this.state.address &&
             this.props.privateService.establishments.length === 0 ? (
@@ -239,6 +241,15 @@ const styles = (theme) => ({
   bookingCapabilities: {
     marginTop: theme.spacing.unit * 3,
   },
+  titleContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: theme.spacing.unit * 2,
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
+  },
 });
 
 export default compose(
@@ -246,12 +257,14 @@ export default compose(
   routerParamsToProps({
     privateServiceId: 'privateServiceId:number',
     privateSlotId: 'privateSlotId:number',
-    associatedCoachId: 'associatedCoachId:number',
-    date: 'date',
   }),
+  withRouter,
+  withProps(({ location }) => ({
+    data: JSON.parse(decodeURIComponent(parse(location.search).data)),
+    company: parse(location.search).membership,
+  })),
   connect(
     (state, { privateServiceId, privateSlotId }) => ({
-      privateBookingPreview: state.privateService.privateBooking.preview.data,
       compatiblePrivateConsumerPass: getPrivateConsumerPassList(state),
       compatiblePrivatePass: getPrivatePassListWithPrivateService(state),
       privateSlot: getPrivateSlot(state, privateSlotId),

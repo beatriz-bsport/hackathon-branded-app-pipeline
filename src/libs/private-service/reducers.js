@@ -2,12 +2,16 @@
 
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
+import omitBy from 'lodash/omitBy';
 
 import {
   availabilitySlotListActions,
   availabilitySlotUpdateActions,
   availabilitySlotSearchActions,
+  availabilitySlotExistsActions,
+  calendarEventListActions,
   privateServiceListActions,
+  privateServiceMarketplaceListActions,
   privateServiceWithSlotListActions,
   privateServiceRetrieveActions,
   privateServiceCreateOrUpdateActions,
@@ -17,6 +21,7 @@ import {
   privateBookingCreateOrUpdateActions,
   privateBookingDeleteActions,
   privateSlotRetrieveActions,
+  privateServiceResourceRetrieveActions,
   privateSlotCreateOrUpdateActions,
   privatePassListActions,
   privatePassAsConsumerListActions,
@@ -24,8 +29,10 @@ import {
   privatePassRetrieveActions,
   privateConsumerPassListActions,
   privateConsumerPassRetrieveActions,
+  updateResourceConfigurationActions,
 } from './actions';
 
+import { getResourceSlotsExistState } from './selectors/availability-slot';
 import type { PrivateServiceState } from './types';
 
 const initialState: PrivateServiceState = Immutable({
@@ -44,9 +51,15 @@ const initialState: PrivateServiceState = Immutable({
     loading: false,
     error: null,
   },
+  privateServiceResource: {
+    byId: {},
+    loading: false,
+    error: null,
+  },
   privateService: {
     byId: {},
     allIds: [],
+    marketplaceIds: [],
     loading: false,
     error: null,
     createOrUpdate: {
@@ -84,8 +97,14 @@ const initialState: PrivateServiceState = Immutable({
       error: null,
     },
   },
+  calendarEvent: {
+    loading: false,
+    error: null,
+    byId: {},
+  },
   availabilitySlot: {
-    items: [],
+    existsByResourceTypeById: {},
+    byId: {},
     searched: {
       items: [],
       loading: false,
@@ -102,11 +121,94 @@ const initialState: PrivateServiceState = Immutable({
 
 export default handleActions(
   {
+    [updateResourceConfigurationActions.success]: (state, { payload }) => {
+      return state.setIn(
+        ['privateServiceResource', 'byId', payload.resource_identifier],
+        payload,
+      );
+    },
+    [calendarEventListActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['calendarEvent', 'loading'], payload);
+    },
+    [calendarEventListActions.error]: (state, { payload }) => {
+      return state.setIn(['calendarEvent', 'error'], payload);
+    },
+    [calendarEventListActions.success]: (state, { payload }) => {
+      return state.merge(
+        {
+          calendarEvent: {
+            byId: payload.reduce((acc, v) => {
+              acc[v.id] = v;
+              return acc;
+            }, {}),
+          },
+        },
+        { deep: true },
+      );
+    },
     [availabilitySlotListActions.success]: (state, { payload }) => {
-      return state.setIn(['availabilitySlot', 'items'], payload);
+      return state.merge(
+        {
+          availabilitySlot: {
+            byId: payload.reduce((acc, v) => {
+              acc[v.id] = v;
+              return acc;
+            }, {}),
+          },
+        },
+        { deep: true },
+      );
     },
     [availabilitySlotListActions.isLoading]: (state, { payload }) => {
       return state.setIn(['availabilitySlot', 'loading'], payload);
+    },
+    [availabilitySlotExistsActions.isLoading]: (state, { payload }) => {
+      return state.setIn(
+        [
+          'availabilitySlot',
+          'existsByResourceTypeById',
+          payload.resourceDatatype,
+          payload.resourceIdentifier,
+        ],
+        getResourceSlotsExistState(
+          state,
+          payload.resourceDatatype,
+          payload.resourceIdentifier,
+        ).set('loading', payload.loading),
+      );
+    },
+    [availabilitySlotExistsActions.success]: (state, { payload }) => {
+      return state.setIn(
+        [
+          'availabilitySlot',
+          'existsByResourceTypeById',
+          payload.resourceDatatype,
+          payload.resourceIdentifier,
+        ],
+        getResourceSlotsExistState(
+          state,
+          payload.resourceDatatype,
+          payload.resourceIdentifier,
+        ).set('exists', payload.exists),
+      );
+    },
+    [availabilitySlotExistsActions.error]: (state, { payload }) => {
+      return state.setIn(
+        [
+          'availabilitySlot',
+          'existsByResourceTypeById',
+          payload.resourceDatatype,
+          payload.resourceIdentifier,
+        ],
+        getResourceSlotsExistState(
+          state,
+          payload.resourceDatatype,
+          payload.resourceIdentifier,
+        ).set('error', payload.error),
+      );
+    },
+    [availabilitySlotListActions.reset]: (state) => {
+      return state.setIn(['availabilitySlot', 'byId'], {});
     },
     [availabilitySlotListActions.error]: (state, { payload }) => {
       return state.setIn(['availabilitySlot', 'error'], payload);
@@ -149,6 +251,9 @@ export default handleActions(
     [privateBookingListActions.isLoading]: (state, { payload }) => {
       return state.setIn(['privateBooking', 'loading'], payload);
     },
+    [privateBookingListActions.reset]: (state) => {
+      return state.setIn(['privateBooking', 'byId'], {});
+    },
     [privateBookingListActions.success]: (state, { payload }) => {
       return state
         .setIn(['privateBooking', 'allIds'], payload.map((pb) => pb.id))
@@ -188,6 +293,51 @@ export default handleActions(
         );
     },
 
+    [privateServiceResourceRetrieveActions.success]: (state, { payload }) => {
+      return state.merge(
+        {
+          privateServiceResource: {
+            byId: payload.reduce(
+              (acc, resource) => ({
+                ...acc,
+                [resource.resource_identifier]: resource,
+              }),
+              {},
+            ),
+          },
+        },
+        { deep: true },
+      );
+    },
+    [privateServiceResourceRetrieveActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['privateServiceResource', 'loading'], payload);
+    },
+    [privateServiceResourceRetrieveActions.error]: (state, { payload }) => {
+      return state.setIn(['privateServiceResource', 'error'], payload);
+    },
+    [privateServiceWithSlotListActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['privateService', 'loading'], payload);
+    },
+    [privateServiceWithSlotListActions.error]: (state, { payload }) => {
+      return state.setIn(['privateService', 'error'], payload);
+    },
+    [privateServiceMarketplaceListActions.success]: (state, { payload }) => {
+      return state
+        .setIn(['privateService', 'marketplaceIds'], payload.map((ps) => ps.id))
+        .setIn(
+          ['privateService', 'byId'],
+          payload.reduce((acc, ps) => {
+            acc[ps.id] = ps;
+            return acc;
+          }, {}),
+        );
+    },
+    [privateServiceMarketplaceListActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['privateService', 'loading'], payload);
+    },
+    [privateServiceMarketplaceListActions.error]: (state, { payload }) => {
+      return state.setIn(['privateService', 'error'], payload);
+    },
     [privateServiceListActions.success]: (state, { payload }) => {
       return state
         .setIn(['privateService', 'allIds'], payload.map((ps) => ps.id))

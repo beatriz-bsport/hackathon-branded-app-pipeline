@@ -81,22 +81,24 @@ export default withNamespaces(['establishment'])(
     selectedEstablishments,
     closeMenuOnSelect,
     nullCurrentValue,
+    disabled,
   }) => (
     <Select
       closeMenuOnSelect={!!closeMenuOnSelect}
       nullCurrentValue={!!nullCurrentValue}
       isMulti
       placeholder={t('establishment')}
-      options={getEstablishmentOptions(establishments.asMutable())}
+      options={getEstablishmentOptions([...establishments])}
       styles={establishmentStyles}
       onChange={selectOption}
+      isDisabled={disabled}
       value={
         selectedEstablishments
-          ? getEstablishmentOptions(
-              establishments
-                .filter((e) => selectedEstablishments.includes(e.id))
-                .asMutable(),
-            )
+          ? getEstablishmentOptions([
+              ...establishments.filter((e) =>
+                selectedEstablishments.includes(e.id),
+              ),
+            ])
           : undefined
       }
     />

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Route, Switch } from 'react-router';
-import EstablishmentDetail from './EstablishmentDetail.page';
+import EstablishmentDetailRouter from './EstablishmentDetail.router';
 import EstablishmentList from './EstablishmentList.page';
 import EstablishmentFormPage from './EstablishmentForm.page';
 
@@ -15,9 +15,12 @@ export default () => (
       component={EstablishmentFormPage}
     />
     <Route
-      exact
-      path="/establishment/details/:id"
-      component={EstablishmentDetail}
+      path="/establishment/details/:id/:tab"
+      component={EstablishmentDetailRouter}
+    />
+    <Route
+      path="/establishment/details/:id/"
+      component={EstablishmentDetailRouter}
     />
     <Route path="/" component={EstablishmentList} />
   </Switch>

@@ -69,6 +69,7 @@ export class DeleteOfferForm extends Component<Props, State> {
           <Typography>{t('form.offer.delete.explainHardDelete')}</Typography>
           <RecursiveToogle
             color="secondary"
+            disabled={this.props.processing}
             shouldModifyAllDates={this.state.deleteAll}
             message={this.props.t('form.offer.explainRecursiveOfferDelete')}
             listTitle={this.props.t('offer.offersPendingDelete')}
@@ -88,17 +89,26 @@ export class DeleteOfferForm extends Component<Props, State> {
           {t('form.offer.delete.explainModalities')}
         </Typography>
         <div className={classes.row}>
-          <Switch checked={cashback} onChange={this.onCreditBackSwitch} />
+          <Switch
+            disabled={this.props.processing}
+            checked={cashback}
+            onChange={this.onCreditBackSwitch}
+          />
           <Typography disabled>
             {t('form.offer.delete.explainCreditBack')}
           </Typography>
         </div>
         <div className={classes.row}>
-          <Switch checked={notify} onChange={this.onNotifySwitch} />
+          <Switch
+            disabled={this.props.processing}
+            checked={notify}
+            onChange={this.onNotifySwitch}
+          />
           <Typography>{t('form.offer.delete.explainNotify')}</Typography>
         </div>
         <RecursiveToogle
           color="secondary"
+          disabled={this.props.processing}
           shouldModifyAllDates={deleteAll}
           message={this.props.t('form.offer.explainRecursiveOfferDelete')}
           listTitle={this.props.t('offer.offersPendingDelete')}
@@ -123,7 +133,9 @@ export class DeleteOfferForm extends Component<Props, State> {
         </DialogTitle>
         {this.renderInside()}
         <DialogActions>
-          <Button onClick={onCancel}>{t('common.cancel')}</Button>
+          <Button disabled={processing} onClick={onCancel}>
+            {t('common.cancel')}
+          </Button>
           {processing ? (
             <CircularProgress />
           ) : (

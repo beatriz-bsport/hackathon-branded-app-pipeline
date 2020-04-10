@@ -513,7 +513,7 @@ export const CheckboxField = (props: Props) => {
           />
         )}
       />
-      <FormHelperText>{helperText}</FormHelperText>
+      <FormHelperText style={{ marginTop: -8 }}>{helperText}</FormHelperText>
     </FormControl>
   );
 };
@@ -589,15 +589,20 @@ export const RadioGroupField = (props: RadioFieldProps) => {
           onChange={(_, value) => setFieldValue(field.name, value)}
         >
           <FormLabel>{label}</FormLabel>
-          {choices.map((choice) => (
-            <FormControlLabel
-              key={choice.value}
-              value={choice.value}
-              control={
-                <Radio checked={`${field.value}` === `${choice.value}`} />
-              }
-              label={choice.label}
-            />
+          {choices.map(({ value, label, helperText }) => (
+            <div>
+              <FormControlLabel
+                key={value}
+                value={value}
+                control={<Radio checked={`${field.value}` === `${value}`} />}
+                label={label}
+              />
+              {helperText ? (
+                <FormHelperText style={{ marginTop: -8 }}>
+                  {helperText}
+                </FormHelperText>
+              ) : null}
+            </div>
           ))}
         </RadioGroup>
       )}

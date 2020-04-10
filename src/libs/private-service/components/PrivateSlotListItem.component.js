@@ -39,7 +39,11 @@ const DeleteButtonWithConfirm = withConfirm(DeleteButton, 'onClick', {
 
 export const PrivateSlotListItem = (props: Props) => {
   return (
-    <ListItem button={!!props.onClick} onClick={props.onClick}>
+    <ListItem
+      divider={props.divider}
+      button={!!props.onClick}
+      onClick={props.onClick}
+    >
       <ListItemText
         primary={props.slot.name}
         secondary={`${formatMinutes(

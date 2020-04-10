@@ -1,0 +1,237 @@
+// @flow
+import React from 'react';
+
+import { compose, withHandlers, withState } from 'recompose';
+import { withNamespaces } from 'react-i18next';
+import { connect } from 'react-redux';
+import withStyles from '@material-ui/core/styles/withStyles';
+
+import moment from 'moment';
+import withTitle from '../../hocs/with-title.hoc';
+import { getEstablishment } from '../../libs/establishment/selectors';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+
+import { fetchMetaActivityBulk } from '../../libs/meta-activity/actions';
+import { getPrivateBookingListFiltered } from '../../libs/private-service/selectors/private-booking';
+
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import PrivateCalendarWithControls from '../../libs/private-service/components/PrivateCalendarWithControls.component';
+
+import { fetchAllOffers } from '../../libs/offer/actions';
+import {
+  getOfferAsEventList,
+  withMetaActivity,
+} from '../../libs/offer/selectors';
+
+import { getEstablishmentAvailabilitySlots } from '../../libs/private-service/selectors/availability-slot';
+import {
+  fetchAvailabilitySlots,
+  resetAvailabilitySlots,
+  disableEstablishmentAvailabilitySlot,
+  enableEstablishmentAvailabilitySlot,
+  fetchPrivateBookings,
+  resetPrivateBookings,
+} from '../../libs/private-service/actions';
+import { fetchEstablishmentBulk } from '../../libs/establishment/actions';
+
+type Props = {
+  classes: Object,
+  fetchAvailabilitySlots: (data: { establishment: number }) => void,
+  availabilitySlots: Array<AvailabilitySlot>,
+  coachId: ?number,
+};
+
+const styles = (theme) => ({
+  container: {},
+  leftIcon: { marginRight: theme.spacing.unit },
+});
+
+export class CoachPrivateCalendar extends React.Component<Props> {
+  fetchAvailabilitySlots = () => {
+    this.props.resetAvailabilitySlots();
+    this.props.fetchAvailabilitySlots({
+      date_start__lte: this.props.periodFilter.end,
+      date_start__gte: this.props.periodFilter.start,
+      establishment: this.props.id,
+    });
+    this.props.fetchPrivateBookingList();
+    this.props.fetchOfferList();
+  };
+
+  componentDidMount() {
+    this.props.resetPrivateBookings();
+    this.props.fetchEstablishmentBulk([this.props.id]);
+  }
+
+  componentDidUpdate(prevProps: Props, prevState: State) {
+    if (
+      prevProps.periodFilter.start !== this.props.periodFilter.start ||
+      prevProps.periodFilter.end !== this.props.periodFilter.end ||
+      this.props.id !== prevProps.id
+    ) {
+      this.fetchWeekData();
+    }
+  }
+
+  fetchWeekData = () => {
+    this.fetchAvailabilitySlots();
+    this.fetchEvents();
+  };
+
+  fetchEvents = () => {
+    this.props.fetchPrivateBookingList();
+    this.props.fetchOfferList();
+  };
+
+  enableEstablishmentAvailabilitySlot = (
+    data: { date_start: string, date_end: string },
+    options: {
+      onSuccess: () => void,
+      onError: () => void,
+    },
+  ) => {
+    this.props.enableEstablishmentAvailabilitySlot(this.props.id, data, {
+      onSuccess: () => {
+        if (options && options.onSuccess) options.onSuccess();
+        this.fetchAvailabilitySlots();
+      },
+      onError: () => {
+        if (options && options.onError) options.onError();
+      },
+    });
+  };
+
+  disableEstablishmentAvailabilitySlot = (
+    data: { date_start: string, date_end: string },
+    options: {
+      onSuccess: () => void,
+      onError: () => void,
+    },
+  ) => {
+    this.props.disableEstablishmentAvailabilitySlot(this.props.id, data, {
+      onSuccess: () => {
+        if (options && options.onSuccess) options.onSuccess();
+        this.fetchAvailabilitySlots();
+      },
+      onError: () => {
+        if (options && options.onError) options.onError();
+      },
+    });
+  };
+
+  render() {
+    const { classes } = this.props;
+    return (
+      <div className={classes.container}>
+        {this.props.loading ? <LinearProgress /> : null}
+        <PrivateCalendarWithControls
+          disableResourceAvailabilitySlot={
+            this.disableEstablishmentAvailabilitySlot
+          }
+          enableResourceAvailabilitySlot={
+            this.enableEstablishmentAvailabilitySlot
+          }
+          showOfferListToogle
+          showPrivateBookingToogle
+          availabilitySlots={this.props.availabilitySlots}
+          privateBookings={this.props.privateBookingList}
+          offerList={this.props.offerList}
+          availabilitySlotUpdating={this.props.availabilitySlotUpdating}
+          goToMember={this.props.goToMember}
+          onDateChange={this.props.handleDateChange}
+          refreshOffers={this.fetchWeekData}
+          refreshPrivateBookings={this.fetchWeekData}
+        />
+      </div>
+    );
+  }
+}
+
+export default compose(
+  routerParamsToProps({ id: 'id:number' }),
+  withStyles(styles),
+  withNamespaces(['privateService']),
+  withState('periodFilter', 'setPeriodFilter', {
+    start: moment()
+      .startOf('week')
+      .format('YYYY-MM-DD'),
+    end: moment()
+      .endOf('week')
+      .format('YYYY-MM-DD'),
+  }),
+  connect(
+    (state, { id, periodFilter }) => ({
+      availabilitySlots: getEstablishmentAvailabilitySlots(state, id),
+      establishment: getEstablishment(state, id),
+      privateBookingList: getPrivateBookingListFiltered(
+        state,
+        null,
+        periodFilter,
+      ),
+      offerList: withMetaActivity(getOfferAsEventList)(
+        state,
+        null,
+        periodFilter,
+      ),
+      loading:
+        state.privateService.availabilitySlot.loading ||
+        state.privateService.privateBooking.loading,
+    }),
+    {
+      fetchAvailabilitySlots,
+      resetAvailabilitySlots,
+      fetchPrivateBookings,
+      resetPrivateBookings,
+      fetchMetaActivityBulk,
+      fetchAllOffers,
+      fetchEstablishmentBulk,
+      disableEstablishmentAvailabilitySlot,
+      enableEstablishmentAvailabilitySlot,
+    },
+  ),
+  withHandlers({
+    fetchOfferList: ({
+      fetchAllOffers,
+      fetchMetaActivityBulk,
+      periodFilter,
+      id,
+    }) => () => {
+      fetchAllOffers(
+        {
+          establishment: id,
+          min_date: periodFilter.start,
+          max_date: periodFilter.end,
+        },
+        {
+          onSuccess: (offers) => {
+            fetchMetaActivityBulk(offers.map((o) => o.meta_activity));
+          },
+        },
+      );
+    },
+    handleDateChange: ({ setPeriodFilter }) => ({
+      date_start,
+      date_end,
+    }: {
+      date_start: string,
+      date_end: string,
+    }) => {
+      setPeriodFilter({ start: date_start, end: date_end });
+    },
+    fetchPrivateBookingList: ({
+      fetchPrivateBookings,
+      periodFilter,
+      id,
+    }) => () => {
+      fetchPrivateBookings({
+        establishment: id,
+        date_start__gte: periodFilter.start,
+        date_start__lte: periodFilter.end,
+        page_size: null,
+      });
+    },
+  }),
+  withTitle(({ establishment }) => {
+    return establishment ? `${establishment.title}` : '';
+  }),
+)(CoachPrivateCalendar);

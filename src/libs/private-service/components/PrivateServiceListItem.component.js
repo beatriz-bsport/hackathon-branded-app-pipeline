@@ -1,11 +1,19 @@
 // @flow
 import React from 'react';
+import { compose } from 'recompose';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import EditIcon from '@material-ui/icons/Edit';
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
+import withStyles from '@material-ui/core/styles/withStyles';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
+
+import withConfirm from '../../../hocs/with-confirm.hoc';
 
 import type { PrivateService } from '../types';
 
@@ -15,7 +23,25 @@ type Props = {
   selected: boolean,
   hideSecondary: boolean,
   onDelete: () => void,
+  t: TFunction,
 };
+
+const DeleteButton = withConfirm(
+  (props: { onClick: () => void }) => (
+    <IconButton onClick={props.onClick}>
+      <DeleteIcon color="secondary" />
+    </IconButton>
+  ),
+  'onClick',
+  {
+    title: 'privateService:service.form.delete.title',
+    cancel: 'privateService:service.form.delete.cancel',
+    confirm: 'privateService:service.form.delete.confirm',
+    Content: ({ t }: { t: TFunction }) => (
+      <p>{t('privateService:service.form.delete.content')}</p>
+    ),
+  },
+);
 
 export const PrivateServiceListItem = (props: Props) => {
   const { privateService, onClick } = props;
@@ -25,35 +51,37 @@ export const PrivateServiceListItem = (props: Props) => {
       divider
       selected={props.selected}
       onClick={onClick ? () => onClick(privateService.id) : null}
+      alignItems="center"
+      dense={props.dense}
+      style={{
+        borderLeft: privateService.color !== '' ? '5px solid' : '0px',
+        borderLeftColor: privateService.color,
+      }}
     >
       <ListItemText
         primary={privateService.name}
         secondary={
           props.hideSecondary
             ? null
-            : privateService.coaches.map((c) => (c && c.name) || '').join(', ')
+            : privateService.coaches
+                .map((c) => (c && c.name) || '')
+                .join(', ') || ' - '
         }
       />
       <ListItemSecondaryAction>
-        {props.onClick ? (
+        {props.onEdit ? (
           <IconButton
             onClick={(ev) => {
-              ev.preventDefault();
               ev.stopPropagation();
-              props.onClick(privateService.id);
+              props.onEdit();
             }}
-            color="primary"
           >
-            <ArrowForwardIcon />
+            <EditIcon />
           </IconButton>
         ) : null}
-        {props.onDelete ? (
-          <IconButton
-            onClick={(ev) => {
-              ev.stopPropagation();
-              props.onDelete();
-            }}
-          >
+        {props.onDelete ? <DeleteButton onClick={props.onDelete} /> : null}
+        {props.onCancel ? (
+          <IconButton onClick={props.onCancel} color="secondary">
             <DeleteIcon />
           </IconButton>
         ) : null}
@@ -62,4 +90,14 @@ export const PrivateServiceListItem = (props: Props) => {
   );
 };
 
-export default PrivateServiceListItem;
+const styles = (theme) => ({
+  avatar: {
+    width: theme.spacing.unit * 7,
+    height: theme.spacing.unit * 7,
+  },
+});
+
+export default compose(
+  withStyles(styles),
+  withNamespaces(['privateService']),
+)(PrivateServiceListItem);

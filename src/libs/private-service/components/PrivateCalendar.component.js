@@ -2,14 +2,13 @@
 import React from 'react';
 
 import { compose } from 'recompose';
-import chroma from 'chroma-js';
+// import chroma from 'chroma-js';
 import { withNamespaces } from 'react-i18next';
 import frLocale from '@fullcalendar/core/locales/fr';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Popover from '@material-ui/core/Popover';
 import CancelIcon from '@material-ui/icons/Cancel';
 import List from '@material-ui/core/List';
-import Fade from '@material-ui/core/Fade';
 import ListItem from '@material-ui/core/ListItem';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -22,21 +21,63 @@ import memoize from 'memoize-one';
 import type { TFunction } from 'react-i18next';
 import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
+// import listPlugin from '@fullcalendar/list';
+
 import interactionPlugin from '@fullcalendar/interaction'; // needed for dayClick
 import moment from 'moment';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import i18n from '../../../i18n';
 
 import './main.scss';
+import './custom.scss';
 import RecurrentAvailabilityFormDialog from './RecurrentAvailabilityFormDialog.component';
-import PrivateBookingCard from './PrivateBookingCard.component';
-import PrivateBookingDisableDialog from './PrivateBookingDisableDialog.component';
-import { getTextColorFromRGB } from '../../../color';
+// import { getTextColorFromRGB } from '../../../color';
 import type { AvailabilitySlot, PrivateBooking } from '../types';
 
 const styles = (theme) => ({
   container: {},
   leftIcon: { marginRight: theme.spacing.unit },
+});
+
+const availabilitySlotAsEvent = (slot) => ({
+  start: slot.date_start,
+  end: slot.date_end,
+  rendering: 'background',
+  classNames: slot.is_restriction ? ['isRestriction'] : [],
+  ...(slot.color ? { backgroundColor: slot.color } : {}),
+});
+
+const offerAsEvent = (offer) => ({
+  start: offer.date_start,
+  end: moment(offer.date_start).add(offer.duration_minute, 'minutes'),
+  title: offer.meta_activity ? offer.meta_activity.name : '',
+  editable: false,
+  extendedProps: {
+    offer: offer.id,
+  },
+  textColor: 'black',
+  classNames: [!offer.available ? 'cancelledEvent' : ''],
+  ...(offer.meta_activity && offer.meta_activity.color
+    ? { borderColor: offer.meta_activity.color }
+    : {}),
+});
+
+const privateBookingAsEvent = (pb) => ({
+  start: pb.date_start,
+  end: pb.date_end,
+  title: pb.name,
+  editable: false,
+  extendedProps: {
+    private_booking: pb.id,
+  },
+  textColor: 'black',
+  classNames: [
+    pb.booking_status_code !== BOOKING_STATUS_OK.id ? 'cancelledEvent' : '',
+  ],
+  borderColor:
+    pb.private_slot && pb.private_slot.private_service
+      ? pb.private_slot.private_service.color
+      : '',
 });
 
 const AvailabilitySlotForm = withNamespaces(['privateService'])(
@@ -53,80 +94,86 @@ const AvailabilitySlotForm = withNamespaces(['privateService'])(
     }) => {
       return (
         <List>
-          <ListItem button onClick={props.onBookRequest}>
-            <ListItemIcon color="primary">
-              <PersonAddIcon className={props.classes.leftIcon} />
-            </ListItemIcon>
-            <ListItemText primary={props.t('calendar.addBooking')} />
-          </ListItem>
-          <ListItem
-            button
-            onClick={props.onEnableAvailability}
-            disabled={!props.onEnableAvailability}
-          >
-            <ListItemIcon color="primary">
-              <CheckIcon className={props.classes.leftIcon} />
-            </ListItemIcon>
-            <ListItemText
-              primary={props.t('calendar.enableAvailability')}
-              secondary={
-                props.onEnableAvailability
-                  ? null
-                  : props.t('calendar.selectCoachToModifyAvailability')
-              }
-            />
-          </ListItem>
-          <ListItem
-            button
-            onClick={props.onEnableRecurrentAvailability}
-            disabled={!props.onEnableRecurrentAvailability}
-          >
-            <ListItemIcon color="primary">
-              <RefreshIcon className={props.classes.leftIcon} />
-            </ListItemIcon>
-            <ListItemText
-              primary={props.t('calendar.enableRecurrentAvailability')}
-              secondary={
-                props.onEnableRecurrentAvailability
-                  ? null
-                  : props.t('calendar.selectCoachToModifyAvailability')
-              }
-            />
-          </ListItem>
-          <ListItem
-            button
-            onClick={props.onDisableAvailability}
-            disabled={!props.onDisableAvailability}
-          >
-            <ListItemIcon>
-              <CancelIcon className={props.classes.leftIcon} />
-            </ListItemIcon>
-            <ListItemText
-              primary={props.t('calendar.disableAvailability')}
-              secondary={
-                props.onDisableAvailability
-                  ? null
-                  : props.t('calendar.selectCoachToModifyAvailability')
-              }
-            />
-          </ListItem>
-          <ListItem
-            button
-            onClick={props.onDisableRecurrentAvailability}
-            disabled={!props.onDisableRecurrentAvailability}
-          >
-            <ListItemIcon color="primary">
-              <RefreshIcon className={props.classes.leftIcon} />
-            </ListItemIcon>
-            <ListItemText
-              primary={props.t('calendar.disableRecurrentAvailability')}
-              secondary={
-                props.onDisableRecurrentAvailability
-                  ? null
-                  : props.t('calendar.selectCoachToModifyAvailability')
-              }
-            />
-          </ListItem>
+          {props.onBookRequest ? (
+            <ListItem button onClick={props.onBookRequest}>
+              <ListItemIcon color="primary">
+                <PersonAddIcon className={props.classes.leftIcon} />
+              </ListItemIcon>
+              <ListItemText primary={props.t('calendar.addBooking')} />
+            </ListItem>
+          ) : null}
+          {props.onEnableAvailability ? (
+            <React.Fragment>
+              <ListItem button onClick={props.onEnableAvailability}>
+                <ListItemIcon color="primary">
+                  <CheckIcon className={props.classes.leftIcon} />
+                </ListItemIcon>
+                <ListItemText
+                  primary={props.t('calendar.enableAvailability')}
+                  secondary={
+                    props.onEnableAvailability
+                      ? null
+                      : props.t('calendar.selectCoachToModifyAvailability')
+                  }
+                />
+              </ListItem>
+              <ListItem
+                button
+                onClick={props.onEnableRecurrentAvailability}
+                disabled={!props.onEnableRecurrentAvailability}
+              >
+                <ListItemIcon color="primary">
+                  <RefreshIcon className={props.classes.leftIcon} />
+                </ListItemIcon>
+                <ListItemText
+                  primary={props.t('calendar.enableRecurrentAvailability')}
+                  secondary={
+                    props.onEnableRecurrentAvailability
+                      ? null
+                      : props.t('calendar.selectCoachToModifyAvailability')
+                  }
+                />
+              </ListItem>
+            </React.Fragment>
+          ) : null}
+          {props.onDisableAvailability ? (
+            <React.Fragment>
+              <ListItem
+                button
+                onClick={props.onDisableAvailability}
+                disabled={!props.onDisableAvailability}
+              >
+                <ListItemIcon>
+                  <CancelIcon className={props.classes.leftIcon} />
+                </ListItemIcon>
+                <ListItemText
+                  primary={props.t('calendar.disableAvailability')}
+                  secondary={
+                    props.onDisableAvailability
+                      ? null
+                      : props.t('calendar.selectCoachToModifyAvailability')
+                  }
+                />
+              </ListItem>
+              <ListItem
+                button
+                onClick={props.onDisableRecurrentAvailability}
+                disabled={!props.onDisableRecurrentAvailability}
+              >
+                <ListItemIcon color="primary">
+                  <RefreshIcon className={props.classes.leftIcon} />
+                </ListItemIcon>
+                <ListItemText
+                  primary={props.t('calendar.disableRecurrentAvailability')}
+                  secondary={
+                    props.onDisableRecurrentAvailability
+                      ? null
+                      : props.t('calendar.selectCoachToModifyAvailability')
+                  }
+                />
+              </ListItem>
+            </React.Fragment>
+          ) : null}
         </List>
       );
     },
@@ -141,7 +188,7 @@ type EventSlot = {
 type State = {
   selectInfo: Object,
   selectedPrivateBooking: PrivateBooking,
-  selectedPrivateBookingAnchorEl: ?HTMLElement,
+
   disableWithRecurrence: boolean,
   enableWithRecurrence: boolean,
   eventSlotSelected: ?EventSlot,
@@ -150,13 +197,13 @@ type State = {
 export class CoachPrivateCalendar extends React.Component<Props, State> {
   state = {
     selectInfo: null,
-    selectedPrivateBooking: null,
-    selectedPrivateBookingAnchorEl: null,
+
     disableWithRecurrence: false,
     enableWithRecurrence: false,
   };
 
   select = (eventSlotSelected: EventSlot) => {
+    if (this.props.disableAvailabilitySlotDisplay) return;
     const { startStr, endStr } = eventSlotSelected;
     if (moment(startStr).isSame(endStr, 'day')) {
       this.setState({
@@ -179,42 +226,19 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
     (
       availabilitySlots: Array<AvailabilitySlot>,
       privateBookings: Array<PrivateBooking>,
+      offerList: Array<Offer>,
     ) => {
-      const themeColor = this.props.theme.palette.primary.main;
-      const themeColorRGB = chroma(themeColor).rgb();
-      const textColor = getTextColorFromRGB(themeColorRGB);
-
       return [
-        ...availabilitySlots.map((slot) => ({
-          start: slot.date_start,
-          end: slot.date_end,
-          rendering: 'background',
-          ...(slot.color ? { backgroundColor: slot.color } : {}),
-        })),
-        ...privateBookings.map((pb) => ({
-          start: pb.date_start,
-          end: pb.date_end,
-          title: `${pb.member ? pb.member.name : ''}\n${pb.name}`,
-          editable: false,
-          extendedProps: {
-            private_booking: pb,
-          },
-          ...(pb.booking_status_code !== BOOKING_STATUS_OK.id
-            ? { backgroundColor: '#F44436', borderColor: '#F44436' }
-            : {
-                backgroundColor: themeColor,
-                borderColor: themeColor,
-                textColor,
-              }),
-        })),
+        ...availabilitySlots.map(availabilitySlotAsEvent),
+        ...(offerList || []).map(offerAsEvent),
+        ...privateBookings.map(privateBookingAsEvent),
       ];
     },
   );
 
   onDisableAvailability = () => {
     const { startStr, endStr } = this.state.eventSlotSelected;
-    this.props.disableCoachAvailabilitySlot(
-      this.props.coachId,
+    this.props.disableResourceAvailabilitySlot(
       {
         date_start: startStr,
         date_end: endStr,
@@ -229,8 +253,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
 
   onEnableAvailability = () => {
     const { startStr, endStr } = this.state.eventSlotSelected;
-    this.props.enableCoachAvailabilitySlot(
-      this.props.coachId,
+    this.props.enableResourceAvailabilitySlot(
       {
         date_start: startStr,
         date_end: endStr,
@@ -259,9 +282,8 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
     }
 
     (enableWithRecurrence
-      ? this.props.enableCoachAvailabilitySlot
-      : this.props.disableCoachAvailabilitySlot)(
-      this.props.coachId,
+      ? this.props.enableResourceAvailabilitySlot
+      : this.props.disableResourceAvailabilitySlot)(
       {
         date_start: startStr,
         date_end: endStr,
@@ -281,10 +303,9 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
 
   handleEventClick = (info) => {
     if (info.event.rendering !== 'background') {
-      this.setState({
-        selectedPrivateBooking: info.event.extendedProps.private_booking,
-        selectedPrivateBookingAnchorEl: info.el,
-      });
+      if (this.props.onEventClick) {
+        this.props.onEventClick(info.el, info.event.extendedProps);
+      }
     }
   };
 
@@ -296,6 +317,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
   };
 
   addEventHoverListener = (info) => {
+    /*
     info.el.addEventListener('mouseenter', () => {
       if (info.event.rendering !== 'background') {
         this.setState({
@@ -304,6 +326,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
         });
       }
     });
+    */
   };
 
   render() {
@@ -311,12 +334,32 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
     const events = this.getAvailableSlotAsEvents(
       this.props.availabilitySlots,
       this.props.privateBookings,
+      this.props.offerList,
     );
     return (
       <div className={classes.container}>
         <FullCalendar
           defaultView="timeGridWeek"
           plugins={[interactionPlugin, timeGridPlugin]}
+          header={{
+            left: 'prev,next today',
+            center: 'title',
+            right: 'timeGridDay,timeGridWeek',
+          }}
+          views={[
+            {
+              timeGridWeek: {
+                type: 'timeGrid',
+                duration: { days: 7 },
+                buttonText: 'week',
+              },
+              timeGridDay: {
+                type: 'timeGrid',
+                duration: { days: 1 },
+                buttonText: 'day',
+              },
+            },
+          ]}
           editable
           selectable
           select={this.select}
@@ -331,80 +374,59 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
           datesRender={this.handleIntervalChange}
           eventRender={this.addEventHoverListener}
         />
-        <Popover
-          open={!!this.state.selectedPrivateBookingAnchorEl}
-          anchorEl={this.state.selectedPrivateBookingAnchorEl}
-          TransitionComponent={Fade}
-          onClose={() =>
-            this.setState({
-              // selectedPrivateBooking: null,
-              selectedPrivateBookingAnchorEl: null,
-            })
-          }
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
-          }}
-          transformOrigin={{
-            vertical: 'center',
-            horizontal: 'right',
-          }}
-        >
-          {this.state.selectedPrivateBooking ? (
-            <div className={classes.eventPopupContent}>
-              <PrivateBookingCard
-                goToMember={this.props.goToMember}
-                private_booking={this.state.selectedPrivateBooking}
-                onDelete={() =>
-                  this.setState((prevState) => ({
-                    bookingToDisable: prevState.selectedPrivateBooking,
-                  }))
-                }
-              />
-            </div>
-          ) : null}
-        </Popover>
-        <Popover
-          open={!!this.state.eventSlotSelected}
-          anchorEl={
-            this.state.eventSlotSelected
-              ? this.state.eventSlotSelected.jsEvent.target
-              : null
-          }
-          onClose={() => this.setState({ eventSlotSelected: null })}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'center',
-          }}
-        >
-          <AvailabilitySlotForm
-            selectInfo={this.state.selectInfo}
-            onDisableAvailability={
-              this.props.coachId ? this.onDisableAvailability : null
+        {this.props.disableAvailabilitySlotDisplay ? null : (
+          <Popover
+            open={!!this.state.eventSlotSelected}
+            anchorEl={
+              this.state.eventSlotSelected
+                ? this.state.eventSlotSelected.jsEvent.target
+                : null
             }
-            onBookRequest={() => {
-              this.props.onBookRequest(this.state.eventSlotSelected.startStr);
-              this.setState({ eventSlotSelected: null });
+            onClose={() => this.setState({ eventSlotSelected: null })}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
             }}
-            onEnableAvailability={
-              this.props.coachId ? this.onEnableAvailability : null
-            }
-            onEnableRecurrentAvailability={
-              this.props.coachId
-                ? () => this.setState({ enableWithRecurrence: true })
-                : null
-            }
-            onDisableRecurrentAvailability={
-              this.props.coachId
-                ? () => this.setState({ disableWithRecurrence: true })
-                : null
-            }
-          />
-        </Popover>
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+          >
+            <AvailabilitySlotForm
+              selectInfo={this.state.selectInfo}
+              onDisableAvailability={
+                this.props.disableResourceAvailabilitySlot
+                  ? this.onDisableAvailability
+                  : null
+              }
+              onBookRequest={
+                this.props.onBookRequest
+                  ? () => {
+                      this.props.onBookRequest(
+                        this.state.eventSlotSelected.startStr,
+                      );
+                      this.setState({ eventSlotSelected: null });
+                    }
+                  : null
+              }
+              onEnableAvailability={
+                this.props.enableResourceAvailabilitySlot
+                  ? this.onEnableAvailability
+                  : null
+              }
+              onEnableRecurrentAvailability={
+                this.props.enableResourceAvailabilitySlot
+                  ? () => this.setState({ enableWithRecurrence: true })
+                  : null
+              }
+              onDisableRecurrentAvailability={
+                this.props.disableResourceAvailabilitySlot
+                  ? () => this.setState({ disableWithRecurrence: true })
+                  : null
+              }
+            />
+          </Popover>
+        )}
         <RecurrentAvailabilityFormDialog
           fullScreen={this.props.fullScreen}
           open={
@@ -420,33 +442,6 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
               disableWithRecurrence: false,
             })
           }
-        />
-        <PrivateBookingDisableDialog
-          fullScreen={this.props.fullScreen}
-          open={!!this.state.bookingToDisable}
-          private_booking={this.state.bookingToDisable}
-          onSubmit={(force_refund) =>
-            (this.state.bookingToDisable.booking_status_code ===
-              BOOKING_STATUS_OK.id
-              ? this.props.disablePrivateBooking
-              : this.props.deletePrivateBooking)(
-              this.state.bookingToDisable.id,
-              { force_refund },
-              {
-                onSuccess: () => {
-                  this.setState({
-                    selectedPrivateBookingAnchorEl: null,
-                    // selectedPrivateBooking: null,
-                    bookingToDisable: null,
-                  });
-                },
-                onError: () => {
-                  this.setState({ bookingToDisable: null });
-                },
-              },
-            )
-          }
-          onClose={() => this.setState({ bookingToDisable: null })}
         />
       </div>
     );

@@ -1,5 +1,15 @@
 export default {
+  detail: {
+    tab: {
+      general: 'Général',
+      calendar: 'Calendrier',
+    },
+  },
   establishment: 'Établissement ',
+  capacity: {
+    label: 'Capacité de la salle',
+    helperText: 'Utilisé uniquement pour calculer la disponibilité',
+  },
   baseEstablishment: 'Habituel',
   overrider: 'Remplacement',
   establishment_override: 'Établissement de remplacement',

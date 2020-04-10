@@ -78,8 +78,24 @@ export type PrivateBookingPreview = {
   company: number,
 };
 
+export type ResourceData = {
+  resourceDatatype: string,
+  resourceIdentifier: number,
+  color: string,
+  resourceData: any,
+};
+
 export type PrivateServiceState = {
   availabilitySlot: {
+    existsByResourceTypeById: {
+      [resourceDatatype: string]: {
+        [resourceIdentifier: number]: {
+          exists: boolean,
+          error: ?Error,
+          loading: boolean,
+        },
+      },
+    },
     items: Array<AvailabilitySlot>,
     loading: boolean,
     error: ?Error,

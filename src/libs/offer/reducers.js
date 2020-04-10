@@ -133,6 +133,9 @@ export default handleActions(
     [retrieveActions.isLoading]: (state, { payload }) => {
       return state.setIn(['retrieve', 'loading'], payload);
     },
+    [offerByDay.bulk]: (state, { payload }) => {
+      return state.setIn(['byId', payload.id], payload);
+    },
     [offerByDay.success]: (state, { payload }) => {
       return state
         .merge(

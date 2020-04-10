@@ -1,61 +1,42 @@
 // @flow
 import React from 'react';
 
-import { compose } from 'recompose';
+import { compose, withState, withHandlers } from 'recompose';
+import moment from 'moment';
 import { withNamespaces } from 'react-i18next';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Popover from '@material-ui/core/Popover';
-import CancelIcon from '@material-ui/icons/Cancel';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import CheckIcon from '@material-ui/icons/Check';
 
-// import type { TFunction } from 'react-i18next';
-import FullCalendar from '@fullcalendar/react';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import interactionPlugin from '@fullcalendar/interaction'; // needed for dayClick
+import withTitle from '../../hocs/with-title.hoc';
+import { getCoach } from '../../libs/associated-coach/selectors';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import { getPrivateBookingListFiltered } from '../../libs/private-service/selectors/private-booking';
+import { fetchAllOffers } from '../../libs/offer/actions';
+import { fetchMetaActivityBulk } from '../../libs/meta-activity/actions';
+import {
+  getOfferAsEventList,
+  withMetaActivity,
+} from '../../libs/offer/selectors';
 
-import './main.scss';
-import i18n from '../../i18n';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import PrivateCalendarWithControls from '../../libs/private-service/components/PrivateCalendarWithControls.component';
 
 import { getCoachAvailabilitySlots } from '../../libs/private-service/selectors/availability-slot';
 import {
   fetchAvailabilitySlots,
+  resetAvailabilitySlots,
   disableCoachAvailabilitySlot,
   enableCoachAvailabilitySlot,
+  fetchPrivateBookings,
+  resetPrivateBookings,
 } from '../../libs/private-service/actions';
+import { fetchCoachBulk } from '../../libs/associated-coach/actions';
 
 type Props = {
   classes: Object,
   fetchAvailabilitySlots: (data: { coach: number }) => void,
   availabilitySlots: Array<AvailabilitySlot>,
   coachId: ?number,
-  disableCoachAvailabilitySlot: (
-    coachId: number,
-    {
-      date_start: string,
-      date_end: string,
-    },
-    {
-      onSuccess?: () => void,
-      onError?: () => void,
-    },
-  ) => void,
-  enableCoachAvailabilitySlot: (
-    coachId: number,
-    {
-      date_start: string,
-      date_end: string,
-    },
-    {
-      onSuccess?: () => void,
-      onError?: () => void,
-    },
-  ) => void,
 };
 
 const styles = (theme) => ({
@@ -63,149 +44,181 @@ const styles = (theme) => ({
   leftIcon: { marginRight: theme.spacing.unit },
 });
 
-const AvailabilitySlotForm = withNamespaces(['privateService'])(
-  withStyles(styles)((props: { selectInfo: Object }) => {
-    return (
-      <List>
-        <ListItem button onClick={props.onEnableAvailability}>
-          <ListItemIcon color="primary">
-            <CheckIcon className={props.classes.leftIcon} />
-          </ListItemIcon>
-          <ListItemText
-            primary={props.t('privateService.enableAvailability')}
-          />
-        </ListItem>
-        <ListItem button onClick={props.onDisableAvailability}>
-          <ListItemIcon>
-            <CancelIcon className={props.classes.leftIcon} />
-          </ListItemIcon>
-          <ListItemText
-            primary={props.t('privateService.disableAvailability')}
-          />
-        </ListItem>
-      </List>
-    );
-  }),
-);
-
 export class CoachPrivateCalendar extends React.Component<Props> {
-  state = {
-    selectInfo: null,
-  };
-
   select = (eventSlotSelected) => {
     this.setState({
       eventSlotSelected,
     });
   };
 
-  getAvailableSlotAsEvents = () => {
-    return this.props.availabilitySlots.map((slot) => ({
-      start: slot.date_start,
-      end: slot.date_end,
-      description: slot.id,
-      name: slot.id,
-    }));
+  fetchAvailabilitySlots = () => {
+    this.props.resetAvailabilitySlots();
+    this.props.fetchAvailabilitySlots({
+      date_start__lte: this.props.periodFilter.end,
+      date_start__gte: this.props.periodFilter.start,
+      coach: this.props.id,
+    });
   };
 
   componentDidMount() {
-    this.props.fetchAvailabilitySlots({ coach: this.props.coachId });
+    this.props.resetPrivateBookings();
+    this.props.fetchCoach([this.props.id]);
   }
 
-  onDisableAvailability = () => {
-    const { startStr, endStr } = this.state.eventSlotSelected;
-    this.props.disableCoachAvailabilitySlot(
-      this.props.coachId,
-      {
-        date_start: startStr,
-        date_end: endStr,
+  componentDidUpdate(prevProps: Props, prevState: State) {
+    if (
+      prevProps.periodFilter.start !== this.props.periodFilter.start ||
+      prevProps.periodFilter.end !== this.props.periodFilter.end ||
+      this.props.id !== prevProps.id
+    ) {
+      this.fetchAvailabilitySlots();
+      this.props.fetchPrivateBookingList();
+      this.props.fetchOfferList();
+    }
+  }
+
+  enableCoachAvailabilitySlot = (
+    data: { date_start: string, date_end: string },
+    options: {
+      onSuccess: () => void,
+      onError: () => void,
+    },
+  ) => {
+    this.props.enableCoachAvailabilitySlot(this.props.id, data, {
+      onSuccess: () => {
+        if (options && options.onSuccess) options.onSuccess();
+        this.fetchAvailabilitySlots();
       },
-      {
-        onSuccess: () => {
-          this.props.fetchAvailabilitySlots({ coach: this.props.coachId });
-          this.setState({ eventSlotSelected: null });
-        },
+      onError: () => {
+        if (options && options.onError) options.onError();
       },
-    );
+    });
   };
 
-  onEnableAvailability = () => {
-    const { startStr, endStr } = this.state.eventSlotSelected;
-    this.props.enableCoachAvailabilitySlot(
-      this.props.coachId,
-      {
-        date_start: startStr,
-        date_end: endStr,
+  disableCoachAvailabilitySlot = (
+    data: { date_start: string, date_end: string },
+    options: {
+      onSuccess: () => void,
+      onError: () => void,
+    },
+  ) => {
+    this.props.disableCoachAvailabilitySlot(this.props.id, data, {
+      onSuccess: () => {
+        if (options && options.onSuccess) options.onSuccess();
+        this.fetchAvailabilitySlots();
       },
-      {
-        onSuccess: () => {
-          this.props.fetchAvailabilitySlots({ coach: this.props.coachId });
-          this.setState({ eventSlotSelected: null });
-        },
+      onError: () => {
+        if (options && options.onError) options.onError();
       },
-    );
+    });
   };
-
-  calendarRef = React.createRef();
 
   render() {
     const { classes } = this.props;
-    const events = [...this.getAvailableSlotAsEvents()];
     return (
       <div className={classes.container}>
-        <FullCalendar
-          defaultView="timeGridWeek"
-          plugins={[interactionPlugin, timeGridPlugin]}
-          editable
-          selectable
-          ref={this.calendarRef}
-          select={this.select}
-          events={events}
-          locale={i18n.lng}
-          minTime="06:00:00"
-          maxTime="23:00:00"
-          allDaySlot={false}
+        {this.props.loading ? <LinearProgress /> : null}
+        <PrivateCalendarWithControls
+          disableResourceAvailabilitySlot={this.disableCoachAvailabilitySlot}
+          enableResourceAvailabilitySlot={this.enableCoachAvailabilitySlot}
+          availabilitySlots={this.props.availabilitySlots}
+          privateBookings={this.props.privateBookingList}
+          availabilitySlotUpdating={this.props.availabilitySlotUpdating}
+          goToMember={this.props.goToMember}
+          onDateChange={this.props.handleDateChange}
+          offerList={this.props.offerList}
+          showOfferListToogle
+          showPrivateBookingToogle
         />
-        <Popover
-          open={!!this.state.eventSlotSelected}
-          anchorEl={
-            this.state.eventSlotSelected
-              ? this.state.eventSlotSelected.jsEvent.target
-              : null
-          }
-          onClose={() => this.setState({ eventSlotSelected: null })}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'center',
-          }}
-        >
-          <AvailabilitySlotForm
-            selectInfo={this.state.selectInfo}
-            onDisableAvailability={this.onDisableAvailability}
-            onEnableAvailability={this.onEnableAvailability}
-          />
-        </Popover>
       </div>
     );
   }
 }
 
 export default compose(
-  routerParamsToProps({ coachId: 'coachId:number' }),
+  routerParamsToProps({ coachId: 'id:number' }),
   withStyles(styles),
   withNamespaces(['privateService']),
+  withState('periodFilter', 'setPeriodFilter', {
+    start: moment()
+      .startOf('week')
+      .format('YYYY-MM-DD'),
+    end: moment()
+      .endOf('week')
+      .format('YYYY-MM-DD'),
+  }),
   connect(
-    (state, { coachId }) => ({
-      availabilitySlots: getCoachAvailabilitySlots(state, coachId),
+    (state, { id, periodFilter }) => ({
+      availabilitySlots: getCoachAvailabilitySlots(state, id),
+      coach: getCoach(state, id),
+      privateBookingList: getPrivateBookingListFiltered(
+        state,
+        null,
+        periodFilter,
+      ),
+      offerList: withMetaActivity(getOfferAsEventList)(
+        state,
+        null,
+        periodFilter,
+      ),
+      loading:
+        state.privateService.availabilitySlot.loading ||
+        state.privateService.privateBooking.loading,
     }),
     {
+      fetchCoach: (id) => fetchCoachBulk([id]),
+      fetchPrivateBookings,
+      fetchAllOffers,
+      resetPrivateBookings,
       fetchAvailabilitySlots,
+      resetAvailabilitySlots,
       disableCoachAvailabilitySlot,
       enableCoachAvailabilitySlot,
+      fetchMetaActivityBulk,
     },
   ),
+  withHandlers({
+    fetchOfferList: ({
+      fetchAllOffers,
+      fetchMetaActivityBulk,
+      periodFilter,
+      id,
+    }) => () => {
+      fetchAllOffers(
+        {
+          coach: id,
+          min_date: periodFilter.start,
+          max_date: periodFilter.end,
+        },
+        {
+          onSuccess: (offers) =>
+            fetchMetaActivityBulk(offers.map((o) => o.meta_activity)),
+        },
+      );
+    },
+    handleDateChange: ({ setPeriodFilter }) => ({
+      date_start,
+      date_end,
+    }: {
+      date_start: string,
+      date_end: string,
+    }) => {
+      setPeriodFilter({ start: date_start, end: date_end });
+    },
+    fetchPrivateBookingList: ({
+      fetchPrivateBookings,
+      periodFilter,
+      id,
+    }) => () => {
+      fetchPrivateBookings({
+        coach: id,
+        date_start__gte: periodFilter.start,
+        date_start__lte: periodFilter.end,
+        page_size: null,
+      });
+    },
+  }),
+  withTitle(({ coach }) => {
+    return coach ? `${coach.name}` : '';
+  }),
 )(CoachPrivateCalendar);

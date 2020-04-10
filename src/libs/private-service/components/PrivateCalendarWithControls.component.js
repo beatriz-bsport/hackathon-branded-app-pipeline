@@ -1,0 +1,175 @@
+// @flow
+import React from 'react';
+
+import withStyles from '@material-ui/core/styles/withStyles';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+
+import { compose, withStateHandlers } from 'recompose';
+import Paper from '@material-ui/core/Paper';
+
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
+import Checkbox from '@material-ui/core/Checkbox';
+
+import PrivateCalendar from './PrivateCalendar.component';
+import ResourceSelector from './resource/ResourceSelector.component';
+import CalendarEventDetail from '../containers/CalendarEventDetail.container';
+
+import PrivateBookingBooker from '../containers/PrivateBookingBooker.container';
+
+import type { ResourceData } from '../types';
+
+type Props = {
+  t: TFunction,
+  resourcesAvailable: Array<ResourceData>,
+  resourcesSelected: Array<ResourceData>,
+  onEditResourceConfiguration: Array<ResourceData>,
+  onChangeResourcesSelected: Array<ResourceData>,
+
+  privateBookings: Array<PrivateBooking>,
+  onDateChange: ({
+    date_start: string,
+    date_end: string,
+  }) => void,
+
+  availabilitySlotUpdating: boolean,
+  goToMember: (id: number) => void,
+  disableResourceAvailabilitySlot: () => void,
+  enableResourceAvailabilitySlot: () => void,
+  availabilitySlots: Array<AvailabilitySlot>,
+};
+
+export const PrivateCalendarMultiResource = (props: Props) => (
+  <div>
+    <Paper square className={props.classes.header}>
+      {props.resourceAvailable ? (
+        <ResourceSelector
+          resourceAvailable={props.resourceAvailable}
+          resourceSelectedListIds={props.resourceSelectedListIds}
+          resourceDataLoading={props.resourceDataLoading}
+          onEditResourceConfiguration={props.onEditResourceConfiguration}
+          onChangeResourcesSelected={props.onChangeResourcesSelected}
+          setResourceFiltered={props.setResourceFiltered}
+        />
+      ) : null}
+      <div className={props.classes.row}>
+        {props.showOfferListToogle ? (
+          <FormControlLabel
+            label={props.t('calendar.toogle.showOfferList')}
+            control={
+              <Checkbox
+                checked={props.showOfferList}
+                onChange={props.toogleShowOfferList}
+              />
+            }
+          />
+        ) : null}
+        {props.showPrivateBookingToogle ? (
+          <FormControlLabel
+            label={props.t('calendar.toogle.showPrivateBookings')}
+            control={
+              <Checkbox
+                checked={props.showPrivateBookings}
+                onChange={props.toogleShowPrivateBookings}
+              />
+            }
+          />
+        ) : null}
+      </div>
+    </Paper>
+    <div className={props.classes.content}>
+      <PrivateCalendar
+        disableResourceAvailabilitySlot={props.disableResourceAvailabilitySlot}
+        enableResourceAvailabilitySlot={props.enableResourceAvailabilitySlot}
+        availabilitySlots={props.availabilitySlots}
+        privateBookings={
+          props.showPrivateBookings ? props.privateBookings || [] : []
+        }
+        offerList={props.showOfferList ? props.offerList || [] : []}
+        availabilitySlotUpdating={props.availabilitySlotUpdating}
+        goToMember={props.goToMember}
+        onDateChange={props.onDateChange}
+        onEventClick={props.handleEventClick}
+        onBookRequest={props.onRequestPrivateBooking}
+      />
+      <CalendarEventDetail
+        popoverAnchor={props.popoverAnchor}
+        privateBookingId={props.privateBookingId}
+        offerId={props.offerId}
+        onClose={props.closePopover}
+        refreshOffers={props.refreshOffers}
+        refreshPrivateBookings={props.refreshPrivateBookings}
+      />
+      <PrivateBookingBooker
+        open={props.privateBookerOpen}
+        requestedSlot={props.privateBookingRequestedSlot}
+        onClose={props.closePrivateBooker}
+        onSubmit={props.onSubmitPrivateBooking}
+      />
+    </div>
+  </div>
+);
+
+const styles = (theme) => ({
+  header: {
+    marginBottom: theme.spacing.unit * 2,
+    marginLeft: -theme.spacing.unit * 2,
+    marginTop: -theme.spacing.unit * 2,
+    marginRight: -theme.spacing.unit * 2,
+    paddingRight: theme.spacing.unit * 2,
+    paddingLeft: theme.spacing.unit * 2,
+  },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+});
+
+export default compose(
+  withNamespaces(['privateService']),
+  withStyles(styles),
+  withStateHandlers(
+    { privateBookerOpen: false, privateBookingRequestedSlot: null },
+    {
+      closePrivateBooker: () => () => ({
+        privateBookerOpen: false,
+        privateBookingRequestedSlot: null,
+      }),
+      onRequestPrivateBooking: () => (privateBookingRequestedSlot) => ({
+        privateBookerOpen: true,
+        privateBookingRequestedSlot,
+      }),
+    },
+  ),
+
+  withStateHandlers(
+    { showPrivateBookings: true, showOfferList: true },
+    {
+      toogleShowOfferList: ({ showOfferList }) => () => ({
+        showOfferList: !showOfferList,
+      }),
+      toogleShowPrivateBookings: ({ showPrivateBookings }) => () => ({
+        showPrivateBookings: !showPrivateBookings,
+      }),
+    },
+  ),
+  withStateHandlers(
+    { popoverAnchor: null, privateBookingId: null, offerId: null },
+    {
+      closePopover: () => () => ({
+        popoverAnchor: null,
+        privateBookingId: null,
+        offerId: null,
+      }),
+      handleEventClick: () => (anchorEl, extendedProps) => {
+        return {
+          popoverAnchor: anchorEl,
+          privateBookingId:
+            (extendedProps && extendedProps.private_booking) || null,
+          offerId: (extendedProps && extendedProps.offer) || null,
+        };
+      },
+    },
+  ),
+)(PrivateCalendarMultiResource);

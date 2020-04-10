@@ -86,22 +86,23 @@ export default withNamespaces(['coach'])(
     selectedCoaches,
     placeholder,
     noMulti,
-    isDisabled,
+  isDisabled,
+  closeMenuOnSelect,
     selectOption,
   }) => (
     <Select
-      closeMenuOnSelect={false}
+      closeMenuOnSelect={closeMenuOnSelect}
       isMulti={!noMulti}
       placeholder={placeholder || t('coach')}
-      options={getCoachOptions(coaches.asMutable())}
+      options={getCoachOptions([...coaches])}
       onChange={selectOption}
       isDisabled={isDisabled}
       styles={coachStyles}
       value={
         selectedCoaches
-          ? getCoachOptions(
-              coaches.filter((c) => selectedCoaches.includes(c.id)).asMutable(),
-            )
+          ? getCoachOptions([
+              ...coaches.filter((c) => selectedCoaches.includes(c.id)),
+            ])
           : undefined
       }
     />

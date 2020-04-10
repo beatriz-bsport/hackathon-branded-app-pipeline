@@ -1,7 +1,31 @@
 export default {
+  availabilitySlot: {
+    form: {
+      resourceSelector: {
+        title: 'Modification créneau horaire',
+        label: 'Modifier pour :',
+        cancel: 'Annuler',
+        submit: 'Enregistrer',
+      },
+    },
+  },
+  resource: {
+    form: {
+      color: 'Code couleur',
+      actions: {
+        cancel: 'Annuler',
+        submit: 'Enregistrer',
+      },
+    },
+    datatype: {
+      associated_establishment: 'Lieux',
+      associated_coach: 'Professeur',
+      private_service: 'Général',
+    },
+  },
   pageTitles: {
-    passList: 'Cartes de cours',
-    serviceList: 'Cours privés',
+    passList: 'Cartes',
+    serviceList: 'Sur rendez-vous',
     calendar: 'Calendrier',
   },
   color: {
@@ -36,7 +60,7 @@ export default {
       source: 'Canal de réservation ',
       slotTitle: 'Séance',
       passTitle: 'Carte de cours',
-      wasRefunded: 'Crédit carte de cours remboursé',
+      wasRefunded: 'Crédit remboursé sur la carte de cours',
       wasRefundedYes: 'Oui',
       wasRefundedNo: 'Non',
       address: 'Adresse',
@@ -50,11 +74,11 @@ export default {
       pleaseSelectCoachAndSlot:
         "Sélectionnez tout d'abord le professeur et la séance",
       cancel: 'Annuler',
-      compatiblePrivatePass: 'Facturer une carte cours privé',
-      compatiblePrivateConsumerPass: 'Cartes cours privé possédées :',
+      compatiblePrivatePass: 'Facturer une carte RDV',
+      compatiblePrivateConsumerPass: 'Cartes RDV possédées :',
       emptyPrivateConsumerPass: 'Aucune carte compatible possédée',
-      emptyPrivatePass: 'Aucune carte cours privé compatible',
-      privateConsumerPassNeedRefresh: 'Rafraichir la liste',
+      emptyPrivatePass: 'Aucune carte RDV compatible',
+      privateConsumerPassNeedRefresh: 'Rafraîchir la liste',
     },
     delete: {
       title: 'Annulation réservation',
@@ -70,9 +94,9 @@ export default {
   },
   privateService: {
     delete: {
-      title: 'Suppression du cours privé',
+      title: 'Suppression du rendez-vous',
       explain:
-        'Êtes-vous sûr de vouloir supprimer ce cours privé ? Cette modification est définitive. Les réservations déjà enregistrées ne seront pas affectées.',
+        'Êtes-vous sûr de vouloir supprimer ce RDV ? Cette modification est définitive. Les réservations déjà enregistrées ne seront pas affectées.',
       cancel: 'Annuler',
       submit: 'Supprimer',
       confirm: 'Supprimer',
@@ -82,7 +106,7 @@ export default {
     delete: {
       title: 'Désinscription du professeur',
       explain:
-        "Êtes-vous sûr de vouloir supprimer l'affectation de ce professeur ? Il ne pourra plus prendre de réservation sur ce cours privé. Les réservations enregistrées ne seront pas affectées.",
+        "Êtes-vous sûr de vouloir supprimer l'affectation de ce professeur ? Il ne pourra plus prendre de réservation sur ce RDV. Les réservations enregistrées ne seront pas affectées.",
       cancel: 'Annuler',
       submit: 'Confirmer',
     },
@@ -91,7 +115,7 @@ export default {
     delete: {
       title: 'Désinscription de la salle',
       explain:
-        'Êtes-vous sûr de vouloir modifier le lieu de ce cours privé ? Sans établissement il sera considéré comme un cours privé à domicile et les élèves devront rentrer leur adresse pour terminer la réservation. Les réservations déjà enregistrées ne seront pas affectées.',
+        'Êtes-vous sûr de vouloir modifier le lieu de ce RDV ? Sans établissement il sera considéré comme un RDV à domicile et les élèves devront rentrer leur adresse pour terminer la réservation. Les réservations déjà enregistrées ne seront pas affectées.',
       cancel: 'Annuler',
       submit: 'Confirmer',
     },
@@ -102,7 +126,12 @@ export default {
     enableRecurrentAvailability: 'Ajouter une disponibilité récurrente',
     disableRecurrentAvailability: 'Supprimer une disponibilité récurrente',
     selectCoachToModifyAvailability: 'Sélectionnez un professeur',
-    addBooking: 'Enregistrer une réservation',
+    addBooking: 'Enregistrer un rendez-vous',
+
+    toogle: {
+      showOfferList: 'Afficher les cours collectifs',
+      showPrivateBookings: 'Afficher les rendez-vous',
+    },
 
     form: {
       title: {
@@ -121,11 +150,11 @@ export default {
     },
   },
   selector: {
-    privateService: 'Sélectionnez votre cours privé',
+    privateService: 'Sélectionnez votre RDV',
     privateSlot: 'Sélectionnez votre séance',
   },
   slotSearcher: {
-    title: 'Inscription cours privé',
+    title: 'Rendez-vous',
     searchSlot: 'Rechercher un créneau',
     selectPrivateSlot: 'Sélectionner une séance',
     search: 'Rechercher un créneau',
@@ -144,7 +173,12 @@ export default {
       title: 'Séance',
       name: {
         label: 'Nom de la séance',
-        helperText: 'Ex: 1h intensif',
+        placeholder: 'Séance double (2h)',
+      },
+      people_capacity_used: {
+        label: 'Nombre de personnes',
+        helperText:
+          'Si une salle est configurée, ce nombre sera utilisé pour mettre à jour son remplissage',
       },
       credit: {
         label: 'Nombre de crédit',
@@ -159,10 +193,18 @@ export default {
     },
   },
   bookerModule: {
-    title: 'Réservation cours privé',
+    availableSlots: 'Créneaux disponibles',
+    emptySlot: 'Aucune disponibilité',
+    missingResource: {
+      service: 'Veuillez sélectionner un type de rendez-vous',
+      coach: 'Veuillez sélectionner le professeur',
+      establishment: 'Veuillez sélectionner le lieu',
+    },
+    cancel: 'Annuler',
+    title: 'Réservation RDV',
     error: 'Impossible de réserver sur cette date',
     searchSlot: 'Rechercher un créneau',
-    noPrivateServiceAvailable: 'Aucun cours privé proposé',
+    noPrivateServiceAvailable: 'Aucun RDV proposé',
     isAtHome:
       'Cours à domicile, votre adresse vous sera demandée lors de la réservation',
     bookingCapabilities: {
@@ -186,7 +228,9 @@ export default {
       coach: 'Professeur',
     },
     step: {
-      privateService: 'Cours privé',
+      configuration: 'Mon rendez-vous',
+      billing: 'Facturation',
+      privateService: 'Rendez-vous',
       privateSlot: 'Séance',
       coach: 'Professeur',
       date: 'Date',
@@ -197,12 +241,12 @@ export default {
     isReverted: 'Facture annulée',
     detail: {
       invoice: 'Facture liée',
-      booking: 'Réservations cours privé liées',
+      booking: 'Réservations RDV liées',
     },
   },
   privateServiceCompatibility: {
     delete: {
-      title: 'Modificatio cours privés compatibles',
+      title: 'Modification RDV compatibles',
       explain:
         "Êtes-vous sûr de vouloir modifier les règles d'utilisation du pass ? Cette modification est rétro-active pour les achats déjà effectués.",
       cancel: 'Annuler',
@@ -218,7 +262,7 @@ export default {
       submit: 'Confirmer',
     },
     list: {
-      createButton: 'Créer une carte cours privé',
+      createButton: 'Créer une carte RDV',
     },
     parameters: {
       nbCredits: '{{ credits }} crédit',
@@ -227,12 +271,12 @@ export default {
       managerOnly: 'Invisible pour les clients',
     },
     compatibleServices: {
-      title: 'Cours privés compatibles',
+      title: 'RDV compatibles',
       add: 'Ajouter',
-      isEmpty: 'Aucun cours privé compatible - inutilisable',
+      isEmpty: "Aucun rendez-vous n'est compatible - inutilisable",
     },
     form: {
-      title: 'Carte cours privé',
+      title: 'Carte RDV',
       managerOnly: {
         label: 'Invisible pour les clients',
       },
@@ -256,25 +300,113 @@ export default {
     },
   },
   service: {
-    form: {
-      title: 'Cours privé',
-      createButton: 'Ajouter un cours privé',
-      addCoach: 'Ajouter un professeur',
-      addEstablishment: 'Ajouter une salle',
-      addSlot: 'Ajouter une séance',
-
-      name: {
-        label: 'Nom',
-        placeholder: 'Massage',
-      },
+    selector: {
+      placeholder: 'Sélectionnez un rendez-vous',
+      isEmpty: 'Aucun type de rendez-vous configuré',
       coach: {
         label: 'Professeur',
       },
       establishment: {
         label: 'Salle',
       },
+    },
+    detail: {
+      tab: {
+        general: 'Général',
+        calendar: 'Calendrier',
+      },
+    },
+    configuration: {
+      slot: 'Type de séance',
+
+      explainSetToHasNotOwnAvailabilitySlots:
+        'Réservable sur tout créneau horaire si prof/salle disponibles',
+      explainSetToHasOwnAvailabilitySlots:
+        'Reservable sur certains créneaux seulement',
+      explainHasOwnAvailabilitySlots:
+        'Cliquez sur le crayon pour limiter les réservations à certaines plages horaires',
+      hasFutureSlot: 'Calendrier des disponibilités futures OK',
+      noFutureSlot:
+        "Vous n'avez configuré aucune disponibilité pour {{resourceName}} ! Cliquez ici.",
+      title: 'Disponibilités horaires',
+      isAlwaysAvailable:
+        '{{ resourceName}} est réservable dès que la salle et/ou les profs sont disponibles',
+      changeIsAlwaysAvailable: 'Modifier',
+    },
+    form: {
+      establishmentResourceType: {
+        isHomeService: {
+          label: 'A domicile',
+          helperText: 'Une adresse sera demandé à chaque réservation',
+        },
+        isWithoutEstablishment: {
+          label: 'Sans lieu pré-déterminé',
+          helperText: 'Ex: cours en visio / en extérieur / ...',
+        },
+        isWithEstablishment: {
+          isEmpty: 'Aucune salle configurée !',
+          label: "Dans l'un de vos établissements",
+          helperText:
+            'La réservation ne sera possible que si la salle dispose de suffisamment de places libres',
+        },
+      },
+      resourceGroup: {
+        establishment: 'Lieu',
+        coach: 'Professeur',
+      },
+      coach_consumer_attribution: {
+        label: 'Permettre le choix du professeur lors de la réservation',
+        helperText:
+          "Le membre voit et choisit le professeur avant la réservation. Si décoché, bsport d'attribuer les réservations au même professeur si possible",
+      },
+      establishment_consumer_attribution: {
+        label: 'Permettre le choix du lieu lors de la réservation',
+        helperText:
+          "Le membre voit et choisit le lieu avant la réservation, si décoché bsport essaiera d'optimiser le remplissage des salles",
+      },
+      delete: {
+        title: 'Suppression du rendez-vous',
+        content:
+          'Êtes-vous certain de vouloir supprimer ce type de rendez-vous ?',
+        cancel: 'Annuler',
+        confirm: 'Supprimer',
+      },
+      coach_capacity_used: {
+        label: "Nb maximum de RDV simultanés qu'un professeur peut gérer",
+        helperText:
+          'Ex: un professeur peut surveiller deux élèves séparément sur deux machines ',
+      },
+      color: 'Code couleur',
+      use_full_establishment_capacity: {
+        label: 'Nécessite toute la salle',
+        helperText:
+          'Décochez pour autoriser simultanément plusieurs activités / rdv dans la même salle si la capacité le permet',
+      },
+      title: 'Rendez-vous',
+      createButton: 'Ajouter un type de Rendez-vous',
+      addCoach: 'Ajouter un professeur',
+      addEstablishment: 'Ajouter une salle',
+      addSlot: 'Ajouter un type séance',
+
+      is_home_service: {
+        label: 'A domicile',
+        helperText: 'Une adresse sera demandée à chaque réservation',
+      },
+      is_without_coach: 'Sans professeur',
+
+      name: {
+        label: 'Nom du service',
+        placeholder: 'Massage',
+      },
+      coach: {
+        label: 'Professeur',
+        isEmpty: 'Aucun professeur configuré !',
+      },
+      establishment: {
+        label: 'Salle',
+      },
       description: {
-        label: 'Description',
+        label: 'Description du service',
       },
       actions: {
         cancel: 'Annuler',
@@ -285,16 +417,16 @@ export default {
       description: 'Description',
       coaches: {
         title: 'Professeur',
-        isEmpty: 'Aucun professeur, aucune réservation possible',
+        is_empty: "Aucun professeur n'est requis",
       },
       establishments: {
         title: 'Lieu',
-        isEmpty:
-          "Aucun établissement, ce cours sera considéré à domicile et l'adresse sera demandé à l'élève à chaque réservation",
+        is_empty: 'A domicile',
       },
       slots: {
         title: 'Séance',
-        isEmpty: 'Aucune séance, aucune réservation possible',
+        isEmpty: 'Aucune type de séance définie',
+        explainIsEmpty: 'Définissez des types de séances (durée, coût)',
       },
     },
   },

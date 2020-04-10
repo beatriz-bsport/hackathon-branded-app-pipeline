@@ -144,7 +144,7 @@ export function OfferMinimalSummary(props: Props) {
     <ListItem
       key={id}
       dense
-      button
+      button={!!overrideClickAction}
       selected={selected}
       onClick={overrideClickAction}
       className={classNames(

@@ -425,26 +425,9 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         text: t('navigation.calendar'),
       },
       {
+        to: '/private-service/calendar/',
         icon: ScheduleIcon,
-        text: t('navigation.privateService.title'),
-        type: 'nested',
-        nestedItems: [
-          {
-            to: '/private-service/calendar/',
-            icon: TodayIcon,
-            text: t('navigation.privateService.calendar'),
-          },
-          {
-            to: '/private-service/service/',
-            icon: Star,
-            text: t('navigation.privateService.services'),
-          },
-          {
-            to: '/private-service/pass/',
-            icon: VpnKey,
-            text: t('navigation.privateService.pass'),
-          },
-        ],
+        text: t('navigation.schedule'),
       },
       {
         icon: BusinessCenterIcon,
@@ -462,6 +445,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             text: t('navigation.workshopActivities'),
           },
           {
+            to: '/private-service/service/',
+            icon: ScheduleIcon,
+            text: t('navigation.privateService.services'),
+          },
+          {
             to: '/coach',
             icon: FitnessCenter,
             text: t('common.coaches'),
@@ -476,6 +464,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             to: '/payment-pack',
             icon: VpnKey,
             text: t('navigation.pass'),
+          },
+          {
+            to: '/private-service/pass/',
+            icon: ScheduleIcon,
+            text: t('navigation.privateService.pass'),
           },
           {
             to: '/shop',

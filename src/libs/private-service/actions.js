@@ -2,18 +2,24 @@
 
 import { createAction } from 'redux-actions';
 
+import moment from 'moment';
+
 import {
   // availability-slot
   fetchAvailabilitySlots as fetchAvailabilitySlotsAPI,
+  checkExistsAvailabilitySlots as checkExistsAvailabilitySlotsAPI,
   fetchPrivateBookings as fetchPrivateBookingsAPI,
-  disableCoachAvailabilitySlot as disableCoachAvailabilitySlotAPI,
-  enableCoachAvailabilitySlot as enableCoachAvailabilitySlotAPI,
+  disableResourceAvailabilitySlot as disableResourceAvailabilitySlotAPI,
+  enableResourceAvailabilitySlot as enableResourceAvailabilitySlotAPI,
   searchAvailableSlots as searchAvailableSlotsAPI,
   // private-service
   fetchAllPrivateServices as fetchAllPrivateServicesAPI,
   fetchPrivateService as fetchPrivateServiceAPI,
+  switchServiceHasOwnAvailabilitySlots as switchServiceHasOwnAvailabilitySlotsAPI,
   createOrUpdatePrivateService as createOrUpdatePrivateServiceAPI,
   deletePrivateService as deletePrivateServiceAPI,
+  fetchPrivateServiceResourceData as fetchPrivateServiceResourceDataAPI,
+  updateResourceConfiguration as updateResourceConfigurationAPI,
   // private-coach
   createPrivateCoach as createPrivateCoachAPI,
   deletePrivateCoach as deletePrivateCoachAPI,
@@ -42,22 +48,143 @@ import {
   registerPrivateBookings as registerPrivateBookingsAPI,
   disablePrivateBooking as disablePrivateBookingAPI,
   deletePrivateBooking as deletePrivateBookingAPI,
+  fetchCalendarEventList as fetchCalendarEventListAPI,
 } from './api';
 
 import type { Dispatch, ThunkAction } from '../../state/types';
+
+export const calendarEventListActions = {
+  error: createAction('CALENDAR_EVENT/LIST/ERROR'),
+  isLoading: createAction('CALENDAR_EVENT/LIST/IS_LOADING'),
+  success: createAction('CALENDAR_EVENT/LIST/SUCCESS'),
+  reset: createAction('CALENDAR_EVENT/LIST/RESET'),
+};
+
+export function fetchCalendarEventList(params: any, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(calendarEventListActions.isLoading(true));
+    dispatch(calendarEventListActions.error(null));
+    try {
+      const response = await fetchCalendarEventListAPI(params);
+      dispatch(calendarEventListActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(calendarEventListActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(calendarEventListActions.isLoading(false));
+  };
+}
+
+export const availabilitySlotExistsActions = {
+  error: createAction('AVAILABILITY_SLOT/EXISTS/ERROR'),
+  isLoading: createAction('AVAILABILITY_SLOT/EXISTS/IS_LOADING'),
+  success: createAction('AVAILABILITY_SLOT/EXISTS/SUCCESS'),
+};
+
+export function checkExistsAvailabilitySlots(
+  resourceDatatype: string,
+  resourceIdentifier: number,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(
+      availabilitySlotExistsActions.isLoading({
+        resourceDatatype,
+        resourceIdentifier,
+        loading: true,
+      }),
+    );
+    dispatch(
+      availabilitySlotExistsActions.error({
+        resourceDatatype,
+        resourceIdentifier,
+        error: null,
+      }),
+    );
+    try {
+      const response = await checkExistsAvailabilitySlotsAPI({
+        is_restriction: false,
+        date_start__gte: moment().format('YYYY-MM-DD'),
+        [resourceDatatype]: resourceIdentifier,
+      });
+      dispatch(
+        availabilitySlotExistsActions.success({
+          resourceDatatype,
+          resourceIdentifier,
+          ...response.data,
+        }),
+      );
+    } catch (err) {
+      console.error(err);
+      dispatch(
+        availabilitySlotExistsActions.error({
+          resourceDatatype,
+          resourceIdentifier,
+          error: err,
+        }),
+      );
+    }
+    dispatch(
+      availabilitySlotExistsActions.isLoading({
+        resourceDatatype,
+        resourceIdentifier,
+        loading: false,
+      }),
+    );
+  };
+}
+
+export const updateResourceConfigurationActions = {
+  error: createAction('RESOURCE/UPDATE/ERROR'),
+  isLoading: createAction('RESOURCE/UPDATE/IS_LOADING'),
+  success: createAction('RESOURCE/UPDATE/SUCCESS'),
+};
+
+export function updateResourceConfiguration(
+  privateServiceId: number,
+  resourceIdentifier: string,
+  data: any,
+  options: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(updateResourceConfigurationActions.isLoading(true));
+    dispatch(updateResourceConfigurationActions.error(null));
+    try {
+      const response = await updateResourceConfigurationAPI(
+        privateServiceId,
+        resourceIdentifier,
+        data,
+      );
+      dispatch(updateResourceConfigurationActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(updateResourceConfigurationActions.error(null));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(updateResourceConfigurationActions.isLoading(false));
+  };
+}
 
 export const availabilitySlotListActions = {
   error: createAction('AVAILABILITY_SLOT/LIST/ERROR'),
   isLoading: createAction('AVAILABILITY_SLOT/LIST/IS_LOADING'),
   success: createAction('AVAILABILITY_SLOT/LIST/SUCCESS'),
+  reset: createAction('AVAILABILITY_SLOT/RESET/SUCCESS'),
 };
 
-export function fetchAvailabilitySlots(params: any): ThunkAction {
+export const resetAvailabilitySlots = availabilitySlotListActions.reset;
+
+export function fetchAvailabilitySlots(params: any = {}): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(availabilitySlotListActions.isLoading(true));
     dispatch(availabilitySlotListActions.error(null));
     try {
-      const response = await fetchAvailabilitySlotsAPI(params);
+      const response = await fetchAvailabilitySlotsAPI({
+        is_restriction: false,
+        ...params,
+      });
       dispatch(availabilitySlotListActions.success(response.data));
     } catch (err) {
       console.error(err);
@@ -73,28 +200,34 @@ export const availabilitySlotUpdateActions = {
   success: createAction('AVAILABILITY_SLOT/UPDATE/SUCCESS'),
 };
 
-export function enableCoachAvailabilitySlot(
-  coach: number,
+export function enableResourceAvailabilitySlot(
+  resourceData: any,
   {
     date_start,
     date_end,
     recurrence_until,
     all_date_start,
   }: { date_start: string, date_end: string, recurrence_until?: string },
-  options: ?{ onSuccess: () => void, onError: ?() => void },
+  options: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(availabilitySlotUpdateActions.isLoading(true));
     dispatch(availabilitySlotUpdateActions.error(null));
     try {
-      await enableCoachAvailabilitySlotAPI(coach, {
+      await enableResourceAvailabilitySlotAPI(resourceData, {
         date_start,
         date_end,
         recurrence_until,
         all_date_start,
       });
       dispatch(availabilitySlotUpdateActions.success());
-      if (options && options.onSuccess) options.onSuccess();
+      dispatch(availabilitySlotListActions.reset(resourceData));
+      dispatch(
+        fetchAvailabilitySlots({ ...resourceData, date_start, date_end }),
+      );
+      if (options && options.onSuccess) {
+        options.onSuccess();
+      }
     } catch (err) {
       console.error(err);
       dispatch(availabilitySlotListActions.error(null));
@@ -104,8 +237,8 @@ export function enableCoachAvailabilitySlot(
   };
 }
 
-export function disableCoachAvailabilitySlot(
-  coach: number,
+export function disableResourceAvailabilitySlot(
+  resourceData: any,
   {
     date_start,
     date_end,
@@ -118,13 +251,17 @@ export function disableCoachAvailabilitySlot(
     dispatch(availabilitySlotUpdateActions.isLoading(true));
     dispatch(availabilitySlotUpdateActions.error(null));
     try {
-      await disableCoachAvailabilitySlotAPI(coach, {
+      await disableResourceAvailabilitySlotAPI(resourceData, {
         date_start,
         date_end,
         recurrence_until,
         all_date_start,
       });
       dispatch(availabilitySlotUpdateActions.success());
+      dispatch(availabilitySlotListActions.reset(resourceData));
+      dispatch(
+        fetchAvailabilitySlots({ ...resourceData, date_start, date_end }),
+      );
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
       console.error(err);
@@ -135,22 +272,79 @@ export function disableCoachAvailabilitySlot(
   };
 }
 
+export const disableCoachAvailabilitySlot = (coach, ...args) =>
+  disableResourceAvailabilitySlot({ coach }, ...args);
+export const enableCoachAvailabilitySlot = (coach, ...args) =>
+  enableResourceAvailabilitySlot({ coach }, ...args);
+
+export const disablePrivateServiceAvailabilitySlot = (
+  privateServiceId,
+  ...args
+) =>
+  disableResourceAvailabilitySlot(
+    { private_service: privateServiceId },
+    ...args,
+  );
+export const enablePrivateServiceAvailabilitySlot = (
+  privateServiceId,
+  ...args
+) =>
+  enableResourceAvailabilitySlot(
+    { private_service: privateServiceId },
+    ...args,
+  );
+
+export const disableEstablishmentAvailabilitySlot = (establishment, ...args) =>
+  disableResourceAvailabilitySlot({ establishment }, ...args);
+export const enableEstablishmentAvailabilitySlot = (establishment, ...args) =>
+  enableResourceAvailabilitySlot({ establishment }, ...args);
+
+export const privateServiceMarketplaceListActions = {
+  error: createAction('PRIVATE_SERVICE/MARKETPLACE_LIST/ERROR'),
+  isLoading: createAction('PRIVATE_SERVICE/MARKETPLACE_LIST/IS_LOADING'),
+  success: createAction('PRIVATE_SERVICE/MARKETPLACE_LIST/SUCCESS'),
+};
+
+export function fetchMarketplacePrivateServices(
+  company: number,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(privateServiceMarketplaceListActions.isLoading(true));
+    dispatch(privateServiceMarketplaceListActions.error(null));
+    try {
+      const response = await fetchAllPrivateServicesAPI({
+        company,
+        available: true,
+      });
+      dispatch(privateServiceMarketplaceListActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(privateServiceMarketplaceListActions.error(null));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(privateServiceMarketplaceListActions.isLoading(false));
+  };
+}
 export const privateServiceListActions = {
   error: createAction('PRIVATE_SERVICE/LIST/ERROR'),
   isLoading: createAction('PRIVATE_SERVICE/LIST/IS_LOADING'),
   success: createAction('PRIVATE_SERVICE/LIST/SUCCESS'),
 };
 
-export function fetchAllPrivateServices(): ThunkAction {
+export function fetchAllPrivateServices(options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(privateServiceListActions.isLoading(true));
     dispatch(privateServiceListActions.error(null));
     try {
       const response = await fetchAllPrivateServicesAPI();
       dispatch(privateServiceListActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
       dispatch(privateServiceListActions.error(null));
+      if (options && options.onError) options.onError(err);
     }
     dispatch(privateServiceListActions.isLoading(false));
   };
@@ -162,18 +356,49 @@ export const privateServiceRetrieveActions = {
   success: createAction('PRIVATE_SERVICE/RETRIEVE/SUCCESS'),
 };
 
-export function fetchPrivateService(id: number): ThunkAction {
+export function fetchPrivateService(
+  id: number,
+  options: OptionCallback,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateServiceRetrieveActions.isLoading(true));
     dispatch(privateServiceRetrieveActions.error(null));
     try {
       const response = await fetchPrivateServiceAPI(id);
       dispatch(privateServiceRetrieveActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
       dispatch(privateServiceRetrieveActions.error(null));
+      if (options && options.onError) options.onError(err);
     }
     dispatch(privateServiceRetrieveActions.isLoading(false));
+  };
+}
+
+export const privateServiceResourceRetrieveActions = {
+  error: createAction('PRIVATE_SERVICE/RESOURCE/ERROR'),
+  isLoading: createAction('PRIVATE_SERVICE/RESOURCE/IS_LOADING'),
+  success: createAction('PRIVATE_SERVICE/RESOURCE/SUCCESS'),
+};
+
+export function fetchPrivateServiceResourceData(
+  id: number,
+  options: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(privateServiceResourceRetrieveActions.isLoading(true));
+    dispatch(privateServiceResourceRetrieveActions.error(null));
+    try {
+      const response = await fetchPrivateServiceResourceDataAPI(id);
+      dispatch(privateServiceResourceRetrieveActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(privateServiceResourceRetrieveActions.error(null));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(privateServiceResourceRetrieveActions.isLoading(false));
   };
 }
 
@@ -407,6 +632,21 @@ export function fetchAllPrivateSlots(): ThunkAction {
   };
 }
 
+export function fetchMarketplacePrivateSlots(company: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(privateSlotListActions.isLoading(true));
+    dispatch(privateSlotListActions.error(null));
+    try {
+      const response = await fetchAllPrivateSlotsAPI({ company });
+      dispatch(privateSlotListActions.all(response.data));
+    } catch (err) {
+      console.error(err);
+      dispatch(privateSlotListActions.error(null));
+    }
+    dispatch(privateSlotListActions.isLoading(false));
+  };
+}
+
 export const privateSlotCreateOrUpdateActions = {
   error: createAction('PRIVATE_SLOT/CREATE_OR_UPDATE/ERROR'),
   isLoading: createAction('PRIVATE_SLOT/CREATE_OR_UPDATE/IS_LOADING'),
@@ -465,6 +705,34 @@ export function deletePrivateSlot(
       if (options && options.onError) options.onError();
     }
     dispatch(privateSlotDeleteActions.isLoading(false));
+  };
+}
+
+export const switchServiceHasOwnAvailabilitySlotsActions = {
+  error: createAction('PRIVATE_SERVICE/SWITCH_HAS_OWN_AVAILABILITY_SLOT/ERROR'),
+  isLoading: createAction(
+    'PRIVATE_SERVICE/SWITCH_HAS_OWN_AVAILABILITY_SLOT/IS_LOADING',
+  ),
+  success: createAction(
+    'PRIVATE_SERVICE/SWITCH_HAS_OWN_AVAILABILITY_SLOT/SUCCESS',
+  ),
+};
+
+export function switchServiceHasOwnAvailabilitySlots(
+  privateServiceId: number,
+  options: ?{ onSuccess: () => void, onError: ?() => void },
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(switchServiceHasOwnAvailabilitySlotsActions.isLoading(true));
+    dispatch(switchServiceHasOwnAvailabilitySlotsActions.error(null));
+    try {
+      await switchServiceHasOwnAvailabilitySlotsAPI(privateServiceId);
+      dispatch(fetchPrivateService(privateServiceId, options));
+    } catch (err) {
+      console.error(err);
+      dispatch(switchServiceHasOwnAvailabilitySlotsActions.error(null));
+    }
+    dispatch(switchServiceHasOwnAvailabilitySlotsActions.isLoading(false));
   };
 }
 
@@ -562,8 +830,10 @@ export const availabilitySlotSearchActions = {
 export function searchAvailableSlots(
   privateServiceId: number,
   privateSlotId: number,
-  associatedCoachId: number,
+  associatedCoachIdList: Array<number>,
   date: string,
+    associatedEstablishmentIdList: Array<number>,
+      options: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(availabilitySlotSearchActions.isLoading(true));
@@ -572,13 +842,16 @@ export function searchAvailableSlots(
       const response = await searchAvailableSlotsAPI(
         privateServiceId,
         privateSlotId,
-        associatedCoachId,
+        associatedCoachIdList,
         date,
+        associatedEstablishmentIdList,
       );
       dispatch(availabilitySlotSearchActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data)
     } catch (err) {
       console.error(err);
       dispatch(availabilitySlotSearchActions.error(null));
+      if (options && options.onError) options.onError(err)
     }
     dispatch(availabilitySlotSearchActions.isLoading(false));
   };
@@ -896,7 +1169,10 @@ export const privateBookingListActions = {
   error: createAction('PRIVATE_BOOKING/LIST/ERROR'),
   isLoading: createAction('PRIVATE_BOOKING/LIST/IS_LOADING'),
   success: createAction('PRIVATE_BOOKING/LIST/SUCCESS'),
+  reset: createAction('PRIVATE_BOOKING/RESET/SUCCESS'),
 };
+
+export const resetPrivateBookings = privateBookingListActions.reset;
 
 export function fetchPrivateBookings(
   params: any,
@@ -920,6 +1196,9 @@ export function fetchPrivateBookings(
     dispatch(privateBookingListActions.isLoading(false));
   };
 }
+
+export const fetchPrivateBooking = (id: number, options: OptionCallback) =>
+  fetchPrivateBookings({ id__in: [id] }, options);
 
 export function registerPrivateBooking(
   params: any,

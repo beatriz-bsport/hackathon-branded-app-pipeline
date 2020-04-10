@@ -4,10 +4,7 @@ import { createSelector } from 'reselect';
 import type { State } from '../../../state/types';
 
 import type { PrivateService, PrivateServiceWithRelatedFields } from '../types';
-import {
-  getAllCoaches,
-  getAllCoachesDict,
-} from '../../associated-coach/selectors';
+import { getAllCoachesDict } from '../../associated-coach/selectors';
 import {
   getAllEstablishmentsWithAssociatedId,
   getAllEstablishmentsDict,
@@ -28,6 +25,17 @@ export const _getPrivateServices: (
   (list, data) => list.map((id) => data[id]),
 );
 
+export const _getPrivateServicesMarketplaceListId: (State) => Array<number> = (
+  state,
+) => state.privateService.privateService.marketplaceIds;
+
+export const _getPrivateServicesMarketplace: (
+  state: State,
+) => Array<PrivateService> = createSelector(
+  [_getPrivateServicesMarketplaceListId, _getPrivateServicesById],
+  (list, data) => list.map((id) => data[id]),
+);
+
 export const getPrivateService = (state: State, id: number) =>
   _getPrivateServicesById(state)[id];
 
@@ -36,21 +44,26 @@ export const getPrivateServices: (
 ) => Array<PrivateServiceWithRelatedFields> = createSelector(
   [
     _getPrivateServices,
-    getAllCoaches,
+    getAllCoachesDict,
     getAllEstablishmentsWithAssociatedId,
     getAllPrivateSlotsDict,
   ],
-  (privateServices, allCoaches, allEstablishments, allSlots) =>
-    privateServices.map((ps) => ({
+  (privateServices, allCoachesData, allEstablishments, allSlots) => {
+    return privateServices.map((ps) => ({
       ...ps,
       coaches: ps.coaches.map((associated_coach) =>
-        allCoaches.find((c) => c.associated_coach_id === associated_coach),
+        Object.values(allCoachesData).find(
+          (c) => c.associated_coach_id === associated_coach,
+        ),
       ),
       establishments: ps.establishments.map((e) =>
-        allEstablishments.find((ae) => ae.associated_establishment_id === e),
+        allEstablishments.find((ae) =>
+          ae.associatedestablishment_set.includes(e),
+        ),
       ),
       slots: ps.slots.map((s) => allSlots[s]),
-    })),
+    }));
+  },
 );
 
 export const getAvailablePrivateServices: (
@@ -68,7 +81,31 @@ export const getAvailablePrivateServices: (
       })),
 );
 
-export const getPrivateServicesForMarketplace: (
+export const getPrivateServiceById = (state, id) => {
+  const ps = state.privateService.privateService.byId[id];
+  if (!ps) return null;
+  const coachData = getAllCoachesDict(state);
+  const establishmentData = getAllEstablishmentsDict(state);
+  const slotData = getAllPrivateSlotsDict(state);
+  return {
+    ...ps,
+    coaches: ps.coaches
+      .map((c) =>
+        Object.values(coachData).find((c_) => c_.associated_coach_id === c),
+      )
+      .filter((c) => !!c),
+    slots: ps.slots.map((s) => slotData[s]).filter((s) => !!s),
+    establishments: ps.establishments
+      .map((c) =>
+        Object.values(establishmentData).find((e_) =>
+          e_.associatedestablishment_set.includes(c),
+        ),
+      )
+      .filter((e) => !!e),
+  };
+};
+
+export const getPrivateServicesList: (
   state: State,
 ) => Array<PrivateServiceWithRelatedFields> = createSelector(
   [
@@ -78,20 +115,50 @@ export const getPrivateServicesForMarketplace: (
     getAllPrivateSlotsDict,
   ],
   (privateServices, allCoaches, allEstablishments, allSlotsDict) =>
-    privateServices.map((ps) => ({
-      ...ps,
-      coaches: ps.coaches.map((associated_coach) =>
-        Object.values(allCoaches).find((c) =>
-          c.associatedcoach_set.includes(associated_coach),
+    privateServices
+      .filter((ps) => ps.available)
+      .map((ps) => ({
+        ...ps,
+        coaches: ps.coaches.map((associated_coach) =>
+          Object.values(allCoaches).find((c) =>
+            c.associatedcoach_set.includes(associated_coach),
+          ),
         ),
-      ),
-      establishments: ps.establishments.map((e) =>
-        Object.values(allEstablishments).find((ae) =>
-          ae.associatedestablishment_set.includes(e),
+        establishments: ps.establishments.map((e) =>
+          Object.values(allEstablishments).find((ae) =>
+            ae.associatedestablishment_set.includes(e),
+          ),
         ),
-      ),
-      slots: ps.slots.map((s) => allSlotsDict[s]),
-    })),
+        slots: ps.slots.map((s) => allSlotsDict[s]),
+      })),
+);
+
+export const getPrivateServicesForMarketplace: (
+  state: State,
+) => Array<PrivateServiceWithRelatedFields> = createSelector(
+  [
+    _getPrivateServicesMarketplace,
+    getAllCoachesDict,
+    getAllEstablishmentsDict,
+    getAllPrivateSlotsDict,
+  ],
+  (privateServices, allCoaches, allEstablishments, allSlotsDict) =>
+    privateServices
+      .filter((ps) => ps.available)
+      .map((ps) => ({
+        ...ps,
+        coaches: ps.coaches.map((associated_coach) =>
+          Object.values(allCoaches).find((c) =>
+            c.associatedcoach_set.includes(associated_coach),
+          ),
+        ),
+        establishments: ps.establishments.map((e) =>
+          Object.values(allEstablishments).find((ae) =>
+            ae.associatedestablishment_set.includes(e),
+          ),
+        ),
+        slots: ps.slots.map((s) => allSlotsDict[s]),
+      })),
 );
 
 export const _getPrivateServiceDict: (State) => {

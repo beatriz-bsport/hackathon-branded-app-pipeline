@@ -9,19 +9,34 @@ import { compose, withState } from 'recompose';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
+import MomentUtils from '@date-io/moment';
+import moment from 'moment';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import {
+  MuiPickersUtilsProvider,
+  Calendar,
+  BasePicker,
+} from 'material-ui-pickers';
+import Paper from '@material-ui/core/Paper';
+import Divider from '@material-ui/core/Divider';
+import {
   fetchPrivateServiceWithSlotList,
   searchAvailableSlots,
+  fetchMarketplacePrivateServices,
+  fetchMarketplacePrivateSlots,
 } from '../../libs/private-service/actions';
 import { getPrivateServicesForMarketplace } from '../../libs/private-service/selectors/private-service';
-import SlotSearcher from '../../libs/private-service/components/booking-module/SlotSearcher.component';
-import SlotSearcherHelper from '../../libs/private-service/components/booking-module/SlotSearcherHelper.component';
+import SlotSearcherResult from '../../libs/private-service/components/slot-searcher/SlotSearcherResult.component';
+import SlotSearcherParams from '../../libs/private-service/components/slot-searcher/SlotSearcherParams.component';
+import SlotSearcherHelper from '../../libs/private-service/components/slot-searcher/SlotSearcherHelper.component';
 import type { PrivateService } from '../../libs/private-service/types';
-import { fetchCompanyActivities } from '../../libs/meta-activity/actions';
-import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
-import { fetchEstablishments } from '../../libs/establishment/actions';
+import { getMissingResourceForBooking } from '../../libs/private-service/utils';
+
+import MissingResourceForBookingHelper from '../../libs/private-service/components/MissingResourceForBookingHelper.component';
+
+import { fetchAssociatedEstablishmentBulk } from '../../libs/establishment/actions';
+import { fetchAssociatedCoachBulk } from '../../libs/associated-coach/actions';
 
 type Props = {
   companyId: number,
@@ -37,13 +52,10 @@ type Props = {
   setPrivateService: (?number) => void,
   setPrivateSlot: (?number) => void,
   setCoaches: (Array<number>) => void,
+  setEstablishments: (Array<number>) => void,
   privateSlot: ?number,
   privateService: ?number,
   coaches: Array<number>,
-
-  fetchCompanyActivities: (companyId: number) => void,
-  fetchAssociatedCoachesList: (params: any) => void,
-  fetchEstablishments: (params: any) => void,
 
   goToPrivateBookingPage: (
     privateServiceId: number,
@@ -58,23 +70,116 @@ type Props = {
 };
 
 export class MarketplacePrivateService extends React.Component<Props> {
-  componentWillMount() {
-    this.props.fetchCompanyActivities(this.props.companyId);
-    this.props.fetchAssociatedCoachesList({ company: this.props.companyId });
-    this.props.fetchEstablishments({ company: this.props.companyId });
-    this.props.fetchPrivateServiceWithSlotList(this.props.companyId, {
-      available: true,
+  state = {
+    date_selected: moment().format('YYYY-MM-DD'),
+    private_service: null,
+    private_slot: null,
+    establishment: null,
+    coaches: null,
+  };
+
+  resultsRef = React.createRef();
+
+  componentDidMount() {
+    this.props.fetchMarketplacePrivateServices(this.props.companyId, {
+      onSuccess: (serviceList) => {
+        this.props.fetchEstablishmentBulk(
+          serviceList.reduce((acc, s) => [...acc, ...s.establishments], []),
+        );
+        this.props.fetchCoachBulk(
+          serviceList.reduce((acc, s) => [...acc, ...s.coaches], []),
+        );
+      },
     });
+    this.props.fetchMarketplacePrivateSlots(this.props.companyId);
   }
 
-  searchAvailableSlots = (...params) => {
-    if (!this.props.authenticated) {
-      this.props.requestLogin();
+  searchAvailableSlots = () => {
+    this.props.searchAvailableSlots(
+      this.state.private_service,
+      this.state.private_slot,
+      this.state.coaches,
+      this.state.date_selected,
+      [this.state.establishment],
+      {
+        onSuccess: () => {
+          this.resultsRef.current.scrollIntoView({ behavior: 'smooth' });
+        },
+      },
+    );
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevState.private_service !== this.state.private_service ||
+      prevState.private_slot !== this.state.private_slot ||
+      prevState.establishment !== this.state.establishment ||
+      prevState.coaches !== this.state.coaches ||
+      prevState.date_selected !== this.state.date_selected
+    ) {
+      if (!this.missingResourceConf().length) {
+        this.searchAvailableSlots();
+      }
     }
-    this.props.searchAvailableSlots(...params);
+  }
+
+  getSelectedService = () => {
+    return this.props.private_services.find(
+      (p) => p.id === this.state.private_service,
+    );
+  };
+
+  getSelectedSlot = () => {
+    const service = this.getSelectedService();
+    if (service) {
+      return service.slots.find((s) => s.id === this.state.private_slot);
+    }
+    return null;
+  };
+
+  missingResourceConf = () => {
+    return getMissingResourceForBooking(
+      this.getSelectedService(),
+      this.state,
+      false,
+    );
+  };
+
+  handleConfigurationChange = (private_booking_data) => {
+    this.setState({
+      coaches: private_booking_data.coaches,
+      establishment: private_booking_data.establishment,
+      private_service: private_booking_data.private_service,
+      private_slot: private_booking_data.private_slot,
+    });
+  };
+
+  handleDateChange = (date_selected) => {
+    this.setState({ date_selected });
   };
 
   render() {
+    const missingResources = this.missingResourceConf();
+    /*
+              <SlotSearcher
+                bookable_slots={this.props.bookable_slots}
+                private_services={this.props.private_services}
+                searchAvailableSlots={() => {}}
+                onClickBook={(...args) =>
+                  this.props.goToPrivateBookingPage(
+                    ...args,
+                    this.props.companyId,
+                  )
+                }
+                searchLoading={this.props.searchLoading}
+                onPrivateServiceChange={this.props.setPrivateService}
+                onPrivateSlotChange={this.props.setPrivateSlot}
+                onCoachChange={this.props.setCoaches}
+                onEstablishmentChange={this.props.setEstablishments}
+                onDateChange={() => {}}
+	      />
+	      */
+
     return (
       <div className={this.props.classes.container}>
         {this.props.privateServiceLoading ? <LinearProgress /> : null}
@@ -99,29 +204,79 @@ export class MarketplacePrivateService extends React.Component<Props> {
               md={6}
               className={this.props.classes.slotSearcherContainer}
             >
-              <SlotSearcher
-                bookable_slots={this.props.bookable_slots}
-                private_services={this.props.private_services}
-                searchAvailableSlots={this.searchAvailableSlots}
-                onClickBook={(...args) =>
-                  this.props.goToPrivateBookingPage(
-                    ...args,
-                    this.props.companyId,
-                  )
-                }
-                searchLoading={this.props.searchLoading}
-                onPrivateServiceChange={this.props.setPrivateService}
-                onPrivateSlotChange={this.props.setPrivateSlot}
-                onCoachChange={this.props.setCoaches}
-                onDateChange={() => {}}
-              />
+              <Typography variant="h5" className={this.props.classes.title}>
+                {this.props.t('bookerModule.title')}
+              </Typography>
+              <Paper>
+                <div className={this.props.classes.selectorsContainer}>
+                  <SlotSearcherParams
+                    private_services={this.props.private_services}
+                    onConfigurationChange={this.handleConfigurationChange}
+                  />
+                </div>
+                <Divider />
+                <MuiPickersUtilsProvider
+                  utils={MomentUtils}
+                  moment={moment}
+                  locale={moment.locale()}
+                >
+                  <BasePicker value={this.state.date_selected}>
+                    {() => (
+                      <div className="picker">
+                        <div style={{ overflow: 'hidden' }}>
+                          <Calendar
+                            disablePast
+                            date={moment(
+                              this.state.date_selected,
+                              'YYYY-MM-DD',
+                            )}
+                            onChange={this.handleDateChange}
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </BasePicker>
+                </MuiPickersUtilsProvider>
+                {missingResources.length ? (
+                  <MissingResourceForBookingHelper
+                    missingResources={missingResources}
+                  />
+                ) : null}
+              </Paper>
+              <div ref={this.resultsRef}>
+                {missingResources.length ? null : (
+                  <SlotSearcherResult
+                    bookable_slots={this.props.bookable_slots}
+                    date={this.state.date_selected}
+                    loading={this.props.searchLoading}
+                    private_service={this.getSelectedService()}
+                    private_slot={this.getSelectedSlot()}
+                    onDateClick={(date) =>
+                      this.props.goToPrivateBookingPage(
+                        this.state.private_service,
+                        this.state.private_slot,
+                        this.props.companyId,
+                        {
+                          date,
+                          coaches: this.state.coaches,
+                          establishment: this.state.establishment,
+                        },
+                      )
+                    }
+                  />
+                )}
+              </div>
             </Grid>
             <Grid item xs={12} md={6}>
               <Hidden smDown>
                 <SlotSearcherHelper
-                  privateService={this.props.privateService}
-                  privateSlot={this.props.privateSlot}
-                  coaches={this.props.coaches}
+                  privateService={this.getSelectedService()}
+                  privateSlot={this.getSelectedSlot()}
+                  coaches={
+                    this.getSelectedService()
+                      ? this.getSelectedService().coaches
+                      : []
+                  }
                 />
               </Hidden>
             </Grid>
@@ -133,11 +288,26 @@ export class MarketplacePrivateService extends React.Component<Props> {
 }
 
 const styles = (theme) => ({
+  container: {
+    paddingTop: theme.spacing.unit * 4,
+    paddingBottom: '20vh',
+  },
+  selectorsContainer: {
+    paddingLeft: theme.spacing.unit * 2,
+    paddingRight: theme.spacing.unit * 2,
+    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 2,
+  },
   slotSearcherContainer: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+    alignItems: 'stretch',
     justifyContent: 'flex-start',
+    width: '100%',
+    maxWidth: 360,
+  },
+  title: {
+    marginBottom: theme.spacing.unit * 2,
   },
   emptyTextContainer: {
     display: 'flex',
@@ -159,24 +329,27 @@ export default compose(
       privateServiceLoading: state.privateService.privateService.loading,
     }),
     {
-      fetchCompanyActivities,
-      fetchEstablishments,
-      fetchAssociatedCoachesList,
+      fetchMarketplacePrivateServices,
+      fetchMarketplacePrivateSlots,
+      fetchEstablishmentBulk: fetchAssociatedEstablishmentBulk,
+      fetchCoachBulk: fetchAssociatedCoachBulk,
       fetchPrivateServiceWithSlotList,
       searchAvailableSlots,
       goToPrivateBookingPage: (
         privateServiceId: number,
         privateSlotId: number,
-        associatedCoachId: number,
-        date: string,
         membership: number,
+        data: any,
       ) =>
         push(
-          `/customer/payment/private-service/${privateServiceId}/private-slot/${privateSlotId}/associated-coach/${associatedCoachId}/date/${date}/?membership=${membership}`,
+          `/customer/payment/private-service/${privateServiceId}/private-slot/${privateSlotId}/?membership=${membership}&data=${encodeURIComponent(
+            JSON.stringify(data),
+          )}`,
         ),
     },
   ),
   withState('privateService', 'setPrivateService', null),
   withState('privateSlot', 'setPrivateSlot', null),
   withState('coaches', 'setCoaches', []),
+  withState('establishments', 'setEstablishments', []),
 )(MarketplacePrivateService);

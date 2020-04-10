@@ -20,7 +20,7 @@ type Props = {
 export const PrivatePassBookerListItem = (props: Props) => {
   const { private_pass, t, classes } = props;
   return (
-    <ListItem>
+    <ListItem divider={props.divider}>
       <ListItemText
         primary={private_pass.name}
         secondary={t('bookerModule.private_pass.credits', {

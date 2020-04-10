@@ -30,7 +30,6 @@ type Props = {
 const STEPS = [
   'bookerModule.step.privateService',
   'bookerModule.step.privateSlot',
-  'bookerModule.step.coach',
   'bookerModule.step.date',
 ];
 
@@ -38,10 +37,7 @@ export class SlotSearcherHelper extends React.PureComponent<Props> {
   getActiveStep = () => {
     if (this.props.privateService) {
       if (this.props.privateSlot) {
-        if (this.props.coaches.length > 0) {
-          if (this.props.date) {
-            return 3;
-          }
+        if (this.props.date) {
           return 3;
         }
         return 2;
@@ -55,16 +51,16 @@ export class SlotSearcherHelper extends React.PureComponent<Props> {
     if (this.props.privateService) {
       return (
         <div className={this.props.classes.section}>
-          <TypographyMultiline
+          <Typography
             variant="h5"
             component="h4"
             className={this.props.classes.sectionTitle}
           >
             {this.props.privateService.name}
-          </TypographyMultiline>
-          <Typography color="textSecondary">
-            {this.props.privateService.description}
           </Typography>
+          <TypographyMultiline color="textSecondary">
+            {this.props.privateService.description}
+          </TypographyMultiline>
         </div>
       );
     }
@@ -120,7 +116,7 @@ export class SlotSearcherHelper extends React.PureComponent<Props> {
   };
 
   renderCoach = () => {
-    if (this.props.coaches > 0) {
+    if (this.props.coaches.length > 0) {
       return (
         <div className={this.props.classes.section}>
           <Typography
@@ -132,9 +128,11 @@ export class SlotSearcherHelper extends React.PureComponent<Props> {
           </Typography>
           <Paper>
             <List>
-              {this.props.coaches.map((coach) => (
-                <CoachListItemBasic key={coach.id} coach={coach.user} />
-              ))}
+              {this.props.coaches
+                .filter((c) => !!c)
+                .map((coach) => (
+                  <CoachListItemBasic key={coach} coach={coach} />
+                ))}
             </List>
           </Paper>
         </div>
@@ -161,9 +159,9 @@ export class SlotSearcherHelper extends React.PureComponent<Props> {
           </Stepper>
           <div className={classes.content}>
             {this.renderPrivateService()}
+            {this.renderCoach()}
             {this.renderEstablishment()}
             {this.renderPrivateSlot()}
-            {this.renderCoach()}
           </div>
         </div>
       </div>

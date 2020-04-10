@@ -9,6 +9,10 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import AddIcon from '@material-ui/icons/Add';
+import WarningIcon from '@material-ui/icons/Warning';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import { withNamespaces } from 'react-i18next';
@@ -40,89 +44,133 @@ type Props = {
     options: ?{ onSuccess?: () => void, onError?: () => void },
   ) => void,
   // eslint-disable-next-line
-  deletePrivateSlot: (privateServiceId: number, slotId: number) => void,
+  deletePrivateSlot: (slotId: number) => void,
 
   t: TFunction,
   classes: Object,
 };
 
-export const EditablePrivateSlotList = (props: Props) => (
-  <div>
-    <List disablePadding>
-      {props.privateService.slots.map((s) => {
-        if (s && s.id) {
-          return (
-            <PrivateSlotListItem
-              key={s.id}
-              slot={s}
-              onEdit={() => props.setEditSlotForm(s)}
-              onDelete={() =>
-                props.deletePrivateSlot(props.privateService.id, s.id)
-              }
-            />
-          );
-        }
-        return <CircularProgress key={s} />;
-      })}
-    </List>
-    {props.privateService.slots.length === 0 ? (
-      <EmptyListWarning text={props.t('service.parameters.slots.isEmpty')} />
-    ) : null}
-    <Button
-      className={props.classes.button}
-      variant="outlined"
-      onClick={() => props.setOpenSlotForm(true)}
-    >
-      <AddIcon className={props.classes.leftIcon} />
-      {props.t('service.form.addSlot')}
-    </Button>
-    <Dialog open={!!props.editSlotForm}>
-      <DialogTitle>{props.t('slot.form.title')}</DialogTitle>
-      <DialogContent>
-        <PrivateSlotForm
-          initial={props.editSlotForm}
-          onSubmit={(data) =>
-            props.updatePrivateSlot(
-              props.privateService.id,
-              {
-                ...data,
-                private_service: props.privateService.id,
-              },
-              props.editSlotForm.id,
-              { onSuccess: () => props.setEditSlotForm(null) },
-            )
-          }
-          onCancel={() => props.setEditSlotForm(null)}
-        />
-      </DialogContent>
-    </Dialog>
-    <Dialog open={props.openSlotForm}>
-      <DialogTitle>{props.t('slot.form.title')}</DialogTitle>
-      <DialogContent>
-        <PrivateSlotForm
-          onSubmit={(data) =>
-            props.createPrivateSlot(
-              props.privateService.id,
-              {
-                ...data,
-                private_service: props.privateService.id,
-              },
-              null,
-              { onSuccess: () => props.setOpenSlotForm(false) },
-            )
-          }
-          onCancel={() => props.setOpenSlotForm(false)}
-        />
-      </DialogContent>
-    </Dialog>
-  </div>
-);
+export const EditablePrivateSlotList = (props: Props) => {
+  const slots = props.privateService.slots.filter((s) => s.available);
+  return (
+    <div className={props.classes.container}>
+      <div className={props.classes.titleRow}>
+        <AccessTimeIcon fontSize="large" className={props.classes.leftIcon} />
+        <Typography variant="h4">
+          {props.t('service.configuration.slot')}
+        </Typography>
+      </div>
+      <List>
+        <Paper>
+          {slots.length === 0 ? (
+            <div className={props.classes.row}>
+              <WarningIcon color="error" className={props.classes.leftIcon} />
+              <div className={props.classes.columnLeft}>
+                <Typography>
+                  {props.t('service.parameters.slots.isEmpty')}
+                </Typography>
+                <Typography color="error">
+                  {props.t('service.parameters.slots.explainIsEmpty')}
+                </Typography>
+              </div>
+            </div>
+          ) : null}
+          {slots.map((s) => {
+            if (s && s.id) {
+              return (
+                <PrivateSlotListItem
+                  key={s.id}
+                  slot={s}
+                  divider
+                  onEdit={() => props.setEditSlotForm(s)}
+                  onDelete={() => props.deletePrivateSlot(s.id)}
+                />
+              );
+            }
+            return <CircularProgress key={s} />;
+          })}
+        </Paper>
+      </List>
+      <Button
+        className={props.classes.button}
+        variant="contained"
+        color="primary"
+        onClick={() => props.setOpenSlotForm(true)}
+      >
+        <AddIcon className={props.classes.leftIcon} />
+        {props.t('service.form.addSlot')}
+      </Button>
+      <Dialog open={!!props.editSlotForm}>
+        <DialogContent>
+          <PrivateSlotForm
+            initial={props.editSlotForm}
+            onSubmit={(data) =>
+              props.updatePrivateSlot(
+                props.privateService.id,
+                {
+                  ...data,
+                  private_service: props.privateService.id,
+                },
+                props.editSlotForm.id,
+                { onSuccess: () => props.setEditSlotForm(null) },
+              )
+            }
+            onCancel={() => props.setEditSlotForm(null)}
+          />
+        </DialogContent>
+      </Dialog>
+      <Dialog open={props.openSlotForm}>
+        <DialogContent>
+          <PrivateSlotForm
+            onSubmit={(data) =>
+              props.createPrivateSlot(
+                props.privateService.id,
+                {
+                  ...data,
+                  private_service: props.privateService.id,
+                },
+                null,
+                { onSuccess: () => props.setOpenSlotForm(false) },
+              )
+            }
+            onCancel={() => props.setOpenSlotForm(false)}
+          />
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+};
 
 const styles = (theme) => ({
+  container: {
+    marginBottom: theme.spacing.unit * 5,
+  },
   leftIcon: {
     marginRight: theme.spacing.unit,
   },
+  titleRow: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: theme.spacing.unit * 2,
+  },
   button: { marginTop: theme.spacing.unit },
+  row: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    width: '100%',
+    padding: theme.spacing.unit * 2,
+    backgroundColor: '#F8F8F8',
+    borderRadius: theme.spacing.unit * 2,
+    marginTop: theme.spacing.unit,
+  },
+  columnLeft: {
+    display: 'column',
+    alignItems: 'flex-start',
+    marginLeft: theme.spacing.unit,
+  },
 });
 export default compose(
   withNamespaces(['privateService']),

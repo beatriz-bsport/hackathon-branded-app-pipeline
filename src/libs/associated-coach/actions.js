@@ -79,7 +79,10 @@ export const coachListAction = {
   success: createAction('COACH/LIST/SUCCESS'),
 };
 
-export function fetchAssociatedCoachesList(params?: { [string]: boolean }) {
+export function fetchAssociatedCoachesList(
+  params?: { [string]: boolean },
+  options: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(coachListAction.isLoading(true));
     dispatch(coachListAction.error(null));
@@ -91,8 +94,14 @@ export function fetchAssociatedCoachesList(params?: { [string]: boolean }) {
           coachIdList: createIdList(response.data),
         }),
       );
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
     } catch (error) {
       dispatch(coachListAction.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
     }
     dispatch(coachListAction.isLoading(false));
   };
@@ -277,22 +286,14 @@ export const bulkRetrieveActions = {
   success: createAction('COACH/BULK_RETRIEVE/SUCCESS'),
 };
 
-export function fetchCoachBulk(ids: Array<number>, options: OptionCallback) {
-  return async (dispatch: Dispatch, getState: () => State) => {
-    const freshCoachList = getFreshCoachIds(getState());
-    const ids_uniq = uniq(ids.filter((id) => !!id)).filter(
-      (id) => !freshCoachList.includes(id),
-    );
-    if (ids_uniq.length === 0) {
-      return;
-    }
-
+function fetchCoachBulkBase(params: any = {}, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
     dispatch(bulkRetrieveActions.isLoading(true));
     dispatch(bulkRetrieveActions.error(null));
 
     try {
       const response = await fetchAssociatedCoachesAPI({
-        id__in: ids_uniq,
+        ...params,
         page_size: null,
       });
       dispatch(bulkRetrieveActions.success(response.data));
@@ -305,3 +306,29 @@ export function fetchCoachBulk(ids: Array<number>, options: OptionCallback) {
     dispatch(bulkRetrieveActions.isLoading(false));
   };
 }
+
+export const fetchCoachBulk = (ids: Array<number>, options: OptionCallback) => {
+  return async (dispatch: Dispatch, getState: () => State) => {
+    const freshCoachList = getFreshCoachIds(getState());
+    const ids_uniq = uniq(ids.filter((id) => !!id)).filter(
+      (id) => !freshCoachList.includes(id),
+    );
+    if (ids_uniq.length === 0) {
+      return;
+    }
+    dispatch(fetchCoachBulkBase({ id__in: ids_uniq }, options));
+  };
+};
+
+export const fetchAssociatedCoachBulk = (
+  ids: Array<number>,
+  options: OptionCallback,
+) => {
+  return async (dispatch: Dispatch) => {
+    const ids_uniq = uniq(ids.filter((id) => !!id));
+    if (ids_uniq.length === 0) {
+      return;
+    }
+    dispatch(fetchCoachBulkBase({ associated_coach__in: ids_uniq }, options));
+  };
+};

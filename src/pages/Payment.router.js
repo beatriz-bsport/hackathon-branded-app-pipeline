@@ -150,7 +150,7 @@ export class PaymentRouter extends React.Component<Props> {
           component={PaymentComboPreCheckoutPage}
         />
         <Route
-          path="/(|customer/)payment/private-service/:privateServiceId/private-slot/:privateSlotId/associated-coach/:associatedCoachId/date/:date/"
+          path="/(|customer/)payment/private-service/:privateServiceId/private-slot/:privateSlotId/"
           component={PrivateSlotPaymentPage}
         />
         <Route

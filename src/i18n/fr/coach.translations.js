@@ -1,4 +1,10 @@
 export default {
+  detail: {
+    tab: {
+      general: 'Profil',
+      calendar: 'Calendrier',
+    },
+  },
   coach: 'Professeur',
   baseCoach: 'Habituel',
   overrider: 'Remplaçant',

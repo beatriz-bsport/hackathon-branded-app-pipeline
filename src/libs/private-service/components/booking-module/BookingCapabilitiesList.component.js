@@ -38,7 +38,7 @@ export const BookingCapabilities = (props: Props) => {
       <div classsName={classes.section}>
         <Typography
           className={classes.sectionTitle}
-          variant="h6"
+          variant="h5"
           component="h4"
         >
           {t('bookerModule.bookingCapabilities.compatibleConsumerPassTitle')}
@@ -61,7 +61,7 @@ export const BookingCapabilities = (props: Props) => {
       <div classsName={classes.section}>
         <Typography
           className={classes.sectionTitle}
-          variant="h6"
+          variant="h5"
           component="h4"
         >
           {t('bookerModule.bookingCapabilities.compatiblePassTitle')}

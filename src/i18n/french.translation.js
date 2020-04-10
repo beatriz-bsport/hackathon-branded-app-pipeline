@@ -132,7 +132,7 @@ export default {
     bookingConfirmed: 'Réservation confirmée',
     button: { login: 'Connexion' },
 
-    private_service: 'Cours privé',
+    private_service: 'Sur rendez-vous',
     report: {
       delete: "Suppression d'un rapport",
     },
@@ -600,7 +600,7 @@ export default {
     },
     consumer: {
       myPaymentPacks: 'Mes cartes de cours',
-      myPrivatePass: 'Mes cartes cours privé',
+      myPrivatePass: 'Mes cartes RDV',
       company: 'Club',
       help: {
         areYouSureCancelBookingOption:
@@ -640,11 +640,11 @@ export default {
       workshopActivities: 'Ateliers',
       invoice: 'Factures',
       alpha: 'en développement',
+      schedule: 'Emploi du temps',
       privateService: {
-        title: 'Cours privés',
-        calendar: 'Emploi du temps',
-        services: 'Cours privés',
-        pass: 'Cartes de cours',
+        title: 'Sur rendez-vous',
+        services: 'Sur rendez-vous',
+        pass: 'Cartes RDV',
       },
       coachPerformance: 'Professeurs',
       beta: 'beta',
@@ -706,7 +706,7 @@ export default {
     payment: {
       payment: 'Paiement',
       credit: 'Crédit',
-      privatePass: 'Carte cours privé',
+      privatePass: 'Carte RDV',
       return: 'Rembourser',
 
       paymentCombo: 'Pack',
@@ -979,7 +979,7 @@ export default {
       backToCalendar: 'Précédent',
       showMarketplace: 'Voir le calendrier de ',
       noSessionToday: 'Aucune séance',
-      privatePassListTitle: 'Cartes cours privé',
+      privatePassListTitle: 'Cartes RDV',
       passListTitle: 'Cartes cours collectif',
       bookButton: {
         book: 'Réserver',
@@ -1009,7 +1009,7 @@ export default {
       },
       welcomeTo: 'Bienvenue chez ',
       pass: 'Carte de cours',
-      private_service: 'Cours privé',
+      private_service: 'Sur rendez-vous',
       buyPack: 'Acheter',
       selector: {
         coach: { placeholder: 'Filtrer par professeur' },

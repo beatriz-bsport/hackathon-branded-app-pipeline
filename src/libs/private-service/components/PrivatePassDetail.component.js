@@ -115,7 +115,7 @@ export const PrivatePassDetail = (props: Props) => {
                 hideSecondary
                 privateService={ps}
                 key={ps.id}
-                onDelete={() => props.setOpenDeleteCompatibility(ps.id)}
+                onCancel={() => props.setOpenDeleteCompatibility(ps.id)}
               />
             ))}
         </List>

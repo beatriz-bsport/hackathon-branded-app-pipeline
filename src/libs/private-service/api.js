@@ -2,27 +2,37 @@
 
 import {
   getAuth,
+  post,
   postAuth,
+  putAuth,
   patchAuth,
   deleteAuth,
   buildUrlParams,
   API_V1_URI,
 } from '../../http';
 
-export const fetchAvailabilitySlots = (params: any) => {
+export const fetchAvailabilitySlots = (params: any = {}) => {
   return getAuth(
     `${API_V1_URI}/private_service/availability_slot/${buildUrlParams(params)}`,
   );
 };
 
-export const disableCoachAvailabilitySlot = (
-  coach: number,
+export const checkExistsAvailabilitySlots = (params: any = {}) => {
+  return getAuth(
+    `${API_V1_URI}/private_service/availability_slot/exists/${buildUrlParams(
+      params,
+    )}`,
+  );
+};
+
+export const disableResourceAvailabilitySlot = (
+  resourceData: any = {},
   { date_start, date_end, recurrence_until, all_date_start },
 ) => {
   return postAuth(
     `${API_V1_URI}/private_service/availability_slot/remove_availability/`,
     {
-      coach,
+      ...resourceData,
       date_start,
       date_end,
       recurrence_until,
@@ -30,13 +40,13 @@ export const disableCoachAvailabilitySlot = (
     },
   );
 };
-export const enableCoachAvailabilitySlot = (
-  coach: number,
+export const enableResourceAvailabilitySlot = (
+  resourceData: any = {},
   { date_start, date_end, recurrence_until, all_date_start },
 ) => {
   return postAuth(
     `${API_V1_URI}/private_service/availability_slot/add_availability/`,
-    { coach, date_start, date_end, recurrence_until, all_date_start },
+    { ...resourceData, date_start, date_end, recurrence_until, all_date_start },
   );
 };
 
@@ -128,8 +138,10 @@ export const fetchPrivateSlotList = (privateServiceId: number) => {
   );
 };
 
-export const fetchAllPrivateSlots = () => {
-  return getAuth(`${API_V1_URI}/private_service/private_slot/`);
+export const fetchAllPrivateSlots = (params: any) => {
+  return getAuth(
+    `${API_V1_URI}/private_service/private_slot/${buildUrlParams(params)}`,
+  );
 };
 
 export const fetchPrivateSlotRetrieve = (
@@ -144,6 +156,37 @@ export const fetchPrivateSlotRetrieve = (
 export const deletePrivateSlot = (privateServiceId: number, slotId: number) => {
   return deleteAuth(
     `${API_V1_URI}/private_service/private_service/${privateServiceId}/private_slot/${slotId}/`,
+  );
+};
+
+export const updateResourceConfiguration = (
+  privateServiceId: number,
+  resource_identifier: string,
+  data: { color: string },
+) => {
+  return putAuth(
+    `${API_V1_URI}/private_service/private_service/${privateServiceId}/resource/${resource_identifier}/`,
+    data,
+  );
+};
+
+export const switchServiceHasOwnAvailabilitySlots = (
+  privateServiceId: number,
+) => {
+  return postAuth(
+    `${API_V1_URI}/private_service/private_service/${privateServiceId}/switch_own_availability/`,
+  );
+};
+
+export const fetchPrivateServiceResourceData = (privateServiceId: number) => {
+  return getAuth(
+    `${API_V1_URI}/private_service/private_service/${privateServiceId}/resource/`,
+  );
+};
+
+export const fetchCalendarEventList = (params: any) => {
+  return getAuth(
+    `${API_V1_URI}/private_service/calendar_event/${buildUrlParams(params)}`,
   );
 };
 
@@ -169,12 +212,16 @@ export const searchAvailableSlots = (
   privateSlotId: number,
   associatedCoachIdList: Array<number>,
   date: string,
+  associatedEstablishmentIdList: Array<number>,
 ) => {
-  return postAuth(
-    `${API_V1_URI}/private_service/private_service/${privateServiceId}/private_slot/${privateSlotId}/search_slots/`,
+  return post(
+    `${API_V1_URI}/private_service/private_service/${privateServiceId}/private_slot/${privateSlotId}/find_slots_by_resource/`,
     {
       coaches: associatedCoachIdList,
       date,
+      ...(associatedEstablishmentIdList
+        ? { establishments: associatedEstablishmentIdList }
+        : {}),
     },
   );
 };
@@ -260,12 +307,12 @@ export const fetchCompatiblePrivatePass = (
 
 export const fetchPrivateBookingPreview = (
   private_slot: number,
-  coach: number,
+  associated_coach: number,
   date: string,
 ) => {
   return postAuth(
     `${API_V1_URI}/private_service/private_booking/preview_booking/`,
-    { private_slot, coach, date },
+    { private_slot, associated_coach, date },
   );
 };
 

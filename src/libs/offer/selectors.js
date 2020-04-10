@@ -141,9 +141,7 @@ export const getSimilars = createSelector(
         coach_override: o.coach_override ? coachData[o.coach_override] : null,
         meta_activity: metaActivityData[o.meta_activity],
       }))
-      .filter(
-        (o) => o.activity && o.establishment && o.coach && o.meta_activity,
-      );
+//.filter((o) => o.establishment && o.coach && o.meta_activity);
   },
 );
 
@@ -232,5 +230,19 @@ export const getOfferWithRelated = (state: State, id: number) => {
     ),
   )(state);
 };
+
+const _getOfferEventList = (state) => state.offer.calendar;
+const periodFilterExtractor = (state, params, periodFilter) => periodFilter;
+
+export const getOfferAsEventList = createSelector(
+  [_getOfferEventList, periodFilterExtractor],
+  (offerList, { start, end }) => {
+    return offerList.filter(
+      (o) =>
+        moment(o.date_start).isSameOrBefore(moment(end), 'day') &&
+        moment(o.date_start).isSameOrAfter(moment(start), 'day'),
+    );
+  },
+);
 
 export default { getAll, todayOffers, getSimilars };

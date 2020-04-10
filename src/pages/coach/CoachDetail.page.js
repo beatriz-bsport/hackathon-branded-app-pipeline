@@ -55,7 +55,7 @@ type Props = {
 export class Coach extends React.Component<Props> {
   componentDidMount() {
     this.props.loadPaymentRules();
-    this.props.fetchAssociatedCoach(this.props.id);
+    this.props.fetchAssociatedCoach(this.props.coachId);
   }
 
   render() {
@@ -94,15 +94,15 @@ export class Coach extends React.Component<Props> {
 
 export default compose(
   withRouter,
-  routerParamsToProps({ id: 'id:number' }),
+  routerParamsToProps({ coachId: 'coachId:number' }),
   withState('deleteOpen', 'setDeleteModalOpen', false),
   connect(
-    (state, { id }) => ({
+    (state, { coachId }) => ({
       loading: state.coach.loading,
       isCoach: state.auth.is_coach,
       isManager: state.auth.is_manager,
       paymentRules: paymentRulesSelector(state),
-      coach: getCoach(state, id),
+      coach: getCoach(state, coachId),
     }),
     {
       deleteCoach,

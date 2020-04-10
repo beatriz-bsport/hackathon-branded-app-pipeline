@@ -18,24 +18,33 @@ type Props = {
 
   t: TFunction,
 };
-export const PrivateSlotSelector = (props: Props) => {
-  const privateServiceOptions = props.privateServices.asMutable().map((ps) => ({
-    label: ps.name,
-    value: ps.id,
-  }));
-  let privateSlotOptions = [];
-  if (props.selectedPrivateService) {
-    const selectedService = props.privateServices.find(
-      (ps) => ps.id === props.selectedPrivateService.value,
+
+const slotOptionsFromServiceOption = (serviceOption, serviceList) => {
+  if (serviceOption) {
+    const selectedService = serviceList.find(
+      (ps) => ps.id === serviceOption.value,
     );
-    privateSlotOptions = selectedService
-      ? selectedService.slots
-          .asMutable()
+    return selectedService
+      ? [...selectedService.slots]
           .filter((s) => !!s)
           .filter((s) => s.available)
           .map((slot) => ({ value: slot.id, label: slot.name }))
       : [];
   }
+  return [];
+};
+
+export const PrivateSlotSelector = (props: Props) => {
+  const privateServiceOptions = [...props.privateServices].map((ps) => ({
+    label: ps.name,
+    value: ps.id,
+  }));
+
+  const privateSlotOptions = slotOptionsFromServiceOption(
+    props.selectedPrivateService,
+    props.privateServices,
+  );
+
   return (
     <div>
       <Select
@@ -43,16 +52,28 @@ export const PrivateSlotSelector = (props: Props) => {
         value={props.selectedPrivateService}
         options={privateServiceOptions}
         onChange={(option) => {
+          props.setSlotEditable(true);
           props.setSelectedPrivateService(option);
-          props.setSelectedPrivateSlot(null);
-          props.onChange(null);
-          if (props.onServiceChange) props.onServiceChange(option.value);
+          const slotOptions = slotOptionsFromServiceOption(
+            option,
+            props.privateServices,
+          );
+          if (slotOptions.length === 1) {
+            props.setSelectedPrivateSlot(slotOptions[0]);
+            props.onChange(slotOptions[0]);
+            props.setSlotEditable(false);
+            if (props.onServiceChange) props.onServiceChange(option.value);
+          } else {
+            props.setSelectedPrivateSlot(null);
+            props.onChange(null);
+            if (props.onServiceChange) props.onServiceChange(option.value);
+          }
         }}
       />
       <Select
         placeholder={props.t('selector.privateSlot')}
         options={privateSlotOptions}
-        isDisabled={!props.selectedPrivateService}
+        isDisabled={!props.selectedPrivateService || !props.slotEditable}
         value={props.selectedPrivateSlot}
         onChange={(option) => {
           props.setSelectedPrivateSlot(option);
@@ -67,4 +88,5 @@ export default compose(
   withNamespaces(['privateService']),
   withState('selectedPrivateService', 'setSelectedPrivateService', null),
   withState('selectedPrivateSlot', 'setSelectedPrivateSlot', null),
+  withState('slotEditable', 'setSlotEditable', true),
 )(PrivateSlotSelector);

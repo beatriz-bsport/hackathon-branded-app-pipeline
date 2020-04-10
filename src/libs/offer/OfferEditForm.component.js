@@ -262,7 +262,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
     this.state.establishment !== this.initialOfferState.establishment;
 
   renderNextStepButton = () => {
-    const { t, onCancel, similarOfferLoading } = this.props;
+    const { processing, t, onCancel, similarOfferLoading } = this.props;
     return (
       <Grid
         container
@@ -275,22 +275,26 @@ export class EditLiveOfferForm extends Component<Props, State> {
           <Button onClick={onCancel}>{t('common.cancel')}</Button>
         </Grid>
         <Grid item>
-          <Button
-            variant="contained"
-            color="primary"
-            disabled={
-              this.state.coach === null ||
-              this.state.establishment === null ||
-              (similarOfferLoading && this.shouldModifyAllDates()) ||
-              !(
-                getModifiedFields(this.initialOfferState, this.state).length ||
-                this.hasChangedDatetime()
-              )
-            }
-            onClick={this.onConfirmGatherInfoStep}
-          >
-            {t('common.continue')}
-          </Button>
+          {processing ? (
+            <CircularProgress />
+          ) : (
+            <Button
+              variant="contained"
+              color="primary"
+              disabled={
+                this.state.coach === null ||
+                this.state.establishment === null ||
+                (similarOfferLoading && this.shouldModifyAllDates()) ||
+                !(
+                  getModifiedFields(this.initialOfferState, this.state)
+                    .length || this.hasChangedDatetime()
+                )
+              }
+              onClick={this.onConfirmGatherInfoStep}
+            >
+              {t('common.continue')}
+            </Button>
+          )}
         </Grid>
       </Grid>
     );

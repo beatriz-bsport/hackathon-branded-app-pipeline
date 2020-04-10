@@ -54,6 +54,7 @@ export class EstablishmentFormPage extends Component<Props> {
       y: 'location.geometry.y',
       address: 'location.address',
       cover: 'cover',
+      capacity: 'capacity',
     });
 
     if (this.props.update) {

@@ -54,6 +54,7 @@ export class EstablishmentForm extends Component<Props, State> {
       this.state.specific_info = props.initial.specific_info;
       this.state.practical_info = props.initial.practical_info;
       this.state.address = props.initial.location.address;
+      this.state.capacity = props.initial.capacity;
       this.state.location = {
         x: props.initial.location.longitude,
         y: props.initial.location.latitude,
@@ -72,10 +73,12 @@ export class EstablishmentForm extends Component<Props, State> {
       location,
       address,
       cover,
+      capacity,
     } = this.state;
     const data = {
       title,
       specific_info,
+      capacity,
       practical_info,
       x: location && location.x,
       y: location && location.y,
@@ -170,6 +173,21 @@ export class EstablishmentForm extends Component<Props, State> {
                   placeholder={t('establishment.practical_info.placeholder')}
                   helperText={t('establishment.practical_info.helperText')}
                   variant="outlined"
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  type="numeric"
+                  value={this.state.capacity}
+                  onChange={(ev) =>
+                    this.onFormFieldChange('capacity')(
+                      parseInt(ev.target.value || 0, 10),
+                    )
+                  }
+                  label={t('establishment.capacity.label')}
+                  placeholder={t('establishment.capacity.placeholder')}
+                  helperText={t('establishment.capacity.helperText')}
                   fullWidth
                 />
               </Grid>

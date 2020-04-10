@@ -19,7 +19,7 @@ export const similarOffers = {
   success: createAction('OFFERS/SIMILAR/SUCCESS'),
 };
 
-export function fetchSimilarOffers(offerId: number) {
+export function fetchSimilarOffers(offerId: number, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(similarOffers.isLoading(true));
     dispatch(similarOffers.error(null));
@@ -27,8 +27,14 @@ export function fetchSimilarOffers(offerId: number) {
     try {
       const response = await fetchSimilarOffersAPI(offerId);
       dispatch(similarOffers.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
     } catch (error) {
       dispatch(similarOffers.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
     }
     dispatch(similarOffers.isLoading(false));
   };
@@ -96,7 +102,7 @@ export function fetchEstablishmentEvents(id: number, params: any = {}) {
   };
 }
 
-export function fetchAllOffers(params: any) {
+export function fetchAllOffers(params: any, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(offers.isLoading(true));
     dispatch(offers.error(null));
@@ -104,8 +110,14 @@ export function fetchAllOffers(params: any) {
     try {
       const response = await fetchAllEventsAPI(params);
       dispatch(offers.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
     } catch (err) {
       dispatch(offers.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
     }
     dispatch(offers.isLoading(false));
   };
@@ -139,7 +151,24 @@ export const offerByDay = {
   success: createAction('OFFERS/DAY/SUCCESS'),
   delete: createAction('OFFERS/DAY/DELETE'),
   reset: createAction('OFFER/DAY/RESET'),
+  bulk: createAction('OFFER/DAY/RESET'),
 };
+export function retrieveOfferAsManager(id: number, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(offerByDay.error(null));
+    try {
+      const response = await fetchOffersByDayAPI({ id__in: [id] });
+      if (response.data.length === 1) {
+        dispatch(offerByDay.bulk(response.data[0]));
+        if (options && options.onSuccess) options.onSuccess(response.data[0]);
+      }
+    } catch (error) {
+      dispatch(offerByDay.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(offerByDay.isLoading(false));
+  };
+}
 
 export function refreshOffersByDay(
   day: {

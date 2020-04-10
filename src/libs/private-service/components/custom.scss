@@ -1,0 +1,33 @@
+  .isRestriction {
+    background-image: repeating-linear-gradient(-45deg,
+      transparent,
+      transparent 5px,
+      rgba(255,255,255,0.6) 5px,
+      rgba(255,255,255,0.6) 10px);
+  /* avec plusieurs longueurs pour les points d'arrêt */
+  background-image: repeating-linear-gradient(-45deg, 
+      transparent 0px 5px, 
+      rgba(255,255,255,0.6) 5px 10px);
+    }
+
+  .cancelledEvent{
+    background: rgba(200, 0, 0, 0.4 ) !important;
+  /* avec plusieurs longueurs pour les points d'arrêt */
+    }
+
+.fc-event {
+    border-left-width: 5px;
+    border-right: 0px;
+    border-top: 0px;
+    border-bottom: 0px;
+    box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.2);
+    padding-left: 4px;
+    padding-top: 2px;
+    margin-right: 6px;
+    background: rgba(255, 255, 255, 0.75);
+
+    &:hover {
+    background-color: rgb(230, 230, 230);
+    box-shadow: 4px 4px 6px 0px rgba(0,0,0,0.2);
+    }
+}

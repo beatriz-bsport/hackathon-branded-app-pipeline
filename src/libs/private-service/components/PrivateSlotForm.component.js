@@ -35,12 +35,14 @@ export class PrivateSlotForm extends React.Component<Props, State> {
         name: props.initial.name,
         duration_minutes: props.initial.duration_minutes,
         credit: props.initial.credit,
+        people_capacity_used: props.initial.people_capacity_used,
       };
     } else {
       this.state = {
         name: null,
         duration_minutes: 60,
         credit: 1,
+        people_capacity_used: 1,
       };
     }
   }
@@ -52,6 +54,7 @@ export class PrivateSlotForm extends React.Component<Props, State> {
       description: this.state.description,
       duration_minutes: this.state.duration_minutes,
       credit: this.state.credit,
+      people_capacity_used: this.state.people_capacity_used,
     });
   };
 
@@ -63,7 +66,7 @@ export class PrivateSlotForm extends React.Component<Props, State> {
           <TextField
             fullWidth
             label={t('slot.form.name.label')}
-            helperText={t('slot.form.name.helperText')}
+            placeholder={t('slot.form.name.placeholder')}
             value={this.state.name}
             onChange={(ev) => this.setState({ name: ev.target.value })}
           />
@@ -75,6 +78,17 @@ export class PrivateSlotForm extends React.Component<Props, State> {
             helperText={t('slot.form.credit.helperText')}
             value={this.state.credit}
             onChange={(ev) => this.setState({ credit: ev.target.value })}
+          />
+        </div>
+        <div className={classes.field}>
+          <NumericInput
+            fullWidth
+            label={t('slot.form.people_capacity_used.label')}
+            helperText={t('slot.form.people_capacity_used.helperText')}
+            value={this.state.people_capacity_used}
+            onChange={(ev) =>
+              this.setState({ people_capacity_used: ev.target.value })
+            }
           />
         </div>
         <div className={classes.field}>

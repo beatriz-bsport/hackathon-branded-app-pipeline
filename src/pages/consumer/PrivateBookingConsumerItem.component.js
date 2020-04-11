@@ -39,12 +39,14 @@ export const BookingConsumerItem = (props: Props) => {
           secondary={moment(private_booking.date_start).format('LT')}
         />
       </ListItem>
-      <ListItem dense className={classes.translucentPaper}>
-        <ListItemIcon>
-          <NearMeIcon />
-        </ListItemIcon>
-        <ListItemText primary={private_booking.address} />
-      </ListItem>
+      {private_booking.address ? (
+        <ListItem dense className={classes.translucentPaper}>
+          <ListItemIcon>
+            <NearMeIcon />
+          </ListItemIcon>
+          <ListItemText primary={private_booking.address} />
+        </ListItem>
+      ) : null}
 
       <Divider />
       <div className={classes.footer}>

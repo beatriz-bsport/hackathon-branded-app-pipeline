@@ -27,8 +27,8 @@ const createFromPack = async (data: *) => {
   );
 };
 
-const stop = async (id: number) => {
-  return deleteAuth(`${API_URI}/subscription/billing-plan/${id}/stop/`);
+const stop = async (id: number, params: any) => {
+  return deleteAuth(`${API_URI}/subscription/billing-plan/${id}/stop/`, params);
 };
 
 const fetchContractList = async (params: any = {}) => {

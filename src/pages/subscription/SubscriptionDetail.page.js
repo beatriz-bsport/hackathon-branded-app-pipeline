@@ -271,10 +271,6 @@ export default compose(
     fetchSubscriptionEventList: ({ fetchSubscriptionEventList, id }) => (
       params = {},
     ) => fetchSubscriptionEventList({ ...params, object_id: id }),
-    stop: ({ stop, setStopDialogOpen, id }) => () => {
-      stop(id);
-      setStopDialogOpen(false);
-    },
     openPaymentMethodSwitch: ({ setSwitchPaymentMethodDialogOpen }) => () => {
       setSwitchPaymentMethodDialogOpen(true);
     },
@@ -355,6 +351,21 @@ export default compose(
     },
   }),
   withHandlers({
+    stop: ({ stop, setStopDialogOpen, id, fetchSubscription }) => (
+      params,
+      options,
+    ) => {
+      stop(id, params, {
+        onSuccess: (...args) => {
+          if (options && options.onSuccess) options.onSuccess(...args);
+          setStopDialogOpen(false);
+          fetchSubscription();
+        },
+        onError: (err) => {
+          if (options && options.onError) options.onError(err);
+        },
+      });
+    },
     updatePlannedInvoicePrice: ({
       updatePlannedInvoicePrice,
       id,

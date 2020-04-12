@@ -155,17 +155,23 @@ export function fetch(id: number, options: OptionCallback): ThunkAction {
   };
 }
 
-export function stop(id: number): ThunkAction {
+export function stop(
+  id: number,
+  params: any,
+  options: OptionCallback,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(stopActions.isLoading(true));
     dispatch(stopActions.error(null));
 
     try {
-      const response = await api.stop(id);
+      const response = await api.stop(id, params);
 
       dispatch(detailActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(stopActions.error(error));
+      if (options && options.onError) options.onError(error);
     }
 
     dispatch(stopActions.isLoading(false));

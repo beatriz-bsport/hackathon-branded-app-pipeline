@@ -183,6 +183,10 @@ export default {
   },
   action: {
     stop: 'Arrêter',
+    revertCurrentExplain:
+      'Annuler la dernière facture enregistrée et bloquer la carte de cours',
+    revertCurrentExplainHelper:
+      'Si le paiement est valide, un crédit sera créé. Si le paiement avait échoué, la dette sera annulée.',
     stopExplain:
       'Les prochains paiements seront annulés et les factures correspondantes seront supprimées. Si une réservation a été enregistrée avec un abonnement dont la facture a été annulée, elle sera également annulée.',
   },

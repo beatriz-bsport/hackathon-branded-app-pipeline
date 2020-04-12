@@ -100,6 +100,9 @@ export default {
     stop: 'Stop',
     stopExplain:
       'Next payments will be discarded and corresponding bills will be deleted. If a booking has been registered with a pass bought with a discarded invoice, it would also be deleted.',
+    revertCurrentExplain: 'Cancel last past invoice and block the pass',
+    revertCurrentExplainHelper:
+      'If the payment was valid, a credit will be attributed to the customer. If the payment was failed, the debt will be cancelled.',
   },
   parameters: {
     parameters: 'Parameters',

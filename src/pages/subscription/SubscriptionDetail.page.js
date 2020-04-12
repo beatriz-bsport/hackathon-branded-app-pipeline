@@ -331,8 +331,21 @@ export default compose(
         },
       });
     },
-    freezeSubscription: ({ id, freezeSubscription }) => (data, options) => {
-      freezeSubscription(id, data, options);
+    freezeSubscription: ({ id, freezeSubscription, setFreezeDialogOpen }) => (
+      data,
+      options,
+    ) => {
+      const options_ = {
+        onSuccess: (...args) => {
+          if (options && options.onSuccess) options.onSuccess(...args);
+          setFreezeDialogOpen(false);
+        },
+        onError: (err) => {
+          if (options && options.onError) options.onError(err);
+        },
+      };
+
+      freezeSubscription(id, data, options_);
     },
     updateSubscriptionRenewal: ({ id, updateSubscriptionRenewal }) => (
       data,

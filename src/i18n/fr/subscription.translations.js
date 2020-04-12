@@ -24,7 +24,7 @@ export default {
   save: 'valider',
   messages: {
     freeze: {
-      success: 'Souscirption mise en pause',
+      success: 'Souscription mise en pause',
       alreadyPaused:
         'Impossible de mettre en pause une souscription déjà pausée',
       error: 'Impossible de mettre en pause cette souscription',

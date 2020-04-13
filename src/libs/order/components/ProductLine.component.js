@@ -28,7 +28,7 @@ export const ProductLine = (props: {
     </ListItemAvatar>
     <ListItemText
       primary={props.product.name}
-      secondary={`${props.product.unit_price} € x ${props.product.quantity}`}
+      secondary={`${props.product.subline} - ${props.product.unit_price} € x ${props.product.quantity}`}
     />
     {props.onRemove ? (
       <ListItemSecondaryAction>

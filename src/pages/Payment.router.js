@@ -128,7 +128,7 @@ export class PaymentRouter extends React.Component<Props> {
       return (
         <Redirect
           to={`/login/customer?next=${encodeURIComponent(
-            `${pathname}?&membership=${membership}`,
+            `${pathname}${window.location.search ? window.location.search : '?'}&membership=${membership}`,
           )}&membership=${membership}`}
         />
       );

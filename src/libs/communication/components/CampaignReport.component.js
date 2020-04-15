@@ -113,18 +113,6 @@ const CampaignStatistics = withStyles(styles)(
             {t('campaign.report.totalClick')}
           </Typography>
         </div>
-
-        <div className={classes.numberCard}>
-          <Typography color="secondary" variant="h3">
-            {`${(
-              (report.delivery_count / campaign.total_recipients) *
-              100
-            ).toFixed(1)}% (${report.delivery_count})`}
-          </Typography>
-          <Typography className={classes.statLabel}>
-            {t('campaign.report.deliveryRate')}
-          </Typography>
-        </div>
       </div>
 
       <div className={classes.row}>

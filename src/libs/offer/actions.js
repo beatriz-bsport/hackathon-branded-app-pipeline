@@ -336,6 +336,7 @@ export const offerBulkActions = {
 
 export function fetchOfferBulk(ids: Array<number>, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
+    if (!ids || !ids.length) return;
     dispatch(offerBulkActions.error(null));
     dispatch(offerBulkActions.isLoading(true));
 

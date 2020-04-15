@@ -114,17 +114,23 @@ export class MemberSummaryCard extends Component<Props> {
 
   renderAddress = () => {
     const { address } = this.props.member.consumer;
+    let primary = '';
+    let secondary = '';
+    if (address) {
+      primary = `${address.address_line_1 || ''} ${address.address_line_2 ||
+        ''}`;
+      secondary = `${address.city || ''} - ${address.zipcode || ''} ${(
+        address.country || ''
+      ).toUpperCase()}`;
+    }
     return (
       <List>
         <ListItem>
           <PlaceIcon />
           <ListItemText
             className={this.props.classes.listItemText}
-            primary={`${(address && address.address_line_1) || ''}`}
-            secondary={`${(address && address.city) || ''} - ${(
-              (address && address.country) ||
-              ''
-            ).toUpperCase()}`}
+            primary={primary}
+            secondary={secondary}
           />
         </ListItem>
       </List>

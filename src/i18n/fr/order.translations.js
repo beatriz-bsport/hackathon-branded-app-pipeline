@@ -13,6 +13,7 @@ export default {
     name: 'Acheteur',
     state: 'Status',
     updated_at: 'Mis à jour le',
+    created_at: 'Créée le',
     qty: 'Quantité',
   },
   form: {

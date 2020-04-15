@@ -44,10 +44,18 @@ const renderRows = (orders: Array<OrderWithProducts>, t: TFunction) => {
 };
 
 const renderRow = (order: OrderWithProducts, t: TFunction) => {
-  const { updated_at, product_lines, first_name, last_name, state } = order;
+  const {
+    updated_at,
+    created_at,
+    product_lines,
+    first_name,
+    last_name,
+    state,
+  } = order;
   return {
     name: `${first_name || ''} ${last_name || ''}`,
     updated_at: formatAsDatetime(updated_at),
+    created_at: formatAsDatetime(created_at),
     state: renderState(state, t),
     qty: product_lines.reduce((acc, v) => acc + v.quantity, 0),
   };
@@ -85,6 +93,14 @@ const getColumnData = (t: TFunction) => {
     {
       name: 'updated_at',
       label: t('table.updated_at'),
+      options: {
+        filter: false,
+        sort: false,
+      },
+    },
+    {
+      name: 'created_at',
+      label: t('table.created_at'),
       options: {
         filter: false,
         sort: false,

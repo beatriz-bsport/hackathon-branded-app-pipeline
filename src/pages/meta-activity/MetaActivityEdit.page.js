@@ -9,6 +9,7 @@ import { withProps, compose } from 'recompose';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
+import withStyles from '@material-ui/core/styles/withStyles';
 import type { TFunction } from 'react-i18next';
 import { mapFormData, unmap } from '../form.utils';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
@@ -33,6 +34,7 @@ type Props = {
   id: number,
   loading: ?boolean,
   initial: ?MetaActivity,
+  classes: Object,
 
   establishments: Array<Establishment>,
   fetchEstablishments: () => void,
@@ -87,7 +89,12 @@ export class MetaActivityFormPage extends Component<Props> {
       onRemoveImage: (imageId: number) => removeImage(id, imageId),
     };
     return (
-      <Grid container justify="center" alignItems="center">
+      <Grid
+        container
+        className={this.props.classes.container}
+        justify="center"
+        alignItems="center"
+      >
         <Grid item xs={12} lg={9}>
           <Paper>
             <MetaActivityForm
@@ -105,9 +112,15 @@ export class MetaActivityFormPage extends Component<Props> {
     );
   }
 }
+const styles = () => ({
+  container: {
+    marginBottom: '20vh',
+  },
+});
 
 export default compose(
   withNamespaces([]),
+  withStyles(styles),
   routerParamsToProps({ id: 'id:number' }),
   connect(
     (state, { id }) => ({
@@ -124,7 +137,7 @@ export default compose(
       goToPreviousPage: goBack,
       addImage: addImageToMetaActivity,
       removeImage: removeImageFromMetaActivity,
-      goToMetaActivity: (id: number) => push(`/activity/${id}/offer`),
+      goToMetaActivity: (id: number) => push(`/activity/${id}/general`),
     },
   ),
   withProps(({ upsertMetaActivity, goToMetaActivity, id, initial }) => ({

@@ -14,7 +14,8 @@ export default {
     },
     offer: {
       isDisabled: 'La séance a été malheureusement été annulée.',
-      isTooLate: 'Les inscriptions sont fermées.',
+      isTooLate:
+        'Les inscriptions ne sont plus possible, le délai de dernière inscription a été dépassé.',
       isWaitingListFull:
         "La séance est complète la liste d'attente est pleine.",
     },

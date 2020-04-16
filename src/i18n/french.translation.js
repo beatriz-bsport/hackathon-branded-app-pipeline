@@ -482,6 +482,10 @@ export default {
         changeDate: "Modifier l'horaire / date",
         changeCoach: 'Modifier le professeur',
         changeEstablishment: 'Modifier le lieu',
+        broadcast_link: {
+          error:
+            "Le lien est erroné. Il doit commencer par http:// ou https:// et ne pas contenir d'espacement",
+        },
         explainRecursiveOfferDelete:
           'Voulez-vous supprimer TOUTES les séances similaires ?',
         explainRecursiveOfferEdit:
@@ -511,7 +515,7 @@ export default {
       // eslint-disable-next-line
       default_waiting_list_max_size: "Taille de la liste d'attente",
       generateOffers: 'Créer les séances',
-      credit_price: "Coût (en nb de crédit d'une carte de cours)",
+      credit_price: 'Nb de crédit nécessaire carte de cours pour réserver',
       offersWillBeGenerated: 'séances vont être crées',
       offerWillBeGenerated: 'séance va être créée',
       recurrence: 'Récurrence',
@@ -845,7 +849,7 @@ export default {
       totalCustomers: 'Total réservations',
       fillrate: 'Remplissage moyen',
       description: 'Description',
-      category: 'Sport',
+      category: 'Catégorie',
       offersThisDay: 'Séances ce jour :',
       noOfferThisDay:
         'Pas de séance, sélectionnez une autre date sur le calendrier',

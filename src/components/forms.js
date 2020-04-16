@@ -77,14 +77,12 @@ export const TextField = withStyles(textFieldStyles)((props: Props) => {
   return (
     <Field {...props}>
       {({ field, form: { touched, errors } }) => (
-        <div>
-          <MuiTextField
-            className={classes.field}
-            {...field}
-            {...props}
-            error={!!(touched[field.name] && errors[field.name])}
-          />
-        </div>
+        <MuiTextField
+          className={classes.field}
+          {...field}
+          {...props}
+          error={!!(touched[field.name] && errors[field.name])}
+        />
       )}
     </Field>
   );

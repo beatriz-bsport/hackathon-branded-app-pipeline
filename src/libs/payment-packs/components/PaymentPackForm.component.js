@@ -10,12 +10,15 @@ import type { TFunction } from 'react-i18next';
 import * as Yup from 'yup';
 import { withFormik, Form } from 'formik';
 
+import WarningIcon from '@material-ui/icons/Warning';
+import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Collapse from '@material-ui/core/Collapse';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import AddIcon from '@material-ui/icons/Add';
 
 import {
   START_ON_PURCHASE,
@@ -110,6 +113,18 @@ export function PaymentPackForm(props: Props) {
               }}
             />
           </Grid>
+          {values.credits && values.credits !== initial.credits && (
+            <div className={classes.row}>
+              <WarningIcon
+                fontSize="small"
+                color="error"
+                className={classes.leftIcon}
+              />
+              <Typography variant="caption" color="error">
+                {t('form.paymentPack.credits.bewareChange')}
+              </Typography>
+            </div>
+          )}
           <Grid item xs={6}>
             <TextField
               name="credits"
@@ -159,27 +174,39 @@ export function PaymentPackForm(props: Props) {
             </Grid>
             <Grid item xs={12} md={6}>
               <Collapse in={timeType === VALID_BY_DURATION}>
-                <TextField
-                  name="duration_days"
-                  label={t('form.paymentPack.durationDays.label')}
-                  helperText={t('form.paymentPack.durationDays.helperText')}
-                  type="number"
-                  fullWidth
-                />
-                <TextField
-                  name="duration_months"
-                  label={t('form.paymentPack.durationMonths.label')}
-                  helperText={t('form.paymentPack.durationMonths.helperText')}
-                  type="number"
-                  fullWidth
-                />
-                <TextField
-                  name="duration_years"
-                  label={t('form.paymentPack.durationYears.label')}
-                  helperText={t('form.paymentPack.durationYears.helperText')}
-                  type="number"
-                  fullWidth
-                />
+                <div className={classes.durationNbBlock}>
+                  <TextField
+                    name="duration_days"
+                    label={t('form.paymentPack.durationDays.label')}
+                    helperText={t('form.paymentPack.durationDays.helperText')}
+                    type="number"
+                    fullWidth
+                  />
+                  <div className={classes.row}>
+                    <AddIcon className={classes.leftIcon} />
+                    <TextField
+                      name="duration_months"
+                      label={t('form.paymentPack.durationMonths.label')}
+                      helperText={t(
+                        'form.paymentPack.durationMonths.helperText',
+                      )}
+                      type="number"
+                      fullWidth
+                    />
+                  </div>
+                  <div className={classes.row}>
+                    <AddIcon className={classes.leftIcon} />
+                    <TextField
+                      name="duration_years"
+                      label={t('form.paymentPack.durationYears.label')}
+                      helperText={t(
+                        'form.paymentPack.durationYears.helperText',
+                      )}
+                      type="number"
+                      fullWidth
+                    />
+                  </div>
+                </div>
                 <div style={{ paddingBottom: 24 }}>
                   <RadioGroupField
                     name="start_date_method"
@@ -389,6 +416,22 @@ const styles = (theme) => ({
   fieldset: {
     marginTop: theme.spacing.unit,
     marginBottom: theme.spacing.unit,
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
+  },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+  },
+  durationNbBlock: {
+    padding: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 3,
+    border: '1px solid #E2E2E2',
+    backgroundColor: '#F8F8F8',
+    borderRadius: 8,
   },
 });
 

@@ -2,13 +2,14 @@
 
 import { withNamespaces } from 'react-i18next';
 
-import { push } from 'connected-react-router';
+import { push, goBack } from 'connected-react-router';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withProps, compose, withState } from 'recompose';
 import Grid from '@material-ui/core/Grid';
 
 import type { TFunction } from 'react-i18next';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Stepper from '@material-ui/core/Stepper';
 import Paper from '@material-ui/core/Paper';
 import Step from '@material-ui/core/Step';
@@ -54,6 +55,7 @@ const STEPS: Array<StepType> = [STEP_ACTIVITY, STEP_OFFER, STEP_PASS];
 type Props = {
   loading: ?boolean,
   compatiblePacksLoading: boolean,
+  goBack: () => void,
   metaActivityNames: Array<string>,
   compatiblePaymentPacks: Array<PaymentPack>,
   establishments: Array<Establishment>,
@@ -113,6 +115,7 @@ export class MetaActivityFormPage extends Component<Props> {
       establishments={this.props.establishments}
       SCTs={this.props.SCTs}
       onSubmit={this.props.onSubmitMetaActivity}
+      onCancel={this.props.goBack}
       is_broadcast_enabled
       metaActivityNames={this.props.metaActivityNames}
       initial={{ images: [] }}
@@ -163,7 +166,12 @@ export class MetaActivityFormPage extends Component<Props> {
         break;
     }
     return (
-      <Grid container justify="center" alignItems="center">
+      <Grid
+        className={this.props.classes.container}
+        container
+        justify="center"
+        alignItems="center"
+      >
         <Grid item md={12} lg={9}>
           <Paper>
             <StepperForm activeStep={this.props.step} />
@@ -178,8 +186,15 @@ export class MetaActivityFormPage extends Component<Props> {
   }
 }
 
+const styles = () => ({
+  container: {
+    marginBottom: '20vh',
+  },
+});
+
 export default compose(
   withNamespaces([]),
+  withStyles(styles),
   routerParamsToProps({ id: 'id:number' }),
   withState('step', 'setStep', STEP_ACTIVITY),
   connect(
@@ -202,6 +217,7 @@ export default compose(
       },
     }),
     {
+      goBack,
       fetchEstablishments,
       fetchAssociatedCoachesList,
       fetchPaymentPacks: fetchActivityCompatiblePaymentPacksAction,

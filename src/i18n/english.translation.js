@@ -506,6 +506,10 @@ export default {
         changeDate: 'Modify date / time',
         changeCoach: 'Change the coach',
         changeEstablishment: 'Change location',
+        broadcast_link: {
+          error:
+            'URL seems wrong. It should starts with http:// ou https:// and have no space',
+        },
         explainRecursiveOfferDelete:
           'Would you like to delete ALL the similar sessions ?',
         explainRecursiveOfferEdit:
@@ -532,7 +536,7 @@ export default {
       signUpTitle: 'Sign Up',
       password: 'Password',
       default_waiting_list_max_size: 'Size of the waiting list',
-      credit_price: 'Cost (in pass credit)',
+      credit_price: 'Nb of pass credit needed to book',
       generateOffers: 'Create sessions',
       offersWillBeGenerated: 'sessions will be generated',
       offerWillBeGenerated: 'session will be generated',
@@ -771,7 +775,7 @@ export default {
       lastDiscardBeforeMinutes: 'Last discard booking is possible until',
       addActivity: 'Add an activity',
       is_broadcast: 'Live streaming session',
-      category: 'Sport',
+      category: 'Category',
       addOffers: 'Add sessions',
       name: 'Title',
       color: 'Color code',

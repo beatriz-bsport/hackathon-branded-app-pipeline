@@ -9,6 +9,7 @@ import {
   fetchBookingBulk,
   fetchBookingBroadcastRoom,
 } from '../../libs/booking/actions';
+import themeSelectors from '../../libs/theme/selectors';
 
 import BroadcastRoom from '../../libs/video/components/BroadcastRoom.component';
 
@@ -42,6 +43,7 @@ export class ConsumerBookingBroadcast extends React.Component<Props> {
             offer={this.props.booking.offer}
             broadcast_info={this.props.broadcast_info}
             date_start={this.props.booking.offer_date_start}
+            theme={this.props.theme}
             duration_minute={this.props.booking.offer_duration_minute}
           />
         ) : (
@@ -61,6 +63,7 @@ export default compose(
     (state, { bookingId }) => ({
       booking: state.booking.byId[bookingId],
       broadcast_info: state.booking.broadcast.byId[bookingId],
+      theme: themeSelectors.getTheme(state),
     }),
     {
       fetchBookingBroadcastRoom,

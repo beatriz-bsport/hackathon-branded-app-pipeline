@@ -1,6 +1,10 @@
 export default {
   userRoles: 'Comptes Staff',
   permissions: 'Rôles disponibles',
+  explainStaffDo:
+    'Un accès staff permet de se connecter à https://backoffice.bsport.io via ordinateur ou mobile',
+  explainStaffDoNot:
+    "Un accès staff ne permet pas de se connecter à l'application mobile (professeur et élèves uniquement)",
   forms: {
     user: {
       create: {
@@ -24,6 +28,8 @@ export default {
       snackbar: {
         success: 'Autorisations modifiées',
         error: 'Impossible de modifier cette autorisation',
+        errorEmail:
+          'Cet email est déjà utilisé pour un compte élève ou professeur',
       },
     },
   },

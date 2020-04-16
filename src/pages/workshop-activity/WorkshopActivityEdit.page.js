@@ -107,7 +107,8 @@ export default compose(
       goToPreviousPage: goBack,
       addImage: addImageToWorkshop,
       removeImage: removeImageFromWorkshop,
-      goToWorkshop: (id: number) => routerPush(`/workshop-activity/${id}`),
+      goToWorkshop: (id: number) =>
+        routerPush(`/workshop-activity/${id}/general`),
       fetchAllWorkshops,
     },
   ),

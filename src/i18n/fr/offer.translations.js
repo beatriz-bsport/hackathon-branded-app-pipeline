@@ -1,5 +1,7 @@
 export default {
   video: {
+    cantOpenLink:
+      'Le lien vers conférence semble erroné, veuillez contacter votre club {{ contact_email }}',
     redirectLink:
       "Si vous n'êtes pas automatiquement redirigé, utiliser ce lien :",
     startingSoon: 'Votre séance démarre dans {{ minutesLeft }} minutes',

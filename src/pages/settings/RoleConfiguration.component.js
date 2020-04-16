@@ -8,6 +8,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import Paper from '@material-ui/core/Paper';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import UserWithRoleList from '../../libs/role/components/UserWithRoleList.component';
 import PermissionList from '../../libs/role/components/PermissionList.component';
 import {
@@ -45,6 +46,13 @@ export class RoleConfiguration extends React.Component<Props> {
       <div className={classes.container}>
         <Typography variant="h5">{t('userRoles')}</Typography>
         <Paper className={classes.paperContainer}>
+          <div className={classes.row}>
+            <InfoOutlinedIcon fontSize="large" className={classes.leftIcon} />
+            <div>
+              <Typography>{t('explainStaffDo')}</Typography>
+              <Typography color="error">{t('explainStaffDoNot')}</Typography>
+            </div>
+          </div>
           <UserWithRoleList
             users={users}
             permissions={permissions}
@@ -70,6 +78,19 @@ const styles = (theme) => ({
     padding: theme.spacing.unit * 2,
     marginBottom: theme.spacing.unit * 2,
     marginTop: theme.spacing.unit,
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit * 2,
+  },
+  row: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
+    padding: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 3,
+    border: '1px solid #E2E2E2',
+    backgroundColor: '#F8F8F8',
+    borderRadius: 8,
   },
 });
 

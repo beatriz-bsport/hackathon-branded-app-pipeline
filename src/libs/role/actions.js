@@ -103,7 +103,11 @@ export function createStaffUser(data: {
       console.error(err);
       dispatch(userRoleUpdate.error(err));
       dispatch(userRoleUpdate.isLoading(false));
-      dispatch(snackbarError('role:forms.user.snackbar.error'));
+      if (err && err.response && err.response.data && err.response.data.email) {
+        dispatch(snackbarError('role:forms.user.snackbar.errorEmail'));
+      } else {
+        dispatch(snackbarError('role:forms.user.snackbar.error'));
+      }
     }
   };
 }

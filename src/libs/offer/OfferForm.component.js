@@ -293,24 +293,36 @@ export class OfferForm extends Component<Props, State> {
         </Grid>
         {this.props.metaActivity &&
         this.props.metaActivity.is_broadcast &&
-        !this.props.is_whereby_integration_enabled ? (
-          <Grid item>
-            <TextField
-              variant="outlined"
-              value={this.state.broadcast_link}
-              label={this.props.t('offer.broadcast_link')}
-              placeholder="https://zoom.us/123456789"
-              onChange={(event) => {
-                let r = event.target.value.match(
-                  /^(https?:\/\/)?(www\.)?(.*)$/,
-                );
-                r = (r[1] ? r[1] : 'http://') + (r[2] ? r[2] : '') + r[3];
-                this.onFormFieldChange('broadcast_link')(r);
-              }}
-              fullWidth
-            />
-          </Grid>
-        ) : null}
+        !this.props.is_whereby_integration_enabled
+          ? (() => {
+              const hasError =
+                this.state.broadcast_link &&
+                (!this.state.broadcast_link.startsWith('https://') &&
+                  !this.state.broadcast_link.startsWith('http://'));
+              return (
+                <Grid item>
+                  <TextField
+                    variant="outlined"
+                    value={this.state.broadcast_link}
+                    label={this.props.t('offer.broadcast_link')}
+                    placeholder="https://zoom.us/123456789"
+                    error={hasError}
+                    onChange={(event) => {
+                      this.onFormFieldChange('broadcast_link')(
+                        event.target.value,
+                      );
+                    }}
+                    helperText={
+                      hasError
+                        ? this.props.t('form.offer.broadcast_link.error')
+                        : null
+                    }
+                    fullWidth
+                  />
+                </Grid>
+              );
+            })()
+          : null}
       </Grid>
     );
   };

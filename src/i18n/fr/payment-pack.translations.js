@@ -110,6 +110,8 @@ export default {
       credits: {
         label: 'Crédit',
         helperText: 'Nombre de crédits disponibles',
+        bewareChange:
+          'Si vous augmentez le nb de crédit, toutes les cartes existantes seront affectées. Idem si vous diminuez le nombre de crédits.',
       },
       maxBookingPerWeek: {
         label: 'Utilisation max par semaine',

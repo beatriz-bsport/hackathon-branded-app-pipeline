@@ -47,7 +47,7 @@ const OWNER_PERMISSION = {
   editable: true,
   id: 1,
   navigation: false,
-  name: 'Professeur',
+  name: 'Checkin étendu',
   description:
     'Accès à la gestion de la séance (modification et annulation), aux membres, et au checkin.',
 };
@@ -63,7 +63,7 @@ const ADMIN_PERMISSION = {
 
 const CHECKIN_PERMISSION = {
   ...defaultPermissions,
-  name: 'Checkin',
+  name: 'Checkin restreint',
   id: 2,
   editable: true,
   description: 'Accès seulement au checkin.',
@@ -85,7 +85,7 @@ const CHECKIN_PERMISSION = {
 const CHECKIN_APP_PERMISSION = {
   ...defaultPermissions,
   id: 3,
-  name: 'Checkin-App',
+  name: 'Checkin tablette',
   description:
     // eslint-disable-next-line
     "Compte pour application d'auto-checkin (contactez votre chargé de compte bsport)",

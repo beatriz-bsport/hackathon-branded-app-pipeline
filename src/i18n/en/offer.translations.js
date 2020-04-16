@@ -1,5 +1,7 @@
 export default {
   video: {
+    cantOpenLink:
+      'Broadcast link seems to be broken, please contact your club {{ contact_email }}',
     startingSoon: 'Your session is starting in {{ minutesLeft }} minutes',
     redirectLink:
       'If you are not automatically redirected, please use this link',

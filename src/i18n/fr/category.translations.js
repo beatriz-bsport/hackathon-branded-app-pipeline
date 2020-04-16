@@ -1,8 +1,8 @@
 export default {
   sct: {
     selector: {
-      placeholder: 'Rechercher un sport',
-      label: 'Sport',
+      placeholder: 'Rechercher une catégorie',
+      label: 'Catégorie',
     },
   },
 };

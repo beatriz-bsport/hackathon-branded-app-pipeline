@@ -69,7 +69,7 @@ type Props = {
 export const PrivateCalendarMultiResource = (props: Props) => (
   <div>
     <Paper square className={props.classes.header}>
-      {props.resourceAvailable ? (
+      {!!props.resourceAvailable && (
         <ResourceSelector
           resourceAvailable={props.resourceAvailable}
           resourceSelectedListIds={props.resourceSelectedListIds}
@@ -78,9 +78,9 @@ export const PrivateCalendarMultiResource = (props: Props) => (
           onChangeResourcesSelected={props.onChangeResourcesSelected}
           setResourceFiltered={props.setResourceFiltered}
         />
-      ) : null}
+      )}
       <div className={props.classes.row}>
-        {props.showOfferListToogle ? (
+        {!!props.showOfferListToogle && (
           <FormControlLabel
             label={props.t('calendar.toogle.showOfferList')}
             control={
@@ -90,8 +90,8 @@ export const PrivateCalendarMultiResource = (props: Props) => (
               />
             }
           />
-        ) : null}
-        {props.showPrivateBookingToogle ? (
+        )}
+        {!!props.showPrivateBookingToogle && (
           <FormControlLabel
             label={props.t('calendar.toogle.showPrivateBookings')}
             control={
@@ -101,7 +101,7 @@ export const PrivateCalendarMultiResource = (props: Props) => (
               />
             }
           />
-        ) : null}
+        )}
       </div>
     </Paper>
     <div className={props.classes.content}>

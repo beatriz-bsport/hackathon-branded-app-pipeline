@@ -32,6 +32,8 @@ type Props = {
   goToEdit: (metaActivityId: number) => void,
   onClick: (MetaActivity) => void,
 
+  onClickCopy: (id: number, suffix: string) => void,
+
   deleteMetaActivity: () => void,
 };
 

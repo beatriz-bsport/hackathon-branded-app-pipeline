@@ -10,12 +10,21 @@ import Tabs from '@material-ui/core/Tabs';
 import { push } from 'react-router-redux';
 import { withNamespaces } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
+import type { TFunction } from 'react-i18next';
 
 import CoachDetail from './CoachDetail.page';
 import CoachPrivateCalendar from './CoachPrivateCalendar.page';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
-export const CoachDetailRouter = (props) => (
+type Props = {
+  classes: Object,
+  tab: string,
+  pushToTab: (id: number, tab: string) => void,
+  coachId: number,
+  t: TFunction,
+};
+
+export const CoachDetailRouter = (props: Props) => (
   <div className={props.classes.container}>
     <AppBar position="static" color="default">
       <Tabs

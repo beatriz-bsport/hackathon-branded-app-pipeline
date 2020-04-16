@@ -42,6 +42,7 @@ import type { ShopItem, Provision } from '../../libs/shop/types';
 
 type Props = {
   id: number,
+  snackbarSuccess: (string) => void,
   fetchShopItem: (id: number) => void,
   fullScreen: boolean,
   fetchProvisions: (

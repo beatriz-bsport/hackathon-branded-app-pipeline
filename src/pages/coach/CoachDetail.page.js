@@ -29,6 +29,7 @@ import CoachDeleteModal from '../../libs/associated-coach/components/CoachDelete
 import type { CoachDetailed } from '../../api/types';
 
 type Props = {
+  coachId: number,
   coach: CoachDetailed,
   paymentRules: PaymentRule[],
   setCoachPaymentRule: (any) => void,
@@ -116,11 +117,6 @@ export default compose(
       goToList: () => routerPush('/coach'),
     },
   ),
-  // withProps(({ associatedCoaches, match }) => ({
-  //   coach: associatedCoaches.find(
-  //     (coach) => coach.id === parseInt(match.params.coachId, 10),
-  //   ),
-  // })),
   withTitle(({ coach }) => {
     return coach ? `${coach.name}` : '';
   }),

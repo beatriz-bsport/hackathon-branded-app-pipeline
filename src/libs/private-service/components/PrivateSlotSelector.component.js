@@ -16,6 +16,9 @@ type Props = {
   selectedPrivateSlot: (id: number) => void,
   onServiceChange: (value: ?number) => void,
 
+  setSlotEditable: (boolean) => void,
+  slotEditable: boolean,
+
   t: TFunction,
 };
 

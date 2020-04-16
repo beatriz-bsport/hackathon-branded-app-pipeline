@@ -2,7 +2,6 @@
 
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
-import omitBy from 'lodash/omitBy';
 
 import {
   availabilitySlotListActions,

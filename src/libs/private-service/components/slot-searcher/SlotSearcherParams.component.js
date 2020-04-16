@@ -10,12 +10,23 @@ import { RESOURCE_ATTRIBUTION_CONSUMER } from '@bsport/common/lib/master-data/re
 import PrivateServiceSelectorWithSlot from '../PrivateServiceSelectorWithSlot.component';
 import CoachSelector from '../../../associated-coach/components/CoachSelector.component';
 import EstablishmentSelector from '../../../establishment/components/EstablishmentSelector.component';
-import type { PrivateService, PrivateSlot } from '../../types';
+import type { PrivateService } from '../../types';
 
 type Props = {
   private_services: Array<PrivateService>,
   classes: Object,
   t: TFunction,
+  private_service: number,
+  private_slot: number,
+  onConfigurationChange: ({
+    private_service: number,
+    private_slot: number,
+    coaches: Array<number>,
+    establishment: number,
+    coach?: number,
+  }) => void,
+  coachUnique?: boolean,
+  asManager?: boolean,
 };
 
 type State = {
@@ -26,12 +37,12 @@ type State = {
 };
 
 export class PrivateServiceBooker extends React.Component<Props, State> {
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     if (props.private_service && props.private_slot) {
       this.state = {
-        privateSlotId: props.private_service,
-        privateServiceId: props.private_slot,
+        privateSlotId: props.private_slot,
+        privateServiceId: props.private_service,
         coaches_selected: [],
         establishment_selected: null,
       };
@@ -158,15 +169,11 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
     const private_service = this.props.private_services.find(
       (ps) => ps.id === privateServiceId,
     );
-    const private_slot = private_service.slots.find(
-      (s) => s.id === privateSlotId,
-    );
     this.setState(
       {
         privateServiceId,
         privateSlotId,
         private_service,
-        private_slot,
       },
       () => {
         this.handleCoachChange([]);
@@ -182,7 +189,7 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
       establishmentResourceState,
     } = this.getResourceState();
     return (
-      <div className={this.props.classes.container}>
+      <div className={classes.container}>
         <PrivateServiceSelectorWithSlot
           privateServiceList={this.props.private_services}
           privateServiceId={this.state.privateServiceId}
@@ -191,7 +198,7 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
         />
         {establishmentResourceState.needChoice ||
         establishmentResourceState.canSelect ? (
-          <div className={this.props.classes.selectorContainer}>
+          <div className={classes.selectorContainer}>
             <Typography color="textSecondary" variant="caption">
               {this.props.t('service.selector.establishment.label')}
             </Typography>
@@ -206,7 +213,7 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
           </div>
         ) : null}
         {coachResourceState.canSelect ? (
-          <div className={this.props.classes.selectorContainer}>
+          <div className={classes.selectorContainer}>
             <Typography color="textSecondary" variant="caption">
               {this.props.t('service.selector.coach.label')}
             </Typography>

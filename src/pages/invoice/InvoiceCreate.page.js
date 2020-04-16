@@ -172,7 +172,10 @@ export default compose(
   }),
   connect(
     (state, { id }) => ({
-      loading: state.member.loading,
+      loading:
+        state.member.loading ||
+        state.paymentPack.loading ||
+        state.privateService.privatePass.loading,
       member: memberSelectors.get(state, id),
       paymentPacks: getPaymentPackEnabled(state),
       privatePassList: getPrivatePassAvailable(state),

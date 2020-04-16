@@ -19,10 +19,6 @@ import type { TFunction } from 'react-i18next';
 
 import { splitIntervalList } from '../../utils';
 
-type Props = {
-  t: TFunction,
-};
-
 const stylesSlot = (theme) => ({
   columnContainer: {
     display: 'flex',
@@ -58,91 +54,103 @@ const stylesSlot = (theme) => ({
     marginBottom: theme.spacing.unit * 2,
   },
 });
-const Slot = withStyles(stylesSlot)((props) => (
-  <Button
-    onClick={props.onDateClick}
-    color="primary"
-    variant="contained"
-    className={props.classes.slot}
-  >
-    {moment(props.date).format('HH:mm')}
-  </Button>
-));
+const Slot = withStyles(stylesSlot)(
+  (props: { onDateClick: () => void, classes: Object, date: string }) => (
+    <Button
+      onClick={props.onDateClick}
+      color="primary"
+      variant="contained"
+      className={props.classes.slot}
+    >
+      {moment(props.date).format('HH:mm')}
+    </Button>
+  ),
+);
 const SlotList = withNamespaces('privateService')(
-  withStyles(stylesSlot)((props) => {
-    if (!props.slots.length) {
+  withStyles(stylesSlot)(
+    (props: {
+      slots: Array<PrivateSlot>,
+      t: TFunction,
+      onDateClick: (string) => void,
+      classes: Object,
+    }) => {
+      if (!props.slots.length) {
+        return (
+          <div className={props.classes.columnContainer}>
+            <div className={props.classes.emptyColumn}>
+              <InfoOutlinedIcon
+                fontSize="large"
+                style={{ height: 100, width: 100 }}
+                color="textSecondary"
+              />
+              <Typography color="error">
+                {props.t('bookerModule.emptySlot')}
+              </Typography>
+            </div>
+          </div>
+        );
+      }
       return (
         <div className={props.classes.columnContainer}>
-          <div className={props.classes.emptyColumn}>
-            <InfoOutlinedIcon
-              fontSize="large"
-              style={{ height: 100, width: 100 }}
-              color="textSecondary"
-            />
-            <Typography color="error">
-              {props.t('bookerModule.emptySlot')}
-            </Typography>
+          <div className={props.classes.column}>
+            {props.slots.map(
+              (s, idx) =>
+                idx % 4 === 0 && (
+                  <Slot
+                    onDateClick={() => props.onDateClick(s)}
+                    date={s}
+                    key={idx}
+                  />
+                ),
+            )}
+          </div>
+          <div className={props.classes.column}>
+            {props.slots.map(
+              (s, idx) =>
+                idx % 4 === 1 && (
+                  <Slot
+                    date={s}
+                    onDateClick={() => props.onDateClick(s)}
+                    key={idx}
+                  />
+                ),
+            )}
+          </div>
+          <div className={props.classes.column}>
+            {props.slots.map(
+              (s, idx) =>
+                idx % 4 === 2 && (
+                  <Slot
+                    date={s}
+                    onDateClick={() => props.onDateClick(s)}
+                    key={idx}
+                  />
+                ),
+            )}
+          </div>
+          <div className={props.classes.column}>
+            {props.slots.map(
+              (s, idx) =>
+                idx % 4 === 3 && (
+                  <Slot
+                    date={s}
+                    onDateClick={() => props.onDateClick(s)}
+                    key={idx}
+                  />
+                ),
+            )}
           </div>
         </div>
       );
-    }
-    return (
-      <div className={props.classes.columnContainer}>
-        <div className={props.classes.column}>
-          {props.slots.map(
-            (s, idx) =>
-              idx % 4 === 0 && (
-                <Slot
-                  onDateClick={() => props.onDateClick(s)}
-                  date={s}
-                  key={idx}
-                />
-              ),
-          )}
-        </div>
-        <div className={props.classes.column}>
-          {props.slots.map(
-            (s, idx) =>
-              idx % 4 === 1 && (
-                <Slot
-                  date={s}
-                  onDateClick={() => props.onDateClick(s)}
-                  key={idx}
-                />
-              ),
-          )}
-        </div>
-        <div className={props.classes.column}>
-          {props.slots.map(
-            (s, idx) =>
-              idx % 4 === 2 && (
-                <Slot
-                  date={s}
-                  onDateClick={() => props.onDateClick(s)}
-                  key={idx}
-                />
-              ),
-          )}
-        </div>
-        <div className={props.classes.column}>
-          {props.slots.map(
-            (s, idx) =>
-              idx % 4 === 3 && (
-                <Slot
-                  date={s}
-                  onDateClick={() => props.onDateClick(s)}
-                  key={idx}
-                />
-              ),
-          )}
-        </div>
-      </div>
-    );
-  }),
+    },
+  ),
 );
 
 export const SlotGroup = withStyles(stylesSlot)((props) => {
-  const slots = splitIntervalList(props.slots);
+  const slots = splitIntervalList(
+    props.slots,
+    props.private_slot.duration_minutes,
+  );
   let resourceName = '';
   let Icon = InfoOutlinedIcon;
   if (props.resource_identifier.includes('associated_coach')) {
@@ -166,12 +174,20 @@ export const SlotGroup = withStyles(stylesSlot)((props) => {
   );
 });
 
+type Props = {
+  private_slot: PrivateSlot,
+  private_service: PrivateService,
+  classes: Object,
+  loading: boolean,
+  date: ?string,
+  bookable_slots: Array<Slot>,
+  onDateClick: (string) => void,
+};
+
 export const SlotSearcherResult = (props: Props) => {
   if (!props.private_slot || !props.private_service || !props.date) {
     return null;
   }
-
-  const { duration_minutes } = props.private_slot;
 
   if (props.loading) {
     return (
@@ -204,7 +220,13 @@ export const SlotSearcherResult = (props: Props) => {
               onDateClick={props.onDateClick}
               slots={uniq(
                 props.bookable_slots.reduce(
-                  (acc, { slots }) => [...acc, ...splitIntervalList(slots)],
+                  (acc, { slots }) => [
+                    ...acc,
+                    ...splitIntervalList(
+                      slots,
+                      props.private_slot.duration_minutes,
+                    ),
+                  ],
                   [],
                 ),
               )}
@@ -217,6 +239,7 @@ export const SlotSearcherResult = (props: Props) => {
               <SlotGroup
                 onDateClick={props.onDateClick}
                 private_service={props.private_service}
+                private_slot={props.private_slot}
                 resource_identifier={slotGroup.resource_identifier}
                 slots={slotGroup.slots}
                 key={slotGroup.resource_identifier}

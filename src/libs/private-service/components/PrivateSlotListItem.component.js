@@ -20,6 +20,7 @@ type Props = {
   onClick: ?() => void,
   slot: PrivateSlot,
   t: TFunction,
+  divider?: boolean,
 };
 
 const DeleteButton = (props: { onClick: () => void }) => (

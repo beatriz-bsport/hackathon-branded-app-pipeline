@@ -5,7 +5,7 @@ import Hidden from '@material-ui/core/Hidden';
 import Grid from '@material-ui/core/Grid';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';
-import { compose, withState } from 'recompose';
+import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
@@ -43,19 +43,9 @@ type Props = {
   searchLoading: boolean,
   bookable_slots: Array<string>,
   searchAvailableSlots: (any) => void,
-  authenticated: boolean,
-  requestLogin: () => void,
 
   private_services: Array<PrivateService>,
-  fetchPrivateServiceWithSlotList: (company: number, params: any) => void,
   privateServiceLoading: boolean,
-  setPrivateService: (?number) => void,
-  setPrivateSlot: (?number) => void,
-  setCoaches: (Array<number>) => void,
-  setEstablishments: (Array<number>) => void,
-  privateSlot: ?number,
-  privateService: ?number,
-  coaches: Array<number>,
 
   goToPrivateBookingPage: (
     privateServiceId: number,
@@ -66,10 +56,27 @@ type Props = {
   ) => void,
   classes: Object,
 
+  fetchCoachBulk: (Array<number>) => void,
+  fetchEstablishmentBulk: (Array<number>) => void,
+
+  fetchMarketplacePrivateServices: (
+    companyId: number,
+    options: OptionCallback,
+  ) => void,
+  fetchMarketplacePrivateSlots: (companyId: number) => void,
+
   t: TFunction,
 };
 
-export class MarketplacePrivateService extends React.Component<Props> {
+type State = {
+  private_service: ?number,
+  private_slot: ?number,
+  establishment: ?number,
+  coaches: Array<number>,
+  date_selected: ?string,
+};
+
+export class MarketplacePrivateService extends React.Component<Props, State> {
   state = {
     date_selected: moment().format('YYYY-MM-DD'),
     private_service: null,
@@ -160,25 +167,6 @@ export class MarketplacePrivateService extends React.Component<Props> {
 
   render() {
     const missingResources = this.missingResourceConf();
-    /*
-              <SlotSearcher
-                bookable_slots={this.props.bookable_slots}
-                private_services={this.props.private_services}
-                searchAvailableSlots={() => {}}
-                onClickBook={(...args) =>
-                  this.props.goToPrivateBookingPage(
-                    ...args,
-                    this.props.companyId,
-                  )
-                }
-                searchLoading={this.props.searchLoading}
-                onPrivateServiceChange={this.props.setPrivateService}
-                onPrivateSlotChange={this.props.setPrivateSlot}
-                onCoachChange={this.props.setCoaches}
-                onEstablishmentChange={this.props.setEstablishments}
-                onDateChange={() => {}}
-	      />
-	      */
 
     return (
       <div className={this.props.classes.container}>
@@ -348,8 +336,4 @@ export default compose(
         ),
     },
   ),
-  withState('privateService', 'setPrivateService', null),
-  withState('privateSlot', 'setPrivateSlot', null),
-  withState('coaches', 'setCoaches', []),
-  withState('establishments', 'setEstablishments', []),
 )(MarketplacePrivateService);

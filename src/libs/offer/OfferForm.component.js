@@ -76,6 +76,8 @@ type Props = {
     waiting_list_max_size: ?number,
     level: ?number,
   }) => void,
+
+  is_whereby_integration_enabled: boolean,
 };
 
 type State = {

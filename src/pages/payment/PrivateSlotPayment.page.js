@@ -31,7 +31,6 @@ import { getPrivateService } from '../../libs/private-service/selectors/private-
 import { getPrivateConsumerPassList } from '../../libs/private-service/selectors/private-consumer-pass';
 import { getPrivatePassListWithPrivateService } from '../../libs/private-service/selectors/private-pass';
 import {
-  fetchPrivateBookingPreview,
   fetchPrivateSlot,
   fetchPrivateService,
   fetchCompatiblePrivatePass,
@@ -44,26 +43,19 @@ import type {
   PrivatePass,
 } from '../../libs/private-service/types';
 
-import AddressForm from './AddressForm.component';
-
 type Props = {
   privateServiceId: number,
   privateSlotId: number,
 
-  associatedCoachId: number,
   date: string,
+  company: number,
+  data: any,
 
   fetchPrivateService: (privateServiceId: number) => void,
   fetchPrivateSlot: (privateServiceId: number, privateSlotId: number) => void,
   privateSlot: ?PrivateSlot,
 
   fetchCurrentBasket: (company: number) => void,
-  fetchPrivateBookingPreview: (
-    privateSlotId: number,
-    associatedCoachId: number,
-    date: string,
-    options: ?{ onSuccess?: () => void, onError?: () => void },
-  ) => void,
 
   fetchCompatiblePrivatePass: (privateSlotId: number, params: any) => void,
   fetchCompatiblePrivateConsumerPass: (privateSlotId: number) => void,
@@ -277,7 +269,6 @@ export default compose(
     {
       fetchPrivateSlot,
       fetchPrivateService,
-      fetchPrivateBookingPreview,
       fetchCompatiblePrivatePass,
       fetchCompatiblePrivateConsumerPass,
       registerPrivateBooking,

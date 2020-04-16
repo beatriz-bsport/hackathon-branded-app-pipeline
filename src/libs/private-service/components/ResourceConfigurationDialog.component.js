@@ -8,7 +8,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Typography from '@material-ui/core/Typography';
 import FormLabel from '@material-ui/core/FormLabel';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -16,15 +15,32 @@ import ColorInput from '../../../components/input/ColorInput.component';
 
 type Props = {
   t: TFunction,
+  classes: Object,
+  setProcessing: (boolean) => void,
+  processing: boolean,
+  onClose: () => void,
+
+  resourceData: ResourceData,
+  open: boolean,
+
+  onSubmit: (
+    resourceIdentifier: string,
+    data: {
+      color: string,
+    },
+    options: OptionCallback,
+  ) => void,
 };
 
-export class ResourceConfigurationDialog extends React.Component<Props> {
-  state = { color: '' };
+type State = {
+  color: string,
+};
 
-  constructor(props) {
+export class ResourceConfigurationDialog extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = {
-      color: props.resourceData.data.color,
+      color: props.resourceData.data.color || '',
     };
   }
 

@@ -38,6 +38,11 @@ type Props = {
   goToDetail: (metaActivityId: number) => void,
   goToEdit: (metaActivityId: number) => void,
   onCreate: () => void,
+  makeActivityCopy: (
+    id: number,
+    suffix: string,
+    options?: OptionCallback,
+  ) => void,
 
   t: TFunction,
   classes: Object,

@@ -40,7 +40,8 @@ export const ResourceItem = (props: Props) => {
         }}
       />
       <Typography className={classes.resourceName}>{name}</Typography>
-      {!!onSelectResource && !!onUnselectResource ? (
+      {// eslint-disable-next-line
+      !!onSelectResource && !!onUnselectResource ? (
         isSelected ? (
           <ButtonBase
             onClick={(ev) => {

@@ -10,7 +10,7 @@ const getMetaActivityAbstractDict = (state: State): Array<MetaActivity> =>
 
 export const getMetaActivitiesDict = createSelector(
   getMetaActivityAbstractDict,
-  (data) => pickBy(data, (v, id) => !v.is_workshop),
+  (data) => pickBy(data, (v) => !v.is_workshop),
 );
 
 export const getMetaActivitiesIdList = (state: State): Array<MetaActivity> =>
@@ -50,7 +50,7 @@ export const getPageEnabledMetaActivities = createSelector(
 
 export const getWorkshopActivitiesDict = createSelector(
   getMetaActivityAbstractDict,
-  (data) => pickBy(data, (v, id) => v.is_workshop),
+  (data) => pickBy(data, (v) => v.is_workshop),
 );
 
 export const getWorkshopActivitiesIdList = (

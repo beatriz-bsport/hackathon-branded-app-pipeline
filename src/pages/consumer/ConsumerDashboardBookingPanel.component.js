@@ -26,6 +26,7 @@ type Props = {
   bookingCount: number,
 
   membership: Membership,
+  goToBroadcast: (id: number) => void,
 
   privateBookingList: Array<PrivateBooking>,
 

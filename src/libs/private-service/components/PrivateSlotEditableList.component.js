@@ -6,7 +6,6 @@ import List from '@material-ui/core/List';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import AddIcon from '@material-ui/icons/Add';
 import WarningIcon from '@material-ui/icons/Warning';
@@ -18,7 +17,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import EmptyListWarning from './EmptyListWarning.component';
 import PrivateSlotForm from './PrivateSlotForm.component';
 import PrivateSlotListItem from './PrivateSlotListItem.component';
 

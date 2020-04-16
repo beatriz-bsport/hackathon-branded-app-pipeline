@@ -14,7 +14,7 @@ type Props = {
   makeActivityCopy: (
     id: number,
     suffix: string,
-    options: OptionCallback,
+    options?: OptionCallback,
   ) => void,
   deleteMetaActivity: (metaActivityId: number) => void,
 };

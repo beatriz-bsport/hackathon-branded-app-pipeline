@@ -30,6 +30,7 @@ import Checkbox from '../../components/input/Checkbox.component';
 type Props = {
   processing: boolean,
   similarOfferLoading: boolean,
+  is_whereby_integration_enabled: boolean,
   t: TFunction,
   classes: Object,
 

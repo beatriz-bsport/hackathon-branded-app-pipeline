@@ -832,8 +832,8 @@ export function searchAvailableSlots(
   privateSlotId: number,
   associatedCoachIdList: Array<number>,
   date: string,
-    associatedEstablishmentIdList: Array<number>,
-      options: OptionCallback,
+  associatedEstablishmentIdList: Array<number>,
+  options: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(availabilitySlotSearchActions.isLoading(true));
@@ -847,11 +847,11 @@ export function searchAvailableSlots(
         associatedEstablishmentIdList,
       );
       dispatch(availabilitySlotSearchActions.success(response.data));
-      if (options && options.onSuccess) options.onSuccess(response.data)
+      if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
       dispatch(availabilitySlotSearchActions.error(null));
-      if (options && options.onError) options.onError(err)
+      if (options && options.onError) options.onError(err);
     }
     dispatch(availabilitySlotSearchActions.isLoading(false));
   };

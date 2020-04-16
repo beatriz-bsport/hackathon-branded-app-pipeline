@@ -13,6 +13,14 @@ type Props = {
   privateService: PrivateService,
   deletePrivateSlot: (any) => void,
   createOrUpdatePrivateSlot: (any) => void,
+  goToCoachCalendar: (id: number) => void,
+  goToEstablishmentCalendar: (id: number) => void,
+  goToPrivateServiceCalendar: (id: number) => void,
+  switchServiceHasOwnAvailabilitySlots: () => void,
+  getResourceSlotsExistState: (
+    resourceDatatype: string,
+    resourceId: number,
+  ) => { exists: boolean, loading: boolean },
 };
 
 export const PrivateServiceDetail = (props: Props) => {
@@ -46,6 +54,5 @@ export const PrivateServiceDetail = (props: Props) => {
     </Grid>
   );
 };
-
 
 export default PrivateServiceDetail;

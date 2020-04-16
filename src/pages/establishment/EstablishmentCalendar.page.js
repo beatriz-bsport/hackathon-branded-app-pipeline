@@ -11,13 +11,13 @@ import withTitle from '../../hocs/with-title.hoc';
 import { getEstablishment } from '../../libs/establishment/selectors';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
-import { fetchMetaActivityBulk } from '../../libs/meta-activity/actions';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
 import { getPrivateBookingListFiltered } from '../../libs/private-service/selectors/private-booking';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import PrivateCalendarWithControls from '../../libs/private-service/components/PrivateCalendarWithControls.component';
 
-import { fetchAllOffers } from '../../libs/offer/actions';
+import { fetchAllOffers as fetchAllOffersAction } from '../../libs/offer/actions';
 import {
   getOfferAsEventList,
   withMetaActivity,
@@ -29,16 +29,44 @@ import {
   resetAvailabilitySlots,
   disableEstablishmentAvailabilitySlot,
   enableEstablishmentAvailabilitySlot,
-  fetchPrivateBookings,
+  fetchPrivateBookings as fetchPrivateBookingsAction,
   resetPrivateBookings,
 } from '../../libs/private-service/actions';
 import { fetchEstablishmentBulk } from '../../libs/establishment/actions';
 
 type Props = {
   classes: Object,
-  fetchAvailabilitySlots: (data: { establishment: number }) => void,
+  fetchAvailabilitySlots: (data: any) => void,
+  loading: boolean,
+  privateBookingList: Array<PrivateBooking>,
+  offerList: Array<Offer>,
+  availabilitySlotUpdating: boolean,
+  goToMember: (id: number) => void,
+  handleDateChange: ({
+    date_start: string,
+    date_end: string,
+  }) => void,
   availabilitySlots: Array<AvailabilitySlot>,
-  coachId: ?number,
+  resetAvailabilitySlots: () => void,
+  enableEstablishmentAvailabilitySlot: (
+    id: number,
+    data: any,
+    options: OptionCallback,
+  ) => void,
+  disableEstablishmentAvailabilitySlot: (
+    id: number,
+    data: any,
+    options: OptionCallback,
+  ) => void,
+  id: number,
+
+  fetchOfferList: () => void,
+
+  resetPrivateBookings: () => void,
+  fetchPrivateBookingList: () => void,
+
+  fetchEstablishmentBulk: (Array<number>) => void,
+  periodFilter: { start: string, end: string },
 };
 
 const styles = (theme) => ({
@@ -63,7 +91,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
     this.props.fetchEstablishmentBulk([this.props.id]);
   }
 
-  componentDidUpdate(prevProps: Props, prevState: State) {
+  componentDidUpdate(prevProps: Props) {
     if (
       prevProps.periodFilter.start !== this.props.periodFilter.start ||
       prevProps.periodFilter.end !== this.props.periodFilter.end ||
@@ -180,10 +208,10 @@ export default compose(
     {
       fetchAvailabilitySlots,
       resetAvailabilitySlots,
-      fetchPrivateBookings,
+      fetchPrivateBookings: fetchPrivateBookingsAction,
       resetPrivateBookings,
-      fetchMetaActivityBulk,
-      fetchAllOffers,
+      fetchMetaActivityBulk: fetchMetaActivityBulkAction,
+      fetchAllOffers: fetchAllOffersAction,
       fetchEstablishmentBulk,
       disableEstablishmentAvailabilitySlot,
       enableEstablishmentAvailabilitySlot,

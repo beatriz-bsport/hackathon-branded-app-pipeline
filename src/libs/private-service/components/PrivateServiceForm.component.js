@@ -21,7 +21,6 @@ import EstablishmentSelector from '../../establishment/components/EstablishmentS
 import CoachSelector from '../../associated-coach/components/CoachSelector.component';
 import CoachListItemBasic from '../../associated-coach/components/CoachListItemBasic.component';
 
-import ImageField from '../../../components/forms/ImageField.component';
 import {
   TextField,
   ColorField,
@@ -33,9 +32,9 @@ import {
 type Props = {
   t: TFunction,
   classes: Object,
-  initial: PrivateService,
-  onCancel: () => void,
-  onSubmit: (data: *) => void,
+  values: PrivateServiceData,
+  establishments: Array<Establishment>,
+  coaches: Array<Coach>,
 };
 
 const IS_HOME_SERVICE = '0';
@@ -44,7 +43,6 @@ const IS_WITH_ESTABLISHMENT = '2';
 
 export const PrivateServiceForm = (props: Props) => {
   const { values, classes, t } = props;
-  //  <ImageField name="cover_main" />
   return (
     <div className={classes.container}>
       <TextField

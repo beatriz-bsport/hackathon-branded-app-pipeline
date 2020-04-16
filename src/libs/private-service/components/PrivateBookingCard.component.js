@@ -38,7 +38,6 @@ export const PrivateBookingCard = (props: Props) => {
       </div>
     );
   }
-  console.log(private_booking.member);
   return (
     <div className={props.classes.container}>
       {props.private_booking.booking_status_code !== BOOKING_STATUS_OK.id ? (

@@ -19,7 +19,7 @@ import MetaActivityDeleteDialog from '../../libs/meta-activity/components/MetaAc
 import { getPageEnabledMetaActivities } from '../../libs/meta-activity/selectors';
 import {
   deleteMetaActivity,
-  fetchAllActivities as fetchAllMetactivities,
+  fetchAllActivities as fetchAllMetactivitiesAction,
   makeActivityCopy as makeActivityCopyAction,
 } from '../../libs/meta-activity/actions';
 import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '../../libs/meta-activity/api/common';
@@ -41,6 +41,17 @@ type Props = {
 
   t: TFunction,
   classes: Object,
+
+  makeActivityCopy: (
+    id: number,
+    suffix: string,
+    options: OptionCallback,
+  ) => void,
+};
+
+type State = {
+  searchText: string,
+  searchResult: Array<MetaActivity>,
 };
 
 export class MetaActivityListPage extends React.Component<Props, State> {
@@ -158,7 +169,7 @@ export default compose(
     }),
     {
       makeActivityCopy: makeActivityCopyAction,
-      fetchAllMetactivities,
+      fetchAllMetactivities: fetchAllMetactivitiesAction,
       goToDetail: (metaActivityId) =>
         push(`/activity/${metaActivityId}/general`),
       goToEdit: (metaActivityId) => push(`/activity/${metaActivityId}/edit`),

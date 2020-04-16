@@ -39,12 +39,50 @@ import {
 
 type Props = {
   classes: Object,
-  fetchAvailabilitySlots: (data: { 'private-service': number }) => void,
-  availabilitySlots: Array<AvailabilitySlot>,
-  periodFilter: { start: string, end: string },
-  setPeriodFilter: ({ start: string, end: string }) => void,
+  loading: boolean,
+  privateBookingList: Array<PrivateBooking>,
+  resourceData: ?ResourceData,
+  resourceFiltersArray: Array<string>,
+  setResourceFiltersArray: (Array<string>) => void,
+    resourceDataLoading: boolean,
+    resetAvailabilitySlots: () => void,
+
+  resourceToEdit: string,
+  setResourceToEdit: (string) => void,
+  onEditResourceConfiguration: (
+    id: number,
+    resourceIdentifier: number,
+    data: any,
+    options: OptionCallback,
+  ) => void,
+  goToResourceCalendar: () => void,
+
   id: number,
   fetchPrivateService: (id: number) => void,
+
+  fetchAvailabilitySlots: (data: { 'private-service': number }) => void,
+  availabilitySlots: Array<AvailabilitySlot>,
+  availabilitySlotUpdating: boolean,
+
+  goToMember: (id: number) => void,
+  handleDateChange: ({
+    date_start: string,
+    date_end: string,
+  }) => void,
+  enableResourceAvailabilitySlot: (data: any) => void,
+  disableResourceAvailabilitySlot: (data: any) => void,
+  periodFilter: { start: string, end: string },
+
+  fetchPrivateServiceResourceData: (id: number, OptionCallback) => void,
+  setResourceFiltersArray: (Array<string>) => void,
+  fetchPrivateBookingList: () => void,
+};
+
+type State = {
+  updateAvailabilitySlotData: ?{
+    kind: string,
+    data: [any, OptionCallback],
+  },
 };
 
 const styles = (theme) => ({
@@ -52,7 +90,7 @@ const styles = (theme) => ({
   leftIcon: { marginRight: theme.spacing.unit },
 });
 
-export class CoachPrivateCalendar extends React.Component<Props> {
+export class CoachPrivateCalendar extends React.Component<Props, State> {
   state = {
     updateAvailabilitySlotData: null,
   };

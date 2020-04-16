@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 
 import { connect } from 'react-redux';
@@ -27,21 +28,21 @@ import {
 } from '../selectors/private-booking';
 import { getPermissions } from '../../role/selectors';
 import {
-  fetchPrivateBooking,
-  fetchPrivateSlot,
-  fetchPrivateService,
-  disablePrivateBooking,
-  deletePrivateBooking,
+  fetchPrivateBooking as fetchPrivateBookingAction,
+  fetchPrivateSlot as fetchPrivateSlotAction,
+  fetchPrivateService as fetchPrivateServiceAction,
+  disablePrivateBooking as disablePrivateBookingAction,
+  deletePrivateBooking as deletePrivateBookingAction,
 } from '../actions';
-import { fetchMetaActivityBulk } from '../../meta-activity/actions';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../meta-activity/actions';
 import {
-  fetchCoachBulk,
-  fetchAssociatedCoachesList,
+  fetchCoachBulk as fetchCoachBulkAction,
+  fetchAssociatedCoachesList as fetchAssociatedCoachesListAction,
 } from '../../associated-coach/actions';
-import { refreshFilteredMembers } from '../../member/actions';
+import { refreshFilteredMembers as refreshFilteredMembersAction } from '../../member/actions';
 import {
-  fetchEstablishments,
-  fetchEstablishmentBulk,
+  fetchEstablishments as fetchEstablishmentsAction,
+  fetchEstablishmentBulk as fetchEstablishmentBulkAction,
 } from '../../establishment/actions';
 
 import { getActiveCoaches } from '../../associated-coach/selectors';
@@ -49,8 +50,8 @@ import { getAllEstablishments } from '../../establishment/selectors';
 
 import PrivateBookingCard from '../components/PrivateBookingCard.component';
 import {
-  retrieveOfferAsManager,
-  fetchSimilarOffers,
+  retrieveOfferAsManager as retrieveOfferAsManagerAction,
+  fetchSimilarOffers as fetchSimilarOffersAction,
 } from '../../offer/actions';
 
 import OfferMinimalSummary from '../../../components/offer/OfferMinimalSummary.component';
@@ -69,8 +70,55 @@ import {
   deleteOffer as deleteOfferAPI,
 } from '../../offer/api';
 
+type Props = {
+  offerId: number,
+  privateBookingId: ?number,
+  fetchOfferById: (id: number) => void,
+  fetchPrivateBookingById: (number) => void,
+  openOfferEditModal: ?Offer,
+  t: TFunction,
+  classes: Object,
+  permission: Permission,
+  privateBooking: ?PrivateBooking,
+  offer: Offer,
+  selectedPrivateBooking: ?PrivateBooking,
+
+  fetchSimilarOffers: (offerId: number) => void,
+  similarOfferLoading: boolean,
+  similarOffers: Array<Offer>,
+
+  coaches: Array<Coach>,
+  establishments: Array<Establishment>,
+
+  openDisablePrivateBookingModal: () => void,
+  openOfferDeleteModal: boolean,
+
+  refreshOffers: () => void,
+  closeOfferEditModal: () => void,
+  closeOfferDeleteModal: () => void,
+  onClose: () => void,
+  offerDeleteModalOpen: boolean,
+  popoverAnchor: ?HTMLElement,
+  privateBookingDeleteModalOpen: boolean,
+
+  setOfferProcessing: (boolean) => void,
+  offerProcessing: boolean,
+  offerEditModalOpen: boolean,
+  offerEditLoading: boolean,
+
+  disableOrDeletePrivateBooking: (
+    privateBookingId: number,
+    force_refund: boolean,
+    options: OptionCallback,
+  ) => void,
+  refreshPrivateBookings: () => void,
+  closeDisablePrivateBookingModal: () => void,
+
+  theme: ?CompanyTheme,
+};
+
 export class CalendarEventDetail extends React.Component<Props> {
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Props) {
     if (this.props.offerId && this.props.offerId !== prevProps.offerId) {
       this.props.fetchOfferById(this.props.offerId);
     }
@@ -193,12 +241,7 @@ export class CalendarEventDetail extends React.Component<Props> {
   };
 
   render() {
-    const {
-      coachesLoading,
-      establishmentsLoading,
-      similarOfferLoading,
-      offer,
-    } = this.props;
+    const { offer } = this.props;
     return (
       <div>
         <Popover
@@ -346,12 +389,12 @@ const OfferEditorContainer = compose(
       establishments: getAllEstablishments(state),
     }),
     {
-      fetchSimilarOffers,
-      fetchEstablishments,
-      fetchAssociatedCoachesList,
-      fetchMetaActivityBulk,
-      fetchCoachBulk,
-      fetchEstablishmentBulk,
+      fetchSimilarOffers: fetchSimilarOffersAction,
+      fetchEstablishments: fetchEstablishmentsAction,
+      fetchAssociatedCoachesList: fetchAssociatedCoachesListAction,
+      fetchMetaActivityBulk: fetchMetaActivityBulkAction,
+      fetchCoachBulk: fetchCoachBulkAction,
+      fetchEstablishmentBulk: fetchEstablishmentBulkAction,
     },
   ),
   withHandlers({
@@ -408,8 +451,8 @@ const PrivateBookingCancellatorContainer = compose(
   connect(
     null,
     {
-      disablePrivateBooking,
-      deletePrivateBooking,
+      disablePrivateBooking: disablePrivateBookingAction,
+      deletePrivateBooking: deletePrivateBookingAction,
     },
   ),
   withStateHandlers(
@@ -479,13 +522,13 @@ export default compose(
       ),
     }),
     {
-      retrieveOfferAsManager,
-      fetchPrivateBooking,
-      fetchCoachBulk,
-      fetchEstablishmentBulk,
-      fetchPrivateService,
-      fetchPrivateSlot,
-      refreshFilteredMembers,
+      retrieveOfferAsManager: retrieveOfferAsManagerAction,
+      fetchPrivateBooking: fetchPrivateBookingAction,
+      fetchCoachBulk: fetchCoachBulkAction,
+      fetchEstablishmentBulk: fetchEstablishmentBulkAction,
+      fetchPrivateService: fetchPrivateServiceAction,
+      fetchPrivateSlot: fetchPrivateSlotAction,
+      refreshFilteredMembers: refreshFilteredMembersAction,
       onOfferClick: (id) => push(`/offer/${id}`),
     },
   ),

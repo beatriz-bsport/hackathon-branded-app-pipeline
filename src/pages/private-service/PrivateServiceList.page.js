@@ -11,7 +11,6 @@ import AddIcon from '@material-ui/icons/Add';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { compose, withProps, withState } from 'recompose';
-import { mapFormData } from '../form.utils';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
@@ -44,11 +43,9 @@ type Props = {
   ) => void,
   goToPrivateService: (id: number) => void,
   deletePrivateService: (id: number) => void,
-  privateServiceId: number,
   fetchAssociatedCoachesList: () => void,
   fetchEstablishments: () => void,
   setOpenEditForm: (data: any) => void,
-  fetchPrivateService: (id: number) => void,
   selectedPrivateService: ?PrivateService,
   availableEstablishments: Array<Establishment>,
   openEditForm: any,

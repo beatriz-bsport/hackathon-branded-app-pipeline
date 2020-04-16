@@ -98,6 +98,8 @@ type Props = {
   date: string,
   selectedOffer: Offer,
 
+  theme: ?CompanyTheme,
+
   timetableLoading: boolean,
   fullScreen: boolean,
   coachesLoading: boolean,

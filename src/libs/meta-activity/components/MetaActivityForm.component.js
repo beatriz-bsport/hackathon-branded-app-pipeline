@@ -32,6 +32,7 @@ type Props = {
   onCancel: () => void,
   isSubmitting: boolean,
   variant: ?string,
+  is_broadcast_enabled: boolean,
   imageUploader: ?{
     onAddImage: (image: File) => void,
     onRemoveImage: (image: File) => void,

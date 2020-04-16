@@ -7,27 +7,35 @@ import { withNamespaces } from 'react-i18next';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { getPrivateBookingListFiltered } from '../../libs/private-service/selectors/private-booking';
-import { fetchAllOffers } from '../../libs/offer/actions';
-import withTitle from '../../hocs/with-title.hoc';
-import { fetchMetaActivityBulk } from '../../libs/meta-activity/actions';
-import {
-  getOfferAsEventList,
-  withMetaActivity,
-} from '../../libs/offer/selectors';
+import { getPrivateBookingListFiltered } from '../libs/private-service/selectors/private-booking';
+import { fetchAllOffers as fetchAllOffersAction } from '../libs/offer/actions';
+import withTitle from '../hocs/with-title.hoc';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../libs/meta-activity/actions';
+import { getOfferAsEventList, withMetaActivity } from '../libs/offer/selectors';
 
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import PrivateCalendarWithControls from '../../libs/private-service/components/PrivateCalendarWithControls.component';
+import PrivateCalendarWithControls from '../libs/private-service/components/PrivateCalendarWithControls.component';
 
 import {
-  fetchPrivateBookings,
+  fetchPrivateBookings as fetchPrivateBookingsAction,
   resetPrivateBookings,
-  fetchAvailabilitySlots,
-} from '../../libs/private-service/actions';
+} from '../libs/private-service/actions';
 
 type Props = {
   classes: Object,
-  availabilitySlots: Array<AvailabilitySlot>,
+  privateBookingList: Array<PrivateBooking>,
+  offerList: Array<Offer>,
+
+  resetPrivateBookings: () => void,
+
+  goToMember: (id: number) => void,
+  handleDateChange: ({
+    date_start: string,
+    date_end: string,
+  }) => void,
+  periodFilter: { start: string, end: string },
+
+  fetchPrivateBookingList: () => void,
+  fetchOfferList: () => void,
 };
 
 const styles = (theme) => ({
@@ -36,28 +44,15 @@ const styles = (theme) => ({
 });
 
 export class CoachPrivateCalendar extends React.Component<Props> {
-  select = (eventSlotSelected) => {
-    this.setState({
-      eventSlotSelected,
-    });
-  };
-
-  fetchAvailabilitySlots = () =>
-    this.props.fetchAvailabilitySlots({
-      date_start__lte: this.props.periodFilter.end,
-      date_start__gte: this.props.periodFilter.start,
-    });
-
   componentDidMount() {
     this.props.resetPrivateBookings();
   }
 
-  componentDidUpdate(prevProps: Props, prevState: State) {
+  componentDidUpdate(prevProps: Props) {
     if (
       prevProps.periodFilter.start !== this.props.periodFilter.start ||
       prevProps.periodFilter.end !== this.props.periodFilter.end
     ) {
-      this.fetchAvailabilitySlots();
       this.props.fetchPrivateBookingList();
       this.props.fetchOfferList();
     }
@@ -70,7 +65,6 @@ export class CoachPrivateCalendar extends React.Component<Props> {
         <PrivateCalendarWithControls
           availabilitySlots={[]}
           privateBookings={this.props.privateBookingList}
-          availabilitySlotUpdating={this.props.availabilitySlotUpdating}
           disableAvailabilitySlotDisplay
           goToMember={this.props.goToMember}
           onDateChange={this.props.handleDateChange}
@@ -111,11 +105,10 @@ export default compose(
       ),
     }),
     {
-      fetchPrivateBookings,
-      fetchAvailabilitySlots,
-      fetchAllOffers,
+      fetchPrivateBookings: fetchPrivateBookingsAction,
+      fetchAllOffers: fetchAllOffersAction,
       resetPrivateBookings,
-      fetchMetaActivityBulk,
+      fetchMetaActivityBulk: fetchMetaActivityBulkAction,
     },
   ),
   withHandlers({

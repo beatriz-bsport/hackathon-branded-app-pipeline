@@ -11,7 +11,6 @@ import RadioButton from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -19,6 +18,14 @@ import ResourceItem from './ResourceItem.component';
 
 type Props = {
   t: TFunction,
+  classes: Object,
+  open: boolean,
+  setSelectedResourceIdentifier: string,
+  onClose: () => void,
+  resourceAvailable: Array<ResourceData>,
+  selectedResourceIdentifier: string,
+  setSelectedResourceIdentifier: (string) => void,
+  onSubmit: ({ [resourceDatatype: string]: string }) => void,
 };
 
 export const AvailabilityUpdatResourceChoserDialog = (props: Props) => {
@@ -41,7 +48,7 @@ export const AvailabilityUpdatResourceChoserDialog = (props: Props) => {
               props.setSelectedResourceIdentifier(ev.target.value);
             }}
           >
-            {props.resourceAvailable.map(({ datatype, data }) =>
+            {props.resourceAvailable.map(({ data }) =>
               data.map((resourceData) => (
                 <div
                   className={classes.radioGroup}

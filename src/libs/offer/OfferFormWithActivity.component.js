@@ -26,6 +26,7 @@ type Props = {
   t: TFunction,
   selectedDate: Object,
   classes: Object,
+  is_whereby_integration_enabled: boolean,
 };
 
 type State = {

@@ -10,13 +10,11 @@ import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 
-
 import CardContent from '@material-ui/core/CardContent';
 import LocationIcon from '@material-ui/icons/LocationOn';
 import PersonIcon from '@material-ui/icons/Person';
 
 import TypographyMultiline from '../../../components/TypographyMultiline.component';
-
 
 import CoachListItemBasic from '../../associated-coach/components/CoachListItemBasic.component';
 import EstablishmentListItem from '../../establishment/components/EstablishmentListItem.component';
@@ -25,86 +23,73 @@ import type { PrivateService } from '../types';
 
 type Props = {
   privateService: PrivateService,
-  deletePrivateSlot: (any) => void,
-  createOrUpdatePrivateSlot: (any) => void,
-
   t: TFunction,
   classes: Object,
 };
 
 export const PrivateServiceDetail = (props: Props) => {
-  const {
-    t,
-    classes,
-    privateService,
-  } = props;
+  const { t, classes, privateService } = props;
   return (
-      <Card className={classes.paperContainer}>
-        {privateService.cover_main ? (
-          <CardMedia
-            component="img"
-            image={privateService.cover_main}
-            classes={{
-              media: classes.media,
-            }}
-          />
-        ) : null}
-        {privateService.color ? (
-          <div style={{ borderTop: `4px solid ${privateService.color}` }} />
-        ) : null}
-        <CardContent>
-          <Typography variant="h4" component="h3" className={classes.title}>
-            {privateService.name}
-          </Typography>
+    <Card className={classes.paperContainer}>
+      {privateService.cover_main ? (
+        <CardMedia
+          component="img"
+          image={privateService.cover_main}
+          classes={{
+            media: classes.media,
+          }}
+        />
+      ) : null}
+      {privateService.color ? (
+        <div style={{ borderTop: `4px solid ${privateService.color}` }} />
+      ) : null}
+      <CardContent>
+        <Typography variant="h4" component="h3" className={classes.title}>
+          {privateService.name}
+        </Typography>
+        <Typography variant="h6" component="h4" className={classes.subtitle}>
+          {t('service.parameters.description')}
+        </Typography>
+        <TypographyMultiline
+          color="textSecondary"
+          className={classes.description}
+        >
+          {privateService.description}
+        </TypographyMultiline>
+        {privateService.coaches.length ? (
           <Typography variant="h6" component="h4" className={classes.subtitle}>
-            {t('service.parameters.description')}
+            {t('service.parameters.coaches.title')}
           </Typography>
-          <TypographyMultiline
-            color="textSecondary"
-            className={classes.description}
-          >
-            {privateService.description}
-          </TypographyMultiline>
-          {privateService.coaches.length ? (
-            <Typography
-              variant="h6"
-              component="h4"
-              className={classes.subtitle}
-            >
-              {t('service.parameters.coaches.title')}
+        ) : (
+          <div className={classes.row}>
+            <PersonIcon className={classes.leftIcon} />
+            <Typography>{t('service.parameters.coaches.is_empty')}</Typography>
+          </div>
+        )}
+        {privateService.coaches.map((coach) => (
+          <CoachListItemBasic coach={coach} key={coach.id} />
+        ))}
+        {privateService.is_home_service ? (
+          <div className={classes.row}>
+            <LocationIcon className={classes.leftIcon} />
+            <Typography inline>
+              {t('service.parameters.establishments.is_home_service')}
             </Typography>
-          ) : (
-            <div className={classes.row}>
-              <PersonIcon className={classes.leftIcon} />
-              <Typography>
-                {t('service.parameters.coaches.is_empty')}
-              </Typography>
-            </div>
-          )}
-          {privateService.coaches.map((coach) => (
-            <CoachListItemBasic coach={coach} key={coach.id} />
-          ))}
-          {privateService.is_home_service ? (
-            <div className={classes.row}>
-              <LocationIcon className={classes.leftIcon} />
-              <Typography inline>
-                {t('service.parameters.establishments.is_home_service')}
-              </Typography>
-            </div>
-          ) : null}
-          {privateService.establishments.length ? (
-            <Typography inline variant="h6" component="h4">
-              {t('service.parameters.establishments.title')}
-            </Typography>
-          ) : null}
-          {privateService.establishments.map((establishment) => (
-            <EstablishmentListItem
-              establishment={establishment}
-              key={establishment.id}
-            />
-          ))}
-        </CardContent>
-      </Card>
+          </div>
+        ) : null}
+        {privateService.establishments.length ? (
+          <Typography inline variant="h6" component="h4">
+            {t('service.parameters.establishments.title')}
+          </Typography>
+        ) : null}
+        {privateService.establishments.map((establishment) => (
+          <EstablishmentListItem
+            establishment={establishment}
+            key={establishment.id}
+          />
+        ))}
+      </CardContent>
+    </Card>
   );
 };
 

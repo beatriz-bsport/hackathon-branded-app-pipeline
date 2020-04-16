@@ -46,6 +46,20 @@ const styles = (theme) => ({
   },
 });
 
+type Props = {
+  goToCoachCalendar: (id: number) => void,
+  goToEstablishmentCalendar: (id: number) => void,
+  goToPrivateServiceCalendar: (id: number) => void,
+  switchServiceHasOwnAvailabilitySlots: () => void,
+  getResourceSlotsExistState: (
+    resourceDatatype: string,
+    resourceId: number,
+  ) => { exists: boolean, loading: boolean },
+  t: TFunction,
+  classes: Object,
+  privateService: PrivateService,
+};
+
 const ResourceConfigurationChecker = withStyles(styles)(
   withNamespaces(['privateService'])((props) => (
     <ButtonBase onClick={props.onClick} className={props.classes.row}>
@@ -83,7 +97,7 @@ const ResourceConfigurationChecker = withStyles(styles)(
   )),
 );
 
-export const PrivateServiceConfigurationHelper = (props) => {
+export const PrivateServiceConfigurationHelper = (props: Props) => {
   const { privateService, getResourceSlotsExistState, t, classes } = props;
   const { exists } = getResourceSlotsExistState(
     'private_service',
@@ -146,13 +160,13 @@ export const PrivateServiceConfigurationHelper = (props) => {
             'associated_establishment',
             establishment.associatedestablishment_set[0],
           );
-          const { exists, loading } = resourceSlotExistState;
+          const { exists: e, loading: l } = resourceSlotExistState;
           return (
             <ResourceConfigurationChecker
               name={establishment.title}
               onClick={() => props.goToEstablishmentCalendar(establishment.id)}
-              loading={loading}
-              exists={exists}
+              loading={l}
+              exists={e}
               key={`${establishment.id}`}
             />
           );
@@ -162,13 +176,13 @@ export const PrivateServiceConfigurationHelper = (props) => {
             'associated_coach',
             coach.associated_coach_id,
           );
-          const { exists, loading } = resourceSlotExistState;
+          const { exists: e, loading: l } = resourceSlotExistState;
           return (
             <ResourceConfigurationChecker
               name={coach.name}
               onClick={() => props.goToCoachCalendar(coach.id)}
-              loading={loading}
-              exists={exists}
+              loading={l}
+              exists={e}
               key={`coach${coach.id}`}
             />
           );

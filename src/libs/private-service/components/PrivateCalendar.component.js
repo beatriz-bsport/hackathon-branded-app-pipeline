@@ -316,19 +316,6 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
     });
   };
 
-  addEventHoverListener = (info) => {
-    /*
-    info.el.addEventListener('mouseenter', () => {
-      if (info.event.rendering !== 'background') {
-        this.setState({
-          selectedPrivateBooking: info.event.extendedProps.private_booking,
-          selectedPrivateBookingAnchorEl: info.el,
-        });
-      }
-    });
-    */
-  };
-
   render() {
     const { classes } = this.props;
     const events = this.getAvailableSlotAsEvents(
@@ -372,7 +359,6 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
           allDaySlot={false}
           eventClick={this.handleEventClick}
           datesRender={this.handleIntervalChange}
-          eventRender={this.addEventHoverListener}
         />
         {this.props.disableAvailabilitySlotDisplay ? null : (
           <Popover

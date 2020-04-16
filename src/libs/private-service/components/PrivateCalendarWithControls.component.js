@@ -21,10 +21,28 @@ import type { ResourceData } from '../types';
 
 type Props = {
   t: TFunction,
-  resourcesAvailable: Array<ResourceData>,
-  resourcesSelected: Array<ResourceData>,
+  classes: Object,
+
   onEditResourceConfiguration: Array<ResourceData>,
   onChangeResourcesSelected: Array<ResourceData>,
+  resourceAvailable: Array<ResourceData>,
+  resourceSelectedListIds: Array<number>,
+  setResourceFiltered: (Array<number>) => void,
+  resourceDataLoading: boolean,
+
+  offerList: Array<Offer>,
+  showOfferList: boolean,
+  showOfferListToogle: boolean,
+  toogleShowOfferList: () => void,
+  showPrivateBookings: boolean,
+  toogleShowPrivateBookings: () => void,
+  showPrivateBookingToogle: () => void,
+
+  privateBookerOpen: boolean,
+  closePrivateBooker: () => void,
+
+  handleEventClick: (anchorEl: HTMLElement, extendedProps: any) => void,
+  popoverAnchor: ?HTMLElement,
 
   privateBookings: Array<PrivateBooking>,
   onDateChange: ({
@@ -37,6 +55,15 @@ type Props = {
   disableResourceAvailabilitySlot: () => void,
   enableResourceAvailabilitySlot: () => void,
   availabilitySlots: Array<AvailabilitySlot>,
+
+  privateBookingId: number,
+  offerId: number,
+  closePopover: () => void,
+  refreshOffers: () => void,
+  refreshPrivateBookings: () => void,
+
+  onRequestPrivateBooking: (date: string) => void,
+  privateBookingRequestedSlot: ?string,
 };
 
 export const PrivateCalendarMultiResource = (props: Props) => (
@@ -104,7 +131,6 @@ export const PrivateCalendarMultiResource = (props: Props) => (
         open={props.privateBookerOpen}
         requestedSlot={props.privateBookingRequestedSlot}
         onClose={props.closePrivateBooker}
-        onSubmit={props.onSubmitPrivateBooking}
       />
     </div>
   </div>

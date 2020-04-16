@@ -10,8 +10,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
 
 import withConfirm from '../../../hocs/with-confirm.hoc';
 
@@ -20,10 +18,12 @@ import type { PrivateService } from '../types';
 type Props = {
   privateService: PrivateService,
   onClick: () => void,
+  onCancel: () => void,
+  onEdit: () => void,
+  dense?: boolean,
   selected: boolean,
   hideSecondary: boolean,
   onDelete: () => void,
-  t: TFunction,
 };
 
 const DeleteButton = withConfirm(

@@ -1,7 +1,6 @@
 // @flow
 
 import { withNamespaces } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
 import React from 'react';
 
 import { connect } from 'react-redux';
@@ -26,18 +25,17 @@ import {
 } from '../../libs/associated-coach/selectors';
 import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
 import {
-  fetchAssociatedEstablishmentBulk,
   fetchEstablishments,
   fetchAssociatedEstablishments,
 } from '../../libs/establishment/actions';
 import {
   fetchAllPrivateServices,
-  fetchPrivateService,
+  fetchPrivateService as fetchPrivateServiceAction,
   createOrUpdatePrivateService,
   fetchPrivateSlotList,
   switchServiceHasOwnAvailabilitySlots,
   createOrUpdatePrivateSlot,
-  deletePrivateSlot,
+  deletePrivateSlot as deletePrivateSlotAction,
   deletePrivateService,
   checkExistsAvailabilitySlots,
 } from '../../libs/private-service/actions';
@@ -46,7 +44,6 @@ import PrivateServiceDetailPage from '../../libs/private-service/components/Priv
 
 type Props = {
   privateService: PrivateService,
-  fetchAllPrivateServices: () => void,
   createOrUpdatePrivateService: (
     data: *,
     options: { onSuccess: () => void },
@@ -58,14 +55,29 @@ type Props = {
   id: number,
   fetchAssociatedCoachesList: () => void,
   setOpenEditForm: (data: any) => void,
+
   fetchPrivateService: (id: number) => void,
-  availableEstablishments: Array<Establishment>,
+  goToPrivateServiceCalendar: (number) => void,
+
+  switchServiceHasOwnAvailabilitySlots: (id: number) => void,
+
   openEditForm: any,
   availableCoaches: Array<AssociatedCoach>,
+  goToCoachCalendar: (id: number) => void,
+
+  availableEstablishments: Array<Establishment>,
   fetchAssociatedEstablishments: () => void,
+  goToEstablishmentCalendar: (id: number) => void,
+
+  checkExistsAvailabilitySlots: (resourceDatatype, resourceId) => void,
+  fetchEstablishments: (any) => void,
+
+  getResourceSlotsExistState: (
+    resourceDatatype: string,
+    resourceId: number,
+  ) => void,
 
   loading: boolean,
-  t: TFunction,
 };
 
 export class PrivateServiceList extends React.Component<Props> {
@@ -114,7 +126,6 @@ export class PrivateServiceList extends React.Component<Props> {
   };
 
   render() {
-    const { t } = this.props;
     return (
       <div>
         {this.props.loading ? <LinearProgress /> : null}
@@ -182,7 +193,7 @@ export default compose(
     }),
     {
       fetchAllPrivateServices,
-      fetchPrivateService,
+      fetchPrivateService: fetchPrivateServiceAction,
       fetchAssociatedCoachesList,
       createOrUpdatePrivateService,
       fetchPrivateSlotList,
@@ -192,7 +203,7 @@ export default compose(
       fetchAssociatedEstablishments,
 
       createOrUpdatePrivateSlot,
-      deletePrivateSlot,
+      deletePrivateSlot: deletePrivateSlotAction,
       deletePrivateService,
       checkExistsAvailabilitySlots,
 

@@ -34,7 +34,9 @@ type Props = {
     { page: number, page_size: number },
   ) => void,
   t: TFunction,
-  goToSubscription: (string, nubmer) => void,
+  goToSubscription: (string, number) => void,
+  subscriptionSelected: ?Subscription,
+  selectSubscription: (?Subscription) => void,
 };
 
 export class ConsumerSubscription extends React.Component<Props> {

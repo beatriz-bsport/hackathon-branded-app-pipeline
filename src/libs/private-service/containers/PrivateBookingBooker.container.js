@@ -38,17 +38,48 @@ import { search as searchMembers } from '../../member/actions';
 import MissingResourceForBookingHelper from '../components/MissingResourceForBookingHelper.component';
 import PrivatePassCapabilities from '../components/PrivatePassCapabilities.component';
 
+import DateTimeForm from '../../../components/input/DateTimeInput.component';
+
 import { getMissingResourceForBooking } from '../utils';
 
 type Props = {
   t: TFunction,
+  classes: Object,
+  requestedSlot: ?string,
+  fetchAllPrivateServices: (OptionCallback) => void,
+  fetchEstablishmentBulk: (Array<number>) => void,
+  fetchCoachBulk: (Array<number>) => void,
+  fetchAllPrivateSlots: () => void,
+  fetchPass: (slotId: number, memberId: number) => void,
+  searchedMembers: Array<Member>,
+  private_services: Array<PrivateService>,
+  registerPrivateBooking: (data: any, options: OptionCallback) => void,
+  onClose: () => void,
+  open: boolean,
+  searchMembers: (string) => void,
+  id: number,
+  compatiblePassLoading: boolean,
+  processing: boolean,
+  billMemberPrivatePass: (memberId: number, passId: number) => void,
+  compatiblePrivatePass: Array<PrivatePass>,
+  compatiblePrivateConsumerPass: Array<ConsumerPrivatePass>,
 };
 
-export class PrivateBookingBooker extends React.Component<Props> {
-  state = {
-    member: null,
-    private_booking_data: {},
-  };
+type State = {
+  member: ?Member,
+  private_booking_data: any,
+  date_start: string,
+};
+
+export class PrivateBookingBooker extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      member: null,
+      private_booking_data: {},
+      date_start: props.requestedSlot,
+    };
+  }
 
   componentDidMount() {
     this.props.fetchAllPrivateServices({
@@ -64,7 +95,13 @@ export class PrivateBookingBooker extends React.Component<Props> {
     this.props.fetchAllPrivateSlots();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps: Props, prevState: State) {
+    if (
+      prevProps.requestedSlot !== this.props.requestedSlot &&
+      this.props.requestedSlot
+    ) {
+      this.setState({ date_start: this.props.requestedSlot });
+    }
     if (
       this.state.private_booking_data.private_slot !==
         prevState.private_booking_data.private_slot &&
@@ -113,20 +150,28 @@ export class PrivateBookingBooker extends React.Component<Props> {
       {
         ...this.state.private_booking_data,
         private_consumer_pass: pcpId,
-        date_start: this.props.requestedSlot,
+        date_start: this.state.date_start,
       },
 
       {
         onSuccess: () => {
-          this.props.onClose();
+          if (options && options.onSuccess) options.onSuccess();
+          this.onClose();
         },
       },
     );
   };
 
+  onClose = () => {
+    this.setState({
+      private_booking_data: {},
+      member: null,
+    });
+    this.props.onClose();
+  };
+
   render() {
-    const { open, requestedSlot, onClose, onSubmit, t } = this.props;
-    console.log(this.props.private_services);
+    const { open, t } = this.props;
     if (!open) {
       return null;
     }
@@ -138,7 +183,7 @@ export class PrivateBookingBooker extends React.Component<Props> {
             (m) => m.id !== this.props.id,
           )}
           open
-          onClose={onClose}
+          onClose={this.onClose}
           handlMemberSelected={(id: number, member: Member) =>
             this.setState({ member })
           }
@@ -149,9 +194,15 @@ export class PrivateBookingBooker extends React.Component<Props> {
     const missingResources = this.missingResourceConf();
     return (
       <Dialog open={open}>
-        <DialogTitle>{moment(requestedSlot).format('LLLL')}</DialogTitle>
+        <DialogTitle>
+          {moment(this.state.date_start).format('LLLL')}
+        </DialogTitle>
         <DialogContent>
           <MemberMinimalListItem member={this.state.member} />
+          <DateTimeForm
+            value={this.state.date_start}
+            onChange={(date_start) => this.setState({ date_start })}
+          />
           <Divider className={this.props.classes.divider} />
           <fieldset className={this.props.classes.fieldset}>
             <legend>{t('bookerModule.step.configuration')}</legend>
@@ -175,7 +226,8 @@ export class PrivateBookingBooker extends React.Component<Props> {
               }
             />
           </fieldset>
-          {missingResources.filter((l) => l !== 'address').length === 0 ? (
+          {// eslint-disable-next-line
+          missingResources.filter((l) => l !== 'address').length === 0 ? (
             this.props.compatiblePassLoading || this.props.processing ? (
               <LinearProgress className={this.props.classes.loadingContainer} />
             ) : (
@@ -197,7 +249,7 @@ export class PrivateBookingBooker extends React.Component<Props> {
           ) : null}
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose}>{t('bookerModule.cancel')}</Button>
+          <Button onClick={this.onClose}>{t('bookerModule.cancel')}</Button>
         </DialogActions>
       </Dialog>
     );

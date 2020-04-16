@@ -13,6 +13,10 @@ import type { TFunction } from 'react-i18next';
 
 type Props = {
   t: TFunction,
+  missingResources: Array<string>,
+  classes: Object,
+  address: string,
+  onChangeAddress: (string) => void,
 };
 export const MissingResourceForBookingHelper = (props: Props) => {
   const { missingResources, t, classes, address, onChangeAddress } = props;

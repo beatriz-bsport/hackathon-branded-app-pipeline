@@ -589,13 +589,13 @@ export const RadioGroupField = (props: RadioFieldProps) => {
           onChange={(_, value) => setFieldValue(field.name, value)}
         >
           <FormLabel>{label}</FormLabel>
-          {choices.map(({ value, label, helperText }) => (
+          {choices.map(({ value, label: l, helperText }) => (
             <div>
               <FormControlLabel
                 key={value}
                 value={value}
                 control={<Radio checked={`${field.value}` === `${value}`} />}
-                label={label}
+                label={l}
               />
               {helperText ? (
                 <FormHelperText style={{ marginTop: -8 }}>

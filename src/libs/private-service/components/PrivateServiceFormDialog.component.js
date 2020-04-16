@@ -26,6 +26,7 @@ type Props = {
   isSubmitting: boolean,
   initial: ?PrivateServiceData,
   t: TFunction,
+  onCancel: () => void,
 };
 
 export const PrivateServiceFormDialog = (props: Props) => {

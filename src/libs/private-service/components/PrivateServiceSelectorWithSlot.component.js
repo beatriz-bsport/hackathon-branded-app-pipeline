@@ -16,6 +16,13 @@ import type { TFunction } from 'react-i18next';
 
 type Props = {
   t: TFunction,
+  setMenuAnchor: (?HTMLElement) => void,
+  classes: Object,
+  privateServiceId: ?number,
+  privateSlotId: ?number,
+  privateServiceList: Array<PrivateService>,
+  menuAnchor: ?HTMLElement,
+  onSelect: (serviceId: number, slotId: number) => void,
 };
 
 export class PrivateServiceSelectorWithSlot extends React.Component<Props> {
@@ -33,7 +40,9 @@ export class PrivateServiceSelectorWithSlot extends React.Component<Props> {
                 (ps) => ps.id === this.props.privateServiceId,
               );
               if (!p) return <CircularProgress />;
-              const s = p.slots.find((s) => s.id === this.props.privateSlotId);
+              const s = p.slots.find(
+                (s_) => s_.id === this.props.privateSlotId,
+              );
               if (!s) return <CircularProgress />;
               return (
                 <div>

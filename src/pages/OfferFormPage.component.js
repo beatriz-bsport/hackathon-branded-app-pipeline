@@ -29,6 +29,7 @@ type Props = {
   match: Object,
   loading: boolean,
   coaches: Array<Coach>,
+  theme: ?CompanyTheme,
   establishments: Array<Establishment>,
   metaActivities: Array<MetaActivity>,
   fetchAllOffers: () => void,

@@ -15,6 +15,7 @@ type Props = {
   onClick: () => void,
   t: TFunction,
   classes: Object,
+  divider?: boolean,
 };
 
 export const PrivatePassBookerListItem = (props: Props) => {

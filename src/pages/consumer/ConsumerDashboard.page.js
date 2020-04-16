@@ -97,6 +97,8 @@ type Props = {
   cancelBookingOption: () => void,
   setOptionToCancel: (id: number) => void,
   optionToCancel: ?number,
+
+  goToBroadcast: (bookingId: number) => void,
 };
 
 const BOOKING_PAGE_SIZE = 5;

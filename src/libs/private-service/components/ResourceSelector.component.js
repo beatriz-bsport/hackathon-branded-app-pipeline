@@ -11,10 +11,6 @@ import Typography from '@material-ui/core/Typography';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-type Props = {
-  t: TFunction,
-};
-
 const ResourceItem = ({
   resource,
   isSelected,
@@ -22,8 +18,20 @@ const ResourceItem = ({
   onUnselectResource,
   onEditResourceConfiguration,
   classes,
+}: {
+  resource: {
+    id: number,
+    color: string,
+    name: string,
+    resource_identifier: string,
+  },
+  isSelected: boolean,
+  onSelectResource: (string) => void,
+  onUnselectResource: (string) => void,
+  onEditResourceConfiguration: (ResourceData) => void,
+  classes: Object,
 }) => {
-  const { id, name, color, resource_identifier } = resource;
+  const { name, color, resource_identifier } = resource;
   return (
     <ButtonBase
       onClick={() => onEditResourceConfiguration(resource)}
@@ -69,6 +77,15 @@ const ResourceGroup = ({
   onUnselectResource,
   onEditResourceConfiguration,
   resourceSelectedListIds,
+}: {
+  classes: Object,
+  t: TFunction,
+  datatype: string,
+  resourceList: Array<ResourceData>,
+  onSelectResource: (string) => void,
+  onUnselectResource: (string) => void,
+  onEditResourceConfiguration: (ResourceData) => void,
+  resourceSelectedListIds: Array<string>,
 }) => {
   return (
     <div className={classes.resourceGroupContainer}>
@@ -97,6 +114,16 @@ const ResourceGroup = ({
       </div>
     </div>
   );
+};
+
+type Props = {
+  t: TFunction,
+  classes: Object,
+  resourceAvailable: Array<ResourceData>,
+  resourceSelectedListIds: Array<string>,
+  onSelectResource: (string) => void,
+  onUnselectResource: (string) => void,
+  onEditResourceConfiguration: (ResourceData) => void,
 };
 
 export const ResourceSelector = (props: Props) => {

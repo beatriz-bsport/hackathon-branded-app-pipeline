@@ -11,8 +11,8 @@ import withTitle from '../../hocs/with-title.hoc';
 import { getCoach } from '../../libs/associated-coach/selectors';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import { getPrivateBookingListFiltered } from '../../libs/private-service/selectors/private-booking';
-import { fetchAllOffers } from '../../libs/offer/actions';
-import { fetchMetaActivityBulk } from '../../libs/meta-activity/actions';
+import { fetchAllOffers as fetchAllOffersAction } from '../../libs/offer/actions';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
 import {
   getOfferAsEventList,
   withMetaActivity,
@@ -27,7 +27,7 @@ import {
   resetAvailabilitySlots,
   disableCoachAvailabilitySlot,
   enableCoachAvailabilitySlot,
-  fetchPrivateBookings,
+  fetchPrivateBookings as fetchPrivateBookingsAction,
   resetPrivateBookings,
 } from '../../libs/private-service/actions';
 import { fetchCoachBulk } from '../../libs/associated-coach/actions';
@@ -36,7 +36,36 @@ type Props = {
   classes: Object,
   fetchAvailabilitySlots: (data: { coach: number }) => void,
   availabilitySlots: Array<AvailabilitySlot>,
-  coachId: ?number,
+
+  loading: boolean,
+  privateBookingList: Array<PrivateBooking>,
+  offerList: Array<Offer>,
+  availabilitySlotUpdating: boolean,
+  goToMember: (id: number) => void,
+  handleDateChange: ({
+    date_start: string,
+    date_end: string,
+  }) => void,
+  resetAvailabilitySlots: () => void,
+  enableCoachAvailabilitySlot: (
+    id: number,
+    data: any,
+    options: OptionCallback,
+  ) => void,
+  disableCoachAvailabilitySlot: (
+    id: number,
+    data: any,
+    options: OptionCallback,
+  ) => void,
+  id: number,
+
+  fetchOfferList: () => void,
+
+  resetPrivateBookings: () => void,
+  fetchPrivateBookingList: () => void,
+
+  fetchCoach: (number) => void,
+  periodFilter: { start: string, end: string },
 };
 
 const styles = (theme) => ({
@@ -45,12 +74,6 @@ const styles = (theme) => ({
 });
 
 export class CoachPrivateCalendar extends React.Component<Props> {
-  select = (eventSlotSelected) => {
-    this.setState({
-      eventSlotSelected,
-    });
-  };
-
   fetchAvailabilitySlots = () => {
     this.props.resetAvailabilitySlots();
     this.props.fetchAvailabilitySlots({
@@ -62,10 +85,10 @@ export class CoachPrivateCalendar extends React.Component<Props> {
 
   componentDidMount() {
     this.props.resetPrivateBookings();
-    this.props.fetchCoach([this.props.id]);
+    this.props.fetchCoach(this.props.id);
   }
 
-  componentDidUpdate(prevProps: Props, prevState: State) {
+  componentDidUpdate(prevProps: Props) {
     if (
       prevProps.periodFilter.start !== this.props.periodFilter.start ||
       prevProps.periodFilter.end !== this.props.periodFilter.end ||
@@ -167,14 +190,14 @@ export default compose(
     }),
     {
       fetchCoach: (id) => fetchCoachBulk([id]),
-      fetchPrivateBookings,
-      fetchAllOffers,
+      fetchPrivateBookings: fetchPrivateBookingsAction,
+      fetchAllOffers: fetchAllOffersAction,
       resetPrivateBookings,
       fetchAvailabilitySlots,
       resetAvailabilitySlots,
       disableCoachAvailabilitySlot,
       enableCoachAvailabilitySlot,
-      fetchMetaActivityBulk,
+      fetchMetaActivityBulk: fetchMetaActivityBulkAction,
     },
   ),
   withHandlers({

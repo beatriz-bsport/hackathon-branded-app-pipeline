@@ -130,18 +130,17 @@ export const getSimilars = createSelector(
     getAllEstablishmentsDict,
   ],
   (offers, coachData, metaActivityData, establishmentData) => {
-    return offers
-      .map((o) => ({
-        ...o,
-        establishment_override: o.establishment_override
-          ? establishmentData[o.establishment]
-          : null,
-        establishment: establishmentData[o.establishment],
-        coach: coachData[o.coach],
-        coach_override: o.coach_override ? coachData[o.coach_override] : null,
-        meta_activity: metaActivityData[o.meta_activity],
-      }))
-//.filter((o) => o.establishment && o.coach && o.meta_activity);
+    return offers.map((o) => ({
+      ...o,
+      establishment_override: o.establishment_override
+        ? establishmentData[o.establishment]
+        : null,
+      establishment: establishmentData[o.establishment],
+      coach: coachData[o.coach],
+      coach_override: o.coach_override ? coachData[o.coach_override] : null,
+      meta_activity: metaActivityData[o.meta_activity],
+    }));
+    // .filter((o) => o.establishment && o.coach && o.meta_activity);
   },
 );
 

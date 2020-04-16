@@ -21,6 +21,11 @@ type Props = {
   open: boolean,
   onCancel: () => void,
   onSubmit: (params: any) => void,
+  classes: Object,
+  also_revert_current: boolean,
+  set_also_revert_current: (boolean) => void,
+  submitting?: boolean,
+  setSubmittin: (?boolean) => void,
 };
 
 export const StopDialog = (props: Props) => (

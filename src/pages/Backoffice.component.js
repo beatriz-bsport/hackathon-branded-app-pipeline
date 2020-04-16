@@ -55,6 +55,7 @@ const PaymentCombo = asyncComponent(() =>
 const PlanningRouter = asyncComponent(() =>
   import('./planning/Planning.router'),
 );
+const Schedule = asyncComponent(() => import('./Schedule.page'));
 const Establishment = asyncComponent(() =>
   import('./establishment/Establishment.router'),
 );
@@ -115,6 +116,7 @@ const BackofficeRoute = withSentryErrorReporting(() => (
     <Route path="/shop" component={Shop} />
     <Route path="/offer/:id" component={OfferManagement} />
     <Route exact path="/calendar" component={PlanningRouter} />
+    <Route path="/schedule" component={Schedule} />
     <Route exact path="/add-offers/:id" component={OfferFormPage} />
     <Route path="/coach" component={Coach} />
     <Route path="/payment-pack" component={PaymentPack} />

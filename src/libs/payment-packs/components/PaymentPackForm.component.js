@@ -113,7 +113,7 @@ export function PaymentPackForm(props: Props) {
               }}
             />
           </Grid>
-          {values.credits && values.credits !== initial.credits && (
+          {values.credits && initial && values.credits !== initial.credits && (
             <div className={classes.row}>
               <WarningIcon
                 fontSize="small"

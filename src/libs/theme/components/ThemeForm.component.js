@@ -8,6 +8,7 @@ import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import Typography from '@material-ui/core/Typography';
 
 import ImageUploader169 from '../../../components/input/ImageUploader169.component';
 import ColorInput from '../../../components/input/ColorInput.component';
@@ -109,6 +110,10 @@ export class ThemeForm extends Component<Props, State> {
     const { t, classes } = this.props;
     return (
       <div>
+        <Typography variant="h6" className={this.props.classes.idContainer}>
+          {`BSPORT ID: ${this.props.theme ? this.props.theme.company : ' - '}`}
+        </Typography>
+
         <div className={classes.inputContainer}>
           <ImageUploader169
             label={t('forms.cover.label')}
@@ -227,6 +232,9 @@ export class ThemeForm extends Component<Props, State> {
 const styles = (theme) => ({
   horizontalInput: {
     marginRight: theme.spacing.unit * 3,
+  },
+  idContainer: {
+    marginBottom: theme.spacing.unit * 3,
   },
   inputContainer: {
     display: 'flex',

@@ -10,12 +10,12 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import BookingConsumerItem from './BookingConsumerItem.component';
-import PrivateBookingConsumerItem from './PrivateBookingConsumerItem.component';
+import BookingConsumerItem from '../../booking/components/BookingConsumerItem.component';
+import PrivateBookingConsumerItem from '../../private-service/components/PrivateBookingConsumerItem.component';
 
-import type { Booking } from '../../libs/booking/types';
-import type { Membership } from '../../libs/membership/types';
-import type { PrivateBooking } from '../../libs/private-service/types';
+import type { Booking } from '../../booking/types';
+import type { Membership } from '../../membership/types';
+import type { PrivateBooking } from '../../private-service/types';
 
 type Props = {
   t: TFunction,

@@ -14,7 +14,7 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 
-import RedButton from '../../components/button/RedButton.component';
+import RedButton from '../../../components/button/RedButton.component';
 
 type Props = {
   booking: ?Booking,

@@ -33,7 +33,7 @@ import { getBasketGeneratedObjects } from '../../libs/checkout/selectors';
 
 import { getTheme } from '../../theme';
 import themeSelectors from '../../libs/theme/selectors';
-import ConsumerLoading from './ConsumerLoading.component';
+import ConsumerLoading from '../../libs/consumer-space/components/ConsumerLoading.component';
 import ConsumerDrawer from '../../components/navigation/ConsumerDrawer.component';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 
@@ -43,7 +43,7 @@ import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../li
 import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
 
-import CongratulationDialog from './CongratulationDialog.component';
+import CongratulationDialog from '../../libs/consumer-space/components/CongratulationDialog.component';
 
 const ConsumerDashboard = asyncComponent(() =>
   import('./ConsumerDashboard.page'),

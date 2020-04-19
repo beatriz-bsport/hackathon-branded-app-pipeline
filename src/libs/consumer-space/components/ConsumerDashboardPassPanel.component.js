@@ -8,8 +8,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import ConsumerPackRowItem from '../../libs/consumer-payment-pack/components/ConsumerPackRowItem.component';
-import PrivateConsumerPassBookerListItem from '../../libs/private-service/components/booking-module/PrivateConsumerPassBookerListItem.component';
+import ConsumerPackRowItem from '../../consumer-payment-pack/components/ConsumerPackRowItem.component';
+import PrivateConsumerPassBookerListItem from '../../private-service/components/booking-module/PrivateConsumerPassBookerListItem.component';
 
 type Props = {
   t: TFunction,

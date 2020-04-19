@@ -11,17 +11,16 @@ import Button from '@material-ui/core/Button';
 import { push as pushRouter } from 'react-router-redux';
 import TodayIcon from '@material-ui/icons/Today';
 
-import BookingCancellationDialog from './BookingCancellationDialog.component';
-import BookingOptionCancelDialog from './BookingOptionCancelDialog.component';
-import ConsumerDashboardBookingPanel from './ConsumerDashboardBookingPanel.component';
-import ConsumerDashboardHeader from './ConsumerDashboardHeader.component';
-import ConsumerDashboardPassPanel from './ConsumerDashboardPassPanel.component';
-import ConsumerDashboardBookingOptionPanel from './ConsumerDashboardBookingOptionPanel.component';
+import BookingCancellationDialog from '../../libs/booking/components/BookingCancellationDialog.component';
+import BookingOptionCancelDialog from '../../libs/waiting-list/components/BookingOptionCancelDialog.component';
+import ConsumerDashboardBookingPanel from '../../libs/consumer-space/components/ConsumerDashboardBookingPanel.component';
+import ConsumerDashboardHeader from '../../libs/consumer-space/components/ConsumerDashboardHeader.component';
+import ConsumerDashboardPassPanel from '../../libs/consumer-space/components/ConsumerDashboardPassPanel.component';
+import ConsumerDashboardBookingOptionPanel from '../../libs/consumer-space/components/ConsumerDashboardBookingOptionPanel.component';
 
 import { getFavoriteEstablishment } from '../../libs/establishment/selectors';
 import { getFavoriteMetaActivity } from '../../libs/meta-activity/selectors';
 
-// import StatCard from './StatCard.component';
 import { buildUrlParams } from '../../http';
 import { getPrivateConsumerPassList } from '../../libs/private-service/selectors/private-consumer-pass';
 

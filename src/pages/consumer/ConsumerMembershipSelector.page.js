@@ -16,7 +16,7 @@ import { getConsumerMembershipList } from '../../libs/membership/selectors';
 import { searchCompany as searchCompanyAction } from '../../libs/company/actions';
 import { getSearchedCompanyList } from '../../libs/company/selectors';
 
-import ConsumerLoading from './ConsumerLoading.component';
+import ConsumerLoading from '../../libs/consumer-space/components/ConsumerLoading.component';
 import MembershipSelector from '../../libs/membership/components/MembershipSelector.component';
 
 import type { Membership } from '../../libs/membership/types';

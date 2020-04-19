@@ -9,10 +9,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 
-import ActivityMinimalSummary from '../../components/activity/ActivityMinimalSummary.component';
-import RedButton from '../../components/button/RedButton.component';
-import { formatAsDatetime } from '../../datetime';
-import type { BookingOption } from '../../api/types';
+import ActivityMinimalSummary from '../../../components/activity/ActivityMinimalSummary.component';
+import RedButton from '../../../components/button/RedButton.component';
+import { formatAsDatetime } from '../../../datetime';
+import type { BookingOption } from '../../../api/types';
 
 type Props = {
   confirmBookingOption: () => void,

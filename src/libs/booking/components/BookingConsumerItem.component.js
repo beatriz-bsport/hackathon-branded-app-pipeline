@@ -19,7 +19,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import TodayIcon from '@material-ui/icons/Today';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
-import RedButton from '../../components/button/RedButton.component';
+import RedButton from '../../../components/button/RedButton.component';
 
 type Props = {
   t: TFunction,

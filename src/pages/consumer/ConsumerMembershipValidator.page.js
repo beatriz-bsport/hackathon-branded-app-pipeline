@@ -11,7 +11,7 @@ import {
   fetchMembership,
   linkMeToCompany,
 } from '../../libs/membership/actions';
-import ConsumerLoading from './ConsumerLoading.component';
+import ConsumerLoading from '../../libs/consumer-space/components/ConsumerLoading.component';
 import type { OptionCallback } from '../../state/types';
 
 type Props = {

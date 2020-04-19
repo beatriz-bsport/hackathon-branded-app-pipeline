@@ -20,6 +20,7 @@ type Props = {
   broadcast_info: BroadcastInfo,
   booking: Booking,
   bookingId: number,
+  theme: CompanyTheme,
 };
 
 export class ConsumerBookingBroadcast extends React.Component<Props> {

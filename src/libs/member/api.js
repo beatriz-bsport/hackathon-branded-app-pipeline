@@ -5,6 +5,7 @@ import {
   patchAuth,
   deleteAuth,
   postAuth,
+  post,
   putAuth,
   API_V1_URI,
   buildUrlParams,
@@ -72,6 +73,10 @@ export async function updateMember(data: Object) {
 
 export async function merge(src: number, dst: number) {
   return postAuth(`${API_URI}/saas/members/members/merge/`, { src, dst });
+}
+
+export async function regularizeDebt(memberId: number, data: any) {
+  return post(`${API_V1_URI}/member/${memberId}/regularize_debt/`, data);
 }
 
 export async function fetchFilteredMembers(params: any) {

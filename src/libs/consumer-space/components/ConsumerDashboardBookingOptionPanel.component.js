@@ -6,7 +6,7 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 
-import BookingOptionConsumerItem from './BookingOptionConsumerItem.component';
+import BookingOptionConsumerItem from '../../waiting-list/components/BookingOptionConsumerItem.component';
 
 type Props = {
   t: TFunction,

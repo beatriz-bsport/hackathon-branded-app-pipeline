@@ -12,7 +12,7 @@ import moment from 'moment';
 
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import BookingConsumerItem from './BookingConsumerItem.component';
+import BookingConsumerItem from '../../booking/components/BookingConsumerItem.component';
 
 type Props = {
   t: TFunction,

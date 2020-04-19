@@ -22,7 +22,7 @@ type Props = {
   private_booking: PrivateBooking,
   goToCalendar: () => void,
 };
-export const BookingConsumerItem = (props: Props) => {
+export const PrivateBookingConsumerItem = (props: Props) => {
   const { private_booking, classes, t } = props;
   return (
     <div>
@@ -91,4 +91,4 @@ const styles = (theme) => ({
 export default compose(
   withNamespaces(['consumerSpace']),
   withStyles(styles),
-)(BookingConsumerItem);
+)(PrivateBookingConsumerItem);

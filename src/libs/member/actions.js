@@ -19,6 +19,7 @@ import {
   untag as untagApi,
   merge as mergeApi,
   addFile as addFileAPI,
+  regularizeDebt as regularizeDebtAPI,
   removeFile as removeFileAPI,
   linkMeToCompany as linkMeToCompanyAPI,
 } from './api';
@@ -223,6 +224,36 @@ export function fetchMember(id: number) {
     } catch (err) {
       dispatch(errorFetchingMember());
     }
+  };
+}
+
+export const memberRegularizeDebtActions = {
+  isLoading: createAction('MEMBER/REGULARIZE_DEBT/LOADING'),
+  error: createAction('MEMBER/REGULARIZE_DEBT/ERROR'),
+  success: createAction('MEMBER/REGULARIZE_DEBT/SUCCESS'),
+};
+
+export function regularizeDebt(
+  memberId: number,
+  data: any,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(memberRegularizeDebtActions.isLoading(true));
+
+    try {
+      const response = await regularizeDebtAPI(memberId, data);
+      dispatch(memberRegularizeDebtActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response);
+      }
+    } catch (err) {
+      dispatch(memberRegularizeDebtActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(memberRegularizeDebtActions.isLoading(false));
   };
 }
 

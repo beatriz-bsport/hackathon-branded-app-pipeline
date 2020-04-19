@@ -181,7 +181,15 @@ export class PaymentPackCard extends Component<Props> {
 
   getPackHeadingInfo = () => {
     const { pack, t, classes, onlyPublic } = this.props;
-    const { unlimited, new_member_only, base_price, name, credits, tax } = pack;
+    const {
+      unlimited,
+      max_bookings_per_week,
+      new_member_only,
+      base_price,
+      name,
+      credits,
+      tax,
+    } = pack;
     let creditsFormatted = t('paymentPack.unlimitedCredits');
     if (!unlimited) {
       creditsFormatted = (
@@ -189,6 +197,9 @@ export class PaymentPackCard extends Component<Props> {
           <b>{credits}</b> {t('paymentPack.credits').toLowerCase()}
         </div>
       );
+    }
+    if (unlimited && !!max_bookings_per_week) {
+      creditsFormatted = this.renderMaxWeekBookings();
     }
     return (
       <div>
@@ -218,7 +229,7 @@ export class PaymentPackCard extends Component<Props> {
               ) : null}
               <div>
                 {this.renderTimeInfo()}
-                {this.renderMaxWeekBookings()}
+                {!unlimited && this.renderMaxWeekBookings()}
               </div>
             </div>
           </Grid>

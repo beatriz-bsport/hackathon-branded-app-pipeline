@@ -56,8 +56,8 @@ export default compose(
   connect(
     null,
     {
-      regularizeDebt: regularizeDebtAction,
       finalizeInvoice: invoiceActions.finalizeInvoice,
+      regularizeDebt: regularizeDebtAction,
       fetchMembership: fetchMembershipAction,
     },
   ),

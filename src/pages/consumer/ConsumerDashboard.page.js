@@ -11,12 +11,15 @@ import Button from '@material-ui/core/Button';
 import { push as pushRouter } from 'react-router-redux';
 import TodayIcon from '@material-ui/icons/Today';
 
+import ConsumerDebtRegularizerDialog from '../../libs/consumer-space/components/ConsumerDebtRegularizerDialog.component';
 import BookingCancellationDialog from '../../libs/booking/components/BookingCancellationDialog.component';
 import BookingOptionCancelDialog from '../../libs/waiting-list/components/BookingOptionCancelDialog.component';
 import ConsumerDashboardBookingPanel from '../../libs/consumer-space/components/ConsumerDashboardBookingPanel.component';
 import ConsumerDashboardHeader from '../../libs/consumer-space/components/ConsumerDashboardHeader.component';
 import ConsumerDashboardPassPanel from '../../libs/consumer-space/components/ConsumerDashboardPassPanel.component';
 import ConsumerDashboardBookingOptionPanel from '../../libs/consumer-space/components/ConsumerDashboardBookingOptionPanel.component';
+import { regularizeDebt as regularizeDebtAction } from '../../libs/member/actions';
+import { fetchMembership as fetchMembershipAction } from '../../libs/membership/actions';
 
 import { getFavoriteEstablishment } from '../../libs/establishment/selectors';
 import { getFavoriteMetaActivity } from '../../libs/meta-activity/selectors';
@@ -132,6 +135,11 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
             {this.props.t('actions.goToCalendar')}
           </Button>
         </div>
+        <ConsumerDebtRegularizerDialog
+          withButton
+          member={this.props.membership}
+          submitPayment={this.props.submitPayment}
+        />
         <ConsumerDashboardHeader
           favoriteMetaActivity={this.props.favoriteMetaActivity}
           favoriteEstablishment={this.props.favoriteEstablishment}
@@ -256,7 +264,8 @@ export default compose(
       fetchPrivateConsumerPassList,
       fetchMetaActivityFavorite,
       fetchEstablishmentFavorite,
-
+      regularizeDebt: regularizeDebtAction,
+      fetchMembership: fetchMembershipAction,
       cancelBookingOption: cancelBookingOptionAction,
     },
   ),
@@ -335,5 +344,26 @@ export default compose(
           },
         },
       ),
+    submitPayment: ({ regularizeDebt, membership, fetchMembership }) => (
+      data,
+      options,
+    ) => {
+      regularizeDebt(membership.id, data, {
+        onSuccess: (response) => {
+          if (options && options.onSuccess) {
+            options.onSuccess(response);
+          }
+          fetchMembership(membership.id, {
+            onSuccess: () => window.location.reload(),
+          });
+        },
+        onError: (err) => {
+          console.error(err);
+          if (options && options.onError) {
+            options.onError(err);
+          }
+        },
+      });
+    },
   }),
 )(ConsumerDashboard);

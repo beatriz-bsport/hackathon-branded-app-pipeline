@@ -116,7 +116,9 @@ const styles = (theme) => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing.unit * 2,
+    marginTop: theme.spacing.unit * 2,
+    border: '1px solid red',
   },
   buttonContainer: {
     marginLeft: theme.spacing.unit * 2,

@@ -248,6 +248,7 @@ export function regularizeDebt(
         options.onSuccess(response);
       }
     } catch (err) {
+      console.error(err);
       dispatch(memberRegularizeDebtActions.error(err));
       if (options && options.onError) {
         options.onError(err);

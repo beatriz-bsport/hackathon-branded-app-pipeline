@@ -30,6 +30,7 @@ import PhoneItem from '../../communication/components/PhoneItem.component';
 import MailDialog from '../../communication/components/MailDialog.component';
 
 type Props = {
+  hideCreditAccount?: boolean,
   editMember: () => void,
   mergeMember: () => void,
   goToMember: () => void,
@@ -247,7 +248,7 @@ export class MemberSummaryCard extends Component<Props> {
               {this.renderAddress()}
               {this.renderNotificationSettings()}
             </div>
-            {this.renderAccount()}
+            {!this.props.hideCreditAccount && this.renderAccount()}
           </Paper>
         </div>
       );

@@ -212,7 +212,7 @@ export default {
   disabled: 'Désactivé',
   disableConsumer: 'Bloquer',
   enableConsumer: 'Débloquer',
-  maxNBookingsByWeek1: 'Max ',
+  maxNBookingsByWeek1: "Jusqu'à ",
   maxNBookingsByWeek2: ' réservations par semaine',
   validity: 'Valide :',
   consumer: {

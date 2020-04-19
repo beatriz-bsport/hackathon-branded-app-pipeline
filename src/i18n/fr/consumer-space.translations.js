@@ -9,6 +9,13 @@ export default {
     logoff: 'Déconnecter',
     changeMembership: 'Changer de club',
   },
+  debt: {
+    regularize: 'Régulariser',
+    title: 'Accompte dû au club',
+    titlePaymentDialog: 'Régularisation accompte',
+    explainPayment:
+      'Cette somme sera reversé au club afin de régulariser votre accompte',
+  },
   pack: {
     titlePaymentPack: 'Cours collectif',
     titlePrivatePack: 'Cours privé',

@@ -40,6 +40,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ReceiptIcon from '@material-ui/icons/Receipt';
+import Badge from '@material-ui/core/Badge';
 import type { TFunction } from 'react-i18next';
 
 import { colors } from '@bsport/common/lib/colors';
@@ -279,7 +280,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
   };
 
   render() {
-    const { classes, theme, t, hidden } = this.props;
+    const { classes, theme, t, hidden, membership } = this.props;
     if (hidden) {
       return (
         <div style={{ width: '100%' }}>
@@ -288,6 +289,20 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         </div>
       );
     }
+
+    const ReceiptIconWithDebt = (props) => {
+      if (membership && membership.credit_account_balance < 0) {
+        return (
+          <Badge
+            color="error"
+            badgeContent={`${parseInt(membership.credit_account_balance, 10)}€`}
+          >
+            <ReceiptIcon {...props} />
+          </Badge>
+        );
+      }
+      return <ReceiptIcon />;
+    };
     const MENU = [
       { type: 'divider', className: classes.menuMobile },
       {
@@ -314,7 +329,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
       'divider',
       {
         to: '/invoice/',
-        icon: ReceiptIcon,
+        icon: ReceiptIconWithDebt,
         text: t('navigation.invoice'),
       },
       {
@@ -336,7 +351,6 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             to: `/m/${this.props.membership.company_name}/${this.props.membership.company}/`,
             icon: ExitToAppIcon,
             text: this.props.membership.company_name,
-            selected: true,
           }
         : null,
       'divider',

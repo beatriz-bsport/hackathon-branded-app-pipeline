@@ -53,6 +53,8 @@ const STEP_PASS: StepType = { id: 2, label: 'pass_list' };
 const STEPS: Array<StepType> = [STEP_ACTIVITY, STEP_OFFER, STEP_PASS];
 
 type Props = {
+  classes: Object,
+
   loading: ?boolean,
   compatiblePacksLoading: boolean,
   goBack: () => void,

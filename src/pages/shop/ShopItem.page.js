@@ -137,6 +137,7 @@ export class ShopItemDetail extends Component<Props, State> {
           <ShopItemCard
             shopitem={this.props.shopitem}
             snackbarSuccess={this.props.snackbarSuccess}
+            showPaymentLink
           />
           {this.props.shopitem.barcode ? (
             <div>

@@ -27,6 +27,7 @@ const ShopItemCard = (props: {
   shopitem: ShopItem,
   addToOrder: ?(id: number) => void,
   onEdit: ?(shopitem: ShopItem) => void,
+  showPaymentLink: boolean,
   onDelete: ?() => void,
   t: TFunction,
   classes: Object,
@@ -89,7 +90,7 @@ const ShopItemCard = (props: {
           {props.shopitem.description || props.t('shopitem.noDescription')}
         </Typography>
       </CardContent>
-      {renderLinkToPaymentPage()}
+      {!!props.showPaymentLink && renderLinkToPaymentPage()}
       <CardActions>
         {props.addToOrder ? (
           <Button

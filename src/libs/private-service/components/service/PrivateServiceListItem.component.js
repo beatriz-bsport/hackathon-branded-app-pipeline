@@ -11,9 +11,9 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import withConfirm from '../../../hocs/with-confirm.hoc';
+import withConfirm from '../../../../hocs/with-confirm.hoc';
 
-import type { PrivateService } from '../types';
+import type { PrivateService } from '../../types';
 
 type Props = {
   privateService: PrivateService,

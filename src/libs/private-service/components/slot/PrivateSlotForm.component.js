@@ -11,9 +11,9 @@ import { compose } from 'recompose';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import NumericInput from '../../../components/input/NumericInput.component';
+import NumericInput from '../../../../components/input/NumericInput.component';
 
-import { DURATION_CHOICES_SHORT } from '../../../components/forms';
+import { DURATION_CHOICES_SHORT } from '../../../../components/forms';
 
 type PrivateSlotData = any;
 

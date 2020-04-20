@@ -20,7 +20,7 @@ import type { TFunction } from 'react-i18next';
 import PrivateSlotForm from './PrivateSlotForm.component';
 import PrivateSlotListItem from './PrivateSlotListItem.component';
 
-import type { PrivateService } from '../types';
+import type { PrivateService } from '../../types';
 
 type Props = {
   privateService: PrivateService,

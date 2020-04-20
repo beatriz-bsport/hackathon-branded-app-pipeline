@@ -25,7 +25,7 @@ import {
   getPrivateServiceResourceData,
 } from '../../libs/private-service/selectors/availability-slot';
 import AvailabilityUpdateResourceChoserDialog from '../../libs/private-service/components/resource/AvailabilityUpdateResourceChoserDialog.component';
-import ResourceConfigurationDialog from '../../libs/private-service/components/ResourceConfigurationDialog.component';
+import ResourceConfigurationDialog from '../../libs/private-service/components/resource/ResourceConfigurationDialog.component';
 import {
   fetchAvailabilitySlots,
   resetAvailabilitySlots,
@@ -44,8 +44,8 @@ type Props = {
   resourceData: ?ResourceData,
   resourceFiltersArray: Array<string>,
   setResourceFiltersArray: (Array<string>) => void,
-    resourceDataLoading: boolean,
-    resetAvailabilitySlots: () => void,
+  resourceDataLoading: boolean,
+  resetAvailabilitySlots: () => void,
 
   resourceToEdit: string,
   setResourceToEdit: (string) => void,

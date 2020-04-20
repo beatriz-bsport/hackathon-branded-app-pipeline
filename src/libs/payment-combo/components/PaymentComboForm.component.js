@@ -21,8 +21,8 @@ import PaymentPackListItem from '../../payment-packs/components/PaymentPackListI
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
 import ShopItemListItem from '../../shop/components/ShopItemListItem.component';
 import ShopItemSelector from '../../shop/components/ShopItemSelector.component';
-import PrivatePassSelector from '../../private-service/components/PrivatePassSelector.component';
-import PrivatePassListItem from '../../private-service/components/PrivatePassListItem.component';
+import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
+import PrivatePassListItem from '../../private-service/components/pass/PrivatePassListItem.component';
 
 import type { PaymentPack } from '../../payment-packs/types';
 import type { ShopItem } from '../../shop/types';

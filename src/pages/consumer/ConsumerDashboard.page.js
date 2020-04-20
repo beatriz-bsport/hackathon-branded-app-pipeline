@@ -101,6 +101,7 @@ type Props = {
   optionToCancel: ?number,
 
   goToBroadcast: (bookingId: number) => void,
+  submitPayment: (data: PaymentData, options: OptionCallback) => void,
 };
 
 const BOOKING_PAGE_SIZE = 5;

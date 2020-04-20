@@ -16,8 +16,11 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
-import PrivateServiceFormDialog from '../../libs/private-service/components/PrivateServiceFormDialog.component';
+import PrivateServiceFormDialog from '../../libs/private-service/components/service/PrivateServiceFormDialog.component';
+import PrivateServiceListItem from '../../libs/private-service/components/service/PrivateServiceListItem.component';
+
 import { getAvailablePrivateServices } from '../../libs/private-service/selectors/private-service';
+
 import { getAllEstablishmentsWithAssociatedId } from '../../libs/establishment/selectors';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
@@ -31,8 +34,8 @@ import {
   createOrUpdatePrivateService,
   deletePrivateService,
 } from '../../libs/private-service/actions';
+
 import type { PrivateService } from '../../libs/private-service/types';
-import PrivateServiceListItem from '../../libs/private-service/components/PrivateServiceListItem.component';
 
 type Props = {
   privateServices: Array<PrivateService>,

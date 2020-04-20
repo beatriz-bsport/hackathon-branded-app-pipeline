@@ -15,7 +15,7 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
-import PrivatePassSelector from '../../private-service/components/PrivatePassSelector.component';
+import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
 import PaymentComboSelector from '../../payment-combo/components/PaymentComboSelector.component';
 import ShopItemSelector from '../../shop/components/ShopItemSelector.component';
 import PriceInput from '../../../components/input/PriceInput.component';

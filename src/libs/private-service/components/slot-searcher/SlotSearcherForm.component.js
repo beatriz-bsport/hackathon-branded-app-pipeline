@@ -17,7 +17,7 @@ import {
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { RESOURCE_ATTRIBUTION_CONSUMER } from '@bsport/common/lib/master-data/resource-attribution-methods';
-import PrivateSlotSelector from '../PrivateSlotSelector.component';
+import PrivateSlotSelector from '../slot/PrivateSlotSelector.component';
 import CoachSelector from '../../../associated-coach/components/CoachSelector.component';
 import EstablishmentSelector from '../../../establishment/components/EstablishmentSelector.component';
 import type { PrivateService, PrivateSlot } from '../../types';

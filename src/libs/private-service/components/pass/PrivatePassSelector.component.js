@@ -7,9 +7,9 @@ import classNames from 'classnames';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import Selector from '../../../components/Selector.component';
+import Selector from '../../../../components/Selector.component';
 
-import type { PrivatePass } from '../types';
+import type { PrivatePass } from '../../types';
 
 type Props = {
   classes: Object,

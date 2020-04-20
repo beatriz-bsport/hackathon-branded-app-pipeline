@@ -21,7 +21,7 @@ import {
 import { getPrivateConsumerPassList } from '../../libs/private-service/selectors/private-consumer-pass';
 import { getPrivateBookingListBase } from '../../libs/private-service/selectors/private-booking';
 import PrivateConsumerPassBookerListItem from '../../libs/private-service/components/booking-module/PrivateConsumerPassBookerListItem.component';
-import PrivateConsumerPassDetail from '../../libs/private-service/components/PrivateConsumerPassDetail.component';
+import PrivateConsumerPassDetail from '../../libs/private-service/components/consumer-pass/PrivateConsumerPassDetail.component';
 import { fetchByInvoiceItem as fetchInvoiceByInvoiceItem } from '../../actions/invoice.actions';
 
 type Props = {

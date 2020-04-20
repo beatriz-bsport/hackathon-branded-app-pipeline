@@ -9,10 +9,10 @@ import type { TFunction } from 'react-i18next';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 
-import PaginatedListStateful from '../../../components/PaginatedListStateful.component';
-import PrivateBookingListItem from './PrivateBookingListItem.component';
-import PrivateBookingDisableDialog from './PrivateBookingDisableDialog.component';
-import InvoiceListItem from '../../invoice/InvoiceListItem.component';
+import PaginatedListStateful from '../../../../components/PaginatedListStateful.component';
+import PrivateBookingListItem from '../booking/PrivateBookingListItem.component';
+import PrivateBookingDisableDialog from '../booking/PrivateBookingDisableDialog.component';
+import InvoiceListItem from '../../../invoice/InvoiceListItem.component';
 
 type Props = {
   private_booking_list: Array<PrivateBooking>,

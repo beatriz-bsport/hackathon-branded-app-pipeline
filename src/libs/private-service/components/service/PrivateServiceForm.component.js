@@ -16,10 +16,10 @@ import {
   RESOURCE_ATTRIBUTION_CONSUMER,
   RESOURCE_ATTRIBUTION_AUTO,
 } from '@bsport/common/lib/master-data/resource-attribution-methods';
-import EstablishmentListItem from '../../establishment/components/EstablishmentListItem.component';
-import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
-import CoachSelector from '../../associated-coach/components/CoachSelector.component';
-import CoachListItemBasic from '../../associated-coach/components/CoachListItemBasic.component';
+import EstablishmentListItem from '../../../establishment/components/EstablishmentListItem.component';
+import EstablishmentSelector from '../../../establishment/components/EstablishmentSelector.component';
+import CoachSelector from '../../../associated-coach/components/CoachSelector.component';
+import CoachListItemBasic from '../../../associated-coach/components/CoachListItemBasic.component';
 
 import {
   TextField,
@@ -27,7 +27,7 @@ import {
   CheckboxField,
   IntegerField,
   RadioGroupField,
-} from '../../../components/forms';
+} from '../../../../components/forms';
 
 type Props = {
   t: TFunction,

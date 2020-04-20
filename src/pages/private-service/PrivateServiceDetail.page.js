@@ -11,7 +11,9 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
-import PrivateServiceFormDialog from '../../libs/private-service/components/PrivateServiceFormDialog.component';
+import PrivateServiceFormDialog from '../../libs/private-service/components/service/PrivateServiceFormDialog.component';
+import PrivateServiceDetailPage from '../../libs/private-service/components/service/PrivateServiceDetailPage.component';
+
 import {
   getPrivateServiceById,
   getPrivateServices,
@@ -40,7 +42,6 @@ import {
   checkExistsAvailabilitySlots,
 } from '../../libs/private-service/actions';
 import type { PrivateService } from '../../libs/private-service/types';
-import PrivateServiceDetailPage from '../../libs/private-service/components/PrivateServiceDetailPage.component';
 
 type Props = {
   privateService: PrivateService,

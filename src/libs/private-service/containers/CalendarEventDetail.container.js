@@ -21,7 +21,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import DeleteOfferForm from '../../offer/DeleteOfferForm.component';
 import OfferEditForm from '../../offer/OfferEditForm.component';
 import RedButton from '../../../components/button/RedButton.component';
-import PrivateBookingDisableDialog from '../components/PrivateBookingDisableDialog.component';
+import PrivateBookingDisableDialog from '../components/booking/PrivateBookingDisableDialog.component';
 import {
   getPrivateBooking,
   withRelatedFields,
@@ -48,7 +48,7 @@ import {
 import { getActiveCoaches } from '../../associated-coach/selectors';
 import { getAllEstablishments } from '../../establishment/selectors';
 
-import PrivateBookingCard from '../components/PrivateBookingCard.component';
+import PrivateBookingCard from '../components/booking/PrivateBookingCard.component';
 import {
   retrieveOfferAsManager as retrieveOfferAsManagerAction,
   fetchSimilarOffers as fetchSimilarOffersAction,

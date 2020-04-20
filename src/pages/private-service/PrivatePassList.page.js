@@ -27,9 +27,9 @@ import {
   createCompatibleServicePass,
   deletePrivatePass,
 } from '../../libs/private-service/actions';
-import PrivatePassListItem from '../../libs/private-service/components/PrivatePassListItem.component';
-import PrivatePassDetail from '../../libs/private-service/components/PrivatePassDetail.component';
-import PrivatePassForm from '../../libs/private-service/components/PrivatePassForm.component';
+import PrivatePassListItem from '../../libs/private-service/components/pass/PrivatePassListItem.component';
+import PrivatePassDetail from '../../libs/private-service/components/pass/PrivatePassDetail.component';
+import PrivatePassForm from '../../libs/private-service/components/pass/PrivatePassForm.component';
 import type {
   PrivatePass,
   PrivateService,

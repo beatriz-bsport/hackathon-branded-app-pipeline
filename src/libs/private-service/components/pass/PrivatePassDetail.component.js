@@ -20,9 +20,9 @@ import { compose, withState } from 'recompose';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import PrivateServiceListItem from './PrivateServiceListItem.component';
-import EmptyListWarning from './EmptyListWarning.component';
-import type { PrivatePass, PrivateService } from '../types';
+import PrivateServiceListItem from '../service/PrivateServiceListItem.component';
+import EmptyListWarning from '../EmptyListWarning.component';
+import type { PrivatePass, PrivateService } from '../../types';
 import PrivatePassForm from './PrivatePassForm.component';
 
 type Props = {

@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import BookingConsumerItem from '../../booking/components/BookingConsumerItem.component';
-import PrivateBookingConsumerItem from '../../private-service/components/PrivateBookingConsumerItem.component';
+import PrivateBookingConsumerItem from '../../private-service/components/booking/PrivateBookingConsumerItem.component';
 
 import type { Booking } from '../../booking/types';
 import type { Membership } from '../../membership/types';

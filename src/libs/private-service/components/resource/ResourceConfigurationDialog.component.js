@@ -11,7 +11,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import FormLabel from '@material-ui/core/FormLabel';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import ColorInput from '../../../components/input/ColorInput.component';
+import ColorInput from '../../../../components/input/ColorInput.component';
 
 type Props = {
   t: TFunction,

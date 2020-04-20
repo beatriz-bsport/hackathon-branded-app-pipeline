@@ -10,16 +10,16 @@ import type { TFunction } from 'react-i18next';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 
-import PrivateSlotListItem from './PrivateSlotListItem.component';
-import PrivateConsumerPassBookerListItem from './booking-module/PrivateConsumerPassBookerListItem.component';
-import { formatAsDatetime } from '../../../datetime';
-import { BookingSource } from '../../booking/utils';
+import PrivateSlotListItem from '../slot/PrivateSlotListItem.component';
+import PrivateConsumerPassBookerListItem from '../booking-module/PrivateConsumerPassBookerListItem.component';
+import { formatAsDatetime } from '../../../../datetime';
+import { BookingSource } from '../../../booking/utils';
 
 import type {
   PrivateBooking,
   PrivateConsumerPass,
   PrivateSlot,
-} from '../types';
+} from '../../types';
 
 type Props = {
   t: TFunction,

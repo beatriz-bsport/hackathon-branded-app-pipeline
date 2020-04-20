@@ -18,19 +18,19 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import moment from 'moment';
-import MemberSearchModal from '../../member/components/MemberSearchModal.component';
-import MemberMinimalListItem from '../../member/components/MemberMinimalListItem.component';
-import CoachInput from '../../../components/input/CoachInput.component';
+import MemberSearchModal from '../../../member/components/MemberSearchModal.component';
+import MemberMinimalListItem from '../../../member/components/MemberMinimalListItem.component';
+import CoachInput from '../../../../components/input/CoachInput.component';
 
-import PrivateSlotSelectorSimple from './PrivateSlotSelectorSimple.component';
-import PrivateServiceSelector from './PrivateServiceSelector.component';
-import PrivateConsumerPassBookerListItem from './booking-module/PrivateConsumerPassBookerListItem.component';
-import PrivatePassBookerListItem from './booking-module/PrivatePassBookerListItem.component';
+import PrivateSlotSelectorSimple from '../slot/PrivateSlotSelectorSimple.component';
+import PrivateServiceSelector from '../service/PrivateServiceSelector.component';
+import PrivateConsumerPassBookerListItem from '../booking-module/PrivateConsumerPassBookerListItem.component';
+import PrivatePassBookerListItem from '../booking-module/PrivatePassBookerListItem.component';
 import type {
   PrivatePass,
   PrivateService,
   PrivateConsumerPass,
-} from '../types';
+} from '../../types';
 
 type Props = {
   t: TFunction,

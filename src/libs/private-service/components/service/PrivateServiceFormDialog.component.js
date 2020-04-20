@@ -12,7 +12,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 
 import { compose } from 'recompose';
-import { Submit } from '../../../components/forms';
+import { Submit } from '../../../../components/forms';
 
 import PrivateServiceFields, {
   PrivateServiceFormikHOC,

@@ -24,8 +24,8 @@ import { getCurrentBasket } from '../../libs/checkout/selectors';
 import { snackbarError } from '../../actions/snackbar.actions';
 
 import BookingCapabilities from '../../libs/private-service/components/booking-module/BookingCapabilitiesList.component';
-import PrivateServiceListItem from '../../libs/private-service/components/PrivateServiceListItem.component';
-import PrivateSlotListItem from '../../libs/private-service/components/PrivateSlotListItem.component';
+import PrivateServiceListItem from '../../libs/private-service/components/service/PrivateServiceListItem.component';
+import PrivateSlotListItem from '../../libs/private-service/components/slot/PrivateSlotListItem.component';
 import { getPrivateSlot } from '../../libs/private-service/selectors/private-slot';
 import { getPrivateService } from '../../libs/private-service/selectors/private-service';
 import { getPrivateConsumerPassList } from '../../libs/private-service/selectors/private-consumer-pass';

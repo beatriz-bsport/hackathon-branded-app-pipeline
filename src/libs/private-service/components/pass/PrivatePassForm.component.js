@@ -10,8 +10,8 @@ import type { TFunction } from 'react-i18next';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-import NumericInput from '../../../components/input/NumericInput.component';
-import PriceInput from '../../../components/input/PriceInput.component';
+import NumericInput from '../../../../components/input/NumericInput.component';
+import PriceInput from '../../../../components/input/PriceInput.component';
 
 type Props = {
   initial: PrivatePass,

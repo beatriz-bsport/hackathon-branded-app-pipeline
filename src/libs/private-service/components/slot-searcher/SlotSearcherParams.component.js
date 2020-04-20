@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { RESOURCE_ATTRIBUTION_CONSUMER } from '@bsport/common/lib/master-data/resource-attribution-methods';
-import PrivateServiceSelectorWithSlot from '../PrivateServiceSelectorWithSlot.component';
+import PrivateServiceSelectorWithSlot from '../service/PrivateServiceSelectorWithSlot.component';
 import CoachSelector from '../../../associated-coach/components/CoachSelector.component';
 import EstablishmentSelector from '../../../establishment/components/EstablishmentSelector.component';
 import type { PrivateService } from '../../types';

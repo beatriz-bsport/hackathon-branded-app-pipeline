@@ -9,13 +9,13 @@ import type { TFunction } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 
-import MemberListItem from '../../member/components/MemberMinimalListItem.component';
-import TypographyMultiline from '../../../components/TypographyMultiline.component';
-import type { PrivateBookingWithRelatedFields } from '../types';
-import RedButton from '../../../components/button/RedButton.component';
+import MemberListItem from '../../../member/components/MemberMinimalListItem.component';
+import TypographyMultiline from '../../../../components/TypographyMultiline.component';
+import type { PrivateBookingWithRelatedFields } from '../../types';
+import RedButton from '../../../../components/button/RedButton.component';
 
-import CoachListItem from '../../associated-coach/components/CoachListItem.component';
-import EstablishmentListItem from '../../establishment/components/EstablishmentListItem.component';
+import CoachListItem from '../../../associated-coach/components/CoachListItem.component';
+import EstablishmentListItem from '../../../establishment/components/EstablishmentListItem.component';
 
 type Props = {
   private_booking: PrivateBookingWithRelatedFields,

@@ -30,9 +30,9 @@ import { getPrivateService } from '../../libs/private-service/selectors/private-
 
 import { fetchMember as fetchMemberAction } from '../../libs/member/actions';
 
-import PrivateBookingListItem from '../../libs/private-service/components/PrivateBookingListItem.component';
-import PrivateBookingDetail from '../../libs/private-service/components/PrivateBookingDetail.component';
-import PrivateBookingDisableDialog from '../../libs/private-service/components/PrivateBookingDisableDialog.component';
+import PrivateBookingListItem from '../../libs/private-service/components/booking/PrivateBookingListItem.component';
+import PrivateBookingDetail from '../../libs/private-service/components/booking/PrivateBookingDetail.component';
+import PrivateBookingDisableDialog from '../../libs/private-service/components/booking/PrivateBookingDisableDialog.component';
 
 import type {
   PrivateConsumerPass,

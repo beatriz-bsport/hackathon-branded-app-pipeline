@@ -11,7 +11,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import type { PrivatePass } from '../types';
+import type { PrivatePass } from '../../types';
 
 type Props = {
   pass: PrivatePass,

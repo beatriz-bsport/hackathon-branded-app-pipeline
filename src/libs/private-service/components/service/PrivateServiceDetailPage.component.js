@@ -5,9 +5,9 @@ import Grid from '@material-ui/core/Grid';
 
 import PrivateServiceCard from './PrivateServiceCard.component';
 import PrivateServiceConfigurationChecker from './PrivateServiceConfigurationHelper.component';
-import PrivateSlotEditableList from './PrivateSlotEditableList.component';
+import PrivateSlotEditableList from '../slot/PrivateSlotEditableList.component';
 
-import type { PrivateService } from '../types';
+import type { PrivateService } from '../../types';
 
 type Props = {
   privateService: PrivateService,

@@ -17,7 +17,7 @@ import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status
 import BookingCancellationDialog from '../../booking/components/BookingCancellationDialog.component';
 import BookingItemForManagerV2 from '../../booking/components/BookingItemForManagerV2.component';
 
-import PrivateBookingListItem from '../../private-service/components/PrivateBookingListItem.component';
+import PrivateBookingListItem from '../../private-service/components/booking/PrivateBookingListItem.component';
 
 import PaginatedListStateful from '../../../components/PaginatedListStateful.component';
 import PaginatedListBase from '../../../components/PaginatedListBase.component';

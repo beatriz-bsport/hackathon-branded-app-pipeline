@@ -9,8 +9,8 @@ import { compose } from 'recompose';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import PrivateConsumerPassBookerListItem from './booking-module/PrivateConsumerPassBookerListItem.component';
-import PrivatePassBookerListItem from './booking-module/PrivatePassBookerListItem.component';
+import PrivateConsumerPassBookerListItem from '../booking-module/PrivateConsumerPassBookerListItem.component';
+import PrivatePassBookerListItem from '../booking-module/PrivatePassBookerListItem.component';
 
 type Props = {
   t: TFunction,

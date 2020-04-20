@@ -15,7 +15,7 @@ import TypographyMultiline from '../../../../components/TypographyMultiline.comp
 
 import CoachListItemBasic from '../../../associated-coach/components/CoachListItemBasic.component';
 import EstablishmentListItem from '../../../establishment/components/EstablishmentListItem.component';
-import PrivateSlotListItem from '../PrivateSlotListItem.component';
+import PrivateSlotListItem from '../slot/PrivateSlotListItem.component';
 import type { PrivateService, PrivateSlot } from '../../types';
 
 type Props = {

@@ -464,6 +464,7 @@ export const DURATION_CHOICES_SHORT = [
 
 const DURATION_CHOICES_LONG = [
   { value: 0, label: 'form.zeroMinute' },
+  { value: 60, label: 'form.oneHour' },
   { value: 60 * 12, label: 'form.twelveHour' },
   { value: 24 * 60, label: 'form.oneDay' },
   { value: 2 * 24 * 60, label: 'form.twoDays' },

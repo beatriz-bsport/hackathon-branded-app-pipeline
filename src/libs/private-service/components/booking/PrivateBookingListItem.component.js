@@ -12,8 +12,8 @@ import type { TFunction } from 'react-i18next';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 
-import { getBookingStatusCode } from '../../booking/utils';
-import { formatAsDatetime, formatAsTime } from '../../../datetime';
+import { getBookingStatusCode } from '../../../booking/utils';
+import { formatAsDatetime, formatAsTime } from '../../../../datetime';
 
 type Props = {
   t: TFunction,

@@ -14,12 +14,12 @@ import CardContent from '@material-ui/core/CardContent';
 import LocationIcon from '@material-ui/icons/LocationOn';
 import PersonIcon from '@material-ui/icons/Person';
 
-import TypographyMultiline from '../../../components/TypographyMultiline.component';
+import TypographyMultiline from '../../../../components/TypographyMultiline.component';
 
-import CoachListItemBasic from '../../associated-coach/components/CoachListItemBasic.component';
-import EstablishmentListItem from '../../establishment/components/EstablishmentListItem.component';
+import CoachListItemBasic from '../../../associated-coach/components/CoachListItemBasic.component';
+import EstablishmentListItem from '../../../establishment/components/EstablishmentListItem.component';
 
-import type { PrivateService } from '../types';
+import type { PrivateService } from '../../types';
 
 type Props = {
   privateService: PrivateService,

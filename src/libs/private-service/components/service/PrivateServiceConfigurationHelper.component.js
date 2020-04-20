@@ -16,7 +16,7 @@ import CheckIcon from '@material-ui/icons/Check';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import type { PrivateService } from '../types';
+import type { PrivateService } from '../../types';
 
 const styles = (theme) => ({
   titleRow: {

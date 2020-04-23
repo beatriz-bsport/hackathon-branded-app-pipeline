@@ -17,7 +17,12 @@ export default {
         submit: 'Enregistrer',
       },
     },
+    groupBy: 'Grouper par',
+    unGroup: 'Aucun',
+
     datatype: {
+      establishment: 'Lieux',
+      coach: 'Professeur',
       associated_establishment: 'Lieux',
       associated_coach: 'Professeur',
       private_service: 'Général',

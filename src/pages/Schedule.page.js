@@ -10,8 +10,12 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { getPrivateBookingListFiltered } from '../libs/private-service/selectors/private-booking';
 import { fetchAllOffers as fetchAllOffersAction } from '../libs/offer/actions';
 import withTitle from '../hocs/with-title.hoc';
+import { getAllPageEstablishments } from '../libs/establishment/selectors';
+import { fetchEstablishments } from '../libs/establishment/actions';
+import { getActiveCoaches } from '../libs/associated-coach/selectors';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../libs/meta-activity/actions';
 import { getOfferAsEventList, withMetaActivity } from '../libs/offer/selectors';
+import { fetchAssociatedCoachesList } from '../libs/associated-coach/actions';
 
 import PrivateCalendarWithControls from '../libs/private-service/components/PrivateCalendarWithControls.component';
 
@@ -46,6 +50,8 @@ const styles = (theme) => ({
 export class CoachPrivateCalendar extends React.Component<Props> {
   componentDidMount() {
     this.props.resetPrivateBookings();
+    this.props.fetchEstablishments();
+    this.props.fetchAssociatedCoachesList({ disabled: false });
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -64,6 +70,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
       <div className={classes.container}>
         <PrivateCalendarWithControls
           availabilitySlots={[]}
+          resourcesByDatatype={this.props.resourcesByDatatype}
           privateBookings={this.props.privateBookingList}
           disableAvailabilitySlotDisplay
           goToMember={this.props.goToMember}
@@ -93,6 +100,19 @@ export default compose(
   }),
   connect(
     (state, { periodFilter }) => ({
+      resourcesByDatatype: [
+        {
+          datatype: 'establishment',
+          items: getAllPageEstablishments(state),
+        },
+        {
+          datatype: 'coach',
+          items: getActiveCoaches(state).map((c) => ({
+            title: c.name,
+            id: c.id,
+          })),
+        },
+      ],
       privateBookingList: getPrivateBookingListFiltered(
         state,
         null,
@@ -106,6 +126,8 @@ export default compose(
     }),
     {
       fetchPrivateBookings: fetchPrivateBookingsAction,
+      fetchEstablishments,
+      fetchAssociatedCoachesList,
       fetchAllOffers: fetchAllOffersAction,
       resetPrivateBookings,
       fetchMetaActivityBulk: fetchMetaActivityBulkAction,

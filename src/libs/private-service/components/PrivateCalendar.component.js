@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 
-import { compose } from 'recompose';
+import { compose, withStateHandlers } from 'recompose';
 // import chroma from 'chroma-js';
 import { withNamespaces } from 'react-i18next';
 import frLocale from '@fullcalendar/core/locales/fr';
@@ -24,6 +24,8 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 // import listPlugin from '@fullcalendar/list';
 
 import interactionPlugin from '@fullcalendar/interaction'; // needed for dayClick
+import resourceTimeGrid from '@fullcalendar/resource-timegrid';
+
 import moment from 'moment';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import i18n from '../../../i18n';
@@ -47,38 +49,59 @@ const availabilitySlotAsEvent = (slot) => ({
   ...(slot.color ? { backgroundColor: slot.color } : {}),
 });
 
-const offerAsEvent = (offer) => ({
-  start: offer.date_start,
-  end: moment(offer.date_start).add(offer.duration_minute, 'minutes'),
-  title: offer.meta_activity ? offer.meta_activity.name : '',
-  editable: false,
-  extendedProps: {
-    offer: offer.id,
-  },
-  textColor: 'black',
-  classNames: [!offer.available ? 'cancelledEvent' : ''],
-  ...(offer.meta_activity && offer.meta_activity.color
-    ? { borderColor: offer.meta_activity.color }
-    : {}),
-});
+const offerAsEvent = (resourceDatatypeView) => (offer) => {
+  let resourceId = null;
+  if (resourceDatatypeView === 'establishment') {
+    resourceId = offer.establishment;
+  }
+  if (resourceDatatypeView === 'coach') {
+    resourceId = offer.coach;
+  }
 
-const privateBookingAsEvent = (pb) => ({
-  start: pb.date_start,
-  end: pb.date_end,
-  title: pb.name,
-  editable: false,
-  extendedProps: {
-    private_booking: pb.id,
-  },
-  textColor: 'black',
-  classNames: [
-    pb.booking_status_code !== BOOKING_STATUS_OK.id ? 'cancelledEvent' : '',
-  ],
-  borderColor:
-    pb.private_slot && pb.private_slot.private_service
-      ? pb.private_slot.private_service.color
-      : '',
-});
+  return {
+    start: offer.date_start,
+    end: moment(offer.date_start).add(offer.duration_minute, 'minutes'),
+    title: offer.meta_activity ? offer.meta_activity.name : '',
+    editable: false,
+    extendedProps: {
+      offer: offer.id,
+    },
+    resourceId,
+    textColor: 'black',
+    classNames: [!offer.available ? 'cancelledEvent' : ''],
+    ...(offer.meta_activity && offer.meta_activity.color
+      ? { borderColor: offer.meta_activity.color }
+      : {}),
+  };
+};
+
+const privateBookingAsEvent = (resourceDatatypeView) => (pb) => {
+  let resourceId = null;
+  if (resourceDatatypeView === 'establishment') {
+    resourceId = pb.establishment;
+  }
+  if (resourceDatatypeView === 'coach') {
+    resourceId = pb.coach;
+  }
+  return {
+    start: pb.date_start,
+    end: pb.date_end,
+    title: pb.name,
+    editable: false,
+    extendedProps: {
+      private_booking: pb.id,
+    },
+    textColor: 'black',
+    classNames: [
+      pb.booking_status_code !== BOOKING_STATUS_OK.id ? 'cancelledEvent' : '',
+    ],
+    resourceId,
+    borderColor:
+      pb.private_slot && pb.private_slot.private_service
+        ? pb.private_slot.private_service.color
+        : '',
+  };
+};
 
 const AvailabilitySlotForm = withNamespaces(['privateService'])(
   withStyles(styles)(
@@ -195,6 +218,8 @@ type State = {
 };
 
 export class CoachPrivateCalendar extends React.Component<Props, State> {
+  calendarRef = React.createRef();
+
   state = {
     selectInfo: null,
 
@@ -212,6 +237,20 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
     }
   };
 
+  componentDidUpdate(prevProps: Props) {
+    if (!prevProps.resourceDatatypeView && this.props.resourceDatatypeView) {
+      this.calendarRef.current.getApi().changeView('resourceTimeGridThreeDays');
+      return;
+    }
+    if (!!prevProps.resourceDatatypeView && !this.props.resourceDatatypeView) {
+      this.calendarRef.current.getApi().changeView('timeGridWeek');
+      return;
+    }
+    if (prevProps.resourceDatatypeView !== this.props.resourceDatatypeView) {
+      this.calendarRef.current.getApi().render();
+    }
+  }
+
   dateClick = (eventSlotSelected: EventSlot) => {
     this.setState({
       eventSlotSelected: {
@@ -227,11 +266,12 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
       availabilitySlots: Array<AvailabilitySlot>,
       privateBookings: Array<PrivateBooking>,
       offerList: Array<Offer>,
+      resourceDatatypeView: ?string,
     ) => {
       return [
         ...availabilitySlots.map(availabilitySlotAsEvent),
-        ...(offerList || []).map(offerAsEvent),
-        ...privateBookings.map(privateBookingAsEvent),
+        ...(offerList || []).map(offerAsEvent(resourceDatatypeView)),
+        ...privateBookings.map(privateBookingAsEvent(resourceDatatypeView)),
       ];
     },
   );
@@ -322,33 +362,39 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
       this.props.availabilitySlots,
       this.props.privateBookings,
       this.props.offerList,
+      this.props.resourceDatatypeView,
     );
+
     return (
       <div className={classes.container}>
         <FullCalendar
-          defaultView="timeGridWeek"
-          plugins={[interactionPlugin, timeGridPlugin]}
+          ref={this.calendarRef}
+          defaultView={
+            this.props.resourceDatatypeView
+              ? 'resourceTimeGridThreeDays'
+              : 'timeGridWeek'
+          }
+          plugins={[interactionPlugin, timeGridPlugin, resourceTimeGrid]}
+          views={{
+            resourceTimeGridThreeDays: {
+              type: 'resourceTimeGrid',
+              duration: { days: 3 },
+              buttonText: '3 jours',
+            },
+          }}
           header={{
             left: 'prev,next today',
             center: 'title',
-            right: 'timeGridDay,timeGridWeek',
+            right: this.props.resourceDatatypeView
+              ? 'resourceTimeGridDay,resourceTimeGridThreeDays,resourceTimeGridWeek'
+              : 'timeGridDay,timeGridWeek',
           }}
-          views={[
-            {
-              timeGridWeek: {
-                type: 'timeGrid',
-                duration: { days: 7 },
-                buttonText: 'week',
-              },
-              timeGridDay: {
-                type: 'timeGrid',
-                duration: { days: 1 },
-                buttonText: 'day',
-              },
-            },
-          ]}
+          schedulerLicenseKey="0683005223-fcs-1587553109"
+          filterResourcesWithEvents
+          resources={this.props.resources}
           editable
           selectable
+          dateA
           select={this.select}
           dateClick={this.dateClick}
           events={events}
@@ -439,3 +485,7 @@ export default compose(
   withMobileDialog(),
   withStyles(styles, { withTheme: true }),
 )(CoachPrivateCalendar);
+
+/*
+	  }}
+	  */

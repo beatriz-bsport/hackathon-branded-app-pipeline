@@ -13,6 +13,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 import PrivateCalendar from './PrivateCalendar.component';
 import ResourceSelector from './resource/ResourceSelector.component';
+import ResourceDatatypeFilter from './resource/ResourceDatatypeFilter.component';
 import CalendarEventDetail from '../containers/CalendarEventDetail.container';
 
 import PrivateBookingBooker from '../containers/PrivateBookingBooker.container';
@@ -103,10 +104,18 @@ export const PrivateCalendarMultiResource = (props: Props) => (
           />
         )}
       </div>
+      {!!props.resourcesByDatatype && !!props.resourcesByDatatype.length && (
+        <ResourceDatatypeFilter
+          resourcesByDatatype={props.resourcesByDatatype}
+          onResourceDatatypeFilterChange={props.setResourceFilter}
+        />
+      )}
     </Paper>
     <div className={props.classes.content}>
       <PrivateCalendar
         disableResourceAvailabilitySlot={props.disableResourceAvailabilitySlot}
+        resources={props.resourceItemsFilter}
+        resourceDatatypeView={props.resourceDatatypeFilter}
         enableResourceAvailabilitySlot={props.enableResourceAvailabilitySlot}
         availabilitySlots={props.availabilitySlots}
         privateBookings={
@@ -144,6 +153,9 @@ const styles = (theme) => ({
     marginRight: -theme.spacing.unit * 2,
     paddingRight: theme.spacing.unit * 2,
     paddingLeft: theme.spacing.unit * 2,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   row: {
     display: 'flex',
@@ -168,7 +180,18 @@ export default compose(
       }),
     },
   ),
-
+  withStateHandlers(
+    { resourceItemsFilter: [], resourceDatatypeFilter: null },
+    {
+      setResourceFilter: () => (
+        resourceDatatypeFilter,
+        resourceItemsFilter,
+      ) => ({
+        resourceDatatypeFilter,
+        resourceItemsFilter,
+      }),
+    },
+  ),
   withStateHandlers(
     { showPrivateBookings: true, showOfferList: true },
     {

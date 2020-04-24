@@ -411,7 +411,7 @@ export default {
         },
         phone: 'Téléphone',
         rgpdTitle:
-          'Moyen de communication accepté par le membre (alerte annulation, modification, etc...)',
+          'Moyen de communication accepté par le membre (promotions, marketing, smartlist etc...)',
         birthdayYear: 'Année de naissance',
         referenceNumber: "Numéro d'adhérent",
         referenceNumberHelper:

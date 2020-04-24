@@ -16,15 +16,13 @@ type Props = {
 
 export const SubscriptionPauseListItem = (props: Props) => {
   return (
-    <ListItem dense={props.dense}>
+    <ListItem divider dense={props.dense}>
       <ListItemText
         primary={props.pause.name}
         secondary={props.t('pause.pausedInterval', {
           days: props.pause.days,
           start: moment(props.pause.date_created).format('LL'),
-          end: moment(props.pause.date_created)
-            .add(props.pause.days, 'days')
-            .format('LL'),
+          end: moment(props.pause.date_ended).format('LL'),
         })}
       />
     </ListItem>

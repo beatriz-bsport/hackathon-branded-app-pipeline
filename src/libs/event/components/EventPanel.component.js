@@ -119,7 +119,7 @@ export class SubscriptionEventPanel extends React.Component<Props, State> {
             <EventListItem
               event={event}
               eventSpec={this.props.eventSpec}
-              key={event.identifier}
+              key={`${event.date}:${event.identifier}`}
               onEventClick={this.props.onEventClick}
             />
           )}

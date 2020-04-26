@@ -121,7 +121,7 @@ export default {
       theoricalMarginValue: {
         label: 'Theorical margin value (only unlimited pass)',
         helperText:
-"Used to compute the payroll of teachers. 10€ means 1 booking made via this pass is payed 10€ to the teacher. If empty the margin value will be PRICE/NB_BOOKING",
+          'Used to compute the payroll of teachers. 10€ means 1 booking made via this pass is payed 10€ to the teacher. If empty the margin value will be PRICE/NB_BOOKING',
       },
 
       expirationDaysBeforeFirstUse: {
@@ -230,9 +230,9 @@ export default {
   never: 'Never',
   unlimitedCredits: 'Unlimited',
   credits: 'Credits',
-  availableOnFollowingSports: 'Available on following sports: ',
+  availableOnFollowingSports: 'Available on following categories: ',
   availableOnFollowingEstablishments: 'Available on following locations: ',
-  anySport: 'Any sports',
+  anySport: 'Any category',
   availableOnFollowingActivities: 'Available on following activities: ',
   anyActivity: 'Any activity',
   boughtConsumerPaymentPacks: 'Subscribers',

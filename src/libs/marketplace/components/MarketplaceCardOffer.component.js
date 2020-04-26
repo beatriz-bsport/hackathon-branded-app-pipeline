@@ -47,7 +47,9 @@ export const MarketplaceCardOffer = (props: Props) => {
       ? offer.coach.name
       : ' - ';
 
-  const metaActivityName = offer.meta_activity.name || ' - ';
+  const metaActivityName = offer.meta_activity
+    ? offer.meta_activity.name || ' - '
+    : ' - ';
 
   const establishmentName =
     offer.establishment_override && offer.establishment_override.title

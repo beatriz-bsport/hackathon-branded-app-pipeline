@@ -73,6 +73,24 @@ export const getConsumerPaymentPackForBooking = createSelector(
   (ids, data) => ids.map((id) => data[id]),
 );
 
+const _getByOfferByMemberBase = (state) => {
+  return state.consumerPaymentPack.byOfferByMember.items;
+};
+
+export const getByOfferByMember = createSelector(
+  _getByOfferByMemberBase,
+  (consumerPackList) => consumerPackList.filter((cpp) => !cpp.reverted),
+);
+
+const _getNonCompatibleByOfferByMemberBase = (state) => {
+  return state.consumerPaymentPack.nonCompatibleByOfferByMember.items;
+};
+
+export const getNonCompatibleByOfferByMember = createSelector(
+  _getNonCompatibleByOfferByMemberBase,
+  (consumerPackList) => consumerPackList.filter((cpp) => !cpp.reverted),
+);
+
 export const withPaymentPack = memoize((selector: (State) => any) =>
   createSelector(
     [selector, getPaymentPackById],

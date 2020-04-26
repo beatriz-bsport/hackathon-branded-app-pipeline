@@ -15,8 +15,17 @@ import Divider from '@material-ui/core/Divider';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import ConsumerPackRowItem from '../../libs/consumer-payment-pack/components/ConsumerPackRowItem.component';
-import { fetchByOfferByMember } from '../../libs/consumer-payment-pack/actions';
+import {
+  fetchByOfferByMember,
+  fetchNonCompatibleByOfferByMember,
+} from '../../libs/consumer-payment-pack/actions';
+import { fetchPaymentPackBulk } from '../../libs/payment-packs/actions';
 import { getAll as getAllPaymentPacks } from '../../libs/payment-packs/selectors';
+import {
+  withPaymentPack,
+  getByOfferByMember,
+  getNonCompatibleByOfferByMember,
+} from '../../libs/consumer-payment-pack/selectors';
 import PaymentPackSummary from '../../components/payment-pack/PaymentPackSummary.component';
 
 type Props = {
@@ -46,6 +55,16 @@ export class RegisterMemberToOfferForm extends PureComponent<Props> {
     this.props.fetchConsumerPackByOfferByMember(
       this.props.offerId,
       this.props.memberId,
+    );
+    this.props.fetchNoncompatibleConsumerPackByOfferByMember(
+      this.props.offerId,
+      this.props.memberId,
+      {
+        onSuccess: (cppList) =>
+          this.props.fetchPaymentPackBulk(
+            cppList.map((cpp) => cpp.payment_pack),
+          ),
+      },
     );
   }
 
@@ -92,19 +111,35 @@ export class RegisterMemberToOfferForm extends PureComponent<Props> {
   renderConsumerPacks = () => {
     const { consumerPacks, t, subscribeToOffer, allPaymentPacks } = this.props;
     if (!consumerPacks.length) {
-      return this.renderWarning(t('offer.noConsumerPackAvailableForPurchase'));
+      return (
+        <div>
+          {this.renderWarning(t('offer.noConsumerPackAvailableForPurchase'))}
+          {this.props.consumerPacksNonCompatible.length > 0 && (
+            <Typography variant="h6" component="h4">
+              {t('offer.noncompatibleConsumerPaymentPacksAre')}
+            </Typography>
+          )}
+          {this.props.consumerPacksNonCompatible.map((cp) => (
+            <ConsumerPackRowItem
+              key={cp.id}
+              hideConsumer
+              isNonCompatible
+              paymentPack={cp.payment_pack}
+              consumerPack={cp}
+            />
+          ))}
+        </div>
+      );
     }
     return (
       <List>
         {this.props.consumerPacks.map((cp) => (
           <ConsumerPackRowItem
             key={cp.id}
-            paymentPack={allPaymentPacks.find(
-              (pp) => pp.id === parseInt(cp.payment_pack_id, 10),
-            )}
             hideConsumer
             subscribeToOffer={subscribeToOffer}
             consumerPack={cp}
+            paymentPack={cp.payment_pack}
           />
         ))}
       </List>
@@ -203,13 +238,16 @@ export default compose(
   connect(
     (state) => ({
       consumerPacksLoading: state.consumerPaymentPack.byOfferByMember.loading,
-      consumerPacks: state.consumerPaymentPack.byOfferByMember.items.filter(
-        (cpp) => !cpp.reverted,
-      ),
+      consumerPacks: withPaymentPack(getByOfferByMember)(state),
+      consumerPacksNonCompatible: withPaymentPack(
+        getNonCompatibleByOfferByMember,
+      )(state),
       allPaymentPacks: getAllPaymentPacks(state),
     }),
     {
       fetchConsumerPackByOfferByMember: fetchByOfferByMember,
+      fetchPaymentPackBulk,
+      fetchNoncompatibleConsumerPackByOfferByMember: fetchNonCompatibleByOfferByMember,
     },
   ),
 )(RegisterMemberToOfferForm);

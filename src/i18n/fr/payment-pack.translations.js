@@ -200,6 +200,7 @@ export default {
   privatePacksTitle: 'Cartes non disponibles à la vente',
   subscribeToOffer: 'Inscrire',
   use: 'Utiliser',
+  isNonCompatible: 'incompatible',
   createOrUpdate: {
     success: 'Carte de cours enregistrée',
     fail: "Erreur lors de l'enregistrement de la carte",

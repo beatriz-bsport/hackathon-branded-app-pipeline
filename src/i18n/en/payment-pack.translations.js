@@ -195,6 +195,7 @@ export default {
   privatePacksTitle: 'Pass unavailable for purchase',
   subscribeToOffer: 'Register',
   use: 'Use',
+  isNonCompatible: 'non-compatible',
   createOrUpdate: {
     success: 'Pass successfully saved',
     fail: 'Error: pass would not be saved',

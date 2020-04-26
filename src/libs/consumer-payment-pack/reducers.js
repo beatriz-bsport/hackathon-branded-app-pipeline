@@ -10,11 +10,17 @@ import {
   retrieveBulk,
   updateConsumerPack,
   byOfferByMember,
+  nonCompatibleByOfferByMember,
   forBookingActions,
 } from './actions';
 
 const initialState = Immutable({
   byOfferByMember: {
+    loading: false,
+    error: false,
+    items: [],
+  },
+  nonCompatibleByOfferByMember: {
     loading: false,
     error: false,
     items: [],
@@ -172,6 +178,15 @@ export default handleActions(
     },
     [byOfferByMember.success]: (state, { payload }) => {
       return state.setIn(['byOfferByMember', 'items'], payload);
+    },
+    [nonCompatibleByOfferByMember.isLoading]: (state, { payload }) => {
+      return state.setIn(['nonCompatibleByOfferByMember', 'loading'], payload);
+    },
+    [nonCompatibleByOfferByMember.error]: (state, { payload }) => {
+      return state.setIn(['nonCompatibleByOfferByMember', 'error'], payload);
+    },
+    [nonCompatibleByOfferByMember.success]: (state, { payload }) => {
+      return state.setIn(['nonCompatibleByOfferByMember', 'items'], payload);
     },
     [updateConsumerPack.success]: (state, { payload }) => {
       let newState = state;

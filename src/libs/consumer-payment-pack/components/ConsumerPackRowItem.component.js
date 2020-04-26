@@ -48,9 +48,22 @@ export class ConsumerPackRowItem extends Component<Props> {
       incrementCredit,
       decrementCredit,
       subscribeToOffer,
+      isNonCompatible,
       loading,
       t,
     } = this.props;
+    if (isNonCompatible) {
+      return (
+        <RedButton
+          variant="outlined"
+          disabled
+          color="primary"
+          id={`btn-payment-pack-${consumerPack.id}`}
+        >
+          {t('paymentPack.isNonCompatible')}
+        </RedButton>
+      );
+    }
     if (subscribeToOffer) {
       return (
         <Button
@@ -173,7 +186,7 @@ export class ConsumerPackRowItem extends Component<Props> {
           button={!!onClick}
           onClick={onClick || null}
           style={
-            consumerPack.disabled
+            consumerPack.disabled || !!this.props.isNonCompatible
               ? { backgroundColor: 'rgba(255,0,0,.05)' }
               : {}
           }

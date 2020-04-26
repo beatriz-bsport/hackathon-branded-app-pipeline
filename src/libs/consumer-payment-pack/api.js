@@ -16,6 +16,14 @@ export async function fetchByOfferByMember(offer, data: any = {}) {
   );
 }
 
+export async function fetchNonCompatibleByOfferByMember(offer, data: any = {}) {
+  return postAuth(
+    `${API_V1_URI}/payment-pack/consumer-payment-pack/noncompatible_with_offer/${buildUrlParams(
+      data,
+    )}`,
+    { offer },
+  );
+}
 export async function fetchExtensions(consumerPassId: number) {
   return getAuth(
     `${API_V1_URI}/payment-pack/pack-extension/?consumer_payment_pack=${consumerPassId}`,

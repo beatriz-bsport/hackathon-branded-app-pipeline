@@ -8,6 +8,7 @@ import { snackbarSuccess } from '../../actions/snackbar.actions';
 
 import {
   fetchByOfferByMember as fetchByOfferByMemberAPI,
+  fetchNonCompatibleByOfferByMember as fetchNonCompatibleByOfferByMemberAPI,
   fetchConsumerPackList as fetchConsumerPaymentPackListAPI,
   fetchExtensions as fetchExtensionListAPI,
   createExtension as createExtensionAPI,
@@ -32,6 +33,43 @@ export function fetchByOfferByMember(offer: number, member: number) {
       dispatch(byOfferByMember.error(error));
     }
     dispatch(byOfferByMember.isLoading(false));
+  };
+}
+
+export const nonCompatibleByOfferByMember = {
+  isLoading: createAction(
+    'CONSUMER_PACK/NON_COMPATIBLE_BY_OFFER_BY_MEMBER/IS_LOADING',
+  ),
+  error: createAction('CONSUMER_PACK/NON_COMPATIBLE_BY_OFFER_BY_MEMBER/ERROR'),
+  success: createAction(
+    'CONSUMER_PACK/NON_COMPATIBLE_BY_OFFER_BY_MEMBER/SUCCESS',
+  ),
+};
+
+export function fetchNonCompatibleByOfferByMember(
+  offer: number,
+  member: number,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(nonCompatibleByOfferByMember.success([]));
+    dispatch(nonCompatibleByOfferByMember.isLoading(true));
+    try {
+      const response = await fetchNonCompatibleByOfferByMemberAPI(offer, {
+        member,
+      });
+      dispatch(nonCompatibleByOfferByMember.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(nonCompatibleByOfferByMember.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
+    }
+    dispatch(nonCompatibleByOfferByMember.isLoading(false));
   };
 }
 

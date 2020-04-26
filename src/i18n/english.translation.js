@@ -266,6 +266,8 @@ export default {
       sizeOfWaitingList: 'Size of waiting list',
       offersPendingChange: 'Sessions pending change:',
       offersPendingDelete: 'Sessions pending removal:',
+      noncompatibleConsumerPaymentPacksAre:
+        'Owns the following NON compatible pass :',
       noPackAvailableForOfferPurchase:
         'No compatible pass found for this member!',
       noConsumerPackAvailableForPurchase:

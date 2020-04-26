@@ -283,6 +283,8 @@ export default {
       offersPendingDelete: 'Séances qui seront suprimées :',
       noPackAvailableForOfferPurchase:
         'Aucune carte de cours compatible avec cette séance !',
+      noncompatibleConsumerPaymentPacksAre:
+        'Possède les cartes suivantes, non-compatible avec cette séance :',
       noConsumerPackAvailableForPurchase:
         'Aucune carte de cours compatible possédée par ce membre !',
       backToCalendar: 'Calendrier',

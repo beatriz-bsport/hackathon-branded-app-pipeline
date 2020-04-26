@@ -53,9 +53,11 @@ export const ConsumerPaymentPackExtensionListItem = (props: Props) => {
         }
         secondary={extension.note}
       />
-      <ListItemSecondaryAction>
-        <DeleteButtonWithConfirm onClick={props.onDelete} />
-      </ListItemSecondaryAction>
+      {!!props.onDelete && (
+        <ListItemSecondaryAction>
+          <DeleteButtonWithConfirm onClick={props.onDelete} />
+        </ListItemSecondaryAction>
+      )}
     </ListItem>
   );
 };

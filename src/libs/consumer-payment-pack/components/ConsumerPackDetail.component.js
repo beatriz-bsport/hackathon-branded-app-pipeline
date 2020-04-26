@@ -112,14 +112,21 @@ export function ConsumerPaymentPackDetail(props: Props) {
                   key={ex.id}
                   extension={ex}
                   divider
-                  onDelete={() => props.deleteExtension(ex.id)}
+                  onDelete={
+                    props.consumerPack &&
+                    !props.consumerPack.dst_consumer_payment_pack
+                      ? () => props.deleteExtension(ex.id)
+                      : null
+                  }
                 />
               ))}
             </List>
           </Paper>
         </React.Fragment>
       ) : null}
-      {props.onCreateExtension ? (
+      {props.onCreateExtension &&
+      props.consumerPack &&
+      !props.consumerPack.dst_consumer_payment_pack ? (
         <div className={props.classes.addButtonContainer}>
           <Button
             variant="outlined"

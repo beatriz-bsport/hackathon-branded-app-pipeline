@@ -319,7 +319,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
         </Typography>
         <div className={this.props.classes.groupContainer}>
           <div className={this.props.classes.borderBar} />
-          <div>
+          <div className={this.props.classes.columnFullWidth}>
             <div className={this.props.classes.field}>
               <NumericInput
                 required
@@ -372,14 +372,14 @@ export class EditLiveOfferForm extends Component<Props, State> {
               />
             </div>
           </div>
-          {this.state.level !== this.initialOfferState.level ? (
-            <div className={this.props.classes.field}>
-              <WarningForceRecursion
-                text={this.props.t('form.offer.levelChangeWarning')}
-              />
-            </div>
-          ) : null}
         </div>
+        {this.state.level !== this.initialOfferState.level ? (
+          <div className={this.props.classes.field}>
+            <WarningForceRecursion
+              text={this.props.t('form.offer.levelChangeWarning')}
+            />
+          </div>
+        ) : null}
       </div>
       <div className={this.props.classes.fieldGroup}>
         {this.renderBilling()}
@@ -579,6 +579,13 @@ const styles = (theme) => ({
   field: {
     marginLeft: theme.spacing.unit,
     marginTop: theme.spacing.unit * 2,
+    width: '100%',
+  },
+  columnFullWidth: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    width: '100%',
   },
   borderBar: {
     backgroundColor: theme.palette.primary.main,
@@ -588,6 +595,7 @@ const styles = (theme) => ({
   },
   groupContainer: {
     display: 'flex',
+    width: '100%',
   },
 });
 

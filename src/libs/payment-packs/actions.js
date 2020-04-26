@@ -130,7 +130,7 @@ export function createOrUpdate(data: PaymentPackFormData, options = {}) {
       if (response.status === 200) {
         dispatch(createOrUpdateSuccess(response.data));
         dispatch(snackbarSuccess('paymentPack.createOrUpdate.success'));
-        if (options.onSuccess) options.onSuccess();
+        if (options.onSuccess) options.onSuccess(response.data);
       }
     } catch (err) {
       console.error(err);

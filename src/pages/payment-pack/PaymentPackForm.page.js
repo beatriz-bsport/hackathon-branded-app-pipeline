@@ -4,7 +4,7 @@ import React from 'react';
 import { compose, withProps } from 'recompose';
 import uniqBy from 'lodash/uniqBy';
 
-import { goBack } from 'connected-react-router';
+import { push as pushRouter } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -12,11 +12,12 @@ import type { TFunction } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import PaymentPackForm from '../../libs/payment-packs/components/PaymentPackForm.component';
-import paymentPackSelectors from '../../libs/payment-packs/selectors';
+import { getPaymentPackById } from '../../libs/payment-packs/selectors';
 import { fetchOne as fetchPaymentPack } from '../../libs/payment-packs/actions';
 import {
   getEnabledMetaActivities,
@@ -53,7 +54,7 @@ type Props = {
 
 export class PaymentPackFormPage extends React.Component<Props> {
   componentDidMount() {
-    this.props.fetchPaymentPack(this.props.id, {
+    this.props.fetchPaymentPack(this.props.paymentPackId, {
       onSuccess: (pp) => {
         this.props.fetchMetaActivityBulk(pp.metaActivities);
       },
@@ -71,7 +72,13 @@ export class PaymentPackFormPage extends React.Component<Props> {
       establishments,
       onSubmit,
       initial,
+      paymentPackId,
     } = this.props;
+    console.log(this.props);
+
+    if (loading || (!!paymentPackId && !initial)) {
+      return <LinearProgress />;
+    }
     const availableCategoriesId = metaActivities.map((a) => a.SCT);
     const filterableCategories = categories.filter(
       (c) => availableCategoriesId.indexOf(c.id) !== -1,
@@ -116,7 +123,7 @@ export default compose(
   mapRouterParamsToProps({ id: 'paymentPackId:number' }),
   connect(
     (state, { paymentPackId }) => {
-      const paymentPackInitial = paymentPackSelectors.get(state, paymentPackId);
+      const paymentPackInitial = getPaymentPackById(state)[paymentPackId];
       return {
         initial: paymentPackId !== null ? paymentPackInitial : null,
         categories: state.category.SCTs,
@@ -143,17 +150,17 @@ export default compose(
       fetchPaymentPack,
       fetchWorkhops,
       createOrUpdate: createOrUpdatePaymentPack,
-      previousPage: goBack,
+      push: pushRouter,
     },
   ),
-  withProps(({ createOrUpdate, previousPage, fetchAllPaymentPacks }) => ({
+  withProps(({ createOrUpdate, push, fetchAllPaymentPacks }) => ({
     onSubmit: (data, options = {}) => {
       createOrUpdate(data, {
         ...options,
-        onSuccess: () => {
+        onSuccess: (pp) => {
           fetchAllPaymentPacks();
+          push(`/payment-pack/${pp.id}`);
           if (options.onSuccess) options.onSuccess();
-          previousPage();
         },
       });
     },

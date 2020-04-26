@@ -14,7 +14,7 @@ import FileCopyIcon from '@material-ui/icons/FileCopy';
 
 import DeleteIcon from '@material-ui/icons/Delete';
 import Typography from '@material-ui/core/Typography';
-import EditIcon from '@material-ui/icons/Edit';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import withConfirm from '../../../hocs/with-confirm.hoc';
 
 type Props = {
@@ -52,6 +52,18 @@ export class SmartListItem extends Component<Props> {
           secondary={this.props.smartlist.description}
         />
         <div className={this.props.classes.actions}>
+          {this.props.onClickEdit ? (
+            <IconButton
+              onClick={(ev) => {
+                ev.stopPropagation();
+                ev.preventDefault();
+                this.props.onClickEdit(this.props.smartlist.id);
+              }}
+              color="primary"
+            >
+              <ArrowForwardIcon />
+            </IconButton>
+          ) : null}
           {this.props.onClickDuplicate ? (
             <Tooltip
               title={
@@ -73,18 +85,6 @@ export class SmartListItem extends Component<Props> {
                 <FileCopyIcon />
               </IconButton>
             </Tooltip>
-          ) : null}
-          {this.props.onClickEdit ? (
-            <IconButton
-              onClick={(ev) => {
-                ev.stopPropagation();
-                ev.preventDefault();
-                this.props.onClickEdit(this.props.smartlist.id);
-              }}
-              color="primary"
-            >
-              <EditIcon />
-            </IconButton>
           ) : null}
           {this.props.onClickDelete ? (
             <ButtonWithConfirm

@@ -8,6 +8,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import SettingsIcon from '@material-ui/icons/Settings';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
+import EditIcon from '@material-ui/icons/Edit';
+import IconButton from '@material-ui/core/IconButton';
 
 import Button from '@material-ui/core/Button';
 import StatsPanel from './StatsPanel.component';
@@ -22,6 +24,7 @@ type Props = {
   statistics: any,
   changeDateRange: () => void,
   dateRange: Object,
+  onEdit: ?() => void,
 };
 
 export const SmartlistCard = (props: Props) => {
@@ -31,9 +34,14 @@ export const SmartlistCard = (props: Props) => {
   return (
     <div>
       <div className={props.classes.paper}>
-        <Typography variant="h5" className={props.classes.title}>
-          {props.smartlist.name}
-        </Typography>
+        <div className={props.classes.row}>
+          <IconButton color="primary" onClick={props.onEdit}>
+            <EditIcon />
+          </IconButton>
+          <Typography variant="h5" className={props.classes.title}>
+            {props.smartlist.name}
+          </Typography>
+        </div>
         <Divider className={props.classes.divider} />
         <TypographyMultiline>{props.smartlist.description}</TypographyMultiline>
         <Divider className={props.classes.divider} />
@@ -76,6 +84,11 @@ const styles = (theme) => ({
     marginTop: theme.spacing.unit * 2,
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
+  },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
     alignItems: 'center',
   },
 });

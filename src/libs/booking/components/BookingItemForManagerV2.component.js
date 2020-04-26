@@ -301,6 +301,13 @@ export class BookingItemForManager extends Component<Props, State> {
 
   getIsFirstIndicator = () => (this.props.booking.first_in_company ? '★' : '');
 
+  getHasNoteIndicator = () =>
+    this.props.member &&
+    this.props.member.notes &&
+    this.props.member.notes.filter((n) => n.highlighted).length
+      ? 'ⓘ'
+      : '';
+
   getAvatar = () => {
     const { heading, classes, member } = this.props;
     if (!member) {
@@ -438,6 +445,9 @@ export class BookingItemForManager extends Component<Props, State> {
                     <Typography inline>{this.getHeading()}</Typography>
                     <Typography inline color="primary">
                       &nbsp;{this.getIsFirstIndicator()}
+                    </Typography>
+                    <Typography inline color="primary">
+                      &nbsp;{this.getHasNoteIndicator()}
                     </Typography>
                     <Typography inline>
                       {getBookingStatusCode(t, booking)}

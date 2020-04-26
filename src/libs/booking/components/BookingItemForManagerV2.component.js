@@ -447,7 +447,7 @@ export class BookingItemForManager extends Component<Props, State> {
                       &nbsp;{this.getIsFirstIndicator()}
                     </Typography>
                     <Typography inline color="primary">
-                      &nbsp;{this.getHasNoteIndicator()}
+                      <strong>&nbsp;{this.getHasNoteIndicator()}</strong>
                     </Typography>
                     <Typography inline>
                       {getBookingStatusCode(t, booking)}

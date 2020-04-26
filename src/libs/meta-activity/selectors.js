@@ -2,6 +2,7 @@
 import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 import pickBy from 'lodash/pickBy';
+import memoize from 'memoize-one';
 import type { State } from '../../state/types';
 import type { MetaActivity } from './types';
 
@@ -30,6 +31,16 @@ export const getEnabledMetaActivities = createSelector(
     Immutable(Object.values(metactivities)).filter(
       (ma) => !!ma.customer_enabled,
     ),
+);
+
+export const getActivitiesByIdList = memoize((state, idList) =>
+  createSelector(
+    getMetaActivitiesDict,
+    (metactivities) =>
+      Immutable(Object.values(metactivities)).filter((ma) =>
+        idList.includes(ma.id),
+      ),
+  )(state),
 );
 
 export const getPageMetaActivities = createSelector(

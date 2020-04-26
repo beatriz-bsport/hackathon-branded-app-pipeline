@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { compose, withProps } from 'recompose';
+import uniqBy from 'lodash/uniqBy';
 
 import { goBack } from 'connected-react-router';
 import { connect } from 'react-redux';
@@ -16,12 +17,15 @@ import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import PaymentPackForm from '../../libs/payment-packs/components/PaymentPackForm.component';
 import paymentPackSelectors from '../../libs/payment-packs/selectors';
+import { fetchOne as fetchPaymentPack } from '../../libs/payment-packs/actions';
 import {
   getEnabledMetaActivities,
   getEnabledWorkshops,
+  getActivitiesByIdList,
 } from '../../libs/meta-activity/selectors';
 import {
   fetchAllActivities,
+  fetchMetaActivityBulk,
   fetchAll as fetchWorkhops,
 } from '../../libs/meta-activity/actions';
 import { fetchEstablishments } from '../../libs/establishment/actions';
@@ -49,6 +53,11 @@ type Props = {
 
 export class PaymentPackFormPage extends React.Component<Props> {
   componentDidMount() {
+    this.props.fetchPaymentPack(this.props.id, {
+      onSuccess: (pp) => {
+        this.props.fetchMetaActivityBulk(pp.metaActivities);
+      },
+    });
     this.props.fetchEstablishments();
     this.props.fetchAllActivities();
     this.props.fetchWorkhops();
@@ -106,23 +115,32 @@ export default compose(
   withStyles(styles),
   mapRouterParamsToProps({ id: 'paymentPackId:number' }),
   connect(
-    (state, { paymentPackId }) => ({
-      initial:
-        paymentPackId !== null
-          ? paymentPackSelectors.get(state, paymentPackId)
-          : null,
-      categories: state.category.SCTs,
-      metaActivities: [
-        ...getEnabledMetaActivities(state),
-        ...getEnabledWorkshops(state),
-      ],
-      establishments: getAllEstablishments(state),
-      loading: state.paymentPack.createOrUpdatePending,
-    }),
+    (state, { paymentPackId }) => {
+      const paymentPackInitial = paymentPackSelectors.get(state, paymentPackId);
+      return {
+        initial: paymentPackId !== null ? paymentPackInitial : null,
+        categories: state.category.SCTs,
+        metaActivities: uniqBy(
+          [
+            ...getEnabledMetaActivities(state),
+            ...getEnabledWorkshops(state),
+            ...getActivitiesByIdList(
+              state,
+              (paymentPackInitial && paymentPackInitial.metaActivities) || [],
+            ),
+          ],
+          'id',
+        ),
+        establishments: getAllEstablishments(state),
+        loading: state.paymentPack.createOrUpdatePending,
+      };
+    },
     {
       fetchAllPaymentPacks: fetchAllPaymentPacksAction,
       fetchEstablishments,
       fetchAllActivities,
+      fetchMetaActivityBulk,
+      fetchPaymentPack,
       fetchWorkhops,
       createOrUpdate: createOrUpdatePaymentPack,
       previousPage: goBack,

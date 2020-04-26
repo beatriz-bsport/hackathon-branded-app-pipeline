@@ -93,16 +93,22 @@ export const fetchOneAction = {
   success: createAction('PAYMENT_PACK/DETAIL/SUCCESS'),
 };
 
-export function fetchOne(id: number): ThunkAction {
+export function fetchOne(id: number, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(fetchOneAction.isLoading(true));
     dispatch(fetchOneAction.error(null));
     try {
       const response = await fetchOneAPI(id);
       dispatch(fetchOneAction.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
     } catch (err) {
       console.error(err);
       dispatch(fetchOneAction.error(id));
+      if (options && options.onError) {
+        options.onError(err);
+      }
     }
     dispatch(fetchOneAction.isLoading(false));
   };

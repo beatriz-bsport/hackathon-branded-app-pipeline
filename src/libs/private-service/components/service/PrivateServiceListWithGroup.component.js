@@ -80,7 +80,11 @@ export const PrivateServiceListWithGroup = (props: Props) => {
           />
         ))}
       </Paper>
-      <Menu anchorEl={props.menuOpen[0]} open={!!props.menuOpen[0]}>
+      <Menu
+        onClose={() => props.setMenuOpen([null, null])}
+        anchorEl={props.menuOpen[0]}
+        open={!!props.menuOpen[0]}
+      >
         <div className={classes.actionButtonGroup}>
           <MenuItem
             onClick={() => {

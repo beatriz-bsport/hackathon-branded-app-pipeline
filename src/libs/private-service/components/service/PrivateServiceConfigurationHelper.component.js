@@ -85,9 +85,23 @@ const ResourceConfigurationChecker = withStyles(styles)(
             {props.t('service.configuration.hasFutureSlot')}
           </Typography>
         ) : null}
+        {props.capacity ? (
+          <Typography align="left" variant="caption" color="textSecondary">
+            {props.t('service.configuration.totalCapacity', {
+              capacity: props.capacity,
+            })}
+          </Typography>
+        ) : null}
         {!props.loading && !props.exists ? (
           <Typography align="left" variant="caption" color="error">
             {props.t('service.configuration.noFutureSlot', {
+              resourceName: props.name,
+            })}
+          </Typography>
+        ) : null}
+        {props.capacityNotConfigured ? (
+          <Typography align="left" variant="subtitle2" color="error">
+            {props.t('service.configuration.noCapacity', {
               resourceName: props.name,
             })}
           </Typography>
@@ -167,6 +181,8 @@ export const PrivateServiceConfigurationHelper = (props: Props) => {
               onClick={() => props.goToEstablishmentCalendar(establishment.id)}
               loading={l}
               exists={e}
+              capacityNotConfigured={establishment.capacity === 0}
+              capacity={establishment.capacity}
               key={`${establishment.id}`}
             />
           );

@@ -5,11 +5,12 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { compose, withState, withHandlers } from 'recompose';
+import { compose, withState, withHandlers, withStateHandlers } from 'recompose';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import PrivateServiceGroupFormDialog from '../../libs/private-service/components/service-group/PrivateServiceGroupFormDialog.component';
 
 import PrivateServiceFormDialog from '../../libs/private-service/components/service/PrivateServiceFormDialog.component';
 import PrivateServiceDetailPage from '../../libs/private-service/components/service/PrivateServiceDetailPage.component';
@@ -17,6 +18,7 @@ import PrivateServiceDetailPage from '../../libs/private-service/components/serv
 import {
   getPrivateServiceById,
   getPrivateServices,
+  getPrivateServiceGroupList,
 } from '../../libs/private-service/selectors/private-service';
 import { getResourceSlotsExistState } from '../../libs/private-service/selectors/availability-slot';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
@@ -40,6 +42,8 @@ import {
   deletePrivateSlot as deletePrivateSlotAction,
   deletePrivateService,
   checkExistsAvailabilitySlots,
+  createOrUpdateServiceGroup,
+  fetchPrivateServiceGroupList,
 } from '../../libs/private-service/actions';
 import type { PrivateService } from '../../libs/private-service/types';
 
@@ -84,6 +88,7 @@ type Props = {
 export class PrivateServiceList extends React.Component<Props> {
   componentDidMount() {
     this.fetchData();
+    this.props.fetchPrivateServiceGroupList();
   }
 
   fetchData = () => {
@@ -155,8 +160,17 @@ export class PrivateServiceList extends React.Component<Props> {
             onSubmit={this.createOrUpdatePrivateService}
             coaches={this.props.availableCoaches}
             establishments={this.props.availableEstablishments}
+            serviceGroupList={this.props.serviceGroupList}
+            onAddServiceGroup={this.props.onOpenServiceGroupCreateForm}
           />
         ) : null}
+        {this.props.serviceGroupCreateOpen && (
+          <PrivateServiceGroupFormDialog
+            open
+            onSubmit={this.props.createOrUpdateServiceGroup}
+            onCancel={this.props.closeServiceGroupForm}
+          />
+        )}
         <BottomActionButtons
           onEdit={() => {
             this.props.fetchAssociatedCoachesList();
@@ -184,6 +198,7 @@ export default compose(
       allCoaches: getAllCoaches(state),
       allEstablishments: getAllEstablishmentsWithAssociatedId(state),
       availableCoaches: getActiveCoaches(state),
+      serviceGroupList: getPrivateServiceGroupList(state),
       availableEstablishments: getAllEstablishmentsWithAssociatedId(state),
       getResourceSlotsExistState: (resourceDatatype, resourceIdentifier) =>
         getResourceSlotsExistState(
@@ -194,6 +209,7 @@ export default compose(
     }),
     {
       fetchAllPrivateServices,
+      createOrUpdateServiceGroup,
       fetchPrivateService: fetchPrivateServiceAction,
       fetchAssociatedCoachesList,
       createOrUpdatePrivateService,
@@ -202,6 +218,7 @@ export default compose(
 
       fetchEstablishments,
       fetchAssociatedEstablishments,
+      fetchPrivateServiceGroupList,
 
       createOrUpdatePrivateSlot,
       deletePrivateSlot: deletePrivateSlotAction,
@@ -225,4 +242,30 @@ export default compose(
     },
   }),
   withState('openEditForm', 'setOpenEditForm', null),
+  withStateHandlers(
+    { serviceGroupToEdit: null, serviceGroupCreateOpen: false },
+    {
+      closeServiceGroupForm: () => () => ({
+        serviceGroupCreateOpen: false,
+      }),
+      onOpenServiceGroupCreateForm: () => () => ({
+        serviceGroupCreateOpen: true,
+      }),
+    },
+  ),
+  withHandlers({
+    createOrUpdateServiceGroup: ({
+      createOrUpdateServiceGroup,
+      closeServiceGroupForm,
+      fetchPrivateServiceGroupList,
+    }) => (data, options) => {
+      createOrUpdateServiceGroup(data, {
+        onSuccess: (g) => {
+          closeServiceGroupForm();
+          if (options && options.onSuccess) options.onSuccess(g);
+          fetchPrivateServiceGroupList();
+        },
+      });
+    },
+  }),
 )(PrivateServiceList);

@@ -9,6 +9,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Paper from '@material-ui/core/Paper';
 import IconDone from '@material-ui/icons/Done';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 
@@ -162,6 +163,7 @@ export class LocationInput extends Component<Props, State> {
               value={address}
               type="text"
               onChange={this.change}
+              required={this.props.required}
               fullWidth
             />
           </Grid>
@@ -185,20 +187,22 @@ export class LocationInput extends Component<Props, State> {
           ) : null}
         </Grid>
         <List dense>
-          {candidates
-            ? candidates.map((c) => (
-                // eslint-disable-next-line
-                <ListItem
-                  button
-                  key={c.formatted_address}
-                  onMouseOver={() => this.tempZoomOn()}
-                  onClick={() => this.selectCandidate(c)}
-                >
-                  <ListItemText>{c.formatted_address}</ListItemText>
-                </ListItem>
-                // eslint-disable-next-line
-              ))
-            : null}
+          <Paper>
+            {candidates
+              ? candidates.map((c) => (
+                  // eslint-disable-next-line
+                  <ListItem
+                    button
+                    key={c.formatted_address}
+                    onMouseOver={() => this.tempZoomOn()}
+                    onClick={() => this.selectCandidate(c)}
+                  >
+                    <ListItemText>{c.formatted_address}</ListItemText>
+                  </ListItem>
+                  // eslint-disable-next-line
+                ))
+              : null}
+          </Paper>
         </List>
       </div>
     );

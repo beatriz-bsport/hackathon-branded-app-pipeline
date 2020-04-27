@@ -1,4 +1,22 @@
 export default {
+  serviceGroup: {
+    delete: 'Delete',
+    edit: 'Edit',
+    isEmpty: 'No appointment type associated to this category',
+    selector: {
+      placeholder: 'Category',
+    },
+    form: {
+      title: 'Category',
+      name: {
+        label: 'Name',
+      },
+      actions: {
+        cancel: 'Cancel',
+        submit: 'Save',
+      },
+    },
+  },
   availabilitySlot: {
     form: {
       resourceSelector: {

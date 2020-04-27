@@ -589,7 +589,7 @@ export const RadioGroupField = (props: RadioFieldProps) => {
         >
           <FormLabel>{label}</FormLabel>
           {choices.map(({ value, label: l, helperText }) => (
-            <div>
+            <div key={value}>
               <FormControlLabel
                 key={value}
                 value={value}

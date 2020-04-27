@@ -17,6 +17,7 @@ import {
   fetchPrivateService as fetchPrivateServiceAPI,
   switchServiceHasOwnAvailabilitySlots as switchServiceHasOwnAvailabilitySlotsAPI,
   createOrUpdatePrivateService as createOrUpdatePrivateServiceAPI,
+  deleteServiceGroup as deleteServiceGroupAPI,
   deletePrivateService as deletePrivateServiceAPI,
   fetchPrivateServiceResourceData as fetchPrivateServiceResourceDataAPI,
   updateResourceConfiguration as updateResourceConfigurationAPI,
@@ -25,6 +26,9 @@ import {
   deletePrivateCoach as deletePrivateCoachAPI,
   createPrivateEstablishment as createPrivateEstablishmentAPI,
   deletePrivateEstablishment as deletePrivateEstablishmentAPI,
+  // service-group
+  fetchServiceGroupList as fetchServiceGroupListAPI,
+  createOrUpdateServiceGroup as createOrUpdateServiceGroupAPI,
   // private-slot
   fetchPrivateSlotList as fetchPrivateSlotListAPI,
   fetchAllPrivateSlots as fetchAllPrivateSlotsAPI,
@@ -425,6 +429,31 @@ export function createOrUpdatePrivateService(
       if (options && options.onError) options.onError();
     }
     dispatch(privateServiceCreateOrUpdateActions.isLoading(false));
+  };
+}
+export const serviceGroupDeleteActions = {
+  error: createAction('PRIVATE_SERVICE/DELETE/ERROR'),
+  isLoading: createAction('PRIVATE_SERVICE/DELETE/IS_LOADING'),
+  success: createAction('PRIVATE_SERVICE/DELETE/SUCCESS'),
+};
+
+export function deleteServiceGroup(
+  id: number,
+  options: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(serviceGroupDeleteActions.isLoading(true));
+    dispatch(serviceGroupDeleteActions.error(null));
+    try {
+      await deleteServiceGroupAPI(id);
+      dispatch(serviceGroupDeleteActions.success(id));
+      if (options && options.onSuccess) options.onSuccess(id);
+    } catch (err) {
+      console.error(err);
+      dispatch(serviceGroupDeleteActions.error(null));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(serviceGroupDeleteActions.isLoading(false));
   };
 }
 
@@ -875,6 +904,60 @@ export function fetchPrivatePassList() {
       dispatch(privatePassListActions.error(err));
     }
     dispatch(privatePassListActions.isLoading(false));
+  };
+}
+
+export const serviceGroupListActions = {
+  error: createAction('SERVICE_GROUP/LIST/ERROR'),
+  isLoading: createAction('SERVICE_GROUP/LIST/IS_LOADING'),
+  success: createAction('SERVICE_GROUP/LIST/SUCCESS'),
+};
+
+export function fetchPrivateServiceGroupList(options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(serviceGroupListActions.isLoading(true));
+    dispatch(serviceGroupListActions.error(null));
+    try {
+      const response = await fetchServiceGroupListAPI({ mine: true });
+      dispatch(serviceGroupListActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(serviceGroupListActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(serviceGroupListActions.isLoading(false));
+  };
+}
+
+export const serviceGroupCreateOrUpdateActions = {
+  error: createAction('SERVICE_GROUP/CREATE_OR_UPDATE/ERROR'),
+  isLoading: createAction('SERVICE_GROUP/CREATE_OR_UPDATE/IS_LOADING'),
+  success: createAction('SERVICE_GROUP/CREATE_OR_UPDATE/SUCCESS'),
+};
+
+export function createOrUpdateServiceGroup(data: any, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(serviceGroupCreateOrUpdateActions.isLoading(true));
+    dispatch(serviceGroupCreateOrUpdateActions.error(null));
+    try {
+      const response = await createOrUpdateServiceGroupAPI(data);
+      dispatch(serviceGroupCreateOrUpdateActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(serviceGroupCreateOrUpdateActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(serviceGroupCreateOrUpdateActions.isLoading(false));
   };
 }
 

@@ -66,6 +66,15 @@ export const getPrivateServices: (
   },
 );
 
+const _getServiceGroupIdList = (state) =>
+  state.privateService.serviceGroup.allIds;
+const _getServiceGroupData = (state) => state.privateService.serviceGroup.byId;
+
+export const getPrivateServiceGroupList = createSelector(
+  [_getServiceGroupData, _getServiceGroupIdList],
+  (data, ids) => ids.map((id) => data[id]),
+);
+
 export const getAvailablePrivateServices: (
   state: State,
 ) => Array<PrivateServiceWithRelatedFields> = createSelector(
@@ -81,6 +90,22 @@ export const getAvailablePrivateServices: (
       })),
 );
 
+export const getAvailablePrivateServicesWithoutGroup = createSelector(
+  getAvailablePrivateServices,
+  (services) => services.filter((s) => !s.private_service_group),
+);
+
+export const getPrivateServiceListByGroup = createSelector(
+  [getPrivateServiceGroupList, getAvailablePrivateServices],
+  (groupList, services) => {
+    return groupList.map((g) => ({
+      ...g,
+      private_services: services.filter((s) =>
+        g.private_services.includes(s.id),
+      ),
+    }));
+  },
+);
 export const getPrivateServiceById = (state, id) => {
   const ps = state.privateService.privateService.byId[id];
   if (!ps) return null;

@@ -4,22 +4,27 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import React from 'react';
 
-import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { compose, withProps, withState } from 'recompose';
+import { compose, withState, withStateHandlers, withHandlers } from 'recompose';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import PrivateServiceFormDialog from '../../libs/private-service/components/service/PrivateServiceFormDialog.component';
-import PrivateServiceListItem from '../../libs/private-service/components/service/PrivateServiceListItem.component';
+import PrivateServiceListWithGroup from '../../libs/private-service/components/service/PrivateServiceListWithGroup.component';
+import PrivateServiceGroupFormDialog from '../../libs/private-service/components/service-group/PrivateServiceGroupFormDialog.component';
 
-import { getAvailablePrivateServices } from '../../libs/private-service/selectors/private-service';
+import {
+  getAvailablePrivateServicesWithoutGroup,
+  getPrivateServiceListByGroup,
+  getPrivateServiceById,
+  getPrivateServiceGroupList,
+} from '../../libs/private-service/selectors/private-service';
 
 import { getAllEstablishmentsWithAssociatedId } from '../../libs/establishment/selectors';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
@@ -30,8 +35,11 @@ import {
 } from '../../libs/establishment/actions';
 import {
   fetchAllPrivateServices,
+  fetchPrivateServiceGroupList,
   fetchPrivateService,
   createOrUpdatePrivateService,
+  deleteServiceGroup,
+  createOrUpdateServiceGroup,
   deletePrivateService,
 } from '../../libs/private-service/actions';
 
@@ -66,6 +74,7 @@ type Props = {
 export class PrivateServiceList extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchAllPrivateServices();
+    this.props.fetchPrivateServiceGroupList();
     this.props.fetchAssociatedCoachesList();
     this.props.fetchEstablishments();
     this.props.fetchAssociatedEstablishments();
@@ -93,20 +102,29 @@ export class PrivateServiceList extends React.Component<Props> {
     return (
       <div>
         {this.props.loading ? <LinearProgress /> : null}
-        <Paper>
-          {this.props.privateServices.map((ps) => (
-            <PrivateServiceListItem
-              key={ps.id}
-              privateService={ps}
-              selected={
-                selectedPrivateService && ps.id === selectedPrivateService.id
-              }
-              onClick={this.props.goToPrivateService}
-              onEdit={() => this.props.setOpenEditForm(ps)}
-              onDelete={() => this.props.deletePrivateService(ps.id)}
-            />
-          ))}
-        </Paper>
+        <PrivateServiceListWithGroup
+          privateServiceAvailableByGroup={
+            this.props.privateServiceAvailableByGroup
+          }
+          openServiceGroupToEdit={this.props.openServiceGroupToEdit}
+          deleteServiceGroup={this.props.deleteServiceGroup}
+          goToPrivateService={this.props.goToPrivateService}
+          setOpenEditForm={this.props.setOpenEditForm}
+          deletePrivateService={this.props.deletePrivateService}
+          selectedPrivateService={this.props.selectedPrivateService}
+          privateServiceAvailableWithoutGroup={
+            this.props.privateServiceAvailableWithoutGroup
+          }
+        />
+        {(this.props.serviceGroupToEdit ||
+          this.props.serviceGroupCreateOpen) && (
+          <PrivateServiceGroupFormDialog
+            open
+            initial={this.props.serviceGroupToEdit}
+            onSubmit={this.props.createOrUpdateServiceGroup}
+            onCancel={this.props.closeServiceGroupForm}
+          />
+        )}
         {this.props.openEditForm || this.props.openCreateForm ? (
           <PrivateServiceFormDialog
             initial={this.props.openEditForm}
@@ -115,6 +133,8 @@ export class PrivateServiceList extends React.Component<Props> {
             onSubmit={this.createOrUpdatePrivateService}
             coaches={this.props.availableCoaches}
             establishments={this.props.availableEstablishments}
+            serviceGroupList={this.props.serviceGroupList}
+            onAddServiceGroup={this.props.onOpenServiceGroupCreateForm}
           />
         ) : null}
         <Fab
@@ -135,6 +155,13 @@ const styles = (theme) => ({
   leftIcon: {
     marginRight: theme.spacing.unit,
   },
+  titleRow: {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   addButton: {
     position: 'fixed',
     bottom: theme.spacing.unit * 2,
@@ -146,6 +173,19 @@ const styles = (theme) => ({
       paddingRight: theme.spacing.unit * 2,
     },
   },
+  serviceListPaperGroup: {
+    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 3,
+  },
+  groupIsEmpty: {
+    margin: theme.spacing.unit * 2,
+  },
+  rowIsEmpty: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    margin: theme.spacing.unit,
+  },
 });
 
 export default compose(
@@ -154,22 +194,30 @@ export default compose(
   withNamespaces(['privateService']),
   withTitle(({ t }) => t('pageTitles.serviceList')),
   connect(
-    (state) => ({
-      privateServices: getAvailablePrivateServices(state),
+    (state, { privateServiceId }) => ({
+      privateServiceAvailableWithoutGroup: getAvailablePrivateServicesWithoutGroup(
+        state,
+      ),
+      serviceGroupList: getPrivateServiceGroupList(state),
       loading:
         state.privateService.privateService.loading ||
         state.establishment.loading ||
         state.coach.loading,
       availableCoaches: getActiveCoaches(state),
       availableEstablishments: getAllEstablishmentsWithAssociatedId(state),
+      privateServiceAvailableByGroup: getPrivateServiceListByGroup(state),
+      selectedPrivateService: getPrivateServiceById(state, privateServiceId),
     }),
     {
       fetchAllPrivateServices,
+      fetchPrivateServiceGroupList,
       fetchPrivateService,
       fetchAssociatedCoachesList,
+      createOrUpdateServiceGroup,
       fetchEstablishments,
       fetchAssociatedEstablishments,
       createOrUpdatePrivateService,
+      deleteServiceGroup,
       goToPrivateService: (id) =>
         push(`/private-service/service/${id}/general`),
       deletePrivateService,
@@ -177,9 +225,46 @@ export default compose(
   ),
   withState('openCreateForm', 'setOpenCreateForm', false),
   withState('openEditForm', 'setOpenEditForm', null),
-  withProps(({ privateServiceId, privateServices }) => ({
-    selectedPrivateService: privateServices.find(
-      (ps) => ps.id === privateServiceId,
-    ),
-  })),
+  withStateHandlers(
+    { serviceGroupToEdit: null, serviceGroupCreateOpen: false },
+    {
+      closeServiceGroupForm: () => () => ({
+        serviceGroupToEdit: null,
+        serviceGroupCreateOpen: false,
+      }),
+      openServiceGroupToEdit: () => (serviceGroupToEdit) => ({
+        serviceGroupToEdit,
+      }),
+      onOpenServiceGroupCreateForm: () => () => ({
+        serviceGroupToEdit: null,
+        serviceGroupCreateOpen: true,
+      }),
+    },
+  ),
+  withHandlers({
+    deleteServiceGroup: ({ deleteServiceGroup, fetchAllPrivateServices }) => (
+      id,
+      options,
+    ) => {
+      deleteServiceGroup(id, {
+        onSuccess: (...args) => {
+          if (options && options.onSuccess) options.onSuccess(...args);
+          fetchAllPrivateServices();
+        },
+      });
+    },
+    createOrUpdateServiceGroup: ({
+      createOrUpdateServiceGroup,
+      closeServiceGroupForm,
+      fetchPrivateServiceGroupList,
+    }) => (data, options) => {
+      createOrUpdateServiceGroup(data, {
+        onSuccess: (g) => {
+          closeServiceGroupForm();
+          if (options && options.onSuccess) options.onSuccess(g);
+          fetchPrivateServiceGroupList();
+        },
+      });
+    },
+  }),
 )(PrivateServiceList);

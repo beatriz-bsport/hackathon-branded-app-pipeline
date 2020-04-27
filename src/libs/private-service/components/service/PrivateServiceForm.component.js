@@ -9,6 +9,8 @@ import { withFormik, FieldArray } from 'formik';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Slide from '@material-ui/core/Collapse';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 import WarningIcon from '@material-ui/icons/Warning';
 import Typography from '@material-ui/core/Typography';
 
@@ -20,6 +22,7 @@ import EstablishmentListItem from '../../../establishment/components/Establishme
 import EstablishmentSelector from '../../../establishment/components/EstablishmentSelector.component';
 import CoachSelector from '../../../associated-coach/components/CoachSelector.component';
 import CoachListItemBasic from '../../../associated-coach/components/CoachListItemBasic.component';
+import PrivateServiceGroupField from '../service-group/PrivateServiceGroupField.component';
 
 import {
   TextField,
@@ -35,6 +38,7 @@ type Props = {
   values: PrivateServiceData,
   establishments: Array<Establishment>,
   coaches: Array<Coach>,
+  onAddServiceGroup: ?() => void,
 };
 
 const IS_HOME_SERVICE = '0';
@@ -53,6 +57,24 @@ export const PrivateServiceForm = (props: Props) => {
         label={t('service.form.name.label')}
         placeholder={t('service.form.name.placeholder')}
       />
+      <div className={classes.row}>
+        <div style={{ display: 'flex', flex: 1 }}>
+          <PrivateServiceGroupField
+            serviceGroupList={props.serviceGroupList}
+            fullWidth
+            name="private_service_group"
+          />
+        </div>
+        {!!props.onAddServiceGroup && (
+          <Fab
+            variant="contained"
+            color="primary"
+            onClick={props.onAddServiceGroup}
+          >
+            <AddIcon />
+          </Fab>
+        )}
+      </div>
       <ColorField
         label={t('service.form.color')}
         name="color"

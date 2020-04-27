@@ -144,6 +144,30 @@ export const fetchAllPrivateSlots = (params: any) => {
   );
 };
 
+export const fetchServiceGroupList = (params: any) => {
+  return getAuth(
+    `${API_V1_URI}/private_service/private_service_group/${buildUrlParams(
+      params,
+    )}`,
+  );
+};
+
+export const deleteServiceGroup = (id: number) => {
+  return deleteAuth(
+    `${API_V1_URI}/private_service/private_service_group/${id}/`,
+  );
+};
+
+export const createOrUpdateServiceGroup = (data: any) => {
+  if (data.id) {
+    return patchAuth(
+      `${API_V1_URI}/private_service/private_service_group/${data.id}/`,
+      data,
+    );
+  }
+  return postAuth(`${API_V1_URI}/private_service/private_service_group/`, data);
+};
+
 export const fetchPrivateSlotRetrieve = (
   privateServiceId: number,
   privateSlotId: number,

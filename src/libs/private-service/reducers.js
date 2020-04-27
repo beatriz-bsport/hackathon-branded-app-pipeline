@@ -29,6 +29,9 @@ import {
   privateConsumerPassListActions,
   privateConsumerPassRetrieveActions,
   updateResourceConfigurationActions,
+  serviceGroupListActions,
+  serviceGroupCreateOrUpdateActions,
+  serviceGroupDeleteActions,
 } from './actions';
 
 import { getResourceSlotsExistState } from './selectors/availability-slot';
@@ -61,6 +64,20 @@ const initialState: PrivateServiceState = Immutable({
     marketplaceIds: [],
     loading: false,
     error: null,
+    createOrUpdate: {
+      loading: false,
+      error: null,
+    },
+  },
+  serviceGroup: {
+    byId: {},
+    allIds: [],
+    loading: false,
+    error: null,
+    delete: {
+      loading: false,
+      error: null,
+    },
     createOrUpdate: {
       loading: false,
       error: null,
@@ -233,6 +250,52 @@ export default handleActions(
         ['availabilitySlot', 'createOrUpdate', 'error'],
         payload,
       );
+    },
+
+    [serviceGroupListActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['serviceGroup', 'loading'], payload);
+    },
+    [serviceGroupListActions.error]: (state, { payload }) => {
+      return state.setIn(['serviceGroup', 'error'], payload);
+    },
+    [serviceGroupCreateOrUpdateActions.isLoading]: (state, { payload }) => {
+      return state.setIn(
+        ['serviceGroup', 'createOrUpdate', 'loading'],
+        payload,
+      );
+    },
+    [serviceGroupCreateOrUpdateActions.error]: (state, { payload }) => {
+      return state.setIn(['serviceGroup', 'createOrUpdate', 'error'], payload);
+    },
+    [serviceGroupCreateOrUpdateActions.success]: (state, { payload }) => {
+      return state.setIn(['serviceGroup', 'byId', payload.id], payload);
+    },
+    [serviceGroupDeleteActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['serviceGroup', 'delete', 'loading'], payload);
+    },
+    [serviceGroupDeleteActions.error]: (state, { payload }) => {
+      return state.setIn(['serviceGroup', 'delete', 'error'], payload);
+    },
+    [serviceGroupDeleteActions.success]: (state, { payload }) => {
+      return state.setIn(
+        ['serviceGroup', 'allIds'],
+        state.serviceGroup.allIds.filter((id) => id !== payload),
+      );
+    },
+    [serviceGroupListActions.success]: (state, { payload }) => {
+      return state
+        .merge(
+          {
+            serviceGroup: {
+              byId: payload.reduce((acc, v) => {
+                acc[v.id] = v;
+                return acc;
+              }, {}),
+            },
+          },
+          { deep: true },
+        )
+        .setIn(['serviceGroup', 'allIds'], payload.map((g) => g.id));
     },
 
     [privateBookingPreviewActions.error]: (state, { payload }) => {

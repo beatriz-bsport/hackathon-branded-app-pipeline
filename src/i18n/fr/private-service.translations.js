@@ -1,4 +1,22 @@
 export default {
+  serviceGroup: {
+    delete: 'Supprimer',
+    edit: 'Modifier',
+    isEmpty: 'Aucun RDV associé à cette catégorie',
+    selector: {
+      placeholder: 'Catégorie',
+    },
+    form: {
+      title: 'Catégorie',
+      name: {
+        label: 'Nom',
+      },
+      actions: {
+        cancel: 'Annuler',
+        submit: 'Enregistrer',
+      },
+    },
+  },
   availabilitySlot: {
     form: {
       resourceSelector: {

@@ -8,7 +8,9 @@ export default {
   establishment: 'Établissement ',
   capacity: {
     label: 'Capacité de la salle',
-    helperText: 'Utilisé uniquement pour calculer la disponibilité',
+    placeholder: null,
+    helperText:
+      'Utilisé uniquement pour calculer la disponibilité pour les rendez-vous',
   },
   baseEstablishment: 'Habituel',
   overrider: 'Remplacement',

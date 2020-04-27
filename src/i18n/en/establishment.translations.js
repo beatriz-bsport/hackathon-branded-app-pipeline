@@ -15,10 +15,16 @@ export default {
     imageUploaderRequireEditMessage:
       'Once you have created your establishment you will be able to add additional images.',
   },
+  capacity: {
+    label: 'Location max capacity',
+    placeholder: null,
+    helperText:
+      'Used only to calculate the availability of the location for appointments',
+  },
   practical_info: {
-    label: "Access information",
+    label: 'Access information',
     placeholder: 'Code 1234 first door on the left',
-    helperText: "This information will be displayed after the booking",
+    helperText: 'This information will be displayed after the booking',
   },
   form: {
     new: {

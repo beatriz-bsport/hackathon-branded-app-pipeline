@@ -44,7 +44,7 @@ type State = {
 };
 
 export class EstablishmentForm extends Component<Props, State> {
-  state = {};
+  state = { capacity: 30 };
 
   constructor(props: Props) {
     super(props);
@@ -194,6 +194,7 @@ export class EstablishmentForm extends Component<Props, State> {
               <Grid item xs={12}>
                 <LocationInput
                   id="location"
+                  required
                   value={{
                     address: this.state.address,
                     location: this.state.location,

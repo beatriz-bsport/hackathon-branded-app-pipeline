@@ -329,6 +329,8 @@ export default {
       explainHasOwnAvailabilitySlots:
         'Cliquez sur le crayon pour limiter les réservations à certaines plages horaires',
       hasFutureSlot: 'Calendrier des disponibilités futures OK',
+      noCapacity: 'Location max capacity set to 0 !',
+      totalCapacity: 'Location max capacity: {{ capacity }}',
       noFutureSlot:
         "Vous n'avez configuré aucune disponibilité pour {{resourceName}} ! Cliquez ici.",
       title: 'Disponibilités horaires',

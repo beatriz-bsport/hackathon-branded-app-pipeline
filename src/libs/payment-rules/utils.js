@@ -23,7 +23,9 @@ export function computeSessionPayment(session) {
     session.rate.calculation_method === PAYMENT_RULE_CALCULATION_BOOKINGS
       ? +session.rate.base_price
       : (session.rate.base_percent *
-          session.sum_margin_value *
+          (session.rate.only_attendant
+            ? session.sum_margin_value_attendant
+            : session.sum_margin_value) *
           (session.rate.include_tax ? 1 : 1 / 1.2)) /
         100;
   return {

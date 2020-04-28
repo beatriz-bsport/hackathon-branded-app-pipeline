@@ -216,6 +216,9 @@ export default {
     },
   },
   bookerModule: {
+    address: {
+      label: 'Adresse',
+    },
     availableSlots: 'Créneaux disponibles',
     emptySlot: 'Aucune disponibilité',
     missingResource: {

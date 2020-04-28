@@ -24,7 +24,7 @@ import {
   fetchCompatiblePrivateConsumerPass as fetchCompatiblePrivateConsumerPassAction,
   registerPrivateBooking,
 } from '../actions';
-import { getPrivateServices } from '../selectors/private-service';
+import { getAvailablePrivateServices } from '../selectors/private-service';
 
 import { fetchAssociatedEstablishmentBulk } from '../../establishment/actions';
 import { fetchAssociatedCoachBulk } from '../../associated-coach/actions';
@@ -285,7 +285,7 @@ export default compose(
   withStyles(styles),
   connect(
     (state) => ({
-      private_services: getPrivateServices(state),
+      private_services: getAvailablePrivateServices(state),
       compatiblePassLoading:
         state.privateService.privatePass.loading ||
         state.privateService.privateConsumerPass.loading,

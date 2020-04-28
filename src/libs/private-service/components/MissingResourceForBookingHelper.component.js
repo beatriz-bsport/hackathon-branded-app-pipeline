@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { compose, withStateHandlers } from 'recompose';
+import { compose } from 'recompose';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import PeopleIcon from '@material-ui/icons/People';
@@ -19,14 +19,18 @@ type Props = {
   onChangeAddress: (string) => void,
 };
 export const MissingResourceForBookingHelper = (props: Props) => {
-  const { missingResources, t, classes, address, onChangeAddress } = props;
+  const { missingResources, t, classes, address } = props;
   return (
     <div>
       {missingResources.includes('address') ? (
         <TextField
           required
+          variant="outlined"
           value={address || ''}
-          onChange={(ev) => onChangeAddress(ev.target.value)}
+          fullWidth
+          className={classes.addressField}
+          multiline
+          onChange={(ev) => props.updateData({ address: ev.target.value })}
           label={t('bookerModule.address.label')}
         />
       ) : null}
@@ -73,15 +77,13 @@ const styles = (theme) => ({
   leftIcon: {
     marginRight: theme.spacing.unit,
   },
+  addressField: {
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit,
+  },
 });
 
 export default compose(
   withNamespaces(['privateService']),
   withStyles(styles),
-  withStateHandlers(
-    { address: '' },
-    {
-      onChangeAddress: ({ updateData }) => (address) => updateData({ address }),
-    },
-  ),
 )(MissingResourceForBookingHelper);

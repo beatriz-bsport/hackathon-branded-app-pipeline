@@ -197,6 +197,9 @@ export default {
     },
   },
   bookerModule: {
+    address: {
+      label: 'Address',
+    },
     availableSlots: 'Available slots',
     emptySlot: 'No slot available',
     missingResource: {

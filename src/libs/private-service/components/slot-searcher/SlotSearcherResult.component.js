@@ -59,6 +59,7 @@ const Slot = withStyles(stylesSlot)(
     <Button
       onClick={props.onDateClick}
       color="primary"
+      disabled={moment(props.date).isBefore(moment())}
       variant="contained"
       className={props.classes.slot}
     >

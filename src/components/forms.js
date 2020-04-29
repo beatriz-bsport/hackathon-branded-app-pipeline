@@ -135,7 +135,7 @@ export function PercentField(props) {
   return (
     <TextField
       InputProps={{
-        inputProps: { min: 0, step: 1, max: 100 },
+        inputProps: { min: 0, step: props.step || 1, max: 100 },
         endAdornment: <InputAdornment position="end">%</InputAdornment>,
       }}
       type="number"

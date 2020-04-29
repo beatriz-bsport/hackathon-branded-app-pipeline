@@ -70,6 +70,7 @@ export function PaymentRuleFields(props: Props) {
       PAYMENT_RULE_CALCULATION_MARGIN_VALUE ? (
         <React.Fragment>
           <PercentField
+            step={0.1}
             name="base_percent"
             label={t('base_percent')}
             required
@@ -205,11 +206,8 @@ const BonusSchema = Yup.object().shape({
 export const PaymentRuleFieldsSchema = Yup.object().shape({
   name: Yup.string().required(),
   calculation_method: Yup.string().required(),
-  base_price: Yup.number()
-    .integer()
-    .min(0),
+  base_price: Yup.number().min(0),
   base_percent: Yup.number()
-    .integer()
     .min(0)
     .max(100),
   only_attendant: Yup.boolean(),

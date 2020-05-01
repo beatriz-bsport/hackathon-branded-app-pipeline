@@ -126,6 +126,7 @@ export default {
       },
       nb_interval: {
         label: 'Nombre de mois',
+        helperText: 'Au minimum 2 mois',
       },
       recurrent_price: {
         label: 'Paiement mensuel',
@@ -186,7 +187,7 @@ export default {
     revertCurrentExplain:
       'Annuler la dernière facture enregistrée et bloquer la carte de cours',
     revertCurrentExplainHelper:
-      'Si le paiement est valide, un crédit sera créé. Si le paiement avait échoué, la dette sera annulée.',
+      'Si le paiement est valide, un crédit sera créé, vous pouvez le rembourser au client en entrant dans la facture et en cliquant "Rembourser". Si le paiement avait échoué, la dette sera annulée.',
     stopExplain:
       'Les prochains paiements seront annulés et les factures correspondantes seront supprimées. Si une réservation a été enregistrée avec un abonnement dont la facture a été annulée, elle sera également annulée.',
   },

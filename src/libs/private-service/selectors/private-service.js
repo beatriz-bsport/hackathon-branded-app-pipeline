@@ -33,7 +33,7 @@ export const _getPrivateServicesMarketplace: (
   state: State,
 ) => Array<PrivateService> = createSelector(
   [_getPrivateServicesMarketplaceListId, _getPrivateServicesById],
-  (list, data) => list.map((id) => data[id]),
+  (list, data) => list.map((id) => data[id]).filter((ps) => ps.available),
 );
 
 export const getPrivateService = (state: State, id: number) =>
@@ -182,7 +182,9 @@ export const getPrivateServicesForMarketplace: (
             ae.associatedestablishment_set.includes(e),
           ),
         ),
-        slots: ps.slots.map((s) => allSlotsDict[s]),
+        slots: ps.slots
+          .map((s) => allSlotsDict[s])
+          .filter((s) => !!s && s.available),
       })),
 );
 

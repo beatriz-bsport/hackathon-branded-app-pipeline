@@ -40,6 +40,7 @@ export function SubscriptionContractFields(props: Props) {
       <TextField
         name="nb_interval"
         label={t('contract.form.nb_interval.label')}
+        helperText={t('contract.form.nb_interval.helperText')}
         className={classes.field}
         required
         fullWidth

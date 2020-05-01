@@ -57,7 +57,7 @@ export default {
       nameLabel: 'Nom',
       freeThresholdLabel: 'Offert à partir de',
       freeThresholdHelper:
-        'Si le montant de la commande de la commande dépasse ce montant, les frais de livraison sont offerts',
+        'Si le montant de la commande dépasse ce montant, les frais de livraison sont offerts',
       onCancel: 'Annuler',
       onSubmit: 'Enregistrer',
     },

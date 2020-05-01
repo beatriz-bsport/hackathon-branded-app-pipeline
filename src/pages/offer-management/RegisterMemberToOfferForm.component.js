@@ -55,6 +55,12 @@ export class RegisterMemberToOfferForm extends PureComponent<Props> {
     this.props.fetchConsumerPackByOfferByMember(
       this.props.offerId,
       this.props.memberId,
+      {
+        onSuccess: (cppList) =>
+          this.props.fetchPaymentPackBulk(
+            cppList.map((cpp) => cpp.payment_pack),
+          ),
+      },
     );
     this.props.fetchNoncompatibleConsumerPackByOfferByMember(
       this.props.offerId,

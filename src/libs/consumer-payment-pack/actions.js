@@ -21,7 +21,11 @@ export const byOfferByMember = {
   success: createAction('CONSUMER_PACK/BY_OFFER_BY_MEMBER/SUCCESS'),
 };
 
-export function fetchByOfferByMember(offer: number, member: number) {
+export function fetchByOfferByMember(
+  offer: number,
+  member: number,
+  options: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(byOfferByMember.isLoading(true));
     dispatch(byOfferByMember.error(null));
@@ -29,8 +33,14 @@ export function fetchByOfferByMember(offer: number, member: number) {
     try {
       const response = await fetchByOfferByMemberAPI(offer, { member });
       dispatch(byOfferByMember.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
     } catch (error) {
       dispatch(byOfferByMember.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
     }
     dispatch(byOfferByMember.isLoading(false));
   };

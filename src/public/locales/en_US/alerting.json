@@ -1,23 +1,24 @@
 {
-  "alert_kind": [
-    null,
-    "Billing",
-    "Order"
-  ],
-  "list": {
-    "emptyAlerting": "No new notification to display.",
-    "title": "Notifications"
-  },
-  "newOrder": {
-    "explain": "Paid by <1>{{name}}</1> on the store.",
-    "price": "Amount: {{ price, price }}.",
-    "title": "Pending Order"
-  },
-  "showMore": "Show more",
-  "unevenInvoice": {
-    "explainUneven": "Invoice n°<1>{{uuid, uuid}}</1> is not even.",
-    "priceDue": "Amount due: {{ price_due, price }}.",
-    "pricePayed": "Amoount paid: {{price_payed, price}}.",
-    "title": "Uneven invoice"
-  }
+    "alert_kind": [
+        null,
+        "Billing",
+        "Order",
+        "Task"
+    ],
+    "list": {
+        "emptyAlerting": "No new notification to display.",
+        "title": "Notifications"
+    },
+    "newOrder": {
+        "explain": "Paid by <1>{{name}}</1> on the store.",
+        "price": "Amount: {{ price, price }}.",
+        "title": "Pending Order"
+    },
+    "showMore": "Show more",
+    "unevenInvoice": {
+        "explainUneven": "Invoice n°<1>{{uuid, uuid}}</1> is not even.",
+        "priceDue": "Amount due: {{ price_due, price }}.",
+        "pricePayed": "Amoount paid: {{price_payed, price}}.",
+        "title": "Uneven invoice"
+    }
 }

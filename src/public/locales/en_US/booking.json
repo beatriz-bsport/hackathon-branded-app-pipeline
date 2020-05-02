@@ -1,3 +1,50 @@
 {
-    "attend": "Attend"
+  "attend": "Attend",
+  "bookingModule": {
+    "offer": {
+      "isDisabled": "Unfortunately the class has been dismissed",
+      "isTooLate": "Bookings are closed.",
+      "isWaitingListFull": "The class is full, and the waiting-list too."
+    },
+    "option": {
+      "isAlreadyOnWaitingList": "You are enlisted on the waiting-list",
+      "isFull": "The class is full, you can still register to the waiting-list. You will be notified by email if a slot becomes available.",
+      "registerOption": "Register to the waiting-list"
+    },
+    "section": {
+      "consumerPacks": "My pass",
+      "contracts": "Subscription",
+      "paymentCombos": "Special offers",
+      "paymentPacks": "Available pass"
+    }
+  },
+  "customerView": {
+    "cancelled": "Cancelled",
+    "wasRefunded": "Refunded"
+  },
+  "details": {
+    "consumerPaymentPackTitle": "Pass used",
+    "offerTitle": "Linked session",
+    "pleaseSelectABooking": "Select a booking to see its details",
+    "title": "Booking details"
+  },
+  "doNotAttend": "Absent",
+  "loading": "Loading",
+  "parameters": {
+    "registeredOn": "Booked on",
+    "source": "Booking channel"
+  },
+  "source": {
+    "app": "Mobile app",
+    "migration": "Migration",
+    "other": "Other",
+    "saas": "Backoffice",
+    "web": "Web"
+  },
+  "statusCode": {
+    "cancelledByConsumer": "Cancelled by customer",
+    "cancelledByManager": "Cancelled by manager",
+    "cancelledByOffer": "Session cancelled"
+  },
+  "wasRefunded": "Refunded"
 }

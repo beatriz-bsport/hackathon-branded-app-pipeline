@@ -2,7 +2,7 @@
     "sct": {
         "selector": {
             "label": "",
-            "placeholder": ""
+            "placeholder": "Category"
         }
     }
 }

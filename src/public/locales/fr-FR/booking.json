@@ -1,0 +1,50 @@
+{
+  "attend": "Présent",
+  "bookingModule": {
+    "offer": {
+      "isDisabled": "La séance a été malheureusement été annulée.",
+      "isTooLate": "Les inscriptions ne sont plus possible, le délai de dernière inscription a été dépassé.",
+      "isWaitingListFull": "La séance est complète la liste d'attente est pleine."
+    },
+    "option": {
+      "isAlreadyOnWaitingList": "Vous êtes inscrit en liste d'attente",
+      "isFull": "La séance est complète, vous pouvez vous inscrire en liste d'attente, vous serez prévenu par email lorsqu'une place se libèrera.",
+      "registerOption": "M'inscrire en liste d'attente"
+    },
+    "section": {
+      "consumerPacks": "Mes cartes de cours",
+      "contracts": "Abonnements",
+      "paymentCombos": "Offres promotionnelles",
+      "paymentPacks": "Cartes de cours"
+    }
+  },
+  "customerView": {
+    "cancelled": "Annulé",
+    "wasRefunded": "Remboursé"
+  },
+  "details": {
+    "consumerPaymentPackTitle": "Carte de cours utilisée",
+    "offerTitle": "Séance liée",
+    "pleaseSelectABooking": "Sélectionnez une réservation pour voir le détails",
+    "title": "Détails réservation"
+  },
+  "doNotAttend": "Absent",
+  "loading": "Chargement",
+  "parameters": {
+    "registeredOn": "Réservé le ",
+    "source": "Canal de réservation"
+  },
+  "source": {
+    "app": "Application mobile",
+    "migration": "Migration",
+    "other": "Autre",
+    "saas": "Backoffice",
+    "web": "Web"
+  },
+  "statusCode": {
+    "cancelledByConsumer": "Annulation client",
+    "cancelledByManager": "Annulation manager",
+    "cancelledByOffer": "Séance annulée par le club"
+  },
+  "wasRefunded": "Remboursé"
+}

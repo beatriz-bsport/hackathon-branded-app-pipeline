@@ -1,0 +1,59 @@
+// @flow
+
+exports.default = {
+  rules: 'Règles',
+  add: 'Ajouter',
+  save: 'Enregistrer',
+  name: 'Nom',
+  base_price: 'Base',
+  base_percent: 'Pourcentage de la valeur',
+  include_tax: 'Calcul TTC',
+  calculation_method: 'Méthode de calcul',
+  only_attendant: 'Restreindre le décompte de réservation aux élèves présents',
+  actions: 'Actions',
+  bookingThreshold: 'Seuil de réservations (exclu)',
+  pricePerAdditionalBooking: 'Bonus par réservation',
+  addBonus: 'Ajouter une nouvelle règle',
+  cancel: 'Annuler',
+  addNew: 'Nouveau paramétrage de rémunération',
+  select: {
+    placeholder: 'Choississez une règle de calcul',
+    placeholderOverride: 'Règle par défaut',
+  },
+  common: {
+    from: 'Début',
+    until: 'Fin',
+  },
+  calculate: 'Calculer',
+  title: 'Règlement du professeur {{name}}',
+  label: 'Règle de rémunération',
+  update: {
+    success: 'Règle par défaut modifiée',
+    error: 'Erreur lors de la modification',
+  },
+  dateTitle: 'Plage de dates',
+  coaches: 'Professeurs',
+  setPaymentRuleSetForCoachFirst:
+    "Attribuez tout d'abord une régle de rémunération par défaut à ce professeur.",
+  modal: {
+    delete: {
+      title: 'Supprimez un règle',
+      cancel: 'Annuler',
+      confirm: 'Confirmer',
+      content:
+        'En supprimant cette règle, celle-ci sera dissociée de tous les professeurs et sessions auxquelles elle est actuellement attribuée',
+    },
+  },
+  calculation_methods: {
+    bookings: 'Sur le nombre de réservations',
+    margin_value: 'Sur la valeur marginale de chaque réservation',
+  },
+  create: {
+    error: 'Erreur lors de la création',
+    success: 'Règle ajoutée',
+  },
+  delete: {
+    error: 'Erreur lors de la suppression',
+    success: 'Règle supprimée',
+  },
+};

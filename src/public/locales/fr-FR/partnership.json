@@ -1,0 +1,16 @@
+{
+  "actions": {
+    "requestPartnership": "Activer l'intégration",
+    "save": "Enregistrer"
+  },
+  "parameters": {
+    "allEstablishment": "Toutes les salles",
+    "companyId": "Votre identifiant club est : {{ company }}",
+    "enabled": "Actif",
+    "establishmentId": "Vos identifiant salles sont : {{ establishmentIdList }}"
+  },
+  "requestDialog": {
+    "close": "Bien compris",
+    "explain": "Vous avez demandé l'intégration bsport X classpass, votre chargé de compte va vous contacter pour valider cette opération"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "addCoach": "Ajouter un professeur",
+  "baseCoach": "Habituel",
+  "card": {
+    "update": "Modifier"
+  },
+  "coach": "Professeur",
+  "coach_override": "Professeur de remplacement",
+  "color": "Code couleur (cours privé)",
+  "description": "Description",
+  "detail": {
+    "tab": {
+      "calendar": "Calendrier",
+      "general": "Profil"
+    }
+  },
+  "emptyDescription": "Aucune description fournie",
+  "forms": {
+    "create": {
+      "success": "Professeur créé avec succès",
+      "title": "Nouveau professeur"
+    },
+    "delete": {
+      "actions": {
+        "cancel": "Annuler",
+        "confirm": "Supprimer"
+      },
+      "cancel": "Annuler",
+      "confirm": "Supprimer",
+      "content": {
+        "canDelete": "Êtes-vous sûr de vouloir supprimer ce professeur ? Vous n'aurez plus accès au calcul de ses rémunérations. Vous pourrez le rajouter de nouveau à partir de son email.",
+        "cannotDelete": "Vous ne pouvez pas supprimer ce professeur car des séances dans le futur sont prévues !"
+      },
+      "error": "Impossible de supprimer le professeur",
+      "success": "Professeur supprimé",
+      "title": "Suppression professeur"
+    },
+    "error": "Impossible de sauvegarder le professeur",
+    "error_email_exists": "Un professeur avec cet email existe déjà, utilisez le formulaire de création Professeur",
+    "linkByEmail": {
+      "cancel": "Annuler",
+      "emailLabel": "Email",
+      "emailPlaceHolder": "professeur@bsport.io",
+      "explain": "Si cet email existe déjà dans notre système, nous vous créerons le professeur automatiquement. Si vous ne connaissez pas l'email de votre professeur, laissez ce champ vide.",
+      "submit": "Valider",
+      "success": "Professeur lié avec succès",
+      "title": "Adresse email du professeur"
+    },
+    "update": {
+      "success": "Professeur modifié avec succès",
+      "title": "Edition des informations"
+    }
+  },
+  "noActivity": "Ce professeur ne gère aucune activité.",
+  "overrideSelectorTitle": "Professeur",
+  "overrider": "Remplaçant",
+  "performance": {
+    "calculate": "Calculer",
+    "coachName": "Professeur",
+    "nbBookings": "Réservations",
+    "nbBookingsOverThreshold": "Réservations bonus",
+    "nbOffersTotal": "Séances",
+    "payment": "Rémunération",
+    "pricePerAdditionalBooking": "Montant par réservation",
+    "pricePerOffer": "Montant par séance",
+    "title": "Récapitulatif professeur"
+  },
+  "pleaseFill": "Veuillez renseigner un professeur",
+  "search": "Chercher un professeur",
+  "selector": {
+    "label": "Professeur"
+  },
+  "selfNoActivity": "Vous n'êtes en charge d'aucune activité.",
+  "showActivities": "Afficher les activités",
+  "showDescription": "Afficher la description",
+  "showPerformance": "Rémunérer"
+}

@@ -1,0 +1,34 @@
+{
+  "copy": "copie",
+  "create": "Créer un modèle",
+  "createTitle": "Création du modèle",
+  "detail": "Informations détaillées",
+  "duplicate": "Dupliquer",
+  "editTitle": "édition du modèle",
+  "editor": {
+    "cancel": "Annuler",
+    "error": {
+      "content": "Veuillez introduire du contenu dans le mail",
+      "title": "Veuillez renseigner un nom"
+    },
+    "save": "Enregistrer",
+    "subject": "Objet du mail",
+    "title": "Nom du modèle"
+  },
+  "listTitle": "Mes modèles emails",
+  "modal": {
+    "delete": {
+      "cancel": "Annuler",
+      "confirm": "Supprimer",
+      "content": "Êtes-vous sûr de vouloir supprimer ce modèle d'email ? Cette opération est définitive",
+      "title": "Suppression modèle email"
+    }
+  },
+  "modification_date": "Dernière modification le",
+  "no_subject": "Aucun d'objet",
+  "preview": "Aperçu du mail",
+  "search": "Chercher un template",
+  "selectToShowPreview": "Sélectionnez un template",
+  "subject": "Objet du mail:",
+  "templateListEmpty": "Aucun modèle, créez votre premier modèle ici."
+}

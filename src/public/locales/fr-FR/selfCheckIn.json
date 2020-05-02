@@ -1,0 +1,53 @@
+{
+  "addMember": {
+    "button": "Créer un compte"
+  },
+  "confirmPage": {
+    "classLocation": "Votre séance se déroule en",
+    "expires": "Expire",
+    "headOnIn": "Tout est prêt !",
+    "signIn": "Enregistré",
+    "visitsLeft": "Visites restantes"
+  },
+  "filter": {
+    "establishment": "Filtrer par lieu"
+  },
+  "memberList": {
+    "checkIn": "Check-in",
+    "checkedIn": "Enregistré",
+    "empty": "Aucun élève inscrit à ce cours"
+  },
+  "offerDetail": {
+    "activateBarcode": "Détecteur de carte",
+    "backToOfferList": "Retour aux séances",
+    "cancelRegistration": "Annuler",
+    "emptyList": "Aucun élève inscrit à ce cours",
+    "isFull": "Complet",
+    "noConsumerPaymentPack": "Aucune carte de cours valide !",
+    "register": "M'inscrire à ce cours"
+  },
+  "offerList": {
+    "emptyList": "Aucune séance",
+    "refresh": "Recharger les séances"
+  },
+  "offerStatus": {
+    "hasEnded": "Terminé",
+    "inProgress": "En cours ",
+    "startIn": "Débute dans "
+  },
+  "signout": {
+    "cancel": "Annuler",
+    "explain": "Pour vous déconnecter veuillez saisir le mot de passe du compte de CheckIn",
+    "form": {
+      "password": {
+        "label": "Mot de passe"
+      },
+      "username": {
+        "label": "Email"
+      }
+    },
+    "passwordError": "Mot de passe erronné",
+    "signout": "Déconnecter",
+    "title": "Déconnecter"
+  }
+}

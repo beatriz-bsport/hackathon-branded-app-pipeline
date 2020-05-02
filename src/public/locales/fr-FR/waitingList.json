@@ -1,0 +1,29 @@
+{
+  "dialog": {
+    "delete": {
+      "cancel": "Annuler",
+      "confirm": "Supprimer",
+      "content": "Êtes-vous sûr de vouloir supprimer ce membre de la liste d'attente ? Il sera notifié par email.",
+      "title": "Suppression de la liste d'attente"
+    }
+  },
+  "explainWaitingListConf": "ex: Il reste 3h avant la séance, l'élève dispose de {{ nbMinutesBeforeBookingOptionExpire }} minutes pour valider sa réservation avant de laisser sa place.",
+  "form": {
+    "auto_cancellation_type": {
+      "title": "Gestion de la liste d'attente"
+    },
+    "dumb_delay_minutes": {
+      "helper": "Si une place se libère, l'élève dispose de N minutes pour s'inscrire, avant que le prochain ne prenne sa place.",
+      "label": "Gestion simple"
+    },
+    "smart_delay_percentage": {
+      "helper": "Si une place se libère, l'élève dispose d'un temps proportionnel au temps restant avant la séance.",
+      "label": "Gestion intellligente"
+    },
+    "submit": "Enregistrer"
+  },
+  "nbConvertible": "{{ nbConvertible }} en attente de confirmation",
+  "nbPending": "{{ nbPending }} sur liste",
+  "switchToDisable": "Désactiver la liste d'attente",
+  "switchToEnable": "Réactiver la liste d'attente"
+}

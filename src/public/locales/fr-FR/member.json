@@ -1,0 +1,115 @@
+{
+  "addMember": "Ajouter une fiche de membre",
+  "bornIn": "Né le ",
+  "cashoutBalance": "Décaisser",
+  "creditAccountBalance": "Accompte crédit restant",
+  "date_joined": "Date d'inscription",
+  "engagement": "Engagement",
+  "exists": {
+    "goTo": "Voir le membre",
+    "linkUser": "Lier l'utilisateur",
+    "merge": "Fusionner"
+  },
+  "file": {
+    "add": "Ajouter un document",
+    "addButtonBlocked": "Supprimez des documents pour en ajouter de nouveaux",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "deleteFileMessage": "Etes vous sûr de vouloir supprimer ce document ?",
+    "deletion": "Suppression",
+    "drop_file": "Glisser et déposer ou cliquer pour ajouter un document",
+    "imported": "Document importé !",
+    "name": "Nom",
+    "nofileSaved": "Aucun document enregistré",
+    "submit": "Ajouter",
+    "title": "Mes documents",
+    "upload_file": "Ajouter un document"
+  },
+  "forms": {
+    "create": {
+      "success": "Membre créé avec succès",
+      "title": "Nouveau membre"
+    },
+    "error": "Impossible de sauvegarder le membre",
+    "merge": {
+      "cancel": "Annuler",
+      "dstMember": "Membre à conserver",
+      "error": "Impossible de fusionner les membres",
+      "explainBookingsAndPassAndInvoiceAndNotes": "Les cartes de cours, réservations, factures et notes seront transférés.",
+      "explainCredit": "L'accompte interne du membre sera transféré",
+      "explainTags": "Les tags du membre supprimés ne seront pas transférés",
+      "seeMemberPage": " Voir la page du membre",
+      "srcMember": "Membre à fusionner (supprimé)",
+      "submit": "Fusionner",
+      "success": "Membres fusionnés",
+      "title": "Fusion membre"
+    },
+    "update": {
+      "success": "Membre modifié avec succès",
+      "title": "Edition des informations"
+    }
+  },
+  "invoiceTitle": "Factures",
+  "link": {
+    "success": "Compte lié avec succès"
+  },
+  "linkDialog": {
+    "cancel": "Annuler",
+    "confirm": "Je confirme",
+    "content": "Ce compte a initialement été utilisé dans un autre club, il sera désormais connecté à un nouveau club.",
+    "title": "Lier un utilisateur existant"
+  },
+  "member": {
+    "existsWithEmail": "Un membre avec l'adresse email {{email}} existe déjà.",
+    "existsWithPhone": "Un membre avec le numéro de téléphone {{phonenumber}} existe déjà."
+  },
+  "memberList": "Liste des membres",
+  "memberSince": "Inscrit le ",
+  "menu": {
+    "bookings": "Réservations",
+    "contact": "Contact",
+    "info": "Général",
+    "invoices": "Factures et Souscriptions",
+    "payment": "Facturation",
+    "paymentPack": "Cartes de cours",
+    "privateBooking": "Cours privés",
+    "privateConsumerPass": "Cartes cours privés",
+    "relation": "Relations"
+  },
+  "merge": "Fusionner",
+  "nextBooking": "prochaine : ",
+  "note": {
+    "addNote": "Ajouter une note",
+    "healthNotes": "Informations essentielles",
+    "is_medical": "Note essentielle",
+    "myNotes": "Mes notes",
+    "noNoteSaved": "Aucune note enregistrée"
+  },
+  "offers_joined": "Nb séances inscrit(e)",
+  "pass_owner": "Carte valide",
+  "pastBooking": "dernière : ",
+  "paymentAction": {
+    "toBill": "Facturer",
+    "toSubscribe": "Souscrire"
+  },
+  "regularizeBalance": "Régulariser",
+  "relation": {
+    "pleaseSelectRelation": "Sélectionnez une relation pour voir les carte de cours partagées"
+  },
+  "row": {
+    "headers": {
+      "actions": "Actions"
+    },
+    "update": "Modifier"
+  },
+  "showInvoices": "Voir les factures",
+  "showNextBooking": "Voir les réservations futures",
+  "showPaymentPack": "Voir les cartes de cours",
+  "showPreviousBooking": "Voir les réservations passées",
+  "showSubscriptions": "Voir les souscriptions",
+  "subscriptionTitle": "Souscriptions",
+  "user": {
+    "existsWithEmail": "Un utilisateur avec l'adresse email {{email}} existe déjà.",
+    "existsWithPhone": "Un utilisateur avec le numéro de téléphone {{phonenumber}} existe déjà."
+  }
+}

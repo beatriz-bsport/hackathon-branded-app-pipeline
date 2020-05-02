@@ -1,0 +1,45 @@
+{
+  "filter": {
+    "addATagFilter": "Filtrer par tag..."
+  },
+  "form": {
+    "filter": {
+      "addFilter": "Filtrer",
+      "cancel": "Annuler",
+      "exclude": "N'inclut pas le tag",
+      "include": "Inclut le tag",
+      "includeLabel": "Type",
+      "tagGroupLabel": "Tag (catégorie)",
+      "tagLabel": "Tag (valeur)",
+      "title": "Filtre"
+    },
+    "group": {
+      "addTagGroup": "Créer une catégorie",
+      "delete": {
+        "cancel": "Annuler",
+        "explain": "Attention, la suppression de cette catégorie affectera tous les membres. Cette opération est irréversible",
+        "submit": "Supprimer",
+        "title": "Suppression"
+      },
+      "deleteCategory": "Supprimer la catégorie",
+      "edit": "Modifier les tags",
+      "namePlaceholder": "Nom de la catégorie"
+    },
+    "tag": {
+      "delete": {
+        "cancel": "Annuler",
+        "explain": "Attention, ce tag sera supprimé chez TOUS les membres. Cette opération est irréversible",
+        "submit": "Supprimer",
+        "title": "Suppression"
+      },
+      "namePlaceholder": "Nom du tag"
+    }
+  },
+  "panel": {
+    "noTagAvailable": "Aucun tag créé",
+    "title": "Mes tags"
+  },
+  "tag": {
+    "noTagAttributed": "Sélectionnez un tag"
+  }
+}

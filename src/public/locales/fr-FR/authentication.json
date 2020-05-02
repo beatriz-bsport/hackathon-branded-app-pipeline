@@ -1,0 +1,14 @@
+{
+  "resetPassword": {
+    "actions": {
+      "backToLogin": "Retour",
+      "cancel": "Annuler",
+      "reset": "OK"
+    },
+    "emailHasBeenSent": "Un email a été envoyé à {{email}} pour récupérer votre mot de passe",
+    "explain1": "Quel était l'email du compte ?",
+    "explain2": "Nous vous enverrons des instructions de récupération",
+    "noEmail": "Cet email n'est pas enregistré",
+    "title": "Récupération de mot de passe"
+  }
+}

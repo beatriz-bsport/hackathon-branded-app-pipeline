@@ -1,0 +1,19 @@
+{
+  "bookings": "Réservations",
+  "current_month": "Mois dernier",
+  "current_week": "Dernière semaine",
+  "current_year": "Dernière année",
+  "dateRange": {
+    "end": "Fin",
+    "start": "Début"
+  },
+  "detailsGraphTitle": "En détails",
+  "filterByDateTitle": "Filtrer par date",
+  "last_three_months": "Trois derniers mois",
+  "nbOffers": "Séances",
+  "newMembers": "Nouveaux membres",
+  "pageTitle": "Tableau de bord",
+  "thisMonth": "Ce mois",
+  "thisWeek": "Cette semaine",
+  "turnover": "Chiffre d'affaire (€)"
+}

@@ -1,0 +1,431 @@
+{
+  "availabilitySlot": {
+    "form": {
+      "resourceSelector": {
+        "cancel": "Annuler",
+        "label": "Modifier pour :",
+        "submit": "Enregistrer",
+        "title": "Modification créneau horaire"
+      }
+    }
+  },
+  "bookerModule": {
+    "address": {
+      "label": "Adresse"
+    },
+    "availableSlots": "Créneaux disponibles",
+    "bookingCapabilities": {
+      "compatibleConsumerPassTitle": "Vos cartes valables",
+      "compatiblePassTitle": "Cartes valables sur cette séance",
+      "emptyConsumerPassList": "Vous ne possédez pas de cartes valable avec suffisamment de crédit",
+      "emptyPassList": "Aucune carte compatible, veuillez contacter votre club"
+    },
+    "buyPass": "{{ price }}€",
+    "cancel": "Annuler",
+    "emptySlot": "Aucune disponibilité",
+    "error": "Impossible de réserver sur cette date",
+    "isAtHome": "Cours à domicile, votre adresse vous sera demandée lors de la réservation",
+    "missingResource": {
+      "coach": "Veuillez sélectionner le professeur",
+      "establishment": "Veuillez sélectionner le lieu",
+      "service": "Veuillez sélectionner un type de rendez-vous"
+    },
+    "noPrivateServiceAvailable": "Aucun RDV proposé",
+    "preview": {
+      "credit_cost": "{{credit_cost}} crédit"
+    },
+    "private_pass": {
+      "credits": "{{ credits }} crédit"
+    },
+    "searchSlot": "Rechercher un créneau",
+    "sections": {
+      "coach": "Professeur",
+      "establishment": "Lieu",
+      "privateSlot": "Séances"
+    },
+    "step": {
+      "billing": "Facturation",
+      "coach": "Professeur",
+      "configuration": "Mon rendez-vous",
+      "date": "Date",
+      "privateService": "Rendez-vous",
+      "privateSlot": "Séance"
+    },
+    "title": "Réservation RDV",
+    "useCredit": "Réserver"
+  },
+  "calendar": {
+    "addBooking": "Enregistrer un rendez-vous",
+    "disableAvailability": "Supprimer la disponibilité",
+    "disableRecurrentAvailability": "Supprimer une disponibilité récurrente",
+    "enableAvailability": "Ajouter une disponibilité ce jour",
+    "enableRecurrentAvailability": "Ajouter une disponibilité récurrente",
+    "form": {
+      "actions": {
+        "cancel": "Annuler",
+        "submit": "Enregistrer"
+      },
+      "explain": "Modification jusqu'au :",
+      "interval": {
+        "explain1": "Modification de la disponibilité : ",
+        "explain2": "{{ date_start }} - {{ date_end }}, tous les {{ day }}"
+      },
+      "title": {
+        "disable": "Supprimer une disponibilité",
+        "enable": "Ajouter une disponibilité"
+      }
+    },
+    "selectCoachToModifyAvailability": "Sélectionnez un professeur",
+    "toogle": {
+      "showOfferList": "Afficher les cours collectifs",
+      "showPrivateBookings": "Afficher les rendez-vous"
+    }
+  },
+  "color": {
+    "form": {
+      "cancel": "Annuler",
+      "submit": "Enregistrer",
+      "title": "Code couleur du professeur"
+    }
+  },
+  "consumerPass": {
+    "current_credits": "{{ current_credits }}/{{credits}} crédits",
+    "detail": {
+      "booking": "Réservations RDV liées",
+      "invoice": "Facture liée"
+    },
+    "isReverted": "Facture annulée"
+  },
+  "pageTitles": {
+    "calendar": "Calendrier",
+    "passList": "Cartes",
+    "serviceList": "Sur rendez-vous"
+  },
+  "payment": {
+    "address": {
+      "explain": "Entrez votre adresse pour le cours à domicile",
+      "save": "Enregistrer"
+    }
+  },
+  "privateBooking": {
+    "cancel": "Annuler",
+    "delete": {
+      "cancel": "Annuler",
+      "confirm": "Confirmer",
+      "explain": "Êtes- vous sûr de vouloir annuler cette réservation ? Cette opération est irréversible.",
+      "explainForceRefund": "Rembourser le crédit utilisé sur la carte pour permettre une nouvelle réservation.",
+      "explainHardDelete": "Cette réservation a déjà été annulée, la supprimer la fera disparaitre du calendrier totalement et vous perdrez l'historique. Elle sera remboursée si elle ne l'a pas été précédemment. Cette opération est irréversible.",
+      "title": "Annulation réservation"
+    },
+    "detail": {
+      "address": "Adresse",
+      "passTitle": "Carte de cours",
+      "registeredOn": "Réservé le ",
+      "slotTitle": "Séance",
+      "source": "Canal de réservation ",
+      "title": "Réservation",
+      "wasRefunded": "Crédit remboursé sur la carte de cours",
+      "wasRefundedNo": "Non",
+      "wasRefundedYes": "Oui"
+    },
+    "hardDelete": "Supprimer",
+    "isCancelled": "Annulé",
+    "managerAdd": {
+      "address": "Adresse",
+      "cancel": "Annuler",
+      "coachSelector": {
+        "label": "Professeur"
+      },
+      "compatiblePrivateConsumerPass": "Cartes RDV possédées :",
+      "compatiblePrivatePass": "Facturer une carte RDV",
+      "emptyPrivateConsumerPass": "Aucune carte compatible possédée",
+      "emptyPrivatePass": "Aucune carte RDV compatible",
+      "pleaseSelectCoachAndSlot": "Sélectionnez tout d'abord le professeur et la séance",
+      "privateConsumerPassNeedRefresh": "Rafraîchir la liste",
+      "title": "Nouvelle réservation"
+    }
+  },
+  "privateCoach": {
+    "delete": {
+      "cancel": "Annuler",
+      "explain": "Êtes-vous sûr de vouloir supprimer l'affectation de ce professeur ? Il ne pourra plus prendre de réservation sur ce RDV. Les réservations enregistrées ne seront pas affectées.",
+      "submit": "Confirmer",
+      "title": "Désinscription du professeur"
+    }
+  },
+  "privateEstablishment": {
+    "delete": {
+      "cancel": "Annuler",
+      "explain": "Êtes-vous sûr de vouloir modifier le lieu de ce RDV ? Sans établissement il sera considéré comme un RDV à domicile et les élèves devront rentrer leur adresse pour terminer la réservation. Les réservations déjà enregistrées ne seront pas affectées.",
+      "submit": "Confirmer",
+      "title": "Désinscription de la salle"
+    }
+  },
+  "privatePass": {
+    "compatibleServices": {
+      "add": "Ajouter",
+      "isEmpty": "Aucun rendez-vous n'est compatible - inutilisable",
+      "title": "RDV compatibles"
+    },
+    "delete": {
+      "cancel": "Annuler",
+      "explain": "Êtes-vous sûr de vouloir supprimer cette carte ? Les personnes possédant encore des crédits pourront toujours les utiliser. Cette opération est définitive",
+      "submit": "Confirmer",
+      "title": "Suppression de la carte"
+    },
+    "form": {
+      "actions": {
+        "cancel": "Annuler",
+        "submit": "Enregistrer"
+      },
+      "credits": {
+        "helperText": "Chaque séance coûte un certain nombre de crédit",
+        "label": "Nombre de crédit inclu"
+      },
+      "managerOnly": {
+        "label": "Invisible pour les clients"
+      },
+      "name": {
+        "label": "Nom"
+      },
+      "price": {
+        "label": "Prix"
+      },
+      "tax": {
+        "label": "TVA"
+      },
+      "title": "Carte RDV"
+    },
+    "list": {
+      "createButton": "Créer une carte RDV"
+    },
+    "parameters": {
+      "managerOnly": "Invisible pour les clients",
+      "nbCredits": "{{ credits }} crédit",
+      "price": "{{ price}} €",
+      "tax": "TVA: {{ tax }}%"
+    }
+  },
+  "privateService": {
+    "delete": {
+      "cancel": "Annuler",
+      "confirm": "Supprimer",
+      "explain": "Êtes-vous sûr de vouloir supprimer ce RDV ? Cette modification est définitive. Les réservations déjà enregistrées ne seront pas affectées.",
+      "submit": "Supprimer",
+      "title": "Suppression du rendez-vous"
+    }
+  },
+  "privateServiceCompatibility": {
+    "delete": {
+      "cancel": "Annuler",
+      "explain": "Êtes-vous sûr de vouloir modifier les règles d'utilisation du pass ? Cette modification est rétro-active pour les achats déjà effectués.",
+      "submit": "Supprimer",
+      "title": "Modification RDV compatibles"
+    }
+  },
+  "privateSlot": {
+    "delete": {
+      "cancel": "Annuler",
+      "confirm": "Confirmer",
+      "explain": "Êtes-vous sûr de vouloir supprimer cette séance ? Les réservations passées ne seront pas affectées. Cette opération est définitive.",
+      "title": "Suppression de la séance"
+    }
+  },
+  "resource": {
+    "datatype": {
+      "associated_coach": "Professeur",
+      "associated_establishment": "Lieux",
+      "coach": "Professeur",
+      "establishment": "Lieux",
+      "private_service": "Général"
+    },
+    "form": {
+      "actions": {
+        "cancel": "Annuler",
+        "submit": "Enregistrer"
+      },
+      "color": "Code couleur"
+    },
+    "groupBy": "Grouper par",
+    "unGroup": "Aucun"
+  },
+  "selector": {
+    "privateService": "Sélectionnez votre RDV",
+    "privateSlot": "Sélectionnez votre séance"
+  },
+  "service": {
+    "configuration": {
+      "changeIsAlwaysAvailable": "Modifier",
+      "explainHasOwnAvailabilitySlots": "Cliquez sur le crayon pour limiter les réservations à certaines plages horaires",
+      "explainSetToHasNotOwnAvailabilitySlots": "Réservable sur tout créneau horaire si prof/salle disponibles",
+      "explainSetToHasOwnAvailabilitySlots": "Reservable sur certains créneaux seulement",
+      "hasFutureSlot": "Calendrier des disponibilités futures OK",
+      "isAlwaysAvailable": "{{ resourceName}} est réservable dès que la salle et/ou les profs sont disponibles",
+      "noCapacity": "Capacité de la salle non-configurée !",
+      "noFutureSlot": "Vous n'avez configuré aucune disponibilité pour {{resourceName}} ! Cliquez ici.",
+      "slot": "Type de séance",
+      "title": "Disponibilités horaires",
+      "totalCapacity": "Capacité maximale : {{ capacity}}"
+    },
+    "detail": {
+      "tab": {
+        "calendar": "Calendrier",
+        "general": "Général"
+      }
+    },
+    "form": {
+      "actions": {
+        "cancel": "Annuler",
+        "submit": "Enregistrer"
+      },
+      "addCoach": "Ajouter un professeur",
+      "addEstablishment": "Ajouter une salle",
+      "addSlot": "Ajouter un type séance",
+      "coach": {
+        "isEmpty": "Aucun professeur configuré !",
+        "label": "Professeur"
+      },
+      "coach_capacity_used": {
+        "helperText": "Ex: un professeur peut surveiller deux élèves séparément sur deux machines ",
+        "label": "Nb maximum de RDV simultanés qu'un professeur peut gérer"
+      },
+      "coach_consumer_attribution": {
+        "helperText": "Le membre voit et choisit le professeur avant la réservation. Si décoché, bsport d'attribuer les réservations au même professeur si possible",
+        "label": "Permettre le choix du professeur lors de la réservation"
+      },
+      "color": "Code couleur",
+      "createButton": "Ajouter un type de Rendez-vous",
+      "delete": {
+        "cancel": "Annuler",
+        "confirm": "Supprimer",
+        "content": "Êtes-vous certain de vouloir supprimer ce type de rendez-vous ?",
+        "title": "Suppression du rendez-vous"
+      },
+      "description": {
+        "label": "Description du service"
+      },
+      "establishment": {
+        "label": "Salle"
+      },
+      "establishmentResourceType": {
+        "isHomeService": {
+          "helperText": "Une adresse sera demandé à chaque réservation",
+          "label": "A domicile"
+        },
+        "isWithEstablishment": {
+          "helperText": "La réservation ne sera possible que si la salle dispose de suffisamment de places libres",
+          "isEmpty": "Aucune salle configurée !",
+          "label": "Dans l'un de vos établissements"
+        },
+        "isWithoutEstablishment": {
+          "helperText": "Ex: cours en visio / en extérieur / ...",
+          "label": "Sans lieu pré-déterminé"
+        }
+      },
+      "establishment_consumer_attribution": {
+        "helperText": "Le membre voit et choisit le lieu avant la réservation, si décoché bsport essaiera d'optimiser le remplissage des salles",
+        "label": "Permettre le choix du lieu lors de la réservation"
+      },
+      "is_home_service": {
+        "helperText": "Une adresse sera demandée à chaque réservation",
+        "label": "A domicile"
+      },
+      "is_without_coach": "Sans professeur",
+      "name": {
+        "label": "Nom du service",
+        "placeholder": "Massage"
+      },
+      "resourceGroup": {
+        "coach": "Professeur",
+        "establishment": "Lieu"
+      },
+      "title": "Rendez-vous",
+      "use_full_establishment_capacity": {
+        "helperText": "Décochez pour autoriser simultanément plusieurs activités / rdv dans la même salle si la capacité le permet",
+        "label": "Nécessite toute la salle"
+      }
+    },
+    "parameters": {
+      "coaches": {
+        "is_empty": "Aucun professeur n'est requis",
+        "title": "Professeur"
+      },
+      "description": "Description",
+      "establishments": {
+        "is_empty": "A domicile",
+        "title": "Lieu"
+      },
+      "slots": {
+        "explainIsEmpty": "Définissez des types de séances (durée, coût)",
+        "isEmpty": "Aucune type de séance définie",
+        "title": "Séance"
+      }
+    },
+    "selector": {
+      "coach": {
+        "label": "Professeur"
+      },
+      "establishment": {
+        "label": "Salle"
+      },
+      "isEmpty": "Aucun type de rendez-vous configuré",
+      "placeholder": "Sélectionnez un rendez-vous"
+    }
+  },
+  "serviceGroup": {
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "form": {
+      "actions": {
+        "cancel": "Annuler",
+        "submit": "Enregistrer"
+      },
+      "name": {
+        "label": "Nom"
+      },
+      "title": "Catégorie"
+    },
+    "isEmpty": "Aucun RDV associé à cette catégorie",
+    "selector": {
+      "placeholder": "Catégorie"
+    }
+  },
+  "slot": {
+    "form": {
+      "cancel": "Annuler",
+      "credit": {
+        "helperText": "Nombre de crédit nécessaire pour une réservation",
+        "label": "Nombre de crédit"
+      },
+      "duration_minutes": {
+        "helperText": "Adapter les crédits nécessaire en fonction de la durée",
+        "label": "Durée"
+      },
+      "name": {
+        "label": "Nom de la séance",
+        "placeholder": "Séance double (2h)"
+      },
+      "people_capacity_used": {
+        "helperText": "Si une salle est configurée, ce nombre sera utilisé pour mettre à jour son remplissage",
+        "label": "Nombre de personnes"
+      },
+      "submit": "Enregistrer",
+      "title": "Séance"
+    },
+    "parameters": {
+      "credit": "{{ credit }} crédit"
+    }
+  },
+  "slotSearcher": {
+    "bookableSlots": {
+      "isEmpty": "Aucun créneau disponible",
+      "title": "Créneaux disponibles"
+    },
+    "emptyDateList": "Aucun créneau disponible ce jour",
+    "search": "Rechercher un créneau",
+    "searchSlot": "Rechercher un créneau",
+    "selectCoach": "Tous les professeurs",
+    "selectPrivateSlot": "Sélectionner une séance",
+    "title": "Rendez-vous"
+  }
+}

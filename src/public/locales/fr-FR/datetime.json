@@ -1,0 +1,67 @@
+{
+  "form": {
+    "eightHour": "8h",
+    "fourHour": "4h",
+    "halfAndQuarterHour": "45 min",
+    "halfHour": "30 min",
+    "never": "Jamais",
+    "oneDay": "1 journée",
+    "oneHour": "1h",
+    "oneHourAndHalf": "1h30",
+    "oneMonth": "1 mois",
+    "oneWeek": "1 semaine",
+    "quarterHour": "15 min",
+    "sixHour": "6h",
+    "tenDays": "10 jours",
+    "threeHour": "3h",
+    "twelveHour": "12h",
+    "twentyMinutes": "2O min",
+    "twoDays": "2 journées",
+    "twoHour": "2h",
+    "twoWeeks": "2 semaines",
+    "zeroMinute": "0 min"
+  },
+  "never": "Jamais",
+  "shortDayIdentifier": "j",
+  "shortHourIdentifier": "h",
+  "shortMinuteIdentifier": "min",
+  "time": {
+    "month": {
+      "april": "Avril",
+      "august": "Août",
+      "december": "Décembre",
+      "february": "Février",
+      "january": "Janvier",
+      "july": "Juillet",
+      "june": "Juin",
+      "march": "Mars",
+      "may": "Mai",
+      "november": "Novembre",
+      "october": "Octobre",
+      "september": "Septembre"
+    },
+    "monthShort": {
+      "april": "Avr",
+      "august": "Août",
+      "december": "Déc",
+      "february": "Fév",
+      "january": "Jan",
+      "july": "Juil",
+      "june": "Juin",
+      "march": "Mar",
+      "may": "Mai",
+      "november": "Nov",
+      "october": "Oct",
+      "september": "Sep"
+    },
+    "weekday": {
+      "friday": "Vendredi",
+      "monday": "Lundi",
+      "satursday": "Samedi",
+      "sunday": "Dimanche",
+      "thursday": "Jeudi",
+      "tuesday": "Mardi",
+      "wednesday": "Mercredi"
+    }
+  }
+}

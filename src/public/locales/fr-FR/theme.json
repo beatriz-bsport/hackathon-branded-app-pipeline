@@ -1,0 +1,94 @@
+{
+  "forms": {
+    "cover": {
+      "helperText": "Privilégiez les png avec fond transparent",
+      "label": "Logo"
+    },
+    "facebookURL": {
+      "helperText": "Votre page Facebook",
+      "label": "URL Facebook",
+      "placeholder": "https://facebook.com/mon-studio/"
+    },
+    "general_terms_and_conditions": {
+      "helperText": "Doivent être acceptées pour tout paiement et inscription",
+      "label": "Condition générales de ventes",
+      "placeholder": "J'atteste posséder un certificat médical et l'apporterai à mon studio"
+    },
+    "gtmId": {
+      "label": "Google Tag ID",
+      "placeholder": "GTM-XXXXXX"
+    },
+    "instagramURL": {
+      "helperText": "Votre page Instagram",
+      "label": "URL Instagram",
+      "placeholder": "https://instagram.com/mon-studio/"
+    },
+    "primary_color": {
+      "helperText": "Priviligéiez une couleur, évitez le monochrome",
+      "label": "Couleur principale"
+    },
+    "scheduleURL": {
+      "helperText": "Lien par défaut de votre calendrier",
+      "label": "URL planning",
+      "placeholder": "https://studio.com/calendar/"
+    },
+    "secondary_color": {
+      "helperText": "Couleur complémentaire du thème",
+      "label": "Couleur secondaire"
+    },
+    "submit": "Sauvegarder",
+    "themePersonalization": {
+      "calendar": {
+        "bookButton": {
+          "helperText": "Changer le style du bouton \"réserver\"",
+          "label": "Bouton \"réserver\"",
+          "placeholder": "Entrer le code CSS"
+        },
+        "columns": {
+          "helperText": "Changer le style des colonnes",
+          "label": "Colonnes",
+          "placeholder": "Entrer le code CSS"
+        },
+        "offerCard": {
+          "helperText": "Changer le style des cartes de cours",
+          "label": "Cartes de cours",
+          "placeholder": "Entrer le code CSS"
+        },
+        "police": {
+          "helperText": "Changer le style de la police",
+          "label": "Police",
+          "placeholder": "Entrer le code CSS"
+        },
+        "title": "Introduisez votre propre code CSS pour personnaliser votre calendrier"
+      },
+      "default_attendance": {
+        "missing": "Membre absent",
+        "present": "Membre présent",
+        "title": "Statut par défaut d'une réservation faite par le client"
+      },
+      "default_booking_ordering": {
+        "date": "Trier par date de réservation la plus récente",
+        "firstname": "Trier par ordre alphabétique des prénoms",
+        "lastname": "Trier par ordre alphabétique des noms",
+        "title": "Choisir l'ordre de tri par défaut des réservations sur la page d'une activité"
+      },
+      "first_name_label": {
+        "helperText": "Entrez le label pour le prénom",
+        "label": "Label pour le prénom",
+        "placeholder": "Label pour le prénom"
+      },
+      "last_name_label": {
+        "helperText": "Entrez le label pour le nom",
+        "label": "Label pour le nom",
+        "placeholder": "Label pour le nom"
+      },
+      "names_label_info": "Modifier le label des champs Nom et Prénom dans les formulaires d'inscription",
+      "offersFilling": "Afficher le remplissage des cours sur le calendrier client"
+    },
+    "websiteURL": {
+      "helperText": "Utilisée si le client clique sur votre logo notamment",
+      "label": "URL website",
+      "placeholder": "https://studio.com/"
+    }
+  }
+}

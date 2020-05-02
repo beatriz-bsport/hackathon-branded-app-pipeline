@@ -1,0 +1,396 @@
+{
+  "description": "Description",
+  "detail": {
+    "statTitle": "Statistiques",
+    "tab": {
+      "campaign": "Campagnes",
+      "member": "Général"
+    }
+  },
+  "duplicate": "Dupliquer",
+  "exportList": "Exporter la smartlist",
+  "filterCategory": [
+    null,
+    "Informations membre",
+    "Cartes de cours",
+    "Réservations",
+    "Achats"
+  ],
+  "filters": {
+    "1": {
+      "explanation": "A X euros sur son compte",
+      "first": "L'accompte du client est",
+      "name": "Accompte",
+      "second": " à   ",
+      "third": "euros"
+    },
+    "2": {
+      "explanation": "A réservé sa dernière séance il y a...",
+      "first": "La dernière séance réservée a eu lieu il y a plus de",
+      "name": "Date dernière séance réservée",
+      "second": "jours"
+    },
+    "5": {
+      "explanation": "Est une femme/un homme",
+      "first": "Selectionner uniquement les",
+      "men": "hommes",
+      "name": "Sexe",
+      "women": "femmes"
+    },
+    "8": {
+      "explanation": "Possède la carte de cours X utilisable",
+      "first": "Possède une carte de cours",
+      "name": "Validité de la carte de cours",
+      "second": "utilisable (avec des crédits ou illimité et non expiré)"
+    },
+    "11": {
+      "explanation": "Possède les tags A et B",
+      "first": "Filtrer sur les tags suivants",
+      "name": "Tags"
+    },
+    "14": {
+      "combo": "Pack",
+      "explanation": "A acheté les produits A et B",
+      "first": "A dépensé",
+      "fourth": "pour les produits",
+      "name": "Dépenses",
+      "pack": "Carte de cours",
+      "private_pass": "Cours particulier",
+      "second": "€ entre le",
+      "selector": "Choisir les produits",
+      "shop": "Magasin",
+      "third": "et le",
+      "workshop": "Carte de cours spécial atelier"
+    },
+    "18": {
+      "explanation": "A rejoint le club le...",
+      "first": "A rejoint le club   ",
+      "name": "Date d'inscription"
+    },
+    "19": {
+      "credits": {
+        "first": "Crédits:",
+        "second": "et"
+      },
+      "date_bought": {
+        "first": "Date d'achat"
+      },
+      "expiration": {
+        "first_has_expire": "A expiré",
+        "first_will_expire": "Expire"
+      },
+      "explanation": "A acheté la carte de cours A à Y date, avec X credits",
+      "first": "une des cartes de cours",
+      "has": "Possède",
+      "has_not": "Ne possède pas",
+      "infoIcon": "Les cartes de cours illimitées seront toujours incluses",
+      "name": "Général",
+      "second": "et",
+      "third": "à"
+    },
+    "20": {
+      "date": {
+        "first": "Panier abandonné",
+        "second": "jours"
+      },
+      "explanation": "A abandonné un panier d'un montant de...",
+      "first": "A abandonné un panier d'un montant",
+      "name": "Paniers abandonnés",
+      "second": "à",
+      "third": "euros"
+    },
+    "21": {
+      "activity": {
+        "first": "de"
+      },
+      "date": {
+        "first": "la date de la séance est"
+      },
+      "establishment": {
+        "first": "dans"
+      },
+      "explanation": "A réservé sa X ème séance de l'activité A, dans l'établissement B...",
+      "first": "A réservé sa ",
+      "hour": {
+        "first": "l'heure de la séance est comprise entre",
+        "second": "heures et",
+        "third": "heures"
+      },
+      "name": "Numéro de réservation",
+      "second_plural": "ème séance",
+      "second_singular": "ère séance"
+    },
+    "22": {
+      "activity": {
+        "first": "des activités"
+      },
+      "coach": {
+        "first": "avec les professeurs"
+      },
+      "date": {
+        "first": "ayant lieu"
+      },
+      "establishment": {
+        "first": "dans les établissements"
+      },
+      "explanation": "A réservé X séances de l'activité A, dans le lieu B, avec la carte de cours C...",
+      "first": "A réservé",
+      "hour": {
+        "first": "entre",
+        "second": "heures et",
+        "third": "heures"
+      },
+      "name": "Nombre de réservations",
+      "payment_pack": {
+        "first": "avec les cartes"
+      },
+      "second": "séances"
+    },
+    "23": {
+      "explanation": "A réservé sa première séance le...",
+      "name": "Première réservation"
+    },
+    "active_filters": "Filtres actifs sur la smartlist",
+    "add": "Ajouter",
+    "add_filter": "Ajouter un filtre",
+    "after": "après",
+    "all": "Tous",
+    "before": "avant",
+    "booking_status": {
+      "booked": "réservé",
+      "canceled": "annulé"
+    },
+    "calendarPicker": {
+      "dateTitle": "Date",
+      "duration": "jours",
+      "durationTitle": "Durée",
+      "select": [
+        "Le ou après le",
+        "Le ou avant le",
+        "Entre deux dates",
+        "Le"
+      ],
+      "selectduration": {
+        "4": {
+          "first": "Dans plus de",
+          "second": "jours"
+        },
+        "5": {
+          "first": "Dans moins de",
+          "second": "jours"
+        },
+        "6": {
+          "first": "Dans",
+          "second": "jours"
+        },
+        "7": {
+          "first": "Dans plus de",
+          "second": "jours",
+          "third": "jours et moins de"
+        },
+        "8": {
+          "first": "Il y a moins de",
+          "second": "jours"
+        },
+        "9": {
+          "first": "Il y a plus de",
+          "second": "jours"
+        },
+        "10": {
+          "first": "Il y a ",
+          "second": "jours"
+        },
+        "11": {
+          "first": "Il y a plus de",
+          "second": "jours",
+          "third": "jours et moins de"
+        },
+        "selector": [
+          null,
+          null,
+          null,
+          null,
+          "Dans plus de X jours",
+          "Dans moins de X jours",
+          "Dans X jours",
+          "Dans plus de X jours et moins de Y jours",
+          "Il y a moins de X jours",
+          "Il y a plus de X jours",
+          "Il y a X jours",
+          "Il y a plus de X jours et moins de Y jours"
+        ]
+      },
+      "text": [
+        {
+          "first": "le ou après le"
+        },
+        {
+          "first": "le ou avant le"
+        },
+        {
+          "first": "entre le",
+          "second": "et le"
+        },
+        {
+          "first": "le"
+        },
+        {
+          "first": "dans plus de",
+          "second": "jours"
+        },
+        {
+          "first": "dans moins de",
+          "second": "jours"
+        },
+        {
+          "first": "dans ",
+          "second": "jours"
+        },
+        {
+          "first": "dans plus de",
+          "second": "jours et moins de",
+          "third": "jours"
+        },
+        {
+          "first": "il y a moins de",
+          "second": "jours"
+        },
+        {
+          "first": "il y a plus de",
+          "second": "jours"
+        },
+        {
+          "first": "il y a ",
+          "second": "jours"
+        },
+        {
+          "first": "il y a plus de",
+          "second": "jours et moins de",
+          "third": "jours"
+        }
+      ]
+    },
+    "classic_comparators": [
+      null,
+      "inférieur (⩽)",
+      "supérieur (⩾)",
+      "strictement inférieur",
+      "strictement supérieur",
+      "égal"
+    ],
+    "durations_comparators": [
+      null,
+      "moins de (⩽)",
+      "plus de (⩾)",
+      null,
+      null,
+      "exactement",
+      "entre deux"
+    ],
+    "undefined": {
+      "fifth": "crédits dessus",
+      "first": "A acheté la carte de cours",
+      "fourth": "et possède",
+      "infoIcon": "Les cartes de cours illimités ne sont pas filtrées sur le crédit",
+      "name": "Date d'achat et crédits par carte de cours",
+      "second": "entre le",
+      "third": "et le"
+    }
+  },
+  "graphs": {
+    "bookings": "Réservations",
+    "bookingsSegments": {
+      "label": [
+        "Dernier mois",
+        "Entre 1 et 12 mois",
+        "Plus d'un an"
+      ],
+      "title": "Dernière réservation"
+    },
+    "expensesSegments": {
+      "label": [
+        "Aucune dépense",
+        "Premier quartile",
+        "Moyenne",
+        "Dernier quartile"
+      ],
+      "title": {
+        "first": "Dépenses entre le",
+        "second": "et le"
+      }
+    }
+  },
+  "mail": {
+    "cancel": "Annuler",
+    "noMailAvailable": "Pas de mail disponbile, pensez à en créer un",
+    "send": "Envoyer",
+    "sendError": "Problème lors de l'envoi du mail",
+    "sendMail": "Envoyer un email",
+    "sendMailTitle": "Envoyer un email",
+    "sendSuccess": "Mail en cours d'envoi"
+  },
+  "mails": "Mails",
+  "membersInList": "Membres dans la smartlist:",
+  "modal": {
+    "delete": {
+      "cancel": "Annuler",
+      "confirm": "Supprimer",
+      "content": "Êtes-vous sûr de vouloir supprimer cette smartlist ? Cette opération est définitive",
+      "title": "Suppression smartlist"
+    }
+  },
+  "multiSelector": {
+    "coaches": {
+      "helperAllSelectedText": "tous les professeurs",
+      "helperSelectedText": "professeurs sélectionnées",
+      "helperText": "selectionner des professeurs",
+      "textFieldPlaceholder": "Rechercher un professeur",
+      "warning": "Sélectionnez au moins un professeur"
+    },
+    "establishments": {
+      "helperAllSelectedText": "tous les établissements",
+      "helperSelectedText": "établissements sélectionnées",
+      "helperText": "selectionner des établissements",
+      "textFieldPlaceholder": "Rechercher un établissement",
+      "warning": "Sélectionnez au moins un établissement"
+    },
+    "metaActivities": {
+      "helperAllSelectedText": "toutes les activités",
+      "helperSelectedText": "activités sélectionnées",
+      "helperText": "selectionner des activités",
+      "textFieldPlaceholder": "Rechercher une activité",
+      "warning": "Sélectionnez au moins une activité"
+    },
+    "paymentPacks": {
+      "helperAllSelectedText": "toutes les cartes de cours",
+      "helperSelectedText": "cartes de cours sélectionnées",
+      "helperText": "selectionner des cartes de cours",
+      "textFieldPlaceholder": "Rechercher une carte de cours",
+      "warning": "Sélectionnez au moins une carte de cours"
+    },
+    "selectAll": "Tout sélectionner",
+    "selectNothing": "Tout désélectionner"
+  },
+  "name": "Nom de la liste",
+  "search": "Chercher une smartlist",
+  "selectToShowPreview": "Sélectionnez un template",
+  "smart_list": {
+    "actions": {
+      "configure": "Configurer"
+    },
+    "add": "Ajouter une smartlist",
+    "cancel": "Annuler",
+    "card": {
+      "description": "Description"
+    },
+    "createTitle": "Smartlist",
+    "description": "Description",
+    "detail": "Détail de la smartlist",
+    "list": {
+      "detailTitle": "Détail de la smartlist",
+      "title": "Smartlists"
+    },
+    "name": "Nom",
+    "submit": "Enregistrer"
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "campaign": {
+    "clickCount": "Clics",
+    "list": {
+      "isEmpty": "Aucun email envoyé pour le moment",
+      "showMore": "Voir plus"
+    },
+    "readCount": "Ouvertures",
+    "recipientCount": "Destinataire: {{ total_recipients }}",
+    "report": {
+      "dateCreated": "Date d'envoi",
+      "deliveryRate": "Envois réussis",
+      "lastOpen": "Dernière ouverture",
+      "noTopLink": "Aucun clic",
+      "recipientList": "Détail par destinataire",
+      "topLinks": "Liens les plus cliqués",
+      "totalClick": "Clics",
+      "totalRead": "Ouvertures"
+    },
+    "sentAt": "Envoyé le {{ date_created }}",
+    "showMail": "Voir l'email",
+    "showReport": "Rapport"
+  },
+  "common": {
+    "cancel": "Annuler",
+    "refresh": "Actualiser",
+    "submit": "Envoyer"
+  },
+  "dialogReceiverChoice": {
+    "reservation": "Envoyer aux réservations",
+    "title": "Sélection des destinataires",
+    "waitingList": "Envoyer à la liste d'attente"
+  },
+  "mail": {
+    "content": "Contenu du mail",
+    "error": "Mail non envoyé",
+    "missing": "Email absent",
+    "noObject": "Pas d'objet",
+    "refreshText": "Veuillez recharger la page pour actualiser le changement d'email",
+    "success": "Mail Envoyé",
+    "title": "Objet du mail"
+  },
+  "recipient": {
+    "clicksCount": "Clic",
+    "readCount": "Ouverture",
+    "showEmail": "Voir l'email",
+    "status": [
+      "En cours",
+      "En cours",
+      "Refusé",
+      "Attente",
+      "Reçu",
+      "Erreur"
+    ],
+    "table": {
+      "columns": {
+        "clicked": "Clics",
+        "email": "Email",
+        "lastRead": "Dernière ouverture",
+        "readCount": "Ouvertures",
+        "status": "Status"
+      }
+    }
+  },
+  "recipients": "Destinataires",
+  "table": {
+    "columns": {
+      "date_created": "Date",
+      "member": "Membre",
+      "status": "Status",
+      "title": "Aperçu"
+    }
+  }
+}

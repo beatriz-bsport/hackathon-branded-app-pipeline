@@ -1,0 +1,83 @@
+{
+  "consumer_payment_pack_links": {
+    "form": {
+      "create": {
+        "cancel": "Annuler",
+        "explain": "Cette carte de cours sera partagée entre les deux membres, les crédits sont utilisables par l'un ou par l'autre.",
+        "linkButton": "Partager",
+        "noConsumerPackToLink": "Aucune carte partageable",
+        "previous": "Précédent",
+        "submit": "Partager",
+        "title": "Partage de carte"
+      },
+      "relink": {
+        "cancel": "Annuler",
+        "explain": "Le partage sera de nouveau activé.",
+        "submit": "Partager",
+        "title": "Partager de nouveau"
+      },
+      "unlink": {
+        "cancel": "Annuler",
+        "explain": "Le partage sera arrété. La carte maître reste valable",
+        "submit": "Arrêter",
+        "title": "Arrêt du partage"
+      }
+    },
+    "list": {
+      "create": "Partager une carte de cours",
+      "isEmpty": "Aucun partage de carte",
+      "title": "Cartes partagées"
+    },
+    "messages": {
+      "create": {
+        "error": "Impossible de partager cette carte",
+        "success": "Carte partagée"
+      },
+      "relink": {
+        "error": "Impossible de partager cette carte",
+        "success": "Partage enregistré"
+      },
+      "unlink": {
+        "error": "Impossible de supprimer ce partage",
+        "success": "Partage supprimé"
+      }
+    }
+  },
+  "member": {
+    "form": {
+      "cancel": "Annuler",
+      "dst_name": {
+        "placeholder": "Fils"
+      },
+      "is": " est ",
+      "src_name": {
+        "placeholder": "Mère"
+      },
+      "submit": "Enregistrer",
+      "title": "Relation"
+    },
+    "item": {
+      "delete": "Supprimer",
+      "edit": "Modifier"
+    },
+    "list": {
+      "actions": {
+        "create": "Ajouter une relation"
+      },
+      "isEmpty": "Aucune relation n'a encore été créée",
+      "pleaseSelectOne": "Sélectionnez une relation pour voir les cartes de cours partagées",
+      "title": "Relations"
+    },
+    "messages": {
+      "create": {
+        "success": "Relation enregistrée"
+      },
+      "createOrUpdate": {
+        "error": "Impossible d'enregistrer la relation"
+      },
+      "edit": {
+        "success": "Relation modifiée"
+      }
+    }
+  }
+}

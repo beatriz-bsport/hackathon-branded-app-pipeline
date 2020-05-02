@@ -1,0 +1,31 @@
+{
+  "availablePaymentPacks": "Pass compatibles : ",
+  "bookAnOption": "M'inscrire sur liste d'attente",
+  "bookAnotherOption": "Me réinscrire sur liste d'attente",
+  "explainOption": "Vous serez prévenu par email lorsqu'une place se libèrera",
+  "forms": {
+    "cancelPayment": "Précédent",
+    "credit": {
+      "explain": "Votre club sera informé du débit, vous règlerez cette commande sur place",
+      "pay": "Confirmer"
+    },
+    "paymentIntent": {
+      "pay": "Payer"
+    }
+  },
+  "generalTermsAndConditions": {
+    "close": "Fermer",
+    "iAccept": "J'accepte les ",
+    "theTermsAndConditions": "conditions générales de ventes."
+  },
+  "goBack": "Précédent",
+  "hasOneOrMoreOption": "Vous êtes déjà inscrit sur la liste d'attente",
+  "method": {
+    "CB": "Carte bleue",
+    "CREDIT_ACCOUNT": "Paiement sur place"
+  },
+  "order": {
+    "success": "Votre paiement a bien été enregistré"
+  },
+  "paymentComboSectionTitle": "Pack"
+}

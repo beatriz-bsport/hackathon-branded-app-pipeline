@@ -1,0 +1,55 @@
+{
+  "actions": "Actions",
+  "add": "Ajouter",
+  "addBonus": "Ajouter une nouvelle règle",
+  "addNew": "Nouveau paramétrage de rémunération",
+  "base_percent": "Pourcentage de la valeur",
+  "base_price": "Base",
+  "bookingThreshold": "Seuil de réservations (exclu)",
+  "calculate": "Calculer",
+  "calculation_method": "Méthode de calcul",
+  "calculation_methods": {
+    "bookings": "Sur le nombre de réservations",
+    "margin_value": "Sur la valeur marginale de chaque réservation"
+  },
+  "cancel": "Annuler",
+  "coaches": "Professeurs",
+  "common": {
+    "from": "Début",
+    "until": "Fin"
+  },
+  "create": {
+    "error": "Erreur lors de la création",
+    "success": "Règle ajoutée"
+  },
+  "dateTitle": "Plage de dates",
+  "delete": {
+    "error": "Erreur lors de la suppression",
+    "success": "Règle supprimée"
+  },
+  "include_tax": "Calcul TTC",
+  "label": "Règle de rémunération",
+  "modal": {
+    "delete": {
+      "cancel": "Annuler",
+      "confirm": "Confirmer",
+      "content": "En supprimant cette règle, celle-ci sera dissociée de tous les professeurs et sessions auxquelles elle est actuellement attribuée",
+      "title": "Supprimez un règle"
+    }
+  },
+  "name": "Nom",
+  "only_attendant": "Restreindre le décompte de réservation aux élèves présents",
+  "pricePerAdditionalBooking": "Bonus par réservation",
+  "rules": "Règles",
+  "save": "Enregistrer",
+  "select": {
+    "placeholder": "Choississez une règle de calcul",
+    "placeholderOverride": "Règle par défaut"
+  },
+  "setPaymentRuleSetForCoachFirst": "Attribuez tout d'abord une régle de rémunération par défaut à ce professeur.",
+  "title": "Règlement du professeur {{name}}",
+  "update": {
+    "error": "Erreur lors de la modification",
+    "success": "Règle par défaut modifiée"
+  }
+}

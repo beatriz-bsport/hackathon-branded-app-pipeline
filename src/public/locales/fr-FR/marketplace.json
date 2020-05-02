@@ -1,0 +1,32 @@
+{
+  "paymentCombo": {
+    "addToCart": "Ajouter au panier"
+  },
+  "selector": {
+    "coach": {
+      "placeholder": "Professeur"
+    },
+    "establishment": {
+      "placeholder": "Etablissement"
+    },
+    "level": {
+      "placeholder": "Niveau"
+    }
+  },
+  "warning": {
+    "backToBackoffice": "Interface manager",
+    "disconnect": "Me déconnecter",
+    "isManager": "Vous êtes connecté en tant que manager, pour accéder à la vue client veuillez vous déconnecter"
+  },
+  "workshop": {
+    "card": {
+      "book": "Réserver",
+      "bookOption": "Liste d'attente",
+      "duration": "Durée: {{duration}}",
+      "isPast": "Passé",
+      "notAvailable": "Annulé",
+      "showMore": "Plus d'info"
+    },
+    "noWorkshopAvailable": "Aucun atelier n'est prévu pour le moment"
+  }
+}

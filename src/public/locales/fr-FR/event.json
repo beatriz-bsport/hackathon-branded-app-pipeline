@@ -1,0 +1,28 @@
+{
+  "booking": {
+    "register": {
+      "description": "Est déclenché lorsqu'une nouvelle réservation est enregistrée",
+      "name": "Nouvelle réservation"
+    }
+  },
+  "booking_option": {
+    "cancel": {
+      "description": "Est déclenché lorque le membre ou un manager annule la place sur liste d'attente",
+      "name": "Annulation de place en liste d'attente"
+    }
+  },
+  "list": {
+    "title": {
+      "latestEvents": "Dernier évènements"
+    }
+  },
+  "member": {
+    "register": {
+      "description": "Est déclenché lorsqu'un nouveau membre pour le club est ajouté sur bsport",
+      "name": "Nouveau membre"
+    }
+  },
+  "noEvent": {
+    "description": "Description de l'évènement"
+  }
+}

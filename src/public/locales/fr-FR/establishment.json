@@ -1,0 +1,65 @@
+{
+  "addButton": "Ajouter un établissement",
+  "baseEstablishment": "Habituel",
+  "capacity": {
+    "helperText": "Utilisé uniquement pour calculer la disponibilité pour les rendez-vous",
+    "label": "Capacité de la salle"
+  },
+  "card": {
+    "update": "Modifier"
+  },
+  "detail": {
+    "tab": {
+      "calendar": "Calendrier",
+      "general": "Général"
+    }
+  },
+  "establishment": "Établissement ",
+  "establishment_override": "Établissement de remplacement",
+  "form": {
+    "new": {
+      "title": "Titre"
+    }
+  },
+  "forms": {
+    "create": {
+      "success": "Établissement créé avec succès",
+      "title": "Nouvel établissement"
+    },
+    "delete": {
+      "actions": {
+        "cancel": "annuler",
+        "confirm": "Supprimer"
+      },
+      "content": {
+        "canDelete": "Êtes-vous sûr de vouloir supprimer cet établissement ? Cette opération est irréversible. Les séances et réservations passées ne seront pas affectées",
+        "cannotDelete": "Impossible de supprimer cet établissement, des séances sont prévues dans le futur. Vérifiez qu'elles ont bien été annulées puis supprimées"
+      },
+      "message": {
+        "error": "Impossible de supprimer cet établissement",
+        "success": "Etablissement supprimé"
+      },
+      "title": "Suppression établissement"
+    },
+    "error": "Impossible de sauvegarder l'établissement",
+    "update": {
+      "success": "Établissement modifié avec succès",
+      "title": "Édition des informations"
+    }
+  },
+  "goBackToList": "Retour aux établissements",
+  "noMoreOffers": "Plus aucune séance de prévue",
+  "offers": "Calendrier des séances:",
+  "overrider": "Remplacement",
+  "pleaseFill": "Veuillez renseigner un établisssement",
+  "pleaseSelectOne": "Veuillez sélectionner un club sur la carte",
+  "practical_info": {
+    "helperText": "Cette information ne sera affichée qu'à la réservation",
+    "label": "Information d'accès",
+    "placeholder": "Code 1234 porte de droite"
+  },
+  "search": "Chercher un établissement",
+  "update": {
+    "imageUploaderRequireEditMessage": "Une fois votre établissement créé, vous aurez la possibilité d'ajouter des images supplémentaires."
+  }
+}

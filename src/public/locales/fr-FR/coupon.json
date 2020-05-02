@@ -1,0 +1,130 @@
+{
+  "card": {
+    "cumulable": "Cumulable",
+    "expiration": "Date d'expiration",
+    "first_buy": "Utilisable sur le premier achat seulement",
+    "limitation": "Limité à",
+    "member_use": "utilisation par membre",
+    "member_uses": "utilisations par membre",
+    "no_cumulable": "Non cumulable",
+    "no_expiration": "Pas de date d'expiration",
+    "uses": "Utilisations",
+    "validity": "Validité:"
+  },
+  "code": {
+    "addCoupon": {
+      "label": "Code promo",
+      "placeholder": "SPECIAL_RENTREE"
+    }
+  },
+  "createCoupon": "Ajouter un code",
+  "detail": {
+    "seeParameters": "Voir les paramètres"
+  },
+  "form": {
+    "actions": {
+      "cancel": "Annuler",
+      "submit": "Valider"
+    },
+    "amount_off": {
+      "label": "Montant de la réduction"
+    },
+    "applies_to": {
+      "choices": {
+        "1": "Carte de cours",
+        "2": "Magasin",
+        "6": "Frais de livraison",
+        "9": "Carte cours privé",
+        "all": "Ensemble du panier",
+        "null": "Ensemble du panier"
+      }
+    },
+    "code": {
+      "helperText": "Le code que vous transmettrez aux clients concernés",
+      "label": "Code"
+    },
+    "combinable": {
+      "label": "Utilisable avec d'autres codes"
+    },
+    "expiration_date": {
+      "cancel": "Annuler",
+      "clear_date": "Aucune expiration",
+      "label": "Date d'expiration"
+    },
+    "is_active": {
+      "helperText": "Un code non-actif n'est pas utilisable par les clients",
+      "label": "Actif"
+    },
+    "minimum_amount": {
+      "label": "Montant minimum d'achat"
+    },
+    "name": {
+      "label": "Nom"
+    },
+    "only_on_first_checkout": {
+      "label": "Premier achat seulement"
+    },
+    "percent_off": {
+      "label": "Pourcentage de réduction"
+    },
+    "section": {
+      "advanced": "Avancé",
+      "applies_to": "Paramètres",
+      "availability": "Disponibilité",
+      "general": "Général",
+      "usability": "Utilisation",
+      "voucherConfig": "Réduction"
+    },
+    "selectorPlaceholder": {
+      "paymentPack": "Sélectionner des cartes de cours (valable sur toutes les cartes de cours si aucune n'est sélectionnée)",
+      "privatePass": "Sélectionner des cartes de cours privés (valables sur toutes les cartes si aucune n'est sélectionnée)",
+      "shopitem": "Sélectionner des produits du magasin (valable sur tous les produits si aucun n'est sélectionné)"
+    },
+    "usage_per_member": {
+      "label": "Limite d'utilisation par client"
+    },
+    "usage_total": {
+      "label": "Limite d'utilisation tous membres confondus"
+    },
+    "voucher_type": {
+      "amount": "En valeur",
+      "percent": "En pourcentage"
+    },
+    "with_expiration_date": {
+      "label": "Avec date d'expiration"
+    }
+  },
+  "list": {
+    "activeCoupons": "Promotions actives",
+    "inactiveCoupons": "Promotions désactivées ou expirées",
+    "isEmpty": "Aucun code promotionnel enregistré"
+  },
+  "message": {
+    "attachToBasket": {
+      "error": "Aucun code promo compatible trouvé"
+    },
+    "create": {
+      "error": "Impossible de créer ce code",
+      "success": "Code promotionnel enregistré"
+    },
+    "delete": {
+      "error": "Impossible de supprimer cette promotion",
+      "success": "Code promotionel supprimé"
+    },
+    "update": {
+      "error": "Impossible de modifier ce code",
+      "success": "Code promotionnel modifié"
+    }
+  },
+  "modal": {
+    "delete": {
+      "actions": {
+        "cancel": "Annuler",
+        "submit": "Supprimer"
+      },
+      "content": "Êtes-vous sûr de vouloir supprimer ce code promotionnel ? Vous n'aurez plus accès à l'historique d'utilisation. Cette opération est définitive.",
+      "title": "Suppression"
+    }
+  },
+  "noDiscount": "Aucun achat effectué avec le code"
+}

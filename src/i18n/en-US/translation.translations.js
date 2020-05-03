@@ -353,8 +353,7 @@ exports.default = {
       },
       invoice: {
         titleUnevenInvoice: 'Uneven invoice',
-        explainUnevenInvoice: 
-          `You are billing your customer {{totalInvoiceItems}} while you are registering only {{totalPayments}} as customer payments. His credit account balance will be updated accordingly.`,
+        explainUnevenInvoice: `You are billing your customer {{totalInvoiceItems}} while you are registering only {{totalPayments}} as customer payments. His credit account balance will be updated accordingly.`,
         dateStartPaymentPack: 'Pass starting date',
         backToInvoiceItemList: 'Back to invoice listing',
         title: 'Register a payment',
@@ -696,11 +695,9 @@ exports.default = {
       wasRefunded: 'Refunded',
       success: 'Booking saved',
       revertBookingTitle: 'Delete boking',
-      revertBookingExplain: (offerIsAvailable: boolean) => {
-        if (offerIsAvailable) {
-          return `Are you sure you want to delete this booking ? Used credits will be given back to your member`;
-        }
-        return `Are you sure you want to delete this booking ? This booking will not be refund.`;
+      revertBookingExplain: {
+        offerIsAvailable: `Are you sure you want to delete this booking ? Used credits will be given back to your member`,
+        offerIsNotAvailable: `Are you sure you want to delete this booking ? This booking will not be refund.`,
       },
       revertBookingWithInvoiceImpossibleExplain:
         'This booking has already been chased-out and can not be deleted. You can still change its attendance status.',

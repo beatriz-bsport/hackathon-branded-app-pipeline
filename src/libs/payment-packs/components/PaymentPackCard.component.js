@@ -25,7 +25,7 @@ import MetaActivityMinimalSummary from '../../../components/activity/MetaActivit
 import EstablishmentSummary from '../../establishment/components/EstablishmentSummary.component';
 import Sport from '../../category/components/SCT.component';
 import type { MetaActivity } from '../../../api/types';
-import { formatAsDate } from '../../../datetime';
+import { getValidityInfo } from '../utils';
 
 import type { PaymentPack } from '../types';
 
@@ -149,42 +149,9 @@ export class PaymentPackCard extends Component<Props> {
 
   renderTimeInfo = () => {
     const { pack, classes, t } = this.props;
-    if (!pack.validity_daterange) {
-      const { duration_days, duration_months, duration_years } = pack;
-      return (
-        <div className={classes.restrictionBlock}>
-          <Typography>
-            {!!duration_days &&
-              !duration_months &&
-              !duration_years &&
-              t('validForDuration.days', { duration_days })}
-            {!duration_days &&
-              !!duration_months &&
-              !duration_years &&
-              t('validForDuration.months', { duration_months })}
-            {!duration_days &&
-              !duration_months &&
-              !!duration_years &&
-              t('validForDuration.years', { duration_years })}
-            {!!duration_days + !!duration_months + !!duration_years > 1 &&
-              t('validForDuration.general', {
-                duration_days,
-                duration_months,
-                duration_years,
-              })}
-          </Typography>
-        </div>
-      );
-    }
     return (
       <div className={classes.restrictionBlock}>
-        <Typography>
-          {`${t('validFrom')}${formatAsDate(
-            JSON.parse(pack.validity_daterange).lower,
-          )}${t('validTo')}${formatAsDate(
-            JSON.parse(pack.validity_daterange).upper,
-          )}`}
-        </Typography>
+        <Typography>{getValidityInfo(pack, t)}</Typography>
       </div>
     );
   };

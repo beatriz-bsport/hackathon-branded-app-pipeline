@@ -15,10 +15,9 @@ import Tooltip from '@material-ui/core/Tooltip';
 import withStyles from '@material-ui/core/styles/withStyles';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import Button from '@material-ui/core/Button';
-import moment from 'moment';
 import type { TFunction } from 'react-i18next';
 
-import { formatAsDate } from '../../../datetime';
+import { getValidityInfo } from '../utils';
 
 import type { PaymentPack } from '../types';
 
@@ -52,40 +51,7 @@ export default withStyles(styles)(
         </ListItem>
       );
     }
-    let dateInfo = '';
-    const {
-      validity_daterange,
-      duration_days,
-      duration_months,
-      duration_years,
-    } = props.pack;
-    if (duration_days && duration_months && duration_years) {
-      dateInfo = props.t('validForDuration.general', {
-        duration_days,
-        duration_months,
-        duration_years,
-      });
-    }
-    if (duration_days && !duration_months && !duration_years) {
-      dateInfo = props.t('validForDuration.days', {
-        duration_days,
-      });
-    }
-    if (!duration_days && duration_months && !duration_years) {
-      dateInfo = props.t('validForDuration.months', {
-        duration_months,
-      });
-    }
-    if (!duration_days && !duration_months && duration_years) {
-      dateInfo = props.t('validForDuration.years', {
-        duration_years,
-      });
-    }
-    if (validity_daterange) {
-      dateInfo = `${props.t('validity')} ${formatAsDate(
-        moment(JSON.parse(validity_daterange).lower),
-      )} - ${formatAsDate(moment(JSON.parse(validity_daterange).upper))}`;
-    }
+    const dateInfo = getValidityInfo(props.pack, props.t);
     return (
       <ListItem
         button={!!props.onClick}

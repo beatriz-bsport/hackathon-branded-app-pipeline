@@ -54,10 +54,10 @@ const availableLanguages = [
     lang: 'fr-FR',
   },
   {
-    lang: 'en-US',
+    lang: 'en',
   },
   {
-    lang: 'es-ES',
+    lang: 'es',
   },
 ];
 

@@ -1,5 +1,9 @@
 exports.default = {
   // eslint-disable-next-line
+  name: 'Nom',
+  table: {
+    show: 'Voir',
+  },
   date_joined: "Date d'inscription",
   invoiceTitle: 'Factures',
   subscriptionTitle: 'Souscriptions',

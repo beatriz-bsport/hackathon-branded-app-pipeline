@@ -54,7 +54,7 @@ export class SubscriptionEventPanel extends React.Component<Props, State> {
       <div>
         <div className={this.props.classes.row}>
           <Typography variant="subtitle">
-            {this.props.t('event:list.title.latestEvents')}
+            {this.props.t('list.title.latestEvents')}
           </Typography>
           <IconButton
             onClick={(ev) => this.setState({ openFilters: ev.currentTarget })}
@@ -151,7 +151,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(),
+  withNamespaces(['event']),
   withStyles(styles),
   withHandlers({
     fetchEventPage: ({ fetchEventList, eventSpec, extraFetchParams }) => (

@@ -6,8 +6,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import { Moment } from '../../i18n';
-import { formatAsDate } from '../../datetime';
+
+import { getValidityInfo } from '../../libs/payment-packs/utils';
 
 type Props = {
   t: TFunction,
@@ -21,34 +21,13 @@ type Props = {
 
 export function PaymentPackMinimalSummary(props: Props) {
   const { t, paymentPack, noDivider, buyButton, button } = props;
-  const {
-    name,
-    credits,
-    validity_daterange,
-    duration_days,
-    duration_months,
-    duration_years,
-    unlimited,
-    price,
-  } = paymentPack;
+  const { name, credits, unlimited, price } = paymentPack;
 
   const creditsFormatted = unlimited
     ? t('unlimitedCredits')
     : `${t('credits')}: ${credits}`;
 
-  let dateInfo = '';
-  if (duration_days || duration_months || duration_years) {
-    dateInfo = t('validForDuration')(
-      duration_days,
-      duration_months,
-      duration_years,
-    );
-  }
-  if (validity_daterange) {
-    dateInfo = `${t('validity')} ${formatAsDate(
-      Moment(JSON.parse(validity_daterange).lower),
-    )} - ${formatAsDate(Moment(JSON.parse(validity_daterange).upper))}`;
-  }
+  const dateInfo = getValidityInfo(paymentPack, props.t);
 
   return (
     <ListItem

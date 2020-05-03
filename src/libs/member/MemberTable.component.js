@@ -25,7 +25,7 @@ const getColumnData = (t) => {
   return [
     {
       name: 'name',
-      label: t('common.name'),
+      label: t('name'),
       options: {
         filter: false,
         sort: false,
@@ -33,7 +33,7 @@ const getColumnData = (t) => {
     },
     {
       name: 'date_joined',
-      label: t('member:date_joined'),
+      label: t('date_joined'),
       options: {
         filter: false,
         sort: false,
@@ -41,7 +41,7 @@ const getColumnData = (t) => {
     },
     {
       name: 'credit_account_balance',
-      label: t('member:creditAccountBalance'),
+      label: t('creditAccountBalance'),
       options: {
         filter: false,
         sort: false,
@@ -49,7 +49,7 @@ const getColumnData = (t) => {
     },
     {
       name: 'actions',
-      label: t('member:row.headers.actions'),
+      label: t('row.headers.actions'),
       options: {
         filter: false,
         sort: false,
@@ -66,7 +66,7 @@ const renderCreditAccountBalance = (credit_account_balance: number) => (
 
 const renderActions = (id, goToMemberPage, t) => (
   <Button onClick={() => goToMemberPage(id)} color="primary">
-    {t('common.show')}
+    {t('table.show')}
   </Button>
 );
 const renderRow = (member, t, goToMemberPage) => {
@@ -216,7 +216,7 @@ export class InvoiceTable extends Component<Props, State> {
                   variant="outlined"
                 >
                   <AddIcon className={this.props.classes.leftIcon} />
-                  {t('member:addMember')}
+                  {t('addMember')}
                 </Button>
               )}
               <TablePagination
@@ -259,5 +259,5 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(),
+  withNamespaces(['member']),
 )(InvoiceTable);

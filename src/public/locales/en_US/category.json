@@ -1,8 +1,1 @@
-{
-    "sct": {
-        "selector": {
-            "label": "",
-            "placeholder": "Category"
-        }
-    }
-}
+{"sct":{"selector":{"placeholder":"Category"}}}

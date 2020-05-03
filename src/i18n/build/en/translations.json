@@ -1,0 +1,4011 @@
+{
+    "translation": {
+        "translation": {
+            "merge": "Merge",
+            "activityCreated": "Activity added",
+            "activityUpdated": "Activity updated",
+            "bookingConfirmed": "Booking confirmed",
+            "button": {
+                "login": "Log in"
+            },
+            "private_service": "Private lesson",
+            "report": {
+                "delete": "Report deletion"
+            },
+            "companies": {
+                "owner_address": "Owner Address",
+                "address": "Address",
+                "bank_details": "Bank details",
+                "general": "General",
+                "fields": {
+                    "iban": "IBAN",
+                    "bank_account_holder": "Bank account holder"
+                }
+            },
+            "errors": {
+                "end_before_start": "End date must be after start date",
+                "start_after_end": "Start date must be before end date"
+            },
+            "error": {
+                "connectionError": "Connection error"
+            },
+            "hi": "Hi",
+            "pageTitle": {
+                "myAccount": "My account"
+            },
+            "paymentMethod": {
+                "CB": "Credit card",
+                "CHECK": "Check",
+                "HOLDAY_CHECK": "Other",
+                "CASH": "Cash",
+                "CB_MANUAL": "Credit card (manual)",
+                "EVENT_BRITE": "EventBrite",
+                "AMEX": "AMEX",
+                "BANK_TRANSFER": "Bank transfer",
+                "CREDIT_ACCOUNT": "Credit account",
+                "SUBSCRIPTION_CB": "Automatic credit card debit",
+                "OTHER": "Other"
+            },
+            "common": {
+                "isRefreshing": "Your interface will be ready in an instant",
+                "copySuffix": " (Copy)",
+                "items": "items",
+                "level": "Level",
+                "activePass": "active pass",
+                "invoices": "Invoices",
+                "download": "Download",
+                "description": "Description",
+                "hourSmall": "h",
+                "daySmall": "d",
+                "minuteSmall": "min",
+                "export": "Export",
+                "generate": "Generate",
+                "tax": "Tax",
+                "skip": "Skip",
+                "uploadOneImage": {
+                    "new": "Drag and drop or click here to add your image",
+                    "edit": "Drag and drop or click here to change the image"
+                },
+                "buy": "Buy",
+                "establishments": "Locations",
+                "notes": "Notes",
+                "add": "Add",
+                "loading": "Loading...",
+                "show": "Show",
+                "previous": "Previous",
+                "firstname": "Firstname",
+                "delete": "Delete",
+                "lastname": "Lastname",
+                "save": "Save",
+                "saveAndAdd": "Save and add another",
+                "booking": "Booking",
+                "from": "From",
+                "until": "Until",
+                "paymentMethod": "Payment method",
+                "activity": "Activity",
+                "datetime": "Session",
+                "paymentPack": "Pass",
+                "amount": "Amount",
+                "continue": "Continue",
+                "credit_s": "Credit(s)",
+                "NA": "Not specified",
+                "price": "price",
+                "priceIncludingTax": "Price tax incl.",
+                "sports": "Category",
+                "credits": "Credits",
+                "create": "Create",
+                "or": "or",
+                "cancel": "Cancel",
+                "confirm": "Confirm",
+                "name": "Name",
+                "status": "Status",
+                "ok": "ok",
+                "seeMore": "Show",
+                "coach": "Coach",
+                "coaches": "Coaches",
+                "company": "Company",
+                "sport": "Category",
+                "filterBy": "Filter by: ",
+                "edit": "Edit",
+                "merge": "Merge",
+                "activities": "Activities",
+                "email": "Email",
+                "show_more": "Show more",
+                "showDetails": "Show details",
+                "yes": "Yes",
+                "no": "No",
+                "sort": "Sort",
+                "contact": "Contact",
+                "members": "My users",
+                "transactions": "My transactions",
+                "selected": "Selected",
+                "pass": "Pass",
+                "booking_s": "Booking(s)",
+                "date": "Date",
+                "nothing": "None",
+                "bookings": "Bookings",
+                "places": "Places",
+                "male": "male",
+                "female": "female",
+                "otherGender": "Other"
+            },
+            "marketing": {
+                "dashboard": "Dashboard",
+                "conversionRate": "Conversion rate",
+                "sales": "Sales",
+                "averageBuy": "Average basket",
+                "totalBuy": "Total CA",
+                "action": "Action",
+                "SMSSent": "SMS sent",
+                "EmailSent": "Emails sent",
+                "notificationsSent": "Notifications sent",
+                "clientsReached": "Clients reached",
+                "criterias": "Criterias",
+                "strategy": "Strategy : ",
+                "estimatedTarget": "Customer share receiving alerts",
+                "message": "Message",
+                "after": "After ",
+                "offersMatching": " similar sessions",
+                "promoTitle": "Promo code",
+                "promo": "Promotional offer ",
+                "noPromo": "None"
+            },
+            "offer": {
+                "attendant": "attendant",
+                "nonAttendant": "did not attend",
+                "maxBookingsNb": "slots",
+                "effectif": "Number of customer (max)",
+                "sizeOfWaitingList": "Size of waiting list",
+                "offersPendingChange": "Sessions pending change:",
+                "offersPendingDelete": "Sessions pending removal:",
+                "noncompatibleConsumerPaymentPacksAre": "Owns the following NON compatible pass :",
+                "noPackAvailableForOfferPurchase": "No compatible pass found for this member!",
+                "noConsumerPackAvailableForPurchase": "No pass available for this session !",
+                "backToCalendar": "Back",
+                "previousOffer": "Previous session",
+                "nextOffer": "Next session",
+                "compatiblePacks": "Pass compatible",
+                "noCompatiblePacks": "There is no pass compatible with this session",
+                "substitute": "Substitute",
+                "disabled": "cancelled",
+                "extraordinaryEstablishment": "(temporary location)",
+                "addInvoice": "Create a bill",
+                "myBookings": "Bookings",
+                "hasntBooked": "Not registered",
+                "hasBooked": "Registered",
+                "createBooking": "Register",
+                "bill": "Bill",
+                "use": "Use",
+                "createBookingOption": "Add on waiting-list",
+                "reCreateBooking": "Register again",
+                "noQuickInvoiceOpened": "No invoice open",
+                "myOpenedInvoices": "Quick invoices",
+                "manageOffer": "Manage my bookings"
+            },
+            "pagination": {
+                "rowPerPage": "Rows per page",
+                "outOf": " of "
+            },
+            "invoice": {
+                "reverted": "Reverted",
+                "choseDateTitle": "Billing date",
+                "revert": "Revert",
+                "invoiceReverted": "Invoice reverted",
+                "finalize": "Finalize the invoice",
+                "choseDate": "Invoice date",
+                "revertExplainPayment": "Credit/debit card payments will be transfered to the credit account of the member. All other payments will be canceled.",
+                "revertExplainCredits": "Credit and debit on member account will be reverted.",
+                "revertExplainPacks": "All pass will will be canceled with ALL their bookings.",
+                "revertExplainShop": "Purchase made on the store will be canceled and provisions reinitialized",
+                "explainDateChoser": "Please choose the date registered for the billing. Credit/debit card will be charged immediately independantly of the chosen date.",
+                "revertImpossibleExplainSubscription": "This invoice is part of a subscription plan, if you want to revert it you need to stop the subscription. You can not revert an already billed invoice linked to a subscription",
+                "explainFinalize": "Beware ! A finalized invoice is not editable anymore, moreover every payment will be considered as checked-out. Once finalized the invoice will be exportable so you can download it as PDF.",
+                "forms": {
+                    "update": "Invoice successfully updated",
+                    "create": "Invoice created - member credited",
+                    "error": "Error while creating invoice"
+                }
+            },
+            "shop": {
+                "myShop": "My shop",
+                "supplier_price": "Supplier price",
+                "ht": "excl tax",
+                "noProvisionUpdates": "No provision",
+                "subShop": {
+                    "delete": {
+                        "explain": "Are you sure ? All the items contained in this category will also be deleted.",
+                        "title": "Delete"
+                    }
+                }
+            },
+            "form": {
+                "waiting_list_max_size": "Waiting list max size",
+                "address": {
+                    "streetNumber": "N°",
+                    "addressLine1": "Address",
+                    "addressLine2": "Additional info",
+                    "city": "City",
+                    "country": "Country",
+                    "zipcode": "Zipcode"
+                },
+                "login": {
+                    "changePasswordTitle": "Change password",
+                    "password": "Password",
+                    "confirmPassword": "Confirm",
+                    "passwordTooEasy": "Your password should have at least 6 characters, a letter and a number.",
+                    "passwordChangedSuccess": "Password reset successfull !",
+                    "passwordMismatch": "Password confirmation mismatch",
+                    "error": {
+                        "invalidEmail": "This email does not exist in our database",
+                        "invalidPassword": "Password is invalid"
+                    }
+                },
+                "shop": {
+                    "subShop": {
+                        "nameTitle": "New category",
+                        "namePlaceholder": "Juices",
+                        "createOrUpdate": {
+                            "success": "Catégory successfully saved",
+                            "error": "Impossible to save category"
+                        },
+                        "delete": {
+                            "success": "Category deleted",
+                            "error": "Error while deleting category"
+                        }
+                    },
+                    "item": {
+                        "onsite_payment_available": "On-site payment available",
+                        "sell_only_on_provision": "Sell only if there are some provision",
+                        "featured": "Feature the product on the checkout screen",
+                        "is_deliverable": "Include delivery fees",
+                        "create": "Add an item",
+                        "unlimitedProvision": "No provision management",
+                        "marketplace_enabled": "Available on web marketplace",
+                        "barcode": "Barcode",
+                        "updateProvisions": {
+                            "success": "Provisions updated",
+                            "error": "Error while updating provisions"
+                        },
+                        "deleteTitle": "Delete",
+                        "deleteExplain": "Be careful! This deletion is not revertable, all provisions wil be deleted and your customers will not be able to buy this item anymore",
+                        "modifyProvisions": "Update provisions",
+                        "updateProvisionExplain": "Enter the inventory update. It will be added to your current provisions.",
+                        "updateProvisionTitle": "Inventory update",
+                        "createOrUpdate": {
+                            "success": "Saved",
+                            "error": "Error while saving"
+                        },
+                        "delete": {
+                            "success": "Deleted",
+                            "error": "Error while deleting"
+                        },
+                        "add": "Add an item",
+                        "subtitle": "Subtitle",
+                        "description": "Description",
+                        "provisions": "Provisions",
+                        "name": "Name",
+                        "price": "Price",
+                        "tva": "Tax"
+                    }
+                },
+                "booking": {
+                    "delete": {
+                        "success": "Booking deleted",
+                        "error": "Error while deleting booking"
+                    }
+                },
+                "member": {
+                    "createOrUpdate": {
+                        "error": "Not could not be saved",
+                        "success": "Note saved"
+                    },
+                    "rgpd": {
+                        "email": "Accept email notifications",
+                        "sms": "Accept SMS notifications"
+                    },
+                    "delete": {
+                        "error": "Error while deleting note",
+                        "success": "Note deleted"
+                    },
+                    "phone": "Phone number",
+                    "rgpdTitle": "Communication accepted by the member (alert cancellation, modification, etc...)",
+                    "birthdayYear": "Year of birth",
+                    "referenceNumber": "Membership ID",
+                    "referenceNumberHelper": "(optionnal) if empty an ID will be automaticcaly assigned"
+                },
+                "metaActivity": {
+                    "cantAddSameName": "An activity with the same name already exists !"
+                },
+                "signup": {
+                    "typePhone": "Cellphone",
+                    "confirmPasswordLabel": "Confirm",
+                    "confirmPassword": "Password",
+                    "rgpdTitle": "Which way do you prefer for the coach to contact you about change in timeline, cancelling session... ?",
+                    "communication": {
+                        "email": "via email",
+                        "sms": "via SMS"
+                    },
+                    "signupButton": "Signup",
+                    "iAcceptPrivacyPolicy": "I accept ",
+                    "privacyPolicy": "the terms of use and the privacy policy"
+                },
+                "quickInvoice": {
+                    "totalPurchase": "Purchases",
+                    "totalPayment": "Payments",
+                    "paymentDue": "Payment remaining"
+                },
+                "invoice": {
+                    "titleUnevenInvoice": "Uneven invoice",
+                    "explainUnevenInvoice": "You are billing your customer {{totalInvoiceItems}} while you are registering only {{totalPayments}} as customer payments. His credit account balance will be updated accordingly.",
+                    "dateStartPaymentPack": "Pass starting date",
+                    "backToInvoiceItemList": "Back to invoice listing",
+                    "title": "Register a payment",
+                    "paymentLabel": "Register a payment",
+                    "offerHelper": "This session will be add to the account",
+                    "paymentPackHelper": "This pass will be added to the account",
+                    "noPayedObject": "None",
+                    "objectTypeLabel": "Chose the object to be credited",
+                    "activityHelper": "Chose the activity then the session"
+                },
+                "payment": {
+                    "payment": "Payment",
+                    "invoiceRevertedThusNotEditable": "Invoice was reverted and is not editable",
+                    "credit": "Credit",
+                    "topUp": "Top-up credit",
+                    "invoiceFinalizedThusNotEditable": "Invoice was finalized and can not be edited anymore",
+                    "actions": "Actions",
+                    "status": "Status",
+                    "paid": "Paid",
+                    "unpaid": "Pending",
+                    "noPaymentExtraInfo": "No additional information provided",
+                    "additionalInformationLabel": "Information",
+                    "additionalInformationHelper": "(optional) check reference, date..."
+                },
+                "offer": {
+                    "levelChangeWarning": "If you modify the level, this modification will impact all future sessions. Any modification on price on this form will also be executed on future offers (change in day of the week / price / ...).",
+                    "coachChangeWarning": "If you modify the coach, this modification will impact all future sessions. If this is not what you want consider using \"substitute coach\" for that. Any modification on price on this form will also be executed on future offers (change in day of the week / price / ...).",
+                    "establishmentChangeWarning": "If you modify the establishment, this modification will impact all future sessions. If this is not what you want consider using \"substitute coach\" for that. Any modification on price on this form will also be executed on future offers (change in day of the week / price / ...).",
+                    "substituteCoachLabel": "Substitute",
+                    "coachLabel": "Coach",
+                    "establishmentLabel": "Establishment",
+                    "substituteEstablishmentLabel": "Establishement (exceptional)",
+                    "warningPackonEdit": "These change may need you to check the pass, they may not stay compatible with the new sessions.\nThe following packs were compatible with this offer, after application of the change please review them carefully.",
+                    "deleteTitle": "Delete session",
+                    "cancelTitle": "Cancel session",
+                    "changeDate": "Modify date / time",
+                    "changeCoach": "Change the coach",
+                    "changeEstablishment": "Change location",
+                    "broadcast_link": {
+                        "error": "URL seems wrong. It should starts with http:// ou https:// and have no space"
+                    },
+                    "explainRecursiveOfferDelete": "Would you like to delete ALL the similar sessions ?",
+                    "explainRecursiveOfferEdit": "Would you like to modify ALL the similar sessions to match the new conditions ?",
+                    "explainNotificationOnEdit": "Do you want to notify your customers for this change ?",
+                    "delete": {
+                        "buttonHardDelete": "Delete",
+                        "explainHardDelete": "Remove offer from list ? You will not be able to access this session anymore. If the session contains bookings, it will not be deleted. Be careful !",
+                        "explainCreditBack": "Send back all credits used for booking",
+                        "explainNotify": "Send an alert to every client with a booking",
+                        "explainModalities": "This operation is not revertable. This session will be hidden to all new customer. You will still be able to accces the session details and bookings."
+                    }
+                },
+                "title": "Title",
+                "specific_info": "Information",
+                "pleaseEnterYourSMSCode": "Please enter the code sent by SMS",
+                "code": "Code",
+                "SMSSignInTitle": "Signin via SMS",
+                "signInPhoneInstruction": "Please enter your phone number, a validation code will be sent via SMS",
+                "signUpTitle": "Sign Up",
+                "password": "Password",
+                "default_waiting_list_max_size": "Size of the waiting list",
+                "credit_price": "Nb of pass credit needed to book",
+                "generateOffers": "Create sessions",
+                "offersWillBeGenerated": "sessions will be generated",
+                "offerWillBeGenerated": "session will be generated",
+                "recurrence": "Recurrence",
+                "notRecurrent": "Once",
+                "weekly": "Weekly",
+                "monthly": "Monthly",
+                "timeSettings": "Timetable",
+                "firstSessionOn": "First session on",
+                "firstSessionAt": "at",
+                "lastSession": "Last session",
+                "duration_minute": "Duration",
+                "priceCategory": "Billing",
+                "credits": "Credit (price)",
+                "price": "Price",
+                "caracteristics": "Caracteristics",
+                "effectif": "Mx nb of customers",
+                "level": "Level",
+                "addingSessionFor": "Session form for: ",
+                "establishment": "Establishment",
+                "coach": "Coach",
+                "newMember": "New Member",
+                "newCoach": "New Coach",
+                "firstname": "Firstname",
+                "lastname": "Lastname",
+                "gender": "Gender",
+                "birthdayYear": "Year of birth",
+                "birthday": "Day of birth",
+                "clearDate": "Clear",
+                "phone": "Phone number",
+                "email": "Email address",
+                "description": "Description",
+                "send": "Send",
+                "discard": "Discard",
+                "name": "Name",
+                "SCT": "Category",
+                "default_price": "Default price",
+                "default_credits": "Price (credits)",
+                "default_last_booking_minutes": "Last booking before",
+                "default_last_discard_minutes": "Last booking discard until",
+                "default_duration_minutes": "Duration of session",
+                "newMetaActivity": "New activity",
+                "zeroMinute": "0 min",
+                "quarterHour": "15 min",
+                "twentyMinutes": "2O min",
+                "halfHour": "30 min",
+                "halfAndQuarterHour": "45 min",
+                "oneHour": "1h",
+                "oneHourAndHalf": "1h30",
+                "twoHour": "2h",
+                "threeHour": "3h",
+                "fourHour": "4h",
+                "sixHour": "6h",
+                "eightHour": "8h",
+                "twelveHour": "12h",
+                "oneDay": "1 day",
+                "twoDays": "2 days",
+                "oneWeek": "1 week",
+                "tenDays": "10 days",
+                "twoWeeks": "2 weeks",
+                "oneMonth": "1 month",
+                "never": "Never"
+            },
+            "navigation": {
+                "combo": "Packs",
+                "requestTempPassword": "Authorize remote",
+                "sequence": "Strategies",
+                "order": "Orders",
+                "alpha": "in development",
+                "privateService": {
+                    "title": "Private lesson",
+                    "calendar": "Schedule",
+                    "services": "Lesson",
+                    "pass": "Pass"
+                },
+                "coachPerformance": "Coach",
+                "beta": "beta",
+                "consumer": {
+                    "pass": "Pass",
+                    "bookings": "My bookings",
+                    "profile": "Profile",
+                    "order": "Orders"
+                },
+                "reporting": "Reporting",
+                "search": "Search",
+                "dashboard": "Dashboard",
+                "workshopActivities": "Workshops",
+                "activity": "My activities",
+                "calendar": "Calendar",
+                "message": "Marketing",
+                "establishment": "Establishments",
+                "member": "Members",
+                "payment": "Payments",
+                "logoff": "Sign out",
+                "goBack": "Go back",
+                "pass": "Pass",
+                "settings": "Settings",
+                "myClub": "My Club",
+                "subscription": "Subscription",
+                "coupon": "Coupon"
+            },
+            "consumer": {
+                "myPaymentPacks": "My pass",
+                "myPrivatePass": "My private lesson pass",
+                "company": "Club",
+                "help": {
+                    "areYouSureCancelBookingOption": "Are you really cancelling your option ?",
+                    "explainCancelBookingOption": "After the cancellation, if you take another option for this session, your place on the waiting-list will be reset."
+                },
+                "booking": {
+                    "myPrivateBooking": "Private lessons",
+                    "cancelBooking": "Cancel booking",
+                    "discardBookingTitle": "Discard booking",
+                    "discardPossibleExplain": "Do you really want to discard your booking ? Your credits will be available for another booking.",
+                    "discardImpossibleExplain": "Are your sure you want to discard your booking ? You are canceliing too late for the club thus your credits will not be available again and will be lost",
+                    "confirmBooking": "Confirm",
+                    "waitingSlot": "Waiting a slot",
+                    "myFutureBookings": "My next bookings",
+                    "myPastBookings": "My past bookings",
+                    "myOptions": "Bookings on waiting list",
+                    "noBookingOptions": "You have no booking on waiting list",
+                    "noFutureBookings": "No future session",
+                    "noPastBookings": "No past booking",
+                    "cancelOption": "Discard"
+                }
+            },
+            "payment": {
+                "products": "item(s)",
+                "bookWithUnlimitedPack": "Book",
+                "privatePass": "Pass private lesson",
+                "paymentCombo": "Pack",
+                "noCreditLeft": "Not enough credit left",
+                "noBookingsLeftOnPack": "Pass exhausted for this week",
+                "yourBasket": "Your basket",
+                "return": "Refund",
+                "availablePaymentPacks": " pass compatible",
+                "payWithNCredits1": "Book (",
+                "payWithNCredits2": "credit",
+                "pay": "Pay",
+                "type": "Type",
+                "amount": "Amount",
+                "fullyPaid": "Status",
+                "consumer": "Client",
+                "paymentDate": "Payment date",
+                "object": "Description",
+                "addInvoiceItem": "Charge",
+                "addOffer": "Session",
+                "addPaymentPack": "Pass",
+                "updateInvoiceVoucher": "Edit voucher",
+                "voucher": "voucher",
+                "total": "TOTAL",
+                "paymentMethodStripe": "Debit card",
+                "paymentMethodCheck": "Check",
+                "paymentMethodCash": "Cash",
+                "invoice": "Invoice",
+                "paymentMethod": "Payment methods",
+                "creditAccountBalance": "Current accout balance: ",
+                "paymentMethods": {
+                    "CB": "Credit card",
+                    "CHECK": "Check",
+                    "HOLDAY_CHECK": "Other",
+                    "CASH": "Cash",
+                    "CB_MANUAL": "Credit card (manual)",
+                    "EVENT_BRITE": "EventBrite",
+                    "AMEX": "AMEX",
+                    "BANK_TRANSFER": "Bank transfer",
+                    "CREDIT_ACCOUNT": "Credit account",
+                    "SUBSCRIPTION_CB": "Automatic credit card debit",
+                    "OTHER": "Other"
+                },
+                "paymentItemsListTitle": "Registered payments",
+                "noPaymentItem": "No payment registered",
+                "addThisPaymentItem": "Add this payment",
+                "status": "Cashed-out",
+                "isRecurring": "Divide payment in time",
+                "intervalMonth": "Monthly",
+                "intervalWeek": "Weekly",
+                "billingAnchor": "First payment date",
+                "nbInterval": "Number of payments",
+                "intervalType": "Frequency",
+                "stillUnpaid": "Still unpaid: ",
+                "stripePaymentWillBeCashedOutOnInvoiceValidation": "Payment will be cashed-out on invoice creation",
+                "createInvoice": "Save invoice",
+                "toBill": "Add invoice"
+            },
+            "paginatedList": {
+                "isEmpty": "No data to display"
+            },
+            "login": {
+                "welcome": "Welcome !",
+                "signUpConsumer": "Create an account ?",
+                "invalidPhone": "Unknown phone number",
+                "choseYourUserspace": "I am",
+                "loginAsPro": "A club manager",
+                "loginAsConsumer": "An athlete",
+                "noAccount": "No account ? Create one !",
+                "password": "Password",
+                "authError": "Email and password mismatch",
+                "forgottenPassword": "Forgotten password"
+            },
+            "workshopActivity": {
+                "lastBookingBeforeMinutes": "Last booking is possible until",
+                "lastDiscardBeforeMinutes": "Last discard booking is possible until",
+                "imageUploaderRequireEditMessage": "Once you have created your workshop you will be able to add additional images.",
+                "addWorkshopActivity": "Create a workshop",
+                "forms": {
+                    "create": {
+                        "success": "Workshop created",
+                        "error": "Impossible to save workshop"
+                    },
+                    "update": {
+                        "success": "Workshop updated",
+                        "error": "Impossible to update workshop"
+                    }
+                }
+            },
+            "activity": {
+                "nextSlotAt": "Next session: ",
+                "explainImage": "Recommanded: 1920x1080 jpeg (fullHD)",
+                "settings": "Parameters",
+                "sizeOfWaitingList": "Size of waiting list",
+                "lastBookingBeforeMinutes": "Last booking is possible until",
+                "lastDiscardBeforeMinutes": "Last discard booking is possible until",
+                "addActivity": "Add an activity",
+                "is_broadcast": "Live streaming session",
+                "category": "Category",
+                "addOffers": "Add sessions",
+                "name": "Title",
+                "color": "Color code",
+                "noNextSlot": "No more session planned",
+                "grossVolume": "Gross volume",
+                "totalCustomers": "Total bookings",
+                "fillrate": "Average fillrate",
+                "description": "Description",
+                "offersThisDay": "Activities this day:",
+                "noOfferThisDay": "No activity this day, please select another date",
+                "orNcredits1": "(or ",
+                "orNcredits2": " credits)",
+                "packsAvailable": "Pass available for this activity :",
+                "reviews": "Customer reviews: ",
+                "forms": {
+                    "create": {
+                        "success": "Activity successfully created",
+                        "error": "Could not save the activity"
+                    }
+                },
+                "update": {
+                    "imageUploaderRequireEditMessage": "Once you have created your activity you will be able to add additional images."
+                },
+                "create": {
+                    "success": "Activity successfully created"
+                }
+            },
+            "booking": {
+                "wasRefunded": "Refunded",
+                "success": "Booking saved",
+                "revertBookingTitle": "Delete boking",
+                "revertBookingExplain": {
+                    "offerIsAvailable": "Are you sure you want to delete this booking ? Used credits will be given back to your member",
+                    "offerIsNotAvailable": "Are you sure you want to delete this booking ? This booking will not be refund."
+                },
+                "revertBookingWithInvoiceImpossibleExplain": "This booking has already been chased-out and can not be deleted. You can still change its attendance status.",
+                "attend": "Attend",
+                "doNotAttend": "Absent",
+                "discard": "Discard",
+                "onWaitingList": "Waiting list",
+                "onHold": "On hold",
+                "add": "Register",
+                "waitingUserConfirmation": "Waiting user confirmation",
+                "confirm": "Checkout payment",
+                "validated": "Payment confirmed",
+                "pending": "Not cashed-out",
+                "cancelled": "Cancelled",
+                "cancelBooking": "Cancel",
+                "noBookingOnThisOffer": "There is no booking on this session yet",
+                "last": "Last:",
+                "next": "Next:",
+                "fillRate": "Filled",
+                "waiting": "on waiting list",
+                "confirmed": "Confirmed",
+                "free": "slots available",
+                "seeCustomers": "Show all bookings",
+                "nb_booking": "Nb bookings",
+                "status": {
+                    "null": "waiting-list",
+                    "true": "validated",
+                    "false": "canceled"
+                },
+                "source": "Source",
+                "sources": {
+                    "MOB": "Mobile",
+                    "WEB": "Web",
+                    "MAN": "Manuel"
+                },
+                "lastBooking": "Last booking"
+            },
+            "level": {
+                "all": "All level",
+                "beginner": "Beginner",
+                "intermediate": "Intermediate",
+                "intermediary": "Intermediate",
+                "advanced": "Advanced"
+            },
+            "calendar": {
+                "modifyOffer": "Edit",
+                "deleteOffer": "Cancel",
+                "showMonth": "Show month",
+                "pleaseSelectOffer": "Select a session to show the bookings"
+            },
+            "time": {
+                "weekday": {
+                    "sunday": "Sunday",
+                    "monday": "Monday",
+                    "tuesday": "Tuesday",
+                    "wednesday": "Wednesday",
+                    "thursday": "Thursday",
+                    "friday": "Friday",
+                    "satursday": "Satursday"
+                },
+                "monthShort": {
+                    "january": "Jan",
+                    "february": "Feb",
+                    "march": "Mar",
+                    "april": "Apr",
+                    "may": "May",
+                    "june": "Jun",
+                    "july": "Jul",
+                    "august": "Aug",
+                    "september": "Sep",
+                    "october": "Oct",
+                    "november": "Nov",
+                    "december": "Dec"
+                },
+                "month": {
+                    "january": "January",
+                    "february": "February",
+                    "march": "March",
+                    "april": "April",
+                    "may": "May",
+                    "june": "June",
+                    "july": "July",
+                    "august": "August",
+                    "september": "September",
+                    "october": "October",
+                    "november": "November",
+                    "december": "December"
+                }
+            },
+            "marketplace": {
+                "substitute": "Substitute",
+                "substituted": "Can not attend",
+                "backToCalendar": "Back to calendar",
+                "privatePassListTitle": "Pass",
+                "passListTitle": "Private lessons pass",
+                "workshop": "Workshops",
+                "showMarketplace": "Show calendar of ",
+                "noSessionToday": "No session",
+                "bookButton": {
+                    "book": "Book",
+                    "bookOption": "Waiting list",
+                    "notAvailable": "Canceled",
+                    "isPast": "Past"
+                },
+                "sessionThisDay": "Sessions this day: ",
+                "calendar": "Planning",
+                "private_service": "Private sessions",
+                "shop": {
+                    "tabName": "Shop",
+                    "noDescription": "No description",
+                    "addToCard": "Add to cart",
+                    "isEmpty": "There are no product available at this moment."
+                },
+                "welcomeTo": "Welcome to ",
+                "checkout": {
+                    "dialog": {
+                        "title": "My Cart",
+                        "cancel": "Back to shop",
+                        "goToDelivery": "Continue",
+                        "goToPayment": "Pay"
+                    }
+                },
+                "pass": "Pass",
+                "buyPack": "Buy"
+            },
+            "offerManagement": {
+                "forms": {
+                    "register": {
+                        "registerToOffer": "Book a class",
+                        "passOwnedByMember": "Pass owned by member",
+                        "passCompatibleNotOwnedByMember": "Billing a new pass",
+                        "forceNotify": "Send a confirmation email"
+                    }
+                }
+            },
+            "appbar": {
+                "title": {
+                    "planning": "Planning",
+                    "allCoachPerformance": "Coaches payment",
+                    "dashboard": "Dashboard",
+                    "shopManager": "My Shop",
+                    "coachList": "Coach",
+                    "offerManagement": "Bookings",
+                    "metaActivity": "Activities",
+                    "metaActivityEditForm": "Edit Activity",
+                    "metaActivityList": "Activities",
+                    "workshopActivityList": "Workshops",
+                    "WorkshopActivityFormPage": "Workshop form",
+                    "metaActivityFormPage": "Activity form",
+                    "offerFormPage": "Add offers",
+                    "coachPerformance": "Coach Perforamce",
+                    "coachFormPage": "Coach Form",
+                    "invoiceFormPage": "Edit Invoice",
+                    "invoiceCreatePage": "Create Invoice",
+                    "invoiceList": "My transactions",
+                    "paymentPackFormPage": "Pass Form",
+                    "paymentPackList": "Subscriptions",
+                    "members": "Members",
+                    "member": "Member",
+                    "memberFormPage": "Member Form",
+                    "establishmentList": "Establishements",
+                    "establishmentFormPage": "Establishment Form",
+                    "marketingRule": "Marketing strategy",
+                    "marketingDashboard": "Marketing",
+                    "reportingDashboard": "Reporting",
+                    "searchResults": "Search",
+                    "settings": "Settings",
+                    "orderList": "Orders",
+                    "orderDetail": "Order"
+                }
+            },
+            "countdown": {
+                "hours": "Hours",
+                "minutes": "Minutes",
+                "seconds": "Seconds"
+            },
+            "dayParts": {
+                "morning": "Morning",
+                "afternoon": "Afternoon",
+                "evning": "Evening"
+            }
+        }
+    },
+    "search": {
+        "input": "Search...",
+        "go_back": "Return to results",
+        "noResult": "No matching",
+        "member": {
+            "sessions": {
+                "title": "Sessions"
+            },
+            "packs": {
+                "title": "Packs"
+            }
+        }
+    },
+    "partnership": {
+        "parameters": {
+            "companyId": "Your partner ID is : {{ company }}",
+            "establishmentId": "Your venue ID are : {{ establishmentIdList }}",
+            "enabled": "Enabled",
+            "allEstablishment": "All locations"
+        },
+        "requestDialog": {
+            "explain": "You have request the integration bsport X classpass, your account manager will contact you shortly to validate this operation.",
+            "close": "Understood"
+        },
+        "actions": {
+            "save": "Save",
+            "requestPartnership": "Enable integration"
+        }
+    },
+    "membership": {
+        "selector": {
+            "placeholder": "Search a studio/location/club...",
+            "noMatchingCompany": "No result",
+            "explainConsumer": "With <1>bsport-solution</2> enjoy a unique experience to book all your sessions online. <3/> One account and one password only !"
+        }
+    },
+    "notificationRule": {
+        "ruleGroup": {
+            "member": "Member signup",
+            "offer": "Session",
+            "booking": "Booking",
+            "waitingList": "Waiting-list"
+        },
+        "emailDesign": {
+            "placeholder": "Handled by bsport",
+            "closePreview": "Close"
+        },
+        "tag": {
+            "Offer": {
+                "name": "Session",
+                "tags": {
+                    "activity": "Activity",
+                    "coach": "Teacher",
+                    "date": "Hour/Date of session",
+                    "establishment": "Location",
+                    "establishment_practical_info": "Location instruction",
+                    "address": "Address"
+                }
+            },
+            "User": {
+                "name": "Member",
+                "tags": {
+                    "firstname": "Firstname",
+                    "lastname": "Lastname"
+                }
+            },
+            "Booking": {
+                "name": "Booking",
+                "tags": {
+                    "activity": "Activity",
+                    "coach": "Teacher",
+                    "date": "Hour/Date of session",
+                    "establishment": "Location",
+                    "establishment_practical_info": "Location instruction",
+                    "address": "Address",
+                    "ics_calendar_link": "ics calendar link"
+                }
+            },
+            "ConsumerPaymentPack": {
+                "name": "Pass",
+                "tags": {
+                    "pass_price": "Pass price",
+                    "pass_name": "Pass name",
+                    "pass_starting_date": "Pass starting date",
+                    "pass_expiration": "Pass ending date",
+                    "pass_credit_left": "Available credits on pass"
+                }
+            },
+            "BillingPlan": {
+                "name": "Subscription",
+                "tags": {
+                    "subscription_name": "Subscription name",
+                    "subscription_recurrent_price": "Recurrent price",
+                    "subscription_nb_months": "Number of months",
+                    "subscription_flat_fee": "Flat fee",
+                    "subscription_payment_method": "Payment method",
+                    "subscription_nb_days_pause": "Paused : nb of days"
+                }
+            },
+            "BookingOption": {
+                "name": "Waiting-list",
+                "tags": {
+                    "activity": "Activity",
+                    "coach": "Teacher",
+                    "date": "Hour/Date of session",
+                    "establishment": "Location",
+                    "establishment_practical_info": "Location instruction",
+                    "address": "Address",
+                    "option_payment_url": "Booking link",
+                    "option_expiration_date": "Option expiration date"
+                }
+            }
+        },
+        "eventType": {
+            "3": "Session cancelled",
+            "6": "Member signup (by member)",
+            "7": "Booking via pass",
+            "8": "Booking + pass purchase",
+            "9": "Waiting-list exited : booking possible",
+            "10": "Waiting-list full again",
+            "12": "Subscribe to waiting-list",
+            "13": "Unsubcribe from the waiting-list (member)",
+            "14": "Unsubcribe from the waiting-list (manager)",
+            "16": "Session modified",
+            "17": "Booking cancelled : credit not-refunded",
+            "18": "Booking cancelled : credit refunded",
+            "19": "Member signup (manager)",
+            "21": "New booking",
+            "24": "Subscription created",
+            "25": "Payment method modified",
+            "26": "Subscription paused",
+            "27": "Subscription ended or terminated",
+            "28": "Payment received"
+        },
+        "messages": {
+            "createOrUpdate": {
+                "success": "Successfully saved",
+                "error": "Impossible to save"
+            }
+        }
+    },
+    "consumerSpace": {
+        "navigation": {
+            "dashboard": "Dashboard",
+            "calendar": "History",
+            "pack": "Pass",
+            "invoice": "Invoie",
+            "subscription": "Subscription",
+            "profile": "Profile",
+            "changeMembership": "Change club",
+            "logoff": "Logout"
+        },
+        "pack": {
+            "titlePaymentPack": "Class",
+            "titlePrivatePack": "Private class"
+        },
+        "booking": {
+            "titleBooking": "Class",
+            "titlePrivateBooking": "Private class",
+            "showCalendar": "See calendar",
+            "discard": "Cancel"
+        },
+        "dashboard": {
+            "favoriteTitle": "My favorite",
+            "nextBookingTitle": "My next sessions",
+            "currentPassTitle": "Active pass",
+            "showMore": "Show more"
+        }
+    },
+    "reminder": {
+        "task": {
+            "sectionTitle": {
+                "pending": "Pending tasks",
+                "future": "Planned tasks",
+                "past": "Archived tasks"
+            },
+            "status": {
+                "0": "Pending",
+                "10": "Finished",
+                "20": "Cancelled"
+            },
+            "owners": "Attributed to",
+            "author": "Author",
+            "actions": {
+                "addTask": "Plan a task",
+                "finish": "Finish",
+                "restart": "Start over",
+                "cancel": "Archive"
+            },
+            "form": {
+                "title": "Task",
+                "close": "Cancel",
+                "submit": "Submit",
+                "description": {
+                    "label": "Message"
+                },
+                "name": {
+                    "label": "Title"
+                },
+                "date_due": {
+                    "label": "Reminder date"
+                },
+                "task_owner": {
+                    "helperText": "Staff to notify"
+                }
+            }
+        }
+    },
+    "category": {
+        "sct": {
+            "selector": {
+                "placeholder": "Category"
+            }
+        }
+    },
+    "authentication": {
+        "resetPassword": {
+            "title": "Password reset",
+            "noEmail": "This email is not registered",
+            "explain1": "What was your email  ?",
+            "explain2": "We will send you reset instructions",
+            "emailHasBeenSent": "An email has been sent to {{email}} to reset your password",
+            "actions": {
+                "cancel": "Cancel",
+                "reset": "OK",
+                "backToLogin": "Back"
+            }
+        }
+    },
+    "paymentCombo": {
+        "pageTitle": {
+            "list": "Packs"
+        },
+        "link": {
+            "copied": "Copied",
+            "copyLink": "Copy link to payment page"
+        },
+        "list": {
+            "section": {
+                "unavailableOnline": "Unavailable for client purchase",
+                "availableOnline": "Available for client purchase"
+            },
+            "explainIfEmpty": "Create here packs buyable by the students, which may contain pass, shop item, etc...",
+            "buttons": {
+                "add": "Create a pack"
+            }
+        },
+        "form": {
+            "title": "Pack form",
+            "name": {
+                "label": "Name"
+            },
+            "description": {
+                "label": "Description"
+            },
+            "price": {
+                "label": "Price"
+            },
+            "tax": {
+                "label": "Tax"
+            },
+            "manager_only": {
+                "label": "Unavailable for client purchase"
+            },
+            "actions": {
+                "submit": "Save",
+                "cancel": "Cancel"
+            },
+            "content": "Content",
+            "selectorPlaceholder": {
+                "privatePass": "Private lesson pass",
+                "paymentPack": "Pass collective lesson",
+                "shopitem": "Shop"
+            }
+        },
+        "detail": {
+            "containsNProducts": "Contains {{ n }} products",
+            "description": "Description",
+            "content": "Content",
+            "purchases": "Purchases",
+            "emptyContent": "This pack does not contain any object!"
+        },
+        "delete": {
+            "title": "Pack deletion",
+            "content": "Are you sure you want to delete this pacjk ? This operation is definitive, current purchases and current baskets will not be modified.",
+            "cancel": "Cancel",
+            "submit": "Delete"
+        }
+    },
+    "communication": {
+        "table": {
+            "columns": {
+                "member": "Member",
+                "title": "Preview",
+                "date_created": "Date",
+                "status": "Status"
+            }
+        },
+        "mail": {
+            "title": "Mail object",
+            "content": "Mail content",
+            "missing": "Missing email",
+            "success": "Mail sent",
+            "error": "Mail not sent",
+            "refreshText": "Please refresh page to integrate email change",
+            "noObject": "No object"
+        },
+        "recipients": "Recipients",
+        "common": {
+            "cancel": "Cancel",
+            "submit": "Submit",
+            "refresh": "Refresh"
+        },
+        "dialogReceiverChoice": {
+            "reservation": "Send to bookings",
+            "waitingList": "Send to waiting-list",
+            "title": "Selection of recipients"
+        },
+        "campaign": {
+            "recipientCount": "Recipient: {{ total_recipients }}",
+            "sentAt": "Sent at {{ date_created }}",
+            "readCount": "Opens",
+            "clickCount": "Clicks",
+            "showReport": "Report",
+            "list": {
+                "showMore": "Show more"
+            },
+            "report": {
+                "totalRead": "Opens",
+                "totalClick": "Clicks",
+                "deliveryRate": "Successful delivery",
+                "lastOpen": "Last open",
+                "dateCreated": "Send date",
+                "topLinks": "Top links",
+                "recipientList": "Recipient Detail",
+                "noTopLink": "No click"
+            }
+        },
+        "recipient": {
+            "readCount": "Open",
+            "clicksCount": "Click",
+            "showEmail": "Show email",
+            "status": {
+                "0": "Processing",
+                "1": "Processing",
+                "2": "Dropped",
+                "3": "Deferred",
+                "4": "Delivered",
+                "5": "Bounced"
+            },
+            "table": {
+                "columns": {
+                    "email": "Email",
+                    "readCount": "Opens",
+                    "lastRead": "Last open",
+                    "clicked": "Clicks",
+                    "status": "Status"
+                }
+            }
+        }
+    },
+    "privateService": {
+        "serviceGroup": {
+            "delete": "Delete",
+            "edit": "Edit",
+            "isEmpty": "No appointment type associated to this category",
+            "selector": {
+                "placeholder": "Category"
+            },
+            "form": {
+                "title": "Category",
+                "name": {
+                    "label": "Name"
+                },
+                "actions": {
+                    "cancel": "Cancel",
+                    "submit": "Save"
+                }
+            }
+        },
+        "availabilitySlot": {
+            "form": {
+                "resourceSelector": {
+                    "title": "Slot modification",
+                    "label": "Modify for:",
+                    "cancel": "Cancel",
+                    "submit": "Save"
+                }
+            }
+        },
+        "resource": {
+            "form": {
+                "color": "Color code",
+                "actions": {
+                    "cancel": "Cancel",
+                    "submit": "Save"
+                }
+            },
+            "groupBy": "Group by",
+            "unGroup": "None",
+            "datatype": {
+                "establishment": "Location",
+                "coach": "teacher",
+                "associated_establishment": "Locations",
+                "associated_coach": "Teacher",
+                "private_service": "General"
+            }
+        },
+        "pageTitles": {
+            "passList": "Pass",
+            "serviceList": "Appointments",
+            "calendar": "Calendar"
+        },
+        "color": {
+            "form": {
+                "title": "Teacher color code",
+                "cancel": "Cancel",
+                "submit": "Save"
+            }
+        },
+        "payment": {
+            "address": {
+                "explain": "Specify your address for at-home course",
+                "save": "Save"
+            }
+        },
+        "privateSlot": {
+            "delete": {
+                "title": "Slot deletion",
+                "explain": "Are you sure you want to delete this slot ? Past bookings will not be deleted. This operation is not revertable.",
+                "cancel": "Cancel",
+                "confirm": "Confirm"
+            }
+        },
+        "privateBooking": {
+            "cancel": "Cancel",
+            "hardDelete": "Delete",
+            "isCancelled": "Cancelled",
+            "detail": {
+                "title": "Booking",
+                "registeredOn": "Booked on ",
+                "source": "Booking via ",
+                "slotTitle": "Session",
+                "passTitle": "Pass",
+                "wasRefunded": "Credit refunded on the pass",
+                "wasRefundedYes": "Yes",
+                "wasRefundedNo": "No",
+                "address": "Address"
+            },
+            "managerAdd": {
+                "title": "New booking",
+                "address": "Address",
+                "coachSelector": {
+                    "label": "Teacher"
+                },
+                "pleaseSelectCoachAndSlot": "Select teacher and slot first",
+                "cancel": "Cancel",
+                "compatiblePrivatePass": "Bill an appointment pass",
+                "compatiblePrivateConsumerPass": "Appointment pass owned:",
+                "emptyPrivateConsumerPass": "No appointment pass owner",
+                "emptyPrivatePass": "No appointment pass compatible",
+                "privateConsumerPassNeedRefresh": "Refresh list"
+            },
+            "delete": {
+                "title": "Cancel booking",
+                "explain": "Are you sure you want to cancel this booking ? This operation is not revertable.",
+                "explainHardDelete": "This booking has already been canelled, deleting it will make it disappear totally from the calendar and you will lose the history report. If not it will be refunded on member pass. This operation is not revertable.",
+                "explainForceRefund": "Refund used credit on the pass to allow for a new booking.",
+                "cancel": "Cancel",
+                "confirm": "Confirm"
+            }
+        },
+        "privateService": {
+            "delete": {
+                "title": "Appointment deletion",
+                "explain": "Are you sure you want to delete this appointment ? This modification is not revertable. Past booking wont be deleted.",
+                "cancel": "Cancel",
+                "submit": "Delete",
+                "confirm": "Delete"
+            }
+        },
+        "calendar": {
+            "enableAvailability": "Add an availability slot this day",
+            "disableAvailability": "Cancel an availability",
+            "enableRecurrentAvailability": "Add a recurrent availability",
+            "disableRecurrentAvailability": "Cancel a recurrent availability",
+            "selectCoachToModifyAvailability": "Select a teacher",
+            "addBooking": "Register an appointment",
+            "toogle": {
+                "showOfferList": "Show group classes",
+                "showPrivateBookings": "Show appointments"
+            },
+            "form": {
+                "title": {
+                    "enable": "Add an availability",
+                    "disable": "Cancel an availability"
+                },
+                "explain": "Modify until :",
+                "interval": {
+                    "explain1": "Modify the availability : ",
+                    "explain2": "{{ date_start }} - {{ date_end }}, every {{ day }}"
+                },
+                "actions": {
+                    "cancel": "Cancel",
+                    "submit": "Save"
+                }
+            }
+        },
+        "selector": {
+            "privateService": "Select your appointment",
+            "privateSlot": "Select your session"
+        },
+        "slotSearcher": {
+            "title": "Appointment",
+            "searchSlot": "Look for a slot",
+            "selectPrivateSlot": "Select a session",
+            "search": "Look for a slot",
+            "selectCoach": "All teachers",
+            "emptyDateList": "No slot available this day",
+            "bookableSlots": {
+                "title": "Available slots",
+                "isEmpty": "No available slot"
+            }
+        },
+        "slot": {
+            "parameters": {
+                "credit": "{{ credit }} credit"
+            },
+            "form": {
+                "title": "Session",
+                "name": {
+                    "label": "Session name",
+                    "placeholder": "Double session (2h)"
+                },
+                "people_capacity_used": {
+                    "label": "People nb",
+                    "helperText": "If a room is configured, this number will be used to update its available capacity"
+                },
+                "credit": {
+                    "label": "Credit number",
+                    "helperText": "Number of credit needed for an appointment"
+                },
+                "duration_minutes": {
+                    "label": "Duration",
+                    "helperText": "Adapt credit needed in function of the duration"
+                },
+                "cancel": "Cancel",
+                "submit": "Save"
+            }
+        },
+        "bookerModule": {
+            "address": {
+                "label": "Address"
+            },
+            "availableSlots": "Available slots",
+            "emptySlot": "No slot available",
+            "missingResource": {
+                "service": "Please select an appointment type",
+                "coach": "Please select a teacher",
+                "establishment": "Please select a location"
+            },
+            "cancel": "Cancel",
+            "title": "Appointment registration",
+            "error": "Impossible to book on this date",
+            "searchSlot": "Look for a slot",
+            "noPrivateServiceAvailable": "No appointment available",
+            "isAtHome": "Home service, your address will be asked during the registration",
+            "bookingCapabilities": {
+                "compatibleConsumerPassTitle": "Your compatible pass",
+                "emptyConsumerPassList": "You do not own a valid pass with enough credit",
+                "compatiblePassTitle": "Compatible pass with this session",
+                "emptyPassList": "No compatible pass, please contact your club"
+            },
+            "useCredit": "Réserver",
+            "private_pass": {
+                "credits": "{{ credits }} crédit"
+            },
+            "buyPass": "{{ price }}€",
+            "preview": {
+                "credit_cost": "{{credit_cost}} crédit"
+            },
+            "sections": {
+                "establishment": "Lieu",
+                "privateSlot": "Séances",
+                "coach": "Professeur"
+            },
+            "step": {
+                "configuration": "Mon rendez-vous",
+                "billing": "Facturation",
+                "privateService": "Rendez-vous",
+                "privateSlot": "Séance",
+                "coach": "Professeur",
+                "date": "Date"
+            }
+        },
+        "consumerPass": {
+            "current_credits": "{{ current_credits }}/{{credits}} crédits",
+            "isReverted": "Facture annulée",
+            "detail": {
+                "invoice": "Facture liée",
+                "booking": "Réservations RDV liées"
+            }
+        },
+        "privateServiceCompatibility": {
+            "delete": {
+                "title": "Modification RDV compatibles",
+                "explain": "Êtes-vous sûr de vouloir modifier les règles d'utilisation du pass ? Cette modification est rétro-active pour les achats déjà effectués.",
+                "cancel": "Annuler",
+                "submit": "Supprimer"
+            }
+        },
+        "privatePass": {
+            "delete": {
+                "title": "Suppression de la carte",
+                "explain": "Êtes-vous sûr de vouloir supprimer cette carte ? Les personnes possédant encore des crédits pourront toujours les utiliser. Cette opération est définitive",
+                "cancel": "Annuler",
+                "submit": "Confirmer"
+            },
+            "list": {
+                "createButton": "Créer une carte RDV"
+            },
+            "parameters": {
+                "nbCredits": "{{ credits }} crédit",
+                "price": "{{ price}} €",
+                "tax": "TVA: {{ tax }}%",
+                "managerOnly": "Invisible pour les clients"
+            },
+            "compatibleServices": {
+                "title": "RDV compatibles",
+                "add": "Ajouter",
+                "isEmpty": "Aucun rendez-vous n'est compatible - inutilisable"
+            },
+            "form": {
+                "title": "Carte RDV",
+                "managerOnly": {
+                    "label": "Invisible pour les clients"
+                },
+                "name": {
+                    "label": "Nom"
+                },
+                "credits": {
+                    "label": "Nombre de crédit inclu",
+                    "helperText": "Chaque séance coûte un certain nombre de crédit"
+                },
+                "price": {
+                    "label": "Prix"
+                },
+                "tax": {
+                    "label": "TVA"
+                },
+                "actions": {
+                    "submit": "Enregistrer",
+                    "cancel": "Annuler"
+                }
+            }
+        },
+        "service": {
+            "selector": {
+                "placeholder": "Sélectionnez un rendez-vous",
+                "isEmpty": "Aucun type de rendez-vous configuré",
+                "coach": {
+                    "label": "Professeur"
+                },
+                "establishment": {
+                    "label": "Salle"
+                }
+            },
+            "detail": {
+                "tab": {
+                    "general": "Général",
+                    "calendar": "Calendrier"
+                }
+            },
+            "configuration": {
+                "slot": "Type de séance",
+                "explainSetToHasNotOwnAvailabilitySlots": "Réservable sur tout créneau horaire si prof/salle disponibles",
+                "explainSetToHasOwnAvailabilitySlots": "Reservable sur certains créneaux seulement",
+                "explainHasOwnAvailabilitySlots": "Cliquez sur le crayon pour limiter les réservations à certaines plages horaires",
+                "hasFutureSlot": "Calendrier des disponibilités futures OK",
+                "noCapacity": "Location max capacity set to 0 !",
+                "totalCapacity": "Location max capacity: {{ capacity }}",
+                "noFutureSlot": "Vous n'avez configuré aucune disponibilité pour {{resourceName}} ! Cliquez ici.",
+                "title": "Disponibilités horaires",
+                "isAlwaysAvailable": "{{ resourceName}} est réservable dès que la salle et/ou les profs sont disponibles",
+                "changeIsAlwaysAvailable": "Modifier"
+            },
+            "form": {
+                "establishmentResourceType": {
+                    "isHomeService": {
+                        "label": "A domicile",
+                        "helperText": "Une adresse sera demandé à chaque réservation"
+                    },
+                    "isWithoutEstablishment": {
+                        "label": "Sans lieu pré-déterminé",
+                        "helperText": "Ex: cours en visio / en extérieur / ..."
+                    },
+                    "isWithEstablishment": {
+                        "isEmpty": "Aucune salle configurée !",
+                        "label": "Dans l'un de vos établissements",
+                        "helperText": "La réservation ne sera possible que si la salle dispose de suffisamment de places libres"
+                    }
+                },
+                "resourceGroup": {
+                    "establishment": "Lieu",
+                    "coach": "Professeur"
+                },
+                "coach_consumer_attribution": {
+                    "label": "Permettre le choix du professeur lors de la réservation",
+                    "helperText": "Le membre voit et choisit le professeur avant la réservation. Si décoché, bsport d'attribuer les réservations au même professeur si possible"
+                },
+                "establishment_consumer_attribution": {
+                    "label": "Permettre le choix du lieu lors de la réservation",
+                    "helperText": "Le membre voit et choisit le lieu avant la réservation, si décoché bsport essaiera d'optimiser le remplissage des salles"
+                },
+                "delete": {
+                    "title": "Suppression du rendez-vous",
+                    "content": "Êtes-vous certain de vouloir supprimer ce type de rendez-vous ?",
+                    "cancel": "Annuler",
+                    "confirm": "Supprimer"
+                },
+                "coach_capacity_used": {
+                    "label": "Nb maximum de RDV simultanés qu'un professeur peut gérer",
+                    "helperText": "Ex: un professeur peut surveiller deux élèves séparément sur deux machines "
+                },
+                "color": "Code couleur",
+                "use_full_establishment_capacity": {
+                    "label": "Nécessite toute la salle",
+                    "helperText": "Décochez pour autoriser simultanément plusieurs activités / rdv dans la même salle si la capacité le permet"
+                },
+                "title": "Rendez-vous",
+                "createButton": "Ajouter un type de Rendez-vous",
+                "addCoach": "Ajouter un professeur",
+                "addEstablishment": "Ajouter une salle",
+                "addSlot": "Ajouter un type séance",
+                "is_home_service": {
+                    "label": "A domicile",
+                    "helperText": "Une adresse sera demandée à chaque réservation"
+                },
+                "is_without_coach": "Sans professeur",
+                "name": {
+                    "label": "Nom du service",
+                    "placeholder": "Massage"
+                },
+                "coach": {
+                    "label": "Professeur",
+                    "isEmpty": "Aucun professeur configuré !"
+                },
+                "establishment": {
+                    "label": "Salle"
+                },
+                "description": {
+                    "label": "Description du service"
+                },
+                "actions": {
+                    "cancel": "Annuler",
+                    "submit": "Enregistrer"
+                }
+            },
+            "parameters": {
+                "description": "Description",
+                "coaches": {
+                    "title": "Professeur",
+                    "is_empty": "Aucun professeur n'est requis"
+                },
+                "establishments": {
+                    "title": "Lieu",
+                    "is_empty": "A domicile"
+                },
+                "slots": {
+                    "title": "Séance",
+                    "isEmpty": "Aucune type de séance définie",
+                    "explainIsEmpty": "Définissez des types de séances (durée, coût)"
+                }
+            }
+        }
+    },
+    "relationship": {
+        "member": {
+            "item": {
+                "edit": "Edit",
+                "delete": "Delete"
+            },
+            "list": {
+                "title": "Relationship",
+                "isEmpty": "No relationship created yet",
+                "pleaseSelectOne": "Select a relationship to see shared pass",
+                "actions": {
+                    "create": "Create a relationship"
+                }
+            },
+            "form": {
+                "is": " is ",
+                "src_name": {
+                    "placeholder": "Mother"
+                },
+                "dst_name": {
+                    "placeholder": "Son"
+                },
+                "title": "Relationship",
+                "cancel": "Cancel",
+                "submit": "Save"
+            },
+            "messages": {
+                "edit": {
+                    "success": "Relationship modified"
+                },
+                "create": {
+                    "success": "Relationship saved"
+                },
+                "createOrUpdate": {
+                    "error": "Impossible to save relationship"
+                }
+            }
+        },
+        "consumer_payment_pack_links": {
+            "list": {
+                "title": "Shared pass",
+                "create": "Share a pass",
+                "isEmpty": "No shared pass"
+            },
+            "form": {
+                "create": {
+                    "title": "Share pass",
+                    "explain": "This pass will be shared between the two member, they can both use the credits.",
+                    "cancel": "Cancel",
+                    "previous": "Previous",
+                    "submit": "Share",
+                    "noConsumerPackToLink": "No shareable pass",
+                    "linkButton": "Share"
+                },
+                "relink": {
+                    "title": "Share again",
+                    "explain": "Sharing will be started again between the members",
+                    "submit": "Share",
+                    "cancel": "Cancel"
+                },
+                "unlink": {
+                    "title": "Stop sharing",
+                    "explain": "Sharing will be stopped. The master pass will still be usable",
+                    "submit": "Stop",
+                    "cancel": "Cancel"
+                }
+            },
+            "messages": {
+                "create": {
+                    "success": "Pass shared",
+                    "error": "Impossible to share this pass"
+                },
+                "unlink": {
+                    "success": "Sharing stopped",
+                    "error": "Impossible to delete this sharing"
+                },
+                "relink": {
+                    "success": "Pass shared",
+                    "error": "Impossible to share this pass"
+                }
+            }
+        }
+    },
+    "coupon": {
+        "list": {
+            "isEmpty": "No coupon registered yet",
+            "inactiveCoupons": "Coupons disabled or expired",
+            "activeCoupons": "Active coupons"
+        },
+        "detail": {
+            "seeParameters": "See parameters"
+        },
+        "card": {
+            "first_buy": "Use on first buy only",
+            "expiration": "Expiry date",
+            "no_expiration": "No expiry date",
+            "validity": "Validity:",
+            "cumulable": "Cumulable",
+            "no_cumulable": "Not cumulable",
+            "uses": "uses",
+            "member_uses": "uses per member",
+            "member_use": "use per member",
+            "limitation": "Restricted to"
+        },
+        "form": {
+            "selectorPlaceholder": {
+                "privatePass": "Select private lesson passes (valid on all passes if none selected)",
+                "paymentPack": "Select collective lesson passes (valid on all passes if none selected)",
+                "shopitem": "Select shop items (valid on all items if none selected)"
+            },
+            "section": {
+                "general": "General",
+                "availability": "Availability",
+                "usability": "Usability",
+                "voucherConfig": "Voucher",
+                "applies_to": "Parameters",
+                "advanced": "Advance"
+            },
+            "name": {
+                "label": "Name"
+            },
+            "code": {
+                "label": "Code",
+                "helperText": "The code you will send to appropriate customers"
+            },
+            "voucher_type": {
+                "percent": "As a percentage",
+                "amount": "As an amount"
+            },
+            "percent_off": {
+                "label": "Voucher percentage"
+            },
+            "amount_off": {
+                "label": "Voucher amount"
+            },
+            "is_active": {
+                "label": "Active",
+                "helperText": "A non-active code is not usable by any customer"
+            },
+            "with_expiration_date": {
+                "label": "With expiration date"
+            },
+            "expiration_date": {
+                "clear_date": "No expiration",
+                "cancel": "Cancel",
+                "label": "Expiration date"
+            },
+            "usage_per_member": {
+                "label": "Usage limit per customer"
+            },
+            "usage_total": {
+                "label": "Total usage limit"
+            },
+            "only_on_first_checkout": {
+                "label": "First payment only"
+            },
+            "combinable": {
+                "label": "Usable with other codes"
+            },
+            "minimum_amount": {
+                "label": "Minimum basket payment"
+            },
+            "applies_to": {
+                "choices": {
+                    "1": "Pass",
+                    "2": "Shop",
+                    "6": "Delivery fee",
+                    "9": "Private lesson pass",
+                    "all": "All basket",
+                    "null": "All basket"
+                }
+            },
+            "actions": {
+                "cancel": "Cancel",
+                "submit": "Submit"
+            }
+        },
+        "noDiscount": "No use of the coupon",
+        "createCoupon": "Add a code",
+        "code": {
+            "addCoupon": {
+                "label": "Coupon",
+                "placeholder": "VOUCHER_CODE"
+            }
+        },
+        "message": {
+            "delete": {
+                "error": "Impossible to delete this coupon",
+                "success": "Coupon delete"
+            },
+            "update": {
+                "error": "Impossible to edit this coupon",
+                "success": "Coupon updated successfully"
+            },
+            "create": {
+                "error": "Impossible to create this coupon",
+                "success": "Coupon save successfully"
+            },
+            "attachToBasket": {
+                "error": "No compatible coupon found"
+            }
+        }
+    },
+    "dashboard": {
+        "current_week": "Past week",
+        "current_month": "Past month",
+        "last_three_months": "Past three months",
+        "current_year": "Past year",
+        "thisWeek": "This week",
+        "thisMonth": "This month",
+        "newMembers": "New members",
+        "nbOffers": "Sessions",
+        "pageTitle": "Dashboard",
+        "turnover": "Turnover (€)",
+        "bookings": "Bookings",
+        "dateRange": {
+            "start": "Start",
+            "end": "End"
+        },
+        "filterByDateTitle": "Filter by date",
+        "detailsGraphTitle": "Detailed data"
+    },
+    "stripe": {
+        "errors": {
+            "incomplete_number": "Your card number is incomplete.",
+            "incomplete_expiry": "Your card's expiration date is incomplete.",
+            "invalid_expiry_year_past": "Your card's expiration year is in the past.",
+            "invalid_expiry_year": "Your card's expiration year is invalid.",
+            "incomplete_cvc": "Your card's security code is incomplete.",
+            "invalid_number": "Your card number is invalid.",
+            "card_declined": "Your card was declined",
+            "expired_card": "Your card has expired.",
+            "incorrect_cvc": "Your card's security code is incorrect.",
+            "processing_error": "An error occurred while processing your card. Try again in a little bit.",
+            "insufficient_funds": "Your card has insufficient funds.",
+            "payment_intent_authentication_failure": "Payment refused by your bank.",
+            "unknown": "Erreur réseau, please retry in a few minutes",
+            "lost_card": null,
+            "stolen_card": null
+        },
+        "error_code": {
+            "none": "",
+            "incomplete_number": "Incomplete card number.",
+            "incomplete_expiry": "Expiration date is incomplete.",
+            "invalid_expiry_year_past": "You card has expired.",
+            "invalid_expiry_year": "Expiration date is invalid.",
+            "incomplete_cvc": "Your security code is incomplete.",
+            "invalid_number": "You card number is invalid.",
+            "expired_card": "Your card has expired.",
+            "card_declined": "Card declined",
+            "payment_intent_authentication_failure": "Payment was declined by you bank.",
+            "payment_intent_payment_attempt_failed": "The payment was declined by your bank.",
+            "processing_error": "An occurred while registering payment, please try again in a fe minutes.",
+            "unknown": "Network error, please retry in a few minutes"
+        },
+        "decline_code": {
+            "none": "",
+            "card_not_supported": "Your card was not recognized.",
+            "incorrect_number": "Your card number is invalid.",
+            "incorrect_cvc": "Your security code is invalid.",
+            "insufficient_funds": "Not enough funds availabled.",
+            "restricted_card": "Your card was refused by your bank",
+            "stolen_card": "Your card has been tagged as stolen by your bank",
+            "transaction_not_allowed": "The transaction was refused by your bank",
+            "generic_decline": "Your bank has refused the payment",
+            "withdrawal_count_limit_exceeded": "Too much debut on a short period, declined by your bank"
+        }
+    },
+    "role": {
+        "userRoles": "Staff accounts",
+        "permissions": "Available roles",
+        "forms": {
+            "user": {
+                "create": {
+                    "buttonLabel": "Add an access",
+                    "title": "Add a staff user access",
+                    "email": {
+                        "label": "Email"
+                    },
+                    "role": {
+                        "label": "Role"
+                    },
+                    "cancel": "Cancel",
+                    "submit": "Save"
+                },
+                "delete": {
+                    "title": "Staff user deletion",
+                    "content": "Are you sure you want to delete this staff account ?",
+                    "cancel": "Cancel",
+                    "confirm": "Delete"
+                },
+                "snackbar": {
+                    "success": "Access rights modified",
+                    "error": "Impossible to modify access rights"
+                }
+            }
+        }
+    },
+    "theme": {
+        "forms": {
+            "themePersonalization": {
+                "names_label_info": "Change label of first name and last name fields in subsription forms",
+                "first_name_label": {
+                    "placeholder": "First name label",
+                    "label": "First name label",
+                    "helperText": "Fill in the first name label"
+                },
+                "last_name_label": {
+                    "placeholder": "Last name label",
+                    "label": "Last name label",
+                    "helperText": "Fill in the first name label"
+                },
+                "offersFilling": "Display offers filling on marketplace calendar"
+            },
+            "cover": {
+                "label": "Logo",
+                "helperText": "Favorize png files with transparent background"
+            },
+            "primary_color": {
+                "label": "Primary color",
+                "helperText": "Mostly used theme color"
+            },
+            "secondary_color": {
+                "label": "Secondary color",
+                "helperText": "Complentary theme color"
+            },
+            "default_booking_ordering": {
+                "date": "Sort by most recent booking date",
+                "firstname": "Sort by first name",
+                "lastname": "Sort by last name",
+                "title": "Select bookings sort on offer page"
+            },
+            "default_attendance": {
+                "present": "Member present",
+                "missing": "Member missing",
+                "title": "Default status for a booking made by a member"
+            },
+            "websiteURL": {
+                "label": "URL website",
+                "helperText": "You main website",
+                "placeholder": "https://studio.com/"
+            },
+            "scheduleURL": {
+                "label": "URL schedule",
+                "helperText": "Default link to your schedule page",
+                "placeholder": "https://studio.com/schedule/"
+            },
+            "instagramURL": {
+                "label": "URL Instagram",
+                "helperText": "Your Instagram page",
+                "placeholder": "https://instagram.com/my-studio/"
+            },
+            "gtmId": {
+                "placeholder": "GTM-XXXXXX",
+                "label": "Google Tag ID"
+            },
+            "facebookURL": {
+                "label": "URL Facebook",
+                "helperText": "Your facebook page",
+                "placeholder": "https://facebook.com/my-studio/"
+            },
+            "submit": "Save"
+        },
+        "general_terms_and_conditions": {
+            "label": "General terms and conditions",
+            "helperText": "Must be accepted for all payment and subscription",
+            "placeholder": "I certify being allowed by my doctor to practice this activity."
+        }
+    },
+    "common": {
+        "text": {
+            "showLessText": "Show more",
+            "showMoreText": "Show less"
+        },
+        "close": "Close"
+    },
+    "workshop": {
+        "search": "Search a workshop",
+        "modal": {
+            "delete": {
+                "title": "Delete workshop",
+                "content": "Are you sure you want to delete this workshop ? Booking and sessions will not be altered. This operation is not revertable.",
+                "cancel": "Cancel",
+                "confirm": "Delete"
+            }
+        }
+    },
+    "tag": {
+        "panel": {
+            "title": "My tags",
+            "noTagAvailable": "No tag created yet"
+        },
+        "filter": {
+            "addATagFilter": "Filter by tag..."
+        },
+        "tag": {
+            "noTagAttributed": "Select a tag"
+        },
+        "form": {
+            "filter": {
+                "title": "Filter",
+                "includeLabel": "Type",
+                "include": "Including tag",
+                "exclude": "Excluding tag",
+                "tagGroupLabel": "Tag (category)",
+                "tagLabel": "Tag (value)",
+                "cancel": "Cancel",
+                "addFilter": "Filter"
+            },
+            "group": {
+                "namePlaceholder": "Category name",
+                "addTagGroup": "Create a category",
+                "edit": "Edit tags",
+                "deleteCategory": "Delete category",
+                "delete": {
+                    "title": "Delete category",
+                    "explain": "Be careful ! This category will be deleted for all members, are you sure you want to do that ? This operation is not reversable.",
+                    "submit": "Delete",
+                    "cancel": "Cancel"
+                }
+            },
+            "tag": {
+                "namePlaceholder": "Name of the tag",
+                "delete": {
+                    "title": "Delete tag",
+                    "explain": "Be careful ! This tag will be deleted for all members, are you sure you want to do that ? This operation is not reversable.",
+                    "submit": "Delete",
+                    "cancel": "Cancel"
+                }
+            }
+        }
+    },
+    "login": {
+        "forms": {
+            "password": {
+                "label": "Password"
+            }
+        },
+        "tempPassword": {
+            "title": "Temp password",
+            "close": "Close",
+            "submit": "Generate",
+            "explainRequest": "Ask for a temporary password available for 2h and send it to a tier to give him an access to your account for a limited amount of time. Your main password will not be affected.",
+            "explain": "This password is valid until {{expirationDate }}. You main password has not changed."
+        }
+    },
+    "waitingList": {
+        "switchToEnable": "Switch waiting-list on",
+        "switchToDisable": "Disable waiting list",
+        "nbPending": "{{ nbPending }} waiting for a slot",
+        "nbConvertible": "{{ nbConvertible }} pending booking confirmation",
+        "form": {
+            "dumb_delay_minutes": {
+                "label": "Simple waiting-list",
+                "helper": "If a slot becomes available, the client has N minutes to register before the next one takes his slot."
+            },
+            "smart_delay_percentage": {
+                "label": "Smart waiting-list",
+                "helper": "If a slot becomes available, the client has a time proportional to the time left before the session."
+            },
+            "submit": "Submit",
+            "auto_cancellation_type": {
+                "title": "Waiting-list management"
+            }
+        },
+        "explainWaitingListConf": "e.g: There is 3h left before the session, the client has {{ nbMinutesBeforeBookingOptionExpire }} minutes to register his booking before he goes back to the waiting-list.",
+        "dialog": {
+            "delete": {
+                "title": "Waiting-list removal",
+                "content": "Are you sure you want to remove this member from the waiting-list ? He will be notified by email",
+                "cancel": "Cancel",
+                "confirm": "Remove"
+            }
+        }
+    },
+    "checkout": {
+        "paymentIntent": {
+            "isProcessing": "Processing..."
+        },
+        "forms": {
+            "delivery": {
+                "first_name": "Firstname",
+                "last_name": "Lastname",
+                "actions": {
+                    "submit": "Next",
+                    "cancel": "Back"
+                }
+            }
+        },
+        "autoAdd": {
+            "paymentPack": {
+                "locked": "You can not buy this pass!"
+            }
+        },
+        "myBasket": {
+            "finalize": {
+                "steps": {
+                    "address": "Address",
+                    "payment": "Billing"
+                }
+            },
+            "title": "My basket",
+            "isEmpty": "You basket is empty",
+            "featured": "Featured",
+            "error": {
+                "invalidBasket": "Your basket contained items which are not available for sell anymore. No payment was registered."
+            },
+            "actions": {
+                "closeBasket": "Continue shopping",
+                "checkoutBasket": "Buy",
+                "payZero": "Confirm my basket"
+            }
+        }
+    },
+    "establishment": {
+        "establishment": "Establishment",
+        "baseEstablishment": "Usual",
+        "overrider": "Override",
+        "establishment_override": "Override establishment",
+        "search": "Search an establishment",
+        "pleaseSelectOne": "Please select a club in the map to show its details",
+        "offers": "Sessions calendar:",
+        "pleaseFill": "Please enter an establishment",
+        "noMoreOffers": "No more sessions planned",
+        "addButton": "Add an establishment",
+        "goBackToList": "Back to establishments",
+        "update": {
+            "imageUploaderRequireEditMessage": "Once you have created your establishment you will be able to add additional images."
+        },
+        "capacity": {
+            "label": "Location max capacity",
+            "placeholder": null,
+            "helperText": "Used only to calculate the availability of the location for appointments"
+        },
+        "practical_info": {
+            "label": "Access information",
+            "placeholder": "Code 1234 first door on the left",
+            "helperText": "This information will be displayed after the booking"
+        },
+        "form": {
+            "new": {
+                "title": "Title"
+            }
+        },
+        "card": {
+            "update": "Update"
+        },
+        "forms": {
+            "error": "Unable to save establishment",
+            "create": {
+                "success": "Establishment added",
+                "title": "New establishment"
+            },
+            "update": {
+                "success": "Establishment details updated",
+                "title": "Update establishment"
+            }
+        }
+    },
+    "order": {
+        "products": {
+            "nbProducts": "items"
+        },
+        "state": {
+            "0": "On hold",
+            "700": "Paid",
+            "1100": "Cancelled",
+            "1200": "On site delivery",
+            "9000": "Sent"
+        },
+        "table": {
+            "name": "Buyer",
+            "state": "Status",
+            "updated_at": "Update at",
+            "created_at": "Created at",
+            "qty": "Quantity"
+        },
+        "form": {
+            "delivery": {
+                "first_name": "Firstname",
+                "last_name": "Lastname"
+            }
+        },
+        "actions": {
+            "flagAsCancelled": "Cancel",
+            "flagAsOnSiteDelivery": "Deliver on-site",
+            "flagAsSent": "Sent"
+        },
+        "detail": {
+            "section": {
+                "title": "Order status: ",
+                "deliveryInfo": "Delivery address",
+                "productDetail": "Product listing",
+                "invoice": "Related invoice",
+                "member": "Buyer"
+            }
+        },
+        "deliveryFee": {
+            "name": "Name",
+            "fee": "Delivery fee",
+            "free_threshold": "Free delivery threshold",
+            "offeredAboveAmount": "Offered above {{ free_threshold, price }} order",
+            "modal": {
+                "delete": {
+                    "title": "Delete delivery fee",
+                    "content": "Be careful this operation is not revertable. Old orders using this fee will not be modifiedj",
+                    "cancel": "Cancel",
+                    "confirm": "Delete"
+                }
+            },
+            "forms": {
+                "create": "Add a delivery fee",
+                "title": "Delivery fee form",
+                "feeLabel": "Delivery fee",
+                "nameLabel": "Name",
+                "freeThresholdLabel": "Free if above",
+                "freeThresholdHelper": "If order price is above this threshold, the delivery fee will offered to the customer",
+                "onCancel": "Cancel",
+                "onSubmit": "Save"
+            }
+        },
+        "configuration": {
+            "deliveryFee": "Delivery Fee",
+            "forms": {
+                "onSubmit": "Save"
+            },
+            "noDefaultDeliveryFee": "No delivery fee",
+            "defaultDeliveryFee": "Default delivery fee"
+        }
+    },
+    "settings": {
+        "pageTitle": "Settings",
+        "tab": {
+            "general": "General",
+            "paymentRules": "Rates",
+            "notificationRule": "Transactional emails",
+            "company": "Company",
+            "broadcast": "Streaming",
+            "invoice": "Billing",
+            "waitingList": "Waiting-list",
+            "shop": "Shop",
+            "role": "Staff",
+            "personalization": "Personalization",
+            "webhook": "Webhook",
+            "partnership": "Partnership"
+        },
+        "webhook": {
+            "messages": {
+                "form": {
+                    "success": "Webhook subscribed",
+                    "error": "Impossible to subscribe the webhook"
+                }
+            },
+            "cancel": "cancel",
+            "submit": "submit",
+            "createTitle": "Form webhook",
+            "testSuccess": "Correct Url",
+            "testError": "Please verify url",
+            "add": "Add a webhook",
+            "test": "Test",
+            "event": "Event",
+            "url": "URL",
+            "selectEvent": "Select an event",
+            "urlPlaceHolder": "http://wwww.google.com",
+            "payload": "Payload",
+            "urlHelper": "Fill in url to send payload to",
+            "modal": {
+                "delete": {
+                    "title": "Delete webhook",
+                    "cancel": "cancel",
+                    "confirm": "confirm",
+                    "content": "Are you sure you want to delete this webhook ? This is definitive"
+                }
+            }
+        },
+        "broadcast": {
+            "is_whereby_integration_enabled": {
+                "label": "Enable bsport X whereby intergration"
+            },
+            "explainDisabled": "Disabled: you manage the conference link (URL) yourself, and specify it for EACH class (via zoom, etc...).",
+            "explainEnabled": "Enabled : bsport manage your conference room, IMPOSSIBLE to have two class at the same time.",
+            "submit": "Save"
+        },
+        "active_campaign": {
+            "submit": "Submit",
+            "cancel": "Cancel",
+            "account": {
+                "helpTitle": "Where can I fin my account informations ?",
+                "helpContent": "Your url and your authentication token are accessible in your account settings, by clicking on 'developpment' tab.",
+                "title": "Informations to access your ActiveCampaign API",
+                "dialogTitle": "My ActiveCampaign API informations",
+                "token": "Authentication key",
+                "error": "Your informations are incorrect"
+            },
+            "webhooks": {
+                "helpTitle": "How is done synchronisation ?",
+                "helpContent": "These actions are triggered when the associated event is raised on ActiveCampaign",
+                "title": "Push ActiveCampaign informations to bsport",
+                "CLIENT_WON": "Create a client account on bsport when for a propect which is statued as 'WON' on a deal",
+                "CONTACT_TAG": "Create a client account on bsport when for a propect which is taged as 'won' on ActiveCampaign"
+            },
+            "link": {
+                "helpTitle": "How is done synchronisation ?",
+                "helpContent": "Members of the smartlist are sent every night to the ActiveCampaign list. They appear as 'active'. Members who went out of the smartlist are pulled out of the ActiveCampaign list, their status is then 'unconfirmed'.",
+                "title": "Sending informations from bsport",
+                "add": "Add a link between lists",
+                "dialogTitle": "Modify a link between lists",
+                "smartListSelection": "Select a smartlist",
+                "listActiveCampaignSelection": "Select an ActiveCampaign list",
+                "helperForm": "Select a bsport smartlist and link it to one of your ActiveCampaign lists",
+                "noList": "LIST NOT FOUND",
+                "listItemText": "Send members of smartlist <1>{{smartlist}}</2> to ActiveCampaign <3>{{list}}</4> list"
+            }
+        }
+    },
+    "datetime": {
+        "shortDayIdentifier": "d",
+        "shortMinuteIdentifier": "min",
+        "shortHourIdentifier": "h",
+        "never": "Never",
+        "time": {
+            "weekday": {
+                "sunday": "Sunday",
+                "monday": "Monday",
+                "tuesday": "Tuesday",
+                "wednesday": "Wednesday",
+                "thursday": "Thursday",
+                "friday": "Friday",
+                "satursday": "Satursday"
+            },
+            "monthShort": {
+                "january": "Jan",
+                "february": "Feb",
+                "march": "Mar",
+                "april": "Apr",
+                "may": "May",
+                "june": "Jun",
+                "july": "Jul",
+                "august": "Aug",
+                "september": "Sep",
+                "october": "Oct",
+                "november": "Nov",
+                "december": "Dec"
+            },
+            "month": {
+                "january": "January",
+                "february": "February",
+                "march": "March",
+                "april": "April",
+                "may": "May",
+                "june": "June",
+                "july": "July",
+                "august": "August",
+                "september": "September",
+                "october": "October",
+                "november": "November",
+                "december": "December"
+            }
+        },
+        "form": {
+            "zeroMinute": "0 min",
+            "quarterHour": "15 min",
+            "twentyMinutes": "2O min",
+            "halfHour": "30 min",
+            "halfAndQuarterHour": "45 min",
+            "oneHour": "1h",
+            "oneHourAndHalf": "1h30",
+            "twoHour": "2h",
+            "threeHour": "3h",
+            "fourHour": "4h",
+            "sixHour": "6h",
+            "eightHour": "8h",
+            "twelveHour": "12h",
+            "oneDay": "1 day",
+            "twoDays": "2 days",
+            "oneWeek": "1 week",
+            "tenDays": "10 days",
+            "twoWeeks": "2 weeks",
+            "oneMonth": "1 month",
+            "never": "Never"
+        }
+    },
+    "shop": {
+        "select": {
+            "placeholder": "Shop product"
+        },
+        "link": {
+            "copyLink": "Copy link to payment page",
+            "copied": "Link copied"
+        },
+        "search": "Search a product",
+        "dialog": {
+            "delete": {
+                "title": "Deletion: {{shopitem.name}}",
+                "cancel": "Cancel",
+                "confirm": "Delete",
+                "explain": "Are sure you want to delete this item from your shop ? There is no rolling back."
+            }
+        },
+        "provision": {
+            "total_sales": "Total sales:",
+            "current_stock": "Current provisions:",
+            "noProvisionHistory": "No sale history",
+            "form": {
+                "title": "Update provision",
+                "quantityLabel": "Unit(s)",
+                "quantityHelperText": "Units to add/remove to provision",
+                "cancel": "Cancel",
+                "submit": "Save"
+            },
+            "action": {
+                "update": "Actualize provisions"
+            }
+        },
+        "shopitem": {
+            "noDescription": "No description",
+            "selector": {
+                "placeholder": "Search by name or barcode"
+            },
+            "detail": {
+                "enabled": "Yes",
+                "disabled": "No",
+                "title": "Product",
+                "provisionHistory": "Stock history",
+                "parameters": "Parameters",
+                "supplier_price": "Supplier price",
+                "marketplace_enabled": "Available on web marketplace",
+                "is_deliverable": "Delivery fees",
+                "onsite_payment_available": "On-site payment"
+            },
+            "action": {
+                "edit": "Edit",
+                "addToCard": "Add to cart",
+                "delete": "Delete"
+            }
+        }
+    },
+    "paymentRules": {
+        "rules": "Rules",
+        "add": "Add",
+        "save": "Save",
+        "name": "Name",
+        "base_price": "Base",
+        "base_percent": "Percentage of value",
+        "include_tax": "Include tax",
+        "calculation_method": "Calculation method",
+        "only_attendant": "Count only attendants",
+        "actions": "Actions",
+        "bookingThreshold": "Threshold (excluded)",
+        "pricePerAdditionalBooking": "Bonus per booking",
+        "addBonus": "Add rule",
+        "cancel": "Cancel",
+        "addNew": "New payment configuration",
+        "select": {
+            "placeholder": "Select a payment configuration",
+            "placeholderOverride": "Coach default rule"
+        },
+        "common": {
+            "from": "From",
+            "until": "Until"
+        },
+        "calculate": "Compute",
+        "title": "Coach payment for {{name}}",
+        "label": "Payment rate",
+        "update": {
+            "success": "Payment configuration updated",
+            "error": "Error during update"
+        },
+        "dateTitle": "Period",
+        "coaches": "Coaches",
+        "setPaymentRuleSetForCoachFirst": "You need to attribute a payment rate to the coach before.",
+        "modal": {
+            "delete": {
+                "title": "Remove a payment rate",
+                "cancel": "Cancel",
+                "confirm": "Confirm",
+                "content": "If you remove this rate, this rate will be removed from all related sessions and coaches."
+            }
+        },
+        "calculation_methods": {
+            "bookings": "On bookings number",
+            "margin_value": "On the marginal value of each booking"
+        },
+        "create": {
+            "error": "Error during creation",
+            "success": "Rate added"
+        },
+        "delete": {
+            "error": "Error during deletion",
+            "success": "Rate removed"
+        }
+    },
+    "payment": {
+        "explainOption": "You will be notified by email when a slot will be free",
+        "bookAnotherOption": "Add me again on the waiting-list",
+        "bookAnOption": "Register on waiting-list",
+        "availablePaymentPacks": "Pass compatibles : ",
+        "goBack": "Retour",
+        "hasOneOrMoreOption": "You are already on the waiting-list",
+        "method": {
+            "CB": "Credit card",
+            "CREDIT_ACCOUNT": "On-site payment"
+        },
+        "order": {
+            "success": "Your payment has been successfully registered"
+        },
+        "forms": {
+            "cancelPayment": "Previous",
+            "credit": {
+                "explain": "Your club will ne notified of your debit, you will pay on-site",
+                "pay": "Confirm"
+            },
+            "paymentIntent": {
+                "pay": "Pay"
+            }
+        },
+        "generalTermsAndConditions": {
+            "iAccept": "I accept the ",
+            "theTermsAndConditions": " general terms and conditions.",
+            "close": "Close"
+        }
+    },
+    "invoice": {
+        "returnPayment": {
+            "modal": {
+                "title": "Client refund",
+                "content": "The payment will be refunded on the bank account, a credit will be added on the invoice to reflect the refunded payment. The invoice not the purchases will be reverted",
+                "cancel": "Cancel",
+                "confirm": "Refund"
+            }
+        },
+        "configuration": {
+            "stripe_footer": "Invoice footer",
+            "explainStripeFooter": "This text will appear at the bottom of the invoices edited in PDF, please add any legal relevant information",
+            "submit_stripe_footer": "Update",
+            "forms": {
+                "stripe_footer_placeholder": "No additional legal information"
+            }
+        }
+    },
+    "coach": {
+        "coach": "Coach",
+        "color": "Color code (private lessons)",
+        "search": "Search a coach",
+        "coach_override": "Override coach",
+        "baseCoach": "Usual",
+        "overrider": "Override",
+        "overrideSelectorTitle": "Coach",
+        "showPerformance": "Remunerate",
+        "showActivities": "Show activities",
+        "showDescription": "Show description",
+        "description": "Description",
+        "pleaseFill": "Please enter a coach",
+        "emptyDescription": "No description provided",
+        "selector": {
+            "coach": {
+                "label": "Teacher"
+            }
+        },
+        "performance": {
+            "title": "Teacher performance",
+            "coachName": "Teacher",
+            "nbBookings": "Bookings",
+            "nbOffersTotal": "Sessions",
+            "nbBookingsOverThreshold": "Bookings over threshold",
+            "pricePerOffer": "Price per offer",
+            "pricePerAdditionalBooking": "Price per additional booking",
+            "calculate": "Calculate",
+            "payment": "Remunerate"
+        },
+        "addCoach": "Add a coach",
+        "noActivity": "This coach does not manage any activity.",
+        "selfNoActivity": "You are not managing any activity.",
+        "card": {
+            "update": "Edit"
+        },
+        "forms": {
+            "error": "Unable to save coach",
+            "error_email_exists": "A coach with this email address already exists, please use the new coach form",
+            "linkByEmail": {
+                "cancel": "Cancel",
+                "submit": "Submit",
+                "title": "Teacher email address",
+                "success": "Teacher successfully linked",
+                "emailLabel": "Email",
+                "explain": "If the email already exists in our system, we will automatically prepare the teacher informations. If you do not have his/her email address, keep the field empty",
+                "emailPlaceHolder": "teacher@bsport.io"
+            },
+            "create": {
+                "success": "Coach added",
+                "title": "New coach"
+            },
+            "update": {
+                "success": "Coach details updated",
+                "title": "Update coach"
+            },
+            "delete": {
+                "success": "Teacher deleted",
+                "error": "Impossible to delete this teacher",
+                "content": "Are you sure you want to delete this teacher ? You will not have access to his performance anymore. You can later add him again via his email.",
+                "title": "Teacher deletion",
+                "cancel": "Cancel",
+                "confirm": "Delete"
+            }
+        }
+    },
+    "subscription": {
+        "events": {
+            "list": {
+                "title": "Last events"
+            },
+            "billing_plan-pause": "Pause",
+            "billing_plan-create": "Create",
+            "billing_plan-stop": "End",
+            "billing_plan-renew": "Auto-renew",
+            "billing_plan-payment_dispute": "Payment dispute",
+            "billing_plan-payment_success": "Payment successfull",
+            "billing_plan-payment_failure": "Payment refused",
+            "billing_plan-update_payment_method": "Payment method updated",
+            "billing_plan-update_payment_pack": "Pass updated"
+        },
+        "table": {
+            "noContent": "No subscription registered yet"
+        },
+        "subscription": {
+            "list": {
+                "title": "Ongoing-subscription"
+            }
+        },
+        "contract": {
+            "registerManager": {
+                "title": "Recurring payment",
+                "explainChoseContract": "Please select a contract, it will be billed monthly.",
+                "actions": {
+                    "cancel": "Cancel"
+                },
+                "explainCustomSubscriptionForm": "No i want to define a custom contract in this case"
+            },
+            "description": "Description",
+            "legal": "Legal agreement",
+            "actions": {
+                "iAcceptCondition": "I accept the legal aggreement",
+                "iwanttostarton": "I want to start my subscription on : ",
+                "subscribe": "Subscribe"
+            },
+            "duration": "{{month}} months",
+            "list": {
+                "title": "Contracts available to customer",
+                "isEmpty": "No contract",
+                "addButton": "Create a contract",
+                "register": "Subscribe a member"
+            },
+            "form": {
+                "title": "Contract form",
+                "name": {
+                    "label": "Contract name"
+                },
+                "nb_interval": {
+                    "label": "Number of months",
+                    "helperText": "Minimum is 2 months"
+                },
+                "managerOnly": {
+                    "label": "Unavailable for customers"
+                },
+                "autoRenewal": {
+                    "label": "Auto renewal"
+                },
+                "recurrent_price": {
+                    "label": "Monthly payment"
+                }
+            }
+        },
+        "recap": {
+            "willBecharged": " will be charged ",
+            "every": " every ",
+            "month": "every ",
+            "times": " times ",
+            "forObject": " for ",
+            "from": "From ",
+            "to": " until ",
+            "forATotalOf": "For a total of ",
+            "includingFreeTrialOf1": " including ",
+            "includingFreeTrialOf2": " not billed "
+        },
+        "form": {
+            "check": "Check",
+            "submit": "Bill",
+            "title": "New recurring invoice",
+            "cancel": "Discard"
+        },
+        "plannedInvoiceStatus": {
+            "pending": "Pending",
+            "canceled": "Discarded",
+            "failed": "Payment refused",
+            "succeeded": "Billed"
+        },
+        "subscriptionStatus": {
+            "pending": "Billing pending",
+            "canceledOn": "Discarded on ",
+            "hasEnded": "Billing finished"
+        },
+        "action": {
+            "stop": "Stop",
+            "stopExplain": "Next payments will be discarded and corresponding bills will be deleted. If a booking has been registered with a pass bought with a discarded invoice, it would also be deleted.",
+            "revertCurrentExplain": "Cancel last past invoice and block the pass",
+            "revertCurrentExplainHelper": "If the payment was valid, a credit will be attributed to the customer, you can also enter the invoice and click refund on the payment. If the payment was failed, the debt will be cancelled."
+        },
+        "parameters": {
+            "parameters": "Parameters",
+            "autoRenew": "Automatic renewal",
+            "subscribeAgain": "Subscribe again",
+            "voucher": "Promotion",
+            "trial_nb": "Free months (at the end)",
+            "recurrent_voucher": "Voucher on each bill",
+            "name": "Name",
+            "member": "Member",
+            "dateCreated": "Date of creation",
+            "nbInterval": "Number of months",
+            "recurrent_price": "Recurring payment",
+            "paymentPack": "Pass",
+            "nbMonths": "Number of months",
+            "dateStart": "First billing",
+            "firstBilling": "First billing"
+        },
+        "schedule": {
+            "provisionalTitle": "Provisional schedule",
+            "paymentMethodTitle": "Payment method"
+        },
+        "paymentMethod": {
+            "sepa": "SEPA debit",
+            "card": "Card"
+        },
+        "mandate": {
+            "name": "Full name",
+            "email": "Email",
+            "content": "By providing your IBAN and confirming this payment, you are authorizing bsport.io and Stripe, our payment service provider, to send instructions to your bank to debit your account and your bank to debit your account in accordance with those instructions. You are entitled to a refund from your bank under the terms and conditions of your agreement with your bank. A refund must be claimed within 8 weeks starting from the date on which your account was debited."
+        }
+    },
+    "reporting": {
+        "columns": {
+            "private_service_name": "Private class",
+            "private_slot_name": "Slot",
+            "nb_bookings": "Bookings",
+            "slot_date_end": "Slot end",
+            "establishment": "Establishment",
+            "activity": "Activity",
+            "date_start_dow": "Day",
+            "pass": "Pass",
+            "last_booking": "Previous booking",
+            "next_booking": "Next booking",
+            "concatenated_notes": "Notes",
+            "remaining_credits": "Remaining credits",
+            "duration": "Duration (minutes)",
+            "date_start": "Date full",
+            "date_start_date": "Date",
+            "date_start_time": "Time",
+            "duration_minute": "Duration (minutes)",
+            "coach": "Coach",
+            "margin_value": "Added margin value",
+            "effectif": "Nb slots",
+            "total_payments": "Total payments",
+            "sum_margin_value": "Margin value",
+            "nb_attendance": "Nb attendant",
+            "disabled": "Cancelled",
+            "checkout_items": "Basket items",
+            "attendance": "Attendance",
+            "nb_non_attendance": "Nb absent",
+            "name": "Name",
+            "identifier": "Identifier",
+            "first_name": "First name",
+            "last_name": "Last name",
+            "booking_status_code": "Status",
+            "was_refunded": "Refunded",
+            "email": "Email",
+            "phonenumber": "Phone number",
+            "date_joined": "Date joined",
+            "gender": "Gender",
+            "payment_pack": "Payment pack",
+            "activity_name": "Activity name",
+            "activity_date": "Date",
+            "activity_duration": "Duration",
+            "member_identifier": "Member identifier",
+            "payment_date": "Transaction date full",
+            "payment_date_date": "Transaction date",
+            "payment_date_time": "Transaction time",
+            "payment_method": "Payment method",
+            "payment_identifier": "Payment identifier",
+            "product_price": "Product price",
+            "product": "Product",
+            "product_type": "Product type",
+            "start_date": "Start date",
+            "price": "Price",
+            "membership_duration": "Duration",
+            "membership_name": "Payment pack name",
+            "membership_ID": "ID",
+            "amortized_price": "Deffered amount",
+            "end_date": "End of validity",
+            "credits": "Total credits",
+            "available_credits": "Available credits",
+            "product_names": "Products",
+            "payment_price": "price",
+            "payment_method_readable_identifier": "Payment method",
+            "address": "Address",
+            "tax": "Tax",
+            "voucher": "Voucher",
+            "total_price": "Billed price, tax inc.",
+            "total_price_notax": "Billed price, tax excl.",
+            "payment_note": "Payment note",
+            "remaining_days": "Remaining days",
+            "payment_method_stripe": "CB",
+            "payment_method_cash": "Cash",
+            "payment_method_check": "Check",
+            "payment_method_manual_credit_card": "CB (manual)",
+            "payment_method_holiday_check": "Holiday Check",
+            "payment_method_amex": "AMEX",
+            "payment_method_bank_transfer": "Transfer",
+            "payment_method_event_brite": "EventBrite",
+            "payment_method_subscription_cb": "Subscription",
+            "payment_method_other": "Other",
+            "payment_method_dispute": "Dispute",
+            "payment_method_total": "Total",
+            "date_sumup": "Date",
+            "total_discount": "Total discount",
+            "total_uses": "Total uses",
+            "date_created": "Date created",
+            "expiration_date": "Expiration date",
+            "percent_off": "Voucher %",
+            "amount_off": "Voucher amount",
+            "member": "Member",
+            "date": "Date",
+            "couponName": "Coupon",
+            "total_basket": "Total basket",
+            "products": "Products",
+            "time": "Hour",
+            "billing_date_start": "First invoice date",
+            "payment_status": "Payment status",
+            "adjusted_price": "Adjusted price",
+            "nb_interval": "Number of recurrences",
+            "interval": "Type of recurrence",
+            "contract": "Contrat",
+            "shop": "Shop",
+            "stock": "Actual stock",
+            "stock_variation": "Stock variation",
+            "ca": "Income generated",
+            "sales": "Sales",
+            "subshop_name": "Category",
+            "supplier_price": "Supplier price",
+            "marketplace_enabled": "Marketplace enabled",
+            "description": "Description",
+            "date_offer": "Date and time of session"
+        },
+        "yes": "Yes",
+        "no": "No",
+        "payment_method": {
+            "dispute": "Dispute",
+            "cash": "Cash",
+            "check": "Check",
+            "stripe": "Credit card",
+            "manual_credit_card": "Credit card (manual)",
+            "holiday_check": "Holiday check",
+            "amex": "Amex",
+            "bank_transfer": "Bank transfer",
+            "event_brite": "EventBrite",
+            "none": "None",
+            "subscription_cb": "Subscription",
+            "credit_account": "Client internal account",
+            "other": "Other"
+        },
+        "product_type": {
+            "payment_pack": "Pass",
+            "shop_item": "Shop",
+            "top_up": "Top-up",
+            "payment_combo": "Pack",
+            "private_pass": "Private lesson pass"
+        },
+        "report": {
+            "delete_message": "Are you sure you want to remove the report {{name}} ?"
+        },
+        "form": {
+            "title": "New report",
+            "name": "Name",
+            "description": "Description",
+            "category": "Category",
+            "columms": "Columns",
+            "save": "Save",
+            "cancel": "Cancel"
+        },
+        "list": {
+            "empty": "No reports here? Create a new one now!",
+            "button_new": "I create my first report"
+        }
+    },
+    "alerting": {
+        "list": {
+            "title": "Notifications",
+            "emptyAlerting": "No new notification to display."
+        },
+        "alert_kind": {
+            "1": "Billing",
+            "2": "Order"
+        },
+        "showMore": "Show more",
+        "unevenInvoice": {
+            "title": "Uneven invoice",
+            "explainUneven": "Invoice n°<1>{{uuid, uuid}}</1> is not even.",
+            "priceDue": "Amount due: {{ price_due, price }}.",
+            "pricePayed": "Amoount paid: {{price_payed, price}}."
+        },
+        "newOrder": {
+            "title": "Pending Order",
+            "explain": "Paid by <1>{{name}}</1> on the store.",
+            "price": "Amount: {{ price, price }}."
+        }
+    },
+    "paymentPack": {
+        "consumerPaymentPack": {
+            "addExtension": "Extend validity"
+        },
+        "notificationToolTip": "Notifications are definied for this pass",
+        "notification": {
+            "0": {
+                "first": "Send an email if there is ",
+                "second": "days of validity remaining on the pass"
+            },
+            "1": {
+                "first": "Send an email when there is ",
+                "second": "credits remaining on the pass"
+            },
+            "2": {
+                "first": "Send an email when the pass has expired since",
+                "second": "days"
+            },
+            "listItem": {
+                "mail": "Mail ",
+                "deleteModal": {
+                    "title": "Delete notification",
+                    "cancel": "Cancel",
+                    "confirm": "Delete",
+                    "content": "Are you sure you want to delete this notification ? This choice is definitive"
+                },
+                "smartList": "Excluded lists",
+                "smartListInclude": "Included lists"
+            },
+            "addButton": "Add a notification",
+            "form": {
+                "noMailAvailable": "No mail available, think about creating one",
+                "selectToShowPreview": "Select a mail to show preview",
+                "mailTitle": "Mail to send",
+                "typeTitle": "Notification type",
+                "creditType": "Remaining credits",
+                "daysType": "Period of validity",
+                "daysPastType": "Days since expiry",
+                "mailSelection": "Select mail",
+                "smartListSelection": "Select lists (optionnal)",
+                "showMail": "See mail",
+                "settingTitle": "Settings",
+                "hideMail": "Hide mail preview",
+                "submit": "Confirm",
+                "cancel": "Cancel",
+                "createSmartList": "Create a smartlist",
+                "warning": "By selecting no smarlist you might notify members who already have bought another pass",
+                "smartListHelper": "Don't send the email if the member is in one of the following lists",
+                "smartListHelperInclude": "Only send the email if the member is in one of the folllowing lists"
+            }
+        },
+        "search": "Search a pass",
+        "extension": {
+            "nbDaysAdded": "+{{nb_days}}d",
+            "addedOn": "Added on ",
+            "delete": {
+                "title": "Delete validity extension",
+                "explain": "Are you sure you want to delete this validity extension ?",
+                "cancel": "Cancel",
+                "confirm": "Confirm"
+            },
+            "create": {
+                "title": "Pass extension",
+                "cancel": "Cancel",
+                "submit": "Create",
+                "note": {
+                    "label": "Notes"
+                },
+                "explain": {
+                    "oldDate": "Old date: ",
+                    "newDate": "New date: "
+                },
+                "warning": "Please check that the new date is included in the same fiscal year as the old one. If not, please check with your accounting this operation is correct.",
+                "nbDays": {
+                    "label": "Nb of additional days"
+                }
+            }
+        },
+        "form": {
+            "paymentPack": {
+                "from": "From",
+                "until": "Until",
+                "newMemberOnly": "Only available to new customers",
+                "onsitePaymentAvailable": "On-site payment available",
+                "managerOnly": "Unavailable for customers",
+                "tax": {
+                    "label": "Tax"
+                },
+                "startOnFirstUse": {
+                    "label": "Pass validity countdown start after first booking",
+                    "helperText": "Otherwise the countdown immediately starts after billing"
+                },
+                "name": {
+                    "label": "Name",
+                    "helperText": "Name for the payment pack"
+                },
+                "price": {
+                    "label": "Pric incl. taxes",
+                    "helperText": "Price for user for the whole pack"
+                },
+                "credits": {
+                    "label": "Credit",
+                    "helperText": "Credits for the pack, leave blank for unlimited"
+                },
+                "maxBookingPerWeek": {
+                    "helperText": "Booking quota per week, empty means no limit",
+                    "label": "Max usage per week"
+                },
+                "unlimited": "Unlimited credits",
+                "theoricalMarginValue": {
+                    "label": "Theorical margin value (only unlimited pass)",
+                    "helperText": "Used to compute the payroll of teachers. 10€ means 1 booking made via this pass is payed 10€ to the teacher. If empty the margin value will be PRICE/NB_BOOKING"
+                },
+                "expirationDaysBeforeFirstUse": {
+                    "label": "Expiration if no booking made",
+                    "helperText": "If no first booking is made during this number of days, the pass expires and can not be used"
+                },
+                "helper": {
+                    "starting_date": "Start date for pack, leave blank for direct availability",
+                    "ending_date": "End date for pack, leave blank for no end"
+                },
+                "start_date_method": {
+                    "on_purchase": "Starts on billing date",
+                    "on_booking": "Starts on booking date",
+                    "on_attendance": "Start on 1st attendance"
+                },
+                "timeSettingsTitle": "Pass validity",
+                "generalSettingsTitle": "General",
+                "validByDuration": "Pass valid N days after purchase",
+                "validByDaterange": "Pass valid on a specific date range",
+                "durationDays": {
+                    "label": "Validity period",
+                    "helperText": "Numbers of days for which the pass will stay active after purchase"
+                },
+                "durationMonths": {
+                    "label": "Additional duration (month)",
+                    "helperText": "Sum itself with the number of days"
+                },
+                "durationYears": {
+                    "label": "Additional duration (years)",
+                    "helperText": "Sum itself with the number of days and months"
+                },
+                "restrictionsTitle": "Restrictions",
+                "noneMeansAll": "Keep empty to authorize all",
+                "update": {
+                    "success": "Pass: operation succeeded",
+                    "error": "Pass: operation failed"
+                },
+                "actions": {
+                    "skip": "Skip",
+                    "edit": "Modify",
+                    "create": "Save"
+                },
+                "sports": "Category",
+                "activities": "Activity",
+                "establishments": "Establishment",
+                "delete": {
+                    "title": "Deleting pass :",
+                    "askConfirmation": "Be careful ! This deletion is definitive. The pass will not be visible anymore and will be unavailable for purchase.",
+                    "thereAreConsumers": "Be careful ! Some members have bought this pass, if you disable it, they can continue to use until they exhaust their credits. If you want to disable it completely, consider reducing their credits here. The pass will not appear in your marketplace anymore.",
+                    "actions": {
+                        "cancel": "Cancel",
+                        "submit": "Delete"
+                    }
+                }
+            }
+        },
+        "details": {
+            "pleaseSelectAPack": "Select a pass to see the details",
+            "shareAPass": "Share a pass",
+            "invoiceTitle": "Linked invoice",
+            "bookingsTitle": "Bookings",
+            "extensionsTitle": "Validity extension"
+        },
+        "newMemberOnly": "Disponible uniquement aux nouveaux membres",
+        "publicPacksTitle": "Pass available for purchase",
+        "privatePacksTitle": "Pass unavailable for purchase",
+        "subscribeToOffer": "Register",
+        "use": "Use",
+        "isNonCompatible": "non-compatible",
+        "createOrUpdate": {
+            "success": "Pass successfully saved",
+            "fail": "Error: pass would not be saved"
+        },
+        "disableConsumer": "Block",
+        "enableConsumer": "Unblock",
+        "credit": {
+            "updated": "Credits updated"
+        },
+        "consumer": {
+            "isFromShare": "Shared from another account",
+            "isOwnerOfShares": "Shared (master pass)",
+            "isFromDisabledShare": "Sharing stopped",
+            "expiresOn": "Expires on ",
+            "bookingsThisWeek": "réservations cette semaine"
+        },
+        "maxNBookingsByWeek1": "Max ",
+        "maxNBookingsByWeek2": " bookings per week",
+        "validity": "Validity :",
+        "validForNdays1": "Valid for ",
+        "validForNdays2": " days after purchase",
+        "validFrom": "Valid from ",
+        "validTo": " to ",
+        "bookingsLeftThisWeek": "Max bookings per week",
+        "addButton": "Create a new pass",
+        "noPaymentPackSubscribed": "No pass subscribed",
+        "validUntil": "Valid until",
+        "expirationDate": "Expiration date",
+        "never": "Never",
+        "unlimitedCredits": "Unlimited",
+        "credits": "Credits",
+        "availableOnFollowingSports": "Available on following categories: ",
+        "availableOnFollowingEstablishments": "Available on following locations: ",
+        "anySport": "Any category",
+        "availableOnFollowingActivities": "Available on following activities: ",
+        "anyActivity": "Any activity",
+        "boughtConsumerPaymentPacks": "Subscribers",
+        "noRestrictionOnActivityType": "No restriction on activity",
+        "disabled": "Disabled",
+        "noConsumerPack": "No pass registered yet",
+        "reverted": "Invoice reverted",
+        "link": {
+            "copied": "Link copied",
+            "copyLink": "Copy link to payment page"
+        }
+    },
+    "metaActivity": {
+        "metaActivity": "Activity",
+        "search": "Search an activity",
+        "forms": {
+            "create": {
+                "compatible_packs": {
+                    "seeMore": "See more",
+                    "createPass": "Create a pass",
+                    "goToActivity": "Go to activity",
+                    "passHelperText": "These passes are available for the created activity:",
+                    "noCompatiblePass": "No pass available for this activity, remind to create one"
+                },
+                "steps": {
+                    "activity_form": "Activity creation",
+                    "pass_form": "Pass creation (optionnal)",
+                    "pass_list": "Finalization",
+                    "offer_form": "Session creation (optionnal)",
+                    "workshop_form": "Workshop creation"
+                }
+            }
+        },
+        "detail": {
+            "pack": {
+                "noCompatiblePass": "No Compatible pass",
+                "consumerPacks": "Members passes",
+                "paymentPacks": "Compatible passes"
+            },
+            "tab": {
+                "general": "General",
+                "pack": "Passes"
+            }
+        },
+        "name": "Name",
+        "category": "Sport",
+        "addOffers": "Add sessions",
+        "offersThisDay": "Sessions this day:",
+        "description": "Description",
+        "settings": {
+            "title": "Settings",
+            "lastBookingBeforeMinutes": "Last booking is possible until",
+            "lastDiscardBeforeMinutes": "Last discard booking is possible until"
+        },
+        "modal": {
+            "delete": {
+                "title": "Delete activity",
+                "content": "Are you sure you want to delete this activity ? Booking and sessions will not be altered. This operation is not revertable.",
+                "cancel": "Cancel",
+                "confirm": "Delete"
+            }
+        },
+        "packsAvailable": "Pass available for this activity :",
+        "reviews": "Customer reviews: "
+    },
+    "offer": {
+        "video": {
+            "cantOpenLink": "Broadcast link seems to be broken, please contact your club {{ contact_email }}",
+            "startingSoon": "Your session is starting in {{ minutesLeft }} minutes",
+            "redirectLink": "If you are not automatically redirected, please use this link",
+            "hasEnded": "This session has ended",
+            "isAutoRefresh": "You will be redirected to the video 10 min before the start of the class",
+            "loadingSoon": "Loading...",
+            "activateVideo": "Start broadcast"
+        },
+        "disabled": "Cancelled",
+        "credit_price": " Credit",
+        "booking": {
+            "confirmed": "Confirmed",
+            "fillRate": "Fillrate",
+            "waiting": "Waiting list"
+        },
+        "extraordinaryEstablishment": "(temporary location)",
+        "substitute": "Substitute",
+        "calendar": {
+            "modifyOffer": "Edit",
+            "deleteOffer": "Cancel"
+        },
+        "manageOffer": "Manage my bookings",
+        "forms": {
+            "old_date": "Old date:",
+            "new_date": "New date:",
+            "delete": {
+                "buttonHardDelete": "Delete"
+            }
+        },
+        "card": {
+            "copyLink": "Copy link to payment page",
+            "copied": "Link copied"
+        },
+        "offerManagement": {
+            "bookingOrder": {
+                "date": "Sort by date",
+                "lastname": "Sort by last name",
+                "firstname": "Sort by first name"
+            }
+        }
+    },
+    "emailTemplate": {
+        "modal": {
+            "delete": {
+                "title": "Email template deletion",
+                "content": "Are syou sure you want to delete this email template ? This operation is not revertable.",
+                "cancel": "Cancel",
+                "confirm": "Delete"
+            }
+        },
+        "copy": "copy",
+        "duplicate": "Duplicate",
+        "search": "Search a template",
+        "listTitle": "My templates",
+        "editTitle": "Template edition",
+        "createTitle": "Mail creation",
+        "detail": "Detail informations",
+        "create": "Create a template",
+        "modification_date": "Last modified the",
+        "selectToShowPreview": "Please select a template",
+        "templateListEmpty": "No template, create your first template here.",
+        "subject": "Mail object:",
+        "preview": "Mail preview",
+        "no_subject": "No object",
+        "editor": {
+            "title": "Mail title",
+            "save": "Save",
+            "subject": "Mail object",
+            "cancel": "Cancel",
+            "error": {
+                "title": "Please fill the title",
+                "content": "Please fill some content in the mail"
+            }
+        }
+    },
+    "member": {
+        "date_joined": "Member since",
+        "invoiceTitle": "Invoices",
+        "subscriptionTitle": "Subscriptions",
+        "offers_joined": "Activities joined",
+        "pass_owner": "Pas valid",
+        "bornIn": "Birthday ",
+        "memberSince": "Member since: ",
+        "showNextBooking": "Show next bookings",
+        "nextBooking": "next: ",
+        "noNoteSaved": "No note saved yet",
+        "showPreviousBooking": "Show past bookings",
+        "previousBooking": "previous: ",
+        "engagement": "Engagement",
+        "addMember": "Add a member profile",
+        "showNotes": "Show notes",
+        "creditAccountBalance": "Internal credit account",
+        "showPaymentPack": "Show pass",
+        "showInvoices": "Show invoices",
+        "showSubscriptions": "Show subscriptions",
+        "memberList": "Members list",
+        "note": {
+            "addNote": "Add a note",
+            "myNotes": "My notes",
+            "healthNotes": "Essential informations",
+            "noNoteSaved": "No note saved",
+            "is_medical": "Essential note"
+        },
+        "file": {
+            "addButtonBlocked": "Delete files to add new ones",
+            "imported": "File uploaded !",
+            "deletion": "Deletion",
+            "title": "My documents",
+            "deleteFileMessage": "Are you sure you want to delete this file ?",
+            "confirm": "Confirm",
+            "submit": "Add",
+            "add": "Add a document",
+            "nofileSaved": "No file saved",
+            "upload_file": "Upload file",
+            "cancel": "Cancel",
+            "name": "Name",
+            "drop_file": "Drag and drop or click here to change the file"
+        },
+        "relation": {
+            "pleaseSelectRelation": "Select a relationship to see shared pass"
+        },
+        "menu": {
+            "info": "General",
+            "bookings": "Bookings",
+            "relations": "Relationships",
+            "paymentPack": "Pass",
+            "invoices": "Invoices & Subscriptions",
+            "payment": "Billing",
+            "contact": "Contact",
+            "privateBooking": "Private lesson",
+            "privateConsumerPass": "Pass private lesson"
+        },
+        "row": {
+            "headers": {
+                "actions": "Actions"
+            },
+            "update": "Edit"
+        },
+        "regularizeBalance": "Regularize",
+        "cashoutBalance": "Cashout balance",
+        "merge": "Merge",
+        "forms": {
+            "merge": {
+                "seeMemberPage": " See member page",
+                "success": "Members merged",
+                "error": "Impossible to merge members",
+                "srcMember": "Member to merge (deleted)",
+                "dstMember": "Member to keep",
+                "title": "Merge member",
+                "explainCredit": "The internal credit balance will be transfered",
+                "explainBookingsAndPassAndInvoiceAndNotes": "Bookings, passes, notes and invoices will be transfered",
+                "explainTags": "Tags from the deleted member will not be transfered",
+                "cancel": "Cancel",
+                "submit": "Merge"
+            },
+            "error": "Unable to save member",
+            "create": {
+                "success": "Member added",
+                "title": "New member"
+            },
+            "update": {
+                "success": "Member details updated",
+                "title": "Update member"
+            }
+        },
+        "user": {
+            "existsWithEmail": "A user with the email address {{email}} already exists.",
+            "existsWithPhone": "A user with the phone number {{phonenumber}} already exists."
+        },
+        "member": {
+            "existsWithEmail": "A member with the email address {{email}} already exists.",
+            "existsWithPhone": "A member with phone number {{phonenumber}} already exists."
+        },
+        "exists": {
+            "goTo": "See member",
+            "linkUser": "Link user",
+            "merge": "Merge"
+        },
+        "link": {
+            "success": "Member linked"
+        },
+        "linkDialog": {
+            "title": "Linking account",
+            "content": "This account was initially created in another club, linkin will connect it to this club.",
+            "cancel": "Cancel",
+            "confirm": "I confirm"
+        }
+    },
+    "booking": {
+        "bookingModule": {
+            "section": {
+                "consumerPacks": "My pass",
+                "contracts": "Subscription",
+                "paymentPacks": "Available pass",
+                "paymentCombos": "Special offers"
+            },
+            "option": {
+                "isAlreadyOnWaitingList": "You are enlisted on the waiting-list",
+                "isFull": "The class is full, you can still register to the waiting-list. You will be notified by email if a slot becomes available.",
+                "registerOption": "Register to the waiting-list"
+            },
+            "offer": {
+                "isDisabled": "Unfortunately the class has been dismissed",
+                "isTooLate": "Bookings are closed.",
+                "isWaitingListFull": "The class is full, and the waiting-list too."
+            }
+        },
+        "details": {
+            "pleaseSelectABooking": "Select a booking to see its details",
+            "title": "Booking details",
+            "offerTitle": "Linked session",
+            "consumerPaymentPackTitle": "Pass used"
+        },
+        "parameters": {
+            "registeredOn": "Booked on",
+            "source": "Booking channel"
+        },
+        "source": {
+            "web": "Web",
+            "app": "Mobile app",
+            "saas": "Backoffice",
+            "other": "Other",
+            "migration": "Migration"
+        },
+        "customerView": {
+            "wasRefunded": "Refunded",
+            "cancelled": "Cancelled"
+        },
+        "attend": "Attend",
+        "doNotAttend": "Absent",
+        "loading": "Loading",
+        "wasRefunded": "Refunded",
+        "statusCode": {
+            "cancelledByManager": "Cancelled by manager",
+            "cancelledByConsumer": "Cancelled by customer",
+            "cancelledByOffer": "Session cancelled"
+        }
+    },
+    "marketplace": {
+        "selector": {
+            "coach": {
+                "placeholder": "Coach"
+            },
+            "level": {
+                "placeholder": "Level"
+            },
+            "establishment": {
+                "placeholder": "Establishement"
+            }
+        },
+        "paymentCombo": {
+            "addToCart": "Add to cart"
+        },
+        "warning": {
+            "isManager": "You are connected as a manager, please logout in order to access the customer interface.",
+            "disconnect": "Logout",
+            "backToBackoffice": "Manager interface"
+        },
+        "workshop": {
+            "noWorkshopAvailable": "No workshop planned in the future",
+            "card": {
+                "showMore": "Show More",
+                "book": "Book",
+                "bookOption": "Waiting list",
+                "isPast": "Past",
+                "notAvailable": "Cancelled",
+                "duration": "Duration: {{duration}}"
+            }
+        }
+    },
+    "selfCheckIn": {
+        "offerStatus": {
+            "hasEnded": "Has ended :",
+            "startIn": "Begins In :",
+            "inProgress": "In progress :"
+        },
+        "addMember": {
+            "button": "Register an account"
+        },
+        "offerList": {
+            "refresh": "Refresh sessions",
+            "emptyList": "No session planned"
+        },
+        "filter": {
+            "establishment": "Filter by location"
+        },
+        "signout": {
+            "title": "Log-off",
+            "explain": "To sign-out, please use the email/passwor of the CheckIn App account",
+            "passwordError": "Invalid password",
+            "cancel": "Cancel",
+            "signout": "Disconnect",
+            "form": {
+                "username": {
+                    "label": "Email"
+                },
+                "password": {
+                    "label": "Password"
+                }
+            }
+        },
+        "offerDetail": {
+            "emptyList": "No student registered to this class",
+            "noConsumerPaymentPack": "No valid pass!",
+            "backToOfferList": "Back to classes",
+            "cancelRegistration": "Cancel",
+            "isFull": "Session full",
+            "register": "Register myself to the class",
+            "activateBarcode": "Barcode detector"
+        },
+        "memberList": {
+            "checkIn": "Check in",
+            "checkedIn": "Checked in",
+            "empty": "No student registered for this session"
+        },
+        "confirmPage": {
+            "classLocation": "Your class is in",
+            "signIn": "Signed In",
+            "expires": "Expires",
+            "headOnIn": "Head on in!"
+        }
+    },
+    "titles": {
+        "banner": {
+            "isStaging": "Schedule a demo",
+            "networkError": "You are not connected to the internet"
+        },
+        "member": {
+            "members": "Members",
+            "mergeMember": "Merge member",
+            "memberFormPage": "Member Form",
+            "memberForm": "Add member"
+        },
+        "invoice": {
+            "invoiceEdit": "Edit Invoice",
+            "invoiceCreatePage": "Create Invoice",
+            "invoiceList": "My transactions"
+        },
+        "coach": {
+            "coachList": "Teachers",
+            "coachPerformance": "{{name}} performance",
+            "coachFormPage": "Coach form",
+            "allCoachPerformance": "Coaches performances"
+        },
+        "order": {
+            "orderList": "Orders",
+            "orderDetail": "Order"
+        },
+        "metaActivity": {
+            "metaActivity": "Activities",
+            "metaActivityEditForm": "Activity form",
+            "metaActivityList": "Activities"
+        },
+        "coupon": {
+            "couponCreate": "Create coupon",
+            "couponDetail": "{{name}}",
+            "couponEdit": "Coupon form",
+            "couponList": "Coupons"
+        },
+        "establishment": {
+            "establishmentList": "Establishements",
+            "establishmentFormPage": "Establishment form"
+        },
+        "marketplace": {
+            "marketplaceShop": "Shop",
+            "marketplaceWorkshop": "Workshops",
+            "marketplaceCalendar": "Calendar",
+            "marketplacePass": "Pass"
+        },
+        "dashboard": {
+            "marketingDashboard": "Marketing",
+            "reportingDashboard": "Reporting",
+            "dashboard": "Dashboard"
+        },
+        "subscription": {
+            "subscriptionCreate": "Subscription",
+            "subscriptions": "Subscriptions"
+        },
+        "workshopActivity": {
+            "workshopActivityList": "Workshops",
+            "workshopActivityFormPage": "Workshop form",
+            "workshopActivityCreate": "Create workshop"
+        },
+        "paymentPack": {
+            "paymentPackFormPage": "Pass Form",
+            "paymentPackList": "Pass"
+        },
+        "marketing": {
+            "marketingDashboard": "Dashboard",
+            "marketingRule": "Marketing strategy"
+        },
+        "planning": "Planning",
+        "settings": "Settings",
+        "shop": "My Shop",
+        "coachList": "Teachers",
+        "offerManagement": "Bookings",
+        "metaActivityFormPage": "Activity form",
+        "offerFormPage": "Add offers",
+        "searchResults": "Search"
+    },
+    "event": {
+        "list": {
+            "title": {
+                "latestEvents": "Latest events"
+            }
+        },
+        "member": {
+            "register": {
+                "name": "New member",
+                "description": "Is triggered when a new member is add on bsport"
+            }
+        },
+        "booking": {
+            "register": {
+                "name": "New booking",
+                "description": "Is triggered when a new booking was made from manager"
+            }
+        },
+        "booking_option": {
+            "cancel": {
+                "name": "Booking option canceled",
+                "description": "Is triggered when a booking option is canceled by manager or member"
+            }
+        },
+        "noEvent": {
+            "description": "Event source description"
+        }
+    },
+    "smartList": {
+        "duplicate": "Duplicate",
+        "name": "Name of the list",
+        "search": "Search a smartlist",
+        "description": "Description",
+        "mails": "Mails",
+        "multiSelector": {
+            "selectAll": "Select all",
+            "paymentPacks": {
+                "helperText": "select passes",
+                "helperSelectedText": "selected passes",
+                "textFieldPlaceholder": "Search a pass",
+                "helperAllSelectedText": "all passes"
+            },
+            "metaActivities": {
+                "helperText": "select activities",
+                "helperSelectedText": "selected activities",
+                "textFieldPlaceholder": "Search an activity",
+                "helperAllSelectedText": "all activities"
+            },
+            "selectNothing": "Unselect all",
+            "establishments": {
+                "helperText": "select establishments",
+                "helperSelectedText": "selected establishments",
+                "textFieldPlaceholder": "Search an establishment",
+                "helperAllSelectedText": "all establishments"
+            },
+            "coaches": {
+                "helperText": "select coaches",
+                "helperSelectedText": "selected coaches",
+                "textFieldPlaceholder": "Search a coach",
+                "helperAllSelectedText": "all coaches"
+            }
+        },
+        "selectToShowPreview": "Please select a template",
+        "exportList": "Export list",
+        "membersInList": "Members in the list:",
+        "modal": {
+            "delete": {
+                "title": "Smart list deletion",
+                "content": "Are you sure you want to delete this smart list ? This operation is not revertable.",
+                "cancel": "Cancel",
+                "confirm": "Delete"
+            }
+        },
+        "graphs": {
+            "bookings": "Bookings",
+            "expensesSegments": {
+                "title": {
+                    "first": "Expenses between",
+                    "second": "and"
+                },
+                "label": {
+                    "0": "No expenses",
+                    "1": "First quartile",
+                    "2": "Moyen",
+                    "3": "Last quartile"
+                }
+            },
+            "bookingsSegments": {
+                "title": "Last booking",
+                "label": {
+                    "0": "Last month",
+                    "1": "Between 1 and 12 months",
+                    "2": "More than 1 year"
+                }
+            }
+        },
+        "detail": {
+            "tab": {
+                "member": "General",
+                "campaign": "Campaign"
+            }
+        },
+        "mail": {
+            "sendMail": "Send email",
+            "sendMailTitle": "Send mail to the list",
+            "cancel": "Cancel",
+            "send": "Send",
+            "noMailAvailable": "No mail available, think about creating one",
+            "sendSuccess": "Mail sending",
+            "sendError": "Error while sending mail"
+        },
+        "smart_list": {
+            "card": {
+                "description": "Description"
+            },
+            "actions": {
+                "configure": "Configure"
+            },
+            "list": {
+                "title": "Smart lists",
+                "detailTitle": "Details of the list"
+            },
+            "name": "Name",
+            "description": "Description",
+            "submit": "Save",
+            "cancel": "Cancel",
+            "add": "Add a list",
+            "detail": "Details of the list",
+            "createTitle": "Smart-list form"
+        },
+        "filterCategory": {
+            "1": "Members info",
+            "2": "Passes",
+            "3": "Bookings",
+            "4": "Buys"
+        },
+        "filters": {
+            "1": {
+                "name": "Credit",
+                "first": "Credit is",
+                "second": " than",
+                "third": "euros"
+            },
+            "2": {
+                "name": "Last booking",
+                "first": "Last booking was before",
+                "second": "days"
+            },
+            "5": {
+                "name": "Sex",
+                "first": "Toggle only",
+                "men": "males",
+                "women": "females"
+            },
+            "8": {
+                "name": "Passes validity",
+                "first": "Passes",
+                "second": "are usable"
+            },
+            "11": {
+                "name": "Tags",
+                "first": "Filter on tags"
+            },
+            "14": {
+                "shop": "Shop",
+                "pack": "Pass",
+                "combo": "Pack",
+                "private_pass": "Private pass",
+                "workshop": "Pass only workshop",
+                "name": "Expenses",
+                "first": "Has spent",
+                "second": "€ between the",
+                "third": "and the",
+                "fourth": "for the products",
+                "selector": "Select products"
+            },
+            "18": {
+                "name": "Date of registration",
+                "first": "Has register to the club  "
+            },
+            "19": {
+                "name": "Passes",
+                "first": "one of passes",
+                "has": "Has",
+                "has_not": "Doesn't have",
+                "second": "and",
+                "third": "à",
+                "credits": {
+                    "first": "Credits:"
+                },
+                "date_bought": {
+                    "first": "Purchase date"
+                },
+                "expiration": {
+                    "first_will_expire": "Expires",
+                    "first_has_expire": "Has expired"
+                },
+                "infoIcon": "Filter on credit doesn't apply to unlimited passes"
+            },
+            "20": {
+                "name": "Abandoned baskets",
+                "first": "Has abandoned a basket worth",
+                "second": "to",
+                "third": "euros",
+                "date": {
+                    "first": "Abandoned basket",
+                    "second": "days"
+                }
+            },
+            "21": {
+                "name": "Booking number",
+                "first": "Has booked his ",
+                "second_singular": "st lesson",
+                "second_plural": "th lesson",
+                "activity": {
+                    "first": "of"
+                },
+                "establishment": {
+                    "first": "in"
+                },
+                "date": {
+                    "first": "Filter by date"
+                }
+            },
+            "22": {
+                "name": "booking number",
+                "first": "Has booked",
+                "second": "lessons",
+                "activity": {
+                    "first": "of activities"
+                },
+                "establishment": {
+                    "first": "in establishments"
+                },
+                "payment_pack": {
+                    "first": "with passes"
+                },
+                "coach": {
+                    "first": "with coaches"
+                }
+            },
+            "23": {
+                "name": "First booking"
+            },
+            "calendarPicker": {
+                "text": {
+                    "0": {
+                        "first": "the or after the"
+                    },
+                    "1": {
+                        "first": "the or before the"
+                    },
+                    "2": {
+                        "first": "between",
+                        "second": "and"
+                    },
+                    "3": {
+                        "first": "the"
+                    },
+                    "4": {
+                        "first": "in more than",
+                        "second": "days"
+                    },
+                    "5": {
+                        "first": "in less than",
+                        "second": "days"
+                    },
+                    "6": {
+                        "first": "in ",
+                        "second": "days"
+                    },
+                    "7": {
+                        "first": "in ",
+                        "second": "to",
+                        "third": "days"
+                    },
+                    "8": {
+                        "first": "in those",
+                        "second": "last days"
+                    },
+                    "9": {
+                        "first": "before those",
+                        "second": "last days"
+                    },
+                    "10": {
+                        "first": "",
+                        "second": "days ago"
+                    },
+                    "11": {
+                        "first": "from",
+                        "second": "to",
+                        "third": "days ago"
+                    }
+                },
+                "select": {
+                    "0": "The or after the",
+                    "1": "The or before the",
+                    "2": "Between two dates",
+                    "3": "The"
+                },
+                "selectduration": {
+                    "4": {
+                        "first": "In more than",
+                        "second": "days"
+                    },
+                    "5": {
+                        "first": "In less than",
+                        "second": "days"
+                    },
+                    "6": {
+                        "first": "In",
+                        "second": "days"
+                    },
+                    "7": {
+                        "first": "In a future period",
+                        "second": "days",
+                        "third": "and"
+                    },
+                    "8": {
+                        "first": "",
+                        "second": "days ago or less"
+                    },
+                    "9": {
+                        "first": "",
+                        "second": "days ago or more"
+                    },
+                    "10": {
+                        "first": " ",
+                        "second": "days ago"
+                    },
+                    "11": {
+                        "first": "In a past period",
+                        "second": "days",
+                        "third": "and"
+                    }
+                },
+                "duration": "days",
+                "durationTitle": "Duration",
+                "dateTitle": "Date"
+            },
+            "booking_status": {
+                "canceled": "canceled",
+                "booked": "booked"
+            },
+            "active_filters": "Active filters on the list",
+            "add_filter": "Add new filter",
+            "add": "Add",
+            "before": "before",
+            "after": "after",
+            "classic_comparators": {
+                "1": "lower (⩽)",
+                "2": "greater (⩾)",
+                "3": "strictly lower",
+                "4": "strictly greater",
+                "5": "equal"
+            },
+            "durations_comparators": {
+                "1": "more than (⩾)",
+                "2": "less than (⩽)",
+                "5": "exactly",
+                "6": "between two"
+            },
+            "undefined": {
+                "name": "Purchase date and credits per pass",
+                "infoIcon": "Unlimited passes are not filtered on credit",
+                "first": "Has bought pass",
+                "second": "between",
+                "third": "and",
+                "fourth": "and has",
+                "fifth": "credits on it"
+            }
+        }
+    },
+    "coachPerformance": {
+        "fields": {
+            "bonus": "Bonus",
+            "base": "Base",
+            "duration": "Duration",
+            "nb_bookings": "Bookings",
+            "name": "Session name",
+            "date": "Date",
+            "rule": "Rule"
+        },
+        "table": {
+            "download": "Download"
+        },
+        "addBonus": "Add a rule",
+        "dateTitle": "Date range",
+        "remuneration": "Remuneration",
+        "pricePerOffer": "Price per offer",
+        "bonus": "Bonus",
+        "bookingThresholdLabel": "Booking threshold triggering rule",
+        "bookingThresholdHelper": "Every booking over this threshold will add a bonus",
+        "pricePerAdditionalBookingLabel": "Price per booking",
+        "pricePerAdditionalBookingHelper": "Amount given to every booking over threshold"
+    }
+}

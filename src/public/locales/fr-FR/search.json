@@ -1,13 +1,1 @@
-{
-  "go_back": "Retourner aux résultats",
-  "input": "Rechercher...",
-  "member": {
-    "packs": {
-      "title": "Cartes de cours"
-    },
-    "sessions": {
-      "title": "Séances"
-    }
-  },
-  "noResult": "Aucun résultat"
-}
+{"input":"Rechercher...","go_back":"Retourner aux résultats","noResult":"Aucun résultat","member":{"sessions":{"title":"Séances"},"packs":{"title":"Cartes de cours"}}}

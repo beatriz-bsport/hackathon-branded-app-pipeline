@@ -1,7 +1,1 @@
-{
-  "colorPicker": {
-    "delete": "Effacer",
-    "noColor": "Aucune couleur",
-    "validate": "Enregistrer"
-  }
-}
+{"colorPicker":{"noColor":"Aucune couleur","delete":"Effacer","validate":"Enregistrer"}}

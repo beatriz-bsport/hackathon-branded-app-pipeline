@@ -1,16 +1,1 @@
-{
-  "actions": {
-    "requestPartnership": "Activer l'intégration",
-    "save": "Enregistrer"
-  },
-  "parameters": {
-    "allEstablishment": "Toutes les salles",
-    "companyId": "Votre identifiant club est : {{ company }}",
-    "enabled": "Actif",
-    "establishmentId": "Vos identifiant salles sont : {{ establishmentIdList }}"
-  },
-  "requestDialog": {
-    "close": "Bien compris",
-    "explain": "Vous avez demandé l'intégration bsport X classpass, votre chargé de compte va vous contacter pour valider cette opération"
-  }
-}
+{"parameters":{"companyId":"Votre identifiant club est : {{ company }}","establishmentId":"Vos identifiant salles sont : {{ establishmentIdList }}","enabled":"Actif","allEstablishment":"Toutes les salles"},"requestDialog":{"explain":"Vous avez demandé l'intégration bsport X classpass, votre chargé de compte va vous contacter pour valider cette opération","close":"Bien compris"},"actions":{"save":"Enregistrer","requestPartnership":"Activer l'intégration"}}

@@ -23,20 +23,18 @@ export class PaymentPack extends Component<Props> {
     const { pack, t, classes } = this.props;
     const { id, name, credits, price } = pack;
     const creditsFormatted = credits
-      ? `${credits} ${t('paymentPack.credits')}`
-      : t('paymentPack.unlimitedCredits');
+      ? `${credits} ${t('credits')}`
+      : t('unlimitedCredits');
     return (
       <ListItem key={id} button className={classes.listItem} divider>
         <ListItemText primary={name} />
         <ListItemText
           primary={`${price} €`}
-          secondary={`${t(
-            'paymentPack.credits',
-          )} : ${creditsFormatted.toLowerCase()}`}
+          secondary={`${t('credits')} : ${creditsFormatted.toLowerCase()}`}
         />
       </ListItem>
     );
   }
 }
 
-export default withStyles(styles)(withNamespaces()(PaymentPack));
+export default withStyles(styles)(withNamespaces(['paymentPack'])(PaymentPack));

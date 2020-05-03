@@ -60,7 +60,7 @@ export class CoachDetail extends Component<Props, State> {
               onClick={this.remunerateCoach}
             >
               <EuroSymbolIcon className={classes.leftIcon} />
-              {t('coach.showPerformance')}
+              {t('showPerformance')}
             </Button>
           </Paper>
         </Grid>
@@ -70,7 +70,7 @@ export class CoachDetail extends Component<Props, State> {
             align="right"
             className={classes.expansionTitle}
           >
-            {t('coach.description')}
+            {t('description')}
           </Typography>
           <Description
             coach={coach}
@@ -96,4 +96,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(withNamespaces([])(CoachDetail));
+export default withStyles(styles)(withNamespaces(['coach'])(CoachDetail));

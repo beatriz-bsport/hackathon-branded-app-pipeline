@@ -27,7 +27,7 @@ export const MemberFilesPanel = (props: Props) => {
   return (
     <div>
       <Typography component="h2" variant="h6" className={props.classes.title}>
-        {props.t('member.file.title')}
+        {props.t('file.title')}
       </Typography>
       <Divider />
       {props.uploadedFiles.length === 0 ? (
@@ -36,7 +36,7 @@ export const MemberFilesPanel = (props: Props) => {
           color="textSecondary"
           className={props.classes.emptyMessage}
         >
-          {props.t('member.file.nofileSaved')}
+          {props.t('file.nofileSaved')}
         </Typography>
       ) : (
         props.uploadedFiles.map((file) => (
@@ -82,8 +82,8 @@ export const MemberFilesPanel = (props: Props) => {
       >
         <AddIcon className={props.classes.leftIcon} />
         {props.uploadedFiles.length >= 5
-          ? props.t('member.file.addButtonBlocked')
-          : props.t('member.file.add')}
+          ? props.t('file.addButtonBlocked')
+          : props.t('file.add')}
       </Button>
     </div>
   );
@@ -108,4 +108,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withNamespaces([])(withStyles(styles)(MemberFilesPanel));
+export default withNamespaces(['member'])(withStyles(styles)(MemberFilesPanel));

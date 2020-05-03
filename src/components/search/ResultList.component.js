@@ -32,7 +32,7 @@ const EmptyResults = (props: { t: TFunction }) => (
     </ListItemIcon>
     <ListItemText
       primaryTypographyProps={{ noWrap: true }}
-      primary={props.t('search.noResult')}
+      primary={props.t('noResult')}
     />
   </ListItem>
 );
@@ -116,4 +116,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(withNamespaces()(ResultList));
+export default withStyles(styles)(withNamespaces(['search'])(ResultList));

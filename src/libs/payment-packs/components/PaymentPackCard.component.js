@@ -55,7 +55,7 @@ export class PaymentPackCard extends Component<Props> {
     return (
       <div>
         <Typography variant="subtitle1">
-          {t('paymentPack.availableOnFollowingSports')}
+          {t('availableOnFollowingSports')}
         </Typography>
         <List className={classes.tabList}>
           {categories.length ? (
@@ -65,7 +65,7 @@ export class PaymentPackCard extends Component<Props> {
               </ListItem>
             ))
           ) : (
-            <Typography variant="body1">{t('paymentPack.anySport')}</Typography>
+            <Typography variant="body1">{t('anySport')}</Typography>
           )}
         </List>
       </div>
@@ -81,7 +81,7 @@ export class PaymentPackCard extends Component<Props> {
     return (
       <div>
         <Typography variant="subtitle1">
-          {t('paymentPack.availableOnFollowingActivities')}
+          {t('availableOnFollowingActivities')}
         </Typography>
         <List className={classes.tabList}>
           {packMetaActivities.length ? (
@@ -92,9 +92,7 @@ export class PaymentPackCard extends Component<Props> {
               />
             ))
           ) : (
-            <Typography variant="body1">
-              {t('paymentPack.anyActivity')}
-            </Typography>
+            <Typography variant="body1">{t('anyActivity')}</Typography>
           )}
         </List>
       </div>
@@ -110,7 +108,7 @@ export class PaymentPackCard extends Component<Props> {
     return (
       <div>
         <Typography variant="subtitle1">
-          {t('paymentPack.availableOnFollowingEstablishments')}
+          {t('availableOnFollowingEstablishments')}
         </Typography>
         <List className={classes.tabList}>
           {packEstablishments.length ? (
@@ -125,9 +123,7 @@ export class PaymentPackCard extends Component<Props> {
               );
             })
           ) : (
-            <Typography variant="body1">
-              {t('paymentPack.anyEstablishment')}
-            </Typography>
+            <Typography variant="body1">{t('anyEstablishment')}</Typography>
           )}
         </List>
       </div>
@@ -141,9 +137,9 @@ export class PaymentPackCard extends Component<Props> {
       return (
         <div className={classes.restrictionBlock}>
           <Typography>
-            {t('paymentPack.maxNBookingsByWeek1')}
+            {t('maxNBookingsByWeek1')}
             <b>{max_bookings_per_week}</b>
-            {t('paymentPack.maxNBookingsByWeek2')}
+            {t('maxNBookingsByWeek2')}
           </Typography>
         </div>
       );
@@ -154,14 +150,28 @@ export class PaymentPackCard extends Component<Props> {
   renderTimeInfo = () => {
     const { pack, classes, t } = this.props;
     if (!pack.validity_daterange) {
+      const { duration_days, duration_months, duration_years } = pack;
       return (
         <div className={classes.restrictionBlock}>
           <Typography>
-            {t('paymentPack.validForDuration')(
-              pack.duration_days,
-              pack.duration_months,
-              pack.duration_years,
-            )}
+            {!!duration_days &&
+              !duration_months &&
+              !duration_years &&
+              t('validForDuration.days', { duration_days })}
+            {!duration_days &&
+              !!duration_months &&
+              !duration_years &&
+              t('validForDuration.months', { duration_months })}
+            {!duration_days &&
+              !duration_months &&
+              !!duration_years &&
+              t('validForDuration.years', { duration_years })}
+            {!!duration_days + !!duration_months + !!duration_years > 1 &&
+              t('validForDuration.general', {
+                duration_days,
+                duration_months,
+                duration_years,
+              })}
           </Typography>
         </div>
       );
@@ -169,9 +179,9 @@ export class PaymentPackCard extends Component<Props> {
     return (
       <div className={classes.restrictionBlock}>
         <Typography>
-          {`${t('paymentPack.validFrom')}${formatAsDate(
+          {`${t('validFrom')}${formatAsDate(
             JSON.parse(pack.validity_daterange).lower,
-          )}${t('paymentPack.validTo')}${formatAsDate(
+          )}${t('validTo')}${formatAsDate(
             JSON.parse(pack.validity_daterange).upper,
           )}`}
         </Typography>
@@ -190,11 +200,11 @@ export class PaymentPackCard extends Component<Props> {
       credits,
       tax,
     } = pack;
-    let creditsFormatted = t('paymentPack.unlimitedCredits');
+    let creditsFormatted = t('unlimitedCredits');
     if (!unlimited) {
       creditsFormatted = (
         <div>
-          <b>{credits}</b> {t('paymentPack.credits').toLowerCase()}
+          <b>{credits}</b> {t('credits').toLowerCase()}
         </div>
       );
     }
@@ -206,7 +216,7 @@ export class PaymentPackCard extends Component<Props> {
         {pack.disabled ? (
           <div className={classes.disabledLabel}>
             <Typography color="error" variant="h6">
-              {t('paymentPack.disabled')}
+              {t('disabled')}
             </Typography>
           </div>
         ) : null}
@@ -224,7 +234,7 @@ export class PaymentPackCard extends Component<Props> {
               {new_member_only && !onlyPublic ? (
                 <div className={classes.newMemberOnlyContainer}>
                   <VisibilityOffIcon className={classes.iconLeft} />
-                  <Typography>{t('paymentPack.newMemberOnly')}</Typography>
+                  <Typography>{t('newMemberOnly')}</Typography>
                 </div>
               ) : null}
               <div>
@@ -241,7 +251,7 @@ export class PaymentPackCard extends Component<Props> {
               {onlyPublic ? null : (
                 <Typography variant="caption">
                   {(base_price / ((100 + parseInt(tax, 10)) / 100)).toFixed(2)}€{' '}
-                  {t('shop.ht')}
+                  {t('ht')}
                 </Typography>
               )}
               <Typography variant="subtitle1">{creditsFormatted}</Typography>
@@ -263,9 +273,7 @@ export class PaymentPackCard extends Component<Props> {
       return (
         <div className={classes.horizontalBlock}>
           <div className={classes.noRestriction}>
-            <Typography>
-              {t('paymentPack.noRestrictionOnActivityType')}
-            </Typography>
+            <Typography>{t('noRestrictionOnActivityType')}</Typography>
           </div>
         </div>
       );
@@ -293,7 +301,7 @@ export class PaymentPackCard extends Component<Props> {
           text={`${window.location.origin}/customer/payment/pass/${pack.id}/?membership=${pack.company}`}
         >
           <Typography className={this.props.classes.linkTypo}>
-            {t('paymentPack:link.copyLink')}
+            {t('link.copyLink')}
           </Typography>
         </CopyToClipboard>
       </ButtonBase>
@@ -308,7 +316,7 @@ export class PaymentPackCard extends Component<Props> {
       return (
         <Grid container item justify="center" alignItems="center">
           <Typography color="error" variant="h6">
-            {t('paymentPack.disabled')}
+            {t('disabled')}
           </Typography>
         </Grid>
       );
@@ -317,11 +325,11 @@ export class PaymentPackCard extends Component<Props> {
       <div className={classes.buttonContainer}>
         <Button color="primary" onClick={this.props.onEditButtonClick}>
           <EditIcon className={classes.iconLeft} />
-          <Hidden xsDown>{t('common.edit')}</Hidden>
+          <Hidden xsDown>{t('actions.edit')}</Hidden>
         </Button>
         <RedButton onClick={this.props.onDeleteButtonClick}>
           <DeleteIcon className={classes.iconLeft} />
-          <Hidden xsDown>{t('common.delete')}</Hidden>
+          <Hidden xsDown>{t('actions.delete')}</Hidden>
         </RedButton>
       </div>
     );
@@ -434,5 +442,5 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(),
+  withNamespaces(['paymentPack']),
 )(PaymentPackCard);

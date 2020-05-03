@@ -56,7 +56,7 @@ export class MemberSummaryCard extends Component<Props> {
           <ListItemText
             className={this.props.classes.listItemText}
             primary={`
-              ${t('member.bornIn')} 
+              ${t('member:bornIn')} 
               ${
                 member.consumer.birthday
                   ? formatAsDate(member.consumer.birthday)
@@ -163,7 +163,7 @@ export class MemberSummaryCard extends Component<Props> {
               {member.consumer.first_name} {member.consumer.last_name}
             </Typography>
             <Typography noWrap>
-              {t('member.memberSince') + formatAsDate(member.date_joined)}
+              {t('member:memberSince') + formatAsDate(member.date_joined)}
             </Typography>
           </div>
         </div>
@@ -226,8 +226,8 @@ export class MemberSummaryCard extends Component<Props> {
             className={classes.regularize}
           >
             {parsedBalance < 0
-              ? t('member.regularizeBalance')
-              : t('member.cashoutBalance')}
+              ? t('member:regularizeBalance')
+              : t('member:cashoutBalance')}
           </Button>
         ) : null}
       </div>

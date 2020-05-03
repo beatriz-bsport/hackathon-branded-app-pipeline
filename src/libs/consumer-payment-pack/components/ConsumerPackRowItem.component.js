@@ -60,7 +60,7 @@ export class ConsumerPackRowItem extends Component<Props> {
           color="primary"
           id={`btn-payment-pack-${consumerPack.id}`}
         >
-          {t('paymentPack.isNonCompatible')}
+          {t('isNonCompatible')}
         </RedButton>
       );
     }
@@ -72,7 +72,7 @@ export class ConsumerPackRowItem extends Component<Props> {
           color="primary"
           id={`btn-payment-pack-${consumerPack.id}`}
         >
-          {t('paymentPack.use')}
+          {t('use')}
         </Button>
       );
     }
@@ -87,7 +87,7 @@ export class ConsumerPackRowItem extends Component<Props> {
     const { available_credits, reverted } = consumerPack;
 
     if (reverted) {
-      return <Button>{t('paymentPack.reverted')}</Button>;
+      return <Button>{t('reverted')}</Button>;
     }
 
     if (unlimited && incrementCredit && decrementCredit) {
@@ -101,7 +101,7 @@ export class ConsumerPackRowItem extends Component<Props> {
             }}
             variant="outlined"
           >
-            {t('paymentPack.enableConsumer')}
+            {t('enableConsumer')}
           </Button>
         );
       }
@@ -114,7 +114,7 @@ export class ConsumerPackRowItem extends Component<Props> {
           }}
           variant="outlined"
         >
-          {t('paymentPack.disableConsumer')}
+          {t('disableConsumer')}
         </RedButton>
       );
     }
@@ -217,7 +217,7 @@ export class ConsumerPackRowItem extends Component<Props> {
                 />
               </span>
             }
-            secondary={`${t('paymentPack.consumer.expiresOn')}${formatAsDate(
+            secondary={`${t('consumer.expiresOn')}${formatAsDate(
               consumerPack.ending_date,
             )}`}
             secondaryTypographyProps={{
@@ -235,12 +235,12 @@ export class ConsumerPackRowItem extends Component<Props> {
               color="textSecondary"
             >
               {' '}
-              {isOwnerOfShares ? t('paymentPack.consumer.isOwnerOfShares') : ''}
+              {isOwnerOfShares ? t('consumer.isOwnerOfShares') : ''}
               {isFromShare && consumerPack.disabled
-                ? t('paymentPack.consumer.isFromDisabledShare')
+                ? t('consumer.isFromDisabledShare')
                 : ''}
               {isFromShare && !consumerPack.disabled
-                ? t('paymentPack.consumer.isFromShare')
+                ? t('consumer.isFromShare')
                 : ''}
             </Typography>
             <Divider />
@@ -251,4 +251,4 @@ export class ConsumerPackRowItem extends Component<Props> {
   }
 }
 
-export default withNamespaces()(ConsumerPackRowItem);
+export default withNamespaces(['paymentPack'])(ConsumerPackRowItem);

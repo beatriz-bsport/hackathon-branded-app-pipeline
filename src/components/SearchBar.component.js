@@ -92,7 +92,7 @@ export class SearchBar extends Component<Props> {
         <DelayedTextField
           variant="outlined"
           className={classes.field}
-          placeholder={t('search.input')}
+          placeholder={t('input')}
           value={searchText || ''}
           fullWidth
           onChange={this.handleChange}
@@ -160,7 +160,7 @@ function getSearchText(state, location) {
 
 export default compose(
   withStyles(styles),
-  withNamespaces(),
+  withNamespaces(['search']),
   withRouter,
   withState('memberHistoryAnchor', 'setMemberHistoryAnchor', null),
   connect(

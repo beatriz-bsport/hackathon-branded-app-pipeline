@@ -33,7 +33,7 @@ export function FileUploader(props: Props) {
         {file.name}
       </Typography>
       <Typography variant="body2" align="center">
-        {t('member.file.imported')}
+        {t('file.imported')}
       </Typography>
     </div>
   ) : (
@@ -48,7 +48,7 @@ export function FileUploader(props: Props) {
               })}
             >
               <Typography className={classes.text}>
-                {t('member.file.drop_file')}
+                {t('file.drop_file')}
               </Typography>
             </div>
           </div>
@@ -89,4 +89,4 @@ const styles = (theme) => ({
     cursor: 'pointer',
   },
 });
-export default withNamespaces()(withStyles(styles)(FileUploader));
+export default withNamespaces(['member'])(withStyles(styles)(FileUploader));

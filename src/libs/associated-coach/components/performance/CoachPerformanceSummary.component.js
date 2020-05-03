@@ -24,21 +24,21 @@ export function CoachPerformanceSummary(props: Props) {
     <Grid container direction="row" spacing={16} className={classes.root}>
       <Grid item xs={12} md={4} id="nbOffersTotal">
         <Figure
-          name={t('coach.performance.nbOffersTotal')}
+          name={t('performance.nbOffersTotal')}
           count={nbSessions || '-'}
           color="red"
         />
       </Grid>
       <Grid item xs={12} md={4} id="nbBookings">
         <Figure
-          name={t('coach.performance.nbBookings')}
+          name={t('performance.nbBookings')}
           count={nbBookings || '-'}
           color="marine"
         />
       </Grid>
       <Grid item xs={12} md={4}>
         <Figure
-          name={t('coach.performance.payment')}
+          name={t('performance.payment')}
           count={total ? `${total.toFixed(2)} €` : '-'}
           color="green"
         />
@@ -54,4 +54,6 @@ const styles = (theme) => ({
   },
 });
 
-export default withNamespaces()(withStyles(styles)(CoachPerformanceSummary));
+export default withNamespaces(['coach'])(
+  withStyles(styles)(CoachPerformanceSummary),
+);

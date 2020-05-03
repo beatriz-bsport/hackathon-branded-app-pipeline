@@ -33,7 +33,7 @@ const getColumnData = (t) => {
     },
     {
       name: 'date_joined',
-      label: t('member.date_joined'),
+      label: t('member:date_joined'),
       options: {
         filter: false,
         sort: false,
@@ -41,7 +41,7 @@ const getColumnData = (t) => {
     },
     {
       name: 'credit_account_balance',
-      label: t('member.creditAccountBalance'),
+      label: t('member:creditAccountBalance'),
       options: {
         filter: false,
         sort: false,
@@ -49,7 +49,7 @@ const getColumnData = (t) => {
     },
     {
       name: 'actions',
-      label: t('member.row.headers.actions'),
+      label: t('member:row.headers.actions'),
       options: {
         filter: false,
         sort: false,
@@ -216,7 +216,7 @@ export class InvoiceTable extends Component<Props, State> {
                   variant="outlined"
                 >
                   <AddIcon className={this.props.classes.leftIcon} />
-                  {t('member.addMember')}
+                  {t('member:addMember')}
                 </Button>
               )}
               <TablePagination

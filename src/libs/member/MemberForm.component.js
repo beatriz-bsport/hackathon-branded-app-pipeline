@@ -321,7 +321,7 @@ export function MemberForm(props: Props) {
                       format="YYYY-MM-DD"
                       name="date_joined"
                       disabled={disabled}
-                      label={t('member.date_joined')}
+                      label={t('member:date_joined')}
                       cancelLabel={t('common.cancel')}
                     />
                   </Grid>
@@ -478,7 +478,7 @@ export default compose(
           phonenumber,
         })
           .then(() => {
-            snackbarSuccess(t('member.link.success'));
+            snackbarSuccess(t('member:link.success'));
             goToMemberList();
           })
           .catch((error) => {

@@ -9,6 +9,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { withNamespaces } from 'react-i18next';
 
 type Props = { t: TFunction, onConfirm: () => void, classes: Object };
 
@@ -39,7 +40,7 @@ class MemberLinkDialog extends React.Component<Props> {
           variant="outlined"
           classes={{ outlined: this.props.classes.buttonOutlined }}
         >
-          {t('member.exists.linkUser')}
+          {t('exists.linkUser')}
         </Button>
         <Dialog
           open={this.state.open}
@@ -48,19 +49,19 @@ class MemberLinkDialog extends React.Component<Props> {
           aria-describedby="alert-dialog-description"
         >
           <DialogTitle id="alert-dialog-title">
-            {t('member.linkDialog.title')}
+            {t('linkDialog.title')}
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              {t('member.linkDialog.content')}
+              {t('linkDialog.content')}
             </DialogContentText>
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
-              {t('member.linkDialog.cancel')}
+              {t('linkDialog.cancel')}
             </Button>
             <Button onClick={this.handleConfirm} color="primary" autoFocus>
-              {t('member.linkDialog.confirm')}
+              {t('linkDialog.confirm')}
             </Button>
           </DialogActions>
         </Dialog>
@@ -76,4 +77,4 @@ const styles = () => ({
   },
 });
 
-export default withStyles(styles)(MemberLinkDialog);
+export default withNamespaces(['member'])(withStyles(styles)(MemberLinkDialog));

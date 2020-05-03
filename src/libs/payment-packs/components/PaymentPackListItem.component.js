@@ -44,7 +44,7 @@ const styles = (theme) => ({
 });
 
 export default withStyles(styles)(
-  withNamespaces([])((props: Props) => {
+  withNamespaces(['paymentPack'])((props: Props) => {
     if (!props.pack) {
       return (
         <ListItem divider={props.divider}>
@@ -59,15 +59,30 @@ export default withStyles(styles)(
       duration_months,
       duration_years,
     } = props.pack;
-    if (duration_days || duration_months || duration_years) {
-      dateInfo = props.t('paymentPack.validForDuration')(
+    if (duration_days && duration_months && duration_years) {
+      dateInfo = props.t('validForDuration.general', {
         duration_days,
         duration_months,
         duration_years,
-      );
+      });
+    }
+    if (duration_days && !duration_months && !duration_years) {
+      dateInfo = props.t('validForDuration.days', {
+        duration_days,
+      });
+    }
+    if (!duration_days && duration_months && !duration_years) {
+      dateInfo = props.t('validForDuration.months', {
+        duration_months,
+      });
+    }
+    if (!duration_days && !duration_months && duration_years) {
+      dateInfo = props.t('validForDuration.years', {
+        duration_years,
+      });
     }
     if (validity_daterange) {
-      dateInfo = `${props.t('paymentPack.validity')} ${formatAsDate(
+      dateInfo = `${props.t('validity')} ${formatAsDate(
         moment(JSON.parse(validity_daterange).lower),
       )} - ${formatAsDate(moment(JSON.parse(validity_daterange).upper))}`;
     }
@@ -98,11 +113,11 @@ export default withStyles(styles)(
           }
           secondary={`${
             !props.pack.unlimited
-              ? props.t('paymentPack.specifications.nbCredits', {
+              ? props.t('specifications.nbCredits', {
                   credits: props.pack.credits,
                 })
-              : props.t('paymentPack.specifications.unlimitedCredits')
-          } - ${props.t('paymentPack.specifications.price', {
+              : props.t('specifications.unlimitedCredits')
+          } - ${props.t('specifications.price', {
             price: props.pack.price,
           })}${props.showDuration ? ` - ${dateInfo}` : ''}`}
         />
@@ -113,7 +128,7 @@ export default withStyles(styles)(
                 classes={props.classes}
                 title={
                   <Typography variant="subtitle2">
-                    {props.t('paymentPack.notificationToolTip')}
+                    {props.t('notificationToolTip')}
                   </Typography>
                 }
                 aria-label="info"

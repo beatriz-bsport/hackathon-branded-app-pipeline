@@ -33,19 +33,19 @@ export function PaymentPackMinimalSummary(props: Props) {
   } = paymentPack;
 
   const creditsFormatted = unlimited
-    ? t('paymentPack.unlimitedCredits')
-    : `${t('paymentPack.credits')}: ${credits}`;
+    ? t('unlimitedCredits')
+    : `${t('credits')}: ${credits}`;
 
   let dateInfo = '';
   if (duration_days || duration_months || duration_years) {
-    dateInfo = t('paymentPack.validForDuration')(
+    dateInfo = t('validForDuration')(
       duration_days,
       duration_months,
       duration_years,
     );
   }
   if (validity_daterange) {
-    dateInfo = `${t('paymentPack.validity')} ${formatAsDate(
+    dateInfo = `${t('validity')} ${formatAsDate(
       Moment(JSON.parse(validity_daterange).lower),
     )} - ${formatAsDate(Moment(JSON.parse(validity_daterange).upper))}`;
   }
@@ -70,4 +70,4 @@ export function PaymentPackMinimalSummary(props: Props) {
   );
 }
 
-export default withNamespaces()(PaymentPackMinimalSummary);
+export default withNamespaces(['paymentPack'])(PaymentPackMinimalSummary);

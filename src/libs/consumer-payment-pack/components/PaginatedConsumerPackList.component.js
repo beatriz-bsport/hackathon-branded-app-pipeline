@@ -43,7 +43,7 @@ export const PaginatedConsumerPackList = (props: Props) => (
           variant="caption"
           color="textSecondary"
         >
-          {props.t('paymentPack.noConsumerPack')}
+          {props.t('noConsumerPack')}
         </Typography>
         <Divider />
       </div>
@@ -72,4 +72,6 @@ const styles = (theme) => ({
   },
 });
 
-export default withNamespaces()(withStyles(styles)(PaginatedConsumerPackList));
+export default withNamespaces(['paymentPack'])(
+  withStyles(styles)(PaginatedConsumerPackList),
+);

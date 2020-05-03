@@ -69,9 +69,7 @@ export class MemberNotePanel extends Component<Props, State> {
     return (
       <div style={{ width: '100%' }}>
         <Typography component="h2" variant="h6" className={classes.title}>
-          {this.props.healthNotes
-            ? t('member.note.healthNotes')
-            : t('member.note.myNotes')}
+          {this.props.healthNotes ? t('note.healthNotes') : t('note.myNotes')}
         </Typography>
         <Divider />
         {newNote ? (
@@ -108,7 +106,7 @@ export class MemberNotePanel extends Component<Props, State> {
             color="textSecondary"
             className={classes.emptyMessage}
           >
-            {t('member.note.noNoteSaved')}
+            {t('note.noNoteSaved')}
           </Typography>
         ) : null}
         <Button
@@ -118,7 +116,7 @@ export class MemberNotePanel extends Component<Props, State> {
           onClick={this.addNewNote}
         >
           <AddIcon className={classes.leftIcon} />
-          {t('member.note.addNote')}
+          {t('note.addNote')}
         </Button>
       </div>
     );
@@ -144,4 +142,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withNamespaces([])(withStyles(styles)(MemberNotePanel));
+export default withNamespaces(['member'])(withStyles(styles)(MemberNotePanel));

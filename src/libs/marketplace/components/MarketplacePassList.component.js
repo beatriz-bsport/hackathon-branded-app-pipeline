@@ -43,9 +43,9 @@ const PaymentPackMarketplaceListItem = (props: {
       primary={`${props.paymentPack.name} - ${props.paymentPack.price}€`}
       secondary={
         props.paymentPack.unlimited
-          ? props.t('paymentPack.unlimitedCredits')
+          ? props.t('paymentPack:unlimitedCredits')
           : `${props.paymentPack.credits} ${props
-              .t('paymentPack.credits')
+              .t('paymentPack:credits')
               .toLowerCase()}`
       }
     />

@@ -24,7 +24,7 @@ export const Description = (props: Props) => {
     <Paper>
       <div className={classes.paperContent}>
         <TypographyMultiline>
-          {coach.description || t('coach.emptyDescription')}
+          {coach.description || t('coach:emptyDescription')}
         </TypographyMultiline>
       </div>
       <Divider />

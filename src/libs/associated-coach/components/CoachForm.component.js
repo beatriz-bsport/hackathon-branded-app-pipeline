@@ -109,7 +109,7 @@ export function CoachForm(props: Props) {
           </Grid>
           <Grid item xs={12} md={6}>
             <ColorField
-              label={t('coach.color')}
+              label={t('coach:color')}
               name="color"
               transparentColorAvailable
             />

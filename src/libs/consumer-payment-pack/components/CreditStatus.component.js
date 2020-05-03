@@ -29,7 +29,7 @@ export const CreditStatus = (props: Props) => {
   if (unlimited) {
     return (
       <Typography variant="caption" color="primary" component="span">
-        {`${props.t('paymentPack.unlimitedCredits')}`}
+        {`${props.t('unlimitedCredits')}`}
       </Typography>
     );
   }
@@ -39,11 +39,9 @@ export const CreditStatus = (props: Props) => {
       variant="caption"
       color={available_credits / credits > 0.2 ? 'primary' : 'error'}
     >
-      {`${available_credits} / ${credits} ${props
-        .t('paymentPack.credits')
-        .toLowerCase()}`}
+      {`${available_credits} / ${credits} ${props.t('credits').toLowerCase()}`}
     </Typography>
   );
 };
 
-export default withNamespaces()(CreditStatus);
+export default withNamespaces(['paymentPack'])(CreditStatus);

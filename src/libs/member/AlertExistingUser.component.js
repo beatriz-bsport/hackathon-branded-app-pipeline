@@ -46,7 +46,7 @@ export function AlertExistingUser(props: Props) {
         variant="outlined"
         classes={{ outlined: classes.buttonOutlined }}
       >
-        {t('member.exists.goTo')}
+        {t('member:exists.goTo')}
       </Button>
       {memberId && existingMemberId ? (
         <Button
@@ -55,7 +55,7 @@ export function AlertExistingUser(props: Props) {
           classes={{ outlined: classes.buttonOutlined }}
           className={classes.mergButton}
         >
-          {t('member.exists.merge')}
+          {t('member:exists.merge')}
         </Button>
       ) : null}
     </div>

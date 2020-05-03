@@ -33,7 +33,7 @@ export function UnevenInvoiceDialog(props: Props) {
       </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          {t('form.invoice.explainUnevenInvoice')({
+          {t('form.invoice.explainUnevenInvoice', {
             totalInvoiceItems: totalItem || 0,
             totalPayments: totalPayment || 0,
           })}

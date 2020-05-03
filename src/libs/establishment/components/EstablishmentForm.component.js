@@ -149,7 +149,7 @@ export class EstablishmentForm extends Component<Props, State> {
                 </Grid>
               ) : (
                 <p>
-                  {t('establishment.update.imageUploaderRequireEditMessage')}
+                  {t('establishment:update.imageUploaderRequireEditMessage')}
                 </p>
               )}
               <Grid item xs={12}>
@@ -169,9 +169,9 @@ export class EstablishmentForm extends Component<Props, State> {
                   onChange={(ev) =>
                     this.onFormFieldChange('practical_info')(ev.target.value)
                   }
-                  label={t('establishment.practical_info.label')}
-                  placeholder={t('establishment.practical_info.placeholder')}
-                  helperText={t('establishment.practical_info.helperText')}
+                  label={t('establishment:practical_info.label')}
+                  placeholder={t('establishment:practical_info.placeholder')}
+                  helperText={t('establishment:practical_info.helperText')}
                   variant="outlined"
                   fullWidth
                 />
@@ -185,9 +185,9 @@ export class EstablishmentForm extends Component<Props, State> {
                       parseInt(ev.target.value || 0, 10),
                     )
                   }
-                  label={t('establishment.capacity.label')}
-                  placeholder={t('establishment.capacity.placeholder')}
-                  helperText={t('establishment.capacity.helperText')}
+                  label={t('establishment:capacity.label')}
+                  placeholder={t('establishment:capacity.placeholder')}
+                  helperText={t('establishment:capacity.helperText')}
                   fullWidth
                 />
               </Grid>

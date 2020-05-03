@@ -36,6 +36,7 @@
     "html2canvas": "^1.0.0-alpha.12",
     "i18next": "^11.3.2",
     "i18next-browser-languagedetector": "^2.2.0",
+    "i18next-http-backend": "^1.0.7",
     "i18next-xhr-backend": "^1.5.1",
     "immutable": "^4.0.0-rc.12",
     "intl": "^1.2.5",
@@ -108,7 +109,8 @@
     "test": "node scripts/test.js --env=jsdom",
     "lint": "eslint src",
     "storybook": "./config-env.sh && yarn run start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "updateTranslation": "./scripts/sync-translations.sh"
   },
   "jest": {
     "collectCoverageFrom": [

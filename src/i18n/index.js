@@ -1,19 +1,24 @@
 import i18n from 'i18next';
-import backend from 'i18next-xhr-backend';
+// import Backend from 'i18next-locize-backend';
+import backend from 'i18next-http-backend';
 
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { reactI18nextModule } from 'react-i18next';
 import Moment from 'moment';
 import 'moment/locale/fr';
 
-import ENGLISH_PACK from './english.translation';
-import FRENCH_PACK from './french.translation';
-import SPANISH_PACK from './spanish.translations';
-
 i18n
   .use(reactI18nextModule)
+  // .use(Backend)
   .use(backend)
   .init({
+    /*
+    backend: {
+      apiKey: 'e7f5edb0-1b19-4076-8e6e-c3da67653f8a',
+      projectId: 'b1c9e9ef-f0d5-4dc1-b523-fc8bbf59117e',
+      referenceLng: 'fr-FR',
+    },
+    */
     fallbackLng: 'fr-FR',
     lng: 'fr-FR',
 
@@ -21,12 +26,6 @@ i18n
     defaultNS: 'translation',
 
     debug: !['production', 'test'].includes(process.env.NODE_ENV),
-
-    resources: {
-      'fr-FR': FRENCH_PACK,
-      'en-US': ENGLISH_PACK,
-      'es-ES': SPANISH_PACK,
-    },
 
     interpolation: {
       format(value, format) {
@@ -53,15 +52,12 @@ i18n
 const availableLanguages = [
   {
     lang: 'fr-FR',
-    translation: FRENCH_PACK,
   },
   {
     lang: 'en-US',
-    translation: ENGLISH_PACK,
   },
   {
     lang: 'es-ES',
-    translation: SPANISH_PACK,
   },
 ];
 

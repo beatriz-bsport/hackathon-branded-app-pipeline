@@ -1,4 +1,4 @@
-export default {
+exports.default = {
   // eslint-disable-next-line
   date_joined: 'Fecha de registro',
   invoiceTitle: 'Facturas',

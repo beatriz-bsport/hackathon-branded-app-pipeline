@@ -158,7 +158,7 @@ export class PaymentPackList extends Component<Props, State> {
               clearSearch={this.clearSearch}
               changeSearch={this.changeSearch}
               items={[...publicPacks, ...managerPacks]}
-              placeholder={t('paymentPack:search')}
+              placeholder={t('search')}
               searchFields={['name']}
               searchResult={this.state.searchResult}
             />
@@ -189,7 +189,7 @@ export class PaymentPackList extends Component<Props, State> {
               component="h2"
               className={classes.titleContainer}
             >
-              {t('paymentPack.publicPacksTitle')}
+              {t('publicPacksTitle')}
             </Typography>
             {this.renderPackList(publicPacks)}
           </Grid>
@@ -202,7 +202,7 @@ export class PaymentPackList extends Component<Props, State> {
               component="h2"
               className={classes.titleContainer}
             >
-              {t('paymentPack.privatePacksTitle')}
+              {t('privatePacksTitle')}
             </Typography>
             {this.renderPackList(managerPacks)}
           </Grid>
@@ -243,7 +243,7 @@ export class PaymentPackList extends Component<Props, State> {
         />
 
         <BottomActionsButton
-          onCreateLabel={this.props.t('paymentPack.addButton')}
+          onCreateLabel={this.props.t('addButton')}
           onCreate={this.props.onCreate}
         />
       </Grid>
@@ -331,7 +331,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default compose(
-  withNamespaces(),
+  withNamespaces(['paymentPack']),
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:paymentPack.paymentPackList'),
   ),

@@ -1,4 +1,4 @@
-export default {
+exports.default = {
   form: {
     dumb_delay_minutes: {
       label: 'Gestion simple',

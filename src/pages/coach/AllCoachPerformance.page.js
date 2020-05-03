@@ -186,10 +186,10 @@ export class AllCoachPerformance extends React.Component<Props> {
           onClick={() => {
             downloadAsCsv(
               [
-                this.props.t('coach.performance.coachName'),
-                this.props.t('coach.performance.nbOffersTotal'),
-                this.props.t('coach.performance.nbBookings'),
-                this.props.t('coach.performance.payment'),
+                this.props.t('coach:performance.coachName'),
+                this.props.t('coach:performance.nbOffersTotal'),
+                this.props.t('coach:performance.nbBookings'),
+                this.props.t('coach:performance.payment'),
               ],
               this.props
                 .allPerformances()

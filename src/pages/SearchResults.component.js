@@ -112,7 +112,7 @@ export class SearchResults extends Component<Props, State> {
             className={classes.buttonGoBack}
             onClick={() => this.props.selectEntity(null)}
           >
-            {t('search.go_back')}
+            {t('go_back')}
           </Button>
         ) : null}
         <div className={classes.content}>
@@ -154,7 +154,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default withStyles(styles)(
-  withNamespaces()(
+  withNamespaces(['search'])(
     connect(
       mapStateToProps,
       mapDispatchToProps,

@@ -1,4 +1,4 @@
-export default {
+exports.default = {
   establishment: 'Local',
   addButton: 'Añadir un local',
   pleaseSelectOne: 'Selecionnar su local en el mapa',

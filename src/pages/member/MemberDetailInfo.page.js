@@ -241,7 +241,7 @@ export class MemberDetailPage extends Component<Props, State> {
           open={this.state.fileToDelete}
           options={{
             title: 'member.file.deletion',
-            Content: () => t('member.file.deleteFileMessage'),
+            Content: () => t('file.deleteFileMessage'),
             cancel: 'member.file.cancel',
             confirm: 'member.file.confirm',
           }}
@@ -265,7 +265,7 @@ export class MemberDetailPage extends Component<Props, State> {
 
 export default compose(
   routerParamsToProps({ id: 'id:number' }),
-  withNamespaces(),
+  withNamespaces(['member']),
   connect(
     (state) => ({
       memberLoading: state.member.loading,

@@ -1,4 +1,4 @@
-export default {
+exports.default = {
   panel: {
     title: 'Mis tags',
     noTagAvailable: 'No hay tag creado',

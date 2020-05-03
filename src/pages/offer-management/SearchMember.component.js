@@ -23,7 +23,7 @@ export function SearchMember(props: Props) {
     <DelayedTextField
       variant="outlined"
       className={classes.field}
-      placeholder={t('search.input')}
+      placeholder={t('input')}
       fullWidth
       InputProps={{
         className: classes.input,
@@ -59,4 +59,4 @@ const styles = () => ({
   },
 });
 
-export default withNamespaces()(withStyles(styles)(SearchMember));
+export default withNamespaces(['search'])(withStyles(styles)(SearchMember));

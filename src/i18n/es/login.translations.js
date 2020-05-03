@@ -1,4 +1,4 @@
-export default {
+exports.default = {
   forms: {
     password: {
       label: 'Contraseña',

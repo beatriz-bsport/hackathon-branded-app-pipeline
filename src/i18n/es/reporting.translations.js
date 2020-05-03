@@ -1,4 +1,4 @@
-export default {
+exports.default = {
   columns: {
     establishment: 'Local',
     activity: 'Actividad',

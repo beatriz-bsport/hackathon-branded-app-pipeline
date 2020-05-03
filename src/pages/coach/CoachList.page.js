@@ -133,7 +133,7 @@ export class CoachList extends React.Component<Props, State> {
         </Paper>
         <BottomActionsButton
           onCreate={this.props.onCreate}
-          onCreateLabel={this.props.t('coach.addCoach')}
+          onCreateLabel={this.props.t('coach:addCoach')}
         />
       </div>
     );

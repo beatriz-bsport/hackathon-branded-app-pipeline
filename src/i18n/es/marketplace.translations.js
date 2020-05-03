@@ -1,4 +1,4 @@
-export default {
+exports.default = {
   selector: {
     coach: { placeholder: 'Profesor' },
     level: { placeholder: 'Nivel' },

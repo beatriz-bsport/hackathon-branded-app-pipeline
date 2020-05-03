@@ -1,4 +1,4 @@
-export default {
+exports.default = {
   details: {
     pleaseSelectAPack: 'Selectionar un abono para ver los detalles',
     invoiceTitle: 'Facturas',

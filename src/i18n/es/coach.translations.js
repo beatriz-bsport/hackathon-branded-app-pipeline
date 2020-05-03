@@ -1,4 +1,4 @@
-export default {
+exports.default = {
   coach: 'Profesor',
   showPerformance: 'Remunerar',
   showActivities: 'Ver las actividades',

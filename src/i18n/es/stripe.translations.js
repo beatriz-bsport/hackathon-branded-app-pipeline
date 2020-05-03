@@ -1,4 +1,4 @@
-export default {
+exports.default = {
   errors: {
     // Validation errors
     incomplete_number: 'El numero de la tarjeta bancaria no es completo.',

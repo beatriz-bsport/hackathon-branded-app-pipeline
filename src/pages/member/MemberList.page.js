@@ -61,7 +61,7 @@ export class Members extends Component<Props> {
     <div className={this.props.classes.actionBar}>
       <Button onClick={this.props.addMember} color="primary" variant="outlined">
         <AddIcon />
-        {this.props.t('member.addMember')}
+        {this.props.t('member:addMember')}
       </Button>
       <TagChipList
         tagGroups={this.props.tagGroups}

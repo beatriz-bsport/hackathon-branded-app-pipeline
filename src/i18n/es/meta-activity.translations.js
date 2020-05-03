@@ -1,4 +1,4 @@
-export default {
+exports.default = {
   metaActivity: 'Actividad',
   forms: {
     create: {

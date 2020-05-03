@@ -1,4 +1,4 @@
-export default {
+exports.default = {
   details: {
     pleaseSelectABooking: 'Selectionnar una reserva para ver el detaille',
     title: 'Detalle de la reserva',

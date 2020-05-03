@@ -1,4 +1,4 @@
-export default {
+exports.default = {
   list: {
     title: 'Notificación',
     emptyAlerting: 'No hay nuevas notificaciones.',

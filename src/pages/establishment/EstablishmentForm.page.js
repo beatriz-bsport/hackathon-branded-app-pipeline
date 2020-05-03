@@ -82,7 +82,7 @@ export class EstablishmentFormPage extends Component<Props> {
     return (
       <div>
         <Button onClick={this.props.goToEstablishmentList}>
-          {t('establishment.goBackToList')}
+          {t('establishment:goBackToList')}
         </Button>
         <EstablishmentForm
           onSubmit={this.createEstablishment}
@@ -97,7 +97,7 @@ export class EstablishmentFormPage extends Component<Props> {
 }
 
 export default compose(
-  withNamespaces([]),
+  withNamespaces(['establishment']),
   withRouter,
   mapRouterParamsToProps({ id: 'establishmentId:number' }),
   connect(

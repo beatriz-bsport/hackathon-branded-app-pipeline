@@ -1,4 +1,4 @@
-export default {
+exports.default = {
   select: {
     placeholder: 'Producto de la tienda',
   },

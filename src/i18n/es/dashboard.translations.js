@@ -1,4 +1,4 @@
-export default {
+exports.default = {
   current_week: 'Ultima semana',
   current_month: 'Ultimo mes',
   last_three_months: 'Tres ultimos meses',

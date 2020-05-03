@@ -1,6 +1,6 @@
 // @flow
 
-export default {
+exports.default = {
   pageTitle: 'Parametros',
   tab: {
     paymentRules: 'Reglas de remuneración',

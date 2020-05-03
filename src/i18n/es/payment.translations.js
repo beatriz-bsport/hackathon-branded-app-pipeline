@@ -1,4 +1,4 @@
-export default {
+exports.default = {
   explainOption: 'Estaria previsto cuanda se libere un hueco',
   bookAnotherOption: 'Incluirme de nuevo en la lista de espera',
   bookAnOption: 'Incluime en la lista de espera',

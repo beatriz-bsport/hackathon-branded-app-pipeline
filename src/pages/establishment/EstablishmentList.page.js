@@ -71,11 +71,11 @@ export class EstablishmentList extends React.Component<Props, State> {
       return (
         <div className={this.props.classes.emptyEstablishment}>
           <Typography variant="caption">
-            {this.props.t('establishment.pleaseSelectOne')}
+            {this.props.t('pleaseSelectOne')}
           </Typography>
           <BottomActionsButton
             onCreate={this.props.onCreate}
-            onCreateLabel={this.props.t('establishment.addButton')}
+            onCreateLabel={this.props.t('addButton')}
           />
         </div>
       );
@@ -91,7 +91,7 @@ export class EstablishmentList extends React.Component<Props, State> {
               changeSearch={this.changeSearch}
               searchFields={['title', 'location.adress']}
               items={this.props.establishments}
-              placeholder={this.props.t('establishment:search')}
+              placeholder={this.props.t('search')}
               searchResult={this.state.searchResult}
             />
             <Paper
@@ -155,7 +155,7 @@ export class EstablishmentList extends React.Component<Props, State> {
         />
         <BottomActionsButton
           onCreate={this.props.onCreate}
-          onCreateLabel={this.props.t('establishment.addButton')}
+          onCreateLabel={this.props.t('addButton')}
         />
       </div>
     );
@@ -190,7 +190,7 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(),
+  withNamespaces(['establishment']),
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:establishment.establishmentList'),
   ),

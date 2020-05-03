@@ -1,6 +1,6 @@
 // @flow
 
-export default {
+exports.default = {
   rules: 'Reglas',
   add: 'Añadir',
   save: 'Guardar',

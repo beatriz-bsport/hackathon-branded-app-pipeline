@@ -99,7 +99,7 @@ const MemberActions = (props: {
       onClick={props.billMember}
     >
       <EuroSymbolIcon className={props.classes.leftIcon} />
-      {props.t('payment.toBill')}
+      {props.t('paymentAction.toBill')}
     </Fab>
     <Fab
       color="secondary"
@@ -108,7 +108,7 @@ const MemberActions = (props: {
       onClick={props.subscribeMember}
     >
       <PaymentIcon className={props.classes.leftIcon} />
-      {props.t('payment.toSubscribe')}
+      {props.t('paymentAction.toSubscribe')}
     </Fab>
   </div>
 );
@@ -134,18 +134,15 @@ export class MemberDetail extends React.Component<Props> {
               pushToTab(id, newTab);
             }}
           >
-            <Tab label={t('member.menu.info')} value="info" />
-            <Tab label={t('member.menu.bookings')} value="bookings" />
-            <Tab label={t('member.menu.paymentPack')} value="pass" />
-            <Tab label={t('member.menu.payment')} value="payment" />
-            <Tab label={t('member.menu.contact')} value="contact" />
-            <Tab label={t('member.menu.relation')} value="relation" />
+            <Tab label={t('menu.info')} value="info" />
+            <Tab label={t('menu.bookings')} value="bookings" />
+            <Tab label={t('menu.paymentPack')} value="pass" />
+            <Tab label={t('menu.payment')} value="payment" />
+            <Tab label={t('menu.contact')} value="contact" />
+            <Tab label={t('menu.relation')} value="relation" />
+            <Tab label={t('menu.privateBooking')} value="private-booking" />
             <Tab
-              label={t('member.menu.privateBooking')}
-              value="private-booking"
-            />
-            <Tab
-              label={t('member.menu.privateConsumerPass')}
+              label={t('menu.privateConsumerPass')}
               value="private-consumer-pass"
             />
           </Tabs>
@@ -286,7 +283,7 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(),
+  withNamespaces(['member']),
   routerParamsToProps({ tab: 'tab', id: 'id:number' }),
   connect(
     (state, { id }) => ({

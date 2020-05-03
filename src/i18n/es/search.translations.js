@@ -1,4 +1,4 @@
-export default {
+exports.default = {
   input: 'Buscando...',
   go_back: 'Volver a los resultados',
   noResult: 'No hay resultado',

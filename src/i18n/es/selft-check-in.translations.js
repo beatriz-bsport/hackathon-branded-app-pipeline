@@ -1,4 +1,4 @@
-export default {
+exports.default = {
   offerStatus: {
     hasEnded: 'Ha terminado',
     startIn: 'Empezar en :',

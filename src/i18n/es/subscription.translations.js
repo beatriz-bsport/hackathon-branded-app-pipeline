@@ -1,4 +1,4 @@
-export default {
+exports.default = {
   table: {
     noContent: 'No hay suscripción',
   },

@@ -1,4 +1,4 @@
-export default {
+exports.default = {
   configuration: {
     stripe_footer: 'Informaciones de su empresa para editar las facturas',
     explainStripeFooter:

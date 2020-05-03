@@ -1,4 +1,4 @@
-import {
+const {
   CREDIT_ACCOUNT_FILTER_IDENTIFIER,
   LAST_PREVIOUS_BOOKING_FILTER_IDENTIFIER,
   DATE_JOINED_FILTER_IDENTIFIER,
@@ -11,9 +11,9 @@ import {
   LT_COMPARATOR,
   GT_COMPARATOR,
   E_COMPARATOR,
-} from '@bsport/common/lib/master-data/smart-list';
+} = require('@bsport/common/lib/master-data/smart-list');
 
-export default {
+exports.default = {
   smart_list: {
     list: { title: 'Smart lists', detailTitle: 'Details of the list' },
     name: 'Name',

@@ -451,6 +451,7 @@ export const DURATION_CHOICES_SHORT = [
   { value: 30, label: 'form.halfHour' },
   { value: 45, label: 'form.halfAndQuarterHour' },
   { value: 60, label: 'form.oneHour' },
+  { value: 75, label: 'form.oneHourFifteen' },
   { value: 90, label: 'form.oneHourAndHalf' },
   { value: 120, label: 'form.twoHour' },
   { value: 180, label: 'form.threeHour' },

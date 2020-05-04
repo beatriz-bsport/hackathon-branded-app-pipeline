@@ -199,9 +199,9 @@ exports.default = {
         placeholder: 'Séance double (2h)',
       },
       booking_interval_minutes: {
-        label: 'Interval de choix de réservation',
+        label: 'Avancé : intervalle de choix de réservation',
         helperText:
-          'Ex: 15 signifie que le membre peut réserver à 12h, 12h15, 12h30, etc...',
+          'Ex: 15 signifie 15 minutes que le membre peut réserver à 12h, 12h15, 12h30, etc... (recommandé)',
       },
       people_capacity_used: {
         label: 'Nombre de personnes',

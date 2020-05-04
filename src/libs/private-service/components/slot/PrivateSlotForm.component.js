@@ -95,18 +95,6 @@ export class PrivateSlotForm extends React.Component<Props, State> {
           />
         </div>
         <div className={classes.field}>
-          <NumericInput
-            fullWidth
-            InputProps={{ min: 10, step: 15, max: 60 * 24 }}
-            label={t('slot.form.booking_interval_minutes.label')}
-            helperText={t('slot.form.booking_interval_minutes.helperText')}
-            value={this.state.booking_interval_minutes}
-            onChange={(ev) =>
-              this.setState({ booking_interval_minutes: ev.target.value })
-            }
-          />
-        </div>
-        <div className={classes.field}>
           <FormControl>
             <InputLabel>{t('slot.form.duration_minutes.label')}</InputLabel>
             <Select
@@ -123,6 +111,18 @@ export class PrivateSlotForm extends React.Component<Props, State> {
               ))}
             </Select>
           </FormControl>
+        </div>
+        <div className={classes.field}>
+          <NumericInput
+            fullWidth
+            InputProps={{ min: 10, step: 15, max: 60 * 24 }}
+            label={t('slot.form.booking_interval_minutes.label')}
+            helperText={t('slot.form.booking_interval_minutes.helperText')}
+            value={this.state.booking_interval_minutes}
+            onChange={(ev) =>
+              this.setState({ booking_interval_minutes: ev.target.value })
+            }
+          />
         </div>
         <div className={classes.buttonContainer}>
           <Button onClick={onCancel}>{t('slot.form.cancel')}</Button>

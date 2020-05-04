@@ -255,7 +255,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                 wrap="nowrap"
               >
                 <Grid item zeroMinWidth>
-                  {displayMenuIcon ? (
+                  {displayMenuIcon && !forced_hide ? (
                     <Hidden smDown>
                       <IconButton
                         color="inherit"
@@ -266,15 +266,17 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                       </IconButton>
                     </Hidden>
                   ) : null}
-                  <Hidden mdUp>
-                    <IconButton
-                      color="inherit"
-                      aria-label="open drawer"
-                      onClick={this.handleDrawerToggleButton}
-                    >
-                      <MenuIcon />
-                    </IconButton>
-                  </Hidden>
+                  {!forced_hide ? (
+                    <Hidden mdUp>
+                      <IconButton
+                        color="inherit"
+                        aria-label="open drawer"
+                        onClick={this.handleDrawerToggleButton}
+                      >
+                        <MenuIcon />
+                      </IconButton>
+                    </Hidden>
+                  ) : null}
                 </Grid>
                 <Grid item zeroMinWidth>
                   <Typography
@@ -299,11 +301,17 @@ class ResponsiveDrawer extends React.Component<Props, State> {
               >
                 {forced_hide ? (
                   <React.Fragment>
-                    <Grid item>
-                      <IconButton onClick={this.props.openCreateMember}>
-                        <PersonAddIcon />
-                      </IconButton>
-                    </Grid>
+                    <Hidden mdUp>
+                      <Grid item>
+                        {!!this.props.showSearch && (
+                          <Link to="/search/results">
+                            <IconButton>
+                              <Search />
+                            </IconButton>
+                          </Link>
+                        )}
+                      </Grid>
+                    </Hidden>
                     <Grid item>
                       <IconButton onClick={this.props.openCalendar}>
                         <TodayIcon />
@@ -311,6 +319,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                     </Grid>
                   </React.Fragment>
                 ) : null}
+                <Grid item>
+                  <IconButton onClick={this.props.openCreateMember}>
+                    <PersonAddIcon />
+                  </IconButton>
+                </Grid>
                 <Grid item>
                   <AlertButtonMenu
                     alertings={alertings}

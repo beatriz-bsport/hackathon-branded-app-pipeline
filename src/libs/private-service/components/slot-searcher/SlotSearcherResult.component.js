@@ -151,6 +151,7 @@ export const SlotGroup = withStyles(stylesSlot)((props) => {
   const slots = splitIntervalList(
     props.slots,
     props.private_slot.duration_minutes,
+    props.private_slot.booking_interval_minutes,
   );
   let resourceName = '';
   let Icon = InfoOutlinedIcon;
@@ -226,6 +227,7 @@ export const SlotSearcherResult = (props: Props) => {
                     ...splitIntervalList(
                       slots,
                       props.private_slot.duration_minutes,
+                      props.private_slot.booking_interval_minutes,
                     ),
                   ],
                   [],

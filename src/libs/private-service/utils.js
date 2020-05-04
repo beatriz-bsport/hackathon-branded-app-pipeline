@@ -22,20 +22,24 @@ export const getMissingResourceForBooking = (service, data, asManager) => {
   return missing;
 };
 
-export const splitIntervalList = (interval_list, duration_minutes = 0) => {
+export const splitIntervalList = (
+  interval_list,
+  duration_minutes = 0,
+  booking_interval = 15,
+) => {
   const slots = [];
   interval_list.map(([start, end]) => {
     const slotToGenerate =
       parseInt(
         (moment(end).add(-duration_minutes, 'minutes') - moment(start)) /
-          (1000 * 60 * 15),
+          (1000 * 60 * booking_interval),
         10,
       ) + 1;
     let n = 0;
     while (n < slotToGenerate) {
       slots.push(
         moment(start)
-          .add(n * 15, 'minutes')
+          .add(n * booking_interval, 'minutes')
           .format(),
       );
       n += 1;

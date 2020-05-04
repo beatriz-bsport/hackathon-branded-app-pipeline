@@ -36,6 +36,7 @@ export class PrivateSlotForm extends React.Component<Props, State> {
         duration_minutes: props.initial.duration_minutes,
         credit: props.initial.credit,
         people_capacity_used: props.initial.people_capacity_used,
+        booking_interval_minutes: props.initial.booking_interval_minutes,
       };
     } else {
       this.state = {
@@ -43,6 +44,7 @@ export class PrivateSlotForm extends React.Component<Props, State> {
         duration_minutes: 60,
         credit: 1,
         people_capacity_used: 1,
+        booking_interval_minutes: 15,
       };
     }
   }
@@ -55,6 +57,7 @@ export class PrivateSlotForm extends React.Component<Props, State> {
       duration_minutes: this.state.duration_minutes,
       credit: this.state.credit,
       people_capacity_used: this.state.people_capacity_used,
+      booking_interval_minutes: this.state.booking_interval_minutes,
     });
   };
 
@@ -88,6 +91,18 @@ export class PrivateSlotForm extends React.Component<Props, State> {
             value={this.state.people_capacity_used}
             onChange={(ev) =>
               this.setState({ people_capacity_used: ev.target.value })
+            }
+          />
+        </div>
+        <div className={classes.field}>
+          <NumericInput
+            fullWidth
+            InputProps={{ min: 10, step: 15, max: 60 * 24 }}
+            label={t('slot.form.booking_interval_minutes.label')}
+            helperText={t('slot.form.booking_interval_minutes.helperText')}
+            value={this.state.booking_interval_minutes}
+            onChange={(ev) =>
+              this.setState({ booking_interval_minutes: ev.target.value })
             }
           />
         </div>

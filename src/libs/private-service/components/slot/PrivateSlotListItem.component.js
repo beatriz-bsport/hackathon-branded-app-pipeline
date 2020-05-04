@@ -50,7 +50,7 @@ export const PrivateSlotListItem = (props: Props) => {
         secondary={`${formatMinutes(
           props.slot.duration_minutes,
           props.t,
-        )} - ${props.t('slot.parameters.credit', {
+        )} - ${props.t('privateService:slot.parameters.credit', {
           credit: props.slot.credit,
         })}`}
       />
@@ -68,4 +68,6 @@ export const PrivateSlotListItem = (props: Props) => {
   );
 };
 
-export default withNamespaces(['privateService'])(PrivateSlotListItem);
+export default withNamespaces(['privateService', 'datetime'])(
+  PrivateSlotListItem,
+);

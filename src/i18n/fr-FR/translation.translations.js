@@ -514,6 +514,9 @@ exports.default = {
     },
   },
   navigation: {
+    video: 'Bibliothèque vidéo',
+    podcast: 'Podcasts',
+    digital: 'Offre digitale',
     marketing_automation: 'Marketing Auto',
     combo: 'Packs',
     requestTempPassword: "Autoriser l'accès",

@@ -57,6 +57,9 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import HelpIcon from '@material-ui/icons/Help';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
+import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
+import LibraryMusicIcon from '@material-ui/icons/LibraryMusic';
+import LaptopIcon from '@material-ui/icons/Laptop';
 import StorageIcon from '@material-ui/icons/Storage';
 import type { TFunction } from 'react-i18next';
 
@@ -554,6 +557,27 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                 ? t('navigation.alpha')
                 : null,
             text: t('navigation.sequence'),
+          },
+        ],
+      },
+      {
+        icon: LaptopIcon,
+        text: t('navigation.digital'),
+        type: 'nested',
+        nestedItems: [
+          {
+            icon: VideoLibraryIcon,
+            text: t('navigation.video'),
+            disabled: true,
+            to: '/digital/video',
+            subtext: t('navigation.alpha'),
+          },
+          {
+            icon: LibraryMusicIcon,
+            text: t('navigation.podcast'),
+            disabled: true,
+            to: '/digital/podcast',
+            subtext: t('navigation.alpha'),
           },
         ],
       },

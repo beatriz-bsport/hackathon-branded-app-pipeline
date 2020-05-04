@@ -72,7 +72,6 @@ export const MarketplaceOffer = (props: Props) => {
     >
       <ListItemAvatar>
         <CoachAvatar
-          t={t}
           coach={offer.coach}
           coach_override={offer.coach_override}
         />
@@ -146,4 +145,6 @@ const styles = (theme) => {
     coachName: { marginLeft: theme.spacing.unit * 2 },
   };
 };
-export default withStyles(styles)(withNamespaces()(MarketplaceOffer));
+export default withStyles(styles)(
+  withNamespaces(['datetime'])(MarketplaceOffer),
+);

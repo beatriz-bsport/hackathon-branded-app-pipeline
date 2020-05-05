@@ -46,7 +46,7 @@ export function RevertBookingDialog(props: Props) {
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             {t(
-              `booking.revertBookingExplain${
+              `booking.revertBookingExplain.${
                 props.offerIsAvailable
                   ? 'offerIsAvailable'
                   : 'offerIsNotAvailable'

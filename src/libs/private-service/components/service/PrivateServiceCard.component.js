@@ -29,6 +29,14 @@ type Props = {
 
 export const PrivateServiceDetail = (props: Props) => {
   const { t, classes, privateService } = props;
+  const days = parseInt(privateService.last_discard_minutes / (60 * 24), 10);
+  const hours = parseInt(
+    (privateService.last_discard_minutes - days * 60 * 24) / 60,
+    10,
+  );
+  const minutes = `${privateService.last_discard_minutes -
+    days * 60 * 24 -
+    hours * 60}`;
   return (
     <Card className={classes.paperContainer}>
       {privateService.cover_main ? (
@@ -46,6 +54,17 @@ export const PrivateServiceDetail = (props: Props) => {
       <CardContent>
         <Typography variant="h4" component="h3" className={classes.title}>
           {privateService.name}
+        </Typography>
+        <Typography
+          variant="caption"
+          color="textSecondary"
+          className={classes.subtitle}
+        >
+          {t('service.parameters.last_discard_minutes.explain', {
+            days,
+            hours,
+            minutes,
+          })}
         </Typography>
         <Typography variant="h6" component="h4" className={classes.subtitle}>
           {t('service.parameters.description')}

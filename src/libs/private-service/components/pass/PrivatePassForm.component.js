@@ -9,6 +9,8 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import AddIcon from '@material-ui/icons/Add';
+import Icon from '@material-ui/core/Icon';
 
 import NumericInput from '../../../../components/input/NumericInput.component';
 import PriceInput from '../../../../components/input/PriceInput.component';
@@ -45,6 +47,9 @@ export class PrivatePassForm extends React.Component<Props, State> {
         credits: props.initial.credits,
         price: props.initial.price,
         manager_only: props.initial.manager_only,
+        duration_days: props.initial.duration_days,
+        duration_months: props.initial.duration_months,
+        duration_years: props.initial.duration_years,
       };
     } else {
       this.state = {
@@ -53,6 +58,9 @@ export class PrivatePassForm extends React.Component<Props, State> {
         credits: 1,
         price: null,
         manager_only: false,
+        duration_days: 0,
+        duration_months: 0,
+        duration_years: 1,
       };
     }
   }
@@ -65,6 +73,9 @@ export class PrivatePassForm extends React.Component<Props, State> {
       credits: this.state.credits,
       price: this.state.price,
       manager_only: this.state.manager_only,
+      duration_days: this.state.duration_days,
+      duration_months: this.state.duration_months,
+      duration_years: this.state.duration_years,
     });
   };
 
@@ -111,6 +122,38 @@ export class PrivatePassForm extends React.Component<Props, State> {
               endAdornment: <InputAdornment position="end">%</InputAdornment>,
             }}
           />
+          <div className={classes.durationNbBlock}>
+            <div className={classes.row}>
+              <Icon className={classes.leftIcon} />
+              <NumericInput
+                value={this.state.duration_days}
+                label={t('privatePass.form.durationDays.label')}
+                helperText={t('privatePass.form.durationDays.helperText')}
+                InputProps={{ min: 0, max: 30, step: 1 }}
+                fullWidth
+              />
+            </div>
+            <div className={classes.row}>
+              <AddIcon className={classes.leftIcon} />
+              <NumericInput
+                value={this.state.duration_months}
+                label={t('privatePass.form.durationMonths.label')}
+                helperText={t('privatePass.form.durationMonths.helperText')}
+                InputProps={{ min: 0, max: 24, step: 1 }}
+                fullWidth
+              />
+            </div>
+            <div className={classes.row}>
+              <AddIcon className={classes.leftIcon} />
+              <NumericInput
+                value={this.state.duration_years}
+                label={t('privatePass.form.durationYears.label')}
+                helperText={t('privatePass.form.durationYears.helperText')}
+                InputProps={{ min: 0, max: 30, step: 1 }}
+                fullWidth
+              />
+            </div>
+          </div>
         </div>
         <div className={classes.field}>
           <FormControlLabel
@@ -151,6 +194,25 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
+  },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+    marginBottom: theme.spacing.unit * 2,
+  },
+  durationNbBlock: {
+    marginTop: theme.spacing.unit * 2,
+    padding: theme.spacing.unit * 2,
+    paddingBottom: 0,
+    marginBottom: theme.spacing.unit,
+    border: '1px solid #E2E2E2',
+    backgroundColor: '#F8F8F8',
+    borderRadius: 8,
   },
 });
 

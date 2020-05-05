@@ -7,9 +7,11 @@ import { withStyles } from '@material-ui/core/styles';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
+import moment from 'moment';
 
 import RedButton from '../../../../components/button/RedButton.component';
 import type { PrivateConsumerPass } from '../../types';
+import { getExpirationDate } from '../../utils';
 
 type Props = {
   private_consumer_pass: PrivateConsumerPass,
@@ -24,6 +26,7 @@ type Props = {
 export const PrivateConsumerPassBookerListItem = (props: Props) => {
   const { private_consumer_pass, t, classes } = props;
   const { private_pass } = private_consumer_pass;
+  const expirationDate = getExpirationDate(private_consumer_pass);
   return (
     <ListItem
       divider={!!props.divider}
@@ -34,11 +37,13 @@ export const PrivateConsumerPassBookerListItem = (props: Props) => {
     >
       <ListItemText
         primary={private_pass.name}
-        secondary={t('consumerPass.current_credits', {
+        secondary={`${t('consumerPass.current_credits', {
           credits: private_pass.credits,
           current_credits:
             private_pass.credits - private_consumer_pass.used_credits,
-        })}
+        })} - ${t('consumerPass.expiresOn', {
+          date: moment(expirationDate).format('LL'),
+        })}`}
       />
       {props.onBook && !private_consumer_pass.reverted ? (
         <Button color="primary" variant="outlined" onClick={props.onBook}>

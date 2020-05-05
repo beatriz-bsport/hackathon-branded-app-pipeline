@@ -104,6 +104,17 @@ exports.default = {
       privateConsumerPassNeedRefresh: 'Rafraîchir la liste',
     },
     delete: {
+      consumer: {
+        title: 'Annulation réservation',
+        cancel: 'Annuler',
+        confirm: 'Confirmer',
+        content: {
+          discardable:
+            'Êtes-vous sûr de vouloir annuler ce rendez-vous ? Vos crédits seront de nouveau disponibles.',
+          notDiscardable:
+            'Êtes-vous sûr de vouloir annuler ce rendez-vous ? Vous êtes hors-délai, vos crédits ne seront pas recrédités.',
+        },
+      },
       title: 'Annulation réservation',
       explain:
         'Êtes- vous sûr de vouloir annuler cette réservation ? Cette opération est irréversible.',
@@ -268,6 +279,7 @@ exports.default = {
     },
   },
   consumerPass: {
+    expiresOn: 'Expire le {{ date }}',
     current_credits: '{{ current_credits }}/{{credits}} crédits',
     isReverted: 'Facture annulée',
     detail: {
@@ -285,6 +297,13 @@ exports.default = {
     },
   },
   privatePass: {
+    validForDuration: {
+      days: 'Valide {{ duration_days }} jours',
+      months: 'Valide {{ duration_months }} mois',
+      years: 'Valide {{ duration_years }} an',
+      general:
+        'Valide {{ duration_days }} jours {{ duration_months }} mois et {{ duration_years }} an',
+    },
     delete: {
       title: 'Suppression de la carte',
       explain:
@@ -323,6 +342,19 @@ exports.default = {
       },
       tax: {
         label: 'TVA',
+      },
+      durationDays: {
+        label: 'Durée de validité (jours) si applicable',
+        helperText:
+          'Période en jours pour laquelle la carte sera valide après achat ',
+      },
+      durationMonths: {
+        label: 'Durée de validité (mois) si applicable',
+        helperText: "S'ajoute au nombre de jours",
+      },
+      durationYears: {
+        label: 'Durée de validité (années) si applicable',
+        helperText: "S'ajoute au nombre de jours et de mois",
       },
       actions: {
         submit: 'Enregistrer',
@@ -367,6 +399,11 @@ exports.default = {
       changeIsAlwaysAvailable: 'Modifier',
     },
     form: {
+      last_discard_minutes: {
+        label: "Dernière annulation remboursable jusqu'à",
+        helperText:
+          'Si la réservation est annulée hors délai le crédit ne sera pas remboursé',
+      },
       establishmentResourceType: {
         isHomeService: {
           label: 'A domicile',
@@ -452,9 +489,14 @@ exports.default = {
         title: 'Professeur',
         is_empty: "Aucun professeur n'est requis",
       },
+      last_discard_minutes: {
+        explain:
+          'La dernière annulation remboursable est possible {{ days }} jour(s) {{ hours }} heure(s) {{ minute }} minute(s) avant le rendez-vous',
+      },
       establishments: {
         title: 'Lieu',
-        is_empty: 'A domicile',
+        is_empty: 'Aucune salle',
+        is_home_service: 'A domicile',
       },
       slots: {
         title: 'Séance',

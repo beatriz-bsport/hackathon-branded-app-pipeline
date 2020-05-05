@@ -125,6 +125,6 @@ const styles = (theme) => ({
 });
 export default compose(
   withStyles(styles),
-  withNamespaces(['formInput']),
+  withNamespaces(['common']),
   withState('pickerOpen', 'setPickerOpen', false),
 )(ColorInput);

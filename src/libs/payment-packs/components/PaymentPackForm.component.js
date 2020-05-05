@@ -9,6 +9,7 @@ import type { TFunction } from 'react-i18next';
 
 import * as Yup from 'yup';
 import { withFormik, Form } from 'formik';
+import Icon from '@material-ui/core/Icon';
 
 import WarningIcon from '@material-ui/icons/Warning';
 import Typography from '@material-ui/core/Typography';
@@ -175,13 +176,16 @@ export function PaymentPackForm(props: Props) {
             <Grid item xs={12} md={6}>
               <Collapse in={timeType === VALID_BY_DURATION}>
                 <div className={classes.durationNbBlock}>
-                  <TextField
-                    name="duration_days"
-                    label={t('form.paymentPack.durationDays.label')}
-                    helperText={t('form.paymentPack.durationDays.helperText')}
-                    type="number"
-                    fullWidth
-                  />
+                  <div className={classes.row}>
+                    <Icon className={classes.leftIcon} />
+                    <TextField
+                      name="duration_days"
+                      label={t('form.paymentPack.durationDays.label')}
+                      helperText={t('form.paymentPack.durationDays.helperText')}
+                      type="number"
+                      fullWidth
+                    />
+                  </div>
                   <div className={classes.row}>
                     <AddIcon className={classes.leftIcon} />
                     <TextField
@@ -425,9 +429,11 @@ const styles = (theme) => ({
     flexDirection: 'row',
     alignItems: 'center',
     width: '100%',
+    marginBottom: theme.spacing.unit * 2,
   },
   durationNbBlock: {
     padding: theme.spacing.unit * 2,
+    paddingBottom: 0,
     marginBottom: theme.spacing.unit * 3,
     border: '1px solid #E2E2E2',
     backgroundColor: '#F8F8F8',

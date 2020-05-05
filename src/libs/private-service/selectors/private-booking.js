@@ -3,6 +3,7 @@
 import moment from 'moment';
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
+import { BOOKING_STATUS_CANCELLED_BY_CONSUMER } from '@bsport/common/lib/master-data/booking_status_code';
 import type { State } from '../../../state/types';
 import type { PrivateBooking } from '../types';
 
@@ -81,6 +82,14 @@ const _getPrivateBookingListId: (State) => Array<number> = (state) =>
 export const getPrivateBookingListBase: (State) => Array<PrivateBooking> = createSelector(
   [_getPrivateBookingListId, getPrivateBookingDict],
   (ids, data) => ids.map((id) => data[id]).filter((b) => !!b),
+);
+
+export const getPrivateBookingFutureAvailable = createSelector(
+  getPrivateBookingListBase,
+  (bookings) =>
+    bookings.filter(
+      (b) => b.booking_status_code !== BOOKING_STATUS_CANCELLED_BY_CONSUMER.id,
+    ),
 );
 
 // eslint-disable-next-line

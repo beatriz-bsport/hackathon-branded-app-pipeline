@@ -104,8 +104,11 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
 
     this.props.fetchCompatiblePrivatePass(this.props.privateSlotId, {
       as_consumer: true,
+      date: moment(this.props.data.date).format('YYYY-MM-DD'),
     });
-    this.props.fetchCompatiblePrivateConsumerPass(this.props.privateSlotId);
+    this.props.fetchCompatiblePrivateConsumerPass(this.props.privateSlotId, {
+      date: moment(this.props.data.date).format('YYYY-MM-DD'),
+    });
   }
 
   handleConsumerPassClick = (consumerPassId: number) => {

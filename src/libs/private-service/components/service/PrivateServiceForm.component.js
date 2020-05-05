@@ -30,6 +30,7 @@ import {
   CheckboxField,
   IntegerField,
   RadioGroupField,
+  DurationField,
 } from '../../../../components/forms';
 
 type Props = {
@@ -159,9 +160,6 @@ export const PrivateServiceForm = (props: Props) => {
                         ),
                       ]}
                       nullCurrentValue
-                      helperText={props.t(
-                        'service.form.establishment.helperText',
-                      )}
                       selectedEstablishments={[]}
                       closeMenuOnSelect
                       selectOption={(ev) => {
@@ -231,7 +229,6 @@ export const PrivateServiceForm = (props: Props) => {
                       ]}
                       closeMenuOnSelect
                       nullCurrentValue
-                      helperText={props.t('service.form.coach.helperText')}
                       selectedCoaches={[]}
                       selectOption={(ev) => {
                         if (ev.length) push(ev[0].value);
@@ -269,6 +266,13 @@ export const PrivateServiceForm = (props: Props) => {
         name="description"
         label={t('service.form.description.label')}
         required
+      />
+      <DurationField
+        name="last_discard_minutes"
+        className={classes.field}
+        fullWidth
+        label={props.t('service.form.last_discard_minutes.label')}
+        helperText={props.t('service.form.last_discard_minutes.helperText')}
       />
     </div>
   );
@@ -366,6 +370,7 @@ export const PrivateServiceFormikHOC = withFormik({
       establishment_resource_type: IS_HOME_SERVICE,
       establishment_consumer_attribution: RESOURCE_ATTRIBUTION_CONSUMER,
       coach_consumer_attribution: RESOURCE_ATTRIBUTION_CONSUMER,
+      last_discard_minutes: 24 * 60,
     };
   },
   validationSchema: PrivateServiceSchema,

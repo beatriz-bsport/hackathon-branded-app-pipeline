@@ -1,7 +1,14 @@
+// @flow
 import moment from 'moment';
 import uniq from 'lodash/uniq';
+import type { TFunction } from 'react-i18next';
+import { formatAsDate } from '../../datetime';
 
-export const getMissingResourceForBooking = (service, data, asManager) => {
+export const getMissingResourceForBooking = (
+  service: PrivateService,
+  data: any,
+  asManager: ?boolean,
+) => {
   if (!service || !data) return ['private_service'];
   const missing = [];
   if (service.is_home_service && asManager) {
@@ -47,4 +54,40 @@ export const splitIntervalList = (
     return null;
   });
   return uniq(slots);
+};
+
+export const getValidityInfo = (pack: PrivatePass, t: TFunction) => {
+  let dateInfo = '';
+  const { duration_days, duration_months, duration_years } = pack;
+  if (duration_days && duration_months && duration_years) {
+    dateInfo = t('privatePass.validForDuration.general', {
+      duration_days,
+      duration_months,
+      duration_years,
+    });
+  }
+  if (duration_days && !duration_months && !duration_years) {
+    dateInfo = t('privatePass.validForDuration.days', {
+      duration_days,
+    });
+  }
+  if (!duration_days && duration_months && !duration_years) {
+    dateInfo = t('privatePass.validForDuration.months', {
+      duration_months,
+    });
+  }
+  if (!duration_days && !duration_months && duration_years) {
+    dateInfo = t('privatePass.validForDuration.years', {
+      duration_years,
+    });
+  }
+  return dateInfo;
+};
+
+export const getExpirationDate = (privateConsumerPass: PrivateConsumerPass) => {
+  return moment(privateConsumerPass.date_bought)
+    .add('day', privateConsumerPass.private_pass.duration_days)
+    .add('month', privateConsumerPass.private_pass.duration_months)
+    .add('year', privateConsumerPass.private_pass.duration_years)
+    .format('YYYY-MM-DD');
 };

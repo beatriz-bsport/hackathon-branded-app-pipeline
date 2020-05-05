@@ -1,6 +1,6 @@
 // @flow
 
-import lodash from 'lodash';
+import omit from 'lodash/omit';
 
 import React from 'react';
 
@@ -145,7 +145,7 @@ export function PercentField(props) {
 }
 
 const buttonStyles = (theme) => ({
-  button: {
+  root: {
     marginLeft: theme.spacing.unit * 2,
   },
 });
@@ -194,6 +194,128 @@ export const DateField = (props: DateFieldProps) => {
     />
   );
 };
+
+export const DurationField = withStyles(styles)(
+  withNamespaces(['common'])((props: DateFieldProps) => {
+    return (
+      <Field
+        {...props}
+        render={({ field, form: { touched, errors, setFieldValue } }) => {
+          const total = parseInt(field.value || 0, 10);
+          const days = parseInt(total / (60 * 24), 10);
+          const hours = parseInt((total - days * 24 * 60) / 60, 10);
+          const minutes = total - days * 24 * 60 - hours * 60;
+          /*
+              onChange={(date) => {
+                setFieldValue(props.name, date);
+              }}
+      error={!!(touched[field.name] && errors[field.name])}
+      */
+          return (
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
+              {!!props.label && (
+                <InputLabel htmlFor={props.name} shrink>
+                  {props.label}
+                </InputLabel>
+              )}
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}
+              >
+                <TextField
+                  style={{ marginRight: 8, flex: 1 }}
+                  onChange={(value) => {
+                    setFieldValue(
+                      props.name,
+                      parseInt(value.target.value || 0, 10) * (24 * 60) +
+                        hours * 60 +
+                        minutes,
+                    );
+                  }}
+                  InputProps={{
+                    inputProps: { min: 0, step: 1 },
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        {props.t('form.duration.day', { count: days })}
+                      </InputAdornment>
+                    ),
+                  }}
+                  type="number"
+                  value={days}
+                />
+                <TextField
+                  style={{ marginRight: 8, flex: 1 }}
+                  InputProps={{
+                    inputProps: { min: 0, step: 1, max: 23 },
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        {props.t('form.duration.hour', { count: hours })}
+                      </InputAdornment>
+                    ),
+                  }}
+                  onChange={(value) => {
+                    setFieldValue(
+                      props.name,
+                      parseInt(value.target.value || 0, 10) * 60 +
+                        days * 60 * 24 +
+                        minutes,
+                    );
+                  }}
+                  type="number"
+                  value={hours}
+                />
+                <TextField
+                  style={{ flex: 1 }}
+                  InputProps={{
+                    inputProps: { min: 0, max: 59, step: 1 },
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        {props.t('form.duration.minute', { count: minutes })}
+                      </InputAdornment>
+                    ),
+                  }}
+                  type="number"
+                  value={minutes}
+                  onChange={(value) => {
+                    setFieldValue(
+                      props.name,
+                      parseInt(value.target.value || 0, 10) +
+                        days * 60 * 24 +
+                        hours * 60,
+                    );
+                  }}
+                />
+              </div>
+              {!!props.helperText && (
+                <FormHelperText style={{ marginTop: -2 }}>
+                  {props.helperText}
+                </FormHelperText>
+              )}
+              <ErrorMessage {...props}>
+                {(message) => (
+                  <Typography
+                    variant="body1"
+                    className={props.classes.alertError}
+                  >
+                    {props.t(message)}
+                  </Typography>
+                )}
+              </ErrorMessage>
+            </div>
+          );
+        }}
+      />
+    );
+  }),
+);
 
 export const ColorField = (props: ColorFieldProps) => {
   return (
@@ -318,7 +440,7 @@ export const PhoneField = withNamespaces([])(
                 /* FIXME */
                 onBlur={(e) => field.onBlur(e)}
                 onChange={(value) => setFieldValue(field.name, value)}
-                {...lodash.omit(props, [
+                {...omit(props, [
                   'fullWidth',
                   't',
                   'tReady',
@@ -360,7 +482,7 @@ export const GenderField = withStyles(styles)(
             </InputLabel>
             <Select
               {...field}
-              {...lodash.omit(props, [
+              {...omit(props, [
                 't',
                 'tReady',
                 'defaultNS',
@@ -410,7 +532,7 @@ export const SelectField = withStyles(styles)(
             <Select
               nameCypress={`select-${props.name}`}
               {...field}
-              {...lodash.omit(props, [
+              {...omit(props, [
                 't',
                 'tReady',
                 'defaultNS',

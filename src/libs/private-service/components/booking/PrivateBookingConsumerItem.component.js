@@ -16,18 +16,45 @@ import NearMeIcon from '@material-ui/icons/NearMe';
 import TodayIcon from '@material-ui/icons/Today';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
+import RedButton from '../../../../components/button/RedButton.component';
+import withConfirm from '../../../../hocs/with-confirm.hoc';
+
 type Props = {
   t: TFunction,
   classes: Object,
   private_booking: PrivateBooking,
   goToCalendar: () => void,
+  onDiscard: (id: number) => void,
 };
+
+const DiscardButtonGetter = (discardable) =>
+  withConfirm(RedButton, 'onClick', {
+    title: 'privateService:privateBooking.delete.consumer.title',
+    cancel: 'privateService:privateBooking.delete.consumer.cancel',
+    confirm: 'privateService:privateBooking.delete.consumer.confirm',
+    Content: ({ t }: { t: TFunction }) => (
+      <p>
+        {discardable
+          ? t(
+              'privateService:privateBooking.delete.consumer.content.discardable',
+            )
+          : t(
+              'privateService:privateBooking.delete.consumer.content.notDiscardable',
+            )}
+      </p>
+    ),
+  });
+
 export const PrivateBookingConsumerItem = (props: Props) => {
   const { private_booking, classes, t } = props;
+  const DiscardButton = DiscardButtonGetter(private_booking.is_discardable);
   return (
     <div>
       <div className={classes.header}>
         <Typography variant="h5">{private_booking.name}</Typography>
+      </div>
+      <div className={classes.subtitle}>
+        <Typography variant="subtitle2">{private_booking.subtitle}</Typography>
       </div>
       <Divider />
       <ListItem dense className={classes.translucentPaper}>
@@ -52,8 +79,14 @@ export const PrivateBookingConsumerItem = (props: Props) => {
       <div className={classes.footer}>
         <Button onClick={props.goToCalendar} variant="outlined" color="primary">
           <TodayIcon className={classes.leftIcon} />
-          {t('booking.showCalendar')}
+          {t('consumerSpace:booking.showCalendar')}
         </Button>
+        <DiscardButton
+          t={t}
+          onClick={() => props.onDiscard(private_booking.id)}
+        >
+          {t('consumerSpace:booking.discard')}
+        </DiscardButton>
       </div>
     </div>
   );
@@ -69,9 +102,13 @@ const styles = (theme) => ({
   translucentPaper: {
     backgroundColor: 'rgba(255, 255, 255, 0.6)',
   },
-  header: {
+  subtitle: {
     paddingLeft: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit,
+  },
+  header: {
+    paddingLeft: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit / 2,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -89,6 +126,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['consumerSpace']),
+  withNamespaces(['consumerSpace', 'privateService']),
   withStyles(styles),
 )(PrivateBookingConsumerItem);

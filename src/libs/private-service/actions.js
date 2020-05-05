@@ -1311,7 +1311,7 @@ export const privateBookingCreateOrUpdateActions = {
 
 export function disablePrivateBooking(
   id: number,
-  data: { force_refund: boolean },
+  data: { force_refund: boolean } = {},
   options: ?{ onSuccess: () => void, onError: ?() => void },
 ): ThunkAction {
   return async (dispatch: Dispatch) => {

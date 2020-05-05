@@ -87,6 +87,7 @@ export class ConsumerDashboardBookingPanel extends React.PureComponent<Props> {
         ) : null}
         {this.props.privateBookingList.map((b) => (
           <PrivateBookingConsumerItem
+            onDiscard={this.props.onDiscardPrivateBooking}
             goToCalendar={() =>
               this.props.push(
                 `/m/${this.props.membership.company_name}/${this.props.membership.company}/private-service/`,

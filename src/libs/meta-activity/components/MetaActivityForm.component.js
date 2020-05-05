@@ -18,7 +18,7 @@ import ImageField from '../../../components/forms/ImageField.component';
 import {
   Submit,
   TextField,
-  DurationMinuteSelectField,
+  DurationField,
   ColorField,
   CheckboxField,
 } from '../../../components/forms';
@@ -112,10 +112,11 @@ export function MetaActivityForm(props: Props) {
             required
             multiline
             fullWidth
+            variant="outlined"
           />
         </div>
         <div className={classes.field}>
-          <DurationMinuteSelectField
+          <DurationField
             label={
               variant === 'workshop'
                 ? t('workshopActivity.lastBookingBeforeMinutes')
@@ -128,14 +129,13 @@ export function MetaActivityForm(props: Props) {
           />
         </div>
         <div className={classes.field}>
-          <DurationMinuteSelectField
+          <DurationField
             name="last_discard_minutes"
             label={
               variant === 'workshop'
                 ? t('workshopActivity.lastDiscardBeforeMinutes')
                 : t('activity.lastDiscardBeforeMinutes')
             }
-            variant={variant === 'workshop' ? 'long' : null}
             fullWidth
             required
           />

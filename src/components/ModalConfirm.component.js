@@ -31,10 +31,10 @@ export function ModalConfirm(props: Props) {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleCancel} color="primary">
+        <Button onClick={handleCancel}>
           {t(options.cancel || 'common.cancel')}
         </Button>
-        <Button onClick={handleConfirm} color="secondary">
+        <Button onClick={handleConfirm} color="primary">
           {t(options.confirm || 'common.confirm')}
         </Button>
       </DialogActions>

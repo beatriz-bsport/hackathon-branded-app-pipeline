@@ -12,6 +12,7 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import type { PrivatePass } from '../../types';
+import { getValidityInfo } from '../../utils';
 
 type Props = {
   pass: PrivatePass,
@@ -22,6 +23,7 @@ type Props = {
 };
 
 export const PrivatePassListItem = (props: Props) => {
+  const dateInfo = getValidityInfo(props.pass, props.t);
   return (
     <ListItem
       divider={props.divider}
@@ -30,9 +32,9 @@ export const PrivatePassListItem = (props: Props) => {
     >
       <ListItemText
         primary={props.pass.name}
-        secondary={props.t('privatePass.parameters.nbCredits', {
+        secondary={`${props.t('privatePass.parameters.nbCredits', {
           credits: props.pass.credits,
-        })}
+        })} - ${dateInfo}`}
       />
       <ListItemSecondaryAction>
         {props.onClick ? (

@@ -51,11 +51,12 @@ import {
   fetchBookingOptionAsConsumer,
   discardBookingOption as cancelBookingOptionAction,
 } from '../../libs/waiting-list/actions';
-import { getPrivateBookingListBase } from '../../libs/private-service/selectors/private-booking';
+import { getPrivateBookingFutureAvailable } from '../../libs/private-service/selectors/private-booking';
 
 import {
   fetchPrivateBookings,
   fetchPrivateConsumerPassList,
+  disablePrivateBooking,
 } from '../../libs/private-service/actions';
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
 import { fetchByMember as fetchConsumerPackByMemberAction } from '../../libs/consumer-payment-pack/actions';
@@ -159,6 +160,7 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
               membership={this.props.membership}
               privateBookingList={this.props.privateBookingList}
               onDiscardBooking={this.props.setBookingToCancel}
+              onDiscardPrivateBooking={this.props.discardPrivateBooking}
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -225,7 +227,7 @@ export default compose(
       bookingOptionList: getBookingOptionConsumerList(state),
 
       privateConsumerPassList: getPrivateConsumerPassList(state),
-      privateBookingList: getPrivateBookingListBase(state),
+      privateBookingList: getPrivateBookingFutureAvailable(state),
       privateConsumerPassLoading:
         state.privateService.privateConsumerPass.loading,
       consumerPackLoading: state.consumerPaymentPack.byMember.loading,
@@ -240,6 +242,7 @@ export default compose(
     {
       push: pushRouter,
       cancelBooking: cancelBookingAction,
+      discardPrivateBooking: disablePrivateBooking,
       fetchPrivateBookings,
       fetchConsumerDashboardBookingList: fetchConsumerDashboardBookingListAction,
       fetchOfferBulk: fetchOfferBulkAction,
@@ -333,6 +336,21 @@ export default compose(
       ),
   }),
   withHandlers({
+    discardPrivateBooking: ({
+      discardPrivateBooking,
+      fetchPrivateBookings,
+      membership,
+    }) => (id) => {
+      discardPrivateBooking(
+        id,
+        {},
+        {
+          onSuccess: () => {
+            fetchPrivateBookings(membership.id, moment().format('YYYY-MM-DD'));
+          },
+        },
+      );
+    },
     fetchConsumerPacks: ({ fetchPaymentPackBulk, fetchConsumerPacks }) => (
       ...args
     ) =>

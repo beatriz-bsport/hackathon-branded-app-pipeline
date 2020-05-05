@@ -43,6 +43,7 @@ export const SubscriptionActions = (props: Props) => {
             className={props.classes.button}
             variant="outlined"
             onClick={props.requestPaymentPackSwitch}
+            disabled={!props.subscription.editable}
           >
             <RefreshIcon className={props.classes.leftIcon} />
             {props.t('subscription.actions.switchPack')}

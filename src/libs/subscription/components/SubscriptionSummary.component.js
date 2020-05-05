@@ -94,7 +94,7 @@ export function SubscriptionSummary(props: Props) {
           <Typography inline>{props.t('parameters.autoRenew')}</Typography>
           <Checkbox
             checked={props.subscription.auto_renewal}
-            disabled={props.loading}
+            disabled={props.loading || !subscription.editable}
             onChange={(ev) =>
               props.updateRenewal({
                 auto_renewal: ev.target.checked,
@@ -107,7 +107,8 @@ export function SubscriptionSummary(props: Props) {
           <div className={classes.rowRight}>
             <IconButton
               color="primary"
-              onClick={props.requestPaymentPackSwitch}
+	      onClick={props.requestPaymentPackSwitch}
+	      disabled={!subscription.editable}
             >
               <EditIcon />
             </IconButton>

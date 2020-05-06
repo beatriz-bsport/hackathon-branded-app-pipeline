@@ -40,7 +40,7 @@ exports.default = {
     },
     content: 'Contenu',
     selectorPlaceholder: {
-      privatePass: 'Carte cours privé',
+      privatePass: 'Carte RDV',
       paymentPack: 'Carte cours collectif',
       shopitem: 'Magasin',
     },

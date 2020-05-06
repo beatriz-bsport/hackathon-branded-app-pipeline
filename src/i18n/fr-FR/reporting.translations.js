@@ -1,6 +1,6 @@
 exports.default = {
   columns: {
-    private_service_name: 'Cours privé',
+    private_service_name: 'Rendez-vous',
     nb_bookings: 'Nombre de réservation',
     private_slot_name: 'Séance',
     slot_date_end: 'Fin de la séance',
@@ -137,7 +137,7 @@ exports.default = {
     top_up: 'Recharge crédit client',
     fee: 'Frais',
     payment_combo: 'Pack',
-    private_pass: 'Carte cours privé',
+    private_pass: 'Carte RDV',
   },
   report: {
     delete_message: 'Êtes-vous sûr de vouloir supprimer le rapport {{name}} ?',

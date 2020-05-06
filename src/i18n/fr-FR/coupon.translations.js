@@ -60,7 +60,7 @@ exports.default = {
   form: {
     selectorPlaceholder: {
       privatePass:
-        "Sélectionner des cartes de cours privés (valables sur toutes les cartes si aucune n'est sélectionnée)",
+        "Sélectionner des cartes de rendez-vous (valables sur toutes les cartes si aucune n'est sélectionnée)",
       paymentPack:
         "Sélectionner des cartes de cours (valable sur toutes les cartes de cours si aucune n'est sélectionnée)",
       shopitem:
@@ -124,7 +124,7 @@ exports.default = {
         [BUYABLE_ITEM_SHOP_ITEM]: 'Magasin',
         [BUYABLE_ITEM_FEE]: 'Frais de livraison',
         all: 'Ensemble du panier',
-        [BUYABLE_ITEM_PRIVATE_PASS]: 'Carte cours privé',
+        [BUYABLE_ITEM_PRIVATE_PASS]: 'Carte RDV',
         [null]: 'Ensemble du panier',
       },
     },

@@ -71,7 +71,7 @@ export const CATEGORIES: ReportCategory[] = [
   },
   {
     id: 'private_cpasses',
-    name: 'Carte cours privé',
+    name: 'Carte RDV',
     icon: AccountBoxIcon,
   },
   {

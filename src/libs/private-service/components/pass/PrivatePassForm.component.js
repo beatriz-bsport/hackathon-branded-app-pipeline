@@ -127,6 +127,11 @@ export class PrivatePassForm extends React.Component<Props, State> {
               <Icon className={classes.leftIcon} />
               <NumericInput
                 value={this.state.duration_days}
+                onChange={(ev) =>
+                  this.setState({
+                    duration_days: parseInt(ev.target.value, 10),
+                  })
+                }
                 label={t('privatePass.form.durationDays.label')}
                 helperText={t('privatePass.form.durationDays.helperText')}
                 InputProps={{ min: 0, max: 30, step: 1 }}
@@ -137,6 +142,11 @@ export class PrivatePassForm extends React.Component<Props, State> {
               <AddIcon className={classes.leftIcon} />
               <NumericInput
                 value={this.state.duration_months}
+                onChange={(ev) =>
+                  this.setState({
+                    duration_months: parseInt(ev.target.value, 10),
+                  })
+                }
                 label={t('privatePass.form.durationMonths.label')}
                 helperText={t('privatePass.form.durationMonths.helperText')}
                 InputProps={{ min: 0, max: 24, step: 1 }}
@@ -147,6 +157,11 @@ export class PrivatePassForm extends React.Component<Props, State> {
               <AddIcon className={classes.leftIcon} />
               <NumericInput
                 value={this.state.duration_years}
+                onChange={(ev) =>
+                  this.setState({
+                    duration_years: parseInt(ev.target.value, 10),
+                  })
+                }
                 label={t('privatePass.form.durationYears.label')}
                 helperText={t('privatePass.form.durationYears.helperText')}
                 InputProps={{ min: 0, max: 30, step: 1 }}

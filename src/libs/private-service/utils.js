@@ -2,7 +2,7 @@
 import moment from 'moment';
 import uniq from 'lodash/uniq';
 import type { TFunction } from 'react-i18next';
-import { formatAsDate } from '../../datetime';
+import { RESOURCE_ATTRIBUTION_CONSUMER } from '@bsport/common/lib/master-data/resource-attribution-methods';
 
 export const getMissingResourceForBooking = (
   service: PrivateService,
@@ -13,7 +13,12 @@ export const getMissingResourceForBooking = (
   const missing = [];
   if (service.is_home_service && asManager) {
     missing.push('address');
-  } else if (service.establishments.length && !data.establishment) {
+  } else if (
+    service.establishments.length &&
+    !data.establishment &&
+    (asManager ||
+      service.establishment_attribution === RESOURCE_ATTRIBUTION_CONSUMER)
+  ) {
     missing.push('establishment');
   }
   if (service.coaches.length && !data.coach && asManager) {

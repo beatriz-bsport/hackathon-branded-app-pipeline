@@ -326,7 +326,6 @@ export const PrivateServiceSchema = Yup.object().shape({
   description: Yup.string().required(),
   manager_only: Yup.boolean(),
   color: Yup.string(),
-  is_without_coach: Yup.boolean(),
   use_full_establishment_capacity: Yup.boolean(),
   coach_capacity_used: Yup.number()
     .min(1)

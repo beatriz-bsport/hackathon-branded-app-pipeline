@@ -234,6 +234,8 @@ exports.default = {
   bookerModule: {
     address: {
       label: 'Adresse',
+      submit: 'Valider',
+      helperText: 'Entrez votre adresse pour pouvoir réserver ce rendez-vous',
     },
     availableSlots: 'Créneaux disponibles',
     emptySlot: 'Aucune disponibilité',

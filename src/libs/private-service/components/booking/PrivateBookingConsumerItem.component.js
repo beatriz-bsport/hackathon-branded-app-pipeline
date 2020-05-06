@@ -108,7 +108,6 @@ const styles = (theme) => ({
   },
   header: {
     paddingLeft: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit / 2,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -119,6 +118,7 @@ const styles = (theme) => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit * 2,
   },
   leftIcon: {
     marginRight: theme.spacing.unit,

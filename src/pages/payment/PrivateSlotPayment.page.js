@@ -10,6 +10,10 @@ import { compose, withProps } from 'recompose';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { replace } from 'react-router-redux';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import { withNamespaces } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 
 import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyable-items';
 import parse from '../../query-string';
@@ -50,6 +54,7 @@ type Props = {
   date: string,
   company: number,
   data: any,
+  t: TFunction,
 
   fetchPrivateService: (privateServiceId: number) => void,
   fetchPrivateSlot: (privateServiceId: number, privateSlotId: number) => void,
@@ -189,6 +194,9 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
         </div>
       );
     }
+
+    const needAddress = this.props.privateService.is_home_service;
+
     return (
       <div className={this.props.classes.container}>
         <div className={this.props.classes.titleContainer}>
@@ -200,19 +208,45 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
             {moment(this.props.data.date).format('LLLL')}
           </Typography>
         </div>
-        <Paper className={this.props.classes.paper}>
-          <PrivateServiceListItem privateService={this.props.privateService} />
-          <PrivateSlotListItem slot={this.props.privateSlot} />
-          <div className={this.props.classes.bookingCapabilities}>
-            <BookingCapabilities
-              loading={this.state.processing}
-              privateConsumerPassList={this.props.compatiblePrivateConsumerPass}
-              privatePassList={this.props.compatiblePrivatePass}
-              onConsumerPassClick={this.handleConsumerPassClick}
-              onPrivatePassClick={this.handlePrivatePassClick}
+        <div className={this.props.classes.paper}>
+          <Paper>
+            <PrivateServiceListItem
+              privateService={this.props.privateService}
             />
+            <PrivateSlotListItem slot={this.props.privateSlot} />
+          </Paper>
+          <div className={this.props.classes.bookingCapabilities}>
+            {needAddress && !this.state.addressValidated ? (
+              <div className={this.props.classes.addressContainer}>
+                <TextField
+                  label={this.props.t('bookerModule.address.label')}
+                  helperText={this.props.t('bookerModule.address.helperText')}
+                  onChange={(ev) => this.setState({ address: ev.target.value })}
+                  value={this.state.address}
+                  variant="outlined"
+                  fullWidth
+                  multiline
+                  rows={5}
+                />
+                <Button
+                  onClick={() => this.setState({ addressValidated: true })}
+                >
+                  {this.props.t('bookerModule.address.submit')}
+                </Button>
+              </div>
+            ) : (
+              <BookingCapabilities
+                loading={this.state.processing}
+                privateConsumerPassList={
+                  this.props.compatiblePrivateConsumerPass
+                }
+                privatePassList={this.props.compatiblePrivatePass}
+                onConsumerPassClick={this.handleConsumerPassClick}
+                onPrivatePassClick={this.handlePrivatePassClick}
+              />
+            )}
           </div>
-        </Paper>
+        </div>
       </div>
     );
   }
@@ -226,6 +260,11 @@ const styles = (theme) => ({
     width: '100%',
     paddingBottom: theme.spacing.unit * 32,
     paddingTop: theme.spacing.unit * 16,
+  },
+  addressContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
   },
   paper: {
     padding: theme.spacing.unit * 2,
@@ -250,6 +289,7 @@ export default compose(
     privateServiceId: 'privateServiceId:number',
     privateSlotId: 'privateSlotId:number',
   }),
+  withNamespaces(['privateService']),
   withRouter,
   withProps(({ location }) => ({
     data: JSON.parse(decodeURIComponent(parse(location.search).data)),

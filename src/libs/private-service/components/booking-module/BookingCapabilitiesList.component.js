@@ -4,6 +4,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -48,7 +49,7 @@ export const BookingCapabilities = (props: Props) => {
             {t('bookerModule.bookingCapabilities.emptyConsumerPassList')}
           </Typography>
         ) : null}
-        <List disablePadding>
+        <Paper>
           {privateConsumerPassList.map((pcp) => (
             <PrivateConsumerPassBookerListItem
               private_consumer_pass={pcp}
@@ -56,7 +57,7 @@ export const BookingCapabilities = (props: Props) => {
               onBook={() => props.onConsumerPassClick(pcp.id)}
             />
           ))}
-        </List>
+        </Paper>
       </div>
       <div classsName={classes.section}>
         <Typography
@@ -72,13 +73,15 @@ export const BookingCapabilities = (props: Props) => {
           </Typography>
         ) : null}
         <List disablePadding>
-          {privatePassList.map((pp) => (
-            <PrivatePassBookerListItem
-              private_pass={pp}
-              key={pp.id}
-              onClick={() => props.onPrivatePassClick(pp.id)}
-            />
-          ))}
+          <Paper>
+            {privatePassList.map((pp) => (
+              <PrivatePassBookerListItem
+                private_pass={pp}
+                key={pp.id}
+                onClick={() => props.onPrivatePassClick(pp.id)}
+              />
+            ))}
+          </Paper>
         </List>
       </div>
     </div>

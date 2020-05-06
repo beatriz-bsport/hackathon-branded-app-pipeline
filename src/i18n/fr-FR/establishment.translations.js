@@ -9,6 +9,8 @@ exports.default = {
   capacity: {
     label: 'Capacité de la salle',
     placeholder: null,
+    explain: 'Capacité: {{ capacity }} place',
+    explain_plural: 'Capacité: {{ capacity }} places',
     helperText:
       'Utilisé uniquement pour calculer la disponibilité pour les rendez-vous',
   },

@@ -120,8 +120,18 @@ export class EstablishmentDetail extends Component<Props, State> {
 
           <Grid container direction="row">
             <Grid item sm={12} md={6} className={classes.generalInfoBlock}>
-              <Typography variant="h4" color="textPrimary" gutterBottom>
+              <Typography variant="h4" gutterBottom>
                 {establishment.title}
+              </Typography>
+              <Typography
+                variant="subtitle2"
+                color="textSecondary"
+                gutterBottom
+              >
+                {t('capacity.explain', {
+                  count: establishment.capacity,
+                  capacity: establishment.capacity,
+                })}
               </Typography>
               <EasyAccessStack
                 name={establishment.easy_access.name}
@@ -134,7 +144,7 @@ export class EstablishmentDetail extends Component<Props, State> {
               </Typography>
               <div className={classes.descriptionBlock}>
                 <Typography variant="h5" gutterBottom>
-                  {t('common.description')}
+                  {t('description')}
                 </Typography>
                 <TypographyMultiline>
                   {establishment.specific_info}
@@ -182,4 +192,6 @@ const styles = (theme) => ({
   },
 });
 
-export default withNamespaces([])(withStyles(styles)(EstablishmentDetail));
+export default withNamespaces(['establishment'])(
+  withStyles(styles)(EstablishmentDetail),
+);

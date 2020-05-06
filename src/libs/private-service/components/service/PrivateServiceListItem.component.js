@@ -65,7 +65,7 @@ export const PrivateServiceListItem = (props: Props) => {
             ? null
             : privateService.coaches
                 .map((c) => (c && c.name) || '')
-                .join(', ') || ' - '
+                .join(', ') || null
         }
       />
       <ListItemSecondaryAction>

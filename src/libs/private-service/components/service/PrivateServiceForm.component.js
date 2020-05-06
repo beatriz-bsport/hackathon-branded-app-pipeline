@@ -150,6 +150,7 @@ export const PrivateServiceForm = (props: Props) => {
                         establishment={props.establishments.find(
                           (e) => e.id === id,
                         )}
+                        showCapacity
                         onClickDelete={() => remove(i)}
                       />
                     ))}
@@ -159,6 +160,7 @@ export const PrivateServiceForm = (props: Props) => {
                           (c) => !establishments.includes(c.id),
                         ),
                       ]}
+                      showCapacity
                       nullCurrentValue
                       selectedEstablishments={[]}
                       closeMenuOnSelect

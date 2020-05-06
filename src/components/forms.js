@@ -25,6 +25,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Switch from '@material-ui/core/Switch';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
+import AddIcon from '@material-ui/icons/Add';
 
 import * as Yup from 'yup';
 
@@ -251,6 +252,7 @@ export const DurationField = withStyles(styles)(
                   type="number"
                   value={days}
                 />
+                <AddIcon style={{ marginRight: 4 }} />
                 <TextField
                   style={{ marginRight: 8, flex: 1 }}
                   InputProps={{
@@ -272,6 +274,7 @@ export const DurationField = withStyles(styles)(
                   type="number"
                   value={hours}
                 />
+                <AddIcon style={{ marginRight: 4 }} />
                 <TextField
                   style={{ flex: 1 }}
                   InputProps={{

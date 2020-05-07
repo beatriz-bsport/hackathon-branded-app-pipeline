@@ -68,7 +68,11 @@ export class SlotSearcherHelper extends React.PureComponent<Props> {
   };
 
   renderEstablishment = () => {
-    if (this.props.privateService) {
+    if (
+      this.props.privateService &&
+      (this.props.privateService.establishments.length ||
+        this.props.privateService.is_home_service)
+    ) {
       return (
         <div className={this.props.classes.section}>
           <Typography
@@ -79,13 +83,14 @@ export class SlotSearcherHelper extends React.PureComponent<Props> {
             {this.props.t('bookerModule.sections.establishment')}
           </Typography>
           <Typography color="textSecondary">
-            {this.props.privateService.establishments.length ? (
+            {!!this.props.privateService.establishments.length && (
               <Paper>
                 <EstablishmentListItem
                   establishment={this.props.privateService.establishments[0]}
                 />
               </Paper>
-            ) : (
+            )}
+            {this.props.privateService.is_home_service && (
               <Typography>{this.props.t('bookerModule.isAtHome')}</Typography>
             )}
           </Typography>

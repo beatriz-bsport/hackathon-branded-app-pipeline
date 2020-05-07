@@ -1049,7 +1049,7 @@
                     "success": "Workshop saved"
                 }
             },
-            "lastDiscardBeforeMinutes": "A late cancel is before",
+            "lastDiscardBeforeMinutes": "A late cancel is authorized before",
             "lastBookingBeforeMinutes": "Before workshop, last booking is possible until",
             "imageUploaderRequireEditMessage": "After creation, you will be able to add more images.",
             "addWorkshopActivity": "Add a workshop"
@@ -1190,7 +1190,8 @@
             "topUp": "Credit",
             "invoiceRevertedThusNotEditable": "Invoice was cancelled and is not editable anymore",
             "products": "items",
-            "paymentCombo": "Pack"
+            "paymentCombo": "Pack",
+            "isRecurring": "Installments"
         },
         "invoice": {
             "forms": {
@@ -1257,7 +1258,10 @@
             "sequence": "Strategies",
             "requestTempPassword": "Authorize access",
             "combo": "Packs",
-            "marketing_automation": "Marketing automation"
+            "marketing_automation": "Marketing automation",
+            "digital": "Digital Offer",
+            "podcast": "Podcasts",
+            "video": "Video library"
         },
         "consumer": {
             "booking": {
@@ -1539,7 +1543,8 @@
                 "addressLine1": "Address",
                 "streetNumber": "N°"
             },
-            "waiting_list_max_size": "Waiting-list size"
+            "waiting_list_max_size": "Waiting-list size",
+            "oneHourFifteen": "1h15"
         },
         "shop": {
             "noProvisionUpdates": "No provision",
@@ -1574,7 +1579,7 @@
             "previousOffer": "Previous session",
             "backToCalendar": "Calendar",
             "noConsumerPackAvailableForPurchase": "No pass compatible owned by this member!",
-            "noncompatibleConsumerPaymentPacksAre": "Owns the following pass: (uncompatible with this session)",
+            "noncompatibleConsumerPaymentPacksAre": "Owns the following pass: (incompatible with this session)",
             "noPackAvailableForOfferPurchase": "No pass compatible with this session!",
             "offersPendingDelete": "Sessions which will be deleted:",
             "offersPendingChange": "Sessions which will be modified:",
@@ -1729,7 +1734,7 @@
             }
         },
         "report": {
-            "delete": "Report deletion"
+            "delete": "Erase report"
         },
         "private_service": "Appointments",
         "button": {
@@ -1981,7 +1986,7 @@
         "resetPassword": {
             "title": "Password reset",
             "noEmail": "This email is not registered",
-            "explain1": "What was your email  ?",
+            "explain1": "What was your email ?",
             "explain2": "We will send you reset instructions",
             "emailHasBeenSent": "An email has been sent to {{email}} to reset your password",
             "actions": {
@@ -2032,7 +2037,7 @@
             },
             "content": "Content",
             "selectorPlaceholder": {
-                "privatePass": "Private lesson pass",
+                "privatePass": "Appointments pass",
                 "paymentPack": "Pass collective lesson",
                 "shopitem": "Shop"
             }
@@ -2233,7 +2238,16 @@
                 "explainHardDelete": "This booking has already been canelled, deleting it will make it disappear totally from the calendar and you will lose the history report. If not it will be refunded on member pass. This operation is not revertable.",
                 "explainForceRefund": "Refund used credit on the pass to allow for a new booking.",
                 "cancel": "Cancel",
-                "confirm": "Confirm"
+                "confirm": "Confirm",
+                "consumer": {
+                    "content": {
+                        "notDiscardable": "Are you sure to cancel this appointment? You won't be refunded because it is a late cancel.",
+                        "discardable": "Are you sur to cancel this appointment? Client will be refunded."
+                    },
+                    "confirm": "Confirm",
+                    "cancel": "Cancel",
+                    "title": "Cancel appointment"
+                }
             }
         },
         "privateService": {
@@ -3117,7 +3131,7 @@
         },
         "autoAdd": {
             "paymentPack": {
-                "locked": "You can not buy this pass!"
+                "locked": "You can not buy this pass."
             }
         },
         "myBasket": {
@@ -3237,7 +3251,7 @@
         },
         "detail": {
             "section": {
-                "title": "Order status: ",
+                "title": "Order status:",
                 "deliveryInfo": "Delivery address",
                 "productDetail": "Product listing",
                 "invoice": "Related invoice",
@@ -4232,7 +4246,7 @@
                 "delete": {
                     "title": "Deleting pass :",
                     "askConfirmation": "Be careful ! This deletion is definitive. The pass will not be visible anymore and will be unavailable for purchase.",
-                    "thereAreConsumers": "Be careful ! Some members have bought this pass, if you disable it, they can continue to use until they exhaust their credits. If you want to disable it completely, consider reducing their credits here. The pass will not appear in your marketplace anymore.",
+                    "thereAreConsumers": "Be careful ! Some members have bought this pass, if you disable it, they can continue to use until they exhaust their credits. \nIf you want to disable it completely, consider reducing their credits here. \nThe pass will not appear in your marketplace anymore.",
                     "actions": {
                         "cancel": "Cancel",
                         "submit": "Delete"
@@ -4392,7 +4406,7 @@
         "video": {
             "cantOpenLink": "Broadcast link seems to be broken, please contact your club {{ contact_email }}",
             "startingSoon": "Your session is starting in {{ minutesLeft }} minutes",
-            "redirectLink": "If you are not automatically redirected, please use this link",
+            "redirectLink": "If you are not automatically redirected, please use this link:",
             "hasEnded": "This session has ended",
             "isAutoRefresh": "You will be redirected to the video 10 min before the start of the class",
             "loadingSoon": "Loading...",
@@ -4668,9 +4682,9 @@
     },
     "selfCheckIn": {
         "offerStatus": {
-            "hasEnded": "Has ended :",
-            "startIn": "Begins In :",
-            "inProgress": "In progress :"
+            "hasEnded": "Has ended",
+            "startIn": "Begins in: ",
+            "inProgress": "In progress "
         },
         "addMember": {
             "button": "Register an account"

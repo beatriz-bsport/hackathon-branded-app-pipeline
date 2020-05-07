@@ -7,7 +7,6 @@ import { compose, withState } from 'recompose';
 import { push } from 'react-router-redux';
 import type { TFunction } from 'react-i18next';
 import { withNamespaces } from 'react-i18next';
-import moment from 'moment';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Collapse from '@material-ui/core/Collapse';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -21,7 +20,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 // import EditIcon from '@material-ui/icons/Edit';
 
-import LinearProgressMUI from '@material-ui/core/LinearProgress';
 import MemberTable from '../../libs/member/MemberTable.component';
 import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/selectors';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -57,17 +55,11 @@ import {
 import { fetchTags } from '../../libs/tag/actions';
 import tagSelectors from '../../libs/tag/selectors';
 
-import StatsPanel from '../../libs/smart-list/components/StatsPanel.component';
 import FiltersPanel from '../../libs/smart-list/components/FiltersPanel.component';
 import SendEmailDialog from '../../libs/smart-list/components/SendEmailDialog.component';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 import SmartListEditDialog from '../../libs/smart-list/components/SmartListFormDialog.component';
 
-import {
-  dateRangeSelector,
-  smartlistStatSelector as getSmartListStatistic,
-  getStatisticLoading,
-} from '../../state/stats/selectors';
 import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
@@ -76,10 +68,6 @@ import {
   emailTemplatesSummaries,
   emailTemplateDetail,
 } from '../../libs/email-editor/actions';
-import {
-  fetchSmartListStats,
-  dateRangeChange,
-} from '../../actions/stats.actions';
 
 import type { Establishment } from '../../libs/establishment/types';
 import { getAllEstablishments } from '../../libs/establishment/selectors';
@@ -95,11 +83,6 @@ import {
 import type { Coach } from '../../libs/associated-coach/types';
 
 import { getCoaches } from '../../libs/associated-coach/selectors';
-
-const BOOKING_STATISTIC_IDENTIFIER = 1;
-const EXPENSES_STATISTIC_IDENTIFIER = 3;
-const BOOKING_SEGMENTS_STATISTIC_IDENTIFIER = 4;
-const GENERAL_STATISTIC_IDENTIFIER = 5;
 
 type Props = {
   id: number,
@@ -167,11 +150,7 @@ type Props = {
 
   // statistics
   setCloseMemberTable: () => void,
-  statistics: any,
   closeMemberTable: boolean,
-  fetchSmartListStats: () => void,
-  dateRangeChange: () => void,
-  dateRange: Object,
 
   classes: Object,
   memberTitle: string,
@@ -184,36 +163,6 @@ type State = {
 export class SmartListDetailMember extends Component<Props, State> {
   state = { onValueChangeActiveMemberFetch: false, openEditDialog: false };
 
-  fetchStats = () => {
-    const { id } = this.props;
-    this.props.fetchSmartListStats({
-      smartlist: id,
-      statistic_identifier: BOOKING_STATISTIC_IDENTIFIER,
-      graph_params: {
-        start: moment(this.props.dateRange.start).valueOf(),
-        end: moment(this.props.dateRange.end).valueOf(),
-      },
-    });
-    this.props.fetchSmartListStats({
-      smartlist: id,
-      statistic_identifier: EXPENSES_STATISTIC_IDENTIFIER,
-      graph_params: {
-        start: moment(this.props.dateRange.start).valueOf(),
-        end: moment(this.props.dateRange.end).valueOf(),
-      },
-    });
-    this.props.fetchSmartListStats({
-      smartlist: id,
-      statistic_identifier: BOOKING_SEGMENTS_STATISTIC_IDENTIFIER,
-      graph_params: { duration_breakpoints: [30, 365] },
-    });
-    this.props.fetchSmartListStats({
-      smartlist: id,
-      statistic_identifier: GENERAL_STATISTIC_IDENTIFIER,
-      graph_params: {},
-    });
-  };
-
   componentDidMount() {
     this.props.fetchSmartListFilters(this.props.id);
     this.props.fetchTags();
@@ -224,7 +173,6 @@ export class SmartListDetailMember extends Component<Props, State> {
       !this.props.closeStatsPanel &&
       this.props.closeStatsPanel !== prevProps.closeStatsPanel
     ) {
-      this.fetchStats();
     }
   }
 
@@ -232,9 +180,6 @@ export class SmartListDetailMember extends Component<Props, State> {
     const filter = filterData;
     filter.smartlist = this.props.id;
     this.props.createFilter(filter_identifier, filter, this.props.id, () => {
-      if (!this.props.closeStatsPanel) {
-        this.fetchStats();
-      }
       this.setState((prevState) => ({
         onValueChangeActiveMemberFetch: !prevState.onValueChangeActiveMemberFetch,
       }));
@@ -243,9 +188,6 @@ export class SmartListDetailMember extends Component<Props, State> {
 
   updateFilter = (filterNameId, data, filterId) => {
     this.props.updateFilter(this.props.id, filterNameId, data, filterId, () => {
-      if (!this.props.closeStatsPanel) {
-        this.fetchStats();
-      }
       this.setState((prevState) => ({
         onValueChangeActiveMemberFetch: !prevState.onValueChangeActiveMemberFetch,
       }));
@@ -254,38 +196,10 @@ export class SmartListDetailMember extends Component<Props, State> {
 
   deleteFilter = (filterNameId, filterId) => {
     this.props.deleteFilter(filterNameId, filterId, this.props.id, () => {
-      if (!this.props.closeStatsPanel) {
-        this.fetchStats();
-      }
       this.setState((prevState) => ({
         onValueChangeActiveMemberFetch: !prevState.onValueChangeActiveMemberFetch,
       }));
     });
-  };
-
-  formatExpensesSegmentsStatistic = () => {
-    const expenses = this.props.statistics.expensesSegments.data;
-    const bookings = this.props.statistics.bookingsSegments.data;
-    const { t } = this.props;
-
-    return {
-      bookings: this.props.statistics.bookings,
-      general: this.props.statistics.general,
-      bookingsSegments: {
-        data: bookings.map((bookingValue, index) => ({
-          name: t(`graphs.bookingsSegments.label.${index}`),
-          value: bookingValue,
-        })),
-        loading: this.props.statistics.bookingsSegments.loading,
-      },
-      expensesSegments: {
-        data: expenses.map((expense, index) => ({
-          name: t(`graphs.expensesSegments.label.${index}`),
-          value: expense,
-        })),
-        loading: this.props.statistics.expensesSegments.loading,
-      },
-    };
   };
 
   updateSmartList = (smartlist) => {
@@ -366,70 +280,18 @@ export class SmartListDetailMember extends Component<Props, State> {
           </ButtonBase>
           <Divider />
           <Collapse in={!this.props.closeMemberTable}>
-            <MemberTable
-              fetch={({ page, page_size }) =>
-                fetchSmartListMembersAPI(this.props.id, { page, page_size })
-              }
-              goToMember={this.props.goToMember}
-              onValueChangeActiveMemberFetch={
-                this.state.onValueChangeActiveMemberFetch
-              }
-              hideAddButton
-            />
-          </Collapse>
-        </div>
-        <div className={this.props.classes.memberWrapper}>
-          <ButtonBase
-            className={this.props.classes.buttonTitle}
-            onClick={() =>
-              this.props.setCloseStatsPanel(!this.props.closeStatsPanel)
-            }
-          >
-            <Typography
-              variant="h6"
-              className={this.props.classes.memberTitle}
-              color={this.props.closeStatsPanel ? 'textSecondary' : 'default'}
-            >
-              {this.props.t('detail.statTitle')}
-            </Typography>
-
-            {this.props.closeStatsPanel ? (
-              <ExpandMoreIcon />
-            ) : (
-              <ExpandLessIcon />
+            {!this.props.closeMemberTable && (
+              <MemberTable
+                fetch={({ page, page_size }) =>
+                  fetchSmartListMembersAPI(this.props.id, { page, page_size })
+                }
+                goToMember={this.props.goToMember}
+                onValueChangeActiveMemberFetch={
+                  this.state.onValueChangeActiveMemberFetch
+                }
+                hideAddButton
+              />
             )}
-          </ButtonBase>
-          <Divider />
-          <Collapse in={!this.props.closeStatsPanel}>
-            {this.props.statistics.bookings.loading ||
-            this.props.statistics.expensesSegments.loading ||
-            this.props.statistics.bookingsSegments.loading ||
-            this.props.statistics.general.loading ? (
-              <LinearProgressMUI />
-            ) : null}
-            <StatsPanel
-              statistics={this.formatExpensesSegmentsStatistic()}
-              changeDateRange={(start, end, kind = 'custom') => {
-                this.props.dateRangeChange({ start, end, kind });
-                this.props.fetchSmartListStats({
-                  smartlist: this.props.id,
-                  statistic_identifier: 1,
-                  graph_params: {
-                    start: moment(start).valueOf(),
-                    end: moment(end).valueOf(),
-                  },
-                });
-                this.props.fetchSmartListStats({
-                  smartlist: this.props.id,
-                  statistic_identifier: EXPENSES_STATISTIC_IDENTIFIER,
-                  graph_params: {
-                    start: moment(start).valueOf(),
-                    end: moment(end).valueOf(),
-                  },
-                });
-              }}
-              dateRange={this.props.dateRange}
-            />
           </Collapse>
         </div>
         <SendEmailDialog
@@ -514,8 +376,7 @@ export default compose(
   routerParamsToProps({ id: 'id:number', create: 'create:number' }),
   withState('openSendEmail', 'setOpenSendEmail', false),
   withState('closeMemberTable', 'setCloseMemberTable', true),
-  withState('closeStatsPanel', 'setCloseStatsPanel', true),
-  withNamespaces(['smartList']),
+  withNamespaces(['smartList', 'member']),
   withStyles(styles),
   connect(
     (state, { id }) => ({
@@ -537,41 +398,8 @@ export default compose(
       email_templates_details: getEmailTemplatesDetail(state),
       emailListLoading: state.emailTemplate.isLoading,
       emailDetailLoading: state.emailTemplate.detail.isLoading,
-      statistics: {
-        bookings: {
-          data: getSmartListStatistic(state, id, BOOKING_STATISTIC_IDENTIFIER),
-          loading: getStatisticLoading(state, id, BOOKING_STATISTIC_IDENTIFIER),
-        },
-        bookingsSegments: {
-          data: getSmartListStatistic(
-            state,
-            id,
-            BOOKING_SEGMENTS_STATISTIC_IDENTIFIER,
-          ),
-          loading: getStatisticLoading(
-            state,
-            id,
-            BOOKING_SEGMENTS_STATISTIC_IDENTIFIER,
-          ),
-        },
-        expensesSegments: {
-          data: getSmartListStatistic(state, id, EXPENSES_STATISTIC_IDENTIFIER),
-          loading: getStatisticLoading(
-            state,
-            id,
-            EXPENSES_STATISTIC_IDENTIFIER,
-          ),
-        },
-        general: {
-          data: getSmartListStatistic(state, id, GENERAL_STATISTIC_IDENTIFIER),
-          loading: getStatisticLoading(state, id, GENERAL_STATISTIC_IDENTIFIER),
-        },
-      },
-      dateRange: dateRangeSelector(state),
     }),
     {
-      dateRangeChange,
-      fetchSmartListStats,
       fetchSmartListFilters,
       fetchCoachBulk,
       fetchCoaches,

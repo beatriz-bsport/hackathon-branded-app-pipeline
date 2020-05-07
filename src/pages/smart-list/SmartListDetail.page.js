@@ -17,6 +17,7 @@ import SmartListDetailMember from './SmartListDetailMember.page';
 // import SmartListDetailEmail from './SmartListDetailEmail.page';
 import SmartListDetailCampaign from './SmartListDetailCampaign.page';
 import SmartListDetailCampaignReport from './SmartListDetailCampaignReport.page';
+import SmartListDetailStatistic from './SmartListDetailStatistic.page';
 
 import { getSmartList } from '../../libs/smart-list/selectors';
 import { fetchSmartListDetail } from '../../libs/smart-list/actions';
@@ -52,6 +53,7 @@ export class SmartListDetail extends React.Component<Props> {
           >
             <Tab label={t('detail.tab.member')} value="member" />
             <Tab label={t('detail.tab.campaign')} value="campaign" />
+            <Tab label={t('detail.tab.statistic')} value="statistic" />
           </Tabs>
         </AppBar>
         <div className={classes.content}>
@@ -70,6 +72,11 @@ export class SmartListDetail extends React.Component<Props> {
               exact
               path="/smart-list/:id/campaign/"
               component={SmartListDetailCampaign}
+            />
+            <Route
+              exact
+              path="/smart-list/:id/statistic/"
+              component={SmartListDetailStatistic}
             />
           </Switch>
         </div>

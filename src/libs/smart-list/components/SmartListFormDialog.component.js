@@ -96,7 +96,7 @@ export class SmartListFormDialog extends Component<Props, state> {
                 rows={5}
                 className={this.props.classes.textField}
                 variant="outlined"
-                label={t('smart_list.description')}
+                label={t('smart_list.description.label')}
                 onChange={(ev) =>
                   this.setState({ description: ev.target.value })
                 }

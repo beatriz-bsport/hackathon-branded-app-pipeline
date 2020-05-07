@@ -24,7 +24,10 @@ export const StatsPanel = (props: Props) => {
   const { statistics, t } = props;
   return (
     <div className={props.classes.paper}>
-      <Typography variant="body2" className={props.classes.listSizeContainer}>
+      <Typography
+        variant="subtitle2"
+        className={props.classes.listSizeContainer}
+      >
         {props.t('membersInList')}
         <div className={props.classes.listSize}>
           {props.statistics.general.data.length ? (

@@ -9,6 +9,7 @@ import { compose } from 'recompose';
 import moment from 'moment';
 import List from '@material-ui/core/List';
 import Collapse from '@material-ui/core/Collapse';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Divider from '@material-ui/core/Divider';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import FilterListIcon from '@material-ui/icons/FilterList';
@@ -330,6 +331,17 @@ export class FiltersPanel extends Component<Props> {
               ) : null}
             </List>
           </Paper>
+          {!filters.length && !this.props.loading && (
+            <div className={this.props.classes.row}>
+              <InfoOutlinedIcon className={this.props.classes.leftIcon} />
+              <Typography
+                className={this.props.classes.isEmptyText}
+                color="textSecondary"
+              >
+                {this.props.t('filters.isEmpty')}
+              </Typography>
+            </div>
+          )}
         </Collapse>
       </div>
     );
@@ -382,6 +394,12 @@ const styles = (theme) => ({
   nestedList: {
     backgroundColor: '#F8F8F8',
     borderLeft: `4px solid ${theme.palette.primary.main}`,
+  },
+  row: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
+    paddingTop: theme.spacing.unit * 2,
   },
 });
 

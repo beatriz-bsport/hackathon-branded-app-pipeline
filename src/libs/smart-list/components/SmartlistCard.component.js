@@ -5,16 +5,14 @@ import { compose } from 'recompose';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
-import SettingsIcon from '@material-ui/icons/Settings';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
+import MailIcon from '@material-ui/icons/Mail';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 import Button from '@material-ui/core/Button';
-import StatsPanel from './StatsPanel.component';
-
-import TypographyMultiline from '../../../components/TypographyMultiline.component';
 
 type Props = {
   t: TFunction,
@@ -35,28 +33,45 @@ export const SmartlistCard = (props: Props) => {
     <div>
       <div className={props.classes.paper}>
         <div className={props.classes.row}>
-          <IconButton color="primary" onClick={props.onEdit}>
-            <EditIcon />
-          </IconButton>
           <Typography variant="h5" className={props.classes.title}>
             {props.smartlist.name}
           </Typography>
+          <IconButton color="primary" onClick={props.onEdit}>
+            <EditIcon />
+          </IconButton>
         </div>
         <Divider className={props.classes.divider} />
-        <TypographyMultiline>{props.smartlist.description}</TypographyMultiline>
-        <Divider className={props.classes.divider} />
-
-        <StatsPanel
-          statistics={props.statistics}
-          changeDateRange={props.changeDateRange}
-          dateRange={props.dateRange}
-        />
+        <Typography variant="subtitle2" className={props.classes.title}>
+          {props.t('smart_list.description.label')}
+        </Typography>
+        <Typography color="textSecondary" className={props.classes.description}>
+          {props.smartlist.description ||
+            props.t('smart_list.description.isEmpty')}
+        </Typography>
       </div>
       <div className={props.classes.configureButtonContainer}>
-        <Button onClick={props.onConfigure} variant="outlined" color="primary">
-          <SettingsIcon className={props.classes.leftIcon} />
-          {props.t('smart_list.actions.configure')}
-        </Button>
+        {!!props.onClickConfigure && (
+          <Button
+            variant="contained"
+            color="primary"
+            className={props.classes.button}
+            onClick={() => props.onClickConfigure(props.smartlist.id)}
+          >
+            <ArrowForwardIcon className={props.classes.leftIcon} />
+            {props.t('smart_list.actions.configure')}
+          </Button>
+        )}
+        {!!props.onClickCampaign && (
+          <Button
+            variant="contained"
+            color="secondary"
+            className={props.classes.button}
+            onClick={() => props.onClickCampaign(props.smartlist.id)}
+          >
+            <MailIcon className={props.classes.leftIcon} />
+            {props.t('smart_list.actions.campaign')}
+          </Button>
+        )}
       </div>
     </div>
   );
@@ -64,8 +79,7 @@ export const SmartlistCard = (props: Props) => {
 
 const styles = (theme) => ({
   divider: {
-    marginBottom: theme.spacing.unit,
-    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit * 2,
   },
   header: {
     display: 'flex',
@@ -77,19 +91,29 @@ const styles = (theme) => ({
   paper: {
     padding: theme.spacing.unit * 2,
   },
+  description: {
+    marginTop: theme.spacing.unit,
+    padding: theme.spacing.unit * 2,
+    border: '1px solid rgba(0, 0, 0, 0.54)',
+    borderRadius: 8,
+  },
   leftIcon: {
     marginRight: theme.spacing.unit,
   },
   configureButtonContainer: {
-    marginTop: theme.spacing.unit * 2,
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'flex-end',
   },
   row: {
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  button: {
+    marginLeft: theme.spacing.unit * 2,
   },
 });
 

@@ -47,10 +47,7 @@ export class SmartListItem extends Component<Props> {
         onClick={() => this.props.onClick(this.props.smartlist.id)}
         className={this.props.classes.listitem}
       >
-        <ListItemText
-          primary={this.props.smartlist.name}
-          secondary={this.props.smartlist.description}
-        />
+        <ListItemText primary={this.props.smartlist.name} />
         <div className={this.props.classes.actions}>
           {this.props.onClickEdit ? (
             <IconButton

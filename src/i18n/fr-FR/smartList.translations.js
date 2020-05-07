@@ -126,22 +126,24 @@ exports.default = {
     tab: {
       member: 'Général',
       campaign: 'Campagnes',
+      statistic: 'Statistique',
     },
     statTitle: 'Statistiques',
   },
   smart_list: {
     actions: {
       configure: 'Configurer',
-    },
-    card: {
-      description: 'Description',
+      campaign: 'Campagnes',
     },
     list: {
       title: 'Smartlists',
       detailTitle: 'Détail de la smartlist',
     },
     name: 'Nom',
-    description: 'Description',
+    description: {
+      label: 'Description',
+      isEmpty: 'Aucune description',
+    },
     submit: 'Enregistrer',
     cancel: 'Annuler',
     add: 'Ajouter une smartlist',
@@ -155,6 +157,8 @@ exports.default = {
     [BUY]: 'Achats',
   },
   filters: {
+    isEmpty:
+      "Aucun filtre n'est configuré, cette smartliste représente donc l'ensemble de la base membre",
     calendarPicker: {
       text: {
         [DATE_BEFORE]: { first: 'le ou avant le' },

@@ -11,6 +11,7 @@ i18n
   .use(reactI18nextModule)
   // .use(Backend)
   .use(backend)
+  .use(LanguageDetector)
   .init({
     /*
     backend: {
@@ -20,7 +21,12 @@ i18n
     },
     */
     fallbackLng: 'fr-FR',
-    lng: 'fr-FR',
+    // lng: 'fr-FR',
+    detection: {
+      order: ['cookie', 'navigator'],
+      caches: ['cookie'],
+      lookupCookie: 'i18next',
+    },
 
     // have a common namespace used around the full app
     defaultNS: 'translation',
@@ -46,8 +52,7 @@ i18n
       bindStore: 'added removed',
       nsMode: 'default',
     },
-  })
-  .use(LanguageDetector);
+  });
 
 const availableLanguages = [
   {

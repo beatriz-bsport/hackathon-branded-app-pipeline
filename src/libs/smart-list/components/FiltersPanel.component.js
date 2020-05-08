@@ -9,6 +9,7 @@ import { compose } from 'recompose';
 import moment from 'moment';
 import List from '@material-ui/core/List';
 import Collapse from '@material-ui/core/Collapse';
+import BarChartIcon from '@material-ui/icons/BarChart';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Divider from '@material-ui/core/Divider';
 import ButtonBase from '@material-ui/core/ButtonBase';
@@ -39,6 +40,7 @@ import {
   BOOKINGS_FILTER_IDENTIFIER,
   FIRST_BOOKING_FILTER_IDENTIFIER,
 } from '@bsport/common/lib/master-data/smart-list';
+import Config from '../../../config';
 
 import type { Establishment } from '../../establishment/types';
 
@@ -141,15 +143,25 @@ export class FiltersPanel extends Component<Props> {
     return (
       <div>
         <div className={classes.buttonsRow}>
-          <Button
-            onClick={this.props.onRequestEmail}
-            color="secondary"
-            variant="contained"
-            className={classes.sendEmailButton}
-          >
-            <SendIcon className={this.props.classes.leftIcon} />
-            {t('mail.sendMail')}
-          </Button>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <Button
+              onClick={this.props.onRequestEmail}
+              color="secondary"
+              variant="contained"
+              className={classes.sendEmailButton}
+            >
+              <SendIcon className={this.props.classes.leftIcon} />
+              {t('mail.sendMail')}
+            </Button>
+            {Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ? (
+              <Button variant="outlined">
+                <BarChartIcon className={this.props.classes.leftIcon} /> 2143
+                emails ce mois
+              </Button>
+            ) : (
+              ''
+            )}
+          </div>
           <div>
             <Button
               onClick={(event: React.MouseEvent<HTMLElement>) => {

@@ -66,8 +66,8 @@ export class PrivatePassList extends React.Component<Props> {
     this.props.fetchAllPrivateServices();
   }
 
-  createOrUpdatePass = (data: any, id: number) => {
-    this.props.createOrUpdatePrivatePass(data, id, {
+  createOrUpdatePass = (data: any) => {
+    this.props.createOrUpdatePrivatePass(data, data.id, {
       onSuccess: () => {
         this.props.setOpenCreateForm(false);
         this.props.fetchPrivatePassList();

@@ -9,6 +9,8 @@ import omit from 'lodash/omit';
 
 import * as Yup from 'yup';
 import { withFormik, FieldArray } from 'formik';
+import { CB } from '@bsport/common/lib/master-data/payment-methods';
+import PaymentMethodSelectorField from '../../payment/components/PaymentMethodSelectorField.component';
 
 import {
   TextField,
@@ -73,6 +75,15 @@ export const PaymentComboForm = (props: Props) => (
     <CheckboxField
       label={props.t('form.manager_only.label')}
       name="manager_only"
+    />
+    <PaymentMethodSelectorField
+      name="available_payment_method_identifiers"
+      disabled={props.values.manager_only}
+      asFieldset
+      label={props.t('form.available_payment_method_identifiers.label')}
+      helperText={props.t(
+        'form.available_payment_method_identifiers.helperText',
+      )}
     />
     <fieldset>
       <legend>{props.t('form.content')}</legend>
@@ -191,6 +202,9 @@ export const PaymentComboFieldsSchema = Yup.object().shape({
     .min(0)
     .max(100),
   manager_only: Yup.boolean(),
+  available_payment_method_identifiers: Yup.array()
+    .of(Yup.number().integer())
+    .min(1),
 });
 
 export const PaymentComboFormHoc = withFormik({
@@ -212,6 +226,7 @@ export const PaymentComboFormHoc = withFormik({
       shop_item_ids: [],
       payment_pack_ids: [],
       private_pass_ids: [],
+      available_payment_method_identifiers: [CB.id],
     };
   },
   validationSchema: PaymentComboFieldsSchema,

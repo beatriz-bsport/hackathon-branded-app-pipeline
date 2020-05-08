@@ -15,10 +15,13 @@ import SaveIcon from '@material-ui/icons/Save';
 
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import { CB } from '@bsport/common/lib/master-data/payment-methods';
 import type { ShopItem } from '../types';
 import NumericInput from '../../../components/input/NumericInput.component';
 import PriceInput from '../../../components/input/PriceInput.component';
 import ImageUploader from '../../../components/input/ImageUploader.component';
+
+import PaymentMethodSelectorInput from '../../payment/components/PaymentMethodSelectorInput.component';
 
 type Props = {
   initial: ?ShopItem,
@@ -38,11 +41,24 @@ type State = {
   description: ?string,
   barcode: string,
   marketplace_enabled: boolean,
+  available_payment_method_identifiers: Array<number>,
   onsite_payment_available: boolean,
   featured: boolean,
   sell_only_on_provision: boolean,
   is_deliverable: boolean,
 };
+function appendArray(form_data, values, name) {
+  if (!values && name) form_data.append(name, '');
+  else if (typeof values === 'object') {
+    for (key in values) {
+      if (typeof values[key] === 'object')
+        appendArray(form_data, values[key], `${name}[${key}]`);
+      else form_data.append(`${name}[${key}]`, values[key]);
+    }
+  } else form_data.append(name, values);
+
+  return form_data;
+}
 
 function ShopItemPreview(props: { previewURL: string }) {
   if (!props.previewURL) {
@@ -98,6 +114,8 @@ export class ShopItemForm extends Component<Props, State> {
         description: initial.description,
         barcode: initial.barcode,
         marketplace_enabled: initial.marketplace_enabled,
+        available_payment_method_identifiers:
+          initial.available_payment_method_identifiers,
         onsite_payment_available: initial.onsite_payment_available,
         featured: initial.featured,
         sell_only_on_provision: initial.sell_only_on_provision,
@@ -114,6 +132,7 @@ export class ShopItemForm extends Component<Props, State> {
         description: null,
         barcode: '',
         marketplace_enabled: false,
+        available_payment_method_identifiers: [CB.id, 9],
         onsite_payment_available: false,
         featured: false,
         sell_only_on_provision: false,
@@ -153,8 +172,8 @@ export class ShopItemForm extends Component<Props, State> {
     }
     data.append('marketplace_enabled', this.state.marketplace_enabled);
     data.append(
-      'onsite_payment_available',
-      this.state.onsite_payment_available,
+      'available_payment_method_identifiers[]',
+      JSON.stringify(this.state.available_payment_method_identifiers),
     );
     data.append('featured', this.state.featured);
     data.append('sell_only_on_provision', this.state.sell_only_on_provision);
@@ -200,6 +219,20 @@ export class ShopItemForm extends Component<Props, State> {
                 onChange={this.handleField('subtitle')}
                 fullWidth
               />
+            </Grid>
+            <Grid item xs={12} className={classes.itemRow}>
+              <div className={classes.description}>
+                <TextField
+                  multiline
+                  fullWidth
+                  variant="outlined"
+                  rows={5}
+                  color="textSecondary"
+                  value={description}
+                  label={t('form.shop.item.description')}
+                  onChange={this.handleField('description')}
+                />
+              </div>
             </Grid>
             <Grid item xs={6} className={classes.leftItem}>
               <PriceInput
@@ -254,81 +287,88 @@ export class ShopItemForm extends Component<Props, State> {
               label={t('form.shop.item.marketplace_enabled')}
             />
           </Grid>
-          <Grid item xs={12} className={classes.itemRow}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={this.state.featured}
-                  disabled={!this.state.marketplace_enabled}
-                  onChange={(event) => {
-                    this.setState({
-                      featured: event.target.checked,
-                    });
-                  }}
-                />
-              }
-              label={t('form.shop.item.featured')}
-            />
-          </Grid>
-          <Grid item xs={12} className={classes.itemRow}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={this.state.sell_only_on_provision}
-                  disabled={!this.state.marketplace_enabled}
-                  onChange={(event) => {
-                    this.setState({
-                      sell_only_on_provision: event.target.checked,
-                    });
-                  }}
-                />
-              }
-              label={t('form.shop.item.sell_only_on_provision')}
-            />
-          </Grid>
-          <Grid item xs={12} className={classes.itemRow}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={this.state.onsite_payment_available}
-                  disabled={!this.state.marketplace_enabled}
-                  onChange={(event) => {
-                    this.setState({
-                      onsite_payment_available: event.target.checked,
-                    });
-                  }}
-                />
-              }
-              label={t('form.shop.item.onsite_payment_available')}
-            />
-          </Grid>
-          <Grid item xs={12} className={classes.itemRow}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={this.state.is_deliverable}
-                  disabled={!this.state.marketplace_enabled}
-                  onChange={(event) => {
-                    this.setState({
-                      is_deliverable: event.target.checked,
-                    });
-                  }}
-                />
-              }
-              label={t('form.shop.item.is_deliverable')}
-            />
-          </Grid>
-          <div className={classes.description}>
-            <TextField
-              multiline
-              fullWidth
-              variant="outlined"
-              rows={3}
-              color="textSecondary"
-              value={description}
-              label={t('form.shop.item.description')}
-              onChange={this.handleField('description')}
-            />
+          <div className={classes.marketplaceSettings}>
+            <Grid item xs={12} className={classes.itemRow}>
+              <PaymentMethodSelectorInput
+                paymentMethodIds={
+                  this.state.available_payment_method_identifiers
+                }
+                disabled={!this.state.marketplace_enabled}
+                label={t(
+                  'form.shop.item.available_payment_method_identifiers.label',
+                )}
+                helperText={t(
+                  'form.shop.item.available_payment_method_identifiers.helperText',
+                )}
+                onChange={(available_payment_method_identifiers) =>
+                  this.setState({ available_payment_method_identifiers })
+                }
+              />
+            </Grid>
+            <Grid item xs={12} className={classes.itemRow}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={this.state.featured}
+                    disabled={!this.state.marketplace_enabled}
+                    onChange={(event) => {
+                      this.setState({
+                        featured: event.target.checked,
+                      });
+                    }}
+                  />
+                }
+                label={t('form.shop.item.featured')}
+              />
+            </Grid>
+            <Grid item xs={12} className={classes.itemRow}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={this.state.sell_only_on_provision}
+                    disabled={!this.state.marketplace_enabled}
+                    onChange={(event) => {
+                      this.setState({
+                        sell_only_on_provision: event.target.checked,
+                      });
+                    }}
+                  />
+                }
+                label={t('form.shop.item.sell_only_on_provision')}
+              />
+            </Grid>
+            <Grid item xs={12} className={classes.itemRow}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={this.state.onsite_payment_available}
+                    disabled={!this.state.marketplace_enabled}
+                    onChange={(event) => {
+                      this.setState({
+                        onsite_payment_available: event.target.checked,
+                      });
+                    }}
+                  />
+                }
+                label={t('form.shop.item.onsite_payment_available')}
+              />
+            </Grid>
+            <Grid item xs={12} className={classes.itemRow}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={this.state.is_deliverable}
+                    disabled={!this.state.marketplace_enabled}
+                    onChange={(event) => {
+                      this.setState({
+                        is_deliverable: event.target.checked,
+                      });
+                    }}
+                  />
+                }
+                label={t('form.shop.item.is_deliverable')}
+              />
+            </Grid>
           </div>
           <div className={classes.description}>
             <TextField
@@ -401,6 +441,15 @@ const styles = (theme) => ({
   },
   leftIcon: {
     marginRight: theme.spacing.unit,
+  },
+  marketplaceSettings: {
+    marginTop: theme.spacing.unit * 2,
+    padding: theme.spacing.unit * 2,
+    paddingBottom: 0,
+    marginBottom: theme.spacing.unit,
+    border: '1px solid #E2E2E2',
+    backgroundColor: '#F8F8F8',
+    borderRadius: 8,
   },
 });
 

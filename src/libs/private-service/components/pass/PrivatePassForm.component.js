@@ -2,18 +2,27 @@
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { compose } from 'recompose';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import AddIcon from '@material-ui/icons/Add';
 import Icon from '@material-ui/core/Icon';
+import { CB } from '@bsport/common/lib/master-data/payment-methods';
 
-import NumericInput from '../../../../components/input/NumericInput.component';
-import PriceInput from '../../../../components/input/PriceInput.component';
+import * as Yup from 'yup';
+import { Form, withFormik } from 'formik';
+import PaymentMethodSelectorField from '../../../payment/components/PaymentMethodSelectorField.component';
+
+import {
+  IntegerField,
+  TextField,
+  PercentField,
+  MultipleCheckboxField,
+  SwitchField,
+  PriceField,
+  Submit,
+} from '../../../../components/forms';
 
 type Props = {
   initial: PrivatePass,
@@ -37,164 +46,110 @@ type State = {
   manager_only: boolean,
 };
 
-export class PrivatePassForm extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    if (props.initial) {
-      this.state = {
-        name: props.initial.name,
-        tax: props.initial.tax,
-        credits: props.initial.credits,
-        price: props.initial.price,
-        manager_only: props.initial.manager_only,
-        duration_days: props.initial.duration_days,
-        duration_months: props.initial.duration_months,
-        duration_years: props.initial.duration_years,
-      };
-    } else {
-      this.state = {
-        name: null,
-        tax: 0,
-        credits: 1,
-        price: null,
-        manager_only: false,
-        duration_days: 0,
-        duration_months: 0,
-        duration_years: 1,
-      };
-    }
-  }
-
-  onSubmit = (ev: SyntheticEvent<HTMLElement>) => {
-    ev.preventDefault();
-    this.props.onSubmit({
-      name: this.state.name,
-      tax: this.state.tax,
-      credits: this.state.credits,
-      price: this.state.price,
-      manager_only: this.state.manager_only,
-      duration_days: this.state.duration_days,
-      duration_months: this.state.duration_months,
-      duration_years: this.state.duration_years,
-    });
-  };
-
-  render() {
-    const { t, classes } = this.props;
-    return (
-      <form onSubmit={this.onSubmit} className={classes.container}>
+export const PrivatePassForm = (props: Props) => {
+  const { t, classes, isSubmitting } = props;
+  return (
+    <Form className={classes.container}>
+      <div className={classes.field}>
+        <TextField
+          name="name"
+          fullWidth
+          label={t('privatePass.form.name.label')}
+        />
+      </div>
+      <div className={classes.field}>
+        <IntegerField
+          name="credits"
+          fullWidth
+          label={t('privatePass.form.credits.label')}
+          helperText={t('privatePass.form.credits.helperText')}
+        />
+      </div>
+      <div className={classes.field}>
+        <PriceField
+          name="price"
+          fullWidth
+          label={t('privatePass.form.price.label')}
+        />
+      </div>
+      <div className={classes.field}>
+        <PercentField
+          name="tax"
+          fullWidth
+          label={t('privatePass.form.tax.label')}
+          type="number"
+          required
+          max={100}
+          InputProps={{
+            inputProps: { min: 0, max: 100, step: 0.01 },
+            endAdornment: <InputAdornment position="end">%</InputAdornment>,
+          }}
+        />
         <div className={classes.field}>
-          <TextField
-            value={this.state.name}
-            fullWidth
-            onChange={(ev) => this.setState({ name: ev.target.value })}
-            label={t('privatePass.form.name.label')}
-          />
-        </div>
-        <div className={classes.field}>
-          <NumericInput
-            value={this.state.credits}
-            fullWidth
-            onChange={(ev) => this.setState({ credits: ev.target.value })}
-            label={t('privatePass.form.credits.label')}
-            helperText={t('privatePass.form.credits.helperText')}
-          />
-        </div>
-        <div className={classes.field}>
-          <PriceInput
-            value={this.state.price}
-            fullWidth
-            onChange={(ev) => this.setState({ price: ev.target.value })}
-            label={t('privatePass.form.price.label')}
-          />
-        </div>
-        <div className={classes.field}>
-          <TextField
-            value={this.state.tax}
-            fullWidth
-            onChange={(ev) => this.setState({ tax: ev.target.value })}
-            label={t('privatePass.form.tax.label')}
-            type="number"
-            required
-            max={100}
-            InputProps={{
-              inputProps: { min: 0, max: 100, step: 0.01 },
-              endAdornment: <InputAdornment position="end">%</InputAdornment>,
-            }}
-          />
-          <div className={classes.durationNbBlock}>
-            <div className={classes.row}>
-              <Icon className={classes.leftIcon} />
-              <NumericInput
-                value={this.state.duration_days}
-                onChange={(ev) =>
-                  this.setState({
-                    duration_days: parseInt(ev.target.value, 10),
-                  })
-                }
-                label={t('privatePass.form.durationDays.label')}
-                helperText={t('privatePass.form.durationDays.helperText')}
-                InputProps={{ min: 0, max: 30, step: 1 }}
-                fullWidth
-              />
-            </div>
-            <div className={classes.row}>
-              <AddIcon className={classes.leftIcon} />
-              <NumericInput
-                value={this.state.duration_months}
-                onChange={(ev) =>
-                  this.setState({
-                    duration_months: parseInt(ev.target.value, 10),
-                  })
-                }
-                label={t('privatePass.form.durationMonths.label')}
-                helperText={t('privatePass.form.durationMonths.helperText')}
-                InputProps={{ min: 0, max: 24, step: 1 }}
-                fullWidth
-              />
-            </div>
-            <div className={classes.row}>
-              <AddIcon className={classes.leftIcon} />
-              <NumericInput
-                value={this.state.duration_years}
-                onChange={(ev) =>
-                  this.setState({
-                    duration_years: parseInt(ev.target.value, 10),
-                  })
-                }
-                label={t('privatePass.form.durationYears.label')}
-                helperText={t('privatePass.form.durationYears.helperText')}
-                InputProps={{ min: 0, max: 30, step: 1 }}
-                fullWidth
-              />
-            </div>
-          </div>
-        </div>
-        <div className={classes.field}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={this.state.manager_only}
-                onChange={(ev) =>
-                  this.setState({ manager_only: ev.target.checked })
-                }
-              />
-            }
+          <SwitchField
+            name="manager_only"
             label={t('privatePass.form.managerOnly.label')}
           />
         </div>
-        <div className={classes.buttonContainer}>
-          <Button onClick={this.props.onCancel}>
-            {t('privatePass.form.actions.cancel')}
-          </Button>
-          <Button color="primary" type="submit">
-            {t('privatePass.form.actions.submit')}
-          </Button>
+        <div className={classes.durationNbBlock}>
+          <div className={classes.field}>
+            <PaymentMethodSelectorField
+              name="available_payment_method_identifiers"
+              disabled={props.values.manager_only}
+              label={t(
+                'privatePass.form.available_payment_method_identifiers.label',
+              )}
+              helperText={t(
+                'privatePass.form.available_payment_method_identifiers.helperText',
+              )}
+            />
+          </div>
         </div>
-      </form>
-    );
-  }
-}
+      </div>
+      <div className={classes.durationNbBlock}>
+        <div className={classes.row}>
+          <Icon className={classes.leftIcon} />
+          <IntegerField
+            name="duration_days"
+            label={t('privatePass.form.durationDays.label')}
+            helperText={t('privatePass.form.durationDays.helperText')}
+            InputProps={{ min: 0, max: 30, step: 1 }}
+            fullWidth
+          />
+        </div>
+        <div className={classes.row}>
+          <AddIcon className={classes.leftIcon} />
+          <IntegerField
+            name="duration_months"
+            label={t('privatePass.form.durationMonths.label')}
+            helperText={t('privatePass.form.durationMonths.helperText')}
+            InputProps={{ min: 0, max: 24, step: 1 }}
+            fullWidth
+          />
+        </div>
+        <div className={classes.row}>
+          <AddIcon className={classes.leftIcon} />
+          <IntegerField
+            name="duration_years"
+            label={t('privatePass.form.durationYears.label')}
+            helperText={t('privatePass.form.durationYears.helperText')}
+            InputProps={{ min: 0, max: 30, step: 1 }}
+            fullWidth
+          />
+        </div>
+      </div>
+      <div className={classes.field} />
+      <div className={classes.buttonContainer}>
+        <Button onClick={props.onCancel}>
+          {t('privatePass.form.actions.cancel')}
+        </Button>
+        <Submit disabled={isSubmitting}>
+          {t('privatePass.form.actions.submit')}
+        </Submit>
+      </div>
+    </Form>
+  );
+};
 
 const styles = (theme) => ({
   container: {
@@ -231,7 +186,56 @@ const styles = (theme) => ({
   },
 });
 
+export const PrivatePassSchema = Yup.object().shape({
+  // cover_main: Yup.object().nullable(),
+  name: Yup.string().required(),
+  tax: Yup.number().required(),
+  price: Yup.number().required(),
+  manager_only: Yup.boolean().required(),
+  duration_days: Yup.number()
+    .required()
+    .integer()
+    .min(0),
+  duration_months: Yup.number()
+    .required()
+    .integer()
+    .min(0),
+  duration_years: Yup.number()
+    .required()
+    .integer()
+    .min(0),
+  available_payment_method_identifiers: Yup.array()
+    .of(Yup.number().integer())
+    .min(1),
+});
+
+export const PrivatePassFormikHOC = withFormik({
+  mapPropsToValues: ({ initial }) => {
+    if (initial) return initial;
+
+    return {
+      name: null,
+      tax: 0,
+      credits: 1,
+      price: null,
+      manager_only: false,
+      duration_days: 0,
+      duration_months: 0,
+      duration_years: 1,
+      available_payment_method_identifiers: [CB.id],
+    };
+  },
+  validationSchema: PrivatePassSchema,
+  handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
+    onSubmit(values, {
+      onSuccess: () => setSubmitting(false),
+      onError: () => setSubmitting(false),
+    });
+  },
+});
+
 export default compose(
   withNamespaces(['privateService']),
   withStyles(styles),
+  PrivatePassFormikHOC,
 )(PrivatePassForm);

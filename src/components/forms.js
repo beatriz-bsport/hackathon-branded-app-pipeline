@@ -644,10 +644,16 @@ export const CheckboxField = (props: Props) => {
 };
 
 export const MultipleCheckboxField = (props: Props) => {
-  const { choices, disabled, label, name, helperText } = props;
+  const { choices, disabled, asFieldset, label, name, helperText } = props;
+  const Container = asFieldset ? (p) => <fieldset {...p} /> : FormControl;
+  const Label = asFieldset ? (p) => <legend {...p} /> : FormLabel;
   return (
-    <FormControl component="fieldset">
-      <FormLabel component="legend">{label}</FormLabel>
+    <Container component="fieldset">
+      {!!label && (
+        <Label style={{ marginBottom: -2 }} component="legend">
+          {label}
+        </Label>
+      )}
       <FormGroup>
         <Field name={name}>
           {({ field, form: { setFieldValue } }) =>
@@ -675,7 +681,7 @@ export const MultipleCheckboxField = (props: Props) => {
         </Field>
       </FormGroup>
       <FormHelperText>{helperText}</FormHelperText>
-    </FormControl>
+    </Container>
   );
 };
 

@@ -44,6 +44,11 @@ exports.default = {
       paymentPack: 'Carte cours collectif',
       shopitem: 'Magasin',
     },
+    available_payment_method_identifiers: {
+      label: 'Moyens de paiement autorisés',
+      helperText:
+        'Sélectionnez au moins un moyen de paiement. Si le panier du membre contient des éléments dont les moyens de paiements sont incompatibles, le paiement CB sera proposé.',
+    },
   },
   detail: {
     containsNProducts: 'Contient {{ n }} produits',

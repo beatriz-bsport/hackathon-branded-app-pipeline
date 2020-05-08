@@ -358,6 +358,11 @@ exports.default = {
         label: 'Durée de validité (années) si applicable',
         helperText: "S'ajoute au nombre de jours et de mois",
       },
+      available_payment_method_identifiers: {
+        label: 'Moyens de paiement autorisés',
+        helperText:
+          'Sélectionnez au moins un moyen de paiement. Si le panier du membre contient des éléments dont les moyens de paiements sont incompatibles, le paiement CB sera proposé.',
+      },
       actions: {
         submit: 'Enregistrer',
         cancel: 'Annuler',

@@ -236,6 +236,11 @@ exports.default = {
         },
       },
       item: {
+        available_payment_method_identifiers: {
+          label: 'Moyens de paiement autorisés',
+          helperText:
+            'Sélectionnez au moins un moyen de paiement. Si le panier du membre contient des éléments dont les moyens de paiements sont incompatibles, le paiement CB sera proposé.',
+        },
         onsite_payment_available: 'Possibilité de payer sur place',
         sell_only_on_provision:
           'Proposer à la vente UNIQUEMENT si du stock est disponible',

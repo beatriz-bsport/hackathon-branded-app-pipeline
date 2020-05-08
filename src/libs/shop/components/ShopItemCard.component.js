@@ -19,6 +19,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import ButtonBase from '@material-ui/core/ButtonBase';
+import TypographyMultiline from '../../../components/TypographyMultiline.component';
 import RedButton from '../../../components/button/RedButton.component';
 
 import type { ShopItem } from '../types';
@@ -82,13 +83,13 @@ const ShopItemCard = (props: {
         <Typography variant="h6" component="h4">
           {props.shopitem.subtitle}
         </Typography>
-        <Typography
+        <TypographyMultiline
           variant="body2"
           color="textSecondary"
           style={{ marginTop: 16 }}
         >
           {props.shopitem.description || props.t('shopitem.noDescription')}
-        </Typography>
+        </TypographyMultiline>
       </CardContent>
       {!!props.showPaymentLink && renderLinkToPaymentPage()}
       <CardActions>

@@ -242,7 +242,6 @@ const styles = (theme: Object) => ({
   toolbar: theme.mixins.toolbar,
   progress: {
     flexGrow: 1,
-    SmartList,
   },
 });
 

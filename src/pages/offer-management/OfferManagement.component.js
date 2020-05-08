@@ -647,133 +647,127 @@ export class OfferManagement extends Component<Props, State> {
           {this.getNavigationHeader(false)}
         </Grid>
         <Grid item xs={12} lg={6}>
-          <Slide in direction="right">
-            <Paper className={classes.autoScroll}>
-              <div className={classes.fullWidthRow}>
-                {offer.meta_activity_color ? (
-                  <div
-                    style={{
-                      width: '100%',
-                      height: '5px',
-                      backgroundColor: offer.meta_activity_color,
+          <Paper className={classes.autoScroll}>
+            <div className={classes.fullWidthRow}>
+              {offer.meta_activity_color ? (
+                <div
+                  style={{
+                    width: '100%',
+                    height: '5px',
+                    backgroundColor: offer.meta_activity_color,
+                  }}
+                />
+              ) : null}
+              {this.renderBookingHeader()}
+              <Divider />
+              <Collapse in={!!searchedText}>
+                <div className={classes.resultListContainer}>
+                  <ResultList
+                    items={this.props.searchedMembers}
+                    loading={this.props.memberSearchLoading}
+                    renderListComponent={this.renderSearchedMember}
+                    redirectToMember={this.props.permission.member.retrieve}
+                  />
+                </div>
+                <Divider />
+              </Collapse>
+              {bookingLoading || this.props.offerLoading ? (
+                <LinearProgress />
+              ) : (
+                <div className={classes.bookingSubHeader}>
+                  <Typography variant="caption" color="primary">
+                    {this.getNbAttendant()} {t('offer.attendant')}
+                  </Typography>
+                  <Typography variant="caption" color="error">
+                    {this.getNbNonAttendant()} {t('offer.nonAttendant')}
+                  </Typography>
+                  <Typography variant="caption">
+                    {`${this.getNbAttendant() +
+                      this.getNbNonAttendant()}/${this.getMaxBookings()} ${t(
+                      'offer.maxBookingsNb',
+                    )}`}
+                  </Typography>
+                </div>
+              )}
+              <BookingTable
+                redirectToMember={this.props.permission.member.retrieve}
+                newTab
+                members={this.props.members}
+                paymentPacks={this.props.paymentPacks}
+                loading={bookingLoading || this.props.offerLoading}
+                bookings={bookings}
+                confirmBookingAttendance={this.props.confirmBookingAttendance}
+                discardBookingAttendance={this.props.discardBookingAttendance}
+                showQuickInvoiceButton
+                showRevertBookingButton
+                handleRevert={this.handleBookingRevert}
+                onQuickInvoiceClick={this.addToQuickInvoicePanel}
+              />
+              {bookingOptionsPending && bookingOptionsPending.length ? (
+                <WaitingListControlHeader
+                  switchWaitingListFreeze={() =>
+                    this.props.switchWaitingListFreeze(
+                      this.props.offer.id,
+                      !this.props.offer.waiting_list_disabled,
+                    )
+                  }
+                  bookingOptionsPending={bookingOptionsPending}
+                  isDisabled={this.props.offer.waiting_list_disabled}
+                />
+              ) : null}
+              <List disablePadding>
+                {bookingOptionsPending.map((bo) => (
+                  <BookingOptionForManager
+                    option={bo}
+                    onDiscard={(e) => {
+                      e.stopPropagation();
+                      this.setState({
+                        optionToDiscard: bo.id,
+                        confirmOptionToDiscard: true,
+                      });
+                    }}
+                    member={this.props.members.find((m) => m.id === bo.member)}
+                    onClickRegister={(e) => {
+                      e.stopPropagation();
+                      this.setState({
+                        memberToRegisterName: getNameFromId(
+                          bo.member,
+                          this.props.members,
+                        ),
+                        memberToRegister: bo.member,
+                      });
+                      this.setState({ optionToDiscard: bo.id });
                     }}
                   />
-                ) : null}
-                {this.renderBookingHeader()}
-                <Divider />
-                <Collapse in={!!searchedText}>
-                  <div className={classes.resultListContainer}>
-                    <ResultList
-                      items={this.props.searchedMembers}
-                      loading={this.props.memberSearchLoading}
-                      renderListComponent={this.renderSearchedMember}
-                      redirectToMember={this.props.permission.member.retrieve}
-                    />
-                  </div>
-                  <Divider />
-                </Collapse>
-                {bookingLoading || this.props.offerLoading ? (
-                  <LinearProgress />
-                ) : (
-                  <div className={classes.bookingSubHeader}>
-                    <Typography variant="caption" color="primary">
-                      {this.getNbAttendant()} {t('offer.attendant')}
-                    </Typography>
-                    <Typography variant="caption" color="error">
-                      {this.getNbNonAttendant()} {t('offer.nonAttendant')}
-                    </Typography>
-                    <Typography variant="caption">
-                      {`${this.getNbAttendant() +
-                        this.getNbNonAttendant()}/${this.getMaxBookings()} ${t(
-                        'offer.maxBookingsNb',
-                      )}`}
-                    </Typography>
-                  </div>
-                )}
-                <BookingTable
-                  redirectToMember={this.props.permission.member.retrieve}
-                  newTab
-                  members={this.props.members}
-                  paymentPacks={this.props.paymentPacks}
-                  loading={bookingLoading || this.props.offerLoading}
-                  bookings={bookings}
-                  confirmBookingAttendance={this.props.confirmBookingAttendance}
-                  discardBookingAttendance={this.props.discardBookingAttendance}
-                  showQuickInvoiceButton
-                  showRevertBookingButton
-                  handleRevert={this.handleBookingRevert}
-                  onQuickInvoiceClick={this.addToQuickInvoicePanel}
-                />
-                {bookingOptionsPending && bookingOptionsPending.length ? (
-                  <WaitingListControlHeader
-                    switchWaitingListFreeze={() =>
-                      this.props.switchWaitingListFreeze(
-                        this.props.offer.id,
-                        !this.props.offer.waiting_list_disabled,
-                      )
-                    }
-                    bookingOptionsPending={bookingOptionsPending}
-                    isDisabled={this.props.offer.waiting_list_disabled}
-                  />
-                ) : null}
-                <List disablePadding>
-                  {bookingOptionsPending.map((bo) => (
-                    <BookingOptionForManager
-                      option={bo}
-                      onDiscard={(e) => {
-                        e.stopPropagation();
-                        this.setState({
-                          optionToDiscard: bo.id,
-                          confirmOptionToDiscard: true,
-                        });
-                      }}
-                      member={this.props.members.find(
-                        (m) => m.id === bo.member,
-                      )}
-                      onClickRegister={(e) => {
-                        e.stopPropagation();
-                        this.setState({
-                          memberToRegisterName: getNameFromId(
-                            bo.member,
-                            this.props.members,
-                          ),
-                          memberToRegister: bo.member,
-                        });
-                        this.setState({ optionToDiscard: bo.id });
-                      }}
-                    />
-                  ))}
-                </List>
-              </div>
-            </Paper>
-          </Slide>
+                ))}
+              </List>
+            </div>
+          </Paper>
         </Grid>
         <Grid item xs={12} lg={6}>
           {this.props.offer.is_broadcast && this.props.offer.broadcast_info
             ? this.renderBroadcastPanel()
             : null}
-          <Slide in direction="left">
-            <QuickInvoicePanel
-              members={this.props.members}
-              unevenSavedInvoices={this.props.unevenSavedInvoices}
-              revertQuickInvoice={(uuid) =>
-                this.props.revertQuickInvoiceAndRefreshOffer(
-                  uuid,
-                  this.props.offerId,
-                  this.state.booking_ordering,
-                )
-              }
-              quickInvoices={this.state.quickInvoices}
-              createInvoice={this.createInvoice}
-              closeQuickInvoice={this.closeQuickInvoice}
-              saveQuickInvoice={this.saveQuickInvoice}
-              privatePassList={this.props.privatePassList}
-              paymentComboList={this.props.paymentComboList}
-              paymentPacks={this.props.paymentPacksEnabled}
-              shopItems={this.props.shopItemsAvailable}
-              className={classes.autoScroll}
-            />
-          </Slide>
+          <QuickInvoicePanel
+            members={this.props.members}
+            unevenSavedInvoices={this.props.unevenSavedInvoices}
+            revertQuickInvoice={(uuid) =>
+              this.props.revertQuickInvoiceAndRefreshOffer(
+                uuid,
+                this.props.offerId,
+                this.state.booking_ordering,
+              )
+            }
+            quickInvoices={this.state.quickInvoices}
+            createInvoice={this.createInvoice}
+            closeQuickInvoice={this.closeQuickInvoice}
+            saveQuickInvoice={this.saveQuickInvoice}
+            privatePassList={this.props.privatePassList}
+            paymentComboList={this.props.paymentComboList}
+            paymentPacks={this.props.paymentPacksEnabled}
+            shopItems={this.props.shopItemsAvailable}
+            className={classes.autoScroll}
+          />
         </Grid>
         <Dialog
           fullScreen={fullScreen}

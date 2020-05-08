@@ -9,8 +9,10 @@ const generateSourceTranslations = (lang) => {
     let m = { default: {} };
     try {
       m = require(`../${lang}/${ns}.translations`);
+      console.log('did ' + ns);
     } catch (err) {
-      console.log(`MISSING: ${ns}`);
+console.log(`MISSING: ${ns}`);
+console.error(err)
     }
     return { ...acc, [ns]: m.default };
   }, {});

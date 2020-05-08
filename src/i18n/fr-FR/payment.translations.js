@@ -1,4 +1,4 @@
-import {
+const {
   CB,
   CB_MANUAL,
   CHECK,
@@ -10,7 +10,7 @@ import {
   CREDIT_ACCOUNT,
   SUBSCRIPTION_CB,
   OTHER,
-} from '@bsport/common/lib/master-data/payment-methods';
+} = require('@bsport/common/lib/master-data/payment-methods');
 
 exports.default = {
   explainOption: "Vous serez prévenu par email lorsqu'une place se libèrera",

@@ -24,7 +24,7 @@ export default (props: Props) => {
   return (
     <Grid
       container
-      spacing={16}
+      spacing={2}
       direction="column"
       style={{
         minWidth: '50vh',

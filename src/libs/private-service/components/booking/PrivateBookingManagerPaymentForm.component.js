@@ -108,11 +108,11 @@ export class PrivateBookingManagerPaymentForm extends React.Component<
 
 const styles = (theme) => ({
   sectionTitle: {
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit,
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(1),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   refreshButtonContainer: {
     display: 'flex',

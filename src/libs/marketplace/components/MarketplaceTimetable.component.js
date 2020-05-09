@@ -140,10 +140,10 @@ const styles = (theme) => ({
     width: '100%',
   },
   title: {
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing(2),
   },
   emptyContent: {
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing(2),
   },
   inlineContainer: { alignItems: 'center', display: 'flex' },
 });

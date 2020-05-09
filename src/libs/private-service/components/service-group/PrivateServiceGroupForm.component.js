@@ -48,7 +48,7 @@ export const PrivateServiceGroupFormikHOC = withFormik({
 
 const styles = (theme) => ({
   container: {
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
   },
 });
 

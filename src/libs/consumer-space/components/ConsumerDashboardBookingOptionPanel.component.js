@@ -50,7 +50,7 @@ export class ConsumerDashboardBookingOptionPanel extends React.PureComponent<Pro
 const styles = (theme) => ({
   container: {},
   sectionTitle: {
-    marginBottom: theme.spacing.unit * 3,
+    marginBottom: theme.spacing(3),
   },
 });
 

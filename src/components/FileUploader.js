@@ -29,10 +29,10 @@ export function FileUploader(props: Props) {
   const { classes, t, name, file } = props;
   return file ? (
     <div>
-      <Typography className={classes.typography} variant="body2" align="center">
+      <Typography className={classes.typography} variant="body1" align="center">
         {file.name}
       </Typography>
-      <Typography variant="body2" align="center">
+      <Typography variant="body1" align="center">
         {t('file.imported')}
       </Typography>
     </div>
@@ -60,7 +60,7 @@ export function FileUploader(props: Props) {
 
 const styles = (theme) => ({
   typography: {
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
   textContainer: {
     backgroundColor: 'rgba(0,0,0,0.4)',
@@ -84,7 +84,7 @@ const styles = (theme) => ({
   dropzone: {
     width: '500px',
     position: 'relative',
-    minHeight: 10 * theme.spacing.unit,
+    minHeight: 10 * theme.spacing(1),
     backgroundColor: '#F7F7F7',
     cursor: 'pointer',
   },

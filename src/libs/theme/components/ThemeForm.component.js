@@ -231,15 +231,15 @@ export class ThemeForm extends Component<Props, State> {
 
 const styles = (theme) => ({
   horizontalInput: {
-    marginRight: theme.spacing.unit * 3,
+    marginRight: theme.spacing(3),
   },
   idContainer: {
-    marginBottom: theme.spacing.unit * 3,
+    marginBottom: theme.spacing(3),
   },
   inputContainer: {
     display: 'flex',
     flexDirection: 'row',
-    marginBottom: theme.spacing.unit * 3,
+    marginBottom: theme.spacing(3),
   },
   buttonContainer: {
     display: 'flex',
@@ -247,7 +247,7 @@ const styles = (theme) => ({
     alignItems: 'center',
   },
   progress: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
 });
 

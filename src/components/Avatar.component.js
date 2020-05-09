@@ -33,7 +33,7 @@ export default function (props: Props) {
       direction="column"
       justify="center"
       alignItems="center"
-      spacing={8}
+      spacing={1}
     >
       <Grid item>
         <img
@@ -50,7 +50,7 @@ export default function (props: Props) {
       </Grid>
       {noname ? null : (
         <Grid item>
-          <Typography noWrap variant="body2">{user ? user.name : '-'}</Typography>
+          <Typography noWrap variant="body1">{user ? user.name : '-'}</Typography>
         </Grid>
       )}
     </Grid>

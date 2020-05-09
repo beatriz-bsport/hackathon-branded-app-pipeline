@@ -82,7 +82,7 @@ export function ReportGenerationForm(props: Props) {
           {reportConfiguration.date_type === 'none' ? (
             <div />
           ) : (
-            <Grid container spacing={16}>
+            <Grid container spacing={2}>
               <Grid item xs={6}>
                 <DateField
                   name="dateStart"
@@ -131,7 +131,7 @@ ReportGenerationForm.defaultProps = {
 
 const styles = (theme) => ({
   rightIcon: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
 });
 

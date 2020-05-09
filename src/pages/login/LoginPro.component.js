@@ -18,19 +18,21 @@ import PasswordInput from '../../components/input/PasswordInput.component';
 const styles = (theme) => ({
   container: {
     textAlign: 'center',
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
+    display: 'flex',
+    flexDirection: 'column',
   },
-  input: { marginBottom: theme.spacing.unit },
+  input: { marginBottom: theme.spacing(1) },
   button: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(1),
   },
   loading: {
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing(2),
   },
   paddedContent: {
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
+    marginLeft: theme.spacing(3),
+    marginRight: theme.spacing(3),
   },
 });
 
@@ -118,11 +120,13 @@ export class Login extends Component<Props, State> {
             value={this.state.password}
             onChange={this.updatePassword}
           />
-          <div style={{ paddingTop: 12 }}>
-            <Typography color="error">
-              {error ? errorMessage : <br />}
-            </Typography>
-          </div>
+          {!!error && (
+            <div style={{ paddingTop: 12 }}>
+              <Typography color="error">
+                {error ? errorMessage : <br />}
+              </Typography>
+            </div>
+          )}
 
           <Button
             type="submit"
@@ -132,10 +136,7 @@ export class Login extends Component<Props, State> {
           >
             {t('button.login')}
           </Button>
-          <Link
-            to="/login/reset_password"
-            style={{ textDecoration: 'none', marginTop: 10 }}
-          >
+          <Link to="/login/reset_password" style={{ textDecoration: 'none' }}>
             <Typography color="secondary" variant="caption">
               {t('login.forgottenPassword')}
             </Typography>

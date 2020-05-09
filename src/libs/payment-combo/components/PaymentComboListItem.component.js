@@ -96,7 +96,7 @@ export const PaymentComboListItem = (props: Props) => (
 
 const styles = (theme) => ({
   actionButtonWithRightMargin: {
-    marginRight: theme.spacing.unit * 2,
+    marginRight: theme.spacing(2),
   },
 });
 

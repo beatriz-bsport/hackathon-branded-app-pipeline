@@ -167,7 +167,7 @@ export class MemberDetailPage extends Component<Props, State> {
     }
 
     return (
-      <Grid container direction="row" spacing={16}>
+      <Grid container direction="row" spacing={2}>
         <Grid item md={6} xs={12}>
           <MemberSummaryCard
             memberId={this.props.id}
@@ -240,10 +240,10 @@ export class MemberDetailPage extends Component<Props, State> {
         <ModalDeleteFile
           open={this.state.fileToDelete}
           options={{
-            title: 'member.file.deletion',
-            Content: () => t('file.deleteFileMessage'),
-            cancel: 'member.file.cancel',
-            confirm: 'member.file.confirm',
+            title: 'member:file.deletion',
+            Content: () => t('member:file.deleteFileMessage'),
+            cancel: 'member:file.cancel',
+            confirm: 'member:file.confirm',
           }}
           handleCancel={() => this.setState({ fileToDelete: null })}
           handleConfirm={() => {

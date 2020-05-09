@@ -151,8 +151,8 @@ export class DeleteOfferForm extends Component<Props, State> {
 
 const styles = (theme) => ({
   explainText: {
-    marginBottom: theme.spacing.unit * 2,
-    padding: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
+    padding: theme.spacing(2),
     backgroundColor: '#F2F2F2',
   },
   row: {

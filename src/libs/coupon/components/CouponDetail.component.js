@@ -64,16 +64,14 @@ export class CouponDetail extends React.PureComponent<Props> {
                 loading={discountLoading}
                 listProps={{ dense: true }}
                 renderEmpty={() => (
-                  <div>
-                    <Typography
-                      className={classes.emptyContainer}
-                      variant="caption"
-                      color="textSecondary"
-                    >
-                      {t('noDiscount')}
-                    </Typography>
+                  <React.Fragment>
+                    <div className={classes.emptyContainer}>
+                      <Typography variant="caption" color="textSecondary">
+                        {t('noDiscount')}
+                      </Typography>
+                    </div>
                     <Divider />
-                  </div>
+                  </React.Fragment>
                 )}
               />
             </Paper>
@@ -86,10 +84,10 @@ export class CouponDetail extends React.PureComponent<Props> {
 
 const styles = (theme) => ({
   paperContainer: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
   },
   emptyContainer: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     backgroundColor: 'F8F8F8',
   },
 });

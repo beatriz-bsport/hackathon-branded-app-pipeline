@@ -73,19 +73,19 @@ export const MetaActivityCard = (props: Props) => {
           <Typography variant="h5" component="h3">
             {metaActivity.name}
           </Typography>
-          <Typography variant="body2" component="h4" align="right">
+          <Typography variant="caption" component="h4" align="right">
             {`${t(
               'metaActivity:settings.lastBookingBeforeMinutes',
             )} : ${formatMinutes(metaActivity.last_booking_minutes, t)}`}
           </Typography>
-          <Typography variant="body2" component="h4" align="right">
+          <Typography variant="caption" component="h4" align="right">
             {`${t(
               'metaActivity:settings.lastDiscardBeforeMinutes',
             )} : ${formatMinutes(metaActivity.last_discard_minutes, t)}`}
           </Typography>
         </div>
         <div style={{ marginTop: 16 }}>
-          <TypographyMultiline variant="body2" color="textSecondary">
+          <TypographyMultiline variant="" color="textSecondary">
             {metaActivity.description}
           </TypographyMultiline>
         </div>
@@ -116,7 +116,7 @@ const styles = () => ({
 });
 
 export default compose(
-  withNamespaces(['metaActivity']),
+  withNamespaces(['metaActivity', 'datetime']),
   withStyles(styles),
   withState('shownImage', 'setShownImage', 0),
 )(MetaActivityCard);

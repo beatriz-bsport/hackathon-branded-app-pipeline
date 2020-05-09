@@ -110,7 +110,7 @@ export class PaymentPackFormPage extends React.Component<Props> {
 
 const styles = (theme) => ({
   container: {
-    paddingBottom: theme.spacing.unit * 16,
+    paddingBottom: theme.spacing(16),
   },
 });
 

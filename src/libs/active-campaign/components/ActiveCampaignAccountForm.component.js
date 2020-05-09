@@ -119,15 +119,15 @@ export class ActiveCampaignAccountFormDialog extends React.Component<
 
 const styles = (theme) => ({
   textField: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   container: {
     display: 'flex',
     flexDirection: 'column',
   },
   formControl: {
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
 });
 

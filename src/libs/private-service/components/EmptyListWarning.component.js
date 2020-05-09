@@ -20,13 +20,13 @@ const styles = (theme) => ({
   warningEmptyList: {
     display: 'flex',
     flexDirection: 'row',
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     alignItems: 'center',
     backgroundColor: '#F8F8F8',
-    borderRadius: theme.spacing.unit * 2,
+    borderRadius: theme.spacing(2),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit * 2,
+    marginRight: theme.spacing(2),
   },
 });
 

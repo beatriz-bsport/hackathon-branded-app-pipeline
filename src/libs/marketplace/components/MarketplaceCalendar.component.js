@@ -221,9 +221,9 @@ const styles = (theme) => ({
     width: '100%',
   },
   selector: {
-    paddingLeft: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
   },
 });
 

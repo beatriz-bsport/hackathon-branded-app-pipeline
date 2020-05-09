@@ -32,7 +32,7 @@ export class BookingOptionListItem extends Component<Props> {
           direction="row"
           justify="center"
           alignItems="center"
-          spacing={16}
+          spacing={2}
         >
           <Grid item>
             <CircularProgress />

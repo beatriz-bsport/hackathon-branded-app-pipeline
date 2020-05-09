@@ -303,19 +303,19 @@ export class ThemePersonalize extends Component<Props, State> {
 }
 
 const styles = (theme) => ({
-  namesHeader: { marginBottom: theme.spacing.unit * 2 },
+  namesHeader: { marginBottom: theme.spacing(2) },
   horizontalInput: {
-    marginRight: theme.spacing.unit * 3,
+    marginRight: theme.spacing(3),
   },
   inputContainer: {
     display: 'flex',
     flexDirection: 'row',
-    marginBottom: theme.spacing.unit * 3,
+    marginBottom: theme.spacing(3),
     alignItems: 'center',
   },
   radioButtonContainer: {
-    marginLeft: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
   buttonContainer: {
     display: 'flex',
@@ -323,7 +323,7 @@ const styles = (theme) => ({
     alignItems: 'center',
   },
   progress: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
 });
 

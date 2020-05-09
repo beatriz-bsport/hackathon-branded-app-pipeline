@@ -100,23 +100,23 @@ export class PaymentByCredit extends React.Component<Props, State> {
 
 const styles = (theme) => ({
   explainText: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
     border: '2px solid #efefef',
-    borderRadius: theme.spacing.unit,
-    padding: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
+    borderRadius: theme.spacing(1),
+    padding: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
   loading: {
-    marginTop: theme.spacing.unit * 2,
-    padding: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
+    padding: theme.spacing(2),
+    marginBottom: theme.spacing(2),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     display: 'flex',
   },
   buttonContainer: {
-    paddingTop: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(2),
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',

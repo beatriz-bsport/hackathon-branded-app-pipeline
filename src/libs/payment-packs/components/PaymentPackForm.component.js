@@ -81,7 +81,7 @@ export function PaymentPackForm(props: Props) {
   return (
     <div>
       <Form className={classes.content}>
-        <Grid container spacing={8}>
+        <Grid container spacing={1}>
           <Grid item xs={12}>
             <TextField
               name="name"
@@ -415,26 +415,26 @@ const PackSchema = Yup.object().shape({
 });
 
 const styles = (theme) => ({
-  content: { padding: theme.spacing.unit * 2, paddingBottom: 0 },
+  content: { padding: theme.spacing(2), paddingBottom: 0 },
   legend: { margin: 0 },
   fieldset: {
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   row: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     width: '100%',
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
   durationNbBlock: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     paddingBottom: 0,
-    marginBottom: theme.spacing.unit * 3,
+    marginBottom: theme.spacing(3),
     border: '1px solid #E2E2E2',
     backgroundColor: '#F8F8F8',
     borderRadius: 8,

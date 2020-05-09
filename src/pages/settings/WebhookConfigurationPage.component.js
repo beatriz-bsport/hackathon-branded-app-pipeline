@@ -127,9 +127,9 @@ export class WebhookConfiguration extends Component<Props> {
 }
 
 const styles = (theme) => ({
-  addButton: { marginTop: theme.spacing.unit },
+  addButton: { marginTop: theme.spacing(1) },
   container: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   addButtonContainer: { display: 'flex', justifyContent: 'center' },
 });

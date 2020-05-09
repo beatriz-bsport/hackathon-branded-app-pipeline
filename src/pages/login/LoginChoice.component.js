@@ -11,7 +11,7 @@ import LoginBase from '../../components/navigation/LoginBase.component';
 
 const styles = (theme) => ({
   container: {
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing(2),
     paddingTop: 0,
     marginTop: 0,
   },

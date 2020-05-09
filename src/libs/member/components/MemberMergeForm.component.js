@@ -75,7 +75,7 @@ export class MemberMergeForm extends Component<Props> {
 
 const styles = (theme) => ({
   buttonContainer: {
-    marginTop: theme.spacing.unit * 15,
+    marginTop: theme.spacing(15),
   },
   container: {},
   field: {

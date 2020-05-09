@@ -2,7 +2,6 @@
 import React from 'react';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Icon from '@material-ui/core/Icon';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -13,9 +12,9 @@ import type { TFunction } from 'react-i18next';
 import Sport from '../../libs/category/components/SCT.component';
 import type { MetaActivity } from '../../api/types';
 
-const styles = () => ({
-  listItem: {
-    width: '100%',
+const styles = (theme) => ({
+  text: {
+    marginLeft: theme.spacing(1),
   },
 });
 
@@ -48,10 +47,8 @@ export function MetaActivityMinimalSummary(props: Props) {
       className={classes.listItem}
       onClick={onClick}
     >
-      <Icon>
-        <Sport parentCategory={parent_category} noname />
-      </Icon>
-      <ListItemText primary={name} />
+      <Sport parentCategory={parent_category} noname />
+      <ListItemText className={classes.text} primary={name} />
     </ListItem>
   );
 }

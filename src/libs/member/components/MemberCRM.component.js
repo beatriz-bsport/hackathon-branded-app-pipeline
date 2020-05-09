@@ -4,7 +4,6 @@ import React from 'react';
 import Paper from '@material-ui/core/Paper';
 
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withNamespaces } from 'react-i18next';
 import { compose } from 'recompose';
 import MemberNotePanel from './MemberNotePanel.component';
 import TagPanel from '../../tag/components/TagPanel.component';
@@ -81,18 +80,15 @@ export const MemberCRM = (props: Props) => (
 const styles = (theme) => ({
   accountBalance: {
     backgroundColor: '#F8F8F8',
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     border: '2px solid #E8E8E8',
   },
   noteContainer: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   separator: {
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
   },
 });
 
-export default compose(
-  withNamespaces(),
-  withStyles(styles),
-)(MemberCRM);
+export default compose(withStyles(styles))(MemberCRM);

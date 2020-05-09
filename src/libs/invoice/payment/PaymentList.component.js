@@ -59,10 +59,10 @@ type PaymentItemState = {
 };
 const styles = (theme) => ({
   emptyPaymentExplainer: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   revert: {
     textDecoration: 'line-through',

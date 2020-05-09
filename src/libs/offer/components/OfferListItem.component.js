@@ -4,6 +4,7 @@ import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
+import Hidden from '@material-ui/core/Hidden';
 import type { TFunction } from 'react-i18next';
 
 import CoachAvatar from '../../associated-coach/components/CoachAvatar.component';

@@ -50,7 +50,7 @@ export default (props: SelectFieldProps) => {
           )}
           <ErrorMessage {...props}>
             {(message) => (
-              <Typography variant="body2" className={classes.alertError}>
+              <Typography variant="body1" className={classes.alertError}>
                 {t(message)}
               </Typography>
             )}

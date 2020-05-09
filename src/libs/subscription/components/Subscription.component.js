@@ -52,7 +52,7 @@ export function SubscriptionComponent(props: Props) {
   }
   return (
     <div>
-      <Grid container direction="row" spacing={24}>
+      <Grid container direction="row" spacing={3}>
         <Grid item xs={12} md={6}>
           <Typography variant="h5" component="h3">
             {props.t('subscription.invoicesSection')}
@@ -115,14 +115,14 @@ export function SubscriptionComponent(props: Props) {
 
 const styles = (theme) => ({
   block: {
-    marginBottom: theme.spacing.unit * 3,
+    marginBottom: theme.spacing(3),
   },
   eventListTitle: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   divider: {
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit * 2,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(2),
   },
 });
 

@@ -142,11 +142,11 @@ const styles = (theme) => ({
     alignItems: 'center',
     width: '100%',
     overflowY: 'auto',
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
   avatarContainer: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
   avatarButton: {
     display: 'inline-block',

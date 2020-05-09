@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
 import Typography from '@material-ui/core/Typography';
 import AddIcon from '@material-ui/icons/Add';
 import { push } from 'react-router-redux';
@@ -72,14 +72,14 @@ export class CouponList extends React.PureComponent<Props> {
           onSubmit={this.props.deleteCoupon}
         />
         <div className={classes.addButtonContainer}>
-          <Button
+          <Fab
             color="primary"
-            variant="extendedFab"
+            variant="extended"
             onClick={this.props.goToCreate}
           >
             <AddIcon />
             {t('createCoupon')}
-          </Button>
+          </Fab>
         </div>
       </div>
     );
@@ -88,12 +88,12 @@ export class CouponList extends React.PureComponent<Props> {
 
 const styles = (theme) => ({
   emptyText: {
-    margin: theme.spacing.unit * 3,
+    margin: theme.spacing(3),
   },
   addButtonContainer: {
     position: 'fixed',
-    bottom: theme.spacing.unit * 2,
-    right: theme.spacing.unit * 2,
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
   },
 });
 

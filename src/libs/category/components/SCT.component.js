@@ -33,34 +33,36 @@ export function Sport(props: Props) {
   const sport = SPORTS.filter((s) => s.id === parentCategory)[0];
 
   return (
-    <Grid
-      container
-      direction="row"
-      spacing={8}
-      justify="flex-start"
-      alignItems="center"
+    <div
       className={classnames(
+        classes.container,
         isSelected ? classes.selected : null,
         isFocused ? classes.focused : null,
         paddingLeft ? classes.paddingLeft : null,
       )}
     >
-      <Grid item>
-        <img src={sport.icon} height={26} width={26} alt="coach profile" />
-      </Grid>
+      <img src={sport.icon} height={26} width={26} alt="coach profile" />
       {noname ? null : (
-        <Grid item>
-          <Typography variant={variant}>{SCTName || sport.text}</Typography>
-        </Grid>
+        <Typography className={classes.text} variant={variant}>
+          {SCTName || sport.text}
+        </Typography>
       )}
-    </Grid>
+    </div>
   );
 }
 
 const styles = (theme) => ({
   focused: { backgroundColor: '#efefef' },
   selected: { backgroundColor: '#e0e0e0' },
-  paddingLeft: { paddingLeft: theme.spacing.unit },
+  paddingLeft: { paddingLeft: theme.spacing(1) },
+  container: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  text: {
+    marginLeft: theme.spacing(1),
+  },
 });
 
 export default withStyles(styles)(Sport);

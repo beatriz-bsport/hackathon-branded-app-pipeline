@@ -183,15 +183,15 @@ export function PaymentRuleFields(props: Props) {
 }
 const styles = (theme) => ({
   rulesContainer: {
-    padding: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
   calculation_method: {
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
   root: {
-    height: theme.spacing.unit * 4,
+    height: theme.spacing(4),
   },
   dense: {
     paddingLeft: 0,

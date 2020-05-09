@@ -87,7 +87,7 @@ export const PrivateBookingCard = (props: Props) => {
 
 const styles = (theme) => ({
   container: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   buttonContainer: {
     display: 'flex',
@@ -95,7 +95,7 @@ const styles = (theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
-    paddingTop: theme.spacing.unit,
+    paddingTop: theme.spacing(1),
   },
 });
 

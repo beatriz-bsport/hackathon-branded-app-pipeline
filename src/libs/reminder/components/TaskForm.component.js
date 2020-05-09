@@ -80,7 +80,7 @@ export const TaskForm = (props: Props) => (
 
 const styles = (theme) => ({
   paddedField: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
 });
 

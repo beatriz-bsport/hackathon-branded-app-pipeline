@@ -354,7 +354,7 @@ export class MarketPlace extends Component<Props, State> {
             <Grid
               container
               direction="column"
-              spacing={16}
+              spacing={2}
               className={classes.signupContainer}
             >
               <Grid item>
@@ -431,23 +431,23 @@ const styles = (theme) => ({
     width: '100%',
   },
   signupContainer: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     paddingTop: 0,
   },
   content: {
     overflowY: 'auto',
     position: 'relative',
-    paddingBottom: theme.spacing.unit * 4,
+    paddingBottom: theme.spacing(4),
   },
   title: {
-    marginBottom: theme.spacing.unit * 6,
+    marginBottom: theme.spacing(6),
   },
   calendarContainer: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 4,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(4),
     [theme.breakpoints.up('lg')]: {
-      marginLeft: theme.spacing.unit * 4,
-      marginRight: theme.spacing.unit * 4,
+      marginLeft: theme.spacing(4),
+      marginRight: theme.spacing(4),
     },
   },
 });

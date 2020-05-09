@@ -95,14 +95,14 @@ export class ResourceConfigurationDialog extends React.Component<Props, State> {
 
 const styles = (theme) => ({
   content: {
-    paddingBottom: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing(2),
   },
   row: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     '& > *': {
-      paddingRight: theme.spacing.unit * 2,
+      paddingRight: theme.spacing(2),
     },
   },
 });

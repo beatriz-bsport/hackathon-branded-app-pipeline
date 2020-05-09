@@ -370,38 +370,38 @@ const styles = (theme) => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
-    marginTop: theme.spacing.unit * 4,
+    marginTop: theme.spacing(4),
   },
   divider: {
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
   },
   textField: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   filterPanel: {
     display: 'flex',
     flexDirection: 'column',
   },
   filterSelect: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
   actionButton: {
-    marginBottom: theme.spacing.unit,
-    marginTop: theme.spacing.unit,
-    marginLeft: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(1),
+    marginLeft: theme.spacing(1),
   },
   sendEmailButton: {
-    marginBottom: theme.spacing.unit,
-    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(1),
   },
   buttonsRow: {
     display: 'flex',
     justifyContent: 'space-between',
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   nestedList: {
     backgroundColor: '#F8F8F8',
@@ -411,7 +411,7 @@ const styles = (theme) => ({
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'row',
-    paddingTop: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(2),
   },
 });
 

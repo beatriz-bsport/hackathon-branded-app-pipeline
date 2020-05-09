@@ -75,7 +75,7 @@ export class MemberDetailPayment extends Component<Props> {
 
 const styles = (theme) => ({
   table: {
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
 });
 

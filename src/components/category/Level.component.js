@@ -41,7 +41,7 @@ type Props = {
 
 export function Level(props: Props) {
   const { noStyle, levelId, t } = props;
-  const variant = props.variant || 'body2';
+  const variant = props.variant || 'body1';
 
   let stylesheet = {
     padding: '10px',

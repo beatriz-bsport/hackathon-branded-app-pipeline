@@ -78,7 +78,7 @@ export class MemberNote extends Component<Props, State> {
           <Grid
             container
             direction="column"
-            spacing={16}
+            spacing={2}
             alignItems="flex-end"
             wrap="nowrap"
           >

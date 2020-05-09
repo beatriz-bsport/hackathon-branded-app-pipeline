@@ -3,8 +3,10 @@ import React from 'react';
 import type { Node } from 'react';
 
 import Fab from '@material-ui/core/Fab';
-import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import {
+  createMuiTheme,
+  MuiThemeProvider,
+} from '@material-ui/core/styles';
 
 import { colors } from '@bsport/common/lib/colors';
 

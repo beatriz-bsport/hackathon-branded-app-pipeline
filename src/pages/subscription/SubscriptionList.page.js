@@ -107,7 +107,7 @@ export class SubscriptionList extends React.Component<Props> {
   render() {
     return (
       <div className={this.props.classes.container}>
-        <Grid container spacing={8}>
+        <Grid container spacing={1}>
           <Grid item xs={12} lg={6}>
             <Typography
               className={this.props.classes.sectionTitle}
@@ -197,11 +197,11 @@ const styles = (theme) => ({
     paddingBottom: '20vh',
   },
   sectionTitle: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1),
   },
   divider: {
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
 });
 

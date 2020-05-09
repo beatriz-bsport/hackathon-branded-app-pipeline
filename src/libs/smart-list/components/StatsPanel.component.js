@@ -113,23 +113,23 @@ const styles = (theme) => ({
     justifyContent: 'center',
   },
   listSize: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
   listSizeContainer: {
     display: 'flex',
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   datePicker: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   datePickerContainer: {
     display: 'flex',
     justifyContent: 'center',
   },
   configureButtonContainer: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

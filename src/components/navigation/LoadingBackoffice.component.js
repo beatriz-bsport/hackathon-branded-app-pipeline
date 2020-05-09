@@ -35,10 +35,10 @@ const styles = (theme) => ({
     alignItems: 'center',
   },
   loading: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   textLoading: {
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
   },
 });
 

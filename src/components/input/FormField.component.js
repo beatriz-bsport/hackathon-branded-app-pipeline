@@ -29,15 +29,15 @@ export const MONTHLY = '2';
 
 const styles = (theme) => ({
   textInput: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   formControl: {
     minWidth: 140,
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   formControlLarge: {
     minWidth: 200,
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 

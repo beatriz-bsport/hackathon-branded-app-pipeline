@@ -80,13 +80,13 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
   buttonContainer: {
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'row',
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
 });
 

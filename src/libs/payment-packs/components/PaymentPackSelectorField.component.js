@@ -46,7 +46,7 @@ export const SelectField = withNamespaces([])((props) => {
             )}
             <ErrorMessage {...props}>
               {(message) => (
-                <Typography variant="body2">{t(message)}</Typography>
+                <Typography variant="body1">{t(message)}</Typography>
               )}
             </ErrorMessage>
           </FormControl>

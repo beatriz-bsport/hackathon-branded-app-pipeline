@@ -95,7 +95,7 @@ function MemberBookingHelper(props: Props) {
 
 const styles = (theme) => ({
   rightIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 

@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Hidden from '@material-ui/core/Hidden';
 import Grid from '@material-ui/core/Grid';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Typography from '@material-ui/core/Typography';
@@ -433,7 +434,7 @@ export class BookingItemForManager extends Component<Props, State> {
                 alignItems: 'center',
               }}
             >
-              {this.getAvatar()}
+              <ListItemAvatar>{this.getAvatar()}</ListItemAvatar>
               <ListItemText
                 primary={
                   <div
@@ -442,29 +443,28 @@ export class BookingItemForManager extends Component<Props, State> {
                       flexDirection: 'row',
                     }}
                   >
-                    <Typography inline>{this.getHeading()}</Typography>
-                    <Typography inline color="primary">
-                      &nbsp;{this.getIsFirstIndicator()}
+                    <Typography variant="body2">{this.getHeading()}</Typography>
+                    <Typography color="primary">
+                      {this.getIsFirstIndicator()}
                     </Typography>
-                    <Typography inline color="primary">
-                      <strong>&nbsp;{this.getHasNoteIndicator()}</strong>
+                    <Typography color="primary">
+                      <strong>{this.getHasNoteIndicator()}</strong>
                     </Typography>
                     <Typography inline>
                       {getBookingStatusCode(t, booking)}
                     </Typography>
                   </div>
                 }
-                primaryTypographyProps={{ variant: 'subtitle2' }}
                 secondary={
-                  <React.Fragment>
+                  <div>
                     {bookingStatus.map(([txt, color]) => {
                       return (
-                        <Typography key={txt} component="span" color={color}>
+                        <Typography key={txt} variant="body2" color={color}>
                           {txt}
                         </Typography>
                       );
                     })}
-                  </React.Fragment>
+                  </div>
                 }
               />
             </div>
@@ -478,10 +478,10 @@ export class BookingItemForManager extends Component<Props, State> {
 
 const styles = (theme) => ({
   iconButton: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
   rightButton: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
   badge: {
     right: '0%',

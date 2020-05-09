@@ -55,7 +55,7 @@ export class ConsumerPack extends React.Component<Props> {
 
   render() {
     return (
-      <Grid container direction="row" spacing={8}>
+      <Grid container direction="row" spacing={1}>
         <div className={this.props.classes.header}>
           <Button
             onClick={() =>
@@ -130,18 +130,18 @@ export class ConsumerPack extends React.Component<Props> {
 
 const styles = (theme) => ({
   sectionDivider: {
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit * 2,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(2),
   },
   header: {
     display: 'flex',
     width: '100%',
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
     flexDirection: 'row',
     justifyContent: 'flex-end',
   },
   iconLeft: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 

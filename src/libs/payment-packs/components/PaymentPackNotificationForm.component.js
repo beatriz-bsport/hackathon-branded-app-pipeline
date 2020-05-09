@@ -463,26 +463,26 @@ const styles = (theme) => ({
   warningContainer: {
     display: 'flex',
     alignItems: 'center',
-    marginBottom: theme.spacing.unit * 4,
-    marginLeft: theme.spacing.unit * 2,
-    marginRight: theme.spacing.unit,
+    marginBottom: theme.spacing(4),
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(1),
   },
   bottomButtons: {
     display: 'flex',
     justifyContent: 'space-between',
   },
   smartListSelector: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   fieldContainer: {
-    marginBottom: theme.spacing.unit * 4,
-    marginLeft: theme.spacing.unit * 2,
-    marginRight: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(4),
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
   },
   textInput: {
     width: '70px',
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
   },
   buttonContainer: {
     display: 'flex',
@@ -498,28 +498,28 @@ const styles = (theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    marginLeft: theme.spacing.unit * 2,
-    marginRight: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
     minHeight: '30vh',
     minWidth: '40vh',
   },
   selectorContainer: {
     display: 'flex',
     justifyContent: 'space-between',
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
   previewEmpty: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    paddingTop: theme.spacing.unit * 6,
+    paddingTop: theme.spacing(6),
   },
   dialogContainer: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
     minWidth: '500px',
   },
   visibilityIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 

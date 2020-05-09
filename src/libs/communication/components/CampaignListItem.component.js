@@ -169,25 +169,25 @@ const styles = (theme) => ({
     alignItems: 'flex-start',
   },
   divider: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 3,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(3),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   mailIcon: {
-    marginRight: theme.spacing.unit * 3,
-    marginTop: theme.spacing.unit / 2,
+    marginRight: theme.spacing(3),
+    marginTop: theme.spacing(1) / 2,
   },
   leftPanel: {
     display: 'flex',
     flexDirection: 'column',
   },
   counters: {
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
   },
   button: {
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
   },
 });
 

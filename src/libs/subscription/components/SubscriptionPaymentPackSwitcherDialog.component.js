@@ -64,21 +64,21 @@ export const SubscriptionPaymentPackSwitcherDialog = (props: Props) => {
 
 const styles = (theme) => ({
   leftIcon: {
-    marginRight: theme.spacing.unit * 2,
+    marginRight: theme.spacing(2),
   },
   row: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
     backgroundColor: '#EFEFEF',
-    borderRadius: theme.spacing.unit,
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit * 4,
+    borderRadius: theme.spacing(1),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(4),
   },
   explainText: {
-    marginBottom: theme.spacing.unit * 2,
-    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(2),
   },
 });
 

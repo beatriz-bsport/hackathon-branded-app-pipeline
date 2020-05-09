@@ -169,7 +169,7 @@ const styles = (theme) => ({
     [theme.breakpoints.up('sm')]: {
       width: '50%',
     },
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing(2),
   },
 });
 

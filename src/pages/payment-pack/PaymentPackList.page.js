@@ -148,7 +148,7 @@ export class PaymentPackList extends Component<Props, State> {
       <Grid
         container
         direction="row"
-        spacing={24}
+        spacing={3}
         className={classes.container}
       >
         {publicPacks.length || managerPacks.length ? (
@@ -253,23 +253,23 @@ export class PaymentPackList extends Component<Props, State> {
 
 const styles = (theme) => ({
   container: {
-    paddingBottom: theme.spacing.unit * 16,
+    paddingBottom: theme.spacing(16),
   },
   fabSwitchButton: {
     position: 'fixed',
-    right: theme.spacing.unit * 2,
-    bottom: theme.spacing.unit * 9,
+    right: theme.spacing(2),
+    bottom: theme.spacing(9),
   },
   fabAddButton: {
     position: 'fixed',
-    right: theme.spacing.unit * 2,
-    bottom: theme.spacing.unit * 2,
+    right: theme.spacing(2),
+    bottom: theme.spacing(2),
   },
   extendedIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   titleContainer: {
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
   searchPaperDisplayed: {
     border: '1px solid',

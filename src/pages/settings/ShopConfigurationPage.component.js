@@ -110,18 +110,18 @@ export class OrderConfigrationPage extends Component<Props> {
 
 const styles = (theme) => ({
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   container: {
-    padding: theme.spacing.unit * 2,
-    paddingTop: theme.spacing.unit,
+    padding: theme.spacing(2),
+    paddingTop: theme.spacing(1),
   },
   paper: {
-    marginBottom: theme.spacing.unit * 2,
-    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(1),
   },
   paperInner: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
 });
 

@@ -716,35 +716,35 @@ const styles = (theme) => ({
     alignItems: 'stretch',
   },
   voucher: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     backgroundColor: '#F8F8F8',
     width: '100%',
   },
   invoiceList: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
     backgroundColor: '#F8F8F8',
     border: '2px solid #E8E8E8',
     [theme.breakpoints.down('sm')]: {
-      marginBottom: theme.spacing.unit,
+      marginBottom: theme.spacing(1),
     },
   },
   paymentSelectorButtons: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   rightText: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
   navigationButton: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   actionButton: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
   paymentFormContainer: {
-    paddingLeft: theme.spacing.unit * 2,
+    paddingLeft: theme.spacing(2),
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
@@ -752,7 +752,7 @@ const styles = (theme) => ({
     alignItems: 'stretch',
   },
   leftPanelSubBlock: {
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
   },
   paymentItemsListContainer: {
     backgroundColor: '#F8F8F8',
@@ -763,19 +763,19 @@ const styles = (theme) => ({
     border: '2px solid #E8E8E8',
   },
   divider: {
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
   totalUnpaid: {
-    padding: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 2,
-    paddingRight: theme.spacing.unit * 2,
+    padding: theme.spacing(1),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   totalLine: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -784,7 +784,7 @@ const styles = (theme) => ({
     textDecoration: 'line-through',
   },
   bottomButtonBar: {
-    paddingTop: theme.spacing.unit,
+    paddingTop: theme.spacing(1),
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',

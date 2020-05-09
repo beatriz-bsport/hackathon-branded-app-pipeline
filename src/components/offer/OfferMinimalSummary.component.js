@@ -9,6 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
+import Hidden from '@material-ui/core/Hidden';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { pure } from 'recompose';
@@ -30,7 +31,7 @@ const styles = (theme) => ({
     alignItems: 'center',
   },
   videocamIcon: {
-    marginRight: theme.spacing.unit / 2,
+    marginRight: theme.spacing(1) / 2,
   },
   listItem: {
     width: '100%',
@@ -60,20 +61,28 @@ const getFillingInfo = (offer: Offer) => {
       <Typography inline variant="subtitle2" color="secondary">
         {`${offer.nb_bookings} `}
       </Typography>
-      <Typography variant="subtitle2">{`/${offer.effectif}`}</Typography>
-      <Typography inline variant="caption">
-        &nbsp;{'('}
+      <Typography color="textPrimary" variant="subtitle2">
+        {`/${offer.effectif}`}
       </Typography>
-      <Typography inline variant="caption" color="primary">
-        {offer.nb_attendant}
-      </Typography>
-      <Typography inline variant="caption">
-        +
-      </Typography>
-      <Typography inline variant="caption" color="error">
-        {offer.nb_non_attendant}
-      </Typography>
-      <Typography variant="caption">)&nbsp;</Typography>
+      <Hidden smDown>
+        <React.Fragment>
+          <Typography inline color="textPrimary" variant="caption">
+            &nbsp;{'('}
+          </Typography>
+          <Typography inline variant="caption" color="primary">
+            {offer.nb_attendant}
+          </Typography>
+          <Typography inline variant="caption">
+            +
+          </Typography>
+          <Typography inline variant="caption" color="error">
+            {offer.nb_non_attendant}
+          </Typography>
+          <Typography color="textPrimary" variant="caption">
+            )
+          </Typography>
+        </React.Fragment>
+      </Hidden>
     </div>
   );
   const fillingInfoProps = {
@@ -160,18 +169,20 @@ export function OfferMinimalSummary(props: Props) {
       <Grid container directon="row" alignItems="center">
         <Grid item xs={6}>
           <Grid container direction="row" alignItems="center">
-            <Grid item>
-              <Tooltip title={coach ? coach.name : ''}>
-                <div>
-                  <IconButton disableRipple disabled={!!coach_override}>
-                    <Avatar
-                      src={coach ? coach.photo || DEFAULT_AVATAR : ''}
-                      imgProps={coach_override ? disabledAvatarProps : {}}
-                    />
-                  </IconButton>
-                </div>
-              </Tooltip>
-            </Grid>
+            <Hidden smDown>
+              <Grid item>
+                <Tooltip title={coach ? coach.name : ''}>
+                  <div>
+                    <IconButton disableRipple disabled={!!coach_override}>
+                      <Avatar
+                        src={coach ? coach.photo || DEFAULT_AVATAR : ''}
+                        imgProps={coach_override ? disabledAvatarProps : {}}
+                      />
+                    </IconButton>
+                  </div>
+                </Tooltip>
+              </Grid>
+            </Hidden>
             <Grid item style={coach_override ? { marginLeft: -30 } : {}}>
               {coach_override ? (
                 <Tooltip title={coach_override ? coach_override.name : ''}>

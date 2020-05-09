@@ -121,22 +121,22 @@ export class BroadcastConfigurationForm extends Component<Props, State> {
 
 const styles = (theme) => ({
   horizontalInput: {
-    marginRight: theme.spacing.unit * 3,
+    marginRight: theme.spacing(3),
   },
   inputContainer: {
     display: 'flex',
     flexDirection: 'row',
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
     alignItems: 'center',
   },
   buttonContainer: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   progress: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
 });
 

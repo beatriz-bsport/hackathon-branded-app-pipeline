@@ -92,7 +92,7 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
 
   render() {
     return (
-      <Grid container direction="row" spacing={24}>
+      <Grid container direction="row" spacing={3}>
         <Grid item xs={12} lg={6}>
           <Paper>
             <PaginatedListStateful

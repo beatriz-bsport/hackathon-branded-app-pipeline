@@ -30,30 +30,30 @@ import type { Coach, MetaActivity, Establishment } from '../../api/types';
 
 const styles = (theme) => ({
   paperContainer: {
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing(3),
   },
   buttonContainer: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
   },
   buttonLeft: {
-    marginRight: theme.spacing.unit * 2,
+    marginRight: theme.spacing(2),
   },
   headlineElt: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
   generationSummary: {
-    marginTop: theme.spacing.unit * 4,
+    marginTop: theme.spacing(4),
   },
   fieldGroup: {
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 
@@ -200,7 +200,7 @@ export class OfferForm extends Component<Props, State> {
       <Grid
         container
         direction="row"
-        spacing={8}
+        spacing={1}
         alignItems="center"
         justify="center"
       >
@@ -213,7 +213,7 @@ export class OfferForm extends Component<Props, State> {
           </Typography>
         </Grid>
         <Grid item>
-          <Typography variant="body2">
+          <Typography variant="body1">
             {nbOffer > 1
               ? t('form.offersWillBeGenerated')
               : t('form.offerWillBeGenerated')}
@@ -226,7 +226,7 @@ export class OfferForm extends Component<Props, State> {
   renderTitle = () => {
     const { t, metaActivity, classes } = this.props;
     return (
-      <Grid container direction="column" spacing={32}>
+      <Grid container direction="column" spacing={4}>
         <Grid item>
           <Grid
             container
@@ -256,7 +256,7 @@ export class OfferForm extends Component<Props, State> {
   renderSpecificities = () => {
     const { establishments, coaches, t } = this.props;
     return (
-      <Grid container direction="column" spacing={8}>
+      <Grid container direction="column" spacing={1}>
         <Grid item>
           <FormField
             id="level"
@@ -339,7 +339,7 @@ export class OfferForm extends Component<Props, State> {
   renderTimeSettings = () => {
     const { t, classes } = this.props;
     return (
-      <Grid container direction="column" spacing={8}>
+      <Grid container direction="column" spacing={1}>
         <Grid item>
           <Typography variant="h6">{t('form.timeSettings')}</Typography>
         </Grid>
@@ -366,7 +366,7 @@ export class OfferForm extends Component<Props, State> {
           </Grid>
         </Grid>
         <Grid item>
-          <Grid container direction="row" spacing={16}>
+          <Grid container direction="row" spacing={2}>
             <Grid item>
               <Grid container direction="column">
                 <Grid item>
@@ -506,7 +506,7 @@ export class OfferForm extends Component<Props, State> {
   };
 
   renderCaracteristics = () => (
-    <Grid container direction="column" spacing={8}>
+    <Grid container direction="column" spacing={1}>
       <Grid item>
         <Typography variant="h6">
           {this.props.t('form.caracteristics')}

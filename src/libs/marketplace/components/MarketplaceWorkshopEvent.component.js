@@ -124,7 +124,7 @@ export const MarketplaceWorkshopEvent = (props: Props) => {
             <TypographyWithShowMore
               component="div"
               multiline
-              variant="body2"
+              variant="body1"
               color="textSecondary"
             >
               {props.offer.meta_activity.description}

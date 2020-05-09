@@ -72,7 +72,7 @@ export class StripeCheckout extends Component<Props, State> {
       <Grid
         container
         direction="column"
-        spacing={16}
+        spacing={2}
         className={classes.paymentContainer}
       >
         <Grid item>
@@ -107,15 +107,15 @@ export class StripeCheckout extends Component<Props, State> {
 
 const styles = (theme) => ({
   cardContainer: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     border: '1px solid rgba(0, 0, 0, 0.23)',
     borderRadius: 5,
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   caption: {
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
   },
   labelAndSelectorItem: {
     display: 'flex',

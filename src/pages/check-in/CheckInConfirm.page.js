@@ -53,7 +53,7 @@ export class CheckInConfirmPage extends React.Component<Props> {
 const styles = (theme) => ({
   container: {
     width: '100%',
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     minHeight: '70vh',
   },
 });

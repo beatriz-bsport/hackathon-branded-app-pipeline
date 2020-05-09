@@ -88,7 +88,7 @@ export const OfferListItem = (props: Props) => {
   );
 };
 const styles = (theme) => ({
-  text: { marginRight: theme.spacing.unit },
+  text: { marginRight: theme.spacing(1) },
   inline: { display: 'flex' },
 });
 

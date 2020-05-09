@@ -77,8 +77,8 @@ export const NotificationRuleListItem = (props: Props) => {
 
 const styles = (theme) => ({
   container: {
-    margin: theme.spacing.unit * 2,
-    padding: theme.spacing.unit,
+    margin: theme.spacing(2),
+    padding: theme.spacing(1),
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -86,10 +86,10 @@ const styles = (theme) => ({
   },
   text: {
     maxWidth: '55%',
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
   showEmail: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   selector: {
     width: '45%',

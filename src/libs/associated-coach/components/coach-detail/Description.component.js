@@ -44,7 +44,7 @@ export const Description = (props: Props) => {
 
 const styles = (theme) => ({
   paperContent: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
 });
 

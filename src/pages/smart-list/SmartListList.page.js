@@ -110,7 +110,7 @@ export class SmartListList extends Component<Props, State> {
     const { smartlists, classes } = this.props;
     return (
       <div>
-        <Grid container direction="row" spacing={24}>
+        <Grid container direction="row" spacing={3}>
           <Grid item xs={12} md={6}>
             {smartlists.length > 0 ? (
               <div className={this.props.classes.search}>
@@ -239,7 +239,7 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'column',
   },
-  search: { marginBottom: theme.spacing.unit * 2 },
+  search: { marginBottom: theme.spacing(2) },
   searchPaperDisplayed: {
     border: '1px solid',
     borderColor: theme.primary_color,

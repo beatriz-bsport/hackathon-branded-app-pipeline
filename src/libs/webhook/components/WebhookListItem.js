@@ -96,10 +96,10 @@ const styles = (theme) => ({
   loadingContainer: {
     display: 'flex',
     alignItems: 'center',
-    marginRight: theme.spacing.unit * 5,
+    marginRight: theme.spacing(5),
   },
   testButton: {
-    marginRight: theme.spacing.unit * 2,
+    marginRight: theme.spacing(2),
   },
   container: {
     display: 'flex',

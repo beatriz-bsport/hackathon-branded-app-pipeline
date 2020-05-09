@@ -127,7 +127,6 @@ export class MemberDetail extends React.Component<Props> {
         </Helmet>
         <AppBar position="static" color="default">
           <Tabs
-            scrollButtons="off"
             variant="scrollable"
             value={tab}
             onChange={(e, newTab) => {
@@ -249,35 +248,35 @@ export class MemberDetail extends React.Component<Props> {
 
 const styles = (theme) => ({
   container: {
-    marginBottom: theme.spacing.unit * 4,
-    marginTop: -theme.spacing.unit * 3,
+    marginBottom: theme.spacing(4),
+    marginTop: -theme.spacing(3),
     width: '100vw',
     [theme.breakpoints.up('md')]: {
-      marginLeft: -theme.spacing.unit * 3,
+      marginLeft: -theme.spacing(3),
       width: 'auto',
-      marginRight: -theme.spacing.unit * 3,
-      marginTop: -theme.spacing.unit * 2,
+      marginRight: -theme.spacing(3),
+      marginTop: -theme.spacing(2),
     },
   },
   content: {
-    marginBottom: theme.spacing.unit * 8,
+    marginBottom: theme.spacing(8),
     [theme.breakpoints.up('md')]: {
-      margin: theme.spacing.unit * 2,
-      marginBottom: theme.spacing.unit * 8,
+      margin: theme.spacing(2),
+      marginBottom: theme.spacing(8),
     },
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   bottomButtonContainer: {
     position: 'fixed',
-    bottom: theme.spacing.unit * 2,
-    right: theme.spacing.unit * 2,
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
   },
   bottomButton: {
-    marginTop: theme.spacing.unit * 2,
-    marginLeft: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
+    marginLeft: theme.spacing(2),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 

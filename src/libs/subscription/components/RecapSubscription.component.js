@@ -92,7 +92,7 @@ const styles = (theme) => ({
     fontSize: 16,
   },
   section: {
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
 });
 

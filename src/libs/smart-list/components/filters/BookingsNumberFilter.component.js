@@ -320,11 +320,11 @@ export class BookingsNumberFilter extends Component<Props, state> {
 
 const styles = (theme) => ({
   hourPicker: {
-    marginRight: theme.spacing.unit,
-    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing(1),
+    marginLeft: theme.spacing(1),
   },
   calendarAntiMargin: {
-    marginLeft: -theme.spacing.unit,
+    marginLeft: -theme.spacing(1),
   },
   disabled: {
     display: 'flex',
@@ -332,7 +332,7 @@ const styles = (theme) => ({
     pointerEvents: 'none',
     background: '#f1f1f1',
     borderRadius: '7px',
-    paddingLeft: theme.spacing.unit,
+    paddingLeft: theme.spacing(1),
   },
   inlineContainer: { display: 'flex', alignItems: 'center' },
   tooltip: {
@@ -344,13 +344,13 @@ const styles = (theme) => ({
     flexGrow: 0,
   },
   input: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
   },
   textInput: {
     width: '50px',
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
   },
   datePicker: {
     width: '160px',
@@ -362,8 +362,8 @@ const styles = (theme) => ({
   },
   selector: {
     minWidth: '300px',
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
   },
 });
 

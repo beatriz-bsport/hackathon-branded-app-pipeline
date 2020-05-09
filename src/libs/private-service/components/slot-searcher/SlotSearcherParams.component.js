@@ -242,17 +242,17 @@ const styles = (theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   sectionTitle: {
-    paddingTop: theme.spacing.unit * 3,
-    paddingBottom: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(2),
   },
   selectorContainer: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 

@@ -22,13 +22,13 @@ export function WarningForceRecursion(props: Props) {
 const styles = (theme) => ({
   warningContainer: {
     backgroundColor: '#F2F2F2',
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
     display: 'flex',
     alignItems: 'center',
   },
   typo: {
-    paddingRight: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 2,
+    paddingRight: theme.spacing(1),
+    paddingLeft: theme.spacing(2),
   },
 });
 

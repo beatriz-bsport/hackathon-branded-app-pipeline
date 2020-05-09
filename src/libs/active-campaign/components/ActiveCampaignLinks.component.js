@@ -71,10 +71,10 @@ const styles = (theme) => ({
   inline: {
     display: 'flex',
     alignItems: 'center',
-    marginBottom: theme.spacing.unit,
-    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(2),
   },
-  addButton: { marginTop: theme.spacing.unit },
+  addButton: { marginTop: theme.spacing(1) },
   addButtonContainer: { display: 'flex', justifyContent: 'center' },
 });
 

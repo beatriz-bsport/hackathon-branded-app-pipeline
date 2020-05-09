@@ -401,7 +401,7 @@ export class SignUpForm extends Component<Props, State> {
 const styles = (theme) => ({
   container: {},
   rgpdControl: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   actions: {
     textAlign: 'right',
@@ -413,7 +413,7 @@ const styles = (theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
   },
   field: {
     width: '45%',

@@ -84,7 +84,7 @@ const ShopItemCard = (props: {
           {props.shopitem.subtitle}
         </Typography>
         <TypographyMultiline
-          variant="body2"
+          variant="body1"
           color="textSecondary"
           style={{ marginTop: 16 }}
         >
@@ -121,15 +121,15 @@ const ShopItemCard = (props: {
 
 const styles = (theme) => ({
   link: {
-    padding: theme.spacing.unit,
-    marginLeft: theme.spacing.unit,
+    padding: theme.spacing(1),
+    marginLeft: theme.spacing(1),
     '&:hover': {
       backgroundColor: '#EFEFEF',
       borderRadius: 5,
     },
   },
   linkTypo: {
-    paddingLeft: theme.spacing.unit,
+    paddingLeft: theme.spacing(1),
   },
 });
 

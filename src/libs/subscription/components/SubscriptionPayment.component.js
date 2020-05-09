@@ -239,10 +239,10 @@ export class SubscriptionPayment extends React.Component<Props, State> {
 }
 const styles = (theme) => ({
   title: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   buttonContainer: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   sensitiveDataContainer: {
     alignItems: 'center',
@@ -251,7 +251,7 @@ const styles = (theme) => ({
   },
   sensitiveData: {
     backgroundColor: '#EFEFEF',
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     minWidth: '30vw',
     maxWidth: '80vw',
     width: '100%',
@@ -261,20 +261,20 @@ const styles = (theme) => ({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'flex-start',
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
   nameAndEmailContainer: {
     flexDirection: 'column',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing(2),
   },
   mandate: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   explainCredit: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
 });
 

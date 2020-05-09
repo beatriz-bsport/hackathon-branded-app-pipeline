@@ -18,12 +18,12 @@ type Props = {
 export function DateTimeForm(props: Props) {
   const { t, date, hour, onFormFieldChange } = props;
   return (
-    <Grid container direction="column" spacing={8}>
+    <Grid container direction="column" spacing={1}>
       <Grid item>
         <Typography variant="caption">{t('form.offer.changeDate')}</Typography>
       </Grid>
       <Grid item>
-        <Grid container direction="row" spacing={16} alignItems="center">
+        <Grid container direction="row" spacing={2} alignItems="center">
           <Grid item>
             <FormField id="date" value={date} onChange={onFormFieldChange} />
           </Grid>

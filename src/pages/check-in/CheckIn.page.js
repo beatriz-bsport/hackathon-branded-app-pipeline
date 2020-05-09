@@ -130,14 +130,14 @@ export class CheckInPage extends React.Component<Props, State> {
 
 const styles = (theme) => ({
   content: {
-    marginTop: theme.spacing.unit * 8,
+    marginTop: theme.spacing(8),
     width: '100%',
   },
   bottomButtonContainer: {
     visibility: 'hidden',
     position: 'fixed',
     bottom: 0,
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -147,7 +147,7 @@ const styles = (theme) => ({
     visibility: 'visible',
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 

@@ -225,27 +225,27 @@ const styles = (theme) => ({
     justifyContent: 'center',
     flexDirection: 'column',
     alignItems: 'center',
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   processingMessage: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   cardElementContainer: {
     border: '2px solid #efefef',
-    borderRadius: theme.spacing.unit,
-    padding: theme.spacing.unit,
-    marginBottom: theme.spacing.unit * 2,
+    borderRadius: theme.spacing(1),
+    padding: theme.spacing(1),
+    marginBottom: theme.spacing(2),
   },
   buttonContainer: {
     width: '100%',
-    paddingTop: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(2),
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
   },
   payButton: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
 });
 

@@ -31,13 +31,11 @@ export const MemberFilesPanel = (props: Props) => {
       </Typography>
       <Divider />
       {props.uploadedFiles.length === 0 ? (
-        <Typography
-          variant="caption"
-          color="textSecondary"
-          className={props.classes.emptyMessage}
-        >
-          {props.t('file.nofileSaved')}
-        </Typography>
+        <div className={props.classes.emptyMessage}>
+          <Typography variant="caption" color="textSecondary">
+            {props.t('file.nofileSaved')}
+          </Typography>
+        </div>
       ) : (
         props.uploadedFiles.map((file) => (
           <ListItem>
@@ -91,20 +89,20 @@ export const MemberFilesPanel = (props: Props) => {
 
 const styles = (theme) => ({
   emptyMessage: {
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing(2),
     marginLeft: 0,
   },
   noteContainer: {
-    paddingTop: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(2),
   },
   addButton: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   title: {
-    paddingBottom: theme.spacing.unit,
+    paddingBottom: theme.spacing(1),
   },
 });
 

@@ -124,22 +124,22 @@ export const TagGroupForm = (props: Props) => {
 
 const styles = (theme) => ({
   container: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     paddingTop: 0,
-    marginBottom: theme.spacing.unit * 2,
-    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(1),
     border: '1px solid #E8E8E8',
     borderRadius: 8,
     backgroundColor: darken(darken(darken(theme.palette.background.white))),
   },
   deleteGroupButton: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   editableTagsContainer: {
     display: 'flex',
     alignItems: 'flex-end',
     flexDirection: 'column',
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
   },
   header: {
     display: 'flex',

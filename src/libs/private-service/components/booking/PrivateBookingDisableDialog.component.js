@@ -84,7 +84,7 @@ export class PrivateBookingDisableDialog extends React.Component<Props, State> {
 const styles = (theme) => ({
   checkboxContainer: {
     display: 'flex',
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
     flexDirection: 'row',
     alignItems: 'center',
   },

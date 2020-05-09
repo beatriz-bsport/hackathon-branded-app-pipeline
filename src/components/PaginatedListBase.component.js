@@ -85,13 +85,11 @@ export class PaginatedList extends PureComponent<Props, State> {
   defaultRenderEmpty = () => {
     return (
       <React.Fragment>
-        <Typography
-          className={this.props.classes.emptyContainer}
-          color="textSecondary"
-          variant="caption"
-        >
-          {this.props.t('paginatedList.isEmpty')}
-        </Typography>
+        <div className={this.props.classes.emptyContainer}>
+          <Typography color="textSecondary" variant="caption">
+            {this.props.t('paginatedList.isEmpty')}
+          </Typography>
+        </div>
         <Divider />
       </React.Fragment>
     );
@@ -174,7 +172,7 @@ export class PaginatedList extends PureComponent<Props, State> {
 
 const styles = (theme) => ({
   emptyContainer: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
 });
 

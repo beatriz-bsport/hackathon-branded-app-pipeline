@@ -187,13 +187,13 @@ const styles = (theme) => ({
     flexGrow: 0,
   },
   input: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
   },
   textInput: {
     width: '50px',
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
   },
   datePicker: {
     width: '160px',
@@ -205,8 +205,8 @@ const styles = (theme) => ({
   },
   selector: {
     minWidth: '300px',
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
   },
 });
 

@@ -289,26 +289,26 @@ const styles = (theme) => ({
   innerList: {
     flexGrow: 1,
     height: '100%',
-    marginTop: -theme.spacing.unit * 6, // TODO understand why
-    padding: theme.spacing.unit * 4,
-    paddingRight: 0, // theme.spacing.unit * 4,
+    marginTop: -theme.spacing(6), // TODO understand why
+    padding: theme.spacing(4),
+    paddingRight: 0, // theme.spacing(4),
   },
   input: {
-    paddingTop: theme.spacing.unit * 2, // TODO understand why
+    paddingTop: theme.spacing(2), // TODO understand why
   },
   addButton: {
-    marginTop: theme.spacing.unit * 4,
+    marginTop: theme.spacing(4),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   cancelButton: {
-    marginRight: theme.spacing.unit * 2,
+    marginRight: theme.spacing(2),
   },
   accountBalanceInfo: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
-    padding: theme.spacing.unit,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    padding: theme.spacing(1),
     border: '1px solid #ced4da',
     backgroundColor: '#F8F8F8',
     borderRadius: `${theme.shape.borderRadius}px`,
@@ -319,7 +319,7 @@ const styles = (theme) => ({
   },
   selector: {
     width: 340,
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
 });
 

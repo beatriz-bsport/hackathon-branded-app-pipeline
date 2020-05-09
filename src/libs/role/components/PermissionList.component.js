@@ -32,7 +32,7 @@ export const PermissionList = (props: Props) => {
 
 const styles = (theme) => ({
   permission: {
-    paddingBottom: theme.spacing.unit,
+    paddingBottom: theme.spacing(1),
   },
 });
 

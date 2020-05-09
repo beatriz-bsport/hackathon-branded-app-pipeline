@@ -117,7 +117,7 @@ export class WorkshopActivity extends Component<Props, State> {
 
 const styles = (theme) => ({
   container: {
-    paddingBottom: theme.spacing.unit * 12,
+    paddingBottom: theme.spacing(12),
   },
 });
 

@@ -145,19 +145,19 @@ export class WebhookFormDialog extends Component<Props, state> {
 
 const styles = (theme) => ({
   textField: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   formControl: {
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
   memberField: {
     display: 'flex',
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   member: {
     color: 'red',
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 

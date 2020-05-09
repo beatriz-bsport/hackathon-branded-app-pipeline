@@ -334,14 +334,14 @@ export class ShopItemList extends Component<Props, State> {
 
 const styles = (theme) => ({
   container: {
-    paddingBottom: theme.spacing.unit * 16,
+    paddingBottom: theme.spacing(16),
   },
   title: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 3,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(3),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   searchPaperDisplayed: {
     border: '1px solid',
@@ -355,7 +355,7 @@ const styles = (theme) => ({
     boderBottom: '0px',
   },
   button: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
 });
 

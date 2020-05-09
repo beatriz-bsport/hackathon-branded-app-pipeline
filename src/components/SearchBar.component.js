@@ -9,12 +9,17 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import withStyles from '@material-ui/core/styles/withStyles';
+import Paper from '@material-ui/core/Paper';
+import Fade from '@material-ui/core/Fade';
+
 import { push } from 'react-router-redux';
 import ClearIcon from '@material-ui/icons/Clear';
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
-import Popover from '@material-ui/core/Popover';
+// import Popover from '@material-ui/core/Popover';
+import Popover from '@material-ui/core/Popper';
+
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
@@ -63,31 +68,34 @@ export class SearchBar extends Component<Props> {
     return (
       <div className={`${classes.bar} ${className}`}>
         <Popover
+          style={{ zIndex: 1000000 }}
           disableAutoFocus
-          disableRestoreFocus
           anchorEl={this.props.memberHistoryAnchor}
-          open={Boolean(this.props.memberHistoryAnchor)}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'center',
-          }}
+          open={
+            Boolean(this.props.memberHistoryAnchor) &&
+            !!this.props.memberHistory.length
+          }
+          placement="center"
+          transition
         >
-          {this.props.memberHistory.map((m) => (
-            <ListItem
-              key={m.id}
-              divider
-              button
-              onClick={() => {
-                this.props.push(`/member/${m.id}/info`);
-              }}
-            >
-              <ListItemText primary={m.name} secondary={m.email} />
-            </ListItem>
-          ))}
+          {({ TransitionProps }) => (
+            <Fade {...TransitionProps} timeout={350}>
+              <Paper>
+                {this.props.memberHistory.map((m) => (
+                  <ListItem
+                    key={m.id}
+                    divider
+                    button
+                    onClick={() => {
+                      this.props.push(`/member/${m.id}/info`);
+                    }}
+                  >
+                    <ListItemText primary={m.name} secondary={m.email} />
+                  </ListItem>
+                ))}
+              </Paper>
+            </Fade>
+          )}
         </Popover>
         <DelayedTextField
           variant="outlined"
@@ -107,16 +115,17 @@ export class SearchBar extends Component<Props> {
                 <SearchIcon />
               </InputAdornment>
             ),
-            endAdornment: searchText ? (
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label={searchText ? 'Clear search' : 'Search'}
-                  onClick={this.clearSearch}
-                >
-                  <ClearIcon />
-                </IconButton>
-              </InputAdornment>
-            ) : null,
+            endAdornment:
+              !!searchText || !!this.props.memberHistoryAnchor ? (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label={searchText ? 'Clear search' : 'Search'}
+                    onClick={this.clearSearch}
+                  >
+                    <ClearIcon />
+                  </IconButton>
+                </InputAdornment>
+              ) : null,
           }}
         />
       </div>

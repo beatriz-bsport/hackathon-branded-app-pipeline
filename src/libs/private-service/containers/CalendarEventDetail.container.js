@@ -344,7 +344,7 @@ export class CalendarEventDetail extends React.Component<Props> {
 const styles = (theme) => ({
   loadingContainer: {
     minWidth: 400,
-    padding: theme.spacing.unit * 4,
+    padding: theme.spacing(4),
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -357,22 +357,22 @@ const styles = (theme) => ({
   },
   manageButton: {
     width: '100%',
-    paddingTop: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
   },
   link: {
-    marginLeft: theme.spacing.unit,
-    padding: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
+    padding: theme.spacing(1),
     '&:hover': {
       backgroundColor: '#EFEFEF',
       borderRadius: 5,
     },
   },
   linkTypo: {
-    marginLeft: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(2),
   },
   iconLeft: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 

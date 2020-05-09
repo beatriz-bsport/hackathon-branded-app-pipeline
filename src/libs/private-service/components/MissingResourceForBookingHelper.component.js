@@ -5,7 +5,7 @@ import { compose } from 'recompose';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import PeopleIcon from '@material-ui/icons/People';
-import WarningIcon from '@material-ui/icons/Warning';
+import InfoOutlineIcon from '@material-ui/icons/InfoOutlined';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 
 import { withNamespaces } from 'react-i18next';
@@ -51,8 +51,10 @@ export const MissingResourceForBookingHelper = (props: Props) => {
       {missingResources.includes('private_service') ||
       missingResources.includes('private_slot') ? (
         <div className={classes.missingResourceContainer}>
-          <WarningIcon color="error" className={classes.leftIcon} />
-          <Typography>{t('bookerModule.missingResource.service')}</Typography>
+          <InfoOutlineIcon color="error" className={classes.leftIcon} />
+          <Typography variant="body2">
+            {t('bookerModule.missingResource.service')}
+          </Typography>
         </div>
       ) : null}
     </div>
@@ -61,25 +63,25 @@ export const MissingResourceForBookingHelper = (props: Props) => {
 
 const styles = (theme) => ({
   missingResourceContainer: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
 
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    padding: theme.spacing.unit * 2,
-    paddingTop: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
+    padding: theme.spacing(2),
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
     border: '1px solid #E2E2E2',
-    borderRadius: theme.spacing.unit,
+    borderRadius: theme.spacing(1),
     backgroundColor: 'rgba(255, 0, 0, 0.1)',
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(2),
   },
   addressField: {
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
 });
 

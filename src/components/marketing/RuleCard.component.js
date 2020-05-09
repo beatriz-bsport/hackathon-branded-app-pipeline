@@ -21,17 +21,17 @@ export class RuleCard extends React.Component<{}> {
       <Grid
         container
         direction="row"
-        spacing={16}
+        spacing={2}
         justify="space-between"
         alignItems="flex-start"
       >
         <Grid item>
-          <Grid container direction="column" spacing={8}>
+          <Grid container direction="column" spacing={1}>
             <Grid item>
               <Typography>{t('marketing.conversionRate')}</Typography>
             </Grid>
             <Grid item>
-              <Grid container direction="row" spacing={8}>
+              <Grid container direction="row" spacing={1}>
                 <Grid item>
                   <RotateLeft color="primary" />
                 </Grid>
@@ -45,12 +45,12 @@ export class RuleCard extends React.Component<{}> {
           </Grid>
         </Grid>
         <Grid item>
-          <Grid container direction="column" spacing={8}>
+          <Grid container direction="column" spacing={1}>
             <Grid item>
               <Typography>{t('marketing.sales')}</Typography>
             </Grid>
             <Grid item>
-              <Grid container direction="row" spacing={8}>
+              <Grid container direction="row" spacing={1}>
                 <Grid item>
                   <Receipt color="primary" />
                 </Grid>
@@ -62,12 +62,12 @@ export class RuleCard extends React.Component<{}> {
           </Grid>
         </Grid>
         <Grid item>
-          <Grid container direction="column" spacing={8}>
+          <Grid container direction="column" spacing={1}>
             <Grid item>
               <Typography>{t('marketing.averageBuy')}</Typography>
             </Grid>
             <Grid item>
-              <Grid container direction="row" spacing={8}>
+              <Grid container direction="row" spacing={1}>
                 <Grid item>
                   <ShoppingCart color="primary" />
                 </Grid>
@@ -79,12 +79,12 @@ export class RuleCard extends React.Component<{}> {
           </Grid>
         </Grid>
         <Grid item>
-          <Grid container direction="column" spacing={8}>
+          <Grid container direction="column" spacing={1}>
             <Grid item>
               <Typography>{t('marketing.totalBuy')}</Typography>
             </Grid>
             <Grid item>
-              <Grid container direction="row" spacing={8}>
+              <Grid container direction="row" spacing={1}>
                 <Grid item>
                   <Stars color="primary" />
                 </Grid>
@@ -102,14 +102,14 @@ export class RuleCard extends React.Component<{}> {
   renderRuleActions = (rule) => {
     const { t } = this.props;
     return (
-      <Grid container direction="column" spacing={16}>
+      <Grid container direction="column" spacing={2}>
         <Grid item>
           <Typography variant="h6">{t('marketing.action')}</Typography>
         </Grid>
         <Grid item>
-          <Grid container direction="row" spacing={8} alignItems="flex-end">
+          <Grid container direction="row" spacing={1} alignItems="flex-end">
             <Grid item>
-              <Typography variant="body2">{rule.SMSSent}</Typography>
+              <Typography variant="body1">{rule.SMSSent}</Typography>
             </Grid>
             <Grid item>
               <Typography variant="caption">
@@ -119,9 +119,9 @@ export class RuleCard extends React.Component<{}> {
           </Grid>
         </Grid>
         <Grid item>
-          <Grid container direction="row" spacing={8} alignItems="flex-end">
+          <Grid container direction="row" spacing={1} alignItems="flex-end">
             <Grid item>
-              <Typography variant="body2">{rule.EmailSent}</Typography>
+              <Typography variant="body1">{rule.EmailSent}</Typography>
             </Grid>
             <Grid item>
               <Typography variant="caption">
@@ -131,9 +131,9 @@ export class RuleCard extends React.Component<{}> {
           </Grid>
         </Grid>
         <Grid item>
-          <Grid container direction="row" spacing={8} alignItems="flex-end">
+          <Grid container direction="row" spacing={1} alignItems="flex-end">
             <Grid item>
-              <Typography variant="body2">{rule.notificationSent}</Typography>
+              <Typography variant="body1">{rule.notificationSent}</Typography>
             </Grid>
             <Grid item>
               <Typography variant="caption">
@@ -143,9 +143,9 @@ export class RuleCard extends React.Component<{}> {
           </Grid>
         </Grid>
         <Grid item>
-          <Grid container direction="row" spacing={8} alignItems="flex-end">
+          <Grid container direction="row" spacing={1} alignItems="flex-end">
             <Grid item>
-              <Typography variant="body2">{rule.clientReached}</Typography>
+              <Typography variant="body1">{rule.clientReached}</Typography>
             </Grid>
             <Grid item>
               <Typography variant="caption">
@@ -161,7 +161,7 @@ export class RuleCard extends React.Component<{}> {
   renderRuleTriggers = (rule) => {
     const { t } = this.props;
     return (
-      <Grid container direction="column" spacing={16}>
+      <Grid container direction="column" spacing={2}>
         <Grid item>
           <Typography variant="h6">{t('marketing.criterias')}</Typography>
         </Grid>
@@ -170,7 +170,7 @@ export class RuleCard extends React.Component<{}> {
             <Grid
               container
               direction="row"
-              spacing={8}
+              spacing={1}
               alignItems="center"
               justify="space-between"
             >
@@ -247,10 +247,10 @@ export class RuleCard extends React.Component<{}> {
 
 const styles = (theme) => ({
   ruleTitle: {
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
   paperContainer: {
-    padding: theme.spacing.unit * 4,
+    padding: theme.spacing(4),
   },
   verticalDivider: {
     width: 1,
@@ -258,10 +258,10 @@ const styles = (theme) => ({
     backgroundColor: '#DDDDDD',
   },
   horizontalDivider: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
-    marginRight: -theme.spacing.unit * 4,
-    marginLeft: -theme.spacing.unit * 4,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    marginRight: -theme.spacing(4),
+    marginLeft: -theme.spacing(4),
   },
 });
 

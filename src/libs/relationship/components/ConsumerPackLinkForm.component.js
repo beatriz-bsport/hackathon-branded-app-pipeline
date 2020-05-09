@@ -107,13 +107,13 @@ export const ConsumerPackLinkForm = (props: Props) => {
 
 const styles = (theme) => ({
   title: {
-    paddingBottom: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing(2),
   },
   fullWidth: {
     width: '100%',
   },
   confirmText: {
-    paddingBottom: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing(2),
   },
   buttonContainer: {
     width: '100%',
@@ -121,7 +121,7 @@ const styles = (theme) => ({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    paddingTop: theme.spacing.unit,
+    paddingTop: theme.spacing(1),
   },
 });
 

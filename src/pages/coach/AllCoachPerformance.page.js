@@ -91,22 +91,22 @@ function CoachPerformance(props: CoachPerformanceProps) {
 
 const styles = (theme) => ({
   bar: {
-    width: `calc(100% + ${theme.spacing.unit * 6}px)`,
-    marginTop: -theme.spacing.unit * 2,
-    marginRight: -theme.spacing.unit * 3,
-    marginLeft: -theme.spacing.unit * 3,
-    marginBottom: theme.spacing.unit * 3,
-    padding: theme.spacing.unit * 2,
+    width: `calc(100% + ${theme.spacing(6)}px)`,
+    marginTop: -theme.spacing(2),
+    marginRight: -theme.spacing(3),
+    marginLeft: -theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    padding: theme.spacing(2),
   },
   performanceContainer: {
-    marginBottom: theme.spacing.unit,
-    marginTop: theme.spacing.unit * 4,
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(4),
   },
   container: {
-    marginBottom: theme.spacing.unit * 32,
+    marginBottom: theme.spacing(32),
   },
   generalLoader: {
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
 });
 

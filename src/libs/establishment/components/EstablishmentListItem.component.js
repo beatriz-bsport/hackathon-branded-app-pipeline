@@ -31,8 +31,9 @@ type Props = {
 
 const styles = (theme) => ({
   avatar: {
-    width: theme.spacing.unit * 7,
-    height: theme.spacing.unit * 7,
+    width: theme.spacing(7),
+    height: theme.spacing(7),
+    marginRight: theme.spacing(2),
   },
 });
 

@@ -63,10 +63,10 @@ export const PaymentComboBuyableItem = (props: Props) => {
 
 const styles = (theme) => ({
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   button: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 

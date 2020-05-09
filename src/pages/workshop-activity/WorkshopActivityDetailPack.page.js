@@ -188,32 +188,32 @@ export class WorkshopActivityDetailPacks extends Component<state, Props> {
 
 const styles = (theme) => ({
   header: {
-    paddingBottom: theme.spacing.unit,
+    paddingBottom: theme.spacing(1),
   },
   panel: {
     width: '100%',
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
   },
   typographyContainer: {
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
     display: 'flex',
     justifyContent: 'center',
   },
   container: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   emptyMessageContainer: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: theme.spacing.unit * 4,
+    marginTop: theme.spacing(4),
   },
   emptyMessageText: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   emptyContainer: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     backgroundColor: 'F8F8F8',
   },
 });

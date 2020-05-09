@@ -37,7 +37,7 @@ const styles = (theme) => ({
     flexDirection: 'column',
     backgroundColor: '#efefef',
     overflow: 'auto',
-    paddingTop: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(2),
     paddingBottom: '20vh',
   },
   paper: {
@@ -45,7 +45,7 @@ const styles = (theme) => ({
     justifyContent: 'flex-start',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
 });
 

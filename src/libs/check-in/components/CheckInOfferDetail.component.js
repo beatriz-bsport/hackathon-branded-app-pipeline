@@ -134,7 +134,7 @@ export class CheckInOffer extends Component<Props> {
                 ))}
               </List>
               {(members || []).length === 0 && !this.props.bookingLoading ? (
-                <Typography variant="body1" color="textSecondary">
+                <Typography variant="body2" color="textSecondary">
                   {t('offerDetail.emptyList')}
                 </Typography>
               ) : null}
@@ -172,24 +172,24 @@ const style = (theme) => ({
     width: '100%',
     display: 'flex',
     flexDirection: 'row',
-    paddingBottom: theme.spacing.unit * 12,
+    paddingBottom: theme.spacing(12),
   },
   panelContainer: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     height: '100%',
   },
   leftIcon: {
-    marginRight: theme.spacing.unit * 2,
+    marginRight: theme.spacing(2),
   },
   registerButton: {
     position: 'fixed',
-    bottom: theme.spacing.unit * 2,
-    right: theme.spacing.unit * 2,
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
   },
   backButton: {
     position: 'fixed',
-    bottom: theme.spacing.unit * 2,
-    left: theme.spacing.unit * 2,
+    bottom: theme.spacing(2),
+    left: theme.spacing(2),
   },
   memberList: {
     width: '60%',
@@ -199,9 +199,9 @@ const style = (theme) => ({
     borderRight: `1px solid ${theme.palette.grey[200]}`,
   },
   registerListItem: {
-    marginBottom: theme.spacing.unit / 3,
-    paddingLeft: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
+    marginBottom: theme.spacing(1) / 3,
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
     border: `2px solid ${theme.palette.primary.main}`,
     borderRadius: theme.shape.borderRadius,
   },

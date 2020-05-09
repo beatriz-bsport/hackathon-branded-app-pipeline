@@ -213,24 +213,24 @@ const styles = (theme) => ({
   },
   recap: {
     backgroundColor: '#F8F8F8',
-    padding: theme.spacing.unit * 2,
-    borderRadius: theme.spacing.unit,
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
+    padding: theme.spacing(2),
+    borderRadius: theme.spacing(1),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
   voucherFields: {
-    padding: theme.spacing.unit * 2,
-    margin: theme.spacing.unit,
+    padding: theme.spacing(2),
+    margin: theme.spacing(1),
     marginLeft: 0,
     border: '1px solid #DDDDDD',
     borderRadius: 6,
   },
   field: {
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
   inlineField: {
-    marginRight: theme.spacing.unit,
-    marginTop: theme.spacing.unit,
+    marginRight: theme.spacing(1),
+    marginTop: theme.spacing(1),
   },
   selector: {
     width: 260,

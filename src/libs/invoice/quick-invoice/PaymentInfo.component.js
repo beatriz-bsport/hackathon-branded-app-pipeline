@@ -152,19 +152,19 @@ export function PaymentInfo(props: Props) {
 
 const styles = (theme) => ({
   paymentContainer: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   finalPaymentLine: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
   },
   iconLeft: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   buttonsWrapper: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
   },
   padding: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
   },
 });
 

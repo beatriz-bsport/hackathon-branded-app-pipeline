@@ -76,7 +76,7 @@ export class SubShopList extends Component<Props, State> {
     const { editMode, newName } = this.state;
     if (editMode) {
       return (
-        <Grid container direction="row" spacing={8} alignItems="center">
+        <Grid container direction="row" spacing={1} alignItems="center">
           <Grid item>
             <TextField
               autoFocus
@@ -110,7 +110,7 @@ export class SubShopList extends Component<Props, State> {
           </Typography>
         </Grid>
         <Grid item>
-          <Grid container direction="row" spacing={16}>
+          <Grid container direction="row" spacing={2}>
             <Grid item>
               <IconButton onClick={this.toogleEditMode}>
                 <EditIcon />
@@ -178,16 +178,16 @@ export class SubShopList extends Component<Props, State> {
 
 const styles = (theme) => ({
   addIcon: {
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing(2),
     height: 64,
     width: 64,
   },
   title: {
-    marginTop: theme.spacing.unit * 3,
-    marginBottom: theme.spacing.unit,
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(1),
   },
   divider: {
-    marginBottom: theme.spacing.unit * 3,
+    marginBottom: theme.spacing(3),
   },
 });
 

@@ -24,13 +24,13 @@ const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
 
 const styles = (theme) => ({
   doNotBookPast: {
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing(2),
   },
   offerTitle: {
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
   onlyForNewMember: {
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing(2),
   },
 });
 
@@ -122,7 +122,7 @@ export class PaymentPackPayment extends Component<Props> {
 
   render() {
     return (
-      <Grid container spacing={16} direction="column">
+      <Grid container spacing={2} direction="column">
         <Grid item>{this.getBasket()}</Grid>
         <Grid item>{this.renderStripeForm()}</Grid>
       </Grid>

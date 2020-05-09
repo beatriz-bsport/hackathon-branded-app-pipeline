@@ -128,7 +128,7 @@ const styles = (theme) => ({
     justifyContent: 'center',
   },
   caption: {
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
   },
 });
 

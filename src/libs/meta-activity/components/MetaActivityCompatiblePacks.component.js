@@ -34,7 +34,7 @@ export function CompatiblePaymentPacks(props: Props) {
     <div>
       <List className={props.classes.list}>
         <div className={props.classes.typographyContainer}>
-          <Typography variant="body2" className={props.classes.helperText}>
+          <Typography variant="body1" className={props.classes.helperText}>
             {props.t('forms.create.compatible_packs.passHelperText')}
           </Typography>
         </div>
@@ -95,18 +95,18 @@ export function CompatiblePaymentPacks(props: Props) {
 
 const styles = (theme) => ({
   list: {
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing(2),
   },
   emptyContainer: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     backgroundColor: 'F8F8F8',
   },
   helperText: {
-    marginLeft: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
   typographyContainer: {
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
     display: 'flex',
     justifyContent: 'center',
   },
@@ -115,12 +115,12 @@ const styles = (theme) => ({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
   },
   button: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
-    marginRight: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    marginRight: theme.spacing(2),
   },
 });
 

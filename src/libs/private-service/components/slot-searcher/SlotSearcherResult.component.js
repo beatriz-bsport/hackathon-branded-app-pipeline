@@ -26,7 +26,7 @@ const stylesSlot = (theme) => ({
     justifyContent: 'space-between',
     alignItems: 'flex-start',
     width: '100%',
-    paddingBottom: theme.spacing.unit,
+    paddingBottom: theme.spacing(1),
   },
   column: {
     display: 'flex',
@@ -37,21 +37,21 @@ const stylesSlot = (theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
-    paddingBottom: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing(2),
   },
   slot: {
-    margin: theme.spacing.unit,
-    marginBottom: theme.spacing.unit * 2,
+    margin: theme.spacing(1),
+    marginBottom: theme.spacing(2),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   divider: {
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
   slotGroupContainer: {
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
 });
 const Slot = withStyles(stylesSlot)(
@@ -256,14 +256,14 @@ export const SlotSearcherResult = (props: Props) => {
 
 const styles = (theme) => ({
   container: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   resultPaper: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     paddingBottom: 0,
   },
   loadingContainer: {
-    paddingTop: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(2),
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -271,16 +271,16 @@ const styles = (theme) => ({
     width: '100%',
   },
   slotGroupContainer: {
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
   row: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 

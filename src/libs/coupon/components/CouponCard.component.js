@@ -136,8 +136,8 @@ export const CouponCard = (props: Props) => {
 
 const styles = (theme) => ({
   paperContainer: {
-    padding: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit,
+    padding: theme.spacing(2),
+    paddingBottom: theme.spacing(1),
     width: '100%',
   },
   headline: {
@@ -147,7 +147,7 @@ const styles = (theme) => ({
     alignItems: 'flex-start',
   },
   isActiveIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   headlineRight: {
     display: 'flex',

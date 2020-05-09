@@ -65,7 +65,7 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
       subscriptionData,
     );
     return (
-      <Grid container spacing={16}>
+      <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <Typography variant="h5" className={classes.title}>
             {t('subscription:schedule.provisionalTitle')}
@@ -98,30 +98,30 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
 
 const styles = (theme) => ({
   title: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   buttonContainer: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   sensitiveData: {
     backgroundColor: '#EFEFEF',
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   paymentMethodSelectorContainer: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'flex-start',
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
   nameAndEmailContainer: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing(2),
   },
   mandate: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
 });
 

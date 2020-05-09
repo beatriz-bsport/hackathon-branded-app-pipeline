@@ -101,9 +101,9 @@ export const ConsumerDebtRegularizerDialog = (props: Props) => {
 const styles = (theme) => ({
   priceContainer: {
     backgroundColor: '#F8F8F8',
-    padding: theme.spacing.unit * 4,
-    borderRadius: theme.spacing.unit * 4,
-    margin: theme.spacing.unit * 2,
+    padding: theme.spacing(4),
+    borderRadius: theme.spacing(4),
+    margin: theme.spacing(2),
     minWidth: 280,
     display: 'flex',
     flexDirection: 'row',
@@ -115,13 +115,13 @@ const styles = (theme) => ({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
-    marginTop: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(2),
     border: '1px solid red',
   },
   buttonContainer: {
-    marginLeft: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(2),
   },
   row: {
     display: 'flex',
@@ -129,8 +129,8 @@ const styles = (theme) => ({
     alignItems: 'center',
   },
   contentExplain: {
-    margin: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 4,
+    margin: theme.spacing(2),
+    marginBottom: theme.spacing(4),
   },
 });
 

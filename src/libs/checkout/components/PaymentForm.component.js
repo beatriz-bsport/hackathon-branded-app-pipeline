@@ -39,14 +39,14 @@ const styles = (theme) => ({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'flex-start',
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
   payButtonContainer: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-end',
     width: '100%',
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
   },
 });
 

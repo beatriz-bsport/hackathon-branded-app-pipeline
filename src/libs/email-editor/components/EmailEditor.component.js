@@ -184,21 +184,21 @@ export class EmailEditorPanel extends Component<Props, State> {
 
 const styles = (theme) => ({
   field: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
   },
   paper: {
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
     display: 'flex',
     flexDirection: 'column',
   },
   button: {
-    marginLeft: theme.spacing.unit,
-    marginTop: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
+    marginTop: theme.spacing(1),
   },
   buttonsContainer: {
     display: 'flex',
     justifyContent: 'flex-end',
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
 });
 

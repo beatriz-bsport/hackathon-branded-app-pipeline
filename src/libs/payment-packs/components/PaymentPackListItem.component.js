@@ -38,7 +38,7 @@ const styles = (theme) => ({
     fontSize: 11,
   },
   bookButton: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 

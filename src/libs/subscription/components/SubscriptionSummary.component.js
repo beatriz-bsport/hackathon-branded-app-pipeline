@@ -73,25 +73,35 @@ export function SubscriptionSummary(props: Props) {
       <fieldset className={classes.parameters}>
         <legend>{t('parameters.parameters')}</legend>
         <div className={classes.field}>
-          <Typography inline>{t('parameters.nbInterval')}</Typography>
+          <Typography variant="body2" inline>
+            {t('parameters.nbInterval')}
+          </Typography>
           <Typography inline>{subscription.nb_interval}</Typography>
         </div>
         <div className={classes.field}>
-          <Typography inline>{t('parameters.recurrent_price')}</Typography>
+          <Typography variant="body2" inline>
+            {t('parameters.recurrent_price')}
+          </Typography>
           <Typography inline>{subscription.recurrent_price} €</Typography>
         </div>
         <div className={classes.field}>
-          <Typography inline>{t('parameters.flat_fee')}</Typography>
+          <Typography variant="body2" inline>
+            {t('parameters.flat_fee')}
+          </Typography>
           <Typography inline>{subscription.flat_fee} €</Typography>
         </div>
         <div className={classes.field}>
-          <Typography inline>{t('parameters.payment_method.label')}</Typography>
+          <Typography variant="body2" inline>
+            {t('parameters.payment_method.label')}
+          </Typography>
           <Typography inline>
             {t(`parameters.payment_method.${subscription.payment_method}`)}
           </Typography>
         </div>
         <div className={classes.fieldNotPadded}>
-          <Typography inline>{props.t('parameters.autoRenew')}</Typography>
+          <Typography variant="body2" inline>
+            {props.t('parameters.autoRenew')}
+          </Typography>
           <Checkbox
             checked={props.subscription.auto_renewal}
             disabled={props.loading || !subscription.editable}
@@ -103,16 +113,18 @@ export function SubscriptionSummary(props: Props) {
           />
         </div>
         <div className={classes.fieldNotPadded}>
-          <Typography inline>{t('parameters.payment_pack')}</Typography>
+          <Typography variant="body2" inline>
+            {t('parameters.payment_pack')}
+          </Typography>
           <div className={classes.rowRight}>
             <IconButton
               color="primary"
-	      onClick={props.requestPaymentPackSwitch}
-	      disabled={!subscription.editable}
+              onClick={props.requestPaymentPackSwitch}
+              disabled={!subscription.editable}
             >
               <EditIcon />
             </IconButton>
-            <Typography inline>
+            <Typography variant="body2" inline>
               {subscription.payment_pack
                 ? subscription.payment_pack.name
                 : ' - '}
@@ -121,7 +133,9 @@ export function SubscriptionSummary(props: Props) {
         </div>
 
         <div className={classes.field}>
-          <Typography inline>{props.t('parameters.status')}</Typography>
+          <Typography variant="body2" inline>
+            {props.t('parameters.status')}
+          </Typography>
           {renderStatus(
             t,
             subscription.canceled_at,
@@ -136,25 +150,25 @@ export function SubscriptionSummary(props: Props) {
 
 const styles = (theme) => ({
   container: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
   },
   field: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
   },
   fieldNotPadded: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingLeft: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
   },
   parameters: {},
   statusContainer: {
-    marginTop: theme.spacing.unit * 2,
-    padding: theme.spacing.unit,
+    marginTop: theme.spacing(2),
+    padding: theme.spacing(1),
     border: '1px solid #DDDDDD',
     backgroundColor: '#F8F8F8',
     display: 'flex',
@@ -169,12 +183,12 @@ const styles = (theme) => ({
     justifyContent: 'flex-end',
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   bottomButtonsContainer: {
     display: 'flex',
     justifyContent: 'space-between',
-    paddingTop: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(2),
     right: 0,
   },
 });

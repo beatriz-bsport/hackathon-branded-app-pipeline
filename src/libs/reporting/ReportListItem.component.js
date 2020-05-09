@@ -64,7 +64,7 @@ const styles = (theme) => ({
     border: '1px solid #E1E1E1',
   },
   name: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 

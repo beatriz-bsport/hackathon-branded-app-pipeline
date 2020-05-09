@@ -326,26 +326,26 @@ export class PrivateBookingManagerForm extends React.Component<Props, State> {
 
 const styles = (theme) => ({
   sectionTitle: {
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit,
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(1),
   },
   loadingContainer: {
-    marginTop: theme.spacing.unit * 3,
-    marginBottom: theme.spacing.unit,
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(1),
   },
   pleaseSelectStuff: {
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
   },
   infoIcon: {
     height: 40,
     width: 40,
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   refreshButtonContainer: {
     display: 'flex',
@@ -353,8 +353,8 @@ const styles = (theme) => ({
     justifyContent: 'center',
   },
   addressField: {
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
 });
 

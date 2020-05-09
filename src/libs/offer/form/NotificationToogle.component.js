@@ -15,7 +15,7 @@ type Props = {
 
 export function NotificationToogle(props: Props) {
   return (
-    <Grid container direction="row" spacing={16} alignItems="center">
+    <Grid container direction="row" spacing={2} alignItems="center">
       <Grid item>
         <Switch
           color="primary"

@@ -8,17 +8,17 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
-import { withNamespaces } from 'react-i18next';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { makeStyles } from '@material-ui/core/styles';
 
 import type { TFunction } from 'react-i18next';
+import moment from 'moment';
 import MarketplaceBookButton from './MarketplaceBookButton.component';
 import Level from '../../../components/category/Level.component';
 
-import { formatMinutes, formatAsTime } from '../../../datetime';
+import { formatAsTime } from '../../../datetime';
 import CoachAvatar from '../../associated-coach/components/CoachAvatar.component';
 import { isOfferInThePast } from '../utils';
 
@@ -36,8 +36,10 @@ type Props = {
 };
 
 export const MarketplaceOffer = (props: Props) => {
-  const { t, offer, selected, onClickOffer, classes } = props;
+  const { t, offer, selected, onClickOffer } = props;
   const { available } = offer;
+  const classes = useStyles();
+
   const isInThePast = isOfferInThePast(offer);
 
   /* eslint-disable */
@@ -74,12 +76,14 @@ export const MarketplaceOffer = (props: Props) => {
           : '#FFFFFF00',
       }}
     >
-      <ListItemAvatar>
-        <CoachAvatar
-          coach={offer.coach}
-          coach_override={offer.coach_override}
-        />
-      </ListItemAvatar>
+      <Hidden smDown>
+        <ListItemAvatar>
+          <CoachAvatar
+            coach={offer.coach}
+            coach_override={offer.coach_override}
+          />
+        </ListItemAvatar>
+      </Hidden>
       <ListItemText
         primary={
           <div className={classes.primaryTextContainer}>
@@ -92,16 +96,12 @@ export const MarketplaceOffer = (props: Props) => {
                   {`${metaActivityName} ${formatAsTime(
                     offer.date_start,
                     offer.establishment.tzname,
-                  )} -
-                  `}
+                  )}-${formatAsTime(
+                    moment(offer.date_start).add(offer.duration_minute),
+                    offer.establishment.tzname,
+                  )}`}
                 </Typography>
               )}
-              <Typography inline style={{ marginLeft: '4px' }}>
-                {formatMinutes(offer.duration_minute, t)}
-                {props.showOfferFilling
-                  ? `(${offer.tot_slots}/${offer.effectif})`
-                  : null}
-              </Typography>
             </div>
             <div className={classes.levelCoachContainer}>
               <Level
@@ -115,7 +115,11 @@ export const MarketplaceOffer = (props: Props) => {
                 inline
                 variant="caption"
               >
-                {`  ${coachName}`}
+                {`  ${coachName} ${
+                  props.showOfferFilling
+                    ? `(${offer.tot_slots}/${offer.effectif})`
+                    : null
+                }`}
               </Typography>
             </div>
           </div>
@@ -150,20 +154,17 @@ export const MarketplaceOffer = (props: Props) => {
   );
 };
 
-const styles = (theme) => {
-  return {
-    primaryTextContainer: { flexDirection: 'column', alignItems: 'flex-start' },
-    inlineContainer: { alignItems: 'center', display: 'flex' },
-    icon: { marginRight: theme.spacing.unit * 2 },
-    levelCoachContainer: {
-      flexDirection: 'row',
-      justifyContent: 'flex-start',
-      alignItems: 'center',
-      display: 'flex',
-    },
-    coachName: { marginLeft: theme.spacing.unit * 2 },
-  };
-};
-export default withStyles(styles)(
-  withNamespaces(['datetime'])(MarketplaceOffer),
-);
+const useStyles = makeStyles((theme) => ({
+  primaryTextContainer: { flexDirection: 'column', alignItems: 'flex-start' },
+  inlineContainer: { alignItems: 'center', display: 'flex' },
+  icon: { marginRight: theme.spacing(2) },
+  levelCoachContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    display: 'flex',
+  },
+  coachName: { marginLeft: theme.spacing(2) },
+}));
+
+export default MarketplaceOffer;

@@ -108,7 +108,7 @@ export const RelationSummary = (props: Props) => {
 
 const styles = (theme) => ({
   title: {
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
   loadingContainer: {
     width: '100%',
@@ -125,27 +125,27 @@ const styles = (theme) => ({
     alignItems: 'center',
   },
   emptyText: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     paddingLeft: 0,
   },
   container: {
     width: '100%',
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   nothingSelectedContainer: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: theme.spacing.unit * 4,
+    marginTop: theme.spacing(4),
   },
   emptyMessageText: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   addButton: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
 });
 

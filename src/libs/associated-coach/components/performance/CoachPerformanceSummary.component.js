@@ -21,7 +21,7 @@ export function CoachPerformanceSummary(props: Props) {
   const { nbBookings, nbSessions, total, classes, t } = props;
 
   return (
-    <Grid container direction="row" spacing={16} className={classes.root}>
+    <Grid container direction="row" spacing={2} className={classes.root}>
       <Grid item xs={12} md={4} id="nbOffersTotal">
         <Figure
           name={t('performance.nbOffersTotal')}
@@ -49,8 +49,8 @@ export function CoachPerformanceSummary(props: Props) {
 
 const styles = (theme) => ({
   root: {
-    paddingTop: theme.spacing.unit * 1,
-    paddingBottom: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(1) * 1,
+    paddingBottom: theme.spacing(2),
   },
 });
 

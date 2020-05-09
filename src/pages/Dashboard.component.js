@@ -142,7 +142,7 @@ export function Dashboard(props: Props) {
         />
       </AppBar>
       <div className={classes.block}>
-        <Grid container direction="row" spacing={16}>
+        <Grid container direction="row" spacing={2}>
           {stats1.map((stat) => {
             return (
               <Grid key={stat.name} item xs={12} md={4}>
@@ -195,26 +195,26 @@ export function Dashboard(props: Props) {
 const styles = (theme) => ({
   container: {},
   statPaper: {
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing(3),
   },
   headerButton: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
   },
   header: {
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
   block: {
-    marginBottom: theme.spacing.unit * 4,
+    marginBottom: theme.spacing(4),
   },
   title: {
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
   bar: {
-    width: `calc(100% + ${theme.spacing.unit * 6}px)`,
-    marginTop: -theme.spacing.unit * 2,
-    marginRight: -theme.spacing.unit * 3,
-    marginLeft: -theme.spacing.unit * 3,
-    marginBottom: theme.spacing.unit * 3,
+    width: `calc(100% + ${theme.spacing(6)}px)`,
+    marginTop: -theme.spacing(2),
+    marginRight: -theme.spacing(3),
+    marginLeft: -theme.spacing(3),
+    marginBottom: theme.spacing(3),
   },
   mainChartPaper: {
     borderRadius: '0 0 4px 4px',

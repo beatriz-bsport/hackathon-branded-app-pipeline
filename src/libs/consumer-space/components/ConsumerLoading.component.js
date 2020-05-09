@@ -20,7 +20,7 @@ const styles = (theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: theme.spacing.unit * 4,
+    marginTop: theme.spacing(4),
     width: '100vw',
   },
 });

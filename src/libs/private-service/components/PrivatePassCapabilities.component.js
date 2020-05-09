@@ -104,14 +104,14 @@ export const PrivatePassCapabilities = (props: Props) => {
 
 const styles = (theme) => ({
   sectionTitle: {
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit,
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(1),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   divider: {
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
   refreshButtonContainer: {
     width: '100%',

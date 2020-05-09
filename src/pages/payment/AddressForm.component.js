@@ -68,10 +68,10 @@ const styles = (theme) => ({
     alignItems: 'flex-start',
   },
   button: {
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
   },
   content: {
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
 });
 

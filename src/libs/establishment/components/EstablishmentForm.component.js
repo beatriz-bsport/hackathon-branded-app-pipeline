@@ -104,7 +104,7 @@ export class EstablishmentForm extends Component<Props, State> {
       return <CircularProgress />;
     }
     return (
-      <Grid container item direction="row" justify="flex-end" spacing={16}>
+      <Grid container item direction="row" justify="flex-end" spacing={2}>
         <Button variant="contained" color="primary" type="submit">
           {this.props.t('form.send')}
         </Button>
@@ -123,7 +123,7 @@ export class EstablishmentForm extends Component<Props, State> {
             initial={this.state.cover}
           />
           <div className={classes.container}>
-            <Grid container spacing={16}>
+            <Grid container spacing={2}>
               <Grid item xs={12}>
                 <FormField
                   id="title"
@@ -217,7 +217,7 @@ const styles = (theme) => ({
     margin: '0 auto',
   },
   container: {
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing(3),
   },
 });
 export default withStyles(styles)(withNamespaces()(EstablishmentForm));

@@ -59,16 +59,16 @@ const styles = (theme) => ({
     alignItems: 'center',
     border: '2px solid #E2E2E2',
     backgroundColor: theme.palette.common.white,
-    borderRadius: theme.spacing.unit * 2,
-    paddingLeft: theme.spacing.unit * 2,
-    paddingRight: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
+    borderRadius: theme.spacing(2),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
   input: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: -theme.spacing.unit * 2,
+    marginTop: -theme.spacing(2),
   },
 });
 

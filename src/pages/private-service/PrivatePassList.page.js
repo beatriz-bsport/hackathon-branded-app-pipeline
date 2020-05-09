@@ -158,17 +158,17 @@ export class PrivatePassList extends React.Component<Props> {
 
 const styles = (theme) => ({
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   addButton: {
     position: 'fixed',
-    bottom: theme.spacing.unit * 2,
-    right: theme.spacing.unit * 2,
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
   },
   leftPanel: {
-    paddingBottom: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing(2),
     [theme.breakpoints.up('md')]: {
-      paddingRight: theme.spacing.unit * 2,
+      paddingRight: theme.spacing(2),
     },
   },
 });

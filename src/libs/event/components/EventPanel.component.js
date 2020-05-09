@@ -132,7 +132,7 @@ export class SubscriptionEventPanel extends React.Component<Props, State> {
 const styles = (theme) => ({
   row: {
     display: 'flex',
-    paddingLeft: theme.spacing.unit * 2,
+    paddingLeft: theme.spacing(2),
     alignItems: 'center',
     justifyContent: 'space-between',
   },
@@ -140,12 +140,12 @@ const styles = (theme) => ({
     flexWrap: 'wrap',
     backgroundColor: '#F8F8F8',
     display: 'flex',
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
     alignItems: 'center',
     justifyContent: 'flex-start',
     maxWidth: '100%',
     '& > *': {
-      margin: theme.spacing.unit / 2,
+      margin: theme.spacing(1) / 2,
     },
   },
 });

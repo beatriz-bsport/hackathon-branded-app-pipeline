@@ -17,10 +17,10 @@ import type { Coach } from '../../api/types';
 const styles = (theme) => ({
   formControlLarge: {
     minWidth: 200,
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   chip: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
   },
 });
 

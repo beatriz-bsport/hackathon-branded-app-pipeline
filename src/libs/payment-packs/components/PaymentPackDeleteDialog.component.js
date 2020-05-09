@@ -75,14 +75,14 @@ export function PaymentPackDeleteDialog(props: Props) {
 
 const styles = (theme) => ({
   warningIcon: {
-    marginRight: theme.spacing.unit * 2,
+    marginRight: theme.spacing(2),
   },
   framed: {
     border: '2px solid #E8E8E8',
   },
   warningMessage: {
     backgroundColor: '#F8F8F8',
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'row',

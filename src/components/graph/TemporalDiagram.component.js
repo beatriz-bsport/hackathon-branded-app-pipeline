@@ -77,7 +77,7 @@ export const TemporalStatistic = React.memo((props: Props) => {
 
 const styles = (theme) => ({
   block: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   title: {
     display: 'flex',

@@ -147,7 +147,7 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
           favoriteEstablishment={this.props.favoriteEstablishment}
           goToCalendar={this.props.goToCalendar}
         />
-        <Grid container direction="row" spacing={16}>
+        <Grid container direction="row" spacing={2}>
           <Grid item xs={12} md={6}>
             <ConsumerDashboardBookingPanel
               goToCalendar={this.props.goToCalendar}
@@ -199,19 +199,19 @@ const styles = (theme) => ({
   container: {},
   header: {
     display: 'flex',
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
     flexDirection: 'row',
     justifyContent: 'flex-end',
   },
   iconLeft: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   statRow: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    marginBottom: theme.spacing.unit * 3,
+    marginBottom: theme.spacing(3),
   },
 });
 

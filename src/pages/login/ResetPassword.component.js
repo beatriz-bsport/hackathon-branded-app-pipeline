@@ -171,9 +171,9 @@ export class ResetPassword extends Component<Props, State> {
 
 const styles = (theme) => ({
   container: {
-    margin: theme.spacing.unit * 4,
+    margin: theme.spacing(4),
   },
-  textBlock: { marginBottom: theme.spacing.unit },
+  textBlock: { marginBottom: theme.spacing(1) },
 });
 
 export default compose(

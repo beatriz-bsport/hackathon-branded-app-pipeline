@@ -129,14 +129,14 @@ export const Settings = (props: Props) => {
 const styles = (theme) => ({
   container: {
     maxWidth: '100vw',
-    marginTop: -theme.spacing.unit * 2,
+    marginTop: -theme.spacing(2),
     [theme.breakpoints.up('md')]: {
-      marginLeft: -theme.spacing.unit * 3,
-      marginRight: -theme.spacing.unit * 3,
+      marginLeft: -theme.spacing(3),
+      marginRight: -theme.spacing(3),
     },
   },
   appBar: {
-    marginTop: -theme.spacing.unit * 2,
+    marginTop: -theme.spacing(2),
     width: '100%',
     [theme.breakpoints.up('md')]: {
       width: `calc(100vw - ${drawerWidth}px)`,

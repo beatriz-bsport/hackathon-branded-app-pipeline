@@ -164,7 +164,7 @@ export class MultipleSelect extends Component<Props, State> {
               root: classes.listItemTextRoot,
             }}
             primary={
-              <Typography variant="body1">{this.renderValue()}</Typography>
+              <Typography variant="body2">{this.renderValue()}</Typography>
             }
           />
           <ArrowDropDownIcon style={{ color: '#757575' }} />
@@ -302,38 +302,38 @@ const styles = (theme) => ({
   menuItem: {
     display: 'flex',
     justifyContent: 'space-between',
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
   loadingContainer: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
   },
   listItemTextRoot: {
     paddingRight: '0px',
   },
   selector: {
-    paddingRight: theme.spacing.unit * 2,
+    paddingRight: theme.spacing(2),
   },
   textField: {
-    padding: theme.spacing.unit / 8,
+    padding: theme.spacing(1) / 8,
   },
   gutters: { paddingLeft: '0px' },
   searchBar: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
   },
   root: {
     paddingRight: '0px',
-    paddingBottom: theme.spacing.unit / 4,
-    paddingTop: (theme.spacing.unit * 3) / 8,
-    marginLeft: theme.spacing.unit,
+    paddingBottom: theme.spacing(1) / 4,
+    paddingTop: (theme.spacing(3)) / 8,
+    marginLeft: theme.spacing(1),
   },
   divider: { borderBottom: '1px solid #909090' },
   ListItemButton: { padding: '0px', margin: '0px' },
   searchIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 

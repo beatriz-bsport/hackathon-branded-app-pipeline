@@ -114,8 +114,8 @@ class ResponsiveDrawer extends React.Component<Props, State> {
               <item.icon />
             </ListItemIcon>
             <ListItemText
-              inset
               primary={item.text}
+              primaryTypographyProps={{ color: 'initial' }}
               secondary={item.subtext}
               secondaryTypographyProps={{
                 style: { color: colors.primaryDark },
@@ -164,6 +164,9 @@ class ResponsiveDrawer extends React.Component<Props, State> {
           <ListItemText
             primary={item.text}
             secondary={item.subtext}
+            primaryTypographyProps={{
+              style: { color: 'initial' },
+            }}
             secondaryTypographyProps={{ style: { color: colors.primaryDark } }}
           />
         </ListItem>
@@ -489,19 +492,19 @@ const styles = (theme) => ({
     backgroundColor: theme.palette.background.default,
     width: '100%',
     [theme.breakpoints.up('md')]: {
-      paddingLeft: theme.spacing.unit * 3,
-      paddingRight: theme.spacing.unit * 3,
+      paddingLeft: theme.spacing(3),
+      paddingRight: theme.spacing(3),
     },
-    paddingBottom: theme.spacing.unit,
-    paddingTop: theme.spacing.unit * 10,
+    paddingBottom: theme.spacing(1),
+    paddingTop: theme.spacing(10),
   },
   logo: {
     alignItems: 'center',
     justify: 'center',
   },
   searchBar: {
-    marginRight: theme.spacing.unit,
-    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing(1),
+    marginLeft: theme.spacing(1),
     width: 200,
     [theme.breakpoints.down('sm')]: {
       display: 'none',
@@ -515,11 +518,11 @@ const styles = (theme) => ({
     width: '100%',
   },
   nestedIcon: {
-    marginLeft: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(2),
   },
   title: {
     [theme.breakpoints.down('sm')]: {
-      paddingLeft: theme.spacing.unit * 4,
+      paddingLeft: theme.spacing(4),
     },
   },
 });

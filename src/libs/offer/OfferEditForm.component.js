@@ -220,7 +220,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
         justify="flex-end"
         alignItems="center"
         direction="row"
-        spacing={16}
+        spacing={2}
       >
         <Grid item onClick={onCancel}>
           <Button onClick={onCancel}>{t('common.cancel')}</Button>
@@ -270,7 +270,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
         justify="flex-end"
         alignItems="center"
         direction="row"
-        spacing={16}
+        spacing={2}
       >
         <Grid item onClick={onCancel}>
           <Button onClick={onCancel}>{t('common.cancel')}</Button>
@@ -302,7 +302,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
   };
 
   renderWarning = () => (
-    <Grid container direction="column" spacing={16}>
+    <Grid container direction="column" spacing={2}>
       <Grid item>
         <Typography>{this.props.t('form.offer.warningPackonEdit')}</Typography>
       </Grid>
@@ -547,7 +547,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
   );
 
   renderConfirmChange = () => (
-    <Grid container direction="column" spacing={32}>
+    <Grid container direction="column" spacing={4}>
       <Grid item>
         <Typography variant="h6" className={this.props.classes.subtitle}>
           {this.props.t('calendar.modifyOffer')}
@@ -571,14 +571,14 @@ export class EditLiveOfferForm extends Component<Props, State> {
 }
 
 const styles = (theme) => ({
-  subtitle: { marginBottom: theme.spacing.unit },
-  fieldGroup: { marginBottom: theme.spacing.unit * 4 },
+  subtitle: { marginBottom: theme.spacing(1) },
+  fieldGroup: { marginBottom: theme.spacing(4) },
   fieldLeft: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
   field: {
-    marginLeft: theme.spacing.unit,
-    marginTop: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(1),
+    marginTop: theme.spacing(2),
     width: '100%',
   },
   columnFullWidth: {
@@ -591,7 +591,7 @@ const styles = (theme) => ({
     backgroundColor: theme.palette.primary.main,
     heigth: '100%',
     width: '2.8px',
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   groupContainer: {
     display: 'flex',

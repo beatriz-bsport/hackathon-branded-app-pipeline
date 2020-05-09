@@ -100,13 +100,13 @@ const styles = (theme) => ({
     bottom: 0,
   },
   image: {
-    height: 20 * theme.spacing.unit,
+    height: 20 * theme.spacing(1),
     border: '2px solid #E0E0E0',
     objectFit: 'contain',
   },
   dropzone: {
     position: 'relative',
-    height: 20 * theme.spacing.unit,
+    height: 20 * theme.spacing(1),
     backgroundColor: '#F7F7F7',
     cursor: 'pointer',
   },

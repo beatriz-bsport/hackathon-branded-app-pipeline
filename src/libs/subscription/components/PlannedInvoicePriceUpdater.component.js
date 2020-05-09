@@ -59,16 +59,16 @@ export const PlannedInvoicePriceUpdater = (props: Props) => {
 
 const styles = (theme) => ({
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   row: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
     backgroundColor: '#EFEFEF',
-    borderRadius: theme.spacing.unit,
-    marginTop: theme.spacing.unit,
+    borderRadius: theme.spacing(1),
+    marginTop: theme.spacing(1),
   },
 });
 

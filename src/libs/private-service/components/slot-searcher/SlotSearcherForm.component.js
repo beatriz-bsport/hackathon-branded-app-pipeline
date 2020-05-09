@@ -247,26 +247,6 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
             </BasePicker>
           </MuiPickersUtilsProvider>
         ) : null}
-        {this.props.searchAvailableSlots ? (
-          <div className={classes.buttonContainer}>
-            <Button
-              variant="outlined"
-              disabled={
-                !this.state.service_selected ||
-                !this.state.slot_selected ||
-                !this.state.date_selected ||
-                (coachResourceState.needChoice &&
-                  !coachResourceState.hasChosen) ||
-                (establishmentResourceState.needChoice &&
-                  !establishmentResourceState.hasChosen)
-              }
-              onClick={() => this.doSearch()}
-            >
-              <SearchIcon className={classes.leftIcon} />
-              {t('slotSearcher.search')}
-            </Button>
-          </div>
-        ) : null}
       </div>
     );
   }
@@ -274,7 +254,7 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
 
 const styles = (theme) => ({
   container: {
-    paddingBottom: theme.spacing.unit * 32,
+    paddingBottom: theme.spacing(32),
     maxWidth: 360,
     display: 'flex',
     flexDirection: 'column',
@@ -284,14 +264,14 @@ const styles = (theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   sectionTitle: {
-    paddingTop: theme.spacing.unit * 3,
-    paddingBottom: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(2),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 

@@ -112,7 +112,7 @@ export class PaymentList extends Component<Props> {
 
 const styles = (theme) => ({
   emptyPaymentExplainer: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
   },
 });
 

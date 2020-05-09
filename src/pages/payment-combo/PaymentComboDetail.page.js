@@ -156,7 +156,7 @@ export class PaymentComboDetail extends React.Component<Props> {
 
 const styles = (theme) => ({
   container: {
-    paddingBottom: theme.spacing.unit * 12,
+    paddingBottom: theme.spacing(12),
   },
 });
 

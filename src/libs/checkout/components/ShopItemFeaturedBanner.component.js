@@ -55,12 +55,12 @@ const styles = (theme) => ({
     flexDirection: 'row',
     alignItems: 'stretch',
     justifyContent: 'flex-start',
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
   shopItemContainer: {
     minWidth: 260,
     maxWidth: '30vw',
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
     marginLeft: 2,
   },
   shopItemContainerWithImage: {

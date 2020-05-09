@@ -16,7 +16,7 @@ import type { PaymentPack } from '../../api/types';
 
 const styles = (theme) => ({
   formControl: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
     marginLeft: 0,
     minWidth: 260,
   },

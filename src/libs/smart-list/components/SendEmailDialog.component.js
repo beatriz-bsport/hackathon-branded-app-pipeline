@@ -203,15 +203,15 @@ export class SendEmailDialog extends Component<Props> {
 
 const styles = (theme) => ({
   addIcon: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
   buttonContainer: {
     display: 'flex',
     justifyContent: 'space-between',
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
 
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
   editIcon: {
     display: 'flex',
@@ -223,27 +223,27 @@ const styles = (theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    marginLeft: theme.spacing.unit * 2,
-    marginRight: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
     minHeight: '30vh',
     minWidth: '40vh',
   },
   selectorContainer: {
     display: 'flex',
     justifyContent: 'space-between',
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
   previewEmpty: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    paddingTop: theme.spacing.unit * 6,
+    paddingTop: theme.spacing(6),
   },
   textContent: {
-    paddingTop: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(2),
   },
   collapser: {
-    paddingLeft: theme.spacing.unit * 2,
+    paddingLeft: theme.spacing(2),
   },
   disabled: {
     backgroundColor: 'rgb(212, 212, 212) !important',

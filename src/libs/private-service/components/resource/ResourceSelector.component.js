@@ -39,7 +39,7 @@ const styles = (theme) => ({
     overflowX: 'auto',
     flexWrap: 'wrap',
     '& > *': {
-      margin: theme.spacing.unit,
+      margin: theme.spacing(1),
     },
   },
 });

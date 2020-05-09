@@ -61,11 +61,7 @@ export function CoachListItem(props: Props) {
           <React.Fragment>
             {coach.email || null ? (
               <Chip
-                avatar={
-                  <Avatar>
-                    <MailOutlineIcon />
-                  </Avatar>
-                }
+                icon={<MailOutlineIcon />}
                 label={coach.email}
                 className={classes.chip}
                 onClick={(e) => openEmail(e, coach.email)}
@@ -76,11 +72,7 @@ export function CoachListItem(props: Props) {
 
             {coach.phone || null ? (
               <Chip
-                avatar={
-                  <Avatar>
-                    <CallIcon />
-                  </Avatar>
-                }
+                icon={<CallIcon />}
                 label={coach.phone}
                 className={classes.chip}
                 onClick={(e) => {
@@ -111,11 +103,12 @@ export function CoachListItem(props: Props) {
 
 const styles = (theme) => ({
   avatar: {
-    width: theme.spacing.unit * 7,
-    height: theme.spacing.unit * 7,
+    width: theme.spacing(7),
+    height: theme.spacing(7),
+    marginRight: theme.spacing(2),
   },
   chip: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 

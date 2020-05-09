@@ -74,15 +74,15 @@ const styles = (theme) => ({
     left: 0,
     position: 'absolute',
     alignItems: 'center',
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
   text: {
     color: '#FEFEFE',
     fontSize: 14,
-    padding: theme.spacing.unit / 4,
+    padding: theme.spacing(1) / 4,
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 

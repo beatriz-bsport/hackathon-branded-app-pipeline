@@ -146,7 +146,7 @@ const styles = (theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
-    paddingTop: theme.spacing.unit * 4,
+    paddingTop: theme.spacing(4),
     width: '100vw',
   },
   errorContainer: {
@@ -158,11 +158,11 @@ const styles = (theme) => ({
   errorIcon: {
     height: 64,
     width: 64,
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
   button: {
     width: '100%',
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
   },
 });
 

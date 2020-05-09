@@ -58,7 +58,7 @@ const styles = (theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
-    paddingTop: theme.spacing.unit * 4,
+    paddingTop: theme.spacing(4),
     width: '100vw',
   },
 });

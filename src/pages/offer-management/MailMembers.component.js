@@ -226,11 +226,11 @@ export class MailDialog extends Component<Props, State> {
 
 const styles = (theme) => ({
   mailChoiceDialog: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   mailChoiceDialogEnd: {
-    marginBottom: theme.spacing.unit * 2,
-    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(1),
   },
 });
 

@@ -86,12 +86,12 @@ const styles = (theme) => ({
   warningContainer: {
     display: 'flex',
     alignItems: 'center',
-    paddingTop: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit * 2,
-    paddingLeft: theme.spacing.unit,
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(2),
+    paddingLeft: theme.spacing(1),
   },
   caption: {
-    paddingLeft: theme.spacing.unit,
+    paddingLeft: theme.spacing(1),
   },
   selector: {
     width: '100%',

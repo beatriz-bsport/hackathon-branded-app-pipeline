@@ -162,7 +162,7 @@ export const Task = (props: Props) => {
 
 const styles = (theme) => ({
   container: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
   },
   header: {
     display: 'flex',
@@ -175,7 +175,7 @@ const styles = (theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
   },
   rowLeft: {
     display: 'flex',
@@ -190,11 +190,11 @@ const styles = (theme) => ({
     alignItems: 'center',
   },
   statusBase: {
-    padding: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 2,
-    paddingRight: theme.spacing.unit * 2,
+    padding: theme.spacing(1),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
     border: '1px solid black',
-    borderRadius: theme.spacing.unit,
+    borderRadius: theme.spacing(1),
   },
   status_0: {
     border: '1px solid ',
@@ -206,10 +206,10 @@ const styles = (theme) => ({
     border: '1px solid red',
   },
   statusButton: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
   iconLeft: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   statusContainer: {
     display: 'flex',
@@ -217,7 +217,7 @@ const styles = (theme) => ({
     flexDirection: 'column',
   },
   dateDue: {
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
   },
 });
 

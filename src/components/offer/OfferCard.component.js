@@ -18,6 +18,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import LinkIcon from '@material-ui/icons/Link';
 import { withNamespaces } from 'react-i18next';
 import ButtonBase from '@material-ui/core/ButtonBase';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 import { Link } from 'react-router-dom';
 
@@ -56,41 +57,27 @@ export class OfferCard extends Component<Props> {
     } = offer;
 
     return (
-      <Grid
-        container
-        direction="row"
-        wrap="nowrap"
-        alignItems="flex-start"
-        justify="space-between"
-      >
-        <div>
-          <ListItem className={classes.paddedBlock}>
-            <Icon>
-              <Sport noname parentCategory={parent_category} />
-            </Icon>
-            <ListItemText
-              primary={name}
-              secondary={
-                credit_price_override !== 1
-                  ? `${credit_price_override} ${t('offer:credit_price')}`
-                  : null
-              }
-            />
-            {available ? null : (
-              <Typography variant="h2" color="error">
-                {t('offer:disabled')}
-              </Typography>
-            )}
-          </ListItem>
-        </div>
-        <Grid item className={classes.paddedBlock}>
-          <Grid container direction="column" alignItems="flex-end" spacing={8}>
-            <Grid item>
-              <Level levelId={level} />
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
+      <div className={classes.header}>
+        <ListItem>
+          <ListItemIcon>
+            <Sport noname parentCategory={parent_category} />
+          </ListItemIcon>
+          <ListItemText
+            primary={name}
+            secondary={
+              credit_price_override !== 1
+                ? `${credit_price_override} ${t('offer:credit_price')}`
+                : null
+            }
+          />
+          {available ? null : (
+            <Typography variant="h2" color="error">
+              {t('offer:disabled')}
+            </Typography>
+          )}
+        </ListItem>
+        <Level levelId={level} />
+      </div>
     );
   };
 
@@ -103,92 +90,54 @@ export class OfferCard extends Component<Props> {
       effectif,
     } = this.props.offer;
     return (
-      <Grid container direction="row" justify="center" alignItems="center">
-        <Grid
-          item
-          xs={4}
-          className={classNames(classes.rightBorder, classes.stat)}
-        >
-          <Grid
-            container
-            justify="center"
-            alignItems="center"
-            direction="column"
-            spacing={8}
+      <div className={classes.statContainer}>
+        <div className={classNames(classes.rightBorder, classes.stat)}>
+          <div>
+            <Typography variant="h3" color="primary" align="center">
+              {nb_bookings}
+              {`/${effectif}`}
+            </Typography>
+          </div>
+          <Typography
+            variant="caption"
+            align="center"
+            className={classes.statName}
           >
-            <Grid item>
-              <Typography
-                variant="h3"
-                color="primary"
-                align="center"
-                style={{ position: 'relative' }}
-              >
-                {nb_bookings}
-                <Typography
-                  variant="h6"
-                  component="div"
-                  color="primary"
-                  noWrap
-                  style={{ position: 'absolute', right: -30, top: 0 }}
-                >
-                  {`/${effectif}`}
-                </Typography>
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Typography> {t('offer:booking.confirmed')}</Typography>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item xs={4}>
-          <Grid
-            container
-            justify="center"
-            alignItems="center"
-            direction="column"
-            spacing={8}
+            {' '}
+            {t('offer:booking.confirmed')}
+          </Typography>
+        </div>
+        <div className={classNames(classes.rightBorder, classes.stat)}>
+          <Typography variant="h3" color="secondary" align="center">
+            {parseInt((nb_bookings / effectif) * 100, 10)} %
+          </Typography>
+          <Typography
+            align="center"
+            variant="caption"
+            className={classes.statName}
           >
-            <Grid item>
-              <Typography variant="h3" color="secondary" align="center">
-                {parseInt((nb_bookings / effectif) * 100, 10)} %
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Typography>{t('offer:booking.fillRate')}</Typography>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item xs={4} className={classes.stat}>
-          <Grid
-            container
-            justify="center"
-            alignItems="center"
-            direction="column"
-            spacing={8}
+            {t('offer:booking.fillRate')}
+          </Typography>
+        </div>
+        <div className={classes.stat}>
+          <Typography
+            variant="h3"
+            color={nb_option ? 'error' : 'secondary'}
+            align="center"
           >
-            <Grid item>
-              <Typography
-                variant="h3"
-                color={nb_option ? 'error' : 'secondary'}
-                align="center"
-                style={{ position: 'relative' }}
-              >
-                {nb_option}
-                <Typography
-                  variant="h6"
-                  component="div"
-                  style={{ position: 'absolute', top: 0, right: -30 }}
-                >
-                  {`/${waiting_list_max_size}`}
-                </Typography>
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Typography> {t('offer:booking.waiting')}</Typography>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
+            {nb_option}
+            {`/${waiting_list_max_size}`}
+          </Typography>
+          <Typography
+            variant="caption"
+            align="center"
+            className={classes.statName}
+          >
+            {' '}
+            {t('offer:booking.waiting')}
+          </Typography>
+        </div>
+      </div>
     );
   };
 
@@ -199,7 +148,7 @@ export class OfferCard extends Component<Props> {
       return (
         <Grid container direction="column">
           <Grid item>
-            <Grid container direction="row" spacing={16} alignItems="center">
+            <Grid container direction="row" spacing={2} alignItems="center">
               <Grid item>
                 <Typography>{establishment_override.title}</Typography>
               </Grid>
@@ -261,7 +210,7 @@ export class OfferCard extends Component<Props> {
         className={classes.footer}
       >
         <Grid item xs={4}>
-          <Grid container direction="column" spacing={8} alignItems="center">
+          <Grid container direction="column" spacing={1} alignItems="center">
             <Grid item>
               <Avatar user={coach_override || coach} />
             </Grid>
@@ -277,14 +226,16 @@ export class OfferCard extends Component<Props> {
         <Grid item xs={8} style={{ borderLeft: '1px solid #EEEEEE' }}>
           <Grid
             container
-            spacing={8}
+            spacing={1}
             justify="center"
             alignItems="flex-start"
             direction="column"
             className={classes.info}
           >
             <ListItem>
-              <AccessTimeIcon />
+              <ListItemIcon>
+                <AccessTimeIcon />
+              </ListItemIcon>
               <ListItemText variant="h6">
                 {`${formatAsTime(date_start)} - ${formatMinutes(
                   duration_minute,
@@ -294,7 +245,9 @@ export class OfferCard extends Component<Props> {
             </ListItem>
 
             <ListItem>
-              <LocationOnIcon />
+              <ListItemIcon>
+                <LocationOnIcon />
+              </ListItemIcon>
               <ListItemText>{this.renderEstablishment()}</ListItemText>
             </ListItem>
 
@@ -320,7 +273,7 @@ export class OfferCard extends Component<Props> {
             <Grid
               container
               direction="row"
-              spacing={16}
+              spacing={2}
               wrap="nowrap"
               className={classes.modifierButtonsBlock}
             >
@@ -354,11 +307,9 @@ export class OfferCard extends Component<Props> {
       return (
         <div style={{ width: '100%' }}>
           <Paper square className={available ? null : classes.disabledPaper}>
-            <div>
-              {noHeader ? null : this.getHeader()}
-              {this.getStatsBody()}
-              {this.getPracticalInfo()}
-            </div>
+            {noHeader ? null : this.getHeader()}
+            {this.getStatsBody()}
+            {this.getPracticalInfo()}
           </Paper>
           <Link style={{ textDecoration: 'none' }} to={`/offer/${offer.id}`}>
             <Button
@@ -387,51 +338,72 @@ export class OfferCard extends Component<Props> {
 
 const styles = (theme) => ({
   paddedBlock: {
-    padding: theme.spacing.unit * 4,
+    padding: theme.spacing(4),
   },
   footer: {
     borderTop: 'solid 1px #EEEEEE',
     borderBottom: 'solid 1px #EEEEEE',
   },
   info: {
-    paddingLeft: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
-    paddingTop: theme.spacing.unit * 3,
-    paddingBottom: theme.spacing.unit * 1,
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
+    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(1) * 1,
   },
-  stat: { paddingBottom: 20 },
+  stat: {
+    flex: 3,
+    paddingBottom: theme.spacing(2),
+    paddingTop: theme.spacing(2),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   rightBorder: {
     borderRight: '1px solid #EEEEEE',
   },
+  statContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderTop: '1px solid #EEEEEE',
+  },
   editButtonContainer: {
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing(2),
   },
   iconLeft: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   disabledPaper: {
     backgroundColor: '#F6F6F6',
   },
   modifierButtonsBlock: {
-    marginTop: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
+    marginTop: theme.spacing(1),
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
   },
   manageButton: {
     width: '100%',
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
   link: {
-    marginLeft: theme.spacing.unit,
-    padding: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
+    padding: theme.spacing(1),
     '&:hover': {
       backgroundColor: '#EFEFEF',
       borderRadius: 5,
     },
   },
   linkTypo: {
-    marginLeft: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(2),
+  },
+  header: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    padding: theme.spacing(2),
   },
 });
 

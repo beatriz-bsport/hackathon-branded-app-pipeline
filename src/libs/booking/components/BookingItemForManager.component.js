@@ -463,10 +463,10 @@ export class BookingItemForManager extends PureComponent<Props, State> {
 
 const styles = (theme) => ({
   iconButton: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
   rightButton: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
   badge: {
     right: '0%',

@@ -2,6 +2,7 @@
 import React from 'react';
 import { compose, withState, withHandlers } from 'recompose';
 import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 
 import SubscriptionPayment from './SubscriptionPayment.component';
@@ -20,16 +21,18 @@ type Props = {
 export const SubscriptionPaymentMethodSwitcherDialog = (props: Props) => {
   return (
     <Dialog open={props.open}>
-      <StripeProvider apiKey={STRIPE_KEY}>
-        <Elements>
-          <SubscriptionPayment
-            onSubmit={props.onSubmit}
-            onCancel={props.onCancel}
-            enabledPaymentMethods={props.enabledPaymentMethods}
-            processing={props.processing}
-          />
-        </Elements>
-      </StripeProvider>
+      <DialogContent>
+        <StripeProvider apiKey={STRIPE_KEY}>
+          <Elements>
+            <SubscriptionPayment
+              onSubmit={props.onSubmit}
+              onCancel={props.onCancel}
+              enabledPaymentMethods={props.enabledPaymentMethods}
+              processing={props.processing}
+            />
+          </Elements>
+        </StripeProvider>
+      </DialogContent>
     </Dialog>
   );
 };

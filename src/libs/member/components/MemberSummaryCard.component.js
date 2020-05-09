@@ -259,20 +259,20 @@ export class MemberSummaryCard extends Component<Props> {
 
 const styles = (theme) => ({
   rightIcon: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
   rowInfo: {
     display: 'flex',
     alignItems: 'center',
   },
   listItemText: {
-    marginLeft: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(2),
   },
   infoContainer: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   consumerName: {
-    marginLeft: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(2),
     display: 'flew',
     flexDirection: 'column',
     alignItems: 'center',
@@ -285,11 +285,11 @@ const styles = (theme) => ({
     width: '100%',
   },
   regularize: {
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
   },
   accountBalanceBloc: {
     backgroundColor: '#F8F8F8',
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     border: '2px solid #E8E8E8',
     display: 'flex',
     flexDirection: 'column',
@@ -297,7 +297,7 @@ const styles = (theme) => ({
     width: '100%',
   },
   emailMargin: {
-    marginLeft: theme.spacing.unit * 9,
+    marginLeft: theme.spacing(9),
   },
   balance: {
     display: 'flex',

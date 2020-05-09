@@ -186,7 +186,7 @@ export class PaymentPackDetail extends Component<Props, State> {
     }
 
     return (
-      <Grid container spacing={24} alignItems="stretch">
+      <Grid container spacing={3} alignItems="stretch">
         <Grid item xs={12} md={6} className={classes.paymentPackContainer}>
           <PaymentPackCard
             pack={pack}
@@ -297,12 +297,12 @@ export class PaymentPackDetail extends Component<Props, State> {
 
 const styles = (theme) => ({
   emptyContainer: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   paymentPackContainer: {
-    paddingBottom: theme.spacing.unit * 4,
+    paddingBottom: theme.spacing(4),
     [theme.breakpoints.up('sm')]: {
-      paddingRight: theme.spacing.unit * 4,
+      paddingRight: theme.spacing(4),
     },
   },
 });

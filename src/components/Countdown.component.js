@@ -35,7 +35,7 @@ function Countdown(props: Props) {
           <Typography variant="h5" color={color}>
             {hours}
           </Typography>
-          <Typography variant="body2" color="textSecondary">
+          <Typography variant="body1" color="textSecondary">
             {t('countdown.hours')}
           </Typography>
         </div>
@@ -45,7 +45,7 @@ function Countdown(props: Props) {
           <Typography variant="h5" color={color}>
             {minutes}
           </Typography>
-          <Typography variant="body2" color="textSecondary">
+          <Typography variant="body1" color="textSecondary">
             {t('countdown.minutes')}
           </Typography>
         </div>
@@ -67,10 +67,10 @@ const styles = (theme) => {
       alignItems: 'center',
       justifyContent: 'center',
       flexDirection: 'column',
-      margin: theme.spacing.unit,
+      margin: theme.spacing(1),
       position: 'relative',
-      width: theme.spacing.unit * 8,
-      height: theme.spacing.unit * 6,
+      width: theme.spacing(8),
+      height: theme.spacing(6),
       // border: `2px solid ${theme.palette.grey[200]}`,
       // borderRadius: '4px',
       // color: `${theme.palette.primary.main}`,

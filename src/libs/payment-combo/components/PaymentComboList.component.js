@@ -27,7 +27,7 @@ type Props = {
 
 export const PaymentComboList = (props: Props) => {
   return (
-    <Grid container direction="row" spacing={16}>
+    <Grid container direction="row" spacing={2}>
       {props.paymentComboListAvailableOnline.length ? (
         <Grid item xs={12} md={6}>
           <Typography variant="h5" className={props.classes.sectionTitle}>
@@ -89,10 +89,10 @@ export const PaymentComboList = (props: Props) => {
 
 const styles = (theme) => ({
   sectionTitle: {
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
   explainIfEmpty: {
-    paddingTop: theme.spacing.unit * 5,
+    paddingTop: theme.spacing(5),
   },
 });
 

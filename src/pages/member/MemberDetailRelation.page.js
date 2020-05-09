@@ -257,7 +257,7 @@ export class MemberDetailRelation extends React.Component<Props> {
   }
 }
 
-const styles = (theme) => ({ panel: { padding: theme.spacing.unit } });
+const styles = (theme) => ({ panel: { padding: theme.spacing(1) } });
 
 export default compose(
   withStyles(styles),

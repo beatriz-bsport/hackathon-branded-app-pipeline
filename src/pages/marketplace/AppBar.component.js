@@ -162,7 +162,7 @@ const styles = (theme) => ({
     width: '100%',
   },
   iconLeft: {
-    marginRight: theme.spacing.unit * 3,
+    marginRight: theme.spacing(3),
   },
   grow: {
     flexGrow: 1,
@@ -171,7 +171,7 @@ const styles = (theme) => ({
     display: 'block',
   },
   accountIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   loginButton: {
     backgroundColor: fade(theme.palette.common.white, 0.15),
@@ -179,9 +179,9 @@ const styles = (theme) => ({
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
     borderRadius: theme.shape.borderRadius,
-    padding: theme.spacing.unit,
-    paddingRight: theme.spacing.unit * 2,
-    paddingLeft: theme.spacing.unit * 2,
+    padding: theme.spacing(1),
+    paddingRight: theme.spacing(2),
+    paddingLeft: theme.spacing(2),
   },
 });
 

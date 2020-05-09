@@ -91,7 +91,7 @@ export class Members extends Component<Props> {
     const { addMember, goToMemberPage } = this.props;
 
     return (
-      <Grid container direction="row" spacing={32}>
+      <Grid container direction="row" spacing={4}>
         <Grid item xs={12}>
           <MemberTable
             tagsExcluded={this.state.tagsExcluded}
@@ -119,8 +119,8 @@ const styles = (theme) => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    paddingTop: theme.spacing.unit * 2,
-    marginLeft: -theme.spacing.unit,
+    paddingTop: theme.spacing(2),
+    marginLeft: -theme.spacing(1),
   },
 });
 

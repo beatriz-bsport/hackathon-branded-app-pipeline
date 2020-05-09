@@ -45,11 +45,19 @@ export class PrivateServiceSelectorWithSlot extends React.Component<Props> {
               );
               if (!s) return <CircularProgress />;
               return (
-                <div>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                  }}
+                >
                   <Typography variant="body" color="textSecondary" align="left">
                     {p.name}
                   </Typography>
-                  <Typography align="left">{s.name}</Typography>
+                  <Typography variant="body2" align="left">
+                    {s.name}
+                  </Typography>
                 </div>
               );
             })()
@@ -119,12 +127,12 @@ export class PrivateServiceSelectorWithSlot extends React.Component<Props> {
 const styles = (theme) => ({
   container: {},
   button: {
-    padding: theme.spacing.unit * 2,
-    paddingTop: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
+    padding: theme.spacing(2),
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
     border: `1px solid ${theme.palette.primary.main}`,
     backgroundColor: '#F8F8F8',
-    borderRadius: theme.spacing.unit,
+    borderRadius: theme.spacing(1),
     minWidth: 300,
     width: '100%',
     display: 'flex',
@@ -135,7 +143,7 @@ const styles = (theme) => ({
     },
   },
   leftIcon: {
-    marginRight: theme.spacing.unit * 2,
+    marginRight: theme.spacing(2),
   },
   menu: {
     minWidth: 300,

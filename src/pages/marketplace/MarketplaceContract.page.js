@@ -184,7 +184,7 @@ export class MarketplaceContract extends React.Component<Props> {
 
 const styles = (theme) => ({
   container: {
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing(2),
     alignItems: 'center',
     flexDirection: 'column',
     display: 'flex',

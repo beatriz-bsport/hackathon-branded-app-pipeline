@@ -262,12 +262,12 @@ const styles = (theme) => ({
     alignItems: 'flex-start',
   },
   mailTitle: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
   formContent: {},
   IconMargin: {
-    marginRight: theme.spacing.unit * 2,
+    marginRight: theme.spacing(2),
   },
 });
 

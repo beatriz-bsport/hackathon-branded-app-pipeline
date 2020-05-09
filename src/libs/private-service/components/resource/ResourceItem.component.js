@@ -70,18 +70,18 @@ const styles = (theme) => ({
   resourceContainer: {
     display: 'flex',
     flexDirection: 'row',
-    borderRadius: theme.spacing.unit * 2,
+    borderRadius: theme.spacing(2),
     alignItems: 'center',
     border: '1px solid #E2E2E2',
     backgroundColor: '#F8F8F8',
-    marginRight: theme.spacing.unit,
-    padding: theme.spacing.unit / 2,
-    paddingLeft: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
+    padding: theme.spacing(1) / 2,
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
   },
   resourceName: {
-    paddingLeft: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
   },
 });
 

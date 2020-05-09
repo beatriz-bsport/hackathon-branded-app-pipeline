@@ -96,15 +96,15 @@ export class CoachPerformance extends React.Component<Props> {
 
 const styles = (theme) => ({
   bar: {
-    width: `calc(100% + ${theme.spacing.unit * 6}px)`,
-    marginTop: -theme.spacing.unit * 2,
-    marginRight: -theme.spacing.unit * 3,
-    marginLeft: -theme.spacing.unit * 3,
-    marginBottom: theme.spacing.unit * 3,
-    padding: theme.spacing.unit * 2,
+    width: `calc(100% + ${theme.spacing(6)}px)`,
+    marginTop: -theme.spacing(2),
+    marginRight: -theme.spacing(3),
+    marginLeft: -theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    padding: theme.spacing(2),
   },
   container: {
-    marginBottom: theme.spacing.unit * 32,
+    marginBottom: theme.spacing(32),
   },
 });
 

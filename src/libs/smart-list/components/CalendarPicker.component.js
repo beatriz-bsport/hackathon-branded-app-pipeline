@@ -131,7 +131,7 @@ export class CalendarPicker extends Component<Props, state> {
     } = this.state;
     if (date_filter_type === DATE_BETWEEN) {
       return (
-        <Typography variant="body1">
+        <Typography variant="body2">
           {`${t(
             `filters.calendarPicker.text.${date_filter_type}.first`,
           )} ${moment(date).format('DD/MM/YYYY')} ${t(
@@ -145,7 +145,7 @@ export class CalendarPicker extends Component<Props, state> {
       date_filter_type === DURATION_BETWEEN_PAST
     ) {
       return (
-        <Typography variant="body1">
+        <Typography variant="body2">
           {`${t(
             `filters.calendarPicker.text.${date_filter_type}.first`,
           )} ${duration} ${t(
@@ -162,7 +162,7 @@ export class CalendarPicker extends Component<Props, state> {
       date_filter_type === DATE_BEFORE
     ) {
       return (
-        <Typography variant="body1">
+        <Typography variant="body2">
           {`${t(
             `filters.calendarPicker.text.${date_filter_type}.first`,
           )} ${moment(date).format('DD/MM/YYYY')}`}
@@ -170,7 +170,7 @@ export class CalendarPicker extends Component<Props, state> {
       );
     }
     return (
-      <Typography variant="body1">
+      <Typography variant="body2">
         {`${t(
           `filters.calendarPicker.text.${date_filter_type}.first`,
         )} ${duration} ${t(
@@ -336,7 +336,7 @@ export class CalendarPicker extends Component<Props, state> {
           ))}
         </Select>
         <div className={classes.durationTabContainer}>
-          <Typography variant="body1">
+          <Typography variant="body2">
             {t(
               `filters.calendarPicker.selectduration.${this.state.date_filter_type}.first`,
             )}
@@ -359,14 +359,14 @@ export class CalendarPicker extends Component<Props, state> {
             }}
           />
           {this.state.date_filter_type === DURATION_BETWEEN ? (
-            <Typography variant="body1">
+            <Typography variant="body2">
               {t(
                 `filters.calendarPicker.selectduration.${DURATION_BETWEEN}.third`,
               )}
             </Typography>
           ) : null}
           {this.state.date_filter_type === DURATION_BETWEEN_PAST ? (
-            <Typography variant="body1">
+            <Typography variant="body2">
               {t(
                 `filters.calendarPicker.selectduration.${DURATION_BETWEEN_PAST}.third`,
               )}
@@ -393,7 +393,7 @@ export class CalendarPicker extends Component<Props, state> {
             />
           ) : null}
 
-          <Typography variant="body1">
+          <Typography variant="body2">
             {t(
               `filters.calendarPicker.selectduration.${this.state.date_filter_type}.second`,
             )}
@@ -437,7 +437,7 @@ export class CalendarPicker extends Component<Props, state> {
               root: classes.listItemTextRoot,
             }}
             primary={
-              <Typography variant="body1">{this.renderInlineText()}</Typography>
+              <Typography variant="body2">{this.renderInlineText()}</Typography>
             }
           />
           <ArrowDropDownIcon style={{ color: '#757575' }} />
@@ -489,7 +489,7 @@ export class CalendarPicker extends Component<Props, state> {
 
 const styles = (theme) => ({
   durationContainer: {
-    marginLeft: theme.spacing.unit * 4,
+    marginLeft: theme.spacing(4),
   },
   calendarsContainer: {
     display: 'flex',
@@ -498,7 +498,7 @@ const styles = (theme) => ({
     width: '100%',
   },
   dateTabSelector: {
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
   dateTabContainer: {
     display: 'flex',
@@ -507,26 +507,26 @@ const styles = (theme) => ({
     justifyContent: 'center',
   },
   durationTabContainer: {
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
     display: 'flex',
     alignItems: 'center',
   },
   buttonContainer: {
     display: 'flex',
     justifyContent: 'flex-end',
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
   },
   listItemTextRoot: {
     paddingRight: '0px',
   },
   textInput: {
     width: '50px',
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
   },
-  picker: { margin: theme.spacing.unit },
+  picker: { margin: theme.spacing(1) },
   selector: {
-    paddingRight: theme.spacing.unit * 2,
+    paddingRight: theme.spacing(2),
   },
   outlined: {
     borderBottom: '0px',
@@ -554,13 +554,13 @@ const styles = (theme) => ({
   },
   gutters: { paddingLeft: '0px' },
   searchBar: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
   },
   root: {
     paddingRight: '0px',
-    paddingBottom: theme.spacing.unit / 4,
-    paddingTop: (theme.spacing.unit * 3) / 8,
-    marginLeft: theme.spacing.unit,
+    paddingBottom: theme.spacing(1) / 4,
+    paddingTop: (theme.spacing(3)) / 8,
+    marginLeft: theme.spacing(1),
   },
   divider: { borderBottom: '1px solid #909090' },
   ListItemButton: { padding: '0px', margin: '0px' },

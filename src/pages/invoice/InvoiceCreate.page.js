@@ -160,7 +160,7 @@ export class InvoiceCreatePage extends Component<Props, State> {
 
 const styles = (theme) => ({
   title: {
-    paddingBottom: theme.spacing.unit * 4,
+    paddingBottom: theme.spacing(4),
   },
 });
 

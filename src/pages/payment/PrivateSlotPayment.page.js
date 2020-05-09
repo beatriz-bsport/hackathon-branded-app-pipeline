@@ -258,8 +258,8 @@ const styles = (theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
-    paddingBottom: theme.spacing.unit * 32,
-    paddingTop: theme.spacing.unit * 16,
+    paddingBottom: theme.spacing(32),
+    paddingTop: theme.spacing(16),
   },
   addressContainer: {
     display: 'flex',
@@ -267,19 +267,19 @@ const styles = (theme) => ({
     alignItems: 'flex-end',
   },
   paper: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   bookingCapabilities: {
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
   },
   titleContainer: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 

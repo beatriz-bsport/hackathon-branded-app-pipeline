@@ -68,7 +68,7 @@ export const ActiveCampaignLinkItem = (props: Props) => {
 };
 
 const styles = (theme) => ({
-  warningIcon: { marginLeft: theme.spacing.unit },
+  warningIcon: { marginLeft: theme.spacing(1) },
   container: {
     display: 'flex',
     justifyContent: 'space-between',

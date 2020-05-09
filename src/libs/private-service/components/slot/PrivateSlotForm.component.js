@@ -141,13 +141,13 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
   },
   selectField: {
     minWidth: 140,
   },
   field: {
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
 });
 

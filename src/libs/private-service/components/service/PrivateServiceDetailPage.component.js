@@ -25,7 +25,7 @@ type Props = {
 
 export const PrivateServiceDetail = (props: Props) => {
   return (
-    <Grid container spacing={16} direction="row">
+    <Grid container spacing={2} direction="row">
       <Grid item md={6} xs={12}>
         <PrivateServiceCard
           privateService={props.privateService}

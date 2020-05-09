@@ -65,7 +65,7 @@ export class PaymentPackCard extends Component<Props> {
               </ListItem>
             ))
           ) : (
-            <Typography variant="body1">{t('anySport')}</Typography>
+            <Typography variant="body2">{t('anySport')}</Typography>
           )}
         </List>
       </div>
@@ -92,7 +92,7 @@ export class PaymentPackCard extends Component<Props> {
               />
             ))
           ) : (
-            <Typography variant="body1">{t('anyActivity')}</Typography>
+            <Typography variant="body2">{t('anyActivity')}</Typography>
           )}
         </List>
       </div>
@@ -123,7 +123,7 @@ export class PaymentPackCard extends Component<Props> {
               );
             })
           ) : (
-            <Typography variant="body1">{t('anyEstablishment')}</Typography>
+            <Typography variant="body2">{t('anyEstablishment')}</Typography>
           )}
         </List>
       </div>
@@ -333,37 +333,37 @@ export class PaymentPackCard extends Component<Props> {
 
 const styles = (theme) => ({
   paper: {
-    paddingTop: theme.spacing.unit * 3,
+    paddingTop: theme.spacing(3),
   },
   title: {
-    paddingBottom: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing(2),
   },
   disabled: {
     backgroundColor: '#F8F8F8',
   },
   horizontalBlock: {
-    paddingLeft: theme.spacing.unit * 3,
-    paddingRight: theme.spacing.unit * 3,
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
   },
   tabList: {
-    paddingLeft: theme.spacing.unit * 3,
+    paddingLeft: theme.spacing(3),
   },
   noRestriction: {
-    paddingBottom: theme.spacing.unit * 3,
-    paddingTop: theme.spacing.unit * 3,
+    paddingBottom: theme.spacing(3),
+    paddingTop: theme.spacing(3),
   },
   newMemberOnlyContainer: {
     backgroundColor: '#F2F2F2',
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
     alignItems: 'center',
     display: 'flex',
     flexDirection: 'row',
   },
   iconLeft: {
-    marginRight: theme.spacing.unit * 2,
+    marginRight: theme.spacing(2),
   },
   buttonBlock: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-end',
@@ -380,30 +380,30 @@ const styles = (theme) => ({
     flexWrap: 'nowrap',
   },
   columnLeft: {
-    paddingLeft: theme.spacing.unit * 2,
+    paddingLeft: theme.spacing(2),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-end',
   },
   restrictionBlock: {
-    paddingTop: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
   },
   disabledLabel: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingBottom: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing(2),
   },
   link: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
     '&:hover': {
       backgroundColor: '#EFEFEF',
       borderRadius: 5,
     },
   },
   linkTypo: {
-    paddingLeft: theme.spacing.unit,
+    paddingLeft: theme.spacing(1),
   },
 });
 

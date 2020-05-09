@@ -8,7 +8,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 const styles = (theme) => ({
   paperContainer: {
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing(3),
     height: '100%',
     position: 'absolute',
     backgroundColor: theme.palette.paper,

@@ -173,13 +173,13 @@ export class ExpensesPerCategoryFilter extends Component<Props, state> {
 
 const styles = (theme) => ({
   input: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
   },
   textInput: {
     width: '50px',
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
   },
   datePicker: {
     width: '160px',
@@ -190,7 +190,7 @@ const styles = (theme) => ({
     flexWrap: 'wrap',
   },
   textMargin: {
-    marginRight: theme.spacing.unit * 2,
+    marginRight: theme.spacing(2),
   },
   selector: {
     minWidth: '275px',

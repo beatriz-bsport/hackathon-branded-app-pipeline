@@ -57,7 +57,7 @@ export class InvoiceItemList extends Component<Props> {
         }}
       />
       <ListItemSecondaryAction>
-        <Grid container alignItems="center" spacing={16}>
+        <Grid container alignItems="center" spacing={2}>
           <Grid item>
             <Typography
               className={invoiceItem.reverted ? this.props.classes.revert : {}}

@@ -161,14 +161,14 @@ export class ActiveCampaignFormDialog extends React.Component<Props, State> {
 
 const styles = (theme) => ({
   textField: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   formControl: {
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
   helperText: {
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
   dialog: {
     minHeight: '400px',

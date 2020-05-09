@@ -41,14 +41,14 @@ const styles = (theme) => ({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    padding: theme.spacing.unit * 4,
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
+    padding: theme.spacing(4),
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
     backgroundColor: 'white',
-    borderRadius: theme.spacing.unit * 4,
+    borderRadius: theme.spacing(4),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   titleRow: {
     display: 'flex',
@@ -57,10 +57,10 @@ const styles = (theme) => ({
     alignItems: 'center',
   },
   backIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   statLabel: {
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
   },
   numberCard: {
     display: 'flex',
@@ -79,17 +79,17 @@ const styles = (theme) => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginRight: theme.spacing.unit * 3,
+    marginRight: theme.spacing(3),
   },
   inlineStat: {
-    marginLeft: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(2),
   },
   title: {
-    marginTop: theme.spacing.unit * 3,
-    marginBottom: theme.spacing.unit,
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(1),
   },
   divider: {
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
 });
 

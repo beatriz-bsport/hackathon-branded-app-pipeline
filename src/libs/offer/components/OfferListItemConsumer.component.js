@@ -5,23 +5,23 @@ import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import ListItemText from '@material-ui/core/ListItemText';
-import { withNamespaces } from 'react-i18next';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import withStyles from '@material-ui/core/styles/withStyles';
+import moment from 'moment';
+import Hidden from '@material-ui/core/Hidden';
+import { makeStyles } from '@material-ui/core/styles';
+import { pure } from 'recompose';
 
-import type { TFunction } from 'react-i18next';
 import Level from '../../../components/category/Level.component';
 
-import { formatMinutes, formatAsTime } from '../../../datetime';
+import { formatAsTime } from '../../../datetime';
 import CoachAvatar from '../../associated-coach/components/CoachAvatar.component';
 import { isOfferInThePast } from '../utils';
 
 type Props = {
   offer: Offer,
   selected: ?boolean,
-  t: TFunction,
   showOfferFilling: boolean,
   establishmentLoading: boolean,
   activityLoading: boolean,
@@ -31,7 +31,8 @@ type Props = {
 };
 
 export const MarketplaceOffer = (props: Props) => {
-  const { t, offer, selected, classes } = props;
+  const { offer, selected } = props;
+  const classes = useStyles();
   const { available } = offer;
   const isInThePast = isOfferInThePast(offer);
 
@@ -70,12 +71,14 @@ export const MarketplaceOffer = (props: Props) => {
           : '#FFFFFF00',
       }}
     >
-      <ListItemAvatar>
-        <CoachAvatar
-          coach={offer.coach}
-          coach_override={offer.coach_override}
-        />
-      </ListItemAvatar>
+      <Hidden xsDown>
+        <ListItemAvatar>
+          <CoachAvatar
+            coach={offer.coach}
+            coach_override={offer.coach_override}
+          />
+        </ListItemAvatar>
+      </Hidden>
       <ListItemText
         primary={
           <div className={classes.primaryTextContainer}>
@@ -84,20 +87,19 @@ export const MarketplaceOffer = (props: Props) => {
               !offer.establishment.tzname ? (
                 <MoreHorizIcon fontSize="small" className={classes.icon} />
               ) : (
-                <Typography inline>
+                <Typography>
                   {`${metaActivityName} ${formatAsTime(
                     offer.date_start,
                     offer.establishment.tzname,
-                  )} -
-                  `}
+                  )}-${formatAsTime(
+                    moment(offer.date_start).add(
+                      offer.duration_minute,
+                      'minute',
+                    ),
+                    offer.establishment.tzname,
+                  )}`}
                 </Typography>
               )}
-              <Typography inline style={{ marginLeft: '4px' }}>
-                {formatMinutes(offer.duration_minute, t)}
-                {props.showOfferFilling
-                  ? `(${offer.tot_slots}/${offer.effectif})`
-                  : null}
-              </Typography>
             </div>
             <div className={classes.levelCoachContainer}>
               <Level
@@ -111,7 +113,11 @@ export const MarketplaceOffer = (props: Props) => {
                 inline
                 variant="caption"
               >
-                {`  ${coachName}`}
+                {`  ${coachName}${
+                  props.showOfferFilling
+                    ? ` (${offer.tot_slots}/${offer.effectif})`
+                    : ''
+                }`}
               </Typography>
             </div>
           </div>
@@ -131,20 +137,18 @@ export const MarketplaceOffer = (props: Props) => {
   );
 };
 
-const styles = (theme) => {
+const useStyles = makeStyles((theme) => {
   return {
     primaryTextContainer: { flexDirection: 'column', alignItems: 'flex-start' },
     inlineContainer: { alignItems: 'center', display: 'flex' },
-    icon: { marginRight: theme.spacing.unit * 2 },
+    icon: { marginRight: theme.spacing(2) },
     levelCoachContainer: {
       flexDirection: 'row',
       justifyContent: 'flex-start',
       alignItems: 'center',
       display: 'flex',
     },
-    coachName: { marginLeft: theme.spacing.unit * 2 },
+    coachName: { marginLeft: theme.spacing(2) },
   };
-};
-export default withStyles(styles)(
-  withNamespaces(['datetime'])(MarketplaceOffer),
-);
+});
+export default pure(MarketplaceOffer);

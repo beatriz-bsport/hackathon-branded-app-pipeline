@@ -128,7 +128,7 @@ export class RecurrentAvailabilityFormDialog extends React.Component<
 
 const styles = (theme) => ({
   content: {
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
 });
 

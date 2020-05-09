@@ -112,15 +112,15 @@ const styles = (theme) => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: '#E8E8E8',
-    borderRadius: theme.spacing.unit,
+    borderRadius: theme.spacing(1),
   },
   chipContainer: {
-    paddingLeft: theme.spacing.unit,
+    paddingLeft: theme.spacing(1),
   },
   emptyText: {
-    padding: theme.spacing.unit * 2,
-    paddingLeft: theme.spacing.unit * 3,
-    paddingRight: theme.spacing.unit * 3,
+    padding: theme.spacing(2),
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
     '&:hover': {
       color: '#A0A0A0',
     },

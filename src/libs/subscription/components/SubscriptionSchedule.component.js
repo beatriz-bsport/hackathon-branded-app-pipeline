@@ -96,6 +96,7 @@ const PlannedInvoiceItem = (props: {
         secondary={statusText}
         primaryTypographyProps={{ align: 'right' }}
         secondaryTypographyProps={{ align: 'right' }}
+        style={{ marginRight: 8 }}
       />
       <ListItemSecondaryAction>
         <IconButton disabled>{statusIcon}</IconButton>

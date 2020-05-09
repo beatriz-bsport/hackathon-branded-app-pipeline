@@ -120,7 +120,7 @@ export const OrderDetail = (props: Props) => {
           </Button>
         </div>
       </div>
-      <Grid container spacing={16}>
+      <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <Typography
             component="h2"
@@ -190,21 +190,21 @@ export const OrderDetail = (props: Props) => {
 
 const styles = (theme) => ({
   bannerDivider: {
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit * 2,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(2),
   },
   sectionTitle: {
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit,
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(1),
   },
   addressPaper: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   actionButton: {
-    marginLeft: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(2),
   },
 });
 

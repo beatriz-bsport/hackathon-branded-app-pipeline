@@ -94,7 +94,7 @@ export class Partnership extends React.Component<Props> {
           {this.props.loading || this.props.establishmentList.length === 0 ? (
             <CircularProgress />
           ) : (
-            <div>
+            <div className={this.props.classes.column}>
               <Typography variant="body">
                 {this.props.t('parameters.companyId', { company })}
               </Typography>
@@ -111,14 +111,16 @@ export class Partnership extends React.Component<Props> {
                   iSubmitting={this.props.isSubmitting}
                 />
               ) : (
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  className={this.props.classes.requestButton}
-                  onClick={this.props.requestClasspassPartnership}
-                >
-                  {this.props.t('actions.requestPartnership')}
-                </Button>
+                <div>
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    className={this.props.classes.requestButton}
+                    onClick={this.props.requestClasspassPartnership}
+                  >
+                    {this.props.t('actions.requestPartnership')}
+                  </Button>
+                </div>
               )}
             </div>
           )}
@@ -130,14 +132,18 @@ export class Partnership extends React.Component<Props> {
 
 const styles = (theme) => ({
   container: {
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing(2),
   },
   paper: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   requestButton: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
+  column: {
+    display: 'flex',
+    flexDirection: 'column',
   },
 });
 

@@ -75,7 +75,7 @@ class CheckInOfferSummary extends Component<Props, State> {
         <div className={classes.item}>
           <div className={classes.row}>
             <AccessTimeIcon className={classes.leftIcon} />
-            <Typography variant="body1">
+            <Typography variant="body2">
               {`${formatAsTime(offer.date_start)} - ${formatAsTime(
                 offer.date_end,
               )}`}
@@ -103,7 +103,7 @@ class CheckInOfferSummary extends Component<Props, State> {
         </div>
         <div className={classes.item}>
           <Level
-            variant="body2"
+            variant="body1"
             align="center"
             levelId={offer && offer.level_id ? offer.level_id || null : null}
           />
@@ -111,14 +111,14 @@ class CheckInOfferSummary extends Component<Props, State> {
 
         <div className={classes.item} />
         <div className={classes.item}>
-          <Typography variant="body1" align="center">
+          <Typography variant="body2" align="center">
             {offer
               ? (offer.establishment_override || offer.etablissement).title
               : ''}
           </Typography>
           <div className={classes.row}>
             <PlaceIcon className={classes.leftIcon} />
-            <Typography variant="body2" color="textSecondary" align="center">
+            <Typography variant="body1" color="textSecondary" align="center">
               {offer
                 ? (offer.establishment_override || offer.etablissement).location
                     .address
@@ -136,11 +136,11 @@ const style = (theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    paddingRight: theme.spacing.unit,
+    paddingRight: theme.spacing(1),
     height: '100%',
   },
   item: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
   },
   row: {
     display: 'flex',
@@ -148,22 +148,22 @@ const style = (theme) => ({
     flexDirection: 'row',
   },
   button: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
     verticalAlign: 'text-bottom',
   },
   backButtonContainer: {
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
     width: '100%',
   },
   textUppercase: {
     textTransform: 'uppercase',
   },
   coachAvatar: {
-    width: theme.spacing.unit * 16,
-    height: theme.spacing.unit * 16,
+    width: theme.spacing(16),
+    height: theme.spacing(16),
   },
 });
 

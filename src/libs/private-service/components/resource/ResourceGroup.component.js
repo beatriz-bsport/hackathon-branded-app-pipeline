@@ -66,8 +66,8 @@ const styles = (theme) => ({
     justifyContent: 'flex-start',
   },
   title: {
-    marginBottom: theme.spacing.unit / 2,
-    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing(1) / 2,
+    marginTop: theme.spacing(1),
   },
 });
 

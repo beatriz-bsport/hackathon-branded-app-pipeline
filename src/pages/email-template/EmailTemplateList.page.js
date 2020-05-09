@@ -149,7 +149,7 @@ export class MarketingEmail extends Component<Props> {
     }
     return (
       <div>
-        <Grid container direction="row" spacing={24}>
+        <Grid container direction="row" spacing={3}>
           <Grid item xs={12} md={6}>
             {this.props.email_templates.length > 0 ? (
               <div className={this.props.classes.search}>
@@ -255,29 +255,29 @@ const styles = (theme) => ({
     overflow: 'auto',
   },
   panelTitle: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
   },
   previewTitle: {
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
   previewEmpty: {
-    borderRadius: theme.spacing.unit * 3,
+    borderRadius: theme.spacing(3),
     border: '1px solid grey',
     minHeight: '60vh',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    paddingTop: theme.spacing.unit * 6,
+    paddingTop: theme.spacing(6),
   },
   emptyMessageText: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   emptyTextContainer: {
     display: 'flex',
     justifyContent: 'center',
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
-  search: { marginBottom: theme.spacing.unit * 2 },
+  search: { marginBottom: theme.spacing(2) },
   searchPaperDisplayed: {
     border: '1px solid',
     borderColor: theme.primary_color,

@@ -168,7 +168,7 @@ const styles = (theme) => ({
   container: {
     margin: '50px auto',
     textAlign: 'center',
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
 });
 

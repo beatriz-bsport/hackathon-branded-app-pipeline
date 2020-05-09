@@ -79,7 +79,7 @@ const styles = (theme) => ({
   row: {
     display: 'flex',
     flexDirection: 'row',
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
 });
 

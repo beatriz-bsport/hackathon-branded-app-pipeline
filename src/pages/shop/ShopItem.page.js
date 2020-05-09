@@ -128,7 +128,7 @@ export class ShopItemDetail extends Component<Props, State> {
 
   render() {
     return (
-      <Grid container spacing={16} className={this.props.classes.container}>
+      <Grid container spacing={2} className={this.props.classes.container}>
         <Grid item xs={12} sm={6}>
           <Typography variant="h5" component="h2">
             {this.props.t('shopitem.detail.title')}
@@ -213,18 +213,18 @@ export class ShopItemDetail extends Component<Props, State> {
 
 const styles = (theme) => ({
   container: {
-    marginBottom: theme.spacing.unit * 4,
+    marginBottom: theme.spacing(4),
   },
   sectionDivider: {
-    marginBottom: theme.spacing.unit * 2,
-    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(1),
   },
   barcode: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
 });
 

@@ -282,38 +282,38 @@ export const PrivateServiceForm = (props: Props) => {
 
 const styles = (theme) => ({
   container: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
     display: 'flex',
     flexDirection: 'column',
     minWidth: 340,
   },
   field: {
-    marginBottom: theme.spacing.unit * 3,
-    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(3),
+    marginTop: theme.spacing(2),
   },
   sectionTitle: {
-    paddingTop: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
   },
   buttonContainer: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   resourceGroup: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1),
   },
   row: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   selectorWrapper: {
     backgroundColor: '#F4F4F4',

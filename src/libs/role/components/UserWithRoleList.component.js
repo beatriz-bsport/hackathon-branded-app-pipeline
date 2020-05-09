@@ -123,7 +123,7 @@ export const UserWithRoleList = (props: Props) => (
 
 const styles = (theme) => ({
   roleListItem: {
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
   roleFieldContainer: {
     display: 'flex',
@@ -131,10 +131,10 @@ const styles = (theme) => ({
     alignItems: 'center',
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   roleField: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
     minWidth: 200,
   },
 });

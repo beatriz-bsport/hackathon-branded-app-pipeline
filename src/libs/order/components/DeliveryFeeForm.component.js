@@ -106,10 +106,10 @@ const styles = (theme) => ({
   buttons: {
     display: 'flex',
     flexDirection: 'row',
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   field: {
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
   container: {
     display: 'flex',

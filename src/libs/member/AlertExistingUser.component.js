@@ -37,8 +37,8 @@ export function AlertExistingUser(props: Props) {
   } = props;
   const userKey = existingMemberId ? 'member' : 'user';
   const textKey = email
-    ? `member.${userKey}.existsWithEmail`
-    : `member.${userKey}.existsWithPhone`;
+    ? `${userKey}.existsWithEmail`
+    : `${userKey}.existsWithPhone`;
   const button = existingMemberId ? (
     <div>
       <Button
@@ -46,7 +46,7 @@ export function AlertExistingUser(props: Props) {
         variant="outlined"
         classes={{ outlined: classes.buttonOutlined }}
       >
-        {t('member:exists.goTo')}
+        {t('exists.goTo')}
       </Button>
       {memberId && existingMemberId ? (
         <Button
@@ -55,7 +55,7 @@ export function AlertExistingUser(props: Props) {
           classes={{ outlined: classes.buttonOutlined }}
           className={classes.mergButton}
         >
-          {t('member:exists.merge')}
+          {t('exists.merge')}
         </Button>
       ) : null}
     </div>
@@ -80,11 +80,11 @@ const styles = (theme) => ({
   info: {
     width: '100%',
     backgroundColor: '#03A33B',
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     color: 'white',
   },
   mergButton: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
   buttonOutlined: {
     borderColor: 'white',
@@ -92,4 +92,6 @@ const styles = (theme) => ({
   },
 });
 
-export default withNamespaces([])(withStyles(styles)(AlertExistingUser));
+export default withNamespaces(['member'])(
+  withStyles(styles)(AlertExistingUser),
+);

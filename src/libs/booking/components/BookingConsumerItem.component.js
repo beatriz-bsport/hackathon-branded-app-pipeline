@@ -120,19 +120,19 @@ export const BookingConsumerItem = (props: Props) => {
 
 const styles = (theme) => ({
   container: {
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
   largeAvatar: {
-    width: theme.spacing.unit * 14,
-    height: theme.spacing.unit * 14,
-    marginBottom: -theme.spacing.unit * 4,
+    width: theme.spacing(14),
+    height: theme.spacing(14),
+    marginBottom: -theme.spacing(4),
   },
   translucentPaper: {
     backgroundColor: 'rgba(255, 255, 255, 0.6)',
   },
   header: {
-    paddingLeft: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit,
+    paddingLeft: theme.spacing(2),
+    paddingBottom: theme.spacing(1),
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -142,10 +142,10 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingTop: theme.spacing.unit,
+    paddingTop: theme.spacing(1),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 

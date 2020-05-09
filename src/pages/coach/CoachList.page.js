@@ -142,7 +142,7 @@ export class CoachList extends React.Component<Props, State> {
 
 const styles = (theme) => ({
   container: {
-    paddingBottom: theme.spacing.unit * 16,
+    paddingBottom: theme.spacing(16),
   },
   searchPaperDisplayed: {
     border: '1px solid',
@@ -155,7 +155,7 @@ const styles = (theme) => ({
     borderTop: '0px',
     boderBottom: '0px',
   },
-  search: { marginBottom: theme.spacing.unit * 2 },
+  search: { marginBottom: theme.spacing(2) },
 });
 
 export default compose(

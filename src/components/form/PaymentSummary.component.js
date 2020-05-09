@@ -14,7 +14,7 @@ import PAYMENT_METHODS from '@bsport/common/lib/master-data/payment-methods';
 const styles = (theme) => ({
   container: {
     backgroundColor: '#F8F8F8',
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
   },
   field: {},
 });

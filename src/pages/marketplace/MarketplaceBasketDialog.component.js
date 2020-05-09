@@ -56,7 +56,7 @@ export const MarketplaceBasketDialog = (props: Props) => (
 
 const styles = (theme) => ({
   title: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
 });
 

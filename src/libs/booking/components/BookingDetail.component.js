@@ -117,7 +117,7 @@ export class BookingDetail extends Component<Props> {
 
 const styles = (theme) => ({
   parametersContainer: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   parameter: {
     display: 'flex',
@@ -126,18 +126,18 @@ const styles = (theme) => ({
     flexDirection: 'row',
   },
   paperContainer: {
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit * 2,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(2),
   },
   emptyMessageContainer: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: theme.spacing.unit * 4,
+    marginTop: theme.spacing(4),
   },
   emptyMessageText: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
 });
 

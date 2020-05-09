@@ -65,17 +65,17 @@ export const BottomActionButtons = (props: Props) => (
 const styles = (theme) => ({
   buttonContainer: {
     position: 'fixed',
-    right: theme.spacing.unit * 2,
-    bottom: theme.spacing.unit * 2,
+    right: theme.spacing(2),
+    bottom: theme.spacing(2),
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'flex-end',
   },
   actionButton: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
   rightText: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
 });
 

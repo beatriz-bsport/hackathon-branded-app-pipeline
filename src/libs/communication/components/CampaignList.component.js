@@ -76,7 +76,7 @@ const styles = (theme) => ({
   infoIcon: {
     height: 120,
     width: 120,
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
   buttonContainer: {
     width: '100%',
@@ -84,8 +84,8 @@ const styles = (theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: theme.spacing.unit * 3,
-    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(3),
+    marginTop: theme.spacing(2),
   },
   column: {
     flexDirection: 'column',

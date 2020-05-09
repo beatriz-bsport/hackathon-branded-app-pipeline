@@ -86,15 +86,15 @@ export class PaymentRulesDashboard extends Component<Props, State> {
 
 const styles = (theme) => ({
   form: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   table: {
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing(2),
   },
   button: {
     position: 'fixed',
-    bottom: theme.spacing.unit * 2,
-    right: theme.spacing.unit * 2,
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
   },
 });
 

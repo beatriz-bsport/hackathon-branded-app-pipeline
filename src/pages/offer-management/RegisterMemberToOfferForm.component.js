@@ -75,7 +75,7 @@ export class RegisterMemberToOfferForm extends PureComponent<Props> {
   }
 
   renderWarning = (text: string) => (
-    <Grid container direction="row" spacing={24}>
+    <Grid container direction="row" spacing={3}>
       <Grid item>
         <WarningIcon color="error" />
       </Grid>
@@ -198,7 +198,7 @@ export class RegisterMemberToOfferForm extends PureComponent<Props> {
       return <CircularProgress />;
     }
     return (
-      <Grid container spacing={16} direction="column">
+      <Grid container spacing={2} direction="column">
         <Grid item>
           <Typography variant="h4" align="center">
             {memberName}

@@ -45,8 +45,8 @@ type AlertErrorProps = {
 
 const styles = (theme) => ({
   alertError: {
-    paddingTop: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
     color: theme.palette.error.dark,
   },
 });
@@ -58,7 +58,7 @@ export const AlertError = withNamespaces([])(
       <ErrorMessage
         {...props}
         render={(message) => (
-          <Typography variant="body1" className={classes.alertError}>
+          <Typography variant="body2" className={classes.alertError}>
             {t(message)}
           </Typography>
         )}
@@ -69,7 +69,7 @@ export const AlertError = withNamespaces([])(
 
 const textFieldStyles = (theme) => ({
   field: {
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
 });
 
@@ -147,7 +147,7 @@ export function PercentField(props) {
 
 const buttonStyles = (theme) => ({
   root: {
-    marginLeft: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(2),
   },
 });
 export const Submit = withStyles(buttonStyles)((props: SubmitProps) => {
@@ -167,8 +167,8 @@ export const Submit = withStyles(buttonStyles)((props: SubmitProps) => {
 const actionsStyles = (theme) => ({
   row: {
     textAlign: 'right',
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
 });
 export const Actions = withStyles(actionsStyles)((props: ActionsProps) => {
@@ -305,7 +305,7 @@ export const DurationField = withStyles(styles)(
               <ErrorMessage {...props}>
                 {(message) => (
                   <Typography
-                    variant="body1"
+                    variant="body2"
                     className={props.classes.alertError}
                   >
                     {props.t(message)}
@@ -370,7 +370,7 @@ export const AddressFields = withNamespaces([])((props: AddressFieldsProps) => {
         disabled={!!disabled}
         label={t('form.address.addressLine2')}
       />
-      <Grid container direction="row" spacing={16}>
+      <Grid container direction="row" spacing={2}>
         <Grid item>
           <TextField
             name="zipcode"
@@ -457,7 +457,7 @@ export const PhoneField = withNamespaces([])(
             </MuiFormControl>
             <ErrorMessage {...props}>
               {(message) => (
-                <Typography variant="body1" className={classes.alertError}>
+                <Typography variant="body2" className={classes.alertError}>
                   {t(message)}
                 </Typography>
               )}
@@ -506,7 +506,7 @@ export const GenderField = withStyles(styles)(
             </Select>
             <ErrorMessage {...props}>
               {(message) => (
-                <Typography variant="body1" className={classes.alertError}>
+                <Typography variant="body2" className={classes.alertError}>
                   {t(message)}
                 </Typography>
               )}
@@ -557,7 +557,7 @@ export const SelectField = withStyles(styles)(
             </Select>
             <ErrorMessage {...props}>
               {(message) => (
-                <Typography variant="body2" className={classes.alertError}>
+                <Typography variant="body1" className={classes.alertError}>
                   {t(message)}
                 </Typography>
               )}
@@ -745,10 +745,10 @@ type FormControlProps = {};
 
 const formControlStyles = (theme) => ({
   control: {
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
   },
   label: {
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
 });
 
@@ -757,7 +757,7 @@ export const FormControl = withStyles(formControlStyles)(
     const { classes, label, children } = props;
     return (
       <div className={classes.control}>
-        <Typography variant="body1" className={classes.label}>
+        <Typography variant="body2" className={classes.label}>
           {label}
         </Typography>
         {children}

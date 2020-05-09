@@ -130,7 +130,7 @@ const styles = (theme) => ({
   dropzone: {
     width: '100%',
     position: 'relative',
-    minHeight: 20 * theme.spacing.unit,
+    minHeight: 20 * theme.spacing(1),
     backgroundColor: '#F7F7F7',
     cursor: 'pointer',
   },

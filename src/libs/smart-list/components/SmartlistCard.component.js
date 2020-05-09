@@ -79,26 +79,26 @@ export const SmartlistCard = (props: Props) => {
 
 const styles = (theme) => ({
   divider: {
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
   header: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingLeft: theme.spacing.unit * 2,
+    paddingLeft: theme.spacing(2),
   },
   paper: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   description: {
-    marginTop: theme.spacing.unit,
-    padding: theme.spacing.unit * 2,
+    marginTop: theme.spacing(1),
+    padding: theme.spacing(2),
     border: '1px solid rgba(0, 0, 0, 0.54)',
     borderRadius: 8,
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   configureButtonContainer: {
     display: 'flex',
@@ -113,7 +113,7 @@ const styles = (theme) => ({
     alignItems: 'center',
   },
   button: {
-    marginLeft: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(2),
   },
 });
 

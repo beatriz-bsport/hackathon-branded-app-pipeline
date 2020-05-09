@@ -95,14 +95,14 @@ export const MarketplaceWorkshop = (props: Props) => {
 
 const styles = (theme) => ({
   workshopCardContainer: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   centeredText: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    paddingTop: theme.spacing.unit * 3,
+    paddingTop: theme.spacing(3),
   },
 });
 

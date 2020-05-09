@@ -303,33 +303,33 @@ export class ActiveCampaignConfiguration extends Component<Props> {
 
 const styles = (theme) => ({
   typoMargin: {
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
   },
 
   titleLink: {
-    marginBottom: theme.spacing.unit,
-    marginTop: theme.spacing.unit * 3,
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(3),
   },
   inline: {
     display: 'flex',
     alignItems: 'center',
-    marginBottom: theme.spacing.unit,
-    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(2),
   },
   inlineError: {
     display: 'flex',
     alignItems: 'center',
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
   },
-  warningIcon: { marginRight: theme.spacing.unit },
-  accountInfosContainer: { paddingBottom: theme.spacing.unit * 2 },
+  warningIcon: { marginRight: theme.spacing(1) },
+  accountInfosContainer: { paddingBottom: theme.spacing(2) },
   accountInlineEdit: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   container: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     paddingTop: 0,
   },
 });

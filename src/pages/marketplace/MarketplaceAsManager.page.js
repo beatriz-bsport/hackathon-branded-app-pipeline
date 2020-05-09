@@ -54,7 +54,7 @@ export const MarketplaceAsManager = (props: Props) => {
 
 const styles = (theme) => ({
   container: {
-    padding: theme.spacing.unit * 4,
+    padding: theme.spacing(4),
     alignItems: 'center',
     justifyContent: 'center',
     display: 'flex',
@@ -65,8 +65,8 @@ const styles = (theme) => ({
     justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'column',
-    padding: theme.spacing.unit * 2,
-    borderRadius: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
+    borderRadius: theme.spacing(2),
     backgroundColor: '#F5F5F5',
     maxWidth: 600,
   },
@@ -75,10 +75,10 @@ const styles = (theme) => ({
     height: 100,
   },
   button: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
   },
   explainText: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   buttonContainer: {
     display: 'flex',

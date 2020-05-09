@@ -99,7 +99,7 @@ export class EstablishmentDetails extends React.Component<Props, State> {
 
 const styles = (theme) => ({
   container: {
-    paddingBottom: theme.spacing.unit * 12,
+    paddingBottom: theme.spacing(12),
   },
 });
 

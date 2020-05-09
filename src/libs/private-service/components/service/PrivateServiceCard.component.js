@@ -105,6 +105,7 @@ export const PrivateServiceDetail = (props: Props) => {
           <EstablishmentListItem
             establishment={establishment}
             key={establishment.id}
+            showCapacity
           />
         ))}
       </CardContent>
@@ -114,13 +115,13 @@ export const PrivateServiceDetail = (props: Props) => {
 
 const styles = (theme) => ({
   subtitle: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   description: {
-    paddingLeft: theme.spacing.unit * 2,
+    paddingLeft: theme.spacing(2),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit * 2,
+    marginRight: theme.spacing(2),
   },
   row: {
     display: 'flex',
@@ -128,10 +129,10 @@ const styles = (theme) => ({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     width: '100%',
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     backgroundColor: '#F8F8F8',
-    borderRadius: theme.spacing.unit * 2,
-    marginTop: theme.spacing.unit,
+    borderRadius: theme.spacing(2),
+    marginTop: theme.spacing(1),
   },
 });
 

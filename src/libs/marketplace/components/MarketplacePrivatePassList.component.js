@@ -75,8 +75,8 @@ export const MarketplacePrivatePassList = (props: Props) => {
 
 const styles = (theme) => ({
   sectionTitle: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 1,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1) * 1,
   },
 });
 

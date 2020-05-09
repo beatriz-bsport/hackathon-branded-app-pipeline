@@ -125,7 +125,7 @@ const styles = (theme) => ({
   },
   comboListContainer: {
     overflowX: 'auto',
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
 
     display: 'flex',
     justifyContent: 'flex-start',
@@ -142,13 +142,13 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-end',
-    paddingLeft: theme.spacing.unit,
+    paddingLeft: theme.spacing(1),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   cardContainer: {
-    paddingRight: theme.spacing.unit * 2,
+    paddingRight: theme.spacing(2),
     minWidth: 300,
   },
   card: {

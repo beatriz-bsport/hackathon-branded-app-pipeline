@@ -4,6 +4,8 @@ import type { Node } from 'react';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import Typography from '@material-ui/core/Typography';
+import withStyles from '@material-ui/core/styles/withStyles';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
@@ -37,16 +39,38 @@ export function PaymentPackMinimalSummary(props: Props) {
       selected={!!props.selected}
       style={props.isFocused ? { backgroundColor: '#EFEFEF' } : {}}
     >
-      <ListItemText primary={name} secondary={creditsFormatted} />
-      <ListItemText
-        primary={`${price} €`}
-        primaryTypographyProps={{ align: 'right', variant: 'caption' }}
-        secondaryTypographyProps={{ align: 'right', variant: 'caption' }}
-        secondary={dateInfo}
-      />
+      <div className={props.classes.container}>
+        <ListItemText primary={name} secondary={creditsFormatted} />
+        <div className={props.classes.rightInfo}>
+          <Typography variant="caption" align="right">
+            {`${price} €`}
+          </Typography>
+          <Typography variant="caption" align="right">
+            {dateInfo}
+          </Typography>
+        </div>
+      </div>
+
       {buyButton}
     </ListItem>
   );
 }
 
-export default withNamespaces(['paymentPack'])(PaymentPackMinimalSummary);
+const styles = (theme) => ({
+  container: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+  },
+  rightInfo: {
+    paddingRight: theme.spacing(1),
+    display: 'flex',
+    flexDirection: 'column',
+  },
+});
+
+export default withStyles(styles)(
+  withNamespaces(['paymentPack'])(PaymentPackMinimalSummary),
+);

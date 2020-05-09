@@ -62,10 +62,10 @@ export class EmailListItem extends Component<Props> {
 
 const style = (theme) => ({
   listItemText: {
-    marginLeft: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(2),
   },
   notificationIcon: {
-    marginLeft: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(2),
   },
 });
 

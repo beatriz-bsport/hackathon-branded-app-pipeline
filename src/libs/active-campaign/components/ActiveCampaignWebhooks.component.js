@@ -88,13 +88,13 @@ const styles = (theme) => ({
   inline: {
     display: 'flex',
     alignItems: 'center',
-    marginBottom: theme.spacing.unit,
-    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(2),
   },
   circularProgress: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(2),
+    marginBottom: theme.spacing(1),
   },
 });
 

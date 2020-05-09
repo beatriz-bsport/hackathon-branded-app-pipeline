@@ -44,7 +44,7 @@ type Props = {
 
 const styles = (theme) => ({
   container: {},
-  leftIcon: { marginRight: theme.spacing.unit },
+  leftIcon: { marginRight: theme.spacing(1) },
 });
 
 export class CoachPrivateCalendar extends React.Component<Props> {

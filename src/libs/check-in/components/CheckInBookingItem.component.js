@@ -70,15 +70,15 @@ export const CheckInBookingItem = (props: Props) => {
 const style = (theme) => {
   return {
     button: {
-      marginRight: theme.spacing.unit,
+      marginRight: theme.spacing(1),
     },
     buttonIcon: {
-      marginRight: theme.spacing.unit,
+      marginRight: theme.spacing(1),
     },
     listItem: {
-      marginBottom: theme.spacing.unit / 3,
-      paddingLeft: theme.spacing.unit,
-      paddingRight: theme.spacing.unit,
+      marginBottom: theme.spacing(1) / 3,
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1),
       border: `2px solid ${theme.palette.grey[200]}`,
       borderRadius: theme.shape.borderRadius,
     },

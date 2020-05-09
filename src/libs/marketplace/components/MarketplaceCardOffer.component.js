@@ -5,7 +5,7 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 import Typography from '@material-ui/core/Typography';
 import { withNamespaces } from 'react-i18next';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { makeStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import moment from 'moment-timezone';
 import Level from '../../../components/category/Level.component';
@@ -31,7 +31,8 @@ const pairColor = '#FFFFFF';
 const impairColor = '#F8F8F8';
 
 export const MarketplaceCardOffer = (props: Props) => {
-  const { offer, onClickOffer, classes } = props;
+  const { offer, onClickOffer } = props;
+  const classes = useStyles();
   const isInThePast = isOfferInThePast(offer);
   const onClick =
     onClickOffer && isInThePast ? () => onClickOffer(offer.id) : null; // this open the offer modal
@@ -151,12 +152,12 @@ export const MarketplaceCardOffer = (props: Props) => {
   );
 };
 
-const style = (theme) => {
+const useStyles = makeStyles((theme) => {
   return {
     cardOuter: {
       display: 'flex',
-      marginLeft: theme.spacing.unit,
-      marginRight: theme.spacing.unit,
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
       flexDirection: 'column',
       justifyContent: 'space-between',
       height: '100%',
@@ -170,20 +171,20 @@ const style = (theme) => {
       width: '100%',
       flexDirection: 'column',
       alignItems: 'center',
-      paddingTop: theme.spacing.unit,
-      paddingBottom: theme.spacing.unit,
+      paddingTop: theme.spacing(1),
+      paddingBottom: theme.spacing(1),
     },
     title: {
-      paddingBottom: theme.spacing.unit,
+      paddingBottom: theme.spacing(1),
     },
     bottomButton: {
       textAlign: 'center',
       marginTop: '3px',
     },
     marginIcon: {
-      marginRight: theme.spacing.unit,
+      marginRight: theme.spacing(1),
     },
   };
-};
+});
 
-export default withStyles(style)(withNamespaces()(MarketplaceCardOffer));
+export default withNamespaces()(MarketplaceCardOffer);

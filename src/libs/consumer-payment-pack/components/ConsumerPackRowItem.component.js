@@ -9,6 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -192,11 +193,13 @@ export class ConsumerPackRowItem extends Component<Props> {
           }
         >
           {hideConsumer ? null : (
-            <Avatar src={consumer ? consumer.photo : null} />
+            <ListItemAvatar>
+              <Avatar src={consumer ? consumer.photo : null} />
+            </ListItemAvatar>
           )}
           <ListItemText
             primary={
-              <span>
+              <div>
                 <Typography>
                   {hideConsumer
                     ? (paymentPack && paymentPack.name) || ' - '
@@ -215,7 +218,7 @@ export class ConsumerPackRowItem extends Component<Props> {
                   paymentPack={paymentPack}
                   consumerPack={consumerPack}
                 />
-              </span>
+              </div>
             }
             secondary={`${t('consumer.expiresOn')}${formatAsDate(
               consumerPack.ending_date,

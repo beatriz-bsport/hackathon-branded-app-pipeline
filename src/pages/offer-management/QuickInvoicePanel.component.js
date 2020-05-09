@@ -114,12 +114,12 @@ export function QuickInvoicePanel(props: Props) {
 
 const styles = (theme) => ({
   bookingsHeader: {
-    padding: theme.spacing.unit * 2,
-    paddingTop: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
+    padding: theme.spacing(2),
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
   },
   emptyTextContainer: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
 });
 

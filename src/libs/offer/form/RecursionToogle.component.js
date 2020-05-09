@@ -115,7 +115,7 @@ export class RecursionToogle extends Component<Props, State> {
         <Grid
           container
           direction="row"
-          spacing={16}
+          spacing={2}
           alignItems="center"
           wrap="nowrap"
         >

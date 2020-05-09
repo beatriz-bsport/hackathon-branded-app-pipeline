@@ -109,16 +109,16 @@ export class ConsumerSubscription extends React.Component<Props> {
 }
 const styles = (theme) => ({
   table: {
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
   header: {
     display: 'flex',
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
     flexDirection: 'row',
     justifyContent: 'flex-start',
   },
   iconLeft: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 

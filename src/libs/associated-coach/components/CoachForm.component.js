@@ -42,7 +42,7 @@ export function CoachForm(props: Props) {
           <AvatarField name="avatar" />
         </div>
 
-        <Grid container spacing={8} className={classes.fieldset}>
+        <Grid container spacing={1} className={classes.fieldset}>
           <Grid item xs={12} md={6}>
             <TextField
               name="firstname"
@@ -137,9 +137,9 @@ const styles = (theme) => ({
     marginTop: MARGIN_AVATAR / 2,
   },
   content: {
-    paddingTop: MARGIN_AVATAR / 2 + theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 3,
-    paddingRight: theme.spacing.unit * 3,
+    paddingTop: MARGIN_AVATAR / 2 + theme.spacing(1),
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
     position: 'relative',
   },
   avatar: {

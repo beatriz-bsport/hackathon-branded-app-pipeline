@@ -60,23 +60,23 @@ export const EstablishmentDetailRouter = (props: Props) => (
 );
 const styles = (theme) => ({
   container: {
-    marginBottom: theme.spacing.unit * 4,
-    marginTop: -theme.spacing.unit * 3,
+    marginBottom: theme.spacing(4),
+    marginTop: -theme.spacing(3),
     width: '100vw',
     [theme.breakpoints.up('md')]: {
-      marginLeft: -theme.spacing.unit * 3,
+      marginLeft: -theme.spacing(3),
       width: 'auto',
-      marginRight: -theme.spacing.unit * 3,
-      marginTop: -theme.spacing.unit * 2,
+      marginRight: -theme.spacing(3),
+      marginTop: -theme.spacing(2),
     },
   },
   content: {
-    marginBottom: theme.spacing.unit * 8,
+    marginBottom: theme.spacing(8),
     [theme.breakpoints.up('md')]: {
-      margin: theme.spacing.unit * 2,
-      marginBottom: theme.spacing.unit * 8,
+      margin: theme.spacing(2),
+      marginBottom: theme.spacing(8),
     },
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
 });
 

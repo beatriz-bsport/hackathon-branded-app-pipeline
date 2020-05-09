@@ -135,7 +135,7 @@ export class BasketDeliveryForm extends React.Component<Props, State> {
 }
 const styles = (theme) => ({
   nameContainer: {
-    paddingBottom: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing(2),
   },
   buttonContainer: {
     display: 'flex',

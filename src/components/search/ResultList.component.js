@@ -104,7 +104,7 @@ const styles = (theme) => ({
   list: {
     maxWidth: '100%',
     flex: '0 360',
-    paddingTop: theme.spacing.unit,
+    paddingTop: theme.spacing(1),
     backgroundColor: theme.palette.background.paper,
     borderRight: '1px solid gray',
   },

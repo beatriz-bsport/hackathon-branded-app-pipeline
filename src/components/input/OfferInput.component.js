@@ -48,7 +48,7 @@ export class OfferInput extends Component<Props, State> {
     const { activities, t, activityHelperText, offerHelperText } = this.props;
     const { activityId, offerId, offersMatchingActivityId } = this.state;
     return (
-      <Grid container direction="row" spacing={16}>
+      <Grid container direction="row" spacing={2}>
         <Grid item>
           <ActivityInput
             label={t('common.activity')}

@@ -33,23 +33,23 @@ import { DATE_FORMAT } from '../../datetime';
 
 const styles = (theme) => ({
   redPaperContainer: {
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing(3),
     background: 'rgba(206, 17, 38, 0.05)',
   },
   paperContainer: {
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing(3),
   },
   textInput: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   formControl: {
     minWidth: 130,
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   mergeTitle: {
     display: 'flex',
     justifyContent: 'center',
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
 });
 
@@ -185,7 +185,7 @@ export function MemberForm(props: Props) {
               checkIfMemberExists(prev, nxt, checkUserExists)
             }
           />
-          <Grid container spacing={16}>
+          <Grid container spacing={2}>
             <Grid item xs={12}>
               <div
                 style={props.fromConsumerAccess ? { visibility: 'hidden' } : {}}
@@ -199,7 +199,7 @@ export function MemberForm(props: Props) {
                 label={
                   props.theme && props.theme.first_name_label
                     ? props.theme.first_name_label
-                    : t('form.firstname')
+                    : t('translation:form.firstname')
                 }
                 required
                 disabled={disabled}
@@ -212,7 +212,7 @@ export function MemberForm(props: Props) {
                 label={
                   props.theme && props.theme.last_name_label
                     ? props.theme.last_name_label
-                    : t('form.lastname')
+                    : t('translation:form.lastname')
                 }
                 required
                 fullWidth
@@ -222,7 +222,7 @@ export function MemberForm(props: Props) {
             <Grid item xs={12} md={mdSize}>
               <GenderField
                 name="gender"
-                label={t('form.gender')}
+                label={t('translation:form.gender')}
                 fullWidth
                 required
                 disabled={disabled}
@@ -232,7 +232,7 @@ export function MemberForm(props: Props) {
               {variant === 'merge-form' ? (
                 <TextField
                   name="email"
-                  label={t('form.email')}
+                  label={t('translation:form.email')}
                   type="email"
                   fullWidth
                   required={!!props.fromConsumerAccess}
@@ -241,7 +241,7 @@ export function MemberForm(props: Props) {
               ) : (
                 <DelayTextField
                   name="email"
-                  label={t('form.email')}
+                  label={t('translation:form.email')}
                   type="email"
                   fullWidth
                   required={!!props.fromConsumerAccess}
@@ -261,7 +261,7 @@ export function MemberForm(props: Props) {
               </Grid>
             )}
             <Grid item xs={12} md={mdSize}>
-              <Grid container direction="row" spacing={16}>
+              <Grid container direction="row" spacing={2}>
                 <Grid item>
                   <DateField
                     format="DD/MM/YYYY"
@@ -287,12 +287,12 @@ export function MemberForm(props: Props) {
                     openToYearSelection
                     clearable
                     disabled={disabled}
-                    label={t('form.birthday')}
+                    label={t('translation:form.birthday')}
                     name="birthday"
                     returnMoment={false}
                     disableFuture
-                    clearLabel={t('form.clearDate')}
-                    cancelLabel={t('common.cancel')}
+                    clearLabel={t('translation:form.clearDate')}
+                    cancelLabel={t('translation:common.cancel')}
                     initialFocusedDate="1990/01/01"
                   />
                 </Grid>
@@ -322,7 +322,7 @@ export function MemberForm(props: Props) {
                       name="date_joined"
                       disabled={disabled}
                       label={t('member:date_joined')}
-                      cancelLabel={t('common.cancel')}
+                      cancelLabel={t('translation:common.cancel')}
                     />
                   </Grid>
                 )}
@@ -331,7 +331,7 @@ export function MemberForm(props: Props) {
             <Grid item xs={12} md={mdSize}>
               <PhoneField
                 name="phone"
-                label={t('form.phone')}
+                label={t('translation:form.phone')}
                 fullWidth
                 required={!!props.fromConsumerAccess}
                 disabled={disabled}
@@ -341,7 +341,7 @@ export function MemberForm(props: Props) {
               <AddressFields
                 name="address"
                 required={!!props.fromConsumerAccess}
-                label={t('form.address')}
+                label={t('translation:form.address')}
                 disabled={disabled}
               />
             </Grid>
@@ -350,14 +350,14 @@ export function MemberForm(props: Props) {
                 choices={[
                   {
                     id: 'accept_email',
-                    optionLabel: t('form.member.rgpd.email'),
+                    optionLabel: t('translation:form.member.rgpd.email'),
                   },
                   {
                     id: 'accept_sms',
-                    optionLabel: t('form.member.rgpd.sms'),
+                    optionLabel: t('translation:form.member.rgpd.sms'),
                   },
                 ]}
-                label={t('form.member.rgpdTitle')}
+                label={t('translation:form.member.rgpdTitle')}
                 name="rgpd"
                 disabled={disabled}
               />
@@ -365,16 +365,6 @@ export function MemberForm(props: Props) {
             <Grid item xs={12}>
               {!disabled ? (
                 <Actions>
-                  {props.goToMember ? (
-                    <Button
-                      color="secondary"
-                      onClick={props.goToMember}
-                      disabled={isSubmitting}
-                      variant="contained"
-                    >
-                      {t('member:forms.merge.seeMemberPage')}
-                    </Button>
-                  ) : null}
                   {props.onCancel ? (
                     <Button
                       color="secondary"
@@ -382,10 +372,12 @@ export function MemberForm(props: Props) {
                       disabled={isSubmitting}
                       variant="contained"
                     >
-                      {t('common.cancel')}
+                      {t('translation:common.cancel')}
                     </Button>
                   ) : null}
-                  <Submit disabled={isSubmitting}>{t('form.send')}</Submit>
+                  <Submit disabled={isSubmitting}>
+                    {t('translation:form.send')}
+                  </Submit>
                 </Actions>
               ) : null}
             </Grid>
@@ -441,7 +433,7 @@ const MemberSchema = Yup.object().shape({
 
 export default compose(
   withStyles(styles),
-  withNamespaces([]),
+  withNamespaces(['translation', 'member']),
   withState('emailExists', 'setEmailExists', false),
   withState('emailExistsError', 'setemailExistsError', false),
 

@@ -20,8 +20,8 @@ type Props = {
 
 const styles = (theme) => ({
   chip: {
-    marginRight: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
+    marginRight: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
 });
 

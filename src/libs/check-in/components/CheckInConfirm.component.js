@@ -51,7 +51,7 @@ class CheckInConfirm extends Component<Props> {
           <Typography variant="h5">
             {member && member.name ? member.name : ''}
           </Typography>
-          <Typography variant="body2" color="textSecondary" align="center">
+          <Typography variant="body1" color="textSecondary" align="center">
             {member && member.email ? member.email : ''}
           </Typography>
           <Paper className={classes.footer}>
@@ -145,11 +145,11 @@ const style = (theme) => {
     },
     leftHeader: {
       backgroundColor: theme.palette.primary.dark,
-      height: theme.spacing.unit * 12,
+      height: theme.spacing(12),
     },
     rightHeader: {
       backgroundColor: theme.palette.primary.main,
-      height: theme.spacing.unit * 12,
+      height: theme.spacing(12),
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
@@ -159,16 +159,16 @@ const style = (theme) => {
       textAlign: 'center',
     },
     memberAvatar: {
-      marginTop: -theme.spacing.unit * 8,
-      width: theme.spacing.unit * 16,
-      height: theme.spacing.unit * 16,
+      marginTop: -theme.spacing(8),
+      width: theme.spacing(16),
+      height: theme.spacing(16),
     },
     visitsLeft: {
       border: `3px solid ${theme.palette.grey[50]}`,
-      width: theme.spacing.unit * 8,
-      height: theme.spacing.unit * 8,
+      width: theme.spacing(8),
+      height: theme.spacing(8),
       borderRadius: theme.shape.borderRadius * 11,
-      paddingTop: theme.spacing.unit * 2 - 2,
+      paddingTop: theme.spacing(2) - 2,
     },
     columnCentered: {
       display: 'flex',
@@ -176,10 +176,10 @@ const style = (theme) => {
       alignItems: 'center',
       justifyContent: 'flex-start',
       height: '100%',
-      paddingTop: theme.spacing.unit * 8,
+      paddingTop: theme.spacing(8),
     },
     paddedElement: {
-      paddingTop: theme.spacing.unit * 2,
+      paddingTop: theme.spacing(2),
     },
     column: {
       display: 'flex',
@@ -188,18 +188,18 @@ const style = (theme) => {
       justifyContent: 'flex-start',
     },
     footer: {
-      margin: theme.spacing.unit * 3,
+      margin: theme.spacing(3),
     },
     marginTop: {
-      marginTop: theme.spacing.unit * 3,
+      marginTop: theme.spacing(3),
     },
     backButton: {
       position: 'absolute',
-      bottom: theme.spacing.unit * 2,
-      left: theme.spacing.unit * 2,
+      bottom: theme.spacing(2),
+      left: theme.spacing(2),
     },
     buttonIcon: {
-      marginRight: theme.spacing.unit,
+      marginRight: theme.spacing(1),
     },
   };
 };

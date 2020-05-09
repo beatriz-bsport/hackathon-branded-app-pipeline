@@ -458,7 +458,11 @@ export class OfferManagement extends Component<Props, State> {
                 }}
               />
             }
-            label={t('offer:offerManagement.bookingOrder.date')}
+            label={
+              <Typography variant="caption">
+                {t('offer:offerManagement.bookingOrder.date')}
+              </Typography>
+            }
           />
           <FormControlLabel
             value={BOOKING_FIRSTNAME_ORDER}
@@ -473,7 +477,11 @@ export class OfferManagement extends Component<Props, State> {
                 }}
               />
             }
-            label={t('offer:offerManagement.bookingOrder.firstname')}
+            label={
+              <Typography variant="caption">
+                {t('offer:offerManagement.bookingOrder.firstname')}
+              </Typography>
+            }
           />
           <FormControlLabel
             value={BOOKING_LASTNAME_ORDER}
@@ -486,7 +494,11 @@ export class OfferManagement extends Component<Props, State> {
                 }}
               />
             }
-            label={t('offer:offerManagement.bookingOrder.lastname')}
+            label={
+              <Typography variant="caption">
+                {t('offer:offerManagement.bookingOrder.lastname')}
+              </Typography>
+            }
           />
         </div>
       </div>
@@ -545,7 +557,9 @@ export class OfferManagement extends Component<Props, State> {
           }
         >
           <ChevronLeftIcon className={this.props.classes.leftIcon} />
-          <Hidden xsDown>{this.props.t('offer.previousOffer')}</Hidden>
+          <Hidden xsDown>
+            {this.props.t('translation:offer.previousOffer')}
+          </Hidden>
         </Button>
         <div
           style={{
@@ -586,7 +600,7 @@ export class OfferManagement extends Component<Props, State> {
             !this.props.offer || this.props.offer.id !== this.props.offerId
           }
         >
-          <Hidden xsDown>{this.props.t('offer.nextOffer')}</Hidden>
+          <Hidden xsDown>{this.props.t('translation:offer.nextOffer')}</Hidden>
           <ChevronRightIcon className={this.props.classes.rightIcon} />
         </Button>
       </div>
@@ -642,7 +656,7 @@ export class OfferManagement extends Component<Props, State> {
       return <React.Fragment>{this.getNavigationHeader(true)}</React.Fragment>;
     }
     return (
-      <Grid container direction="row" spacing={16}>
+      <Grid container direction="row" spacing={2}>
         <Grid item xs={12}>
           {this.getNavigationHeader(false)}
         </Grid>
@@ -886,9 +900,9 @@ const MemberMap = {
 
 const styles = (theme) => ({
   bookingsHeader: {
-    padding: theme.spacing.unit * 2,
-    paddingTop: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
+    padding: theme.spacing(2),
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
     width: '100%',
     flexDirection: 'row',
     display: 'flex',
@@ -896,33 +910,33 @@ const styles = (theme) => ({
     alignItems: 'center',
   },
   emptyTextContainer: {
-    paddingTop: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 3,
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    paddingLeft: theme.spacing(3),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   rightIcon: {
-    marginLight: theme.spacing.unit,
+    marginLight: theme.spacing(1),
   },
   headerContainer: {
-    marginTop: -theme.spacing.unit * 2,
+    marginTop: -theme.spacing(2),
   },
   bookingOrderingContainer: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
     display: 'flex',
     justifyContent: 'flex-end',
   },
   autoScroll: {
     overflowY: 'auto',
     [theme.breakpoints.up('lg')]: {
-      height: `calc(100vh - ${theme.spacing.unit * 19}px)`,
+      height: `calc(100vh - ${theme.spacing(19)}px)`,
     },
   },
   titleBanner: {
-    paddingTop: theme.spacing.unit / 2,
-    paddingBottom: theme.spacing.unit / 2,
+    paddingTop: theme.spacing(1) / 2,
+    paddingBottom: theme.spacing(1) / 2,
     backgroundColor: theme.palette.background.paper.disabled,
     display: 'flex',
     justifyContent: 'space-between',
@@ -933,9 +947,9 @@ const styles = (theme) => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
-    padding: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit / 2,
-    paddingTop: theme.spacing.unit / 2,
+    padding: theme.spacing(1),
+    paddingBottom: theme.spacing(1) / 2,
+    paddingTop: theme.spacing(1) / 2,
     background: '#F8F8F8',
     borderBottom: 'solid 1px #E4E4E4',
   },
@@ -949,5 +963,5 @@ const styles = (theme) => ({
 export default compose(
   withMobileDialog(),
   withStyles(styles),
-  withNamespaces(),
+  withNamespaces(['offer']),
 )(OfferManagement);

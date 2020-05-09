@@ -196,7 +196,7 @@ export class ShopItemForm extends Component<Props, State> {
     return (
       <form className={classes.card} onSubmit={this.onSubmit}>
         <div style={{ width: '100%' }}>
-          <Grid container spacing={32}>
+          <Grid container spacing={4}>
             <Grid item xs={12}>
               <ImageUploader initial={cover} onChange={this.handleCoverChange}>
                 <ShopItemPreview />
@@ -401,7 +401,7 @@ const styles = (theme) => ({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   card: {
     display: 'flex',
@@ -409,8 +409,8 @@ const styles = (theme) => ({
     width: '100%',
   },
   provisions: {
-    marginLeft: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
   cover: {
     height: 70,
@@ -419,34 +419,34 @@ const styles = (theme) => ({
   description: {
     display: 'flex',
     alignItems: 'center',
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   header: {
-    paddingLeft: theme.spacing.unit * 3,
-    paddingRight: theme.spacing.unit * 3,
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
   },
   price: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: -theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
+    marginBottom: -theme.spacing(2),
   },
   itemRow: {
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
+    marginLeft: theme.spacing(3),
+    marginRight: theme.spacing(3),
   },
   leftItem: {
-    paddingLeft: `${theme.spacing.unit * 5}px !important`,
+    paddingLeft: `${theme.spacing(5)}px !important`,
   },
   rightItem: {
-    paddingRight: `${theme.spacing.unit * 5}px !important`,
+    paddingRight: `${theme.spacing(5)}px !important`,
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   marketplaceSettings: {
-    marginTop: theme.spacing.unit * 2,
-    padding: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
+    padding: theme.spacing(2),
     paddingBottom: 0,
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
     border: '1px solid #E2E2E2',
     backgroundColor: '#F8F8F8',
     borderRadius: 8,

@@ -82,15 +82,15 @@ export function DateRangeFilter(props: Props) {
 
 const styles = (theme) => ({
   root: {
-    padding: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 3,
+    padding: theme.spacing(2),
+    paddingBottom: theme.spacing(1),
+    paddingLeft: theme.spacing(3),
   },
   button: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
   },
   dateInput: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 

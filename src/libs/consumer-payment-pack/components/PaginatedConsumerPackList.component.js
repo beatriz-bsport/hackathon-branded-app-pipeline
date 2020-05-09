@@ -67,7 +67,7 @@ export const PaginatedConsumerPackList = (props: Props) => (
 
 const styles = (theme) => ({
   emptyContainer: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     backgroundColor: 'F8F8F8',
   },
 });

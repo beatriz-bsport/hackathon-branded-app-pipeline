@@ -60,6 +60,26 @@ export function MetaActivityForm(props: Props) {
           fullWidth
           inputProps={{ maxLength: 100 }}
         />
+        <div className={classes.field}>
+          <SCTSelectField
+            scts={SCTs}
+            label={t('activity.category')}
+            fullWidth
+            name="SCT"
+            required
+          />
+        </div>
+        <div className={classes.field}>
+          <TextField
+            name="description"
+            label={t('activity.description')}
+            required
+            multiline
+            rows={5}
+            fullWidth
+            variant="outlined"
+          />
+        </div>
         {imageUploader ? (
           <div className={classes.field}>
             <label>Carousel</label>
@@ -83,15 +103,6 @@ export function MetaActivityForm(props: Props) {
           </p>
         )}
         <div className={classes.field}>
-          <SCTSelectField
-            scts={SCTs}
-            label={t('activity.category')}
-            fullWidth
-            name="SCT"
-            required
-          />
-        </div>
-        <div className={classes.field}>
           <CheckboxField
             name="is_broadcast"
             disabled={!props.is_broadcast_enabled}
@@ -103,16 +114,6 @@ export function MetaActivityForm(props: Props) {
             label={t('activity.color')}
             name="color"
             transparentColorAvailable
-          />
-        </div>
-        <div className={classes.field}>
-          <TextField
-            name="description"
-            label={t('activity.description')}
-            required
-            multiline
-            fullWidth
-            variant="outlined"
           />
         </div>
         <div className={classes.field}>
@@ -158,17 +159,17 @@ export function MetaActivityForm(props: Props) {
 
 const styles = (theme) => ({
   container: {
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing(3),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'stretch',
   },
   field: {
-    paddingTop: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
   },
   buttonContainer: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
 });
 

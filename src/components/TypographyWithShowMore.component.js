@@ -37,7 +37,7 @@ export const TypographyWithSowMore = (props: Props) => {
           onClick={() => props.setShowFullText(!props.showFullText)}
         >
           <Typography
-            variant="body2"
+            variant="body1"
             color="secondary"
             className={props.classes.showMoreButton}
           >

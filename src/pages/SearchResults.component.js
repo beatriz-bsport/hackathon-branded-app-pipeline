@@ -35,17 +35,17 @@ type State = {};
 
 const styles = (theme) => ({
   mobileOnly: {
-    paddingTop: theme.spacing.unit * 1,
-    paddingLeft: theme.spacing.unit * 1,
-    paddingBottom: theme.spacing.unit * 0.5,
+    paddingTop: theme.spacing(1) * 1,
+    paddingLeft: theme.spacing(1) * 1,
+    paddingBottom: theme.spacing(1) * 0.5,
     [theme.breakpoints.up('md')]: {
       display: 'none',
     },
   },
   root: {
     [theme.breakpoints.up('md')]: {
-      margin: -theme.spacing.unit * 3,
-      width: `calc(100% + ${theme.spacing.unit * 6}px)`,
+      margin: -theme.spacing(3),
+      width: `calc(100% + ${theme.spacing(6)}px)`,
     },
     width: '100%',
     minHeight: 'calc(100vh - 65px)',
@@ -61,7 +61,7 @@ const styles = (theme) => ({
   detail: {
     flex: 2,
     width: '100%',
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     overflowY: 'auto',
   },
   hidden: {

@@ -234,10 +234,10 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
 
 const styles = (theme) => ({
   emptyContent: {
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing(2),
   },
   sessionsGroup: {
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
   offerRow: {
     display: 'flex',
@@ -259,8 +259,8 @@ const styles = (theme) => ({
   rowItem: {
     flexGrow: 1,
     flexBasis: 150,
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
   periodTitle: {
     display: 'flex',
@@ -274,7 +274,7 @@ const styles = (theme) => ({
     width: '100%',
   },
   collapseButton: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
 });
 

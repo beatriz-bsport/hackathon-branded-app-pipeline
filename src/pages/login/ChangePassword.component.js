@@ -18,7 +18,7 @@ import { snackbarSuccess } from '../../actions/snackbar.actions';
 
 const styles = (theme) => ({
   formContainer: {
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing(2),
   },
 });
 
@@ -98,7 +98,7 @@ export class ChangePassword extends Component<Props, State> {
     return (
       <LoginBase>
         <form onSubmit={this.onSubmit} className={classes.formContainer}>
-          <Grid container direction="column" spacing={16} alignItems="center">
+          <Grid container direction="column" spacing={2} alignItems="center">
             <Grid item>
               <Typography variant="h6">
                 {t('form.login.changePasswordTitle')}

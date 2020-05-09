@@ -130,10 +130,10 @@ export const PrivateConsumerPassDetail = (props: Props) => {
 
 const styles = (theme) => ({
   section: {
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
   sectionTitle: {
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
 });
 

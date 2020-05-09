@@ -31,7 +31,7 @@ function getSorting(order: string, orderBy: string, dataType) {
 const styles = (theme) => ({
   root: {
     width: '100%',
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
   },
   table: {
     minWidth: 10,

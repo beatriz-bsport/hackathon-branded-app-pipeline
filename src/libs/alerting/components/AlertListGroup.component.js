@@ -98,8 +98,8 @@ const styles = (theme) => ({
   title: {
     display: 'flex',
     justifyContent: 'space-between',
-    paddingLeft: theme.spacing.unit * 2,
-    paddingRight: theme.spacing.unit * 2,
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
     backgroundColor: '#efefef',
     margin: 0,
   },

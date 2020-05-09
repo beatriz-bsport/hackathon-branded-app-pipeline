@@ -65,7 +65,7 @@ export const ConsumerBookingPage = (props: Props) => (
         {props.t('actions.goToCalendar')}
       </Button>
     </div>
-    <Grid container direction="row" spacing={16}>
+    <Grid container direction="row" spacing={2}>
       <Grid item xs={12} md={6}>
         <Typography variant="h4" component="h3">
           {props.t('booking.titleBooking')}
@@ -128,17 +128,17 @@ export const ConsumerBookingPage = (props: Props) => (
 
 const styles = (theme) => ({
   sectionDivider: {
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit * 2,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(2),
   },
   header: {
     display: 'flex',
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
     flexDirection: 'row',
     justifyContent: 'flex-end',
   },
   iconLeft: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 

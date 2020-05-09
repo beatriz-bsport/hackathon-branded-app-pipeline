@@ -35,7 +35,7 @@ export class CompanyDetailPage extends Component<Props, State> {
 
 const styles = (theme) => ({
   container: {
-    margin: theme.spacing.unit * 3,
+    margin: theme.spacing(3),
   },
 });
 export default compose(

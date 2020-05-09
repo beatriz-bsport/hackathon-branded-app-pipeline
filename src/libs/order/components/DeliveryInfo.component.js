@@ -49,7 +49,7 @@ const styles = (theme) => ({
     flexDirection: 'row',
   },
   horizontalElement: {
-    paddingRight: theme.spacing.unit * 2,
+    paddingRight: theme.spacing(2),
   },
 });
 

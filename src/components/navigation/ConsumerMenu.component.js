@@ -182,7 +182,7 @@ const styles = (theme) => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     [theme.breakpoints.up('sm')]: {
-      padding: theme.spacing.unit * 3,
+      padding: theme.spacing(3),
     },
   },
 });

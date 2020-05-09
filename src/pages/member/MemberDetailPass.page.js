@@ -188,7 +188,7 @@ export class MemberDetailPass extends Component<Props, State> {
 
   render() {
     return (
-      <Grid container direction="row" spacing={16}>
+      <Grid container direction="row" spacing={2}>
         <Grid item xs={12} lg={6}>
           <Paper>
             <PaginatedListBase
@@ -319,20 +319,20 @@ export class MemberDetailPass extends Component<Props, State> {
 
 const styles = (theme) => ({
   container: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   emptyMessageContainer: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: theme.spacing.unit * 4,
+    marginTop: theme.spacing(4),
   },
   emptyMessageText: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   shareButtonContainer: {
-    paddingTop: theme.spacing.unit * 3,
+    paddingTop: theme.spacing(3),
     width: '100%',
     display: 'flex',
     justifyContent: 'center',

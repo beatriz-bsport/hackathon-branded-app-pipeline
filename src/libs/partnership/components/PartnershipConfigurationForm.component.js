@@ -75,13 +75,13 @@ export const PartnershipConfigurationForm = (props: Props) => {
 
 const styles = (theme) => ({
   establishmentSelector: {
-    paddingBottom: theme.spacing.unit,
-    borderRadius: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing(1),
+    borderRadius: theme.spacing(2),
+    marginBottom: theme.spacing(2),
     backgroundColor: '#F4F4F4',
   },
   allEstablishmentText: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
 });
 

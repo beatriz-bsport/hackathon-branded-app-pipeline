@@ -91,16 +91,16 @@ const styles = (theme) => ({
     maxWidth: '700px',
   },
   title: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     paddingLeft: 0,
   },
   featureBanner: {
-    marginBottom: theme.spacing.unit,
-    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(1),
     maxWidth: '90vw',
   },
   paper: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
 });
 export default compose(

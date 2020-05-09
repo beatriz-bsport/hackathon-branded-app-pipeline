@@ -56,7 +56,7 @@ export function ReportCategorySelector({
 
 const styles = (theme) => ({
   chip: {
-    margin: theme.spacing.unit / 2,
+    margin: theme.spacing(1) / 2,
   },
 });
 

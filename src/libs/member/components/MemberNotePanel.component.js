@@ -101,13 +101,11 @@ export class MemberNotePanel extends Component<Props, State> {
             ))
           : null}
         {notes.length === 0 && !newNote ? (
-          <Typography
-            variant="caption"
-            color="textSecondary"
-            className={classes.emptyMessage}
-          >
-            {t('note.noNoteSaved')}
-          </Typography>
+          <div className={classes.emptyMessage}>
+            <Typography variant="caption" color="textSecondary">
+              {t('note.noNoteSaved')}
+            </Typography>
+          </div>
         ) : null}
         <Button
           className={classes.addButton}
@@ -125,20 +123,20 @@ export class MemberNotePanel extends Component<Props, State> {
 
 const styles = (theme) => ({
   emptyMessage: {
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing(2),
     marginLeft: 0,
   },
   noteContainer: {
-    paddingTop: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(2),
   },
   addButton: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   title: {
-    paddingBottom: theme.spacing.unit,
+    paddingBottom: theme.spacing(1),
   },
 });
 

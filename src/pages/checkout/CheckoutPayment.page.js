@@ -177,8 +177,8 @@ const styles = (theme) => ({
     flexDirection: 'column',
     backgroundColor: '#efefef',
     overflow: 'auto',
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 4,
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(4),
   },
   checkoutFlow: {
     display: 'flex',

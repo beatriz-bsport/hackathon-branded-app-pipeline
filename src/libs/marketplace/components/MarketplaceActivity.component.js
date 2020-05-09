@@ -84,7 +84,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
                 {offer.coach_override.description ? (
                   <TypographyMultiline
                     color="textSecondary"
-                    variant="body2"
+                    variant="body1"
                     className={classes.coachDescription}
                   >
                     {offer.coach_override.description}
@@ -105,7 +105,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
               {offer.coach_override ? null : (
                 <TypographyMultiline
                   color="textSecondary"
-                  variant="body2"
+                  variant="body1"
                   className={classes.multiline}
                 >
                   {offer.coach.description}
@@ -216,13 +216,13 @@ export class MarketPlaceActivity extends React.Component<Props> {
             </Button>
           ) : null}
           <div>
-            <Typography variant="body1" className={classes.hashtags}>
+            <Typography variant="body2" className={classes.hashtags}>
               {/* {activity.hashtags} */}
             </Typography>
             <Typography variant="h6" className={classes.title}>
               {offer.meta_activity.name}
             </Typography>
-            <TypographyMultiline color="textSecondary" variant="body1">
+            <TypographyMultiline color="textSecondary" variant="body2">
               {offer.meta_activity.description}
             </TypographyMultiline>
             {this.renderCoachBanner()}
@@ -282,7 +282,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
             <Typography variant="h6" className={classes.title}>
               {establishment.title}
             </Typography>
-            <Typography variant="body1" className={classes.address}>
+            <Typography variant="body2" className={classes.address}>
               {establishment.location.address}
             </Typography>
             {!this.props.hideMap ? (
@@ -339,8 +339,8 @@ const styles = (theme) => ({
   },
   title: {
     fontWeight: 500,
-    marginTop: theme.spacing.unit * 4,
-    marginBottom: theme.spacing.unit,
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(1),
   },
   address: {
     marginBottom: 20,
@@ -373,7 +373,7 @@ const styles = (theme) => ({
     width: 32,
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 

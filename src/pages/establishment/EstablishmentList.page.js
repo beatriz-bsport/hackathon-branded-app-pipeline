@@ -164,16 +164,16 @@ export class EstablishmentList extends React.Component<Props, State> {
 
 const styles = (theme) => ({
   container: {
-    paddingBottom: theme.spacing.unit * 16,
+    paddingBottom: theme.spacing(16),
   },
-  search: { marginBottom: theme.spacing.unit * 2 },
+  search: { marginBottom: theme.spacing(2) },
 
   emptyEstablishment: {
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing(3),
   },
   map: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
   searchPaperDisplayed: {
     border: '1px solid',

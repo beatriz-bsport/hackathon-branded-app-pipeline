@@ -18,7 +18,7 @@ export default class Review extends Component<Props> {
     const { review } = this.props;
     const { user, comment, rating } = review;
     return (
-      <Grid container direction="column" spacing={24}>
+      <Grid container direction="column" spacing={3}>
         <Grid item xs={12}>
           <Grid
             container
@@ -33,7 +33,7 @@ export default class Review extends Component<Props> {
                 direction="row"
                 alignItems="center"
                 justify="flex-start"
-                spacing={16}
+                spacing={2}
               >
                 <Grid item>
                   <Avatar user={user} noname />

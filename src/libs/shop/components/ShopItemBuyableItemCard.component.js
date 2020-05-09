@@ -76,7 +76,7 @@ const styles = (theme) => ({
     justifyContent: 'flex-start',
   },
   header: {
-    paddingLeft: theme.spacing.unit,
+    paddingLeft: theme.spacing(1),
   },
   fullHeight: {
     height: '100%',
@@ -86,7 +86,7 @@ const styles = (theme) => ({
     justifyContent: 'space-between',
     flexDirection: 'column',
     alignItems: 'flex-start',
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
   },
   innerWithImage: {
     height: '50%',
@@ -103,10 +103,10 @@ const styles = (theme) => ({
     objectFit: 'cover',
   },
   description: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   buttonRow: {
     display: 'flex',
@@ -115,7 +115,7 @@ const styles = (theme) => ({
     justifyContent: 'flex-start',
   },
   priceContainer: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
 });
 

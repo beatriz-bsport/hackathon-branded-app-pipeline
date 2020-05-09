@@ -70,15 +70,15 @@ export class ConsumerDashboardHeader extends React.PureComponent<Props> {
 const styles = (theme) => ({
   container: {},
   myFavorite: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
     paddingTop: 0,
     paddingBottom: 0,
     boxShadow: theme.shadows[1],
-    marginLeft: -theme.spacing.unit * 1,
-    // marginRight: -theme.spacing.unit * 4,
+    marginLeft: -theme.spacing(1) * 1,
+    // marginRight: -theme.spacing(4),
     backgroundColor: 'white',
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit * 3,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(3),
   },
   favoriteContainer: {
     width: '100%',

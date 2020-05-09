@@ -120,8 +120,8 @@ class CoachSummaryCard extends React.Component<Props> {
   renderAvatarNameAndPaymentRule = () => {
     const { coach, classes, t } = this.props;
     return (
-      <Grid container direction="column" spacing={24}>
-        <Grid container direction="row" spacing={16} alignItems="center">
+      <Grid container direction="column" spacing={3}>
+        <Grid container direction="row" spacing={2} alignItems="center">
           <Grid item>
             <Avatar src={coach.photo} className={classes.bigAvatar} />
           </Grid>
@@ -131,7 +131,7 @@ class CoachSummaryCard extends React.Component<Props> {
               direction="column"
               alignItems="flex-start"
               justify="space-around"
-              spacing={8}
+              spacing={1}
             >
               <Grid item>
                 <Typography>{coach.name.trim() || t('common.NA')}</Typography>
@@ -156,7 +156,7 @@ class CoachSummaryCard extends React.Component<Props> {
             direction="row"
             justify="space-between"
             alignItems="center"
-            spacing={24}
+            spacing={3}
             className={classes.firstRow}
           >
             <Grid item>
@@ -165,7 +165,7 @@ class CoachSummaryCard extends React.Component<Props> {
                 item
                 direction="row"
                 alignItems="center"
-                spacing={16}
+                spacing={2}
               >
                 {this.renderAvatarNameAndPaymentRule()}
               </Grid>
@@ -181,7 +181,7 @@ class CoachSummaryCard extends React.Component<Props> {
 }
 const styles = (theme) => ({
   firstRow: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   bigAvatar: {
     margin: 10,
@@ -189,7 +189,7 @@ const styles = (theme) => ({
     height: 60,
   },
   popoverNoPaymentRule: {
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing(2),
   },
 });
 

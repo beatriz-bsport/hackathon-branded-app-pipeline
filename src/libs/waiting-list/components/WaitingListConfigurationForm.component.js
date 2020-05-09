@@ -211,11 +211,11 @@ const styles = (theme) => ({
     alignItems: 'flex-start',
   },
   formControl: {
-    paddingBottom: theme.spacing.unit * 2,
-    paddingLeft: theme.spacing.unit,
+    paddingBottom: theme.spacing(2),
+    paddingLeft: theme.spacing(1),
   },
   explainWaitingListConf: {
-    paddingTop: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(2),
   },
 });
 

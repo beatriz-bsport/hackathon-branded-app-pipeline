@@ -223,7 +223,7 @@ export class PaymentForm extends Component<Props, State> {
       <Grid
         container
         direction="column"
-        spacing={24}
+        spacing={3}
         className={classes.innerForm}
       >
         <Grid item xs={12}>
@@ -265,7 +265,7 @@ export class PaymentForm extends Component<Props, State> {
         <Grid item>
           <form>
             <div>
-              <Grid container direction="row" alignItems="center" spacing={24}>
+              <Grid container direction="row" alignItems="center" spacing={3}>
                 <Grid item className={classes.priceInputContainer}>
                   <FormControl>
                     <FormControlLabel
@@ -295,43 +295,43 @@ export class PaymentForm extends Component<Props, State> {
 
 const styles = (theme) => ({
   addButton: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   innerForm: {
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing(3),
   },
   priceInputContainer: {
-    marginLeft: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(2),
   },
   accountBalanceInfo: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
-    padding: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 2,
-    paddingRight: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    padding: theme.spacing(1),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
     border: '1px solid #ced4da',
     backgroundColor: theme.palette.background.paper,
   },
   stripeFormContainer: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
   paymentMethodInput: {
-    marginTop: theme.spacing.unit,
-    padding: theme.spacing.unit,
+    marginTop: theme.spacing(1),
+    padding: theme.spacing(1),
     backgroundColor: theme.palette.background.paper,
     border: '1px solid #ced4da',
     minWidth: 260,
   },
   input: {
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
   },
   paymentMethodLabel: {
-    paddingBottom: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing(2),
   },
 });
 

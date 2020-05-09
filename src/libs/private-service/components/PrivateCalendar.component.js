@@ -38,7 +38,7 @@ import type { AvailabilitySlot, PrivateBooking } from '../types';
 
 const styles = (theme) => ({
   container: {},
-  leftIcon: { marginRight: theme.spacing.unit },
+  leftIcon: { marginRight: theme.spacing(1) },
 });
 
 const availabilitySlotAsEvent = (slot) => ({

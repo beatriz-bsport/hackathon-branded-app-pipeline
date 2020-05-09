@@ -51,11 +51,11 @@ export class WaitingListConfigurationPage extends Component<Props> {
 
 const styles = (theme) => ({
   container: {
-    padding: theme.spacing.unit * 2,
-    paddingTop: theme.spacing.unit,
+    padding: theme.spacing(2),
+    paddingTop: theme.spacing(1),
   },
   paper: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
 });
 

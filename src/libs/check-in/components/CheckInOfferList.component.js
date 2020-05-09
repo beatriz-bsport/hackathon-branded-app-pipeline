@@ -173,18 +173,18 @@ export class CheckInOfferList extends Component<Props, State> {
 const styles = (theme) => ({
   rootContainer: { width: '100%' },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   empty: {
-    marginTop: theme.spacing.unit * 6,
-    padding: theme.spacing.unit,
+    marginTop: theme.spacing(6),
+    padding: theme.spacing(1),
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
   },
   header: {
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',

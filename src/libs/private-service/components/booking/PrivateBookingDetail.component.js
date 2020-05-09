@@ -116,13 +116,13 @@ export const PrivateBookingDetail = (props: Props) => {
 const styles = (theme) => ({
   container: {},
   sectionTitle: {
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
   section: {
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
   paperContainer: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   parameterRow: {
     display: 'flex',

@@ -192,16 +192,16 @@ const styles = (theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
   buttonLeftText: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   contentText: {
-    paddingBottom: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing(2),
   },
   button: {
-    margin: theme.spacing.unit * 4,
+    margin: theme.spacing(4),
   },
 });
 

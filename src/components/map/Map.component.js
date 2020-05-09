@@ -63,7 +63,7 @@ export default class MyMap extends Component<Props, State> {
         }
       >
         <Popup>
-          <Grid container spacing={8}>
+          <Grid container spacing={1}>
             <Grid item>
               <Typography variant="subtitle1">{title}</Typography>
             </Grid>

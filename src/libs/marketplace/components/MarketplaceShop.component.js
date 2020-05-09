@@ -54,7 +54,7 @@ const SubShopComponent = (props: {
           <Typography inline variant="h5" component="h2">
             {`${props.subshop.name}`}
           </Typography>
-          <Typography inline variant="body2" style={{ marginLeft: 8 }}>
+          <Typography inline variant="body1" style={{ marginLeft: 8 }}>
             {`(${props.subshop.shopItems.length})`}
           </Typography>
         </div>
@@ -198,7 +198,7 @@ const styles = (theme) => ({
   shopitemCardContainer: {
     right: 0,
     width: '50%',
-    padding: theme.spacing.unit * 4,
+    padding: theme.spacing(4),
   },
   subheader: {
     backgroundColor: theme.palette.background.default,
@@ -211,7 +211,7 @@ const styles = (theme) => ({
     },
   },
   emptyText: {
-    padding: theme.spacing.unit * 5,
+    padding: theme.spacing(5),
   },
 });
 

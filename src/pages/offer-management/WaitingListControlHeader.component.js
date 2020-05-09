@@ -62,12 +62,12 @@ const styles = (theme) => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingLeft: theme.spacing.unit,
+    paddingLeft: theme.spacing(1),
   },
   smallIcon: {
     height: 12,
     width: 12,
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   smallButton: {
     display: 'flex',

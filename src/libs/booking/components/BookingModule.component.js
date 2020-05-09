@@ -270,14 +270,14 @@ export class OfferBooking extends React.PureComponent<Props> {
 
 const styles = (theme) => ({
   title: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
   section: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   sectionTitle: {
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
   innerContainer: {
     display: 'flex',
@@ -285,23 +285,23 @@ const styles = (theme) => ({
     alignItems: 'center',
     flexDirection: 'column',
     width: '100%',
-    marginTop: theme.spacing.unit * 4,
+    marginTop: theme.spacing(4),
   },
   bigIcon: {
     height: 200,
     width: 200,
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   explainText: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
-    padding: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 2,
-    paddingRight: theme.spacing.unit * 2,
-    borderRadius: theme.spacing.unit,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    padding: theme.spacing(1),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    borderRadius: theme.spacing(1),
     backgroundColor: 'white',
   },
 });

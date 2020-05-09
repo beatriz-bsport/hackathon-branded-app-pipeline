@@ -75,20 +75,20 @@ const styles = (theme) => ({
     alignItems: 'center',
   },
   selector: {
-    paddingLeft: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
   },
   button: {
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
 
   emptyOffer: {
-    margin: theme.spacing.unit * 3,
+    padding: theme.spacing(3),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 
@@ -319,9 +319,11 @@ export class Planning extends PureComponent<Props, State> {
   renderNoOfferSelected = () => {
     const { t, classes } = this.props;
     return (
-      <Typography variant="caption" className={classes.emptyOffer}>
-        {t('calendar.pleaseSelectOffer')}
-      </Typography>
+      <div className={classes.emptyOffer}>
+        <Typography align="center" variant="caption">
+          {t('calendar.pleaseSelectOffer')}
+        </Typography>
+      </div>
     );
   };
 
@@ -579,7 +581,7 @@ export class Planning extends PureComponent<Props, State> {
 
     const events_ = this.getDayOffers(events);
     return (
-      <Grid container spacing={24}>
+      <Grid container spacing={3}>
         {isWidthUp('lg', width) || !selectedOffer ? (
           <Grid item xs={12} lg={6}>
             <div className={classes.panel}>

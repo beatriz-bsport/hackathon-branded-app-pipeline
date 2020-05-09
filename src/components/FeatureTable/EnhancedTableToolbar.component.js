@@ -9,7 +9,7 @@ import { withNamespaces } from 'react-i18next';
 
 const toolbarStyles = (theme) => ({
   root: {
-    paddingRight: theme.spacing.unit,
+    paddingRight: theme.spacing(1),
   },
   highlight:
     // prettier-ignore

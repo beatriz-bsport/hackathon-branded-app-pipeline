@@ -232,7 +232,7 @@ export class Calendar extends PureComponent<Props, State> {
             direction="row"
             justify="center"
             alignItems="center"
-            spacing={16}
+            spacing={2}
             wrap="nowrap"
           >
             <Grid item>
@@ -427,16 +427,16 @@ export class Calendar extends PureComponent<Props, State> {
 const styles = (theme) => ({
   calendarContainer: {
     width: '100%',
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
   dayButton: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
     display: 'flex',
     flexGrow: 1,
     flexBasis: 0,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: theme.spacing.unit,
+    borderRadius: theme.spacing(1),
   },
   dayButtonSelected: {
     color: 'primary',
@@ -451,34 +451,34 @@ const styles = (theme) => ({
   },
   dots: {
     height: 5,
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
   weekdayNameRow: {
     display: 'flex',
     flexDirection: 'row',
-    marginBottom: theme.spacing.unit,
-    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(1),
   },
   dayRow: {
-    paddingTop: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(2),
     [theme.breakpoints.up('md')]: {
-      marginLeft: theme.spacing.unit,
-      marginRight: theme.spacing.unit,
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
     },
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   searchBarContainer: {
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
   weekRowContainer: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingLeft: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
     width: '100%',
   },
   textCapitalize: {

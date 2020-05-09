@@ -39,9 +39,9 @@ export class CompanyDetail extends Component<Props, State> {
         <Typography variant="h4" className={classes.pageTitle}>
           {`${company.business_name} (${company.name.toLowerCase()})`}
         </Typography>
-        <Grid container direction="row" spacing={24}>
+        <Grid container direction="row" spacing={3}>
           <Grid item xs={12} md={6}>
-            <Grid container direction="column" spacing={24}>
+            <Grid container direction="column" spacing={3}>
               <Grid item>
                 <Paper className={classes.paper}>
                   <Typography variant="h6" className={classes.title}>
@@ -104,13 +104,13 @@ export class CompanyDetail extends Component<Props, State> {
 
 const styles = (theme) => ({
   paper: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   pageTitle: {
-    paddingBottom: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing(2),
   },
   title: {
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
 });
 

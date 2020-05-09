@@ -114,12 +114,12 @@ export class OfferFormWithActivity extends Component<Props, State> {
 const styles = (theme) => ({
   container: { minWidth: '550px' },
   title: {
-    paddingBottom: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing(2),
   },
   buttonContainer: {
     display: 'flex',
     justifyContent: 'space-between',
-    paddingTop: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(2),
   },
 });
 

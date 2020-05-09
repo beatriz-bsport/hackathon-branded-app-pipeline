@@ -112,7 +112,7 @@ export const PrivateServiceListWithGroup = (props: Props) => {
 
 const styles = (theme) => ({
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   titleRow: {
     display: 'flex',
@@ -122,15 +122,15 @@ const styles = (theme) => ({
     alignItems: 'center',
   },
   serviceListPaperGroup: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 4,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(4),
   },
   rowIsEmpty: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    margin: theme.spacing.unit,
-    marginBottom: theme.spacing.unit * 4,
+    margin: theme.spacing(1),
+    marginBottom: theme.spacing(4),
   },
 });
 

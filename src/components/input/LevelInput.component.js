@@ -23,7 +23,7 @@ type Props = {
 const styles = (theme) => ({
   formControl: {
     minWidth: 140,
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 

@@ -138,8 +138,8 @@ export class MarketplaceWorkshopPage extends React.Component<Props> {
 
 const styles = (theme) => ({
   container: {
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',

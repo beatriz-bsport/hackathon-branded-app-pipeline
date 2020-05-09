@@ -96,11 +96,11 @@ export const SubscriptionActions = (props: Props) => {
 
 const styles = (theme) => ({
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   divider: {
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit * 2,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(2),
   },
   actionsContainer: {
     display: 'flex',
@@ -109,7 +109,7 @@ const styles = (theme) => ({
     alignItems: 'flex-start',
   },
   button: {
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
   row: {
     display: 'flex',

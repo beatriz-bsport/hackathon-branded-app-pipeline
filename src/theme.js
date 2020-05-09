@@ -1,6 +1,6 @@
 // @flow
 
-import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
+import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 
 import { colors } from '@bsport/common/lib/colors';
 
@@ -14,9 +14,6 @@ const defaultThemeParams = {
     },
     error: colors.red,
   },
-  typography: {
-    useNextVariants: true,
-  },
   props: {
     MuiWithWidth: {
       // Initial width property
@@ -27,17 +24,19 @@ const defaultThemeParams = {
 
 export const getTheme = (theme) => {
   if (theme) {
-    return createMuiTheme({
-      ...defaultThemeParams,
-      palette: {
-        primary: {
-          main: theme.primary_color,
+    return responsiveFontSizes(
+      createMuiTheme({
+        ...defaultThemeParams,
+        palette: {
+          primary: {
+            main: theme.primary_color,
+          },
+          secondary: { main: theme.secondary_color },
         },
-        secondary: { main: theme.secondary_color },
-      },
-    });
+      }),
+    );
   }
-  return createMuiTheme(defaultThemeParams);
+  return responsiveFontSizes(createMuiTheme(defaultThemeParams));
 };
 
 export default getTheme();

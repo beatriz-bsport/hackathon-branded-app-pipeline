@@ -106,11 +106,11 @@ const styles = (theme) => ({
     marginTop: '-5px',
   },
   button: {
-    borderRadius: theme.spacing.unit,
+    borderRadius: theme.spacing(1),
     border: '1px solid #C1C1C1',
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
     backgroundColor: '#F8F8F8',
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
   },
   colorBlock: {
     height: 24,

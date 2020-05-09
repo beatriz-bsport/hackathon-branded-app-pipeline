@@ -441,20 +441,20 @@ export class QuickInvoice extends Component<Props, State> {
 
 const styles = (theme) => ({
   container: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
     backgroundColor: '#F8F8F8',
     border: 'solid 1px #E0E0E0',
     borderRadius: '4px',
   },
   header: {
-    paddingLeft: theme.spacing.unit,
+    paddingLeft: theme.spacing(1),
   },
   invoiceItemListContainer: {
     backgroundColor: '#F8F8F8',
   },
   badge: {
-    marginTop: (theme.spacing.unit * 1) / 4,
-    padding: (theme.spacing.unit * 1) / 2,
+    marginTop: (theme.spacing(1) * 1) / 4,
+    padding: (theme.spacing(1) * 1) / 2,
   },
 });
 

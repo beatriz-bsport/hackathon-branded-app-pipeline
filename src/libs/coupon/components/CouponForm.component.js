@@ -534,11 +534,11 @@ const styles = (theme) => ({
   },
   sectionTitle: {
     width: '100%',
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
   },
   field: {
     width: '100%',
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
     display: 'flex',
     flexDirection: 'column',
   },
@@ -547,11 +547,11 @@ const styles = (theme) => ({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
     width: '100%',
   },
   actionButton: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
   fullWidth: { width: '100%' },
 });

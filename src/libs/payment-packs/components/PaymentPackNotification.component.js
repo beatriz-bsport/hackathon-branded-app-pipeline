@@ -258,7 +258,7 @@ export class notificationRule extends Component<Props, state> {
 
 const styles = (theme) => ({
   list: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
   inlineLeft: {
     display: 'flex',
@@ -267,14 +267,14 @@ const styles = (theme) => ({
   loading: {
     display: 'flex',
     justifyContent: 'center',
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   paper: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   addButtonContainer: {
     width: '100%',
-    paddingTop: theme.spacing.unit,
+    paddingTop: theme.spacing(1),
     flexDirection: 'row',
     display: 'flex',
     alignItems: 'center',

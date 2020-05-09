@@ -332,17 +332,17 @@ export class SmartListDetailMember extends Component<Props, State> {
 
 const styles = (theme) => ({
   description: {
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
   },
   listInfo: {
     display: 'flex',
     justifyContent: 'space-between',
-    padding: theme.spacing.unit * 2,
-    paddingLeft: theme.spacing.unit * 3,
+    padding: theme.spacing(2),
+    paddingLeft: theme.spacing(3),
   },
   memberWrapper: {
-    marginTop: theme.spacing.unit * 4,
-    marginBottom: theme.spacing.unit * 2,
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(2),
   },
   statsTitle: {
     display: 'flex',
@@ -350,10 +350,10 @@ const styles = (theme) => ({
     flexDirection: 'row',
 
     alignItems: 'center',
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   statTitle: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
     marginLeft: 0,
     paddingLeft: theme.spacing * 2,
   },
@@ -362,7 +362,7 @@ const styles = (theme) => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '100%',
-    paddingBottom: theme.spacing.unit,
+    paddingBottom: theme.spacing(1),
   },
   alignLeft: {
     display: 'flex',

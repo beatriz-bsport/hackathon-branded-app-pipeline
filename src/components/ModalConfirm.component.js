@@ -44,4 +44,4 @@ export function ModalConfirm(props: Props) {
 
 ModalConfirm.defaultProps = { open: false };
 
-export default withNamespaces([])(ModalConfirm);
+export default withNamespaces(['translation', 'member'])(ModalConfirm);

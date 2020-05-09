@@ -141,33 +141,33 @@ export const EditablePrivateSlotList = (props: Props) => {
 
 const styles = (theme) => ({
   container: {
-    marginBottom: theme.spacing.unit * 5,
+    marginBottom: theme.spacing(5),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   titleRow: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
-  button: { marginTop: theme.spacing.unit },
+  button: { marginTop: theme.spacing(1) },
   row: {
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'flex-start',
     width: '100%',
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     backgroundColor: '#F8F8F8',
-    borderRadius: theme.spacing.unit * 2,
-    marginTop: theme.spacing.unit,
+    borderRadius: theme.spacing(2),
+    marginTop: theme.spacing(1),
   },
   columnLeft: {
     display: 'column',
     alignItems: 'flex-start',
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
 });
 export default compose(

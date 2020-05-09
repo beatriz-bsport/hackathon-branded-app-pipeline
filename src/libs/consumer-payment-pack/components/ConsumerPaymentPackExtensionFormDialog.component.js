@@ -107,12 +107,12 @@ const styles = (theme) => ({
     alignItems: 'flex-start',
   },
   field: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   warningContainer: {
-    marginTop: theme.spacing.unit * 2,
-    padding: theme.spacing.unit * 2,
-    borderRadius: theme.spacing.unit,
+    marginTop: theme.spacing(2),
+    padding: theme.spacing(2),
+    borderRadius: theme.spacing(1),
     backgroundColor: '#EFEFEF',
     display: 'flex',
     flexDirection: 'row',
@@ -120,10 +120,10 @@ const styles = (theme) => ({
     width: '100%',
   },
   warningIcon: {
-    marginRight: theme.spacing.unit * 2,
+    marginRight: theme.spacing(2),
   },
   dateExplainer: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
 });
 

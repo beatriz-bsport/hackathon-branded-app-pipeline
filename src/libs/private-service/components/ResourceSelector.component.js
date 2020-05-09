@@ -153,20 +153,20 @@ const styles = (theme) => ({
     overflowX: 'auto',
     flexWrap: 'wrap',
     '& > *': {
-      margin: theme.spacing.unit,
+      margin: theme.spacing(1),
     },
   },
   resourceContainer: {
     display: 'flex',
     flexDirection: 'row',
-    borderRadius: theme.spacing.unit * 2,
+    borderRadius: theme.spacing(2),
     alignItems: 'center',
     border: '1px solid #E2E2E2',
     backgroundColor: '#F8F8F8',
-    marginRight: theme.spacing.unit,
-    padding: theme.spacing.unit / 2,
-    paddingLeft: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
+    padding: theme.spacing(1) / 2,
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
   },
   resourceList: {
     display: 'flex',
@@ -175,12 +175,12 @@ const styles = (theme) => ({
     justifyContent: 'flex-start',
   },
   resourceName: {
-    paddingLeft: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
   },
   title: {
-    marginBottom: theme.spacing.unit / 2,
-    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing(1) / 2,
+    marginTop: theme.spacing(1),
   },
 });
 

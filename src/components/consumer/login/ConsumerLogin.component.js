@@ -24,24 +24,36 @@ const styles = (theme) => ({
   headIcon: {
     height: 90,
     width: 90,
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
   buttonIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   bottomButton: {
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1),
+  },
+  field: {
+    marginBottom: theme.spacing(1),
   },
   errorMessage: {
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
   },
   title: {
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing(2),
   },
   loginContainer: {
-    textAlign: 'center',
     maxWidth: 300,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: theme.spacing(2),
+  },
+  column: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    minWidth: 300,
   },
 });
 
@@ -74,14 +86,14 @@ function Divider(props: DividerProps) {
       alignItems="center"
       justify="center"
       direction="row"
-      spacing={16}
+      spacing={2}
       style={{ paddingLeft: 10, paddingRight: 10 }}
     >
       <Grid item>
         <div style={{ width: 50, height: 1, backgroundColor: '#E1E1E1' }} />
       </Grid>
       <Grid item style={{ paddingLeft: 10, paddingRight: 10 }}>
-        <Typography variant="caption">{t('common.or')}</Typography>
+        <Typography variant="caption">{t('or')}</Typography>
       </Grid>
       <Grid item>
         <div style={{ width: 50, height: 1, backgroundColor: '#E1E1E1' }} />
@@ -102,27 +114,29 @@ export class ConsumerLogin extends Component<Props, State> {
 
   getEmailLogin = () => {
     const { classes, error, errorFields, t } = this.props;
-    let errorMessage = t('login.authError');
+    let errorMessage = t('error.authError');
     if (errorFields && errorFields.password) {
-      errorMessage = t('login.error.invalidPassword');
+      errorMessage = t('error.invalidPassword');
     }
     if (errorFields && errorFields.email) {
-      errorMessage = t('login.error.invalidEmail');
+      errorMessage = t('error.invalidEmail');
     }
 
     return (
       <div className={classes.loginContainer}>
         <PersonIcon className={classes.headIcon} />
-        <form>
+        <form className={classes.column}>
           <FormField
             id="email"
             name="login"
             onChange={this.onFormFieldChange}
             fullWidth
+            className={classes.field}
           />
           <PasswordInput
             fullWidth
             value={this.state.password}
+            className={classes.field}
             onChange={(ev) =>
               this.onFormFieldChange('password')(ev.target.value)
             }
@@ -144,11 +158,6 @@ export class ConsumerLogin extends Component<Props, State> {
               </IconButton>
             </div>
           ) : null}
-          <Link to="/login/reset_password" style={{ textDecoration: 'none' }}>
-            <Typography color="secondary" variant="caption">
-              {t('login.forgottenPassword')}
-            </Typography>
-          </Link>
           <Button
             className={classes.bottomButton}
             color="primary"
@@ -157,8 +166,13 @@ export class ConsumerLogin extends Component<Props, State> {
             type="submit"
             id="btn-signin"
           >
-            LOGIN
+            {t('actions.signin')}
           </Button>
+          <Link to="/login/reset_password" style={{ textDecoration: 'none' }}>
+            <Typography color="secondary" variant="caption">
+              {t('actions.forgottenPassword')}
+            </Typography>
+          </Link>
         </form>
       </div>
     );
@@ -183,7 +197,7 @@ export class ConsumerLogin extends Component<Props, State> {
         direction="column"
         alignItems="center"
         style={{ position: 'relative' }}
-        spacing={16}
+        spacing={2}
       >
         <Grid item>{this.getEmailLogin()}</Grid>
         <Grid item>
@@ -195,7 +209,7 @@ export class ConsumerLogin extends Component<Props, State> {
             variant="contained"
             onClick={requestSignUp}
           >
-            {t('login.signUpConsumer')}
+            {t('actions.signup')}
           </RedButton>
         </Grid>
         <IconButton
@@ -208,4 +222,4 @@ export class ConsumerLogin extends Component<Props, State> {
     );
   }
 }
-export default withStyles(styles)(withNamespaces([])(ConsumerLogin));
+export default withStyles(styles)(withNamespaces(['login'])(ConsumerLogin));

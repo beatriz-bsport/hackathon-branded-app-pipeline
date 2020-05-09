@@ -143,12 +143,12 @@ export function ConsumerPaymentPackDetail(props: Props) {
 
 const styles = (theme) => ({
   paper: {
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit * 2,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(2),
   },
   addButtonContainer: {
     width: '100%',
-    paddingTop: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(2),
     flexDirection: 'row',
     display: 'flex',
     alignItems: 'center',

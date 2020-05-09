@@ -197,7 +197,7 @@ export const PrivatePassDetail = (props: Props) => {
 const styles = (theme) => ({
   paperContainer: {
     position: 'relative',
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   editButton: {
     position: 'absolute',
@@ -208,8 +208,8 @@ const styles = (theme) => ({
     minWidth: 240,
   },
   priceParameters: {
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
   row: {
     display: 'flex',
@@ -218,7 +218,7 @@ const styles = (theme) => ({
     justifyContent: 'flex-start',
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 

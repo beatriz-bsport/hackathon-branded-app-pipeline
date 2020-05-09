@@ -110,10 +110,10 @@ const styles = (theme) => ({
     alignItems: 'center',
   },
   addButton: {
-    marginRight: theme.spacing.unit,
-    padding: theme.spacing.unit * 2,
-    paddingLeft: theme.spacing.unit * 3,
-    paddingRight: theme.spacing.unit * 4,
+    marginRight: theme.spacing(1),
+    padding: theme.spacing(2),
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(4),
   },
   innerRow: {
     display: 'flex',

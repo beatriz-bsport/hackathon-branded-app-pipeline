@@ -18,15 +18,15 @@ import withTitle from '../../hocs/with-title.hoc';
 
 const styles = (theme) => ({
   paperContainer: {
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing(3),
   },
   formControl: {
     minWidth: 140,
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   formControlLarge: {
     minWidth: 200,
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 
@@ -89,7 +89,7 @@ export class MarketingRule extends Component {
     }
     return (
       <MenuItem value={kindId}>
-        <Grid container direction="row" spacing={8} alignItems="center">
+        <Grid container direction="row" spacing={1} alignItems="center">
           <Grid item>{icon}</Grid>
           <Grid item>
             <Typography>{ACTION_KIND[kindId].name}</Typography>
@@ -113,7 +113,7 @@ export class MarketingRule extends Component {
   renderMessageDisplay = (action) => {
     const { t } = this.props;
     return (
-      <Grid container direction="column" spacing={16}>
+      <Grid container direction="column" spacing={2}>
         <Grid item>
           <Typography>{t('marketing.message')}</Typography>
         </Grid>
@@ -190,9 +190,9 @@ export class MarketingRule extends Component {
     const { rule } = this.state;
     const { t, classes } = this.props;
     return (
-      <Grid container direction="row" spacing={32}>
+      <Grid container direction="row" spacing={4}>
         <Grid item xs={6}>
-          <Grid container direction="row" spacing={8}>
+          <Grid container direction="row" spacing={1}>
             <Grid item>
               <Typography variant="h6">{t('marketing.strategy')}</Typography>
             </Grid>
@@ -204,7 +204,7 @@ export class MarketingRule extends Component {
           </Grid>
         </Grid>
         <Grid item xs={6}>
-          <Grid container spacing={8}>
+          <Grid container spacing={1}>
             <Grid item xs={12}>
               <Grid container direction="row" justify="space-between">
                 <Grid item>

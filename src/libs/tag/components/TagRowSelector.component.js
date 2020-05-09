@@ -124,7 +124,7 @@ export const TagFilterForm = (props: Props) => {
 
 const styles = (theme) => ({
   fabIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   container: {
     display: 'flex',
@@ -132,13 +132,13 @@ const styles = (theme) => ({
   },
   selector: {
     width: 180,
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    marginBottom: theme.spacing.unit * 2,
-    marginTop: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(1),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 

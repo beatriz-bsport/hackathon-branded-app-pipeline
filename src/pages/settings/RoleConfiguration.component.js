@@ -72,22 +72,22 @@ export class RoleConfiguration extends React.Component<Props> {
 
 const styles = (theme) => ({
   container: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   paperContainer: {
-    padding: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
-    marginTop: theme.spacing.unit,
+    padding: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(1),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit * 2,
+    marginRight: theme.spacing(2),
   },
   row: {
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'row',
-    padding: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 3,
+    padding: theme.spacing(2),
+    marginBottom: theme.spacing(3),
     border: '1px solid #E2E2E2',
     backgroundColor: '#F8F8F8',
     borderRadius: 8,

@@ -106,7 +106,7 @@ export function ReportDashboard(props: Props) {
         </div>
       ) : (
         <div className={classes.messageNoReports}>
-          <Typography variant="body2">{t('list.empty')}</Typography>
+          <Typography variant="body1">{t('list.empty')}</Typography>
           <Button
             variant="outlined"
             color="primary"
@@ -156,23 +156,23 @@ export function ReportDashboard(props: Props) {
 
 const styles = (theme) => ({
   root: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
   },
   list: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   fabAdd: {
     position: 'fixed',
-    bottom: theme.spacing.unit * 2,
-    right: theme.spacing.unit * 2,
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
   },
   messageNoReports: {
     textAlign: 'center',
-    paddingTop: theme.spacing.unit * 10,
-    paddingBottom: theme.spacing.unit * 10,
+    paddingTop: theme.spacing(10),
+    paddingBottom: theme.spacing(10),
   },
   buttonNew: {
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
   },
 });
 

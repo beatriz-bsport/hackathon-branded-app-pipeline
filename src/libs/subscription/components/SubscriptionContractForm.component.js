@@ -94,8 +94,8 @@ export function SubscriptionContractFields(props: Props) {
   );
 }
 const styles = (theme) => ({
-  field: { marginBottom: theme.spacing.unit * 3 },
-  fieldMain: { marginBottom: theme.spacing.unit * 5 },
+  field: { marginBottom: theme.spacing(3) },
+  fieldMain: { marginBottom: theme.spacing(5) },
 });
 
 export const SubscriptionContractFieldsSchema = Yup.object().shape({

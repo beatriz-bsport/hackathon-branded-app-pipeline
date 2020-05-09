@@ -123,15 +123,15 @@ export class SmartListFormDialog extends Component<Props, state> {
 
 const styles = (theme) => ({
   textField: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   memberField: {
     display: 'flex',
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   member: {
     color: 'red',
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 

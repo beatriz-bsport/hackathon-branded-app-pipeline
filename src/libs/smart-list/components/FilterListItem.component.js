@@ -130,7 +130,7 @@ export class FilterCard extends Component<Props> {
             size={15}
             className={this.props.classes.warningIcon}
           />
-          <Typography variant="body2">{text}</Typography>
+          <Typography variant="body1">{text}</Typography>
         </div>
       );
     }
@@ -333,7 +333,7 @@ export class FilterCard extends Component<Props> {
       <div>
         <div className={this.props.classes.rowContainer}>
           <Typography
-            variant="body1"
+            variant="body2"
             className={this.props.classes.filterContainer}
           >
             {this.filterTypeSelector()}
@@ -385,8 +385,8 @@ export class FilterCard extends Component<Props> {
 
 const styles = (theme) => ({
   warningIcon: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
   },
   rowContainer: {
     display: 'flex',
@@ -397,11 +397,11 @@ const styles = (theme) => ({
     alignItems: 'center',
   },
   filterContainer: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     justifyContent: 'space-between',
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
     maxHeigth: '50px',
   },
 });

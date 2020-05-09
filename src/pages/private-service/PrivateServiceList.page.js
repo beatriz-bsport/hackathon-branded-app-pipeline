@@ -153,7 +153,7 @@ export class PrivateServiceList extends React.Component<Props> {
 
 const styles = (theme) => ({
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   titleRow: {
     display: 'flex',
@@ -164,27 +164,27 @@ const styles = (theme) => ({
   },
   addButton: {
     position: 'fixed',
-    bottom: theme.spacing.unit * 2,
-    right: theme.spacing.unit * 2,
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
   },
   leftPanel: {
-    paddingBottom: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing(2),
     [theme.breakpoints.up('md')]: {
-      paddingRight: theme.spacing.unit * 2,
+      paddingRight: theme.spacing(2),
     },
   },
   serviceListPaperGroup: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 3,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(3),
   },
   groupIsEmpty: {
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing(2),
   },
   rowIsEmpty: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
   },
 });
 

@@ -6,7 +6,7 @@ import 'intl/locale-data/jsonp/en';
 import 'intl/locale-data/jsonp/fr';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import MomentUtils from '@date-io/moment';

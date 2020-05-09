@@ -91,7 +91,7 @@ export class MarketingDashboard extends Component<Props, State> {
     const { classes, t } = this.props;
     return (
       <div>
-        <Grid container direction="row" spacing={32}>
+        <Grid container direction="row" spacing={4}>
           {rules.map((r) => (
             <RuleCard key={r.id} rule={r} />
           ))}
@@ -103,7 +103,7 @@ export class MarketingDashboard extends Component<Props, State> {
 
 const styles = (theme) => ({
   title: {
-    marginBottom: theme.spacing.unit * 4,
+    marginBottom: theme.spacing(4),
   },
 });
 

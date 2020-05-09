@@ -49,10 +49,10 @@ export class ThemeConfiguration extends Component<Props> {
 
 const styles = (theme) => ({
   container: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   paperContainer: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
 });
 

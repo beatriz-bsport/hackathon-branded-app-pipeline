@@ -45,7 +45,7 @@ export const BookingCapabilities = (props: Props) => {
           {t('bookerModule.bookingCapabilities.compatibleConsumerPassTitle')}
         </Typography>
         {privateConsumerPassList.length === 0 ? (
-          <Typography color="textSecondary">
+          <Typography color="textSecondary" variant="body1">
             {t('bookerModule.bookingCapabilities.emptyConsumerPassList')}
           </Typography>
         ) : null}
@@ -68,7 +68,7 @@ export const BookingCapabilities = (props: Props) => {
           {t('bookerModule.bookingCapabilities.compatiblePassTitle')}
         </Typography>
         {privatePassList.length === 0 ? (
-          <Typography color="textSecondary">
+          <Typography color="textSecondary" variant="body1">
             {t('bookerModule.bookingCapabilities.emptyPassList')}
           </Typography>
         ) : null}
@@ -90,11 +90,11 @@ export const BookingCapabilities = (props: Props) => {
 
 const styles = (theme) => ({
   section: {
-    paddingBottom: theme.spacing.unit * 3,
+    paddingBottom: theme.spacing(3),
   },
   sectionTitle: {
-    marginBottom: theme.spacing.unit,
-    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(2),
   },
 });
 

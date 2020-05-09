@@ -277,14 +277,14 @@ export class MarketplacePrivateService extends React.Component<Props, State> {
 
 const styles = (theme) => ({
   container: {
-    paddingTop: theme.spacing.unit * 4,
+    paddingTop: theme.spacing(4),
     paddingBottom: '20vh',
   },
   selectorsContainer: {
-    paddingLeft: theme.spacing.unit * 2,
-    paddingRight: theme.spacing.unit * 2,
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
   slotSearcherContainer: {
     display: 'flex',
@@ -295,14 +295,14 @@ const styles = (theme) => ({
     maxWidth: 360,
   },
   title: {
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
   emptyTextContainer: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    marginTop: theme.spacing.unit * 4,
+    marginTop: theme.spacing(4),
   },
 });
 

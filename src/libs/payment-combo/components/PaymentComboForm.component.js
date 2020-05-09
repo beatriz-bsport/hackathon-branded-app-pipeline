@@ -60,32 +60,18 @@ export const PaymentComboForm = (props: Props) => (
       required
       fullWidth
     />
-    <PriceField
-      name="price"
-      fullWidth
-      required
-      label={props.t('form.price.label')}
-    />
-    <PercentField
-      name="tax"
-      fullWidth
-      required
-      label={props.t('form.tax.label')}
-    />
-    <CheckboxField
-      label={props.t('form.manager_only.label')}
-      name="manager_only"
-    />
-    <PaymentMethodSelectorField
-      name="available_payment_method_identifiers"
-      disabled={props.values.manager_only}
-      asFieldset
-      label={props.t('form.available_payment_method_identifiers.label')}
-      helperText={props.t(
-        'form.available_payment_method_identifiers.helperText',
-      )}
-    />
-    <fieldset>
+    <div className={props.classes.description}>
+      <TextField
+        name="description"
+        label={props.t('form.description.label')}
+        multiline
+        variant="outlined"
+        rows={10}
+        fullWidth
+        required
+      />
+    </div>
+    <fieldset className={props.classes.fieldset}>
       <legend>{props.t('form.content')}</legend>
       <FieldArray name="payment_pack_ids">
         {({
@@ -171,15 +157,31 @@ export const PaymentComboForm = (props: Props) => (
         )}
       </FieldArray>
     </fieldset>
-    <div className={props.classes.description}>
-      <TextField
-        name="description"
-        label={props.t('form.description.label')}
-        multiline
-        variant="outlined"
-        rows={10}
-        fullWidth
-        required
+    <PriceField
+      name="price"
+      fullWidth
+      required
+      label={props.t('form.price.label')}
+    />
+    <PercentField
+      name="tax"
+      fullWidth
+      required
+      label={props.t('form.tax.label')}
+    />
+    <CheckboxField
+      label={props.t('form.manager_only.label')}
+      name="manager_only"
+    />
+    <div className={props.classes.fieldset}>
+      <PaymentMethodSelectorField
+        name="available_payment_method_identifiers"
+        disabled={props.values.manager_only}
+        asFieldset
+        label={props.t('form.available_payment_method_identifiers.label')}
+        helperText={props.t(
+          'form.available_payment_method_identifiers.helperText',
+        )}
       />
     </div>
   </div>
@@ -187,7 +189,11 @@ export const PaymentComboForm = (props: Props) => (
 
 const styles = (theme) => ({
   description: {
-    marginTop: theme.spacing.unit * 4,
+    marginTop: theme.spacing(4),
+  },
+  fieldset: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
 });
 

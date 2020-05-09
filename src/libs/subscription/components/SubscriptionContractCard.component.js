@@ -101,7 +101,7 @@ export const SubscriptionContractCard = (props: Props) => {
 const styles = (theme) => ({
   container: {
     backgroundColor: '#F8F8F8',
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   bottomRow: {
     flexDirection: 'row',
@@ -115,10 +115,10 @@ const styles = (theme) => ({
     alignItems: 'center',
   },
   textBlock: {
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
   buttonLeftText: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 

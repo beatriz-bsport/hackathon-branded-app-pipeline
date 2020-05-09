@@ -23,10 +23,10 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit * 2,
+    marginRight: theme.spacing(2),
   },
   row: {
     display: 'flex',
@@ -34,15 +34,19 @@ const styles = (theme) => ({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     width: '100%',
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     backgroundColor: '#F8F8F8',
-    borderRadius: theme.spacing.unit * 2,
-    marginTop: theme.spacing.unit,
+    borderRadius: theme.spacing(2),
+    marginTop: theme.spacing(1),
   },
   leftColumn: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
+  },
+  loading: {
+    height: theme.spacing(8),
+    marginRight: theme.spacing(1),
   },
 });
 
@@ -63,7 +67,9 @@ type Props = {
 const ResourceConfigurationChecker = withStyles(styles)(
   withNamespaces(['privateService'])((props) => (
     <ButtonBase onClick={props.onClick} className={props.classes.row}>
-      {props.loading ? <CircularProgress /> : null}
+      {props.loading ? (
+        <CircularProgress className={props.classes.loading} />
+      ) : null}
       {!props.loading && props.exists ? (
         <CheckIcon color="primary" className={props.classes.leftIcon} />
       ) : null}
@@ -71,7 +77,7 @@ const ResourceConfigurationChecker = withStyles(styles)(
         <TodayIcon color="error" className={props.classes.leftIcon} />
       ) : null}
       <div className={props.classes.leftColumn}>
-        <Typography align="left" variant="body2">
+        <Typography align="left" variant="body1">
           {props.name}
         </Typography>
         {props.loading ? (
@@ -141,7 +147,7 @@ export const PrivateServiceConfigurationHelper = (props: Props) => {
             <EditIcon color="primary" />
           </IconButton>
           <div className={classes.leftColumn}>
-            <Typography align="left" variant="body2">
+            <Typography align="left" variant="body1">
               {privateService.has_own_availability_slots
                 ? t('service.configuration.explainSetToHasOwnAvailabilitySlots')
                 : t(

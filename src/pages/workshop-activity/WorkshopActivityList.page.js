@@ -134,9 +134,9 @@ export class WorkshopActivityList extends React.Component<Props> {
 
 const styles = (theme) => ({
   container: {
-    paddingBottom: theme.spacing.unit * 16,
+    paddingBottom: theme.spacing(16),
   },
-  search: { marginBottom: theme.spacing.unit * 2 },
+  search: { marginBottom: theme.spacing(2) },
   searchPaperDisplayed: {
     border: '1px solid',
     borderColor: theme.primary_color,

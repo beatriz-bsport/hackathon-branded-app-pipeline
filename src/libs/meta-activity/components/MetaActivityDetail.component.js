@@ -90,17 +90,17 @@ const styles = (theme) => ({
     justifyContent: 'center',
     flexDirection: 'row',
     width: '100%',
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   fullWidth: {
     width: '100%',
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   panel: {
     width: '100%',
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
   },
 });
 

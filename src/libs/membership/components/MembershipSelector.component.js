@@ -209,16 +209,16 @@ const styles = (theme) => ({
     alignItems: 'flex-start',
     justifyContent: 'space-around',
     minHeight: '70vh',
-    paddingTop: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(2),
   },
   bsportLogo: {
     height: 320,
     width: 320,
-    marginBottom: theme.spacing.unit * 4,
+    marginBottom: theme.spacing(4),
   },
   panel: {
-    paddingLeft: theme.spacing.unit * 2,
-    paddingRight: theme.spacing.unit * 2,
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
   },
   leftPanel: {
     flexDirection: 'column',
@@ -231,10 +231,10 @@ const styles = (theme) => ({
     height: '100%',
   },
   membershipList: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   companyList: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   bigIcon: {
     height: '20vw',

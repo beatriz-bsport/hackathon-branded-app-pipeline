@@ -28,9 +28,11 @@ export class TimeTable extends React.PureComponent<Props> {
       <List disablePadding>
         {loading ? <LinearProgress /> : null}
         {offers.length === 0 && !loading ? (
-          <Typography variant="caption" className={classes.emptyMessage}>
-            {t('activity.noOfferThisDay')}
-          </Typography>
+          <div className={classes.emptyMessage}>
+            <Typography variant="caption">
+              {t('activity.noOfferThisDay')}
+            </Typography>
+          </div>
         ) : null}
         <Divider />
         {offers.map((offer) => (
@@ -52,11 +54,11 @@ export class TimeTable extends React.PureComponent<Props> {
 
 const styles = (theme) => ({
   emptyMessage: {
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing(3),
   },
   loadingContainer: {
-    marginLeft: theme.spacing.unit * 3,
-    marginBottom: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(3),
+    marginBottom: theme.spacing(2),
   },
 });
 

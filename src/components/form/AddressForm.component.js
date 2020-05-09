@@ -103,7 +103,7 @@ export class AddressForm extends Component<Props, State> {
             label={t('form.address.addressLine2')}
             onChange={this.handleChange('address_line_2')}
           />
-          <Grid container direction="row" spacing={16} className={classes.city}>
+          <Grid container direction="row" spacing={2} className={classes.city}>
             <Grid item>
               <TextField
                 name="city"
@@ -191,7 +191,7 @@ const styles = (theme) => ({
     flexDirection: 'row',
   },
   bottomButtons: {
-    paddingTop: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(2),
   },
 });
 

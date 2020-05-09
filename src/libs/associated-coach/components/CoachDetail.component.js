@@ -44,7 +44,7 @@ export class CoachDetail extends Component<Props, State> {
   render() {
     const { coach, classes, paymentRules, setCoachPaymentRule, t } = this.props;
     return (
-      <Grid container direction="column" spacing={16} alignItems="center">
+      <Grid container direction="column" spacing={2} alignItems="center">
         <Grid item xs={12} lg={8} className={classes.fullWidth}>
           <Paper className={classes.paperContainer}>
             <CoachSummaryBanner
@@ -66,7 +66,7 @@ export class CoachDetail extends Component<Props, State> {
         </Grid>
         <Grid item xs={12} lg={8} className={classes.fullWidth}>
           <Typography
-            variant="title"
+            variant="h6"
             align="right"
             className={classes.expansionTitle}
           >
@@ -84,15 +84,15 @@ export class CoachDetail extends Component<Props, State> {
 const styles = (theme) => ({
   fullWidth: { width: '100%' },
   paperContainer: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     width: '100%',
   },
   expansionTitle: {
-    marginBottom: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
+    marginRight: theme.spacing(1),
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 

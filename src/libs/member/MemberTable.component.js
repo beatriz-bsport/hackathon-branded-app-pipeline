@@ -247,13 +247,13 @@ export class InvoiceTable extends Component<Props, State> {
 
 const styles = (theme) => ({
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   footerContainer: {
     justifyContent: 'space-between',
     display: 'flex',
     alignItems: 'center',
-    paddingLeft: theme.spacing.unit * 2,
+    paddingLeft: theme.spacing(2),
   },
 });
 

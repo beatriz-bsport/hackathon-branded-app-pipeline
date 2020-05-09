@@ -37,7 +37,7 @@ type Props = {
   t: TFunction,
 };
 export const PaymentComboDetail = (props: Props) => (
-  <Grid container spacing={16}>
+  <Grid container spacing={2}>
     <Grid item xs={12} md={6}>
       <PaymentComboCard
         paymentCombo={props.paymentCombo}
@@ -86,7 +86,7 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    paddingBottom: theme.spacing.unit,
+    paddingBottom: theme.spacing(1),
   },
 });
 

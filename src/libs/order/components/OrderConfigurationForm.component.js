@@ -102,7 +102,7 @@ const styles = (theme) => ({
     alignItems: 'flex-start',
   },
   formControl: {
-    paddingBottom: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing(2),
     minWidth: 260,
   },
 });

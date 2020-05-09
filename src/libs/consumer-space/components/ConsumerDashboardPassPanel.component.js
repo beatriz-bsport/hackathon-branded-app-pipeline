@@ -71,7 +71,7 @@ export class ConsumerDashboardPassPanel extends React.PureComponent<Props> {
 
 const styles = (theme) => ({
   sectionTitle: {
-    marginBottom: theme.spacing.unit * 3,
+    marginBottom: theme.spacing(3),
   },
 });
 

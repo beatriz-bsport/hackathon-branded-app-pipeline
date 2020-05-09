@@ -162,7 +162,7 @@ export class EstablishmentDetail extends Component<Props, State> {
 }
 const styles = (theme) => ({
   noMoreOffersMessage: {
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing(2),
   },
   imgBackground: {
     backgroundColor: '#f5f5f5',
@@ -185,10 +185,10 @@ const styles = (theme) => ({
     height: '100%',
   },
   descriptionBlock: {
-    paddingTop: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(2),
   },
   easyAccess: {
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
 });
 

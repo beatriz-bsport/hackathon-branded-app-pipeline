@@ -115,7 +115,7 @@ export class CreateStaffUser extends React.Component<Props, State> {
 
 const styles = (theme) => ({
   field: {
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
   selectRole: {
     minWidth: 200,

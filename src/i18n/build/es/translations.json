@@ -256,7 +256,7 @@
                     "price": "Prix",
                     "tva": "TVA",
                     "available_payment_method_identifiers": {
-                        "helperText": "Seleccione al menos un método de pago. Si la cesta del miembro contiene artículos para los cuales los medios de pago son incompatibles, se ofrecerá el pago CB.",
+                        "helperText": "Seleccione al menos un método de pago. Si la cesta del miembro contiene artículos para los cuales los medios de pago son incompatibles, se ofrecerá el pago por tarjeta.",
                         "label": "Medios de pago autorizados."
                     }
                 }

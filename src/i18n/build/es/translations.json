@@ -181,7 +181,8 @@
             "manageOffer": "Gérer mes réservations",
             "bill": "Facturar",
             "noncompatibleConsumerPaymentPacksAre": "Tiene las siguientes tarjetas, no compatibles con esta sesión:",
-            "broadcast_link": "Enlace de videoconferencia"
+            "broadcast_link": "Enlace de videoconferencia",
+            "createBookingOption": "Lista de espera"
         },
         "shop": {
             "supplier_price": "Prix fournisseur",
@@ -253,7 +254,11 @@
                     "provisions": "Stock",
                     "name": "Nom",
                     "price": "Prix",
-                    "tva": "TVA"
+                    "tva": "TVA",
+                    "available_payment_method_identifiers": {
+                        "helperText": "Seleccione al menos un método de pago. Si la cesta del miembro contiene artículos para los cuales los medios de pago son incompatibles, se ofrecerá el pago CB.",
+                        "label": "Medios de pago autorizados."
+                    }
                 }
             },
             "booking": {

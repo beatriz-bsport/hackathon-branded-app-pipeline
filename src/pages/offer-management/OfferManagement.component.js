@@ -690,15 +690,16 @@ export class OfferManagement extends Component<Props, State> {
               ) : (
                 <div className={classes.bookingSubHeader}>
                   <Typography variant="caption" color="primary">
-                    {this.getNbAttendant()} {t('offer.attendant')}
+                    {this.getNbAttendant()} {t('translation:offer.attendant')}
                   </Typography>
                   <Typography variant="caption" color="error">
-                    {this.getNbNonAttendant()} {t('offer.nonAttendant')}
+                    {this.getNbNonAttendant()}{' '}
+                    {t('translation:offer.nonAttendant')}
                   </Typography>
                   <Typography variant="caption">
                     {`${this.getNbAttendant() +
                       this.getNbNonAttendant()}/${this.getMaxBookings()} ${t(
-                      'offer.maxBookingsNb',
+                      'translation:offer.maxBookingsNb',
                     )}`}
                   </Typography>
                 </div>
@@ -963,5 +964,5 @@ const styles = (theme) => ({
 export default compose(
   withMobileDialog(),
   withStyles(styles),
-  withNamespaces(['offer']),
+  withNamespaces(['offer', 'translation']),
 )(OfferManagement);

@@ -141,7 +141,12 @@
             "bookings": "Réservations",
             "places": "Lieux",
             "male": "Homme",
-            "female": "Femme"
+            "female": "Femme",
+            "otherGender": "Otros",
+            "recipients": "Destinatarios",
+            "recipient": "Beneficiario",
+            "copySuffix": " (Copia)",
+            "isRefreshing": "Tu interfaz estará lista en un momento"
         },
         "pagination": {
             "rowPerPage": "Eléments par page",
@@ -173,7 +178,10 @@
             "reCreateBooking": "Réinscrire",
             "noQuickInvoiceOpened": "Aucune facturation ouverte",
             "myOpenedInvoices": "Factures rapides",
-            "manageOffer": "Gérer mes réservations"
+            "manageOffer": "Gérer mes réservations",
+            "bill": "Bill",
+            "noncompatibleConsumerPaymentPacksAre": "Tiene las siguientes tarjetas, no compatibles con esta sesión:",
+            "broadcast_link": "Enlace de videoconferencia"
         },
         "shop": {
             "supplier_price": "Prix fournisseur",

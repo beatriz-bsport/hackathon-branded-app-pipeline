@@ -141,7 +141,12 @@
             "bookings": "Réservations",
             "places": "Lieux",
             "male": "Homme",
-            "female": "Femme"
+            "female": "Femme",
+            "otherGender": "Otros",
+            "recipients": "Destinatarios",
+            "recipient": "Beneficiario",
+            "copySuffix": " (Copia)",
+            "isRefreshing": "Tu interfaz estará lista en un momento"
         },
         "pagination": {
             "rowPerPage": "Eléments par page",
@@ -173,7 +178,11 @@
             "reCreateBooking": "Réinscrire",
             "noQuickInvoiceOpened": "Aucune facturation ouverte",
             "myOpenedInvoices": "Factures rapides",
-            "manageOffer": "Gérer mes réservations"
+            "manageOffer": "Gérer mes réservations",
+            "bill": "Facturar",
+            "noncompatibleConsumerPaymentPacksAre": "Tiene las siguientes tarjetas, no compatibles con esta sesión:",
+            "broadcast_link": "Enlace de videoconferencia",
+            "createBookingOption": "Lista de espera"
         },
         "shop": {
             "supplier_price": "Prix fournisseur",
@@ -245,7 +254,13 @@
                     "provisions": "Stock",
                     "name": "Nom",
                     "price": "Prix",
-                    "tva": "TVA"
+                    "tva": "TVA",
+                    "available_payment_method_identifiers": {
+                        "helperText": "Seleccione al menos un método de pago. Si la cesta del miembro contiene artículos para los cuales los medios de pago son incompatibles, se ofrecerá el pago por tarjeta.",
+                        "label": "Medios de pago autorizados."
+                    },
+                    "sell_only_on_provision": "Oferta en venta SOLO si hay stock disponible",
+                    "onsite_payment_available": "Posibilidad de pagar en el acto"
                 }
             },
             "booking": {

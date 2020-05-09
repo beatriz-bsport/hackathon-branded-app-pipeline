@@ -3,9 +3,16 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import Particles from 'react-particles-js';
 import Hidden from '@material-ui/core/Hidden';
+import { withProps, compose } from 'recompose';
+import { connect } from 'react-redux';
+import parse from '../../query-string';
+import { fetchCompanyTheme } from '../../libs/theme/actions';
+import themeSelectors from '../../libs/theme/selectors';
+import { getTheme } from '../../theme';
+
 import LoginPro from './LoginPro.component';
 import LoginConsumer from './LoginConsumer.component';
 import Signout from './Signout.component';
@@ -14,81 +21,96 @@ import ChangePassword from './ChangePassword.component';
 
 import './particlejs.css';
 
-export default function LoginRouter() {
-  const classes = useStyles();
-  return (
-    <Grid container>
-      <Hidden xsDown>
-        <Grid item sm={6} md={6} lg={7} className={classes.logoContainer}>
-          <div
-            style={{
-              position: 'fixed',
-              zIndex: 0,
-              width: '100vw',
-              height: '100vh',
-            }}
-          >
-            <Particles
-              id="particle-js"
-              style={{
-                position: 'fixed',
-                zIndex: 0,
-                width: '100%',
-                height: '100vh',
-              }}
-              params={{
-                particles: {
-                  number: {
-                    value: 100,
-                    density: {
-                      enable: true,
-                      value_area: 1000,
+export class LoginRouter extends React.Component {
+  componentDidMount() {
+    if (this.props.membership) {
+      this.props.fetchCompanyTheme(this.props.membership);
+    }
+  }
+
+  render() {
+    const { classes } = this.props;
+    return (
+      <MuiThemeProvider theme={getTheme(this.props.theme)}>
+        <Grid container>
+          <Hidden xsDown>
+            <Grid item sm={6} md={6} lg={7} className={classes.logoContainer}>
+              <div
+                style={{
+                  position: 'fixed',
+                  zIndex: 0,
+                  width: '100vw',
+                  height: '100vh',
+                }}
+              >
+                <Particles
+                  id="particle-js"
+                  style={{
+                    position: 'fixed',
+                    zIndex: 0,
+                    width: '100%',
+                    height: '100vh',
+                  }}
+                  params={{
+                    particles: {
+                      number: {
+                        value: 100,
+                        density: {
+                          enable: true,
+                          value_area: 1000,
+                        },
+                      },
                     },
-                  },
-                },
-              }}
-            />
-          </div>
-          <img
-            src="/logo-fond-bleu.svg"
-            className={classes.logo}
-            alt="bsport-logo"
-          />
+                  }}
+                />
+              </div>
+              <img
+                src={
+                  this.props.theme
+                    ? this.props.theme.cover
+                    : '/logo-fond-bleu.svg'
+                }
+                className={classes.logo}
+                alt="bsport-logo"
+              />
+            </Grid>
+          </Hidden>
+          <Grid item xs={12} sm={6} md={6} lg={5} style={{ zIndex: 20 }}>
+            <Paper className={classes.loginContainer}>
+              <Switch>
+                <Route path="/login/signout" component={Signout} />
+                <Route path="/login/reset_password" component={ResetPassword} />
+                <Route path="/login/pro" component={LoginPro} />
+                <Route path="/login/customer" component={LoginConsumer} />
+                <Route path="/login/reset_password" component={ResetPassword} />
+                <Route path="/login/signout" component={Signout} />
+                <Route
+                  path="/login/change_password/:uid/:token"
+                  component={ChangePassword}
+                />
+                <Route path="/login" component={LoginConsumer} />
+              </Switch>
+            </Paper>
+          </Grid>
         </Grid>
-      </Hidden>
-      <Grid item xs={12} sm={6} md={6} lg={5} style={{ zIndex: 20 }}>
-        <Paper className={classes.loginContainer}>
-          <Switch>
-            <Route path="/login/signout" component={Signout} />
-            <Route path="/login/reset_password" component={ResetPassword} />
-            <Route path="/login/pro" component={LoginPro} />
-            <Route path="/login/customer" component={LoginConsumer} />
-            <Route path="/login/reset_password" component={ResetPassword} />
-            <Route path="/login/signout" component={Signout} />
-            <Route
-              path="/login/change_password/:uid/:token"
-              component={ChangePassword}
-            />
-            <Route path="/login" component={LoginConsumer} />
-          </Switch>
-        </Paper>
-      </Grid>
-    </Grid>
-  );
+      </MuiThemeProvider>
+    );
+  }
 }
 
-const useStyles = makeStyles({
-  logoContainer: {
+const styles = {
+  logoContainer: (props) => ({
     height: '100vh',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#07162D',
+    backgroundColor: props.membership ? '' : '#07162D',
     position: 'relative',
     zIndex: 9,
-  },
+  }),
   logo: {
+    marginTop: '-10%',
     width: '40%',
     position: 'absolute',
     zIndex: 20,
@@ -99,4 +121,19 @@ const useStyles = makeStyles({
     alignItems: 'center',
     minHeight: '100vh',
   },
-});
+};
+
+export default compose(
+  withProps({
+    membership: parse(window.location.search).membership,
+  }),
+  withStyles(styles),
+  connect(
+    (state, { membership }) => ({
+      theme: !!membership && themeSelectors.getTheme(state),
+    }),
+    {
+      fetchCompanyTheme,
+    },
+  ),
+)(LoginRouter);

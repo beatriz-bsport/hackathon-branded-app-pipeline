@@ -76,7 +76,7 @@ export class LoginRouter extends React.Component {
             </Grid>
           </Hidden>
           <Grid item xs={12} sm={6} md={6} lg={5} style={{ zIndex: 20 }}>
-            <Paper className={classes.loginContainer}>
+            <Paper elevation={16} className={classes.loginContainer}>
               <Switch>
                 <Route path="/login/signout" component={Signout} />
                 <Route path="/login/reset_password" component={ResetPassword} />
@@ -105,13 +105,13 @@ const styles = {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: props.membership ? '' : '#07162D',
+    backgroundColor: props.membership ? 'white' : '#07162D',
     position: 'relative',
     zIndex: 9,
   }),
   logo: {
     marginTop: '-10%',
-    width: '40%',
+    maxWidth: '40%',
     position: 'absolute',
     zIndex: 20,
   },

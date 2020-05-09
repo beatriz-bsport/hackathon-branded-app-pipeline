@@ -260,7 +260,9 @@
                         "label": "Medios de pago autorizados."
                     },
                     "sell_only_on_provision": "Oferta en venta SOLO si hay disponibilidad",
-                    "onsite_payment_available": "Posibilidad de pagar en el acto"
+                    "onsite_payment_available": "Posibilidad de pagar en el acto",
+                    "is_deliverable": "Impone cargos de entrega predeterminados",
+                    "featured": "Destacar al validar la cesta"
                 }
             },
             "booking": {

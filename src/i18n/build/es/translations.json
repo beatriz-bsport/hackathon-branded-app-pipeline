@@ -258,7 +258,9 @@
                     "available_payment_method_identifiers": {
                         "helperText": "Seleccione al menos un método de pago. Si la cesta del miembro contiene artículos para los cuales los medios de pago son incompatibles, se ofrecerá el pago por tarjeta.",
                         "label": "Medios de pago autorizados."
-                    }
+                    },
+                    "sell_only_on_provision": "Oferta en venta SOLO si hay stock disponible",
+                    "onsite_payment_available": "Posibilidad de pagar en el acto"
                 }
             },
             "booking": {

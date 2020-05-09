@@ -253,9 +253,7 @@ export class OfferCard extends Component<Props> {
 
             {offer.id && this.props.companyId ? (
               <ButtonBase
-                onClick={() =>
-                  this.props.snackbarSuccess(t('offer:card.copied'))
-                }
+                onClick={() => this.props.snackbarSuccess('link.copied')}
                 className={classes.link}
               >
                 <LinkIcon />

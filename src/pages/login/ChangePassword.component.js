@@ -81,7 +81,7 @@ export class ChangePassword extends Component<Props, State> {
             error: t('form.login.passwordTooEasy'),
           });
         } else {
-          this.props.pushToLogin(t('form.login.passwordChangedSuccess'));
+          this.props.pushToLogin('login.passwordChangedSuccess');
         }
       } catch (e) {
         this.setState({

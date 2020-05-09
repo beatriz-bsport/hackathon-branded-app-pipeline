@@ -130,10 +130,4 @@ exports.default = {
     [NOTIFICATION_SUBSCRIPTION_PAYMENT_RECEIVED]: 'Paiement reçu',
     [NOTIFICATION_BOOKING_BROADCAST]: 'Rappel cours en ligne dans 15 min',
   },
-  messages: {
-    createOrUpdate: {
-      success: 'Modifié avec succès',
-      error: "Impossible d'enregistrer",
-    },
-  },
 };

@@ -210,7 +210,7 @@ export default compose(
     onBookOfferFromPack: (offerId, packId) => {
       payWithConsumerPaymentPackAPI(packId, offerId, {})
         .then(() => {
-          snackbarSuccess('booking.success');
+          snackbarSuccess('booking.register.success');
           pushRouter('/');
         })
         .catch((err) => {

@@ -125,7 +125,7 @@ export function linkToMemberRelation(
       dispatch(sharedConsumerPackCreateOrUpdateActions.success(response.data));
       dispatch(
         snackbarSuccess(
-          'relationship:consumer_payment_pack_links.messages.create.success',
+          'relationship.consumer_payment_pack_links.create.success',
         ),
       );
       if (options && options.onSuccess) options.onSuccess();
@@ -133,7 +133,7 @@ export function linkToMemberRelation(
       dispatch(sharedConsumerPackCreateOrUpdateActions.error(error));
       dispatch(
         snackbarError(
-          'relationship:consumer_payment_pack_links.messages.create.error',
+          'relationship.consumer_payment_pack_links.create.error',
         ),
       );
       if (options && options.onError) options.onError();
@@ -153,14 +153,14 @@ export function unlinkConsumerPaymentPackLink(
       await unlinkConsumerPassLinkAPI(consumerPackLinkId);
       dispatch(
         snackbarSuccess(
-          'relationship:consumer_payment_pack_links.messages.unlink.success',
+          'relationship.consumer_payment_pack_links.unlink.success',
         ),
       );
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
       dispatch(
         snackbarError(
-          'relationship:consumer_payment_pack_links.messages.unlink.error',
+          'relationship.consumer_payment_pack_links.unlink.error',
         ),
       );
       if (options && options.onSuccess) options.onSuccess();
@@ -179,14 +179,14 @@ export function relinkConsumerPaymentPackLink(
       await relinkConsumerPassLinkAPI(consumerPackLinkId);
       dispatch(
         snackbarSuccess(
-          'relationship:consumer_payment_pack_links.messages.relink.success',
+          'relationship.consumer_payment_pack_links.relink.success',
         ),
       );
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
       dispatch(
         snackbarError(
-          'relationship:consumer_payment_pack_links.messages.relink.error',
+          'relationship.consumer_payment_pack_links.relink.error',
         ),
       );
       if (options && options.onSuccess) options.onSuccess();

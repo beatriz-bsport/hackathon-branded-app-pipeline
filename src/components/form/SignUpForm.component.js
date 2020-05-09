@@ -9,6 +9,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import FormGroup from '@material-ui/core/FormGroup';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -235,45 +236,50 @@ export class SignUpForm extends Component<Props, State> {
     }
     return (
       <form onSubmit={this.goToAddressForm} className={classes.container}>
-        <div className={classes.row}>
-          <TextField
-            required
-            fullWidth
-            name="first_name"
-            autoComplete="first name"
-            value={this.state.first_name}
-            label={
-              this.props.theme && this.props.theme.first_name_label
-                ? this.props.theme.first_name_label
-                : t('common.firstname')
-            }
-            onChange={this.onFormFieldChange('first_name')}
-            className={classes.field}
-          />
-          <TextField
-            required
-            fullWidth
-            name="last_name"
-            autoComplete="last name"
-            value={this.state.last_name}
-            label={
-              this.props.theme && this.props.theme.last_name_label
-                ? this.props.theme.last_name_label
-                : t('common.lastname')
-            }
-            onChange={this.onFormFieldChange('last_name')}
-            className={classes.field}
-          />
-        </div>
-        <div className={classes.row}>
-          <GenderInput
-            value={this.state.gender}
-            onChange={this.handleGender}
-            required
-          />
-        </div>
+        <Grid container direction="row">
+          <Grid item xs={12} md={6}>
+            <TextField
+              required
+              fullWidth
+              name="first_name"
+              autoComplete="first name"
+              value={this.state.first_name}
+              label={
+                this.props.theme && this.props.theme.first_name_label
+                  ? this.props.theme.first_name_label
+                  : t('common.firstname')
+              }
+              onChange={this.onFormFieldChange('first_name')}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              required
+              fullWidth
+              name="last_name"
+              autoComplete="last name"
+              value={this.state.last_name}
+              label={
+                this.props.theme && this.props.theme.last_name_label
+                  ? this.props.theme.last_name_label
+                  : t('common.lastname')
+              }
+              onChange={this.onFormFieldChange('last_name')}
+            />
+          </Grid>
+        </Grid>
         <div className={classes.row}>
           <div className={classes.field}>
+            <GenderInput
+              value={this.state.gender}
+              onChange={this.handleGender}
+              required
+              fullWidth
+            />
+          </div>
+        </div>
+        <Grid container direction="row">
+          <Grid item xs={12} md={6}>
             <div className={classes.emailInput}>
               <div className={classes.row}>
                 <DelayedTextField
@@ -303,8 +309,8 @@ export class SignUpForm extends Component<Props, State> {
                 </ButtonBase>
               ) : null}
             </div>
-          </div>
-          <div className={classes.field}>
+          </Grid>
+          <Grid item xs={12} md={6}>
             <FormControl fullWidth>
               <InputLabel shrink htmlFor="phone-helper">
                 {t('form.signup.typePhone')}
@@ -321,10 +327,10 @@ export class SignUpForm extends Component<Props, State> {
                 onChange={(phone) => this.setState({ phone })}
               />
             </FormControl>
-          </div>
-        </div>
-        <div className={classes.row}>
-          <div className={classes.field}>
+          </Grid>
+        </Grid>
+        <Grid container direction="row">
+          <Grid item xs={12} md={6}>
             <TextField
               type="password"
               fullWidth
@@ -336,8 +342,8 @@ export class SignUpForm extends Component<Props, State> {
               placeholder={t('form.password')}
               label={t('form.password')}
             />
-          </div>
-          <div className={classes.field}>
+          </Grid>
+          <Grid item xs={12} md={6}>
             <TextField
               type="password"
               fullWidth
@@ -349,13 +355,13 @@ export class SignUpForm extends Component<Props, State> {
               placeholder={t('form.signup.confirmPassword')}
               label={t('form.signup.confirmPasswordLabel')}
             />
-          </div>
-        </div>
+          </Grid>
+        </Grid>
         <div className={classes.row}>
           <FormGroup aria-label="privacy-policy" name="acceptPrivacyPolicy">
             <FormControlLabel
               label={
-                <Typography>
+                <Typography align="left" variant="body2">
                   {t('form.signup.iAcceptPrivacyPolicy')}
                   <a
                     href="https://bsport.io/blog/privacy_policy"
@@ -404,7 +410,11 @@ const styles = (theme) => ({
     marginTop: theme.spacing(2),
   },
   actions: {
+    '& > *': {
+      marginLeft: theme.spacing(2),
+    },
     textAlign: 'right',
+    marginTop: theme.spacing(2),
   },
   phoneInput: { marginTop: 18 },
   row: {

@@ -294,11 +294,11 @@ export function upsert(metaActivityData: *, options: *): ThunkAction {
     try {
       const response = await createOrUpdate(metaActivityData);
       dispatch(upsertActions.success(response.data));
-      dispatch(snackbarSuccess(`activity.forms.${key}.success`));
+      dispatch(snackbarSuccess(`activity.${key}.success`));
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
       console.error(error);
-      dispatch(snackbarError(`activity.forms.${key}error`));
+      dispatch(snackbarError(`activity.${key}error`));
       dispatch(upsertActions.error(error));
       if (options && options.onError) options.onError(error);
     }

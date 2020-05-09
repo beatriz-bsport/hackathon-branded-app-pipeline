@@ -184,13 +184,13 @@ export function createOrUpdateShopItem(
       const response = await createOrUpdate(shopItemData, id);
 
       dispatch(shopItemCreateOrUpdateActions.success(response.data));
-      dispatch(snackbarSuccess('form.shop.item.createOrUpdate.success'));
+      dispatch(snackbarSuccess('shop.item.createOrUpdate.success'));
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
       }
     } catch (e) {
       console.error(e);
-      dispatch(snackbarError('form.shop.item.createOrUpdate.error'));
+      dispatch(snackbarError('shop.item.createOrUpdate.error'));
       dispatch(shopItemCreateOrUpdateActions.error(e));
       if (options && options.onError) {
         options.onError(e);
@@ -220,18 +220,18 @@ export function deleteItem(id: number, callback: ?() => void) {
         response.status === 204
       ) {
         dispatch(shopItemDeleteActions.success(id));
-        dispatch(snackbarSuccess('form.shop.item.delete.success'));
+        dispatch(snackbarSuccess('shop.item.delete.success'));
         if (typeof callback === 'function') {
           callback();
         }
       } else {
-        dispatch(snackbarError('form.shop.item.delete.error'));
+        dispatch(snackbarError('shop.item.delete.error'));
         dispatch(shopItemDeleteActions.error(response));
       }
     } catch (e) {
       console.error(e);
       dispatch(shopItemDeleteActions.error(e));
-      dispatch(snackbarError('form.shop.item.delete.error'));
+      dispatch(snackbarError('shop.item.delete.error'));
     }
     dispatch(shopItemDeleteActions.isLoading(false));
   };

@@ -58,11 +58,11 @@ export function deleteCoupon(
       dispatch(couponList.delete(id));
       dispatch(couponList.error(null));
       dispatch(fetchCouponPage(1));
-      dispatch(snackbarSuccess('coupon:message.delete.success'));
+      dispatch(snackbarSuccess('coupon.delete.success'));
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
       dispatch(couponList.error(error));
-      dispatch(snackbarError('coupon:message.delete.error'));
+      dispatch(snackbarError('coupon.delete.error'));
       if (options && options.onError) options.onError();
     }
 
@@ -88,11 +88,11 @@ export function createCoupon(
       const response = await createCouponAPI(data);
       dispatch(couponCreateOrUpdate.success(response.data));
       dispatch(couponCreateOrUpdate.error(null));
-      dispatch(snackbarSuccess('coupon:message.create.success'));
+      dispatch(snackbarSuccess('coupon.create.success'));
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
       dispatch(couponList.error(error));
-      dispatch(snackbarError('coupon:message.create.error'));
+      dispatch(snackbarError('coupon.create.error'));
       if (options && options.onError) options.onError();
     }
 
@@ -113,11 +113,11 @@ export function updateCoupon(
       const response = await updateCouponAPI(id, data);
       dispatch(couponCreateOrUpdate.success(response.data));
       dispatch(couponCreateOrUpdate.error(null));
-      dispatch(snackbarSuccess('coupon:message.update.success'));
+      dispatch(snackbarSuccess('coupon.update.success'));
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
       dispatch(couponList.error(error));
-      dispatch(snackbarError('coupon:message.update.error'));
+      dispatch(snackbarError('coupon.update.error'));
       if (options && options.onError) options.onError();
     }
 

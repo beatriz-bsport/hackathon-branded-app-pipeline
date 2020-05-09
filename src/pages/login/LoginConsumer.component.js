@@ -6,7 +6,6 @@ import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import IconButton from '@material-ui/core/IconButton';
 import HelpIcon from '@material-ui/icons/Help';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { withRouter } from 'react-router';
 import { Redirect } from 'react-router-dom';
@@ -105,7 +104,7 @@ export class ConsumerLoginPage extends Component<Props> {
 
     if (step === STEPS.WELCOME) {
       return (
-        <Paper className={classes.container}>
+        <div className={classes.container}>
           <ConsumerLogin
             doEmailLogin={doEmailLogin}
             error={errorLogin}
@@ -113,12 +112,12 @@ export class ConsumerLoginPage extends Component<Props> {
             loading={loginProcessing}
             requestSignUp={this.switchToSignUp}
           />
-        </Paper>
+        </div>
       );
     }
 
     return (
-      <Paper className={classes.container}>
+      <div className={classes.container}>
         <div
           style={{
             display: 'flex',
@@ -142,7 +141,7 @@ export class ConsumerLoginPage extends Component<Props> {
           checkEmailExists={this.props.checkEmailExists}
           backToLogin={() => this.setState({ step: STEPS.WELCOME })}
         />
-      </Paper>
+      </div>
     );
   }
 }
@@ -166,9 +165,10 @@ function mapDispatchToProps(dispatch, props) {
 
 const styles = (theme) => ({
   container: {
-    margin: '50px auto',
     textAlign: 'center',
-    padding: theme.spacing(2),
+    padding: theme.spacing(6),
+    width: '100%',
+    marginTop: '10vh',
   },
 });
 

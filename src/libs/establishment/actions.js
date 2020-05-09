@@ -38,7 +38,7 @@ export function deleteEstablishment(
     dispatch(deleteActions.error(null));
     try {
       await deleteEstablishmentAPI(id);
-      dispatch(snackbarSuccess('establishment:forms.delete.message.success'));
+      dispatch(snackbarSuccess('establishment.delete.success'));
       dispatch(resetEstablishments());
       dispatch(fetchEstablishments());
       if (options && options.onSuccess) options.onSuccess();
@@ -46,7 +46,7 @@ export function deleteEstablishment(
       console.error(err);
       dispatch(deleteActions.isLoading(false));
       dispatch(deleteActions.error(err));
-      dispatch(snackbarError('establishment:forms.delete.message.error'));
+      dispatch(snackbarError('establishment.delete.error'));
       if (options && options.onError) options.onError();
     }
   };
@@ -112,12 +112,12 @@ export function createOrUpdateEstablishment(establishmentData: FormData) {
 
       dispatch(upsertLoaded(response));
       const message = establishmentData.has('id')
-        ? 'establishment.forms.update.success'
-        : 'establishment.forms.create.success';
+        ? 'establishment.update.success'
+        : 'establishment.create.success';
       dispatch(snackbarSuccess(message));
       dispatch(push('/establishment'));
     } catch (error) {
-      dispatch(snackbarError('establishment.forms.error'));
+      dispatch(snackbarError('establishment.error'));
       dispatch(upsertError(error));
     }
 

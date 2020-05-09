@@ -157,11 +157,11 @@ export function smartListCreate(
       const response = await createSmartListAPI(data);
       dispatch(createSmartListAction.success(response.data));
       dispatch(createSmartListAction.error(null));
-      dispatch(snackbarSuccess('Liste créée'));
+      dispatch(snackbarSuccess('smartlist.create.success'));
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(createSmartListAction.error(error));
-      dispatch(snackbarError('Liste non créée'));
+      dispatch(snackbarError('smartlist.create.error'));
       if (options && options.onError) options.onError(error);
     }
     dispatch(createSmartListAction.isLoading(false));
@@ -183,10 +183,10 @@ export function smartListUpdate(id: number, data: any): ThunkAction {
       const response = await updateSmartListAPI(id, data);
       dispatch(updateSmartListAction.success(response.data));
       dispatch(updateSmartListAction.error(null));
-      dispatch(snackbarSuccess('Liste modifiée'));
+      dispatch(snackbarSuccess('smartlist.update.success'));
     } catch (error) {
       dispatch(updateSmartListAction.error(error));
-      dispatch(snackbarError('Liste non modifiée'));
+      dispatch(snackbarError('smartlist.udpate.error'));
     }
     dispatch(updateSmartListAction.isLoading(false));
   };
@@ -206,11 +206,11 @@ export function smartListDelete(id: number): ThunkAction {
     try {
       await deleteSmartListAPI(id);
 
-      dispatch(snackbarSuccess('Liste supprimée'));
+      dispatch(snackbarSuccess('smartlist.delete.success'));
       dispatch(deleteSmartListAction.success(id));
     } catch (error) {
       dispatch(deleteSmartListAction.error(error));
-      dispatch(snackbarError('Liste non supprimée'));
+      dispatch(snackbarError('smartlist.delete.error'));
     }
     dispatch(deleteSmartListAction.isLoading(false));
   };

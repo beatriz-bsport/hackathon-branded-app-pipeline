@@ -40,7 +40,7 @@ export const PaymentComboCard = (props: Props) => {
     return paymentCombo.id ? (
       <ButtonBase
         className={props.classes.link}
-        onClick={() => snackbarSuccess('paymentCombo:link.copied')}
+        onClick={() => snackbarSuccess('link.copied')}
       >
         <LinkIcon />
         <CopyToClipboard

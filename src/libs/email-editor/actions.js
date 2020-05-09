@@ -193,11 +193,11 @@ export function emailDesignCreate(
         }),
       );
       dispatch(createEmailDesignAction.error(null));
-      dispatch(snackbarSuccess('Mail créé'));
+      dispatch(snackbarSuccess('email.create.success'));
       if (options && options.onSuccess) options.onSuccess(response.data.id);
     } catch (error) {
       dispatch(createEmailDesignAction.error(error));
-      dispatch(snackbarError('Mail non créé'));
+      dispatch(snackbarError('email.create.error'));
     }
     dispatch(createEmailDesignAction.isLoading(false));
   };
@@ -237,10 +237,10 @@ export function emailTemplateUpdate(id: number, data: any): ThunkAction {
         }),
       );
       dispatch(updateEmailTemplateAction.error(null));
-      dispatch(snackbarSuccess('Mail modifié'));
+      dispatch(snackbarSuccess('email.update.success'));
     } catch (error) {
       dispatch(updateEmailTemplateAction.error(error));
-      dispatch(snackbarError('Mail non modifié'));
+      dispatch(snackbarError('email.update.error'));
     }
     dispatch(updateEmailTemplateAction.isLoading(false));
   };
@@ -260,12 +260,12 @@ export function emailTemplateDelete(id: number): ThunkAction {
     try {
       await deleteEmailTemplateAPI(id);
 
-      dispatch(snackbarSuccess('Mail supprimé'));
+      dispatch(snackbarSuccess('email.delete.success'));
       dispatch(resetEmails());
       dispatch(emailTemplatesSummaries());
     } catch (error) {
       dispatch(deleteEmailTemplateAction.error(error));
-      dispatch(snackbarError('Mail non supprimé'));
+      dispatch(snackbarError('email.delete.error'));
     }
     dispatch(deleteEmailTemplateAction.isLoading(false));
   };

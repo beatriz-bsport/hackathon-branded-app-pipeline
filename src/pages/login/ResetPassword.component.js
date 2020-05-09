@@ -14,7 +14,6 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { resetPassword } from '../../actions/auth.actions';
-import LoginBase from '../../components/navigation/LoginBase.component';
 
 type Props = {
   resetPassword: (email: string, options: any) => void,
@@ -62,7 +61,7 @@ export class ResetPassword extends Component<Props, State> {
       style={{
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-end',
       }}
     >
       <Link style={{ textDecoration: 'none' }} to="/login">
@@ -119,61 +118,60 @@ export class ResetPassword extends Component<Props, State> {
       return <Redirect to="/" />;
     }
     return (
-      <LoginBase>
-        <form onSubmit={this.onSubmit} className={classes.container}>
-          {hasSent ? (
-            <div />
-          ) : (
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'flex-start',
-                flexDirection: 'column',
-                marginTop: 20,
-              }}
-            >
-              <Typography
-                variant="h6"
-                align="left"
-                style={{ marginBottom: 20 }}
-              >
-                {this.props.t('resetPassword.title')}
-              </Typography>
-              <Typography align="left" className={this.props.classes.textBlock}>
-                {this.props.t('resetPassword.explain1')}
-              </Typography>
-              <Typography align="left" className={this.props.classes.textBlock}>
-                {this.props.t('resetPassword.explain2')}
-              </Typography>
-              <TextField
-                type="email"
-                className={this.props.classes.textBlock}
-                onChange={this.updateEmail}
-                name="email"
-                fullWidth
-                label="Email"
-              />
-            </div>
-          )}
-          {this.props.resetError ? (
-            <Typography color="error" align="left" variant="caption">
-              {this.props.t('resetPassword.noEmail')}
+      <form onSubmit={this.onSubmit} className={classes.container}>
+        {hasSent ? (
+          <div />
+        ) : (
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'flex-start',
+              flexDirection: 'column',
+              marginTop: 20,
+            }}
+          >
+            <Typography variant="h6" align="left" style={{ marginBottom: 20 }}>
+              {this.props.t('resetPassword.title')}
             </Typography>
-          ) : null}
-          <div style={{ paddingTop: 16 }}>
-            {!hasSent ? this.getSendingButton() : this.getSuccessMsg()}
+            <Typography align="left" className={this.props.classes.textBlock}>
+              {this.props.t('resetPassword.explain1')}
+            </Typography>
+            <Typography align="left" className={this.props.classes.textBlock}>
+              {this.props.t('resetPassword.explain2')}
+            </Typography>
+            <TextField
+              type="email"
+              className={this.props.classes.textBlock}
+              onChange={this.updateEmail}
+              variant="outlined"
+              name="email"
+              fullWidth
+              label="Email"
+            />
           </div>
-        </form>
-      </LoginBase>
+        )}
+        {this.props.resetError ? (
+          <Typography color="error" align="left" variant="caption">
+            {this.props.t('resetPassword.noEmail')}
+          </Typography>
+        ) : null}
+        <div style={{ paddingTop: 16 }}>
+          {!hasSent ? this.getSendingButton() : this.getSuccessMsg()}
+        </div>
+      </form>
     );
   }
 }
 
 const styles = (theme) => ({
-  container: {
-    margin: theme.spacing(4),
-  },
   textBlock: { marginBottom: theme.spacing(1) },
+  container: {
+    textAlign: 'center',
+    padding: theme.spacing(6),
+    width: '100%',
+    marginTop: '10vh',
+    maxWidth: 600,
+  },
 });
 
 export default compose(

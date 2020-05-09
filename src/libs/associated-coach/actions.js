@@ -37,7 +37,7 @@ export function linkByEmail(
     try {
       const response = await linkByEmailAPI(email);
       if (response.status === 201) {
-        dispatch(snackbarSuccess('coach.forms.linkByEmail.success'));
+        dispatch(snackbarSuccess('coach.linkByEmail.success'));
         options.onSuccess();
       } else {
         options.onError();
@@ -62,12 +62,12 @@ export function deleteCoach(
   return async (dispatch: Dispatch) => {
     try {
       await deleteCoachAPI(id);
-      dispatch(snackbarSuccess('coach.forms.delete.success'));
+      dispatch(snackbarSuccess('coach.delete.success'));
       dispatch(fetchAssociatedCoach(id));
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
       console.error(err);
-      dispatch(snackbarSuccess('coach.forms.delete.error'));
+      dispatch(snackbarSuccess('coach.delete.error'));
       if (options && options.onError) options.onError();
     }
   };
@@ -150,7 +150,7 @@ export function createOrUpdateCoach(
         throw new Error(response);
       }
       const key = coachData.has('id') ? 'update' : 'create';
-      dispatch(snackbarSuccess(`coach.forms.${key}.success`));
+      dispatch(snackbarSuccess(`coach.${key}.success`));
       dispatch(fetchAssociatedCoachesList());
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
@@ -161,9 +161,9 @@ export function createOrUpdateCoach(
         error.response.data.email[0] ===
           'user with this email address already exists.'
       ) {
-        dispatch(snackbarError('coach.forms.error_email_exists'));
+        dispatch(snackbarError('coach.error_email_exists'));
       } else {
-        dispatch(snackbarError('coach.forms.error'));
+        dispatch(snackbarError('coach.error'));
       }
 
       dispatch(upsert.error(error));
@@ -232,11 +232,11 @@ export function setCoachPaymentRule(
         `${API_URI}/accounts/coaches/${coachId}/set_payment_rule/`,
         { default_payment_rule_id: paymentRuleId },
       );
-      dispatch(snackbarSuccess('paymentRules:update.success'));
+      dispatch(snackbarSuccess('paymentRules.update.success'));
       const payload = { coachId, default_payment_rule_id: paymentRuleId };
       dispatch(setPaymentRule.success(payload));
     } catch (err) {
-      dispatch(snackbarError('paymentRules:update.error'));
+      dispatch(snackbarError('paymentRules.update.error'));
       dispatch(upsert.error(err));
     }
     dispatch(upsert.isLoading(false));
@@ -270,10 +270,10 @@ export function setSessionPaymentRule(
           data: response.data,
         }),
       );
-      dispatch(snackbarSuccess('paymentRules:update.success'));
+      dispatch(snackbarSuccess('paymentRules.update.success'));
     } catch (error) {
       console.error(error);
-      dispatch(snackbarError('paymentRules:update.error'));
+      dispatch(snackbarError('paymentRules.update.error'));
       dispatch(sessionPaymentRule.error(error));
     }
     dispatch(sessionPaymentRule.isLoading(false));

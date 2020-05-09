@@ -70,13 +70,13 @@ export function createWebhook(data: any, options: OptionCallback): ThunkAction {
     try {
       const response = await createWebhookAPI(data);
       dispatch(createWebhookAction.success(response.data));
-      dispatch(snackbarSuccess('settings:webhook.messages.form.success'));
+      dispatch(snackbarSuccess('webhook.success'));
       if (options && options.onSuccess) {
         options.onSuccess(response);
       }
     } catch (error) {
       dispatch(createWebhookAction.error(error));
-      dispatch(snackbarError('settings:webhook.messages.form.error'));
+      dispatch(snackbarError('webhook.error'));
       if (options && options.onError) {
         options.onError(error);
       }
@@ -104,10 +104,10 @@ export function updateWebhook(
       if (options && options.onSuccess) {
         options.onSuccess(response);
       }
-      dispatch(snackbarSuccess('settings:webhook.messages.form.success'));
+      dispatch(snackbarSuccess('webhook.success'));
     } catch (error) {
       dispatch(updateWebhookAction.error(error));
-      dispatch(snackbarError('settings:webhook.messages.form.error'));
+      dispatch(snackbarError('webhook.error'));
       if (options && options.onError) {
         options.onError(error);
       }

@@ -74,7 +74,7 @@ export default compose(
     }),
     {
       fetchCurrentOrder: getOrCreateCurrentOrderAction,
-      onPaymentSuccess: () => snackbarSuccess('payment:order.success'),
+      onPaymentSuccess: () => snackbarSuccess('order.success'),
       goBack,
     },
   ),

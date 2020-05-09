@@ -40,7 +40,7 @@ const ShopItemCard = (props: {
     return shopitem.id && shopitem.company ? (
       <ButtonBase
         className={classes.link}
-        onClick={() => snackbarSuccess('shop:link.copied')}
+        onClick={() => snackbarSuccess('link.copied')}
       >
         <LinkIcon />
         <CopyToClipboard

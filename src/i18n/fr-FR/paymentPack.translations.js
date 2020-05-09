@@ -205,10 +205,6 @@ exports.default = {
   subscribeToOffer: 'Inscrire',
   use: 'Utiliser',
   isNonCompatible: 'incompatible',
-  createOrUpdate: {
-    success: 'Carte de cours enregistrée',
-    fail: "Erreur lors de l'enregistrement de la carte",
-  },
   paymentPackDisabled: {
     success: 'Carte de cours supprimée',
     error: 'Impossible de supprimer',

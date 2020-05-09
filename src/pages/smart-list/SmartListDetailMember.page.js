@@ -302,11 +302,15 @@ export class SmartListDetailMember extends Component<Props, State> {
             setTimeout(() => {
               if (response.status === 200) {
                 if (options && options.onSuccess) options.onSuccess();
-                this.props.snackbarSuccess(this.props.t('mail.sendSuccess'));
+                this.props.snackbarSuccess(
+                  this.props.t('communication.send.success'),
+                );
                 // this.props.goToCampaignList(this.props.id);
               } else {
                 if (options && options.onError) options.onError();
-                this.props.snackbarError(this.props.t('mail.sendError'));
+                this.props.snackbarError(
+                  this.props.t('communication.send.error'),
+                );
               }
             }, 3000);
           }}

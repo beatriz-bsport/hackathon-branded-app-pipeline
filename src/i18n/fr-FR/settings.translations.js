@@ -21,8 +21,6 @@ exports.default = {
     cancel: 'annuler',
     submit: 'valider',
     createTitle: 'Formulaire Webhook',
-    testSuccess: 'Url correcte',
-    testError: "Veuillez vérifier l'url",
     add: 'Ajouter un webhook',
     test: 'Tester',
     event: 'Evènement',
@@ -31,12 +29,6 @@ exports.default = {
     urlHelper: "Entrez l'url à laquelle sera envoyée la payload",
     urlPlaceHolder: 'http://wwww.google.com',
     payload: 'Payload',
-    messages: {
-      form: {
-        success: 'Webhook enregistré',
-        error: "Impossible d'enregistrer le webhook",
-      },
-    },
     modal: {
       delete: {
         title: 'Suppression du webhook',

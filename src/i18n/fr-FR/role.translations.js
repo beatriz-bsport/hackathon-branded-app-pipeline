@@ -25,12 +25,6 @@ exports.default = {
         cancel: 'Annuler',
         confirm: 'Supprimer',
       },
-      snackbar: {
-        success: 'Autorisations modifiées',
-        error: 'Impossible de modifier cette autorisation',
-        errorEmail:
-          'Cet email est déjà utilisé pour un compte élève ou professeur',
-      },
     },
   },
 };

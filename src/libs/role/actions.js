@@ -55,12 +55,12 @@ export function updateUserRole(userId: number, roleId: number) {
       const role = response.data;
       dispatch(userRoleUpdate.success(role));
       dispatch(userRoleUpdate.isLoading(false));
-      dispatch(snackbarSuccess('role:forms.user.snackbar.success'));
+      dispatch(snackbarSuccess('role.update.success'));
     } catch (err) {
       console.error(err);
       dispatch(userRoleUpdate.error(err));
       dispatch(userRoleUpdate.isLoading(false));
-      dispatch(snackbarError('role:forms.user.snackbar.error'));
+      dispatch(snackbarError('role.error.generic'));
     }
   };
 }
@@ -74,12 +74,12 @@ export function deleteStaffUser(userId: number) {
       await deleteStaffUserAPI(userId);
       dispatch(userRoleDelete.success(userId));
       dispatch(userRoleUpdate.isLoading(false));
-      dispatch(snackbarSuccess('role:forms.user.snackbar.success'));
+      dispatch(snackbarSuccess('role.update.success'));
     } catch (err) {
       console.error(err);
       dispatch(userRoleUpdate.error(err));
       dispatch(userRoleUpdate.isLoading(false));
-      dispatch(snackbarError('role:forms.user.snackbar.error'));
+      dispatch(snackbarError('role.error.generic'));
     }
   };
 }
@@ -98,15 +98,15 @@ export function createStaffUser(data: {
       const role = response.data;
       dispatch(userRoleUpdate.success(role));
       dispatch(userRoleUpdate.isLoading(false));
-      dispatch(snackbarSuccess('role:forms.user.snackbar.success'));
+      dispatch(snackbarSuccess('role.update.success'));
     } catch (err) {
       console.error(err);
       dispatch(userRoleUpdate.error(err));
       dispatch(userRoleUpdate.isLoading(false));
       if (err && err.response && err.response.data && err.response.data.email) {
-        dispatch(snackbarError('role:forms.user.snackbar.errorEmail'));
+        dispatch(snackbarError('role.error.errorEmail'));
       } else {
-        dispatch(snackbarError('role:forms.user.snackbar.error'));
+        dispatch(snackbarError('role.error.generic'));
       }
     }
   };

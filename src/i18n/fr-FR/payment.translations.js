@@ -27,9 +27,6 @@ exports.default = {
     CREDIT_ACCOUNT: 'Paiement sur place',
   },
 
-  order: {
-    success: 'Votre paiement a bien été enregistré',
-  },
   forms: {
     cancelPayment: 'Précédent',
     credit: {

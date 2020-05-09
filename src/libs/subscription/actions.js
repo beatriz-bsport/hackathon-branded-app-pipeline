@@ -304,14 +304,14 @@ export function updatePlannedInvoicePrice(
     try {
       const response = await updatePlannedInvoicePriceAPI(id, data);
       dispatch(updatePlannedInvoiceActions.success(response.data));
-      dispatch(snackbarSuccess('subscription:messages.updatePrice.success'));
+      dispatch(snackbarSuccess('subscription.updatePrice.success'));
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
       }
     } catch (err) {
       console.error(err);
       dispatch(updatePlannedInvoiceActions.error(err));
-      dispatch(snackbarError('subscription:messages.updatePrice.error'));
+      dispatch(snackbarError('subscription.updatePrice.error'));
       if (options && options.onError) options.onError(err);
     }
     dispatch(
@@ -369,7 +369,7 @@ export function freezeSubscription(
     try {
       const response = await freezeSubscriptionAPI(id, data);
       dispatch(freezeSubscriptionActions.success(response.data));
-      dispatch(snackbarSuccess('subscription:messages.freeze.success'));
+      dispatch(snackbarSuccess('subscription.freeze.success'));
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
       }
@@ -377,9 +377,9 @@ export function freezeSubscription(
       console.error(err);
       dispatch(freezeSubscriptionActions.error(err));
       if (err && err.response && err.response.status === 423) {
-        dispatch(snackbarError('subscription:messages.freeze.alreadyPaused'));
+        dispatch(snackbarError('subscription.freeze.alreadyPaused'));
       } else {
-        dispatch(snackbarError('subscription:messages.freeze.error'));
+        dispatch(snackbarError('subscription.freeze.error'));
       }
       if (options && options.onError) options.onError(err);
     }
@@ -404,14 +404,14 @@ export function switchSubscriptionPaymentPack(
     try {
       const response = await switchSubscriptionPaymentPackAPI(id, data);
       dispatch(switchPaymentPackActions.success(response.data));
-      dispatch(snackbarSuccess('subscription:messages.switchPack.success'));
+      dispatch(snackbarSuccess('subscription.switchPack.success'));
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
       }
     } catch (err) {
       console.error(err);
       dispatch(switchPaymentPackActions.error(err));
-      dispatch(snackbarError('subscription:messages.switchPack.error'));
+      dispatch(snackbarError('subscription.switchPack.error'));
       if (options && options.onError) options.onError(err);
     }
     dispatch(switchPaymentPackActions.isLoading(false));
@@ -436,7 +436,7 @@ export function switchSubscriptionPaymentMethod(
       const response = await switchSubscriptionPaymentMethodAPI(id, data);
       dispatch(switchPaymentMethodActions.success(response.data));
       dispatch(
-        snackbarSuccess('subscription:messages.switchPaymentMethod.success'),
+        snackbarSuccess('subscription.switchPaymentMethod.success'),
       );
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
@@ -445,7 +445,7 @@ export function switchSubscriptionPaymentMethod(
       console.error(err);
       dispatch(switchPaymentMethodActions.error(err));
       dispatch(
-        snackbarError('subscription:messages.switchPaymentMethod.error'),
+        snackbarError('subscription.switchPaymentMethod.error'),
       );
       if (options && options.onError) options.onError(err);
     }

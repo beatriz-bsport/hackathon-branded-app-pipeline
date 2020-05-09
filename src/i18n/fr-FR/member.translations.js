@@ -115,9 +115,6 @@ exports.default = {
     linkUser: "Lier l'utilisateur",
     merge: 'Fusionner',
   },
-  link: {
-    success: 'Compte lié avec succès',
-  },
   linkDialog: {
     title: 'Lier un utilisateur existant',
     content:

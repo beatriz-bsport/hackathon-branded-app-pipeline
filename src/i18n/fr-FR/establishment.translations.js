@@ -54,19 +54,12 @@ exports.default = {
         cannotDelete:
           "Impossible de supprimer cet établissement, des séances sont prévues dans le futur. Vérifiez qu'elles ont bien été annulées puis supprimées",
       },
-      message: {
-        success: 'Etablissement supprimé',
-        error: 'Impossible de supprimer cet établissement',
-      },
     },
-    error: "Impossible de sauvegarder l'établissement",
     create: {
       title: 'Nouvel établissement',
-      success: 'Établissement créé avec succès',
     },
     update: {
       title: 'Édition des informations',
-      success: 'Établissement modifié avec succès',
     },
   },
 };

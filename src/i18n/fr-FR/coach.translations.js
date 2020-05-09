@@ -43,7 +43,6 @@ exports.default = {
   forms: {
     linkByEmail: {
       cancel: 'Annuler',
-      success: 'Professeur lié avec succès',
       submit: 'Valider',
       title: 'Adresse email du professeur',
       emailLabel: 'Email',
@@ -51,7 +50,6 @@ exports.default = {
         "Si cet email existe déjà dans notre système, nous vous créerons le professeur automatiquement. Si vous ne connaissez pas l'email de votre professeur, laissez ce champ vide.",
       emailPlaceHolder: 'professeur@bsport.io',
     },
-    error: 'Impossible de sauvegarder le professeur',
     error_email_exists:
       'Un professeur avec cet email existe déjà, utilisez le formulaire de création Professeur',
     create: {
@@ -63,8 +61,6 @@ exports.default = {
       success: 'Professeur modifié avec succès',
     },
     delete: {
-      success: 'Professeur supprimé',
-      error: 'Impossible de supprimer le professeur',
       content: {
         canDelete:
           "Êtes-vous sûr de vouloir supprimer ce professeur ? Vous n'aurez plus accès au calcul de ses rémunérations. Vous pourrez le rajouter de nouveau à partir de son email.",

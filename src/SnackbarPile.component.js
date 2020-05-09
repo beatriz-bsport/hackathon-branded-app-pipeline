@@ -80,7 +80,7 @@ const mapDispatchToProps = {
   deleteSnackbar,
 };
 
-export default withNamespaces()(
+export default withNamespaces(['snackbar'])(
   withStyles(styles)(
     connect(
       mapStateToProps,

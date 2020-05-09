@@ -57,11 +57,11 @@ export function upsertPaymentRule(rule: PaymentRule, options = {}) {
       const response = await method(`${API_URI}/payment-rules/${suffix}`, rule);
 
       dispatch(paymentRuleSetUpsert.success(response.data));
-      dispatch(snackbarSuccess(`paymentRules:${kind}.success`));
+      dispatch(snackbarSuccess(`paymentRules.${kind}.success`));
       dispatch(showDialog(false));
       if (options.onSuccess) options.onSuccess();
     } catch (error) {
-      dispatch(snackbarError(`paymentRules:${kind}.error`));
+      dispatch(snackbarError(`paymentRules.${kind}.error`));
       dispatch(paymentRuleSetUpsert.error(error.response.data));
       if (options.onError) options.onError();
     }
@@ -81,10 +81,10 @@ export function deletePaymentRule(rule: PaymentRule) {
     try {
       await deleteAuth(`${API_URI}/payment-rules/${rule.id}`);
       dispatch(paymentRuleSetDelete.success(rule));
-      dispatch(snackbarSuccess('paymentRules:delete.success'));
+      dispatch(snackbarSuccess('paymentRules.delete.success'));
     } catch (error) {
       dispatch(paymentRuleSetDelete.error(rule));
-      dispatch(snackbarError('paymentRules:delete.error'));
+      dispatch(snackbarError('paymentRules.delete.error'));
     }
   };
 }

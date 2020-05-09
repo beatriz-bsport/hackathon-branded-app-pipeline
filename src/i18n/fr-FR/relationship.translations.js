@@ -25,17 +25,6 @@ exports.default = {
       cancel: 'Annuler',
       submit: 'Enregistrer',
     },
-    messages: {
-      edit: {
-        success: 'Relation modifiée',
-      },
-      create: {
-        success: 'Relation enregistrée',
-      },
-      createOrUpdate: {
-        error: "Impossible d'enregistrer la relation",
-      },
-    },
   },
   consumer_payment_pack_links: {
     list: {
@@ -65,20 +54,6 @@ exports.default = {
         explain: 'Le partage sera de nouveau activé.',
         submit: 'Partager',
         cancel: 'Annuler',
-      },
-    },
-    messages: {
-      create: {
-        success: 'Carte partagée',
-        error: 'Impossible de partager cette carte',
-      },
-      unlink: {
-        success: 'Partage supprimé',
-        error: 'Impossible de supprimer ce partage',
-      },
-      relink: {
-        success: 'Partage enregistré',
-        error: 'Impossible de partager cette carte',
       },
     },
   },

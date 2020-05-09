@@ -497,7 +497,7 @@ export default compose(
     (dispatch) => ({
       onCompletePurchase() {
         dispatch(push('/'));
-        dispatch(snackbarSuccess('booking.success'));
+        dispatch(snackbarSuccess('booking.register.success'));
       },
     }),
   ),

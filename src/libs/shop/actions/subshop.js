@@ -52,10 +52,10 @@ export function createOrUpdateSubShop({
       const response = await createOrUpdate({ name, id });
 
       dispatch(subShopCreateOrUpdateActions.success(response.data));
-      dispatch(snackbarSuccess('form.shop.subShop.createOrUpdate.success'));
+      dispatch(snackbarSuccess('shop.subShop.createOrUpdate.success'));
     } catch (e) {
       console.error(e);
-      dispatch(snackbarError('form.shop.subShop.createOrUpdate.error'));
+      dispatch(snackbarError('shop.subShop.createOrUpdate.error'));
       dispatch(subShopCreateOrUpdateActions.error(e));
     }
     dispatch(subShopCreateOrUpdateActions.isLoading(false));
@@ -76,10 +76,10 @@ export function deleteSubShop(id: number) {
     try {
       await api.deleteSubShop(id);
       dispatch(subshopDeleteActions.success(id));
-      dispatch(snackbarSuccess('form.shop.subShop.delete.success'));
+      dispatch(snackbarSuccess('shop.subShop.delete.success'));
     } catch (e) {
       console.error(e);
-      dispatch(snackbarError('form.shop.subShop.delete.error'));
+      dispatch(snackbarError('shop.subShop.delete.error'));
       dispatch(subshopDeleteActions.isLoading(true));
       dispatch(subshopDeleteActions.error(e));
     }

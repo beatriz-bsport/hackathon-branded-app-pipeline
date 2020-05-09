@@ -8,7 +8,6 @@ import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { compose, withProps, withState, withHandlers } from 'recompose';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
-import { snackbarSuccess } from '../../actions/snackbar.actions';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 import {
   getOfferById,
@@ -241,7 +240,6 @@ export default compose(
     {
       linkMeToCompany,
       fetchCompanyTheme,
-      snackbarSuccess,
 
       fetchConsumerPaymentPackForBooking: fetchConsumerPaymentPackForBookingAction,
       resetConsumerPackForBooking: resetConsumerPackForBookingAction,

@@ -21,6 +21,14 @@ import { FormField } from '../../input';
 import { openIntercomHelp } from '../../../intercom';
 
 const styles = (theme) => ({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    '& > *': {
+      marginBottom: theme.spacing(1),
+    },
+  },
   headIcon: {
     height: 90,
     width: 90,
@@ -48,6 +56,7 @@ const styles = (theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     padding: theme.spacing(2),
+    position: 'relative',
   },
   column: {
     display: 'flex',
@@ -124,6 +133,12 @@ export class ConsumerLogin extends Component<Props, State> {
 
     return (
       <div className={classes.loginContainer}>
+        <IconButton
+          style={{ position: 'absolute', top: 0, right: 0 }}
+          onClick={() => openIntercomHelp('login')}
+        >
+          <HelpIcon />
+        </IconButton>
         <PersonIcon className={classes.headIcon} />
         <form className={classes.column}>
           <FormField
@@ -190,35 +205,19 @@ export class ConsumerLogin extends Component<Props, State> {
       return <CircularProgress />;
     }
 
-    const { requestSignUp } = this.props;
+    const { requestSignUp, classes } = this.props;
     return (
-      <Grid
-        container
-        direction="column"
-        alignItems="center"
-        style={{ position: 'relative' }}
-        spacing={2}
-      >
-        <Grid item>{this.getEmailLogin()}</Grid>
-        <Grid item>
-          <Divider t={t} />
-        </Grid>
-        <Grid item>
-          <RedButton
-            id="btn-goto-signup"
-            variant="contained"
-            onClick={requestSignUp}
-          >
-            {t('actions.signup')}
-          </RedButton>
-        </Grid>
-        <IconButton
-          style={{ position: 'absolute', top: 0, right: 0 }}
-          onClick={() => openIntercomHelp('login')}
+      <div className={classes.container}>
+        {this.getEmailLogin()}
+        <Divider t={t} />
+        <RedButton
+          id="btn-goto-signup"
+          variant="contained"
+          onClick={requestSignUp}
         >
-          <HelpIcon />
-        </IconButton>
-      </Grid>
+          {t('actions.signup')}
+        </RedButton>
+      </div>
     );
   }
 }

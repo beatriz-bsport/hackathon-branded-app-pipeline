@@ -27,10 +27,6 @@ exports.default = {
   calculate: 'Calculer',
   title: 'Règlement du professeur {{name}}',
   label: 'Règle de rémunération',
-  update: {
-    success: 'Règle par défaut modifiée',
-    error: 'Erreur lors de la modification',
-  },
   dateTitle: 'Plage de dates',
   coaches: 'Professeurs',
   setPaymentRuleSetForCoachFirst:
@@ -47,13 +43,5 @@ exports.default = {
   calculation_methods: {
     bookings: 'Sur le nombre de réservations',
     margin_value: 'Sur la valeur marginale de chaque réservation',
-  },
-  create: {
-    error: 'Erreur lors de la création',
-    success: 'Règle ajoutée',
-  },
-  delete: {
-    error: 'Erreur lors de la suppression',
-    success: 'Règle supprimée',
   },
 };

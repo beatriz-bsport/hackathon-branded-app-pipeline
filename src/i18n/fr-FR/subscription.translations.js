@@ -27,22 +27,6 @@ exports.default = {
   },
   cancel: 'annuler',
   save: 'valider',
-  messages: {
-    freeze: {
-      success: 'Souscription mise en pause',
-      alreadyPaused:
-        'Impossible de mettre en pause une souscription déjà pausée',
-      error: 'Impossible de mettre en pause cette souscription',
-    },
-    updatePrice: {
-      success: 'Montant mis à jour',
-      error: 'Impossible de modifier ce montant',
-    },
-    youSubscribed: {
-      error: "Erreur lors de l'abonnement",
-      success: 'Vous êtes désormais abonné',
-    },
-  },
   table: {
     noContent: 'Aucune souscription enregistrée',
   },

@@ -586,15 +586,6 @@ exports.default = {
     finalize: 'Finaliser la facture',
     explainFinalize:
       "Attention ! Une facture finalisée n'est plus modifiable, de plus tous les paiements marqués en attente d'encaissement seront considérés comme encaissés. Une fois la facture finalisée vous pourrez l'exporter en tant que PDF",
-    forms: {
-      update: {
-        success: 'Facture mise à jour avec succès',
-      },
-      create: {
-        success: 'Facture enregistrée - Membre crédité',
-      },
-      error: "Erreur lors de l'enregistrement - Annulé",
-    },
   },
   payment: {
     payment: 'Paiement',
@@ -708,16 +699,6 @@ exports.default = {
     pleaseSelectOffer: 'Sélectionnez une séance pour voir les membres inscrits',
   },
   activity: {
-    forms: {
-      create: {
-        success: 'Activité sauvegardée',
-        error: "Impossible de sauvegarder l'activité",
-      },
-      update: {
-        success: 'Activité mise à jour',
-        error: "Impossible de mettre à jour l'activité",
-      },
-    },
     explainImage: 'Recommandé: 1920x1080 jpeg (fullHD)',
     nextSlotAt: 'Prochaine séance le ',
     settings: 'Paramètres',
@@ -766,7 +747,6 @@ exports.default = {
   },
   booking: {
     wasRefunded: 'Remboursé',
-    success: 'Réservation enregistrée',
     revertBookingTitle: "Annuler l'inscription",
     revertBookingExplain: {
       offerIsAvailable: `Êtes-vous sûr de vouloir supprimer cette réservation ? Les crédits utilisés seront recrédités.`,

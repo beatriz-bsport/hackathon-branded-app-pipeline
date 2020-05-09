@@ -470,7 +470,7 @@ export default compose(
           phonenumber,
         })
           .then(() => {
-            snackbarSuccess(t('member:link.success'));
+            snackbarSuccess(('member.link.success'));
             goToMemberList();
           })
           .catch((error) => {

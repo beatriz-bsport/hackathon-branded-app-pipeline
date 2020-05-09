@@ -274,11 +274,11 @@ export function createOrUpdateInvoice(
       const invoice = response.data;
       if (invoiceData.uuid) {
         dispatch(actionUpdateInvoiceSuccess(invoice));
-        dispatch(snackbarSuccess('invoice.forms.update.success'));
+        dispatch(snackbarSuccess('invoice.update.success'));
         dispatch(resetQuickInvoices(invoiceData.uuid));
       } else {
         dispatch(actionCreateInvoiceSuccess(invoice));
-        dispatch(snackbarSuccess('invoice.forms.create.success'));
+        dispatch(snackbarSuccess('invoice.create.success'));
       }
       if (typeof callback === 'function') {
         callback();
@@ -291,7 +291,7 @@ export function createOrUpdateInvoice(
         dispatch(pushRouter('/invoice'));
       }
     } catch (e) {
-      dispatch(snackbarError('invoice.forms.error'));
+      dispatch(snackbarError('invoice.error'));
       dispatch(actionCreateOrUpdateInvoiceError(e));
     }
     dispatch(fetchAlerting());

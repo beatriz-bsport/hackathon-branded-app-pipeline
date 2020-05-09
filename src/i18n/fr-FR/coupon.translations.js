@@ -40,23 +40,6 @@ exports.default = {
       },
     },
   },
-  message: {
-    delete: {
-      error: 'Impossible de supprimer cette promotion',
-      success: 'Code promotionel supprimé',
-    },
-    update: {
-      error: 'Impossible de modifier ce code',
-      success: 'Code promotionnel modifié',
-    },
-    create: {
-      error: 'Impossible de créer ce code',
-      success: 'Code promotionnel enregistré',
-    },
-    attachToBasket: {
-      error: 'Aucun code promo compatible trouvé',
-    },
-  },
   form: {
     selectorPlaceholder: {
       privatePass:

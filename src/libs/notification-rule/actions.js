@@ -110,9 +110,7 @@ export function createOrUpdateNotificationRule(
       const response = await createOrUpdateNotificationRuleAPI(data);
       dispatch(notificatonRuleCreateOrUpdateActions.success(response.data));
       dispatch(notificatonRuleCreateOrUpdateActions.error(null));
-      dispatch(
-        snackbarSuccess('notificationRule:messages.createOrUpdate.success'),
-      );
+      dispatch(snackbarSuccess('notificationRule.createOrUpdate.success'));
       dispatch(fetchNotificationRuleList());
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
@@ -120,7 +118,7 @@ export function createOrUpdateNotificationRule(
     } catch (error) {
       console.error(error);
       dispatch(notificatonRuleCreateOrUpdateActions.error(error));
-      dispatch(snackbarError('notificationRule:messages.createOrUpdate.error'));
+      dispatch(snackbarError('notificationRule.createOrUpdate.error'));
       if (options && options.onError) {
         options.onError(error);
       }

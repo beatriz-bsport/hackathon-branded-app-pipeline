@@ -308,5 +308,5 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(),
+  withNamespaces(['translation', 'member']),
 )(MemberSummaryCard);

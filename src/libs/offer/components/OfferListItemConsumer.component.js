@@ -25,7 +25,6 @@ type Props = {
   showOfferFilling: boolean,
   establishmentLoading: boolean,
   activityLoading: boolean,
-  classes: Object,
   onClick: () => void,
   actions?: any,
 };
@@ -151,4 +150,5 @@ const useStyles = makeStyles((theme) => {
     coachName: { marginLeft: theme.spacing(2) },
   };
 });
+
 export default pure(MarketplaceOffer);

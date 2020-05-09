@@ -40,6 +40,9 @@ type Props = {
 
   fetchPrivateBookingList: () => void,
   fetchOfferList: () => void,
+  fetchEstablishments: () => void,
+  fetchAssociatedCoachesList: (params: any) => void,
+  resourcesByDatatype: Array<ResourceDataGroup>,
 };
 
 const styles = (theme) => ({

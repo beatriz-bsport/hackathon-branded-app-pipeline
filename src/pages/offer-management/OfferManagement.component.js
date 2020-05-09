@@ -13,7 +13,6 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import Button from '@material-ui/core/Button';
-import Slide from '@material-ui/core/Slide';
 import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
@@ -75,6 +74,8 @@ type Props = {
   bookingLoading: ?boolean,
   compatiblePacksLoading: boolean,
 
+  goToOffer: (id: number) => void,
+
   members: Array<Member>,
   bookingOptionsPending: Array<BookingOption>,
   bookings: Array<Booking>,
@@ -103,7 +104,7 @@ type Props = {
   goToMember: (id: number) => void,
   fetchShopItems: () => void,
   snackbarSuccess: (msg: string) => void,
-  goToOffer: (id: number) => void,
+
   fetchCompatiblePacks: (offerId: number) => void,
   createMember: (id: ?number, data: [*], options: *, offerId: number) => void,
   createInvoice: ([*], number, number) => void,

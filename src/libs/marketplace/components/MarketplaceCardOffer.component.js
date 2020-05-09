@@ -4,7 +4,6 @@ import React from 'react';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 import Typography from '@material-ui/core/Typography';
-import { withNamespaces } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import moment from 'moment-timezone';
@@ -15,7 +14,6 @@ import { isOfferInThePast } from '../utils';
 import MarketplaceBookButton from './MarketplaceBookButton.component';
 
 type Props = {
-  classes: any,
   offer: Offer,
   onClickOffer: ?(offerId: number) => void,
   onClickBook: (offerId: number) => void,
@@ -187,4 +185,4 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-export default withNamespaces()(MarketplaceCardOffer);
+export default MarketplaceCardOffer;

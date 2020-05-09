@@ -42,8 +42,8 @@ import {
   deletePrivateSlot as deletePrivateSlotAction,
   deletePrivateService,
   checkExistsAvailabilitySlots,
-  createOrUpdateServiceGroup,
-  fetchPrivateServiceGroupList,
+  createOrUpdateServiceGroup as createOrUpdateServiceGroupAction,
+  fetchPrivateServiceGroupList as fetchPrivateServiceGroupListAction,
 } from '../../libs/private-service/actions';
 import type { PrivateService } from '../../libs/private-service/types';
 
@@ -83,6 +83,15 @@ type Props = {
   ) => void,
 
   loading: boolean,
+  fetchPrivateServiceGroupList: () => void,
+  serviceGroupList: Array<PrivateGroup>,
+  onOpenServiceGroupCreateForm: () => void,
+  serviceGroupCreateOpen: boolean,
+  createOrUpdateServiceGroup: (
+    data: { id?: number, name: string },
+    options: OptionCallback,
+  ) => void,
+  closeServiceGroupForm: () => void,
 };
 
 export class PrivateServiceList extends React.Component<Props> {
@@ -209,7 +218,7 @@ export default compose(
     }),
     {
       fetchAllPrivateServices,
-      createOrUpdateServiceGroup,
+      createOrUpdateServiceGroup: createOrUpdateServiceGroupAction,
       fetchPrivateService: fetchPrivateServiceAction,
       fetchAssociatedCoachesList,
       createOrUpdatePrivateService,
@@ -218,7 +227,7 @@ export default compose(
 
       fetchEstablishments,
       fetchAssociatedEstablishments,
-      fetchPrivateServiceGroupList,
+      fetchPrivateServiceGroupList: fetchPrivateServiceGroupListAction,
 
       createOrUpdatePrivateSlot,
       deletePrivateSlot: deletePrivateSlotAction,

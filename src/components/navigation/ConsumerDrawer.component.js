@@ -358,7 +358,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         : null,
       'divider',
       {
-        to: '/login/signout',
+        to: `/login/signout?membership=${this.props.membership.company}`,
         icon: HighlightOff,
         text: t('navigation.logoff'),
       },

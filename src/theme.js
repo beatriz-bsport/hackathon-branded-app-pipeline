@@ -22,7 +22,7 @@ const defaultThemeParams = {
   },
 };
 
-export const getTheme = (theme) => {
+export const getTheme = (theme: ?CompanyTheme) => {
   if (theme) {
     return responsiveFontSizes(
       createMuiTheme({

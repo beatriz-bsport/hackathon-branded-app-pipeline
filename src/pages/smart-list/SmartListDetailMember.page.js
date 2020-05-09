@@ -131,8 +131,6 @@ type Props = {
   tag_groups: any,
   setOpenSendEmail: (boolean) => void,
   openSendEmail: boolean,
-  setCloseStatsPanel: (boolean) => void,
-  closeStatsPanel: boolean,
   goToEmailCreate: () => void,
   snackbarSuccess: (string) => void,
   snackbarError: (string) => void,
@@ -166,14 +164,6 @@ export class SmartListDetailMember extends Component<Props, State> {
   componentDidMount() {
     this.props.fetchSmartListFilters(this.props.id);
     this.props.fetchTags();
-  }
-
-  componentDidUpdate(prevProps) {
-    if (
-      !this.props.closeStatsPanel &&
-      this.props.closeStatsPanel !== prevProps.closeStatsPanel
-    ) {
-    }
   }
 
   createFilter = (filter_identifier, filterData) => {

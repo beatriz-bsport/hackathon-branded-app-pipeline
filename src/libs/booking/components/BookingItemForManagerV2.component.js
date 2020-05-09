@@ -301,12 +301,12 @@ export class BookingItemForManager extends Component<Props, State> {
   };
 
   getIsFirstIndicator = () => (this.props.booking.first_in_company ? '★' : '');
-
+  // eslint-disable-next-line
   getHasNoteIndicator = () =>
     this.props.member &&
     this.props.member.notes &&
     this.props.member.notes.filter((n) => n.highlighted).length
-      ? 'ⓘ'
+      ? ' ⓘ'
       : '';
 
   getAvatar = () => {

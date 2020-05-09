@@ -29,6 +29,7 @@ type Props = {
   setOpenEditForm: (ServiceGroup) => void,
   deletePrivateService: (id: number) => void,
   privateServiceAvailableWithoutGroup: Array<PrivateService>,
+  privateServiceAvailableByGroup: Array<PrivateServiceGroupWithService>,
 };
 
 export const PrivateServiceListWithGroup = (props: Props) => {

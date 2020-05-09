@@ -18,32 +18,17 @@ import {
   IntegerField,
   TextField,
   PercentField,
-  MultipleCheckboxField,
   SwitchField,
   PriceField,
   Submit,
 } from '../../../../components/forms';
 
 type Props = {
-  initial: PrivatePass,
   t: TFunction,
-  onSubmit: (data: {
-    name: string,
-    tax: string,
-    credits: number,
-    price: string,
-    manager_only: boolean,
-  }) => void,
+  isSubmitting: boolean,
   classes: Object,
   onCancel: () => void,
-};
-
-type State = {
-  name: ?string,
-  tax: ?string,
-  credits: number,
-  price: ?string,
-  manager_only: boolean,
+  values: *,
 };
 
 export const PrivatePassForm = (props: Props) => {

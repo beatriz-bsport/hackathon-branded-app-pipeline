@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 
-import { compose, withStateHandlers } from 'recompose';
+import { compose } from 'recompose';
 // import chroma from 'chroma-js';
 import { withNamespaces } from 'react-i18next';
 import frLocale from '@fullcalendar/core/locales/fr';
@@ -217,7 +217,7 @@ type State = {
   eventSlotSelected: ?EventSlot,
 };
 
-export class CoachPrivateCalendar extends React.Component<Props, State> {
+export class PrivateCalendar extends React.Component<Props, State> {
   calendarRef = React.createRef();
 
   state = {
@@ -484,8 +484,4 @@ export default compose(
   withNamespaces(['privateService']),
   withMobileDialog(),
   withStyles(styles, { withTheme: true }),
-)(CoachPrivateCalendar);
-
-/*
-	  }}
-	  */
+)(PrivateCalendar);

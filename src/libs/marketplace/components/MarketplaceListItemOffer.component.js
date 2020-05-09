@@ -13,7 +13,6 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { makeStyles } from '@material-ui/core/styles';
 
-import type { TFunction } from 'react-i18next';
 import moment from 'moment';
 import MarketplaceBookButton from './MarketplaceBookButton.component';
 import Level from '../../../components/category/Level.component';
@@ -28,15 +27,13 @@ type Props = {
   onClickOffer: ?(offerId: number) => void,
   onClickBook: (offerId: number) => void,
   onClickBookOption: (offerId: number) => void,
-  t: TFunction,
   showOfferFilling: boolean,
   establishmentLoading: boolean,
   activityLoading: boolean,
-  classes: Object,
 };
 
 export const MarketplaceOffer = (props: Props) => {
-  const { t, offer, selected, onClickOffer } = props;
+  const { offer, selected, onClickOffer } = props;
   const { available } = offer;
   const classes = useStyles();
 

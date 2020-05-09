@@ -42,6 +42,8 @@ type Props = {
   bookingCount: number,
   bookings: Array<Booking>,
   onBookingRequested: (page: number, page_size: number) => void,
+  classes: Object,
+  consumerPack: ?ConsumerPaymentPack,
 
   onInvoiceClick: (uuid: string) => void,
   t: TFunction,
@@ -125,7 +127,7 @@ export function ConsumerPaymentPackDetail(props: Props) {
         </React.Fragment>
       ) : null}
       {props.onCreateExtension &&
-      props.consumerPack &&
+      !!props.consumerPack &&
       !props.consumerPack.dst_consumer_payment_pack ? (
         <div className={props.classes.addButtonContainer}>
           <Button

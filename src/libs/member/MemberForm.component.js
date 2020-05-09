@@ -461,27 +461,25 @@ export default compose(
       }, 1000),
     }),
   ),
-  withProps(
-    ({ emailExists, goToMemberList, goToMember, snackbarSuccess, t }) => ({
-      linkMember: () => {
-        const { email, phonenumber } = emailExists;
-        postAuth(`${API_URI}/saas/members/members/link/`, {
-          email,
-          phonenumber,
+  withProps(({ emailExists, goToMemberList, goToMember, snackbarSuccess }) => ({
+    linkMember: () => {
+      const { email, phonenumber } = emailExists;
+      postAuth(`${API_URI}/saas/members/members/link/`, {
+        email,
+        phonenumber,
+      })
+        .then(() => {
+          snackbarSuccess('member.link.success');
+          goToMemberList();
         })
-          .then(() => {
-            snackbarSuccess(('member.link.success'));
-            goToMemberList();
-          })
-          .catch((error) => {
-            const { status, data } = error.response || {};
-            if (status === 302) {
-              goToMember(data.member_pk);
-            }
-          });
-      },
-    }),
-  ),
+        .catch((error) => {
+          const { status, data } = error.response || {};
+          if (status === 302) {
+            goToMember(data.member_pk);
+          }
+        });
+    },
+  })),
   withFormik({
     mapPropsToValues: ({ initial }) =>
       initial || {

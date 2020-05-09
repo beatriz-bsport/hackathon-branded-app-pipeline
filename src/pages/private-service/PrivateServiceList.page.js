@@ -34,19 +34,18 @@ import {
   fetchAssociatedEstablishments,
 } from '../../libs/establishment/actions';
 import {
-  fetchAllPrivateServices,
-  fetchPrivateServiceGroupList,
+  fetchAllPrivateServices as fetchAllPrivateServicesAction,
+  fetchPrivateServiceGroupList as fetchPrivateServiceGroupListAction,
   fetchPrivateService,
   createOrUpdatePrivateService,
-  deleteServiceGroup,
-  createOrUpdateServiceGroup,
+  deleteServiceGroup as deleteServiceGroupAction,
+  createOrUpdateServiceGroup as createOrUpdateServiceGroupAction,
   deletePrivateService,
 } from '../../libs/private-service/actions';
 
 import type { PrivateService } from '../../libs/private-service/types';
 
 type Props = {
-  privateServices: Array<PrivateService>,
   fetchAllPrivateServices: () => void,
   createOrUpdatePrivateService: (
     data: *,
@@ -64,11 +63,25 @@ type Props = {
   fetchEstablishments: () => void,
   fetchAssociatedEstablishments: () => void,
 
+  fetchPrivateServiceGroupList: () => void,
+
+  privateServiceAvailableWithoutGroup: Array<PrivateService>,
+  serviceGroupToEdit: ?ServiceGroup,
+  serviceGroupCreateOpen: boolean,
+  createOrUpdateServiceGroup: (data: any, options: OptionCallback) => void,
+  closeServiceGroupForm: () => void,
+  privateServiceAvailableByGroup: Array<PrivateGroupWithService>,
+
   openCreateForm: boolean,
   loading: boolean,
   setOpenCreateForm: (boolean) => void,
   t: TFunction,
   classes: Object,
+
+  deleteServiceGroup: (id: number, otions: OptionCallback) => void,
+  serviceGroupList: Array<ServiceGroup>,
+  onOpenServiceGroupCreateForm: () => void,
+  openServiceGroupToEdit: (ServiceGroup) => void,
 };
 
 export class PrivateServiceList extends React.Component<Props> {
@@ -111,7 +124,7 @@ export class PrivateServiceList extends React.Component<Props> {
           goToPrivateService={this.props.goToPrivateService}
           setOpenEditForm={this.props.setOpenEditForm}
           deletePrivateService={this.props.deletePrivateService}
-          selectedPrivateService={this.props.selectedPrivateService}
+          selectedPrivateService={selectedPrivateService}
           privateServiceAvailableWithoutGroup={
             this.props.privateServiceAvailableWithoutGroup
           }
@@ -209,15 +222,15 @@ export default compose(
       selectedPrivateService: getPrivateServiceById(state, privateServiceId),
     }),
     {
-      fetchAllPrivateServices,
-      fetchPrivateServiceGroupList,
+      fetchAllPrivateServices: fetchAllPrivateServicesAction,
+      fetchPrivateServiceGroupList: fetchPrivateServiceGroupListAction,
       fetchPrivateService,
       fetchAssociatedCoachesList,
-      createOrUpdateServiceGroup,
+      createOrUpdateServiceGroup: createOrUpdateServiceGroupAction,
       fetchEstablishments,
       fetchAssociatedEstablishments,
       createOrUpdatePrivateService,
-      deleteServiceGroup,
+      deleteServiceGroup: deleteServiceGroupAction,
       goToPrivateService: (id) =>
         push(`/private-service/service/${id}/general`),
       deletePrivateService,

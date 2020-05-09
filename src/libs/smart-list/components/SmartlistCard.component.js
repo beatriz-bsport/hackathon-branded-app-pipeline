@@ -18,11 +18,9 @@ type Props = {
   t: TFunction,
   smartlist: ?SmartList,
   classes: Object,
-  onConfigure: () => void,
-  statistics: any,
-  changeDateRange: () => void,
-  dateRange: Object,
   onEdit: ?() => void,
+  onClickConfigure: (id: number) => void,
+  onClickCampaign: (id: number) => void,
 };
 
 export const SmartlistCard = (props: Props) => {

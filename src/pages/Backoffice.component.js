@@ -180,6 +180,10 @@ export class Backoffice extends Component<Props, State> {
     if (!this.props.authenticated) {
       return <Redirect to="/login" />;
     }
+    const token = getAuthToken();
+    if (!getAuthToken() || token === 'null') {
+      return <Redirect to="/login/signout" />;
+    }
     const intercom_user = {
       email: this.props.username,
     };

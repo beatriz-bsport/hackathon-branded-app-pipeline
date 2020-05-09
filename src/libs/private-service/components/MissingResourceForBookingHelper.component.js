@@ -16,7 +16,7 @@ type Props = {
   missingResources: Array<string>,
   classes: Object,
   address: string,
-  onChangeAddress: (string) => void,
+  updateData: ({ address: string }) => void,
 };
 export const MissingResourceForBookingHelper = (props: Props) => {
   const { missingResources, t, classes, address } = props;

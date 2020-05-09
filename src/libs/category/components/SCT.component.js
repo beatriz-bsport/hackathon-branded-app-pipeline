@@ -2,8 +2,7 @@
 import React from 'react';
 
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { makeStyles } from '@material-ui/core/styles';
 import SPORTS from '@bsport/common/lib/master-data/sports';
 import classnames from 'classnames';
 
@@ -12,7 +11,6 @@ type Props = {
   SCTName: string,
   noname: ?boolean,
   variant: ?string,
-  classes: Object,
   isFocused?: boolean,
   isSelected?: boolean,
   paddingLeft?: boolean,
@@ -21,7 +19,6 @@ type Props = {
 export function Sport(props: Props) {
   const {
     parentCategory,
-    classes,
     isSelected,
     isFocused,
     SCTName,
@@ -31,6 +28,7 @@ export function Sport(props: Props) {
   const variant = props.variant || 'body2';
 
   const sport = SPORTS.filter((s) => s.id === parentCategory)[0];
+  const classes = useStyles();
 
   return (
     <div
@@ -51,7 +49,7 @@ export function Sport(props: Props) {
   );
 }
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   focused: { backgroundColor: '#efefef' },
   selected: { backgroundColor: '#e0e0e0' },
   paddingLeft: { paddingLeft: theme.spacing(1) },
@@ -63,6 +61,6 @@ const styles = (theme) => ({
   text: {
     marginLeft: theme.spacing(1),
   },
-});
+}));
 
-export default withStyles(styles)(Sport);
+export default Sport;

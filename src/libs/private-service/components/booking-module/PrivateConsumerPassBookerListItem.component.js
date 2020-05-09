@@ -7,6 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
+import Typography from '@material-ui/core/Typography';
 import moment from 'moment';
 
 import RedButton from '../../../../components/button/RedButton.component';
@@ -31,19 +32,33 @@ export const PrivateConsumerPassBookerListItem = (props: Props) => {
     <ListItem
       divider={!!props.divider}
       selected={!!props.selected}
+      dense
       button={!!props.onClick}
       onClick={props.onClick}
       className={private_consumer_pass.reverted ? classes.disabled : null}
     >
       <ListItemText
-        primary={private_pass.name}
-        secondary={`${t('consumerPass.current_credits', {
-          credits: private_pass.credits,
-          current_credits:
-            private_pass.credits - private_consumer_pass.used_credits,
-        })} - ${t('consumerPass.expiresOn', {
-          date: moment(expirationDate).format('LL'),
-        })}`}
+        primary={
+          <div>
+            <Typography>{private_pass.name}</Typography>
+            <Typography variant="caption">
+              {t('consumerPass.current_credits', {
+                credits: private_pass.credits,
+                current_credits:
+                  private_pass.credits - private_consumer_pass.used_credits,
+              })}
+            </Typography>
+          </div>
+        }
+        secondary={
+          <div>
+            <Typography color="textPrimary" variant="caption">
+              {t('consumerPass.expiresOn', {
+                date: moment(expirationDate).format('LL'),
+              })}
+            </Typography>
+          </div>
+        }
       />
       {props.onBook && !private_consumer_pass.reverted ? (
         <Button color="primary" variant="outlined" onClick={props.onBook}>

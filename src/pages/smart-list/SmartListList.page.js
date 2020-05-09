@@ -47,6 +47,7 @@ type Props = {
   smartListDelete: (id: number, options: OptionCallback) => void,
   selectedId: number,
   goToSelected: (id: number) => void,
+  goToSelectedCampaign: (id: number) => void,
   smartListUpdate: (id: number) => void,
   onClickDuplicate: (id: number, options: any) => void,
   goToSmartlistList: () => void,

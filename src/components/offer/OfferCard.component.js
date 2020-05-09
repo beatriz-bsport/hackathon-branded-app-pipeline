@@ -9,7 +9,6 @@ import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Icon from '@material-ui/core/Icon';
 import Hidden from '@material-ui/core/Hidden';
 import EditIcon from '@material-ui/icons/Edit';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';

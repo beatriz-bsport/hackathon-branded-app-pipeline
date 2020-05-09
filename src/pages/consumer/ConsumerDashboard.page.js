@@ -54,7 +54,7 @@ import {
 import { getPrivateBookingFutureAvailable } from '../../libs/private-service/selectors/private-booking';
 
 import {
-  fetchPrivateBookings,
+  fetchPrivateBookings as fetchPrivateBookingsAction,
   fetchPrivateConsumerPassList,
   disablePrivateBooking,
 } from '../../libs/private-service/actions';
@@ -103,6 +103,7 @@ type Props = {
 
   goToBroadcast: (bookingId: number) => void,
   submitPayment: (data: PaymentData, options: OptionCallback) => void,
+  discardPrivateBooking: (id: numebr) => void,
 };
 
 const BOOKING_PAGE_SIZE = 5;
@@ -115,7 +116,10 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
       date_start__gte: moment().format('YYYY-MM-DD'),
     });
 
-    this.props.fetchPrivateConsumerPassList();
+    this.props.fetchPrivateConsumerPassList({
+      company: this.props.membership.company,
+      mine: true,
+    });
     this.props.fetchConsumerPacks(this.props.membership.id, 1, 300);
 
     this.props.fetchEstablishmentFavorite(this.props.membership.company);
@@ -243,7 +247,7 @@ export default compose(
       push: pushRouter,
       cancelBooking: cancelBookingAction,
       discardPrivateBooking: disablePrivateBooking,
-      fetchPrivateBookings,
+      fetchPrivateBookings: fetchPrivateBookingsAction,
       fetchConsumerDashboardBookingList: fetchConsumerDashboardBookingListAction,
       fetchOfferBulk: fetchOfferBulkAction,
       fetchMetaActivityBulk: fetchMetaActivityBulkAction,

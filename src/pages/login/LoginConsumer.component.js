@@ -148,7 +148,7 @@ export class ConsumerLoginPage extends Component<Props> {
 
 function mapDispatchToProps(dispatch, props) {
   const search = ((props && props.location) || {}).search || '';
-  const opts = { next: parse(search).next };
+  const opts = { next: parse(search).next, company: parse(search).membership };
   return {
     fetchCompanyTheme,
     doEmailLogin({ email, password }) {

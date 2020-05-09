@@ -132,7 +132,7 @@ export function IntegerField(props) {
   );
 }
 
-export function PercentField(props) {
+export function PercentField(props: any) {
   return (
     <TextField
       InputProps={{
@@ -213,11 +213,12 @@ export const DurationField = withStyles(styles)(
       error={!!(touched[field.name] && errors[field.name])}
       */
           return (
-            <div
+            <MuiFormControl
               style={{
                 display: 'flex',
                 flexDirection: 'column',
               }}
+              error={!!(touched[field.name] && errors[field.name])}
             >
               {!!props.label && (
                 <InputLabel htmlFor={props.name} shrink>
@@ -312,7 +313,7 @@ export const DurationField = withStyles(styles)(
                   </Typography>
                 )}
               </ErrorMessage>
-            </div>
+            </MuiFormControl>
           );
         }}
       />

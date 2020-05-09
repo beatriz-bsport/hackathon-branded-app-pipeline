@@ -2,9 +2,7 @@
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
-import SearchIcon from '@material-ui/icons/Search';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import MomentUtils from '@date-io/moment';
 import moment from 'moment';

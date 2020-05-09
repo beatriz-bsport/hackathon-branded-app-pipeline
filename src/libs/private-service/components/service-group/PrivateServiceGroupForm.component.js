@@ -12,7 +12,7 @@ import { TextField } from '../../../../components/forms';
 
 type Props = {
   t: TFunction,
-  values: PrivateServiceGroupSchema,
+  classes: Object,
 };
 export const PrivateServiceGroupForm = (props: Props) => {
   return (

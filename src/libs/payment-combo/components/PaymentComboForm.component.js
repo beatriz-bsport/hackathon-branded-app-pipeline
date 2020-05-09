@@ -36,6 +36,7 @@ type Props = {
   paymentPackList: Array<PaymentPack>,
   shopItemList: Array<ShopItem>,
   privatePassList: Array<PrivatePass>,
+  values: PaymentComboFieldsSchema,
 };
 
 function repeat(arr, n) {

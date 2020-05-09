@@ -41,7 +41,7 @@ export function networkError(error: ?Error) {
 export function fetchAccessLevel(
   token: string,
   username: string,
-  options: ?{ next: ?ThunkAction, onDone: ?() => void },
+  options: ?{ company: string, next: ?ThunkAction, onDone: ?() => void },
 ) {
   return async (dispatch: Dispatch) => {
     try {
@@ -61,8 +61,11 @@ export function fetchAccessLevel(
           role,
         }),
       );
-      const next = options && options.next;
-      if (next) dispatch(push(next));
+      if (options && options.next) {
+        dispatch(push(options.next));
+      } else if (options && options.company) {
+        dispatch(push(`/c/membership-validator/${options.company}/`));
+      }
     } catch (err) {
       if (!err.status) {
         dispatch(networkError(err));
@@ -76,7 +79,7 @@ export function fetchAccessLevel(
 export function requestLogin(
   username: string,
   password: string,
-  options: ?{ next: ?ThunkAction, onDone: ?() => void },
+  options: ?{ company: string, next: ?ThunkAction, onDone: ?() => void },
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(initiatedLogin(username));

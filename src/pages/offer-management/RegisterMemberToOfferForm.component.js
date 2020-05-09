@@ -20,7 +20,6 @@ import {
   fetchNonCompatibleByOfferByMember,
 } from '../../libs/consumer-payment-pack/actions';
 import { fetchPaymentPackBulk } from '../../libs/payment-packs/actions';
-import { getAll as getAllPaymentPacks } from '../../libs/payment-packs/selectors';
 import {
   withPaymentPack,
   getByOfferByMember,
@@ -37,7 +36,7 @@ type Props = {
   offerId: number,
   compatiblePacks: Array<PaymentPack>,
   consumerPacks: Array<ConsumerPaymentPack>,
-  allPaymentPacks: Array<PaymentPack>,
+  consumerPacksNonCompatible: Array<ConsumerPaymentPack>,
   keep_credits: boolean,
   notify_member: boolean,
   changeNotifyMemberOption: () => void,
@@ -46,6 +45,18 @@ type Props = {
   fetchConsumerPackByOfferByMember: (offerId: number, memberId: number) => void,
   subscribeToPackAndOffer: (paymentPackId: number) => void,
   subscribeToOffer: (id: number) => void,
+
+  fetchPaymentPackBulk: (Array<number>) => void,
+  fetchNoncompatibleConsumerPackByOfferByMember: (
+    offerId: number,
+    memberId: number,
+    options: OptionCallback,
+  ) => void,
+  fetchConsumerPackByOfferByMember: (
+    offerId: number,
+    memberId: number,
+    options: OptionCallback,
+  ) => void,
 
   t: TFunction,
 };
@@ -115,7 +126,7 @@ export class RegisterMemberToOfferForm extends PureComponent<Props> {
   };
 
   renderConsumerPacks = () => {
-    const { consumerPacks, t, subscribeToOffer, allPaymentPacks } = this.props;
+    const { consumerPacks, t, subscribeToOffer } = this.props;
     if (!consumerPacks.length) {
       return (
         <div>
@@ -248,7 +259,6 @@ export default compose(
       consumerPacksNonCompatible: withPaymentPack(
         getNonCompatibleByOfferByMember,
       )(state),
-      allPaymentPacks: getAllPaymentPacks(state),
     }),
     {
       fetchConsumerPackByOfferByMember: fetchByOfferByMember,

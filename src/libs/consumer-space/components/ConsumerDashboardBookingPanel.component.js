@@ -34,6 +34,7 @@ type Props = {
   push: (path: string) => void,
 
   onDiscardBooking: (?Booking) => void,
+  onDiscardPrivateBooking: (id: number) => void,
 };
 
 const BookingFooter = (props: {

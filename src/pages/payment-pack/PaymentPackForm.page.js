@@ -18,7 +18,6 @@ import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import PaymentPackForm from '../../libs/payment-packs/components/PaymentPackForm.component';
 import { getPaymentPackById } from '../../libs/payment-packs/selectors';
-import { fetchOne as fetchPaymentPack } from '../../libs/payment-packs/actions';
 import {
   getEnabledMetaActivities,
   getEnabledWorkshops,
@@ -35,6 +34,7 @@ import type { Establishment } from '../../libs/establishment/types';
 import {
   createOrUpdate as createOrUpdatePaymentPack,
   fetchAllPaymentPacks as fetchAllPaymentPacksAction,
+  fetchOne as fetchPaymentPack,
 } from '../../libs/payment-packs/actions';
 import withTitle from '../../hocs/with-title.hoc';
 import type { SCT, MetaActivity } from '../../api/types';
@@ -50,6 +50,9 @@ type Props = {
   onSubmit: () => void,
   initial: ?PaymentPack,
   classes: Object,
+  fetchPaymentPack: (id: number, options: OptionCallback) => void,
+  paymentPackId: number,
+  fetchMetaActivityBulk: (Array<number>) => void,
 };
 
 export class PaymentPackFormPage extends React.Component<Props> {
@@ -74,7 +77,6 @@ export class PaymentPackFormPage extends React.Component<Props> {
       initial,
       paymentPackId,
     } = this.props;
-    console.log(this.props);
 
     if (loading || (!!paymentPackId && !initial)) {
       return <LinearProgress />;

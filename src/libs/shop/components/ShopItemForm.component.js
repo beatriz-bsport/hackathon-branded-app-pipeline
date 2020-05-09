@@ -42,23 +42,10 @@ type State = {
   barcode: string,
   marketplace_enabled: boolean,
   available_payment_method_identifiers: Array<number>,
-  onsite_payment_available: boolean,
   featured: boolean,
   sell_only_on_provision: boolean,
   is_deliverable: boolean,
 };
-function appendArray(form_data, values, name) {
-  if (!values && name) form_data.append(name, '');
-  else if (typeof values === 'object') {
-    for (key in values) {
-      if (typeof values[key] === 'object')
-        appendArray(form_data, values[key], `${name}[${key}]`);
-      else form_data.append(`${name}[${key}]`, values[key]);
-    }
-  } else form_data.append(name, values);
-
-  return form_data;
-}
 
 function ShopItemPreview(props: { previewURL: string }) {
   if (!props.previewURL) {
@@ -116,7 +103,6 @@ export class ShopItemForm extends Component<Props, State> {
         marketplace_enabled: initial.marketplace_enabled,
         available_payment_method_identifiers:
           initial.available_payment_method_identifiers,
-        onsite_payment_available: initial.onsite_payment_available,
         featured: initial.featured,
         sell_only_on_provision: initial.sell_only_on_provision,
         is_deliverable: initial.is_deliverable,
@@ -133,7 +119,6 @@ export class ShopItemForm extends Component<Props, State> {
         barcode: '',
         marketplace_enabled: false,
         available_payment_method_identifiers: [CB.id, 9],
-        onsite_payment_available: false,
         featured: false,
         sell_only_on_provision: false,
         is_deliverable: true,
@@ -335,22 +320,6 @@ export class ShopItemForm extends Component<Props, State> {
                   />
                 }
                 label={t('form.shop.item.sell_only_on_provision')}
-              />
-            </Grid>
-            <Grid item xs={12} className={classes.itemRow}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={this.state.onsite_payment_available}
-                    disabled={!this.state.marketplace_enabled}
-                    onChange={(event) => {
-                      this.setState({
-                        onsite_payment_available: event.target.checked,
-                      });
-                    }}
-                  />
-                }
-                label={t('form.shop.item.onsite_payment_available')}
               />
             </Grid>
             <Grid item xs={12} className={classes.itemRow}>

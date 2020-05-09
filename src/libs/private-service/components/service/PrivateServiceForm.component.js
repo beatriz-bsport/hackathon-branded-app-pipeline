@@ -39,7 +39,8 @@ type Props = {
   values: PrivateServiceData,
   establishments: Array<Establishment>,
   coaches: Array<Coach>,
-  onAddServiceGroup: ?() => void,
+    onAddServiceGroup: ?() => void,
+    serviceGroupList: Array<PrivateServiceGroup>,
 };
 
 const IS_HOME_SERVICE = '0';

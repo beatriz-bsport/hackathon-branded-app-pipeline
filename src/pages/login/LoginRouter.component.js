@@ -1,6 +1,7 @@
+// @flow
 import React from 'react';
 
-import { Switch, Route } from 'react-router-dom';
+import { withRouter, Switch, Route } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
@@ -19,11 +20,25 @@ import Signout from './Signout.component';
 import ResetPassword from './ResetPassword.component';
 import ChangePassword from './ChangePassword.component';
 
-import './particlejs.css';
+type Props = {
+  membership: ?string,
+  fetchCompanyTheme: (string) => void,
+  classes: Object,
+  theme: CompanyTheme,
+};
 
-export class LoginRouter extends React.Component {
+export class LoginRouter extends React.Component<Props> {
   componentDidMount() {
     if (this.props.membership) {
+      this.props.fetchCompanyTheme(this.props.membership);
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      this.props.membership !== prevProps.membership &&
+      this.props.membership
+    ) {
       this.props.fetchCompanyTheme(this.props.membership);
     }
   }
@@ -54,10 +69,10 @@ export class LoginRouter extends React.Component {
                   params={{
                     particles: {
                       number: {
-                        value: 100,
+                        value: 20,
                         density: {
                           enable: true,
-                          value_area: 1000,
+                          value_area: 150,
                         },
                       },
                     },
@@ -124,9 +139,10 @@ const styles = {
 };
 
 export default compose(
-  withProps({
-    membership: parse(window.location.search).membership,
-  }),
+  withRouter,
+  withProps((props) => ({
+    membership: parse(props.location.search).membership,
+  })),
   withStyles(styles),
   connect(
     (state, { membership }) => ({

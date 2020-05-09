@@ -39,6 +39,7 @@ type Props = {
   subscribeToOffer: ?(id: number) => void,
 
   t: TFunction,
+  isNonCompatible?: boolean,
 };
 
 export class ConsumerPackRowItem extends Component<Props> {

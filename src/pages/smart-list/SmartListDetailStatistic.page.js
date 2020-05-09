@@ -28,6 +28,7 @@ const GENERAL_STATISTIC_IDENTIFIER = 5;
 type Props = {
   t: TFunction,
   statistics: any,
+  id: number,
   fetchSmartListStats: () => void,
   dateRangeChange: () => void,
   dateRange: Object,

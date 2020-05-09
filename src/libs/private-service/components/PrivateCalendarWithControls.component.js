@@ -65,6 +65,10 @@ type Props = {
 
   onRequestPrivateBooking: (date: string) => void,
   privateBookingRequestedSlot: ?string,
+  resourcesByDatatype: Array<ResourceData>,
+  setResourceFilter: (datatype: string, items: Array<ResourceData>) => void,
+  resourceItemsFilter: Array<ResourceData>,
+  resourceDatatypeFilter: any,
 };
 
 export const PrivateCalendarMultiResource = (props: Props) => (

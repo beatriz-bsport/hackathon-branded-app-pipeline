@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -16,6 +15,11 @@ import {
 
 type Props = {
   t: TFunction,
+  label?: string,
+  paymentMethodIds: Array<number>,
+  disabled?: boolean,
+  onChange: Array<number>,
+  helperText: string,
 };
 const PaymentMethodSelectorField = (props: Props) => {
   return (
@@ -59,11 +63,6 @@ const PaymentMethodSelectorField = (props: Props) => {
   );
 };
 
-const styles = (theme) => ({
-  container: {},
-});
-
-export default compose(
-  withNamespaces(['translation']),
-  withStyles(styles),
-)(PaymentMethodSelectorField);
+export default compose(withNamespaces(['translation']))(
+  PaymentMethodSelectorField,
+);

@@ -13,11 +13,10 @@ import type { TFunction } from 'react-i18next';
 type Props = {
   classes: Object,
   t: TFunction,
-  resourceSelectedListIds: Array<string>,
-  onSelectResource: (string) => void,
-  onUnselectResource: (string) => void,
-  onEditResourceConfiguration: (Resource) => void,
-  resourceAvailable: Array<ResourceGroupType>,
+  anchorEl: ?HTMLElement,
+  setAnchorEl: (?HTMLElement) => void,
+  resourcesByDatatype: Array<ResourceGroupType>,
+  onResourceDatatypeFilterChange: (?Array<ResourceGroupType>) => void,
 };
 
 export const ResourceDatatypeFilter = (props: Props) => {
@@ -41,7 +40,7 @@ export const ResourceDatatypeFilter = (props: Props) => {
         {props.resourcesByDatatype.map(({ datatype, items }) => (
           <MenuItem
             key={datatype}
-            onClick={(ev) => {
+            onClick={() => {
               props.onResourceDatatypeFilterChange(datatype, items);
               props.setAnchorEl(null);
             }}

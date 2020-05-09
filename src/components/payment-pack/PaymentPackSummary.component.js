@@ -5,7 +5,7 @@ import type { Node } from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { makeStyles } from '@material-ui/core/styles';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
@@ -30,6 +30,7 @@ export function PaymentPackMinimalSummary(props: Props) {
     : `${t('credits')}: ${credits}`;
 
   const dateInfo = getValidityInfo(paymentPack, props.t);
+  const classes = useStyles();
 
   return (
     <ListItem
@@ -39,9 +40,9 @@ export function PaymentPackMinimalSummary(props: Props) {
       selected={!!props.selected}
       style={props.isFocused ? { backgroundColor: '#EFEFEF' } : {}}
     >
-      <div className={props.classes.container}>
+      <div className={classes.container}>
         <ListItemText primary={name} secondary={creditsFormatted} />
-        <div className={props.classes.rightInfo}>
+        <div className={classes.rightInfo}>
           <Typography variant="caption" align="right">
             {`${price} €`}
           </Typography>
@@ -56,7 +57,7 @@ export function PaymentPackMinimalSummary(props: Props) {
   );
 }
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'row',
@@ -69,8 +70,6 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'column',
   },
-});
+}));
 
-export default withStyles(styles)(
-  withNamespaces(['paymentPack'])(PaymentPackMinimalSummary),
-);
+export default withNamespaces(['paymentPack'])(PaymentPackMinimalSummary);

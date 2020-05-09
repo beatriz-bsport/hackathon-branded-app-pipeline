@@ -21,7 +21,7 @@ const LoginRouter = asyncComponent(() =>
 const UserspaceSwitcher = asyncComponent(() =>
   import('./pages/UserspaceSwitcher.component'),
 );
-const ConsumerHome = asyncComponent(() =>
+const ConsumerRouter = asyncComponent(() =>
   import('./pages/consumer/Consumer.router'),
 );
 const CheckoutRouter = asyncComponent(() =>
@@ -81,11 +81,13 @@ export class Root extends Component<Props> {
           <Route path="/sentry" component={SentryTestError} />
           <Route path="/login" component={LoginRouter} />
           <Route path="/(|customer/)payment" component={PaymentRouter} />
-          <Route path="/customer" component={ConsumerHome} />
+          <Route path="/customer" component={ConsumerRouter} />
           <Route path="/m/" component={MarketPlace} />
           <Route path="/checkout" component={CheckoutRouter} />
           <Route path="/check-in" component={CheckIn} />
           <Route path="/rn-webview" component={RNWebView} />
+          <Route path="/c/:companyId" component={ConsumerRouter} />
+          <Route path="/c/" component={ConsumerRouter} />
           <Route path="/" component={UserspaceSwitcher} />
         </Switch>
       </div>

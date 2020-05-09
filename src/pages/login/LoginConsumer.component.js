@@ -8,7 +8,8 @@ import IconButton from '@material-ui/core/IconButton';
 import HelpIcon from '@material-ui/icons/Help';
 import Typography from '@material-ui/core/Typography';
 import { withRouter } from 'react-router';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
+import Hidden from '@material-ui/core/Hidden';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -113,35 +114,42 @@ export class ConsumerLoginPage extends Component<Props> {
             loading={loginProcessing}
             requestSignUp={this.switchToSignUp}
           />
+          <Hidden smDown>
+            <a href="https://app.hubspot.com/meetings/zmansour">
+              <Typography variant="caption">{t('contactUs')}</Typography>
+            </a>
+          </Hidden>
         </div>
       );
     }
 
     return (
       <div className={classes.container}>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <Typography variant="h4">{t('form.signUpTitle')}</Typography>
-          <IconButton onClick={() => openIntercomHelp('login')}>
-            <HelpIcon />
-          </IconButton>
+        <div>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'flex-start',
+              alignItems: 'flex-start',
+            }}
+          >
+            <Typography variant="h4">{t('signup.title')}</Typography>
+            <IconButton onClick={() => openIntercomHelp('login')}>
+              <HelpIcon />
+            </IconButton>
+          </div>
+          <SignUpForm
+            loading={loginProcessing}
+            onComplete={this.signup}
+            onCancel={this.cancelSignUp}
+            theme={this.props.theme}
+            emailExists={this.props.emailExists}
+            checkEmailExistsLoading={this.props.checkEmailExistsLoading}
+            checkEmailExists={this.props.checkEmailExists}
+            backToLogin={() => this.setState({ step: STEPS.WELCOME })}
+          />
         </div>
-        <SignUpForm
-          loading={loginProcessing}
-          onComplete={this.signup}
-          onCancel={this.cancelSignUp}
-          theme={this.props.theme}
-          emailExists={this.props.emailExists}
-          checkEmailExistsLoading={this.props.checkEmailExistsLoading}
-          checkEmailExists={this.props.checkEmailExists}
-          backToLogin={() => this.setState({ step: STEPS.WELCOME })}
-        />
       </div>
     );
   }
@@ -169,13 +177,17 @@ const styles = (theme) => ({
     textAlign: 'center',
     padding: theme.spacing(6),
     width: '100%',
+    height: '90vh',
     marginTop: '10vh',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
   },
 });
 
 export default compose(
   withStyles(styles),
-  withNamespaces(),
+  withNamespaces(['login']),
   withRouter,
   withProps((props) => ({
     membership: parse(props.location.search).membership,

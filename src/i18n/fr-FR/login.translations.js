@@ -29,4 +29,9 @@ exports.default = {
       'Votre session a expirée. Vous vous êtes connecté à deux comptes différents simultanément, ou vous êtes déconnecté depuis un autre onglet / fenêtre.?',
     disconnect: 'Me reconnecter',
   },
+  signup: {
+    title: 'Inscription',
+  },
+  contactUs:
+    'Manager de studio, vous êtes intéressé par notre solution ? Contactez-nous.',
 };

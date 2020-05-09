@@ -394,7 +394,6 @@ exports.default = {
     specific_info: 'Description',
     pleaseEnterYourSMSCode: 'Veuillez entrer le code envoyé par SMS',
     code: 'Code',
-    signUpTitle: 'Inscription',
     SMSSignInTitle: 'Connexion SMS',
     signInPhoneInstruction:
       'Veuillez entrer votre numéro de téléphone, un code de confirmation vous sera envoyé par SMS',

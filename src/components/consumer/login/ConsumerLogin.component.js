@@ -139,7 +139,7 @@ export class ConsumerLogin extends Component<Props, State> {
         >
           <HelpIcon />
         </IconButton>
-        <PersonIcon className={classes.headIcon} />
+          <PersonIcon className={classes.headIcon} />
         <form className={classes.column}>
           <FormField
             id="email"

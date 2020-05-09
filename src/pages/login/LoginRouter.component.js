@@ -9,8 +9,10 @@ import Particles from 'react-particles-js';
 import Hidden from '@material-ui/core/Hidden';
 import { withProps, compose } from 'recompose';
 import { connect } from 'react-redux';
+import Fade from '@material-ui/core/Fade';
 import parse from '../../query-string';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
+import { disconnect } from '../../actions/auth.actions';
 import themeSelectors from '../../libs/theme/selectors';
 import { getTheme } from '../../theme';
 
@@ -40,6 +42,12 @@ export class LoginRouter extends React.Component<Props> {
       this.props.membership
     ) {
       this.props.fetchCompanyTheme(this.props.membership);
+    }
+  }
+
+  componentWillMount() {
+    if (this.props.loginProcessing) {
+      this.props.disconnect();
     }
   }
 
@@ -79,15 +87,17 @@ export class LoginRouter extends React.Component<Props> {
                   }}
                 />
               </div>
-              <img
-                src={
-                  this.props.theme
-                    ? this.props.theme.cover
-                    : '/logo-fond-bleu.svg'
-                }
-                className={classes.logo}
-                alt="bsport-logo"
-              />
+              <Fade in>
+                <img
+                  src={
+                    this.props.theme
+                      ? this.props.theme.cover
+                      : '/logo-fond-bleu.svg'
+                  }
+                  className={classes.logo}
+                  alt="bsport-logo"
+                />
+              </Fade>
             </Grid>
           </Hidden>
           <Grid item xs={12} sm={6} md={6} lg={5} style={{ zIndex: 20 }}>
@@ -147,9 +157,11 @@ export default compose(
   connect(
     (state, { membership }) => ({
       theme: !!membership && themeSelectors.getTheme(state),
+      loginProcessing: state.auth.loading,
     }),
     {
       fetchCompanyTheme,
+      disconnect,
     },
   ),
 )(LoginRouter);

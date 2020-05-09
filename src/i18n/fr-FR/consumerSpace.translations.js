@@ -14,7 +14,7 @@ exports.default = {
     title: 'Accompte dû au club',
     titlePaymentDialog: 'Régularisation accompte',
     explainPayment:
-      'Cette somme sera reversé au club afin de régulariser votre accompte',
+      'Cette somme sera reversée au club afin de régulariser votre accompte',
   },
   pack: {
     titlePaymentPack: 'Cours collectif',

@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { push } from 'react-router-redux';
 import Intercom from 'react-intercom';
+import { compose } from 'recompose';
 
 import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import { Context } from '../context';
@@ -19,6 +20,7 @@ import LoadingBackoffice from '../components/navigation/LoadingBackoffice.compon
 import { refresh as refreshActions } from '../actions';
 import { fetchCompanyTheme } from '../libs/theme/actions';
 import { getPermissions } from '../libs/role/selectors';
+
 import { getTempPasswordState } from '../libs/login/selectors';
 import { generateTempPassword, fetchTempPassword } from '../libs/login/actions';
 import {
@@ -158,6 +160,7 @@ export class Backoffice extends Component<Props, State> {
   componentDidMount() {
     this.props.refreshIfNeeded();
     this.props.fetchCompanyTheme();
+    this.setState({ authToken: getAuthToken() });
   }
 
   componentWillUnmount() {
@@ -176,17 +179,19 @@ export class Backoffice extends Component<Props, State> {
 
   render() {
     const { classes } = this.props;
-
-    if (!this.props.authenticated) {
-      return <Redirect to="/login" />;
-    }
+    // dirty handling of double login
     const token = getAuthToken();
-    if (!getAuthToken() || token === 'null') {
-      return <Redirect to="/login/signout" />;
+    if (
+      !token ||
+      token === 'null' ||
+      (token !== this.state.authToken && !!this.state.authToken)
+    ) {
+      return (
+        <Redirect
+          to={`${'/double-login' + '?membership='}${this.props.theme.company}`}
+        />
+      );
     }
-    const intercom_user = {
-      email: this.props.username,
-    };
 
     if (this.props.isRefreshing) {
       return <LoadingBackoffice />;
@@ -222,7 +227,7 @@ export class Backoffice extends Component<Props, State> {
             Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ? (
               <Intercom
                 appID="q6foivp2"
-                {...intercom_user}
+                email={this.props.username}
                 action_color={this.props.theme.primary_color}
               />
             ) : null}
@@ -250,35 +255,37 @@ const styles = (theme: Object) => ({
 
 const themedBackoffice = withStyles(styles)(Backoffice);
 
-export default connect(
-  (state) => ({
-    alertings: alertingSelectors.getByKind(state),
-    nbAlerting: alertingSelectors.countAlerting(state),
-    authenticated: state.auth.authenticated,
-    username: state.auth.username,
-    isRefreshing: state.refresh.isRefreshing,
-    theme: state.theme.theme,
-    permission: getPermissions(state),
+export default compose(
+  connect(
+    (state) => ({
+      alertings: alertingSelectors.getByKind(state),
+      nbAlerting: alertingSelectors.countAlerting(state),
+      authenticated: state.auth.authenticated,
+      username: state.auth.username,
+      isRefreshing: state.refresh.isRefreshing,
+      theme: state.theme.theme,
+      permission: getPermissions(state),
 
-    is_consumer: state.auth.is_consumer && !state.auth.is_manager,
+      is_consumer: state.auth.is_consumer && !state.auth.is_manager,
 
-    tempPasswordState: getTempPasswordState(state),
-  }),
-  {
-    fetchCompanyTheme,
-    fetchAccessLevel,
-    disconnect: () => push('/login/signout'),
-    refreshIfNeeded: refreshActions.refreshIfNeeded,
-    refresh: refreshActions.forceRefresh,
+      tempPasswordState: getTempPasswordState(state),
+    }),
+    {
+      fetchCompanyTheme,
+      fetchAccessLevel,
+      disconnect: () => push('/login/signout'),
+      refreshIfNeeded: refreshActions.refreshIfNeeded,
+      refresh: refreshActions.forceRefresh,
 
-    fetchAllAlertings,
-    fetchMoreAlertingKind,
-    deleteAlert,
+      fetchAllAlertings,
+      fetchMoreAlertingKind,
+      deleteAlert,
 
-    generateTempPassword,
-    fetchTempPassword,
+      generateTempPassword,
+      fetchTempPassword,
 
-    openCalendar: () => push('/calendar'),
-    openCreateMember: () => push('/member/add'),
-  },
+      openCalendar: () => push('/calendar'),
+      openCreateMember: () => push('/member/add'),
+    },
+  ),
 )(themedBackoffice);

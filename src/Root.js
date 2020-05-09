@@ -18,6 +18,9 @@ const MarketPlace = asyncComponent(() =>
 const LoginRouter = asyncComponent(() =>
   import('./pages/login/LoginRouter.component'),
 );
+const DoubleLogin = asyncComponent(() =>
+  import('./pages/login/DoubleLogin.component'),
+);
 const UserspaceSwitcher = asyncComponent(() =>
   import('./pages/UserspaceSwitcher.component'),
 );
@@ -80,6 +83,7 @@ export class Root extends Component<Props> {
           />
           <Route path="/sentry" component={SentryTestError} />
           <Route path="/login" component={LoginRouter} />
+          <Route path="/double-login" component={DoubleLogin} />
           <Route path="/(|customer/)payment" component={PaymentRouter} />
           <Route path="/customer" component={ConsumerRouter} />
           <Route path="/m/" component={MarketPlace} />

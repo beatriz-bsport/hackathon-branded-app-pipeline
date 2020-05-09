@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { compose } from 'recompose';
+import { compose, withProps } from 'recompose';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import IconButton from '@material-ui/core/IconButton';
@@ -12,6 +12,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import themeSelectors from '../../libs/theme/selectors';
 import parse from '../../query-string';
 import { openIntercomHelp } from '../../intercom';
 
@@ -176,15 +177,18 @@ export default compose(
   withStyles(styles),
   withNamespaces(),
   withRouter,
+  withProps((props) => ({
+    membership: parse(props.location.search).membership,
+  })),
   connect(
-    (state) => ({
+    (state, { membership }) => ({
+      theme: !!membership && themeSelectors.getTheme(state),
       authenticated: state.auth.authenticated,
       errorLogin: state.auth.error,
       loginProcessing: state.auth.loading,
       errorFields: state.auth.invalidFields,
       checkEmailExistsLoading: state.auth.emailExists.loading,
       emailExists: state.auth.emailExists.exists,
-      theme: state.theme.theme,
     }),
     mapDispatchToProps,
   ),

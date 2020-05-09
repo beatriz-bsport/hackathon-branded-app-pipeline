@@ -24,4 +24,9 @@ exports.default = {
     invalidEmail: "Cet email n'existe pas dans notre base",
     invalidPassword: 'Le mot de passe est invalide',
   },
+  doubleLogin: {
+    explain:
+      'Votre session a expirée. Vous vous êtes connecté à deux comptes différents simultanément, ou vous êtes déconnecté depuis un autre onglet / fenêtre.?',
+    disconnect: 'Me reconnecter',
+  },
 };

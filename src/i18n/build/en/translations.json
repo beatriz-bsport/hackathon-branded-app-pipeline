@@ -1512,7 +1512,11 @@
                     "is_deliverable": "Add delivery fees",
                     "featured": "Feature the product when confirming the basket",
                     "sell_only_on_provision": "Sell ONLY IF there are some provision",
-                    "onsite_payment_available": "Propose to pay on-site"
+                    "onsite_payment_available": "Propose to pay on-site",
+                    "available_payment_method_identifiers": {
+                        "helperText": "Select at least one payment method. If during checkout, items have non-compatible payment methods, credit card will be proposed.",
+                        "label": "Allowed payment methods"
+                    }
                 },
                 "subShop": {
                     "delete": {
@@ -2040,6 +2044,10 @@
                 "privatePass": "Appointments pass",
                 "paymentPack": "Pass collective lesson",
                 "shopitem": "Shop"
+            },
+            "available_payment_method_identifiers": {
+                "helperText": "Select at least one payment method. If during checkout, items have non-compatible payment methods, credit card will be proposed.",
+                "label": "Allowed payment methods"
             }
         },
         "detail": {
@@ -2325,12 +2333,18 @@
                     "helperText": "Adapt credit needed in function of the duration"
                 },
                 "cancel": "Cancel",
-                "submit": "Save"
+                "submit": "Save",
+                "booking_interval_minutes": {
+                    "helperText": "E.g: 15 means that the member can book at 12h, 12h15, 12h30, etc... (recommended)",
+                    "label": "Advanced : booking interval choice"
+                }
             }
         },
         "bookerModule": {
             "address": {
-                "label": "Address"
+                "label": "Address",
+                "helperText": "Enter your address to book this meeting",
+                "submit": "Confirm"
             },
             "availableSlots": "Available slots",
             "emptySlot": "No slot available",
@@ -2351,205 +2365,236 @@
                 "compatiblePassTitle": "Compatible pass with this session",
                 "emptyPassList": "No compatible pass, please contact your club"
             },
-            "useCredit": "Réserver",
+            "useCredit": "Book",
             "private_pass": {
-                "credits": "{{ credits }} crédit"
+                "credits": "{{ credits }} credit"
             },
-            "buyPass": "{{ price }}€",
+            "buyPass": "{{ price }} €",
             "preview": {
-                "credit_cost": "{{credit_cost}} crédit"
+                "credit_cost": "{{credit_cost}} credit"
             },
             "sections": {
-                "establishment": "Lieu",
-                "privateSlot": "Séances",
-                "coach": "Professeur"
+                "establishment": "Location",
+                "privateSlot": "Sessions",
+                "coach": "Teacher"
             },
             "step": {
-                "configuration": "Mon rendez-vous",
-                "billing": "Facturation",
-                "privateService": "Rendez-vous",
-                "privateSlot": "Séance",
-                "coach": "Professeur",
+                "configuration": "My appointment",
+                "billing": "Billing",
+                "privateService": "Appointment",
+                "privateSlot": "Session",
+                "coach": "Teacher",
                 "date": "Date"
             }
         },
         "consumerPass": {
-            "current_credits": "{{ current_credits }}/{{credits}} crédits",
-            "isReverted": "Facture annulée",
+            "current_credits": "{{ current_credits }}/{{credits}} credits",
+            "isReverted": "Cancelled invoice",
             "detail": {
-                "invoice": "Facture liée",
-                "booking": "Réservations RDV liées"
-            }
+                "invoice": "Related invoice",
+                "booking": "Related appointments"
+            },
+            "expiresOn": "Expires on {{date}}"
         },
         "privateServiceCompatibility": {
             "delete": {
-                "title": "Modification RDV compatibles",
-                "explain": "Êtes-vous sûr de vouloir modifier les règles d'utilisation du pass ? Cette modification est rétro-active pour les achats déjà effectués.",
-                "cancel": "Annuler",
-                "submit": "Supprimer"
+                "title": "Compatible appointment modification",
+                "explain": "Are you sure you want to change the pass usage rules? This change is retroactive for purchases already made.",
+                "cancel": "Cancel",
+                "submit": "Delete"
             }
         },
         "privatePass": {
             "delete": {
-                "title": "Suppression de la carte",
-                "explain": "Êtes-vous sûr de vouloir supprimer cette carte ? Les personnes possédant encore des crédits pourront toujours les utiliser. Cette opération est définitive",
-                "cancel": "Annuler",
-                "submit": "Confirmer"
+                "title": "Deleting pass :",
+                "explain": "Are you sure you want to delete this pass? People who still have credits will still be able to use them. This operation is final",
+                "cancel": "Cancel",
+                "submit": "Confirm"
             },
             "list": {
-                "createButton": "Créer une carte RDV"
+                "createButton": "Create an appointment pass"
             },
             "parameters": {
-                "nbCredits": "{{ credits }} crédit",
+                "nbCredits": "{{ credits }} credit",
                 "price": "{{ price}} €",
-                "tax": "TVA: {{ tax }}%",
-                "managerOnly": "Invisible pour les clients"
+                "tax": "TAX: {{ tax }}%",
+                "managerOnly": "Invisible to customers"
             },
             "compatibleServices": {
-                "title": "RDV compatibles",
-                "add": "Ajouter",
-                "isEmpty": "Aucun rendez-vous n'est compatible - inutilisable"
+                "title": "Compatible appointments",
+                "add": "Add",
+                "isEmpty": "No appointment is compatible - unusable"
             },
             "form": {
-                "title": "Carte RDV",
+                "title": "Pass (appointments)",
                 "managerOnly": {
-                    "label": "Invisible pour les clients"
+                    "label": "Unavailable for client purchase"
                 },
                 "name": {
-                    "label": "Nom"
+                    "label": "Name"
                 },
                 "credits": {
-                    "label": "Nombre de crédit inclu",
-                    "helperText": "Chaque séance coûte un certain nombre de crédit"
+                    "label": "Number of credits included",
+                    "helperText": "Each session costs a certain number of credits"
                 },
                 "price": {
-                    "label": "Prix"
+                    "label": "Price"
                 },
                 "tax": {
                     "label": "TVA"
                 },
                 "actions": {
-                    "submit": "Enregistrer",
-                    "cancel": "Annuler"
+                    "submit": "Save",
+                    "cancel": "Cancel"
+                },
+                "available_payment_method_identifiers": {
+                    "helperText": "Select at least one payment method. If during checkout, items have non-compatible payment methods, credit card will be proposed.",
+                    "label": "Allowed payment methods"
+                },
+                "durationYears": {
+                    "helperText": "Sum itself with the number of days and months",
+                    "label": "Additional duration (years)"
+                },
+                "durationMonths": {
+                    "helperText": "Sum itself with the number of days",
+                    "label": "Additional duration (month)"
+                },
+                "durationDays": {
+                    "helperText": "Duration (days) for which the pass will be valid after purchase date ",
+                    "label": "Validity duration (days) if applicable"
                 }
+            },
+            "validForDuration": {
+                "general": "Valid for {{ duration_days }} days {{ duration_months }} months and {{ duration_years }} year",
+                "years": "Valid for {{ duration_years }} years",
+                "months": "Valid for {{ duration_months }} months",
+                "days": "Valid for {{ duration_days }} days"
             }
         },
         "service": {
             "selector": {
-                "placeholder": "Sélectionnez un rendez-vous",
-                "isEmpty": "Aucun type de rendez-vous configuré",
+                "placeholder": "Select an appointment",
+                "isEmpty": "No appointment type configured",
                 "coach": {
-                    "label": "Professeur"
+                    "label": "Teacher"
                 },
                 "establishment": {
-                    "label": "Salle"
+                    "label": "Room"
                 }
             },
             "detail": {
                 "tab": {
-                    "general": "Général",
-                    "calendar": "Calendrier"
+                    "general": "General",
+                    "calendar": "Schedule"
                 }
             },
             "configuration": {
-                "slot": "Type de séance",
-                "explainSetToHasNotOwnAvailabilitySlots": "Réservable sur tout créneau horaire si prof/salle disponibles",
-                "explainSetToHasOwnAvailabilitySlots": "Reservable sur certains créneaux seulement",
-                "explainHasOwnAvailabilitySlots": "Cliquez sur le crayon pour limiter les réservations à certaines plages horaires",
-                "hasFutureSlot": "Calendrier des disponibilités futures OK",
+                "slot": "Type of session",
+                "explainSetToHasNotOwnAvailabilitySlots": "Bookable in any time slot if teacher/room available",
+                "explainSetToHasOwnAvailabilitySlots": "Reservable in certain slots only",
+                "explainHasOwnAvailabilitySlots": "Click on the pencil to limit the reservations to certain time slots",
+                "hasFutureSlot": "Calendar of future availability OK",
                 "noCapacity": "Location max capacity set to 0 !",
                 "totalCapacity": "Location max capacity: {{ capacity }}",
-                "noFutureSlot": "Vous n'avez configuré aucune disponibilité pour {{resourceName}} ! Cliquez ici.",
-                "title": "Disponibilités horaires",
-                "isAlwaysAvailable": "{{ resourceName}} est réservable dès que la salle et/ou les profs sont disponibles",
-                "changeIsAlwaysAvailable": "Modifier"
+                "noFutureSlot": "You haven't configured any availability for {{resourceName}}! Click here.",
+                "title": "Availability slots",
+                "isAlwaysAvailable": "{{resourceName}} is bookable as soon as the room and / or the teachers are available",
+                "changeIsAlwaysAvailable": "Modify"
             },
             "form": {
                 "establishmentResourceType": {
                     "isHomeService": {
-                        "label": "A domicile",
-                        "helperText": "Une adresse sera demandé à chaque réservation"
+                        "label": "At home",
+                        "helperText": "An address will be requested with each reservation"
                     },
                     "isWithoutEstablishment": {
-                        "label": "Sans lieu pré-déterminé",
-                        "helperText": "Ex: cours en visio / en extérieur / ..."
+                        "label": "Without pre-determined location",
+                        "helperText": "Ex: video / outdoor lessons / ..."
                     },
                     "isWithEstablishment": {
-                        "isEmpty": "Aucune salle configurée !",
-                        "label": "Dans l'un de vos établissements",
-                        "helperText": "La réservation ne sera possible que si la salle dispose de suffisamment de places libres"
+                        "isEmpty": "No room configured!",
+                        "label": "In one of your establishments",
+                        "helperText": "The reservation will only be possible if the room has enough free slots"
                     }
                 },
                 "resourceGroup": {
-                    "establishment": "Lieu",
-                    "coach": "Professeur"
+                    "establishment": "Location",
+                    "coach": "Teacher"
                 },
                 "coach_consumer_attribution": {
-                    "label": "Permettre le choix du professeur lors de la réservation",
-                    "helperText": "Le membre voit et choisit le professeur avant la réservation. Si décoché, bsport d'attribuer les réservations au même professeur si possible"
+                    "label": "Allow the choice of teacher when booking",
+                    "helperText": "The member sees and chooses the teacher before booking. If unchecked, bsport tries to assign reservations to the same teacher if possible"
                 },
                 "establishment_consumer_attribution": {
-                    "label": "Permettre le choix du lieu lors de la réservation",
-                    "helperText": "Le membre voit et choisit le lieu avant la réservation, si décoché bsport essaiera d'optimiser le remplissage des salles"
+                    "label": "Allow the choice of location when booking",
+                    "helperText": "The member sees and chooses the location before booking, if unchecked bsport will try to optimize the filling of rooms"
                 },
                 "delete": {
-                    "title": "Suppression du rendez-vous",
-                    "content": "Êtes-vous certain de vouloir supprimer ce type de rendez-vous ?",
-                    "cancel": "Annuler",
-                    "confirm": "Supprimer"
+                    "title": "Appointment deletion",
+                    "content": "Are you sure you want to delete this type of appointment?",
+                    "cancel": "Cancel",
+                    "confirm": "Delete"
                 },
                 "coach_capacity_used": {
-                    "label": "Nb maximum de RDV simultanés qu'un professeur peut gérer",
-                    "helperText": "Ex: un professeur peut surveiller deux élèves séparément sur deux machines "
+                    "label": "Maximum number of simultaneous appointments that a teacher can manage",
+                    "helperText": "Ex: a teacher can monitor two students separately on two machines "
                 },
-                "color": "Code couleur",
+                "color": "Color code",
                 "use_full_establishment_capacity": {
-                    "label": "Nécessite toute la salle",
-                    "helperText": "Décochez pour autoriser simultanément plusieurs activités / rdv dans la même salle si la capacité le permet"
+                    "label": "Requires the whole room",
+                    "helperText": "Uncheck to simultaneously authorize several activities / appointments in the same room if the capacity allows"
                 },
-                "title": "Rendez-vous",
-                "createButton": "Ajouter un type de Rendez-vous",
-                "addCoach": "Ajouter un professeur",
-                "addEstablishment": "Ajouter une salle",
-                "addSlot": "Ajouter un type séance",
+                "title": "Appointment",
+                "createButton": "Add an appointment type",
+                "addCoach": "Add a teacher",
+                "addEstablishment": "Add a room",
+                "addSlot": "Add a session type",
                 "is_home_service": {
-                    "label": "A domicile",
-                    "helperText": "Une adresse sera demandée à chaque réservation"
+                    "label": "At home",
+                    "helperText": "An address will be requested with each reservation"
                 },
-                "is_without_coach": "Sans professeur",
+                "is_without_coach": "Without teacher",
                 "name": {
-                    "label": "Nom du service",
+                    "label": "Name of the service",
                     "placeholder": "Massage"
                 },
                 "coach": {
-                    "label": "Professeur",
-                    "isEmpty": "Aucun professeur configuré !"
+                    "label": "Teacher",
+                    "isEmpty": "No teacher configured!"
                 },
                 "establishment": {
-                    "label": "Salle"
+                    "label": "Room"
                 },
                 "description": {
                     "label": "Description du service"
                 },
                 "actions": {
-                    "cancel": "Annuler",
-                    "submit": "Enregistrer"
+                    "cancel": "Cancel",
+                    "submit": "Save"
+                },
+                "last_discard_minutes": {
+                    "helperText": "If the reservation is canceled after the deadline, the credit will not be refunded",
+                    "label": "Last cancellation refundable up to"
                 }
             },
             "parameters": {
                 "description": "Description",
                 "coaches": {
-                    "title": "Professeur",
-                    "is_empty": "Aucun professeur n'est requis"
+                    "title": "Teacher",
+                    "is_empty": "No teacher is required"
                 },
                 "establishments": {
-                    "title": "Lieu",
-                    "is_empty": "A domicile"
+                    "title": "Location",
+                    "is_empty": "No room",
+                    "is_home_service": "At home"
                 },
                 "slots": {
-                    "title": "Séance",
-                    "isEmpty": "Aucune type de séance définie",
-                    "explainIsEmpty": "Définissez des types de séances (durée, coût)"
+                    "title": "Session",
+                    "isEmpty": "No session type is defined",
+                    "explainIsEmpty": "Define session types (duration, cost)"
+                },
+                "last_discard_minutes": {
+                    "explain": "The last refundable cancellation is possible {{days}} day (s) {{hours}} hour (s) {{minute}} minute (s) before the appointment"
                 }
             }
         },
@@ -2667,7 +2712,7 @@
             "expiration": "Expiry date",
             "no_expiration": "No expiry date",
             "validity": "Validity:",
-            "cumulable": "Cumulable",
+            "cumulable": "Combinable",
             "no_cumulable": "Not cumulable",
             "uses": "uses",
             "member_uses": "uses per member",
@@ -2676,7 +2721,7 @@
         },
         "form": {
             "selectorPlaceholder": {
-                "privatePass": "Select private lesson passes (valid on all passes if none selected)",
+                "privatePass": "Select appointment passes (valid on all passes if none selected)",
                 "paymentPack": "Select collective lesson passes (valid on all passes if none selected)",
                 "shopitem": "Select shop items (valid on all items if none selected)"
             },
@@ -2737,7 +2782,7 @@
                     "1": "Pass",
                     "2": "Shop",
                     "6": "Delivery fee",
-                    "9": "Private lesson pass",
+                    "9": "Appointment pass",
                     "all": "All basket",
                     "null": "All basket"
                 }
@@ -2965,7 +3010,7 @@
                 "placeholder": "https://studio.com/schedule/"
             },
             "instagramURL": {
-                "label": "URL Instagram",
+                "label": "Instagram URL",
                 "helperText": "Your Instagram page",
                 "placeholder": "https://instagram.com/my-studio/"
             },
@@ -2974,7 +3019,7 @@
                 "label": "Google Tag ID"
             },
             "facebookURL": {
-                "label": "URL Facebook",
+                "label": "Facebook URL",
                 "helperText": "Your facebook page",
                 "placeholder": "https://facebook.com/my-studio/"
             },
@@ -3001,6 +3046,16 @@
             "validate": "Save",
             "delete": "Clear",
             "noColor": "No color"
+        },
+        "form": {
+            "duration": {
+                "day": "Day:",
+                "day_plural": "Days:",
+                "hour": "Hour:",
+                "hour_plural": "Hours:",
+                "minute": "Minute:",
+                "minute_plural": "Minutes:"
+            }
         }
     },
     "workshop": {
@@ -3084,7 +3139,18 @@
             "submit": "Generate",
             "explainRequest": "Ask for a temporary password available for 2h and send it to a tier to give him an access to your account for a limited amount of time. Your main password will not be affected.",
             "explain": "This password is valid until {{expirationDate }}. You main password has not changed."
-        }
+        },
+        "error": {
+            "invalidPassword": "Invalid password",
+            "invalidEmail": "This email does not exist in our database",
+            "authError": "Email or password wrong"
+        },
+        "actions": {
+            "forgottenPassword": "Forgotten password",
+            "signup": "No account yet ?",
+            "signin": "Sign-in"
+        },
+        "or": " or "
     },
     "waitingList": {
         "switchToEnable": "Switch waiting-list on",
@@ -3172,7 +3238,9 @@
         "capacity": {
             "label": "Location max capacity",
             "placeholder": null,
-            "helperText": "Used only to calculate the availability of the location for appointments"
+            "helperText": "Used only to calculate the availability of the location for appointments",
+            "explain": "Capacity: {{capacity}} slot",
+            "explain_plural": "Capacity: {{capacity}} slots"
         },
         "practical_info": {
             "label": "Access information",
@@ -3442,7 +3510,8 @@
             "tenDays": "10 days",
             "twoWeeks": "2 weeks",
             "oneMonth": "1 month",
-            "never": "Never"
+            "never": "Never",
+            "oneHourFifteen": "1h15"
         }
     },
     "shop": {
@@ -3505,7 +3574,7 @@
         "add": "Add",
         "save": "Save",
         "name": "Name",
-        "base_price": "Base",
+        "base_price": "Flat base",
         "base_percent": "Percentage of value",
         "include_tax": "Include tax",
         "calculation_method": "Calculation method",
@@ -3559,7 +3628,7 @@
         "explainOption": "You will be notified by email when a slot will be free",
         "bookAnotherOption": "Add me again on the waiting-list",
         "bookAnOption": "Register on waiting-list",
-        "availablePaymentPacks": "Pass compatibles : ",
+        "availablePaymentPacks": "Compatible Passes: ",
         "goBack": "Retour",
         "hasOneOrMoreOption": "You are already on the waiting-list",
         "method": {
@@ -3584,7 +3653,20 @@
             "theTermsAndConditions": " general terms and conditions.",
             "close": "Close"
         },
-        "paymentComboSectionTitle": "Pack"
+        "paymentComboSectionTitle": "Pack",
+        "paymentMethod": {
+            "11": "Other",
+            "10": "Automatic payment",
+            "9": "Internal account (credit)",
+            "8": "EventBrite",
+            "7": "Bank transfer",
+            "6": "AMEX",
+            "5": "Holidays check",
+            "4": "Credit card (manual)",
+            "2": "Check",
+            "1": "Cash",
+            "0": "Credit card"
+        }
     },
     "invoice": {
         "returnPayment": {
@@ -3906,7 +3988,7 @@
     },
     "reporting": {
         "columns": {
-            "private_service_name": "Private class",
+            "private_service_name": "Appointment",
             "private_slot_name": "Slot",
             "nb_bookings": "Bookings",
             "slot_date_end": "Slot end",
@@ -4005,7 +4087,7 @@
             "adjusted_price": "Adjusted price",
             "nb_interval": "Number of recurrences",
             "interval": "Type of recurrence",
-            "contract": "Contrat",
+            "contract": "Contract",
             "shop": "Shop",
             "stock": "Actual stock",
             "stock_variation": "Stock variation",
@@ -4042,7 +4124,7 @@
             "shop_item": "Shop",
             "top_up": "Top-up",
             "payment_combo": "Pack",
-            "private_pass": "Private lesson pass",
+            "private_pass": "Appointment pass",
             "fee": "Fee"
         },
         "report": {
@@ -4492,7 +4574,7 @@
         "noNoteSaved": "No note saved yet",
         "showPreviousBooking": "Show past bookings",
         "previousBooking": "previous: ",
-        "engagement": "Engagement",
+        "engagement": "Commitment",
         "addMember": "Add a member profile",
         "showNotes": "Show notes",
         "creditAccountBalance": "Internal credit account",
@@ -4596,7 +4678,11 @@
             "toSubscribe": "Subscribe",
             "toBill": "Bill"
         },
-        "pastBooking": "last: "
+        "pastBooking": "last: ",
+        "table": {
+            "show": "Show"
+        },
+        "name": "Name"
     },
     "booking": {
         "bookingModule": {
@@ -4639,7 +4725,7 @@
             "cancelled": "Cancelled"
         },
         "attend": "Attend",
-        "doNotAttend": "Absent",
+        "doNotAttend": "Missing",
         "loading": "Loading",
         "wasRefunded": "Refunded",
         "statusCode": {
@@ -4804,7 +4890,7 @@
             "marketingDashboard": "Dashboard",
             "marketingRule": "Marketing strategy"
         },
-        "planning": "Planning",
+        "planning": "Calendar",
         "settings": "Settings",
         "shop": "My Shop",
         "coachList": "Teachers",
@@ -4846,7 +4932,7 @@
         "name": "Name of the list",
         "search": "Search a smartlist",
         "description": "Description",
-        "mails": "Mails",
+        "mails": "Emails",
         "multiSelector": {
             "selectAll": "Select all",
             "paymentPacks": {
@@ -4916,7 +5002,8 @@
         "detail": {
             "tab": {
                 "member": "General",
-                "campaign": "Campaign"
+                "campaign": "Campaign",
+                "statistic": "Statistics"
             },
             "statTitle": "Statistics"
         },
@@ -4934,14 +5021,18 @@
                 "description": "Description"
             },
             "actions": {
-                "configure": "Configure"
+                "configure": "Configure",
+                "campaign": "Campaigns"
             },
             "list": {
                 "title": "Smart lists",
                 "detailTitle": "Details of the list"
             },
             "name": "Name",
-            "description": "Description",
+            "description": {
+                "isEmpty": "No description",
+                "label": "Description"
+            },
             "submit": "Save",
             "cancel": "Cancel",
             "add": "Add a list",
@@ -5225,13 +5316,14 @@
                 "fourth": "and has",
                 "fifth": "credits on it"
             },
-            "all": "All"
+            "all": "All",
+            "isEmpty": "No filter is configured, this smartlist therefore represents the entire member database"
         }
     },
     "coachPerformance": {
         "fields": {
             "bonus": "Bonus",
-            "base": "Base",
+            "base": "Flat base",
             "duration": "Duration",
             "nb_bookings": "Bookings",
             "name": "Session name",

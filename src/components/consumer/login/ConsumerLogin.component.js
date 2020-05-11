@@ -139,7 +139,7 @@ export class ConsumerLogin extends Component<Props, State> {
         >
           <HelpIcon />
         </IconButton>
-          <PersonIcon className={classes.headIcon} />
+        <PersonIcon className={classes.headIcon} />
         <form className={classes.column}>
           <FormField
             id="email"
@@ -199,13 +199,17 @@ export class ConsumerLogin extends Component<Props, State> {
   };
 
   render() {
-    const { loading, t } = this.props;
+    const { loading, t, classes } = this.props;
 
     if (loading) {
-      return <CircularProgress />;
+      return (
+        <div className={classes.container}>
+          <CircularProgress />
+        </div>
+      );
     }
 
-    const { requestSignUp, classes } = this.props;
+    const { requestSignUp } = this.props;
     return (
       <div className={classes.container}>
         {this.getEmailLogin()}

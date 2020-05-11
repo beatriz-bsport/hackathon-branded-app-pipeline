@@ -8,7 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import HelpIcon from '@material-ui/icons/Help';
 import Typography from '@material-ui/core/Typography';
 import { withRouter } from 'react-router';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import Hidden from '@material-ui/core/Hidden';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';

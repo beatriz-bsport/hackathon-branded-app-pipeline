@@ -23,7 +23,6 @@ import memberReducer from '../libs/member/reducers';
 import bookingReducers from '../libs/booking/reducers';
 import tagReducers from '../libs/tag/reducers';
 import orderReducers from '../libs/order/reducers';
-import marketplacev2Reducer from '../libs/marketplace/reducers';
 import coachReducers from '../libs/associated-coach/reducers';
 import waitingListReducers from '../libs/waiting-list/reducers';
 import themeReducers from '../libs/theme/reducers';
@@ -80,7 +79,6 @@ const rootReducer = combineReducers({
   alerting: alertingReducer,
   tag: tagReducers,
   order: orderReducers,
-  marketplacev2: marketplacev2Reducer,
   waitingList: waitingListReducers,
   theme: themeReducers,
   role: roleReducers,

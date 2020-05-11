@@ -61,7 +61,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
   };
 
   componentDidMount() {
-    this.props.fetchAllMetactivities();
+    this.props.fetchAllMetactivities({ customer_enabled: true });
   }
 
   changeSearch = (fuse) => (ev) => {
@@ -182,7 +182,9 @@ export default compose(
       id,
       suffix,
     ) => {
-      makeActivityCopy(id, suffix, { onSuccess: fetchAllMetactivities });
+      makeActivityCopy(id, suffix, {
+        onSuccess: () => fetchAllMetactivities({ customer_enabled: true }),
+      });
     },
   }),
   withState('activityToDelete', 'setActivityToDelete', null),

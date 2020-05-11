@@ -2,15 +2,45 @@
 
 import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
+import memoize from 'memoize-one';
 
 import type { State } from '../../state/types';
 
-export const getAll = (state: State) => state.paymentPack.all;
+export const getPaymentPackById = (state: State): Array<PaymentPack> =>
+  state.paymentPack.byId;
+
+export const getPaymentPackAllIds = (state: State): Array<PaymentPack> =>
+  state.paymentPack.allIds;
+
+export const getAll = createSelector(
+  [getPaymentPackById, getPaymentPackAllIds],
+  (paymentPacks, idList) => idList.map((id) => paymentPacks[id]),
+);
 
 const get = (state: State, id: number) =>
   getAll(state).find((pack) => pack.id === id);
 
 export const getOne = (state: State, id: number) => state.paymentPack.byId[id];
+
+export const withSCT = memoize((selector) =>
+  createSelector(
+    [selector, getSCTs],
+    (paymentPacks, SCTs) => {
+      if (Array.isArray(paymentPacks)) {
+        return paymentPacks.map((pp) => ({
+          ...pp,
+          categories: SCTs.filter((sct) => pp.categories.includes(sct.id)),
+        }));
+      }
+      return {
+        ...paymentPacks,
+        categories: SCTs.filter((sct) =>
+          paymentPacks.categories.includes(sct.id),
+        ),
+      };
+    },
+  ),
+);
 
 const getPaymentPackNotifications = (state, id) =>
   Immutable(
@@ -24,26 +54,15 @@ export const getEnabled = createSelector(
   (pps) => pps.filter((pp) => !pp.disabled),
 );
 
-export const getPaymentPackById = (state: State): Array<PaymentPack> =>
-  state.paymentPack.byId;
-
-export const getPaymentPackAllIds = (state: State): Array<PaymentPack> =>
-  state.paymentPack.allIds;
-
 export const getAllPaymentPacks = createSelector(
   getPaymentPackById,
   (paymentPacks) => Immutable(Object.values(paymentPacks)),
 );
 
-export const getPagePaymentPacks = createSelector(
-  [getPaymentPackById, getPaymentPackAllIds],
-  (paymentPacks, idList) => idList.map((id) => paymentPacks[id]),
-);
-
 const getSCTs = (state: State): Array => state.category.SCTs;
 
 export const getMarketplacePaymentPacks = createSelector(
-  [getPagePaymentPacks, getSCTs],
+  [getAll, getSCTs],
   (paymentPacks, SCTs) =>
     paymentPacks.map((pp) => ({
       ...pp,

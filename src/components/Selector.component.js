@@ -154,7 +154,7 @@ type ValueContainerProps = {
 function ValueContainer(props: ValueContainerProps) {
   return (
     <div className={props.selectProps.classes.valueContainer}>
-      {props.children}
+      <Typography noWrap>{props.children}</Typography>
     </div>
   );
 }
@@ -299,11 +299,11 @@ const styles = (theme) => ({
     padding: theme.spacing(1),
   },
   valueContainer: {
-    display: 'flex',
-    flexWrap: 'wrap',
+    // flexWrap: 'wrap',
     flex: 1,
     alignItems: 'center',
-    overflow: 'hidden',
+    // overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
   chip: {
     margin: `${theme.spacing(1) / 2}px ${theme.spacing(1) / 4}px`,

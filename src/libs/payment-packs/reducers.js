@@ -12,10 +12,11 @@ import {
   fetchMarketplacePacksAction,
   paymentPackBulkActions,
   paymentPackForBookingActions,
+  listAllPaymentPackActions,
+  updatePaymentPackActions,
 } from './actions';
 
 const initialState = Immutable({
-  all: [],
   updatingConsumerPacks: [],
   updatingPaymentPacks: [],
   createOrUpdatePending: false,
@@ -59,22 +60,11 @@ export function paymentPackReducer(state = initialState, action = {}) {
   switch (action.type) {
     case actionTypes.HAS_FETCHED_ALL_PAYMENT_PACKS:
       return Immutable.merge(state, {
-        all: Array.from(action.paymentPacks),
         loading: false,
         error: false,
         updatingPaymentPacks: [],
         updatingConsumerPacks: [],
         createOrUpdatePending: false,
-      });
-
-    case actionTypes.START_FETCH_ALL_PAYMENT_PACKS:
-      return Immutable.merge(state, { loading: true, error: false });
-
-    case actionTypes.ERROR_FETCHING_ALL_PAYMENT_PACKS:
-      return Immutable.merge(state, {
-        loading: false,
-        error: true,
-        errorMsg: action.err,
       });
 
     case actionTypes.UPDATING_CONSUMER_PACK_CREDIT: {
@@ -93,35 +83,6 @@ export function paymentPackReducer(state = initialState, action = {}) {
       });
     }
 
-    case actionTypes.PAYMENT_PACK_PATCH_START:
-      return Immutable.merge(state, {
-        updatingPaymentPacks: [...state.updatingPaymentPacks, action.id],
-      });
-
-    case actionTypes.PAYMENT_PACK_PATCH_ERROR:
-      return Immutable.merge(state, {
-        updatingPaymentPacks: [
-          ...state.updatingPaymentPacks.filter((id) => id !== action.id),
-        ],
-      });
-
-    case actionTypes.PAYMENT_PACK_PATCH_SUCCESS: {
-      const { paymentPack } = action;
-      return state.merge(
-        {
-          updatingPaymentPacks: [
-            ...state.updatingPaymentPacks.filter((id) => id !== action.id),
-          ],
-          all: [
-            paymentPack,
-            ...state.all.filter((pp) => pp.id !== paymentPack.id),
-          ],
-          byId: { [paymentPack.id]: paymentPack },
-        },
-        { deep: true },
-      );
-    }
-
     case actionTypes.PAYMENT_PACK_CREATEORUPDATE_START: {
       return Immutable.merge(state, { createOrUpdatePending: true });
     }
@@ -130,13 +91,9 @@ export function paymentPackReducer(state = initialState, action = {}) {
     }
     case actionTypes.PAYMENT_PACK_CREATEORUPDATE_SUCCESS: {
       const { paymentPack } = action;
-      const paymentPackArray = state.all.filter(
-        (pp) => pp.id !== paymentPack.id,
-      );
-      return Immutable.merge(state, {
-        all: [paymentPack, ...paymentPackArray],
-        createOrUpdatePending: false,
-      });
+      return state
+        .set('createOrUpdatePending', false)
+        .setIn(['byId', paymentPack.id], paymentPack);
     }
 
     case actionTypes.RESET_ACTIVITY_COMPATIBLE_PAYMENT_PACKS:
@@ -163,6 +120,35 @@ export const newPaymentPackReducer = handleActions(
     },
     [paymentPackForBookingActions.isLoading]: (state, { payload }) => {
       return state.setIn(['forBooking', 'loading'], payload);
+    },
+    [updatePaymentPackActions.isLoading]: (state, { payload }) => {
+      return state.set('updatingPaymentPacks', [
+        ...state.updatingPaymentPacks,
+        payload,
+      ]);
+    },
+    [updatePaymentPackActions.isNotLoading]: (state, { payload }) => {
+      return state.set(
+        'updatingPaymentPacks',
+        state.updatingPaymentPacks.filter((p) => p !== payload),
+      );
+    },
+    [updatePaymentPackActions.success]: (state, { payload }) => {
+      return state.setIn(['byId', payload.id], payload);
+    },
+    [listAllPaymentPackActions.isLoading]: (state, { payload }) => {
+      return state.set('loading', payload);
+    },
+    [listAllPaymentPackActions.error]: (state, { payload }) => {
+      return state.set('error', payload);
+    },
+    [listAllPaymentPackActions.success]: (state, { payload }) => {
+      return state.set('allIds', payload.map((pp) => pp.id)).merge(
+        {
+          byId: payload.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
+        },
+        { deep: true },
+      );
     },
     [paymentPackForBookingActions.error]: (state, { payload }) => {
       return state.setIn(['forBooking', 'error'], payload);
@@ -218,10 +204,7 @@ export const newPaymentPackReducer = handleActions(
       return state.set('error', payload);
     },
     [paymentPackBulkActions.success]: (state, { payload }) => {
-      return state.merge(
-        { allIds: payload.paymentPacksAllIds, byId: payload.paymentPacksById },
-        { deep: true },
-      );
+      return state.merge({ byId: payload.paymentPacksById }, { deep: true });
     },
     [fetchOneAction.isLoading]: (state, { payload }) => {
       return state.set('loading', payload);
@@ -230,12 +213,7 @@ export const newPaymentPackReducer = handleActions(
       return state.setIn(['byActivity', 'error'], payload);
     },
     [fetchOneAction.success]: (state, { payload }) => {
-      return state.merge(
-        {
-          byId: { [payload.id]: payload },
-        },
-        { deep: true },
-      );
+      return state.setIn(['byId', payload.id], payload);
     },
 
     [notificationCreateActions.isLoading]: (state, { payload }) => {

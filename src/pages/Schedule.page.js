@@ -7,7 +7,10 @@ import { withNamespaces } from 'react-i18next';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { getPrivateBookingListFiltered } from '../libs/private-service/selectors/private-booking';
+import {
+  getPrivateBookingListFiltered,
+  withMember,
+} from '../libs/private-service/selectors/private-booking';
 import { fetchAllOffers as fetchAllOffersAction } from '../libs/offer/actions';
 import withTitle from '../hocs/with-title.hoc';
 import { getAllPageEstablishments } from '../libs/establishment/selectors';
@@ -15,6 +18,7 @@ import { fetchEstablishments } from '../libs/establishment/actions';
 import { getActiveCoaches } from '../libs/associated-coach/selectors';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../libs/meta-activity/actions';
 import { getOfferAsEventList, withMetaActivity } from '../libs/offer/selectors';
+import { fetchFilteredMembers as fetchMemberBulk } from '../libs/member/actions';
 import { fetchAssociatedCoachesList } from '../libs/associated-coach/actions';
 
 import PrivateCalendarWithControls from '../libs/private-service/components/PrivateCalendarWithControls.component';
@@ -116,7 +120,7 @@ export default compose(
           })),
         },
       ],
-      privateBookingList: getPrivateBookingListFiltered(
+      privateBookingList: withMember(getPrivateBookingListFiltered)(
         state,
         null,
         periodFilter,
@@ -134,6 +138,7 @@ export default compose(
       fetchAllOffers: fetchAllOffersAction,
       resetPrivateBookings,
       fetchMetaActivityBulk: fetchMetaActivityBulkAction,
+      fetchMemberBulk,
     },
   ),
   withHandlers({
@@ -162,12 +167,25 @@ export default compose(
     }) => {
       setPeriodFilter({ start: date_start, end: date_end });
     },
-    fetchPrivateBookingList: ({ fetchPrivateBookings, periodFilter }) => () => {
-      fetchPrivateBookings({
-        date_start__gte: periodFilter.start,
-        date_start__lte: periodFilter.end,
-        page_size: null,
-      });
+    fetchPrivateBookingList: ({
+      fetchPrivateBookings,
+      fetchMemberBulk,
+      periodFilter,
+    }) => () => {
+      fetchPrivateBookings(
+        {
+          date_start__gte: periodFilter.start,
+          date_start__lte: periodFilter.end,
+          page_size: null,
+        },
+        {
+          onSuccess: (bookingList) => {
+            if (bookingList.length) {
+              fetchMemberBulk({ id__in: bookingList.map((b) => b.member) });
+            }
+          },
+        },
+      );
     },
   }),
 )(CoachPrivateCalendar);

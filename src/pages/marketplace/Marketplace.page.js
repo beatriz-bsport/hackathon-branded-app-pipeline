@@ -57,17 +57,13 @@ import {
   auth as authActions,
 } from '../../actions';
 
-import { fetchCompanyAction } from '../../libs/marketplace/actions';
-
 type Props = {
   companyName: string,
   companyId: number,
   company: MarketPlaceCompany,
-  companyLoading: boolean,
   hideAppBar: ?boolean,
   errorFields: ?{ email: ?string, password: ?string },
 
-  fetchCompany: (companyId: number) => void,
   fetchSCT: () => void,
 
   fetchPaymentComboList: (params: any) => void,
@@ -125,7 +121,6 @@ export class MarketPlace extends Component<Props, State> {
   fetchData = () => {
     this.props.fetchCompanyTheme(this.props.companyId);
     this.props.fetchSCT();
-    this.props.fetchCompany(this.props.companyId);
     if (this.props.auth.authenticated) {
       this.props.fetchCurrentBasket(this.props.companyId);
       this.props.fetchProfile();
@@ -147,7 +142,11 @@ export class MarketPlace extends Component<Props, State> {
   }
 
   handleTabChange = (event: SyntheticEvent<HTMLElement>, value: string) => {
-    this.props.goToTab(this.props.company.name, this.props.company.id, value);
+    this.props.goToTab(
+      this.props.theme.company_name,
+      this.props.companyId,
+      value,
+    );
   };
 
   renderContent = () => {
@@ -169,9 +168,7 @@ export class MarketPlace extends Component<Props, State> {
             companyId={this.props.companyId}
             requestSignUp={() => this.toogleLogin(true)}
             authenticated={this.props.auth.authenticated}
-            goToUserSpace={() =>
-              this.props.goToUserSpace(this.props.company.id)
-            }
+            goToUserSpace={() => this.props.goToUserSpace(this.props.companyId)}
           />
         );
       case TAB_SHOP:
@@ -213,7 +210,7 @@ export class MarketPlace extends Component<Props, State> {
     this.setState({ currentBasketOpen });
 
   signup = (data: *, callback: () => void) => {
-    const data_ = { ...data, membership: this.props.company.id };
+    const data_ = { ...data, membership: this.props.companyid };
     this.props.signup(data_, callback);
   };
 
@@ -258,8 +255,8 @@ export class MarketPlace extends Component<Props, State> {
   };
 
   render() {
-    const { companyLoading, classes, t, company } = this.props;
-    if (companyLoading || !company) {
+    const { companyThemeLoading, classes, t } = this.props;
+    if (companyThemeLoading || !this.props.theme) {
       return (
         <Grid container item alignItems="center" justify="center">
           <LinearProgress />
@@ -267,10 +264,10 @@ export class MarketPlace extends Component<Props, State> {
       );
     }
 
-    if (decodeURI(this.props.companyName) !== this.props.company.name) {
+    if (decodeURI(this.props.companyName) !== this.props.theme.company_name) {
       this.props.replace(
-        `/m/${this.props.company.name}/${this.props.companyId}/${this.props
-          .tab || ''}`,
+        `/m/${this.props.theme.company_name}/${this.props.companyId}/${this
+          .props.tab || ''}`,
       );
     }
     return (
@@ -281,11 +278,8 @@ export class MarketPlace extends Component<Props, State> {
             logo={this.props.theme.cover}
             websiteURL={this.props.theme.websiteURL}
             auth={this.props.auth}
-            goToUserSpace={() =>
-              this.props.goToUserSpace(this.props.company.id)
-            }
+            goToUserSpace={() => this.props.goToUserSpace(this.props.companyId)}
             currentBasket={this.props.currentBasket}
-            company={this.props.company}
             openCurrentBasket={() => this.toogleCurrentBasketOpen(true)}
             requestSignUp={() => this.toogleSignUp(true)}
             requestLogin={() => this.toogleLogin(true)}
@@ -468,12 +462,11 @@ export default compose(
   connect(
     (state) => ({
       auth: state.auth,
-      company: state.marketplacev2.company.data,
-      companyLoading: state.marketplacev2.company.loading,
       currentBasket: getCurrentBasket(state),
       currentBasketLoading: state.checkout.basket.current.loading,
       consumerProfile: state.consumer.profile,
       theme: state.theme.theme,
+      companyThemeLoading: state.theme.loading,
 
       errorFields: state.auth.invalidFields,
       checkEmailExistsLoading: state.auth.emailExists.loading,
@@ -483,7 +476,6 @@ export default compose(
       // General information
       fetchSCT,
       fetchCompanyTheme,
-      fetchCompany: fetchCompanyAction,
 
       // For shop pages
       fetchCurrentBasket,

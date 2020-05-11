@@ -473,7 +473,7 @@ export default compose(
         (initial && {
           ...initial,
           start_date_method: `${initial.start_date_method}`,
-          categories: (initial.categories || []).map((c) => c.id),
+          categories: initial.categories || [],
           establishments: initial.establishments || [],
           timeType: initial.validity_daterange
             ? VALID_BY_DATERANGE

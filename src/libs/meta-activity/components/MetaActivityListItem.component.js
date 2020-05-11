@@ -111,7 +111,7 @@ const styles = (theme) => ({
   avatar: {
     width: theme.spacing(7),
     height: theme.spacing(7),
-    marginRight: theme.spacing(1),
+    marginRight: theme.spacing(2),
   },
 });
 

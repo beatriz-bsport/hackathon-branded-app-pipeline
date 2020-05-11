@@ -33,7 +33,6 @@ import { getAllEstablishments } from '../../libs/establishment/selectors';
 import type { Establishment } from '../../libs/establishment/types';
 import {
   createOrUpdate as createOrUpdatePaymentPack,
-  fetchAllPaymentPacks as fetchAllPaymentPacksAction,
   fetchOne as fetchPaymentPack,
 } from '../../libs/payment-packs/actions';
 import withTitle from '../../hocs/with-title.hoc';
@@ -63,7 +62,7 @@ export class PaymentPackFormPage extends React.Component<Props> {
       },
     });
     this.props.fetchEstablishments();
-    this.props.fetchAllActivities();
+    this.props.fetchAllActivities({ customer_enabled: true });
     this.props.fetchWorkhops();
   }
 
@@ -141,11 +140,10 @@ export default compose(
           'id',
         ),
         establishments: getAllEstablishments(state),
-        loading: state.paymentPack.createOrUpdatePending,
+        loading: state.paymentPack.loading,
       };
     },
     {
-      fetchAllPaymentPacks: fetchAllPaymentPacksAction,
       fetchEstablishments,
       fetchAllActivities,
       fetchMetaActivityBulk,
@@ -155,12 +153,11 @@ export default compose(
       push: pushRouter,
     },
   ),
-  withProps(({ createOrUpdate, push, fetchAllPaymentPacks }) => ({
+  withProps(({ createOrUpdate, push }) => ({
     onSubmit: (data, options = {}) => {
       createOrUpdate(data, {
         ...options,
         onSuccess: (pp) => {
-          fetchAllPaymentPacks();
           push(`/payment-pack/${pp.id}`);
           if (options.onSuccess) options.onSuccess();
         },

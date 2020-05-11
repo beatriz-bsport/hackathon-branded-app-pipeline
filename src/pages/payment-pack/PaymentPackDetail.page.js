@@ -39,16 +39,16 @@ import {
   deletePackNotification as deleteNotification,
   updatePackNotification as updateNotification,
   fetchPackNotifications as fetchNotificationsAction,
+  fetchOne as fetchPaymentPack,
 } from '../../libs/payment-packs/actions';
-import paymentPackSelector from '../../libs/payment-packs/selectors';
+import paymentPackSelector, {
+  withSCT,
+} from '../../libs/payment-packs/selectors';
 import type { MetaActivity } from '../../api/types';
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { fetchEstablishments } from '../../libs/establishment/actions';
-import {
-  fetchAllActivities,
-  fetchAll as fetchAllWorkshops,
-} from '../../libs/meta-activity/actions';
+import { fetchEstablishmentBulk } from '../../libs/establishment/actions';
+import { fetchMetaActivityBulk } from '../../libs/meta-activity/actions';
 import {
   getMetaActivities,
   getWorkshops,
@@ -81,10 +81,7 @@ type Props = {
   pack: PaymentPack,
   metaActivities: Array<MetaActivity>,
   establishments: Array<Establishment>,
-  fetchEstablishments: () => void,
   goToConsumerPackDetail: (memberId: number, passId: number) => void,
-  fetchAllActivities: () => void,
-  fetchAllWorkshops: () => void,
   consumerPacks: {
     items: Array<ConsumerPaymentPack>,
     count: number,
@@ -141,9 +138,15 @@ export class PaymentPackDetail extends Component<Props, State> {
 
   componentWillMount() {
     this.props.resetConsumerPacks();
-    this.props.fetchEstablishments();
-    this.props.fetchAllActivities();
-    this.props.fetchAllWorkshops();
+  }
+
+  componentDidMount() {
+    this.props.fetchPaymentPack(this.props.id, {
+      onSuccess: (pp) => {
+        this.props.fetchMetaActivityBulk(pp.metaActivities);
+        this.props.fetchEstablishmentBulk(pp.establishments);
+      },
+    });
     this.props.fetchNotifications(this.props.id);
   }
 
@@ -310,7 +313,7 @@ const styles = (theme) => ({
 function mapStateToProps(state, { id }) {
   return {
     loading: state.paymentPack.loading || state.establishment.loading,
-    pack: paymentPackSelector.get(state, id),
+    pack: withSCT(paymentPackSelector.get)(state, id),
     notifications: {
       items: paymentPackSelector.getPaymentPackNotifications(state, id),
       loading: state.paymentPack.notification.loading,
@@ -342,14 +345,15 @@ export default compose(
   connect(
     mapStateToProps,
     {
-      fetchAllActivities,
       snackbarSuccess,
-      fetchAllWorkshops,
       createNotification,
       deleteNotification,
       updateNotification,
       fetchEmailTemplateDetail: (id) => emailTemplateDetail(id),
       goToEmailCreate: () => pushRouter('/email-template/create'),
+      fetchMetaActivityBulk,
+      fetchEstablishmentBulk,
+      fetchPaymentPack,
 
       incrementCredit: (consumerPackId) =>
         updateCreditAction(consumerPackId, 1),
@@ -360,7 +364,6 @@ export default compose(
       pushToEdit: (paymentPackId: number) =>
         pushRouter(`/payment-pack/${paymentPackId}/edit`),
       resetConsumerPacks: resetByPaymentPackAction,
-      fetchEstablishments,
       goToSmartlist: () => pushRouter('/smart-list'),
 
       goToConsumerPackDetail: (memberId, passId) =>

@@ -178,7 +178,7 @@ export const metaActivityListActions = {
   success: createAction('META_ACTIVITIES/LIST/SUCCESS'),
 };
 
-export function fetchAllActivities(): ThunkAction {
+export function fetchAllActivities(params: any = {}): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(metaActivityListActions.isLoading(true));
     dispatch(metaActivityListActions.error(null));
@@ -186,6 +186,7 @@ export function fetchAllActivities(): ThunkAction {
     try {
       const response = await fetchAllActivitiesAPI({
         page_size: null,
+        ...params,
       });
       dispatch(metaActivityListActions.success(response.data));
     } catch (err) {

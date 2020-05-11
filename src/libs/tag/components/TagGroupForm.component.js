@@ -130,7 +130,7 @@ const styles = (theme) => ({
     marginTop: theme.spacing(1),
     border: '1px solid #E8E8E8',
     borderRadius: 8,
-    backgroundColor: darken(darken(darken(theme.palette.background.white))),
+    backgroundColor: darken(darken(darken(theme.palette.background.paper))),
   },
   deleteGroupButton: {
     marginTop: theme.spacing(2),

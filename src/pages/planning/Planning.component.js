@@ -186,7 +186,7 @@ export class Planning extends PureComponent<Props, State> {
     if (this.props.offerFilterOpen) {
       this.props.fetchAssociatedCoachesList();
       this.props.fetchEstablishments();
-      this.props.fetchAllActivities();
+      this.props.fetchAllActivities({ customer_enabled: true });
     }
   }
 
@@ -200,7 +200,7 @@ export class Planning extends PureComponent<Props, State> {
     if (this.props.offerFilterOpen && !prevProps.offerFilterOpen) {
       this.props.fetchAssociatedCoachesList();
       this.props.fetchEstablishments();
-      this.props.fetchAllActivities();
+      this.props.fetchAllActivities({ customer_enabled: true });
     }
   }
 
@@ -220,7 +220,6 @@ export class Planning extends PureComponent<Props, State> {
     this.setState({ editModalOpened: true });
     this.props.fetchEstablishments();
     this.props.fetchAssociatedCoachesList();
-    this.props.fetchAllActivities();
   };
 
   openDeleteModal = () => {
@@ -239,7 +238,6 @@ export class Planning extends PureComponent<Props, State> {
     this.setState({ createOfferModalOpened: true });
     this.props.fetchEstablishments();
     this.props.fetchAssociatedCoachesList();
-    this.props.fetchAllActivities();
   };
 
   closeCreateOffersModal = () => {
@@ -437,7 +435,6 @@ export class Planning extends PureComponent<Props, State> {
               fetchSimilarOffers={() => {
                 this.props.fetchEstablishments();
                 this.props.fetchAssociatedCoachesList();
-                this.props.fetchAllActivities();
                 this.props.fetchSimilarOffers(selectedOffer.id);
               }}
               onCancel={this.onCancelModal}

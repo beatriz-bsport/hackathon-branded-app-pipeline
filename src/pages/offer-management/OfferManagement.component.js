@@ -939,7 +939,7 @@ const styles = (theme) => ({
   titleBanner: {
     paddingTop: theme.spacing(1) / 2,
     paddingBottom: theme.spacing(1) / 2,
-    backgroundColor: theme.palette.background.paper.disabled,
+    backgroundColor: theme.palette.background.paper,
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',

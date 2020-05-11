@@ -27,64 +27,57 @@ import { createDictionnaryById, createIdList } from '../../actions/utils';
 
 import type { Dispatch, OptionCallback } from '../../state/types';
 
-export function fetchedAllPaymentPacks(paymentPacks: Array<PaymentPack>) {
-  return { type: types.HAS_FETCHED_ALL_PAYMENT_PACKS, paymentPacks };
-}
-export function startFetchAllPaymentPacks() {
-  return { type: types.START_FETCH_ALL_PAYMENT_PACKS };
-}
-
-export function errorFetchingAllPaymentPacks(error: ?Error) {
-  return { type: types.ERROR_FETCHING_ALL_PAYMENT_PACKS, error };
-}
+export const listAllPaymentPackActions = {
+  isLoading: createAction('PAYMENT_PACK/LIST/IS_LOADING'),
+  error: createAction('PAYMENT_PACK/LIST/ERROR'),
+  success: createAction('PAYMENT_PACK/LIST/SUCCESS'),
+};
 
 export function refreshAllPaymentPack() {
   return async (dispatch: Dispatch) => {
-    dispatch(errorFetchingAllPaymentPacks(null));
+    dispatch(listAllPaymentPackActions.error(null));
     try {
       const response = await fetchAllPaymentPacksAPI();
       const paymentPacks = response.data;
-      dispatch(fetchedAllPaymentPacks(paymentPacks));
+      dispatch(listAllPaymentPackActions.success(paymentPacks));
     } catch (err) {
       console.error(err);
-      dispatch(errorFetchingAllPaymentPacks(err));
+      dispatch(listAllPaymentPackActions.error(err));
     }
+    dispatch(listAllPaymentPackActions.isLoading(false));
   };
 }
 
 export function fetchAllPaymentPacks() {
   return async (dispatch: Dispatch) => {
-    dispatch(startFetchAllPaymentPacks());
+    dispatch(listAllPaymentPackActions.isLoading(true));
     dispatch(refreshAllPaymentPack());
   };
 }
 
+export const updatePaymentPackActions = {
+  isLoading: createAction('PAYMENT_PACK/PATCH/IS_LOADING'),
+  isNotLoading: createAction('PAYMENT_PACK/PATCH/IS_NOT_LOADING'),
+  error: createAction('PAYMENT_PACK/PATCH/ERROR'),
+  success: createAction('PAYMENT_PACK/PATCH/SUCCESS'),
+};
+
 export function patch(id: number, data: [*]) {
   return async (dispatch: Dispatch) => {
-    dispatch(startPatchingPack(id));
+    dispatch(updatePaymentPackActions.isLoading(id));
+    dispatch(updatePaymentPackActions.error(null));
 
     try {
       const response = await patchAPI(id, data);
-      dispatch(patchedPack(response.data));
+      dispatch(updatePaymentPackActions.success(response.data));
       dispatch(snackbarSuccess('paymentPack.paymentPackDisabled.success'));
     } catch (err) {
       console.error(err);
-      dispatch(errorPatchingPack(id));
+      dispatch(updatePaymentPackActions.error(err));
       dispatch(snackbarError('paymentPack.paymentPackDisabled.error'));
     }
+    dispatch(updatePaymentPackActions.isNotLoading(id));
   };
-}
-
-export function startPatchingPack(id: number) {
-  return { type: types.PAYMENT_PACK_PATCH_START, id };
-}
-
-export function patchedPack(paymentPack: PaymentPack) {
-  return { type: types.PAYMENT_PACK_PATCH_SUCCESS, paymentPack };
-}
-
-export function errorPatchingPack(id: number) {
-  return { type: types.PAYMENT_PACK_PATCH_ERROR, id };
 }
 
 export const fetchOneAction = {

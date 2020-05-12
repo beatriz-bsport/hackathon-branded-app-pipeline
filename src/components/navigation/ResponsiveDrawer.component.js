@@ -198,6 +198,9 @@ class ResponsiveDrawer extends React.Component<Props, State> {
           button
           onClick={() => {
             this.handleDrawerToggle();
+            if (item.action) {
+              item.action();
+            }
           }}
           selected={isActive}
           className={isNested ? classes.nestedItem : null}
@@ -600,7 +603,8 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         text: t('navigation.settings'),
       },
       {
-        to: '/login/signout',
+        action: this.props.disconnect,
+        to: '#',
         icon: HighlightOff,
         text: t('navigation.logoff'),
       },

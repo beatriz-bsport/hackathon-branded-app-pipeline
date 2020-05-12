@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { push } from 'react-router-redux';
 import Intercom from 'react-intercom';
-import { compose } from 'recompose';
+import { compose, withHandlers } from 'recompose';
 
 import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import { Context } from '../context';
@@ -273,7 +273,8 @@ export default compose(
     {
       fetchCompanyTheme,
       fetchAccessLevel,
-      disconnect: () => push('/login/signout'),
+      signout: (companyId) =>
+        push(`/login/signout${companyId ? `?membership=${companyId}` : ''}`),
       refreshIfNeeded: refreshActions.refreshIfNeeded,
       refresh: refreshActions.forceRefresh,
 
@@ -288,4 +289,9 @@ export default compose(
       openCreateMember: () => push('/member/add'),
     },
   ),
+  withHandlers({
+    disconnect: ({ signout, theme }) => () => {
+      signout(theme.company);
+    },
+  }),
 )(themedBackoffice);

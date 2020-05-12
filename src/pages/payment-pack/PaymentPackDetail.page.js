@@ -184,7 +184,7 @@ export class PaymentPackDetail extends Component<Props, State> {
       notifications,
     } = this.props;
 
-    if (loading) {
+    if (loading || !this.props.pack) {
       return <LinearProgress />;
     }
 
@@ -313,7 +313,7 @@ const styles = (theme) => ({
 function mapStateToProps(state, { id }) {
   return {
     loading: state.paymentPack.loading || state.establishment.loading,
-    pack: withSCT(paymentPackSelector.get)(state, id),
+    pack: paymentPackSelector.getWithSCT(state, id),
     notifications: {
       items: paymentPackSelector.getPaymentPackNotifications(state, id),
       loading: state.paymentPack.notification.loading,

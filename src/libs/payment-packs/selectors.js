@@ -17,8 +17,22 @@ export const getAll = createSelector(
   (paymentPacks, idList) => idList.map((id) => paymentPacks[id]),
 );
 
-const get = (state: State, id: number) =>
-  getAll(state).find((pack) => pack.id === id);
+const get = (state: State, id: number) => {
+  state.paymentPack.byId[id];
+};
+
+export const getWithSCT = (state: State, id: number) => {
+  const pack = state.paymentPack.byId[id];
+  if (pack) {
+    return {
+      ...pack,
+      categories: getSCTs(state).filter((sct) =>
+        (pack.categories || []).includes(sct.id),
+      ),
+    };
+  }
+  return pack;
+};
 
 export const getOne = (state: State, id: number) => state.paymentPack.byId[id];
 
@@ -29,15 +43,20 @@ export const withSCT = memoize((selector) =>
       if (Array.isArray(paymentPacks)) {
         return paymentPacks.map((pp) => ({
           ...pp,
-          categories: SCTs.filter((sct) => pp.categories.includes(sct.id)),
+          categories: SCTs.filter((sct) =>
+            (pp.categories || []).includes(sct.id),
+          ),
         }));
       }
-      return {
-        ...paymentPacks,
-        categories: SCTs.filter((sct) =>
-          paymentPacks.categories.includes(sct.id),
-        ),
-      };
+      if (paymentPacks) {
+        return {
+          ...paymentPacks,
+          categories: SCTs.filter((sct) =>
+            (paymentPacks.categories || []).includes(sct.id),
+          ),
+        };
+      }
+      return paymentPacks;
     },
   ),
 );
@@ -89,6 +108,7 @@ export const getPaymentPackForBooking = createSelector(
 
 export default {
   get,
+  getWithSCT,
   getAll,
   getEnabled,
   getActivityCompatiblePaymentPacks,

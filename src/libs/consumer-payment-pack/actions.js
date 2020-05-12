@@ -4,7 +4,7 @@ import { createAction } from 'redux-actions';
 
 import paymentPackAPI from '../payment-packs/api';
 import type { Dispatch, OptionCallback } from '../../state/types';
-import { snackbarSuccess } from '../../actions/snackbar.actions';
+import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
 import {
   fetchByOfferByMember as fetchByOfferByMemberAPI,
@@ -150,7 +150,7 @@ export function updateCredit(consumerPackId: number, nbCredit: number) {
       }
     } catch (err) {
       dispatch(updateConsumerPack.error(err));
-      dispatch(snackbarSuccess('paymentPack.credit.error'));
+      dispatch(snackbarError('paymentPack.credit.error'));
     }
     dispatch(
       updateConsumerPack.isLoading({ id: consumerPackId, loading: false }),

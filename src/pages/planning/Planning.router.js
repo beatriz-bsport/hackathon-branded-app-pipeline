@@ -16,6 +16,7 @@ import {
   withCoach,
   withEstablishment,
 } from '../../libs/offer/selectors';
+import { fetchMetaActivityBulk } from '../../libs/meta-activity/actions';
 import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
 
@@ -61,6 +62,7 @@ const PlanningWithDateAndOffer = compose(
 
     {
       fetchOffersByDay: fetchOffersByDayAction,
+      fetchMetaActivityBulk,
       pushRouter: push,
       replaceRouter: replace,
       fetchCoachBulk: fetchCoachBulkAction,
@@ -74,9 +76,11 @@ const PlanningWithDateAndOffer = compose(
       fetchCoachBulk,
       fetchEstablishmentBulk,
       fetchOffersByDay,
+      fetchMetaActivityBulk,
     }) => (...params) => {
       fetchOffersByDay(...params, {
         onSuccess: (offers) => {
+          fetchMetaActivityBulk(offers.map((o) => o.meta_activity));
           fetchCoachBulk([
             ...offers.map((o) => o.coach),
             ...offers.map((o) => o.coach_override),
@@ -98,6 +102,7 @@ const PlanningWithDateAndOffer = compose(
     const selectedOffer = offerId
       ? offers.find((offer) => offer.id === offerId)
       : null;
+    console.log(selectedOffer);
     return {
       date: date.format('YYYY-MM-DD'),
       selectedOffer,

@@ -10,7 +10,7 @@ exports.default = {
   overrider: 'Remplaçant',
   overrideSelectorTitle: 'Professeur',
   coach_override: 'Professeur de remplacement',
-  color: 'Code couleur (cours privé)',
+  color: 'Code couleur (RDV)',
   showPerformance: 'Rémunérer',
   showActivities: 'Afficher les activités',
   showDescription: 'Afficher la description',

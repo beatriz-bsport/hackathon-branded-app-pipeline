@@ -34,6 +34,7 @@ import {
   deletePackExtension,
   createPackExtension,
 } from '../../libs/consumer-payment-pack/actions';
+import { fetchPaymentPackBulk } from '../../libs/payment-packs/actions';
 import { fetchSpecificInvoice } from '../../actions/invoice.actions';
 
 import paymentPackSelectors from '../../libs/payment-packs/selectors';
@@ -42,6 +43,7 @@ import {
   getConsumerPaymentPackExtensions,
   getConsumerPack,
   getConsumerPaymentPackByMember,
+  withPaymentPack,
 } from '../../libs/consumer-payment-pack/selectors';
 import { getConsumerPackBookingListWithConsumerPack } from '../../libs/booking/selectors';
 
@@ -199,7 +201,12 @@ export class MemberDetailPass extends Component<Props, State> {
               nbItems={this.props.consumerPackCount}
               page={this.props.consumerPackCurrentPage}
               onPageRequested={(page, pageSize) =>
-                this.props.fetchConsumerPacks(this.props.id, page, pageSize)
+                this.props.fetchConsumerPacks(this.props.id, page, pageSize, {
+                  onSuccess: (cppList) =>
+                    this.props.fetchPaymentPackBulk(
+                      cppList.map((cpp) => cpp.payment_pack),
+                    ),
+                })
               }
               renderItem={(cpp) => (
                 <ConsumerPackRowItem
@@ -210,9 +217,7 @@ export class MemberDetailPass extends Component<Props, State> {
                     this.props.selectedConsumerPass.id === cpp.id
                   }
                   consumerPack={cpp}
-                  paymentPack={this.props.getPaymentPack(
-                    parseInt(cpp.payment_pack_id, 10),
-                  )}
+                  paymentPack={cpp.payment_pack}
                   incrementCredit={() => this.props.incrementCredit(cpp.id)}
                   decrementCredit={() => this.props.decrementCredit(cpp.id)}
                   onClick={() =>
@@ -352,7 +357,7 @@ export default compose(
   connect(
     (state, { id, consumerPassId }) => ({
       member: memberSelectors.get(state, id),
-      consumerPacks: getConsumerPaymentPackByMember(state, id),
+      consumerPacks: withPaymentPack(getConsumerPaymentPackByMember)(state, id),
       consumerPackCount: state.consumerPaymentPack.byMember.count,
       consumerPackCurrentPage: state.consumerPaymentPack.byMember.page,
       selectedConsumerPass: getConsumerPack(state, consumerPassId),
@@ -380,6 +385,7 @@ export default compose(
       createExtension: createPackExtension,
       deleteExtension: deletePackExtension,
       refreshConsumerPack: (id) => retrieveConsumerPackBulk([id]),
+      fetchPaymentPackBulk,
 
       discardBookingAttendance,
       confirmBookingAttendance,
@@ -391,8 +397,13 @@ export default compose(
       fetchInvoice: (uuid: string) => fetchSpecificInvoice(uuid),
 
       retrieveConsumerPackBulk,
-      fetchConsumerPacks: (memberId: number, page: number, page_size: number) =>
-        fetchConsumerPackByMemberAction(memberId, page, page_size),
+      fetchConsumerPacks: (
+        memberId: number,
+        page: number,
+        page_size: number,
+        options,
+      ) =>
+        fetchConsumerPackByMemberAction(memberId, page, page_size, {}, options),
       resetConsumerPackByMemberAction,
     },
   ),

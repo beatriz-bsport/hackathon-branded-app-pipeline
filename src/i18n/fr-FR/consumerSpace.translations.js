@@ -18,11 +18,11 @@ exports.default = {
   },
   pack: {
     titlePaymentPack: 'Cours collectif',
-    titlePrivatePack: 'Cours privé',
+    titlePrivatePack: 'Rendez-vous',
   },
   booking: {
     titleBooking: 'Cours collectif',
-    titlePrivateBooking: 'Cours privé',
+    titlePrivateBooking: 'Rendez-vous',
     showCalendar: 'Voir le calendrier',
     discard: 'Annuler',
     bookAgain: 'Réserver de nouveau',

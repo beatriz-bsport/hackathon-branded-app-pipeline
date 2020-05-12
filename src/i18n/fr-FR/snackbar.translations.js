@@ -230,4 +230,10 @@ exports.default = {
     success: "Mail en cours d'envoi",
     error: "Problème lors de l'envoi du mail",
   },
+  privateConsumerPass: {
+    creditUpdate: {
+      success: 'Crédits mis à jour',
+      error: "Impossible d'enregistrer le crédit",
+    },
+  },
 };

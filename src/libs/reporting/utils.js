@@ -81,7 +81,7 @@ export const CATEGORIES: ReportCategory[] = [
   },
   {
     id: 'private_bookings',
-    name: 'Reservations (cours privé)',
+    name: 'Reservations (rendez-vous)',
     icon: EventAvailableIcon,
   },
   {

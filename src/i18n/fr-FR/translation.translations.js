@@ -499,7 +499,7 @@ exports.default = {
         "La suppression est définitive, si vous prenez de nouveau une option sur cette séance votre place sur la liste d'attente sera réinitialisée.",
     },
     booking: {
-      myPrivateBooking: 'Séances privées',
+      myPrivateBooking: 'Rendez-vous',
       cancelBooking: 'Annuler la réservation',
       discardBookingTitle: 'Annuler la réservation',
       discardPossibleExplain:

@@ -3,6 +3,7 @@
 import { createAction } from 'redux-actions';
 
 import moment from 'moment';
+import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
 import {
   // availability-slot
@@ -1211,10 +1212,12 @@ export function updatePrivateConsumerPassCredits(
       const response = await updatePrivateConsumerPassCreditsAPI(id, credits);
       dispatch(privateConsumerPassUpdateCreditActions.success(response.data));
       if (options && options.onSuccess) options.onSuccess();
+      dispatch(snackbarSuccess('privateConsumerPass.creditUpdate.success'));
     } catch (err) {
       console.error(err);
       dispatch(privateConsumerPassUpdateCreditActions.error(null));
       if (options && options.onError) options.onError();
+      dispatch(snackbarError('privateConsumerPass.creditUpdate.error'));
     }
     dispatch(privateConsumerPassUpdateCreditActions.isLoading(false));
   };

@@ -1746,7 +1746,8 @@
         },
         "bookingConfirmed": "Booking confirmed",
         "activityUpdated": "Activity modified",
-        "activityCreated": "Activity created"
+        "activityCreated": "Activity created",
+        "openSchedule": "Show schedule"
     },
     "search": {
         "input": "Search...",
@@ -2613,7 +2614,8 @@
                 "explain": "Are you sure you want to unsubscribe this teacher ? We will not be able to make this kind of appointments. Saved appointments will not be modified.",
                 "title": "Unsubscribe the teacher"
             }
-        }
+        },
+        "openCalendar": "Show calendar"
     },
     "relationship": {
         "member": {
@@ -3150,7 +3152,15 @@
             "signup": "No account yet ?",
             "signin": "Sign-in"
         },
-        "or": " or "
+        "or": " or ",
+        "contactUs": "As a studio / club manager you want to discover our platform ? Contact us.",
+        "signup": {
+            "title": "Signup"
+        },
+        "doubleLogin": {
+            "disconnect": "Login again",
+            "explain": "Your session has expired. Have you signed in to two different accounts simultaneously, or have signed out from another tab / window?"
+        }
     },
     "waitingList": {
         "switchToEnable": "Switch waiting-list on",
@@ -5345,5 +5355,235 @@
         "fixedPriceForAdditionalBookingHelper": "Flat amount per each session with enough bookings",
         "fixedPriceForAdditionalBookingLabel": "Flat per session",
         "checkboxIncludeABonus": "Include a performance bonus"
+    },
+    "snackbar": {
+        "communication": {
+            "error": "Error while sending mail",
+            "success": "Mail being sent"
+        },
+        "order": {
+            "success": "Your payment has been successfully registered"
+        },
+        "booking": {
+            "register": {
+                "success": "Booking saved"
+            }
+        },
+        "login": {
+            "passwordChangedSuccess": "Password successfully modified!"
+        },
+        "webhook": {
+            "testError": "Please verify url",
+            "testSuccess": "Correct Url",
+            "error": "Impossible to subscribe the webhook",
+            "success": "Webhook subscribed"
+        },
+        "subscription": {
+            "youSubscribed": {
+                "success": "You have successfully subscribed",
+                "error": "Error while subscribing"
+            },
+            "updatePrice": {
+                "error": "Impossible to update this amount",
+                "success": "Amount updated"
+            },
+            "freeze": {
+                "error": "Impossible to pause this subscription",
+                "alreadyPaused": "Impossible to pause a subscription already paused",
+                "success": "Subscription freezed"
+            }
+        },
+        "smartlist": {
+            "delete": {
+                "error": "Unable to delete smartlist",
+                "success": "Smartlist deleted"
+            },
+            "update": {
+                "error": "Unable to save smartlist",
+                "success": "Smartlist successfully updated"
+            },
+            "create": {
+                "error": "Unable to save smartlist",
+                "success": "Smartlist successfully created"
+            }
+        },
+        "shop": {
+            "item": {
+                "delete": {
+                    "error": "Error while deleting",
+                    "success": "Item deleted"
+                },
+                "createOrUpdate": {
+                    "error": "Error while saving",
+                    "success": "Saved"
+                },
+                "updateProvisions": {
+                    "error": "Error while saving provision",
+                    "success": "Provision updated"
+                }
+            },
+            "subShop": {
+                "delete": {
+                    "error": "Impossible to delete the category",
+                    "success": "Category deleted"
+                },
+                "createOrUpdate": {
+                    "error": "Impossible to save the category",
+                    "success": "Category successfully saved"
+                }
+            }
+        },
+        "role": {
+            "error": {
+                "errorEmail": "This email is already used for a teacher or member account",
+                "generic": "Cannot change this permission"
+            },
+            "update": {
+                "success": "Modified permissions"
+            }
+        },
+        "notificationRule": {
+            "createOrUpdate": {
+                "error": "Impossible to save",
+                "success": "Successfully saved"
+            }
+        },
+        "activity": {
+            "update": {
+                "error": "Impossible to update activity",
+                "success": "Activity updated"
+            },
+            "create": {
+                "error": "Impossible to save activity",
+                "success": "Activity saved"
+            }
+        },
+        "member": {
+            "link": {
+                "success": "Member linked"
+            }
+        },
+        "establishment": {
+            "update": {
+                "success": "Establishment details updated"
+            },
+            "create": {
+                "success": "Establishment successfully created"
+            },
+            "error": "Unable to save establishment",
+            "delete": {
+                "error": "Impossible to delete this establishment",
+                "success": "Establishment deleted"
+            }
+        },
+        "email": {
+            "delete": {
+                "error": "Unable to delete email",
+                "success": "Email deleted"
+            },
+            "update": {
+                "error": "Unable to edit email",
+                "success": "Email modified"
+            },
+            "create": {
+                "error": "Unable to save email",
+                "success": "Email created"
+            }
+        },
+        "coupon": {
+            "attachToBasket": {
+                "error": "No compatible coupon found"
+            },
+            "create": {
+                "success": "Registered promotional code",
+                "error": "Impossible to create this coupon"
+            },
+            "update": {
+                "success": "Promotional code changed",
+                "error": "Impossible to edit this coupon"
+            },
+            "delete": {
+                "success": "Promotional code deleted",
+                "error": "Impossible to delete this coupon"
+            }
+        },
+        "paymentPack": {
+            "createOrUpdate": {
+                "fail": "Error while saving pass",
+                "success": "Pass successfully saved"
+            },
+            "credit": {
+                "error": "Error while saving",
+                "updated": "Credits updated"
+            }
+        },
+        "paymentRules": {
+            "delete": {
+                "success": "Rule deleted",
+                "error": "Error wile deleting"
+            },
+            "create": {
+                "success": "Rule added",
+                "error": "Error during creation"
+            },
+            "update": {
+                "error": "Error during update",
+                "success": "Default rule changed"
+            }
+        },
+        "relationship": {
+            "consumer_payment_pack_links": {
+                "relink": {
+                    "error": "Impossible to share this pass",
+                    "success": "Pass shared"
+                },
+                "unlink": {
+                    "error": "Impossible to delete this sharing",
+                    "success": "Sharing stopped"
+                },
+                "create": {
+                    "error": "Impossible to share this pass",
+                    "success": "Pass shared"
+                }
+            },
+            "createOrUpdate": {
+                "error": "Impossible to save relationship"
+            },
+            "create": {
+                "success": "Relationship saved"
+            },
+            "edit": {
+                "success": "Relationship modified"
+            }
+        },
+        "coach": {
+            "delete": {
+                "error": "Unable to delete professor",
+                "success": "Teacher deleted"
+            },
+            "update": {
+                "success": "Teacher successfully updated"
+            },
+            "create": {
+                "success": "Teacher successfully created"
+            },
+            "error_email_exists": "A teacher with this email already exists, use the teacher creation form",
+            "error": "Unable to save teacher",
+            "linkByEmail": {
+                "success": "Teacher successfully linked"
+            }
+        },
+        "link": {
+            "copied": "Link copied to clipboard"
+        },
+        "invoice": {
+            "error": "Error while saving - Cancelled",
+            "create": {
+                "success": "Invoice saved"
+            },
+            "update": {
+                "success": "Invoice updated"
+            }
+        }
     }
 }

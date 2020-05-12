@@ -86,7 +86,7 @@ const privateBookingAsEvent = (resourceDatatypeView) => (pb) => {
   return {
     start: pb.date_start,
     end: pb.date_end,
-    title: pb.name,
+    title: `${pb.name} ${(pb.member ? pb.member.name : '') || ''}`,
     editable: false,
     extendedProps: {
       private_booking: pb.id,

@@ -318,6 +318,16 @@ export const retrievePrivateConsumerPass = (private_consumer_pass: number) => {
   );
 };
 
+export const updatePrivateConsumerPassCredits = (
+  id: number,
+  credits?: number,
+) => {
+  return postAuth(
+    `${API_V1_URI}/private_service/private_consumer_pass/${id}/update_credit/`,
+    { credits },
+  );
+};
+
 export const fetchCompatiblePrivatePass = (
   privateSlotId: number,
   params: any,

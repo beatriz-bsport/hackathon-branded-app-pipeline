@@ -6,9 +6,13 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { withStyles } from '@material-ui/core/styles';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import { compose } from 'recompose';
+import { compose, withState } from 'recompose';
 import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import moment from 'moment';
+import ExposureNeg1Icon from '@material-ui/icons/ExposureNeg1';
+import ExposurePlus1Icon from '@material-ui/icons/ExposurePlus1';
 
 import RedButton from '../../../../components/button/RedButton.component';
 import type { PrivateConsumerPass } from '../../types';
@@ -22,6 +26,7 @@ type Props = {
   classes: Object,
   selected?: boolean,
   divider?: boolean,
+  onUpdateCredit?: (id: number, credits: 1, options: OptionCallback) => void,
 };
 
 export const PrivateConsumerPassBookerListItem = (props: Props) => {
@@ -60,6 +65,37 @@ export const PrivateConsumerPassBookerListItem = (props: Props) => {
           </div>
         }
       />
+      {!!props.creditProcessing && <CircularProgress />}
+      {!!props.onUpdateCredit && !props.creditProcessing && (
+        <IconButton
+          color="secondary"
+          onClick={(ev) => {
+            ev.stopPropagation();
+            props.setCreditProcessing(true);
+            props.onUpdateCredit(private_consumer_pass.id, -1, {
+              onSuccess: () => props.setCreditProcessing(false),
+              onError: () => props.setCreditProcessing(false),
+            });
+          }}
+        >
+          <ExposureNeg1Icon />
+        </IconButton>
+      )}
+      {!!props.onUpdateCredit && !props.creditProcessing && (
+        <IconButton
+          color="primary"
+          onClick={(ev) => {
+            ev.stopPropagation();
+            props.setCreditProcessing(true);
+            props.onUpdateCredit(private_consumer_pass.id, 1, {
+              onSuccess: () => props.setCreditProcessing(false),
+              onError: () => props.setCreditProcessing(false),
+            });
+          }}
+        >
+          <ExposurePlus1Icon />
+        </IconButton>
+      )}
       {props.onBook && !private_consumer_pass.reverted ? (
         <Button color="primary" variant="outlined" onClick={props.onBook}>
           {t('bookerModule.useCredit')}
@@ -84,4 +120,5 @@ const styles = () => ({
 export default compose(
   withStyles(styles),
   withNamespaces(['privateService']),
+  withState('creditProcessing', 'setCreditProcessing', false),
 )(PrivateConsumerPassBookerListItem);

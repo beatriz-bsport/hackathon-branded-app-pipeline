@@ -28,6 +28,7 @@ import {
   privatePassRetrieveActions,
   privateConsumerPassListActions,
   privateConsumerPassRetrieveActions,
+  privateConsumerPassUpdateCreditActions,
   updateResourceConfigurationActions,
   serviceGroupListActions,
   serviceGroupCreateOrUpdateActions,
@@ -52,6 +53,10 @@ const initialState: PrivateServiceState = Immutable({
     allIds: [],
     loading: false,
     error: null,
+    update: {
+      loading: false,
+      error: null,
+    },
   },
   privateServiceResource: {
     byId: {},
@@ -592,6 +597,18 @@ export default handleActions(
       return state.setIn(['privateConsumerPass', 'error'], payload);
     },
     [privateConsumerPassRetrieveActions.success]: (state, { payload }) => {
+      return state.setIn(['privateConsumerPass', 'byId', payload.id], payload);
+    },
+    [privateConsumerPassUpdateCreditActions.isLoading]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['privateConsumerPass', 'update', 'loading'], payload);
+    },
+    [privateConsumerPassUpdateCreditActions.error]: (state, { payload }) => {
+      return state.setIn(['privateConsumerPass', 'update', 'error'], payload);
+    },
+    [privateConsumerPassUpdateCreditActions.success]: (state, { payload }) => {
       return state.setIn(['privateConsumerPass', 'byId', payload.id], payload);
     },
   },

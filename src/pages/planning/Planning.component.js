@@ -9,6 +9,7 @@ import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import withWidth, { isWidthUp, isWidthDown } from '@material-ui/core/withWidth';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Fab from '@material-ui/core/Fab';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -582,6 +583,18 @@ export class Planning extends PureComponent<Props, State> {
         {isWidthUp('lg', width) || !selectedOffer ? (
           <Grid item xs={12} lg={6}>
             <div className={classes.panel}>
+              {!this.props.permission.navigation &&
+                !!this.props.permission.calendar && (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    style={{ width: '100%', margin: 8 }}
+                    onClick={this.props.pushToSchedule}
+                  >
+                    {this.props.t('openSchedule')}
+                    <ArrowForwardIcon style={{ marginLeft: 8 }} />
+                  </Button>
+                )}
               <Paper style={{ width: '100%' }}>
                 <Calendar
                   showDownloader
@@ -672,6 +685,7 @@ export default compose(
     }),
     {
       goBack: goBackRouter,
+      pushToSchedule: () => pushRouter('/schedule'),
       snackbarSuccess,
       goToOfferManagement: (offerId) => pushRouter(`/offer/${offerId}`),
       fetchAllOffers: fetchAllOffersAction,

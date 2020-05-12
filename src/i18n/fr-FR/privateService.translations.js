@@ -369,6 +369,7 @@ exports.default = {
       },
     },
   },
+  openCalendar: 'Voir le calendrier',
   service: {
     selector: {
       placeholder: 'Sélectionnez un rendez-vous',

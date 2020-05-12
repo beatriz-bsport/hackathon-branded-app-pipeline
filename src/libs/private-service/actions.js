@@ -46,6 +46,7 @@ import {
   fetchCompatiblePrivateConsumerPass as fetchCompatiblePrivateConsumerPassAPI,
   fetchCompatiblePrivatePass as fetchCompatiblePrivatePassAPI,
   retrievePrivateConsumerPass as retrievePrivateConsumerPassAPI,
+  updatePrivateConsumerPassCredits as updatePrivateConsumerPassCreditsAPI,
   fetchPrivateConsumerPassList as fetchPrivateConsumerPassListAPI,
   // private-booking
   fetchPrivateBookingPreview as fetchPrivateBookingPreviewAPI,
@@ -1189,6 +1190,33 @@ export function fetchPrivateConsumerPass(
       if (options && options.onError) options.onError();
     }
     dispatch(privateConsumerPassRetrieveActions.isLoading(false));
+  };
+}
+
+export const privateConsumerPassUpdateCreditActions = {
+  error: createAction('PRIVATE_CONSUMER_PASS/UPDATE_CREDIT/ERROR'),
+  isLoading: createAction('PRIVATE_CONSUMER_PASS/UPDATE_CREDIT/IS_LOADING'),
+  success: createAction('PRIVATE_CONSUMER_PASS/UPDATE_CREDIT/SUCCESS'),
+};
+
+export function updatePrivateConsumerPassCredits(
+  id: number,
+  credits: number,
+  options: ?{ onSuccess: () => void, onError: ?() => void },
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(privateConsumerPassUpdateCreditActions.isLoading(true));
+    dispatch(privateConsumerPassUpdateCreditActions.error(null));
+    try {
+      const response = await updatePrivateConsumerPassCreditsAPI(id, credits);
+      dispatch(privateConsumerPassUpdateCreditActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      console.error(err);
+      dispatch(privateConsumerPassUpdateCreditActions.error(null));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(privateConsumerPassUpdateCreditActions.isLoading(false));
   };
 }
 

@@ -6,6 +6,8 @@ import moment from 'moment';
 import { withNamespaces } from 'react-i18next';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
+import Button from '@material-ui/core/Button';
+import { push } from 'react-router-redux';
 
 import {
   getPrivateBookingListFiltered,
@@ -20,6 +22,7 @@ import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../libs/me
 import { getOfferAsEventList, withMetaActivity } from '../libs/offer/selectors';
 import { fetchFilteredMembers as fetchMemberBulk } from '../libs/member/actions';
 import { fetchAssociatedCoachesList } from '../libs/associated-coach/actions';
+import { getPermissions } from '../libs/role/selectors';
 
 import PrivateCalendarWithControls from '../libs/private-service/components/PrivateCalendarWithControls.component';
 
@@ -77,6 +80,11 @@ export class CoachPrivateCalendar extends React.Component<Props> {
       <div className={classes.container}>
         <PrivateCalendarWithControls
           availabilitySlots={[]}
+          goToCalendar={
+            !this.props.permission.navigation && this.props.permission.calendar
+              ? this.props.pushToCalendar
+              : null
+          }
           resourcesByDatatype={this.props.resourcesByDatatype}
           privateBookings={this.props.privateBookingList}
           disableAvailabilitySlotDisplay
@@ -107,6 +115,7 @@ export default compose(
   }),
   connect(
     (state, { periodFilter }) => ({
+      permission: getPermissions(state),
       resourcesByDatatype: [
         {
           datatype: 'establishment',
@@ -139,6 +148,7 @@ export default compose(
       resetPrivateBookings,
       fetchMetaActivityBulk: fetchMetaActivityBulkAction,
       fetchMemberBulk,
+      pushToCalendar: () => push('/calendar'),
     },
   ),
   withHandlers({

@@ -3,6 +3,7 @@ exports.default = {
   activityUpdated: 'Activité modifiée',
   bookingConfirmed: 'Réservation confirmée',
   button: { login: 'Connexion' },
+  openSchedule: "Voir l'emploi du temps",
 
   private_service: 'Sur rendez-vous',
   report: {

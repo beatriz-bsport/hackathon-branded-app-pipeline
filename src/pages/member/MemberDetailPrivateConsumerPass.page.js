@@ -17,6 +17,7 @@ import {
   fetchPrivateConsumerPassList,
   fetchPrivateBookings,
   fetchPrivateConsumerPass,
+  updatePrivateConsumerPassCredits,
 } from '../../libs/private-service/actions';
 import { getPrivateConsumerPassList } from '../../libs/private-service/selectors/private-consumer-pass';
 import { getPrivateBookingListBase } from '../../libs/private-service/selectors/private-booking';
@@ -106,6 +107,7 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
                   selected={this.props.privateConsumerPassId === pcp.id}
                   key={pcp.id}
                   private_consumer_pass={pcp}
+                  onUpdateCredit={this.props.updatePrivateConsumerPassCredits}
                   onClick={() =>
                     this.props.goToPrivateConsumerPass(this.props.id, pcp.id)
                   }
@@ -156,6 +158,7 @@ export default compose(
       fetchPrivateBookings,
       fetchInvoiceByInvoiceItem,
       fetchPrivateConsumerPass,
+      updatePrivateConsumerPassCredits,
       deletePrivateBooking: deletePrivateBookingAction,
       disablePrivateBooking: disablePrivateBookingAction,
       fetchMember,

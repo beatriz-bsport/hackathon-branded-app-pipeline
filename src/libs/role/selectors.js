@@ -41,6 +41,8 @@ const defaultPermissions: Permissions = {
   },
   search: true,
   navigation: true,
+  calendar: true,
+  schedule: true,
 };
 const OWNER_PERMISSION = {
   ...defaultPermissions,

@@ -6,11 +6,13 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import { compose, withStateHandlers } from 'recompose';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
 
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Checkbox from '@material-ui/core/Checkbox';
 
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import PrivateCalendar from './PrivateCalendar.component';
 import ResourceSelector from './resource/ResourceSelector.component';
 import ResourceDatatypeFilter from './resource/ResourceDatatypeFilter.component';
@@ -115,6 +117,17 @@ export const PrivateCalendarMultiResource = (props: Props) => (
         />
       )}
     </Paper>
+    {!!props.goToCalendar && (
+      <Button
+        variant="contained"
+        color="primary"
+        style={{ width: '100%', margin: 8 }}
+        onClick={props.goToCalendar}
+      >
+        {props.t('openCalendar')}
+        <ArrowForwardIcon style={{ marginLeft: 8 }} />
+      </Button>
+    )}
     <div className={props.classes.content}>
       <PrivateCalendar
         disableResourceAvailabilitySlot={props.disableResourceAvailabilitySlot}

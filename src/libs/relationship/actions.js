@@ -31,21 +31,17 @@ export function createOrUpdateRelation(
       if (relationData.id) {
         const response = await updateRelationAPI(relationData.id, relationData);
         dispatch(memberRelationCreateOrUpdateActions.success(response.data));
-        dispatch(snackbarSuccess('relationship:member.messages.edit.success'));
+        dispatch(snackbarSuccess('relationship.edit.success'));
       } else {
         const response = await createRelationAPI(relationData);
         dispatch(memberRelationCreateOrUpdateActions.success(response.data));
-        dispatch(
-          snackbarSuccess('relationship:member.messages.create.success'),
-        );
+        dispatch(snackbarSuccess('relationship.create.success'));
       }
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
       console.error(err);
       dispatch(memberRelationCreateOrUpdateActions.error(err));
-      dispatch(
-        snackbarError('relationship:member.messages.createOrUpdate.error'),
-      );
+      dispatch(snackbarError('relationship.createOrUpdate.error'));
       if (options && options.onError) options.onError();
     }
     dispatch(memberRelationCreateOrUpdateActions.isLoading(false));
@@ -132,9 +128,7 @@ export function linkToMemberRelation(
     } catch (error) {
       dispatch(sharedConsumerPackCreateOrUpdateActions.error(error));
       dispatch(
-        snackbarError(
-          'relationship.consumer_payment_pack_links.create.error',
-        ),
+        snackbarError('relationship.consumer_payment_pack_links.create.error'),
       );
       if (options && options.onError) options.onError();
     }
@@ -159,9 +153,7 @@ export function unlinkConsumerPaymentPackLink(
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
       dispatch(
-        snackbarError(
-          'relationship.consumer_payment_pack_links.unlink.error',
-        ),
+        snackbarError('relationship.consumer_payment_pack_links.unlink.error'),
       );
       if (options && options.onSuccess) options.onSuccess();
     }
@@ -185,9 +177,7 @@ export function relinkConsumerPaymentPackLink(
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
       dispatch(
-        snackbarError(
-          'relationship.consumer_payment_pack_links.relink.error',
-        ),
+        snackbarError('relationship.consumer_payment_pack_links.relink.error'),
       );
       if (options && options.onSuccess) options.onSuccess();
     }

@@ -216,10 +216,12 @@ export default compose(
       fetchMetaActivityBulk: fetchMetaActivityBulkAction,
       fetchCoachBulk: fetchCoachBulkAction,
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
-      disconnect: () => pushRouter('/login/signout'),
     },
   ),
   withHandlers({
+    disconnect: ({ companyId, push }) => () => {
+      push(`/login/signout?membership=${companyId}`);
+    },
     fetchOfferBulk: ({
       fetchOfferBulk,
       fetchCoachBulk,

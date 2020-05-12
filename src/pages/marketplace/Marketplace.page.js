@@ -136,7 +136,10 @@ export class MarketPlace extends Component<Props, State> {
   }
 
   componentDidUpdate(prevProps: Props) {
-    if (this.props.companyId !== prevProps.companyId) {
+    if (
+      this.props.companyId !== prevProps.companyId ||
+      this.props.auth.authenticated !== prevProps.auth.authenticated
+    ) {
       this.fetchData();
     }
   }
@@ -284,6 +287,7 @@ export class MarketPlace extends Component<Props, State> {
             requestSignUp={() => this.toogleSignUp(true)}
             requestLogin={() => this.toogleLogin(true)}
             disconnect={() => {
+              // this.props.push('/login/signout?membership='+this.props.companyId)
               this.props.disconnect();
             }}
           />

@@ -98,12 +98,20 @@ export const withPaymentPack = memoize((selector: (State) => any) =>
       if (!Array.isArray(consumerPaymentPacks)) {
         return {
           ...consumerPaymentPacks,
-          payment_pack: paymentPackData[consumerPaymentPacks.payment_pack],
+          payment_pack:
+            paymentPackData[
+              consumerPaymentPacks.payment_pack
+                ? consumerPaymentPacks.payment_pack
+                : consumerPaymentPacks.payment_pack_id
+            ],
         };
       }
       return consumerPaymentPacks.map((cpp) => ({
         ...cpp,
-        payment_pack: paymentPackData[cpp.payment_pack],
+        payment_pack:
+          paymentPackData[
+            cpp.payment_pack ? cpp.payment_pack : cpp.payment_pack_id
+          ],
       }));
     },
   ),

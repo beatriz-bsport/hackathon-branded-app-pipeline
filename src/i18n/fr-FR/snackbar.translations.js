@@ -126,6 +126,31 @@ exports.default = {
     link: {
       success: 'Compte lié avec succès',
     },
+    merge: {
+      success: 'Membres fusionnés',
+      seeMemberPage: ' Voir la page du membre',
+
+      error: 'Impossible de fusionner les membres',
+
+      srcMember: 'Membre à fusionner (supprimé)',
+      dstMember: 'Membre à conserver',
+      title: 'Fusion membre',
+      explainCredit: "L'accompte interne du membre sera transféré",
+      explainBookingsAndPassAndInvoiceAndNotes:
+        'Les cartes de cours, réservations, factures et notes seront transférés.',
+      explainTags: 'Les tags du membre supprimés ne seront pas transférés',
+      cancel: 'Annuler',
+      submit: 'Fusionner',
+    },
+    error: 'Impossible de sauvegarder le membre',
+    create: {
+      title: 'Nouveau membre',
+      success: 'Membre créé avec succès',
+    },
+    update: {
+      title: 'Edition des informations',
+      success: 'Membre modifié avec succès',
+    },
   },
   activity: {
     create: {

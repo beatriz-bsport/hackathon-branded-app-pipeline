@@ -302,13 +302,13 @@ export function createOrUpdateMember(
       dispatch(actionCreateOrUpdateMemberSuccess(response));
       dispatch(
         snackbarSuccess(
-          id ? 'member.forms.update.success' : 'member.forms.create.success',
+          id ? 'member.update.success' : 'member.create.success',
         ),
       );
       if (options && options.onSuccess) options.onSuccess();
     } catch (e) {
       console.error(e);
-      dispatch(snackbarError('member.forms.error'));
+      dispatch(snackbarError('member.error'));
       dispatch(actionCreateOrUpdateMemberError(e));
       if (options && options.onError) {
         options.onError((e || {}).response ? e.response.data : {});
@@ -359,13 +359,13 @@ export function createOrUpdateNote(
       if (response.status === 201 || response.status === 200) {
         const note = response.data;
         dispatch(actionCreateOrUpdateNoteSuccess(note));
-        dispatch(snackbarSuccess('form.member.createOrUpdate.success'));
+        dispatch(snackbarSuccess('member.createOrUpdate.success'));
       } else {
-        dispatch(snackbarError('form.member.createOrUpdate.error'));
+        dispatch(snackbarError('member.createOrUpdate.error'));
         dispatch(actionCreateOrUpdateNoteError());
       }
     } catch (e) {
-      dispatch(snackbarError('form.member.createOrUpdate.error'));
+      dispatch(snackbarError('member.createOrUpdate.error'));
       dispatch(actionCreateOrUpdateNoteError(e));
     }
   };
@@ -453,11 +453,11 @@ export function mergeMembers(
         throw new Error(response);
       }
       dispatch(actionMergeSuccess(src, dst));
-      dispatch(snackbarSuccess('member.forms.merge.success'));
+      dispatch(snackbarSuccess('member.merge.success'));
       if (options && options.onSuccess) options.onSuccess();
     } catch (e) {
       console.error(e);
-      dispatch(snackbarError('member.forms.merge.error'));
+      dispatch(snackbarError('member.merge.error'));
       dispatch(actionMergeError(e));
       if (options && options.onError) {
         options.onError((e || {}).response ? e.response.data : {});

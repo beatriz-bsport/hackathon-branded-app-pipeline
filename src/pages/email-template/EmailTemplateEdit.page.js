@@ -18,6 +18,7 @@ import { snackbarError } from '../../actions/snackbar.actions';
 import {
   emailTemplateComplete,
   emailTemplateUpdate,
+  setEmailEditorHasBeenLoaded,
   emailDesignCreate,
 } from '../../libs/email-editor/actions';
 import { Context } from '../../context';
@@ -45,7 +46,16 @@ type Props = {
   tagCategories: { [string]: Array<string> },
 };
 
-export class MarketingEmail extends Component<Props, state> {
+export class MarketingEmail extends Component<Props> {
+  componentWillMount() {
+    if (this.props.hasBeenLoadedOnce) {
+      window.location.reload();
+    }
+  if (!this.props.hasBeenLoadedOnce) {
+  this.props.setHasBeenLoaded(true)
+  }
+  }
+
   componentDidMount() {
     this.props.emailTemplateComplete(this.props.id);
     this.props.fetchTagList();
@@ -100,9 +110,11 @@ export default compose(
       company_id: state.theme.theme.company,
       company_name: state.theme.theme.company_name,
       tagCategories: getTagCategories(state),
+      hasBeenLoadedOnce: state.emailTemplate.hasBeenLoadedOnce,
     }),
     {
       fetchTagList,
+      setHasBeenLoaded: setEmailEditorHasBeenLoaded,
       snackbarError,
       emailTemplateComplete,
       emailDesignCreate,

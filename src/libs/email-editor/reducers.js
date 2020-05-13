@@ -13,6 +13,7 @@ import {
   emailTemplateBulkAction,
   deleteEmailTemplateAction,
   resetAction,
+  setEmailEditorHasBeenLoaded,
 } from './actions';
 
 import type { email_template_state } from './types';
@@ -21,6 +22,7 @@ const initialState: email_template_state = Immutable({
   isLoading: false,
   error: null,
   byId: {},
+  hasBeenLoadedOnce: false,
   allIds: [],
   detail: { isLoading: false, error: null, byId: {} },
   // Create or Update
@@ -45,6 +47,9 @@ export default handleActions(
     },
     [emailTemplatesSummariesAction.error]: (state, { payload }) => {
       return state.set('error', payload);
+    },
+    [setEmailEditorHasBeenLoaded]: (state) => {
+      return state.set('hasBeenLoadedOnce', true);
     },
     [emailTemplatesSummariesAction.isLoading]: (state, { payload }) => {
       return state.set('isLoading', payload);

@@ -6,7 +6,10 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { withNamespaces } from 'react-i18next';
 import { push } from 'react-router-redux';
-import { emailDesignCreate } from '../../libs/email-editor/actions';
+import {
+  emailDesignCreate,
+  setEmailEditorHasBeenLoaded,
+} from '../../libs/email-editor/actions';
 import { Context } from '../../context';
 
 import EmailEditorPanel from '../../libs/email-editor/components/EmailEditor.component';
@@ -28,8 +31,18 @@ type Props = {
 };
 
 export class EmailTemplateCreate extends Component<Props> {
+  componentWillMount() {
+    if (this.props.hasBeenLoadedOnce) {
+      window.location.reload();
+    }
+    if (!this.props.hasBeenLoadedOnce) {
+      this.props.setHasBeenLoaded(true);
+    }
+  }
+
   componentDidMount() {
     this.props.fetchTagList();
+    this.props.setHasBeenLoaded();
   }
 
   onSave = (id: number, data: *) => {
@@ -67,11 +80,13 @@ export default compose(
     (state) => ({
       company_id: state.theme.theme.company,
       tagCategories: getTagCategories(state),
+      hasBeenLoadedOnce: state.emailTemplate.hasBeenLoadedOnce,
     }),
     {
       fetchTagList,
       snackbarError,
       emailDesignCreate,
+      setHasBeenLoaded: setEmailEditorHasBeenLoaded,
       goToList: () => push('/email-template'),
       goToListDetail: (id) => push(`/email-template/${id}`),
     },

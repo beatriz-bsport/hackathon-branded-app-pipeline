@@ -26,6 +26,10 @@ export const emailTemplatesSummariesAction = {
   success: createAction('EMAIL/SUMMARIES/SUCCESS'),
 };
 
+export const setEmailEditorHasBeenLoaded = createAction(
+  'EMAIL/HAS_BEEN_LOADED',
+);
+
 export function emailTemplatesSummaries(): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(emailTemplatesSummariesAction.isLoading(true));

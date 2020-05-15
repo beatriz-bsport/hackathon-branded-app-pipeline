@@ -213,7 +213,7 @@ export class FiltersPanel extends Component<Props> {
             }
           >
             {filtersCategory.map((key) => (
-              <div>
+              <div key={key}>
                 <ListItem
                   className={this.props.classes.menu}
                   onClick={() => {

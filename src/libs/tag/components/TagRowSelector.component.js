@@ -48,7 +48,6 @@ export const TagFilterForm = (props: Props) => {
         <Select
           value={props.form.include}
           onChange={(ev) => handleChange('include')(!!ev.target.value)}
-          variant="filled "
         >
           <MenuItem value>{props.t('form.filter.include')}</MenuItem>
           <MenuItem value={false}>{props.t('form.filter.exclude')}</MenuItem>

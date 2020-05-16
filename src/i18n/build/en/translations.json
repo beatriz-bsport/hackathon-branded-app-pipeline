@@ -1071,7 +1071,7 @@
             "name": "Title",
             "addActivity": "Add an activity",
             "addOffers": "Add sessions",
-            "lastDiscardBeforeMinutes": "A late cancel is before",
+            "lastDiscardBeforeMinutes": "A late cancel is authorized before",
             "lastBookingBeforeMinutes": "Before class, last booking is possible until",
             "is_broadcast": "Live streaming class",
             "settings": "Parameters",
@@ -1162,8 +1162,8 @@
             "paymentMethodCheck": "Check",
             "paymentMethodStripe": "Credit card",
             "total": "TOTAL",
-            "voucher": "Voucher",
-            "updateInvoiceVoucher": "Add a voucher",
+            "voucher": "Coupon",
+            "updateInvoiceVoucher": "Add a coupon",
             "addPaymentPack": "Pass",
             "addOffer": "Session",
             "addInvoiceItem": "Add to invoice",
@@ -1332,7 +1332,7 @@
             "zeroMinute": "0 min",
             "newMetaActivity": "New activity",
             "default_duration_minutes": "Session duration",
-            "default_last_discard_minutes": "Late cancel is before",
+            "default_last_discard_minutes": "A late cancel is authorized before",
             "default_last_booking_minutes": "Last booking possible before",
             "default_credits": "Price (credits)",
             "default_price": "Price",
@@ -1341,14 +1341,14 @@
             "discard": "Cancel",
             "send": "Save",
             "description": "Description",
-            "email": "Email address",
+            "email": "Email",
             "phone": "Phone number",
             "clearDate": "Clear",
             "birthday": "Birthday",
             "birthdayYear": "Birth year",
             "gender": "Gender",
-            "lastname": "Lastname",
-            "firstname": "Firstname",
+            "lastname": "Last name",
+            "firstname": "First name",
             "newCoach": "New teacher",
             "newMember": "New member",
             "coach": "Teacher",
@@ -1384,13 +1384,13 @@
             "title": "Title",
             "offer": {
                 "delete": {
-                    "explainModalities": "Beware, this modification can not be reverted. Your session will not be visible par end-users. You will still be able to access it.",
+                    "explainModalities": "Beware, this modification can not be reverted. Your session will not be visible for your clients. You will still be able to access it.",
                     "explainNotify": "Send a notification to customers who have booked",
                     "explainCreditBack": "Refund the credit on the pass",
                     "explainHardDelete": "Delete this session ? Beware, it will be invisible, this operation can not be reverted!",
                     "buttonHardDelete": "Delete"
                 },
-                "explainNotificationOnEdit": "To you want to notify your members of this modification ?",
+                "explainNotificationOnEdit": "Do you want to notify your members of this modification ?",
                 "explainRecursiveOfferEdit": "Do you want to modify ALL similar sessions under these new conditions ?",
                 "explainRecursiveOfferDelete": "Do you want to delete ALL similar sessions ?",
                 "broadcast_link": {
@@ -1654,8 +1654,8 @@
             "booking": "Booking",
             "saveAndAdd": "Save and add again",
             "save": "Save",
-            "lastname": "Lastname",
-            "firstname": "Firstname",
+            "lastname": "Last name",
+            "firstname": "First name",
             "previous": "Previous",
             "delete": "Delete",
             "show": "Show",
@@ -1767,10 +1767,10 @@
             "companyId": "Your partner ID is : {{ company }}",
             "establishmentId": "Your venue ID are : {{ establishmentIdList }}",
             "enabled": "Enabled",
-            "allEstablishment": "All locations"
+            "allEstablishment": "All establishments"
         },
         "requestDialog": {
-            "explain": "You have request the integration bsport X classpass, your account manager will contact you shortly to validate this operation.",
+            "explain": "You have request the integration bsport X Classpass, your account manager will contact you shortly to validate this operation.",
             "close": "Understood"
         },
         "actions": {
@@ -1806,15 +1806,15 @@
                     "coach": "Teacher",
                     "date": "Hour/Date of session",
                     "establishment": "Location",
-                    "establishment_practical_info": "Location instruction",
+                    "establishment_practical_info": "Establishment instruction",
                     "address": "Address"
                 }
             },
             "User": {
                 "name": "Member",
                 "tags": {
-                    "firstname": "Firstname",
-                    "lastname": "Lastname"
+                    "firstname": "First name",
+                    "lastname": "Last name"
                 }
             },
             "Booking": {
@@ -1824,7 +1824,7 @@
                     "coach": "Teacher",
                     "date": "Hour/Date of session",
                     "establishment": "Location",
-                    "establishment_practical_info": "Location instruction",
+                    "establishment_practical_info": "Establishment instruction",
                     "address": "Address",
                     "ics_calendar_link": "ics calendar link"
                 }
@@ -1857,7 +1857,7 @@
                     "coach": "Teacher",
                     "date": "Hour/Date of session",
                     "establishment": "Location",
-                    "establishment_practical_info": "Location instruction",
+                    "establishment_practical_info": "Establishment instruction",
                     "address": "Address",
                     "option_payment_url": "Booking link",
                     "option_expiration_date": "Option expiration date"
@@ -1898,7 +1898,7 @@
             "dashboard": "Dashboard",
             "calendar": "History",
             "pack": "Pass",
-            "invoice": "Invoie",
+            "invoice": "Invoice",
             "subscription": "Subscription",
             "profile": "Profile",
             "changeMembership": "Change club",
@@ -1906,11 +1906,11 @@
         },
         "pack": {
             "titlePaymentPack": "Class",
-            "titlePrivatePack": "Private class"
+            "titlePrivatePack": "Appointments"
         },
         "booking": {
             "titleBooking": "Class",
-            "titlePrivateBooking": "Private class",
+            "titlePrivateBooking": "Appointments",
             "showCalendar": "See calendar",
             "discard": "Cancel",
             "bookAgain": "Book again"
@@ -1952,7 +1952,7 @@
                 "10": "Finished",
                 "20": "Cancelled"
             },
-            "owners": "Attributed to",
+            "owners": "Attributed to ",
             "author": "Author",
             "actions": {
                 "addTask": "Plan a task",
@@ -2060,7 +2060,7 @@
         },
         "delete": {
             "title": "Pack deletion",
-            "content": "Are you sure you want to delete this pacjk ? This operation is definitive, current purchases and current baskets will not be modified.",
+            "content": "Are you sure you want to delete this pack ? This operation is definitive, current purchases and current baskets will not be modified.",
             "cancel": "Cancel",
             "submit": "Delete"
         }
@@ -2180,7 +2180,7 @@
             "unGroup": "None",
             "datatype": {
                 "establishment": "Location",
-                "coach": "teacher",
+                "coach": "Teacher",
                 "associated_establishment": "Locations",
                 "associated_coach": "Teacher",
                 "private_service": "General"
@@ -2407,7 +2407,7 @@
         },
         "privatePass": {
             "delete": {
-                "title": "Deleting pass :",
+                "title": "Deleting pass",
                 "explain": "Are you sure you want to delete this pass? People who still have credits will still be able to use them. This operation is final",
                 "cancel": "Cancel",
                 "submit": "Confirm"
@@ -2495,8 +2495,8 @@
                 "explainSetToHasOwnAvailabilitySlots": "Reservable in certain slots only",
                 "explainHasOwnAvailabilitySlots": "Click on the pencil to limit the reservations to certain time slots",
                 "hasFutureSlot": "Calendar of future availability OK",
-                "noCapacity": "Location max capacity set to 0 !",
-                "totalCapacity": "Location max capacity: {{ capacity }}",
+                "noCapacity": "Establishment max capacity set to 0 !",
+                "totalCapacity": "Establishment max capacity: {{ capacity }}",
                 "noFutureSlot": "You haven't configured any availability for {{resourceName}}! Click here.",
                 "title": "Availability slots",
                 "isAlwaysAvailable": "{{resourceName}} is bookable as soon as the room and / or the teachers are available",
@@ -2509,7 +2509,7 @@
                         "helperText": "An address will be requested with each reservation"
                     },
                     "isWithoutEstablishment": {
-                        "label": "Without pre-determined location",
+                        "label": "Without pre-determined establishment",
                         "helperText": "Ex: video / outdoor lessons / ..."
                     },
                     "isWithEstablishment": {
@@ -2527,8 +2527,8 @@
                     "helperText": "The member sees and chooses the teacher before booking. If unchecked, bsport tries to assign reservations to the same teacher if possible"
                 },
                 "establishment_consumer_attribution": {
-                    "label": "Allow the choice of location when booking",
-                    "helperText": "The member sees and chooses the location before booking, if unchecked bsport will try to optimize the filling of rooms"
+                    "label": "Allow the choice of establishment when booking",
+                    "helperText": "The member sees and chooses the establishment before booking, if unchecked bsport will try to optimize the filling of establishments"
                 },
                 "delete": {
                     "title": "Appointment deletion",
@@ -2567,7 +2567,7 @@
                     "label": "Room"
                 },
                 "description": {
-                    "label": "Description du service"
+                    "label": "Service description"
                 },
                 "actions": {
                     "cancel": "Cancel",
@@ -2603,13 +2603,13 @@
             "delete": {
                 "submit": "Confirm",
                 "cancel": "Cancel",
-                "explain": "Êtes-vous sûr de vouloir modifier le lieu de ce RDV ? Sans établissement il sera considéré comme un RDV à domicile et les élèves devront rentrer leur adresse pour terminer la réservation. Les réservations déjà enregistrées ne seront pas affectées.",
+                "explain": "Are you sure that you want to change the establishment of this appointment? Without any establishment linked, this appointment will be considered as a home appointment and members will have to give their address in order to book an appointment. Past bookings won't be changed.",
                 "title": "Unsubscribe establishment"
             }
         },
         "privateCoach": {
             "delete": {
-                "submit": "COnfirm",
+                "submit": "Confirm",
                 "cancel": "Cancel",
                 "explain": "Are you sure you want to unsubscribe this teacher ? We will not be able to make this kind of appointments. Saved appointments will not be modified.",
                 "title": "Unsubscribe the teacher"
@@ -2673,7 +2673,7 @@
                 },
                 "relink": {
                     "title": "Share again",
-                    "explain": "Sharing will be started again between the members",
+                    "explain": "Sharing will be started again between the members.",
                     "submit": "Share",
                     "cancel": "Cancel"
                 },
@@ -2731,7 +2731,7 @@
                 "general": "General",
                 "availability": "Availability",
                 "usability": "Usability",
-                "voucherConfig": "Voucher",
+                "voucherConfig": "Coupon",
                 "applies_to": "Parameters",
                 "advanced": "Advance"
             },
@@ -2747,10 +2747,10 @@
                 "amount": "As an amount"
             },
             "percent_off": {
-                "label": "Voucher percentage"
+                "label": "Coupon percentage"
             },
             "amount_off": {
-                "label": "Voucher amount"
+                "label": "Coupon amount"
             },
             "is_active": {
                 "label": "Active",
@@ -2799,7 +2799,7 @@
         "code": {
             "addCoupon": {
                 "label": "Coupon",
-                "placeholder": "VOUCHER_CODE"
+                "placeholder": "COUPON_CODE"
             }
         },
         "message": {
@@ -2857,7 +2857,7 @@
             "invalid_expiry_year": "Your card's expiration year is invalid.",
             "incomplete_cvc": "Your card's security code is incomplete.",
             "invalid_number": "Your card number is invalid.",
-            "card_declined": "Your card was declined",
+            "card_declined": "Your card was declined.",
             "expired_card": "Your card has expired.",
             "incorrect_cvc": "Your card's security code is incorrect.",
             "processing_error": "An error occurred while processing your card. Try again in a little bit.",
@@ -2892,7 +2892,7 @@
             "stolen_card": "Your card has been tagged as stolen by your bank",
             "transaction_not_allowed": "The transaction was refused by your bank",
             "generic_decline": "Your bank has refused the payment",
-            "withdrawal_count_limit_exceeded": "Too much debut on a short period, declined by your bank"
+            "withdrawal_count_limit_exceeded": "Too much debit on a short period, declined by your bank."
         }
     },
     "role": {
@@ -2931,7 +2931,7 @@
     "theme": {
         "forms": {
             "themePersonalization": {
-                "names_label_info": "Change label of first name and last name fields in subsription forms",
+                "names_label_info": "Change label of first name and last name fields in subscription forms",
                 "first_name_label": {
                     "placeholder": "First name label",
                     "label": "First name label",
@@ -2945,8 +2945,8 @@
                 "offersFilling": "Display offers filling on marketplace calendar",
                 "default_booking_ordering": {
                     "title": "Chose default booking sort order (booking management page)",
-                    "lastname": "Sort by lastname",
-                    "firstname": "Sort by firstname",
+                    "lastname": "Sort by last name",
+                    "firstname": "Sort by first name",
                     "date": "Sort by most recent"
                 },
                 "default_attendance": {
@@ -3003,7 +3003,7 @@
             },
             "websiteURL": {
                 "label": "URL website",
-                "helperText": "You main website",
+                "helperText": "Your main website",
                 "placeholder": "https://studio.com/"
             },
             "scheduleURL": {
@@ -3185,7 +3185,7 @@
         "dialog": {
             "delete": {
                 "title": "Waiting-list removal",
-                "content": "Are you sure you want to remove this member from the waiting-list ? He will be notified by email",
+                "content": "Are you sure you want to remove this member from the waiting-list ? He will be notified by email.",
                 "cancel": "Cancel",
                 "confirm": "Remove"
             }
@@ -3197,8 +3197,8 @@
         },
         "forms": {
             "delivery": {
-                "first_name": "Firstname",
-                "last_name": "Lastname",
+                "first_name": "First name",
+                "last_name": "Last name",
                 "actions": {
                     "submit": "Next",
                     "cancel": "Back"
@@ -3231,10 +3231,10 @@
         }
     },
     "establishment": {
-        "establishment": "Establishment",
+        "establishment": "Establishment ",
         "baseEstablishment": "Usual",
-        "overrider": "Override",
-        "establishment_override": "Override establishment",
+        "overrider": "Substitute",
+        "establishment_override": "Substitute establishment",
         "search": "Search an establishment",
         "pleaseSelectOne": "Please select a club in the map to show its details",
         "offers": "Sessions calendar:",
@@ -3246,9 +3246,9 @@
             "imageUploaderRequireEditMessage": "Once you have created your establishment you will be able to add additional images."
         },
         "capacity": {
-            "label": "Location max capacity",
+            "label": "Establishment max capacity",
             "placeholder": null,
-            "helperText": "Used only to calculate the availability of the location for appointments",
+            "helperText": "Used only to calculate the availability of the establishment for appointments",
             "explain": "Capacity: {{capacity}} slot",
             "explain_plural": "Capacity: {{capacity}} slots"
         },
@@ -3318,8 +3318,8 @@
         },
         "form": {
             "delivery": {
-                "first_name": "Firstname",
-                "last_name": "Lastname"
+                "first_name": "First name",
+                "last_name": "Last name"
             }
         },
         "actions": {
@@ -3344,7 +3344,7 @@
             "modal": {
                 "delete": {
                     "title": "Delete delivery fee",
-                    "content": "Be careful this operation is not revertable. Old orders using this fee will not be modifiedj",
+                    "content": "Be careful this operation is not revertable. Old orders using this fee will not be modified",
                     "cancel": "Cancel",
                     "confirm": "Delete"
                 }
@@ -3597,28 +3597,28 @@
         "addNew": "New payment configuration",
         "select": {
             "placeholder": "Select a payment configuration",
-            "placeholderOverride": "Coach default rule"
+            "placeholderOverride": "Teacher default rule"
         },
         "common": {
             "from": "From",
             "until": "Until"
         },
         "calculate": "Compute",
-        "title": "Coach payment for {{name}}",
+        "title": "Teacher payment for {{name}}",
         "label": "Payment rate",
         "update": {
             "success": "Payment configuration updated",
             "error": "Error during update"
         },
         "dateTitle": "Period",
-        "coaches": "Coaches",
-        "setPaymentRuleSetForCoachFirst": "You need to attribute a payment rate to the coach before.",
+        "coaches": "Teachers",
+        "setPaymentRuleSetForCoachFirst": "You need to attribute a payment rate to the teacher before.",
         "modal": {
             "delete": {
                 "title": "Remove a payment rate",
                 "cancel": "Cancel",
                 "confirm": "Confirm",
-                "content": "If you remove this rate, this rate will be removed from all related sessions and coaches."
+                "content": "If you remove this rate, this rate will be removed from all related sessions and teachers."
             }
         },
         "calculation_methods": {
@@ -3697,18 +3697,18 @@
         }
     },
     "coach": {
-        "coach": "Coach",
-        "color": "Color code (private lessons)",
-        "search": "Search a coach",
-        "coach_override": "Override coach",
+        "coach": "Teacher",
+        "color": "Color code (appointments)",
+        "search": "Search a teacher",
+        "coach_override": "Substitute",
         "baseCoach": "Usual",
-        "overrider": "Override",
-        "overrideSelectorTitle": "Coach",
+        "overrider": "Substitute",
+        "overrideSelectorTitle": "Teacher",
         "showPerformance": "Remunerate",
         "showActivities": "Show activities",
         "showDescription": "Show description",
         "description": "Description",
-        "pleaseFill": "Please enter a coach",
+        "pleaseFill": "Please enter a teacher",
         "emptyDescription": "No description provided",
         "selector": {
             "coach": {
@@ -3727,15 +3727,15 @@
             "calculate": "Calculate",
             "payment": "Remunerate"
         },
-        "addCoach": "Add a coach",
-        "noActivity": "This coach does not manage any activity.",
+        "addCoach": "Add a teacher",
+        "noActivity": "This teacher does not manage any activity.",
         "selfNoActivity": "You are not managing any activity.",
         "card": {
             "update": "Edit"
         },
         "forms": {
             "error": "Unable to save coach",
-            "error_email_exists": "A coach with this email address already exists, please use the new coach form",
+            "error_email_exists": "A teacher with this email address already exists, please use the new teacher form",
             "linkByEmail": {
                 "cancel": "Cancel",
                 "submit": "Submit",
@@ -3746,12 +3746,12 @@
                 "emailPlaceHolder": "teacher@bsport.io"
             },
             "create": {
-                "success": "Coach added",
-                "title": "New coach"
+                "success": "Teacher added",
+                "title": "New teacher"
             },
             "update": {
-                "success": "Coach details updated",
-                "title": "Update coach"
+                "success": "Teacher details updated",
+                "title": "Update teacher"
             },
             "delete": {
                 "success": "Teacher deleted",
@@ -3929,7 +3929,7 @@
             "subscribeAgain": "Subscribe again",
             "voucher": "Promotion",
             "trial_nb": "Free months (at the end)",
-            "recurrent_voucher": "Voucher on each bill",
+            "recurrent_voucher": "Coupon on each bill",
             "name": "Name",
             "member": "Member",
             "dateCreated": "Date of creation",
@@ -4015,7 +4015,7 @@
             "date_start_date": "Date",
             "date_start_time": "Time",
             "duration_minute": "Duration (minutes)",
-            "coach": "Coach",
+            "coach": "Teacher",
             "margin_value": "Added margin value",
             "effectif": "Nb slots",
             "total_payments": "Total payments",
@@ -4062,7 +4062,7 @@
             "payment_method_readable_identifier": "Payment method",
             "address": "Address",
             "tax": "Tax",
-            "voucher": "Voucher",
+            "voucher": "Coupon",
             "total_price": "Billed price, tax inc.",
             "total_price_notax": "Billed price, tax excl.",
             "payment_note": "Payment note",
@@ -4084,8 +4084,8 @@
             "total_uses": "Total uses",
             "date_created": "Date created",
             "expiration_date": "Expiration date",
-            "percent_off": "Voucher %",
-            "amount_off": "Voucher amount",
+            "percent_off": "Coupon %",
+            "amount_off": "Coupon amount",
             "member": "Member",
             "date": "Date",
             "couponName": "Coupon",
@@ -4287,7 +4287,7 @@
                     "helperText": "Booking quota per week, empty means no limit",
                     "label": "Max usage per week"
                 },
-                "unlimited": "Unlimited credits",
+                "unlimited": "Unlimited",
                 "theoricalMarginValue": {
                     "label": "Theorical margin value (only unlimited pass)",
                     "helperText": "Used to compute the payroll of teachers. 10€ means 1 booking made via this pass is payed 10€ to the teacher. If empty the margin value will be PRICE/NB_BOOKING"
@@ -4358,7 +4358,7 @@
             "bookingsTitle": "Bookings",
             "extensionsTitle": "Validity extension"
         },
-        "newMemberOnly": "Disponible uniquement aux nouveaux membres",
+        "newMemberOnly": "Only available for new membres (with no paiements)",
         "publicPacksTitle": "Pass available for purchase",
         "privatePacksTitle": "Pass unavailable for purchase",
         "subscribeToOffer": "Register",
@@ -4396,7 +4396,7 @@
         "unlimitedCredits": "Unlimited",
         "credits": "Credits",
         "availableOnFollowingSports": "Available on following categories: ",
-        "availableOnFollowingEstablishments": "Available on following locations: ",
+        "availableOnFollowingEstablishments": "Available on following establishments: ",
         "anySport": "Any category",
         "availableOnFollowingActivities": "Available on following activities: ",
         "anyActivity": "Any activity",
@@ -4421,8 +4421,8 @@
         "ht": "Exc.tax",
         "validForDuration": {
             "general": "Valid {{ duration_days }} days {{ duration_months }} months and {{ duration_years }} year",
-            "years": "Valide {{ duration_years }} year",
-            "months": "Valide {{ duration_months }} months",
+            "years": "Valid {{ duration_years }} year",
+            "months": "Valid {{ duration_months }} months",
             "days": "Valid {{ duration_days }} days"
         },
         "paymentPackDisabled": {
@@ -4511,7 +4511,7 @@
             "fillRate": "Fillrate",
             "waiting": "Waiting list"
         },
-        "extraordinaryEstablishment": "(temporary location)",
+        "extraordinaryEstablishment": "(temporary establishments)",
         "substitute": "Substitute",
         "calendar": {
             "modifyOffer": "Edit",
@@ -4576,7 +4576,7 @@
         "invoiceTitle": "Invoices",
         "subscriptionTitle": "Subscriptions",
         "offers_joined": "Activities joined",
-        "pass_owner": "Pas valid",
+        "pass_owner": "Not valid",
         "bornIn": "Birthday ",
         "memberSince": "Member since: ",
         "showNextBooking": "Show next bookings",
@@ -4625,8 +4625,8 @@
             "invoices": "Invoices & Subscriptions",
             "payment": "Billing",
             "contact": "Contact",
-            "privateBooking": "Private lesson",
-            "privateConsumerPass": "Pass private lesson",
+            "privateBooking": "Appointments",
+            "privateConsumerPass": "Appointments passes",
             "relation": "Relationships"
         },
         "row": {
@@ -4721,7 +4721,7 @@
         },
         "parameters": {
             "registeredOn": "Booked on",
-            "source": "Booking channel"
+            "source": "Booking via"
         },
         "source": {
             "web": "Web",
@@ -4747,7 +4747,7 @@
     "marketplace": {
         "selector": {
             "coach": {
-                "placeholder": "Coach"
+                "placeholder": "Teacher"
             },
             "level": {
                 "placeholder": "Level"
@@ -4790,7 +4790,7 @@
             "emptyList": "No session planned"
         },
         "filter": {
-            "establishment": "Filter by location"
+            "establishment": "Filter by establishments"
         },
         "signout": {
             "title": "Log-off",
@@ -4849,8 +4849,8 @@
         "coach": {
             "coachList": "Teachers",
             "coachPerformance": "{{name}} performance",
-            "coachFormPage": "Coach form",
-            "allCoachPerformance": "Coaches performances"
+            "coachFormPage": "Teacher form",
+            "allCoachPerformance": "Teachers performances"
         },
         "order": {
             "orderList": "Orders",
@@ -4968,10 +4968,10 @@
                 "warning": "Select at least one establishment"
             },
             "coaches": {
-                "helperText": "select coaches",
-                "helperSelectedText": "selected coaches",
-                "textFieldPlaceholder": "Search a coach",
-                "helperAllSelectedText": "all coaches",
+                "helperText": "select teachers",
+                "helperSelectedText": "selected teachers",
+                "textFieldPlaceholder": "Search a teacher",
+                "helperAllSelectedText": "all teachers",
                 "warning": "Select at least one teacher"
             }
         },
@@ -5157,7 +5157,7 @@
                     "second": "hours and",
                     "first": "class time is between"
                 },
-                "explanation": "Has booked his Xth class of activity Y in location Z..."
+                "explanation": "Has booked his Xth class of activity Y in establishment Z..."
             },
             "22": {
                 "name": "booking number",
@@ -5173,7 +5173,7 @@
                     "first": "with passes"
                 },
                 "coach": {
-                    "first": "with coaches"
+                    "first": "with teachers"
                 },
                 "hour": {
                     "third": "hours",
@@ -5183,7 +5183,7 @@
                 "date": {
                     "first": "occurring on"
                 },
-                "explanation": "Has booked X class of activity A, in location Y, with pass Z..."
+                "explanation": "Has booked X class of activity A, in establishment Y, with pass Z..."
             },
             "23": {
                 "name": "First booking",
@@ -5461,6 +5461,28 @@
         "member": {
             "link": {
                 "success": "Member linked"
+            },
+            "update": {
+                "success": "Member modified",
+                "title": "Change informations"
+            },
+            "create": {
+                "success": "Member creation successful",
+                "title": "New member"
+            },
+            "error": "Impossible to save member",
+            "merge": {
+                "submit": "Merge",
+                "cancel": "Cancel",
+                "explainTags": "Member tags will not be transfered",
+                "explainBookingsAndPassAndInvoiceAndNotes": "Passes, booking, bills and notes will be transfered.",
+                "explainCredit": "Internal account of the member will be transfered",
+                "title": "Merge",
+                "dstMember": "Member to keep",
+                "srcMember": "Member to merge",
+                "error": "Impossible to merge members",
+                "seeMemberPage": " See member page",
+                "success": "Members merged"
             }
         },
         "establishment": {
@@ -5558,7 +5580,7 @@
         },
         "coach": {
             "delete": {
-                "error": "Unable to delete professor",
+                "error": "Unable to delete the teacher",
                 "success": "Teacher deleted"
             },
             "update": {
@@ -5583,6 +5605,12 @@
             },
             "update": {
                 "success": "Invoice updated"
+            }
+        },
+        "privateConsumerPass": {
+            "creditUpdate": {
+                "error": "Impossible to save the account",
+                "success": "Credits updated"
             }
         }
     }

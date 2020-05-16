@@ -197,7 +197,7 @@ const styles = (theme) => ({
   },
   buttonsContainer: {
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     marginBottom: theme.spacing(1),
   },
 });

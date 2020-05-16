@@ -5,6 +5,7 @@ import Immutable from 'seamless-immutable';
 import memoize from 'memoize-one';
 
 import type { State } from '../../state/types';
+import { getSCTs } from '../category/selectors';
 
 export const getPaymentPackById = (state: State): Array<PaymentPack> =>
   state.paymentPack.byId;
@@ -18,7 +19,7 @@ export const getAll = createSelector(
 );
 
 const get = (state: State, id: number) => {
-  state.paymentPack.byId[id];
+  return state.paymentPack.byId[id];
 };
 
 export const getWithSCT = (state: State, id: number) => {
@@ -77,8 +78,6 @@ export const getAllPaymentPacks = createSelector(
   getPaymentPackById,
   (paymentPacks) => Immutable(Object.values(paymentPacks)),
 );
-
-const getSCTs = (state: State): Array => state.category.SCTs;
 
 export const getMarketplacePaymentPacks = createSelector(
   [getAll, getSCTs],

@@ -9,7 +9,7 @@ import { withNamespaces } from 'react-i18next';
 
 import { withFormik, Form } from 'formik';
 import * as Yup from 'yup';
-import _ from 'lodash';
+import pick from 'lodash/pick';
 import { compose } from 'recompose';
 import type { TFunction } from 'react-i18next';
 import MultipleImageUploader from '../../../components/MultipleImageUploader.component';
@@ -218,7 +218,7 @@ export default compose(
       ];
       const { cover_main } = values;
       const data = {
-        ..._.pick(values, keys),
+        ...pick(values, keys),
       };
       if (typeof cover_main !== 'string' && !!cover_main) {
         data.cover_main = cover_main;

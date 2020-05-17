@@ -302,6 +302,8 @@ exports.default = {
       rgpdTitle:
         'Moyen de communication accepté par le membre (promotions, marketing, smartlist etc...)',
       birthdayYear: 'Année de naissance',
+      barcode: 'Code-barre (carte)',
+      barcodeHelper: "(optionnel) utilisez ce code pour vos carte d'accès",
       referenceNumber: "Numéro d'adhérent",
       referenceNumberHelper:
         '(optionnel) si vide un numéro sera automatiquement créé',

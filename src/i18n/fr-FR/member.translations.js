@@ -10,6 +10,12 @@ exports.default = {
   offers_joined: 'Nb séances inscrit(e)',
   pass_owner: 'Carte valide',
   bornIn: 'Né le ',
+  barcode: {
+    none: 'aucun',
+    code: 'Code carte',
+    display: 'Afficher le code barre',
+  },
+
   memberSince: 'Inscrit le ',
   showNextBooking: 'Voir les réservations futures',
   nextBooking: 'prochaine : ',

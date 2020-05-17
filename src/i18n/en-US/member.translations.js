@@ -5,6 +5,11 @@ exports.default = {
   offers_joined: 'Activities joined',
   pass_owner: 'Pas valid',
   bornIn: 'Birthday ',
+  barcode: {
+    none: 'none',
+    code: 'Card code',
+    display: 'Display barcode',
+  },
   memberSince: 'Member since: ',
   showNextBooking: 'Show next bookings',
   nextBooking: 'next: ',

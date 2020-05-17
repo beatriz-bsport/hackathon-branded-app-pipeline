@@ -309,6 +309,8 @@ exports.default = {
         },
       },
       member: {
+        barcode: 'Card code',
+        barcodeHelper: '(optionnal) Member access card code',
         createOrUpdate: {
           error: 'Not could not be saved',
           success: 'Note saved',

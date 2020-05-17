@@ -12,6 +12,7 @@ export const MemberMap = {
   phone: 'phone.phone_number',
   gender: 'gender',
   avatar: 'photo',
+  barcode: 'barcode',
   birthday: 'birthday',
   membership_ID: 'membership_ID',
   rgpd: 'rgpd',

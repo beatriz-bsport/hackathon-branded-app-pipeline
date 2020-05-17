@@ -195,6 +195,7 @@ export function MemberForm(props: Props) {
             </Grid>
             <Grid item xs={12} md={mdSize}>
               <TextField
+                shrink
                 name="firstname"
                 label={
                   props.theme && props.theme.first_name_label
@@ -209,6 +210,7 @@ export function MemberForm(props: Props) {
             <Grid item xs={12} md={mdSize}>
               <TextField
                 name="lastname"
+                shrink
                 label={
                   props.theme && props.theme.last_name_label
                     ? props.theme.last_name_label
@@ -232,6 +234,7 @@ export function MemberForm(props: Props) {
               {variant === 'merge-form' ? (
                 <TextField
                   name="email"
+                  shrink
                   label={t('translation:form.email')}
                   type="email"
                   fullWidth
@@ -255,6 +258,19 @@ export function MemberForm(props: Props) {
                   name="membership_ID"
                   label={t('form.member.referenceNumber')}
                   helperText={t('form.member.referenceNumberHelper')}
+                  fullWidth
+                  shrink
+                  disabled={disabled || !!props.fromConsumerAccess}
+                />
+              </Grid>
+            )}
+            {hideManagerStuff ? null : (
+              <Grid item xs={12} md={mdSize}>
+                <TextField
+                  name="barcode"
+                  shrink
+                  label={t('form.member.barcode')}
+                  helperText={t('form.member.barcodeHelper')}
                   fullWidth
                   disabled={disabled || !!props.fromConsumerAccess}
                 />
@@ -414,6 +430,7 @@ const MemberSchema = Yup.object().shape({
   birthday: Yup.string()
     .nullable()
     .notRequired(),
+  barcode: Yup.string().nullable(),
   membership_ID: Yup.string().nullable(),
   date_joined: Yup.string().nullable(),
   rgpd: Yup.object()
@@ -491,6 +508,7 @@ export default compose(
         gender: 'F',
         birthday: undefined,
         membership_ID: '',
+        barcode: '',
         date_joined: Moment().format(DATE_FORMAT),
         rgpd: {
           accept_sms: true,

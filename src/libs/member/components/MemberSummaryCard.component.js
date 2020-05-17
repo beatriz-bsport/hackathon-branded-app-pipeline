@@ -7,6 +7,9 @@ import MergeTypeIcon from '@material-ui/icons/MergeType';
 import Button from '@material-ui/core/Button';
 import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
+import Dialog from '@material-ui/core/Dialog';
+import IconButton from '@material-ui/core/IconButton';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Hidden from '@material-ui/core/Hidden';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -14,6 +17,8 @@ import TodayIcon from '@material-ui/icons/Today';
 import EditIcon from '@material-ui/icons/Edit';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import PlaceIcon from '@material-ui/icons/Place';
+import ViewWeekIcon from '@material-ui/icons/ViewWeek';
+import BarCode from 'react-barcode';
 
 import { withNamespaces } from 'react-i18next';
 
@@ -45,6 +50,7 @@ type Props = {
 export class MemberSummaryCard extends Component<Props> {
   state = {
     displayMailDialog: false,
+    displayBarcodeDialog: false,
   };
 
   renderMembershipAndBirthday = () => {
@@ -69,6 +75,32 @@ export class MemberSummaryCard extends Component<Props> {
           <ListItemText
             className={this.props.classes.listItemText}
             primary={`N°${member.membership_ID}`}
+          />
+        </ListItem>
+      </List>
+    );
+  };
+
+  renderBarCode = () => {
+    const barcode =
+      this.props.member.barcode || this.props.t('member:barcode.none');
+    return (
+      <List dense>
+        <ListItem>
+          <ViewWeekIcon />
+          <ListItemText
+            className={this.props.classes.listItemText}
+            primary={
+              <div className={this.props.classes.rowInfo}>
+                {`${barcode}`}
+                <IconButton
+                  className={this.props.classes.visibilityIcon}
+                  onClick={() => this.setState({ displayBarcodeDialog: true })}
+                >
+                  <VisibilityIcon color="primary" />
+                </IconButton>
+              </div>
+            }
           />
         </ListItem>
       </List>
@@ -245,11 +277,18 @@ export class MemberSummaryCard extends Component<Props> {
             <div className={classes.infoContainer}>
               {this.renderAvatarAndName()}
               {this.renderMembershipAndBirthday()}
+              {this.renderBarCode()}
               {this.renderAddress()}
               {this.renderNotificationSettings()}
             </div>
             {!this.props.hideCreditAccount && this.renderAccount()}
           </Paper>
+          <Dialog
+            open={this.state.displayBarcodeDialog}
+            onClose={() => this.setState({ displayBarcodeDialog: false })}
+          >
+            <BarCode value={this.props.member.barcode} background="#fafafa" />
+          </Dialog>
         </div>
       );
     }
@@ -286,6 +325,9 @@ const styles = (theme) => ({
   },
   regularize: {
     marginTop: theme.spacing(1),
+  },
+  visibilityIcon: {
+    marginLeft: theme.spacing.unit,
   },
   accountBalanceBloc: {
     backgroundColor: '#F8F8F8',

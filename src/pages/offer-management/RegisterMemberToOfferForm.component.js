@@ -15,6 +15,7 @@ import Divider from '@material-ui/core/Divider';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import ConsumerPackRowItem from '../../libs/consumer-payment-pack/components/ConsumerPackRowItem.component';
+import { Avatar } from '../../components';
 import {
   fetchByOfferByMember,
   fetchNonCompatibleByOfferByMember,
@@ -206,6 +207,7 @@ export class RegisterMemberToOfferForm extends PureComponent<Props> {
       consumerPacksLoading,
       loading,
       memberName,
+      memberPhoto,
     } = this.props;
     if (!memberId || loading || consumerPacksLoading) {
       return <CircularProgress />;
@@ -213,6 +215,9 @@ export class RegisterMemberToOfferForm extends PureComponent<Props> {
     return (
       <Grid container spacing={2} direction="column">
         <Grid item>
+          {!!memberPhoto && (
+            <Avatar size="large" user={{ photo: memberPhoto }} />
+          )}
           <Typography variant="h4" align="center">
             {memberName}
           </Typography>

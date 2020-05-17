@@ -146,8 +146,9 @@ type State = {
   booking_ordering: number,
 };
 
-const getNameFromId = (id, membersList) => {
-  return membersList.find((member) => member.id === id).name;
+const getMemberFromId = (id, membersList) => {
+  const member = membersList.find((member) => member.id === id);
+  return { name: member.name, photo: member.photo };
 };
 
 export class OfferManagement extends Component<Props, State> {
@@ -291,6 +292,7 @@ export class OfferManagement extends Component<Props, State> {
               this.setState({
                 memberToRegister: res.data,
                 memberToRegisterName: `${data.firstname} ${data.lastname}`,
+                memberToRegisterPhoto: data.photo,
               });
             })
             .catch((err) => {
@@ -326,10 +328,8 @@ export class OfferManagement extends Component<Props, State> {
         }}
         onClickRegister={() => {
           this.setState({
-            memberToRegisterName: getNameFromId(
-              member.id,
-              this.props.searchedMembers,
-            ),
+            memberToRegisterName: member.name,
+            memberToRegisterPhoto: member.photo,
             memberToRegister: member.id,
           });
         }}
@@ -425,41 +425,42 @@ export class OfferManagement extends Component<Props, State> {
               flexDirection: 'row',
             }}
           >
-                    <IconButton
-            onClick={(e) => {
-              e.stopPropagation();
-              this.setState({ openMailChoiceDialog: true });
-            }}
-            color="primary"
-            disabled={this.props.bookingLoading}
-          >
-            <MailIcon />
-          </IconButton>
-          <IconButton onClick={this.openAddMemberModal} color="primary">
-            <PersonAddIcon />
-          </IconButton>
-          <SearchMember
-            onChange={(event) => {
-              this.setState({
-                searchedText: event.target.value,
-                memberHistoryAnchor: null,
-              });
-              this.props.searchMembers(event.target.value);
-            }}
-            value={this.state.searchedText}
-            onReset={this.clearSearch}
-            memberHistoryAnchor={this.state.memberHistoryAnchor}
-            memberHistory={this.props.memberHistory}
-            setMemberHistoryAnchor={(anchor) =>
-              this.setState({ memberHistoryAnchor: anchor })
-            }
-            onClickRegister={(member) => {
-              this.setState({
-                memberToRegisterName: member.name,
-                memberToRegister: member.id,
-              });
-            }}
-                        />
+            <IconButton
+              onClick={(e) => {
+                e.stopPropagation();
+                this.setState({ openMailChoiceDialog: true });
+              }}
+              color="primary"
+              disabled={this.props.bookingLoading}
+            >
+              <MailIcon />
+            </IconButton>
+            <IconButton onClick={this.openAddMemberModal} color="primary">
+              <PersonAddIcon />
+            </IconButton>
+            <SearchMember
+              onChange={(event) => {
+                this.setState({
+                  searchedText: event.target.value,
+                  memberHistoryAnchor: null,
+                });
+                this.props.searchMembers(event.target.value);
+              }}
+              value={this.state.searchedText}
+              onReset={this.clearSearch}
+              memberHistoryAnchor={this.state.memberHistoryAnchor}
+              memberHistory={this.props.memberHistory}
+              setMemberHistoryAnchor={(anchor) =>
+                this.setState({ memberHistoryAnchor: anchor })
+              }
+              onClickRegister={(member) => {
+                this.setState({
+                  memberToRegisterName: member.name,
+                  memberToRegisterPhoto: member.photo,
+                  memberToRegister: member.id,
+                });
+              }}
+            />
           </div>
         </div>
         <div className={classes.bookingOrderingContainer}>
@@ -667,7 +668,12 @@ export class OfferManagement extends Component<Props, State> {
       fullScreen,
       members,
     } = this.props;
-    const { searchedText, memberToRegister, memberToRegisterName } = this.state;
+    const {
+      searchedText,
+      memberToRegister,
+      memberToRegisterName,
+      memberToRegisterPhoto,
+    } = this.state;
     if (!offer) {
       return <React.Fragment>{this.getNavigationHeader(true)}</React.Fragment>;
     }
@@ -759,12 +765,14 @@ export class OfferManagement extends Component<Props, State> {
                     }}
                     member={this.props.members.find((m) => m.id === bo.member)}
                     onClickRegister={(e) => {
+                      const member = getMemberFromId(
+                        bo.member,
+                        this.props.members,
+                      );
                       e.stopPropagation();
                       this.setState({
-                        memberToRegisterName: getNameFromId(
-                          bo.member,
-                          this.props.members,
-                        ),
+                        memberToRegisterName: member.name,
+                        memberToRegisterPhoto: member.photo,
                         memberToRegister: bo.member,
                       });
                       this.setState({ optionToDiscard: bo.id });
@@ -811,6 +819,7 @@ export class OfferManagement extends Component<Props, State> {
                 offerId={this.props.offerId}
                 memberId={memberToRegister}
                 memberName={memberToRegisterName}
+                memberPhoto={memberToRegisterPhoto}
                 loading={this.props.compatiblePacksLoading}
                 compatiblePacks={this.props.compatiblePacks}
                 keep_credits={this.state.keep_credits}

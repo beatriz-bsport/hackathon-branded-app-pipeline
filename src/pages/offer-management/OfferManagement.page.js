@@ -94,6 +94,7 @@ function mapStateToProps(state, { id }) {
     // member
     membersloading: state.member.loading,
     members: state.member.all,
+    memberHistory: state.member.history.slice(0, 5),
     memberSearchLoading: state.member.search.loading,
     searchedMembers: memberSelectors.getSearched(state),
     memberCreationPending: state.member.upsert.loading,

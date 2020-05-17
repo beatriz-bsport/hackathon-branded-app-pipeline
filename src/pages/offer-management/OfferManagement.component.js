@@ -77,6 +77,7 @@ type Props = {
   goToOffer: (id: number) => void,
 
   members: Array<Member>,
+  memberHistory: Array<member>,
   bookingOptionsPending: Array<BookingOption>,
   bookings: Array<Booking>,
   paymentPacks: Array<PaymentPack>,
@@ -424,27 +425,41 @@ export class OfferManagement extends Component<Props, State> {
               flexDirection: 'row',
             }}
           >
-            <IconButton
-              onClick={(e) => {
-                e.stopPropagation();
-                this.setState({ openMailChoiceDialog: true });
-              }}
-              color="primary"
-              disabled={this.props.bookingLoading}
-            >
-              <MailIcon />
-            </IconButton>
-            <IconButton onClick={this.openAddMemberModal} color="primary">
-              <PersonAddIcon />
-            </IconButton>
-            <SearchMember
-              onChange={(event) => {
-                this.setState({ searchedText: event.target.value });
-                this.props.searchMembers(event.target.value);
-              }}
-              value={this.state.searchedText}
-              onReset={this.clearSearch}
-            />
+                    <IconButton
+            onClick={(e) => {
+              e.stopPropagation();
+              this.setState({ openMailChoiceDialog: true });
+            }}
+            color="primary"
+            disabled={this.props.bookingLoading}
+          >
+            <MailIcon />
+          </IconButton>
+          <IconButton onClick={this.openAddMemberModal} color="primary">
+            <PersonAddIcon />
+          </IconButton>
+          <SearchMember
+            onChange={(event) => {
+              this.setState({
+                searchedText: event.target.value,
+                memberHistoryAnchor: null,
+              });
+              this.props.searchMembers(event.target.value);
+            }}
+            value={this.state.searchedText}
+            onReset={this.clearSearch}
+            memberHistoryAnchor={this.state.memberHistoryAnchor}
+            memberHistory={this.props.memberHistory}
+            setMemberHistoryAnchor={(anchor) =>
+              this.setState({ memberHistoryAnchor: anchor })
+            }
+            onClickRegister={(member) => {
+              this.setState({
+                memberToRegisterName: member.name,
+                memberToRegister: member.id,
+              });
+            }}
+                        />
           </div>
         </div>
         <div className={classes.bookingOrderingContainer}>

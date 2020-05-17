@@ -10,7 +10,7 @@ import WarningIcon from '@material-ui/icons/Warning';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
-import { compose } from 'recompose';
+import { compose, withProps } from 'recompose';
 import Divider from '@material-ui/core/Divider';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -25,6 +25,8 @@ import {
   getByOfferByMember,
   getNonCompatibleByOfferByMember,
 } from '../../libs/consumer-payment-pack/selectors';
+import { fetchMember } from '../../libs/member/actions';
+
 import PaymentPackSummary from '../../components/payment-pack/PaymentPackSummary.component';
 
 type Props = {
@@ -264,6 +266,14 @@ export default compose(
       fetchConsumerPackByOfferByMember: fetchByOfferByMember,
       fetchPaymentPackBulk,
       fetchNoncompatibleConsumerPackByOfferByMember: fetchNonCompatibleByOfferByMember,
+      fetchByOfferByMemberAction: fetchByOfferByMember,
+      fetchMemberAction: fetchMember,
     },
   ),
+  withProps(({ fetchByOfferByMemberAction, fetchMemberAction }) => ({
+    fetchConsumerPackByOfferByMember: (offer, member) => {
+      fetchByOfferByMemberAction(offer, member);
+      fetchMemberAction(member);
+    },
+  })),
 )(RegisterMemberToOfferForm);

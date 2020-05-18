@@ -3,7 +3,7 @@ import React from 'react';
 
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { push as pushRouter } from 'react-router-redux';
+import { push as pushRouter } from 'connected-react-router';
 import { withNamespaces } from 'react-i18next';
 import OrderTable from '../../libs/order/components/OrderTable.component';
 import { fetchOrders } from '../../libs/order/api';

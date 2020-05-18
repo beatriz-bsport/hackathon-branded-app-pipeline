@@ -28,7 +28,7 @@ import AddIcon from '@material-ui/icons/Add';
 import LanguageIcon from '@material-ui/icons/Language';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import SaveIcon from '@material-ui/icons/Save';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { withNamespaces } from 'react-i18next';

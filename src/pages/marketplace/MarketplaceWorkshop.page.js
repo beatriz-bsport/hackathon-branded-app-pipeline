@@ -5,7 +5,7 @@ import { compose, withProps } from 'recompose';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import Moment from 'moment';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';

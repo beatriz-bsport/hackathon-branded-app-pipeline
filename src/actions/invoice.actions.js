@@ -1,6 +1,6 @@
 // @flow
 
-import { push as pushRouter } from 'react-router-redux';
+import { push as pushRouter } from 'connected-react-router';
 import { createAction } from 'redux-actions';
 import api from '../api';
 import types from './invoice.types';

@@ -2,7 +2,7 @@
 import React from 'react';
 import { compose, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import {

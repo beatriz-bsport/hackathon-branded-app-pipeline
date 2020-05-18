@@ -2,7 +2,7 @@
 import React from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { goBack, push } from 'react-router-redux';
+import { goBack, push } from 'connected-react-router';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 

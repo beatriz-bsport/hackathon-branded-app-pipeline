@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { withNamespaces } from 'react-i18next';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {
   getEmailTemplatesDetail,

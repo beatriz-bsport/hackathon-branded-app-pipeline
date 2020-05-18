@@ -7,7 +7,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 
 import MomentUtils from '@date-io/moment';
 import moment from 'moment';

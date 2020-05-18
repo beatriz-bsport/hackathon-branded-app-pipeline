@@ -12,7 +12,7 @@ import Dialog from '@material-ui/core/Dialog';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import moment from 'moment';
 import { withRouter } from 'react-router-dom';
-import { replace as replaceAction } from 'react-router-redux';
+import { replace as replaceAction } from 'connected-react-router';
 import { withNamespaces } from 'react-i18next';
 
 import {

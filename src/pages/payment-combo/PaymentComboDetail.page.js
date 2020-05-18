@@ -4,7 +4,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withState } from 'recompose';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';

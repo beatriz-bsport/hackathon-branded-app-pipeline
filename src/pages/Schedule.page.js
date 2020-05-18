@@ -7,7 +7,7 @@ import { withNamespaces } from 'react-i18next';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 
 import {
   getPrivateBookingListFiltered,

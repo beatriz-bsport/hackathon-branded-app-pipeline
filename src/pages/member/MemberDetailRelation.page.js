@@ -8,7 +8,7 @@ import Dialog from '@material-ui/core/Dialog';
 import _ from 'lodash';
 import DialogContent from '@material-ui/core/DialogContent';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';

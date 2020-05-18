@@ -10,7 +10,7 @@ import Collapse from '@material-ui/core/Collapse';
 import List from '@material-ui/core/List';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import { push as pushRouter } from 'react-router-redux';
+import { push as pushRouter } from 'connected-react-router';
 import { compose } from 'recompose';
 import PaginatedConsumerPackList from '../../libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
 import FuzeSearch from '../../components/FuzeSearch.component';

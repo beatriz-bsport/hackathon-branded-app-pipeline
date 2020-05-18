@@ -8,7 +8,7 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import { push as pushRouter } from 'react-router-redux';
+import { push as pushRouter } from 'connected-react-router';
 import TodayIcon from '@material-ui/icons/Today';
 
 import ConsumerDebtRegularizerDialog from '../../libs/consumer-space/components/ConsumerDebtRegularizerDialog.component';

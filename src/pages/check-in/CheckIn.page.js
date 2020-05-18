@@ -8,7 +8,7 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { compose, withState } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import { Redirect } from 'react-router-dom';
 
 import { withNamespaces } from 'react-i18next';

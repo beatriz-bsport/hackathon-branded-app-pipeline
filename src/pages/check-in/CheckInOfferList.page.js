@@ -4,7 +4,7 @@ import React from 'react';
 
 import { compose, withProps } from 'recompose';
 import { connect } from 'react-redux';
-import { push as routerPush } from 'react-router-redux';
+import { push as routerPush } from 'connected-react-router';
 import withStyles from '@material-ui/core/styles/withStyles';
 import moment from 'moment';
 

@@ -4,7 +4,7 @@ import { withNamespaces } from 'react-i18next';
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import { compose, withState, withHandlers, withStateHandlers } from 'recompose';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';

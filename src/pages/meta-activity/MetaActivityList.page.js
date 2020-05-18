@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import type { TFunction } from 'react-i18next';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import Collapse from '@material-ui/core/Collapse';
 import Paper from '@material-ui/core/Paper';
 

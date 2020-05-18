@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import { compose } from 'recompose';
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';

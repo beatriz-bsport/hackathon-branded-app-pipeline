@@ -4,7 +4,7 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router';
 import { compose, withProps, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
-import { push, replace } from 'react-router-redux';
+import { push, replace } from 'connected-react-router';
 import Planning from './Planning.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { Moment } from '../../i18n';

@@ -8,7 +8,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import { compose, withState, withStateHandlers, withHandlers } from 'recompose';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';

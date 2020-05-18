@@ -21,7 +21,7 @@ import Typography from '@material-ui/core/Typography';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import AddIcon from '@material-ui/icons/Add';
 import Immutable from 'seamless-immutable';
-import { push as pushRouter, goBack as goBackRouter } from 'react-router-redux';
+import { push as pushRouter, goBack as goBackRouter } from 'connected-react-router';
 
 import moment from 'moment';
 

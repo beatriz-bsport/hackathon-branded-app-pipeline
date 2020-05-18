@@ -12,7 +12,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 import Fade from '@material-ui/core/Fade';
 
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import ClearIcon from '@material-ui/icons/Clear';
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';

@@ -12,7 +12,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import Typography from '@material-ui/core/Typography';
 
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 

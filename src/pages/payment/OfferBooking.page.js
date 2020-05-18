@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import { push as pushRouter, goBack as goBackRouter } from 'react-router-redux';
+import { push as pushRouter, goBack as goBackRouter } from 'connected-react-router';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { compose, withProps, withState, withHandlers } from 'recompose';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';

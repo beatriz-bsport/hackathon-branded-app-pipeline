@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { fetchAllMembers } from '../../libs/member/api';

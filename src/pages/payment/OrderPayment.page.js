@@ -5,7 +5,7 @@ import { withNamespaces } from 'react-i18next';
 import { connect } from 'react-redux';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { compose } from 'recompose';
-import { goBack } from 'react-router-redux';
+import { goBack } from 'connected-react-router';
 import withStyles from '@material-ui/core/styles/withStyles';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import type { OrderWithProducts } from '../../libs/order/types';

@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 import Typography from '@material-ui/core/Typography';
-import { push as routerPush } from 'react-router-redux';
+import { push as routerPush } from 'connected-react-router';
 import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import InfoIcon from '@material-ui/icons/Info';

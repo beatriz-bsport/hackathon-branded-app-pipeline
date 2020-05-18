@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 
 import Grid from '@material-ui/core/Grid';
-import { push as routerPush } from 'react-router-redux';
+import { push as routerPush } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose, withProps } from 'recompose';
 import { withNamespaces } from 'react-i18next';

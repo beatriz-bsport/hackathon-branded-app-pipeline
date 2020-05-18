@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { withProps, compose } from 'recompose';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withNamespaces } from 'react-i18next';
 import withTitle from '../../hocs/with-title.hoc';

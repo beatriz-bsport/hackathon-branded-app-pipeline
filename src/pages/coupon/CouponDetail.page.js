@@ -5,7 +5,7 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect } from 'react-redux';
-import { push as pushRouter } from 'react-router-redux';
+import { push as pushRouter } from 'connected-react-router';
 import { compose, withState, withProps } from 'recompose';
 import CouponDeleteModal from '../../libs/coupon/components/CouponDeleteModal.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';

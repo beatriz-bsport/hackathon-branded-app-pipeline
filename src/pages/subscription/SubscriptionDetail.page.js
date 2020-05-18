@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { compose, withState, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
-import { push as pushRouter } from 'react-router-redux';
+import { push as pushRouter } from 'connected-react-router';
 
 import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,

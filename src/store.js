@@ -10,7 +10,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { createBrowserHistory } from 'history';
-import { connectRouter, routerMiddleware } from 'connected-react-router';
+import { routerMiddleware } from 'connected-react-router';
 import {
   seamlessImmutableReconciler,
   seamlessImmutableTransformCreator,
@@ -18,7 +18,7 @@ import {
 import createCompressor from 'redux-persist-transform-compress';
 import networkErrorMiddleWare from './libs/network/redux-middleware';
 
-import reducers from './reducers';
+import createRootReducer from './reducers';
 
 const persistConfig = {
   key: 'root',
@@ -40,13 +40,13 @@ const persistConfig = {
 };
 
 export default function initStore(initialState: Object = {}) {
-  const rootReducer = persistReducer(persistConfig, reducers);
   const history = createBrowserHistory();
+  const rootReducer = persistReducer(persistConfig, createRootReducer(history));
   const routerMiddlewareWithHistory = routerMiddleware(history);
   // prettier-ignore
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   const store = createStore(
-    connectRouter(history)(rootReducer),
+    rootReducer,
     initialState,
     composeEnhancers(
       applyMiddleware(

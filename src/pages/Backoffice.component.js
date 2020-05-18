@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import Intercom from 'react-intercom';
 import { compose, withHandlers } from 'recompose';
 

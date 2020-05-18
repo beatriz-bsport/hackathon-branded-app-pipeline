@@ -1,6 +1,6 @@
 // @flow weak
 
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import { createAction } from 'redux-actions';
 
 import * as Sentry from '@sentry/browser';

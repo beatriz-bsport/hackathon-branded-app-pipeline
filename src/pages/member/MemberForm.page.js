@@ -8,7 +8,7 @@ import { withNamespaces } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { push as pushRouter, goBack } from 'react-router-redux';
+import { push as pushRouter, goBack } from 'connected-react-router';
 import { compose, withProps } from 'recompose';
 import moment from 'moment';
 import { snackbar } from '../../actions/snackbar.actions';

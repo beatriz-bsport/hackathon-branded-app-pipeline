@@ -12,7 +12,7 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import withStyles from '@material-ui/core/styles/withStyles';
 import NotificationIcon from '@material-ui/icons/Notifications';
 import { compose, withState } from 'recompose';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
 
 import type { AlertGroup } from '../types';

@@ -3,7 +3,7 @@ import React from 'react';
 import { compose } from 'recompose';
 
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import CampaignList from '../../libs/communication/components/CampaignList.component';

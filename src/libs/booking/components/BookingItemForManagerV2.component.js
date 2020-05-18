@@ -26,7 +26,7 @@ import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import { push as routerPush } from 'react-router-redux';
+import { push as routerPush } from 'connected-react-router';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { BOOKING_STATUS_CANCELLED_BY_MANAGER } from '@bsport/common/lib/master-data/booking_status_code';

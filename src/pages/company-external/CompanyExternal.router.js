@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { goBack } from 'react-router-redux';
+import { goBack } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 

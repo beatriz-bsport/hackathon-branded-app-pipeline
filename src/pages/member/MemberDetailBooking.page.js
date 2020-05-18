@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import { compose } from 'recompose';
 import PaginatedListBase from '../../components/PaginatedListBase.component';
 

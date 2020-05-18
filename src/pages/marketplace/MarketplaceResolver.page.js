@@ -6,7 +6,7 @@ import { compose } from 'recompose';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import { connect } from 'react-redux';
-import { replace } from 'react-router-redux';
+import { replace } from 'connected-react-router';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 

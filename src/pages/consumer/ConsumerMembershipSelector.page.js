@@ -3,7 +3,7 @@ import React from 'react';
 
 import { compose, withProps } from 'recompose';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import { Redirect } from 'react-router-dom';
 
 import {

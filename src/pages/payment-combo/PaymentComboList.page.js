@@ -5,7 +5,7 @@ import { compose, withState, withProps } from 'recompose';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 
 import {
   fetchPaymentComboList,

@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { compose, withState } from 'recompose';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import type { TFunction } from 'react-i18next';
 import { withNamespaces } from 'react-i18next';
 import ButtonBase from '@material-ui/core/ButtonBase';

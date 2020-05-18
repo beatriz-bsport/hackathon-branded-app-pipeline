@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { compose, withHandlers, withProps } from 'recompose';
 import { withRouter } from 'react-router';
-import { push, replace as replaceRouter } from 'react-router-redux';
+import { push, replace as replaceRouter } from 'connected-react-router';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 

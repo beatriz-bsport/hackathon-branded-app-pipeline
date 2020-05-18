@@ -16,7 +16,7 @@ import Fade from '@material-ui/core/Fade';
 import { withNamespaces } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import Popover from '@material-ui/core/Popover';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DeleteOfferForm from '../../offer/DeleteOfferForm.component';
 import OfferEditForm from '../../offer/OfferEditForm.component';

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import { withProps, compose } from 'recompose';
 
-import { goBack, push as routerPush } from 'react-router-redux';
+import { goBack, push as routerPush } from 'connected-react-router';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { mapFormData, unmap } from '../form.utils';

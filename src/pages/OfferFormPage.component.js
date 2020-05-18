@@ -8,7 +8,7 @@ import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { goBack as goBackAction } from 'react-router-redux';
+import { goBack as goBackAction } from 'connected-react-router';
 
 import { fetchAllOffers as fetchAllOffersAction } from '../libs/offer/actions';
 import type { Coach, MetaActivity, Establishment } from '../api/types';

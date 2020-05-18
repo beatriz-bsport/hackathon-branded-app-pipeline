@@ -4,7 +4,7 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { push as routerPush } from 'react-router-redux';
+import { push as routerPush } from 'connected-react-router';
 import { compose, withState } from 'recompose';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';

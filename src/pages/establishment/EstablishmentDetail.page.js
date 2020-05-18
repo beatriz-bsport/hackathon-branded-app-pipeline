@@ -4,7 +4,7 @@ import React from 'react';
 import { compose, withProps } from 'recompose';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';

@@ -25,7 +25,7 @@ import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import { push as routerPush } from 'react-router-redux';
+import { push as routerPush } from 'connected-react-router';
 import { connect } from 'react-redux';
 import memoize from 'memoize-one';
 import moment from 'moment';

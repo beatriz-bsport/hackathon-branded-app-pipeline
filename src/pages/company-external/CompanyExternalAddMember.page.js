@@ -3,7 +3,7 @@ import React from 'react';
 import { compose, withProps } from 'recompose';
 import { connect } from 'react-redux';
 
-import { goBack as goBackAction } from 'react-router-redux';
+import { goBack as goBackAction } from 'connected-react-router';
 import { snackbar } from '../../actions/snackbar.actions';
 import MemberForm from '../../libs/member/MemberForm.component';
 import { createOrUpdateMember } from '../../libs/member/actions';

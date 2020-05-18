@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 import Paper from '@material-ui/core/Paper';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import withStyles from '@material-ui/core/styles/withStyles';
 import type { TFunction } from 'react-i18next';
 import { compose, withProps } from 'recompose';

@@ -4,7 +4,7 @@ import React from 'react';
 import { compose, withProps } from 'recompose';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { goBack as goBackAction } from 'react-router-redux';
+import { goBack as goBackAction } from 'connected-react-router';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import CheckInConfirm from '../../libs/check-in/components/CheckInConfirm.component';

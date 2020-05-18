@@ -2,6 +2,7 @@
 
 import { combineReducers } from 'redux';
 
+import { connectRouter } from 'connected-react-router';
 import authReducers from './auth';
 import statsReducers from './stats';
 import categoryReducers from './category';
@@ -52,56 +53,58 @@ import type { State, Action } from '../state/types';
 
 import { reducer } from '../resources';
 
-const rootReducer = combineReducers({
-  '@api': reducer,
-  communication: communicationReducers,
-  checkout: checkoutReducers,
-  paymentRules: paymentRulesReducer,
-  payment: paymentReducers,
-  consumer: consumerReducers,
-  auth: authReducers,
-  establishment: establishmentReducers,
-  booking: bookingReducers,
-  metaActivity: metaActivityReducers,
-  stats: statsReducers,
-  coach: coachReducers,
-  member: memberReducer,
-  paymentPack,
-  consumerPaymentPack: consumerPaymentPackReducers,
-  category: categoryReducers,
-  invoice: invoiceReducers,
-  snackbar: snackbarReducer,
-  refresh: refreshReducer,
-  search: searchReducer,
-  companies: companiesReducers,
-  shop: shopReducer,
-  subscription: subscriptionReducer,
-  alerting: alertingReducer,
-  tag: tagReducers,
-  order: orderReducers,
-  waitingList: waitingListReducers,
-  theme: themeReducers,
-  role: roleReducers,
-  coupon: couponReducers,
-  emailTemplate: emailTemplateReducer,
-  relationship,
-  network,
-  login,
-  privateService,
-  smartList: smartListReducer,
-  paymentCombo,
-  reminder,
-  membership,
-  company,
-  offer,
-  webhook,
-  notificationRule,
-  partnership,
-  activeCampaign,
-  event,
-});
+const rootReducer = (history) =>
+  combineReducers({
+    '@api': reducer,
+    router: connectRouter(history),
+    communication: communicationReducers,
+    checkout: checkoutReducers,
+    paymentRules: paymentRulesReducer,
+    payment: paymentReducers,
+    consumer: consumerReducers,
+    auth: authReducers,
+    establishment: establishmentReducers,
+    booking: bookingReducers,
+    metaActivity: metaActivityReducers,
+    stats: statsReducers,
+    coach: coachReducers,
+    member: memberReducer,
+    paymentPack,
+    consumerPaymentPack: consumerPaymentPackReducers,
+    category: categoryReducers,
+    invoice: invoiceReducers,
+    snackbar: snackbarReducer,
+    refresh: refreshReducer,
+    search: searchReducer,
+    companies: companiesReducers,
+    shop: shopReducer,
+    subscription: subscriptionReducer,
+    alerting: alertingReducer,
+    tag: tagReducers,
+    order: orderReducers,
+    waitingList: waitingListReducers,
+    theme: themeReducers,
+    role: roleReducers,
+    coupon: couponReducers,
+    emailTemplate: emailTemplateReducer,
+    relationship,
+    network,
+    login,
+    privateService,
+    smartList: smartListReducer,
+    paymentCombo,
+    reminder,
+    membership,
+    company,
+    offer,
+    webhook,
+    notificationRule,
+    partnership,
+    activeCampaign,
+    event,
+  });
 
-export default (state: State, action: Action) => {
+export default (history) => (state: State, action: Action) => {
   const newState = action.type === 'DISCONNECT' ? {} : state;
-  return rootReducer(newState, action);
+  return rootReducer(history)(newState, action);
 };

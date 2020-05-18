@@ -9,7 +9,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import {
   push as pushRouter,
   replace as replaceRouter,
-} from 'react-router-redux';
+} from 'connected-react-router';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
 import parse from '../../query-string';

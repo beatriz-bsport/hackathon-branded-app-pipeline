@@ -2,7 +2,7 @@
 import React, { PureComponent } from 'react';
 
 import { connect } from 'react-redux';
-import { push as routerPush } from 'react-router-redux';
+import { push as routerPush } from 'connected-react-router';
 import { compose, withProps } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 

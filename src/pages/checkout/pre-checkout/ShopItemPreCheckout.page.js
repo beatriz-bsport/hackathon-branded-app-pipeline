@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
-import { replace, goBack } from 'react-router-redux';
+import { replace, goBack } from 'connected-react-router';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 import { BUYABLE_ITEM_SHOP_ITEM } from '@bsport/common/lib/master-data/buyable-items';

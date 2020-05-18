@@ -7,7 +7,7 @@ import { withNamespaces } from 'react-i18next';
 import {
   replace as replaceRouter,
   push as pushRouter,
-} from 'react-router-redux';
+} from 'connected-react-router';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
 import memberSelectors from '../../libs/member/selectors';

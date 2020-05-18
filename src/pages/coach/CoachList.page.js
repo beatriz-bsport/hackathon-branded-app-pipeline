@@ -4,7 +4,7 @@ import React from 'react';
 
 import { compose, withState } from 'recompose';
 import Collapse from '@material-ui/core/Collapse';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import type { TFunction } from 'react-i18next';

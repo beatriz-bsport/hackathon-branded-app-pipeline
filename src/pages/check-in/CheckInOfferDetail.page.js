@@ -4,7 +4,7 @@ import React from 'react';
 import { compose, withProps, withHandlers, withState } from 'recompose';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { push as pushRouter } from 'react-router-redux';
+import { push as pushRouter } from 'connected-react-router';
 import { withNamespaces } from 'react-i18next';
 
 import CheckInOfferDetail from '../../libs/check-in/components/CheckInOfferDetail.component';

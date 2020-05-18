@@ -5,7 +5,7 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { push as pushRouter, goBack } from 'react-router-redux';
+import { push as pushRouter, goBack } from 'connected-react-router';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 
 import { withNamespaces } from 'react-i18next';

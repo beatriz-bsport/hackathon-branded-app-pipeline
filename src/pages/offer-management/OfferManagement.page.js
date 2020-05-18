@@ -5,7 +5,7 @@ import { withNamespaces } from 'react-i18next';
 import {
   replace as replaceRouter,
   push as routerPush,
-} from 'react-router-redux';
+} from 'connected-react-router';
 import { compose, withProps } from 'recompose';
 
 import { invoice as invoiceActions } from '../../actions';

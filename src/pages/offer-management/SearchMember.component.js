@@ -65,9 +65,15 @@ export function SearchMember(props: Props) {
         className={classes.field}
         placeholder={t('input')}
         fullWidth
-        onBlur={() => props.setMemberHistoryAnchor(null)}
+        onBlur={() => {
+          if (props.setMemberHistoryAnchor) {
+            props.setMemberHistoryAnchor(null);
+          }
+        }}
         onFocus={(ev) => {
-          props.setMemberHistoryAnchor(ev.currentTarget);
+          if (props.setMemberHistoryAnchor) {
+            props.setMemberHistoryAnchor(ev.currentTarget);
+          }
         }}
         InputProps={{
           className: classes.input,

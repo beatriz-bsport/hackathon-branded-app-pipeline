@@ -6,8 +6,9 @@ import memoize from 'memoize-one';
 import type { State } from '../../state/types';
 import type { MetaActivity } from './types';
 
-const getMetaActivityAbstractDict = (state: State): Array<MetaActivity> =>
-  state.metaActivity.byId;
+export const getMetaActivityAbstractDict = (
+  state: State,
+): Array<MetaActivity> => state.metaActivity.byId;
 
 export const getMetaActivitiesDict = createSelector(
   getMetaActivityAbstractDict,

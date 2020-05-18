@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 
-import { compose } from 'recompose';
+import { compose, withStateHandlers } from 'recompose';
 // import chroma from 'chroma-js';
 import { withNamespaces } from 'react-i18next';
 import frLocale from '@fullcalendar/core/locales/fr';
@@ -357,7 +357,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, t } = this.props;
     const events = this.getAvailableSlotAsEvents(
       this.props.availabilitySlots,
       this.props.privateBookings,
@@ -375,19 +375,29 @@ export class PrivateCalendar extends React.Component<Props, State> {
               : 'timeGridWeek'
           }
           plugins={[interactionPlugin, timeGridPlugin, resourceTimeGrid]}
+          customButtons={{
+            zoomIn: {
+              text: '+',
+              click: this.props.zoomIn,
+            },
+            zoomOut: {
+              text: '-',
+              click: this.props.zoomOut,
+            },
+          }}
           views={{
             resourceTimeGridThreeDays: {
               type: 'resourceTimeGrid',
               duration: { days: 3 },
-              buttonText: '3 jours',
+              buttonText: t('calendar.header.threeDaysView'),
             },
           }}
           header={{
             left: 'prev,next today',
             center: 'title',
             right: this.props.resourceDatatypeView
-              ? 'resourceTimeGridDay,resourceTimeGridThreeDays,resourceTimeGridWeek'
-              : 'timeGridDay,timeGridWeek',
+              ? 'zoomOut,zoomIn resourceTimeGridDay,resourceTimeGridThreeDays,resourceTimeGridWeek'
+              : 'zoomOut,zoomIn timeGridDay,timeGridWeek',
           }}
           schedulerLicenseKey="0683005223-fcs-1587553109"
           filterResourcesWithEvents
@@ -399,6 +409,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
           dateClick={this.dateClick}
           events={events}
           locale={i18n.lng}
+          slotDuration={`00:${15 * 2 ** this.props.zoomLevel}:00`}
           locales={[frLocale]}
           minTime="06:00:00"
           maxTime="23:00:00"
@@ -481,6 +492,17 @@ export class PrivateCalendar extends React.Component<Props, State> {
 }
 
 export default compose(
+  withStateHandlers(
+    { zoomLevel: 1 },
+    {
+      zoomIn: ({ zoomLevel }) => () => ({
+        zoomLevel: Math.max(zoomLevel - 1, 0),
+      }),
+      zoomOut: ({ zoomLevel }) => () => ({
+        zoomLevel: Math.min(zoomLevel + 1, 2),
+      }),
+    },
+  ),
   withNamespaces(['privateService']),
   withMobileDialog(),
   withStyles(styles, { withTheme: true }),

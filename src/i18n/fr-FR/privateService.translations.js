@@ -155,6 +155,9 @@ exports.default = {
     },
   },
   calendar: {
+    header: {
+      threeDaysView: '3 jours',
+    },
     enableAvailability: 'Ajouter une disponibilité ce jour',
     disableAvailability: 'Supprimer la disponibilité',
     enableRecurrentAvailability: 'Ajouter une disponibilité récurrente',

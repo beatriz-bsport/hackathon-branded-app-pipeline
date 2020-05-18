@@ -55,9 +55,13 @@ export class EmailEditorPanel extends Component<Props, State> {
     this.editor.exportHtml((data) => {
       const { design, html } = data;
       if (this.state.title === '') {
-        this.props.displayEmptyError(this.props.t('editor.error.title'));
+        this.props.displayEmptyError(
+          this.props.t('emailTemplate:editor.error.title'),
+        );
       } else if (Object.keys(design.counters).length === 2) {
-        this.props.displayEmptyError(this.props.t('editor.error.content'));
+        this.props.displayEmptyError(
+          this.props.t('emailTemplate:editor.error.content'),
+        );
       } else {
         this.props.save_email(this.props.emailLoad.id, {
           title: this.state.title,
@@ -123,14 +127,14 @@ export class EmailEditorPanel extends Component<Props, State> {
         <div className={classes.paper}>
           <TextField
             onChange={(event) => this.handleTitleChange(event.target.value)}
-            label={t('editor.title')}
+            label={t('emailTemplate:editor.title')}
             value={this.state.title}
             required
             className={classes.field}
           />
           <TextField
             onChange={(event) => this.handleObjectChange(event.target.value)}
-            label={t('editor.subject')}
+            label={t('emailTemplate:editor.subject')}
             value={this.state.subject}
             className={classes.field}
           />
@@ -142,7 +146,7 @@ export class EmailEditorPanel extends Component<Props, State> {
             className={classes.button}
             onClick={this.props.goToList}
           >
-            {t('editor.cancel')}
+            {t('emailTemplate:editor.cancel')}
           </Button>
           <Button
             color="primary"
@@ -150,7 +154,7 @@ export class EmailEditorPanel extends Component<Props, State> {
             className={classes.button}
             onClick={this.exportHtml}
           >
-            {t('editor.save')}
+            {t('emailTemplate:editor.save')}
           </Button>
         </div>
         <Paper>
@@ -204,5 +208,5 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(['emailTemplate']),
+  withNamespaces(['emailTemplate', 'notificationRule']),
 )(EmailEditorPanel);

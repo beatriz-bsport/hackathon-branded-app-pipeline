@@ -206,7 +206,7 @@ export class SmartListList extends Component<Props, State> {
             <SmartListCard
               smartlist={this.props.smartlistSelected}
               onEdit={() => this.setState({ openEditDialog: true })}
-              onClickConfigure={this.props.goToSelected}
+              onClickConfigure={this.props.goToEdit}
               onClickCampaign={this.props.goToSelectedCampaign}
             />
           </Grid>

@@ -6,9 +6,14 @@ import memoize from 'memoize-one';
 
 import type { State } from '../../state/types';
 import { getSCTs } from '../category/selectors';
+import { getAllEstablishmentsDict as getEstablishmentData } from '../establishment/selectors';
+import { getMetaActivityAbstractDict as getMetaActivityData } from '../meta-activity/selectors';
 
 export const getPaymentPackById = (state: State): Array<PaymentPack> =>
   state.paymentPack.byId;
+
+export const getPaymentPack = (state: State, id: number): PaymentPack =>
+  getPaymentPackById(state)[id];
 
 export const getPaymentPackAllIds = (state: State): Array<PaymentPack> =>
   state.paymentPack.allIds;
@@ -62,7 +67,53 @@ export const withSCT = memoize((selector) =>
   ),
 );
 
-const getPaymentPackNotifications = (state, id) =>
+export const withMetaActivities = memoize((selector) =>
+  createSelector(
+    [selector, getMetaActivityData],
+    (paymentPacks, metaActivityData) => {
+      if (Array.isArray(paymentPacks)) {
+        return paymentPacks.map((pp) => ({
+          ...pp,
+          metaActivities: pp.metaActivities.map((id) => metaActivityData[id]),
+        }));
+      }
+      if (paymentPacks) {
+        return {
+          ...paymentPacks,
+          metaActivities: paymentPacks.metaActivities.map(
+            (id) => metaActivityData[id],
+          ),
+        };
+      }
+      return paymentPacks;
+    },
+  ),
+);
+
+export const withEstablishments = memoize((selector) =>
+  createSelector(
+    [selector, getEstablishmentData],
+    (paymentPacks, establishmentData) => {
+      if (Array.isArray(paymentPacks)) {
+        return paymentPacks.map((pp) => ({
+          ...pp,
+          establishments: pp.establishments.map((id) => establishmentData[id]),
+        }));
+      }
+      if (paymentPacks) {
+        return {
+          ...paymentPacks,
+          establishments: paymentPacks.establishments.map(
+            (id) => establishmentData[id],
+          ),
+        };
+      }
+      return paymentPacks;
+    },
+  ),
+);
+
+export const getPaymentPackNotifications = (state, id) =>
   Immutable(
     Object.values(state.paymentPack.notification.itemsById).filter(
       (notification) => notification.payment_pack === id,

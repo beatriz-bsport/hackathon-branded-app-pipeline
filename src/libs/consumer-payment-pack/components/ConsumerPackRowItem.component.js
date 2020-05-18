@@ -9,6 +9,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
+import ExposureNeg1Icon from '@material-ui/icons/ExposureNeg1';
+import ExposurePlus1Icon from '@material-ui/icons/ExposurePlus1';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withNamespaces } from 'react-i18next';
@@ -145,7 +147,7 @@ export class ConsumerPackRowItem extends Component<Props> {
             incrementCredit(consumerPack.id);
           }}
         >
-          +1
+          <ExposurePlus1Icon />
         </IconButton>
         <IconButton
           aria-label="change-credits"
@@ -156,7 +158,7 @@ export class ConsumerPackRowItem extends Component<Props> {
             decrementCredit(consumerPack.id);
           }}
         >
-          -1
+          <ExposureNeg1Icon />
         </IconButton>
       </div>
     );

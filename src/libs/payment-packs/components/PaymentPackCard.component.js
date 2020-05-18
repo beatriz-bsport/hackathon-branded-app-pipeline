@@ -73,7 +73,7 @@ export class PaymentPackCard extends Component<Props> {
   };
 
   getActivityScope = () => {
-    const { pack, t, classes, metaActivities } = this.props;
+    const { pack, t, classes } = this.props;
     const packMetaActivities = pack.metaActivities;
     if (packMetaActivities.length === 0) {
       return null;
@@ -85,12 +85,18 @@ export class PaymentPackCard extends Component<Props> {
         </Typography>
         <List className={classes.tabList}>
           {packMetaActivities.length ? (
-            packMetaActivities.map((ma) => (
-              <MetaActivityMinimalSummary
-                key={ma.id}
-                metaActivity={metaActivities.find((m) => m.id === ma)}
-              />
-            ))
+            packMetaActivities.map((ma) => {
+              if (!ma) {
+                return (
+                  <div>
+                    <CircularProgress />
+                  </div>
+                );
+              }
+              return (
+                <MetaActivityMinimalSummary key={ma.id} metaActivity={ma} />
+              );
+            })
           ) : (
             <Typography variant="body2">{t('anyActivity')}</Typography>
           )}
@@ -100,7 +106,7 @@ export class PaymentPackCard extends Component<Props> {
   };
 
   getEstablishmentScope = () => {
-    const { pack, t, classes, establishments } = this.props;
+    const { pack, t, classes } = this.props;
     const packEstablishments = pack.establishments;
     if (packEstablishments.length === 0) {
       return null;
@@ -113,14 +119,8 @@ export class PaymentPackCard extends Component<Props> {
         <List className={classes.tabList}>
           {packEstablishments.length ? (
             packEstablishments.map((eee) => {
-              const establishment = establishments.find((e) => e.id === eee);
-              if (!establishment) return <CircularProgress />;
-              return (
-                <EstablishmentSummary
-                  key={eee.id}
-                  establishment={establishment}
-                />
-              );
+              if (!eee) return <CircularProgress />;
+              return <EstablishmentSummary key={eee.id} establishment={eee} />;
             })
           ) : (
             <Typography variant="body2">{t('anyEstablishment')}</Typography>

@@ -68,21 +68,6 @@ export const PrivateConsumerPassBookerListItem = (props: Props) => {
       {!!props.creditProcessing && <CircularProgress />}
       {!!props.onUpdateCredit && !props.creditProcessing && (
         <IconButton
-          color="secondary"
-          onClick={(ev) => {
-            ev.stopPropagation();
-            props.setCreditProcessing(true);
-            props.onUpdateCredit(private_consumer_pass.id, -1, {
-              onSuccess: () => props.setCreditProcessing(false),
-              onError: () => props.setCreditProcessing(false),
-            });
-          }}
-        >
-          <ExposureNeg1Icon />
-        </IconButton>
-      )}
-      {!!props.onUpdateCredit && !props.creditProcessing && (
-        <IconButton
           color="primary"
           onClick={(ev) => {
             ev.stopPropagation();
@@ -94,6 +79,21 @@ export const PrivateConsumerPassBookerListItem = (props: Props) => {
           }}
         >
           <ExposurePlus1Icon />
+        </IconButton>
+      )}
+      {!!props.onUpdateCredit && !props.creditProcessing && (
+        <IconButton
+          color="secondary"
+          onClick={(ev) => {
+            ev.stopPropagation();
+            props.setCreditProcessing(true);
+            props.onUpdateCredit(private_consumer_pass.id, -1, {
+              onSuccess: () => props.setCreditProcessing(false),
+              onError: () => props.setCreditProcessing(false),
+            });
+          }}
+        >
+          <ExposureNeg1Icon />
         </IconButton>
       )}
       {props.onBook && !private_consumer_pass.reverted ? (

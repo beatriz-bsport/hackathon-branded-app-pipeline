@@ -41,8 +41,12 @@ import {
   fetchPackNotifications as fetchNotificationsAction,
   fetchOne as fetchPaymentPack,
 } from '../../libs/payment-packs/actions';
-import paymentPackSelector, {
+import {
+  withEstablishments,
+  withMetaActivities,
+  getPaymentPack,
   withSCT,
+  getPaymentPackNotifications,
 } from '../../libs/payment-packs/selectors';
 import type { MetaActivity } from '../../api/types';
 import withTitle from '../../hocs/with-title.hoc';
@@ -193,8 +197,6 @@ export class PaymentPackDetail extends Component<Props, State> {
         <Grid item xs={12} md={6} className={classes.paymentPackContainer}>
           <PaymentPackCard
             pack={pack}
-            metaActivities={metaActivities}
-            establishments={establishments}
             onEditButtonClick={() => this.requestEdit(pack)}
             onDeleteButtonClick={() => this.requestDelete(pack)}
             snackbarSuccess={this.props.snackbarSuccess}
@@ -313,9 +315,12 @@ const styles = (theme) => ({
 function mapStateToProps(state, { id }) {
   return {
     loading: state.paymentPack.loading || state.establishment.loading,
-    pack: paymentPackSelector.getWithSCT(state, id),
+    pack: withSCT(withMetaActivities(withEstablishments(getPaymentPack)))(
+      state,
+      id,
+    ),
     notifications: {
-      items: paymentPackSelector.getPaymentPackNotifications(state, id),
+      items: getPaymentPackNotifications(state, id),
       loading: state.paymentPack.notification.loading,
       updating: state.paymentPack.notification.update.id,
     },

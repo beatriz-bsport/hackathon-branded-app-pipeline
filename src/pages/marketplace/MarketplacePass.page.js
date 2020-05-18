@@ -27,7 +27,7 @@ import MarketplacePassList from '../../libs/marketplace/components/MarketplacePa
 import MarketplacePrivatePassList from '../../libs/marketplace/components/MarketplacePrivatePassList.component';
 import MarketplacePaymentComboList from '../../libs/marketplace/components/MarketplacePaymentComboList.component';
 
-import { getMarketplacePaymentPacks } from '../../libs/payment-packs/selectors';
+import { getMarketplacePaymentPacks, withMetaActivities, withEstablishments } from '../../libs/payment-packs/selectors';
 // checkout
 // -----------------------------
 import { addItemToBasket } from '../../libs/checkout/actions';
@@ -130,8 +130,6 @@ export class MarketPlacePassPage extends Component<Props> {
                 this.props.toogleCurrentBasketOpen(true);
               }
             }}
-            metaActivities={this.props.metaActivities}
-            establishments={this.props.establishments}
           />
         </Grid>
         {this.props.privatePassList.length ? (
@@ -177,7 +175,7 @@ export default compose(
   withStyles(styles),
   connect(
     (state) => ({
-      paymentPacks: getMarketplacePaymentPacks(state),
+      paymentPacks: withEstablishments(withMetaActivities(getMarketplacePaymentPacks))(state),
       currentBasket: getCurrentBasket(state),
       authenticated: state.auth.authenticated,
       metaActivities: getMetaActivities(state),
@@ -225,7 +223,7 @@ export default compose(
               [...packList.map((pp) => pp.establishments)].flat(2),
             );
             fetchMetaActivityBulk(
-              [...packList.map((pp) => pp.metaActivities)].flat(2),
+              packList.map((pp) => pp.metaActivities).flat(2),
             );
           },
         }),

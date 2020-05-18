@@ -68,14 +68,7 @@ const PaymentPackMarketplaceListItem = (props: {
 );
 
 export function MarketplacePassList(props: Props) {
-  const {
-    paymentPacks,
-    t,
-    pushPackCheckout,
-    selectedPass,
-    metaActivities,
-    establishments,
-  } = props;
+  const { paymentPacks, t, pushPackCheckout, selectedPass } = props;
   return (
     <div>
       <Typography
@@ -131,12 +124,7 @@ export function MarketplacePassList(props: Props) {
         >
           <div>
             {selectedPass ? (
-              <PaymentPackCard
-                pack={selectedPass}
-                metaActivities={metaActivities}
-                establishments={establishments}
-                onlyPublic
-              />
+              <PaymentPackCard pack={selectedPass} onlyPublic />
             ) : null}
             <Button
               style={{ width: '100%' }}

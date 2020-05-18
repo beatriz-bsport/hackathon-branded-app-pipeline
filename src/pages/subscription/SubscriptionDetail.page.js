@@ -32,6 +32,7 @@ import {
   switchSubscriptionPaymentMethod as switchSubscriptionPaymentMethodAction,
   fetchSubscriptionEventList as fetchSubscriptionEventListAction,
 } from '../../libs/subscription/actions';
+import { fetchMember } from '../../libs/member/actions';
 import {
   get as getSubscriptionById,
   getSubscriptionEventList,
@@ -171,6 +172,8 @@ export class SubscriptionDetail extends Component<Props> {
         {this.props.switchPaymentMethodDialogOpen ? (
           <SubscriptionPaymentMethodSwitcherDialog
             open={this.props.switchPaymentMethodDialogOpen}
+            member={this.props.member}
+            loading={this.props.memberLoading}
             onSubmit={this.props.switchPaymentMethod}
             onCancel={() => this.props.setSwitchPaymentMethodDialogOpen(false)}
             enabledPaymentMethods={[
@@ -243,6 +246,8 @@ export default compose(
   connect(
     (state, { id }) => ({
       subscription: getSubscriptionById(state, id),
+      member: state.member.member,
+      memberLoading: state.member.loading,
       loading:
         state.subscription.detail.loading ||
         state.subscription.createOrUpdate.loading,
@@ -253,6 +258,7 @@ export default compose(
     }),
     {
       fetchSubscription: fetchSubscriptionAction,
+      fetchMember,
       fetchSubscriptionEventList: fetchSubscriptionEventListAction,
       stop: stopSubscription,
       goToInvoice: (uuid: string) => pushRouter(`/invoice/${uuid}`),
@@ -297,10 +303,14 @@ export default compose(
     fetchSubscription: ({
       fetchSubscription,
       fetchPaymentPackBulk,
+      fetchMember,
       id,
     }) => () => {
       fetchSubscription(id, {
-        onSuccess: (sub) => fetchPaymentPackBulk([sub.payment_pack]),
+        onSuccess: (sub) => {
+          fetchPaymentPackBulk([sub.payment_pack]);
+          fetchMember(sub.member);
+        },
       });
     },
     openPackSwitcherDialog: ({

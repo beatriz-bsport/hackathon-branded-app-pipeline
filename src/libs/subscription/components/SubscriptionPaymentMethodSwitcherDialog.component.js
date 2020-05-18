@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import { compose, withState, withHandlers } from 'recompose';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import { Elements, StripeProvider } from 'react-stripe-elements';
@@ -19,6 +20,15 @@ type Props = {
 };
 
 export const SubscriptionPaymentMethodSwitcherDialog = (props: Props) => {
+  if (props.loading) {
+    return (
+      <Dialog open={props.open}>
+        <DialogContent>
+          <CircularProgress />
+        </DialogContent>
+      </Dialog>
+    );
+  }
   return (
     <Dialog open={props.open}>
       <DialogContent>
@@ -28,6 +38,7 @@ export const SubscriptionPaymentMethodSwitcherDialog = (props: Props) => {
               onSubmit={props.onSubmit}
               onCancel={props.onCancel}
               enabledPaymentMethods={props.enabledPaymentMethods}
+              member={props.member}
               processing={props.processing}
             />
           </Elements>

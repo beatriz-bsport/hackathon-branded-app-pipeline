@@ -114,18 +114,21 @@ export function PaymentPackForm(props: Props) {
               }}
             />
           </Grid>
-          {values.credits && initial && values.credits !== initial.credits && (
-            <div className={classes.row}>
-              <WarningIcon
-                fontSize="small"
-                color="error"
-                className={classes.leftIcon}
-              />
-              <Typography variant="caption" color="error">
-                {t('form.paymentPack.credits.bewareChange')}
-              </Typography>
-            </div>
-          )}
+          {values.credits &&
+            !!initial &&
+            values.credits !== initial.credits &&
+            initial.id && (
+              <div className={classes.row}>
+                <WarningIcon
+                  fontSize="small"
+                  color="error"
+                  className={classes.leftIcon}
+                />
+                <Typography variant="caption" color="error">
+                  {t('form.paymentPack.credits.bewareChange')}
+                </Typography>
+              </div>
+            )}
           <Grid item xs={6}>
             <TextField
               name="credits"

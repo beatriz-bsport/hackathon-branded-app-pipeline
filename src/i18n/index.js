@@ -1,6 +1,8 @@
 import i18n from 'i18next';
 // import Backend from 'i18next-locize-backend';
-import backend from 'i18next-http-backend';
+import HttpBackend from 'i18next-http-backend';
+import ChainedBackend from 'i18next-chained-backend';
+import LocalStorageBackend from 'i18next-localstorage-backend';
 
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { reactI18nextModule } from 'react-i18next';
@@ -10,9 +12,13 @@ import 'moment/locale/fr';
 i18n
   .use(reactI18nextModule)
   // .use(Backend)
-  .use(backend)
+  .use(ChainedBackend)
   .use(LanguageDetector)
   .init({
+    backend: {
+      backends: [LocalStorageBackend, HttpBackend],
+      backendOptions: [{ expirationTime: 3 * 24 * 60 * 60 * 1000 }, {}],
+    },
     /*
     backend: {
       apiKey: 'e7f5edb0-1b19-4076-8e6e-c3da67653f8a',

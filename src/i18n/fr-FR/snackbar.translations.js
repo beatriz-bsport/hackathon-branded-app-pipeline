@@ -219,6 +219,14 @@ exports.default = {
     },
   },
   subscription: {
+    switchPaymentMethod: {
+      success: 'Méthode de paiement mise à jour',
+      error: 'Impossible de modifier la méthode de paiement',
+    },
+    switchPack: {
+      success: 'Méthode de paiement modifiée',
+      error: 'Impossible de modifier la carte de cours',
+    },
     freeze: {
       success: 'Souscription mise en pause',
       alreadyPaused:

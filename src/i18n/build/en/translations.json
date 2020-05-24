@@ -1471,7 +1471,9 @@
                 "rgpd": {
                     "sms": "Accept SMS notification",
                     "email": "Accept email notification"
-                }
+                },
+                "barcodeHelper": "(optional) use this bar code for your access cards",
+                "barcode": "Bar code"
             },
             "booking": {
                 "delete": {
@@ -2293,6 +2295,9 @@
                     "cancel": "Cancel",
                     "submit": "Save"
                 }
+            },
+            "header": {
+                "threeDaysView": "3 days"
             }
         },
         "selector": {
@@ -2868,7 +2873,7 @@
             "stolen_card": null
         },
         "error_code": {
-            "none": "",
+            "none": " ",
             "incomplete_number": "Incomplete card number.",
             "incomplete_expiry": "Expiration date is incomplete.",
             "invalid_expiry_year_past": "You card has expired.",
@@ -2883,7 +2888,7 @@
             "unknown": "Network error, please retry in a few minutes"
         },
         "decline_code": {
-            "none": "",
+            "none": " ",
             "card_not_supported": "Your card was not recognized.",
             "incorrect_number": "Your card number is invalid.",
             "incorrect_cvc": "Your security code is invalid.",
@@ -4692,7 +4697,12 @@
         "table": {
             "show": "Show"
         },
-        "name": "Name"
+        "name": "Name",
+        "barcode": {
+            "display": "Show bar code",
+            "code": "Bar code",
+            "none": "none"
+        }
     },
     "booking": {
         "bookingModule": {
@@ -5391,6 +5401,14 @@
                 "error": "Impossible to pause this subscription",
                 "alreadyPaused": "Impossible to pause a subscription already paused",
                 "success": "Subscription freezed"
+            },
+            "switchPack": {
+                "error": "Can't change the pass",
+                "success": "Payment method updated"
+            },
+            "switchPaymentMethod": {
+                "error": "Impossible to change payment method",
+                "success": "Payement method updated"
             }
         },
         "smartlist": {

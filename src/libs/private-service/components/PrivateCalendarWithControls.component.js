@@ -147,6 +147,7 @@ export const PrivateCalendarMultiResource = (props: Props) => (
       />
       <CalendarEventDetail
         popoverAnchor={props.popoverAnchor}
+        fetchAvailabilitySlots={props.fetchAvailabilitySlots}
         privateBookingId={props.privateBookingId}
         offerId={props.offerId}
         onClose={props.closePopover}

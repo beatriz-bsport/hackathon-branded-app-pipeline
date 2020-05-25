@@ -356,6 +356,18 @@ export const fetchPrivateBookings = (params: any) => {
   );
 };
 
+export const updatePrivateBookingDatetime = (
+  id: number,
+  date_start: string,
+) => {
+  return postAuth(
+    `${API_V1_URI}/private_service/private_booking/${id}/update_datetime/`,
+    {
+      date_start,
+    },
+  );
+};
+
 export const registerPrivateBookings = ({
   private_slot,
   private_consumer_pass,

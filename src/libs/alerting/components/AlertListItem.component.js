@@ -4,13 +4,11 @@ import React from 'react';
 
 import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
-import { Trans, withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
-import { compose } from 'recompose';
+import { Trans, useTranslation } from 'react-i18next';
 import moment from 'moment';
 
 import type { Alerting, UnevenInvoiceAlerting } from '../types';
@@ -20,22 +18,22 @@ type Props = {
   pushRouter: (path: string) => void,
 };
 
-const styles = () => ({
+const useStyles = makeStyles(() => ({
   titleContainer: {
     display: 'flex',
     justifyContent: 'space-between',
     flexDirection: 'row',
     alignItems: 'center',
   },
-});
+}));
 
-const UnevenAlertListItemBase = (props: {
-  t: TFunction,
+const UnevenAlertListItem = (props: {
   pushRouter: (string) => void,
   alerting: UnevenInvoiceAlerting,
-  classes: Object,
 }) => {
-  const { t, alerting, classes } = props;
+  const { alerting } = props;
+  const { t } = useTranslation(['alerting']);
+  const { classes } = useStyles();
   const { uuid, price_payed, price_due } = alerting.data;
   return (
     <ListItem divider style={{ paddingTop: 0 }}>
@@ -51,7 +49,7 @@ const UnevenAlertListItemBase = (props: {
           </IconButton>
         </div>
         <Typography variant="caption" component="p">
-          <Trans i18nKey="unevenInvoice.explainUneven" uuid={uuid}>
+          <Trans t={t} i18nKey="unevenInvoice.explainUneven" uuid={uuid}>
             The invoice <strong>{{ uuid }}</strong> is uneven
           </Trans>
           <br />
@@ -64,19 +62,14 @@ const UnevenAlertListItemBase = (props: {
   );
 };
 
-const UnevenAlertListItem = compose(
-  withStyles(styles),
-  withTranslation(['alerting']),
-)(UnevenAlertListItemBase);
-
-const NewOrderAlertListItemBase = (props: {
-  t: TFunction,
+const NewOrderAlertListItem = (props: {
   pushRouter: (string) => void,
   alerting: NewOrderAlerting,
-  classes: Object,
 }) => {
-  const { t, alerting, classes } = props;
+  const { alerting } = props;
+  const { classes } = useStyles();
   const { order, price, name } = alerting.data;
+  const { t } = useTranslation(['alerting']);
   return (
     <ListItem divider style={{ paddingTop: 0 }}>
       <div style={{ width: '100%' }}>
@@ -91,7 +84,7 @@ const NewOrderAlertListItemBase = (props: {
           </div>
         </div>
         <Typography variant="caption" component="p">
-          <Trans i18nKey="newOrder.explain" name={name}>
+          <Trans t={t} i18nKey="newOrder.explain" name={name}>
             New order paid by <strong>{{ name }}</strong>
           </Trans>
           <br />
@@ -102,17 +95,12 @@ const NewOrderAlertListItemBase = (props: {
   );
 };
 
-const NewOrderAlertListItem = compose(
-  withStyles(styles),
-  withTranslation(['alerting']),
-)(NewOrderAlertListItemBase);
-
-const TaskAlertListItemBase = (props: {
+const TaskAlertListItem = (props: {
   pushRouter: (string) => void,
   alerting: TaskAlerting,
-  classes: Object,
 }) => {
-  const { alerting, classes } = props;
+  const { alerting } = props;
+  const { classes } = useStyles();
   const { name, description, date_due, member } = alerting.data;
   return (
     <ListItem divider style={{ paddingTop: 0 }}>
@@ -143,11 +131,6 @@ const TaskAlertListItemBase = (props: {
     </ListItem>
   );
 };
-
-const TaskAlertListItem = compose(
-  withStyles(styles),
-  withTranslation(['alerting']),
-)(TaskAlertListItemBase);
 
 export default function AlertList(props: Props) {
   const { alerting, pushRouter } = props;

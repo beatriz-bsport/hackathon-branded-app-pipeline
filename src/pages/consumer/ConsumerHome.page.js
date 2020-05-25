@@ -2,7 +2,7 @@
 import React from 'react';
 import { compose, withHandlers, withProps } from 'recompose';
 import { connect } from 'react-redux';
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import withStyles from '@material-ui/core/styles/withStyles';
 

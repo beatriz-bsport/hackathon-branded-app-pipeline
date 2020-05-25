@@ -21,6 +21,14 @@ const {
   NOTIFICATION_SUBSCRIPTION_STOP,
   NOTIFICATION_SUBSCRIPTION_PAYMENT_RECEIVED,
   NOTIFICATION_BOOKING_BROADCAST,
+  NOTIFICATION_PRIVATE_BOOKING_CANCEL_NOT_REFUNDED_COACH,
+  NOTIFICATION_PRIVATE_BOOKING_CANCEL_NOT_REFUNDED_CONSUMER,
+  NOTIFICATION_PRIVATE_BOOKING_CANCEL_REFUNDED_COACH,
+  NOTIFICATION_PRIVATE_BOOKING_CANCEL_REFUNDED_CONSUMER,
+  NOTIFICATION_PRIVATE_BOOKING_CREATE_COACH,
+  NOTIFICATION_PRIVATE_BOOKING_CREATE_CONSUMER,
+  NOTIFICATION_PRIVATE_BOOKING_UPDATETIME_COACH,
+  NOTIFICATION_PRIVATE_BOOKING_UPDATETIME_CONSUMER,
 } = NOTIFICATION_EVENTS;
 
 exports.default = {
@@ -30,6 +38,7 @@ exports.default = {
     booking: 'Réservation',
     'waiting-list': "Liste d'attente",
     subscription: 'Abonnement',
+    private_booking: 'Rendez-vous',
   },
   emailDesign: {
     placeholder: 'Généré par bsport',
@@ -75,6 +84,27 @@ exports.default = {
         establishment_practical_info: 'Accès à la salle',
         address: 'Adresse',
         ics_calendar_link: 'Lien ics calendrier',
+      },
+    },
+    PrivateConsumerPass: {
+      name: 'Carte rendez-vous',
+      tags: {
+        pass_price: 'Prix carte RDV',
+        pass_name: 'Nom carte RDV',
+        pass_starting_date: 'Date de début carte RDV',
+        pass_expiration: 'Date de fin RDV',
+        pass_credit_left: 'Nombre de crédit restant',
+      },
+    },
+    PrivateBooking: {
+      name: 'Rendez-vous',
+      tags: {
+        activity: 'Activité',
+        coach: 'Professeur (optionnel)',
+        date: 'Heure/Date',
+        address: 'Adresse',
+        establishment_practical_info:
+          "Information d'accès établissement (optionnel)",
       },
     },
     ConsumerPaymentPack: {
@@ -129,5 +159,21 @@ exports.default = {
     [NOTIFICATION_SUBSCRIPTION_STOP]: 'Abonnement stoppé ou terminé',
     [NOTIFICATION_SUBSCRIPTION_PAYMENT_RECEIVED]: 'Paiement reçu',
     [NOTIFICATION_BOOKING_BROADCAST]: 'Rappel cours en ligne dans 15 min',
+    [NOTIFICATION_PRIVATE_BOOKING_CREATE_CONSUMER]:
+      'Nouveau rendez-vous (élève)',
+    [NOTIFICATION_PRIVATE_BOOKING_UPDATETIME_CONSUMER]:
+      'Horaire modifié (élève)',
+    [NOTIFICATION_PRIVATE_BOOKING_CANCEL_NOT_REFUNDED_CONSUMER]:
+      'Rendez-vous - hors-délai (élève)',
+    [NOTIFICATION_PRIVATE_BOOKING_CANCEL_REFUNDED_CONSUMER]:
+      'Rendez-vous annulé - remboursé (élève)',
+    [NOTIFICATION_PRIVATE_BOOKING_CREATE_COACH]:
+      'Nouveau rendez-vous (professeur)',
+    [NOTIFICATION_PRIVATE_BOOKING_UPDATETIME_COACH]:
+      'Horaire modifié (professeur)',
+    [NOTIFICATION_PRIVATE_BOOKING_CANCEL_NOT_REFUNDED_COACH]:
+      'Rendez-vous annulé - hors-délai (professeur)',
+    [NOTIFICATION_PRIVATE_BOOKING_CANCEL_REFUNDED_COACH]:
+      'Rendez-vous annulé - remboursé (professeur)',
   },
 };

@@ -228,6 +228,7 @@ export class Backoffice extends Component<Props, State> {
             fetchTempPassword={this.props.fetchTempPassword}
             openCreateMember={this.props.openCreateMember}
             openCalendar={this.props.openCalendar}
+            push={this.props.pushRouter}
           >
             {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
             Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ? (
@@ -296,6 +297,7 @@ export default compose(
 
       openCalendar: () => push('/calendar'),
       openCreateMember: () => push('/member/add'),
+      pushRouter: push,
     },
   ),
   withHandlers({

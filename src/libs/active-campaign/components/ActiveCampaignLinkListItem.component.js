@@ -39,7 +39,7 @@ export const ActiveCampaignLinkItem = (props: Props) => {
       <ListItem className={props.classes.container} divider>
         <div className={props.classes.inlineContainer}>
           <Typography>
-            <Trans i18nKey="active_campaign.link.listItemText">
+            <Trans t={props.t} i18nKey="active_campaign.link.listItemText">
               Lier la smartlist <strong>{{ smartlist }}</strong> à la liste
               <strong>
                 {{

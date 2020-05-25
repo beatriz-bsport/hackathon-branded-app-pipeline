@@ -213,6 +213,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
           onDateChange={this.props.handleDateChange}
           setResourceFiltered={this.props.setResourceFiltersArray}
           onEditResourceConfiguration={this.props.setResourceToEdit}
+          fetchAvailabilitySlots={this.fetchAvailabilitySlotsAllResource}
         />
         {this.state.updateAvailabilitySlotData ? (
           <AvailabilityUpdateResourceChoserDialog

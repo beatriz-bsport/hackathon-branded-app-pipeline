@@ -33,13 +33,13 @@ import {
   fetchPrivateService as fetchPrivateServiceAction,
   disablePrivateBooking as disablePrivateBookingAction,
   deletePrivateBooking as deletePrivateBookingAction,
+  updatePrivateBookingDatetime,
 } from '../actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../meta-activity/actions';
 import {
   fetchCoachBulk as fetchCoachBulkAction,
   fetchAssociatedCoachesList as fetchAssociatedCoachesListAction,
 } from '../../associated-coach/actions';
-import { refreshFilteredMembers as refreshFilteredMembersAction } from '../../member/actions';
 import {
   fetchEstablishments as fetchEstablishmentsAction,
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
@@ -131,7 +131,14 @@ export class CalendarEventDetail extends React.Component<Props> {
   }
 
   renderContent = () => {
-    const { t, classes, permission, offer, privateBooking } = this.props;
+    const {
+      t,
+      classes,
+      permission,
+      goToMember,
+      offer,
+      privateBooking,
+    } = this.props;
     if (
       (this.props.selectedPrivateBooking && !this.props.privateBooking) ||
       (this.props.offerId && !offer)
@@ -147,6 +154,10 @@ export class CalendarEventDetail extends React.Component<Props> {
         <PrivateBookingCard
           onDelete={this.props.openDisablePrivateBookingModal}
           private_booking={privateBooking}
+          goToMember={goToMember}
+          loading={this.props.privateBookingLoading}
+          updateTime={this.props.updatePrivateBookingDatetime}
+          goToCoachCalendar={this.props.goToCoachCalendar}
         />
       );
     }
@@ -159,13 +170,13 @@ export class CalendarEventDetail extends React.Component<Props> {
               {permission && permission.offer.edit ? (
                 <Button color="primary" onClick={this.props.openOfferEditModal}>
                   <EditIcon className={classes.iconLeft} />
-                  <Hidden xsDown>{t('offer:calendar.modifyOffer')}</Hidden>
+                  <Hidden xsDown>{t('calendar.modifyOffer')}</Hidden>
                 </Button>
               ) : null}
               {permission && permission.offer.delete ? (
                 <RedButton onClick={this.props.openOfferDeleteModal}>
                   <DeleteIcon className={classes.iconLeft} />
-                  <Hidden xsDown>{t('offer:calendar.deleteOffer')}</Hidden>
+                  <Hidden xsDown>{t('calendar.deleteOffer')}</Hidden>
                 </RedButton>
               ) : null}
             </div>
@@ -176,7 +187,7 @@ export class CalendarEventDetail extends React.Component<Props> {
               variant="contained"
               className={classes.manageButton}
             >
-              {t('offer:manageOffer')}
+              {t('manageOffer')}
             </Button>
           </Link>
           {offer.available ? null : (
@@ -185,7 +196,7 @@ export class CalendarEventDetail extends React.Component<Props> {
               variant="contained"
               className={classes.manageButton}
             >
-              {t('offer:forms.delete.buttonHardDelete')}
+              {t('forms.delete.buttonHardDelete')}
             </RedButton>
           )}
         </div>
@@ -507,13 +518,15 @@ const PrivateBookingCancellatorContainer = compose(
 
 export default compose(
   withStyles(styles),
-  withTranslation(),
+  withTranslation(['offer']),
   connect(
     (state, { privateBookingId, offerId }) => ({
       privateBooking: withRelatedFields(getPrivateBooking)(
         state,
         privateBookingId,
       ),
+      privateBookingLoading:
+        state.privateService.privateBooking.createOrUpdate.loading,
       permission: getPermissions(state),
       theme: state.theme.theme,
       offer: withMetaActivity(withCoach(withEstablishment(getOfferById)))(
@@ -528,17 +541,38 @@ export default compose(
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
       fetchPrivateService: fetchPrivateServiceAction,
       fetchPrivateSlot: fetchPrivateSlotAction,
-      refreshFilteredMembers: refreshFilteredMembersAction,
       onOfferClick: (id) => push(`/offer/${id}`),
+      goToMember: (memberId) => push(`/member/${memberId}/info`),
+      updatePrivateBookingDatetime,
+      goToCoachCalendar: (coachId) =>
+        push(`/coach/${coachId}/private-calendar`),
     },
   ),
   withHandlers({
+    updatePrivateBookingDatetime: ({
+      updatePrivateBookingDatetime,
+      privateBookingId,
+      fetchAvailabilitySlots,
+      onClose,
+    }) => (date, options) => {
+      updatePrivateBookingDatetime(privateBookingId, date, {
+        onSuccess: (b) => {
+          if (options && options.onSuccess) {
+            options.onSuccess(b);
+          }
+          if (fetchAvailabilitySlots) {
+            fetchAvailabilitySlots();
+          }
+          onClose();
+        },
+        onError: options && options.onError,
+      });
+    },
     fetchPrivateBookingById: ({
       fetchCoachBulk,
       fetchEstablishmentBulk,
       fetchPrivateService,
       fetchPrivateSlot,
-      refreshFilteredMembers,
       fetchPrivateBooking,
     }) => (id) => {
       fetchPrivateBooking(id, {
@@ -549,7 +583,6 @@ export default compose(
           }
           fetchPrivateSlot(booking.private_service, booking.private_slot);
           fetchPrivateService(booking.private_service);
-          refreshFilteredMembers({ id__in: [booking.member] });
         },
       });
     },

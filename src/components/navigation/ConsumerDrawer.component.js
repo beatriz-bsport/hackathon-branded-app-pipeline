@@ -184,7 +184,6 @@ class ResponsiveDrawer extends React.Component<Props, State> {
       >
         <Toolbar>
           <Grid
-            zeroMinWidth
             container
             direction="row"
             alignItems="center"

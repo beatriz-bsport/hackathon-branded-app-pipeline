@@ -149,7 +149,12 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         <React.Fragment key={String(i)}>
           <ListItem
             button
-            onClick={() => this.handleClick(item, i)}
+            onClick={() => {
+              this.handleClick(item, i);
+              if (item.defaultTo && !this.state.open[i]) {
+                this.props.push(item.defaultTo);
+              }
+            }}
             selected={isActive}
             key={String(i)}
           >
@@ -506,6 +511,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         icon: EuroSymbolIcon,
         text: t('navigation.payment'),
         type: 'nested',
+        defaultTo: '/invoice',
         nestedItems: [
           {
             to: '/invoice',
@@ -542,6 +548,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             ? t('navigation.beta')
             : null,
         type: 'nested',
+        defaultTo: '/smart-list',
         nestedItems: [
           {
             to: '/smart-list',

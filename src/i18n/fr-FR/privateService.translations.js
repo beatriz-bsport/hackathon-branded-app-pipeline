@@ -74,7 +74,16 @@ exports.default = {
     },
   },
   privateBooking: {
+    editTime: 'Modifier',
+    updateTime: {
+      title: 'Modification rendez-vous',
+      explainEmail:
+        "Un email sera automatiquement envoyé à l'élève pour le prévenir",
+      submit: 'Enregistrer',
+      cancel: 'Annuler',
+    },
     cancel: 'Annuler',
+    discard: 'Annuler le RDV',
     hardDelete: 'Supprimer',
     isCancelled: 'Annulé',
     detail: {

@@ -6,6 +6,7 @@ import {
   actionTypes,
   memberListActions,
   barcodeRetrieveAction,
+  memberBulkActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -27,6 +28,10 @@ const initialState = Immutable({
     loading: false,
     error: null,
   },
+  bulk: {
+    loading: false,
+    error: null,
+  },
   history: [],
 });
 
@@ -34,6 +39,23 @@ export default function memberReducers(state = initialState, action = {}) {
   switch (action.type) {
     case authActionTypes.DISCONNECT:
       return initialState;
+    case memberBulkActions.isLoading.toString(): {
+      return state.setIn(['bulk', 'loading'], action.payload);
+    }
+    case memberBulkActions.error.toString(): {
+      return state.setIn(['bulk', 'error'], action.payload);
+    }
+    case memberBulkActions.success.toString(): {
+      return state.setIn(
+        ['all', 'all'],
+        [
+          ...state.all.filter(
+            (m) => !action.payload.map((m_) => m_.id).includes(m.id),
+          ),
+          ...action.payload,
+        ],
+      );
+    }
     case memberListActions.success.toString(): {
       return state.set('all', action.payload);
     }

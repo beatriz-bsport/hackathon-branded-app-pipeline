@@ -6,7 +6,7 @@ import { withRouter } from 'react-router';
 
 import Grid from '@material-ui/core/Grid';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 import AppBarMUI from '@material-ui/core/AppBar';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';

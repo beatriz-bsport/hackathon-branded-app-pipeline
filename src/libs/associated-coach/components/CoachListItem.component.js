@@ -86,11 +86,16 @@ export function CoachListItem(props: Props) {
         }
       />
       <ListItemSecondaryAction>
-        <Link to={`/coach/edit/${coach.id}`} style={{ textDecoration: 'none' }}>
-          <IconButton aria-label="Edit">
-            <EditIcon color="primary" />
-          </IconButton>
-        </Link>
+        {!props.noEdit && (
+          <Link
+            to={`/coach/edit/${coach.id}`}
+            style={{ textDecoration: 'none' }}
+          >
+            <IconButton aria-label="Edit">
+              <EditIcon color="primary" />
+            </IconButton>
+          </Link>
+        )}
         {props.deleteCoach ? (
           <IconButton onClick={props.deleteCoach}>
             <DeleteIcon />

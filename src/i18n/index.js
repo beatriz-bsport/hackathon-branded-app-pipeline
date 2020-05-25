@@ -9,6 +9,8 @@ import { initReactI18next } from 'react-i18next';
 import Moment from 'moment';
 import 'moment/locale/fr';
 
+const isDebug = !['production', 'test'].includes(process.env.NODE_ENV);
+
 i18n
   .use(initReactI18next)
   // .use(Backend)
@@ -16,8 +18,10 @@ i18n
   .use(LanguageDetector)
   .init({
     backend: {
-      backends: [HttpBackend, LocalStorageBackend],
-      backendOptions: [{ expirationTime: 3 * 24 * 60 * 60 * 1000 }, {}],
+      backends: isDebug ? [HttpBackend] : [LocalStorageBackend, HttpBackend],
+      backendOptions: isDebug
+        ? [{}]
+        : [{ expirationTime: 24 * 60 * 60 * 1000 }, {}],
     },
     /*
     backend: {

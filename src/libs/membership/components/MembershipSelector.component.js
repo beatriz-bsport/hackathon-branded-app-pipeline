@@ -3,7 +3,7 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withState, withProps } from 'recompose';
 
-import { withTranslation, Trans } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Hidden from '@material-ui/core/Hidden';
 import Typography from '@material-ui/core/Typography';
@@ -151,6 +151,7 @@ const CompanySelectorBaseComposed = compose(
 )(CompanySelectorBase);
 
 export const MembershipSelector = (props: Props) => {
+  const { t } = useTranslation(['membership']);
   return (
     <div className={props.classes.container}>
       <div className={props.classes.innerContainer}>
@@ -163,7 +164,7 @@ export const MembershipSelector = (props: Props) => {
                 alt="bsport logo"
               />
               <Typography align="center" variant="subtitle">
-                <Trans i18nKey="selector.explainConsumer">
+                <Trans t={t} i18nKey="selector.explainConsumer">
                   With <strong>bsport</strong> blabla <br /> single login
                 </Trans>
               </Typography>
@@ -175,7 +176,7 @@ export const MembershipSelector = (props: Props) => {
             <MembershipSelectorBaseComposed
               membershipList={props.membershipList}
               onClick={props.goToConsumerHome}
-              t={props.t}
+              t={t}
               classes={props.classes}
             />
           ) : (
@@ -184,7 +185,7 @@ export const MembershipSelector = (props: Props) => {
               onClick={props.goToConsumerHome}
               searchCompany={props.searchCompany}
               companyLoading={props.companyLoading}
-              t={props.t}
+              t={t}
               classes={props.classes}
             />
           )}
@@ -242,7 +243,4 @@ const styles = (theme) => ({
   },
 });
 
-export default compose(
-  withTranslation(['membership']),
-  withStyles(styles),
-)(MembershipSelector);
+export default compose(withStyles(styles))(MembershipSelector);

@@ -10,7 +10,10 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import withTitle from '../../hocs/with-title.hoc';
 import { getCoach } from '../../libs/associated-coach/selectors';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import { getPrivateBookingListFiltered } from '../../libs/private-service/selectors/private-booking';
+import {
+  getPrivateBookingListFiltered,
+  withRelatedFields,
+} from '../../libs/private-service/selectors/private-booking';
 import { fetchAllOffers as fetchAllOffersAction } from '../../libs/offer/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
 import {
@@ -30,6 +33,7 @@ import {
   fetchPrivateBookings as fetchPrivateBookingsAction,
   resetPrivateBookings,
 } from '../../libs/private-service/actions';
+import { fetchMemberBulk } from '../../libs/member/actions';
 import { fetchCoachBulk } from '../../libs/associated-coach/actions';
 
 type Props = {
@@ -152,6 +156,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
           offerList={this.props.offerList}
           showOfferListToogle
           showPrivateBookingToogle
+          fetchAvailabilitySlots={this.fetchAvailabilitySlots}
         />
       </div>
     );
@@ -174,7 +179,7 @@ export default compose(
     (state, { id, periodFilter }) => ({
       availabilitySlots: getCoachAvailabilitySlots(state, id),
       coach: getCoach(state, id),
-      privateBookingList: getPrivateBookingListFiltered(
+      privateBookingList: withRelatedFields(getPrivateBookingListFiltered)(
         state,
         null,
         periodFilter,
@@ -190,6 +195,7 @@ export default compose(
     }),
     {
       fetchCoach: (id) => fetchCoachBulk([id]),
+      fetchMemberBulk,
       fetchPrivateBookings: fetchPrivateBookingsAction,
       fetchAllOffers: fetchAllOffersAction,
       resetPrivateBookings,
@@ -230,15 +236,26 @@ export default compose(
     },
     fetchPrivateBookingList: ({
       fetchPrivateBookings,
+      fetchMemberBulk,
       periodFilter,
       id,
     }) => () => {
-      fetchPrivateBookings({
-        coach: id,
-        date_start__gte: periodFilter.start,
-        date_start__lte: periodFilter.end,
-        page_size: null,
-      });
+      fetchPrivateBookings(
+        {
+          coach: id,
+          date_start__gte: periodFilter.start,
+          date_start__lte: periodFilter.end,
+          page_size: null,
+        },
+
+        {
+          onSuccess: (bookingList) => {
+            if (bookingList.length) {
+              fetchMemberBulk({ id__in: bookingList.map((b) => b.member) });
+            }
+          },
+        },
+      );
     },
   }),
   withTitle(({ coach }) => {

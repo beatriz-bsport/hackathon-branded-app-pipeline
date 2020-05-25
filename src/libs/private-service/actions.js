@@ -55,6 +55,7 @@ import {
   disablePrivateBooking as disablePrivateBookingAPI,
   deletePrivateBooking as deletePrivateBookingAPI,
   fetchCalendarEventList as fetchCalendarEventListAPI,
+  updatePrivateBookingDatetime as updatePrivateBookingDatetimeAPI,
 } from './api';
 
 import type { Dispatch, ThunkAction } from '../../state/types';
@@ -1339,6 +1340,27 @@ export const privateBookingCreateOrUpdateActions = {
   isLoading: createAction('PRIVATE_BOOKING/CREATE_OR_UPDATE/IS_LOADING'),
   success: createAction('PRIVATE_BOOKING/CREATE_OR_UPDATE/SUCCESS'),
 };
+
+export function updatePrivateBookingDatetime(
+  id: number,
+  datetime: string,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(privateBookingCreateOrUpdateActions.isLoading(true));
+    dispatch(privateBookingCreateOrUpdateActions.error(null));
+    try {
+      const response = await updatePrivateBookingDatetimeAPI(id, datetime);
+      dispatch(privateBookingCreateOrUpdateActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      console.error(err);
+      dispatch(privateBookingCreateOrUpdateActions.error(null));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(privateBookingCreateOrUpdateActions.isLoading(false));
+  };
+}
 
 export function disablePrivateBooking(
   id: number,

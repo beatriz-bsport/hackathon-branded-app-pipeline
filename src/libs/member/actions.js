@@ -124,6 +124,27 @@ export function refreshFilteredMembers(params: any) {
     }
   };
 }
+
+export const memberBulkActions = {
+  isLoading: createAction('MEMBER/BULK/LOADING'),
+  error: createAction('MEMBER/BULK/ERROR'),
+  success: createAction('MEMBER/BULK/SUCCESS'),
+};
+
+export function fetchMemberBulk(params: any) {
+  return async (dispatch: Dispatch) => {
+    dispatch(memberBulkActions.isLoading(true));
+    try {
+      const response = await fetchFilteredMembersAPI(params);
+      dispatch(memberBulkActions.success(response.data.results));
+    } catch (err) {
+      console.error(err);
+      dispatch(memberBulkActions.error(err));
+      dispatch(memberBulkActions.error(err));
+    }
+    dispatch(memberBulkActions.isLoading(false));
+  };
+}
 export function fetchFilteredMembers(params: any) {
   return async (dispatch: Dispatch) => {
     dispatch(memberListActions.isLoading(true));
@@ -301,9 +322,7 @@ export function createOrUpdateMember(
       }
       dispatch(actionCreateOrUpdateMemberSuccess(response));
       dispatch(
-        snackbarSuccess(
-          id ? 'member.update.success' : 'member.create.success',
-        ),
+        snackbarSuccess(id ? 'member.update.success' : 'member.create.success'),
       );
       if (options && options.onSuccess) options.onSuccess();
     } catch (e) {

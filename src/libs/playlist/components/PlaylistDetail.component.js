@@ -21,7 +21,7 @@ export const PlaylistDetail = (props: Props) => {
     <Grid spacing={2} container direction="row">
       <Grid item xs={12} md={8}>
         {props.selectedVideo ? (
-          <VideoPlayerFull video={props.selectedVideo} />
+          <VideoPlayerFull authenticated video={props.selectedVideo} />
         ) : (
           <PlaylistEmpty onAddVideo={props.onAddVideo} />
         )}

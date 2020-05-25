@@ -57,7 +57,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withTranslation(['playlist']),
+  withTranslation(['video']),
   withStyles(styles),
 )(PlaylistForm);
 

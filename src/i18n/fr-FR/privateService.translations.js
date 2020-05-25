@@ -419,6 +419,9 @@ exports.default = {
       changeIsAlwaysAvailable: 'Modifier',
     },
     form: {
+      managerOnly: {
+        label: 'Invisible pour les clients',
+      },
       last_discard_minutes: {
         label: "Dernière annulation remboursable jusqu'à",
         helperText:

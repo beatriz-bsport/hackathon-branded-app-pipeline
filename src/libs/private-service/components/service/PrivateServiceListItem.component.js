@@ -9,6 +9,8 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import EditIcon from '@material-ui/icons/Edit';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import VisibilityOnIcon from '@material-ui/icons/Visibility';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import withConfirm from '../../../../hocs/with-confirm.hoc';
@@ -69,6 +71,13 @@ export const PrivateServiceListItem = (props: Props) => {
         }
       />
       <ListItemSecondaryAction>
+        <IconButton disableRipple>
+          {privateService.manager_only ? (
+            <VisibilityOffIcon color="disabled" />
+          ) : (
+            <VisibilityOnIcon />
+          )}
+        </IconButton>
         {props.onEdit ? (
           <IconButton
             onClick={(ev) => {

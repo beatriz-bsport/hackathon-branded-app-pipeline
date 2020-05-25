@@ -323,6 +323,7 @@ export function fetchMarketplacePrivateServices(
       const response = await fetchAllPrivateServicesAPI({
         company,
         available: true,
+        manager_only: false,
       });
       dispatch(privateServiceMarketplaceListActions.success(response.data));
       if (options && options.onSuccess) options.onSuccess(response.data);

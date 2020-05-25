@@ -31,6 +31,7 @@ import {
   IntegerField,
   RadioGroupField,
   DurationField,
+  SwitchField,
 } from '../../../../components/forms';
 
 type Props = {
@@ -39,8 +40,8 @@ type Props = {
   values: PrivateServiceData,
   establishments: Array<Establishment>,
   coaches: Array<Coach>,
-    onAddServiceGroup: ?() => void,
-    serviceGroupList: Array<PrivateServiceGroup>,
+  onAddServiceGroup: ?() => void,
+  serviceGroupList: Array<PrivateServiceGroup>,
 };
 
 const IS_HOME_SERVICE = '0';
@@ -269,6 +270,10 @@ export const PrivateServiceForm = (props: Props) => {
         name="description"
         label={t('service.form.description.label')}
         required
+      />
+      <SwitchField
+        name="manager_only"
+        label={t('service.form.managerOnly.label')}
       />
       <DurationField
         name="last_discard_minutes"
